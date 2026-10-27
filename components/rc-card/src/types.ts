@@ -11,7 +11,7 @@ export type CardVariant = 'elevated' | 'outlined' | 'filled';
 /**
  * 尺寸档位, 控制内边距 / 圆角 / 标题字号, 与 rc-button / rc-segmented 对齐。
  */
-export type CardSize = 'large' | 'middle' | 'small';
+export type CardSize = 'large' | 'medium' | 'small';
 
 export interface CardProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title'> {
     /**
@@ -21,7 +21,7 @@ export interface CardProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title'>
 
     /**
      * 尺寸档位
-     * @default "middle"
+     * @default "medium"
      */
     size?: CardSize;
 
@@ -59,10 +59,17 @@ export interface CardProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title'>
     clickable?: boolean;
 
     /**
-     * 是否处于加载态, 为 true 时渲染骨架占位
+     * 是否处于加载态；为 true 时渲染 loadingContent 或默认骨架占位
      * @default false
      */
     loading?: boolean;
+
+    /**
+     * 自定义完整加载内容，仅 loading=true 时渲染；省略时使用默认五块骨架。
+     * 使用 Card.Cover / Card.Body / Card.Meta 与真实内容共享布局，避免猜测未来内容尺寸。
+     * 应提供非交互占位；null / false 表示空占位，0 等 ReactNode 按原值渲染。
+     */
+    loadingContent?: ReactNode;
 
     /**
      * 是否禁用：撤销全部交互示能并降低不透明度

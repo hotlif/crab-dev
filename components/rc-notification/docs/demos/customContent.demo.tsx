@@ -28,7 +28,7 @@ const NotificationContent = () => {
                 supportingText="备注仅保留在当前通知中，关闭后清除。"
                 rows={3}
                 value={value}
-                onChange={event => setValue(event.target.value)}
+                onValueChange={setValue}
             />
         </div>
     );

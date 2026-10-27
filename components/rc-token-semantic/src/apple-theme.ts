@@ -1,10 +1,10 @@
 import { defineTokens } from '@crab-dev/css';
 import palette from '@crab-dev/rc-token-global';
-import { themeColorContract } from './theme.js';
+import { md3ColorContract } from './theme.js';
 import type { ResolvedThemeColorContract } from './types.js';
 
-/** macOS-inspired blue and silver roles, preserving the shared semantic color contract. */
-export const macosColorContract: ResolvedThemeColorContract = defineTokens({
+/** Apple-inspired blue and silver roles, preserving the shared semantic color contract. */
+export const appleColorContract: ResolvedThemeColorContract = defineTokens({
     light: {
         workspace: {
             frame: palette.zinc[200],
@@ -75,7 +75,7 @@ export const macosColorContract: ResolvedThemeColorContract = defineTokens({
             hover: palette.zinc[600],
             strong: palette.zinc[600],
             focus: palette.blue[600],
-            error: themeColorContract.light.border.error,
+            error: md3ColorContract.light.border.error,
         },
         focusRing: `var(--token-semantic-color-border-focus, ${palette.blue[600]})`,
         selection: {
@@ -83,12 +83,12 @@ export const macosColorContract: ResolvedThemeColorContract = defineTokens({
             border: palette.blue[600],
             foreground: palette.blue[900],
         },
-        highlight: themeColorContract.light.highlight,
+        highlight: md3ColorContract.light.highlight,
         feedback: {
-            error: { ...themeColorContract.light.feedback.error },
-            success: { ...themeColorContract.light.feedback.success },
-            warning: { ...themeColorContract.light.feedback.warning },
-            info: { ...themeColorContract.light.feedback.info },
+            error: { ...md3ColorContract.light.feedback.error },
+            success: { ...md3ColorContract.light.feedback.success },
+            warning: { ...md3ColorContract.light.feedback.warning },
+            info: { ...md3ColorContract.light.feedback.info },
         },
         fill: {
             subtle: palette.zinc[100],
@@ -170,7 +170,7 @@ export const macosColorContract: ResolvedThemeColorContract = defineTokens({
             hover: palette.zinc[400],
             strong: palette.zinc[400],
             focus: palette.blue[400],
-            error: themeColorContract.dark.border.error,
+            error: md3ColorContract.dark.border.error,
         },
         focusRing: `var(--token-semantic-color-border-focus, ${palette.blue[400]})`,
         selection: {
@@ -178,12 +178,12 @@ export const macosColorContract: ResolvedThemeColorContract = defineTokens({
             border: palette.blue[400],
             foreground: palette.blue[200],
         },
-        highlight: themeColorContract.dark.highlight,
+        highlight: md3ColorContract.dark.highlight,
         feedback: {
-            error: { ...themeColorContract.dark.feedback.error },
-            success: { ...themeColorContract.dark.feedback.success },
-            warning: { ...themeColorContract.dark.feedback.warning },
-            info: { ...themeColorContract.dark.feedback.info },
+            error: { ...md3ColorContract.dark.feedback.error },
+            success: { ...md3ColorContract.dark.feedback.success },
+            warning: { ...md3ColorContract.dark.feedback.warning },
+            info: { ...md3ColorContract.dark.feedback.info },
         },
         fill: {
             subtle: palette.zinc[800],

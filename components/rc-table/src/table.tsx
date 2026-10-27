@@ -1,4 +1,6 @@
-import { useComponentSize, componentSizeMetrics, componentSizeStyles, type ConfigSize } from '@crab-dev/rc-config-provider';
+import { useComponentSize, useConfig, useLocale, componentDensityMetrics, densityStyles, type ConfigSize, type ConfigDensity } from '@crab-dev/rc-config-provider';
+import { RuntimeDirectionProvider } from '@crab-dev/rc-config-provider/internal';
+import Button from '@crab-dev/rc-button';
 import RcVirtual, { TokenVars as VirtualTokenVars } from "@crab-dev/rc-virtual";
 import { type CSSProperties, type FC, type HTMLAttributes, type Key, type ReactNode, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { css, cx } from "@crab-dev/css";
@@ -13,7 +15,7 @@ import token from "./token.js";
 import TableBodyCell, { type TableCellProps } from "./bodyCell.js";
 import TableHeaderCell from "./headerCell.js";
 import { type HeaderCellType, makeCellIdentityKey } from "./util.js";
-import type { CellEditRecord, ColumnType, FilterEditorParam, GroupCellRenderParam, MergeCell, Row, RowSelection, SortColumn } from "./types.js";
+import type { CellEditRecord, ColumnType, FilterEditorParam, GroupCellRenderParam, MergeCell, Row, RowSelection, SortColumn, TableStateProps } from "./types.js";
 import { useRowSelection } from "./hooks/useRowSelection.js";
 import { useRowGroup } from "./hooks/useRowGroup.js";
 import { useColumnLayout } from "./hooks/useColumnLayout.js";
@@ -51,8 +53,10 @@ const tableRootStyle = css`
     ${VirtualTokenVars['scrollbar.opacity']}: ${token.scrollbar.opacity};
 
     &:focus-visible {
-        outline: ${token.root["outline-width-focus"]} solid ${token.root["outline-color-focus"]};
-        outline-offset: ${token.root["outline-offset-focus"]};
+        outline: none;
+    }
+    &:focus-visible > [data-table-focus-ring] {
+        display: block;
     }
 
     &::before, &::after {
@@ -88,6 +92,20 @@ const tableRootStyle = css`
     }
 `;
 
+/* A contained paint layer stays above sticky/selected cells without changing
+   the virtual viewport, row sizes, or the surrounding scroll container. */
+const tableFocusRingStyle = css`
+    display: none;
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    /* Above Virtual's local scrollbars (200), below semantic overlays (1000+). */
+    z-index: 300;
+    outline: ${token.root["outline-width-focus"]} solid ${token.root["outline-color-focus"]};
+    outline-offset: ${token.root["outline-offset-focus"]};
+    @media (forced-colors: active) { outline-color: Highlight; }
+`;
+
 const filterSizeProbeStyle = css`
     position: absolute;
     inset: 0 auto auto 0;
@@ -98,9 +116,11 @@ const filterSizeProbeStyle = css`
     overflow: hidden;
 `;
 
-export interface TableProps<T extends Row> extends Omit<HTMLAttributes<HTMLDivElement>, "onCopy"> {
-    /** 行高尺寸档；显式行高回调和 row.height 优先。省略时继承 ConfigProvider。 */
+interface TableBaseProps<T extends Row> extends Omit<HTMLAttributes<HTMLDivElement>, "onCopy"> {
+    /** 表格内置控件尺寸；不改变数据行几何。省略时继承 ConfigProvider。 */
     size?: ConfigSize;
+    /** 数据行与表头密度；显式行高回调和 row.height 优先。 */
+    density?: ConfigDensity;
     // 表格的宽度
     width: number
     // 编辑模式
@@ -257,6 +277,8 @@ export interface TableProps<T extends Row> extends Omit<HTMLAttributes<HTMLDivEl
     onRowDoubleClick?: RowEventHandler<T>
 }
 
+export type TableProps<T extends Row> = TableBaseProps<T> & TableStateProps;
+
 const SELECTION_COLUMN_NAME = '__rc_table_selection__';
 const EMPTY_MERGE_CELLS: MergeCell[] = [];
 
@@ -310,7 +332,7 @@ const expandContentStyle = css`
 // 导致面板自身的 overflow:auto 无法用滚轮滚动。这里在面板上挂冒泡阶段的原生 wheel 监听：
 // 当面板内部在该方向上仍可滚动时 stopPropagation（阻止冒泡到 RcVirtual 容器监听，浏览器默认行为即滚动面板）；
 // 滚到边界时不拦截，事件照常冒泡给表格，形成自然的嵌套滚动。
-const ExpandedRowContent: FC<{ width: number; colSpan: number; children: ReactNode }> = ({ width, colSpan, children }) => {
+const ExpandedRowContent: FC<{ width: number; colSpan: number; direction: 'ltr' | 'rtl'; children: ReactNode }> = ({ width, colSpan, direction, children }) => {
     const ref = useRef<HTMLDivElement>(null);
     useEffect(() => {
         const el = ref.current;
@@ -330,7 +352,7 @@ const ExpandedRowContent: FC<{ width: number; colSpan: number; children: ReactNo
         return () => el.removeEventListener("wheel", onWheel);
     }, []);
     return (
-        <div ref={ref} className={expandContentStyle} style={{ width }} role="gridcell" aria-colspan={colSpan}>
+        <div ref={ref} dir={direction} className={expandContentStyle} style={{ width }} role="gridcell" aria-colspan={colSpan}>
             {children}
         </div>
     );
@@ -343,6 +365,7 @@ const selectedRowStyle = css`
     transition: ${ROW_BG_TRANSITION};
 
     @media (forced-colors: active) {
+        forced-color-adjust: none;
         color: HighlightText;
         ${ROW_BG_VAR}: Highlight;
         & [role='gridcell'] { background-color: Highlight; }
@@ -391,6 +414,7 @@ const paddingLeft = (
         key="table-virtual-left-padding"
         className={css`
             display: inline-block;
+            vertical-align: top;
             box-sizing: border-box;
             width: calc(var(--crab-rc-virtual-left-padding-width, 0px) - var(--crab-rc-virtual-left-padding-width-offset, 0px));
             height: 100%;
@@ -403,6 +427,7 @@ const paddingLeftWithCompensation = (leftPaddingCompensation: number) => (
         key="table-virtual-left-padding-body"
         className={css`
             display: inline-block;
+            vertical-align: top;
             box-sizing: border-box;
             height: 100%;
         `}
@@ -418,8 +443,11 @@ const paddingRight = (
         key="table-virtual-right-padding"
         className={css`
             display: inline-block;
+            vertical-align: top;
             box-sizing: border-box;
-            width: var(--crab-rc-virtual-right-padding-width, 0px);
+            /* Fixed right columns are rendered independently of the window;
+               their widths must not also remain in its trailing spacer. */
+            width: max(0px, calc(var(--crab-rc-virtual-right-padding-width, 0px) - var(--rc-table-fixed-right-width, 0px)));
             height: 100%;
         `}
     />
@@ -482,7 +510,11 @@ const emptyBodyStyle = css`
 
 const rowEditingRowStyle = css`
     position: relative;
-    z-index: 1;
+    /* The action strip extends over the next row. Its row stacking context must
+       clear ordinary sticky cells (9); child z-index alone cannot escape it.
+       The later summary row stays above at the same level, and headers/filter
+       cells retain their higher local layers (11/30). */
+    z-index: 10;
 `;
 
 // 编辑行整行描一道主题色边并浮起：用单层 overlay 画卡片边框 + 投影，
@@ -505,7 +537,7 @@ const rowEditBorderOverlayStyle = css`
 const rowEditActionsWrapperStyle = css`
     display: inline-block;
     position: sticky;
-    right: 0;
+    inset-inline-end: 0;
     width: 0;
     height: 100%;
     vertical-align: top;
@@ -518,7 +550,7 @@ const rowEditActionsWrapperStyle = css`
 const rowEditActionsInnerStyle = css`
     position: absolute;
     top: 100%;
-    right: 0;
+    inset-inline-end: 0;
     box-sizing: border-box;
     display: flex;
     align-items: center;
@@ -531,71 +563,9 @@ const rowEditActionsInnerStyle = css`
     box-shadow: ${token['row-edit'].actions["box-shadow"]};
 `;
 
-const rowEditConfirmBtnStyle = css`
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    height: ${token['row-edit'].button.height};
-    padding: 0 ${token['row-edit'].button["padding-inline"]};
-    border-radius: ${token['row-edit'].button["border-radius"]};
-    font-size: ${token['row-edit'].button["font-size"]};
-    font-weight: ${token['row-edit'].button["font-weight"]};
-    line-height: 1;
-    cursor: pointer;
-    border: 1px solid transparent;
-    outline: none;
-    background-color: ${token['row-edit'].confirm["background-color"]};
-    color: ${token['row-edit'].confirm.color};
-    transition: background-color ${token['row-edit']['transition']};
-    white-space: nowrap;
-    &:hover {
-        background-color: ${token['row-edit'].confirm['background-color-hover']};
-    }
-    &:active {
-        background-color: ${token['row-edit'].confirm['background-color-active']};
-    }
-    &:focus-visible {
-        outline: 2px solid ${token['row-edit']['outline-color']};
-        outline-offset: 2px;
-    }
-    @media (prefers-reduced-motion: reduce) {
-        transition: none;
-    }
-`;
-
-const rowEditCancelBtnStyle = css`
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    height: ${token['row-edit'].button.height};
-    padding: 0 ${token['row-edit'].button["padding-inline"]};
-    border-radius: ${token['row-edit'].button["border-radius"]};
-    font-size: ${token['row-edit'].button["font-size"]};
-    font-weight: ${token['row-edit'].button["font-weight"]};
-    line-height: 1;
-    cursor: pointer;
-    background: transparent;
-    color: ${token['row-edit'].cancel.color};
-    border: 1px solid ${token['row-edit'].cancel["border-color"]};
-    outline: none;
-    transition: background-color ${token['row-edit']['transition']},
-                border-color ${token['row-edit']['transition']};
-    white-space: nowrap;
-    &:hover {
-        background-color: ${token['row-edit'].cancel['background-color-hover']};
-        border-color: ${token['row-edit']['border-color']};
-    }
-    &:active {
-        background-color: ${token['row-edit'].cancel['background-color-hover']};
-    }
-    &:focus-visible {
-        outline: 2px solid ${token['row-edit']['outline-color']};
-        outline-offset: 2px;
-    }
-    @media (prefers-reduced-motion: reduce) {
-        transition: none;
-    }
-`;
+// Table owns the action-bar placement; Button owns appearance, state layers,
+// typography, shape, focus and touch targets in each design system.
+const rowEditActionSizes = { small: 'xs', medium: 's', large: 'm' } as const;
 
 const fixedCellRowEditBgStyle = css`
     z-index: 9;
@@ -609,11 +579,16 @@ const filterCellBottomOnlyShadow = css`
 
 function Table<T extends Row>(props: TableProps<T>): ReactNode {
     const size = useComponentSize(props.size);
-    const metrics = componentSizeMetrics[size];
+    const config = useConfig();
+    const direction = props.dir === 'ltr' || props.dir === 'rtl' ? props.dir : config.direction;
+    const { messages, locale } = useLocale();
+    const density = props.density ?? config.density;
+    const metrics = componentDensityMetrics[density];
     const coarsePointer = useMediaQuery('(pointer: coarse)');
     const defaultRowHeight = coarsePointer ? Math.max(metrics.row, 48) : metrics.row;
     const {
         size: _size,
+        density: _density,
         width,
         height,
         rows,
@@ -746,13 +721,14 @@ function Table<T extends Row>(props: TableProps<T>): ReactNode {
                         <div data-table-selection-cell="" className={selectionCellStyle} onClick={event => {
                             if (event.target !== event.currentTarget) return;
                             event.stopPropagation();
-                            if (!disabled) toggle(row.id);
+                            if (!disabled) toggle(row.id, event);
                         }}>
                             <Checkbox
                                 checked={isSelected}
                                 disabled={disabled}
-                                aria-label="选择此行"
-                                onChange={() => toggle(row.id)}
+                                aria-label={messages.table.selectRow}
+                                size={size}
+                                onCheckedChange={(_, details) => toggle(row.id, details.event)}
                             />
                         </div>
                     );
@@ -761,13 +737,14 @@ function Table<T extends Row>(props: TableProps<T>): ReactNode {
                     <div data-table-selection-cell="" className={selectionCellStyle} onClick={event => {
                         if (event.target !== event.currentTarget) return;
                         event.stopPropagation();
-                        if (!disabled) toggle(row.id);
+                        if (!disabled) toggle(row.id, event);
                     }}>
                         <Radio
                             checked={isSelected}
                             disabled={disabled}
-                            aria-label="选择此行"
-                            onChange={() => toggle(row.id)}
+                            aria-label={messages.table.selectRow}
+                            size={size}
+                            onCheckedChange={(_, details) => toggle(row.id, details.event)}
                         />
                     </div>
                 );
@@ -777,6 +754,8 @@ function Table<T extends Row>(props: TableProps<T>): ReactNode {
         selectionFixed,
         selectionColumnWidth,
         hasRowSelection,
+        locale,
+        size,
     ]);
 
     // ====== 行序号列 ======
@@ -808,7 +787,7 @@ function Table<T extends Row>(props: TableProps<T>): ReactNode {
                         <TableIconButton
                             type="button"
                             aria-expanded={expanded}
-                            aria-label={expanded ? '收起此行' : '展开此行'}
+                            aria-label={expanded ? messages.table.collapseRow : messages.table.expandRow}
                             onClick={(e) => { e.stopPropagation(); toggleExpandRow(row.id); }}
                             onMouseDown={(e) => e.stopPropagation()}
                             icon={<svg
@@ -818,7 +797,7 @@ function Table<T extends Row>(props: TableProps<T>): ReactNode {
                                 fill="none"
                                 xmlns="http://www.w3.org/2000/svg"
                                 className={expandChevronStyle}
-                                style={{ transform: expanded ? 'rotate(0deg)' : 'rotate(-90deg)' }}
+                                style={{ transform: expanded ? 'rotate(0deg)' : direction === 'rtl' ? 'rotate(90deg)' : 'rotate(-90deg)' }}
                             >
                                 <path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
                             </svg>}
@@ -827,7 +806,7 @@ function Table<T extends Row>(props: TableProps<T>): ReactNode {
                 );
             },
         };
-    }, [expandedRowRender, expandColumnFixed, expandColumnWidth, coarsePointer]);
+    }, [expandedRowRender, expandColumnFixed, expandColumnWidth, coarsePointer, locale, direction]);
 
     const effectiveColumns = useMemo(() => {
         const cols: ColumnType<T>[] = [];
@@ -939,6 +918,26 @@ function Table<T extends Row>(props: TableProps<T>): ReactNode {
         isInteractionActive
     });
 
+    // Mutable instance state: remember the actual focused editing node across
+    // its removal. The existing grid is Table's keyboard entry, not a new API.
+    const rowEditFocusRef = useRef<HTMLElement | null>(null);
+    useLayoutEffect(() => {
+        const previousFocus = rowEditFocusRef.current;
+        if (currentEditingRowId != null) {
+            if (previousFocus && !previousFocus.isConnected) rowEditFocusRef.current = null;
+            return;
+        }
+        rowEditFocusRef.current = null;
+        const root = interactionRootRef.current;
+        if (!previousFocus || previousFocus.isConnected || !root?.isConnected || !isInteractionActive()) return;
+        const document = root.ownerDocument;
+        // A controlled owner may reject the close, focus another control, or
+        // replace this entire Table. Only recover focus actually lost on removal.
+        if (document.activeElement === document.body || document.activeElement === document.documentElement) {
+            root.focus({ preventScroll: true });
+        }
+    }, [currentEditingRowId, interactionRootRef, isInteractionActive]);
+
     // ====== 单元格编辑 ======
     const { undoDataVersion, editedCellKeys, handleCellCommit, handleUndo } = useCellEdit<T>({
         displayRows, cellEditRecords, onCellEditRecordsChange, onUndo
@@ -1018,7 +1017,7 @@ function Table<T extends Row>(props: TableProps<T>): ReactNode {
     const renderGroupBannerRow = (rowIndex: number, groupRow: InternalGroupRow<T>, columnRange: [number, number]): ReactNode => {
         const { meta } = groupRow.dataRef;
         const handleToggle = () => { toggleGroup(meta.groupId); };
-        const valueText = meta.value == null || meta.value === "" ? "(空)" : String(meta.value);
+        const valueText = meta.value == null || meta.value === "" ? messages.table.emptyValue : String(meta.value);
 
         const renderBannerContent = (currentColumn: ColumnType<T>, columnIndex: number, isGroupColumn: boolean) => {
             const defaultBanner = (
@@ -1077,7 +1076,7 @@ function Table<T extends Row>(props: TableProps<T>): ReactNode {
                             color: ${token.group.chevron.color};
                             transition: ${token.group.chevron.transition};
                         `}
-                        style={{ transform: meta.expanded ? "rotate(0deg)" : "rotate(-90deg)" }}
+                        style={{ transform: meta.expanded ? "rotate(0deg)" : direction === 'rtl' ? "rotate(90deg)" : "rotate(-90deg)" }}
                     >
                         <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
@@ -1113,6 +1112,7 @@ function Table<T extends Row>(props: TableProps<T>): ReactNode {
             return (
                 <div
                     key={`table-group-cell-${rowIndex}-${columnIndex}`}
+                    dir={direction}
                     className={cx.call(undefined, css`
                         display: inline-flex;
                         align-items: center;
@@ -1226,7 +1226,7 @@ function Table<T extends Row>(props: TableProps<T>): ReactNode {
                         renderVersion={virtualRenderVersion}
                         virtualWindowKey="expanded"
                     >
-                        <ExpandedRowContent width={actualHeight} colSpan={bottomColumns.length}>
+                        <ExpandedRowContent width={actualHeight} colSpan={bottomColumns.length} direction={direction}>
                             {expandedRowRender?.(currentRow.dataRef.sourceRow)}
                         </ExpandedRowContent>
                     </BodyRow>
@@ -1254,6 +1254,7 @@ function Table<T extends Row>(props: TableProps<T>): ReactNode {
                 tableCells.push(
                     <TableBodyCell
                         key={makeColumnReactKey(column.name)}
+                        dir={direction}
                         data-col-index={columnIndex}
                         row={currentRow as T}
                         rowIndex={rowIndex}
@@ -1289,6 +1290,7 @@ function Table<T extends Row>(props: TableProps<T>): ReactNode {
                 return (
                     <TableBodyCell
                         className={cx.call(undefined, !isSkipCell && (isEditingThisRow ? fixedCellRowEditBgStyle : fixedCellBgWithRowVar))}
+                        dir={direction}
                         key={makeColumnReactKey(column.name)}
                         row={currentRow as T}
                         rowIndex={rowIndex}
@@ -1327,6 +1329,7 @@ function Table<T extends Row>(props: TableProps<T>): ReactNode {
                     key={makeRowReactKey((currentRow as T).id)}
                     // 数据行在 DOM 中的定位锚点（供测试与使用方的自动化脚本使用）
                     data-row-index={rowIndex}
+                    data-table-row-editing={isEditingThisRow || undefined}
                     role="row"
                     aria-selected={rowSelection ? isRowSelected : undefined}
                     className={cx.call(undefined, isEditingThisRow ? rowEditingRowStyle : undefined,
@@ -1350,25 +1353,43 @@ function Table<T extends Row>(props: TableProps<T>): ReactNode {
                     {paddingRight}
                     {fixedRightColumns.map((column, index) => makeFixedBodyCell(column, fixedRightColumnsIdx[index], "right"))}
                     {isEditingThisRow && (
-                        <div className={rowEditActionsWrapperStyle}>
+                        <div
+                            dir={direction}
+                            className={rowEditActionsWrapperStyle}
+                            // Keep controls after the editors in DOM/Tab order.
+                            // actualHeight is the resolved sum of column widths
+                            // (the legacy name for row inline width, not viewport
+                            // width or block height). The zero-width RTL anchor
+                            // starts at physical left without altering cell widths;
+                            // its inline-end sticky constraint then tracks that edge.
+                            style={direction === 'rtl' ? { marginLeft: -actualHeight } : undefined}
+                        >
                             <div
                                 className={rowEditActionsInnerStyle}
+                                data-table-row-edit-actions=""
                                 onMouseDown={e => e.stopPropagation()}
+                                onKeyDown={event => {
+                                    // Native button activation still runs; its
+                                    // Enter/Space must not trigger grid shortcuts.
+                                    if (event.key === 'Enter' || event.key === ' ') event.stopPropagation();
+                                }}
                             >
-                                <button
+                                <Button
                                     type="button"
-                                    className={rowEditConfirmBtnStyle}
+                                    appearance="primary"
+                                    size={rowEditActionSizes[size]}
                                     onClick={commitRowEdit}
                                 >
-                                    确认
-                                </button>
-                                <button
+                                    {messages.common.confirm}
+                                </Button>
+                                <Button
                                     type="button"
-                                    className={rowEditCancelBtnStyle}
+                                    appearance="outlined"
+                                    size={rowEditActionSizes[size]}
                                     onClick={cancelRowEdit}
                                 >
-                                    取消
-                                </button>
+                                    {messages.common.cancel}
+                                </Button>
                             </div>
                         </div>
                     )}
@@ -1386,7 +1407,7 @@ function Table<T extends Row>(props: TableProps<T>): ReactNode {
         fixedLeftColumnsIdx, fixedRightColumnsIdx, gridTemplateColumns,
         stickyLeftOffsets, stickyRightOffsets, actualHeight,
         paddingLeft, paddingRight, selectionColumnName: SELECTION_COLUMN_NAME,
-        renderVersion: virtualRenderVersion
+        renderVersion: virtualRenderVersion, direction
     });
 
     // ====== 渲染：过滤栏单元格 ======
@@ -1397,6 +1418,7 @@ function Table<T extends Row>(props: TableProps<T>): ReactNode {
         return (
             <div
                 key={`table-filter-cell-${columnIndex}`}
+                dir={direction}
                 className={cx.call(undefined, css`
                     display: inline-flex;
                     align-items: center;
@@ -1539,8 +1561,9 @@ function Table<T extends Row>(props: TableProps<T>): ReactNode {
                             <Checkbox
                                 checked={isAllSelected}
                                 indeterminate={isIndeterminate}
-                                aria-label={isAllSelected ? "取消全选" : "全选"}
-                                onChange={(checked) => { if (checked) selectAllRows(); else clearAllRows(); }}
+                                aria-label={isAllSelected ? messages.table.deselectAll : messages.table.selectAll}
+                                size={size}
+                                onCheckedChange={(checked, details) => { if (checked) selectAllRows(details.event); else clearAllRows(details.event); }}
                             />
                         </div>
                     );
@@ -1548,6 +1571,7 @@ function Table<T extends Row>(props: TableProps<T>): ReactNode {
 
                 return (
                     <TableHeaderCell
+                        dir={direction}
                         key={`table-header-cell-${r}-${columnIndex}`}
                         className={extraClassName}
                         columnIndex={columnIndex}
@@ -1604,7 +1628,7 @@ function Table<T extends Row>(props: TableProps<T>): ReactNode {
                     ))}
                     <div
                         key={`table-header-left-padding-${r}`}
-                        className={css`display: inline-block; box-sizing: border-box; height: 100%;`}
+                        className={css`display: inline-block; vertical-align: top; box-sizing: border-box; height: 100%;`}
                         style={{ width: `calc(var(--crab-rc-virtual-left-padding-width, 0px) - var(--crab-rc-virtual-left-padding-width-offset, 0px) - ${leftPaddingCompensation}px)` }}
                     />
                     {cells}
@@ -1650,9 +1674,10 @@ function Table<T extends Row>(props: TableProps<T>): ReactNode {
         ? (empty === undefined ? <Empty /> : empty)
         : null;
 
-    return (
+    const tableElement = (
         <div
             {...restProps}
+            dir={direction}
             ref={interactionRootRef}
             role={restProps.role ?? "grid"}
             tabIndex={restProps.tabIndex ?? 0}
@@ -1676,9 +1701,11 @@ function Table<T extends Row>(props: TableProps<T>): ReactNode {
             }}
             onFocusCapture={(event) => {
                 activateInteraction();
+                if (currentEditingRowId != null && event.target instanceof HTMLElement
+                    && event.target.closest('[data-table-row-editing]')) rowEditFocusRef.current = event.target;
                 restProps.onFocusCapture?.(event);
             }}
-            className={cx.call(undefined, tableRootStyle, componentSizeStyles[size], emptyNode !== null && emptyContainerStyle, restProps.className)}
+            className={cx.call(undefined, tableRootStyle, densityStyles[density], emptyNode !== null && emptyContainerStyle, restProps.className)}
             data-fixed-left={actualHeight > width && fixedLeftColumnsIdx.length > 0 || undefined}
             data-fixed-right={actualHeight > width && fixedRightColumnsIdx.length > 0 || undefined}
             style={{
@@ -1690,6 +1717,10 @@ function Table<T extends Row>(props: TableProps<T>): ReactNode {
         >
             <RcVirtual
                 gridRef={virtualRef}
+                // Table column indices, fixed left/right and scroll offsets are
+                // physical data coordinates. Restore content direction at cell
+                // boundaries instead of reversing this geometry in RTL.
+                dir="ltr"
                 className={css`
                     box-shadow: -1px 0 0 0 ${token.root["border-color"]},
                                 0 1px 0 0 ${token.root["border-color"]},
@@ -1724,8 +1755,10 @@ function Table<T extends Row>(props: TableProps<T>): ReactNode {
                     {emptyNode}
                 </div>
             )}
+            <span className={tableFocusRingStyle} data-table-focus-ring="" aria-hidden="true" />
         </div>
     );
+    return <RuntimeDirectionProvider direction={direction}>{tableElement}</RuntimeDirectionProvider>;
 }
 
 export default Table;

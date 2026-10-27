@@ -7,7 +7,7 @@ import {
     designShapeContract,
     designThemeSelectors,
     shadcnColorContract,
-    themeColorContract,
+    md3ColorContract,
     themeSelectors,
 } from "../theme-values.js";
 
@@ -150,7 +150,7 @@ describe("theme color contract", () => {
                 expectContrast(accent.onContainer, accent.container, 4.5);
             }
         }
-        const dark = themeColorContract.dark.surface;
+        const dark = md3ColorContract.dark.surface;
         const lightness = [dark.lowest, dark.canvas, dark.low, dark.container, dark.high, dark.highest]
             .map(value => resolveColor(value).lightness);
         expect(lightness).toEqual([...lightness].sort((a, b) => a - b));
@@ -174,17 +174,17 @@ describe("theme color contract", () => {
             forcedColors: "@media (forced-colors: active)",
         });
         expect(designThemeSelectors).toEqual({
-            material: {
-                light: '[data-crab-design="material"][data-theme="light"]',
-                dark: '[data-crab-design="material"][data-theme="dark"]',
+            md3: {
+                light: '[data-crab-design="md3"][data-theme="light"]',
+                dark: '[data-crab-design="md3"][data-theme="dark"]',
             },
             shadcn: {
                 light: '[data-crab-design="shadcn"][data-theme="light"]',
                 dark: '[data-crab-design="shadcn"][data-theme="dark"]',
             },
-            macos: {
-                light: '[data-crab-design="macos"][data-theme="light"]',
-                dark: '[data-crab-design="macos"][data-theme="dark"]',
+            apple: {
+                light: '[data-crab-design="apple"][data-theme="light"]',
+                dark: '[data-crab-design="apple"][data-theme="dark"]',
             },
         });
     });
@@ -221,7 +221,7 @@ describe("theme color contract", () => {
                 4.5,
             );
         }
-        for (const theme of [themeColorContract.light, themeColorContract.dark]) {
+        for (const theme of [md3ColorContract.light, md3ColorContract.dark]) {
             expectContrast(theme.border.default, theme.background.surface, 3);
             expectContrast(theme.border.hover, theme.background.surface, 3);
         }
@@ -253,9 +253,9 @@ describe("theme color contract", () => {
     });
 
     it('preserves the Material purple brand independently of shadcn', () => {
-        expect(themeColorContract.light.brand.primary).toContain('--token-global-purple-40');
-        expect(themeColorContract.dark.brand.primary).toContain('--token-global-purple-80');
-        for (const theme of [themeColorContract.light, themeColorContract.dark]) {
+        expect(md3ColorContract.light.brand.primary).toContain('--token-global-purple-40');
+        expect(md3ColorContract.dark.brand.primary).toContain('--token-global-purple-80');
+        for (const theme of [md3ColorContract.light, md3ColorContract.dark]) {
             for (const value of [theme.brand.primary, theme.brand.hover, theme.brand.active]) {
                 expect(resolveColor(value).chroma).toBeGreaterThan(0.01);
             }
@@ -313,7 +313,7 @@ describe("theme color contract", () => {
                 }
             }
         }
-        for (const feedback of [themeColorContract.dark.feedback.success, themeColorContract.dark.feedback.warning, themeColorContract.dark.feedback.info]) {
+        for (const feedback of [md3ColorContract.dark.feedback.success, md3ColorContract.dark.feedback.warning, md3ColorContract.dark.feedback.info]) {
             expect(feedback.background).toContain("18%");
             expect(feedback.backgroundHover).toContain("26%");
         }
@@ -350,11 +350,11 @@ describe("theme color contract", () => {
         outer.dataset.theme = 'dark';
         const inner = document.createElement('section');
         outer.append(inner);
-        for (const design of ['material', 'shadcn', 'macos'] as const) {
+        for (const design of ['md3', 'shadcn', 'apple'] as const) {
             for (const mode of ['light', 'dark'] as const) {
                 inner.dataset.crabDesign = design;
                 inner.dataset.theme = mode;
-                for (const candidateDesign of ['material', 'shadcn', 'macos'] as const) {
+                for (const candidateDesign of ['md3', 'shadcn', 'apple'] as const) {
                     for (const candidateMode of ['light', 'dark'] as const) {
                         expect(inner.matches(designThemeSelectors[candidateDesign][candidateMode]))
                             .toBe(candidateDesign === design && candidateMode === mode);
@@ -376,7 +376,7 @@ describe("theme color contract", () => {
         };
         const declarations = (selector: string) => [...ruleFor(selector).matchAll(/(--token-semantic-[\w-]+):/g)]
             .map(match => match[1]).sort();
-        const material = declarations(designThemeSelectors.material.light);
+        const material = declarations(designThemeSelectors.md3.light);
         expect(material).toContain('--token-semantic-color-brand-primary');
         expect(material).toContain('--token-semantic-color-selection-background');
         expect(material).toContain('--token-semantic-shape-button');
@@ -390,12 +390,12 @@ describe("theme color contract", () => {
         expect(material).toContain('--token-semantic-field-required-color');
         expect(material).toContain('--token-semantic-field-required-order');
         expect(material).toContain('--token-semantic-field-required-gap');
-        for (const design of ['material', 'shadcn', 'macos'] as const) {
+        for (const design of ['md3', 'shadcn', 'apple'] as const) {
             for (const mode of ['light', 'dark'] as const) {
                 const selector = designThemeSelectors[design][mode];
                 expect(declarations(selector)).toEqual(material);
                 const rule = ruleFor(selector);
-                const colorReference = design === 'material' ? 'color' : design;
+                const colorReference = design === 'md3' ? 'color' : design;
                 expect(rule).toContain('--token-semantic-color-brand-primary: ${' + colorReference + '.' + mode + '.brand.primary};');
                 expect(rule).toContain('--token-semantic-shape-control: ${shape.' + design + '.shape.control};');
                 expect(rule).toContain('--token-semantic-shadow-overlay: ${shape.' + design + '.shadow.overlay};');
@@ -411,7 +411,7 @@ describe("theme color contract", () => {
     });
 
     it('changes shape and elevation independently of color mode and control size', () => {
-        const material = designShapeContract.material;
+        const material = designShapeContract.md3;
         const shadcn = designShapeContract.shadcn;
         expect(material.shape.control).toContain('4px');
         expect(material.shape.card).toContain('12px');
@@ -428,21 +428,52 @@ describe("theme color contract", () => {
         expect(material.shadow.control).toContain('--token-global-shadow-material-1');
         expect(shadcn.shadow.control).toContain('--token-global-shadow-xs');
         expect(shadcn.shadow.card).toContain('--token-global-shadow-sm');
-        const macos = designShapeContract.macos;
-        expect(macos.shape.control).toContain('6px');
-        expect(macos.shape.button).toBe(macos.shape.control);
-        expect(macos.shape.buttonPressed).toBe(macos.shape.button);
-        expect(macos.shape.overlay).toContain('16px');
-        expect(macos.shadow.overlay).toContain('--token-global-shadow-xl');
-        expect(macos.shadow.card).not.toBe('none');
+        const apple = designShapeContract.apple;
+        expect(apple.shape.control).toContain('6px');
+        expect(apple.shape.button).toBe(apple.shape.control);
+        expect(apple.shape.buttonPressed).toBe(apple.shape.button);
+        expect(apple.shape.overlay).toContain('16px');
+        expect(apple.shadow.overlay).toContain('--token-global-shadow-xl');
+        expect(apple.shadow.card).not.toBe('none');
+    });
+
+    it('defines all multiline size geometries and resets them at every design/mode boundary', async () => {
+        const terminalLength = (value: string) => Number(value.match(/([\d.]+)px\)+$/)?.[1]);
+        const expected = {
+            md3: { min: [56, 56, 56], inline: [16, 16, 16], block: [16, 16, 16] },
+            apple: { min: [32, 36, 40], inline: [8, 12, 16], block: [2, 4, 8] },
+            shadcn: { min: [56, 64, 72], inline: [8, 12, 16], block: [4, 8, 12] },
+        } as const;
+        const source = await readFile(new URL('../theme.ts', import.meta.url), 'utf8');
+        for (const design of ['md3', 'apple', 'shadcn'] as const) {
+            for (const [index, size] of (['small', 'medium', 'large'] as const).entries()) {
+                const geometry = designFieldContract[design].multiline[size];
+                // The 72px size composes existing 64px + 8px L1 primitives.
+                if (design === 'shadcn' && size === 'large') {
+                    expect(geometry.minHeight).toContain('--token-global-size-64');
+                    expect(geometry.minHeight).toContain('--token-global-space-2');
+                } else expect(terminalLength(geometry.minHeight)).toBe(expected[design].min[index]);
+                expect(terminalLength(geometry.paddingInline)).toBe(expected[design].inline[index]);
+                expect(terminalLength(geometry.paddingBlock)).toBe(expected[design].block[index]);
+                expect(terminalLength(geometry.filledPaddingTop)).toBe(design === 'md3' ? 24 : expected[design].block[index]);
+                expect(terminalLength(geometry.filledPaddingBottom)).toBe(design === 'md3' ? 8 : expected[design].block[index]);
+                for (const [role, property] of [
+                    ['min-height', 'minHeight'], ['padding-inline', 'paddingInline'], ['padding-block', 'paddingBlock'],
+                    ['filled-padding-top', 'filledPaddingTop'], ['filled-padding-bottom', 'filledPaddingBottom'],
+                ]) {
+                    const declaration = '--token-semantic-field-multiline-' + size + '-' + role + ': ${field.' + design + '.multiline.' + size + '.' + property + '};';
+                    expect(source.split(declaration)).toHaveLength(3);
+                }
+            }
+        }
     });
 
     it('switches the complete text-field layout between Material and shadcn', () => {
-        const material = designFieldContract.material;
+        const material = designFieldContract.md3;
         const shadcn = designFieldContract.shadcn;
         expect(Object.keys(material).sort()).toEqual(Object.keys(shadcn).sort());
         expect(material.controlMinHeight).toContain('56px');
-        expect(material.requiredColor).toBe('inherit');
+        expect(material.requiredColor).toBe('initial');
         expect(material.requiredOrder).toBe('1');
         expect(shadcn.requiredColor).toContain('--token-semantic-color-feedback-error-text');
         expect(shadcn.requiredColor).toContain('--token-global-material-error-40');
@@ -478,7 +509,7 @@ describe("theme color contract", () => {
     });
 
     it('keeps form label alignment in the design contract while standalone fields retain their rows', () => {
-        const material = designFieldContract.material;
+        const material = designFieldContract.md3;
         const shadcn = designFieldContract.shadcn;
         expect(material.formLayoutColumns).toBe('auto minmax(0, 1fr) auto');
         expect(material.formFieldColumns).toBe('minmax(0, 1fr)');
@@ -492,16 +523,16 @@ describe("theme color contract", () => {
         expect(shadcn.layoutControlRow).toBe('2');
     });
 
-    it('keeps macOS desktop fields complete with an external focus ring and stable labels', () => {
-        const macos = designFieldContract.macos;
-        expect(Object.keys(macos).sort()).toEqual(Object.keys(designFieldContract.material).sort());
-        expect(macos.layoutLabelRow).not.toBe(macos.layoutControlRow);
-        expect(macos.labelFontSize).toBe(macos.labelFloatingFontSize);
-        expect(macos.labelFloatingTransform).toBe('none');
-        expect(macos.outlinedShadowFocus).toBe('var(--token-semantic-shadow-focus-ring)');
-        expect(macos.filledShadowFocus).toBe(macos.outlinedShadowFocus);
-        expect(macos.filledBackgroundColor).toContain('--token-semantic-color-background-surface');
-        expect(macos.requiredColor).toContain('--token-semantic-color-feedback-error-text');
+    it('keeps Apple desktop fields complete with an external focus ring and stable labels', () => {
+        const apple = designFieldContract.apple;
+        expect(Object.keys(apple).sort()).toEqual(Object.keys(designFieldContract.md3).sort());
+        expect(apple.layoutLabelRow).not.toBe(apple.layoutControlRow);
+        expect(apple.labelFontSize).toBe(apple.labelFloatingFontSize);
+        expect(apple.labelFloatingTransform).toBe('none');
+        expect(apple.outlinedShadowFocus).toBe('var(--token-semantic-shadow-focus-ring)');
+        expect(apple.filledShadowFocus).toBe(apple.outlinedShadowFocus);
+        expect(apple.filledBackgroundColor).toContain('--token-semantic-color-background-surface');
+        expect(apple.requiredColor).toContain('--token-semantic-color-feedback-error-text');
     });
 
     it('resets geometry when a nested boundary changes between desktop and Material designs', async () => {
@@ -512,10 +543,10 @@ describe("theme color contract", () => {
             const block = source.slice(start, source.indexOf('\n    }', start));
             return [...block.matchAll(/(--token-semantic-[\w-]+):/g)].map(match => match[1]).sort();
         };
-        expect(propertiesFor('macos')).toEqual(propertiesFor('material'));
-        expect(propertiesFor('macos')).toEqual(propertiesFor('shadcn'));
-        expect(propertiesFor('macos')).toContain('--token-semantic-sizing-middle-toggle-handle-inset');
-        expect(propertiesFor('macos')).toContain('--token-semantic-overlay-dialog-padding');
+        expect(propertiesFor('apple')).toEqual(propertiesFor('md3'));
+        expect(propertiesFor('apple')).toEqual(propertiesFor('shadcn'));
+        expect(propertiesFor('apple')).toContain('--token-semantic-sizing-medium-toggle-handle-inset');
+        expect(propertiesFor('apple')).toContain('--token-semantic-overlay-dialog-padding');
     });
 
     it('keeps shadcn Filled surfaces paired with readable text in both color modes', async () => {

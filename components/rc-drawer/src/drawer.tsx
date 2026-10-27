@@ -1,31 +1,38 @@
-import { useComponentSize, useConfig } from '@crab-dev/rc-config-provider';
+import { acquireScrollLock, registerOverlayLayer, type OverlayLayer } from '@crab-dev/rc-hooks/internal';
+import { useComponentSize, useLocale } from '@crab-dev/rc-config-provider';
+import { useConfigStyleBoundary } from '@crab-dev/rc-config-provider/internal';
 import { useEffect, useId, useLayoutEffect, useRef } from "react";
 import type { FC, HTMLAttributes, MouseEvent, ReactNode, SyntheticEvent } from "react";
 import { css, cx } from "@crab-dev/css";
-import { usePresence } from "@crab-dev/rc-hooks";
+import { useControllableOpen, type ControlledOpenProps, usePresence } from "@crab-dev/rc-hooks";
 import Button, { TokenVars as buttonVars } from "@crab-dev/rc-button";
 
 import token from "./token.js";
 
 export type DrawerPlacement = "left" | "right" | "top" | "bottom";
 
-export type DrawerSize = "small" | "middle" | "medium" | "large";
+export type DrawerSize = "small" | "medium" | "large";
 
-export interface DrawerProps extends Omit<HTMLAttributes<HTMLDialogElement>, "title"> {
+export interface DrawerOpenChangeDetails {
+    reason: 'close-button' | 'escape' | 'outside-press';
+    event: SyntheticEvent | KeyboardEvent;
+}
+
+interface DrawerBaseProps extends Omit<HTMLAttributes<HTMLDialogElement>, "title"> {
     /**
      * 是否打开抽屉
      */
-    open: boolean;
+
 
     /**
      * 打开状态改变时触发
      */
-    onOpenChange: (open: boolean) => void;
+
 
     /**
      * 关闭前回调。返回 `false` 或 resolve 为 `false` 时可阻止关闭。
      */
-    onClose?: (event: SyntheticEvent) => boolean | Promise<boolean> | void | Promise<void>;
+    onClose?: (event: SyntheticEvent | KeyboardEvent) => boolean | Promise<boolean> | void | Promise<void>;
 
     /**
      * 抽屉标题
@@ -73,6 +80,8 @@ export interface DrawerProps extends Omit<HTMLAttributes<HTMLDialogElement>, "ti
      */
     closeLabel?: string;
 }
+
+export type DrawerProps = DrawerBaseProps & ControlledOpenProps<DrawerOpenChangeDetails>;
 
 /* ────────────────────────────────── 静态样式 ────────────────────────────────── */
 
@@ -311,7 +320,8 @@ const getSizeStyle = (placement: DrawerPlacement, size: DrawerSize): string => {
  */
 const Drawer: FC<DrawerProps> = ({
     className,
-    open,
+    open: controlledOpen,
+    defaultOpen,
     onOpenChange,
     onClose,
     title,
@@ -322,62 +332,66 @@ const Drawer: FC<DrawerProps> = ({
     closable = true,
     maskClosable = true,
     shouldResetContent = true,
-    closeLabel = "Close",
+    closeLabel,
     onClick,
     ...restProps
 }) => {
-    const { design } = useConfig();
+    const boundary = useConfigStyleBoundary();
+    const { messages } = useLocale();
+    const [open, setOpen] = useControllableOpen<DrawerOpenChangeDetails>({ open: controlledOpen, defaultOpen, onOpenChange });
     const configuredSize = useComponentSize(sizeProp);
-    const size = configuredSize === 'middle' ? 'medium' : configuredSize;
+    const size = configuredSize;
     const dialogRef = useRef<HTMLDialogElement>(null);
     const titleId = useId();
     // Mutable instance state: retain the background lock until the panel has left.
     const restoreScroll = useRef<(() => void) | null>(null);
+    const layer = useRef<OverlayLayer | null>(null);
     const presence = usePresence<HTMLDivElement>(open, () => {
         dialogRef.current?.close();
         restoreScroll.current?.();
+        restoreScroll.current = null;
+        layer.current?.release();
+        layer.current = null;
     });
 
     // Enter the top layer before painting so the panel and mask start together.
     useLayoutEffect(() => {
         const node = dialogRef.current;
         if (!node || !open) return;
-        if (open && !node.open) {
-            node.showModal();
-        }
-        if (!restoreScroll.current) {
-            const previousOverflow = document.body.style.overflow;
-            document.body.style.overflow = "hidden";
-            restoreScroll.current = () => {
-                document.body.style.overflow = previousOverflow;
-                restoreScroll.current = null;
-            };
-        }
+        restoreScroll.current ??= acquireScrollLock(node);
+        layer.current ??= registerOverlayLayer(node);
+        if (!node.open) node.showModal();
     }, [open]);
 
-    useEffect(() => () => restoreScroll.current?.(), []);
+    useEffect(() => () => {
+        restoreScroll.current?.();
+        restoreScroll.current = null;
+        layer.current?.release();
+        layer.current = null;
+    }, []);
 
-    const requestClose = (event: SyntheticEvent) => {
+    const requestClose = (event: SyntheticEvent | KeyboardEvent, reason: DrawerOpenChangeDetails["reason"]) => {
         const result = onClose?.(event);
         Promise.resolve(result).then((resolved) => {
             if (resolved === false) return;
-            onOpenChange(false);
+            setOpen(false, { reason, event });
         });
     };
 
     const handleMaskClick = (event: MouseEvent<HTMLDivElement>) => {
         if (!maskClosable) return;
-        requestClose(event);
+        if (layer.current?.isTop()) requestClose(event, "outside-press");
     };
 
     const handleCloseButtonClick = (event: MouseEvent<HTMLButtonElement>) => {
-        requestClose(event);
+        requestClose(event, "close-button");
     };
 
     const handleDialogCancel = (event: SyntheticEvent<HTMLDialogElement>) => {
+        if (event.target !== event.currentTarget) return;
         // 原生 dialog 在 ESC 键下触发 cancel 事件；拦截后走统一关闭流程，保留动画
         event.preventDefault();
-        requestClose(event);
+        if (layer.current?.isTop()) requestClose(event, "escape");
     };
 
     const placementStyle = getPlacementStyle(placement);
@@ -385,15 +399,16 @@ const Drawer: FC<DrawerProps> = ({
 
     return (
         <dialog
-            data-crab-design={design}
+            {...boundary.attributes}
             ref={dialogRef}
-            className={cx(dialogResetStyle, className)}
+            className={cx(dialogResetStyle, boundary.className, className)}
             onClick={onClick}
             onCancel={handleDialogCancel}
             aria-modal="true"
             aria-labelledby={title && !restProps['aria-label'] ? titleId : undefined}
             {...restProps}
         >
+            {boundary.brandStyle}
             {(presence.present || !shouldResetContent) && (
                 <>
                     <div
@@ -424,10 +439,9 @@ const Drawer: FC<DrawerProps> = ({
                                     <Button
                                         type="button"
                                         appearance="text"
-                                        shape="circle"
                                         className={closeButtonStyle}
                                         onClick={handleCloseButtonClick}
-                                        aria-label={closeLabel}
+                                        aria-label={closeLabel ?? messages.common.close}
                                         icon={<CloseIcon />}
                                     />
                                 )}

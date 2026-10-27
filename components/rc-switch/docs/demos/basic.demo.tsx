@@ -12,7 +12,7 @@ const BasicDemo = () => {
     return (
         <Switch
             checked={checked}
-            onChange={(val) => setChecked(val)}
+            onCheckedChange={(val) => setChecked(val)}
         >
             开关
         </Switch>

@@ -28,7 +28,7 @@ const token = defineTokens({
         'gap': `var(${vars['item.gap']}, var(--token-semantic-space-component-gap, var(--token-global-space-2, 8px)))`
     },
     'row': {
-        'gap': `var(${vars['row.gap']}, var(--token-semantic-density-gap, var(--token-global-space-2, 8px)))`
+        'gap': `var(${vars['row.gap']}, var(--token-semantic-density-gap, var(--token-semantic-density-standard-gap, var(--token-global-space-2, 8px))))`
     },
     'label': {
         'color': `var(${vars['label.color']}, var(--token-semantic-color-text-primary, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695))))`,

@@ -17,7 +17,7 @@ describe("LearningHome", () => {
         expect(screen.getByRole("heading", { name: "Crab UI", level: 1 })).toBeTruthy();
         expect(screen.getByRole("link", { name: /开始使用/ }).getAttribute("href")).toBe("/guides/getting-started");
         expect(screen.getByRole("link", { name: /组件目录/ }).getAttribute("href")).toBe("/learn/components");
-        expect(screen.getByRole("navigation", { name: "组件分类跳转" }).querySelectorAll("a").length).toBe(6);
+        expect(screen.getByRole("navigation", { name: "任务入口跳转" }).querySelectorAll("a").length).toBe(6);
         expect(screen.getByRole("link", { name: "业务实战" }).getAttribute("href")).toBe("/#practice");
     });
 

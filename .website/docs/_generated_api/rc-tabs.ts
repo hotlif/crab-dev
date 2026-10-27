@@ -10,26 +10,38 @@ type ReactKeyboardEvent<T0 = unknown> = DocsTypePlaceholder & { readonly __docsT
 type ReactMouseEvent<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 type ReactNode = DocsTypePlaceholder;
 type TabsBarExtraContent = DocsTypePlaceholder;
+type TabsChangeDetails = DocsTypePlaceholder;
 type TabsItem = DocsTypePlaceholder;
 type TabsSize = DocsTypePlaceholder;
 type TabsType = DocsTypePlaceholder;
 
 export interface TabsProps {
     /**
+     * 暂无说明。 与 value 互斥，不能同时提供。
+     */
+    "defaultValue"?: string | number | readonly string[] | undefined | string;
+
+    /**
      * 暂无说明。
      */
-    "activeKey"?: string;
+    "items": TabsItem[];
+
+    /**
+     * 暂无说明。
+     * @default ’line’
+     */
+    "type"?: TabsType;
+
+    /**
+     * 暂无说明。
+     */
+    "size"?: TabsSize;
 
     /**
      * 暂无说明。
      * @default false
      */
     "centered"?: boolean;
-
-    /**
-     * 暂无说明。
-     */
-    "defaultActiveKey"?: string;
 
     /**
      * 暂无说明。
@@ -40,12 +52,7 @@ export interface TabsProps {
     /**
      * 暂无说明。
      */
-    "items": TabsItem[];
-
-    /**
-     * 暂无说明。
-     */
-    "onChange"?: (activeKey: string) => void;
+    "tabBarExtraContent"?: ReactNode | TabsBarExtraContent;
 
     /**
      * 暂无说明。
@@ -53,19 +60,12 @@ export interface TabsProps {
     "onTabClose"?: (key: string, event: ReactMouseEvent<HTMLElement> | ReactKeyboardEvent<HTMLElement>) => void;
 
     /**
-     * 暂无说明。
-     * @default 'medium'
+     * 暂无说明。 与 defaultValue 互斥，不能同时提供。
      */
-    "size"?: TabsSize;
+    "value"?: string;
 
     /**
      * 暂无说明。
      */
-    "tabBarExtraContent"?: ReactNode | TabsBarExtraContent;
-
-    /**
-     * 暂无说明。
-     * @default 'line'
-     */
-    "type"?: TabsType;
+    "onValueChange"?: ((value: string, details: TabsChangeDetails) => void);
 }

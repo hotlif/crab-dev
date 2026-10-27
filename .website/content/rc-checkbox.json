@@ -19,19 +19,19 @@
         {
             "id": "step-2",
             "title": "改为受控",
-            "goal": "将 checked 与 onChange 连接到同一个 state。",
+            "goal": "将 checked 与 onCheckedChange 连接到同一个 state。",
             "why": "复选框用于标记独立选项，checked 是业务保存的布尔值。",
             "instruction": "切换选项，再查看状态文字。",
             "expected": "控件与文字始终保持一致。",
             "changes": [
-                "将 checked 与 onChange 连接到同一个 state。"
+                "将 checked 与 onCheckedChange 连接到同一个 state。"
             ],
             "source": "rc-checkbox/step-2.tsx"
         },
         {
             "id": "step-3",
             "title": "MD3 状态与明暗主题",
-            "goal": "对照 Material Design 3 的空心、选中、半选、禁用与错误外观。",
+            "goal": "对照 MD3 Expressive 的空心、选中、半选、禁用与错误外观。",
             "why": "固定的方框和圆形状态层分别表达选择结果与交互反馈，颜色通过语义令牌适应主题。",
             "instruction": "悬停标签、按 Tab 聚焦，切换全选与单项，再选择品牌色；勾选服务条款解除错误。",
             "expected": "两侧同步换色，三态形状明确，禁用保持中性，交互时方框和文字位置不变。",
@@ -45,7 +45,7 @@
     "faq": [
         {
             "question": "受控与非受控可以混用吗？",
-            "answer": "同一实例应选择一种方式。需要业务代码读取或修改状态时，用 checked 和 onChange。"
+            "answer": "同一实例应选择一种方式。需要业务代码读取或修改状态时，用 checked 和 onCheckedChange。"
         }
     ]
 }

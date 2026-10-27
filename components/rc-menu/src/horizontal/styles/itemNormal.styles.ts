@@ -6,6 +6,10 @@ const menuItem = css`
     font-size: ${token.horizontal.item["font-size"]};
     position: relative;
     user-select: none;
+    min-width: 0;
+    max-width: 100%;
+    box-sizing: border-box;
+    color: ${token.horizontal.item.color};
     transition: ${token.horizontal.item.transition};
     @media (prefers-reduced-motion: reduce) { transition: none; }
 `
@@ -23,12 +27,16 @@ const menuItemContent = css`
     @media (forced-colors: active) { &:focus-visible { outline-color: Highlight; } }
 
     border-radius: ${token.vertical.item.title['border-radius']};
-    padding-left: ${token.horizontal.item.content["padding-left"]};
+    padding-inline-start: ${token.horizontal.item.content["padding-left"]};
+    /* The trailing arrow has its own fixed slot inside these shared insets. */
+    padding-inline-end: ${token.horizontal.item.content["padding-left"]};
     font-size: ${token.horizontal.item.content["font-size"]};
     height: ${token.horizontal.item.content.height};
     display: flex;
     align-items: center;
     box-sizing: border-box;
+    min-width: 0;
+    max-width: 100%;
     &[aria-current='page'] {
         background-color: ${token.vertical.item.title['background-color-selected']};
         color: ${token.vertical.item.title['color-selected']};
@@ -37,7 +45,11 @@ const menuItemContent = css`
         &:hover, &:focus-visible { background-color: ${token.vertical.item.selection['background-color-hover']}; }
         &:active { background-color: ${token.vertical.item.selection['background-color-pressed']}; }
         @media (forced-colors: active) {
-            &, &:hover, &:active { color: HighlightText; background-color: Highlight; }
+            &, &:hover, &:active, &:focus-visible {
+                forced-color-adjust: none;
+                color: HighlightText;
+                background-color: Highlight;
+            }
         }
     }
 `
@@ -50,6 +62,8 @@ const menuItemFloatTrigger = css`
 `
 
 const menuItemTitle = css`
+    min-width: 0;
+    overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
     flex: 1;
@@ -61,20 +75,25 @@ const menuItemIcon = css`
     width: ${token.vertical.item.icon.width};
     height: ${token.vertical.item.icon.width};
     display: inline-flex;
+    flex-shrink: 0;
     align-items: center;
     justify-content: center;
     > svg, > img { width: 100%; height: 100%; }
-    margin-right: ${token.horizontal.item.icon["margin-right"]};
+    margin-inline-end: ${token.horizontal.item.icon["margin-right"]};
 `
 
 const menuItemLeftIcon = css`
-    width: 36px;
+    width: ${token.vertical.item.icon.width};
+    flex-shrink: 0;
     text-align: center;
 `
 
 const submenuList = css`
     list-style-type: none;
-    padding-inline-start: unset;
+    margin: 0;
+    padding: 0;
+    min-width: 0;
+    box-sizing: border-box;
     color: ${token.horizontal.item.color};
     line-height: ${token.horizontal.submenu["line-height"]};
     border-radius: ${token.horizontal.submenu["border-radius"]};
@@ -82,6 +101,7 @@ const submenuList = css`
 
 const submenuFloat = css`
     z-index: ${token.horizontal.submenu["z-index"]};
+    max-width: calc(100vw - ${token.vertical.submenu.margin} - ${token.vertical.submenu.margin});
     white-space: nowrap;
     padding: ${token.horizontal.submenu.padding};
     background-color: ${token.horizontal.submenu["background-color"]};

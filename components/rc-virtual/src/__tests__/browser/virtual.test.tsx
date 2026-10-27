@@ -1,5 +1,5 @@
 import { createRef, StrictMode } from "react";
-import { describe, expect, it } from "@crab-dev/wake/test";
+import { describe, expect, it, mock } from "@crab-dev/wake/test";
 import { act, render } from "@crab-dev/wake/test/react";
 import Virtual, { type VirtualHandle } from "../../virtual.js";
 import type { VirtualAxis } from "../../types.js";
@@ -58,6 +58,84 @@ async function wheel(grid: HTMLElement, deltaY: number, deltaX = 0) {
 }
 
 describe("Million-row browser layout", () => {
+    for (const trigger of ["focus", "scrollIntoView"] as const) {
+        it(`synchronizes native ${trigger} scrolling with the rendered columns and thumb`, async () => {
+            const gridRef = createRef<VirtualHandle>();
+            const onScrollPositionChange = mock.fn();
+            const { container } = await render(
+                <StrictMode>
+                    <style>{`
+                        [data-native-scroll-test] { overflow: hidden; overflow-anchor: none; position: relative; white-space: nowrap; }
+                        .native-test-left, .native-test-right, [data-native-column] { display: inline-block; height: 40px; vertical-align: top; }
+                        [data-native-column] { width: 120px; }
+                        .native-test-left { width: var(--crab-rc-virtual-left-padding-width); }
+                        .native-test-right { width: var(--crab-rc-virtual-right-padding-width); }
+                    `}</style>
+                    <Virtual
+                        data-native-scroll-test=""
+                        gridRef={gridRef}
+                        gridTemplateRows={{ count: 1, itemSize: 40 }}
+                        gridTemplateColumns={{ count: 40, itemSize: 120 }}
+                        viewportWidth={300}
+                        viewportHeight={40}
+                        overscanColumnCount={4}
+                        onScrollPositionChange={onScrollPositionChange}
+                        renderRows={(_, [start, end]) => (
+                            <>
+                                <div className="native-test-left" />
+                                {Array.from({ length: end - start + 1 }, (_, offset) => (
+                                    <div key={start + offset} data-native-column={start + offset}>
+                                        <button type="button">Column {start + offset}</button>
+                                    </div>
+                                ))}
+                                <div className="native-test-right" />
+                            </>
+                        )}
+                    />
+                </StrictMode>,
+            );
+            const grid = container.querySelector<HTMLElement>("[data-native-scroll-test]");
+            const target = grid?.querySelector<HTMLButtonElement>('[data-native-column="5"] button');
+            if (!grid || !target) throw new Error("Missing offscreen mounted button");
+            let nativeLeft = 0;
+            await act(async () => {
+                if (trigger === "focus") target.focus();
+                else target.scrollIntoView({ block: "nearest", inline: "center", behavior: "instant" });
+                nativeLeft = grid.scrollLeft;
+                // Real browser-generated scroll, without dispatching a synthetic event.
+                await new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))));
+            });
+            expect(nativeLeft).toBeGreaterThan(0);
+            expect(gridRef.current?.getScrollCellPosition().columnIndex).toBe(Math.floor(nativeLeft / 120));
+            expect(onScrollPositionChange).toHaveBeenCalledWith({ left: nativeLeft, top: 0 });
+            const thumb = grid.nextElementSibling?.firstElementChild as HTMLElement;
+            expect(Number.parseFloat(thumb.style.left)).toBeCloseTo(nativeLeft * 280 / 4500, 3);
+            const columns = grid.querySelectorAll<HTMLElement>("[data-native-column]");
+            expect(columns[0].getBoundingClientRect().left).toBeLessThanOrEqual(grid.getBoundingClientRect().left);
+            expect(columns[columns.length - 1].getBoundingClientRect().right).toBeGreaterThanOrEqual(grid.getBoundingClientRect().right);
+            if (trigger === "focus") expect(document.activeElement).toBe(target);
+            const settledCalls = onScrollPositionChange.calls.calls.length;
+            await act(async () => {
+                await new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve())));
+            });
+            expect(onScrollPositionChange.calls.calls.length).toBe(settledCalls);
+        });
+    }
+
+    it("adds native browser deltas to a million-row local window without replacing the logical position", async () => {
+        const { grid, gridRef } = await mountGrid(40, 0, 0, { count: COUNT, itemSize: 40 });
+        await act(async () => gridRef.current?.scrollTo({ top: 20_000_000 }));
+        const before = gridRef.current?.getScrollCellPosition().rowIndex ?? 0;
+        await act(async () => {
+            grid.scrollBy({ top: 80, behavior: "instant" });
+            await new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))));
+        });
+        expect(gridRef.current?.getScrollCellPosition().rowIndex).toBe(before + 2);
+        expect(grid.scrollTop).toBeLessThan(2_000_000);
+        await wheel(grid, 40);
+        expect(gridRef.current?.getScrollCellPosition().rowIndex).toBe(before + 3);
+    });
+
     it("keeps rows and the thumb aligned during consecutive drag frames in the docs reduced-motion host", async () => {
         const motionView = await render(<style>{docsMotionCss}</style>);
         const motionRule = motionView.container.querySelector("style")?.sheet?.cssRules[0] as CSSMediaRule;
@@ -96,7 +174,7 @@ describe("Million-row browser layout", () => {
         });
     });
 
-    it("keeps middle-row geometry stable after browser layout and subsequent wheel frames", async () => {
+    it("keeps medium-row geometry stable after browser layout and subsequent wheel frames", async () => {
         const { grid, gridRef } = await mountGrid(56, 0, 0, { count: COUNT, itemSize: 56 });
         await act(async () => gridRef.current?.scrollToCell({ rowIndex: 499_999 }));
         // 浏览器滚动锚定发生在提交后的布局阶段，不能只检查同步 act 的结果。

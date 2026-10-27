@@ -106,5 +106,36 @@ export const demos = [
         "density": "regular",
         "layout": "wide",
         "group": null
+    },
+    {
+        "id": "docs/demos/visual-states.demo.tsx",
+        "title": "可重放的加载与错误",
+        "description": "使用预注册的真实远程容器协议，将模块 Promise 保持待定。通过按钮完成或拒绝请求；Realm 自己显示加载、默认错误与重试。每次重放清除本实例缓存，不依赖网络或短暂计时窗口。",
+        "learning": {
+            "components": [
+                "Button",
+                "Realm"
+            ],
+            "props": [
+                "appearance",
+                "onClick",
+                "disabled",
+                "entry",
+                "scope",
+                "module",
+                "delay",
+                "timeout"
+            ],
+            "events": [
+                "onClick"
+            ],
+            "hasState": true
+        },
+        "sourceCode": "import { useEffect, useId, useRef, useState } from 'react';\nimport { css } from '@crab-dev/css';\nimport token from '@crab-dev/rc-token-semantic';\nimport Button from '@crab-dev/rc-button';\nimport Realm, { clearRemoteCache, type RemoteContainer } from '@crab-dev/rc-realm';\n\nexport const meta = {\n    title: '可重放的加载与错误',\n    description: '使用预注册的真实远程容器协议，将模块 Promise 保持待定。通过按钮完成或拒绝请求；Realm 自己显示加载、默认错误与重试。每次重放清除本实例缓存，不依赖网络或短暂计时窗口。',\n};\n\ntype PendingModule = { resolve: (factory: () => unknown) => void; reject: (error: Error) => void };\nconst controlsStyle = css`display: flex; flex-wrap: wrap; gap: ${token.space['component-gap']}; margin-block-end: ${token.space['stack-gap']};`;\nconst contentStyle = css`padding: ${token.space['card-padding']}; min-block-size: 100px; border: 1px solid ${token.color.border.default};`;\nconst entry = '/virtual/visual-states/remoteEntry.js';\n\nfunction RemoteContent() {\n    return \u003cdiv className={contentStyle}>远程内容已加载 Ready。主题、语言和方向继续由宿主配置继承。\u003c/div>;\n}\n\nexport default function VisualStatesDemo() {\n    const id = useId();\n    const scope = `crabRealmVisual${id}`;\n    const [registered, setRegistered] = useState(false);\n    const [waiting, setWaiting] = useState(false);\n    const [replay, setReplay] = useState(0);\n    // 可变传输实例：保存未完成的模块请求，仅在 effect/事件中增删，卸载时拒绝并清理。\n    const pending = useRef(new Set\u003cPendingModule>());\n\n    useEffect(() => {\n        const requests = pending.current;\n        let disposed = false;\n        const container: RemoteContainer = {\n            init: () => undefined,\n            get: () => {\n                if (disposed) return Promise.reject(new Error('该演示实例已经卸载'));\n                setWaiting(true);\n                return new Promise((resolve, reject) => { requests.add({ resolve, reject }); });\n            },\n        };\n        const registry = globalThis as Record\u003cstring, unknown>;\n        registry[scope] = container;\n        setRegistered(true);\n        return () => {\n            disposed = true;\n            for (const request of requests) request.reject(new Error('演示已卸载，取消等待请求'));\n            requests.clear();\n            clearRemoteCache(entry, scope);\n            if (registry[scope] === container) delete registry[scope];\n        };\n    }, [scope]);\n\n    const finish = (failure: boolean) => {\n        for (const request of pending.current) {\n            if (failure) request.reject(new Error('可重放的模块加载错误'));\n            else request.resolve(() => ({ default: RemoteContent }));\n        }\n        pending.current.clear();\n        setWaiting(false);\n    };\n    const restart = () => {\n        finish(true);\n        clearRemoteCache(entry, scope);\n        setReplay(value => value + 1);\n    };\n\n    return \u003csection aria-label=\"远程模块请求状态\">\n        \u003cdiv className={controlsStyle}>\n            \u003cButton appearance=\"outlined\" onClick={restart}>重新加载\u003c/Button>\n            \u003cButton appearance=\"outlined\" disabled={!waiting} onClick={() => finish(true)}>返回错误\u003c/Button>\n            \u003cButton appearance=\"outlined\" disabled={!waiting} onClick={() => finish(false)}>完成加载\u003c/Button>\n        \u003c/div>\n        {registered && \u003cRealm key={replay} entry={entry} scope={scope} module=\"./VisualState\" delay={0} timeout={600000} />}\n    \u003c/section>;\n}\n",
+        "previewPath": "/components/rc-realm/workbench/?__wake_demo=docs%2Fdemos%2Fvisual-states.demo.tsx",
+        "workbenchPath": "/components/rc-realm/workbench/#/components/docs%2Fdemos%2Fvisual-states.demo.tsx",
+        "density": "regular",
+        "layout": "wide",
+        "group": null
     }
 ] as const satisfies readonly ComponentDemoRecord[];

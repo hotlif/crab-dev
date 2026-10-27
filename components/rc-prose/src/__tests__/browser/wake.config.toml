@@ -1,0 +1,19 @@
+# This suite consumes published ESM plus real generated component/theme CSS.
+[test]
+environment = "browser"
+include = ["prose.test.tsx"]
+timeout_ms = 15000
+leaks = "error"
+
+[test.react]
+strict_mode = false
+cleanup = true
+act_warnings = "error"
+
+[test.network]
+mode = "deny"
+allow_hosts = []
+
+[test.coverage]
+enabled = true
+reporters = ["text", "lcov"]

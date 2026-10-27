@@ -29,7 +29,7 @@ status = "experimental"
 | 编写项目台账等业务页面 | 语义令牌与现有组件 | 使用角色和组件属性，避免在每个页面分别选色阶 |
 | 展示设计基元、制作尺度比较 | 可直接引用 L1 | 本页样本属于此场景；框架与说明文字仍使用 L2 |
 
-**现有实现**：公共色板包含 Zinc、Blue、Red、Green、Amber、Purple 以及黑白。Purple 新增七档现有站点品牌基元；原有 137 项键值保持不变。公共 L2 将 Purple 映射为默认品牌、焦点和选中角色，站点与公共主题共享这些映射。L1 本身仍不承担“品牌”或“错误”等语义。
+**现有实现**：公共色板包含 Zinc、Neutral、Blue、Red、Green、Amber、Purple、Material 参考色阶及黑白。当前参数由本页下方的令牌参考区读取源定义生成。公共 L2 为 MD3 Expressive、Apple 与 shadcn/ui 分别映射颜色、字阶和动效；L1 本身不承担“品牌”或“错误”等语义。
 
 **设计要求**：基元名称不携带业务语义。`red.600` 是颜色，不能替代“删除”“失败”等可感知名称；状态必须结合文字、图标与行为表达。色阶的用途建议不构成已经通过对比度验证的前景背景组合。
 
@@ -68,7 +68,7 @@ CSS 变量未声明时使用回退值；存在覆盖时使用覆盖值。切换�
 
 ## 颜色
 
-颜色负责提供可重复引用的原料。Zinc、Blue、Red、Green、Amber 各有 11 档（50–950）；Purple 有七档（10、20、30、40、80、90、100），另有黑白，共 64 项。每组以连续色带展示。选择色阶后，在下方查看原始 OKLCh 值、公共引用和变量名；选中标记与文字位于色块之外。
+颜色负责提供可重复引用的原料。Zinc、Neutral、Blue、Red、Green、Amber 按 50–950 的编号展示；Purple 与 Material 参考色阶沿用各自来源的 tone 编号。实际成员以源定义及下方生成参考为准。选择色阶后可查看原始 OKLCh 值、公共引用和变量名；选中标记与文字位于色块之外。
 
 ### 如何读取与选择
 
@@ -160,7 +160,7 @@ const panel = css`border-radius: ${token.radius.lg};`;
 | 决策 | 规则 | 边界 |
 | --- | --- | --- |
 | 普通界面文字 | 优先使用 `font.family.body` 等语义角色 | L1 sans 声明 Inter 等回退，不负责下载字体 |
-| 系统界面字体 | `font.family.system` 提供 macOS 优先的系统字体栈 | 供 macOS 风格映射，Windows 自动回退 Segoe UI 和本机中文字体 |
+| 系统界面字体 | `font.family.system` 提供 Apple 优先的系统字体栈 | 供 Apple 风格映射，Windows 自动回退 Segoe UI 和本机中文字体 |
 | 代码、令牌键、机器标识 | 使用 mono 基元或项目对应语义角色 | 当前 mono 列表包含 Geist Mono 等；未安装时继续回退 |
 | 中文混排 | 检查系统回退后的字面大小、标点与基线 | 不能根据拉丁字体名称声称已包含中文 |
 | 标题与标签 | 用层级与字重共同区分，避免所有内容加粗 | 缺少真实字重时浏览器可能合成；需在目标设备验收 |
@@ -301,10 +301,10 @@ space.5 = "20px"
 space.card-padding = "$ref(space.5)"
 
 # L3 · rc-card 的 [token] 内容
-size.middle.padding = "$ref(space.card-padding)"
+size.medium.padding = "$ref(space.card-padding)"
 ```
 
-这条链路始终描述同一个值：L1 的 20px 被 L2 命名为卡片内边距，再被 L3 的中等尺寸 Card 引用。Card 源码把 `size.middle.padding` 连接到容器的 CSS padding，最终形成内容与卡片边缘之间的留白。其他尺寸可以选择不同映射。
+这条链路始终描述同一个值：L1 的 20px 被 L2 命名为卡片内边距，再被 L3 的中等尺寸 Card 引用。Card 源码把 `size.medium.padding` 连接到容器的 CSS padding，最终形成内容与卡片边缘之间的留白。其他尺寸可以选择不同映射。
 
 L2 的构建 imports 指向全局令牌包，L3 指向语义令牌包，`$ref()` 因而能引用上层。修改 L1 的这档尺度会影响多个消费者；只想调整某个组件时，先检查其 L3 角色。
 

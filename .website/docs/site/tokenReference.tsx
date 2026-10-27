@@ -30,7 +30,7 @@ function CopyValue({ text, label }: { text: string; label: string }) {
         catch { setState("error"); }
     }
     return <div className="tgr-copy">
-        <Button size="small" appearance="text" onClick={copy} loading={state === "pending"} aria-label={`${label} ${text}`}>{label}</Button>
+        <Button size="s" appearance="text" onClick={copy} loading={state === "pending"} aria-label={`${label} ${text}`}>{label}</Button>
         <span role="status">{state === "success" ? "已复制" : state === "error" ? "复制失败，请选择上方代码复制" : state === "pending" ? "复制中" : ""}</span>
     </div>;
 }
@@ -99,7 +99,7 @@ function TokenItem({ entry, inLayerList = false }: { entry: Entry; inLayerList?:
         {!inLayerList && <div className="tgr-stage" aria-hidden="true"><span className="tgr-sample">
             {entry.group === "typography" ? <>项目台账 Aa 0123{entry.key.startsWith("line.height.") && <><br />成员记录 · Crab</>}</> : entry.group === "opacity" ? "Aa" : ""}
         </span></div>}
-        <Button className="tgr-code-toggle" size="small" appearance="text" aria-expanded={expanded} aria-controls={detailId} aria-label={`${expanded ? "收起" : "查看"} ${entry.key} 代码`} onClick={() => setExpanded(value => !value)}>{expanded ? "收起" : "代码"}</Button>
+        <Button className="tgr-code-toggle" size="s" appearance="text" aria-expanded={expanded} aria-controls={detailId} aria-label={`${expanded ? "收起" : "查看"} ${entry.key} 代码`} onClick={() => setExpanded(value => !value)}>{expanded ? "收起" : "代码"}</Button>
         <div id={detailId} className="tgr-expanded" hidden={!expanded}>{expanded && <TokenDetails entry={entry} />}</div>
     </article>;
 }
@@ -110,7 +110,7 @@ export default function TokenReference({ group }: { group: string }) {
     const names = [...new Set(entries.map(family))];
     return <section className={referenceStyle} data-group={group} data-moving={moving} role="region" aria-label={`${groups[group]}令牌参考`}>
         <div className="tgr-caption"><span>{entries.length} 项 · 源码原始值</span>
-            {group === "motion" && <Button size="small" appearance="subtle" onClick={() => setMoving(value => !value)}>播放 / 反向对照</Button>}
+            {group === "motion" && <Button size="s" appearance="subtle" onClick={() => setMoving(value => !value)}>播放 / 反向对照</Button>}
         </div>
         {group === "colors" && <p className="tgr-hint">选择色阶查看参数；键盘可用左右方向键、Home 和 End，窄屏可横向浏览色带。</p>}
         {group === "motion" && <p className="tgr-hint">点击后同时移动，再次点击反向。时长组使用 out 缓动，缓动组统一使用 slow 时长。</p>}

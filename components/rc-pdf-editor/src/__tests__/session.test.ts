@@ -202,6 +202,34 @@ describe('公开文档会话契约', () => {
         } finally { session.dispose(); }
     });
 
+    it('跨 Window 二进制输入保留实际字节范围并复制所有权，不作为 URL 请求', async () => {
+        const frame = document.createElement('iframe');
+        document.body.append(frame);
+        try {
+            const realm = frame.contentWindow as Window & typeof globalThis;
+            const original = new realm.Uint8Array([99, 1, 2, 3, 88]);
+            const view = original.subarray(1, 4);
+            const buffer = original.buffer.slice(1, 4);
+            const blob = new realm.Blob([view]);
+            expect(view instanceof Uint8Array).toBe(false);
+            expect(buffer instanceof ArrayBuffer).toBe(false);
+            expect(blob instanceof Blob).toBe(false);
+            const fetch = mock.spyOn(globalThis, 'fetch').implement(async () => { throw new Error('Binary inputs must not fetch'); });
+            for (const source of [view, buffer, blob]) {
+                const bytes = await sourceBytes(source);
+                expect(bytes instanceof Uint8Array).toBe(true);
+                expect([...bytes]).toEqual([1, 2, 3]);
+                bytes[0] = 42;
+            }
+            expect([...view]).toEqual([1, 2, 3]);
+            expect([...new realm.Uint8Array(buffer)]).toEqual([1, 2, 3]);
+            expect([...new Uint8Array(await blob.arrayBuffer())]).toEqual([1, 2, 3]);
+            expect(fetch).not.toHaveBeenCalled();
+        } finally {
+            frame.remove();
+        }
+    });
+
     it('卸载会结束等待中的保存与守卫，即使宿主回调未处理取消信号', async () => {
         const session = await opened(), entered = gate(), finish = gate();
         try {

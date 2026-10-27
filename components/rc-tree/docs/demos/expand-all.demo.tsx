@@ -39,7 +39,7 @@ const buildNodes = (): Node[] => {
 
 const ExpandAllDemo = () => {
     const [expandedKeys, setExpandedKeys] = useState<Key[]>([]);
-    const [selectKeys, setSelectKeys] = useState<Key[]>([]);
+    const [selectedKeys, setSelectedKeys] = useState<Key[]>([]);
     const [treeData, setTreeData, treeDataUtils] = useTreeData(buildNodes());
 
     return (
@@ -60,15 +60,9 @@ const ExpandAllDemo = () => {
                         treeData={treeData}
                         onTreeNodeChange={setTreeData}
                         expandedKeys={expandedKeys}
-                        selectKeys={selectKeys}
-                        onSelect={({ selectKeys: keys }: { selectKeys: Key[] }) => setSelectKeys(keys)}
-                        onExpanded={({ node }: { node: Node }) => {
-                            setExpandedKeys(prev =>
-                                prev.includes(node.id)
-                                    ? prev.filter(k => k !== node.id)
-                                    : [...prev, node.id]
-                            );
-                        }}
+                        selectedKeys={selectedKeys}
+                        onSelectedKeysChange={(keys: Key[]) => setSelectedKeys(keys)}
+                        onExpandedKeysChange={setExpandedKeys}
                     />
                 )}
             </AutoSizer>

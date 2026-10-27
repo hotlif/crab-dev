@@ -1,6 +1,7 @@
 import { readdir, writeFile } from "node:fs/promises";
 import { connectReviewBrowser } from "./production-browser.mjs";
 import { productionRevision } from "./production-revision.mjs";
+import { captureControlSnapshot } from "./control-inventory-snapshot.mjs";
 
 const browser = await connectReviewBrowser();
 const revision = await productionRevision();
@@ -42,26 +43,21 @@ try {
             }
             await browser.evaluate("document.fonts.ready.then(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))))");
             await delay(300);
-            const metrics = await browser.evaluate(`(() => {
+            const metrics = await captureControlSnapshot(browser, selector, `(() => {
                 const controls=Array.from(document.querySelectorAll(${JSON.stringify(selector)})).map((el,index)=>{
                     const label=el.matches('input[type=checkbox],input[type=radio]')?el.closest('label'):null;
-                    const target=label??el,r=target.getBoundingClientRect(),css=getComputedStyle(target);
-                    return {index,tag:el.tagName,role:el.getAttribute('role'),type:el.type,html:el.outerHTML.slice(0,650),width:r.width,height:r.height,visible:r.width>0&&r.height>0&&css.visibility!=='hidden'&&css.display!=='none',tabIndex:el.tabIndex,disabled:Boolean(el.disabled)||el.getAttribute('aria-disabled')==='true',text:target.textContent.trim().slice(0,80)};
+                    const target=label??el,r=target.getBoundingClientRect();
+                    const visible=target.checkVisibility({visibilityProperty:true,opacityProperty:true,contentVisibilityAuto:true})&&r.width>0&&r.height>0&&!el.closest('[inert]')&&!target.closest('[inert]');
+                    const focusable=el.tabIndex>=0&&!el.disabled&&!el.closest('[inert]')&&el.checkVisibility({visibilityProperty:true,contentVisibilityAuto:true});
+                    const ariaHidden=Boolean(el.closest('[aria-hidden="true"]'));
+                    return {index,connected:el.isConnected,tag:el.tagName,role:el.getAttribute('role'),type:el.type,html:el.outerHTML.slice(0,650),width:r.width,height:r.height,visible,focusable,ariaHidden,tabIndex:el.tabIndex,disabled:Boolean(el.disabled)||el.getAttribute('aria-disabled')==='true',text:target.textContent.trim().slice(0,80)};
                 });
                 return {pageWidth:document.documentElement.scrollWidth,viewport:innerWidth,coarse:matchMedia('(pointer:coarse)').matches,controls};
             })()`);
-            const root = await browser.call("DOM.getDocument", { depth: 0 });
-            const nodes = await browser.call("DOM.querySelectorAll", { nodeId: root.root.nodeId, selector });
-            for (const control of metrics.controls.filter(control => control.visible)) {
-                const tree = await browser.call("Accessibility.getPartialAXTree", { nodeId: nodes.nodeIds[control.index], fetchRelatives: false });
-                const node = tree.nodes[0];
-                control.accessibleName = node?.name?.value ?? "";
-                control.accessibleRole = node?.role?.value;
-                control.ignored = node?.ignored;
-                control.ignoredReasons = node?.ignoredReasons?.map(reason => reason.name);
+            for (const control of metrics.controls.filter(control => control.visible || control.focusable && control.ariaHidden)) {
                 control.candidates = [];
                 if (!control.ignored && !control.accessibleName.trim()) control.candidates.push("name-needs-review");
-                if (control.ignored && control.tabIndex >= 0 && !control.disabled) control.candidates.push("hidden-focusable-needs-review");
+                if (control.focusable && (control.ignored || control.ariaHidden)) control.candidates.push("hidden-focusable-needs-review");
                 if (!control.disabled && (control.width < 44 || control.height < 44)) control.candidates.push("touch-target-needs-review");
             }
             const candidates = metrics.controls.filter(control => control.candidates?.length).length;

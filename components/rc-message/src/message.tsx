@@ -66,7 +66,7 @@ const iconBaseStyle = css`
     display: inline-flex;
     align-items: center;
     flex-shrink: 0;
-    margin-right: ${token.icon["margin-right"]};
+    margin-inline-end: ${token.icon["margin-right"]};
     > svg {
         width: ${token.icon.width};
         height: ${token.icon.width};

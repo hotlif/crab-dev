@@ -52,10 +52,10 @@ export default function Example() {
                     </ButtonGroup>
                 </div>
             </div>
-            <ConfigProvider theme={theme} brandColor={brandColor} className={surface}>
+            <ConfigProvider colorMode={theme} brandColor={brandColor} className={surface}>
                 <section className={stack} aria-label="Radio 交互试验区">
                     <strong>接收摘要的方式</strong>
-                    <RadioGroup value={value} onChange={setValue} disabled={mode === "disabled"} aria-label="摘要接收方式" aria-describedby={messageId}>
+                    <RadioGroup value={value} onValueChange={setValue} disabled={mode === "disabled"} aria-label="摘要接收方式" aria-describedby={messageId}>
                         <Radio value="inbox" aria-invalid={invalid || undefined} aria-describedby={messageId}>站内通知</Radio>
                         <Radio value="email" aria-invalid={invalid || undefined} aria-describedby={messageId}>邮件摘要</Radio>
                     </RadioGroup>
@@ -68,7 +68,7 @@ export default function Example() {
             <div className={stack}>
                 <strong>兼容尺寸</strong>
                 <div className={row}>
-                    {(["small", "middle", "large"] as const).map(size => <RadioGroup key={size} size={size} defaultValue="selected" aria-label={`${size} 尺寸`}><Radio value="selected">{size === "middle" ? "20px · 默认" : size === "small" ? "16px · small" : "24px · large"}</Radio></RadioGroup>)}
+                    {(["small", "medium", "large"] as const).map(size => <RadioGroup key={size} size={size} defaultValue="selected" aria-label={`${size} 尺寸`}><Radio value="selected">{size === "medium" ? "20px · 默认" : size === "small" ? "16px · small" : "24px · large"}</Radio></RadioGroup>)}
                 </div>
                 <p className={note}>默认使用 20px 圆环。16px 与 24px 为 Crab 保留的兼容尺寸，点击目标均为 48px。</p>
             </div>

@@ -6,3 +6,5 @@ export { CheckableTag };
 
 export default Tag;
 export { vars as TokenVars } from './token.js';
+
+export type { CheckableTagChangeDetails } from './types.js';

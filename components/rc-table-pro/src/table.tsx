@@ -1,6 +1,6 @@
-import { useComponentSize, type ConfigSize } from '@crab-dev/rc-config-provider';
+import { useComponentSize, useConfig, useLocale, type ConfigSize, type ConfigDensity } from '@crab-dev/rc-config-provider';
 import { type HTMLAttributes, type ReactNode, type Key, useState, useRef } from "react";
-import Table, { type Row, type FilterEditorParam, type MergeCell, type GroupCellRenderParam, type SortColumn, type RowSelection, type CellEditRecord } from "@crab-dev/rc-table";
+import Table, { type Row, type FilterEditorParam, type MergeCell, type GroupCellRenderParam, type SortColumn, type RowSelection, type CellEditRecord, type TableStateProps } from "@crab-dev/rc-table";
 import Tree, { NodeType, OverStateEnum } from "@crab-dev/rc-tree";
 import Checkbox from "@crab-dev/rc-checkbox";
 import LineEdit from "@crab-dev/rc-line-edit";
@@ -84,6 +84,8 @@ const tableAreaStyle = css`
     flex: 1;
     min-width: 0;
     position: relative;
+    /* Contain Table fixed-edge, focus and scrollbar layers below sibling panels. */
+    z-index: 0;
 `;
 
 const sideToolbarStyle = css`
@@ -243,6 +245,8 @@ const retryBtnStyle = css`
 
 interface BaseProps<T extends Row> extends Omit<HTMLAttributes<HTMLDivElement>, "children" | "onCopy" | "onError"> {
     size?: ConfigSize;
+    /** 数据与导航密度，独立于控件尺寸。 */
+    density?: ConfigDensity;
     filterBar?: boolean;
     typeLoaders?: DataTypeLoader<T>[];
     fetchColumns: () => Promise<ProtocolColumnType[]>;
@@ -316,14 +320,18 @@ interface BaseProps<T extends Row> extends Omit<HTMLAttributes<HTMLDivElement>, 
     showRowNumber?: boolean;
 }
 
-export type TableProProps<T extends Row> = BaseProps<T> & TableDataSource<T>;
+export type TableProProps<T extends Row> = BaseProps<T> & TableDataSource<T> & TableStateProps;
 
 /* ───────────────────────────── 组件 ───────────────────────────── */
 
 function TablePro<T extends Row>(props: TableProProps<T>) {
     const tableSize = useComponentSize(props.size);
+    const config = useConfig();
+    const density = props.density ?? config.density;
+    const { messages } = useLocale();
     const {
         size: _size,
+        density: _density,
         fetchColumns,
         typeLoaders,
         expandedGroupIds,
@@ -351,7 +359,7 @@ function TablePro<T extends Row>(props: TableProProps<T>) {
         renderGroupCell,
         sortColumns,
         sortMode = 'client',
-        defaultSortColumns,
+        defaultSortColumns: _defaultSortColumns,
         onSortColumnsChange,
         rowSelection,
         highlightKeyword,
@@ -445,27 +453,48 @@ function TablePro<T extends Row>(props: TableProProps<T>) {
     /* ─── 渲染 ─── */
 
     const loading = colMgmt.columnsLoading || tableData.dataLoading;
+    // Pending/failed requests have not produced an empty result. Keep existing
+    // rows during refresh, but do not paint a competing default/custom empty state.
+    const requestHasFeedback = loading || colMgmt.columnsError !== null || tableData.dataError !== null;
 
     const typedRenderDefaultFilterEditor = renderDefaultFilterEditor;
     const typedRenderGroupCell = renderGroupCell;
+    // Preserve each controlled/default union when forwarding; sorting is already
+    // resolved by useTableData and is therefore controlled at the Table boundary.
+    const groupState = expandedGroupIds === undefined
+        ? { defaultExpandedGroupIds, defaultExpandAll }
+        : { expandedGroupIds };
+    const treeState = expandedRowIds === undefined
+        ? { defaultExpandedRowIds, defaultTreeExpandAll }
+        : { expandedRowIds };
+    const expansionState = expandedRowKeys === undefined
+        ? { defaultExpandedRowKeys }
+        : { expandedRowKeys };
+    const editingState = editingRowId === undefined
+        ? { defaultEditingRowId }
+        : { editingRowId };
 
     const tableContent = (
         <>
             <AutoSizer>
                 {({ width, height }) => (
                     <Table
-            size={tableSize}
+                        {...groupState}
+                        {...treeState}
+                        {...expansionState}
+                        {...editingState}
+                        size={tableSize}
+                        density={density}
                         width={width}
                         height={height}
                         rows={tableData.rows}
                         columns={colMgmt.columns}
-                        expandedGroupIds={expandedGroupIds}
                         onExpandedGroupIdsChange={onExpandedGroupIdsChange}
                         filterBar={filterBar}
                         filters={tableData.filters}
                         onFilterChange={handleFilterChange}
                         renderDefaultFilterEditor={typedRenderDefaultFilterEditor}
-                        empty={empty}
+                        empty={requestHasFeedback ? null : empty}
                         mergeCells={mergeCells}
                         onCopy={onCopy}
                         getRowHeight={getRowHeight}
@@ -479,12 +508,9 @@ function TablePro<T extends Row>(props: TableProProps<T>) {
                         onGroupColumnOrderChange={onGroupColumnOrderChange}
                         groupBy={groupBy}
                         groupRowHeight={groupRowHeight}
-                        defaultExpandedGroupIds={defaultExpandedGroupIds}
-                        defaultExpandAll={defaultExpandAll}
                         renderGroupCell={typedRenderGroupCell}
                         sortColumns={tableData.sortColumns}
                         sortMode={sortMode}
-                        defaultSortColumns={defaultSortColumns}
                         onSortColumnsChange={tableData.handleSortChange}
                         rowSelection={rowSelection}
                         highlightKeyword={showSearchBar ? searchBar.searchKeyword : highlightKeyword}
@@ -497,22 +523,15 @@ function TablePro<T extends Row>(props: TableProProps<T>) {
                         treeData={treeData}
                         getChildRows={getChildRows}
                         treeColumn={treeColumn}
-                        expandedRowIds={expandedRowIds}
-                        defaultExpandedRowIds={defaultExpandedRowIds}
-                        defaultTreeExpandAll={defaultTreeExpandAll}
                         onExpandedRowIdsChange={onExpandedRowIdsChange}
                         expandedRowRender={expandedRowRender}
                         isRowExpandable={isRowExpandable}
-                        expandedRowKeys={expandedRowKeys}
-                        defaultExpandedRowKeys={defaultExpandedRowKeys}
                         onExpandedRowKeysChange={onExpandedRowKeysChange}
                         expandedRowHeight={expandedRowHeight}
                         getExpandedRowHeight={getExpandedRowHeight}
                         expandColumnWidth={expandColumnWidth}
                         expandColumnFixed={expandColumnFixed}
                         editType={editType}
-                        editingRowId={editingRowId}
-                        defaultEditingRowId={defaultEditingRowId}
                         onEditingRowIdChange={onEditingRowIdChange}
                         onRowCommit={onRowCommit}
                         onRowCancel={onRowCancel}
@@ -526,24 +545,24 @@ function TablePro<T extends Row>(props: TableProProps<T>) {
             {colMgmt.columnsError && (
                 <div className={errorOverlayStyle} data-testid="protocol-table-columns-error">
                     <ErrorIcon />
-                    <span>列定义加载失败</span>
+                    <span>{messages.tablePro.columnLoadError}</span>
                     <p className={errorMessageStyle}>{colMgmt.columnsError.message}</p>
-                    <Button type="button" appearance="outlined" className={retryBtnStyle} onClick={colMgmt.retryLoadColumns}>重试</Button>
+                    <Button type="button" appearance="outlined" className={retryBtnStyle} onClick={colMgmt.retryLoadColumns}>{messages.tablePro.retry}</Button>
                 </div>
             )}
             {!colMgmt.columnsError && tableData.dataError && (
                 <div className={errorOverlayStyle} data-testid="protocol-table-data-error">
                     <ErrorIcon />
-                    <span>数据加载失败</span>
+                    <span>{messages.tablePro.dataLoadError}</span>
                     <p className={errorMessageStyle}>{tableData.dataError.message}</p>
-                    <Button type="button" appearance="outlined" className={retryBtnStyle} onClick={() => tableData.loadData(tableData.page, tableData.pageSize, tableData.filters)}>重试</Button>
+                    <Button type="button" appearance="outlined" className={retryBtnStyle} onClick={() => tableData.loadData(tableData.page, tableData.pageSize, tableData.filters)}>{messages.tablePro.retry}</Button>
                 </div>
             )}
             {loading && !colMgmt.columnsError && !tableData.dataError && (
                 <div className={loadingOverlayStyle} data-testid="protocol-table-loading">
                     {/* 复用 rc-spin：随之带来 role="status" / aria-live 与 reduced-motion 降级,
                         原先这层遮罩对读屏完全不可感知 */}
-                    <Spin tip="加载中" />
+                    <Spin tip={messages.common.loading} />
                 </div>
             )}
         </>
@@ -572,15 +591,16 @@ function TablePro<T extends Row>(props: TableProProps<T>) {
                     <Checkbox
                         checked={allChecked}
                         indeterminate={indeterminate}
-                        onChange={() => colMgmt.handleSelectAll()}
-                        aria-label="全选列"
+                        onCheckedChange={() => colMgmt.handleSelectAll()}
+                        aria-label={messages.tablePro.selectAllColumns}
                     />
                     <div className={sideBarSearchStyle}>
                         <LineEdit
                             size="small"
                             value={colMgmt.panelSearchText}
-                            placeholder="搜索列…"
-                            onChange={(e) => colMgmt.setPanelSearchText(e.target.value)}
+                            placeholder={messages.tablePro.searchColumns}
+                            aria-label={messages.tablePro.searchColumns}
+                            onValueChange={colMgmt.setPanelSearchText}
                             allowClear
                             onClear={() => colMgmt.setPanelSearchText("")}
                         />
@@ -589,16 +609,16 @@ function TablePro<T extends Row>(props: TableProProps<T>) {
                         <>
                             <Button
                                 type="button"
-                                appearance="text" shape="circle" size="s" aria-label="展开全部" icon={<ExpandAllIcon />}
+                                appearance="text" shape="circle" size="s" aria-label={messages.tablePro.expandAll} icon={<ExpandAllIcon />}
                                 className={iconButtonStyle}
-                                title="展开全部"
+                                title={messages.tablePro.expandAll}
                                 onClick={colMgmt.handleExpandAll}
                             />
                             <Button
                                 type="button"
-                                appearance="text" shape="circle" size="s" aria-label="折叠全部" icon={<CollapseAllIcon />}
+                                appearance="text" shape="circle" size="s" aria-label={messages.tablePro.collapseAll} icon={<CollapseAllIcon />}
                                 className={iconButtonStyle}
-                                title="折叠全部"
+                                title={messages.tablePro.collapseAll}
                                 onClick={colMgmt.handleCollapseAll}
                             />
                         </>
@@ -614,10 +634,10 @@ function TablePro<T extends Row>(props: TableProProps<T>) {
                                 height={height}
                                 checkable
                                 checkedKeys={colMgmt.panelCheckedKeys}
-                                onCheck={colMgmt.handleTreeCheck}
+                                onCheckedKeysChange={colMgmt.handleTreeCheck}
                                 expandedKeys={colMgmt.panelExpandedKeys}
-                                onExpanded={colMgmt.handlePanelExpandedChange}
-                                defaultNodeHeight={32}
+                                onExpandedKeysChange={colMgmt.handlePanelExpandedChange}
+                                density={density}
                                 draggable
                                 allowDrop={({ dragNode, targetNode, position }) => {
                                     // 列重排只有 UPWARD / DOWN 两种有意义的操作，INSIDE 一律拒绝
@@ -655,10 +675,10 @@ function TablePro<T extends Row>(props: TableProProps<T>) {
                         type="button"
                         appearance="text" size="s" icon={<ResetWidthIcon />}
                         className={resetWidthBtnStyle}
-                        title="将所有列宽恢复为默认值"
+                        title={messages.tablePro.resetWidthsDescription}
                         onClick={colMgmt.handleResetColumnWidths}
                     >
-                        重置列宽
+                        {messages.tablePro.resetWidths}
                     </Button>
                 </div>
             </div>
@@ -686,8 +706,9 @@ function TablePro<T extends Row>(props: TableProProps<T>) {
                         <LineEdit
                             size="small"
                             value={filterPanelSearch}
-                            placeholder="搜索过滤器…"
-                            onChange={(e) => setFilterPanelSearch(e.target.value)}
+                            placeholder={messages.tablePro.searchFilters}
+                            aria-label={messages.tablePro.searchFilters}
+                            onValueChange={setFilterPanelSearch}
                             allowClear
                             onClear={() => setFilterPanelSearch("")}
                         />
@@ -699,14 +720,14 @@ function TablePro<T extends Row>(props: TableProProps<T>) {
                             className={clearAllBtnStyle}
                             onClick={() => handleFilterChange({})}
                         >
-                            清除全部
+                            {messages.tablePro.clearAll}
                         </Button>
                     )}
                 </div>
                 <div className={cx.call(undefined, sideBarBodyStyle, filterPanelScrollStyle)}>
                     {filterableCols.length === 0 ? (
                         <div className={filterPanelEmptyStyle}>
-                            {allFilterable.length === 0 ? "暂无可过滤列" : "无匹配列"}
+                            {allFilterable.length === 0 ? messages.tablePro.noFilterableColumns : messages.tablePro.noMatchingColumns}
                         </div>
                     ) : filterableCols.map(col => {
                         const loader = typeLoaders?.find(l => l.name === col.dataType);
@@ -742,8 +763,9 @@ function TablePro<T extends Row>(props: TableProProps<T>) {
                 <LineEdit
                     size="small"
                     value={searchBar.searchKeyword}
-                    placeholder="在表格中搜索…"
-                    onChange={(e) => { searchBar.setSearchKeyword(e.target.value); searchBar.setSearchActiveIndex(0); }}
+                    placeholder={messages.tablePro.searchTable}
+                    aria-label={messages.tablePro.searchTable}
+                    onValueChange={(value) => { searchBar.setSearchKeyword(value); searchBar.setSearchActiveIndex(0); }}
                     allowClear
                     onClear={() => { searchBar.setSearchKeyword(""); searchBar.setSearchMatchCount(0); searchBar.setSearchActiveIndex(0); }}
                 />
@@ -753,21 +775,21 @@ function TablePro<T extends Row>(props: TableProProps<T>) {
                     <span className={searchBarCountStyle}>
                         {searchBar.searchMatchCount > 0
                             ? `${searchBar.searchActiveIndex + 1}/${searchBar.searchMatchCount}`
-                            : "无匹配"}
+                            : messages.tablePro.noMatches}
                     </span>
                     <Button
                         type="button"
-                        appearance="text" shape="circle" size="s" aria-label="上一个" icon={<SearchPrevIcon />}
+                        appearance="text" shape="circle" size="s" aria-label={messages.tablePro.previousMatch} icon={<SearchPrevIcon />}
                         className={iconButtonStyle}
-                        title="上一个"
+                        title={messages.tablePro.previousMatch}
                         disabled={searchBar.searchMatchCount === 0}
                         onClick={() => searchBar.setSearchActiveIndex(i => Math.max(0, i - 1))}
                     />
                     <Button
                         type="button"
-                        appearance="text" shape="circle" size="s" aria-label="下一个" icon={<SearchNextIcon />}
+                        appearance="text" shape="circle" size="s" aria-label={messages.tablePro.nextMatch} icon={<SearchNextIcon />}
                         className={iconButtonStyle}
-                        title="下一个"
+                        title={messages.tablePro.nextMatch}
                         disabled={searchBar.searchMatchCount === 0}
                         onClick={() => searchBar.setSearchActiveIndex(i => Math.min(searchBar.searchMatchCount - 1, i + 1))}
                     />
@@ -790,9 +812,9 @@ function TablePro<T extends Row>(props: TableProProps<T>) {
                     appearance={colMgmt.panelOpen && colMgmt.sideBarTab === "columns" ? "tonal" : "text"}
                     isSelected={colMgmt.panelOpen && colMgmt.sideBarTab === "columns"}
                     aria-expanded={colMgmt.panelOpen && colMgmt.sideBarTab === "columns"}
-                    shape="circle" size="s" aria-label="列" icon={<ColumnsIcon />}
+                    shape="circle" size="s" aria-label={messages.tablePro.columns} icon={<ColumnsIcon />}
                     type="button"
-                    title="列"
+                    title={messages.tablePro.columns}
                     onClick={() => handleTabClick("columns")}
                 />
                 <Button
@@ -800,17 +822,17 @@ function TablePro<T extends Row>(props: TableProProps<T>) {
                     appearance={colMgmt.panelOpen && colMgmt.sideBarTab === "filters" ? "tonal" : "text"}
                     isSelected={colMgmt.panelOpen && colMgmt.sideBarTab === "filters"}
                     aria-expanded={colMgmt.panelOpen && colMgmt.sideBarTab === "filters"}
-                    shape="circle" size="s" aria-label="过滤器" icon={<FiltersIcon />}
+                    shape="circle" size="s" aria-label={messages.tablePro.filters} icon={<FiltersIcon />}
                     type="button"
-                    title="过滤器"
+                    title={messages.tablePro.filters}
                     onClick={() => handleTabClick("filters")}
                 />
                 {exportFileName && (
                     <Button
                         className={iconButtonStyle}
                         type="button"
-                        appearance="text" shape="circle" size="s" aria-label="导出 CSV" icon={<ExportIcon />}
-                        title="导出 CSV"
+                        appearance="text" shape="circle" size="s" aria-label={messages.tablePro.exportCsv} icon={<ExportIcon />}
+                        title={messages.tablePro.exportCsv}
                         onClick={() => exportToCSV(colMgmt.rawColumnsRef.current, tableData.rows, typeLoaders, exportFileName)}
                     />
                 )}
@@ -837,9 +859,10 @@ function TablePro<T extends Row>(props: TableProProps<T>) {
         <div className={paginationBarStyle}>
             <Pagination
                 total={tableData.total}
-                current={tableData.page}
+                value={tableData.page}
                 pageSize={tableData.pageSize}
-                onChange={tableData.handlePageChange}
+                onValueChange={(page, details) => tableData.handlePageChange(page, details.pageSize, details.reason, details.event)}
+                onPageSizeChange={pagination.onPageSizeChange}
                 showSizeChanger={showSizeChanger}
                 showQuickJumper={showQuickJumper}
                 showTotal={showTotal}
@@ -849,8 +872,8 @@ function TablePro<T extends Row>(props: TableProProps<T>) {
             <Button
                 className={iconButtonStyle}
                 type="button"
-                appearance="text" shape="circle" size="s" aria-label="立即刷新" icon={<RefreshIcon />}
-                title="立即刷新"
+                appearance="text" shape="circle" size="s" aria-label={messages.tablePro.refresh} icon={<RefreshIcon />}
+                title={messages.tablePro.refresh}
                 onClick={() => tableData.loadData(tableData.page, tableData.pageSize, tableData.filters)}
             />
         </div>

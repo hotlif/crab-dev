@@ -6,6 +6,7 @@ type DocsTypePlaceholder = ((...args: never[]) => unknown) & {
     readonly [key: number]: DocsTypePlaceholder;
 };
 type Direction = DocsTypePlaceholder;
+type NotificationOpenChangeDetails = DocsTypePlaceholder;
 type ReactNode = DocsTypePlaceholder;
 
 export interface NotificationProps {
@@ -29,16 +30,6 @@ export interface NotificationProps {
      * 消息通知显示的位置
      */
     "direction"?: Direction;
-
-    /**
-     * 是否开启
-     */
-    "open": boolean;
-
-    /**
-     * 状态发生改变的时候触发的事件
-     */
-    "onOpenChange": (open: boolean) => void;
 
     /**
      * 消息通知的内容
@@ -70,4 +61,19 @@ export interface NotificationProps {
      * 是否暂停进度动画
      */
     "paused"?: boolean;
+
+    /**
+     * 暂无说明。 与 defaultOpen 互斥，不能同时提供。
+     */
+    "open"?: boolean;
+
+    /**
+     * 暂无说明。 与 open 互斥，不能同时提供。
+     */
+    "defaultOpen"?: boolean;
+
+    /**
+     * 暂无说明。
+     */
+    "onOpenChange"?: ((open: boolean, details: NotificationOpenChangeDetails) => void);
 }

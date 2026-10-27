@@ -10,6 +10,15 @@ export const itemStyle = css`
     font-size: ${token.typography.body.medium['font-size']}; font-weight: ${token.typography.label['font-weight']};
     &:nth-child(3n + 2) { color: ${token.color.secondary['on-container']}; background: ${token.color.secondary.container}; }
     &:nth-child(3n) { color: ${token.color.tertiary['on-container']}; background: ${token.color.tertiary.container}; }
+    @media (forced-colors: active) {
+        && {
+            forced-color-adjust: none;
+            color: CanvasText;
+            background: Canvas;
+            border-color: CanvasText;
+            box-shadow: none;
+        }
+    }
 `;
 export const heightStyles: Record<number, string> = {
     80: css`height: calc(${token.size[40]} * 2);`,

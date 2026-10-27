@@ -29,7 +29,7 @@ export default function EditDemo() {
                 aria-label={row.dataRef.recordNo + " 账面库存，最少 " + row.dataRef.reserved}
                 min={row.dataRef.reserved} max={99999} precision={0}
                 value={typeof editorValue === "number" ? editorValue : row.dataRef.onHand}
-                onChange={onEditorValueChange}
+                onValueChange={onEditorValueChange}
                 onKeyDown={event => { if (event.key === "Escape") { event.preventDefault(); event.stopPropagation(); onCancel?.(); } }}
                 onBlur={event => {
                     const text = event.currentTarget.value.trim();

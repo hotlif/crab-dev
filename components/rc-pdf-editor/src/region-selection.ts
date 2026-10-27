@@ -1,4 +1,5 @@
 import { PdfEditorError, type PdfDocumentState, type PdfOperationOptions, type PdfPageRegion, type PdfRegionSelection } from './types.js';
+import { pdfError } from './pdf-messages.js';
 import type { PdfSession } from './session.js';
 
 /** 一次性选区请求与 React 渲染分离，保证同一轮连续调用及取消都立即生效。 */
@@ -13,10 +14,10 @@ export class RegionSelection {
 
     start = (options: PdfOperationOptions = {}): Promise<PdfRegionSelection> => {
         if (options.signal?.aborted) return Promise.reject(new PdfEditorError('cancelled', '区域选择已取消'));
-        if (this.finish) return Promise.reject(new PdfEditorError('busy', '已有区域选择正在进行'));
+        if (this.finish) return Promise.reject(pdfError('busy', 'region.pending'));
         const state = this.session.getState(), document = state.document;
-        if (state.status !== 'ready' || !document) return Promise.reject(new PdfEditorError('document', '请先打开 PDF'));
-        if (state.pendingOperations.length) return Promise.reject(new PdfEditorError('busy', '请等待文档操作完成'));
+        if (state.status !== 'ready' || !document) return Promise.reject(pdfError('document', 'document.required'));
+        if (state.pendingOperations.length) return Promise.reject(pdfError('busy', 'region.wait-document'));
         return new Promise((resolve, reject) => {
             const cancel = () => this.cancel();
             const unsubscribe = this.session.subscribe(() => {

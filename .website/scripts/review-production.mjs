@@ -1,11 +1,13 @@
-import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { mkdir, readFile, readdir, writeFile } from "node:fs/promises";
 import { createHash } from "node:crypto";
 import { productionRevision } from "./production-revision.mjs";
+import { loadLibraryManifest } from "../../scripts/library-manifest.mjs";
 
 // Local, isolated Chrome only. No dependencies, account sessions or production writes.
 const debugOrigin = "http://127.0.0.1:9334";
 const siteOrigin = "http://127.0.0.1:4173";
-const output = new URL("../review/quality/production/", import.meta.url);
+const runId = new Date().toISOString().replace(/[:.]/g, "-");
+const output = new URL(`../review/runs/${runId}/`, import.meta.url);
 await mkdir(output, { recursive: true });
 const targets = await (await fetch(`${debugOrigin}/json/list`)).json();
 const target = targets.find(item => item.type === "page");
@@ -40,11 +42,12 @@ async function evaluate(expression) {
     return result.result.value;
 }
 const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
-const baseline = JSON.parse(await readFile(new URL("../review/quality/baseline.json", import.meta.url), "utf8"));
-const all = baseline.pages.map(page => "/" + page.path.replace(/^\.website\/docs\//, "").replace(/(?:\/index)?\.mdx$/, "").replace(/^index$/, ""));
+const inventory = await loadLibraryManifest();
+const pages = (await readdir(new URL("../docs/", import.meta.url), { recursive: true })).filter(file => file.endsWith(".mdx"));
+const all = pages.map(file => "/" + file.replaceAll("\\", "/").replace(/(?:\/index)?\.mdx$/, "").replace(/^index$/, ""));
 const priorityRoutes = ["/", "/learn/components", "/components/rc-token-global", "/components/rc-token-semantic"];
 const requestedRoutes = process.argv.find(arg => arg.startsWith("--routes="))?.slice("--routes=".length).split(",");
-if (requestedRoutes?.some(route => !all.includes(route))) throw new Error("Requested route is outside the baseline inventory");
+if (requestedRoutes?.some(route => !all.includes(route))) throw new Error("Requested route is outside the current source inventory");
 const routes = requestedRoutes ?? (process.argv.includes("--all") ? all : priorityRoutes);
 const resultFile = requestedRoutes ? "batch-pages.json" : process.argv.includes("--all") ? "all-pages.json" : "priority-pages.json";
 const results = [];
@@ -53,8 +56,14 @@ const buildHash = createHash("sha256").update(await readFile(new URL("../docs-di
 try {
     await call("Page.enable");
     await call("Runtime.enable");
-    for (const route of routes) for (const theme of ["light", "dark"]) for (const width of [320, 768, 1440]) {
+    await call("Page.navigate", { url: siteOrigin });
+    for (let attempt = 0; attempt < 80; attempt++) {
+        if (await evaluate(`location.origin === ${JSON.stringify(siteOrigin)} && document.readyState === 'complete'`)) break;
+        await delay(100);
+    }
+    for (const design of inventory.designSystems.map(item => item.id)) for (const route of routes) for (const theme of ["light", "dark"]) for (const width of [320, 768, 1440]) {
         pageErrors = [];
+        await evaluate(`localStorage.setItem('crab-docs-design', ${JSON.stringify(design)}); localStorage.setItem('wake-docs-theme', ${JSON.stringify(theme)});`);
         await call("Emulation.setDeviceMetricsOverride", { width, height: 960, deviceScaleFactor: 1, mobile: false });
         await call("Emulation.setEmulatedMedia", { features: [{ name: "prefers-color-scheme", value: theme }] });
         await call("Page.navigate", { url: `${siteOrigin}${route}` });
@@ -77,15 +86,15 @@ try {
         }
         const metrics = await evaluate(`(() => {
             const root = document.documentElement;
-            const visible = el => { const r = el.getBoundingClientRect(); const c = getComputedStyle(el); return r.width > 0 && r.height > 0 && c.visibility !== 'hidden' && c.display !== 'none' && !el.closest('[inert],[aria-hidden="true"]'); };
+            const visible = el => { if (!el.checkVisibility({ visibilityProperty: true, opacityProperty: true, contentVisibilityAuto: true }) || el.closest('[inert],[aria-hidden="true"]')) return false; const r = el.getBoundingClientRect(); return r.width > 0 && r.height > 0; };
             return {
-                title: document.title, theme: document.querySelector('.crab-docs')?.getAttribute('data-theme'),
+                title: document.title, theme: document.querySelector('.crab-docs')?.getAttribute('data-theme'), designSystem: document.querySelector('.crab-docs')?.getAttribute('data-crab-design'),
                 viewport: innerWidth, pageWidth: root.scrollWidth, height: root.scrollHeight,
                 headings: Array.from(document.querySelectorAll('main h1, main h2')).map(el => ({ tag: el.tagName, id: el.id, text: el.textContent.trim(), visible: visible(el) })),
                 outside: Array.from(document.querySelectorAll('main *')).filter(visible).filter(el => { const r = el.getBoundingClientRect(); return r.right > innerWidth + 1 || r.left < -1; }).slice(0, 12).map(el => ({ tag: el.tagName, class: el.className?.baseVal ?? el.className, text: el.textContent.slice(0, 80) })),
             };
         })()`);
-        const name = (route === "/" ? "home" : route.slice(1).replaceAll("/", "-")) + `-${theme}-${width}`;
+        const name = (route === "/" ? "home" : route.slice(1).replaceAll("/", "-")) + `-${design}-${theme}-${width}`;
         // Detailed screenshots for priority pages; all pages still get measured.
         if (priorityRoutes.includes(route)) {
             const capture = await call("Page.captureScreenshot", { format: "png", captureBeyondViewport: true, clip: { x: 0, y: 0, width, height: Math.min(metrics.height, 24000), scale: 1 } });
@@ -93,7 +102,7 @@ try {
             const top = await call("Page.captureScreenshot", { format: "png", captureBeyondViewport: false });
             await writeFile(new URL(`${name}-top.png`, output), Buffer.from(top.data, "base64"));
         }
-        const row = { route, expectedTheme: theme, width, ...metrics, errors: pageErrors, overflow: metrics.pageWidth > width + 1, themeMatches: metrics.theme === theme };
+        const row = { route, expectedDesignSystem: design, expectedTheme: theme, width, ...metrics, errors: pageErrors, overflow: metrics.pageWidth > width + 1, themeMatches: metrics.theme === theme && metrics.designSystem === design };
         results.push(row);
         console.log(`${row.overflow || !row.themeMatches || pageErrors.length ? "REVIEW" : "MEASURED"} ${name}: ${metrics.pageWidth}px, ${metrics.height}px high`);
         await writeFile(new URL(resultFile, output), JSON.stringify({ capturedAt: new Date().toISOString(), browser: (await (await fetch(`${debugOrigin}/json/version`)).json()).Browser, buildHash, revision, status: "Measurements only; manual visual and assistive-technology review required.", results }, null, 2) + "\n");

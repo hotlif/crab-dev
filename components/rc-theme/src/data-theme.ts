@@ -6,7 +6,7 @@ import token from '@crab-dev/rc-token-semantic';
 // on every design boundary so nested previews restore geometry and selection.
 globalStyle`
     :root,
-    [data-crab-design='material'] {
+    [data-crab-design='md3'] {
         --token-semantic-data-table-header-background: ${token.color.surface.container};
         --token-semantic-data-table-header-color: ${token.color.text.secondary};
         --token-semantic-data-table-border-color: ${token.color.border.default};
@@ -54,7 +54,7 @@ globalStyle`
         --token-semantic-data-split-grip-radius: ${palette.radius[1]};
     }
 
-    [data-crab-design='macos'] {
+    [data-crab-design='apple'] {
         --token-semantic-data-table-header-background: ${token.color.workspace.toolbar};
         --token-semantic-data-table-header-color: ${token.color.text.secondary};
         --token-semantic-data-table-border-color: ${token.color.border.subtle};
@@ -95,7 +95,7 @@ globalStyle`
         --token-semantic-data-chart-series-7: ${palette.green[300]};
         --token-semantic-data-chart-series-8: ${palette.amber[600]};
     }
-    [data-crab-design='macos'][data-theme='dark'] {
+    [data-crab-design='apple'][data-theme='dark'] {
         --token-semantic-data-chart-series-1: ${palette.blue[400]};
         --token-semantic-data-chart-series-2: ${palette.amber[400]};
         --token-semantic-data-chart-series-3: ${palette.green[400]};

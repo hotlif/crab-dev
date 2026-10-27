@@ -24,14 +24,14 @@ const ShowCountDemo = () => {
             <LineEdit
                 value={title}
                 showCount
-                onChange={(e) => setTitle(e.target.value)}
+                onValueChange={value => setTitle(value)}
                 placeholder="标题（仅显示字符数）"
             />
             <LineEdit
                 value={bio}
                 showCount
                 maxLength={30}
-                onChange={(e) => setBio(e.target.value)}
+                onValueChange={value => setBio(value)}
                 placeholder="简介（30 字以内）"
             />
         </div>

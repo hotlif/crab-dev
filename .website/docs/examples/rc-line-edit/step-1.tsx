@@ -31,7 +31,7 @@ export default function Example() {
                 <Button appearance={appearance === "filled" ? "tonal" : "text"} aria-pressed={appearance === "filled"} onClick={() => setAppearance("filled")}>填充 Filled</Button>
                 <Button appearance={appearance === "outlined" ? "tonal" : "text"} aria-pressed={appearance === "outlined"} onClick={() => setAppearance("outlined")}>描边 Outlined</Button>
             </div>
-            <LineEdit label="项目名称" appearance={appearance} value={value} onChange={event => setValue(event.target.value)}
+            <LineEdit label="项目名称" appearance={appearance} value={value} onValueChange={value => setValue(value)}
                 supportingText="起一个容易记住的名字，最多 30 字。" maxLength={30} showCount allowClear onClear={() => setValue("")} />
             <output className={result}><span>当前值</span><span>{value || "等待新的灵感"}</span></output>
     </div>;

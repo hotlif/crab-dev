@@ -1,8 +1,10 @@
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { gzipSync } from 'node:zlib';
-import { bundle } from '@crab-dev/wake';
+import path from 'node:path';
+import { build, bundle } from '@crab-dev/wake';
 import { serverSamplePdf } from './web-component/sample-pdf.mjs';
+import { selectStandaloneEntry } from './standalone-output.mjs';
 
 const root = new URL('../', import.meta.url);
 const seen = new Set();
@@ -53,18 +55,27 @@ definePdfEditor({
 });
 `);
 
-const result = await bundle({
+// Wake 0.1.45 bundle() injects imported component CSS into document.head even
+// when minified. Production build() extracts it instead. The component already
+// owns the same collected CSS in Shadow DOM with its configured nonce; global
+// injection would both leak styles and violate the host's nonce-only CSP.
+const result = await build({
     cwd: fileURLToPath(root), entry: '.web-component/entry.mjs', configPath: 'scripts/web-component/wake.config.toml',
-    outfile: 'dist/pdf-editor.js', platform: 'browser', format: 'iife', minify: true,
+    outdir: '.web-component/standalone-build',
 });
 for (const diagnostic of result.diagnostics) {
     if (diagnostic.severity === 'warning' || diagnostic.severity === 'error') throw new Error(diagnostic.message);
 }
-if (result.code.includes('Download the React DevTools') || result.code.includes('react.dev/link/wrap-tests-with-act')) {
+const entry = selectStandaloneEntry(result.files);
+if (!result.outputDir) throw new Error('Wake did not report the standalone build output directory');
+if (!path.isAbsolute(result.outputDir)) throw new Error('Wake did not report an absolute standalone build output directory');
+const code = await readFile(path.resolve(result.outputDir, entry), 'utf8');
+if (code.includes('Download the React DevTools') || code.includes('react.dev/link/wrap-tests-with-act')) {
     throw new Error('The standalone bundle must contain the production React runtime');
 }
+await writeFile(new URL('dist/pdf-editor.js', root), code);
 await mkdir(new URL('.fixtures/', root), { recursive: true });
-await writeFile(new URL('.fixtures/test-web-component.json', root), JSON.stringify(result.code));
+await writeFile(new URL('.fixtures/test-web-component.json', root), JSON.stringify(code));
 await writeFile(new URL('dist/index.html', root), await readFile(new URL('scripts/web-component/index.html', root)));
 await writeFile(new URL('dist/minimal.html', root), await readFile(new URL('scripts/web-component/minimal.html', root)));
 const demo = await bundle({
@@ -81,4 +92,4 @@ await writeFile(new URL('.fixtures/test-web-component-demo.json', root), JSON.st
 }));
 await mkdir(new URL('dist/samples/', root), { recursive: true });
 await writeFile(new URL('dist/samples/server-demo.pdf', root), serverSamplePdf());
-console.log(`Web Component: ${Buffer.byteLength(result.code)} bytes (${gzipSync(result.code).byteLength} bytes gzip), ${styles.length} stylesheets; React, CSS, Worker and WASM included.`);
+console.log(`Web Component: ${Buffer.byteLength(code)} bytes (${gzipSync(code).byteLength} bytes gzip), ${styles.length} stylesheets; React, CSS, Worker and WASM included.`);

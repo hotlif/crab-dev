@@ -11,6 +11,7 @@ import {
     type MockFunction,
 } from '@crab-dev/wake/test/react';
 import { StrictMode, memo } from 'react';
+import ConfigProvider from '@crab-dev/rc-config-provider';
 
 import { RealmError } from '../types.js';
 import type { MountLifecycle, RealmError as RealmErrorType, RealmRemoteProps } from '../types.js';
@@ -173,6 +174,93 @@ describe('Realm', () => {
         await fireEvent.click(screen.getByRole('button', { name: '再来一次' }));
         await flush();
         expect(loadMock).toHaveBeenCalledTimes(2);
+    });
+
+    it('updates a built-in error when locale changes without loading again, then retries once', async () => {
+        const handles = deferLoad();
+        const onError = mock.fn<(error: RealmErrorType) => void>();
+        const viewFor = (locale: 'zh-CN' | 'en-US') => <ConfigProvider locale={locale}>
+            <Realm {...BASE} delay={0} onError={onError} data-testid="localized-realm" />
+        </ConfigProvider>;
+        const view = await render(viewFor('zh-CN'));
+        await flush();
+        handles[0].resolve({ default: 42 });
+        await flush();
+        const host = screen.getByTestId('localized-realm');
+        const retry = screen.getByRole('button', { name: '重试' });
+        const original = onError.calls.calls[0][0];
+        expect(screen.getByText(original.message)).toBeDefined();
+
+        await view.rerender(viewFor('en-US'));
+        await flush();
+        expect(screen.getByText('Unable to load remote module')).toBeDefined();
+        expect(screen.getByText('Remote export \'default\' is not a React component. If it exports mount/unmount lifecycles, use protocol="mount".')).toBeDefined();
+        expect(screen.getByTestId('localized-realm')).toBe(host);
+        expect(screen.getByRole('button', { name: 'Retry' })).toBe(retry);
+        expect(loadMock).toHaveBeenCalledTimes(1);
+        expect(onError).toHaveBeenCalledTimes(1);
+        expect(original.message).toContain('不是 React 组件');
+
+        await fireEvent.click(retry);
+        await flush();
+        expect(loadMock).toHaveBeenCalledTimes(2);
+        handles[1].resolve({ default: RemoteHello });
+        await flush();
+        const remote = screen.getByText('远程内容: hello');
+        await view.rerender(viewFor('zh-CN'));
+        await flush();
+        expect(screen.getByText('远程内容: hello')).toBe(remote);
+        expect(screen.getByTestId('localized-realm')).toBe(host);
+        expect(loadMock).toHaveBeenCalledTimes(2);
+        expect(onError).toHaveBeenCalledTimes(1);
+    });
+
+    for (const error of [
+        new RealmError('init', BASE.entry, BASE.scope, '远程容器 init(shareScope) 抛出异常'),
+        new Error('远端提供的业务说明'),
+    ]) {
+        it(`preserves caller-owned ${error.name} details across locale changes`, async () => {
+            const handles = deferLoad();
+            const onError = mock.fn<(error: RealmErrorType) => void>();
+            const viewFor = (locale: 'zh-CN' | 'en-US') => <ConfigProvider locale={locale}>
+                <Realm {...BASE} delay={0} onError={onError} />
+            </ConfigProvider>;
+            const view = await render(viewFor('en-US'));
+            await flush();
+            handles[0].reject(error);
+            await flush();
+            const description = screen.getByText(error.message);
+            const delivered = onError.calls.calls[0][0];
+            if (error instanceof RealmError) expect(delivered).toBe(error);
+            else expect(delivered.cause).toBe(error);
+            await view.rerender(viewFor('zh-CN'));
+            await flush();
+            expect(screen.getByText(error.message)).toBe(description);
+            expect(loadMock).toHaveBeenCalledTimes(1);
+            expect(onError).toHaveBeenCalledTimes(1);
+        });
+    }
+
+    it('passes the unchanged built-in diagnostic to an explicit errorFallback', async () => {
+        const handles = deferLoad();
+        const onError = mock.fn<(error: RealmErrorType) => void>();
+        const viewFor = (locale: 'zh-CN' | 'en-US') => <ConfigProvider locale={locale}>
+            <Realm {...BASE} delay={0} onError={onError}
+                errorFallback={error => <div data-testid="own-error">{error.message}</div>} />
+        </ConfigProvider>;
+        const view = await render(viewFor('en-US'));
+        await flush();
+        handles[0].resolve({ default: 42 });
+        await flush();
+        const original = onError.calls.calls[0][0];
+        const custom = screen.getByTestId('own-error');
+        expect(custom.textContent).toBe(original.message);
+        expect(original.message).toContain('不是 React 组件');
+        await view.rerender(viewFor('zh-CN'));
+        await flush();
+        expect(screen.getByTestId('own-error')).toBe(custom);
+        expect(custom.textContent).toBe(original.message);
+        expect(loadMock).toHaveBeenCalledTimes(1);
     });
 
     it('卸载竞态：pending 中卸载后 resolve, onReady 不触发也无 act 警告', async () => {

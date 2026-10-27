@@ -58,6 +58,14 @@ import { demos } from "../_generated/rc-auto-sizer.js";
 - 测量容器不应改变内容的语义顺序或制造额外可聚焦元素。
 - 缩放到 200% 和窄屏时仍要确保内容可达，不能因为宽高为零而永久隐藏状态说明。
 
+### 设计依据与覆盖
+
+- **MD3 Expressive**：这是 Web 布局基础能力，没有对应的 M3 视觉组件；最终被测量的界面仍需遵循 M3 响应式、排版和可访问规则。 [依据 1](https://m3.material.io/foundations/layout/understanding-layout/overview) · [依据 2](https://material-web.dev/) · [依据 3](https://github.com/material-components/material-web)
+- **Apple**：本包没有独立的 Apple 视觉组件；配置、测量或运行能力为上层控件服务，行为和类型仍需独立验收。 [依据 1](https://developer.apple.com/design/human-interface-guidelines/components) · [依据 2](https://developer.apple.com/design/human-interface-guidelines/accessibility)
+- **shadcn/ui**：本包没有独立的 shadcn/ui 视觉组件；由使用它的上层组件决定外观，基础能力不因无独立视觉而免于行为和类型检查。 [依据 1](https://ui.shadcn.com/docs/components) · [依据 2](https://ui.shadcn.com/docs/theming) · [依据 3](https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4)
+
+设计依据不等于完成验收；当前状态与适用边界见[覆盖矩阵](/guides/design-coverage)。
+
 ## 常见问题
 
 ### 为什么高度是 0？
@@ -67,3 +75,10 @@ import { demos } from "../_generated/rc-auto-sizer.js";
 ## API
 
 <API source="../_generated_api/rc-auto-sizer.ts" symbol="AutoSizerProps" component="AutoSizer" />
+
+<details data-docs-native-props>
+<summary>AutoSizer 继承的原生属性（277 项）</summary>
+
+<API source="../_generated_api/rc-auto-sizer-native.ts" symbol="AutoSizerPropsNativeAttributes" component="AutoSizer 继承的原生属性" />
+
+</details>

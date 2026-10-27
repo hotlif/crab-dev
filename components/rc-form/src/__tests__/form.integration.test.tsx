@@ -1,4 +1,5 @@
-import { beforeAll, describe, expect, it, mock, render, act } from "@crab-dev/wake/test/react";
+import { beforeAll, describe, expect, it, mock } from "@crab-dev/wake/test";
+import { render, act } from "@crab-dev/wake/test/react";
 
 import useForm from "../hooks/useForm.js";
 import { RuleType, FormValidationError, type FormItemEditor } from "../types.js";
@@ -14,8 +15,8 @@ type TestRecord = Record<string, unknown>;
 (globalThis as typeof globalThis & {
     IS_REACT_ACT_ENVIRONMENT?: boolean;
 }).IS_REACT_ACT_ENVIRONMENT = true;
-const InputEditor = ({ value, onChange }: FormItemEditor<string>) => {
-    return (<input data-testid="editor" value={value ?? ""} onChange={(event) => onChange?.(event.target.value)}/>);
+const InputEditor = ({ value, onValueChange }: FormItemEditor<string>) => {
+    return (<input data-testid="editor" value={value ?? ""} onChange={(event) => onValueChange?.(event.target.value)}/>);
 };
 const flush = async () => {
     await act(async () => {
@@ -177,8 +178,8 @@ describe("Form integration", () => {
         expect(skippedValidator).not.toHaveBeenCalled();
         await unmount();
     });
-    const ButtonEditor = ({ onChange }: FormItemEditor<string>) => {
-        return (<button type="button" data-testid="editor-trigger" onClick={() => onChange?.("editor-change")}>
+    const ButtonEditor = ({ onValueChange }: FormItemEditor<string>) => {
+        return (<button type="button" data-testid="editor-trigger" onClick={() => onValueChange?.("editor-change")}>
                 trigger
         </button>);
     };
@@ -211,7 +212,7 @@ describe("Form integration", () => {
             formApi.setFieldValue("name", "Crab");
         });
         await flush();
-        expect(onFieldValueChange).toHaveBeenCalled();
+        expect(onFieldValueChange).not.toHaveBeenCalled();
         await act(() => {
             form.dispatchEvent(new Event("submit", { bubbles: true, cancelable: true }));
         });
@@ -270,11 +271,17 @@ describe("Form integration", () => {
                 </Item>
             </Form>);
         };
-        const { unmount } = await render(<Demo />);
+        const { container, unmount } = await render(<Demo />);
         await flush();
         onFieldValueChange.clear();
         await act(() => {
-            formApi.setFieldValue(["user", "name"], "Bob");
+            formApi.setFieldValue(["user", "name"], "Programmatic");
+        });
+        expect(onFieldValueChange).not.toHaveBeenCalled();
+        const input = container.querySelector('input[data-testid="editor"]') as HTMLInputElement;
+        await act(() => {
+            Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value')!.set!.call(input, 'Bob');
+            input.dispatchEvent(new Event('input', { bubbles: true }));
         });
         await flush();
         expect(onFieldValueChange).toHaveBeenCalledTimes(1);

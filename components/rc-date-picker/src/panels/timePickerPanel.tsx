@@ -1,3 +1,4 @@
+import { usePickerLocale } from '../locale.js';
 import { cx } from '@crab-dev/css';
 import Button from '@crab-dev/rc-button';
 import LineEdit from '@crab-dev/rc-line-edit';
@@ -16,6 +17,7 @@ export interface TimePickerValue {
 }
 export type TimePickerMode = 'input' | 'dial';
 export interface TimePickerPanelProps extends Omit<HTMLAttributes<HTMLDivElement>, 'defaultValue'> {
+    locale?: string;
     value?: TimePickerValue | null;
     onValueChange?: (value: TimePickerValue | null) => void;
     /** 小时制；值始终使用 0–23 小时，默认 24。 */
@@ -60,7 +62,7 @@ function TimeField({ value, min, max, label, onChange, onValidityChange }: {
             aria-invalid={!valid || undefined}
             aria-describedby={!valid ? `${id}-error` : undefined}
             onFocus={event => event.currentTarget.select()}
-            onChange={event => update(event.currentTarget.value)}
+            onValueChange={next => update(next)}
             onBlur={() => { if (valid) setEditing(null); }}
             onKeyDown={event => {
                 if (event.key !== 'ArrowUp' && event.key !== 'ArrowDown') return;
@@ -74,9 +76,10 @@ function TimeField({ value, min, max, label, onChange, onValidityChange }: {
 }
 
 export default function TimePickerPanel({
-    className, value, onValueChange, hourCycle = 24, defaultMode = 'dial', showSeconds = false,
+    className, locale: localeProp, value, onValueChange, hourCycle = 24, defaultMode = 'dial', showSeconds = false,
     onValidityChange, actions, ...restProps
 }: TimePickerPanelProps) {
+    const { locale, messages } = usePickerLocale(localeProp);
     const [initialValue] = useState(() => {
         const now = Temporal.Now.zonedDateTimeISO();
         return { hour: now.hour, minute: now.minute, second: 0 };
@@ -133,24 +136,24 @@ export default function TimePickerPanel({
         setMode(actualMode === 'input' ? 'dial' : 'input');
     };
     const period = (pm: boolean) => onValueChange?.({ ...resolved, hour: resolved.hour % 12 + (pm ? 12 : 0) });
-    return <div ref={panelRef} role="group" aria-label="选择时间" className={cx(timePanelStyle, className)} {...restProps}>
-        <h2 className={timeTitleStyle}>{actualMode === 'input' ? '输入时间' : '选择时间'}</h2>
+    return <div ref={panelRef} role="group" aria-label={messages.chooseTime} className={cx(timePanelStyle, className)} {...restProps}>
+        <h2 className={timeTitleStyle}>{actualMode === 'input' ? messages.enterTime : messages.chooseTime}</h2>
         <div className={timeFieldsStyle} data-mode={actualMode} data-hour-cycle={hourCycle}>
             <div className={timePairStyle}>
-                <div data-time-part="hour" onFocus={() => { if (actualMode === 'input') setActivePart('hour'); }}>{actualMode === 'input' ? <TimeField key={hourCycle} value={hour} min={hourCycle === 12 ? 1 : 0} max={hourCycle === 12 ? 12 : 23} label="小时" onChange={next => update('hour', next)} onValidityChange={valid => updateValidity('hour', valid)} />
-                    : <Button type="button" appearance="text" data-time-field className={timeFieldStyle} aria-label={`选择小时，当前 ${pad(hour)}`} aria-pressed={activePart === 'hour'} onClick={() => setActivePart('hour')}>{pad(hour)}</Button>}
+                <div data-time-part="hour" onFocus={() => { if (actualMode === 'input') setActivePart('hour'); }}>{actualMode === 'input' ? <TimeField key={hourCycle} value={hour} min={hourCycle === 12 ? 1 : 0} max={hourCycle === 12 ? 12 : 23} label={messages.hour} onChange={next => update('hour', next)} onValidityChange={valid => updateValidity('hour', valid)} />
+                    : <Button type="button" appearance="text" data-time-field className={timeFieldStyle} aria-label={`${messages.selectHour} ${pad(hour)}`} aria-pressed={activePart === 'hour'} onClick={() => setActivePart('hour')}>{pad(hour)}</Button>}
                 </div>
                 <span aria-hidden="true" className={timeSeparatorStyle}>:</span>
-                <div data-time-part="minute" onFocus={() => { if (actualMode === 'input') setActivePart('minute'); }}>{actualMode === 'input' ? <TimeField value={resolved.minute} min={0} max={59} label="分钟" onChange={next => update('minute', next)} onValidityChange={valid => updateValidity('minute', valid)} />
-                    : <Button ref={minuteRef} type="button" appearance="text" data-time-field className={timeFieldStyle} aria-label={`选择分钟，当前 ${pad(resolved.minute)}`} aria-pressed={activePart === 'minute'} onClick={() => setActivePart('minute')}>{pad(resolved.minute)}</Button>}
+                <div data-time-part="minute" onFocus={() => { if (actualMode === 'input') setActivePart('minute'); }}>{actualMode === 'input' ? <TimeField value={resolved.minute} min={0} max={59} label={messages.minute} onChange={next => update('minute', next)} onValidityChange={valid => updateValidity('minute', valid)} />
+                    : <Button ref={minuteRef} type="button" appearance="text" data-time-field className={timeFieldStyle} aria-label={`${messages.selectMinute} ${pad(resolved.minute)}`} aria-pressed={activePart === 'minute'} onClick={() => setActivePart('minute')}>{pad(resolved.minute)}</Button>}
                 </div>
             </div>
             {showSeconds && <div className={timePairStyle}>
                 <span aria-hidden="true" className={timeSeparatorStyle}>:</span>
-                <TimeField value={resolved.second} min={0} max={59} label="秒" onChange={next => update('second', next)} onValidityChange={valid => updateValidity('second', valid)} />
+                <TimeField value={resolved.second} min={0} max={59} label={messages.second} onChange={next => update('second', next)} onValidityChange={valid => updateValidity('second', valid)} />
             </div>}
-            {hourCycle === 12 && <div role="radiogroup" aria-label="上午或下午" data-period className={timePeriodStyle}>
-                {[false, true].map(pm => <Button key={String(pm)} type="button" appearance="text" role="radio" aria-label={pm ? '下午' : '上午'} aria-checked={(resolved.hour >= 12) === pm} tabIndex={(resolved.hour >= 12) === pm ? 0 : -1}
+            {hourCycle === 12 && <div role="radiogroup" aria-label={messages.period} data-period className={timePeriodStyle}>
+                {[false, true].map(pm => <Button key={String(pm)} type="button" appearance="text" role="radio" aria-label={pm ? messages.pm : messages.am} aria-checked={(resolved.hour >= 12) === pm} tabIndex={(resolved.hour >= 12) === pm ? 0 : -1}
                     onClick={() => period(pm)} onKeyDown={event => {
                         if (!['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(event.key)) return;
                         event.preventDefault();
@@ -160,11 +163,11 @@ export default function TimePickerPanel({
                     }}>{pm ? 'PM' : 'AM'}</Button>)}
             </div>}
         </div>
-        {actualMode === 'dial' && <TimePickerDial key={activePart} part={activePart} hourCycle={hourCycle} value={resolved[activePart]} onChange={next => onValueChange?.({ ...resolved, [activePart]: next })} onComplete={() => {
+        {actualMode === 'dial' && <TimePickerDial locale={locale} key={activePart} part={activePart} hourCycle={hourCycle} value={resolved[activePart]} onChange={next => onValueChange?.({ ...resolved, [activePart]: next })} onComplete={() => {
             if (activePart === 'hour') { setActivePart('minute'); minuteRef.current?.focus(); }
         }} />}
         {((!showSeconds && !compact) || actions) && <div className={timeActionsStyle}>
-            {!showSeconds && !compact && <Button type="button" appearance="text" shape="circle" data-mode-toggle className={timeModeButtonStyle} disabled={!valid} aria-label={actualMode === 'input' ? '切换到表盘选择' : '切换到键盘输入'} onClick={changeMode}
+            {!showSeconds && !compact && <Button type="button" appearance="text" shape="circle" data-mode-toggle className={timeModeButtonStyle} disabled={!valid} aria-label={actualMode === 'input' ? messages.switchToDial : messages.switchToInput} onClick={changeMode}
                 icon={<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="2">
                     {actualMode === 'input' ? <><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 2" /></> : <><rect x="2" y="5" width="20" height="14" rx="2" /><path d="M5 9h2m2 0h2m2 0h2m2 0h2M5 12h2m2 0h2m2 0h2m2 0h2M7 15h10" /></>}
                 </svg>} />}

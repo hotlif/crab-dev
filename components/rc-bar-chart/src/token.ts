@@ -32,6 +32,7 @@ export const vars = defineTokens({
     'legend.label.color': '--bar-chart-legend-label-color',
     'legend.label.font-size': '--bar-chart-legend-label-font-size',
     'root.box-shadow-focus': '--bar-chart-root-box-shadow-focus',
+    'root.outline-color-focus': '--bar-chart-root-outline-color-focus',
     'root.font-family': '--bar-chart-root-font-family',
     'root.line-height': '--bar-chart-root-line-height',
     'root.outline-width-focus': '--bar-chart-root-outline-width-focus',
@@ -115,6 +116,7 @@ const token = defineTokens({
     },
     'root': {
         'box-shadow-focus': `var(${vars['root.box-shadow-focus']}, var(--token-semantic-shadow-focus-ring, 0 0 0 3px color-mix(in oklch, var(--token-semantic-color-focus-ring, var(--token-semantic-color-border-focus, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078)))) 20%, transparent)))`,
+        'outline-color-focus': `var(${vars['root.outline-color-focus']}, var(--token-semantic-color-focus-ring, var(--token-semantic-color-border-focus, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078)))))`,
         'font-family': `var(${vars['root.font-family']}, var(--token-semantic-typography-body-font-family, var(--token-global-font-family-material, 'Roboto', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei UI', sans-serif)))`,
         'line-height': `var(${vars['root.line-height']}, var(--token-semantic-typography-body-line-height, var(--token-global-line-height-14-20, 1.4285714285714286)))`,
         'outline-width-focus': `var(${vars['root.outline-width-focus']}, 2px)`

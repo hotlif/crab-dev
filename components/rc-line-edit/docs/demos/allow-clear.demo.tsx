@@ -27,19 +27,19 @@ const AllowClearDemo = () => {
                 value={keyword}
                 allowClear
                 prefix={<Search />}
-                onChange={(e) => setKeyword(e.target.value)}
+                onValueChange={value => setKeyword(value)}
                 placeholder="搜索"
             />
             <LineEdit
                 aria-label="备注"
                 value={note}
                 allowClear
-                onChange={(e) => setNote(e.target.value)}
+                onValueChange={value => setNote(value)}
                 placeholder="备注（输入后可清除）"
             />
             <LineEdit
                 aria-label="禁用清除示例"
-                value="禁用状态不显示清除按钮"
+                defaultValue="禁用状态不显示清除按钮"
                 allowClear
                 disabled
                 placeholder=""

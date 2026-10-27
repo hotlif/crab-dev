@@ -10,7 +10,7 @@ export default function Example() {
     const [value, setValue] = useState<string | number>("周");
     return (
         <div className={layout}>
-            <Segmented options={["日", "周", "月"]} value={value} onChange={setValue} />
+            <Segmented options={["日", "周", "月"]} value={value} onValueChange={setValue} />
             <output>当前统计粒度：{value}</output>
         </div>
     );

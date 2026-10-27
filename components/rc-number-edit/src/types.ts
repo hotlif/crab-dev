@@ -1,4 +1,12 @@
 import type { LineEditProps } from "@crab-dev/rc-line-edit";
+import type { SyntheticEvent } from 'react';
+import type { ControlledValueProps } from '@crab-dev/rc-hooks';
+
+export interface NumberEditChangeDetails {
+    reason: 'step' | 'clear' | 'blur';
+    /** 实际触发提交的字段、按钮或原生滚轮事件；长按重复保留启动事件。 */
+    event?: SyntheticEvent<HTMLInputElement | HTMLButtonElement> | WheelEvent;
+}
 
 /**
  * 科学计数法显示策略。
@@ -13,7 +21,7 @@ export type ScientificMode = "auto" | "never" | "always";
  * 从 rc-line-edit 复用的外壳能力（透传 size / status / bordered / prefix / suffix /
  * allowClear / disabled / readOnly / placeholder / ref / containerRef / aria-* 等）。
  * 剔除由数字语义接管或不适用于数字框的属性：
- * - `value` / `defaultValue` / `onChange`：改为 number 语义（见下）；
+ * - `value` / `defaultValue` / `onValueChange`：改为 number 语义；原生 onChange 保留；
  * - `type`：数字框固定内部实现，不由外部指定；
  * - `min` / `max` / `step`：原生为 `string | number`，此处收紧为 `number`；
  * - `showCount` / `maxLength`：属文本域语义。
@@ -22,7 +30,7 @@ type InheritedShellProps = Omit<
     LineEditProps,
     | "value"
     | "defaultValue"
-    | "onChange"
+    | "onValueChange"
     | "type"
     | "min"
     | "max"
@@ -31,16 +39,7 @@ type InheritedShellProps = Omit<
     | "maxLength"
 >;
 
-export interface NumberEditProps extends InheritedShellProps {
-    /** 受控值；空值以 `null` 表示 */
-    value?: number | null;
-
-    /** 非受控默认值 */
-    defaultValue?: number | null;
-
-    /** 值变化回调（编辑失焦钳制、步进、清除后触发）；空值回传 `null` */
-    onChange?: (value: number | null) => void;
-
+export type NumberEditProps = InheritedShellProps & ControlledValueProps<number | null, NumberEditChangeDetails> & {
     /** 最小值，默认 `-Infinity` */
     min?: number;
 
@@ -84,4 +83,4 @@ export interface NumberEditProps extends InheritedShellProps {
      * 当前仅支持 number 模式；高精度字符串运算尚未提供，禁止开启。
      */
     stringMode?: false;
-}
+};

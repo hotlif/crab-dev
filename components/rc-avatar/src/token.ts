@@ -13,12 +13,12 @@ export const vars = defineTokens({
     'root.background-color-error': '--avatar-root-background-color-error',
     'size.small.width': '--avatar-size-small-width',
     'size.small.font-size': '--avatar-size-small-font-size',
-    'size.middle.width': '--avatar-size-middle-width',
-    'size.middle.font-size': '--avatar-size-middle-font-size',
+    'size.medium.width': '--avatar-size-medium-width',
+    'size.medium.font-size': '--avatar-size-medium-font-size',
     'size.large.width': '--avatar-size-large-width',
     'size.large.font-size': '--avatar-size-large-font-size',
     'icon.small.font-size': '--avatar-icon-small-font-size',
-    'icon.middle.font-size': '--avatar-icon-middle-font-size',
+    'icon.medium.font-size': '--avatar-icon-medium-font-size',
     'icon.large.font-size': '--avatar-icon-large-font-size',
     'content.max-width': '--avatar-content-max-width',
     'content.font-weight': '--avatar-content-font-weight',
@@ -59,9 +59,9 @@ const token = defineTokens({
             'width': `var(${vars['size.small.width']}, var(--token-semantic-size-24, var(--token-global-space-6, 24px)))`,
             'font-size': `var(${vars['size.small.font-size']}, var(--token-semantic-typography-caption-font-size, var(--token-global-font-size-xs, 12px)))`
         },
-        'middle': {
-            'width': `var(${vars['size.middle.width']}, var(--token-semantic-size-32, var(--token-global-size-32, 32px)))`,
-            'font-size': `var(${vars['size.middle.font-size']}, var(--token-semantic-typography-body-font-size, var(--token-global-font-size-sm, 14px)))`
+        'medium': {
+            'width': `var(${vars['size.medium.width']}, var(--token-semantic-size-32, var(--token-global-size-32, 32px)))`,
+            'font-size': `var(${vars['size.medium.font-size']}, var(--token-semantic-typography-body-font-size, var(--token-global-font-size-sm, 14px)))`
         },
         'large': {
             'width': `var(${vars['size.large.width']}, var(--token-semantic-size-40, var(--token-global-size-40, 40px)))`,
@@ -72,8 +72,8 @@ const token = defineTokens({
         'small': {
             'font-size': `var(${vars['icon.small.font-size']}, 14px)`
         },
-        'middle': {
-            'font-size': `var(${vars['icon.middle.font-size']}, var(--token-semantic-size-icon, var(--token-global-space-4, 16px)))`
+        'medium': {
+            'font-size': `var(${vars['icon.medium.font-size']}, var(--token-semantic-size-icon, var(--token-global-space-4, 16px)))`
         },
         'large': {
             'font-size': `var(${vars['icon.large.font-size']}, var(--token-semantic-size-icon-large, var(--token-global-space-5, 20px)))`

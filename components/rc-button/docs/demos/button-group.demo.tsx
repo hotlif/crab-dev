@@ -34,7 +34,7 @@ const ButtonGroupDemo = () => {
                 <Button appearance="primary" danger>删除</Button>
             </ButtonGroup>
 
-            <ButtonGroup size="small">
+            <ButtonGroup size="xs">
                 <Button>上一页</Button>
                 <Button>1</Button>
                 <Button isSelected>2</Button>

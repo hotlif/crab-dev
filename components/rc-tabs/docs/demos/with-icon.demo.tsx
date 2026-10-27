@@ -17,7 +17,7 @@ const WithIconDemo = () => {
     const [refreshCount, setRefreshCount] = useState(0);
     return (
         <Tabs
-            tabBarExtraContent={<Button size="small" onClick={() => setRefreshCount(count => count + 1)}>刷新</Button>}
+            tabBarExtraContent={<Button size="xs" onClick={() => setRefreshCount(count => count + 1)}>刷新</Button>}
             items={[
                 {
                     key: 'home',

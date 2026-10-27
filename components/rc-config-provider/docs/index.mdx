@@ -1,13 +1,13 @@
 +++
 title = "ConfigProvider 全局配置"
-description = "为应用统一设置设计风格、明暗主题、品牌色、语言和尺寸，并按区域覆盖默认配置"
+description = "独立配置设计体系、明暗、品牌、语言、方向、控件尺寸与内容密度"
 kind = "component"
 status = "experimental"
 +++
 
 # ConfigProvider 全局配置
 
-为应用或局部区域提供可嵌套的默认配置。
+为应用或局部区域提供可嵌套配置。每个维度独立继承，未指定的属性沿用最近的 Provider。
 
 [打开组件工作台](/components/rc-config-provider/workbench/)
 
@@ -18,111 +18,48 @@ status = "experimental"
 ```tsx
 import ConfigProvider from '@crab-dev/rc-config-provider';
 
-<ConfigProvider design="shadcn" theme="dark" locale="en-US" size="large">
+<ConfigProvider designSystem="apple" colorMode="dark" locale="en-US" size="medium" density="compact">
     <App />
 </ConfigProvider>
 ```
 
-主题切换需要加载 `@crab-dev/rc-theme` 的样式，仅安装包还不够。Wake Docs 中通过 `theme_css` 配置入口；其他构建器需接入公开样式入口，详见 [Theme 主题样式](/components/rc-theme)。
-
-Provider 会渲染一个普通 `div`，可通过 `className` 设置这层容器的布局。它本身不绘制背景，Card 等子组件使用对应主题的颜色。
+组件样式需要加载公开的 `@crab-dev/rc-theme` 样式入口，详见 [Theme 主题样式](/components/rc-theme)。Provider 渲染一个普通 div，不绘制页面背景，不读取系统偏好、浏览器存储，也不修改 html 或 body。
 
 ## 配置与继承
 
 | 属性 | 值 | 根级默认值 |
 | --- | --- | --- |
-| design | material / shadcn / macos | material |
-| theme | light / dark | light |
-| brandColor | #RGB / #RRGGBB / null | null（当前设计风格的默认品牌） |
+| designSystem | md3 / apple / shadcn | md3 |
+| colorMode | light / dark | light |
+| brandColor | #RGB / #RRGGBB / null | null |
 | locale | zh-CN / en-US | zh-CN |
-| size | small / middle / large | middle |
+| size | small / medium / large | medium |
+| density | compact / standard / comfortable | standard |
+| direction | ltr / rtl | ltr |
+| nonce | CSP nonce 字符串 | 未设置 |
 
-嵌套 Provider 按字段继承父级，只覆盖显式传入的属性；传入 `undefined` 恢复继承。没有 Provider 时，`useConfig()` 返回表中的默认值。
+传入 undefined 恢复继承；brandColor 传入 null 恢复当前设计体系的默认品牌。设计体系、明暗模式、品牌色、控件尺寸和内容密度不会相互改写。应用的“跟随系统”偏好必须先解析为 light 或 dark，再传给 colorMode。
 
-配置继承发生在 ConfigProvider 之间。Provider 在 DOM 上显式写入 `data-crab-design`、`data-theme` 与 `data-crab-size`，同时建立对应的样式边界。仅给 `html` 设置这些属性不会改变 React 配置：如果应用已有风格或主题状态，应把状态传给根级 Provider。
+Provider 在 DOM 输出 data-crab-design、data-theme、data-crab-size、data-crab-density、lang 和 dir。仅修改 HTML 属性不会改变 React Context，应用需将自己的状态传入根 Provider。
 
-`locale` 会设置容器的 `lang` 并切换 Empty 的预置文案，不会自动翻译业务文字。原生 div 属性与 React 19 `ref` 可直接传入；自定义组件可用 `useConfig()` 读取当前配置。
+## 三套设计体系
 
-## 切换设计风格
+md3 对应 Material Design 3 Expressive，apple 对应 Apple 设计语言的 Web 适配，shadcn 对应 shadcn/ui New York。三套设计共享业务语义和无障碍契约，各自维护颜色、排版、形状、尺寸、层级与动效。Apple 不承诺复刻某一 macOS 版本。参考基线与适配边界见[设计体系规范](/guides/design-styles)。
 
-`material` 使用 Material Design 3 的颜色角色和组件形状；`shadcn` 使用本项目的中性配色、紧凑描边与控件圆角定制；`macos` 使用蓝色强调、银灰或深灰表面、圆角和柔和阴影，以及外置标签的桌面布局。三种风格共用组件 API、键盘操作和三档尺寸。`design` 与 `theme`、`brandColor`、`size` 独立，切换风格不会改写其他配置。
+## 品牌与 CSP
 
-```tsx
-<ConfigProvider design="macos" theme="light" size="middle">
-    <App />
-</ConfigProvider>
-```
+brandColor 接受不透明十六进制颜色，生成 light / dark 的 OKLCh 角色配对，无效值抛出 RangeError。品牌规则在当前边界内只覆盖 L2 角色，强制颜色模式继续使用系统颜色。嵌套边界和 Portal 继承品牌种子；nonce 同时继承给重新生成的 style 元素。无品牌定制时使用预编译主题 CSS。
 
-macOS 是受苹果桌面界面启发的项目主题，默认风格仍为 Material。它保留现有组件能力，不代表苹果原生控件或 M3 默认视觉规格；参考与定制范围见 [Theme 主题样式](/components/rc-theme)。
+## 尺寸、密度与语言
 
-```tsx
-import { useState } from 'react';
-import ConfigProvider, { type ConfigDesign } from '@crab-dev/rc-config-provider';
-import Button from '@crab-dev/rc-button';
+size 只决定控件默认尺寸，显式组件尺寸优先。density 决定数据行、导航与布局间距，二者独立。虚拟化测量消费 componentDensityMetrics[density]，明确提供的行高仍优先。
 
-const nextDesign: Record<ConfigDesign, ConfigDesign> = {
-    material: 'shadcn',
-    shadcn: 'macos',
-    macos: 'material',
-};
+useLocale() 返回 locale 和类型化 messages，内置中英文文案在运行时随配置切换。它不翻译业务内容。组件可通过 useConfig() 读取配置，必要格式化使用当前 locale 的 Intl API。
 
-export default function Example() {
-    const [design, setDesign] = useState<ConfigDesign>('material');
-    return (
-        <ConfigProvider design={design} theme="light" size="middle">
-            <Button onClick={() => setDesign(nextDesign[design])}>
-                切换设计风格
-            </Button>
-            <App />
-        </ConfigProvider>
-    );
-}
-```
+## 浮层与目标文档
 
-需要比较不同风格时，可并列设置多个 Provider，或在父级内部显式覆盖 `design`；未设置的明暗主题、品牌色和尺寸继续继承父级。`useConfig().design` 返回当前风格。
+React Portal 保留 Context，但不会继承原祖先的 CSS。ConfigBoundary 在有 Provider 时重建设计、品牌、语言、方向、密度和 nonce 边界；没有 Provider 时保留目标容器的原生 CSS 继承。
 
-## 一个颜色生成品牌主题
-
-```tsx
-<ConfigProvider brandColor="#1677ff" theme="dark">
-    <App />
-</ConfigProvider>
-```
-
-`brandColor` 接受不透明十六进制颜色（忽略首尾空格、大小写），自动生成浅色与暗黑的 OKLCh 配对。
-默认、悬停、按下、链接、焦点和选中背景一起联动；中性背景及成功、警告、错误色保持独立。
-算法保留色相并调整亮度和色度，以维持文字对比度和 sRGB 色域，因此按钮背景不一定与输入值完全相同。
-不支持带透明度的颜色、CSS 变量或任意 CSS 表达式；无效值会抛出 RangeError，颜色编辑器应先校验再传入。
-
-不传 `brandColor` 继承父级；传入 `null` 恢复当前 `design` 的默认品牌。`useConfig().brandColor` 返回标准化的六位颜色或 null。
-嵌套 Provider 切换设计风格或 light / dark 时会保留显式品牌色，并使用对应明暗模式的配色；设置 `brandColor={null}` 的区域会随 `design` 切换其默认品牌。
-
-设置品牌色时，Provider 在自己的边界内渲染一张仅声明 L2 变量的 style 标签；更新或卸载时由 React 同步处理。
-没有品牌色时仅使用预编译主题 CSS。若应用使用 CSP，可通过原生 `nonce` 属性为该标签提供 nonce。
-品牌规则只在 `forced-colors: none` 下生效，强制颜色模式继续使用系统颜色。
-非 React 场景可从 `@crab-dev/rc-token-semantic` 导入纯函数 `createBrandTheme(color)`，读取 `light` / `dark` 变量映射。
-
-## 统一尺寸
-
-`small` 适合紧凑工作区，`middle` 是默认档位，`large` 提供更宽松的操作空间。组件显式的 `size` 优先于分组配置，分组优先于最近 Provider。
-
-尺寸配置不会按屏幕分辨率自动切换，也不会等比缩放页面。适用组件、具体数值和局部覆盖示例统一维护在[尺寸指南](/guides/component-sizing)。
-
-自定义组件可通过 `useComponentSize(size)` 解析显式尺寸与继承值。虚拟列表可用 `componentSizeMetrics` 获取对应的默认行高；需要在已有 DOM 上建立密度范围时，可使用 `componentSizeStyles` 提供的静态类名。
-
-## 嵌套与浮层
-
-允许 dark 内嵌 light、Material 内嵌 shadcn 或 macOS，或并列多个独立主题。CSS 同时保留强制颜色支持；主题切换不添加动画。
-Provider 不访问 document、存储或系统主题，也不修改 html / body；如需持久化或跟随系统，请由应用传入结果。
-
-React Portal 保留 Context，但不会继承原 DOM 祖先的 CSS 变量。
-将浮层挂载在主题容器内，或在 Portal 内容外再包一层不带配置属性的 ConfigProvider，
-即可从 Context 继承配置并重新建立 CSS 边界。DropdownContainer 已在自己的浮层节点重建尺寸边界；其他自定义 Portal 应按此方式处理。
-
-```tsx
-createPortal(<ConfigProvider><Overlay /></ConfigProvider>, container)
-```
-
-局部主题边界会重新声明 L2 变量；业务变量覆盖应施加到目标边界或其后代。
+DropdownContainer 和 Tooltip 按触发器的 ownerDocument 解析目标，并保留原生模态 dialog 内的交互范围。Dialog、Drawer 与浮层共享每个 Document 的弹层栈，Escape 只关闭顶层；滚动锁允许多个模态和乱序释放。关闭后恢复有效触发器焦点。
 
 <API source="../src/types.ts" symbol="ConfigProviderProps" component="ConfigProvider" />

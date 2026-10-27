@@ -27,23 +27,24 @@ export const demos = [
     {
         "id": "docs/demos/delay.demo.tsx",
         "title": "延迟显示",
-        "description": "秒回的请求不该闪一下转圈。delay 内完成的操作全程无指示器; 超出才说明它确实耗时, 此时才给反馈。",
+        "description": "打开开关模拟请求：150ms 的请求在 delay=300ms 内结束，1500ms 的请求才会显示加载指示器。",
         "learning": {
             "components": [
-                "Button",
+                "Switch",
                 "Spin"
             ],
             "props": [
-                "onClick",
+                "checked",
+                "onCheckedChange",
                 "spinning",
                 "delay"
             ],
             "events": [
-                "onClick"
+                "onCheckedChange"
             ],
             "hasState": true
         },
-        "sourceCode": "export const meta = {\n    title: \"延迟显示\",\n    description: \"秒回的请求不该闪一下转圈。delay 内完成的操作全程无指示器; 超出才说明它确实耗时, 此时才给反馈。\",\n};\n\nimport { css } from '@crab-dev/css';\nimport { useState } from 'react';\nimport Button from '@crab-dev/rc-button';\nimport Spin from '../../src/index.js';\n\nconst stackStyle = css`\n    display: flex;\n    flex-direction: column;\n    gap: 16px;\n    max-width: 420px;\n`;\n\nconst rowStyle = css`\n    display: flex;\n    gap: 12px;\n`;\n\nconst panelStyle = css`\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    min-height: 96px;\n    border: 1px dashed oklch(0.9 0.004 286);\n    border-radius: 8px;\n    color: oklch(0.44 0.01 286);\n    font-size: 14px;\n`;\n\nconst DelayDemo = () => {\n    const [spinning, setSpinning] = useState(false);\n\n    // 模拟一次请求：duration 决定它是「秒回」还是「真的慢」\n    const request = (duration: number) => {\n        setSpinning(true);\n        setTimeout(() => setSpinning(false), duration);\n    };\n\n    return (\n        \u003cdiv className={stackStyle}>\n            \u003cdiv className={rowStyle}>\n                \u003cButton onClick={() => request(150)}>秒回请求（150ms）\u003c/Button>\n                \u003cButton onClick={() => request(1500)}>慢请求（1500ms）\u003c/Button>\n            \u003c/div>\n\n            {/* delay=300：150ms 的请求全程不闪 spinner, 1500ms 的请求在 300ms 后才给出反馈 */}\n            \u003cSpin spinning={spinning} delay={300}>\n                \u003cdiv className={panelStyle}>\n                    秒回请求不会闪出转圈; 慢请求才会。\n                \u003c/div>\n            \u003c/Spin>\n        \u003c/div>\n    );\n};\n\nexport default DelayDemo;\n",
+        "sourceCode": "export const meta = {\n    title: '延迟显示',\n    description: '打开开关模拟请求：150ms 的请求在 delay=300ms 内结束，1500ms 的请求才会显示加载指示器。',\n};\n\nimport { css } from '@crab-dev/css';\nimport { useState } from 'react';\nimport Switch from '@crab-dev/rc-switch';\nimport { useTimeout } from '@crab-dev/rc-hooks';\nimport token from '@crab-dev/rc-token-semantic';\nimport Spin from '../../src/index.js';\n\nconst stackStyle = css`\n    display: flex;\n    flex-direction: column;\n    gap: ${token.space['section-gap']};\n    max-width: 420px;\n`;\nconst panelStyle = css`\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    min-height: 96px;\n    background-color: ${token.color.background.surface};\n    border-radius: ${token.radius.md};\n    color: ${token.color.text.secondary};\n    font-size: ${token.typography.body['font-size']};\n`;\n\nexport default function DelayDemo() {\n    const [fast, setFast] = useState(false);\n    const [slow, setSlow] = useState(false);\n    useTimeout(() => setFast(false), fast ? 150 : null);\n    useTimeout(() => setSlow(false), slow ? 1500 : null);\n\n    return \u003cdiv className={stackStyle}>\n        \u003cSwitch checked={fast} onCheckedChange={setFast}>秒回请求（150ms）\u003c/Switch>\n        \u003cSpin spinning={fast} delay={300}>\u003cdiv className={panelStyle}>请求在延迟窗口内完成，不显示指示器。\u003c/div>\u003c/Spin>\n        \u003cSwitch checked={slow} onCheckedChange={setSlow}>慢请求（1500ms）\u003c/Switch>\n        \u003cSpin spinning={slow} delay={300}>\u003cdiv className={panelStyle}>等待超过300ms时显示指示器。\u003c/div>\u003c/Spin>\n    \u003c/div>;\n}\n",
         "previewPath": "/components/rc-spin/workbench/?__wake_demo=docs%2Fdemos%2Fdelay.demo.tsx",
         "workbenchPath": "/components/rc-spin/workbench/#/components/docs%2Fdemos%2Fdelay.demo.tsx",
         "density": "regular",
@@ -98,7 +99,7 @@ export const demos = [
     {
         "id": "docs/demos/size.demo.tsx",
         "title": "尺寸",
-        "description": "通过 size 设置 small / middle / large 三档; 指示器与提示文案会一同缩放。",
+        "description": "通过 size 设置 small / medium / large 三档; 指示器与提示文案会一同缩放。",
         "learning": {
             "components": [
                 "Spin"
@@ -109,7 +110,7 @@ export const demos = [
             "events": [],
             "hasState": false
         },
-        "sourceCode": "export const meta = {\n    title: \"尺寸\",\n    description: \"通过 size 设置 small / middle / large 三档; 指示器与提示文案会一同缩放。\",\n};\n\nimport { css } from '@crab-dev/css';\nimport Spin from '../../src/index.js';\n\nconst rowStyle = css`\n    display: flex;\n    gap: 40px;\n    align-items: center;\n`;\n\nconst SizeDemo = () => {\n    return (\n        \u003cdiv className={rowStyle}>\n            \u003cSpin size=\"small\" />\n            \u003cSpin size=\"middle\" />\n            \u003cSpin size=\"large\" />\n        \u003c/div>\n    );\n};\n\nexport default SizeDemo;\n",
+        "sourceCode": "export const meta = {\n    title: \"尺寸\",\n    description: \"通过 size 设置 small / medium / large 三档; 指示器与提示文案会一同缩放。\",\n};\n\nimport { css } from '@crab-dev/css';\nimport Spin from '../../src/index.js';\n\nconst rowStyle = css`\n    display: flex;\n    gap: 40px;\n    align-items: center;\n`;\n\nconst SizeDemo = () => {\n    return (\n        \u003cdiv className={rowStyle}>\n            \u003cSpin size=\"small\" />\n            \u003cSpin size=\"medium\" />\n            \u003cSpin size=\"large\" />\n        \u003c/div>\n    );\n};\n\nexport default SizeDemo;\n",
         "previewPath": "/components/rc-spin/workbench/?__wake_demo=docs%2Fdemos%2Fsize.demo.tsx",
         "workbenchPath": "/components/rc-spin/workbench/#/components/docs%2Fdemos%2Fsize.demo.tsx",
         "density": "regular",
@@ -144,21 +145,22 @@ export const demos = [
         "description": "传入 children 即笼罩该区域: 内容变淡并被 inert 阻断——鼠标点不到, 键盘 Tab 也进不去。",
         "learning": {
             "components": [
-                "Button",
+                "Switch",
                 "Spin"
             ],
             "props": [
-                "appearance",
-                "onClick",
+                "checked",
+                "onCheckedChange",
                 "spinning",
-                "tip"
+                "tip",
+                "defaultChecked"
             ],
             "events": [
-                "onClick"
+                "onCheckedChange"
             ],
             "hasState": true
         },
-        "sourceCode": "export const meta = {\n    title: \"包裹内容\",\n    description: \"传入 children 即笼罩该区域: 内容变淡并被 inert 阻断——鼠标点不到, 键盘 Tab 也进不去。\",\n};\n\nimport { css } from '@crab-dev/css';\nimport { useState } from 'react';\nimport Button from '@crab-dev/rc-button';\nimport token from '@crab-dev/rc-token-semantic';\nimport Spin from '../../src/index.js';\n\nconst stackStyle = css`\n    display: flex;\n    flex-direction: column;\n    gap: 16px;\n    max-width: 360px;\n`;\n\nconst panelStyle = css`\n    padding: 16px;\n    border: 1px solid ${token.color.border.subtle};\n    border-radius: 8px;\n`;\n\nconst titleStyle = css`\n    margin: 0 0 8px;\n    font-size: 16px;\n    font-weight: 600;\n`;\n\nconst bodyStyle = css`\n    margin: 0 0 12px;\n    color: ${token.color.text.secondary};\n    font-size: 14px;\n`;\n\nconst WrapperDemo = () => {\n    const [spinning, setSpinning] = useState(true);\n\n    return (\n        \u003cdiv className={stackStyle}>\n            \u003cButton appearance=\"subtle\" onClick={() => setSpinning((prev) => !prev)}>\n                {spinning ? '结束加载' : '开始加载'}\n            \u003c/Button>\n\n            \u003cSpin spinning={spinning} tip=\"正在保存\">\n                \u003cdiv className={panelStyle}>\n                    \u003ch4 className={titleStyle}>草稿\u003c/h4>\n                    \u003cp className={bodyStyle}>\n                        加载期间试着用 Tab 键聚焦下面的按钮 —— 焦点不会落进来。\n                    \u003c/p>\n                    \u003cButton>提交\u003c/Button>\n                \u003c/div>\n            \u003c/Spin>\n        \u003c/div>\n    );\n};\n\nexport default WrapperDemo;\n",
+        "sourceCode": "export const meta = {\n    title: \"包裹内容\",\n    description: \"传入 children 即笼罩该区域: 内容变淡并被 inert 阻断——鼠标点不到, 键盘 Tab 也进不去。\",\n};\n\nimport { css } from '@crab-dev/css';\nimport { useState } from 'react';\nimport Switch from '@crab-dev/rc-switch';\nimport token from '@crab-dev/rc-token-semantic';\nimport Spin from '../../src/index.js';\n\nconst stackStyle = css`\n    display: flex;\n    flex-direction: column;\n    gap: 16px;\n    max-width: 360px;\n`;\n\nconst panelStyle = css`\n    padding: 16px;\n    border: 1px solid ${token.color.border.subtle};\n    border-radius: 8px;\n`;\n\nconst titleStyle = css`\n    margin: 0 0 8px;\n    font-size: 16px;\n    font-weight: 600;\n`;\n\nconst bodyStyle = css`\n    margin: 0 0 12px;\n    color: ${token.color.text.secondary};\n    font-size: 14px;\n`;\n\nconst WrapperDemo = () => {\n    const [spinning, setSpinning] = useState(true);\n\n    return (\n        \u003cdiv className={stackStyle}>\n            \u003cSwitch checked={spinning} onCheckedChange={setSpinning}>加载状态\u003c/Switch>\n\n            \u003cSpin spinning={spinning} tip=\"正在保存\">\n                \u003cdiv className={panelStyle}>\n                    \u003ch4 className={titleStyle}>草稿\u003c/h4>\n                    \u003cp className={bodyStyle}>\n                        加载期间试着用 Tab 键聚焦下面的开关 —— 焦点不会落进来。\n                    \u003c/p>\n                    \u003cSwitch defaultChecked>自动保存草稿\u003c/Switch>\n                \u003c/div>\n            \u003c/Spin>\n        \u003c/div>\n    );\n};\n\nexport default WrapperDemo;\n",
         "previewPath": "/components/rc-spin/workbench/?__wake_demo=docs%2Fdemos%2Fwrapper.demo.tsx",
         "workbenchPath": "/components/rc-spin/workbench/#/components/docs%2Fdemos%2Fwrapper.demo.tsx",
         "density": "regular",

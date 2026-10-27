@@ -54,9 +54,13 @@ export const vars = defineTokens({
     'status.padding-block': '--pdf-editor-status-padding-block',
     'status.zoom.width': '--pdf-editor-status-zoom-width',
     'status.zoom.height': '--pdf-editor-status-zoom-height',
+    'status.zoom.padding-inline': '--pdf-editor-status-zoom-padding-inline',
+    'status.zoom.gap': '--pdf-editor-status-zoom-gap',
     'status.zoom.font-size': '--pdf-editor-status-zoom-font-size',
     'status.zoom.line-height': '--pdf-editor-status-zoom-line-height',
     'thumbnail.height': '--pdf-editor-thumbnail-height',
+    'thumbnail.outline-width-focus': '--pdf-editor-thumbnail-outline-width-focus',
+    'thumbnail.outline-offset-focus': '--pdf-editor-thumbnail-outline-offset-focus',
     'thumbnail.drop.height': '--pdf-editor-thumbnail-drop-height',
     'thumbnail.drop.background-color': '--pdf-editor-thumbnail-drop-background-color',
     'thumbnail.background-color-dragging': '--pdf-editor-thumbnail-background-color-dragging',
@@ -148,12 +152,16 @@ const token = defineTokens({
         'zoom': {
             'width': `var(${vars['status.zoom.width']}, calc(var(--token-semantic-size-64, var(--token-global-size-64, 64px)) + var(--token-semantic-space-component-gap, var(--token-global-space-2, 8px))))`,
             'height': `var(${vars['status.zoom.height']}, var(--token-semantic-size-32, var(--token-global-size-32, 32px)))`,
+            'padding-inline': `var(${vars['status.zoom.padding-inline']}, var(--token-semantic-space-component-gap, var(--token-global-space-2, 8px)))`,
+            'gap': `var(${vars['status.zoom.gap']}, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)))`,
             'font-size': `var(${vars['status.zoom.font-size']}, var(--token-semantic-typography-label-large-font-size, var(--token-global-font-size-sm, 14px)))`,
             'line-height': `var(${vars['status.zoom.line-height']}, calc(var(--token-semantic-typography-label-large-font-size, var(--token-global-font-size-sm, 14px)) * var(--token-semantic-typography-label-large-line-height, var(--token-global-line-height-14-20, 1.4285714285714286))))`
         }
     },
     'thumbnail': {
         'height': `var(${vars['thumbnail.height']}, 200px)`,
+        'outline-width-focus': `var(${vars['thumbnail.outline-width-focus']}, 3px)`,
+        'outline-offset-focus': `var(${vars['thumbnail.outline-offset-focus']}, 2px)`,
         'drop': {
             'height': `var(${vars['thumbnail.drop.height']}, 2px)`,
             'background-color': `var(${vars['thumbnail.drop.background-color']}, var(--token-semantic-color-selection-border, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078))))`

@@ -1,5 +1,6 @@
 import { type HTMLAttributes, type FC, useState, useEffect, type Key, type ReactNode } from "react";
 import { cx, css } from "@crab-dev/css";
+import { useLocale } from '@crab-dev/rc-config-provider';
 import RcMenu from "@crab-dev/rc-menu";
 import Button from "@crab-dev/rc-button";
 import type { MenuItem } from "@crab-dev/rc-menu";
@@ -13,6 +14,8 @@ export interface SidebarBodyProps {
     onLogoClick?: () => void
     loadMenus?: (headerUser?: HeaderUserEntity) => Promise<MenuItem[]>
     onMenuItemClick?: (param: { item: MenuItem; path: MenuItem[] }) => void
+    /** Layout 提供的受控展示键；不负责业务路由与菜单键推断。 */
+    selectedKeys?: Key[]
     collapsed?: boolean
 }
 
@@ -132,8 +135,10 @@ export const SidebarBody: FC<SidebarBodyProps> = ({
     onLogoClick,
     loadMenus,
     onMenuItemClick,
+    selectedKeys,
     collapsed = false,
 }) => {
+    const { messages } = useLocale();
     const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
     const [menuLoading, setMenuLoading] = useState(false);
     const [openKeys, setOpenKeys] = useState<Key[]>([]);
@@ -172,7 +177,7 @@ export const SidebarBody: FC<SidebarBodyProps> = ({
                     appearance="text"
                     className={logoActionStyle}
                     onClick={onLogoClick}
-                    aria-label={typeof title === 'string' ? title : 'Logo'}
+                    aria-label={typeof title === 'string' ? title : messages.appLayout.logo}
                 >
                     <span className={cx(logoRowStyle, collapsed && logoRowCollapsedStyle)}>
                         {logo ? <span className={logoStyle}>{logo}</span> : null}
@@ -197,8 +202,9 @@ export const SidebarBody: FC<SidebarBodyProps> = ({
                 ) : (
                     <RcMenu
                         inlineCollapsed={collapsed}
+                        selectedKeys={selectedKeys}
                         openKeys={openKeys}
-                        onOpenChange={setOpenKeys}
+                        onOpenKeysChange={setOpenKeys}
                         items={menuItems}
                         onClick={({ item }) => {
                             if (!onMenuItemClick) return;
@@ -219,6 +225,7 @@ const Sidebar: FC<SidebarProps> = ({
     title,
     onLogoClick,
     onMenuItemClick,
+    selectedKeys,
     collapsed,
     ...restProps
 }) => {
@@ -234,6 +241,7 @@ const Sidebar: FC<SidebarProps> = ({
                 onLogoClick={onLogoClick}
                 loadMenus={loadMenus}
                 onMenuItemClick={onMenuItemClick}
+                selectedKeys={selectedKeys}
                 collapsed={collapsed}
             />
         </aside>

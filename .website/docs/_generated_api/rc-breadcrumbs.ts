@@ -11,14 +11,14 @@ type ReactNode = DocsTypePlaceholder;
 export interface BreadcrumbsProps {
     /**
      * 暂无说明。
-     * @default '... '
      */
-    "ellipsis"?: ReactNode;
+    "items": BreadcrumbsItem[];
 
     /**
      * 暂无说明。
+     * @default ’/’
      */
-    "items": BreadcrumbsItem[];
+    "separator"?: ReactNode;
 
     /**
      * 暂无说明。
@@ -27,7 +27,7 @@ export interface BreadcrumbsProps {
 
     /**
      * 暂无说明。
-     * @default '/'
+     * @default ’... ’
      */
-    "separator"?: ReactNode;
+    "ellipsis"?: ReactNode;
 }

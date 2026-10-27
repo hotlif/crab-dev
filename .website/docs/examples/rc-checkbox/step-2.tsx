@@ -10,7 +10,7 @@ export default function Example() {
     const [checked, setChecked] = useState(true);
     return (
         <div className={layout}>
-            <Checkbox checked={checked} onChange={setChecked}>
+            <Checkbox checked={checked} onCheckedChange={setChecked}>
                 接收项目通知
             </Checkbox>
             <output aria-live="polite">通知{checked ? "已开启" : "已关闭"}</output>

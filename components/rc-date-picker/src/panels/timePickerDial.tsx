@@ -1,8 +1,10 @@
+import { usePickerLocale } from '../locale.js';
 import Button from '@crab-dev/rc-button';
-import { useRef, type PointerEvent } from 'react';
+import { useId, useRef, type PointerEvent } from 'react';
 import { timeClockStyle, timeClockButtonStyle } from './timePicker.style.js';
 
 interface TimePickerDialProps {
+    locale?: string;
     part: 'hour' | 'minute';
     hourCycle: 12 | 24;
     value: number;
@@ -16,12 +18,15 @@ const point = (position: number, radius: number) => ({
     y: 128 - Math.cos(position * Math.PI / 6) * radius,
 });
 
-export default function TimePickerDial({ part, hourCycle, value, onChange, onComplete }: TimePickerDialProps) {
+export default function TimePickerDial({ locale, part, hourCycle, value, onChange, onComplete }: TimePickerDialProps) {
+    const { messages } = usePickerLocale(locale);
     // Pointer capture is mutable instance state and must survive the controlled value updates during a drag.
     const pointer = useRef<number | null>(null);
+    const lineMaskId = useId();
     const hour = part === 'hour';
     const inner = hour && hourCycle === 24 && (value === 0 || value > 12);
     const selected = point(hour ? value % 12 : value / 5, inner ? 68 : 104);
+    const selectedNumber = hour && hourCycle === 12 ? value % 12 || 12 : value;
     const numbers = Array.from({ length: hour && hourCycle === 24 ? 24 : 12 }, (_, i) => {
         if (!hour) return i * 5;
         if (i < 12) return i === 0 ? 12 : i;
@@ -40,7 +45,7 @@ export default function TimePickerDial({ part, hourCycle, value, onChange, onCom
             : base + (value >= 12 ? 12 : 0);
         onChange(next);
     };
-    return <svg className={timeClockStyle} viewBox="0 0 256 256" role="group" aria-label={hour ? '小时表盘' : '分钟表盘'}
+    return <svg className={timeClockStyle} viewBox="0 0 256 256" role="group" aria-label={hour ? messages.hourDial : messages.minuteDial}
         onPointerDown={event => {
             if (event.button !== 0 || pointer.current !== null) return;
             event.preventDefault();
@@ -58,19 +63,31 @@ export default function TimePickerDial({ part, hourCycle, value, onChange, onCom
         }}
         onPointerCancel={() => { pointer.current = null; }}
         onLostPointerCapture={() => { pointer.current = null; }}>
+        <defs>
+            <mask id={lineMaskId} data-clock-line-mask maskUnits="userSpaceOnUse" x="0" y="0" width="256" height="256">
+                <rect width="256" height="256" fill="white" />
+                {numbers.map((number, i) => {
+                    if (number === selectedNumber) return null;
+                    const at = point(i % 12, i >= 12 ? 68 : 104);
+                    // A glyph-sized envelope in the dial's fixed coordinates.
+                    // Only the hand line uses this mask: neighboring selection
+                    // circles remain intact even where these envelopes overlap.
+                    return <rect key={number} x={at.x - 16} y={at.y - 16} width="32" height="32" fill="black" />;
+                })}
+            </mask>
+        </defs>
         <circle data-clock-face cx="128" cy="128" r="128" />
         <g data-clock-hand aria-hidden="true">
-            <line x1="128" y1="128" x2={selected.x} y2={selected.y} />
+            <line data-clock-line mask={`url(#${lineMaskId})`} x1="128" y1="128" x2={selected.x} y2={selected.y} />
             <circle cx="128" cy="128" r="4" stroke="none" />
-            <circle cx={selected.x} cy={selected.y} r="24" stroke="none" />
+            <circle data-clock-selection cx={selected.x} cy={selected.y} r="24" stroke="none" />
         </g>
         {numbers.map((number, i) => {
             const at = point(i % 12, i >= 12 ? 68 : 104);
-            const selectedNumber = hour && hourCycle === 12 ? value % 12 || 12 : value;
             return <foreignObject key={number} x={at.x - 24} y={at.y - 24} width="48" height="48">
                 <Button type="button" appearance="text" className={timeClockButtonStyle}
                     data-clock-value={number}
-                    aria-label={hour ? `${number} 时，共 ${hourCycle} 小时` : `${number} 分，共 60 分钟`}
+                    aria-label={hour ? `${number} ${messages.hour}` : `${number} ${messages.minute}`}
                     aria-pressed={number === selectedNumber}
                     onClick={event => {
                         // Pointer selection is handled by the clock, including dragging. Native keyboard/AT clicks have detail 0.
@@ -87,7 +104,7 @@ export default function TimePickerDial({ part, hourCycle, value, onChange, onCom
                         onChange(next + (hour && hourCycle === 12 && value >= 12 ? 12 : 0));
                         const label = hour && hourCycle === 12 ? next || 12 : next;
                         event.currentTarget.closest('svg')?.querySelector<HTMLElement>(`[data-clock-value="${label}"]`)?.focus();
-                    }}>{hour ? number : String(number).padStart(2, '0')}</Button>
+                    }}><span data-clock-label="">{hour ? number : String(number).padStart(2, '0')}</span></Button>
             </foreignObject>;
         })}
         {!hour && value % 5 !== 0 && <circle data-clock-dot aria-hidden="true" cx={selected.x} cy={selected.y} r="2" />}

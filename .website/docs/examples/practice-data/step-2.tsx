@@ -100,8 +100,8 @@ export default function Example() {
                     搜索姓名
                     <LineEdit
                         value={query}
-                        onChange={(event) => {
-                            setQuery(event.target.value);
+                        onValueChange={(value) => {
+                            setQuery(value);
                         }}
                         maxLength={30}
                         placeholder="例如：林晓"
@@ -111,7 +111,7 @@ export default function Example() {
                     团队
                     <Select
                         value={team}
-                        onChange={(value) => {
+                        onValueChange={(value) => {
                             setTeam(value ?? "all");
                         }}
                         options={[

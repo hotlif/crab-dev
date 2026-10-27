@@ -1,11 +1,11 @@
 import { describe, expect, it } from '@crab-dev/wake/test';
-import { createBrandTheme, themeColorContract, TokenVars } from '@crab-dev/rc-token-semantic';
+import { createBrandTheme, md3ColorContract, TokenVars } from '@crab-dev/rc-token-semantic';
 import token from '../token.js';
 import { vars } from '../token.js';
 import { contrast, resolveColor, type Variables } from './colorContrast.js';
 
 function themeVariables(mode: 'light' | 'dark', seed?: string): Variables {
-    const theme = themeColorContract[mode];
+    const theme = md3ColorContract[mode];
     return {
         [TokenVars['color.brand.primary']]: theme.brand.primary,
         [TokenVars['color.text.primary']]: theme.text.primary,
@@ -34,7 +34,7 @@ const backgrounds = ['background-color', 'background-color-hover', 'background-c
 
 function checkReadableStates(mode: 'light' | 'dark', seed?: string) {
     const variables = themeVariables(mode, seed);
-    const theme = themeColorContract[mode];
+    const theme = md3ColorContract[mode];
     for (const surface of [theme.surface.canvas, theme.surface.low]) {
         for (const background of backgrounds) {
             expect(contrast(token.outlined.color, token.outlined[background], variables, surface)).toBeGreaterThanOrEqual(4.5);
@@ -85,7 +85,7 @@ describe('Material button themes', () => {
     it('keeps danger text readable on light and dark surfaces', () => {
         for (const mode of ['light', 'dark'] as const) {
             const variables = themeVariables(mode);
-            const surface = themeColorContract[mode].surface.canvas;
+            const surface = md3ColorContract[mode].surface.canvas;
             for (const state of ['background-color', 'background-color-hover', 'background-color-active'] as const) {
                 expect(contrast(token.danger.content.color, token.danger.subtle[state], variables, surface)).toBeGreaterThanOrEqual(4.5);
             }

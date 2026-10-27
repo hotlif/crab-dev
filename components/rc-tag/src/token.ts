@@ -14,11 +14,11 @@ export const vars = defineTokens({
     'size.large.border-radius': '--tag-size-large-border-radius',
     'size.large.font-size': '--tag-size-large-font-size',
     'size.large.gap': '--tag-size-large-gap',
-    'size.middle.height': '--tag-size-middle-height',
-    'size.middle.padding': '--tag-size-middle-padding',
-    'size.middle.border-radius': '--tag-size-middle-border-radius',
-    'size.middle.font-size': '--tag-size-middle-font-size',
-    'size.middle.gap': '--tag-size-middle-gap',
+    'size.medium.height': '--tag-size-medium-height',
+    'size.medium.padding': '--tag-size-medium-padding',
+    'size.medium.border-radius': '--tag-size-medium-border-radius',
+    'size.medium.font-size': '--tag-size-medium-font-size',
+    'size.medium.gap': '--tag-size-medium-gap',
     'size.small.height': '--tag-size-small-height',
     'size.small.padding': '--tag-size-small-padding',
     'size.small.border-radius': '--tag-size-small-border-radius',
@@ -39,6 +39,14 @@ export const vars = defineTokens({
     'close.width': '--tag-close-width',
     'close.color': '--tag-close-color',
     'close.color-hover': '--tag-close-color-hover',
+    'close.control.width': '--tag-close-control-width',
+    'close.border-radius': '--tag-close-border-radius',
+    'close.background-color-hover': '--tag-close-background-color-hover',
+    'close.background-color-focus': '--tag-close-background-color-focus',
+    'close.background-color-active': '--tag-close-background-color-active',
+    'close.outline-color-focus': '--tag-close-outline-color-focus',
+    'close.outline-width-focus': '--tag-close-outline-width-focus',
+    'close.outline-offset-focus': '--tag-close-outline-offset-focus',
     'interaction.touch.min-width': '--tag-interaction-touch-min-width',
     'interaction.touch.min-height': '--tag-interaction-touch-min-height',
     'interaction.outline-color-focus': '--tag-interaction-outline-color-focus',
@@ -72,12 +80,12 @@ const token = defineTokens({
             'font-size': `var(${vars['size.large.font-size']}, var(--token-semantic-typography-label-large-font-size, var(--token-global-font-size-sm, 14px)))`,
             'gap': `var(${vars['size.large.gap']}, var(--token-semantic-space-component-gap, var(--token-global-space-2, 8px)))`
         },
-        'middle': {
-            'height': `var(${vars['size.middle.height']}, var(--token-semantic-size-24, var(--token-global-space-6, 24px)))`,
-            'padding': `var(${vars['size.middle.padding']}, 0 8px)`,
-            'border-radius': `var(${vars['size.middle.border-radius']}, var(--token-semantic-status-tag-shape, var(--token-global-radius-4, 8px)))`,
-            'font-size': `var(${vars['size.middle.font-size']}, var(--token-semantic-typography-caption-font-size, var(--token-global-font-size-xs, 12px)))`,
-            'gap': `var(${vars['size.middle.gap']}, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)))`
+        'medium': {
+            'height': `var(${vars['size.medium.height']}, var(--token-semantic-size-24, var(--token-global-space-6, 24px)))`,
+            'padding': `var(${vars['size.medium.padding']}, 0 8px)`,
+            'border-radius': `var(${vars['size.medium.border-radius']}, var(--token-semantic-status-tag-shape, var(--token-global-radius-4, 8px)))`,
+            'font-size': `var(${vars['size.medium.font-size']}, var(--token-semantic-typography-caption-font-size, var(--token-global-font-size-xs, 12px)))`,
+            'gap': `var(${vars['size.medium.gap']}, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)))`
         },
         'small': {
             'height': `var(${vars['size.small.height']}, var(--token-semantic-size-20, var(--token-global-space-5, 20px)))`,
@@ -110,7 +118,17 @@ const token = defineTokens({
     'close': {
         'width': `var(${vars['close.width']}, 14px)`,
         'color': `var(${vars['close.color']}, inherit)`,
-        'color-hover': `var(${vars['close.color-hover']}, inherit)`
+        'color-hover': `var(${vars['close.color-hover']}, inherit)`,
+        'control': {
+            'width': `var(${vars['close.control.width']}, var(--token-semantic-size-20, var(--token-global-space-5, 20px)))`
+        },
+        'border-radius': `var(${vars['close.border-radius']}, var(--token-semantic-status-tag-shape, var(--token-global-radius-4, 8px)))`,
+        'background-color-hover': `var(${vars['close.background-color-hover']}, color-mix(in srgb, currentColor calc(var(--token-semantic-state-opacity-hover, var(--token-global-opacity-8, 0.08)) * 100%), transparent))`,
+        'background-color-focus': `var(${vars['close.background-color-focus']}, color-mix(in srgb, currentColor calc(var(--token-semantic-state-opacity-focus, var(--token-global-opacity-12, 0.12)) * 100%), transparent))`,
+        'background-color-active': `var(${vars['close.background-color-active']}, color-mix(in srgb, currentColor calc(var(--token-semantic-state-opacity-pressed, var(--token-global-opacity-12, 0.12)) * 100%), transparent))`,
+        'outline-color-focus': `var(${vars['close.outline-color-focus']}, currentColor)`,
+        'outline-width-focus': `var(${vars['close.outline-width-focus']}, 2px)`,
+        'outline-offset-focus': `var(${vars['close.outline-offset-focus']}, -2px)`
     },
     'interaction': {
         'touch': {

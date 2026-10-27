@@ -1,3 +1,4 @@
+import { usePickerLocale } from '../locale.js';
 import { useLayoutEffect, useRef, useState } from 'react';
 import Button from '@crab-dev/rc-button';
 import { useDropdownContext } from '@crab-dev/rc-dropdown-container';
@@ -7,6 +8,7 @@ interface TimePickerOverlayProps extends Omit<TimePickerPanelProps, 'actions' | 
     onClose: () => void;
 }
 export default function TimePickerOverlay({ value, onValueChange, onClose, ...restProps }: TimePickerOverlayProps) {
+    const { messages } = usePickerLocale(restProps.locale);
     const { dispatch } = useDropdownContext();
     // Keep the mounted panel node for initial focus; focus may leave this non-modal layer.
     const containerRef = useRef<HTMLDivElement>(null);
@@ -28,20 +30,7 @@ export default function TimePickerOverlay({ value, onValueChange, onClose, ...re
         onValueChange?.(draft);
         close();
     };
-    return <div ref={containerRef} onBlur={event => {
-        // Let Tab and outside clicks continue to their destination without stealing focus.
-        if (event.relatedTarget instanceof Node && !event.currentTarget.contains(event.relatedTarget)) {
-            dispatch({ type: 'setOpen', payload: false });
-        } else if (!event.relatedTarget) {
-            // Leaving an iframe has no relatedTarget; mode switches may restore focus in layout effects.
-            queueMicrotask(() => {
-                const container = containerRef.current;
-                if (container && !container.contains(container.ownerDocument.activeElement)) {
-                    dispatch({ type: 'setOpen', payload: false });
-                }
-            });
-        }
-    }}><TimePickerPanel {...restProps} value={draft} onValueChange={next => { if (next) setDraft(next); }} onValidityChange={setValid}
+    return <div ref={containerRef}><TimePickerPanel {...restProps} value={draft} onValueChange={next => { if (next) setDraft(next); }} onValidityChange={setValid}
         onKeyDown={event => {
             restProps.onKeyDown?.(event);
             if (event.defaultPrevented || event.nativeEvent.isComposing || event.nativeEvent.keyCode === 229) return;
@@ -55,7 +44,7 @@ export default function TimePickerOverlay({ value, onValueChange, onClose, ...re
             }
         }}
         actions={<>
-            <Button type="button" appearance="text" onClick={close}>取消</Button>
-            <Button type="button" appearance="text" disabled={!valid} onClick={confirm}>确定</Button>
+            <Button type="button" appearance="text" onClick={close}>{messages.cancel}</Button>
+            <Button type="button" appearance="text" disabled={!valid} onClick={confirm}>{messages.confirm}</Button>
         </>} /></div>;
 }

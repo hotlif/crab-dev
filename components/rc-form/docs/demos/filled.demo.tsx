@@ -1,6 +1,6 @@
 export const meta = {
     title: "Filled 填充字段",
-    description: "同一表单统一使用 filled。Material 呈现 56px 填充容器、浮动标签和焦点底线；切换 macOS 或 shadcn 后，左侧标签与右侧紧凑输入保持同排。",
+    description: "同一表单统一使用 filled，并由控件布局标签。Material Design 3 Expressive 呈现填充容器、浮动标签和焦点底线；Apple 和 shadcn/ui 使用控件自有的上方静态标签。",
 };
 
 import { useState } from "react";
@@ -44,7 +44,7 @@ export default function FilledDemo() {
                     name="name"
                     label="工作空间名称"
                     labelPlacement="control"
-                    binding="event"
+                    adapter="value"
                     supportingText="名称会显示在团队首页。"
                     required
                 >
@@ -54,7 +54,7 @@ export default function FilledDemo() {
                     name="email"
                     label="联系邮箱"
                     labelPlacement="control"
-                    binding="event"
+                    adapter="value"
                     supportingText="用于接收空间邀请和重要通知。"
                     required
                 >

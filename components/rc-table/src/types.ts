@@ -1,4 +1,4 @@
-import { type Key, type ReactNode } from "react";
+import { type ChangeEvent, type Key, type MouseEvent, type ReactNode } from "react";
 
 export type Align = "left" | "right" | "center";
 
@@ -8,6 +8,24 @@ export interface SortColumn {
     columnName: string;
     direction: SortDirection;
 }
+
+/** Controlled table state excludes the initial values and default expansion strategy. */
+export type TableStateProps = (
+    | { sortColumns?: SortColumn[]; defaultSortColumns?: never }
+    | { sortColumns?: undefined; defaultSortColumns?: SortColumn[] }
+) & (
+    | { expandedGroupIds?: Set<Key>; defaultExpandedGroupIds?: never; defaultExpandAll?: never }
+    | { expandedGroupIds?: undefined; defaultExpandedGroupIds?: Set<Key>; defaultExpandAll?: boolean }
+) & (
+    | { editingRowId?: Key | null; defaultEditingRowId?: never }
+    | { editingRowId?: undefined; defaultEditingRowId?: Key | null }
+) & (
+    | { expandedRowIds?: Set<Key>; defaultExpandedRowIds?: never; defaultTreeExpandAll?: never }
+    | { expandedRowIds?: undefined; defaultExpandedRowIds?: Set<Key>; defaultTreeExpandAll?: boolean }
+) & (
+    | { expandedRowKeys?: Set<Key>; defaultExpandedRowKeys?: never }
+    | { expandedRowKeys?: undefined; defaultExpandedRowKeys?: Set<Key> }
+);
 
 /** 行的变更状态：new 新增、modified 已修改、deleted 已删除，undefined 表示未变更 */
 export type RowState = "new" | "modified" | "deleted";
@@ -92,7 +110,7 @@ interface ColumnChildrenType<T extends Row> extends Omit<ColumnType<T>, "fixed">
 export interface ColumnType<T extends Row> {
 
 	/**
-	 * 设置列的对齐方式, 如果是数组, 第一个表示设置 Header 的对其方式, 第二个表示 Body 的对其方式
+	 * 列的物理对齐方式（RTL 中 left/right 仍指左/右，默认 left）。数组第一项用于表头，第二项用于内容和汇总。
 	 */
 	align?: Align | Align[]
 
@@ -117,7 +135,7 @@ export interface ColumnType<T extends Row> {
 	width?: number
 
 	/**
-	 * 固定列
+	 * 固定到视口的物理左侧或右侧；不随文本方向交换，列索引和滚动偏移保持物理坐标。
 	 */
 	fixed?: "left" | "right"
 
@@ -258,15 +276,18 @@ export interface TreeRowMeta {
 /**
  * 行选中配置：支持多选（checkbox）和单选（radio）两种模式。
  */
-export interface RowSelection<T extends Row> {
+export interface RowSelectionChangeDetails<T extends Row> {
+    rows: T[];
+    reason: 'row' | 'all' | 'clear';
+    /** 触发选择变化的真实事件；程序调用时省略。 */
+    event?: ChangeEvent<HTMLInputElement> | MouseEvent<HTMLDivElement>;
+}
+
+interface RowSelectionBase<T extends Row> {
     /** 选择类型：checkbox 多选 / radio 单选 */
     type: 'checkbox' | 'radio'
-    /** 受控：当前选中行 id 集合 */
-    selectedRowIds?: Set<Key>
-    /** 非受控：初始选中行 id 集合 */
-    defaultSelectedRowIds?: Set<Key>
     /** 选中状态变化回调 */
-    onChange?: (ids: Set<Key>, rows: T[]) => void
+    onSelectedRowIdsChange?: (ids: Set<Key>, details: RowSelectionChangeDetails<T>) => void
     /** 判断某行是否禁用选择 */
     getDisabled?: (row: T) => boolean
     /** 选择列宽度（默认 40）*/
@@ -274,6 +295,11 @@ export interface RowSelection<T extends Row> {
     /** 是否固定选择列到左侧（默认 true） */
     fixed?: boolean
 }
+
+export type RowSelection<T extends Row> = RowSelectionBase<T> & (
+    | { selectedRowIds?: Set<Key>; defaultSelectedRowIds?: never }
+    | { selectedRowIds?: undefined; defaultSelectedRowIds?: Set<Key> }
+);
 
 export interface MergeCell {
 	/**

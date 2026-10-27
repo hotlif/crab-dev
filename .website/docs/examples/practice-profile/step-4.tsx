@@ -115,7 +115,7 @@ export default function Example() {
                         label="姓名"
                         supportingText="填写对外显示的姓名，最多 30 字。"
                         value={name}
-                        onChange={(event) => setName(event.target.value)}
+                        onValueChange={(value) => setName(value)}
                         maxLength={30}
                         errorText={errors.name || undefined}
                         disabled={pending}
@@ -127,7 +127,7 @@ export default function Example() {
                         supportingText="例如：lin@example.com，最多 80 字。"
                         type="email"
                         value={email}
-                        onChange={(event) => setEmail(event.target.value)}
+                        onValueChange={(value) => setEmail(value)}
                         maxLength={80}
                         errorText={errors.email || undefined}
                         disabled={pending}
@@ -136,7 +136,7 @@ export default function Example() {
                 <output>
                     待提交：{name || "未填写姓名"} / {email || "未填写邮箱"}
                 </output>
-                <Switch checked={fail} onChange={setFail} disabled={pending}>
+                <Switch checked={fail} onCheckedChange={setFail} disabled={pending}>
                     模拟保存失败
                 </Switch>
                 <p>开启后可体验保存失败，输入内容会保留。</p>

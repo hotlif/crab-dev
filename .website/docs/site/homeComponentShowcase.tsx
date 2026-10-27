@@ -6,7 +6,7 @@ import Checkbox, { CheckboxGroup } from "@crab-dev/rc-checkbox";
 import ColorPicker, { type OKLCHValue } from "@crab-dev/rc-color-picker";
 import ConfigProvider, {
     type ConfigSize,
-    type ConfigTheme,
+    type ConfigColorMode,
 } from "@crab-dev/rc-config-provider";
 import { DatePicker } from "@crab-dev/rc-date-picker";
 import LineEdit from "@crab-dev/rc-line-edit";
@@ -37,19 +37,19 @@ function toBrandName(value: SegmentedValue): BrandName {
     return typeof value === "string" && value in brandColors ? value as BrandName : "默认";
 }
 
-function toTheme(value: SegmentedValue): ConfigTheme | undefined {
+function toTheme(value: SegmentedValue): ConfigColorMode | undefined {
     return value === "dark" || value === "light" ? value : undefined;
 }
 
 function toSize(value: SegmentedValue): ConfigSize {
-    return value === "small" || value === "large" ? value : "middle";
+    return value === "small" || value === "large" ? value : "medium";
 }
 
 export default function HomeComponentShowcase() {
     const id = useId();
-    const [theme, setTheme] = useState<ConfigTheme | undefined>();
+    const [theme, setTheme] = useState<ConfigColorMode | undefined>();
     const [brandName, setBrandName] = useState<BrandName>("默认");
-    const [size, setSize] = useState<ConfigSize>("middle");
+    const [size, setSize] = useState<ConfigSize>("medium");
     const [name, setName] = useState("Crab Design");
     const [projects, setProjects] = useState(["design", "data"]);
     const [date, setDate] = useState<Temporal.ZonedDateTime | null>(null);
@@ -82,7 +82,7 @@ export default function HomeComponentShowcase() {
                             size="small"
                             options={[{ label: "跟随全站", value: "inherit" }, { label: "亮色", value: "light" }, { label: "暗色", value: "dark" }]}
                             value={theme ?? "inherit"}
-                            onChange={(value) => setTheme(toTheme(value))}
+                            onValueChange={(value) => setTheme(toTheme(value))}
                         />
                     </div>
                     <div>
@@ -90,9 +90,9 @@ export default function HomeComponentShowcase() {
                         <Segmented
                             aria-labelledby={`${id}-size`}
                             size="small"
-                            options={[{ label: "小", value: "small" }, { label: "中", value: "middle" }, { label: "大", value: "large" }]}
+                            options={[{ label: "小", value: "small" }, { label: "中", value: "medium" }, { label: "大", value: "large" }]}
                             value={size}
-                            onChange={(value) => setSize(toSize(value))}
+                            onValueChange={(value) => setSize(toSize(value))}
                         />
                     </div>
                     <div>
@@ -102,14 +102,14 @@ export default function HomeComponentShowcase() {
                             size="small"
                             options={Object.keys(brandColors)}
                             value={brandName}
-                            onChange={(value) => setBrandName(toBrandName(value))}
+                            onValueChange={(value) => setBrandName(toBrandName(value))}
                         />
                     </div>
                 </div>
             </header>
             <ConfigProvider
                 className="crab-home-demo-surface"
-                theme={theme}
+                colorMode={theme}
                 size={size}
                 brandColor={brandColors[brandName]}
             >
@@ -125,7 +125,7 @@ export default function HomeComponentShowcase() {
                                         allowClear
                                         maxLength={24}
                                         onClear={() => setName("")}
-                                        onChange={(event) => setName(event.target.value)}
+                                        onValueChange={(value) => setName(value)}
                                     />
                                 </div>
                                 <div className="crab-home-field">
@@ -137,7 +137,7 @@ export default function HomeComponentShowcase() {
                                         maxTagCount={2}
                                         options={selectOptions}
                                         value={projects}
-                                        onChange={setProjects}
+                                        onValueChange={setProjects}
                                     />
                                 </div>
                                 <div className="crab-home-inline-fields">
@@ -204,7 +204,7 @@ export default function HomeComponentShowcase() {
                                 </div>
                                 <fieldset className="crab-home-fieldset">
                                     <legend>参与频道</legend>
-                                    <CheckboxGroup value={channels} onChange={setChannels}>
+                                    <CheckboxGroup value={channels} onValueChange={setChannels}>
                                         <Checkbox value="product">产品</Checkbox>
                                         <Checkbox value="design">设计</Checkbox>
                                         <Checkbox value="engineering">研发</Checkbox>
@@ -212,7 +212,7 @@ export default function HomeComponentShowcase() {
                                 </fieldset>
                                 <fieldset className="crab-home-fieldset">
                                     <legend>摘要频率</legend>
-                                    <RadioGroup value={frequency} onChange={setFrequency} aria-label="摘要频率">
+                                    <RadioGroup value={frequency} onValueChange={setFrequency} aria-label="摘要频率">
                                         <Radio value="daily">每天</Radio>
                                         <Radio value="weekly">每周</Radio>
                                     </RadioGroup>
@@ -222,7 +222,7 @@ export default function HomeComponentShowcase() {
                                     <Switch
                                         checked={notifications}
                                         aria-label="消息提醒"
-                                        onChange={setNotifications}
+                                        onCheckedChange={setNotifications}
                                     >
                                         {notifications ? "开" : "关"}
                                     </Switch>
@@ -244,7 +244,7 @@ export default function HomeComponentShowcase() {
                         </Card>
                         <Card variant="filled" title={<span id={`${id}-view`}>视图设置</span>}>
                             <div className="crab-home-control-stack">
-                                <Segmented aria-labelledby={`${id}-view`} block options={["概览", "任务", "成员"]} value={view} onChange={setView} />
+                                <Segmented aria-labelledby={`${id}-view`} block options={["概览", "任务", "成员"]} value={view} onValueChange={setView} />
                                 <div className="crab-home-tag-row" aria-label="当前状态">
                                     <Tag color="success">运行正常</Tag>
                                     <Tag color="primary">{String(view)}</Tag>

@@ -53,14 +53,22 @@ import { demos } from "../_generated/rc-badge.js";
 - 支持 `dot` 小圆点模式，适合表达"是否有更新"。
 - 支持 `status`（`default` / `processing` / `success` / `warning` / `error`）与 `text` 组合的状态模式；其中 `processing` 带脉冲动画，并遵循 `prefers-reduced-motion`。
 - 支持预设语义颜色与任意 CSS 颜色字符串。
-- 包裹子节点时角标自动定位到右上角，支持 `offset` 微调。
+- 包裹子节点时角标位于上方逻辑末端：LTR 为右上角，RTL 为左上角，支持 `offset` 微调。
 - `showZero` 控制 `count = 0` 时是否显示。
+
+圆点的默认可访问名称跟随 `ConfigProvider.locale`；传入 `title` 或字符串 `text` 可说明具体状态，且优先于默认文案。语言切换会更新默认名称，保留当前徽标节点及内容。
+
+定位采用实际 DOM 方向，原生 `dir` 可以覆盖 Provider 的方向，动态切换不重建徽标。`offset={[x, y]}` 始终是物理偏移：正 x 向右、正 y 向下，不随 RTL 反转；数值按 px，字符串支持 CSS 长度和 `calc()`。`indicatorStyle` 可覆盖变换和定位。独立徽标与状态文字不应用角标偏移。
+
+内置数字计数作为从左到右的独立表达式显示，使 RTL 中的 `99+` 和负小数保持字序。隔离只作用于数字内容，不改变角标的逻辑定位；字符串、React 节点和状态文字保留调用方的书写方向。
+
+强制颜色模式中，计数和圆点使用用户系统的 `Highlight` / `HighlightText` 配对，并仅在指示器内抑制浏览器文字背板，避免数字消失；此时系统配色优先于自定义颜色，周围文字继续由浏览器调整。
 
 
 
 ### 三套设计风格
 
-Material 与 macOS 的默认计数徽标为 16px；shadcn 使用 20px 的计数容器。徽标维持成对的前景/背景语义，圆点与 small 变体保留紧凑尺寸；该定位计数徽标不同于 shadcn 的行内 Badge 标签。
+Material 与 Apple 的默认计数徽标为 16px；shadcn 使用 20px 的计数容器。徽标维持成对的前景/背景语义，圆点与 small 变体保留紧凑尺寸；该定位计数徽标不同于 shadcn 的行内 Badge 标签。
 
 切换文档站设计风格后，本页演示同步使用该设计；浅色和深色模式分别使用配对语义颜色。
 
@@ -81,6 +89,14 @@ Material 与 macOS 的默认计数徽标为 16px；shadcn 使用 20px 的计数�
 - 为宿主提供包含数量含义的可访问名称，不能只让读屏读出一个孤立数字。
 - 状态变化不要只用颜色表达；频繁更新时避免把每次计数都作为强制通告。
 
+### 设计依据与覆盖
+
+- **MD3 Expressive**：直接参考 M3 Badges 的 small 与 large 变体、颜色角色和宿主关系。 [依据 1](https://m3.material.io/components/badges/overview) · [依据 2](https://material-web.dev/components/) · [依据 3](https://github.com/material-components/material-web)
+- **Apple**：依据 Apple HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。 [依据 1](https://developer.apple.com/design/human-interface-guidelines/components) · [依据 2](https://developer.apple.com/design/human-interface-guidelines/accessibility)
+- **shadcn/ui**：参考 shadcn/ui 的组件用途、中性表面与设计变量，在本库公共语义和 React 交互模型中实现；完整状态覆盖仍需按矩阵验收。 [依据 1](https://ui.shadcn.com/docs/components) · [依据 2](https://ui.shadcn.com/docs/theming) · [依据 3](https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4)
+
+设计依据不等于完成验收；当前状态与适用边界见[覆盖矩阵](/guides/design-coverage)。
+
 ## 常见问题
 
 ### 能只用颜色表达状态吗？
@@ -90,3 +106,10 @@ Material 与 macOS 的默认计数徽标为 16px；shadcn 使用 20px 的计数�
 ## API
 
 <API source="../_generated_api/rc-badge.ts" symbol="BadgeProps" component="Badge" />
+
+<details data-docs-native-props>
+<summary>Badge 继承的原生属性（273 项）</summary>
+
+<API source="../_generated_api/rc-badge-native.ts" symbol="BadgePropsNativeAttributes" component="Badge 继承的原生属性" />
+
+</details>

@@ -29,6 +29,8 @@ status = "experimental"
 
 通知根节点接受原生 `div` 属性和 `className`。自定义动画通过 CSS 类实现，不再接收 Motion 的 `initial`、`animate`、`exit` 或 `transition` 属性。
 
+关闭按钮使用通知表面的语义前景色，并保留完整的不透明焦点环与悬停、按下反馈，不通过整体透明度降低操作可见性。局部样式通过公开 Button 令牌映射，不改变其他按钮的颜色或行为。
+
 ## 代码演示
 
 <Demos glob="./demos/*.demo.tsx" columns={2} />
@@ -42,6 +44,6 @@ status = "experimental"
 
 ## 三套设计风格
 
-macOS 使用 16px 圆角的通知面板；Material 使用 12px 内容容器；shadcn 使用 8px 圆角和细描边。通知队列、关闭按钮、键盘焦点暂停和倒计时与主题无关。此组件为持续通知模式扩展，不宣称等同于 Material snackbar 或操作系统通知中心。
+Apple 使用 16px 圆角的通知面板；MD3 Expressive 使用 12px 内容容器；shadcn 使用 8px 圆角和细描边。通知队列、关闭按钮、键盘焦点暂停和倒计时与主题无关。此组件为持续通知模式扩展，不宣称等同于 MD3 snackbar 或操作系统通知中心。
 
 切换文档站设计风格后，本页演示同步使用该设计；浅色和深色模式分别使用配对语义颜色。

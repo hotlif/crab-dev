@@ -7,6 +7,7 @@ import { defineTokens } from '@crab-dev/css';
 export const vars = defineTokens({
     'surface.background-color': '--card-surface-background-color',
     'elevated.background-color': '--card-elevated-background-color',
+    'loading.background-color': '--card-loading-background-color',
     'default.border-color': '--card-default-border-color',
     'default.box-shadow': '--card-default-box-shadow',
     'default.box-shadow-hover': '--card-default-box-shadow-hover',
@@ -35,10 +36,10 @@ export const vars = defineTokens({
     'size.large.gap': '--card-size-large-gap',
     'size.large.border-radius': '--card-size-large-border-radius',
     'size.large.title.font-size': '--card-size-large-title-font-size',
-    'size.middle.padding': '--card-size-middle-padding',
-    'size.middle.gap': '--card-size-middle-gap',
-    'size.middle.border-radius': '--card-size-middle-border-radius',
-    'size.middle.title.font-size': '--card-size-middle-title-font-size',
+    'size.medium.padding': '--card-size-medium-padding',
+    'size.medium.gap': '--card-size-medium-gap',
+    'size.medium.border-radius': '--card-size-medium-border-radius',
+    'size.medium.title.font-size': '--card-size-medium-title-font-size',
     'size.small.padding': '--card-size-small-padding',
     'size.small.gap': '--card-size-small-gap',
     'size.small.border-radius': '--card-size-small-border-radius',
@@ -75,6 +76,9 @@ const token = defineTokens({
     },
     'elevated': {
         'background-color': `var(${vars['elevated.background-color']}, var(--card-surface-background-color, var(--token-semantic-color-surface-low, var(--token-global-material-neutral-96, oklch(0.96728288 0.01181410 313.217082)))))`
+    },
+    'loading': {
+        'background-color': `var(${vars['loading.background-color']}, var(--token-semantic-color-fill-translucent, color-mix(in oklch, var(--token-semantic-color-fill-active, var(--token-global-black, oklch(0.000 0 0))) 8%, transparent)))`
     },
     'default': {
         'border-color': `var(${vars['default.border-color']}, var(--token-semantic-color-border-card, transparent))`,
@@ -119,12 +123,12 @@ const token = defineTokens({
                 'font-size': `var(${vars['size.large.title.font-size']}, var(--token-semantic-font-size-heading, var(--token-global-font-size-22, 22px)))`
             }
         },
-        'middle': {
-            'padding': `var(${vars['size.middle.padding']}, var(--token-semantic-surface-card-padding-middle, var(--token-global-space-4, 16px)))`,
-            'gap': `var(${vars['size.middle.gap']}, var(--token-semantic-sizing-middle-gap, var(--token-global-space-2, 8px)))`,
-            'border-radius': `var(${vars['size.middle.border-radius']}, var(--token-semantic-shape-card, var(--token-global-radius-6, 12px)))`,
+        'medium': {
+            'padding': `var(${vars['size.medium.padding']}, var(--token-semantic-surface-card-padding-medium, var(--token-global-space-4, 16px)))`,
+            'gap': `var(${vars['size.medium.gap']}, var(--token-semantic-sizing-medium-gap, var(--token-global-space-2, 8px)))`,
+            'border-radius': `var(${vars['size.medium.border-radius']}, var(--token-semantic-shape-card, var(--token-global-radius-6, 12px)))`,
             'title': {
-                'font-size': `var(${vars['size.middle.title.font-size']}, var(--token-semantic-font-size-subhead, var(--token-global-font-size-md, 16px)))`
+                'font-size': `var(${vars['size.medium.title.font-size']}, var(--token-semantic-font-size-subhead, var(--token-global-font-size-md, 16px)))`
             }
         },
         'small': {

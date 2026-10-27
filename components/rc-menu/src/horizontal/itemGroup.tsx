@@ -27,7 +27,7 @@ const GroupItem: FC<GroupItemProps> = ({
             <div
                 className={cx(groupStyle.groupItem.header)}
                 style={{
-                    paddingLeft: `calc(${depth} * ${indentBase} * ${indentScale})`
+                    paddingInlineStart: `calc(${depth} * ${indentBase} * ${indentScale})`
                 }}
             >
                 {

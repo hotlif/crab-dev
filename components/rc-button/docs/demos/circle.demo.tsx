@@ -24,9 +24,9 @@ const CircleDemo = () => {
                     gap: 0.75rem;
                 `}
             >
-                <Button appearance="primary" shape="circle" aria-label="新增" icon={<Plus />} size="large" />
+                <Button appearance="primary" shape="circle" aria-label="新增" icon={<Plus />} size="m" />
                 <Button appearance="primary" shape="circle" aria-label="新增" icon={<Plus />} />
-                <Button appearance="primary" shape="circle" aria-label="新增" icon={<Plus />} size="small" />
+                <Button appearance="primary" shape="circle" aria-label="新增" icon={<Plus />} size="xs" />
             </div>
 
             <div

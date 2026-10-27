@@ -1,3 +1,4 @@
+import { usePdfLocale } from './locale.js';
 import { useEffect, useEffectEvent, useId, useImperativeHandle, useLayoutEffect, useRef, useState, useSyncExternalStore, useTransition } from 'react';
 import type { KeyboardEvent, MouseEvent } from 'react';
 import { cx } from '@crab-dev/css';
@@ -12,9 +13,10 @@ import TextEdit from '@crab-dev/rc-text-edit';
 import Tooltip from '@crab-dev/rc-tooltip';
 import type { ViewportState } from '@crab-dev/rc-canvas';
 import { PdfClient, asError, decodeImage, downloadPdf, sourceBytes } from './client.js';
+import { pdfError } from './pdf-messages.js';
 import { validateFont } from './font.js';
 import { colorCss } from './color.js';
-import { PdfEditorError, type PdfEditorProps, type PdfEditorRef, type PdfEditorToolbarAction, type PdfDocumentInput, type PdfOperationOptions, type PdfSource } from './types.js';
+import type { PdfEditorError, PdfEditorProps, PdfEditorRef, PdfEditorToolbarAction, PdfDocumentInput, PdfOperationOptions, PdfSource } from './types.js';
 import type { PdfEditorActionId } from './actions.js';
 import ActionButton, { ActionVisibilityContext } from './action-button.js';
 import { PdfSession } from './session.js';
@@ -30,7 +32,7 @@ import BusyRegion from './busy-region.js';
 import ToolbarButton from './toolbar-button.js';
 import PanelHeader from './panel-header.js';
 import ShapeStyleFields from './shape-style-fields.js';
-import { DEFAULT_SHAPE_STYLE, isShapeTool, SHAPE_LABELS, type EditorTool } from './drawing.js';
+import { DEFAULT_SHAPE_STYLE, isShapeTool, type EditorTool } from './drawing.js';
 import { bodyStyle, centerStyle, drawToolbarStyle, errorStyle, headingStyle, hintStyle, nameStyle, objectHeadingStyle, objectSectionStyle, panelTogglesStyle, progressSlotStyle, propertiesContentStyle, propertiesScrollStyle, rootStyle, sectionStyle, sidebarStyle, statusStyle, toolbarNameStyle, toolbarStyle, toolDividerStyle, viewStyle, zoomStyle } from './styles.js';
 
 const NO_FONTS: NonNullable<PdfEditorProps['fonts']> = [];
@@ -40,6 +42,7 @@ const SHAPE_TOOLS: ShapeKind[] = ['rectangle', 'ellipse', 'line', 'arrow', 'free
 
 /** 使用自有控件和画布，在浏览器本地编辑 PDF 文字、图片与页面。 */
 export default function PdfEditor({ initialDocument, runtime, fonts = NO_FONTS, readOnly = false, toolbar, plugins = NO_PLUGINS, ref, onDocumentLoad, onStateChange, beforeDocumentChange, onSave, onSaved, onError, className, onKeyDown, ...rest }: PdfEditorProps) {
+    const { text, actionLabel, errorMessage, toolbarLabel } = usePdfLocale();
     const [session] = useState(() => new PdfSession(readOnly));
     const [regionSelection] = useState(() => new RegionSelection(session));
     const [pluginHost] = useState(() => new PdfPluginHost());
@@ -223,7 +226,7 @@ export default function PdfEditor({ initialDocument, runtime, fonts = NO_FONTS, 
     function fitToPage() {
         const snapshot = session.getSnapshot(), index = snapshot.state.document?.currentPageIndex ?? 0;
         const current = snapshot.info?.pages[index];
-        if (!current) throw new PdfEditorError('document', '请先打开 PDF');
+        if (!current) throw pdfError('document', 'document.required');
         if (size.width < 1 || size.height < 1) return false;
         const zoom = Math.max(0.1, Math.min(8, (size.width - 48) / current.width, (size.height - 48) / current.height));
         setViewport({ zoom, panX: (size.width - current.width * zoom) / 2, panY: (size.height - current.height * zoom) / 2 });
@@ -264,8 +267,8 @@ export default function PdfEditor({ initialDocument, runtime, fonts = NO_FONTS, 
         await edit({ kind: 'movePages', pages: moving, to }, order.indexOf(page), false, selection);
     }
     async function edit(command: EditCommand, nextPage = page, preserveSelection = false, nextSelection?: number[]) {
-        if (!client || !info) throw new PdfEditorError('document', '请先打开 PDF');
-        if (locked) throw new PdfEditorError('permission', '当前文档为只读');
+        if (!client || !info) throw pdfError('document', 'document.required');
+        if (locked) throw pdfError('permission', 'document.read-only');
         const next = await session.edit(command, info.revision);
         if (session.getSnapshot().info === next) {
             let object: PdfObject | undefined;
@@ -310,7 +313,7 @@ export default function PdfEditor({ initialDocument, runtime, fonts = NO_FONTS, 
     }
     function renderExtraActions(placement: PdfEditorToolbarAction['placement']) {
         return extraActions.filter(action => action.placement === placement).map(action =>
-            <ToolbarButton key={action.id} label={action.label} icon={action.icon} disabled={actionDisabled(action)}
+            <ToolbarButton key={action.id} label={toolbarLabel(action)} icon={action.icon} disabled={actionDisabled(action)}
                 tooltipPlacement={placement === 'status' ? 'top' : 'bottom'} onClick={() => {
                     if (!actionDisabled(action, session.getState())) perform(async () => { await action.onSelect(editorApi); });
                 }} />);
@@ -403,9 +406,9 @@ export default function PdfEditor({ initialDocument, runtime, fonts = NO_FONTS, 
         {visible('open') && <input ref={fileRef} type="file" accept="application/pdf,.pdf" hidden onChange={event => { const file = event.target.files?.[0]; event.target.value = ''; if (file) perform(async () => { await open({ id: crypto.randomUUID(), source: file }, undefined, true); }); }} />}
         {visible('merge') && <input ref={mergeRef} type="file" accept="application/pdf,.pdf" hidden onChange={event => { const file = event.target.files?.[0]; event.target.value = ''; if (file) perform(() => merge(file)); }} />}
         <input ref={imageRef} type="file" accept="image/png,image/jpeg,image/webp" hidden onChange={event => { const file = event.target.files?.[0]; event.target.value = ''; if (file) perform(() => insertImage(file)); }} />
-        <div className={toolbarStyle} role="toolbar" aria-label="PDF 编辑工具栏" aria-busy={pending} onClickCapture={guardToolbarAction}>
+        <div className={toolbarStyle} role="toolbar" aria-label={text('PDF 编辑工具栏')} aria-busy={pending} onClickCapture={guardToolbarAction}>
             <ActionButton action="open" disabled={!client} onClick={() => fileRef.current?.click()} />
-            <span className={cx(nameStyle, toolbarNameStyle)}>{state.document?.fileName ?? 'PDF 编辑器'}{info?.dirty ? ' · 未保存' : ''}</span>
+            <span className={cx(nameStyle, toolbarNameStyle)}>{state.document?.fileName ?? text('PDF 编辑器')}{info?.dirty ? text(' · 未保存') : ''}</span>
             <ActionButton action="undo" disabled={locked || !info?.canUndo} onClick={() => perform(() => history('undo'))} />
             <ActionButton action="redo" disabled={locked || !info?.canRedo} onClick={() => perform(() => history('redo'))} />
             <ActionButton action="addText" disabled={locked || !loadedFonts.length} onClick={() => setNewText(true)} />
@@ -421,37 +424,37 @@ export default function PdfEditor({ initialDocument, runtime, fonts = NO_FONTS, 
             <ActionButton action="save" appearance="primary" disabled={!info} onClick={() => perform(async () => { await save(); })} />
             {renderExtraActions('main')}
         </div>
-        {showToolActions && <div className={drawToolbarStyle} role="toolbar" aria-label="绘图工具栏" aria-busy={pending} onClickCapture={guardToolbarAction}>
+        {showToolActions && <div className={drawToolbarStyle} role="toolbar" aria-label={text('绘图工具栏')} aria-busy={pending} onClickCapture={guardToolbarAction}>
             <ActionButton action="select" selected={activeTool === 'select'} disabled={!info} onClick={() => chooseTool('select')} />
             <ActionButton action="pan" selected={activeTool === 'pan'} disabled={!info} onClick={() => chooseTool('pan')} />
             {anyVisible('select', 'pan') && SHAPE_TOOLS.some(visible) && <span className={toolDividerStyle} aria-hidden="true" data-action-divider />}
             {SHAPE_TOOLS.map(shape => <ActionButton key={shape} action={shape} selected={activeTool === shape} disabled={locked}
                 onClick={() => chooseTool(shape)} />)}
-            <span className={hintStyle}>{isShapeTool(activeTool) ? `${SHAPE_LABELS[activeTool]} · 拖动绘制，Esc 退出${activeTool === 'freehand' ? '' : '，Shift 约束形状'}` : activeTool === 'pan' ? '拖动页面平移' : '选择对象后可移动、缩放或旋转'}</span>
+            <span className={hintStyle}>{isShapeTool(activeTool) ? `${text('{shape} · 拖动绘制，Esc 退出', { shape: actionLabel(activeTool) })}${activeTool === 'freehand' ? '' : text('，Shift 约束形状')}` : activeTool === 'pan' ? text('拖动页面平移') : text('选择对象后可移动、缩放或旋转')}</span>
             {renderExtraActions('tools')}
-            {anyVisible('togglePages', 'toggleProperties') && <div className={panelTogglesStyle} role="group" aria-label="侧栏显示">
-                <ActionButton action="togglePages" id={`${pagesId}-toggle`} tooltip={showPages ? '收起页面面板' : '展开页面面板'}
+            {anyVisible('togglePages', 'toggleProperties') && <div className={panelTogglesStyle} role="group" aria-label={text('侧栏显示')}>
+                <ActionButton action="togglePages" id={`${pagesId}-toggle`} tooltip={showPages ? text('收起页面面板') : text('展开页面面板')}
                     selectedIcon="panelLeftFilled" appearance="tonal" selected={showPages} disabled={!info}
                     aria-expanded={showPages} aria-controls={info ? pagesId : undefined} onClick={() => togglePanel('pages')} />
-                <ActionButton action="toggleProperties" id={`${propertiesId}-toggle`} tooltip={showProperties ? '收起属性面板' : '展开属性面板'}
+                <ActionButton action="toggleProperties" id={`${propertiesId}-toggle`} tooltip={showProperties ? text('收起属性面板') : text('展开属性面板')}
                     selectedIcon="panelRightFilled" appearance="tonal" selected={showProperties} disabled={!info}
                     aria-expanded={showProperties} aria-controls={info ? propertiesId : undefined} onClick={() => togglePanel('properties')} />
             </div>}
         </div>}
         {(selectionRequest || pluginState.task) && <div className={toolbarStyle}>
-            <span className={nameStyle} role="status">{selectionRequest ? '区域选择：拖动框选，可跨页；滚轮翻页，Shift + 方向键扩选，Enter 完成，Esc 取消。' : `${pluginState.task!.label}处理中…`}</span>
-            <Button appearance="text" onClick={() => { regionSelection.cancel(); pluginHost.cancel(); document.getElementById(`${pagesId}-canvas`)?.focus(); }}>取消{selectionRequest ? '区域选择' : '插件任务'}</Button>
+            <span className={nameStyle} role="status">{selectionRequest ? text('区域选择：拖动框选，可跨页；滚轮翻页，Shift + 方向键扩选，Enter 完成，Esc 取消。') : text('{label}处理中…', { label: toolbarLabel(pluginState.task!) })}</span>
+            <Button appearance="text" onClick={() => { regionSelection.cancel(); pluginHost.cancel(); document.getElementById(`${pagesId}-canvas`)?.focus(); }}>{selectionRequest ? text('取消区域选择') : text('取消插件任务')}</Button>
         </div>}
-        {error && <div className={errorStyle} role="alert">{error.message}</div>}
+        {error && <div className={errorStyle} role="alert">{errorMessage(error)}</div>}
         <div className={bodyStyle}>
-            {info && client && <aside id={pagesId} className={sidebarStyle} hidden={!showPages} aria-label="页面管理">
-                <PanelHeader panel="pages" onClose={() => closePanel('pages')} title={<>页面 <span className={hintStyle}>{info.pages.length}</span></>} />
-                <p className={hintStyle}>点击选页，Ctrl / ⌘ 点击多选；拖拽调整顺序。</p>
+            {info && client && <aside id={pagesId} className={sidebarStyle} hidden={!showPages} aria-label={text('页面管理')}>
+                <PanelHeader panel="pages" onClose={() => closePanel('pages')} title={<>{text('页面')} <span className={hintStyle}>{info.pages.length}</span></>} />
+                <p className={hintStyle}>{text('点击选页，Ctrl / ⌘ 点击多选；拖拽调整顺序。')}</p>
                 <PagesPanel client={client} pages={info.pages} revision={info.revision} current={page} selected={selectedPages} disabled={pending} readOnly={locked}
                     onSelect={selectPage} onSelectAll={() => { setSelectedPages(info.pages.map(value => value.index)); selectObject(); }}
                     onMove={(indices, to) => perform(() => movePages(indices, to))} onError={report} />
             </aside>}
-            <main id={`${pagesId}-canvas`} className={viewStyle} tabIndex={0} aria-label="PDF 页面画布">
+            <main id={`${pagesId}-canvas`} className={viewStyle} tabIndex={0} aria-label={text('PDF 页面画布')}>
                 {client && info && currentInfo ? <AutoSizer onResize={setSize}>{({ width, height }) => <DocumentStage
                     pages={info.pages} navigation={navigation} onCurrentPage={currentPage}
                     regionSelection={selectionRequest ? {
@@ -470,55 +473,55 @@ export default function PdfEditor({ initialDocument, runtime, fonts = NO_FONTS, 
                     onTransform={(transform: Transform) => setDraft(previous => previous ? { ...previous, transform } : undefined)}
                     onCommit={commitTransform}
                 />}</AutoSizer> : <div className={centerStyle}>
-                    <h2 className={headingStyle}>{visible('open') ? '在本地编辑 PDF' : '等待加载 PDF'}</h2>
-                    <p className={hintStyle}>{visible('open') ? '修改文字、调整图片，或整理文档页面。' : '文档加载完成后，可在此浏览和处理。'}</p>
-                    {visible('open') && <Button appearance="primary" disabled={pending || !client} onClick={() => fileRef.current?.click()}>选择 PDF 文件</Button>}
+                    <h2 className={headingStyle}>{visible('open') ? text('在本地编辑 PDF') : text('等待加载 PDF')}</h2>
+                    <p className={hintStyle}>{visible('open') ? text('修改文字、调整图片，或整理文档页面。') : text('文档加载完成后，可在此浏览和处理。')}</p>
+                    {visible('open') && <Button appearance="primary" disabled={pending || !client} onClick={() => fileRef.current?.click()}>{text('选择 PDF 文件')}</Button>}
                 </div>}
             </main>
-            {info && <aside id={propertiesId} className={sidebarStyle} data-panel="properties" hidden={!showProperties} aria-label="对象属性">
+            {info && <aside id={propertiesId} className={sidebarStyle} data-panel="properties" hidden={!showProperties} aria-label={text('对象属性')}>
                 <div className={propertiesContentStyle}>{isShapeTool(activeTool) ? <BusyRegion className={cx(sectionStyle, propertiesScrollStyle)} busy={pending}>
-                    <PanelHeader panel="properties" onClose={() => closePanel('properties')} title={`${SHAPE_LABELS[activeTool]}设置`} />
+                    <PanelHeader panel="properties" onClose={() => closePanel('properties')} title={text('{shape}设置', { shape: actionLabel(activeTool) })} />
                     <ShapeStyleFields shape={activeTool} value={drawingStyle} disabled={locked} onChange={value => { if (!pending && !locked) setDrawingStyle(value); }} />
-                    <p className={hintStyle}>在页面内按下并拖动鼠标，松开完成一笔。绘制完成后，可从对象树选择图形继续编辑。</p>
+                    <p className={hintStyle}>{text('在页面内按下并拖动鼠标，松开完成一笔。绘制完成后，可从对象树选择图形继续编辑。')}</p>
                 </BusyRegion> : selected && draft ? <PropertiesPanel object={selected} draft={draft} fonts={loadedFonts} disabled={locked} busy={objectBusy} onClose={() => closePanel('properties')} onDraft={setDraft} onApply={() => perform(() => applyDraft())} onRemove={() => perform(removeObject)} onReplace={() => { replaceRef.current = true; imageRef.current?.click(); }} /> : <div className={cx(sectionStyle, propertiesScrollStyle)}>
-                    <PanelHeader panel="properties" onClose={() => closePanel('properties')} title="对象属性" />
-                    <p className={hintStyle}>点击画布中的文字、图片或图形，或从下方对象树选择。</p>
+                    <PanelHeader panel="properties" onClose={() => closePanel('properties')} title={text('对象属性')} />
+                    <p className={hintStyle}>{text('点击画布中的文字、图片或图形，或从下方对象树选择。')}</p>
                 </div>}</div>
                 <div className={objectSectionStyle}>
-                    <h2 className={cx(headingStyle, objectHeadingStyle)}>页面对象</h2>
+                    <h2 className={cx(headingStyle, objectHeadingStyle)}>{text('页面对象')}</h2>
                     <ObjectTree objects={objects} selected={selected} busy={objectBusy} onSelect={object => { setTool('select'); selectObject(object); }} />
                 </div>
             </aside>}
         </div>
         <div className={statusStyle}>
-            <span role="status" className={nameStyle}>{info ? `第 ${page + 1} / ${info.pages.length} 页${selectedPages.length > 1 ? ` · 已选择 ${selectedPages.length} 页` : selectedPages.length === 0 ? ' · 未选择页面' : ''}${locked ? ' · 只读' : ''}` : pending ? '正在处理…' : visible('open') ? '请选择 PDF 文件' : '等待加载 PDF'}</span>
-            <span className={progressSlotStyle}><Spin spinning={processing} delay={150} size="small" label="正在处理 PDF" /></span>
-            <Tooltip title="Ctrl / ⌘ + 滚轮缩放；普通滚轮滚动页面" placement="top" arrow={false}>
-                <NumberEdit className={zoomStyle} size="small" aria-label="缩放百分比" controls={false} suffix="%" value={Math.round(viewport.zoom * 75)} min={8} max={600} disabled={!info || !!selectionRequest} onChange={value => { if (value !== null) setViewport(previous => ({ ...previous, zoom: value / 75 })); }} />
+            <span role="status" className={nameStyle}>{info ? `${text('第 {page} / {total} 页', { page: page + 1, total: info.pages.length })}${selectedPages.length > 1 ? text(' · 已选择 {count} 页', { count: selectedPages.length }) : selectedPages.length === 0 ? text(' · 未选择页面') : ''}${locked ? text(' · 只读') : ''}` : pending ? text('正在处理…') : visible('open') ? text('请选择 PDF 文件') : text('等待加载 PDF')}</span>
+            <span className={progressSlotStyle}><Spin spinning={processing} delay={150} size="small" label={text('正在处理 PDF')} /></span>
+            <Tooltip title={text('Ctrl / ⌘ + 滚轮缩放；普通滚轮滚动页面')} placement="top" arrow={false}>
+                <NumberEdit className={zoomStyle} size="small" aria-label={text('缩放百分比')} controls={false} suffix="%" value={Math.round(viewport.zoom * 75)} min={8} max={600} disabled={!info || !!selectionRequest} onValueChange={value => { if (value !== null) setViewport(previous => ({ ...previous, zoom: value / 75 })); }} />
             </Tooltip>
             <ActionButton action="fitPage" tooltipPlacement="top" disabled={!info || !!selectionRequest} onClick={() => { fitToPage(); }} />
             {renderExtraActions('status')}
         </div>
-        <Dialog open={newText} onOpenChange={setNewText} title="添加文字" onConfirm={async () => {
+        <Dialog open={newText} onOpenChange={setNewText} title={text('添加文字')} onConfirm={async () => {
             try { await edit({ kind: 'text', page, text: newContent, fontId: newFont, fontSize: 16, color: [0, 0, 0, 255], x: 24, y: 24 }); setNewContent(''); }
             catch (failure) { report(failure); return false; }
         }}>
             <div className={sectionStyle}>
-                {error && <p className={errorStyle} role="alert">{error.message}</p>}
-                <TextEdit label="文字内容" value={newContent} rows={4} onChange={event => setNewContent(event.target.value)} />
-                <Select label="字体" value={newFont} options={loadedFonts.map(font => ({ value: font.id, label: font.label }))} onChange={value => setNewFont(value ?? '')} />
+                {error && <p className={errorStyle} role="alert">{errorMessage(error)}</p>}
+                <TextEdit label={text('文字内容')} value={newContent} rows={4} onValueChange={setNewContent} />
+                <Select label={text('字体')} value={newFont} options={loadedFonts.map(font => ({ value: font.id, label: font.label }))} onValueChange={value => setNewFont(value ?? '')} />
             </div>
         </Dialog>
-        <Dialog open={!!passwordRequest} onOpenChange={value => { if (!value) { setPasswordRequest(undefined); setPassword(''); } }} title="PDF 密码" onConfirm={async () => {
+        <Dialog open={!!passwordRequest} onOpenChange={value => { if (!value) { setPasswordRequest(undefined); setPassword(''); } }} title={text('PDF 密码')} onConfirm={async () => {
             if (!passwordRequest) return false;
             try { if (passwordRequest.mode === 'open') await open({ ...passwordRequest.document, password }, undefined, true); else await merge(passwordRequest.document.source, password); }
             catch (failure) { report(failure); return false; }
         }}>
-            {error && <p className={errorStyle} role="alert">{error.message}</p>}
-            <LineEdit type="password" label="密码" value={password} autoComplete="off" onChange={event => setPassword(event.target.value)} />
+            {error && <p className={errorStyle} role="alert">{errorMessage(error)}</p>}
+            <LineEdit type="password" label={text('密码')} value={password} autoComplete="off" onValueChange={setPassword} />
         </Dialog>
-        <Dialog open={deletePages} onOpenChange={setDeletePages} title="删除页面" onConfirm={async () => {
+        <Dialog open={deletePages} onOpenChange={setDeletePages} title={text('删除页面')} onConfirm={async () => {
             try { await edit({ kind: 'deletePages', pages: targets }); } catch (failure) { report(failure); return false; }
-        }}><p>删除 {targets.length} 页？删除后可以撤销。</p></Dialog>
+        }}><p>{text('删除 {count} 页？删除后可以撤销。', { count: targets.length })}</p></Dialog>
     </div></ActionVisibilityContext>;
 }

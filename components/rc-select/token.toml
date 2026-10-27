@@ -59,8 +59,8 @@ tag.close.color-hover = "$ref(color.text.secondary)"
 
 clear.color = "$ref(color.text.secondary)"
 clear.color-hover = "$ref(color.text.primary)"
-clear.width = "$ref(sizing.middle.action)"
-clear.height = "$ref(sizing.middle.action)"
+clear.width = "$ref(sizing.medium.action)"
+clear.height = "$ref(sizing.medium.action)"
 clear.touch.width = "$ref(size.touch-target)"
 clear.box-shadow-focus = "inset 0 0 0 1px $ref(color.focus.ring)"
 icon.width = "$ref(field.icon.size)"
@@ -97,10 +97,10 @@ size.large.padding = "$ref(space.inline-gap) $ref(field.control.padding-inline)"
 size.large.font-size = "$ref(field.input.font-size)"
 size.large.line-height = "$ref(field.input.line-height)"
 
-size.middle.height = "$ref(sizing.middle.field)"
-size.middle.padding = "$ref(space.inline-gap) $ref(field.control.padding-inline)"
-size.middle.font-size = "$ref(field.input.font-size)"
-size.middle.line-height = "$ref(field.input.line-height)"
+size.medium.height = "$ref(sizing.medium.field)"
+size.medium.padding = "$ref(space.inline-gap) $ref(field.control.padding-inline)"
+size.medium.font-size = "$ref(field.input.font-size)"
+size.medium.line-height = "$ref(field.input.line-height)"
 
 # Theme field roles retain the Material baseline and shadcn density independently.
 size.small.height = "$ref(sizing.small.field)"
@@ -115,7 +115,7 @@ dropdown.option.padding = "$ref(space.component-gap)"
 dropdown.border-radius = "$ref(shape.overlay)"
 
 size.small.action.width = "$ref(sizing.small.action)"
-size.middle.action.width = "$ref(sizing.middle.action)"
+size.medium.action.width = "$ref(sizing.medium.action)"
 size.large.action.width = "$ref(sizing.large.action)"
 
 # Filled fields reserve two text rows for their internal floating label.

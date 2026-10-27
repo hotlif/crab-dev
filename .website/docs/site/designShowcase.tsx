@@ -29,9 +29,8 @@ import { useMessage } from "@crab-dev/rc-message";
 import { useNotification } from "@crab-dev/rc-notification";
 import token from "@crab-dev/rc-token-semantic";
 import globalToken from "@crab-dev/rc-token-global";
-import { DocumentDesignContext, isSiteDesign, SITE_DESIGNS, SiteContext } from "./siteContext.js";
+import { DocumentDesignContext, isSiteDesign, SITE_DESIGNS, SITE_DESIGN_NAMES, SiteContext } from "./siteContext.js";
 
-const names = { macos: "macOS", material: "Material Design 3", shadcn: "shadcn" };
 const stack = css`
     display: grid;
     min-width: 0;
@@ -114,12 +113,12 @@ export default function DesignShowcase() {
     const [notification, notificationContext] = useNotification();
     return <div className={stack}>
         <div className={controls}>
-            <Segmented aria-label="对照设计风格" value={design}
-                options={SITE_DESIGNS.map(value => ({ value, label: names[value] }))}
-                onChange={value => { if (isSiteDesign(value)) setDesign(value); }} />
+            <Segmented aria-label="对照设计体系" value={design}
+                options={SITE_DESIGNS.map(value => ({ value, label: SITE_DESIGN_NAMES[value].label }))}
+                onValueChange={value => { if (isSiteDesign(value)) setDesign(value); }} />
             <p>先修改项目名称、勾选选项，再切换风格；输入和选择会保留。明暗模式跟随文档站主题菜单。</p>
         </div>
-        <ConfigProvider design={design} theme={site?.theme.resolved} className={stack} aria-label="三种风格交互对照">
+        <ConfigProvider designSystem={design} colorMode={site?.theme.resolved} className={stack} aria-label="三种风格交互对照">
             <Card title="操作与输入">
                 <div className={stack}>
                     <div className={row}>
@@ -148,7 +147,7 @@ export default function DesignShowcase() {
                     <fieldset className={group}><legend>多选状态</legend><div className={row}>
                         <Checkbox defaultChecked>已选择</Checkbox><Checkbox>未选择</Checkbox>
                         <Checkbox indeterminate>部分选择</Checkbox><Checkbox disabled>禁用</Checkbox>
-                        <Checkbox disabled checked>禁用且选中</Checkbox>
+                        <Checkbox disabled defaultChecked>禁用且选中</Checkbox>
                     </div></fieldset>
                     <fieldset className={group}><legend>发布范围</legend><div className={row}>
                         <Radio name={radioName} value="team" defaultChecked>当前团队</Radio>
@@ -164,7 +163,7 @@ export default function DesignShowcase() {
             </Card>
             <Card title="导航与反馈">
                 <div className={stack}>
-                    <Tabs aria-label="项目详情" defaultActiveKey="overview" items={[
+                    <Tabs aria-label="项目详情" defaultValue="overview" items={[
                         { key: "overview", label: "概览", children: "这里展示项目概况。" },
                         { key: "activity", label: "活动", children: "这里展示最近的活动。" },
                         { key: "settings", label: "权限", disabled: true },
@@ -175,7 +174,7 @@ export default function DesignShowcase() {
                     ]} />
                     <div className={row}><Tag>默认</Tag><Tag color="primary">进行中</Tag>
                         <Tag color="success">已完成</Tag><Tag color="warning">待检查</Tag><Tag color="error">失败</Tag></div>
-                    <div className={row}><CheckableTag checked={favorite} onChange={setFavorite}>关注项目</CheckableTag>
+                    <div className={row}><CheckableTag checked={favorite} onCheckedChange={setFavorite}>关注项目</CheckableTag>
                         <Badge count={3}><Avatar aria-label="设计团队">设</Avatar></Badge>
                         <Avatar shape="square" aria-label="开发团队">开</Avatar>
                         <Badge status="success" text="服务正常" /><Spin size="small" label="正在同步" /></div>

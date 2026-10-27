@@ -1,10 +1,11 @@
 import { useEffect, useRef } from "react";
+import type { NumberEditChangeDetails } from '../types.js';
 
 export type StepDirection = 1 | -1;
 
 export interface UseSpinnerOptions {
     /** 单步触发回调（方向 +1 / -1，是否走大步长） */
-    onStep: (direction: StepDirection, large: boolean) => void;
+    onStep: (direction: StepDirection, large: boolean, event?: NumberEditChangeDetails['event']) => void;
     /** 是否禁用（disabled / readOnly，或已到达对应边界） */
     disabled?: boolean;
     /** 长按后进入连续步进前的初始延迟（ms），默认 400（多尔蒂阈值内） */
@@ -15,7 +16,7 @@ export interface UseSpinnerOptions {
 
 export interface SpinnerHandlers {
     /** 按下步进按钮：立即走一步，随后长按进入加速连续步进 */
-    start: (direction: StepDirection, large?: boolean) => void;
+    start: (direction: StepDirection, large?: boolean, event?: NumberEditChangeDetails['event']) => void;
     /** 松开 / 移出：停止连续步进 */
     stop: () => void;
 }
@@ -49,12 +50,12 @@ export function useSpinner(options: UseSpinnerOptions): SpinnerHandlers {
         }
     };
 
-    const start = (direction: StepDirection, large = false): void => {
+    const start = (direction: StepDirection, large = false, event?: NumberEditChangeDetails['event']): void => {
         if (disabledRef.current) {
             return;
         }
         clear();
-        onStepRef.current(direction, large); // 立即走一步
+        onStepRef.current(direction, large, event); // 立即走一步
         intervalRef.current = 200;
         const schedule = (delay: number): void => {
             timerRef.current = setTimeout(() => {
@@ -62,7 +63,7 @@ export function useSpinner(options: UseSpinnerOptions): SpinnerHandlers {
                     clear();
                     return;
                 }
-                onStepRef.current(direction, large);
+                onStepRef.current(direction, large, event);
                 intervalRef.current = Math.max(minInterval, Math.round(intervalRef.current * 0.8));
                 schedule(intervalRef.current);
             }, delay);

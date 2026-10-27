@@ -30,7 +30,7 @@ const ScientificDemo = () => {
         <div className={wrapperStyle}>
             <div className={fieldStyle}>
                 <label htmlFor={`${fieldId}-0`}>科学计数法数值</label>
-                <NumberEdit id={`${fieldId}-0`} value={value} onChange={setValue} />
+                <NumberEdit id={`${fieldId}-0`} value={value} onValueChange={setValue} />
             </div>
             <span>原始值：{value === null ? "（空）" : String(value)}</span>
         </div>

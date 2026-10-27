@@ -1,4 +1,5 @@
 import Card from './card.js';
+export type { CardComponent } from './card.js';
 
 export type {
     CardBodyProps,

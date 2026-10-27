@@ -99,6 +99,8 @@ export interface BarChartProps {
 
     /** 图表的无障碍名称，作为隐藏数据表的 caption */
     'aria-label'?: string;
+    /** Optional chart-owned copy; data category/series labels remain caller content. */
+    labels?: { legend?: string; category?: string };
 
     className?: string;
     style?: CSSProperties;

@@ -60,7 +60,7 @@ const token = defineTokens({
         'transition': `var(${vars['root.transition']}, var(--token-semantic-motion-interaction, var(--token-global-duration-150, 150ms) var(--token-global-easing-expressive-effects-fast, cubic-bezier(0.31, 0.94, 0.34, 1.00))))`,
         'outline-color-focus': `var(${vars['root.outline-color-focus']}, var(--token-semantic-color-focus-ring, var(--token-semantic-color-border-focus, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078)))))`,
         'outline-width-focus': `var(${vars['root.outline-width-focus']}, 2px)`,
-        'outline-offset-focus': `var(${vars['root.outline-offset-focus']}, 2px)`
+        'outline-offset-focus': `var(${vars['root.outline-offset-focus']}, calc(-1 * var(--tree-root-outline-width-focus, 2px)))`
     },
     'node': {
         'background-color-hover': `var(${vars['node.background-color-hover']}, var(--token-semantic-color-state-hover, var(--token-semantic-color-background-hover-subtle, color-mix(in oklch, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695)) calc(var(--token-semantic-state-opacity-hover, var(--token-global-opacity-8, 0.08)) * 100%), var(--token-global-material-neutral-98, oklch(0.98379491 0.01284496 321.893957))))))`,

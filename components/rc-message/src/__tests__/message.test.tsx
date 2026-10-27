@@ -1,4 +1,5 @@
-import { act, beforeAll, describe, expect, it, mock, render, screen } from "@crab-dev/wake/test/react";
+import { beforeAll, describe, expect, it, mock } from "@crab-dev/wake/test";
+import { act, render, screen } from "@crab-dev/wake/test/react";
 
 
 let Message: (typeof import('../message.js'))['default'];

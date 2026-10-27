@@ -11,12 +11,12 @@ const rows = employeeRows();
 const fields = employeeColumns();
 const columns = [fields[7], fields[2], ...fields.filter(col => !["$.region", "$.department"].includes(col.name)).map(col => ({ ...col, fixed: undefined }))];
 export default function RowGroupingDemo() {
-    const [expandedGroupIds, setExpandedGroupIds] = useState<Set<Key>>();
+    const [expandedGroupIds, setExpandedGroupIds] = useState<Set<Key>>(() => new Set());
     return <DemoFrame title="区域人员配置" rows={rows.length} columns={columns.length}
         hint="按大区 → 部门分组。分组标题显示人数，展开后核对具体岗位与项目归属。"
         toolbar={<Button onClick={() => setExpandedGroupIds(new Set())}>收起所有分组</Button>}>
         {(width, height) => <Table aria-label="按大区和部门分组的人员配置" width={width} height={height} rows={rows} columns={columns}
-            groupBy={["$.region", "$.department"]} defaultExpandAll
+            groupBy={["$.region", "$.department"]}
             expandedGroupIds={expandedGroupIds} onExpandedGroupIdsChange={setExpandedGroupIds} />}
     </DemoFrame>;
 }

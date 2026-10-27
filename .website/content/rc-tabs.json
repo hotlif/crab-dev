@@ -19,12 +19,12 @@
         {
             "id": "step-2",
             "title": "受控激活项",
-            "goal": "通过 activeKey 让外部按钮也能切换面板。",
+            "goal": "通过 value 让外部按钮也能切换面板。",
             "why": "标签页把相关内容放在同一区域，激活项与内容面板需要一一对应。",
             "instruction": "点击查看活动，再通过标签栏切回概览。",
             "expected": "两条操作路径更新同一个激活状态。",
             "changes": [
-                "通过 activeKey 让外部按钮也能切换面板。"
+                "通过 value 让外部按钮也能切换面板。"
             ],
             "source": "rc-tabs/step-2.tsx"
         }

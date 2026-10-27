@@ -1,8 +1,9 @@
+import { useLocale } from '@crab-dev/rc-config-provider';
 import { css, cx } from "@crab-dev/css";
-import type { FC, HTMLAttributes, ReactNode } from "react";
+import type { FC, HTMLAttributes, MouseEvent, ReactNode } from "react";
 
-import { usePresence } from "@crab-dev/rc-hooks";
-import Button from "@crab-dev/rc-button";
+import { useControllableOpen, type ControlledOpenProps, usePresence } from "@crab-dev/rc-hooks";
+import Button, { TokenVars as buttonVars } from "@crab-dev/rc-button";
 
 import Close from "./icons/close.js";
 import { type Direction } from "./types.js";
@@ -24,7 +25,12 @@ const typographyContentFontSize = token.content["font-size"];
 
 const opacityClose = token.close.opacity;
 
-export interface NotificationProps extends Omit<HTMLAttributes<HTMLDivElement>, "title" | "children"> {
+export interface NotificationOpenChangeDetails {
+    reason: 'close-button';
+    event: MouseEvent<HTMLButtonElement>;
+}
+
+interface NotificationBaseProps extends Omit<HTMLAttributes<HTMLDivElement>, "title" | "children"> {
     onExitComplete?: () => void;
     /** 叠层序号：1 为最前层，2、3 为后方卡片。 */
     stack?: number;
@@ -38,16 +44,6 @@ export interface NotificationProps extends Omit<HTMLAttributes<HTMLDivElement>, 
      * 消息通知显示的位置
      */
     direction?: Direction
-
-    /**
-     * 是否开启
-     */
-    open: boolean;
-
-    /**
-     * 状态发生改变的时候触发的事件
-     */
-    onOpenChange: (open: boolean) => void;
 
     /**
      * 消息通知的内容
@@ -77,10 +73,13 @@ export interface NotificationProps extends Omit<HTMLAttributes<HTMLDivElement>, 
     paused?: boolean
 }
 
+export type NotificationProps = NotificationBaseProps & ControlledOpenProps<NotificationOpenChangeDetails>;
+
 const Notification: FC<NotificationProps> = ({
     title,
     children,
-    open,
+    open: controlledOpen,
+    defaultOpen,
     direction = "topRight",
     stack = 1,
     onExitComplete,
@@ -93,6 +92,8 @@ const Notification: FC<NotificationProps> = ({
     showProgress = true,
     ...restProps
 }) => {
+    const { messages } = useLocale();
+    const [open, setOpen] = useControllableOpen<NotificationOpenChangeDetails>({ open: controlledOpen, defaultOpen, onOpenChange });
     const safeDuration = duration > 0 ? duration : 1;
     const safeRemaining = Math.max(0, remaining ?? safeDuration);
     const presence = usePresence<HTMLDivElement>(open, onExitComplete);
@@ -196,17 +197,21 @@ const Notification: FC<NotificationProps> = ({
                     </div>
                     <Button
                         appearance="text"
-                        size="small"
-                        aria-label="关闭通知"
+                        size="s"
+                        aria-label={messages.notification.close}
                         className={css`
+                            ${buttonVars['text.color']}: ${token.close.color};
+                            ${buttonVars['text.background-color-hover']}: ${token.close['background-color-hover']};
+                            ${buttonVars['text.background-color-focus']}: ${token.close['background-color-focus']};
+                            ${buttonVars['text.background-color-active']}: ${token.close['background-color-active']};
                             display: flex;
                             align-items: center;
                             opacity: ${opacityClose};
                             user-select: none;
                             cursor: pointer;
                         `}
-                        onClick={() => {
-                            onOpenChange?.(false)
+                        onClick={(event) => {
+                            setOpen(false, { reason: 'close-button', event });
                         }}
                     >
                         <Close />

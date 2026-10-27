@@ -34,13 +34,13 @@ function ThemePanel({ theme }: { theme: "light" | "dark" }) {
     const helpId = useId();
     const title = theme === "light" ? "浅色" : "深色";
     return (
-        <ConfigProvider theme={theme} className={panel}>
+        <ConfigProvider colorMode={theme} className={panel}>
             <section className={layout} aria-label={`${title} MD3 Checkbox`}>
                 <strong>{title}</strong>
                 <div>
                     <Checkbox checked={selected.length === 2} indeterminate={selected.length === 1}
-                        onChange={checked => setSelected(checked ? ["email", "inbox"] : [])}>全选通知</Checkbox>
-                    <CheckboxGroup className={group} value={selected} onChange={setSelected}>
+                        onCheckedChange={checked => setSelected(checked ? ["email", "inbox"] : [])}>全选通知</Checkbox>
+                    <CheckboxGroup className={group} value={selected} onValueChange={setSelected}>
                         <Checkbox value="email">邮件通知</Checkbox>
                         <Checkbox value="inbox">站内消息</Checkbox>
                     </CheckboxGroup>
@@ -50,7 +50,7 @@ function ThemePanel({ theme }: { theme: "light" | "dark" }) {
                     <Checkbox disabled defaultChecked>已选禁用</Checkbox>
                 </div>
                 <div>
-                    <Checkbox checked={agreed} onChange={setAgreed} aria-invalid={!agreed} aria-describedby={helpId}>
+                    <Checkbox checked={agreed} onCheckedChange={setAgreed} aria-invalid={!agreed} aria-describedby={helpId}>
                         同意服务条款
                     </Checkbox>
                     <p id={helpId} className={helpStyle} data-invalid={!agreed} aria-live="polite">
@@ -68,7 +68,7 @@ export default function Example() {
         <ConfigProvider brandColor={brandColor} className={layout}>
             <div className={row} role="group" aria-label="Checkbox 品牌色">
                 {[["紫色", "#6750a4"], ["蓝色", "#1677ff"], ["绿色", "#087f5b"]].map(([name, color]) => (
-                    <Button key={color} size="small" isSelected={brandColor === color} onClick={() => setBrandColor(color)}>{name}</Button>
+                    <Button key={color} size="s" isSelected={brandColor === color} onClick={() => setBrandColor(color)}>{name}</Button>
                 ))}
             </div>
             <div className={panels}>

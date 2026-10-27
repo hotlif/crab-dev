@@ -1,0 +1,5 @@
+`test:browser` consumes published ESM/CSS to verify circular geometry and ordinary scoped fills. Card continues to own its independent loading-fill and natural-animation regressions.
+
+`test:forced-colors` uses the shared isolated Chrome launcher and the actual forced-color system palette. Six design/mode configurations each contain pulse, wave and static text/circle/rect placeholders. It checks exact geometry, no layout border, preserved automatic color adjustment, and actual screenshot outline pixels in all four quadrants. A positive DOM box alone is insufficient. Forced-color decorative animation is intentionally stopped by the product stylesheet; ordinary animation is unchanged.
+
+Use `CRAB_TEST_BROWSER_PATH` or `CHROME_PATH` for a nonstandard Chrome/Chromium installation. Missing browsers fail. The launcher saves actual source/ESM/CSS/helper hashes and full viewport PNGs under `.cache/forced-colors/`, closes only its own process, and leaves manual visual review separate from machine assertions.

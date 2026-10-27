@@ -2,6 +2,7 @@ import type { FC, Key, KeyboardEvent as ReactKeyboardEvent, MouseEvent as ReactM
 import { useEffectEvent, useId, useLayoutEffect, useRef, useState } from "react";
 import { css, cx } from "@crab-dev/css";
 import { useMediaQuery } from "@crab-dev/rc-hooks";
+import { useLocale } from '@crab-dev/rc-config-provider';
 import Button, { TokenVars as buttonVars } from "@crab-dev/rc-button";
 import token from "./token.js";
 import {
@@ -24,9 +25,9 @@ export interface TabBarProps {
     /** 标签列表 */
     items: TabItem[]
     /** 当前激活的标签 key */
-    activeKey?: Key
+    value?: Key
     /** 切换标签时的回调 */
-    onChange?: (key: Key) => void
+    onValueChange?: (key: Key) => void
     /** 关闭标签时的回调 */
     onClose?: (key: Key) => void
     /** 关闭除指定 key 之外的全部可关闭标签 */
@@ -242,8 +243,8 @@ const TabBar: FC<TabBarProps> = ({
     idPrefix,
     onEmpty,
     items,
-    activeKey,
-    onChange,
+    value,
+    onValueChange,
     onClose,
     onCloseOthers,
     onCloseRight,
@@ -251,9 +252,10 @@ const TabBar: FC<TabBarProps> = ({
     onReload,
     onReorder,
 }) => {
+    const { messages } = useLocale();
     const fallbackId = useId();
     const prefix = idPrefix ?? fallbackId;
-    const selectedKey = activeKey ?? items[0]?.key;
+    const selectedKey = value ?? items[0]?.key;
     const draggable = !!onReorder;
     const reducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
     // Mutable DOM measurements, pointer sessions and animation handles never drive rendering directly.
@@ -302,7 +304,7 @@ const TabBar: FC<TabBarProps> = ({
             if (!contextMenuEnabled) return;
             event.preventDefault();
             const rect = event.currentTarget.getBoundingClientRect();
-            setMenuState({ key: item.key, x: rect.left, y: rect.bottom, open: true });
+            setMenuState({ key: item.key, x: rect.left, y: rect.bottom, open: true, anchor: event.currentTarget });
             return;
         }
         const direction = getComputedStyle(event.currentTarget).direction === 'rtl' ? -1 : 1;
@@ -316,7 +318,7 @@ const TabBar: FC<TabBarProps> = ({
         }
         event.preventDefault();
         const next = items[Math.max(0, Math.min(items.length - 1, nextIndex))];
-        onChange?.(next.key);
+        onValueChange?.(next.key);
         tabRefMap.current.get(next.key)?.querySelector<HTMLButtonElement>('[role="tab"]')?.focus({ preventScroll: true });
     };
     /** Pointer session measurements persist between events without render-time ref reads. */
@@ -522,7 +524,7 @@ const TabBar: FC<TabBarProps> = ({
 
     /** 右键菜单状态：仅当任一回调被传入时才启用 */
     const contextMenuEnabled = !!(onReload || onClose || onCloseOthers || onCloseRight || onCloseAll);
-    const [menuState, setMenuState] = useState<{ x: number, y: number, key: Key, open: boolean } | null>(null);
+    const [menuState, setMenuState] = useState<{ x: number, y: number, key: Key, open: boolean, anchor: HTMLElement } | null>(null);
     const closeMenu = () => setMenuState(current => current ? { ...current, open: false } : null);
     const finishMenuExit = () => setMenuState(current => current?.open ? current : null);
 
@@ -531,7 +533,7 @@ const TabBar: FC<TabBarProps> = ({
         e.preventDefault();
         // 拖动结束的瞬间忽略右键菜单
         if (justDraggedRef.current) return;
-        setMenuState({ x: e.clientX, y: e.clientY, key, open: true });
+        setMenuState({ x: e.clientX, y: e.clientY, key, open: true, anchor: e.currentTarget });
     };
 
     const buildMenuItems = (key: Key): TabContextMenuItem[] => {
@@ -553,7 +555,7 @@ const TabBar: FC<TabBarProps> = ({
         if (onReload) {
             result.push({
                 id: "reload",
-                label: "重新加载页面",
+                label: messages.appLayout.reloadPage,
                 icon: <ReloadIcon />,
                 onSelect: () => onReload(key),
             });
@@ -561,7 +563,7 @@ const TabBar: FC<TabBarProps> = ({
         if (onClose) {
             result.push({
                 id: "close",
-                label: "关闭",
+                label: messages.appLayout.close,
                 icon: <CloseIcon />,
                 disabled: !targetClosable,
                 onSelect: () => requestClose(key),
@@ -570,7 +572,7 @@ const TabBar: FC<TabBarProps> = ({
         if (onCloseOthers) {
             result.push({
                 id: "close-others",
-                label: "关闭其他",
+                label: messages.appLayout.closeOthers,
                 icon: <CloseOthersIcon />,
                 disabled: otherClosableCount === 0,
                 onSelect: () => onCloseOthers(key),
@@ -579,7 +581,7 @@ const TabBar: FC<TabBarProps> = ({
         if (onCloseRight) {
             result.push({
                 id: "close-right",
-                label: "关闭右侧",
+                label: messages.appLayout.closeRight,
                 icon: <CloseRightIcon />,
                 disabled: rightClosableCount === 0,
                 onSelect: () => onCloseRight(key),
@@ -588,7 +590,7 @@ const TabBar: FC<TabBarProps> = ({
         if (onCloseAll) {
             result.push({
                 id: "close-all",
-                label: "关闭所有",
+                label: messages.appLayout.closeAll,
                 icon: <CloseAllIcon />,
                 disabled: !anyClosable,
                 onSelect: () => {
@@ -601,7 +603,7 @@ const TabBar: FC<TabBarProps> = ({
     };
 
     return (
-        <div ref={barRef} className={barStyle} role="tablist" aria-label="已打开的页面" aria-orientation="horizontal">
+        <div ref={barRef} className={barStyle} role="tablist" aria-label={messages.appLayout.openedPages} aria-orientation="horizontal">
             {items.map((item, index) => {
                 const isActive = item.key === selectedKey;
                 const closable = item.closable !== false && !!onClose;
@@ -625,7 +627,7 @@ const TabBar: FC<TabBarProps> = ({
                         data-drag-offset={offset}
                         onClick={() => {
                             if (justDraggedRef.current) { justDraggedRef.current = false; return; }
-                            onChange?.(item.key);
+                            onValueChange?.(item.key);
                         }}
                         onPointerDown={(e) => handlePointerDown(e, item.key, index)}
                         onPointerMove={handlePointerMove}
@@ -662,7 +664,7 @@ const TabBar: FC<TabBarProps> = ({
                                     requestClose(item.key);
                                 }}
                                 onPointerDown={(e) => e.stopPropagation()}
-                                aria-label="关闭标签页"
+                                aria-label={messages.appLayout.closeTab}
                                 aria-describedby={`${prefix}-label-${index}`}
                             />
                         ) : null}
@@ -672,6 +674,7 @@ const TabBar: FC<TabBarProps> = ({
             })}
             {menuState ? (
                 <TabContextMenu
+                    anchor={menuState.anchor}
                     open={menuState.open}
                     onExitComplete={finishMenuExit}
                     x={menuState.x}

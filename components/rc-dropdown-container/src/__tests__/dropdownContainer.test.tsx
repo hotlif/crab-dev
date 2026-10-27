@@ -11,23 +11,32 @@ let sizeMiddlewareOptions: {
 } | undefined;
 
 mock.module("@floating-ui/react", async () => {
-    // eslint-disable-next-line @typescript-eslint/no-require-imports, no-undef
-    const { createPortal } = require("react-dom");
+    const { createPortal } = await mock.actual<typeof import("react-dom")>("react-dom");
+    const mockReact = await mock.actual<typeof import("react")>("react");
     return {
         useFloating: (options: {
             open?: boolean;
             onOpenChange?: (open: boolean) => void;
-        }) => ({
+        }) => {
+            const floating = mockReact.useRef<HTMLElement | null>(null);
+            const domReference = mockReact.useRef<HTMLElement | null>(null);
+            return ({
+            elements: {
+                get floating() { return floating.current; },
+                get domReference() { return domReference.current; },
+            },
             refs: {
-                setReference: mock.fn(),
-                setFloating: mock.fn(),
+                domReference,
+                setReference: (node: HTMLElement | null) => { domReference.current = node; },
+                floating,
+                setFloating: (node: HTMLElement | null) => { floating.current = node; },
             },
             floatingStyles: {},
             // 本文件不测试真实的 dismiss 机制(那由 dropdownContainer.nested.test.tsx 覆盖,
             // 使用未 mock 的真实 @floating-ui/react),这里只需把 open/onOpenChange 原样透出，
             // 供 useDismiss 的 mock 读取即可。
             context: { open: options?.open, onOpenChange: options?.onOpenChange },
-        }),
+        }); },
         autoUpdate: mock.fn(),
         offset: mock.fn(),
         flip: mock.fn(),
@@ -43,6 +52,9 @@ mock.module("@floating-ui/react", async () => {
         }),
         useFloatingNodeId: () => undefined,
         useFloatingParentNodeId: () => null,
+        // This renderer suite isolates tree membership; real focus branches
+        // are covered by the non-mocked focus and native browser suites.
+        useFloatingTree: () => null,
         FloatingTree: ({ children }: {
             children: React.ReactNode;
         }) => children,
@@ -92,18 +104,32 @@ const renderDropdown = async (props: Partial<DropdownContainerProps> = {}) => {
     </DropdownContainer>);
 };
 describe("DropdownContainer", () => {
+    it('preserves an explicit semantic close reason and native event from its consumer', async () => {
+        const changed = mock.fn();
+        const escape = new KeyboardEvent('keydown', { key: 'Escape', bubbles: true });
+        const details = { reason: 'escape', event: escape } as const;
+        function CloseTrigger() {
+            const { dispatch, refs } = useDropdownContext<HTMLButtonElement>();
+            return <button ref={refs.setReference} onClick={() => dispatch({ type: 'setOpen', payload: false, details })}>Close by keyboard request</button>;
+        }
+        await render(<DropdownContainer defaultOpen onOpenChange={changed} overlay={<div>Options</div>}><CloseTrigger /></DropdownContainer>);
+        await fireEvent.click(screen.getByText('Close by keyboard request'));
+        expect(changed).toHaveBeenCalledTimes(1);
+        expect(changed.calls.calls[0][0]).toBe(false);
+        expect(changed.calls.calls[0][1]).toBe(details);
+    });
     it('keeps the configured design on a portal panel and follows changes', async () => {
         const overlay = <div data-testid="design-overlay">Options</div>;
         const content = <DropdownContainer overlay={overlay}><Trigger /></DropdownContainer>;
-        const view = await render(<ConfigProvider design="shadcn">{content}</ConfigProvider>);
+        const view = await render(<ConfigProvider designSystem="shadcn">{content}</ConfigProvider>);
         await fireEvent(screen.getByTestId('trigger'), new FocusEvent('focusin', { bubbles: true }));
         const panel = () => screen.getByTestId('design-overlay').parentElement?.parentElement;
         expect(panel()?.getAttribute('data-crab-design')).toBe('shadcn');
         expect(screen.getByTestId('trigger').parentElement?.contains(panel() ?? null)).toBe(false);
-        await view.rerender(<ConfigProvider design="material">{content}</ConfigProvider>);
-        expect(panel()?.getAttribute('data-crab-design')).toBe('material');
+        await view.rerender(<ConfigProvider designSystem="md3">{content}</ConfigProvider>);
+        expect(panel()?.getAttribute('data-crab-design')).toBe('md3');
     });
-    it('restores inherited density in a portalled panel and honors a local override', async () => {
+    it('restores inherited control size in a portalled panel and honors a local override', async () => {
         const overlay = <div data-testid="size-overlay">Options</div>;
         const view = await render(<ConfigProvider size="small"><DropdownContainer overlay={overlay}><Trigger /></DropdownContainer></ConfigProvider>);
         await fireEvent(screen.getByTestId('trigger'), new FocusEvent('focusin', { bubbles: true }));
@@ -233,7 +259,7 @@ describe("DropdownContainer", () => {
     });
     it('preserves a local theme and brand boundary inside a modal dialog', async () => {
         const { container } = await render(<dialog open>
-            <ConfigProvider design="shadcn" theme="dark" brandColor="#6750a4">
+            <ConfigProvider designSystem="shadcn" colorMode="dark" brandColor="#6750a4">
                 <DropdownContainer overlay={<div data-testid="overlay">Dropdown Content</div>}><Trigger /></DropdownContainer>
             </ConfigProvider>
         </dialog>);
@@ -241,7 +267,8 @@ describe("DropdownContainer", () => {
         const overlay = screen.getByTestId('overlay');
         const boundary = container.querySelector('[data-crab-brand]');
         expect(boundary?.contains(overlay)).toBe(true);
-        expect(overlay.closest('[data-theme]')).toBe(boundary);
+        expect(overlay.closest('[data-theme]')?.getAttribute('data-theme')).toBe('dark');
+        expect(overlay.closest('[data-theme]')?.querySelector('style')?.textContent).toContain('--token-semantic-color-brand-primary:');
         expect(overlay.closest('[data-crab-design]')?.getAttribute('data-crab-design')).toBe('shadcn');
     });
     it("does not portal into a dialog when trigger is outside of one", async () => {

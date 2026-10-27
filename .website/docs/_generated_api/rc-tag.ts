@@ -5,23 +5,32 @@ type DocsTypePlaceholder = ((...args: never[]) => unknown) & {
     readonly [key: string]: DocsTypePlaceholder;
     readonly [key: number]: DocsTypePlaceholder;
 };
-type HTMLSpanElement = DocsTypePlaceholder;
+type HTMLButtonElement = DocsTypePlaceholder;
 type PresetTagColor = DocsTypePlaceholder;
 type ReactMouseEvent<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 type ReactNode = DocsTypePlaceholder;
 
 export interface TagProps {
     /**
+     * Defines a string value that labels the current element.
+     */
+    "aria-label"?: string | undefined | string;
+
+    /**
+     * 暂无说明。
+     */
+    "children"?: ReactNode | undefined | ReactNode;
+
+    /**
      * 标签颜色预设
-     * @default 'default'
+     * @default ’default’
      */
     "color"?: PresetTagColor | string;
 
     /**
      * 标签尺寸
-     * @default 'middle'
      */
-    "size"?: 'large' | 'middle' | 'small';
+    "size"?: 'large' | 'medium' | 'small';
 
     /**
      * 是否显示边框
@@ -41,8 +50,7 @@ export interface TagProps {
     "closeIcon"?: ReactNode | false;
 
     /**
-     * 关闭按钮的无障碍标签，默认为 "close"；同一容器内出现多个可关闭标签时应传入可区分的描述
-     * @default 'close'
+     * 关闭按钮的无障碍标签，默认跟随 ConfigProvider 的语言；同一容器内出现多个可关闭标签时应传入可区分的描述
      */
     "closeAriaLabel"?: string;
 
@@ -54,15 +62,5 @@ export interface TagProps {
     /**
      * 关闭回调
      */
-    "onClose"?: (e: ReactMouseEvent<HTMLSpanElement>) => void;
-
-    /**
-     * 暂无说明。
-     */
-    "children"?: ReactNode;
-
-    /**
-     * 暂无说明。
-     */
-    "aria-label"?: string;
+    "onClose"?: (e: ReactMouseEvent<HTMLButtonElement>) => void;
 }

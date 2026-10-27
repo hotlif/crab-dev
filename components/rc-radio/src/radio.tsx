@@ -189,6 +189,7 @@ const Radio: FC<RadioProps> = ({
     disabled: disabledProp,
     size: sizeProp,
     onChange,
+    onCheckedChange,
     value,
     children,
     className,
@@ -229,15 +230,15 @@ const Radio: FC<RadioProps> = ({
         } else {
             return {
                 wrapper: css`
-                    font-size: ${token.size.middle.label['font-size']};
+                    font-size: ${token.size.medium.label['font-size']};
                 `,
                 box: css`
-                    width: ${token.size.middle.box.width};
-                    height: ${token.size.middle.box.width};
+                    width: ${token.size.medium.box.width};
+                    height: ${token.size.medium.box.width};
                 `,
                 dot: css`
-                    width: ${token.size.middle.dot.width};
-                    height: ${token.size.middle.dot.width};
+                    width: ${token.size.medium.dot.width};
+                    height: ${token.size.medium.dot.width};
                 `,
             };
         }
@@ -254,7 +255,7 @@ const Radio: FC<RadioProps> = ({
     >({
         value: checkedProp,
         defaultValue: defaultChecked,
-        onChange,
+        onValueChange: (next, event) => onCheckedChange?.(next, { reason: 'toggle', event }),
     });
 
     const checked = isInGroup ? group.value === value : standaloneChecked;
@@ -262,9 +263,10 @@ const Radio: FC<RadioProps> = ({
     const name = restProps.name ?? group?.name;
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+        onChange?.(e);
         if (isInGroup) {
-            group.selectValue(value);
-            onChange?.(e.target.checked, e);
+            group.selectValue(value, e);
+            onCheckedChange?.(e.target.checked, { reason: 'toggle', event: e });
         } else {
             setStandaloneChecked(e.target.checked, e);
         }

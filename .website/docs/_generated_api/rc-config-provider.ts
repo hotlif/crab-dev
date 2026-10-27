@@ -5,21 +5,28 @@ type DocsTypePlaceholder = ((...args: never[]) => unknown) & {
     readonly [key: string]: DocsTypePlaceholder;
     readonly [key: number]: DocsTypePlaceholder;
 };
-type ConfigDesign = DocsTypePlaceholder;
+type ConfigColorMode = DocsTypePlaceholder;
+type ConfigDensity = DocsTypePlaceholder;
+type ConfigDesignSystem = DocsTypePlaceholder;
+type ConfigDirection = DocsTypePlaceholder;
 type ConfigLocale = DocsTypePlaceholder;
 type ConfigSize = DocsTypePlaceholder;
-type ConfigTheme = DocsTypePlaceholder;
 
 export interface ConfigProviderProps {
+    /**
+     * 设计体系；省略继承父级，根级默认 md3。
+     */
+    "designSystem"?: ConfigDesignSystem;
+
+    /**
+     * 已解析的明暗模式；省略继承父级，根级默认 light。
+     */
+    "colorMode"?: ConfigColorMode;
+
     /**
      * 品牌种子色（#RGB / #RRGGBB）；省略继承父级，null 恢复当前设计风格的默认品牌。
      */
     "brandColor"?: string | null;
-
-    /**
-     * 设计风格；省略时继承父级，根级默认 material。与明暗主题、品牌色和尺寸独立。
-     */
-    "design"?: ConfigDesign;
 
     /**
      * 语言；省略时继承父级，根级默认 zh-CN。
@@ -27,12 +34,17 @@ export interface ConfigProviderProps {
     "locale"?: ConfigLocale;
 
     /**
-     * 控件、数据行和布局间距的默认档位；small 紧凑、middle 标准、large 宽松。省略时继承父级。
+     * 控件默认尺寸；省略继承父级，根级默认 medium。
      */
     "size"?: ConfigSize;
 
     /**
-     * 主题；省略时继承父级，根级默认 light。需加载 rc-theme CSS。
+     * 数据、导航与布局密度，独立于控件尺寸；默认 standard。
      */
-    "theme"?: ConfigTheme;
+    "density"?: ConfigDensity;
+
+    /**
+     * 文字与布局方向；省略继承父级，根级默认 ltr。
+     */
+    "direction"?: ConfigDirection;
 }

@@ -1,15 +1,17 @@
-import { useRef, useState, type FC } from 'react';
+import type { DropdownOpenChangeDetails } from '@crab-dev/rc-dropdown-container';
+import { useControllableValue, useControllableOpen } from '@crab-dev/rc-hooks';
+import { usePickerLocale } from '../locale.js';
+import { useId, useRef, useState, type FC } from 'react';
 import RcDropdownContainer from "@crab-dev/rc-dropdown-container";
 import { type LineEditProps } from "@crab-dev/rc-line-edit"
 import { formatTemporal } from "../util.js"
 import DatePickerInput from "./datePickerInput.js";
-import type { DatePickerInputProps } from "./datePickerInput.js";
 import DatePickerOverlay from "./datePickerOverlay.js";
 import type { DatePickerPanelInstance, DatePickerPanelProps } from "../panels/datePickerPanel.js"
 import { popupContentStyle, popupFrameStyle } from '../panels/popup.style.js';
-import type { PickerFieldProps } from '../types.js';
+import type { PickerFieldProps, PickerValueProps, PickerOpenProps, PickerValueChangeDetails } from '../types.js';
 
-export interface DatePickerProps extends PickerFieldProps {
+interface DatePickerBaseProps extends PickerFieldProps {
     /** 只传给日期面板；选择草稿和面板实例由选择器管理。 */
     panelProps?: Omit<DatePickerPanelProps, 'value' | 'selectValues' | 'onSelect' | 'instance' | 'range' | 'timeZone' | 'weekStartDay' | 'locale'>;
 
@@ -41,38 +43,50 @@ export interface DatePickerProps extends PickerFieldProps {
     /**
      * 日期值
      */
-    value: Temporal.ZonedDateTime | null;
 
     /**
      * 改变日期的时候触发的事件
      */
-    onValueChange?: DatePickerInputProps["onValueChange"];
 
     /**
-     * 自定义显示的日期字符串
+     * 自定义显示的日期字符串；不改变值或清除状态。空值提示使用 placeholder。
      */
     renderDisplayString?: (value: Temporal.ZonedDateTime | null) => string;
 }
 
 
+export type DatePickerProps = DatePickerBaseProps & PickerValueProps<Temporal.ZonedDateTime> & PickerOpenProps;
+
 const DatePicker: FC<DatePickerProps> = ({
-    value,
+    value: valueProp,
+    defaultValue,
+    open,
+    defaultOpen,
+    onOpenChange,
     onValueChange,
     timeZone,
     weekStartDay,
-    locale,
+    locale: localeProp,
     range,
     panelProps,
     renderDisplayString = (value) => formatTemporal(value, "yyyy-MM-dd"),
     ...restProps
 }) => {
 
-    const [selectValues, setSelectValues] = useState<Temporal.ZonedDateTime[]>(value == null ?  [Temporal.Now.zonedDateTimeISO()] : [value]);
+    const { locale, messages } = usePickerLocale(localeProp);
+    const popupId = useId();
+    const [value, setValue] = useControllableValue<Temporal.ZonedDateTime | null, [PickerValueChangeDetails]>({ value: valueProp, defaultValue: defaultValue ?? null, onValueChange });
+    const [isOpen, setOpen] = useControllableOpen<DropdownOpenChangeDetails>({ open, defaultOpen, onOpenChange });
+    const changeValue = (next: Temporal.ZonedDateTime | null, event?: PickerValueChangeDetails['event']) => setValue(next, { reason: next === null ? 'clear' : 'confirm', ...(event ? { event } : {}) });
+    const [selectValues, setSelectValues] = useState<Temporal.ZonedDateTime[]>(() => value == null ? [Temporal.Now.zonedDateTimeISO(timeZone)] : [value]);
     const datePickerPanelInstance = useRef<DatePickerPanelInstance>(null);
 
     return (
         <RcDropdownContainer
-            floatingContainerProps={{ className: popupFrameStyle }}
+            closeOnFocusOut
+            open={isOpen}
+            onOpenChange={setOpen}
+            floatingContainerProps={{ id: popupId, role: 'dialog', 'aria-label': messages.chooseDate, 'aria-modal': false, className: popupFrameStyle }}
             overlayClassName={popupContentStyle}
             overlay={(
                 <DatePickerOverlay
@@ -82,22 +96,23 @@ const DatePicker: FC<DatePickerProps> = ({
                     weekStartDay={weekStartDay}
                     locale={locale}
                     range={range}
-                    onValueChange={onValueChange}
+                    onValueChange={changeValue}
                     selectValues={selectValues}
                     onSelectValuesChange={setSelectValues}
                     instance={datePickerPanelInstance}
                 />
             )}
         >
-            <DatePickerInput
+            <DatePickerInput locale={locale} popupId={popupId}
                 value={renderDisplayString(value)}
-                onValueChange={onValueChange}
+                onValueChange={changeValue}
                 instance={datePickerPanelInstance}
                 onConfirm={() => {
-                    if (selectValues[0]) onValueChange?.(selectValues[0]);
+                    if (selectValues[0]) changeValue(selectValues[0]);
                 }}
                 onOpen={() => setSelectValues([value ?? Temporal.Now.zonedDateTimeISO(timeZone)])}
                 {...restProps}
+                hasValue={value != null}
             />
         </RcDropdownContainer>
     );

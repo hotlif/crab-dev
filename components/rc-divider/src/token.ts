@@ -9,7 +9,7 @@ export const vars = defineTokens({
     'line.border-width': '--divider-line-border-width',
     'spacing.none.margin': '--divider-spacing-none-margin',
     'spacing.small.margin': '--divider-spacing-small-margin',
-    'spacing.middle.margin': '--divider-spacing-middle-margin',
+    'spacing.medium.margin': '--divider-spacing-medium-margin',
     'spacing.large.margin': '--divider-spacing-large-margin',
     'text.color': '--divider-text-color',
     'text.color-plain': '--divider-text-color-plain',
@@ -33,8 +33,8 @@ const token = defineTokens({
         'small': {
             'margin': `var(${vars['spacing.small.margin']}, var(--token-semantic-space-component-gap, var(--token-global-space-2, 8px)))`
         },
-        'middle': {
-            'margin': `var(${vars['spacing.middle.margin']}, var(--token-semantic-space-section-gap, var(--token-global-space-4, 16px)))`
+        'medium': {
+            'margin': `var(${vars['spacing.medium.margin']}, var(--token-semantic-space-section-gap, var(--token-global-space-4, 16px)))`
         },
         'large': {
             'margin': `var(${vars['spacing.large.margin']}, var(--token-semantic-space-group-gap, var(--token-global-space-6, 24px)))`

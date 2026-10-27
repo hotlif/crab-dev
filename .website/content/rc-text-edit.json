@@ -1,7 +1,7 @@
 {
     "id": "rc-text-edit",
     "title": "TextEdit 多行输入",
-    "summary": "多行字段跟随统一设计风格：Material 使用浮动标签，macOS 与 shadcn 使用静态外置标签和各自的焦点反馈，说明与错误保持在字段下方。",
+    "summary": "多行字段跟随统一设计体系：MD3 Expressive 使用浮动标签，Apple 与 shadcn/ui 使用静态外置标签和各自的焦点反馈，说明与错误保持在字段下方。",
     "prerequisite": "已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。示例使用公开组件入口，样式由 Wake 自动加载。",
     "steps": [
         {
@@ -9,8 +9,8 @@
             "title": "输入备注",
             "goal": "使用 TextEdit 录入多行文本并设置长度上限。",
             "why": "多行输入适合备注与说明，长度和错误提示应靠近字段。",
-            "instruction": "输入两行项目说明，再在顶部外观菜单切换 macOS、Material Design 3 与 shadcn。",
-            "expected": "内容保留换行，最多输入 120 字；Material 浮动标签与 macOS、shadcn 静态外置标签随风格切换。",
+            "instruction": "输入两行项目说明，再在顶部外观菜单切换 Apple、MD3 Expressive 与 shadcn/ui。",
+            "expected": "内容保留换行，最多输入 120 字；MD3 Expressive 浮动标签与 Apple、shadcn/ui 静态外置标签随风格切换。",
             "changes": [
                 "使用 TextEdit 录入多行文本并设置长度上限。"
             ],
@@ -19,12 +19,12 @@
         {
             "id": "step-2",
             "title": "连接文本状态",
-            "goal": "通过 onChange 读取文本并显示字数。",
+            "goal": "通过 onValueChange 读取文本并显示字数。",
             "why": "多行输入适合备注与说明，长度和错误提示应靠近字段。",
             "instruction": "继续输入一行内容。",
             "expected": "字符计数与文本变化同步。",
             "changes": [
-                "通过 onChange 读取文本并显示字数。"
+                "通过 onValueChange 读取文本并显示字数。"
             ],
             "source": "rc-text-edit/step-2.tsx"
         }
@@ -36,7 +36,7 @@
         },
         {
             "question": "怎样统一三套风格？",
-            "answer": "在根级 ConfigProvider 设置 design=\"macos\"、design=\"material\" 或 design=\"shadcn\"，不必逐个字段覆盖标签或样式。Material 按多行内容扩展浮动标签容器；macOS 与 shadcn 保留静态外置标签与紧凑间距，分别提供蓝色与中性色外侧焦点环。theme 和 size 独立配置。"
+            "answer": "在根级 ConfigProvider 设置 designSystem=\"apple\"、designSystem=\"md3\" 或 designSystem=\"shadcn\"，不必逐个字段覆盖标签或样式。MD3 Expressive 按多行内容扩展浮动标签容器；Apple 与 shadcn/ui 保留静态外置标签与紧凑间距，分别提供蓝色与中性色外侧焦点环。colorMode 和 size 独立配置。"
         }
     ]
 }

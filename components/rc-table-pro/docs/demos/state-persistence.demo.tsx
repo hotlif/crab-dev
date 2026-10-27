@@ -118,7 +118,7 @@ const StatePersistenceDemo = () => {
                 <span>
                     状态已保存 <strong>{saveCount}</strong> 次到 localStorage（key: <code>{STORAGE_KEY}</code>）
                 </span>
-                <Button size="small" danger onClick={handleReset}>
+                <Button size="xs" danger onClick={handleReset}>
                     清除并刷新
                 </Button>
             </div>

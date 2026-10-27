@@ -1,13 +1,13 @@
 export const meta = {
     title: "收起内嵌菜单",
-    description: "通过 inlineCollapsed 控制菜单的收起与展开。收起时仅显示图标，悬停显示 Tooltip 或浮层子菜单。",
+    description: "通过 inlineCollapsed 收起为图标栏，分别保存内联展开记忆与临时浮层状态；切换模式关闭浮层，展开时恢复原有分支。",
 };
 
 import { Key, useState } from "react";
 import { css, cx } from "@crab-dev/css";
 import Button from "@crab-dev/rc-button";
 import token from "@crab-dev/rc-token-semantic";
-import RcMenu, { MenuItemType } from "../../src/index.js";
+import RcMenu, { MenuItemType } from "@crab-dev/rc-menu";
 
 const containerStyle = css`
     display: flex;
@@ -46,12 +46,16 @@ const Dot = () => (
 const CollapsedDemo = () => {
     const [collapsed, setCollapsed] = useState(false);
     const [selectKeys, setSelectKeys] = useState<Key[]>([21]);
-    const [openKeys, setOpenKeys] = useState<Key[]>([1]);
+    const [inlineOpenKeys, setInlineOpenKeys] = useState<Key[]>([1]);
+    const [popupOpenKeys, setPopupOpenKeys] = useState<Key[]>([]);
 
     return (
         <div className={containerStyle}>
             <Button
-                onClick={() => setCollapsed((v) => !v)}
+                onClick={() => {
+                    setPopupOpenKeys([]);
+                    setCollapsed((v) => !v);
+                }}
                 aria-pressed={collapsed}
             >
                 {collapsed ? "展开菜单" : "收起菜单"}
@@ -64,9 +68,9 @@ const CollapsedDemo = () => {
                     mode="vertical"
                     inlineCollapsed={collapsed}
                     selectedKeys={selectKeys}
-                    onSelectItem={({ selectedKeys }) => setSelectKeys(selectedKeys)}
-                    openKeys={openKeys}
-                    onOpenChange={setOpenKeys}
+                    onSelectedKeysChange={(selectedKeys) => setSelectKeys(selectedKeys)}
+                    openKeys={collapsed ? popupOpenKeys : inlineOpenKeys}
+                    onOpenKeysChange={collapsed ? setPopupOpenKeys : setInlineOpenKeys}
                     items={[
                         {
                             type: MenuItemType.Item,

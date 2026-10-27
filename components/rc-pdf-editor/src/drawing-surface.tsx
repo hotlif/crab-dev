@@ -3,15 +3,18 @@ import type { ViewportState } from '@crab-dev/rc-canvas';
 import type { Drawing, PageInfo, Point, ShapeStyle } from './protocol.js';
 import { constrainedPoint, drawable, isShapeTool, type EditorTool } from './drawing.js';
 import { stageStyle } from './styles.js';
+import { usePdfLocale } from './locale.js';
 
 interface Gesture { pointer: number; target: HTMLDivElement; drawing: Drawing; viewport: ViewportState }
 interface DrawingSurfaceProps {
     tool: EditorTool; style: ShapeStyle; disabled: boolean; page: PageInfo; revision: number;
     viewport: ViewportState; width: number; height: number;
     children: (drawing?: Drawing) => ReactNode; onDraw: (drawing: Drawing) => void;
+    'aria-label'?: string;
 }
 
-export default function DrawingSurface({ tool, style, disabled, page, revision, viewport, width, height, children, onDraw }: DrawingSurfaceProps) {
+export default function DrawingSurface({ tool, style, disabled, page, revision, viewport, width, height, children, onDraw, 'aria-label': ariaLabel }: DrawingSurfaceProps) {
+    const { text } = usePdfLocale();
     const [drawing, setDrawing] = useState<Drawing>();
     // 可变实例状态：一笔绘制的采样点、指针捕获和开始时的视口，仅由事件读取/更新。
     const gesture = useRef<Gesture | undefined>(undefined);
@@ -40,7 +43,7 @@ export default function DrawingSurface({ tool, style, disabled, page, revision, 
         } else value.points[1] = next;
         setDrawing({ ...value, points: [...value.points] });
     }
-    return <div className={stageStyle} data-tool={disabled ? 'select' : tool} aria-label="绘图区域" tabIndex={-1}
+    return <div className={stageStyle} data-tool={disabled ? 'select' : tool} aria-label={ariaLabel ?? text('绘图区域')} tabIndex={-1}
         onPointerDownCapture={event => {
             if (disabled || !isShapeTool(tool) || event.button !== 0 || gesture.current) return;
             event.preventDefault(); event.stopPropagation();

@@ -55,6 +55,8 @@ import { demos } from "../_generated/rc-notification.js";
 
 通知根节点接受原生 `div` 属性和 `className`。自定义动画通过 CSS 类实现，不再接收 Motion 的 `initial`、`animate`、`exit` 或 `transition` 属性。
 
+关闭按钮使用通知表面的语义前景色，并保留完整的不透明焦点环与悬停、按下反馈，不通过整体透明度降低操作可见性。局部样式通过公开 Button 令牌映射，不改变其他按钮的颜色或行为。
+
 
 
 `notification.open({ title, description, duration })` 返回 `{ id, close, update }`。可调用 `handle.close()` 或 `notification.close(handle.id)` 关闭指定通知；调用 update 修改内容或时长会保留 ID 并重新计时。duration=0 时持续展示。onClose 只执行一次，已经关闭的句柄不能重新打开通知。
@@ -64,7 +66,7 @@ import { demos } from "../_generated/rc-notification.js";
 
 ### 三套设计风格
 
-macOS 使用 16px 圆角的通知面板；Material 使用 12px 内容容器；shadcn 使用 8px 圆角和细描边。通知队列、关闭按钮、键盘焦点暂停和倒计时与主题无关。此组件为持续通知模式扩展，不宣称等同于 Material snackbar 或操作系统通知中心。
+Apple 使用 16px 圆角的通知面板；MD3 Expressive 使用 12px 内容容器；shadcn 使用 8px 圆角和细描边。通知队列、关闭按钮、键盘焦点暂停和倒计时与主题无关。此组件为持续通知模式扩展，不宣称等同于 MD3 snackbar 或操作系统通知中心。
 
 切换文档站设计风格后，本页演示同步使用该设计；浅色和深色模式分别使用配对语义颜色。
 
@@ -85,6 +87,14 @@ macOS 使用 16px 圆角的通知面板；Material 使用 12px 内容容器；sh
 - 通知出现时使用合适的 live region，但不要自动抢走键盘焦点。
 - 关闭按钮和通知动作要有清楚名称，自动关闭时间应与内容长度匹配。
 
+### 设计依据与覆盖
+
+- **MD3 Expressive**：M3 没有与桌面角落通知完全对应的核心组件；本组件结合 Snackbar 的反馈原则、Card 表面和项目级堆叠规则。 [依据 1](https://m3.material.io/components/snackbar/overview) · [依据 2](https://material-web.dev/components/) · [依据 3](https://github.com/material-components/material-web)
+- **Apple**：依据 Apple HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。 [依据 1](https://developer.apple.com/design/human-interface-guidelines/components) · [依据 2](https://developer.apple.com/design/human-interface-guidelines/accessibility)
+- **shadcn/ui**：参考 shadcn/ui 的组件用途、中性表面与设计变量，在本库公共语义和 React 交互模型中实现；完整状态覆盖仍需按矩阵验收。 [依据 1](https://ui.shadcn.com/docs/components) · [依据 2](https://ui.shadcn.com/docs/theming) · [依据 3](https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4)
+
+设计依据不等于完成验收；当前状态与适用边界见[覆盖矩阵](/guides/design-coverage)。
+
 ## 常见问题
 
 ### 需要用户必须确认怎么办？
@@ -94,3 +104,10 @@ macOS 使用 16px 圆角的通知面板；Material 使用 12px 内容容器；sh
 ## API
 
 <API source="../_generated_api/rc-notification.ts" symbol="NotificationProps" component="Notification" />
+
+<details data-docs-native-props>
+<summary>Notification 继承的原生属性（276 项）</summary>
+
+<API source="../_generated_api/rc-notification-native.ts" symbol="NotificationPropsNativeAttributes" component="Notification 继承的原生属性" />
+
+</details>

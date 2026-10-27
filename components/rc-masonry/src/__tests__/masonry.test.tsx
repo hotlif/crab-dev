@@ -29,16 +29,66 @@ describe('Masonry', () => {
         const root = view.container.firstElementChild as HTMLElement;
         const second = root.children[1] as HTMLElement;
         expect(second.style.width).toBe('100px');
-        expect(second.style.transform).toBe('translate(112px, 0px)');
+        expect(second.style.getPropertyValue('--masonry-inline-offset')).toBe('112px');
+        expect(second.style.getPropertyValue('--masonry-block-offset')).toBe('0px');
         await act(async () => {
             root.style.columnGap = '20px';
             await Promise.resolve();
         });
         expect(second.style.width).toBe('96px');
-        expect(second.style.transform).toBe('translate(116px, 0px)');
+        expect(second.style.getPropertyValue('--masonry-inline-offset')).toBe('116px');
         await view.rerender(<Masonry sequential gutter={0} style={{ columnGap: '20px' }}>{content}</Masonry>);
         expect(second.style.width).toBe('106px');
-        expect(second.style.transform).toBe('translate(106px, 0px)');
+        expect(second.style.getPropertyValue('--masonry-inline-offset')).toBe('106px');
+    });
+    it.each([false, true])('三列非等高内容在方向切换后保留列分配与逻辑位移（sequential=%s）', async (sequential) => {
+        const heights = [30, 70, 50, 80, 20, 40, 10];
+        const content = heights.map((_height, index) => <div key={index}>Item {index + 1}</div>);
+        const fixture = (direction: 'ltr' | 'rtl') => (
+            <div dir={direction}>
+                <Masonry columns={3} gutter={15} sequential={sequential} data-testid="geometry">
+                    {content}
+                </Masonry>
+            </div>
+        );
+        const view = await render(fixture('ltr'));
+        const root = view.container.querySelector<HTMLElement>('[data-testid="geometry"]');
+        if (!root) throw new Error('Missing masonry geometry fixture');
+        const wrappers = Array.from(root.children) as HTMLElement[];
+        // DOM 环境没有布局引擎；只替身真实子项高度，保留列分配与累计高度计算。
+        wrappers.forEach((wrapper, index) => {
+            Object.defineProperty(wrapper, 'offsetHeight', { configurable: true, value: heights[index] });
+        });
+        await act(async () => {
+            resizeCallbacks[0]([{ contentRect: { width: 330 } }]);
+        });
+
+        const expectedInlineOffsets = sequential
+            ? ['0px', '115px', '230px', '0px', '115px', '230px', '0px']
+            : ['0px', '115px', '230px', '0px', '230px', '115px', '230px'];
+        const expectedBlockOffsets = sequential
+            ? ['0px', '0px', '0px', '45px', '85px', '65px', '140px']
+            : ['0px', '0px', '0px', '45px', '65px', '85px', '100px'];
+        const assertLogicalGeometry = () => {
+            expect(root.childElementCount).toBe(heights.length);
+            expect(root.style.height).toBe(sequential ? '150px' : '125px');
+            expect(wrappers.map((wrapper) => wrapper.style.width)).toEqual(heights.map(() => '100px'));
+            expect(wrappers.map((wrapper) => wrapper.style.getPropertyValue('--masonry-inline-offset'))).toEqual(expectedInlineOffsets);
+            expect(wrappers.map((wrapper) => wrapper.style.getPropertyValue('--masonry-block-offset'))).toEqual(expectedBlockOffsets);
+            wrappers.forEach((wrapper, index) => {
+                expect(root.children[index]).toBe(wrapper);
+                expect(wrapper.textContent).toBe(`Item ${index + 1}`);
+                // 静态 CSS 根据 :dir(rtl) 镜像，内联 transform 不得覆盖该规则。
+                expect(wrapper.style.transform).toBe('');
+            });
+        };
+        assertLogicalGeometry();
+        for (const direction of ['rtl', 'ltr'] as const) {
+            await view.rerender(fixture(direction));
+            expect(root.parentElement?.getAttribute('dir')).toBe(direction);
+            assertLogicalGeometry();
+        }
+        // 本测试不证明 CSS 镜像或边界可见性；真实 ESM/CSS 浏览器检查另验子项矩形不溢出。
     });
     it('renders without crashing when no children provided', async () => {
         const { container } = await render(<Masonry />);

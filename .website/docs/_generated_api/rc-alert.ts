@@ -12,8 +12,18 @@ type ReactNode = DocsTypePlaceholder;
 
 export interface AlertProps {
     /**
+     * Defines a string value that labels the current element.
+     */
+    "aria-label"?: string | undefined | string;
+
+    /**
+     * 暂无说明。
+     */
+    "children"?: ReactNode | undefined | ReactNode;
+
+    /**
      * 警告类型
-     * @default 'info'
+     * @default ’info’
      */
     "type"?: AlertType;
 
@@ -53,14 +63,4 @@ export interface AlertProps {
      * 操作区域，位于右侧关闭按钮左侧
      */
     "action"?: ReactNode;
-
-    /**
-     * 暂无说明。
-     */
-    "children"?: ReactNode;
-
-    /**
-     * 暂无说明。
-     */
-    "aria-label"?: string;
 }

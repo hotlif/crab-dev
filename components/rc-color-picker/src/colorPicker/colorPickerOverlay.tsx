@@ -1,3 +1,4 @@
+import { useLocale } from '@crab-dev/rc-config-provider';
 import { type FC, useState } from "react";
 import { useDropdownContext } from "@crab-dev/rc-dropdown-container";
 import RcButton from "@crab-dev/rc-button";
@@ -5,26 +6,14 @@ import { css } from "@crab-dev/css";
 import ColorPickerPanel, { type ColorPickerPanelProps } from "../panels/colorPickerPanel.js";
 import type { Locale, OKLCHValue } from "../types.js";
 
-interface ColorPickerOverlayProps extends Omit<ColorPickerPanelProps, "onValueChange" | "locale"> {
+interface ColorPickerOverlayProps extends Omit<ColorPickerPanelProps, "value" | "defaultValue" | "onValueChange" | "locale"> {
+    value: OKLCHValue;
     locale?: Locale;
     onConfirm?: (value: OKLCHValue) => void;
     onClose: () => void;
     allowClear?: boolean;
 }
 
-const DEFAULT_LOCALE: Required<Locale> = {
-    overlay: {
-        confirmText: "确定",
-        cancelText: "取消",
-        clearText: "重置",
-    },
-    panel: {
-        labelLightness: "亮度",
-        labelChroma: "色度",
-        labelHue: "色相",
-        labelAlpha: "透明度",
-    },
-};
 
 const footerStyle = css`
     display: flex;
@@ -35,7 +24,7 @@ const footerStyle = css`
 `;
 
 const clearStyle = css`
-    margin-right: auto;
+    margin-inline-end: auto;
 `;
 
 const ColorPickerOverlay: FC<ColorPickerOverlayProps> = ({
@@ -49,10 +38,12 @@ const ColorPickerOverlay: FC<ColorPickerOverlayProps> = ({
     format,
     ...restProps
 }) => {
+    const { messages } = useLocale();
+    const copy = messages.colorPicker;
     const { dispatch } = useDropdownContext<HTMLDivElement>();
     // 字段级合并:允许只传 overlay 或只传 panel(甚至只传其中部分字段),缺省项回退默认文案
-    const overlayLocale = { ...DEFAULT_LOCALE.overlay, ...locale?.overlay };
-    const panelLocale = { ...DEFAULT_LOCALE.panel, ...locale?.panel };
+    const overlayLocale = { confirmText: copy.confirm, cancelText: copy.cancel, clearText: copy.reset, ...locale?.overlay };
+    const panelLocale = { labelLightness: copy.lightness, labelChroma: copy.chroma, labelHue: copy.hue, labelAlpha: copy.alpha, ...locale?.panel };
     // 每次打开弹层重新挂载,selectValue 以打开时的 value 为初值(E3:与外部 value 同步)。
     const [selectValue, setSelectValue] = useState<OKLCHValue>(value);
 
@@ -62,7 +53,7 @@ const ColorPickerOverlay: FC<ColorPickerOverlayProps> = ({
     };
 
     return (
-        <div role="dialog" aria-label="颜色选择">
+        <div role="dialog" aria-label={copy.colorDialog}>
             <ColorPickerPanel
                 locale={panelLocale}
                 value={selectValue}
@@ -77,17 +68,17 @@ const ColorPickerOverlay: FC<ColorPickerOverlayProps> = ({
                     <RcButton
                         className={clearStyle}
                         appearance="text"
-                        size="small"
+                        size="xs"
                         onClick={() => setSelectValue(value)}
                     >
                         {overlayLocale.clearText}
                     </RcButton>
                 )}
-                <RcButton appearance="text" size="small" onClick={close}>
+                <RcButton appearance="text" size="xs" onClick={close}>
                     {overlayLocale.cancelText}
                 </RcButton>
                 <RcButton
-                    size="small"
+                    size="xs"
                     appearance="primary"
                     onClick={() => {
                         onConfirm?.(selectValue);

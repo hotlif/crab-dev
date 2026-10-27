@@ -1,4 +1,5 @@
-import { describe, expect, it, renderHook } from "@crab-dev/wake/test/react";
+import { describe, expect, it } from "@crab-dev/wake/test";
+import { renderHook } from "@crab-dev/wake/test/react";
 import { useEventCallback } from "../useEventCallback.js";
 import { usePrevious } from "../usePrevious.js";
 (globalThis as typeof globalThis & {

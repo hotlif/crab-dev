@@ -22,7 +22,7 @@ const columns = orderColumns().map(column => ({
         filterEditor: ({ value, onValueChange }: { value: string; onValueChange: (value: string) => void }) =>
             <Select className={fieldStyle} size="small" aria-label={"筛选" + column.title} value={value || undefined} allowClear
                 placeholder="全部" options={options[column.name].map(item => ({ label: item, value: item }))}
-                onChange={next => onValueChange(next ?? "")} />,
+                onValueChange={next => onValueChange(next ?? "")} />,
     } : {}),
 }));
 export default function FilterDemo() {

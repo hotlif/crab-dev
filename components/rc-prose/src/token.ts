@@ -14,6 +14,9 @@ export const vars = defineTokens({
     'lead.color': '--prose-lead-color',
     'link.color': '--prose-link-color',
     'link.color-hover': '--prose-link-color-hover',
+    'link.outline-color-focus': '--prose-link-outline-color-focus',
+    'link.outline-width-focus': '--prose-link-outline-width-focus',
+    'link.outline-offset-focus': '--prose-link-outline-offset-focus',
     'strong.color': '--prose-strong-color',
     'strong.font-weight': '--prose-strong-font-weight',
     'list.counter.color': '--prose-list-counter-color',
@@ -41,6 +44,7 @@ export const vars = defineTokens({
     'inverse.heading.color': '--prose-inverse-heading-color',
     'inverse.lead.color': '--prose-inverse-lead-color',
     'inverse.link.color': '--prose-inverse-link-color',
+    'inverse.link.outline-color-focus': '--prose-inverse-link-outline-color-focus',
     'inverse.link.color-hover': '--prose-inverse-link-color-hover',
     'inverse.strong.color': '--prose-inverse-strong-color',
     'inverse.list.counter.color': '--prose-inverse-list-counter-color',
@@ -94,7 +98,10 @@ const token = defineTokens({
     },
     'link': {
         'color': `var(${vars['link.color']}, var(--token-semantic-color-text-link, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078))))`,
-        'color-hover': `var(${vars['link.color-hover']}, var(--token-semantic-color-text-link-hover, var(--token-global-purple-30, oklch(0.41029262 0.13369038 292.705951))))`
+        'color-hover': `var(${vars['link.color-hover']}, var(--token-semantic-color-text-link-hover, var(--token-global-purple-30, oklch(0.41029262 0.13369038 292.705951))))`,
+        'outline-color-focus': `var(${vars['link.outline-color-focus']}, var(--token-semantic-color-focus-ring, var(--token-semantic-color-border-focus, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078)))))`,
+        'outline-width-focus': `var(${vars['link.outline-width-focus']}, 2px)`,
+        'outline-offset-focus': `var(${vars['link.outline-offset-focus']}, 2px)`
     },
     'strong': {
         'color': `var(${vars['strong.color']}, var(--token-semantic-color-text-primary, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695))))`,
@@ -153,10 +160,11 @@ const token = defineTokens({
             'color': `var(${vars['inverse.heading.color']}, color-mix(in oklch, var(--token-semantic-color-text-inverse, var(--token-global-material-neutral-95, oklch(0.95905613 0.01234763 317.742090))) 92%, transparent))`
         },
         'lead': {
-            'color': `var(${vars['inverse.lead.color']}, color-mix(in oklch, var(--token-semantic-color-text-inverse, var(--token-global-material-neutral-95, oklch(0.95905613 0.01234763 317.742090))) 60%, transparent))`
+            'color': `var(${vars['inverse.lead.color']}, var(--token-semantic-color-text-inverse, var(--token-global-material-neutral-95, oklch(0.95905613 0.01234763 317.742090))))`
         },
         'link': {
             'color': `var(${vars['inverse.link.color']}, var(--token-semantic-color-text-inverse, var(--token-global-material-neutral-95, oklch(0.95905613 0.01234763 317.742090))))`,
+            'outline-color-focus': `var(${vars['inverse.link.outline-color-focus']}, var(--token-semantic-color-text-inverse, var(--token-global-material-neutral-95, oklch(0.95905613 0.01234763 317.742090))))`,
             'color-hover': `var(${vars['inverse.link.color-hover']}, color-mix(in oklch, var(--token-semantic-color-text-inverse, var(--token-global-material-neutral-95, oklch(0.95905613 0.01234763 317.742090))) 80%, transparent))`
         },
         'strong': {
@@ -164,7 +172,7 @@ const token = defineTokens({
         },
         'list': {
             'counter': {
-                'color': `var(${vars['inverse.list.counter.color']}, color-mix(in oklch, var(--token-semantic-color-text-inverse, var(--token-global-material-neutral-95, oklch(0.95905613 0.01234763 317.742090))) 60%, transparent))`
+                'color': `var(${vars['inverse.list.counter.color']}, var(--token-semantic-color-text-inverse, var(--token-global-material-neutral-95, oklch(0.95905613 0.01234763 317.742090))))`
             },
             'bullet': {
                 'color': `var(${vars['inverse.list.bullet.color']}, color-mix(in oklch, var(--token-semantic-color-text-inverse, var(--token-global-material-neutral-95, oklch(0.95905613 0.01234763 317.742090))) 60%, transparent))`
@@ -178,7 +186,7 @@ const token = defineTokens({
             'border-color': `var(${vars['inverse.blockquote.border-color']}, color-mix(in oklch, var(--token-semantic-color-text-inverse, var(--token-global-material-neutral-95, oklch(0.95905613 0.01234763 317.742090))) 24%, transparent))`
         },
         'caption': {
-            'color': `var(${vars['inverse.caption.color']}, color-mix(in oklch, var(--token-semantic-color-text-inverse, var(--token-global-material-neutral-95, oklch(0.95905613 0.01234763 317.742090))) 60%, transparent))`
+            'color': `var(${vars['inverse.caption.color']}, var(--token-semantic-color-text-inverse, var(--token-global-material-neutral-95, oklch(0.95905613 0.01234763 317.742090))))`
         },
         'code': {
             'color': `var(${vars['inverse.code.color']}, color-mix(in oklch, var(--token-semantic-color-text-inverse, var(--token-global-material-neutral-95, oklch(0.95905613 0.01234763 317.742090))) 90%, transparent))`,

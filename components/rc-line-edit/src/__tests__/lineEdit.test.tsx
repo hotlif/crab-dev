@@ -36,7 +36,38 @@ function inputByLabel(text: string): HTMLInputElement {
     if (!(input instanceof HTMLInputElement)) throw new Error(`Missing input label: ${text}`);
     return input;
 }
+async function enterText(input: HTMLInputElement, value: string) {
+    // Bypass React's value tracker, as a browser edit does before the input event.
+    Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value')?.set?.call(input, value);
+    await fireEvent.input(input);
+}
+
 describe("LineEdit", () => {
+    it('updates field action labels with the configured locale without remounting the input', async () => {
+        const field = <LineEdit type="password" aria-label="Password" defaultValue="Crab" allowClear showCount />;
+        const view = await render(<ConfigProvider locale="zh-CN">{field}</ConfigProvider>);
+        const input = view.container.querySelector('input');
+        expect(screen.getByRole('button', { name: '清除' })).toBeTruthy();
+        await view.rerender(<ConfigProvider locale="en-US">{field}</ConfigProvider>);
+        expect(view.container.querySelector('input')).toBe(input);
+        expect(screen.getByRole('button', { name: 'Clear' })).toBeTruthy();
+        expect(screen.getByRole('button', { name: 'Show password' })).toBeTruthy();
+        expect(view.container.querySelector('[aria-label="4 characters"]')).toBeTruthy();
+    });
+    it('reports value details separately from native change events and ignores external updates', async () => {
+        const onValueChange = mock.fn();
+        const nativeValues: string[] = [];
+        const view = await render(<LineEdit aria-label="Name" defaultValue="" onValueChange={onValueChange} onChange={event => nativeValues.push(event.currentTarget.value)} />);
+        const input = screen.getByRole('textbox') as HTMLInputElement;
+        await enterText(input, 'Crab');
+        expect(input.value).toBe('Crab');
+        expect(nativeValues).toEqual(['Crab']);
+        expect(onValueChange).toHaveBeenCalledWith('Crab', expect.objectContaining({ reason: 'input', event: expect.anything() }));
+        onValueChange.clear();
+        await view.rerender(<LineEdit aria-label="Name" defaultValue="Changed default" onValueChange={onValueChange} />);
+        expect(input.value).toBe('Crab');
+        expect(onValueChange).not.toHaveBeenCalled();
+    });
     it("必填标记独立隐藏于无障碍树，必填本身不触发错误状态", async () => {
         await render(<LineEdit label="姓名" required />);
         // Wake's label-name query includes aria-hidden text; exact names are verified in the browser.
@@ -48,30 +79,30 @@ describe("LineEdit", () => {
         expect(input.labels?.[0].querySelector('[data-required-marker]')?.getAttribute('aria-hidden')).toBe('true');
     });
     it("切换全局设计风格时保留单一语义标签、输入节点和输入值", async () => {
-        const { rerender } = await render(<ConfigProvider design="material"><LineEdit label="账户" defaultValue="Crab" supportingText="请输入账户" /></ConfigProvider>);
+        const { rerender } = await render(<ConfigProvider designSystem="md3"><LineEdit label="账户" defaultValue="Crab" supportingText="请输入账户" /></ConfigProvider>);
         const input = inputByLabel("账户");
         expect(document.querySelectorAll('label[for="' + input.id + '"]').length).toBe(1);
         expect(input.parentElement?.querySelector('fieldset[aria-hidden="true"] > legend')?.textContent).toBe("账户");
-        await fireEvent.change(input, { target: { value: "新的账户" } });
-        await rerender(<ConfigProvider design="shadcn"><LineEdit label="账户" defaultValue="Crab" supportingText="请输入账户" /></ConfigProvider>);
+        await enterText(input, "新的账户");
+        await rerender(<ConfigProvider designSystem="shadcn"><LineEdit label="账户" defaultValue="Crab" supportingText="请输入账户" /></ConfigProvider>);
         expect(inputByLabel("账户")).toBe(input);
         expect(input.value).toBe("新的账户");
         expect(input.closest('[data-crab-design]')?.getAttribute('data-crab-design')).toBe("shadcn");
         expect(document.querySelectorAll('label[for="' + input.id + '"]').length).toBe(1);
-        await rerender(<ConfigProvider design="material"><LineEdit label="账户" defaultValue="Crab" supportingText="请输入账户" /></ConfigProvider>);
+        await rerender(<ConfigProvider designSystem="md3"><LineEdit label="账户" defaultValue="Crab" supportingText="请输入账户" /></ConfigProvider>);
         expect(inputByLabel("账户")).toBe(input);
         expect(input.value).toBe("新的账户");
     });
     it("Filled 前后缀字段保持关联标签和可编辑内容，切换风格不卸载输入", async () => {
         const field = <LineEdit appearance="filled" label="搜索项目" prefix={<svg aria-hidden="true" />} suffix={<svg aria-hidden="true" />} defaultValue="Crab" allowClear />;
-        const { rerender } = await render(<ConfigProvider design="material">{field}</ConfigProvider>);
+        const { rerender } = await render(<ConfigProvider designSystem="md3">{field}</ConfigProvider>);
         const input = inputByLabel("搜索项目");
         expect(input.parentElement?.getAttribute("data-prefix")).toBe("true");
         expect(input.parentElement?.getAttribute("data-suffix")).toBe("true");
         expect(input.parentElement?.querySelector('[data-field-prefix] svg')).toBeTruthy();
         expect(input.parentElement?.querySelector('[data-field-suffix] svg')).toBeTruthy();
-        await fireEvent.change(input, { target: { value: "设计系统" } });
-        await rerender(<ConfigProvider design="shadcn">{field}</ConfigProvider>);
+        await enterText(input, "设计系统");
+        await rerender(<ConfigProvider designSystem="shadcn">{field}</ConfigProvider>);
         expect(inputByLabel("搜索项目")).toBe(input);
         expect(input.value).toBe("设计系统");
         await fireEvent.click(getActionButton("清除"));
@@ -79,20 +110,20 @@ describe("LineEdit", () => {
         expect(document.activeElement).toBe(input);
     });
     it("错误信息单独通告并在修复后恢复辅助说明和计数关联", async () => {
-        const { rerender } = await render(<LineEdit label="项目" value="Crab" onChange={handleInputChange} supportingText="最多十字" errorText="名称已使用" showCount maxLength={10} />);
+        const { rerender } = await render(<LineEdit label="项目" value="Crab" onValueChange={handleInputChange} supportingText="最多十字" errorText="名称已使用" showCount maxLength={10} />);
         const input = inputByLabel("项目");
         expect(screen.getByRole("alert").textContent).toBe("名称已使用");
-        const count = document.querySelector('[aria-label="字符计数：4，最多 10"]');
+        const count = document.querySelector('[aria-label="4 / 10 字符"]');
         expect(count).toBeTruthy();
         expect(input.getAttribute('aria-describedby')).toContain(count!.id);
-        await rerender(<LineEdit label="项目" value="Crab" onChange={handleInputChange} supportingText="最多十字" showCount maxLength={10} />);
+        await rerender(<LineEdit label="项目" value="Crab" onValueChange={handleInputChange} supportingText="最多十字" showCount maxLength={10} />);
         expect(screen.queryByRole("alert")).toBeNull();
         expect(screen.getByText("最多十字")).toBeTruthy();
         expect(input.hasAttribute("aria-invalid")).toBe(false);
     });
-    it('clears an uncontrolled value through onChange and updates its count', async () => {
+    it('clears an uncontrolled value through onValueChange and updates its count', async () => {
         const changes: string[] = [];
-        await render(<LineEdit aria-label='field' defaultValue='hello' showCount allowClear onChange={e => changes.push(e.target.value)} />);
+        await render(<LineEdit aria-label='field' defaultValue='hello' showCount allowClear onValueChange={value => changes.push(value)} />);
         await fireEvent.click(getActionButton('清除'));
         expect((screen.getByLabelText('field') as HTMLInputElement).value).toBe('');
         expect(changes).toEqual(['']);
@@ -101,13 +132,13 @@ describe("LineEdit", () => {
     });
     it('restores the controlled value when a parent rejects clear', async () => {
         const changes: string[] = [];
-        await render(<LineEdit aria-label='field' value='keep' allowClear onChange={e => changes.push(e.target.value)} />);
+        await render(<LineEdit aria-label='field' value='keep' allowClear onValueChange={value => changes.push(value)} />);
         await fireEvent.click(getActionButton('清除'));
         expect(changes).toEqual(['']);
         expect((screen.getByLabelText('field') as HTMLInputElement).value).toBe('keep');
     });
     it("浮动标签和说明使用唯一 ID，错误替换辅助说明并保留外部关联", async () => {
-        const { rerender } = await render(<><p id="external">外部说明</p><LineEdit label="项目名称" supportingText="最多十字" aria-describedby="external" value="Crab" onChange={handleInputChange} maxLength={10} showCount /><LineEdit label="团队名称" /></>);
+        const { rerender } = await render(<><p id="external">外部说明</p><LineEdit label="项目名称" supportingText="最多十字" aria-describedby="external" value="Crab" onValueChange={handleInputChange} maxLength={10} showCount /><LineEdit label="团队名称" /></>);
         const input = inputByLabel("项目名称") as HTMLInputElement;
         const other = inputByLabel("团队名称") as HTMLInputElement;
         expect(input.id === other.id).toBe(false);
@@ -122,7 +153,7 @@ describe("LineEdit", () => {
     it("外观切换保留原生输入值，borderless 仍提供关联标签", async () => {
         const { rerender } = await render(<LineEdit appearance="filled" label="名称" defaultValue="Crab" />);
         const input = inputByLabel("名称") as HTMLInputElement;
-        await fireEvent.change(input, { target: { value: "新项目" } });
+        await enterText(input, "新项目");
         await rerender(<LineEdit appearance="outlined" label="名称" defaultValue="Crab" />);
         expect((inputByLabel("名称") as HTMLInputElement).value).toBe("新项目");
         expect(inputByLabel("名称")).toBe(input);
@@ -141,7 +172,7 @@ describe("LineEdit", () => {
     it("受控清除后焦点回到输入框，允许立即继续编辑", async () => {
         function Editor() {
             const [value, setValue] = useState("项目名称");
-            return <LineEdit aria-label="项目" value={value} allowClear onChange={e => setValue(e.target.value)} />;
+            return <LineEdit aria-label="项目" value={value} allowClear onValueChange={setValue} />;
         }
         await render(<Editor />);
         const clear = getActionButton("清除");
@@ -174,7 +205,7 @@ describe("LineEdit", () => {
     });
     describe("bordered", () => {
         it("bordered={false} 时应仍渲染 input 且不报错", async () => {
-            await render(<LineEdit bordered={false} value="x" onChange={handleInputChange}/>);
+            await render(<LineEdit bordered={false} value="x" onValueChange={handleInputChange}/>);
             const input = document.querySelector("input") as HTMLInputElement;
             expect(input.value).toBe("x");
         });
@@ -196,28 +227,28 @@ describe("LineEdit", () => {
     });
     describe("allowClear", () => {
         it("有值且 allowClear 时应显示清除按钮", async () => {
-            await render(<LineEdit value="hello" allowClear onChange={handleInputChange} onClear={mock.fn()}/>);
+            await render(<LineEdit value="hello" allowClear onValueChange={handleInputChange} onClear={mock.fn()}/>);
             expect(getActionButton("清除")).toBeTruthy();
         });
         it("值为空时不应显示清除按钮", async () => {
-            await render(<LineEdit value="" allowClear onChange={handleInputChange} onClear={mock.fn()}/>);
+            await render(<LineEdit value="" allowClear onValueChange={handleInputChange} onClear={mock.fn()}/>);
             expect(queryActionButton("清除")).toBeNull();
         });
         it("未传 allowClear 时不应显示清除按钮", async () => {
-            await render(<LineEdit value="hello" onChange={handleInputChange}/>);
+            await render(<LineEdit value="hello" onValueChange={handleInputChange}/>);
             expect(queryActionButton("清除")).toBeNull();
         });
         it("disabled 时不应显示清除按钮", async () => {
-            await render(<LineEdit value="hello" allowClear disabled onChange={handleInputChange} onClear={mock.fn()}/>);
+            await render(<LineEdit value="hello" allowClear disabled onValueChange={handleInputChange} onClear={mock.fn()}/>);
             expect(queryActionButton("清除")).toBeNull();
         });
         it("readOnly 时不应显示清除按钮", async () => {
-            await render(<LineEdit value="hello" allowClear readOnly onChange={handleInputChange} onClear={mock.fn()}/>);
+            await render(<LineEdit value="hello" allowClear readOnly onValueChange={handleInputChange} onClear={mock.fn()}/>);
             expect(queryActionButton("清除")).toBeNull();
         });
         it("点击清除按钮应触发 onClear 回调", async () => {
             const handleClear = mock.fn();
-            await render(<LineEdit value="hello" allowClear onChange={handleInputChange} onClear={handleClear}/>);
+            await render(<LineEdit value="hello" allowClear onValueChange={handleInputChange} onClear={handleClear}/>);
             await fireEvent.click(getActionButton("清除"));
             expect(handleClear).toHaveBeenCalledTimes(1);
         });
@@ -249,15 +280,15 @@ describe("LineEdit", () => {
     });
     describe("showCount 字符计数", () => {
         it("showCount 有值时应显示字符数", async () => {
-            await render(<LineEdit value="hello" showCount onChange={handleInputChange}/>);
+            await render(<LineEdit value="hello" showCount onValueChange={handleInputChange}/>);
             expect(screen.getByText("5")).toBeTruthy();
         });
         it("showCount + maxLength 应显示 count/max 格式", async () => {
-            await render(<LineEdit value="hello" showCount maxLength={10} onChange={handleInputChange}/>);
+            await render(<LineEdit value="hello" showCount maxLength={10} onValueChange={handleInputChange}/>);
             expect(screen.getByText("5/10")).toBeTruthy();
         });
         it("showCount 时 maxLength 应传给 input", async () => {
-            await render(<LineEdit value="hi" showCount maxLength={20} onChange={handleInputChange}/>);
+            await render(<LineEdit value="hi" showCount maxLength={20} onValueChange={handleInputChange}/>);
             const input = document.querySelector("input") as HTMLInputElement;
             expect(input.maxLength).toBe(20);
         });

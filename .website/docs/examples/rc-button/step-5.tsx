@@ -39,7 +39,7 @@ function ThemePanel({ theme, brandColor }: { theme: "light" | "dark"; brandColor
     const [selected, setSelected] = useState(true);
     const title = theme === "light" ? "浅色" : "深色";
     return (
-        <ConfigProvider theme={theme} brandColor={brandColor} className={panelStyle}>
+        <ConfigProvider colorMode={theme} brandColor={brandColor} className={panelStyle}>
             <section className={stackStyle} aria-label={`${title} Button 状态对照`}>
                 <strong>{title}主题</strong>
                 {appearances.map(appearance => (
@@ -97,7 +97,7 @@ export default function Example() {
             <div className={rowStyle} role="group" aria-label="Button 品牌色">
                 <span>品牌色</span>
                 {[["紫色", "#6750a4"], ["蓝色", "#1677ff"], ["绿色", "#087f5b"]].map(([name, color]) => (
-                    <Button key={color} size="small" isSelected={brandColor === color} onClick={() => setBrandColor(color)}>{name}</Button>
+                    <Button key={color} size="s" isSelected={brandColor === color} onClick={() => setBrandColor(color)}>{name}</Button>
                 ))}
             </div>
             <p className={noteStyle}>普通按钮采用 Outlined 描边外观。悬停与聚焦使用 8% / 10% 填充反馈，按压时收紧圆角；选中使用反色填充。Elevated 使用浅阴影，与其余四种外观区分。</p>

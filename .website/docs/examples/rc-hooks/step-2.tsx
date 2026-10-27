@@ -11,7 +11,7 @@ export default function Example() {
     const [count, setCount] = useState(0);
     const [value, setValue] = useControllableValue({
         value: count,
-        onChange: setCount,
+        onValueChange: setCount,
     });
     return (
         <div className={layout}>

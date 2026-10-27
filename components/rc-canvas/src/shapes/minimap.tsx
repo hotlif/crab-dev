@@ -24,7 +24,7 @@ export interface MinimapProps {
 
 // ── 颜色工具 ─────────────────────────────────────────────────────────────────
 
-function toCSS([r, g, b, a]: ColorRGBA, alphaFactor = 0.85): string {
+function toCSS([r, g, b, a]: ColorRGBA, alphaFactor: number = 0.85): string {
     return `rgba(${Math.round(r * 255)},${Math.round(g * 255)},${Math.round(b * 255)},${(a * alphaFactor).toFixed(2)})`;
 }
 

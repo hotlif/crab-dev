@@ -5,3 +5,5 @@ export type { LineEditProps } from "./lineEdit.js";
 
 export default LineEdit;
 export { vars as TokenVars } from './token.js';
+
+export type { LineEditChangeDetails } from './lineEdit.js';

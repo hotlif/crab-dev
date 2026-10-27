@@ -40,7 +40,7 @@ const DateTimePickerPanel: FC<DateTimePickerPanelProps> = ({
                 selectValues={selectValues}
                 {...restProps}
             />
-            <TimePickerPanel
+            <TimePickerPanel locale={restProps.locale}
                 defaultMode="input"
                 showSeconds
                 {...timePanelProps}

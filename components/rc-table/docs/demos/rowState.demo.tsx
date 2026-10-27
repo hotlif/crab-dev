@@ -23,11 +23,11 @@ export default function RowStateDemo() {
         { name: "change", title: "暂存状态", width: 120, render: ({ row }) => row.state === "new" ? "＋ 新增批次"
             : row.state === "modified" ? "✎ 待复核" : row.state === "deleted" ? "− 待移除" : "未变更" },
         { name: "actions", title: "差异处理", width: 260, selectable: false, render: ({ row }) => <>
-            <Button size="small" disabled={Boolean(row.state)} onClick={() => setRows(previous => previous.map(item => item.id === row.id
+            <Button size="xs" disabled={Boolean(row.state)} onClick={() => setRows(previous => previous.map(item => item.id === row.id
                 ? { ...item, state: "modified", dataRef: { ...item.dataRef, note: "实物盘点存在差异，已登记并等待仓库负责人复核。" } } : item))}>标记复核</Button>
-            <Button size="small" disabled={Boolean(row.state)} onClick={() => setRows(previous => previous.map(item => item.id === row.id
+            <Button size="xs" disabled={Boolean(row.state)} onClick={() => setRows(previous => previous.map(item => item.id === row.id
                 ? { ...item, state: "deleted" } : item))}>暂存移除</Button>
-            <Button size="small" disabled={!row.state} onClick={() => restore(row)}>还原</Button>
+            <Button size="xs" disabled={!row.state} onClick={() => restore(row)}>还原</Button>
         </> },
     );
     return <DemoFrame title="盘点差异暂存清单" rows={rows.length} columns={columns.length}

@@ -1,0 +1,19 @@
+# Dimmed colors must cross the real CSS variable resolver and WebGL renderer.
+[test]
+environment = "browser"
+include = ["palette-pixels.test.tsx"]
+timeout_ms = 10000
+leaks = "error"
+
+[test.react]
+strict_mode = false
+cleanup = true
+act_warnings = "error"
+
+[test.network]
+mode = "deny"
+allow_hosts = []
+
+[test.coverage]
+enabled = true
+reporters = ["text", "lcov"]

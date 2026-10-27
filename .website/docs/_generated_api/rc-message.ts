@@ -10,6 +10,50 @@ type ReactNode = DocsTypePlaceholder;
 
 export interface MessageProps {
     /**
+     * 暂无说明。
+     * @default true
+     */
+    "open"?: boolean;
+
+    /**
+     * 暂无说明。
+     */
+    "onExitComplete"?: () => void;
+
+    /**
+     * 暂无说明。
+     */
+    "stack"?: number;
+
+    /**
+     * 暂无说明。
+     * @default true
+     */
+    "showProgress"?: boolean;
+
+    /**
+     * 暂无说明。
+     */
+    "remaining"?: number;
+
+    /**
+     * 改变此值时重新启动倒计时进度动画。
+     */
+    "progressKey"?: string | number;
+
+    /**
+     * 暂无说明。
+     * @default false
+     */
+    "paused"?: boolean;
+
+    /**
+     * 消息类型
+     * @default ’info’
+     */
+    "type"?: MessageType;
+
+    /**
      * 消息内容
      */
     "content": ReactNode;
@@ -24,48 +68,4 @@ export interface MessageProps {
      * 自定义图标
      */
     "icon"?: ReactNode;
-
-    /**
-     * 暂无说明。
-     */
-    "onExitComplete"?: () => void;
-
-    /**
-     * 暂无说明。
-     * @default true
-     */
-    "open"?: boolean;
-
-    /**
-     * 暂无说明。
-     * @default false
-     */
-    "paused"?: boolean;
-
-    /**
-     * 改变此值时重新启动倒计时进度动画。
-     */
-    "progressKey"?: string | number;
-
-    /**
-     * 暂无说明。
-     */
-    "remaining"?: number;
-
-    /**
-     * 暂无说明。
-     * @default true
-     */
-    "showProgress"?: boolean;
-
-    /**
-     * 暂无说明。
-     */
-    "stack"?: number;
-
-    /**
-     * 消息类型
-     * @default 'info'
-     */
-    "type"?: MessageType;
 }

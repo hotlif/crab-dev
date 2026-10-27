@@ -1,10 +1,10 @@
 import { describe, expect, it, mock } from "@crab-dev/wake/test";
 import { act, fireEvent, render, screen } from "@crab-dev/wake/test/react";
-import { type Key, type ReactElement } from "react";
+import { useState, type Key, type ReactElement } from "react";
 
 import Table from "../table.js";
-import ConfigProvider from '@crab-dev/rc-config-provider';
-import type { ColumnType, MergeCell, Row } from "../types.js";
+import ConfigProvider, { localeMessages } from '@crab-dev/rc-config-provider';
+import type { ColumnType, MergeCell, Row, RowSelection } from "../types.js";
 
 const fireMouseEvent = (
     type: "mousedown" | "mouseup" | "mouseover" | "dblclick",
@@ -203,16 +203,74 @@ describe("Table", () => {
         } finally { await view.unmount(); globalThis.ResizeObserver = OriginalResizeObserver; }
     });
 
-    it('recalculates virtual row geometry when the inherited size changes and keeps explicit heights', async () => {
+    it('recalculates virtual row geometry from density independently of size and keeps explicit heights', async () => {
         const rows = buildRows();
         rows[1].height = 70;
-        const view = await render(<ConfigProvider size="small"><Table width={700} height={400} columns={groupedColumns} rows={rows} /></ConfigProvider>);
+        const view = await render(<ConfigProvider size="large" density="compact"><Table width={700} height={400} columns={groupedColumns} rows={rows} /></ConfigProvider>);
         const rowHeights = () => [...view.container.querySelectorAll<HTMLElement>('[data-row-index]')].map(row => row.style.height);
         expect(rowHeights()).toEqual(['32px', '70px', '32px']);
-        await view.rerender(<ConfigProvider size="large"><Table width={700} height={400} columns={groupedColumns} rows={rows} /></ConfigProvider>);
+        await view.rerender(<ConfigProvider size="small" density="comfortable"><Table width={700} height={400} columns={groupedColumns} rows={rows} /></ConfigProvider>);
         expect(rowHeights()).toEqual(['48px', '70px', '48px']);
-        await view.rerender(<ConfigProvider size="large"><Table size="small" width={700} height={400} columns={groupedColumns} rows={rows} getRowHeight={(_, index) => index === 0 ? 80 : undefined} /></ConfigProvider>);
+        await view.rerender(<ConfigProvider size="small" density="comfortable"><Table size="large" density="compact" width={700} height={400} columns={groupedColumns} rows={rows} getRowHeight={(_, index) => index === 0 ? 80 : undefined} /></ConfigProvider>);
         expect(rowHeights()).toEqual(['80px', '70px', '32px']);
+    });
+    it('updates built-in row selection names with locale and emits selection details', async () => {
+        const changed = mock.fn();
+        const props = { width: 700, height: 300, columns: groupedColumns, rows: buildRows() };
+        const view = await render(<ConfigProvider locale="en-US"><Table {...props} rowSelection={{ type: 'checkbox', onSelectedRowIdsChange: changed }} /></ConfigProvider>);
+        const checkbox = screen.getAllByRole('checkbox', { name: localeMessages['en-US'].table.selectRow })[0];
+        await fireEvent.click(checkbox);
+        expect(changed).toHaveBeenCalledWith(new Set(['1']), expect.objectContaining({ reason: 'row', rows: [props.rows[0]] }));
+        await view.rerender(<ConfigProvider locale="zh-CN"><Table {...props} rowSelection={{ type: 'checkbox', onSelectedRowIdsChange: changed }} /></ConfigProvider>);
+        expect(screen.getAllByRole('checkbox', { name: localeMessages['zh-CN'].table.selectRow })).toHaveLength(3);
+        expect(changed).toHaveBeenCalledTimes(1);
+    });
+    it.each(['checkbox', 'radio'] as const)('preserves the input and cell click events for %s selection', async (type) => {
+        const changed = mock.fn<NonNullable<RowSelection<DemoRow>['onSelectedRowIdsChange']>>();
+        const rows = buildRows();
+        const view = await render(<Table width={700} height={300} columns={groupedColumns} rows={rows}
+            rowSelection={{ type, onSelectedRowIdsChange: changed }} />);
+        const input = screen.getAllByRole(type, { name: localeMessages['zh-CN'].table.selectRow })[0];
+        await fireEvent.click(input);
+        expect(changed).toHaveBeenCalledTimes(1);
+        const inputDetails = changed.calls.calls[0][1];
+        expect(inputDetails).toEqual(expect.objectContaining({ reason: 'row', rows: [rows[0]] }));
+        expect(inputDetails.event?.type).toBe('change');
+        expect(inputDetails.event?.target).toBe(input);
+        expect(inputDetails.event?.nativeEvent.target).toBe(input);
+
+        const cell = view.container.querySelectorAll('[data-table-selection-cell]')[1];
+        await fireEvent.click(cell);
+        expect(changed).toHaveBeenCalledTimes(2);
+        const cellDetails = changed.calls.calls[1][1];
+        expect(cellDetails.event?.type).toBe('click');
+        expect(cellDetails.event?.target).toBe(cell);
+        expect(cellDetails.event?.nativeEvent.target).toBe(cell);
+        expect(cellDetails.rows).toEqual(type === 'radio' ? [rows[1]] : [rows[0], rows[1]]);
+    });
+    it('preserves the checkbox event when selecting and clearing all rows', async () => {
+        const changed = mock.fn<NonNullable<RowSelection<DemoRow>['onSelectedRowIdsChange']>>();
+        const rows = buildRows();
+        await render(<Table width={700} height={300} columns={groupedColumns} rows={rows}
+            rowSelection={{ type: 'checkbox', onSelectedRowIdsChange: changed }} />);
+        const checkbox = screen.getByRole('checkbox', { name: localeMessages['zh-CN'].table.selectAll });
+        await fireEvent.click(checkbox);
+        expect(changed).toHaveBeenCalledTimes(1);
+        expect(changed.calls.calls[0][0]).toEqual(new Set(rows.map(row => row.id)));
+        const selected = changed.calls.calls[0][1];
+        expect(selected).toEqual(expect.objectContaining({ reason: 'all', rows }));
+        expect(selected.event?.type).toBe('change');
+        expect(selected.event?.target).toBe(checkbox);
+        expect(selected.event?.nativeEvent.target).toBe(checkbox);
+
+        await fireEvent.click(screen.getByRole('checkbox', { name: localeMessages['zh-CN'].table.deselectAll }));
+        expect(changed).toHaveBeenCalledTimes(2);
+        expect(changed.calls.calls[1][0]).toEqual(new Set());
+        const cleared = changed.calls.calls[1][1];
+        expect(cleared).toEqual(expect.objectContaining({ reason: 'clear', rows: [] }));
+        expect(cleared.event?.type).toBe('change');
+        expect(cleared.event?.target).toBe(checkbox);
+        expect(cleared.event?.nativeEvent.target).toBe(checkbox);
     });
     it("renders grouped headers and basic cell content", async () => {
         const { container, unmount } = await renderTable(
@@ -306,7 +364,7 @@ describe("Table", () => {
             />
         );
 
-        const handle = screen.getByLabelText("调整记录号列宽");
+        const handle = screen.getByLabelText(localeMessages['zh-CN'].table.resizeColumn('记录号'));
         await fireEvent.keyDown(handle, { key: "ArrowRight" });
         expect(onColumnResize).toHaveBeenLastCalledWith("$.recordNo", 130);
 
@@ -758,7 +816,7 @@ describe("Table", () => {
             />
         );
 
-        const expandButtons = screen.getAllByLabelText("展开此行");
+        const expandButtons = screen.getAllByLabelText(localeMessages['zh-CN'].table.expandRow);
         expect(expandButtons.length).toBe(3);
         await fireEvent.click(expandButtons[0]);
 
@@ -781,7 +839,7 @@ describe("Table", () => {
         );
 
         expect(container.textContent ?? "").not.toContain("详情-R-0001");
-        await fireEvent.click(screen.getAllByLabelText("展开此行")[0]);
+        await fireEvent.click(screen.getAllByLabelText(localeMessages['zh-CN'].table.expandRow)[0]);
         expect(container.textContent ?? "").toContain("详情-R-0001");
 
         await unmount();
@@ -800,7 +858,7 @@ describe("Table", () => {
         );
 
         // 三行中第 2 行禁用展开，故仅 2 个展开按钮
-        expect(screen.getAllByLabelText("展开此行").length).toBe(2);
+        expect(screen.getAllByLabelText(localeMessages['zh-CN'].table.expandRow).length).toBe(2);
 
         await unmount();
     });
@@ -941,7 +999,7 @@ describe("Table", () => {
                 height={260}
                 columns={rowEventColumns}
                 rows={buildRows()}
-                rowSelection={{ type: "checkbox", onChange }}
+                rowSelection={{ type: "checkbox", onSelectedRowIdsChange: onChange }}
                 onRowClick={onRowClick}
             />
         );
@@ -980,7 +1038,7 @@ describe("Table", () => {
             />
         );
 
-        await fireEvent.click(screen.getAllByLabelText("展开此行")[0]);
+        await fireEvent.click(screen.getAllByLabelText(localeMessages['zh-CN'].table.expandRow)[0]);
 
         expect(onExpandedRowKeysChange).toHaveBeenCalledTimes(1);
         expect(onRowClick).not.toHaveBeenCalled();
@@ -1146,6 +1204,77 @@ describe("Table", () => {
         expect(onRowDoubleClick).not.toHaveBeenCalled();
 
         await unmount();
+    });
+
+    it.each(['确定', '取消'])("returns focus to its keyboard grid after %s removes the focused action", async action => {
+        const columns: ColumnType<DemoRow>[] = [{ title: '记录号', name: '$.recordNo', width: 120,
+            editRender: () => <input aria-label="编辑记录号" /> }];
+        const rowClick = mock.fn();
+        const keyDown = mock.fn();
+        const commit = mock.fn();
+        const cancel = mock.fn();
+        const view = await renderTable(<Table width={700} height={260} columns={columns} rows={buildRows()}
+            editType="row" defaultEditingRowId="1" onRowCommit={commit} onRowCancel={cancel} onRowClick={rowClick} onKeyDown={keyDown} />);
+        const grid = view.container.querySelector<HTMLElement>('[role="grid"]')!;
+        const button = screen.getByRole('button', { name: action });
+        await act(() => button.focus());
+        await fireEvent.keyDown(button, { key: 'Enter' });
+        expect(keyDown).not.toHaveBeenCalled();
+        await fireEvent.click(button);
+        expect(view.container.querySelector('[data-table-row-edit-actions]')).toBeNull();
+        expect(document.activeElement).toBe(grid);
+        expect(rowClick).not.toHaveBeenCalled();
+        expect(action === '确定' ? commit : cancel).toHaveBeenCalledTimes(1);
+        expect(action === '确定' ? cancel : commit).not.toHaveBeenCalled();
+        await view.unmount();
+    });
+
+    it('keeps focus on a row action when a controlled owner rejects ending the edit', async () => {
+        const columns: ColumnType<DemoRow>[] = [{ title: '记录号', name: '$.recordNo', width: 120,
+            editRender: () => <input aria-label="编辑记录号" /> }];
+        const changed = mock.fn();
+        const commit = mock.fn();
+        const view = await renderTable(<Table width={700} height={260} columns={columns} rows={buildRows()}
+            editType="row" editingRowId="1" onEditingRowIdChange={changed} onRowCommit={commit} />);
+        const button = screen.getByRole('button', { name: '确定' });
+        await act(() => button.focus());
+        await fireEvent.click(button);
+        expect(button.isConnected).toBe(true);
+        expect(document.activeElement).toBe(button);
+        expect(changed).toHaveBeenCalledWith(null);
+        expect(commit).toHaveBeenCalledTimes(1);
+        await view.unmount();
+    });
+
+    it('preserves application focus chosen while committing and does not focus an obsolete Table host', async () => {
+        const columns: ColumnType<DemoRow>[] = [{ title: '记录号', name: '$.recordNo', width: 120,
+            editRender: () => <input aria-label="编辑记录号" /> }];
+        let outside: HTMLElement | null = null;
+        const view = await renderTable(<>
+            <button ref={element => { outside = element; }}>下一步</button>
+            <Table width={700} height={260} columns={columns} rows={buildRows()} editType="row" defaultEditingRowId="1"
+                onRowCommit={() => outside?.focus()} />
+        </>);
+        const confirm = screen.getByRole('button', { name: '确定' });
+        await act(() => confirm.focus());
+        await fireEvent.click(confirm);
+        expect(document.activeElement).toBe(outside);
+        await view.unmount();
+
+        function ReplacingHost() {
+            const [finished, setFinished] = useState(false);
+            return finished ? <button autoFocus>完成后的入口</button>
+                : <Table width={700} height={260} columns={columns} rows={buildRows()} editType="row" defaultEditingRowId="1"
+                    onRowCommit={() => setFinished(true)} />;
+        }
+        const replaced = await renderTable(<ReplacingHost />);
+        const oldGrid = replaced.container.querySelector<HTMLElement>('[role="grid"]')!;
+        const button = screen.getByRole('button', { name: '确定' });
+        await act(() => button.focus());
+        await fireEvent.click(button);
+        expect(oldGrid.isConnected).toBe(false);
+        expect(document.activeElement).toBe(screen.getByRole('button', { name: '完成后的入口' }));
+        await replaced.unmount();
     });
 
     it("clears the previous draft when controlled row editing switches to another row", async () => {

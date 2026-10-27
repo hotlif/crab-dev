@@ -1,8 +1,8 @@
 import { css, cx } from '@crab-dev/css';
-import { useId, type FC } from 'react';
+import { useId, type FC, type ChangeEvent } from 'react';
 import { useControllableValue } from '@crab-dev/rc-hooks';
 import token from './token.js';
-import type { RadioGroupProps } from './types.js';
+import type { RadioGroupProps, RadioGroupChangeDetails } from './types.js';
 import { RadioGroupContext } from './context.js';
 
 const groupStyle = css`
@@ -14,7 +14,7 @@ const groupStyle = css`
 const RadioGroup: FC<RadioGroupProps> = ({
     value: valueProp,
     defaultValue,
-    onChange,
+    onValueChange,
     disabled = false,
     size,
     name,
@@ -25,13 +25,13 @@ const RadioGroup: FC<RadioGroupProps> = ({
     // Native arrow navigation must stay within this group, including unnamed groups.
     const generatedName = useId();
     const groupName = name || generatedName;
-    const [value, setValue] = useControllableValue<string | number>({
+    const [value, setValue] = useControllableValue<string | number, [RadioGroupChangeDetails]>({
         value: valueProp,
         defaultValue,
-        onChange,
+        onValueChange,
     });
 
-    const selectValue = (val: string | number) => setValue(val);
+    const selectValue = (val: string | number, event: ChangeEvent<HTMLInputElement>) => setValue(val, { reason: 'select', event });
 
     return (
         <RadioGroupContext value={{ value, disabled, size, name: groupName, selectValue }}>

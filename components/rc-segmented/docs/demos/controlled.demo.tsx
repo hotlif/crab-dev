@@ -1,6 +1,6 @@
 export const meta = {
     title: "受控模式",
-    description: "传入 value 与 onChange 由外部状态托管选中值。原始值可作为 options 简写。",
+    description: "传入 value 与 onValueChange 由外部状态托管选中值。原始值可作为 options 简写。",
 };
 
 import { useState } from 'react';
@@ -11,7 +11,7 @@ const ControlledDemo = () => {
 
     return (
         <div>
-            <Segmented options={['列表', '看板', '日历']} value={value} onChange={setValue} />
+            <Segmented options={['列表', '看板', '日历']} value={value} onValueChange={setValue} />
             <p>当前视图: {value}</p>
         </div>
     );

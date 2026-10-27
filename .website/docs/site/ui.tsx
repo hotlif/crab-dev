@@ -1,10 +1,10 @@
 import { Children, use, useEffect, useId, useRef, useState } from "react";
-import type { KeyboardEvent, MouseEvent } from "react";
+import type { FocusEvent, KeyboardEvent, MouseEvent } from "react";
 import { defineDocsUI } from "@crab-dev/wake/docs";
 import type * as UI from "@crab-dev/wake/docs";
 import Button from "@crab-dev/rc-button";
 import ConfigProvider, { useConfig } from "@crab-dev/rc-config-provider";
-import type { ThemeDesign } from "@crab-dev/rc-token-semantic";
+import type { DesignSystem } from "@crab-dev/rc-token-semantic";
 import Dialog from "@crab-dev/rc-dialog";
 import Drawer from "@crab-dev/rc-drawer";
 import LineEdit from "@crab-dev/rc-line-edit";
@@ -14,7 +14,7 @@ import Alert from "@crab-dev/rc-alert";
 import Empty from "@crab-dev/rc-empty";
 import Spin from "@crab-dev/rc-spin";
 import { useMediaQuery } from "@crab-dev/rc-hooks";
-import { DEFAULT_SITE_DESIGN, DocumentDesignContext, isSiteDesign, resolveSiteHref, SiteContext, SITE_DESIGN_STORAGE_KEY, TutorialDirectoryContext } from "./siteContext.js";
+import { DEFAULT_SITE_DESIGN, DocumentDesignContext, migrateSiteDesignPreference, resolveSiteHref, SiteContext, SITE_DESIGN_STORAGE_KEY, TutorialDirectoryContext } from "./siteContext.js";
 import "./siteStyles.js";
 import { categoryForPath, DocumentNavigationContext, groupsForCategory, navigationCategories, PageSections } from "./documentNavigation.js";
 import type { NavigationCategory } from "./documentNavigation.js";
@@ -43,15 +43,50 @@ function moveNavigationFocus(event: KeyboardEvent<HTMLElement>) {
     items[next]?.focus();
 }
 
+function revealDocumentLink(event: FocusEvent<HTMLElement>) {
+    const link = event.target.closest<HTMLAnchorElement>("a[href]");
+    if (!link || !event.currentTarget.contains(link) || link.closest("[data-wake-demo], [data-live-example]")) return;
+    const scrollport = link.closest<HTMLElement>(".crab-home-category-index, .crab-docs-prose > .table-scroll");
+    if (!scrollport || !event.currentTarget.contains(scrollport) || scrollport.clientWidth <= 0
+        || scrollport.scrollWidth <= scrollport.clientWidth) return;
+    // Native Tab scrolling can leave a partially visible link clipped. Reveal it
+    // within this document-owned horizontal scrollport without moving the page.
+    const box = scrollport.getBoundingClientRect();
+    const left = box.left + scrollport.clientLeft;
+    const right = left + scrollport.clientWidth;
+    const rect = link.getBoundingClientRect();
+    const style = link.ownerDocument.defaultView?.getComputedStyle(link);
+    const outline = Math.max(0, Number.parseFloat(style?.outlineWidth ?? "") || 0)
+        + Math.max(0, Number.parseFloat(style?.outlineOffset ?? "") || 0);
+    const start = rect.left - outline;
+    const end = rect.right + outline;
+    // An oversized label cannot fit at once; expose its reading-order start.
+    const delta = end - start > scrollport.clientWidth
+        ? style?.direction === "rtl" ? end - right : start - left
+        : start < left ? start - left : end > right ? end - right : 0;
+    if (delta !== 0) scrollport.scrollBy({ left: delta, behavior: "instant" });
+}
+
 export function Root({ children, ...state }: UI.RootProps) {
-    const [design, setDesign] = useState<ThemeDesign>(DEFAULT_SITE_DESIGN);
+    const [design, setDesign] = useState<DesignSystem>(DEFAULT_SITE_DESIGN);
     useEffect(() => {
         try {
             const stored = window.localStorage.getItem(SITE_DESIGN_STORAGE_KEY);
-            if (isSiteDesign(stored)) setDesign(stored);
+            const restored = migrateSiteDesignPreference(stored);
+            if (restored) {
+                setDesign(restored);
+                if (restored !== stored) window.localStorage.setItem(SITE_DESIGN_STORAGE_KEY, restored);
+            }
         } catch { /* The default remains usable when browser storage is unavailable. */ }
         const update = (event: StorageEvent) => {
-            if (event.key === SITE_DESIGN_STORAGE_KEY && isSiteDesign(event.newValue)) setDesign(event.newValue);
+            if (event.key !== SITE_DESIGN_STORAGE_KEY && event.key !== null) return;
+            const restored = event.newValue === null ? DEFAULT_SITE_DESIGN : migrateSiteDesignPreference(event.newValue);
+            if (!restored) return;
+            setDesign(restored);
+            if (event.newValue !== null && restored !== event.newValue) {
+                try { window.localStorage.setItem(SITE_DESIGN_STORAGE_KEY, restored); }
+                catch { /* The selected design remains usable without persistence. */ }
+            }
         };
         window.addEventListener("storage", update);
         return () => window.removeEventListener("storage", update);
@@ -65,7 +100,7 @@ export function Root({ children, ...state }: UI.RootProps) {
             else root.setAttribute("data-crab-design", previous);
         };
     }, [design]);
-    const chooseDesign = (next: ThemeDesign) => {
+    const chooseDesign = (next: DesignSystem) => {
         setDesign(next);
         try { window.localStorage.setItem(SITE_DESIGN_STORAGE_KEY, next); }
         catch { /* A blocked preference store must not prevent switching. */ }
@@ -73,7 +108,7 @@ export function Root({ children, ...state }: UI.RootProps) {
     return (
         <SiteContext value={state}>
             <DocumentDesignContext value={{ design, setDesign: chooseDesign }}>
-                <ConfigProvider className="crab-docs" design={design} theme={state.theme.resolved}>
+                <ConfigProvider className="crab-docs" designSystem={design} colorMode={state.theme.resolved}>
                     {children}
                 </ConfigProvider>
             </DocumentDesignContext>
@@ -306,7 +341,7 @@ export function MobileNavigation({
     route,
     theme,
 }: UI.MobileNavigationProps) {
-    const { design } = useConfig();
+    const { designSystem: design } = useConfig();
     const title = "文档导航";
     const navigationState = use(DocumentNavigationContext);
     // DOM instance used after Drawer enters the top layer, never during rendering.
@@ -391,7 +426,7 @@ export function MobileNavigation({
 }
 
 export function SearchDialog({ search, route, theme }: UI.SearchDialogProps) {
-    const { design } = useConfig();
+    const { designSystem: design } = useConfig();
     const id = useId();
     // 例外：搜索输入 DOM 和关闭原因只供事件、effect 使用，不触发渲染。
     const input = useRef<HTMLInputElement>(null);
@@ -484,7 +519,7 @@ export function SearchDialog({ search, route, theme }: UI.SearchDialogProps) {
                             ) : undefined
                         }
                         value={search.query}
-                        onChange={(event) => search.setQuery(event.target.value)}
+                        onValueChange={(value) => search.setQuery(value)}
                         onKeyDown={(event) => {
                             if (event.nativeEvent.isComposing) return;
                             if (event.key === "ArrowDown" && results.length) {
@@ -705,7 +740,7 @@ export function Page({ page, previous, next, route, site, children }: UI.PagePro
             </Button>}
         </nav>
         <footer className="crab-docs-footer">
-            <div><strong>Crab UI</strong><p>支持 Material Design 3、shadcn 与 macOS 风格的 React 组件库。通过统一配置、设计令牌与可运行示例，构建清晰、一致的界面。</p></div>
+            <div><strong>Crab UI</strong><p>支持 MD3 Expressive、Apple 与 shadcn/ui 三套设计体系的 React 组件库。通过统一配置、设计令牌与可运行示例，构建清晰、一致的界面。</p></div>
             <nav aria-label="页脚导航">
                 <Button appearance="text" href={route.href("guides/getting-started")}>开始使用</Button>
                 <Button appearance="text" href={route.href("guides/accessibility")}>无障碍</Button>
@@ -719,7 +754,8 @@ export function Page({ page, previous, next, route, site, children }: UI.PagePro
         </footer>
     </>;
     return (
-        <article ref={article} className="crab-docs-page" data-home={home} data-component={component} data-reading={!home && !catalog}>
+        <article ref={article} className="crab-docs-page" data-home={home} data-component={component} data-reading={!home && !catalog}
+            onFocusCapture={revealDocumentLink}>
             <div className="crab-docs-page-main">
                 {!home && (
                     <div className="crab-docs-page-hero">
@@ -770,7 +806,7 @@ export function CodeBlock({
         <figure className="crab-docs-code">
             <figcaption>
                 <span>{title || language || "代码"}</span>
-                <Button size="small" appearance="text" onClick={copy}>
+                <Button size="s" appearance="text" onClick={copy}>
                     {copyStatus === "copied"
                         ? "已复制"
                         : copyStatus === "error"
@@ -808,7 +844,7 @@ export function ApiTable(props: UI.ApiTableProps) {
                 placeholder="筛选属性…"
                 prefix={<SearchIcon />}
                 value={props.filter}
-                onChange={(event) => props.setFilter(event.target.value)}
+                onValueChange={(value) => props.setFilter(value)}
             />
             {props.error && (
                 <Alert type="error" title="API 加载失败">
@@ -867,7 +903,7 @@ export function ApiTable(props: UI.ApiTableProps) {
 }
 
 export function Demo(props: UI.DemoProps) {
-    const { design } = useConfig();
+    const { designSystem: design } = useConfig();
     const [dialogSurface, setDialogSurface] = useState(false);
     const codeId = useId();
     // Dialog 退出动画结束前继续承载唯一 preview，包含外部状态驱动的关闭。
@@ -918,7 +954,7 @@ export function Demo(props: UI.DemoProps) {
                         { label: "平板", value: "tablet" },
                         { label: "手机", value: "mobile" },
                     ]}
-                    onChange={(value) => {
+                    onValueChange={(value) => {
                         if (value === "responsive" || value === "tablet" || value === "mobile")
                             props.setViewport(value);
                     }}

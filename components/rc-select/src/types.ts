@@ -1,4 +1,6 @@
-import type { HTMLAttributes, ReactNode, Ref } from "react";
+import type { HTMLAttributes, ReactNode, Ref, SyntheticEvent } from "react";
+import type { DropdownOpenChangeDetails } from '@crab-dev/rc-dropdown-container';
+import type { ControlledValueProps, ControlledOpenProps } from '@crab-dev/rc-hooks';
 
 // 这是 Select 组件的类型定义文件，包含：
 // - 选项类型（单个选项、选项分组）
@@ -48,9 +50,9 @@ export interface FlatOption {
 
 /**
  * 基础 Props，适用于单选和多选。继承自 div 的 HTML 属性，但排除了
- * `onChange` 和 `defaultValue`，因为它们在单选/多选中有不同签名。
+ * `defaultValue`；原生事件保持 DOM 签名，业务值使用 onValueChange。
  */
-interface BaseSelectProps extends Omit<HTMLAttributes<HTMLDivElement>, "onChange" | "defaultValue"> {
+interface BaseSelectProps extends Omit<HTMLAttributes<HTMLDivElement>, "defaultValue"> {
     // 字段外观，默认 outlined
     appearance?: "outlined" | "filled";
     // 可见的浮动字段标签
@@ -71,8 +73,8 @@ interface BaseSelectProps extends Omit<HTMLAttributes<HTMLDivElement>, "onChange
     disabled?: boolean;
     // 是否可搜索（显示输入框以过滤选项）
     searchable?: boolean;
-    // 组件尺寸；省略时继承 ConfigProvider，未配置时为 middle
-    size?: "large" | "middle" | "small";
+    // 组件尺寸；省略时继承 ConfigProvider，未配置时为 medium
+    size?: "large" | "medium" | "small";
     // 状态：用于显示错误或警告的边框样式
     status?: "error" | "warning";
     // 是否允许清除；有已选项且未禁用时，悬停字段或聚焦尾部按钮会将箭头切换为清除
@@ -92,14 +94,9 @@ interface BaseSelectProps extends Omit<HTMLAttributes<HTMLDivElement>, "onChange
     // 自定义选项渲染函数，提供当前选项及其选中状态
     optionRender?: (option: SelectOption, info: { selected: boolean }) => ReactNode;
     // 自定义 tag 渲染（多选时）
-    tagRender?: (option: SelectOption, onClose: () => void) => ReactNode;
+    tagRender?: (option: SelectOption, onClose: (event?: SyntheticEvent<HTMLElement>) => void) => ReactNode;
     // 自定义下拉菜单整体渲染（包裹原始菜单）
     dropdownRender?: (menu: ReactNode) => ReactNode;
-    // 下拉打开/关闭回调
-    onOpenChange?: (open: boolean) => void;
-    // 聚焦与失焦回调
-    onFocus?: () => void;
-    onBlur?: () => void;
 }
 
 /**
@@ -107,24 +104,26 @@ interface BaseSelectProps extends Omit<HTMLAttributes<HTMLDivElement>, "onChange
  * - `multiple` 可选或 false
  * - `null` 表示受控空值；`undefined` 表示非受控
  */
-export interface SingleSelectProps extends BaseSelectProps {
+export type SingleSelectProps = BaseSelectProps & ControlledValueProps<string | null, SelectChangeDetails> & ControlledOpenProps<DropdownOpenChangeDetails> & {
     multiple?: false;
-    value?: string | null;
-    defaultValue?: string | null;
-    onChange?: (value: string | null, option: SelectOption | undefined) => void;
-}
+};
 
 /**
  * 多选模式 Props
  * - `multiple` 必须为 true
  * - `value` / `defaultValue` 为字符串数组
  */
-export interface MultiSelectProps extends BaseSelectProps {
+export type MultiSelectProps = BaseSelectProps & ControlledValueProps<string[], SelectChangeDetails> & ControlledOpenProps<DropdownOpenChangeDetails> & {
     multiple: true;
-    value?: string[];
-    defaultValue?: string[];
-    onChange?: (value: string[], options: SelectOption[]) => void;
-}
+};
 
 // 组件 Props 的联合类型：单选或多选
 export type SelectProps = SingleSelectProps | MultiSelectProps;
+
+export interface SelectChangeDetails {
+    reason: 'select' | 'deselect' | 'clear' | 'remove';
+    options: readonly SelectOption[];
+    option?: SelectOption;
+    /** 由用户交互触发时保留原事件；自定义标签也可主动调用无事件的关闭命令。 */
+    event?: SyntheticEvent<HTMLElement>;
+}

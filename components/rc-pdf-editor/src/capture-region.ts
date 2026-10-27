@@ -2,6 +2,7 @@ import { pageTarget, type PdfClient } from './client.js';
 import type { PageInfo } from './protocol.js';
 import { MAX_CAPTURE_EDGE, MAX_CAPTURE_PIXELS, regionRaster } from './regions.js';
 import { PdfEditorError, type PdfRegionImage, type PdfRegionSelection } from './types.js';
+import { pdfError } from './pdf-messages.js';
 
 export async function captureRegionImage(client: PdfClient, selection: PdfRegionSelection, pages: PageInfo[], scale: number, signal: AbortSignal): Promise<PdfRegionImage> {
     const check = () => { if (signal.aborted) throw new PdfEditorError('cancelled', '区域采集已取消'); };
@@ -19,9 +20,9 @@ export async function captureRegionImage(client: PdfClient, selection: PdfRegion
         return Object.freeze({ pageIndex: plan.region.pageIndex, sourceBounds: plan.raster.sourceBounds,
             imageBounds: Object.freeze({ x, y, width: plan.raster.width, height: plan.raster.height }) });
     });
-    if (width > MAX_CAPTURE_EDGE || height > MAX_CAPTURE_EDGE || width * height > MAX_CAPTURE_PIXELS) throw new PdfEditorError('operation', '拼接图像过大，请缩小选区或采样倍率');
+    if (width > MAX_CAPTURE_EDGE || height > MAX_CAPTURE_EDGE || width * height > MAX_CAPTURE_PIXELS) throw pdfError('operation', 'region.stitched-budget');
     const canvas = new OffscreenCanvas(width, height), context = canvas.getContext('2d');
-    if (!context) throw new PdfEditorError('unsupported', '浏览器不支持区域图像导出');
+    if (!context) throw pdfError('unsupported', 'region.capture-unsupported');
     // OCR 输入保留白色纸张背景；宽度不同的页面按连续视图居中关系对齐。
     context.fillStyle = '#ffffff'; context.fillRect(0, 0, width, height);
     for (let index = 0; index < plans.length; index++) {

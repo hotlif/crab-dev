@@ -160,6 +160,7 @@ export const timeClockStyle = css`
     user-select: none;
     border-radius: ${token.panel['border-radius']};
     & [data-clock-face] { fill: ${token.time.input.background}; }
+    & [data-clock-line-mask] { mask-type: luminance; forced-color-adjust: none; }
     & [data-clock-hand] { fill: ${token.time.dial['background-selected']}; stroke: ${token.time.dial['background-selected']}; stroke-width: ${token.time.dial.track.width}; }
     & [data-clock-dot] { fill: ${token.time.dial['color-selected']}; }
     @media (forced-colors: active) {

@@ -10,8 +10,8 @@ const headerStyle = css`
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
-    gap: var(--rc-card-gap, ${token.size.middle.gap});
-    padding: var(--rc-card-pad, ${token.size.middle.padding});
+    gap: var(--rc-card-gap, ${token.size.medium.gap});
+    padding: var(--rc-card-pad, ${token.size.medium.padding});
     padding-bottom: 0;
 `;
 
@@ -21,7 +21,7 @@ const titleStyle = css`
     text-overflow: ellipsis;
     white-space: nowrap;
     color: ${token.header.title.color};
-    font-size: var(--rc-card-title-size, ${token.size.middle.title['font-size']});
+    font-size: var(--rc-card-title-size, ${token.size.medium.title['font-size']});
     font-weight: ${token.header.title['font-weight']};
     line-height: 1.4;
 `;

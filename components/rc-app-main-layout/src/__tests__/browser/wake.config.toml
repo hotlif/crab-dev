@@ -1,0 +1,20 @@
+# Published ESM and compiled CSS are prerequisites of the layout-only regression.
+# Run from rc-app-main-layout through yarn test:browser, which builds and prepares the fixture.
+[test]
+environment = "browser"
+include = ["button-feedback.test.tsx", "sidebar-selection.test.tsx"]
+timeout_ms = 15000
+leaks = "error"
+
+[test.react]
+strict_mode = false
+cleanup = true
+act_warnings = "error"
+
+[test.network]
+mode = "deny"
+allow_hosts = []
+
+[test.coverage]
+enabled = true
+reporters = ["text", "lcov"]

@@ -23,7 +23,7 @@ const SizeDemo = () => {
             <Card size="small" variant="outlined" title="Small">
                 紧凑列表场景。
             </Card>
-            <Card size="middle" variant="outlined" title="Middle">
+            <Card size="medium" variant="outlined" title="Medium">
                 默认档位, 适合常规信息卡。
             </Card>
             <Card size="large" variant="outlined" title="Large">

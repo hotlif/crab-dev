@@ -91,6 +91,93 @@ describe("Virtual", () => {
         expect(gridRef.current?.getScrollCellPosition().rowIndex).toBe(1);
     });
 
+    it("synchronizes native scroll once and ignores nested or unchanged scroll events", async () => {
+        const gridRef = createRef<VirtualHandle>();
+        const onScrollPositionChange = mock.fn();
+        const { container } = await render(
+            <StrictMode><Virtual {...createProps()} gridRef={gridRef} onScrollPositionChange={onScrollPositionChange} /></StrictMode>,
+        );
+        const grid = container.firstElementChild?.firstElementChild as HTMLElement;
+        const callsBefore = onScrollPositionChange.calls.calls.length;
+        await act(async () => {
+            grid.scrollLeft = 100;
+            grid.scrollTop = 75;
+            grid.dispatchEvent(new Event("scroll"));
+        });
+        expect(gridRef.current?.getScrollCellPosition()).toEqual({ columnIndex: 1, rowIndex: 1 });
+        expect(onScrollPositionChange.calls.calls.length).toBe(callsBefore + 1);
+        expect(onScrollPositionChange).toHaveBeenCalledWith({ left: 100, top: 75 });
+        await fireEvent(grid, new Event("scroll"));
+        await fireEvent(grid.firstElementChild!, new Event("scroll", { bubbles: true }));
+        expect(onScrollPositionChange.calls.calls.length).toBe(callsBefore + 1);
+    });
+
+    for (const nativeEventDelivered of [false, true]) {
+        it(`merges pending wheel with native offsets exactly once (scroll event delivered: ${nativeEventDelivered})`, async () => {
+            const scheduledCallbacks: Array<(timestamp: number) => void> = [];
+            const requestAnimationFrameMock = globalThis.requestAnimationFrame as unknown as MockFunction;
+            requestAnimationFrameMock.implement(callback => {
+                scheduledCallbacks.push(callback);
+                return scheduledCallbacks.length;
+            });
+            const gridRef = createRef<VirtualHandle>();
+            const onScrollPositionChange = mock.fn();
+            const { container } = await render(<Virtual {...createProps()} gridRef={gridRef} onScrollPositionChange={onScrollPositionChange} />);
+            const grid = container.firstElementChild?.firstElementChild as HTMLElement;
+            const callsBefore = onScrollPositionChange.calls.calls.length;
+            await act(async () => {
+                grid.dispatchEvent(new WheelEvent("wheel", { deltaX: 20, deltaY: 25, cancelable: true }));
+                grid.scrollLeft = 30;
+                grid.scrollTop = 40;
+                if (nativeEventDelivered) grid.dispatchEvent(new Event("scroll"));
+                scheduledCallbacks[0]!(performance.now());
+            });
+            expect(scheduledCallbacks.length).toBe(1);
+            expect(grid.scrollLeft).toBe(50);
+            expect(grid.scrollTop).toBe(65);
+            expect(onScrollPositionChange.calls.calls.length).toBe(callsBefore + 1);
+            expect(onScrollPositionChange).toHaveBeenCalledWith({ left: 50, top: 65 });
+            await fireEvent(grid, new Event("scroll"));
+            expect(scheduledCallbacks.length).toBe(1);
+            expect(onScrollPositionChange.calls.calls.length).toBe(callsBefore + 1);
+        });
+    }
+
+    for (const input of ["native", "wheel"] as const) {
+        for (const axis of ["left", "top"] as const) {
+            it(`preserves the other pending ${input} axis during scrollTo(${axis})`, async () => {
+                const scheduledCallbacks: Array<(timestamp: number) => void> = [];
+                const requestAnimationFrameMock = globalThis.requestAnimationFrame as unknown as MockFunction;
+                requestAnimationFrameMock.implement(callback => {
+                    scheduledCallbacks.push(callback);
+                    return scheduledCallbacks.length;
+                });
+                const gridRef = createRef<VirtualHandle>();
+                const onScrollPositionChange = mock.fn();
+                const { container } = await render(<Virtual {...createProps()} gridRef={gridRef} onScrollPositionChange={onScrollPositionChange} />);
+                const grid = container.firstElementChild?.firstElementChild as HTMLElement;
+                const callsBefore = onScrollPositionChange.calls.calls.length;
+                await act(async () => {
+                    if (input === "native") {
+                        grid.scrollLeft = 30;
+                        grid.scrollTop = 40;
+                        grid.dispatchEvent(new Event("scroll"));
+                    } else {
+                        grid.dispatchEvent(new WheelEvent("wheel", { deltaX: 30, deltaY: 40, cancelable: true }));
+                    }
+                    gridRef.current?.scrollTo(axis === "left" ? { left: 80 } : { top: 90 });
+                });
+                const expected = axis === "left" ? { left: 80, top: 40 } : { left: 30, top: 90 };
+                expect(grid.scrollLeft).toBe(expected.left);
+                expect(grid.scrollTop).toBe(expected.top);
+                expect(onScrollPositionChange).toHaveBeenCalledWith(expected);
+                expect(onScrollPositionChange.calls.calls.length).toBe(callsBefore + 1);
+                await act(async () => scheduledCallbacks[0]!(performance.now()));
+                expect(onScrollPositionChange.calls.calls.length).toBe(callsBefore + 1);
+            });
+        }
+    }
+
     it("reports logical pixel positions for scrolling, clamping and resizing", async () => {
         const gridRef = createRef<VirtualHandle>(), onScrollPositionChange = mock.fn();
         const props = createProps();

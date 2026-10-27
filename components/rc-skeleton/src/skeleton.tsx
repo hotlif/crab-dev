@@ -142,6 +142,21 @@ const staticStyle = css`
     background-image: none;
 `;
 
+// Forced-color browsers replace decorative fills with Canvas. Preserve each
+// placeholder's shape with an inset system outline, without adding layout
+// borders or opting its subtree out of the user's high-contrast palette.
+const forcedColorStyle = css`
+    @media (forced-colors: active) {
+        forced-color-adjust: auto;
+        background-color: Canvas !important;
+        background-image: none !important;
+        outline: 1px solid CanvasText;
+        outline-offset: -1px;
+        animation: none !important;
+        opacity: 1 !important;
+    }
+`;
+
 /* ────────────────────────────────── 辅助 ────────────────────────────────── */
 
 const toCssLength = (value: number | string | undefined): string | undefined => {
@@ -195,17 +210,22 @@ const Skeleton: FC<SkeletonProps> = ({
     ...restProps
 }) => {
     const configuredSize = useComponentSize(sizeProp);
-    const size = configuredSize === 'middle' ? 'medium' : configuredSize;
+    const size = configuredSize === 'medium' ? 'medium' : configuredSize;
     if (!loading) {
         return <>{children}</>;
     }
 
     const widthValue = toCssLength(width);
     const heightValue = toCssLength(height);
+    const circular = variant === 'circle' || variant === 'avatar';
+    // A definite fallback on both axes defeats aspect-ratio. Keep the omitted
+    // axis automatic when one explicit dimension controls a circular shape.
+    const resolvedWidth = widthValue ?? (circular && heightValue !== undefined ? 'auto' : undefined);
+    const resolvedHeight = heightValue ?? (circular && widthValue !== undefined ? 'auto' : undefined);
 
     const dimensionVars = (extraWidth?: string): CSSProperties => ({
-        ...(extraWidth !== undefined ? { ["--rc-skeleton-w" as string]: extraWidth } : widthValue !== undefined ? { ["--rc-skeleton-w" as string]: widthValue } : {}),
-        ...(heightValue !== undefined ? { ["--rc-skeleton-h" as string]: heightValue } : {}),
+        ...(extraWidth !== undefined ? { ["--rc-skeleton-w" as string]: extraWidth } : resolvedWidth !== undefined ? { ["--rc-skeleton-w" as string]: resolvedWidth } : {}),
+        ...(resolvedHeight !== undefined ? { ["--rc-skeleton-h" as string]: resolvedHeight } : {}),
         ...style,
     });
 
@@ -237,6 +257,7 @@ const Skeleton: FC<SkeletonProps> = ({
                                 roundClass,
                                 animationStyle,
                                 isLast && lastTextRowStyle,
+                                forcedColorStyle,
                             )}
                             style={dimensionVars(perRowWidth)}
                             aria-hidden="true"
@@ -249,7 +270,7 @@ const Skeleton: FC<SkeletonProps> = ({
 
     return (
         <span
-            className={cx(baseStyle, variantStyle, roundClass, animationStyle, className)}
+            className={cx(baseStyle, variantStyle, roundClass, animationStyle, forcedColorStyle, className)}
             style={dimensionVars()}
             role="status"
             aria-live="polite"

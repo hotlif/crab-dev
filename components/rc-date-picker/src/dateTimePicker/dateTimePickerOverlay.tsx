@@ -1,3 +1,4 @@
+import { usePickerLocale } from '../locale.js';
 import RcButton from "@crab-dev/rc-button"
 import { useDropdownContext } from "@crab-dev/rc-dropdown-container";
 import { css } from '@crab-dev/css';
@@ -20,6 +21,7 @@ const DateTimePickerOverlay: FC<DateTimePickerOverlayProps> = ({
     onSelectValuesChange,
     ...restProps
 }) => {
+    const { messages } = usePickerLocale(restProps.locale);
     const {
         dispatch
     } = useDropdownContext<HTMLInputElement>();
@@ -54,7 +56,7 @@ const DateTimePickerOverlay: FC<DateTimePickerOverlayProps> = ({
             >
                 <RcButton
                     appearance="text"
-                    size="small"
+                    size="xs"
                     onClick={() => {
                         dispatch({
                             type: "setOpen",
@@ -62,10 +64,10 @@ const DateTimePickerOverlay: FC<DateTimePickerOverlayProps> = ({
                         })
                     }}
                 >
-                    取消
+                    {messages.cancel}
                 </RcButton>
                 <RcButton
-                    size="small"
+                    size="xs"
                     appearance="primary"
                     disabled={!timeValid}
                     onClick={(e) => {
@@ -86,7 +88,7 @@ const DateTimePickerOverlay: FC<DateTimePickerOverlayProps> = ({
 
                     }}
                 >
-                    确定
+                    {messages.confirm}
                 </RcButton>
             </div>
         </>

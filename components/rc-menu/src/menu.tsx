@@ -1,32 +1,30 @@
-import { type Key, type FC, type HTMLAttributes, type MouseEvent } from "react";
+import { useControllableValue } from '@crab-dev/rc-hooks';
+import { type Key, type FC, type HTMLAttributes, type MouseEvent, type KeyboardEvent } from "react";
 import { type Item } from "./type.js";
 import VerticalMenu from "./vertical/index.js";
 import HorizontalMenu from "./horizontal/index.js";
 
 
-interface OnSelectItemParam {
-    item: Item,
-    selectedKeys: Key[]
+export interface MenuSelectionChangeDetails {
+    reason: 'select' | 'deselect';
+    item: Item;
+    event?: MouseEvent<HTMLElement> | KeyboardEvent<HTMLElement>;
 }
 
-export interface MenuProps extends Omit<HTMLAttributes<HTMLUListElement>, "onClick"> {
-    
+export interface MenuOpenKeysChangeDetails {
+    reason: 'expand' | 'collapse';
+    item: Item;
+    event?: MouseEvent<HTMLElement> | KeyboardEvent<HTMLElement> | Event;
+}
+
+interface BaseMenuProps extends Omit<HTMLAttributes<HTMLUListElement>, "onClick"> {
+
     /**
      * 垂直、水平、和内嵌模式三种, 默认情况下为垂直模式 `vertical`
      */
     mode?: "vertical" | "horizontal" | "inline"
 
-    /**
-     * 当前展开的 Menu 节点
-     */
-    openKeys?: Key[]
-
-    /**
-     * 当前选中的菜单项 key 数组
-     */
-    selectedKeys?: Key[]
-
-    /**
+/**
      * 菜单内容
      */
     items?: Item[]
@@ -42,12 +40,12 @@ export interface MenuProps extends Omit<HTMLAttributes<HTMLUListElement>, "onCli
     /**
      * 选中时, 进行调用
      */
-    onSelectItem?: (param: OnSelectItemParam) => void
+    onSelectedKeysChange?: (selectedKeys: Key[], details: MenuSelectionChangeDetails) => void
 
     /**
      * 展开/关闭的回调
      */
-    onOpenChange?: (openKeys: Key[]) => void
+    onOpenKeysChange?: (openKeys: Key[], details: MenuOpenKeysChangeDetails) => void
 
     /**
      * 点击事件
@@ -58,17 +56,29 @@ export interface MenuProps extends Omit<HTMLAttributes<HTMLUListElement>, "onCli
     }) => void
 }
 
+export type MenuProps = BaseMenuProps &
+    ({ /** 受控的选中键集合 */ selectedKeys?: Key[]; defaultSelectedKeys?: never } | { selectedKeys?: never; /** 仅初始化的选中键集合 */ defaultSelectedKeys?: Key[] }) &
+    ({ /** 受控的展开键集合 */ openKeys?: Key[]; defaultOpenKeys?: never } | { openKeys?: never; /** 仅初始化的展开键集合 */ defaultOpenKeys?: Key[] });
+
 const Menu: FC<MenuProps> = ({
     mode = "vertical",
-    selectedKeys,
+    selectedKeys: selectedKeysProp,
+    defaultSelectedKeys = [],
+    onSelectedKeysChange,
+    openKeys: openKeysProp,
+    defaultOpenKeys = [],
+    onOpenKeysChange,
     items,
     inlineCollapsed,
     ...props
 }) => {
+    const [selectedKeys, setSelectedKeys] = useControllableValue<Key[], [MenuSelectionChangeDetails]>({ value: selectedKeysProp, defaultValue: defaultSelectedKeys, onValueChange: onSelectedKeysChange });
+    const [openKeys, setOpenKeys] = useControllableValue<Key[], [MenuOpenKeysChangeDetails]>({ value: openKeysProp, defaultValue: defaultOpenKeys, onValueChange: onOpenKeysChange });
+    const stateProps = { selectedKeys, onSelectedKeysChange: setSelectedKeys, openKeys, onOpenKeysChange: setOpenKeys };
     if (mode === "vertical" || mode === "inline") {
         return (
             <VerticalMenu
-                selectedKeys={selectedKeys}
+                {...stateProps}
                 items={items}
                 inlineCollapsed={inlineCollapsed}
                 {...props}
@@ -77,9 +87,9 @@ const Menu: FC<MenuProps> = ({
     } else if (mode === "horizontal") {
         return (
             <HorizontalMenu
-                selectedKeys={selectedKeys}
+                {...stateProps}
                 items={items}
-                {...props}   
+                {...props}
             />
         )
     } else {

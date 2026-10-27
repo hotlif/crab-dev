@@ -1,14 +1,15 @@
-import { useComponentSize } from '@crab-dev/rc-config-provider';
+import { useControllableValue, type ControlledValueProps } from '@crab-dev/rc-hooks';
+import { useComponentSize, useLocale } from '@crab-dev/rc-config-provider';
 import { css, cx } from "@crab-dev/css";
 import Button from "@crab-dev/rc-button";
 import semanticToken from "@crab-dev/rc-token-semantic";
 import { X } from "lucide-react";
-import { useId, useState, type Ref, type TextareaHTMLAttributes } from "react";
+import { useId, type Ref, type ChangeEvent, type MouseEvent, type TextareaHTMLAttributes } from "react";
 
 import token, { vars } from "./token.js";
 
 
-export interface TextEditProps extends Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, "ref"> {
+interface BaseTextEditProps extends Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, "ref" | "value" | "defaultValue"> {
     /** 字段外观，默认 outlined；bordered=false 时由宿主提供外观。 */
     appearance?: "outlined" | "filled";
     /** 可见标签；Material 使用浮动标签，shadcn 使用上方标签。 */
@@ -28,50 +29,58 @@ export interface TextEditProps extends Omit<TextareaHTMLAttributes<HTMLTextAreaE
     containerRef?: Ref<HTMLDivElement>;
 
     /**
-     * 设置多行文本输入框的大小（内边距与排版），默认为 middle；
-     * 可视高度由 rows / autoSize 决定
+     * 控件几何档位，默认为 medium；不缩放正文，内容高度由 rows / autoSize 决定。
+     * Apple / shadcn 调整内边距和最小高度；MD3 三档保持标准字段几何，
+     * 仅内部清除动作分档。bordered=false 时几何和排版由宿主提供。
      */
-    size?: "large" | "middle" | "small"
+    size?: "large" | "medium" | "small";
 
     /**
      * 验证状态，影响边框颜色以提供即时反馈
      */
-    status?: "error" | "warning"
+    status?: "error" | "warning";
 
     /**
      * 是否显示外层边框/背景/阴影，默认为 true。
      * 设为 false 时容器变为无样式（透明、无边框），
      * 用于嵌入到已有边框的宿主容器中（例如作为表单项内部的备注框）
      */
-    bordered?: boolean
+    bordered?: boolean;
 
     /**
-     * 是否允许一键清除内容；触发 onChange，受控模式由父组件接受新值
+     * 是否允许一键清除内容；触发 onValueChange，受控模式由父组件接受新值
      */
-    allowClear?: boolean
+    allowClear?: boolean;
 
     /**
      * 点击清除按钮时的回调
      */
-    onClear?: () => void
+    onClear?: () => void;
 
     /**
      * 是否显示字符计数，配合 maxLength 使用
      */
-    showCount?: boolean
+    showCount?: boolean;
 
     /**
      * 高度随内容自动增长（CSS field-sizing: content，浏览器不支持时按 rows 回退）；
      * 开启后禁用手动拖拽调整尺寸，避免两种高度控制方式互相冲突
      */
-    autoSize?: boolean
+    autoSize?: boolean;
 
     /**
      * 手动拖拽调整尺寸的方向，默认为 vertical；autoSize 开启时忽略
      */
-    resize?: "none" | "vertical" | "both"
+    resize?: "none" | "vertical" | "both";
 }
 
+
+export interface TextEditChangeDetails {
+    reason: 'input' | 'clear';
+    event?: ChangeEvent<HTMLTextAreaElement> | MouseEvent<HTMLButtonElement>;
+}
+
+export type TextEditProps = BaseTextEditProps & ControlledValueProps<string, TextEditChangeDetails>;
 
 // --- 容器样式 ---
 
@@ -93,9 +102,9 @@ const containerBaseStyle = css`
     @media (prefers-reduced-motion: reduce) { transition: none; }
     outline: none;
     box-sizing: border-box;
-    &:has(> button) { min-height: calc(${token.clear.height} + 2 * ${token.clear['inset-block-start']}); }
+    &:has(> button) { min-height: max(${token.field.control['min-height']}, calc(${token.clear.height} + 2 * ${token.clear['inset-block-start']})); }
     @media (pointer: coarse) {
-        &:has(> button) { min-height: calc(${token.clear.touch.height} + 2 * ${token.clear['inset-block-start']}); }
+        &:has(> button) { min-height: max(${token.field.control['min-height']}, calc(${token.clear.touch.height} + 2 * ${token.clear['inset-block-start']})); }
     }
     &:hover:not(:focus-within):not([aria-disabled="true"]) {
         border-color: ${token.root['border-color-hover']};
@@ -123,16 +132,40 @@ const containerBaseStyle = css`
 // 按尺寸预生成容器内边距，避免在渲染中创建动态类
 const sizeContainerStyles = {
     large: css`
+        ${vars['field.control.min-height']}: ${token.size.large['min-height']};
+        ${vars['field.control.padding-inline']}: ${token.size.large['padding-inline']};
+        ${vars['field.input.multiline.padding-block']}: ${token.size.large['padding-block']};
+        ${vars['field.input.multiline.filled.padding-top']}: ${token.size.large.filled['padding-top']};
+        ${vars['field.input.multiline.filled.padding']}: ${token.size.large.filled.padding};
+        ${vars['clear.inset-block-start']}: ${token.size.large['padding-block']};
+        ${vars['clear.inset-inline-end']}: ${token.size.large['padding-inline']};
+        min-height: ${token.field.control['min-height']};
         padding: ${token.size.large.padding};
         ${vars['clear.width']}: ${token.size.large.action.width};
         ${vars['clear.height']}: ${token.size.large.action.width};
     `,
-    middle: css`
-        padding: ${token.size.middle.padding};
-        ${vars['clear.width']}: ${token.size.middle.action.width};
-        ${vars['clear.height']}: ${token.size.middle.action.width};
+    medium: css`
+        ${vars['field.control.min-height']}: ${token.size.medium['min-height']};
+        ${vars['field.control.padding-inline']}: ${token.size.medium['padding-inline']};
+        ${vars['field.input.multiline.padding-block']}: ${token.size.medium['padding-block']};
+        ${vars['field.input.multiline.filled.padding-top']}: ${token.size.medium.filled['padding-top']};
+        ${vars['field.input.multiline.filled.padding']}: ${token.size.medium.filled.padding};
+        ${vars['clear.inset-block-start']}: ${token.size.medium['padding-block']};
+        ${vars['clear.inset-inline-end']}: ${token.size.medium['padding-inline']};
+        min-height: ${token.field.control['min-height']};
+        padding: ${token.size.medium.padding};
+        ${vars['clear.width']}: ${token.size.medium.action.width};
+        ${vars['clear.height']}: ${token.size.medium.action.width};
     `,
     small: css`
+        ${vars['field.control.min-height']}: ${token.size.small['min-height']};
+        ${vars['field.control.padding-inline']}: ${token.size.small['padding-inline']};
+        ${vars['field.input.multiline.padding-block']}: ${token.size.small['padding-block']};
+        ${vars['field.input.multiline.filled.padding-top']}: ${token.size.small.filled['padding-top']};
+        ${vars['field.input.multiline.filled.padding']}: ${token.size.small.filled.padding};
+        ${vars['clear.inset-block-start']}: ${token.size.small['padding-block']};
+        ${vars['clear.inset-inline-end']}: ${token.size.small['padding-inline']};
+        min-height: ${token.field.control['min-height']};
         padding: ${token.size.small.padding};
         ${vars['clear.width']}: ${token.size.small.action.width};
         ${vars['clear.height']}: ${token.size.small.action.width};
@@ -145,9 +178,9 @@ const sizeTextStyles = {
         font-size: ${token.size.large['font-size']};
         line-height: ${token.size.large['line-height']};
     `,
-    middle: css`
-        font-size: ${token.size.middle['font-size']};
-        line-height: ${token.size.middle['line-height']};
+    medium: css`
+        font-size: ${token.size.medium['font-size']};
+        line-height: ${token.size.medium['line-height']};
     `,
     small: css`
         font-size: ${token.size.small['font-size']};
@@ -182,6 +215,7 @@ const warningStyle = css`
 // 与 sizeContainerStyles/errorStyle/warningStyle 互斥选用（而非叠加覆盖），
 // 避免依赖 Crab CSS 抽取后的规则顺序来决定优先级
 const borderlessStyle = css`
+    ${vars['field.control.min-height']}: 0px;
     border-width: 0;
     border-color: transparent;
     background-color: transparent;
@@ -328,11 +362,7 @@ const fieldStyle = css`
     &[data-labeled="false"] > [data-support] { grid-row: 2; }
     &[data-bordered="true"][data-labeled="true"] > [data-control] {
         grid-row: ${semanticToken.field.layout['control-row']};
-        min-height: ${token.field.control['min-height']};
-        padding-inline: ${token.field.control['padding-inline']};
-        padding-block: ${token.field.input.multiline['padding-block']};
         cursor: text;
-        & > textarea { font-size: ${token.field.input['font-size']}; line-height: ${token.field.input['line-height']}; }
         & > button { inset-block-start: ${token.field.input.multiline['padding-block']}; inset-inline-end: ${token.field.control['padding-inline']}; }
     }
     &[data-bordered="true"][data-labeled="true"] > [data-support] {
@@ -512,6 +542,7 @@ function TextEdit({
     value,
     defaultValue,
     onChange,
+    onValueChange,
     containerRef,
     className,
     style,
@@ -533,8 +564,8 @@ function TextEdit({
     ...rest
 }: TextEditProps) {
     const size = useComponentSize(sizeProp);
-    const [uncontrolledValue, setUncontrolledValue] = useState(defaultValue ?? '');
-    const displayValue = value ?? uncontrolledValue;
+    const { messages } = useLocale();
+    const [displayValue, setValue] = useControllableValue<string, [TextEditChangeDetails]>({ value, defaultValue: defaultValue ?? '', onValueChange });
     const generatedId = useId();
     const inputId = id ?? generatedId;
     const hasValue = typeof displayValue === "string" && displayValue.length > 0;
@@ -571,10 +602,9 @@ function TextEdit({
             <textarea
                 ref={ref}
                 id={inputId}
-                value={value}
-                defaultValue={defaultValue}
+                value={displayValue}
                 onChange={(event) => {
-                    setUncontrolledValue(event.currentTarget.value);
+                    setValue(event.currentTarget.value, { reason: 'input', event });
                     onChange?.(event);
                 }}
                 maxLength={maxLength}
@@ -600,8 +630,8 @@ function TextEdit({
                 <Button
                     type="button"
                     appearance="text"
-                    size="small"
-                    aria-label="清除"
+                    size="xs"
+                    aria-label={messages.common.clear}
                     aria-controls={inputId}
                     icon={<X aria-hidden="true" />}
                     className={clearButtonStyle}
@@ -611,9 +641,7 @@ function TextEdit({
                         const input = e.currentTarget.parentElement?.querySelector('textarea');
                         if (input) {
                             input.focus();
-                            // 原生 setter 触发 React 的 change 流程，保留受控值恢复语义。
-                            Object.getOwnPropertyDescriptor(HTMLTextAreaElement.prototype, 'value')?.set?.call(input, '');
-                            input.dispatchEvent(new Event('input', { bubbles: true }));
+                            setValue('', { reason: 'clear', event: e });
                         }
                         onClear?.();
                     }}

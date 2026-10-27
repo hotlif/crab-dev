@@ -13,11 +13,11 @@ status = "experimental"
 
 ## 三套主题的多行字段
 
-MD3 使用浮动标签和描边／底线；macOS 与 shadcn 使用静态标签，分别提供蓝色外侧焦点环和中性半透明外侧焦点环。无标签文本域也使用相同的 L2 焦点合约。错误说明与计数保持在支持文本区，主题切换保留原来的文本域及输入内容。
+MD3 使用浮动标签和描边／底线；Apple 与 shadcn 使用静态标签，分别提供蓝色外侧焦点环和中性半透明外侧焦点环。无标签文本域也使用相同的 L2 焦点合约。错误说明与计数保持在支持文本区，主题切换保留原来的文本域及输入内容。
 
-“多行字段状态”演示同步覆盖普通、Filled 错误和禁用字段。桌面密度与 macOS 阴影是项目定制；多行编辑保留原生选择、换行及垂直扩展能力。
+“多行字段状态”演示同步覆盖普通、Filled 错误和禁用字段。桌面密度与 Apple 阴影是项目定制；多行编辑保留原生选择、换行及垂直扩展能力。
 
-参考：[Material Web Text field 与 textarea](https://material-web.dev/components/text-field/)、[字段轮廓实现](https://github.com/material-components/material-web/blob/main/field/internal/_outlined-field.scss)、[shadcn Textarea 源码](https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/new-york-v4/ui/textarea.tsx)、[Apple Text fields](https://developer.apple.com/design/human-interface-guidelines/text-fields)。核对日期：2026-10-22。
+参考：[Material Web Text field 与 textarea](https://material-web.dev/components/text-field/)、[字段轮廓实现](https://github.com/material-components/material-web/blob/main/field/internal/_outlined-field.scss)、[固定 New York V4 Textarea 源码](https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui/textarea.tsx)、[Apple Text fields](https://developer.apple.com/design/human-interface-guidelines/text-fields)。尺寸契约核对日期：2026-10-25，来源与适配范围见[三套设计体系](/guides/design-styles)。
 
 ## 何时使用
 
@@ -36,19 +36,35 @@ MD3 使用浮动标签和描边／底线；macOS 与 shadcn 使用静态标签�
 | 随内容增长 | autoSize | 支持 CSS field-sizing 的浏览器生效，否则以 rows 回退；不同时手动 resize |
 | 只可查看和复制 | readOnly | 保留焦点、选择和对比度，隐藏清除 |
 | 暂时不可编辑 | disabled | 禁用文本域并隐藏清除；相邻文字说明原因 |
-| 清除 | allowClear + onChange | 支持受控和非受控；触发标准值变更并将焦点送回文本域，onClear 仅用于额外通知 |
+| 清除 | allowClear + onValueChange | 支持受控和非受控；触发标准值变更并将焦点送回文本域，onClear 仅用于额外通知 |
 
 ### 设计风格与状态
 
-字段跟随统一的 `ConfigProvider design="material" | "macos" | "shadcn"`，文档右上角的风格选择也会同步到演示。Material 的标签位于字段内，聚焦或有内容时浮动；macOS 与 shadcn 的同一个标签位于输入框上方。切换风格保留输入内容、焦点与辅助说明关联，无需替换组件。
+字段跟随统一的 `ConfigProvider designSystem="md3" | "apple" | "shadcn"`，文档右上角的风格选择也会同步到演示。Material 的标签位于字段内，聚焦或有内容时浮动；Apple 与 shadcn 的同一个标签位于输入框上方。切换风格保留输入内容、焦点与辅助说明关联，无需替换组件。
 
-提供 `label` 的 Material 文本域使用 16px / 24px 正文、12px / 16px 浮动标签，至少 56px 高；outlined 保留上下 16px 空间，filled 为标签保留上方空间。macOS 与 shadcn 使用上置的 14px 标签与紧凑边框。无标签字段也沿用同主题的正文与内边距角色；`bordered={false}` 交由宿主提供边界和排版。可视高度仍由 `rows` / `autoSize` 决定，不应对包含错误信息的整组字段设置固定高度。
+提供 `label` 的 Material 文本域使用 16px / 24px 正文、12px / 16px 浮动标签，至少 56px 高；outlined 保留上下 16px 空间，filled 为标签保留上方空间。Apple 与 shadcn 使用上置的 14px 标签与紧凑边框。无标签字段也沿用同主题的正文与内边距角色；`bordered={false}` 交由宿主提供边界和排版。可视高度仍由 `rows` / `autoSize` 决定，不应对包含错误信息的整组字段设置固定高度。
 
-清除动作复用 Button，鼠标下 24×24px、粗指针下 48×48px；文本区常驻预留对应横向空间，按钮出现或消失不改变可用行宽。粗指针下文本域最小高度为 48px。计数与按钮不应遮住末行或滚动条，超长文本保留原生滚动与选择。
+`size` 选择下面的控件几何，不改变正文的字号与行高，也不改变 `density`。表中高度是输入边界的最小值；实际高度还包含 `rows` / `autoSize` 所需内容空间，标签、说明和错误所在的整组字段不受此最小值限制。
 
-`appearance="outlined"` 与 `appearance="filled"` 对应 Material 的两种文本字段；macOS 与 shadcn 下两者均采用完整的紧凑边框。`label`、`supportingText`、`errorText` 会自动建立可见标签和 `aria-describedby` 关联。`errorText` 替换辅助说明并启用错误语义及错误播报；显式 `aria-invalid` 仍优先，warning 不自动无效。计数位于字段下方的信息区，不占用正文空间，也不会在每个字符变化时强制重复播报。
+| 设计体系 | size | 最小高度 | 上下 / 左右内边距 | 正文 / 行高 |
+| --- | --- | --- | --- | --- |
+| Material Design 3 Expressive | small / medium / large | 56px | 16px / 16px | 16px / 24px |
+| Apple | small | 32px | 2px / 8px | 14px / 20px |
+| Apple | medium | 36px | 4px / 12px | 14px / 20px |
+| Apple | large | 40px | 8px / 16px | 14px / 20px |
+| shadcn/ui | small | 56px | 4px / 8px | 14px / 20px |
+| shadcn/ui | medium | 64px | 8px / 12px | 14px / 20px |
+| shadcn/ui | large | 72px | 12px / 16px | 14px / 20px |
 
-Material 聚焦时，outlined 的 1px 轮廓加粗为 3px，filled 将底线加粗为 3px；outlined 使用真实轮廓缺口，标签不会用一块固定背景盖住边框。macOS 与 shadcn 使用各自语义主题提供的边框与外侧焦点指示；错误与 warning 沿用各自的反馈色。禁用时移除错误强调。无边框模式和系统强制颜色模式保留独立的键盘焦点轮廓。
+MD3 的三档保持同一标准字段几何，是本库的显式映射例外：为保留正文、浮动标签和轮廓空间，不制造官方未提供的紧凑多行变体。适用所有带边界 TextEdit；带标签的 Filled 仍使用上 24px、下 8px 为标签留位。保留现有 `size` 调用兼容，内部清除动作继续分档，`bordered={false}` 则由宿主提供几何。以实际 CSS 回归核对三档及全部外观、标签和行数；若以后引入有依据的 MD3 尺寸变体，须同步迁移说明并重新验收后替换此映射。
+
+Apple 的三档是本库 Web 适配。shadcn/ui 的 medium 对应固定 New York V4 的 `min-h-16 px-3 py-2` 基线，small/large 是本库扩展，上游没有该三档接口。本库延续现有 14px / 20px 正文契约，本轮不引入上游 `text-base md:text-sm` 的响应字号规则；扩展几何需要三体系浏览器验收，不能据此宣称平台原生或上游完整一致。
+
+清除动作复用 Button，鼠标下按 small/medium/large 使用 24/28/32px 方形，粗指针下至少 48×48px；文本区常驻预留对应横向空间，按钮出现或消失不改变可用行宽。粗指针下文本域最小高度为 48px，容器可为操作自然增高。计数与按钮不应遮住末行或滚动条，超长文本保留原生滚动与选择。
+
+`appearance="outlined"` 与 `appearance="filled"` 对应 Material 的两种文本字段；Apple 与 shadcn 下两者均采用完整的紧凑边框。`label`、`supportingText`、`errorText` 会自动建立可见标签和 `aria-describedby` 关联。`errorText` 替换辅助说明并启用错误语义及错误播报；显式 `aria-invalid` 仍优先，warning 不自动无效。计数位于字段下方的信息区，不占用正文空间，也不会在每个字符变化时强制重复播报。
+
+Material 聚焦时，outlined 的 1px 轮廓加粗为 3px，filled 将底线加粗为 3px；outlined 使用真实轮廓缺口，标签不会用一块固定背景盖住边框。Apple 与 shadcn 使用各自语义主题提供的边框与外侧焦点指示；错误与 warning 沿用各自的反馈色。禁用时移除错误强调。无边框模式和系统强制颜色模式保留独立的键盘焦点轮廓。
 
 实现依据：2026-10-21 查阅 [M3 文本字段规格](https://m3.material.io/components/text-fields/specs)、[使用指南](https://m3.material.io/components/text-fields/guidelines)、[无障碍说明](https://m3.material.io/components/text-fields/accessibility)，并对照 [Material Web 多行字段示例](https://material-web.dev/components/text-field/#textarea)、main 分支的 [outlined 样式](https://github.com/material-components/material-web/blob/main/field/internal/_outlined-field.scss)、[filled 样式](https://github.com/material-components/material-web/blob/main/field/internal/_filled-field.scss) 与 [焦点令牌](https://github.com/material-components/material-web/blob/main/tokens/_md-comp-filled-text-field.scss)。M3 官方页面依赖 JavaScript，当前可读的实现参数以 Material Web 源码为对照；采用当前实现的 3px 焦点厚度，warning 和垂直拖拽属于本库扩展。
 
@@ -62,7 +78,15 @@ Material 聚焦时，outlined 的 1px 轮廓加粗为 3px，filled 将底线加�
 
 关联：[输入与选择](https://material-web.dev/components/text-field/)、[复杂表单](/components/rc-form)、[状态组合](/guides/accessibility)、[无障碍](/guides/accessibility)、[LineEdit](/components/rc-line-edit)。尺寸是当前实现；异步提交、权限和错误恢复仍由表单业务提供。
 
+“只读多行字段”对照 outlined 和 filled 的标签、正文及计数。只读文本仍可聚焦、选择和复制，即使设置 `allowClear` 也不会显示清除操作。
+
 <Demos glob="./demos/*.demo.tsx" columns={2} />
+
+## 状态契约
+
+`value / defaultValue / onValueChange(next, details)` 管理字符串值。`details.reason` 区分 `input / clear`；原生 `onChange(event)` 仅报告真实输入事件，清除操作通过值协议报告。
+
+受控值与默认值互斥；默认值仅在初始化时使用。外部属性更新不触发操作回调，省略回调可展示只读受控快照。
 
 ## API
 

@@ -29,8 +29,8 @@ export const vars = defineTokens({
     'content.filter': '--spin-content-filter',
     'size.small.width': '--spin-size-small-width',
     'size.small.font-size': '--spin-size-small-font-size',
-    'size.middle.width': '--spin-size-middle-width',
-    'size.middle.font-size': '--spin-size-middle-font-size',
+    'size.medium.width': '--spin-size-medium-width',
+    'size.medium.font-size': '--spin-size-medium-font-size',
     'size.large.width': '--spin-size-large-width',
     'size.large.font-size': '--spin-size-large-font-size',
     'tip.color': '--spin-tip-color',
@@ -88,9 +88,9 @@ const token = defineTokens({
             'width': `var(${vars['size.small.width']}, 16px)`,
             'font-size': `var(${vars['size.small.font-size']}, var(--token-semantic-typography-caption-font-size, var(--token-global-font-size-xs, 12px)))`
         },
-        'middle': {
-            'width': `var(${vars['size.middle.width']}, var(--token-semantic-size-icon-large, var(--token-global-space-5, 20px)))`,
-            'font-size': `var(${vars['size.middle.font-size']}, var(--token-semantic-typography-body-font-size, var(--token-global-font-size-sm, 14px)))`
+        'medium': {
+            'width': `var(${vars['size.medium.width']}, var(--token-semantic-size-icon-large, var(--token-global-space-5, 20px)))`,
+            'font-size': `var(${vars['size.medium.font-size']}, var(--token-semantic-typography-body-font-size, var(--token-global-font-size-sm, 14px)))`
         },
         'large': {
             'width': `var(${vars['size.large.width']}, var(--token-semantic-size-32, var(--token-global-size-32, 32px)))`,

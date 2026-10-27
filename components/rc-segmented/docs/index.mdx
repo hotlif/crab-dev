@@ -22,21 +22,31 @@ Material 采用 M3 基线的单选分段按钮：等宽选项、40px 默认视�
 
 Tab 进入原生单选组，方向键切换选项，Space 或 Enter 选中当前聚焦项。这是 Web 单选组的键盘模型。此组件保留 M3 基线，不等同于 Expressive 的 connected button group。
 
+文字选项保持单行；`block` 在给定容器内等宽分配，空间不足时省略文字，不缩小勾选图形或改变规范内边距。MD3 无前置图标的未选中项保留勾选槽的测量宽度并将文字居中，选择变化不会改变自动宽度组的尺寸。容器必须容纳勾选槽、间距、内边距及可读标签；窄屏优先减少选项、缩短标签或改用 Select，不能仅用截断标签区分选项。
+
+文字布局核对日期：2026-10-25。[Compose 固定版本的内容测量](https://android.googlesource.com/platform/frameworks/support/+/c73a560c5c9ba4ed53a4f6dd5df36dfd16a837e7/compose/material3/material3/src/commonMain/kotlin/androidx/compose/material3/SegmentedButton.kt)保留勾选槽并居中无图标文字；这里使用逻辑方向偏移适配 Web，未移植其弹簧位移动画。此核对不代表当前 M3 官网全部 Expressive 视觉规格已验收。
+
 ## 三套风格
 
-| 风格 | 容器与选中反馈 | small / middle / large 视觉高度 |
+| 风格 | 容器与选中反馈 | small / medium / large 视觉高度 |
 | --- | --- | --- |
-| macOS | 2px 内边距的中性轨道、圆角浮起选中块，保留原选项图标 | 24 / 28 / 32px |
-| Material | 胶囊描边、连续分段边界、次要色填充与勾选 | 32 / 40 / 40px |
-| shadcn | 3px 内边距的 muted 轨道、表面色选中块与轻阴影 | 28 / 32 / 36px |
+| Apple | 2px 内边距的中性轨道、圆角浮起选中块，保留原选项图标 | 24 / 28 / 32px |
+| Material Design 3 Expressive | 胶囊描边、连续分段边界、次要色填充与勾选 | 32 / 40 / 40px |
+| shadcn/ui | 3px 内边距的 muted 轨道、表面色选中块与轻阴影 | 28 / 32 / 36px |
 
-表中是分段本身的视觉高度，macOS 和 shadcn 的轨道另含上下内边距。macOS 与 shadcn 不显示 Material 的勾选图形；读屏始终通过原生 radio 的 `checked` 状态获取选择结果。三种风格均保留焦点、禁用、悬停、按压和减少动态效果处理，命中区域至少 48px。
+表中是分段本身的视觉高度，Apple 和 shadcn 的轨道另含上下内边距。Apple 与 shadcn 不显示 Material 的勾选图形；读屏始终通过原生 radio 的 `checked` 状态获取选择结果。三种风格均保留焦点、禁用、悬停、按压和减少动态效果处理，命中区域至少 48px。
 
-参考核对日期：2026-10-22。Material Web 未提供 Segmented 组件，Material 变体直接依据 [M3 Guidelines](https://m3.material.io/components/segmented-buttons/guidelines)、[Specs](https://m3.material.io/components/segmented-buttons/specs)、[Accessibility](https://m3.material.io/components/segmented-buttons/accessibility)。macOS 参考 [Apple Segmented controls](https://developer.apple.com/design/human-interface-guidelines/segmented-controls)，shadcn 参考 [Tabs 文档](https://ui.shadcn.com/docs/components/radix/tabs)及其[轨道实现](https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/new-york-v4/ui/tabs.tsx)，只借鉴分段选择外观，组件语义仍为单选组。
+参考核对日期：2026-10-22。Material Web 未提供 Segmented 组件，Material 变体直接依据 [M3 Guidelines](https://m3.material.io/components/segmented-buttons/guidelines)、[Specs](https://m3.material.io/components/segmented-buttons/specs)、[Accessibility](https://m3.material.io/components/segmented-buttons/accessibility)。Apple 参考 [Apple Segmented controls](https://developer.apple.com/design/human-interface-guidelines/segmented-controls)，shadcn 参考 [Tabs 文档](https://ui.shadcn.com/docs/components/radix/tabs)及其[轨道实现](https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui/tabs.tsx)，只借鉴分段选择外观，组件语义仍为单选组。
 
 ## 代码演示
 
 <Demos glob="./demos/*.demo.tsx" columns={2} />
+
+## 状态契约
+
+`value / defaultValue / onValueChange(next, details)` 管理选中值，`details.reason` 为 `select`，`details.event` 提供触发选择的输入或键盘事件。
+
+受控值与默认值互斥；默认值仅在初始化时使用。外部属性更新不触发操作回调，省略回调可展示只读受控快照。
 
 ## API
 

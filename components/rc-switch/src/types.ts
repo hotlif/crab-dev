@@ -1,29 +1,18 @@
-import { type ReactNode, type ButtonHTMLAttributes, type MouseEvent, type KeyboardEvent } from 'react';
+import type { ControlledCheckedProps } from '@crab-dev/rc-hooks';
+import { type ReactNode, type ButtonHTMLAttributes, type MouseEvent } from 'react';
 
 interface BaseSwitchProps extends Omit<
     ButtonHTMLAttributes<HTMLButtonElement>,
-    'onChange' | 'role' | 'type' | 'value'
+    'role' | 'type' | 'value'
 > {
     /**
-     * 是否选中（受控）
+     * 按钮的大小, 默认为 medium
      */
-    checked?: boolean;
+    size?: 'large' | 'medium' | 'small';
 
-    /**
-     * 默认是否选中（非受控）
-     */
-    defaultChecked?: boolean;
-
-    /**
-     * 按钮的大小, 默认为 middle
-     */
-    size?: 'large' | 'middle' | 'small';
-
-    /**
-     * 值变化时的回调
-     */
-    onChange?: (checked: boolean, event: MouseEvent<HTMLButtonElement> | KeyboardEvent<HTMLButtonElement>) => void;
 }
 
-export type SwitchProps = BaseSwitchProps &
+export interface SwitchChangeDetails { reason: 'toggle'; event: MouseEvent<HTMLButtonElement>; }
+
+export type SwitchProps = BaseSwitchProps & ControlledCheckedProps<SwitchChangeDetails> &
     ({ children: ReactNode; 'aria-label'?: string } | { children?: never; 'aria-label': string });

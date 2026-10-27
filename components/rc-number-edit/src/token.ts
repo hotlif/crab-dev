@@ -29,7 +29,7 @@ export const vars = defineTokens({
     'display.superscript.font-size': '--number-edit-display-superscript-font-size',
     'icon.gap': '--number-edit-icon-gap',
     'size.small.action.width': '--number-edit-size-small-action-width',
-    'size.middle.action.width': '--number-edit-size-middle-action-width',
+    'size.medium.action.width': '--number-edit-size-medium-action-width',
     'size.large.action.width': '--number-edit-size-large-action-width'
 });
 
@@ -51,9 +51,9 @@ const token = defineTokens({
         'width': `var(${vars['stepper.width']}, 24px)`,
         'gap': `var(${vars['stepper.gap']}, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)))`,
         'action': {
-            'min-width': `var(${vars['stepper.action.min-width']}, var(--token-semantic-sizing-middle-action, var(--token-global-space-7, 28px)))`,
-            'width': `var(${vars['stepper.action.width']}, var(--token-semantic-sizing-middle-action, var(--token-global-space-7, 28px)))`,
-            'height': `var(${vars['stepper.action.height']}, var(--token-semantic-sizing-middle-action, var(--token-global-space-7, 28px)))`,
+            'min-width': `var(${vars['stepper.action.min-width']}, var(--token-semantic-sizing-medium-action, var(--token-global-space-7, 28px)))`,
+            'width': `var(${vars['stepper.action.width']}, var(--token-semantic-sizing-medium-action, var(--token-global-space-7, 28px)))`,
+            'height': `var(${vars['stepper.action.height']}, var(--token-semantic-sizing-medium-action, var(--token-global-space-7, 28px)))`,
             'touch': {
                 'min-width': `var(${vars['stepper.action.touch.min-width']}, var(--token-semantic-size-touch-target, var(--token-global-size-48, 48px)))`,
                 'width': `var(${vars['stepper.action.touch.width']}, var(--token-semantic-size-touch-target, var(--token-global-size-48, 48px)))`,
@@ -81,9 +81,9 @@ const token = defineTokens({
                 'width': `var(${vars['size.small.action.width']}, var(--token-semantic-sizing-small-action, var(--token-global-space-6, 24px)))`
             }
         },
-        'middle': {
+        'medium': {
             'action': {
-                'width': `var(${vars['size.middle.action.width']}, var(--token-semantic-sizing-middle-action, var(--token-global-space-7, 28px)))`
+                'width': `var(${vars['size.medium.action.width']}, var(--token-semantic-sizing-medium-action, var(--token-global-space-7, 28px)))`
             }
         },
         'large': {

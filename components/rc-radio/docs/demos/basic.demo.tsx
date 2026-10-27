@@ -12,7 +12,7 @@ const BasicDemo = () => {
     return (
         <Radio
             checked={checked}
-            onChange={(val) => setChecked(val)}
+            onCheckedChange={(val) => setChecked(val)}
         >
             Radio
         </Radio>

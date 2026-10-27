@@ -2,7 +2,7 @@ import AutoSizer from "@crab-dev/rc-auto-sizer";
 import { treeMeasureStyle, checkableLayoutStyle, checkedSummaryStyle } from "../demo-layout.js";
 export const meta = {
     title: "复选框 checkable",
-    description: "通过 `checkable` 开启复选框模式。选中父节点自动级联选中所有子节点；取消选中子节点时，父节点自动变为半选状态。`checkedKeys` 与 `onCheck` 实现受控。",
+    description: "通过 `checkable` 开启复选框模式。选中父节点自动级联选中所有子节点；取消选中子节点时，父节点自动变为半选状态。`checkedKeys` 与 `onCheckedKeysChange` 实现受控。",
 };
 
 import { type Key, useState } from "react";
@@ -36,7 +36,7 @@ const buildNodes = (): Node[] => {
 
 const CheckableDemo = () => {
     const [expandedKeys, setExpandedKeys] = useState<Key[]>(["fe", "be", "react", "css"]);
-    const [selectKeys, setSelectKeys] = useState<Key[]>([]);
+    const [selectedKeys, setSelectedKeys] = useState<Key[]>([]);
     const [checkedKeys, setCheckedKeys] = useState<Key[]>([]);
     const [halfCheckedKeys, setHalfCheckedKeys] = useState<Key[]>([]);
     const [treeData, setTreeData] = useTreeData(buildNodes());
@@ -51,21 +51,15 @@ const CheckableDemo = () => {
                         treeData={treeData}
                         onTreeNodeChange={setTreeData}
                         expandedKeys={expandedKeys}
-                        selectKeys={selectKeys}
+                        selectedKeys={selectedKeys}
                         checkable
                         checkedKeys={checkedKeys}
-                        onCheck={({ checkedKeys: keys, halfCheckedKeys: half }) => {
+                        onCheckedKeysChange={(keys, { halfCheckedKeys: half }) => {
                             setCheckedKeys(keys);
                             setHalfCheckedKeys(half);
                         }}
-                        onSelect={({ selectKeys: keys }: { selectKeys: Key[] }) => setSelectKeys(keys)}
-                        onExpanded={({ node }: { node: Node }) => {
-                            setExpandedKeys(prev =>
-                                prev.includes(node.id)
-                                    ? prev.filter(k => k !== node.id)
-                                    : [...prev, node.id]
-                            );
-                        }}
+                        onSelectedKeysChange={(keys: Key[]) => setSelectedKeys(keys)}
+                        onExpandedKeysChange={setExpandedKeys}
                     />
                 )}
             </AutoSizer>

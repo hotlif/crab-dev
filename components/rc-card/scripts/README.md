@@ -1,0 +1,11 @@
+# Card browser regression checks
+
+`yarn test:browser` uses published ESM and extracted dependency CSS in Wake 0.1.45's actual fixed `prefers-reduced-motion: reduce` profile. It covers four variants in all six design/color configurations, loading fill, public variable priority, sibling isolation, and loading-to-content cleanup. It does not claim natural pulse coverage.
+
+`yarn test:natural` is separately registered in `crab.requiredChecks`. It builds the same public package graph, bundles an ordinary React fixture with public Wake 0.1.45, serves only that fixture on an ephemeral loopback port, and launches a fresh isolated headless Chrome profile. Windows uses a hidden child process. Set `CRAB_TEST_BROWSER_PATH` (or `CHROME_PATH`) to a Chrome/Chromium executable on Linux or any nonstandard installation. A missing browser fails the check; it never skips. No existing review browser or user profile is used.
+
+The native check explicitly requests and reads back `no-preference`; it observes each of the 20 real CSSAnimation objects over a full natural cycle for each of the six configurations. It checks actual opacity range, advancing current time, stable object identity, unchanged fill and viewport geometry, then the same public overrides and loading cleanup. It never finishes, cancels, pauses, seeks, or rewrites the product animation. The fresh browser is closed in `finally`; its own temporary profile remains for failure diagnostics.
+
+Results, six actual viewport PNGs, input/ESM/CSS fingerprints, fixture hashes and browser version are saved in `.cache/natural-motion/<timestamp>/`. Source inputs and published runtime bytes are recorded separately; a machine assertion pass does not replace human screenshot review or the complete library matrix.
+
+The independent entry exists because the installed Wake 0.1.45 public TestOptions expose `browserPath` and `headful`, but no motion override. The installed test-host uses fixed reduced-motion emulation; changing a matchMedia mock or removing that assertion would not exercise the real pulse. Remove this launcher when the pinned Wake version gains a supported normal-motion profile and equivalent natural-cycle assertions run through that public API.

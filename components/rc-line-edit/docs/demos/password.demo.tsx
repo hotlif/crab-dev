@@ -28,7 +28,7 @@ const PasswordDemo = () => {
                 aria-label="密码"
                 type="password"
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                onValueChange={value => setPassword(value)}
                 placeholder="密码"
             />
             <LineEdit
@@ -37,12 +37,12 @@ const PasswordDemo = () => {
                 type="password"
                 value={confirm}
                 status={mismatch ? "error" : undefined}
-                onChange={(e) => setConfirm(e.target.value)}
+                onValueChange={value => setConfirm(value)}
                 placeholder="确认密码"
             />
             {mismatch && <p id={hintId}>两次输入的密码不同，请核对后重新输入。</p>}
-            <LineEdit type="password" aria-label="禁用密码示例" value="disabled-example" disabled />
-            <LineEdit type="password" aria-label="只读密码示例" value="readonly-example" readOnly />
+            <LineEdit type="password" aria-label="禁用密码示例" defaultValue="disabled-example" disabled />
+            <LineEdit type="password" aria-label="只读密码示例" defaultValue="readonly-example" readOnly />
         </div>
     );
 };

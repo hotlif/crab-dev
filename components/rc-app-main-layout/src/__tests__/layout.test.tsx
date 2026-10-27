@@ -1,9 +1,11 @@
 import { beforeAll, describe, expect, it, mock } from "@crab-dev/wake/test";
-import { fireEvent, render, screen, act } from "@crab-dev/wake/test/react";
+import { fireEvent, render, screen, act, waitFor } from "@crab-dev/wake/test/react";
+import type { Key } from 'react';
 import AppMainLayoutProvider from "../context.js";
 import useAppMainLayoutTabs, { type UseAppMainLayoutTabsResult } from "../useTabs.js";
 import type { HeaderUserEntity, TabItem } from "../types.js";
 import type { MenuItem } from "@crab-dev/rc-menu";
+import ConfigProvider, { localeMessages } from '@crab-dev/rc-config-provider';
 
 mock.module('@floating-ui/react', async () => {
     const floating = await mock.actual<typeof import('@floating-ui/react')>('@floating-ui/react');
@@ -35,6 +37,152 @@ const Probe = ({ onReady }: {
     onReady(useAppMainLayoutTabs());
     return null;
 };
+
+function navigationItems(): MenuItem[] {
+    return [
+        { key: 'users', type: MenuItemType.Item, title: 'Users navigation' },
+        { key: 'reports', type: MenuItemType.Item, title: 'Reports navigation' },
+        { key: 0, type: MenuItemType.Item, title: 'Zero navigation' },
+    ];
+}
+
+function createNavigationLoader() {
+    const pending = Promise.withResolvers<MenuItem[]>();
+    return {
+        loadMenus: mock.fn(() => pending.promise),
+        complete: async () => {
+            // Resolve the actual SidebarBody request inside React's test boundary.
+            // A resolved Promise returned during render can otherwise settle after
+            // render's act scope has closed, before findBy starts observing it.
+            await act(async () => {
+                pending.resolve(navigationItems());
+                await pending.promise;
+            });
+        },
+    };
+}
+
+describe('Layout sidebar selection ownership', () => {
+    it('tracks tab activation, close and close-all without replaying a menu click', async () => {
+        const { loadMenus, complete } = createNavigationLoader();
+        const onMenuClick = mock.fn();
+        let api: UseAppMainLayoutTabsResult | undefined;
+        function Bridge() {
+            const tabs = useAppMainLayoutTabs();
+            return <Layout sidebarLoadMenus={loadMenus} onSidebarMenuItemClick={(param) => {
+                onMenuClick(param);
+                tabs.openTab({ key: param.item.key, title: String(param.item.key), children: String(param.item.key) });
+            }} />;
+        }
+        await render(<AppMainLayoutProvider initialTabs={[{ key: 'dashboard', title: 'Dashboard', closable: false }]}>
+            <Bridge /><Probe onReady={(value) => { api = value; }} />
+        </AppMainLayoutProvider>);
+        await complete();
+        const users = await screen.findByText('Users navigation');
+        const reports = screen.getByText('Reports navigation');
+        const current = () => [...document.querySelectorAll('aside [data-menu-item][aria-current]')].map((item) => item.textContent);
+        expect(current()).toEqual([]);
+        await fireEvent.click(users);
+        expect(current()).toEqual(['Users navigation']);
+        await fireEvent.click(reports);
+        expect(current()).toEqual(['Reports navigation']);
+        expect(onMenuClick).toHaveBeenCalledTimes(2);
+        await fireEvent.click(screen.getByRole('tab', { name: 'users' }));
+        expect(current()).toEqual(['Users navigation']);
+        await act(() => { api!.closeTab('users'); });
+        expect(current()).toEqual(['Reports navigation']);
+        await act(() => { api!.closeAllTabs(); });
+        expect(current()).toEqual([]);
+        expect(screen.getByRole('tab', { name: 'Dashboard' }).getAttribute('aria-selected')).toBe('true');
+        expect(onMenuClick).toHaveBeenCalledTimes(2);
+    });
+
+    it('does not claim navigation succeeded before the business callback activates its page', async () => {
+        const { loadMenus, complete } = createNavigationLoader();
+        const onMenuClick = mock.fn();
+        let api: UseAppMainLayoutTabsResult | undefined;
+        await render(<AppMainLayoutProvider initialTabs={[{ key: 'users', title: 'Users' }]}>
+            <Layout sidebarLoadMenus={loadMenus} onSidebarMenuItemClick={onMenuClick} />
+            <Probe onReady={(value) => { api = value; }} />
+        </AppMainLayoutProvider>);
+        await complete();
+        const users = await screen.findByText('Users navigation');
+        const reports = screen.getByText('Reports navigation');
+        await fireEvent.click(reports);
+        expect(onMenuClick).toHaveBeenCalledTimes(1);
+        expect(users.closest('[data-menu-item]')?.getAttribute('aria-current')).toBe('page');
+        expect(reports.closest('[data-menu-item]')?.hasAttribute('aria-current')).toBe(false);
+        // A denied navigation may remain here indefinitely. A later successful
+        // business action updates the tab state, without another synthetic click.
+        await act(() => { api!.openTab({ key: 'reports', title: 'Reports' }); });
+        expect(reports.closest('[data-menu-item]')?.getAttribute('aria-current')).toBe('page');
+        expect(users.closest('[data-menu-item]')?.hasAttribute('aria-current')).toBe(false);
+        expect(onMenuClick).toHaveBeenCalledTimes(1);
+    });
+
+    it('supports explicit business mapping, empty selection and Key 0 without inferring breadcrumbs', async () => {
+        const { loadMenus, complete } = createNavigationLoader();
+        const onMenuClick = mock.fn();
+        let api: UseAppMainLayoutTabsResult | undefined;
+        const initialTabs: TabItem[] = [{ key: 'route:/users/42', title: 'User details', breadcrumbs: [{ key: 'users', title: 'Users' }] }];
+        const content = (keys: Key[] | undefined) => <AppMainLayoutProvider initialTabs={initialTabs}>
+            <Layout sidebarLoadMenus={loadMenus} sidebarSelectedKeys={keys} onSidebarMenuItemClick={onMenuClick} />
+            <Probe onReady={(value) => { api = value; }} />
+        </AppMainLayoutProvider>;
+        const view = await render(content(undefined));
+        await complete();
+        await screen.findByText('Users navigation');
+        const current = () => [...document.querySelectorAll('aside [data-menu-item][aria-current]')].map((item) => item.textContent);
+        expect(current()).toEqual([]);
+        await view.rerender(content(['users']));
+        expect(current()).toEqual(['Users navigation']);
+        await view.rerender(content([]));
+        expect(current()).toEqual([]);
+        await view.rerender(content(undefined));
+        expect(current()).toEqual([]);
+        await act(() => { api!.openTab({ key: 0, title: 'Zero' }); });
+        expect(current()).toEqual(['Zero navigation']);
+        expect(onMenuClick).toHaveBeenCalledTimes(0);
+    });
+
+    it('passes the same controlled selection into the mobile Drawer branch', async () => {
+        // DOM tests establish responsive branch state only, not viewport layout.
+        // Published-browser and native narrow-viewport review cover real geometry.
+        const descriptor = Object.getOwnPropertyDescriptor(window, 'matchMedia');
+        Object.defineProperty(window, 'matchMedia', { configurable: true, value: (media: string): MediaQueryList => ({
+            media, matches: media === '(max-width: 767px)', onchange: null,
+            addListener: () => undefined, removeListener: () => undefined,
+            addEventListener: () => undefined, removeEventListener: () => undefined, dispatchEvent: () => true,
+        }) });
+        const { loadMenus, complete } = createNavigationLoader();
+        const onMenuClick = mock.fn();
+        let api: UseAppMainLayoutTabsResult | undefined;
+        const content = (keys?: Key[]) => <AppMainLayoutProvider initialTabs={[{ key: 'users', title: 'Users' }, { key: 'reports', title: 'Reports' }]}>
+            <Layout sidebarLoadMenus={loadMenus} sidebarSelectedKeys={keys} onSidebarMenuItemClick={onMenuClick} />
+            <Probe onReady={(value) => { api = value; }} />
+        </AppMainLayoutProvider>;
+        const view = await render(content());
+        try {
+            expect(document.querySelector('aside')).toBeNull();
+            await fireEvent.click(screen.getByRole('button', { name: '切换侧边栏' }));
+            await complete();
+            const users = await screen.findByText('Users navigation');
+            const reports = screen.getByText('Reports navigation');
+            expect(users.closest('[data-menu-item]')?.getAttribute('aria-current')).toBe('page');
+            await act(() => { api!.activateTab('reports'); });
+            await waitFor(() => expect(reports.closest('[data-menu-item]')?.getAttribute('aria-current')).toBe('page'));
+            expect(users.closest('[data-menu-item]')?.hasAttribute('aria-current')).toBe(false);
+            await view.rerender(content([]));
+            expect(document.querySelector('[data-menu-item][aria-current]')).toBeNull();
+            await view.rerender(content(['users']));
+            expect(users.closest('[data-menu-item]')?.getAttribute('aria-current')).toBe('page');
+            expect(onMenuClick).toHaveBeenCalledTimes(0);
+        } finally {
+            await view.unmount();
+            restoreDescriptor(window, 'matchMedia', descriptor);
+        }
+    });
+});
 function restoreDescriptor(target: object, key: string, descriptor?: PropertyDescriptor): void {
     if (descriptor) {
         Object.defineProperty(target, key, descriptor);
@@ -43,6 +191,15 @@ function restoreDescriptor(target: object, key: string, descriptor?: PropertyDes
     delete (target as Record<string, unknown>)[key];
 }
 describe("Layout", () => {
+    it('updates built-in toolbar names when locale changes without altering business tabs', async () => {
+        const tabs: TabItem[] = [{ key: 'orders', title: 'Orders', children: <p>Business content</p> }];
+        const view = await render(<ConfigProvider locale="en-US"><AppMainLayoutProvider initialTabs={tabs}><Layout /></AppMainLayoutProvider></ConfigProvider>);
+        expect(screen.getByRole('button', { name: localeMessages['en-US'].appLayout.toggleSidebar })).toBeTruthy();
+        expect(screen.getByRole('button', { name: localeMessages['en-US'].appLayout.notifications })).toBeTruthy();
+        await view.rerender(<ConfigProvider locale="zh-CN"><AppMainLayoutProvider initialTabs={tabs}><Layout /></AppMainLayoutProvider></ConfigProvider>);
+        expect(screen.getByRole('button', { name: localeMessages['zh-CN'].appLayout.toggleSidebar })).toBeTruthy();
+        expect(screen.getByRole('tab', { name: 'Orders' })).toBeTruthy();
+    });
     it("connects named panels to unique tabs and restores focus when all tabs close", async () => {
         const tabs: TabItem[] = [{ key: "home", title: "概览", children: <p>内容</p> }];
         await render(<>
@@ -56,13 +213,13 @@ describe("Layout", () => {
             expect(button.getAttribute('aria-controls')).toBe(panels[index].id);
             expect(panels[index].getAttribute('aria-labelledby')).toBe(button.id);
         });
-        const menu = screen.getAllByRole('button', { name: 'Toggle sidebar' })[0];
+        const menu = screen.getAllByRole('button', { name: '切换侧边栏' })[0];
         await fireEvent.click(screen.getAllByRole('button', { name: '关闭标签页' })[0]);
         expect(document.activeElement).toBe(menu);
         expect(screen.getAllByRole('tab').length).toBe(1);
-        const remainingMenu = screen.getAllByRole('button', { name: 'Toggle sidebar' })[1];
+        const remainingMenu = screen.getAllByRole('button', { name: '切换侧边栏' })[1];
         await fireEvent.keyDown(screen.getByRole('tab'), { key: 'F10', shiftKey: true });
-        await fireEvent.click(screen.getByRole('menuitem', { name: '关闭所有' }));
+        await fireEvent.click(screen.getByRole('menuitem', { name: '关闭全部页面' }));
         expect(screen.queryByRole('tab')).toBeNull();
         expect(document.activeElement).toBe(remainingMenu);
     });
@@ -172,14 +329,14 @@ describe("Layout", () => {
                 <Layout />
             </AppMainLayoutProvider>);
             layoutElement = container.querySelector("main")?.parentElement?.parentElement ?? null;
-            const enterButton = screen.getByRole("button", { name: "Enter fullscreen" });
+            const enterButton = screen.getByRole("button", { name: "进入全屏" });
             await fireEvent.click(enterButton);
             expect(requestFullscreen).toHaveBeenCalledTimes(1);
-            const exitButton = screen.getByRole("button", { name: "Exit fullscreen" });
+            const exitButton = screen.getByRole("button", { name: "退出全屏" });
             expect(exitButton.getAttribute("aria-pressed")).toBe("true");
             await fireEvent.click(exitButton);
             expect(exitFullscreen).toHaveBeenCalledTimes(1);
-            const resetButton = screen.getByRole("button", { name: "Enter fullscreen" });
+            const resetButton = screen.getByRole("button", { name: "进入全屏" });
             expect(resetButton.getAttribute("aria-pressed")).toBe("false");
         }
         finally {
@@ -200,7 +357,7 @@ describe("Layout", () => {
             <Layout headerLoadUser={loadHeaderUser}/>
         </AppMainLayoutProvider>);
         expect(loadHeaderUser).toHaveBeenCalledTimes(1);
-        expect(await screen.findByRole("button", { name: "Loading user" })).toBeTruthy();
+        expect(await screen.findByRole("button", { name: "加载用户" })).toBeTruthy();
         await act(async () => {
             resolveUser?.({
                 name: "Admin",
@@ -300,7 +457,7 @@ describe("Layout", () => {
             await Promise.resolve();
             await Promise.resolve();
         });
-        expect(await screen.findByRole("button", { name: "User menu" })).toBeTruthy();
+        expect(await screen.findByRole("button", { name: "用户菜单" })).toBeTruthy();
         expect(loadHeaderUser).toHaveBeenCalledTimes(1);
         expect(loadSidebarMenus).toHaveBeenCalledTimes(0);
     });

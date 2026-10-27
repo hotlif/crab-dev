@@ -1,16 +1,15 @@
 import { useCallback, useMemo, useRef, useState } from "react";
 import type { ColumnType, Row, SortColumn, SortDirection } from "../types.js";
 import { getDataValueAccessor } from "../valueAccess.js";
+import { useLocale } from '@crab-dev/rc-config-provider';
 
-const defaultCollator = new Intl.Collator(undefined, { numeric: true, sensitivity: "base" });
-
-function defaultCompare(a: unknown, b: unknown): number {
+function defaultCompare(a: unknown, b: unknown, collator: Intl.Collator): number {
     if (a == null && b == null) return 0;
     if (a == null) return 1;
     if (b == null) return -1;
     if (typeof a === "number" && typeof b === "number") return a - b;
     if (typeof a === "boolean" && typeof b === "boolean") return Number(a) - Number(b);
-    return defaultCollator.compare(String(a), String(b));
+    return collator.compare(String(a), String(b));
 }
 
 export function useColumnSort<T extends Row>(params: {
@@ -30,6 +29,7 @@ export function useColumnSort<T extends Row>(params: {
     } | null;
     isSortable: (columnName: string) => boolean;
 } {
+    const { locale } = useLocale();
     const { rows, columns, sortColumns: sortColumnsProp, defaultSortColumns, onSortColumnsChange, sortMode = 'client' } = params;
 
     const isControlled = sortColumnsProp !== undefined;
@@ -82,6 +82,7 @@ export function useColumnSort<T extends Row>(params: {
 
     const sortedRows = useMemo(() => {
         if (sortMode === 'server' || sortColumns.length === 0) return rows;
+        const collator = new Intl.Collator(locale, { numeric: true, sensitivity: 'base' });
 
         // 排序计划只构造一次，避免在 O(n log n) 次 comparator 调用中重复查列和解析路径。
         const sortPlan = sortColumns.map(sc => ({
@@ -99,7 +100,7 @@ export function useColumnSort<T extends Row>(params: {
                 } else {
                     const aVal = step.accessor.get(a.dataRef);
                     const bVal = step.accessor.get(b.dataRef);
-                    result = defaultCompare(aVal, bVal);
+                    result = defaultCompare(aVal, bVal, collator);
                 }
 
                 if (step.direction === "desc") result = -result;
@@ -107,7 +108,7 @@ export function useColumnSort<T extends Row>(params: {
             }
             return 0;
         });
-    }, [rows, sortColumns, columnInfoMap, sortMode]);
+    }, [rows, sortColumns, columnInfoMap, sortMode, locale]);
 
     const getSortState = useCallback((columnName: string): { direction: SortDirection; priority: number } | null => {
         const idx = sortColumns.findIndex(sc => sc.columnName === columnName);

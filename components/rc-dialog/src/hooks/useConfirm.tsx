@@ -1,11 +1,11 @@
-import { useRef, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { css } from "@crab-dev/css";
 
 import Dialog, { type DialogProps } from "../dialog.js";
 import token from "../token.js";
 
 // 额外 Omit "content"：HTMLAttributes 自带 RDFa 的 content?: string，与此处的 ReactNode 冲突
-export interface ConfirmProps extends Omit<DialogProps, "open" | "onOpenChange" | "children" | "content"> {
+export interface ConfirmProps extends Omit<DialogProps, "open" | "defaultOpen" | "onOpenChange" | "children" | "content"> {
     /**
      * 弹窗内容说明
      */
@@ -27,6 +27,11 @@ const useConfirm = (): [ReactNode, (props: ConfirmProps) => Promise<boolean>] =>
     const [props, setProps] = useState<ConfirmProps | null>(null);
     // 例外 1（可变实例状态 ref）：跨事件持有未决 Promise 的 resolve，不应触发渲染。
     const resolveRef = useRef<((value: boolean) => void) | null>(null);
+
+    useEffect(() => () => {
+        resolveRef.current?.(false);
+        resolveRef.current = null;
+    }, []);
 
     const settle = (value: boolean) => {
         resolveRef.current?.(value);

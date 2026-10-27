@@ -1,6 +1,7 @@
 import { css, cx } from '@crab-dev/css';
 import { lazy, Suspense, useEffect, useId, useRef, useState } from 'react';
 import Button from '@crab-dev/rc-button';
+import { useLocale } from '@crab-dev/rc-config-provider';
 import type { FC, HTMLAttributes, ReactNode } from 'react';
 import ReactMarkdown from 'react-markdown';
 import token from './token.js';
@@ -258,8 +259,14 @@ const sourceLoadingStyle = css`
     display: grid;
     min-height: 7rem;
     place-items: center;
-    color: ${token.meta.desc.color};
+    color: ${token.source.gutter.color};
     font-size: ${token.meta.desc['font-size']};
+`;
+
+// The highlighter may still be loading while codeTheme differs from the page.
+// Use the code palette's muted foreground, paired with its independent surface.
+const sourceLoadingDarkStyle = css`
+    && { color: ${token.source.dark.gutter.color}; }
 `;
 
 const COPY_FEEDBACK_MS = 1400;
@@ -292,6 +299,10 @@ const Preview: FC<PreviewProps> = ({
     className,
     ...restProps
 }) => {
+    const { locale } = useLocale();
+    const copy = locale === 'en-US'
+        ? { actions: 'Preview actions', copyCode: 'Copy code', copied: 'Copied', copy: 'Copy', hideSource: 'Hide source', showSource: 'Show source', collapse: 'Collapse', source: 'Source', open: 'Open in new window', window: 'New window', loading: 'Loading syntax highlighting…' }
+        : { actions: '预览操作', copyCode: '复制代码', copied: '已复制', copy: '复制', hideSource: '收起源码', showSource: '查看源码', collapse: '收起', source: '源码', open: '在新窗口打开', window: '新窗口', loading: '正在加载源码高亮…' };
     const hasSource = typeof sourceCode === 'string' && sourceCode.length > 0;
     const hasPath = typeof path === 'string' && path.length > 0;
     const hasDescription =
@@ -384,46 +395,46 @@ const Preview: FC<PreviewProps> = ({
             </div>
 
             {(actions != null || hasSource || hasPath) && (
-                <div className={metaActionsStyle} role="group" aria-label="预览操作">
+                <div className={metaActionsStyle} role="group" aria-label={copy.actions}>
                     {actions}
                     {hasSource && (
                         <Button
                             appearance="text"
-                            size="small"
+                            size="xs"
                             type="button"
                             icon={copied ? <CheckIcon /> : <CopyIcon />}
                             onClick={handleCopy}
-                            aria-label="复制代码"
+                            aria-label={copy.copyCode}
                             aria-live="polite"
                         >
-                            {copied ? '已复制' : '复制'}
+                            {copied ? copy.copied : copy.copy}
                         </Button>
                     )}
                     {hasSource && (
                         <Button
                             appearance="text"
-                            size="small"
+                            size="xs"
                             isSelected={expanded}
                             type="button"
                             icon={expanded ? <EyeIcon /> : <CodeIcon />}
                             onClick={handleToggle}
                             aria-expanded={expanded}
                             aria-controls={sourceId}
-                            aria-label={expanded ? '收起源码' : '查看源码'}
+                            aria-label={expanded ? copy.hideSource : copy.showSource}
                         >
-                            {expanded ? '收起' : '源码'}
+                            {expanded ? copy.collapse : copy.source}
                         </Button>
                     )}
                     {hasPath && (
                         <Button
                             appearance="text"
-                            size="small"
+                            size="xs"
                             type="button"
                             icon={<ExternalLinkIcon />}
                             onClick={handleOpen}
-                            aria-label="在新窗口打开"
+                            aria-label={copy.open}
                         >
-                            新窗口
+                            {copy.window}
                         </Button>
                     )}
                 </div>
@@ -444,8 +455,8 @@ const Preview: FC<PreviewProps> = ({
                             <div className={sourceScrollStyle}>
                                 <Suspense
                                     fallback={(
-                                        <div className={sourceLoadingStyle} role="status">
-                                            正在加载源码高亮…
+                                        <div className={cx.call(undefined, sourceLoadingStyle, codeTheme === 'dark' && sourceLoadingDarkStyle)} role="status">
+                                            {copy.loading}
                                         </div>
                                     )}
                                 >

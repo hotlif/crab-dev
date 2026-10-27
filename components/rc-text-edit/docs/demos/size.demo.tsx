@@ -1,11 +1,10 @@
 export const meta = {
-    title: "三种尺寸",
-    description: "`size` 控制内边距与字号排版（large / middle / small），可视高度仍由 `rows` 决定",
+    title: "尺寸与多行几何",
+    description: "比较无标签、Outlined 与 Filled。Apple/shadcn 分档调整内边距和最小高度；MD3 三档保持标准字段几何，正文不随 size 缩放。rows 决定内容行数",
 };
 
 import { css } from "@crab-dev/css";
-import { useState } from "react";
-import TextEdit from "../../src/index.js";
+import TextEdit from "@crab-dev/rc-text-edit";
 
 const wrapperStyle = css`
     display: flex;
@@ -13,18 +12,21 @@ const wrapperStyle = css`
     gap: 1rem;
     padding: 1rem;
     max-width: 480px;
+    & > section { display: grid; gap: 1rem; }
+    & h3 { margin: 0; }
 `;
 
 const SizeDemo = () => {
-    const [large, setLarge] = useState("");
-    const [middle, setMiddle] = useState("");
-    const [small, setSmall] = useState("");
-
     return (
         <div className={wrapperStyle}>
-            <TextEdit size="large" rows={2} value={large} placeholder="large" onChange={(e) => setLarge(e.target.value)} />
-            <TextEdit size="middle" rows={2} value={middle} placeholder="middle（默认）" onChange={(e) => setMiddle(e.target.value)} />
-            <TextEdit size="small" rows={2} value={small} placeholder="small" onChange={(e) => setSmall(e.target.value)} />
+            {(["small", "medium", "large"] as const).map(size => (
+                <section key={size} data-demo-size={size}>
+                    <h3>{size}{size === "medium" ? "（默认）" : ""}</h3>
+                    <TextEdit size={size} rows={2} aria-label={`${size} 无标签备注`} placeholder="无标签文本域，使用可访问名称" />
+                    <TextEdit size={size} rows={2} label={`${size} 项目说明`} defaultValue="各档保留相同正文排版。" />
+                    <TextEdit size={size} rows={2} label={`${size} 审核意见`} appearance="filled" defaultValue="清除后可以继续输入。" allowClear />
+                </section>
+            ))}
         </div>
     );
 };

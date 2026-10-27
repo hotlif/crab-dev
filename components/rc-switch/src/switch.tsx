@@ -1,6 +1,6 @@
 import { useComponentSize } from '@crab-dev/rc-config-provider';
 import { css, cx } from '@crab-dev/css';
-import { type FC, type KeyboardEvent, type MouseEvent } from 'react';
+import { type FC, type MouseEvent } from 'react';
 import { useControllableValue } from '@crab-dev/rc-hooks';
 import token, { vars } from './token.js';
 import type { SwitchProps } from './types.js';
@@ -84,11 +84,15 @@ const trackStyle = css`
         }
     }
     @media (forced-colors: active) {
-        && {
+        /* Match the checked interactive/error selector specificity. With only
+           &&, its ordinary on-primary color wins and hides the thumb on Highlight. */
+        &&& {
         forced-color-adjust: none;
         background: Canvas;
+        box-shadow: none;
         outline: ${token.track['border-width']} solid CanvasText;
         outline-offset: -1px;
+        &::after { content: none; }
         > span { background: CanvasText; box-shadow: none; }
         &[aria-checked='true'] {
             background: Highlight;
@@ -156,7 +160,8 @@ const Switch: FC<SwitchProps> = ({
     defaultChecked = false,
     disabled = false,
     size: sizeProp,
-    onChange,
+    onCheckedChange,
+    onClick,
     children,
     className,
     ...restProps
@@ -164,11 +169,11 @@ const Switch: FC<SwitchProps> = ({
     const size = useComponentSize(sizeProp);
     const [checked, setChecked] = useControllableValue<
         boolean,
-        [MouseEvent<HTMLButtonElement> | KeyboardEvent<HTMLButtonElement>]
+        [MouseEvent<HTMLButtonElement>]
     >({
         value: checkedProp,
         defaultValue: defaultChecked,
-        onChange,
+        onValueChange: (next, event) => onCheckedChange?.(next, { reason: 'toggle', event }),
     });
 
     const getSizeStyles = () => {
@@ -215,21 +220,21 @@ const Switch: FC<SwitchProps> = ({
         } else {
             return {
                 track: css`
-                    ${vars['track.halo.left']}: calc(${token.size.middle.handle.left} + (${token.size.middle.handle.width} - ${token.track.halo.width}) / 2);
-                    ${vars['track.halo.translate-checked']}: calc(${token.size.middle.track.width} - ${token.size.middle.handle.width} - 2 * ${token.size.middle.handle.left});
-                    width: ${token.size.middle.track.width};
-                    margin-inline: max(0px, calc((${token.root.touch['min-width']} - ${token.size.middle.track.width}) / 2));
-                    height: ${token.size.middle.track.height};
-                    border-radius: ${token.size.middle.track['border-radius']};
+                    ${vars['track.halo.left']}: calc(${token.size.medium.handle.left} + (${token.size.medium.handle.width} - ${token.track.halo.width}) / 2);
+                    ${vars['track.halo.translate-checked']}: calc(${token.size.medium.track.width} - ${token.size.medium.handle.width} - 2 * ${token.size.medium.handle.left});
+                    width: ${token.size.medium.track.width};
+                    margin-inline: max(0px, calc((${token.root.touch['min-width']} - ${token.size.medium.track.width}) / 2));
+                    height: ${token.size.medium.track.height};
+                    border-radius: ${token.size.medium.track['border-radius']};
                 `,
                 handle: css`
-                    width: ${token.size.middle.handle.width};
-                    height: ${token.size.middle.handle.width};
-                    inset-inline-start: ${token.size.middle.handle.left};
+                    width: ${token.size.medium.handle.width};
+                    height: ${token.size.medium.handle.width};
+                    inset-inline-start: ${token.size.medium.handle.left};
                 `,
                 handleChecked: css`
-                    translate: calc(${token.size.middle.track.width} - ${token.size.middle.handle.width} - ${token.size.middle.handle.left} - ${token.size.middle.handle.left}) 0;
-                    &:dir(rtl) { translate: calc(-1 * (${token.size.middle.track.width} - ${token.size.middle.handle.width} - ${token.size.middle.handle.left} - ${token.size.middle.handle.left})) 0; }
+                    translate: calc(${token.size.medium.track.width} - ${token.size.medium.handle.width} - ${token.size.medium.handle.left} - ${token.size.medium.handle.left}) 0;
+                    &:dir(rtl) { translate: calc(-1 * (${token.size.medium.track.width} - ${token.size.medium.handle.width} - ${token.size.medium.handle.left} - ${token.size.medium.handle.left})) 0; }
                 `,
             };
         }
@@ -238,7 +243,8 @@ const Switch: FC<SwitchProps> = ({
     const sizeStyles = getSizeStyles();
 
     const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
-        setChecked(!checked, e);
+        onClick?.(e);
+        if (!e.defaultPrevented && !disabled) setChecked(!checked, e);
     };
 
     return (

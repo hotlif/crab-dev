@@ -5,11 +5,15 @@ type DocsTypePlaceholder = ((...args: never[]) => unknown) & {
     readonly [key: string]: DocsTypePlaceholder;
     readonly [key: number]: DocsTypePlaceholder;
 };
+type DropdownOpenChangeDetails = DocsTypePlaceholder;
 type HTMLDivElement = DocsTypePlaceholder;
+type HTMLElement = DocsTypePlaceholder;
 type ReactNode = DocsTypePlaceholder;
 type Ref<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
+type SelectChangeDetails = DocsTypePlaceholder;
 type SelectOption = DocsTypePlaceholder;
 type SelectOptionOrGroup = DocsTypePlaceholder;
+type SyntheticEvent<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 
 export interface SelectProps {
     /**
@@ -63,9 +67,9 @@ export interface SelectProps {
     "searchable"?: boolean;
 
     /**
-     * 组件尺寸；省略时继承 ConfigProvider，未配置时为 middle
+     * 组件尺寸；省略时继承 ConfigProvider，未配置时为 medium
      */
-    "size"?: "large" | "middle" | "small";
+    "size"?: "large" | "medium" | "small";
 
     /**
      * 状态：用于显示错误或警告的边框样式
@@ -115,7 +119,7 @@ export interface SelectProps {
     /**
      * 自定义 tag 渲染（多选时）
      */
-    "tagRender"?: ((option: SelectOption, onClose: () => void) => ReactNode);
+    "tagRender"?: ((option: SelectOption, onClose: (event?: SyntheticEvent<HTMLElement>) => void) => ReactNode);
 
     /**
      * 自定义下拉菜单整体渲染（包裹原始菜单）
@@ -123,37 +127,37 @@ export interface SelectProps {
     "dropdownRender"?: ((menu: ReactNode) => ReactNode);
 
     /**
-     * 下拉打开/关闭回调
-     */
-    "onOpenChange"?: ((open: boolean) => void);
-
-    /**
-     * 聚焦与失焦回调
-     */
-    "onFocus"?: (() => void);
-
-    /**
-     * 暂无说明。
-     */
-    "onBlur"?: (() => void);
-
-    /**
-     * 暂无说明。
-     */
-    "multiple"?: false | true;
-
-    /**
-     * 暂无说明。
+     * 暂无说明。 与 defaultValue 互斥，不能同时提供。
      */
     "value"?: string | null | string[];
 
     /**
-     * 暂无说明。
+     * 暂无说明。 与 value 互斥，不能同时提供。
      */
     "defaultValue"?: string | null | string[];
 
     /**
      * 暂无说明。
      */
-    "onChange"?: ((value: string | null, option: SelectOption | undefined) => void) | ((value: string[], options: SelectOption[]) => void);
+    "onValueChange"?: (((value: string | null, details: SelectChangeDetails) => void)) | (((value: string[], details: SelectChangeDetails) => void));
+
+    /**
+     * 暂无说明。 与 defaultOpen 互斥，不能同时提供。
+     */
+    "open"?: boolean;
+
+    /**
+     * 暂无说明。 与 open 互斥，不能同时提供。
+     */
+    "defaultOpen"?: boolean;
+
+    /**
+     * 暂无说明。
+     */
+    "onOpenChange"?: (((open: boolean, details: DropdownOpenChangeDetails) => void));
+
+    /**
+     * 暂无说明。
+     */
+    "multiple"?: false | true;
 }

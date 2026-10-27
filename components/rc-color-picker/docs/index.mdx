@@ -13,7 +13,9 @@ status = "experimental"
 
 ## 三套主题的复合取色
 
-颜色面板复用 Select、LineEdit、Slider 与 Button，格式菜单、颜色值输入和动作随 macOS、MD3、shadcn 的共享主题更新；颜色预览和实际色值不随界面主题改变。演示标签和说明改用语义色，以保证浅色与深色一致。
+颜色面板复用 Select、LineEdit、Slider 与 Button，格式菜单、颜色值输入和动作随 Apple、MD3、shadcn 的共享主题更新；颜色预览和实际色值不随界面主题改变。演示标签和说明改用语义色，以保证浅色与深色一致。
+
+取色触发器的悬停、按下和键盘焦点分别有独立反馈；禁用触发器保持禁用表面并阻止展开，反馈不改变色值预览。
 
 颜色取值面板没有直接对应的 Material Web 组件，是输入、菜单和滑块的项目组合。参考 [Material Web Text field](https://material-web.dev/components/text-field/)、[Material Web Select](https://material-web.dev/components/select/)与 [shadcn Input](https://ui.shadcn.com/docs/components/input)；具体取色算法、色域和吸管能力属于本库扩展。核对日期：2026-10-22。
 
@@ -25,10 +27,18 @@ status = "experimental"
 
 格式切换只改变显示方式，输出统一为 OKLCh。确定或取消后，焦点返回颜色触发器；取消保留打开前的色值。吸管取色依赖浏览器的 EyeDropper API。
 
+强制颜色模式下，当前颜色预览与预设色块保留作为数据的颜色值。触发器内部色样局部保留 RGB 与 alpha，外围文字、焦点和边框继续使用系统颜色，不把所选颜色替换为系统表面色。触发器色样不增加棋盘格底纹；半透明颜色按实际 Canvas 底色合成，因此看到的是合成结果，不能将它视为不透明原色。
+
+禁用触发器在强制颜色模式下不使用整体透明度淡化数据色，改用 GrayText 边框表达禁用，同时保留 `aria-disabled`、退出 Tab 顺序和禁止展开的行为。非强制颜色模式的禁用外观不变。状态应同时通过控件语义或文字表达，不能仅靠色样区分。
+
 ## 代码演示
 
 <Demos glob="./demos/*.demo.tsx" columns={2} />
 
 ## API
+
+选择器使用互斥的 `value` / `defaultValue`，初始值只在首次挂载读取。`onValueChange(next, details)` 在确认时提交 OKLCh 值，`details.reason` 为 `confirm`；取消和重置草稿不提交。独立 `ColorPickerPanel` 在选择滑块、预设或输入颜色时使用 `reason: 'choose'`。
+
+内置文字与无障碍名称继承 `ConfigProvider.locale`。局部 `locale.overlay` 与 `locale.panel` 逐字段覆盖文字，未提供的字段继续继承全局语言。`size` 只控制触发器尺寸，不调整页面的数据密度。
 
 <API source="../src/colorPicker/colorPicker.tsx" symbol="ColorPickerProps" component="ColorPicker" />

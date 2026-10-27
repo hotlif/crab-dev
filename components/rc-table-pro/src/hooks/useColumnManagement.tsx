@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, type MutableRefObject, type Dispatch, type SetStateAction, type Key, type ReactNode } from "react";
+import { useState, useEffect, useRef, type MutableRefObject, type Dispatch, type SetStateAction, type ReactNode } from "react";
 import { css } from "@crab-dev/css";
 import { NodeType, LoadStateType } from "@crab-dev/rc-tree";
 import type { Node as TreeNode, TreeProps } from "@crab-dev/rc-tree";
@@ -80,8 +80,8 @@ export interface UseColumnManagementReturn<T extends Row> {
     handleExpandAll: () => void;
     handleCollapseAll: () => void;
     handleResetColumnWidths: () => void;
-    handleTreeCheck: (param: { checkedKeys: Key[]; halfCheckedKeys: Key[]; node: TreeNode; checked: boolean }) => void;
-    handlePanelExpandedChange: (param: { node: TreeNode }) => void;
+    handleTreeCheck: NonNullable<TreeProps['onCheckedKeysChange']>;
+    handlePanelExpandedChange: NonNullable<TreeProps['onExpandedKeysChange']>;
     handleSelectAll: () => void;
     /** 将 ProtocolColumnType[] 转为 Tree 所需 Node[]，列面板 JSX 内使用 */
     buildPanelTreeNodes: (cols: ProtocolColumnType[]) => TreeNode[];
@@ -246,12 +246,7 @@ export function useColumnManagement<T extends Row>(
         notify();
     };
 
-    const handleTreeCheck = ({ checkedKeys: nextCheckedKeys }: {
-        checkedKeys: Key[];
-        halfCheckedKeys: Key[];
-        node: TreeNode;
-        checked: boolean;
-    }) => {
+    const handleTreeCheck: NonNullable<TreeProps['onCheckedKeysChange']> = (nextCheckedKeys) => {
         setPanelCheckedKeys(nextCheckedKeys as (string | number)[]);
         const allLeafNames = new Set(collectAllLeafColumnNames(rawColumnsRef.current));
         const hiddenNames = new Set([...allLeafNames].filter(name => !nextCheckedKeys.includes(name)));
@@ -260,12 +255,8 @@ export function useColumnManagement<T extends Row>(
         notify();
     };
 
-    const handlePanelExpandedChange = ({ node }: { node: TreeNode }) => {
-        setPanelExpandedKeys(prev =>
-            prev.includes(node.id)
-                ? prev.filter(k => k !== node.id)
-                : [...prev, node.id]
-        );
+    const handlePanelExpandedChange: NonNullable<TreeProps['onExpandedKeysChange']> = (nextKeys) => {
+        setPanelExpandedKeys(nextKeys as (string | number)[]);
     };
 
     const handleSelectAll = () => {

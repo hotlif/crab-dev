@@ -1,6 +1,7 @@
-import { afterEach, beforeAll, beforeEach, describe, expect, it, mock, fireEvent, render, screen, act } from "@crab-dev/wake/test/react";
+import { afterEach, beforeAll, beforeEach, describe, expect, it, mock } from '@crab-dev/wake/test';
+import { fireEvent, render, screen, act } from '@crab-dev/wake/test/react';
 
-import type { ColorPickerPanelLocale, OKLCHValue } from '../types.js';
+import type { ColorPickerPanelLocale, OKLCHValue, ColorValueChangeDetails } from '../types.js';
 let ColorPickerPanel: (typeof import('../panels/colorPickerPanel.js'))['default'];
 beforeAll(async () => {
     const panelModule = await mock.import<typeof import('../panels/colorPickerPanel.js')>('../panels/colorPickerPanel.js');
@@ -46,7 +47,7 @@ const changeInputValue = async (input: HTMLInputElement, value: string) => {
     inputValueSetter.call(input, value);
     await fireEvent.input(input);
 };
-const renderPanel = async (props: Partial<Parameters<typeof ColorPickerPanel>[0]> = {}) => {
+const renderPanel = async (props: Partial<Omit<Parameters<typeof ColorPickerPanel>[0], 'value' | 'defaultValue'>> & { value?: OKLCHValue } = {}) => {
     const onValueChange = mock.fn<(v: OKLCHValue) => void>();
     const renderResult = await render(<ColorPickerPanel locale={defaultLocale} value={defaultValue} onValueChange={onValueChange} {...props}/>);
     return { ...renderResult, onValueChange };
@@ -67,6 +68,17 @@ const pointerUp = async (el: HTMLElement, clientX: number) => {
     });
 };
 describe('ColorPickerPanel', () => {
+    it('owns a default color once and reports semantic selection details', async () => {
+        const changed = mock.fn<(next: OKLCHValue, details: ColorValueChangeDetails) => void>();
+        const view = await render(<ColorPickerPanel defaultValue={defaultValue} onValueChange={changed} />);
+        await fireEvent.keyDown(screen.getByRole('slider', { name: '亮度' }), { key: 'ArrowRight' });
+        expect(changed.calls.calls[0][1]).toEqual({ reason: 'choose' });
+        const selected = screen.getByRole('slider', { name: '亮度' }).getAttribute('aria-valuenow');
+        expect(selected).toBe('0.51');
+        await view.rerender(<ColorPickerPanel defaultValue={{ ...defaultValue, lightness: 0.1 }} onValueChange={changed} />);
+        expect(screen.getByRole('slider', { name: '亮度' }).getAttribute('aria-valuenow')).toBe(selected);
+    });
+
     it('renders lightness / chroma / hue / alpha sliders by default', async () => {
         await renderPanel();
         expect(screen.getAllByRole('slider')).toHaveLength(4);

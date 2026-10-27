@@ -3,6 +3,7 @@ import type { DocumentInfo, EditCommand } from './protocol.js';
 import { captureRegionImage } from './capture-region.js';
 import { validateRegions } from './regions.js';
 import { PdfEditorError } from './types.js';
+import { pdfError } from './pdf-messages.js';
 import type {
     PdfDocumentChangeGuard, PdfDocumentInput, PdfDocumentState, PdfEditorRuntime, PdfEditorState,
     PdfExportResult, PdfOperation, PdfOperationOptions, PdfSaveHandler,
@@ -120,7 +121,7 @@ export class PdfSession {
                 await cancellable(this.ready(), signal);
                 checkSignal(lifetime.signal); checkSignal(options.signal);
                 const client = this.snapshot.client;
-                if (!client) throw new PdfEditorError('runtime', 'PDF 引擎尚未就绪');
+                if (!client) throw pdfError('runtime', 'runtime.not-ready');
                 submitted = true;
                 return task(client);
             });
@@ -137,7 +138,7 @@ export class PdfSession {
 
     private document(sessionId?: string): PdfDocumentState {
         const document = this.snapshot.state.document;
-        if (!document) throw new PdfEditorError('document', '请先打开 PDF');
+        if (!document) throw pdfError('document', 'document.required');
         if (sessionId && document.sessionId !== sessionId) throw new PdfEditorError('cancelled', '文档已切换');
         return document;
     }
@@ -172,7 +173,7 @@ export class PdfSession {
         this.loads.add(load);
         return this.track('open', async () => {
             checkSignal(options.signal); checkSignal(lifetime.signal);
-            if (typeof input.id !== 'string' || !input.id.trim()) throw new PdfEditorError('source', '文档 id 不能为空');
+            if (typeof input.id !== 'string' || !input.id.trim()) throw pdfError('source', 'source.document-id');
             const signal = AbortSignal.any([lifetime.signal, load.signal, ...(options.signal ? [options.signal] : [])]);
             const previous = await this.guard(input, signal, guard);
             const bytes = await cancellable(sourceBytes(input.source, signal), signal);
@@ -209,7 +210,7 @@ export class PdfSession {
 
     setPage(index: number) {
         const document = this.document();
-        if (!Number.isInteger(index) || index < 0 || index >= document.pageCount) throw new PdfEditorError('operation', '页码超出范围');
+        if (!Number.isInteger(index) || index < 0 || index >= document.pageCount) throw pdfError('operation', 'document.page-range');
         if (index !== document.currentPageIndex) this.update({ document: Object.freeze({ ...document, currentPageIndex: index }) });
     }
 
@@ -231,7 +232,7 @@ export class PdfSession {
         return this.enqueue('capture', async client => {
             const current = this.snapshot.state.document;
             if (!current || current.id !== captured.documentId || current.sessionId !== captured.sessionId || current.revision !== captured.revision) {
-                throw new PdfEditorError('stale', '选区对应的文档版本已变化，请重新选择区域');
+                throw pdfError('stale', 'document.stale-selection');
             }
             const validated = this.createRegionSelection(captured.regions);
             return captureRegionImage(client, validated, this.snapshot.info!.pages, scale, signal);
@@ -239,13 +240,13 @@ export class PdfSession {
     };
 
     private assertEditable() {
-        if (!this.snapshot.state.canEdit) throw new PdfEditorError('permission', '当前文档为只读');
+        if (!this.snapshot.state.canEdit) throw pdfError('permission', 'document.read-only');
     }
 
     edit(command: EditCommand, revision: number): Promise<DocumentInfo> {
         const sessionId = this.snapshot.state.document?.sessionId;
         return this.enqueue('edit', async client => {
-            if (!sessionId) throw new PdfEditorError('document', '请先打开 PDF');
+            if (!sessionId) throw pdfError('document', 'document.required');
             this.document(sessionId); this.assertEditable();
             const info = await client.request('edit', { command, revision });
             this.accept(info); return info;
@@ -255,7 +256,7 @@ export class PdfSession {
     history(direction: 'undo' | 'redo', options: PdfOperationOptions = {}): Promise<PdfDocumentState> {
         const sessionId = this.snapshot.state.document?.sessionId;
         return this.enqueue(direction, async client => {
-            if (!sessionId) throw new PdfEditorError('document', '请先打开 PDF');
+            if (!sessionId) throw pdfError('document', 'document.required');
             this.document(sessionId); this.assertEditable();
             return this.accept(await client.request(direction, undefined));
         }, options);
@@ -265,7 +266,7 @@ export class PdfSession {
         const sessionId = this.snapshot.state.document?.sessionId;
         const indices = pages ? [...pages] : undefined;
         return this.enqueue(indices ? 'extract' : 'export', async client => {
-            if (!sessionId) throw new PdfEditorError('document', '请先打开 PDF');
+            if (!sessionId) throw pdfError('document', 'document.required');
             const document = this.document(sessionId);
             const bytes = indices ? await client.request('extract', { pages: indices }) : await client.request('export', undefined);
             return Object.freeze({ blob: new Blob([bytes], { type: 'application/pdf' }), fileName: indices ? 'pages.pdf' : document.fileName,
@@ -274,7 +275,7 @@ export class PdfSession {
     }
 
     save(handler?: PdfSaveHandler, options: PdfOperationOptions = {}): Promise<PdfExportResult> {
-        if (this.saving) return Promise.reject(new PdfEditorError('busy', '已有保存正在进行'));
+        if (this.saving) return Promise.reject(pdfError('busy', 'document.saving'));
         this.saving = true;
         const lifetime = this.lifetime;
         const signal = options.signal ? AbortSignal.any([lifetime.signal, options.signal]) : lifetime.signal;

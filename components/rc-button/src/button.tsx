@@ -387,16 +387,16 @@ const sizeLargeStyle = css`
 `;
 
 const sizeMiddleStyle = css`
-    ${buttonVars['root.height']}: ${token.size.middle.height};
-    ${buttonVars['root.border-radius']}: ${token.size.middle.square['border-radius']};
-    ${buttonVars['root.border-radius-active']}: ${token.size.middle['border-radius-active']};
-    ${buttonVars['icon.width']}: ${token.size.middle.icon.width};
-    line-height: ${token.size.middle['line-height']};
-    font-size: ${token.size.middle["font-size"]};
-    height: max(${token.size.middle.height}, calc(1lh + 2 * ${token.root['border-width']}));
-    padding: ${token.size.middle.padding};
-    gap: ${token.size.middle.gap};
-    border-radius: ${token.size.middle['border-radius']};
+    ${buttonVars['root.height']}: ${token.size.medium.height};
+    ${buttonVars['root.border-radius']}: ${token.size.medium.square['border-radius']};
+    ${buttonVars['root.border-radius-active']}: ${token.size.medium['border-radius-active']};
+    ${buttonVars['icon.width']}: ${token.size.medium.icon.width};
+    line-height: ${token.size.medium['line-height']};
+    font-size: ${token.size.medium["font-size"]};
+    height: max(${token.size.medium.height}, calc(1lh + 2 * ${token.root['border-width']}));
+    padding: ${token.size.medium.padding};
+    gap: ${token.size.medium.gap};
+    border-radius: ${token.size.medium['border-radius']};
 `;
 
 const sizeSmallStyle = css`
@@ -531,9 +531,7 @@ const appearanceStyleMap = {
 } as const;
 
 const sizeStyleMap = {
-    large:  sizeLargeStyle,
-    middle: sizeMiddleStyle,
-    small:  sizeSmallStyle,
+
     xs: sizeSmallStyle,
     s: sizeMiddleStyle,
     m: sizeLargeStyle,
@@ -586,7 +584,8 @@ const Button: FC<ButtonProps> = ({
         : resolvedAppearance === 'tonal' ? dangerTonalStyle
             : resolvedAppearance === 'elevated' ? dangerElevatedStyle
                 : resolvedAppearance === 'text' || resolvedAppearance === 'link' ? dangerTextStyle : dangerSubtleStyle;
-    const resolvedSize = size ?? groupCtx.size ?? config.size;
+    const configuredSizes = { small: 'xs', medium: 's', large: 'm' } as const;
+    const resolvedSize = size ?? groupCtx.size ?? configuredSizes[config.size];
     const unselectedPrimary = !resolvedDanger && resolvedAppearance === 'primary' && isSelected === false;
     const iconOnly = children == null && (icon != null || iconAfter != null || loading);
 

@@ -60,19 +60,19 @@ const items = ['One', 'Two', 'Three'].map(label => ({ key: label, label, childre
 
 describe('Tabs overflow', () => {
     it('reveals an initially selected offscreen tab without scrolling the page', async () => {
-        await render(<Tabs items={items} defaultActiveKey="Three" />);
+        await render(<Tabs items={items} defaultValue="Three" />);
         expect(scroll).toHaveBeenCalledWith({ left: 160, behavior: 'instant' });
         expect(screen.getByRole('tab', { name: 'Three' }).getAttribute('aria-selected')).toBe('true');
     });
 
     it('reveals controlled selections and reconciles reordered tabs and resized containers', async () => {
-        const view = await render(<Tabs items={items} activeKey="One" />);
+        const view = await render(<Tabs items={items} value="One" />);
         expect(scroll).not.toHaveBeenCalled();
-        await view.rerender(<Tabs items={items} activeKey="Three" />);
+        await view.rerender(<Tabs items={items} value="Three" />);
         expect(scroll).toHaveBeenLastCalledWith({ left: 160, behavior: 'instant' });
 
         bounds.set('Three', { left: -40, width: 80 });
-        await view.rerender(<Tabs items={[items[2], items[0], items[1]]} activeKey="Three" />);
+        await view.rerender(<Tabs items={[items[2], items[0], items[1]]} value="Three" />);
         expect(scroll).toHaveBeenLastCalledWith({ left: -80, behavior: 'instant' });
 
         bounds.set('Three', { left: 200, width: 80 });
@@ -83,7 +83,7 @@ describe('Tabs overflow', () => {
     });
 
     it('reveals keyboard focus without moving the surrounding page in controlled mode', async () => {
-        await render(<Tabs items={items} activeKey="One" />);
+        await render(<Tabs items={items} value="One" />);
         await fireEvent.keyDown(screen.getByRole('tab', { name: 'One' }), { key: 'End' });
         expect(document.activeElement).toBe(screen.getByRole('tab', { name: 'Three' }));
         expect(scroll).toHaveBeenLastCalledWith({ left: 160, behavior: 'instant' });

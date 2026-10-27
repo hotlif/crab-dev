@@ -22,7 +22,7 @@ import { demos } from "../_generated/rc-date-picker.js";
 
 #### 日期选择
 
-##### 日期选择器 — 字段和日期面板随文档站主题切换，使用同一日期和尺寸对照 macOS、MD3 与 shadcn。
+##### 日期选择器 — 字段和日期面板随文档站主题切换，使用同一日期和尺寸对照 Apple、MD3 Expressive 与 shadcn/ui。
 
 ##### 可选日期范围 — 限制单个日期只能在今天前后 7 天内选择；范围外的日期禁用。
 
@@ -36,11 +36,15 @@ import { demos } from "../_generated/rc-date-picker.js";
 
 #### 时间选择
 
-##### 时间选择与字段尺寸 — 从字段下方展开时间面板，可切换键盘输入；字段支持三档密度。
+##### 时间选择与字段尺寸 — 从字段下方展开时间面板，可切换键盘输入；字段支持 small、medium、large 三档尺寸。
 
 ##### 表盘与 12 小时制 — 先选小时，再选分钟；可切换 AM / PM，或用键盘图标切换到输入模式。
 
 ##### 时间面板 — 一个基础的时间选择面板组件
+
+#### 标签与状态
+
+##### 选择器字段状态 — 日期、时间和日期时间字段分别展示禁用、错误、警告与 filled 外观，面板操作沿用各选择器协议。
 
 </div>
 
@@ -55,11 +59,11 @@ import { demos } from "../_generated/rc-date-picker.js";
 
 ### 三套主题的字段与日历
 
-日期字段复用 LineEdit；macOS 与 shadcn 使用静态标签和桌面焦点环，MD3 保留浮动标签与轮廓／底线。日期单元格和面板圆角由 L2 决定：MD3 保留圆形日期及大圆角表面，macOS 和 shadcn 使用桌面圆角矩形日期和紧凑面板。今天、选中日期、键盘焦点与不可选日期仍分别表达。
+日期字段复用 LineEdit；Apple 与 shadcn 使用静态标签和桌面焦点环，MD3 Expressive 保留浮动标签与轮廓／底线。日期单元格和面板圆角由 L2 决定：MD3 Expressive 保留圆形日期及大圆角表面，Apple 和 shadcn 使用桌面圆角矩形日期和紧凑面板。今天、选中日期、键盘焦点与不可选日期仍分别表达。
 
 当前日历的桌面日期单元格为 32px，粗指针扩展到 48px；这是桌面密度扩展。日期字段仍是只读的弹层触发器，尚未实现 M3 docked picker 的直接键入日期入口，不将当前组件标为该变体的完整复刻。
 
-日期演示的尺寸切换使用库内 Button，说明文字随主题更新。Material Web 尚无对应日历组件；此处保留现有 M3 日历基线，桌面外观参照 [shadcn Date Picker 组合](https://ui.shadcn.com/docs/components/date-picker)及 [Calendar 源码](https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/new-york-v4/ui/calendar.tsx)。macOS 圆角为本项目适配值，时间表盘继续作为跨主题的扩展能力。核对日期：2026-10-22。
+日期演示的尺寸切换使用库内 Button，说明文字随主题更新。Material Web 尚无对应日历组件；此处保留现有 M3 日历基线，桌面外观参照 [shadcn Date Picker 组合](https://ui.shadcn.com/docs/components/date-picker)及 [Calendar 源码](https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui/calendar.tsx)。Apple 圆角为本项目适配值，时间表盘继续作为跨主题的扩展能力。核对日期：2026-10-22。
 
 ### 主要功能
 
@@ -68,13 +72,27 @@ import { demos } from "../_generated/rc-date-picker.js";
 - 通过 `timeZone`、`locale` 和 `weekStartDay` 配置时区、本地化显示和每周起始日。
 - 使用 `renderDisplayString` 自定义输入框中的日期文本。
 
-`value` 使用 `Temporal.ZonedDateTime | null`，通过 `onValueChange` 接收日期变化。
+`DatePicker`、`DateTimePicker` 和 `TimePicker` 统一使用 `value` / `defaultValue` / `onValueChange(next, details)`。`value` 非 `undefined` 时为受控模式；`null` 表示显式空值。`defaultValue` 只在首次挂载读取，与 `value` 互斥。受控用法只发出更新请求，展示由外部 `value` 决定。
 
-`DatePicker` 和 `DateTimePicker` 的尾部图标共用一个位置。有值且未禁用时，鼠标移入字段会将日历图标切换为清除图标；移到图标上仍可清除，离开字段后恢复日历图标。也可以用 Tab 聚焦尾部按钮，再按 Enter / Space 清除。清除会触发 `onValueChange(null)`、关闭面板并将焦点返回输入框；受控用法需要同步更新 `value`。要修改已有日期，请点击输入区域打开日历。
+日期值使用 `Temporal.ZonedDateTime | null`。`details.reason` 为 `confirm` 或 `clear`；面板内选择只修改草稿，确认后才提交。原生字段事件保持原生签名。弹层支持互斥的 `open` / `defaultOpen` 和 `onOpenChange(next, details)`。
+
+`DatePicker` 和 `DateTimePicker` 仍在字段获得焦点时打开；触发器、尾部按钮、面板及其嵌套 Portal 内的焦点切换保持展开。焦点移出整个分支时关闭并放弃未确认的草稿，`onOpenChange` 的 `details.reason` 为 `focus-out`，`event` 为原始焦点事件；Tab 或点击移向新控件时不恢复旧字段焦点。受控模式只请求关闭，实际展开状态仍由 `open` 决定。
+
+内置文字和无障碍名称继承最近的 `ConfigProvider.locale`；选择器的局部 `locale` 同时覆盖日历格式、星期标题、动作和可访问名称。内置字典支持中文和英文，其他语言标识使用英文文案并保留对应的 `Intl` 日期格式。`renderDisplayString` 用于自定义字段格式。
+
+三种选择器都根据真实值是否为 `null` 判断能否清除，`renderDisplayString` 只控制展示文字：空值返回非空字符串不会创建可清除的值；已有值即使格式化为空字符串，仍可清除。空值提示应使用 `placeholder`，让格式化函数对空值返回 `''`；把提示文字当作格式化结果会成为输入框的实际显示值，不具有占位文字的样式和语义。
+
+未提供 `placeholder` 时，`DateTimePicker` 显示当前语言的“选择日期和时间”提示；调用方提供的占位文案始终优先。切换语言会更新默认提示并保留输入节点。
+
+`DatePicker` 和 `DateTimePicker` 的尾部图标共用一个位置。有值且未禁用时，鼠标移入字段会将日历图标切换为清除图标；移到图标上仍可清除，离开字段后恢复日历图标。也可以用 Tab 聚焦尾部按钮，再按 Enter / Space 清除。清除会触发一次 `onValueChange(null, { reason: 'clear', event })`，其中 `event` 是尾部按钮的实际点击事件，不会伪造输入框的原生 `input` / `change` 事件；同时关闭面板并将焦点返回输入框。受控用法需要同步更新 `value`。要修改已有日期，请点击输入区域打开日历。
 
 `TimePicker` 采用相同交互，在时钟与清除图标之间切换。无悬停能力的触屏设备在字段有值时直接显示清除按钮，点击输入区域仍可打开选择面板。
 
 顶层原生属性、事件及 ref 属于输入框。`panelProps` 只传给弹层中的面板，用于设置面板 id、className 和无障碍属性；选择草稿 selectValues、面板 onSelect 回调和 instance 由选择器内部管理。
+
+三种选择器的弹层定位避让当前字段自己的标签、辅助说明和错误提示；向上翻转时也保留标签的可见空间，包括 MD3 浮动标签伸出字段布局框的部分。定位依据文字的实际可见范围；说明换行、标签变换或动态更新后重新计算位置，不把相邻字段或整行 Form 纳入锚点。输入框原有的宽度、悬停边界、ref 和焦点行为保持独立。
+
+短视口或页面放大后，如果上下和侧方都放不下完整日历，面板利用较宽裕的上下空间并通过内部滚动保留导航和底部操作。
 
 ### 时间选择
 
@@ -92,9 +110,15 @@ import { demos } from "../_generated/rc-date-picker.js";
 
 表盘数字支持 Tab 聚焦、Enter / Space 选择；方向键移动到相邻时间刻度并同步焦点（小时步长 1、分钟步长 5）。需要任意分钟时可拖动表针或切换键盘输入，输入框的 ↑ / ↓ 每次调整 1。输入法候选确认不会提交时间。
 
-`size="small / middle / large"` 调整外部字段密度。下拉面板使用时间选择器专用的数字区和点击区域，不跟随字段缩小。窄于 360px 或低于 560px 的视口使用输入模式，保留可编辑的数字区。窗口恢复后保留当前输入，可手动切回表盘；关闭后再次打开则按 `defaultMode` 初始化。
+24 小时表盘会在未选中数字的字区扣除指针线，避免指针穿过内圈文字。遮罩只作用于线，不覆盖文字、点击区域或选中圆，邻近刻度的选中反馈仍保持完整。
+
+`size="small / medium / large"` 调整外部字段尺寸。下拉面板使用时间选择器专用的数字区和点击区域，不跟随字段缩小。窄于 360px 或低于 560px 的视口使用输入模式，保留可编辑的数字区。窗口恢复后保留当前输入，可手动切回表盘；关闭后再次打开则按 `defaultMode` 初始化。
 
 需要秒精度时传入 `panelProps={{ showSeconds: true }}`。`DateTimePicker` 是日期与时间的组合扩展，默认保留秒输入；可通过 `panelProps.timePanelProps.showSeconds` 关闭。
+
+
+先通过“选择器字段状态”观察日期、时间与日期时间字段的禁用、错误、警告及 filled 外观，再进入各选择器示例操作面板。字段反馈不会改变各自的值类型和面板键盘协议。
+
 
 
 
@@ -103,7 +127,10 @@ import { demos } from "../_generated/rc-date-picker.js";
 | 属性 | 类型 | 说明 |
 | --- | --- | --- |
 | `value` | `{ hour: number; minute: number; second: number } \| null` | 当前时间；小时 0–23，分钟和秒 0–59 |
-| `onValueChange` | `(value: TimePickerValue \| null) => void` | 确认或清除时触发 |
+| `defaultValue` | `TimePickerValue \| null` | 非受控初始时间；与 `value` 互斥 |
+| `onValueChange` | `(value: TimePickerValue \| null, details: PickerValueChangeDetails) => void` | 确认或清除时触发，原因分别为 `confirm` / `clear` |
+| `open` / `defaultOpen` | `boolean` | 受控／非受控弹层状态，两者互斥 |
+| `onOpenChange` | `(open, details) => void` | 弹层状态变更请求 |
 | `panelProps` | `TimePickerPanelProps` 的配置子集 | 时间格式、初始模式与面板属性；草稿、操作区和有效性由选择器管理 |
 | `renderDisplayString` | `(value) => string` | 自定义外部字段展示文本 |
 | 字段属性 | `PickerFieldProps` | `label`、`appearance`、`size`、`disabled`、原生输入事件与 `ref` |
@@ -125,6 +152,14 @@ import { demos } from "../_generated/rc-date-picker.js";
 - 输入框要有 label 和格式说明，日历网格支持方向键、确认和退出。
 - 当前日期、选中日期、不可选日期与错误必须同时有非颜色状态。
 
+### 设计依据与覆盖
+
+- **MD3 Expressive**：日期和时间面板参考 M3 Date pickers 与 Time pickers；独立时间使用非模态下拉层，这是项目对标准模态时间选择器的交互扩展。 [依据 1](https://m3.material.io/components/date-pickers/overview) · [依据 2](https://material-web.dev/components/text-field/) · [依据 3](https://github.com/material-components/material-web/tree/main/textfield)
+- **Apple**：依据 Apple HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。 [依据 1](https://developer.apple.com/design/human-interface-guidelines/components) · [依据 2](https://developer.apple.com/design/human-interface-guidelines/accessibility)
+- **shadcn/ui**：参考 shadcn/ui 的组件用途、中性表面与设计变量，在本库公共语义和 React 交互模型中实现；完整状态覆盖仍需按矩阵验收。 [依据 1](https://ui.shadcn.com/docs/components) · [依据 2](https://ui.shadcn.com/docs/theming) · [依据 3](https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4)
+
+设计依据不等于完成验收；当前状态与适用边界见[覆盖矩阵](/guides/design-coverage)。
+
 ## 常见问题
 
 ### 运行环境需要什么？
@@ -134,3 +169,10 @@ import { demos } from "../_generated/rc-date-picker.js";
 ## API
 
 <API source="../_generated_api/rc-date-picker.ts" symbol="DatePickerProps" component="DatePicker" />
+
+<details data-docs-native-props>
+<summary>DatePicker 继承的原生属性（301 项）</summary>
+
+<API source="../_generated_api/rc-date-picker-native.ts" symbol="DatePickerPropsNativeAttributes" component="DatePicker 继承的原生属性" />
+
+</details>

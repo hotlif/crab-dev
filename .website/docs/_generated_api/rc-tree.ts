@@ -6,18 +6,10 @@ type DocsTypePlaceholder = ((...args: never[]) => unknown) & {
     readonly [key: number]: DocsTypePlaceholder;
 };
 type Array<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
+type ConfigDensity = DocsTypePlaceholder;
 type ConfigSize = DocsTypePlaceholder;
-type Context = DocsTypePlaceholder;
 type Dispatch<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
-type DragAbortEvent = DocsTypePlaceholder;
-type DragCancelEvent = DocsTypePlaceholder;
-type DragEndEvent = DocsTypePlaceholder;
-type DragMoveEvent = DocsTypePlaceholder;
-type DragOverEvent = DocsTypePlaceholder;
-type DragPendingEvent = DocsTypePlaceholder;
-type DragStartEvent = DocsTypePlaceholder;
 type HTMLDivElement = DocsTypePlaceholder;
-type HTMLSpanElement = DocsTypePlaceholder;
 type Key = DocsTypePlaceholder;
 type MouseEvent<T0 = unknown, T1 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0, T1] };
 type Node = DocsTypePlaceholder;
@@ -26,6 +18,17 @@ type OverStateEnum = DocsTypePlaceholder;
 type Promise<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 type ReactNode = DocsTypePlaceholder;
 type SetStateAction<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
+type TreeCheckedKeysChangeDetails = DocsTypePlaceholder;
+type TreeDragAbortEvent = DocsTypePlaceholder;
+type TreeDragCancelEvent = DocsTypePlaceholder;
+type TreeDragContext = DocsTypePlaceholder;
+type TreeDragEndEvent = DocsTypePlaceholder;
+type TreeDragMoveEvent = DocsTypePlaceholder;
+type TreeDragOverEvent = DocsTypePlaceholder;
+type TreeDragPendingEvent = DocsTypePlaceholder;
+type TreeDragStartEvent = DocsTypePlaceholder;
+type TreeExpandedKeysChangeDetails = DocsTypePlaceholder;
+type TreeSelectedKeysChangeDetails = DocsTypePlaceholder;
 
 export interface TreeProps {
     /**
@@ -54,27 +57,22 @@ export interface TreeProps {
     "allowDrop"?: (param: { dragNode: Node; targetNode: Node; position: OverStateEnum; }) => boolean;
 
     /**
-     * 展开指定的树节点
-     */
-    "expandedKeys"?: Key[];
-
-    /**
-     * 选择节点
-     */
-    "selectKeys"?: Key[];
-
-    /**
      * 是否展示连接线
      */
     "showLine"?: boolean;
 
     /**
-     * 默认节点尺寸档；省略时继承 ConfigProvider。
+     * 内部控件尺寸；省略时继承 ConfigProvider，与节点密度独立。
      */
     "size"?: ConfigSize;
 
     /**
-     * 显式节点高度，优先于尺寸档。粗指针下至少为 48px。
+     * 节点与容器密度；省略时继承 ConfigProvider。
+     */
+    "density"?: ConfigDensity;
+
+    /**
+     * 显式默认节点高度，优先于 density 和粗指针自适应默认值。调用方负责触控目标。
      */
     "defaultNodeHeight"?: number;
 
@@ -91,47 +89,47 @@ export interface TreeProps {
     /**
      * 展开节点的事件
      */
-    "onExpanded"?: NodeItemProps["onExpanded"];
+    "onExpandedKeysChange"?: (keys: Key[], details: TreeExpandedKeysChangeDetails) => void;
 
     /**
      * 选择节点事件
      */
-    "onSelect"?: (param: { event: MouseEvent<HTMLSpanElement, globalThis.MouseEvent>; selectKeys: Key[]; node: Node; isSelect: boolean; }) => void;
+    "onSelectedKeysChange"?: (keys: Key[], details: TreeSelectedKeysChangeDetails) => void;
 
     /**
      * 拖拽中止事件
      */
-    "onDragAbort"?: (event: DragAbortEvent, context: Context) => void;
+    "onDragAbort"?: (event: TreeDragAbortEvent, context: TreeDragContext) => void;
 
     /**
      * 拖拽待定事件
      */
-    "onDragPending"?: (event: DragPendingEvent, context: Context) => void;
+    "onDragPending"?: (event: TreeDragPendingEvent, context: TreeDragContext) => void;
 
     /**
      * 拖拽开始事件
      */
-    "onDragStart"?: (event: DragStartEvent, context: Context) => void;
+    "onDragStart"?: (event: TreeDragStartEvent, context: TreeDragContext) => void;
 
     /**
      * 拖拽移动事件
      */
-    "onDragMove"?: (event: DragMoveEvent, context: Context) => void;
+    "onDragMove"?: (event: TreeDragMoveEvent, context: TreeDragContext) => void;
 
     /**
      * 拖拽悬停事件
      */
-    "onDragOver"?: (event: DragOverEvent, context: Context) => void;
+    "onDragOver"?: (event: TreeDragOverEvent, context: TreeDragContext) => void;
 
     /**
      * 拖拽结束事件
      */
-    "onDragEnd"?: (event: DragEndEvent, context: Context) => void;
+    "onDragEnd"?: (event: TreeDragEndEvent, context: TreeDragContext) => void;
 
     /**
      * 拖拽取消事件
      */
-    "onDragCancel"?: (event: DragCancelEvent, context: Context) => void;
+    "onDragCancel"?: (event: TreeDragCancelEvent, context: TreeDragContext) => void;
 
     /**
      * 右键点击的时候触发的事件
@@ -144,14 +142,9 @@ export interface TreeProps {
     "checkable"?: boolean;
 
     /**
-     * 受控的已选中节点 key 列表
-     */
-    "checkedKeys"?: Key[];
-
-    /**
      * 复选框勾选/取消时触发。内部已完成级联计算，halfCheckedKeys 由组件自动计算。
      */
-    "onCheck"?: (param: { checkedKeys: Key[]; halfCheckedKeys: Key[]; node: Node; checked: boolean; }) => void;
+    "onCheckedKeysChange"?: (keys: Key[], details: TreeCheckedKeysChangeDetails) => void;
 
     /**
      * 过滤树节点。返回 true 则保留该节点（及其所有祖先）；返回 false 则隐藏。 不传时不过滤，显示全部可见节点。
@@ -182,4 +175,37 @@ export interface TreeProps {
      * 节点改变时触发的事件
      */
     "onTreeNodeChange": Dispatch<SetStateAction<TreeProps["treeData"]>>;
+
+    /**
+     * 暂无说明。
+     */
+    "selectedKeys"?: Key[] | undefined;
+
+    /**
+     * 暂无说明。
+     * @default []
+     */
+    "defaultSelectedKeys"?: Key[];
+
+    /**
+     * 暂无说明。
+     */
+    "checkedKeys"?: Key[] | undefined;
+
+    /**
+     * 暂无说明。
+     * @default []
+     */
+    "defaultCheckedKeys"?: Key[];
+
+    /**
+     * 暂无说明。
+     */
+    "expandedKeys"?: Key[] | undefined;
+
+    /**
+     * 暂无说明。
+     * @default []
+     */
+    "defaultExpandedKeys"?: Key[];
 }

@@ -343,7 +343,7 @@ export const componentPreviews = {
     },
     "rc-theme": {
         "id": "docs/demos/light-dark.demo.tsx",
-        "title": "Material、Shadcn 与 macOS",
+        "title": "MD3 Expressive、Apple 与 shadcn/ui",
         "previewPath": "/components/rc-theme/workbench/?__wake_demo=docs%2Fdemos%2Flight-dark.demo.tsx",
         "workbenchPath": "/components/rc-theme/workbench/#/components/docs%2Fdemos%2Flight-dark.demo.tsx",
         "density": "regular"

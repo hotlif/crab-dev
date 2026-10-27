@@ -39,6 +39,7 @@ legend.item.opacity-hidden = "$ref(opacity.secondary)"
 
 # ─── 键盘焦点 ───────────────────────────────
 root.box-shadow-focus = "$ref(shadow.focus-ring)"
+root.outline-color-focus = "$ref(color.focus.ring)"
 root.font-family = "$ref(typography.body.font-family)"
 root.line-height = "$ref(typography.body.line-height)"
 root.outline-width-focus = "2px"

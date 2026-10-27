@@ -3,7 +3,7 @@ export const meta = {
     description: "展示表格与定义列表的排版效果",
 };
 
-import Prose from '../../src/index.js';
+import Prose from '@crab-dev/rc-prose';
 
 const TableDemo = () => {
     return (
@@ -12,31 +12,31 @@ const TableDemo = () => {
             <table>
                 <thead>
                     <tr>
-                        <th>变体</th>
-                        <th>字号</th>
-                        <th>行高</th>
+                        <th>项目</th>
+                        <th>负责人</th>
+                        <th>进度</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>sm</td>
-                        <td>0.875rem</td>
-                        <td>1.714</td>
+                        <td>产品说明</td>
+                        <td>陈晓</td>
+                        <td>已完成</td>
                     </tr>
                     <tr>
-                        <td>base</td>
-                        <td>1rem</td>
-                        <td>1.75</td>
+                        <td>交互评审</td>
+                        <td>林宁</td>
+                        <td>进行中</td>
                     </tr>
                     <tr>
-                        <td>lg</td>
-                        <td>1.125rem</td>
-                        <td>1.778</td>
+                        <td>数据整理</td>
+                        <td>李明</td>
+                        <td>待开始</td>
                     </tr>
                     <tr>
-                        <td>xl</td>
-                        <td>1.25rem</td>
-                        <td>1.8</td>
+                        <td>发布记录</td>
+                        <td>周晨</td>
+                        <td>待评审</td>
                     </tr>
                 </tbody>
             </table>

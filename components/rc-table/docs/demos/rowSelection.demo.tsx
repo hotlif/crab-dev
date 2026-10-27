@@ -23,7 +23,7 @@ export default function RowSelectionDemo() {
         toolbar={<>
             <Select aria-label="选择模式" value={single ? "single" : "multiple"}
                 options={[{ label: "批量审核（多选）", value: "multiple" }, { label: "逐单审核（单选）", value: "single" }]}
-                onChange={value => { setSingle(value === "single"); setSelected(new Set()); }} />
+                onValueChange={value => { setSingle(value === "single"); setSelected(new Set()); }} />
             <Button appearance="primary" disabled={!selectedRows.length} onClick={() => {
                 setPrevious(rows); setRows(approveOrders(rows, selected)); setSelected(new Set());
                 setMessage("已通过 " + selectedRows.length + " 笔订单，进入待发货状态。");
@@ -36,6 +36,6 @@ export default function RowSelectionDemo() {
         footer={<div className={noteStyle} role="status">已选订单额 {money(selectedRows.reduce((sum, row) => sum + row.dataRef.amount, 0))}。{message}</div>}>
         {(width, height) => <Table aria-label="待审核采购订单选择" width={width} height={height} rows={rows} columns={columns}
             rowSelection={{ type: single ? "radio" : "checkbox", selectedRowIds: selected,
-                onChange: setSelected, getDisabled: row => row.dataRef.status !== "待审核" }} />}
+                onSelectedRowIdsChange: setSelected, getDisabled: row => row.dataRef.status !== "待审核" }} />}
     </DemoFrame>;
 }

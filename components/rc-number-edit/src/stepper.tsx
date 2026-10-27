@@ -2,14 +2,15 @@ import { css, cx } from "@crab-dev/css";
 import Button from "@crab-dev/rc-button";
 import { Minus, Plus } from "lucide-react";
 import type { MouseEvent, PointerEvent } from "react";
+import { useLocale } from '@crab-dev/rc-config-provider';
 
 import token, { vars } from "./token.js";
 import type { StepDirection } from "./hooks/useSpinner.js";
 
 export interface StepperProps {
-    size: "small" | "middle" | "large";
+    size: "small" | "medium" | "large";
     /** 按下某方向按钮（立即走一步并进入长按连续步进） */
-    onStart: (direction: StepDirection) => void;
+    onStart: (direction: StepDirection, event: PointerEvent<HTMLButtonElement> | MouseEvent<HTMLButtonElement>) => void;
     /** 松开 / 移出，停止连续步进 */
     onStop: () => void;
     /** 已到达上界：禁用「增加」 */
@@ -58,10 +59,10 @@ const sizeStyles = {
         ${vars['stepper.action.width']}: ${token.size.small.action.width};
         ${vars['stepper.action.height']}: ${token.size.small.action.width};
     `,
-    middle: css`
-        ${vars['stepper.action.min-width']}: ${token.size.middle.action.width};
-        ${vars['stepper.action.width']}: ${token.size.middle.action.width};
-        ${vars['stepper.action.height']}: ${token.size.middle.action.width};
+    medium: css`
+        ${vars['stepper.action.min-width']}: ${token.size.medium.action.width};
+        ${vars['stepper.action.width']}: ${token.size.medium.action.width};
+        ${vars['stepper.action.height']}: ${token.size.medium.action.width};
     `,
     large: css`
         ${vars['stepper.action.min-width']}: ${token.size.large.action.width};
@@ -71,18 +72,19 @@ const sizeStyles = {
 };
 
 function Stepper({ size, onStart, onStop, upDisabled, downDisabled, disabled, inputId }: StepperProps) {
+    const { locale } = useLocale();
     // 指针按下立即步进并启动长按；后续 click 只处理键盘与辅助技术的合成激活，
     // 避免真实指针在 pointerdown 和 click 各步进一次。
     const bind = (direction: StepDirection) => ({
-        onPointerDown: (_event: PointerEvent<HTMLButtonElement>) => {
-            onStart(direction);
+        onPointerDown: (event: PointerEvent<HTMLButtonElement>) => {
+            onStart(direction, event);
         },
         onPointerUp: onStop,
         onPointerLeave: onStop,
         onPointerCancel: onStop,
         onClick: (event: MouseEvent<HTMLButtonElement>) => {
             if (event.detail === 0) {
-                onStart(direction);
+                onStart(direction, event);
                 onStop();
             }
         },
@@ -92,11 +94,11 @@ function Stepper({ size, onStart, onStop, upDisabled, downDisabled, disabled, in
         <span className={cx(rootStyle, sizeStyles[size])}>
             <Button
                 type="button"
-                aria-label="增加"
+                aria-label={locale === 'zh-CN' ? '增加' : 'Increase'}
                 aria-controls={inputId}
                 disabled={disabled || upDisabled}
                 appearance="text"
-                size="small"
+                size="xs"
                 shape="circle"
                 icon={<Plus aria-hidden="true" />}
                 className={actionStyle}
@@ -104,11 +106,11 @@ function Stepper({ size, onStart, onStop, upDisabled, downDisabled, disabled, in
             />
             <Button
                 type="button"
-                aria-label="减少"
+                aria-label={locale === 'zh-CN' ? '减少' : 'Decrease'}
                 aria-controls={inputId}
                 disabled={disabled || downDisabled}
                 appearance="text"
-                size="small"
+                size="xs"
                 shape="circle"
                 icon={<Minus aria-hidden="true" />}
                 className={actionStyle}

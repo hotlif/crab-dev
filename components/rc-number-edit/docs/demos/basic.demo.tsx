@@ -25,7 +25,7 @@ const BasicDemo = () => {
                 supportingText="范围 0–100；也可用方向键调整。"
                 appearance="filled"
                 value={value}
-                onChange={setValue}
+                onValueChange={setValue}
                 min={0}
                 max={100}
             />

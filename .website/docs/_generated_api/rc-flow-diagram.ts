@@ -36,7 +36,7 @@ export interface FlowDiagramProps {
     /**
      * 节点位置覆盖：`nodeId → { x, y }`。 用于拖拽后实时更新节点位置并触发路由重算， 未覆盖的节点取 ELK 布局结果。
      */
-    "nodePositions"?: Record<string, { x: number; y: number }>;
+    "nodePositions"?: Record<string, { x: number; y: number; }>;
 
     /**
      * 手动走线覆盖（draw.io 风格）：`edgeId → ManualRoute`。 提供后对应边按此固定走线，不再自动避让。

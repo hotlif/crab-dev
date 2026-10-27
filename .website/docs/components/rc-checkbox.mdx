@@ -22,7 +22,7 @@ import { demos } from "../_generated/rc-checkbox.js";
 
 ##### 基础用法 — 最简单的 Checkbox 用法
 
-##### 三套设计与状态 — 比较 macOS、MD3 与 shadcn 的方框、状态层和选中标记；用 Tab 与空格检查焦点和切换。
+##### 三套设计与状态 — 比较 Apple、MD3 与 shadcn 的方框、状态层和选中标记；用 Tab 与空格检查焦点和切换。
 
 ##### 禁用状态 — 添加 `disabled` 属性即可让复选框处于禁用状态
 
@@ -30,7 +30,9 @@ import { demos } from "../_generated/rc-checkbox.js";
 
 ##### 半选状态 — 使用 `indeterminate` 属性表示半选状态, 常用于全选/全不选场景
 
-##### 复选框尺寸 — 通过 `size` 属性设置复选框尺寸, 支持 `large`、`middle`、`small` 三种
+##### 复选框尺寸 — 通过 `size` 属性设置复选框尺寸, 支持 `large`、`medium`、`small` 三种
+
+##### 禁用与半选组合 — 对照未选中、选中和半选的禁用表现；禁用项不可通过鼠标或键盘改变。
 
 </div>
 
@@ -62,23 +64,38 @@ import { demos } from "../_generated/rc-checkbox.js";
 
 ### 三套设计风格
 
-`ConfigProvider design` 在 L2 语义令牌边界切换完整形态，组件与演示使用同一份样式。`macos` 默认 16px 方框、4px 圆角、1px 描边和轻阴影；`shadcn` 默认 16px 方框、4px 圆角、1px 描边，使用中性色与克制阴影。两者不使用 MD3 的圆形状态层，保留键盘焦点、悬停描边、选中与半选标记、错误和禁用状态。浅深色与嵌套主题均由语义变量同步。
+`ConfigProvider designSystem` 在 L2 语义令牌边界切换完整形态，组件与演示使用同一份样式。`apple` 默认 16px 方框、4px 圆角、1px 描边和轻阴影；`shadcn` 默认 16px 方框、4px 圆角、1px 描边，使用中性色与克制阴影。两者不使用 MD3 的圆形状态层，保留键盘焦点、悬停描边、选中与半选标记、错误和禁用状态。浅深色与嵌套主题均由语义变量同步。
 
-macOS 为参考 Apple HIG 的 Web 定制，并非 AppKit 原生控件的像素复刻；small / middle / large 的方框分别为 14 / 16 / 18px。shadcn 的扩展尺寸为 14 / 16 / 20px。细指针采用紧凑 24px 控件容器，粗指针扩展为至少 48px。
+Apple 为参考 Apple HIG 的 Web 定制，并非 AppKit 原生控件的像素复刻；small / medium / large 的方框分别为 14 / 16 / 18px。shadcn 的扩展尺寸为 14 / 16 / 20px。细指针采用紧凑 24px 控件容器，粗指针扩展为至少 48px。
 
-以下尺寸与状态层说明专指 `material`。
+以下尺寸与状态层说明专指 `md3`。
 
 视觉以 [Material Design 3 Checkbox](https://m3.material.io/components/checkbox/overview) 为基准：默认方框 18×18px、圆角 2px、描边 2px；未选中为空心轮廓，选中与半选使用品牌填充，并分别显示勾选和横杠。
 
 40×40px 的圆形状态层响应整个标签的悬停、聚焦与按压，透明度分别为 8% / 12% / 12%；控件区域为 48×48px。禁用透明度为 38%，禁用选中状态保留中性填充与反白标记。颜色引用 L2 语义令牌，自动响应暗黑模式和 ConfigProvider 的品牌色。
 
-保留 Crab 的 `small / middle / large` 扩展：方框分别为 16 / 18 / 20px，状态层统一为 40px；颜色与图标过渡使用公共 `motion.interaction`。状态切换只改变颜色、透明度和图标缩放，固定外框、描边宽度与行内对齐，避免布局跳动。
+保留 Crab 的 `small / medium / large` 扩展：方框分别为 16 / 18 / 20px，状态层统一为 40px；颜色与图标过渡使用公共 `motion.interaction`。状态切换只改变颜色、透明度和图标缩放，固定外框、描边宽度与行内对齐，避免布局跳动。
 
 原生输入负责名称、选中和键盘行为；半选通过 `aria-checked="mixed"` 表达。`aria-invalid="true"` 显示错误色，应同时通过 `aria-describedby` 关联说明。键盘焦点提供独立轮廓，强制颜色使用系统颜色，减少动态效果时移除过渡。图标为常驻的无障碍隐藏装饰，不增加 Tab 停靠点。
 
 规则依据：[状态系统](/guides/accessibility)、[无障碍与键盘](/guides/accessibility)、[布局与密度](/guides/getting-started)。
 
 设计来源（2026-10-22）：[M3 规格](https://m3.material.io/components/checkbox/specs)、[使用指南](https://m3.material.io/components/checkbox/guidelines)、[无障碍](https://m3.material.io/components/checkbox/accessibility)、[Material Web 文档与演示](https://material-web.dev/components/checkbox/)、[实现样式](https://github.com/material-components/material-web/blob/main/checkbox/internal/_checkbox.scss)、[v0.192 令牌](https://github.com/material-components/material-web/blob/main/tokens/versions/v0_192/_md-comp-checkbox.scss)、[Apple HIG Toggles](https://developer.apple.com/design/human-interface-guidelines/toggles)、[shadcn Checkbox 源码](https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/new-york-v4/ui/checkbox.tsx)。
+
+
+
+“禁用与半选组合”并列展示未选中、选中和半选的禁用状态。禁用后的标记仍表达原值，但鼠标和键盘都不能改变它；半选不作为第三种提交值。
+
+
+
+### 状态契约
+
+`checked / defaultChecked / onCheckedChange(next, details)` 管理单个复选框，`details.reason` 为 `toggle`；原生 `onChange(event)` 保留 DOM 事件签名。CheckboxGroup 使用 `value / defaultValue / onValueChange(next, details)`，原因是 `select / deselect`。
+
+受控值与默认值互斥；默认值仅在初始化时使用。外部属性更新不触发操作回调，省略回调可展示只读受控快照。
+
+
+### CheckboxGroup
 
 ### 适用场景
 
@@ -88,7 +105,7 @@ macOS 为参考 Apple HIG 的 Web 定制，并非 AppKit 原生控件的像素�
 
 ### 使用要点
 
-- 受控模式由 checked 与 onChange 共同组成，不能只传 checked。
+- 受控模式由 checked 与 onValueChange 共同组成，不能只传 checked。
 - 组内每项 value 必须稳定且唯一，显示标签应能单独理解。
 - 父级 indeterminate 要从子项计算，并在点击后明确转为全选或全不选。
 
@@ -97,12 +114,36 @@ macOS 为参考 Apple HIG 的 Web 定制，并非 AppKit 原生控件的像素�
 - 每个框都要与可点击标签关联，整组使用 fieldset/legend 或等价的组名称。
 - 错误、必填和禁用原因应通过文字传达，焦点指示不能被容器裁掉。
 
+### 设计依据与覆盖
+
+- **MD3 Expressive**：直接参考 M3 Checkboxes 的选中、未选、indeterminate、disabled 与状态层规则，并对照 Material Web 实现。 [依据 1](https://m3.material.io/components/checkbox/overview) · [依据 2](https://material-web.dev/components/checkbox/) · [依据 3](https://github.com/material-components/material-web/tree/main/checkbox)
+- **Apple**：依据 Apple HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。 [依据 1](https://developer.apple.com/design/human-interface-guidelines/components) · [依据 2](https://developer.apple.com/design/human-interface-guidelines/accessibility)
+- **shadcn/ui**：参考 shadcn/ui 的组件用途、中性表面与设计变量，在本库公共语义和 React 交互模型中实现；完整状态覆盖仍需按矩阵验收。 [依据 1](https://ui.shadcn.com/docs/components) · [依据 2](https://ui.shadcn.com/docs/theming) · [依据 3](https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4)
+
+设计依据不等于完成验收；当前状态与适用边界见[覆盖矩阵](/guides/design-coverage)。
+
 ## 常见问题
 
 ### 受控与非受控可以混用吗？
 
-同一实例应选择一种方式。需要业务代码读取或修改状态时，用 checked 和 onChange。
+同一实例应选择一种方式。需要业务代码读取或修改状态时，用 checked 和 onCheckedChange。
 
 ## API
 
 <API source="../_generated_api/rc-checkbox.ts" symbol="CheckboxProps" component="Checkbox" />
+
+<details data-docs-native-props>
+<summary>Checkbox 继承的原生属性（301 项）</summary>
+
+<API source="../_generated_api/rc-checkbox-native.ts" symbol="CheckboxPropsNativeAttributes" component="Checkbox 继承的原生属性" />
+
+</details>
+
+<API source="../_generated_api/rc-checkbox-CheckboxGroupProps.ts" symbol="CheckboxGroupProps" component="CheckboxGroup" />
+
+<details data-docs-native-props>
+<summary>CheckboxGroup 继承的原生属性（275 项）</summary>
+
+<API source="../_generated_api/rc-checkbox-CheckboxGroupProps-native.ts" symbol="CheckboxGroupPropsNativeAttributes" component="CheckboxGroup 继承的原生属性" />
+
+</details>

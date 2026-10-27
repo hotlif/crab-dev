@@ -48,11 +48,11 @@ beforeEach(() => {
 describe("Drawer", () => {
     it('keeps the configured design on its top-layer element', async () => {
         const content = <Drawer open onOpenChange={() => {}} title="Scoped drawer">Content</Drawer>;
-        const view = await render(<ConfigProvider design="shadcn">{content}</ConfigProvider>);
+        const view = await render(<ConfigProvider designSystem="shadcn">{content}</ConfigProvider>);
         const boundary = view.container.querySelector('dialog');
         expect(boundary?.getAttribute('data-crab-design')).toBe('shadcn');
-        await view.rerender(<ConfigProvider design="material">{content}</ConfigProvider>);
-        expect(boundary?.getAttribute('data-crab-design')).toBe('material');
+        await view.rerender(<ConfigProvider designSystem="md3">{content}</ConfigProvider>);
+        expect(boundary?.getAttribute('data-crab-design')).toBe('md3');
     });
     it("names the dialog from its title and preserves an explicit accessible name", async () => {
         const view = await render(<Drawer title="项目详情" open onOpenChange={() => {}}>Content</Drawer>);
@@ -155,16 +155,16 @@ describe("Drawer", () => {
             <p>content</p>
         </Drawer>);
         await act(async () => {
-            await fireEvent.click(screen.getByRole("button", { name: "Close" }));
+            await fireEvent.click(screen.getByRole("button", { name: "关闭" }));
             await Promise.resolve();
         });
-        expect(handleOpenChange).toHaveBeenCalledWith(false);
+        expect(handleOpenChange).toHaveBeenCalledWith(false, expect.objectContaining({ reason: expect.any(String) }));
     });
     it("supports synthesized activation and preserves a rejected close", async () => {
         const handleOpenChange = mock.fn();
         const handleClose = mock.fn(() => false);
         const view = await render(<Drawer open onClose={handleClose} onOpenChange={handleOpenChange} title="Header">Content</Drawer>);
-        const closeButton = screen.getByRole("button", { name: "Close" });
+        const closeButton = screen.getByRole("button", { name: "关闭" });
         await act(async () => closeButton.focus());
         // The DOM runner cannot perform native Enter/Space activation; their
         // synthesized click has detail=0, as do assistive-technology clicks.
@@ -173,7 +173,7 @@ describe("Drawer", () => {
         expect(handleOpenChange).not.toHaveBeenCalled();
         await view.rerender(<Drawer open onOpenChange={handleOpenChange} title="Header">Content</Drawer>);
         await fireEvent.click(closeButton, { detail: 0 });
-        expect(handleOpenChange).toHaveBeenCalledWith(false);
+        expect(handleOpenChange).toHaveBeenCalledWith(false, expect.objectContaining({ reason: expect.any(String) }));
     });
     it("closes when overlay is clicked and maskClosable is true", async () => {
         const handleOpenChange = mock.fn();
@@ -184,7 +184,7 @@ describe("Drawer", () => {
             await fireEvent.click(screen.getByTestId("drawer-overlay"));
             await Promise.resolve();
         });
-        expect(handleOpenChange).toHaveBeenCalledWith(false);
+        expect(handleOpenChange).toHaveBeenCalledWith(false, expect.objectContaining({ reason: expect.any(String) }));
     });
     it("does not close when maskClosable is false", async () => {
         const handleOpenChange = mock.fn();
@@ -201,7 +201,7 @@ describe("Drawer", () => {
         await render(<Drawer open closable={false} onOpenChange={() => { }} title="x">
             <p>content</p>
         </Drawer>);
-        expect(screen.queryByRole("button", { name: "Close" })).toBeNull();
+        expect(screen.queryByRole("button", { name: "关闭" })).toBeNull();
     });
     it("renders footer slot when provided", async () => {
         await render(<Drawer open onOpenChange={() => { }} footer={<span>footer</span>}>
@@ -231,3 +231,36 @@ describe("Drawer", () => {
     });
 });
 void React;
+
+describe('Drawer default state and localization', () => {
+    it('supports a self-owned initial open state with typed close metadata', async () => {
+        const onOpenChange = mock.fn();
+        const view = await render(<Drawer defaultOpen title="Initial" onOpenChange={onOpenChange}>Content</Drawer>);
+        await view.rerender(<Drawer defaultOpen={false} title="Initial" onOpenChange={onOpenChange}>Content</Drawer>);
+        expect(onOpenChange).not.toHaveBeenCalled();
+        await fireEvent.click(screen.getByRole('button', { name: '关闭' }));
+        expect(onOpenChange).toHaveBeenCalledWith(false, expect.objectContaining({ reason: 'close-button' }));
+        expect(closeSpy).toHaveBeenCalled();
+    });
+    it('inherits English close label and document direction', async () => {
+        const view = await render(<ConfigProvider locale="en-US" direction="rtl"><Drawer open title="Localized" /></ConfigProvider>);
+        expect(screen.getByRole('button', { name: 'Close' })).toBeTruthy();
+        expect(view.container.querySelector('dialog')?.getAttribute('dir')).toBe('rtl');
+    });
+});
+describe('native style boundary', () => {
+    it('re-establishes custom brand and density on the native root and removes a reset brand', async () => {
+        const view = await render(<ConfigProvider designSystem="apple" brandColor="#6750a4" density="compact" nonce="brand-drawer"><Drawer open title="Branded" /></ConfigProvider>);
+        const modal = view.container.querySelector('dialog');
+        const scope = modal?.getAttribute('data-crab-brand');
+        const sheet = modal?.querySelector('style[data-crab-brand-style]');
+        expect(scope).toBeTruthy();
+        expect(sheet?.getAttribute('data-crab-brand-style')).toBe(scope);
+        expect(sheet?.getAttribute('nonce')).toBe('brand-drawer');
+        expect(sheet?.textContent).toContain(`[data-crab-brand="${scope}"][data-theme="light"][data-crab-design="apple"]`);
+        expect(modal?.getAttribute('data-crab-density')).toBe('compact');
+        await view.rerender(<ConfigProvider designSystem="apple" brandColor={null}><Drawer open title="Branded" /></ConfigProvider>);
+        expect(modal?.getAttribute('data-crab-brand')).toBeNull();
+        expect(modal?.querySelector('style[data-crab-brand-style]')).toBeNull();
+    });
+});

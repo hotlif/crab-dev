@@ -36,16 +36,16 @@ export default function Example() {
                 <p className={noteStyle}>纯图标按钮通过 aria-label 提供名称；圆形按钮宽高相等。</p>
                 <div className={rowStyle}>
                     <Button icon={<PlusIcon />} aria-label="方形新增" onClick={() => setMessage("已点击方形新增。")}/>
-                    <Button appearance="primary" shape="circle" size="small" icon={<PlusIcon />} aria-label="小号圆形新增" onClick={() => setMessage("已点击小号圆形新增。")}/>
+                    <Button appearance="primary" shape="circle" size="s" icon={<PlusIcon />} aria-label="小号圆形新增" onClick={() => setMessage("已点击小号圆形新增。")}/>
                     <Button appearance="primary" shape="circle" icon={<PlusIcon />} aria-label="中号圆形新增" onClick={() => setMessage("已点击中号圆形新增。")}/>
-                    <Button appearance="primary" shape="circle" size="large" icon={<PlusIcon />} aria-label="大号圆形新增" onClick={() => setMessage("已点击大号圆形新增。")}/>
+                    <Button appearance="primary" shape="circle" size="l" icon={<PlusIcon />} aria-label="大号圆形新增" onClick={() => setMessage("已点击大号圆形新增。")}/>
                     <Button shape="circle" icon={<PlusIcon />} aria-label="禁用圆形新增" disabled />
                 </div>
             </section>
             <section className={sectionStyle} aria-label="按钮组选中状态">
                 <strong>按钮组与选中</strong>
                 <p className={noteStyle}>ButtonGroup 统一尺寸和外观，isSelected 显示可切换状态。</p>
-                <ButtonGroup size="middle" appearance="outlined">
+                <ButtonGroup size="m" appearance="outlined">
                     <Button isSelected={bold} onClick={() => setBold(value => !value)}>粗体</Button>
                     <Button isSelected={italic} onClick={() => setItalic(value => !value)}>斜体</Button>
                     <Button isSelected={underline} onClick={() => setUnderline(value => !value)}>下划线</Button>

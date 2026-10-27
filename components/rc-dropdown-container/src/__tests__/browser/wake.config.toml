@@ -1,0 +1,22 @@
+# Cross-Document focus must use an actual browser realm. The source behavior
+# test uses the shared CSS mock through setup, never an out-of-root TS import.
+[test]
+setup = ["../../../../../test/wake-css.setup.ts"]
+environment = "browser"
+include = ["dropdownContainer.focus.test.tsx"]
+timeout_ms = 15000
+leaks = "error"
+
+[test.react]
+strict_mode = false
+cleanup = true
+act_warnings = "error"
+test_id_attribute = "data-testid"
+
+[test.network]
+mode = "deny"
+allow_hosts = []
+
+[test.coverage]
+enabled = true
+reporters = ["text", "lcov"]

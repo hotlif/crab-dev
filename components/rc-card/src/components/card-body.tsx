@@ -6,13 +6,13 @@ import type { CardBodyProps } from '../types.js';
 // 紧跟标题区时顶距压缩为区块间距，避免 pad + pad 的双倍留白。
 const bodyStyle = css`
     flex: 1 1 auto;
-    padding: var(--rc-card-pad, ${token.size.middle.padding});
+    padding: var(--rc-card-pad, ${token.size.medium.padding});
     color: ${token.body.color};
     font-size: ${token.body['font-size']};
     line-height: ${token.body['line-height']};
 
     [data-card-header] + & {
-        padding-top: var(--rc-card-gap, ${token.size.middle.gap});
+        padding-top: var(--rc-card-gap, ${token.size.medium.gap});
     }
 `;
 

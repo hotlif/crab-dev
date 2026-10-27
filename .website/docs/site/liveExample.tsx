@@ -113,7 +113,7 @@ export default function LiveExample({
             {heading === "none" && description && <p className={exampleDescription}>{description}</p>}
             <Preview
                 title={heading === "inside" ? title : undefined}
-                actions={<Button size="small" appearance="text" aria-label={`重置${title}`} onClick={reset}>重置</Button>}
+                actions={<Button size="s" appearance="text" aria-label={`重置${title}`} onClick={reset}>重置</Button>}
                 description={heading === "none" ? undefined : description}
                 sourceCode={sourceCode}
                 codeTheme={codeTheme}

@@ -12,6 +12,7 @@ imports = [
 
 surface.background-color = "$ref(color.surface.content)"
 elevated.background-color = "var(--card-surface-background-color, $ref(color.surface.low))"
+loading.background-color = "$ref(color.fill.translucent)"
 default.border-color = "$ref(color.border.card)"
 default.box-shadow = "$ref(shadow.card)"
 default.box-shadow-hover = "$ref(shadow.card-hover)"
@@ -54,10 +55,10 @@ size.large.title.font-size = "$ref(font.size.heading)"
 
 # ─── 尺寸 — Middle（默认）────────────────────────────────────────────────────
 
-size.middle.padding = "$ref(surface.card.padding.middle)"
-size.middle.gap = "$ref(sizing.middle.gap)"
-size.middle.border-radius     = "$ref(shape.card)"
-size.middle.title.font-size = "$ref(font.size.subhead)"
+size.medium.padding = "$ref(surface.card.padding.medium)"
+size.medium.gap = "$ref(sizing.medium.gap)"
+size.medium.border-radius     = "$ref(shape.card)"
+size.medium.title.font-size = "$ref(font.size.subhead)"
 
 # ─── 尺寸 — Small ────────────────────────────────────────────────────────────
 

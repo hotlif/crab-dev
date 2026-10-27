@@ -86,15 +86,9 @@ describe('Button', () => {
         expect(button.getAttribute('aria-busy')).toBe('true');
         expect(button.getAttribute('data-is-loading')).toBeNull();
     });
-    it('preserves legacy size aliases and renders all Expressive sizes', async () => {
+    it('renders all five Expressive sizes', async () => {
         const { button, rerender, unmount } = await renderButton();
-        for (const [legacy, current] of [['small', 'xs'], ['middle', 's'], ['large', 'm']] as const) {
-            await rerender(<Button size={legacy}>Button Text</Button>);
-            const legacyClasses = button.className;
-            await rerender(<Button size={current}>Button Text</Button>);
-            expect(button.className).toBe(legacyClasses);
-        }
-        for (const size of ['l', 'xl'] as const) {
+        for (const size of ['xs', 's', 'm', 'l', 'xl'] as const) {
             await rerender(<Button size={size}>Button Text</Button>);
             expect(button.textContent).toBe('Button Text');
         }
@@ -233,7 +227,7 @@ describe('Button', () => {
         await unmount();
     });
     it('renders all size variants and fit-container option', async () => {
-        const sizeList: NonNullable<ButtonNativeProps['size']>[] = ['large', 'middle', 'small'];
+        const sizeList: NonNullable<ButtonNativeProps['size']>[] = ['xs', 's', 'm', 'l', 'xl'];
         for (const size of sizeList) {
             const { button, unmount } = await renderButton({ size, shouldFitContainer: true });
             expect(button.className.length).toBeGreaterThan(0);

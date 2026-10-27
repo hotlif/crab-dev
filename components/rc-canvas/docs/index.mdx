@@ -35,6 +35,18 @@ status = "experimental"
 
 ## 代码演示
 
+### 文本内联编辑
+
+`Text` 的 `editable` 开启双击编辑。绘制内容仍由 WebGL 呈现；编辑期间会在画布容器内挂载原生 `textarea`，继承最近 `ConfigProvider` 的语言和主题上下文。编辑器默认名称为中文“编辑画布文本”或英文“Edit canvas text”，可用 `editorLabel` 提供当前对象的明确名称（例如“流程节点标题”）；空白名称回退到本地化默认值。
+
+进入编辑时焦点落入文本框并选中现有内容；编辑期间切换语言或主题会保留草稿与光标选区。失焦或 Enter 提交一次并调用 `onEdit`，Shift+Enter 保留换行，Escape 取消修改；输入法组合期间的 Enter / Escape 留给输入法处理。
+
+Enter / Escape 结束编辑后，焦点返回仍挂载的 Canvas 容器；如果 `onEdit` 已主动移焦或卸载画布，则尊重应用的选择。点击外部导致的失焦提交不会把焦点抢回。该原生文本框承担浏览器文字输入与编辑语义；它不把整个 Canvas 或其他 WebGL 图元转换为 DOM 控件，也不能替代应用为图元选择、拖拽和进入编辑提供键盘替代。
+
+“默认色板与文字编辑”示例用于观察当前主题的文字与编辑层。示例中的 `Rect` 未传 `fill`，按图元 API 默认透明，不能用它验收默认填色。双击文字进入编辑，Enter 提交、Shift+Enter 换行、Escape 取消；下方内容显示最近一次提交结果。
+
+“文字对齐与多行”使用当前体系的文本、品牌及反馈前景角色，参考线使用边界角色；切换明暗不再保留固定的深色文字。“Transformer”将初始世界原点置于画布中央，完整显示三个形状，之后通过受控 `Viewport` 保留用户的平移、缩放和形状选择。
+
 <Demos glob="./demos/*.demo.tsx" columns={2} />
 
 ## API
@@ -49,10 +61,14 @@ Canvas 真正卸载后主动释放 WebGL 上下文，避免虚拟列表反复挂
 
 <API source="../src/canvas.tsx" symbol="CanvasProps" component="Canvas" />
 
+<API source="../src/shapes/text.tsx" symbol="TextProps" component="Text" />
 
 ## 设计风格与主题
 
-画布的网格、文字、选区、编辑框、变换手柄与小地图由现有语义色板跟随当前设计和浅深模式；WebGL 使用 DOM 解析后的颜色。几何图元的显式 fill / stroke 是业务内容，不随主题擅自重写。
-本范围以 M3 Lists / Divider 的表面、分隔、状态和无障碍规则作为扩展依据；数据表、图表、PDF 编辑器和可拖动分栏并非 Material Web 的同名标准组件。macOS 与 shadcn 是本项目在相同交互能力上的设计变体，未引入第三方 UI 运行时，也不宣称原生平台逐像素复刻。
+Canvas 按 Crab 的专业绘图扩展维护。Material Design 3 Expressive（`md3`）、Apple（`apple`）和 shadcn/ui（`shadcn`）的来源与固定基线见[三套设计体系](/guides/design-styles)；这些依据用于语义角色和编辑辅助界面，不定义本库的 WebGL 绘图协议。
 
-参考（2026-10-22）：[M3 Lists 指南](https://m3.material.io/components/lists/guidelines)、[规格](https://m3.material.io/components/lists/specs)、[无障碍](https://m3.material.io/components/lists/accessibility)、[M3 Divider](https://m3.material.io/components/divider/guidelines)、[Material Web List 文档及示例](https://material-web.dev/components/list/)、[列表项样式](https://github.com/material-components/material-web/blob/main/list/internal/listitem/_list-item.scss)、[列表令牌](https://github.com/material-components/material-web/blob/main/tokens/_md-comp-list-item.scss)、[Divider 样式](https://github.com/material-components/material-web/blob/main/divider/internal/_divider.scss)、[Apple Lists and tables](https://developer.apple.com/design/human-interface-guidelines/lists-and-tables)、[shadcn Table](https://ui.shadcn.com/docs/components/table)、[Table 源码](https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/new-york-v4/ui/table.tsx)、[shadcn Resizable](https://ui.shadcn.com/docs/components/resizable)。
+默认文字、网格、选区、内联编辑框、变换手柄和小地图通过本包 L3 色板映射到各体系的前景、表面、选中、焦点和浮层角色。WebGL 接收在画布 DOM 边界解析后的颜色；`palette` 可局部覆盖这些角色，显式图元颜色保持优先。未指定 `fill` / `stroke` 的 `Rect` 仍按图元 API 保持透明。
+
+图元坐标、矩阵、字号、线宽、缩放和动画参数属于绘图领域，不按全局控件尺寸或密度等比放大。画布中绘制的文本和图形也不自动获得 DOM 控件的名称、焦点或键盘模型；内联编辑器与应用提供的键盘操作需要分别核对。
+
+本包的三体系、浅深色和适用交互状态分别验收，覆盖等级以[覆盖矩阵](/guides/design-coverage)及对应候选记录为准。

@@ -1,0 +1,19 @@
+# Published ESM and extracted CSS under Wake's fixed reduced-motion profile.
+[test]
+environment = "browser"
+include = ["loading-fill.test.tsx", "loading-layout.test.tsx"]
+timeout_ms = 15000
+leaks = "error"
+
+[test.react]
+strict_mode = false
+cleanup = true
+act_warnings = "error"
+
+[test.network]
+mode = "deny"
+allow_hosts = []
+
+[test.coverage]
+enabled = true
+reporters = ["text", "lcov"]

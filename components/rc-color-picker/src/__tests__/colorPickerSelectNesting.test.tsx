@@ -1,4 +1,5 @@
-import { afterEach, beforeAll, beforeEach, describe, expect, it, mock, fireEvent, render, screen, waitFor, act } from "@crab-dev/wake/test/react";
+import { afterEach, beforeAll, beforeEach, describe, expect, it, mock } from '@crab-dev/wake/test';
+import { fireEvent, render, screen, waitFor, act } from '@crab-dev/wake/test/react';
 
 import type { OKLCHValue } from '../types.js';
 let ColorPicker: (typeof import('../colorPicker/colorPicker.js'))['default'];
@@ -68,6 +69,16 @@ const settleFloatingUpdates = async () => {
     });
 };
 describe('ColorPicker + RcSelect nesting (real rc-dropdown-container / rc-select)', () => {
+    it('owns initial visibility and emits the shared open change details', async () => {
+        const changed = mock.fn();
+        await render(<ColorPicker defaultOpen defaultValue={defaultValue} onOpenChange={changed} />);
+        expect(screen.getByRole('dialog', { name: '颜色选择' })).toBeTruthy();
+        await fireEvent.click(screen.getByRole('button', { name: '取消' }));
+        expect(changed).toHaveBeenCalledWith(false, expect.objectContaining({ reason: 'trigger' }));
+        await waitFor(() => { expect(screen.queryByRole('dialog', { name: '颜色选择' })).toBeNull(); });
+        await settleFloatingUpdates();
+    });
+
     it('keeps the picker open and applies the change when picking an option in the nested format select', async () => {
         const onValueChange = mock.fn<(v: OKLCHValue) => void>();
         await render(<ColorPicker value={defaultValue} onValueChange={onValueChange}/>);

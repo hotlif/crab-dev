@@ -18,25 +18,29 @@ type SyntheticEvent<T0 = unknown, T1 = unknown> = DocsTypePlaceholder & { readon
 
 export interface AvatarProps {
     /**
+     * Defines a string value that labels the current element.
+     */
+    "aria-label"?: string | undefined | string;
+
+    /**
      * 形状
-     * @default 'circle'
+     * @default ’circle’
      */
     "shape"?: AvatarShape;
 
     /**
      * 尺寸；传数字时单位为 px，覆盖三档预设
-     * @default 'middle'
      */
     "size"?: AvatarSize | number;
 
     /**
      * 颜色语义，仅在非图片态下生效
-     * @default 'default'
+     * @default ’default’
      */
     "variant"?: AvatarVariant;
 
     /**
-     * 图片地址
+     * 图片地址 与 children 互斥，不能同时提供。
      */
     "src"?: string;
 
@@ -46,13 +50,13 @@ export interface AvatarProps {
     "srcSet"?: string;
 
     /**
-     * 图片替代文本
+     * 图片替代文本 与 children 互斥，不能同时提供。
      */
     "alt"?: string;
 
     /**
      * 图片填充方式
-     * @default 'cover'
+     * @default ’cover’
      */
     "fit"?: AvatarFit;
 
@@ -102,9 +106,4 @@ export interface AvatarProps {
      * 暂无说明。
      */
     "children"?: ReactNode;
-
-    /**
-     * 暂无说明。
-     */
-    "aria-label"?: string;
 }

@@ -1,33 +1,20 @@
-import { useControllableValue } from "./useControllableValue.js";
-import { useEventCallback } from "./useEventCallback.js";
+import type { ChangeDetails } from './controlled.js';
+import { useControllableValue } from './useControllableValue.js';
 
-export interface ControllableOpenOptions {
-    /** 受控展开态：非 `undefined` 即进入受控模式 */
+export interface ControllableOpenOptions<D = ChangeDetails<'trigger'>> {
     open?: boolean;
-    /** 非受控模式下的初始展开态，默认 `false` */
     defaultOpen?: boolean;
-    /** 展开态变化回调 */
-    onOpenChange?: (open: boolean) => void;
+    onOpenChange?: (open: boolean, details: D) => void;
 }
 
-/**
- * useControllableValue 的布尔特例：统一浮层 / 展开类组件（下拉、气泡、面板、菜单等）
- * 的 `open` 受控逻辑。返回的 setter 引用稳定。
- */
-export function useControllableOpen(
-    options: ControllableOpenOptions,
-): readonly [boolean, (open: boolean) => void] {
+/** Default state initializes once; only an explicit request with metadata notifies. */
+export function useControllableOpen<D = ChangeDetails<'trigger'>>(
+    options: ControllableOpenOptions<D>,
+): readonly [boolean, (open: boolean, details: D) => void] {
     const { open, defaultOpen = false, onOpenChange } = options;
-    const [value, setValue] = useControllableValue<boolean>({
+    return useControllableValue<boolean, [details: D]>({
         value: open,
         defaultValue: defaultOpen,
-        onChange: onOpenChange,
+        onValueChange: onOpenChange,
     });
-
-    // 仅暴露 (open: boolean) 签名：调用方（如 Floating UI 的 onOpenChange 会附带
-    // event / reason）传入的额外参数不应透传到 onOpenChange —— 其语义固定为
-    // (open: boolean) => void。
-    const setOpen = useEventCallback((next: boolean) => setValue(next));
-
-    return [value, setOpen];
 }

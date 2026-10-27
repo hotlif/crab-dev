@@ -6,8 +6,9 @@ import Button from "@crab-dev/rc-button";
 export const navigationCategories = [
     { id: "start", title: "开始", heading: "开始使用" },
     { id: "components", title: "组件", heading: "组件" },
+    { id: "design", title: "设计", heading: "设计体系" },
     { id: "learn", title: "实战", heading: "实战教程" },
-    { id: "tools", title: "工具", heading: "开发工具" },
+    { id: "tools", title: "维护", heading: "组件库维护" },
 ] as const;
 
 export type NavigationCategory = typeof navigationCategories[number]["id"];
@@ -23,12 +24,13 @@ export function categoryForPath(path: string): NavigationCategory | null {
     const slug = path.replace(/^\//, "").replace(/\/$/, "");
     if (slug.startsWith("components/") || slug === "learn/components") return "components";
     if (slug === "learn" || slug.startsWith("learn/")) return "learn";
-    if (slug === "guides/toolchain") return "tools";
+    if (["guides/design-styles", "guides/component-sizing", "guides/design-coverage"].includes(slug)) return "design";
+    if (["guides/toolchain", "guides/contributing", "guides/dependencies"].includes(slug)) return "tools";
     return slug.startsWith("guides/") ? "start" : null;
 }
 
 export function groupsForCategory(groups: NavigationProps["groups"], category: NavigationCategory) {
-    const visible = groups.filter(group => group.id !== "design");
+    const visible = groups;
     const pages = visible.flatMap(group => [...group.pages, ...group.sections.flatMap(section => section.pages)]);
     const selectedPages = pages.filter(page => categoryForPath(page.slug) === category);
     if (category === "components") {

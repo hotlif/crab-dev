@@ -18,7 +18,7 @@ export default function Example() {
     const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
     return <div className={grid}>
         <LineEdit label="联系邮箱" type="email" value={email}
-            onChange={event => { setEmail(event.target.value); setChecked(false); }}
+            onValueChange={value => { setEmail(value); setChecked(false); }}
             onBlur={() => setChecked(true)}
             supportingText="用于接收项目邀请。"
             errorText={checked && !valid ? "邮箱不完整，请补全域名，例如 hello@crab.dev。" : undefined} />

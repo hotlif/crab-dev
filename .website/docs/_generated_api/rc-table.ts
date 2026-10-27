@@ -8,6 +8,7 @@ type DocsTypePlaceholder = ((...args: never[]) => unknown) & {
 type Array<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 type CellEditRecord = DocsTypePlaceholder;
 type ColumnType<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
+type ConfigDensity = DocsTypePlaceholder;
 type ConfigSize = DocsTypePlaceholder;
 type FilterEditorParam<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 type GroupCellRenderParam<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
@@ -24,9 +25,14 @@ type TableCellProps<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeA
 
 export interface TableProps {
     /**
-     * 行高尺寸档；显式行高回调和 row.height 优先。省略时继承 ConfigProvider。
+     * 表格内置控件尺寸；不改变数据行几何。省略时继承 ConfigProvider。
      */
     "size"?: ConfigSize;
+
+    /**
+     * 数据行与表头密度；显式行高回调和 row.height 优先。
+     */
+    "density"?: ConfigDensity;
 
     /**
      * 表格的宽度
@@ -121,7 +127,7 @@ export interface TableProps {
     /**
      * 暂无说明。
      */
-    "expandedGroupIds"?: Set<Key>;
+    "expandedGroupIds"?: Set<Key> | Set<Key> | undefined;
 
     /**
      * 暂无说明。
@@ -161,7 +167,7 @@ export interface TableProps {
     /**
      * 受控当前编辑行 ID
      */
-    "editingRowId"?: Key | null;
+    "editingRowId"?: Key | null | Key | null | undefined;
 
     /**
      * 非受控初始编辑行 ID
@@ -231,7 +237,7 @@ export interface TableProps {
     /**
      * 受控排序列配置
      */
-    "sortColumns"?: SortColumn[];
+    "sortColumns"?: SortColumn[] | SortColumn[] | undefined;
 
     /**
      * server 保留排序交互，行顺序由调用者提供。
@@ -271,7 +277,7 @@ export interface TableProps {
     /**
      * 受控展开行 id 集合
      */
-    "expandedRowIds"?: Set<Key>;
+    "expandedRowIds"?: Set<Key> | Set<Key> | undefined;
 
     /**
      * 非受控初始展开行 id 集合
@@ -311,7 +317,7 @@ export interface TableProps {
     /**
      * 受控展开行 key 集合（与树形 expandedRowIds 相互独立）
      */
-    "expandedRowKeys"?: Set<Key>;
+    "expandedRowKeys"?: Set<Key> | Set<Key> | undefined;
 
     /**
      * 非受控初始展开行 key 集合

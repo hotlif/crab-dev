@@ -2,11 +2,12 @@ import token from "@crab-dev/rc-token-semantic";
 import { canvasViewportStyle } from "../demo-layout.js";
 export const meta = {
     title: "属性驱动动画",
-    description: "用 React state 逐帧更新图元 props，Canvas 内部 rAF 渲染循环自动重绘，演示流畅动画。",
+    description: "用 React state 逐帧更新图元 props，Canvas 内部 rAF 渲染循环自动重绘；减少动态效果时暂停属性更新。",
 };
 
 import { css, cx } from "@crab-dev/css";
 import { useEffect, useState } from "react";
+import { useMediaQuery } from "@crab-dev/rc-hooks";
 import { Canvas, Group, Rect, Circle } from "../../src/index.js";
 
 // Wake 0.1.38: preserve both static style bindings across the imported cx composition.
@@ -25,8 +26,10 @@ const COUNT = 6;
 
 const AnimationDemo = () => {
     const [t, setT] = useState(0);
+    const reducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
 
     useEffect(() => {
+        if (reducedMotion) return;
         let raf = 0;
         const start = performance.now();
         const tick = () => {
@@ -35,7 +38,7 @@ const AnimationDemo = () => {
         };
         raf = requestAnimationFrame(tick);
         return () => cancelAnimationFrame(raf);
-    }, []);
+    }, [reducedMotion]);
 
     const planets = Array.from({ length: COUNT }, (_, i) => {
         const speed = 0.6 + i * 0.25;

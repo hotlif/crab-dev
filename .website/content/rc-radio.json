@@ -1,52 +1,52 @@
 {
-  "id": "rc-radio",
-  "title": "Radio 单选框",
-  "summary": "从少量可见选项中选择一项，用清晰的分组和及时反馈帮助用户做决定。",
-  "prerequisite": "已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。示例使用公开组件入口，样式由 Wake 自动加载。",
-  "steps": [
-    {
-      "id": "step-1",
-      "title": "通知偏好",
-      "goal": "选择一种通知节奏，同时查看对应的通知预览。",
-      "why": "将互斥选项与结果放在同一上下文，让选择的影响一目了然。",
-      "instruction": "选择每天、每周或仅重要通知。",
-      "expected": "预览时间和说明同步更新，同组只保留一个选中项。",
-      "changes": [
-        "使用原生 Radio 与 RadioGroup，整行标签可点击。",
-        "将当前组值用于通知预览和状态反馈。"
-      ],
-      "source": "rc-radio/step-1.tsx"
-    },
-    {
-      "id": "step-2",
-      "title": "受控单选组",
-      "goal": "用 value 与 onChange 连接选项和组值。",
-      "why": "单选组展示少量互斥选项，组值用于业务提交。",
-      "instruction": "选择每天，查看提交值。",
-      "expected": "当前组值变为 daily，其他选项取消选中。",
-      "changes": [
-        "通过组级 value 与 onChange 管理选中值。"
-      ],
-      "source": "rc-radio/step-2.tsx"
-    },
-    {
-      "id": "step-3",
-      "title": "交互试验区",
-      "goal": "直接切换主题、品牌色和状态，检查真实交互。",
-      "why": "Radio 保留 Material 的圆环和圆点；页面按 Expressive 的用途色、排版和分组表达重点。",
-      "instruction": "切换浅色或深色、品牌色，再体验禁用和校验状态；选择一项解除错误。",
-      "expected": "禁用选项不响应；校验提示与输入关联，选择后立即恢复正常。",
-      "changes": [
-        "使用 ConfigProvider 切换局部主题。",
-        "用实际状态驱动 disabled、aria-invalid 和关联说明。"
-      ],
-      "source": "rc-radio/step-3.tsx"
-    }
-  ],
-  "faq": [
-    {
-      "question": "选项很多时用什么？",
-      "answer": "选项较多时用 Select；Radio 适合直接比较少量选项。"
-    }
-  ]
+    "id": "rc-radio",
+    "title": "Radio 单选框",
+    "summary": "从少量可见选项中选择一项，用清晰的分组和及时反馈帮助用户做决定。",
+    "prerequisite": "已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。示例使用公开组件入口，样式由 Wake 自动加载。",
+    "steps": [
+        {
+            "id": "step-1",
+            "title": "通知偏好",
+            "goal": "选择一种通知节奏，同时查看对应的通知预览。",
+            "why": "将互斥选项与结果放在同一上下文，让选择的影响一目了然。",
+            "instruction": "选择每天、每周或仅重要通知。",
+            "expected": "预览时间和说明同步更新，同组只保留一个选中项。",
+            "changes": [
+                "使用原生 Radio 与 RadioGroup，整行标签可点击。",
+                "将当前组值用于通知预览和状态反馈。"
+            ],
+            "source": "rc-radio/step-1.tsx"
+        },
+        {
+            "id": "step-2",
+            "title": "受控单选组",
+            "goal": "用 value 与 onValueChange 连接选项和组值。",
+            "why": "单选组展示少量互斥选项，组值用于业务提交。",
+            "instruction": "选择每天，查看提交值。",
+            "expected": "当前组值变为 daily，其他选项取消选中。",
+            "changes": [
+                "通过组级 value 与 onValueChange 管理选中值。"
+            ],
+            "source": "rc-radio/step-2.tsx"
+        },
+        {
+            "id": "step-3",
+            "title": "交互试验区",
+            "goal": "直接切换主题、品牌色和状态，检查真实交互。",
+            "why": "Radio 保留 MD3 Expressive 的圆环和圆点；页面按 Expressive 的用途色、排版和分组表达重点。",
+            "instruction": "切换浅色或深色、品牌色，再体验禁用和校验状态；选择一项解除错误。",
+            "expected": "禁用选项不响应；校验提示与输入关联，选择后立即恢复正常。",
+            "changes": [
+                "使用 ConfigProvider 切换局部主题。",
+                "用实际状态驱动 disabled、aria-invalid 和关联说明。"
+            ],
+            "source": "rc-radio/step-3.tsx"
+        }
+    ],
+    "faq": [
+        {
+            "question": "选项很多时用什么？",
+            "answer": "选项较多时用 Select；Radio 适合直接比较少量选项。"
+        }
+    ]
 }

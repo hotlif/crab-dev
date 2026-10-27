@@ -15,6 +15,6 @@ export interface CardContextValue {
 }
 
 export const CardContext = createContext<CardContextValue>({
-    size: 'middle',
+    size: 'medium',
     clickable: false,
 });

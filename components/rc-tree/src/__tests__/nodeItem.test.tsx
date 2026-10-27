@@ -1,5 +1,6 @@
 import { beforeAll, describe, expect, it, mock } from "@crab-dev/wake/test";
 import { render, fireEvent, screen, act } from "@crab-dev/wake/test/react";
+import ConfigProvider from '@crab-dev/rc-config-provider';
 (globalThis as typeof globalThis & {
     IS_REACT_ACT_ENVIRONMENT?: boolean;
 }).IS_REACT_ACT_ENVIRONMENT = true;
@@ -17,6 +18,7 @@ import type { Node, OverState } from "../type.js";
 let NodeType: (typeof import("../type.js"))["NodeType"];
 let OverStateEnum: (typeof import("../type.js"))["OverStateEnum"];
 let LoadStateType: (typeof import("../type.js"))["LoadStateType"];
+let NodeEditStateType: (typeof import("../type.js"))["NodeEditStateType"];
 let NodeItem: (typeof import("../nodeItem.js"))["default"];
 beforeAll(async () => {
     const typeModule = await mock.import<typeof import("../type.js")>("../type.js");
@@ -24,6 +26,7 @@ beforeAll(async () => {
     NodeType = typeModule.NodeType;
     OverStateEnum = typeModule.OverStateEnum;
     LoadStateType = typeModule.LoadStateType;
+    NodeEditStateType = typeModule.NodeEditStateType;
     NodeItem = nodeItemModule.default;
 });
 const createNode = (id: string | number, overrides: Partial<Node> = {}): Node => ({
@@ -35,9 +38,102 @@ const createNode = (id: string | number, overrides: Partial<Node> = {}): Node =>
     ...overrides,
 });
 describe("NodeItem", () => {
+    for (const key of ['Enter', 'Escape'] as const) {
+        for (const composition of [{ isComposing: true }, { keyCode: 229 }]) {
+            it(`keeps ${key} inside IME composition (${JSON.stringify(composition)}) before one explicit edit action`, async () => {
+                const node = createNode('ime-title', { title: '文档', editState: NodeEditStateType.UPDATE });
+                const edited = mock.fn();
+                const ancestorKey = mock.fn();
+                await render(<div onKeyDown={ancestorKey}>
+                    <NodeItem node={node} overState={null} expanded={false} loading={false} onEditEnd={edited} />
+                </div>);
+                const input = screen.getByRole('textbox', { name: '文档' }) as HTMLInputElement;
+                const setValue = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value')?.set;
+                if (!setValue) throw new Error('Native input value setter unavailable');
+                setValue.call(input, '新的文档');
+                await fireEvent.input(input);
+                await fireEvent(input, new KeyboardEvent('keydown', { key, bubbles: true, cancelable: true, ...composition }));
+                expect(edited).not.toHaveBeenCalled();
+                expect(ancestorKey).not.toHaveBeenCalled();
+                expect(document.activeElement).toBe(input);
+                expect(input.value).toBe('新的文档');
+                expect(screen.getByRole('textbox', { name: '文档' })).toBe(input);
+                await fireEvent.keyDown(input, { key });
+                expect(edited).toHaveBeenCalledTimes(1);
+                expect(edited).toHaveBeenCalledWith(node, key === 'Enter' ? '新的文档' : '', key === 'Escape');
+                await fireEvent(input, new FocusEvent('focusout', { bubbles: true }));
+                expect(edited).toHaveBeenCalledTimes(1);
+            });
+        }
+    }
+    it('names the default editor from its title and preserves the field across locale changes and cancellation', async () => {
+        const node = createNode('edit-title', { title: '文档', editState: NodeEditStateType.UPDATE });
+        const onEditEnd = mock.fn();
+        const view = await render(<ConfigProvider locale="zh-CN">
+            <NodeItem node={node} overState={null} expanded={false} loading={false} onEditEnd={onEditEnd} />
+        </ConfigProvider>);
+        const editor = screen.getByRole('textbox', { name: '文档' }) as HTMLInputElement;
+        expect(editor.value).toBe('文档');
+        expect(document.activeElement).toBe(editor);
+        const labelId = editor.getAttribute('aria-labelledby')!;
+
+        await view.rerender(<ConfigProvider locale="en-US">
+            <NodeItem node={node} overState={null} expanded={false} loading={false} onEditEnd={onEditEnd} />
+        </ConfigProvider>);
+        expect(screen.getByRole('textbox', { name: '文档' })).toBe(editor);
+        expect(editor.value).toBe('文档');
+        expect(onEditEnd).not.toHaveBeenCalled();
+
+        await fireEvent.keyDown(editor, { key: 'Escape' });
+        expect(onEditEnd).toHaveBeenCalledTimes(1);
+        expect(onEditEnd).toHaveBeenCalledWith(node, '', true);
+        await view.rerender(<ConfigProvider locale="en-US">
+            <NodeItem node={{ ...node, editState: undefined }} overState={null} expanded={false} loading={false} onEditEnd={onEditEnd} />
+        </ConfigProvider>);
+        expect(screen.queryByRole('textbox')).toBeNull();
+        expect(document.getElementById(labelId)).toBeNull();
+        expect(screen.getByText('文档')).toBeTruthy();
+    });
+    it('associates the default editor with rich title markup and preserves its decorative exclusion', async () => {
+        const node = createNode('rich-edit-title', {
+            title: <span><span aria-hidden="true">装饰图标</span><strong>使用指南</strong></span>,
+            editState: NodeEditStateType.UPDATE,
+        });
+        await render(<NodeItem node={node} overState={null} expanded={false} loading={false} />);
+        // Wake 0.1.45 computes aria-labelledby from raw textContent and does not
+        // exclude aria-hidden descendants. Verify this DOM layer's real linkage;
+        // the candidate03 Chrome AX special verifies the actual computed name.
+        const editor = screen.getByRole('textbox') as HTMLInputElement;
+        const labelId = editor.getAttribute('aria-labelledby');
+        expect(typeof labelId).toBe('string');
+        expect(labelId?.trim().length).toBeGreaterThan(0);
+        const label = document.getElementById(labelId!);
+        expect(label?.querySelector('strong')?.textContent).toBe('使用指南');
+        expect(label?.querySelector('[aria-hidden="true"]')?.textContent).toBe('装饰图标');
+        expect(label?.getAttribute('aria-hidden')).not.toBe('true');
+        expect(editor.value).toBe('');
+        expect(editor.getAttribute('aria-label')).toBeNull();
+    });
+    it('leaves a custom editor in charge of its name, focus and cancellation', async () => {
+        const node = createNode('custom-edit-title', { title: '业务标题', editState: NodeEditStateType.UPDATE });
+        const onEditEnd = mock.fn();
+        await render(<NodeItem node={node} overState={null} expanded={false} loading={false} onEditEnd={onEditEnd}
+            renderEditInput={({ onCancel }) => <>
+                <input aria-label="自定义名称" defaultValue="业务草稿" />
+                <button type="button" onClick={onCancel}>取消自定义</button>
+            </>} />);
+        const editor = screen.getByRole('textbox', { name: '自定义名称' }) as HTMLInputElement;
+        expect(editor.getAttribute('aria-labelledby')).toBeNull();
+        expect(editor.value).toBe('业务草稿');
+        expect(screen.queryByRole('textbox', { name: '业务标题' })).toBeNull();
+        expect(document.activeElement).not.toBe(editor);
+        await fireEvent.click(screen.getByRole('button', { name: '取消自定义' }));
+        expect(onEditEnd).toHaveBeenCalledTimes(1);
+        expect(onEditEnd).toHaveBeenCalledWith(node, '', true);
+    });
     it("keeps non-draggable nodes selectable and exposes tree state", async () => {
         const node = createNode('accessible');
-        const view = await render(<NodeItem node={node} overState={null} expanded loading={false} selectKeys={[node.id]} />);
+        const view = await render(<NodeItem node={node} overState={null} expanded loading={false} selectedKeys={[node.id]} />);
         const item = view.container.querySelector('[role="treeitem"]')!;
         expect(item.getAttribute('aria-disabled')).toBe('false');
         expect(item.getAttribute('aria-selected')).toBe('true');
@@ -281,21 +377,21 @@ describe("NodeItem", () => {
         });
         expect(onTitleContextMenu).toHaveBeenCalled();
     });
-    it("sets data-selected attribute when node is in selectKeys", async () => {
+    it("sets data-selected attribute when node is in selectedKeys", async () => {
         const node = createNode("1");
         let container: HTMLElement;
         await act(async () => {
-            const result = await render(<NodeItem node={node} overState={null} expanded={false} loading={false} selectKeys={["1"]}/>);
+            const result = await render(<NodeItem node={node} overState={null} expanded={false} loading={false} selectedKeys={["1"]}/>);
             container = result.container;
         });
         const rootDiv = container!.firstElementChild as HTMLElement;
         expect(rootDiv.getAttribute("data-selected")).toBe("true");
     });
-    it("sets data-selected to false when node not in selectKeys", async () => {
+    it("sets data-selected to false when node not in selectedKeys", async () => {
         const node = createNode("1");
         let container: HTMLElement;
         await act(async () => {
-            const result = await render(<NodeItem node={node} overState={null} expanded={false} loading={false} selectKeys={["2"]}/>);
+            const result = await render(<NodeItem node={node} overState={null} expanded={false} loading={false} selectedKeys={["2"]}/>);
             container = result.container;
         });
         const rootDiv = container!.firstElementChild as HTMLElement;

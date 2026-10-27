@@ -4,6 +4,7 @@ import { css, cx } from '@crab-dev/css';
 import { Canvas, Rect, Line, Text } from '@crab-dev/rc-canvas';
 import AutoSizer from '@crab-dev/rc-auto-sizer';
 import Empty from '@crab-dev/rc-empty';
+import { useLocale } from '@crab-dev/rc-config-provider';
 import token from './token.js';
 import {
     MAX_SERIES,
@@ -22,8 +23,6 @@ const DEFAULT_HEIGHT = 320;
 
 /** 悬浮提示与指针（或锚定柱缘）的间距（px），避免提示框压住目标 */
 const TOOLTIP_OFFSET = 12;
-
-const defaultFormatValue = (value: number): string => value.toLocaleString();
 
 /**
  * 活动类目。sticky 表示由点按（触屏）或键盘聚焦固定：
@@ -54,7 +53,6 @@ const legendStyle = css`
 /* 图例项是切换系列显隐的按钮：光标 / hover 背景 / 焦点环齐备 */
 const legendItemStyle = css`
     @media (pointer: coarse) { min-width: ${token.legend.item.touch['min-width']}; min-height: ${token.legend.item.touch['min-height']}; }
-    @media (forced-colors: active) { &:focus-visible { outline: ${token.root['outline-width-focus']} solid Highlight; } }
     display: inline-flex;
     align-items: center;
     gap: ${token.legend.item.gap};
@@ -70,8 +68,12 @@ const legendItemStyle = css`
         background-color: ${token.legend.item['background-color-hover']};
     }
     &:focus-visible {
-        outline: none;                    /* 仅因下一行立即给出替代焦点意符，方才允许 */
+        outline: ${token.root['outline-width-focus']} solid ${token.root['outline-color-focus']};
         box-shadow: ${token.root['box-shadow-focus']};
+    }
+    /* 强制颜色不绘制 box-shadow，系统焦点轮廓须覆盖上面的普通模式重置。 */
+    @media (forced-colors: active) {
+        &:focus-visible { outline: ${token.root['outline-width-focus']} solid Highlight; }
     }
     @media (prefers-reduced-motion: reduce) {
         transition: none;
@@ -82,6 +84,8 @@ const legendItemStyle = css`
 const legendItemHiddenStyle = css`
     opacity: ${token.legend.item['opacity-hidden']};
     text-decoration: line-through;
+    /* 隐藏状态仍由划线表达；不能把键盘焦点轮廓一起减淡。 */
+    &:focus-visible { opacity: 1; }
 `;
 
 const legendSwatchStyle = css`
@@ -108,7 +112,6 @@ const keyboardLayerStyle = css`
 `;
 
 const barButtonStyle = css`
-    @media (forced-colors: active) { &:focus-visible { outline: ${token.root['outline-width-focus']} solid Highlight; } }
     position: absolute;
     padding: 0;
     border: 0;
@@ -116,8 +119,13 @@ const barButtonStyle = css`
     border-radius: 2px;
     pointer-events: none;
     &:focus-visible {
-        outline: none;                    /* 仅因下一行立即给出替代焦点意符，方才允许 */
-        box-shadow: ${token.root['box-shadow-focus']};
+        outline: ${token.root['outline-width-focus']} solid ${token.root['outline-color-focus']};
+        /* 柱间距可能仅2px；表面色隔离边避免焦点轮廓直接贴住相近系列色。 */
+        box-shadow: 0 0 0 calc(${token.root['outline-width-focus']} + ${token.root['outline-width-focus']}) ${token.palette.canvas['background-color']};
+    }
+    /* 覆盖按钮保持具体柱体的焦点位置，不能仅依靠整类目的悬浮提示。 */
+    @media (forced-colors: active) {
+        &:focus-visible { outline: ${token.root['outline-width-focus']} solid Highlight; }
     }
 `;
 
@@ -203,14 +211,20 @@ function BarChartInner({
     animate = true,
     showValues = false,
     referenceLines,
-    formatValue = defaultFormatValue,
+    formatValue: formatValueOverride,
+    labels,
     onBarClick,
-    'aria-label': ariaLabel = '柱状图',
+    'aria-label': ariaLabelOverride,
     className,
     style,
     ref,
     widthReady = true,
 }: InnerProps) {
+    const { locale } = useLocale();
+    const ariaLabel = ariaLabelOverride ?? (locale === 'en-US' ? 'Bar chart' : '柱状图');
+    const legendLabel = labels?.legend ?? (locale === 'en-US' ? 'Legend' : '图例');
+    const categoryLabel = labels?.category ?? (locale === 'en-US' ? 'Category' : '类目');
+    const formatValue = formatValueOverride ?? ((value: number): string => value.toLocaleString(locale));
     const palette = mergeBarChartPalette(paletteOverride);
     const [active, setActive] = useState<ActiveCategory | null>(null);
     /** 指针在画布包装层内的坐标，驱动悬浮提示跟随鼠标；无指针（键盘 / 触屏）时提示锚定类目列 */
@@ -327,7 +341,7 @@ function BarChartInner({
     return (
         <div ref={ref} className={cx.call(undefined, rootStyle, className)} style={style}>
             {visibleSeries.length >= 2 && (
-                <div className={legendStyle} role="group" aria-label="图例">
+                <div className={legendStyle} role="group" aria-label={legendLabel}>
                     {visibleSeries.map((s, i) => {
                         const hidden = hiddenSeries.has(i);
                         return (
@@ -730,27 +744,30 @@ function BarChartInner({
             </div>
 
             {/* 表格视图：辅助技术与无悬停环境的等价数据通道 */}
-            <table className={visuallyHiddenStyle}>
-                <caption>{ariaLabel}</caption>
-                <thead>
-                    <tr>
-                        <th scope="col">类目</th>
-                        {visibleSeries.map(s => (
-                            <th key={s.name} scope="col">{s.name}</th>
-                        ))}
-                    </tr>
-                </thead>
-                <tbody>
-                    {categories.map((category, i) => (
-                        <tr key={i}>
-                            <th scope="row">{category}</th>
+            {/* 表格的最小内容宽度可能超过 1px，由普通块容器约束溢出并保留表格语义。 */}
+            <div className={visuallyHiddenStyle}>
+                <table>
+                    <caption>{ariaLabel}</caption>
+                    <thead>
+                        <tr>
+                            <th scope="col">{categoryLabel}</th>
                             {visibleSeries.map(s => (
-                                <td key={s.name}>{formatValue(s.data[i] ?? 0)}</td>
+                                <th key={s.name} scope="col">{s.name}</th>
                             ))}
                         </tr>
-                    ))}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {categories.map((category, i) => (
+                            <tr key={i}>
+                                <th scope="row">{category}</th>
+                                {visibleSeries.map(s => (
+                                    <td key={s.name}>{formatValue(s.data[i] ?? 0)}</td>
+                                ))}
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
         </div>
     );
 }

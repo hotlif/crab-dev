@@ -12,20 +12,26 @@ type Ref<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?
 
 export interface SplitPaneProps {
     /**
-     * 分隔条的无障碍名称
-     * @default '调整面板大小'
-     */
-    "aria-label"?: string;
-
-    /**
      * 恰好两个面板：`[第一个, 第二个]`（horizontal 为左右，vertical 为上下）
      */
     "children": [ReactNode, ReactNode];
 
     /**
-     * 暂无说明。
+     * 分栏方向：`horizontal` 左右分栏（拖动调宽）；`vertical` 上下分栏（拖动调高）
+     * @default ’horizontal’
      */
-    "className"?: string;
+    "direction"?: 'horizontal' | 'vertical';
+
+    /**
+     * 尺寸受控的主面板；另一侧 flex 填充剩余空间
+     * @default ’first’
+     */
+    "primary"?: 'first' | 'second';
+
+    /**
+     * 受控尺寸（px）：非 `undefined` 即受控，配合 onSizeChange 使用
+     */
+    "size"?: number;
 
     /**
      * 非受控初始尺寸（px），同时是双击 / Enter 复位的目标
@@ -33,16 +39,10 @@ export interface SplitPaneProps {
     "defaultSize": number;
 
     /**
-     * 分栏方向：`horizontal` 左右分栏（拖动调宽）；`vertical` 上下分栏（拖动调高）
-     * @default 'horizontal'
+     * 主面板尺寸下限（px）
+     * @default 0
      */
-    "direction"?: 'horizontal' | 'vertical';
-
-    /**
-     * 禁用拖拽与键盘调整（分隔条仍渲染，仅作视觉分隔）
-     * @default false
-     */
-    "disabled"?: boolean;
+    "min"?: number;
 
     /**
      * 主面板尺寸上限（px）
@@ -50,10 +50,10 @@ export interface SplitPaneProps {
     "max"?: number;
 
     /**
-     * 主面板尺寸下限（px）
-     * @default 0
+     * 键盘方向键的调整步进（px）
+     * @default 16
      */
-    "min"?: number;
+    "step"?: number;
 
     /**
      * 尺寸变化回调（拖拽过程中逐帧触发）
@@ -66,29 +66,28 @@ export interface SplitPaneProps {
     "persistKey"?: string;
 
     /**
-     * 尺寸受控的主面板；另一侧 flex 填充剩余空间
-     * @default 'first'
+     * 禁用拖拽与键盘调整（分隔条仍渲染，仅作视觉分隔）
+     * @default false
      */
-    "primary"?: 'first' | 'second';
+    "disabled"?: boolean;
+
+    /**
+     * 分隔条的无障碍名称 省略时跟随最近 ConfigProvider 的语言。
+     */
+    "aria-label"?: string;
 
     /**
      * 暂无说明。
      */
-    "ref"?: Ref<HTMLDivElement>;
-
-    /**
-     * 受控尺寸（px）：非 `undefined` 即受控，配合 onSizeChange 使用
-     */
-    "size"?: number;
-
-    /**
-     * 键盘方向键的调整步进（px）
-     * @default 16
-     */
-    "step"?: number;
+    "className"?: string;
 
     /**
      * 暂无说明。
      */
     "style"?: CSSProperties;
+
+    /**
+     * 暂无说明。
+     */
+    "ref"?: Ref<HTMLDivElement>;
 }

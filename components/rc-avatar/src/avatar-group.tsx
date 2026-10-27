@@ -1,8 +1,8 @@
-import { useComponentSize } from '@crab-dev/rc-config-provider';
+import { useComponentSize, useLocale } from '@crab-dev/rc-config-provider';
 import { css, cx } from '@crab-dev/css';
 import { Children, cloneElement, isValidElement } from 'react';
 import type { CSSProperties, FC, ReactElement, ReactNode } from 'react';
-import Badge from '@crab-dev/rc-badge';
+import Badge, { TokenVars as badgeVars } from '@crab-dev/rc-badge';
 import Button from '@crab-dev/rc-button';
 import token, { vars } from './token.js';
 import type { AvatarGroupProps, AvatarProps, AvatarShape, AvatarSize } from './types.js';
@@ -14,15 +14,30 @@ const groupStyle = css`
     isolation: isolate;
 `;
 
+// The group summary occupies inline space beside the last avatar. Only its
+// vertical half-height remains outside the row, like Badge's corner anchor.
+// Flow follows the actual DOM direction and measures arbitrary renderExtra
+// content, so an adjacent group cannot paint over an unmeasured counter.
+const overflowIndicatorStyle = css`
+    && {
+        position: relative;
+        top: auto;
+        inset-inline-end: auto;
+        align-self: flex-start;
+        flex-shrink: 0;
+        ${badgeVars['indicator.transform']}: translateY(-50%);
+    }
+`;
+
 const itemBaseStyle = css`
     position: relative;
     display: inline-flex;
-    margin-left: ${token.group.margin};
+    margin-inline-start: ${token.group.margin};
     transition: ${token.group.transition};
     box-shadow: 0 0 0 ${token.group.item.ring.width} ${token.group.item['border-color']};
 
     &:first-child {
-        margin-left: 0;
+        margin-inline-start: 0;
     }
 
     &:hover {
@@ -40,6 +55,19 @@ const itemBaseStyle = css`
         &:hover {
             transform: none;
         }
+    }
+`;
+
+// The last wrapper also contains the in-flow counter. Its ring must remain on
+// the real avatar instead of stretching around the wider wrapper. Caller class
+// and inline style are preserved when this static group role is composed.
+const itemWithCounterStyle = css`
+    && { box-shadow: none; }
+`;
+
+const counterAvatarRingStyle = css`
+    &&& {
+        box-shadow: 0 0 0 ${token.group.item.ring.width} ${token.group.item['border-color']};
     }
 `;
 
@@ -93,6 +121,7 @@ const AvatarGroup: FC<AvatarGroupProps> = ({
     ...restProps
 }) => {
     const size = useComponentSize(sizeProp);
+    const { messages } = useLocale();
     const childArray = Children.toArray(children).filter(
         (child): child is ReactElement<AvatarProps> => isValidElement(child),
     );
@@ -115,9 +144,9 @@ const AvatarGroup: FC<AvatarGroupProps> = ({
 
     const badgeCount: ReactNode = renderExtra
         ? renderExtra(hiddenCount, hiddenChildren)
-        : `+${hiddenCount}`;
+        : <bdi dir="ltr">+{hiddenCount}</bdi>;
 
-    const badgeTitle = `+${hiddenCount} more`;
+    const badgeTitle = messages.avatar.more(hiddenCount);
 
     const shouldShowBadge = hiddenCount > 0;
 
@@ -130,12 +159,14 @@ const AvatarGroup: FC<AvatarGroupProps> = ({
             {visibleChildren.map((child, index) => {
                 const isLast = index === visibleCount - 1;
                 const zIndex = visibleCount - index;
+                const showBadgeOnThis = isLast && shouldShowBadge && !extraInteractive;
                 const merged = cloneElement(child, {
                     size: child.props.size ?? size,
                     shape: child.props.shape ?? shape,
+                    className: showBadgeOnThis
+                        ? cx(counterAvatarRingStyle, child.props.className)
+                        : child.props.className,
                 } as Partial<AvatarProps>);
-
-                const showBadgeOnThis = isLast && shouldShowBadge && !extraInteractive;
 
                 return (
                     <span
@@ -143,11 +174,13 @@ const AvatarGroup: FC<AvatarGroupProps> = ({
                         className={cx(
                             itemBaseStyle,
                             itemShapeStyleMap[shape],
+                            showBadgeOnThis && itemWithCounterStyle,
                         )}
                         style={{ zIndex }}
                     >
                         {showBadgeOnThis ? (
                             <Badge
+                                indicatorClassName={overflowIndicatorStyle}
                                 count={badgeCount}
                                 overflowCount={9999}
                                 size={resolveBadgeSize(size)}
@@ -161,6 +194,14 @@ const AvatarGroup: FC<AvatarGroupProps> = ({
                     </span>
                 );
             })}
+            {max === 0 && shouldShowBadge && !extraInteractive && (
+                <Badge
+                    count={badgeCount}
+                    overflowCount={9999}
+                    size={resolveBadgeSize(size)}
+                    title={badgeTitle}
+                />
+            )}
             {shouldShowBadge && extraInteractive && (
                 <Button type="button" appearance="tonal" shape="circle" className={extraActionStyle}
                     aria-label={badgeTitle} onClick={onExtraClick}>

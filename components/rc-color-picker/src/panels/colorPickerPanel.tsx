@@ -1,15 +1,15 @@
+import { useLocale } from '@crab-dev/rc-config-provider';
+import { useControllableValue, type ControlledValueProps } from '@crab-dev/rc-hooks';
 import { css, cx } from "@crab-dev/css";
 import RcSlider, { CanonicalTokenVars as TokenVars } from '@crab-dev/rc-slider';
 import { type FC, type HTMLAttributes, useState } from "react";
 import token from "../token.js";
-import type { ColorFormat, ColorPickerPanelLocale, ColorPreset, OKLCHValue } from "../types.js";
+import type { ColorFormat, ColorPickerPanelLocale, ColorPreset, OKLCHValue, ColorValueChangeDetails } from "../types.js";
 import ColorInput from "./colorInput.js";
 import PresetSwatches from "./presetSwatches.js";
 
-export interface ColorPickerPanelProps extends Omit<HTMLAttributes<HTMLDivElement>, "onChange"> {
-    locale?: ColorPickerPanelLocale;
-    value: OKLCHValue;
-    onValueChange: (value: OKLCHValue) => void;
+interface ColorPickerPanelBaseProps extends Omit<HTMLAttributes<HTMLDivElement>, "onChange" | "defaultValue"> {
+    locale?: Partial<ColorPickerPanelLocale>;
     /** 是否显示透明度滑块,默认 true。 */
     showAlpha?: boolean;
     /** 是否显示吸管取色按钮(仍需浏览器支持 EyeDropper),默认 true。 */
@@ -19,6 +19,8 @@ export interface ColorPickerPanelProps extends Omit<HTMLAttributes<HTMLDivElemen
     /** 预设色板:扁平色或带标题的分组色。 */
     presets?: ColorPreset[];
 }
+
+export type ColorPickerPanelProps = ColorPickerPanelBaseProps & ControlledValueProps<OKLCHValue, ColorValueChangeDetails>;
 
 const sliderContainerStyle = css`
     display: grid;
@@ -38,22 +40,18 @@ const sliderContainerStyle = css`
 
 /** 颜色渐变覆盖完整值域，不随 Expressive Slider 的 active / inactive 分段缩短。 */
 const commonSliderStyle = css`
+    --color-picker-gradient-direction: to right;
+    &:dir(rtl) { --color-picker-gradient-direction: to left; }
     ${TokenVars["rail.height"]}: 12px;
     ${TokenVars['thumb.stroke-color']}: ${token.slider.thumb['stroke-color']};
     ${TokenVars['rail.fill-active']}: transparent;
     ${TokenVars["thumb.fill"]}: transparent;
     > [data-slot="slider-rail"] {
-        left: 0;
+        inset-inline: 0;
         border-radius: var(${TokenVars["rail.border-radius"]});
     }
 `;
 
-const DEFAULT_LOCALE: Required<ColorPickerPanelLocale> = {
-    labelLightness: "亮度",
-    labelChroma: "色度",
-    labelHue: "色相",
-    labelAlpha: "透明度",
-};
 
 const rootStyle = css`
     min-width: 250px;
@@ -63,6 +61,9 @@ const rootStyle = css`
 `;
 
 const previewStyle = css`
+    /* The selected color is data, like the preset swatches, not a UI surface. */
+    forced-color-adjust: none;
+    box-sizing: border-box;
     width: ${token.panel.preview.width};
     height: ${token.panel.preview.height};
     border-radius: ${token.panel.preview['border-radius']};
@@ -72,7 +73,7 @@ const previewStyle = css`
 
 /** 色相滑轨:固定的全色相环渐变(与当前值无关,可静态求值)。 */
 const hueRailStyle = css`
-    ${TokenVars['rail.fill-inactive']}: linear-gradient(to right,
+    ${TokenVars['rail.fill-inactive']}: linear-gradient(var(--color-picker-gradient-direction),
         oklch(0.7 0.15 0),
         oklch(0.7 0.15 60),
         oklch(0.7 0.15 120),
@@ -85,17 +86,22 @@ const hueRailStyle = css`
 
 const ColorPickerPanel: FC<ColorPickerPanelProps> = ({
     locale,
-    value,
-    onValueChange,
+    value: valueProp,
+    defaultValue,
+    onValueChange: notifyValueChange,
     showAlpha = true,
     showEyeDropper = true,
     format = "hex",
     presets,
     ...restProps
 }) => {
+    const { messages } = useLocale();
+    const copy = messages.colorPicker;
+    const [value, setValue] = useControllableValue<OKLCHValue, [ColorValueChangeDetails]>({ value: valueProp, defaultValue: defaultValue ?? { lightness: 0.6, chroma: 0, hue: 0 }, onValueChange: notifyValueChange });
+    const onValueChange = (next: OKLCHValue) => setValue(next, { reason: 'choose' });
     const [currentFormat, setCurrentFormat] = useState<ColorFormat>(format);
     // 字段级合并:可选的 labelAlpha 缺省时回退默认文案,避免空 label / aria-label
-    const mergedLocale = { ...DEFAULT_LOCALE, ...locale };
+    const mergedLocale = { labelLightness: copy.lightness, labelChroma: copy.chroma, labelHue: copy.hue, labelAlpha: copy.alpha, ...locale };
     const opaque = `oklch(${value.lightness} ${value.chroma} ${value.hue})`;
 
     return (
@@ -112,7 +118,7 @@ const ColorPickerPanel: FC<ColorPickerPanelProps> = ({
                 <RcSlider
                     aria-label={mergedLocale.labelLightness}
                     style={{
-                        [TokenVars['rail.fill-inactive']]: `linear-gradient(to right,
+                        [TokenVars['rail.fill-inactive']]: `linear-gradient(var(--color-picker-gradient-direction),
                             oklch(0 ${value.chroma} ${value.hue}),
                             oklch(1 ${value.chroma} ${value.hue})
                         )`,
@@ -133,7 +139,7 @@ const ColorPickerPanel: FC<ColorPickerPanelProps> = ({
                 <RcSlider
                     aria-label={mergedLocale.labelChroma}
                     style={{
-                        [TokenVars['rail.fill-inactive']]: `linear-gradient(to right,
+                        [TokenVars['rail.fill-inactive']]: `linear-gradient(var(--color-picker-gradient-direction),
                             oklch(0.6 0 ${value.hue}),
                             oklch(0.6 0.4 ${value.hue})
                         )`,
@@ -173,7 +179,7 @@ const ColorPickerPanel: FC<ColorPickerPanelProps> = ({
                         aria-label={mergedLocale.labelAlpha}
                         style={{
                             [TokenVars['rail.fill-inactive']]:
-                                `linear-gradient(to right, transparent, ${opaque}), ` +
+                                `linear-gradient(var(--color-picker-gradient-direction), transparent, ${opaque}), ` +
                                 `repeating-conic-gradient(${token.slider.alpha.checker.color} 0% 25%, transparent 0% 50%) top left / 8px 8px`,
                             [TokenVars["thumb.fill"]]: `oklch(${value.lightness} ${value.chroma} ${value.hue} / ${value.alpha ?? 1})`,
                             [TokenVars["thumb.halo.fill"]]: `var(${TokenVars["thumb.fill"]})`,

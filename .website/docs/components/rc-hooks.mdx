@@ -50,6 +50,15 @@ Hook 均为具名导出，使用时从 `@crab-dev/rc-hooks` 按需导入。
 
 `useCountdown(duration, paused, onFinish?)` 使用毫秒计时，返回最近一次暂停或恢复时的剩余时间快照，不逐帧刷新。`duration <= 0` 时不自动结束；修改时长会重新计时，卸载时清理计时器。
 
+
+### 状态和弹层契约
+
+useControllableValue 统一使用 onValueChange(next, details)，useControllableOpen 支持组件自己的原因类型。只有显式的用户 setter 请求通知回调；改变受控值和默认值不会触发回调。ControlledValueProps、ControlledCheckedProps、ControlledOpenProps 用联合类型区分受控与初始值分支。原生 DOM onChange 保留事件签名。
+
+库内组件通过内部子路径 @crab-dev/rc-hooks/internal 使用 registerOverlayLayer(element, onEscape) 为每个 ownerDocument 维护共享栈，返回 isTop 与幂等 release。acquireScrollLock(target) 返回幂等释放函数，最后一个拥有者退出后恢复原 overflow。resolveOverlayRoot(trigger) 保留目标文档、主题边界和原生 dialog 的交互范围。组件卸载时必须释放注册与滚动锁。
+
+内部弹层子路径不属于稳定公共 API。useControllableOpen 的用户请求 setter 必须提供 typed details；useControllableValue 默认保留内部无回调状态用途，公开组件的通知使用显式 [Details] 元组。只读受控不需要无意义回调。
+
 ### 适用场景
 
 多个组件需要共享同一套交互状态机。 浏览器事件、订阅或测量逻辑需要安全地处理挂载和卸载。
@@ -66,6 +75,14 @@ Hook 均为具名导出，使用时从 `@crab-dev/rc-hooks` 按需导入。
 
 - 键盘 Hook 只是能力，最终元素仍需正确角色、名称和焦点管理。
 - 拖拽或动画 Hook 必须提供键盘替代操作并尊重减少动态效果。
+
+### 设计依据与覆盖
+
+- **MD3 Expressive**：这是 React 实现基础设施，没有 M3 视觉对应；其输出应帮助上层组件落实 M3 交互、焦点和动效规则。 [依据 1](https://m3.material.io/foundations/interaction/overview) · [依据 2](https://material-web.dev/) · [依据 3](https://github.com/material-components/material-web)
+- **Apple**：本包没有独立的 Apple 视觉组件；配置、测量或运行能力为上层控件服务，行为和类型仍需独立验收。 [依据 1](https://developer.apple.com/design/human-interface-guidelines/components) · [依据 2](https://developer.apple.com/design/human-interface-guidelines/accessibility)
+- **shadcn/ui**：本包没有独立的 shadcn/ui 视觉组件；由使用它的上层组件决定外观，基础能力不因无独立视觉而免于行为和类型检查。 [依据 1](https://ui.shadcn.com/docs/components) · [依据 2](https://ui.shadcn.com/docs/theming) · [依据 3](https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4)
+
+设计依据不等于完成验收；当前状态与适用边界见[覆盖矩阵](/guides/design-coverage)。
 
 ## 常见问题
 

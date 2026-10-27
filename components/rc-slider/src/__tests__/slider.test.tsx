@@ -1,4 +1,4 @@
-import { afterEach, beforeEach, describe, expect, it, mock, render, screen, act } from "@crab-dev/wake/test/react";
+import { afterEach, beforeEach, describe, expect, it, mock, render, screen, act, fireEvent } from "@crab-dev/wake/test/react";
 import Slider from '../slider.js';
 import type { SliderProps } from '../slider.js';
 (globalThis as typeof globalThis & {
@@ -40,8 +40,8 @@ const pointerCancel = async (el: HTMLElement) => {
     });
 };
 const renderSlider = async (props: Partial<SliderProps> = {}) => {
-    const defaultProps: SliderProps = { value: 50 };
-    const renderResult = await render(<Slider {...defaultProps} {...props}/>);
+    const { value = 50, defaultValue: _defaultValue, onValueChange = () => {}, ...restProps } = props;
+    const renderResult = await render(<Slider {...restProps} value={value} onValueChange={onValueChange}/>);
     const slider = screen.getByRole('slider') as HTMLDivElement;
     return {
         ...renderResult,
@@ -49,20 +49,32 @@ const renderSlider = async (props: Partial<SliderProps> = {}) => {
     };
 };
 describe('Slider', () => {
+    it('keeps uncontrolled keyboard changes and only uses defaultValue for initialization', async () => {
+        const onValueChange = mock.fn();
+        const view = await render(<Slider defaultValue={10} step={2} onValueChange={onValueChange} />);
+        const slider = screen.getByRole('slider');
+        await fireEvent.keyDown(slider, { key: 'ArrowRight' });
+        expect(slider.getAttribute('aria-valuenow')).toBe('12');
+        expect(onValueChange).toHaveBeenCalledWith(12, expect.objectContaining({ reason: 'keyboard' }));
+        onValueChange.clear();
+        await view.rerender(<Slider defaultValue={50} step={2} onValueChange={onValueChange} />);
+        expect(slider.getAttribute('aria-valuenow')).toBe('12');
+        expect(onValueChange).not.toHaveBeenCalled();
+    });
     it('mirrors pointer and horizontal arrow input in right-to-left layouts', async () => {
         const onValueChange = mock.fn();
         const { slider } = await renderSlider({ value: 50, step: 5, dir: 'rtl', onValueChange });
         // Supply the computed direction missing from this DOM environment's UA stylesheet.
         slider.style.direction = 'rtl';
         await pointerDown(slider, 40);
-        expect(onValueChange).toHaveBeenLastCalledWith(80);
+        expect(onValueChange).toHaveBeenLastCalledWith(80, expect.objectContaining({ reason: expect.any(String) }));
         await pointerUp(slider, 40);
         await act(() => { slider.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowRight', bubbles: true, cancelable: true })); });
-        expect(onValueChange).toHaveBeenLastCalledWith(45);
+        expect(onValueChange).toHaveBeenLastCalledWith(45, expect.objectContaining({ reason: expect.any(String) }));
         await act(() => { slider.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowLeft', bubbles: true, cancelable: true })); });
-        expect(onValueChange).toHaveBeenLastCalledWith(55);
+        expect(onValueChange).toHaveBeenLastCalledWith(55, expect.objectContaining({ reason: expect.any(String) }));
         await act(() => { slider.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowUp', bubbles: true, cancelable: true })); });
-        expect(onValueChange).toHaveBeenLastCalledWith(55);
+        expect(onValueChange).toHaveBeenLastCalledWith(55, expect.objectContaining({ reason: expect.any(String) }));
     });
     it('keeps the endpoint marker separate from the current value across size changes', async () => {
         const { container, slider, rerender } = await renderSlider({ value: 40 });
@@ -81,7 +93,7 @@ describe('Slider', () => {
         expect(slider.tabIndex).toBe(0);
         for (const [key, expected] of [['ArrowRight', 0.7], ['ArrowDown', 0.3], ['Home', 0.1], ['End', 1.1]] as const) {
             await act(() => { slider.dispatchEvent(new KeyboardEvent('keydown', { key, bubbles: true, cancelable: true })); });
-            expect(onValueChange).toHaveBeenLastCalledWith(expected);
+            expect(onValueChange).toHaveBeenLastCalledWith(expected, expect.objectContaining({ reason: expect.any(String) }));
         }
     });
     it('blocks pointer, wheel and keyboard changes when disabled or the range is empty', async () => {
@@ -161,7 +173,7 @@ describe('Slider', () => {
         const onValueChange = mock.fn();
         const { slider, unmount } = await renderSlider({ value: 50, onValueChange });
         await pointerDown(slider, 150);
-        expect(onValueChange).toHaveBeenCalledWith(75);
+        expect(onValueChange).toHaveBeenCalledWith(75, expect.objectContaining({ reason: expect.any(String) }));
         await unmount();
     });
     it('calls onValueChange during pointer drag', async () => {
@@ -169,7 +181,7 @@ describe('Slider', () => {
         const { slider, unmount } = await renderSlider({ value: 0, onValueChange });
         await pointerDown(slider, 50);
         await pointerMove(slider, 100);
-        expect(onValueChange).toHaveBeenCalledWith(50);
+        expect(onValueChange).toHaveBeenCalledWith(50, expect.objectContaining({ reason: expect.any(String) }));
         await unmount();
     });
     it('stops dragging on pointerup', async () => {
@@ -187,7 +199,7 @@ describe('Slider', () => {
         const { slider, unmount } = await renderSlider({ value: 0, min: 0, max: 100, step: 10, onValueChange });
         // clientX=47 on 200px => 23.5% => raw value 23.5, snapped to step 10 => 20
         await pointerDown(slider, 47);
-        expect(onValueChange).toHaveBeenCalledWith(20);
+        expect(onValueChange).toHaveBeenCalledWith(20, expect.objectContaining({ reason: expect.any(String) }));
         await unmount();
     });
     it('handles decimal step precision correctly', async () => {
@@ -195,7 +207,7 @@ describe('Slider', () => {
         const { slider, unmount } = await renderSlider({ value: 0, min: 0, max: 1, step: 0.1, onValueChange });
         // clientX=60 on 200px => 30% => raw 0.3, step 0.1 => snapped 0.3
         await pointerDown(slider, 60);
-        expect(onValueChange).toHaveBeenCalledWith(0.3);
+        expect(onValueChange).toHaveBeenCalledWith(0.3, expect.objectContaining({ reason: expect.any(String) }));
         await unmount();
     });
     it('clamps value to min on pointer at left edge', async () => {
@@ -206,14 +218,14 @@ describe('Slider', () => {
         })) as any;
         const { slider, unmount } = await renderSlider({ value: 50, min: 0, max: 100, onValueChange });
         await pointerDown(slider, 0);
-        expect(onValueChange).toHaveBeenCalledWith(0);
+        expect(onValueChange).toHaveBeenCalledWith(0, expect.objectContaining({ reason: expect.any(String) }));
         await unmount();
     });
     it('clamps value to max on pointer past right edge', async () => {
         const onValueChange = mock.fn();
         const { slider, unmount } = await renderSlider({ value: 50, min: 0, max: 100, onValueChange });
         await pointerDown(slider, 500);
-        expect(onValueChange).toHaveBeenCalledWith(100);
+        expect(onValueChange).toHaveBeenCalledWith(100, expect.objectContaining({ reason: expect.any(String) }));
         await unmount();
     });
     it('does not call onValueChange when value does not change', async () => {
@@ -249,7 +261,7 @@ describe('Slider', () => {
         await act(() => {
             slider.dispatchEvent(new WheelEvent('wheel', { deltaY: -1, bubbles: true }));
         });
-        expect(onValueChange).toHaveBeenCalledWith(51);
+        expect(onValueChange).toHaveBeenCalledWith(51, expect.objectContaining({ reason: expect.any(String) }));
         await unmount();
     });
     it('handles wheel event to decrement value', async () => {
@@ -258,7 +270,7 @@ describe('Slider', () => {
         await act(() => {
             slider.dispatchEvent(new WheelEvent('wheel', { deltaY: 1, bubbles: true }));
         });
-        expect(onValueChange).toHaveBeenCalledWith(49);
+        expect(onValueChange).toHaveBeenCalledWith(49, expect.objectContaining({ reason: expect.any(String) }));
         await unmount();
     });
     it('clamps wheel increment at max boundary', async () => {
@@ -285,7 +297,7 @@ describe('Slider', () => {
         await act(() => {
             slider.dispatchEvent(new WheelEvent('wheel', { deltaY: -1, bubbles: true }));
         });
-        expect(onValueChange).toHaveBeenCalledWith(0.6);
+        expect(onValueChange).toHaveBeenCalledWith(0.6, expect.objectContaining({ reason: expect.any(String) }));
         await unmount();
     });
     it('works with negative min', async () => {
@@ -293,7 +305,7 @@ describe('Slider', () => {
         const { slider, unmount } = await renderSlider({ value: 0, min: -50, max: 50, onValueChange });
         // clientX=0 => 0% => -50
         await pointerDown(slider, 0);
-        expect(onValueChange).toHaveBeenCalledWith(-50);
+        expect(onValueChange).toHaveBeenCalledWith(-50, expect.objectContaining({ reason: expect.any(String) }));
         await unmount();
     });
 });

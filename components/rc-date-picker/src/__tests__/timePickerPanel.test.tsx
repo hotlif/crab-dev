@@ -45,13 +45,13 @@ describe('M3 TimePickerPanel', () => {
     it('selects both dial rings, advances to minutes and retains the draft across modes', async () => {
         const onValueChange = mock.fn();
         await render(<Example onValueChange={onValueChange} />);
-        expect(screen.getByRole('button', { name: '0 时，共 24 小时' }).getAttribute('aria-pressed')).toBe('true');
-        expect(screen.getByRole('button', { name: '12 时，共 24 小时' })).toBeTruthy();
-        await fireEvent.click(screen.getByRole('button', { name: '23 时，共 24 小时' }));
+        expect(screen.getByRole('button', { name: '0 小时' }).getAttribute('aria-pressed')).toBe('true');
+        expect(screen.getByRole('button', { name: '12 小时' })).toBeTruthy();
+        await fireEvent.click(screen.getByRole('button', { name: '23 小时' }));
         expect(onValueChange).toHaveBeenCalledWith({ hour: 23, minute: 30, second: 5 });
         expect(screen.getByRole('group', { name: '分钟表盘' })).toBeTruthy();
         expect(document.activeElement?.getAttribute('aria-label')).toBe('选择分钟，当前 30');
-        await fireEvent.click(screen.getByRole('button', { name: '55 分，共 60 分钟' }));
+        await fireEvent.click(screen.getByRole('button', { name: '55 分钟' }));
         await fireEvent.click(screen.getByRole('button', { name: '切换到键盘输入' }));
         expect(document.activeElement).toBe(screen.getByRole('textbox', { name: '分钟' }));
         expect((screen.getByRole('textbox', { name: '小时' }) as HTMLInputElement).value).toBe('23');
@@ -61,17 +61,29 @@ describe('M3 TimePickerPanel', () => {
         const onValueChange = mock.fn();
         await render(<TimePickerPanel defaultMode="dial" value={{ hour: 12, minute: 59, second: 0 }} onValueChange={onValueChange} />);
         await fireEvent.click(screen.getByRole('button', { name: '选择分钟，当前 59' }));
-        await fireEvent.keyDown(screen.getByRole('button', { name: '55 分，共 60 分钟' }), { key: 'ArrowRight' });
+        await fireEvent.keyDown(screen.getByRole('button', { name: '55 分钟' }), { key: 'ArrowRight' });
         expect(onValueChange).toHaveBeenCalledWith({ hour: 12, minute: 0, second: 0 });
-        expect(document.activeElement).toBe(screen.getByRole('button', { name: '0 分，共 60 分钟' }));
+        expect(document.activeElement).toBe(screen.getByRole('button', { name: '0 分钟' }));
+    });
+    it('keeps glyph activation on the labeled hour button and advances once', async () => {
+        const onValueChange = mock.fn();
+        await render(<Example onValueChange={onValueChange} />);
+        const button = screen.getByRole('button', { name: '18 小时' });
+        const label = button.querySelector('[data-clock-label]');
+        if (!label) throw new Error('Missing hour glyph');
+        await fireEvent.click(label, { detail: 0 });
+        expect(onValueChange).toHaveBeenCalledTimes(1);
+        expect(onValueChange).toHaveBeenCalledWith({ hour: 18, minute: 30, second: 5 });
+        expect(screen.getByRole('group', { name: '分钟表盘' })).toBeTruthy();
+        expect(document.activeElement?.getAttribute('aria-label')).toBe('选择分钟，当前 30');
     });
     it('keeps keyboard focus on the selected dial number so activation cannot undo arrow changes', async () => {
         const onValueChange = mock.fn();
         await render(<Example onValueChange={onValueChange} />);
-        const zero = screen.getByRole('button', { name: '0 时，共 24 小时' });
+        const zero = screen.getByRole('button', { name: '0 小时' });
         await act(() => zero.focus());
         await fireEvent.keyDown(zero, { key: 'ArrowLeft' });
-        const selected = screen.getByRole('button', { name: '23 时，共 24 小时' });
+        const selected = screen.getByRole('button', { name: '23 小时' });
         expect(document.activeElement).toBe(selected);
         await fireEvent.click(selected);
         expect(screen.getByRole('button', { name: '选择小时，当前 23' })).toBeTruthy();

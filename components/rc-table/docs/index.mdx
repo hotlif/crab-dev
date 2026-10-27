@@ -24,6 +24,7 @@ status = "experimental"
 - 为每个 Table 提供描述数据用途的 `aria-label`，例如“本月订单”；不要只写“表格”。
 - 列标题应是简短的纯文本；自定义单元格中的按钮、复选框和输入框必须分别拥有上下文名称。
 - 排序、展开、选中和编辑状态不能只靠颜色表达，并应保留组件提供的键盘操作。
+- 强制颜色模式下，选中行及固定列使用系统 `Highlight` / `HighlightText` 配对，并局部抑制文字背板，避免所选数据被背景矩形遮住；未选中行继续由浏览器调整颜色。
 - 虚拟滚动场景仍需传入准确的数据总数；空、加载和错误状态要有可读文本和稳定焦点位置。
 
 更多通用要求见[无障碍使用指南](/guides/accessibility)。
@@ -38,12 +39,30 @@ status = "experimental"
 
 ## API
 
+`size="small" / "medium" / "large"` 只决定内置控件尺寸。`density="compact" / "standard" / "comfortable"` 决定默认数据行、表头和间距；省略时继承 ConfigProvider。CSS 密度与虚拟滚动数值均从语义令牌生成。显式 `getRowHeight` 优先于 `row.height`，两者再优先于密度默认值；显式表头、分组和汇总高度同样优先。
+
+排序、分组、树展开、详情展开与行编辑状态支持受控或非受控模式。受控属性与对应 `default*` 初值在类型上互斥；受控展开集合也不能与默认全部展开策略混用。`editingRowId={null}` 表示受控地结束编辑。使用 `TableStateProps` 可让组合组件复用同一约束。
+
+行选择使用 `selectedRowIds` / `defaultSelectedRowIds` 与 `onSelectedRowIdsChange(ids, { rows, reason })`。`ids` 保留 `Set<Key>`，reason 为 `row` / `all` / `clear`；受控值与默认值互斥，父级更新不反向触发变化回调。旧 `rowSelection.onChange(ids, rows)` 不再提供。
+
+内置选择、展开、编辑与列宽调整文案跟随 `ConfigProvider locale`，列标题和业务数据仍由调用方提供。默认字符串排序采用相同 locale；提供自定义 sorter 时保留业务比较规则。
+
+表格的列顺序、`aria-colindex`、横向滚动偏移与 `fixed="left" / "right"` 使用物理坐标；RTL 不交换左右固定列，也不反转字段顺序。`align="left" / "right"` 同样表示物理左/右对齐，默认左对齐；数组分别配置表头、内容与汇总。文本、筛选器、分组、详情、汇总和操作组继承有效的 Table 方向，行编辑浮条贴在该方向的行尾侧。Table 显式 `dir="ltr" / "rtl"` 覆盖最近 Provider，并通过内部方向边界同步至自定义子控件及其 Portal；其余配置继续继承。
+
+RTL 迁移：移除用于补偿旧版错位的列数组反转、左右固定列交换或负数滚动偏移。内部虚拟滚动区现在固定使用 LTR 几何，单元格边界恢复内容方向；这是数据坐标约定，不代表将 RTL 文本或控件改成 LTR。编辑器后的确定、取消保持原生 Tab 顺序，浮条的视觉位置不会改变 DOM 焦点顺序。
+
+行编辑的确认使用 Button 的 `primary`（Filled），取消使用 `outlined`；Table 只管理操作浮条的布局，按钮的悬停、按下、焦点、形状和触控区域由当前设计体系的 Button 契约统一维护。Table 的 small/medium/large 分别映射至 Button xs/s/m。编辑结束移除当前聚焦的编辑器或操作按钮时，焦点返回本 Table 的 grid 入口；受控调用方拒绝结束、主动移焦或替换整个 Table 时保留调用方决定。
+
+grid 入口的键盘焦点环绘制在表格边界内侧，并位于固定列、表头与选中行之上；外层滚动容器无需额外留白。该绘制层不参与列宽、行高或虚拟滚动测量，子控件获得焦点时仍使用各自的焦点反馈。
+
+迁移：不再使用或导出 `row-edit.confirm.*`、`row-edit.cancel.*`、`row-edit.button.*`、`row-edit.outline-color` 和 `row-edit.transition` 这些重复的按钮 L3 令牌。既有 CSS 覆盖需迁移至公共 Button / 设计语义契约；操作浮条与编辑行的 `row-edit.actions.*`、卡片和边界令牌继续由 Table 管理。不要用 Table class 静态改色重新伪装按钮外观，否则会破坏按下状态的配对前景与背景。
+
 <API source="../src/table.tsx" symbol="TableProps" component="Table" />
 
 
 ## 设计风格与主题
 
-表头、单元格留白、水平与垂直分隔线、行选中前景和背景由数据表语义角色统一管理。macOS 使用银灰表头、较紧凑的列间距和蓝色调选中背景；MD3 使用 tonal 表头、16px 列留白与配对选中色；shadcn 使用与内容一致的表头表面、8px 列留白和中性选中背景。三种风格保留相同排序、筛选、编辑与键盘行为，行选中同时通过 aria-selected 表达。下方三风格示例可在当前浅色或深色模式中直接对照。
-本范围以 M3 Lists / Divider 的表面、分隔、状态和无障碍规则作为扩展依据；数据表、图表、PDF 编辑器和可拖动分栏并非 Material Web 的同名标准组件。macOS 与 shadcn 是本项目在相同交互能力上的设计变体，未引入第三方 UI 运行时，也不宣称原生平台逐像素复刻。
+表头、单元格留白、水平与垂直分隔线、行选中前景和背景由数据表语义角色统一管理。Apple 使用银灰表头、较紧凑的列间距和蓝色调选中背景；MD3 使用 tonal 表头、16px 列留白与配对选中色；shadcn 使用与内容一致的表头表面、8px 列留白和中性选中背景。三种风格保留相同排序、筛选、编辑与键盘行为，行选中同时通过 aria-selected 表达。下方三风格示例可在当前浅色或深色模式中直接对照。
+数据表的语义角色分别取自三套设计体系；虚拟列、固定列、行编辑、树与详情行是本库的数据交互扩展。MD3 的表面与状态角色不等同于 Material Web 已提供完整 Table；Apple 是浏览器适配；shadcn/ui 参考固定 New York V4 Table 的表面与描边约定。专业表格行为由本库单独验收。
 
-参考（2026-10-22）：[M3 Lists 指南](https://m3.material.io/components/lists/guidelines)、[规格](https://m3.material.io/components/lists/specs)、[无障碍](https://m3.material.io/components/lists/accessibility)、[M3 Divider](https://m3.material.io/components/divider/guidelines)、[Material Web List 文档及示例](https://material-web.dev/components/list/)、[列表项样式](https://github.com/material-components/material-web/blob/main/list/internal/listitem/_list-item.scss)、[列表令牌](https://github.com/material-components/material-web/blob/main/tokens/_md-comp-list-item.scss)、[Divider 样式](https://github.com/material-components/material-web/blob/main/divider/internal/_divider.scss)、[Apple Lists and tables](https://developer.apple.com/design/human-interface-guidelines/lists-and-tables)、[shadcn Table](https://ui.shadcn.com/docs/components/table)、[Table 源码](https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/new-york-v4/ui/table.tsx)、[shadcn Resizable](https://ui.shadcn.com/docs/components/resizable)。
+设计来源与固定参考版本见[三套设计体系](/guides/design-styles)，当前已核对范围见[设计覆盖矩阵](/guides/design-coverage)。这段说明记录适配边界，不代表完整视觉验收已通过。

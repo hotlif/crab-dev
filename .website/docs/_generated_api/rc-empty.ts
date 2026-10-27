@@ -10,14 +10,10 @@ type ReactNode = DocsTypePlaceholder;
 
 export interface EmptyProps {
     /**
-     * 操作区域（如按钮、链接），位于描述文字下方
+     * 预置空状态类型，内置图示与默认文案
+     * @default ’default’
      */
-    "action"?: ReactNode;
-
-    /**
-     * 补充说明文字
-     */
-    "description"?: ReactNode;
+    "preset"?: EmptyPreset;
 
     /**
      * 自定义图像/图标节点，设置后忽略 preset 的内置图示
@@ -30,13 +26,17 @@ export interface EmptyProps {
     "imageSize"?: number | string;
 
     /**
-     * 预置空状态类型，内置图示与默认文案
-     * @default 'default'
-     */
-    "preset"?: EmptyPreset;
-
-    /**
      * 主标题，不传则显示 preset 对应默认文案
      */
     "title"?: ReactNode;
+
+    /**
+     * 补充说明文字
+     */
+    "description"?: ReactNode;
+
+    /**
+     * 操作区域（如按钮、链接），位于描述文字下方
+     */
+    "action"?: ReactNode;
 }

@@ -94,9 +94,9 @@ const sizeSmallStyle = css`
 `;
 
 const sizeMiddleStyle = css`
-    width: ${token.size.middle.width};
-    height: ${token.size.middle.width};
-    font-size: ${token.size.middle['font-size']};
+    width: ${token.size.medium.width};
+    height: ${token.size.medium.width};
+    font-size: ${token.size.medium['font-size']};
 `;
 
 const sizeLargeStyle = css`
@@ -128,6 +128,26 @@ const variantWarningStyle = css`
 const variantErrorStyle = css`
     color: ${token.root['color-error']};
     background-color: ${token.root['background-color-error']};
+`;
+
+// Only fallback artwork owns this system pair. Prevent automatic text
+// backplates from hiding initials; real photos keep native color adjustment.
+const forcedFallbackStyle = css`
+    @media (forced-colors: active) {
+        forced-color-adjust: none;
+        color: CanvasText !important;
+        background-color: Canvas !important;
+        border-color: CanvasText !important;
+    }
+`;
+
+const forcedPrimaryStyle = css`
+    @media (forced-colors: active) {
+        forced-color-adjust: none;
+        color: HighlightText !important;
+        background-color: Highlight !important;
+        border-color: CanvasText !important;
+    }
 `;
 
 const imageStyle = css`
@@ -185,7 +205,7 @@ const iconSmallStyle = css`
 `;
 
 const iconMiddleStyle = css`
-    font-size: ${token.icon.middle['font-size']};
+    font-size: ${token.icon.medium['font-size']};
 `;
 
 const iconLargeStyle = css`
@@ -199,7 +219,7 @@ const shapeStyleMap: Record<AvatarShape, string> = {
 
 const sizeStyleMap: Record<AvatarSize, string> = {
     small: sizeSmallStyle,
-    middle: sizeMiddleStyle,
+    medium: sizeMiddleStyle,
     large: sizeLargeStyle,
 };
 
@@ -221,7 +241,7 @@ const fitStyleMap: Record<AvatarFit, string> = {
 
 const iconSizeStyleMap: Record<AvatarSize, string> = {
     small: iconSmallStyle,
-    middle: iconMiddleStyle,
+    medium: iconMiddleStyle,
     large: iconLargeStyle,
 };
 
@@ -333,6 +353,7 @@ const Avatar: FC<AvatarProps> = ({
                 variantStyleMap[variant],
                 bordered ? borderedStyle : noBorderStyle,
                 isInteractive && !isAction && interactiveStyle,
+                !showImage && (variant === 'primary' ? forcedPrimaryStyle : forcedFallbackStyle),
                 className,
             )}
             style={mergedStyle}

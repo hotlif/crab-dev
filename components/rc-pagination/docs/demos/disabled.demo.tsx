@@ -5,5 +5,5 @@ export const meta = {
 import Pagination from "../../src/index.js";
 
 export default function DisabledDemo() {
-    return <Pagination defaultCurrent={3} total={100} showQuickJumper showTotal disabled />;
+    return <Pagination defaultValue={3} total={100} showQuickJumper showTotal disabled />;
 }

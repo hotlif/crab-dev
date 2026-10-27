@@ -51,15 +51,15 @@ export const vars = defineTokens({
     'size.large.square.border-radius': '--button-size-large-square-border-radius',
     'size.large.border-radius-active': '--button-size-large-border-radius-active',
     'size.large.icon.width': '--button-size-large-icon-width',
-    'size.middle.gap': '--button-size-middle-gap',
-    'size.middle.height': '--button-size-middle-height',
-    'size.middle.padding': '--button-size-middle-padding',
-    'size.middle.border-radius': '--button-size-middle-border-radius',
-    'size.middle.font-size': '--button-size-middle-font-size',
-    'size.middle.line-height': '--button-size-middle-line-height',
-    'size.middle.square.border-radius': '--button-size-middle-square-border-radius',
-    'size.middle.border-radius-active': '--button-size-middle-border-radius-active',
-    'size.middle.icon.width': '--button-size-middle-icon-width',
+    'size.medium.gap': '--button-size-medium-gap',
+    'size.medium.height': '--button-size-medium-height',
+    'size.medium.padding': '--button-size-medium-padding',
+    'size.medium.border-radius': '--button-size-medium-border-radius',
+    'size.medium.font-size': '--button-size-medium-font-size',
+    'size.medium.line-height': '--button-size-medium-line-height',
+    'size.medium.square.border-radius': '--button-size-medium-square-border-radius',
+    'size.medium.border-radius-active': '--button-size-medium-border-radius-active',
+    'size.medium.icon.width': '--button-size-medium-icon-width',
     'size.small.gap': '--button-size-small-gap',
     'size.small.height': '--button-size-small-height',
     'size.small.padding': '--button-size-small-padding',
@@ -236,19 +236,19 @@ const token = defineTokens({
                 'width': `var(${vars['size.large.icon.width']}, var(--token-semantic-size-icon-large, var(--token-global-space-5, 20px)))`
             }
         },
-        'middle': {
-            'gap': `var(${vars['size.middle.gap']}, var(--token-semantic-space-component-gap, var(--token-global-space-2, 8px)))`,
-            'height': `var(${vars['size.middle.height']}, var(--token-semantic-sizing-middle-control, var(--token-global-size-36, 36px)))`,
-            'padding': `var(${vars['size.middle.padding']}, 0 var(--token-semantic-space-section-gap, var(--token-global-space-4, 16px)))`,
-            'border-radius': `var(${vars['size.middle.border-radius']}, calc(var(--token-semantic-sizing-middle-control, var(--token-global-size-36, 36px)) / 2))`,
-            'font-size': `var(${vars['size.middle.font-size']}, var(--token-semantic-typography-label-large-font-size, var(--token-global-font-size-sm, 14px)))`,
-            'line-height': `var(${vars['size.middle.line-height']}, var(--token-semantic-typography-label-large-line-height, var(--token-global-line-height-14-20, 1.4285714285714286)))`,
+        'medium': {
+            'gap': `var(${vars['size.medium.gap']}, var(--token-semantic-space-component-gap, var(--token-global-space-2, 8px)))`,
+            'height': `var(${vars['size.medium.height']}, var(--token-semantic-sizing-medium-control, var(--token-global-size-36, 36px)))`,
+            'padding': `var(${vars['size.medium.padding']}, 0 var(--token-semantic-space-section-gap, var(--token-global-space-4, 16px)))`,
+            'border-radius': `var(${vars['size.medium.border-radius']}, calc(var(--token-semantic-sizing-medium-control, var(--token-global-size-36, 36px)) / 2))`,
+            'font-size': `var(${vars['size.medium.font-size']}, var(--token-semantic-typography-label-large-font-size, var(--token-global-font-size-sm, 14px)))`,
+            'line-height': `var(${vars['size.medium.line-height']}, var(--token-semantic-typography-label-large-line-height, var(--token-global-line-height-14-20, 1.4285714285714286)))`,
             'square': {
-                'border-radius': `var(${vars['size.middle.square.border-radius']}, var(--token-semantic-shape-control, var(--token-global-radius-2, 4px)))`
+                'border-radius': `var(${vars['size.medium.square.border-radius']}, var(--token-semantic-shape-control, var(--token-global-radius-2, 4px)))`
             },
-            'border-radius-active': `var(${vars['size.middle.border-radius-active']}, var(--token-semantic-shape-small, var(--token-global-radius-4, 8px)))`,
+            'border-radius-active': `var(${vars['size.medium.border-radius-active']}, var(--token-semantic-shape-small, var(--token-global-radius-4, 8px)))`,
             'icon': {
-                'width': `var(${vars['size.middle.icon.width']}, var(--token-semantic-space-card-padding, var(--token-global-space-4, 16px)))`
+                'width': `var(${vars['size.medium.icon.width']}, var(--token-semantic-space-card-padding, var(--token-global-space-4, 16px)))`
             }
         },
         'small': {

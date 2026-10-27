@@ -2,6 +2,7 @@ import { beforeAll, describe, expect, it, mock } from '@crab-dev/wake/test';
 import { act, fireEvent, render, screen } from '@crab-dev/wake/test/react';
 import useForm from '../hooks/useForm.js';
 import { FormValidationError, RuleType, type FormInstance } from '../types.js';
+import type { FieldAdapter } from '../field-adapters.js';
 
 let Form: typeof import('../form.js')['default'];
 let Item: typeof import('../item.js')['default'];
@@ -25,6 +26,35 @@ async function edit(input: HTMLInputElement, value: string) {
 }
 
 describe('Form API contracts', () => {
+    it('adapts custom editor props and keeps programmatic updates silent', async () => {
+        type AmountProps = { amount?: number; onAmountChange?: (next: { amount: number }) => void; name?: string; disabled?: boolean; readOnly?: boolean };
+        const adapter: FieldAdapter<number, AmountProps, [{ amount: number }]> = {
+            valueProp: 'amount', changeProp: 'onAmountChange',
+            getValue: next => next.amount,
+            getValueProps: amount => ({ amount: amount === undefined ? 0 : Number(amount.toFixed(2)) }),
+        };
+        function Amount({ amount, onAmountChange, name, disabled, readOnly }: AmountProps) {
+            return <button name={name} disabled={disabled} data-readonly={readOnly} type="button" onClick={() => onAmountChange?.({ amount: 7 })}>{amount}</button>;
+        }
+        let form!: FormInstance<{ amount: number }>;
+        const changed = mock.fn();
+        function Host() {
+            [form] = useForm<{ amount: number }>();
+            return <Form form={form} defaultValue={{ amount: 1 }} onFieldValueChange={changed}>
+                <Item name="amount" adapter={adapter}><Amount /></Item>
+            </Form>;
+        }
+        await render(<Host />);
+        expect(screen.getByRole('button', { name: '1' }).getAttribute('name')).toBe('amount');
+        await act(() => form.setFieldValue('amount', 4));
+        expect(changed).not.toHaveBeenCalled();
+        await fireEvent.click(screen.getByRole('button', { name: '4' }));
+        expect(form.getFieldValue('amount')).toBe(7);
+        expect(changed).toHaveBeenCalledTimes(1);
+        await act(async () => { await form.resetFields(); });
+        expect(screen.getByRole('button', { name: '1' })).toBeTruthy();
+        expect(changed).toHaveBeenCalledTimes(1);
+    });
     it('propagates a business failure and releases the submission lock for retry', async () => {
         let form!: FormInstance<{ name: string }>;
         let attempts = 0;
@@ -68,8 +98,8 @@ describe('Form API contracts', () => {
         function Host({ initial, extra = false }: { initial: string; extra?: boolean }) {
             [form] = useForm<{ user: { name: string } }>();
             return <Form form={form} defaultValue={{ user: { name: initial } }}>
-                <Item name={['user', 'name']} label='Name' binding='event'><input /></Item>
-                {extra && <Item name={['user', 'name']} label='Mirror' binding='event'><input /></Item>}
+                <Item name={['user', 'name']} label='Name' adapter="native"><input /></Item>
+                {extra && <Item name={['user', 'name']} label='Mirror' adapter="native"><input /></Item>}
             </Form>;
         }
         const view = await render(<Host initial='Alice' />);
@@ -96,9 +126,9 @@ describe('Form API contracts', () => {
         function Host() {
             [form] = useForm<{ text: string; enabled: boolean; choice: string }>();
             return <Form form={form} defaultValue={{ text: '', enabled: false, choice: 'a' }}>
-                <Item name='text' label='Text' binding='event'><input onChange={original} /></Item>
-                <Item name='enabled' label='Enabled' binding='checked'><input type='checkbox' /></Item>
-                <Item name='choice' binding='valueChange'><Choice onValueChange={original} /></Item>
+                <Item name='text' label='Text' adapter="native"><input onChange={original} /></Item>
+                <Item name='enabled' label='Enabled' adapter="nativeChecked"><input type='checkbox' /></Item>
+                <Item name='choice' adapter="value"><Choice onValueChange={original} /></Item>
             </Form>;
         }
         await render(<Host />);
@@ -117,7 +147,7 @@ describe('Form API contracts', () => {
         function Host() {
             [form] = useForm<{ name: string }>();
             return <Form form={form} defaultValue={{ name: 'Alice' }} onSubmitSuccess={onSubmit}>
-                <Item name='name' label='Name' binding='event' rules={[{
+                <Item name='name' label='Name' adapter="native" rules={[{
                     type: RuleType.WARNING, validator: () => { throw new Error('Review this value'); },
                 }]}><input /></Item>
             </Form>;
@@ -145,7 +175,7 @@ describe('Form API contracts', () => {
         function Host() {
             [form] = useForm<{ name: string }>();
             return <Form form={form} defaultValue={{ name: '' }} onSubmitFailed={onFailed}>
-                <Item name='name' label='Name' required binding='event'><input /></Item>
+                <Item name='name' label='Name' required adapter="native"><input /></Item>
             </Form>;
         }
         await render(<Host />);

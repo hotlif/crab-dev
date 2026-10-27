@@ -1,6 +1,6 @@
 import { defineTokens } from '@crab-dev/css';
 import palette from '@crab-dev/rc-token-global';
-import { themeColorContract } from './theme.js';
+import { md3ColorContract } from './theme.js';
 import type { ResolvedThemeColorContract } from './types.js';
 
 /** Neutral shadcn-style roles; Material colors remain a separate public contract. */
@@ -75,7 +75,7 @@ export const shadcnColorContract: ResolvedThemeColorContract = defineTokens({
             hover: palette.neutral[400],
             strong: palette.neutral[500],
             focus: palette.neutral[500],
-            error: themeColorContract.light.border.error,
+            error: md3ColorContract.light.border.error,
         },
         focusRing: `var(--token-semantic-color-border-focus, ${palette.neutral[500]})`,
         selection: {
@@ -83,12 +83,12 @@ export const shadcnColorContract: ResolvedThemeColorContract = defineTokens({
             border: palette.neutral[500],
             foreground: palette.neutral[900],
         },
-        highlight: themeColorContract.light.highlight,
+        highlight: md3ColorContract.light.highlight,
         feedback: {
-            error: { ...themeColorContract.light.feedback.error },
-            success: { ...themeColorContract.light.feedback.success },
-            warning: { ...themeColorContract.light.feedback.warning },
-            info: { ...themeColorContract.light.feedback.info },
+            error: { ...md3ColorContract.light.feedback.error },
+            success: { ...md3ColorContract.light.feedback.success },
+            warning: { ...md3ColorContract.light.feedback.warning },
+            info: { ...md3ColorContract.light.feedback.info },
         },
         fill: {
             subtle: palette.neutral[100],
@@ -170,7 +170,7 @@ export const shadcnColorContract: ResolvedThemeColorContract = defineTokens({
             hover: palette.neutral[600],
             strong: palette.neutral[500],
             focus: palette.neutral[500],
-            error: themeColorContract.dark.border.error,
+            error: md3ColorContract.dark.border.error,
         },
         focusRing: `var(--token-semantic-color-border-focus, ${palette.neutral[500]})`,
         selection: {
@@ -178,12 +178,12 @@ export const shadcnColorContract: ResolvedThemeColorContract = defineTokens({
             border: palette.neutral[500],
             foreground: palette.neutral[50],
         },
-        highlight: themeColorContract.dark.highlight,
+        highlight: md3ColorContract.dark.highlight,
         feedback: {
-            error: { ...themeColorContract.dark.feedback.error },
-            success: { ...themeColorContract.dark.feedback.success },
-            warning: { ...themeColorContract.dark.feedback.warning },
-            info: { ...themeColorContract.dark.feedback.info },
+            error: { ...md3ColorContract.dark.feedback.error },
+            success: { ...md3ColorContract.dark.feedback.success },
+            warning: { ...md3ColorContract.dark.feedback.warning },
+            info: { ...md3ColorContract.dark.feedback.info },
         },
         fill: {
             subtle: palette.neutral[800],

@@ -1,8 +1,11 @@
-import { type FC, useState, type MouseEvent, useEffect } from "react";
+import { type FC, useState, type MouseEvent, useEffect, useEffectEvent, useRef, useId } from "react";
 import { css, cx } from "@crab-dev/css";
+import { useConfig, type ConfigDirection } from '@crab-dev/rc-config-provider';
 import {
     useFloating,
     useHover,
+    useDismiss,
+    autoUpdate,
     useInteractions,
     useFloatingNodeId,
     FloatingNode,
@@ -14,10 +17,13 @@ import {
     safePolygon,
 } from "@floating-ui/react";
 
-import { type MenuProps } from "../menu.js";
+import { type MenuProps, type MenuOpenKeysChangeDetails } from "../menu.js";
 import { ItemType, type Item } from "../type.js";
 import token from "../token.js";
 import VerticalNormalMenu from "./normal.js";
+import { registerOverlayLayer } from '@crab-dev/rc-hooks/internal';
+import { navigateMenu, menuActivationEvent } from '../keyboard.js';
+import { useMenuDisclosure, useMenuSelectionFocus } from '../interactions.js';
 
 const collapsedRootStyle = css`
     display: flex;
@@ -89,7 +95,11 @@ const collapsedItemSelectStyle = css`
     }
     &:active { background-color: ${token.vertical.item.selection['background-color-pressed']}; }
     @media (forced-colors: active) {
-        &, &:hover, &:active { color: HighlightText; background-color: Highlight; }
+        &, &:hover, &:active, &:focus-visible {
+            forced-color-adjust: none;
+            color: HighlightText;
+            background-color: Highlight;
+        }
     }
 `;
 
@@ -165,139 +175,106 @@ const flattenTopLevel = (items: Item[]): Item[] => {
     return result;
 };
 
-const collectAllKeys = (items: Item[]): Item["key"][] => {
-    const keys: Item["key"][] = [];
-    for (const item of items) {
-        keys.push(item.key);
-        if (item.children && item.children.length > 0) {
-            keys.push(...collectAllKeys(item.children));
-        }
-    }
-    return keys;
-};
-
 interface CollapsedItemProps {
     item: Item;
     selected: boolean;
+    open: boolean;
+    direction: ConfigDirection;
     onSelect: (item: Item, event: MouseEvent<HTMLElement>) => void;
+    onLeafSelect: (item: Item, event: MouseEvent<HTMLElement>) => void;
+    onOpenChange: (open: boolean, event?: MenuOpenKeysChangeDetails['event'], dismissal?: 'hover' | 'outside-press') => void;
     baseProps: Omit<CollapsedMenuProps, "items" | "inlineCollapsed" | "className" | "style">;
 }
 
-const CollapsedItem: FC<CollapsedItemProps> = ({ item, selected, onSelect, baseProps }) => {
-    const [isOpen, setIsOpen] = useState(false);
-    const hasChildren = (item.children?.length ?? 0) > 0;
+const CollapsedItem: FC<CollapsedItemProps> = ({ item, selected, open, direction, onSelect, onLeafSelect, onOpenChange, baseProps }) => {
+    const [tooltipOpen, setTooltipOpen] = useState(false);
+    const hasChildren = Boolean(item.children?.length);
+    const isOpen = hasChildren ? open : tooltipOpen;
+    const popupId = useId();
+    const trigger = useRef<HTMLDivElement | null>(null);
+    // Mutable close metadata belongs to the last user request, not rendered state.
+    const escapeClose = useRef(false);
     const nodeId = useFloatingNodeId();
     const tree = useFloatingTree();
-
+    const requestOpen = (next: boolean, event?: MenuOpenKeysChangeDetails['event'], dismissal?: 'hover' | 'outside-press') => {
+        if (!hasChildren) { escapeClose.current = false; setTooltipOpen(next); return; }
+        if (next === open) return;
+        escapeClose.current = !next && event?.type === 'keydown' && 'key' in event && event.key === 'Escape';
+        onOpenChange(next, event, dismissal);
+    };
     const { refs, floatingStyles, context } = useFloating({
         open: isOpen,
-        onOpenChange: setIsOpen,
-        placement: "right-start",
+        onOpenChange: (next, event, reason) => requestOpen(next, event, reason === 'outside-press' ? 'outside-press' : 'hover'),
+        placement: direction === 'rtl' ? 'left-start' : 'right-start',
         strategy: "fixed",
         nodeId,
+        whileElementsMounted: autoUpdate,
         middleware: [offset(8), flip(), shift({ padding: 8 })],
     });
-
     const hover = useHover(context, {
-        // safePolygon 允许鼠标沿参考元素 → 浮层之间的三角安全区平滑移动，
-        // 不会因短暂离开参考元素而立即收起浮层。
         handleClose: safePolygon({ blockPointerEvents: false, buffer: 1 }),
         delay: { open: 60, close: 120 },
     });
-    const { getReferenceProps, getFloatingProps } = useInteractions([hover]);
-
+    const dismiss = useDismiss(context, { escapeKey: false, outsidePressEvent: 'pointerdown', referencePress: false, ancestorScroll: false });
+    const { getReferenceProps, getFloatingProps } = useInteractions([hover, dismiss]);
+    const dismissTop = useEffectEvent((event: KeyboardEvent) => requestOpen(false, event));
+    useEffect(() => {
+        const node = refs.floating.current;
+        if (!isOpen || !node) return;
+        const layer = registerOverlayLayer(node, event => dismissTop(event), trigger.current);
+        return () => layer.release({ restoreFocus: escapeClose.current });
+    }, [isOpen, refs.floating]);
     useEffect(() => {
         if (!tree) return;
-        const close = () => setIsOpen(false);
-        tree.events.on("close", close);
-        return () => {
-            tree.events.off("close", close);
-        };
+        const closeTooltip = () => setTooltipOpen(false);
+        tree.events.on("close", closeTooltip);
+        return () => { tree.events.off("close", closeTooltip); };
     }, [tree]);
 
     return (
-        <li
-            className={collapsedItemStyle}
-            ref={refs.setReference}
-            {...getReferenceProps()}
-        >
+        <li className={collapsedItemStyle} ref={refs.setReference} {...getReferenceProps()}>
             <div
+                ref={trigger}
                 role="menuitem"
                 tabIndex={0}
+                data-menu-item=""
                 aria-label={item.title}
                 aria-haspopup={hasChildren ? "menu" : undefined}
-                aria-expanded={hasChildren ? isOpen : undefined}
+                aria-expanded={hasChildren ? open : undefined}
+                aria-controls={hasChildren ? popupId : undefined}
+                aria-describedby={!hasChildren && tooltipOpen ? popupId : undefined}
                 aria-current={selected ? "true" : undefined}
                 title={hasChildren ? undefined : item.title}
-                className={cx.call(undefined, collapsedItemButtonStyle,
-                    selected ? collapsedItemSelectStyle : null,
-                    hasChildren && isOpen ? collapsedItemOpenStyle : null,
-                )}
-                onClick={(e) => {
-                    if (!hasChildren) {
-                        tree?.events.emit("close");
-                    }
-                    onSelect(item, e);
-                }}
-                onKeyDown={(e) => {
-                    if (e.key === "Enter" || e.key === " ") {
-                        e.preventDefault();
-                        if (!hasChildren) {
-                            tree?.events.emit("close");
-                        }
-                        onSelect(item, e as unknown as MouseEvent<HTMLElement>);
-                    }
+                className={cx(collapsedItemButtonStyle, selected ? collapsedItemSelectStyle : null, hasChildren && open ? collapsedItemOpenStyle : null)}
+                onClick={event => {
+                    if (hasChildren) requestOpen(!open, menuActivationEvent(event.currentTarget) ?? event);
+                    else tree?.events.emit("close");
+                    onSelect(item, event);
                 }}
             >
-                {item.icon ? (
-                    <span className={collapsedIconStyle} data-menu-icon="">{item.icon}</span>
-                ) : (
-                    <span className={collapsedFallbackTextStyle}>
-                        {typeof item.title === "string" && item.title.length > 0
-                            ? item.title.slice(0, 1)
-                            : null}
-                    </span>
+                {item.icon ? <span className={collapsedIconStyle} data-menu-icon="">{item.icon}</span> : (
+                    <span className={collapsedFallbackTextStyle}>{item.title?.slice(0, 1)}</span>
                 )}
             </div>
             <FloatingNode id={nodeId}>
-                {isOpen
-                    ? (
-                        hasChildren
-                            ? (
-                                <div
-                                    ref={refs.setFloating}
-                                    style={floatingStyles}
-                                    className={submenuFloatStyle}
-                                    {...getFloatingProps()}
-                                >
-                                    <VerticalNormalMenu
-                                        {...baseProps}
-                                        items={item.children ?? []}
-                                        openKeys={collectAllKeys(item.children ?? [])}
-                                        onClick={(param) => {
-                                            tree?.events.emit("close");
-                                            baseProps.onClick?.(param);
-                                        }}
-                                    />
-                                </div>
-                            )
-                            : (
-                                item.title
-                                    ? (
-                                        <div
-                                            ref={refs.setFloating}
-                                            style={floatingStyles}
-                                            className={tooltipStyle}
-                                            role="tooltip"
-                                            {...getFloatingProps()}
-                                        >
-                                            {item.title}
-                                        </div>
-                                    )
-                                    : null
-                            )
-                    )
-                    : null}
+                {isOpen ? hasChildren ? (
+                    <div id={popupId} ref={refs.setFloating} style={floatingStyles} className={submenuFloatStyle} {...getFloatingProps()}>
+                        <VerticalNormalMenu
+                            {...baseProps}
+                            items={item.children ?? []}
+                            onClick={param => {
+                                if (!param.item.children?.length) {
+                                    tree?.events.emit("close");
+                                    onLeafSelect(param.item, param.event);
+                                } else baseProps.onClick?.(param);
+                            }}
+                        />
+                    </div>
+                ) : item.title ? (
+                    <div id={popupId} ref={refs.setFloating} style={floatingStyles} className={tooltipStyle} role="tooltip" {...getFloatingProps()}>
+                        {item.title}
+                    </div>
+                ) : null : null}
             </FloatingNode>
         </li>
     );
@@ -309,48 +286,62 @@ interface CollapsedMenuProps extends Omit<MenuProps, "mode"> {}
 const VerticalCollapsedMenu: FC<CollapsedMenuProps> = ({
     className,
     style,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    openKeys,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    onOpenChange,
+    openKeys = [],
+    onOpenKeysChange,
     selectedKeys = [],
     items = [],
-    onSelectItem,
+    onSelectedKeysChange,
     onClick,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    inlineCollapsed,
+    onKeyDown,
+    inlineCollapsed: _inlineCollapsed,
     ...props
 }) => {
+    const config = useConfig();
+    const direction = props.dir === 'ltr' || props.dir === 'rtl' ? props.dir : config.direction;
+    const root = useRef<HTMLUListElement | null>(null);
+    const { requestOpen, closeAll } = useMenuDisclosure(openKeys, onOpenKeysChange, root);
+    const captureSelectionFocus = useMenuSelectionFocus(openKeys, root);
     const topItems = flattenTopLevel(items);
-
-    const handleSelect = (item: Item, event: MouseEvent<HTMLElement>) => {
-        const keys: typeof selectedKeys = [];
-        if (!selectedKeys.includes(item.key)) {
-            keys.push(item.key);
-        }
-        onSelectItem?.({ item, selectedKeys: keys });
+    const handleLeafSelect = (item: Item, event: MouseEvent<HTMLElement>) => {
+        captureSelectionFocus(event.currentTarget);
         onClick?.({ event, item });
+        closeAll(item, menuActivationEvent(event.currentTarget) ?? event);
+    };
+    const handleSelect = (item: Item, event: MouseEvent<HTMLElement>) => {
+        if (!item.children?.length) captureSelectionFocus(event.currentTarget);
+        const keys = selectedKeys.includes(item.key) ? [] : [item.key];
+        const semanticEvent = menuActivationEvent(event.currentTarget) ?? event;
+        onSelectedKeysChange?.(keys, { reason: keys.length ? 'select' : 'deselect', item, event: semanticEvent });
+        onClick?.({ event, item });
+        if (!item.children?.length) closeAll(item, semanticEvent);
     };
 
     return (
         <FloatingTree>
             <ul
-                className={cx.call(undefined, className, collapsedRootStyle)}
+                ref={root}
+                className={cx(className, collapsedRootStyle)}
                 style={style}
                 role="menu"
                 {...props}
+                onKeyDown={event => {
+                    const view = event.currentTarget.ownerDocument.defaultView;
+                    if (view && event.target instanceof view.HTMLElement && event.target.closest('ul') !== event.currentTarget) return;
+                    onKeyDown?.(event);
+                    navigateMenu(event);
+                }}
             >
-                {topItems.map((item) => (
+                {topItems.map(item => (
                     <CollapsedItem
                         key={item.key}
                         item={item}
                         selected={selectedKeys.includes(item.key)}
+                        open={openKeys.includes(item.key)}
+                        direction={direction}
+                        onOpenChange={(next, event, dismissal) => requestOpen(item, 1, next, event, dismissal)}
                         onSelect={handleSelect}
-                        baseProps={{
-                            selectedKeys,
-                            onSelectItem,
-                            onClick,
-                        }}
+                        onLeafSelect={handleLeafSelect}
+                        baseProps={{ selectedKeys, onSelectedKeysChange, openKeys, onOpenKeysChange, onClick, onKeyDown }}
                     />
                 ))}
             </ul>

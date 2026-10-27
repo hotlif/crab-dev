@@ -59,7 +59,7 @@ const ALL_NODES = buildNodes();
 const FilterDemo = () => {
     const [keyword, setKeyword] = useState("");
     const [expandedKeys, setExpandedKeys] = useState<Key[]>([]);
-    const [selectKeys, setSelectKeys] = useState<Key[]>([]);
+    const [selectedKeys, setSelectedKeys] = useState<Key[]>([]);
     const [treeData, setTreeData] = useTreeData(ALL_NODES);
 
     const filterFn = keyword.trim()
@@ -97,7 +97,7 @@ const FilterDemo = () => {
                     type="search"
                     placeholder="输入节点名称"
                     value={keyword}
-                    onChange={e => setKeyword(e.target.value)}
+                    onValueChange={next => setKeyword(next)}
                 />
             </div>
             <AutoSizer disableHeight className={treeMeasureStyle}>
@@ -108,16 +108,10 @@ const FilterDemo = () => {
                         treeData={treeData}
                         onTreeNodeChange={setTreeData}
                         expandedKeys={expandedKeys}
-                        selectKeys={selectKeys}
+                        selectedKeys={selectedKeys}
                         filterTreeNode={filterFn}
-                        onSelect={({ selectKeys: keys }: { selectKeys: Key[] }) => setSelectKeys(keys)}
-                        onExpanded={({ node }: { node: Node }) => {
-                            setExpandedKeys(prev =>
-                                prev.includes(node.id)
-                                    ? prev.filter(k => k !== node.id)
-                                    : [...prev, node.id]
-                            );
-                        }}
+                        onSelectedKeysChange={(keys: Key[]) => setSelectedKeys(keys)}
+                        onExpandedKeysChange={setExpandedKeys}
                     />
                 )}
             </AutoSizer>

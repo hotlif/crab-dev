@@ -1,4 +1,5 @@
 import { css, cx } from "@crab-dev/css";
+import { useLocale } from '@crab-dev/rc-config-provider';
 import token, { vars } from "./token.js";
 
 const rowEditingCellStyle = css`
@@ -122,9 +123,10 @@ export interface TableCellProps<T extends Row> extends HTMLAttributes<HTMLDivEle
 }
 
 const mapping = {
-    "left": "flex-start",
+    // Align is a physical public contract, including in RTL cell content.
+    "left": "left",
     "center": "center",
-    "right": "flex-end",
+    "right": "right",
 }
 
 function TableCell<T extends Row>({
@@ -164,6 +166,7 @@ function TableCell<T extends Row>({
     onCellEditNavigate,
     ...restProps
 }: TableCellProps<T>): ReactNode {
+    const { messages } = useLocale();
     const [editorValue, setEditorValue] = useState<unknown>(null);
     const [isEditing, setIsEditing] = useState(false);
     // 进入编辑时快照原值，提交时作为 oldValue 写入操作记录
@@ -254,7 +257,7 @@ function TableCell<T extends Row>({
         } else if (column.align && Array.isArray(column.align)) {
             return mapping[column.align?.[1]]
         } else {
-            return "flex-start";
+            return "left";
         }
     }
 
@@ -320,9 +323,9 @@ function TableCell<T extends Row>({
                         {treeNode.hasChildren ? (
                             <TableIconButton
                                 aria-expanded={treeNode.isExpanded}
-                                aria-label={treeNode.isExpanded ? "收起子行" : "展开子行"}
+                                aria-label={treeNode.isExpanded ? messages.table.collapseChildren : messages.table.expandChildren}
                                 className={css`
-                                    margin-right: ${token.tree.button.gap};
+                                    margin-inline-end: ${token.tree.button.gap};
                                     @media (prefers-reduced-motion: reduce) {
                                         & svg { transition: none; }
                                     }
@@ -341,7 +344,7 @@ function TableCell<T extends Row>({
                                     fill="none"
                                     xmlns="http://www.w3.org/2000/svg"
                                     className={css`transition: ${token.tree.chevron.transition};`}
-                                    style={{ transform: treeNode.isExpanded ? 'rotate(0deg)' : 'rotate(-90deg)' }}
+                                    style={{ transform: treeNode.isExpanded ? 'rotate(0deg)' : restProps.dir === 'rtl' ? 'rotate(90deg)' : 'rotate(-90deg)' }}
                                 >
                                     <path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
                                 </svg>}
@@ -387,6 +390,7 @@ function TableCell<T extends Row>({
                         position: absolute;
                         z-index: 1;
                         top: 0;
+                        left: 0;
                         box-sizing: border-box;
                         /* 合并单元格自带一层不透明底，同样读行底色变量 —— 过渡必须与行、
                            固定列严格一致，否则 hover 时它会瞬时跳色而其余仍在渐变。 */

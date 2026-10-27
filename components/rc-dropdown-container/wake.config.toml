@@ -10,7 +10,7 @@ preview = "docs/preview.tsx"
 setup = ["../../test/wake-css.setup.ts"]
 environment = "dom"
 include = ["src/**/*.{test,spec}.{js,mjs,cjs,jsx,ts,mts,cts,tsx}"]
-exclude = ["**/node_modules/**", "**/coverage/**", "**/esm/**", "**/cjs/**", "**/declarations/**"]
+exclude = ["**/node_modules/**", "**/coverage/**", "**/esm/**", "**/cjs/**", "**/declarations/**", "src/__tests__/browser/**", "src/__tests__/published/**"]
 timeout_ms = 5000
 leaks = "error"
 

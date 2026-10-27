@@ -35,7 +35,7 @@ describe("notification deadlines", () => {
             api = instance;
             return createPortal(content, document.body);
         }
-        const view = await render(<ConfigProvider design="shadcn" theme="dark" brandColor="#6750a4"><Host /></ConfigProvider>);
+        const view = await render(<ConfigProvider designSystem="shadcn" colorMode="dark" brandColor="#6750a4"><Host /></ConfigProvider>);
         await act(() => { api.open({ title: 'Scoped notification', description: 'Scoped design inheritance', duration: 0 }); });
         const holder = screen.getByRole('status').closest('[popover]');
         expect(holder?.parentElement).toBe(document.body);
@@ -43,8 +43,8 @@ describe("notification deadlines", () => {
         expect(holder?.getAttribute('data-theme')).toBe('dark');
         expect(holder?.getAttribute('data-crab-brand')).toBeTruthy();
         expect(holder?.querySelector('[data-crab-brand-style]')?.textContent).toContain('--token-semantic-color-brand-primary:');
-        await view.rerender(<ConfigProvider design="material" theme="dark" brandColor="#6750a4"><Host /></ConfigProvider>);
-        expect(holder?.getAttribute('data-crab-design')).toBe('material');
+        await view.rerender(<ConfigProvider designSystem="md3" colorMode="dark" brandColor="#6750a4"><Host /></ConfigProvider>);
+        expect(holder?.getAttribute('data-crab-design')).toBe('md3');
         await view.unmount();
     });
     it('updates a persistent notification and closes its handle exactly once', async () => {

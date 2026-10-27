@@ -1,28 +1,14 @@
-import { type ReactNode, type InputHTMLAttributes, type ChangeEvent, type AriaAttributes } from 'react';
+import type { ControlledCheckedProps, ControlledValueProps } from '@crab-dev/rc-hooks';
+import { type ReactNode, type InputHTMLAttributes, type ChangeEvent, type HTMLAttributes } from 'react';
 
 interface BaseRadioProps extends Omit<
     InputHTMLAttributes<HTMLInputElement>,
-    'onChange' | 'type' | 'value' | 'checked' | 'defaultChecked' | 'size'
+    'type' | 'value' | 'checked' | 'defaultChecked' | 'size'
 > {
     /**
-     * 是否选中（受控）
+     * 单选框的大小, 默认为 medium
      */
-    checked?: boolean;
-
-    /**
-     * 默认是否选中（非受控）
-     */
-    defaultChecked?: boolean;
-
-    /**
-     * 单选框的大小, 默认为 middle
-     */
-    size?: 'large' | 'middle' | 'small';
-
-    /**
-     * 值变化时的回调
-     */
-    onChange?: (checked: boolean, event: ChangeEvent<HTMLInputElement>) => void;
+    size?: 'large' | 'medium' | 'small';
 
     /**
      * Radio 的值, 在 RadioGroup 中使用
@@ -30,34 +16,21 @@ interface BaseRadioProps extends Omit<
     value?: string | number;
 }
 
-export type RadioProps = BaseRadioProps &
+export interface RadioChangeDetails { reason: 'toggle'; event: ChangeEvent<HTMLInputElement>; }
+
+export type RadioProps = BaseRadioProps & ControlledCheckedProps<RadioChangeDetails> &
     ({ children: ReactNode; 'aria-label'?: string } | { children?: never; 'aria-label': string });
 
-export interface RadioGroupProps extends Pick<AriaAttributes, 'aria-label' | 'aria-labelledby' | 'aria-describedby'> {
-    /**
-     * 当前选中的值（受控）
-     */
-    value?: string | number;
-
-    /**
-     * 默认选中的值（非受控）
-     */
-    defaultValue?: string | number;
-
-    /**
-     * 值变化时的回调
-     */
-    onChange?: (value: string | number) => void;
-
+interface BaseRadioGroupProps extends Omit<HTMLAttributes<HTMLDivElement>, 'defaultValue'> {
     /**
      * 是否禁用所有单选框
      */
     disabled?: boolean;
 
     /**
-     * 单选框组的大小, 默认为 middle
+     * 单选框组的大小, 默认为 medium
      */
-    size?: 'large' | 'middle' | 'small';
+    size?: 'large' | 'medium' | 'small';
 
     /**
      * Radio name 属性，用于原生分组与表单字段；未指定或为空时自动生成组内唯一名称。
@@ -79,7 +52,10 @@ export interface RadioGroupProps extends Pick<AriaAttributes, 'aria-label' | 'ar
 export interface RadioGroupContextValue {
     value: string | number | undefined;
     disabled: boolean;
-    size?: 'large' | 'middle' | 'small';
+    size?: 'large' | 'medium' | 'small';
     name?: string;
-    selectValue: (val: string | number) => void;
+    selectValue: (val: string | number, event: ChangeEvent<HTMLInputElement>) => void;
 }
+
+export interface RadioGroupChangeDetails { reason: 'select'; event?: ChangeEvent<HTMLInputElement>; }
+export type RadioGroupProps = BaseRadioGroupProps & ControlledValueProps<string | number, RadioGroupChangeDetails>;

@@ -36,9 +36,9 @@ interface BaseButtonProps {
     danger?: boolean;
 
     /**
-     * Expressive 五档尺寸 xs/s/m/l/xl；small/middle/large 兼容映射为 xs/s/m，默认 middle
+     * Expressive 五档尺寸 xs/s/m/l/xl；省略时由全局 small/medium/large 映射为 xs/s/m
      */
-    size?: 'xs' | 's' | 'm' | 'l' | 'xl' | 'large' | 'middle' | 'small';
+    size?: 'xs' | 's' | 'm' | 'l' | 'xl';
 
     /**
      * 省略时随设计风格：Material 为 round，shadcn 为 square；circle 适用于纯图标按钮
@@ -86,7 +86,7 @@ export type ButtonLinkProps = BaseButtonProps & ContentProps & ExcludeOtherAttri
     onClickCapture?: ClickHandler<HTMLAnchorElement>;
 };
 
-export type ButtonProps = ButtonNativeProps | ButtonLinkProps;
+export type ButtonProps = BaseButtonProps & ContentProps & (ButtonNativeProps | ButtonLinkProps);
 
 export interface ButtonGroupProps {
     children: ReactNode;

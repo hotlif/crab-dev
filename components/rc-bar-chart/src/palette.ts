@@ -146,7 +146,10 @@ export function dimColor(
             Math.round((background + (component - background) * q) * 255);
         out = `rgb(${mix(r, bgR)}, ${mix(g, bgG)}, ${mix(b, bgB)})`;
     } else {
-        out = `color-mix(in oklch, ${color} ${q * 100}%, ${canvasBackground})`;
+        // Match the literal path's sRGB channel interpolation. Polar OKLCh
+        // mixing can rotate a series hue toward the background's hue, making
+        // an inactive series look like a different category in the legend.
+        out = `color-mix(in srgb, ${color} ${q * 100}%, ${canvasBackground})`;
     }
     dimCache.set(key, out);
     return out;

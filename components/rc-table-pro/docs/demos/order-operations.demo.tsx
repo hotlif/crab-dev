@@ -133,7 +133,7 @@ export default function OrderOperationsDemo() {
                 defaultSortColumns={[{ columnName: "$.promiseDate", direction: "asc" }]}
                 pagination={{ defaultPageSize: 20, pageSizeOptions: [10, 20, 50], showSizeChanger: true, showTotal: true }}
                 typeLoaders={typeLoaders}
-                rowSelection={{ type: "checkbox", selectedRowIds: selectedIds, onChange: ids => setSelectedIds(ids), getDisabled: row => row.dataRef.status !== "待发货" }}
+                rowSelection={{ type: "checkbox", selectedRowIds: selectedIds, onSelectedRowIdsChange: ids => setSelectedIds(ids), getDisabled: row => row.dataRef.status !== "待发货" }}
                 sideBar
                 filterBar
                 showSearchBar

@@ -1,14 +1,18 @@
-# 固定列需要真实布局和 Crab CSS；不能使用包内 DOM 测试的 CSS mock。
-# 在 rc-table 中运行：yarn test --root src/__tests__/browser
+# This layout-only regression requires test:browser to build published ESM/CSS.
 [test]
 environment = "browser"
-include = ["table.test.tsx"]
-timeout_ms = 5000
+include = ["table.test.tsx", "row-edit-actions.test.tsx", "contained-focus.test.tsx"]
+timeout_ms = 15000
 leaks = "error"
 
 [test.react]
+strict_mode = false
 cleanup = true
 act_warnings = "error"
+
+[test.network]
+mode = "deny"
+allow_hosts = []
 
 [test.coverage]
 enabled = true

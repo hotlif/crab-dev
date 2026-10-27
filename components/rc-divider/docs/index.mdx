@@ -19,6 +19,8 @@ status = "experimental"
 
 已有留白、标题或边框能够清楚表达分组时，无需额外添加分割线。
 
+`variant="dotted"` 使用圆点线，点距为线宽的三倍，为 DPR 1 等低像素密度下的光栅边缘保留间隙；`dashed` 使用短划线。横向、竖向和带标题的分段线遵循相同规则。
+
 ## 无障碍
 
 默认使用 `role="separator"` 表达内容分组。纯装饰线可设置 `decorative`，使其通过 `role="none"` 和 `aria-hidden` 从无障碍树中隐藏。

@@ -21,7 +21,7 @@ export default function Example() {
         <div className={layout}>
             <label className={fieldStyle}>
                 购买数量（1–10）
-                <NumberEdit value={value} onChange={setValue} min={1} max={10} />
+                <NumberEdit value={value} onValueChange={setValue} min={1} max={10} />
             </label>
             <output>总价：¥{(value ?? 0) * 80}</output>
         </div>

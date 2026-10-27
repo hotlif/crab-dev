@@ -8,7 +8,7 @@
             "id": "step-1",
             "title": "组织字段",
             "goal": "先完成能阅读和输入的资料表单。",
-            "why": "标签、说明和字段要放在一起；使用 LineEdit.label 后，Material 浮动标签与 macOS、shadcn 静态外置标签会跟随统一风格。",
+            "why": "标签、说明和字段要放在一起；使用 LineEdit.label 后，MD3 Expressive 浮动标签与 Apple、shadcn/ui 静态外置标签会跟随统一风格。",
             "instruction": "填写姓名与邮箱，使用 Tab 在字段间移动。",
             "expected": "两个字段可输入；本步只建立布局，不提交数据。",
             "changes": [

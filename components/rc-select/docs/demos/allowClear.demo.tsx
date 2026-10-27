@@ -43,12 +43,12 @@ const AllowClearDemo = () => {
     const [theme, setTheme] = useState<'light' | 'dark'>('light');
 
     return (
-        <ConfigProvider theme={theme} className={previewStyle}>
-            <Button appearance="outlined" size="small" onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}>
+        <ConfigProvider colorMode={theme} className={previewStyle}>
+            <Button appearance="outlined" size="xs" onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}>
                 切换为{theme === 'light' ? '深色' : '浅色'}
             </Button>
             <div className={gridStyle}>
-                {(['small', 'middle', 'large'] as const).map(size =>
+                {(['small', 'medium', 'large'] as const).map(size =>
                     (['outlined', 'filled'] as const).map(appearance => <Select
                         key={`${size}-${appearance}`}
                         label={`${size} · ${appearance === 'outlined' ? '描边' : '填充'}`}

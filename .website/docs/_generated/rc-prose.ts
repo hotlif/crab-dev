@@ -27,6 +27,27 @@ export const demos = [
         "group": null
     },
     {
+        "id": "docs/demos/scoped-content.demo.tsx",
+        "title": "嵌入独立内容",
+        "description": "not-prose 排除区域自身及后代的直接排版规则；字体和颜色仍会正常继承，独立区域可定义自己的外观。",
+        "learning": {
+            "components": [
+                "Prose"
+            ],
+            "props": [
+                "as"
+            ],
+            "events": [],
+            "hasState": false
+        },
+        "sourceCode": "import { css, cx } from '@crab-dev/css';\nimport token from '@crab-dev/rc-token-semantic';\nimport Prose from '@crab-dev/rc-prose';\n\nexport const meta = {\n    title: '嵌入独立内容',\n    description: 'not-prose 排除区域自身及后代的直接排版规则；字体和颜色仍会正常继承，独立区域可定义自己的外观。',\n};\n\nconst noteStyle = css`\n    padding: ${token.space['card-padding']};\n    border: 1px solid ${token.color.border.default};\n    border-radius: ${token.shape.card};\n    background: ${token.color.workspace.sidebar};\n    color: ${token.color.text.secondary};\n    font-size: ${token.typography.body.small['font-size']};\n    line-height: ${token.typography.body.small['line-height']};\n\n    & h3 { margin: 0 0 ${token.space['component-gap']}; font: inherit; font-weight: ${token.font.weight.strong}; }\n    & p { margin: 0; }\n`;\n\nexport default function ScopedContentDemo() {\n    return \u003cProse as=\"article\">\n        \u003ch2>项目说明\u003c/h2>\n        \u003cp>正文、\u003ca href=\"#scoped-content-end\">相关链接\u003c/a>和 \u003ckbd>Enter\u003c/kbd> 提示使用文章排版。\u003c/p>\n        \u003caside className={cx('not-prose', noteStyle)} aria-label=\"独立提示\">\n            \u003ch3>提示内容\u003c/h3>\n            \u003cp>这个区域保留自身的字号、间距和表面，后面的文章继续使用 Prose。\u003c/p>\n        \u003c/aside>\n        \u003cp id=\"scoped-content-end\">文章内容继续。代码块中的字体不会被行内代码尺寸再次缩小。\u003c/p>\n        \u003cpre>\u003ccode>{'const ready = true;'}\u003c/code>\u003c/pre>\n    \u003c/Prose>;\n}\n",
+        "previewPath": "/components/rc-prose/workbench/?__wake_demo=docs%2Fdemos%2Fscoped-content.demo.tsx",
+        "workbenchPath": "/components/rc-prose/workbench/#/components/docs%2Fdemos%2Fscoped-content.demo.tsx",
+        "density": "spacious",
+        "layout": "wide",
+        "group": null
+    },
+    {
         "id": "docs/demos/semantic-tag.demo.tsx",
         "title": "语义标签",
         "description": "通过 `as` 属性指定根元素标签：`div`（默认）、`article`、`section`、`main`",
@@ -80,9 +101,32 @@ export const demos = [
             "events": [],
             "hasState": false
         },
-        "sourceCode": "export const meta = {\n    title: \"表格与定义列表\",\n    description: \"展示表格与定义列表的排版效果\",\n};\n\nimport Prose from '../../src/index.js';\n\nconst TableDemo = () => {\n    return (\n        \u003cProse>\n            \u003ch3>表格\u003c/h3>\n            \u003ctable>\n                \u003cthead>\n                    \u003ctr>\n                        \u003cth>变体\u003c/th>\n                        \u003cth>字号\u003c/th>\n                        \u003cth>行高\u003c/th>\n                    \u003c/tr>\n                \u003c/thead>\n                \u003ctbody>\n                    \u003ctr>\n                        \u003ctd>sm\u003c/td>\n                        \u003ctd>0.875rem\u003c/td>\n                        \u003ctd>1.714\u003c/td>\n                    \u003c/tr>\n                    \u003ctr>\n                        \u003ctd>base\u003c/td>\n                        \u003ctd>1rem\u003c/td>\n                        \u003ctd>1.75\u003c/td>\n                    \u003c/tr>\n                    \u003ctr>\n                        \u003ctd>lg\u003c/td>\n                        \u003ctd>1.125rem\u003c/td>\n                        \u003ctd>1.778\u003c/td>\n                    \u003c/tr>\n                    \u003ctr>\n                        \u003ctd>xl\u003c/td>\n                        \u003ctd>1.25rem\u003c/td>\n                        \u003ctd>1.8\u003c/td>\n                    \u003c/tr>\n                \u003c/tbody>\n            \u003c/table>\n\n            \u003ch3>定义列表\u003c/h3>\n            \u003cdl>\n                \u003cdt>Prose\u003c/dt>\n                \u003cdd>Markdown 排版容器组件，提供完整的富文本排版样式。\u003c/dd>\n\n                \u003cdt>Crab CSS\u003c/dt>\n                \u003cdd>零运行时 CSS-in-JS 方案，编译时提取静态 CSS。\u003c/dd>\n\n                \u003cdt>Design Token\u003c/dt>\n                \u003cdd>三层架构（全局 → 语义 → 组件），支持主题覆写。\u003c/dd>\n            \u003c/dl>\n        \u003c/Prose>\n    );\n};\n\nexport default TableDemo;\n",
+        "sourceCode": "export const meta = {\n    title: \"表格与定义列表\",\n    description: \"展示表格与定义列表的排版效果\",\n};\n\nimport Prose from '@crab-dev/rc-prose';\n\nconst TableDemo = () => {\n    return (\n        \u003cProse>\n            \u003ch3>表格\u003c/h3>\n            \u003ctable>\n                \u003cthead>\n                    \u003ctr>\n                        \u003cth>项目\u003c/th>\n                        \u003cth>负责人\u003c/th>\n                        \u003cth>进度\u003c/th>\n                    \u003c/tr>\n                \u003c/thead>\n                \u003ctbody>\n                    \u003ctr>\n                        \u003ctd>产品说明\u003c/td>\n                        \u003ctd>陈晓\u003c/td>\n                        \u003ctd>已完成\u003c/td>\n                    \u003c/tr>\n                    \u003ctr>\n                        \u003ctd>交互评审\u003c/td>\n                        \u003ctd>林宁\u003c/td>\n                        \u003ctd>进行中\u003c/td>\n                    \u003c/tr>\n                    \u003ctr>\n                        \u003ctd>数据整理\u003c/td>\n                        \u003ctd>李明\u003c/td>\n                        \u003ctd>待开始\u003c/td>\n                    \u003c/tr>\n                    \u003ctr>\n                        \u003ctd>发布记录\u003c/td>\n                        \u003ctd>周晨\u003c/td>\n                        \u003ctd>待评审\u003c/td>\n                    \u003c/tr>\n                \u003c/tbody>\n            \u003c/table>\n\n            \u003ch3>定义列表\u003c/h3>\n            \u003cdl>\n                \u003cdt>Prose\u003c/dt>\n                \u003cdd>Markdown 排版容器组件，提供完整的富文本排版样式。\u003c/dd>\n\n                \u003cdt>Crab CSS\u003c/dt>\n                \u003cdd>零运行时 CSS-in-JS 方案，编译时提取静态 CSS。\u003c/dd>\n\n                \u003cdt>Design Token\u003c/dt>\n                \u003cdd>三层架构（全局 → 语义 → 组件），支持主题覆写。\u003c/dd>\n            \u003c/dl>\n        \u003c/Prose>\n    );\n};\n\nexport default TableDemo;\n",
         "previewPath": "/components/rc-prose/workbench/?__wake_demo=docs%2Fdemos%2Ftable.demo.tsx",
         "workbenchPath": "/components/rc-prose/workbench/#/components/docs%2Fdemos%2Ftable.demo.tsx",
+        "density": "spacious",
+        "layout": "wide",
+        "group": null
+    },
+    {
+        "id": "docs/demos/visual-states.demo.tsx",
+        "title": "正色与逆色内容",
+        "description": "四档文章字阶分别展示普通与 invert 排版。逆色容器使用当前主题的 inverse 背景，随明暗模式改变；内容覆盖中文、长链接、代码、表格和键盘提示。",
+        "learning": {
+            "components": [
+                "Prose"
+            ],
+            "props": [
+                "size",
+                "invert",
+                "as"
+            ],
+            "events": [],
+            "hasState": false
+        },
+        "sourceCode": "import { css } from '@crab-dev/css';\nimport token from '@crab-dev/rc-token-semantic';\nimport Prose, { type ProseSize } from '@crab-dev/rc-prose';\n\nexport const meta = {\n    title: '正色与逆色内容',\n    description: '四档文章字阶分别展示普通与 invert 排版。逆色容器使用当前主题的 inverse 背景，随明暗模式改变；内容覆盖中文、长链接、代码、表格和键盘提示。',\n};\n\nconst stackStyle = css`display: grid; gap: ${token.space['group-gap']}; min-width: 0;`;\nconst surfaceStyle = css`padding: ${token.space['card-padding']}; background: ${token.color.surface.content}; min-width: 0;`;\nconst inverseStyle = css`padding: ${token.space['card-padding']}; background: ${token.color.background.inverse}; min-width: 0;`;\nconst sizes: ProseSize[] = ['sm', 'base', 'lg', 'xl'];\n\nexport default function VisualStatesDemo() {\n    return \u003cdiv className={stackStyle}>\n        {sizes.map(size => [false, true].map(invert => \u003csection\n            key={`${size}-${invert}`}\n            className={invert ? inverseStyle : surfaceStyle}\n            aria-label={`${size} ${invert ? 'inverse' : 'default'}`}\n        >\n            \u003cProse size={size} invert={invert} as=\"article\">\n                \u003ch2>{size} · {invert ? '逆色排版' : '普通排版'}\u003c/h2>\n                \u003cp className=\"lead\">中文与 English 内容保持清晰的阅读层级。\u003c/p>\n                \u003cp>正文包含 \u003cstrong>重要信息\u003c/strong>、\u003cem>补充说明\u003c/em>、\u003ccode>inlineCode\u003c/code> 和 \u003ckbd>Enter\u003c/kbd>。使用键盘访问下方长链接，核对换行与焦点。\u003c/p>\n                \u003cp>\u003ca href=\"#prose-visual-end\">https://example.com/documentation/long-continuous-reference-for-typography-and-overflow\u003c/a>\u003c/p>\n                \u003cblockquote>\u003cp>引用需要保留边界、层级和足够的文字对比度。\u003c/p>\u003c/blockquote>\n                \u003cpre>\u003ccode>{'const description = \"一行较长的代码用于检查独立横向滚动，避免挤出文章容器的边界。\";'}\u003c/code>\u003c/pre>\n                \u003ctable>\u003cthead>\u003ctr>\u003cth>内容\u003c/th>\u003cth>说明\u003c/th>\u003c/tr>\u003c/thead>\u003ctbody>\u003ctr>\u003ctd>长文本\u003c/td>\u003ctd>当前主题的正文、表头、描边与背景应保持协调。\u003c/td>\u003c/tr>\u003c/tbody>\u003c/table>\n            \u003c/Prose>\n        \u003c/section>))}\n        \u003cp id=\"prose-visual-end\">内容结束\u003c/p>\n    \u003c/div>;\n}\n",
+        "previewPath": "/components/rc-prose/workbench/?__wake_demo=docs%2Fdemos%2Fvisual-states.demo.tsx",
+        "workbenchPath": "/components/rc-prose/workbench/#/components/docs%2Fdemos%2Fvisual-states.demo.tsx",
         "density": "spacious",
         "layout": "wide",
         "group": null

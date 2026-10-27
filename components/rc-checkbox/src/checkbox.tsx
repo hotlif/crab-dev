@@ -200,15 +200,15 @@ const sizeStyles = {
         icon: css`width: ${token.size.large.icon.width}; height: ${token.size.large.icon.width};`,
         indeterminate: css`width: ${token.size.large.indeterminate.width}; height: ${token.size.large.indeterminate.height};`,
     },
-    middle: {
-        wrapper: css`font-size: ${token.size.middle.label['font-size']};`,
+    medium: {
+        wrapper: css`font-size: ${token.size.medium.label['font-size']};`,
         box: css`
-            width: ${token.size.middle.box.width};
-            height: ${token.size.middle.box.width};
-            border-radius: ${token.size.middle.box['border-radius']};
+            width: ${token.size.medium.box.width};
+            height: ${token.size.medium.box.width};
+            border-radius: ${token.size.medium.box['border-radius']};
         `,
-        icon: css`width: ${token.size.middle.icon.width}; height: ${token.size.middle.icon.width};`,
-        indeterminate: css`width: ${token.size.middle.indeterminate.width}; height: ${token.size.middle.indeterminate.height};`,
+        icon: css`width: ${token.size.medium.icon.width}; height: ${token.size.medium.icon.width};`,
+        indeterminate: css`width: ${token.size.medium.indeterminate.width}; height: ${token.size.medium.indeterminate.height};`,
     },
     small: {
         wrapper: css`font-size: ${token.size.small.label['font-size']};`,
@@ -229,6 +229,7 @@ const Checkbox: FC<CheckboxProps> = ({
     disabled: disabledProp,
     size: sizeProp,
     onChange,
+    onCheckedChange,
     value,
     children,
     className,
@@ -247,7 +248,7 @@ const Checkbox: FC<CheckboxProps> = ({
     >({
         value: checkedProp,
         defaultValue: defaultChecked,
-        onChange,
+        onValueChange: (next, event) => onCheckedChange?.(next, { reason: 'toggle', event }),
     });
 
     const checked = isInGroup ? group.value.includes(value) : standaloneChecked;
@@ -259,9 +260,10 @@ const Checkbox: FC<CheckboxProps> = ({
     }, [indeterminate, checked]);
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+        onChange?.(event);
         if (isInGroup) {
-            group.toggleValue(value);
-            onChange?.(event.target.checked, event);
+            group.toggleValue(value, event);
+            onCheckedChange?.(event.target.checked, { reason: 'toggle', event: event });
         } else {
             setStandaloneChecked(event.target.checked, event);
         }

@@ -1,4 +1,5 @@
-import { describe, expect, it, mock, act, renderHook } from "@crab-dev/wake/test/react";
+import { describe, expect, it, mock } from "@crab-dev/wake/test";
+import { act, renderHook } from "@crab-dev/wake/test/react";
 import type { PointerEvent as ReactPointerEvent } from "react";
 import { useDragResize } from "../useDragResize.js";
 import type { DragResizeOptions, DragResizeResult } from "../useDragResize.js";

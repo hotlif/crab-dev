@@ -10,3 +10,5 @@ export type {
 
 export default Tabs;
 export { vars as TokenVars } from './token.js';
+
+export type { TabsChangeDetails } from './types.js';

@@ -49,9 +49,13 @@ import { demos } from "../_generated/rc-drawer.js";
 
 ### 三套设计风格
 
-Material 以 sheet 作为参考，仅未贴边的角采用 28px 圆角；macOS 使用 12px 浮层角和细描边；shadcn sheet 使用直角与单侧边界。上下左右四个位置均随主题切换，RTL 使用逻辑方向。侧边、顶部布局是基于 sheet 的项目扩展。
+MD3 Expressive 以 sheet 作为参考，仅未贴边的角采用 28px 圆角；Apple 使用 12px 浮层角和细描边；shadcn sheet 使用直角与单侧边界。上下左右四个位置均随主题切换，RTL 使用逻辑方向。侧边、顶部布局是基于 sheet 的项目扩展。
 
 切换文档站设计风格后，本页演示同步使用该设计；浅色和深色模式分别使用配对语义颜色。
+
+### 配置与展开协议
+
+使用 open / defaultOpen / onOpenChange(next, details) 表达受控、初始值和用户请求。默认值只在初始化时读取，外部配置更新不触发用户回调；details.reason 给出触发原因。内置弹层按 ownerDocument 共享栈，Escape 只作用于顶层。主题、语言、方向和 CSP nonce 沿配置继承，内容尺寸与布局密度独立。
 
 ### 适用场景
 
@@ -70,6 +74,14 @@ Material 以 sheet 作为参考，仅未贴边的角采用 28px 圆角；macOS �
 - 打开时移动焦点、限制背景交互并在关闭后恢复焦点。
 - 标题、关闭按钮和 Escape 行为都必须可用；窄屏下内容仍应完整滚动。
 
+### 设计依据与覆盖
+
+- **MD3 Expressive**：详情型 Drawer 接近 M3 Side sheets，导航型用法接近 Navigation drawer；本组件按具体内容选择相应焦点和布局规则。 [依据 1](https://m3.material.io/components/navigation-drawer/overview) · [依据 2](https://material-web.dev/components/) · [依据 3](https://github.com/material-components/material-web)
+- **Apple**：依据 Apple HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。 [依据 1](https://developer.apple.com/design/human-interface-guidelines/components) · [依据 2](https://developer.apple.com/design/human-interface-guidelines/accessibility)
+- **shadcn/ui**：参考 shadcn/ui 的组件用途、中性表面与设计变量，在本库公共语义和 React 交互模型中实现；完整状态覆盖仍需按矩阵验收。 [依据 1](https://ui.shadcn.com/docs/components) · [依据 2](https://ui.shadcn.com/docs/theming) · [依据 3](https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4)
+
+设计依据不等于完成验收；当前状态与适用边界见[覆盖矩阵](/guides/design-coverage)。
+
 ## 常见问题
 
 ### 何时用 Dialog？
@@ -79,3 +91,10 @@ Material 以 sheet 作为参考，仅未贴边的角采用 28px 圆角；macOS �
 ## API
 
 <API source="../_generated_api/rc-drawer.ts" symbol="DrawerProps" component="Drawer" />
+
+<details data-docs-native-props>
+<summary>Drawer 继承的原生属性（277 项）</summary>
+
+<API source="../_generated_api/rc-drawer-native.ts" symbol="DrawerPropsNativeAttributes" component="Drawer 继承的原生属性" />
+
+</details>

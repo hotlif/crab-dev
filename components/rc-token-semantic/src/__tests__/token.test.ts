@@ -1,8 +1,22 @@
 import { describe, expect, it } from '@crab-dev/wake/test';
 import token, { vars as TokenVars } from '../token.js';
-import { themeColorContract } from '../theme.js';
+import { md3ColorContract } from '../theme.js';
 
 describe('semantic token contract', () => {
+    it('provides complete standalone Material multiline geometry for every size', () => {
+        for (const size of ['small', 'medium', 'large'] as const) {
+            const geometry = token.field.multiline[size];
+            expect(geometry['min-height']).toContain('--token-global-size-56');
+            expect(geometry['padding-inline']).toContain('--token-global-space-4');
+            expect(geometry['padding-block']).toContain('--token-global-space-4');
+            expect(geometry['filled-padding-top']).toContain('--token-global-space-6');
+            expect(geometry['filled-padding-bottom']).toContain('--token-global-space-2');
+            for (const role of ['min-height', 'padding-inline', 'padding-block', 'filled-padding-top', 'filled-padding-bottom'] as const) {
+                expect(TokenVars[`field.multiline.${size}.${role}`]).toBe(`--token-semantic-field-multiline-${size}-${role}`);
+            }
+        }
+    });
+
     it('provides standalone Material form layout fallbacks', () => {
         expect(TokenVars['form.layout.columns']).toBe('--token-semantic-form-layout-columns');
         expect(TokenVars['form.field.columns']).toBe('--token-semantic-form-field-columns');
@@ -23,8 +37,8 @@ describe('semantic token contract', () => {
             expect(`color.feedback.${intent}` in TokenVars).toBe(false);
             const legacyReference = `var(--token-semantic-color-feedback-${intent},`;
             expect(JSON.stringify(token.color.feedback[intent])).not.toContain(legacyReference);
-            expect(JSON.stringify(themeColorContract.light.feedback[intent])).not.toContain(legacyReference);
-            expect(JSON.stringify(themeColorContract.dark.feedback[intent])).not.toContain(legacyReference);
+            expect(JSON.stringify(md3ColorContract.light.feedback[intent])).not.toContain(legacyReference);
+            expect(JSON.stringify(md3ColorContract.dark.feedback[intent])).not.toContain(legacyReference);
         }
     });
 
@@ -54,7 +68,7 @@ describe('semantic token contract', () => {
     });
 
     it('keeps standalone L2 brand fallbacks equal to the default Light theme', () => {
-        const light = themeColorContract.light;
+        const light = md3ColorContract.light;
         for (const [fallback, themed] of [
             [token.color.brand.primary, light.brand.primary],
             [token.color.brand['primary-hover'], light.brand.hover],

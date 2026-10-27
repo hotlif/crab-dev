@@ -51,19 +51,28 @@ import { demos } from "../_generated/rc-avatar.js";
 
 ### 主要功能
 
-- 支持 `small` / `middle` / `large` 尺寸阶梯。
+- 支持 `small` / `medium` / `large` 尺寸阶梯。
 - 支持 `circle` / `square` 两种形态。
 - 支持图片、文本、图标三种内容来源，自动回退。
 - 支持语义颜色变体（`default` / `primary` / `success` / `warning` / `error`）。
 - 支持 `prefers-reduced-motion`，减少不必要动画。
 - 设置 `onClick` 时复用 Button，支持 Enter / Space 激活与可见键盘焦点。头像视觉尺寸不变，交互容器至少为 48px；仅图标头像应提供动作名称 `aria-label`。
-- AvatarGroup 的 `onExtraClick` 使用独立的“+N”按钮，避免与成员头像的点击操作嵌套；纯展示时仍在最后一个头像上叠加计数徽标。
+- AvatarGroup 的 `onExtraClick` 使用独立的“+N”按钮，避免与成员头像的点击操作嵌套；纯展示时计数徽标与最后一个头像的上方逻辑外沿相切，LTR 向右、RTL 向左。计数的实际宽度参与头像组布局，长 `renderExtra` 不会侵入前一个头像或相邻组；头像外环保持自身形状。顶部半个徽标仍向上伸出，放入裁剪容器时需保留相应垂直空间。
+- 默认“+N”计数在 RTL 中保持加号在前；徽标标题与操作名称跟随最近 ConfigProvider 的中英文设置。`renderExtra` 自定义内容保留其自身文字和方向。
+- `max={0}` 隐藏所有成员头像，仍保留独立的计数徽标或 `renderExtra` 摘要；提供 `onExtraClick` 时保留额外操作按钮。没有成员时不显示折叠提示。
+- 强制颜色模式下，文字和图标回退使用系统成对颜色，`primary` 使用 `Highlight` / `HighlightText`，其他变体使用 `Canvas` / `CanvasText`；局部禁用文字背板，避免首字母不可见。照片仍由浏览器按原生规则处理。
+
+
+
+### AvatarGroup
+
+
 
 
 
 ### 三套设计风格
 
-圆形头像保持跨设计一致。方形头像分别采用 Material 12px、macOS 6px、shadcn 8px 圆角；颜色与回退文字由当前语义主题提供。可点击头像继续使用原生按钮、可访问名称及可见焦点。
+圆形头像保持跨设计一致。方形头像分别采用 Material 12px、Apple 6px、shadcn 8px 圆角；颜色与回退文字由当前语义主题提供。可点击头像继续使用原生按钮、可访问名称及可见焦点。
 
 切换文档站设计风格后，本页演示同步使用该设计；浅色和深色模式分别使用配对语义颜色。
 
@@ -84,6 +93,14 @@ import { demos } from "../_generated/rc-avatar.js";
 - 装饰性头像使用空替代文本；头像本身承担识别任务时提供与可见名称一致的替代文本。
 - 可点击头像必须有明确操作名称和键盘焦点，不能只靠圆形外观看起来像按钮。
 
+### 设计依据与覆盖
+
+- **MD3 Expressive**：M3 将头像作为多种组件中的识别元素；本组件依据 M3 形状、颜色角色和列表/卡片中的 leading media 用法实现独立封装。 [依据 1](https://m3.material.io/components/lists/overview) · [依据 2](https://material-web.dev/components/list/) · [依据 3](https://github.com/material-components/material-web/tree/main/list)
+- **Apple**：依据 Apple HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。 [依据 1](https://developer.apple.com/design/human-interface-guidelines/components) · [依据 2](https://developer.apple.com/design/human-interface-guidelines/accessibility)
+- **shadcn/ui**：参考 shadcn/ui 的组件用途、中性表面与设计变量，在本库公共语义和 React 交互模型中实现；完整状态覆盖仍需按矩阵验收。 [依据 1](https://ui.shadcn.com/docs/components) · [依据 2](https://ui.shadcn.com/docs/theming) · [依据 3](https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4)
+
+设计依据不等于完成验收；当前状态与适用边界见[覆盖矩阵](/guides/design-coverage)。
+
 ## 常见问题
 
 ### 图片不可用时怎么办？
@@ -93,3 +110,19 @@ import { demos } from "../_generated/rc-avatar.js";
 ## API
 
 <API source="../_generated_api/rc-avatar.ts" symbol="AvatarProps" component="Avatar" />
+
+<details data-docs-native-props>
+<summary>Avatar 继承的原生属性（273 项）</summary>
+
+<API source="../_generated_api/rc-avatar-native.ts" symbol="AvatarPropsNativeAttributes" component="Avatar 继承的原生属性" />
+
+</details>
+
+<API source="../_generated_api/rc-avatar-AvatarGroupProps.ts" symbol="AvatarGroupProps" component="AvatarGroup" />
+
+<details data-docs-native-props>
+<summary>AvatarGroup 继承的原生属性（278 项）</summary>
+
+<API source="../_generated_api/rc-avatar-AvatarGroupProps-native.ts" symbol="AvatarGroupPropsNativeAttributes" component="AvatarGroup 继承的原生属性" />
+
+</details>

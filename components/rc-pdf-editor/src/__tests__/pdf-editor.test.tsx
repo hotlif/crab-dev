@@ -2,6 +2,10 @@ import { beforeAll, afterAll, beforeEach, afterEach, describe, expect, it, mock 
 import { act, fireEvent, render } from '@crab-dev/wake/test/react';
 import { createRef, useState, type ComponentProps } from 'react';
 import PdfEditor from '../pdf-editor.js';
+import ConfigProvider from '@crab-dev/rc-config-provider';
+import { PdfEditorError } from '../types.js';
+import { pdfError } from '../pdf-messages.js';
+import { createRegionOcrPlugin } from '../plugins/region-ocr.js';
 import { bitmap, PdfClient } from '../client.js';
 import type { PdfEditorActionVisibility, PdfEditorPlugin, PdfEditorRef, PdfEditorToolbarAction } from '../types.js';
 import { PDF_EDITOR_ACTIONS } from '../actions.js';
@@ -115,6 +119,52 @@ function blueCenter(canvas: HTMLCanvasElement) {
 }
 
 describe('独立 Worker 与编辑器交互', () => {
+    it('updates library errors and default OCR labels with locale without reopening the document or translating caller copy', async () => {
+        // Factories run outside Provider rendering; the editor resolves their default labels.
+        const recognize = async () => '';
+        const onResult = () => {};
+        const plugins = [createRegionOcrPlugin({ id: 'default-ocr', recognize, onResult }),
+            createRegionOcrPlugin({ id: 'custom-ocr', label: '区域 OCR', recognize, onResult })];
+        const ownError = pdfError('source', 'source.load');
+        const customError = new PdfEditorError('source', '无法加载文件');
+        const icon = <svg aria-hidden="true" />;
+        const toolbar = { extraActions: [
+            { id: 'library-error', label: 'Library failure', placement: 'main' as const, icon, onSelect() { throw ownError; } },
+            { id: 'caller-error', label: 'Caller failure', placement: 'main' as const, icon, onSelect() { throw customError; } },
+        ] };
+        const ref = createRef<PdfEditorRef>(), onError = mock.fn();
+        const runtime = { workerUrl, wasmBinary };
+        const initialDocument = { id: 'locale', source: fixture(1), fileName: 'locale.pdf' };
+        const editor = <PdfEditor ref={ref} runtime={runtime} initialDocument={initialDocument} plugins={plugins} toolbar={toolbar} onError={onError} />;
+        const view = await render(<ConfigProvider locale="zh-CN">{editor}</ConfigProvider>);
+        try {
+            await settled(() => { expect(ref.current?.getState().document?.id).toBe('locale'); expect(button(view.container, 'Library failure').disabled).toBe(false); });
+            const documentState = ref.current!.getState().document;
+            const originalLabels = [...view.container.querySelectorAll<HTMLButtonElement>('button[aria-label="区域 OCR"]')];
+            expect(originalLabels.length).toBe(2);
+            await fireEvent.click(button(view.container, 'Library failure'));
+            const message = () => view.container.querySelector('[data-pdf-layout] > [role="alert"]')?.textContent;
+            await settled(() => expect(message()).toBe('无法加载文件'));
+
+            await view.rerender(<ConfigProvider locale="en-US">{editor}</ConfigProvider>);
+            expect(message()).toBe('Unable to load the file.');
+            expect(button(view.container, 'Region OCR')).toBe(originalLabels[0]);
+            expect(button(view.container, '区域 OCR')).toBe(originalLabels[1]);
+            expect(ref.current!.getState().document).toEqual(documentState);
+            expect(onError).toHaveBeenCalledTimes(1);
+            expect(ownError.message).toBe('无法加载文件');
+
+            await fireEvent.click(button(view.container, 'Caller failure'));
+            await settled(() => expect(message()).toBe('无法加载文件'));
+            await view.rerender(<ConfigProvider locale="zh-CN">{editor}</ConfigProvider>);
+            expect(message()).toBe('无法加载文件');
+            expect(ref.current!.getState().document).toEqual(documentState);
+            expect([...view.container.querySelectorAll('button[aria-label="区域 OCR"]')]).toEqual(originalLabels);
+            expect(onError).toHaveBeenCalledTimes(2);
+            expect(onError.calls.calls[1][0]).toBe(customError);
+        } finally { await view.unmount(); }
+    });
+
     it('只读编辑器安装区域插件，选择模式可从 UI 取消，卸载插件会清理并取消未完成任务', async () => {
         const ref = createRef<PdfEditorRef>(), setup = mock.fn(), cleanup = mock.fn(), onError = mock.fn();
         const plugin: PdfEditorPlugin = { id: 'region', setup: context => { setup(context); return cleanup; }, actions: [{

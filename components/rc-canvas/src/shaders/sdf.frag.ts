@@ -39,12 +39,17 @@ void main() {
         dist = sdRoundedBox(p, half_size, u_radius);
     }
 
-    float aa = fwidth(dist);
+    // The rounded-box medial axis can have zero derivatives in a 2x2 fragment
+    // quad. smoothstep with equal edges is undefined and can punch diagonal
+    // holes into an otherwise opaque fill. Keep the interpolation interval open.
+    float aa = max(fwidth(dist), 0.0001);
     float fill_alpha = 1.0 - smoothstep(-aa, aa, dist);
 
     vec4 color;
     if (u_stroke_width > 0.0) {
-        float in_stroke = 1.0 - smoothstep(-aa, aa, dist + u_stroke_width);
+        // dist is negative inside the shape: the border is the band nearest
+        // zero, while points deeper than stroke_width must retain the fill.
+        float in_stroke = smoothstep(-aa, aa, dist + u_stroke_width);
 
         // 虚线（sdf-rect 专用，圆形跳过）：在 stroke 区域按周长取模判断 discard
         if (u_mode == 0 && in_stroke > 0.01 && u_dash_length > 0.0 && u_gap_length > 0.0) {

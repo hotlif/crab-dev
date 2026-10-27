@@ -1,5 +1,6 @@
 import { PdfEngine } from './engine.js';
 import { PdfEditorError } from './types.js';
+import { builtinPdfMessage, pdfError } from './pdf-messages.js';
 import type { Request, Response, ResponseMap } from './protocol.js';
 
 // Worker scope uses the shared DOM EventTarget types; no browser main-thread code runs here.
@@ -13,7 +14,7 @@ async function dispatch(request: Request): Promise<ResponseMap[keyof ResponseMap
         engine = await PdfEngine.create(request.data.wasm);
         return;
     }
-    if (!engine) throw new PdfEditorError('runtime', 'PDF 引擎尚未初始化');
+    if (!engine) throw pdfError('runtime', 'worker.uninitialized');
     switch (request.type) {
         case 'open': return engine.open(request.data.bytes, request.data.password);
         case 'closeDocument': engine.closeDocument(); return;
@@ -41,7 +42,14 @@ scope.addEventListener('message', (event: MessageEvent<Request>) => {
     queue = queue.then(async () => {
         let response: Response;
         try { response = { id: event.data.id, ok: true, data: await dispatch(event.data) }; }
-        catch (error) { response = { id: event.data.id, ok: false, error: { code: error instanceof PdfEditorError ? error.code : 'operation', message: error instanceof Error ? error.message : 'PDF 操作失败' } }; }
+        catch (value) {
+            const error = value instanceof Error ? value : pdfError('operation', 'worker.operation');
+            const builtinMessage = builtinPdfMessage(error);
+            response = { id: event.data.id, ok: false, error: {
+                code: error instanceof PdfEditorError ? error.code : 'operation', message: error.message,
+                ...(builtinMessage ? { builtinMessage } : {}),
+            } };
+        }
         // 渲染像素是独立分配的临时数组，转移所有权避免大页 RGBA 在主线程复制。
         // 文档与历史数据仍保留原有所有权，不参与 transfer。
         const transfer: ArrayBuffer[] = [];

@@ -1,5 +1,6 @@
 import { afterEach, describe, expect, it, mock, clock, act, fireEvent, render, screen } from "@crab-dev/wake/test/react";
 import SplitPane from '../splitPane.js';
+import ConfigProvider from '@crab-dev/rc-config-provider';
 afterEach(() => {
     window.localStorage.clear();
 });
@@ -25,6 +26,23 @@ async function firePointer(type: 'pointermove' | 'pointerup', clientX = 0, clien
     });
 }
 describe('SplitPane', () => {
+    it('语言切换更新分隔条名称并保留已调整尺寸，自定义名称优先', async () => {
+        const view = await render(<ConfigProvider locale="en-US">
+            <SplitPane defaultSize={280}><div>A</div><div>B</div></SplitPane>
+        </ConfigProvider>);
+        const separator = screen.getByRole('separator', { name: 'Resize panels' });
+        await fireEvent.keyDown(separator, { key: 'ArrowRight' });
+        expect(separator.getAttribute('aria-valuenow')).toBe('296');
+        await view.rerender(<ConfigProvider locale="zh-CN">
+            <SplitPane defaultSize={280}><div>A</div><div>B</div></SplitPane>
+        </ConfigProvider>);
+        expect(screen.getByRole('separator', { name: '调整面板大小' })).toBe(separator);
+        expect(separator.getAttribute('aria-valuenow')).toBe('296');
+        await view.rerender(<ConfigProvider locale="en-US">
+            <SplitPane defaultSize={280} aria-label="项目侧栏宽度"><div>A</div><div>B</div></SplitPane>
+        </ConfigProvider>);
+        expect(screen.getByRole('separator', { name: '项目侧栏宽度' })).toBe(separator);
+    });
     it('主面板按 defaultSize 定宽，另一侧 flex 填充', async () => {
         const { firstPane, secondPane } = await renderPane();
         expect(firstPane.style.width).toBe('280px');

@@ -3,6 +3,7 @@ import type { DocumentLayout } from './document-layout.js';
 import type { PdfPageRegion } from './types.js';
 import { regionsInRectangle } from './regions.js';
 import { pageDragStatusStyle, regionOverlayStyle, regionOutlineStyle } from './styles.js';
+import { usePdfLocale } from './locale.js';
 
 interface Point { x: number; y: number }
 interface Selection { start: Point; end: Point }
@@ -14,9 +15,12 @@ export interface RegionSelectorProps {
     onComplete: (regions: readonly PdfPageRegion[]) => void;
     onCancel: () => void;
     onReveal: (point: Point) => void;
+    'aria-label'?: string;
+    'aria-description'?: string;
 }
 
-export default function RegionSelector({ layout, scroll, width, height, onComplete, onCancel, onReveal }: RegionSelectorProps) {
+export default function RegionSelector({ layout, scroll, width, height, onComplete, onCancel, onReveal, 'aria-label': ariaLabel, 'aria-description': ariaDescription }: RegionSelectorProps) {
+    const { text } = usePdfLocale();
     const [selection, setSelection] = useState<Selection>();
     // 可变实例状态：焦点与指针捕获只在事件/effect 中读写。
     const root = useRef<HTMLDivElement>(null);
@@ -39,8 +43,8 @@ export default function RegionSelector({ layout, scroll, width, height, onComple
         const regions = regionsInRectangle(layout, value.start, value.end);
         if (regions.length && regions.every(region => region.width >= 1 && region.height >= 1)) onComplete(regions);
     };
-    return <div ref={root} className={regionOverlayStyle} role="region" aria-label="PDF 区域选择" data-region-selector tabIndex={0}
-        aria-description="拖动框选，可跨页；滚轮翻页。方向键移动起点，Shift 加方向键扩展选区，Enter 完成，Escape 取消。"
+    return <div ref={root} className={regionOverlayStyle} role="region" aria-label={ariaLabel ?? text('PDF 区域选择')} data-region-selector tabIndex={0}
+        aria-description={ariaDescription ?? text('拖动框选，可跨页；滚轮翻页。方向键移动起点，Shift 加方向键扩展选区，Enter 完成，Escape 取消。')}
         onPointerDown={event => {
             if (event.button !== 0 || gesture.current) return;
             event.preventDefault(); event.stopPropagation();
@@ -81,6 +85,6 @@ export default function RegionSelector({ layout, scroll, width, height, onComple
                     width={region.width * layout.zoom} height={region.height * layout.zoom} />;
             })}
         </svg>
-        <span className={pageDragStatusStyle} role="status">{parts.length ? `选区覆盖 ${parts.length} 页` : '拖动或使用键盘选择区域'}</span>
+        <span className={pageDragStatusStyle} role="status">{parts.length === 1 ? text('选区覆盖 1 页') : parts.length ? text('选区覆盖 {count} 页', { count: parts.length }) : text('拖动或使用键盘选择区域')}</span>
     </div>;
 }

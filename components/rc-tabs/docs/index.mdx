@@ -20,7 +20,7 @@ status = "experimental"
 
 - 支持 `line` / `card` / `pill` 三种视觉形态。
 - 支持 `small` / `medium` / `large` 三档尺寸。
-- 支持受控（`activeKey`）与非受控（`defaultActiveKey`）两种用法。
+- 支持受控（`value`）与非受控（`defaultValue`）两种用法。
 - 支持 `closable` 标签页以及 `onTabClose` 回调。
 - 支持 `tabBarExtraContent` 在左右两侧注入自定义内容。
 - 支持 `destroyInactiveTabPane` 按需销毁未激活面板。
@@ -31,15 +31,31 @@ status = "experimental"
 
 ## 三套风格
 
-默认 `line` 是兼容的 API 名称：Material 呈现带文字下划线指示器的 primary tabs；macOS 使用 2px 轨道内边距和带阴影的选中块；shadcn 使用 muted 容器、3px 内边距和表面色选中块。后两种风格不叠加 Material 的下划线。显式 `card` 与 `pill` 是业务扩展，不宣称为 M3 primary tabs。
+默认 `line` 是兼容的 API 名称：Material 呈现带文字下划线指示器的 primary tabs；Apple 使用 2px 轨道内边距和带阴影的选中块；shadcn 使用 muted 容器、3px 内边距和表面色选中块。后两种风格不叠加 Material 的下划线。显式 `card` 与 `pill` 是业务扩展，不宣称为 M3 primary tabs。
 
 选择不同设计只改变 L2 视觉角色；`tablist` / `tab` / `tabpanel` 的关联、禁用项跳过、方向键切换、溢出可见性与关闭操作保持一致。浅色和深色对照演示可直接检查各主题状态。
 
-参考核对日期：2026-10-22。Material 对照 [M3 Guidelines](https://m3.material.io/components/tabs/guidelines)、[Specs](https://m3.material.io/components/tabs/specs)、[Accessibility](https://m3.material.io/components/tabs/accessibility)、[Material Web 文档及示例](https://material-web.dev/components/tabs/)、[Tabs 交互实现](https://github.com/material-components/material-web/blob/main/tabs/internal/tabs.ts)、[Primary tab 样式](https://github.com/material-components/material-web/blob/main/tabs/internal/_primary-tab.scss)和 [v0.192 令牌](https://github.com/material-components/material-web/blob/main/tokens/versions/v0_192/_md-comp-primary-navigation-tab.scss)。macOS 参考 [Apple Segmented controls](https://developer.apple.com/design/human-interface-guidelines/segmented-controls)的页内选择表现；shadcn 对照 [Tabs 文档](https://ui.shadcn.com/docs/components/radix/tabs)与 [New York v4 实现](https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/new-york-v4/ui/tabs.tsx)。
+`card` 页签与横向滚动栏保持完整的垂直占位，原生 `scrollIntoView`、聚焦和键盘切换不会把页签顶边卷入滚动栏。内容超宽时仍只在横向揭示活动项；此布局约定同时覆盖三套设计、浅深色、LTR/RTL 和三档尺寸，由发布 ESM 与实际构建 CSS 的浏览器回归验证。
+
+在强制颜色模式下，选中的 `pill` 使用系统 `Highlight / HighlightText` 背景与文字配对，并保持文字继承该配对，避免浏览器自动文字背板遮住字形。发布产物回归通过 `yarn test:forced-colors` 检查三套设计的浅深色、LTR/RTL，以及真实截图中每个字形的前景和背景像素；像素断言与人工视觉审查分别记录。
+
+强制颜色下，选中标签的 `Highlight` 轮廓画在标签内侧，避免被横向滚动栏裁剪；`line` 的可见焦点使用 `CanvasText` 内置轮廓，与未聚焦的选中态区分。已选中的 `pill` 继续使用 `HighlightText` 焦点轮廓，与选中表面形成对比。焦点轮廓沿用公开焦点宽度，普通颜色样式、滚动范围和设计专属下划线保持原有行为。
+
+`yarn test:forced-colors` 保留原有 `pill` 检查，并分别采集 `line` 的 LTR、RTL 焦点场景，每个场景覆盖三套设计的浅深色。新增检查直接读取原 PNG 的四边轮廓、真实文字前景与背景，以及 Material 下划线；Apple/shadcn 检查没有该下划线。焦点由真实 `HTMLElement.focus({ focusVisible: true })` 产生，用于验证焦点绘制，不替代可信键盘 Tab 导航验收；像素检查和人工审图仍分别记录。
+
+参考核对日期：2026-10-22。Material 对照 [M3 Guidelines](https://m3.material.io/components/tabs/guidelines)、[Specs](https://m3.material.io/components/tabs/specs)、[Accessibility](https://m3.material.io/components/tabs/accessibility)、[Material Web 文档及示例](https://material-web.dev/components/tabs/)、[Tabs 交互实现](https://github.com/material-components/material-web/blob/main/tabs/internal/tabs.ts)、[Primary tab 样式](https://github.com/material-components/material-web/blob/main/tabs/internal/_primary-tab.scss)和 [v0.192 令牌](https://github.com/material-components/material-web/blob/main/tokens/versions/v0_192/_md-comp-primary-navigation-tab.scss)。Apple 参考 [Apple Segmented controls](https://developer.apple.com/design/human-interface-guidelines/segmented-controls)的页内选择表现；shadcn 对照 [Tabs 文档](https://ui.shadcn.com/docs/components/radix/tabs)与 [New York v4 实现](https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/new-york-v4/ui/tabs.tsx)。
 
 ## 代码演示
 
 <Demos glob="./demos/*.demo.tsx" columns={2} />
+
+## 状态契约
+
+`value / defaultValue / onValueChange(next, details)` 管理当前标签页。`details.reason` 区分 `pointer / keyboard`，`details.event` 提供原始 React 事件；标签页 key 仍来自 `items[].key`。
+
+受控值与默认值互斥；默认值仅在初始化时使用。外部属性更新不触发操作回调，省略回调可展示只读受控快照。
+
+通过 Delete 或 Backspace 关闭当前聚焦的标签时，调用方在本次提交中移除该项后，焦点移交给后续首个可用标签；没有后续项则向前查找。关闭回调仍只通知一次，不额外发出选择通知。受控方拒绝关闭、主动移焦或 blur 时保留其决定；异步批准关闭的流程由调用方安排焦点。
 
 ## API
 

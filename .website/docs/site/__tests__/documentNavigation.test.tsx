@@ -10,6 +10,7 @@ describe("文档导航", () => {
             { id: "project", title: "项目", pages: [page("/")], sections: [{ id: "learning", title: "学习", expanded: true, active: false,
                 pages: [page("/learn/components"), page("/learn"), page("/learn/practice-profile"), page("/guides/getting-started"), page("/guides/toolchain")] }] },
             { id: "components", title: "组件", pages: [], sections: [{ id: "inputs", title: "输入", expanded: true, active: true, pages: [page("/components/rc-radio")] }] },
+            { id: "design", title: "设计体系", pages: [page("/guides/design-styles"), page("/guides/design-coverage")], sections: [] },
         ];
         expect(groupsForCategory(groups, "learn")[0].pages.map(item => item.slug)).toEqual(["/learn", "/learn/practice-profile"]);
         expect(groupsForCategory(groups, "components")[0].pages[0].slug).toBe("/learn/components");
@@ -17,6 +18,9 @@ describe("文档导航", () => {
         expect(groupsForCategory(groups, "tools")[0].pages.map(item => item.slug)).toEqual(["/guides/toolchain"]);
         expect(categoryForPath("/learn/")).toBe("learn");
         expect(categoryForPath("/")).toBeNull();
+        expect(categoryForPath("/guides/design-styles")).toBe("design");
+        expect(categoryForPath("/guides/dependencies")).toBe("tools");
+        expect(groupsForCategory(groups, "design")[0].pages.map(item => item.slug)).toEqual(["/guides/design-styles", "/guides/design-coverage"]);
     });
 
     it("章节保留原始深链接并排除下级标题，不隐藏正文", async () => {

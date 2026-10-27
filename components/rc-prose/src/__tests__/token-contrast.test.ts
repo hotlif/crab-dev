@@ -1,4 +1,5 @@
 import globalToken from '@crab-dev/rc-token-global';
+import { designColorContract } from '@crab-dev/rc-token-semantic';
 import { describe, expect, it } from '@crab-dev/wake/test';
 import token from '../token.js';
 
@@ -62,7 +63,10 @@ function contrast(first: Color, second: Color): number {
 
 function colorMixAlpha(value: string): number {
     const match = /\s([\d.]+)%,\s*transparent\)/.exec(value);
-    if (!match) throw new Error(`Missing transparent color-mix in ${value}`);
+    if (!match) {
+        if (!value.includes('color-mix(') && value.includes('--token-semantic-color-text-inverse')) return 1;
+        throw new Error(`Missing transparent color-mix or paired inverse foreground in ${value}`);
+    }
     return Number(match[1]) / 100;
 }
 
@@ -133,4 +137,38 @@ describe('Prose inverse token contrast', () => {
             expect(contrast(finalColor, theme.background)).toBeGreaterThan(1);
         }
     });
+});
+
+
+// Prose uses the active L2 design contract. A zinc-only reference cannot certify
+// MD3 inverse surfaces or Apple dark, and alpha is applied after surface layers.
+describe('Prose text on actual design color pairs', () => {
+    for (const [design, contract] of Object.entries(designColorContract)) {
+        for (const [mode, theme] of Object.entries(contract)) {
+            it(`keeps ordinary text readable: ${design}/${mode}`, () => {
+                const inverse = parseOklch(theme.text.inverse);
+                const background = parseOklch(theme.background.inverse);
+                const normalBackground = parseOklch(theme.surface.content);
+                expect(contrast(parseOklch(theme.text.primary), normalBackground)).toBeGreaterThanOrEqual(4.5);
+                expect(contrast(parseOklch(theme.text.secondary), normalBackground)).toBeGreaterThanOrEqual(4.5);
+
+                const roles = [
+                    token.inverse.body.color, token.inverse.lead.color,
+                    token.inverse.link.color, token.inverse.link['color-hover'],
+                    token.inverse.strong.color, token.inverse.list.counter.color,
+                    token.inverse.blockquote.color, token.inverse.caption.color,
+                    token.inverse.kbd.color,
+                ];
+                for (const value of roles) {
+                    const foreground = composite(inverse, background, colorMixAlpha(value));
+                    expect(contrast(foreground, background)).toBeGreaterThanOrEqual(4.5);
+                }
+                for (const role of [token.inverse.code, token.inverse.pre]) {
+                    const surface = composite(inverse, background, colorMixAlpha(role['background-color']));
+                    const foreground = composite(inverse, surface, colorMixAlpha(role.color));
+                    expect(contrast(foreground, surface)).toBeGreaterThanOrEqual(4.5);
+                }
+            });
+        }
+    }
 });

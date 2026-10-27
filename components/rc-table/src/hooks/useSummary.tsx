@@ -47,15 +47,16 @@ const summaryCellRightFixedBorderStyle = css`
                 inset 1px 0 0 ${token.root["border-color"]};
 `;
 
-function getSummaryJustify<T extends Row>(column: ColumnType<T>): "center" | "flex-end" | "flex-start" {
+function getSummaryJustify<T extends Row>(column: ColumnType<T>): "center" | "right" | "left" {
     const align = Array.isArray(column.align) ? column.align[1] : column.align;
-    return align === "center" ? "center" : align === "right" ? "flex-end" : "flex-start";
+    return align === "center" ? "center" : align === "right" ? "right" : "left";
 }
 
 interface SummaryCellProps {
     columnIndex: number
     width: number
-    justifyContent: "center" | "flex-end" | "flex-start"
+    justifyContent: "center" | "right" | "left"
+    direction: 'ltr' | 'rtl'
     fixed?: "left" | "right"
     offset?: number
     borderStyle: string
@@ -63,10 +64,11 @@ interface SummaryCellProps {
 }
 
 const SummaryCell = memo(function SummaryCell({
-    columnIndex, width, justifyContent, fixed, offset, borderStyle, content
+    columnIndex, width, justifyContent, direction, fixed, offset, borderStyle, content
 }: SummaryCellProps) {
     return (
         <div
+            dir={direction}
             className={cx(summaryCellBaseStyle, borderStyle, fixed && summaryCellStickyStyle)}
             style={{
                 width,
@@ -83,6 +85,8 @@ const SummaryCell = memo(function SummaryCell({
 });
 
 export function useSummary<T extends Row>(params: {
+    /** Content direction; virtual row geometry remains physical LTR. */
+    direction: 'ltr' | 'rtl'
     /** 是否显示汇总行 */
     showSummary: boolean
     /** 汇总行高度 */
@@ -117,7 +121,7 @@ export function useSummary<T extends Row>(params: {
         showSummary, summaryRowHeight, rows, bottomColumns,
         fixedLeftColumnsIdx, fixedRightColumnsIdx, gridTemplateColumns,
         stickyLeftOffsets, stickyRightOffsets, actualHeight,
-        paddingLeft, paddingRight, selectionColumnName, renderVersion
+        paddingLeft, paddingRight, selectionColumnName, renderVersion, direction
     } = params;
 
     const summaryContents = useMemo(() => {
@@ -137,6 +141,7 @@ export function useSummary<T extends Row>(params: {
             : isLastColumn ? summaryCellLastBorderStyle : summaryCellBorderStyle;
         return (
             <SummaryCell
+                direction={direction}
                 key={`table-summary-cell-${columnIndex}`}
                 columnIndex={columnIndex}
                 width={gridTemplateColumns[columnIndex]}

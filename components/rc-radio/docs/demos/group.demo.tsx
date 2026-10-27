@@ -11,7 +11,7 @@ const GroupDemo = () => {
 
     return (
         <div>
-            <RadioGroup value={value} onChange={setValue}>
+            <RadioGroup value={value} onValueChange={setValue}>
                 <Radio value="apple">苹果</Radio>
                 <Radio value="banana">香蕉</Radio>
                 <Radio value="orange">橘子</Radio>

@@ -1,18 +1,23 @@
-import type { HTMLAttributes, ReactNode } from "react";
+import type { HTMLAttributes, ReactNode, SyntheticEvent } from "react";
+import type { ControlledValueProps } from '@crab-dev/rc-hooks';
 
 /**
  * 尺寸阶梯。
- * - `medium`：默认桌面密度（40px），middle 为同义名称
- * - `small`：紧凑模式（32px），用于表格内联、抽屉底部等密集场景
+ * 通用三档控件尺寸；数据与内容间距由独立 density 配置管理。
  */
-export type PaginationSize = "small" | "middle" | "medium" | "large";
+export type PaginationSize = "small" | "medium" | "large";
 
 /**
  * 页码变更事件。
  * @param page 新的当前页（1-based）
  * @param pageSize 当前每页条数
  */
-export type PaginationChangeHandler = (page: number, pageSize: number) => void;
+export interface PaginationChangeDetails {
+    pageSize: number;
+    reason: 'page' | 'page-size' | 'jump';
+    event?: SyntheticEvent | Event;
+}
+export type PaginationChangeHandler = (page: number, details: PaginationChangeDetails) => void;
 
 /**
  * `showTotal` 的渲染回调。
@@ -21,38 +26,11 @@ export type PaginationChangeHandler = (page: number, pageSize: number) => void;
  */
 export type PaginationShowTotal = (total: number, range: [number, number]) => ReactNode;
 
-export interface PaginationProps extends Omit<HTMLAttributes<HTMLElement>, "onChange"> {
-    /**
-     * 当前页（受控）
-     */
-    current?: number;
-
-    /**
-     * 默认当前页（非受控）
-     * @default 1
-     */
-    defaultCurrent?: number;
-
+export type PaginationProps = Omit<HTMLAttributes<HTMLElement>, 'defaultValue'> & ControlledValueProps<number, PaginationChangeDetails> & {
     /**
      * 数据总条数
      */
     total: number;
-
-    /**
-     * 每页条数（受控）
-     */
-    pageSize?: number;
-
-    /**
-     * 默认每页条数（非受控）
-     * @default 10
-     */
-    defaultPageSize?: number;
-
-    /**
-     * 页码变更回调
-     */
-    onChange?: PaginationChangeHandler;
 
     /**
      * 尺寸阶梯
@@ -91,9 +69,9 @@ export interface PaginationProps extends Omit<HTMLAttributes<HTMLElement>, "onCh
     pageSizeOptions?: number[];
 
     /**
-     * 每页条数变更回调（下拉切换时触发；同时会触发 `onChange`）
+     * 每页条数变更回调（下拉切换时触发；同时触发 `onValueChange`，reason 为 page-size）
      */
-    onShowSizeChange?: (current: number, pageSize: number) => void;
+    onPageSizeChange?: (pageSize: number, details: { page: number; event?: SyntheticEvent | Event }) => void;
 
     /**
      * 每页条数下拉项的文本格式化（默认 `${n} / 页`）
@@ -102,13 +80,13 @@ export interface PaginationProps extends Omit<HTMLAttributes<HTMLElement>, "onCh
 
     /**
      * 上一页 aria-label
-     * @default "Previous page"
+     * 默认使用当前语言的“上一页”。
      */
     prevLabel?: string;
 
     /**
      * 下一页 aria-label
-     * @default "Next page"
+     * 默认使用当前语言的“下一页”。
      */
     nextLabel?: string;
 
@@ -116,4 +94,7 @@ export interface PaginationProps extends Omit<HTMLAttributes<HTMLElement>, "onCh
      * 页码按钮 aria-label 生成器
      */
     pageLabel?: (page: number) => string;
-}
+} & (
+    | { pageSize?: number; defaultPageSize?: never }
+    | { pageSize?: never; defaultPageSize?: number }
+);

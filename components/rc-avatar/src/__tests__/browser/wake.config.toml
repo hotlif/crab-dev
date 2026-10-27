@@ -1,0 +1,19 @@
+# Published Avatar + Badge + Theme CSS, with a real browser layout engine.
+[test]
+environment = "browser"
+include = ["group-badge-direction.test.tsx", "group-demo-layout.test.tsx"]
+timeout_ms = 15000
+leaks = "error"
+
+[test.react]
+strict_mode = false
+cleanup = true
+act_warnings = "error"
+
+[test.network]
+mode = "deny"
+allow_hosts = []
+
+[test.coverage]
+enabled = true
+reporters = ["text", "lcov"]

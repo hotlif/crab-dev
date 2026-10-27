@@ -1,6 +1,6 @@
 export const meta = {
     title: "尺寸",
-    description: "通过 `size` 设置 `large`、`middle`、`small` 三档尺寸。",
+    description: "通过 `size` 设置 `large`、`medium`、`small` 三档尺寸。",
 };
 
 import { css } from '@crab-dev/css';
@@ -19,7 +19,7 @@ const SizeDemo = () => {
             `}
         >
             <Segmented size="large" options={options} />
-            <Segmented size="middle" options={options} />
+            <Segmented size="medium" options={options} />
             <Segmented size="small" options={options} />
         </div>
     );

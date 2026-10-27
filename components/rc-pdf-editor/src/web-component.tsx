@@ -1,5 +1,6 @@
 import { createRoot, type Root } from 'react-dom/client';
-import ConfigProvider from '@crab-dev/rc-config-provider';
+import ConfigProvider, { type ConfigDesignSystem, type ConfigColorMode, type ConfigSize, type ConfigDensity, type ConfigLocale, type ConfigDirection } from '@crab-dev/rc-config-provider';
+import { designSystemRegistry, normalizeBrandColor } from '@crab-dev/rc-token-semantic';
 import PdfEditor from './pdf-editor.js';
 import { PdfEditorError } from './types.js';
 import type {
@@ -8,6 +9,23 @@ import type {
     PdfPageRegion, PdfRegionSelection, PdfRegionCaptureOptions,
 } from './types.js';
 import type { PdfEditorElementConstructor, PdfEditorElementEventMap, PdfEditorElementOptions, PdfEditorElementToolbar } from './web-component-types.js';
+
+function isDesignSystem(value: unknown): value is ConfigDesignSystem {
+    return typeof value === 'string' && Object.hasOwn(designSystemRegistry, value);
+}
+function readChoice<T extends string>(element: HTMLElement, attribute: string, choices: readonly T[]): T | undefined {
+    return choices.find(value => value === element.getAttribute(attribute));
+}
+function writeChoice(element: HTMLElement, attribute: string, value: string | undefined, valid: boolean) {
+    if (value === undefined) element.removeAttribute(attribute);
+    else if (!valid) throw new RangeError(`Invalid ${attribute}: ${value}`);
+    else element.setAttribute(attribute, value);
+}
+const colorModes: readonly ConfigColorMode[] = ['light', 'dark'];
+const sizes: readonly ConfigSize[] = ['small', 'medium', 'large'];
+const densities: readonly ConfigDensity[] = ['compact', 'standard', 'comfortable'];
+const locales: readonly ConfigLocale[] = ['zh-CN', 'en-US'];
+const directions: readonly ConfigDirection[] = ['ltr', 'rtl'];
 
 function deferredEditor() {
     let resolve!: (editor: PdfEditorRef) => void;
@@ -23,10 +41,13 @@ export function definePdfEditor(options: PdfEditorElementOptions): PdfEditorElem
     const existing = globalThis.customElements.get(tagName);
     if (existing) return existing as PdfEditorElementConstructor;
     const sheets = new WeakMap<Document, CSSStyleSheet>();
+    const css = ':host { display: block; } :host([hidden]) { display: none; }\n' + options.styleText;
 
     class CrabPdfEditor extends HTMLElement implements PdfEditorRef {
-        static observedAttributes = ['readonly', 'theme'];
+        static observedAttributes = ['readonly', 'design-system', 'color-mode', 'brand-color', 'size', 'density', 'lang', 'dir', 'nonce'];
         private root?: Root;
+        private staticStyle?: HTMLStyleElement;
+        private adoptedSheet?: CSSStyleSheet;
         private api?: PdfEditorRef;
         private mounted = deferredEditor();
         private pendingRender?: ReturnType<typeof deferredEditor>;
@@ -71,12 +92,34 @@ export function definePdfEditor(options: PdfEditorElementOptions): PdfEditorElem
         set onSave(value: PdfSaveHandler | undefined) { this.saveHandler = value; this.scheduleRender(); }
         get readOnly() { return this.hasAttribute('readonly'); }
         set readOnly(value: boolean) { this.toggleAttribute('readonly', value); }
-        get theme(): 'light' | 'dark' { return this.getAttribute('theme') === 'dark' ? 'dark' : 'light'; }
-        set theme(value: 'light' | 'dark') { this.setAttribute('theme', value); }
+        get designSystem(): ConfigDesignSystem | undefined {
+            const value = this.getAttribute('design-system');
+            return isDesignSystem(value) ? value : undefined;
+        }
+        set designSystem(value: ConfigDesignSystem | undefined) { writeChoice(this, 'design-system', value, isDesignSystem(value)); }
+        get colorMode() { return readChoice(this, 'color-mode', colorModes); }
+        set colorMode(value: ConfigColorMode | undefined) { writeChoice(this, 'color-mode', value, value !== undefined && colorModes.includes(value)); }
+        get brandColor(): string | null {
+            const value = this.getAttribute('brand-color');
+            if (value === null) return null;
+            try { return normalizeBrandColor(value); } catch { return null; }
+        }
+        set brandColor(value: string | null | undefined) {
+            if (value == null) this.removeAttribute('brand-color');
+            else this.setAttribute('brand-color', normalizeBrandColor(value));
+        }
+        get size() { return readChoice(this, 'size', sizes); }
+        set size(value: ConfigSize | undefined) { writeChoice(this, 'size', value, value !== undefined && sizes.includes(value)); }
+        get density() { return readChoice(this, 'density', densities); }
+        set density(value: ConfigDensity | undefined) { writeChoice(this, 'density', value, value !== undefined && densities.includes(value)); }
+        get locale() { return readChoice(this, 'lang', locales); }
+        set locale(value: ConfigLocale | undefined) { writeChoice(this, 'lang', value, value !== undefined && locales.includes(value)); }
+        get direction() { return readChoice(this, 'dir', directions); }
+        set direction(value: ConfigDirection | undefined) { writeChoice(this, 'dir', value, value !== undefined && directions.includes(value)); }
 
         connectedCallback() {
             // 接管脚本加载前赋值的 own properties，防止它们遮蔽原型 setter。
-            for (const name of ['runtime', 'initialDocument', 'fonts', 'toolbar', 'beforeDocumentChange', 'onSave', 'readOnly', 'theme'] as const) {
+            for (const name of ['runtime', 'initialDocument', 'fonts', 'toolbar', 'beforeDocumentChange', 'onSave', 'readOnly', 'designSystem', 'colorMode', 'brandColor', 'size', 'density', 'locale', 'direction', 'nonce'] as const) {
                 const descriptor = Object.getOwnPropertyDescriptor(this, name);
                 if (descriptor && 'value' in descriptor) {
                     Reflect.deleteProperty(this, name); Reflect.set(this, name, descriptor.value);
@@ -118,6 +161,35 @@ export function definePdfEditor(options: PdfEditorElementOptions): PdfEditorElem
             });
         }
 
+        private syncStyles(shadow: ShadowRoot) {
+            // nonce is a native IDL property: CSP may conceal its attribute value.
+            const nonce = this.nonce;
+            const Sheet = this.ownerDocument.defaultView?.CSSStyleSheet;
+            if (!nonce && 'adoptedStyleSheets' in shadow && Sheet && 'replaceSync' in Sheet.prototype) {
+                let sheet = sheets.get(this.ownerDocument);
+                if (!sheet) { sheet = new Sheet(); sheet.replaceSync(css); sheets.set(this.ownerDocument, sheet); }
+                if (this.adoptedSheet !== sheet) {
+                    shadow.adoptedStyleSheets = [...shadow.adoptedStyleSheets.filter(value => value !== this.adoptedSheet), sheet];
+                    this.adoptedSheet = sheet;
+                }
+                this.staticStyle?.remove(); this.staticStyle = undefined;
+            } else {
+                // Set nonce before insertion; replace a changed nonce's node so
+                // the browser evaluates the new stylesheet with that nonce.
+                if (!this.staticStyle || this.staticStyle.nonce !== nonce) {
+                    const style = this.ownerDocument.createElement('style');
+                    style.setAttribute('data-crab-pdf-style', '');
+                    if (nonce) style.nonce = nonce;
+                    style.textContent = css; shadow.prepend(style);
+                    this.staticStyle?.remove(); this.staticStyle = style;
+                }
+                if (this.adoptedSheet) {
+                    shadow.adoptedStyleSheets = shadow.adoptedStyleSheets.filter(value => value !== this.adoptedSheet);
+                    this.adoptedSheet = undefined;
+                }
+            }
+        }
+
         private renderEditor() {
             if (!this.root) {
                 const lease = this.configuredRuntime ? { runtime: this.configuredRuntime } : options.createRuntime?.();
@@ -132,15 +204,6 @@ export function definePdfEditor(options: PdfEditorElementOptions): PdfEditorElem
                 const mount = this.ownerDocument.createElement('div');
                 mount.setAttribute('part', 'container');
                 shadow.replaceChildren(mount);
-                const css = ':host { display: block; } :host([hidden]) { display: none; }\n' + options.styleText;
-                if ('adoptedStyleSheets' in shadow && typeof CSSStyleSheet !== 'undefined' && 'replaceSync' in CSSStyleSheet.prototype) {
-                    let sheet = sheets.get(this.ownerDocument);
-                    if (!sheet) { sheet = new CSSStyleSheet(); sheet.replaceSync(css); sheets.set(this.ownerDocument, sheet); }
-                    shadow.adoptedStyleSheets = [sheet];
-                } else {
-                    const style = this.ownerDocument.createElement('style');
-                    style.textContent = css; shadow.prepend(style);
-                }
                 this.root = createRoot(mount, { onUncaughtError: cause => {
                     const error = new PdfEditorError('runtime', 'PDF 编辑器渲染失败', { cause });
                     this.mounted.reject(error); this.pendingRender?.reject(error); this.pendingRender = undefined;
@@ -151,7 +214,9 @@ export function definePdfEditor(options: PdfEditorElementOptions): PdfEditorElem
                     if (generation === this.generation && this.isConnected) this.emit('crab-ready', undefined);
                 }, () => { /* PdfEditor 的 onError 统一报告运行时初始化错误。 */ });
             }
-            this.root.render(<ConfigProvider theme={this.theme}>
+            this.syncStyles(this.shadowRoot!);
+            this.root.render(<ConfigProvider designSystem={this.designSystem} colorMode={this.colorMode} brandColor={this.brandColor}
+                size={this.size} density={this.density} locale={this.locale} direction={this.direction} nonce={this.nonce || undefined}>
                 <PdfEditor ref={this.receiveRef} runtime={this.activeRuntime!} initialDocument={this.activeDocument}
                     fonts={this.configuredFonts} readOnly={this.readOnly} toolbar={this.configuredToolbar && {
                         ...this.configuredToolbar,
@@ -174,6 +239,11 @@ export function definePdfEditor(options: PdfEditorElementOptions): PdfEditorElem
             this.mounted.reject(new PdfEditorError('cancelled', '编辑器已卸载'));
             this.pendingRender?.reject(new PdfEditorError('cancelled', '编辑器已卸载')); this.pendingRender = undefined;
             this.root?.unmount(); this.root = undefined; this.api = undefined;
+            this.staticStyle?.remove(); this.staticStyle = undefined;
+            if (this.shadowRoot && this.adoptedSheet) {
+                this.shadowRoot.adoptedStyleSheets = this.shadowRoot.adoptedStyleSheets.filter(value => value !== this.adoptedSheet);
+            }
+            this.adoptedSheet = undefined;
             this.releaseRuntime?.(); this.releaseRuntime = undefined; this.activeRuntime = undefined;
             this.mounted = deferredEditor();
             this.snapshot = { status: 'disposed', document: null, pendingOperations: [], readOnly: this.readOnly, canEdit: false };

@@ -1,0 +1,19 @@
+# Browser geometry with published ESM/CSS; do not inherit the DOM css() mock.
+[test]
+environment = "browser"
+include = ["control-layout.test.tsx"]
+timeout_ms = 20000
+leaks = "error"
+
+[test.react]
+strict_mode = false
+cleanup = true
+act_warnings = "error"
+
+[test.network]
+mode = "deny"
+allow_hosts = []
+
+[test.coverage]
+enabled = true
+reporters = ["text", "lcov"]

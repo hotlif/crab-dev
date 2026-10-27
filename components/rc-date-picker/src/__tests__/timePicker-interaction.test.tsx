@@ -15,6 +15,25 @@ beforeAll(async () => {
     TimePicker = (await mock.import<typeof import('../timePicker/timePicker.js')>('../timePicker/timePicker.js')).default;
 });
 describe('TimePicker dropdown interaction', () => {
+    it('supports default value and default open without rereading changed defaults', async () => {
+        const changed = mock.fn();
+        const view = await render(<TimePicker aria-label="时间" defaultOpen defaultValue={{ hour: 9, minute: 30, second: 0 }} panelProps={{ defaultMode: 'input' }} onValueChange={changed} />);
+        await enterTime(screen.getByRole('textbox', { name: '小时' }), '10');
+        await fireEvent.click(screen.getByRole('button', { name: '确定' }));
+        expect(changed).toHaveBeenCalledWith({ hour: 10, minute: 30, second: 0 }, { reason: 'confirm' });
+        expect((screen.getByRole('textbox', { name: '时间' }) as HTMLInputElement).value).toBe('10:30');
+        await view.rerender(<TimePicker aria-label="时间" defaultValue={{ hour: 15, minute: 20, second: 0 }} panelProps={{ defaultMode: 'input' }} onValueChange={changed} />);
+        expect((screen.getByRole('textbox', { name: '时间' }) as HTMLInputElement).value).toBe('10:30');
+    });
+
+    it('requests opening while keeping a controlled closed panel closed', async () => {
+        const changed = mock.fn();
+        await render(<TimePicker aria-label="时间" open={false} onOpenChange={changed} />);
+        await fireEvent.click(screen.getByRole('textbox', { name: '时间' }));
+        expect(changed).toHaveBeenCalledWith(true, expect.objectContaining({ reason: 'trigger' }));
+        expect(screen.queryByRole('dialog', { name: '选择时间' })).toBeNull();
+    });
+
     it('opens the dial by default and starts a fresh dial session after reopening', async () => {
         await render(<TimePicker aria-label="时间" value={{ hour: 9, minute: 30, second: 0 }} />);
         const field = screen.getByRole('textbox', { name: '时间' });
@@ -37,7 +56,7 @@ describe('TimePicker dropdown interaction', () => {
         expect(onValueChange).not.toHaveBeenCalled();
         expect(screen.getByRole('dialog', { name: '选择时间' }).getAttribute('aria-modal')).toBe('false');
         await fireEvent.keyDown(hour, { key: 'Enter' });
-        expect(onValueChange).toHaveBeenCalledWith({ hour: 9, minute: 30, second: 0 });
+        expect(onValueChange).toHaveBeenCalledWith({ hour: 9, minute: 30, second: 0 }, { reason: 'confirm' });
     });
     it('allows focus to leave the dropdown without trapping Tab or committing the draft', async () => {
         const onValueChange = mock.fn();
@@ -97,7 +116,7 @@ describe('TimePicker dropdown interaction', () => {
         };
         expect(screen.queryByRole('textbox', { name: '秒' })).toBeNull();
         await fireEvent.click(screen.getByRole('button', { name: '确定' }));
-        expect(onValueChange).toHaveBeenCalledWith(displayed);
+        expect(onValueChange).toHaveBeenCalledWith(displayed, { reason: 'confirm' });
         expect(screen.queryByRole('dialog', { name: '选择时间' })).toBeNull();
         expect(document.activeElement).toBe(field);
     });
@@ -160,7 +179,7 @@ describe('TimePicker dropdown interaction', () => {
         expect(onValueChange).not.toHaveBeenCalled();
         await enterTime(minute, '59');
         await fireEvent.keyDown(minute, { key: 'Enter' });
-        expect(onValueChange).toHaveBeenCalledWith({ hour: 23, minute: 59, second: 8 });
+        expect(onValueChange).toHaveBeenCalledWith({ hour: 23, minute: 59, second: 8 }, { reason: 'confirm' });
     });
 
     it('preserves explicit second precision and does not open a disabled field', async () => {

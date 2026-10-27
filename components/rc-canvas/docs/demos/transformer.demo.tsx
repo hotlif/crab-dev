@@ -1,16 +1,9 @@
 import { canvasViewportStyle, canvasFrameStyle, demoStackStyle, demoHintStyle } from "../demo-layout.js";
 import { useState } from 'react';
-import Canvas from '../../src/canvas.js';
-import Rect from '../../src/shapes/rect.js';
-import Group from '../../src/shapes/group.js';
-import Text from '../../src/shapes/text.js';
-import Viewport from '../../src/viewport.js';
-import InfiniteGrid from '../../src/shapes/infinite-grid.js';
-import Transformer from '../../src/shapes/transformer.js';
-import type { TransformState } from '../../src/transform-types.js';
+import { Canvas, Rect, Group, Text, Viewport, InfiniteGrid, Transformer, type TransformState } from '@crab-dev/rc-canvas';
 export const meta = {
     title: "Transformer",
-    description: "Transformer 示例",
+    description: "初始视口完整显示三个形状；点击形状后拖拽手柄缩放与旋转，也可平移和缩放画布。",
 };
 interface ShapeData {
     id: number;
@@ -43,6 +36,7 @@ const INITIAL_SHAPES: ShapeData[] = [
 export default function TransformerDemo() {
     const [shapes, setShapes] = useState<ShapeData[]>(INITIAL_SHAPES);
     const [selectedId, setSelectedId] = useState<number | null>(null);
+    const [viewport, setViewport] = useState({ zoom: 1, panX: 400, panY: 260 });
 
     const updateShape = (id: number, next: TransformState) => {
         setShapes(prev => prev.map(s => s.id === id ? { ...s, state: next } : s));
@@ -61,7 +55,7 @@ export default function TransformerDemo() {
                     className={canvasFrameStyle}
                     onEmptyClick={() => setSelectedId(null)}
                 >
-                    <Viewport minZoom={0.1} maxZoom={8}>
+                    <Viewport {...viewport} onViewportChange={setViewport} minZoom={0.1} maxZoom={8}>
                         <InfiniteGrid baseSpacing={50} subdivisions={5} originColor="oklch(0.55 0.2 260)" />
 
                         {shapes.map(shape => {

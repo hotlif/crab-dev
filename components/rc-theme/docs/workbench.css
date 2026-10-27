@@ -37,8 +37,9 @@ html[data-theme], body {
    Let responsive components and their own scroll regions use the available width. */
 .demo-default-preview {
     grid-template-columns: minmax(0, 1fr);
-    /* Floating labels and focus indicators extend beyond the first control. */
-    padding-block: var(--token-global-space-2, 8px);
+    /* Floating labels and focus indicators extend beyond the first control on
+       both axes, including custom previews and RTL inline starts. */
+    padding: var(--token-global-space-2, 8px);
     box-sizing: border-box;
 }
 

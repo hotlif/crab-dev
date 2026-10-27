@@ -1,4 +1,5 @@
-import { type HTMLAttributes, type ReactNode, type Ref } from 'react';
+import type { ControlledValueProps } from '@crab-dev/rc-hooks';
+import { type HTMLAttributes, type ReactNode, type Ref, type ChangeEvent, type KeyboardEvent } from 'react';
 
 /**
  * 分段控制器可选值：与原生表单一致，仅允许字符串或数字。
@@ -8,7 +9,7 @@ export type SegmentedValue = string | number;
 /**
  * 尺寸档位，与 rc-radio / rc-switch 对齐。
  */
-export type SegmentedSize = 'large' | 'middle' | 'small';
+export type SegmentedSize = 'large' | 'medium' | 'small';
 
 /**
  * 单个分段选项的完整配置。
@@ -20,7 +21,7 @@ export interface SegmentedOption {
     label: ReactNode;
 
     /**
-     * 选项值, 选中后经 onChange 回传
+     * 选项值, 选中后经 onValueChange 回传
      */
     value: SegmentedValue;
 
@@ -51,34 +52,19 @@ export interface SegmentedOption {
 export type SegmentedRawOption = SegmentedOption | string | number;
 
 interface BaseSegmentedProps
-    extends Omit<HTMLAttributes<HTMLDivElement>, 'onChange' | 'defaultValue'> {
+    extends Omit<HTMLAttributes<HTMLDivElement>, 'defaultValue'> {
     /**
      * 选项数据源, 支持对象或原始值简写
      */
     options: SegmentedRawOption[];
 
-    /**
-     * 当前选中值（受控）
-     */
-    value?: SegmentedValue;
-
-    /**
-     * 默认选中值（非受控）, 缺省时取第一个可用选项
-     */
-    defaultValue?: SegmentedValue;
-
-    /**
-     * 选中值变化时的回调
-     */
-    onChange?: (value: SegmentedValue) => void;
-
-    /**
+/**
      * 是否禁用整个控制器
      */
     disabled?: boolean;
 
     /**
-     * 尺寸, 默认为 middle
+     * 尺寸, 默认为 medium
      */
     size?: SegmentedSize;
 
@@ -98,4 +84,9 @@ interface BaseSegmentedProps
     ref?: Ref<HTMLDivElement>;
 }
 
-export type SegmentedProps = BaseSegmentedProps;
+export interface SegmentedChangeDetails {
+    reason: 'select';
+    event?: ChangeEvent<HTMLInputElement> | KeyboardEvent<HTMLInputElement>;
+}
+
+export type SegmentedProps = BaseSegmentedProps & ControlledValueProps<SegmentedValue, SegmentedChangeDetails>;

@@ -5,7 +5,9 @@ import type { SwitchProps } from '../types.js';
     IS_REACT_ACT_ENVIRONMENT?: boolean;
 }).IS_REACT_ACT_ENVIRONMENT = true;
 const renderSwitch = async (props: Partial<SwitchProps> = {}) => {
-    const renderResult = await render(<Switch aria-label="toggle" {...props}/>);
+    const { checked, defaultChecked, onCheckedChange = () => {}, ...restProps } = props;
+    const stateProps = checked === undefined ? { defaultChecked, onCheckedChange } : { checked, onCheckedChange };
+    const renderResult = await render(<Switch aria-label="toggle" {...restProps} {...stateProps}>{props.children ?? null}</Switch>);
     const button = renderResult.container.querySelector('button[role="switch"]') as HTMLButtonElement;
     return {
         ...renderResult,
@@ -40,18 +42,18 @@ describe('Switch', () => {
         const { button } = await renderSwitch({ defaultChecked: true });
         expect(button.getAttribute('aria-checked')).toBe('true');
     });
-    it('calls onChange when clicked', async () => {
-        const onChange = mock.fn();
-        const { button } = await renderSwitch({ onChange });
+    it('calls onCheckedChange when clicked', async () => {
+        const onCheckedChange = mock.fn();
+        const { button } = await renderSwitch({ onCheckedChange });
         await clickSwitch(button);
-        expect(onChange).toHaveBeenCalledTimes(1);
-        expect(onChange).toHaveBeenCalledWith(true, expect.anything());
+        expect(onCheckedChange).toHaveBeenCalledTimes(1);
+        expect(onCheckedChange).toHaveBeenCalledWith(true, expect.objectContaining({ reason: 'toggle' }));
     });
-    it('calls onChange with false when toggling off', async () => {
-        const onChange = mock.fn();
-        const { button } = await renderSwitch({ checked: true, onChange });
+    it('calls onCheckedChange with false when toggling off', async () => {
+        const onCheckedChange = mock.fn();
+        const { button } = await renderSwitch({ checked: true, onCheckedChange });
         await clickSwitch(button);
-        expect(onChange).toHaveBeenCalledWith(false, expect.anything());
+        expect(onCheckedChange).toHaveBeenCalledWith(false, expect.objectContaining({ reason: 'toggle' }));
     });
     it('sets disabled attribute on the button', async () => {
         const { button } = await renderSwitch({ disabled: true });
@@ -85,7 +87,7 @@ describe('Switch', () => {
         expect(container.querySelector('button[role="switch"]')).toBeTruthy();
     });
     it('renders with middle size', async () => {
-        const { container } = await render(<Switch size="middle" aria-label="toggle"/>);
+        const { container } = await render(<Switch size="medium" aria-label="toggle"/>);
         expect(container.querySelector('button[role="switch"]')).toBeTruthy();
     });
     it('renders with small size', async () => {
@@ -93,11 +95,11 @@ describe('Switch', () => {
         expect(container.querySelector('button[role="switch"]')).toBeTruthy();
     });
     it('toggles in uncontrolled mode on click', async () => {
-        const onChange = mock.fn();
-        const { button } = await renderSwitch({ onChange });
+        const onCheckedChange = mock.fn();
+        const { button } = await renderSwitch({ onCheckedChange });
         await clickSwitch(button);
-        expect(onChange).toHaveBeenLastCalledWith(true, expect.anything());
+        expect(onCheckedChange).toHaveBeenLastCalledWith(true, expect.objectContaining({ reason: 'toggle' }));
         await clickSwitch(button);
-        expect(onChange).toHaveBeenLastCalledWith(false, expect.anything());
+        expect(onCheckedChange).toHaveBeenLastCalledWith(false, expect.objectContaining({ reason: 'toggle' }));
     });
 });

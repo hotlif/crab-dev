@@ -2,6 +2,10 @@ import { css } from '@crab-dev/css';
 import token from '@crab-dev/rc-token-semantic';
 
 export const frameStyle = css`
+    box-sizing: border-box;
+    width: calc(${token.size[40]} * 16);
+    max-width: 100%;
+    min-width: 0;
     height: calc(${token.size[40]} * 4);
     border: 1px solid ${token.color.border.default};
     border-radius: ${token.shape.card}; overflow: hidden;

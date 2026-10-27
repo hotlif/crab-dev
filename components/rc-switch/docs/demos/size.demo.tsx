@@ -1,6 +1,6 @@
 export const meta = {
     title: "开关尺寸",
-    description: "通过 `size` 属性设置开关尺寸, 支持 `large`、`middle`、`small` 三种",
+    description: "通过 `size` 属性设置开关尺寸, 支持 `large`、`medium`、`small` 三种",
 };
 
 import { css } from "@crab-dev/css";
@@ -21,21 +21,21 @@ const SizeDemo = () => {
             <Switch
                 size="large"
                 checked={checked}
-                onChange={(val) => setChecked(val)}
+                onCheckedChange={(val) => setChecked(val)}
             >
                 Large
             </Switch>
             <Switch
-                size="middle"
+                size="medium"
                 checked={checked}
-                onChange={(val) => setChecked(val)}
+                onCheckedChange={(val) => setChecked(val)}
             >
                 Middle
             </Switch>
             <Switch
                 size="small"
                 checked={checked}
-                onChange={(val) => setChecked(val)}
+                onCheckedChange={(val) => setChecked(val)}
             >
                 Small
             </Switch>

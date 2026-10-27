@@ -2,6 +2,7 @@ import { css, cx } from '@crab-dev/css';
 import { useEffect, useRef } from 'react';
 import type { FC, KeyboardEvent, CSSProperties } from 'react';
 import { useDragResize, useEventCallback } from '@crab-dev/rc-hooks';
+import { useLocale } from '@crab-dev/rc-config-provider';
 import token from './token.js';
 import type { SplitPaneProps } from './types.js';
 
@@ -159,11 +160,12 @@ const SplitPane: FC<SplitPaneProps> = ({
     onSizeChange,
     persistKey,
     disabled = false,
-    'aria-label': ariaLabel = '调整面板大小',
+    'aria-label': ariaLabel,
     className,
     style,
     ref,
 }) => {
+    const { messages } = useLocale();
     const horizontal = direction === 'horizontal';
 
     // persistKey 的恢复值只在首次挂载读一次：之后它是「输出」而非「输入」，
@@ -249,7 +251,7 @@ const SplitPane: FC<SplitPaneProps> = ({
             <div
                 role="separator"
                 aria-orientation={horizontal ? 'vertical' : 'horizontal'}
-                aria-label={ariaLabel}
+                aria-label={ariaLabel ?? messages.splitPane.resize}
                 aria-valuenow={Math.round(currentSize)}
                 aria-valuemin={Math.round(min)}
                 aria-valuemax={max !== undefined ? Math.round(max) : undefined}

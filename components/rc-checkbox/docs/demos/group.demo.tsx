@@ -11,7 +11,7 @@ const GroupDemo = () => {
 
     return (
         <div>
-            <CheckboxGroup value={value} onChange={setValue}>
+            <CheckboxGroup value={value} onValueChange={setValue}>
                 <Checkbox value="apple">苹果</Checkbox>
                 <Checkbox value="banana">香蕉</Checkbox>
                 <Checkbox value="orange">橘子</Checkbox>

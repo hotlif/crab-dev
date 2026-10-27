@@ -32,7 +32,7 @@ import { demos } from "../_generated/rc-tree.js";
 
 #### 选择与筛选
 
-##### 复选框 checkable — 通过 `checkable` 开启复选框模式。选中父节点自动级联选中所有子节点；取消选中子节点时，父节点自动变为半选状态。`checkedKeys` 与 `onCheck` 实现受控。
+##### 复选框 checkable — 通过 `checkable` 开启复选框模式。选中父节点自动级联选中所有子节点；取消选中子节点时，父节点自动变为半选状态。`checkedKeys` 与 `onCheckedKeysChange` 实现受控。
 
 ##### 搜索过滤 filterTreeNode — 通过 `filterTreeNode` prop 过滤节点。返回 `true` 的节点及其所有祖先节点均会保留显示，其余节点被隐藏。结合展开所有匹配路径，可实现完整的搜索体验。
 
@@ -42,9 +42,11 @@ import { demos } from "../_generated/rc-tree.js";
 
 ##### 拖拽限制 allowDrop — 通过 `allowDrop` 回调控制节点的放置规则。本示例只允许同级排序：禁止 INSIDE（移入子节点），也禁止跨层级的 DOWN/UPWARD（那样会改变父节点）。
 
+##### 默认节点编辑器 — 使用 Tree 自带编辑器重命名节点，展示提交与取消回调次数。Enter 保存、Escape 取消；输入法组合期间继续输入，键盘结束后由 Tree 恢复焦点。
+
 ##### Inline 节点编辑 — 双击节点标题进入 inline 编辑模式。本例通过 renderEditInput 复用 LineEdit，演示字数限制与实时校验。onCommit(value) 提交，onCancel() 取消。
 
-##### 键盘导航 — 点击树组件后可使用键盘操作：`↑↓` 移动焦点，`→` 展开文件夹，`←` 折叠文件夹或跳转到父节点，`Enter` 选中/取消选中当前节点。
+##### 键盘导航 — 点击树组件后可使用键盘操作：`↑↓` 移动焦点，LTR 时 `→` 展开文件夹、`←` 折叠或跳转到父节点；RTL 时左右键交换。`Enter` 选中/取消选中当前节点。
 
 </div>
 
@@ -65,8 +67,14 @@ import { demos } from "../_generated/rc-tree.js";
 
 - 为树所在区域提供可见标题，搜索框必须使用 `<label>` 建立可访问名称。
 - 保留方向键浏览、Enter 选择和清晰的 `:focus-visible` 焦点环；不要在业务层拦截这些按键。
+- 容器焦点轮廓向内绘制，并在节点背景上层显示，避免被 `AutoSizer` 等裁剪宿主或选中行遮住。通过公开 `TokenVars` 调整轮廓线宽时，默认内缩随线宽变化；显式覆盖偏移后需重新核对裁剪边界。
+- 节点层级缩进及折叠箭头跟随方向：LTR 朝右展开、朝左折叠或返回父节点；RTL 左右键交换。展开后的箭头均朝下。`ConfigProvider direction` 和树的原生 `dir` 设置适用于同一个键盘焦点区域。
 - 节点标题中的图标只作装饰时应从无障碍树隐藏，加载、禁用、展开和选中状态不能只靠颜色表示。
+- 强制颜色模式中，已选中且未禁用的节点使用系统 `HighlightText` / `Highlight` 配对，并仅在该行保留这组颜色，避免浏览器文字背板遮住标题。普通未选中行、禁用行和树容器继续接受系统自动颜色调整；节点的 `aria-selected`、层级和禁用语义保持不变。
 - `aria-label` / `aria-labelledby` 标记实际的键盘焦点容器；节点暴露 `treeitem`、选中、展开和禁用状态。关闭拖拽不会禁用节点选择，键盘选中项会自动滚动到可见区域。
+- 默认行内编辑器通过节点的非交互标题建立可访问名称，富文本标题保留其可访问内容并排除隐藏的装饰。带链接、按钮等交互内容的标题应使用 `renderEditInput` 明确设置编辑器名称；自定义编辑器由调用方管理焦点、提交和取消。
+- 默认编辑器以 Enter 保存或 Escape 取消后，在调用方清除 `editState` 且原节点、树及焦点所有权仍有效时，返回树的键盘容器并保留活动节点。调用方保留编辑器时继续输入；失焦退出、主动移焦或卸载/替换节点时不抢回焦点。自定义编辑示例演示同样的键盘返回与校验失败留焦规则。
+- 默认编辑器在输入法组合期间不把 Enter / Escape 当成提交或取消，也不向树传播组合按键；组合结束后的独立按键才执行编辑操作。自定义 `renderEditInput` 应自行处理组合输入，保留其 `onCommit` / `onCancel` 协议。
 - 拖拽和右键菜单必须提供键盘可操作的等价入口，并在操作后说明结果。
 
 更多通用要求见[无障碍使用指南](/guides/accessibility)。
@@ -79,9 +87,9 @@ import { demos } from "../_generated/rc-tree.js";
 
 ### 三套风格
 
-树节点的选中形态与对应主题导航一致：macOS 为强调色圆角行与配对前景色，Material 为次要色胶囊行，shadcn 为中性圆角行。选中标题不附加下划线，展开图标和加载图标跟随选中前景色。多选复选框、禁用、焦点、拖拽指示和内联编辑保留各自语义。
+树节点的选中形态与对应主题导航一致：Apple 为强调色圆角行与配对前景色，MD3 Expressive 为次要色胶囊行，shadcn 为中性圆角行。选中标题不附加下划线，展开图标、加载图标和使用 `currentColor` 的节点前置图标跟随选中前景色；取消选择后恢复普通图标色。`icon` 内显式指定的颜色、SVG `fill` 和 `stroke` 保留，由调用方核对其在选中背景上的可辨识性。多选复选框、禁用、焦点、拖拽指示和内联编辑保留各自语义。
 
-M3 与 Material Web 没有独立 Tree；Material 的行选择扩展自 [Navigation drawer](https://m3.material.io/components/navigation-drawer/overview)，并保留 Web tree 的键盘模型。macOS 参考 [Apple Sidebars](https://developer.apple.com/design/human-interface-guidelines/sidebars)，shadcn 参考 [Sidebar 文档](https://ui.shadcn.com/docs/components/radix/sidebar)及 [Sidebar 实现](https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/new-york-v4/ui/sidebar.tsx)。这些是分层数据扩展，不能等同于三方原生 Tree。参考核对日期：2026-10-22。
+M3 与 Material Web 没有独立 Tree；MD3 Expressive 的行选择扩展自 [Navigation drawer](https://m3.material.io/components/navigation-drawer/overview)，并保留 Web tree 的键盘模型。Apple 参考 [Apple Sidebars](https://developer.apple.com/design/human-interface-guidelines/sidebars)，shadcn/ui 参考 [Sidebar 文档](https://ui.shadcn.com/docs/components/radix/sidebar)及 [New York V4 Sidebar 实现](https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui/sidebar.tsx)。这些是分层数据扩展，不能等同于三方原生 Tree。设计参考日期：2026-10-22；源码引用于 2026-10-24 固定到 New York V4 基线。
 
 
 ### 节点数据
@@ -91,6 +99,27 @@ M3 与 Material Web 没有独立 Tree；Material 的行选择扩展自 [Navigati
 - 根节点的 `parent` 为 `null`，子节点通过 `parent` 建立层级关系。
 - `type` 使用 `NodeType`，`loadState` 使用 `LoadStateType`；两者均从组件包具名导出。
 - 可通过 `disabled` 禁用节点，通过 `icon` 设置前置图标，通过 `height` 指定节点高度（单位为 px）。
+
+### 节点编辑
+
+“默认节点编辑器”示例直接使用 Tree 自带的输入框。双击文件时将对应节点设为 `editState: NodeEditStateType.UPDATE`，同时更新 `selectedKeys`，使编辑结束后的活动节点仍指向该文件。`onEditEnd(node, newTitle, cancelled)` 中按结果更新标题并清除 `editState`；示例显示实际提交、取消回调次数，调用方不另行设置焦点。
+
+默认编辑器在 Enter 保存、Escape 取消后按焦点所有权返回树，失焦提交则保留用户已选择的树外目标；输入法组合期间不会提前结束编辑。“Inline 节点编辑”示例使用 `renderEditInput` 替换输入框，另行演示业务校验和调用方管理的焦点，两种编辑路径应分别验证。
+
+默认编辑器采用 Tree 的行内嵌入规格：复用 `LineEdit bordered={false}` 的值、键盘和名称协议，尺寸、字阶及内容颜色由当前树行提供，不引入独立表单字段的最小高度或扩大虚拟行高。键盘焦点轮廓画在编辑区域内部，使用当前行配对的前景色，避免与选中行底色混合；自定义编辑器也应保持在实际行边界内。
+
+“Inline 节点编辑”示例同样使用 `LineEdit bordered={false}`，通过公开 `TokenVars` 映射局部触控最小高度与内置焦点轮廓。编辑区以百分比继承当前节点的实际高度，字阶继承树行；密度、粗指针默认值及显式节点高度仍由 Tree 与虚拟列表的同一测量来源控制，不把独立 MD3 TextField 的 56px 规格改小。无效输入保留 `aria-invalid`，编辑区域使用配对错误前景和背景；普通状态继承选中行前景。
+
+自定义编辑器的辅助文字也需适应选中行。“Inline 节点编辑”的普通字数计数继承当前行前景；为空或超过 20 字时，计数使用配对的错误文字与错误背景，不将次要文字色或单独的错误文字色直接叠在选中背景上。字数、校验状态和提交／取消协议保持独立于这些外观处理。
+
+
+选择、勾选、展开统一使用集合协议：`selectedKeys` / `onSelectedKeysChange(nextKeys, details)`、`checkedKeys` / `onCheckedKeysChange(nextKeys, details)`、`expandedKeys` / `onExpandedKeysChange(nextKeys, details)`。`details` 包含节点、适用事件及对应的 `selected` / `checked` / `expanded`；勾选详情还包含 `halfCheckedKeys`。受控集合不会被组件修改，节点及父子关系仍使用现有 `Node` 数据模型。
+
+非受控用法使用 `defaultSelectedKeys`、`defaultCheckedKeys`、`defaultExpandedKeys`，这些值只在首次挂载读取，分别与受控集合互斥。父子勾选继续保留级联及半选语义。
+
+未指定高度时，节点高度继承 `ConfigProvider.density`，局部 `density` 可覆盖：`compact` 为 32px、`standard` 为 36px、`comfortable` 为 40px；粗指针下，这些自适应默认值提高到至少 48px。高度优先级为单个节点 `height`、`defaultNodeHeight`、密度与指针模式计算的默认值。显式高度保持调用方提供的值，不会被粗指针模式扩大；调用方需确保可交互节点及内部控件的触控目标、可读性和间距充足。`size` 只控制内部控件尺寸。内置无障碍名称与拖拽提示继承 `ConfigProvider.locale`，`dragBadgeLabels` 可局部覆盖拖拽提示。
+
+`TreeNodeId` 为 `string | number`。拖拽回调使用本库导出的 `TreeDragStartEvent`、`TreeDragMoveEvent`、`TreeDragOverEvent`、`TreeDragEndEvent` 等类型，以及 `TreeDragContext`；事件保留激活来源、活动节点、目标节点、坐标变化和碰撞数据。消费方不需要导入内部拖拽库的类型；附加 `data` 字段以 `unknown` 表达，使用前应按业务数据检查。
 
 ### 适用场景
 
@@ -109,6 +138,14 @@ M3 与 Material Web 没有独立 Tree；Material 的行选择扩展自 [Navigati
 - 实现 tree/treeitem 层级、展开、选中和集合位置信息，并支持方向键模型。
 - 拖拽、内联编辑和筛选都有键盘替代路径，焦点节点在数据更新后仍可定位。
 
+### 设计依据与覆盖
+
+- **MD3 Expressive**：M3 没有独立 Tree 组件；视觉参考 Lists、Checkbox、状态层和形状，键盘模型依据 Web tree pattern 扩展。 [依据 1](https://m3.material.io/components/lists/overview) · [依据 2](https://material-web.dev/components/list/) · [依据 3](https://github.com/material-components/material-web/tree/main/list)
+- **Apple**：依据 Apple HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。 [依据 1](https://developer.apple.com/design/human-interface-guidelines/components) · [依据 2](https://developer.apple.com/design/human-interface-guidelines/accessibility)
+- **shadcn/ui**：参考 shadcn/ui 的组件用途、中性表面与设计变量，在本库公共语义和 React 交互模型中实现；完整状态覆盖仍需按矩阵验收。 [依据 1](https://ui.shadcn.com/docs/components) · [依据 2](https://ui.shadcn.com/docs/theming) · [依据 3](https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4)
+
+设计依据不等于完成验收；当前状态与适用边界见[覆盖矩阵](/guides/design-coverage)。
+
 ## 常见问题
 
 ### 展开和选中为什么要分开？
@@ -117,8 +154,15 @@ M3 与 Material Web 没有独立 Tree；Material 的行选择扩展自 [Navigati
 
 ### 为什么提供树外的操作按钮？
 
-外部按钮演示业务操作如何更新受控的 expandedKeys 和 selectKeys，不是节点交互的替代入口。关闭拖拽不会禁用节点；Tab 可聚焦树，上下方向键选择节点，左右方向键展开、收起或返回父节点，Enter 切换当前节点的选择状态。只有 node.disabled 为 true 时节点才会被禁用。
+外部按钮演示业务操作如何更新受控的 expandedKeys 和 selectedKeys，不是节点交互的替代入口。关闭拖拽不会禁用节点；Tab 可聚焦树，上下方向键选择节点，左右方向键展开、收起或返回父节点，Enter 切换当前节点的选择状态。只有 node.disabled 为 true 时节点才会被禁用。
 
 ## API
 
 <API source="../_generated_api/rc-tree.ts" symbol="TreeProps" component="Tree" />
+
+<details data-docs-native-props>
+<summary>Tree 继承的原生属性（261 项）</summary>
+
+<API source="../_generated_api/rc-tree-native.ts" symbol="TreePropsNativeAttributes" component="Tree 继承的原生属性" />
+
+</details>

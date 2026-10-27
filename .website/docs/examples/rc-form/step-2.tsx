@@ -28,7 +28,6 @@ export default function Example() {
                     name="name"
                     label="姓名"
                     labelPlacement="control"
-                    binding="event"
                     supportingText="请填写真实姓名，最多 30 字。"
                     required
                     rules={[

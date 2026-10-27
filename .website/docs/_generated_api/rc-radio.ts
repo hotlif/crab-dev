@@ -5,31 +5,24 @@ type DocsTypePlaceholder = ((...args: never[]) => unknown) & {
     readonly [key: string]: DocsTypePlaceholder;
     readonly [key: number]: DocsTypePlaceholder;
 };
-type ChangeEvent<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
-type HTMLInputElement = DocsTypePlaceholder;
+type RadioChangeDetails = DocsTypePlaceholder;
 type ReactNode = DocsTypePlaceholder;
 
 export interface RadioProps {
     /**
-     * 是否选中（受控）
+     * Defines a string value that labels the current element.
      */
-    "checked"?: boolean;
+    "aria-label"?: string | undefined | string;
 
     /**
-     * 默认是否选中（非受控）
-     * @default false
+     * 子元素
      */
-    "defaultChecked"?: boolean;
+    "children"?: ReactNode | undefined | ReactNode;
 
     /**
-     * 单选框的大小, 默认为 middle
+     * 单选框的大小, 默认为 medium
      */
-    "size"?: 'large' | 'middle' | 'small';
-
-    /**
-     * 值变化时的回调
-     */
-    "onChange"?: (checked: boolean, event: ChangeEvent<HTMLInputElement>) => void;
+    "size"?: 'large' | 'medium' | 'small';
 
     /**
      * Radio 的值, 在 RadioGroup 中使用
@@ -37,12 +30,17 @@ export interface RadioProps {
     "value"?: string | number;
 
     /**
-     * 子元素
+     * 暂无说明。 与 defaultChecked 互斥，不能同时提供。
      */
-    "children"?: ReactNode;
+    "checked"?: boolean;
+
+    /**
+     * 暂无说明。 与 checked 互斥，不能同时提供。
+     */
+    "defaultChecked"?: boolean;
 
     /**
      * 暂无说明。
      */
-    "aria-label"?: string;
+    "onCheckedChange"?: ((checked: boolean, details: RadioChangeDetails) => void);
 }

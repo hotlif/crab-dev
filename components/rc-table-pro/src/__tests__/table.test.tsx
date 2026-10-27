@@ -1,9 +1,11 @@
 import { act, beforeAll, describe, it, expect, mock, render, waitFor, fireEvent, screen } from "@crab-dev/wake/test/react";
 
 import type { ProtocolColumnType } from "../types.js";
-import type { Row } from "@crab-dev/rc-table";
+import type { Row, RowSelection } from "@crab-dev/rc-table";
+import type { PaginationChangeHandler } from '@crab-dev/rc-pagination';
 import type { ReactElement } from 'react';
 import LineEdit from '@crab-dev/rc-line-edit';
+import ConfigProvider, { localeMessages } from '@crab-dev/rc-config-provider';
 
 async function renderTable(element: ReactElement) {
     let view!: Awaited<ReturnType<typeof render>>;
@@ -49,7 +51,143 @@ type PaginatedFetchFn = (page: number, pageSize: number, filters: Record<string,
     rows: PersonRow[];
     total: number;
 }>;
+
+function deferred<T>() {
+    let resolve!: (value: T) => void;
+    let reject!: (reason: Error) => void;
+    const promise = new Promise<T>((resolvePromise, rejectPromise) => {
+        resolve = resolvePromise;
+        reject = rejectPromise;
+    });
+    return { promise, resolve, reject };
+}
+
 describe("TablePro", () => {
+    it.each([false, true])('shows empty content only after a successful empty response (custom=%s)', async (custom) => {
+        const result = deferred<PersonRow[]>();
+        const fetchColumns = mock.fn<FetchColumnsFn>().resolve(COLUMNS);
+        const fetchData = mock.fn<FetchDataFn>().return(result.promise);
+        const emptyText = custom ? 'Custom empty result' : localeMessages['zh-CN'].empty.default.title;
+        const { container } = await renderTable(<TablePro<PersonRow> fetchColumns={fetchColumns} fetchData={fetchData}
+            empty={custom ? <span>{emptyText}</span> : undefined} style={{ width: 400, height: 300 }} />);
+        expect(container.querySelector('[data-testid="protocol-table-loading"]')).toBeTruthy();
+        expect(screen.queryByText(emptyText)).toBeNull();
+        await act(async () => { result.resolve([]); await result.promise; });
+        await waitFor(() => expect(container.querySelector('[data-testid="protocol-table-loading"]')).toBeNull());
+        expect(screen.getByText(emptyText)).toBeTruthy();
+        expect(fetchData).toHaveBeenCalledTimes(1);
+    });
+
+    it.each(['columns', 'data'] as const)('keeps empty content absent through a %s error and pending retry', async (source) => {
+        const retriedColumns = deferred<ProtocolColumnType[]>();
+        const retriedRows = deferred<PersonRow[]>();
+        let columnRequests = 0;
+        let dataRequests = 0;
+        const fetchColumns = async () => {
+            columnRequests++;
+            if (source !== 'columns') return COLUMNS;
+            if (columnRequests === 1) throw new Error('Columns unavailable');
+            return retriedColumns.promise;
+        };
+        const fetchData = async () => {
+            dataRequests++;
+            if (source !== 'data') return [];
+            if (dataRequests === 1) throw new Error('Data unavailable');
+            return retriedRows.promise;
+        };
+        const { container } = await renderTable(<TablePro<PersonRow> fetchColumns={fetchColumns} fetchData={fetchData}
+            empty={<span>Custom empty result</span>} style={{ width: 400, height: 300 }} />);
+        const errorSelector = `[data-testid="protocol-table-${source}-error"]`;
+        await waitFor(() => expect(container.querySelector(errorSelector)).toBeTruthy());
+        expect(screen.queryByText('Custom empty result')).toBeNull();
+        expect(screen.queryByText(localeMessages['zh-CN'].empty.default.title)).toBeNull();
+        await act(async () => { await fireEvent.click(screen.getByRole('button', { name: localeMessages['zh-CN'].tablePro.retry })); });
+        expect(container.querySelector(errorSelector)).toBeNull();
+        expect(container.querySelector('[data-testid="protocol-table-loading"]')).toBeTruthy();
+        expect(screen.queryByText('Custom empty result')).toBeNull();
+        await act(async () => {
+            retriedColumns.resolve(COLUMNS);
+            retriedRows.resolve([]);
+            await Promise.all([retriedColumns.promise, retriedRows.promise]);
+        });
+        await waitFor(() => expect(screen.getByText('Custom empty result')).toBeTruthy());
+        expect(columnRequests).toBe(source === 'columns' ? 2 : 1);
+        expect(dataRequests).toBe(source === 'data' ? 2 : 1);
+    });
+
+    it('retains loaded rows during refresh and a failed refresh, then shows a successful empty retry', async () => {
+        const refresh = deferred<{ rows: PersonRow[]; total: number }>();
+        let requests = 0;
+        const request = async () => {
+            requests++;
+            if (requests === 1) return { rows: ROWS, total: ROWS.length };
+            if (requests === 2) return refresh.promise;
+            return { rows: [], total: 0 };
+        };
+        const fetchColumns = mock.fn<FetchColumnsFn>().resolve(COLUMNS);
+        const { container } = await renderTable(<TablePro<PersonRow> fetchColumns={fetchColumns} request={request}
+            pagination={{}} empty={<span>Custom empty result</span>} style={{ width: 400, height: 300 }} />);
+        await waitFor(() => expect(screen.getByText('Alice')).toBeTruthy());
+        await act(async () => { await fireEvent.click(screen.getByRole('button', { name: localeMessages['zh-CN'].tablePro.refresh })); });
+        expect(container.querySelector('[data-testid="protocol-table-loading"]')).toBeTruthy();
+        expect(screen.getByText('Alice')).toBeTruthy();
+        expect(screen.getByText('Bob')).toBeTruthy();
+        expect(screen.queryByText('Custom empty result')).toBeNull();
+        await act(async () => { refresh.reject(new Error('Refresh failed')); await refresh.promise.catch(() => undefined); });
+        await waitFor(() => expect(container.querySelector('[data-testid="protocol-table-data-error"]')).toBeTruthy());
+        expect(screen.getByText('Alice')).toBeTruthy();
+        expect(screen.queryByText('Custom empty result')).toBeNull();
+        await act(async () => { await fireEvent.click(screen.getByRole('button', { name: localeMessages['zh-CN'].tablePro.retry })); });
+        await waitFor(() => expect(screen.getByText('Custom empty result')).toBeTruthy());
+        expect(screen.queryByText('Alice')).toBeNull();
+        expect(requests).toBe(3);
+    });
+
+    it('preserves the original pagination click event through its request adapter', async () => {
+        const fetchColumns = mock.fn<FetchColumnsFn>().resolve(COLUMNS);
+        const fetchData = mock.fn<PaginatedFetchFn>().resolve({ rows: ROWS, total: 80 });
+        const changed = mock.fn<PaginationChangeHandler>();
+        await renderTable(<TablePro<PersonRow> fetchColumns={fetchColumns} fetchData={fetchData}
+            pagination={{ onValueChange: changed }} style={{ width: 700, height: 400 }} />);
+        await waitFor(() => expect(screen.getByRole('button', { name: '页码 2' })).toBeTruthy());
+        const button = screen.getByRole('button', { name: '页码 2' });
+        await act(async () => { await fireEvent.click(button); });
+        expect(changed).toHaveBeenCalledTimes(1);
+        expect(changed.calls.calls[0][0]).toBe(2);
+        const details = changed.calls.calls[0][1];
+        expect(details).toEqual(expect.objectContaining({ pageSize: 10, reason: 'page' }));
+        expect(details.event?.type).toBe('click');
+        expect(details.event?.target).toBe(button);
+        expect(fetchData).toHaveBeenCalledWith(2, 10, {});
+    });
+    it('forwards the original row-selection event with the loaded row model', async () => {
+        const fetchColumns = mock.fn<FetchColumnsFn>().resolve(COLUMNS);
+        const fetchData = mock.fn<FetchDataFn>().resolve(ROWS);
+        const changed = mock.fn<NonNullable<RowSelection<PersonRow>['onSelectedRowIdsChange']>>();
+        await renderTable(<TablePro<PersonRow> fetchColumns={fetchColumns} fetchData={fetchData}
+            rowSelection={{ type: 'checkbox', onSelectedRowIdsChange: changed }} style={{ width: 700, height: 400 }} />);
+        await waitFor(() => expect(screen.getAllByRole('checkbox', { name: localeMessages['zh-CN'].table.selectRow })).toHaveLength(2));
+        const checkbox = screen.getAllByRole('checkbox', { name: localeMessages['zh-CN'].table.selectRow })[0];
+        await act(async () => { await fireEvent.click(checkbox); });
+        expect(changed).toHaveBeenCalledTimes(1);
+        expect(changed.calls.calls[0][0]).toEqual(new Set(['1']));
+        const details = changed.calls.calls[0][1];
+        expect(details).toEqual(expect.objectContaining({ reason: 'row', rows: [ROWS[0]] }));
+        expect(details.event?.type).toBe('change');
+        expect(details.event?.target).toBe(checkbox);
+        expect(details.event?.nativeEvent.target).toBe(checkbox);
+    });
+    it('inherits toolbar and column-panel language while retaining business titles', async () => {
+        const fetchColumns = mock.fn<FetchColumnsFn>().resolve(COLUMNS);
+        const fetchData = mock.fn<FetchDataFn>().resolve(ROWS);
+        const view = await renderTable(<ConfigProvider locale="en-US"><TablePro<PersonRow> fetchColumns={fetchColumns} fetchData={fetchData} sideBar showSearchBar style={{ width: 700, height: 400 }} /></ConfigProvider>);
+        await waitFor(() => expect(fetchColumns).toHaveBeenCalledTimes(1));
+        expect(screen.getByRole('textbox', { name: localeMessages['en-US'].tablePro.searchTable })).toBeTruthy();
+        await act(async () => { await fireEvent.click(screen.getByRole('button', { name: localeMessages['en-US'].tablePro.columns })); });
+        expect(screen.getByRole('textbox', { name: localeMessages['en-US'].tablePro.searchColumns })).toBeTruthy();
+        await view.rerender(<ConfigProvider locale="zh-CN"><TablePro<PersonRow> fetchColumns={fetchColumns} fetchData={fetchData} sideBar showSearchBar style={{ width: 700, height: 400 }} /></ConfigProvider>);
+        expect(screen.getByRole('textbox', { name: localeMessages['zh-CN'].tablePro.searchColumns })).toBeTruthy();
+    });
     it("keeps labeled filter controls usable when opening and closing the sidebar", async () => {
         const fetchColumns = mock.fn<FetchColumnsFn>().resolve([COLUMNS[0]]);
         const fetchData = mock.fn<FetchDataFn>().resolve(ROWS);
@@ -57,7 +195,7 @@ describe("TablePro", () => {
             renderDefaultFilterEditor={({ value, onValueChange }) => <LineEdit label="筛选值" supportingText="输入名称" value={value} onChange={event => onValueChange(event.target.value)} />}
             style={{ width: 700, height: 400 }} />);
         await waitFor(() => expect(fetchColumns).toHaveBeenCalledTimes(1));
-        const filters = screen.getByRole('button', { name: '过滤器' });
+        const filters = screen.getByRole('button', { name: '筛选' });
         expect(filters.getAttribute('aria-expanded')).toBe('false');
         await act(async () => { await fireEvent.click(filters); });
         expect(filters.getAttribute('aria-expanded')).toBe('true');

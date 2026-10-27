@@ -1,11 +1,11 @@
-import { macosColorContract } from './macos-theme.js';
+import { appleColorContract } from './apple-theme.js';
 import { shadcnColorContract } from './shadcn-theme.js';
-import { themeColorContract } from './theme.js';
+import { md3ColorContract } from './theme.js';
 import type { DesignColorContract } from './types.js';
 
 /** Style and color mode are independent; Material remains the default contract. */
 export const designColorContract: DesignColorContract = {
-    material: themeColorContract,
+    md3: md3ColorContract,
+    apple: appleColorContract,
     shadcn: shadcnColorContract,
-    macos: macosColorContract,
 };

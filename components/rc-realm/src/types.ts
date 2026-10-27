@@ -112,15 +112,15 @@ interface RealmBaseProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'
     timeout?: number;
     /** 透传 rc-spin 的 delay 防闪烁, 默认 300 */
     delay?: number;
-    /** 透传 rc-spin 的 tip, 默认"正在加载远程模块" */
+    /** 透传 rc-spin 的 tip；缺省根据 locale 显示加载提示 */
     tip?: ReactNode;
     /** loading 期 Spin 包裹的占位内容（如 rc-skeleton）；默认 min-block-size 占位 div */
     fallback?: ReactNode;
-    /** 自定义错误态；缺省渲染 rc-alert(type=error) + 操作区 rc-button 重试 */
+    /** 自定义错误态，接收原始诊断；缺省为按 locale 显示的 rc-alert + 重试操作 */
     errorFallback?: (error: RealmError, retry: () => void) => ReactNode;
     /** 远程内容就绪（已渲染 / 已 mount）回调 */
     onReady?: () => void;
-    /** 任意阶段失败回调（含渲染期）。Base 已 Omit 原生 onError, 避免与 HTMLAttributes 冲突 */
+    /** 任意阶段失败的原始诊断（含渲染期），不因 locale 改写；Base 已 Omit 原生 onError */
     onError?: (error: RealmError) => void;
     /** ref 指向 Realm 容器 div */
     ref?: Ref<HTMLDivElement>;
@@ -131,10 +131,12 @@ interface RealmBaseProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'
  * （style-loader / mini-css-extract）注入 document.head, Shadow 隔离必致样式丢失,
  * "看似隔离实则丢样式"违反概念模型；styleSheets 仅在 sandbox: true 分支允许。
  */
-type RealmProtocolProps<P extends RealmRemoteProps> =
-    | { protocol?: 'component'; remoteProps?: P; sandbox?: never; styleSheets?: never }
-    | { protocol: 'mount'; remoteProps?: P; sandbox: true; styleSheets?: string[] }
-    | { protocol: 'mount'; remoteProps?: P; sandbox?: false; styleSheets?: never };
+type RealmProtocolProps =
+    | { protocol?: 'component'; sandbox?: never; styleSheets?: never }
+    | { protocol: 'mount'; sandbox: true; styleSheets?: string[] }
+    | { protocol: 'mount'; sandbox?: false; styleSheets?: never };
 
-export type RealmProps<P extends RealmRemoteProps = RealmRemoteProps> = RealmBaseProps &
-    RealmProtocolProps<P>;
+export type RealmProps<P extends RealmRemoteProps> = {
+    /** Props forwarded to the remote component or mount lifecycle without changing its protocol. */
+    remoteProps?: P;
+} & RealmBaseProps & RealmProtocolProps;

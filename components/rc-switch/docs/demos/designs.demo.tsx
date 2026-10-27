@@ -4,7 +4,7 @@ import ConfigProvider from '@crab-dev/rc-config-provider';
 import token from '@crab-dev/rc-token-semantic';
 import Switch from '../../src/switch.js';
 
-export const meta = { title: '三套设计与状态', description: 'MD3 的手柄随选中和按压改变大小；macOS 与 shadcn 使用各自的紧凑轨道与等大的手柄。' };
+export const meta = { title: '三套设计与状态', description: 'MD3 的手柄随选中和按压改变大小；Apple 与 shadcn 使用各自的紧凑轨道与等大的手柄。' };
 const panel = css`
     display: grid;
     gap: ${token.space['component-gap']};
@@ -18,9 +18,9 @@ const stack = css`display: grid; gap: ${token.space['stack-gap']};`;
 export default function DesignsDemo() {
     const errorId = useId();
     return <div className={stack}>
-        {(['macos', 'material', 'shadcn'] as const).map(design => <ConfigProvider key={design} design={design}>
+        {(['apple', 'md3', 'shadcn'] as const).map(design => <ConfigProvider key={design} designSystem={design}>
             <section className={panel} aria-label={`${design} 开关`}>
-                <strong>{design === 'material' ? 'MD3' : design === 'macos' ? 'macOS' : 'shadcn'}</strong>
+                <strong>{design === 'md3' ? 'MD3' : design === 'apple' ? 'Apple' : 'shadcn'}</strong>
                 <Switch>开启通知</Switch>
                 <Switch defaultChecked>自动同步</Switch>
                 <Switch disabled>暂不可用</Switch>

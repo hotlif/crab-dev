@@ -1,0 +1,19 @@
+# Real published CSS; no DOM suite css() mock.
+[test]
+environment = "browser"
+include = ["disabled-current.test.tsx"]
+timeout_ms = 15000
+leaks = "error"
+
+[test.react]
+strict_mode = false
+cleanup = true
+act_warnings = "error"
+
+[test.network]
+mode = "deny"
+allow_hosts = []
+
+[test.coverage]
+enabled = true
+reporters = ["text", "lcov"]

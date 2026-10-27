@@ -20,13 +20,13 @@ async function submitForm(button: HTMLElement) {
 
 describe("Form 文档交互", () => {
     it("字段标签与说明关联到输入，切换风格后保留编辑内容并可提交", async () => {
-        const view = await render(<ConfigProvider design="material"><BasicExample /></ConfigProvider>);
+        const view = await render(<ConfigProvider designSystem="md3"><BasicExample /></ConfigProvider>);
         const input = screen.getByRole("textbox", { name: "姓名" });
         const id = input.id;
         expect(document.querySelectorAll(`label[for="${id}"]`)).toHaveLength(1);
         expect(document.getElementById(input.getAttribute("aria-describedby")!)?.textContent).toBe("最多 30 字。");
         await enterText(input, "周宁");
-        await view.rerender(<ConfigProvider design="shadcn"><BasicExample /></ConfigProvider>);
+        await view.rerender(<ConfigProvider designSystem="shadcn"><BasicExample /></ConfigProvider>);
         expect(screen.getByDisplayValue("周宁").id).toBe(id);
         await submitForm(screen.getByRole("button", { name: "读取表单" }));
         expect(screen.getByText("提交姓名：周宁")).toBeTruthy();

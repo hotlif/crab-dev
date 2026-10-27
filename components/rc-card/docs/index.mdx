@@ -11,7 +11,7 @@ status = "experimental"
 
 [打开组件工作台](/components/rc-card/workbench/)
 
-省略 `variant` 时随统一设计风格切换：macOS 使用中性表面与轻阴影，Material 使用浮起表面与阴影，shadcn 使用细描边与轻量表面。显式设置 `elevated`、`outlined` 或 `filled` 可固定卡片层级，颜色与形状仍随主题变化。
+省略 `variant` 时随统一设计风格切换：Apple 使用中性表面与轻阴影，Material 使用浮起表面与阴影，shadcn 使用细描边与轻量表面。显式设置 `elevated`、`outlined` 或 `filled` 可固定卡片层级，颜色与形状仍随主题变化。
 
 三种变体参考 [M3 卡片](https://m3.material.io/components/cards/overview)及 [Material Web Outlined Card 令牌](https://github.com/material-components/material-web/blob/main/tokens/versions/v0_192/_md-comp-outlined-card.scss)。Outlined 采用零级静止阴影、1px 描边和中等圆角；shadcn 风格通过共享语义令牌选择细描边默认外观。
 
@@ -45,15 +45,52 @@ status = "experimental"
 
 ## 代码演示
 
+### 加载占位
+
+`loading` 用内置 Skeleton 替换封面和内容，并暂时撤销整卡激活。Card 的 `loading.background-color` 令牌使用当前设计体系的半透明填充角色，随卡片实际表面合成，保留 Skeleton 原有脉冲和减少动态效果行为。这是库内的组合规则，不是 Material 官方的独立骨架组件规格。
+
+默认占位保留通用的封面、标题和三行正文，不推断未来 `children` 的结构或尺寸。需要在加载前后保持几何一致时，提供 `loadingContent` 完整替换槽，并让占位与真实内容使用相同的 `Card.Cover`、`Card.Body` 和 `Card.Meta` 布局。此槽只在 `loading=true` 时挂载；真实封面、标题、操作与内容不会同时隐藏在占位后方。省略或传 `undefined` 继续使用默认占位；`null`、`false` 表示空占位，其他 `ReactNode` 按原值渲染。
+
+`loadingContent` 继承卡片尺寸与加载填充，根节点仍提供 `aria-busy` 并撤销整卡点击、键盘激活和悬停反馈；槽内应只放非交互占位。`Card.Meta` 的文字列占满头像旁剩余宽度，因此百分比宽度的 Skeleton 与真实文字使用同一可用空间。加载结束后卸载自定义占位，恢复真实内容及正常交互。
+
+下面的加载示例给容器同时设置 `width: 100%` 和最大宽度，封面与头像共享尺寸，标题与三行正文都使用各自字阶的 `1lh` 行槽。文字骨架在行槽内以 `0.6lh` 高度居中，上下各留 `0.2lh`，让相邻占位行保持可辨的间隙，同时维持加载前后的布局。窄容器中的每行文字可以省略；不会用固定整卡高度掩盖两种结构的差异。选择其它内容结构时，应明确对应的占位布局，而不是依赖通用骨架自动匹配任意内容。
+
+通过 Card 公开 `TokenVars['loading.background-color']` 可在卡片上覆盖加载填充；直接在同一根节点设置 Skeleton 的 `TokenVars['root.background-color']` 也保留优先级。加载结束后移除局部映射，恢复真实内容，内容中的 Skeleton 与相邻 Skeleton 继续使用各自的颜色配置。该规则不改变全局 Skeleton 或四种卡片表面的颜色。
+
 <Demos glob="./demos/*.demo.tsx" columns={2} />
 
 ## API
 
 <API source="../src/types.ts" symbol="CardProps" component="Card" />
 
+### Card.Cover
+
+<API source="../src/types.ts" symbol="CardCoverProps" component="Card.Cover" />
+
+
+### Card.Header
+
+<API source="../src/types.ts" symbol="CardHeaderProps" component="Card.Header" />
+
+
+### Card.Body
+
+<API source="../src/types.ts" symbol="CardBodyProps" component="Card.Body" />
+
+
+### Card.Footer
+
+<API source="../src/types.ts" symbol="CardFooterProps" component="Card.Footer" />
+
+
+### Card.Meta
+
+<API source="../src/types.ts" symbol="CardMetaProps" component="Card.Meta" />
+
+
 
 ## 三套设计风格
 
-默认卡片随设计风格变化：macOS 使用银灰表面、轻阴影与中等留白；Material 使用 12px 圆角和默认 16px 内容内边距；shadcn 使用细描边和更宽的 24px 内容内边距。small / large 是本项目的密度扩展，显式 variant 继续表达 elevated / outlined / filled 的层级。
+默认卡片随设计风格变化：Apple 使用银灰表面、轻阴影与中等留白；Material 使用 12px 圆角和默认 16px 内容内边距；shadcn 使用细描边和更宽的 24px 内容内边距。small / large 是本项目的密度扩展，显式 variant 继续表达 elevated / outlined / filled 的层级。
 
 切换文档站设计风格后，本页演示同步使用该设计；浅色和深色模式分别使用配对语义颜色。

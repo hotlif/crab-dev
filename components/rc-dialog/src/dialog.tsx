@@ -1,3 +1,4 @@
+import { acquireScrollLock, registerOverlayLayer, type OverlayLayer } from '@crab-dev/rc-hooks/internal';
 
 import { css, cx } from "@crab-dev/css";
 import {
@@ -9,8 +10,9 @@ import {
 } from "react";
 import type { DialogHTMLAttributes, ReactNode, MouseEvent, Ref } from "react";
 import RcButton, { TokenVars as buttonVars } from "@crab-dev/rc-button";
-import { usePresence } from "@crab-dev/rc-hooks";
-import { useConfig } from "@crab-dev/rc-config-provider";
+import { usePresence, useControllableOpen, type ControlledOpenProps } from "@crab-dev/rc-hooks";
+import { useLocale } from "@crab-dev/rc-config-provider";
+import { useConfigStyleBoundary } from '@crab-dev/rc-config-provider/internal';
 
 import token from "./token.js";
 
@@ -33,7 +35,12 @@ type DialogResultHandler = (
     event?: MouseEvent<HTMLElement, globalThis.MouseEvent>,
 ) => boolean | void | Promise<boolean | void>;
 
-export interface DialogProps extends Omit<
+export interface DialogOpenChangeDetails {
+    reason: 'confirm' | 'cancel' | 'close' | 'escape' | 'outside-press' | 'native-close';
+    event?: MouseEvent<HTMLElement, globalThis.MouseEvent> | KeyboardEvent | Event;
+}
+
+interface DialogBaseProps extends Omit<
     DialogHTMLAttributes<HTMLDialogElement>,
     "title" | "open" | "onCancel" | "onClose"
 > {
@@ -62,7 +69,7 @@ export interface DialogProps extends Omit<
     /**
      * 是否开启
      */
-    open: boolean;
+
 
     /**
      * 是否在关闭的时候重置内容
@@ -77,7 +84,7 @@ export interface DialogProps extends Omit<
     /**
      * 状态发生改变的时候触发的事件
      */
-    onOpenChange: (open: boolean) => void;
+
 
     /**
      * 确定按钮点击时触发的事件，返回 `false` 则保持对话框打开，其余情况关闭
@@ -90,6 +97,8 @@ export interface DialogProps extends Omit<
     onCancel?: DialogResultHandler
 
 }
+
+export type DialogProps = DialogBaseProps & ControlledOpenProps<DialogOpenChangeDetails>;
 
 const colorOverlayBackgroundColor = token.overlay['background-color'];
 const colorDialogBackgroundColor = token.root['background-color'];
@@ -144,7 +153,8 @@ const dialogReset = css`
 function Dialog({
     ref,
     className,
-    open,
+    open: controlledOpen,
+    defaultOpen,
     onOpenChange,
     title,
     header,
@@ -157,10 +167,13 @@ function Dialog({
     i18n = {},
     ...restProps
 }: DialogProps) {
-    const { design } = useConfig();
+    const boundary = useConfigStyleBoundary();
+    const { messages } = useLocale();
+    const [open, setOpen] = useControllableOpen<DialogOpenChangeDetails>({ open: controlledOpen, defaultOpen, onOpenChange });
     const dialogRef = useRef<HTMLDialogElement>(null);
     // Mutable instance state: hold the scroll restoration through the entire exit.
     const restoreScroll = useRef<(() => void) | null>(null);
+    const layer = useRef<OverlayLayer | null>(null);
     const [contentHidden, setContentHidden] = useState(false);
     const [isPending, startTransition] = useTransition();
     const [pendingAction, setPendingAction] = useState<"confirm" | "cancel" | "close" | null>(null);
@@ -170,30 +183,33 @@ function Dialog({
     const presence = usePresence<HTMLDivElement>(open, () => {
         dialogRef.current?.close();
         restoreScroll.current?.();
+        restoreScroll.current = null;
+        layer.current?.release();
+        layer.current = null;
         if (shouldResetContent) setContentHidden(true);
     });
     const {
-        cancelText = "取消",
-        confirmText = "确定"
+        cancelText = messages.common.cancel,
+        confirmText = messages.common.confirm
     } = i18n;
 
     useEffect(() => {
         if (!open) {
             return;
         }
-        if (!dialogRef.current?.open) dialogRef.current?.showModal();
-        // 原生 modal dialog 不会锁定背景滚动，这里手动锁定并在关闭时恢复
-        if (!restoreScroll.current) {
-            const previousOverflow = document.body.style.overflow;
-            document.body.style.overflow = "hidden";
-            restoreScroll.current = () => {
-                document.body.style.overflow = previousOverflow;
-                restoreScroll.current = null;
-            };
-        }
+        const node = dialogRef.current;
+        if (!node) return;
+        restoreScroll.current ??= acquireScrollLock(node);
+        layer.current ??= registerOverlayLayer(node);
+        if (!node.open) node.showModal();
     }, [open])
 
-    useEffect(() => () => restoreScroll.current?.(), []);
+    useEffect(() => () => {
+        restoreScroll.current?.();
+        restoreScroll.current = null;
+        layer.current?.release();
+        layer.current = null;
+    }, []);
 
     // 打开时恢复内容渲染；关闭时的重置延后到 CSS 退场结束，
     // 避免关闭动画播放期间内容提前消失。
@@ -208,6 +224,8 @@ function Dialog({
         action: "confirm" | "cancel" | "close",
         handler: DialogResultHandler | undefined,
         event?: MouseEvent<HTMLElement, globalThis.MouseEvent>,
+        reason: DialogOpenChangeDetails["reason"] = action,
+        nativeEvent?: Event,
     ) => {
         // 回调在途时忽略再次触发（ESC / 遮罩点击不受按钮 disabled 保护）
         if (inFlight.current) {
@@ -219,7 +237,7 @@ function Dialog({
             try {
                 const result = await handler?.(event);
                 if (result !== false) {
-                    onOpenChange(false);
+                    setOpen(false, { reason, event: nativeEvent ?? event });
                 }
             } finally {
                 inFlight.current = false;
@@ -228,21 +246,21 @@ function Dialog({
         });
     }
 
-    const cancel = (event?: MouseEvent<HTMLElement, globalThis.MouseEvent>) => {
+    const cancel = (event?: MouseEvent<HTMLElement, globalThis.MouseEvent>, reason: DialogOpenChangeDetails["reason"] = "cancel", nativeEvent?: Event) => {
         if (inFlight.current) return;
         // Escape / backdrop have no button initiator. Move to the matching action
         // before its siblings become disabled, so an async cancellation keeps focus.
         if (event?.currentTarget.tagName !== "BUTTON") {
             dialogRef.current?.querySelector<HTMLButtonElement>('[data-dialog-action="cancel"]')?.focus();
         }
-        settle("cancel", onCancel, event);
+        settle("cancel", onCancel, event, reason, nativeEvent);
     };
 
     const confirm = (event?: MouseEvent<HTMLElement, globalThis.MouseEvent>) => settle("confirm", onConfirm, event);
 
     return (
         <dialog
-            data-crab-design={design}
+            {...boundary.attributes}
             ref={(node) => {
                 // 例外 1（可变实例状态 ref）：内部需要持有 dialog 节点以驱动 showModal/close，
                 // 同时把节点透传给外部 ref prop（React 19 ref-as-prop）。
@@ -279,22 +297,25 @@ function Dialog({
                 &::backdrop {
                     background-color: transparent;
                 }
-            `, dialogReset, className)}
+            `, dialogReset, boundary.className, className)}
             // 原生 <dialog>（showModal 打开）在按 ESC 时会触发 cancel 事件并直接关闭，绕过受控的 open 状态。
             // 这里拦截原生 cancel，改走受控关闭流程（同时保留退场动画）。
             onCancel={(event) => {
+                if (event.target !== event.currentTarget) return;
                 event.preventDefault();
-                cancel();
+                if (layer.current?.isTop()) cancel(undefined, "escape", event.nativeEvent);
             }}
             // 兜底：Chrome 对连续第二次 ESC 的关闭不可取消（preventDefault 无效），
             // DOM 已关闭而 open 仍为 true 时在此同步受控状态，避免之后无法再次打开。
-            onClose={() => {
+            onClose={(event) => {
+                if (event.target !== event.currentTarget) return;
                 if (open) {
-                    onOpenChange(false);
+                    setOpen(false, { reason: "native-close", event: event.nativeEvent });
                 }
             }}
             {...restProps}
         >
+            {boundary.brandStyle}
             {(presence.present || !shouldResetContent) && (
                 <>
                     <div
@@ -307,7 +328,7 @@ function Dialog({
                             // 与 antd Modal 的 maskClosable 对齐：默认点击遮罩不关闭，
                             // 避免表单场景误触丢失内容；需要时显式开启。
                             if (maskClosable) {
-                                cancel(event);
+                                if (layer.current?.isTop()) cancel(event, "outside-press");
                             }
                         }}
                         className={cx(fadeStyle, css`

@@ -1,16 +1,15 @@
 import { readFile, readdir, mkdir, unlink, writeFile } from "node:fs/promises";
 import { readFileSync } from "node:fs";
+import { createRequire } from "node:module";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { parse } from "@babel/parser";
 import { generate } from "@babel/generator";
 import { loadTutorial, loadPracticeTutorials, tutorialMarkup, validateTeachingInventory, createLearningMap, createHomeExample } from "./generate-tutorials.mjs";
 import { createTokenReferenceData, readGlobalTokens } from "./generate-token-reference.mjs";
-import componentGuides from "../content/component-guides.json" with { type: "json" };
-import componentDescriptions from "../content/catalog/overview.json" with { type: "json" };
+import { loadLibraryManifest } from "../../scripts/library-manifest.mjs";
+import { inspectLibrary } from "../../scripts/library-graph.mjs";
 
-const EXPECTED_COMPONENT_COUNT = 54;
-const EXPECTED_DEMO_COUNT = 282;
 const GENERATED_MARKER = "THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY.";
 const scriptDirectory = path.dirname(fileURLToPath(import.meta.url));
 const repositoryRoot = path.resolve(scriptDirectory, "../..");
@@ -21,6 +20,9 @@ const generatedApiDirectory = path.join(websiteDocsDirectory, "_generated_api");
 const generatedPagesDirectory = path.join(websiteDocsDirectory, "components");
 const checkOnly = process.argv.includes("--check");
 const MAX_API_TYPE_TEXT_LENGTH = 400;
+const require = createRequire(import.meta.url);
+const sourceApiContextCache = new Map();
+const sourceApiMemberCache = new WeakMap();
 
 const compactComponents = new Set([
     "rc-avatar",
@@ -98,6 +100,7 @@ const demoGroupDefinitions = new Map([
             "draggable.demo.tsx",
             "hover.demo.tsx",
             "transformer.demo.tsx",
+            "visual-states.demo.tsx",
         ]],
         ["场景与性能", [
             "animation.demo.tsx",
@@ -134,9 +137,10 @@ const demoGroupDefinitions = new Map([
             "timePickerDial.demo.tsx",
             "timePickerPanel.demo.tsx",
         ]],
+        ["标签与状态", ["visual-states.demo.tsx"]],
     ]],
     ["rc-line-edit", [
-        ["标签与状态", ["field-states.demo.tsx"]],
+        ["标签与状态", ["field-states.demo.tsx", "visual-states.demo.tsx"]],
         ["基础与尺寸", [
             "simple.demo.tsx",
             "size.demo.tsx",
@@ -171,6 +175,7 @@ const demoGroupDefinitions = new Map([
         ]],
         ["基础与数据", [
             "basic.demo.tsx",
+            "visual-states.demo.tsx",
             "type-loaders.demo.tsx",
             "auto-refresh.demo.tsx",
         ]],
@@ -264,6 +269,7 @@ const demoGroupDefinitions = new Map([
         ["编辑与交互", [
             "draggable.demo.tsx",
             "allow-drop.demo.tsx",
+            "default-editor.demo.tsx",
             "inline-edit.demo.tsx",
             "keyboard.demo.tsx",
         ]],
@@ -501,11 +507,12 @@ function memberTypeText(member) {
 }
 
 function sourceMemberRecord(member, sourceFile) {
+    if (sourceApiMemberCache.has(member)) return sourceApiMemberCache.get(member);
     const name = memberName(member);
     if (!name || (member.type !== "TSPropertySignature" && member.type !== "TSMethodSignature")) {
         return undefined;
     }
-    return {
+    const record = {
         name,
         required: !member.optional,
         description: propertyDescription(member, sourceFile),
@@ -513,6 +520,8 @@ function sourceMemberRecord(member, sourceFile) {
         defaultValue: null,
         deprecated: propertyDeprecated(member),
     };
+    sourceApiMemberCache.set(member, record);
+    return record;
 }
 
 function mergeIntersectionRecords(recordGroups) {
@@ -528,6 +537,8 @@ function mergeIntersectionRecords(recordGroups) {
                     ? current.typeText
                     : `${current.typeText} | ${record.typeText}`,
                 deprecated: current.deprecated || record.deprecated,
+                native: current.native === true && record.native === true,
+                exclusiveWith: [...new Set([...(current.exclusiveWith ?? []), ...(record.exclusiveWith ?? [])])],
             } : record);
         }
     }
@@ -535,10 +546,13 @@ function mergeIntersectionRecords(recordGroups) {
 }
 
 function mergeUnionRecords(recordGroups) {
-    const names = [...new Set(recordGroups.flatMap((records) => records.map((record) => record.name)))];
+    const groups = recordGroups.map(records => new Map(records.map(record => [record.name, record])));
+    const names = [...new Set(groups.flatMap(group => [...group.keys()]))];
+    const concreteNames = new Set(recordGroups.flatMap(records => records.filter(record => record.typeText !== "never").map(record => record.name)));
+    const neverNames = [...new Set(recordGroups.flatMap(records => records.filter(record => record.typeText === "never").map(record => record.name)))];
     return names.map((name) => {
-        const variants = recordGroups
-            .map((records) => records.find((record) => record.name === name))
+        const variants = groups
+            .map(group => group.get(name))
             .filter(Boolean);
         const concreteTypes = [...new Set(
             variants.map((record) => record.typeText).filter((typeText) => typeText !== "never"),
@@ -548,13 +562,18 @@ function mergeUnionRecords(recordGroups) {
         ));
         return {
             name,
-            required: recordGroups.every((records) => (
-                records.some((record) => record.name === name && record.required)
-            )),
+            required: groups.every(group => group.get(name)?.required),
             description: variants.find((record) => record.description)?.description ?? "",
             typeText: unionTypes.length > 0 ? unionTypes.join(" | ") : "never",
             defaultValue: null,
             deprecated: variants.some((record) => record.deprecated),
+            native: variants.every((record) => record.native === true),
+            exclusiveWith: [...new Set([
+                ...variants.flatMap(record => record.exclusiveWith ?? []),
+                ...neverNames.filter(other => other !== name && concreteNames.has(other)
+                    && groups.filter(group => group.has(name) && group.get(name).typeText !== "never")
+                        .every(group => group.get(other)?.typeText === "never")),
+            ])],
         };
     });
 }
@@ -570,87 +589,170 @@ function literalPropertyNames(typeNode) {
 }
 
 function parseSourceApiProps(sourcePath, symbol) {
-    let sourceCode;
-    try {
-        sourceCode = readFileSync(sourcePath, "utf8");
-    } catch (error) {
-        if (error.code === "ENOENT") return [];
-        throw error;
-    }
-    const sourceFile = parseTypeScript(sourceCode, sourcePath);
-    const declarations = new Map();
-    for (const statement of sourceFile.program.body) {
-        const declaration = statement.type === "ExportNamedDeclaration" ? statement.declaration : statement;
-        if (
-            declaration?.type === "TSInterfaceDeclaration" || declaration?.type === "TSTypeAliasDeclaration"
-        ) {
-            declarations.set(declaration.id.name, declaration);
+    const contexts = new Map();
+    const resolving = new Set();
+
+    function loadContext(filePath) {
+        const absolutePath = path.resolve(filePath);
+        if (contexts.has(absolutePath)) return contexts.get(absolutePath);
+        let sourceCode;
+        try { sourceCode = readFileSync(absolutePath, "utf8"); }
+        catch (error) {
+            if (error.code === "ENOENT" || error.code === "EISDIR") { contexts.set(absolutePath, undefined); return undefined; }
+            throw error;
         }
+        const cached = sourceApiContextCache.get(absolutePath);
+        if (cached?.sourceCode === sourceCode) {
+            contexts.set(absolutePath, cached);
+            return cached;
+        }
+        const context = { path: absolutePath, sourceCode, declarations: new Map(), imports: new Map(), reexports: new Map(), stars: [], defaultNamespace: undefined,
+            nativeRecordsCache: absolutePath.replaceAll("\\", "/").endsWith("/@types/react/index.d.ts") ? new Map() : undefined };
+        contexts.set(absolutePath, context);
+        const sourceFile = parseTypeScript(sourceCode, absolutePath);
+        function collect(statements, prefix = "") {
+            for (const statement of statements) {
+                const declaration = statement.type === "ExportNamedDeclaration" ? statement.declaration : statement;
+                if (declaration?.type === "TSInterfaceDeclaration" || declaration?.type === "TSTypeAliasDeclaration") context.declarations.set(prefix + declaration.id.name, declaration);
+                if (declaration?.type === "TSModuleDeclaration" && declaration.id.type === "Identifier" && declaration.body?.type === "TSModuleBlock") collect(declaration.body.body, `${prefix}${declaration.id.name}.`);
+                if (statement.type === "TSExportAssignment" && statement.expression.type === "Identifier") context.defaultNamespace = statement.expression.name;
+                if (statement.type === "ImportDeclaration") for (const item of statement.specifiers) {
+                    if (item.type === "ImportSpecifier") context.imports.set(item.local.name, { source: statement.source.value, name: item.imported.name ?? item.imported.value });
+                    if (item.type === "ImportNamespaceSpecifier") context.imports.set(item.local.name, { source: statement.source.value, name: "*" });
+                }
+                if (statement.type === "ExportNamedDeclaration") for (const item of statement.specifiers) {
+                    if (item.type === "ExportSpecifier") context.reexports.set(item.exported.name ?? item.exported.value, {
+                        source: statement.source?.value, name: item.local.name ?? item.local.value,
+                    });
+                }
+                if (statement.type === "ExportAllDeclaration") context.stars.push(statement.source.value);
+            }
+        }
+        collect(sourceFile.program.body);
+        sourceApiContextCache.set(absolutePath, context);
+        return context;
     }
 
-    const resolving = new Set();
-    function resolveNamedType(name, typeArguments) {
+    function resolveModule(context, specifier) {
+        let base;
+        if (specifier === "react") return loadContext(path.join(path.dirname(require.resolve("@types/react/package.json")), "index.d.ts"));
+        if (specifier.startsWith(".")) base = path.resolve(path.dirname(context.path), specifier).replace(/\.(?:mjs|cjs|js)$/, "");
+        else {
+            const workspace = specifier.match(/^@crab-dev\/(rc-[^/]+)(?:\/(.+))?$/);
+            if (!workspace) return undefined;
+            base = path.join(componentsDirectory, workspace[1], "src", workspace[2] ?? "index");
+        }
+        for (const candidate of [`${base}.ts`, `${base}.tsx`, `${base}.mts`, path.join(base, "index.ts"), path.join(base, "index.tsx")]) {
+            const target = loadContext(candidate);
+            if (target) return target;
+        }
+        return undefined;
+    }
+
+    function substitute(node, bindings, shadowed = new Set()) {
+        if (!node || typeof node !== "object") return node;
+        if (Array.isArray(node)) return node.map(child => substitute(child, bindings, shadowed));
+        if (node.type === "TSTypeReference" && node.typeName.type === "Identifier"
+            && bindings.has(node.typeName.name) && !shadowed.has(node.typeName.name)) {
+            return substitute(bindings.get(node.typeName.name), new Map(), shadowed);
+        }
+        const inner = new Set(shadowed);
+        if (["TSFunctionType", "TSMethodSignature", "TSCallSignatureDeclaration"].includes(node.type)) {
+            for (const parameter of node.typeParameters?.params ?? []) inner.add(parameter.name);
+        }
+        return Object.fromEntries(Object.entries(node).map(([key, value]) => [key, substitute(value, bindings, inner)]));
+    }
+
+    function recordsForMembers(members, context, bindings) {
+        return members.flatMap(member => {
+            const original = sourceMemberRecord(member, context.sourceCode);
+            if (!original) return [];
+            return [{ ...original, native: context.nativeRecordsCache !== undefined, typeText: memberTypeText(substitute(member, bindings)).replace(/\s+/g, " ").trim() }];
+        });
+    }
+
+    function resolveNamedType(context, name, typeArguments = [], bindings = new Map()) {
+        const argumentsResolved = typeArguments.map(argument => substitute(argument, bindings));
         if (name === "Omit" || name === "Pick" || name === "Partial" || name === "Required") {
-            const base = resolveType(typeArguments?.[0]);
+            const base = resolveType(argumentsResolved[0], context, bindings);
             if (name === "Partial") return base.map((record) => ({ ...record, required: false }));
             if (name === "Required") return base.map((record) => ({ ...record, required: true }));
-            const selected = new Set(literalPropertyNames(typeArguments?.[1]));
+            const selected = new Set(literalPropertyNames(argumentsResolved[1]));
             return base.filter((record) => name === "Pick"
                 ? selected.has(record.name)
                 : !selected.has(record.name));
         }
-        return resolveDeclaration(name);
+        const key = `${context.path}#${name}<${argumentsResolved.map(printType).join(",")}>`;
+        if (context.nativeRecordsCache?.has(key)) return context.nativeRecordsCache.get(key);
+        if (resolving.has(key)) return [];
+        resolving.add(key);
+        let records = [];
+        try {
+            const declaration = context.declarations.get(name) ?? (context.defaultNamespace && context.declarations.get(`${context.defaultNamespace}.${name}`));
+            if (!declaration) {
+                const [namespace, ...members] = name.split(".");
+                const namespaceImport = context.imports.get(namespace);
+                if (members.length && namespaceImport?.name === "*") {
+                    const target = resolveModule(context, namespaceImport.source);
+                    return target ? resolveNamedType(target, members.join("."), argumentsResolved, bindings) : [];
+                }
+                const reference = context.imports.get(name) ?? context.reexports.get(name);
+                if (reference) {
+                    const target = reference.source ? resolveModule(context, reference.source) : context;
+                    if (target) records = resolveNamedType(target, reference.name, argumentsResolved, bindings);
+                } else for (const source of context.stars) {
+                    const target = resolveModule(context, source);
+                    if (target) {
+                        records = resolveNamedType(target, name, argumentsResolved, bindings);
+                        if (records.length > 0) break;
+                    }
+                }
+                return records;
+            }
+            const instantiated = new Map(bindings);
+            for (const [index, parameter] of (declaration.typeParameters?.params ?? []).entries()) {
+                const argument = argumentsResolved[index] ?? parameter.default;
+                if (argument) instantiated.set(parameter.name, substitute(argument, instantiated));
+            }
+            if (declaration.type === "TSTypeAliasDeclaration") records = resolveType(declaration.typeAnnotation, context, instantiated);
+            else {
+                const inherited = declaration.extends?.flatMap(heritage => resolveNamedType(context, printType(heritage.expression), heritage.typeParameters?.params ?? [], instantiated)) ?? [];
+                const own = recordsForMembers(declaration.body.body, context, instantiated);
+                const ownNames = new Set(own.map(record => record.name));
+                records = [...mergeIntersectionRecords([inherited]).filter(record => !ownNames.has(record.name)), ...own];
+            }
+            return records;
+        } finally {
+            resolving.delete(key);
+            context.nativeRecordsCache?.set(key, records);
+        }
     }
 
-    function resolveType(typeNode) {
+    function resolveType(typeNode, context, bindings) {
         if (!typeNode) return [];
-        if (typeNode.type === "TSParenthesizedType") return resolveType(typeNode.typeAnnotation);
-        if (typeNode.type === "TSTypeLiteral") {
-            return typeNode.members.map((member) => sourceMemberRecord(member, sourceCode)).filter(Boolean);
-        }
-        if (typeNode.type === "TSIntersectionType") {
-            return mergeIntersectionRecords(typeNode.types.map(resolveType));
-        }
-        if (typeNode.type === "TSUnionType") {
-            return mergeUnionRecords(typeNode.types.map(resolveType));
-        }
+        if (typeNode.type === "TSParenthesizedType") return resolveType(typeNode.typeAnnotation, context, bindings);
+        if (typeNode.type === "TSTypeLiteral") return recordsForMembers(typeNode.members, context, bindings);
+        if (typeNode.type === "TSIntersectionType") return mergeIntersectionRecords(typeNode.types.map(type => resolveType(type, context, bindings)));
+        if (typeNode.type === "TSUnionType") return mergeUnionRecords(typeNode.types.map(type => resolveType(type, context, bindings)));
         if (typeNode.type !== "TSTypeReference") return [];
-
-        return resolveNamedType(printType(typeNode.typeName), typeNode.typeParameters?.params);
+        if (typeNode.typeName.type === "Identifier" && bindings.has(typeNode.typeName.name)) return resolveType(bindings.get(typeNode.typeName.name), context, new Map());
+        return resolveNamedType(context, printType(typeNode.typeName), typeNode.typeParameters?.params ?? [], bindings);
     }
 
-    function resolveDeclaration(name) {
-        if (resolving.has(name)) return [];
-        const declaration = declarations.get(name);
-        if (!declaration) return [];
-        resolving.add(name);
-        let records;
-        if (declaration.type === "TSTypeAliasDeclaration") {
-            records = resolveType(declaration.typeAnnotation);
-        } else {
-            const inherited = declaration.extends?.flatMap((heritage) => (
-                resolveNamedType(printType(heritage.expression), heritage.typeParameters?.params)
-            )) ?? [];
-            const own = declaration.body.body
-                .map((member) => sourceMemberRecord(member, sourceCode))
-                .filter(Boolean);
-            records = mergeIntersectionRecords([inherited, own]);
-        }
-        resolving.delete(name);
-        return records;
-    }
-
+    const rootContext = loadContext(sourcePath);
+    if (!rootContext) return [];
+    const records = resolveNamedType(rootContext, symbol);
     const descriptionsByName = new Map();
-    for (const declaration of declarations.values()) {
+    for (const declaration of rootContext.declarations.values()) {
         if (declaration.type !== "TSInterfaceDeclaration") continue;
         for (const member of declaration.body.body) {
-            const record = sourceMemberRecord(member, sourceCode);
+            const record = sourceMemberRecord(member, rootContext.sourceCode);
             if (record?.description && !descriptionsByName.has(record.name)) {
                 descriptionsByName.set(record.name, record.description);
             }
         }
     }
-    return resolveDeclaration(symbol).map((record) => ({
+    return records.map((record) => ({
         ...record,
         description: record.description || descriptionsByName.get(record.name) || "",
     }));
@@ -685,18 +787,9 @@ function normalizeApiProps(docgenProps, sourceProps, context) {
     if (docgenByName.size !== docgenProps.length) {
         throw new Error(`${context}: docgen 存在重复属性`);
     }
-    const preserveSourceOrder = docgenProps.length === 0
-        || sourceProps.length > docgenProps.length
-        || docgenProps.some((prop) => !isValidTypeText(prop.typeText));
-    const primaryProps = preserveSourceOrder ? sourceProps : docgenProps;
-    const secondaryProps = preserveSourceOrder ? docgenProps : sourceProps;
-    const primaryNames = new Set(primaryProps.map((prop) => prop.name));
-    const names = [
-        ...primaryProps.map((prop) => prop.name),
-        ...secondaryProps
-            .map((prop) => prop.name)
-            .filter((name) => !primaryNames.has(name)),
-    ];
+    // Old docgen may still contain removed business APIs. Once source members are
+    // available, docgen contributes metadata, never an additional public field.
+    const names = (sourceProps.length ? sourceProps : docgenProps).map(prop => prop.name);
     if (names.length === 0) {
         throw new Error(`${context}: Props 为空，且无法从 API source 提取兜底定义`);
     }
@@ -706,30 +799,27 @@ function normalizeApiProps(docgenProps, sourceProps, context) {
         const docgenProp = docgenByName.get(name);
         const sourceType = sourceProp?.typeText;
         const docgenType = docgenProp?.typeText;
-        const typeText = docgenType && isValidTypeText(docgenType)
-            ? docgenType
-            : sourceType;
+        const typeText = sourceType && isValidTypeText(sourceType) ? sourceType : docgenType;
         if (!isValidTypeText(typeText)) {
             const candidate = docgenType ?? sourceType ?? "unknown";
             throw new Error(`${context}: ${name} 的类型无法可靠解析：${String(candidate).slice(0, 120)}`);
         }
+        const description = normalizeCommentText(sourceProp?.description || docgenProp?.description || "暂无说明。");
+        const constraint = sourceProp?.exclusiveWith?.length ? `与 ${sourceProp.exclusiveWith.join("、")} 互斥，不能同时提供。` : "";
         return {
             name,
             required: sourceProp?.required ?? (docgenProp?.required === true),
-            description: normalizeCommentText(
-                sourceProp?.description
-                || docgenProp?.description
-                || "暂无说明。",
-            ),
+            description: `${description}${constraint ? ` ${constraint}` : ""}`,
             typeText,
             defaultValue: docgenProp?.defaultValue ?? sourceProp?.defaultValue ?? null,
             deprecated: docgenProp?.deprecated === true || sourceProp?.deprecated === true,
+            native: sourceProp?.native === true,
         };
     });
 }
 
-async function extractApiRecord(componentDirectory, canonicalMdx, canonicalMdxPath) {
-    const apiTag = canonicalMdx.match(/<API\b[^>]*\/>/)?.[0];
+async function extractApiRecord(componentDirectory, canonicalMdx, canonicalMdxPath, explicitTag) {
+    const apiTag = explicitTag ?? canonicalMdx.match(/<API\b[^>]*\/>/)?.[0];
     if (!apiTag) return null;
 
     const attributes = parseAttributes(apiTag);
@@ -752,11 +842,7 @@ async function extractApiRecord(componentDirectory, canonicalMdx, canonicalMdxPa
         Array.isArray(value) ? value : []
     ));
     const definition = candidates.find((candidate) => candidate?.displayName === componentName);
-    if (!definition) {
-        throw new Error(`${docgenPath}: 未找到 ${componentName} 的 docgen 定义`);
-    }
-
-    const docgenProps = Object.entries(definition.props ?? {}).map(([name, prop]) => ({
+    const docgenProps = Object.entries(definition?.props ?? {}).map(([name, prop]) => ({
         name,
         required: prop?.required === true,
         description: typeof prop?.description === "string" ? prop.description : "",
@@ -871,7 +957,9 @@ function createComponentPreviews(records) {
 }
 
 function escapeJsDoc(value) {
-    return value.replace(/\*\//g, "*\\/");
+    // Wake 0.1.45 scans interface braces without treating JSDoc apostrophes as
+    // comments; typographic apostrophes keep prose intact and the scan balanced.
+    return value.replace(/\*\//g, "*\\/").replaceAll("'", "’");
 }
 
 function placeholderType(typeArguments) {
@@ -963,6 +1051,33 @@ function createSearchableApiSource(api) {
     return content;
 }
 
+/** Keep component contracts visible while retaining the full inherited DOM API. */
+function splitApiRecord(api, slug) {
+    const primary = { ...api, generatedFileName: api.generatedFileName ?? `${slug}.ts` };
+    if (!api.props) return { primary, native: null };
+    const nativeProps = api.props.filter(prop => prop.native === true);
+    if (nativeProps.length === 0) return { primary, native: null };
+    return {
+        primary: { ...primary, props: api.props.filter(prop => prop.native !== true) },
+        native: {
+            ...api,
+            symbol: `${api.symbol}NativeAttributes`,
+            component: `${api.component} 继承的原生属性`,
+            generatedFileName: primary.generatedFileName.replace(/\.ts$/, "-native.ts"),
+            props: nativeProps,
+        },
+    };
+}
+
+function apiRecordMarkup(record, slug) {
+    const { primary, native } = splitApiRecord(record, slug);
+    const tag = current => `<API source="../_generated_api/${current.generatedFileName}" symbol="${current.symbol}" component="${current.component}" />`;
+    return [
+        primary.props?.length === 0 ? `### ${record.component}` : tag(primary),
+        native && `<details data-docs-native-props>\n<summary>${record.component} 继承的原生属性（${native.props.length} 项）</summary>\n\n${tag(native)}\n\n</details>`,
+    ].filter(Boolean).join("\n\n");
+}
+
 function searchHeadingText(value) {
     return value
         .replace(/[\r\n<>]+/g, " ")
@@ -991,12 +1106,14 @@ export function validateComponentGuide(guide, slug) {
     assertDetailedItems(guide.avoidWhen, 1, "avoidWhen", slug);
     assertDetailedItems(guide.essentials, 3, "essentials", slug);
     assertDetailedItems(guide.accessibility, 2, "accessibility", slug);
-    if (typeof guide.material?.basis !== "string" || guide.material.basis.trim().length < 20) {
-        throw new Error(`${slug}: 新手指南 material.basis 过短`);
-    }
-    for (const field of ["m3", "web", "source"]) {
-        if (typeof guide.material[field] !== "string" || !guide.material[field].startsWith("https://")) {
-            throw new Error(`${slug}: 新手指南 material.${field} 必须是 HTTPS 链接`);
+    for (const design of ["md3", "apple", "shadcn"]) {
+        const reference = guide.designSystems?.[design];
+        if (typeof reference?.basis !== "string" || reference.basis.trim().length < 20) {
+            throw new Error(`${slug}: 新手指南 designSystems.${design}.basis 过短`);
+        }
+        if (!Array.isArray(reference.references) || reference.references.length === 0
+            || reference.references.some(link => typeof link !== "string" || !link.startsWith("https://"))) {
+            throw new Error(`${slug}: 新手指南 designSystems.${design}.references 必须是 HTTPS 链接列表`);
         }
     }
 }
@@ -1007,6 +1124,11 @@ function markdownList(items) {
 
 export function componentGuideMarkup(guide) {
     if (!guide) return "";
+    const labels = { md3: "MD3 Expressive", apple: "Apple", shadcn: "shadcn/ui" };
+    const references = Object.entries(labels).map(([design, label]) => {
+        const record = guide.designSystems[design];
+        return `- **${label}**：${record.basis} ${record.references.map((link, index) => `[依据 ${index + 1}](${link})`).join(" · ")}`;
+    }).join("\n");
     return `### 适用场景
 
 ${guide.useWhen.join(" ")}
@@ -1020,6 +1142,12 @@ ${markdownList(guide.essentials)}
 ### 无障碍
 
 ${markdownList(guide.accessibility)}
+
+### 设计依据与覆盖
+
+${references}
+
+设计依据不等于完成验收；当前状态与适用边界见[覆盖矩阵](/guides/design-coverage)。
 `;
 }
 
@@ -1047,7 +1175,7 @@ function componentFaqMarkup(lesson) {
     return `## 常见问题\n\n${lesson.faq.map(item => `### ${text(item.question)}\n\n${text(item.answer)}`).join("\n\n")}`;
 }
 
-function createPage(canonicalSource, slug, demos, api, lesson, referenceTokens = [], guide) {
+function createPage(canonicalSource, slug, demos, api, lesson, referenceTokens = [], guide, description) {
     const normalized = normalizeNewlines(canonicalSource);
     const frontmatterMatch = normalized.match(/^(\+\+\+\n[\s\S]*?\n\+\+\+)\n+/);
     if (!frontmatterMatch) {
@@ -1075,7 +1203,6 @@ function createPage(canonicalSource, slug, demos, api, lesson, referenceTokens =
     // practice tutorials; repeating their first step here separated related demos.
     const hasDemos = demos.length > 0;
     const heading = body.match(/^# [^\n]+/m)?.[0] ?? `# ${lesson?.title ?? slug}`;
-    const description = componentDescriptions[slug];
     const frontmatter = description
         ? frontmatterMatch[1].replace(/^description = .+$/m, `description = ${JSON.stringify(description)}`)
         : frontmatterMatch[1];
@@ -1094,10 +1221,8 @@ function createPage(canonicalSource, slug, demos, api, lesson, referenceTokens =
         .replace(/^## /gm, "### ")
         .trim();
     const guidance = [notes, componentGuideMarkup(guide).trim()].filter(Boolean).join("\n\n");
-    const apiMarkup = api === null ? "" : `## API\n\n<API source="../_generated_api/${slug}.ts" symbol="${api.symbol}" component="${api.component}" />`;
-    const radioGroupApi = slug === "rc-radio"
-        ? '<API source="../../../components/rc-radio/src/types.ts" symbol="RadioGroupProps" component="RadioGroup" />'
-        : "";
+    const apiRecords = api === null ? [] : Array.isArray(api) ? api : [api];
+    const apiMarkup = apiRecords.length === 0 ? "" : "## API\n\n" + apiRecords.map(record => apiRecordMarkup(record, slug)).join("\n\n");
     return [
         frontmatter,
         `{/* ${GENERATED_MARKER} */}`,
@@ -1112,15 +1237,24 @@ function createPage(canonicalSource, slug, demos, api, lesson, referenceTokens =
         guidance && `## 使用说明\n\n${guidance}`,
         componentFaqMarkup(lesson),
         apiMarkup,
-        radioGroupApi,
     ].filter(Boolean).join("\n\n") + "\n";
 }
 async function readIfPresent(filePath) {
     try {
-        return await readFile(filePath, "utf8");
+        return await withGeneratedFileRetry(() => readFile(filePath, "utf8"));
     } catch (error) {
         if (error?.code === "ENOENT") return undefined;
         throw error;
+    }
+}
+
+async function withGeneratedFileRetry(operation, platform = process.platform) {
+    for (let attempt = 0; ; attempt++) {
+        try { return await operation(); }
+        catch (error) {
+            if (platform !== "win32" || !["UNKNOWN", "EBUSY", "EPERM", "EACCES"].includes(error.code) || attempt >= 4) throw error;
+            await new Promise(resolve => setTimeout(resolve, 100 * 2 ** attempt));
+        }
     }
 }
 
@@ -1130,7 +1264,7 @@ async function emitFile(filePath, content, drift) {
     drift.push(path.relative(repositoryRoot, filePath));
     if (!checkOnly) {
         await mkdir(path.dirname(filePath), { recursive: true });
-        await writeFile(filePath, content, "utf8");
+        await withGeneratedFileRetry(() => writeFile(filePath, content, "utf8"));
     }
     return true;
 }
@@ -1153,15 +1287,94 @@ async function removeOrphanGeneratedFiles(directory, expectedFiles, drift, shoul
     }
 }
 
+function createLibraryNavigation(manifest) {
+    const groups = [
+        { id: "project", title: "项目", pages: ["index"], sections: [
+            { id: "learning", title: "学习与实战", pages: ["learn/components", "learn/index", "learn/practice-profile", "learn/practice-data", "learn/practice-admin"] },
+            { id: "guides", title: "使用指南", pages: ["guides/getting-started", "guides/library-architecture", "guides/public-api", "guides/migration", "guides/accessibility"] },
+        ] },
+        { id: "design", title: "设计体系", pages: ["guides/design-styles", "guides/component-sizing", "guides/design-coverage"], sections: [] },
+        { id: "maintenance", title: "组件库维护", pages: ["guides/contributing", "guides/dependencies", "guides/toolchain"], sections: [] },
+        { id: "components", title: "组件", pages: [], sections: manifest.families.map(family => ({
+            id: family.id,
+            title: family.title,
+            pages: manifest.packages.filter(item => item.family === family.id).map(item => `components/${item.slug}`),
+        })) },
+    ];
+    let content = `# ${GENERATED_MARKER}\n# 来源：library.manifest.json 与组件库指南入口。\n`;
+    for (const group of groups) {
+        content += `\n[[group]]\nid = ${JSON.stringify(group.id)}\ntitle = ${JSON.stringify(group.title)}\npages = ${JSON.stringify(group.pages)}\n`;
+        for (const section of group.sections) content += `\n[[group.section]]\nid = ${JSON.stringify(section.id)}\ntitle = ${JSON.stringify(section.title)}\npages = ${JSON.stringify(section.pages)}\n`;
+    }
+    return content;
+}
+
+function createLibraryData(manifest) {
+    const families = manifest.families.map(family => ({ ...family, count: manifest.packages.filter(item => item.family === family.id).length }));
+    return `// ${GENERATED_MARKER}\nexport const libraryInventory = ${JSON.stringify({ count: manifest.packages.length, families, categories: manifest.categories })} as const;\n`;
+}
+
+function createDependencyRecords(manifest, inspection) {
+    const known = new Map(manifest.packages.map(item => [item.name, item.slug]));
+    const resolveEdges = (names, own) => [...new Set(names)].filter(name => known.has(name) && name !== own).sort().map(name => known.get(name));
+    return manifest.packages.map(item => {
+        const facts = inspection.get(item.name);
+        return {
+            slug: item.slug, title: item.title, family: item.family,
+            production: resolveEdges([...Object.keys(item.packageJson.dependencies ?? {}), ...facts.productionImports], item.name),
+            docs: resolveEdges([...facts.docsImports, ...(item.packageJson.crab?.docsDependencies ?? [])], item.name),
+            token: resolveEdges(facts.tokenImports, item.name),
+        };
+    });
+}
+
+function createDependenciesPage(records) {
+    const bySlug = new Map(records.map(item => [item.slug, item]));
+    const links = names => names.map(slug => `[${bySlug.get(slug).title}](/components/${slug})`).join("、") || "—";
+    return `+++\ntitle = "包依赖图"\ndescription = "由产品清单、包声明、生产源码、文档和令牌引用生成的依赖关系"\nkind = "guide"\nstatus = "experimental"\n+++\n\n{/* ${GENERATED_MARKER} */}\n\nimport LibraryDependencies from "../site/libraryDependencies.js";\n\n# 包依赖图\n\n从包出发查看其直接依赖与使用方。生产依赖来自 package.json dependencies 与生产源码 import/export，文档依赖来自 docs 源码与 crab.docsDependencies，令牌依赖来自 token.toml imports。三类边独立展示，允许同一对包承担多个角色；不把文档引用加入生产构建前置。\n\n<LibraryDependencies />\n\n## 完整直接关系\n\n以下邻接表与交互图来自同一生成数据。只列产品清单内的包，外部 npm、React peer 和测试依赖按各包声明维护；最终 Turbo 构建图由同一检查模块派生并检查环。\n\n| 包 | 生产依赖 | 文档依赖 | 令牌依赖 |\n| --- | --- | --- | --- |\n${records.map(item => `| [${item.title}](/components/${item.slug}) | ${links(item.production)} | ${links(item.docs)} | ${links(item.token)} |`).join("\n")}\n\n修改产品清单、package.json、类型/运行源码、组件文档或 token.toml 后运行架构与文档生成检查。能力族是职责分类，不代表人工固定的依赖链；来源与边界见[组件库体系](/guides/library-architecture)。\n`;
+}
+
+function updateReadmeInventory(source, manifest) {
+    let inventory = `当前产品清单包含 ${manifest.packages.length} 个包，按 ${manifest.families.length} 个能力族组织。\n\n| 能力族 | 包数 | 职责 |\n| --- | --- | --- |\n`;
+    for (const family of manifest.families) {
+        const products = manifest.packages.filter(item => item.family === family.id);
+        inventory += `| ${family.title} | ${products.length} | ${family.description} |\n`;
+    }
+    for (const family of manifest.families) {
+        inventory += `\n**${family.title}**：${manifest.packages.filter(item => item.family === family.id).map(item => `[${item.title}](${item.path}/docs/index.mdx)`).join(" · ")}\n`;
+    }
+    const pattern = /<!-- library-inventory:start -->[\s\S]*?<!-- library-inventory:end -->/;
+    if (!pattern.test(source)) throw new Error("README 缺少产品清单生成边界");
+    return source.replace(pattern, `<!-- library-inventory:start -->\n${inventory}\n<!-- library-inventory:end -->`);
+}
+
+function createDesignCoverage(manifest) {
+    const names = { partial: "部分覆盖", verified: "已验收", "not-applicable": "无独立视觉" };
+    let content = `+++\ntitle = "设计体系覆盖矩阵"\ndescription = "由产品清单生成的组件成熟度与三套设计体系覆盖范围"\nkind = "guide"\nstatus = "experimental"\n+++\n\n{/* ${GENERATED_MARKER} */}\n\n# 设计体系覆盖矩阵\n\n本页来自根目录 \`library.manifest.json\`。当前产品清单包含 ${manifest.packages.length} 个包、${manifest.families.length} 个能力族；用途分类是独立的第二轴。\n\n“部分覆盖”表示已有实现但完整视觉与交互矩阵尚未验收；“已验收”必须有绑定提交和产物的证据；“无独立视觉”只说明该包的职责，不免除行为、类型和依赖检查。历史截图不能自动提升当前覆盖状态。\n\n| 包 | 能力族 | 用途 | 生命周期 | MD3 Expressive | Apple | shadcn/ui |\n| --- | --- | --- | --- | --- | --- | --- |\n`;
+    for (const product of manifest.packages) {
+        const family = manifest.families.find(item => item.id === product.family).title;
+        const category = manifest.categories.find(item => item.id === product.category).title;
+        content += `| [${product.title}](/components/${product.slug}) | ${family} | ${category} | ${product.status} | ${names[product.designCoverage.md3]} | ${names[product.designCoverage.apple]} | ${names[product.designCoverage.shadcn]} |\n`;
+    }
+    return content + "\n每个可视包都需检查适用的默认、悬停、焦点、按下、禁用、选中、错误和加载状态，以及浅深色、触控、键盘、减少动画和强制颜色。详见[设计体系](/guides/design-styles)、[公共 API](/guides/public-api)与[维护约定](/guides/contributing)。\n";
+}
+
 async function generateDocs() {
+    const manifest = await loadLibraryManifest();
+    // Dev regeneration reuses this module; read authored JSON again each run.
+    const [componentGuides, componentDescriptions] = await Promise.all([
+        readFile(path.join(repositoryRoot, ".website/content/component-guides.json"), "utf8").then(JSON.parse),
+        readFile(path.join(repositoryRoot, ".website/content/catalog/overview.json"), "utf8").then(JSON.parse),
+    ]);
     const directoryEntries = await readdir(componentsDirectory, { withFileTypes: true });
     const componentSlugs = directoryEntries
         .filter((entry) => entry.isDirectory() && entry.name.startsWith("rc-"))
         .map((entry) => entry.name)
         .sort();
 
-    if (componentSlugs.length !== EXPECTED_COMPONENT_COUNT) {
-        throw new Error(`组件数量应为 ${EXPECTED_COMPONENT_COUNT}，实际为 ${componentSlugs.length}`);
+    const registeredSlugs = manifest.packages.map(item => item.slug).sort();
+    if (JSON.stringify(componentSlugs) !== JSON.stringify(registeredSlugs)) {
+        throw new Error("组件目录与 library.manifest.json 产品清单不一致");
     }
 
     const guideSlugs = Object.keys(componentGuides).sort();
@@ -1174,7 +1387,7 @@ async function generateDocs() {
     }
     for (const slug of componentSlugs) validateComponentGuide(componentGuides[slug], slug);
 
-    const navigation = await readFile(path.join(websiteDocsDirectory, "navigation.toml"), "utf8");
+    const navigation = createLibraryNavigation(manifest);
     const navigationSlugs = new Set(
         [...navigation.matchAll(/"components\/(rc-[^"]+)"/g)].map((match) => match[1]),
     );
@@ -1186,7 +1399,14 @@ async function generateDocs() {
         );
     }
 
-    const outputs = [];
+    const outputs = [{ filePath: path.join(websiteDocsDirectory, "navigation.toml"), content: navigation }];
+    const readmePath = path.join(repositoryRoot, "README.md");
+    outputs.push({ filePath: readmePath, content: updateReadmeInventory(await readFile(readmePath, "utf8"), manifest) });
+    outputs.push({ filePath: path.join(websiteDocsDirectory, "guides/design-coverage.mdx"), content: createDesignCoverage(manifest) });
+    outputs.push({ filePath: path.join(generatedDataDirectory, "library.ts"), content: createLibraryData(manifest) });
+    const dependencies = createDependencyRecords(manifest, await inspectLibrary(manifest));
+    outputs.push({ filePath: path.join(generatedDataDirectory, "library-dependencies.ts"), content: `// ${GENERATED_MARKER}\nimport type { LibraryDependencyRecord } from "../site/libraryDependencies.js";\nexport const libraryDependencies = ${serialize(dependencies)} as const satisfies readonly LibraryDependencyRecord[];\n` });
+    outputs.push({ filePath: path.join(websiteDocsDirectory, "guides/dependencies.mdx"), content: createDependenciesPage(dependencies) });
     const referenceSource = await readFile(path.join(componentsDirectory, "rc-token-global/token.toml"), "utf8");
     const referenceTokens = readGlobalTokens(referenceSource);
     outputs.push({
@@ -1200,9 +1420,12 @@ async function generateDocs() {
     let demoCount = 0;
 
     for (const slug of componentSlugs) {
+        const product = manifest.packages.find(item => item.slug === slug);
         const componentDirectory = path.join(componentsDirectory, slug);
         const canonicalMdxPath = path.join(componentDirectory, "docs/index.mdx");
-        const canonicalMdx = await readFile(canonicalMdxPath, "utf8");
+        const canonicalMdx = (await readFile(canonicalMdxPath, "utf8"))
+            .replace(/^title = .*$/m, `title = ${JSON.stringify(product.title)}`)
+            .replace(/^status = .*$/m, `status = ${JSON.stringify(product.status)}`);
         const demoDirectory = path.join(componentDirectory, "docs/demos");
         const demoFiles = (await readdir(demoDirectory, { withFileTypes: true }))
             .filter((entry) => entry.isFile() && entry.name.endsWith(".demo.tsx"))
@@ -1237,18 +1460,25 @@ async function generateDocs() {
         componentPreviewRecords.push({ slug, demos: organizedDemos });
         demoCount += organizedDemos.length;
 
-        const api = await extractApiRecord(componentDirectory, canonicalMdx, canonicalMdxPath);
+        const api = [];
+        for (const [index, tag] of [...canonicalMdx.matchAll(/<API\b[^>]*\/>/g)].entries()) {
+            const record = await extractApiRecord(componentDirectory, canonicalMdx, canonicalMdxPath, tag[0]);
+            record.generatedFileName = index === 0 ? `${slug}.ts` : `${slug}-${record.symbol}.ts`;
+            if (api.some(current => current.symbol === record.symbol)) throw new Error(`${slug}: API symbol 重复 ${record.symbol}`);
+            api.push(record);
+        }
         const lesson = await loadTutorial(repositoryRoot, slug, organizedDemos);
-        lessons.push(lesson.record);
+        lessons.push({ ...lesson.record, title: product.title });
         outputs.push(lesson.output);
         outputs.push({
             filePath: path.join(generatedDataDirectory, `${slug}.ts`),
             content: createDataModule(organizedDemos),
         });
-        if (api !== null) {
-            outputs.push({
-                filePath: path.join(generatedApiDirectory, `${slug}.ts`),
-                content: createSearchableApiSource(api),
+        for (const record of api) {
+            const { primary, native } = splitApiRecord(record, slug);
+            for (const grouped of [primary, native].filter(group => group && group.props.length > 0)) outputs.push({
+                filePath: path.join(generatedApiDirectory, grouped.generatedFileName),
+                content: createSearchableApiSource(grouped),
             });
         }
         outputs.push({
@@ -1261,14 +1491,13 @@ async function generateDocs() {
                 lesson.record,
                 slug === "rc-token-global" ? referenceTokens : [],
                 componentGuides[slug],
+                componentDescriptions[slug],
             ),
         });
     }
 
-    if (demoCount !== EXPECTED_DEMO_COUNT || globalDemoKeys.size !== EXPECTED_DEMO_COUNT) {
-        throw new Error(
-            `Demo 数量应为 ${EXPECTED_DEMO_COUNT}，实际为 ${demoCount}（唯一 ${globalDemoKeys.size}）`,
-        );
+    if (demoCount !== globalDemoKeys.size) {
+        throw new Error(`Demo 存在重复：${demoCount} 项中只有 ${globalDemoKeys.size} 个唯一 ID`);
     }
 
     outputs.push({
@@ -1278,7 +1507,7 @@ async function generateDocs() {
 
     const practices = await loadPracticeTutorials(repositoryRoot);
     const teaching = await validateTeachingInventory(repositoryRoot, [...lessons, ...practices.map(item => item.record)], ["home/profile.tsx"]);
-    outputs.push({ filePath: path.join(websiteDocsDirectory, "learn/components.mdx"), content: createLearningMap(navigation, lessons) });
+    outputs.push({ filePath: path.join(websiteDocsDirectory, "learn/components.mdx"), content: createLearningMap(navigation, lessons, componentDescriptions, manifest.packages.map(item => ({ ...item, categoryTitle: manifest.categories.find(category => category.id === item.category).title }))) });
     for (const { record, output } of practices) {
         outputs.push(output);
         outputs.push({
@@ -1313,17 +1542,23 @@ const isMain = process.argv[1] && path.resolve(process.argv[1]) === fileURLToPat
 if (isMain) await generateDocs();
 
 export {
+    createLibraryNavigation,
+    createDependencyRecords,
+    createDesignCoverage,
     createComponentPreviews,
     createDemoSearchMetadata,
     createPage,
     createSearchableApiSource,
+    splitApiRecord,
     densityFor,
     extractApiRecord,
     generateDocs,
     isValidTypeText,
     layoutFor,
     normalizeApiProps,
+    organizeDemos,
     parseSourceApiProps,
     removeOrphanGeneratedFiles,
     resolveApiSourcePath,
+    withGeneratedFileRetry,
 };

@@ -18,7 +18,7 @@ export default function Example() {
     const [value, setValue] = useState<string | number>("weekly");
     return (
         <div className={layout}>
-            <RadioGroup value={value} onChange={setValue} aria-label="摘要频率" name="notificationFrequency">
+            <RadioGroup value={value} onValueChange={setValue} aria-label="摘要频率" name="notificationFrequency">
                 <Radio value="daily">每天</Radio>
                 <Radio value="weekly">每周</Radio>
                 <Radio value="important">仅重要通知</Radio>

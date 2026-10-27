@@ -18,11 +18,11 @@ size.large.font-size = "$ref(typography.label.large.font-size)"
 size.large.gap           = "$ref(space.component-gap)"
 
 # ─── 尺寸 — Middle（默认）────────────────────────────────────────────────────
-size.middle.height = "$ref(size.24)"
-size.middle.padding       = "0 8px"
-size.middle.border-radius = "$ref(status.tag.shape)"
-size.middle.font-size = "$ref(typography.caption.font-size)"
-size.middle.gap           = "$ref(space.inline-gap)"
+size.medium.height = "$ref(size.24)"
+size.medium.padding       = "0 8px"
+size.medium.border-radius = "$ref(status.tag.shape)"
+size.medium.font-size = "$ref(typography.caption.font-size)"
+size.medium.gap           = "$ref(space.inline-gap)"
 
 # ─── 尺寸 — Small ────────────────────────────────────────────────────────────
 size.small.height = "$ref(size.20)"
@@ -60,6 +60,16 @@ root.border-color-error     = "$ref(color.feedback.error.border)"
 close.width = "14px"
 close.color        = "inherit"
 close.color-hover  = "inherit"
+# Compact paint bounds; the existing Button touch span keeps the full hit area.
+close.control.width = "$ref(size.20)"
+close.border-radius = "$ref(status.tag.shape)"
+close.background-color-hover = "color-mix(in srgb, currentColor calc($ref(state.opacity.hover) * 100%), transparent)"
+close.background-color-focus = "color-mix(in srgb, currentColor calc($ref(state.opacity.focus) * 100%), transparent)"
+close.background-color-active = "color-mix(in srgb, currentColor calc($ref(state.opacity.pressed) * 100%), transparent)"
+# Current tag foreground remains legible on primary and semantic surfaces.
+close.outline-color-focus = "currentColor"
+close.outline-width-focus = "2px"
+close.outline-offset-focus = "-2px"
 
 interaction.touch.min-width = "$ref(size.touch-target)"
 interaction.touch.min-height = "$ref(size.touch-target)"

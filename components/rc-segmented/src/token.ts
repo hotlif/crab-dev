@@ -19,12 +19,12 @@ export const vars = defineTokens({
     'size.large.gap': '--segmented-size-large-gap',
     'size.large.track.padding': '--segmented-size-large-track-padding',
     'size.large.border-radius': '--segmented-size-large-border-radius',
-    'size.middle.height': '--segmented-size-middle-height',
-    'size.middle.font-size': '--segmented-size-middle-font-size',
-    'size.middle.padding-inline': '--segmented-size-middle-padding-inline',
-    'size.middle.gap': '--segmented-size-middle-gap',
-    'size.middle.track.padding': '--segmented-size-middle-track-padding',
-    'size.middle.border-radius': '--segmented-size-middle-border-radius',
+    'size.medium.height': '--segmented-size-medium-height',
+    'size.medium.font-size': '--segmented-size-medium-font-size',
+    'size.medium.padding-inline': '--segmented-size-medium-padding-inline',
+    'size.medium.gap': '--segmented-size-medium-gap',
+    'size.medium.track.padding': '--segmented-size-medium-track-padding',
+    'size.medium.border-radius': '--segmented-size-medium-border-radius',
     'size.small.height': '--segmented-size-small-height',
     'size.small.font-size': '--segmented-size-small-font-size',
     'size.small.padding-inline': '--segmented-size-small-padding-inline',
@@ -82,15 +82,15 @@ const token = defineTokens({
             },
             'border-radius': `var(${vars['size.large.border-radius']}, var(--token-semantic-navigation-segment-item-radius, 0px))`
         },
-        'middle': {
-            'height': `var(${vars['size.middle.height']}, var(--token-semantic-navigation-segment-middle-height, var(--token-global-size-40, 40px)))`,
-            'font-size': `var(${vars['size.middle.font-size']}, var(--token-semantic-typography-label-large-font-size, var(--token-global-font-size-sm, 14px)))`,
-            'padding-inline': `var(${vars['size.middle.padding-inline']}, var(--token-semantic-sizing-middle-padding, var(--token-global-space-3, 12px)))`,
-            'gap': `var(${vars['size.middle.gap']}, var(--token-semantic-space-component-gap, var(--token-global-space-2, 8px)))`,
+        'medium': {
+            'height': `var(${vars['size.medium.height']}, var(--token-semantic-navigation-segment-medium-height, var(--token-global-size-40, 40px)))`,
+            'font-size': `var(${vars['size.medium.font-size']}, var(--token-semantic-typography-label-large-font-size, var(--token-global-font-size-sm, 14px)))`,
+            'padding-inline': `var(${vars['size.medium.padding-inline']}, var(--token-semantic-sizing-medium-padding, var(--token-global-space-3, 12px)))`,
+            'gap': `var(${vars['size.medium.gap']}, var(--token-semantic-space-component-gap, var(--token-global-space-2, 8px)))`,
             'track': {
-                'padding': `var(${vars['size.middle.track.padding']}, var(--token-semantic-navigation-segment-track-padding, 0px))`
+                'padding': `var(${vars['size.medium.track.padding']}, var(--token-semantic-navigation-segment-track-padding, 0px))`
             },
-            'border-radius': `var(${vars['size.middle.border-radius']}, var(--token-semantic-navigation-segment-item-radius, 0px))`
+            'border-radius': `var(${vars['size.medium.border-radius']}, var(--token-semantic-navigation-segment-item-radius, 0px))`
         },
         'small': {
             'height': `var(${vars['size.small.height']}, var(--token-semantic-navigation-segment-small-height, var(--token-global-size-32, 32px)))`,

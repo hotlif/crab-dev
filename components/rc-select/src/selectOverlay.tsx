@@ -1,5 +1,5 @@
 import Checkbox, { TokenVars as checkboxVars } from "@crab-dev/rc-checkbox";
-import { componentSizeMetrics, componentSizeStyles, type ConfigSize } from '@crab-dev/rc-config-provider';
+import { componentDensityMetrics, useConfig, useLocale, type ConfigSize } from '@crab-dev/rc-config-provider';
 import { SpinIndicator, TokenVars as spinVars } from '@crab-dev/rc-spin';
 import RcVirtual, { type VirtualHandle } from "@crab-dev/rc-virtual";
 import { useMediaQuery } from '@crab-dev/rc-hooks';
@@ -8,7 +8,7 @@ import { useDropdownContext } from "@crab-dev/rc-dropdown-container";
 import { useEffect, useLayoutEffect, useRef, useState, type Dispatch, type FC, type ReactNode, type SetStateAction } from "react";
 
 import token from "./token.js";
-import type { FlatOption, SelectOption } from "./types.js";
+import type { FlatOption, SelectChangeDetails, SelectOption } from "./types.js";
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
@@ -127,7 +127,7 @@ const checkIconStyle = css`
     flex-shrink: 0;
     width: 16px;
     height: 16px;
-    margin-left: 8px;
+    margin-inline-start: 8px;
     color: ${token.option["color-selected"]};
 `;
 
@@ -140,7 +140,7 @@ const checkboxIndicatorStyle = css`
     ${checkboxVars['root.touch.min-height']}: ${token.option.checkbox.width};
     display: inline-flex;
     flex-shrink: 0;
-    margin-right: 8px;
+    margin-inline-end: 8px;
     pointer-events: none;
 `;
 
@@ -165,7 +165,7 @@ const groupLabelStyle = css`
 `;
 
 const groupedOptionStyle = css`
-    padding-left: 20px;
+    padding-inline-start: 20px;
 `;
 
 const virtualTopSpacerStyle = css`
@@ -203,6 +203,7 @@ const MAX_VIEWPORT_HEIGHT = 256;
 interface SelectOverlayProps {
     size: ConfigSize;
     multiple: boolean;
+    disabled: boolean;
     loading: boolean;
     filteredOptions: FlatOption[];
     selectedValues: string[];
@@ -213,8 +214,7 @@ interface SelectOverlayProps {
     popupClassName?: string;
     optionRender?: (option: SelectOption, info: { selected: boolean }) => ReactNode;
     dropdownRender?: (menu: ReactNode) => ReactNode;
-    onOptionSelect: (option: FlatOption) => void;
-    onOpenChange: (nextOpen: boolean) => void;
+    onOptionSelect: (option: FlatOption, event: SelectChangeDetails['event']) => void;
     onHighlightChange: Dispatch<SetStateAction<number>>;
 }
 
@@ -223,6 +223,7 @@ interface SelectOverlayProps {
 const SelectOverlay: FC<SelectOverlayProps> = ({
     size,
     multiple,
+    disabled,
     loading,
     filteredOptions,
     selectedValues,
@@ -234,7 +235,6 @@ const SelectOverlay: FC<SelectOverlayProps> = ({
     optionRender,
     dropdownRender,
     onOptionSelect,
-    onOpenChange,
     onHighlightChange,
 }) => {
     const { dispatch } = useDropdownContext<HTMLDivElement>();
@@ -243,23 +243,36 @@ const SelectOverlay: FC<SelectOverlayProps> = ({
     // render-time layout reads. Virtual offsets must match the actual row height.
     const overlayRef = useRef<HTMLDivElement>(null);
     const [measuredRowHeight, setMeasuredRowHeight] = useState(0);
-    const rowHeight = Math.max(coarsePointer ? 48 : componentSizeMetrics[size].item, measuredRowHeight);
+    const [measuredContentWidth, setMeasuredContentWidth] = useState(0);
+    const { density } = useConfig();
+    const { messages } = useLocale();
+    const rowHeight = Math.max(coarsePointer ? 48 : componentDensityMetrics[density].item, measuredRowHeight);
     useLayoutEffect(() => {
-        const option = overlayRef.current?.querySelector<HTMLElement>('[data-select-option-measure]');
-        if (!option) return;
+        const overlay = overlayRef.current;
+        const option = overlay?.querySelector<HTMLElement>('[data-select-option-measure]');
+        if (!overlay || !option) return;
         const measure = () => {
             const height = option.getBoundingClientRect().height;
             if (height > 0) {
                 overlayRef.current?.style.setProperty('--select-option-measured-height', `${height}px`);
                 setMeasuredRowHeight(height);
             }
+            // Match the actual popup content box, including its border and any
+            // padding override. A fixed 160px minimum overflows narrow fields
+            // and lets focus/scrolling clip both the label and selected marker.
+            const style = overlay.ownerDocument.defaultView?.getComputedStyle(overlay);
+            const paddingStart = Number.parseFloat(style?.paddingLeft ?? '') || 0;
+            const paddingEnd = Number.parseFloat(style?.paddingRight ?? '') || 0;
+            const width = overlay.clientWidth - paddingStart - paddingEnd;
+            if (width > 0) setMeasuredContentWidth(width);
         };
         measure();
         if (typeof ResizeObserver === 'undefined') return;
         const observer = new ResizeObserver(measure);
         observer.observe(option);
+        observer.observe(overlay);
         return () => observer.disconnect();
-    }, [coarsePointer, filteredOptions.length, loading, size]);
+    }, [coarsePointer, density, filteredOptions.length, loading, size]);
     // 例外 1(可变实例状态 ref):持有 RcVirtual 的命令式句柄,用于把高亮行滚入视口。
     const gridRef = useRef<VirtualHandle | null>(null);
 
@@ -275,7 +288,7 @@ const SelectOverlay: FC<SelectOverlayProps> = ({
     }, [highlightIndex]);
 
     const rowCount = filteredOptions.length;
-    const contentWidth = Math.max(triggerWidth - DROPDOWN_PADDING * 2, 160);
+    const contentWidth = measuredContentWidth || Math.max(triggerWidth - DROPDOWN_PADDING * 2, 160);
     const viewportHeight = Math.min(MAX_VIEWPORT_HEIGHT, rowCount * rowHeight);
     // React Compiler 会按 rowCount / contentWidth 缓存这两个派生数组，保持 Virtual 前缀和缓存有效。
     const rows = Array<number>(rowCount).fill(rowHeight);
@@ -283,7 +296,7 @@ const SelectOverlay: FC<SelectOverlayProps> = ({
 
     if (loading) {
         return (
-            <div id={listboxId} role="listbox" aria-busy="true" data-select-overlay className={cx.call(undefined, overlayStyle, componentSizeStyles[size], popupClassName)}>
+            <div id={listboxId} role="listbox" aria-busy="true" data-select-overlay className={cx.call(undefined, overlayStyle, popupClassName)}>
                 <div className={loadingStyle}>
                     <SpinIndicator />
                 </div>
@@ -293,8 +306,8 @@ const SelectOverlay: FC<SelectOverlayProps> = ({
 
     if (filteredOptions.length === 0) {
         return (
-            <div id={listboxId} role="listbox" data-select-overlay className={cx.call(undefined, overlayStyle, componentSizeStyles[size], popupClassName)}>
-                <div className={emptyStyle}>{notFoundContent ?? "无匹配选项"}</div>
+            <div id={listboxId} role="listbox" data-select-overlay className={cx.call(undefined, overlayStyle, popupClassName)}>
+                <div className={emptyStyle}>{notFoundContent ?? messages.select.empty}</div>
             </div>
         );
     }
@@ -341,7 +354,7 @@ const SelectOverlay: FC<SelectOverlayProps> = ({
                                     <Checkbox
                                         className={checkboxIndicatorStyle}
                                         checked={selected}
-                                        disabled={option.disabled}
+                                        disabled={disabled || option.disabled}
                                         tabIndex={-1}
                                         aria-label={typeof option.label === "string" ? option.label : option.value}
                                     />
@@ -370,22 +383,22 @@ const SelectOverlay: FC<SelectOverlayProps> = ({
                             id={`${listboxId}-option-${i}`}
                             role="option"
                             aria-selected={selected}
-                            aria-disabled={option.disabled || undefined}
+                            aria-disabled={disabled || option.disabled || undefined}
                             data-highlighted={highlighted || undefined}
                             aria-label={optionAriaLabel}
                             className={cx.call(undefined, optionStyle,
                                 isGrouped && groupedOptionStyle,
                                 selected && (multiple ? optionSelectedStyle : optionSelectedSingleStyle),
                                 highlighted && optionHighlightStyle,
-                                option.disabled && optionDisabledStyle,
+                                (disabled || option.disabled) && optionDisabledStyle,
                             )}
-                            onMouseEnter={() => onHighlightChange(i)}
-                            onClick={() => {
-                                onOptionSelect(option);
+                            onMouseEnter={() => { if (!disabled) onHighlightChange(i); }}
+                            onClick={(event) => {
+                                if (disabled) return;
+                                onOptionSelect(option, event);
 
                                 if (!multiple && !option.disabled) {
                                     dispatch({ type: "setOpen", payload: false });
-                                    onOpenChange(false);
                                 }
                             }}
                         >
@@ -412,9 +425,10 @@ const SelectOverlay: FC<SelectOverlayProps> = ({
             id={listboxId}
             ref={overlayRef}
             data-select-overlay
-            className={cx.call(undefined, overlayStyle, componentSizeStyles[size], popupClassName)}
+            className={cx.call(undefined, overlayStyle, popupClassName)}
             role="listbox"
             aria-multiselectable={multiple || undefined}
+            aria-disabled={disabled || undefined}
         >
             <div aria-hidden="true" data-select-option-measure="" className={cx(optionStyle, measureStyle)}>M</div>
             {dropdownRender ? dropdownRender(menu) : menu}

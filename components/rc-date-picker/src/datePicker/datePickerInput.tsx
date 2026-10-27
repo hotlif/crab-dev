@@ -1,4 +1,5 @@
-import type { PickerFieldProps } from '../types.js';
+import { usePickerLocale } from '../locale.js';
+import type { PickerFieldProps, PickerValueChangeDetails } from '../types.js';
 import { useDropdownContext } from "@crab-dev/rc-dropdown-container";
 import RcLineEdit, { type LineEditProps } from '@crab-dev/rc-line-edit';
 import { useEffect, useRef } from "react";
@@ -8,16 +9,21 @@ import PickerInputActions, { usePickerFieldHover } from '../pickerInputActions.j
 import type { DatePickerPanelInstance } from "../panels/datePickerPanel.js";
 
 export interface DatePickerInputProps extends PickerFieldProps {
+    locale?: string;
+    popupId?: string;
     
     /**
      * 改变值值触发的事件
      */
-    onValueChange?: (value: Temporal.ZonedDateTime | null) => void;
+    onValueChange?: (value: Temporal.ZonedDateTime | null, event?: PickerValueChangeDetails['event']) => void;
 
     /**
      * 输入的值信息
      */
     value: string
+
+    /** 内部字段状态，依据选择器的真实值，不依据显示文本。 */
+    hasValue: boolean;
 
     /**
      * 大小
@@ -34,7 +40,10 @@ export interface DatePickerInputProps extends PickerFieldProps {
 
 
 const DatePickerInput: FC<DatePickerInputProps> = ({
+    locale,
+    popupId,
     value = "",
+    hasValue,
     onValueChange,
     instance,
     onConfirm,
@@ -42,6 +51,7 @@ const DatePickerInput: FC<DatePickerInputProps> = ({
     ref, disabled, onClick, onFocus, onKeyDown,
     ...restProps
 }) => {
+    const { messages } = usePickerLocale(locale);
     const {
         refs,
         state,
@@ -87,21 +97,23 @@ const DatePickerInput: FC<DatePickerInputProps> = ({
             onClick={(e) => { onClick?.(e); if (!e.defaultPrevented) openPanel(); }}
             onFocus={(e) => { onFocus?.(e); if (!e.defaultPrevented && !restoringFocus.current) openPanel(); }}
             value={value}
-            placeholder={restProps.placeholder ?? '选择日期'}
+            placeholder={restProps.placeholder ?? messages.chooseDate}
+            aria-haspopup="dialog"
             aria-expanded={state.open}
+            aria-controls={popupId}
             readOnly
-            suffix={<PickerInputActions
-                hasValue={Boolean(value)}
+            suffix={<PickerInputActions locale={locale}
+                hasValue={hasValue}
                 hovered={hovered}
                 disabled={disabled}
                 open={state.open}
                 onOpen={openPanel}
-                onClear={() => {
+                onClear={(event) => {
                     restoringFocus.current = true;
                     inputRef.current?.focus();
                     restoringFocus.current = false;
                     dispatch({ type: 'setOpen', payload: false });
-                    onValueChange?.(null);
+                    onValueChange?.(null, event);
                 }}
             />}
             onKeyDown={(e) => {

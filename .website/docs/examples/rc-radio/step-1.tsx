@@ -69,7 +69,7 @@ export default function Example() {
             <div className={stack}>
                 <h3 id={headingId} className={heading}>以你的节奏，接收动态。</h3>
                 <p id={helpId} className={note}>选择一种通知频率，预览会随选择更新。</p>
-                <RadioGroup className={choices} value={value} onChange={setValue} aria-labelledby={headingId} aria-describedby={helpId}>
+                <RadioGroup className={choices} value={value} onValueChange={setValue} aria-labelledby={headingId} aria-describedby={helpId}>
                     {options.map(option => (
                         <Radio key={option.value} value={option.value} className={choice}>
                             <strong>{option.label}</strong><small>{option.description}</small>

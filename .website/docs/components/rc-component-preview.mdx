@@ -41,16 +41,16 @@ import { demos } from "../_generated/rc-component-preview.js";
 
 操作栏复用 Crab Button。接入时引入 `@crab-dev/rc-component-preview/css/index.css` 和 `@crab-dev/rc-button/css/index.css`。源码保持整行并在组件内滚动，复制内容保留原始字符串，行号不属于复制内容。
 
-`codeTheme` 控制源码的独立浅色或深色配色，语法颜色、背景和行号成对切换，不受示例舞台或页面主题影响。
+`codeTheme` 控制源码的独立浅色或深色配色，语法颜色、背景、行号及高亮加载提示成对切换，不受示例舞台或页面主题影响。
 
 
 
 ### 设计风格与主题
 
 预览容器继承 card 形状与阴影，操作栏继承工作区 toolbar 表面；演示区保持内容表面，避免外框与示例控件混为同一层级。代码配色仍由 codeTheme 独立选择，浅深代码背景不强行映射为控件背景。
-本范围以 M3 Lists / Divider 的表面、分隔、状态和无障碍规则作为扩展依据；数据表、图表、PDF 编辑器和可拖动分栏并非 Material Web 的同名标准组件。macOS 与 shadcn 是本项目在相同交互能力上的设计变体，未引入第三方 UI 运行时，也不宣称原生平台逐像素复刻。
+这是本库的开发支持组件。MD3、Apple、shadcn/ui 分别复用各自的容器、工具栏和操作控件角色；源码展示、复制与懒加载是本库能力，不对应三套体系的同名标准组件。容器状态与代码高亮分别验收，加载期间也保留可读的文字与焦点反馈。
 
-参考（2026-10-22）：[M3 Lists 指南](https://m3.material.io/components/lists/guidelines)、[规格](https://m3.material.io/components/lists/specs)、[无障碍](https://m3.material.io/components/lists/accessibility)、[M3 Divider](https://m3.material.io/components/divider/guidelines)、[Material Web List 文档及示例](https://material-web.dev/components/list/)、[列表项样式](https://github.com/material-components/material-web/blob/main/list/internal/listitem/_list-item.scss)、[列表令牌](https://github.com/material-components/material-web/blob/main/tokens/_md-comp-list-item.scss)、[Divider 样式](https://github.com/material-components/material-web/blob/main/divider/internal/_divider.scss)、[Apple Lists and tables](https://developer.apple.com/design/human-interface-guidelines/lists-and-tables)、[shadcn Table](https://ui.shadcn.com/docs/components/table)、[Table 源码](https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/new-york-v4/ui/table.tsx)、[shadcn Resizable](https://ui.shadcn.com/docs/components/resizable)。
+设计来源与固定参考版本见[三套设计体系](/guides/design-styles)，当前已核对范围见[设计覆盖矩阵](/guides/design-coverage)。这段说明记录适配边界，不代表完整视觉验收已通过。
 
 ### 适用场景
 
@@ -69,6 +69,14 @@ import { demos } from "../_generated/rc-component-preview.js";
 - 预览操作要形成命名清楚的操作组，展开源码时同步 aria-expanded。
 - iframe 或隔离预览需要可访问标题、合理 Tab 顺序和可恢复的失败状态。
 
+### 设计依据与覆盖
+
+- **MD3 Expressive**：这是文档站专用组合组件，以 M3 Cards、Buttons、surface 层级和代码阅读需求扩展。 [依据 1](https://m3.material.io/components/cards/overview) · [依据 2](https://material-web.dev/components/button/) · [依据 3](https://github.com/material-components/material-web/tree/main/button)
+- **Apple**：依据 Apple HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。 [依据 1](https://developer.apple.com/design/human-interface-guidelines/components) · [依据 2](https://developer.apple.com/design/human-interface-guidelines/accessibility)
+- **shadcn/ui**：参考 shadcn/ui 的组件用途、中性表面与设计变量，在本库公共语义和 React 交互模型中实现；完整状态覆盖仍需按矩阵验收。 [依据 1](https://ui.shadcn.com/docs/components) · [依据 2](https://ui.shadcn.com/docs/theming) · [依据 3](https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4)
+
+设计依据不等于完成验收；当前状态与适用边界见[覆盖矩阵](/guides/design-coverage)。
+
 ## 常见问题
 
 ### 容器会执行 sourceCode 吗？
@@ -78,3 +86,10 @@ import { demos } from "../_generated/rc-component-preview.js";
 ## API
 
 <API source="../_generated_api/rc-component-preview.ts" symbol="PreviewProps" component="Preview" />
+
+<details data-docs-native-props>
+<summary>Preview 继承的原生属性（277 项）</summary>
+
+<API source="../_generated_api/rc-component-preview-native.ts" symbol="PreviewPropsNativeAttributes" component="Preview 继承的原生属性" />
+
+</details>

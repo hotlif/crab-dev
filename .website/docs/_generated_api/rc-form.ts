@@ -14,6 +14,11 @@ type T = DocsTypePlaceholder;
 
 export interface FormProps {
     /**
+     * 暂无说明。
+     */
+    "form"?: FormInstance<T>;
+
+    /**
      * 仅在挂载时读取；后续更新使用 form.reinitialize。
      */
     "defaultValue"?: T;
@@ -21,12 +26,12 @@ export interface FormProps {
     /**
      * 暂无说明。
      */
-    "form"?: FormInstance<T>;
+    "requiredIndicatorRenderer"?: (param: { label: ReactNode; required: boolean; }) => ReactNode;
 
     /**
      * 暂无说明。
      */
-    "onFieldValueChange"?: (changed: FieldChange<T>, allValues: T) => void | Promise<void>;
+    "onSubmitSuccess"?: (record: T) => void | Promise<void>;
 
     /**
      * 第一参数保留原数据协议，第二参数提供结构化错误。
@@ -36,10 +41,5 @@ export interface FormProps {
     /**
      * 暂无说明。
      */
-    "onSubmitSuccess"?: (record: T) => void | Promise<void>;
-
-    /**
-     * 暂无说明。
-     */
-    "requiredIndicatorRenderer"?: (param: { label: ReactNode; required: boolean }) => ReactNode;
+    "onFieldValueChange"?: (changed: FieldChange<T>, allValues: T) => void | Promise<void>;
 }

@@ -15,16 +15,21 @@ mock.module("@floating-ui/react", async () => {
     };
 
     return {
-        useFloating: (options: FloatingContext & { placement?: string }) => ({
+        useFloating: (options: FloatingContext & { placement?: string }) => {
+            const floating = mockReact.useRef<HTMLElement | null>(null);
+            const domReference = mockReact.useRef<HTMLElement | null>(null);
+            return ({
             refs: {
-                setReference: mock.fn(),
-                setFloating: mock.fn(),
+                domReference,
+                setReference: (node: HTMLElement | null) => { domReference.current = node; },
+                floating,
+                setFloating: (node: HTMLElement | null) => { floating.current = node; },
             },
             floatingStyles: {},
             context: { open: options.open, onOpenChange: options.onOpenChange },
             middlewareData: { arrow: { x: 0, y: 0 } },
             placement: options.placement ?? "top",
-        }),
+        }); },
         autoUpdate: mock.fn(),
         offset: mock.fn(() => ({})),
         flip: mock.fn(() => ({})),
@@ -98,10 +103,10 @@ beforeAll(async () => {
 describe('Tooltip', () => {
     it('keeps the configured design on its floating element and follows changes', async () => {
         const content = <Tooltip title="提示" open><button>触发</button></Tooltip>;
-        const view = await render(<ConfigProvider design="shadcn">{content}</ConfigProvider>);
+        const view = await render(<ConfigProvider designSystem="shadcn">{content}</ConfigProvider>);
         expect(screen.getByRole('tooltip').getAttribute('data-crab-design')).toBe('shadcn');
-        await view.rerender(<ConfigProvider design="material">{content}</ConfigProvider>);
-        expect(screen.getByRole('tooltip').getAttribute('data-crab-design')).toBe('material');
+        await view.rerender(<ConfigProvider designSystem="md3">{content}</ConfigProvider>);
+        expect(screen.getByRole('tooltip').getAttribute('data-crab-design')).toBe('md3');
     });
     // ─── 基础渲染 ──────────────────────────────────────────────────────────
     it('renders trigger element', async () => {
@@ -169,7 +174,7 @@ describe('Tooltip', () => {
         await act(async () => {
             await fireEvent(screen.getByRole('button'), new FocusEvent("focusin", { bubbles: true }));
         });
-        expect(handleOpenChange).toHaveBeenCalledWith(true);
+        expect(handleOpenChange).toHaveBeenCalledWith(true, expect.objectContaining({ reason: expect.any(String) }));
     });
     it('calls onOpenChange when tooltip closes via escape', async () => {
         const handleOpenChange = mock.fn();
@@ -179,12 +184,12 @@ describe('Tooltip', () => {
         await act(async () => {
             await fireEvent(screen.getByRole('button'), new FocusEvent("focusin", { bubbles: true }));
         });
-        expect(handleOpenChange).toHaveBeenCalledWith(true);
+        expect(handleOpenChange).toHaveBeenCalledWith(true, expect.objectContaining({ reason: expect.any(String) }));
         handleOpenChange.clear();
         await act(async () => {
             await fireEvent.keyDown(document as unknown as Element, { key: 'Escape' });
         });
-        expect(handleOpenChange).toHaveBeenCalledWith(false);
+        expect(handleOpenChange).toHaveBeenCalledWith(false, expect.objectContaining({ reason: expect.any(String) }));
     });
     // ─── 空内容 ────────────────────────────────────────────────────────────
     it('does not show tooltip when title is empty string', async () => {

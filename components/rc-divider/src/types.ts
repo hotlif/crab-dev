@@ -13,7 +13,7 @@ export type DividerVariant = 'solid' | 'dashed' | 'dotted';
 /**
  * 线两侧的留白档位, 决定分组的强弱（格式塔接近性）。
  */
-export type DividerSpacing = 'none' | 'small' | 'middle' | 'large';
+export type DividerSpacing = 'none' | 'small' | 'medium' | 'large';
 
 /**
  * 文字在横向分割线上的落点。
@@ -39,7 +39,7 @@ export interface DividerOwnProps extends Omit<HTMLAttributes<HTMLDivElement>, 'c
     variant?: DividerVariant;
 
     /**
-     * 线两侧的留白, 默认 middle
+     * 线两侧的留白, 默认 medium
      */
     spacing?: DividerSpacing;
 

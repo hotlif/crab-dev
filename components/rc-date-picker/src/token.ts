@@ -162,7 +162,7 @@ const token = defineTokens({
     },
     'field': {
         'action': {
-            'width': `var(${vars['field.action.width']}, var(--token-semantic-sizing-middle-action, var(--token-global-space-7, 28px)))`,
+            'width': `var(${vars['field.action.width']}, var(--token-semantic-sizing-medium-action, var(--token-global-space-7, 28px)))`,
             'touch': {
                 'width': `var(${vars['field.action.touch.width']}, var(--token-semantic-size-touch-target, var(--token-global-size-48, 48px)))`
             },

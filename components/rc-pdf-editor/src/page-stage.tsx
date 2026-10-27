@@ -10,12 +10,14 @@ import DrawingSurface from './drawing-surface.js';
 import DrawingPreview from './drawing-preview.js';
 import { useFrameBuffer, useFrameLease, type PreparedFrame } from './frame-buffer.js';
 import { frameStyle, renderRetryStyle } from './styles.js';
+import { usePdfLocale } from './locale.js';
 
 export interface TextPreview { text: string; fontSize: number; family: string; color: string }
 interface Presentation { transform?: Transform; preview?: TextPreview; viewport: ViewportState }
 interface PageFrame { images: ImageBitmap[]; page: PageInfo; objects: PdfObject[]; selected?: PdfObject; bounds?: Bounds; initial: Presentation }
 interface SubmittedTransform extends Presentation { owner: PdfClient; page: number; version: number; object: number }
 export interface StageProps {
+    retryLabel?: string;
     client: PdfClient; page: PageInfo; revision: number;
     selected: PdfObject | undefined; transform: Transform | undefined; preview?: TextPreview;
     viewport: ViewportState; width: number; height: number; disabled: boolean;
@@ -85,6 +87,7 @@ function FrameCanvas({ frame, visible, live, stage, drawing, submittedTransform,
 }
 
 export default function PageStage(props: StageProps) {
+    const { text } = usePdfLocale();
     const { client, page, revision, selected, viewport } = props;
     const [submitted, setSubmitted] = useState<{ drawing: Drawing; owner: PdfClient; page: number; version: number }>();
     const [submittedTransform, setSubmittedTransform] = useState<SubmittedTransform>();
@@ -143,7 +146,7 @@ export default function PageStage(props: StageProps) {
                 stage={{ ...props, disabled: props.disabled || !!submittedTransform, onCommit: commitTransform }} submittedTransform={submittedTransform}
                 drawing={frame && frame === buffer.front ? drawing ?? (submitted?.owner === frame.owner && submitted.page === frame.data.page.id && submitted.version === frame.data.page.contentRevision ? submitted.drawing : undefined) : undefined}
                 onPresent={() => { if (frame) buffer.present(frame); }} onError={error => { if (frame) buffer.reject(frame, error); }} />)}
-            {buffer.failed && <Button className={renderRetryStyle} onClick={buffer.retry}>重试页面渲染</Button>}
+            {buffer.failed && <Button className={renderRetryStyle} onClick={buffer.retry}>{props.retryLabel ?? text('重试页面渲染')}</Button>}
         </>}
     </DrawingSurface>;
 }

@@ -28,6 +28,8 @@ import { demos } from "../_generated/rc-realm.js";
 
 ##### 真实 script 注入链路 — 从 URL 加载 remoteEntry.js（本包 public/remote/ 下的手写 var 格式容器）：script 注入 → init 收到含宿主 React 的 share scope → get('./Widget') → 渲染。远程组件用 init 时注入的宿主 React 实例创建元素, 端到端验证共享机制。
 
+##### 可重放的加载与错误 — 使用预注册的真实远程容器协议，将模块 Promise 保持待定。通过按钮完成或拒绝请求；Realm 自己显示加载、默认错误与重试。每次重放清除本实例缓存，不依赖网络或短暂计时窗口。
+
 </div>
 
 <ComponentDemos demos={demos} />
@@ -44,6 +46,10 @@ import { demos } from "../_generated/rc-realm.js";
 - 优先复用宿主的 `default` 共享作用域；宿主未使用 Module Federation 时，创建作用域并注册 React 相关模块。
 - 通过 Promise 缓存合并并发加载请求；失败或超时后清除对应缓存，允许重新加载。
 - 提供延迟加载反馈，以及就近显示的错误说明和重试入口。
+
+
+“可重放的加载与错误”让真实模块请求保持等待：点击“返回错误”查看默认错误提示，使用其中的重试按钮重新加载，再点击“完成加载”显示远程内容。“重新加载”可以从成功状态重复这一过程，所有请求都在演示容器内完成。
+
 
 
 ### 两种接入协议
@@ -102,6 +108,10 @@ shared: {
 
 加载失败或超时后，对应缓存会失效。点击错误提示中的“重试”可重新执行加载流程。
 
+默认加载提示、错误标题、重试操作和库自产的错误说明跟随 `ConfigProvider.locale`，支持 `zh-CN` 与 `en-US`。切换语言会更新当前说明，不重新加载模块，也不重新挂载已就绪的远程内容。
+
+`RealmError.message`、`cause` 和 `onError` 仍提供原始诊断；默认界面只根据库内部的错误来源与参数本地化，不按消息字符串猜测语言。调用方构造的 `RealmError`、远端自身的错误说明，以及显式覆盖的 `error.message` 保持原文。`errorFallback` 始终接收原始错误与重试函数，适合宿主自定义呈现。
+
 ### 工具函数
 
 以下具名导出函数可用于预加载或独立加载模块，与组件共享缓存：
@@ -120,10 +130,11 @@ clearRemoteCache(entry, scope);
 
 ### 设计风格与主题
 
-Realm 保持视觉中性的远程内容容器；加载与错误通过已有 Spin / Alert / Button 组件继承当前设计。远程应用应共享相同语义令牌与主题边界；Realm 不重写远程应用自己的显式配色。
-本范围以 M3 Lists / Divider 的表面、分隔、状态和无障碍规则作为扩展依据；数据表、图表、PDF 编辑器和可拖动分栏并非 Material Web 的同名标准组件。macOS 与 shadcn 是本项目在相同交互能力上的设计变体，未引入第三方 UI 运行时，也不宣称原生平台逐像素复刻。
+Realm 是视觉中性的可选加载集成。默认加载、错误和重试反馈复用 Spin、Alert、Button，分别消费 Material Design 3 Expressive、Apple、shadcn/ui 的现有组件契约；来源和固定基线见[三套设计体系](/guides/design-styles)。入口加载、共享依赖、缓存、接入协议与沙箱是本库的集成能力，不以列表或分隔线规格作为整体依据。
 
-参考（2026-10-22）：[M3 Lists 指南](https://m3.material.io/components/lists/guidelines)、[规格](https://m3.material.io/components/lists/specs)、[无障碍](https://m3.material.io/components/lists/accessibility)、[M3 Divider](https://m3.material.io/components/divider/guidelines)、[Material Web List 文档及示例](https://material-web.dev/components/list/)、[列表项样式](https://github.com/material-components/material-web/blob/main/list/internal/listitem/_list-item.scss)、[列表令牌](https://github.com/material-components/material-web/blob/main/tokens/_md-comp-list-item.scss)、[Divider 样式](https://github.com/material-components/material-web/blob/main/divider/internal/_divider.scss)、[Apple Lists and tables](https://developer.apple.com/design/human-interface-guidelines/lists-and-tables)、[shadcn Table](https://ui.shadcn.com/docs/components/table)、[Table 源码](https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/new-york-v4/ui/table.tsx)、[shadcn Resizable](https://ui.shadcn.com/docs/components/resizable)。
+`component` 协议在宿主 React 树中渲染；远端是否共享配置仍取决于所用库实例和共享约定。`mount` 协议中的独立应用需要通过挂载接口显式连接配置，Shadow DOM 的 CSS 变量继承不等于跨 React 根传递 Context。Realm 不改写远端自己的显式配色、字体和内容。
+
+默认反馈、样式隔离和远程内容分别核对。Realm 的加载或渲染成功不能替代远端应用的设计与交互验收；三体系及浅深色的覆盖等级以[覆盖矩阵](/guides/design-coverage)和对应候选记录为准。
 
 ### 适用场景
 
@@ -142,6 +153,14 @@ Realm 保持视觉中性的远程内容容器；加载与错误通过已有 Spin
 - 加载中提供状态，失败时给出可操作的重试并保留焦点。
 - 远程内容仍必须遵守宿主的语言、主题、键盘和无障碍标准。
 
+### 设计依据与覆盖
+
+- **MD3 Expressive**：这是运行时基础设施，没有 M3 视觉对应；其加载、错误和重试界面使用 M3 Progress、Alert/Button 与 surface 规则。 [依据 1](https://m3.material.io/components/progress-indicators/overview) · [依据 2](https://material-web.dev/components/progress/) · [依据 3](https://github.com/material-components/material-web/tree/main/progress)
+- **Apple**：依据 Apple HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。 [依据 1](https://developer.apple.com/design/human-interface-guidelines/components) · [依据 2](https://developer.apple.com/design/human-interface-guidelines/accessibility)
+- **shadcn/ui**：参考 shadcn/ui 的组件用途、中性表面与设计变量，在本库公共语义和 React 交互模型中实现；完整状态覆盖仍需按矩阵验收。 [依据 1](https://ui.shadcn.com/docs/components) · [依据 2](https://ui.shadcn.com/docs/theming) · [依据 3](https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4)
+
+设计依据不等于完成验收；当前状态与适用边界见[覆盖矩阵](/guides/design-coverage)。
+
 ## 常见问题
 
 ### 如何接真实远程模块？
@@ -151,3 +170,10 @@ Realm 保持视觉中性的远程内容容器；加载与错误通过已有 Spin
 ## API
 
 <API source="../_generated_api/rc-realm.ts" symbol="RealmProps" component="Realm" />
+
+<details data-docs-native-props>
+<summary>Realm 继承的原生属性（276 项）</summary>
+
+<API source="../_generated_api/rc-realm-native.ts" symbol="RealmPropsNativeAttributes" component="Realm 继承的原生属性" />
+
+</details>

@@ -23,13 +23,13 @@ const IndeterminateDemo = () => {
             <Checkbox
                 checked={allChecked}
                 indeterminate={indeterminate}
-                onChange={handleCheckAll}
+                onCheckedChange={handleCheckAll}
             >
                 全选
             </Checkbox>
             <br />
             <br />
-            <CheckboxGroup value={value} onChange={setValue}>
+            <CheckboxGroup value={value} onValueChange={setValue}>
                 {options.map((opt) => (
                     <Checkbox key={opt} value={opt}>
                         {opt}

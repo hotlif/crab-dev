@@ -1,4 +1,4 @@
-import { useComponentSize } from '@crab-dev/rc-config-provider';
+import { useComponentSize, useLocale } from '@crab-dev/rc-config-provider';
 import { useDropdownContext } from "@crab-dev/rc-dropdown-container";
 import { css, cx } from "@crab-dev/css";
 import { type CSSProperties, type HTMLAttributes, type Ref, type RefObject } from "react";
@@ -7,7 +7,7 @@ import type { OKLCHValue } from "../types.js";
 
 export interface ColorPickerInputProps extends Omit<HTMLAttributes<HTMLDivElement>, "onChange"> {
     value: OKLCHValue;
-    size?: 'small' | 'middle' | 'medium' | 'large';
+    size?: 'small' | 'medium' | 'large';
     disabled?: boolean;
     ref?: Ref<HTMLDivElement>;
     triggerRef: RefObject<HTMLDivElement | null>;
@@ -37,6 +37,14 @@ const triggerStyle = css`
     gap: ${token.trigger.gap};
     justify-content: center;
     align-items: center;
+    &:not([aria-disabled="true"]):hover {
+        border-color: ${token.trigger['border-color-hover']};
+        background-color: ${token.trigger['background-color-hover']};
+    }
+    &:not([aria-disabled="true"]):active {
+        border-color: ${token.trigger['border-color-hover']};
+        background-color: ${token.trigger['background-color-active']};
+    }
     &:focus-visible {
         outline: 2px solid ${token.trigger.ring['color-focus']};
         outline-offset: 1px;
@@ -48,12 +56,21 @@ const disabledStyle = css`
     border-color: ${token.trigger['border-color-disabled']};
     background: ${token.trigger['background-color-disabled']};
     opacity: ${token.trigger['opacity-disabled']};
+    @media (forced-colors: active) {
+        /* Disabled UI uses a system boundary without fading the color data. */
+        opacity: 1;
+        border-color: GrayText;
+    }
 `;
 
 const swatchStyle = css`
     border-radius: inherit;
     height: var(--cp-swatch-size);
     min-width: var(--cp-swatch-size);
+    @media (forced-colors: active) {
+        /* Preserve only the current color data, including its actual alpha. */
+        forced-color-adjust: none;
+    }
 `;
 
 const ColorPickerInput = ({
@@ -69,7 +86,8 @@ const ColorPickerInput = ({
     ...restProps
 }: ColorPickerInputProps) => {
     const configuredSize = useComponentSize(sizeProp);
-    const size = configuredSize === 'middle' ? 'medium' : configuredSize;
+    const size = configuredSize;
+    const { messages } = useLocale();
     const { refs, dispatch, state } = useDropdownContext<HTMLDivElement>();
 
     // 点击外部关闭已由 RcDropdownContainer 统一收口(基于 FloatingTree 的 useDismiss),
@@ -91,7 +109,7 @@ const ColorPickerInput = ({
             aria-haspopup="dialog"
             aria-expanded={state.open}
             aria-disabled={disabled || undefined}
-            aria-label={ariaLabel ?? "选择颜色"}
+            aria-label={ariaLabel ?? messages.colorPicker.chooseColor}
             tabIndex={disabled ? -1 : 0}
             {...restProps}
             className={cx.call(undefined, triggerStyle, disabled && disabledStyle, className)}

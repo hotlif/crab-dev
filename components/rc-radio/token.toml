@@ -48,9 +48,9 @@ size.large.label.font-size   = "$ref(font.size.subhead)"
 
 # ─── 尺寸 — Middle (默认) ────────────────────────────────────────────
 
-size.middle.box.width = "$ref(selection.radio.middle)"
-size.middle.dot.width = "$ref(selection.radio.dot-middle)"
-size.middle.label.font-size = "$ref(typography.body.medium.font-size)"
+size.medium.box.width = "$ref(selection.radio.medium)"
+size.medium.dot.width = "$ref(selection.radio.dot-medium)"
+size.medium.label.font-size = "$ref(typography.body.medium.font-size)"
 
 
 # ─── 尺寸 — Small ────────────────────────────────────────────────────────────

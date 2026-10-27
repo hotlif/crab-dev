@@ -3,3 +3,5 @@ export type { SwitchProps } from './types.js';
 
 export default Switch;
 export { vars as TokenVars } from './token.js';
+
+export type { SwitchChangeDetails } from './types.js';

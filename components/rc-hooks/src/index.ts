@@ -1,3 +1,7 @@
+// Include internal declarations without adding names to the stable root API.
+export type {} from './internal.js';
+// Keep the internal subpath in Wake's single-entry module graph without public re-exports.
+import './internal.js';
 export { useKeyDown } from "./useKeyDown.js";
 export { useControllableValue } from "./useControllableValue.js";
 export type { ControllableValueOptions } from "./useControllableValue.js";
@@ -18,3 +22,4 @@ export { usePresence } from "./usePresence.js";
 export { useAnimatedRows } from "./useAnimatedRows.js";
 export type { AnimatedRow, AnimatedRowsOptions } from "./useAnimatedRows.js";
 export { useCountdown } from "./useCountdown.js";
+export type { ChangeDetails, ControlledValueProps, ControlledCheckedProps, ControlledOpenProps } from './controlled.js';

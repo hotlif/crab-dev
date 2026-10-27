@@ -25,7 +25,7 @@ const BasicDemo = () => {
 
     return (
         <div className={layout}>
-            <CronPicker label="执行计划" supportingText="输入五段式表达式，或在面板中设置执行时间。" defaultValue="30 9 * * 1-5" onChange={setExpression} />
+            <CronPicker label="执行计划" supportingText="输入五段式表达式，或在面板中设置执行时间。" defaultValue="30 9 * * 1-5" onValueChange={setExpression} />
             <div className={description}>
                 当前值:<code>{expression}</code>
                 {parsed ? ` —— ${describeCron(parsed)}` : null}

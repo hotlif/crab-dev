@@ -39,11 +39,11 @@ describe('Button global size', () => {
         const { rerender } = await render(
             <ConfigProvider size="large">
                 <Button>Inherited</Button>
-                <Button size="large">Large</Button>
-                <Button size="small">Small</Button>
-                <ButtonGroup size="small">
+                <Button size="m">Large</Button>
+                <Button size="xs">Small</Button>
+                <ButtonGroup size="xs">
                     <Button>Grouped</Button>
-                    <Button size="large">Explicit</Button>
+                    <Button size="m">Explicit</Button>
                 </ButtonGroup>
             </ConfigProvider>,
         );
@@ -61,7 +61,7 @@ describe('Button global size', () => {
         const { container } = await render(
             <ConfigProvider size="large">
                 <ButtonGroup><Button>Inherited</Button></ButtonGroup>
-                <ButtonGroup size="large"><Button>Explicit</Button></ButtonGroup>
+                <ButtonGroup size="m"><Button>Explicit</Button></ButtonGroup>
             </ConfigProvider>,
         );
         const groups = container.querySelector('[data-theme]')?.children;

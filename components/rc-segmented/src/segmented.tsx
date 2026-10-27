@@ -1,4 +1,4 @@
-import { useComponentSize } from '@crab-dev/rc-config-provider';
+import { useComponentSize, useConfig } from '@crab-dev/rc-config-provider';
 import { css, cx } from '@crab-dev/css';
 import { useId } from 'react';
 import { useControllableValue } from '@crab-dev/rc-hooks';
@@ -9,6 +9,7 @@ import type {
     SegmentedRawOption,
     SegmentedSize,
     SegmentedValue,
+    SegmentedChangeDetails,
 } from './types.js';
 
 // M3 baseline single-select segmented buttons; each segment owns its surface.
@@ -48,7 +49,7 @@ const trackPadSmallStyle = css`
     padding: ${token.size.small.track.padding};
 `;
 const trackPadMiddleStyle = css`
-    padding: ${token.size.middle.track.padding};
+    padding: ${token.size.medium.track.padding};
 `;
 const trackPadLargeStyle = css`
     padding: ${token.size.large.track.padding};
@@ -78,8 +79,8 @@ const segmentStyle = css`
     margin: 0;
     min-inline-size: 0;
     &:not(:last-child) { border-inline-end: 1px solid ${token.item['border-color']}; }
-    &:first-child { border-start-start-radius: max(${token.size.middle['border-radius']}, calc(${token.track['border-radius']} - ${token.size.middle.track.padding})); border-end-start-radius: max(${token.size.middle['border-radius']}, calc(${token.track['border-radius']} - ${token.size.middle.track.padding})); }
-    &:last-child { border-start-end-radius: max(${token.size.middle['border-radius']}, calc(${token.track['border-radius']} - ${token.size.middle.track.padding})); border-end-end-radius: max(${token.size.middle['border-radius']}, calc(${token.track['border-radius']} - ${token.size.middle.track.padding})); }
+    &:first-child { border-start-start-radius: max(${token.size.medium['border-radius']}, calc(${token.track['border-radius']} - ${token.size.medium.track.padding})); border-end-start-radius: max(${token.size.medium['border-radius']}, calc(${token.track['border-radius']} - ${token.size.medium.track.padding})); }
+    &:last-child { border-start-end-radius: max(${token.size.medium['border-radius']}, calc(${token.track['border-radius']} - ${token.size.medium.track.padding})); border-end-end-radius: max(${token.size.medium['border-radius']}, calc(${token.track['border-radius']} - ${token.size.medium.track.padding})); }
     color: ${token.item.color};
     cursor: pointer;
     white-space: nowrap;
@@ -147,11 +148,11 @@ const segmentSmallStyle = css`
     border-radius: ${token.size.small['border-radius']};
 `;
 const segmentMiddleStyle = css`
-    height: ${token.size.middle.height};
-    padding: 0 ${token.size.middle['padding-inline']};
-    gap: ${token.size.middle.gap};
-    font-size: ${token.size.middle['font-size']};
-    border-radius: ${token.size.middle['border-radius']};
+    height: ${token.size.medium.height};
+    padding: 0 ${token.size.medium['padding-inline']};
+    gap: ${token.size.medium.gap};
+    font-size: ${token.size.medium['font-size']};
+    border-radius: ${token.size.medium['border-radius']};
 `;
 const segmentLargeStyle = css`
     height: ${token.size.large.height};
@@ -169,6 +170,23 @@ const labelStyle = css`
     min-width: 0;
     overflow: hidden;
     text-overflow: ellipsis;
+`;
+
+// M3 reserves the checkmark slot when measuring an unselected text-only item,
+// but centers its visible label. Keep the slot in flow so intrinsic group and
+// segment widths do not jump when selection changes. The nearest Provider owns
+// this structural distinction; Apple/shadcn remove the slot via their contract.
+const unselectedSmallLabelStyle = css`
+    position: relative;
+    inset-inline-start: calc((${token.item.icon.width} + ${token.size.small.gap}) / -2);
+`;
+const unselectedMediumLabelStyle = css`
+    position: relative;
+    inset-inline-start: calc((${token.item.icon.width} + ${token.size.medium.gap}) / -2);
+`;
+const unselectedLargeLabelStyle = css`
+    position: relative;
+    inset-inline-start: calc((${token.item.icon.width} + ${token.size.large.gap}) / -2);
 `;
 
 const selectionIconStyle = css`
@@ -222,11 +240,17 @@ const segmentSizeStyleOf = (size: SegmentedSize) => {
     return segmentMiddleStyle;
 };
 
+const unselectedLabelStyleOf = (size: SegmentedSize) => {
+    if (size === 'small') return unselectedSmallLabelStyle;
+    if (size === 'large') return unselectedLargeLabelStyle;
+    return unselectedMediumLabelStyle;
+};
+
 const Segmented = ({
     options,
     value: valueProp,
     defaultValue,
-    onChange,
+    onValueChange,
     disabled = false,
     size: sizeProp,
     block = false,
@@ -236,6 +260,7 @@ const Segmented = ({
     ...restProps
 }: SegmentedProps) => {
     const size = useComponentSize(sizeProp);
+    const { designSystem } = useConfig();
     const reactId = useId();
     const groupName = name ?? `rc-segmented-${reactId.replace(/:/g, '')}`;
 
@@ -243,10 +268,10 @@ const Segmented = ({
     const firstEnabled = normalizedOptions.find((option) => !option.disabled);
     const resolvedDefault = defaultValue ?? firstEnabled?.value ?? normalizedOptions[0]?.value;
 
-    const [selectedValue, setSelectedValue] = useControllableValue<SegmentedValue>({
+    const [selectedValue, setSelectedValue] = useControllableValue<SegmentedValue, [SegmentedChangeDetails]>({
         value: valueProp,
         defaultValue: resolvedDefault,
-        onChange,
+        onValueChange,
     });
 
     return (
@@ -287,20 +312,20 @@ const Segmented = ({
                             onKeyDown={(event) => {
                                 if (event.key === 'Enter' && !optionDisabled) {
                                     event.preventDefault();
-                                    if (!selected) setSelectedValue(option.value);
+                                    if (!selected) setSelectedValue(option.value, { reason: 'select', event });
                                 }
                             }}
-                            onChange={() => {
+                            onChange={(event) => {
                                 // 防错优于报错：禁用项不可选中，除原生 disabled 外再显式守卫
                                 if (optionDisabled) return;
-                                setSelectedValue(option.value);
+                                setSelectedValue(option.value, { reason: 'select', event });
                             }}
                         />
                         <span aria-hidden="true" data-selection-indicator="" className={cx(selectionIconStyle, (selected || !option.icon) && checkIconStyle)}>
                             {selected ? <svg viewBox="0 0 24 24" fill="none" focusable="false"><path d="m5 12 4 4L19 6" stroke="currentColor" strokeWidth="2" /></svg> : option.icon}
                         </span>
                         {selected && option.icon && <span aria-hidden="true" data-option-icon="" className={cx(selectionIconStyle, hasLabel && selectedOptionIconStyle)}>{option.icon}</span>}
-                        {hasLabel && <span className={labelStyle}>{option.label}</span>}
+                        {hasLabel && <span className={cx(labelStyle, designSystem === 'md3' && !selected && !option.icon && unselectedLabelStyleOf(size))}>{option.label}</span>}
                     </label>
                 );
             })}

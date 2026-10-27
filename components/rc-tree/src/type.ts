@@ -1,8 +1,10 @@
-import type { UniqueIdentifier } from "@dnd-kit/core";
 import type { ReactNode } from "react";
 
+/** 稳定的树节点标识，不依赖内部拖拽实现。 */
+export type TreeNodeId = string | number;
+
 export interface OverState {
-    id: UniqueIdentifier,
+    id: TreeNodeId,
     state: OverStateEnum
 } 
 
@@ -63,7 +65,7 @@ export interface Node {
     /**
      * 节点的唯一标识
      */
-    id: UniqueIdentifier,
+    id: TreeNodeId,
 
     /**
      * 节点是否被禁用
@@ -76,7 +78,7 @@ export interface Node {
     icon?: ReactNode
 
     /**
-     * 节点高度, 默认 24px
+     * 显式节点高度，优先于 Tree 的 defaultNodeHeight 和自适应默认值；调用方负责触控目标。
      */
     height?: number
 

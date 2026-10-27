@@ -14,14 +14,14 @@ root.transition = "box-shadow $ref(motion.interaction), transform $ref(motion.sp
 size.small.width = "$ref(size.24)"
 size.small.font-size = "$ref(typography.caption.font-size)"
 
-size.middle.width = "$ref(size.32)"
-size.middle.font-size = "$ref(typography.body.font-size)"
+size.medium.width = "$ref(size.32)"
+size.medium.font-size = "$ref(typography.body.font-size)"
 
 size.large.width = "$ref(size.40)"
 size.large.font-size = "$ref(font.size.subhead)"
 
 icon.small.font-size  = "14px"
-icon.middle.font-size = "$ref(size.icon)"
+icon.medium.font-size = "$ref(size.icon)"
 icon.large.font-size = "$ref(size.icon-large)"
 
 content.max-width   = "70%"

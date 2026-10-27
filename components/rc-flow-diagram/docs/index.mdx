@@ -38,16 +38,22 @@ status = "experimental"
 
 ## 代码演示
 
+“默认语义色板”省略节点、标签、连线和网格的颜色参数，展示当前设计与明暗模式的默认配色。需要理解显式业务色和特殊边样式时，再查看 FlowEdge 样式示例。
+
+FlowEdge 静态样式和流动动效示例的彩色连线使用品牌、反馈及第三色语义角色，箭头与其连线同步配色，随当前设计和明暗模式解析。节点保留示例的业务色与配对标签前景；虚线、双向箭头及速度说明同时表达差异，不依赖颜色单独传达状态。
+
 <Demos glob="./demos/*.demo.tsx" columns={2} />
 
 ## API
 
 <API source="../src/flow-diagram.tsx" symbol="FlowDiagramProps" component="FlowDiagram" />
 
-
 ## 设计风格与主题
 
-默认节点、标签、连线、网格及承载画布继承当前设计边界；节点与连线没有独立的主题分支。显式节点颜色仍代表业务含义。流程图是布局与数据可视化扩展，M3 和 Material Web 没有对应的完整流程编辑组件。
-本范围以 M3 Lists / Divider 的表面、分隔、状态和无障碍规则作为扩展依据；数据表、图表、PDF 编辑器和可拖动分栏并非 Material Web 的同名标准组件。macOS 与 shadcn 是本项目在相同交互能力上的设计变体，未引入第三方 UI 运行时，也不宣称原生平台逐像素复刻。
+FlowDiagram 组合 Canvas、视口、网格、节点与连线，按 Crab 的流程图扩展维护。Material Design 3 Expressive、Apple 和 shadcn/ui 的来源及固定基线见[三套设计体系](/guides/design-styles)；三体系为其承载表面、前景、边界和选中角色提供独立契约，不定义 ELK 布局或本库的编辑协议。
 
-参考（2026-10-22）：[M3 Lists 指南](https://m3.material.io/components/lists/guidelines)、[规格](https://m3.material.io/components/lists/specs)、[无障碍](https://m3.material.io/components/lists/accessibility)、[M3 Divider](https://m3.material.io/components/divider/guidelines)、[Material Web List 文档及示例](https://material-web.dev/components/list/)、[列表项样式](https://github.com/material-components/material-web/blob/main/list/internal/listitem/_list-item.scss)、[列表令牌](https://github.com/material-components/material-web/blob/main/tokens/_md-comp-list-item.scss)、[Divider 样式](https://github.com/material-components/material-web/blob/main/divider/internal/_divider.scss)、[Apple Lists and tables](https://developer.apple.com/design/human-interface-guidelines/lists-and-tables)、[shadcn Table](https://ui.shadcn.com/docs/components/table)、[Table 源码](https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/new-york-v4/ui/table.tsx)、[shadcn Resizable](https://ui.shadcn.com/docs/components/resizable)。
+默认节点填充与标签使用品牌色及其配对前景，描边、连线和网格使用各自的语义角色，通过 FlowDiagram L3 色板传给绘制层。显式节点、标签和连线颜色仍表示业务覆盖；只替换节点填充时，需要同时核对标签前景。默认色板示例与显式业务配色示例应分别查看。
+
+节点尺寸、字体大小、圆角、箭头、路由、拖动、平移和缩放属于领域参数，不由全局控件尺寸统一改写。`loading` / `error` 由渲染上下文提供，调用方应为当前场景呈现状态；局部滚动区可聚焦也不等于图元选择、拖拽和编辑已有完整键盘替代。
+
+色板、布局与领域交互按三体系及浅深色分别验收，覆盖等级以[覆盖矩阵](/guides/design-coverage)及对应候选记录为准。

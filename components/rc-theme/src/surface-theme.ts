@@ -5,7 +5,7 @@ import token from "@crab-dev/rc-token-global";
 // Colors resolve against the boundary's light/dark semantic palette.
 globalStyle`
     :root,
-    [data-crab-design="material"] {
+    [data-crab-design="md3"] {
         --token-semantic-overlay-dialog-background: var(--token-semantic-color-surface-high);
         --token-semantic-overlay-dialog-border: transparent;
         --token-semantic-overlay-dialog-confirm-background: transparent;
@@ -42,7 +42,7 @@ globalStyle`
         --token-semantic-feedback-banner-tint: 100%;
         --token-semantic-feedback-banner-border-tint: 100%;
         --token-semantic-surface-card-padding-small: ${token.space[3]};
-        --token-semantic-surface-card-padding-middle: ${token.space[4]};
+        --token-semantic-surface-card-padding-medium: ${token.space[4]};
         --token-semantic-surface-card-padding-large: ${token.space[6]};
         --token-semantic-status-avatar-shape: ${token.radius[6]};
         --token-semantic-status-tag-shape: ${token.radius[4]};
@@ -93,7 +93,7 @@ globalStyle`
         --token-semantic-feedback-banner-tint: 0%;
         --token-semantic-feedback-banner-border-tint: 0%;
         --token-semantic-surface-card-padding-small: ${token.space[4]};
-        --token-semantic-surface-card-padding-middle: ${token.space[6]};
+        --token-semantic-surface-card-padding-medium: ${token.space[6]};
         --token-semantic-surface-card-padding-large: ${token.space[8]};
         --token-semantic-status-avatar-shape: ${token.radius[4]};
         --token-semantic-status-tag-shape: ${token.radius.full};
@@ -107,7 +107,7 @@ globalStyle`
         --token-semantic-status-spinner-easing: linear;
     }
 
-    [data-crab-design="macos"] {
+    [data-crab-design="apple"] {
         --token-semantic-overlay-dialog-background: var(--token-semantic-color-surface-overlay);
         --token-semantic-overlay-dialog-border: var(--token-semantic-color-border-subtle);
         --token-semantic-overlay-dialog-confirm-background: var(--token-semantic-color-brand-primary);
@@ -144,7 +144,7 @@ globalStyle`
         --token-semantic-feedback-banner-tint: 35%;
         --token-semantic-feedback-banner-border-tint: 35%;
         --token-semantic-surface-card-padding-small: ${token.space[3]};
-        --token-semantic-surface-card-padding-middle: ${token.space[4]};
+        --token-semantic-surface-card-padding-medium: ${token.space[4]};
         --token-semantic-surface-card-padding-large: ${token.space[6]};
         --token-semantic-status-avatar-shape: ${token.radius[3]};
         --token-semantic-status-tag-shape: ${token.radius[2]};

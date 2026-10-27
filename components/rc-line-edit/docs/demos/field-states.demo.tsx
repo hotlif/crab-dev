@@ -1,6 +1,6 @@
 export const meta = {
     title: "标签、边界与状态",
-    description: "切换文档站的 macOS、MD3 或 shadcn 主题，对照同一组字段的标签、焦点、错误和禁用反馈。",
+    description: "切换文档站的 Apple、MD3 或 shadcn 主题，对照同一组字段的标签、焦点、错误和禁用反馈。",
 };
 
 import { css } from "@crab-dev/css";

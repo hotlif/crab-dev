@@ -1,4 +1,5 @@
-import { act, beforeAll, beforeEach, describe, expect, it, mock, render, screen } from "@crab-dev/wake/test/react";
+import { beforeAll, beforeEach, describe, expect, it, mock } from "@crab-dev/wake/test";
+import { act, render, screen } from "@crab-dev/wake/test/react";
 import { useRef } from "react";
 let Notification: (typeof import("../notification.js"))["default"];
 let useNotification: (typeof import("../hooks/useNotification.js"))["default"];
@@ -60,7 +61,7 @@ describe("Notification", () => {
         await act(() => {
             closeButton.click();
         });
-        expect(onOpenChange).toHaveBeenCalledWith(false);
+        expect(onOpenChange).toHaveBeenCalledWith(false, expect.objectContaining({ reason: 'close-button' }));
         await unmount();
     });
     it("shows one more element when showProgress is true than when false", async () => {
@@ -256,5 +257,14 @@ describe("useNotification", () => {
         });
         expect(container.textContent).not.toContain("Targeted");
         await unmount();
+    });
+});
+
+describe('Notification open ownership', () => {
+    it('closes an uncontrolled initial notification without a callback', async () => {
+        const view = await render(<Notification defaultOpen title="Initial notification">Content</Notification>);
+        const button = screen.getByRole('button', { name: '关闭通知' });
+        await act(() => button.click());
+        expect(view.container.querySelector('[data-state="open"]')).toBeNull();
     });
 });

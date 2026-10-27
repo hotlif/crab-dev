@@ -22,8 +22,8 @@ const SpacingDemo = () => {
             <Divider spacing="none" />
             <p className={rowStyle}>small</p>
             <Divider spacing="small" />
-            <p className={rowStyle}>middle（默认）</p>
-            <Divider spacing="middle" />
+            <p className={rowStyle}>medium（默认）</p>
+            <Divider spacing="medium" />
             <p className={rowStyle}>large — 留白最大, 分组感最强</p>
             <Divider spacing="large" />
             <p className={rowStyle}>末段</p>

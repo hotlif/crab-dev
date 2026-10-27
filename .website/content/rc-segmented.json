@@ -19,12 +19,12 @@
         {
             "id": "step-2",
             "title": "驱动视图",
-            "goal": "将 value 与 onChange 连接到统计粒度。",
+            "goal": "将 value 与 onValueChange 连接到统计粒度。",
             "why": "分段控件负责选择值，业务代码根据值决定展示内容。",
             "instruction": "切换到月。",
             "expected": "选中项和统计说明同时变为月。",
             "changes": [
-                "将 value 与 onChange 连接到统计粒度。"
+                "将 value 与 onValueChange 连接到统计粒度。"
             ],
             "source": "rc-segmented/step-2.tsx"
         }

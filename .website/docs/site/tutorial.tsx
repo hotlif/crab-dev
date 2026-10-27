@@ -314,7 +314,7 @@ export default function Tutorial({ tutorial }: { readonly tutorial: TutorialReco
                             <span>运行效果</span>
                             <Button
                                 appearance="text"
-                                size="small"
+                                size="s"
                                 aria-label="重置当前示例"
                                 aria-controls={`${panelId}-preview`}
                                 onClick={reset}

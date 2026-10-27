@@ -19,12 +19,12 @@
         {
             "id": "step-2",
             "title": "勾选筛选项",
-            "goal": "通过 CheckableTag 的 checked 与 onChange 管理筛选值。",
+            "goal": "通过 CheckableTag 的 checked 与 onCheckedChange 管理筛选值。",
             "why": "标签帮助用户识别分类；可勾选标签还可以作为筛选条件。",
             "instruction": "勾选标签后再次取消。",
             "expected": "筛选说明随选中状态变化。",
             "changes": [
-                "通过 CheckableTag 的 checked 与 onChange 管理筛选值。"
+                "通过 CheckableTag 的 checked 与 onCheckedChange 管理筛选值。"
             ],
             "source": "rc-tag/step-2.tsx"
         }

@@ -58,16 +58,20 @@ const rows: SampleRow[] = Array.from({ length: 30 }, (_, index) => ({
 
 export default function SizeShowcase() {
     const site = use(SiteContext);
-    const [size, setSize] = useState<ConfigSize>('middle');
+    const [size, setSize] = useState<ConfigSize>('medium');
+    const [density, setDensity] = useState<'compact' | 'standard' | 'comfortable'>('standard');
     return <div className={stackStyle}>
         <Segmented
             aria-label="界面尺寸"
-            size="middle"
+            size="medium"
             value={size}
-            options={[{ value: 'small', label: '紧凑' }, { value: 'middle', label: '标准' }, { value: 'large', label: '宽松' }]}
-            onChange={value => { if (value === 'small' || value === 'middle' || value === 'large') setSize(value); }}
+            options={[{ value: 'small', label: '小' }, { value: 'medium', label: '中' }, { value: 'large', label: '大' }]}
+            onValueChange={value => { if (value === 'small' || value === 'medium' || value === 'large') setSize(value); }}
         />
-        <ConfigProvider size={size} theme={site?.theme.resolved} className={stackStyle} aria-label="尺寸演示区域">
+        <Segmented aria-label="界面密度" value={density}
+            options={[{ value: 'compact', label: '紧凑' }, { value: 'standard', label: '标准' }, { value: 'comfortable', label: '宽松' }]}
+            onValueChange={value => { if (value === 'compact' || value === 'standard' || value === 'comfortable') setDensity(value); }} />
+        <ConfigProvider size={size} density={density} colorMode={site?.theme.resolved} className={stackStyle} aria-label="尺寸演示区域">
             <Card title="任务筛选">
                 <div className={stackStyle}>
                     <div className={fieldsStyle}>
@@ -81,7 +85,7 @@ export default function SizeShowcase() {
                         <Radio name="size-demo-scope" defaultChecked>当前项目</Radio>
                         <Switch>自动刷新</Switch>
                         <Button>查询</Button>
-                        <Button size="large" appearance="text">固定 large</Button>
+                        <Button size="l" appearance="text">固定 large</Button>
                     </div>
                 </div>
             </Card>
@@ -98,7 +102,7 @@ export default function SizeShowcase() {
             </div>
             <Pagination total={300} showQuickJumper />
             <Menu mode="horizontal" items={[{ type: MenuItemType.Item, key: 'overview', title: '项目概览' }, { type: MenuItemType.Item, key: 'activity', title: '活动记录' }]} />
-            <ConfigProvider size="middle" className={rowStyle} aria-label="固定标准尺寸区域">
+            <ConfigProvider size="medium" className={rowStyle} aria-label="固定标准尺寸区域">
                 <Button appearance="outlined">始终使用标准尺寸</Button>
             </ConfigProvider>
         </ConfigProvider>

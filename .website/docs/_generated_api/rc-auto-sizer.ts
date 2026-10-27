@@ -15,16 +15,21 @@ export interface AutoSizerProps {
     "children": (size: Size) => ReactNode;
 
     /**
+     * SSR 或首帧渲染时的默认宽度，ResizeObserver 触发后自动替换。
+     * @default 0
+     */
+    "defaultWidth"?: number;
+
+    /**
      * SSR 或首帧渲染时的默认高度，ResizeObserver 触发后自动替换。
      * @default 0
      */
     "defaultHeight"?: number;
 
     /**
-     * SSR 或首帧渲染时的默认宽度，ResizeObserver 触发后自动替换。
-     * @default 0
+     * 容器尺寸变化时的回调，与子渲染函数收到的 size 一致。
      */
-    "defaultWidth"?: number;
+    "onResize"?: (size: Size) => void;
 
     /**
      * 禁用高度自动测量，始终返回 defaultHeight 给子渲染函数。 适合只需感知宽度的场景（如水平虚拟列表）。
@@ -37,9 +42,4 @@ export interface AutoSizerProps {
      * @default false
      */
     "disableWidth"?: boolean;
-
-    /**
-     * 容器尺寸变化时的回调，与子渲染函数收到的 size 一致。
-     */
-    "onResize"?: (size: Size) => void;
 }

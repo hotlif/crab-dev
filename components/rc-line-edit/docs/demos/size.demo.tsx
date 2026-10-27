@@ -9,7 +9,7 @@ import LineEdit from "../../src/index.js";
 
 const SizeDemo = () => {
     const controlId = useId();
-    const [size, setSize] = useState<"large" | "middle" | "small">("middle");
+    const [size, setSize] = useState<"large" | "medium" | "small">("medium");
 
     return (
         <div
@@ -30,11 +30,11 @@ const SizeDemo = () => {
                     id={controlId}
                     value={size}
                     onChange={(e) =>
-                        setSize(e.target.value as "large" | "middle" | "small")
+                        setSize(e.target.value as "large" | "medium" | "small")
                     }
                 >
                     <option value="large">Large</option>
-                    <option value="middle">Middle</option>
+                    <option value="medium">Medium</option>
                     <option value="small">Small</option>
                 </select>
             </div>

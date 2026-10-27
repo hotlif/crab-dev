@@ -4,8 +4,10 @@ import Alert from '@crab-dev/rc-alert';
 import Button from '@crab-dev/rc-button';
 import { useEventCallback } from '@crab-dev/rc-hooks';
 import Spin from '@crab-dev/rc-spin';
+import { useLocale } from '@crab-dev/rc-config-provider';
 
 import { RealmErrorBoundary } from './errorBoundary.js';
+import { createBuiltinRealmError, getRealmErrorMessage } from './errorMessages.js';
 import { loadRemoteModule } from './loader.js';
 import { applyStyleSheets, ensureShadowRoot } from './sandbox.js';
 import token from './token.js';
@@ -99,21 +101,19 @@ function pickRemote<P extends RealmRemoteProps>(
         ) {
             return { kind: 'mount', lifecycle: candidate as MountLifecycle<P> };
         }
-        throw new RealmError(
-            'protocol',
+        throw createBuiltinRealmError(
             entry,
             scope,
-            `远程导出 '${exportName}' 不含 mount() 生命周期；若远程导出的是 React 组件, 请改用 protocol="component"`,
+            { id: 'mount-protocol', exportName },
         );
     }
     if (isComponentLike(candidate)) {
         return { kind: 'component', Component: candidate as ComponentType<P> };
     }
-    throw new RealmError(
-        'protocol',
+    throw createBuiltinRealmError(
         entry,
         scope,
-        `远程导出 '${exportName}' 不是 React 组件；若远程导出 mount/unmount 生命周期, 请改用 protocol="mount"`,
+        { id: 'component-protocol', exportName },
     );
 }
 
@@ -121,13 +121,9 @@ const toRealmError = (cause: unknown, entry: string, scope: string): RealmError 
     if (cause instanceof RealmError) {
         return cause;
     }
-    return new RealmError(
-        'factory',
-        entry,
-        scope,
-        cause instanceof Error ? cause.message : '远程模块加载失败',
-        { cause },
-    );
+    return cause instanceof Error
+        ? new RealmError('factory', entry, scope, cause.message, { cause })
+        : createBuiltinRealmError(entry, scope, { id: 'load' }, { cause });
 };
 
 /* ────────────────────────────────── 组件 ────────────────────────────────── */
@@ -143,6 +139,10 @@ const toRealmError = (cause: unknown, entry: string, scope: string): RealmError 
  * - 加载态复用 rc-spin（`delay` 防闪烁）, 错误态复用 rc-alert + rc-button 重试
  */
 function Realm<P extends RealmRemoteProps>(props: RealmProps<P>): ReactNode {
+    const { locale } = useLocale();
+    const copy = locale === 'en-US'
+        ? { loading: 'Loading remote module', failure: 'Unable to load remote module', retry: 'Retry' }
+        : { loading: '正在加载远程模块', failure: '远程模块加载失败', retry: '重试' };
     const {
         entry,
         scope,
@@ -156,7 +156,7 @@ function Realm<P extends RealmRemoteProps>(props: RealmProps<P>): ReactNode {
         sandbox,
         styleSheets,
         delay = 300,
-        tip = '正在加载远程模块',
+        tip = copy.loading,
         fallback,
         errorFallback,
         onReady,
@@ -189,7 +189,7 @@ function Realm<P extends RealmRemoteProps>(props: RealmProps<P>): ReactNode {
         onReady?.();
     });
     const handleRenderError = useEventCallback((cause: unknown) => {
-        handleError(new RealmError('render', entry, scope, '远程组件渲染时抛出异常', { cause }));
+        handleError(createBuiltinRealmError(entry, scope, { id: 'render' }, { cause }));
     });
 
     useEffect(() => {
@@ -259,7 +259,7 @@ function Realm<P extends RealmRemoteProps>(props: RealmProps<P>): ReactNode {
                 cleanup = result;
             }
         } catch (cause) {
-            handleError(new RealmError('render', entry, scope, '远程模块 mount() 抛出异常', { cause }));
+            handleError(createBuiltinRealmError(entry, scope, { id: 'mount' }, { cause }));
             return;
         }
         lifecycleHandleRef.current = { lifecycle, container, props: remoteProps as P | undefined };
@@ -300,14 +300,14 @@ function Realm<P extends RealmRemoteProps>(props: RealmProps<P>): ReactNode {
         ) : (
             <Alert
                 type="error"
-                title="远程模块加载失败"
+                title={copy.failure}
                 action={
-                    <Button appearance="subtle" size="small" onClick={retry}>
-                        重试
+                    <Button appearance="outlined" size="xs" onClick={retry}>
+                        {copy.retry}
                     </Button>
                 }
             >
-                {error.message}
+                {getRealmErrorMessage(error, locale)}
             </Alert>
         );
 

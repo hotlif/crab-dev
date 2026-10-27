@@ -1,6 +1,6 @@
-import { useComponentSize } from '@crab-dev/rc-config-provider';
+import { useComponentSize, useLocale } from '@crab-dev/rc-config-provider';
 import { css, cx } from "@crab-dev/css";
-import LineEdit from "@crab-dev/rc-line-edit";
+import LineEdit, { type LineEditChangeDetails } from "@crab-dev/rc-line-edit";
 import { useEffect, useId, useLayoutEffect, useRef, useState } from "react";
 import type { ChangeEvent, FocusEvent, KeyboardEvent, MouseEvent, Ref } from "react";
 
@@ -19,7 +19,7 @@ import {
     toScientificParts,
     toScientificString,
 } from "./format.js";
-import type { NumberEditProps } from "./types.js";
+import type { NumberEditChangeDetails, NumberEditProps } from "./types.js";
 
 // 合并多个 ref（用户外部 ref + 组件内部 ref）到单一 callback ref。
 // 模块级纯函数，稳定引用由 React Compiler 记忆化。
@@ -39,6 +39,21 @@ function setRefs<T>(...refs: (Ref<T> | undefined)[]) {
 const rootStyle = css`
     position: relative;
     display: inline-block;
+`;
+
+// Keep the unit clear of the stepper's external focus ring in either inline
+// direction. The empty value slot takes no space when only controls are shown.
+const suffixControlsStyle = css`
+    display: inline-flex;
+    align-items: center;
+    flex-shrink: 0;
+    gap: ${token.icon.gap};
+`;
+
+const suffixValueStyle = css`
+    display: inline-flex;
+    align-items: center;
+    &:empty { display: none; }
 `;
 
 // Hide only the native input's visual contents; its value and accessible semantics stay intact.
@@ -70,6 +85,7 @@ function NumberEdit(props: NumberEditProps) {
         value,
         defaultValue,
         onChange,
+        onValueChange,
         min = -Infinity,
         max = Infinity,
         step = 1,
@@ -101,6 +117,7 @@ function NumberEdit(props: NumberEditProps) {
         ...rest
     } = props;
     const size = useComponentSize(sizeProp);
+    const { messages } = useLocale();
 
     const generatedInputId = useId();
     const inputId = id ?? generatedInputId;
@@ -133,7 +150,7 @@ function NumberEdit(props: NumberEditProps) {
     const showOverlay = !focused && !formatter && numeric != null && useSci;
     const sciParts = showOverlay && numeric != null ? toScientificParts(numeric, precision) : null;
     const ariaValueText = sciParts
-        ? `${sciParts.mantissa} 乘以 10 的 ${sciParts.exponent} 次方`
+        ? messages.fields.scientificValue(sciParts.mantissa, sciParts.exponent)
         : undefined;
 
     // 失焦态：formatter > 空 > 科学计数法(e记法，被覆盖层遮盖) > 普通十进制(可千分位)
@@ -148,23 +165,23 @@ function NumberEdit(props: NumberEditProps) {
                     ? toScientificString(numeric, precision)
                     : formatPlain(numeric, { precision, thousandSeparator: sepNorm, decimalSeparator });
 
-    const commit = (next: number | null): void => {
+    const commit = (next: number | null, reason: 'step' | 'clear' | 'blur', event?: NumberEditChangeDetails['event']): void => {
         if (!isControlled) {
             setInternalValue(next);
         }
         if (!Object.is(next, numeric)) {
-            onChange?.(next);
+            onValueChange?.(next, { reason, ...(event ? { event } : {}) });
         }
     };
 
-    const doStep = (direction: 1 | -1, large: boolean): void => {
+    const doStep = (direction: 1 | -1, large: boolean, event?: NumberEditChangeDetails['event']): void => {
         if (disabled || readOnly) {
             return;
         }
         const delta = (large ? effLargeStep : step) * direction;
         const effectivePrecision = precision ?? Math.max(stepPrecision, countDecimalPlaces(stepBase));
         const next = clamp(applyPrecision(stepBase + delta, effectivePrecision), min, max);
-        commit(next);
+        commit(next, 'step', event);
         if (focused) {
             const nextSci = shouldUseScientific(next, scientific, scientificThreshold);
             setInputText(formatEditing(next, { useScientific: nextSci, precision, decimalSeparator }));
@@ -187,15 +204,16 @@ function NumberEdit(props: NumberEditProps) {
         setFocused(false);
         const parsed = parseNumber(inputText, { decimalSeparator, thousandSeparator: sepNorm, parser });
         if (parsed == null) {
-            commit(null);
+            commit(null, 'blur', e);
         } else {
-            commit(applyPrecision(clamp(parsed, min, max), precision));
+            commit(applyPrecision(clamp(parsed, min, max), precision), 'blur', e);
         }
         onBlur?.(e);
     };
 
     const handleInputChange = (e: ChangeEvent<HTMLInputElement>): void => {
         setInputText(e.target.value);
+        onChange?.(e);
     };
 
     const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>): void => {
@@ -203,19 +221,19 @@ function NumberEdit(props: NumberEditProps) {
             switch (e.key) {
                 case "ArrowUp":
                     e.preventDefault();
-                    doStep(1, e.shiftKey);
+                    doStep(1, e.shiftKey, e);
                     break;
                 case "ArrowDown":
                     e.preventDefault();
-                    doStep(-1, e.shiftKey);
+                    doStep(-1, e.shiftKey, e);
                     break;
                 case "PageUp":
                     e.preventDefault();
-                    doStep(1, true);
+                    doStep(1, true, e);
                     break;
                 case "PageDown":
                     e.preventDefault();
-                    doStep(-1, true);
+                    doStep(-1, true, e);
                     break;
                 default:
                     break;
@@ -224,10 +242,11 @@ function NumberEdit(props: NumberEditProps) {
         onKeyDown?.(e);
     };
 
-    const handleClear = (): void => {
-        commit(null);
-        setInputText("");
-        onClear?.();
+    const handleShellValueChange = (_value: string, details: LineEditChangeDetails): void => {
+        if (details.reason === 'clear') {
+            commit(null, 'clear', details.event);
+            setInputText("");
+        }
     };
 
     const focusInput = (): void => {
@@ -253,7 +272,7 @@ function NumberEdit(props: NumberEditProps) {
                 return;
             }
             e.preventDefault();
-            s.doStep(e.deltaY < 0 ? 1 : -1, e.shiftKey);
+            s.doStep(e.deltaY < 0 ? 1 : -1, e.shiftKey, e);
         };
         input.addEventListener("wheel", onWheel, { passive: false });
         return () => input.removeEventListener("wheel", onWheel);
@@ -301,20 +320,20 @@ function NumberEdit(props: NumberEditProps) {
     const upDisabled = Number.isFinite(max) && stepBase >= max;
     const downDisabled = Number.isFinite(min) && stepBase <= min;
 
-    // 步进器待在输入框内右侧（rc-line-edit 的 suffix 槽），随输入框走
+    // 步进器在字段的逻辑末端，单位与按钮共同复用 LineEdit 的 suffix 槽。
     const composedSuffix = controls ? (
-        <>
-            {suffix}
+        <span className={suffixControlsStyle}>
+            <span className={suffixValueStyle}>{suffix}</span>
             <Stepper
                 size={size}
                 inputId={inputId}
-                onStart={spinner.start}
+                onStart={(direction, event) => spinner.start(direction, false, event)}
                 onStop={spinner.stop}
                 upDisabled={upDisabled}
                 downDisabled={downDisabled}
                 disabled={!!disabled || !!readOnly}
             />
-        </>
+        </span>
     ) : (
         suffix
     );
@@ -333,8 +352,9 @@ function NumberEdit(props: NumberEditProps) {
                 prefix={prefix}
                 suffix={composedSuffix}
                 allowClear={allowClear}
-                onClear={handleClear}
+                onClear={onClear}
                 value={displayValue}
+                onValueChange={handleShellValueChange}
                 onChange={handleInputChange}
                 onFocus={handleFocus}
                 onBlur={handleBlur}

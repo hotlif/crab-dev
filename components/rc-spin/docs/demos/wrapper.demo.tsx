@@ -5,7 +5,7 @@ export const meta = {
 
 import { css } from '@crab-dev/css';
 import { useState } from 'react';
-import Button from '@crab-dev/rc-button';
+import Switch from '@crab-dev/rc-switch';
 import token from '@crab-dev/rc-token-semantic';
 import Spin from '../../src/index.js';
 
@@ -39,17 +39,15 @@ const WrapperDemo = () => {
 
     return (
         <div className={stackStyle}>
-            <Button appearance="subtle" onClick={() => setSpinning((prev) => !prev)}>
-                {spinning ? '结束加载' : '开始加载'}
-            </Button>
+            <Switch checked={spinning} onCheckedChange={setSpinning}>加载状态</Switch>
 
             <Spin spinning={spinning} tip="正在保存">
                 <div className={panelStyle}>
                     <h4 className={titleStyle}>草稿</h4>
                     <p className={bodyStyle}>
-                        加载期间试着用 Tab 键聚焦下面的按钮 —— 焦点不会落进来。
+                        加载期间试着用 Tab 键聚焦下面的开关 —— 焦点不会落进来。
                     </p>
-                    <Button>提交</Button>
+                    <Switch defaultChecked>自动保存草稿</Switch>
                 </div>
             </Spin>
         </div>

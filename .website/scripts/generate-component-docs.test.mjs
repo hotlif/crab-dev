@@ -1,27 +1,39 @@
 import assert from "node:assert/strict";
 import { access, mkdir, mkdtemp, rm, writeFile, readFile, readdir } from "node:fs/promises";
 import { parse } from "@babel/parser";
+import { execFileSync } from "node:child_process";
+import { createRequire } from "node:module";
+import { loadLibraryManifest } from "../../scripts/library-manifest.mjs";
 import { createTokenReferenceData, readGlobalTokens } from "./generate-token-reference.mjs";
+import { isComponentDocsSource } from "./docs-source-watch.mjs";
 import { tmpdir } from "node:os";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { validateTutorial, assertExampleImports, loadTutorial, tutorialMarkup, validateTeachingInventory, createLearningMap, createHomeExample } from "./generate-tutorials.mjs";
 
 import {
     componentGuideMarkup,
     createComponentPreviews,
+    createLibraryNavigation,
+    createDependencyRecords,
+    createDesignCoverage,
     createDemoSearchMetadata,
     createPage,
     createSearchableApiSource,
+    splitApiRecord,
     densityFor,
     extractDemoMeta,
     extractDemoLearning,
+    extractApiRecord,
     isValidTypeText,
     layoutFor,
     normalizeApiProps,
+    organizeDemos,
     parseSourceApiProps,
     removeOrphanGeneratedFiles,
     resolveApiSourcePath,
     validateComponentGuide,
+    withGeneratedFileRetry,
 } from "./generate-component-docs.mjs";
 
 const temporaryDirectory = await mkdtemp(path.join(tmpdir(), "crab-docs-generator-"));
@@ -31,10 +43,87 @@ function test(name, run) {
     tests.push({ name, run });
 }
 
+test("Windows 生成文件短暂访问冲突有限重试，非临时错误直接失败", async () => {
+    let attempts = 0;
+    assert.equal(await withGeneratedFileRetry(async () => {
+        if (++attempts < 3) throw Object.assign(new Error("Transient sharing conflict"), { code: "UNKNOWN" });
+        return "written";
+    }, "win32"), "written");
+    assert.equal(attempts, 3);
+    await assert.rejects(() => withGeneratedFileRetry(async () => { throw Object.assign(new Error("missing"), { code: "ENOENT" }); }, "win32"), /missing/);
+    await assert.rejects(() => withGeneratedFileRetry(async () => { throw Object.assign(new Error("not a Windows conflict"), { code: "UNKNOWN" }); }, "linux"), /not a Windows conflict/);
+});
+
+test("增量来源包含真实类型和跨包状态源码，排除测试与令牌产物", () => {
+    for (const source of ["rc-button/src/types.ts", "rc-hooks/src/useControllableState.ts", "rc-checkbox/src/group/group.tsx", "rc-button/docs/index.mdx", "rc-button/public/docgen.json", "rc-button/package.json", "rc-button/token.toml"]) {
+        assert.equal(isComponentDocsSource(source), true, source);
+        assert.equal(isComponentDocsSource(source.replaceAll("/", "\\")), true, source);
+    }
+    for (const ignored of ["rc-button/src/token.ts", "rc-button/src/__tests__/button.test.tsx", "rc-button/src/group/__tests__/group.test.tsx", "rc-button/esm/index.js", "rc-button/coverage/result.ts"]) {
+        assert.equal(isComponentDocsSource(ignored), false, ignored);
+    }
+});
+
+test("依赖图从真实角色来源生成三类边，排除自身与清单外依赖", () => {
+    const packages = ["a", "b", "c"].map(slug => ({ name: `@crab-dev/rc-${slug}`, slug: `rc-${slug}`, title: slug, family: "base", packageJson: {} }));
+    packages[0].packageJson = { dependencies: { "@crab-dev/rc-b": "workspace:^", react: "*" }, crab: { docsDependencies: ["@crab-dev/rc-c"] } };
+    const inspection = new Map(packages.map(item => [item.name, { productionImports: new Set(), docsImports: new Set(), tokenImports: new Set() }]));
+    inspection.set(packages[0].name, { productionImports: new Set([packages[0].name, packages[1].name]), docsImports: new Set([packages[1].name]), tokenImports: new Set([packages[2].name]) });
+    const graph = createDependencyRecords({ packages }, inspection);
+    assert.deepEqual(graph[0].production, ["rc-b"]);
+    assert.deepEqual(graph[0].docs, ["rc-b", "rc-c"]);
+    assert.deepEqual(graph[0].token, ["rc-c"]);
+    assert.deepEqual(graph[1].production, []);
+});
+
+test("导航与覆盖矩阵从产品清单派生能力族、完整包集合和独立用途", async () => {
+    const manifest = await loadLibraryManifest();
+    const navigation = createLibraryNavigation(manifest);
+    const referenced = [...navigation.matchAll(/"components\/(rc-[^"]+)"/g)].map(match => match[1]);
+    assert.deepEqual([...referenced].sort(), manifest.packages.map(item => item.slug).sort());
+    assert.equal(new Set(referenced).size, referenced.length);
+    for (const family of manifest.families) assert.ok(navigation.includes(`id = ${JSON.stringify(family.id)}`));
+    assert.ok(navigation.includes('id = "design"'));
+    const coverage = createDesignCoverage(manifest);
+    assert.ok(coverage.includes(`${manifest.packages.length} 个包`));
+    for (const product of manifest.packages) {
+        assert.ok(coverage.includes(`[${product.title}](/components/${product.slug})`));
+        assert.ok(coverage.includes(manifest.categories.find(item => item.id === product.category).title));
+    }
+    assert.ok(coverage.includes("历史截图不能自动提升当前覆盖状态"));
+});
+
 test("静态 Demo 元数据支持 TSX、satisfies 和常量断言，拒绝动态值", () => {
     const source = 'export const meta = ({ title: "标题", description: `说明` } as const) satisfies Meta; export default () => <div />;';
     assert.deepEqual(extractDemoMeta(source, "example.tsx"), { title: "标题", description: "说明" });
     assert.throws(() => extractDemoMeta('export const meta = { title: getTitle(), description: "说明" };', "dynamic.tsx"), /必须是静态字符串/);
+});
+
+test("真实 Demo 与教学文案拒绝机械迁移产生的错误主题 data 属性", async () => {
+    const invalidAttribute = /\bdata-(?:crab-designSystem|colorMode)\b/i;
+    for (const attribute of ["data-crab-designSystem", "data-colorMode", "data-colormode"]) {
+        assert.match(`<section ${attribute}="dark" />`, invalidAttribute);
+    }
+    assert.doesNotMatch('<ConfigProvider designSystem="md3" colorMode="dark"><section data-crab-design="apple" data-theme="light" data-request-id="example" /></ConfigProvider>', invalidAttribute);
+
+    const manifest = await loadLibraryManifest();
+    const scopes = [
+        { kind: "teaching", directory: fileURLToPath(new URL("../content/", import.meta.url)), accepts: file => file.endsWith(".json") },
+        { kind: "example", directory: fileURLToPath(new URL("../docs/examples/", import.meta.url)), accepts: file => file.endsWith(".tsx") },
+        ...manifest.packages.map(product => ({ kind: "demo", directory: path.join(product.directory, "docs/demos"), accepts: file => file.endsWith(".demo.tsx") })),
+    ];
+    const inspected = { teaching: 0, example: 0, demo: 0 };
+    for (const scope of scopes) {
+        let files;
+        try { files = await readdir(scope.directory, { recursive: true }); }
+        catch (error) { if (error.code === "ENOENT") continue; throw error; }
+        for (const file of files.filter(scope.accepts)) {
+            const sourcePath = path.join(scope.directory, file);
+            assert.doesNotMatch(await readFile(sourcePath, "utf8"), invalidAttribute, sourcePath);
+            inspected[scope.kind]++;
+        }
+    }
+    for (const [kind, count] of Object.entries(inspected)) assert.ok(count > 0, `Expected actual ${kind} sources`);
 });
 
 test("API 提取保留工具类型、方法泛型、说明和弃用标记", async () => {
@@ -60,6 +149,48 @@ export type Props = Partial<Pick<Base, "value">> & Required<Omit<Base, "value" |
     assert.equal(props[2].typeText, "<T extends string>(value: T) => Promise<T>");
     const searchable = createSearchableApiSource({ component: "Example", symbol: "Props", props });
     assert.doesNotMatch(searchable, /type T =/);
+});
+
+test("来源提取递归 re-export 和泛型参数，并保留受控互斥约束", async () => {
+    const directory = path.join(temporaryDirectory, "generic-controlled");
+    await mkdir(directory, { recursive: true });
+    await writeFile(path.join(directory, "state.ts"), `export type State<T, D> =
+        | { value?: T; defaultValue?: never; onValueChange?: (next: T, details: D) => void }
+        | { value?: never; defaultValue?: T; onValueChange?: (next: T, details: D) => void };`);
+    await writeFile(path.join(directory, "barrel.ts"), 'export type { State as ControlledState } from "./state.js";');
+    const sourcePath = path.join(directory, "props.ts");
+    await writeFile(sourcePath, `import type { ControlledState } from './barrel.js';
+        interface Base { size?: 'small' | 'medium' | 'large'; }
+        interface Details { reason: 'input'; }
+        export type Props = Base & ControlledState<Array<string | number>, Details>;`);
+    const props = parseSourceApiProps(sourcePath, "Props");
+    const byName = Object.fromEntries(props.map(prop => [prop.name, prop]));
+    assert.equal(byName.value.typeText, "Array<string | number>");
+    assert.equal(byName.defaultValue.typeText, "Array<string | number>");
+    assert.ok(byName.onValueChange.typeText.includes("details: Details"));
+    assert.deepEqual(byName.value.exclusiveWith, ["defaultValue"]);
+    const normalized = normalizeApiProps([], props, "generic fixture");
+    assert.ok(normalized.find(prop => prop.name === "value").description.includes("defaultValue 互斥"));
+    const synthesized = createSearchableApiSource({ component: "Example", symbol: "Props", props: normalized });
+    parse(synthesized, { sourceType: "module", plugins: ["typescript"] });
+});
+
+test("真实 Button 与 workspace Controlled 状态的 value/checked/open/size 可自动聚合", async () => {
+    const required = {
+        "rc-button": ["size", "appearance", "href", "onClick"],
+        "rc-checkbox": ["size", "checked", "defaultChecked", "onCheckedChange"],
+        "rc-line-edit": ["size", "value", "defaultValue", "onValueChange"],
+        "rc-dialog": ["open", "defaultOpen", "onOpenChange"],
+    };
+    for (const [slug, fields] of Object.entries(required)) {
+        const componentDirectory = fileURLToPath(new URL(`../../components/${slug}/`, import.meta.url));
+        const mdxPath = path.join(componentDirectory, "docs/index.mdx");
+        const api = await extractApiRecord(componentDirectory, await readFile(mdxPath, "utf8"), mdxPath);
+        for (const name of fields) assert.ok(api.props.some(prop => prop.name === name), `${slug}: 缺少 ${name}`);
+        if (slug === "rc-checkbox") assert.ok(api.props.find(prop => prop.name === "checked").description.includes("defaultChecked"));
+        if (slug === "rc-button") assert.ok(api.props.find(prop => prop.name === "size").typeText.includes("xl"));
+        if (slug === "rc-line-edit") assert.ok(api.props.find(prop => prop.name === "onValueChange").typeText.includes("string"));
+    }
 });
 
 test("API 类型校验接受复杂类型并拒绝不完整语法或额外声明", () => {
@@ -149,12 +280,14 @@ test("顶部真实预览索引拒绝空演示、失效例外和重复组件", ()
     assert.throws(() => createComponentPreviews([record, record]), /顶部预览组件重复：rc-button/);
 });
 
-test("生成的顶部真实预览索引覆盖全部 54 个组件，并使用对应工作台演示地址", async () => {
+test("生成的顶部真实预览索引覆盖完整产品清单，并使用对应工作台演示地址", async () => {
+    const manifest = await loadLibraryManifest();
     const navigation = await readFile(new URL("../docs/navigation.toml", import.meta.url), "utf8");
     const slugs = [...navigation.matchAll(/"components\/(rc-[^"]+)"/g)].map(match => match[1]).sort();
     const source = await readFile(new URL("../docs/_generated/component-previews.ts", import.meta.url), "utf8");
     const previews = readComponentPreviewRecords(source);
-    assert.equal(slugs.length, 54);
+    assert.equal(slugs.length, manifest.packages.length);
+    assert.deepEqual(slugs, manifest.packages.map(item => item.slug).sort());
     assert.deepEqual(Object.keys(previews).sort(), slugs);
     for (const slug of slugs) {
         const preview = previews[slug];
@@ -231,6 +364,10 @@ test("docgen 为空或类型串列时使用源码 API，并为缺失说明提供
 
 test("逐属性合并源码与 docgen，并保留跨文件继承的合法属性", async () => {
     const sourcePath = path.join(temporaryDirectory, "mixed-types.ts");
+    await writeFile(path.join(temporaryDirectory, "imported.ts"), `export interface ImportedProps {
+        instance?: RefObject<DatePanelInstance | null>;
+        onSelect?: (values: Temporal.ZonedDateTime[]) => void;
+    }`, "utf8");
     await writeFile(sourcePath, `
 import type { ImportedProps } from "./imported.js";
 export interface DateProps extends ImportedProps {
@@ -277,10 +414,70 @@ export interface DateProps extends ImportedProps {
     ];
 
     const props = normalizeApiProps(docgenProps, sourceProps, "fixture/docgen.json");
-    assert.deepEqual(props.map((prop) => prop.name), ["local", "range", "instance", "onSelect"]);
+    assert.deepEqual(props.map((prop) => prop.name), ["instance", "onSelect", "local", "range"]);
     assert.equal(props.find((prop) => prop.name === "range")?.typeText, "{ start?: string; end?: string; }");
     assert.equal(props.find((prop) => prop.name === "instance")?.typeText, "RefObject<DatePanelInstance | null>");
     assert.equal(props.find((prop) => prop.name === "onSelect")?.typeText, "(values: Temporal.ZonedDateTime[]) => void");
+});
+
+test("旧 docgen 不得把已移除业务属性重新带回公开 API", () => {
+    const props = normalizeApiProps([
+        { name: "current", required: false, typeText: "number", description: "旧页码" },
+        { name: "value", required: false, typeText: "number", defaultValue: "1", description: "当前页码" },
+    ], [{ name: "value", required: false, typeText: "number", description: "当前值" }], "stale fixture");
+    assert.deepEqual(props.map(prop => prop.name), ["value"]);
+    assert.equal(props[0].defaultValue, "1");
+    assert.equal(props[0].description, "当前值");
+});
+
+test("接口自身覆盖继承字段时保留收窄类型，不误并为更宽的联合", async () => {
+    const sourcePath = path.join(temporaryDirectory, "override.ts");
+    await writeFile(sourcePath, "interface Base { value?: string; size?: number; } export interface Props extends Base { value?: 'a' | 'b'; }");
+    const props = parseSourceApiProps(sourcePath, "Props");
+    assert.equal(props.find(prop => prop.name === "value").typeText, "'a' | 'b'");
+    assert.equal(props.find(prop => prop.name === "size").typeText, "number");
+});
+
+test("开发增量生成按内容失效类型缓存，不保留旧源码", async () => {
+    const sourcePath = path.join(temporaryDirectory, "incremental.ts");
+    await writeFile(sourcePath, "export interface Props { value?: string; }");
+    assert.equal(parseSourceApiProps(sourcePath, "Props")[0].typeText, "string");
+    await writeFile(sourcePath, "export interface Props { value?: number; }");
+    assert.equal(parseSourceApiProps(sourcePath, "Props")[0].typeText, "number");
+});
+
+test("Cron 原生 Pick 字段从真实 React 类型导出，onChange 保留 DOM 事件", async () => {
+    const directory = fileURLToPath(new URL("../../components/rc-cron-picker/", import.meta.url));
+    const mdxPath = path.join(directory, "docs/index.mdx");
+    const api = await extractApiRecord(directory, await readFile(mdxPath, "utf8"), mdxPath);
+    for (const name of ["id", "name", "required", "readOnly", "aria-labelledby", "aria-describedby", "aria-invalid", "onChange", "onInput", "onFocus", "onBlur"]) {
+        assert.ok(api.props.some(prop => prop.name === name), `缺少 ${name}`);
+    }
+    assert.match(api.props.find(prop => prop.name === "onChange").typeText, /ChangeEventHandler<HTMLInputElement(?:, HTMLInputElement)?>/);
+    assert.doesNotMatch(api.props.find(prop => prop.name === "onChange").typeText, /value: string/);
+});
+
+test("继承原生属性按真实声明来源折叠，组件语义及覆盖属性常显且完整保留", async () => {
+    const directory = fileURLToPath(new URL("../../components/rc-card/", import.meta.url));
+    const mdxPath = path.join(directory, "docs/index.mdx");
+    const source = await readFile(mdxPath, "utf8");
+    const api = await extractApiRecord(directory, source, mdxPath);
+    const { primary, native } = splitApiRecord(api, "rc-card");
+    for (const name of ["variant", "size", "title", "onClick", "children", "ref"]) {
+        assert.ok(primary.props.some(prop => prop.name === name), `${name} 必须常显`);
+        assert.ok(!native.props.some(prop => prop.name === name), `${name} 不应重复折叠`);
+    }
+    for (const name of ["aria-label", "id", "className", "onKeyDown"]) {
+        assert.ok(native.props.some(prop => prop.name === name), `${name} 完整保留`);
+    }
+    assert.deepEqual([...primary.props, ...native.props].map(prop => prop.name).sort(), api.props.map(prop => prop.name).sort());
+    assert.equal(primary.props.length + native.props.length, api.props.length);
+    const page = createPage(source, "rc-card", [], api);
+    const beforeDisclosure = page.slice(page.indexOf("## API"), page.indexOf("<details data-docs-native-props>"));
+    assert.match(beforeDisclosure, /symbol="CardProps"/);
+    assert.match(page, /<details data-docs-native-props>\n<summary>Card 继承的原生属性（\d+ 项）<\/summary>/);
+    assert.match(page, /symbol="CardPropsNativeAttributes"/);
+    assert.doesNotMatch(page, /<details[^>]*\sopen(?:[\s=>])/);
 });
 
 test("生成器维护注释不会成为公开 API 的文档说明", () => {
@@ -379,6 +576,35 @@ status = "experimental"
     assert.doesNotMatch(page, /ComponentApi/);
 });
 
+test("真实 React 原生说明中的撇号可通过 Wake Docs API 构建", async () => {
+    const componentDirectory = fileURLToPath(new URL("../../components/rc-alert/", import.meta.url));
+    const mdxPath = path.join(componentDirectory, "docs/index.mdx");
+    const api = await extractApiRecord(componentDirectory, await readFile(mdxPath, "utf8"), mdxPath);
+    const source = createSearchableApiSource(api);
+    assert.ok(source.includes("element’s"));
+    const temporaryRoot = fileURLToPath(new URL("../.tmp/", import.meta.url));
+    await mkdir(temporaryRoot, { recursive: true });
+    const fixture = await mkdtemp(path.join(temporaryRoot, "api-contract-"));
+    try {
+        await mkdir(path.join(fixture, "docs"));
+        const host = JSON.parse(await readFile(new URL("../package.json", import.meta.url), "utf8"));
+        await writeFile(path.join(fixture, "package.json"), JSON.stringify({ name: "crab-docs-api-contract", private: true, type: "module", devDependencies: { react: host.devDependencies.react, "react-dom": host.devDependencies["react-dom"] } }));
+        await writeFile(path.join(fixture, "wake.config.toml"), '[docs]\nsource_dir = "docs"\ntitle = "API contract"\n');
+        await writeFile(path.join(fixture, "docs/navigation.toml"), '[[group]]\nid = "project"\ntitle = "API"\npages = ["index"]\n');
+        const { primary, native } = splitApiRecord(api, "rc-alert");
+        await writeFile(path.join(fixture, "docs/index.mdx"), '+++\ntitle = "API contract"\n+++\n\n# API contract\n\n<API source="../api.ts" symbol="AlertProps" component="Alert" />\n\n<details data-docs-native-props>\n<summary>继承的原生属性</summary>\n\n<API source="../native.ts" symbol="AlertPropsNativeAttributes" component="Alert 原生属性" />\n\n</details>\n');
+        await writeFile(path.join(fixture, "api.ts"), createSearchableApiSource(primary));
+        await writeFile(path.join(fixture, "native.ts"), createSearchableApiSource(native));
+        const require = createRequire(import.meta.url);
+        const wakeBin = path.join(path.dirname(require.resolve("@crab-dev/wake/package.json")), "bin/wake.mjs");
+        execFileSync(process.execPath, [wakeBin, "docs", "build", fixture, "--outdir", "dist"], { cwd: fileURLToPath(new URL("../", import.meta.url)), stdio: "pipe" });
+        await access(path.join(fixture, "dist/index.html"));
+    } finally {
+        assert.ok(path.resolve(fixture).startsWith(path.resolve(temporaryRoot) + path.sep));
+        await rm(fixture, { recursive: true, force: true });
+    }
+});
+
 test("Demo 标题、描述和分组写入 Wake 可提取的静态标题", () => {
     const metadata = createDemoSearchMetadata([{
         title: "基础用法",
@@ -390,6 +616,26 @@ test("Demo 标题、描述和分组写入 Wake 可提取的静态标题", () => 
     assert.doesNotMatch(metadata, /[{}]/);
     assert.doesNotMatch(metadata, /Demo 搜索索引/);
     assert.match(metadata, /hidden aria-hidden="true"/);
+});
+
+test("真实 Demo 完整进入教学分组，未登记或缺失的分组文件仍报错", async () => {
+    const manifest = await loadLibraryManifest();
+    let groupedDemos;
+    for (const product of manifest.packages) {
+        let files;
+        try { files = await readdir(path.join(product.directory, "docs/demos")); }
+        catch (error) { if (error.code === "ENOENT") continue; throw error; }
+        const demos = files.filter(file => file.endsWith(".demo.tsx")).map(file => ({ id: `docs/demos/${file}` }));
+        const organized = organizeDemos(product.slug, demos);
+        assert.equal(organized.length, demos.length, product.slug);
+        assert.equal(new Set(organized.map(demo => demo.id)).size, demos.length, product.slug);
+        if (product.slug === "rc-canvas") groupedDemos = demos;
+    }
+    assert.ok(groupedDemos?.length, "Canvas supplies an actual grouped fixture");
+    assert.throws(() => organizeDemos("rc-canvas", [...groupedDemos, { id: "docs/demos/unregistered-contract.demo.tsx" }]), /Demo 未分组/);
+    assert.throws(() => organizeDemos("rc-canvas", groupedDemos.filter(demo => demo.id !== "docs/demos/visual-states.demo.tsx")), /Demo 分组引用不存在的文件/);
+    const ungrouped = [{ id: "docs/demos/visual-states.demo.tsx" }];
+    assert.deepEqual(organizeDemos("rc-prose", ungrouped), [{ ...ungrouped[0], group: null }]);
 });
 
 test("API source 必须存在且位于组件 src 目录", async () => {
@@ -443,12 +689,10 @@ const guide = {
     avoidWhen: ["已有更符合任务语义的组件时，不要只因为外观相似而替换。"],
     essentials: ["先理解组件负责什么，再选择属性。", "受控状态与变更事件保持单一数据来源。", "默认、错误、禁用和窄屏状态都要检查。"],
     accessibility: ["组件必须有可访问名称和清楚的键盘路径。", "状态不能只靠颜色表达，焦点必须始终可见。"],
-    material: {
-        basis: "示例以 Material Design 3 的组件职责和状态规则为设计依据。",
-        m3: "https://m3.material.io/components",
-        web: "https://material-web.dev/components/",
-        source: "https://github.com/material-components/material-web",
-    },
+    designSystems: Object.fromEntries(["md3", "apple", "shadcn"].map(design => [design, {
+        basis: "示例通过对应体系的组件职责和状态规则确定设计依据，完整覆盖另行验收。",
+        references: [`https://example.com/${design}`],
+    }])),
 };
 
 test("组件新手指南要求完整场景、概念、无障碍和官方依据", () => {
@@ -457,7 +701,9 @@ test("组件新手指南要求完整场景、概念、无障碍和官方依据",
     const markup = componentGuideMarkup(guide);
     assert.match(markup, /### 适用场景/);
     assert.match(markup, /### 使用要点/);
-    assert.doesNotMatch(markup, /设计参考|Material Web|https:\/\//);
+    for (const label of ["MD3 Expressive", "Apple", "shadcn/ui"]) assert.ok(markup.includes(label));
+    assert.match(markup, /覆盖矩阵/);
+    assert.throws(() => validateComponentGuide({ ...guide, designSystems: { md3: guide.designSystems.md3 } }, "rc-example"), /apple/);
 });
 
 test("教程要求完整步骤、唯一 ID 与互斥示例来源", () => {
@@ -635,10 +881,14 @@ export default function Demo() {
 
 test("Radio 页面保留 Radio 和 RadioGroup 两个 API", () => {
     const source = '+++\ntitle = "Radio 单选框"\n+++\n\n# Radio 单选框\n\n[打开工作台](/components/rc-radio/workbench/)\n\n<Demos />\n';
-    const page = createPage(source, "rc-radio", [], { symbol: "RadioProps", component: "Radio" }, lesson);
+    const page = createPage(source, "rc-radio", [], [
+        { symbol: "RadioProps", component: "Radio", generatedFileName: "rc-radio.ts" },
+        { symbol: "RadioGroupProps", component: "RadioGroup", generatedFileName: "rc-radio-RadioGroupProps.ts" },
+    ], lesson);
     assert.doesNotMatch(page, /<FirstExample /);
     assert.match(page, /symbol="RadioProps"/);
     assert.match(page, /symbol="RadioGroupProps"/);
+    assert.ok(page.includes('../_generated_api/rc-radio-RadioGroupProps.ts'));
     assert.match(page, /\/components\/rc-radio\/workbench\//);
 });
 

@@ -6,6 +6,8 @@ import { ValidateState, RuleType } from "./types.js";
 
 export { Item, useForm, ValidateState, RuleType };
 export { FormValidationError } from './types.js';
+export { fieldAdapters } from './field-adapters.js';
+export type { FieldAdapter, FieldBinding } from './field-adapters.js';
 export type { FormProps } from "./form.js";
 export type { FormItem as ItemProps } from "./item.js";
 export type { FormItemProps } from './item.js';

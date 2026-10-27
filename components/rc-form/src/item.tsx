@@ -1,9 +1,12 @@
-import { cloneElement, useState, useEffect, useId, useRef } from "react";
+import { cloneElement, useState, useEffect, useEffectEvent, useId, useRef } from "react";
 import type { ReactElement, HTMLAttributes, ReactNode } from "react";
 import { css, cx } from "@crab-dev/css";
 import semanticToken from "@crab-dev/rc-token-semantic";
 import { CircleAlert, TriangleAlert, CircleCheck } from "lucide-react";
 import { SpinIndicator, TokenVars as spinVars } from '@crab-dev/rc-spin';
+import { useLocale } from '@crab-dev/rc-config-provider';
+import { fieldAdapters } from './field-adapters.js';
+import type { FieldAdapter, FieldBinding } from './field-adapters.js';
 
 import token from "./token.js";
 import { RuleType, ValidateState } from "./types.js";
@@ -17,13 +20,24 @@ import {
 
 const EMPTY_RULES: Rule[] = [];
 
+// Preserve the origin of library-owned feedback. Locale changes format these
+// descriptors without invoking validators or guessing from a caller's message.
+type ValidationMessage =
+    | { kind: 'required' }
+    | { kind: 'invalid' }
+    | { kind: 'custom'; text: string };
+
+function validatorMessage(error: unknown): ValidationMessage {
+    const text = error instanceof Error ? error.message : error == null ? '' : String(error);
+    return text.trim() ? { kind: 'custom', text } : { kind: 'invalid' };
+}
+
 interface FormItemBaseProps extends Omit<HTMLAttributes<HTMLDivElement>, "children"> {
 
-    /** 字段协议：value（默认）、原生事件、checked 或 onValueChange。 */
-    binding?: 'value' | 'event' | 'checked' | 'valueChange';
-    valuePropName?: string;
-    trigger?: string;
-    getValueFromEvent?: (...args: unknown[]) => unknown;
+    /** Default: value/onValueChange. Native DOM and custom editors use explicit adapters. */
+    adapter?: FieldBinding | FieldAdapter;
+    disabled?: boolean;
+    readOnly?: boolean;
 
     /**
      * 是否隐藏字段
@@ -55,12 +69,22 @@ export type FormItemProps = FormItemBaseProps & (
     | {
         /** 由 Item 显示外部标签，兼容横排布局与任意编辑器。 */
         labelPlacement?: 'external';
+        /** 默认关联一个原生可标记控件，保留其自身标签与点击语义。 */
+        labelTarget?: 'control';
         label?: ReactNode;
         supportingText?: never;
     }
     | {
-        /** 将标签与校验说明交给支持 label/errorText 的字段组件。 */
+        /** 组语义必须显式选择外部布局，不依赖宿主或编辑器类型推断。 */
+        labelPlacement: 'external';
+        labelTarget: 'group';
+        label: ReactNode;
+        supportingText?: never;
+    }
+    | {
+        /** 将标签、说明与内部布局交给字段组件；Item 提供跨整行的编辑器空间。 */
         labelPlacement: 'control';
+        labelTarget?: never;
         label: string;
         /** 字段下方的辅助说明，校验消息会临时替换它。 */
         supportingText?: string;
@@ -105,30 +129,16 @@ const editorWrapStyle = css`
     min-width: 0;
 `;
 
-// 将表单轨道贯通到自带标签的字段；L2 决定浮动标签或同排标签布局。
+// control 模式只提供整行空间。字段自身负责标签、浮动状态和说明布局；
+// Dropdown 等结构包装与直接字段同样进入单一轨道，不依赖内部 DOM 标记。
 const controlEditorWrapStyle = css`
     grid-column: 1 / -1;
     min-width: 0;
     display: grid;
-    grid-template-columns: subgrid;
-    && > [data-field-root][data-labeled="true"]:not([data-bordered="false"]) {
-        grid-column: 1 / -1;
-        grid-template-columns: ${semanticToken.form.field.columns};
-        column-gap: ${token.item.gap};
-    }
-    && > [data-field-root][data-labeled="true"]:not([data-bordered="false"]) > label {
-        grid-column: 1;
-        grid-row: 1;
+    grid-template-columns: minmax(0, 1fr);
+    & > * {
         min-width: 0;
         max-width: 100%;
-    }
-    && > [data-field-root][data-labeled="true"]:not([data-bordered="false"]) > :is([data-field-control], [data-control]) {
-        grid-column: ${semanticToken.form.field['control-column']};
-        grid-row: 1;
-    }
-    && > [data-field-root][data-labeled="true"]:not([data-bordered="false"]) > :is([data-field-support], [data-support]) {
-        grid-column: ${semanticToken.form.field['control-column']};
-        grid-row: 2;
     }
 `;
 
@@ -187,18 +197,21 @@ function FormItemComponent({
     hidden,
     label,
     labelPlacement = 'external',
+    labelTarget = 'control',
     supportingText,
     name,
     required,
-    binding = 'value',
-    valuePropName = binding === 'checked' ? 'checked' : 'value',
-    trigger = binding === 'valueChange' ? 'onValueChange' : 'onChange',
-    getValueFromEvent,
+    disabled,
+    readOnly,
+    adapter: adapterProp = 'value',
     rules = EMPTY_RULES,
     children,
     ...restProps
 }: FormItemProps) {
+    const adapter = typeof adapterProp === 'string' ? fieldAdapters[adapterProp] : adapterProp;
+    const { messages } = useLocale();
     const id = useId();
+    const labelId = `${id}-label`;
     const messageId = `${id}-message`;
     const {
         eventBus,
@@ -207,9 +220,9 @@ function FormItemComponent({
     } = useFormContext();
 
     // 实际上存储的值
-    const [value, setValue] = useState<unknown>();
+    const [value, setValue] = useState<unknown>(() => getFieldValue?.(name));
     // 可变实例状态：同一事件中的 setFieldValue 和 validateFields 共享最新值。
-    const valueRef = useRef<unknown>(undefined);
+    const valueRef = useRef<unknown>(value);
     const fieldKey = JSON.stringify(typeof name === 'string' ? [name] : name);
     useEffect(() => {
         const next = getFieldValue?.(JSON.parse(fieldKey) as string[]);
@@ -218,8 +231,21 @@ function FormItemComponent({
     }, [getFieldValue, fieldKey]);
     // 校验状态
     const [validateState, setValidateState] = useState<ValidateState>(ValidateState.DEFAULT);
-    // 校验消息
-    const [validateMessage, setValidateMessage] = useState<string>("");
+    // Store semantic feedback, not the language used when validation began.
+    const [validationMessages, setValidationMessages] = useState<ValidationMessage[]>([]);
+    const formatValidationMessage = (message: ValidationMessage) => {
+        if (message.kind === 'required') return messages.form.required(typeof label === 'string' ? label : undefined);
+        if (message.kind === 'invalid') return messages.form.invalid;
+        return message.text;
+    };
+    const validateMessage = validationMessages.map(formatValidationMessage).join('\n');
+    // The effect-owned validation listener can finish after a locale update.
+    // Public errors remain string snapshots, formatted in the completion locale.
+    const validationResult = useEffectEvent((fieldName: NamePath, errors: ValidationMessage[], warnings: ValidationMessage[]): FieldValidationResult => ({
+        name: fieldName,
+        errors: errors.map(formatValidationMessage),
+        warnings: warnings.map(formatValidationMessage),
+    }));
     // 可变实例状态：忽略编辑、重置或卸载前发起的异步校验结果。
     const validationVersion = useRef(0);
     useEffect(() => () => { validationVersion.current += 1; }, []);
@@ -256,8 +282,13 @@ function FormItemComponent({
                 {renderRequiredElement()}
             </>
         );
+        if (labelTarget === 'group') {
+            // A group is named as a whole; its visible caption must not label
+            // just the first native option or pretend a div is labelable.
+            return <span id={labelId} className={labelStyle}>{renderedLabel}</span>;
+        }
         return (
-            <label htmlFor={typeof children === 'function' ? id : children?.props.id ?? id} className={labelStyle}>
+            <label id={labelId} htmlFor={typeof children === 'function' ? id : children?.props.id ?? id} className={labelStyle}>
                 {renderedLabel}
             </label>
         );
@@ -305,17 +336,27 @@ function FormItemComponent({
             valueRef.current = newValue;
             setValue(newValue);
             setValidateState(ValidateState.DEFAULT);
-            setValidateMessage('');
+            setValidationMessages([]);
             eventBus?.dispatch({ type: MessageEnum.ON_ITEM_VALUE_CHANGE, payload: [{ name, value: newValue }] });
         };
+        const hasExplicitName = props['aria-label'] !== undefined || props['aria-labelledby'] !== undefined;
+        const groupLabelledBy = labelPlacement === 'external' && labelTarget === 'group' && label != null && !hasExplicitName
+            ? labelId
+            : undefined;
         const field: FormItemEditor = {
             id: props.id ?? id,
+            'aria-label': props['aria-label'],
+            'aria-labelledby': props['aria-labelledby'] ?? groupLabelledBy,
+            name: typeof name === 'string' ? name : name.join('.'),
+            disabled: disabled ?? props.disabled,
+            readOnly: readOnly ?? props.readOnly,
+            required: required ?? props.required,
             value,
             validateState,
             status: editorStatus,
             'aria-invalid': validateState === ValidateState.ERROR || undefined,
             'aria-describedby': [props['aria-describedby'], isInvalid && labelPlacement !== 'control' ? messageId : undefined].filter(Boolean).join(' ') || undefined,
-            onChange: changeValue,
+            onValueChange: changeValue,
             ...(labelPlacement === 'control' ? {
                 label: props.label ?? controlLabel,
                 required: required ?? props.required,
@@ -327,28 +368,24 @@ function FormItemComponent({
         if (typeof children === 'function') return <div className={editorClassName}>{children(field)}</div>;
         const childProps = props as Record<string, unknown>;
         const handleChange = (...args: unknown[]) => {
-            let next = args[0];
-            if (getValueFromEvent) next = getValueFromEvent(...args);
-            else if (next && typeof next === 'object' && 'target' in next) {
-                const target = next.target;
-                if (target && typeof target === 'object') {
-                    if (valuePropName === 'checked' && 'checked' in target) next = target.checked;
-                    else if ('value' in target) next = target.value;
-                }
-            }
+            const next = adapter.getValue(...args);
             changeValue(next);
-            const handler = childProps[trigger];
+            const handler = childProps[adapter.changeProp];
             if (typeof handler === 'function') handler(...args);
         };
         const editorProps = {
             ...field,
-            [valuePropName]: valuePropName === 'checked' ? Boolean(value) : binding === 'event' ? value ?? '' : value,
-            [trigger]: handleChange,
+            ...adapter.getValueProps(value),
+            [adapter.changeProp]: handleChange,
         };
-        if (valuePropName !== 'value') delete editorProps.value;
-        if (trigger !== 'onChange') delete editorProps.onChange;
-        if (binding !== 'value' || typeof children.type === 'string') delete editorProps.validateState;
-        if (typeof children.type === 'string') delete editorProps.status;
+        if (adapter.valueProp !== 'value') delete editorProps.value;
+        if (adapter.changeProp !== 'onValueChange') delete editorProps.onValueChange;
+        // Validation bookkeeping belongs to render-prop consumers, not DOM props
+        // forwarded by a real editor such as LineEdit.
+        delete editorProps.validateState;
+        if (adapter.native) {
+            delete editorProps.status;
+        }
         return (
             <div className={editorClassName}>
                 {cloneElement(children, editorProps)}
@@ -365,13 +402,6 @@ function FormItemComponent({
                 validationVersion.current += 1;
                 valueRef.current = param.value;
                 setValue(param.value);
-                eventBus?.dispatch({
-                    type: MessageEnum.ON_ITEM_VALUE_CHANGE,
-                    payload: [{
-                        name,
-                        value: param.value
-                    }]
-                })
             }
         }
 
@@ -386,12 +416,12 @@ function FormItemComponent({
                 return;
             }
             const version = ++validationVersion.current;
-            const result: FieldValidationResult = { name, errors: [], warnings: [] };
+            const errors: ValidationMessage[] = [];
+            const warnings: ValidationMessage[] = [];
             const currentValue = snapshot ? getRecordValue(snapshot, name) : valueRef.current;
             setValidateState(ValidateState.VALIDATING);
-            if (required === true && (currentValue == null || currentValue === "")) {
-                const message = `请输入${label?.toString() ?? ""}`;
-                result.errors.push(message);
+            if (required === true && (currentValue == null || currentValue === "" || (Array.isArray(currentValue) && currentValue.length === 0))) {
+                errors.push({ kind: 'required' });
             }
             for (let i = 0; i < rules.length; i += 1) {
                 const rule = rules[i];
@@ -399,20 +429,20 @@ function FormItemComponent({
                     try {
                         await rule.validator(currentValue)
                     } catch (error) {
-                        const message = error instanceof Error ? error.message : String(error);
+                        const message = validatorMessage(error);
                         if (rule.type == RuleType.ERROR) {
-                            result.errors.push(message);
+                            errors.push(message);
                         } else {
-                            result.warnings.push(message);
+                            warnings.push(message);
                         }
                     }
                 }
             }
             if (validationVersion.current === version) {
-                setValidateMessage([...result.errors, ...result.warnings].join('\n'));
-                setValidateState(result.errors.length ? ValidateState.ERROR : result.warnings.length ? ValidateState.WARNING : ValidateState.SUCCESS);
+                setValidationMessages([...errors, ...warnings]);
+                setValidateState(errors.length ? ValidateState.ERROR : warnings.length ? ValidateState.WARNING : ValidateState.SUCCESS);
             }
-            return result;
+            return validationResult(name, errors, warnings);
         }
         const verificationSubscriber = {
             id,
@@ -455,7 +485,7 @@ function FormItemComponent({
                 if (names && !names.some(field => equalsNamePath(field, name))) return;
                 validationVersion.current += 1;
                 setValidateState(ValidateState.DEFAULT);
-                setValidateMessage('');
+                setValidationMessages([]);
             },
         };
         eventBus?.subscribe(resetSubscriber);
@@ -467,7 +497,7 @@ function FormItemComponent({
             eventBus?.unSubscribe(parentReadySubscriber);
             eventBus?.unSubscribe(changeValuesSubscriber)
         }
-    }, [eventBus, id, label, name, required, requiredIndicatorRenderer, rules, value])
+    }, [eventBus, id, name, required, rules, value])
 
     if (hidden) {
         return null;

@@ -95,7 +95,7 @@ function ValidationDemo() {
                 label="账号"
                 labelPlacement="control"
                 name="account"
-                binding="event"
+                adapter="value"
                 required
                 supportingText="字母开头，长度 3–16 位。"
                 rules={accountRules(() => (form.getFieldValue("account") as string) ?? "")}
@@ -107,7 +107,7 @@ function ValidationDemo() {
                 label="密码"
                 labelPlacement="control"
                 name="password"
-                binding="event"
+                adapter="value"
                 required
                 supportingText="至少 8 位，包含大写字母与数字。"
                 rules={passwordRules(() => (form.getFieldValue("password") as string) ?? "")}
@@ -119,7 +119,7 @@ function ValidationDemo() {
                 label="确认密码"
                 labelPlacement="control"
                 name="confirm"
-                binding="event"
+                adapter="value"
                 required
                 rules={[
                     {
@@ -138,9 +138,9 @@ function ValidationDemo() {
             </Item>
 
             <Item label="区域" name="region" required>
-                {({ id, value, onChange, status, 'aria-invalid': invalid, 'aria-describedby': describedBy }) => (
+                {({ id, value, onValueChange, status, 'aria-invalid': invalid, 'aria-describedby': describedBy }) => (
                     <Select id={id} aria-label="区域" aria-invalid={invalid} aria-describedby={describedBy}
-                        value={typeof value === 'string' ? value : undefined} onChange={onChange} status={status}
+                        value={typeof value === 'string' ? value : undefined} onValueChange={onValueChange} status={status}
                         options={REGION_OPTIONS} placeholder="选择部署区域" allowClear />
                 )}
             </Item>

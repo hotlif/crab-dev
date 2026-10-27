@@ -30,11 +30,11 @@ const RangeDemo = () => {
         <div className={wrapperStyle}>
             <label className={fieldStyle}>
                 0–100，step 5，大步长 25
-                <NumberEdit value={percent} onChange={setPercent} min={0} max={100} step={5} largeStep={25} suffix="%" />
+                <NumberEdit value={percent} onValueChange={setPercent} min={0} max={100} step={5} largeStep={25} suffix="%" />
             </label>
             <label className={fieldStyle}>
                 step 0.1，precision 2
-                <NumberEdit value={amount} onChange={setAmount} step={0.1} precision={2} min={0} />
+                <NumberEdit value={amount} onValueChange={setAmount} step={0.1} precision={2} min={0} />
             </label>
         </div>
     );

@@ -1,12 +1,12 @@
 import { css } from '@crab-dev/css';
 import ConfigProvider from '@crab-dev/rc-config-provider';
-import token from '@crab-dev/rc-token-semantic';
+import token, { designSystemRegistry } from '@crab-dev/rc-token-semantic';
 import Table from '../../src/table.js';
 import type { ColumnType, Row } from '../../src/types.js';
 
 export const meta = {
     title: '三套风格与选中状态',
-    description: '相同数据分别使用 macOS、MD3 和 shadcn；表头、分隔线、单元格留白及行选中配色随设计边界切换。',
+    description: '相同数据分别使用 MD3 Expressive、Apple 和 shadcn/ui；表头、分隔线、单元格留白及行选中配色随设计边界切换，窄屏可在各表格区域横向滚动。',
 };
 
 interface Order extends Row {
@@ -23,9 +23,13 @@ const columns: ColumnType<Order>[] = [
     { name: '$.status', title: '状态', width: 100 },
     { name: '$.amount', title: '金额', width: 90 },
 ];
-const stackStyle = css`display: grid; gap: ${token.space['group-gap']}; width: 100%; min-width: 0;`;
+const stackStyle = css`
+    display: grid; grid-template-columns: minmax(0, 1fr);
+    gap: ${token.space['group-gap']}; width: 100%; min-width: 0;
+`;
+const boundaryStyle = css`min-width: 0; max-width: 100%;`;
 const regionStyle = css`
-    width: fit-content; max-width: 100%; overflow-x: auto;
+    box-sizing: border-box; width: fit-content; min-width: 0; max-width: 100%; overflow-x: auto;
     color: ${token.color.text.primary}; background: ${token.color.surface.content};
     border: 1px solid ${token.data.table.border.color}; border-radius: ${token.data.table.radius};
     &:focus-visible { outline: 2px solid ${token.color.focus.ring}; }
@@ -38,13 +42,13 @@ const titleStyle = css`
 export default function ThemeStatesDemo() {
     return (
         <div className={stackStyle}>
-            {(['macos', 'material', 'shadcn'] as const).map((design) => (
-                <ConfigProvider key={design} design={design}>
-                    <section className={regionStyle} tabIndex={0} aria-label={`${design} 表格示例`}>
-                        <h3 className={titleStyle}>{design === 'material' ? 'MD3' : design === 'macos' ? 'macOS' : 'shadcn'}</h3>
+            {(['md3', 'apple', 'shadcn'] as const).map((design) => (
+                <ConfigProvider key={design} designSystem={design} className={boundaryStyle}>
+                    <section className={regionStyle} tabIndex={0} aria-label={`${designSystemRegistry[design].label} 表格示例`}>
+                        <h3 className={titleStyle}>{designSystemRegistry[design].label}</h3>
                         <Table
                             width={400} height={190} columns={columns} rows={rows}
-                            aria-label={`${design} 订单`}
+                            aria-label={`${designSystemRegistry[design].label} 订单`}
                             rowSelection={{ type: 'checkbox', defaultSelectedRowIds: new Set(['2']) }}
                         />
                     </section>

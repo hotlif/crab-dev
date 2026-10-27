@@ -35,12 +35,20 @@ describe("Skeleton", () => {
         const node = container.firstChild as HTMLElement;
         expect(node.getAttribute("style")).toContain("--rc-skeleton-w: 50%");
     });
-    it("applies circle variant with aspect ratio enforcement", async () => {
-        const { container } = await render(<Skeleton variant="circle" width={32}/>);
-        const node = container.firstChild as HTMLElement;
-        expect(node.className).toBeTruthy();
-        expect(node.getAttribute("style")).toContain("--rc-skeleton-w: 32px");
-    });
+    for (const variant of ['circle', 'avatar'] as const) {
+        it(`leaves only the omitted ${variant} axis automatic`, async () => {
+            const view = await render(<Skeleton variant={variant} width={56} />);
+            const node = () => view.container.firstChild as HTMLElement;
+            expect(node().style.getPropertyValue('--rc-skeleton-w')).toBe('56px');
+            expect(node().style.getPropertyValue('--rc-skeleton-h')).toBe('auto');
+            await view.rerender(<Skeleton variant={variant} height={56} />);
+            expect(node().style.getPropertyValue('--rc-skeleton-w')).toBe('auto');
+            expect(node().style.getPropertyValue('--rc-skeleton-h')).toBe('56px');
+            await view.rerender(<Skeleton variant={variant} width={56} height={32} />);
+            expect(node().style.getPropertyValue('--rc-skeleton-w')).toBe('56px');
+            expect(node().style.getPropertyValue('--rc-skeleton-h')).toBe('32px');
+        });
+    }
     it("forwards custom className to the root element", async () => {
         const { container } = await render(<Skeleton variant="rect" className="my-skeleton"/>);
         const node = container.firstChild as HTMLElement;

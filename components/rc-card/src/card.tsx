@@ -1,7 +1,7 @@
 import { useComponentSize } from '@crab-dev/rc-config-provider';
 import { css, cx } from '@crab-dev/css';
 import { Children, Fragment, isValidElement, type KeyboardEvent, type ReactElement } from 'react';
-import Skeleton from '@crab-dev/rc-skeleton';
+import Skeleton, { TokenVars as skeletonVars } from '@crab-dev/rc-skeleton';
 import token from './token.js';
 import { CardContext } from './context.js';
 import CardCover from './components/card-cover.js';
@@ -29,7 +29,7 @@ const cardBaseStyle = css`
     box-sizing: border-box;
     overflow: hidden;
     border: 1px solid transparent;
-    border-radius: var(--rc-card-radius, ${token.size.middle['border-radius']});
+    border-radius: var(--rc-card-radius, ${token.size.medium['border-radius']});
     background-color: ${token.surface['background-color']};
     --rc-card-cover-scale: 1;
     transition: ${token.root.transition};
@@ -75,10 +75,10 @@ const sizeLargeStyle = css`
     --rc-card-title-size: ${token.size.large.title['font-size']};
 `;
 const sizeMiddleStyle = css`
-    --rc-card-pad: ${token.size.middle.padding};
-    --rc-card-gap: ${token.size.middle.gap};
-    --rc-card-radius: ${token.size.middle['border-radius']};
-    --rc-card-title-size: ${token.size.middle.title['font-size']};
+    --rc-card-pad: ${token.size.medium.padding};
+    --rc-card-gap: ${token.size.medium.gap};
+    --rc-card-radius: ${token.size.medium['border-radius']};
+    --rc-card-title-size: ${token.size.medium.title['font-size']};
 `;
 const sizeSmallStyle = css`
     --rc-card-pad: ${token.size.small.padding};
@@ -161,11 +161,17 @@ const disabledStyle = css`
 `;
 
 // ─── 加载骨架容器 ────────────────────────────────────────────────────────────
+// The loading fill belongs to this Card surface. Remove the mapping together
+// with the loading state so consumer Skeleton children keep their own contract.
+const loadingStyle = css`
+    ${skeletonVars['root.background-color']}: ${token.loading['background-color']};
+`;
+
 const loadingBodyStyle = css`
     display: flex;
     flex-direction: column;
-    gap: var(--rc-card-gap, ${token.size.middle.gap});
-    padding: var(--rc-card-pad, ${token.size.middle.padding});
+    gap: var(--rc-card-gap, ${token.size.medium.gap});
+    padding: var(--rc-card-pad, ${token.size.medium.padding});
 `;
 
 // 结构化区块子组件集合：children 命中其一即判为"复合模式"，直接渲染不再自动
@@ -195,6 +201,7 @@ const CardBase = ({
     hoverable = false,
     clickable = false,
     loading = false,
+    loadingContent,
     disabled = false,
     onClick,
     children,
@@ -219,7 +226,7 @@ const CardBase = ({
 
     let content;
     if (loading) {
-        content = (
+        content = loadingContent !== undefined ? loadingContent : (
             <>
                 {cover != null && <Skeleton variant="image" height="160px" />}
                 <div className={loadingBodyStyle}>
@@ -247,7 +254,7 @@ const CardBase = ({
                     <CardFooter>
                         {actions.map((node, index) => (
                             // 操作组是位置型列表，索引即身份，作 key 稳定
-                             
+
                             <Fragment key={index}>{node}</Fragment>
                         ))}
                     </CardFooter>
@@ -268,6 +275,7 @@ const CardBase = ({
                 actionable && clickableStyle,
                 variant === 'outlined' && interactive && outlinedInteractiveStyle,
                 disabled && disabledStyle,
+                loading && loadingStyle,
                 className,
             )}
             role={clickable ? 'button' : undefined}
@@ -282,9 +290,36 @@ const CardBase = ({
     );
 };
 
-// 显式组件入口同时供 Wake docgen 读取公开 Props；静态属性保持复合组件 API。
+// Keep an explicit CardProps entry for docgen and ambient compound members for
+// published declarations. Wake's emitter cannot infer function expando members
+// or emit initialized namespace variables, so declare types and assign values
+// separately. Neither path requires a cast or changes the public component.
+export interface CardComponent {
+    (props: CardProps): ReactElement;
+    Cover: typeof CardCover;
+    Header: typeof CardHeader;
+    Body: typeof CardBody;
+    Footer: typeof CardFooter;
+    Meta: typeof CardMeta;
+}
+
 function Card(props: CardProps): ReactElement {
     return <CardBase {...props} />;
+}
+
+// Compatibility exception for Wake 0.1.45: its declaration emitter drops
+// function expandos, while docgen rejects the equivalent callable export alias.
+// This ambient merge describes only the five real assignments below; it emits
+// no runtime namespace and keeps the existing compound API. Public type cases,
+// packed ESM/CJS consumers and docgen verify it. Remove this exception when the
+// pinned tooling supports compound declarations and props discovery together.
+// wake-lint-disable-next-line ts/no-namespace -- Card compound declaration/docgen compatibility, verified by public and packed fixtures.
+declare namespace Card {
+    let Cover: typeof CardCover;
+    let Header: typeof CardHeader;
+    let Body: typeof CardBody;
+    let Footer: typeof CardFooter;
+    let Meta: typeof CardMeta;
 }
 
 Card.Cover = CardCover;

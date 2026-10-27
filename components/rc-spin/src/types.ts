@@ -3,7 +3,7 @@ import type { HTMLAttributes, ReactNode, Ref } from 'react';
 /**
  * 尺寸档位, 与 rc-button / rc-segmented 对齐。
  */
-export type SpinSize = 'large' | 'middle' | 'small';
+export type SpinSize = 'large' | 'medium' | 'small';
 export type SpinVariant = 'circular' | 'expressive';
 
 export interface SpinProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
@@ -13,7 +13,7 @@ export interface SpinProps extends Omit<HTMLAttributes<HTMLDivElement>, 'childre
     spinning?: boolean;
 
     /**
-     * 尺寸, 默认 middle
+     * 尺寸, 默认 medium
      */
     size?: SpinSize;
 

@@ -107,7 +107,7 @@ export const demos = [
             "events": [],
             "hasState": false
         },
-        "sourceCode": "export const meta = {\n    title: \"三档尺寸\",\n    description: \"size 同步缩放内边距 / 圆角 / 标题字号, 与其他组件的尺寸档位对齐。\",\n};\n\nimport { css } from '@crab-dev/css';\nimport Card from '../../src/index.js';\n\nconst rowStyle = css`\n    display: flex;\n    flex-wrap: wrap;\n    align-items: flex-start;\n    gap: 16px;\n\n    & > * {\n        flex: 1 1 200px;\n    }\n`;\n\nconst SizeDemo = () => {\n    return (\n        \u003cdiv className={rowStyle}>\n            \u003cCard size=\"small\" variant=\"outlined\" title=\"Small\">\n                紧凑列表场景。\n            \u003c/Card>\n            \u003cCard size=\"middle\" variant=\"outlined\" title=\"Middle\">\n                默认档位, 适合常规信息卡。\n            \u003c/Card>\n            \u003cCard size=\"large\" variant=\"outlined\" title=\"Large\">\n                页面级重点区块。\n            \u003c/Card>\n        \u003c/div>\n    );\n};\n\nexport default SizeDemo;\n",
+        "sourceCode": "export const meta = {\n    title: \"三档尺寸\",\n    description: \"size 同步缩放内边距 / 圆角 / 标题字号, 与其他组件的尺寸档位对齐。\",\n};\n\nimport { css } from '@crab-dev/css';\nimport Card from '../../src/index.js';\n\nconst rowStyle = css`\n    display: flex;\n    flex-wrap: wrap;\n    align-items: flex-start;\n    gap: 16px;\n\n    & > * {\n        flex: 1 1 200px;\n    }\n`;\n\nconst SizeDemo = () => {\n    return (\n        \u003cdiv className={rowStyle}>\n            \u003cCard size=\"small\" variant=\"outlined\" title=\"Small\">\n                紧凑列表场景。\n            \u003c/Card>\n            \u003cCard size=\"medium\" variant=\"outlined\" title=\"Medium\">\n                默认档位, 适合常规信息卡。\n            \u003c/Card>\n            \u003cCard size=\"large\" variant=\"outlined\" title=\"Large\">\n                页面级重点区块。\n            \u003c/Card>\n        \u003c/div>\n    );\n};\n\nexport default SizeDemo;\n",
         "previewPath": "/components/rc-card/workbench/?__wake_demo=docs%2Fdemos%2Fsize.demo.tsx",
         "workbenchPath": "/components/rc-card/workbench/#/components/docs%2Fdemos%2Fsize.demo.tsx",
         "density": "regular",
@@ -195,29 +195,34 @@ export const demos = [
     {
         "id": "docs/demos/loading.demo.tsx",
         "title": "加载骨架",
-        "description": "loading 时以骨架占位并标注 aria-busy, 结构与真实内容对应, 完成后无跳动切换。",
+        "description": "用 loadingContent 让封面、头像和文字占位共享真实布局，加载完成后无跳动切换。",
         "learning": {
             "components": [
-                "Button",
                 "Card",
-                "Avatar"
+                "Skeleton",
+                "Avatar",
+                "Button"
             ],
             "props": [
-                "appearance",
-                "onClick",
-                "loading",
-                "cover",
+                "data-card-loading-cover",
+                "variant",
+                "width",
+                "height",
+                "data-card-loading-placeholder",
+                "data-card-loading-body",
+                "data-card-loading-meta",
                 "avatar",
                 "title",
                 "description",
-                "variant"
+                "size",
+                "data-card-loading-content"
             ],
             "events": [
                 "onClick"
             ],
             "hasState": true
         },
-        "sourceCode": "export const meta = {\n    title: \"加载骨架\",\n    description: \"loading 时以骨架占位并标注 aria-busy, 结构与真实内容对应, 完成后无跳动切换。\",\n};\n\nimport { css } from '@crab-dev/css';\nimport { useState } from 'react';\nimport Avatar from '@crab-dev/rc-avatar';\nimport Button from '@crab-dev/rc-button';\nimport token from '@crab-dev/rc-token-semantic';\nimport Card from '../../src/index.js';\n\nconst stackStyle = css`\n    display: flex;\n    flex-direction: column;\n    gap: ${token.space['section-gap']};\n    max-width: calc(${token.size[64]} * 5);\n`;\n\nconst coverArtStyle = css`\n    height: calc(${token.size[64]} * 2 + ${token.space['inline-gap']});\n    background: linear-gradient(135deg, ${token.color.brand.container}, ${token.color.secondary.container});\n`;\n\nconst LoadingDemo = () => {\n    const [loading, setLoading] = useState(true);\n\n    return (\n        \u003cdiv className={stackStyle}>\n            \u003cButton appearance=\"outlined\" onClick={() => setLoading((prev) => !prev)}>\n                {loading ? '完成加载' : '重新加载'}\n            \u003c/Button>\n            \u003cCard loading={loading} cover={\u003cdiv className={coverArtStyle} />}>\n                \u003cCard.Meta\n                    avatar={\u003cAvatar variant=\"success\">禾\u003c/Avatar>}\n                    title=\"内容加载完成\"\n                    description=\"骨架的封面 / 标题 / 三行正文与真实内容一一对应。\"\n                />\n            \u003c/Card>\n            \u003cspan role=\"status\">{loading ? '正在加载卡片内容。' : '卡片内容已加载。'}\u003c/span>\n        \u003c/div>\n    );\n};\n\nexport default LoadingDemo;\n",
+        "sourceCode": "export const meta = {\n    title: \"加载骨架\",\n    description: \"用 loadingContent 让封面、头像和文字占位共享真实布局，加载完成后无跳动切换。\",\n};\n\nimport { css } from '@crab-dev/css';\nimport { useState } from 'react';\nimport Avatar from '@crab-dev/rc-avatar';\nimport Button from '@crab-dev/rc-button';\nimport Card from '@crab-dev/rc-card';\nimport Skeleton from '@crab-dev/rc-skeleton';\nimport token from '@crab-dev/rc-token-semantic';\n\nconst stackStyle = css`\n    display: flex;\n    flex-direction: column;\n    gap: ${token.space['section-gap']};\n    width: 100%;\n    max-width: calc(${token.size[64]} * 5);\n`;\n\nconst coverStyle = css`\n    block-size: calc(${token.size[64]} * 2 + ${token.space['inline-gap']});\n`;\n\nconst coverArtStyle = css`\n    block-size: 100%;\n    background: linear-gradient(135deg, ${token.color.brand.container}, ${token.color.secondary.container});\n`;\n\nconst avatarSlotStyle = css`\n    display: flex;\n    inline-size: ${token.size[32]};\n    block-size: ${token.size[32]};\n`;\n\n// Each slot follows Card.Meta's actual title/description line-height. The ink\n// occupies less than the slot so adjacent loading lines remain distinguishable.\n// Text can ellipsize; neither branch fixes the whole Card height.\nconst lineStyle = css`\n    display: block;\n    block-size: 1lh;\n    min-inline-size: 0;\n    overflow: hidden;\n    white-space: nowrap;\n    text-overflow: ellipsis;\n`;\n\nconst textPlaceholderStyle = css`\n    margin-block: 0.2lh;\n`;\n\nconst description = ['骨架与封面对应。', '标题与头像对齐。', '三行正文保持位置。'];\n\nfunction content(placeholder: boolean) {\n    return [\n        \u003cCard.Cover key=\"cover\" className={coverStyle} data-card-loading-cover=\"\">\n            {placeholder\n                ? \u003cSkeleton variant=\"rect\" width=\"100%\" height=\"100%\" data-card-loading-placeholder=\"true\" />\n                : \u003cdiv className={coverArtStyle} data-card-loading-content=\"true\" />}\n        \u003c/Card.Cover>,\n        \u003cCard.Body key=\"body\" data-card-loading-body=\"\">\n            \u003cCard.Meta\n                data-card-loading-meta=\"\"\n                avatar={\u003cspan className={avatarSlotStyle} data-card-loading-slot=\"avatar\">\n                    {placeholder\n                        ? \u003cSkeleton variant=\"circle\" width={32} height={32} data-card-loading-placeholder=\"true\" />\n                        : \u003cAvatar size={32} variant=\"success\" data-card-loading-content=\"true\">禾\u003c/Avatar>}\n                \u003c/span>}\n                title={\u003cspan className={lineStyle} data-card-loading-slot=\"title\">\n                    {placeholder\n                        ? \u003cSkeleton variant=\"rect\" width=\"55%\" height=\"0.6lh\" className={textPlaceholderStyle} data-card-loading-placeholder=\"true\" />\n                        : \u003cspan data-card-loading-content=\"true\">内容加载完成\u003c/span>}\n                \u003c/span>}\n                description={description.map((line, index) => \u003cspan\n                    key={line}\n                    className={lineStyle}\n                    data-card-loading-slot={`description-${index + 1}`}\n                >\n                    {placeholder\n                        ? \u003cSkeleton variant=\"rect\" width={index === 2 ? '75%' : '100%'} height=\"0.6lh\" className={textPlaceholderStyle} data-card-loading-placeholder=\"true\" />\n                        : \u003cspan data-card-loading-content=\"true\">{line}\u003c/span>}\n                \u003c/span>)}\n            />\n        \u003c/Card.Body>,\n    ];\n}\n\nconst LoadingDemo = () => {\n    const [loading, setLoading] = useState(true);\n\n    return (\n        \u003cdiv className={stackStyle} data-card-loading-demo=\"\">\n            \u003cButton appearance=\"outlined\" data-card-loading-toggle=\"\" onClick={() => setLoading((prev) => !prev)}>\n                {loading ? '完成加载' : '重新加载'}\n            \u003c/Button>\n            \u003cCard loading={loading} loadingContent={content(true)} data-card-loading-card=\"\">\n                {content(false)}\n            \u003c/Card>\n            \u003cspan role=\"status\" data-card-loading-status=\"\">{loading ? '正在加载卡片内容。' : '卡片内容已加载。'}\u003c/span>\n        \u003c/div>\n    );\n};\n\nexport default LoadingDemo;\n",
         "previewPath": "/components/rc-card/workbench/?__wake_demo=docs%2Fdemos%2Floading.demo.tsx",
         "workbenchPath": "/components/rc-card/workbench/#/components/docs%2Fdemos%2Floading.demo.tsx",
         "density": "regular",

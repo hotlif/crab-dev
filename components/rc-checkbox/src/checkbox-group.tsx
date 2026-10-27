@@ -1,8 +1,8 @@
 import { css, cx } from '@crab-dev/css';
-import { type FC } from 'react';
+import { type FC, type ChangeEvent } from 'react';
 import { useControllableValue } from '@crab-dev/rc-hooks';
 import token from './token.js';
-import type { CheckboxGroupProps } from './types.js';
+import type { CheckboxGroupProps, CheckboxGroupChangeDetails } from './types.js';
 import { CheckboxGroupContext } from './context.js';
 
 const groupStyle = css`
@@ -14,28 +14,29 @@ const groupStyle = css`
 const CheckboxGroup: FC<CheckboxGroupProps> = ({
     value: valueProp,
     defaultValue = [],
-    onChange,
+    onValueChange,
     disabled = false,
     size,
     children,
     className,
+    ...restProps
 }) => {
-    const [value, setValue] = useControllableValue<Array<string | number>>({
+    const [value, setValue] = useControllableValue<Array<string | number>, [CheckboxGroupChangeDetails]>({
         value: valueProp,
         defaultValue,
-        onChange,
+        onValueChange,
     });
 
-    const toggleValue = (val: string | number) => {
+    const toggleValue = (val: string | number, event: ChangeEvent<HTMLInputElement>) => {
         const nextValue = value.includes(val)
             ? value.filter((v) => v !== val)
             : [...value, val];
-        setValue(nextValue);
+        setValue(nextValue, { reason: value.includes(val) ? 'deselect' : 'select', event });
     };
 
     return (
         <CheckboxGroupContext value={{ value, disabled, size, toggleValue }}>
-            <div className={cx(groupStyle, className)} role="group">
+            <div {...restProps} className={cx(groupStyle, className)} role="group">
                 {children}
             </div>
         </CheckboxGroupContext>

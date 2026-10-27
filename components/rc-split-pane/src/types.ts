@@ -49,7 +49,7 @@ export interface SplitPaneProps {
 
     /**
      * 分隔条的无障碍名称
-     * @default '调整面板大小'
+     * 省略时跟随最近 ConfigProvider 的语言。
      */
     'aria-label'?: string;
 

@@ -4,7 +4,8 @@ export const meta = {
 };
 
 import { css } from '@crab-dev/css';
-import token from '@crab-dev/rc-token-semantic';
+import ConfigProvider from '@crab-dev/rc-config-provider';
+import token, { designSystemRegistry } from '@crab-dev/rc-token-semantic';
 import Button from '../../src/index.js';
 
 const grid = css`display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr)); gap: ${token.space['stack-gap']};`;
@@ -14,16 +15,16 @@ const actions = css`display: flex; flex-wrap: wrap; align-items: center; gap: ${
 export default function DesignsDemo() {
     return (
         <div className={grid}>
-            {(['macos', 'material', 'shadcn'] as const).flatMap(design => (['light', 'dark'] as const).map(mode => (
-                <section key={`${design}-${mode}`} className={panel} data-crab-design={design} data-theme={mode} aria-label={`${design} ${mode}`}>
-                    <strong>{design} · {mode}</strong>
+            {(['md3', 'apple', 'shadcn'] as const).flatMap(design => (['light', 'dark'] as const).map(mode => (
+                <ConfigProvider key={`${design}-${mode}`} designSystem={design} colorMode={mode} className={panel} role="region" aria-label={`${designSystemRegistry[design].fullName} ${mode === 'light' ? '浅色' : '深色'}`}>
+                    <strong>{designSystemRegistry[design].fullName} · {mode === 'light' ? '浅色' : '深色'}</strong>
                     <div className={actions}>
                         <Button appearance="primary">保存</Button>
                         <Button>取消</Button>
                         <Button appearance="text">帮助</Button>
                         <Button disabled>不可用</Button>
                     </div>
-                </section>
+                </ConfigProvider>
             )))}
         </div>
     );

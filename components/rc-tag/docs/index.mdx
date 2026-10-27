@@ -25,19 +25,41 @@ status = "experimental"
 - 支持 `icon` 前缀图标。
 - 支持 `closable` 与 `onClose` 关闭交互。
 - 支持 `closeIcon` 自定义关闭图标。
+- 关闭按钮使用标签内的紧凑绘制尺寸，悬停、聚焦和按下反馈与当前标签前景配对；焦点环位于关闭角色内部。粗指针下保留 Button 独立的触控命中区域，不用放大可见背景代替触控适配。
 - `CheckableTag` 对应 Material Filter chip，选中后显示勾选标记并使用 secondary container；多个筛选标签应放在有名称的 toolbar 中。
+
+## 自定义颜色配对
+
+非强制颜色模式下，`color` 为不透明十六进制颜色时（`#RGB`、`#RRGGBB`，以及 alpha 完全不透明的 `#RGBA` / `#RRGGBBAA`），Tag 按 sRGB 相对亮度选择对比更高的黑色或白色文字；这与当前设计体系和明暗模式无关，背景保留调用方原值。
+
+CSS 变量、半透明颜色及其他 CSS 颜色语法不会自动推断背景或前景，请同时通过 `style.color` 提供与实际背景配对的文字色。非强制颜色模式下，`style.color` 优先于自动值；显式覆盖后的对比由调用方负责。此能力不解析任意 CSS，不通过挂载后读取 DOM 改色，服务端和客户端采用同一规则。预设色使用各设计体系的成对语义令牌；启用强制颜色后，预设色、自定义色与显式文字色均让位于下述系统配色。
 
 ## 代码演示
 
 <Demos glob="./demos/*.demo.tsx" columns={2} />
 
+## 状态契约
+
+CheckableTag 使用 `checked / defaultChecked / onCheckedChange(next, details)`，`details.reason` 为 `toggle`。Tag 的关闭按钮复用 Button，`onClose` 接收 `HTMLButtonElement` 的 React 点击事件，关闭文案默认跟随全局语言。
+
+受控值与默认值互斥；默认值仅在初始化时使用。外部属性更新不触发操作回调，省略回调可展示只读受控快照。
+
+强制颜色模式下，普通 Tag 使用 Canvas 表面、CanvasText 文字与边框，保留标签文字和图标；关闭按钮继续使用 Button 的系统配色、关闭语义与可见焦点。Tag 自行保持系统前景和表面的配对，避免浏览器文字背板遮住内容。
+
+CheckableTag 使用系统前景与表面颜色，选中态使用配对的 Highlight / HighlightText，禁用态使用 GrayText，并保留勾选标记与可见焦点。
+
 ## API
 
 <API source="../src/types.ts" symbol="TagProps" component="Tag" />
 
+### CheckableTag
+
+<API source="../src/types.ts" symbol="CheckableTagProps" component="CheckableTag" />
+
+
 
 ## 三套设计风格
 
-普通标签在 Material / macOS / shadcn 下分别采用 8px / 4px / 胶囊圆角。可选标签在 Material 下对应 32px 高、14px 标签字的 filter chip；macOS 与 shadcn 使用紧凑的 24px 高选择标签。选中勾选、键盘操作和 disabled 语义保持一致，普通静态 Tag 不冒充 M3 交互 chip。
+普通标签在 Material / Apple / shadcn 下分别采用 8px / 4px / 胶囊圆角。可选标签在 Material 下对应 32px 高、14px 标签字的 filter chip；Apple 与 shadcn 使用紧凑的 24px 高选择标签。选中勾选、键盘操作和 disabled 语义保持一致，普通静态 Tag 不冒充 M3 交互 chip。
 
 切换文档站设计风格后，本页演示同步使用该设计；浅色和深色模式分别使用配对语义颜色。

@@ -13,7 +13,7 @@ status = "experimental"
 
 ## 角色与默认主题
 
-业务样式应消费角色，例如 `token.color.text.primary`、`token.color.brand.primary` 与 `token.color.selection.background`。默认 Material Design 3 风格将 L1 的 Purple 40 / 80 配对为浅色 / 深色品牌；可选 shadcn 风格使用零色度 Neutral 黑白灰，macOS 风格使用蓝色强调与银灰、深灰表面。三套风格使用相同的 L2 角色，明暗模式独立切换。`TokenVars` 与 `vars` 均导出 `token.toml` 生成的正式变量映射，不再包含历史别名。
+业务样式消费角色，例如 `token.color.text.primary`、`token.color.brand.primary` 与 `token.color.selection.background`。默认 MD3 Expressive 将 L1 的 Purple 40 / 80 配对为浅色 / 深色品牌；shadcn/ui 使用零色度 Neutral 黑白灰，Apple 使用蓝色强调与分层灰色表面。三套设计体系使用相同的 L2 角色，独立定义颜色、排版、动效与组件规格。`TokenVars` 与 `vars` 均导出 `token.toml` 生成的正式变量映射。
 
 | 意图 | 背景或主色 | 配套前景 | 使用边界 |
 | --- | --- | --- | --- |
@@ -36,19 +36,19 @@ const panel = css`
 
 ## 同一份配对数据与 CSS 主题
 
-`themeColorContract` 保持默认 Material 的 `light`、`dark` 配对；`shadcnColorContract` 提供独立的黑白灰配对，`macosColorContract` 提供蓝色强调与分层灰色表面的配对。`designColorContract` 用 `material` / `shadcn` / `macos` 索引三套数据，`ThemeDesign` 类型声明这三个风格名称。它们供主题编译、设计参考和契约测试使用，成员是 CSS 引用字符串，读取它们不会切换主题或注入样式。
+`designSystemRegistry` 集中维护 `md3` / `apple` / `shadcn` 的展示名与来源，`defaultDesignSystem` 为 `md3`，`DesignSystem` 从注册表推导。`designColorContract` 按相同 ID 索引 `md3ColorContract`、`appleColorContract` 与 `shadcnColorContract`，每套含完整的 `light`、`dark` 配对。成员是 CSS 引用字符串，读取它们不会注入样式。
 
 ```ts
 import { designColorContract } from "@crab-dev/rc-token-semantic";
-import type { ThemeColors, ThemeDesign } from "@crab-dev/rc-token-semantic";
+import type { ThemeColors, DesignSystem } from "@crab-dev/rc-token-semantic";
 
-const design: ThemeDesign = "shadcn";
+const design: DesignSystem = "shadcn";
 const light: ThemeColors = designColorContract[design].light;
 const brand = light.brand.primary; // L1 Neutral 900 的 CSS 引用
 const onBrand = light.text.onBrand;
 ```
 
-运行时主题使用 `@crab-dev/rc-theme/css/index.css`、`data-crab-design` 与 `data-theme`；React 应用通过 ConfigProvider 的 `design` 统一选择风格，例如 `design="macos"`。TOML 保持无主题样式时的 Material Light 回退值，`src/theme.ts`、`src/shadcn-theme.ts` 与 `src/macos-theme.ts` 分别维护三套完整明暗配对。业务代码通常只需要默认 `token`，不用在每个组件里读取风格或明暗模式再分支。
+运行时加载 `@crab-dev/rc-theme/css/index.css`，通过 `data-crab-design` 与解析为明暗的 `data-theme` 选择映射。React 应用通过 `ConfigProvider designSystem="apple" colorMode="light"` 配置。TOML 保持无主题样式时的 MD3 Expressive Light 回退值；业务组件只消费默认 `token`，不按设计体系或颜色模式分支。
 
 ## 覆盖、迁移与验收
 
@@ -66,16 +66,20 @@ const onBrand = light.text.onBrand;
 
 ### 统一视觉尺度
 
-- small 控件横向内边距为 `space.control-padding-x-small`（8px），middle / large 为 `space.control-padding-x`（12px）。
-- 通用桌面尺寸为 small / middle / large 的 32 / 36 / 40px；输入、选择控件、开关、分段按钮和页签使用各自的规格角色，不能用通用高度推断所有组件。Material 带标签输入为 56px，复选框和单选框交互区为 48px；触控目标保留独立角色。
-- Material 保留 4px 控件圆角、胶囊按钮、28px 弹层圆角和默认层级卡片；shadcn 使用 8px 控件圆角、方形按钮、12px 弹层圆角和默认描边卡片。风格切换统一覆盖共享形状角色。
-- macOS 通过共享形状与阴影角色提供 6px 控件和按钮圆角、12px 卡片与 16px 弹层圆角，输入采用外置标签和外圈蓝色焦点；这些是桌面风格扩展，不改变组件的无障碍语义与键盘操作。
+- small 控件横向内边距为 `space.control-padding-x-small`（8px），medium / large 为 `space.control-padding-x`（12px）。
+- 通用尺寸为 small / medium / large；输入、选择控件、开关、分段按钮和页签使用各自规格，不能用通用高度推断所有组件。MD3 带标签输入为 56px，复选框和单选框交互区为 48px；触控目标保持独立。
+- 密度档位为 compact / standard / comfortable，对应 `density.<档位>.navigation / item / gap / padding / cell-padding`。当前生效角色为 `density.navigation / item / gap / padding / cell-padding`，默认引用 standard。密度不改写 `sizing.small / medium / large`，也不缩放字体。
+- 数据行与表头使用 `density.<档位>.row / header`。公开的 `densityGeometry` 从同一份 TOML 的 row / header / navigation / item 引用生成数值，供虚拟滚动测量使用；修改密度定义后必须运行 `generate:token`，不得手改生成的 `density-geometry.ts`。
+- MD3 Expressive 保留 4px 控件圆角、胶囊按钮、28px 弹层圆角和默认层级卡片；shadcn 使用 8px 控件圆角、方形按钮、12px 弹层圆角和默认描边卡片。风格切换统一覆盖共享形状角色。
+- Apple 通过共享形状与阴影角色提供 6px 控件和按钮圆角、12px 卡片与 16px 弹层圆角，输入采用外置标签和外圈蓝色焦点；这些是桌面风格扩展，不改变组件的无障碍语义与键盘操作。
 - 卡片和内容分隔使用 `color.border.subtle`；可输入控件保留 `color.border.default` 的辨识度。
 - 即时颜色、边框和阴影反馈使用 `motion.interaction`；大范围展开使用独立的 `motion.expand`。
 
 ### 排版与字体
 
-`typography.display / headline / title / body / label` 各有 large、medium、small，共 15 组字体、字号、行高和字重角色。Material 使用 Roboto，macOS 使用系统界面字体，shadcn 使用 Inter 优先的 sans 回退；所有字体角色在嵌套风格边界一起恢复。文档和工作台随产物加载 Roboto，其他字体是否可用取决于设备；消费方可自行加载字体或覆盖公共字体角色。
+`typography.display / headline / title / body / label` 各有 large、medium、small，另提供相应 emphasized 角色。MD3 Expressive 使用 Roboto 的标准与强调字阶；Apple 使用系统字体和独立桌面字阶；shadcn/ui 使用 Inter 优先的 Web 字阶。三套体系同时重置字体、字号、行高和字重，避免嵌套边界继承另一体系。字体加载由应用负责。
+
+动效区分 effects 与 spatial 的 fast / default / slow，以及交互、淡入、展开、面板与布局角色。MD3 使用 Expressive 的 Web 时长与 easing 近似，带边界的 sheet 保留无过冲过渡；Apple 与 shadcn/ui 使用各自的时长和 easing。减少动态效果由组件保留最终状态并移除非必要运动，不能只取消某个主题的动画。
 
 ### 组件类别角色
 
@@ -83,9 +87,9 @@ const onBrand = light.text.onBrand;
 
 ### 验收范围
 
-公共默认风格仍为 Material Design 3：品牌采用 Material Purple，表面采用 Material Neutral / Neutral Variant。shadcn 风格独立采用零色度 Neutral：浅色白底、深色近黑底，品牌操作、选中容器、文字、边框和焦点均为黑白灰。macOS 风格使用蓝色操作与选中角色，浅色银灰和深色灰阶分别定义表面层级。三套风格共用 lowest、low、container、high、highest、dim 和 bright 等角色，保留错误、成功、警告与信息的语义反馈色；自定义品牌不会改变基础表面。
+公共默认风格仍为 Material Design 3：品牌采用 Material Purple，表面采用 Material Neutral / Neutral Variant。shadcn 风格独立采用零色度 Neutral：浅色白底、深色近黑底，品牌操作、选中容器、文字、边框和焦点均为黑白灰。Apple 风格使用蓝色操作与选中角色，浅色银灰和深色灰阶分别定义表面层级。三套风格共用 lowest、low、container、high、highest、dim 和 bright 等角色，保留错误、成功、警告与信息的语义反馈色；自定义品牌不会改变基础表面。
 
-颜色 API 名称保持不变，切换风格应复测已有业务主题。仅覆盖主色不等于完成主题：主色前景、悬停、按压、链接、选中与焦点必须成组评审。shadcn 与 macOS 的细描边是各自风格的视觉定制，不能将其当作所有控件唯一的可访问性标记；焦点与选择状态仍有独立的高对比角色。macOS 是受苹果桌面界面启发的项目主题，不代表苹果原生控件或 M3 默认视觉规格。
+L2 颜色变量名保持稳定；公开设计体系接口统一为新 ID 与新导出，不保留旧类型或主题导出别名。切换体系应复测已有业务覆盖：主色前景、悬停、按压、链接、选中与焦点必须成组评审。细描边不能成为控件唯一的可访问性标记；焦点与选择状态仍使用独立角色。Apple 属于 HIG 灵感的自主 Web 设计，不代表苹果原生控件。
 
 - L1 修改会影响所有上层引用；业务品牌定制优先覆盖 L2。
 - L3 覆盖继续优先于 L2；应检查旧组件覆盖是否遮住新的公共默认。

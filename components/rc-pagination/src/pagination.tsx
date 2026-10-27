@@ -1,12 +1,14 @@
-import { useComponentSize } from '@crab-dev/rc-config-provider';
+import { useComponentSize, useConfig, useLocale } from '@crab-dev/rc-config-provider';
+import Button, { TokenVars as buttonVars } from '@crab-dev/rc-button';
+import LineEdit from '@crab-dev/rc-line-edit';
 import { useState } from "react";
-import type { ChangeEvent, FC, KeyboardEvent, MouseEvent, ReactNode } from "react";
+import type { ChangeEvent, KeyboardEvent, MouseEvent, ReactNode } from "react";
 import { css, cx } from "@crab-dev/css";
 import RcSelect from "@crab-dev/rc-select";
 import { useControllableValue } from "@crab-dev/rc-hooks";
 
 import token from "./token.js";
-import type { PaginationProps, PaginationShowTotal } from "./types.js";
+import type { PaginationChangeDetails, PaginationProps, PaginationShowTotal } from "./types.js";
 
 /* ────────────────────────────────── 静态样式 ────────────────────────────────── */
 
@@ -42,6 +44,13 @@ const listStyle = css`
 `;
 
 const itemBaseStyle = css`
+    /* Pagination owns the page colors; Button owns input feedback. Map its
+       interactive tokens so its more specific hover/focus/press selectors
+       cannot replace a selected page's container with a translucent text tint. */
+    ${buttonVars['text.color']}: ${token.item.color};
+    ${buttonVars['text.background-color-hover']}: ${token.item['background-color-hover']};
+    ${buttonVars['text.background-color-focus']}: ${token.item['background-color-hover']};
+    ${buttonVars['text.background-color-active']}: ${token.item['background-color-hover']};
     &:focus-visible { outline: ${token.interaction['outline-width-focus']} solid ${token.interaction['outline-color-focus']}; outline-offset: ${token.interaction['outline-offset-focus']}; }
     @media (forced-colors: active) { &:focus-visible { outline-color: Highlight; } &[aria-selected='true'], &[aria-current='page'] { outline: 2px solid Highlight; } }
     @media (prefers-reduced-motion: reduce) { transition: none; }
@@ -66,12 +75,12 @@ const itemBaseStyle = css`
     appearance: none;
     font-family: inherit;
 
-    &:hover:not(:disabled):not([aria-disabled="true"]) {
+    &:hover:not(:disabled):not([aria-disabled="true"]):not([aria-current="page"]) {
         color: ${token.item["color-hover"]};
         background-color: ${token.item["background-color-hover"]};
     }
 
-    &:active:not(:disabled):not([aria-disabled="true"]) {
+    &:active:not(:disabled):not([aria-disabled="true"]):not([aria-current="page"]) {
         background-color: ${token.item["background-color-hover"]};
     }
 
@@ -81,6 +90,10 @@ const itemBaseStyle = css`
     }
 
     &[aria-current="page"] {
+        ${buttonVars['text.color']}: ${token.item['color-active']};
+        ${buttonVars['text.background-color-hover']}: ${token.item['background-color-active']};
+        ${buttonVars['text.background-color-focus']}: ${token.item['background-color-active']};
+        ${buttonVars['text.background-color-active']}: ${token.item['background-color-active']};
         color: ${token.item["color-active"]};
         background-color: ${token.item["background-color-active"]};
         border-color: ${token.item['border-color-active']};
@@ -93,9 +106,18 @@ const itemBaseStyle = css`
 
     &:disabled,
     &[aria-disabled="true"] {
+        ${buttonVars['root.color-disabled']}: ${token.item['color-disabled']};
         color: ${token.item["color-disabled"]};
         background-color: transparent;
         cursor: not-allowed;
+    }
+
+    /* Disabled navigation still has a current location. Match Button's full
+       disabled condition so its text appearance cannot erase this marker. */
+    &[aria-current="page"]:is(:disabled, [aria-disabled="true"]:not([data-is-loading])) {
+        color: ${token.item["color-disabled"]};
+        background-color: ${token.item.current["background-color-disabled"]};
+        border-color: ${token.item.current["border-color-disabled"]};
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -146,18 +168,18 @@ const ellipsisStyle = css`
     font-size: inherit;
 
     /* 默认显示省略号，hover 时切换为双向箭头（语义化跳 5 页） */
-    & > .rc-pagination-ellipsis-dots,
-    & > .rc-pagination-ellipsis-jump {
+    & .rc-pagination-ellipsis-dots,
+    & .rc-pagination-ellipsis-jump {
         display: inline-flex;
         align-items: center;
         justify-content: center;
         transition: opacity 120ms cubic-bezier(0.4, 0, 0.2, 1);
     }
-    & > .rc-pagination-ellipsis-dots {
+    & .rc-pagination-ellipsis-dots {
         letter-spacing: 0.05em;
         opacity: 1;
     }
-    & > .rc-pagination-ellipsis-jump {
+    & .rc-pagination-ellipsis-jump {
         position: absolute;
         inset: 0;
         opacity: 0;
@@ -167,16 +189,16 @@ const ellipsisStyle = css`
         color: ${token.item["color-hover"]};
         background-color: ${token.item["background-color-hover"]};
     }
-    &:hover:not(:disabled) > .rc-pagination-ellipsis-dots {
+    &:hover:not(:disabled) .rc-pagination-ellipsis-dots {
         opacity: 0;
     }
-    &:hover:not(:disabled) > .rc-pagination-ellipsis-jump {
+    &:hover:not(:disabled) .rc-pagination-ellipsis-jump {
         opacity: 1;
     }
-    &:focus-visible > .rc-pagination-ellipsis-dots {
+    &:focus-visible .rc-pagination-ellipsis-dots {
         opacity: 0;
     }
-    &:focus-visible > .rc-pagination-ellipsis-jump {
+    &:focus-visible .rc-pagination-ellipsis-jump {
         opacity: 1;
     }
 
@@ -192,8 +214,8 @@ const ellipsisStyle = css`
 
     @media (prefers-reduced-motion: reduce) {
         transition: none;
-        & > .rc-pagination-ellipsis-dots,
-        & > .rc-pagination-ellipsis-jump {
+        & .rc-pagination-ellipsis-dots,
+        & .rc-pagination-ellipsis-jump {
             transition: none;
         }
     }
@@ -343,11 +365,7 @@ const buildPageSequence = (current: number, totalPages: number): (number | "prev
     return [1, "prev-jump", current - 1, current, current + 1, "next-jump", last];
 };
 
-const defaultShowTotal: PaginationShowTotal = (total, [from, to]) => `第 ${from}-${to} 条 / 共 ${total} 条`;
-
 const DEFAULT_PAGE_SIZE_OPTIONS = [10, 20, 50, 100];
-
-const defaultPageSizeLabel = (n: number): ReactNode => `${n} / 页`;
 
 /* ────────────────────────────────── 组件 ────────────────────────────────── */
 
@@ -356,34 +374,37 @@ const defaultPageSizeLabel = (n: number): ReactNode => `${n} / 页`;
  *
  * 支持受控 / 非受控；可配合 `showQuickJumper`、`showTotal` 拓展辅助区域。
  */
-const Pagination: FC<PaginationProps> = ({
-    current: controlledCurrent,
-    defaultCurrent = 1,
+function Pagination({
+    value: controlledCurrent,
+    defaultValue = 1,
     total,
     pageSize: controlledPageSize,
     defaultPageSize = 10,
-    onChange,
+    onValueChange,
     size: sizeProp,
     disabled = false,
     showQuickJumper = false,
     showSizeChanger = false,
     pageSizeOptions = DEFAULT_PAGE_SIZE_OPTIONS,
-    onShowSizeChange,
-    pageSizeLabel = defaultPageSizeLabel,
+    onPageSizeChange,
+    pageSizeLabel,
     showTotal = false,
-    prevLabel = "Previous page",
-    nextLabel = "Next page",
+    prevLabel,
+    nextLabel,
     pageLabel,
     className,
     ...restProps
-}) => {
+}: PaginationProps) {
     const configuredSize = useComponentSize(sizeProp);
-    const size = configuredSize === 'middle' ? 'medium' : configuredSize;
-    // 仅用 useControllableValue 统一"受控优先 / 非受控兜底"取值；current 与 pageSize
-    // 的 onChange 相互耦合（onChange(current, pageSize)），故不交给它触发，仍在下方手动派发。
+    const size = configuredSize;
+    const { messages, locale } = useLocale();
+    const { direction } = useConfig();
+    const isRtl = (restProps.dir ?? direction) === 'rtl';
+    const numberFormat = new Intl.NumberFormat(locale);
+    // 页码与每页条数需要一起计算；状态同步与下方用户语义通知分别处理。
     const [currentValue, setCurrentValue] = useControllableValue<number>({
         value: controlledCurrent,
-        defaultValue: Math.max(1, defaultCurrent),
+        defaultValue: Math.max(1, defaultValue),
     });
     const [pageSizeValue, setPageSizeValue] = useControllableValue<number>({
         value: controlledPageSize,
@@ -403,16 +424,16 @@ const Pagination: FC<PaginationProps> = ({
     const ellipsisSizeClass = isSmall ? ellipsisSmallStyle : size === "large" ? largeSizeStyle : "";
     const inputSizeClass = isSmall ? quickJumperInputSmallStyle : size === "large" ? largeSizeStyle : "";
 
-    const sizeChangerOptions = pageSizeOptions.map((value) => ({ value: String(value), label: pageSizeLabel(value) }));
+    const sizeChangerOptions = pageSizeOptions.map((value) => ({ value: String(value), label: (pageSizeLabel ?? messages.pagination.pageSizeLabel)(value) }));
 
-    const commitChange = (nextPage: number) => {
+    const commitChange = (nextPage: number, reason: 'page' | 'jump', event: PaginationChangeDetails['event']) => {
         const clamped = clamp(Math.floor(nextPage), 1, totalPages);
         if (clamped === activeCurrent) return;
         setCurrentValue(clamped);
-        onChange?.(clamped, activePageSize);
+        onValueChange?.(clamped, { pageSize: activePageSize, reason, event });
     };
 
-    const handlePageSizeChange = (nextValue: string | null) => {
+    const handlePageSizeChange = (nextValue: string | null, details: { event?: PaginationChangeDetails['event'] }) => {
         if (nextValue == null) return;
         const nextSize = Number.parseInt(nextValue, 10);
         if (!Number.isFinite(nextSize) || nextSize <= 0 || nextSize === activePageSize) return;
@@ -426,14 +447,14 @@ const Pagination: FC<PaginationProps> = ({
         if (nextCurrent !== activeCurrent) {
             setCurrentValue(nextCurrent);
         }
-        onShowSizeChange?.(nextCurrent, nextSize);
-        onChange?.(nextCurrent, nextSize);
+        onPageSizeChange?.(nextSize, { page: nextCurrent, event: details.event });
+        onValueChange?.(nextCurrent, { pageSize: nextSize, reason: 'page-size', event: details.event });
     };
 
     const handlePageClick = (nextPage: number) => (event: MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
         if (disabled) return;
-        commitChange(nextPage);
+        commitChange(nextPage, 'page', event);
     };
 
     const handleJumperChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -441,32 +462,32 @@ const Pagination: FC<PaginationProps> = ({
         setQuickJumperValue(raw);
     };
 
-    const commitQuickJumper = () => {
+    const commitQuickJumper = (event: PaginationChangeDetails['event']) => {
         if (quickJumperValue === "") return;
         const parsed = Number.parseInt(quickJumperValue, 10);
         if (!Number.isFinite(parsed)) {
             setQuickJumperValue("");
             return;
         }
-        commitChange(parsed);
+        commitChange(parsed, 'jump', event);
         setQuickJumperValue("");
     };
 
     const handleJumperKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
         if (event.key === "Enter") {
             event.preventDefault();
-            commitQuickJumper();
+            commitQuickJumper(event);
         }
     };
 
     const buildPageAriaLabel = (page: number): string => {
         if (pageLabel) return pageLabel(page);
-        return `Page ${page}`;
+        return `${messages.pagination.page} ${numberFormat.format(page)}`;
     };
 
     const renderTotal = (): ReactNode => {
         if (!showTotal) return null;
-        const renderer: PaginationShowTotal = typeof showTotal === "function" ? showTotal : defaultShowTotal;
+        const renderer: PaginationShowTotal = typeof showTotal === "function" ? showTotal : (count, [first, last]) => messages.pagination.totalLabel(first, last, count);
         const from = total === 0 ? 0 : (activeCurrent - 1) * activePageSize + 1;
         const to = Math.min(total, activeCurrent * activePageSize);
         return <span className={totalStyle}>{renderer(total, [from, to])}</span>;
@@ -477,22 +498,22 @@ const Pagination: FC<PaginationProps> = ({
             {...restProps}
             className={cx(rootStyle, className)}
             role="navigation"
-            aria-label="Pagination"
+            aria-label={messages.pagination.label}
             data-size={size}
             data-disabled={disabled ? "true" : undefined}
         >
             {renderTotal()}
             <ul className={listStyle}>
                 <li>
-                    <button
+                    <Button appearance="text" size="s"
                         type="button"
                         className={cx(itemBaseStyle, itemSizeClass)}
                         onClick={handlePageClick(activeCurrent - 1)}
                         disabled={disabled || activeCurrent <= 1}
-                        aria-label={prevLabel}
+                        aria-label={prevLabel ?? messages.pagination.previous}
                     >
-                        <ChevronLeftIcon />
-                    </button>
+                        {isRtl ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+                    </Button>
                 </li>
                 {pageSequence.map((entry, index) => {
                     if (entry === "prev-jump" || entry === "next-jump") {
@@ -502,26 +523,26 @@ const Pagination: FC<PaginationProps> = ({
                             : Math.min(totalPages, activeCurrent + 5);
                         return (
                             <li key={`${entry}-${index}`}>
-                                <button
+                                <Button appearance="text" size="s"
                                     type="button"
                                     className={cx(ellipsisStyle, ellipsisSizeClass)}
                                     onClick={handlePageClick(jumpTarget)}
                                     disabled={disabled}
-                                    aria-label={isPrev ? "Jump backward 5 pages" : "Jump forward 5 pages"}
+                                    aria-label={isPrev ? messages.pagination.jumpBackward : messages.pagination.jumpForward}
                                     data-testid="pagination-ellipsis"
                                 >
                                     <span className="rc-pagination-ellipsis-dots" aria-hidden="true">…</span>
                                     <span className="rc-pagination-ellipsis-jump" aria-hidden="true">
-                                        {isPrev ? <DoubleChevronLeftIcon /> : <DoubleChevronRightIcon />}
+                                        {isPrev !== isRtl ? <DoubleChevronLeftIcon /> : <DoubleChevronRightIcon />}
                                     </span>
-                                </button>
+                                </Button>
                             </li>
                         );
                     }
                     const isActive = entry === activeCurrent;
                     return (
                         <li key={entry}>
-                            <button
+                            <Button appearance="text" size="s"
                                 type="button"
                                 className={cx(itemBaseStyle, itemSizeClass)}
                                 onClick={handlePageClick(entry)}
@@ -530,26 +551,26 @@ const Pagination: FC<PaginationProps> = ({
                                 aria-label={buildPageAriaLabel(entry)}
                             >
                                 {entry}
-                            </button>
+                            </Button>
                         </li>
                     );
                 })}
                 <li>
-                    <button
+                    <Button appearance="text" size="s"
                         type="button"
                         className={cx(itemBaseStyle, itemSizeClass)}
                         onClick={handlePageClick(activeCurrent + 1)}
                         disabled={disabled || activeCurrent >= totalPages}
-                        aria-label={nextLabel}
+                        aria-label={nextLabel ?? messages.pagination.next}
                     >
-                        <ChevronRightIcon />
-                    </button>
+                        {isRtl ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+                    </Button>
                 </li>
             </ul>
             {showQuickJumper && (
                 <span className={quickJumperStyle}>
-                    跳至
-                    <input
+                    {messages.pagination.jump}
+                    <LineEdit size={size}
                         className={cx(quickJumperInputStyle, inputSizeClass)}
                         value={quickJumperValue}
                         onChange={handleJumperChange}
@@ -557,9 +578,9 @@ const Pagination: FC<PaginationProps> = ({
                         onBlur={commitQuickJumper}
                         disabled={disabled}
                         inputMode="numeric"
-                        aria-label="Jump to page"
+                        aria-label={messages.pagination.jump}
                     />
-                    页
+                    {messages.pagination.page}
                 </span>
             )}
             {showSizeChanger && (
@@ -567,10 +588,10 @@ const Pagination: FC<PaginationProps> = ({
                     <RcSelect
                         options={sizeChangerOptions}
                         value={String(activePageSize)}
-                        onChange={handlePageSizeChange}
-                        size={isSmall ? "small" : size === "large" ? "large" : "middle"}
+                        onValueChange={handlePageSizeChange}
+                        size={isSmall ? "small" : size === "large" ? "large" : "medium"}
                         disabled={disabled}
-                        aria-label="Rows per page"
+                        aria-label={messages.pagination.pageSize}
                         popupMatchSelectWidth={false}
                     />
                 </span>

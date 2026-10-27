@@ -52,9 +52,9 @@ export const vars = defineTokens({
     'size.large.box.width': '--radio-size-large-box-width',
     'size.large.dot.width': '--radio-size-large-dot-width',
     'size.large.label.font-size': '--radio-size-large-label-font-size',
-    'size.middle.box.width': '--radio-size-middle-box-width',
-    'size.middle.dot.width': '--radio-size-middle-dot-width',
-    'size.middle.label.font-size': '--radio-size-middle-label-font-size',
+    'size.medium.box.width': '--radio-size-medium-box-width',
+    'size.medium.dot.width': '--radio-size-medium-dot-width',
+    'size.medium.label.font-size': '--radio-size-medium-label-font-size',
     'size.small.box.width': '--radio-size-small-box-width',
     'size.small.dot.width': '--radio-size-small-dot-width',
     'size.small.label.font-size': '--radio-size-small-label-font-size'
@@ -137,15 +137,15 @@ const token = defineTokens({
                 'font-size': `var(${vars['size.large.label.font-size']}, var(--token-semantic-font-size-subhead, var(--token-global-font-size-md, 16px)))`
             }
         },
-        'middle': {
+        'medium': {
             'box': {
-                'width': `var(${vars['size.middle.box.width']}, var(--token-semantic-selection-radio-middle, var(--token-global-space-5, 20px)))`
+                'width': `var(${vars['size.medium.box.width']}, var(--token-semantic-selection-radio-medium, var(--token-global-space-5, 20px)))`
             },
             'dot': {
-                'width': `var(${vars['size.middle.dot.width']}, var(--token-semantic-selection-radio-dot-middle, var(--token-global-space-2-5, 10px)))`
+                'width': `var(${vars['size.medium.dot.width']}, var(--token-semantic-selection-radio-dot-medium, var(--token-global-space-2-5, 10px)))`
             },
             'label': {
-                'font-size': `var(${vars['size.middle.label.font-size']}, var(--token-semantic-typography-body-medium-font-size, var(--token-global-font-size-sm, 14px)))`
+                'font-size': `var(${vars['size.medium.label.font-size']}, var(--token-semantic-typography-body-medium-font-size, var(--token-global-font-size-sm, 14px)))`
             }
         },
         'small': {

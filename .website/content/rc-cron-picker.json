@@ -19,12 +19,12 @@
         {
             "id": "step-2",
             "title": "保存表达式",
-            "goal": "连接 value 和 onChange，再用业务按钮设置工作日规则。",
+            "goal": "连接 value 和 onValueChange，再用业务按钮设置工作日规则。",
             "why": "Cron 表达式描述重复规则，预览帮助检查它是否符合业务时间约定。",
             "instruction": "点击仅工作日，再修改小时。",
             "expected": "表达式随编辑更新；真正执行仍需业务调度器。",
             "changes": [
-                "连接 value 和 onChange，再用业务按钮设置工作日规则。"
+                "连接 value 和 onValueChange，再用业务按钮设置工作日规则。"
             ],
             "source": "rc-cron-picker/step-2.tsx"
         }

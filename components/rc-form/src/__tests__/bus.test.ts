@@ -1,6 +1,19 @@
 import { describe, expect, it, mock } from "@crab-dev/wake/test";
 import EventBus, { MessageEnum } from "../bus.js";
 describe("EventBus", () => {
+    it('defers listeners added during dispatch until the next message', () => {
+        const bus = new EventBus();
+        const later = { id: 'later', type: MessageEnum.ON_ITEM_VALUE_CHANGE, ring: mock.fn() };
+        const first = { id: 'first', type: MessageEnum.ON_ITEM_VALUE_CHANGE, ring: () => {
+            bus.unSubscribe(first);
+            bus.subscribe(later);
+        } };
+        bus.subscribe(first);
+        bus.dispatch({ type: MessageEnum.ON_ITEM_VALUE_CHANGE });
+        expect(later.ring).not.toHaveBeenCalled();
+        bus.dispatch({ type: MessageEnum.ON_ITEM_VALUE_CHANGE });
+        expect(later.ring).toHaveBeenCalledTimes(1);
+    });
     it("dispatches only subscribers with matching type", () => {
         const bus = new EventBus();
         const onChange = mock.fn();

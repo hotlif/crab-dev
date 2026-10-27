@@ -1,110 +1,67 @@
 +++
 title = "开始使用"
-description = "安装 Crab UI 组件并在 React 19 应用中加载静态样式"
+description = "安装组件并设置统一的设计、明暗、尺寸与密度"
 kind = "guide"
 status = "experimental"
 +++
 
 # 开始使用
 
-Crab UI 面向 React 19 应用。在 Wake 项目中，按需安装并导入组件即可使用，样式由 Wake 自动加载；组件页提供使用场景、交互示例和 API。
+Crab UI 按包提供 React 19 组件。先从[组件目录](/learn/components)选择所需能力，安装对应包，不需要引入整个组件库。
 
-## 安装组件
-
-下面以 Button 为例；使用其他组件时，将包名替换为对应的 `@crab-dev/rc-*`：
+应用提供满足包声明范围的 React 宿主；实际使用 ReactDOM 的包也声明对应 peer。库包保留自身开发依赖供构建和测试，严格 PnP 消费不会依赖它们替应用提供 React。
 
 ```sh
-yarn add @crab-dev/rc-button
+yarn add @crab-dev/rc-button @crab-dev/rc-config-provider @crab-dev/rc-theme
 ```
 
-本仓库使用 Yarn Plug'n'Play（PnP）管理依赖，无需创建 `node_modules`。
-
-## 渲染第一个组件
+## 创建第一个界面
 
 ```tsx
 import Button from "@crab-dev/rc-button";
+import ConfigProvider from "@crab-dev/rc-config-provider";
 
-export default function SaveAction() {
-    return (
-        <Button appearance="primary" onClick={() => console.log("saved")}>
-            保存
-        </Button>
-    );
+export default function App() {
+    return <ConfigProvider designSystem="md3" colorMode="light" size="medium" density="standard">
+        <Button appearance="primary">保存修改</Button>
+    </ConfigProvider>;
 }
 ```
 
-大多数 UI 包默认导出主组件，附属组件和类型使用具名导入。例如：
+主组件默认导出，类型、Hook 和工具具名导出；CSS-only 与基础支撑包以各自公开导出为准。
 
-```tsx
-import Button, { ButtonGroup, type ButtonProps } from "@crab-dev/rc-button";
-```
+## 加载静态样式
 
-Hooks、令牌和主题等工具包的入口形式不同，请以对应包文档为准。
+Wake 按组件模块引用加载对应静态 CSS；其他构建器需要显式加载所用组件及其依赖包公开的 `css/index.css`。使用包公开入口，不导入 `src`、`esm`、`cjs` 或 `declarations` 内部文件。
 
-## 加载静态 CSS
-
-Crab CSS 在构建期生成静态样式，不会向浏览器注入 CSS-in-JS 运行时。
-
-- 使用 Wake 构建时，Wake 会自动发现并加载组件样式，示例无需手写 CSS 副作用导入。
-- 使用其他构建器时，需要自行接入静态样式加载；公开样式入口为包内的 `css/index.css`，不能假定其他构建器也具有 Wake 的自动加载能力。
-- 不要直接导入包内 `src/`、`esm/`、`cjs/` 或 `declarations/`，这些不是稳定的公共入口。
-
-## 设置主题
-
-需要浅色或深色主题时，安装 CSS-only 的 `@crab-dev/rc-theme`：
-
-```sh
-yarn add @crab-dev/rc-theme
-```
-
-普通组件随模块引用自动加载样式，但仅声明 CSS-only 主题包依赖不会触发加载。本仓库由 Wake Docs 的 `theme_css` 配置加载公共主题入口，无需在 JavaScript 中导入 CSS：
-
-```toml
-# .website/wake.config.toml；路径相对于文档项目根目录。
-[docs]
-theme_css = "docs/theme.css"
-```
-
-`theme_css` 文件必须位于文档项目内。本仓库的 `.website/docs/theme.css` 通过 CSS 引用公共主题：
+`@crab-dev/rc-theme` 是 CSS-only 包，安装或渲染 ConfigProvider 不会自动加载它。普通构建器应在全局 CSS 入口加载主题：
 
 ```css
-@import "../../components/rc-theme/css/index.css";
+@import "@crab-dev/rc-theme/css/index.css";
 ```
 
-组件库默认使用 Material Design 3 浅色主题。通过 `ConfigProvider` 独立配置设计风格和明暗模式：
+Wake Docs 通过项目内的 `theme_css` 文件加载主题；本仓库配置为 `docs/theme.css`，其中引用 `../../components/rc-theme/css/index.css`。具体入口与局部主题规则见 [Theme 主题样式](/components/rc-theme)。
+
+## 选择外观与密度
+
+公共配置的四个独立轴为 designSystem、colorMode、size、density。设计体系是 MD3 Expressive（md3，默认）、Apple（apple）与 shadcn/ui（shadcn）；明暗是 light、dark；跟随系统属于应用偏好，解析后再传入；通用尺寸是 small、medium、large，密度是 compact、standard、comfortable。
 
 ```tsx
-import ConfigProvider from "@crab-dev/rc-config-provider";
-import Button from "@crab-dev/rc-button";
-
-<ConfigProvider design="macos" theme="dark">
-    <Button>保存</Button>
+<ConfigProvider designSystem="apple" colorMode="dark" density="compact">
+    <Profile />
 </ConfigProvider>
 ```
 
-`design="macos"` 使用系统字体、蓝色重点操作和银灰桌面表面，`design="material"` 使用 Material Design 3，`design="shadcn"` 使用中性灰阶与紧凑形状；`theme="light"` 或 `"dark"` 单独设置明暗。嵌套 Provider 继承没有显式传入的配置，并为浮层建立一致的风格边界。
+嵌套 Provider 继承省略项，显式品牌色通过 brandColor 覆盖，null 恢复当前设计体系默认品牌。Apple 是自主 Web 适配，不承诺复刻特定 macOS 版本。
 
-风格也决定文本字段的结构：LineEdit / TextEdit 的 `label` 在 Material 中使用浮动标签；macOS 和 shadcn 的独立字段将标签放在输入框上方，在 Form 中使用 `Item labelPlacement="control"` 时则将左侧标签与右侧输入放在同一行，说明与错误对齐输入列。Material 单行字段保留 56px 高度，macOS 和 shadcn 输入框随 `size` 使用 32 / 36 / 40px。详见 [Form](/components/rc-form) 与[统一尺寸与密度](/guides/component-sizing)。
+文档站和工作台默认同样使用 MD3 Expressive。外观菜单分别保存设计体系和明暗偏好；历史设计偏好仅在存储入口迁移，切换不清空正在编辑的组件状态。更多规则见[设计体系](/guides/design-styles)与[尺寸密度](/guides/component-sizing)。
 
-本网站首次访问默认显示 macOS，已有浏览器风格偏好优先保留。可通过导航中的主题菜单体验三套风格，所选风格会保存在浏览器。切换时保留正在编辑的内容；前往[三套设计风格](/guides/design-styles)进行交互对照。应用自身的主题选择、持久化和首屏设置由应用负责，详见 [ConfigProvider](/components/rc-config-provider) 与 [Theme 主题](/components/rc-theme)。
+## 连接状态与表单
 
-## 跟着教程写代码
+值控件使用 value/defaultValue/onValueChange，布尔控件使用 checked/defaultChecked/onCheckedChange。原生 onChange 保留 DOM 事件语义。Form 的值控件采用默认适配，Checkbox/Switch 等采用 adapter="checked"；详见[公共 API](/guides/public-api)。
 
-组件页先提供最小用法，再逐步加入状态和组合能力。按“动手试试”操作预览，对照“你会看到”检查结果，完成后再切到下一步。每一步可以重置，代码可直接复制。
+## 在仓库中开发
 
-教学示例中的 `css` 模板需要 Crab CSS 的构建期处理，不能直接在没有对应构建集成的浏览器中执行。最便捷的本地练习方式是在本仓库已有的 Wake 文档环境中修改 `.website/docs/examples/`：
+使用 Node.js ≥ 22 和根 packageManager 指定的 Yarn 4 PnP，通过 Corepack 安装后运行根 yarn docs:dev。Wake Docs 使用项目内 theme_css 加载公共主题 CSS，开发服务器同步组件正文、示例、教学内容与生成页面。
 
-```sh
-corepack yarn install --immutable
-corepack yarn docs:dev
-```
-
-打开组件教程，修改对应的 `step-*.tsx`，页面和展示源码会一起刷新。复制到其他应用时，除了安装源码中的组件包，也要确认该应用已经接入 Crab CSS 编译与静态样式加载；只使用预构建组件本身时则无需编写 `css` 模板。
-
-[先学习 Button](/components/rc-button) · [浏览组件学习地图](/learn/components) · [完成资料编辑表单](/learn/practice-profile)
-
-## 继续学习
-
-- 完成组件页的教学步骤后，展开更多示例，或打开独立工作台查看进阶用法。
-- 阅读[无障碍使用指南](/guides/accessibility)，为控件提供名称、说明和完整键盘路径。
-- 参与组件开发时阅读[Wake 工具链](/guides/toolchain)。
+从[组件库体系](/guides/library-architecture)理解产品职责，从[贡献维护](/guides/contributing)查找生成来源、验证与发布要求。已有代码先阅读[迁移指南](/guides/migration)。

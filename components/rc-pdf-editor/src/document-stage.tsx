@@ -1,3 +1,4 @@
+import { usePdfLocale } from './locale.js';
 import { useEffect, useEffectEvent, useLayoutEffect, useRef, useState, type ReactNode } from 'react';
 import Canvas, { CanvasImage, Group, Rect, SEMANTIC_CANVAS_PALETTE } from '@crab-dev/rc-canvas';
 import Virtual, { type VirtualHandle } from '@crab-dev/rc-virtual';
@@ -64,6 +65,7 @@ function ScrollSurface({ layout, range, width, height, children }: {
 }
 
 export default function DocumentStage(props: DocumentStageProps) {
+    const { text } = usePdfLocale();
     const { client, pages, page, navigation, width, height, viewport } = props;
     const root = useRef<HTMLDivElement>(null), grid = useRef<VirtualHandle>(null);
     const [gap, setGap] = useState(24);
@@ -158,7 +160,7 @@ export default function DocumentStage(props: DocumentStageProps) {
             : event.key === 'Home' ? 0 : event.key === 'End' ? layout.height : undefined;
         if (next !== undefined) { event.preventDefault(); event.stopPropagation(); seek(scroll.left, next); }
     }}>
-        <Virtual gridRef={grid} aria-label="PDF 连续页面预览" aria-description="Ctrl 或 Command 加滚轮缩放，普通滚轮上下浏览页面" tabIndex={0} viewportWidth={width} viewportHeight={height}
+        <Virtual gridRef={grid} aria-label={text('PDF 连续页面预览')} aria-description={text('Ctrl 或 Command 加滚轮缩放，普通滚轮上下浏览页面')} tabIndex={0} viewportWidth={width} viewportHeight={height}
             gridTemplateColumns={[layout.width]} gridTemplateRows={layout.rows} reservedTopHeight={gap} overscanRowCount={1}
             onScrollPositionChange={value => {
                 // 尺寸变化时 Virtual 会先收缩滚动边界；保留旧锚点，等父级完成几何同步。

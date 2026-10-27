@@ -10,7 +10,7 @@ import RcTree, { LoadStateType, NodeType, type Node, useTreeData } from "../../s
 
 const ShowLineDemo = () => {
     const [expandedKeys, setExpandedKeys] = useState<Key[]>([]);
-    const [selectKeys, setSelectKeys] = useState<Key[]>([]);
+    const [selectedKeys, setSelectedKeys] = useState<Key[]>([]);
     const [treeData, setTreeData] = useTreeData();
 
     const loadData = (parentNode: Node | null) => {
@@ -55,17 +55,11 @@ const ShowLineDemo = () => {
                     treeData={treeData}
                     onTreeNodeChange={setTreeData}
                     expandedKeys={expandedKeys}
-                    selectKeys={selectKeys}
-                    onSelect={({ selectKeys }: { selectKeys: Key[] }) => {
-                        setSelectKeys(selectKeys);
+                    selectedKeys={selectedKeys}
+                    onSelectedKeysChange={(selectedKeys: Key[]) => {
+                        setSelectedKeys(selectedKeys);
                     }}
-                    onExpanded={({ node }: { node: Node }) => {
-                        if (expandedKeys.includes(node.id)) {
-                            setExpandedKeys(expandedKeys.filter((key) => key !== node.id));
-                        } else {
-                            setExpandedKeys([...expandedKeys, node.id]);
-                        }
-                    }}
+                    onExpandedKeysChange={setExpandedKeys}
                     loadData={loadData}
                 />
             )}

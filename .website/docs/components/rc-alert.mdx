@@ -57,7 +57,7 @@ import { demos } from "../_generated/rc-alert.js";
 
 ### 三套设计风格
 
-Material 保留语义反馈容器色；macOS 使用较淡的状态底色、10px 圆角和紧凑标题；shadcn 使用中性表面、细描边与 8px 圆角。success / warning / error / info 的图标和文字语义不随主题改变。内联 Alert 为项目消息模式扩展，不等同于阻塞式系统 alert dialog。
+Material 保留语义反馈容器色；Apple 使用较淡的状态底色、10px 圆角和紧凑标题；shadcn 使用中性表面、细描边与 8px 圆角。success / warning / error / info 的图标和文字语义不随主题改变。内联 Alert 为项目消息模式扩展，不等同于阻塞式系统 alert dialog。
 
 切换文档站设计风格后，本页演示同步使用该设计；浅色和深色模式分别使用配对语义颜色。
 
@@ -78,6 +78,14 @@ Material 保留语义反馈容器色；macOS 使用较淡的状态底色、10px 
 - 不要只靠颜色区分状态，标题或正文应直接写出成功、警告或错误含义。
 - 动态出现的重要错误需要合适的状态通告；可关闭提示必须提供可访问名称清楚的关闭按钮。
 
+### 设计依据与覆盖
+
+- **MD3 Expressive**：M3 没有与页面内持久 Alert 完全一一对应的组件；本组件借用 Snackbar 的反馈原则、错误色角色和可访问设计规则，保留持久阅读这一项目扩展。 [依据 1](https://m3.material.io/components/snackbar/overview) · [依据 2](https://material-web.dev/components/) · [依据 3](https://github.com/material-components/material-web)
+- **Apple**：依据 Apple HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。 [依据 1](https://developer.apple.com/design/human-interface-guidelines/components) · [依据 2](https://developer.apple.com/design/human-interface-guidelines/accessibility)
+- **shadcn/ui**：参考 shadcn/ui 的组件用途、中性表面与设计变量，在本库公共语义和 React 交互模型中实现；完整状态覆盖仍需按矩阵验收。 [依据 1](https://ui.shadcn.com/docs/components) · [依据 2](https://ui.shadcn.com/docs/theming) · [依据 3](https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4)
+
+设计依据不等于完成验收；当前状态与适用边界见[覆盖矩阵](/guides/design-coverage)。
+
 ## 常见问题
 
 ### 什么时候用 Message？
@@ -87,3 +95,10 @@ Material 保留语义反馈容器色；macOS 使用较淡的状态底色、10px 
 ## API
 
 <API source="../_generated_api/rc-alert.ts" symbol="AlertProps" component="Alert" />
+
+<details data-docs-native-props>
+<summary>Alert 继承的原生属性（275 项）</summary>
+
+<API source="../_generated_api/rc-alert-native.ts" symbol="AlertPropsNativeAttributes" component="Alert 继承的原生属性" />
+
+</details>

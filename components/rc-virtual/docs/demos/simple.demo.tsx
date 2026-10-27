@@ -23,8 +23,11 @@ const mockRowData = () => {
 }
 
 const cellStyle = css`
-	display: inline-block;
+	display: inline-flex;
+	align-items: center;
+	vertical-align: top;
 	box-sizing: border-box;
+	height: 100%;
 	border: 1px solid ${token.color.border.default};
     color: ${token.color.text.primary};
     background: ${token.color.surface.content};
@@ -36,6 +39,7 @@ const paddingLeft = (
         key="virtual-left-padding"
         className={css`
 			display: inline-block;
+			vertical-align: top;
 			box-sizing: border-box;
 			width: var(--crab-rc-virtual-left-padding-width, 0px);
 			height: 100%;
@@ -49,6 +53,7 @@ const paddingRight = (
         key="virtual-right-padding"
         className={css`
 			display: inline-block;
+			vertical-align: top;
 			box-sizing: border-box;
 			width: var(--crab-rc-virtual-right-padding-width, 0px);
 			height: 100%;
@@ -61,7 +66,7 @@ const paddingBottom = (
     <div
         key="virtual-bottom-padding"
         className={css`
-			display: inline-block;
+			display: block;
 			box-sizing: border-box;
 			height: var(--crab-rc-virtual-bottom-padding-height, 0px);
 			width: 100%;
@@ -71,6 +76,7 @@ const paddingBottom = (
 
 const mockData = mockRowData();
 const gridTemplateColumns = [120, 120, 120, 120, 120, 120]
+// 固定行轴同时选择行内 body 字阶，避免宿主文章行高超过 24px 几何。
 const ROW_HEIGHT = 24;
 const totalWidth = gridTemplateColumns.reduce((a, b) => a + b, 0);
 
@@ -86,7 +92,7 @@ const SimpleDemo = () => {
                     <div
                         key="virtual-top-padding"
                         className={css`
-							display: inline-block;
+							display: block;
 							box-sizing: border-box;
 							height: var(--crab-rc-virtual-top-padding-height, 0px);
 							width: 100%;
@@ -115,6 +121,10 @@ const SimpleDemo = () => {
                             key={`row-${rowIndex}`}
                             className={css`
 								white-space: nowrap;
+                                font-family: ${token.typography.body['font-family']};
+                                font-size: ${token.typography.body['font-size']};
+                                font-weight: ${token.typography.body['font-weight']};
+                                line-height: ${token.typography.body['line-height']};
 							`}
                             style={{
                                 height: ROW_HEIGHT,

@@ -1,4 +1,5 @@
-import { describe, expect, it, render, screen } from "@crab-dev/wake/test/react";
+import { describe, expect, it } from "@crab-dev/wake/test";
+import { render, screen } from "@crab-dev/wake/test/react";
 import Empty from '../empty.js';
 import type { EmptyProps } from '../types.js';
 (globalThis as typeof globalThis & {

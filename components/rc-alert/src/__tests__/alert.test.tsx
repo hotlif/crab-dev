@@ -8,7 +8,7 @@ it('closes semantically at once but retains its space until its exit finishes', 
     const root = view.container.firstElementChild!;
     const exit = Promise.withResolvers<void>();
     Object.defineProperty(root, 'getAnimations', { value: () => [{ playState: 'running', finished: exit.promise }] });
-    await fireEvent.click(screen.getByRole('button', { name: 'close' }));
+    await fireEvent.click(screen.getByRole('button', { name: '关闭' }));
     expect(onClose).toHaveBeenCalledTimes(1);
     expect(root.getAttribute('data-state')).toBe('closed');
     expect(root.hasAttribute('inert')).toBe(true);
@@ -67,29 +67,29 @@ describe('Alert', () => {
     });
     it('does not render close button by default', async () => {
         await renderAlert();
-        expect(screen.queryByRole('button', { name: 'close' })).toBeNull();
+        expect(screen.queryByRole('button', { name: '关闭' })).toBeNull();
     });
     it('renders close button when closable is true', async () => {
         await renderAlert({ closable: true });
-        expect(screen.getByRole('button', { name: 'close' })).toBeTruthy();
+        expect(screen.getByRole('button', { name: '关闭' })).toBeTruthy();
     });
     it('calls onClose when close button is clicked', async () => {
         const onClose = mock.fn();
         await renderAlert({ closable: true, onClose });
-        await fireEvent.click(screen.getByRole('button', { name: 'close' }));
+        await fireEvent.click(screen.getByRole('button', { name: '关闭' }));
         expect(onClose).toHaveBeenCalledTimes(1);
     });
     it('removes element from DOM after close', async () => {
         const { container } = await render(<Alert closable>Message</Alert>);
         expect(container.firstElementChild).toBeTruthy();
-        await fireEvent.click(screen.getByRole('button', { name: 'close' }));
+        await fireEvent.click(screen.getByRole('button', { name: '关闭' }));
         expect(container.firstElementChild).toBeNull();
     });
     it('hides close button when closeIcon is false', async () => {
         await render(<Alert closable closeIcon={false}>
                 Message
         </Alert>);
-        expect(screen.queryByRole('button', { name: 'close' })).toBeNull();
+        expect(screen.queryByRole('button', { name: '关闭' })).toBeNull();
     });
     it('renders custom closeIcon', async () => {
         await render(<Alert closable closeIcon={<span data-testid="custom-close">×</span>}>
@@ -97,18 +97,14 @@ describe('Alert', () => {
         </Alert>);
         expect(screen.getByTestId('custom-close')).toBeTruthy();
     });
-    it('calls onClose when pressing Enter on close button', async () => {
+    it('uses a native close button for keyboard activation clicks', async () => {
         const onClose = mock.fn();
         await renderAlert({ closable: true, onClose });
-        const closeButton = screen.getByRole('button', { name: 'close' });
-        await fireEvent.keyDown(closeButton, { key: 'Enter' });
-        expect(onClose).toHaveBeenCalledTimes(1);
-    });
-    it('calls onClose when pressing Space on close button', async () => {
-        const onClose = mock.fn();
-        await renderAlert({ closable: true, onClose });
-        const closeButton = screen.getByRole('button', { name: 'close' });
-        await fireEvent.keyDown(closeButton, { key: ' ' });
+        const closeButton = screen.getByRole('button', { name: '关闭' });
+        expect(closeButton.tagName).toBe('BUTTON');
+        expect(closeButton.getAttribute('type')).toBe('button');
+        // The browser synthesizes this click for Enter and Space on native buttons.
+        await fireEvent.click(closeButton, { detail: 0 });
         expect(onClose).toHaveBeenCalledTimes(1);
     });
     it('renders all four types', async () => {

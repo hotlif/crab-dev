@@ -7,7 +7,7 @@ export interface ControllableValueOptions<T, A extends unknown[]> {
     /** 非受控模式下的初始值 */
     defaultValue?: T;
     /** 值变化回调；`setValue` 的额外参数（如事件对象、第二值）会原样透传给它 */
-    onChange?: (value: T, ...args: A) => void;
+    onValueChange?: (value: T, ...args: A) => void;
 }
 
 /**
@@ -17,7 +17,7 @@ export interface ControllableValueOptions<T, A extends unknown[]> {
  *
  * 返回的 `setValue` 引用稳定（经 useEventCallback，面向未启用 React Compiler 的消费
  * 方，见 §4.1 例外第 4 类），可安全用作子组件 prop / effect 依赖。额外参数会透传给
- * `onChange`，以适配 `onChange(next, event)`、`onChange(current, pageSize)` 等签名。
+ * `onValueChange`；公共组件应使用自己的 `[Details]` 元组，内部同步可省略额外参数。
  */
 export function useControllableValue<T, A extends unknown[] = []>(
     options: ControllableValueOptions<T, A> & ({ value: T } | { defaultValue: T }),
@@ -28,7 +28,7 @@ export function useControllableValue<T, A extends unknown[] = []>(
 export function useControllableValue<T, A extends unknown[] = []>(
     options: ControllableValueOptions<T, A>,
 ): readonly [T | undefined, (next: T, ...args: A) => void] {
-    const { value, defaultValue, onChange } = options;
+    const { value, defaultValue, onValueChange } = options;
     const isControlled = value !== undefined;
 
     const [innerValue, setInnerValue] = useState<T | undefined>(defaultValue);
@@ -39,7 +39,7 @@ export function useControllableValue<T, A extends unknown[] = []>(
         if (!isControlled) {
             setInnerValue(next);
         }
-        onChange?.(next, ...args);
+        onValueChange?.(next, ...args);
     });
 
     return [mergedValue, setValue] as const;

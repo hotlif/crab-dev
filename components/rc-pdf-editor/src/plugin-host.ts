@@ -1,4 +1,6 @@
 import { PdfEditorError, type PdfEditorPlugin, type PdfEditorPluginContext, type PdfEditorRef, type PdfEditorToolbarAction } from './types.js';
+import { pdfError } from './pdf-messages.js';
+import { copyDefaultActionLabel } from './default-action-label.js';
 
 interface InstalledPlugin { plugin: PdfEditorPlugin; lifetime: AbortController; cleanup?: () => void }
 interface PluginTask { pluginId: string; actionId: string; label: string }
@@ -32,7 +34,7 @@ export class PdfPluginHost {
         } };
     }
     private publish(task = this.snapshot.task) {
-        const actions = [...this.installed.values()].flatMap(({ plugin }) => (plugin.actions ?? []).map(action => ({
+        const actions = [...this.installed.values()].flatMap(({ plugin }) => (plugin.actions ?? []).map(action => copyDefaultActionLabel(action, {
             id: JSON.stringify([plugin.id, action.id]), label: action.label, icon: action.icon, placement: action.placement, visible: action.visible,
             disabled: (state: ReturnType<PdfEditorRef['getState']>) => (action.scope !== 'editor' && !state.document) ||
                 (typeof action.disabled === 'function' ? action.disabled(state) : action.disabled === true),
@@ -42,22 +44,22 @@ export class PdfPluginHost {
     }
     private remove(entry: InstalledPlugin) {
         this.installed.delete(entry.plugin.id); entry.lifetime.abort();
-        try { entry.cleanup?.(); } catch (cause) { this.report(new PdfEditorError('plugin', `插件 ${entry.plugin.id} 清理失败`, { cause })); }
+        try { entry.cleanup?.(); } catch (cause) { this.report(pdfError('plugin', 'plugin.cleanup', { plugin: entry.plugin.id }, { cause })); }
     }
     reconcile(plugins: readonly PdfEditorPlugin[], report: (error: PdfEditorError) => void) {
         this.report = report;
         const ids = new Set<string>();
         try {
             for (const plugin of plugins) {
-                if (!plugin.id.trim() || ids.has(plugin.id)) throw new PdfEditorError('plugin', '插件 id 不能为空或重复');
+                if (!plugin.id.trim() || ids.has(plugin.id)) throw pdfError('plugin', 'plugin.invalid-id');
                 ids.add(plugin.id);
                 const actions = new Set<string>();
                 for (const action of plugin.actions ?? []) {
-                    if (!action.id.trim() || !action.label.trim() || actions.has(action.id)) throw new PdfEditorError('plugin', `插件 ${plugin.id} 的动作 id / 名称无效或重复`);
+                    if (!action.id.trim() || !action.label.trim() || actions.has(action.id)) throw pdfError('plugin', 'plugin.invalid-action', { plugin: plugin.id });
                     actions.add(action.id);
                 }
             }
-        } catch (error) { report(error instanceof PdfEditorError ? error : new PdfEditorError('plugin', '插件配置无效', { cause: error })); return; }
+        } catch (error) { report(error instanceof PdfEditorError ? error : pdfError('plugin', 'plugin.invalid', undefined, { cause: error })); return; }
         let changed = false;
         for (const entry of this.installed.values()) {
             if (!plugins.includes(entry.plugin)) { this.remove(entry); changed = true; }
@@ -68,7 +70,7 @@ export class PdfPluginHost {
             try {
                 entry.cleanup = plugin.setup?.(this.context(entry.lifetime.signal)) || undefined;
                 this.installed.set(plugin.id, entry); changed = true;
-            } catch (cause) { entry.lifetime.abort(); report(new PdfEditorError('plugin', `插件 ${plugin.id} 安装失败`, { cause })); }
+            } catch (cause) { entry.lifetime.abort(); report(pdfError('plugin', 'plugin.install', { plugin: plugin.id }, { cause })); }
         }
         const ordered = plugins.flatMap(plugin => { const entry = this.installed.get(plugin.id); return entry ? [entry] : []; });
         if ([...this.installed.values()].some((entry, index) => entry !== ordered[index])) {
@@ -78,19 +80,19 @@ export class PdfPluginHost {
     }
     async run(pluginId: string, actionId: string): Promise<void> {
         const entry = this.installed.get(pluginId), action = entry?.plugin.actions?.find(value => value.id === actionId), editor = this.editor;
-        if (!entry || !action || !editor) throw new PdfEditorError('plugin', '插件动作尚未安装');
-        if (this.running) throw new PdfEditorError('busy', '已有插件任务正在进行');
+        if (!entry || !action || !editor) throw pdfError('plugin', 'plugin.uninstalled-action');
+        if (this.running) throw pdfError('busy', 'plugin.pending');
         const state = editor.getState(), document = state.document;
-        if (state.status !== 'ready' || state.pendingOperations.length) throw new PdfEditorError('busy', '编辑器尚未就绪或正在处理文档');
-        if (action.scope !== 'editor' && !document) throw new PdfEditorError('document', '请先打开 PDF');
-        if (action.visible === false || (typeof action.disabled === 'function' ? action.disabled(state) : action.disabled)) throw new PdfEditorError('permission', '插件动作不可用');
+        if (state.status !== 'ready' || state.pendingOperations.length) throw pdfError('busy', 'plugin.not-ready');
+        if (action.scope !== 'editor' && !document) throw pdfError('document', 'document.required');
+        if (action.visible === false || (typeof action.disabled === 'function' ? action.disabled(state) : action.disabled)) throw pdfError('permission', 'plugin.unavailable');
         const controller = new AbortController(), signal = AbortSignal.any([controller.signal, entry.lifetime.signal]);
         const running = { controller, plugin: entry }; this.running = running;
         const unsubscribe = editor.subscribe(() => {
             const next = editor.getState();
             if (next.status !== 'ready' || (action.scope !== 'editor' && (next.document?.sessionId !== document?.sessionId || next.document?.revision !== document?.revision))) controller.abort();
         });
-        this.publish({ pluginId, actionId, label: action.label });
+        this.publish(copyDefaultActionLabel(action, { pluginId, actionId, label: action.label }));
         try { await abortable(Promise.resolve().then(() => { if (!signal.aborted) return action.onSelect(this.context(signal)); }), signal); }
         finally {
             unsubscribe(); controller.abort();

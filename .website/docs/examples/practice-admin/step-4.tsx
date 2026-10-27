@@ -161,7 +161,7 @@ function Members() {
                         <LineEdit
                             value={name}
                             maxLength={30}
-                            onChange={(event) => setName(event.target.value)}
+                            onValueChange={(value) => setName(value)}
                             aria-describedby={helpId}
                         />
                     </label>

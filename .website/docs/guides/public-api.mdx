@@ -1,0 +1,83 @@
++++
+title = "公共 API 约定"
+description = "配置轴、受控状态、变更详情、表单适配与无障碍契约"
+kind = "guide"
+status = "experimental"
++++
+
+# 公共 API 约定
+
+公共接口以组件职责为边界。原生 DOM 事件、组件业务值与表单绑定分别表达，类型、运行行为、示例和文档必须一致。
+
+## 全局配置
+
+```tsx
+<ConfigProvider designSystem="md3" colorMode="light" size="medium" density="standard">
+    <App />
+</ConfigProvider>
+```
+
+| 字段 | 取值 | 含义 |
+| --- | --- | --- |
+| designSystem | md3 / apple / shadcn | MD3 Expressive、Apple、shadcn/ui；默认 md3 |
+| colorMode | light / dark | 解析后的明暗；默认 light |
+| brandColor | 不透明十六进制颜色 / null | 显式品牌覆盖；null 恢复所选体系默认品牌 |
+| size | small / medium / large | 控件尺寸档位；默认 medium |
+| density | compact / standard / comfortable | 内容间距和行密度；默认 standard |
+| locale | zh-CN / en-US | 预置文案与格式语言；默认 zh-CN |
+| direction | ltr / rtl | 文字和布局方向；默认 ltr |
+| nonce | string / undefined | 样式安全策略标记；继承最近配置边界，根级不提供 |
+
+省略配置继承最近的 Provider。`useConfig()` 使用同名字段；解析后的明暗模式用于 DOM `data-theme`，设计体系用于 `data-crab-design`。主题、品牌、尺寸和密度不能隐式相互改写。Portal 必须保留当前边界。
+
+受控 iframe 预览跨 Document 传递最近边界的完整配置快照，包含品牌和 nonce；父页面已解析的明暗值优先，内层 Provider 的显式覆盖继续生效。配置切换保留示例实例与输入草稿。品牌 `null` 恢复当前设计默认；品牌和 nonce 的 `undefined` 继承最近边界，独立 iframe 根没有父 React 上下文时使用公共默认值。网站的“跟随系统”只在站点边界解析。
+
+## 值与 DOM 事件
+
+| 能力 | 状态 | 默认状态 | 语义回调 |
+| --- | --- | --- | --- |
+| 文本、数值、选择、分页和页签 | value | defaultValue | onValueChange(next, details) |
+| 复选、单选、开关、可选标签 | checked | defaultChecked | onCheckedChange(next, details) |
+| CheckboxGroup、RadioGroup、Segmented | value | defaultValue | onValueChange(next, details) |
+| 弹层、抽屉等开合能力 | open | defaultOpen | onOpenChange(next, details) |
+| Menu / Tree 集合 | selectedKeys / openKeys / checkedKeys / expandedKeys | 相应 default 字段 | onSelectedKeysChange / onOpenKeysChange / onCheckedKeysChange / onExpandedKeysChange |
+
+`details.reason` 说明 input、clear、select、toggle、pointer、keyboard 等具体来源；组件按实际行为声明可辨识详情类型。`details.event` 在真实用户事件存在时提供，程序变更不伪造事件。
+
+Menu 使用 `openKeys` / `defaultOpenKeys` / `onOpenKeysChange` 表达子菜单集合，和浮层单一布尔 `open` 协议分开。
+
+```tsx
+<LineEdit value={name} onValueChange={(next, details) => setName(next)} />
+<Checkbox checked={enabled} onCheckedChange={setEnabled}>启用通知</Checkbox>
+<Tabs value={tab} onValueChange={setTab} items={items} />
+```
+
+原生 `onChange` 继续接收 DOM 事件，不承担 next-value 回调。受控值由父级更新；合法的只读受控展示可以省略语义回调，组件不会擅自修改外部值。`defaultValue` / `defaultChecked` 只初始化非受控实例；不得同时传受控和默认状态。
+
+`undefined` 视为未提供，`defaultValue` / `defaultChecked` / `defaultOpen` 仅用于首次初始化。父级更新受控值或程序赋值、重置不发出用户变更通知；实际交互按对应语义回调报告一次。
+
+日期、日期时间与时间选择器根据真实值决定是否可清除。`renderDisplayString` 只负责呈现，不能用其结果判定有值；空值提示使用 `placeholder`。自定义空值显示不会产生清除动作，隐藏已有值的显示文字也不会丢失其清除能力。
+
+字段型选择器的弹层定位包含自身标签、控件和说明或错误信息，向上翻转时也不遮挡字段内容。定位边界与实际焦点、悬停和宽度参照分别管理，不扩大到相邻字段或整个表单。
+
+## Form 适配
+
+Form 默认连接 `value` / `onValueChange`。Checkbox、Radio、Switch 等布尔控件使用 `adapter="checked"`；原生 input/textarea 使用 `adapter="native"`，原生 checkbox 使用 `adapter="nativeChecked"`。复杂控件通过公开 `FieldAdapter` 和 `fieldAdapters` 明确读写规则。
+
+`FieldAdapter<TValue, TProps, TArgs>` 约束值类型、编辑器属性和回调参数：valueProp 必须匹配值类型，changeProp 必须是兼容 TArgs 的函数属性。`getValueProps` 接收 `TValue | undefined`，需要处理字段未提供或重置到缺值的情况。Item 首次渲染直接读取表单当前字段，避免先显示空值再补入初始值。
+
+本地化必填文案使用 `messages.form.required(label?)` 格式函数；自定义文案可以处理字段标签缺省的情况。内置必填将 `null`、`undefined`、`""` 与 `[]` 视为缺值；`0`、`false`、空白字符串、对象及非空数组不按业务结构推断，额外约束通过 `rules` 表达。
+
+`labelPlacement="control"` 由控件自己的设计体系安排标签、控件和说明，Form 为整个字段提供完整行宽，结构包装器不会将日期、选择等组合控件挤入标签列。需要 Form 统一对齐标签时使用 `labelPlacement="external"`；二者不通过控件内部 DOM 层级推断或混用。
+
+`labelTarget="group"` 明确声明组名称语义，必须同时显式设置 `labelPlacement="external"`；布局与语义是两条独立契约。Item 为外部可见组标题分配稳定 ID，通过字段 `aria-labelledby` 关联组根；直接编辑器自动接收，渲染函数须显式转发，不能把字段 ID 放到第一项。已有编辑器显式 `aria-label`/`aria-labelledby` 优先；函数渲染由调用方保留最终命名优先级。默认单控件标签及控件自身标签布局不变，不按组件类型猜测组语义。
+
+旧 `binding`、`valuePropName`、`trigger`、`getValueFromEvent` 不再作为隐式兼容接口。校验、错误说明、焦点定位和重置需要在所用适配器下验证。
+
+## 可访问性与扩展
+
+原生属性经 `Omit` 继承后声明必要覆盖；互斥能力和图标按钮名称等约束由联合类型表达。ref 使用 React 19 普通 prop，关联 ID 使用 `useId`；键盘模型、焦点恢复、禁用和加载语义不随设计体系变化。
+
+专门能力允许独立接口，例如 Button 的 `xs / s / m / l / xl`、分页的 pageSize、树的具名集合、编辑器的内容模型。扩展必须在组件 API 中明确，不能以一个泛用 onChange 混合不同数据模型。
+
+标记为 `/internal` 的入口仅供库实现复用，不属于稳定公共 API，也不作为应用与可复制示例的依赖入口。API 文档从组件正文显式登记的接口生成，不把内部辅助导出自动列入公共清单。

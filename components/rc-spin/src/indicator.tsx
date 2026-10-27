@@ -17,8 +17,8 @@ const sizeSmallStyle = css`
 `;
 
 const sizeMiddleStyle = css`
-    --rc-spin-size: ${token.size.middle.width};
-    --rc-spin-font-size: ${token.size.middle['font-size']};
+    --rc-spin-size: ${token.size.medium.width};
+    --rc-spin-font-size: ${token.size.medium['font-size']};
 `;
 
 const sizeLargeStyle = css`
@@ -36,8 +36,8 @@ export const sizeStyleOf = (size: SpinSize): string => {
 
 const ringStyle = css`
     display: block;
-    inline-size: var(--rc-spin-size, ${token.size.middle.width});
-    block-size: var(--rc-spin-size, ${token.size.middle.width});
+    inline-size: var(--rc-spin-size, ${token.size.medium.width});
+    block-size: var(--rc-spin-size, ${token.size.medium.width});
     animation: rc-spin-rotate ${token.indicator['animation-duration']} ${token.indicator['animation-timing-function']} infinite;
 
     @keyframes rc-spin-rotate {
@@ -61,7 +61,10 @@ const ringStyle = css`
        保留"仍在进行"的意符。 */
     @media (prefers-reduced-motion: reduce) {
         animation-name: rc-spin-breathe;
-        animation-duration: ${token.indicator['reduced-motion']['animation-duration']};
+        /* Wake 0.1.45 的全局 reduce reset 用 !important 将动画缩为单次 .01ms。
+           仅保护必要加载反馈的呼吸周期与次数；宿主移除该 reset 并通过集成回归后可去掉此优先级。 */
+        animation-duration: ${token.indicator['reduced-motion']['animation-duration']} !important;
+        animation-iteration-count: infinite !important;
         animation-timing-function: ease-in-out;
     }
 `;

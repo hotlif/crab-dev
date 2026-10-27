@@ -269,7 +269,7 @@ export function resolveCanvasColor(
     value: string,
     probe: HTMLElement | null,
     fallback: string = DEFAULT_CANVAS_PALETTE.foreground,
-    field = 'foreground',
+    field: string = 'foreground',
 ): string {
     if (!probe || typeof getComputedStyle !== 'function') return value;
 

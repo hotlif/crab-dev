@@ -24,7 +24,7 @@ mock.module("@crab-dev/rc-dialog", () => ({
 mock.module("@crab-dev/rc-drawer", () => ({
     __esModule: true,
     default: ({ open, onOpenChange, onKeyDown, children }: import("@crab-dev/rc-drawer").DrawerProps) => (
-        <dialog role="dialog" open={open} aria-label="文档导航" onKeyDown={onKeyDown} onCancel={() => onOpenChange(false)}>
+        <dialog role="dialog" open={open} aria-label="文档导航" onKeyDown={onKeyDown} onCancel={(event) => onOpenChange?.(false, { reason: "escape", event })}>
             {children}
         </dialog>
     ),
@@ -130,12 +130,20 @@ function designPreference(initial: string | null = null, unavailable = false) {
 }
 
 function CurrentDocumentConfig() {
-    const { design, theme } = useConfig();
+    const { designSystem: design, colorMode: theme } = useConfig();
     return <output aria-label="当前组件配置">{design}:{theme}</output>;
 }
 
 describe("文档设计偏好", () => {
-    for (const [design, label] of [["material", "Material Design 3"], ["shadcn", "shadcn"]] as const) it(`默认 macOS，切换 ${label} 同步组件并在重新打开后保留`, async () => {
+    for (const [legacy, current] of [["material", "md3"], ["macos", "apple"]] as const) it(`恢复旧偏好 ${legacy} 并写回 ${current}`, async () => {
+        const preference = designPreference(legacy);
+        try {
+            await render(<UI.Root {...common()}><CurrentDocumentConfig /></UI.Root>);
+            expect(screen.getByLabelText("当前组件配置").textContent).toBe(`${current}:light`);
+            expect(preference.storage.setItem).toHaveBeenCalledWith(SITE_DESIGN_STORAGE_KEY, current);
+        } finally { preference.restore(); }
+    });
+    for (const [design, label] of [["apple", "Apple"], ["shadcn", "shadcn/ui"]] as const) it(`默认 MD3 Expressive，切换 ${label} 同步组件并在重新打开后保留`, async () => {
         const preference = designPreference();
         const state = common();
         const content = () => <UI.Root {...state}>
@@ -144,8 +152,8 @@ describe("文档设计偏好", () => {
         </UI.Root>;
         try {
             const view = await render(content());
-            expect(screen.getByLabelText("当前组件配置").textContent).toBe("macos:light");
-            await click("文档主题：跟随系统");
+            expect(screen.getByLabelText("当前组件配置").textContent).toBe("md3:light");
+            await click("文档外观：MD3 Expressive · 跟随系统");
             await fireEvent.click(screen.getByRole("menuitemradio", { name: label }));
             expect(screen.getByLabelText("当前组件配置").textContent).toBe(`${design}:light`);
             expect(document.querySelector(".crab-docs")?.getAttribute("data-crab-design")).toBe(design);
@@ -159,7 +167,7 @@ describe("文档设计偏好", () => {
     });
 
     it("风格与明暗模式独立，切换风格保留页面输入和组件实例", async () => {
-        const preference = designPreference("material");
+        const preference = designPreference("md3");
         const base = common();
         const state = { ...base, theme: { ...base.theme, theme: "dark" as const, resolved: "dark" as const } };
         try {
@@ -169,21 +177,21 @@ describe("文档设计偏好", () => {
             </UI.Root>);
             const draft = screen.getByRole("textbox", { name: "未提交的风格草稿" });
             await fireEvent.change(draft, { target: { value: "仍在编辑" } });
-            await click("文档主题：深色");
-            expect(screen.getByRole("group", { name: "设计风格" })).toBeTruthy();
+            await click("文档外观：MD3 Expressive · 深色");
+            expect(screen.getByRole("group", { name: "设计体系" })).toBeTruthy();
             expect(screen.getByRole("group", { name: "明暗模式" })).toBeTruthy();
-            await fireEvent.click(screen.getByRole("menuitemradio", { name: "macOS" }));
-            expect(screen.getByLabelText("当前组件配置").textContent).toBe("macos:dark");
+            await fireEvent.click(screen.getByRole("menuitemradio", { name: "Apple" }));
+            expect(screen.getByLabelText("当前组件配置").textContent).toBe("apple:dark");
             expect(screen.getByDisplayValue("仍在编辑")).toBe(draft);
             expect(state.theme.setTheme).not.toHaveBeenCalled();
         } finally { preference.restore(); }
     });
 
-    it("其他标签页选择 macOS 时同步配置，忽略无效偏好", async () => {
-        const preference = designPreference("material");
+    it("其他标签页选择 Apple 时同步配置，忽略无效偏好", async () => {
+        const preference = designPreference("md3");
         try {
             await render(<UI.Root {...common()}><CurrentDocumentConfig /></UI.Root>);
-            for (const design of ["macos", "unknown"]) {
+            for (const design of ["apple", "unknown"]) {
                 await act(async () => {
                     const event = new Event("storage");
                     Object.defineProperties(event, {
@@ -192,8 +200,8 @@ describe("文档设计偏好", () => {
                     });
                     window.dispatchEvent(event);
                 });
-                expect(screen.getByLabelText("当前组件配置").textContent).toBe("macos:light");
-                expect(document.documentElement.dataset.crabDesign).toBe("macos");
+                expect(screen.getByLabelText("当前组件配置").textContent).toBe("apple:light");
+                expect(document.documentElement.dataset.crabDesign).toBe("apple");
             }
         } finally { preference.restore(); }
     });
@@ -203,7 +211,7 @@ describe("文档设计偏好", () => {
         const state = common();
         try {
             await render(<UI.Root {...state}><CurrentDocumentConfig /></UI.Root>);
-            expect(screen.getByLabelText("当前组件配置").textContent).toBe("macos:light");
+            expect(screen.getByLabelText("当前组件配置").textContent).toBe("md3:light");
         } finally { preference.restore(); }
     });
 });
@@ -262,6 +270,70 @@ describe("Wake 文档展示适配器", () => {
             "/demo-route",
         );
     });
+    for (const kind of ["navigation", "table"] as const) {
+        for (const direction of ["ltr", "rtl"] as const) {
+            it(`${kind} ${direction} 焦点完整显露链接且不改纵向位置或示例`, async () => {
+                const state = common();
+                const link = <a href="#target" style={{ outlineStyle: "solid", outlineWidth: "2px", outlineOffset: "3px" }}>目标链接</a>;
+                await render(<UI.Page {...state} page={{ slug: "/guides/focus", title: "焦点", href: "/handbook/guides/focus",
+                    description: "", status: "stable", draft: false, headings: [] }} breadcrumbs={[]} previous={null} next={null}>
+                    {kind === "navigation" ? <nav className="crab-home-category-index" dir={direction}>{link}</nav>
+                        : <div className="table-scroll" dir={direction}><table><tbody><tr><td>{link}</td></tr></tbody></table></div>}
+                    <div data-wake-demo><nav className="crab-home-category-index"><a href="#demo">独立示例</a></nav></div>
+                </UI.Page>);
+                const anchor = screen.getByRole("link", { name: "目标链接" });
+                const port = anchor.closest<HTMLElement>(kind === "navigation" ? "nav" : ".table-scroll")!;
+                let x = 214;
+                let width = 94;
+                const scroll = mock.fn((options: ScrollToOptions) => { x -= options.left ?? 0; });
+                Object.defineProperties(port, {
+                    clientLeft: { configurable: true, value: 2 },
+                    clientWidth: { configurable: true, value: 257 },
+                    scrollWidth: { configurable: true, value: 600 },
+                    scrollTop: { configurable: true, value: 37 },
+                    scrollBy: { configurable: true, value: scroll },
+                    getBoundingClientRect: { configurable: true, value: () => new globalThis.DOMRect(10, 100, 261, 60) },
+                });
+                Object.defineProperty(anchor, "getBoundingClientRect", {
+                    configurable: true, value: () => new globalThis.DOMRect(x, 105, width, 40),
+                });
+                await act(() => { anchor.focus(); });
+                expect(document.activeElement).toBe(anchor);
+                expect(anchor.getBoundingClientRect().right + 5).toBeLessThanOrEqual(269);
+                expect(port.scrollTop).toBe(37);
+                expect(scroll).toHaveBeenCalledWith({ left: 44, behavior: "instant" });
+                scroll.clear();
+                await act(() => { anchor.blur(); anchor.focus(); });
+                expect(scroll).not.toHaveBeenCalled();
+                x = -20;
+                await act(() => { anchor.blur(); anchor.focus(); });
+                expect(anchor.getBoundingClientRect().left - 5).toBeGreaterThanOrEqual(12);
+                expect(port.scrollTop).toBe(37);
+                width = 400;
+                x = direction === "rtl" ? -150 : 150;
+                anchor.style.direction = direction;
+                await act(() => { anchor.blur(); anchor.focus(); });
+                expect(direction === "rtl" ? anchor.getBoundingClientRect().right + 5
+                    : anchor.getBoundingClientRect().left - 5).toBe(direction === "rtl" ? 269 : 12);
+                expect(port.scrollTop).toBe(37);
+                scroll.clear();
+                const demo = screen.getByRole("link", { name: "独立示例" });
+                Object.defineProperties(demo.parentElement!, {
+                    clientLeft: { configurable: true, value: 0 },
+                    clientWidth: { configurable: true, value: 257 },
+                    scrollWidth: { configurable: true, value: 600 },
+                    scrollBy: { configurable: true, value: scroll },
+                    getBoundingClientRect: { configurable: true, value: () => new globalThis.DOMRect(12, 100, 257, 60) },
+                });
+                Object.defineProperty(demo, "getBoundingClientRect", {
+                    configurable: true, value: () => new globalThis.DOMRect(300, 105, 94, 40),
+                });
+                await act(() => { demo.focus(); });
+                expect(document.activeElement).toBe(demo);
+                expect(scroll).not.toHaveBeenCalled();
+            });
+        }
+    }
     it("导航保留部署前缀、修饰键与 Wake 回调", async () => {
         const state = common();
         const onNavigate = mock.fn();
@@ -433,7 +505,7 @@ describe("Wake 文档展示适配器", () => {
         expect(search.setOpen).toHaveBeenCalledWith(true);
         await click("导航");
         expect(mobileNavigation.setOpen).toHaveBeenCalledWith(true);
-        const themeControl = screen.getByRole("button", { name: "文档主题：跟随系统" });
+        const themeControl = screen.getByRole("button", { name: "文档外观：MD3 Expressive · 跟随系统" });
         expect(themeControl.getAttribute("aria-expanded")).toBe("false");
         await fireEvent.click(themeControl);
         const currentTheme = screen.getByRole("menuitemradio", { name: /跟随系统/ });

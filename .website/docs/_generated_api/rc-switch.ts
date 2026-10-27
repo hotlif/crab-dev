@@ -5,40 +5,37 @@ type DocsTypePlaceholder = ((...args: never[]) => unknown) & {
     readonly [key: string]: DocsTypePlaceholder;
     readonly [key: number]: DocsTypePlaceholder;
 };
-type HTMLButtonElement = DocsTypePlaceholder;
-type KeyboardEvent<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
-type MouseEvent<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 type ReactNode = DocsTypePlaceholder;
+type SwitchChangeDetails = DocsTypePlaceholder;
 
 export interface SwitchProps {
     /**
-     * 是否选中（受控）
+     * Defines a string value that labels the current element.
+     */
+    "aria-label"?: string | undefined | string;
+
+    /**
+     * 暂无说明。
+     */
+    "children"?: ReactNode | undefined | ReactNode;
+
+    /**
+     * React-specific Attributes 与 checked 互斥，不能同时提供。
+     */
+    "defaultChecked"?: boolean | undefined | boolean;
+
+    /**
+     * 按钮的大小, 默认为 medium
+     */
+    "size"?: 'large' | 'medium' | 'small';
+
+    /**
+     * 暂无说明。 与 defaultChecked 互斥，不能同时提供。
      */
     "checked"?: boolean;
 
     /**
-     * 默认是否选中（非受控）
-     * @default false
-     */
-    "defaultChecked"?: boolean;
-
-    /**
-     * 按钮的大小, 默认为 middle
-     */
-    "size"?: 'large' | 'middle' | 'small';
-
-    /**
-     * 值变化时的回调
-     */
-    "onChange"?: (checked: boolean, event: MouseEvent<HTMLButtonElement> | KeyboardEvent<HTMLButtonElement>) => void;
-
-    /**
      * 暂无说明。
      */
-    "children"?: ReactNode;
-
-    /**
-     * 暂无说明。
-     */
-    "aria-label"?: string;
+    "onCheckedChange"?: ((checked: boolean, details: SwitchChangeDetails) => void);
 }

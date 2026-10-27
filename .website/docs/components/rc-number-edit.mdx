@@ -28,7 +28,7 @@ import { demos } from "../_generated/rc-number-edit.js";
 
 ##### 科学计数法自适应 — 默认十进制；数值大到不好显示时失焦自动切上标科学计数法，聚焦又展开为可编辑 e 记法。试试输入 1e21 或 0.0000000000000001
 
-##### 尺寸与状态 — large / middle / small 三档尺寸；error / warning 校验状态；disabled 禁用、readOnly 只读，均透传自 rc-line-edit
+##### 尺寸与状态 — large / medium / small 三档尺寸；error / warning 校验状态；disabled 禁用、readOnly 只读，均透传自 rc-line-edit
 
 </div>
 
@@ -43,9 +43,9 @@ import { demos } from "../_generated/rc-number-edit.js";
 
 ### 三套主题的组合输入
 
-数字编辑的字段外壳复用 LineEdit，macOS、MD3 与 shadcn 同步切换标签位置、密度、边界、聚焦和错误反馈；步进按钮复用 Button。金额、科学计数法、范围修正和键盘步进保持原有行为，不为主题维护第二套数值状态。
+数字编辑的字段外壳复用 LineEdit，Apple、MD3 与 shadcn 同步切换标签位置、密度、边界、聚焦和错误反馈；步进按钮复用 Button。金额、科学计数法、范围修正和键盘步进保持原有行为，不为主题维护第二套数值状态。
 
-基础演示的 Filled 字段在 MD3 中使用浮动标签与底线，在桌面风格中呈现紧凑矩形字段。macOS 的布局与阴影为 Web 适配；数字格式和可编辑草稿沿用本库能力。
+基础演示的 Filled 字段在 MD3 中使用浮动标签与底线，在桌面风格中呈现紧凑矩形字段。Apple 的布局与阴影为 Web 适配；数字格式和可编辑草稿沿用本库能力。
 
 依据：[Apple Text fields 的数值格式建议](https://developer.apple.com/design/human-interface-guidelines/text-fields)、[Material Web Text field](https://material-web.dev/components/text-field/)、[LineEdit 字段边界](/components/rc-line-edit)。核对日期：2026-10-22。
 
@@ -57,7 +57,7 @@ import { demos } from "../_generated/rc-number-edit.js";
 
 ### 标签与设计风格
 
-数字输入框复用 LineEdit 的字段外观，支持 `label`、`appearance="outlined" | "filled"`、`supportingText` 和 `errorText`。全局切换 Material Design 3、macOS 与 shadcn 时，标签、容器和说明会统一跟随；已有数值与编辑草稿继续保留。Material 使用浮动标签，macOS 与 shadcn 使用静态标签。
+数字输入框复用 LineEdit 的字段外观，支持 `label`、`appearance="outlined" | "filled"`、`supportingText` 和 `errorText`。全局切换 Material Design 3、Apple 与 shadcn 时，标签、容器和说明会统一跟随；已有数值与编辑草稿继续保留。Material 使用浮动标签，Apple 与 shadcn 使用静态标签。
 
 使用 `label` 提供持续可见的字段名称；`supportingText` 说明单位或取值范围。校验失败时用 `errorText` 替换说明，组件会关联错误信息并标记输入无效。仅需预先显示边界状态时可使用 `status="error"`，但仍应提供能说明修复方法的文字。
 
@@ -78,7 +78,17 @@ import { demos } from "../_generated/rc-number-edit.js";
 
 **正例**：通过可见标签说明“预警阈值（万元）”，就近说明范围；编辑 20.5 后步进得到 21.5。**反例**：仅用 placeholder 作为名称，或步进时恢复旧值，导致用户误以为刚才的输入已经保存。
 
-验收：分别用键盘和鼠标测试草稿步进、空值、边界、带小数的 step、只读与禁用。格式化显示不改变真实数值；长数值在聚焦后可完整编辑。加减操作提供 48px 目标并保持键盘可达；科学计数法覆盖层和文字缩放仍需独立复核。通用规则见[输入与选择](https://material-web.dev/components/text-field/)和[无障碍](/guides/accessibility)。
+后缀单位与步进器之间保留独立间距，使键盘焦点环不盖住 `%` 等内容；RTL 中按逻辑顺序排列。没有后缀时不保留额外空位，`controls={false}` 仍显示调用方提供的后缀。
+
+验收：分别用键盘和鼠标测试草稿步进、空值、边界、带小数的 step、只读与禁用。格式化显示不改变真实数值；长数值在聚焦后可完整编辑。粗指针下加减操作提供 48px 目标，桌面尺寸跟随控件档位；边界值禁用对应方向按钮，剩余按钮保持键盘可达。`test:browser` 使用发布样式核对三体系、浅深色及 LTR/RTL 的后缀与焦点环几何；粗指针的实际媒体配置与键盘导航另需真实浏览器验收。科学计数法覆盖层和文字缩放仍需独立复核。通用规则见[输入与选择](https://material-web.dev/components/text-field/)和[无障碍](/guides/accessibility)。
+
+
+
+`value/defaultValue/onValueChange(next, details)` 管理数值；`null` 表示空值，两种初始化方式互斥。语义回调在失焦、步进和清除提交时通知，`details.reason` 分别为 `blur/step/clear`；原生 `onChange` 接收输入事件，编辑草稿不会被误当作已提交数值。父级更新受控值不触发回调。
+
+`details.event` 保留实际触发提交的输入、按钮或原生滚轮事件。长按重复步进沿用原始按下事件；按钮的键盘或辅助技术激活保留实际 click 事件。清除只提交一次数值变化，并调用一次 `onClear`。
+
+`size` 跟随控件尺寸，与数据密度独立。增减按钮名称和科学计数法的读屏说明跟随 `locale`；切换语言保留数值且不触发提交回调。自定义数值 `formatter/parser` 优先。长数值与科学计数法保留可访问的真实值，控件不承担任意精度计算。
 
 ### 适用场景
 
@@ -97,6 +107,14 @@ import { demos } from "../_generated/rc-number-edit.js";
 - 提供 label、单位和允许范围，步进按钮要有增加/减少的可访问名称。
 - 超出范围的错误用文字说明，键盘方向键行为不得阻止正常页面导航。
 
+### 设计依据与覆盖
+
+- **MD3 Expressive**：M3 没有独立 Number input；本组件以 Text field 为基础并扩展 spinbutton 语义、步进按钮和数值校验。 [依据 1](https://m3.material.io/components/text-fields/overview) · [依据 2](https://material-web.dev/components/text-field/) · [依据 3](https://github.com/material-components/material-web/tree/main/textfield)
+- **Apple**：依据 Apple HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。 [依据 1](https://developer.apple.com/design/human-interface-guidelines/components) · [依据 2](https://developer.apple.com/design/human-interface-guidelines/accessibility)
+- **shadcn/ui**：参考 shadcn/ui 的组件用途、中性表面与设计变量，在本库公共语义和 React 交互模型中实现；完整状态覆盖仍需按矩阵验收。 [依据 1](https://ui.shadcn.com/docs/components) · [依据 2](https://ui.shadcn.com/docs/theming) · [依据 3](https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4)
+
+设计依据不等于完成验收；当前状态与适用边界见[覆盖矩阵](/guides/design-coverage)。
+
 ## 常见问题
 
 ### 清空后为什么是 null？
@@ -106,3 +124,10 @@ null 表示尚未输入数字，和有效数值 0 不同。计算前应明确处
 ## API
 
 <API source="../_generated_api/rc-number-edit.ts" symbol="NumberEditProps" component="NumberEdit" />
+
+<details data-docs-native-props>
+<summary>NumberEdit 继承的原生属性（299 项）</summary>
+
+<API source="../_generated_api/rc-number-edit-native.ts" symbol="NumberEditPropsNativeAttributes" component="NumberEdit 继承的原生属性" />
+
+</details>

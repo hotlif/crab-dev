@@ -14,62 +14,13 @@ type Ref<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?
 
 export interface CardProps {
     /**
-     * 底部操作组, 渲染在分割线下方并靠右排布
+     * 视觉变体；省略时随设计风格，Material 使用 elevated，shadcn 使用 outlined
      */
-    "actions"?: ReactNode[];
-
-    /**
-     * 卡片内容：裸内容自动包裹进内容区; 传入 Card.Cover / Card.Header / Card.Body / Card.Footer 时切换为自由拼装模式
-     */
-    "children"?: ReactNode;
-
-    /**
-     * 整卡是否可点击：自带状态层 / 键盘激活（Enter / Space）/ 焦点环, 卡内 extra 与 actions 的点击自动与整卡点击隔离
-     * @default false
-     */
-    "clickable"?: boolean;
-
-    /**
-     * 封面媒体, 出血铺满卡片顶部并随圆角裁切
-     */
-    "cover"?: ReactNode;
-
-    /**
-     * 是否禁用：撤销全部交互示能并降低不透明度
-     * @default false
-     */
-    "disabled"?: boolean;
-
-    /**
-     * 标题区右侧的操作区（如"更多"按钮）
-     */
-    "extra"?: ReactNode;
-
-    /**
-     * 悬停时显示状态层并提升一级阴影，封面保持原尺寸
-     * @default false
-     */
-    "hoverable"?: boolean;
-
-    /**
-     * 是否处于加载态, 为 true 时渲染骨架占位
-     * @default false
-     */
-    "loading"?: boolean;
-
-    /**
-     * 整卡点击回调, 仅 clickable 时生效
-     */
-    "onClick"?: MouseEventHandler<HTMLDivElement>;
-
-    /**
-     * 根节点 ref
-     */
-    "ref"?: Ref<HTMLDivElement>;
+    "variant"?: CardVariant;
 
     /**
      * 尺寸档位
-     * @default "middle"
+     * @default "medium"
      */
     "size"?: CardSize;
 
@@ -79,7 +30,61 @@ export interface CardProps {
     "title"?: ReactNode;
 
     /**
-     * 视觉变体；省略时随设计风格，Material 使用 elevated，shadcn 使用 outlined
+     * 标题区右侧的操作区（如"更多"按钮）
      */
-    "variant"?: CardVariant;
+    "extra"?: ReactNode;
+
+    /**
+     * 封面媒体, 出血铺满卡片顶部并随圆角裁切
+     */
+    "cover"?: ReactNode;
+
+    /**
+     * 底部操作组, 渲染在分割线下方并靠右排布
+     */
+    "actions"?: ReactNode[];
+
+    /**
+     * 悬停时显示状态层并提升一级阴影，封面保持原尺寸
+     * @default false
+     */
+    "hoverable"?: boolean;
+
+    /**
+     * 整卡是否可点击：自带状态层 / 键盘激活（Enter / Space）/ 焦点环, 卡内 extra 与 actions 的点击自动与整卡点击隔离
+     * @default false
+     */
+    "clickable"?: boolean;
+
+    /**
+     * 是否处于加载态；为 true 时渲染 loadingContent 或默认骨架占位
+     * @default false
+     */
+    "loading"?: boolean;
+
+    /**
+     * 自定义完整加载内容，仅 loading=true 时渲染；省略时使用默认五块骨架。 使用 Card.Cover / Card.Body / Card.Meta 与真实内容共享布局，避免猜测未来内容尺寸。 应提供非交互占位；null / false 表示空占位，0 等 ReactNode 按原值渲染。
+     */
+    "loadingContent"?: ReactNode;
+
+    /**
+     * 是否禁用：撤销全部交互示能并降低不透明度
+     * @default false
+     */
+    "disabled"?: boolean;
+
+    /**
+     * 整卡点击回调, 仅 clickable 时生效
+     */
+    "onClick"?: MouseEventHandler<HTMLDivElement>;
+
+    /**
+     * 卡片内容：裸内容自动包裹进内容区; 传入 Card.Cover / Card.Header / Card.Body / Card.Footer 时切换为自由拼装模式
+     */
+    "children"?: ReactNode;
+
+    /**
+     * 根节点 ref
+     */
+    "ref"?: Ref<HTMLDivElement>;
 }

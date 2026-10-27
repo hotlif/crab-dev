@@ -29,12 +29,12 @@ size.large.border-radius = "$ref(navigation.segment.item-radius)"
 
 # ─── 尺寸 — Middle (默认) ────────────────────────────────────────────
 
-size.middle.height = "$ref(navigation.segment.middle-height)"
-size.middle.font-size = "$ref(typography.label.large.font-size)"
-size.middle.padding-inline = "$ref(sizing.middle.padding)"
-size.middle.gap         = "$ref(space.component-gap)"
-size.middle.track.padding = "$ref(navigation.segment.track-padding)"
-size.middle.border-radius = "$ref(navigation.segment.item-radius)"
+size.medium.height = "$ref(navigation.segment.medium-height)"
+size.medium.font-size = "$ref(typography.label.large.font-size)"
+size.medium.padding-inline = "$ref(sizing.medium.padding)"
+size.medium.gap         = "$ref(space.component-gap)"
+size.medium.track.padding = "$ref(navigation.segment.track-padding)"
+size.medium.border-radius = "$ref(navigation.segment.item-radius)"
 
 
 # ─── 尺寸 — Small ────────────────────────────────────────────────────────────

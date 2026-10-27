@@ -22,7 +22,7 @@ const AutoSizeDemo = () => {
                 rows={2}
                 autoSize
                 placeholder="输入多行内容试试"
-                onChange={(e) => setValue(e.target.value)}
+                onValueChange={value => setValue(value)}
             />
         </div>
     );

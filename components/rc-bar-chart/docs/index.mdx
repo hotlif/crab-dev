@@ -25,6 +25,7 @@ status = "experimental"
 - **系列颜色**：内置 8 色分类色板，也可通过 `series[].color` 覆盖；超过 8 个系列时不渲染，并在开发环境提示。
 - **图例筛选**：点击图例切换系列显隐，数据表仍保留全部数据。
 - **交互提示**：悬停、键盘聚焦或触屏点按可查看类目数据；Enter 或 Space 触发 `onBarClick`。
+- **焦点可见性**：柱体覆盖按钮和图例按钮使用 2px 不透明语义焦点轮廓。柱体轮廓外再用 2px 画布表面色隔离相邻系列，图例保留柔和阴影；系统强制颜色模式使用 `Highlight` 实线轮廓。隐藏图例聚焦时恢复不透明，划线和 `aria-pressed="false"` 继续表达系列隐藏；轮廓不参与布局，不改变图表几何。
 - **无障碍数据**：绘制层对辅助技术隐藏，完整数据通过视觉隐藏的表格提供，`aria-label` 用作表格标题。
 - **轴标签**：按实际文本宽度计算留白，空间不足时省略长类目并按密度抽样标签；完整类目可通过悬浮提示、键盘聚焦与数据表获取。支持通过 `formatValue` 格式化数值。
 
@@ -44,12 +45,18 @@ status = "experimental"
 
 <API source="../src/types.ts" symbol="BarChartProps" component="BarChart" />
 
-
 ## 设计风格与主题
 
-默认八个系列颜色已纳入 L2 数据可视化角色，分别随 macOS、MD3、shadcn 和浅深模式切换；图例、提示、轴线与画布背景继承同一边界。系列名称和完整数据表始终保留，避免只靠颜色区分。显式 series.color / palette 仍属于业务覆盖。
+BarChart 是基于 Canvas 的数据可视化扩展。Material Design 3 Expressive、Apple 和 shadcn/ui 分别提供其语义契约；来源与固定 New York V4 基线见[三套设计体系](/guides/design-styles)。柱图布局、分组、堆叠和数据交互由本库定义，不以列表或分隔线规格概括图表行为。
 
-shadcn 的官方图表主题提供五个颜色角色。本库为既有八系列能力扩展后三个角色，并在深色中显式映射，避免继承其他设计后出现重复色；这是项目扩展，不是官方八色规范。八系列演示可检查全部颜色、图例开关与键盘数据提示。参考（2026-10-23）：[shadcn Chart 的主题配置](https://ui.shadcn.com/docs/components/chart)、[官方主题变量说明](https://github.com/shadcn-ui/ui/blob/main/skills/shadcn/customization.md)。
-本范围以 M3 Lists / Divider 的表面、分隔、状态和无障碍规则作为扩展依据；数据表、图表、PDF 编辑器和可拖动分栏并非 Material Web 的同名标准组件。macOS 与 shadcn 是本项目在相同交互能力上的设计变体，未引入第三方 UI 运行时，也不宣称原生平台逐像素复刻。
+柱形系列、网格线、基线、轴文字和画布背景通过 L3 色板消费 L2 角色；HTML 图例和数据提示使用同一配置边界的字阶、表面、前景和焦点。八个 `data.chart.series.*` 是 Crab 的数据可视化契约，包含本库扩展的系列角色，不能称作上游统一的八色规范。`series[].color` 和 `palette` 的显式业务覆盖保持优先。
 
-参考（2026-10-22）：[M3 Lists 指南](https://m3.material.io/components/lists/guidelines)、[规格](https://m3.material.io/components/lists/specs)、[无障碍](https://m3.material.io/components/lists/accessibility)、[M3 Divider](https://m3.material.io/components/divider/guidelines)、[Material Web List 文档及示例](https://material-web.dev/components/list/)、[列表项样式](https://github.com/material-components/material-web/blob/main/list/internal/listitem/_list-item.scss)、[列表令牌](https://github.com/material-components/material-web/blob/main/tokens/_md-comp-list-item.scss)、[Divider 样式](https://github.com/material-components/material-web/blob/main/divider/internal/_divider.scss)、[Apple Lists and tables](https://developer.apple.com/design/human-interface-guidelines/lists-and-tables)、[shadcn Table](https://ui.shadcn.com/docs/components/table)、[Table 源码](https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/new-york-v4/ui/table.tsx)、[shadcn Resizable](https://ui.shadcn.com/docs/components/resizable)。
+系列颜色切换不改变数据值、坐标轴范围或分组含义。图例名称、键盘数据提示和 HTML 数据表提供颜色之外的信息入口；调用方自定义颜色后仍需检查系列区分与前景配对。绘图区宽高、类目密度和数值格式属于图表配置，不能用控件 `size` 等比缩放代替容器适配。
+
+悬停或聚焦类目时，其他类目的柱体向 `palette.canvasBackground` 混色以降低强调。对于不透明系列色与背景，CSS 变量色和字面量色都采用 sRGB 通道混合，避免弱化后改变系列的颜色辨识；绘制结果保持不透明，圆角柱与底部补齐区域重叠时不会形成深色条带。背景随主题变化时重新解析颜色，`keep=1` 的原色保持不变。
+
+三体系、浅深色、系列显隐、提示、焦点及减少动画等适用状态分别验收，覆盖等级以[覆盖矩阵](/guides/design-coverage)及对应候选记录为准。
+
+包内 `test:forced-colors` 分别渲染柱体焦点与图例焦点，覆盖三体系和浅深色。检查使用发布 ESM/CSS、浏览器原生强制颜色以及实际 PNG 四边轮廓像素；通过 DOM `focus()` 到达目标并读取 `activeElement` / `:focus-visible`，不将它称为真实键盘输入或整张 Canvas 动画稳定性验收。原始截图与执行结果保存在包内 `.cache/forced-colors/`，人工视觉核对仍单独记录。
+
+包内 `test:focus` 另核普通颜色的柱体、可见图例与隐藏图例焦点，分别覆盖三体系浅深色。发布 CSS 的实际 PNG 四边须有连续实线，轮廓与外侧紧邻 2px 色带的像素对比至少 3:1；柱体还须实际绘出表面色隔离边。距离轮廓 6px 的原场景颜色另存诊断，可能属于下一系列，不能混称紧邻背景。聚焦前后的目标、柱层及画布边界保持一致。检查保留正常动态，不取消或快进动画；它验证焦点轮廓，不替代整张图表的进入动画终态验收。原图与记录存于 `.cache/focus-colors/`。

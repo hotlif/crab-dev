@@ -59,4 +59,7 @@ status.text.gap       = "$ref(space.component-gap)"
 status.text.font-size = "$ref(typography.body.font-size)"
 
 # ─── 定位（作为子节点角标时）─────────────────────────────────────────────────
-indicator.transform = "translate(50%, -50%)"
+indicator.anchor.left = "50%"
+indicator.offset.left = "0px"
+indicator.offset.top = "0px"
+indicator.transform = "translate(calc(var(--badge-indicator-anchor-left, 50%) + var(--badge-indicator-offset-left, 0px)), calc(-50% + var(--badge-indicator-offset-top, 0px)))"

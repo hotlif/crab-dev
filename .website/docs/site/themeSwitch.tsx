@@ -3,13 +3,12 @@ import type { RefObject } from "react";
 import type { HeaderProps } from "@crab-dev/wake/docs";
 import Button from "@crab-dev/rc-button";
 import DropdownContainer, { useDropdownContext } from "@crab-dev/rc-dropdown-container";
-import { DocumentDesignContext, SITE_DESIGNS } from "./siteContext.js";
+import { DocumentDesignContext, SITE_DESIGNS, SITE_DESIGN_NAMES } from "./siteContext.js";
 
 const modes = ["light", "dark", "system"] as const;
 type Mode = (typeof modes)[number];
 type Theme = HeaderProps["theme"];
 const names = { light: "浅色", dark: "深色", system: "跟随系统" };
-const designNames = { material: "Material Design 3", shadcn: "shadcn", macos: "macOS" };
 type TriggerRef = RefObject<HTMLSpanElement | null>;
 
 function ThemeIcon({ mode }: { mode: Mode }) {
@@ -28,7 +27,7 @@ function ThemeTrigger({ theme, menuId, trigger }: { theme: Theme; menuId: string
         {/* This layout anchor aligns the popup's right edge with the compact trigger. */}
         <span className="crab-docs-theme-anchor" aria-hidden="true" ref={refs.setReference} />
         <span className="crab-docs-theme-control" ref={trigger}><Button appearance="text" className="crab-docs-theme-trigger"
-            aria-label={`文档主题：${names[theme.theme]}`} title={`外观：${designNames[design]} · ${names[theme.theme]}`}
+            aria-label={`文档外观：${SITE_DESIGN_NAMES[design].label} · ${names[theme.theme]}`} title={`外观：${SITE_DESIGN_NAMES[design].label} · ${names[theme.theme]}`}
             aria-haspopup="menu" aria-expanded={state.open} aria-controls={state.open ? menuId : undefined}
             icon={<ThemeIcon mode={theme.theme} />} onClick={() => setOpen(!state.open)}
             onKeyDown={event => {
@@ -57,12 +56,12 @@ function ThemeOptions({ theme, menuId, trigger }: { theme: Theme; menuId: string
                     : event.key === "Home" ? 0 : event.key === "End" ? options.length - 1 : undefined;
             if (next !== undefined) { event.preventDefault(); options[next]?.focus(); }
         }}>
-        <div role="group" aria-label="设计风格">
-            <span className="crab-docs-theme-group-label" aria-hidden="true">设计风格</span>
+        <div role="group" aria-label="设计体系">
+            <span className="crab-docs-theme-group-label" aria-hidden="true">设计体系</span>
             {SITE_DESIGNS.map(value => <Button key={value} appearance="text" role="menuitemradio" aria-checked={design === value}
                 tabIndex={-1}
                 iconAfter={<span className="crab-docs-theme-check" aria-hidden="true">{design === value ? "✓" : ""}</span>}
-                onClick={() => { setDesign(value); close(); }}>{designNames[value]}</Button>)}
+                onClick={() => { setDesign(value); close(); }}>{SITE_DESIGN_NAMES[value].label}</Button>)}
         </div>
         <div role="group" aria-label="明暗模式">
             <span className="crab-docs-theme-group-label" aria-hidden="true">明暗模式</span>

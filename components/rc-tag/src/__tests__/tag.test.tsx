@@ -32,14 +32,14 @@ describe('Tag', () => {
     });
     it('renders close icon only when closable is true', async () => {
         const { rerender } = await render(<Tag>Tag Text</Tag>);
-        expect(screen.queryByRole('button', { name: 'close' })).toBeNull();
+        expect(screen.queryByRole('button', { name: '关闭' })).toBeNull();
         await rerender(<Tag closable>Tag Text</Tag>);
-        expect(screen.getByRole('button', { name: 'close' })).toBeTruthy();
+        expect(screen.getByRole('button', { name: '关闭' })).toBeTruthy();
     });
     it('calls onClose when close icon is clicked', async () => {
         const onClose = mock.fn();
         await render(<Tag closable onClose={onClose}>Tag Text</Tag>);
-        await fireEvent.click(screen.getByRole('button', { name: 'close' }));
+        await fireEvent.click(screen.getByRole('button', { name: '关闭' }));
         expect(onClose).toHaveBeenCalledTimes(1);
     });
     it('renders custom closeIcon when provided', async () => {
@@ -52,14 +52,17 @@ describe('Tag', () => {
         await render(<Tag closable closeIcon={false}>
                 Tag Text
         </Tag>);
-        expect(screen.queryByRole('button', { name: 'close' })).toBeNull();
+        expect(screen.queryByRole('button', { name: '关闭' })).toBeNull();
     });
-    it('calls onClose when pressing Enter or Space on close icon', async () => {
+    it('uses a native button for keyboard activation clicks', async () => {
         const onClose = mock.fn();
         await render(<Tag closable onClose={onClose}>Tag Text</Tag>);
-        const closeButton = screen.getByRole('button', { name: 'close' });
-        await fireEvent.keyDown(closeButton, { key: 'Enter' });
-        await fireEvent.keyDown(closeButton, { key: ' ' });
+        const closeButton = screen.getByRole('button', { name: '关闭' });
+        expect(closeButton.tagName).toBe('BUTTON');
+        expect(closeButton.getAttribute('type')).toBe('button');
+        // The DOM shim does not synthesize browser default activation from key events.
+        await fireEvent.click(closeButton, { detail: 0 });
+        await fireEvent.click(closeButton, { detail: 0 });
         expect(onClose).toHaveBeenCalledTimes(2);
     });
     it('does not bubble click from close icon to root onClick', async () => {
@@ -68,7 +71,7 @@ describe('Tag', () => {
         await render(<Tag closable onClick={onClick} onClose={onClose}>
                 Tag Text
         </Tag>);
-        await fireEvent.click(screen.getByRole('button', { name: 'close' }));
+        await fireEvent.click(screen.getByRole('button', { name: '关闭' }));
         expect(onClose).toHaveBeenCalledTimes(1);
         expect(onClick).not.toHaveBeenCalled();
     });
@@ -90,7 +93,7 @@ describe('Tag', () => {
             'warning',
             'error',
         ];
-        const sizes: NonNullable<TagProps['size']>[] = ['large', 'middle', 'small'];
+        const sizes: NonNullable<TagProps['size']>[] = ['large', 'medium', 'small'];
         for (const color of colors) {
             for (const size of sizes) {
                 const { unmount } = await render(<Tag color={color} size={size} bordered={false}>
@@ -108,15 +111,15 @@ describe('Tag', () => {
     });
 });
 const renderCheckableTag = async (props: Partial<CheckableTagProps> = {}) => {
-    const onChange = props.onChange ?? mock.fn();
-    const renderResult = await render(<CheckableTag checked={props.checked ?? false} onChange={onChange} {...props}>
+    const { checked = false, defaultChecked: _defaultChecked, onCheckedChange = mock.fn(), ...restProps } = props;
+    const renderResult = await render(<CheckableTag {...restProps} checked={checked} onCheckedChange={onCheckedChange}>
             Checkable Tag
     </CheckableTag>);
     const tag = screen.getByRole('checkbox', { name: 'Checkable Tag' });
     return {
         ...renderResult,
         tag,
-        onChange,
+        onCheckedChange,
     };
 };
 describe('CheckableTag', () => {
@@ -125,16 +128,16 @@ describe('CheckableTag', () => {
         expect(tag.getAttribute('aria-checked')).toBe('true');
         expect(tag.querySelector('[data-role="selected-icon"]')).toBeTruthy();
     });
-    it('calls onChange when clicked', async () => {
-        const { tag, onChange } = await renderCheckableTag({ checked: false });
+    it('calls onCheckedChange when clicked', async () => {
+        const { tag, onCheckedChange } = await renderCheckableTag({ checked: false });
         await fireEvent.click(tag);
-        expect(onChange).toHaveBeenCalledWith(true);
+        expect(onCheckedChange).toHaveBeenCalledWith(true, expect.objectContaining({ reason: 'toggle' }));
     });
-    it('calls onChange when pressing Enter and Space', async () => {
-        const { tag, onChange } = await renderCheckableTag({ checked: false });
+    it('calls onCheckedChange when pressing Enter and Space', async () => {
+        const { tag, onCheckedChange } = await renderCheckableTag({ checked: false });
         await fireEvent.keyDown(tag, { key: 'Enter' });
         await fireEvent.keyDown(tag, { key: ' ' });
-        expect(onChange).toHaveBeenCalledTimes(2);
+        expect(onCheckedChange).toHaveBeenCalledTimes(2);
     });
     it('renders icon when provided', async () => {
         await render(<CheckableTag checked={false} icon={<svg data-testid="checkable-icon"/>}>
@@ -150,11 +153,11 @@ describe('CheckableTag', () => {
         expect(screen.queryByTestId('checkable-icon')).toBeNull();
     });
     it('prevents interaction when disabled', async () => {
-        const { tag, onChange } = await renderCheckableTag({ disabled: true });
+        const { tag, onCheckedChange } = await renderCheckableTag({ disabled: true });
         expect(tag.getAttribute('aria-disabled')).toBe('true');
         expect(tag.getAttribute('tabindex')).toBe('-1');
         await fireEvent.click(tag);
         await fireEvent.keyDown(tag, { key: 'Enter' });
-        expect(onChange).not.toHaveBeenCalled();
+        expect(onCheckedChange).not.toHaveBeenCalled();
     });
 });

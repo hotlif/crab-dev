@@ -10,6 +10,8 @@ import {
 } from '@crab-dev/wake/test';
 import * as ReactNS from 'react';
 
+import { getRealmErrorMessage } from '../errorMessages.js';
+import { RealmError } from '../types.js';
 import type { ShareScope } from '../types.js';
 
 type ImportModule = (typeof import('../importer.js'))['importModule'];
@@ -134,9 +136,14 @@ describe('loadRemoteModule', () => {
             name: 'RealmError',
             code: 'script',
         });
+        const captured = promise.catch((cause: unknown) => cause);
         const failedScript = lastScript();
         failedScript.dispatchEvent(new Event('error'));
         await failure;
+        const error = await captured;
+        if (!(error instanceof RealmError)) throw new Error('Expected the actual loader RealmError');
+        expect(getRealmErrorMessage(error, 'en-US')).toBe(`Unable to load remoteEntry script: ${ENTRY}`);
+        expect(error.message).toBe(`remoteEntry 脚本加载失败：${ENTRY}`);
         expect(failedScript.isConnected).toBe(false);
 
         const container = makeContainer();
@@ -212,8 +219,13 @@ describe('loadRemoteModule', () => {
             timeout: 5000,
         });
         const failure = expect(promise).rejects.toMatchObject({ code: 'timeout' });
+        const captured = promise.catch((cause: unknown) => cause);
         await clock.advanceBy(5000);
         await failure;
+        const error = await captured;
+        if (!(error instanceof RealmError)) throw new Error('Expected the actual timeout RealmError');
+        expect(getRealmErrorMessage(error, 'en-US')).toContain('5,000 ms');
+        expect(error.message).toBe('远程模块加载超过 5000ms 期限');
         await clock.restore();
 
         const container = makeContainer();

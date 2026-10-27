@@ -1,7 +1,10 @@
+import Button, { TokenVars as buttonVars } from '@crab-dev/rc-button';
+import { useLocale } from '@crab-dev/rc-config-provider';
 import { useComponentSize } from '@crab-dev/rc-config-provider';
 import { css, cx } from '@crab-dev/css';
-import type { CSSProperties, FC, KeyboardEvent, MouseEvent as ReactMouseEvent } from 'react';
+import type { CSSProperties, FC } from 'react';
 import token from './token.js';
+import { getOpaqueHexForeground } from './custom-color.js';
 import type { PresetTagColor, TagProps } from './types.js';
 
 const baseStyle = css`
@@ -13,16 +16,43 @@ const baseStyle = css`
     vertical-align: middle;
     transition: ${token.root.transition};
     @media (prefers-reduced-motion: reduce) { transition: none; }
-    @media (forced-colors: active) { border-color: CanvasText; }
-    [role="button"] {
-    &:focus-visible { outline: ${token.interaction['outline-width-focus']} solid ${token.interaction['outline-color-focus']}; outline-offset: ${token.interaction['outline-offset-focus']}; }
-    @media (pointer: coarse) { min-width: ${token.interaction.touch['min-width']}; min-height: ${token.interaction.touch['min-height']}; }
-    @media (prefers-reduced-motion: reduce) { transition: none; }
-    @media (forced-colors: active) { &:focus-visible { outline-color: Highlight; } }
-
+    @media (forced-colors: active) {
+        /* Keep system ink and its surface together, including the label and
+           icon descendants. Automatic text backplates can otherwise hide a
+           primary label. Override custom inline colors only in this mode. */
+        forced-color-adjust: none;
+        color: CanvasText !important;
+        background-color: Canvas !important;
+        border-color: CanvasText !important;
     }
     border: 1px solid transparent;
     font-family: inherit;
+`;
+
+// The native Button retains its separate coarse-pointer hit target. Only its
+// painted close role is compact; focus stays inside that role, not the hit area.
+const closeButtonStyle = css`
+    ${buttonVars['text.color']}: ${token.close.color};
+    ${buttonVars['text.background-color-hover']}: ${token.close['background-color-hover']};
+    ${buttonVars['text.background-color-focus']}: ${token.close['background-color-focus']};
+    ${buttonVars['text.background-color-active']}: ${token.close['background-color-active']};
+    ${buttonVars['root.outline-color-focus']}: ${token.close['outline-color-focus']};
+    ${buttonVars['root.outline-width-focus']}: ${token.close['outline-width-focus']};
+    ${buttonVars['root.outline-offset-focus']}: ${token.close['outline-offset-focus']};
+    ${buttonVars['shape.default.border-radius']}: ${token.close['border-radius']};
+    ${buttonVars['shape.default.border-radius-active']}: ${token.close['border-radius']};
+    ${buttonVars['root.touch.min-width']}: ${token.interaction.touch['min-width']};
+    ${buttonVars['root.touch.min-height']}: ${token.interaction.touch['min-height']};
+    && {
+        flex-shrink: 0;
+        width: min(${token.close.control.width}, var(--tag-close-available-size));
+        height: min(${token.close.control.width}, var(--tag-close-available-size));
+        min-width: 0;
+        min-height: 0;
+        padding: 0;
+        color: ${token.close.color};
+    }
+    &:hover { color: ${token.close['color-hover']}; }
 `;
 
 const noBorderStyle = css`
@@ -92,7 +122,7 @@ const Tag: FC<TagProps> = ({
     bordered = true,
     closable = false,
     closeIcon,
-    closeAriaLabel = 'close',
+    closeAriaLabel,
     icon,
     className,
     children,
@@ -101,6 +131,7 @@ const Tag: FC<TagProps> = ({
     ...restProps
 }) => {
     const size = useComponentSize(sizeProp);
+    const { messages } = useLocale();
     const getColorStyle = () => {
         const styles = isPresetTagColor(color) ? colorStyleMap[color] : colorStyleMap.default;
         return cx(styles.base, bordered ? styles.border : noBorderStyle);
@@ -112,7 +143,7 @@ const Tag: FC<TagProps> = ({
         }
 
         return {
-            color: token.primary.color,
+            color: getOpaqueHexForeground(color) ?? token.primary.color,
             backgroundColor: color,
             borderColor: bordered ? color : 'transparent',
         };
@@ -121,6 +152,7 @@ const Tag: FC<TagProps> = ({
     const getSizeStyle = () => {
         if (size === 'large') {
             return css`
+                --tag-close-available-size: calc(${token.size.large.height} - 2px);
                 font-size: ${token.size.large['font-size']};
                 padding: ${token.size.large.padding};
                 height: ${token.size.large.height};
@@ -129,6 +161,7 @@ const Tag: FC<TagProps> = ({
             `;
         } else if (size === 'small') {
             return css`
+                --tag-close-available-size: calc(${token.size.small.height} - 2px);
                 font-size: ${token.size.small['font-size']};
                 padding: ${token.size.small.padding};
                 height: ${token.size.small.height};
@@ -137,11 +170,12 @@ const Tag: FC<TagProps> = ({
             `;
         } else {
             return css`
-                font-size: ${token.size.middle['font-size']};
-                padding: ${token.size.middle.padding};
-                height: ${token.size.middle.height};
-                border-radius: ${token.size.middle['border-radius']};
-                gap: ${token.size.middle.gap};
+                --tag-close-available-size: calc(${token.size.medium.height} - 2px);
+                font-size: ${token.size.medium['font-size']};
+                padding: ${token.size.medium.padding};
+                height: ${token.size.medium.height};
+                border-radius: ${token.size.medium['border-radius']};
+                gap: ${token.size.medium.gap};
             `;
         }
     };
@@ -178,33 +212,19 @@ const Tag: FC<TagProps> = ({
         );
 
         return (
-            <span
-                role="button"
-                tabIndex={0}
-                aria-label={closeAriaLabel}
-                className={css`
-                    display: inline-flex;
-                    align-items: center;
-                    cursor: pointer;
-                    color: ${token.close.color};
-                    &:hover {
-                        color: ${token.close['color-hover']};
-                    }
-                `}
+            <Button
+                type="button"
+                appearance="text"
+                size="xs"
+                aria-label={closeAriaLabel ?? messages.common.close}
+                className={closeButtonStyle}
                 onClick={(e) => {
                     e.stopPropagation();
                     onClose?.(e);
                 }}
-                onKeyDown={(e: KeyboardEvent<HTMLSpanElement>) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        onClose?.(e as unknown as ReactMouseEvent<HTMLSpanElement>);
-                    }
-                }}
             >
                 {iconNode}
-            </span>
+            </Button>
         );
     };
 

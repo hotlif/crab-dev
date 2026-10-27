@@ -4,7 +4,7 @@ import Alert from "@crab-dev/rc-alert";
 import Empty from "@crab-dev/rc-empty";
 import { SpinIndicator } from "@crab-dev/rc-spin";
 import { useConfig } from "@crab-dev/rc-config-provider";
-import type { ConfigDesign } from "@crab-dev/rc-config-provider";
+import type { ConfigValue } from "@crab-dev/rc-config-provider";
 import token from "@crab-dev/rc-token-semantic";
 import { useEffect, useRef, useState } from "react";
 import type { ReactNode } from "react";
@@ -230,8 +230,7 @@ function isWakeMessage(data: unknown): data is WakeMessage {
 
 function synchronizeFrameConfiguration(
     frameWindow: ComponentDemoFrameWindow,
-    design: ConfigDesign,
-    theme: ComponentDemoCodeTheme,
+    config: ConfigValue,
     presentation: ComponentDemoFramePresentation,
 ) {
     try {
@@ -240,8 +239,12 @@ function synchronizeFrameConfiguration(
             // Public rc-theme rules provide the L2 colors and shapes at each boundary.
             for (const root of [frameDocument.documentElement, frameDocument.querySelector<HTMLElement>(".demo-frame-root")]) {
                 if (!root) continue;
-                root.dataset.crabDesign = design;
-                root.dataset.theme = theme;
+                root.dataset.crabDesign = config.designSystem;
+                root.dataset.theme = config.colorMode;
+                root.dataset.crabSize = config.size;
+                root.dataset.crabDensity = config.density;
+                root.lang = config.locale;
+                root.dir = config.direction;
                 // The decorative frame must not acquire focus, including through portals or autofocus.
                 root.inert = presentation === "artwork";
             }
@@ -249,8 +252,10 @@ function synchronizeFrameConfiguration(
     } catch {
         // The preview's validated message bridge also works without DOM access.
     }
-    frameWindow.postMessage({ type: "wake:theme", theme }, "*");
-    frameWindow.postMessage({ type: "crab:preview-config", design, theme }, window.location.origin);
+    // Wake's external protocol is adapted here; preview configuration follows
+    // the nearest Provider, which may explicitly override the site's color mode.
+    frameWindow.postMessage({ type: "wake:theme", theme: config.colorMode }, "*");
+    frameWindow.postMessage({ type: "crab:preview-config", ...config }, window.location.origin);
 }
 
 export function getComponentDemoFrameAttributes(
@@ -280,7 +285,7 @@ export default function ComponentDemoFrame({
     readyTimeoutMs = DEFAULT_READY_TIMEOUT_MS,
 }: ComponentDemoFrameProps) {
     const href = useSiteHref();
-    const { design } = useConfig();
+    const config = useConfig();
     const containerRef = useRef<HTMLDivElement>(null);
     const frameRef = useRef<HTMLIFrameElement>(null);
     // Mutable observer ownership is read by messages without triggering rendering.
@@ -311,7 +316,7 @@ export default function ComponentDemoFrame({
             if (!frameWindow || event.source !== frameWindow || !isWakeMessage(event.data)) return;
             if (event.data.type === "crab:preview-ready") {
                 if (event.origin === window.location.origin) {
-                    synchronizeFrameConfiguration(frameWindow, design, readCodeTheme(), presentation);
+                    synchronizeFrameConfiguration(frameWindow, config, presentation);
                 }
                 return;
             }
@@ -333,7 +338,7 @@ export default function ComponentDemoFrame({
                 setReady(true);
                 setTimedOut(false);
                 onThemeChange?.(theme);
-                synchronizeFrameConfiguration(frameWindow, design, theme, presentation);
+                synchronizeFrameConfiguration(frameWindow, config, presentation);
                 return;
             }
             if (event.data.type === "wake:error") {
@@ -341,7 +346,7 @@ export default function ComponentDemoFrame({
                 setError(messageError(event.data));
             }
         });
-    }, [design, error, getFrameWindow, onThemeChange, presentation]);
+    }, [config, error, getFrameWindow, onThemeChange, presentation]);
 
     useEffect(() => {
         if (!ready || typeof ResizeObserver === "undefined") return;
@@ -375,12 +380,16 @@ export default function ComponentDemoFrame({
 
     useEffect(() => {
         if (!shouldLoad || error) return;
-        return subscribeTheme((theme) => {
-            onThemeChange?.(theme);
-            const frameWindow = getFrameWindow?.() ?? frameRef.current?.contentWindow;
-            if (frameWindow) synchronizeFrameConfiguration(frameWindow, design, theme, presentation);
-        });
-    }, [design, error, getFrameWindow, onThemeChange, presentation, shouldLoad]);
+        const frameWindow = getFrameWindow?.() ?? frameRef.current?.contentWindow;
+        if (frameWindow) synchronizeFrameConfiguration(frameWindow, config, presentation);
+    }, [attempt, config, error, getFrameWindow, presentation, shouldLoad]);
+
+    useEffect(() => {
+        if (!shouldLoad || error || !onThemeChange) return;
+        // Code highlighting follows the page theme independently of the demo's
+        // resolved configuration, including nested Provider overrides.
+        return subscribeTheme(onThemeChange);
+    }, [error, onThemeChange, shouldLoad]);
 
     useEffect(() => {
         if (!shouldLoad || ready || error) return;
@@ -467,7 +476,7 @@ export default function ComponentDemoFrame({
                             role="status"
                             aria-live="polite"
                         >
-                            <SpinIndicator size="middle" />
+                            <SpinIndicator size="medium" />
                             <span>{artwork ? "正在加载组件预览…" : "正在加载交互演示…"}</span>
                         </div>
                     )}

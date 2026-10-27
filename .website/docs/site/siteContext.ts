@@ -1,19 +1,28 @@
 import { createContext, use } from "react";
 import type { CommonProps } from "@crab-dev/wake/docs";
-import type { ThemeDesign } from "@crab-dev/rc-token-semantic";
+import type { DesignSystem } from "@crab-dev/rc-token-semantic";
+import { defaultDesignSystem, designSystemRegistry } from "@crab-dev/rc-token-semantic";
 
 export const SiteContext = createContext<CommonProps | null>(null);
 export const SITE_DESIGN_STORAGE_KEY = "crab-docs-design";
-export const DEFAULT_SITE_DESIGN: ThemeDesign = "macos";
-export const SITE_DESIGNS = ["macos", "material", "shadcn"] as const satisfies readonly ThemeDesign[];
+export const DEFAULT_SITE_DESIGN: DesignSystem = defaultDesignSystem;
+export const SITE_DESIGNS = ["md3", "apple", "shadcn"] as const satisfies readonly DesignSystem[];
+export const SITE_DESIGN_NAMES = designSystemRegistry;
 export const DocumentDesignContext = createContext<{
-    design: ThemeDesign;
-    setDesign: (design: ThemeDesign) => void;
+    design: DesignSystem;
+    setDesign: (design: DesignSystem) => void;
 }>({ design: DEFAULT_SITE_DESIGN, setDesign: () => {} });
 export const TutorialDirectoryContext = createContext<HTMLElement | null>(null);
 
-export function isSiteDesign(value: unknown): value is ThemeDesign {
+export function isSiteDesign(value: unknown): value is DesignSystem {
     return SITE_DESIGNS.some(design => design === value);
+}
+
+/** Legacy identifiers are accepted only when reading a saved browser preference. */
+export function migrateSiteDesignPreference(value: unknown): DesignSystem | undefined {
+    if (value === "material") return "md3";
+    if (value === "macos") return "apple";
+    return isSiteDesign(value) ? value : undefined;
 }
 
 export function resolveSiteHref(slug: string, resolve: (path: string) => string) {

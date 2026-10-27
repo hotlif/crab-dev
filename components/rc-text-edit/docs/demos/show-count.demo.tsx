@@ -24,7 +24,7 @@ const ShowCountDemo = () => {
                 rows={3}
                 showCount
                 maxLength={100}
-                onChange={(e) => setValue(e.target.value)}
+                onValueChange={value => setValue(value)}
             />
         </div>
     );

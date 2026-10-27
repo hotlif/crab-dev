@@ -1,0 +1,19 @@
+# Published ESM and real extracted CSS, without the ordinary suite's css mock.
+[test]
+environment = "browser"
+include = ["circle-geometry.test.tsx"]
+timeout_ms = 15000
+leaks = "error"
+
+[test.react]
+strict_mode = false
+cleanup = true
+act_warnings = "error"
+
+[test.network]
+mode = "deny"
+allow_hosts = []
+
+[test.coverage]
+enabled = true
+reporters = ["text", "lcov"]

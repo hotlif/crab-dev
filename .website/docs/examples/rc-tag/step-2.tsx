@@ -10,7 +10,7 @@ export default function Example() {
     const [checked, setChecked] = useState(false);
     return (
         <div className={layout}>
-            <CheckableTag checked={checked} onChange={setChecked}>
+            <CheckableTag checked={checked} onCheckedChange={setChecked}>
                 只看设计任务
             </CheckableTag>
             <output>{checked ? "已启用设计任务筛选" : "显示全部任务"}</output>

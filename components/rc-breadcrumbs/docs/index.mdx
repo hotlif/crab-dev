@@ -23,10 +23,11 @@ status = "experimental"
 - 支持 `maxCount` 折叠中间层级，避免路径过长。
 - 支持每一项配置 `href`、`onClick`、`disabled`。
 - `href` 使用链接；仅有 `onClick` 的上级项使用按钮，可通过 Enter / Space 激活。当前位置使用 `aria-current="page"`，禁用项不响应操作。
+- 默认导航名称随 `ConfigProvider.locale` 切换中英文；同页存在多条路径时，用 `aria-label` 提供可区分的名称，自定义名称优先。
 
 ## 三套风格
 
-面包屑保持链接与当前位置语义，不将路径伪装为一排按钮。macOS 使用较强调的当前项字重；Material 使用 medium；shadcn 使用常规字重。文本、分隔符、焦点和禁用状态随当前浅深色主题切换。
+面包屑保持链接与当前位置语义，不将路径伪装为一排按钮。Apple 使用较强调的当前项字重；Material 使用 medium；shadcn 使用常规字重。文本、分隔符、焦点和禁用状态随当前浅深色主题切换。
 
 M3 与 Material Web 没有独立的面包屑组件；本组件是依据层级导航和文本角色扩展的 Web 导航能力。参考核对日期：2026-10-22；对照 [shadcn Breadcrumb](https://ui.shadcn.com/docs/components/radix/breadcrumb)及 [Breadcrumb 实现](https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/new-york-v4/ui/breadcrumb.tsx)，无障碍采用 [WAI-ARIA Breadcrumb pattern](https://www.w3.org/WAI/ARIA/apg/patterns/breadcrumb/)。
 

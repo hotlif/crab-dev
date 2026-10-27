@@ -5,6 +5,30 @@ import { useTableData } from '../hooks/useTableData.js';
 import type { TableDataResult, TableQuery } from '../types.js';
 
 describe('TablePro request lifecycle', () => {
+    it('consumes initial sorting once and keeps later default changes from replacing user state', async () => {
+        const view = await renderHook(({ initial }: { initial: SortColumn[] }) => useTableData<Row>({
+            defaultSortColumns: initial,
+            request: () => Promise.resolve({ rows: [], total: 0 }),
+        }), { initialProps: { initial: [{ columnName: 'name', direction: 'asc' }] as SortColumn[] } });
+        expect(view.result.current.sortColumns).toEqual([{ columnName: 'name', direction: 'asc' }]);
+        await act(() => view.result.current.handleSortChange([{ columnName: 'age', direction: 'desc' }]));
+        await view.rerender({ initial: [{ columnName: 'name', direction: 'desc' }] });
+        expect(view.result.current.sortColumns).toEqual([{ columnName: 'age', direction: 'desc' }]);
+    });
+
+    it('adapts pagination details once while preserving the request query', async () => {
+        const changed = mock.fn();
+        const queries: TableQuery[] = [];
+        const view = await renderHook(() => useTableData<Row>({
+            pagination: { onValueChange: changed },
+            request: query => { queries.push(query); return Promise.resolve({ rows: [], total: 80 }); },
+        }));
+        expect(changed).not.toHaveBeenCalled();
+        await act(() => view.result.current.handlePageChange(2, 20, 'page-size'));
+        expect(changed).toHaveBeenCalledWith(2, { pageSize: 20, reason: 'page-size' });
+        expect(changed).toHaveBeenCalledTimes(1);
+        expect(queries.at(-1)).toEqual(expect.objectContaining({ page: 2, pageSize: 20 }));
+    });
     it('aborts superseded requests and ignores late success and failure', async () => {
         const requests: Array<{ query: TableQuery } & ReturnType<typeof Promise.withResolvers<TableDataResult<Row>>>> = [];
         const onError = mock.fn();

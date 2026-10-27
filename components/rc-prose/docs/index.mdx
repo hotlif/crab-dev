@@ -21,14 +21,26 @@ status = "experimental"
 
 - 零运行时，基于 Crab CSS 编译为静态 CSS。
 - 支持四种尺寸变体：`sm`、`base`、`lg`、`xl`。
-- 支持 `invert` 暗色排版模式。
+- 支持 `invert` 逆色排版，配合当前主题的 inverse 背景。
 - 支持 `as` 语义标签：`div`、`article`、`section`、`main`。
 - 完整的排版规则覆盖：标题、段落、链接、列表、引用、代码、表格、媒体、定义列表。
 - 三层设计令牌架构，支持主题覆写。
 
 ## 代码演示
 
+“正色与逆色内容”在四档文章字阶下并列展示普通和 `invert` 排版，包含中文、长链接、代码、表格与键盘提示。逆色文字应放在当前主题的 inverse 背景上，不能将 `invert` 一概理解为固定暗色。导语、列表编号和图注使用与该背景配对的 inverse 前景，不再额外叠加固定透明度；阅读层级通过文章字阶、字重和间距表达。四档导语均按普通文字的至少 4.5:1 核对，代码文字则先合成自身半透明背景。自定义前景、背景或祖先透明度后，需要重新核对实际合成对比度。
+
 <Demos glob="./demos/*.demo.tsx" columns={2} />
+
+## 内容边界与键盘焦点
+
+Prose 为后代排版规则保留一个组件根类的优先级，普通宿主 `a`、`kbd`、`code` 等标签样式不会接管其外观。需要定制时，使用自己的作用域类或公开 `TokenVars`；组件不会用 `!important` 阻止明确覆盖。
+
+给嵌入内容添加 `not-prose` 类，可以排除该元素及其后代的直接排版规则。祖先字体、颜色和 CSS 变量仍遵循正常继承；嵌入区域需要自己的外观时应显式定义。`not-prose` 内再次嵌套 Prose 不会自动重新启用排版。
+
+链接支持浏览器原生键盘导航；获得键盘焦点时使用当前设计体系的焦点角色，逆色内容使用与 inverse 背景配对的前景。长链接可以换行，焦点轮廓随内容绘制；强制颜色模式使用系统高亮色。行内代码与代码块分别管理尺寸，代码块中的 `code` 继承 `pre`，避免重复缩小或叠加内边距。
+
+文章遵循所在边界的 `direction`，标题、段落、列表和引用可使用 RTL 排版。`pre` 与 `code` 单独使用 LTR 及双向隔离，保持编程语法中括号、分号和 JSX 标记的阅读顺序；代码块从左侧开始，长行仍在自身范围内横向滚动。切换文章方向不修改内容字符串或 DOM 语义。需要展示其他方向的非编程预格式内容时，可用 `not-prose` 退出这条规则，或通过自己的作用域样式明确覆盖。
 
 ## API
 
@@ -38,6 +50,6 @@ status = "experimental"
 ## 设计风格与主题
 
 正文与标题使用设计边界的排版角色；内嵌表格使用与 Table 一致的表头、边框和圆角，行内代码使用公共小圆角。长文本行距及语义标签保持稳定，风格切换不会改变文档结构。
-本范围以 M3 Lists / Divider 的表面、分隔、状态和无障碍规则作为扩展依据；数据表、图表、PDF 编辑器和可拖动分栏并非 Material Web 的同名标准组件。macOS 与 shadcn 是本项目在相同交互能力上的设计变体，未引入第三方 UI 运行时，也不宣称原生平台逐像素复刻。
+这是本库的富文本展示扩展。MD3、Apple、shadcn/ui 分别提供排版、链接、代码、引用与表格的语义角色；HTML 内容结构及长文本溢出由 Prose 负责。文章字阶独立于通用控件尺寸，具体排版组合属于本库 Web 适配。
 
-参考（2026-10-22）：[M3 Lists 指南](https://m3.material.io/components/lists/guidelines)、[规格](https://m3.material.io/components/lists/specs)、[无障碍](https://m3.material.io/components/lists/accessibility)、[M3 Divider](https://m3.material.io/components/divider/guidelines)、[Material Web List 文档及示例](https://material-web.dev/components/list/)、[列表项样式](https://github.com/material-components/material-web/blob/main/list/internal/listitem/_list-item.scss)、[列表令牌](https://github.com/material-components/material-web/blob/main/tokens/_md-comp-list-item.scss)、[Divider 样式](https://github.com/material-components/material-web/blob/main/divider/internal/_divider.scss)、[Apple Lists and tables](https://developer.apple.com/design/human-interface-guidelines/lists-and-tables)、[shadcn Table](https://ui.shadcn.com/docs/components/table)、[Table 源码](https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/new-york-v4/ui/table.tsx)、[shadcn Resizable](https://ui.shadcn.com/docs/components/resizable)。
+设计来源与固定参考版本见[三套设计体系](/guides/design-styles)，当前已核对范围见[设计覆盖矩阵](/guides/design-coverage)。这段说明记录适配边界，不代表完整视觉验收已通过。

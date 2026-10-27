@@ -1,5 +1,7 @@
 import { afterAll, afterEach, beforeAll, describe, expect, it, mock } from '@crab-dev/wake/test';
 import { PdfClient } from '../client.js';
+import { PdfEditorError } from '../types.js';
+import { builtinPdfMessage, formatPdfError } from '../pdf-messages.js';
 import wasmBase64 from '../../.fixtures/test-wasm.json';
 import workerCode from '../../.fixtures/test-worker.json';
 import { fixture } from './fixture.js';
@@ -11,6 +13,20 @@ afterAll(() => { URL.revokeObjectURL(workerUrl); });
 afterEach(() => { mock.restoreAll(); });
 
 describe('连续页面共享渲染缓存', () => {
+    it('preserves the public error and builtin message identity through a real Worker', async () => {
+        const client = new PdfClient({ workerUrl, wasmBinary });
+        try {
+            const failure: unknown = await client.request('open', { bytes: new Uint8Array([1, 2, 3]), password: '' })
+                .then(() => undefined, (error: unknown) => error);
+            if (!(failure instanceof PdfEditorError)) throw new Error('Expected the Worker to reject the damaged PDF with a PdfEditorError');
+            expect(failure.code).toBe('document');
+            expect(failure.message).toBe('无法打开 PDF，文件可能已损坏或格式不受支持');
+            expect(builtinPdfMessage(failure)).toEqual({ id: 'engine.invalidDocument' });
+            expect(formatPdfError(failure, 'en-US')).toBe('Cannot open the PDF. The file may be damaged or use an unsupported format');
+            expect(formatPdfError(failure, 'zh-CN')).toBe(failure.message);
+        } finally { client.close(); }
+    });
+
     it('预览和编辑画布共用一次真实 Worker 渲染，往返与排序复用，内容修改和新文档失效', async () => {
         const sent = mock.spyOn(globalThis.Worker.prototype, 'postMessage');
         const client = new PdfClient({ workerUrl, wasmBinary }), signal = new AbortController().signal;

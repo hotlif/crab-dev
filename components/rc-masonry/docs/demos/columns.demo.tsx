@@ -29,7 +29,7 @@ const ColumnsDemo = () => {
             <div className={controlStyle}>
                 <Select label="列数" value={String(columns)}
                     options={[2, 3, 4, 5].map((count) => ({ label: `${count} 列`, value: String(count) }))}
-                    onChange={(value) => { if (value) setColumns(Number(value)); }} />
+                    onValueChange={(value) => { if (value) setColumns(Number(value)); }} />
             </div>
             <Masonry columns={columns} gutter={12}>
                 {items.map((item, i) => (

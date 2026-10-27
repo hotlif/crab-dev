@@ -14,9 +14,9 @@ const stackStyle = css`
 export default function ShowTotalDemo() {
     return (
         <div className={stackStyle}>
-            <Pagination defaultCurrent={2} total={256} pageSize={20} showTotal />
+            <Pagination defaultValue={2} total={256} pageSize={20} showTotal />
             <Pagination
-                defaultCurrent={2}
+                defaultValue={2}
                 total={256}
                 pageSize={20}
                 showTotal={(total, [from, to]) => `Showing ${from}-${to} of ${total}`}

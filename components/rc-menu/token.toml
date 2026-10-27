@@ -12,6 +12,7 @@ imports = [
 vertical.item.depth.padding-left = "$ref(space.dialog-padding)"
 
 vertical.item.title.width = "100%"
+vertical.item.title.outline-offset-focus = "calc(-1 * var(--menu-interaction-outline-width-focus, 2px))"
 vertical.item.title.height = "$ref(density.navigation)"
 vertical.item.title.color = "$ref(color.text.primary)"
 vertical.item.title.font-size = "$ref(typography.body.font-size)"

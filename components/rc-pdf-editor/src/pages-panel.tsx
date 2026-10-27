@@ -1,3 +1,4 @@
+import { usePdfLocale } from './locale.js';
 import { useEffect, useId, useLayoutEffect, useRef, useState, type KeyboardEvent } from 'react';
 import AutoSizer from '@crab-dev/rc-auto-sizer';
 import Button from '@crab-dev/rc-button';
@@ -53,6 +54,7 @@ interface PagesPanelProps {
 }
 
 export default function PagesPanel(props: PagesPanelProps) {
+    const { text } = usePdfLocale();
     const { client, pages, revision, current, selected, disabled, readOnly, onSelect, onSelectAll, onMove, onError } = props;
     const [measuredHeight, setMeasuredHeight] = useState(0);
     const [focused, setFocused] = useState(current);
@@ -88,7 +90,7 @@ export default function PagesPanel(props: PagesPanelProps) {
             event.preventDefault(); event.stopPropagation();
         }
     }
-    return <div className={pageListStyle} ref={rootRef} role="listbox" aria-label="PDF 页面列表" aria-multiselectable="true" aria-describedby={descriptionId}
+    return <div className={pageListStyle} ref={rootRef} role="listbox" aria-label={text('PDF 页面列表')} aria-multiselectable="true" aria-describedby={descriptionId}
         aria-disabled={disabled} tabIndex={0} {...handlers} onKeyDown={keyDown} onFocus={event => { if (event.target === event.currentTarget && !disabled) focusPage(current); }}>
         <AutoSizer onResize={({ height }) => setMeasuredHeight(height)}>{({ width, height }) => <Virtual
         gridRef={gridRef}
@@ -99,7 +101,7 @@ export default function PagesPanel(props: PagesPanelProps) {
             data-drop={drop?.boundary === page.index ? 'before' : drop?.boundary === pages.length && page.index === pages.length - 1 ? 'after' : undefined}>
             <Button className={thumbButtonStyle} role="option" aria-selected={selected.includes(page.index)}
                 appearance={selected.includes(page.index) ? 'tonal' : 'text'} isSelected={selected.includes(page.index)} aria-current={current === page.index ? 'page' : undefined}
-                aria-label={`第 ${page.index + 1} 页`} aria-posinset={page.index + 1} aria-setsize={pages.length} tabIndex={-1}
+                aria-label={text('第 {page} 页', { page: page.index + 1 })} aria-posinset={page.index + 1} aria-setsize={pages.length} tabIndex={-1}
                 data-page-index={page.index} data-draggable={!readOnly && !disabled} data-dragging={drop?.pages.includes(page.index) || undefined}
                 onFocus={() => setFocused(page.index)} onDragStart={event => event.preventDefault()} onClick={event => { if (!disabled) onSelect(page.index, event.ctrlKey || event.metaKey); }}>
                 <span className={thumbContentStyle}>
@@ -108,6 +110,6 @@ export default function PagesPanel(props: PagesPanelProps) {
                 </span>
             </Button>
         </div>)}<div className={bottomSpacerStyle} aria-hidden="true" /></>} />}</AutoSizer>
-        <span id={descriptionId} className={pageDragStatusStyle} role="status">{drop ? `正在移动 ${drop.pages.length} 页${drop.boundary === undefined ? '，移回列表后放置' : `，放到${drop.boundary === pages.length ? '文档末尾' : `第 ${drop.boundary + 1} 页前`}`}，Esc 取消` : '点击选页，Ctrl 或 Command 点击多选，拖拽排序。方向键浏览，空格切换选择。'}</span>
+        <span id={descriptionId} className={pageDragStatusStyle} role="status">{drop ? `${text('正在移动 {count} 页', { count: drop.pages.length })}${drop.boundary === undefined ? text('，移回列表后放置') : drop.boundary === pages.length ? text('，放到文档末尾') : text('，放到第 {page} 页前', { page: drop.boundary + 1 })}${text('，Esc 取消')}` : text('点击选页，Ctrl 或 Command 点击多选，拖拽排序。方向键浏览，空格切换选择。')}</span>
     </div>;
 }

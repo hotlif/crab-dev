@@ -1,4 +1,5 @@
-import { type ReactNode, type FC } from "react";
+import { type ReactNode, type FC, useRef } from "react";
+import { useMenuDisclosure, useMenuSelectionFocus } from '../interactions.js';
 import { css, cx } from "@crab-dev/css";
 
 import { type MenuProps } from "../menu.js";
@@ -13,8 +14,14 @@ const horizontalMenuRoot = css`
     display: flex;
     position: relative;
     flex-direction: row;
+    flex-wrap: wrap;
+    min-width: 0;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
     list-style-type: none;
     border-bottom: 1px solid ${token.horizontal["border-color"]};
+    @media (forced-colors: active) { border-bottom-color: CanvasText; }
     box-sizing: border-box;
 `
 
@@ -24,15 +31,18 @@ interface HorizontalMenuProps extends Omit<MenuProps, "mode"> {
 
 const HorizontalMenu: FC<HorizontalMenuProps> = ({
     className,
-    openKeys: _openKeys,
+    openKeys = [],
     selectedKeys = [],
     items = [],
-    onSelectItem,
-    onOpenChange: _onOpenChange,
+    onSelectedKeysChange,
+    onOpenKeysChange,
     onClick,
     onKeyDown,
     ...props
 }) => {
+    const root = useRef<HTMLUListElement | null>(null);
+    const captureSelectionFocus = useMenuSelectionFocus(openKeys, root);
+    const { requestOpen, closeAll } = useMenuDisclosure(openKeys, onOpenKeysChange, root);
 
     const renderItem = (item: Item, children: ReactNode[], depth: number) => {
         return (
@@ -41,9 +51,15 @@ const HorizontalMenu: FC<HorizontalMenuProps> = ({
                 item={item}
                 depth={depth}
                 selected={selectedKeys.includes(item.key)}
+                open={openKeys.includes(item.key)}
+                onOpenChange={(next, event, dismissal) => requestOpen(item, depth, next, event, dismissal)}
                 onClick={param => {
-                    onClick?.(param);
-                    onSelectItem?.({ item, selectedKeys: selectedKeys.includes(item.key) ? [] : [item.key] });
+                    if (!item.children?.length) captureSelectionFocus(param.event.currentTarget);
+                    onClick?.({ event: param.event, item: param.item });
+                    onSelectedKeysChange?.(selectedKeys.includes(item.key) ? [] : [item.key], { reason: selectedKeys.includes(item.key) ? 'deselect' : 'select', item, event: param.activationEvent ?? param.event });
+                    if (!item.children?.length && openKeys.length) {
+                        closeAll(item, param.activationEvent ?? param.event);
+                    }
                 }}
             >
                 {children}
@@ -78,6 +94,7 @@ const HorizontalMenu: FC<HorizontalMenuProps> = ({
     return (
         <FloatingTree>
             <ul
+                ref={root}
                 className={cx(className, horizontalMenuRoot)}
                 {...props}
                 onKeyDown={event => { onKeyDown?.(event); navigateMenu(event, true); }}

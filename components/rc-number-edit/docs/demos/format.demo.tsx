@@ -38,11 +38,11 @@ const FormatDemo = () => {
         <div className={wrapperStyle}>
             <label className={fieldStyle}>
                 千分位
-                <NumberEdit value={amount} onChange={setAmount} thousandSeparator />
+                <NumberEdit value={amount} onValueChange={setAmount} thousandSeparator />
             </label>
             <label className={fieldStyle}>
                 货币 formatter
-                <NumberEdit value={price} onChange={setPrice} formatter={toCurrency} parser={fromCurrency} />
+                <NumberEdit value={price} onValueChange={setPrice} formatter={toCurrency} parser={fromCurrency} />
             </label>
         </div>
     );

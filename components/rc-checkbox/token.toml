@@ -58,12 +58,12 @@ size.large.indeterminate.height = "2px"
 
 # ─── 尺寸 — Middle (默认) ────────────────────────────────────────────────
 
-size.middle.box.width = "$ref(selection.checkbox.middle)"
-size.middle.box.border-radius = "$ref(selection.checkbox.radius)"
-size.middle.icon.width = "$ref(selection.checkbox.middle)"
-size.middle.label.font-size = "$ref(typography.body.medium.font-size)"
-size.middle.indeterminate.width  = "10px"
-size.middle.indeterminate.height = "2px"
+size.medium.box.width = "$ref(selection.checkbox.medium)"
+size.medium.box.border-radius = "$ref(selection.checkbox.radius)"
+size.medium.icon.width = "$ref(selection.checkbox.medium)"
+size.medium.label.font-size = "$ref(typography.body.medium.font-size)"
+size.medium.indeterminate.width  = "10px"
+size.medium.indeterminate.height = "2px"
 
 
 # ─── 尺寸 — Small ────────────────────────────────────────────────────────────

@@ -5,6 +5,7 @@ export type { ColorPickerProps } from "./colorPicker/colorPicker.js";
 export type { ColorPickerPanelProps } from "./panels/colorPickerPanel.js";
 export type {
     OKLCHValue,
+    ColorValueChangeDetails,
     ColorFormat,
     ColorPreset,
     Locale,

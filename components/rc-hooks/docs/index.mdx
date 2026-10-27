@@ -29,3 +29,11 @@ Hook 均为具名导出，使用时从 `@crab-dev/rc-hooks` 按需导入。
 ## 代码演示
 
 <Demos glob="./demos/*.demo.tsx" columns={2} />
+
+## 状态和弹层契约
+
+useControllableValue 统一使用 onValueChange(next, details)，useControllableOpen 支持组件自己的原因类型。只有显式的用户 setter 请求通知回调；改变受控值和默认值不会触发回调。ControlledValueProps、ControlledCheckedProps、ControlledOpenProps 用联合类型区分受控与初始值分支。原生 DOM onChange 保留事件签名。
+
+库内组件通过内部子路径 @crab-dev/rc-hooks/internal 使用 registerOverlayLayer(element, onEscape) 为每个 ownerDocument 维护共享栈，返回 isTop 与幂等 release。acquireScrollLock(target) 返回幂等释放函数，最后一个拥有者退出后恢复原 overflow。resolveOverlayRoot(trigger) 保留目标文档、主题边界和原生 dialog 的交互范围。组件卸载时必须释放注册与滚动锁。
+
+内部弹层子路径不属于稳定公共 API。useControllableOpen 的用户请求 setter 必须提供 typed details；useControllableValue 默认保留内部无回调状态用途，公开组件的通知使用显式 [Details] 元组。只读受控不需要无意义回调。

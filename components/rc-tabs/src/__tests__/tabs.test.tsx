@@ -12,6 +12,14 @@ const baseItems: TabsItem[] = [
     { key: 'four', label: 'Four', children: <p>Panel Four</p> },
 ];
 describe('Tabs', () => {
+    it('mirrors horizontal keyboard movement in right-to-left direction', async () => {
+        const onValueChange = mock.fn();
+        await render(<Tabs dir="rtl" items={baseItems} defaultValue="two" onValueChange={onValueChange} />);
+        await fireEvent.keyDown(screen.getByRole('tab', { name: 'Two' }), { key: 'ArrowRight' });
+        expect(onValueChange).toHaveBeenLastCalledWith('one', expect.objectContaining({ reason: 'keyboard' }));
+        await fireEvent.keyDown(screen.getByRole('tab', { name: 'One' }), { key: 'ArrowLeft' });
+        expect(onValueChange).toHaveBeenLastCalledWith('two', expect.objectContaining({ reason: 'keyboard' }));
+    });
     it('renders all tabs and activates the first enabled item by default', async () => {
         await render(<Tabs items={baseItems}/>);
         const tablist = screen.getByRole('tablist');
@@ -43,30 +51,30 @@ describe('Tabs', () => {
             expect(labelledBy).toBeTruthy();
         });
     });
-    it('respects defaultActiveKey', async () => {
-        await render(<Tabs items={baseItems} defaultActiveKey="two"/>);
+    it('respects defaultValue', async () => {
+        await render(<Tabs items={baseItems} defaultValue="two"/>);
         expect(screen.getByRole('tab', { name: 'Two' }).getAttribute('aria-selected')).toBe('true');
     });
-    it('switches panels on click and fires onChange', async () => {
-        const onChange = mock.fn();
-        await render(<Tabs items={baseItems} onChange={onChange}/>);
+    it('switches panels on click and fires onValueChange', async () => {
+        const onValueChange = mock.fn();
+        await render(<Tabs items={baseItems} onValueChange={onValueChange}/>);
         await fireEvent.click(screen.getByRole('tab', { name: 'Two' }));
-        expect(onChange).toHaveBeenCalledWith('two');
+        expect(onValueChange).toHaveBeenCalledWith('two', expect.objectContaining({ reason: expect.any(String) }));
         expect(screen.getByRole('tab', { name: 'Two' }).getAttribute('aria-selected')).toBe('true');
     });
     it('does not switch when clicking a disabled tab', async () => {
-        const onChange = mock.fn();
-        await render(<Tabs items={baseItems} onChange={onChange}/>);
+        const onValueChange = mock.fn();
+        await render(<Tabs items={baseItems} onValueChange={onValueChange}/>);
         await fireEvent.click(screen.getByRole('tab', { name: 'Three' }));
-        expect(onChange).not.toHaveBeenCalled();
+        expect(onValueChange).not.toHaveBeenCalled();
         expect(screen.getByRole('tab', { name: 'One' }).getAttribute('aria-selected')).toBe('true');
     });
-    it('supports controlled activeKey', async () => {
+    it('supports controlled value', async () => {
         const Controlled = () => {
             const [key, setKey] = useState('two');
             return (<div>
                 <button type="button" onClick={() => setKey('four')}>external</button>
-                <Tabs items={baseItems} activeKey={key} onChange={setKey}/>
+                <Tabs items={baseItems} value={key} onValueChange={setKey}/>
             </div>);
         };
         await render(<Controlled />);
@@ -75,35 +83,35 @@ describe('Tabs', () => {
         expect(screen.getByRole('tab', { name: 'Four' }).getAttribute('aria-selected')).toBe('true');
     });
     it('navigates with ArrowRight / ArrowLeft / Home / End skipping disabled', async () => {
-        const onChange = mock.fn();
-        await render(<Tabs items={baseItems} onChange={onChange}/>);
+        const onValueChange = mock.fn();
+        await render(<Tabs items={baseItems} onValueChange={onValueChange}/>);
         const firstTab = screen.getByRole('tab', { name: 'One' });
         firstTab.focus();
         await fireEvent.keyDown(firstTab, { key: 'ArrowRight' });
-        expect(onChange).toHaveBeenLastCalledWith('two');
+        expect(onValueChange).toHaveBeenLastCalledWith('two', expect.objectContaining({ reason: expect.any(String) }));
         const secondTab = screen.getByRole('tab', { name: 'Two' });
         await fireEvent.keyDown(secondTab, { key: 'ArrowRight' });
         // Three is disabled, should jump to Four
-        expect(onChange).toHaveBeenLastCalledWith('four');
+        expect(onValueChange).toHaveBeenLastCalledWith('four', expect.objectContaining({ reason: expect.any(String) }));
         const fourthTab = screen.getByRole('tab', { name: 'Four' });
         await fireEvent.keyDown(fourthTab, { key: 'Home' });
-        expect(onChange).toHaveBeenLastCalledWith('one');
+        expect(onValueChange).toHaveBeenLastCalledWith('one', expect.objectContaining({ reason: expect.any(String) }));
         await fireEvent.keyDown(firstTab, { key: 'End' });
-        expect(onChange).toHaveBeenLastCalledWith('four');
+        expect(onValueChange).toHaveBeenLastCalledWith('four', expect.objectContaining({ reason: expect.any(String) }));
         await fireEvent.keyDown(fourthTab, { key: 'ArrowLeft' });
-        expect(onChange).toHaveBeenLastCalledWith('two');
+        expect(onValueChange).toHaveBeenLastCalledWith('two', expect.objectContaining({ reason: expect.any(String) }));
     });
     it('activates on Enter and Space', async () => {
-        const onChange = mock.fn();
-        await render(<Tabs items={baseItems} onChange={onChange}/>);
+        const onValueChange = mock.fn();
+        await render(<Tabs items={baseItems} onValueChange={onValueChange}/>);
         const secondTab = screen.getByRole('tab', { name: 'Two' });
         secondTab.focus();
         await fireEvent.keyDown(secondTab, { key: 'Enter' });
-        expect(onChange).toHaveBeenLastCalledWith('two');
+        expect(onValueChange).toHaveBeenLastCalledWith('two', expect.objectContaining({ reason: expect.any(String) }));
         const fourthTab = screen.getByRole('tab', { name: 'Four' });
         fourthTab.focus();
         await fireEvent.keyDown(fourthTab, { key: ' ' });
-        expect(onChange).toHaveBeenLastCalledWith('four');
+        expect(onValueChange).toHaveBeenLastCalledWith('four', expect.objectContaining({ reason: expect.any(String) }));
     });
     it('fires onTabClose when close button clicked', async () => {
         const items: TabsItem[] = [
@@ -112,8 +120,10 @@ describe('Tabs', () => {
         ];
         const onTabClose = mock.fn();
         await render(<Tabs items={items} onTabClose={onTabClose}/>);
-        const closeButtons = screen.getAllByRole('button', { name: 'Close tab' });
+        const closeButtons = screen.getAllByRole('button', { name: '关闭标签页' });
         expect(closeButtons).toHaveLength(2);
+        expect(closeButtons[1]!.tagName).toBe('BUTTON');
+        expect(closeButtons[1]!.parentElement?.querySelector('[role="tab"]')?.contains(closeButtons[1]!)).toBe(false);
         await fireEvent.click(closeButtons[1]!);
         expect(onTabClose).toHaveBeenCalled();
         expect(onTabClose.calls.calls[0]![0]).toBe('b');

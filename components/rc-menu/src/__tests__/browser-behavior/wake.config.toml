@@ -1,0 +1,21 @@
+# Source behavior tests need the shared Crab CSS mock. Keep this root separate
+# from published-renderer geometry tests, which load actual extracted styles.
+[test]
+setup = ["../../../../../test/wake-css.setup.ts"]
+environment = "browser"
+include = ["menu.test.tsx", "collapsed-demo.test.tsx"]
+timeout_ms = 15000
+leaks = "error"
+
+[test.react]
+strict_mode = false
+cleanup = true
+act_warnings = "error"
+
+[test.network]
+mode = "deny"
+allow_hosts = []
+
+[test.coverage]
+enabled = true
+reporters = ["text", "lcov"]

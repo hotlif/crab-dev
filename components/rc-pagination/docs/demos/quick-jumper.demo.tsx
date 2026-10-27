@@ -9,10 +9,10 @@ export default function QuickJumperDemo() {
     const [current, setCurrent] = useState(1);
     return (
         <Pagination
-            current={current}
+            value={current}
             total={500}
             pageSize={10}
-            onChange={(page) => setCurrent(page)}
+            onValueChange={(page) => setCurrent(page)}
             showQuickJumper
         />
     );

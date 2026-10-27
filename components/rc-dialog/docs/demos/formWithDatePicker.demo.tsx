@@ -5,15 +5,14 @@ export const meta = {
 };
 
 import { css } from "@crab-dev/css";
-import { useState, type FC } from "react";
+import { useState } from "react";
 
 import Button from "@crab-dev/rc-button";
 import LineEdit from "@crab-dev/rc-line-edit";
 import { DatePicker } from "@crab-dev/rc-date-picker";
 import Form, { Item, useForm } from "@crab-dev/rc-form";
-import type { FormItemEditor } from "@crab-dev/rc-form";
 
-import Dialog from "../../src/index.js";
+import Dialog, { TokenVars as dialogVars } from "../../src/index.js";
 
 // rc-date-picker 基于 Temporal，直接复用其全局 Temporal 类型。
 interface AppointmentForm extends Record<string, unknown> {
@@ -21,36 +20,15 @@ interface AppointmentForm extends Record<string, unknown> {
     date: Temporal.ZonedDateTime | null;
 }
 
-// ---------- 适配器：把 crab-dev 组件包装成 FormItemEditor ----------
-
-const LineEditField: FC<FormItemEditor<string> & { placeholder?: string }> = ({
-    value,
-    onChange,
-    placeholder,
-}) => (
-    <LineEdit
-        value={value ?? ""}
-        className={css`width: 100%;`}
-        placeholder={placeholder}
-        onChange={(e) => onChange?.(e.target.value)}
-    />
-);
-
-const DatePickerField: FC<FormItemEditor<Temporal.ZonedDateTime | null>> = ({ value, onChange }) => (
-    <DatePicker
-        value={value ?? null}
-        renderDisplayString={(current) => (current ? current.toPlainDate().toString() : "请选择日期")}
-        onValueChange={(next) => onChange?.(next)}
-    />
-);
-
 // ---------- 样式 ----------
 
 const formStyle = css`
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    min-width: 320px;
+    width: 100%;
+    min-width: 0;
+`;
+
+const dialogStyle = css`
+    ${dialogVars['root.min-width']}: 24rem;
 `;
 
 const FormWithDatePickerDemo = () => {
@@ -60,6 +38,7 @@ const FormWithDatePickerDemo = () => {
     return (
         <>
             <Dialog
+                className={dialogStyle}
                 title="预约信息"
                 open={open}
                 onOpenChange={setOpen}
@@ -79,11 +58,11 @@ const FormWithDatePickerDemo = () => {
                     form={form}
                     defaultValue={{ name: "", date: null }}
                 >
-                    <Item label="姓名" name="name" required>
-                        <LineEditField placeholder="请输入姓名" />
+                    <Item labelPlacement="control" label="姓名" name="name" required>
+                        <LineEdit placeholder="请输入姓名" />
                     </Item>
-                    <Item label="预约日期" name="date" required>
-                        <DatePickerField />
+                    <Item labelPlacement="control" label="预约日期" name="date" required>
+                        <DatePicker placeholder="请选择日期" />
                     </Item>
                 </Form>
             </Dialog>

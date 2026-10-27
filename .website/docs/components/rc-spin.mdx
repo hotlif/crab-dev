@@ -22,13 +22,13 @@ import { demos } from "../_generated/rc-spin.js";
 
 ##### 基础用法 — 默认即处于加载中, 渲染一枚匀速旋转的指示环, 并以 role=status 向读屏播报。
 
-##### 延迟显示 — 秒回的请求不该闪一下转圈。delay 内完成的操作全程无指示器; 超出才说明它确实耗时, 此时才给反馈。
+##### 延迟显示 — 打开开关模拟请求：150ms 的请求在 delay=300ms 内结束，1500ms 的请求才会显示加载指示器。
 
 ##### M3 Expressive 加载指示器 — 需要更醒目的品牌反馈时使用 expressive 形变；紧凑控件内继续使用默认 circular 指示环。
 
 ##### 自定义指示器 — indicator 替换默认的旋转环; 无障碍语义（role=status / aria-label）仍由 Spin 统一兜底。
 
-##### 尺寸 — 通过 size 设置 small / middle / large 三档; 指示器与提示文案会一同缩放。
+##### 尺寸 — 通过 size 设置 small / medium / large 三档; 指示器与提示文案会一同缩放。
 
 ##### 提示文案 — tip 说明「正在做什么」, 比一枚沉默的转圈更能安抚等待。它同时成为读屏播报的内容。
 
@@ -90,11 +90,26 @@ const style = css`
 - 包裹模式为容器设置 `aria-busy`，并通过 `inert` 阻止内容区的指针交互和键盘聚焦。
 - 在 `prefers-reduced-motion` 下，将旋转改为低频透明度变化，保留加载反馈。
 
+两种指示器在减少动态效果时均保留 1.6 秒的低频呼吸。圆形指示器不再旋转；Expressive 关闭轨道旋转和形状变化，保留原地的轻微缩放与透明度呼吸。外层占位尺寸保持不变。
+
+加载中的必要反馈会保护自身的呼吸时长和循环次数，避免 Wake 0.1.45 等宿主的全局减少动画重置把它缩短成一次不可见动画。此例外仅作用于指示器的减少动画分支，不会恢复页面上的普通装饰动画。
+
+
+
+### SpinIndicator
+
+
+
+
+### ExpressiveSpinIndicator
+
+
+
 
 
 ### 三套设计风格
 
-Material 使用带底轨的品牌色圆弧；shadcn 使用无底轨的中性色圆弧；macOS 使用中性的十二辐条活动指示器。三套设计共享 status 语义、延迟显示和减少动态效果时的低频呼吸；expressive 仍是显式选择的 M3 形变扩展。
+Material 使用带底轨的品牌色圆弧；shadcn 使用无底轨的中性色圆弧；Apple 使用中性的十二辐条活动指示器。三套设计共享 status 语义、延迟显示和减少动态效果时的低频呼吸；expressive 仍是显式选择的 M3 形变扩展。
 
 切换文档站设计风格后，本页演示同步使用该设计；浅色和深色模式分别使用配对语义颜色。
 
@@ -115,6 +130,14 @@ Material 使用带底轨的品牌色圆弧；shadcn 使用无底轨的中性色�
 - 容器设置 busy 状态并提供简短 status 文本，完成后及时移除。
 - 减少动态效果时保留静态进度提示；不要让装饰指示器进入 Tab 顺序。
 
+### 设计依据与覆盖
+
+- **MD3 Expressive**：直接参考 M3 Circular progress indicators 的不确定状态、尺寸、颜色和动效，并对照 Material Web progress。 [依据 1](https://m3.material.io/components/progress-indicators/overview) · [依据 2](https://material-web.dev/components/progress/) · [依据 3](https://github.com/material-components/material-web/tree/main/progress)
+- **Apple**：依据 Apple HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。 [依据 1](https://developer.apple.com/design/human-interface-guidelines/components) · [依据 2](https://developer.apple.com/design/human-interface-guidelines/accessibility)
+- **shadcn/ui**：参考 shadcn/ui 的组件用途、中性表面与设计变量，在本库公共语义和 React 交互模型中实现；完整状态覆盖仍需按矩阵验收。 [依据 1](https://ui.shadcn.com/docs/components) · [依据 2](https://ui.shadcn.com/docs/theming) · [依据 3](https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4)
+
+设计依据不等于完成验收；当前状态与适用边界见[覆盖矩阵](/guides/design-coverage)。
+
 ## 常见问题
 
 ### 示例会请求后端吗？
@@ -124,3 +147,28 @@ Material 使用带底轨的品牌色圆弧；shadcn 使用无底轨的中性色�
 ## API
 
 <API source="../_generated_api/rc-spin.ts" symbol="SpinProps" component="Spin" />
+
+<details data-docs-native-props>
+<summary>Spin 继承的原生属性（277 项）</summary>
+
+<API source="../_generated_api/rc-spin-native.ts" symbol="SpinPropsNativeAttributes" component="Spin 继承的原生属性" />
+
+</details>
+
+<API source="../_generated_api/rc-spin-SpinIndicatorProps.ts" symbol="SpinIndicatorProps" component="SpinIndicator" />
+
+<details data-docs-native-props>
+<summary>SpinIndicator 继承的原生属性（485 项）</summary>
+
+<API source="../_generated_api/rc-spin-SpinIndicatorProps-native.ts" symbol="SpinIndicatorPropsNativeAttributes" component="SpinIndicator 继承的原生属性" />
+
+</details>
+
+<API source="../_generated_api/rc-spin-ExpressiveSpinIndicatorProps.ts" symbol="ExpressiveSpinIndicatorProps" component="ExpressiveSpinIndicator" />
+
+<details data-docs-native-props>
+<summary>ExpressiveSpinIndicator 继承的原生属性（277 项）</summary>
+
+<API source="../_generated_api/rc-spin-ExpressiveSpinIndicatorProps-native.ts" symbol="ExpressiveSpinIndicatorPropsNativeAttributes" component="ExpressiveSpinIndicator 继承的原生属性" />
+
+</details>

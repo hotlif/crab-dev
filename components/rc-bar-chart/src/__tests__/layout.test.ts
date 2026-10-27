@@ -12,6 +12,23 @@ describe('measureLabelWidth（jsdom 无 OffscreenCanvas，走估宽回退）', (
         expect(layout.plotLeft).toBeLessThanOrEqual(300 / 3 + CHART_METRICS.axisLabelGap);
         expect(layout.plotRight - layout.plotLeft).toBeGreaterThan(150);
     });
+    it('窄屏横向图完整容纳格式化的正负数刻度，不在画布两端裁字', () => {
+        const width = 320;
+        const formatter = new Intl.NumberFormat('en-US');
+        for (const data of [[1290], [-1234000, 989000]]) {
+            const layout = computeLayout({
+                width, height: 240, categories: data.map((_value, i) => `A${i}`),
+                series: [{ data }], stacked: false, orientation: 'horizontal',
+                formatValue: value => formatter.format(value),
+            });
+            for (const tick of layout.ticks) {
+                const halfWidth = measureLabelWidth(tick.label, CHART_METRICS.fontSize) / 2;
+                expect(tick.pos - halfWidth).toBeGreaterThanOrEqual(0);
+                expect(tick.pos + halfWidth).toBeLessThanOrEqual(width);
+            }
+            expect(layout.plotRight).toBeGreaterThan(layout.plotLeft);
+        }
+    });
     it('CJK 字符按 1em、西文按 0.6em 估宽', () => {
         expect(measureLabelWidth('一万', 12)).toBeCloseTo(24);
         expect(measureLabelWidth('10', 12)).toBeCloseTo(14.4);

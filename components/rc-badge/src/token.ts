@@ -40,6 +40,9 @@ export const vars = defineTokens({
     'status.text.color': '--badge-status-text-color',
     'status.text.gap': '--badge-status-text-gap',
     'status.text.font-size': '--badge-status-text-font-size',
+    'indicator.anchor.left': '--badge-indicator-anchor-left',
+    'indicator.offset.left': '--badge-indicator-offset-left',
+    'indicator.offset.top': '--badge-indicator-offset-top',
     'indicator.transform': '--badge-indicator-transform'
 });
 
@@ -116,7 +119,14 @@ const token = defineTokens({
         }
     },
     'indicator': {
-        'transform': `var(${vars['indicator.transform']}, translate(50%, -50%))`
+        'anchor': {
+            'left': `var(${vars['indicator.anchor.left']}, 50%)`
+        },
+        'offset': {
+            'left': `var(${vars['indicator.offset.left']}, 0px)`,
+            'top': `var(${vars['indicator.offset.top']}, 0px)`
+        },
+        'transform': `var(${vars['indicator.transform']}, translate(calc(var(--badge-indicator-anchor-left, 50%) + var(--badge-indicator-offset-left, 0px)), calc(-50% + var(--badge-indicator-offset-top, 0px))))`
     }
 });
 

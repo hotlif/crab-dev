@@ -1,5 +1,6 @@
 import { describe, it, expect, beforeEach, afterEach, mock, render, screen, fireEvent, act } from "@crab-dev/wake/test/react";
 import BarChart from '../barChart.js';
+import ConfigProvider from '@crab-dev/rc-config-provider';
 (globalThis as Record<string, unknown>).IS_REACT_ACT_ENVIRONMENT = true;
 beforeEach(() => {
     // jsdom 不支持 OffscreenCanvas（Text 字形测量依赖），用最小 mock 代替
@@ -37,6 +38,20 @@ const getDataTable = (container: HTMLElement) => {
 };
 const findTableEntry = (table: HTMLTableElement, selector: string, text: string) => Array.from(table.querySelectorAll(selector)).find(element => element.textContent === text);
 describe('BarChart', () => {
+    it('localizes chart-owned labels and numbers while preserving explicit copy and data labels', async () => {
+        const data = { categories: ['Customer category'], series: [{ name: 'First series', data: [1234.5] }, { name: 'Second series', data: [2] }], animate: false };
+        const view = await render(<ConfigProvider locale="en-US"><BarChart {...data} /></ConfigProvider>);
+        expect(getDataTable(view.container).querySelector('caption')?.textContent).toBe('Bar chart');
+        expect(screen.getByRole('group', { name: 'Legend' })).toBeTruthy();
+        expect(findTableEntry(getDataTable(view.container), 'thead th', 'Category')).toBeDefined();
+        expect(findTableEntry(getDataTable(view.container), 'tbody td', (1234.5).toLocaleString('en-US'))).toBeDefined();
+        await view.rerender(<ConfigProvider locale="en-US"><BarChart {...data} aria-label="Customer chart" labels={{ legend: 'Customer legend', category: 'Customer column' }} formatValue={value => `Value ${value}`} /></ConfigProvider>);
+        expect(getDataTable(view.container).querySelector('caption')?.textContent).toBe('Customer chart');
+        expect(screen.getByRole('group', { name: 'Customer legend' })).toBeTruthy();
+        expect(findTableEntry(getDataTable(view.container), 'thead th', 'Customer column')).toBeDefined();
+        expect(findTableEntry(getDataTable(view.container), 'tbody th', 'Customer category')).toBeDefined();
+        expect(findTableEntry(getDataTable(view.container), 'tbody td', 'Value 1234.5')).toBeDefined();
+    });
     it('以视觉隐藏数据表提供全部数据，caption 默认为「柱状图」', async () => {
         const { container } = await render(<BarChart categories={CATEGORIES} series={[{ name: '销量', data: [10, 20, 30] }]}/>);
         const table = getDataTable(container);

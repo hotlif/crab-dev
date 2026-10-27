@@ -1,93 +1,66 @@
 +++
-title = "三套设计风格"
-description = "比较 macOS、Material Design 3 与 shadcn 的组件形态、交互状态和文档布局"
+title = "三套设计体系"
+description = "MD3 Expressive、Apple 与 shadcn/ui 的依据、边界和验收规则"
 kind = "guide"
 status = "experimental"
 +++
 
 import DesignShowcase from "../site/designShowcase.js";
 
-# 三套设计风格
+# 三套设计体系
 
-同一套组件 API 提供 macOS、Material Design 3 和 shadcn 三套风格。差异包括控件比例、标签布局、选中表现、容器层次、字体和状态反馈。切换风格只更新配置与设计令牌，保留正在编辑的内容。
+Crab UI 用同一套组件能力承载三个独立设计体系：MD3 Expressive、Apple、shadcn/ui。它们共享公共交互语义，通过成组的设计令牌定义颜色、排版、形状、尺寸、层级和状态。明暗、品牌、尺寸和密度是独立配置轴。组件库、文档站与工作台默认都使用 MD3 Expressive。
 
-文档站首次访问默认使用 macOS。浏览器保存过的选择优先保留；主题菜单分别控制设计风格和明暗模式。组件库没有指定 `design` 时仍使用 Material，应用应显式选择自己的默认风格。
+## 配置与交互对照
 
-## 交互对照
-
-下面直接使用库内组件。可以编辑字段、改变选项、用键盘切换标签页，或打开菜单、对话框和侧边面板。顶部选项同步修改整个文档站的风格；不重新创建输入组件。通过站点主题菜单分别检查浅色和深色。
+`designSystem="md3" | "apple" | "shadcn"` 选择体系，`colorMode="light" | "dark"` 设置解析后的明暗；文档站另提供跟随系统的偏好。导航外观菜单分别控制两个轴；同一棵组件树保留输入、选择与草稿。旧浏览器偏好迁移见[迁移指南](/guides/migration)。
 
 <DesignShowcase />
 
-## 风格差异
+## MD3 Expressive
 
-| 范围 | macOS | Material Design 3 | shadcn |
-| --- | --- | --- | --- |
-| 文字与表面 | 平台系统字体、银灰表面、细描边和柔和阴影 | Material 字体角色、分层表面和状态层 | 中性文字和表面、描边优先 |
-| 操作按钮 | 蓝色主要操作、圆角矩形次要操作 | Filled / Tonal / Outlined 等操作层级和胶囊形状 | 中性主要操作与稳定的圆角矩形 |
-| 输入与表单 | 独立标签、蓝色焦点反馈、桌面控件比例 | 浮动标签、56px 字段与 Filled 底线 / Outlined 轮廓 | 独立标签、中性焦点反馈、紧凑描边字段 |
-| 选择控件 | 蓝色复选框、单选圆点和紧凑开关 | 状态层、Material 选中指示与开关比例 | 中性选中填充和紧凑开关 |
-| 导航与分段 | 蓝色当前行、滑块式分段选择、紧凑工具栏 | 胶囊导航项、Primary Tabs 指示与分段轮廓 | 中性当前行、分段轨道与描边边界 |
-| 弹层与反馈 | 描边浮层、柔和投影、清晰默认操作 | 表面层次、Material 阴影和操作分组 | 中性描边、较弱投影、紧凑操作分组 |
-| 文档站 | 顶部工具栏、银灰侧栏、卡片式标题与演示 | 左侧导航 rail、胶囊目录与分层演示容器 | 顶部导航、平面侧栏、分隔标题与描边演示 |
+依据 Material Design 3 Expressive。颜色采用成对语义角色和表面层级，排版表达内容优先级，形状、选中/按下状态和动效按对应组件变体确定。不能把统一胶囊、放大圆角或改主色等同于 Expressive。
 
-窄屏都使用紧凑顶部导航和可关闭的导航抽屉。布局变化使用同一棵页面内容树，输入草稿、已选项与演示实例不会因风格切换丢失。
+实施每个组件前查阅对应使用指南、规格和无障碍说明；同时对照 Material Web 的文档、示例、行为、样式和令牌。Material Web 的既有 M3 基线不自动代表所有 Expressive 新变体，差异必须逐项记录。空间变化和颜色/透明度变化使用各自的动效角色，减少动画时保留必要反馈。
 
-## 逐组件核对入口
+## Apple
 
-“本页”表示上方有实际可操作的示例；“组件页”表示还需在相应页面查看该组件的专门变体。表格是核对范围，不能替代所有浏览器、尺寸和状态的视觉验收。
+依据 Apple Human Interface Guidelines 的层级、内容、控件与反馈原则，自主实现适用于浏览器的 Apple 设计体系。它不承诺 AppKit 原生控件、特定 macOS 版本、Liquid Glass 材质或系统窗口行为。
 
-| 组件 | 核对状态与差异 | 交互入口 |
+系统字体、清晰的重点操作、适合桌面阅读的控件比例、表面层级、焦点与选中状态需要成组设计。浏览器键盘、表单和 ARIA 语义保持明确；触控和窄屏也必须可用。不能以蓝色、银灰色或窗口装饰冒充完整体系。
+
+## shadcn/ui
+
+参考 shadcn/ui 的组件用途、设计变量与可组合原则，在本仓库 React 19、Crab CSS 和令牌体系中实现。中性表面、描边层次、圆角矩形、字体与焦点需要相互一致；品牌覆盖不应破坏前景配对。
+
+本轮固定参考 New York V4，源码提交为 `3d98900e9b73c45f035f8109e9d41ba6a51685e7`，核对日期 2026-10-23。不跟随上游最新页面自动切换 Radix/Base、主题或组件变体。名称表示设计依据，不表示引入其运行时或承诺所有上游组件完全等价。
+
+## 共同契约与独立规则
+
+| 范围 | 共同契约 | 体系独立决策 |
 | --- | --- | --- |
-| [Button](/components/rc-button) | 主要、描边、文字、disabled、loading、focus、pressed | 本页与组件页 |
-| [LineEdit](/components/rc-line-edit) | 标签、值、说明、error、readOnly、disabled、focus | 本页与组件页 |
-| [TextEdit](/components/rc-text-edit) | 多行标签、内容、error、disabled、focus | 本页与组件页 |
-| [NumberEdit](/components/rc-number-edit) | 增减、边界、键盘、禁用 | 本页与组件页 |
-| [Select](/components/rc-select) | 单选、disabled 项、打开浮层、键盘；多选见组件页 | 本页与组件页 |
-| [Checkbox](/components/rc-checkbox) | 未选、已选、部分选择、禁用与禁用选中 | 本页与组件页 |
-| [Radio](/components/rc-radio) | 组内选择、禁用与方向键 | 本页与组件页 |
-| [Switch](/components/rc-switch) | 开启、关闭、禁用、焦点 | 本页与组件页 |
-| [Slider](/components/rc-slider) | 轨道、手柄、拖动、键盘与边界 | 本页与组件页 |
-| [Form](/components/rc-form) | 标签布局、校验、说明关联、提交 | 组件页 |
-| [DatePicker](/components/rc-date-picker) | 日期单元、今天、选中、范围、浮层 | 组件页 |
-| [ColorPicker](/components/rc-color-picker) | 色面、拖动、数值字段与浮层 | 组件页 |
-| [CronPicker](/components/rc-cron-picker) | 分段、字段、说明与校验 | 组件页 |
-| [Tabs](/components/rc-tabs) | 当前项、禁用项、焦点与面板 | 本页与组件页 |
-| [Segmented](/components/rc-segmented) | 轨道、选中项、键盘与尺寸 | 本页与组件页 |
-| [Menu](/components/rc-menu) | 当前项、键盘与子菜单 | 本页与组件页 |
-| [Tree](/components/rc-tree) | 展开、选中、勾选、禁用和键盘 | 组件页 |
-| [Pagination](/components/rc-pagination) | 当前页、边界、键盘与跳转 | 本页与组件页 |
-| [Breadcrumbs](/components/rc-breadcrumbs) | 当前项、导航与折叠 | 组件页 |
-| [AppMainLayout](/components/rc-app-main-layout) | 工具栏、侧栏、当前项、响应式 | 组件页 |
-| [Card](/components/rc-card) | 标题、表面、边框、阴影与操作 | 本页与组件页 |
-| [Dialog](/components/rc-dialog) | 默认操作、取消、Escape 与焦点恢复 | 本页与组件页 |
-| [Drawer](/components/rc-drawer) | 表面、关闭、保留草稿与焦点管理 | 本页与组件页 |
-| [DropdownContainer](/components/rc-dropdown-container) | 面板层次、定位、外部关闭与键盘 | 本页与组件页 |
-| [Tooltip](/components/rc-tooltip) | hover、focus、背景、文字和关闭 | 本页与组件页 |
-| [Alert](/components/rc-alert) | 信息、成功、警告、错误和图标 | 本页与组件页 |
-| [Message](/components/rc-message) | 短消息表面、文字和自动关闭 | 本页与组件页 |
-| [Notification](/components/rc-notification) | 标题、描述、关闭和堆叠 | 本页与组件页 |
-| [Tag](/components/rc-tag) | 语义色、可选、关闭和禁用 | 本页与组件页 |
-| [Badge](/components/rc-badge) | 数量、状态与文字 | 本页与组件页 |
-| [Avatar](/components/rc-avatar) | 文字、形状、图片回退和组 | 本页与组件页 |
-| [Spin](/components/rc-spin) | 尺寸、加载提示和减少动态效果 | 本页与组件页 |
-| [Table](/components/rc-table) / [TablePro](/components/rc-table-pro) | 表头、行高、选中、hover、空态与加载 | 组件页 |
-| [Empty](/components/rc-empty) / [Skeleton](/components/rc-skeleton) | 空白与加载占位、弱表面和动态适配 | 组件页 |
-| [Divider](/components/rc-divider) / [Prose](/components/rc-prose) | 分隔、正文层次、链接和代码 | 组件页 |
-| [ComponentPreview](/components/rc-component-preview) | 演示外框、说明、代码与全屏 | 全站组件演示 |
-| [PDFEditor](/components/rc-pdf-editor) / [Canvas](/components/rc-canvas) / [FlowDiagram](/components/rc-flow-diagram) / [BarChart](/components/rc-bar-chart) | 外围工具栏和表面跟随主题，文档、坐标、图形保留内容语义 | 组件页 |
-| AutoSizer / Virtual / Masonry / SplitPane / Realm / Router / Hooks | 无独立视觉的能力保持功能；有分隔手柄和容器时跟随共享主题 | 组件页 |
+| 颜色 | 浅深色成对前景、表面、边界与状态 | 品牌、色调、表面层级和选中角色 |
+| 排版 | 文字可读、中文回退、长内容适配 | 字阶、字重、字体与层级节奏 |
+| 形状与尺寸 | 视觉与触控命中区域分别定义 | 各组件轮廓、比例、间距与允许变体 |
+| 交互 | 受控值、键盘、焦点、禁用和错误语义 | 选中/按下形态、状态层和反馈表达 |
+| 动效 | 可中断，适配减少动画 | 运动角色、时序、缓动和形变 |
+| 浮层 | 定位、关闭、焦点恢复和主题边界 | 表面、阴影、边框、排版和操作布局 |
 
-## 依据与实现边界
+组件没有直接对应规范时，采用最接近的语义和布局规则组合扩展，并注明项目决策。为 Web、紧凑尺寸和专业编辑器做的扩展必须显式记录，不能声称原生平台逐像素复刻。
 
-查阅日期：2026-10-22。Material 使用既有 M3 基线，未把导航改为 Expressive expanded rail。导航参考 [M3 Drawer 使用指南](https://m3.material.io/components/navigation-drawer/guidelines)、[规格](https://m3.material.io/components/navigation-drawer/specs)与[无障碍说明](https://m3.material.io/components/navigation-drawer/accessibility)。文档侧栏的 256px 宽度与紧凑目录行属于网站扩展，区别于标准 Drawer 的 360dp 容器和 56dp 指示器；保留其胶囊选中、语义颜色与可见焦点，未添加额外选中竖线。
+## 覆盖与验收
 
-Material Web 没有对应导航 drawer 组件，菜单行为与浮层对照 [Menu 文档与演示](https://material-web.dev/components/menu/)、[菜单行为](https://github.com/material-components/material-web/blob/main/menu/internal/menu.ts)、[菜单样式](https://github.com/material-components/material-web/blob/main/menu/internal/_menu.scss)及 [v0.192 菜单令牌](https://github.com/material-components/material-web/blob/main/tokens/versions/v0_192/_md-comp-menu.scss)。组件专门参考资料记录在各组件页。
+[覆盖矩阵](/guides/design-coverage)由产品清单生成。每个可视包分别验证三体系、浅深色及适用的 default、hover、focus-visible、pressed、disabled、selected、error、loading；并核对键盘、Portal、iframe、窄屏、触控、长文本、强制颜色与减少动画。
 
-macOS 参考 Apple 的 [Sidebars](https://developer.apple.com/design/human-interface-guidelines/sidebars)、[Toolbars](https://developer.apple.com/design/human-interface-guidelines/toolbars) 与 [Buttons](https://developer.apple.com/design/human-interface-guidelines/buttons)。这是一套面向 Web 的 macOS 风格定制，保留浏览器语义、键盘行为与触控目标，不等同于原生 AppKit 或 Liquid Glass 实现；未添加无功能的窗口控制按钮。
+partial 表示已有实现但完整矩阵未验收，verified 需要当前提交和产物证据。改名、共享主题测试、少量截图或工程通过，均不能把整套体系自动标为完成。
 
-shadcn 参考官方 [Sidebar 文档](https://ui.shadcn.com/docs/components/sidebar)、[New York Sidebar 实现](https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/new-york-v4/ui/sidebar.tsx) 和 [Theming](https://ui.shadcn.com/docs/theming)。使用中性表面、圆角矩形和描边层次，通过本仓库 React 19、Crab CSS 与 L1 / L2 / L3 令牌实现；不引入第三方 UI 组件。
+状态核对分别记录默认、悬停、按下、键盘焦点、选中、禁用、错误、加载和展开等适用项。滚动或折叠容器中的焦点、关闭动作的局部反馈、空数据与阻塞状态的优先关系，以及宿主通用样式对组件的影响，需要真实构建 CSS 和浏览器证据。失败原图保留；修复后在新候选版本复核，采集前提错误与产品缺陷分开记录。
 
-2026-10-23 复查补充：窄屏导航复用库内 Drawer 的表面与交互，通过导航专用令牌设定自由边圆角。Material 使用基线 Navigation Drawer 的 16dp 圆角，区别于通用侧面板的形状；macOS 使用 12px 圆角。shadcn 侧边面板对照 [Sheet 文档](https://ui.shadcn.com/docs/components/sheet)与 [New York Sheet 实现](https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/new-york-v4/ui/sheet.tsx)，保持靠屏幕边缘的直角。实际核对了三套深色导航、当前项、键盘边界和 Escape 关闭，以及窄屏搜索结果与焦点恢复。
+## 参考资料与版本
 
-本页用于集中核对常用状态。复杂数据表、编辑器、拖拽、移动布局、系统高对比度、减少动态效果及所有尺寸组合仍应结合各组件页与目标浏览器逐项验收；少量截图或自动测试通过不能代表全部组合已符合平台规范。
+核对日期：2026-10-23。以下为设计和实现入口；具体组件选择的变体、实现版本与差异继续在组件正文中维护。Material 与 Apple 部分规范需要 JavaScript 浏览，不以抓取不到正文代表已完成规格核对。
+
+- [M3 Expressive 介绍](https://m3.material.io/blog/building-with-m3-expressive)、[按钮规格](https://m3.material.io/components/buttons/specs)、[无障碍](https://m3.material.io/components/buttons/accessibility)、[动效](https://m3.material.io/styles/motion/overview/how-it-works)。
+- [Material Web 按钮文档与演示](https://material-web.dev/components/button/)、[共享样式](https://github.com/material-components/material-web/blob/main/button/internal/_shared.scss)、[Filled 令牌](https://github.com/material-components/material-web/blob/main/tokens/versions/v0_192/_md-comp-filled-button.scss)。这些基线对照不能替代 Expressive 新规格。
+- [Apple Buttons](https://developer.apple.com/design/human-interface-guidelines/buttons)、[Sidebars](https://developer.apple.com/design/human-interface-guidelines/sidebars)、[Toolbars](https://developer.apple.com/design/human-interface-guidelines/toolbars)。
+- [shadcn/ui Button](https://ui.shadcn.com/docs/components/button)、[Theming](https://ui.shadcn.com/docs/theming)、[固定 New York V4 源码](https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4)。

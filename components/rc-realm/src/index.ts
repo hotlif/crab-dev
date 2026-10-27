@@ -1,7 +1,11 @@
 import Realm from './realm.js';
+import type { RealmProps as ComponentRealmProps, RealmRemoteProps } from './types.js';
+
+// Wake 0.1.45 docgen cannot resolve a defaulted generic type alias in implementation props.
+// Restore the default in types.ts and a direct re-export when docgen supports that syntax.
+export type RealmProps<P extends RealmRemoteProps = RealmRemoteProps> = ComponentRealmProps<P>;
 
 export type {
-    RealmProps,
     RealmRemoteProps,
     RealmErrorCode,
     MountLifecycle,

@@ -20,6 +20,8 @@ interface LayoutProps extends Omit<HTMLAttributes<HTMLDivElement>, "children"> {
     onLogoClick?: () => void;
     /** 侧边栏菜单加载函数 */
     sidebarLoadMenus?: SidebarProps["loadMenus"];
+    /** 侧栏受控选中键；省略时精确使用当前标签 key。业务路由键与菜单键不同可显式映射，[] 表示无选中。 */
+    sidebarSelectedKeys?: Key[];
     /** 点击侧边栏菜单项 */
     onSidebarMenuItemClick?: SidebarProps["onMenuItemClick"];
     /** 远程加载顶部用户实体 */
@@ -81,6 +83,7 @@ const Layout: FC<LayoutProps> = ({
     sidebarTitle,
     onLogoClick,
     sidebarLoadMenus,
+    sidebarSelectedKeys,
     onSidebarMenuItemClick,
     headerLoadUser,
     onBell,
@@ -97,6 +100,9 @@ const Layout: FC<LayoutProps> = ({
     const { tabs, activeKey, reloadVersions } = state;
     const resolvedActiveKey = activeKey ?? tabs[0]?.key;
     const activeTab = tabs.find((t) => t.key === resolvedActiveKey);
+    // Navigation follows the page that actually became active. Distinct business
+    // route/menu keys require an explicit mapping, not a breadcrumb/parent guess.
+    const resolvedSidebarSelectedKeys = sidebarSelectedKeys ?? (resolvedActiveKey === undefined ? [] : [resolvedActiveKey]);
     const [sidebarCollapsed, setSidebarCollapsed] = useState(
         () => typeof window !== "undefined"
             && typeof window.matchMedia === "function"
@@ -218,6 +224,7 @@ const Layout: FC<LayoutProps> = ({
                         onLogoClick={onLogoClick}
                         loadMenus={sidebarLoadMenus ? loadSidebarMenus : undefined}
                         onMenuItemClick={handleSidebarMenuItemClick}
+                        selectedKeys={resolvedSidebarSelectedKeys}
                     />
                 </Drawer>
             ) : (
@@ -227,6 +234,7 @@ const Layout: FC<LayoutProps> = ({
                     onLogoClick={onLogoClick}
                     loadMenus={sidebarLoadMenus ? loadSidebarMenus : undefined}
                     onMenuItemClick={handleSidebarMenuItemClick}
+                    selectedKeys={resolvedSidebarSelectedKeys}
                     collapsed={sidebarCollapsed}
                 />
             )}

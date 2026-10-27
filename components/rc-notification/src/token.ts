@@ -23,6 +23,10 @@ export const vars = defineTokens({
     'progress.animation-duration': '--notification-progress-animation-duration',
     'progress.animation-delay': '--notification-progress-animation-delay',
     'close.opacity': '--notification-close-opacity',
+    'close.color': '--notification-close-color',
+    'close.background-color-hover': '--notification-close-background-color-hover',
+    'close.background-color-focus': '--notification-close-background-color-focus',
+    'close.background-color-active': '--notification-close-background-color-active',
     'motion.interaction.transition': '--notification-motion-interaction-transition',
     'motion.spatial.transition': '--notification-motion-spatial-transition',
     'stack.translate': '--notification-stack-translate',
@@ -70,7 +74,11 @@ const token = defineTokens({
         'animation-delay': `var(${vars['progress.animation-delay']}, 0ms)`
     },
     'close': {
-        'opacity': `var(${vars['close.opacity']}, var(--token-semantic-opacity-tertiary, var(--token-global-opacity-70, 0.7)))`
+        'opacity': `var(${vars['close.opacity']}, 1)`,
+        'color': `var(${vars['close.color']}, var(--token-semantic-color-text-secondary, var(--token-global-material-neutral-variant-30, oklch(0.39805288 0.01735545 303.720936))))`,
+        'background-color-hover': `var(${vars['close.background-color-hover']}, var(--token-semantic-color-background-hover-subtle, color-mix(in oklch, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695)) calc(var(--token-semantic-state-opacity-hover, var(--token-global-opacity-8, 0.08)) * 100%), var(--token-global-material-neutral-98, oklch(0.98379491 0.01284496 321.893957)))))`,
+        'background-color-focus': `var(${vars['close.background-color-focus']}, var(--token-semantic-color-background-active-subtle, color-mix(in oklch, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695)) calc(var(--token-semantic-state-opacity-pressed, var(--token-global-opacity-12, 0.12)) * 100%), var(--token-global-material-neutral-98, oklch(0.98379491 0.01284496 321.893957)))))`,
+        'background-color-active': `var(${vars['close.background-color-active']}, var(--token-semantic-color-background-active-subtle, color-mix(in oklch, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695)) calc(var(--token-semantic-state-opacity-pressed, var(--token-global-opacity-12, 0.12)) * 100%), var(--token-global-material-neutral-98, oklch(0.98379491 0.01284496 321.893957)))))`
     },
     'motion': {
         'interaction': {

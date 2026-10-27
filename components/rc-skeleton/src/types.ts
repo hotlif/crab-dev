@@ -15,7 +15,7 @@ export type SkeletonVariant = "text" | "rect" | "circle" | "button" | "avatar" |
  * 尺寸阶梯，仅作用于 `text` 变体的行高。
  * 其它变体的尺寸通过 `width` / `height` 控制。
  */
-export type SkeletonSize = 'small' | 'middle' | 'medium' | 'large';
+export type SkeletonSize = 'small' | 'medium' | 'large';
 
 /**
  * 占位动画形态。
@@ -39,11 +39,13 @@ export interface SkeletonProps extends Omit<HTMLAttributes<HTMLDivElement>, "chi
 
     /**
      * 显式宽度。数字按像素处理；字符串原样下发。
+     * circle / avatar 只提供一个尺寸时按 1:1 补齐另一轴；同时提供两轴时尊重显式尺寸。
      */
     width?: number | string;
 
     /**
      * 显式高度。数字按像素处理；字符串原样下发。
+     * circle / avatar 只提供一个尺寸时按 1:1 补齐另一轴；同时提供两轴时尊重显式尺寸。
      */
     height?: number | string;
 

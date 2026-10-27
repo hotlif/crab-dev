@@ -14,9 +14,9 @@ describe("TextEdit", () => {
         expect(input.getAttribute('aria-invalid')).toBeNull();
         expect(input.labels?.[0].querySelector('[data-required-marker]')?.getAttribute('aria-hidden')).toBe('true');
     });
-    it('clears an uncontrolled value through onChange and updates its count', async () => {
+    it('clears an uncontrolled value through onValueChange and updates its count', async () => {
         const changes: string[] = [];
-        await render(<TextEdit aria-label='field' defaultValue='hello' showCount allowClear onChange={e => changes.push(e.target.value)} />);
+        await render(<TextEdit aria-label='field' defaultValue='hello' showCount allowClear onValueChange={value => changes.push(value)} />);
         await fireEvent.click(screen.getByLabelText('清除'));
         expect((screen.getByLabelText('field') as HTMLTextAreaElement).value).toBe('');
         expect(changes).toEqual(['']);
@@ -25,7 +25,7 @@ describe("TextEdit", () => {
     });
     it('restores the controlled value when a parent rejects clear', async () => {
         const changes: string[] = [];
-        await render(<TextEdit aria-label='field' value='keep' allowClear onChange={e => changes.push(e.target.value)} />);
+        await render(<TextEdit aria-label='field' value='keep' allowClear onValueChange={value => changes.push(value)} />);
         await fireEvent.click(screen.getByLabelText('清除'));
         expect(changes).toEqual(['']);
         expect((screen.getByLabelText('field') as HTMLTextAreaElement).value).toBe('keep');
@@ -33,7 +33,7 @@ describe("TextEdit", () => {
     it("受控清除后仍可在文本域继续输入", async () => {
         function Editor() {
             const [value, setValue] = useState("第一行\n第二行");
-            return <TextEdit aria-label="备注" value={value} allowClear onChange={e => setValue(e.target.value)} />;
+            return <TextEdit aria-label="备注" value={value} allowClear onValueChange={setValue} />;
         }
         await render(<Editor />);
         const clear = screen.getByLabelText("清除");
@@ -59,7 +59,7 @@ describe("TextEdit", () => {
                 value="背景"
                 showCount
                 maxLength={100}
-                onChange={mock.fn()}
+                onValueChange={mock.fn()}
             />
         );
         const textarea = container.querySelector("textarea") as HTMLTextAreaElement;
@@ -82,10 +82,10 @@ describe("TextEdit", () => {
     });
     it("风格切换保留同一个文本域与关联标签", async () => {
         function Editor() {
-            const [design, setDesign] = useState<"material" | "shadcn">("material");
+            const [design, setDesign] = useState<"md3" | "shadcn">("md3");
             return <>
                 <button onClick={() => setDesign("shadcn")}>切换风格</button>
-                <ConfigProvider design={design}>
+                <ConfigProvider designSystem={design}>
                     <TextEdit label="项目说明" data-testid="design-field" defaultValue="保留内容" supportingText="支持多行输入" />
                 </ConfigProvider>
             </>;
@@ -137,7 +137,7 @@ describe("TextEdit", () => {
         });
         it("受控多行 value 应完整显示在 textarea 中", async () => {
             const multiline = "第一行\n第二行";
-            await act(async () => { await render(<TextEdit value={multiline} onChange={mock.fn()}/>); });
+            await act(async () => { await render(<TextEdit value={multiline} onValueChange={mock.fn()}/>); });
             const textarea = document.querySelector("textarea") as HTMLTextAreaElement;
             expect(textarea.value).toBe(multiline);
         });
@@ -153,7 +153,7 @@ describe("TextEdit", () => {
     });
     describe("bordered", () => {
         it("bordered={false} 时应仍渲染 textarea 且不报错", async () => {
-            await act(async () => { await render(<TextEdit bordered={false} value="x" onChange={mock.fn()}/>); });
+            await act(async () => { await render(<TextEdit bordered={false} value="x" onValueChange={mock.fn()}/>); });
             const textarea = document.querySelector("textarea") as HTMLTextAreaElement;
             expect(textarea.value).toBe("x");
         });
@@ -178,38 +178,38 @@ describe("TextEdit", () => {
     describe("allowClear", () => {
         it("有值且 allowClear 时应显示清除按钮", async () => {
             await act(async () => {
-                await render(<TextEdit value="hello" allowClear onClear={mock.fn()} onChange={mock.fn()}/>);
+                await render(<TextEdit value="hello" allowClear onClear={mock.fn()} onValueChange={mock.fn()}/>);
             });
             expect(screen.getByLabelText("清除")).toBeTruthy();
         });
         it("值为空时不应显示清除按钮", async () => {
             await act(async () => {
-                await render(<TextEdit value="" allowClear onClear={mock.fn()} onChange={mock.fn()}/>);
+                await render(<TextEdit value="" allowClear onClear={mock.fn()} onValueChange={mock.fn()}/>);
             });
             expect(screen.queryByLabelText("清除")).toBeNull();
         });
         it("未传 allowClear 时不应显示清除按钮", async () => {
             await act(async () => {
-                await render(<TextEdit value="hello" onChange={mock.fn()}/>);
+                await render(<TextEdit value="hello" onValueChange={mock.fn()}/>);
             });
             expect(screen.queryByLabelText("清除")).toBeNull();
         });
         it("disabled 时不应显示清除按钮", async () => {
             await act(async () => {
-                await render(<TextEdit value="hello" allowClear disabled onClear={mock.fn()} onChange={mock.fn()}/>);
+                await render(<TextEdit value="hello" allowClear disabled onClear={mock.fn()} onValueChange={mock.fn()}/>);
             });
             expect(screen.queryByLabelText("清除")).toBeNull();
         });
         it("readOnly 时不应显示清除按钮", async () => {
             await act(async () => {
-                await render(<TextEdit value="hello" allowClear readOnly onClear={mock.fn()} onChange={mock.fn()}/>);
+                await render(<TextEdit value="hello" allowClear readOnly onClear={mock.fn()} onValueChange={mock.fn()}/>);
             });
             expect(screen.queryByLabelText("清除")).toBeNull();
         });
         it("点击清除按钮应触发 onClear 回调", async () => {
             const handleClear = mock.fn();
             await act(async () => {
-                await render(<TextEdit value="hello" allowClear onClear={handleClear} onChange={mock.fn()}/>);
+                await render(<TextEdit value="hello" allowClear onClear={handleClear} onValueChange={mock.fn()}/>);
             });
             await act(async () => { await fireEvent.click(screen.getByLabelText("清除")); });
             expect(handleClear).toHaveBeenCalledTimes(1);
@@ -218,19 +218,19 @@ describe("TextEdit", () => {
     describe("showCount 字符计数", () => {
         it("showCount 有值时应显示字符数", async () => {
             await act(async () => {
-                await render(<TextEdit value="hello" showCount onChange={mock.fn()}/>);
+                await render(<TextEdit value="hello" showCount onValueChange={mock.fn()}/>);
             });
             expect(screen.getByText("5")).toBeTruthy();
         });
         it("showCount + maxLength 应显示 count/max 格式", async () => {
             await act(async () => {
-                await render(<TextEdit value="hello" showCount maxLength={100} onChange={mock.fn()}/>);
+                await render(<TextEdit value="hello" showCount maxLength={100} onValueChange={mock.fn()}/>);
             });
             expect(screen.getByText("5/100")).toBeTruthy();
         });
         it("showCount 时 maxLength 应传给 textarea", async () => {
             await act(async () => {
-                await render(<TextEdit value="hi" showCount maxLength={200} onChange={mock.fn()}/>);
+                await render(<TextEdit value="hi" showCount maxLength={200} onValueChange={mock.fn()}/>);
             });
             const textarea = document.querySelector("textarea") as HTMLTextAreaElement;
             expect(textarea.maxLength).toBe(200);

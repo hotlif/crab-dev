@@ -12,11 +12,13 @@
         "test:build": "node scripts/check-built-bindings.test.mjs",
         "generate:docs": "node scripts/generate-component-docs.mjs",
         "check:docs": "node scripts/generate-component-docs.mjs --check",
-        "test:generator": "node scripts/generate-component-docs.test.mjs",
+        "test:generator": "node scripts/generate-component-docs.test.mjs && node scripts/theme-role-validation.test.mjs && node scripts/control-inventory-snapshot.test.mjs",
+        "test:provenance": "node scripts/source-revision.test.mjs",
         "typecheck": "node ../scripts/typecheck.mjs --noEmit",
-        "test": "yarn test:generator && yarn check:docs && wake test --serial",
+        "test": "yarn test:generator && yarn test:provenance && yarn test:build && yarn check:docs && wake test --serial",
         "preview": "node scripts/preview-docs.mjs",
-        "lint": "wake lint --format human --root .. .website/docs --env browser --max-warnings 0 && wake lint --format human --root .. .website/scripts --env browser --env node --max-warnings 0"
+        "lint": "wake lint --format human --root .. .website/docs --env browser --max-warnings 0 && wake lint --format human --root .. .website/scripts --env browser --env node --max-warnings 0",
+        "check": "node ../scripts/check-package.mjs"
     },
     "devDependencies": {
         "@babel/generator": "^7.29.8",

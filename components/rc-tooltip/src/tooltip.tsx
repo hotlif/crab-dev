@@ -1,4 +1,5 @@
-import { type ReactElement, type Ref, cloneElement, useRef, useState } from 'react';
+import { registerOverlayLayer, resolveOverlayRoot } from '@crab-dev/rc-hooks/internal';
+import { type ReactElement, type Ref, cloneElement, useEffect, useEffectEvent, useRef, useState } from 'react';
 import { useControllableOpen, usePresence } from '@crab-dev/rc-hooks';
 import { ConfigBoundary } from '@crab-dev/rc-config-provider';
 import { css, cx } from '@crab-dev/css';
@@ -18,7 +19,7 @@ import {
     useMergeRefs,
 } from '@floating-ui/react';
 import token from './token.js';
-import type { TooltipProps } from './types.js';
+import type { TooltipProps, TooltipOpenChangeDetails } from './types.js';
 
 // ─── 常量 ────────────────────────────────────────────────────────────────────
 
@@ -93,7 +94,7 @@ function Tooltip({
     arrow: showArrow = false,
     className,
 }: TooltipProps) {
-    const [isOpen, setOpen] = useControllableOpen({
+    const [isOpen, setOpen] = useControllableOpen<TooltipOpenChangeDetails>({
         open: controlledOpen,
         defaultOpen,
         onOpenChange,
@@ -104,7 +105,9 @@ function Tooltip({
 
     const { refs, floatingStyles, context, middlewareData, placement: resolvedPlacement } = useFloating({
         open: isOpen,
-        onOpenChange: setOpen,
+        onOpenChange: (next, event, reason) => setOpen(next, {
+            reason: reason === 'escape-key' ? 'escape' : reason === 'hover' ? 'hover' : reason === 'focus' || reason === 'focus-out' ? 'focus' : reason === 'outside-press' ? 'outside-press' : 'trigger', event,
+        }),
         placement,
         strategy: 'fixed',
         whileElementsMounted: autoUpdate,
@@ -120,7 +123,7 @@ function Tooltip({
         delay: { open: mouseEnterDelay, close: mouseLeaveDelay },
     });
     const focus = useFocus(context);
-    const dismiss = useDismiss(context);
+    const dismiss = useDismiss(context, { escapeKey: false });
     const role = useRole(context, { role: 'tooltip' });
 
     const { getReferenceProps, getFloatingProps } = useInteractions([hover, focus, dismiss, role]);
@@ -129,7 +132,15 @@ function Tooltip({
     // modal dialog 位于 top-layer 且使外部文档 inert，挂在 body 下的 tooltip 会被
     // dialog 完全遮挡而不可见。语义与 rc-dropdown-container 的 portalRoot 一致：
     // null = 尚未探测（浮层不渲染），undefined = 不在 dialog 内，挂默认 body。
-    const [portalRoot, setPortalRoot] = useState<HTMLElement | null | undefined>(null);
+    const [portalRoot, setPortalRoot] = useState<HTMLElement | ShadowRoot | null>(null);
+
+    const dismissTop = useEffectEvent((event: KeyboardEvent) => setOpen(false, { reason: 'escape', event }));
+    useEffect(() => {
+        const node = refs.floating.current;
+        if (!isOpen || !node) return;
+        const layer = registerOverlayLayer(node, event => dismissTop(event), refs.domReference.current);
+        return () => layer.release({ restoreFocus: false });
+    }, [isOpen, refs.floating, refs.domReference, portalRoot]);
 
     const childRef = (children as ReactElement & { props?: { ref?: Ref<unknown> } }).props?.ref;
     const mergedRef = useMergeRefs([
@@ -139,9 +150,7 @@ function Tooltip({
             if (node) {
                 // Shadow DOM 内的提示必须保留在同一主题边界，否则会丢失隔离样式。
                 // 普通页面仍沿用 body Portal；原生模态 dialog 始终优先。
-                const shadowTheme = node.getRootNode() instanceof globalThis.ShadowRoot
-                    ? node.closest<HTMLElement>('[data-theme], [data-crab-design]') : null;
-                const dialog = node.closest('dialog') ?? shadowTheme ?? undefined;
+                const dialog = resolveOverlayRoot(node);
                 // 同值复用，避免 ref 回调重复触发时产生多余渲染
                 setPortalRoot((prev) => (prev === dialog ? prev : dialog));
             }

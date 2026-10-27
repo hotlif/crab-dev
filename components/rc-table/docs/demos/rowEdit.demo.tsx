@@ -21,7 +21,7 @@ export default function RowEditDemo() {
             editRender: ({ row, editorValue, onEditorValueChange }) => <NumberEdit className={fieldStyle} size="small"
                 aria-label={row.dataRef.recordNo + " 复核库存，最少 " + row.dataRef.reserved}
                 min={row.dataRef.reserved} max={99999} precision={0} controls={false}
-                value={typeof editorValue === "number" ? editorValue : row.dataRef.onHand} onChange={onEditorValueChange} />,
+                value={typeof editorValue === "number" ? editorValue : row.dataRef.onHand} onValueChange={onEditorValueChange} />,
         };
         if (column.name === "$.note") return { ...column, title: "复核备注",
             editRender: ({ row, editorValue, onEditorValueChange }) => <LineEdit className={fieldStyle} size="small"
@@ -32,7 +32,7 @@ export default function RowEditDemo() {
         return column;
     });
     columns.splice(1, 0, { name: "actions", title: "复核操作", width: 120, selectable: false,
-        render: ({ row }) => <Button size="small" disabled={editingRowId !== null} aria-label={"复核 " + row.dataRef.recordNo}
+        render: ({ row }) => <Button size="xs" disabled={editingRowId !== null} aria-label={"复核 " + row.dataRef.recordNo}
             onClick={() => setEditingRowId(row.id)}>复核</Button>,
     });
     return <DemoFrame title="仓库库存逐行复核" rows={rows.length} columns={columns.length}

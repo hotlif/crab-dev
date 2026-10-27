@@ -1,7 +1,7 @@
 {
     "id": "rc-button",
     "title": "Button 按钮",
-    "summary": "完整对照 Material 的五种按钮：Elevated、Filled、Tonal、Outlined、Text，并体验尺寸、状态和明暗主题。",
+    "summary": "完整对照 MD3 Expressive 的五种按钮：Elevated、Filled、Tonal、Outlined、Text，并体验尺寸、状态和明暗主题。",
     "prerequisite": "了解 JSX 和 useState 即可。先完成快速开始中的安装与样式接入。",
     "steps": [
         {
@@ -10,7 +10,7 @@
             "goal": "并排比较 Elevated、Filled、Tonal、Outlined、Text 五种官方外观。",
             "why": "通过阴影、实色、浅色、描边与文字表达不同的操作层级。",
             "instruction": "依次点击五种按钮查看用途，再用 Tab 检查键盘焦点。",
-            "expected": "五种按钮默认均为 36px 高；Material 风格使用胶囊形状，macOS 与 shadcn 使用各自的圆角矩形。Material 的 Elevated 使用浅阴影，其余四种默认无阴影；macOS 与 shadcn 的 Filled 和 Outlined 默认也有轻微阴影。",
+            "expected": "五种按钮默认均为 36px 高；MD3 Expressive 风格使用胶囊形状，Apple 与 shadcn/ui 使用各自的圆角矩形。MD3 Expressive 的 Elevated 使用浅阴影，其余四种默认无阴影；Apple 与 shadcn/ui 的 Filled 和 Outlined 默认也有轻微阴影。",
             "changes": [
                 "appearance 提供 elevated、primary（Filled）、tonal、outlined、text。",
                 "默认普通按钮为 outlined；danger 与 href 分别表达危险语义和导航行为。"
@@ -38,7 +38,7 @@
             "instruction": "比较五行尺寸，点击按钮查看当前属性。",
             "expected": "XS、S、M、L、XL 分别为 32、36、40、48、56px（桌面定制）；默认 S，粗指针触控目标至少 48px。",
             "changes": [
-                "size 提供 xs/s/m/l/xl，兼容 small/middle/large。",
+                "size 提供 xs/s/m/l/xl，兼容 small/medium/large。",
                 "保留相同的外观顺序，方便直观比较。"
             ],
             "source": "rc-button/step-3.tsx"
@@ -62,7 +62,7 @@
             "goal": "在明暗背景上对照五种外观的默认、禁用和加载状态，并体验普通按钮的选中状态。",
             "why": "主题变化时，按钮的操作层级、可读性、表面层次与状态反馈都需要保持清楚。",
             "instruction": "切换紫、蓝、绿品牌色；悬停、按压或用 Tab 聚焦常规按钮，切换选中状态，再点击保存、取消与工具栏操作。",
-            "expected": "Material 的普通描边按钮默认无阴影，macOS 与 shadcn 的默认描边按钮带轻微阴影；悬停和按压使用轻微填充反馈，选中使用反色填充；禁用和加载不触发操作。",
+            "expected": "MD3 Expressive 的普通描边按钮默认无阴影，Apple 与 shadcn/ui 的默认描边按钮带轻微阴影；悬停和按压使用轻微填充反馈，选中使用反色填充；禁用和加载不触发操作。",
             "changes": [
                 "用 ConfigProvider 同时展示 light 和 dark，保持按钮本身的 appearance 一致。",
                 "并列展示 disabled、loading、isSelected，以及保存 + 取消和主要操作 + 工具栏操作。"

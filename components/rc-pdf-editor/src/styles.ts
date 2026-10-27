@@ -102,6 +102,9 @@ export const hintStyle = css`margin: 0; color: ${token.status.color}; font-size:
 export const errorStyle = css`padding: ${token.toolbar.gap} ${token.panel.padding}; color: ${token.root['color-error']}; background: ${token.root['background-color-error']};`;
 export const thumbStyle = css`
     height: ${token.thumbnail.height}; position: relative; display: flex; flex-direction: column; align-items: stretch; padding-block: ${token.toolbar.gap}; gap: ${token.toolbar.gap};
+    ${buttonVars['root.outline-width-focus']}: ${token.thumbnail['outline-width-focus']};
+    ${buttonVars['root.outline-offset-focus']}: ${token.thumbnail['outline-offset-focus']};
+    padding-inline: max(0px, calc(${token.thumbnail['outline-width-focus']} + ${token.thumbnail['outline-offset-focus']}));
     &[data-drop]::after { content: ''; position: absolute; z-index: 1; inset-inline: 0; height: ${token.thumbnail.drop.height}; background: ${token.thumbnail.drop['background-color']}; pointer-events: none; }
     &[data-drop='before']::after { inset-block-start: 0; }
     &[data-drop='after']::after { inset-block-end: 0; }
@@ -127,7 +130,7 @@ export const iconStyle = css`width: ${token.toolbar.icon.width}; height: ${token
 export const toolbarButtonStyle = css`
     flex-shrink: 0;
     ${buttonVars['icon.width']}: ${token.toolbar.icon.width};
-    ${buttonVars['size.middle.icon.width']}: ${token.toolbar.icon.width};
+    ${buttonVars['size.medium.icon.width']}: ${token.toolbar.icon.width};
     ${buttonVars['text.color']}: ${token.toolbar.icon.color};
     ${buttonVars['text.background-color-hover']}: ${token.toolbar.icon['background-color-hover']};
     ${buttonVars['text.background-color-focus']}: ${token.toolbar.icon['background-color-focus']};
@@ -141,6 +144,9 @@ export const toolbarButtonStyle = css`
 export const zoomStyle = css`
     width: ${token.status.zoom.width}; max-width: ${token.status.zoom.width};
     ${lineEditVars['size.small.height']}: ${token.status.zoom.height};
+    ${lineEditVars['field.control.min-height']}: ${token.status.zoom.height};
+    ${lineEditVars['size.small.padding']}: 0 ${token.status.zoom['padding-inline']};
+    ${lineEditVars['icon.gap']}: ${token.status.zoom.gap};
     ${lineEditVars['size.small.font-size']}: ${token.status.zoom['font-size']};
     ${lineEditVars['size.small.line-height']}: ${token.status.zoom['line-height']};
     & input { text-align: end; font-variant-numeric: tabular-nums; }

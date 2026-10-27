@@ -65,7 +65,7 @@ import { demos } from "../_generated/rc-message.js";
 
 ### 三套设计风格
 
-Material 使用逆色 snackbar 表面；macOS 使用 12px 圆角的面板通知；shadcn 使用 8px 圆角的中性 toast 表面。边界、前景和背景通过语义角色成对切换，进度、排队、悬停暂停及读屏通告保持一致。多个堆叠消息和倒计时进度条是项目扩展。
+MD3 Expressive 使用逆色 snackbar 表面；Apple 使用 12px 圆角的面板通知；shadcn 使用 8px 圆角的中性 toast 表面。边界、前景和背景通过语义角色成对切换，进度、排队、悬停暂停及读屏通告保持一致。多个堆叠消息和倒计时进度条是项目扩展。
 
 切换文档站设计风格后，本页演示同步使用该设计；浅色和深色模式分别使用配对语义颜色。
 
@@ -89,6 +89,14 @@ Material 使用逆色 snackbar 表面；macOS 使用 12px 圆角的面板通知�
 - 根据重要程度选择礼貌或紧急通告，避免连续消息让读屏队列失控。
 - 消息关闭后不移动当前焦点；仅靠颜色不能表达成功或失败。
 
+### 设计依据与覆盖
+
+- **MD3 Expressive**：直接参考 M3 Snackbar 的短暂反馈、单行信息、动作数量和通告原则；视觉按项目 Message 变体扩展。 [依据 1](https://m3.material.io/components/snackbar/overview) · [依据 2](https://material-web.dev/components/) · [依据 3](https://github.com/material-components/material-web)
+- **Apple**：依据 Apple HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。 [依据 1](https://developer.apple.com/design/human-interface-guidelines/components) · [依据 2](https://developer.apple.com/design/human-interface-guidelines/accessibility)
+- **shadcn/ui**：参考 shadcn/ui 的组件用途、中性表面与设计变量，在本库公共语义和 React 交互模型中实现；完整状态覆盖仍需按矩阵验收。 [依据 1](https://ui.shadcn.com/docs/components) · [依据 2](https://ui.shadcn.com/docs/theming) · [依据 3](https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4)
+
+设计依据不等于完成验收；当前状态与适用边界见[覆盖矩阵](/guides/design-coverage)。
+
 ## 常见问题
 
 ### 消息为什么没有出现？
@@ -98,3 +106,10 @@ Material 使用逆色 snackbar 表面；macOS 使用 12px 圆角的面板通知�
 ## API
 
 <API source="../_generated_api/rc-message.ts" symbol="MessageProps" component="Message" />
+
+<details data-docs-native-props>
+<summary>Message 继承的原生属性（276 项）</summary>
+
+<API source="../_generated_api/rc-message-native.ts" symbol="MessagePropsNativeAttributes" component="Message 继承的原生属性" />
+
+</details>

@@ -58,12 +58,12 @@ export const vars = defineTokens({
     'size.large.label.font-size': '--checkbox-size-large-label-font-size',
     'size.large.indeterminate.width': '--checkbox-size-large-indeterminate-width',
     'size.large.indeterminate.height': '--checkbox-size-large-indeterminate-height',
-    'size.middle.box.width': '--checkbox-size-middle-box-width',
-    'size.middle.box.border-radius': '--checkbox-size-middle-box-border-radius',
-    'size.middle.icon.width': '--checkbox-size-middle-icon-width',
-    'size.middle.label.font-size': '--checkbox-size-middle-label-font-size',
-    'size.middle.indeterminate.width': '--checkbox-size-middle-indeterminate-width',
-    'size.middle.indeterminate.height': '--checkbox-size-middle-indeterminate-height',
+    'size.medium.box.width': '--checkbox-size-medium-box-width',
+    'size.medium.box.border-radius': '--checkbox-size-medium-box-border-radius',
+    'size.medium.icon.width': '--checkbox-size-medium-icon-width',
+    'size.medium.label.font-size': '--checkbox-size-medium-label-font-size',
+    'size.medium.indeterminate.width': '--checkbox-size-medium-indeterminate-width',
+    'size.medium.indeterminate.height': '--checkbox-size-medium-indeterminate-height',
     'size.small.box.width': '--checkbox-size-small-box-width',
     'size.small.box.border-radius': '--checkbox-size-small-box-border-radius',
     'size.small.icon.width': '--checkbox-size-small-icon-width',
@@ -163,20 +163,20 @@ const token = defineTokens({
                 'height': `var(${vars['size.large.indeterminate.height']}, 2px)`
             }
         },
-        'middle': {
+        'medium': {
             'box': {
-                'width': `var(${vars['size.middle.box.width']}, var(--token-semantic-selection-checkbox-middle, calc(var(--token-global-space-4, 16px) + var(--token-global-space-0-5, 2px))))`,
-                'border-radius': `var(${vars['size.middle.box.border-radius']}, var(--token-semantic-selection-checkbox-radius, var(--token-global-radius-1, 2px)))`
+                'width': `var(${vars['size.medium.box.width']}, var(--token-semantic-selection-checkbox-medium, calc(var(--token-global-space-4, 16px) + var(--token-global-space-0-5, 2px))))`,
+                'border-radius': `var(${vars['size.medium.box.border-radius']}, var(--token-semantic-selection-checkbox-radius, var(--token-global-radius-1, 2px)))`
             },
             'icon': {
-                'width': `var(${vars['size.middle.icon.width']}, var(--token-semantic-selection-checkbox-middle, calc(var(--token-global-space-4, 16px) + var(--token-global-space-0-5, 2px))))`
+                'width': `var(${vars['size.medium.icon.width']}, var(--token-semantic-selection-checkbox-medium, calc(var(--token-global-space-4, 16px) + var(--token-global-space-0-5, 2px))))`
             },
             'label': {
-                'font-size': `var(${vars['size.middle.label.font-size']}, var(--token-semantic-typography-body-medium-font-size, var(--token-global-font-size-sm, 14px)))`
+                'font-size': `var(${vars['size.medium.label.font-size']}, var(--token-semantic-typography-body-medium-font-size, var(--token-global-font-size-sm, 14px)))`
             },
             'indeterminate': {
-                'width': `var(${vars['size.middle.indeterminate.width']}, 10px)`,
-                'height': `var(${vars['size.middle.indeterminate.height']}, 2px)`
+                'width': `var(${vars['size.medium.indeterminate.width']}, 10px)`,
+                'height': `var(${vars['size.medium.indeterminate.height']}, 2px)`
             }
         },
         'small': {

@@ -5,7 +5,7 @@ import ButtonGroupContext from './buttonGroupContext.js';
 import type { ButtonGroupProps } from './types.js';
 
 const groupLargeStyle  = css`gap: ${token.size.large.gap};`;
-const groupMiddleStyle = css`gap: ${token.size.middle.gap};`;
+const groupMiddleStyle = css`gap: ${token.size.medium.gap};`;
 const groupSmallStyle  = css`gap: ${token.size.small.gap};`;
 
 const groupBaseStyle = css`
@@ -25,7 +25,7 @@ const connectedStyle = css`
 
 const sizeGapMap = {
     large:  groupLargeStyle,
-    middle: groupMiddleStyle,
+    medium: groupMiddleStyle,
     small:  groupSmallStyle,
     xs: groupSmallStyle,
     s: groupMiddleStyle,

@@ -42,18 +42,23 @@ export async function findUnboundNames(source, additionalGlobals = {}) {
 
 export async function checkBuiltBindings(root) {
     const files = (await readdir(root, { recursive: true })).filter((file) => /\.m?js$/.test(file));
-    const failures = [];
-    for (const file of files) {
-        // PDFium 2.15.1 的 Emscripten 包保留受环境分支保护的 shell/旧浏览器入口。
-        // 仅对该第三方 Worker 产物声明这些宿主，业务包仍检查同名未绑定变量。
-        const pdfiumGlobals = file.replaceAll("\\", "/").endsWith("rc-pdf-editor/workbench/runtime/pdf-editor.worker.js")
-            ? { readbuffer: "readonly", read: "readonly", readline: "readonly", Browser: "readonly" }
-            : {};
-        for (const finding of await findUnboundNames(await readFile(path.join(root, file), "utf8"), pdfiumGlobals)) {
-            failures.push({ file, ...finding });
+    const findingsByFile = new Array(files.length);
+    let cursor = 0;
+    // Each lint request owns its source and diagnostics; bounded parallelism keeps
+    // the complete production scan practical without skipping generated files.
+    await Promise.all(Array.from({ length: Math.min(4, files.length) }, async () => {
+        while (cursor < files.length) {
+            const index = cursor++;
+            const file = files[index];
+            // Only PDFium's guarded legacy host branches receive these names.
+            const pdfiumGlobals = file.replaceAll("\\", "/").endsWith("rc-pdf-editor/workbench/runtime/pdf-editor.worker.js")
+                ? { readbuffer: "readonly", read: "readonly", readline: "readonly", Browser: "readonly" }
+                : {};
+            const findings = await findUnboundNames(await readFile(path.join(root, file), "utf8"), pdfiumGlobals);
+            findingsByFile[index] = findings.map(finding => ({ file, ...finding }));
         }
-    }
-    return { files: files.length, failures };
+    }));
+    return { files: files.length, failures: findingsByFile.flat() };
 }
 
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {

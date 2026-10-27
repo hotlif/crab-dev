@@ -13,6 +13,7 @@ import {
 describe('dimColor', () => {
     it('keep=1 返回原色（不做任何转换）', () => {
         expect(dimColor('#3366ff', 1)).toBe('#3366ff');
+        expect(dimColor('var(--series)', 1, 'var(--surface)')).toBe('var(--series)');
     });
     it('向白背景混合为不透明色：keep=0.5 时通道折半靠白', () => {
         expect(dimColor('#0000ff', 0.5)).toBe('rgb(128, 128, 255)');
@@ -30,7 +31,7 @@ describe('dimColor', () => {
     });
     it('CSS 表达式交给 Canvas DOM 桥以 color-mix 解析', () => {
         expect(dimColor('var(--series)', 0.5, 'Canvas')).toBe(
-            'color-mix(in oklch, var(--series) 50%, Canvas)',
+            'color-mix(in srgb, var(--series) 50%, Canvas)',
         );
     });
     it('柱淡化使用 palette.canvasBackground 且背景参与缓存键', () => {

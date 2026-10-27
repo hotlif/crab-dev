@@ -22,11 +22,13 @@ import { demos } from "../_generated/rc-line-edit.js";
 
 #### 标签与状态
 
-##### 标签、边界与状态 — 切换文档站的 macOS、MD3 或 shadcn 主题，对照同一组字段的标签、焦点、错误和禁用反馈。
+##### 标签、边界与状态 — 切换文档站的 Apple、MD3 或 shadcn 主题，对照同一组字段的标签、焦点、错误和禁用反馈。
+
+##### 填充字段的空值与内容 — 比较 filled 字段的空值、已有内容和只读状态；使用 Tab 检查标签与焦点边界。
 
 #### 基础与尺寸
 
-##### 基础用法 — Material 呈现浮动标签与描边缺口，macOS 与 shadcn 呈现上置标签和紧凑输入。通过顶部外观菜单统一切换。
+##### 基础用法 — Material 呈现浮动标签与描边缺口，Apple 与 shadcn 呈现上置标签和紧凑输入。通过顶部外观菜单统一切换。
 
 ##### 尺寸 — 通过 `size` 属性设置输入框尺寸
 
@@ -53,11 +55,15 @@ import { demos } from "../_generated/rc-line-edit.js";
 用于单行文本录入，支持前后缀、清除按钮、字数统计和密码可见性切换。
 
 
+带标签的空字段在禁用后遵循各体系的占位文字规则：MD3 保持占位透明以避免与浮动标签重叠，Apple 与 shadcn 使用禁用前景角色。占位、标签及实际值分别核对，禁用态不沿用启用态的占位色。
+
+强制颜色模式下，禁用字段使用系统 `GrayText`，容器透明度保持为 `1`，避免再次淡化系统已选择的禁用文字颜色。输入和内部操作仍然禁用；普通颜色模式的禁用透明度与布局不变。
+
 ### 三套主题的字段边界
 
-macOS 使用紧凑矩形字段、静态标签、轻微内阴影和蓝色外侧焦点环；shadcn 使用静态标签、细边框、微阴影和 3px 半透明外侧焦点环。MD3 保留浮动标签、真实描边缺口及 Filled 底部指示线。带标签与无标签字段都从同一个 L2 字段合约读取焦点和错误反馈；因此搜索框、复合选择器也随主题同步。
+Apple 使用紧凑矩形字段、静态标签、轻微内阴影和蓝色外侧焦点环；shadcn 使用静态标签、细边框、微阴影和 3px 半透明外侧焦点环。MD3 保留浮动标签、真实描边缺口及 Filled 底部指示线。带标签与无标签字段都从同一个 L2 字段合约读取焦点和错误反馈；因此搜索框、复合选择器也随主题同步。
 
-错误与 warning 在聚焦时使用对应反馈色；桌面风格的标签保持中性色，错误标签使用错误色。macOS 的圆角、密度与蓝色光环是本项目的 Web 适配，不表示复刻任意版本 AppKit 的像素参数。只读、禁用、错误、清除和字符计数可在“标签、边界与状态”演示中对照。
+错误与 warning 在聚焦时使用对应反馈色；桌面风格的标签保持中性色，错误标签使用错误色。Apple 的圆角、密度与蓝色光环是本项目的 Web 适配，不表示复刻任意版本 AppKit 的像素参数。只读、禁用、错误、清除和字符计数可在“标签、边界与状态”演示中对照。
 
 2026-10-22 实际参考：[Apple Text fields](https://developer.apple.com/design/human-interface-guidelines/text-fields)、[Apple 官方正文](https://developer.apple.com/tutorials/data/design/human-interface-guidelines/text-fields.json)、[shadcn Input](https://ui.shadcn.com/docs/components/input)、[shadcn Input 源码](https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/new-york-v4/ui/input.tsx)；MD3 继续使用下文列出的 Material Web 浮动标签与 3px 焦点轮廓基线。
 
@@ -65,20 +71,20 @@ macOS 使用紧凑矩形字段、静态标签、轻微内阴影和蓝色外侧�
 
 ### 填充、描边与浮动标签
 
-`appearance="outlined"` 为默认外观。统一的 `ConfigProvider design` 决定字段布局：Material 使用浮动标签，Outlined 标签浮起后位于真实的轮廓缺口，Filled 标签留在容器内部上方，并使用顶部圆角和底部指示线；macOS 与 shadcn 使用上置的静态标签和紧凑边框。切换设计时保留同一个输入节点及已输入的值。
+`appearance="outlined"` 为默认外观。统一的 `ConfigProvider designSystem` 决定字段布局：Material 使用浮动标签，Outlined 标签浮起后位于真实的轮廓缺口，Filled 标签留在容器内部上方，并使用顶部圆角和底部指示线；Apple 与 shadcn 使用上置的静态标签和紧凑边框。切换设计时保留同一个输入节点及已输入的值。
 
 `supportingText` 将辅助说明置于字段下方；`errorText` 替换辅助说明、启用错误状态并自动设置描述关联。已有 `aria-describedby` 会保留，计数也会加入关联。调用方仍可显式指定 `aria-invalid`。带标签的 `showCount` 移到辅助信息行，避免挤占输入宽度；无标签的旧调用保持原布局。
 
-`bordered=false` 仍交由宿主绘制边界，此时 label 使用外部标签。无边框模式适合组合输入和搜索容器。Material、macOS 与 shadcn 的颜色、布局和形状均由 L2 令牌切换，组件不根据设计风格分支渲染标签。
+`bordered=false` 仍交由宿主绘制边界，此时 label 使用外部标签。无边框模式适合组合输入和搜索容器。Material、Apple 与 shadcn 的颜色、布局和形状均由 L2 令牌切换，组件不根据设计风格分支渲染标签。
 
 用于名称、搜索词等单行文本输入。可根据场景配置前后缀、清除按钮、字数统计和密码可见性切换。备注、描述等多行内容请使用 `@crab-dev/rc-text-edit`。
 
-`allowClear` 支持受控和非受控模式，清除会触发标准 `onChange`，`onClear` 仅用于额外通知；使用 `showCount` 时可配合 `maxLength` 显示长度限制。
+`allowClear` 支持受控和非受控模式，清除会触发标准 `onValueChange`，`onClear` 仅用于额外通知；使用 `showCount` 时可配合 `maxLength` 显示长度限制。
 
 
 ### 结构与输入边界
 
-标签说明字段名称，placeholder 只给输入示例。前缀表示单位或上下文，后缀动作只影响当前字段。单行输入保留原生横向编辑与选择能力；完整值应能通过聚焦、选择和复制获得，不以 CSS 截断替代编辑内容。
+标签说明字段名称，placeholder 只给输入示例。启用和只读字段的可见占位文字均按普通文字对比度核对，不能把只读视为禁用豁免；MD3 空闲浮动标签刻意隐藏占位时不构成可见文字颜色对，聚焦后出现的占位仍须核对。实际对比度取 `::placeholder` 的颜色与透明度，并逐层复合当前背景；公开令牌或调用方覆盖需使用各自的实际样式验证。前缀表示单位或上下文，后缀动作只影响当前字段。单行输入保留原生横向编辑与选择能力；完整值应能通过聚焦、选择和复制获得，不以 CSS 截断替代编辑内容。
 
 | 场景 | 选择 | 约束 |
 | --- | --- | --- |
@@ -90,12 +96,12 @@ macOS 使用紧凑矩形字段、静态标签、轻微内阴影和蓝色外侧�
 
 ### 当前尺寸与状态实现
 
-Material 字段使用 56px 最小高度；输入文字为 16px / 24px，浮动标签和辅助说明为 12px / 16px。macOS 与 shadcn 字段使用以下桌面密度：
+Material 字段使用 56px 最小高度；输入文字为 16px / 24px，浮动标签和辅助说明为 12px / 16px。Apple 与 shadcn 字段使用以下桌面密度：
 
 | size | 容器最小高度 | 默认字号 / 行高 | 内边距 |
 | --- | --- | --- | --- |
 | large | 40px | 14px / 20px | 上下 4px、左右 12px |
-| middle | 36px | 14px / 20px | 上下 4px、左右 12px |
+| medium | 36px | 14px / 20px | 上下 4px、左右 12px |
 | small | 32px | 14px / 20px | 上下 0、左右 12px |
 
 高度可随内容和字体设置增长。Material 标签字段无图标侧的内边距为 16px；有图标侧采用 12px 外侧间距、24px 图标与 16px 图标至文本间距，与 [Material Web 字段间距令牌](https://github.com/material-components/material-web/blob/main/tokens/_md-comp-filled-field.scss) 和 [图标规格令牌](https://github.com/material-components/material-web/blob/main/tokens/versions/v0_192/_md-comp-filled-text-field.scss) 一致。Filled 的浮动标签保持与输入文字起点对齐，位于内部上方；Outlined 的浮动标签位于左侧轮廓缺口。粗指针下输入区和内部动作的最小目标为 48px，容器允许自然增高；shadcn 的桌面密度属于本项目定制，不作为 M3 标准字段尺寸。
@@ -118,6 +124,16 @@ Material 输入聚焦时，描边型将原有 1px 轮廓向内加粗为 3px，�
 
 关联：[输入与选择](https://material-web.dev/components/text-field/)、[状态组合](/guides/accessibility)、[无障碍](/guides/accessibility)、[Button](/components/rc-button)、[TextEdit](/components/rc-text-edit)。浏览器专项检查与包内 React 测试分开验收，工具链门禁受阻不表示后者通过。
 
+“填充字段的空值与内容”补充 filled 的空值、已有值和只读对照。使用 Tab 观察标签与焦点，清除已有内容后继续输入；只读值可以选择和复制。
+
+
+
+### 状态契约
+
+`value / defaultValue / onValueChange(next, details)` 管理字符串值。`details.reason` 区分 `input / clear`；原生 `onChange(event)` 仅报告真实输入事件，清除操作通过值协议报告。
+
+受控值与默认值互斥；默认值仅在初始化时使用。外部属性更新不触发操作回调，省略回调可展示只读受控快照。
+
 ### 适用场景
 
 用户输入一行可编辑文本。 需要前后缀、清除、密码可见性、字符计数或错误提示。
@@ -127,7 +143,7 @@ Material 输入聚焦时，描边型将原有 1px 轮廓向内加粗为 3px，�
 ### 使用要点
 
 - label 描述字段含义，placeholder 只提供格式示例，不能代替标签。
-- 受控 value 与 onChange 配对；defaultValue 只在初始非受控场景使用。
+- 受控 value 与 onValueChange 配对；defaultValue 只在初始非受控场景使用。
 - status、supportingText 和计数要共同说明当前输入是否有效。
 
 ### 无障碍
@@ -135,16 +151,31 @@ Material 输入聚焦时，描边型将原有 1px 轮廓向内加粗为 3px，�
 - 使用 useId 关联 label、说明和错误，必填不能只靠星号表达。
 - 清除与密码可见按钮要有可访问名称，错误出现后不能让输入焦点丢失。
 
+### 设计依据与覆盖
+
+- **MD3 Expressive**：直接参考 M3 Text fields 的 filled、outlined、label、supporting text、error 与状态规则，并对照 Material Web text field。 [依据 1](https://m3.material.io/components/text-fields/overview) · [依据 2](https://material-web.dev/components/text-field/) · [依据 3](https://github.com/material-components/material-web/tree/main/textfield)
+- **Apple**：依据 Apple HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。 [依据 1](https://developer.apple.com/design/human-interface-guidelines/components) · [依据 2](https://developer.apple.com/design/human-interface-guidelines/accessibility)
+- **shadcn/ui**：参考 shadcn/ui 的组件用途、中性表面与设计变量，在本库公共语义和 React 交互模型中实现；完整状态覆盖仍需按矩阵验收。 [依据 1](https://ui.shadcn.com/docs/components) · [依据 2](https://ui.shadcn.com/docs/theming) · [依据 3](https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4)
+
+设计依据不等于完成验收；当前状态与适用边界见[覆盖矩阵](/guides/design-coverage)。
+
 ## 常见问题
 
 ### 清除按钮为什么不生效？
 
-allowClear 支持受控和非受控模式，清除会触发 onChange；受控模式需在 onChange 中接受新值，onClear 只用于额外通知。disabled 或 readOnly 时隐藏清除按钮。
+allowClear 支持受控和非受控模式，清除会触发 onValueChange；受控模式需在 onValueChange 中接受新值，onClear 只用于额外通知。disabled 或 readOnly 时隐藏清除按钮。
 
-### 为什么切换 Material 后输入框高度不同？
+### 为什么切换 MD3 Expressive 后输入框高度不同？
 
-设计风格决定字段结构。Material 使用 56px 容器为 16px 输入文字和 12px 浮动标签保留空间；macOS 与 shadcn 将静态标签置于外部，输入框随 size 使用 32 / 36 / 40px。theme 单独控制明暗。
+设计体系决定字段结构。MD3 Expressive 使用 56px 容器为 16px 输入文字和 12px 浮动标签保留空间；Apple 与 shadcn/ui 将静态标签置于外部，输入框随 size 使用 32 / 36 / 40px。colorMode 单独控制明暗。
 
 ## API
 
 <API source="../_generated_api/rc-line-edit.ts" symbol="LineEditProps" component="LineEdit" />
+
+<details data-docs-native-props>
+<summary>LineEdit 继承的原生属性（304 项）</summary>
+
+<API source="../_generated_api/rc-line-edit-native.ts" symbol="LineEditPropsNativeAttributes" component="LineEdit 继承的原生属性" />
+
+</details>

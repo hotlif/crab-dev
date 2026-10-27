@@ -4,7 +4,23 @@ export const meta = {
 };
 
 import { useState } from 'react';
+import { css } from '@crab-dev/css';
+import Button from '@crab-dev/rc-button';
+import token from '@crab-dev/rc-token-semantic';
 import CronPicker from '../../src/index.js';
+
+const rootStyle = css`
+    display: flex;
+    flex-direction: column;
+    gap: ${token.space['stack-gap']};
+    min-inline-size: 0;
+`;
+
+const presetsStyle = css`
+    display: flex;
+    flex-wrap: wrap;
+    gap: ${token.space['inline-gap']};
+`;
 
 const PRESETS: Array<{ label: string; value: string }> = [
     { label: '每小时', value: '0 * * * *' },
@@ -17,20 +33,19 @@ const ControlledDemo = () => {
     const [value, setValue] = useState('0 0 * * *');
 
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 12, maxWidth: 360 }}>
-            <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+        <div className={rootStyle}>
+            <div className={presetsStyle}>
                 {PRESETS.map((preset) => (
-                    <button
+                    <Button
                         key={preset.value}
                         type="button"
-                        style={{ padding: '2px 10px', cursor: 'pointer' }}
                         onClick={() => setValue(preset.value)}
                     >
                         {preset.label}
-                    </button>
+                    </Button>
                 ))}
             </div>
-            <CronPicker value={value} onChange={setValue} />
+            <CronPicker value={value} onValueChange={setValue} />
         </div>
     );
 };

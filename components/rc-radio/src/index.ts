@@ -5,3 +5,5 @@ export type { RadioProps, RadioGroupProps } from './types.js';
 export { RadioGroup };
 export default Radio;
 export { vars as TokenVars } from './token.js';
+
+export type { RadioChangeDetails, RadioGroupChangeDetails } from './types.js';

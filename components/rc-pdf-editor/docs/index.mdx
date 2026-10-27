@@ -11,6 +11,10 @@ status = "experimental"
 
 [打开组件工作台](/components/rc-pdf-editor/workbench/)
 
+无框架 HTML 或独立脚本接入见包内 `docs/WEB-COMPONENT.md`；自定义元素通过公开配置属性显式连接三套设计体系，使用 `colorMode` / `color-mode` 指定明暗。
+
+内置工具栏、区域选择状态、不可编辑对象的说明，以及库自身产生的错误提示跟随 `ConfigProvider.locale`，切换语言保留当前文档和操作状态。命令与 `onError` 仍返回原始 `PdfEditorError.code / message`；界面仅按库内消息标识翻译，宿主或远端错误、自定义插件名称和 PDF 正文原样保留。
+
 ## 何时使用
 
 需要在桌面浏览器中修改既有文字对象、调整图片，或整理文档页面时使用。默认在浏览器本地处理文件；接入保存或 OCR 服务时，是否上传由宿主实现决定。
@@ -25,9 +29,11 @@ status = "experimental"
 
 中央预览将各页纵向连续排列，使用滚轮或滚动条浏览，不显示分页控件。点击左侧缩略图定位页面，滚动时同步当前页和对象树；底部保留缩放与适应页面。预览区支持 PageUp/PageDown、Home/End，普通滚轮不改变缩放倍率。
 
+缩略图列表为按钮的外侧焦点环预留行内空间；已选页面和 RTL 布局使用同一规则。`thumbnail.outline-width-focus`、`thumbnail.outline-offset-focus` 同时控制实际轮廓与这段留白，虚拟列表的行高与页面测量保持不变。
+
 按住 Ctrl（macOS 也可使用 Command）加滚轮，以鼠标位置为中心缩放，也可在底部直接输入百分比。选择对象、切换侧栏和调整窗口大小保留倍率；首次打开文档或主动点击“适应页面”时才重新适应。
 
-底栏使用紧凑百分比输入框，右侧四角框图标用于适应页面；悬停或键盘聚焦时显示中文提示。
+底栏使用紧凑百分比输入框，为 8–600 的缩放值和百分号保留完整宽度。它采用独立的 32px 状态栏高度、内边距和后缀间距，复用输入框的焦点、禁用及粗指针触控行为；右侧四角框图标用于适应页面，悬停或键盘聚焦时显示当前语言的提示。
 
 Ctrl/Cmd+Z 撤销，Ctrl/Cmd+Shift+Z 或 Ctrl/Cmd+Y 重做，Delete 删除，方向键移动，Shift+方向键移动 10 pt，Escape 取消选择。文字输入和中文输入法组合期间不接管这些快捷键。对象列表提供画布之外的键盘入口。
 
@@ -48,3 +54,15 @@ Ctrl/Cmd+Z 撤销，Ctrl/Cmd+Shift+Z 或 Ctrl/Cmd+Y 重做，Delete 删除，方
 宿主保存按钮调用 `ref.save()`，与工具栏共用 `onSave` 持久化流程。`exportPdf()` 和 `extractPages()` 返回包含 Blob、文档身份、会话和版本的快照，不自动下载或清除未保存状态。完整迁移说明见包内 `docs/API-REDESIGN.md`。
 
 <API source="../src/pdf-editor.tsx" symbol="PdfEditorProps" component="PdfEditor" />
+
+## 设计风格与主题
+
+PDFEditor 按 Crab 的专业文档工作区扩展维护。工具栏、属性区、对话框和提示分别复用 Button、字段、Select、ColorPicker、Checkbox、Dialog、Spin 和 Tooltip 的契约；工作区字体、表面、侧栏、边界与选区由本包 L3 令牌映射到各体系的 L2 角色。
+
+Material Design 3 Expressive、Apple 和 shadcn/ui 的来源及固定基线见[三套设计体系](/guides/design-styles)。来源规范用于这些控件和视觉角色，PDF 文档模型、对象操作、Worker 会话与插件协议由本库定义。Apple 为浏览器适配，不绑定某个 macOS 版本。
+
+纸面与工作区明暗分开：默认纸面保持白色，切换设计或明暗不会反相 PDF 正文或按品牌色改写已有对象。页面尺寸、对象坐标、线宽和视口倍率保留文档几何；控件 `size` 与工作区 `density` 不作为整页内容的缩放参数。
+
+React 入口从最近 Provider 消费配置；独立 Web Component 使用公开属性显式桥接八项配置，见包内 `docs/WEB-COMPONENT.md`。独立 React 根的样式、语言、方向及 CSP nonce 需在实际宿主中核对，不能仅凭属性存在判定继承通过。
+
+三体系、浅深色、文档状态、编辑焦点和现有 Shadow DOM 场景分别验收，覆盖等级以[覆盖矩阵](/guides/design-coverage)及对应候选记录为准。

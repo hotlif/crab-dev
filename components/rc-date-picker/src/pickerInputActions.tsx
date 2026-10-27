@@ -1,7 +1,9 @@
+import { usePickerLocale } from './locale.js';
 import { css } from '@crab-dev/css';
 import Button from '@crab-dev/rc-button';
 import { TokenVars as lineEditVars } from '@crab-dev/rc-line-edit';
-import { useEffect, useState, type Ref } from 'react';
+import { useDropdownPositionReference } from '@crab-dev/rc-dropdown-container/internal';
+import { useCallback, useEffect, useState, type MouseEvent, type Ref } from 'react';
 
 import { Calendar, Clock, XCircleFill } from './icons.js';
 import token from './token.js';
@@ -19,7 +21,7 @@ const actionStyle = css`
         width: ${token.field.icon.width};
         height: ${token.field.icon.width};
     }
-    // LineEdit 已在字段容器上应用禁用透明度。
+    /* LineEdit 已在字段容器上应用禁用透明度。 */
     &&:disabled > span { opacity: 1; }
     @media (pointer: coarse) {
         && {
@@ -31,22 +33,81 @@ const actionStyle = css`
 `;
 
 interface PickerInputActionsProps {
+    locale?: string;
     kind?: 'date' | 'time';
     hasValue: boolean;
     hovered: boolean;
     disabled?: boolean;
     open: boolean;
-    onClear: () => void;
+    onClear: (event: MouseEvent<HTMLButtonElement>) => void;
     onOpen: () => void;
 }
 
 /** 悬停边界是整个 LineEdit 容器，输入框与尾部按钮之间的移动不算离开。 */
 export function usePickerFieldHover(reference: Ref<HTMLDivElement>) {
     const [hovered, setHovered] = useState(false);
-    const containerRef = (node: HTMLDivElement | null) => {
+    const setPositionReference = useDropdownPositionReference();
+    // Ref identity must remain stable even without React Compiler: Floating UI
+    // creates a new virtual reference on every setPositionReference(element).
+    // An inline ref would detach/attach and schedule another render indefinitely.
+    const containerRef = useCallback((node: HTMLDivElement | null) => {
         const cleanup = typeof reference === 'function' ? reference(node) : undefined;
         if (reference && typeof reference !== 'function') reference.current = node;
-        if (!node) return;
+        if (!node) {
+            setPositionReference(null);
+            return;
+        }
+        // LineEdit's immediate field root contains only this control's label and
+        // support/error text. Never climb to a Form row or a neighboring field.
+        // Keep the inner DOM reference for hover, focus, dismissal and width.
+        const parent = node.parentElement;
+        const field = parent?.hasAttribute('data-field-root') ? parent : null;
+        let stopFieldObservation: (() => void) | undefined;
+        if (field) {
+            const ownText = () => field.querySelectorAll<HTMLElement>(':scope > label, :scope > [data-field-support]');
+            const bounds = () => {
+                const rect = field.getBoundingClientRect();
+                let { left, top, right, bottom } = rect;
+                for (const text of ownText()) {
+                    const textRect = text.getBoundingClientRect();
+                    const visibility = field.ownerDocument.defaultView?.getComputedStyle(text).visibility;
+                    if (!textRect.width || !textRect.height || visibility === 'hidden' || visibility === 'collapse') continue;
+                    left = Math.min(left, textRect.left);
+                    top = Math.min(top, textRect.top);
+                    right = Math.max(right, textRect.right);
+                    bottom = Math.max(bottom, textRect.bottom);
+                }
+                return new globalThis.DOMRect(left, top, right - left, bottom - top);
+            };
+            // A floating label may paint outside its layout box. Read its actual
+            // current rect rather than adding a design-specific pixel margin.
+            // contextElement retains Floating UI's document/scroll observers.
+            const updatePosition = () => setPositionReference({ contextElement: field, getBoundingClientRect: bounds });
+            // Root ResizeObserver alone cannot see a transformed label. Observe
+            // only our direct text boxes and their transitions; no Form siblings.
+            const resize = new ResizeObserver(updatePosition);
+            const observeText = () => {
+                resize.disconnect();
+                for (const text of ownText()) resize.observe(text);
+                updatePosition();
+            };
+            observeText();
+            const children = new MutationObserver(observeText);
+            children.observe(field, { childList: true, attributes: true, attributeFilter: ['data-appearance', 'data-labeled'] });
+            const onTextTransition = (event: TransitionEvent) => {
+                if (Array.from(ownText()).some(text => text === event.target)) updatePosition();
+            };
+            field.addEventListener('transitionend', onTextTransition);
+            field.addEventListener('transitioncancel', onTextTransition);
+            stopFieldObservation = () => {
+                resize.disconnect();
+                children.disconnect();
+                field.removeEventListener('transitionend', onTextTransition);
+                field.removeEventListener('transitioncancel', onTextTransition);
+            };
+        } else {
+            setPositionReference(node);
+        }
         const onPointerOver = (event: PointerEvent) => {
             if (event.pointerType !== 'touch') setHovered(true);
         };
@@ -60,15 +121,18 @@ export function usePickerFieldHover(reference: Ref<HTMLDivElement>) {
         return () => {
             node.removeEventListener('pointerover', onPointerOver);
             node.removeEventListener('pointerout', onPointerOut);
+            stopFieldObservation?.();
+            setPositionReference(null);
             if (cleanup) cleanup();
             else if (typeof reference === 'function') reference(null);
             else if (reference) reference.current = null;
         };
-    };
+    }, [reference, setPositionReference]);
     return { hovered, containerRef };
 }
 
-export default function PickerInputActions({ kind = 'date', hasValue, hovered, disabled, open, onClear, onOpen }: PickerInputActionsProps) {
+export default function PickerInputActions({ locale, kind = 'date', hasValue, hovered, disabled, open, onClear, onOpen }: PickerInputActionsProps) {
+    const { messages } = usePickerLocale(locale);
     const [focused, setFocused] = useState(false);
     const [withoutHover, setWithoutHover] = useState(false);
     useEffect(() => {
@@ -86,10 +150,10 @@ export default function PickerInputActions({ kind = 'date', hasValue, hovered, d
         type="button"
         appearance="text"
         shape="circle"
-        size="small"
+        size="xs"
         className={actionStyle}
         data-role={showClear ? 'picker-clear' : kind === 'time' ? 'picker-clock' : 'picker-calendar'}
-        aria-label={showClear ? (kind === 'time' ? '清除时间' : '清除日期') : (kind === 'time' ? '选择时间' : '打开日历')}
+        aria-label={showClear ? (kind === 'time' ? messages.clearTime : messages.clearDate) : (kind === 'time' ? messages.chooseTime : messages.openCalendar)}
         aria-expanded={showClear ? undefined : open}
         disabled={disabled}
         icon={showClear ? <XCircleFill aria-hidden="true" /> : kind === 'time' ? <Clock aria-hidden="true" /> : <Calendar aria-hidden="true" />}
@@ -97,7 +161,7 @@ export default function PickerInputActions({ kind = 'date', hasValue, hovered, d
         onBlur={() => setFocused(false)}
         onClick={(event) => {
             event.stopPropagation();
-            if (showClear) onClear();
+            if (showClear) onClear(event);
             else onOpen();
         }}
     />;

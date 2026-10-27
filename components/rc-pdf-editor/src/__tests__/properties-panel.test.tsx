@@ -1,6 +1,8 @@
 import { afterAll, beforeAll, describe, expect, it, mock } from '@crab-dev/wake/test';
 import { act, fireEvent, render } from '@crab-dev/wake/test/react';
 import PropertiesPanel, { draftFor } from '../properties-panel.js';
+import ConfigProvider from '@crab-dev/rc-config-provider';
+import { engineMessages } from '../engine-messages.js';
 import type { PdfObject } from '../protocol.js';
 
 const NativeResizeObserver = globalThis.ResizeObserver;
@@ -18,6 +20,33 @@ const objects: PdfObject[] = [
 ];
 
 describe('属性面板提交状态', () => {
+    it('updates all engine-owned explanations with locale and preserves caller explanations', async () => {
+        const reasons = ['reason.groupObject', 'reason.unsupportedObject', 'reason.clippingPath', 'reason.invisibleObject', 'reason.unreadableText', 'reason.outlinedText'] as const;
+        for (const reasonId of reasons) {
+            const object: PdfObject = { index: 0, kind: 'unsupported', bounds: { x: 0, y: 0, width: 30, height: 20 },
+                reasonId, reason: engineMessages[reasonId]['zh-CN'] };
+            const props = { object, draft: draftFor(object), fonts: [], disabled: false, busy: false,
+                onDraft: mock.fn(), onApply: mock.fn(), onRemove: mock.fn(), onReplace: mock.fn(), onClose: mock.fn() };
+            const view = await render(<ConfigProvider locale="zh-CN"><PropertiesPanel {...props} /></ConfigProvider>);
+            try {
+                const paragraph = view.container.querySelector('p');
+                const close = view.container.querySelector('button')!;
+                expect(paragraph?.textContent).toBe(object.reason);
+                await view.rerender(<ConfigProvider locale="en-US"><PropertiesPanel {...props} /></ConfigProvider>);
+                expect(view.container.querySelector('p')).toBe(paragraph);
+                expect(paragraph?.textContent).toBe(engineMessages[reasonId]['en-US']);
+                expect(view.container.querySelector('button')).toBe(close);
+                expect(object.reason).toBe(engineMessages[reasonId]['zh-CN']);
+                await fireEvent.click(close);
+                expect(props.onClose).toHaveBeenCalledTimes(1);
+            } finally { await view.unmount(); }
+        }
+        const object: PdfObject = { index: 1, kind: 'unsupported', bounds: { x: 0, y: 0, width: 30, height: 20 }, reason: '宿主提供的说明' };
+        const view = await render(<ConfigProvider locale="en-US"><PropertiesPanel object={object} draft={draftFor(object)} fonts={[]} disabled={false} busy={false}
+            onDraft={() => {}} onApply={() => {}} onRemove={() => {}} onReplace={() => {}} onClose={() => {}} /></ConfigProvider>);
+        expect(view.container.querySelector('p')?.textContent).toBe('宿主提供的说明');
+    });
+
     for (const object of objects) it(`${object.shape ?? object.kind}等待时保持控件、焦点和滚动，拦截输入并在结束后恢复`, async () => {
         const props = { object, draft: draftFor(object), fonts: [{ id: 'test', label: '测试字体', family: 'sans-serif' }], disabled: false,
             onDraft: mock.fn(), onApply: mock.fn(), onRemove: mock.fn(), onReplace: mock.fn(), onClose: mock.fn() };

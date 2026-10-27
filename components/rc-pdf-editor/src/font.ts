@@ -1,9 +1,10 @@
+import { pdfError } from './pdf-messages.js';
 import { PdfEditorError } from './types.js';
 
 /** 仅解析 SFNT 的 cmap 4/12；确保输入字符存在，避免 PDFium 静默写入 .notdef。 */
 export function validateFont(data: Uint8Array, text = ''): void {
     const view = new DataView(data.buffer, data.byteOffset, data.byteLength);
-    const fail = () => { throw new PdfEditorError('font', '请提供含有所需字符的完整 TTF 字体'); };
+    const fail = () => { throw pdfError('font', 'font.complete-ttf'); };
     if (data.length < 12 || view.getUint32(0) !== 0x00010000) fail();
     let cmap = 0;
     for (let i = 0; i < view.getUint16(4); i++) {
@@ -48,7 +49,7 @@ export function validateFont(data: Uint8Array, text = ''): void {
     try {
         for (const character of text.replace(/[\r\n]/g, '')) {
             const code = character.codePointAt(0)!;
-            if (!tables.some(at => has(code, at))) throw new PdfEditorError('font', `所选字体不包含字符“${character}”`);
+            if (!tables.some(at => has(code, at))) throw pdfError('font', 'font.missing-character', { character });
         }
     } catch (error) {
         if (error instanceof PdfEditorError) throw error;

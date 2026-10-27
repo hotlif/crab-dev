@@ -36,7 +36,7 @@ const CheckableDemo = () => {
                     <CheckableTag
                         key={item}
                         checked={selected.includes(item)}
-                        onChange={checked => toggle(item, checked)}
+                        onCheckedChange={checked => toggle(item, checked)}
                     >
                         {item}
                     </CheckableTag>

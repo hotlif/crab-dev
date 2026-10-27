@@ -66,7 +66,7 @@ export async function createHomeExample(repositoryRoot) {
     };
 }
 
-export function createLearningMap(navigation, records, descriptions = catalogDescriptions) {
+export function createLearningMap(navigation, records, descriptions = catalogDescriptions, products = []) {
     const sections = navigation.split("[[group.section]]").filter(section => section.includes('"components/')).map(section => ({
         title: section.match(/title = "([^"]+)"/)?.[1],
         records: [...section.matchAll(/"components\/(rc-[^"]+)"/g)].map(match => {
@@ -86,7 +86,8 @@ export function createLearningMap(navigation, records, descriptions = catalogDes
             const parts = record.title.match(/^(.+?)\s+([\u3400-\u9fff].*)$/u);
             const description = descriptions[record.id];
             if (typeof description !== "string" || !description.trim()) throw new Error(`组件概览缺少 ${record.id} 的用途介绍`);
-            const props = { href: `/components/${record.id}`, name: parts?.[1] ?? record.title, label: parts?.[2] ?? "", description, preview: record.id };
+            const product = products.find(item => item.slug === record.id);
+            const props = { href: `/components/${record.id}`, name: parts?.[1] ?? record.title, label: parts?.[2] ?? "", description, preview: record.id, ...(product ? { category: product.categoryTitle } : {}) };
             // Wake MDX 当前不能正确编译 JSX 属性展开，使用单个显式数据属性。
             body += `<CatalogItem item={${JSON.stringify(props)}} />\n\n`;
         }

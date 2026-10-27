@@ -497,8 +497,28 @@ const timePhrase = (value: CronValue): { text: string; isClock: boolean } => {
     return { text: `${hourPhrase(hour)}的${minutePhrase(minute)}`, isClock: false };
 };
 
-/** 生成表达式的简明中文描述,如 "每天 09:30"、"周一至周五 09:00、18:00" */
-export const describeCron = (value: CronValue): string => {
+/** 生成表达式的简明描述，省略语言时使用中文。 */
+export const describeCron = (value: CronValue, locale?: 'zh-CN' | 'en-US'): string => {
+    if (locale === 'en-US') {
+        const names: Record<CronFieldKind, string> = { minute: 'minute', hour: 'hour', dayOfMonth: 'day of month', month: 'month', dayOfWeek: 'weekday' };
+        const weekday = new Intl.DateTimeFormat(locale, { weekday: 'short', timeZone: 'UTC' });
+        const field = (kind: CronFieldKind): string => {
+            const part = value[kind];
+            const label = (n: number) => kind === 'dayOfWeek' ? weekday.format(new Date(Date.UTC(2023, 0, n + 1))) : String(n);
+            switch (part.kind) {
+                case 'every': return `every ${names[kind]}`;
+                case 'list': return `${names[kind]} ${part.values.map(label).join(', ')}`;
+                case 'range': return `${names[kind]} ${label(part.from)} through ${label(part.to)}`;
+                case 'step': return `every ${part.step} ${names[kind]} values starting at ${label(part.from)}`;
+            }
+        };
+        const singleMinute = value.minute.kind === 'list' && value.minute.values.length === 1 ? value.minute.values[0] : null;
+        const time = singleMinute !== null && value.hour.kind === 'list'
+            ? `at ${value.hour.values.map(hour => `${pad2(hour)}:${pad2(singleMinute)}`).join(', ')}`
+            : [field('minute'), isRestricted(value.hour) ? field('hour') : ''].filter(Boolean).join('; ');
+        const dates = [isRestricted(value.dayOfMonth) ? field('dayOfMonth') : '', isRestricted(value.dayOfWeek) ? field('dayOfWeek') : ''].filter(Boolean);
+        return [isRestricted(value.month) ? field('month') : '', dates.length ? dates.join(' or ') : 'every day', time].filter(Boolean).join('; ');
+    }
     const parts: string[] = [];
     const month = monthPhrase(isRestricted(value.month) ? value.month : { kind: 'every' });
 

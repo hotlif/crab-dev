@@ -1,6 +1,6 @@
 export const meta = {
     title: "基础用法",
-    description: "字段标签与校验交给 LineEdit 呈现，随全局切换 Material 浮动标签或 macOS、shadcn 的同排静态标签；表单实例操作的结果直接显示在下方。",
+    description: "字段标签与校验反馈由 LineEdit 自行呈现：Material Design 3 Expressive 使用浮动标签，Apple 和 shadcn/ui 使用控件自有的上方静态标签；表单实例操作的结果直接显示在下方。",
 };
 
 import { css } from "@crab-dev/css";
@@ -55,10 +55,10 @@ const SimpleFrame = () => {
                 setResult("提交未通过，请根据字段下方的错误提示补全内容。");
             }}
         >
-            <Item label="用户名" labelPlacement="control" name={["user", "username"]} binding="event" required>
+            <Item label="用户名" labelPlacement="control" name={["user", "username"]} adapter="value" required>
                 <LineEdit placeholder="请输入用户名" />
             </Item>
-            <Item label="密码" labelPlacement="control" name={["user", "password"]} binding="event" required>
+            <Item label="密码" labelPlacement="control" name={["user", "password"]} adapter="value" required>
                 <LineEdit type="password" placeholder="请输入密码" />
             </Item>
 

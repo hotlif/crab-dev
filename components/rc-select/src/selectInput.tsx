@@ -5,10 +5,11 @@ import { SpinIndicator, TokenVars as spinVars } from '@crab-dev/rc-spin';
 import Tag from "@crab-dev/rc-tag";
 import { css, cx } from "@crab-dev/css";
 import semanticToken from "@crab-dev/rc-token-semantic";
-import { useCallback, useEffect, useRef, useState, type FC, type KeyboardEvent, type MouseEvent as ReactMouseEvent, type ReactNode, type Ref, type RefObject } from "react";
+import { useLocale } from '@crab-dev/rc-config-provider';
+import { useCallback, useEffect, useEffectEvent, useRef, useState, type FC, type FocusEventHandler, type KeyboardEvent, type MouseEvent as ReactMouseEvent, type ReactNode, type Ref, type RefObject } from "react";
 
 import token, { vars } from "./token.js";
-import type { FlatOption, SelectOption } from "./types.js";
+import type { FlatOption, SelectChangeDetails, SelectOption } from "./types.js";
 
 // ref 可能是回调形式或 RefObject 形式，统一赋值以便与内部 ref 合并
 const setRef = (ref: Ref<HTMLDivElement> | undefined, node: HTMLDivElement | null) => {
@@ -336,7 +337,7 @@ const actionStyle = css`
         color: ${token.clear.color};
     }
     &&:hover { color: ${token.clear['color-hover']}; }
-    // 字段容器已经应用禁用透明度。
+    /* 字段容器已经应用禁用透明度。 */
     &&:disabled > span { opacity: 1; }
     @media (pointer: coarse) {
         && {
@@ -369,12 +370,12 @@ const sizeMetricsMap = {
         font-size: ${token.size.large['font-size']};
         line-height: ${token.size.large["line-height"]};
     `,
-    middle: css`
-        padding: ${token.size.middle.padding};
-        ${vars['clear.width']}: ${token.size.middle.action.width};
-        ${vars['clear.height']}: ${token.size.middle.action.width};
-        font-size: ${token.size.middle['font-size']};
-        line-height: ${token.size.middle["line-height"]};
+    medium: css`
+        padding: ${token.size.medium.padding};
+        ${vars['clear.width']}: ${token.size.medium.action.width};
+        ${vars['clear.height']}: ${token.size.medium.action.width};
+        font-size: ${token.size.medium['font-size']};
+        line-height: ${token.size.medium["line-height"]};
     `,
     small: css`
         padding: ${token.size.small.padding};
@@ -388,7 +389,7 @@ const sizeMetricsMap = {
 // 单选按字段档位对齐；文本行高增大时允许高度随内容增长。
 const sizeHeightFixedMap = {
     large: css`height: max(${token.size.large.height}, ${token.field['min-height']}, calc(1lh + 2 * ${token.root['border-width']}));`,
-    middle: css`height: max(${token.size.middle.height}, ${token.field['min-height']}, calc(1lh + 2 * ${token.root['border-width']}));`,
+    medium: css`height: max(${token.size.medium.height}, ${token.field['min-height']}, calc(1lh + 2 * ${token.root['border-width']}));`,
     small: css`height: max(${token.size.small.height}, ${token.field['min-height']}, calc(1lh + 2 * ${token.root['border-width']}));`,
 };
 
@@ -396,7 +397,7 @@ const sizeHeightFixedMap = {
 // 溢出边框外(已用真实多标签场景验证过),因此多选场景保留可被内容撑高的弹性。
 const sizeHeightFlexibleMap = {
     large: css`min-height: max(${token.size.large.height}, ${token.field['min-height']});`,
-    middle: css`min-height: max(${token.size.middle.height}, ${token.field['min-height']});`,
+    medium: css`min-height: max(${token.size.medium.height}, ${token.field['min-height']});`,
     small: css`min-height: max(${token.size.small.height}, ${token.field['min-height']});`,
 };
 
@@ -426,7 +427,7 @@ interface SelectInputProps {
     disabled: boolean;
     searchable: boolean;
     multiple: boolean;
-    size: "large" | "middle" | "small";
+    size: "large" | "medium" | "small";
     status?: "error" | "warning";
     appearance: "outlined" | "filled";
     label?: string;
@@ -442,16 +443,16 @@ interface SelectInputProps {
     highlightIndex: number;
     highlightedOption: FlatOption | undefined;
     listboxId: string;
-    tagRender?: (option: SelectOption, onClose: () => void) => ReactNode;
+    tagRender?: (option: SelectOption, onClose: (event?: SelectChangeDetails['event']) => void) => ReactNode;
     onSearchTextChange: (value: string) => void;
-    onOpenChange: (nextOpen: boolean) => void;
+    onOpenStateChange: (nextOpen: boolean) => void;
     onWidthChange: (width: number) => void;
     onMoveHighlight: (direction: 1 | -1) => void;
-    onSelectHighlighted: (option: FlatOption) => void;
-    onClear: () => void;
-    onRemoveTag: (value: string) => void;
-    onFocus?: () => void;
-    onBlur?: () => void;
+    onSelectHighlighted: (option: FlatOption, event: SelectChangeDetails['event']) => void;
+    onClear: (event: SelectChangeDetails['event']) => void;
+    onRemoveTag: (value: string, event?: SelectChangeDetails['event']) => void;
+    onFocus?: FocusEventHandler<HTMLDivElement>;
+    onBlur?: FocusEventHandler<HTMLDivElement>;
 }
 
 // ─── Component ───────────────────────────────────────────────────────────────
@@ -484,7 +485,7 @@ const SelectInput: FC<SelectInputProps> = ({
     listboxId,
     tagRender,
     onSearchTextChange,
-    onOpenChange,
+    onOpenStateChange,
     onWidthChange,
     onMoveHighlight,
     onSelectHighlighted,
@@ -494,6 +495,7 @@ const SelectInput: FC<SelectInputProps> = ({
     onBlur,
 }) => {
     const { state, refs, dispatch } = useDropdownContext<HTMLDivElement>();
+    const { messages } = useLocale();
     const inputRef = useRef<HTMLInputElement>(null);
     const open = state.open;
     const [hovered, setHovered] = useState(false);
@@ -509,8 +511,7 @@ const SelectInput: FC<SelectInputProps> = ({
         return () => media.removeEventListener('change', update);
     }, []);
 
-    const onOpenChangeRef = useRef(onOpenChange);
-    onOpenChangeRef.current = onOpenChange;
+    const syncOpen = useEffectEvent(onOpenStateChange);
 
     // 例外 1（可变实例状态 ref）：ref callback 需要稳定，避免每次渲染都以 null 触发一轮
     // 卸载态 refs.setReference(null) / 外部 ref 清空后再重新挂载。
@@ -546,29 +547,21 @@ const SelectInput: FC<SelectInputProps> = ({
     }, [onWidthChange]);
 
     useEffect(() => {
-        if (open && searchable) {
+        if (open && searchable && !disabled) {
             queueMicrotask(() => inputRef.current?.focus());
         }
-    }, [open, searchable]);
+    }, [disabled, open, searchable]);
 
     useEffect(() => {
-        if (autoFocus && controlRef.current) {
+        if (autoFocus && !disabled && controlRef.current) {
             controlRef.current.focus();
         }
-    }, [autoFocus]);
+    }, [autoFocus, disabled]);
 
-    // 点击外部关闭已由 RcDropdownContainer 统一收口(基于 FloatingTree 的 useDismiss,
-    // 能正确识别嵌套下拉自身浮层,不会像手写 ref.contains() 判定那样误判)。
-    // 这里只需把 open 的每次变化(无论是本组件触发还是 RcDropdownContainer 外部关闭触发)
-    // 都转发给外部 onOpenChange,避免在各处触发点重复调用。
-    const isFirstOpenRender = useRef(true);
+    // 仅同步容器已提交的展开状态；初始展开也需要定位当前选中项。
+    // 关闭请求被受控父级拒绝时，保留搜索草稿与高亮。
     useEffect(() => {
-        if (isFirstOpenRender.current) {
-            isFirstOpenRender.current = false;
-            return;
-        }
-
-        onOpenChangeRef.current(open);
+        syncOpen(open);
     }, [open]);
 
     const handleClick = () => {
@@ -609,7 +602,7 @@ const SelectInput: FC<SelectInputProps> = ({
                 e.preventDefault();
 
                 if (open && highlightedOption) {
-                    onSelectHighlighted(highlightedOption);
+                    onSelectHighlighted(highlightedOption, e);
 
                     if (!multiple) {
                         dispatch({ type: "setOpen", payload: false });
@@ -635,7 +628,7 @@ const SelectInput: FC<SelectInputProps> = ({
                 if (open) {
                     e.preventDefault();
                     controlRef.current?.focus();
-                    dispatch({ type: "setOpen", payload: false });
+                    dispatch({ type: "setOpen", payload: false, details: { reason: 'escape', event: e.nativeEvent } });
                 }
 
                 break;
@@ -643,7 +636,7 @@ const SelectInput: FC<SelectInputProps> = ({
             case "Backspace":
                 if (multiple && searchText === "" && selectedOptions.length > 0) {
                     const lastOption = selectedOptions[selectedOptions.length - 1];
-                    onRemoveTag(lastOption.value);
+                    onRemoveTag(lastOption.value, e);
                 }
 
                 break;
@@ -653,20 +646,20 @@ const SelectInput: FC<SelectInputProps> = ({
         }
     };
 
-    const triggerClear = () => {
+    const triggerClear = (event: SelectChangeDetails['event']) => {
         // The clear control unmounts when the value disappears. Restore its owner
         // before notifying the caller so keyboard users can choose a new value.
         controlRef.current?.focus();
-        onClear();
+        onClear(event);
 
         if (open) {
             dispatch({ type: "setOpen", payload: false });
         }
     };
 
-    const handleClearClick = (e: ReactMouseEvent) => {
+    const handleClearClick = (e: ReactMouseEvent<HTMLButtonElement>) => {
         e.stopPropagation();
-        triggerClear();
+        triggerClear(e);
     };
 
     // 交给原生按钮激活，阻止父级 combobox 把同一按键解释成展开或选择。
@@ -680,7 +673,7 @@ const SelectInput: FC<SelectInputProps> = ({
     const showClear = canClear && (hovered || actionFocused || withoutHover);
 
     const renderTag = (opt: SelectOption) => {
-        const handleClose = () => onRemoveTag(opt.value);
+        const handleClose = (event?: SelectChangeDetails['event']) => { if (!disabled) onRemoveTag(opt.value, event); };
 
         if (tagRender) {
             return <span key={opt.value}>{tagRender(opt, handleClose)}</span>;
@@ -690,8 +683,8 @@ const SelectInput: FC<SelectInputProps> = ({
             <Tag
                 key={opt.value}
                 size="small"
-                closable
-                closeAriaLabel={`Remove ${typeof opt.label === "string" ? opt.label : opt.value}`}
+                closable={!disabled}
+                closeAriaLabel={messages.select.removeTag(typeof opt.label === "string" ? opt.label : opt.value)}
                 onClose={handleClose}
             >
                 <span className={tagLabelStyle}>{opt.label}</span>
@@ -724,6 +717,7 @@ const SelectInput: FC<SelectInputProps> = ({
                         ref={inputRef}
                         aria-label={ariaLabel ?? label ?? placeholder}
                         bordered={false}
+                        disabled={disabled}
                         value={searchText}
                         placeholder={multiple && selectedOptions.length > 0 ? "" : placeholder}
                         onChange={(e) => onSearchTextChange(e.target.value)}
@@ -815,9 +809,9 @@ const SelectInput: FC<SelectInputProps> = ({
                     type="button"
                     appearance="text"
                     shape="circle"
-                    size={size}
+                    size={size === 'small' ? 'xs' : size === 'large' ? 'm' : 's'}
                     disabled={disabled}
-                    aria-label={showClear ? 'Clear' : open ? 'Close options' : 'Open options'}
+                    aria-label={showClear ? messages.common.clear : open ? messages.select.closeOptions : messages.select.openOptions}
                     aria-expanded={showClear ? undefined : open}
                     icon={showClear ? <ClearIcon /> : <span aria-hidden="true" className={cx.call(undefined, caretStyle, open && caretOpenStyle)}><CaretIcon /></span>}
                     onFocus={() => setActionFocused(true)}

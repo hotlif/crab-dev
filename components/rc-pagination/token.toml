@@ -14,8 +14,8 @@ root.font-size = "$ref(typography.body.font-size)"
 root.font-weight = "$ref(font.weight.body)"
 
 # ─── 尺寸阶梯 ────────────────────────────────────────────────────────────────
-size.medium.height = "$ref(sizing.middle.control)"
-size.medium.min-width = "$ref(sizing.middle.control)"
+size.medium.height = "$ref(sizing.medium.control)"
+size.medium.min-width = "$ref(sizing.medium.control)"
 size.medium.padding    = "0 $ref(space.component-gap)"
 size.medium.font-size  = "$ref(typography.body.font-size)"
 
@@ -34,6 +34,8 @@ item.background-color-hover   = "$ref(color.state.hover)"
 item.background-color-active = "$ref(navigation.pagination.selected-background)"
 item.border-radius = "$ref(navigation.item.radius)"
 item.border-color-active = "$ref(navigation.pagination.selected-border)"
+item.current.background-color-disabled = "$ref(color.background.disabled)"
+item.current.border-color-disabled = "$ref(color.border.default)"
 
 # ─── 省略号 ──────────────────────────────────────────────────────────────────
 ellipsis.color = "$ref(color.text.tertiary)"

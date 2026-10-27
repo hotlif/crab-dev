@@ -1,10 +1,32 @@
 import { describe, expect, it, mock } from '@crab-dev/wake/test';
 import { fireEvent, render, screen, userEvent } from '@crab-dev/wake/test/react';
 import Breadcrumbs from '../breadcrumbs.js';
+import ConfigProvider from '@crab-dev/rc-config-provider';
 (globalThis as typeof globalThis & {
     IS_REACT_ACT_ENVIRONMENT?: boolean;
 }).IS_REACT_ACT_ENVIRONMENT = true;
 describe('Breadcrumbs', () => {
+    it('inherits locale changes while preserving explicit navigation labels', async () => {
+        const entries = [{ title: 'Home' }, { title: 'Current' }];
+        const view = await render(<ConfigProvider locale="en-US">
+            <Breadcrumbs items={entries} />
+        </ConfigProvider>);
+        // Wake 0.1.45's DOM role map omits implicit nav/navigation.
+        // Assert the native landmark and its real name until that query mapping is supported.
+        const navigation = view.container.querySelector('nav');
+        expect(navigation).toBeTruthy();
+        expect(navigation?.getAttribute('aria-label')).toBe('Breadcrumb');
+        await view.rerender(<ConfigProvider locale="zh-CN">
+            <Breadcrumbs items={entries} />
+        </ConfigProvider>);
+        expect(view.container.querySelector('nav')).toBe(navigation);
+        expect(navigation?.getAttribute('aria-label')).toBe('面包屑导航');
+        await view.rerender(<ConfigProvider locale="en-US">
+            <Breadcrumbs items={entries} aria-label="项目路径" />
+        </ConfigProvider>);
+        expect(view.container.querySelector('nav')).toBe(navigation);
+        expect(navigation?.getAttribute('aria-label')).toBe('项目路径');
+    });
     it('makes actions focusable native buttons and blocks disabled items', async () => {
         const user = userEvent.setup();
         const onClick = mock.fn();

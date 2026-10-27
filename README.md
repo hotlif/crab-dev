@@ -1,190 +1,72 @@
-<div align="center">
-	<h1>Crab Dev</h1>
-	<p>面向企业应用的 React 19 组件库，使用静态 CSS 和三层设计令牌统一界面样式</p>
-	<p>Yarn PnP · TypeScript 严格模式 · OKLCh 色彩</p>
-</div>
+# Crab UI
 
-## 概述
+面向 React 19 的组件库，使用 Crab CSS 静态样式、三层令牌和统一公共接口。产品分为基础支撑、基础组件、组合组件、专业扩展、可选集成与开发支持；用途分类是独立的第二轴。
 
-Crab Dev 仓库包含 Crab UI 组件、共享工程预设和文档站。组件按包独立使用，Wake 负责构建、测试与文档，Turbo 按包依赖关系编排任务。仓库使用 ESM 源码和 Yarn Plug'n'Play（PnP）。
+- [开始使用](.website/docs/guides/getting-started.mdx)、[组件库体系](.website/docs/guides/library-architecture.mdx)、[公共 API](.website/docs/guides/public-api.mdx)
+- [三套设计体系](.website/docs/guides/design-styles.mdx)、[尺寸与密度](.website/docs/guides/component-sizing.mdx)、[迁移指南](.website/docs/guides/migration.mdx)
+- [贡献与维护](.website/docs/guides/contributing.mdx)、[工具链](.website/docs/guides/toolchain.mdx)、[项目规则](AGENTS.md)
 
-- 使用组件：从下方目录进入组件说明，或阅读[入门指南](./.website/docs/guides/getting-started.mdx)。
-- 开发组件：阅读本文的开发命令和[工具链指南](./.website/docs/guides/toolchain.mdx)。
-- 编写交互：参考[无障碍使用指南](./.website/docs/guides/accessibility.mdx)。
+## 产品清单
 
-文档站提供 52 个包的分步教程、116 个可运行教学步骤和三个业务实战，并保留 246 个进阶示例。推荐按“按钮与输入 → 资料表单 → 数据列表 → 后台管理页面”的顺序学习。网站源码和维护方式见 [.website 说明](./.website/README.md)。
+<!-- library-inventory:start -->
+当前产品清单包含 54 个包，按 6 个能力族组织。
 
-## 架构
+| 能力族 | 包数 | 职责 |
+| --- | --- | --- |
+| 基础支撑 | 7 | 设计令牌、配置、通用状态和测量能力 |
+| 基础组件 | 29 | 可独立使用的界面与交互基础 |
+| 组合组件 | 10 | 复用基础组件组织字段、集合与布局 |
+| 专业扩展 | 5 | 图形、复杂数据与文档编辑能力 |
+| 可选集成 | 2 | 独立选择的路由与远程模块集成 |
+| 开发支持 | 1 | 组件开发、演示与文档工具 |
 
-```
-crab-dev/
-├── components/    # React 19 UI 组件（@crab-dev/rc-*）
-├── standards/     # 共享 TypeScript 预设与历史 ESLint 兼容包（@crab-dev/standards-*）
-├── .website/      # Wake Docs 文档站（私有，不发布）
-└── scripts/       # 仓库级检查脚本
-```
+**基础支撑**：[AutoSizer 自适应容器](components/rc-auto-sizer/docs/index.mdx) · [ConfigProvider 全局配置](components/rc-config-provider/docs/index.mdx) · [Hooks 通用钩子](components/rc-hooks/docs/index.mdx) · [Theme 主题样式](components/rc-theme/docs/index.mdx) · [Global Tokens 全局令牌](components/rc-token-global/docs/index.mdx) · [Semantic Tokens 语义令牌](components/rc-token-semantic/docs/index.mdx) · [Virtual 虚拟滚动](components/rc-virtual/docs/index.mdx)
 
-### 组件库
+**基础组件**：[Alert 警告提示](components/rc-alert/docs/index.mdx) · [Avatar 头像](components/rc-avatar/docs/index.mdx) · [Badge 徽标数](components/rc-badge/docs/index.mdx) · [Breadcrumbs 面包屑导航](components/rc-breadcrumbs/docs/index.mdx) · [Button 按钮](components/rc-button/docs/index.mdx) · [Card 卡片](components/rc-card/docs/index.mdx) · [Checkbox 复选框](components/rc-checkbox/docs/index.mdx) · [Dialog 对话框](components/rc-dialog/docs/index.mdx) · [Divider 分割线](components/rc-divider/docs/index.mdx) · [Drawer 抽屉](components/rc-drawer/docs/index.mdx) · [DropdownContainer 下拉容器](components/rc-dropdown-container/docs/index.mdx) · [Empty 空状态](components/rc-empty/docs/index.mdx) · [LineEdit 单行输入框](components/rc-line-edit/docs/index.mdx) · [Masonry 瀑布流](components/rc-masonry/docs/index.mdx) · [Menu 菜单](components/rc-menu/docs/index.mdx) · [Message 全局提示](components/rc-message/docs/index.mdx) · [Notification 通知提醒](components/rc-notification/docs/index.mdx) · [Prose 长文本排版](components/rc-prose/docs/index.mdx) · [Radio 单选框](components/rc-radio/docs/index.mdx) · [Segmented 分段控制器](components/rc-segmented/docs/index.mdx) · [Skeleton 骨架屏](components/rc-skeleton/docs/index.mdx) · [Slider 滑块](components/rc-slider/docs/index.mdx) · [Spin 加载中](components/rc-spin/docs/index.mdx) · [SplitPane 分栏面板](components/rc-split-pane/docs/index.mdx) · [Switch 开关](components/rc-switch/docs/index.mdx) · [Tabs 标签页](components/rc-tabs/docs/index.mdx) · [Tag 标签](components/rc-tag/docs/index.mdx) · [TextEdit 多行文本输入框](components/rc-text-edit/docs/index.mdx) · [Tooltip 文字提示](components/rc-tooltip/docs/index.mdx)
 
-`components/` 当前包含 52 个包，涵盖 UI 组件、图形、路由、工具和主题令牌：
+**组合组件**：[AppMainLayout 布局](components/rc-app-main-layout/docs/index.mdx) · [ColorPicker 颜色选择器](components/rc-color-picker/docs/index.mdx) · [CronPicker Cron 表达式选择器](components/rc-cron-picker/docs/index.mdx) · [DatePicker 日期选择器](components/rc-date-picker/docs/index.mdx) · [Form 表单](components/rc-form/docs/index.mdx) · [NumberEdit 数字输入框](components/rc-number-edit/docs/index.mdx) · [Pagination 分页](components/rc-pagination/docs/index.mdx) · [Select 选择器](components/rc-select/docs/index.mdx) · [Table 表格](components/rc-table/docs/index.mdx) · [Tree 树形控件](components/rc-tree/docs/index.mdx)
 
-| 组件 | 包名 | 说明 |
-|------|------|------|
-| [rc-alert](./components/rc-alert/docs/index.mdx) | `@crab-dev/rc-alert` | 警告提示 |
-| [rc-app-main-layout](./components/rc-app-main-layout/docs/index.mdx) | `@crab-dev/rc-app-main-layout` | 应用主布局 |
-| [rc-auto-sizer](./components/rc-auto-sizer/docs/index.mdx) | `@crab-dev/rc-auto-sizer` | 自动尺寸容器 |
-| [rc-avatar](./components/rc-avatar/docs/index.mdx) | `@crab-dev/rc-avatar` | 头像 |
-| [rc-badge](./components/rc-badge/docs/index.mdx) | `@crab-dev/rc-badge` | 徽标 |
-| [rc-bar-chart](./components/rc-bar-chart/docs/index.mdx) | `@crab-dev/rc-bar-chart` | 柱状图 |
-| [rc-breadcrumbs](./components/rc-breadcrumbs/docs/index.mdx) | `@crab-dev/rc-breadcrumbs` | 面包屑 |
-| [rc-button](./components/rc-button/docs/index.mdx) | `@crab-dev/rc-button` | 按钮 |
-| [rc-canvas](./components/rc-canvas/docs/index.mdx) | `@crab-dev/rc-canvas` | Canvas 图形引擎 |
-| [rc-card](./components/rc-card/docs/index.mdx) | `@crab-dev/rc-card` | 卡片 |
-| [rc-checkbox](./components/rc-checkbox/docs/index.mdx) | `@crab-dev/rc-checkbox` | 复选框 |
-| [rc-color-picker](./components/rc-color-picker/docs/index.mdx) | `@crab-dev/rc-color-picker` | 颜色选择器 |
-| [rc-component-preview](./components/rc-component-preview/docs/index.mdx) | `@crab-dev/rc-component-preview` | 组件预览（文档站专用） |
-| [rc-cron-picker](./components/rc-cron-picker/docs/index.mdx) | `@crab-dev/rc-cron-picker` | Cron 选择器 |
-| [rc-date-picker](./components/rc-date-picker/docs/index.mdx) | `@crab-dev/rc-date-picker` | 日期选择器 |
-| [rc-dialog](./components/rc-dialog/docs/index.mdx) | `@crab-dev/rc-dialog` | 对话框 |
-| [rc-divider](./components/rc-divider/docs/index.mdx) | `@crab-dev/rc-divider` | 分割线 |
-| [rc-drawer](./components/rc-drawer/docs/index.mdx) | `@crab-dev/rc-drawer` | 抽屉 |
-| [rc-dropdown-container](./components/rc-dropdown-container/docs/index.mdx) | `@crab-dev/rc-dropdown-container` | 下拉容器 |
-| [rc-empty](./components/rc-empty/docs/index.mdx) | `@crab-dev/rc-empty` | 空状态 |
-| [rc-flow-diagram](./components/rc-flow-diagram/docs/index.mdx) | `@crab-dev/rc-flow-diagram` | 流程图 |
-| [rc-form](./components/rc-form/docs/index.mdx) | `@crab-dev/rc-form` | 表单数据与校验 |
-| [rc-hooks](./components/rc-hooks/docs/index.mdx) | `@crab-dev/rc-hooks` | 通用 Hooks |
-| [rc-line-edit](./components/rc-line-edit/docs/index.mdx) | `@crab-dev/rc-line-edit` | 单行文本输入 |
-| [rc-masonry](./components/rc-masonry/docs/index.mdx) | `@crab-dev/rc-masonry` | 瀑布流布局 |
-| [rc-menu](./components/rc-menu/docs/index.mdx) | `@crab-dev/rc-menu` | 菜单 |
-| [rc-message](./components/rc-message/docs/index.mdx) | `@crab-dev/rc-message` | 全局消息提示 |
-| [rc-notification](./components/rc-notification/docs/index.mdx) | `@crab-dev/rc-notification` | 通知提示 |
-| [rc-number-edit](./components/rc-number-edit/docs/index.mdx) | `@crab-dev/rc-number-edit` | 数值输入 |
-| [rc-pagination](./components/rc-pagination/docs/index.mdx) | `@crab-dev/rc-pagination` | 分页 |
-| [rc-prose](./components/rc-prose/docs/index.mdx) | `@crab-dev/rc-prose` | 富文本排版 |
-| [rc-table-pro](./components/rc-table-pro/docs/index.mdx) | `@crab-dev/rc-table-pro` | 高级表格 |
-| [rc-radio](./components/rc-radio/docs/index.mdx) | `@crab-dev/rc-radio` | 单选框 |
-| [rc-realm](./components/rc-realm/docs/index.mdx) | `@crab-dev/rc-realm` | 远程模块加载与挂载 |
-| [rc-router](./components/rc-router/docs/index.mdx) | `@crab-dev/rc-router` | 浏览器路由 |
-| [rc-segmented](./components/rc-segmented/docs/index.mdx) | `@crab-dev/rc-segmented` | 分段控制器 |
-| [rc-select](./components/rc-select/docs/index.mdx) | `@crab-dev/rc-select` | 选择器 |
-| [rc-skeleton](./components/rc-skeleton/docs/index.mdx) | `@crab-dev/rc-skeleton` | 骨架屏 |
-| [rc-slider](./components/rc-slider/docs/index.mdx) | `@crab-dev/rc-slider` | 滑块 |
-| [rc-spin](./components/rc-spin/docs/index.mdx) | `@crab-dev/rc-spin` | 加载指示器 |
-| [rc-split-pane](./components/rc-split-pane/docs/index.mdx) | `@crab-dev/rc-split-pane` | 分割面板 |
-| [rc-switch](./components/rc-switch/docs/index.mdx) | `@crab-dev/rc-switch` | 开关 |
-| [rc-table](./components/rc-table/docs/index.mdx) | `@crab-dev/rc-table` | 表格 |
-| [rc-tabs](./components/rc-tabs/docs/index.mdx) | `@crab-dev/rc-tabs` | 标签页 |
-| [rc-tag](./components/rc-tag/docs/index.mdx) | `@crab-dev/rc-tag` | 标签 |
-| [rc-text-edit](./components/rc-text-edit/docs/index.mdx) | `@crab-dev/rc-text-edit` | 多行文本输入 |
-| [rc-theme](./components/rc-theme/docs/index.mdx) | `@crab-dev/rc-theme` | 浅色、深色与强制颜色主题 |
-| [rc-tooltip](./components/rc-tooltip/docs/index.mdx) | `@crab-dev/rc-tooltip` | 文字提示 |
-| [rc-tree](./components/rc-tree/docs/index.mdx) | `@crab-dev/rc-tree` | 树形控件 |
-| [rc-virtual](./components/rc-virtual/docs/index.mdx) | `@crab-dev/rc-virtual` | 虚拟滚动 |
-| [rc-token-global](./components/rc-token-global/docs/index.mdx) | `@crab-dev/rc-token-global` | 全局设计令牌（第 1 层） |
-| [rc-token-semantic](./components/rc-token-semantic/docs/index.mdx) | `@crab-dev/rc-token-semantic` | 语义设计令牌（第 2 层） |
+**专业扩展**：[BarChart 柱状图](components/rc-bar-chart/docs/index.mdx) · [Canvas WebGL 画布](components/rc-canvas/docs/index.mdx) · [FlowDiagram 流程图](components/rc-flow-diagram/docs/index.mdx) · [PdfEditor PDF 编辑器](components/rc-pdf-editor/docs/index.mdx) · [TablePro 高级表格](components/rc-table-pro/docs/index.mdx)
 
-### 工具链
+**可选集成**：[Realm 远程模块](components/rc-realm/docs/index.mdx) · [Router 路由](components/rc-router/docs/index.mdx)
 
-`@crab-dev/wake` 统一负责代码检查、组件构建、令牌生成、API 提取、测试、组件工作台和文档站；`@crab-dev/css` 在构建期提取静态样式。Turbo 负责按依赖顺序执行任务和跨包并行。依赖版本以各包的 `package.json` 和根目录 `yarn.lock` 为准。
+**开发支持**：[ComponentPreview 组件预览](components/rc-component-preview/docs/index.mdx)
 
-### 工程规范
+<!-- library-inventory:end -->
 
-| 预设 | 包名 | 用途 |
-|------|------|------|
-| Wake Lint | `wake.config.toml` | 根目录统一规则，显式区分浏览器与 Node 环境 |
-| TypeScript | `@crab-dev/standards-typescript-preset` | 浏览器 React / Node 两套 tsconfig |
+产品元数据只维护 library.manifest.json；工程版本、依赖与导出以各包 package.json 为准。目录、导航、数量和设计覆盖由同一清单生成，不维护另一套手写列表。生命周期与三体系覆盖分别记录。
 
-## 技术栈
+## 设计与配置
 
-| 类别 | 技术 |
-|------|------|
-| 运行时 | Node ≥ 22（CI 使用 24.x） |
-| 包管理 | Yarn 4（Corepack + PnP，版本由 `packageManager` 指定） |
-| 构建编排 | Turbo |
-| 框架 | React 19 |
-| 语言 | TypeScript（严格模式） |
-| 样式 | Crab CSS（构建期提取静态 CSS） |
-| 色彩 | OKLCh 色彩空间 |
-| 工具链 | Wake（Library / Test / Docs） |
-| 测试 | Wake Test（隔离 DOM 环境） |
-| CSS 处理 | LightningCSS |
-| CI | GitHub Actions（`canary` 分支） |
+设计体系为 MD3 Expressive（md3，默认）、Apple（apple）和 shadcn/ui（shadcn）。Apple 是依据 Apple 原则自主实现的 Web 设计，不复刻特定 macOS 版本。设计体系、明暗、品牌、尺寸和密度独立设置。
 
-## 设计令牌
-
-设计令牌在 `token.toml` 中定义，由 Wake 生成 TypeScript 令牌入口，并在样式构建时使用 CSS 变量：
-
-```
-第 1 层：rc-token-global    → 原始基元（颜色、间距、圆角、排版、阴影）
-第 2 层：rc-token-semantic  → 语义映射（$ref → 全局令牌）
-第 3 层：rc-{component}     → 组件专属令牌（$ref → 语义令牌）
+```tsx
+<ConfigProvider designSystem="md3" colorMode="light" size="medium" density="standard">
+    <App />
+</ConfigProvider>
 ```
 
-令牌解析链：`var(--button-primary-color, var(--token-semantic-..., var(--token-global-..., oklch(...))))`
+值控件采用 value/defaultValue/onValueChange，布尔控件采用 checked/defaultChecked/onCheckedChange；原生 onChange 保留 DOM 事件。此次公共接口一次切换，旧设计 ID 只在浏览器存储偏好入口迁移。
 
-`@crab-dev/rc-theme` 通过覆盖语义层 CSS 变量提供主题。修改 `token.toml` 后运行 `yarn generate:token`，不要手工编辑生成的 `src/token.ts`。
+## 工作区与工具
 
-## 本地开发
+| 位置 | 职责 |
+| --- | --- |
+| components/ | 组件、设计基础、可选集成与开发支持包 |
+| standards/ | 共享 TypeScript 配置及历史 ESLint 消费兼容接口 |
+| .website/ | 组件库规范、查阅、示例与工作台 |
+| scripts/ | 产品清单、拓扑与工程契约检查 |
 
-需要 Node.js 22 或更高版本。以下命令在仓库根目录执行；Corepack 会选择 `packageManager` 指定的 Yarn 版本。
+Node.js ≥ 22，通过 Corepack 使用根 packageManager 指定的 Yarn 4 PnP；不创建 node_modules。Wake 统一负责 lint、构建、令牌、API 提取、测试与文档，Turbo 按产品运行时拓扑编排。
 
 ```sh
-# 安装依赖
 corepack enable
 yarn install --immutable
-
-# 构建组件并启动文档站
 yarn docs:dev
 ```
 
-| 命令 | 用途 |
-| --- | --- |
-| `yarn build:library` | 按包依赖顺序构建组件库 |
-| `yarn test` | 运行全仓测试 |
-| `yarn lint` | 运行全仓 Wake Lint 检查 |
-| `yarn typecheck` | 运行全仓类型检查 |
-| `yarn generate:token` | 重新生成设计令牌 |
-| `yarn docs:build` | 构建组件库与生产文档站 |
+根命令包括 build:library、generate:token、check:tokens、lint、typecheck、test、docs:build；包内使用对应公开脚本。文档生成与验证见 [.website 维护说明](.website/README.md)。
 
-### 单组件开发
+## 版本与发布
 
-```sh
-cd components/rc-button
-
-yarn start            # 启动 Wake Docs 组件工作台
-yarn build:library    # Wake Library 构建
-yarn test             # Wake Test（串行并生成覆盖率）
-yarn lint             # Wake 原生代码检查
-yarn typecheck        # 类型检查
-yarn generate:token   # 从 token.toml 重新生成 token.ts
-```
-
-## 组件输出
-
-Wake Library 的主要构建产物如下，具体出口以各包的 `package.json` 为准：
-
-```
-esm/           # ES Modules（.mjs）
-cjs/           # CommonJS（.cjs）
-declarations/  # TypeScript 类型声明（.d.ts）
-css/           # 静态 CSS（Crab CSS 编译产物）
-```
-
-Wake 消费方会自动发现组件 CSS；使用其他构建器时必须显式导入组件包暴露的 CSS 子路径。
-
-## 维护文档
-
-组件说明位于 `components/rc-*/docs/index.mdx`，交互示例位于同包的 `docs/demos/`。包内 README 提供简要说明和阅读入口。
-
-修改源文档后运行：
-
-```sh
-yarn workspace @crab-dev/website generate:docs
-yarn workspace @crab-dev/website check:docs
-```
-
-`.website/docs/components/`、`_generated/` 和 `_generated_api/` 由生成器维护，不要手工编辑。入门与开发指南直接维护在 `.website/docs/guides/`。
-
-## 许可证
-
-私有项目
+Changeset 描述用户可观察的变更和迁移要求，由 CI 准备版本 Release PR，并在同一提交通过验证后发布。不要手工升版建立第二条流程或本地执行 publish。审查证据保留提交/产物指纹和实际范围，历史通过不代表当前全库完成。

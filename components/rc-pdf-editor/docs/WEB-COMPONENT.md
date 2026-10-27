@@ -12,7 +12,7 @@
 用户点击“打开 PDF”即可选择本地文件。也可以声明初始文件：
 
 ```html
-<crab-pdf-editor src="./example.pdf" file-name="示例.pdf" readonly theme="dark"></crab-pdf-editor>
+<crab-pdf-editor src="./example.pdf" file-name="示例.pdf" readonly design-system="apple" color-mode="dark" lang="zh-CN" dir="ltr"></crab-pdf-editor>
 ```
 
 `src` 按页面 base URL 解析，仅在挂载时读取；`file-name` 同样属于初始配置。之后切换文档使用 `open()` / `close()`。`readonly` 遵循 HTML 布尔属性语义：`readonly="false"` 仍然为真，取消时应移除属性或设置 `element.readOnly = false`。
@@ -62,10 +62,34 @@
 | `runtime` | 可选的挂载前配置；覆盖独立文件内置的 Worker/WASM |
 | `fonts` | 可实时更新的 `PdfFont[]`，修改 PDF 文字时按原组件要求提供完整 TTF 字体 |
 | `readOnly` | 与 `readonly` 属性双向对应 |
-| `theme` | `light` / `dark`，与同名属性双向对应 |
+| `designSystem` | `md3` / `apple` / `shadcn`，对应 `design-system` 属性 |
+| `colorMode` | 已解析的 `light` / `dark`，对应 `color-mode` 属性 |
+| `brandColor` | `#RGB` / `#RRGGBB`，对应 `brand-color`；`null` / `undefined` 移除自定义品牌 |
+| `size` | `small` / `medium` / `large`，与同名属性对应 |
+| `density` | `compact` / `standard` / `comfortable`，与同名属性对应，独立于 size |
+| `locale` | `zh-CN` / `en-US`，对应标准 `lang` 属性 |
+| `direction` | `ltr` / `rtl`，对应标准 `dir` 属性 |
+| `nonce` | 使用 HTMLElement 原生 string property / 标准属性；传给静态、品牌和浮层样式边界 |
 | `toolbar` | `PdfEditorElementToolbar`，支持内置动作显隐及普通 JS `extraActions` 工具栏动作 |
 | `beforeDocumentChange` | 原组件的异步文档切换守卫 |
 | `onSave` | 原组件的异步持久化处理器；未设置时由原组件发起下载 |
+
+元素是独立 React root，宿主通过这些 property 或 HTML 属性显式传递配置，外层 React `ConfigProvider`、`data-crab-design` 或祖先 `lang/dir` 不会自动成为内部配置。省略配置时由组件库 Provider 解析为 `md3 / light / medium / standard / zh-CN / ltr`；枚举 property 的 getter 返回有效的显式覆写或 `undefined`，设置 `undefined` 或移除对应属性恢复默认。`brandColor` getter 返回规范化颜色，无有效自定义品牌时返回 `null`。原生 `nonce` 空字符串表示未提供。
+
+枚举 property 的非法 JavaScript 值同步抛出 `RangeError`，不改变原值；原始 HTML 无效枚举值或品牌值按未提供处理，不透传到主题 CSS。`material/macos` 不在这里迁移。旧 `theme` property / HTML 属性已一次切换为 `colorMode` / `color-mode`，不保留别名；内部明暗标记仍为 `data-theme`。
+
+```js
+editor.designSystem = 'shadcn';
+editor.colorMode = 'dark';
+editor.brandColor = '#1677ff';
+editor.size = 'small';
+editor.density = 'compact';
+editor.locale = 'en-US'; // 同 editor.lang = 'en-US'
+editor.direction = 'rtl'; // 同 editor.dir = 'rtl'
+editor.nonce = pageStyleNonce; // 使用宿主实际 CSP nonce，不生成固定替代值
+```
+
+配置更新保留 React root、运行时和当前文档会话。品牌设置为 `null` 恢复当前设计默认品牌，不改变其他配置。配置同样支持脚本定义前的 own-property 接管。
 
 `toolbar.extraActions` 接受普通 JS 配置。每个动作使用 `{ id, label, placement, icon: { path, viewBox? }, disabled?, visible?, onSelect }`；`placement` 为 `main`、`tools` 或 `status`，SVG `viewBox` 默认 `0 0 24 24`。`onSelect(editor)` 接收 `PdfEditorRef`，可返回 Promise，共用原工具栏的忙碌和错误处理；`disabled` 可传布尔值或读取当前状态的纯函数。图标只接受路径数据，不接受 HTML、ReactNode。React 插件继续通过 React 入口使用。
 
@@ -77,11 +101,11 @@
 
 ## 样式与运行环境
 
-组件使用 open Shadow DOM，样式由 Wake Library 产物收集并共享，不向宿主文档注入全局 CSS。主题变量沿用 Crab L1/L2/L3 契约，组件尺寸等可通过宿主的组件级 CSS 变量定制。字体、外部 PDF URL 和宿主自己的网络请求不包含在 JS 中；跨域 PDF 仍需服务端提供 CORS。
+组件使用 open Shadow DOM，样式由 Wake Library 产物收集，不向宿主文档注入全局 CSS。未提供 nonce 且平台支持时按 Document 共享 adopted stylesheet；提供 nonce 或平台不支持时使用局部 style，并在插入前设置 nonce。动态 nonce 更新只替换样式资源，不重建编辑器。主题变量沿用 Crab L1/L2/L3 契约，组件尺寸等可通过宿主的组件级 CSS 变量定制。字体、外部 PDF URL 和宿主自己的网络请求不包含在 JS 中；跨域 PDF 仍需服务端提供 CORS。
 
 内嵌 Worker 使用 Blob URL，部署 CSP 需要允许 `worker-src blob:`；PDFium 初始化需要允许 WebAssembly 编译。不要求外部 Worker/WASM 请求。本次自动化与视觉检查使用 Chromium；尚未分别验证 Firefox 和 Safari。
 
-提示层在 Shadow DOM 的主题容器内渲染，模态 dialog 内的提示仍优先放在 dialog 子树中。本次复用原组件视觉，没有重新设计控件；核对范围为样式加载、主题隔离、键盘聚焦后的提示和 PDF 页面绘制，不代表对原 PDF 编辑器全部 M3 状态重新认证。
+提示层在 Shadow DOM 的配置容器内渲染，沿最近边界继承设计、明暗、语言、方向及 nonce，模态 dialog 内的提示仍优先放在 dialog 子树中。适配器复用原组件视觉；配置自动化与完整逐状态视觉验收分别记录，不以配置属性或样式加载成功宣称全部视觉状态已核对。
 
 参考：[M3 Dialog 无障碍](https://m3.material.io/components/dialogs/accessibility)、[Material Web Dialog 文档与示例](https://material-web.dev/components/dialog/)、[Material Web Dialog 实现](https://github.com/material-components/material-web/blob/main/dialog/internal/dialog.ts)、[Custom Elements 生命周期](https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_custom_elements)、[React root 生命周期](https://react.dev/reference/react-dom/client/createRoot)。
 
@@ -108,7 +132,7 @@ corepack yarn preview:web-component
 
 不需要修改 Wake 源码，也没有引入其他构建器。`scripts/web-component/wake.config.toml` 通过 Wake 的 `define` 配置显式选择生产 React；不影响现有 Docs 和组件测试。打包脚本会拒绝开发 React、未展开的 CSS import 和缺失的已声明 CSS，最终产物测试在独立 iframe 中运行真实脚本、内嵌 Worker 和 WASM。
 
-`test:web-component` 检查生产产物的初始化、PDF 绘制和导出、重复加载、双实例主题隔离及 Tooltip 边界。产物在独立页面运行，其 coverage 不计入源码覆盖率；源码行为覆盖由 `src/__tests__/web-component.test.tsx` 提供。
+`test:web-component` 检查生产产物的初始化、PDF 绘制和导出、重复加载、三体系浅深色配置、语言与方向切换、真实 nonce 样式策略、双实例隔离及 Tooltip 边界。产物在独立页面运行，其 coverage 不计入源码覆盖率；源码行为覆盖由 `src/__tests__/web-component.test.tsx` 提供。各次实际通过结果绑定对应候选记录，不以测试代码存在代替执行结果。
 
 ## 控制演示
 

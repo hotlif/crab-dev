@@ -56,7 +56,7 @@ export default function Example() {
                             treeData={treeData}
                             onTreeNodeChange={setTreeData}
                             expandedKeys={expanded}
-                            onExpanded={({ node }) =>
+                            onExpandedKeysChange={(_keys, { node }) =>
                                 setExpanded((current) =>
                                     current.includes(String(node.id))
                                         ? current.filter((id) => id !== String(node.id))

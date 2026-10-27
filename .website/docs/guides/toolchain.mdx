@@ -17,23 +17,39 @@ Wake 统一负责组件构建、令牌生成、API 提取、测试和文档。Tu
 | 运行组件测试 | `yarn test` | `wake test --serial --coverage` |
 | 启动组件工作台 | `yarn start` | `wake docs dev . --mode components` |
 
-Wake Library 输出 ESM、CommonJS、类型声明和静态 CSS。测试运行在隔离的 Wake DOM 中；模块替身、计时器和 React 操作遵循 Wake 的异步 API。
+Wake Library 输出 ESM、CommonJS、类型声明和静态 CSS。一般组件默认使用隔离 Wake DOM；依赖真实平台能力的包按配置使用 browser 环境。模块替身、计时器和 React 操作遵循 Wake 的异步 API。
+
+包的附加必跑测试通过 `package.json#crab.requiredChecks` 登记已有 `test:*` 脚本。包内 `yarn check` 在默认检查后执行登记项；根 `yarn test:required` 统一执行各工作区的登记项，根 check 和 CI 也包含该步骤。`yarn test:required --list` 仅校验和列出，不运行浏览器；普通 `yarn test` 的单文件调用语义保持不变。
+
+登记范围由包元数据派生，根 `yarn test:required --list` 是当前入口清单；测试环境由公开脚本与对应配置确定。独立 browser 子项目通过 `--root` 读取自己的配置，默认 DOM 测试排除对应目录，再由附加检查补齐；需要真实发布 ESM/CSS 的入口先构建并准备这些输入。已有显式 browser 脚本是否持续必跑也须登记，不能因默认 DOM 同名测试通过而省略真实浏览器检查。
+
+网站默认 `yarn test` 包含生成器、主题角色、控件身份与构建绑定检查器的正反契约，再运行漂移检查和站点运行测试；构建入口另对实际生产 JavaScript 扫描未绑定引用。检查器契约与实际产物扫描分别验证，不互相替代。
 
 ## 安装与配置
 
 使用 Node.js 22 或更高版本，通过 Corepack 使用根 `package.json` 中 `packageManager` 指定的 Yarn。首次检出后运行 `yarn install --immutable`。仓库采用 PnP，不创建 `node_modules`。
+
+实际使用 React / ReactDOM 的公开包显式声明对应 peerDependencies，消费方安装满足范围的 React 宿主；包内保留开发依赖以构建和测试。严格 PnP 独立消费需要这项声明，不能依赖单仓的开发依赖形成隐式 peer。
 
 工具版本以 `package.json` 和 `yarn.lock` 为准。TypeScript 配置继承 `standards/` 中的共享预设。`yarn lint` 使用 Wake 原生检查；规则集中在仓库根 `wake.config.toml`，各工作区显式指定源路径和环境。组件的构建、测试与文档配置保留在包内 `wake.config.toml`。
 
 ## 文档站开发
 
 在仓库根目录运行 `yarn docs:dev`。Turbo 会复用未变化组件的 Library 构建产物；站点启动后，
-组件的 `docs/index.mdx`、`docs/demos/*.demo.tsx`、`package.json` 或 `public/docgen.json` 发生变化时，
+根产品清单与组件的 `docs/index.mdx`、`docs/demos/*.demo.tsx`、`package.json`、`public/docgen.json` 或手写类型源码发生变化时，
 聚合文档会自动增量刷新，无需重启开发服务器。生成器只写入内容真正变化的文件。
 
 教学文字 `.website/content/*.json` 与运行示例 `.website/docs/examples/**/*.tsx` 也会自动触发刷新。展示源码直接从运行文件提取；学习地图和搜索中的步骤说明随教学内容一起生成。
 
 文档生成器通过 Babel 静态解析 TypeScript / TSX 中的示例元数据、属性类型和注释，不执行示例代码。类型检查由 TypeScript 独立完成。
+
+Wake 0.1.45 的 docgen 对联合 Props、外部泛型状态协议与部分副入口可能给出空或不完整结果。站点生成器从真实类型源码递归解析接口、别名、union/intersection、相对及内部 workspace 类型导入，并代入 ControlledValue/Checked/Open 的参数；互斥的 never 分支自动进入属性约束说明。每个 API 标签分别生成搜索适配接口，原始 public/docgen.json 仍由 Wake 命令维护，不手工补写。
+
+来源提取不是完整 TypeScript 类型求值器。React 原生字段从真实类型声明解析，docgen 只补充现有属性的说明与默认值，不能重新引入已移除接口；无法可靠解析的属性类型使命令失败。真实组件与泛型/re-export 契约测试检查 Button、值、布尔、打开状态、尺寸与跨包 Pick 字段不会被遗漏。
+
+组件专属和语义属性直接展示；从 React 原生声明继承的字段保留在可展开的原生属性区。分组按真实声明来源生成，组件自行覆盖的同名属性仍常显，不以删除字段缩短文档。
+
+Wake 0.1.45 的声明生成还有一项已复现限制：公开函数参数写作 `arg: T = default` 时可能被输出为必填参数。受影响的公开函数显式声明 `arg?: T`，在函数体内应用 fallback，并用独立消费夹具验证省略参数调用；此适配不限制组件解构默认属性，也不要求改写内部 helper。工具修复后，需同时核对实际声明和严格 PnP 消费，再撤销该适配。Realm 的默认泛型通过公开入口类型别名保留，不能为绕过生成限制删除既有默认类型参数。
 
 ## 文档来源与生成文件
 

@@ -1,3 +1,6 @@
+# THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY.
+# 来源：library.manifest.json 与组件库指南入口。
+
 [[group]]
 id = "project"
 title = "项目"
@@ -6,121 +9,54 @@ pages = ["index"]
 [[group.section]]
 id = "learning"
 title = "学习与实战"
-pages = [
-    "learn/components",
-    "learn/index",
-    "learn/practice-profile",
-    "learn/practice-data",
-    "learn/practice-admin",
-]
+pages = ["learn/components","learn/index","learn/practice-profile","learn/practice-data","learn/practice-admin"]
 
 [[group.section]]
 id = "guides"
-title = "开发指南"
-pages = [
-    "guides/getting-started",
-    "guides/accessibility",
-    "guides/design-styles",
-    "guides/component-sizing",
-    "guides/toolchain",
-]
+title = "使用指南"
+pages = ["guides/getting-started","guides/library-architecture","guides/public-api","guides/migration","guides/accessibility"]
+
+[[group]]
+id = "design"
+title = "设计体系"
+pages = ["guides/design-styles","guides/component-sizing","guides/design-coverage"]
+
+[[group]]
+id = "maintenance"
+title = "组件库维护"
+pages = ["guides/contributing","guides/dependencies","guides/toolchain"]
 
 [[group]]
 id = "components"
 title = "组件"
+pages = []
 
 [[group.section]]
-id = "foundations"
-title = "基础能力"
-pages = [
-    "components/rc-token-global",
-    "components/rc-token-semantic",
-    "components/rc-theme",
-    "components/rc-config-provider",
-    "components/rc-hooks",
-    "components/rc-prose",
-    "components/rc-component-preview",
-    "components/rc-realm",
-]
+id = "foundation"
+title = "基础支撑"
+pages = ["components/rc-auto-sizer","components/rc-config-provider","components/rc-hooks","components/rc-theme","components/rc-token-global","components/rc-token-semantic","components/rc-virtual"]
 
 [[group.section]]
-id = "inputs-actions"
-title = "输入与操作"
-pages = [
-    "components/rc-button",
-    "components/rc-checkbox",
-    "components/rc-color-picker",
-    "components/rc-cron-picker",
-    "components/rc-date-picker",
-    "components/rc-form",
-    "components/rc-line-edit",
-    "components/rc-number-edit",
-    "components/rc-radio",
-    "components/rc-segmented",
-    "components/rc-select",
-    "components/rc-slider",
-    "components/rc-switch",
-    "components/rc-text-edit",
-]
+id = "base"
+title = "基础组件"
+pages = ["components/rc-alert","components/rc-avatar","components/rc-badge","components/rc-breadcrumbs","components/rc-button","components/rc-card","components/rc-checkbox","components/rc-dialog","components/rc-divider","components/rc-drawer","components/rc-dropdown-container","components/rc-empty","components/rc-line-edit","components/rc-masonry","components/rc-menu","components/rc-message","components/rc-notification","components/rc-prose","components/rc-radio","components/rc-segmented","components/rc-skeleton","components/rc-slider","components/rc-spin","components/rc-split-pane","components/rc-switch","components/rc-tabs","components/rc-tag","components/rc-text-edit","components/rc-tooltip"]
 
 [[group.section]]
-id = "data-display"
-title = "信息展示"
-pages = [
-    "components/rc-avatar",
-    "components/rc-badge",
-    "components/rc-card",
-    "components/rc-divider",
-    "components/rc-empty",
-    "components/rc-skeleton",
-    "components/rc-tag",
-]
+id = "composite"
+title = "组合组件"
+pages = ["components/rc-app-main-layout","components/rc-color-picker","components/rc-cron-picker","components/rc-date-picker","components/rc-form","components/rc-number-edit","components/rc-pagination","components/rc-select","components/rc-table","components/rc-tree"]
 
 [[group.section]]
-id = "feedback-overlays"
-title = "反馈与浮层"
-pages = [
-    "components/rc-alert",
-    "components/rc-dialog",
-    "components/rc-drawer",
-    "components/rc-dropdown-container",
-    "components/rc-message",
-    "components/rc-notification",
-    "components/rc-spin",
-    "components/rc-tooltip",
-]
+id = "extension"
+title = "专业扩展"
+pages = ["components/rc-bar-chart","components/rc-canvas","components/rc-flow-diagram","components/rc-pdf-editor","components/rc-table-pro"]
 
 [[group.section]]
-id = "navigation"
-title = "导航"
-pages = [
-    "components/rc-breadcrumbs",
-    "components/rc-menu",
-    "components/rc-pagination",
-    "components/rc-router",
-    "components/rc-tabs",
-]
+id = "integration"
+title = "可选集成"
+pages = ["components/rc-realm","components/rc-router"]
 
 [[group.section]]
-id = "layout-performance"
-title = "布局与性能"
-pages = [
-    "components/rc-app-main-layout",
-    "components/rc-auto-sizer",
-    "components/rc-masonry",
-    "components/rc-split-pane",
-    "components/rc-virtual",
-]
-
-[[group.section]]
-id = "visualization"
-title = "数据与可视化"
-pages = [
-    "components/rc-bar-chart",
-    "components/rc-canvas",
-    "components/rc-pdf-editor",
-    "components/rc-flow-diagram",
-    "components/rc-table-pro",
-    "components/rc-table",
-    "components/rc-tree",
-]
+id = "devtool"
+title = "开发支持"
+pages = ["components/rc-component-preview"]

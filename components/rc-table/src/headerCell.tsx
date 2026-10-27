@@ -1,4 +1,5 @@
 import { css, cx } from "@crab-dev/css";
+import { useLocale } from '@crab-dev/rc-config-provider';
 import token from "./token.js";
 import type { Align, ColumnType, MergeCell, Row, SortDirection } from "./types.js";
 import { getMergedCellSize } from "./util.js";
@@ -188,6 +189,7 @@ function TableHeaderCell<T extends Row>({
     renderVersion: _renderVersion,
     ...restProps
 }: TableHeaderCellProps<T>): ReactNode {
+    const { messages } = useLocale();
 
     const getMergedHeaderCellBorderStyle = () => {
         if (isLastColumn) {
@@ -360,6 +362,7 @@ function TableHeaderCell<T extends Row>({
                     className={cx.call(undefined, css`
                         position: absolute;
                         top: 0;
+                        left: 0;
                         box-sizing: border-box;
                         display: inline-flex;
                         align-items: center;
@@ -447,7 +450,7 @@ function TableHeaderCell<T extends Row>({
                     onMouseDown={onResizeMouseDown}
                     role="separator"
                     aria-orientation="vertical"
-                    aria-label={`调整${column?.title ?? "当前"}列宽`}
+                    aria-label={messages.table.resizeColumn(typeof column?.title === 'string' ? column.title : messages.table.currentColumn)}
                     tabIndex={0}
                     onKeyDown={(event) => {
                         if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;

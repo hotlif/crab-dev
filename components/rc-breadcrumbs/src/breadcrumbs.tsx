@@ -1,5 +1,6 @@
 import { css, cx } from '@crab-dev/css';
 import Button from '@crab-dev/rc-button';
+import { useLocale } from '@crab-dev/rc-config-provider';
 import type { ReactNode } from 'react';
 import token from './token.js';
 import type { BreadcrumbsItem, BreadcrumbsProps } from './types.js';
@@ -151,16 +152,17 @@ const Breadcrumbs = ({
     maxCount,
     ellipsis = '... ',
     className,
-    'aria-label': ariaLabel = 'Breadcrumb',
+    'aria-label': ariaLabel,
     ...restProps
 }: BreadcrumbsProps) => {
+    const { messages } = useLocale();
     const entries = getVisibleEntries(items, maxCount);
 
     return (
         <nav
             {...restProps}
             className={cx.call(undefined, rootStyle, className)}
-            aria-label={ariaLabel}
+            aria-label={ariaLabel ?? messages.breadcrumbs.label}
         >
             <ol className={listStyle}>
                 {entries.map((entry, renderIndex) => {

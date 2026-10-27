@@ -8,21 +8,22 @@ export const demos = [
     {
         "id": "docs/demos/nested.demo.tsx",
         "title": "嵌套设计风格与主题边界",
-        "description": "内层分别切换为 shadcn 浅色与 macOS 深色风格，未指定的主题、语言和尺寸继续继承父级。",
+        "description": "内层分别切换为 shadcn 浅色与 Apple 深色风格，未指定的主题、语言和尺寸继续继承父级。",
         "learning": {
             "components": [
                 "ConfigProvider"
             ],
             "props": [
-                "design",
-                "theme",
+                "designSystem",
+                "colorMode",
                 "locale",
-                "size"
+                "size",
+                "density"
             ],
             "events": [],
             "hasState": false
         },
-        "sourceCode": "import { css } from '@crab-dev/css';\nimport token from '@crab-dev/rc-token-semantic';\nimport ConfigProvider, { useConfig } from '../../src/index.js';\n\nexport const meta = {\n    title: '嵌套设计风格与主题边界',\n    description: '内层分别切换为 shadcn 浅色与 macOS 深色风格，未指定的主题、语言和尺寸继续继承父级。',\n};\n\nconst panelStyle = css`\n    padding: ${token.space['card-padding']};\n    color: ${token.color.text.primary};\n    background: ${token.color.background.surface};\n    border-radius: ${token.radius.md};\n`;\n\nfunction Summary() {\n    const { design, theme, locale, size } = useConfig();\n    return \u003cp className={panelStyle}>{design} / {theme} / {locale} / {size}\u003c/p>;\n}\n\nexport default function NestedDemo() {\n    return (\n        \u003cConfigProvider design=\"material\" theme=\"dark\" locale=\"en-US\" size=\"large\">\n            \u003cSummary />\n            \u003cConfigProvider design=\"shadcn\" theme=\"light\">\u003cSummary />\u003c/ConfigProvider>\n            \u003cConfigProvider design=\"macos\">\u003cSummary />\u003c/ConfigProvider>\n            \u003cSummary />\n        \u003c/ConfigProvider>\n    );\n}\n",
+        "sourceCode": "import { css } from '@crab-dev/css';\nimport token from '@crab-dev/rc-token-semantic';\nimport ConfigProvider, { useConfig } from '../../src/index.js';\n\nexport const meta = {\n    title: '嵌套设计风格与主题边界',\n    description: '内层分别切换为 shadcn 浅色与 Apple 深色风格，未指定的主题、语言和尺寸继续继承父级。',\n};\n\nconst panelStyle = css`\n    padding: ${token.space['card-padding']};\n    color: ${token.color.text.primary};\n    background: ${token.color.background.surface};\n    border-radius: ${token.radius.md};\n`;\n\nfunction Summary() {\n    const { designSystem, colorMode, locale, size, density } = useConfig();\n    return \u003cp className={panelStyle}>{designSystem} / {colorMode} / {locale} / {size} / {density}\u003c/p>;\n}\n\nexport default function NestedDemo() {\n    return (\n        \u003cConfigProvider designSystem=\"md3\" colorMode=\"dark\" locale=\"en-US\" size=\"large\" density=\"compact\">\n            \u003cSummary />\n            \u003cConfigProvider designSystem=\"shadcn\" colorMode=\"light\">\u003cSummary />\u003c/ConfigProvider>\n            \u003cConfigProvider designSystem=\"apple\">\u003cSummary />\u003c/ConfigProvider>\n            \u003cSummary />\n        \u003c/ConfigProvider>\n    );\n}\n",
         "previewPath": "/components/rc-config-provider/workbench/?__wake_demo=docs%2Fdemos%2Fnested.demo.tsx",
         "workbenchPath": "/components/rc-config-provider/workbench/#/components/docs%2Fdemos%2Fnested.demo.tsx",
         "density": "regular",

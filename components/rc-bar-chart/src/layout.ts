@@ -137,11 +137,11 @@ export function fitCategoryLabel(text: string, maxWidth: number): string {
     let start = 0;
     let end = characters.length;
     while (start < end) {
-        const middle = Math.ceil((start + end) / 2);
-        if (measureLabelWidth(`${characters.slice(0, middle).join('')}${ellipsis}`, fontSize) <= maxWidth) {
-            start = middle;
+        const medium = Math.ceil((start + end) / 2);
+        if (measureLabelWidth(`${characters.slice(0, medium).join('')}${ellipsis}`, fontSize) <= maxWidth) {
+            start = medium;
         } else {
-            end = middle - 1;
+            end = medium - 1;
         }
     }
     return `${characters.slice(0, start).join('')}${ellipsis}`;
@@ -248,9 +248,14 @@ export function computeLayout(options: LayoutOptions): ChartLayout {
     const measuredLabelW = leftLabels.reduce((w, l) => Math.max(w, measureLabelWidth(l, M.fontSize)), 0);
     // 横向长类目最多占容器约三分之一，保留数值比较所需的绘图区。
     const maxLabelW = horizontal ? Math.min(measuredLabelW, width / 3) : measuredLabelW;
-    const plotLeft = Math.max(24, Math.ceil(maxLabelW) + M.axisLabelGap);
+    // 横轴刻度以网格线为中心，固定的 8px 右留白不足以容纳格式化数字。
+    // 按真实字宽预留两端空间，并为整数坐标取整保留 1px。
+    const tickHalfWidth = horizontal
+        ? Math.ceil(labels.reduce((w, label) => Math.max(w, measureLabelWidth(label, M.fontSize)), 0) / 2) + 1
+        : 0;
+    const plotLeft = Math.max(24, Math.ceil(maxLabelW) + M.axisLabelGap, tickHalfWidth);
     const plotTop = M.plotTopPad;
-    const plotRight = Math.max(plotLeft, width - M.plotRightPad);
+    const plotRight = Math.max(plotLeft, width - Math.max(M.plotRightPad, tickHalfWidth));
     const plotBottom = Math.max(plotTop, height - M.xAxisBand);
 
     // 值轴像素映射：vertical 沿 y 向上（屏幕坐标递减），horizontal 沿 x 向右（递增）

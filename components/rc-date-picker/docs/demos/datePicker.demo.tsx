@@ -1,6 +1,6 @@
 export const meta = {
     title: "日期选择器",
-    description: "字段和日期面板随文档站主题切换，使用同一日期和尺寸对照 macOS、MD3 与 shadcn。",
+    description: "字段和日期面板随文档站主题切换，使用同一日期和尺寸对照 Apple、MD3 Expressive 与 shadcn/ui。",
 };
 
 import { css } from "@crab-dev/css";
@@ -14,7 +14,7 @@ import { formatTemporal } from "../../src/util.js";
 
 const SizeDemo = () => {
     const [value, setValue] = useState<Temporal.ZonedDateTime | null>(null);
-    const [size, setSize] = useState<"large" | "middle" | "small">("middle")
+    const [size, setSize] = useState<"large" | "medium" | "small">("medium")
     return (
         <div
             className={css`
@@ -25,7 +25,7 @@ const SizeDemo = () => {
             `}
         >
             <div role="group" aria-label="字段尺寸" className={css`display: flex; gap: ${token.space['inline-gap']};`}>
-                {(['small', 'middle', 'large'] as const).map(item => <Button key={item} appearance={size === item ? 'tonal' : 'outlined'} aria-pressed={size === item} onClick={() => setSize(item)}>{item}</Button>)}
+                {(['small', 'medium', 'large'] as const).map(item => <Button key={item} appearance={size === item ? 'tonal' : 'outlined'} aria-pressed={size === item} onClick={() => setSize(item)}>{item}</Button>)}
             </div>
             <DatePicker
                 label="计划日期"

@@ -1,0 +1,85 @@
++++
+title = "迁移指南"
+description = "一次切换设计体系、配置、尺寸与组件语义回调"
+kind = "guide"
+status = "experimental"
++++
+
+# 迁移指南
+
+## 独立消费与宿主依赖
+
+实际使用 React / ReactDOM 的公开包改为显式声明对应 peerDependencies，并保留构建和测试所需的开发依赖；不放入 dependencies 引入额外 React 副本。消费方应安装满足声明范围的 React 宿主，严格 PnP 安装不再依赖单仓开发依赖提供隐式 peer。此项修正不改变组件导入方式。
+
+本次统一公共接口，不保留并行旧 API。迁移应用代码、组件示例、Form 绑定和持久化偏好后，再运行对应验证。
+
+## 配置与设计体系
+
+| 旧用法 | 新用法 |
+| --- | --- |
+| design="material" | designSystem="md3" |
+| design="macos" | designSystem="apple" |
+| design="shadcn" | designSystem="shadcn" |
+| theme="light" / "dark" | colorMode="light" / "dark" |
+| 跟随系统明暗 | 应用监听系统偏好后传 colorMode="light" / "dark" |
+| size="middle" | size="medium" |
+| 用 size 表达页面疏密 | 独立设置 density="compact" / "standard" / "comfortable" |
+
+`useConfig()` 使用 designSystem / colorMode / size / density 等同名新字段。ThemeDesign 改为 DesignSystem，themeColorContract 改为 md3ColorContract，macosColorContract 改为 appleColorContract。新设计名显示为 MD3 Expressive、Apple、shadcn/ui，根配置统一为 md3 / light / medium / standard / zh-CN / ltr。
+
+非 React 页面仍用 `data-crab-design` 和 `data-theme`，但前者的值必须迁移为 md3 / apple / shadcn；后者只写解析后的 light / dark。
+
+PDF Web Component 同步迁移：`editor.theme` 改为 `editor.colorMode`，`<crab-pdf-editor theme="dark">` 改为 `color-mode="dark"`，不保留旧别名。元素的 `designSystem / colorMode / brandColor` 分别映射 `design-system / color-mode / brand-color`，`size / density` 使用同名属性，`locale / direction` 映射标准 `lang / dir`，`nonce` 保留 HTMLElement 原生属性。
+
+自定义元素创建独立 React root，宿主必须通过 property 或 HTML 属性显式传入配置；不能依赖外部 React Provider 或祖先 DOM 标记穿透。枚举 property 设置 `undefined` 或移除属性恢复库默认值，getter 返回显式配置或 `undefined`；`brandColor=null` 恢复当前设计默认品牌。动态配置不重建文档会话。原始 HTML 的非法配置按未提供处理，非法枚举 property 赋值同步拒绝；旧设计 ID 仍仅允许在浏览器历史偏好迁移边界读取。
+
+## 浏览器历史偏好
+
+网站保留已有偏好 key。只有读取浏览器存储时接受 material→md3、macos→apple，读取后写回新 ID；旧 shadcn 保持。新公共类型、Provider、CSS 属性和 iframe 消息不接受旧 ID。没有偏好或存储不可用时默认 MD3 Expressive。
+
+## 控件与表单
+
+| 旧用法 | 新用法 |
+| --- | --- |
+| 值控件 onChange(next) | onValueChange(next, details) |
+| 布尔控件 onChange(checked) | onCheckedChange(checked, details) |
+| Tabs activeKey / defaultActiveKey | value / defaultValue |
+| Pagination current / defaultCurrent | value / defaultValue |
+| Pagination onShowSizeChange | onPageSizeChange |
+| Menu / Tree 模糊的集合回调 | selectedKeys / openKeys / checkedKeys / expandedKeys 及相应 default 字段和具名 Change 回调；Menu 用 openKeys / defaultOpenKeys / onOpenKeysChange |
+| useControllableValue options.onChange | options.onValueChange |
+| Table rowSelection.onChange | `rowSelection.onSelectedRowIdsChange(ids, { rows, reason })`；ids 保持 Set，reason 为 row / all / clear |
+| TablePro.pagination.onChange | pagination.onValueChange；分页尺寸变化独立使用 onPageSizeChange |
+| AppMainLayout TabBar activeKey / onChange | value / onValueChange；内部 reducer 的模型字段不等同于公共属性 |
+| Form binding / valuePropName / trigger / getValueFromEvent | adapter 或公开 FieldAdapter |
+| messages.form.required 文本 | required(label?) 格式函数，处理可选标签 |
+
+LineEdit/TextEdit 的原生 `onChange(event)` 继续保留；业务值更新建议用 `onValueChange(next)`。Form 中库内值控件采用默认适配，布尔控件采用 checked，原生字段采用 native/nativeChecked。Button 显式尺寸使用 xs/s/m/l/xl；其他通用尺寸使用 small/medium/large。
+
+Form 的 `Item labelPlacement="control"` 现在只提供整行控件槽，标签、浮动结构、辅助说明和错误信息由控件自身排布。Apple 与 shadcn 的文本字段在表单内与独立使用时一致，静态标签位于输入上方；DatePicker、Select 等带结构容器的控件也占用整行，不再落入外部标签列。依赖旧同排标签效果的页面应改用 `labelPlacement="external"`（仍为默认值），由 Form 对齐外部标签。移除依赖 Form 深层 `data-field-*` 选择器或继承 `subgrid` 的覆盖；自定义控件须保持根容器适应槽宽，并继续传递标签、说明及无障碍关联属性。该布局修正不改变字段值协议、适配器或校验行为。
+
+Form 中的 CheckboxGroup、RadioGroup 等选项组应使用 `Item labelPlacement="external" labelTarget="group"`。将渲染函数字段的 `id` 和 `aria-labelledby` 转发到组根，移除首选项上复用的字段 ID；各选项保留自己的可见名称和 ID。已有显式组名称继续优先，渲染函数不要把自动 `aria-labelledby` 与显式 `aria-label` 一并转发而改变原命名优先级。单个 Checkbox/Radio 和 `labelPlacement="control"` 无需迁移。组语义必须显式选择外部布局，不依赖宿主默认值或运行时类型猜测；值适配、回调与校验协议不变。
+
+Form 的内置 `required` 现在将空数组 `[]` 视为缺值；使用必填 CheckboxGroup、多选值集合的页面需处理空选项校验及重置后重新校验。`0` 和 `false` 仍是已提供的值；不自动 trim 空白、遍历对象或判断日期元组等非空数组内的业务完整性，这些需求继续使用 `rules`。
+
+TextEdit 的三档尺寸统一控制多行字段几何：Apple、shadcn/ui 调整内边距和最小高度，MD3 映射到同一标准字段几何；正文不随尺寸缩放。`rows`、`autoSize`、密度和无边框宿主几何独立，具体数值与 MD3 例外见[尺寸与密度](/guides/component-sizing)。迁移时重新核对固定高度的表单布局。
+
+Table 行编辑的确认、取消复用 Button 的实心与描边外观，移除了原 `row-edit.confirm.*`、`row-edit.cancel.*`、`row-edit.button.*` 及行编辑专用焦点、动效令牌。使用这些 Table `TokenVars` 做覆盖的应用应改用按钮的公共契约，操作浮条的表面、边框、间距和布局角色继续由 Table 管理。
+
+Tree 默认编辑器以 Enter 提交、Escape 取消后返回树的键盘容器；保留编辑状态或调用方主动移焦时不会抢焦点。自定义 `renderEditInput` 继续由调用方管理焦点，示例展示验证失败留焦及结束后安全返回。Canvas 文本编辑的显式结束也返回画布；两者都保留输入法组合确认和取消。
+
+## 虚拟行与节点高度
+
+Badge 包裹模式改为上方逻辑末端定位：RTL 位于左上角，原生 `dir` 优先于 Provider 继承方向。`offset` 仍是物理 x/y（正 x 向右、正 y 向下），既有偏移无需取反；依赖旧 RTL 固定右侧的自定义布局应重新核对。`indicatorStyle` 继续最终覆盖定位，强制颜色模式则固定使用用户系统的前景/背景配对以保持计数可读。
+
+AvatarGroup 的展示摘要位于最后一个头像的逻辑外沿，实际宽度计入头像组的布局，避免长 `renderExtra` 被前项或相邻组遮挡；不改变成员叠放顺序和头像外环。既有代码若专门为计数增加横向占位，可移除该补偿；顶部半个徽标仍需要垂直空间。`max={0}` 的独立摘要和 `onExtraClick` 操作按钮保持原有布局。
+
+Cron 的表达式字符串和表达式输入始终按 LTR 语法顺序显示，面板布局、选项与操作继续跟随配置方向；RTL 页面不再反转 cron 语法串。
+
+Table/TablePro 的 getRowHeight / row.height 和 Tree 的 node.height / defaultNodeHeight 显式几何优先于自动默认值。粗指针的最低高度只调整自动默认几何，显式较小高度不再被统一放大；迁移时按应用实际输入方式选择行/节点尺寸，并核对滚动窗口与焦点位置。控件 size 与内容 density 继续独立。
+
+## 验证迁移
+
+日期选择器系列在焦点移出整个字段／面板分支时请求关闭，`DropdownOpenChangeDetails.reason` 增加 `focus-out`。若应用按原因穷尽处理 `onOpenChange`，补上该分支；受控用法按需同步 `open`。内部按钮和嵌套 Portal 之间移动焦点不关闭；原有 `DatePicker`／`DateTimePicker` 聚焦打开、`TimePicker` 激活打开的行为保持。
+
+检查受控更新、默认状态、清除/重置、校验、键盘、焦点、嵌套 Provider、Portal 和工作台。分别核对三体系、浅深色与实际使用的尺寸/密度；代码通过不等于所有视觉状态已验收。最后刷新生成文档和 API，执行漂移检查，并在变更记录中说明不兼容项。

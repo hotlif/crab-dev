@@ -7,7 +7,7 @@ import semantic from '@crab-dev/rc-token-semantic';
 // project-density Expressive slider. Apple-inspired metrics are web adaptations.
 // eslint-disable-next-line @typescript-eslint/no-unused-expressions
 globalStyle`
-    :root, [data-crab-design='material'] {
+    :root, [data-crab-design='md3'] {
         --token-semantic-selection-control-size: ${token.size[48]};
         --token-semantic-selection-state-layer-size: ${token.size[40]};
         --token-semantic-selection-border-width: ${token.space['0-5']};
@@ -16,13 +16,13 @@ globalStyle`
         --token-semantic-selection-focus-radius: ${token.radius.full};
         --token-semantic-selection-checkbox-radius: ${token.radius[1]};
         --token-semantic-selection-checkbox-small: ${token.space[4]};
-        --token-semantic-selection-checkbox-middle: calc(${token.space[4]} + ${token.space['0-5']});
+        --token-semantic-selection-checkbox-medium: calc(${token.space[4]} + ${token.space['0-5']});
         --token-semantic-selection-checkbox-large: ${token.space[5]};
         --token-semantic-selection-radio-small: ${token.space[4]};
-        --token-semantic-selection-radio-middle: ${token.space[5]};
+        --token-semantic-selection-radio-medium: ${token.space[5]};
         --token-semantic-selection-radio-large: ${token.space[6]};
         --token-semantic-selection-radio-dot-small: ${token.space[2]};
-        --token-semantic-selection-radio-dot-middle: ${token.space['2-5']};
+        --token-semantic-selection-radio-dot-medium: ${token.space['2-5']};
         --token-semantic-selection-radio-dot-large: ${token.space[3]};
         --token-semantic-selection-radio-selected-surface: transparent;
         --token-semantic-selection-radio-selected-dot: var(--token-semantic-color-brand-primary);
@@ -67,7 +67,7 @@ globalStyle`
         --token-semantic-range-xl-thumb-height: ${token.size[40]};
     }
 
-    [data-crab-design='macos'] {
+    [data-crab-design='apple'] {
         --token-semantic-selection-control-size: ${token.space[6]};
         --token-semantic-selection-state-layer-size: ${token.space[0]};
         --token-semantic-selection-border-width: ${token.space.px};
@@ -76,13 +76,13 @@ globalStyle`
         --token-semantic-selection-focus-radius: ${token.radius[3]};
         --token-semantic-selection-checkbox-radius: ${token.radius[2]};
         --token-semantic-selection-checkbox-small: ${token.space['3-5']};
-        --token-semantic-selection-checkbox-middle: ${token.space[4]};
+        --token-semantic-selection-checkbox-medium: ${token.space[4]};
         --token-semantic-selection-checkbox-large: calc(${token.space[4]} + ${token.space['0-5']});
         --token-semantic-selection-radio-small: ${token.space['3-5']};
-        --token-semantic-selection-radio-middle: ${token.space[4]};
+        --token-semantic-selection-radio-medium: ${token.space[4]};
         --token-semantic-selection-radio-large: calc(${token.space[4]} + ${token.space['0-5']});
         --token-semantic-selection-radio-dot-small: ${token.space['1-5']};
-        --token-semantic-selection-radio-dot-middle: ${token.space['1-5']};
+        --token-semantic-selection-radio-dot-medium: ${token.space['1-5']};
         --token-semantic-selection-radio-dot-large: ${token.space[2]};
         --token-semantic-selection-radio-selected-surface: var(--token-semantic-color-brand-primary);
         --token-semantic-selection-radio-selected-dot: var(--token-semantic-color-text-on-brand);
@@ -136,13 +136,13 @@ globalStyle`
         --token-semantic-selection-focus-radius: ${token.radius[2]};
         --token-semantic-selection-checkbox-radius: ${token.radius[2]};
         --token-semantic-selection-checkbox-small: ${token.space['3-5']};
-        --token-semantic-selection-checkbox-middle: ${token.space[4]};
+        --token-semantic-selection-checkbox-medium: ${token.space[4]};
         --token-semantic-selection-checkbox-large: ${token.space[5]};
         --token-semantic-selection-radio-small: ${token.space['3-5']};
-        --token-semantic-selection-radio-middle: ${token.space[4]};
+        --token-semantic-selection-radio-medium: ${token.space[4]};
         --token-semantic-selection-radio-large: ${token.space[5]};
         --token-semantic-selection-radio-dot-small: ${token.space['1-5']};
-        --token-semantic-selection-radio-dot-middle: ${token.space[2]};
+        --token-semantic-selection-radio-dot-medium: ${token.space[2]};
         --token-semantic-selection-radio-dot-large: ${token.space['2-5']};
         --token-semantic-selection-radio-selected-surface: ${semantic.color.surface.content};
         --token-semantic-selection-radio-selected-dot: var(--token-semantic-color-brand-primary);

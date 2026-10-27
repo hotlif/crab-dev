@@ -16,11 +16,11 @@ const GroupDemo = () => {
             style={{ width: 250 }}
             mode="vertical"
             selectedKeys={selectKeys}
-            onSelectItem={({ selectedKeys }) => {
+            onSelectedKeysChange={(selectedKeys) => {
                 setSelectKeys(selectedKeys);
             }}
             openKeys={openKeys}
-            onOpenChange={setOpenKeys}
+            onOpenKeysChange={setOpenKeys}
             items={[
                 {
                     type: MenuItemType.Item,

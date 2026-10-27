@@ -17,10 +17,10 @@ const ShapeSizeDemo = () => {
     return (
         <div className={wrapStyle}>
             <Avatar size="small">sm</Avatar>
-            <Avatar size="middle">md</Avatar>
+            <Avatar size="medium">md</Avatar>
             <Avatar size="large">lg</Avatar>
             <Avatar shape="square" size="small">sm</Avatar>
-            <Avatar shape="square" size="middle">md</Avatar>
+            <Avatar shape="square" size="medium">md</Avatar>
             <Avatar shape="square" size="large">lg</Avatar>
         </div>
     );

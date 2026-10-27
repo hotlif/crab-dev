@@ -23,7 +23,7 @@ const SimpleDemo = () => {
                 appearance="filled"
                 value={value}
                 rows={3}
-                onChange={(e) => setValue(e.target.value)}
+                onValueChange={value => setValue(value)}
             />
         </div>
     );

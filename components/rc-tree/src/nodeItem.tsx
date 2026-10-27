@@ -1,5 +1,7 @@
-import { useRef, useEffect } from "react";
-import type { MouseEvent, FC, HTMLAttributes, ReactNode, Key } from "react";
+import { useLocale, type ConfigSize } from '@crab-dev/rc-config-provider';
+import LineEdit, { TokenVars as lineEditVars } from '@crab-dev/rc-line-edit';
+import { useRef, useEffect, useLayoutEffect, useId, useState } from "react";
+import type { MouseEvent, FC, HTMLAttributes, ReactNode, Key, SyntheticEvent, RefObject } from "react";
 import { useSortable } from "@dnd-kit/sortable";
 import { css, cx } from "@crab-dev/css";
 import Checkbox, { TokenVars as checkboxVars } from "@crab-dev/rc-checkbox";
@@ -16,7 +18,8 @@ export interface NodeItemProps extends HTMLAttributes<HTMLDivElement> {
     expanded: boolean
     loading: boolean
     showLine?: boolean
-    selectKeys?: Key[]
+    selectedKeys?: Key[]
+    size?: ConfigSize;
     /** 是否显示复选框 */
     checkable?: boolean
     /** 节点是否被选中 */
@@ -24,12 +27,12 @@ export interface NodeItemProps extends HTMLAttributes<HTMLDivElement> {
     /** 节点是否处于半选状态 */
     indeterminate?: boolean
     /** 复选框 change 回调 */
-    onCheck?: (checked: boolean) => void
+    onCheck?: (checked: boolean, event?: SyntheticEvent<HTMLElement>) => void
     /** 是否允许点击标题行（非 chevron 图标）时同时触发展开/折叠，默认 true */
     expandOnTitleClick?: boolean
     onExpanded?: (param: {
         node: Node
-        event?: MouseEvent<HTMLSpanElement, globalThis.MouseEvent>
+        event?: SyntheticEvent<HTMLElement>
     }) => void
     onTitleClick?: (event: MouseEvent<HTMLSpanElement, globalThis.MouseEvent>) => void
     onTitleContextMenu?: HTMLAttributes<HTMLDivElement>["onContextMenu"]
@@ -40,6 +43,8 @@ export interface NodeItemProps extends HTMLAttributes<HTMLDivElement> {
      * @param cancelled 是否取消编辑（Escape）
      */
     onEditEnd?: (node: Node, newTitle: string, cancelled: boolean) => void
+    /** 库内：实际 Tree 键盘容器，不改变应用的选择状态。 */
+    keyboardFocusRef?: RefObject<HTMLDivElement | null>
     /**
      * 自定义编辑器渲染函数。提供时替换默认 `<input>`。
      * 消费方负责聚焦管理，调用 `onCommit(value)` 提交，`onCancel()` 取消。
@@ -68,7 +73,7 @@ const expandIconStyle = css`
     color: ${token.node.expand.icon.color};
     cursor: pointer;
     flex-shrink: 0;
-    margin-left: calc(2 * var(--styleify-margin-space, 0.25rem));
+    margin-inline-start: calc(2 * var(--styleify-margin-space, 0.25rem));
     transition: background-color ${token.root.transition};
     @media (pointer: coarse) { min-width: ${token.node.touch['min-width']}; min-height: ${token.node.touch['min-height']}; }
     @media (prefers-reduced-motion: reduce) { &, > svg { transition: none; } }
@@ -76,6 +81,10 @@ const expandIconStyle = css`
     > svg {
         display: block;
         transition: transform ${token.motion.arrow.transition};
+    }
+
+    &:dir(rtl) > svg {
+        transform: rotate(180deg);
     }
 
     &[data-expanded="true"] > svg {
@@ -96,7 +105,7 @@ const loadingIconStyle = css`
     width: 20px;
     height: 20px;
     flex-shrink: 0;
-    margin-left: calc(2 * var(--styleify-margin-space, 0.25rem));
+    margin-inline-start: calc(2 * var(--styleify-margin-space, 0.25rem));
     color: ${token.node.icon["color-loading"]};
     --rc-spin-size: 1em;
     ${spinVars['ring.indicator.stroke']}: currentColor;
@@ -106,7 +115,7 @@ const loadingIconStyle = css`
 const fileIconPlaceholderStyle = css`
     width: 20px;
     flex-shrink: 0;
-    margin-left: calc(2 * var(--styleify-margin-space, 0.25rem));
+    margin-inline-start: calc(2 * var(--styleify-margin-space, 0.25rem));
 `;
 
 const nodeItemBase = css`
@@ -146,8 +155,16 @@ const nodeItemBase = css`
     &[data-selected="true"]:not([data-disabled="true"]) {
         background-color: ${token.node["background-color-selected"]};
         color: ${token.node['color-selected']};
+        @media (forced-colors: active) {
+            forced-color-adjust: none;
+            color: HighlightText;
+            background-color: Highlight;
+        }
         [data-node-title] { text-decoration: ${token.node.selection['text-decoration']}; }
         [data-expanded], [data-loading-indicator] { color: inherit; }
+        /* Pair the library-owned icon container with the selected row. Only
+           color inherits: caller-supplied SVG colors, fill and stroke survive. */
+        > [data-node-icon] { color: inherit; }
     }
 
     &[data-disabled="true"] {
@@ -243,7 +260,7 @@ const dragBadgeInsideStyle = css`
 
 const indentLineSpanStyle = css`
     position: relative;
-    padding-left: 16px;
+    padding-inline-start: 16px;
     width: ${token.indent.width};
     height: 100%;
     text-align: center;
@@ -265,7 +282,7 @@ const nodeIconStyle = css`
     flex-shrink: 0;
     width: 16px;
     height: 16px;
-    margin-left: 0.25rem;
+    margin-inline-start: 0.25rem;
     color: ${token.node.expand.icon.color};
 `;
 
@@ -298,17 +315,42 @@ const titleSpanStyle = css`
 `;
 
 const editInputStyle = css`
+    /* Embedded editing follows the actual Tree row, including explicit row
+       heights. The shared input supplies keyboard/value behavior; it must not
+       reintroduce a standalone field minimum or a second native border. */
+    ${lineEditVars['root.touch.min-height']}: 0px;
+    /* The row supplies the paired L3 foreground, including selected Apple
+       accent rows; an inset accent ring must not blend into the row. */
+    ${lineEditVars['root.outline-color-focus']}: currentColor;
+    ${lineEditVars['root.outline-width-focus']}: ${token.root['outline-width-focus']};
+    ${lineEditVars['root.outline-offset-focus']}: calc(-1 * ${token.root['outline-width-focus']});
     flex: 1 1 auto;
     min-width: 0;
-    padding-inline: 0.375rem;
     font-size: inherit;
     line-height: inherit;
-    border: 1px solid ${token.node.selection['border-color']};
-    border-radius: ${token.root["border-radius"]};
-    background: transparent;
-    color: inherit;
-    outline: none;
-    box-sizing: border-box;
+    /* bordered=false owns its defaults. Scope the host geometry/foreground;
+       keep the focus/forced-color rules and transparent skin. */
+    && {
+        height: 100%;
+        max-height: 100%;
+        padding-inline: 0.375rem;
+        border-radius: ${token.root["border-radius"]};
+        color: inherit;
+    }
+`;
+
+// Keep the original non-interactive title available to the naming algorithm.
+// A display:none label would include even aria-hidden decorative descendants.
+const editLabelStyle = css`
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
 `;
 
 const NodeItem: FC<NodeItemProps> = ({
@@ -317,7 +359,8 @@ const NodeItem: FC<NodeItemProps> = ({
     loading,
     style = {},
     expanded = false,
-    selectKeys,
+    selectedKeys,
+    size,
     overState,
     showLine,
     checkable,
@@ -329,6 +372,7 @@ const NodeItem: FC<NodeItemProps> = ({
     onExpanded,
     onTitleContextMenu,
     onEditEnd,
+    keyboardFocusRef,
     renderEditInput,
     dragBadgeLabels,
     draggable,
@@ -345,7 +389,41 @@ const NodeItem: FC<NodeItemProps> = ({
     const divRef = useRef<HTMLDivElement>(null);
     const editInputRef = useRef<HTMLInputElement>(null);
     const editCommittedRef = useRef(false);
+    // Consume ownership in this attempt's first React commit, including a
+    // controlled rejection that does not cause the parent to render.
+    const [editEndAttempt, setEditEndAttempt] = useState<symbol | null>(null);
+    // 可变实例状态：只跨同一次键盘提交的 React commit 保存焦点所有权。
+    const editFocusRef = useRef<{
+        attempt: symbol;
+        input: HTMLInputElement;
+        row: HTMLDivElement;
+        tree: HTMLDivElement;
+        nodeId: Node['id'];
+        moved: boolean;
+        cleanup: () => void;
+    } | null>(null);
+    const editLabelId = useId();
+    const { messages } = useLocale();
     const isEditing = node.editState === NodeEditStateType.UPDATE;
+
+    useLayoutEffect(() => {
+        const pending = editFocusRef.current;
+        if (!pending || pending.attempt !== editEndAttempt) return;
+        editFocusRef.current = null;
+        pending.cleanup();
+        const document = pending.input.ownerDocument;
+        if (!isEditing && !renderEditInput && pending.nodeId === node.id
+            && divRef.current === pending.row && keyboardFocusRef?.current === pending.tree
+            && pending.row.isConnected && pending.tree.contains(pending.row)
+            && !pending.input.isConnected && !pending.moved
+            && (document.activeElement === document.body || document.activeElement === null)) {
+            pending.tree.focus({ preventScroll: true });
+        }
+    });
+    useLayoutEffect(() => () => {
+        editFocusRef.current?.cleanup();
+        editFocusRef.current = null;
+    }, []);
 
     useEffect(() => {
         if (isEditing) {
@@ -361,6 +439,34 @@ const NodeItem: FC<NodeItemProps> = ({
         if (editCommittedRef.current) return;
         editCommittedRef.current = true;
         onEditEnd?.(node, newTitle, cancelled);
+    };
+
+    const finishKeyboardEdit = (input: HTMLInputElement, cancelled: boolean) => {
+        const row = divRef.current;
+        const tree = keyboardFocusRef?.current;
+        const document = input.ownerDocument;
+        editFocusRef.current?.cleanup();
+        editFocusRef.current = null;
+        if (row && tree && tree.contains(row) && document.activeElement === input) {
+            const pending = { attempt: Symbol('tree-edit-end'), input, row, tree, nodeId: node.id, moved: false, cleanup: () => {
+                document.removeEventListener('focusin', onFocus);
+            } };
+            const onFocus = (event: Event) => { if (event.target !== input) pending.moved = true; };
+            document.addEventListener('focusin', onFocus);
+            editFocusRef.current = pending;
+            setEditEndAttempt(pending.attempt);
+        }
+        // A new explicit key may retry a controlled editor that stayed open.
+        editCommittedRef.current = false;
+        const request = editFocusRef.current;
+        commitEdit(cancelled ? '' : input.value, cancelled);
+        // A callback may explicitly blur the still-mounted editor. Respect
+        // that synchronous choice. Native removal can also dispatch blur while
+        // isConnected is still true, so a blur listener cannot own this guard.
+        if (request && editFocusRef.current === request && input.isConnected
+            && document.activeElement !== input) {
+            request.moved = true;
+        }
     };
 
     const renderIcon = () => {
@@ -425,7 +531,7 @@ const NodeItem: FC<NodeItemProps> = ({
     };
 
     if (showLine !== true) {
-        styles.paddingLeft = `calc(${depth} * ${token.indent.width})`;
+        styles.paddingInlineStart = `calc(${depth} * ${token.indent.width})`;
     }
 
     return (
@@ -440,11 +546,11 @@ const NodeItem: FC<NodeItemProps> = ({
             role="treeitem"
             tabIndex={-1}
             aria-disabled={node.disabled === true}
-            aria-selected={selectKeys?.includes(node.id) ?? false}
+            aria-selected={selectedKeys?.includes(node.id) ?? false}
             aria-expanded={node.type === NodeType.FOLDER ? expanded : undefined}
             aria-level={depth + 1}
             aria-describedby={draggable ? attributes['aria-describedby'] : undefined}
-            data-selected={selectKeys?.includes(node.id)}
+            data-selected={selectedKeys?.includes(node.id)}
             data-disabled={node.disabled === true}
             data-dragging={isDragging}
             style={styles}
@@ -474,28 +580,29 @@ const NodeItem: FC<NodeItemProps> = ({
             {checkable && (
                 <span onPointerUp={(e) => e.stopPropagation()}>
                     <Checkbox
-                        aria-label="select node"
-                        checked={checked}
+                        aria-label={messages.tree.selectNode}
+                        size={size}
+                        checked={Boolean(checked)}
                         indeterminate={indeterminate}
                         disabled={node.disabled}
-                        onChange={(c) => {
-                            onCheck?.(c);
+                        onCheckedChange={(c, details) => {
+                            onCheck?.(c, details.event);
                         }}
                     />
                 </span>
             )}
             {node.icon != null && (
-                <span className={nodeIconStyle}>
+                <span data-node-icon="" className={nodeIconStyle}>
                     {node.icon}
                 </span>
             )}
             {overState?.id === node.id && overState.state != null && (() => {
                 const isInside = overState.state === OverStateEnum.INSIDE;
                 const label = isInside
-                    ? `→ ${dragBadgeLabels?.inside ?? '移入'}`
+                    ? `→ ${dragBadgeLabels?.inside ?? messages.tree.dragInside}`
                     : overState.state === OverStateEnum.UPWARD
-                        ? `↑ ${dragBadgeLabels?.above ?? '放在上方'}`
-                        : `↓ ${dragBadgeLabels?.below ?? '放在下方'}`;
+                        ? `↑ ${dragBadgeLabels?.above ?? messages.tree.dragAbove}`
+                        : `↓ ${dragBadgeLabels?.below ?? messages.tree.dragBelow}`;
                 return (
                     <span className={cx.call(undefined, dragBadgeBaseStyle, isInside ? dragBadgeInsideStyle : dragBadgeIndicatorStyle)}>
                         {label}
@@ -511,24 +618,35 @@ const NodeItem: FC<NodeItemProps> = ({
                         onCancel: () => commitEdit("", true),
                     })
                     : (
-                        <input
-                            ref={editInputRef}
-                            className={editInputStyle}
-                            defaultValue={typeof node.title === "string" ? node.title : ""}
-                            onClick={(e) => e.stopPropagation()}
-                            onKeyDown={(e) => {
-                                if (e.key === "Enter") {
-                                    commitEdit((e.target as HTMLInputElement).value, false);
-                                    editInputRef.current?.blur();
-                                } else if (e.key === "Escape") {
-                                    commitEdit("", true);
-                                    editInputRef.current?.blur();
-                                }
-                            }}
-                            onBlur={(e) => {
-                                commitEdit(e.target.value, false);
-                            }}
-                        />
+                        <>
+                            <span id={editLabelId} className={editLabelStyle}>{node.title}</span>
+                            <LineEdit
+                                ref={editInputRef}
+                                size={size}
+                                bordered={false}
+                                className={editInputStyle}
+                                aria-labelledby={editLabelId}
+                                defaultValue={typeof node.title === "string" ? node.title : ""}
+                                onValueChange={() => { editCommittedRef.current = false; }}
+                                onClick={(e) => e.stopPropagation()}
+                                onKeyDown={(e) => {
+                                    // Text editing keys must not navigate or deselect the tree.
+                                    e.stopPropagation();
+                                    // IME confirmation/cancellation belongs to composition,
+                                    // not to the editor or the tree's bubbled navigation keys.
+                                    if (e.nativeEvent.isComposing || e.keyCode === 229) {
+                                        return;
+                                    }
+                                    if (e.key === "Enter" || e.key === "Escape") {
+                                        e.preventDefault();
+                                        finishKeyboardEdit(e.currentTarget, e.key === "Escape");
+                                    }
+                                }}
+                                onBlur={(e) => {
+                                    commitEdit(e.target.value, false);
+                                }}
+                            />
+                        </>
                     )
             ) : (
                 <span className={titleSpanStyle} data-node-title="">

@@ -2,8 +2,10 @@ import type { FC, ReactNode } from "react";
 import { Fragment, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { css, cx } from "@crab-dev/css";
-import { usePresence } from "@crab-dev/rc-hooks";
+import { usePresence, useEventCallback } from "@crab-dev/rc-hooks";
+import { registerOverlayLayer, resolveOverlayRoot } from '@crab-dev/rc-hooks/internal';
 import { ConfigBoundary } from "@crab-dev/rc-config-provider";
+import Button, { TokenVars as buttonVars } from '@crab-dev/rc-button';
 import token from "./token.js";
 
 export interface TabContextMenuItem {
@@ -22,6 +24,8 @@ export interface TabContextMenuItem {
 }
 
 export interface TabContextMenuProps {
+    /** 触发元素，用于保持同一 Document、主题边界与模态层。 */
+    anchor?: HTMLElement
     open?: boolean
     onExitComplete?: () => void
     /** 触发位置（视口坐标） */
@@ -57,8 +61,14 @@ const menuStyle = css`
 `;
 
 const itemBaseStyle = css`
+    /* Menu rows share their neutral feedback container across input states. */
+    ${buttonVars['text.color']}: ${token.tab['context-menu'].item.color};
+    ${buttonVars['text.background-color-hover']}: ${token.tab['context-menu'].item['background-color-hover']};
+    ${buttonVars['text.background-color-focus']}: ${token.tab['context-menu'].item['background-color-hover']};
+    ${buttonVars['text.background-color-active']}: ${token.tab['context-menu'].item['background-color-hover']};
     display: flex;
     align-items: center;
+    justify-content: flex-start;
     gap: ${token.tab['context-menu'].item.gap};
     height: ${token.tab['context-menu'].item.height};
     padding: ${token.tab['context-menu'].item.padding};
@@ -70,14 +80,10 @@ const itemBaseStyle = css`
     background: transparent;
     border: none;
     width: 100%;
-    text-align: left;
+    text-align: start;
     box-sizing: border-box;
     transition: background-color ${token.motion.interaction.transition};
     @media (prefers-reduced-motion: reduce) { transition: none; }
-
-    &:hover {
-        background-color: ${token.tab['context-menu'].item['background-color-hover']};
-    }
 
     &:focus-visible {
         outline: 2px solid currentColor;
@@ -129,10 +135,10 @@ interface ViewportPosition {
     top: number
 }
 
-function clampToViewport(x: number, y: number, w: number, h: number): ViewportPosition {
+function clampToViewport(x: number, y: number, w: number, h: number, view: Window | null): ViewportPosition {
     const margin = 8;
-    const vw = typeof window === "undefined" ? 0 : window.innerWidth;
-    const vh = typeof window === "undefined" ? 0 : window.innerHeight;
+    const vw = view?.innerWidth ?? 0;
+    const vh = view?.innerHeight ?? 0;
     let left = x;
     let top = y;
     if (left + w + margin > vw) left = Math.max(margin, vw - w - margin);
@@ -140,49 +146,52 @@ function clampToViewport(x: number, y: number, w: number, h: number): ViewportPo
     return { left, top };
 }
 
-const TabContextMenu: FC<TabContextMenuProps> = ({ x, y, items, onClose, open = true, onExitComplete }) => {
+const TabContextMenu: FC<TabContextMenuProps> = ({ x, y, items, onClose, anchor, open = true, onExitComplete }) => {
     const ref = useRef<HTMLUListElement>(null);
     const presence = usePresence<HTMLUListElement>(open, onExitComplete);
     const [pos, setPos] = useState<{ left: number, top: number }>({ left: x, top: y });
+    const close = useEventCallback(onClose);
+    const ownerDocument = anchor?.ownerDocument ?? (typeof document === 'undefined' ? null : document);
+    const ownerWindow = ownerDocument?.defaultView ?? null;
 
     useLayoutEffect(() => {
         const el = ref.current;
         if (!el) return;
         const rect = el.getBoundingClientRect();
-        setPos(clampToViewport(x, y, rect.width, rect.height));
-    }, [x, y]);
+        setPos(clampToViewport(x, y, rect.width, rect.height, ownerWindow));
+    }, [x, y, ownerWindow]);
+
+    useLayoutEffect(() => {
+        const element = ref.current;
+        if (!open || !element) return;
+        const layer = registerOverlayLayer(element, close, anchor ?? ownerDocument?.activeElement ?? null);
+        element.querySelector<HTMLButtonElement>('button:not(:disabled):not([aria-disabled="true"])')?.focus();
+        return () => layer.release();
+    }, [anchor, close, open, ownerDocument]);
 
     useEffect(() => {
-        if (!open) return;
+        if (!open || !ownerWindow) return;
         const handlePointerDown = (e: PointerEvent) => {
             if (!ref.current) return;
-            if (e.target instanceof Node && ref.current.contains(e.target)) return;
-            onClose();
+            if (e.composedPath().includes(ref.current)) return;
+            close();
         };
-        const handleKeyDown = (e: KeyboardEvent) => {
-            if (e.key === "Escape") {
-                e.stopPropagation();
-                onClose();
-            }
-        };
-        const handleDismiss = () => onClose();
+        const handleDismiss = () => close();
         // 捕获阶段确保先于其他点击关闭
-        window.addEventListener("pointerdown", handlePointerDown, true);
-        window.addEventListener("keydown", handleKeyDown, true);
-        window.addEventListener("resize", handleDismiss);
-        window.addEventListener("blur", handleDismiss);
+        ownerWindow.addEventListener("pointerdown", handlePointerDown, true);
+        ownerWindow.addEventListener("resize", handleDismiss);
+        ownerWindow.addEventListener("blur", handleDismiss);
         // 滚动祖先变化即关闭，避免菜单脱离锚点
-        window.addEventListener("scroll", handleDismiss, true);
+        ownerWindow.addEventListener("scroll", handleDismiss, true);
         return () => {
-            window.removeEventListener("pointerdown", handlePointerDown, true);
-            window.removeEventListener("keydown", handleKeyDown, true);
-            window.removeEventListener("resize", handleDismiss);
-            window.removeEventListener("blur", handleDismiss);
-            window.removeEventListener("scroll", handleDismiss, true);
+            ownerWindow.removeEventListener("pointerdown", handlePointerDown, true);
+            ownerWindow.removeEventListener("resize", handleDismiss);
+            ownerWindow.removeEventListener("blur", handleDismiss);
+            ownerWindow.removeEventListener("scroll", handleDismiss, true);
         };
-    }, [onClose, open]);
+    }, [close, open, ownerWindow]);
 
-    if (typeof document === "undefined" || !presence.present) return null;
+    if (!ownerDocument || !presence.present) return null;
 
     const hasAnyIcon = items.some((item) => item.icon !== undefined);
 
@@ -198,33 +207,46 @@ const TabContextMenu: FC<TabContextMenuProps> = ({ x, y, items, onClose, open = 
             className={menuStyle}
             style={{ left: pos.left, top: pos.top }}
             role="menu"
+            onKeyDown={event => {
+                const buttons = [...event.currentTarget.querySelectorAll<HTMLButtonElement>('button:not(:disabled):not([aria-disabled="true"])')];
+                if (buttons.length === 0) return;
+                const root = event.currentTarget.getRootNode();
+                const active = 'activeElement' in root ? root.activeElement : ownerDocument.activeElement;
+                const index = buttons.findIndex(button => button === active);
+                const next = event.key === 'ArrowDown' ? (index + 1) % buttons.length
+                    : event.key === 'ArrowUp' ? (index - 1 + buttons.length) % buttons.length
+                    : event.key === 'Home' ? 0 : event.key === 'End' ? buttons.length - 1 : undefined;
+                if (next !== undefined) { event.preventDefault(); buttons[next]?.focus(); }
+            }}
             onContextMenu={(e) => e.preventDefault()}
         >
             {items.map((item) => (
                 <Fragment key={item.id}>
                     <li role="none">
-                        <button
+                        <Button
                             type="button"
+                            appearance="text"
+                            size="xs"
                             role="menuitem"
                             disabled={item.disabled}
                             aria-disabled={item.disabled || undefined}
                             className={cx.call(undefined, itemBaseStyle, item.disabled && itemDisabledStyle)}
-                            onClick={() => {
-                                if (item.disabled) return;
-                                onClose();
-                                item.onSelect();
-                            }}
-                        >
-                            {hasAnyIcon ? (
+                            icon={hasAnyIcon ? (
                                 <span
                                     aria-hidden
                                     className={cx.call(undefined, itemIconStyle, item.disabled && itemIconDisabledStyle)}
                                 >
                                     {item.icon}
                                 </span>
-                            ) : null}
+                            ) : undefined}
+                            onClick={() => {
+                                if (item.disabled) return;
+                                onClose();
+                                item.onSelect();
+                            }}
+                        >
                             {item.label}
-                        </button>
+                        </Button>
                     </li>
                     {item.separatorAfter ? (
                         <li className={separatorStyle} role="separator" aria-hidden />
@@ -234,7 +256,7 @@ const TabContextMenu: FC<TabContextMenuProps> = ({ x, y, items, onClose, open = 
         </ul>
     );
 
-    return createPortal(<ConfigBoundary>{node}</ConfigBoundary>, document.body);
+    return createPortal(<ConfigBoundary>{node}</ConfigBoundary>, anchor ? resolveOverlayRoot(anchor) : ownerDocument.body);
 };
 
 export default TabContextMenu;

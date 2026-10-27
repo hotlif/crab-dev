@@ -23,7 +23,9 @@ const variantDashedStyle = css`
 `;
 
 const variantDottedStyle = css`
-    --rc-divider-stroke-dasharray: 0 calc(${token.line['border-width']} * 2);
+    /* At DPR 1, a one-pixel round cap can cover two neighboring pixels.
+       Three stroke widths leave an actual background pixel between dots. */
+    --rc-divider-stroke-dasharray: 0 calc(${token.line['border-width']} * 3);
     --rc-divider-stroke-linecap: round;
 `;
 
@@ -64,7 +66,7 @@ const horizontalStyle = css`
     inline-size: 100%;
     min-inline-size: 100%;
     block-size: ${token.line['border-width']};
-    margin-block: var(--rc-divider-spacing, ${token.spacing.middle.margin});
+    margin-block: var(--rc-divider-spacing, ${token.spacing.medium.margin});
 `;
 
 /* ---- 竖线 ---- */
@@ -74,7 +76,7 @@ const verticalStyle = css`
     flex-shrink: 0;
     inline-size: ${token.line['border-width']};
     block-size: ${token.vertical['block-size']};
-    margin-inline: var(--rc-divider-spacing, ${token.spacing.middle.margin});
+    margin-inline: var(--rc-divider-spacing, ${token.spacing.medium.margin});
     vertical-align: middle;
 `;
 
@@ -85,7 +87,7 @@ const withTextStyle = css`
     align-items: center;
     inline-size: 100%;
     min-inline-size: 100%;
-    margin-block: var(--rc-divider-spacing, ${token.spacing.middle.margin});
+    margin-block: var(--rc-divider-spacing, ${token.spacing.medium.margin});
     color: ${token.text.color};
     font-size: ${token.text['font-size']};
     font-weight: ${token.text['font-weight']};
@@ -178,7 +180,7 @@ const toCssLength = (value: number | string | undefined): string | undefined => 
 const Divider = ({
     direction = 'horizontal',
     variant = 'solid',
-    spacing = 'middle',
+    spacing = 'medium',
     decorative = false,
     textAlign = 'center',
     textOffset,

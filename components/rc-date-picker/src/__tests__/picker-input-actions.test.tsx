@@ -1,9 +1,14 @@
-import { beforeAll, beforeEach, describe, expect, it, mock } from '@crab-dev/wake/test';
+import { afterEach, beforeAll, beforeEach, describe, expect, it, mock } from '@crab-dev/wake/test';
 import { act, fireEvent, render, screen, userEvent } from '@crab-dev/wake/test/react';
 import { useState } from 'react';
 
 const dispatch = mock.fn();
+const originalMedia = Object.getOwnPropertyDescriptor(window, 'matchMedia');
+const nativeMatchMedia = window.matchMedia.bind(window);
 // 只替代无布局环境下的弹层定位，保留真实字段、按钮和开关状态。
+mock.module('@crab-dev/rc-dropdown-container/internal', () => ({
+    useDropdownPositionReference: () => () => {},
+}));
 mock.module('@crab-dev/rc-dropdown-container', async () => {
     const React = await mock.actual<typeof import('react')>('react');
     return {
@@ -29,7 +34,24 @@ beforeAll(async () => {
     DatePickerInput = (await mock.import<typeof import('../datePicker/datePickerInput.js')>('../datePicker/datePickerInput.js')).default;
     DateTimePickerInput = (await mock.import<typeof import('../dateTimePicker/dateTimePickerInput.js')>('../dateTimePicker/dateTimePickerInput.js')).default;
 });
-beforeEach(() => { dispatch.clear(); });
+beforeEach(async () => {
+    // 桌面交互用例显式声明悬停能力；headless 浏览器可能默认 hover:none。
+    // 触屏用例独立覆盖此查询，其余媒体查询仍由真实浏览器回答。
+    Object.defineProperty(window, 'matchMedia', { configurable: true, value: (query: string) => (
+        query.replace(/\s/g, '') === '(hover:none)'
+            ? { matches: false, addEventListener: () => {}, removeEventListener: () => {} }
+            : nativeMatchMedia(query)
+    ) });
+    // 真实浏览器保留鼠标位置，先移出测试内容，避免新字段挂载即悬停。
+    const origin = await render(<button type="button">pointer origin</button>);
+    await act(async () => { await userEvent.setup().unhover(screen.getByRole('button', { name: 'pointer origin' })); });
+    await origin.unmount();
+    dispatch.clear();
+});
+afterEach(() => {
+    if (originalMedia) Object.defineProperty(window, 'matchMedia', originalMedia);
+    else Reflect.deleteProperty(window, 'matchMedia');
+});
 
 for (const kind of ['date', 'datetime', 'time'] as const) {
     describe(`${kind} picker input actions`, () => {
@@ -43,8 +65,11 @@ for (const kind of ['date', 'datetime', 'time'] as const) {
             const onValueChange = mock.fn();
             const onPointerEnter = mock.fn();
             const onPointerLeave = mock.fn();
-            await render(<Input value={value} onValueChange={onValueChange} onPointerEnter={onPointerEnter} onPointerLeave={onPointerLeave} />);
+            await render(<Input value={value} hasValue onValueChange={onValueChange} onPointerEnter={onPointerEnter} onPointerLeave={onPointerLeave} />);
             const input = screen.getByRole('textbox');
+            await act(async () => { await userEvent.setup().unhover(input.parentElement!); });
+            onPointerEnter.clear();
+            onPointerLeave.clear();
             const action = screen.getByRole('button', { name: openLabel });
             expect(screen.queryByRole('button', { name: clearLabel })).toBeNull();
             await act(() => input.dispatchEvent(new MouseEvent('pointerover', { bubbles: true })));
@@ -66,7 +91,7 @@ for (const kind of ['date', 'datetime', 'time'] as const) {
             expect(screen.getByRole('button', { name: clearLabel })).toBe(action);
             await fireEvent.click(clear);
             expect(onValueChange).toHaveBeenCalledTimes(1);
-            expect(onValueChange).toHaveBeenCalledWith(null);
+            expect(onValueChange).toHaveBeenCalledWith(null, expect.objectContaining({ nativeEvent: expect.any(MouseEvent) }));
             expect(dispatch).not.toHaveBeenCalledWith({ type: 'setOpen', payload: true });
         });
 
@@ -78,7 +103,7 @@ for (const kind of ['date', 'datetime', 'time'] as const) {
                 function Example() {
                     const [value, setValue] = useState(kind === 'time' ? '09:30:00' : '2026-09-24');
                     return <form onSubmit={(event) => { event.preventDefault(); onSubmit(); }}>
-                        <Input value={value} onValueChange={(next) => {
+                        <Input value={value} hasValue={value !== ''} onValueChange={(next) => {
                             onValueChange(next);
                             setValue('');
                         }} />
@@ -121,7 +146,7 @@ for (const kind of ['date', 'datetime', 'time'] as const) {
         it('keeps the picker action when hovering an empty field', async () => {
             const Input = getInput();
             const onValueChange = mock.fn();
-            await render(<Input value="" onValueChange={onValueChange} />);
+            await render(<Input value="" hasValue={false} onValueChange={onValueChange} />);
             await act(() => screen.getByRole('textbox').dispatchEvent(new MouseEvent('pointerover', { bubbles: true })));
             expect(screen.queryByRole('button', { name: clearLabel })).toBeNull();
             await act(async () => { await userEvent.setup().click(screen.getByRole('button', { name: openLabel })); });
@@ -133,7 +158,7 @@ for (const kind of ['date', 'datetime', 'time'] as const) {
         it('forwards blur without dismissing before a panel control receives focus', async () => {
             const Input = getInput();
             const onBlur = mock.fn();
-            await render(<><Input value={value} onBlur={onBlur} /><input aria-label="面板输入" /></>);
+            await render(<><Input value={value} hasValue onBlur={onBlur} /><input aria-label="面板输入" /></>);
             await act(() => screen.getAllByRole('textbox')[0]!.focus());
             dispatch.clear();
             await act(() => screen.getByRole('textbox', { name: '面板输入' }).focus());
@@ -150,9 +175,9 @@ for (const kind of ['date', 'datetime', 'time'] as const) {
             try {
                 const Input = getInput();
                 const onValueChange = mock.fn();
-                const view = await render(<Input value={value} onValueChange={onValueChange} />);
+                const view = await render(<Input value={value} hasValue onValueChange={onValueChange} />);
                 await fireEvent.click(screen.getByRole('button', { name: clearLabel }));
-                expect(onValueChange).toHaveBeenCalledWith(null);
+                expect(onValueChange).toHaveBeenCalledWith(null, expect.objectContaining({ nativeEvent: expect.any(MouseEvent) }));
                 expect(dispatch).not.toHaveBeenCalledWith({ type: 'setOpen', payload: true });
                 await view.unmount();
                 expect(removeEventListener).toHaveBeenCalled();
@@ -165,7 +190,7 @@ for (const kind of ['date', 'datetime', 'time'] as const) {
         it('does not expose clear or activate the picker when disabled', async () => {
             const Input = getInput();
             const onValueChange = mock.fn();
-            await render(<Input value={value} disabled onValueChange={onValueChange} />);
+            await render(<Input value={value} hasValue disabled onValueChange={onValueChange} />);
             await act(() => screen.getByRole('textbox').dispatchEvent(new MouseEvent('pointerover', { bubbles: true })));
             expect(screen.queryByRole('button', { name: clearLabel })).toBeNull();
             const calendar = screen.getByRole('button', { name: openLabel });

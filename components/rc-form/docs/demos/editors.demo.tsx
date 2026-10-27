@@ -4,7 +4,7 @@ export const meta = {
 };
 
 import { css } from "@crab-dev/css";
-import { type FC, useState } from "react";
+import { type FC, useId, useState } from "react";
 import token from "@crab-dev/rc-token-semantic";
 
 import Button from "@crab-dev/rc-button";
@@ -12,20 +12,39 @@ import Checkbox, { CheckboxGroup } from "@crab-dev/rc-checkbox";
 import LineEdit from "@crab-dev/rc-line-edit";
 import Radio, { RadioGroup } from "@crab-dev/rc-radio";
 import Select from "@crab-dev/rc-select";
-import Slider from "@crab-dev/rc-slider";
+import Slider, { type SliderProps } from "@crab-dev/rc-slider";
 import Switch from "@crab-dev/rc-switch";
 
 import Form, { Item, useForm } from "../../src/index.js";
 import type { FormItemEditor } from "../../src/types.js";
 
-const SliderField: FC<FormItemEditor<number>> = ({ value, onChange }) => (
-    <Slider
-        value={value ?? 0}
-        min={0}
-        max={100}
-        step={1}
-        onValueChange={(v) => onChange?.(v)}
-    />
+type SliderFieldProps = Omit<FormItemEditor<number>, 'onValueChange'>
+    & Pick<SliderProps, 'onValueChange' | 'aria-labelledby'>;
+
+const SliderField: FC<SliderFieldProps> = ({
+    id, name, value, onValueChange, disabled, readOnly,
+    'aria-labelledby': labelledBy, 'aria-invalid': invalid,
+    'aria-describedby': describedBy, 'aria-busy': busy,
+}) => (
+    <>
+        <Slider
+            id={id}
+            aria-labelledby={labelledBy}
+            aria-invalid={invalid}
+            aria-describedby={describedBy}
+            aria-busy={busy}
+            aria-readonly={readOnly || undefined}
+            disabled={disabled}
+            value={value ?? 0}
+            min={0}
+            max={100}
+            step={1}
+            onValueChange={(next, details) => {
+                if (!disabled && !readOnly) onValueChange?.(next, details);
+            }}
+        />
+        <input type="hidden" name={name} disabled={disabled} readOnly={readOnly} value={value ?? 0} />
+    </>
 );
 
 // ---------- 表单数据形态 ----------
@@ -67,6 +86,7 @@ const ROLE_OPTIONS = [
 
 const EditorsDemo: FC = () => {
     const [form] = useForm<ProfileForm>();
+    const quotaLabelId = useId();
     const [result, setResult] = useState("修改编辑器后，可查看当前值或提交校验。");
 
     return (
@@ -90,59 +110,64 @@ const EditorsDemo: FC = () => {
                 setResult("提交未通过，请根据字段下方的错误提示补全内容。");
             }}
         >
-            <Item label="用户名" labelPlacement="control" name="username" binding="event" required>
+            <Item label="用户名" labelPlacement="control" name="username" adapter="value" required>
                 <LineEdit placeholder="请输入用户名" />
             </Item>
 
-            <Item label="邮箱" labelPlacement="control" name="email" binding="event" required>
+            <Item label="邮箱" labelPlacement="control" name="email" adapter="value" required>
                 <LineEdit placeholder="name@example.com" type="email" />
             </Item>
 
             <Item label="角色" name="role" required>
-                {({ id, value, onChange, status, 'aria-invalid': invalid, 'aria-describedby': describedBy }) => (
+                {({ id, value, onValueChange, status, 'aria-invalid': invalid, 'aria-describedby': describedBy }) => (
                     <Select id={id} aria-label="角色" aria-invalid={invalid} aria-describedby={describedBy}
-                        value={typeof value === 'string' ? value : undefined} onChange={onChange} status={status}
+                        value={typeof value === 'string' ? value : undefined} onValueChange={onValueChange} status={status}
                         options={ROLE_OPTIONS} placeholder="选择角色" />
                 )}
             </Item>
 
-            <Item label="技能" name="tags">
-                {({ id, value, onChange, 'aria-invalid': invalid, 'aria-describedby': describedBy }) => (
+            <Item label="技能" name="tags" labelPlacement="external" labelTarget="group">
+                {({ id, value, onValueChange, 'aria-labelledby': labelledBy, 'aria-invalid': invalid, 'aria-describedby': describedBy }) => (
                     <CheckboxGroup
+                        id={id}
+                        aria-labelledby={labelledBy}
+                        aria-invalid={invalid}
+                        aria-describedby={describedBy}
                         value={Array.isArray(value) ? value.filter((entry: unknown): entry is string | number => typeof entry === 'string' || typeof entry === 'number') : []}
-                        onChange={onChange}
+                        onValueChange={onValueChange}
                     >
-                        <Checkbox id={id} value="typescript" aria-invalid={invalid} aria-describedby={describedBy}>TypeScript</Checkbox>
+                        <Checkbox value="typescript" aria-invalid={invalid} aria-describedby={describedBy}>TypeScript</Checkbox>
                         <Checkbox value="react" aria-invalid={invalid} aria-describedby={describedBy}>React</Checkbox>
                         <Checkbox value="rust" aria-invalid={invalid} aria-describedby={describedBy}>Rust</Checkbox>
                     </CheckboxGroup>
                 )}
             </Item>
 
-            <Item label="套餐" name="plan">
-                {({ id, value, onChange, 'aria-invalid': invalid, 'aria-describedby': describedBy }) => (
+            <Item label="套餐" name="plan" labelPlacement="external" labelTarget="group">
+                {({ id, value, onValueChange, 'aria-invalid': invalid, 'aria-describedby': describedBy }) => (
                     <RadioGroup
+                        id={id}
                         aria-label="套餐"
                         aria-describedby={describedBy}
                         value={typeof value === 'string' || typeof value === 'number' ? value : undefined}
-                        onChange={onChange}
+                        onValueChange={onValueChange}
                     >
-                        <Radio id={id} value="free" aria-invalid={invalid}>Free</Radio>
+                        <Radio value="free" aria-invalid={invalid}>Free</Radio>
                         <Radio value="pro" aria-invalid={invalid}>Pro</Radio>
                         <Radio value="team" aria-invalid={invalid}>Team</Radio>
                     </RadioGroup>
                 )}
             </Item>
 
-            <Item label="接收邮件" name="receiveEmail" binding="checked">
+            <Item label="接收邮件" name="receiveEmail" adapter="checked">
                 <Switch aria-label="接收邮件" />
             </Item>
 
-            <Item label="额度" name="quota">
-                <SliderField />
+            <Item label={<span id={quotaLabelId}>额度</span>} name="quota">
+                <SliderField aria-labelledby={quotaLabelId} />
             </Item>
 
-            <Item label="协议" name="agree" binding="checked" required>
+            <Item label="协议" name="agree" adapter="checked" required>
                 <Checkbox>我已阅读并同意服务条款</Checkbox>
             </Item>
 

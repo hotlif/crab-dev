@@ -46,8 +46,8 @@ content.transition        = "$ref(motion.fade)"
 size.small.width = "16px"
 size.small.font-size  = "$ref(typography.caption.font-size)"
 
-size.middle.width = "$ref(size.icon-large)"
-size.middle.font-size = "$ref(typography.body.font-size)"
+size.medium.width = "$ref(size.icon-large)"
+size.medium.font-size = "$ref(typography.body.font-size)"
 
 size.large.width = "$ref(size.32)"
 size.large.font-size  = "$ref(font.size.subhead)"

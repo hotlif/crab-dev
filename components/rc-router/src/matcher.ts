@@ -74,7 +74,7 @@ function flattenRoutes(
     routes: readonly RouteObject[],
     branches: RouteBranch[] = [],
     parentsMeta: readonly RouteMeta[] = [],
-    parentPath = '/',
+    parentPath: string = '/',
     parentOrder: readonly number[] = [],
 ): RouteBranch[] {
     routes.forEach((route, index) => {

@@ -38,10 +38,10 @@ export default function ToolbarDemo() {
     return <div className={sectionStyle}>
         <div className={rowStyle}>
             <Checkbox checked={shownCount === PDF_EDITOR_ACTIONS.length} indeterminate={shownCount > 0 && shownCount < PDF_EDITOR_ACTIONS.length}
-                onChange={checked => setVisibility(Object.fromEntries(PDF_EDITOR_ACTIONS.map(action => [action.id, checked])))}>全部内置图标（{shownCount}/{PDF_EDITOR_ACTIONS.length}）</Checkbox>
+                onCheckedChange={checked => setVisibility(Object.fromEntries(PDF_EDITOR_ACTIONS.map(action => [action.id, checked])))}>全部内置图标（{shownCount}/{PDF_EDITOR_ACTIONS.length}）</Checkbox>
             <Button onClick={() => setVisibility({})}>恢复默认</Button>
-            <Checkbox checked={readOnly} onChange={setReadOnly}>只读模式</Checkbox>
-            <Checkbox checked={showSummary} onChange={setShowSummary}>扩展：文档摘要</Checkbox>
+            <Checkbox checked={readOnly} onCheckedChange={setReadOnly}>只读模式</Checkbox>
+            <Checkbox checked={showSummary} onCheckedChange={setShowSummary}>扩展：文档摘要</Checkbox>
         </div>
         <details>
             <summary>逐项配置 {PDF_EDITOR_ACTIONS.length} 个内置图标</summary>
@@ -51,9 +51,9 @@ export default function ToolbarDemo() {
                     const count = actions.filter(action => visibility[action.id] !== false).length;
                     return <fieldset className={fieldStyle} key={group}>
                         <legend><Checkbox checked={count === actions.length} indeterminate={count > 0 && count < actions.length}
-                            onChange={checked => setVisibility(previous => ({ ...previous, ...Object.fromEntries(actions.map(action => [action.id, checked])) }))}>{groupLabels[group]}</Checkbox></legend>
+                            onCheckedChange={checked => setVisibility(previous => ({ ...previous, ...Object.fromEntries(actions.map(action => [action.id, checked])) }))}>{groupLabels[group]}</Checkbox></legend>
                         <div className={sectionStyle}>{actions.map(action => <Checkbox key={action.id} checked={visibility[action.id] !== false}
-                            onChange={checked => setVisibility(previous => ({ ...previous, [action.id]: checked }))}>{action.label}</Checkbox>)}</div>
+                            onCheckedChange={checked => setVisibility(previous => ({ ...previous, [action.id]: checked }))}>{action.label}</Checkbox>)}</div>
                     </fieldset>;
                 })}
             </div>

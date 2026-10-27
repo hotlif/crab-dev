@@ -1,4 +1,4 @@
-import { useId, type FC, type ReactNode } from "react";
+import { useId, type FC, type ReactNode, type MouseEvent } from "react";
 import { css, cx } from "@crab-dev/css";
 
 import { usePresence } from "@crab-dev/rc-hooks";
@@ -7,7 +7,7 @@ import { iconArrayBase, iconArrayDown, iconArrayUp } from "../icon.js";
 import { type MenuProps } from "../menu.js";
 import { ItemType, type Item } from "../type.js";
 import token from "../token.js";
-import { navigateMenu } from '../keyboard.js';
+import { navigateMenu, menuActivationEvent } from '../keyboard.js';
 
 const verticalItemTitleWidth = token.vertical.item.title.width;
 const verticalItemTitleMarginBottom = token.vertical.item.title["margin-bottom"];
@@ -49,7 +49,7 @@ const itemTitleStyle = css`
 
 
 const itemTitleBaseStyle = css`
-    &:focus-visible { outline: ${token.interaction['outline-width-focus']} solid ${token.interaction['outline-color-focus']}; outline-offset: ${token.interaction['outline-offset-focus']}; }
+    &:focus-visible { outline: ${token.interaction['outline-width-focus']} solid ${token.interaction['outline-color-focus']}; outline-offset: ${token.vertical.item.title['outline-offset-focus']}; }
     @media (pointer: coarse) { min-width: ${token.interaction.touch['min-width']}; min-height: ${token.interaction.touch['min-height']}; }
     @media (prefers-reduced-motion: reduce) { transition: none; }
     @media (forced-colors: active) { &:focus-visible { outline-color: Highlight; } }
@@ -104,7 +104,12 @@ const itemSelectStyle = css`
     }
     &:active { background-color: ${token.vertical.item.selection['background-color-pressed']}; }
     @media (forced-colors: active) {
-        &, &:hover, &:active { color: HighlightText; background-color: Highlight; }
+        /* Preserve this explicit system pair and prevent a Canvas text backplate. */
+        &, &:hover, &:active, &:focus-visible {
+            forced-color-adjust: none;
+            color: HighlightText;
+            background-color: Highlight;
+        }
     }
 `
 
@@ -154,7 +159,8 @@ const ulChildrenItemGroupStyle = css`
 `
 
 const stateIconStyle = css`
-    font-size: 1rem; 
+    font-size: 1rem;
+    margin-inline-start: ${token.vertical.item.icon["margin-right"]};
 `
 
 const menuItemIcon = css`
@@ -165,7 +171,7 @@ const menuItemIcon = css`
     color: ${token.vertical.item.icon.color};
     width: ${token.vertical.item.icon.width};
     height: ${token.vertical.item.icon.width};
-    margin-right: ${token.vertical.item.icon["margin-right"]};
+    margin-inline-end: ${token.vertical.item.icon["margin-right"]};
     line-height: 1;
 
     & > svg,
@@ -185,8 +191,8 @@ const VerticalNormalMenu: FC<VerticalMenuProps> = ({
     openKeys,
     selectedKeys = [],
     items = [],
-    onSelectItem,
-    onOpenChange,
+    onSelectedKeysChange,
+    onOpenKeysChange,
     onClick,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     inlineCollapsed,
@@ -195,25 +201,19 @@ const VerticalNormalMenu: FC<VerticalMenuProps> = ({
 }) => {
     const menuId = useId();
 
-    const selectItemFunction = (item: Item) => {
+    const selectItemFunction = (item: Item, event: MouseEvent<HTMLElement>) => {
+        const semanticEvent = menuActivationEvent(event.currentTarget) ?? event;
         const keys = []
         if (!selectedKeys.includes(item.key)) {
             keys.push(item.key)
         }
 
-        onSelectItem?.({
-            item,
-            selectedKeys: keys
-        });
+        onSelectedKeysChange?.(keys, { reason: keys.length ? 'select' : 'deselect', item, event: semanticEvent });
 
-        if (openKeys && item.type != ItemType.ItemGroup) {
-            const index = openKeys.indexOf(item.key);
-            if (index >= 0) {
-                openKeys.splice(index, 1);
-            } else {
-                openKeys.push(item.key);
-            }
-            onOpenChange?.([...openKeys]);
+        if (openKeys && item.type != ItemType.ItemGroup && item.children?.length) {
+            const wasOpen = openKeys.includes(item.key);
+            const nextKeys = wasOpen ? openKeys.filter(key => key !== item.key) : [...openKeys, item.key];
+            onOpenKeysChange?.(nextKeys, { reason: wasOpen ? 'collapse' : 'expand', item, event: semanticEvent });
         }
     }
 
@@ -257,10 +257,10 @@ const VerticalNormalMenu: FC<VerticalMenuProps> = ({
                         children.length === 0 && selectedKeys.includes(item.key) ? itemSelectStyle : null)
                     }
                     style={{
-                        paddingLeft: `calc(${depth} * ${verticalItemInlineIndent})`
+                        paddingInlineStart: `calc(${depth} * ${verticalItemInlineIndent})`
                     }}
                     onClick={(e) => {
-                        selectItemFunction(item);
+                        selectItemFunction(item, e);
                         onClick?.({
                             event: e,
                             item
@@ -306,10 +306,10 @@ const VerticalNormalMenu: FC<VerticalMenuProps> = ({
                 <div
                     className={cx.call(undefined, itemTitleStyle, itemGroupTitleStyle)}
                     style={{
-                        paddingLeft: `calc(${depth} * ${verticalItemInlineIndent} * 0.7)`
+                        paddingInlineStart: `calc(${depth} * ${verticalItemInlineIndent} * 0.7)`
                     }}
-                    onClick={() => {
-                        selectItemFunction(item);
+                    onClick={(e) => {
+                        selectItemFunction(item, e);
                     }}
                 >
                     {
@@ -343,7 +343,7 @@ const VerticalNormalMenu: FC<VerticalMenuProps> = ({
             }
         })
     }
-    
+
     return (
         <ul
             className={cx.call(undefined, className, ulStyle)}

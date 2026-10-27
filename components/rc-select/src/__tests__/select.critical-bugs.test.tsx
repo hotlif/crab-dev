@@ -1,5 +1,9 @@
-import { beforeAll, describe, expect, it, mock, fireEvent, render, screen } from "@crab-dev/wake/test/react";
+import { beforeAll, describe, expect, it, mock } from "@crab-dev/wake/test";
+import { fireEvent, render, screen } from "@crab-dev/wake/test/react";
 import type { ReactNode } from 'react';
+mock.module('@crab-dev/rc-dropdown-container/internal', () => ({
+    useDropdownPositionReference: () => () => {},
+}));
 // ─────────────────────────────────────────────────────────────────────────────
 // 回归测试:锁定「严重问题」清单里 3 个已修复 bug 的正确行为,防止回退。
 //
@@ -59,7 +63,7 @@ mock.module('@crab-dev/rc-virtual', async () => {
 });
 mock.module('@crab-dev/rc-dropdown-container', async () => {
     const mockReact = await mock.actual<typeof import("react")>("react");
-    type MockCtx = {
+    type MockDropdownContextValue = {
         state: {
             open: boolean;
         };
@@ -71,37 +75,48 @@ mock.module('@crab-dev/rc-dropdown-container', async () => {
             setReference: () => void;
         };
     };
-    const DropdownContext = mockReact.createContext<MockCtx | null>(null);
-    function MockDropdownContainer({ children, overlay }: {
+    const DropdownContext = mockReact.createContext<MockDropdownContextValue | null>(null);
+    function MockDropdownContainer({ children, overlay, open: controlledOpen, defaultOpen = false, onOpenChange }: {
         children: ReactNode;
         overlay: ReactNode;
+        open?: boolean;
+        defaultOpen?: boolean;
+        onOpenChange?: (open: boolean, details: { reason: 'trigger' }) => void;
     }) {
-        const [open, setOpen] = mockReact.useState(false);
-        const ctx = mockReact.useMemo(() => ({
+        const [internalOpen, setOpen] = mockReact.useState(defaultOpen);
+        const open = controlledOpen ?? internalOpen;
+        const ctx = {
             state: { open },
             dispatch: (action: {
                 type: 'setOpen';
                 payload: boolean;
             }) => {
-                if (action.type === 'setOpen')
-                    setOpen(action.payload);
+                if (action.type === 'setOpen') {
+                    if (controlledOpen === undefined) setOpen(action.payload);
+                    if (action.payload !== open) onOpenChange?.(action.payload, { reason: 'trigger' });
+                }
             },
             refs: { setReference: () => { } },
-        }), [open]);
+        };
         return (<div>
-            <DropdownContext.Provider value={ctx}>
+            <DropdownContext value={ctx}>
                 {children}
                 {open ? overlay : null}
-            </DropdownContext.Provider>
+            </DropdownContext>
         </div>);
     }
     function useDropdownContext() {
-        const context = mockReact.useContext(DropdownContext);
-        if (!context)
+        const context = mockReact.use(DropdownContext);
+        if (!context) {
             throw new Error('useDropdownContext must be used within a DropdownContainer');
+        }
         return context;
     }
-    return { __esModule: true, default: MockDropdownContainer, useDropdownContext };
+    return {
+        __esModule: true,
+        default: MockDropdownContainer,
+        useDropdownContext,
+    };
 });
 let Select: (typeof import("../select.js"))["default"];
 beforeAll(async () => {
@@ -120,6 +135,21 @@ const changeInputValue = async (input: HTMLInputElement, value: string) => {
     await fireEvent.input(input);
 };
 describe('rc-select 严重问题回归', () => {
+    for (const initialMode of ['controlled', 'default'] as const) {
+        it(`initial ${initialMode} open positions the selected option without an open callback`, async () => {
+            const onOpenChange = mock.fn();
+            const options = Array.from({ length: 100 }, (_, index) => ({ label: `Choice ${index}`, value: `choice-${index}` }));
+            const openProps = initialMode === 'controlled' ? { open: true } : { defaultOpen: true };
+            await render(<Select aria-label="initial-open" {...openProps} defaultValue="choice-90" options={options} onOpenChange={onOpenChange} />);
+            const selected = screen.getByRole('option', { name: 'Choice 90' });
+            expect(selected.getAttribute('aria-selected')).toBe('true');
+            expect(selected.getAttribute('data-highlighted')).toBe('true');
+            expect(screen.getByRole('combobox').getAttribute('aria-activedescendant')).toBe(selected.id);
+            expect(screen.queryByRole('option', { name: 'Choice 0' })).toBeNull();
+            expect(onOpenChange).not.toHaveBeenCalled();
+        });
+    }
+
     // ── #1:虚拟滚动键盘导航 ────────────────────────────────────────────────────
     // selectOverlay 通过 gridRef.scrollToCell(按全局行索引)把高亮行滚入视口。
     it('#1: 键盘高亮到视口外的选项时,该项被滚入视口、出现在 DOM', async () => {
@@ -141,7 +171,7 @@ describe('rc-select 严重问题回归', () => {
     // ── #2:过滤后重置高亮 ──────────────────────────────────────────────────────
     it('#2: 搜索过滤出唯一项后,直接按 Enter 即可选中该项', async () => {
         const onChange = mock.fn();
-        await render(<Select aria-label="s2" searchable onChange={onChange} options={[
+        await render(<Select aria-label="s2" searchable onValueChange={onChange} options={[
             { label: 'Alpha', value: 'alpha' },
             { label: 'Beta', value: 'beta' },
             { label: 'Gamma', value: 'gamma' },
@@ -158,7 +188,7 @@ describe('rc-select 严重问题回归', () => {
         expect(screen.queryByRole('option', { name: 'Gamma' })).toBeNull();
         // 直接回车即可选中唯一匹配项
         await fireEvent.keyDown(combobox, { key: 'Enter' });
-        expect(onChange).toHaveBeenCalledWith('beta', expect.objectContaining({ value: 'beta' }));
+        expect(onChange).toHaveBeenCalledWith('beta', expect.objectContaining({ reason: 'select', option: expect.objectContaining({ value: 'beta' }) }));
     });
     // ── #3:分组 key 不碰撞 ─────────────────────────────────────────────────────
     it('#3: 分组标题为 ReactNode 时不产生重复 key 警告', async () => {

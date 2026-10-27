@@ -6,7 +6,7 @@ export const meta = {
 import { css } from "@crab-dev/css";
 import { useRef, useState } from "react";
 import Button from "@crab-dev/rc-button";
-import Avatar, { AvatarGroup } from "../../src/index.js";
+import Avatar, { AvatarGroup } from "@crab-dev/rc-avatar";
 
 const wrapStyle = css`
     display: flex;
@@ -90,7 +90,7 @@ const GroupDemo = () => {
 
             <section className={sectionStyle}>
                 <span className={labelStyle}>自定义重叠与形状</span>
-                <div className={toolbarStyle}>
+                <div className={toolbarStyle} data-avatar-group-toolbar>
                     <AvatarGroup shape="square" size="small" max={3} spacing={-6}>
                         <Avatar aria-label="SQ">sq</Avatar>
                         <Avatar variant="primary" aria-label="AR">ar</Avatar>

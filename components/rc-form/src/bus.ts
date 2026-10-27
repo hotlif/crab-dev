@@ -48,8 +48,10 @@ class EventBus {
         type: MessageEnum,
         payload?: unknown[]
     }) {
-        this.subscribers.forEach(element => {
-            if (element.type === type) {
+        // Subscribers can replace themselves during a synchronous React update.
+        // New listeners belong to the next dispatch, never the active iteration.
+        [...this.subscribers].forEach(element => {
+            if (this.subscribers.has(element) && element.type === type) {
                 element.ring?.(...payload);
             }
         });

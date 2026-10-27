@@ -13,7 +13,7 @@ status = "experimental"
 
 ## 三套主题中的组合布局
 
-Form 与字段共用布局合约。MD3 的控件标签使用浮动结构；macOS 与 shadcn 使用静态标签与紧凑间距。使用 `labelPlacement="control"` 时由支持标签的字段负责名称、辅助说明与错误信息；普通外置标签仍适合 Checkbox、Switch 等组合控件。
+Form 管理字段行，控件管理自身结构。使用 `labelPlacement="control"` 时，字段占据完整一行，由支持标签的控件负责名称、辅助说明与错误信息；MD3 的文本字段使用浮动标签，Apple 与 shadcn 使用控件自身的静态标签布局，与独立使用时一致。默认的 `labelPlacement="external"` 由 Form 呈现并对齐外部标签，适合 Checkbox、Switch 等组合控件。
 
 表单不自行添加第二圈输入焦点或在主题切换时重建字段。LineEdit、NumberEdit、Select 的字段边界、动作和反馈由各自组件同步继承；验证规则及输入值不变。
 
@@ -26,19 +26,21 @@ Form 与字段共用布局合约。MD3 的控件标签使用浮动结构；macOS
 
 ## 无障碍
 
-- 每个字段都使用可见 `<label>`；关联 ID 由 `useId` 生成，不使用占位符代替标签。
+- 单个字段使用可见 `<label>`；选项组使用可见组标题并通过 `aria-labelledby` 关联组根。关联 ID 由 `useId` 生成，不使用占位符代替名称。
 - 帮助文本和错误信息通过 `aria-describedby` 关联，错误控件同时设置 `aria-invalid`。
 - 必填、格式和范围限制应在提交前说明；错误摘要需要能把焦点带回对应字段。
-- 必填标记与校验错误分开呈现：macOS 与 shadcn 使用前置红色星号，Material 使用跟随标签的后置星号。标记不进入字段的可访问名称，文本字段通过原生 `required` 表达必填状态；只有校验失败时才显示错误反馈。
+- 必填标记与校验错误分开呈现：Apple 与 shadcn 使用前置红色星号，Material 使用跟随标签的后置星号。标记不进入字段的可访问名称，文本字段通过原生 `required` 表达必填状态；只有校验失败时才显示错误反馈。
 - 提交期间设置 `aria-busy` 并保留明确反馈，避免仅禁用按钮而没有解释。
 
 更多通用要求见[无障碍使用指南](/guides/accessibility)。
 
 ## 代码演示
 
-文本字段将标签交给编辑器呈现：`Item labelPlacement="control"` 与 `LineEdit` 配合时，Material Design 3 使用 56px 字段和浮动标签；macOS 与 shadcn 将标签放在左侧、紧凑输入放在右侧，两者位于同一行，表单内的标签列统一对齐。通过文档顶部的外观菜单切换设计风格，无需改写表单。`theme` 单独控制明暗，`size` 保持独立；Material 文本字段保留标签所需的 56px 基础高度。
+文本字段将标签交给编辑器呈现：`Item labelPlacement="control"` 与 `LineEdit` 配合时，Material Design 3 使用 56px 字段和浮动标签；Apple 与 shadcn 将静态标签放在输入上方。Form 为控件提供整行宽度，不重新排列控件内部的标签、输入或说明。DatePicker、Select 等带结构容器的控件使用同一布局槽，不会被挤入外部标签列。通过文档顶部的外观菜单切换设计风格，无需改写表单。`colorMode` 单独控制明暗，`size` 保持独立；Material 文本字段保留标签所需的 56px 基础高度。
 
-同一业务表单应统一选择填充或描边。基础与校验示例使用默认描边；Filled 示例在独立表单中展示填充容器、浮动标签和焦点底线。帮助与校验文字直接呈现在输入下方，在 macOS 与 shadcn 中与右侧输入列对齐。
+同一业务表单应统一选择填充或描边。基础与校验示例使用默认描边；Filled 示例在独立表单中展示填充容器、浮动标签和焦点底线。帮助与校验文字由控件直接呈现在输入下方。
+
+“字段状态与显式适配”展示禁用、只读、原生值、原生勾选和类型化自定义回调的连接方式。原生字段保留浏览器外观；选择适配器依据控件协议，不根据事件形状猜测。
 
 <Demos glob="./demos/*.demo.tsx" columns={2} />
 
@@ -46,16 +48,22 @@ Form 与字段共用布局合约。MD3 的控件标签使用浮动结构；macOS
 
 `defaultValue` 只在挂载时读取；加载另一条记录时调用 `form.reinitialize(record)`，该记录也成为 `resetFields()` 的新基准。`useForm()` 的实例引用保持稳定。
 
-`Item` 默认绑定 value/onChange。原生输入与 LineEdit 使用 `binding="event"`，Switch / Checkbox 使用 `binding="checked"`，日期选择器使用 `binding="valueChange"`；原有子组件事件会继续执行。特殊协议可配置 valuePropName、trigger、getValueFromEvent，或使用函数 children 接收字段状态和 onChange。
+`Item` 默认绑定 `value/onValueChange`，适用于 LineEdit、Select、日期选择器及 Checkbox/Radio Group。单个 Switch / Checkbox 使用 `adapter="checked"`；原生输入使用 `adapter="native"`，原生复选框使用 `adapter="nativeChecked"`。原有子组件回调继续执行一次。
 
-`labelPlacement="control"` 要求字符串 `label`，并将标签、必填状态、辅助说明、错误文字和无障碍属性传给编辑器，由 `LineEdit` / `TextEdit` 根据全局风格呈现。Material 使用字段内的浮动标签，macOS 与 shadcn 在表单中使用左侧标签与右侧输入的同排布局；独立使用的 macOS 与 shadcn 文本字段仍将标签放在输入框上方。该模式只保留编辑器的一份标签，不再额外显示标签或末尾错误提示图标。自定义编辑器应透传 `id`、`aria-invalid`、`aria-describedby`、`label`、`required`、`errorText` 与 `supportingText`。默认布局继续使用外部标签，适合 Select、Checkbox 等控件。
+自定义控件通过 `FieldAdapter<TValue, TProps, TArgs>` 声明值属性、回调属性及参数转换，或使用函数 children 接收字段状态与 `onValueChange`。`getValueProps` 接收 `TValue | undefined`，适配器须明确处理缺少字段或重置后的空值。适配器不根据组件类型或值中的 `target` 字段猜测协议。字段传递 `id/name/disabled/readOnly/required`；程序赋值与重置更新字段但不触发用户变更回调。
+
+`labelPlacement` 只决定布局，`labelTarget` 决定外部标签的语义。默认 `labelTarget="control"` 保留原生标签点击及单个 Checkbox/Radio 自身的选项文字。CheckboxGroup、RadioGroup 或其他明确的组编辑器应同时写 `labelPlacement="external" labelTarget="group"`，即使宿主已采用外部布局也不省略。此时 Item 将可见标题的稳定 ID 传为字段 `aria-labelledby`，而不是让标题只标记首项。直接子编辑器自动接收；函数 children 须把 `id`、`aria-labelledby` 和说明/错误属性转发给组根，选项保留各自的标签，不复用字段 ID。子编辑器显式 `aria-label` 或 `aria-labelledby` 优先；函数渲染时由调用方决定最终转发/覆盖，不同时转发自动 `aria-labelledby` 来覆盖已有显式 `aria-label`。该语义不适用于 `labelPlacement="control"`，也不根据组件类型或 DOM 结构自动推断。
+
+`labelPlacement="control"` 要求字符串 `label`，并将标签、必填状态、辅助说明、错误文字和无障碍属性传给编辑器。`LineEdit`、`TextEdit`、`DatePicker`、`Select` 等支持该字段契约的控件保留自身的标签与反馈布局，不受 Form 的外部标签列约束。该模式只保留编辑器的一份标签，不再额外显示标签或末尾错误提示图标。
+
+Form 提供跨整行的控件槽，并允许其直接子容器在可用宽度内收缩；控件负责自身内部的文本溢出、操作区和说明排布。自定义编辑器应透传 `id`、`aria-invalid`、`aria-describedby`、`label`、`required`、`errorText` 与 `supportingText`，并使根容器适应槽宽。Form 不识别编辑器类型，也不改写其深层 DOM。需要表单内各字段共用一条左侧标签轨道时，使用默认的 `labelPlacement="external"`，由 Form 拥有标签布局。
 
 ```tsx
 <Item
     name="email"
     label="联系邮箱"
     labelPlacement="control"
-    binding="event"
+    adapter="value"
     supportingText="用于接收项目邀请。"
     required
 >
@@ -65,16 +73,21 @@ Form 与字段共用布局合约。MD3 的控件标签使用浮动结构；macOS
 
 `await form.submit()` 等待校验及业务回调，返回 success / invalid 两种结果。`validateFields()` 失败时抛出 `FormValidationError`，通过 values 获取数据快照、fields 获取字段 errors / warnings。WARNING 不阻止提交。嵌套字段使用元组路径，setter 会检查对应的值类型。
 
+必填提示和无消息校验失败使用当前 `locale` 的内置文案；切换语言会更新已显示的内置错误及警告，不重新执行规则或清空字段。校验器抛出的非空消息保持原样，即使它与某条内置文案相同。校验拒绝时未提供原因、提供空白字符串或空消息 `Error`，均显示本地化的“输入无效”。异步规则按完成时的语言生成公开 `errors / warnings` 字符串；已返回的 `FormValidationError` 保留该次结果快照。
+
+内置 `required` 仅将 `null`、`undefined`、空字符串和空数组 `[]` 视为缺值，适用于值集合及选项组。`0`、`false` 是已提供的值；空白字符串、对象和非空数组（包括日期元组）不递归猜测业务含义，需要相应限制时使用 `rules`。
+
 Form 默认设置 `noValidate`，将校验交给 `required` / `rules` 和字段下方的反馈，避免浏览器原生校验弹窗抢先拦截提交。需要浏览器原生约束校验时可显式设置 `noValidate={false}`。
 
 ### Item 字段呈现
 
 | 属性 | 类型 | 默认值 | 说明 |
 | --- | --- | --- | --- |
-| `labelPlacement` | `'external' \| 'control'` | `'external'` | 外部标签使用表单布局；`control` 由字段组件呈现标签与反馈，Material 为浮动标签，macOS 与 shadcn 在表单中为左侧同排标签。 |
+| `labelPlacement` | `'external' \| 'control'` | `'external'` | `external` 由 Form 呈现并对齐外部标签；`control` 提供整行控件槽，由字段组件保持自身标签与反馈布局。 |
+| `labelTarget` | `'control' \| 'group'`，仅外部布局 | `'control'` | `group` 必须同时显式设置 `labelPlacement="external"`，使用可见组标题关联组根，不将首项当作组名称。 |
 | `label` | 外部模式为 `ReactNode`；控件模式为必填 `string` | — | 使用清楚的可见名称，占位符不能替代标签。 |
 | `supportingText` | `string`，仅控件模式 | — | 字段下方的辅助说明，校验时由错误或警告暂时替换；子组件显式说明优先。 |
-| `binding` | `'value' \| 'event' \| 'checked' \| 'valueChange'` | `'value'` | LineEdit / TextEdit 选择 `event`，Switch / Checkbox 选择 `checked`。 |
+| `adapter` | `'value' \| 'checked' \| 'native' \| 'nativeChecked'` 或 `FieldAdapter` | `'value'` | 库内值控件使用默认值协议；布尔控件和原生元素显式适配。 |
 | `required` | `boolean` | — | 参与表单必填校验；控件模式同时传给编辑器。 |
 
 <API source="../src/form.tsx" symbol="FormProps" component="Form" />

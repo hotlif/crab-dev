@@ -1,4 +1,6 @@
 import type { PdfEditorErrorCode } from './types.js';
+import type { PdfBuiltinMessage } from './pdf-messages.js';
+import type { PdfObjectReasonId } from './engine-messages.js';
 
 export interface Bounds { x: number; y: number; width: number; height: number }
 export interface Transform extends Bounds { rotation: number }
@@ -16,6 +18,8 @@ export interface PdfObject {
     fontFamily?: string;
     color?: Rgba;
     reason?: string;
+    /** Library-owned reason identity; raw reason remains available to command consumers. */
+    reasonId?: PdfObjectReasonId;
     shape?: ShapeKind;
     shapeStyle?: ShapeStyle;
 }
@@ -80,5 +84,5 @@ export interface ResponseMap {
 export type Request = { [K in keyof RequestMap]: { id: number; type: K; data: RequestMap[K] } }[keyof RequestMap];
 export type Response = { id: number } & (
     | { ok: true; data: ResponseMap[keyof ResponseMap] }
-    | { ok: false; error: { code: PdfEditorErrorCode; message: string } }
+    | { ok: false; error: { code: PdfEditorErrorCode; message: string; builtinMessage?: PdfBuiltinMessage } }
 );

@@ -5,3 +5,5 @@ export { type Item as MenuItem, ItemType as MenuItemType } from "./type.js";
 
 export default Menu;
 export { vars as TokenVars } from './token.js';
+
+export type { MenuSelectionChangeDetails, MenuOpenKeysChangeDetails } from './menu.js';

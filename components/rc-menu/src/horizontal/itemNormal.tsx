@@ -1,26 +1,33 @@
 import {
     useFloating,
     useHover,
+    useDismiss,
     useInteractions,
     FloatingNode,
     useFloatingNodeId,
-    useFloatingTree,
-    useFloatingParentNodeId
+    useFloatingParentNodeId,
+    autoUpdate,
+    flip,
+    shift,
+    safePolygon,
 } from "@floating-ui/react";
-import { type FC, useState, type ReactNode, useEffect, useId } from "react";
+import { type FC, type ReactNode, type KeyboardEvent as ReactKeyboardEvent, useEffect, useEffectEvent, useId, useRef } from "react";
+import { registerOverlayLayer } from '@crab-dev/rc-hooks/internal';
 import { cx } from "@crab-dev/css";
 import { type Item } from "../type.js";
 import itemStyle from "./styles/itemNormal.styles.js";
-import { type MenuProps } from "../menu.js";
+import { type MenuProps, type MenuOpenKeysChangeDetails } from "../menu.js";
 import { iconArrayBase, iconArrayRight } from "../icon.js";
-
+import { menuActivationEvent } from '../keyboard.js';
 
 interface ItemProps {
-    item: Item,
-    children: ReactNode[],
-    depth: number
-    onClick?: MenuProps["onClick"]
-    selected?: boolean
+    item: Item;
+    children: ReactNode[];
+    depth: number;
+    onClick?: (param: Parameters<NonNullable<MenuProps['onClick']>>[0] & { activationEvent?: ReactKeyboardEvent<HTMLElement> }) => void;
+    selected?: boolean;
+    open: boolean;
+    onOpenChange?: (open: boolean, event?: MenuOpenKeysChangeDetails['event'], dismissal?: 'hover' | 'outside-press') => void;
 }
 
 const ItemNormal: FC<ItemProps> = ({
@@ -28,118 +35,95 @@ const ItemNormal: FC<ItemProps> = ({
     children,
     depth: _depth,
     onClick,
-    selected
+    selected,
+    open,
+    onOpenChange,
 }) => {
-    const [isOpen, setIsOpen] = useState(false);
     const submenuId = useId();
     const triggerId = useId();
     const nodeId = useFloatingNodeId();
-
-    const tree = useFloatingTree();
     const parentId = useFloatingParentNodeId();
     const isRootMenu = parentId == null;
-
-    const { refs, floatingStyles, context  } = useFloating({
-        open: isOpen,
-        onOpenChange: setIsOpen,
+    const hasChildren = children.length > 0;
+    const trigger = useRef<HTMLDivElement | null>(null);
+    // Mutable close metadata restores focus only after an accepted Escape request.
+    const restoreEscapeFocus = useRef(false);
+    const requestOpen = (next: boolean, event?: MenuOpenKeysChangeDetails['event'], dismissal?: 'hover' | 'outside-press') => {
+        if (!hasChildren || next === open) return;
+        restoreEscapeFocus.current = !next && event?.type === 'keydown' && 'key' in event && event.key === 'Escape';
+        onOpenChange?.(next, event, dismissal);
+    };
+    const { refs, floatingStyles, context } = useFloating({
+        open,
+        onOpenChange: (next, event, reason) => requestOpen(next, event, reason === 'outside-press' ? 'outside-press' : 'hover'),
         placement: isRootMenu ? "bottom-start" : "right-start",
         strategy: "fixed",
         nodeId,
+        whileElementsMounted: autoUpdate,
+        middleware: [flip(), shift({ padding: 8 })],
     });
-
-    const hover = useHover(context);
-
-    const { getReferenceProps, getFloatingProps } = useInteractions([hover]);
-
+    const hover = useHover(context, { handleClose: safePolygon() });
+    const dismiss = useDismiss(context, {
+        escapeKey: false,
+        outsidePressEvent: 'pointerdown',
+        referencePress: false,
+        ancestorScroll: false,
+    });
+    const { getReferenceProps, getFloatingProps } = useInteractions([hover, dismiss]);
+    const dismissTop = useEffectEvent((event: KeyboardEvent) => requestOpen(false, event));
     useEffect(() => {
-        const close = () => {
-            setIsOpen(false);
-        }
-        tree?.events.on("close", close);
-        return () => {
-            tree?.events.off("close", close);
-        };
-    }, [])
-
-
-    const isOpenFloatChildren = isOpen && children.length > 0;
+        const node = refs.floating.current;
+        if (!open || !node) return;
+        const layer = registerOverlayLayer(node, event => dismissTop(event), trigger.current);
+        return () => layer.release({ restoreFocus: restoreEscapeFocus.current });
+    }, [open, refs.floating, triggerId]);
 
     return (
-        <>
-            <li
-                key={item.key}
-                className={cx.call(undefined, itemStyle.item.base, isRootMenu ? itemStyle.item.withDivider : null)}
-                ref={refs.setReference}
-                {...getReferenceProps()}
+        <li
+            className={cx(itemStyle.item.base, isRootMenu ? itemStyle.item.withDivider : null)}
+            ref={refs.setReference}
+            {...getReferenceProps()}
+        >
+            <div
+                ref={trigger}
+                id={triggerId}
+                role="button"
+                tabIndex={0}
+                data-menu-item=""
+                aria-current={selected ? 'page' : undefined}
+                aria-expanded={hasChildren ? open : undefined}
+                aria-controls={hasChildren ? submenuId : undefined}
+                className={cx(itemStyle.item.content, isRootMenu ? null : itemStyle.item.floatTrigger)}
+                onClick={event => {
+                    const activationEvent = menuActivationEvent(event.currentTarget);
+                    if (hasChildren) requestOpen(!open, activationEvent ?? event);
+                    onClick?.({ event, item, activationEvent });
+                }}
             >
-                <div
-                    id={triggerId}
-                    role="button"
-                    tabIndex={0}
-                    data-menu-item=""
-                    aria-current={selected ? 'page' : undefined}
-                    aria-expanded={children.length > 0 ? isOpen : undefined}
-                    aria-controls={children.length > 0 ? submenuId : undefined}
-                    className={cx.call(undefined, itemStyle.item.content, isRootMenu ? null : itemStyle.item.floatTrigger)}
-                    onClick={(e) => {
-                        if (children.length > 0) setIsOpen(value => !value);
-                        else tree?.events.emit("close");
-                        onClick?.({
-                            event: e,
-                            item
-                        });
-                    }}
-                >
-                    {
-                        item.icon ? (
-                            <span
-                                className={itemStyle.item.icon}
-                                data-menu-icon=""
-                            >
-                                {item.icon}
-                            </span>
-                        ) : null
-                    }
-                    <span
-                        className={itemStyle.item.title}
+                {item.icon ? <span className={itemStyle.item.icon} data-menu-icon="">{item.icon}</span> : null}
+                <span className={itemStyle.item.title} title={item.title}>{item.title}</span>
+                {hasChildren && !isRootMenu ? (
+                    <span className={itemStyle.item.leftIcon} aria-hidden="true">
+                        <i className={cx(iconArrayBase, iconArrayRight)} />
+                    </span>
+                ) : null}
+            </div>
+            <FloatingNode id={nodeId}>
+                {open && hasChildren ? (
+                    <ul
+                        id={submenuId}
+                        {...getFloatingProps()}
+                        className={cx(itemStyle.submenu.container, itemStyle.submenu.float)}
+                        ref={refs.setFloating}
+                        // Floating UI supplies measured runtime geometry; visual values use static tokens.
+                        style={floatingStyles}
                     >
-                        {item.title}
-                    </span>
-
-                    <span className={itemStyle.item.leftIcon}>
-                        {
-                            children.length > 0 && !isRootMenu ? (
-                                <i className={cx.call(undefined, iconArrayBase, iconArrayRight)}/>
-                            ) : null
-                        }
-                    </span>
-                </div>
-                <FloatingNode id={nodeId}>
-                    {
-                        isOpenFloatChildren ? (
-                            <ul
-                                id={submenuId}
-                                {...getFloatingProps()}
-                                onKeyDown={event => {
-                                    if (event.key === 'Escape') {
-                                        event.preventDefault();
-                                        event.stopPropagation();
-                                        setIsOpen(false);
-                                        document.getElementById(triggerId)?.focus();
-                                    }
-                                }}
-                                className={cx.call(undefined, itemStyle.submenu.container, itemStyle.submenu.float)}
-                                ref={refs.setFloating}
-                                style={floatingStyles}
-                            >
-                                {children}
-                            </ul>
-                        ) : null
-                    }
-                </FloatingNode>
-            </li>
-        </>
-    )
-}
+                        {children}
+                    </ul>
+                ) : null}
+            </FloatingNode>
+        </li>
+    );
+};
 
 export default ItemNormal;

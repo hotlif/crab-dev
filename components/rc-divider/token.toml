@@ -19,7 +19,7 @@ line.border-width = "1px"
 
 spacing.none.margin   = "0px"
 spacing.small.margin  = "$ref(space.component-gap)"
-spacing.middle.margin = "$ref(space.section-gap)"
+spacing.medium.margin = "$ref(space.section-gap)"
 spacing.large.margin  = "$ref(space.group-gap)"
 
 

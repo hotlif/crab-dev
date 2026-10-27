@@ -1,7 +1,13 @@
+import type { ControlledOpenProps } from '@crab-dev/rc-hooks';
 import type { Placement } from '@floating-ui/react';
 import type { ReactElement, ReactNode } from 'react';
 
-export interface TooltipProps {
+export interface TooltipOpenChangeDetails {
+    reason: 'hover' | 'focus' | 'escape' | 'outside-press' | 'trigger';
+    event?: Event;
+}
+
+interface TooltipBaseProps {
     /**
      * 提示文字内容
      */
@@ -17,22 +23,6 @@ export interface TooltipProps {
      * @default 'top'
      */
     placement?: Placement;
-
-    /**
-     * 受控模式下的显隐状态
-     */
-    open?: boolean;
-
-    /**
-     * 非受控模式的默认显隐状态
-     * @default false
-     */
-    defaultOpen?: boolean;
-
-    /**
-     * 显隐状态变化时的回调
-     */
-    onOpenChange?: (open: boolean) => void;
 
     /**
      * 鼠标移入后延迟显示的毫秒数
@@ -57,3 +47,5 @@ export interface TooltipProps {
      */
     className?: string;
 }
+
+export type TooltipProps = TooltipBaseProps & ControlledOpenProps<TooltipOpenChangeDetails>;

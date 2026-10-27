@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react';
-// bundled 入口内含布局算法，避免在双格式库产物中保留仅 ESM 可用的 import.meta.url。
-import ELK from 'elkjs/lib/elk.bundled.js';
-import type { ElkNode, ElkExtendedEdge } from 'elkjs/lib/elk-api.js';
+import { computeElkLayout } from '../elk-layout.js';
 
 /** 传入节点描述：必须提供稳定的 id 与明确的宽高（world px）。 */
 export interface ElkLayoutNode {
@@ -42,16 +40,6 @@ export interface UseElkLayoutResult {
     error: Error | null;
 }
 
-// 面向库消费方的稳定化（例外白名单）：单例，避免重复创建 Worker
-let elkInstance: InstanceType<typeof ELK> | null = null;
-
-function getElk(): InstanceType<typeof ELK> | null {
-    if (elkInstance) return elkInstance;
-    if (typeof window === 'undefined') return null;
-    elkInstance = new ELK();
-    return elkInstance;
-}
-
 /**
  * 使用 ELK.js 异步计算节点图布局。
  *
@@ -82,9 +70,7 @@ export function useElkLayout(
     const key = JSON.stringify({ nodes, edges, options });
 
     useEffect(() => {
-        const elk = getElk();
-
-        if (!elk || nodes.length === 0) {
+        if (nodes.length === 0) {
             setLayout({ nodes: {}, edges: {} });
             setLoading(false);
             setError(null);
@@ -95,56 +81,9 @@ export function useElkLayout(
         setLoading(true);
         setError(null);
 
-        const graph: ElkNode = {
-            id: '__elk_root__',
-            layoutOptions: {
-                'elk.algorithm': 'layered',
-                'elk.direction': 'RIGHT',
-                'elk.spacing.nodeNode': '40',
-                'elk.layered.spacing.nodeNodeBetweenLayers': '60',
-                ...options,
-            },
-            children: nodes.map(n => ({
-                id: n.id,
-                width: n.width,
-                height: n.height,
-                ...(n.layoutOptions ? { layoutOptions: n.layoutOptions } : {}),
-            })),
-            edges: edges.map(e => ({
-                id: e.id,
-                sources: [e.source],
-                targets: [e.target],
-                ...(e.layoutOptions ? { layoutOptions: e.layoutOptions } : {}),
-            })) as ElkExtendedEdge[],
-        };
-
-        elk.layout(graph).then((result: ElkNode) => {
+        computeElkLayout(nodes, edges, options).then(result => {
             if (cancelled) return;
-
-            const nodeMap: ElkLayoutResult['nodes'] = {};
-            for (const child of result.children ?? []) {
-                nodeMap[child.id] = {
-                    x: child.x ?? 0,
-                    y: child.y ?? 0,
-                    width: child.width ?? 0,
-                    height: child.height ?? 0,
-                };
-            }
-
-            const edgeMap: ElkLayoutResult['edges'] = {};
-            for (const edge of (result.edges ?? []) as ElkExtendedEdge[]) {
-                const points: Array<{ x: number; y: number }> = [];
-                for (const section of edge.sections ?? []) {
-                    points.push(section.startPoint);
-                    for (const bp of section.bendPoints ?? []) {
-                        points.push(bp);
-                    }
-                    points.push(section.endPoint);
-                }
-                edgeMap[edge.id] = { points };
-            }
-
-            setLayout({ nodes: nodeMap, edges: edgeMap });
+            setLayout(result ?? { nodes: {}, edges: {} });
             setLoading(false);
         }).catch((err: unknown) => {
             if (cancelled) return;

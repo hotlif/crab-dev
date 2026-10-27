@@ -51,7 +51,7 @@ export const demos = [
     {
         "id": "docs/demos/controlled.demo.tsx",
         "title": "受控模式",
-        "description": "传入 value 与 onChange 由外部状态托管选中值。原始值可作为 options 简写。",
+        "description": "传入 value 与 onValueChange 由外部状态托管选中值。原始值可作为 options 简写。",
         "learning": {
             "components": [
                 "Segmented"
@@ -59,14 +59,14 @@ export const demos = [
             "props": [
                 "options",
                 "value",
-                "onChange"
+                "onValueChange"
             ],
             "events": [
-                "onChange"
+                "onValueChange"
             ],
             "hasState": true
         },
-        "sourceCode": "export const meta = {\n    title: \"受控模式\",\n    description: \"传入 value 与 onChange 由外部状态托管选中值。原始值可作为 options 简写。\",\n};\n\nimport { useState } from 'react';\nimport Segmented, { type SegmentedValue } from '../../src/index.js';\n\nconst ControlledDemo = () => {\n    const [value, setValue] = useState\u003cSegmentedValue>('列表');\n\n    return (\n        \u003cdiv>\n            \u003cSegmented options={['列表', '看板', '日历']} value={value} onChange={setValue} />\n            \u003cp>当前视图: {value}\u003c/p>\n        \u003c/div>\n    );\n};\n\nexport default ControlledDemo;\n",
+        "sourceCode": "export const meta = {\n    title: \"受控模式\",\n    description: \"传入 value 与 onValueChange 由外部状态托管选中值。原始值可作为 options 简写。\",\n};\n\nimport { useState } from 'react';\nimport Segmented, { type SegmentedValue } from '../../src/index.js';\n\nconst ControlledDemo = () => {\n    const [value, setValue] = useState\u003cSegmentedValue>('列表');\n\n    return (\n        \u003cdiv>\n            \u003cSegmented options={['列表', '看板', '日历']} value={value} onValueChange={setValue} />\n            \u003cp>当前视图: {value}\u003c/p>\n        \u003c/div>\n    );\n};\n\nexport default ControlledDemo;\n",
         "previewPath": "/components/rc-segmented/workbench/?__wake_demo=docs%2Fdemos%2Fcontrolled.demo.tsx",
         "workbenchPath": "/components/rc-segmented/workbench/#/components/docs%2Fdemos%2Fcontrolled.demo.tsx",
         "density": "regular",
@@ -79,9 +79,13 @@ export const demos = [
         "description": "比较浅色和深色下的分段轮廓、选中反馈、禁用项与键盘焦点。",
         "learning": {
             "components": [
+                "ConfigProvider",
                 "Segmented"
             ],
             "props": [
+                "designSystem",
+                "colorMode",
+                "role",
                 "aria-label",
                 "block",
                 "options",
@@ -90,7 +94,7 @@ export const demos = [
             "events": [],
             "hasState": false
         },
-        "sourceCode": "export const meta = {\n    title: '三套风格与完整状态',\n    description: '比较浅色和深色下的分段轮廓、选中反馈、禁用项与键盘焦点。',\n};\n\nimport { css } from '@crab-dev/css';\nimport token from '@crab-dev/rc-token-semantic';\nimport Segmented from '../../src/index.js';\n\nconst grid = css`display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr)); gap: ${token.space['stack-gap']};`;\nconst panel = css`display: grid; gap: ${token.space['stack-gap']}; padding: ${token.space['card-padding']}; border: 1px solid ${token.color.border.subtle}; border-radius: ${token.shape.card}; color: ${token.color.text.primary}; background: ${token.color.background.surface}; min-width: 0;`;\n\nexport default function DesignsDemo() {\n    return (\n        \u003cdiv className={grid}>\n            {(['macos', 'material', 'shadcn'] as const).flatMap(design => (['light', 'dark'] as const).map(mode => (\n                \u003csection key={`${design}-${mode}`} className={panel} data-crab-design={design} data-theme={mode} aria-label={`${design} ${mode}`}>\n                    \u003cstrong>{design} · {mode}\u003c/strong>\n                    \u003cSegmented aria-label={`${design} ${mode} 时间范围`} block options={[\n                        { value: 'day', label: '日' },\n                        { value: 'week', label: '周' },\n                        { value: 'month', label: '月' },\n                        { value: 'year', label: '年', disabled: true },\n                    ]} />\n                    \u003cSegmented aria-label={`${design} ${mode} 禁用时间范围`} block disabled options={['日', '周', '月']} />\n                \u003c/section>\n            )))}\n        \u003c/div>\n    );\n}\n",
+        "sourceCode": "export const meta = {\n    title: '三套风格与完整状态',\n    description: '比较浅色和深色下的分段轮廓、选中反馈、禁用项与键盘焦点。',\n};\n\nimport { css } from '@crab-dev/css';\nimport ConfigProvider from '@crab-dev/rc-config-provider';\nimport token, { designSystemRegistry } from '@crab-dev/rc-token-semantic';\nimport Segmented from '../../src/index.js';\n\nconst grid = css`display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr)); gap: ${token.space['stack-gap']};`;\nconst panel = css`display: grid; gap: ${token.space['stack-gap']}; padding: ${token.space['card-padding']}; border: 1px solid ${token.color.border.subtle}; border-radius: ${token.shape.card}; color: ${token.color.text.primary}; background: ${token.color.background.surface}; min-width: 0;`;\n\nexport default function DesignsDemo() {\n    return (\n        \u003cdiv className={grid}>\n            {(['md3', 'apple', 'shadcn'] as const).flatMap(design => (['light', 'dark'] as const).map(mode => (\n                \u003cConfigProvider key={`${design}-${mode}`} designSystem={design} colorMode={mode} className={panel} role=\"region\" aria-label={`${designSystemRegistry[design].fullName} ${mode === 'light' ? '浅色' : '深色'}`}>\n                    \u003cstrong>{designSystemRegistry[design].fullName} · {mode === 'light' ? '浅色' : '深色'}\u003c/strong>\n                    \u003cSegmented aria-label={`${designSystemRegistry[design].fullName} ${mode === 'light' ? '浅色' : '深色'} 时间范围`} block options={[\n                        { value: 'day', label: '日' },\n                        { value: 'week', label: '周' },\n                        { value: 'month', label: '月' },\n                        { value: 'year', label: '年', disabled: true },\n                    ]} />\n                    \u003cSegmented aria-label={`${designSystemRegistry[design].fullName} ${mode === 'light' ? '浅色' : '深色'} 禁用时间范围`} block disabled options={['日', '周', '月']} />\n                \u003c/ConfigProvider>\n            )))}\n        \u003c/div>\n    );\n}\n",
         "previewPath": "/components/rc-segmented/workbench/?__wake_demo=docs%2Fdemos%2Fdesigns.demo.tsx",
         "workbenchPath": "/components/rc-segmented/workbench/#/components/docs%2Fdemos%2Fdesigns.demo.tsx",
         "density": "regular",
@@ -123,7 +127,7 @@ export const demos = [
     {
         "id": "docs/demos/size.demo.tsx",
         "title": "尺寸",
-        "description": "通过 `size` 设置 `large`、`middle`、`small` 三档尺寸。",
+        "description": "通过 `size` 设置 `large`、`medium`、`small` 三档尺寸。",
         "learning": {
             "components": [
                 "Segmented"
@@ -135,7 +139,7 @@ export const demos = [
             "events": [],
             "hasState": false
         },
-        "sourceCode": "export const meta = {\n    title: \"尺寸\",\n    description: \"通过 `size` 设置 `large`、`middle`、`small` 三档尺寸。\",\n};\n\nimport { css } from '@crab-dev/css';\nimport Segmented from '../../src/index.js';\n\nconst options = ['日', '周', '月'];\n\nconst SizeDemo = () => {\n    return (\n        \u003cdiv\n            className={css`\n                display: flex;\n                flex-direction: column;\n                gap: 1rem;\n                align-items: flex-start;\n            `}\n        >\n            \u003cSegmented size=\"large\" options={options} />\n            \u003cSegmented size=\"middle\" options={options} />\n            \u003cSegmented size=\"small\" options={options} />\n        \u003c/div>\n    );\n};\n\nexport default SizeDemo;\n",
+        "sourceCode": "export const meta = {\n    title: \"尺寸\",\n    description: \"通过 `size` 设置 `large`、`medium`、`small` 三档尺寸。\",\n};\n\nimport { css } from '@crab-dev/css';\nimport Segmented from '../../src/index.js';\n\nconst options = ['日', '周', '月'];\n\nconst SizeDemo = () => {\n    return (\n        \u003cdiv\n            className={css`\n                display: flex;\n                flex-direction: column;\n                gap: 1rem;\n                align-items: flex-start;\n            `}\n        >\n            \u003cSegmented size=\"large\" options={options} />\n            \u003cSegmented size=\"medium\" options={options} />\n            \u003cSegmented size=\"small\" options={options} />\n        \u003c/div>\n    );\n};\n\nexport default SizeDemo;\n",
         "previewPath": "/components/rc-segmented/workbench/?__wake_demo=docs%2Fdemos%2Fsize.demo.tsx",
         "workbenchPath": "/components/rc-segmented/workbench/#/components/docs%2Fdemos%2Fsize.demo.tsx",
         "density": "regular",

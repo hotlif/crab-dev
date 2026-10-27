@@ -1,4 +1,5 @@
 import { PdfEditorError, type PdfEditorRuntime, type PdfSource } from './types.js';
+import { pdfError, restorePdfError } from './pdf-messages.js';
 import type { PageInfo, PageTarget, Pixels, Request, RequestMap, Response, ResponseMap } from './protocol.js';
 
 export interface RequestOptions { signal?: AbortSignal; priority?: number }
@@ -6,28 +7,41 @@ type PageRaster = Extract<ResponseMap['frame'], { image: Pixels }>;
 interface PageJob { abort: AbortController; result: Promise<PageRaster>; users: number; settled: boolean; options: RequestOptions }
 export function pageTarget(page: PageInfo, revision: number): PageTarget { return { page: page.index, revision, pageId: page.id, contentRevision: page.contentRevision }; }
 
+const arrayBufferByteLength = Object.getOwnPropertyDescriptor(ArrayBuffer.prototype, 'byteLength')!.get!;
+const blobSize = Object.getOwnPropertyDescriptor(Blob.prototype, 'size')!.get!;
+function isArrayBuffer(source: PdfSource): source is ArrayBuffer {
+    try { arrayBufferByteLength.call(source); return true; } catch { return false; }
+}
+function isBlob(source: PdfSource): source is Blob {
+    try { blobSize.call(source); return true; } catch { return false; }
+}
+
 export async function sourceBytes(source: PdfSource, signal?: AbortSignal): Promise<Uint8Array<ArrayBuffer>> {
     if (signal?.aborted) throw new PdfEditorError('cancelled', '操作已取消');
-    if (source instanceof Uint8Array) return Uint8Array.from(source);
-    if (source instanceof ArrayBuffer) return new Uint8Array(source.slice(0));
-    if (source instanceof Blob) return new Uint8Array(await source.arrayBuffer());
+    // Web Components can receive genuine binary inputs from another Window.
+    // Use native brand checks, not realm-local instanceof or a spoofable tag;
+    // preserve the visible byte range and always copy the caller's ownership.
+    if (ArrayBuffer.isView(source)) return Uint8Array.from(new Uint8Array(source.buffer, source.byteOffset, source.byteLength));
+    if (isArrayBuffer(source)) return new Uint8Array(source.slice(0));
+    if (isBlob(source)) return new Uint8Array(await source.arrayBuffer());
     const request = typeof source === 'object' && 'url' in source ? source : { url: source, headers: undefined, credentials: undefined };
     try {
         const response = await fetch(request.url, { headers: request.headers, credentials: request.credentials, signal });
-        if (!response.ok) throw new PdfEditorError('source', `无法加载文件（${response.status}）`);
+        if (!response.ok) throw pdfError('source', 'source.http', { status: response.status });
         return new Uint8Array(await response.arrayBuffer());
     }
     catch (error) {
         if (signal?.aborted) throw new PdfEditorError('cancelled', '操作已取消', { cause: error });
         if (error instanceof PdfEditorError) throw error;
-        throw new PdfEditorError('source', '无法加载文件', { cause: error });
+        throw pdfError('source', 'source.load', undefined, { cause: error });
     }
 }
 
 export function asError(error: unknown): PdfEditorError {
     if (error instanceof PdfEditorError) return error;
     if (error instanceof Error && error.name === 'AbortError') return new PdfEditorError('cancelled', '操作已取消');
-    return new PdfEditorError('operation', error instanceof Error ? error.message : '操作失败', { cause: error });
+    return error instanceof Error ? new PdfEditorError('operation', error.message, { cause: error })
+        : pdfError('operation', 'operation.failed', undefined, { cause: error });
 }
 
 /** 每个编辑器独占 Worker；结束实例立即拒绝请求并释放整个 WASM 堆。 */
@@ -44,6 +58,7 @@ export class PdfClient {
     private readonly pageJobs: Map<string, PageJob> = new Map();
     private pageBytes: number = 0;
     private documentEpoch: number = 0;
+    private readonly onFailure?: (error: PdfEditorError) => void;
     private readonly pending: Map<number, {
         resolve: (value: ResponseMap[keyof ResponseMap]) => void;
         reject: (error: PdfEditorError) => void;
@@ -51,7 +66,8 @@ export class PdfClient {
     }> = new Map();
     readonly ready: Promise<void>;
 
-    constructor(runtime: PdfEditorRuntime, private readonly onFailure?: (error: PdfEditorError) => void) {
+    constructor(runtime: PdfEditorRuntime, onFailure?: (error: PdfEditorError) => void) {
+        this.onFailure = onFailure;
         this.worker = new globalThis.Worker(runtime.workerUrl);
         this.worker.addEventListener('message', (event: MessageEvent<Response>) => {
             const response = event.data;
@@ -59,16 +75,16 @@ export class PdfClient {
             if (pending) {
                 this.pending.delete(response.id); pending.cleanup();
                 if (response.ok) pending.resolve(response.data);
-                else pending.reject(new PdfEditorError(response.error.code, response.error.message));
+                else pending.reject(restorePdfError(response.error.code, response.error.message, response.error.builtinMessage));
             }
             if (this.activeId === response.id) this.activeId = undefined;
             // 让刚完成编辑的消费方先提交当前页任务，再处理低优先级缩略图。
             queueMicrotask(() => this.pump());
         });
         this.worker.addEventListener('error', event => {
-            this.fail(new PdfEditorError('runtime', event.message || 'PDF Worker 加载失败'));
+            this.fail(event.message ? new PdfEditorError('runtime', event.message) : pdfError('runtime', 'worker.load'));
         });
-        this.worker.addEventListener('messageerror', () => this.fail(new PdfEditorError('runtime', 'PDF Worker 消息解析失败')));
+        this.worker.addEventListener('messageerror', () => this.fail(pdfError('runtime', 'worker.message')));
         this.ready = (async () => {
             const wasm = runtime.wasmBinary ? runtime.wasmBinary.slice(0) : (await sourceBytes(runtime.wasmUrl, this.abort.signal)).buffer;
             await this.send('init', { wasm });
@@ -158,7 +174,7 @@ export class PdfClient {
     }
 
     /** 背景预览与当前页共用完整帧；64 MiB / 24 页 LRU 限制长文档内存。 */
-    async preview(page: PageInfo, revision: number, scale: number, signal: AbortSignal, priority = 2): Promise<PageRaster> {
+    async preview(page: PageInfo, revision: number, scale: number, signal: AbortSignal, priority: number = 2): Promise<PageRaster> {
         if (this.closed) throw new PdfEditorError('cancelled', '编辑器已关闭');
         if (signal.aborted) throw new PdfEditorError('cancelled', '渲染已取消');
         const key = `${page.id}:${page.contentRevision}:${scale}`;
@@ -172,7 +188,7 @@ export class PdfClient {
             const abort = new AbortController(), epoch = this.documentEpoch;
             const options = { signal: abort.signal, priority };
             const result = this.request('frame', { ...pageTarget(page, revision), scale }, options).then(frame => {
-                if (!frame.image) throw new PdfEditorError('runtime', '页面预览数据无效');
+                if (!frame.image) throw pdfError('runtime', 'runtime.invalid-preview');
                 if (!this.closed && !abort.signal.aborted && epoch === this.documentEpoch) {
                     this.pages.set(key, frame); this.pageBytes += frame.image.rgba.byteLength;
                     while (this.pageBytes > 64 * 1024 * 1024 || this.pages.size > 24) {
@@ -221,14 +237,14 @@ export function bitmap(pixels: Pixels): Promise<ImageBitmap> {
 }
 
 export async function decodeImage(file: Blob): Promise<Pixels> {
-    if (!['image/png', 'image/jpeg', 'image/webp'].includes(file.type)) throw new PdfEditorError('source', '请选择 PNG、JPEG 或 WebP 图片');
+    if (!['image/png', 'image/jpeg', 'image/webp'].includes(file.type)) throw pdfError('source', 'image.format');
     const image = await globalThis.createImageBitmap(file);
     try {
-        if (image.width * image.height > 16 * 1024 * 1024) throw new PdfEditorError('source', '图片不能超过 1600 万像素');
+        if (image.width * image.height > 16 * 1024 * 1024) throw pdfError('source', 'image.budget');
         // 只将浏览器解码结果转成 PDFium 所需像素；编辑、缩放与预览由 rc-canvas 完成。
         const canvas = new OffscreenCanvas(image.width, image.height);
         const context = canvas.getContext('2d');
-        if (!context) throw new PdfEditorError('runtime', '浏览器无法解码图片');
+        if (!context) throw pdfError('runtime', 'image.decode');
         context.drawImage(image, 0, 0);
         return { width: image.width, height: image.height, rgba: context.getImageData(0, 0, image.width, image.height).data };
     } finally { image.close(); }

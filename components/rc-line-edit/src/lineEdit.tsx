@@ -1,18 +1,19 @@
-import { useComponentSize } from '@crab-dev/rc-config-provider';
+import { useControllableValue, type ControlledValueProps } from '@crab-dev/rc-hooks';
+import { useComponentSize, useLocale } from '@crab-dev/rc-config-provider';
 import { css, cx } from "@crab-dev/css";
 import Button from "@crab-dev/rc-button";
 import { Eye, EyeOff, X } from "lucide-react";
-import { useId, useState, type InputHTMLAttributes, type ReactNode, type Ref } from "react";
+import { useId, useState, type InputHTMLAttributes, type ReactNode, type Ref, type ChangeEvent, type MouseEvent } from "react";
 
 import semanticToken from "@crab-dev/rc-token-semantic";
 
 import token, { vars } from "./token.js";
 
 
-export interface LineEditProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "prefix" | "size"> {
+interface BaseLineEditProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "prefix" | "size" | "value" | "defaultValue"> {
     /** 字段外观，默认 outlined；bordered=false 时由宿主提供外观。 */
     appearance?: "outlined" | "filled";
-    /** 与输入框关联的可见标签；Material 浮动，macOS 与 shadcn 上置。 */
+    /** 与输入框关联的可见标签；Material 浮动，Apple 与 shadcn 上置。 */
     label?: string;
     /** 输入框下方的辅助说明，自动加入 aria-describedby。 */
     supportingText?: string;
@@ -29,48 +30,55 @@ export interface LineEditProps extends Omit<InputHTMLAttributes<HTMLInputElement
     containerRef?: Ref<HTMLDivElement>;
 
     /**
-     * 设置单行文本输入框的大小，默认为 middle
+     * 设置单行文本输入框的大小，默认为 medium
      */
-    size?: "large" | "middle" | "small"
+    size?: "large" | "medium" | "small";
 
     /**
      * 前缀图标
      */
-    prefix?: ReactNode
+    prefix?: ReactNode;
 
     /**
      * 后缀图标
      */
-    suffix?: ReactNode
+    suffix?: ReactNode;
 
     /**
      * 验证状态，影响边框颜色以提供即时反馈
      */
-    status?: "error" | "warning"
+    status?: "error" | "warning";
 
     /**
      * 是否显示外层边框/背景/阴影，默认为 true。
      * 设为 false 时容器变为无样式（透明、无边框、高度随内容自适应），
      * 用于嵌入到已有边框的宿主容器中（例如作为另一个组件内部的搜索框）
      */
-    bordered?: boolean
+    bordered?: boolean;
 
     /**
-     * 是否允许一键清除内容；触发 onChange，受控模式由父组件接受新值
+     * 是否允许一键清除内容；触发 onValueChange，受控模式由父组件接受新值
      */
-    allowClear?: boolean
+    allowClear?: boolean;
 
     /**
      * 点击清除按钮时的回调
      */
-    onClear?: () => void
+    onClear?: () => void;
 
     /**
      * 是否显示字符计数，配合 maxLength 使用
      */
-    showCount?: boolean
+    showCount?: boolean;
 }
 
+
+export interface LineEditChangeDetails {
+    reason: 'input' | 'clear';
+    event?: ChangeEvent<HTMLInputElement> | MouseEvent<HTMLButtonElement>;
+}
+
+export type LineEditProps = BaseLineEditProps & ControlledValueProps<string, LineEditChangeDetails>;
 
 // --- 容器样式 ---
 
@@ -110,7 +118,7 @@ const containerBaseStyle = css`
             outline: ${token.root['outline-width-focus']} solid Highlight;
             outline-offset: ${token.root['outline-offset-focus']};
         }
-        &[aria-disabled="true"] { border-color: GrayText; color: GrayText; }
+        &[aria-disabled="true"] { border-color: GrayText; color: GrayText; opacity: 1; }
     }
 `
 
@@ -123,12 +131,12 @@ const sizeContainerStyles = {
         ${vars['action.height']}: ${token.size.large.action.width};
         padding: ${token.size.large.padding};
     `,
-    middle: css`
-        min-height: max(${token.size.middle.height}, ${token.field.control['min-height']});
-        ${vars['field.control.height']}: ${token.size.middle.height};
-        ${vars['action.min-width']}: ${token.size.middle.action.width};
-        ${vars['action.height']}: ${token.size.middle.action.width};
-        padding: ${token.size.middle.padding};
+    medium: css`
+        min-height: max(${token.size.medium.height}, ${token.field.control['min-height']});
+        ${vars['field.control.height']}: ${token.size.medium.height};
+        ${vars['action.min-width']}: ${token.size.medium.action.width};
+        ${vars['action.height']}: ${token.size.medium.action.width};
+        padding: ${token.size.medium.padding};
     `,
     small: css`
         min-height: max(${token.size.small.height}, ${token.field.control['min-height']});
@@ -145,9 +153,9 @@ const sizeTextStyles = {
         font-size: ${token.size.large['font-size']};
         line-height: ${token.size.large['line-height']};
     `,
-    middle: css`
-        font-size: ${token.size.middle['font-size']};
-        line-height: ${token.size.middle['line-height']};
+    medium: css`
+        font-size: ${token.size.medium['font-size']};
+        line-height: ${token.size.medium['line-height']};
     `,
     small: css`
         font-size: ${token.size.small['font-size']};
@@ -195,7 +203,7 @@ const borderlessStyle = css`
         border-color: transparent;
         box-shadow: none;
     }
-    // 无边框模式没有自身的轮廓或底线，保留独立的键盘焦点提示。
+    /* 无边框模式没有自身的轮廓或底线，保留独立的键盘焦点提示。 */
     &:has(input:focus-visible) {
         outline: ${token.root['outline-width-focus']} solid ${token.root['outline-color-focus']};
         outline-offset: ${token.root['outline-offset-focus']};
@@ -356,8 +364,11 @@ const fieldStyle = css`
     &[data-labeled="true"][data-prefix="true"] > label {
         margin-inline-start: ${semanticToken.field.label['prefix-margin-inline']};
     }
-    &[data-labeled="true"]:not(:focus-within) input:placeholder-shown::placeholder {
+    &[data-labeled="true"]:not(:focus-within) input:not(:disabled):placeholder-shown::placeholder {
         color: ${token.field.placeholder.color};
+    }
+    &[data-labeled="true"][data-disabled="true"] input:placeholder-shown::placeholder {
+        color: ${token.field.placeholder['color-disabled']};
     }
     &[data-labeled="true"]:is(:focus-within, :has(input:not(:placeholder-shown)), :has(input:autofill)) > label {
         align-self: ${semanticToken.field.label.floating.align};
@@ -527,6 +538,7 @@ function LineEdit({
     value,
     defaultValue,
     onChange,
+    onValueChange,
     containerRef,
     className,
     style,
@@ -546,10 +558,10 @@ function LineEdit({
     ...rest
 }: LineEditProps) {
     const size = useComponentSize(sizeProp);
+    const { messages } = useLocale();
     // 密码可见性：内部 UI 状态，与业务无关
     const [showPassword, setShowPassword] = useState(false);
-    const [uncontrolledValue, setUncontrolledValue] = useState(defaultValue ?? '');
-    const displayValue = value ?? uncontrolledValue;
+    const [displayValue, setValue] = useControllableValue<string, [LineEditChangeDetails]>({ value, defaultValue: defaultValue ?? '', onValueChange });
     const generatedId = useId();
     const inputId = id ?? generatedId;
 
@@ -563,7 +575,7 @@ function LineEdit({
     const descriptionId = `${generatedId}-description`;
     const countId = `${generatedId}-count`;
     const count = showCount && typeof displayValue === "string" ? (
-        <span id={countId} className={countStyle} aria-label={`字符计数：${displayValue.length}${maxLength != null ? `，最多 ${maxLength}` : ""}`}>{displayValue.length}{maxLength != null ? `/${maxLength}` : ""}</span>
+        <span id={countId} className={countStyle} aria-label={messages.fields.characterCount(displayValue.length, maxLength)}>{displayValue.length}{maxLength != null ? `/${maxLength}` : ""}</span>
     ) : null;
 
     const control = (
@@ -597,10 +609,9 @@ function LineEdit({
                 ref={ref}
                 id={inputId}
                 type={inputType}
-                value={value}
-                defaultValue={defaultValue}
+                value={displayValue}
                 onChange={(event) => {
-                    setUncontrolledValue(event.currentTarget.value);
+                    setValue(event.currentTarget.value, { reason: 'input', event });
                     onChange?.(event);
                 }}
                 maxLength={maxLength}
@@ -616,8 +627,8 @@ function LineEdit({
                 <Button
                     type="button"
                     appearance="text"
-                    size="small"
-                    aria-label="清除"
+                    size="xs"
+                    aria-label={messages.common.clear}
                     aria-controls={inputId}
                     icon={<X aria-hidden="true" />}
                     className={actionButtonStyle}
@@ -627,9 +638,7 @@ function LineEdit({
                         const input = e.currentTarget.parentElement?.querySelector('input');
                         if (input) {
                             input.focus();
-                            // 原生 setter 触发 React 的 change 流程，保留受控值恢复语义。
-                            Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value')?.set?.call(input, '');
-                            input.dispatchEvent(new Event('input', { bubbles: true }));
+                            setValue('', { reason: 'clear', event: e });
                         }
                         onClear?.();
                     }}
@@ -644,9 +653,9 @@ function LineEdit({
                 <Button
                     type="button"
                     appearance="text"
-                    size="small"
+                    size="xs"
                     disabled={disabled}
-                    aria-label={showPassword ? "隐藏密码" : "显示密码"}
+                    aria-label={showPassword ? messages.fields.hidePassword : messages.fields.showPassword}
                     aria-controls={inputId}
                     icon={showPassword ? <EyeOff aria-hidden="true" /> : <Eye aria-hidden="true" />}
                     className={actionButtonStyle}

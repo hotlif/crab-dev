@@ -48,11 +48,11 @@ size.large.font-size = "$ref(typography.label.large.font-size)"
 
 # ─── 尺寸 — Middle (默认) ────────────────────────────────────────────────────
 
-size.middle.gap           = "$ref(space.component-gap)"
-size.middle.height = "$ref(sizing.middle.control)"
-size.middle.padding = "0 $ref(space.section-gap)"
-size.middle.border-radius = "calc($ref(sizing.middle.control) / 2)"
-size.middle.font-size = "$ref(typography.label.large.font-size)"
+size.medium.gap           = "$ref(space.component-gap)"
+size.medium.height = "$ref(sizing.medium.control)"
+size.medium.padding = "0 $ref(space.section-gap)"
+size.medium.border-radius = "calc($ref(sizing.medium.control) / 2)"
+size.medium.font-size = "$ref(typography.label.large.font-size)"
 
 
 # ─── 尺寸 — Small ────────────────────────────────────────────────────────────
@@ -206,10 +206,10 @@ size.small.line-height = "$ref(typography.label.large.line-height)"
 size.small.square.border-radius = "$ref(shape.control)"
 size.small.border-radius-active = "$ref(shape.small)"
 size.small.icon.width = "$ref(space.card-padding)"
-size.middle.line-height = "$ref(typography.label.large.line-height)"
-size.middle.square.border-radius = "$ref(shape.control)"
-size.middle.border-radius-active = "$ref(shape.small)"
-size.middle.icon.width = "$ref(space.card-padding)"
+size.medium.line-height = "$ref(typography.label.large.line-height)"
+size.medium.square.border-radius = "$ref(shape.control)"
+size.medium.border-radius-active = "$ref(shape.small)"
+size.medium.icon.width = "$ref(space.card-padding)"
 size.large.line-height = "$ref(typography.label.large.line-height)"
 size.large.square.border-radius = "$ref(shape.control)"
 size.large.border-radius-active = "$ref(shape.medium)"

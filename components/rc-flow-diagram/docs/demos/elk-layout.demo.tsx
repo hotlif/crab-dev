@@ -116,14 +116,14 @@ export default function ElkLayoutDemo() {
         <div className={demoStackStyle}>
             {/* 工具栏 */}
             <div className={demoToolbarStyle}>
-                <Select label="算法" value={algo} onChange={value => { if (value) handleAlgoChange(value); }}
+                <Select label="算法" value={algo} onValueChange={value => { if (value) handleAlgoChange(value); }}
                     options={[
                         { value: 'layered', label: 'Layered（层次化）' },
                         { value: 'mrtree', label: 'Mr. Tree（树形）' },
                         { value: 'stress', label: 'Stress（力导向）' },
                     ]} />
                 {algo !== 'stress' && (
-                    <Select label="方向" value={dir} onChange={value => { if (value) handleDirChange(value); }}
+                    <Select label="方向" value={dir} onValueChange={value => { if (value) handleDirChange(value); }}
                         options={[{ value: 'RIGHT', label: '→ 从左到右' }, { value: 'DOWN', label: '↓ 从上到下' }]} />
                 )}
             </div>

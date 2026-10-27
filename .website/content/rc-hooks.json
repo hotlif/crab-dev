@@ -19,12 +19,12 @@
         {
             "id": "step-2",
             "title": "交给业务管理",
-            "goal": "传入 value 与 onChange，让外部成为唯一数据来源。",
+            "goal": "传入 value 与 onValueChange，让外部成为唯一数据来源。",
             "why": "Hook 复用行为；useControllableValue 将受控与非受控约定收敛到同一个状态入口。",
             "instruction": "增加数量后点击外部归零。",
             "expected": "同一套行为可由父级状态控制。",
             "changes": [
-                "传入 value 与 onChange，让外部成为唯一数据来源。"
+                "传入 value 与 onValueChange，让外部成为唯一数据来源。"
             ],
             "source": "rc-hooks/step-2.tsx"
         }

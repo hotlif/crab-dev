@@ -5,5 +5,5 @@ export const meta = {
 import Pagination from "../../src/index.js";
 
 export default function ManyPagesDemo() {
-    return <Pagination defaultCurrent={23} total={980} pageSize={10} />;
+    return <Pagination defaultValue={23} total={980} pageSize={10} />;
 }

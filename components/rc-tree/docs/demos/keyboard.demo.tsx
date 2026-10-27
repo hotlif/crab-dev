@@ -1,8 +1,9 @@
 import AutoSizer from "@crab-dev/rc-auto-sizer";
+import { useConfig } from "@crab-dev/rc-config-provider";
 import { treeMeasureStyle, demoStackStyle, demoNoteStyle, keyboardHelpStyle } from "../demo-layout.js";
 export const meta = {
     title: "键盘导航",
-    description: "点击树组件后可使用键盘操作：`↑↓` 移动焦点，`→` 展开文件夹，`←` 折叠文件夹或跳转到父节点，`Enter` 选中/取消选中当前节点。",
+    description: "点击树组件后可使用键盘操作：`↑↓` 移动焦点，LTR 时 `→` 展开文件夹、`←` 折叠或跳转到父节点；RTL 时左右键交换。`Enter` 选中/取消选中当前节点。",
 };
 
 import { type Key, useState } from "react";
@@ -29,8 +30,9 @@ const buildNodes = (): Node[] => {
 };
 
 const KeyboardDemo = () => {
+    const { direction } = useConfig();
     const [expandedKeys, setExpandedKeys] = useState<Key[]>([]);
-    const [selectKeys, setSelectKeys] = useState<Key[]>([]);
+    const [selectedKeys, setSelectedKeys] = useState<Key[]>([]);
     const [treeData, setTreeData] = useTreeData(buildNodes());
 
     return (
@@ -38,8 +40,8 @@ const KeyboardDemo = () => {
             <div className={keyboardHelpStyle}>
                 <strong>键盘快捷键：</strong>&nbsp;
                 <kbd>↑</kbd><kbd>↓</kbd> 移动焦点 &nbsp;
-                <kbd>→</kbd> 展开 &nbsp;
-                <kbd>←</kbd> 折叠 / 跳父节点 &nbsp;
+                <kbd>{direction === 'rtl' ? '←' : '→'}</kbd> 展开 &nbsp;
+                <kbd>{direction === 'rtl' ? '→' : '←'}</kbd> 折叠 / 跳父节点 &nbsp;
                 <kbd>Enter</kbd> 选中
             </div>
             <AutoSizer disableHeight className={treeMeasureStyle}>
@@ -50,21 +52,15 @@ const KeyboardDemo = () => {
                         treeData={treeData}
                         onTreeNodeChange={setTreeData}
                         expandedKeys={expandedKeys}
-                        selectKeys={selectKeys}
-                        onSelect={({ selectKeys: keys }: { selectKeys: Key[] }) => setSelectKeys(keys)}
-                        onExpanded={({ node }: { node: Node }) => {
-                            setExpandedKeys(prev =>
-                                prev.includes(node.id)
-                                    ? prev.filter(k => k !== node.id)
-                                    : [...prev, node.id]
-                            );
-                        }}
+                        selectedKeys={selectedKeys}
+                        onSelectedKeysChange={(keys: Key[]) => setSelectedKeys(keys)}
+                        onExpandedKeysChange={setExpandedKeys}
                     />
                 )}
             </AutoSizer>
-            {selectKeys.length > 0 && (
+            {selectedKeys.length > 0 && (
                 <p className={demoNoteStyle}>
-                    已选中：{selectKeys.join(", ")}
+                    已选中：{selectedKeys.join(", ")}
                 </p>
             )}
         </div>

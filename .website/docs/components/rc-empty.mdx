@@ -78,6 +78,14 @@ import { demos } from "../_generated/rc-empty.js";
 - 空状态必须包含真实文本，插图应是装饰或有恰当替代文本。
 - 从有数据变为空时，焦点不要落在已卸载项目上，并按任务重要程度提供状态通告。
 
+### 设计依据与覆盖
+
+- **MD3 Expressive**：M3 没有独立 Empty state 组件；本组件使用 M3 排版、图标、Button 和 surface 规则构成项目模式。 [依据 1](https://m3.material.io/foundations/layout/understanding-layout/overview) · [依据 2](https://material-web.dev/components/button/) · [依据 3](https://github.com/material-components/material-web/tree/main/button)
+- **Apple**：依据 Apple HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。 [依据 1](https://developer.apple.com/design/human-interface-guidelines/components) · [依据 2](https://developer.apple.com/design/human-interface-guidelines/accessibility)
+- **shadcn/ui**：参考 shadcn/ui 的组件用途、中性表面与设计变量，在本库公共语义和 React 交互模型中实现；完整状态覆盖仍需按矩阵验收。 [依据 1](https://ui.shadcn.com/docs/components) · [依据 2](https://ui.shadcn.com/docs/theming) · [依据 3](https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4)
+
+设计依据不等于完成验收；当前状态与适用边界见[覆盖矩阵](/guides/design-coverage)。
+
 ## 常见问题
 
 ### 搜索无结果应该提示创建吗？
@@ -87,3 +95,10 @@ import { demos } from "../_generated/rc-empty.js";
 ## API
 
 <API source="../_generated_api/rc-empty.ts" symbol="EmptyProps" component="Empty" />
+
+<details data-docs-native-props>
+<summary>Empty 继承的原生属性（277 项）</summary>
+
+<API source="../_generated_api/rc-empty-native.ts" symbol="EmptyPropsNativeAttributes" component="Empty 继承的原生属性" />
+
+</details>

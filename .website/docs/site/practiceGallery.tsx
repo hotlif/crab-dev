@@ -24,8 +24,8 @@ export default function PracticeGallery() {
     return (
         <Tabs
             aria-label="选择实战运行示例"
-            activeKey={activeKey}
-            onChange={setActiveKey}
+            value={activeKey}
+            onValueChange={setActiveKey}
             destroyInactiveTabPane
             items={practices.map(tutorial => {
                 const step = tutorial.steps.at(-1);

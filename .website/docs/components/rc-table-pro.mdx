@@ -32,6 +32,8 @@ import { demos } from "../_generated/rc-table-pro.js";
 
 ##### 基础用法 — 通过 fetchData 与 fetchColumns 异步加载数据和列定义，TablePro 会自动适应容器宽高。
 
+##### 可重放的数据状态 — 切换真实请求的加载、空结果、数据错误、列错误和成功状态。加载请求持续等待至切换场景时取消；请求计数来自传输函数的实际调用，可核对错误场景的重复重试，切换“显示数据”后恢复成功。
+
 ##### 自定义类型渲染 — 通过 typeLoaders 为不同 dataType 注入自定义渲染器，实现状态标签、金额格式化和日期格式化等效果。
 
 ##### 自动刷新 — autoRefreshInterval 指定轮询间隔（ms），侧边栏同时出现「立即刷新」按钮。此示例每 3 秒自动重新拉取一次数据，模拟实时监控场景。
@@ -87,26 +89,40 @@ import { demos } from "../_generated/rc-table-pro.js";
 
 这三个示例共用的演示框架、筛选输入、状态标签和可取消模拟请求位于包内 `docs/demos/scenario-shared.tsx`；复制场景源码到自己的项目时，也要将这些辅助函数替换为项目组件和真实接口。
 
+“可重放的数据状态”将请求保持在加载状态，或返回空结果、数据错误、列错误及成功数据。错误场景可重复使用内置重试按钮，仍会返回同一模拟错误；切换“显示数据”恢复成功。切换场景会取消未完成请求，适合观察各状态的内容和操作布局。
+
+加载与请求错误优先于空态：请求未成功返回空结果时，不显示默认或自定义 `empty` 内容。已有行在刷新和刷新失败时保留，加载或错误反馈覆盖其上；成功返回零行后才显示 `empty`。重试期间同样遵守此顺序，不同时报告“加载中”和“暂无数据”。
+
 
 
 
 推荐使用 `request({ page, pageSize, filters, sort, signal })`，返回 `{ rows, total }`。新查询和卸载会取消旧请求；将 signal 传给 fetch 可中止底层网络请求。过期结果与过期错误均不会覆盖当前状态。
 
-从零开始接入时，先定义 `Row` 的 `dataRef` 形状，再让 `fetchColumns` 返回列协议（`name` 通常写成 `$.字段名`），最后实现 `request`。`filters` 的 key 是列名，value 是编辑器提交的字符串；服务端需自行解释条件并计算筛选后的 `total`。`sort` 包含列名与方向，服务端负责实际排序；`signal` 应传给网络请求。`rowSelection` 用受控 `selectedRowIds` 时，要在 `onChange` 中保存新集合，并根据业务状态设置 `getDisabled`。仅在已加载数据范围内使用 `showSummary` 与导出；需要全库聚合或全库导出时应另接后端接口。
+从零开始接入时，先定义 `Row` 的 `dataRef` 形状，再让 `fetchColumns` 返回列协议（`name` 通常写成 `$.字段名`），最后实现 `request`。`filters` 的 key 是列名，value 是编辑器提交的字符串；服务端需自行解释条件并计算筛选后的 `total`。`sort` 包含列名与方向，服务端负责实际排序；`signal` 应传给网络请求。`rowSelection` 用受控 `selectedRowIds` 时，在 `onSelectedRowIdsChange(ids, { rows, reason })` 中保存新集合，并根据业务状态设置 `getDisabled`。仅在已加载数据范围内使用 `showSummary` 与导出；需要全库聚合或全库导出时应另接后端接口。
 
 `sortMode` 默认为 client，仅对已加载数据排序。服务端分页配合 `sortMode="server"` 和 request 使用，组件通过 query.sort 传递排序条件，保留返回顺序，排序变化时回到第一页。旧 fetchData 仅支持 client 模式。
 
 为类型加载器标注 `DataTypeLoader<MyRow>[]`，渲染、编辑、搜索、汇总和导出回调便可保留业务行类型。`TableProProps`、`ProtocolTableState`、`TableQuery` 等类型均从包入口导出。
 
+`size` 只设置内置控件尺寸，`density` 独立控制 Table 行高与列面板 Tree 的默认几何；显式行高优先。分页配置的变化通知为 `onValueChange(page, { pageSize, reason })`，reason 为 `page` / `page-size` / `jump`；每页条数另通过 `onPageSizeChange(size, { page })` 通知。原有 `pagination.onChange(page, pageSize)` 已移除。内部请求仍采用既有的 `page/pageSize/filters/sort` 数据协议。
+
+工具栏、搜索、列操作、筛选、错误与无障碍名称跟随 `ConfigProvider locale`。业务列标题、数据内容、自定义编辑器和服务端错误消息由调用方负责。
+
+窄容器中，列面板覆盖表格并保留侧边工具栏；固定列阴影、表格焦点框和滚动条留在表格层内，不遮盖面板的搜索、勾选和重置操作。
+
+排序、分组展开、树展开、详情展开与行编辑复用 Table 的 `TableStateProps` 约束；受控属性与对应初值或默认展开策略互斥。TablePro 先解析自己的排序状态，再以受控排序传给 Table，初始排序只由一层状态机制消费。
 
 
 
 ### 设计风格与主题
 
-内部 Table 继承当前数据表风格；外围工具栏与分页区使用工作区 toolbar 表面，列配置、筛选、按钮和分页继续复用对应自有组件。加载、错误和空态保持可读文本，不额外增加主题专用结构。
-本范围以 M3 Lists / Divider 的表面、分隔、状态和无障碍规则作为扩展依据；数据表、图表、PDF 编辑器和可拖动分栏并非 Material Web 的同名标准组件。macOS 与 shadcn 是本项目在相同交互能力上的设计变体，未引入第三方 UI 运行时，也不宣称原生平台逐像素复刻。
+TablePro 在 Table 上组合查询、列配置和分页等能力。内部表格及列面板 Tree、工具栏字段、Checkbox、Button、DropdownContainer、Pagination 和 Spin 分别复用对应组件的视觉与交互契约；外围工作区使用工具栏、表面、表格边界、选中和错误等 L2 角色，不另造一套表格主题。
 
-参考（2026-10-22）：[M3 Lists 指南](https://m3.material.io/components/lists/guidelines)、[规格](https://m3.material.io/components/lists/specs)、[无障碍](https://m3.material.io/components/lists/accessibility)、[M3 Divider](https://m3.material.io/components/divider/guidelines)、[Material Web List 文档及示例](https://material-web.dev/components/list/)、[列表项样式](https://github.com/material-components/material-web/blob/main/list/internal/listitem/_list-item.scss)、[列表令牌](https://github.com/material-components/material-web/blob/main/tokens/_md-comp-list-item.scss)、[Divider 样式](https://github.com/material-components/material-web/blob/main/divider/internal/_divider.scss)、[Apple Lists and tables](https://developer.apple.com/design/human-interface-guidelines/lists-and-tables)、[shadcn Table](https://ui.shadcn.com/docs/components/table)、[Table 源码](https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/new-york-v4/ui/table.tsx)、[shadcn Resizable](https://ui.shadcn.com/docs/components/resizable)。
+Material Design 3 Expressive、Apple 和 shadcn/ui 的来源与固定 New York V4 基线见[三套设计体系](/guides/design-styles)。表格增强、列协议和请求编排按本库的专业扩展规则维护；基础控件的来源不能替代排序、列操作、虚拟行、编辑、加载与错误状态的逐项验收。
+
+`size` 设置内置控件尺寸，`density` 控制默认数据行和列面板节点几何，显式行高等配置优先。列定义、`request` 查询、持久化状态、业务编辑器和数据格式属于领域接口，切换设计体系不会重新解释它们。列加载错误、数据加载错误、空态和加载反馈应分别可识别。
+
+三体系、浅深色及适用数据状态的覆盖等级以[覆盖矩阵](/guides/design-coverage)和对应候选记录为准。
 
 ### 适用场景
 
@@ -125,6 +141,14 @@ import { demos } from "../_generated/rc-table-pro.js";
 - 工具栏有名称和逻辑顺序，刷新后不重置用户焦点或朗读整个表格。
 - 查询错误、空结果和导出状态提供文字反馈，列管理可完全使用键盘。
 
+### 设计依据与覆盖
+
+- **MD3 Expressive**：这是企业数据工作台模式，组合 Table、Search/Text field、Pagination、Drawer 与 Button；M3 负责组成控件和视觉角色。 [依据 1](https://m3.material.io/components) · [依据 2](https://material-web.dev/components/) · [依据 3](https://github.com/material-components/material-web)
+- **Apple**：依据 Apple HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。 [依据 1](https://developer.apple.com/design/human-interface-guidelines/components) · [依据 2](https://developer.apple.com/design/human-interface-guidelines/accessibility)
+- **shadcn/ui**：参考 shadcn/ui 的组件用途、中性表面与设计变量，在本库公共语义和 React 交互模型中实现；完整状态覆盖仍需按矩阵验收。 [依据 1](https://ui.shadcn.com/docs/components) · [依据 2](https://ui.shadcn.com/docs/theming) · [依据 3](https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4)
+
+设计依据不等于完成验收；当前状态与适用边界见[覆盖矩阵](/guides/design-coverage)。
+
 ## 常见问题
 
 ### 如何接真实接口？
@@ -134,3 +158,10 @@ import { demos } from "../_generated/rc-table-pro.js";
 ## API
 
 <API source="../_generated_api/rc-table-pro.ts" symbol="TableProProps" component="TablePro" />
+
+<details data-docs-native-props>
+<summary>TablePro 继承的原生属性（275 项）</summary>
+
+<API source="../_generated_api/rc-table-pro-native.ts" symbol="TableProPropsNativeAttributes" component="TablePro 继承的原生属性" />
+
+</details>

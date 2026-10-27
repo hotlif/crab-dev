@@ -2,22 +2,20 @@ import { useComponentSize } from '@crab-dev/rc-config-provider';
 import RcDropdownContainer from "@crab-dev/rc-dropdown-container";
 import { css } from "@crab-dev/css";
 import { useRef, type HTMLAttributes, type Ref } from "react";
-import { useControllableValue } from "@crab-dev/rc-hooks";
+import { useControllableValue, useControllableOpen, type ControlledValueProps, type ControlledOpenProps } from "@crab-dev/rc-hooks";
+import type { DropdownOpenChangeDetails } from '@crab-dev/rc-dropdown-container';
 import ColorPickerInput from "./colorPickerInput.js";
 import ColorPickerOverlay from "./colorPickerOverlay.js";
-import type { ColorFormat, ColorPreset, Locale, OKLCHValue } from "../types.js";
+import type { ColorFormat, ColorPreset, Locale, OKLCHValue, ColorValueChangeDetails } from "../types.js";
 import token from "../token.js";
 
-export interface ColorPickerProps
+interface ColorPickerBaseProps
     extends Omit<HTMLAttributes<HTMLDivElement>, "onChange" | "defaultValue"> {
     locale?: Locale;
     /** 受控值。与 defaultValue 二选一。 */
-    value?: OKLCHValue;
     /** 非受控初始值。 */
-    defaultValue?: OKLCHValue;
-    onValueChange?: (value: OKLCHValue) => void;
     disabled?: boolean;
-    size?: 'small' | 'middle' | 'medium' | 'large';
+    size?: 'small' | 'medium' | 'large';
     /** 文本输入框初始展示格式,默认 "hex"。仅影响显示,输出恒为 OKLCHValue。 */
     format?: ColorFormat;
     /** 预设色板:扁平色或带标题的分组色。 */
@@ -31,6 +29,10 @@ export interface ColorPickerProps
     ref?: Ref<HTMLDivElement>;
 }
 
+export type ColorPickerProps = ColorPickerBaseProps
+    & ControlledValueProps<OKLCHValue, ColorValueChangeDetails>
+    & ControlledOpenProps<DropdownOpenChangeDetails>;
+
 const DEFAULT_VALUE: OKLCHValue = { lightness: 0.6, chroma: 0, hue: 0 };
 
 const overlayPaddingStyle = css`
@@ -42,6 +44,9 @@ const ColorPicker = ({
     value,
     defaultValue,
     onValueChange,
+    open,
+    defaultOpen,
+    onOpenChange,
     disabled = false,
     size: sizeProp,
     format = "hex",
@@ -55,21 +60,24 @@ const ColorPicker = ({
     // Mutable trigger instance: return focus when an explicit panel action closes it.
     const triggerRef = useRef<HTMLDivElement | null>(null);
     const configuredSize = useComponentSize(sizeProp);
-    const size = configuredSize === 'middle' ? 'medium' : configuredSize;
-    const [current, setCurrent] = useControllableValue<OKLCHValue>({
+    const [isOpen, setOpen] = useControllableOpen<DropdownOpenChangeDetails>({ open, defaultOpen, onOpenChange });
+    const size = configuredSize;
+    const [current, setCurrent] = useControllableValue<OKLCHValue, [ColorValueChangeDetails]>({
         value,
         defaultValue: defaultValue ?? DEFAULT_VALUE,
-        onChange: onValueChange,
+        onValueChange,
     });
 
     return (
         <RcDropdownContainer
-            size={size === 'medium' ? 'middle' : size}
+            open={isOpen}
+            onOpenChange={setOpen}
+            size={size}
             overlay={
                 <ColorPickerOverlay
                     locale={locale}
                     value={current}
-                    onConfirm={setCurrent}
+                    onConfirm={next => setCurrent(next, { reason: 'confirm' })}
                     onClose={() => triggerRef.current?.focus()}
                     allowClear={allowClear}
                     showAlpha={showAlpha}

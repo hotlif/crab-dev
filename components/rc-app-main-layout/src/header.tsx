@@ -1,4 +1,5 @@
 import { css, cx } from "@crab-dev/css";
+import { useLocale } from '@crab-dev/rc-config-provider';
 import { useEffect, useRef, useState } from "react";
 import type { FC, Key, HTMLAttributes } from "react";
 import { autoUpdate, flip, offset, shift, useFloating } from "@floating-ui/react";
@@ -358,6 +359,7 @@ const Header: FC<HeaderProps> = ({
     onFullscreenToggle,
     ...restProps
 }) => {
+    const { messages } = useLocale();
     const mobileTitle = breadcrumbs?.[breadcrumbs.length - 1]?.title;
     const [userLoading, setUserLoading] = useState(false);
     const [resolvedUser, setResolvedUser] = useState<HeaderUserEntity>({});
@@ -452,8 +454,8 @@ const Header: FC<HeaderProps> = ({
                         idPrefix={tabIdPrefix}
                         onEmpty={() => menuButtonRef.current?.focus()}
                         items={tabs}
-                        activeKey={activeTabKey}
-                        onChange={onTabChange}
+                        value={activeTabKey}
+                        onValueChange={onTabChange}
                         onClose={onTabClose}
                         onCloseOthers={onTabCloseOthers}
                         onCloseRight={onTabCloseRight}
@@ -470,10 +472,10 @@ const Header: FC<HeaderProps> = ({
                     appearance="text"
                     shape="circle"
                     icon={<MenuIcon />}
-                    title="Toggle sidebar"
+                    title={messages.appLayout.toggleSidebar}
                     className={navBtnStyle}
                     onClick={onMenuToggle}
-                    aria-label="Toggle sidebar"
+                    aria-label={messages.appLayout.toggleSidebar}
                     aria-expanded={!menuToggled}
                     aria-pressed={menuToggled}
                 />
@@ -488,14 +490,14 @@ const Header: FC<HeaderProps> = ({
                         appearance="text"
                         shape="circle"
                         icon={fullscreenActive ? <ExitFullscreenIcon /> : <EnterFullscreenIcon />}
-                        title={fullscreenActive ? "Exit fullscreen" : "Enter fullscreen"}
+                        title={fullscreenActive ? messages.appLayout.exitFullscreen : messages.appLayout.enterFullscreen}
                         className={navBtnStyle}
                         onClick={onFullscreenToggle}
-                        aria-label={fullscreenActive ? "Exit fullscreen" : "Enter fullscreen"}
+                        aria-label={fullscreenActive ? messages.appLayout.exitFullscreen : messages.appLayout.enterFullscreen}
                         aria-pressed={fullscreenActive}
                     />
                 ) : null}
-                <Button type="button" appearance="text" shape="circle" icon={<BellIcon />} className={navBtnStyle} onClick={onBell} aria-label="Notifications" title="Notifications">
+                <Button type="button" appearance="text" shape="circle" icon={<BellIcon />} className={navBtnStyle} onClick={onBell} aria-label={messages.appLayout.notifications} title={messages.appLayout.notifications}>
                     {hasNotification ? <span className={notificationDotStyle} aria-hidden /> : null}
                 </Button>
                 <div
@@ -518,7 +520,7 @@ const Header: FC<HeaderProps> = ({
                         appearance="text"
                         className={userPillStyle}
                         onClick={onUserClick}
-                        aria-label={userLoading ? "Loading user" : (typeof resolvedUser.name === "string" ? resolvedUser.name : "User menu")}
+                        aria-label={userLoading ? messages.appLayout.loadingUser : (typeof resolvedUser.name === "string" ? resolvedUser.name : messages.appLayout.userMenu)}
                         aria-haspopup="menu"
                         aria-expanded={userMenuOpen}
                         onKeyDown={(e) => {
@@ -542,7 +544,7 @@ const Header: FC<HeaderProps> = ({
                             {userLoading ? (
                                 <Skeleton variant="avatar" width={token.header.user.avatar.width} height={token.header.user.avatar.width} aria-hidden />
                             ) : (
-                                <Avatar size="small" className={avatarStyle} aria-label="用户头像" aria-hidden>
+                                <Avatar size="small" className={avatarStyle} aria-label={messages.appLayout.userAvatar} aria-hidden>
                                     {resolvedUser.avatar ?? (typeof resolvedUser.name === 'string' ? resolvedUser.name.trim().slice(0, 1) || undefined : undefined)}
                                 </Avatar>
                             )}
@@ -556,7 +558,7 @@ const Header: FC<HeaderProps> = ({
                             className={userMenuStyle}
                             style={floatingStyles}
                             role="menu"
-                            aria-label="User actions"
+                            aria-label={messages.appLayout.userActions}
                         >
                             <Button
                                 type="button"
@@ -569,7 +571,7 @@ const Header: FC<HeaderProps> = ({
                                     onSwitchRole?.();
                                 }}
                             >
-                                切换角色
+                                {messages.appLayout.switchRole}
                             </Button>
                             <Button
                                 type="button"
@@ -582,7 +584,7 @@ const Header: FC<HeaderProps> = ({
                                     onLogout?.();
                                 }}
                             >
-                                退出登录
+                                {messages.appLayout.logout}
                             </Button>
                         </div>
                     ) : null}

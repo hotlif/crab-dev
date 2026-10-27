@@ -40,11 +40,11 @@ export const vars = defineTokens({
     'size.large.font-size': '--line-edit-size-large-font-size',
     'size.large.line-height': '--line-edit-size-large-line-height',
     'size.large.action.width': '--line-edit-size-large-action-width',
-    'size.middle.height': '--line-edit-size-middle-height',
-    'size.middle.padding': '--line-edit-size-middle-padding',
-    'size.middle.font-size': '--line-edit-size-middle-font-size',
-    'size.middle.line-height': '--line-edit-size-middle-line-height',
-    'size.middle.action.width': '--line-edit-size-middle-action-width',
+    'size.medium.height': '--line-edit-size-medium-height',
+    'size.medium.padding': '--line-edit-size-medium-padding',
+    'size.medium.font-size': '--line-edit-size-medium-font-size',
+    'size.medium.line-height': '--line-edit-size-medium-line-height',
+    'size.medium.action.width': '--line-edit-size-medium-action-width',
     'size.small.height': '--line-edit-size-small-height',
     'size.small.padding': '--line-edit-size-small-padding',
     'size.small.font-size': '--line-edit-size-small-font-size',
@@ -71,6 +71,7 @@ export const vars = defineTokens({
     'field.label.color': '--line-edit-field-label-color',
     'field.label.color-focus': '--line-edit-field-label-color-focus',
     'field.placeholder.color': '--line-edit-field-placeholder-color',
+    'field.placeholder.color-disabled': '--line-edit-field-placeholder-color-disabled',
     'field.outline.legend.margin': '--line-edit-field-outline-legend-margin',
     'field.outline.legend.padding': '--line-edit-field-outline-legend-padding',
     'field.outline.legend.height': '--line-edit-field-outline-legend-height',
@@ -129,8 +130,8 @@ const token = defineTokens({
         'background-color': `var(${vars['root.background-color']}, var(--token-semantic-color-surface-content, var(--token-semantic-color-background-surface, var(--token-global-material-neutral-98, oklch(0.98379491 0.01284496 321.893957)))))`
     },
     'action': {
-        'min-width': `var(${vars['action.min-width']}, var(--token-semantic-sizing-middle-action, var(--token-global-space-7, 28px)))`,
-        'height': `var(${vars['action.height']}, var(--token-semantic-sizing-middle-action, var(--token-global-space-7, 28px)))`,
+        'min-width': `var(${vars['action.min-width']}, var(--token-semantic-sizing-medium-action, var(--token-global-space-7, 28px)))`,
+        'height': `var(${vars['action.height']}, var(--token-semantic-sizing-medium-action, var(--token-global-space-7, 28px)))`,
         'opacity-disabled': `var(${vars['action.opacity-disabled']}, 1)`,
         'touch': {
             'min-width': `var(${vars['action.touch.min-width']}, var(--token-semantic-size-touch-target, var(--token-global-size-48, 48px)))`,
@@ -169,13 +170,13 @@ const token = defineTokens({
                 'width': `var(${vars['size.large.action.width']}, var(--token-semantic-sizing-large-action, var(--token-global-size-32, 32px)))`
             }
         },
-        'middle': {
-            'height': `var(${vars['size.middle.height']}, var(--token-semantic-sizing-middle-field, var(--token-global-size-36, 36px)))`,
-            'padding': `var(${vars['size.middle.padding']}, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)) var(--token-semantic-field-control-padding-inline, var(--token-global-space-4, 16px)))`,
-            'font-size': `var(${vars['size.middle.font-size']}, var(--token-semantic-field-input-font-size, var(--token-global-font-size-md, 16px)))`,
-            'line-height': `var(${vars['size.middle.line-height']}, var(--token-semantic-field-input-line-height, var(--token-global-space-6, 24px)))`,
+        'medium': {
+            'height': `var(${vars['size.medium.height']}, var(--token-semantic-sizing-medium-field, var(--token-global-size-36, 36px)))`,
+            'padding': `var(${vars['size.medium.padding']}, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)) var(--token-semantic-field-control-padding-inline, var(--token-global-space-4, 16px)))`,
+            'font-size': `var(${vars['size.medium.font-size']}, var(--token-semantic-field-input-font-size, var(--token-global-font-size-md, 16px)))`,
+            'line-height': `var(${vars['size.medium.line-height']}, var(--token-semantic-field-input-line-height, var(--token-global-space-6, 24px)))`,
             'action': {
-                'width': `var(${vars['size.middle.action.width']}, var(--token-semantic-sizing-middle-action, var(--token-global-space-7, 28px)))`
+                'width': `var(${vars['size.medium.action.width']}, var(--token-semantic-sizing-medium-action, var(--token-global-space-7, 28px)))`
             }
         },
         'small': {
@@ -194,7 +195,7 @@ const token = defineTokens({
         },
         'control': {
             'min-height': `var(${vars['field.control.min-height']}, var(--token-semantic-field-control-min-height, var(--token-global-size-56, 56px)))`,
-            'height': `var(${vars['field.control.height']}, var(--token-semantic-sizing-middle-field, var(--token-global-size-36, 36px)))`,
+            'height': `var(${vars['field.control.height']}, var(--token-semantic-sizing-medium-field, var(--token-global-size-36, 36px)))`,
             'padding-inline': `var(${vars['field.control.padding-inline']}, var(--token-semantic-field-control-padding-inline, var(--token-global-space-4, 16px)))`,
             'padding-inline-start': `var(${vars['field.control.padding-inline-start']}, var(--token-semantic-field-control-icon-padding-inline, var(--token-global-space-3, 12px)))`,
             'padding-inline-end': `var(${vars['field.control.padding-inline-end']}, var(--token-semantic-field-control-icon-padding-inline, var(--token-global-space-3, 12px)))`,
@@ -226,7 +227,8 @@ const token = defineTokens({
             'color-focus': `var(${vars['field.label.color-focus']}, var(--token-semantic-field-label-color-focus, var(--token-semantic-color-brand-primary, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078)))))`
         },
         'placeholder': {
-            'color': `var(${vars['field.placeholder.color']}, var(--token-semantic-field-label-empty-placeholder-color, transparent))`
+            'color': `var(${vars['field.placeholder.color']}, var(--token-semantic-field-label-empty-placeholder-color, transparent))`,
+            'color-disabled': `var(${vars['field.placeholder.color-disabled']}, var(--token-semantic-field-label-empty-placeholder-color-disabled, transparent))`
         },
         'outline': {
             'legend': {

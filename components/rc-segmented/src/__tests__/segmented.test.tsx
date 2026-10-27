@@ -12,7 +12,9 @@ const OPTIONS = [
     { label: '月', value: 'month' },
 ];
 const renderSegmented = async (props: Partial<SegmentedProps> = {}) => {
-    const renderResult = await render(<Segmented options={OPTIONS} {...props}/>);
+    const { value, defaultValue, onValueChange = () => {}, ...restProps } = props;
+    const stateProps = value === undefined ? { defaultValue, onValueChange } : { value, onValueChange };
+    const renderResult = await render(<Segmented options={OPTIONS} {...restProps} {...stateProps}/>);
     const inputs = Array.from(renderResult.container.querySelectorAll<HTMLInputElement>('input[type="radio"]'));
     return { ...renderResult, inputs };
 };
@@ -52,16 +54,16 @@ describe('Segmented', () => {
         expect(inputs[2].checked).toBe(true);
     });
     it('reflects a controlled value', async () => {
-        const { inputs } = await renderSegmented({ value: 'week', onChange: () => { } });
+        const { inputs } = await renderSegmented({ value: 'week', onValueChange: () => { } });
         expect(inputs[1].checked).toBe(true);
     });
-    it('calls onChange with the option value on selection', async () => {
-        const onChange = mock.fn();
-        const { inputs } = await renderSegmented({ onChange });
+    it('calls onValueChange with the option value on selection', async () => {
+        const onValueChange = mock.fn();
+        const { inputs } = await renderSegmented({ onValueChange });
         await act(async () => {
             await fireEvent.click(inputs[2]);
         });
-        expect(onChange).toHaveBeenCalledWith('month');
+        expect(onValueChange).toHaveBeenCalledWith('month', expect.objectContaining({ reason: expect.any(String) }));
     });
     it('updates selection in uncontrolled mode', async () => {
         const { inputs } = await renderSegmented();
@@ -72,12 +74,12 @@ describe('Segmented', () => {
         expect(inputs[0].checked).toBe(false);
     });
     it('does not switch a controlled value without a matching prop update', async () => {
-        const onChange = mock.fn();
-        const { inputs } = await renderSegmented({ value: 'day', onChange });
+        const onValueChange = mock.fn();
+        const { inputs } = await renderSegmented({ value: 'day', onValueChange });
         await act(async () => {
             await fireEvent.click(inputs[2]);
         });
-        expect(onChange).toHaveBeenCalledWith('month');
+        expect(onValueChange).toHaveBeenCalledWith('month', expect.objectContaining({ reason: expect.any(String) }));
         expect(inputs[0].checked).toBe(true);
         expect(inputs[2].checked).toBe(false);
     });
@@ -101,10 +103,10 @@ describe('Segmented', () => {
         expect(inputs[0].disabled).toBe(false);
         expect(inputs[1].disabled).toBe(true);
     });
-    it('does not fire onChange when a disabled option is clicked', async () => {
-        const onChange = mock.fn();
+    it('does not fire onValueChange when a disabled option is clicked', async () => {
+        const onValueChange = mock.fn();
         const { inputs } = await renderSegmented({
-            onChange,
+            onValueChange,
             options: [
                 { label: '日', value: 'day' },
                 { label: '周', value: 'week', disabled: true },
@@ -113,7 +115,7 @@ describe('Segmented', () => {
         await act(async () => {
             await fireEvent.click(inputs[1]);
         });
-        expect(onChange).not.toHaveBeenCalled();
+        expect(onValueChange).not.toHaveBeenCalled();
     });
     it('groups all radios under the same name', async () => {
         const { inputs } = await renderSegmented();
@@ -126,7 +128,7 @@ describe('Segmented', () => {
         inputs.forEach((input) => expect(input.name).toBe('view'));
     });
     it('renders every size variant', async () => {
-        const sizes: NonNullable<SegmentedProps['size']>[] = ['large', 'middle', 'small'];
+        const sizes: NonNullable<SegmentedProps['size']>[] = ['large', 'medium', 'small'];
         for (const size of sizes) {
             const { container, unmount } = await renderSegmented({ size });
             expect(container.querySelector('[role="radiogroup"]')?.className.length)
@@ -167,13 +169,13 @@ describe('Segmented', () => {
         expect(ref.current?.getAttribute('role')).toBe('radiogroup');
     });
     it('selects an enabled segment with Enter without repeating the current selection', async () => {
-        const onChange = mock.fn();
-        const { inputs } = await renderSegmented({ onChange });
+        const onValueChange = mock.fn();
+        const { inputs } = await renderSegmented({ onValueChange });
         await fireEvent.keyDown(inputs[1], { key: 'Enter' });
         expect(inputs[1].checked).toBe(true);
-        expect(onChange).toHaveBeenCalledWith('week');
+        expect(onValueChange).toHaveBeenCalledWith('week', expect.objectContaining({ reason: expect.any(String) }));
         await fireEvent.keyDown(inputs[1], { key: 'Enter' });
-        expect(onChange).toHaveBeenCalledTimes(1);
+        expect(onValueChange).toHaveBeenCalledTimes(1);
     });
     it('keeps an icon-only option recognizable after selection', async () => {
         const { container } = await renderSegmented({

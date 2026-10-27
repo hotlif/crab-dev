@@ -5,8 +5,9 @@ export const meta = {
 };
 
 import { useState } from 'react';
-import FlowDiagram, { FlowNode, FlowEdge, DEFAULT_FLOW_DIAGRAM_PALETTE } from '../../src/index.js';
-import type { ElkLayoutNode, ElkLayoutEdge } from '../../src/index.js';
+import token from '@crab-dev/rc-token-semantic';
+import FlowDiagram, { FlowNode, FlowEdge, DEFAULT_FLOW_DIAGRAM_PALETTE } from '@crab-dev/rc-flow-diagram';
+import type { ElkLayoutNode, ElkLayoutEdge } from '@crab-dev/rc-flow-diagram';
 
 const NODE_W = 110;
 const NODE_H = 44;
@@ -48,10 +49,10 @@ interface EdgeStyle {
 }
 
 const EDGE_STYLES: Record<string, EdgeStyle> = {
-    e1: { dashLength: 6, gapLength: 4, flowSpeed: 24, color: 'oklch(0.5 0.18 260)' },
-    e2: { dashLength: 6, gapLength: 4, flowSpeed: -24, color: 'oklch(0.45 0.15 140)' },
-    e3: { dashLength: 10, gapLength: 6, flowSpeed: 60, lineWidth: 2, color: 'oklch(0.45 0.15 30)' },
-    e4: { dashLength: 6, gapLength: 4, color: 'oklch(0.45 0.15 320)' },
+    e1: { dashLength: 6, gapLength: 4, flowSpeed: 24, color: token.color.brand.primary },
+    e2: { dashLength: 6, gapLength: 4, flowSpeed: -24, color: token.color.feedback.success.icon },
+    e3: { dashLength: 10, gapLength: 6, flowSpeed: 60, lineWidth: 2, color: token.color.feedback.error.icon },
+    e4: { dashLength: 6, gapLength: 4, color: token.color.tertiary.primary },
 };
 
 const EDGE_LABELS: Record<string, string> = {

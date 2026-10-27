@@ -1,32 +1,19 @@
-import { ConfigBoundary, useComponentSize, componentSizeMetrics, type ConfigSize } from '@crab-dev/rc-config-provider';
+import { ConfigBoundary, useComponentSize, useConfig, componentDensityMetrics, densityStyles, type ConfigSize, type ConfigDensity } from '@crab-dev/rc-config-provider';
 import { useEffect, useState, useRef, useMemo, useId } from "react";
-import type { Key, FC, ReactNode, HTMLAttributes, MouseEvent, SetStateAction, Dispatch } from "react";
+import type { Key, FC, ReactNode, HTMLAttributes, MouseEvent, SetStateAction, Dispatch, SyntheticEvent } from "react";
 import { createPortal } from "react-dom";
-import { css } from "@crab-dev/css";
+import { css, cx } from "@crab-dev/css";
 import { DndContext, DragOverlay } from "@dnd-kit/core";
-import type {
-    DragAbortEvent,
-    DragCancelEvent,
-    DragEndEvent,
-    DragMoveEvent,
-    DragOverEvent,
-    DragPendingEvent,
-    DragStartEvent,
-    UniqueIdentifier,
-} from "@dnd-kit/core";
+import type { TreeDragAbortEvent, TreeDragCancelEvent, TreeDragContext, TreeDragEndEvent, TreeDragMoveEvent, TreeDragOverEvent, TreeDragPendingEvent, TreeDragStartEvent } from './drag-types.js';
 import { SortableContext } from "@dnd-kit/sortable";
 import RcVirtual, { type VirtualHandle } from "@crab-dev/rc-virtual";
-import { useAnimatedRows, useKeyDown, useMediaQuery } from "@crab-dev/rc-hooks";
+import { useAnimatedRows, useKeyDown, useMediaQuery, useControllableValue } from "@crab-dev/rc-hooks";
 import token from "./token.js";
 import { LoadStateType, NodeType, OverStateEnum, type Node, type OverState } from "./type.js";
 import NodeItem, { type NodeItemProps } from "./nodeItem.js";
 import { belongsToNode, getDescendantIds, getHalfCheckedKeys, getLoadReadyTreeNodeData, loadDataFunc } from "./util.js";
 
-interface Context {
-    overState: OverState | null
-}
-
-export interface TreeProps extends Omit<
+interface TreeBaseProps extends Omit<
     HTMLAttributes<HTMLDivElement>,
     "onDrag" |
     "onDragCapture" |
@@ -81,21 +68,23 @@ export interface TreeProps extends Omit<
     /**
      * 展开指定的树节点
      */
-    expandedKeys?: Key[]
+
 
     /**
      * 选择节点
      */
-    selectKeys?: Key[]
+
 
     /**
      * 是否展示连接线
      */
     showLine?: boolean
 
-    /** 默认节点尺寸档；省略时继承 ConfigProvider。 */
+    /** 内部控件尺寸；省略时继承 ConfigProvider，与节点密度独立。 */
     size?: ConfigSize;
-    /** 显式节点高度，优先于尺寸档。粗指针下至少为 48px。 */
+    /** 节点与容器密度；省略时继承 ConfigProvider。 */
+    density?: ConfigDensity;
+    /** 显式默认节点高度，优先于 density 和粗指针自适应默认值。调用方负责触控目标。 */
     defaultNodeHeight?: number
 
     /**
@@ -116,52 +105,47 @@ export interface TreeProps extends Omit<
     /**
      * 展开节点的事件
      */
-    onExpanded?: NodeItemProps["onExpanded"]
+    onExpandedKeysChange?: (keys: Key[], details: TreeExpandedKeysChangeDetails) => void
 
     /**
      * 选择节点事件
      */
-    onSelect?: (param: {
-        event: MouseEvent<HTMLSpanElement, globalThis.MouseEvent>,
-        selectKeys: Key[],
-        node: Node,
-        isSelect: boolean
-    }) => void
+    onSelectedKeysChange?: (keys: Key[], details: TreeSelectedKeysChangeDetails) => void
 
     /**
      * 拖拽中止事件
      */
-    onDragAbort?: (event: DragAbortEvent, context: Context) => void;
+    onDragAbort?: (event: TreeDragAbortEvent, context: TreeDragContext) => void;
 
     /**
      * 拖拽待定事件
      */
-    onDragPending?: (event: DragPendingEvent, context: Context) => void;
+    onDragPending?: (event: TreeDragPendingEvent, context: TreeDragContext) => void;
 
     /**
      * 拖拽开始事件
      */
-    onDragStart?: (event: DragStartEvent, context: Context) => void;
+    onDragStart?: (event: TreeDragStartEvent, context: TreeDragContext) => void;
 
     /**
      * 拖拽移动事件
      */
-    onDragMove?: (event: DragMoveEvent, context: Context) => void;
+    onDragMove?: (event: TreeDragMoveEvent, context: TreeDragContext) => void;
 
     /**
      * 拖拽悬停事件
      */
-    onDragOver?: (event: DragOverEvent, context: Context) => void;
+    onDragOver?: (event: TreeDragOverEvent, context: TreeDragContext) => void;
 
     /**
      * 拖拽结束事件
      */
-    onDragEnd?: (event: DragEndEvent, context: Context) => void;
+    onDragEnd?: (event: TreeDragEndEvent, context: TreeDragContext) => void;
 
     /**
      * 拖拽取消事件
      */
-    onDragCancel?: (event: DragCancelEvent, context: Context) => void;
+    onDragCancel?: (event: TreeDragCancelEvent, context: TreeDragContext) => void;
 
     /**
      * 右键点击的时候触发的事件
@@ -176,17 +160,12 @@ export interface TreeProps extends Omit<
     /**
      * 受控的已选中节点 key 列表
      */
-    checkedKeys?: Key[]
+
 
     /**
      * 复选框勾选/取消时触发。内部已完成级联计算，halfCheckedKeys 由组件自动计算。
      */
-    onCheck?: (param: {
-        checkedKeys: Key[]
-        halfCheckedKeys: Key[]
-        node: Node
-        checked: boolean
-    }) => void
+    onCheckedKeysChange?: (keys: Key[], details: TreeCheckedKeysChangeDetails) => void
 
     /**
      * 过滤树节点。返回 true 则保留该节点（及其所有祖先）；返回 false 则隐藏。
@@ -220,19 +199,31 @@ export interface TreeProps extends Omit<
 }
 
 
+export interface TreeSelectedKeysChangeDetails { reason: 'select'; node: Node; event?: SyntheticEvent<HTMLElement>; selected: boolean; }
+export interface TreeCheckedKeysChangeDetails { reason: 'check'; node: Node; event?: SyntheticEvent<HTMLElement>; checked: boolean; halfCheckedKeys: Key[]; }
+export interface TreeExpandedKeysChangeDetails { reason: 'expand'; node: Node; event?: SyntheticEvent<HTMLElement>; expanded: boolean; }
+
+export type TreeProps = TreeBaseProps
+    & ({ selectedKeys: Key[]; defaultSelectedKeys?: never } | { selectedKeys?: undefined; defaultSelectedKeys?: Key[] })
+    & ({ checkedKeys: Key[]; defaultCheckedKeys?: never } | { checkedKeys?: undefined; defaultCheckedKeys?: Key[] })
+    & ({ expandedKeys: Key[]; defaultExpandedKeys?: never } | { expandedKeys?: undefined; defaultExpandedKeys?: Key[] });
+
 const Tree: FC<TreeProps> = ({
     treeData,
     width,
     height,
-    expandedKeys = [],
-    selectKeys = [],
+    expandedKeys: expandedKeysProp,
+    defaultExpandedKeys = [],
+    selectedKeys: selectedKeysProp,
+    defaultSelectedKeys = [],
     draggable = false,
     showLine,
     size: sizeProp,
+    density: densityProp,
     defaultNodeHeight: nodeHeight,
     loadData,
     onTreeNodeChange,
-    onExpanded: _onExpanded,
+    onExpandedKeysChange,
     rendererContextMenu,
     onDragAbort,
     onDragPending,
@@ -242,12 +233,13 @@ const Tree: FC<TreeProps> = ({
     onDragEnd,
     onDragCancel,
     onContextMenu,
-    onSelect,
+    onSelectedKeysChange,
     allowDrop,
     filterTreeNode,
     checkable,
-    checkedKeys = [],
-    onCheck,
+    checkedKeys: checkedKeysProp,
+    defaultCheckedKeys = [],
+    onCheckedKeysChange,
     onEditEnd,
     renderEditInput,
     dragBadgeLabels,
@@ -259,12 +251,22 @@ const Tree: FC<TreeProps> = ({
     ...restProps
 }) => {
     const size = useComponentSize(sizeProp);
-    const defaultNodeHeight = nodeHeight ?? componentSizeMetrics[size].navigation;
+    const config = useConfig();
+    const density = densityProp ?? config.density;
+    const coarsePointer = useMediaQuery('(pointer: coarse)');
+    const densityNodeHeight = componentDensityMetrics[density].navigation;
+    const defaultNodeHeight = nodeHeight ?? (coarsePointer ? Math.max(densityNodeHeight, 48) : densityNodeHeight);
+    const resolveNodeHeight = (node: Pick<Node, 'height'> | null) => node?.height ?? defaultNodeHeight;
+    const [selectedKeys, setSelectedKeys] = useControllableValue<Key[], [TreeSelectedKeysChangeDetails]>({ value: selectedKeysProp, defaultValue: defaultSelectedKeys, onValueChange: onSelectedKeysChange });
+    const [checkedKeys, setCheckedKeys] = useControllableValue<Key[], [TreeCheckedKeysChangeDetails]>({ value: checkedKeysProp, defaultValue: defaultCheckedKeys, onValueChange: onCheckedKeysChange });
+    const [expandedKeys, setExpandedKeys] = useControllableValue<Key[], [TreeExpandedKeysChangeDetails]>({ value: expandedKeysProp, defaultValue: defaultExpandedKeys, onValueChange: onExpandedKeysChange });
+    const onSelect = (details: { event?: SyntheticEvent<HTMLElement>; selectedKeys: Key[]; node: Node; isSelect: boolean }) => {
+        setSelectedKeys(details.selectedKeys, { reason: 'select', node: details.node, event: details.event, selected: details.isSelect });
+    };
     const nodeId = useId();
     // 可变实例状态：选择变化时定位虚拟列表，不参与节点渲染。
     const gridRef = useRef<VirtualHandle>(null);
-    const coarsePointer = useMediaQuery('(pointer: coarse)');
-    const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
+    const [activeId, setActiveId] = useState<Node['id'] | null>(null);
     const [keyboardEvent] = useKeyDown();
     const [mouseContextMenuNodeTitlePosition, setContextMenuNodeTitlePosition] = useState<number[]>([0, 0]);
     const [isOpenContextMenu, setIsOpenContextMenu] = useState<boolean>(false);
@@ -335,20 +337,20 @@ const Tree: FC<TreeProps> = ({
 
     const motionRows = useAnimatedRows(displayedNodes, {
         keyFor: node => node.id,
-        sizeFor: ({ height = defaultNodeHeight }) => coarsePointer ? Math.max(height, 48) : height,
+        sizeFor: resolveNodeHeight,
         trigger: JSON.stringify(expandedKeys),
         rootRef: divRef,
         motionProperty: '--tree-row-motion',
         enabled: activeId === null && !filterTreeNode,
     });
-    const selectedId = selectKeys[selectKeys.length - 1];
+    const selectedId = selectedKeys[selectedKeys.length - 1];
     const selectedIndex = displayedNodes.findIndex(node => node.id === selectedId);
     useEffect(() => {
         const rowIndex = motionRows.findIndex(row => row.key === selectedId && !row.exiting);
         if (height > 0 && rowIndex >= 0) gridRef.current?.scrollToCell({ rowIndex });
     }, [height, selectedIndex]);
 
-    const onExpanded: TreeProps["onExpanded"] = (e) => {
+    const onExpanded: NonNullable<NodeItemProps["onExpanded"]> = (e) => {
         if (e.node.loadState === LoadStateType.UNLOADED && !expandedKeys?.includes(e.node.id)) {
             onTreeNodeChange(oldNodes => {
                 return oldNodes.map(element =>
@@ -375,10 +377,11 @@ const Tree: FC<TreeProps> = ({
                 })
             });
         }
-        _onExpanded?.(e);
+        const expanded = !expandedKeys.includes(e.node.id);
+        setExpandedKeys(expanded ? [...expandedKeys, e.node.id] : expandedKeys.filter(key => key !== e.node.id), { reason: 'expand', node: e.node, event: e.event, expanded });
     }
 
-    const handleCheck = (node: Node, checked: boolean) => {
+    const handleCheck = (node: Node, checked: boolean, event?: SyntheticEvent<HTMLElement>) => {
         const descendants = getDescendantIds(node, treeData);
         let newCheckedKeys: Key[];
         if (checked) {
@@ -394,7 +397,7 @@ const Tree: FC<TreeProps> = ({
             newCheckedKeys = checkedKeys.filter(k => !removeIds.has(k));
         }
         const halfCheckedKeys = getHalfCheckedKeys(newCheckedKeys as Node["id"][], treeData);
-        onCheck?.({ checkedKeys: newCheckedKeys, halfCheckedKeys, node, checked });
+        setCheckedKeys(newCheckedKeys, { reason: 'check', halfCheckedKeys, node, checked, event });
     };
 
     const getLeftAndTop = () => {
@@ -542,22 +545,36 @@ const Tree: FC<TreeProps> = ({
                 <div
                     ref={divRef}
                     tabIndex={0}
+                    dir={restProps.dir}
                     role={role}
                     aria-label={ariaLabel}
                     aria-labelledby={ariaLabelledby}
                     aria-describedby={ariaDescribedby}
                     aria-activedescendant={selectedId != null && selectedIndex >= 0 ? `${nodeId}-${encodeURIComponent(String(selectedId))}` : undefined}
-                    className={css`
+                    className={cx(densityStyles[density], css`
                         display: inline-block;
                         position: relative;
                         --tree-row-motion: ${token.motion.rows.transition};
                         color: ${token.root.color};
                         font-family: ${token.root['font-family']};
                         &:focus-visible { outline: ${token.root['outline-width-focus']} solid ${token.root['outline-color-focus']}; outline-offset: ${token.root['outline-offset-focus']}; }
+                        /* Paint above positioned selected rows without changing the measured box. */
+                        &:focus-visible::after {
+                            content: '';
+                            position: absolute;
+                            inset: 0;
+                            z-index: 2;
+                            pointer-events: none;
+                            outline: inherit;
+                            outline-offset: inherit;
+                        }
                         @media (forced-colors: active) { &:focus-visible { outline-color: Highlight; } }
-                    `}
+                    `)}
                     onKeyDown={(e) => {
-                        const focusedId = selectKeys[selectKeys.length - 1];
+                        // Use the rendered direction, including native dir overrides
+                        // and the current Document, so keys follow the visible hierarchy.
+                        const isRtl = e.currentTarget.ownerDocument.defaultView?.getComputedStyle(e.currentTarget).direction === 'rtl';
+                        const focusedId = selectedKeys[selectedKeys.length - 1];
                         const focusedIndex = focusedId != null
                             ? displayedNodes.findIndex(n => n.id === focusedId)
                             : -1;
@@ -567,7 +584,7 @@ const Tree: FC<TreeProps> = ({
                             for (let i = focusedIndex + 1; i < displayedNodes.length; i++) {
                                 const n = displayedNodes[i];
                                 if (!n.disabled) {
-                                    onSelect?.({ event: e as unknown as MouseEvent<HTMLSpanElement, globalThis.MouseEvent>, selectKeys: [n.id], node: n, isSelect: true });
+                                    onSelect?.({ event: e, selectedKeys: [n.id], node: n, isSelect: true });
                                     break;
                                 }
                             }
@@ -576,29 +593,29 @@ const Tree: FC<TreeProps> = ({
                             for (let i = focusedIndex - 1; i >= 0; i--) {
                                 const n = displayedNodes[i];
                                 if (!n.disabled) {
-                                    onSelect?.({ event: e as unknown as MouseEvent<HTMLSpanElement, globalThis.MouseEvent>, selectKeys: [n.id], node: n, isSelect: true });
+                                    onSelect?.({ event: e, selectedKeys: [n.id], node: n, isSelect: true });
                                     break;
                                 }
                             }
-                        } else if (e.key === "ArrowRight") {
+                        } else if (e.key === (isRtl ? "ArrowLeft" : "ArrowRight")) {
                             e.preventDefault();
                             if (focusedIndex >= 0) {
                                 const n = displayedNodes[focusedIndex];
                                 if (n.type === NodeType.FOLDER && !expandedKeys?.includes(n.id)) {
-                                    onExpanded({ node: n });
+                                    onExpanded({ node: n, event: e });
                                 }
                             }
-                        } else if (e.key === "ArrowLeft") {
+                        } else if (e.key === (isRtl ? "ArrowRight" : "ArrowLeft")) {
                             e.preventDefault();
                             if (focusedIndex >= 0) {
                                 const n = displayedNodes[focusedIndex];
                                 if (n.type === NodeType.FOLDER && expandedKeys?.includes(n.id)) {
-                                    onExpanded({ node: n });
+                                    onExpanded({ node: n, event: e });
                                 } else if (n.parent != null) {
                                     const parentIndex = displayedNodes.findIndex(p => p.id === n.parent!.id);
                                     if (parentIndex >= 0) {
                                         const parent = displayedNodes[parentIndex];
-                                        onSelect?.({ event: e as unknown as MouseEvent<HTMLSpanElement, globalThis.MouseEvent>, selectKeys: [parent.id], node: parent, isSelect: true });
+                                        onSelect?.({ event: e, selectedKeys: [parent.id], node: parent, isSelect: true });
                                     }
                                 }
                             }
@@ -607,8 +624,8 @@ const Tree: FC<TreeProps> = ({
                             if (focusedIndex >= 0) {
                                 const n = displayedNodes[focusedIndex];
                                 if (!n.disabled) {
-                                    const isSelect = !selectKeys.includes(n.id);
-                                    onSelect?.({ event: e as unknown as MouseEvent<HTMLSpanElement, globalThis.MouseEvent>, selectKeys: isSelect ? [n.id] : [], node: n, isSelect });
+                                    const isSelect = !selectedKeys.includes(n.id);
+                                    onSelect?.({ event: e, selectedKeys: isSelect ? [n.id] : [], node: n, isSelect });
                                 }
                             }
                         }
@@ -638,8 +655,9 @@ const Tree: FC<TreeProps> = ({
                             const nodes: ReactNode[] = [
                                 <div
                                     key="__tree-top-padding__"
+                                    aria-hidden="true"
                                     className={css`
-                                            display: inline-block;
+                                            display: block;
                                             height: var(--crab-rc-virtual-top-padding-height, 0px);
                                             width: 100%;
                                         `}
@@ -658,7 +676,8 @@ const Tree: FC<TreeProps> = ({
                                         id={`${nodeId}-${encodeURIComponent(String(node.id))}`}
                                         node={node}
                                         overState={overState}
-                                        selectKeys={selectKeys}
+                                        selectedKeys={selectedKeys}
+                                        size={size}
                                         loading={node.loadState === LoadStateType.LOADING}
                                         expanded={expandedKeys?.includes(node.id) === true}
                                         draggable={draggable}
@@ -666,8 +685,9 @@ const Tree: FC<TreeProps> = ({
                                         checkable={checkable}
                                         checked={checkedKeys.includes(node.id)}
                                         indeterminate={halfCheckedKeys.includes(node.id)}
-                                        onCheck={(c) => handleCheck(node, c)}
+                                        onCheck={(c, event) => handleCheck(node, c, event)}
                                         onEditEnd={onEditEnd}
+                                        keyboardFocusRef={divRef}
                                         renderEditInput={renderEditInput}
                                         dragBadgeLabels={dragBadgeLabels}
                                         onDoubleClick={(e) => {
@@ -677,35 +697,35 @@ const Tree: FC<TreeProps> = ({
                                         onTitleClick={(e) => {
                                             divRef.current?.focus();
                                             if (keyboardEvent.current?.ctrlKey === true) {
-                                                if (selectKeys.includes(node.id)) {
-                                                    const newSelectNodeKeys = selectKeys.filter(element => element !== node.id);
+                                                if (selectedKeys.includes(node.id)) {
+                                                    const newSelectNodeKeys = selectedKeys.filter(element => element !== node.id);
                                                     onSelect?.({
                                                         event: e,
-                                                        selectKeys: newSelectNodeKeys,
+                                                        selectedKeys: newSelectNodeKeys,
                                                         node: node,
                                                         isSelect: false
                                                     })
                                                 } else {
-                                                    selectKeys.push(node.id);
+                                                    const nextSelectedKeys = [...selectedKeys, node.id];
                                                     onSelect?.({
                                                         event: e,
-                                                        selectKeys: [...selectKeys],
+                                                        selectedKeys: nextSelectedKeys,
                                                         node: node,
                                                         isSelect: true
                                                     })
                                                 }
                                             } else {
-                                                if (selectKeys.includes(node.id)) {
+                                                if (selectedKeys.includes(node.id)) {
                                                     onSelect?.({
                                                         event: e,
-                                                        selectKeys: [],
+                                                        selectedKeys: [],
                                                         node: node,
                                                         isSelect: false
                                                     })
                                                 } else {
                                                     onSelect?.({
                                                         event: e,
-                                                        selectKeys: [node.id],
+                                                        selectedKeys: [node.id],
                                                         node: node,
                                                         isSelect: true
                                                     })
@@ -741,7 +761,7 @@ const Tree: FC<TreeProps> = ({
                                         key={node.id}
                                         inert={motionRow.exiting}
                                         aria-hidden={motionRow.exiting || undefined}
-                                        data-moving={motionRow.exiting || motionRow.size !== (coarsePointer ? Math.max(node.height ?? defaultNodeHeight, 48) : node.height ?? defaultNodeHeight) || undefined}
+                                        data-moving={motionRow.exiting || motionRow.size !== resolveNodeHeight(node) || undefined}
                                         className={css`
                                             white-space: nowrap;
                                             overflow: visible;
@@ -759,8 +779,9 @@ const Tree: FC<TreeProps> = ({
                             nodes.push(
                                 <div
                                     key="__tree-bottom-padding__"
+                                    aria-hidden="true"
                                     className={css`
-                                        display: inline-block;
+                                        display: block;
                                         height: var(--crab-rc-virtual-bottom-padding-height, 0px);
                                         width: 100%;
                                     `}
@@ -783,9 +804,9 @@ const Tree: FC<TreeProps> = ({
                                         loading={false}
                                         node={activeNode}
                                         overState={null}
-                                        selectKeys={[]}
+                                        selectedKeys={[]}
                                         style={{
-                                            height: coarsePointer ? Math.max((activeNode as Node)?.height ?? defaultNodeHeight, 48) : (activeNode as Node)?.height ?? defaultNodeHeight,
+                                            height: resolveNodeHeight(activeNode),
                                             width: width,
                                             borderRadius: 4,
                                             opacity: 1,

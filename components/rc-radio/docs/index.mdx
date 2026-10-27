@@ -20,11 +20,11 @@ status = "experimental"
 
 ### 三套设计风格
 
-`macos` 默认使用 16px 圆盘、1px 描边和轻阴影；选中时填充品牌色，并显示 6px 对比圆点，浅色主题为白点，深色使用配对前景色。`shadcn` 默认使用 16px 中空圆环、1px 描边和 8px 品牌色圆点。二者去掉 MD3 的圆形状态层，保留可见键盘焦点、悬停、错误与禁用反馈。small / middle / large：macOS 为 14 / 16 / 18px，shadcn 为 14 / 16 / 20px。
+`apple` 默认使用 16px 圆盘、1px 描边和轻阴影；选中时填充品牌色，并显示 6px 对比圆点，浅色主题为白点，深色使用配对前景色。`shadcn` 默认使用 16px 中空圆环、1px 描边和 8px 品牌色圆点。二者去掉 MD3 的圆形状态层，保留可见键盘焦点、悬停、错误与禁用反馈。small / medium / large：Apple 为 14 / 16 / 18px，shadcn 为 14 / 16 / 20px。
 
-这些变化通过 L2 语义变量由 `ConfigProvider design` 驱动，明暗主题与嵌套边界使用同一组组件样式。macOS 是依据 Apple HIG 的 Web 定制，不表示 AppKit 原生实现；shadcn 的尺寸扩展与 24px 紧凑容器属于本项目约定。粗指针操作区至少 48px。
+这些变化通过 L2 语义变量由 `ConfigProvider designSystem` 驱动，明暗主题与嵌套边界使用同一组组件样式。Apple 是依据 Apple HIG 的 Web 定制，不表示 AppKit 原生实现；shadcn 的尺寸扩展与 24px 紧凑容器属于本项目约定。粗指针操作区至少 48px。
 
-以下圆环和状态层说明专指 `material`。
+以下圆环和状态层说明专指 `md3`。
 
 页面依据 [M3 Expressive](https://m3.material.io/blog/building-with-m3-expressive) 的排版、用途色和内容分组呈现关键选择。通知场景中的选项容器属于应用组合，不新增 Radio 外观类型。Radio 保留 [Material Design 3 Radio](https://m3.material.io/components/radio-button/overview) 的圆环、圆点与圆形状态层。默认 20px 圆环采用恒定 2px 描边，选中时圆环和圆点使用品牌色，内部保持透明；small / large 分别为 16 / 24px。颜色通过 L3 消费现有 L2，自动适配明暗主题与单色品牌配置。
 
@@ -50,6 +50,12 @@ Material 的默认命中区为 48×48 CSS px，圆环和圆点仍保持指定的
 ## 代码演示
 
 <Demos glob="./demos/*.demo.tsx" columns={2} />
+
+## 状态契约
+
+`checked / defaultChecked / onCheckedChange(next, details)` 管理独立单选框，原因是 `toggle`；原生 `onChange(event)` 保留事件签名。RadioGroup 使用 `value / defaultValue / onValueChange(next, details)`，原因是 `select`。
+
+受控值与默认值互斥；默认值仅在初始化时使用。外部属性更新不触发操作回调，省略回调可展示只读受控快照。
 
 ## API
 

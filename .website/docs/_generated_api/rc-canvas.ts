@@ -17,17 +17,12 @@ export interface CanvasProps {
     /**
      * 暂无说明。
      */
-    "children"?: ReactNode;
+    "width"?: number;
 
     /**
      * 暂无说明。
      */
-    "className"?: string;
-
-    /**
-     * 设备像素比，默认 window.devicePixelRatio（≥1）
-     */
-    "dpr"?: number;
+    "height"?: number;
 
     /**
      * 自动填充父容器尺寸（ResizeObserver 驱动）。 开启时 width/height 被忽略；父容器必须有明确的 CSS 尺寸。
@@ -36,9 +31,34 @@ export interface CanvasProps {
     "fillParent"?: boolean;
 
     /**
+     * 设备像素比，默认 window.devicePixelRatio（≥1）
+     */
+    "dpr"?: number;
+
+    /**
      * 暂无说明。
      */
-    "height"?: number;
+    "children"?: ReactNode;
+
+    /**
+     * 暂无说明。
+     */
+    "ref"?: Ref<HTMLCanvasElement>;
+
+    /**
+     * 暂无说明。
+     */
+    "className"?: string;
+
+    /**
+     * 暂无说明。
+     */
+    "style"?: CSSProperties;
+
+    /**
+     * WebGL 绘制层与 Canvas 交互 chrome 的缺省色板。 默认及局部覆盖均以语义令牌为基础并跟随主题；各图元显式颜色 prop 始终优先。 支持 var()/color-mix()/系统色；显式传 DEFAULT_CANVAS_PALETTE 可保留旧版配色。
+     */
+    "palette"?: Partial<CanvasPalette>;
 
     /**
      * 点击空白区域（无命中形状）时触发，常用于取消选中
@@ -56,33 +76,13 @@ export interface CanvasProps {
     "onKeyUp"?: (e: KeyboardEvent) => void;
 
     /**
-     * 当前命令已完成一次 WebGL 绘制后通知，可用于准备新画面后再切换显示。
-     */
-    "onRender"?: () => void;
-
-    /**
-     * WebGL 绘制层与 Canvas 交互 chrome 的缺省色板。 默认及局部覆盖均以语义令牌为基础并跟随主题；各图元显式颜色 prop 始终优先。 支持 var()/color-mix()/系统色；显式传 DEFAULT_CANVAS_PALETTE 可保留旧版配色。
-     */
-    "palette"?: Partial<CanvasPalette>;
-
-    /**
-     * 暂无说明。
-     */
-    "ref"?: Ref<HTMLCanvasElement>;
-
-    /**
-     * 暂无说明。
-     */
-    "style"?: CSSProperties;
-
-    /**
      * 容器 div 的 tabIndex。消费方在 Canvas 外自建键盘通道 （如 aria-hidden 包裹绘制层）时传 -1 将其移出 Tab 流。
      * @default 0
      */
     "tabIndex"?: number;
 
     /**
-     * 暂无说明。
+     * 当前命令已完成一次 WebGL 绘制后通知，可用于准备新画面后再切换显示。
      */
-    "width"?: number;
+    "onRender"?: () => void;
 }

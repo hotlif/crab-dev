@@ -5,6 +5,7 @@ import { createRequire } from "node:module";
 import { fileURLToPath } from "node:url";
 
 import { generateDocs } from "./generate-component-docs.mjs";
+import { isComponentDocsSource } from "./docs-source-watch.mjs";
 
 const scriptDirectory = path.dirname(fileURLToPath(import.meta.url));
 const websiteDirectory = path.resolve(scriptDirectory, "..");
@@ -12,16 +13,11 @@ const repositoryRoot = path.resolve(websiteDirectory, "..");
 const componentsDirectory = path.join(repositoryRoot, "components");
 const teachingDirectory = path.join(websiteDirectory, "content");
 const examplesDirectory = path.join(websiteDirectory, "docs/examples");
-const navigationPath = path.join(websiteDirectory, "docs/navigation.toml");
+const manifestFilename = "library.manifest.json";
 const require = createRequire(import.meta.url);
 const wakeDirectory = path.dirname(require.resolve("@crab-dev/wake/package.json"));
 const wakeBin = path.join(wakeDirectory, "bin/wake.mjs");
 const REGENERATE_DEBOUNCE_MS = 120;
-
-function isComponentDocsSource(filename) {
-    const normalized = String(filename).replaceAll("\\", "/");
-    return /^rc-[^/]+\/(?:package\.json|docs\/index\.mdx|docs\/demos\/[^/]+\.demo\.tsx|public\/docgen\.json)$/.test(normalized);
-}
 
 await generateDocs();
 
@@ -34,7 +30,7 @@ let finalExitCode;
 let forceKillTimer;
 let wakeProcess;
 let componentWatcher;
-let docsWatcher;
+let manifestWatcher;
 let teachingWatcher;
 let examplesWatcher;
 
@@ -68,11 +64,11 @@ function closeWatchers() {
     shuttingDown = true;
     clearTimeout(debounceTimer);
     componentWatcher?.close();
-    docsWatcher?.close();
+    manifestWatcher?.close();
     teachingWatcher?.close();
     examplesWatcher?.close();
     componentWatcher = undefined;
-    docsWatcher = undefined;
+    manifestWatcher = undefined;
 }
 
 function stopWake(signal, exitCode) {
@@ -100,15 +96,15 @@ try {
     componentWatcher = watch(componentsDirectory, { recursive: true }, (_, filename) => {
         if (filename && isComponentDocsSource(filename)) scheduleRegeneration();
     });
-    docsWatcher = watch(path.dirname(navigationPath), (_, filename) => {
-        if (String(filename) === path.basename(navigationPath)) scheduleRegeneration();
+    manifestWatcher = watch(repositoryRoot, (_, filename) => {
+        if (String(filename) === manifestFilename) scheduleRegeneration();
     });
     teachingWatcher = watch(teachingDirectory, { recursive: true }, () => scheduleRegeneration());
     examplesWatcher = watch(examplesDirectory, { recursive: true }, () => scheduleRegeneration());
     teachingWatcher.on("error", handleWatcherError);
     examplesWatcher.on("error", handleWatcherError);
     componentWatcher.on("error", handleWatcherError);
-    docsWatcher.on("error", handleWatcherError);
+    manifestWatcher.on("error", handleWatcherError);
 } catch (error) {
     closeWatchers();
     throw error;

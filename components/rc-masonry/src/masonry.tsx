@@ -20,14 +20,25 @@ const containerStyle = css`
 
 const itemStyle = css`
     position: absolute;
+    inset-block-start: 0;
+    inset-inline-start: 0;
+    transform: translate(var(--masonry-inline-offset, 0px), var(--masonry-block-offset, 0px));
+    &:dir(rtl) {
+        transform: translate(calc(0px - var(--masonry-inline-offset, 0px)), var(--masonry-block-offset, 0px));
+    }
     transition: ${token.root.transition};
     @media (prefers-reduced-motion: reduce) { transition: none; }
 `;
 
 interface ItemPosition {
     top: number;
-    left: number;
+    inlineOffset: number;
     width: number;
+}
+
+interface ItemInlineStyle extends CSSProperties {
+    '--masonry-inline-offset'?: string;
+    '--masonry-block-offset'?: string;
 }
 
 const Masonry: FC<MasonryProps> = ({
@@ -66,7 +77,7 @@ const Masonry: FC<MasonryProps> = ({
         while (target) {
             observer.observe(target, {
                 attributes: true,
-                attributeFilter: ['class', 'style', 'data-theme', 'data-color-scheme', 'data-crab-design'],
+                attributeFilter: ['class', 'style', 'data-theme', 'data-color-scheme', 'data-crab-design', 'data-crab-density'],
             });
             target = target.parentElement;
         }
@@ -116,10 +127,10 @@ const Masonry: FC<MasonryProps> = ({
                 }
             }
 
-            const left = colIndex * (colWidth + gap);
+            const inlineOffset = colIndex * (colWidth + gap);
             const top = colHeights[colIndex];
 
-            newPositions.push({ top, left, width: colWidth });
+            newPositions.push({ top, inlineOffset, width: colWidth });
 
             // 获取实际子元素高度
             const el = itemRefs.current[i];
@@ -166,9 +177,11 @@ const Masonry: FC<MasonryProps> = ({
         >
             {items.map((child, index) => {
                 const pos = positions[index];
-                const itemInlineStyle: CSSProperties = pos
+                const itemInlineStyle: ItemInlineStyle = pos
                     ? {
-                        transform: `translate(${pos.left}px, ${pos.top}px)`,
+                        // 测量几何从行内起始边累加；CSS 按实际 dir 镜像，无需重测列宽。
+                        '--masonry-inline-offset': `${pos.inlineOffset}px`,
+                        '--masonry-block-offset': `${pos.top}px`,
                         width: pos.width,
                     }
                     : {

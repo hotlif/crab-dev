@@ -1,7 +1,7 @@
 import type { CSSProperties, HTMLAttributes, ImgHTMLAttributes, MouseEvent, ReactElement, ReactNode, SyntheticEvent } from 'react';
 
 export type AvatarShape = 'circle' | 'square';
-export type AvatarSize = 'small' | 'middle' | 'large';
+export type AvatarSize = 'small' | 'medium' | 'large';
 export type AvatarVariant = 'default' | 'primary' | 'success' | 'warning' | 'error';
 export type AvatarFit = 'cover' | 'contain' | 'fill' | 'none' | 'scale-down';
 
@@ -50,7 +50,7 @@ export interface AvatarGroupProps extends HTMLAttributes<HTMLDivElement> {
     size?: AvatarSize | number;
     /** 统一的头像形状，可被子 Avatar 的 shape prop 覆盖 */
     shape?: AvatarShape;
-    /** 最多显示的头像数量，超出部分折叠为 +N */
+    /** 最多显示的头像数量，超出部分折叠为 +N；0 隐藏成员头像但保留折叠摘要 */
     max?: number;
     /** 相邻头像之间的重叠量，负值表示重叠；传数字时单位为 px。默认使用 token 中定义的 `group.margin` */
     spacing?: number | string;

@@ -15,14 +15,14 @@ export const demos = [
             ],
             "props": [
                 "checked",
-                "onChange"
+                "onCheckedChange"
             ],
             "events": [
-                "onChange"
+                "onCheckedChange"
             ],
             "hasState": true
         },
-        "sourceCode": "export const meta = {\n    title: \"基础用法\",\n    description: \"最简单的 Radio 用法\",\n};\n\nimport { useState } from \"react\";\nimport Radio from \"../../src/index.js\";\n\nconst BasicDemo = () => {\n    const [checked, setChecked] = useState(false);\n\n    return (\n        \u003cRadio\n            checked={checked}\n            onChange={(val) => setChecked(val)}\n        >\n            Radio\n        \u003c/Radio>\n    );\n};\n\nexport default BasicDemo;\n",
+        "sourceCode": "export const meta = {\n    title: \"基础用法\",\n    description: \"最简单的 Radio 用法\",\n};\n\nimport { useState } from \"react\";\nimport Radio from \"../../src/index.js\";\n\nconst BasicDemo = () => {\n    const [checked, setChecked] = useState(false);\n\n    return (\n        \u003cRadio\n            checked={checked}\n            onCheckedChange={(val) => setChecked(val)}\n        >\n            Radio\n        \u003c/Radio>\n    );\n};\n\nexport default BasicDemo;\n",
         "previewPath": "/components/rc-radio/workbench/?__wake_demo=docs%2Fdemos%2Fbasic.demo.tsx",
         "workbenchPath": "/components/rc-radio/workbench/#/components/docs%2Fdemos%2Fbasic.demo.tsx",
         "density": "compact",
@@ -32,7 +32,7 @@ export const demos = [
     {
         "id": "docs/demos/designs.demo.tsx",
         "title": "三套设计与状态",
-        "description": "macOS 使用填充圆盘和对比圆点，MD3 与 shadcn 分别使用不同尺寸的圆环、圆点与焦点反馈。",
+        "description": "Apple 使用填充圆盘和对比圆点，MD3 与 shadcn 分别使用不同尺寸的圆环、圆点与焦点反馈。",
         "learning": {
             "components": [
                 "ConfigProvider",
@@ -40,7 +40,7 @@ export const demos = [
                 "Radio"
             ],
             "props": [
-                "design",
+                "designSystem",
                 "defaultValue",
                 "aria-label",
                 "value",
@@ -52,7 +52,7 @@ export const demos = [
             "events": [],
             "hasState": false
         },
-        "sourceCode": "import { useId } from 'react';\nimport { css } from '@crab-dev/css';\nimport ConfigProvider from '@crab-dev/rc-config-provider';\nimport token from '@crab-dev/rc-token-semantic';\nimport Radio from '../../src/radio.js';\nimport RadioGroup from '../../src/radio-group.js';\n\nexport const meta = { title: '三套设计与状态', description: 'macOS 使用填充圆盘和对比圆点，MD3 与 shadcn 分别使用不同尺寸的圆环、圆点与焦点反馈。' };\nconst panel = css`\n    display: grid;\n    gap: ${token.space['component-gap']};\n    padding: ${token.space['section-gap']};\n    color: ${token.color.text.primary};\n    background: ${token.color.surface.content};\n    border: 1px solid ${token.color.border.subtle};\n    border-radius: ${token.radius.md};\n`;\nconst stack = css`display: grid; gap: ${token.space['stack-gap']};`;\nconst options = css`flex-direction: column; align-items: flex-start;`;\nexport default function DesignsDemo() {\n    const errorId = useId();\n    return \u003cdiv className={stack}>\n        {(['macos', 'material', 'shadcn'] as const).map(design => \u003cConfigProvider key={design} design={design}>\n            \u003csection className={panel} aria-label={`${design} 单选框`}>\n                \u003cstrong>{design === 'material' ? 'MD3' : design === 'macos' ? 'macOS' : 'shadcn'}\u003c/strong>\n                \u003cRadioGroup defaultValue=\"daily\" aria-label=\"通知频率\" className={options}>\n                    \u003cRadio value=\"daily\">每天\u003c/Radio>\n                    \u003cRadio value=\"weekly\">每周\u003c/Radio>\n                    \u003cRadio value=\"unavailable\" disabled>暂不可用\u003c/Radio>\n                \u003c/RadioGroup>\n                \u003cRadio checked disabled>已选中且不可用\u003c/Radio>\n                \u003cRadio aria-invalid=\"true\" aria-describedby={`${errorId}-${design}`}>选择同步方式\u003c/Radio>\n                \u003csmall id={`${errorId}-${design}`}>请选择一种同步方式。\u003c/small>\n            \u003c/section>\n        \u003c/ConfigProvider>)}\n    \u003c/div>;\n}\n",
+        "sourceCode": "import { useId } from 'react';\nimport { css } from '@crab-dev/css';\nimport ConfigProvider from '@crab-dev/rc-config-provider';\nimport token from '@crab-dev/rc-token-semantic';\nimport Radio from '../../src/radio.js';\nimport RadioGroup from '../../src/radio-group.js';\n\nexport const meta = { title: '三套设计与状态', description: 'Apple 使用填充圆盘和对比圆点，MD3 与 shadcn 分别使用不同尺寸的圆环、圆点与焦点反馈。' };\nconst panel = css`\n    display: grid;\n    gap: ${token.space['component-gap']};\n    padding: ${token.space['section-gap']};\n    color: ${token.color.text.primary};\n    background: ${token.color.surface.content};\n    border: 1px solid ${token.color.border.subtle};\n    border-radius: ${token.radius.md};\n`;\nconst stack = css`display: grid; gap: ${token.space['stack-gap']};`;\nconst options = css`flex-direction: column; align-items: flex-start;`;\nexport default function DesignsDemo() {\n    const errorId = useId();\n    return \u003cdiv className={stack}>\n        {(['apple', 'md3', 'shadcn'] as const).map(design => \u003cConfigProvider key={design} designSystem={design}>\n            \u003csection className={panel} aria-label={`${design} 单选框`}>\n                \u003cstrong>{design === 'md3' ? 'MD3' : design === 'apple' ? 'Apple' : 'shadcn'}\u003c/strong>\n                \u003cRadioGroup defaultValue=\"daily\" aria-label=\"通知频率\" className={options}>\n                    \u003cRadio value=\"daily\">每天\u003c/Radio>\n                    \u003cRadio value=\"weekly\">每周\u003c/Radio>\n                    \u003cRadio value=\"unavailable\" disabled>暂不可用\u003c/Radio>\n                \u003c/RadioGroup>\n                \u003cRadio checked disabled>已选中且不可用\u003c/Radio>\n                \u003cRadio aria-invalid=\"true\" aria-describedby={`${errorId}-${design}`}>选择同步方式\u003c/Radio>\n                \u003csmall id={`${errorId}-${design}`}>请选择一种同步方式。\u003c/small>\n            \u003c/section>\n        \u003c/ConfigProvider>)}\n    \u003c/div>;\n}\n",
         "previewPath": "/components/rc-radio/workbench/?__wake_demo=docs%2Fdemos%2Fdesigns.demo.tsx",
         "workbenchPath": "/components/rc-radio/workbench/#/components/docs%2Fdemos%2Fdesigns.demo.tsx",
         "density": "compact",
@@ -92,14 +92,14 @@ export const demos = [
             ],
             "props": [
                 "value",
-                "onChange"
+                "onValueChange"
             ],
             "events": [
-                "onChange"
+                "onValueChange"
             ],
             "hasState": true
         },
-        "sourceCode": "export const meta = {\n    title: \"单选框组\",\n    description: \"使用 `RadioGroup` 管理一组单选框的状态, 实现互斥选择\",\n};\n\nimport { useState } from \"react\";\nimport Radio, { RadioGroup } from \"../../src/index.js\";\n\nconst GroupDemo = () => {\n    const [value, setValue] = useState\u003cstring | number>(\"apple\");\n\n    return (\n        \u003cdiv>\n            \u003cRadioGroup value={value} onChange={setValue}>\n                \u003cRadio value=\"apple\">苹果\u003c/Radio>\n                \u003cRadio value=\"banana\">香蕉\u003c/Radio>\n                \u003cRadio value=\"orange\">橘子\u003c/Radio>\n            \u003c/RadioGroup>\n            \u003cp>当前选中: {value}\u003c/p>\n        \u003c/div>\n    );\n};\n\nexport default GroupDemo;\n",
+        "sourceCode": "export const meta = {\n    title: \"单选框组\",\n    description: \"使用 `RadioGroup` 管理一组单选框的状态, 实现互斥选择\",\n};\n\nimport { useState } from \"react\";\nimport Radio, { RadioGroup } from \"../../src/index.js\";\n\nconst GroupDemo = () => {\n    const [value, setValue] = useState\u003cstring | number>(\"apple\");\n\n    return (\n        \u003cdiv>\n            \u003cRadioGroup value={value} onValueChange={setValue}>\n                \u003cRadio value=\"apple\">苹果\u003c/Radio>\n                \u003cRadio value=\"banana\">香蕉\u003c/Radio>\n                \u003cRadio value=\"orange\">橘子\u003c/Radio>\n            \u003c/RadioGroup>\n            \u003cp>当前选中: {value}\u003c/p>\n        \u003c/div>\n    );\n};\n\nexport default GroupDemo;\n",
         "previewPath": "/components/rc-radio/workbench/?__wake_demo=docs%2Fdemos%2Fgroup.demo.tsx",
         "workbenchPath": "/components/rc-radio/workbench/#/components/docs%2Fdemos%2Fgroup.demo.tsx",
         "density": "compact",
@@ -109,7 +109,7 @@ export const demos = [
     {
         "id": "docs/demos/size.demo.tsx",
         "title": "单选框尺寸",
-        "description": "通过 `size` 属性设置单选框尺寸, 支持 `large`、`middle`、`small` 三种",
+        "description": "通过 `size` 属性设置单选框尺寸, 支持 `large`、`medium`、`small` 三种",
         "learning": {
             "components": [
                 "RadioGroup",
@@ -117,15 +117,15 @@ export const demos = [
             ],
             "props": [
                 "value",
-                "onChange",
+                "onValueChange",
                 "size"
             ],
             "events": [
-                "onChange"
+                "onValueChange"
             ],
             "hasState": true
         },
-        "sourceCode": "export const meta = {\n    title: \"单选框尺寸\",\n    description: \"通过 `size` 属性设置单选框尺寸, 支持 `large`、`middle`、`small` 三种\",\n};\n\nimport { css } from \"@crab-dev/css\";\nimport { useState } from \"react\";\nimport Radio, { RadioGroup } from \"../../src/index.js\";\n\nconst SizeDemo = () => {\n    const [value, setValue] = useState\u003cstring | number>(\"a\");\n\n    return (\n        \u003cdiv\n            className={css`\n                display: flex;\n                flex-direction: column;\n                gap: 1rem;\n            `}\n        >\n            \u003cRadioGroup value={value} onChange={setValue} size=\"large\">\n                \u003cRadio value=\"a\">Large A\u003c/Radio>\n                \u003cRadio value=\"b\">Large B\u003c/Radio>\n            \u003c/RadioGroup>\n            \u003cRadioGroup value={value} onChange={setValue} size=\"middle\">\n                \u003cRadio value=\"a\">Middle A\u003c/Radio>\n                \u003cRadio value=\"b\">Middle B\u003c/Radio>\n            \u003c/RadioGroup>\n            \u003cRadioGroup value={value} onChange={setValue} size=\"small\">\n                \u003cRadio value=\"a\">Small A\u003c/Radio>\n                \u003cRadio value=\"b\">Small B\u003c/Radio>\n            \u003c/RadioGroup>\n        \u003c/div>\n    );\n};\n\nexport default SizeDemo;\n",
+        "sourceCode": "export const meta = {\n    title: \"单选框尺寸\",\n    description: \"通过 `size` 属性设置单选框尺寸, 支持 `large`、`medium`、`small` 三种\",\n};\n\nimport { css } from \"@crab-dev/css\";\nimport { useState } from \"react\";\nimport Radio, { RadioGroup } from \"../../src/index.js\";\n\nconst SizeDemo = () => {\n    const [value, setValue] = useState\u003cstring | number>(\"a\");\n\n    return (\n        \u003cdiv\n            className={css`\n                display: flex;\n                flex-direction: column;\n                gap: 1rem;\n            `}\n        >\n            \u003cRadioGroup value={value} onValueChange={setValue} size=\"large\">\n                \u003cRadio value=\"a\">Large A\u003c/Radio>\n                \u003cRadio value=\"b\">Large B\u003c/Radio>\n            \u003c/RadioGroup>\n            \u003cRadioGroup value={value} onValueChange={setValue} size=\"medium\">\n                \u003cRadio value=\"a\">Middle A\u003c/Radio>\n                \u003cRadio value=\"b\">Middle B\u003c/Radio>\n            \u003c/RadioGroup>\n            \u003cRadioGroup value={value} onValueChange={setValue} size=\"small\">\n                \u003cRadio value=\"a\">Small A\u003c/Radio>\n                \u003cRadio value=\"b\">Small B\u003c/Radio>\n            \u003c/RadioGroup>\n        \u003c/div>\n    );\n};\n\nexport default SizeDemo;\n",
         "previewPath": "/components/rc-radio/workbench/?__wake_demo=docs%2Fdemos%2Fsize.demo.tsx",
         "workbenchPath": "/components/rc-radio/workbench/#/components/docs%2Fdemos%2Fsize.demo.tsx",
         "density": "compact",

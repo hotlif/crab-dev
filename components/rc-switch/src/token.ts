@@ -41,11 +41,11 @@ export const vars = defineTokens({
     'size.large.track.border-radius': '--switch-size-large-track-border-radius',
     'size.large.handle.width': '--switch-size-large-handle-width',
     'size.large.handle.left': '--switch-size-large-handle-left',
-    'size.middle.track.width': '--switch-size-middle-track-width',
-    'size.middle.track.height': '--switch-size-middle-track-height',
-    'size.middle.track.border-radius': '--switch-size-middle-track-border-radius',
-    'size.middle.handle.width': '--switch-size-middle-handle-width',
-    'size.middle.handle.left': '--switch-size-middle-handle-left',
+    'size.medium.track.width': '--switch-size-medium-track-width',
+    'size.medium.track.height': '--switch-size-medium-track-height',
+    'size.medium.track.border-radius': '--switch-size-medium-track-border-radius',
+    'size.medium.handle.width': '--switch-size-medium-handle-width',
+    'size.medium.handle.left': '--switch-size-medium-handle-left',
     'size.small.track.width': '--switch-size-small-track-width',
     'size.small.track.height': '--switch-size-small-track-height',
     'size.small.track.border-radius': '--switch-size-small-track-border-radius',
@@ -123,15 +123,15 @@ const token = defineTokens({
                 'left': `var(${vars['size.large.handle.left']}, var(--token-semantic-sizing-large-toggle-handle-inset, var(--token-global-space-1, 4px)))`
             }
         },
-        'middle': {
+        'medium': {
             'track': {
-                'width': `var(${vars['size.middle.track.width']}, var(--token-semantic-sizing-middle-toggle-track-width, var(--token-global-size-52, 52px)))`,
-                'height': `var(${vars['size.middle.track.height']}, var(--token-semantic-sizing-middle-toggle-track-height, var(--token-global-size-32, 32px)))`,
-                'border-radius': `var(${vars['size.middle.track.border-radius']}, var(--token-semantic-shape-full, var(--token-global-radius-full, 9999px)))`
+                'width': `var(${vars['size.medium.track.width']}, var(--token-semantic-sizing-medium-toggle-track-width, var(--token-global-size-52, 52px)))`,
+                'height': `var(${vars['size.medium.track.height']}, var(--token-semantic-sizing-medium-toggle-track-height, var(--token-global-size-32, 32px)))`,
+                'border-radius': `var(${vars['size.medium.track.border-radius']}, var(--token-semantic-shape-full, var(--token-global-radius-full, 9999px)))`
             },
             'handle': {
-                'width': `var(${vars['size.middle.handle.width']}, var(--token-semantic-sizing-middle-toggle-handle-width, var(--token-global-space-6, 24px)))`,
-                'left': `var(${vars['size.middle.handle.left']}, var(--token-semantic-sizing-middle-toggle-handle-inset, var(--token-global-space-1, 4px)))`
+                'width': `var(${vars['size.medium.handle.width']}, var(--token-semantic-sizing-medium-toggle-handle-width, var(--token-global-space-6, 24px)))`,
+                'left': `var(${vars['size.medium.handle.left']}, var(--token-semantic-sizing-medium-toggle-handle-inset, var(--token-global-space-1, 4px)))`
             }
         },
         'small': {

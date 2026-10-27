@@ -1,35 +1,36 @@
-export { themeColorContract, shadcnColorContract, macosColorContract, designColorContract } from "@crab-dev/rc-token-semantic";
+export { md3ColorContract, shadcnColorContract, appleColorContract, designColorContract } from "@crab-dev/rc-token-semantic";
+export { designTypographyContract, designMotionContract } from './type-motion-values.js';
 import palette from "@crab-dev/rc-token-global";
 import { defineTokens } from "@crab-dev/css";
 
 /** Component geometry stays in L2 so nested design boundaries restore every role. */
 export const designMetricsContract = defineTokens({
-    material: {
-        tab: { small: palette.size[32], middle: palette.size[48], large: palette.size[48], icon: palette.space[6], gap: palette.space[2] },
+    md3: {
+        tab: { small: palette.size[32], medium: palette.size[48], large: palette.size[48], icon: palette.space[6], gap: palette.space[2] },
         dialog: { padding: palette.space[6], fontSize: palette.font.size["2xl"], lineHeight: palette.line.height["24-32"], fontWeight: palette.font.weight.regular },
         toggle: {
             small: { width: palette.space[7], height: palette.space[4], handle: palette.space[3], inset: palette.space["0-5"] },
-            middle: { width: palette.size[52], height: palette.size[32], handle: palette.space[6], inset: palette.space[1] },
+            medium: { width: palette.size[52], height: palette.size[32], handle: palette.space[6], inset: palette.space[1] },
             large: { width: palette.size[52], height: palette.size[32], handle: palette.space[6], inset: palette.space[1] },
             stateLayer: palette.size[40], border: palette.space["0-5"],
         },
     },
     shadcn: {
-        tab: { small: palette.size[32], middle: palette.size[36], large: palette.size[40], icon: palette.space[4], gap: palette.space[1] },
+        tab: { small: palette.size[32], medium: palette.size[36], large: palette.size[40], icon: palette.space[4], gap: palette.space[1] },
         dialog: { padding: palette.space[5], fontSize: palette.font.size.md, lineHeight: palette.line.height["16-24"], fontWeight: palette.font.weight.medium },
         toggle: {
             small: { width: palette.space[7], height: palette.space[4], handle: palette.space[3], inset: palette.space["0-5"] },
-            middle: { width: palette.size[32], height: `calc(${palette.space[5]} - ${palette.space["0-5"]})`, handle: palette.space["3-5"], inset: palette.space["0-5"] },
+            medium: { width: palette.size[32], height: `calc(${palette.space[5]} - ${palette.space["0-5"]})`, handle: palette.space["3-5"], inset: palette.space["0-5"] },
             large: { width: palette.size[36], height: palette.space[5], handle: palette.space[4], inset: palette.space["0-5"] },
             stateLayer: palette.space[0], border: palette.space.px,
         },
     },
-    macos: {
-        tab: { small: palette.size[32], middle: palette.size[36], large: palette.size[40], icon: palette.space[4], gap: palette.space[1] },
+    apple: {
+        tab: { small: palette.size[32], medium: palette.size[36], large: palette.size[40], icon: palette.space[4], gap: palette.space[1] },
         dialog: { padding: palette.space[6], fontSize: palette.font.size.md, lineHeight: palette.line.height["16-24"], fontWeight: palette.font.weight.semibold },
         toggle: {
             small: { width: palette.space[7], height: palette.space[4], handle: palette.space[3], inset: palette.space["0-5"] },
-            middle: { width: palette.size[36], height: palette.size[22], handle: `calc(${palette.space[4]} + ${palette.space["0-5"]})`, inset: palette.space["0-5"] },
+            medium: { width: palette.size[36], height: palette.size[22], handle: `calc(${palette.space[4]} + ${palette.space["0-5"]})`, inset: palette.space["0-5"] },
             large: { width: palette.size[44], height: `calc(${palette.space[6]} + ${palette.space["0-5"]})`, handle: palette.size[22], inset: palette.space["0-5"] },
             stateLayer: palette.space[0], border: palette.space.px,
         },
@@ -38,7 +39,7 @@ export const designMetricsContract = defineTokens({
 
 /** Complete text-field layout roles; nested design boundaries reset each role. */
 export const designFieldContract = defineTokens({
-    material: {
+    md3: {
         formLayoutColumns: `auto minmax(0, 1fr) auto`,
         formFieldColumns: `minmax(0, 1fr)`,
         formFieldControlColumn: `1 / -1`,
@@ -61,6 +62,7 @@ export const designFieldContract = defineTokens({
         labelFontSize: `${palette.font.size.md}`,
         labelLineHeight: `${palette.space["6"]}`,
         labelEmptyPlaceholderColor: `transparent`,
+        labelEmptyPlaceholderColorDisabled: `transparent`,
         labelMultilineOffset: `${palette.space["4"]}`,
         labelFloatingAlign: `start`,
         labelFloatingMarginInline: `${palette.space["4"]}`,
@@ -68,7 +70,9 @@ export const designFieldContract = defineTokens({
         labelFloatingLineHeight: `${palette.space["4"]}`,
         labelFloatingTransform: `translateY(-50%)`,
         labelFilledOffset: `${palette.space["2"]}`,
-        requiredColor: `inherit`,
+        // Reset the custom property at this boundary so its consuming color uses
+        // the token's `inherit` fallback, rather than an outer design's error color.
+        requiredColor: `initial`,
         requiredOrder: `1`,
         requiredGap: `${palette.space["1"]}`,
         outlineDisplay: `block`,
@@ -100,6 +104,13 @@ export const designFieldContract = defineTokens({
         inputMultilinePaddingBlock: `${palette.space["4"]}`,
         inputMultilineFilledPaddingTop: `${palette.space["6"]}`,
         inputMultilineFilledPaddingBottom: `${palette.space["2"]}`,
+        // Material keeps its standard text-field geometry across the library's
+        // three size inputs. See the TextEdit sizing exception and browser checks.
+        multiline: {
+            small: { minHeight: palette.size[56], paddingInline: palette.space[4], paddingBlock: palette.space[4], filledPaddingTop: palette.space[6], filledPaddingBottom: palette.space[2] },
+            medium: { minHeight: palette.size[56], paddingInline: palette.space[4], paddingBlock: palette.space[4], filledPaddingTop: palette.space[6], filledPaddingBottom: palette.space[2] },
+            large: { minHeight: palette.size[56], paddingInline: palette.space[4], paddingBlock: palette.space[4], filledPaddingTop: palette.space[6], filledPaddingBottom: palette.space[2] },
+        },
     },
     shadcn: {
         formLayoutColumns: `fit-content(35%) minmax(0, 1fr) auto`,
@@ -124,6 +135,7 @@ export const designFieldContract = defineTokens({
         labelFontSize: `${palette.font.size.sm}`,
         labelLineHeight: `${palette.space["5"]}`,
         labelEmptyPlaceholderColor: `var(--token-semantic-color-text-secondary, ${palette.neutral["500"]})`,
+        labelEmptyPlaceholderColorDisabled: `var(--token-semantic-field-disabled-color)`,
         labelMultilineOffset: `0px`,
         labelFloatingAlign: `center`,
         labelFloatingMarginInline: `0px`,
@@ -160,11 +172,18 @@ export const designFieldContract = defineTokens({
         disabledBorderColor: `var(--token-semantic-color-border-default, ${palette.neutral["200"]})`,
         disabledFilledBorderColor: `var(--token-semantic-color-border-default, ${palette.neutral["200"]})`,
         disabledFilledBackground: `var(--token-semantic-color-background-surface, ${palette.white})`,
-        inputMultilinePaddingBlock: `${palette.space["1"]}`,
-        inputMultilineFilledPaddingTop: `${palette.space["1"]}`,
-        inputMultilineFilledPaddingBottom: `${palette.space["1"]}`,
+        inputMultilinePaddingBlock: `${palette.space["2"]}`,
+        inputMultilineFilledPaddingTop: `${palette.space["2"]}`,
+        inputMultilineFilledPaddingBottom: `${palette.space["2"]}`,
+        // New York V4's 64px / px-3 / py-2 baseline is medium. The other
+        // library size inputs are explicit Web extensions, not upstream variants.
+        multiline: {
+            small: { minHeight: palette.size[56], paddingInline: palette.space[2], paddingBlock: palette.space[1], filledPaddingTop: palette.space[1], filledPaddingBottom: palette.space[1] },
+            medium: { minHeight: palette.size[64], paddingInline: palette.space[3], paddingBlock: palette.space[2], filledPaddingTop: palette.space[2], filledPaddingBottom: palette.space[2] },
+            large: { minHeight: `calc(${palette.size[64]} + ${palette.space[2]})`, paddingInline: palette.space[4], paddingBlock: palette.space[3], filledPaddingTop: palette.space[3], filledPaddingBottom: palette.space[3] },
+        },
     },
-    macos: {
+    apple: {
         formLayoutColumns: `fit-content(35%) minmax(0, 1fr) auto`,
         formFieldColumns: `subgrid`,
         formFieldControlColumn: `2 / -1`,
@@ -187,6 +206,7 @@ export const designFieldContract = defineTokens({
         labelFontSize: `${palette.font.size.sm}`,
         labelLineHeight: `${palette.space["5"]}`,
         labelEmptyPlaceholderColor: `var(--token-semantic-color-text-secondary, ${palette.zinc["500"]})`,
+        labelEmptyPlaceholderColorDisabled: `var(--token-semantic-field-disabled-color)`,
         labelMultilineOffset: `0px`,
         labelFloatingAlign: `center`,
         labelFloatingMarginInline: `0px`,
@@ -226,6 +246,12 @@ export const designFieldContract = defineTokens({
         inputMultilinePaddingBlock: `${palette.space["1"]}`,
         inputMultilineFilledPaddingTop: `${palette.space["1"]}`,
         inputMultilineFilledPaddingBottom: `${palette.space["1"]}`,
+        // Apple-inspired browser geometry; these are Crab's Web size variants.
+        multiline: {
+            small: { minHeight: palette.size[32], paddingInline: palette.space[2], paddingBlock: palette.space['0-5'], filledPaddingTop: palette.space['0-5'], filledPaddingBottom: palette.space['0-5'] },
+            medium: { minHeight: palette.size[36], paddingInline: palette.space[3], paddingBlock: palette.space[1], filledPaddingTop: palette.space[1], filledPaddingBottom: palette.space[1] },
+            large: { minHeight: palette.size[40], paddingInline: palette.space[4], paddingBlock: palette.space[2], filledPaddingTop: palette.space[2], filledPaddingBottom: palette.space[2] },
+        },
     },
 });
 
@@ -237,22 +263,22 @@ export const themeSelectors = {
 
 /** Explicit design boundaries remain independent from color mode. */
 export const designThemeSelectors = {
-    material: {
-        light: '[data-crab-design="material"][data-theme="light"]',
-        dark: '[data-crab-design="material"][data-theme="dark"]',
+    md3: {
+        light: '[data-crab-design="md3"][data-theme="light"]',
+        dark: '[data-crab-design="md3"][data-theme="dark"]',
     },
     shadcn: {
         light: '[data-crab-design="shadcn"][data-theme="light"]',
         dark: '[data-crab-design="shadcn"][data-theme="dark"]',
     },
-    macos: {
-        light: '[data-crab-design="macos"][data-theme="light"]',
-        dark: '[data-crab-design="macos"][data-theme="dark"]',
+    apple: {
+        light: '[data-crab-design="apple"][data-theme="light"]',
+        dark: '[data-crab-design="apple"][data-theme="dark"]',
     },
 } as const;
 
 export const designShapeContract = defineTokens({
-    material: {
+    md3: {
         radius: { md: palette.radius[2], xl: palette.radius[14] },
         shape: {
             control: palette.radius[2], card: palette.radius[6], overlay: palette.radius[14],
@@ -274,7 +300,7 @@ export const designShapeContract = defineTokens({
             card: palette.shadow.sm, cardHover: palette.shadow.md,
         },
     },
-    macos: {
+    apple: {
         radius: { md: palette.radius[3], xl: palette.radius[8] },
         shape: {
             control: palette.radius[3], card: palette.radius[6], overlay: palette.radius[8],

@@ -13,15 +13,19 @@ status = "experimental"
 
 ## 三套主题的标签与选项
 
-Select 与 LineEdit 共用 L2 字段布局：MD3 使用 56px 字段、浮动标签、真实轮廓缺口或 Filled 底线；macOS 与 shadcn 使用静态上置标签及紧凑边框。静态标签不会在打开面板或已有值时移动，也不会遮住占位文字。输入、值、搜索草稿和展开状态在主题切换时保留。
+Select 与 LineEdit 共用 L2 字段布局：MD3 使用 56px 字段、浮动标签、真实轮廓缺口或 Filled 底线；Apple 与 shadcn 使用静态上置标签及紧凑边框。静态标签不会在打开面板或已有值时移动，也不会遮住占位文字。输入、值、搜索草稿和展开状态在主题切换时保留。
 
-macOS 选中项使用蓝色表面与配对前景色，shadcn 使用中性色背景，MD3 使用 tonal 选中表面。键盘活动项有独立轮廓，禁用项不可选；多选复用 Checkbox。错误文字通过描述关联和 alert 通告。请在“标签与选择状态”中检查空值、搜索、多选、错误和禁用，并切换浅色／深色。
+Apple 选中项使用蓝色表面与配对前景色，shadcn 使用中性色背景，MD3 使用 tonal 选中表面。键盘活动项有独立轮廓，禁用项不可选；多选复用 Checkbox。错误文字通过描述关联和 alert 通告。请在“标签与选择状态”中检查空值、搜索、多选、错误和禁用，并切换浅色／深色。
 
-实际参考（2026-10-22）：[Material Web Select](https://material-web.dev/components/select/)、[Select 行为源码](https://github.com/material-components/material-web/blob/main/select/internal/select.ts)、[Outlined Field 样式](https://github.com/material-components/material-web/blob/main/field/internal/_outlined-field.scss)、[shadcn Select 源码](https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/new-york-v4/ui/select.tsx)。多选、虚拟滚动、warning 和桌面密度为项目扩展；macOS 视觉通过本库语义角色实现。
+弹层定位包含本字段的标签、说明和错误，动态换行后重新定位；空间不足时可翻转到字段上方。弹层宽度和 Escape 焦点恢复仍以实际 combobox 控件为准，不把说明文字当作交互焦点。
+
+Escape 关闭时 `onOpenChange` 的原因是 `escape`，并保留原始键盘事件；不会把键盘关闭记为触发器点击。
+
+实际参考（2026-10-22）：[Material Web Select](https://material-web.dev/components/select/)、[Select 行为源码](https://github.com/material-components/material-web/blob/main/select/internal/select.ts)、[Outlined Field 样式](https://github.com/material-components/material-web/blob/main/field/internal/_outlined-field.scss)、[shadcn Select 源码](https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/new-york-v4/ui/select.tsx)。多选、虚拟滚动、warning 和桌面密度为项目扩展；Apple 视觉通过本库语义角色实现。
 
 ## 尺寸与外观
 
-`size` 支持 `small`、`middle`、`large`。省略时继承最近的 ConfigProvider；没有配置时使用 `middle`。统一设置和局部覆盖见[尺寸指南](/guides/component-sizing)。
+`size` 支持 `small`、`medium`、`large`。省略时继承最近的 ConfigProvider；没有配置时使用 `medium`。统一设置和局部覆盖见[尺寸指南](/guides/component-sizing)。
 
 `appearance="outlined"` 是默认的描边外观，`appearance="filled"` 使用填充背景和底线；两者共享值、搜索和键盘操作。“可清除”示例可对比三种尺寸、两种外观及浅深色主题。
 
@@ -29,12 +33,18 @@ macOS 选中项使用蓝色表面与配对前景色，shadcn 使用中性色背�
 
 `options` 中的 `value` 必须是唯一字符串，`label` 用于显示。用 `multiple` 开启多选：
 
-| 模式 | 受控 `value` | 清除后的 `onChange` 参数 |
+| 模式 | 受控 `value` | 清除后的 `onValueChange` 参数 |
 | --- | --- | --- |
-| 单选 | `string` 或 `null` | `(null, undefined)` |
-| 多选 | `string[]` | `([], [])` |
+| 单选 | `string` 或 `null` | `null`，详情为 `reason: 'clear', options: []` |
+| 多选 | `string[]` | `[]`，详情为 `reason: 'clear', options: []` |
 
-传入 `value` 时，在 `onChange` 中更新状态；单选空值应使用 `null`。不传 `value`（或传入 `undefined`）时，由组件维护选中值，可用 `defaultValue` 设置初始值。
+传入 `value` 时，在 `onValueChange(next, details)` 中更新状态；省略回调可展示只读受控快照。单选空值使用 `null`。不传 `value`（或传入 `undefined`）时由组件维护选中值，`defaultValue` 只负责初始化，两种状态不可同时提供。
+
+详情包含 `reason: 'select' | 'deselect' | 'clear' | 'remove'`、选中 `options`，单选另提供 `option`。`open/defaultOpen/onOpenChange` 独立控制展开，外部更新不会触发操作回调；原生 `onChange/onFocus/onBlur` 保留 DOM 事件签名。
+
+受控关闭请求由父级确认；父级继续传入 `open={true}` 时，搜索草稿和键盘高亮保持不变。初始 `open` 或 `defaultOpen` 会直接高亮并滚动到单选的当前选项，不产生展开回调。即使列表已展开，`disabled` 也禁止选择、搜索和标签移除；自定义标签收到的移除回调同样遵守禁用状态。
+
+字段尺寸继承 `size`，选项间距与虚拟列表行高继承 `density`。长选项允许内容测量扩展行高，多选标签可换行，保持视觉布局与滚动定位一致。
 
 设置 `allowClear` 后，有已选项且组件未禁用时，鼠标移入字段会将尾部箭头切换为清除图标；移到图标上仍可清除，离开字段后恢复箭头。两种图标共用一个位置，切换不会挤动文字。Tab 聚焦尾部按钮时也会显示清除；无悬停能力的触屏设备直接显示清除。
 
@@ -43,6 +53,8 @@ macOS 选中项使用蓝色表面与配对前景色，shadcn 使用中性色背�
 ## 搜索与加载
 
 `searchable` 在展开的列表中提供本地过滤：文本 `label` 按内容匹配，非文本 `label` 则按 `value` 匹配，忽略大小写。
+
+内置标签移除、展开、收起、清除和空结果文案随 ConfigProvider 的 `locale` 切换；切换语言保留选中值。
 
 组件没有搜索词回调，不能直接把 `searchable` 当作远程搜索接口。异步加载选项时，由应用获取数据并更新 `options`，请求期间可设置 `loading`；`loading` 只显示加载状态，不会发起请求。
 

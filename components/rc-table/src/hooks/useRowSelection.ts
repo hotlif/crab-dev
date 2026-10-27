@@ -1,5 +1,7 @@
 import { useCallback, useMemo, useRef, useState, type Key } from "react";
-import type { Row, RowSelection } from "../types.js";
+import type { Row, RowSelection, RowSelectionChangeDetails } from "../types.js";
+
+type RowSelectionEvent = RowSelectionChangeDetails<Row>['event'];
 
 interface UseRowSelectionOptions<T extends Row> {
     dataRows: T[]
@@ -10,9 +12,9 @@ export interface UseRowSelectionResult {
     selectedRowIds: Set<Key>
     isAllSelected: boolean
     isIndeterminate: boolean
-    toggleRow: (rowId: Key) => void
-    selectAllRows: () => void
-    clearAllRows: () => void
+    toggleRow: (rowId: Key, event?: RowSelectionEvent) => void
+    selectAllRows: (event?: RowSelectionEvent) => void
+    clearAllRows: (event?: RowSelectionEvent) => void
 }
 
 export function useRowSelection<T extends Row>({
@@ -59,36 +61,36 @@ export function useRowSelection<T extends Row>({
     const stateRef = useRef({ selectedRowIds, rowSelection, isControlled, rowMap, enabledRows });
     stateRef.current = { selectedRowIds, rowSelection, isControlled, rowMap, enabledRows };
 
-    const applyChange = useCallback((nextIds: Set<Key>) => {
+    const applyChange = useCallback((nextIds: Set<Key>, reason: 'row' | 'all' | 'clear', event?: RowSelectionEvent) => {
         const { isControlled: ctrl, rowSelection: rs, rowMap: rm } = stateRef.current;
         if (!ctrl) setUncontrolledIds(nextIds);
         const nextRows = Array.from(nextIds)
             .map(id => rm.get(id))
             .filter((r): r is T => r !== undefined);
-        rs?.onChange?.(nextIds, nextRows);
+        rs?.onSelectedRowIdsChange?.(nextIds, { rows: nextRows, reason, ...(event ? { event } : {}) });
     }, []);
 
-    const toggleRow = useCallback((rowId: Key) => {
+    const toggleRow = useCallback((rowId: Key, event?: RowSelectionEvent) => {
         const { selectedRowIds: ids, rowSelection: rs } = stateRef.current;
         if (rs?.type === 'radio') {
-            applyChange(new Set<Key>([rowId]));
+            applyChange(new Set<Key>([rowId]), 'row', event);
             return;
         }
         const next = new Set(ids);
         if (next.has(rowId)) next.delete(rowId);
         else next.add(rowId);
-        applyChange(next);
+        applyChange(next, 'row', event);
     }, [applyChange]);
 
-    const selectAllRows = useCallback(() => {
+    const selectAllRows = useCallback((event?: RowSelectionEvent) => {
         const { selectedRowIds: ids, enabledRows: rows } = stateRef.current;
         const next = new Set(ids);
         rows.forEach(row => next.add(row.id));
-        applyChange(next);
+        applyChange(next, 'all', event);
     }, [applyChange]);
 
-    const clearAllRows = useCallback(() => {
-        applyChange(new Set<Key>());
+    const clearAllRows = useCallback((event?: RowSelectionEvent) => {
+        applyChange(new Set<Key>(), 'clear', event);
     }, [applyChange]);
 
     return { selectedRowIds, isAllSelected, isIndeterminate, toggleRow, selectAllRows, clearAllRows };

@@ -7,6 +7,8 @@ type DocsTypePlaceholder = ((...args: never[]) => unknown) & {
 };
 type ColorFormat = DocsTypePlaceholder;
 type ColorPreset = DocsTypePlaceholder;
+type ColorValueChangeDetails = DocsTypePlaceholder;
+type DropdownOpenChangeDetails = DocsTypePlaceholder;
 type HTMLDivElement = DocsTypePlaceholder;
 type Locale = DocsTypePlaceholder;
 type OKLCHValue = DocsTypePlaceholder;
@@ -14,21 +16,19 @@ type Ref<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?
 
 export interface ColorPickerProps {
     /**
-     * 是否显示「重置」按钮,默认 false。
-     * @default false
+     * 暂无说明。
      */
-    "allowClear"?: boolean;
+    "locale"?: Locale;
 
     /**
      * 非受控初始值。
      */
-    "defaultValue"?: OKLCHValue;
+    "disabled"?: boolean;
 
     /**
      * 暂无说明。
-     * @default false
      */
-    "disabled"?: boolean;
+    "size"?: 'small' | 'medium' | 'large';
 
     /**
      * 文本输入框初始展示格式,默认 "hex"。仅影响显示,输出恒为 OKLCHValue。
@@ -37,24 +37,9 @@ export interface ColorPickerProps {
     "format"?: ColorFormat;
 
     /**
-     * 暂无说明。
-     */
-    "locale"?: Locale;
-
-    /**
-     * 暂无说明。
-     */
-    "onValueChange"?: (value: OKLCHValue) => void;
-
-    /**
      * 预设色板:扁平色或带标题的分组色。
      */
     "presets"?: ColorPreset[];
-
-    /**
-     * 暂无说明。
-     */
-    "ref"?: Ref<HTMLDivElement>;
 
     /**
      * 是否显示透明度滑块,默认 true。
@@ -69,13 +54,43 @@ export interface ColorPickerProps {
     "showEyeDropper"?: boolean;
 
     /**
-     * 暂无说明。
-     * @default "medium"
+     * 是否显示「重置」按钮,默认 false。
+     * @default false
      */
-    "size"?: "small" | "medium" | "large";
+    "allowClear"?: boolean;
 
     /**
-     * 受控值。与 defaultValue 二选一。
+     * 暂无说明。
+     */
+    "ref"?: Ref<HTMLDivElement>;
+
+    /**
+     * 暂无说明。 与 defaultValue 互斥，不能同时提供。
      */
     "value"?: OKLCHValue;
+
+    /**
+     * 暂无说明。 与 value 互斥，不能同时提供。
+     */
+    "defaultValue"?: OKLCHValue;
+
+    /**
+     * 暂无说明。
+     */
+    "onValueChange"?: ((value: OKLCHValue, details: ColorValueChangeDetails) => void);
+
+    /**
+     * 暂无说明。 与 defaultOpen 互斥，不能同时提供。
+     */
+    "open"?: boolean;
+
+    /**
+     * 暂无说明。 与 open 互斥，不能同时提供。
+     */
+    "defaultOpen"?: boolean;
+
+    /**
+     * 暂无说明。
+     */
+    "onOpenChange"?: ((open: boolean, details: DropdownOpenChangeDetails) => void);
 }

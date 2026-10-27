@@ -1,0 +1,14 @@
+# Shader regressions require real WebGL pixels, not the DOM WebGL mock.
+[test]
+environment = "browser"
+include = ["sdf-pixels.test.ts"]
+timeout_ms = 5000
+leaks = "error"
+
+[test.network]
+mode = "deny"
+allow_hosts = []
+
+[test.coverage]
+enabled = true
+reporters = ["text", "lcov"]

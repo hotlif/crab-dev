@@ -5,8 +5,9 @@ export const meta = {
 };
 
 import { useState } from 'react';
-import FlowDiagram, { FlowNode, FlowEdge, DEFAULT_FLOW_DIAGRAM_PALETTE } from '../../src/index.js';
-import type { ElkLayoutNode, ElkLayoutEdge } from '../../src/index.js';
+import token from '@crab-dev/rc-token-semantic';
+import FlowDiagram, { FlowNode, FlowEdge, DEFAULT_FLOW_DIAGRAM_PALETTE } from '@crab-dev/rc-flow-diagram';
+import type { ElkLayoutNode, ElkLayoutEdge } from '@crab-dev/rc-flow-diagram';
 
 const NODE_W = 110;
 const NODE_H = 44;
@@ -50,9 +51,9 @@ interface EdgeStyle {
 
 const EDGE_STYLES: Record<string, EdgeStyle> = {
     e1: {},
-    e2: { dashLength: 6, gapLength: 4, color: 'oklch(0.45 0.15 140)' },
-    e3: { arrowStart: true, color: 'oklch(0.45 0.15 30)' },
-    e4: { arrowEnd: false, color: 'oklch(0.45 0.15 320)', lineWidth: 2.5 },
+    e2: { dashLength: 6, gapLength: 4, color: token.color.feedback.success.icon },
+    e3: { arrowStart: true, color: token.color.feedback.error.icon },
+    e4: { arrowEnd: false, color: token.color.tertiary.primary, lineWidth: 2.5 },
 };
 
 const EDGE_LABELS: Record<string, string> = {

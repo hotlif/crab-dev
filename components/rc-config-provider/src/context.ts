@@ -2,11 +2,14 @@ import { createContext, use, type Context } from 'react';
 import type { ConfigValue } from './types.js';
 
 const defaultConfig: ConfigValue = {
-    design: 'material',
-    theme: 'light',
+    designSystem: 'md3',
+    colorMode: 'light',
     brandColor: null,
     locale: 'zh-CN',
-    size: 'middle',
+    size: 'medium',
+    density: 'standard',
+    direction: 'ltr',
+    nonce: undefined,
 };
 
 const ConfigContext: Context<ConfigValue | null> = createContext<ConfigValue | null>(null);

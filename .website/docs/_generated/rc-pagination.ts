@@ -57,7 +57,7 @@ export const demos = [
                 "Pagination"
             ],
             "props": [
-                "defaultCurrent",
+                "defaultValue",
                 "total",
                 "showQuickJumper",
                 "showTotal",
@@ -66,7 +66,7 @@ export const demos = [
             "events": [],
             "hasState": false
         },
-        "sourceCode": "export const meta = {\n    title: \"禁用状态\",\n    description: \"disabled 会整体锁定分页器，所有按钮与输入框不可交互\",\n};\nimport Pagination from \"../../src/index.js\";\n\nexport default function DisabledDemo() {\n    return \u003cPagination defaultCurrent={3} total={100} showQuickJumper showTotal disabled />;\n}\n",
+        "sourceCode": "export const meta = {\n    title: \"禁用状态\",\n    description: \"disabled 会整体锁定分页器，所有按钮与输入框不可交互\",\n};\nimport Pagination from \"../../src/index.js\";\n\nexport default function DisabledDemo() {\n    return \u003cPagination defaultValue={3} total={100} showQuickJumper showTotal disabled />;\n}\n",
         "previewPath": "/components/rc-pagination/workbench/?__wake_demo=docs%2Fdemos%2Fdisabled.demo.tsx",
         "workbenchPath": "/components/rc-pagination/workbench/#/components/docs%2Fdemos%2Fdisabled.demo.tsx",
         "density": "regular",
@@ -76,24 +76,24 @@ export const demos = [
     {
         "id": "docs/demos/controlled.demo.tsx",
         "title": "受控模式",
-        "description": "通过 current 与 onChange 完全托管页码状态",
+        "description": "通过 value 与 onValueChange 完全托管页码状态",
         "learning": {
             "components": [
                 "Pagination"
             ],
             "props": [
-                "current",
+                "value",
                 "total",
                 "pageSize",
-                "onChange",
+                "onValueChange",
                 "showTotal"
             ],
             "events": [
-                "onChange"
+                "onValueChange"
             ],
             "hasState": true
         },
-        "sourceCode": "export const meta = {\n    title: \"受控模式\",\n    description: \"通过 current 与 onChange 完全托管页码状态\",\n};\nimport { useState } from \"react\";\nimport { css } from \"@crab-dev/css\";\nimport Pagination from \"../../src/index.js\";\n\nconst DATA = Array.from({ length: 87 }, (_, i) => `记录 #${i + 1}`);\nconst PAGE_SIZE = 8;\n\nconst stackStyle = css`\n    display: flex;\n    flex-direction: column;\n    gap: 12px;\n`;\n\nconst listStyle = css`\n    margin: 0;\n    padding-left: 20px;\n`;\n\nexport default function ControlledDemo() {\n    const [current, setCurrent] = useState(1);\n    const items = DATA.slice((current - 1) * PAGE_SIZE, current * PAGE_SIZE);\n\n    return (\n        \u003cdiv className={stackStyle}>\n            \u003cul className={listStyle}>\n                {items.map((item) => \u003cli key={item}>{item}\u003c/li>)}\n            \u003c/ul>\n            \u003cPagination\n                current={current}\n                total={DATA.length}\n                pageSize={PAGE_SIZE}\n                onChange={setCurrent}\n                showTotal\n            />\n        \u003c/div>\n    );\n}\n",
+        "sourceCode": "export const meta = {\n    title: \"受控模式\",\n    description: \"通过 value 与 onValueChange 完全托管页码状态\",\n};\nimport { useState } from \"react\";\nimport { css } from \"@crab-dev/css\";\nimport Pagination from \"../../src/index.js\";\n\nconst DATA = Array.from({ length: 87 }, (_, i) => `记录 #${i + 1}`);\nconst PAGE_SIZE = 8;\n\nconst stackStyle = css`\n    display: flex;\n    flex-direction: column;\n    gap: 12px;\n`;\n\nconst listStyle = css`\n    margin: 0;\n    padding-left: 20px;\n`;\n\nexport default function ControlledDemo() {\n    const [current, setCurrent] = useState(1);\n    const items = DATA.slice((current - 1) * PAGE_SIZE, current * PAGE_SIZE);\n\n    return (\n        \u003cdiv className={stackStyle}>\n            \u003cul className={listStyle}>\n                {items.map((item) => \u003cli key={item}>{item}\u003c/li>)}\n            \u003c/ul>\n            \u003cPagination\n                value={current}\n                total={DATA.length}\n                pageSize={PAGE_SIZE}\n                onValueChange={setCurrent}\n                showTotal\n            />\n        \u003c/div>\n    );\n}\n",
         "previewPath": "/components/rc-pagination/workbench/?__wake_demo=docs%2Fdemos%2Fcontrolled.demo.tsx",
         "workbenchPath": "/components/rc-pagination/workbench/#/components/docs%2Fdemos%2Fcontrolled.demo.tsx",
         "density": "regular",
@@ -109,14 +109,14 @@ export const demos = [
                 "Pagination"
             ],
             "props": [
-                "defaultCurrent",
+                "defaultValue",
                 "total",
                 "pageSize"
             ],
             "events": [],
             "hasState": false
         },
-        "sourceCode": "export const meta = {\n    title: \"大量数据\",\n    description: \"页数超过 7 时自动折叠为首尾 + 中部区间 + 省略号跳转\",\n};\nimport Pagination from \"../../src/index.js\";\n\nexport default function ManyPagesDemo() {\n    return \u003cPagination defaultCurrent={23} total={980} pageSize={10} />;\n}\n",
+        "sourceCode": "export const meta = {\n    title: \"大量数据\",\n    description: \"页数超过 7 时自动折叠为首尾 + 中部区间 + 省略号跳转\",\n};\nimport Pagination from \"../../src/index.js\";\n\nexport default function ManyPagesDemo() {\n    return \u003cPagination defaultValue={23} total={980} pageSize={10} />;\n}\n",
         "previewPath": "/components/rc-pagination/workbench/?__wake_demo=docs%2Fdemos%2Fmany-pages.demo.tsx",
         "workbenchPath": "/components/rc-pagination/workbench/#/components/docs%2Fdemos%2Fmany-pages.demo.tsx",
         "density": "regular",
@@ -132,18 +132,18 @@ export const demos = [
                 "Pagination"
             ],
             "props": [
-                "current",
+                "value",
                 "total",
                 "pageSize",
-                "onChange",
+                "onValueChange",
                 "showQuickJumper"
             ],
             "events": [
-                "onChange"
+                "onValueChange"
             ],
             "hasState": true
         },
-        "sourceCode": "export const meta = {\n    title: \"快速跳转\",\n    description: \"开启 showQuickJumper 后，用户可直接输入目标页码并回车跳转\",\n};\nimport { useState } from \"react\";\nimport Pagination from \"../../src/index.js\";\n\nexport default function QuickJumperDemo() {\n    const [current, setCurrent] = useState(1);\n    return (\n        \u003cPagination\n            current={current}\n            total={500}\n            pageSize={10}\n            onChange={(page) => setCurrent(page)}\n            showQuickJumper\n        />\n    );\n}\n",
+        "sourceCode": "export const meta = {\n    title: \"快速跳转\",\n    description: \"开启 showQuickJumper 后，用户可直接输入目标页码并回车跳转\",\n};\nimport { useState } from \"react\";\nimport Pagination from \"../../src/index.js\";\n\nexport default function QuickJumperDemo() {\n    const [current, setCurrent] = useState(1);\n    return (\n        \u003cPagination\n            value={current}\n            total={500}\n            pageSize={10}\n            onValueChange={(page) => setCurrent(page)}\n            showQuickJumper\n        />\n    );\n}\n",
         "previewPath": "/components/rc-pagination/workbench/?__wake_demo=docs%2Fdemos%2Fquick-jumper.demo.tsx",
         "workbenchPath": "/components/rc-pagination/workbench/#/components/docs%2Fdemos%2Fquick-jumper.demo.tsx",
         "density": "regular",
@@ -159,7 +159,7 @@ export const demos = [
                 "Pagination"
             ],
             "props": [
-                "defaultCurrent",
+                "defaultValue",
                 "total",
                 "pageSize",
                 "showTotal"
@@ -167,7 +167,7 @@ export const demos = [
             "events": [],
             "hasState": false
         },
-        "sourceCode": "export const meta = {\n    title: \"显示总量\",\n    description: \"showTotal 支持布尔值或自定义渲染函数，展示当前区间与总数\",\n};\nimport { css } from \"@crab-dev/css\";\nimport Pagination from \"../../src/index.js\";\n\nconst stackStyle = css`\n    display: flex;\n    flex-direction: column;\n    gap: 16px;\n`;\n\nexport default function ShowTotalDemo() {\n    return (\n        \u003cdiv className={stackStyle}>\n            \u003cPagination defaultCurrent={2} total={256} pageSize={20} showTotal />\n            \u003cPagination\n                defaultCurrent={2}\n                total={256}\n                pageSize={20}\n                showTotal={(total, [from, to]) => `Showing ${from}-${to} of ${total}`}\n            />\n        \u003c/div>\n    );\n}\n",
+        "sourceCode": "export const meta = {\n    title: \"显示总量\",\n    description: \"showTotal 支持布尔值或自定义渲染函数，展示当前区间与总数\",\n};\nimport { css } from \"@crab-dev/css\";\nimport Pagination from \"../../src/index.js\";\n\nconst stackStyle = css`\n    display: flex;\n    flex-direction: column;\n    gap: 16px;\n`;\n\nexport default function ShowTotalDemo() {\n    return (\n        \u003cdiv className={stackStyle}>\n            \u003cPagination defaultValue={2} total={256} pageSize={20} showTotal />\n            \u003cPagination\n                defaultValue={2}\n                total={256}\n                pageSize={20}\n                showTotal={(total, [from, to]) => `Showing ${from}-${to} of ${total}`}\n            />\n        \u003c/div>\n    );\n}\n",
         "previewPath": "/components/rc-pagination/workbench/?__wake_demo=docs%2Fdemos%2Fshow-total.demo.tsx",
         "workbenchPath": "/components/rc-pagination/workbench/#/components/docs%2Fdemos%2Fshow-total.demo.tsx",
         "density": "regular",

@@ -52,7 +52,7 @@ export enum ValidateState {
     WARNING,
     // 在校验中
     VALIDATING
-} 
+}
 
 /**
  * 表单的实例， 用它来批量操作表单字段， 例如提交数据或者重置数据
@@ -106,6 +106,12 @@ export type WrapperInstance<T extends object> = FormInstance<T> & {
 export interface FormItemEditor<T = unknown> {
 
     id?: string;
+    name?: string;
+    disabled?: boolean;
+    readOnly?: boolean;
+    'aria-label'?: string;
+    /** external + labelTarget=group 时，关联 Item 的可见组标题；渲染函数须转发给组根。 */
+    'aria-labelledby'?: string;
     'aria-invalid'?: boolean;
     'aria-describedby'?: string;
     'aria-busy'?: boolean;
@@ -136,7 +142,7 @@ export interface FormItemEditor<T = unknown> {
     /**
      * 值改变后触发的事件
      */
-    onChange?: (value: T) => void
+    onValueChange?: (value: T) => void
 
 }
 
@@ -150,7 +156,7 @@ export interface Rule {
 
     /**
      * 类型
-     * 
+     *
      * - RuleType.WARNING 警告类型
      * - RuleType.ERROR   错误类型
      */

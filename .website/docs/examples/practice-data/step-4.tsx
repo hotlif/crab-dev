@@ -140,8 +140,8 @@ export default function Example() {
                     搜索姓名
                     <LineEdit
                         value={query}
-                        onChange={(event) => {
-                            setQuery(event.target.value);
+                        onValueChange={(value) => {
+                            setQuery(value);
                             setPage(1);
                         }}
                         maxLength={30}
@@ -153,7 +153,7 @@ export default function Example() {
                     团队
                     <Select
                         value={team}
-                        onChange={(value) => {
+                        onValueChange={(value) => {
                             setTeam(value ?? "all");
                             setPage(1);
                         }}
@@ -224,10 +224,10 @@ export default function Example() {
                             </AutoSizer>
                         </div>
                         <Pagination
-                            current={page}
+                            value={page}
                             pageSize={5}
                             total={filtered.length}
-                            onChange={setPage}
+                            onValueChange={setPage}
                         />
                     </>
                 )}

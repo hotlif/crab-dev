@@ -98,7 +98,8 @@ function Demo() {
     });
 
     useEffect(() => { if (editor.current) editor.current.readOnly = readOnly; }, [readOnly]);
-    useEffect(() => { if (editor.current) editor.current.theme = dark ? 'dark' : 'light'; }, [dark]);
+    // 独立 React root 需要显式桥接，外层 ConfigProvider 不会自动穿透自定义元素。
+    useEffect(() => { if (editor.current) editor.current.colorMode = dark ? 'dark' : 'light'; }, [dark]);
 
     const [loadResult, load, loading] = useActionState(async (): Promise<LoadResult> => {
         const target = editor.current;
@@ -152,7 +153,7 @@ function Demo() {
 
     const busy = loading || state.pendingOperations.length > 0;
     const ready = state.status === 'ready';
-    return <ConfigProvider theme={dark ? 'dark' : 'light'} className={pageStyle}>
+    return <ConfigProvider colorMode={dark ? 'dark' : 'light'} className={pageStyle}>
         <main className={stackStyle}>
             <header className={stackStyle}>
                 <h1 className={titleStyle}>PDF Web Component 控制演示</h1>
@@ -161,11 +162,11 @@ function Demo() {
             <div className={gridStyle}>
                 <section className={cardStyle} aria-labelledby={layoutId}>
                     <h2 id={layoutId} className={headingStyle}>1. 组件与显示</h2>
-                    <Checkbox checked={fixed} onChange={setFixed}>仅显示固定工具</Checkbox>
+                    <Checkbox checked={fixed} onCheckedChange={setFixed}>仅显示固定工具</Checkbox>
                     <p className={hintStyle}>固定工具：保存、抓手、页面面板、适应页面与框选 OCR。取消勾选可显示其他编辑工具。</p>
                     <div className={rowStyle}>
-                        <Checkbox checked={readOnly} onChange={setReadOnly}>只读模式</Checkbox>
-                        <Checkbox checked={dark} onChange={setDark}>深色主题</Checkbox>
+                        <Checkbox checked={readOnly} onCheckedChange={setReadOnly}>只读模式</Checkbox>
+                        <Checkbox checked={dark} onCheckedChange={setDark}>深色主题</Checkbox>
                     </div>
                     <p className={hintStyle}>PDF 仅从服务器加载，不提供本地 PDF 打开或合并入口。编辑器保持固定高度。</p>
                 </section>

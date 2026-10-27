@@ -4,7 +4,7 @@ import ConfigProvider from '@crab-dev/rc-config-provider';
 import token from '@crab-dev/rc-token-semantic';
 import Slider from '../../src/slider.js';
 
-export const meta = { title: '三套设计与状态', description: 'macOS 的窄胶囊手柄、MD3 的细竖柄和 shadcn 的圆形手柄；支持键盘步进与从右到左布局。' };
+export const meta = { title: '三套设计与状态', description: 'Apple 的窄胶囊手柄、MD3 的细竖柄和 shadcn 的圆形手柄；支持键盘步进与从右到左布局。' };
 const panel = css`
     display: grid;
     gap: ${token.space['component-gap']};
@@ -26,9 +26,9 @@ export default function DesignsDemo() {
     const [value, setValue] = useState(40);
     const errorId = useId();
     return <div className={stack}>
-        {(['macos', 'material', 'shadcn'] as const).map(design => <ConfigProvider key={design} design={design}>
+        {(['apple', 'md3', 'shadcn'] as const).map(design => <ConfigProvider key={design} designSystem={design}>
             <section className={panel} aria-label={`${design} 滑块`}>
-                <strong>{design === 'material' ? 'MD3' : design === 'macos' ? 'macOS' : 'shadcn'} · {value}%</strong>
+                <strong>{design === 'md3' ? 'MD3' : design === 'apple' ? 'Apple' : 'shadcn'} · {value}%</strong>
                 <div className={row}>
                     <span id={`${errorId}-${design}-brightness`}>亮度</span>
                     <Slider value={value} onValueChange={setValue} aria-labelledby={`${errorId}-${design}-brightness`} aria-valuetext={`${value}%`} />

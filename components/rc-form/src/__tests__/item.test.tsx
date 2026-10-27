@@ -15,7 +15,7 @@ type TestRecord = Record<string, unknown>;
     IS_REACT_ACT_ENVIRONMENT?: boolean;
 }).IS_REACT_ACT_ENVIRONMENT = true;
 // 捕获透传给编辑器的 status，以断言 FormItem 是否正确打通编辑器的即时反馈契约
-const StatusEditor = ({ id, value, onChange, status, 'aria-describedby': describedBy }: FormItemEditor<string>) => (<input id={id} aria-describedby={describedBy} data-testid="editor" data-status={status ?? ""} value={value ?? ""} onChange={(event) => onChange?.(event.target.value)}/>);
+const StatusEditor = ({ id, value, onValueChange, status, 'aria-describedby': describedBy }: FormItemEditor<string>) => (<input id={id} aria-describedby={describedBy} data-testid="editor" data-status={status ?? ""} value={value ?? ""} onChange={(event) => onValueChange?.(event.target.value)}/>);
 const flush = async () => {
     await act(async () => {
         await Promise.resolve();

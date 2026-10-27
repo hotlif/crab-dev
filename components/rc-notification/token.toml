@@ -28,7 +28,13 @@ progress.height = "3px"
 progress.animation-duration = "0ms"
 progress.animation-delay = "0ms"
 
-close.opacity = "$ref(opacity.tertiary)"
+# Do not fade the entire interactive control: its focus ring and state layers
+# must retain their own contrast on the notification surface.
+close.opacity = "1"
+close.color = "$ref(color.text.secondary)"
+close.background-color-hover = "$ref(color.background.hover-subtle)"
+close.background-color-focus = "$ref(color.background.active-subtle)"
+close.background-color-active = "$ref(color.background.active-subtle)"
 
 motion.interaction.transition = "$ref(motion.interaction)"
 stack.translate = "$ref(space.group-gap)"

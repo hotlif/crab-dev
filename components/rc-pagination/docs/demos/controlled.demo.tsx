@@ -1,6 +1,6 @@
 export const meta = {
     title: "受控模式",
-    description: "通过 current 与 onChange 完全托管页码状态",
+    description: "通过 value 与 onValueChange 完全托管页码状态",
 };
 import { useState } from "react";
 import { css } from "@crab-dev/css";
@@ -30,10 +30,10 @@ export default function ControlledDemo() {
                 {items.map((item) => <li key={item}>{item}</li>)}
             </ul>
             <Pagination
-                current={current}
+                value={current}
                 total={DATA.length}
                 pageSize={PAGE_SIZE}
-                onChange={setCurrent}
+                onValueChange={setCurrent}
                 showTotal
             />
         </div>

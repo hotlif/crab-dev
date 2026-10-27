@@ -99,11 +99,12 @@ function computeRoutes(
 export function useEdgeRouting(
     nodes: Record<string, RoutingRect>,
     edges: RoutableEdge[],
-    options: UseEdgeRoutingOptions = {},
+    options?: UseEdgeRoutingOptions,
 ): EdgeRoutes {
+    const resolvedOptions = options ?? {};
     // 以内容签名为依赖（而非每帧变化的对象引用），仅在节点 / 边 / 选项内容变化时重算
-    const signature = JSON.stringify({ nodes, edges, options });
-    return useMemo(() => computeRoutes(nodes, edges, options), [signature]);
+    const signature = JSON.stringify({ nodes, edges, options: resolvedOptions });
+    return useMemo(() => computeRoutes(nodes, edges, resolvedOptions), [signature]);
 }
 
 export default useEdgeRouting;

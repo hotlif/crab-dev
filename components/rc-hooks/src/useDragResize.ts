@@ -72,7 +72,7 @@ export function useDragResize(options: DragResizeOptions): DragResizeResult {
     const [size, setSizeRaw] = useControllableValue<number>({
         value: sizeProp,
         defaultValue: clamp(defaultSize),
-        onChange,
+        onValueChange: onChange,
     });
     const [dragging, setDraggingState] = useState(false);
 

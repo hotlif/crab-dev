@@ -70,6 +70,14 @@ import { demos } from "../_generated/rc-router.js";
 - 路由切换后更新页面标题，并把焦点或阅读起点移到新内容的合理位置。
 - 链接能用浏览器标准方式打开和复制，当前导航项使用 aria-current。
 
+### 设计依据与覆盖
+
+- **MD3 Expressive**：Router 是 Web 导航基础设施，没有 M3 视觉组件；它为 Navigation rail/drawer、Tabs 和页面层级提供真实状态。 [依据 1](https://m3.material.io/components/navigation-drawer/overview) · [依据 2](https://material-web.dev/components/tabs/) · [依据 3](https://github.com/material-components/material-web/tree/main/tabs)
+- **Apple**：本包没有独立的 Apple 视觉组件；配置、测量或运行能力为上层控件服务，行为和类型仍需独立验收。 [依据 1](https://developer.apple.com/design/human-interface-guidelines/components) · [依据 2](https://developer.apple.com/design/human-interface-guidelines/accessibility)
+- **shadcn/ui**：本包没有独立的 shadcn/ui 视觉组件；由使用它的上层组件决定外观，基础能力不因无独立视觉而免于行为和类型检查。 [依据 1](https://ui.shadcn.com/docs/components) · [依据 2](https://ui.shadcn.com/docs/theming) · [依据 3](https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4)
+
+设计依据不等于完成验收；当前状态与适用边界见[覆盖矩阵](/guides/design-coverage)。
+
 ## 常见问题
 
 ### 生产页面也需要这些模拟代码吗？

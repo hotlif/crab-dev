@@ -31,8 +31,8 @@ const ClosableDemo = () => {
     return (
         <Tabs
             items={items}
-            activeKey={activeKey}
-            onChange={setActiveKey}
+            value={activeKey}
+            onValueChange={setActiveKey}
             onTabClose={handleClose}
         />
     );

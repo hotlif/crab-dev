@@ -11,14 +11,14 @@ type Window = DocsTypePlaceholder;
 export interface RouterProps {
     /**
      * 暂无说明。
-     * @default '/'
      */
-    "basename"?: string;
+    "routes": readonly RouteObject[];
 
     /**
      * 暂无说明。
+     * @default ’/’
      */
-    "routes": readonly RouteObject[];
+    "basename"?: string;
 
     /**
      * 暂无说明。

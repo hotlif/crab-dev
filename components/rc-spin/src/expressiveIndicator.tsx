@@ -8,8 +8,8 @@ import type { SpinSize } from "./types.js";
 const expressiveStyle = css`
     display: block;
     position: relative;
-    inline-size: var(--rc-spin-size, ${token.size.middle.width});
-    block-size: var(--rc-spin-size, ${token.size.middle.width});
+    inline-size: var(--rc-spin-size, ${token.size.medium.width});
+    block-size: var(--rc-spin-size, ${token.size.medium.width});
     color: ${token.expressive.color};
     animation: rc-spin-expressive-orbit ${token.expressive.orbit['animation-duration']} linear infinite;
 
@@ -45,7 +45,10 @@ const expressiveStyle = css`
         animation: none;
         &::before {
             animation-name: rc-spin-expressive-breathe;
-            animation-duration: ${token.indicator['reduced-motion']['animation-duration']};
+            /* 与圆环一致，仅保护必要呼吸反馈，抵抗 Wake 0.1.45 的全局 important reset。
+               宿主移除该 reset 并通过集成回归后可去掉此优先级；旋转和形变仍保持关闭。 */
+            animation-duration: ${token.indicator['reduced-motion']['animation-duration']} !important;
+            animation-iteration-count: infinite !important;
             animation-timing-function: ease-in-out;
         }
     }

@@ -55,7 +55,7 @@ export default function Example() {
                         label="姓名"
                         supportingText="最多 30 字。"
                         value={name}
-                        onChange={(event) => setName(event.target.value)}
+                        onValueChange={(value) => setName(value)}
                         maxLength={30}
                     />
                 </div>
@@ -66,7 +66,7 @@ export default function Example() {
                         supportingText="最多 80 字。"
                         type="email"
                         value={email}
-                        onChange={(event) => setEmail(event.target.value)}
+                        onValueChange={(value) => setEmail(value)}
                         maxLength={80}
                     />
                 </div>

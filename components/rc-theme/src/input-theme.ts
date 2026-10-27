@@ -8,7 +8,7 @@ import palette from "@crab-dev/rc-token-global";
 globalStyle`
     @media (forced-colors: none) {
     :root,
-    [data-crab-design="material"] {
+    [data-crab-design="md3"] {
         --token-semantic-field-control-shadow: none;
         --token-semantic-field-control-shadow-focus: inset 0 0 0 2px ${token.color.border.focus};
         --token-semantic-field-control-shadow-error: inset 0 0 0 2px ${token.color.feedback.error.border};
@@ -23,7 +23,7 @@ globalStyle`
     }
 
     [data-crab-design="shadcn"][data-theme],
-    [data-crab-design="macos"][data-theme] {
+    [data-crab-design="apple"][data-theme] {
         --token-semantic-field-outlined-shadow-focus: var(--token-semantic-field-control-shadow-focus);
         --token-semantic-field-outlined-shadow-error: var(--token-semantic-field-control-shadow-error);
         --token-semantic-field-outlined-shadow-warning: var(--token-semantic-field-control-shadow-warning);
@@ -51,7 +51,7 @@ globalStyle`
         --token-semantic-field-control-shadow-warning: 0 0 0 3px color-mix(in oklch, ${token.color.feedback.warning.border} 40%, transparent);
     }
 
-    [data-crab-design="macos"] {
+    [data-crab-design="apple"] {
         --token-semantic-field-control-shadow: inset ${palette.shadow.sm};
         --token-semantic-field-control-shadow-focus: ${token.shadow['focus-ring']};
         --token-semantic-field-control-shadow-error: 0 0 0 3px color-mix(in oklch, ${token.color.feedback.error.border} 24%, transparent);

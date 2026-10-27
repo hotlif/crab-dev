@@ -1,154 +1,57 @@
 +++
-title = "统一尺寸与密度"
-description = "在 macOS、Material Design 3 与 shadcn 风格间切换，并选择统一的控件尺寸与密度"
+title = "尺寸与密度"
+description = "独立选择设计体系、明暗、控件尺寸和内容密度"
 kind = "guide"
 status = "experimental"
 +++
 
 import SizeShowcase from "../site/sizeShowcase.js";
 
-# 统一尺寸与密度
+# 尺寸与密度
 
-通过 `ConfigProvider` 的 `size` 设置一组组件的默认尺寸。三个档位调整控件高度、数据行高和部分间距，容器宽度和页面排版仍由应用布局决定。
-
-## 选择设计风格
-
-`design` 在 macOS、Material Design 3 与 shadcn 三套风格间切换，`theme` 单独控制浅色或深色，两者都可以在运行时修改：
+尺寸描述控件的视觉档位，密度描述内容间距与行的疏密。两者独立，也不隐式改变设计体系、明暗或品牌。
 
 ```tsx
-<ConfigProvider design="macos" theme="dark" size="middle">
-    <Button>保存</Button>
+<ConfigProvider designSystem="md3" colorMode="light" size="medium" density="standard">
+    <Form />
 </ConfigProvider>
 ```
 
-| 风格 | 配色与形状 |
-| --- | --- |
-| `macos` | 系统字体、蓝色重点操作、银灰表面与圆角矩形；细描边、柔和阴影和独立标签表现桌面控件层次 |
-| `material` | Material Design 3 的品牌、表面与状态角色，常用按钮保留胶囊形状；组件库未设置 `design` 时的默认风格 |
-| `shadcn` | 中性灰阶、圆角矩形按钮与较弱的容器层次；控件圆角 8px，卡片与弹层圆角 12px |
+## 四个独立轴
 
-本网站首次访问默认显示 macOS；已有浏览器风格偏好优先保留。可在导航中的主题按钮打开外观菜单，分别选择“设计风格”和“明暗模式”。文档、组件、浮层和工作台演示同步切换。首页能力墙默认跟随全站，也可单独覆盖明暗和品牌色。前往[三套设计风格](/guides/design-styles)查看输入、选择、导航和浮层的交互对照。
+| 配置 | 取值 | 选择依据 |
+| --- | --- | --- |
+| designSystem | md3 / apple / shadcn | 组件形态、角色与反馈规则 |
+| colorMode | light / dark | 解析后的明暗模式 |
+| size | small / medium / large | 控件的组件专属尺寸档位 |
+| density | compact / standard / comfortable | 间距、内容区与数据行节奏 |
 
-三套风格共用 `small`、`middle`、`large` 三档配置，各组件按当前风格决定具体尺寸。切换风格不会修改 `size`；嵌套 `ConfigProvider` 可以只覆盖 `design`，继续继承外层明暗模式、尺寸和品牌色。`brandColor={null}` 恢复当前风格的默认品牌，显式品牌色可以继续覆盖任一风格。
+默认 MD3 Expressive、light、medium、standard，语言 zh-CN、方向 ltr。局部 Provider 只覆盖显式传入的轴，其余继承；切换尺寸或密度不应重建组件、清空草稿或改变值。
 
-文本字段体现三套风格的结构差异：Material 的 LineEdit 使用 56px 容器，标签在空白、未聚焦时位于字段内，聚焦或有值后浮起；Filled 强调底线，Outlined 为浮动标签保留轮廓缺口。macOS 和 shadcn 独立字段将标签放在输入框上方；在 Form 中使用 `Item labelPlacement="control"` 时，标签在左侧、输入在右侧并保持同排，说明与错误对齐输入列。macOS 使用蓝色焦点反馈与柔和控件表面，shadcn 使用中性轮廓。两者输入框随尺寸档位使用 32 / 36 / 40px。TextEdit 按相同的标签规则呈现，并按多行内容扩展。`theme` 仍独立控制明暗。
+## 交互对照
 
-## 选择档位
-
-| 档位 | 使用场景 |
-| --- | --- |
-| `small`（紧凑） | 信息较多的桌面表单、列表和后台工作区 |
-| `middle`（标准） | 常规页面；没有配置时的默认值 |
-| `large`（宽松） | 需要更宽松的阅读和操作空间 |
-
-按浏览器内的可用空间和操作需求选择。同一块 2K 或 4K 屏幕，在不同系统缩放、浏览器缩放和窗口大小下，可用空间也不同，因此组件不会按物理分辨率自动选择档位。应用可以提供尺寸设置，让用户选择。
-
-切换档位不会等比缩放整个页面。文字和图标仍使用各组件的设计尺寸；窄屏下的换行、分栏和横向滚动需要由布局处理。
-
-## 试用三个档位
+先改变控件尺寸，再改变内容密度，观察字段、操作和表格的不同职责。显式尺寸的单个组件保持自身档位。
 
 <SizeShowcase />
 
-上方选项只改变这组演示。标有“固定 large”和“始终使用标准尺寸”的区域用于展示局部覆盖，不随外层档位变化。
+## 组件专属规格
 
-## 设置默认尺寸
+`small / medium / large` 是统一选择入口，不能据此推断所有控件使用同一高度。字段需要保留标签和说明空间，复选框/单选框的视觉大小与交互命中区分别定义，多行文本和内容卡片随内容扩展。
 
-将需要统一尺寸的内容放进 `ConfigProvider`：
+Button 显式 `size` 使用 `xs / s / m / l / xl`，是组件自己的 Expressive 尺寸变体；Provider 的通用档位由组件映射到其默认规格。画布坐标、PDF 页面、图表数据和正文排版不随控件尺寸等比缩放。
 
-```tsx
-import ConfigProvider from '@crab-dev/rc-config-provider';
-import Button from '@crab-dev/rc-button';
-import Select from '@crab-dev/rc-select';
+TextEdit 的 `rows` / `autoSize` 管内容高度，`size` 管输入边界的最小高度和间距，不缩放正文。Apple 的三档为本库 Web 几何；shadcn/ui 的 medium 采用固定 New York V4 的 64px 最小高度、上下 8px、左右 12px，small/large 是显式扩展。具体数值及全部外观见 [TextEdit 尺寸契约](/components/rc-text-edit)。
 
-export default function Example() {
-    return (
-        <ConfigProvider size="small">
-            <Button>查询</Button>
-            <Select
-                label="任务状态"
-                options={[
-                    { value: 'pending', label: '待处理' },
-                    { value: 'active', label: '处理中' },
-                ]}
-            />
-        </ConfigProvider>
-    );
-}
-```
+TextEdit 在 MD3 下将三档映射到同一标准字段几何（最小 56px、常规内边距 16px、正文 16px/24px），是保留浮动标签、正文与轮廓空间的例外，不是官方三档规格。该映射兼容已有 size 调用和内部清除动作分档，适用于带边界字段；无边框模式由宿主提供几何。实际 CSS 回归覆盖三档、标签、Filled、行数及 autoSize。只有引入有依据的新变体并同步迁移和复验后才退出此例外。
 
-需要运行时切换时，把所选档位保存在 React state 中，再传给 `ConfigProvider size={size}`。Provider 会渲染一个 `div`，可用 `className` 为这层容器设置布局。样式接入见[开始使用](/guides/getting-started)。
+密度可以调整布局间距和数据行节奏，但不能减少必要的标签空间、焦点可见性和触控命中区域。不可用更小字号掩盖宽度不足；窄屏改为合适布局，长内容保持阅读和操作顺序。
 
-如果应用已经用 ConfigProvider 管理主题，把 `size` 加在同一个根级 Provider 上即可；新增的局部 Provider 会继承它的主题。配置继承规则见[ConfigProvider](/components/rc-config-provider)。
+Table/TablePro 的虚拟行几何使用独立 density；size 只影响内部控件。显式 getRowHeight 或 row.height 优先，切换密度时仍需核对滚动窗口和焦点位置。
 
-## 覆盖局部尺寸
+Tree 的节点高度优先采用 node.height，其次采用显式 defaultNodeHeight，未提供时使用自动默认几何。Table/Tree 的粗指针最低高度只用于自动默认值，不覆盖显式行高或节点高度；显式较小高度保持传入值，由应用按实际输入方式选择尺寸。
 
-在同一页面里，可以单独放大一个组件，也可以给一组组件设置另一个档位：
+## 验证
 
-```tsx
-<ConfigProvider size="small">
-    <Button>继承紧凑尺寸</Button>
-    <Button size="large">使用宽松尺寸</Button>
-    <ConfigProvider size="middle">
-        <Button>使用标准尺寸</Button>
-    </ConfigProvider>
-</ConfigProvider>
-```
+在实际使用的设计体系、明暗、尺寸和密度组合下检查可读性、标签、错误说明、键盘焦点、触控与 200% 缩放。所有具体数值以公共令牌和对应组件规格为准，不能把某个按钮的数值推广到全库。
 
-优先级从高到低为：组件显式的 `size`、ButtonGroup 等分组的尺寸、最近的 `ConfigProvider`、默认 `middle`。嵌套 Provider 只覆盖传入的配置，其余配置继续继承。
-
-## 基础尺寸
-
-下表为三套风格的基础尺寸，单位为 CSS px。除最后一行外，数值均指高度，不表示宽度。标签、辅助说明、多选标签换行或自定义内容可能增加组件的总高度。
-
-| 项目 | small | middle | large |
-| --- | --- | --- | --- |
-| 按钮 / 分段按钮视觉高度 | 32 | 36 | 40 |
-| Material 单行文本 / 选择字段 | 56 | 56 | 56 |
-| macOS / shadcn 单行文本 / 选择字段 | 32 | 36 | 40 |
-| Material Tabs | 32 | 48 | 48 |
-| macOS / shadcn Tabs | 32 | 36 | 40 |
-| 输入框内操作按钮 | 24 | 28 | 32 |
-| 表格数据 / 分组 / 汇总行 | 32 | 40 | 48 |
-| 表格表头 / 筛选行 | 36 | 40 | 44 |
-| 树节点 / Menu 导航项 | 32 | 36 | 40 |
-| Select 选项 | 28 | 32 | 36 |
-| 分页按钮 | 32 | 36 | 40 |
-| Form 相邻字段行间距 | 6 | 8 | 12 |
-
-常规紧凑控件正文为 14px；Material 文本和选择字段使用 16px 输入文字，浮动标签使用 12px，56px 字段为两者分别留出空间；多行输入按内容扩展。Switch 的轨道宽高按 small / middle / large 分别为：macOS 28×16、36×22、44×26px；Material 28×16、52×32、52×32px；shadcn 28×16、32×18、36×20px。Switch 的 48px 操作区独立于轨道尺寸，Material 的 small 档为显式紧凑定制。
-
-macOS 风格的常用按钮与输入框采用 6px 圆角，卡片 12px、弹层 16px；shadcn 的常用按钮与输入框采用 8px 圆角，卡片与弹层采用 12px 圆角；Material 保留各组件的形状角色与层级。按钮可显式设置 `shape="round"` 或 `shape="circle"`，卡片可显式设置 `variant="outlined"` 或 `variant="elevated"`；这些局部设置在切换风格时继续生效。
-
-shadcn 风格采用无色度的 Neutral 灰阶：浅色使用白色与浅灰表面、深色文字和黑色主操作；深色使用近黑表面与浅色文字。Material 风格保留彩色品牌和色调容器。macOS 使用蓝色重点操作与银灰表面。三套风格都保留反馈状态的语义颜色；需要自定义品牌时，可通过 `ConfigProvider brandColor` 显式设置。
-
-紧凑桌面密度是本项目的显式定制。Material 文本和选择字段保留 56px 基础高度，Tabs 默认 48px，Switch 默认 52×32px；Tabs 与 Switch 的 small 档保留紧凑选项。Dialog 在 macOS 中使用 24px 内边距与 16px 半粗标题；Material 使用 24px 内边距与 headline small 标题；shadcn 使用 20px 内边距与 16px 中等字重标题。尺寸、图标和排版由 L2 设计角色切换，嵌套 Provider 会完整恢复当前设计的角色。
-
-表格的 `getRowHeight`、行 `height`、表头高度，以及 Tree 的 `defaultNodeHeight` 等显式设置会覆盖对应默认值。默认过滤行会为当前设计的字段高度和单元格内边距预留空间；显式 `filterRowHeight` 仍优先，使用时需能容纳自己的过滤器。表中的视觉尺寸也不等于触控目标：例如紧凑按钮和 Select 清除按钮，在粗指针设备上会保留至少 48px 的操作区。
-
-## 适用范围
-
-| 类别 | 跟随配置的方式 |
-| --- | --- |
-| LineEdit、TextEdit | Material 保留文本字段标签空间，macOS 和 shadcn 使用紧凑尺寸；多行字段按内容扩展 |
-| Button、Select、日期时间与 Cron 选择器、分段按钮、分页等控件 | 使用对应的组件尺寸档位 |
-| Card、Avatar、Checkbox、Radio、Switch、Tabs、Tag、Spin、Skeleton、ColorPicker、Drawer | 按各组件的尺寸定义调整；不同组件的同名档位不代表相同宽高 |
-| Table、TablePro、Tree | 调整默认行高；自定义行高仍优先 |
-| Menu、Form | 继承导航项高度或字段间距等密度设置 |
-| Badge、Slider | 使用下文说明的特殊映射 |
-| Alert、Dialog、通知、提示，以及画布、图表、虚拟列表、分栏和测量容器 | 容器不进行统一比例缩放；内部复用的控件可继承尺寸 |
-
-Badge 的 `large` 对应 `default`；Slider 的 `small` / `middle` 默认对应 `xs`，`large` 对应 `s`。显式设置的按钮、滑块扩展档位继续生效，但它们也使用本库的桌面尺寸。
-
-Tabs、Pagination、Skeleton、ColorPicker、Drawer 兼容原有的 `medium`，其含义与 `middle` 相同。统一配置时使用 `small`、`middle`、`large`。
-
-## 设计依据
-
-本次默认尺寸核对采用现有 M3 变体（2026-10-22）：[Primary Tabs 规格](https://m3.material.io/components/tabs/specs)、[Material Web Tabs](https://material-web.dev/components/tabs/)及其[Primary Tab 样式](https://github.com/material-components/material-web/blob/main/tabs/internal/_primary-tab.scss)；[Switch 规格](https://m3.material.io/components/switch/specs)、[Material Web Switch](https://material-web.dev/components/switch/)及其[实现样式](https://github.com/material-components/material-web/blob/main/switch/internal/_switch.scss)；[Dialog 规格](https://m3.material.io/components/dialogs/specs)与[Material Web Dialog](https://material-web.dev/components/dialog/)。Tabs 的默认规格对应文字或同行图标标签；small 属于显式紧凑选项。以上核对不表示库中的扩展变体均为官方标准组件。
-
-三档配置是 Crab UI 的统一尺寸入口，实际数值按组件与风格映射。紧凑尺寸标尺参考 [shadcn/ui Button](https://ui.shadcn.com/docs/components/button) 的 32 / 36 / 40px 和 [Input](https://ui.shadcn.com/docs/components/input) 的 36px；交互语义与状态反馈延续已有 M3 组件。Material 文本字段使用 56px 容器与浮动标签；shadcn 的中性颜色、形状及标签布局通过 L2 风格边界实现，表单使用左侧同排标签，独立字段使用上置标签。其余紧凑尺寸不代表 M3 或 Material 3 Expressive 的官方默认规格。
-
-组件结构、标签空间与触控操作区对照 [M3 文本字段](https://m3.material.io/components/text-fields/specs)、[M3 密度](https://m3.material.io/foundations/layout/grids-spacing/density)、[Material Web 文本字段](https://material-web.dev/components/text-field/)和[按钮](https://material-web.dev/components/button/)。文本字段对照 Material Web 的 [行为与标签实现](https://github.com/material-components/material-web/blob/main/textfield/internal/text-field.ts)、[共享样式](https://github.com/material-components/material-web/blob/main/textfield/internal/_shared.scss)、[Filled 样式](https://github.com/material-components/material-web/blob/main/textfield/internal/_filled-text-field.scss)、[Filled 令牌](https://github.com/material-components/material-web/blob/main/tokens/versions/v0_192/_md-comp-filled-text-field.scss)及[Outlined 令牌](https://github.com/material-components/material-web/blob/main/tokens/versions/v0_192/_md-comp-outlined-text-field.scss)；采用其现有 M3 文本字段变体，不引入 Expressive 新变体。其他实现对照包括 [Material Web 按钮令牌](https://github.com/material-components/material-web/blob/main/tokens/versions/v0_192/_md-comp-filled-button.scss)、[开关令牌](https://github.com/material-components/material-web/blob/main/tokens/versions/v0_192/_md-comp-switch.scss)与 [shadcn/ui 按钮源码](https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/new-york-v4/ui/button.tsx)。画布、PDF 文档、图表和排版正文保留各自的内容尺寸，不随控件密度等比缩放。
-
-形状调整另对照 [M3 按钮规格](https://m3.material.io/components/buttons/specs)、[Material Web 形状主题](https://material-web.dev/theming/shape/)、[按钮共享样式](https://github.com/material-components/material-web/blob/main/button/internal/_shared.scss)、[描边卡片令牌](https://github.com/material-components/material-web/blob/main/tokens/versions/v0_192/_md-comp-outlined-card.scss)和[对话框样式](https://github.com/material-components/material-web/blob/main/dialog/internal/_dialog.scss)。shadcn 的圆角矩形按钮、稳定的按压形状、描边卡片与 12px 弹层圆角属于本项目的风格定制。
-
-shadcn 中性配色参考 [shadcn/ui Theming](https://ui.shadcn.com/docs/theming) 的 Neutral 主题；Material 保留原有色彩契约，二者都沿用 [Material Web Color](https://material-web.dev/theming/color/) 的表面、前景与交互语义角色配对。macOS 在同一语义契约中提供蓝色重点操作、系统字体与桌面控件比例；Apple 参考和 Web 定制边界见[三套设计风格](/guides/design-styles#依据与实现边界)。
+参考及边界见[设计体系](/guides/design-styles)，全库公共配置见[公共 API](/guides/public-api)，旧 middle 和尺寸用法见[迁移指南](/guides/migration)。

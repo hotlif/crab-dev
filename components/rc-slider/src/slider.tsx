@@ -1,18 +1,24 @@
+import { useControllableValue, type ControlledValueProps } from '@crab-dev/rc-hooks';
 import { useConfig } from '@crab-dev/rc-config-provider';
 import { css, cx } from "@crab-dev/css";
-import { type HTMLAttributes, type FC, type PointerEvent, useRef, useState, useEffect, useEffectEvent, useLayoutEffect } from "react";
+import { type HTMLAttributes, type FC, type PointerEvent, type KeyboardEvent, useRef, useState, useEffect, useEffectEvent, useLayoutEffect } from "react";
 import token, { vars } from "./token.js";
 
-export interface SliderProps extends HTMLAttributes<HTMLDivElement> {
-    value: number;
+interface BaseSliderProps extends Omit<HTMLAttributes<HTMLDivElement>, 'defaultValue'> {
     /** 轨道尺寸，默认 xs；各设计主题使用独立的轨道与手柄比例。 */
     size?: 'xs' | 's' | 'm' | 'l' | 'xl';
-    min?: number
-    max?: number
-    step?: number
+    min?: number;
+    max?: number;
+    step?: number;
     disabled?: boolean;
-    onValueChange?: (value: number) => void;
+
 }
+
+export interface SliderChangeDetails {
+    reason: 'pointer' | 'keyboard' | 'wheel';
+    event?: PointerEvent<HTMLDivElement> | KeyboardEvent<HTMLDivElement> | WheelEvent;
+}
+export type SliderProps = BaseSliderProps & ControlledValueProps<number, SliderChangeDetails>;
 
 // 获取最大精度
 function getPrecision(num: number): number {
@@ -54,7 +60,8 @@ const Slider: FC<SliderProps> = ({
     min = 0,
     max = 100,
     step = 1,
-    value = 0,
+    value: valueProp,
+    defaultValue = 0,
     size: sizeProp,
     onValueChange,
     disabled = false,
@@ -63,6 +70,7 @@ const Slider: FC<SliderProps> = ({
     ...restProps
 }) => {
     const config = useConfig();
+    const [value, setValue] = useControllableValue<number, [SliderChangeDetails]>({ value: valueProp, defaultValue, onValueChange });
     const size = sizeProp ?? (config.size === 'large' ? 's' : 'xs');
     // Mutable instance state: DOM geometry and CSS variables are updated after commit.
     const containerRef = useRef<HTMLDivElement>(null);
@@ -76,7 +84,7 @@ const Slider: FC<SliderProps> = ({
         containerRef.current?.style.setProperty('--slider-position', `${percent.toFixed(4)}%`);
     }, [percent]);
 
-    const updateValue = (clientX: number) => {
+    const updateValue = (clientX: number, event: PointerEvent<HTMLDivElement>) => {
         if (unavailable || !containerRef.current) return;
         const rect = containerRef.current.getBoundingClientRect();
         if (rect.width <= 0) return;
@@ -92,8 +100,8 @@ const Slider: FC<SliderProps> = ({
         }
         let intFinalValue = Math.max(intMin, Math.min(intMax, intRawValue));
         const finalValue = intFinalValue / factor;
-        if (onValueChange && finalValue !== value) {
-            onValueChange(finalValue);
+        if (finalValue !== value) {
+            setValue(finalValue, { reason: 'pointer', event });
         }
     };
 
@@ -102,13 +110,13 @@ const Slider: FC<SliderProps> = ({
         e.preventDefault();
         e.currentTarget.focus();
         setIsDragging(true);
-        updateValue(e.clientX);
+        updateValue(e.clientX, e);
         e.currentTarget.setPointerCapture(e.pointerId);
     };
 
     const handlePointerMove = (e: PointerEvent<HTMLDivElement>) => {
         if (isDragging) {
-            updateValue(e.clientX);
+            updateValue(e.clientX, e);
         }
     };
 
@@ -118,7 +126,7 @@ const Slider: FC<SliderProps> = ({
             e.currentTarget.releasePointerCapture(e.pointerId);
         }
     };
-    
+
     const handleWheel = useEffectEvent((e: WheelEvent) => {
         if (unavailable) return;
         e.preventDefault();
@@ -130,8 +138,8 @@ const Slider: FC<SliderProps> = ({
         const newIntValue = intValue + direction * intStep;
         const intFinalValue = Math.max(intMin, Math.min(intMax, newIntValue));
         const finalValue = intFinalValue / factor;
-        if (onValueChange && finalValue !== value) {
-            onValueChange(finalValue);
+        if (finalValue !== value) {
+            setValue(finalValue, { reason: 'wheel', event: e });
         }
     });
 
@@ -169,7 +177,7 @@ const Slider: FC<SliderProps> = ({
                 if (target === undefined) return;
                 event.preventDefault();
                 const next = Math.max(min, Math.min(max, Math.round(target * factor) / factor));
-                if (next !== value) onValueChange?.(next);
+                if (next !== value) setValue(next, { reason: 'keyboard', event });
             }}
             className={cx("slider", css`
                 position: relative;
@@ -240,7 +248,7 @@ const Slider: FC<SliderProps> = ({
                     background: ${token.rail['fill-inactive']};
                 `}
             />
-            
+
             <div
                 data-slot="slider-track"
                 className={css`
@@ -253,7 +261,7 @@ const Slider: FC<SliderProps> = ({
                     width: max(0px, calc(var(--slider-position, 0%) - ${token.rail.gap} - ${token.thumb.width} / 2));
                 `}
             />
-        
+
             {boundedValue < max && <span aria-hidden="true" data-slot="slider-stop" className={css`
                 position: absolute;
                 inset-inline-end: 0;

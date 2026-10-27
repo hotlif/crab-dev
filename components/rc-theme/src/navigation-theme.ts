@@ -6,7 +6,7 @@ import token from '@crab-dev/rc-token-semantic';
 // Baseline M3 tabs/segmented buttons coexist with the existing expressive button API.
 // eslint-disable-next-line @typescript-eslint/no-unused-expressions
 globalStyle`
-    :root, [data-crab-design="material"] {
+    :root, [data-crab-design="md3"] {
         --token-semantic-navigation-drawer-radius: ${palette.radius[8]};
         --token-semantic-navigation-item-radius: ${palette.radius.full};
         --token-semantic-navigation-item-selected-background: ${token.color.secondary.container};
@@ -18,7 +18,7 @@ globalStyle`
         --token-semantic-navigation-segment-track-radius: ${palette.radius.full};
         --token-semantic-navigation-segment-track-padding: 0px;
         --token-semantic-navigation-segment-small-height: ${palette.size[32]};
-        --token-semantic-navigation-segment-middle-height: ${palette.size[40]};
+        --token-semantic-navigation-segment-medium-height: ${palette.size[40]};
         --token-semantic-navigation-segment-large-height: ${palette.size[40]};
         --token-semantic-navigation-segment-item-radius: 0px;
         --token-semantic-navigation-segment-divider: ${token.color.border.default};
@@ -58,7 +58,7 @@ globalStyle`
         --token-semantic-navigation-segment-track-radius: ${palette.radius[4]};
         --token-semantic-navigation-segment-track-padding: calc(${palette.space['0-5']} + ${palette.space.px});
         --token-semantic-navigation-segment-small-height: ${palette.space[7]};
-        --token-semantic-navigation-segment-middle-height: ${palette.size[32]};
+        --token-semantic-navigation-segment-medium-height: ${palette.size[32]};
         --token-semantic-navigation-segment-large-height: ${palette.size[36]};
         --token-semantic-navigation-segment-item-radius: ${palette.radius[3]};
         --token-semantic-navigation-segment-divider: transparent;
@@ -86,7 +86,7 @@ globalStyle`
         --token-semantic-navigation-button-outlined-shadow: ${token.shadow.control};
         --token-semantic-navigation-button-primary-shadow: ${token.shadow.control};
     }
-    [data-crab-design="macos"] {
+    [data-crab-design="apple"] {
         --token-semantic-navigation-drawer-radius: ${palette.radius[6]};
         --token-semantic-navigation-item-radius: ${palette.radius[3]};
         --token-semantic-navigation-item-selected-background: ${token.color.brand.primary};
@@ -98,7 +98,7 @@ globalStyle`
         --token-semantic-navigation-segment-track-radius: ${palette.radius[4]};
         --token-semantic-navigation-segment-track-padding: ${palette.space['0-5']};
         --token-semantic-navigation-segment-small-height: ${palette.space[6]};
-        --token-semantic-navigation-segment-middle-height: ${palette.space[7]};
+        --token-semantic-navigation-segment-medium-height: ${palette.space[7]};
         --token-semantic-navigation-segment-large-height: ${palette.size[32]};
         --token-semantic-navigation-segment-item-radius: ${palette.radius[3]};
         --token-semantic-navigation-segment-divider: transparent;

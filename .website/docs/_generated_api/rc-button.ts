@@ -25,6 +25,7 @@ export interface ButtonProps {
 
     /**
      * 加载中
+     * @default false
      */
     "loading"?: boolean;
 
@@ -44,9 +45,9 @@ export interface ButtonProps {
     "danger"?: boolean;
 
     /**
-     * Expressive 五档尺寸 xs/s/m/l/xl；small/middle/large 兼容映射为 xs/s/m，默认 middle
+     * Expressive 五档尺寸 xs/s/m/l/xl；省略时由全局 small/medium/large 映射为 xs/s/m
      */
-    "size"?: 'xs' | 's' | 'm' | 'l' | 'xl' | 'large' | 'middle' | 'small';
+    "size"?: 'xs' | 's' | 'm' | 'l' | 'xl';
 
     /**
      * 省略时随设计风格：Material 为 round，shadcn 为 square；circle 适用于纯图标按钮
@@ -60,6 +61,7 @@ export interface ButtonProps {
 
     /**
      * 宽度撑满父容器
+     * @default false
      */
     "shouldFitContainer"?: boolean;
 

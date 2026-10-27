@@ -1,6 +1,6 @@
 import { beforeAll, beforeEach, describe, expect, it, mock } from "@crab-dev/wake/test";
 import { act, render } from "@crab-dev/wake/test/react";
-import { useEffect } from "react";
+import { StrictMode, useEffect } from "react";
 import ConfigProvider from '@crab-dev/rc-config-provider';
 const cssExitTestState: { deferExit: boolean; finishExit?: () => void } = { deferExit: false };
 import type { DialogProps } from "../dialog.js";
@@ -20,7 +20,8 @@ beforeAll(async () => {
 (globalThis as typeof globalThis & {
     IS_REACT_ACT_ENVIRONMENT?: boolean;
 }).IS_REACT_ACT_ENVIRONMENT = true;
-type PartialDialogProps = Partial<DialogProps>;
+type ControlledDialogProps = Omit<DialogProps, "open" | "defaultOpen"> & { open: boolean };
+type PartialDialogProps = Partial<ControlledDialogProps>;
 interface RenderDialogResult {
     container: HTMLDivElement;
     rerender: (nextProps?: PartialDialogProps) => Promise<void>;
@@ -42,13 +43,13 @@ const findButton = (container: HTMLElement, text: string): HTMLButtonElement => 
     return target;
 };
 const renderDialog = async (props: PartialDialogProps = {}): Promise<RenderDialogResult> => {
-    let currentProps: DialogProps = {
+    let currentProps: ControlledDialogProps = {
         open: false,
         onOpenChange: mock.fn(),
         title: "Dialog Title",
         children: <div>Dialog Content</div>,
         ...props,
-    } as DialogProps;
+    };
     const renderResult = await render(<Dialog {...currentProps}/>);
     const doRender = async () => {
         await act(async () => {
@@ -85,11 +86,11 @@ beforeEach(() => {
 describe("Dialog", () => {
     it('keeps the configured design on its top-layer element', async () => {
         const content = <Dialog open onOpenChange={() => {}} title="Scoped dialog">Content</Dialog>;
-        const view = await render(<ConfigProvider design="shadcn">{content}</ConfigProvider>);
+        const view = await render(<ConfigProvider designSystem="shadcn">{content}</ConfigProvider>);
         const boundary = view.container.querySelector('dialog');
         expect(boundary?.getAttribute('data-crab-design')).toBe('shadcn');
-        await view.rerender(<ConfigProvider design="material">{content}</ConfigProvider>);
-        expect(boundary?.getAttribute('data-crab-design')).toBe('material');
+        await view.rerender(<ConfigProvider designSystem="md3">{content}</ConfigProvider>);
+        expect(boundary?.getAttribute('data-crab-design')).toBe('md3');
     });
     it("supports composed header and actions without leaking default controls", async () => {
         const { container, getDialog, rerender } = await renderDialog({ open: true, header: null, footer: null, 'aria-label': '选择时间' });
@@ -188,7 +189,7 @@ describe("Dialog", () => {
             closeTrigger.click();
         });
         await flush();
-        expect(onOpenChange).toHaveBeenCalledWith(false);
+        expect(onOpenChange).toHaveBeenCalledWith(false, expect.objectContaining({ reason: expect.any(String) }));
     });
     it("clicking cancel button handles onCancel true/false branches", async () => {
         const onOpenChange = mock.fn();
@@ -205,7 +206,7 @@ describe("Dialog", () => {
             findButton(container, "取消").click();
         });
         await flush();
-        expect(onOpenChange).toHaveBeenCalledWith(false);
+        expect(onOpenChange).toHaveBeenCalledWith(false, expect.objectContaining({ reason: expect.any(String) }));
     });
     it("clicking confirm button handles onConfirm true/false branches", async () => {
         const onOpenChange = mock.fn();
@@ -222,7 +223,7 @@ describe("Dialog", () => {
             findButton(container, "确定").click();
         });
         await flush();
-        expect(onOpenChange).toHaveBeenCalledWith(false);
+        expect(onOpenChange).toHaveBeenCalledWith(false, expect.objectContaining({ reason: expect.any(String) }));
     });
     it("clicking confirm button does nothing when onConfirm is missing", async () => {
         const onOpenChange = mock.fn();
@@ -235,7 +236,7 @@ describe("Dialog", () => {
             findButton(container, "确定").click();
         });
         await flush();
-        expect(onOpenChange).toHaveBeenCalledWith(false);
+        expect(onOpenChange).toHaveBeenCalledWith(false, expect.objectContaining({ reason: expect.any(String) }));
     });
     it("retains confirm focus and ignores re-entry while onConfirm is pending", async () => {
         let resolveConfirm: (value: boolean) => void = () => { };
@@ -265,7 +266,7 @@ describe("Dialog", () => {
             resolveConfirm(true);
         });
         await flush();
-        expect(onOpenChange).toHaveBeenCalledWith(false);
+        expect(onOpenChange).toHaveBeenCalledWith(false, expect.objectContaining({ reason: expect.any(String) }));
         expect(onConfirm).toHaveBeenCalledTimes(1);
     });
     it("retains the initiating cancel action while an async cancellation is pending", async () => {
@@ -314,7 +315,7 @@ describe("Dialog", () => {
         await flush();
         // 原生关闭被拦截，改走受控关闭；否则 open 会与 DOM 失步、无法再次打开
         expect(cancelEvent.defaultPrevented).toBe(true);
-        expect(onOpenChange).toHaveBeenCalledWith(false);
+        expect(onOpenChange).toHaveBeenCalledWith(false, expect.objectContaining({ reason: expect.any(String) }));
     });
     it("pressing ESC respects onCancel returning false", async () => {
         const onOpenChange = mock.fn();
@@ -335,7 +336,7 @@ describe("Dialog", () => {
             getDialog().dispatchEvent(new Event("close", { bubbles: false }));
         });
         await flush();
-        expect(onOpenChange).toHaveBeenCalledWith(false);
+        expect(onOpenChange).toHaveBeenCalledWith(false, expect.objectContaining({ reason: expect.any(String) }));
     });
     it("clicking overlay does NOT close by default (maskClosable=false)", async () => {
         const onClick = mock.fn();
@@ -366,7 +367,7 @@ describe("Dialog", () => {
             overlay.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true }));
         });
         await flush();
-        expect(onOpenChange).toHaveBeenCalledWith(false);
+        expect(onOpenChange).toHaveBeenCalledWith(false, expect.objectContaining({ reason: expect.any(String) }));
         expect(onClick).not.toHaveBeenCalled();
     });
     it("clicking dialog content fires pass-through onClick without closing", async () => {
@@ -411,5 +412,68 @@ describe("Dialog", () => {
         await withoutReset.rerender({ open: true });
         expect(mountCounter.value).toBe(3);
         await withoutReset.unmount();
+    });
+});
+
+describe('shared modal lifecycle', () => {
+    it('notifies typed user requests in uncontrolled mode and reads defaultOpen once', async () => {
+        const onOpenChange = mock.fn();
+        const view = await render(<Dialog defaultOpen title="Uncontrolled" onOpenChange={onOpenChange}>Content</Dialog>);
+        await view.rerender(<Dialog defaultOpen={false} title="Uncontrolled" onOpenChange={onOpenChange}>Content</Dialog>);
+        expect(onOpenChange).not.toHaveBeenCalled();
+        expect(document.body.style.overflow).toBe('hidden');
+        await act(async () => { findButton(view.container, '确定').click(); await Promise.resolve(); });
+        expect(onOpenChange).toHaveBeenCalledWith(false, expect.objectContaining({ reason: 'confirm' }));
+        expect(HTMLDialogElement.prototype.close).toHaveBeenCalled();
+    });
+    it('keeps StrictMode scroll ownership valid through effect cleanup and unmount', async () => {
+        const previous = document.body.style.overflow;
+        const view = await render(<StrictMode><Dialog open title="Strict modal" /></StrictMode>);
+        expect(document.body.style.overflow).toBe('hidden');
+        await view.unmount();
+        expect(document.body.style.overflow).toBe(previous);
+    });
+    it('closes only the top modal and keeps locks during an out-of-order parent exit', async () => {
+        const outer = mock.fn(); const inner = mock.fn();
+        const view = await render(<><Dialog open onOpenChange={outer} title="Outer" /><Dialog open onOpenChange={inner} title="Inner" /></>);
+        await act(async () => { view.container.querySelectorAll('dialog')[1]?.dispatchEvent(new Event('cancel', { cancelable: true })); await Promise.resolve(); });
+        expect(inner).toHaveBeenCalledWith(false, expect.objectContaining({ reason: 'escape', event: expect.any(Event) }));
+        expect(outer).not.toHaveBeenCalled();
+        await view.rerender(<><Dialog open={false} onOpenChange={outer} title="Outer" /><Dialog open onOpenChange={inner} title="Inner" /></>);
+        expect(document.body.style.overflow).toBe('hidden');
+        await view.unmount();
+        expect(document.body.style.overflow).toBe('');
+    });
+    it('inherits English actions, direction and nonce without explicit local labels', async () => {
+        const view = await render(<ConfigProvider locale="en-US" direction="rtl" nonce="modal-nonce"><Dialog open title="Localized modal" /></ConfigProvider>);
+        const modal = view.container.querySelector('dialog');
+        expect(modal?.getAttribute('dir')).toBe('rtl');
+        expect(modal?.getAttribute('nonce')).toBe('modal-nonce');
+        expect(findButton(view.container, 'Cancel')).toBeTruthy();
+        expect(findButton(view.container, 'Confirm')).toBeTruthy();
+    });
+});
+
+describe('nested native events', () => {
+    it('re-establishes custom brand and density on a native dialog and clears an explicit brand reset', async () => {
+        const view = await render(<ConfigProvider designSystem="apple" brandColor="#6750a4" density="compact" nonce="brand-modal"><Dialog open title="Branded" /></ConfigProvider>);
+        const modal = view.container.querySelector('dialog');
+        const scope = modal?.getAttribute('data-crab-brand');
+        const sheet = modal?.querySelector('style[data-crab-brand-style]');
+        expect(scope).toBeTruthy();
+        expect(sheet?.getAttribute('data-crab-brand-style')).toBe(scope);
+        expect(sheet?.getAttribute('nonce')).toBe('brand-modal');
+        expect(sheet?.textContent).toContain(`[data-crab-brand="${scope}"][data-theme="light"][data-crab-design="apple"]`);
+        expect(modal?.getAttribute('data-crab-density')).toBe('compact');
+        await view.rerender(<ConfigProvider designSystem="apple" brandColor={null}><Dialog open title="Branded" /></ConfigProvider>);
+        expect(modal?.getAttribute('data-crab-brand')).toBeNull();
+        expect(modal?.querySelector('style[data-crab-brand-style]')).toBeNull();
+    });
+    it('does not treat a nested dialog close event as closing its parent', async () => {
+        const onOpenChange = mock.fn();
+        const view = await render(<Dialog open onOpenChange={onOpenChange} title="Parent"><dialog data-testid="nested-native" /></Dialog>);
+        const child = view.container.querySelector('[data-testid="nested-native"]');
+        await act(() => { child?.dispatchEvent(new Event('close', { bubbles: true })); });
+        expect(onOpenChange).not.toHaveBeenCalled();
     });
 });

@@ -83,7 +83,7 @@ globalStyle`
 .crab-home-tag-row, .crab-home-button-row { display: flex; flex-wrap: wrap; gap: ${token.space["component-gap"]}; }
 .crab-home-demo-feedback { display: block; min-height: ${globalToken.space[8]}; margin-top: ${token.space["section-gap"]}; padding: ${token.space["stack-gap"]} ${token.space["section-gap"]}; border-radius: ${token.radius.md}; background: ${token.color.background.surface}; color: ${token.color.text.secondary}; font-size: ${token.font.size.body}; }
 
-.crab-home-category-index { display: flex; max-width: 100%; margin-bottom: ${token.space["section-gap"]}; padding-bottom: ${token.space["component-gap"]}; gap: ${token.space["component-gap"]}; overflow-x: auto; scrollbar-width: thin; }
+.crab-home-category-index { display: flex; max-width: 100%; margin-bottom: ${token.space["section-gap"]}; padding: ${token.space["stack-gap"]}; gap: ${token.space["component-gap"]}; overflow-x: auto; scrollbar-width: thin; }
 .crab-home-category-index a { flex: none; min-height: ${home.touch}; white-space: nowrap; }
 .crab-home-categories { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: ${token.space["section-gap"]}; }
 .crab-home-category { min-width: 0; }

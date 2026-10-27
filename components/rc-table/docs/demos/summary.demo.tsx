@@ -32,7 +32,7 @@ export default function SummaryDemo() {
         hint="筛选部门后，底部汇总随当前结果更新。整体使用率＝实支合计÷全年预算合计。"
         toolbar={<Select aria-label="筛选预算部门" placeholder="全部部门" value={department || undefined} allowClear
             options={departments.map(item => ({ label: item.name, value: item.name }))}
-            onChange={value => setDepartment(value ?? "")} />}
+            onValueChange={value => setDepartment(value ?? "")} />}
         footer={<p className={noteStyle}>全年预算 {money(planned)} · 截至8月实支 {money(actual)}</p>}>
         {(width, height) => <Table aria-label="项目预算执行与合计" width={width} height={height} rows={rows} columns={columns} showSummary />}
     </DemoFrame>;

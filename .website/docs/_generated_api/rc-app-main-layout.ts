@@ -7,6 +7,7 @@ type DocsTypePlaceholder = ((...args: never[]) => unknown) & {
 };
 type ContentLandmark = DocsTypePlaceholder;
 type HeaderUserEntity = DocsTypePlaceholder;
+type Key = DocsTypePlaceholder;
 type Promise<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 type ReactNode = DocsTypePlaceholder;
 type SidebarProps = DocsTypePlaceholder;
@@ -18,15 +19,34 @@ export interface LayoutProps {
     "contentLandmark"?: ContentLandmark;
 
     /**
-     * 是否显示全屏按钮，默认 true
-     * @default true
+     * 侧边栏顶部 Logo
      */
-    "fullscreenable"?: boolean;
+    "sidebarLogo"?: ReactNode;
 
     /**
-     * 是否有未读通知
+     * 侧边栏顶部标题
      */
-    "hasNotification"?: boolean;
+    "sidebarTitle"?: ReactNode;
+
+    /**
+     * 点击 Logo
+     */
+    "onLogoClick"?: () => void;
+
+    /**
+     * 侧边栏菜单加载函数
+     */
+    "sidebarLoadMenus"?: SidebarProps["loadMenus"];
+
+    /**
+     * 侧栏受控选中键；省略时精确使用当前标签 key。业务路由键与菜单键不同可显式映射，[] 表示无选中。
+     */
+    "sidebarSelectedKeys"?: Key[];
+
+    /**
+     * 点击侧边栏菜单项
+     */
+    "onSidebarMenuItemClick"?: SidebarProps["onMenuItemClick"];
 
     /**
      * 远程加载顶部用户实体
@@ -39,29 +59,9 @@ export interface LayoutProps {
     "onBell"?: () => void;
 
     /**
-     * 全屏状态变化回调
+     * 是否有未读通知
      */
-    "onFullscreenChange"?: (fullscreen: boolean) => void;
-
-    /**
-     * 点击 Logo
-     */
-    "onLogoClick"?: () => void;
-
-    /**
-     * 点击退出登录
-     */
-    "onLogout"?: () => void;
-
-    /**
-     * 点击侧边栏菜单项
-     */
-    "onSidebarMenuItemClick"?: SidebarProps["onMenuItemClick"];
-
-    /**
-     * 点击切换角色
-     */
-    "onSwitchRole"?: () => void;
+    "hasNotification"?: boolean;
 
     /**
      * 点击用户区域
@@ -69,17 +69,23 @@ export interface LayoutProps {
     "onUserClick"?: () => void;
 
     /**
-     * 侧边栏菜单加载函数
+     * 点击切换角色
      */
-    "sidebarLoadMenus"?: SidebarProps["loadMenus"];
+    "onSwitchRole"?: () => void;
 
     /**
-     * 侧边栏顶部 Logo
+     * 点击退出登录
      */
-    "sidebarLogo"?: ReactNode;
+    "onLogout"?: () => void;
 
     /**
-     * 侧边栏顶部标题
+     * 是否显示全屏按钮，默认 true
+     * @default true
      */
-    "sidebarTitle"?: ReactNode;
+    "fullscreenable"?: boolean;
+
+    /**
+     * 全屏状态变化回调
+     */
+    "onFullscreenChange"?: (fullscreen: boolean) => void;
 }

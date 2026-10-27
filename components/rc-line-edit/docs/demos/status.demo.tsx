@@ -61,7 +61,7 @@ const StatusDemo = () => {
                     value={email}
                     status={emailStatus}
                     placeholder="邮箱（失焦后触发校验）"
-                    onChange={(e) => { setEmail(e.target.value); setEmailStatus(undefined); }}
+                    onValueChange={(value) => { setEmail(value); setEmailStatus(undefined); }}
                     onBlur={() => setEmailStatus(/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim()) ? undefined : "error")}
                 />
                 {emailStatus === "error" && (
@@ -77,7 +77,7 @@ const StatusDemo = () => {
                     value={name}
                     status={nameStatus}
                     placeholder="用户名（至少 6 个字符）"
-                    onChange={(e) => { setName(e.target.value); setNameStatus(undefined); }}
+                    onValueChange={(value) => { setName(value); setNameStatus(undefined); }}
                     onBlur={() => setNameStatus(validate(name))}
                 />
                 {nameStatus === "error" && (

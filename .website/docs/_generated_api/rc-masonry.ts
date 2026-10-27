@@ -9,24 +9,24 @@ type ReactElement = DocsTypePlaceholder;
 
 export interface MasonryProps {
     /**
-     * 瀑布流子项
-     */
-    "children"?: ReactElement | ReactElement[];
-
-    /**
      * 列数，默认为 2
      * @default 2
      */
     "columns"?: number;
 
     /**
-     * 子元素间距（像素），默认使用 token 中的 `root.gap` 值。 传入数值时覆盖 token 默认值。
+     * 子元素间距（像素），省略时从 `root.gap` 读取最近配置边界的 density 间距。 传入数值（包括 0）时覆盖密度与 token 默认值。
      */
     "gutter"?: number;
 
     /**
-     * 是否按 DOM 顺序排列（从左到右依次放置）， 默认 false，优先放入最短列。
+     * 是否按 DOM 顺序从行内起始侧排列（LTR 从左、RTL 从右）， 默认 false，优先放入最短列。
      * @default false
      */
     "sequential"?: boolean;
+
+    /**
+     * 瀑布流子项
+     */
+    "children"?: ReactElement | ReactElement[];
 }

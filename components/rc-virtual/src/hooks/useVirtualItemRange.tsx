@@ -110,11 +110,11 @@ const lowerBound = (sortedArray: number[], target: number) => {
     let right = sortedArray.length;
 
     while (left < right) {
-        const middle = (left + right) >>> 1;
-        if (sortedArray[middle] >= target) {
-            right = middle;
+        const medium = (left + right) >>> 1;
+        if (sortedArray[medium] >= target) {
+            right = medium;
         } else {
-            left = middle + 1;
+            left = medium + 1;
         }
     }
 
@@ -126,11 +126,11 @@ const upperBound = (sortedArray: number[], target: number) => {
     let right = sortedArray.length;
 
     while (left < right) {
-        const middle = (left + right) >>> 1;
-        if (sortedArray[middle] > target) {
-            right = middle;
+        const medium = (left + right) >>> 1;
+        if (sortedArray[medium] > target) {
+            right = medium;
         } else {
-            left = middle + 1;
+            left = medium + 1;
         }
     }
 

@@ -36,7 +36,7 @@ const buildNodes = (): Node[] => {
 
 const AllowDropDemo = () => {
     const [expandedKeys, setExpandedKeys] = useState<Key[]>(["folder-1", "folder-2"]);
-    const [selectKeys, setSelectKeys] = useState<Key[]>([]);
+    const [selectedKeys, setSelectedKeys] = useState<Key[]>([]);
     const [treeData, setTreeData, treeDataUtils] = useTreeData(buildNodes());
 
     return (
@@ -53,7 +53,7 @@ const AllowDropDemo = () => {
                         draggable
                         onTreeNodeChange={setTreeData}
                         expandedKeys={expandedKeys}
-                        selectKeys={selectKeys}
+                        selectedKeys={selectedKeys}
                         allowDrop={({ position, dragNode, targetNode }) => {
                             if (position === OverStateEnum.INSIDE) return false;
                             // DOWN/UPWARD 会把 dragNode.parent 设为 targetNode.parent
@@ -62,14 +62,8 @@ const AllowDropDemo = () => {
                             const targetParentId = targetNode.parent?.id ?? null;
                             return dragParentId === targetParentId;
                         }}
-                        onSelect={({ selectKeys: keys }: { selectKeys: Key[] }) => setSelectKeys(keys)}
-                        onExpanded={({ node }: { node: Node }) => {
-                            setExpandedKeys(prev =>
-                                prev.includes(node.id)
-                                    ? prev.filter(k => k !== node.id)
-                                    : [...prev, node.id]
-                            );
-                        }}
+                        onSelectedKeysChange={(keys: Key[]) => setSelectedKeys(keys)}
+                        onExpandedKeysChange={setExpandedKeys}
                         onDragEnd={((event, context) => {
                             if (context.overState?.state != null && event.over) {
                                 treeDataUtils.moveNodeOnDrag(event.active.id, event.over.id, context.overState.state);

@@ -60,7 +60,7 @@ describe('useVirtualItemRange', () => {
         expect(columnRange).toEqual([0, 1]);
     });
 
-    it('should return correct range when scrolled to middle cell', async () => {
+    it('should return correct range when scrolled to medium cell', async () => {
         const params = {
             viewportHeight: 50,
             viewportWidth: 50,

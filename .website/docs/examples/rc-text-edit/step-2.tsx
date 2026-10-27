@@ -14,7 +14,7 @@ export default function Example() {
                 label="项目说明"
                 supportingText="说明目标和验收范围。"
                 value={value}
-                onChange={(event) => setValue(event.target.value)}
+                onValueChange={(value) => setValue(value)}
                 maxLength={120}
                 showCount
             />

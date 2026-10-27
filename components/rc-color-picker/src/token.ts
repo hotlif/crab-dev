@@ -21,6 +21,9 @@ export const vars = defineTokens({
     'slider.thumb.stroke-color': '--color-picker-slider-thumb-stroke-color',
     'slider.alpha.checker.color': '--color-picker-slider-alpha-checker-color',
     'trigger.border-color': '--color-picker-trigger-border-color',
+    'trigger.border-color-hover': '--color-picker-trigger-border-color-hover',
+    'trigger.background-color-hover': '--color-picker-trigger-background-color-hover',
+    'trigger.background-color-active': '--color-picker-trigger-background-color-active',
     'trigger.border-radius': '--color-picker-trigger-border-radius',
     'trigger.padding': '--color-picker-trigger-padding',
     'trigger.gap': '--color-picker-trigger-gap',
@@ -62,7 +65,7 @@ const token = defineTokens({
                 'gap': `var(${vars['panel.slider.container.gap']}, var(--token-semantic-space-component-gap, var(--token-global-space-2, 8px)))`
             },
             'label': {
-                'width': `var(${vars['panel.slider.label.width']}, 4em)`,
+                'width': `var(${vars['panel.slider.label.width']}, 6em)`,
                 'font-size': `var(${vars['panel.slider.label.font-size']}, var(--token-semantic-typography-label-font-size, var(--token-global-font-size-sm, 14px)))`,
                 'font-weight': `var(${vars['panel.slider.label.font-weight']}, var(--token-semantic-typography-label-font-weight, var(--token-global-font-weight-medium, 500)))`,
                 'line-height': `var(${vars['panel.slider.label.line-height']}, var(--token-semantic-typography-label-line-height, var(--token-global-line-height-14-20, 1.4285714285714286)))`
@@ -81,6 +84,9 @@ const token = defineTokens({
     },
     'trigger': {
         'border-color': `var(${vars['trigger.border-color']}, var(--token-semantic-color-border-default, var(--token-global-material-neutral-variant-50, oklch(0.56674707 0.01627446 308.142182))))`,
+        'border-color-hover': `var(${vars['trigger.border-color-hover']}, var(--token-semantic-color-border-hover, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695))))`,
+        'background-color-hover': `var(${vars['trigger.background-color-hover']}, var(--token-semantic-color-background-hover-subtle, color-mix(in oklch, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695)) calc(var(--token-semantic-state-opacity-hover, var(--token-global-opacity-8, 0.08)) * 100%), var(--token-global-material-neutral-98, oklch(0.98379491 0.01284496 321.893957)))))`,
+        'background-color-active': `var(${vars['trigger.background-color-active']}, var(--token-semantic-color-background-active-subtle, color-mix(in oklch, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695)) calc(var(--token-semantic-state-opacity-pressed, var(--token-global-opacity-12, 0.12)) * 100%), var(--token-global-material-neutral-98, oklch(0.98379491 0.01284496 321.893957)))))`,
         'border-radius': `var(${vars['trigger.border-radius']}, var(--token-semantic-shape-control, var(--token-global-radius-2, 4px)))`,
         'padding': `var(${vars['trigger.padding']}, 0.25rem)`,
         'gap': `var(${vars['trigger.gap']}, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)))`,

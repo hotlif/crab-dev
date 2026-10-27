@@ -7,6 +7,7 @@ type DocsTypePlaceholder = ((...args: never[]) => unknown) & {
 };
 type Array<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 type CellEditRecord = DocsTypePlaceholder;
+type ConfigDensity = DocsTypePlaceholder;
 type ConfigSize = DocsTypePlaceholder;
 type DataTypeLoader<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 type Error = DocsTypePlaceholder;
@@ -14,6 +15,7 @@ type FilterEditorParam<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTy
 type GroupCellRenderParam<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 type Key = DocsTypePlaceholder;
 type MergeCell = DocsTypePlaceholder;
+type PaginationConfig = DocsTypePlaceholder;
 type Promise<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 type ProtocolColumnType = DocsTypePlaceholder;
 type ProtocolTableState = DocsTypePlaceholder;
@@ -23,12 +25,19 @@ type RowSelection<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArg
 type Set<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 type SortColumn = DocsTypePlaceholder;
 type T = DocsTypePlaceholder;
+type TableDataRequest<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
+type TableDataResult<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 
 export interface TableProProps {
     /**
      * 暂无说明。
      */
     "size"?: ConfigSize;
+
+    /**
+     * 数据与导航密度，独立于控件尺寸。
+     */
+    "density"?: ConfigDensity;
 
     /**
      * 暂无说明。
@@ -48,7 +57,7 @@ export interface TableProProps {
     /**
      * 暂无说明。
      */
-    "expandedGroupIds"?: Set<Key>;
+    "expandedGroupIds"?: Set<Key> | Set<Key> | undefined;
 
     /**
      * 暂无说明。
@@ -73,7 +82,7 @@ export interface TableProProps {
     /**
      * 暂无说明。
      */
-    "onCopy"?: (cells: Array<{ rowId: Key; rowIndex: number; columnIndex: number; columnName: string; value: unknown }>) => void;
+    "onCopy"?: (cells: Array<{ rowId: Key; rowIndex: number; columnIndex: number; columnName: string; value: unknown; }>) => void;
 
     /**
      * 暂无说明。
@@ -148,12 +157,12 @@ export interface TableProProps {
     /**
      * 暂无说明。
      */
-    "sortColumns"?: SortColumn[];
+    "sortColumns"?: SortColumn[] | SortColumn[] | undefined;
 
     /**
      * server 仅维护排序状态，排序结果由 request 返回。默认 client。
      */
-    "sortMode"?: 'client' | 'server';
+    "sortMode"?: 'client' | 'server' | 'client' | 'server' | 'client';
 
     /**
      * 暂无说明。
@@ -223,7 +232,7 @@ export interface TableProProps {
     /**
      * 暂无说明。
      */
-    "expandedRowIds"?: Set<Key>;
+    "expandedRowIds"?: Set<Key> | Set<Key> | undefined;
 
     /**
      * 暂无说明。
@@ -253,7 +262,7 @@ export interface TableProProps {
     /**
      * 暂无说明。
      */
-    "expandedRowKeys"?: Set<Key>;
+    "expandedRowKeys"?: Set<Key> | Set<Key> | undefined;
 
     /**
      * 暂无说明。
@@ -293,7 +302,7 @@ export interface TableProProps {
     /**
      * 暂无说明。
      */
-    "editingRowId"?: Key | null;
+    "editingRowId"?: Key | null | Key | null | undefined;
 
     /**
      * 暂无说明。
@@ -374,4 +383,19 @@ export interface TableProProps {
      * 是否在最左侧显示行序号列（默认 true）
      */
     "showRowNumber"?: boolean;
+
+    /**
+     * 暂无说明。 与 fetchData 互斥，不能同时提供。
+     */
+    "request"?: TableDataRequest<T>;
+
+    /**
+     * 暂无说明。 与 request 互斥，不能同时提供。
+     */
+    "fetchData"?: ((filters: Record<string, string>) => Promise<T[]>) | ((page: number, pageSize: number, filters: Record<string, string>) => Promise<TableDataResult<T>>);
+
+    /**
+     * 暂无说明。
+     */
+    "pagination"?: PaginationConfig | false | false | PaginationConfig;
 }

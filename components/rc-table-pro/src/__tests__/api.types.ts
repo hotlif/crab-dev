@@ -1,14 +1,14 @@
-import type { Row } from '@crab-dev/rc-table';
-import type { DataTypeLoader, TableDataSource } from '../types.js';
+import type { TableProProps } from '../table.js';
+import type { Row, SortColumn } from '@crab-dev/rc-table';
 
-interface CustomerRow extends Row { dataRef: { name: string } }
-export const customerLoader: DataTypeLoader<CustomerRow> = {
-    name: 'customer',
-    render: ({ row }) => row.dataRef.name,
-    editRender: undefined,
-    filterEditor: undefined,
-    exportValue: (_raw, row) => row.dataRef.name,
-};
-
-// @ts-expect-error 服务端排序需要能接收完整查询的 request。
-export const invalidSource: TableDataSource<CustomerRow> = { fetchData: async () => [], sortMode: 'server' };
+export function verifyTableProStateContract(sortColumns: SortColumn[] | undefined): TableProProps<Row>[] {
+    const data = { fetchColumns: async () => [], request: async () => ({ rows: [], total: 0 }) };
+    const readOnly: TableProProps<Row> = { ...data, sortColumns: [] };
+    const forwarding: TableProProps<Row> = { ...data, sortColumns };
+    const initial: TableProProps<Row> = { ...data, defaultSortColumns: [] };
+    // @ts-expect-error TablePro shares Table's sorting state/default exclusion.
+    const sorting: TableProProps<Row> = { ...data, sortColumns: [], defaultSortColumns: [] };
+    // @ts-expect-error Controlled grouping excludes the default expansion strategy.
+    const grouping: TableProProps<Row> = { ...data, expandedGroupIds: new Set(), defaultExpandAll: true };
+    return [readOnly, forwarding, initial, sorting, grouping];
+}

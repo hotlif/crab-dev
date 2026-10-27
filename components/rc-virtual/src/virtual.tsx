@@ -57,7 +57,7 @@ export interface VirtualProps extends Omit<HTMLAttributes<HTMLDivElement>, "chil
     renderRows: (rowRange: [number, number], columnRange: [number, number]) => ReactNode,
     /** 组件实例引用，可通过 scrollToCell 和 getScrollCellPosition 编程式控制滚动 */
     gridRef?: RefObject<VirtualHandle | null>
-    /** 实际逻辑滚动位置变化，包含滚轮、滚动条、命令式定位及尺寸收缩。 */
+    /** 实际逻辑滚动位置变化，包含滚轮、滚动条、原生聚焦滚动、命令式定位及尺寸收缩。 */
     onScrollPositionChange?: (position: { left: number; top: number }) => void;
 }
 
@@ -204,17 +204,27 @@ const Virtual = ({
         [renderRows, rowStart, rowEnd, columnStart, columnEnd, rowMetrics, columnMetrics, viewportWidth, viewportHeight, reservedTopHeight, reservedBottomHeight],
     );
 
-    const scrollToLeft = (left: number) => {
+    const setScrollPosition = (position: { left?: number; top?: number }) => {
+        const logical = logicalScrollRef.current;
+        const pending = pendingScrollPositionRef.current;
+        const grid = divGridRef.current;
+        const domLeft = grid?.scrollLeft ?? logical.domLeft;
+        const domTop = grid?.scrollTop ?? logical.domTop;
+        // 单轴定位保留另一轴尚未提交的 wheel / 原生滚动；未派发 scroll
+        // 事件的 DOM 位移也需要先合并，不能被命令式更新拉回旧坐标。
+        const left = position.left ?? (pending?.left ?? logical.left) + domLeft - logical.domLeft;
+        const top = position.top ?? (pending?.top ?? logical.top) + domTop - logical.domTop;
         pendingScrollPositionRef.current = null;
-        logicalScrollRef.current.left = Math.max(0, Math.min(left, logicalScrollRef.current.maxLeft));
-        setCurrentScrollPositionLeft(left);
+        logical.left = Math.max(0, Math.min(left, logical.maxLeft));
+        logical.top = Math.max(0, Math.min(top, logical.maxTop));
+        logical.domLeft = domLeft;
+        logical.domTop = domTop;
+        setCurrentScrollPositionLeft(logical.left);
+        setCurrentScrollPositionTop(logical.top);
     };
 
-    const scrollToTop = (top: number) => {
-        pendingScrollPositionRef.current = null;
-        logicalScrollRef.current.top = Math.max(0, Math.min(top, logicalScrollRef.current.maxTop));
-        setCurrentScrollPositionTop(top);
-    };
+    const scrollToLeft = (left: number) => setScrollPosition({ left });
+    const scrollToTop = (top: number) => setScrollPosition({ top });
 
     useImperativeHandle(gridRef, () => ({
         scrollTo: ({ left, top }) => {
@@ -286,15 +296,29 @@ const Virtual = ({
                 }
                 globalThis.clearTimeout(frameId);
             };
+            const readScrollPosition = () => {
+                const logical = logicalScrollRef.current;
+                const pending = pendingScrollPositionRef.current;
+                const deltaLeft = grid.scrollLeft - logical.domLeft;
+                const deltaTop = grid.scrollTop - logical.domTop;
+                // 消费局部 DOM 的相对位移。聚焦、scrollIntoView 和待提交 wheel
+                // 可以在同一帧发生；立即记住已读坐标，避免后续 scroll 重复计入。
+                logical.domLeft = grid.scrollLeft;
+                logical.domTop = grid.scrollTop;
+                return {
+                    left: Math.max(0, Math.min((pending?.left ?? logical.left) + deltaLeft, logical.maxLeft)),
+                    top: Math.max(0, Math.min((pending?.top ?? logical.top) + deltaTop, logical.maxTop)),
+                    moved: deltaLeft !== 0 || deltaTop !== 0,
+                };
+            };
             const commitPendingScrollPosition = () => {
                 scrollAnimationFrameRef.current = null;
-                const pendingPosition = pendingScrollPositionRef.current;
-                pendingScrollPositionRef.current = null;
-                const grid = divGridRef.current;
-                if (!pendingPosition || !grid) {
+                if (!pendingScrollPositionRef.current || !divGridRef.current) {
                     return;
                 }
-
+                // 浏览器 scroll 事件可能晚于这一帧，再读取一次避免丢失其位移。
+                const pendingPosition = readScrollPosition();
+                pendingScrollPositionRef.current = null;
                 logicalScrollRef.current.left = pendingPosition.left;
                 logicalScrollRef.current.top = pendingPosition.top;
                 logicalScrollRef.current.domLeft = grid.scrollLeft;
@@ -313,6 +337,14 @@ const Virtual = ({
                     scrollAnimationFrameRef.current = frameId;
                 }
             };
+            const onNativeScroll = (event: Event) => {
+                if (event.target !== grid) return;
+                const position = readScrollPosition();
+                // 布局同步产生的 scroll 已记录在 domLeft/domTop，不反馈进状态。
+                if (!position.moved) return;
+                pendingScrollPositionRef.current = { left: position.left, top: position.top };
+                schedulePendingScrollPosition();
+            };
             const normalizeWheelDelta = (delta: number, deltaMode: number, pageSize: number) => {
                 if (!Number.isFinite(delta) || delta === 0) {
                     return 0;
@@ -328,11 +360,10 @@ const Virtual = ({
             const onWheel = (e: globalThis.WheelEvent) => {
                 e.preventDefault();
                 const currentTarget = e.currentTarget as HTMLDivElement;
-                const pendingPosition = pendingScrollPositionRef.current;
                 const logicalPosition = logicalScrollRef.current;
-                // 聚焦等原生行为可能移动局部滚动容器；只合并相对位移，不将 DOM 坐标当作全量逻辑位置。
-                const baseLeft = pendingPosition?.left ?? logicalPosition.left + currentTarget.scrollLeft - logicalPosition.domLeft;
-                const baseTop = pendingPosition?.top ?? logicalPosition.top + currentTarget.scrollTop - logicalPosition.domTop;
+                const nativePosition = readScrollPosition();
+                const baseLeft = nativePosition.left;
+                const baseTop = nativePosition.top;
                 let newScrollLeft = baseLeft;
                 let newScrollTop = baseTop;
                 const normalizedDeltaX = normalizeWheelDelta(e.deltaX, e.deltaMode, currentTarget.clientWidth);
@@ -350,6 +381,7 @@ const Virtual = ({
                 if (
                     newScrollLeft === baseLeft
                     && newScrollTop === baseTop
+                    && !nativePosition.moved
                 ) {
                     return;
                 }
@@ -363,9 +395,11 @@ const Virtual = ({
             grid.addEventListener("wheel", onWheel, {
                 passive: false
             });
+            grid.addEventListener("scroll", onNativeScroll);
             return () => {
                 // StrictMode 清理 effect 前可能已清空 ref，必须从绑定时的节点移除监听。
                 grid.removeEventListener("wheel", onWheel);
+                grid.removeEventListener("scroll", onNativeScroll);
                 if (scrollAnimationFrameRef.current != null && scrollAnimationFrameRef.current !== -1) {
                     cancelScrollFrame(scrollAnimationFrameRef.current);
                 }

@@ -143,7 +143,7 @@ export default function ReceivablesReviewDemo() {
                 pagination={false}
                 typeLoaders={typeLoaders}
                 defaultSortColumns={[{ columnName: "$.overdueDays", direction: "desc" }]}
-                rowSelection={{ type: "checkbox", selectedRowIds: selectedIds, onChange: ids => setSelectedIds(ids), getDisabled: row => row.dataRef.overdueDays === 0 }}
+                rowSelection={{ type: "checkbox", selectedRowIds: selectedIds, onSelectedRowIdsChange: ids => setSelectedIds(ids), getDisabled: row => row.dataRef.overdueDays === 0 }}
                 showSummary
                 showSearchBar
                 sideBar

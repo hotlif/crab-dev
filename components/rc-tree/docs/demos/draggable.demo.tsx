@@ -27,7 +27,7 @@ const contextActionsStyle = css`
 
 const DraggableDemo = () => {
     const [expandedKeys, setExpandedKeys] = useState<Key[]>([]);
-    const [selectKeys, setSelectKeys] = useState<Key[]>([]);
+    const [selectedKeys, setSelectedKeys] = useState<Key[]>([]);
     const [treeData, setTreeData, treeDataUtils] = useTreeData();
 
     const loadData = (parentNode: Node | null) => {
@@ -90,9 +90,9 @@ const DraggableDemo = () => {
                     draggable
                     onTreeNodeChange={setTreeData}
                     expandedKeys={expandedKeys}
-                    selectKeys={selectKeys}
-                    onSelect={({ selectKeys }: { selectKeys: Key[] }) => {
-                        setSelectKeys(selectKeys);
+                    selectedKeys={selectedKeys}
+                    onSelectedKeysChange={(selectedKeys: Key[]) => {
+                        setSelectedKeys(selectedKeys);
                     }}
                     rendererContextMenu={({ node, hide }: { node: Node | null, hide: () => void }) => (
                         <div className={contextActionsStyle} role="group" aria-label="节点操作">
@@ -115,15 +115,7 @@ const DraggableDemo = () => {
                             treeDataUtils.moveNodeOnDrag(active!.id, over!.id, context.overState.state);
                         }
                     }}
-                    onExpanded={({ node }: { node: Node }) => {
-                        if (expandedKeys.includes(node.id)) {
-                            const keys = expandedKeys.filter((element) => element !== node.id);
-                            setExpandedKeys(keys);
-                        } else {
-                            expandedKeys.push(node.id);
-                            setExpandedKeys([...expandedKeys]);
-                        }
-                    }}
+                    onExpandedKeysChange={setExpandedKeys}
                     loadData={loadData}
                 />
             )}

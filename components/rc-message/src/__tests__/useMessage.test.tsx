@@ -46,7 +46,7 @@ describe("useMessage CSS lifecycle", () => {
             api = instance;
             return createPortal(content, document.body);
         }
-        const view = await render(<ConfigProvider design="shadcn" theme="dark" brandColor="#6750a4"><Host /></ConfigProvider>);
+        const view = await render(<ConfigProvider designSystem="shadcn" colorMode="dark" brandColor="#6750a4"><Host /></ConfigProvider>);
         await act(() => { api.info('Scoped message', 0); });
         const holder = screen.getByRole('status').closest('[popover]');
         expect(holder?.parentElement).toBe(document.body);
@@ -54,8 +54,8 @@ describe("useMessage CSS lifecycle", () => {
         expect(holder?.getAttribute('data-theme')).toBe('dark');
         expect(holder?.getAttribute('data-crab-brand')).toBeTruthy();
         expect(holder?.querySelector('[data-crab-brand-style]')?.textContent).toContain('--token-semantic-color-brand-primary:');
-        await view.rerender(<ConfigProvider design="material" theme="dark" brandColor="#6750a4"><Host /></ConfigProvider>);
-        expect(holder?.getAttribute('data-crab-design')).toBe('material');
+        await view.rerender(<ConfigProvider designSystem="md3" colorMode="dark" brandColor="#6750a4"><Host /></ConfigProvider>);
+        expect(holder?.getAttribute('data-crab-design')).toBe('md3');
         await view.unmount();
     });
     it('updates loading in place, restarts the same deadline and ignores expired handles', async () => {

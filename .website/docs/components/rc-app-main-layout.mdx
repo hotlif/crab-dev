@@ -43,15 +43,27 @@ import { demos } from "../_generated/rc-app-main-layout.js";
 
 使用时需包裹在 `AppMainLayoutProvider` 中，由 Provider 管理标签页状态。
 
+侧栏默认将当前标签 `key` 精确用作菜单选中键；切换或关闭标签后，选中项与当前页面同步。当前标签没有同键菜单项时，不选择其他项，也不会自动选择父分组。业务路由键、标签键与菜单键不一致时，由调用方通过 `sidebarSelectedKeys` 显式映射；传入 `[]` 表示无选中。该属性只控制选中展示，菜单点击仍通过 `onSidebarMenuItemClick` 交给业务处理；属性更新不会伪造点击或选择通知。独立 `Menu` 的 `selectedKeys` 受控语义保持不变。
+
 独立应用的内容区默认使用 `main`。嵌入文档或已有主内容区的页面时，设置 `contentLandmark={{ role: "region", "aria-label": "后台工作区示例" }}`，将示例内容标记为有名称的区域，避免嵌套主内容地标。`region` 的名称在类型上必填。
+
+布局的内置工具栏、用户操作、标签关闭与右键菜单文案跟随 `ConfigProvider locale`。侧栏菜单和标签页业务标题保持调用方提供的内容。公开的 `TabBarProps` 使用 `value/onValueChange`，应用标签 reducer 的 `activeKey` 仍是内部状态模型字段。
+
+右键菜单使用与其他浮层共享的挂载容器和层级机制，保留触发元素所属 Document、主题边界与原生模态层；支持方向键、Home/End、Escape 和关闭后的焦点恢复。
+
+### 侧栏选中的迁移
+
+此前侧栏会保留最后一次菜单点击的选中项，即使标签页已经切换或关闭。现在默认以 Provider 中的当前标签为来源，桌面侧栏与窄屏抽屉使用相同的选中集合。菜单点击被业务拦截、延迟处理或没有激活新标签时，仍显示原页面对应的菜单项。
+
+使用同一组菜单键和标签键的应用无需增加状态。两组键独立时，例如标签键为 `user:/42`、菜单键为 `users`，请根据当前业务页面传入 `sidebarSelectedKeys={['users']}`；页面没有对应菜单时传入 `[]`。省略该属性或传入 `undefined` 恢复精确同键映射，不从面包屑或父分组推断选中项。显式映射由调用方更新，点击菜单不会绕过该映射自行改变展示，也不会因同步标签状态重复调用 `onSidebarMenuItemClick`。
 
 ### 三套风格
 
-macOS 使用紧凑的 40px 工具栏、6px 导航控件圆角、侧栏分界线和强调色选中行；Material 保留 48px 工具栏、胶囊形导航容器与次要色选中行；shadcn 使用 48px 工具栏、8px 圆角和中性选中行。侧栏、工具栏、内容区和浮层的浅深色角色统一由 L2 提供，复用的 Menu / Button 同步采用相同设计。
+Apple 使用紧凑的 40px 工具栏、6px 导航控件圆角、侧栏分界线和强调色选中行；MD3 Expressive 保留 48px 工具栏、胶囊形导航容器与次要色选中行；shadcn/ui 使用 48px 工具栏、8px 圆角和中性选中行。侧栏、工具栏、内容区和浮层的浅深色角色统一由 L2 提供，复用的 Menu / Button 同步采用相同设计。
 
-本布局是桌面工作区组合，浏览器式多页签、拖拽和账户菜单属于业务扩展。Material 导航依据 [Navigation drawer](https://m3.material.io/components/navigation-drawer/overview)；浮层参考 [Material Web Menus](https://material-web.dev/components/menu/)和 [Menu 样式](https://github.com/material-components/material-web/blob/main/menu/internal/_menu.scss)。macOS 参考 [Apple Sidebars](https://developer.apple.com/design/human-interface-guidelines/sidebars)；shadcn 参考 [Sidebar 文档](https://ui.shadcn.com/docs/components/radix/sidebar)与 [Sidebar 实现](https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/new-york-v4/ui/sidebar.tsx)。Material Web 没有完整的应用工作区布局实现。参考核对日期：2026-10-22。
+本布局是桌面工作区组合，浏览器式多页签、拖拽和账户菜单属于业务扩展。MD3 Expressive 导航依据 [Navigation drawer](https://m3.material.io/components/navigation-drawer/overview)；浮层参考 [Material Web Menus](https://material-web.dev/components/menu/)和 [Menu 样式](https://github.com/material-components/material-web/blob/main/menu/internal/_menu.scss)。Apple 参考 [Apple Sidebars](https://developer.apple.com/design/human-interface-guidelines/sidebars)；shadcn 参考 [Sidebar 文档](https://ui.shadcn.com/docs/components/radix/sidebar)与 [Sidebar 实现](https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui/sidebar.tsx)。Material Web 没有完整的应用工作区布局实现。参考核对日期：2026-10-22。
 
-Material 侧栏使用 280px 桌面工作区宽度和 36px 默认导航行；这是本项目的密度定制，不等于 baseline drawer 的 360px 宽度与 56px indicator，也不等同于 Expressive navigation rail。
+MD3 Expressive 侧栏使用 280px 桌面工作区宽度和 36px 默认导航行；这是本项目的密度定制，不等于 baseline drawer 的 360px 宽度与 56px indicator，也不等同于 Expressive navigation rail。
 
 ### 适用场景
 
@@ -70,6 +82,14 @@ Material 侧栏使用 280px 桌面工作区宽度和 36px 默认导航行；这�
 - 为导航、页签和主内容提供清楚的 landmark 与名称，并保留唯一主内容入口。
 - 打开、关闭侧栏或页签后要把焦点放到可预测位置，键盘顺序应与视觉顺序一致。
 
+### 设计依据与覆盖
+
+- **MD3 Expressive**：组合 M3 Navigation rail、Navigation drawer、Tabs 与 Top app bar 的职责；组件库当前用项目布局规则把它们接成企业后台外壳。 [依据 1](https://m3.material.io/components/navigation-rail/overview) · [依据 2](https://material-web.dev/components/tabs/) · [依据 3](https://github.com/material-components/material-web/tree/main/tabs)
+- **Apple**：依据 Apple HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。 [依据 1](https://developer.apple.com/design/human-interface-guidelines/components) · [依据 2](https://developer.apple.com/design/human-interface-guidelines/accessibility)
+- **shadcn/ui**：参考 shadcn/ui 的组件用途、中性表面与设计变量，在本库公共语义和 React 交互模型中实现；完整状态覆盖仍需按矩阵验收。 [依据 1](https://ui.shadcn.com/docs/components) · [依据 2](https://ui.shadcn.com/docs/theming) · [依据 3](https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4)
+
+设计依据不等于完成验收；当前状态与适用边界见[覆盖矩阵](/guides/design-coverage)。
+
 ## 常见问题
 
 ### 页面内容放在哪里？
@@ -79,3 +99,10 @@ Material 侧栏使用 280px 桌面工作区宽度和 36px 默认导航行；这�
 ## API
 
 <API source="../_generated_api/rc-app-main-layout.ts" symbol="LayoutProps" component="Layout" />
+
+<details data-docs-native-props>
+<summary>Layout 继承的原生属性（277 项）</summary>
+
+<API source="../_generated_api/rc-app-main-layout-native.ts" symbol="LayoutPropsNativeAttributes" component="Layout 继承的原生属性" />
+
+</details>

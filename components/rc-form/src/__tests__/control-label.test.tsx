@@ -1,8 +1,12 @@
-import { describe, expect, it } from '@crab-dev/wake/test';
+import { beforeAll, describe, expect, it, mock } from '@crab-dev/wake/test';
 import { act, render, screen } from '@crab-dev/wake/test/react';
 import LineEdit from '@crab-dev/rc-line-edit';
-import Form from '../form.js';
-import Item from '../item.js';
+let Form: typeof import('../form.js')['default'];
+let Item: typeof import('../item.js')['default'];
+beforeAll(async () => {
+    Form = (await mock.import<typeof import('../form.js')>('../form.js')).default;
+    Item = (await mock.import<typeof import('../item.js')>('../item.js')).default;
+});
 import useForm from '../hooks/useForm.js';
 import { RuleType } from '../types.js';
 import type { FormInstance } from '../types.js';
@@ -10,10 +14,10 @@ import type { FormInstance } from '../types.js';
 describe('Form.Item control 标签与字段反馈', () => {
     it('外部标签将必填标记从可读内容中分离，也不提前显示校验错误', async () => {
         const { container } = await render(<Form defaultValue={{ name: '', note: '' }}>
-            <Item name="name" label="姓名" binding="event" required>
+            <Item name="name" label="姓名" adapter="native" required>
                 <input required />
             </Item>
-            <Item name="note" label="备注" binding="event">
+            <Item name="note" label="备注" adapter="native">
                 <input />
             </Item>
         </Form>);
@@ -32,7 +36,7 @@ describe('Form.Item control 标签与字段反馈', () => {
     it('由输入字段呈现唯一的关联标签，并保留必填、自定义 ID 和外部说明', async () => {
         await render(<Form defaultValue={{ name: '' }}>
             <span id="name-help">团队成员可见</span>
-            <Item name="name" label="姓名" labelPlacement="control" binding="event" required>
+            <Item name="name" label="姓名" labelPlacement="control" adapter="value" required>
                 <LineEdit id="profile-name" aria-describedby="name-help" supportingText="填写真实姓名" />
             </Item>
         </Form>);
@@ -54,7 +58,7 @@ describe('Form.Item control 标签与字段反馈', () => {
             const [form] = useForm<{ name: string }>();
             formApi = form;
             return <Form form={form} defaultValue={{ name: '' }}>
-                <Item name="name" label="姓名" labelPlacement="control" binding="event" required>
+                <Item name="name" label="姓名" labelPlacement="control" adapter="value" required>
                     <LineEdit supportingText="填写真实姓名" />
                 </Item>
             </Form>;
@@ -91,9 +95,9 @@ describe('Form.Item control 标签与字段反馈', () => {
                     type: RuleType.WARNING,
                     validator: async () => { throw new Error('建议补充姓氏'); },
                 }]}>
-                    {({ validateState: _validateState, onChange, value, ...field }) => (
+                    {({ validateState: _validateState, onValueChange, value, ...field }) => (
                         <LineEdit {...field} value={typeof value === 'string' ? value : ''}
-                            onChange={event => onChange?.(event.currentTarget.value)} />
+                            onChange={event => onValueChange?.(event.currentTarget.value)} />
                     )}
                 </Item>
             </Form>;

@@ -1,3 +1,5 @@
+import type { SyntheticEvent } from 'react';
+
 /** OKLCH 颜色值。lightness 0–1、chroma 0–~0.4、hue 0–360、alpha 0–1(缺省视为 1)。 */
 export interface OKLCHValue {
     lightness: number;
@@ -26,8 +28,8 @@ export interface ColorPickerOverlayLocale {
 }
 
 export interface Locale {
-    overlay?: ColorPickerOverlayLocale;
-    panel?: ColorPickerPanelLocale;
+    overlay?: Partial<ColorPickerOverlayLocale>;
+    panel?: Partial<ColorPickerPanelLocale>;
 }
 
 /**
@@ -54,4 +56,9 @@ declare global {
     interface Window {
         EyeDropper?: EyeDropperConstructor;
     }
+}
+
+export interface ColorValueChangeDetails {
+    reason: 'choose' | 'clear' | 'confirm';
+    event?: SyntheticEvent | Event;
 }

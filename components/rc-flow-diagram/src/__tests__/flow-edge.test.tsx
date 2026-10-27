@@ -1,4 +1,6 @@
-import { describe, it, expect, afterEach, beforeAll, mock, render } from "@crab-dev/wake/test/react";
+import { describe, it, expect, afterEach, beforeAll, mock } from '@crab-dev/wake/test';
+import { render } from '@crab-dev/wake/test/react';
+import token from '@crab-dev/rc-token-semantic';
 import { FlowDiagramPaletteContext } from '../palette-context.js';
 import type { FlowDiagramPalette } from '../palette.js';
 (globalThis as Record<string, unknown>).IS_REACT_ACT_ENVIRONMENT = true;
@@ -13,14 +15,24 @@ interface CapturedLineProps {
     dashPhase?: number;
     color?: string;
 }
-// mock rc-canvas：捕获 FlowEdge 渲染出的每条 Line 的 props，验证相位计算
+interface CapturedMarkerProps {
+    x: number;
+    y: number;
+    angle: number;
+    fill?: string;
+}
+// DOM 环境不绘制 Canvas；保留真实 FlowEdge 的拆段与箭头逻辑，只捕获绘制原语的输入。
 const mockCapturedLines: CapturedLineProps[] = [];
+const mockCapturedMarkers: CapturedMarkerProps[] = [];
 mock.module('@crab-dev/rc-canvas', () => ({
     Line: (props: CapturedLineProps) => {
         mockCapturedLines.push(props);
         return null;
     },
-    Marker: () => null,
+    Marker: (props: CapturedMarkerProps) => {
+        mockCapturedMarkers.push(props);
+        return null;
+    },
 }));
 let FlowEdge: (typeof import("../flow-edge.js"))["default"];
 beforeAll(async () => {
@@ -29,6 +41,7 @@ beforeAll(async () => {
 });
 afterEach(() => {
     mockCapturedLines.length = 0;
+    mockCapturedMarkers.length = 0;
 });
 describe('FlowEdge 流动相位（dashPhase 累计弧长）', () => {
     it('L 形折线：各段 dashPhase 为前序段绘制长度之和', async () => {
@@ -65,6 +78,54 @@ describe('FlowEdge 流动相位（dashPhase 累计弧长）', () => {
         expect(mockCapturedLines).toHaveLength(2);
         expect(mockCapturedLines[0].flowSpeed).toBeUndefined();
         expect(mockCapturedLines[1].dashPhase).toBeCloseTo(60);
+    });
+    it('语义 CSS 变量更新同步到缺口两侧、转角和首尾箭头，保留流动速度与相位', async () => {
+        const edge = (color: string) => (
+            <FlowEdge
+                points={[{ x: 0, y: 0 }, { x: 100, y: 0 }, { x: 100, y: 80 }]}
+                crossings={[{ x: 50, y: 0 }]}
+                hopGap={10}
+                color={color}
+                dashLength={6}
+                gapLength={4}
+                flowSpeed={-24}
+                arrowStart
+                arrowEnd
+                arrowSize={10}
+            />
+        );
+        const expectDrawingInputs = (color: string) => {
+            expect(mockCapturedLines).toHaveLength(3);
+            // 起点箭头缩进 6.2；缺口为 [45, 55]，转角在 (100, 0)。
+            expect(mockCapturedLines[0].x1).toBeCloseTo(6.2);
+            expect(mockCapturedLines[0].x2).toBeCloseTo(45);
+            expect(mockCapturedLines[1].x1).toBeCloseTo(55);
+            expect(mockCapturedLines[1].x2).toBeCloseTo(100);
+            expect(mockCapturedLines[2].y2).toBeCloseTo(73.8);
+            const phases = [0, 48.8, 93.8];
+            for (const [index, line] of mockCapturedLines.entries()) {
+                expect(line.color).toBe(color);
+                expect(line.dashLength).toBe(6);
+                expect(line.gapLength).toBe(4);
+                expect(line.flowSpeed).toBe(-24);
+                expect(line.dashPhase).toBeCloseTo(phases[index]);
+            }
+            expect(mockCapturedMarkers).toHaveLength(2);
+            const start = mockCapturedMarkers.find(marker => marker.x === 0 && marker.y === 0);
+            const end = mockCapturedMarkers.find(marker => marker.x === 100 && marker.y === 80);
+            expect(start?.fill).toBe(color);
+            expect(end?.fill).toBe(color);
+            expect(start?.angle).toBeCloseTo(Math.PI);
+            expect(end?.angle).toBeCloseTo(Math.PI / 2);
+        };
+
+        const { rerender } = await render(edge(token.color.brand.primary));
+        expectDrawingInputs(token.color.brand.primary);
+
+        mockCapturedLines.length = 0;
+        mockCapturedMarkers.length = 0;
+        await rerender(edge(token.color.feedback.success.icon));
+        expectDrawingInputs(token.color.feedback.success.icon);
     });
     it('显式旧 color 优先于 context palette，否则使用 palette.edge', async () => {
         const palette: FlowDiagramPalette = {

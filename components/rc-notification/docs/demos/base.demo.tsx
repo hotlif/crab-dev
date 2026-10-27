@@ -39,7 +39,7 @@ const SizeDemo = () => {
                 label="请选择方向"
                 value={direction}
                 options={directionOptions}
-                onChange={value => {
+                onValueChange={value => {
                     const option = directionOptions.find(item => item.value === value);
                     if (option) setDirection(option.value);
                 }}

@@ -6,7 +6,7 @@ export const meta = {
 };
 
 import { css, cx } from "@crab-dev/css";
-import { Canvas, Line, Text } from "../../src/index.js";
+import { Canvas, Line, Text } from "@crab-dev/rc-canvas";
 
 // Wake 0.1.38: preserve both static style bindings across the imported cx composition.
 const wrapStyle = css`
@@ -18,11 +18,11 @@ const wrapStyle = css`
     background: ${token.color.workspace.content};
 `;
 
-const RED   = "oklch(0.38 0.18 28)";
-const GREEN = "oklch(0.38 0.18 160)";
-const BLUE  = "oklch(0.38 0.18 255)";
-const GUIDE = "oklch(0.80 0.05 250)";
-const LABEL = "oklch(0.55 0 0)";
+const ERROR_INK = token.color.feedback.error.text;
+const SUCCESS_INK = token.color.feedback.success.text;
+const ACCENT_INK = token.color.brand.primary;
+const GUIDE = token.color.border.default;
+const LABEL = token.color.text.secondary;
 
 export default function TextAdvancedDemo() {
     return (
@@ -36,9 +36,9 @@ export default function TextAdvancedDemo() {
                 <Line x1={240} y1={25} x2={240} y2={70} color={GUIDE} lineWidth={1} />
                 <Line x1={380} y1={25} x2={380} y2={70} color={GUIDE} lineWidth={1} />
 
-                <Text x={100} y={48} fontSize={14} fill={RED}   textAlign="left"   textBaseline="middle">left</Text>
-                <Text x={240} y={48} fontSize={14} fill={GREEN} textAlign="center" textBaseline="middle">center</Text>
-                <Text x={380} y={48} fontSize={14} fill={BLUE}  textAlign="right"  textBaseline="middle">right</Text>
+                <Text x={100} y={48} fontSize={14} fill={ERROR_INK} textAlign="left" textBaseline="middle">left</Text>
+                <Text x={240} y={48} fontSize={14} fill={SUCCESS_INK} textAlign="center" textBaseline="middle">center</Text>
+                <Text x={380} y={48} fontSize={14} fill={ACCENT_INK} textAlign="right" textBaseline="middle">right</Text>
 
                 {/* ── textBaseline（三列，各持一条短参考线）──────── */}
                 <Text x={240} y={82} fontSize={12} fill={LABEL} textAlign="center">textBaseline</Text>
@@ -57,16 +57,16 @@ export default function TextAdvancedDemo() {
                 <Line x1={310} y1={138} x2={440} y2={138} color={GUIDE} lineWidth={1} />
 
                 {/* 三段文字 y=138，baseline 不同 → 相对参考线的位置不同 */}
-                <Text x={105} y={138} fontSize={14} fill={RED}   textAlign="center" textBaseline="top">AaBb</Text>
-                <Text x={240} y={138} fontSize={14} fill={GREEN} textAlign="center" textBaseline="middle">AaBb</Text>
-                <Text x={375} y={138} fontSize={14} fill={BLUE}  textAlign="center" textBaseline="bottom">AaBb</Text>
+                <Text x={105} y={138} fontSize={14} fill={ERROR_INK} textAlign="center" textBaseline="top">AaBb</Text>
+                <Text x={240} y={138} fontSize={14} fill={SUCCESS_INK} textAlign="center" textBaseline="middle">AaBb</Text>
+                <Text x={375} y={138} fontSize={14} fill={ACCENT_INK} textAlign="center" textBaseline="bottom">AaBb</Text>
 
                 {/* ── 多行 ──────────────────────────────────────── */}
                 <Text x={20}  y={160} fontSize={12} fill={LABEL}>{'\\n 换行'}</Text>
-                <Text x={20}  y={178} fontSize={13} fill={BLUE}  lineHeight={20}>{"第一行\n第二行\n第三行"}</Text>
+                <Text x={20} y={178} fontSize={13} fill={ACCENT_INK} lineHeight={20}>{"第一行\n第二行\n第三行"}</Text>
 
                 <Text x={250} y={160} fontSize={12} fill={LABEL}>maxWidth 自动换行</Text>
-                <Text x={250} y={178} fontSize={13} fill={GREEN} lineHeight={20} maxWidth={130}>
+                <Text x={250} y={178} fontSize={13} fill={SUCCESS_INK} lineHeight={20} maxWidth={130}>
                     {"自动按宽度换行的长文本 with mixed English"}
                 </Text>
 

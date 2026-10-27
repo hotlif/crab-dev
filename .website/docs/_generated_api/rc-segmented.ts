@@ -7,21 +7,16 @@ type DocsTypePlaceholder = ((...args: never[]) => unknown) & {
 };
 type HTMLDivElement = DocsTypePlaceholder;
 type Ref<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
+type SegmentedChangeDetails = DocsTypePlaceholder;
 type SegmentedRawOption = DocsTypePlaceholder;
 type SegmentedSize = DocsTypePlaceholder;
 type SegmentedValue = DocsTypePlaceholder;
 
 export interface SegmentedProps {
     /**
-     * 是否撑满父容器并等宽分布各选项
-     * @default false
+     * 选项数据源, 支持对象或原始值简写
      */
-    "block"?: boolean;
-
-    /**
-     * 默认选中值（非受控）, 缺省时取第一个可用选项
-     */
-    "defaultValue"?: SegmentedValue;
+    "options": SegmentedRawOption[];
 
     /**
      * 是否禁用整个控制器
@@ -30,19 +25,20 @@ export interface SegmentedProps {
     "disabled"?: boolean;
 
     /**
+     * 尺寸, 默认为 medium
+     */
+    "size"?: SegmentedSize;
+
+    /**
+     * 是否撑满父容器并等宽分布各选项
+     * @default false
+     */
+    "block"?: boolean;
+
+    /**
      * 底层 radio 分组的 name, 缺省时自动生成, 用于隔离页面上多个控制器的键盘导航
      */
     "name"?: string;
-
-    /**
-     * 选中值变化时的回调
-     */
-    "onChange"?: (value: SegmentedValue) => void;
-
-    /**
-     * 选项数据源, 支持对象或原始值简写
-     */
-    "options": SegmentedRawOption[];
 
     /**
      * 根节点 ref
@@ -50,13 +46,17 @@ export interface SegmentedProps {
     "ref"?: Ref<HTMLDivElement>;
 
     /**
-     * 尺寸, 默认为 middle
-     * @default 'middle'
-     */
-    "size"?: SegmentedSize;
-
-    /**
-     * 当前选中值（受控）
+     * 选项值, 选中后经 onValueChange 回传 与 defaultValue 互斥，不能同时提供。
      */
     "value"?: SegmentedValue;
+
+    /**
+     * 暂无说明。 与 value 互斥，不能同时提供。
+     */
+    "defaultValue"?: SegmentedValue;
+
+    /**
+     * 暂无说明。
+     */
+    "onValueChange"?: ((value: SegmentedValue, details: SegmentedChangeDetails) => void);
 }

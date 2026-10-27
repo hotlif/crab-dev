@@ -13,6 +13,8 @@ const frame = css`
     border-radius: ${globalToken.radius[4]};
 `;
 const swatch = css`
+    /* This swatch presents a color value, rather than a user-interface surface. */
+    forced-color-adjust: none;
     width: ${globalToken.space[16]};
     height: ${globalToken.space[16]};
     background: ${globalToken.blue[600]};

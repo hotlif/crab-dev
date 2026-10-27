@@ -13,4 +13,4 @@ root.transition = "transform $ref(motion.spatial.fast), opacity $ref(motion.inte
 
 # ─── 间距 ────────────────────────────────────────────────────────────────────
 
-root.gap = "$ref(space.component-gap)"
+root.gap = "$ref(density.gap)"

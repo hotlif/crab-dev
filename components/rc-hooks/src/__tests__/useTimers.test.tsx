@@ -1,4 +1,5 @@
-import { afterEach, beforeEach, describe, expect, it, mock, clock, act, renderHook } from "@crab-dev/wake/test/react";
+import { afterEach, beforeEach, describe, expect, it, mock, clock } from "@crab-dev/wake/test";
+import { act, renderHook } from "@crab-dev/wake/test/react";
 import { useTimeout } from "../useTimeout.js";
 import { useInterval } from "../useInterval.js";
 (globalThis as typeof globalThis & {

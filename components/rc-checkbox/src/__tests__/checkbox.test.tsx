@@ -7,7 +7,9 @@ import type { CheckboxProps } from '../types.js';
     IS_REACT_ACT_ENVIRONMENT?: boolean;
 }).IS_REACT_ACT_ENVIRONMENT = true;
 const renderCheckbox = async (props: Partial<CheckboxProps> = {}) => {
-    const renderResult = await render(<Checkbox {...props}>Checkbox Text</Checkbox>);
+    const { checked, defaultChecked, onCheckedChange = () => {}, ...restProps } = props;
+    const stateProps = checked === undefined ? { defaultChecked, onCheckedChange } : { checked, onCheckedChange };
+    const renderResult = await render(<Checkbox {...restProps} {...stateProps}>Checkbox Text</Checkbox>);
     const input = renderResult.container.querySelector('input[type="checkbox"]') as HTMLInputElement;
     return {
         ...renderResult,
@@ -20,6 +22,20 @@ const clickCheckbox = async (input: HTMLInputElement) => {
     });
 };
 describe('Checkbox', () => {
+    it('separates native events from checked details and does not notify on external updates', async () => {
+        const onCheckedChange = mock.fn();
+        const nativeValues: boolean[] = [];
+        const view = await render(<Checkbox checked={false} onCheckedChange={onCheckedChange} onChange={event => nativeValues.push(event.currentTarget.checked)}>Choice</Checkbox>);
+        const input = view.container.querySelector('input')!;
+        await fireEvent.click(input);
+        expect(nativeValues).toEqual([true]);
+        expect(onCheckedChange).toHaveBeenCalledWith(true, expect.objectContaining({ reason: 'toggle', event: expect.anything() }));
+        expect(input.checked).toBe(false);
+        onCheckedChange.clear();
+        await view.rerender(<Checkbox checked onCheckedChange={onCheckedChange}>Choice</Checkbox>);
+        expect(input.checked).toBe(true);
+        expect(onCheckedChange).not.toHaveBeenCalled();
+    });
     it('renders correctly', async () => {
         const { container } = await render(<Checkbox>Test</Checkbox>);
         expect(container.querySelector('label')).toBeTruthy();
@@ -41,12 +57,12 @@ describe('Checkbox', () => {
         const { input } = await renderCheckbox({ defaultChecked: true });
         expect(input.checked).toBe(true);
     });
-    it('calls onChange when clicked', async () => {
-        const onChange = mock.fn();
-        const { input } = await renderCheckbox({ onChange });
+    it('calls onCheckedChange when clicked', async () => {
+        const onCheckedChange = mock.fn();
+        const { input } = await renderCheckbox({ onCheckedChange });
         await clickCheckbox(input);
-        expect(onChange).toHaveBeenCalledTimes(1);
-        expect(onChange).toHaveBeenCalledWith(true, expect.anything());
+        expect(onCheckedChange).toHaveBeenCalledTimes(1);
+        expect(onCheckedChange).toHaveBeenCalledWith(true, expect.objectContaining({ reason: 'toggle' }));
     });
     it('sets disabled attribute on the input', async () => {
         const { input } = await renderCheckbox({ disabled: true });
@@ -58,12 +74,12 @@ describe('Checkbox', () => {
         expect(label?.hasAttribute('data-disabled')).toBe(true);
     });
     it('does not toggle a disabled control when its label is clicked', async () => {
-        const onChange = mock.fn();
-        const { container, input } = await renderCheckbox({ disabled: true, defaultChecked: true, onChange });
+        const onCheckedChange = mock.fn();
+        const { container, input } = await renderCheckbox({ disabled: true, defaultChecked: true, onCheckedChange });
         const user = userEvent.setup();
         await user.click(container.querySelector('label') as HTMLLabelElement);
         expect(input.checked).toBe(true);
-        expect(onChange).not.toHaveBeenCalled();
+        expect(onCheckedChange).not.toHaveBeenCalled();
     });
     it('forwards className to the wrapper label', async () => {
         const { container } = await render(<Checkbox className="extra-class">Test</Checkbox>);
@@ -116,9 +132,9 @@ describe('CheckboxGroup', () => {
         expect(inputs[0].checked).toBe(true);
         expect(inputs[1].checked).toBe(false);
     });
-    it('calls onChange when a checkbox is toggled', async () => {
-        const onChange = mock.fn();
-        const { container } = await render(<CheckboxGroup value={['a']} onChange={onChange}>
+    it('calls onCheckedChange when a checkbox is toggled', async () => {
+        const onCheckedChange = mock.fn();
+        const { container } = await render(<CheckboxGroup value={['a']} onValueChange={onCheckedChange}>
             <Checkbox value="a">A</Checkbox>
             <Checkbox value="b">B</Checkbox>
         </CheckboxGroup>);
@@ -126,11 +142,11 @@ describe('CheckboxGroup', () => {
         await act(async () => {
             await fireEvent.click(inputs[1]);
         });
-        expect(onChange).toHaveBeenCalledWith(['a', 'b']);
+        expect(onCheckedChange).toHaveBeenCalledWith(['a', 'b'], expect.objectContaining({ reason: expect.any(String) }));
     });
     it('removes value from selection when unchecking', async () => {
-        const onChange = mock.fn();
-        const { container } = await render(<CheckboxGroup value={['a', 'b']} onChange={onChange}>
+        const onCheckedChange = mock.fn();
+        const { container } = await render(<CheckboxGroup value={['a', 'b']} onValueChange={onCheckedChange}>
             <Checkbox value="a">A</Checkbox>
             <Checkbox value="b">B</Checkbox>
         </CheckboxGroup>);
@@ -138,7 +154,7 @@ describe('CheckboxGroup', () => {
         await act(async () => {
             await fireEvent.click(inputs[0]);
         });
-        expect(onChange).toHaveBeenCalledWith(['b']);
+        expect(onCheckedChange).toHaveBeenCalledWith(['b'], expect.objectContaining({ reason: expect.any(String) }));
     });
     it('disables all checkboxes when group is disabled', async () => {
         const { container } = await render(<CheckboxGroup disabled>

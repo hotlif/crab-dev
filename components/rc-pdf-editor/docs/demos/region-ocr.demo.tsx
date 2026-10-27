@@ -48,7 +48,7 @@ export default function RegionOcrDemo() {
         return () => URL.revokeObjectURL(url);
     }, [image]);
     return <div className={sectionStyle}>
-        <div className={rowStyle}><Checkbox checked={installed} onChange={setInstalled}>安装区域 OCR 插件</Checkbox></div>
+        <div className={rowStyle}><Checkbox checked={installed} onCheckedChange={setInstalled}>安装区域 OCR 插件</Checkbox></div>
         <p className={hintStyle}>先点击绘图栏末尾“采集两页交界样例”查看拼接结果。手动选择时，可先调低缩放并滚到页间交界，再点击“框选跨页区域”；选区支持滚轮翻页、键盘操作和取消。当前编辑器为只读，区域采集仍可使用。</p>
         <PdfEditor runtime={runtime} initialDocument={regionDocument} readOnly plugins={installed ? [plugin] : []} />
         <p role="status">{image ? `已采集 ${image.parts.length} 页区域，PNG ${image.width} × ${image.height} px。演示适配器已收到图像；尚未接入 OCR 识别引擎。` : '选择区域后，这里显示去掉页间留白的真实图像和坐标映射。'}</p>

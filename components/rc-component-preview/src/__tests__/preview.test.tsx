@@ -2,8 +2,20 @@ import { describe, expect, it, mock } from '@crab-dev/wake/test';
 import { act, fireEvent, render, screen } from '@crab-dev/wake/test/react';
 import Preview from '../preview.js';
 import Button from '@crab-dev/rc-button';
+import ConfigProvider from '@crab-dev/rc-config-provider';
 
 describe('ComponentPreview actions', () => {
+    it('updates its own action labels without replacing the live preview', async () => {
+        const view = await render(<ConfigProvider locale="zh-CN"><Preview sourceCode="export default 1;"><input aria-label="Draft" defaultValue="Original" /></Preview></ConfigProvider>);
+        const input = screen.getByRole('textbox', { name: 'Draft' });
+        await fireEvent.input(input, { target: { value: 'Edited' } });
+        await view.rerender(<ConfigProvider locale="en-US"><Preview sourceCode="export default 1;"><input aria-label="Draft" defaultValue="Original" /></Preview></ConfigProvider>);
+        expect(screen.getByRole('group', { name: 'Preview actions' })).toBeTruthy();
+        expect(screen.getByRole('button', { name: 'Copy code' })).toBeTruthy();
+        expect(screen.getByRole('button', { name: 'Show source' })).toBeTruthy();
+        expect(screen.getByRole('textbox', { name: 'Draft' })).toBe(input);
+        expect((input as HTMLInputElement).value).toBe('Edited');
+    });
     it('renders custom actions without source and keeps them before built-in actions', async () => {
         const reset = mock.fn();
         const action = <Button onClick={reset}>重置示例</Button>;

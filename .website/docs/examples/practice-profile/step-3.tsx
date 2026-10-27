@@ -83,7 +83,7 @@ export default function Example() {
                         label="姓名"
                         supportingText="填写对外显示的姓名，最多 30 字。"
                         value={name}
-                        onChange={(event) => setName(event.target.value)}
+                        onValueChange={(value) => setName(value)}
                         maxLength={30}
                         errorText={errors.name || undefined}
                     />
@@ -94,7 +94,7 @@ export default function Example() {
                         supportingText="例如：lin@example.com，最多 80 字。"
                         type="email"
                         value={email}
-                        onChange={(event) => setEmail(event.target.value)}
+                        onValueChange={(value) => setEmail(value)}
                         maxLength={80}
                         errorText={errors.email || undefined}
                     />

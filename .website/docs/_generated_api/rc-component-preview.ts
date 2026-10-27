@@ -12,27 +12,9 @@ type ReactNode = DocsTypePlaceholder;
 
 export interface PreviewProps {
     /**
-     * 附加预览操作，显示在复制和源码按钮之前。
+     * 中间信息栏的标题；可以是文本或自定义节点
      */
-    "actions"?: ReactNode;
-
-    /**
-     * 源码高亮主题，默认 light
-     * @default 'light'
-     */
-    "codeTheme"?: PreviewCodeTheme;
-
-    /**
-     * 默认是否展开代码，默认 false
-     * @default false
-     */
-    "defaultExpanded"?: boolean;
-
-    /**
-     * 预览区密度，控制舞台留白
-     * @default 'regular'
-     */
-    "density"?: PreviewDensity;
+    "title"?: ReactNode;
 
     /**
      * 描述内容（标题下方一行）。 - 传入 string 时按 Markdown 内联语法渲染； - 传入 ReactNode 时原样渲染。
@@ -40,20 +22,9 @@ export interface PreviewProps {
     "description"?: ReactNode;
 
     /**
-     * 源码语言，默认 tsx
-     * @default 'tsx'
+     * 附加预览操作，显示在复制和源码按钮之前。
      */
-    "language"?: string;
-
-    /**
-     * 自定义复制行为；默认 navigator.clipboard.writeText
-     */
-    "onCopyCode"?: (code: string) => Promise<void> | void;
-
-    /**
-     * 自定义新窗口打开方式，默认 window.open
-     */
-    "onOpenExternal"?: (path: string) => void;
+    "actions"?: ReactNode;
 
     /**
      * 在新窗口打开的 URL；为空时隐藏外链按钮
@@ -66,7 +37,36 @@ export interface PreviewProps {
     "sourceCode"?: string;
 
     /**
-     * 中间信息栏的标题；可以是文本或自定义节点
+     * 源码语言，默认 tsx
+     * @default ’tsx’
      */
-    "title"?: ReactNode;
+    "language"?: string;
+
+    /**
+     * 源码高亮主题，默认 light
+     * @default ’light’
+     */
+    "codeTheme"?: PreviewCodeTheme;
+
+    /**
+     * 预览区密度，控制舞台留白
+     * @default ’regular’
+     */
+    "density"?: PreviewDensity;
+
+    /**
+     * 默认是否展开代码，默认 false
+     * @default false
+     */
+    "defaultExpanded"?: boolean;
+
+    /**
+     * 自定义新窗口打开方式，默认 window.open
+     */
+    "onOpenExternal"?: (path: string) => void;
+
+    /**
+     * 自定义复制行为；默认 navigator.clipboard.writeText
+     */
+    "onCopyCode"?: (code: string) => Promise<void> | void;
 }

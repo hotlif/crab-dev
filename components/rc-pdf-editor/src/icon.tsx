@@ -1,5 +1,12 @@
 import { iconStyle } from './styles.js';
 
+export type PdfIconName =
+    | 'select' | 'pan' | 'rectangle' | 'ellipse' | 'line' | 'arrow' | 'freehand'
+    | 'open' | 'undo' | 'redo' | 'text' | 'image' | 'insertPage' | 'merge'
+    | 'rotatePage' | 'deletePage' | 'pageUp' | 'pageDown' | 'extract' | 'save'
+    | 'fitPage' | 'panelLeft' | 'panelLeftFilled' | 'panelRight' | 'panelRightFilled'
+    | 'collapseLeft' | 'collapseRight' | 'textObject' | 'imageObject' | 'otherObject';
+
 // 本组件自绘图标，统一使用 24 × 24 坐标和 currentColor。
 const paths = {
     select: 'M5 2v19l5-5 4 7 3-2-4-7h7L5 2Zm2 4.4 7.8 5.6H10l-3 3V6.4Z',
@@ -32,9 +39,7 @@ const paths = {
     textObject: 'M4 4h16v3h-6v13h-4V7H4V4Z',
     imageObject: 'M3 3h18v18H3V3Zm2 2v14h14V5H5Zm2 12 4-5 3 4 2-2 2 3H7ZM9 7a2 2 0 1 0 0 4 2 2 0 0 0 0-4Z',
     otherObject: 'm12 2 10 6-10 6L2 8l10-6Zm0 2.3L5.9 8l6.1 3.7L18.1 8 12 4.3ZM3 12l9 5.4 9-5.4 1 1.7-10 6-10-6L3 12Zm0 4 9 5.4 9-5.4 1 1.7-10 6-10-6L3 16Z',
-} as const;
-
-export type PdfIconName = keyof typeof paths;
+} as const satisfies Record<PdfIconName, string>;
 
 export default function PdfIcon({ name }: { name: PdfIconName }) {
     return <svg className={iconStyle} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d={paths[name]} /></svg>;

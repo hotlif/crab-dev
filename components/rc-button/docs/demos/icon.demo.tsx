@@ -42,7 +42,7 @@ const IconDemo = () => {
                     icon={<Lollipop />}
                     appearance="outlined"
                 >
-                    subtle
+                    Outlined
                 </Button>
                 <Button
                     loading={isLoading}

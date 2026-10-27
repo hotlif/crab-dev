@@ -1,6 +1,8 @@
 import { describe, expect, it, mock } from '@crab-dev/wake/test';
 import { PdfPluginHost } from '../plugin-host.js';
 import { createRegionOcrPlugin } from '../plugins/region-ocr.js';
+import { defaultActionMessage } from '../default-action-label.js';
+import { formatPdfMessage } from '../pdf-messages.js';
 import type { PdfEditorPlugin, PdfEditorPluginContext, PdfEditorRef, PdfEditorState, PdfRegionImage } from '../types.js';
 
 const document = { id: 'test', sessionId: 'session-1', fileName: 'test.pdf', revision: 1, pageCount: 2, currentPageIndex: 0, dirty: false, canUndo: false, canRedo: false, editable: true };
@@ -56,6 +58,31 @@ describe('插件注册与生命周期', () => {
         expect(signal?.aborted).toBe(true); expect(host.getSnapshot().task).toBe(null); expect(api.listeners.size).toBe(0);
         const again = host.run('job', 'run'), cancelled = expect(again).rejects.toThrow('取消'); host.cancel(); await cancelled;
         finish.resolve(); host.dispose();
+    });
+
+    it('preserves default label provenance in published and pending actions while leaving explicit labels untouched', async () => {
+        const selection = { documentId: 'test', sessionId: 'session-1', revision: 1, regions: [{ pageIndex: 0, x: 0, y: 0, width: 10, height: 10 }] };
+        const image: PdfRegionImage = { selection, blob: new Blob(), width: 20, height: 20, parts: [] };
+        const api = harness({ selectRegion: async () => selection, captureRegion: async () => image });
+        const entered = gate(), finish = gate(), host = new PdfPluginHost();
+        host.setEditor(api.editor);
+        const options = { recognize: async () => { entered.resolve(); await finish.promise; return ''; }, onResult: () => {} };
+        const plugin = createRegionOcrPlugin({ id: 'default', ...options });
+        const custom = createRegionOcrPlugin({ id: 'explicit', label: '区域 OCR', ...options });
+        const clone = { id: 'clone', actions: plugin.actions!.map(action => ({ ...action, label: 'Caller override' })) };
+        host.reconcile([plugin, custom, clone], mock.fn());
+        const actions = host.getSnapshot().actions;
+        const message = defaultActionMessage(actions[0]);
+        expect(message).toEqual({ id: 'plugin.region-ocr' });
+        expect(formatPdfMessage(message!, 'en-US')).toBe('Region OCR');
+        expect(defaultActionMessage(actions[1])).toBeUndefined();
+        expect(defaultActionMessage(actions[2])).toBeUndefined();
+        const running = host.run('default', 'recognize-region');
+        try {
+            await entered.promise;
+            expect(defaultActionMessage(host.getSnapshot().task!)).toEqual(message);
+            expect(host.getSnapshot().task?.label).toBe('区域 OCR');
+        } finally { finish.resolve(); await running; host.dispose(); }
     });
 
     it('OCR 插件把采集接口输出交给适配器，卸载后迟到的识别结果不会调用 onResult', async () => {

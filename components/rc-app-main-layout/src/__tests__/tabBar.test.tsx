@@ -99,7 +99,7 @@ describe('TabBar reorder motion', () => {
         reduced = true;
         const onReorder = mock.fn();
         const onChange = mock.fn();
-        await render(<TabBar items={items} onReorder={onReorder} onChange={onChange} />);
+        await render(<TabBar items={items} onReorder={onReorder} onValueChange={onChange} />);
         const { tabs, animations } = prepareTabs();
         await drag(tabs[0]);
         expect(onReorder).toHaveBeenCalledWith(['Two', 'Three', 'One']);
@@ -144,7 +144,7 @@ describe('TabBar reorder motion', () => {
 function InteractiveTabs({ onEmpty, dir }: { onEmpty?: () => void; dir?: string }) {
     const [open, setOpen] = useState(items.map(item => ({ ...item, closable: item.key !== 'One' })));
     const [active, setActive] = useState<Key>('One');
-    return <div dir={dir}><TabBar items={open} activeKey={active} onChange={setActive} onEmpty={onEmpty}
+    return <div dir={dir}><TabBar items={open} value={active} onValueChange={setActive} onEmpty={onEmpty}
         onClose={key => {
             const next = open.filter(item => item.key !== key);
             setOpen(next);

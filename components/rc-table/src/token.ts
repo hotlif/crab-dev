@@ -71,29 +71,14 @@ export const vars = defineTokens({
     'row-edit.row.background-color': '--table-row-edit-row-background-color',
     'row-edit.cell.background-color': '--table-row-edit-cell-background-color',
     'row-edit.border-color': '--table-row-edit-border-color',
-    'row-edit.outline-color': '--table-row-edit-outline-color',
     'row-edit.card.box-shadow': '--table-row-edit-card-box-shadow',
     'row-edit.card.border-radius': '--table-row-edit-card-border-radius',
-    'row-edit.transition': '--table-row-edit-transition',
     'row-edit.actions.background-color': '--table-row-edit-actions-background-color',
     'row-edit.actions.border-color': '--table-row-edit-actions-border-color',
     'row-edit.actions.border-radius': '--table-row-edit-actions-border-radius',
     'row-edit.actions.box-shadow': '--table-row-edit-actions-box-shadow',
     'row-edit.actions.padding': '--table-row-edit-actions-padding',
     'row-edit.actions.gap': '--table-row-edit-actions-gap',
-    'row-edit.confirm.background-color': '--table-row-edit-confirm-background-color',
-    'row-edit.confirm.color': '--table-row-edit-confirm-color',
-    'row-edit.confirm.background-color-hover': '--table-row-edit-confirm-background-color-hover',
-    'row-edit.confirm.background-color-active': '--table-row-edit-confirm-background-color-active',
-    'row-edit.cancel.color': '--table-row-edit-cancel-color',
-    'row-edit.cancel.background-color-hover': '--table-row-edit-cancel-background-color-hover',
-    'row-edit.cancel.border-color': '--table-row-edit-cancel-border-color',
-    'row-edit.button.height': '--table-row-edit-button-height',
-    'row-edit.button.padding-inline': '--table-row-edit-button-padding-inline',
-    'row-edit.button.border-radius': '--table-row-edit-button-border-radius',
-    'row-edit.button.font-size': '--table-row-edit-button-font-size',
-    'row-edit.button.font-weight': '--table-row-edit-button-font-weight',
-    'row-edit.button.gap': '--table-row-edit-button-gap',
     'column-drag.indicator.background-color': '--table-column-drag-indicator-background-color',
     'column-drag.indicator.width': '--table-column-drag-indicator-width',
     'column-drag.opacity-dragging': '--table-column-drag-opacity-dragging',
@@ -133,7 +118,7 @@ const token = defineTokens({
         'color': `var(${vars['root.color']}, var(--token-semantic-color-text-primary, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695))))`,
         'outline-color-focus': `var(${vars['root.outline-color-focus']}, var(--token-semantic-color-focus-ring, var(--token-semantic-color-border-focus, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078)))))`,
         'outline-width-focus': `var(${vars['root.outline-width-focus']}, 2px)`,
-        'outline-offset-focus': `var(${vars['root.outline-offset-focus']}, 2px)`
+        'outline-offset-focus': `var(${vars['root.outline-offset-focus']}, calc(-1 * var(--table-root-outline-width-focus, 2px)))`
     },
     'cell': {
         'background-color': `var(${vars['cell.background-color']}, var(--token-semantic-color-surface-content, var(--token-semantic-color-background-surface, var(--token-global-material-neutral-98, oklch(0.98379491 0.01284496 321.893957)))))`,
@@ -239,12 +224,10 @@ const token = defineTokens({
             'background-color': `var(${vars['row-edit.cell.background-color']}, var(--token-semantic-color-surface-content, var(--token-semantic-color-background-surface, var(--token-global-material-neutral-98, oklch(0.98379491 0.01284496 321.893957)))))`
         },
         'border-color': `var(${vars['row-edit.border-color']}, var(--token-semantic-color-brand-primary, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078))))`,
-        'outline-color': `var(${vars['row-edit.outline-color']}, var(--token-semantic-color-brand-primary, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078))))`,
         'card': {
             'box-shadow': `var(${vars['row-edit.card.box-shadow']}, var(--token-semantic-shadow-overlay, var(--token-global-shadow-material-3, 0 1px 3px 0 oklch(0 0 0 / 0.3), 0 4px 8px 3px oklch(0 0 0 / 0.15))))`,
             'border-radius': `var(${vars['row-edit.card.border-radius']}, var(--token-semantic-shape-card, var(--token-global-radius-6, 12px)))`
         },
-        'transition': `var(${vars['row-edit.transition']}, var(--token-semantic-motion-interaction, var(--token-global-duration-150, 150ms) var(--token-global-easing-expressive-effects-fast, cubic-bezier(0.31, 0.94, 0.34, 1.00))))`,
         'actions': {
             'background-color': `var(${vars['row-edit.actions.background-color']}, var(--token-semantic-color-surface-raised, var(--token-semantic-color-background-elevated, var(--token-global-material-neutral-96, oklch(0.96728288 0.01181410 313.217082)))))`,
             'border-color': `var(${vars['row-edit.actions.border-color']}, var(--token-semantic-color-brand-primary, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078))))`,
@@ -252,25 +235,6 @@ const token = defineTokens({
             'box-shadow': `var(${vars['row-edit.actions.box-shadow']}, var(--token-semantic-shadow-overlay, var(--token-global-shadow-material-3, 0 1px 3px 0 oklch(0 0 0 / 0.3), 0 4px 8px 3px oklch(0 0 0 / 0.15))))`,
             'padding': `var(${vars['row-edit.actions.padding']}, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)))`,
             'gap': `var(${vars['row-edit.actions.gap']}, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)))`
-        },
-        'confirm': {
-            'background-color': `var(${vars['row-edit.confirm.background-color']}, var(--token-semantic-color-brand-primary, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078))))`,
-            'color': `var(${vars['row-edit.confirm.color']}, var(--token-semantic-color-text-on-brand, var(--token-global-white, oklch(1.000 0 0))))`,
-            'background-color-hover': `var(${vars['row-edit.confirm.background-color-hover']}, var(--token-semantic-color-brand-primary-hover, var(--token-global-purple-30, oklch(0.41029262 0.13369038 292.705951))))`,
-            'background-color-active': `var(${vars['row-edit.confirm.background-color-active']}, var(--token-semantic-color-brand-primary-active, var(--token-global-purple-20, oklch(0.32510160 0.13528526 291.151996))))`
-        },
-        'cancel': {
-            'color': `var(${vars['row-edit.cancel.color']}, var(--token-semantic-color-text-secondary, var(--token-global-material-neutral-variant-30, oklch(0.39805288 0.01735545 303.720936))))`,
-            'background-color-hover': `var(${vars['row-edit.cancel.background-color-hover']}, var(--token-semantic-color-state-hover, var(--token-semantic-color-background-hover-subtle, color-mix(in oklch, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695)) calc(var(--token-semantic-state-opacity-hover, var(--token-global-opacity-8, 0.08)) * 100%), var(--token-global-material-neutral-98, oklch(0.98379491 0.01284496 321.893957))))))`,
-            'border-color': `var(${vars['row-edit.cancel.border-color']}, var(--token-semantic-color-border-default, var(--token-global-material-neutral-variant-50, oklch(0.56674707 0.01627446 308.142182))))`
-        },
-        'button': {
-            'height': `var(${vars['row-edit.button.height']}, var(--token-semantic-size-control, var(--token-global-size-36, 36px)))`,
-            'padding-inline': `var(${vars['row-edit.button.padding-inline']}, var(--token-semantic-space-control-padding-x, var(--token-global-space-3, 12px)))`,
-            'border-radius': `var(${vars['row-edit.button.border-radius']}, var(--token-semantic-shape-full, var(--token-global-radius-full, 9999px)))`,
-            'font-size': `var(${vars['row-edit.button.font-size']}, var(--token-semantic-typography-body-font-size, var(--token-global-font-size-sm, 14px)))`,
-            'font-weight': `var(${vars['row-edit.button.font-weight']}, var(--token-semantic-typography-label-font-weight, var(--token-global-font-weight-medium, 500)))`,
-            'gap': `var(${vars['row-edit.button.gap']}, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)))`
         }
     },
     'column-drag': {

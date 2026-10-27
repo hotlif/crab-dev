@@ -1,5 +1,5 @@
 import type { ColumnType, Row, SortColumn } from "@crab-dev/rc-table";
-import type { PaginationShowTotal, PaginationSize } from "@crab-dev/rc-pagination";
+import type { PaginationChangeDetails, PaginationChangeHandler, PaginationShowTotal, PaginationSize } from "@crab-dev/rc-pagination";
 
 export interface ProtocolColumnType {
     align?: ColumnType<Row>["align"];
@@ -79,5 +79,7 @@ export interface PaginationConfig {
     /** 分页栏位置 @default "bottom" */
     position?: "top" | "bottom" | "both";
     /** 页码变更回调 */
-    onChange?: (page: number, pageSize: number) => void;
+    onValueChange?: PaginationChangeHandler;
+    /** 每页条数变化；页码使用同次变更解析后的值。 */
+    onPageSizeChange?: (pageSize: number, details: { page: number; event?: PaginationChangeDetails['event'] }) => void;
 }

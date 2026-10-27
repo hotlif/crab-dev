@@ -33,19 +33,33 @@ import { demos } from "../_generated/rc-dropdown-container.js";
 将浮层定位到触发器附近，管理开关状态与视口边界。
 
 
+组合控件通过 `useDropdownContext().dispatch` 请求展开变化时，可在 `details` 中传入准确的原因与原始事件；未指定时按 `trigger` 处理。Escape 请求应携带 `reason: 'escape'`，以保持关闭通知与焦点恢复的语义一致。
+
 ### 何时使用
 
 - Select、Menu 等需要相对触发器定位的下拉浮层。
 - 下拉内容需要在窗口边缘自动调整位置；可用高度不足时，浮层会限制在视口内并提供内部滚动。
 - 需要统一处理点击外部区域关闭、滚动和窗口尺寸变化的场景。
 
+浮层优先尝试下方、上方与横向确实可容纳内容的侧方。侧方空间不足时，比较上下可用空间并限制高度，让内容在浮层内滚动；不把侧方固定面板的一部分留在视口之外，也不强行把浮层压到几乎没有空间的下方。字段型控件的标签和说明仍属于定位避让范围。内部自然高度内容不一定一次全部可见，导航与底部动作必须能通过真实滚动和键盘到达。
+
 
 
 ### 三套设计风格
 
-Material 菜单表面采用 4px 圆角与阴影；macOS 使用 6px 圆角、细描边和面板阴影；shadcn 使用 8px 圆角与中性色描边。这里只负责浮层容器，菜单项的键盘导航和选中语义由消费组件负责。
+MD3 Expressive 菜单表面采用 4px 圆角与阴影；Apple 使用 6px 圆角、细描边和面板阴影；shadcn 使用 8px 圆角与中性色描边。这里只负责浮层容器，菜单项的键盘导航和选中语义由消费组件负责。
 
 切换文档站设计风格后，本页演示同步使用该设计；浅色和深色模式分别使用配对语义颜色。
+
+### 配置与展开协议
+
+使用 open / defaultOpen / onOpenChange(next, details) 表达受控、初始值和用户请求。默认值只在初始化时读取，外部配置更新不触发用户回调；details.reason 给出触发原因。内置弹层按 ownerDocument 共享栈，Escape 只作用于顶层。主题、语言、方向和 CSP nonce 沿配置继承，内容尺寸与布局密度独立。
+
+需要非模态焦点退出关闭时设置 `closeOnFocusOut`；默认关闭，由消费组件选择其焦点模型。触发器、尾部按钮、面板及其嵌套 React Portal 组成同一交互分支，分支内切换焦点保持展开。焦点移出后发出 `onOpenChange(false, { reason: 'focus-out', event })`，不恢复或拦截新焦点。受控面板只发出关闭请求，外部 `open` 更新不通知；同一次外部点击产生的 pointerdown 和 focusout 只请求一次关闭。日期选择器系列启用此行为，菜单等其他消费方保留自身焦点模型。
+
+原生 Tab 在触发器、尾部按钮和面板之间移动时，依据 blur 的实际目标确认分支归属，不等待后续 focus 事件才判定。Escape 仅关闭顶层并恢复触发器焦点；恢复产生的 focus 不会立即重开面板，之后用户重新进入触发器仍可正常展开。目标未知或移到分支外时保留退出关闭行为。
+
+维护时，默认 DOM 测试覆盖同文档的嵌套分支、受控请求、blur/focus 分开的微任务边界和 StrictMode 清理；跨 iframe 的真实焦点、事件构造器及目标 Document 归属由 `test:browser` 验证。`test:published` 使用发布构建、实际 CSS 和原生键盘操作覆盖三套体系浅深色的 Tab、Escape 与外部退出。这两个浏览器入口均登记为包内必跑检查；默认 DOM 通过不能替代实际浏览器验收。
 
 ### 适用场景
 
@@ -64,6 +78,14 @@ Material 菜单表面采用 4px 圆角与阴影；macOS 使用 6px 圆角、细�
 - 触发器使用 aria-expanded，并按浮层类型补充 aria-controls 或 aria-haspopup。
 - 菜单、列表框和对话框拥有不同键盘模型，容器不能把它们统一成同一种行为。
 
+### 设计依据与覆盖
+
+- **MD3 Expressive**：这是 M3 Menu、Select、Tooltip 等锚定表面的底层扩展；视觉与键盘模型由实际承载组件决定。 [依据 1](https://m3.material.io/components/menus/overview) · [依据 2](https://material-web.dev/components/menu/) · [依据 3](https://github.com/material-components/material-web/tree/main/menu)
+- **Apple**：依据 Apple HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。 [依据 1](https://developer.apple.com/design/human-interface-guidelines/components) · [依据 2](https://developer.apple.com/design/human-interface-guidelines/accessibility)
+- **shadcn/ui**：参考 shadcn/ui 的组件用途、中性表面与设计变量，在本库公共语义和 React 交互模型中实现；完整状态覆盖仍需按矩阵验收。 [依据 1](https://ui.shadcn.com/docs/components) · [依据 2](https://ui.shadcn.com/docs/theming) · [依据 3](https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4)
+
+设计依据不等于完成验收；当前状态与适用边界见[覆盖矩阵](/guides/design-coverage)。
+
 ## 常见问题
 
 ### 可以用它重新实现 Select 吗？
@@ -73,3 +95,10 @@ Material 菜单表面采用 4px 圆角与阴影；macOS 使用 6px 圆角、细�
 ## API
 
 <API source="../_generated_api/rc-dropdown-container.ts" symbol="DropdownContainerProps" component="DropdownContainer" />
+
+<details data-docs-native-props>
+<summary>DropdownContainer 继承的原生属性（278 项）</summary>
+
+<API source="../_generated_api/rc-dropdown-container-native.ts" symbol="DropdownContainerPropsNativeAttributes" component="DropdownContainer 继承的原生属性" />
+
+</details>

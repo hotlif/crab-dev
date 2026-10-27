@@ -1,10 +1,17 @@
-import { afterEach, beforeAll, beforeEach, describe, expect, it, mock, fireEvent, render, screen, act } from "@crab-dev/wake/test/react";
+import { afterEach, beforeAll, beforeEach, describe, expect, it, mock } from '@crab-dev/wake/test';
+import { fireEvent, render, screen, act } from '@crab-dev/wake/test/react';
 import type { ReactNode } from "react";
+import ConfigProvider from '@crab-dev/rc-config-provider';
 /**
  * Mock @crab-dev/rc-dropdown-container to avoid transitive floating-ui deps in jsdom.
  * Provides a minimal implementation that renders children + overlay when open.
  * refs 形状与真实 DropdownContainer 提供的 context 保持一致:仅暴露 setReference。
  */
+// The whole renderer below is a DOM-only positioning substitute. Native
+// Select/ColorPicker geometry is verified by their published browser suites.
+mock.module('@crab-dev/rc-dropdown-container/internal', () => ({
+    useDropdownPositionReference: () => () => {},
+}));
 mock.module('@crab-dev/rc-dropdown-container', async () => {
 
     const mockReact = await mock.actual<typeof import("react")>("react");
@@ -73,13 +80,22 @@ afterEach(() => {
     Element.prototype.getBoundingClientRect = originalGetBoundingClientRect;
 });
 const defaultValue: OKLCHValue = { lightness: 0.5, chroma: 0.15, hue: 180 };
-const renderColorPicker = async (props: Partial<ColorPickerProps> = {}) => {
+const renderColorPicker = async (props: Partial<Omit<ColorPickerProps, 'value' | 'defaultValue' | 'open' | 'defaultOpen'>> & { value?: OKLCHValue } = {}) => {
     const onValueChange = mock.fn<(v: OKLCHValue) => void>();
     const renderResult = await render(<ColorPicker value={defaultValue} onValueChange={onValueChange} {...props}/>);
     const trigger = screen.getByRole('button', { name: '选择颜色' });
     return { ...renderResult, trigger, onValueChange };
 };
 describe('ColorPicker', () => {
+    it('inherits global copy and lets local locale override individual fields', async () => {
+        await render(<ConfigProvider locale="en-US"><ColorPicker locale={{ panel: { labelHue: 'Custom hue' } }} /></ConfigProvider>);
+        await fireEvent.click(screen.getByRole('button', { name: 'Choose color' }));
+        expect(screen.getByRole('dialog', { name: 'Choose color' })).toBeTruthy();
+        expect(screen.getByText('Custom hue')).toBeTruthy();
+        expect(screen.getByText('Lightness')).toBeTruthy();
+        expect(screen.getByRole('button', { name: 'Confirm' })).toBeTruthy();
+    });
+
     it('renders without runtime error', async () => {
         const { container } = await renderColorPicker();
         expect(container.firstElementChild).toBeTruthy();
@@ -144,7 +160,7 @@ describe('ColorPicker', () => {
             screen.getByText('确定').focus();
             await fireEvent.click(screen.getByText('确定'));
         });
-        expect(onValueChange).toHaveBeenCalledWith(defaultValue);
+        expect(onValueChange).toHaveBeenCalledWith(defaultValue, { reason: 'confirm' });
         expect(screen.queryByText('确定')).toBeNull();
         expect(document.activeElement).toBe(trigger);
     });

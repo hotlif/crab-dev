@@ -25,7 +25,7 @@ size.small.height = "$ref(sizing.small.tab)"
 size.small.font-size = "$ref(typography.label.large.font-size)"
 size.small.padding-inline = "12px"
 
-size.medium.height = "$ref(sizing.middle.tab)"
+size.medium.height = "$ref(sizing.medium.tab)"
 size.medium.font-size = "$ref(typography.label.large.font-size)"
 size.medium.padding-inline = "16px"
 

@@ -1,5 +1,5 @@
 +++
-title = "CronPicker 定时规则"
+title = "CronPicker Cron 表达式选择器"
 description = "配置周期和执行时间，将定时任务规则转换为 Cron 表达式。"
 kind = "component"
 status = "experimental"
@@ -26,6 +26,8 @@ import { demos } from "../_generated/rc-cron-picker.js";
 
 ##### 尺寸与状态 — 三档尺寸、禁用态与外部校验状态;预览条数可通过 previewCount 调整或关闭
 
+##### 只读与填充计划字段 — 只读计划可聚焦和复制，但不会打开编辑面板；填充字段保留正常编辑和校验反馈。
+
 </div>
 
 <ComponentDemos demos={demos} />
@@ -39,7 +41,7 @@ import { demos } from "../_generated/rc-cron-picker.js";
 
 ### 三套主题的计划字段
 
-CronPicker 复用 LineEdit，支持 `label`、`supportingText`、`errorText` 和 `appearance`。MD3 使用浮动标签；macOS 与 shadcn 使用静态标签和各自的桌面焦点环。非法表达式除了错误边框，也显示可见修正说明并关联到输入框，修正后恢复辅助文字。
+CronPicker 复用 LineEdit，支持 `label`、`supportingText`、`errorText` 和 `appearance`。MD3 使用浮动标签；Apple 与 shadcn 使用静态标签和各自的桌面焦点环。非法表达式除了错误边框，也显示可见修正说明并关联到输入框，修正后恢复辅助文字。
 
 基础演示增加“执行计划”可见标签，结果说明使用语义文字颜色。面板中的 Select、NumberEdit、Checkbox 和 Tabs 分别继承主题，不改变表达式解析与提交规则。定时规则编辑器是项目组合能力，参考 [Material Web Text field](https://material-web.dev/components/text-field/)和 [Select](https://material-web.dev/components/select/)，没有对应的官方 Cron 组件。核对日期：2026-10-22。
 
@@ -50,6 +52,26 @@ CronPicker 复用 LineEdit，支持 `label`、`supportingText`、`errorText` 和
 - 直接输入表达式；支持月份和星期英文缩写、以 `7` 表示周日，以及 `1,2-5` 等组合写法，提交时规范化输出。
 
 表达式采用五段式，依次表示分、时、日、月、周。`parseCron`、`formatCron`、`describeCron` 和 `nextOccurrences` 均为具名导出的纯函数，可用于独立校验与预览。
+
+表达式输入和生成结果始终按从左到右的语法顺序显示；`direction="rtl"` 只改变面板、字段与操作的布局，不反转 Cron 五段的阅读顺序。动态切换方向保留当前值和面板实例。
+
+
+“只读与填充计划字段”对照可编辑计划与归档计划。只读字段保留聚焦、选择和复制，可展开只读面板查看；filled 字段继续使用同一值协议和校验反馈。
+
+
+
+
+`value/defaultValue/onValueChange(next, details)` 管理表达式，默认 `* * * * *`；受控值和默认值互斥。合法输入提交的原因是 `input`，面板编辑的原因是 `field` 并携带字段名；非法草稿不会对外提交。`open/defaultOpen/onOpenChange` 独立控制面板，外部同步不触发用户操作回调。
+
+面板以完整字段（含标签、辅助与错误说明）定位，保留修正说明的可见空间。手输非法草稿时，输入框保留草稿和错误提示，面板仍展示上一次已提交的合法计划；Enter 不提交非法值，失焦或 Escape 放弃草稿并回退。外部传入非法受控值时，面板使用默认计划兜底，输入保持错误反馈。
+
+`details.event` 透传实际触发提交的事件：手输在 Enter 或失焦提交时携带对应键盘或焦点事件，面板编辑保留下层控件提供的事件对象。下层控件没有提供事件时省略该字段，不创建替代事件；一次提交只触发一次 `onValueChange`。
+
+面板标签、校验说明、执行预览与 ARIA 名称跟随 `locale`。`describeCron(value, locale)` 可独立生成中英文描述，省略语言时使用中文；执行预览使用本地时区。日与周同时限定时按标准 Cron 并集语义计算。
+
+点击输入框或按下方向键展开面板；单独聚焦不会展开。方向键切换字段标签并操作字段控件，Tab 移动焦点。Escape 由共享弹层栈处理：先关闭嵌套选择菜单，再关闭计划面板并恢复输入焦点，每次只通知对应层一次。受控父级继续传入 `open={true}` 时面板保持显示；程序更新 `open` 不产生用户操作回调。
+
+`id`、`name`、`required`、`readOnly` 及 ARIA 关联传递给实际文本输入。使用外部 `<label htmlFor>` 时提供匹配的 `id`；未提供可见或外部标签时，用 `aria-label` 提供名称。只读字段可展开查看，输入和面板控件均不可修改表达式；禁用字段阻止编辑和展开，即使由父级保持面板展开也不能修改。面板限制可用宽度，长表达式换行。
 
 ### 适用场景
 
@@ -68,6 +90,14 @@ CronPicker 复用 LineEdit，支持 `label`、`supportingText`、`errorText` 和
 - 每个分段字段都要有 label、说明和错误关联，分组名称说明当前配置哪一部分。
 - 时间与星期不能只用缩写，需提供可读文本并明确时区。
 
+### 设计依据与覆盖
+
+- **MD3 Expressive**：M3 没有 Cron picker；本组件组合 Text fields、Select/Menu、Checkbox 等输入规则形成项目扩展。 [依据 1](https://m3.material.io/components/text-fields/overview) · [依据 2](https://material-web.dev/components/select/) · [依据 3](https://github.com/material-components/material-web/tree/main/select)
+- **Apple**：依据 Apple HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。 [依据 1](https://developer.apple.com/design/human-interface-guidelines/components) · [依据 2](https://developer.apple.com/design/human-interface-guidelines/accessibility)
+- **shadcn/ui**：参考 shadcn/ui 的组件用途、中性表面与设计变量，在本库公共语义和 React 交互模型中实现；完整状态覆盖仍需按矩阵验收。 [依据 1](https://ui.shadcn.com/docs/components) · [依据 2](https://ui.shadcn.com/docs/theming) · [依据 3](https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4)
+
+设计依据不等于完成验收；当前状态与适用边界见[覆盖矩阵](/guides/design-coverage)。
+
 ## 常见问题
 
 ### 选择规则后任务会执行吗？
@@ -77,3 +107,10 @@ CronPicker 复用 LineEdit，支持 `label`、`supportingText`、`errorText` 和
 ## API
 
 <API source="../_generated_api/rc-cron-picker.ts" symbol="CronPickerProps" component="CronPicker" />
+
+<details data-docs-native-props>
+<summary>CronPicker 继承的原生属性（12 项）</summary>
+
+<API source="../_generated_api/rc-cron-picker-native.ts" symbol="CronPickerPropsNativeAttributes" component="CronPicker 继承的原生属性" />
+
+</details>

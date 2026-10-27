@@ -3,6 +3,7 @@ import { act, fireEvent, render, screen } from "@crab-dev/wake/test/react";
 import { useLayoutEffect } from "react";
 import type { ReactElement } from "react";
 import ConfigProvider from "@crab-dev/rc-config-provider";
+import type { ConfigValue } from "@crab-dev/rc-config-provider";
 import ComponentDemoFrame, {
     EmptyComponentDemos,
     getComponentDemoFrameAttributes,
@@ -35,6 +36,21 @@ const testFrameWindow: ComponentDemoFrameWindow = {
 };
 const getTestFrameWindow = () => testFrameWindow;
 
+const defaultPreviewConfiguration: ConfigValue = {
+    designSystem: "md3",
+    colorMode: "light",
+    brandColor: null,
+    size: "medium",
+    density: "standard",
+    locale: "zh-CN",
+    direction: "ltr",
+    nonce: undefined,
+};
+
+function previewConfiguration(overrides: Partial<ConfigValue> = {}) {
+    return { type: "crab:preview-config", ...defaultPreviewConfiguration, ...overrides };
+}
+
 function renderTestFrame(state: ComponentDemoFrameRenderState) {
     return (
         <div
@@ -48,6 +64,10 @@ function renderTestFrame(state: ComponentDemoFrameRenderState) {
             tabIndex={state.tabIndex}
         />
     );
+}
+
+function renderEditableTestFrame(state: ComponentDemoFrameRenderState) {
+    return <>{renderTestFrame(state)}<input aria-label="预览中的草稿" defaultValue="" /></>;
 }
 
 function ImmediateReadyFrame({ state }: { readonly state: ComponentDemoFrameRenderState }) {
@@ -139,8 +159,8 @@ describe("ComponentDemoFrame", () => {
         const postMessage = mock.fn();
         const frameWindow: ComponentDemoFrameWindow = { document: frameDocument, postMessage };
         const getFrameWindow = () => frameWindow;
-        const preview = (design: "material" | "shadcn" | "macos") => (
-            <ConfigProvider design={design}>
+        const preview = (design: "md3" | "shadcn" | "apple") => (
+            <ConfigProvider designSystem={design}>
                 <ComponentDemoFrame demo={descriptor} presentation="artwork" getFrameWindow={getFrameWindow}
                     renderFrame={renderTestFrame} />
             </ConfigProvider>
@@ -161,22 +181,22 @@ describe("ComponentDemoFrame", () => {
         expect(contentRoot.inert).toBe(true);
         expect(frameDocument.documentElement.dataset.crabDesign).toBe("shadcn");
 
-        await rerender(preview("material"));
+        await rerender(preview("md3"));
         expect(container.querySelector('[title="基础用法 外观预览"]')).toBe(frame);
         expect(frame?.getAttribute("tabindex")).toBe("-1");
-        expect(frameDocument.documentElement.dataset.crabDesign).toBe("material");
-        expect(contentRoot.dataset.crabDesign).toBe("material");
+        expect(frameDocument.documentElement.dataset.crabDesign).toBe("md3");
+        expect(contentRoot.dataset.crabDesign).toBe("md3");
         expect(postMessage).toHaveBeenCalledWith(
-            { type: "crab:preview-config", design: "material", theme: "light" },
+            previewConfiguration({ designSystem: "md3" }),
             window.location.origin,
         );
-        await rerender(preview("macos"));
+        await rerender(preview("apple"));
         expect(container.querySelector('[title="基础用法 外观预览"]')).toBe(frame);
         expect(frame?.getAttribute("tabindex")).toBe("-1");
-        expect(frameDocument.documentElement.dataset.crabDesign).toBe("macos");
-        expect(contentRoot.dataset.crabDesign).toBe("macos");
+        expect(frameDocument.documentElement.dataset.crabDesign).toBe("apple");
+        expect(contentRoot.dataset.crabDesign).toBe("apple");
         expect(postMessage).toHaveBeenCalledWith(
-            { type: "crab:preview-config", design: "macos", theme: "light" },
+            previewConfiguration({ designSystem: "apple" }),
             window.location.origin,
         );
     });
@@ -292,11 +312,13 @@ describe("ComponentDemoFrame", () => {
         const themeFrameWindow: ComponentDemoFrameWindow = { postMessage };
         const getThemeFrameWindow = () => themeFrameWindow;
         await renderImmediately(
-            <ComponentDemoFrame
-                demo={demo}
-                getFrameWindow={getThemeFrameWindow}
-                renderFrame={renderTestFrame}
-            />,
+            <ConfigProvider colorMode="dark">
+                <ComponentDemoFrame
+                    demo={demo}
+                    getFrameWindow={getThemeFrameWindow}
+                    renderFrame={renderTestFrame}
+                />
+            </ConfigProvider>,
         );
         const frame = screen.getByTitle("基础用法 交互演示");
 
@@ -312,7 +334,7 @@ describe("ComponentDemoFrame", () => {
         delete document.documentElement.dataset.theme;
     });
 
-    it("将设计风格同步到 iframe 的主题边界与 React 配置，并在切换时保留演示实例", async () => {
+    it("将设计体系同步到 iframe 的主题边界与 React 配置，并在切换时保留演示实例", async () => {
         const frameDocument = document.implementation.createHTMLDocument();
         const contentRoot = frameDocument.createElement("div");
         contentRoot.className = "demo-frame-root";
@@ -321,8 +343,8 @@ describe("ComponentDemoFrame", () => {
         const postMessage = mock.fn();
         const frameWindow: ComponentDemoFrameWindow = { document: frameDocument, postMessage };
         const getFrameWindow = () => frameWindow;
-        const preview = (design: "material" | "shadcn" | "macos") => (
-            <ConfigProvider design={design}>
+        const preview = (design: "md3" | "shadcn" | "apple") => (
+            <ConfigProvider designSystem={design}>
                 <ComponentDemoFrame demo={demo} getFrameWindow={getFrameWindow} renderFrame={renderTestFrame} />
             </ConfigProvider>
         );
@@ -333,22 +355,22 @@ describe("ComponentDemoFrame", () => {
         expect(contentRoot.dataset.crabDesign).toBe("shadcn");
         expect(contentRoot.dataset.theme).toBe("light");
         expect(postMessage).toHaveBeenCalledWith(
-            { type: "crab:preview-config", design: "shadcn", theme: "light" },
+            previewConfiguration({ designSystem: "shadcn" }),
             window.location.origin,
         );
-        await rerender(preview("material"));
-        expect(frameDocument.documentElement.dataset.crabDesign).toBe("material");
-        expect(contentRoot.dataset.crabDesign).toBe("material");
+        await rerender(preview("md3"));
+        expect(frameDocument.documentElement.dataset.crabDesign).toBe("md3");
+        expect(contentRoot.dataset.crabDesign).toBe("md3");
         expect(postMessage).toHaveBeenCalledWith(
-            { type: "crab:preview-config", design: "material", theme: "light" },
+            previewConfiguration({ designSystem: "md3" }),
             window.location.origin,
         );
         expect(screen.getByTitle("基础用法 交互演示").getAttribute("data-attempt")).toBe("0");
-        await rerender(preview("macos"));
-        expect(frameDocument.documentElement.dataset.crabDesign).toBe("macos");
-        expect(contentRoot.dataset.crabDesign).toBe("macos");
+        await rerender(preview("apple"));
+        expect(frameDocument.documentElement.dataset.crabDesign).toBe("apple");
+        expect(contentRoot.dataset.crabDesign).toBe("apple");
         expect(postMessage).toHaveBeenCalledWith(
-            { type: "crab:preview-config", design: "macos", theme: "light" },
+            previewConfiguration({ designSystem: "apple" }),
             window.location.origin,
         );
         expect(screen.getByTitle("基础用法 交互演示").getAttribute("data-attempt")).toBe("0");
@@ -358,16 +380,104 @@ describe("ComponentDemoFrame", () => {
         const frameDocument = document.implementation.createHTMLDocument();
         const frameWindow: ComponentDemoFrameWindow = { document: frameDocument, postMessage: mock.fn() };
         await renderImmediately(
-            <ConfigProvider design="shadcn">
+            <ConfigProvider designSystem="shadcn">
                 <ComponentDemoFrame demo={demo} getFrameWindow={() => frameWindow} renderFrame={renderTestFrame} />
             </ConfigProvider>,
         );
-        frameDocument.documentElement.dataset.crabDesign = "material";
+        frameDocument.documentElement.dataset.crabDesign = "md3";
         await dispatchWakeMessage({}, { type: "crab:preview-ready" });
         await dispatchWakeMessage(frameWindow, { type: "crab:preview-ready" }, "https://untrusted.example");
-        expect(frameDocument.documentElement.dataset.crabDesign).toBe("material");
+        expect(frameDocument.documentElement.dataset.crabDesign).toBe("md3");
         await dispatchWakeMessage(frameWindow, { type: "crab:preview-ready" });
         expect(frameDocument.documentElement.dataset.crabDesign).toBe("shadcn");
+    });
+
+    it("发送最近配置边界的完整快照，独立于代码主题且切换时保留父侧预览实例与草稿", async () => {
+        const originalTheme = document.documentElement.getAttribute("data-theme");
+        const frameDocument = document.implementation.createHTMLDocument();
+        const contentRoot = frameDocument.createElement("div");
+        contentRoot.className = "demo-frame-root";
+        frameDocument.body.append(contentRoot);
+        const messages: { message: unknown; targetOrigin: string }[] = [];
+        const frameWindow: ComponentDemoFrameWindow = {
+            document: frameDocument,
+            postMessage: (message, targetOrigin) => { messages.push({ message, targetOrigin }); },
+        };
+        const getFrameWindow = () => frameWindow;
+        const onThemeChange = mock.fn();
+        const inherited: ConfigValue = {
+            designSystem: "md3", colorMode: "dark", brandColor: "#123456",
+            size: "small", density: "compact", locale: "en-US", direction: "rtl", nonce: "outer-nonce",
+        };
+        const overrides: Partial<ConfigValue> = {
+            designSystem: "apple", colorMode: "light", brandColor: "#345678",
+            size: "large", density: "comfortable", nonce: "preview-nonce",
+        };
+        const expected = previewConfiguration({ ...inherited, ...overrides });
+        const preview = (parent: ConfigValue, inner: Partial<ConfigValue>) => (
+            <ConfigProvider {...parent}>
+                <ConfigProvider {...inner}>
+                    <ComponentDemoFrame demo={demo} getFrameWindow={getFrameWindow}
+                        renderFrame={renderEditableTestFrame} onThemeChange={onThemeChange} />
+                </ConfigProvider>
+            </ConfigProvider>
+        );
+        let unmount: (() => Promise<void>) | undefined;
+        try {
+            document.documentElement.dataset.theme = "light";
+            const view = await renderImmediately(preview(inherited, overrides));
+            unmount = view.unmount;
+            const frame = screen.getByTitle("基础用法 交互演示");
+            const draft = screen.getByRole("textbox", { name: "预览中的草稿" });
+            if (!(draft instanceof HTMLInputElement)) throw new Error("草稿应当是输入框");
+            await fireEvent.change(draft, { target: { value: "配置切换后保留" } });
+            expect(messages.at(-1)).toEqual({ message: expected, targetOrigin: window.location.origin });
+            expect(frameDocument.documentElement.dataset.crabSize).toBe("large");
+            expect(contentRoot.dataset.crabDensity).toBe("comfortable");
+            expect(contentRoot.lang).toBe("en-US");
+            expect(contentRoot.dir).toBe("rtl");
+
+            messages.length = 0;
+            await dispatchWakeMessage({}, { type: "crab:preview-ready" });
+            await dispatchWakeMessage(frameWindow, { type: "crab:preview-ready" }, "https://untrusted.example");
+            expect(messages).toEqual([]);
+            await dispatchWakeMessage(frameWindow, { type: "crab:preview-ready" });
+            expect(messages).toEqual([
+                { message: { type: "wake:theme", theme: "light" }, targetOrigin: "*" },
+                { message: expected, targetOrigin: window.location.origin },
+            ]);
+
+            messages.length = 0;
+            await act(async () => { document.documentElement.dataset.theme = "dark"; });
+            expect(onThemeChange).toHaveBeenCalledWith("dark");
+            expect(messages).toEqual([]);
+            expect(contentRoot.dataset.theme).toBe("light");
+            await dispatchWakeMessage(frameWindow, { type: "wake:ready" });
+            expect(messages.at(-1)).toEqual({ message: expected, targetOrigin: window.location.origin });
+            expect(frame.getAttribute("aria-busy")).toBe("false");
+
+            await view.rerender(preview(defaultPreviewConfiguration, {
+                designSystem: "shadcn", colorMode: "dark", brandColor: null,
+            }));
+            const reset = previewConfiguration({ designSystem: "shadcn", colorMode: "dark" });
+            expect(messages.at(-1)).toEqual({ message: reset, targetOrigin: window.location.origin });
+            const lastMessage = messages.at(-1)?.message;
+            expect(typeof lastMessage === "object" && lastMessage !== null && Object.hasOwn(lastMessage, "nonce")).toBe(true);
+            expect(typeof lastMessage === "object" && lastMessage !== null && Object.hasOwn(lastMessage, "brandColor")).toBe(true);
+            expect(contentRoot.dataset.theme).toBe("dark");
+            expect(contentRoot.dataset.crabSize).toBe("medium");
+            expect(contentRoot.dataset.crabDensity).toBe("standard");
+            expect(contentRoot.lang).toBe("zh-CN");
+            expect(contentRoot.dir).toBe("ltr");
+            expect(screen.getByTitle("基础用法 交互演示")).toBe(frame);
+            expect(frame.getAttribute("data-attempt")).toBe("0");
+            expect(screen.getByRole("textbox", { name: "预览中的草稿" })).toBe(draft);
+            expect(draft.value).toBe("配置切换后保留");
+        } finally {
+            await unmount?.();
+            if (originalTheme === null) document.documentElement.removeAttribute("data-theme");
+            else document.documentElement.setAttribute("data-theme", originalTheme);
+        }
     });
 
     it("弹层关闭后按内容收起预览，不被旧视口高度撑开，并释放尺寸监听", async () => {
@@ -450,15 +560,15 @@ describe("ComponentDemoFrame", () => {
         const postMessage = mock.fn();
         const frameWindow: ComponentDemoFrameWindow = { document: frameDocument, postMessage };
         const getFrameWindow = () => frameWindow;
-        const preview = (design: "macos" | "shadcn") => (
-            <ConfigProvider design={design}>
+        const preview = (design: "apple" | "shadcn", colorMode: "light" | "dark" = "light") => (
+            <ConfigProvider designSystem={design} colorMode={colorMode}>
                 <ComponentDemoFrame demo={demo} getFrameWindow={getFrameWindow}
                     renderFrame={renderTestFrame} readyTimeoutMs={50} />
             </ConfigProvider>
         );
         let unmount: (() => Promise<void>) | undefined;
         try {
-            const rendered = await renderImmediately(preview("macos"));
+            const rendered = await renderImmediately(preview("apple"));
             unmount = rendered.unmount;
             const frame = screen.getByTitle("基础用法 交互演示");
             await act(async () => { await clock.advanceBy(50); });
@@ -466,12 +576,12 @@ describe("ComponentDemoFrame", () => {
             expect(screen.getByRole("alert").textContent).toContain("演示仍在加载");
             expect(screen.getByTitle("基础用法 交互演示")).toBe(frame);
             expect(frame.getAttribute("aria-busy")).toBe("true");
-            await rendered.rerender(preview("shadcn"));
+            await rendered.rerender(preview("shadcn", "dark"));
             await act(async () => { document.documentElement.dataset.theme = "dark"; });
             expect(frameDocument.documentElement.dataset.crabDesign).toBe("shadcn");
             expect(frameDocument.documentElement.dataset.theme).toBe("dark");
             expect(postMessage).toHaveBeenCalledWith(
-                { type: "crab:preview-config", design: "shadcn", theme: "dark" },
+                previewConfiguration({ designSystem: "shadcn", colorMode: "dark" }),
                 window.location.origin,
             );
 

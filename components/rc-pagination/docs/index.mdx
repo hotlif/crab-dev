@@ -22,17 +22,24 @@ status = "experimental"
 - 根据页面密度选择尺寸，分页控件应靠近对应的数据区域。
 - 页数较少时显示完整页码，较多时通过省略号和跳转控件缩短导航。
 - 保留悬停、聚焦、按下和禁用反馈，并遵循减少动态效果的系统偏好。
+- 整组禁用时，当前页仍以中性容器和边界保留位置标记；所有页码继续使用原生禁用语义，不能点击或键盘切页。强制颜色模式通过当前页轮廓保留区别。
 
 ## 三套风格
 
-macOS 当前页使用强调色背景和配对前景色、6px 圆角；Material 使用胶囊形次要色容器；shadcn 当前页使用表面色、细描边和 8px 圆角。三套风格保留上一页、下一页、省略跳转、页容量、快速跳转、禁用和键盘焦点行为。当前页通过 `aria-current="page"` 暴露，不靠颜色单独传达位置。
+Apple 当前页使用强调色背景和配对前景色、6px 圆角；MD3 使用胶囊形次要色容器；shadcn 当前页使用表面色、细描边和 8px 圆角。三套风格保留上一页、下一页、省略跳转、页容量、快速跳转、禁用和键盘焦点行为。当前页通过 `aria-current="page"` 暴露，不靠颜色单独传达位置。
 
-M3 与 Material Web 没有独立分页组件，本组件根据 [M3 按钮](https://m3.material.io/components/buttons/overview)和 [Material Web 按钮](https://material-web.dev/components/button/)的状态反馈扩展。shadcn 参考 [Pagination](https://ui.shadcn.com/docs/components/radix/pagination)及其 [New York v4 实现](https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/new-york-v4/ui/pagination.tsx)的 active outline / inactive ghost 模式。macOS 是与同主题按钮和导航一致的 Web 扩展。参考核对日期：2026-10-22。
+M3 与 Material Web 没有独立分页组件，本组件根据 [M3 按钮](https://m3.material.io/components/buttons/overview)和 [Material Web 按钮](https://material-web.dev/components/button/)的状态反馈扩展。shadcn 参考 [Pagination](https://ui.shadcn.com/docs/components/radix/pagination)及其 [New York v4 实现](https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/new-york-v4/ui/pagination.tsx)的 active outline / inactive ghost 模式。Apple 是与同主题按钮和导航一致的 Web 扩展。参考核对日期：2026-10-22。
 
 ## 代码演示
 
 <Demos glob="./demos/*.demo.tsx" columns={2} />
 
 ## API
+
+页码使用 `value/defaultValue/onValueChange(page, details)`，从 1 开始；`details` 包含当前 `pageSize` 和 `reason: 'page' | 'page-size' | 'jump'`。每页条数使用独立的 `pageSize/defaultPageSize/onPageSizeChange(size, { page })`。每组受控与默认属性互斥，外部更新不触发回调。
+
+改变每页条数时保留原首条数据所在页，先通知条数变化，再通知页码及完整详情；应用据此更新数据请求。两类详情通过可选的 `event` 保留真实操作事件：页码点击、跳转的 Enter 或失焦、页容量选择；页容量变化的两个回调共享同一事件，不伪造原生事件。`total=0` 时保留不可前后移动的第一页。组件管理导航状态，数据加载由使用方负责。
+
+页码按钮和快速跳转保持原生键盘操作；内置名称、页容量与总数格式跟随语言，可通过现有格式化属性覆盖。`size` 决定分页控件尺寸，数据区域的 `density` 独立配置；窄屏允许辅助区域换行。
 
 <API source="../src/types.ts" symbol="PaginationProps" component="Pagination" />

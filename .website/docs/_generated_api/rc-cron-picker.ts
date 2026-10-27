@@ -5,24 +5,66 @@ type DocsTypePlaceholder = ((...args: never[]) => unknown) & {
     readonly [key: string]: DocsTypePlaceholder;
     readonly [key: number]: DocsTypePlaceholder;
 };
+type CronPickerChangeDetails = DocsTypePlaceholder;
+type DropdownOpenChangeDetails = DocsTypePlaceholder;
 type HTMLInputElement = DocsTypePlaceholder;
 type Ref<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 
 export interface CronPickerProps {
     /**
-     * 无障碍名称,默认 "Cron 表达式"
+     * 字段外观，默认 outlined；bordered=false 时由宿主提供外观。
      */
-    "aria-label"?: string;
+    "appearance"?: "outlined" | "filled";
 
     /**
-     * 自定义类名,作用于触发器容器
+     * 与输入框关联的可见标签；Material 浮动，Apple 与 shadcn 上置。
      */
-    "className"?: string;
+    "label"?: string;
 
     /**
-     * 非受控默认值,默认 `* * * * *`
+     * 输入框下方的辅助说明，自动加入 aria-describedby。
+     */
+    "supportingText"?: string;
+
+    /**
+     * 错误说明；提供时自动启用 error 状态并替换辅助说明。
+     */
+    "errorText"?: string;
+
+    /**
+     * 暂无说明。 与 defaultValue 互斥，不能同时提供。
+     */
+    "value"?: string;
+
+    /**
+     * 暂无说明。 与 value 互斥，不能同时提供。
      */
     "defaultValue"?: string;
+
+    /**
+     * 暂无说明。
+     */
+    "onValueChange"?: ((value: string, details: CronPickerChangeDetails) => void);
+
+    /**
+     * 暂无说明。 与 defaultOpen 互斥，不能同时提供。
+     */
+    "open"?: boolean;
+
+    /**
+     * 暂无说明。 与 open 互斥，不能同时提供。
+     */
+    "defaultOpen"?: boolean;
+
+    /**
+     * 暂无说明。
+     */
+    "onOpenChange"?: ((open: boolean, details: DropdownOpenChangeDetails) => void);
+
+    /**
+     * 控件尺寸,默认 medium
+     */
+    "size"?: 'large' | 'medium' | 'small';
 
     /**
      * 是否禁用
@@ -31,14 +73,9 @@ export interface CronPickerProps {
     "disabled"?: boolean;
 
     /**
-     * 表达式变化回调,仅在产生合法表达式时触发
+     * 外部校验状态,影响边框颜色;输入了非法表达式时组件会自行显示 error 态
      */
-    "onChange"?: (value: string) => void;
-
-    /**
-     * 弹层开合变化回调
-     */
-    "onOpenChange"?: (open: boolean) => void;
+    "status"?: 'error' | 'warning';
 
     /**
      * 占位提示,默认 `* * * * *`
@@ -57,17 +94,12 @@ export interface CronPickerProps {
     "ref"?: Ref<HTMLInputElement>;
 
     /**
-     * 控件尺寸,默认 middle
+     * 自定义类名,作用于触发器容器
      */
-    "size"?: 'large' | 'middle' | 'small';
+    "className"?: string;
 
     /**
-     * 外部校验状态,影响边框颜色;输入了非法表达式时组件会自行显示 error 态
+     * 无障碍名称,默认 "Cron 表达式"
      */
-    "status"?: 'error' | 'warning';
-
-    /**
-     * 受控值:五段式(分 时 日 月 周)cron 表达式
-     */
-    "value"?: string;
+    "aria-label"?: string;
 }

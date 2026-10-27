@@ -22,7 +22,7 @@ export default function Example() {
                         <li key={item}>{item}</li>
                     ))}
             </ul>
-            <Pagination total={23} pageSize={5} current={page} onChange={setPage} />
+            <Pagination total={23} pageSize={5} value={page} onValueChange={setPage} />
         </div>
     );
 }

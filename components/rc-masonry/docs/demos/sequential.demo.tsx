@@ -1,7 +1,7 @@
 import Checkbox from "@crab-dev/rc-checkbox";
 export const meta = {
     title: "顺序排列",
-    description: "设置 `sequential` 为 `true` 时，子项按 DOM 顺序从左到右依次排列，而非优先放入最短列",
+    description: "设置 `sequential` 为 `true` 时，子项按 DOM 顺序从行内起始侧依次排列：LTR 从左侧开始，RTL 从右侧开始。默认模式优先放入最短列。",
 };
 
 import { cx } from "@crab-dev/css";
@@ -25,7 +25,7 @@ const SequentialDemo = () => {
     return (
         <div>
             <div className={controlStyle}>
-                <Checkbox checked={sequential} onChange={setSequential}>顺序排列</Checkbox>
+                <Checkbox checked={sequential} onCheckedChange={setSequential}>顺序排列</Checkbox>
             </div>
             <Masonry columns={3} gutter={12} sequential={sequential}>
                 {items.map((item, i) => (

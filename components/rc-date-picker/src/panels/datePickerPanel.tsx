@@ -1,3 +1,4 @@
+import { usePickerLocale } from '../locale.js';
 import { useState, useEffect } from 'react';
 import type { HTMLAttributes, RefObject } from 'react';
 import { css, cx } from '@crab-dev/css';
@@ -6,6 +7,7 @@ import { ChevronDoubleLeft, ChevronDoubleRight, ChevronLeft, ChevronRight } from
 import token from '../token.js';
 import Button from '@crab-dev/rc-button';
 import semantic from '@crab-dev/rc-token-semantic';
+import { useConfig } from '@crab-dev/rc-config-provider';
 
 export interface DatePickerPanelInstance {
     keyboardNavigate: (direction: 'left' | 'right' | 'up' | 'down') => void;
@@ -156,13 +158,16 @@ const DatePickerPanel = ({
     value,
     timeZone = Temporal.Now.timeZoneId(),
     weekStartDay = 1,
-    locale = 'zh-CN',
+    locale: localeProp,
     selectValues = [],
     range,
     onSelect,
     instance,
     ...restProps
 }: DatePickerPanelProps) => {
+    const { locale, messages } = usePickerLocale(localeProp);
+    const { direction } = useConfig();
+    const isRtl = (restProps.dir ?? direction) === 'rtl';
     const viewValue = value.withTimeZone(timeZone);
     const [viewDate, setViewDate] = useState(viewValue);
     const [today, setToday] = useState(() => Temporal.Now.zonedDateTimeISO(timeZone).toPlainDate());
@@ -189,10 +194,10 @@ const DatePickerPanel = ({
                     let moved: Temporal.ZonedDateTime = selectValue;
                     switch (direction) {
                         case 'left':
-                            moved = selectValue.subtract({ days: 1 });
+                            moved = selectValue.add({ days: isRtl ? 1 : -1 });
                             break;
                         case 'right':
-                            moved = selectValue.add({ days: 1 });
+                            moved = selectValue.add({ days: isRtl ? -1 : 1 });
                             break;
                         case 'up':
                             moved = selectValue.subtract({ days: 7 });
@@ -211,7 +216,7 @@ const DatePickerPanel = ({
             }
         }
         return () => { if (instance) instance.current = null; };
-    }, [instance, selectValues, range, viewDate, onSelect]);
+    }, [instance, selectValues, range, viewDate, onSelect, isRtl]);
 
     const calendarMatrix = getCalendarMatrix(viewDate.year, viewDate.month, weekStartDay, timeZone);
     const weekDaysHeader = getWeekDaysHeader(viewDate.year, viewDate.month, weekStartDay, locale, timeZone);
@@ -242,10 +247,10 @@ const DatePickerPanel = ({
             <div className={headerStyle}>
                 <div className={centerFlexStyle}>
                     <Button type="button" appearance="text" className={navigationStyle}
-                        aria-label="上一年" icon={<ChevronDoubleLeft aria-hidden />}
+                        aria-label={messages.previousYear} icon={isRtl ? <ChevronDoubleRight aria-hidden /> : <ChevronDoubleLeft aria-hidden />}
                         disabled={!canGoPrevYear} onClick={() => setViewDate(viewDate.subtract({ years: 1 }))} />
                     <Button type="button" appearance="text" className={navigationStyle}
-                        aria-label="上一月" icon={<ChevronLeft aria-hidden />}
+                        aria-label={messages.previousMonth} icon={isRtl ? <ChevronRight aria-hidden /> : <ChevronLeft aria-hidden />}
                         disabled={!canGoPrevMonth} onClick={() => setViewDate(viewDate.subtract({ months: 1 }))} />
                 </div>
                 <div className={monthStyle} aria-live="polite">
@@ -261,14 +266,14 @@ const DatePickerPanel = ({
                 </div>
                 <div className={centerFlexStyle}>
                     <Button type="button" appearance="text" className={navigationStyle}
-                        aria-label="下一月" icon={<ChevronRight aria-hidden />}
+                        aria-label={messages.nextMonth} icon={isRtl ? <ChevronLeft aria-hidden /> : <ChevronRight aria-hidden />}
                         disabled={!canGoNextMonth} onClick={() => setViewDate(viewDate.add({ months: 1 }))} />
                     <Button type="button" appearance="text" className={navigationStyle}
-                        aria-label="下一年" icon={<ChevronDoubleRight aria-hidden />}
+                        aria-label={messages.nextYear} icon={isRtl ? <ChevronDoubleLeft aria-hidden /> : <ChevronDoubleRight aria-hidden />}
                         disabled={!canGoNextYear} onClick={() => setViewDate(viewDate.add({ years: 1 }))} />
                 </div>
             </div>
-            <table className={calendarTableStyle} aria-label="选择日期">
+            <table className={calendarTableStyle} aria-label={messages.chooseDate}>
                 <thead>
                     <tr>
                         {weekDaysHeader.map((day) => (

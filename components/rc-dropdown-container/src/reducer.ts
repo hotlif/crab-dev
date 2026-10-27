@@ -1,4 +1,7 @@
-export type DropdownAction = { type: 'setOpen'; payload: boolean };
+import type { DropdownOpenChangeDetails } from './dropdownContainer.js';
+
+/** Consumers may preserve a semantic reason and the original native event. */
+export type DropdownAction = { type: 'setOpen'; payload: boolean; details?: DropdownOpenChangeDetails };
 
 export interface DropdownState {
     open: boolean;

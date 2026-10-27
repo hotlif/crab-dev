@@ -1,3 +1,5 @@
+import type { DesignSystem } from './design-system.js';
+
 /** Resolved CSS expressions; callers apply themes by overriding existing L2 variables. */
 export interface FeedbackColors {
     readonly text: string;
@@ -54,7 +56,4 @@ export interface ResolvedThemeColorContract extends ThemeColorContract {
     readonly dark: ResolvedThemeColors;
 }
 
-/** Visual design system, independent of the Light / Dark color mode. */
-export type ThemeDesign = 'material' | 'shadcn' | 'macos';
-
-export type DesignColorContract = Readonly<Record<ThemeDesign, ResolvedThemeColorContract>>;
+export type DesignColorContract = Readonly<Record<DesignSystem, ResolvedThemeColorContract>>;

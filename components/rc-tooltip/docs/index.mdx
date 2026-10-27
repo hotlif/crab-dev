@@ -41,6 +41,10 @@ status = "experimental"
 
 ## 三套设计风格
 
-Material 使用无箭头的逆色 plain tooltip；shadcn 保持逆色表面并采用 6px 圆角；macOS 使用浅色或深色面板表面、细描边和柔和阴影。显式 arrow 是项目保留的可选扩展，不会因主题切换改变触发和 aria-describedby 行为。
+MD3 Expressive 使用无箭头的逆色 plain tooltip；shadcn 保持逆色表面并采用 6px 圆角；Apple 使用浅色或深色面板表面、细描边和柔和阴影。显式 arrow 是项目保留的可选扩展，不会因主题切换改变触发和 aria-describedby 行为。
 
 切换文档站设计风格后，本页演示同步使用该设计；浅色和深色模式分别使用配对语义颜色。
+
+## 配置与展开协议
+
+使用 open / defaultOpen / onOpenChange(next, details) 表达受控、初始值和用户请求。默认值只在初始化时读取，外部配置更新不触发用户回调；details.reason 给出触发原因。内置弹层按 ownerDocument 共享栈，Escape 只作用于顶层。主题、语言、方向和 CSP nonce 沿配置继承，内容尺寸与布局密度独立。

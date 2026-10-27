@@ -33,11 +33,11 @@ export function layoutDocument(pages: PageInfo[], zoom: number, viewportWidth: n
 
 /** 取视口中点所在的页；间隙归到最近的一页，长页滚动时仍保持当前页。 */
 export function pageAtPosition(layout: DocumentLayout, top: number, viewportHeight: number): number {
-    const middle = top + viewportHeight / 2;
+    const medium = top + viewportHeight / 2;
     let low = 0, high = layout.pages.length - 1;
     while (low < high) {
         const index = Math.floor((low + high) / 2), item = layout.pages[index];
-        if (middle > item.y + item.height + layout.gap / 2) low = index + 1;
+        if (medium > item.y + item.height + layout.gap / 2) low = index + 1;
         else high = index;
     }
     return low;

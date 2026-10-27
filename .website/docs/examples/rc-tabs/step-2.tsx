@@ -23,7 +23,7 @@ export default function Example() {
     const [active, setActive] = useState("overview");
     return (
         <div className={layout}>
-            <Tabs items={items} activeKey={active} onChange={setActive} />
+            <Tabs items={items} value={active} onValueChange={setActive} />
             <Button onClick={() => setActive("activity")}>查看活动</Button>
             <output>当前标签：{active}</output>
         </div>

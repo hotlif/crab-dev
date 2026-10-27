@@ -1,6 +1,7 @@
 import Button from "@crab-dev/rc-button";
 import Card from "@crab-dev/rc-card";
 import { sourceCode } from "../_generated_tutorials/home.js";
+import { libraryInventory } from "../_generated/library.js";
 import HomeComponentShowcase from "./homeComponentShowcase.js";
 import LiveExample from "./liveExample.js";
 import "./homeStyles.js";
@@ -41,10 +42,11 @@ export function HomeHero({ href }: HomeSectionProps) {
         <section className="crab-home-hero" aria-label="Crab UI 组件文档">
             <div className="crab-home-intro">
                 <h1>Crab UI</h1>
-                <p className="crab-home-lead">支持 Material Design 3、shadcn 与 macOS 风格的 React 组件库，为企业应用构建清晰、一致的界面。</p>
+                <p className="crab-home-lead">支持 MD3 Expressive、Apple 与 shadcn/ui 三套设计体系的 React 组件库，为企业应用构建清晰、一致的界面。</p>
+                <p className="crab-home-section-note">{libraryInventory.count} 个包 · {libraryInventory.families.length} 个能力族 · 用途分类独立维护</p>
                 <div className="crab-home-actions">
-                    <Button size="large" appearance="primary" href={href("guides/getting-started")} iconAfter={<span aria-hidden="true">→</span>}>开始使用</Button>
-                    <Button size="large" appearance="outlined" href={href("learn/components")} iconAfter={<span aria-hidden="true">→</span>}>组件目录</Button>
+                    <Button size="l" appearance="primary" href={href("guides/getting-started")} iconAfter={<span aria-hidden="true">→</span>}>开始使用</Button>
+                    <Button size="l" appearance="outlined" href={href("learn/components")} iconAfter={<span aria-hidden="true">→</span>}>组件目录</Button>
                 </div>
             </div>
             <nav className="crab-home-feature-grid" aria-label="精选组件">
@@ -65,9 +67,9 @@ export function HomeHero({ href }: HomeSectionProps) {
                 </Button>
             </nav>
             <nav className="crab-home-quick-links" aria-label="首页快速入口">
-                <Button appearance="text" size="small" href={href("components/rc-token-semantic")}>设计令牌</Button><span aria-hidden="true">·</span>
-                <Button appearance="text" size="small" href={href("guides/accessibility")}>无障碍</Button><span aria-hidden="true">·</span>
-                <Button appearance="text" size="small" href={href("#practice")}>业务实战</Button>
+                <Button appearance="text" size="s" href={href("components/rc-token-semantic")}>设计令牌</Button><span aria-hidden="true">·</span>
+                <Button appearance="text" size="s" href={href("guides/accessibility")}>无障碍</Button><span aria-hidden="true">·</span>
+                <Button appearance="text" size="s" href={href("#practice")}>业务实战</Button>
             </nav>
         </section>
     );
@@ -77,10 +79,10 @@ export function HomeCategories({ href }: HomeSectionProps) {
     return (
         <section className="crab-home-section" id="components" aria-labelledby="component-title">
             <header className="crab-home-section-heading">
-                <div><span className="crab-home-eyebrow">组件目录</span><h2 id="component-title">从常用能力开始探索。</h2><p className="crab-home-section-note">按界面任务分类，快速找到可以直接组合的基础能力。</p></div>
+                <div><span className="crab-home-eyebrow">精选任务</span><h2 id="component-title">从常用能力开始探索。</h2><p className="crab-home-section-note">按界面任务选择常用能力；完整目录按能力族组织，并标注独立的用途分类。</p></div>
                 <Button appearance="text" className="crab-home-catalog-action" href={href("learn/components")}>查看全部组件 <span aria-hidden="true">→</span></Button>
             </header>
-            <nav className="crab-home-category-index" role="navigation" aria-label="组件分类跳转">
+            <nav className="crab-home-category-index" role="navigation" aria-label="任务入口跳转">
                 {categories.map((category) => <Button key={category.id} appearance="text" href={href(`#${category.id}`)}>{category.title}</Button>)}
             </nav>
             <div className="crab-home-categories">

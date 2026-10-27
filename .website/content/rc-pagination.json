@@ -19,12 +19,12 @@
         {
             "id": "step-2",
             "title": "连接列表切片",
-            "goal": "用 current 计算 slice 范围，并连接 onChange。",
+            "goal": "用 current 计算 slice 范围，并连接 onValueChange。",
             "why": "分页控件提供导航，数据切片或请求仍由业务负责。",
             "instruction": "切换到第 2 页和最后一页。",
             "expected": "第二页显示项目 6–10，最后一页只有 3 条。",
             "changes": [
-                "用 current 计算 slice 范围，并连接 onChange。"
+                "用 current 计算 slice 范围，并连接 onValueChange。"
             ],
             "source": "rc-pagination/step-2.tsx"
         }

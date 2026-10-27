@@ -62,7 +62,7 @@ export interface VirtualProps {
     "gridRef"?: RefObject<VirtualHandle | null>;
 
     /**
-     * 实际逻辑滚动位置变化，包含滚轮、滚动条、命令式定位及尺寸收缩。
+     * 实际逻辑滚动位置变化，包含滚轮、滚动条、原生聚焦滚动、命令式定位及尺寸收缩。
      */
     "onScrollPositionChange"?: (position: { left: number; top: number; }) => void;
 }

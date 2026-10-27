@@ -1,6 +1,7 @@
-import { useComponentSize } from '@crab-dev/rc-config-provider';
+import Button, { TokenVars as buttonVars } from '@crab-dev/rc-button';
+import { useComponentSize, useLocale } from '@crab-dev/rc-config-provider';
 import { css, cx } from '@crab-dev/css';
-import { useId, useLayoutEffect, useRef } from 'react';
+import { useId, useLayoutEffect, useRef, useState } from 'react';
 import type { KeyboardEvent as ReactKeyboardEvent, MouseEvent as ReactMouseEvent, ReactNode } from 'react';
 import { useControllableValue } from '@crab-dev/rc-hooks';
 
@@ -11,6 +12,7 @@ import type {
     TabsItem,
     TabsProps,
     TabsSize,
+    TabsChangeDetails,
 } from './types.js';
 
 const rootStyle = css`
@@ -42,11 +44,15 @@ const barStyle = css`
 
 const barListStyle = css`
     display: flex;
+    box-sizing: border-box;
     align-items: stretch;
     flex: 0 0 auto;
     width: max-content;
     gap: ${token.bar.gap};
     min-width: 100%;
+    /* Reserve the last border when native RTL scroll ranges round fractional
+       content widths down. Border-box keeps a fitting list from overflowing. */
+    padding-inline-end: 1px;
 `;
 
 const barLineStyle = css`
@@ -71,7 +77,6 @@ const barCenteredStyle = css`
 const itemBaseStyle = css`
     @media (pointer: coarse) { min-width: ${token.interaction.touch['min-width']}; min-height: ${token.interaction.touch['min-height']}; }
     &:focus-visible { outline: ${token.interaction['outline-width-focus']} solid ${token.interaction['outline-color-focus']}; outline-offset: ${token.interaction['outline-offset-focus']}; }
-    @media (forced-colors: active) { &:focus-visible { outline-color: Highlight; } &[aria-selected='true'], &[aria-current='page'] { outline: 2px solid Highlight; } }
     @media (prefers-reduced-motion: reduce) { transition: none; }
 
     position: relative;
@@ -117,6 +122,19 @@ const itemBaseStyle = css`
     &:focus-visible {
         outline: ${token.tab['outline-width-focus']} solid ${token.tab['outline-color-focus']};
         outline-offset: ${token.tab['outline-offset-focus']};
+    }
+
+    @media (forced-colors: active) {
+        /* Keep selection inside the real scrolling bar. Keyboard focus uses
+           a distinct system foreground ring; selected pills override it below. */
+        &[aria-selected='true'], &[aria-current='page'] {
+            outline: 2px solid Highlight;
+            outline-offset: -2px;
+        }
+        &:focus-visible {
+            outline: ${token.tab['outline-width-focus']} solid CanvasText;
+            outline-offset: calc(-1 * ${token.tab['outline-width-focus']} - 1px);
+        }
     }
 `;
 
@@ -166,7 +184,6 @@ const itemCardStyle = css`
     border-bottom: 0;
     border-top-left-radius: ${token.card['border-radius']};
     border-top-right-radius: ${token.card['border-radius']};
-    margin-bottom: -1px;
 
 `;
 
@@ -184,6 +201,18 @@ const itemPillStyle = css`
 const itemPillActiveStyle = css`
     background: ${token.pill['background-color-active']};
     color: ${token.pill['color-active']};
+
+    @media (forced-colors: active) {
+        forced-color-adjust: none;
+        background: Highlight;
+        color: HighlightText;
+        /* Selection already uses Highlight. A contrasting contained ring
+           distinguishes keyboard focus without escaping the scrolling bar. */
+        &:focus-visible {
+            outline: ${token.tab['outline-width-focus']} solid HighlightText;
+            outline-offset: calc(-1 * ${token.tab['outline-width-focus']} - 1px);
+        }
+    }
 
 `;
 
@@ -213,14 +242,44 @@ const indicatorStyle = css`
     @media (forced-colors: active) { background: Highlight; }
 `;
 
+const tabItemWrapperStyle = css`
+    position: relative;
+    display: inline-flex;
+    flex: 0 0 auto;
+`;
+
+const closeSpaceStyle = css`
+    display: inline-flex;
+    min-width: ${token.close.touch.width};
+    min-height: ${token.close.touch.width};
+    margin-inline-start: ${token.close.gap};
+    @media (pointer: coarse) { min-width: ${token.interaction.touch['min-width']}; min-height: ${token.interaction.touch['min-height']}; }
+`;
+
+const closePositionStyles = {
+    small: css`inset-inline-end: ${token.size.small['padding-inline']};`,
+    medium: css`inset-inline-end: ${token.size.medium['padding-inline']};`,
+    large: css`inset-inline-end: ${token.size.large['padding-inline']};`,
+};
+
 const closeButtonStyle = css`
+    /* This utility action owns neutral feedback; Button owns state selectors. */
+    ${buttonVars['text.color']}: ${token.close.color};
+    ${buttonVars['text.background-color-hover']}: ${token.close['background-color-hover']};
+    ${buttonVars['text.background-color-focus']}: ${token.close['background-color-hover']};
+    ${buttonVars['text.background-color-active']}: ${token.close['background-color-hover']};
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    margin-left: ${token.close.gap};
+    position: absolute;
+    inset-block-start: 50%;
+    translate: 0 -50%;
+    margin: 0;
+    width: ${token.close.touch.width};
+    height: ${token.close.touch.width};
     min-width: ${token.close.touch.width};
     min-height: ${token.close.touch.width};
-    & > svg { width: ${token.close.width}; height: ${token.close.width}; }
+    & svg { width: ${token.close.width}; height: ${token.close.width}; }
     @media (pointer: coarse) { min-width: ${token.interaction.touch['min-width']}; min-height: ${token.interaction.touch['min-height']}; }
     padding: 0;
     border: 0;
@@ -233,7 +292,6 @@ const closeButtonStyle = css`
 
     &:hover {
         color: ${token.close['color-hover']};
-        background: ${token.close['background-color-hover']};
     }
 
     &:focus {
@@ -315,37 +373,48 @@ const revealTab = (bar: HTMLDivElement | null, tab: HTMLButtonElement | undefine
     if (delta !== 0) bar.scrollBy({ left: delta, behavior: 'instant' });
 };
 
+interface CloseFocusRequest {
+    source: HTMLButtonElement;
+    bar: HTMLDivElement | null;
+    list: HTMLDivElement | null;
+    key: string;
+    candidates: string[];
+    moved: boolean;
+    release: () => void;
+}
+
 const Tabs = ({
     items,
-    activeKey: activeKeyProp,
-    defaultActiveKey,
+    value: activeKeyProp,
+    defaultValue,
     type = 'line',
     size: sizeProp,
     centered = false,
     destroyInactiveTabPane = false,
     tabBarExtraContent,
-    onChange,
+    onValueChange,
     onTabClose,
     className,
     ...restProps
 }: TabsProps) => {
     const configuredSize = useComponentSize(sizeProp);
-    const size = configuredSize === 'middle' ? 'medium' : configuredSize;
+    const { messages } = useLocale();
+    const size = configuredSize;
     const reactId = useId();
     const tabsIdPrefix = `rc-tabs-${reactId.replace(/:/g, '')}`;
     const getTabId = (index: number) => `${tabsIdPrefix}-tab-${index}`;
     const getPanelId = (index: number) => `${tabsIdPrefix}-panel-${index}`;
     const firstEnabledItem = items.find(item => !item.disabled);
 
-    const resolvedDefault = defaultActiveKey
+    const resolvedDefault = defaultValue
         ?? firstEnabledItem?.key
         ?? items[0]?.key
         ?? '';
 
-    const [activeKey, setActiveKey] = useControllableValue<string>({
+    const [activeKey, setActiveKey] = useControllableValue<string, [TabsChangeDetails]>({
         value: activeKeyProp,
         defaultValue: resolvedDefault,
-        onChange,
+        onValueChange,
     });
     const registerIndicator = useTabIndicator(activeKey, type === 'line');
 
@@ -353,6 +422,32 @@ const Tabs = ({
     const tabRefs = useRef<Map<string, HTMLButtonElement>>(new Map());
     const barRef = useRef<HTMLDivElement>(null);
     const listRef = useRef<HTMLDivElement>(null);
+    // A keyboard close owns focus only until its first commit. A rejected or
+    // asynchronous controlled close must not steal focus on a later update.
+    const closeFocus = useRef<CloseFocusRequest | null>(null);
+    const [closeAttempt, setCloseAttempt] = useState<symbol | null>(null);
+
+    useLayoutEffect(() => () => {
+        closeFocus.current?.release();
+        closeFocus.current = null;
+    }, []);
+
+    useLayoutEffect(() => {
+        const request = closeFocus.current;
+        if (!request) return;
+        closeFocus.current = null;
+        request.release();
+        const owner = request.source.ownerDocument;
+        if (request.moved || items.some(item => item.key === request.key)
+            || request.source.isConnected || request.bar !== barRef.current
+            || request.list !== listRef.current || !request.bar?.isConnected
+            || !request.list?.isConnected
+            || (owner.activeElement !== owner.body && owner.activeElement !== owner.documentElement)) return;
+        const nextKey = request.candidates.find(key => items.some(item => item.key === key && !item.disabled));
+        const nextTab = nextKey ? tabRefs.current.get(nextKey) : undefined;
+        nextTab?.focus({ preventScroll: true });
+        revealTab(barRef.current, nextTab);
+    }, [closeAttempt, items]);
 
     useLayoutEffect(() => {
         if (!items.some(item => item.key === activeKey)) return;
@@ -365,11 +460,11 @@ const Tabs = ({
         return () => observer.disconnect();
     }, [activeKey, items]);
 
-    const activateKey = (nextKey: string) => setActiveKey(nextKey);
+    const activateKey = (nextKey: string, details: TabsChangeDetails) => setActiveKey(nextKey, details);
 
-    const handleTabClick = (item: TabsItem) => {
+    const handleTabClick = (item: TabsItem, event: ReactMouseEvent<HTMLButtonElement>) => {
         if (item.disabled || item.key === activeKey) return;
-        activateKey(item.key);
+        activateKey(item.key, { reason: 'pointer', event });
     };
 
     const handleTabKeyDown = (
@@ -381,18 +476,20 @@ const Tabs = ({
 
         if (key === 'ArrowLeft' || key === 'ArrowRight' || key === 'Home' || key === 'End') {
             event.preventDefault();
+            const declaredDirection = event.currentTarget.closest('[dir]')?.getAttribute('dir');
+            const rtl = declaredDirection === 'rtl' || (declaredDirection !== 'ltr' && getComputedStyle(event.currentTarget).direction === 'rtl');
             let nextKey: string | null;
             if (key === 'ArrowLeft') {
-                nextKey = findEnabledKey(items, index, -1);
+                nextKey = findEnabledKey(items, index, rtl ? 1 : -1);
             } else if (key === 'ArrowRight') {
-                nextKey = findEnabledKey(items, index, 1);
+                nextKey = findEnabledKey(items, index, rtl ? -1 : 1);
             } else if (key === 'Home') {
                 nextKey = findEnabledKey(items, -1, 1);
             } else {
                 nextKey = findEnabledKey(items, items.length, -1);
             }
             if (nextKey && nextKey !== activeKey) {
-                activateKey(nextKey);
+                activateKey(nextKey, { reason: 'keyboard', event });
             }
             if (nextKey) {
                 const nextTab = tabRefs.current.get(nextKey);
@@ -405,14 +502,43 @@ const Tabs = ({
         if (key === 'Enter' || key === ' ' || key === 'Spacebar') {
             if (!item.disabled && item.key !== activeKey) {
                 event.preventDefault();
-                activateKey(item.key);
+                activateKey(item.key, { reason: 'keyboard', event });
             }
             return;
         }
 
         if ((key === 'Delete' || key === 'Backspace') && item.closable && !item.disabled) {
             event.preventDefault();
-            onTabClose?.(item.key, event);
+            const source = event.currentTarget;
+            const owner = source.ownerDocument;
+            closeFocus.current?.release();
+            closeFocus.current = null;
+            if (onTabClose && owner.activeElement === source) {
+                const request: CloseFocusRequest = {
+                    source,
+                    bar: barRef.current,
+                    list: listRef.current,
+                    key: item.key,
+                    candidates: [...items.slice(index + 1), ...items.slice(0, index).reverse()].map(candidate => candidate.key),
+                    moved: false,
+                    release: () => owner.removeEventListener('focusin', trackFocus),
+                };
+                function trackFocus(focusEvent: FocusEvent) {
+                    if (focusEvent.target !== source) request.moved = true;
+                }
+                owner.addEventListener('focusin', trackFocus);
+                closeFocus.current = request;
+                setCloseAttempt(Symbol('keyboard-close'));
+                try {
+                    onTabClose(item.key, event);
+                } finally {
+                    // Explicit blur/focus during the callback belongs to the caller.
+                    // React's own removal blur is allowed once the source disconnects.
+                    if (source.isConnected && owner.activeElement !== source) request.moved = true;
+                }
+            } else {
+                onTabClose?.(item.key, event);
+            }
         }
     };
 
@@ -466,52 +592,49 @@ const Tabs = ({
                             const isActive = item.key === activeKey;
 
                             return (
-                                <button
-                                    type="button"
-                                    key={item.key}
-                                    ref={registerTabRef(item.key)}
-                                    id={getTabId(index)}
-                                    role="tab"
-                                    aria-selected={isActive}
-                                    aria-controls={getPanelId(index)}
-                                    aria-disabled={item.disabled || undefined}
-                                    tabIndex={isActive ? 0 : -1}
-                                    disabled={item.disabled}
-                                    className={cx.call(undefined, itemBaseStyle,
-                                        itemSizeStyle,
-                                        isActive ? itemActiveStyle : '',
-                                        item.disabled ? itemDisabledStyle : '',
-                                        getTypeItemStyles(item, isActive),
-                                        item.className,
-                                    )}
-                                    style={item.style}
-                                    onClick={() => handleTabClick(item)}
-                                    onKeyDown={(event) => handleTabKeyDown(event, item, index)}
-                                >
-                                    {item.icon != null ? <span className={itemIconStyle} aria-hidden="true">{item.icon}</span> : null}
-                                    <span className={type === 'line' ? indicatorLabelStyle : undefined}>
-                                        {item.label}
-                                        {type === 'line' && <span ref={registerIndicator(item.key)} className={indicatorStyle} aria-hidden="true" />}
-                                    </span>
-                                    {item.closable && !item.disabled ? (
-                                        <span
-                                            role="button"
-                                            tabIndex={-1}
-                                            aria-label="Close tab"
-                                            className={closeButtonStyle}
-                                            onClick={(event) => handleCloseClick(event, item)}
-                                            onKeyDown={(event) => {
-                                                if (event.key === 'Enter' || event.key === ' ') {
-                                                    event.preventDefault();
-                                                    event.stopPropagation();
-                                                    onTabClose?.(item.key, event);
-                                                }
-                                            }}
-                                        >
-                                            <CloseIcon />
+                                <div key={item.key} role="presentation" className={tabItemWrapperStyle}>
+                                    <button
+                                        type="button"
+                                        ref={registerTabRef(item.key)}
+                                        id={getTabId(index)}
+                                        role="tab"
+                                        aria-selected={isActive}
+                                        aria-controls={getPanelId(index)}
+                                        aria-disabled={item.disabled || undefined}
+                                        tabIndex={isActive ? 0 : -1}
+                                        disabled={item.disabled}
+                                        className={cx.call(undefined, itemBaseStyle,
+                                            itemSizeStyle,
+                                            isActive ? itemActiveStyle : '',
+                                            item.disabled ? itemDisabledStyle : '',
+                                            getTypeItemStyles(item, isActive),
+                                            item.className,
+                                        )}
+                                        style={item.style}
+                                        onClick={(event) => handleTabClick(item, event)}
+                                        onKeyDown={(event) => handleTabKeyDown(event, item, index)}
+                                    >
+                                        {item.icon != null ? <span className={itemIconStyle} aria-hidden="true">{item.icon}</span> : null}
+                                        <span className={type === 'line' ? indicatorLabelStyle : undefined}>
+                                            {item.label}
+                                            {type === 'line' && <span ref={registerIndicator(item.key)} className={indicatorStyle} aria-hidden="true" />}
                                         </span>
+                                        {item.closable && !item.disabled ? <span className={closeSpaceStyle} aria-hidden="true" /> : null}
+                                    </button>
+                                    {item.closable && !item.disabled ? (
+                                        <Button
+                                            type="button"
+                                            appearance="text"
+                                            size="xs"
+                                            tabIndex={-1}
+                                            aria-label={messages.tabs.closeTab}
+                                            aria-controls={getPanelId(index)}
+                                            className={cx(closeButtonStyle, closePositionStyles[size])}
+                                            onClick={(event) => handleCloseClick(event, item)}
+                                            icon={<CloseIcon />}
+                                        />
                                     ) : null}
-                                </button>
+                                </div>
                             );
                         })}
                     </div>

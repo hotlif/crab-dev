@@ -37,7 +37,7 @@ const gallery = css`
     }
     & .demo-card {
         /* Let the authored body own padding once, without the Card wrapper adding another layer. */
-        --card-size-middle-padding: ${globalToken.space[0]};
+        --card-size-medium-padding: ${globalToken.space[0]};
         border-radius: ${token.radius.xl};
         border-color: transparent;
         box-shadow: none;
@@ -150,10 +150,10 @@ const gallery = css`
         padding-inline: ${token.space["section-gap"]};
     }
     & .demo-email {
-        --line-edit-size-middle-height: calc(${globalToken.space[10]} + ${globalToken.space[1]});
+        --line-edit-size-medium-height: calc(${globalToken.space[10]} + ${globalToken.space[1]});
         width: 100%;
     }
-    & .demo-period { --segmented-size-middle-height: calc(${globalToken.space[10]} + ${globalToken.space[1]}); }
+    & .demo-period { --segmented-size-medium-height: calc(${globalToken.space[10]} + ${globalToken.space[1]}); }
     & .demo-preference-control { display: flex; min-height: calc(${globalToken.space[10]} + ${globalToken.space[1]}); gap: ${token.space["stack-gap"]}; padding-block: ${token.space["component-gap"]}; line-height: 1.6; }
     & .demo-preference-control .demo-secondary { display: block; }
     & .demo-extra { min-width: 0; }
@@ -284,7 +284,7 @@ export default function ComponentGallery() {
                                         className="demo-task-control"
                                         checked={task.done}
                                         aria-label={task.title}
-                                        onChange={(checked) => setTasks(tasks.map((item, itemIndex) =>
+                                        onCheckedChange={(checked) => setTasks(tasks.map((item, itemIndex) =>
                                             itemIndex === index ? { ...item, done: checked } : item,
                                         ))}
                                     >
@@ -329,12 +329,12 @@ export default function ComponentGallery() {
                                     id={`${id}-email`}
                                     value={email}
                                     placeholder="name@company.com"
-                                    onChange={(event) => {
-                                        setEmail(event.target.value);
+                                    onValueChange={(value) => {
+                                        setEmail(value);
                                         setFeedback({ kind: "idle", message: invitationHelp });
                                     }}
                                     maxLength={80}
-                                    size="middle"
+                                    size="medium"
                                     status={invalid ? "error" : undefined}
                                     readOnly={pending}
                                     aria-invalid={invalid}
@@ -359,11 +359,11 @@ export default function ComponentGallery() {
                             <div className="demo-row"><h3>访问概览</h3><span className="demo-secondary">示例数据</span></div>
                             <Segmented
                                 className="demo-period"
-                                size="middle"
+                                size="medium"
                                 aria-label="访问统计周期"
                                 options={[{ label: "本周", value: "week" }, { label: "上周", value: "previous" }]}
                                 value={period}
-                                onChange={(value) => setPeriod(String(value))}
+                                onValueChange={(value) => setPeriod(String(value))}
                             />
                             <div className="demo-row">
                                 <strong className="demo-number">{visits.reduce((sum, value) => sum + value, 0).toLocaleString("en-US")}</strong>
@@ -394,10 +394,10 @@ export default function ComponentGallery() {
                         <div className="demo-body">
                             <h3>通知偏好</h3>
                             <div className="demo-preferences">
-                                <Switch className="demo-preference-control" checked={notifications} onChange={setNotifications} aria-label="桌面通知">
+                                <Switch className="demo-preference-control" checked={notifications} onCheckedChange={setNotifications} aria-label="桌面通知">
                                     <span>桌面通知</span><span className="demo-secondary">项目有新动态时提醒我</span>
                                 </Switch>
-                                <Switch className="demo-preference-control" checked={digest} onChange={setDigest} aria-label="每周摘要">
+                                <Switch className="demo-preference-control" checked={digest} onCheckedChange={setDigest} aria-label="每周摘要">
                                     <span>每周摘要</span><span className="demo-secondary">每周一，回顾团队进展</span>
                                 </Switch>
                             </div>

@@ -29,7 +29,7 @@ export default function Example() {
                 supportingText="可以输入关键词筛选。"
                 options={options}
                 value={value}
-                onChange={setValue}
+                onValueChange={setValue}
                 searchable
                 allowClear
                 placeholder="搜索城市"

@@ -12,10 +12,10 @@ type Ref<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?
 
 export interface ProseProps {
     /**
-     * 根元素的 HTML 标签名
-     * @default 'div'
+     * 排版尺寸变体
+     * @default ’base’
      */
-    "as"?: ProseTag;
+    "size"?: ProseSize;
 
     /**
      * 是否启用暗色排版（独立于全局 data-theme）
@@ -24,13 +24,13 @@ export interface ProseProps {
     "invert"?: boolean;
 
     /**
+     * 根元素的 HTML 标签名
+     * @default ’div’
+     */
+    "as"?: ProseTag;
+
+    /**
      * 暂无说明。
      */
     "ref"?: Ref<HTMLDivElement>;
-
-    /**
-     * 排版尺寸变体
-     * @default 'base'
-     */
-    "size"?: ProseSize;
 }

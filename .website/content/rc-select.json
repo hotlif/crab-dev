@@ -1,7 +1,7 @@
 {
     "id": "rc-select",
     "title": "Select 选择器",
-    "summary": "先用 options 显示城市列表，再通过 value 和 onChange 读取选择结果，并加入本地搜索和清除。",
+    "summary": "先用 options 显示城市列表，再通过 value 和 onValueChange 读取选择结果，并加入本地搜索和清除。",
     "prerequisite": "安装 @crab-dev/rc-select 并接入组件样式。第二个示例使用 React useState 保存选中值；本页预览已配置 Wake 样式加载。",
     "steps": [
         {
@@ -24,7 +24,7 @@
             "instruction": "搜索杭州并选择，再清除选项。",
             "expected": "选择后输出 hz，清除后恢复未选择。",
             "changes": [
-                "用 string | null 状态连接 value 和 onChange。",
+                "用 string | null 状态连接 value 和 onValueChange。",
                 "添加 searchable 过滤现有选项，allowClear 清空选择。"
             ],
             "source": "rc-select/step-2.tsx"
@@ -37,7 +37,7 @@
         },
         {
             "question": "为什么清除后应保存 null？",
-            "answer": "单选的 null 表示受控空值，undefined 表示由组件维护状态。多选使用空数组。接入受控状态时应保存 onChange 返回的值。"
+            "answer": "单选的 null 表示受控空值，undefined 表示由组件维护状态。多选使用空数组。接入受控状态时应保存 onValueChange 返回的值。"
         },
         {
             "question": "searchable 会请求远程数据吗？",

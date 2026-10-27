@@ -1,6 +1,6 @@
 export const meta = {
     title: "尺寸",
-    description: "提供 large、middle、small 三种尺寸",
+    description: "提供 large、medium、small 三种尺寸",
     group: "数据录入",
     component: "Select 选择器",
     order: 90,
@@ -26,7 +26,7 @@ const SizeDemo = () => {
     return (
         <div className={containerStyle}>
             <Select aria-label="large" size="large" options={options} placeholder="Large" />
-            <Select aria-label="middle" size="middle" options={options} placeholder="Middle (默认)" />
+            <Select aria-label="medium" size="medium" options={options} placeholder="Medium (默认)" />
             <Select aria-label="small" size="small" options={options} placeholder="Small" />
         </div>
     );

@@ -1,7 +1,7 @@
 import type { HTMLAttributes, ReactElement, Ref } from 'react';
 import type { PdfEditorActionId } from './actions.js';
 
-/** URL 请求可显式携带认证信息；二进制输入始终复制，不转移调用方的所有权。 */
+/** URL 请求可显式携带认证信息；支持同源 Window 的二进制输入并始终复制，不转移调用方的所有权。 */
 export type PdfSource = string | URL | Blob | ArrayBuffer | Uint8Array | {
     url: string | URL;
     headers?: HeadersInit;
@@ -217,6 +217,7 @@ export interface PdfEditorPlugin {
 
 export interface PdfRegionOcrPluginOptions<Result> {
     readonly id: string;
+    /** 自定义名称原样显示；省略时使用编辑器当前 locale 的默认 OCR 名称。 */
     readonly label?: string;
     readonly scale?: number;
     /** 宿主注入 OCR 引擎或服务；核心包不上传文档、不绑定 OCR 厂商。 */

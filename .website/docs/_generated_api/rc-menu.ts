@@ -8,8 +8,9 @@ type DocsTypePlaceholder = ((...args: never[]) => unknown) & {
 type HTMLElement = DocsTypePlaceholder;
 type Item = DocsTypePlaceholder;
 type Key = DocsTypePlaceholder;
+type MenuOpenKeysChangeDetails = DocsTypePlaceholder;
+type MenuSelectionChangeDetails = DocsTypePlaceholder;
 type MouseEvent<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
-type OnSelectItemParam = DocsTypePlaceholder;
 
 export interface MenuProps {
     /**
@@ -17,16 +18,6 @@ export interface MenuProps {
      * @default "vertical"
      */
     "mode"?: "vertical" | "horizontal" | "inline";
-
-    /**
-     * 当前展开的 Menu 节点
-     */
-    "openKeys"?: Key[];
-
-    /**
-     * 当前选中的菜单项 key 数组
-     */
-    "selectedKeys"?: Key[];
 
     /**
      * 菜单内容
@@ -41,15 +32,37 @@ export interface MenuProps {
     /**
      * 选中时, 进行调用
      */
-    "onSelectItem"?: (param: OnSelectItemParam) => void;
+    "onSelectedKeysChange"?: (selectedKeys: Key[], details: MenuSelectionChangeDetails) => void;
 
     /**
      * 展开/关闭的回调
      */
-    "onOpenChange"?: (openKeys: Key[]) => void;
+    "onOpenKeysChange"?: (openKeys: Key[], details: MenuOpenKeysChangeDetails) => void;
 
     /**
      * 点击事件
      */
     "onClick"?: (param: { event: MouseEvent<HTMLElement>; item: Item; }) => void;
+
+    /**
+     * 受控的选中键集合 与 defaultSelectedKeys 互斥，不能同时提供。
+     */
+    "selectedKeys"?: Key[];
+
+    /**
+     * 仅初始化的选中键集合 与 selectedKeys 互斥，不能同时提供。
+     * @default []
+     */
+    "defaultSelectedKeys"?: Key[];
+
+    /**
+     * 受控的展开键集合 与 defaultOpenKeys 互斥，不能同时提供。
+     */
+    "openKeys"?: Key[];
+
+    /**
+     * 仅初始化的展开键集合 与 openKeys 互斥，不能同时提供。
+     * @default []
+     */
+    "defaultOpenKeys"?: Key[];
 }

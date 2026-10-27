@@ -1,4 +1,5 @@
-import { afterEach, describe, expect, it, mock, act, renderHook } from "@crab-dev/wake/test/react";
+import { afterEach, describe, expect, it, mock } from "@crab-dev/wake/test";
+import { act, renderHook } from "@crab-dev/wake/test/react";
 import { useRef } from "react";
 import { useMediaQuery } from "../useMediaQuery.js";
 import { useSize } from "../useResizeObserver.js";

@@ -6,6 +6,7 @@ type DocsTypePlaceholder = ((...args: never[]) => unknown) & {
     readonly [key: number]: DocsTypePlaceholder;
 };
 type DialogI18n = DocsTypePlaceholder;
+type DialogOpenChangeDetails = DocsTypePlaceholder;
 type DialogResultHandler = DocsTypePlaceholder;
 type HTMLDialogElement = DocsTypePlaceholder;
 type ReactNode = DocsTypePlaceholder;
@@ -39,13 +40,7 @@ export interface DialogProps {
     "footer"?: ReactNode;
 
     /**
-     * 是否开启
-     */
-    "open": boolean;
-
-    /**
      * 是否在关闭的时候重置内容
-     * @default true
      */
     "shouldResetContent"?: boolean;
 
@@ -53,11 +48,6 @@ export interface DialogProps {
      * 点击遮罩（对话框外部区域）是否触发取消并关闭，默认 `false`
      */
     "maskClosable"?: boolean;
-
-    /**
-     * 状态发生改变的时候触发的事件
-     */
-    "onOpenChange": (open: boolean) => void;
 
     /**
      * 确定按钮点击时触发的事件，返回 `false` 则保持对话框打开，其余情况关闭
@@ -68,4 +58,19 @@ export interface DialogProps {
      * 取消按钮点击时触发的事件，返回 `false` 则保持对话框打开，其余情况关闭
      */
     "onCancel"?: DialogResultHandler;
+
+    /**
+     * 暂无说明。 与 defaultOpen 互斥，不能同时提供。
+     */
+    "open"?: boolean;
+
+    /**
+     * 暂无说明。 与 open 互斥，不能同时提供。
+     */
+    "defaultOpen"?: boolean;
+
+    /**
+     * 暂无说明。
+     */
+    "onOpenChange"?: ((open: boolean, details: DialogOpenChangeDetails) => void);
 }

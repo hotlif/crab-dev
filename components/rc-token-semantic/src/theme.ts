@@ -2,7 +2,7 @@ import { defineTokens } from "@crab-dev/css";
 import palette from "@crab-dev/rc-token-global";
 import type { ResolvedThemeColorContract } from "./types.js";
 
-export const themeColorContract: ResolvedThemeColorContract = defineTokens({
+export const md3ColorContract: ResolvedThemeColorContract = defineTokens({
     light: {
         workspace: {
             frame: palette.zinc[200],

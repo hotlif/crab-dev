@@ -12,7 +12,7 @@ const BasicDemo = () => {
     return (
         <Checkbox
             checked={checked}
-            onChange={(val) => setChecked(val)}
+            onCheckedChange={(val) => setChecked(val)}
         >
             Checkbox
         </Checkbox>

@@ -1,4 +1,6 @@
-import { act, describe, expect, it, beforeAll, mock, render, fireEvent, screen } from "@crab-dev/wake/test/react";
+import { useLayoutEffect, useRef } from 'react';
+import { describe, expect, it, beforeAll, mock } from "@crab-dev/wake/test";
+import { act, render, fireEvent, screen } from "@crab-dev/wake/test/react";
 // 本文件刻意不 mock @floating-ui/react —— 要验证的正是它的真实 FloatingTree/useDismiss
 // 机制:嵌套的 DropdownContainer(如 rc-select 用在 rc-color-picker 面板内)各自的浮层
 // 因独立 FloatingPortal 而在 DOM 上只是兄弟节点,点击内层浮层不应被外层误判为"点击外部"
@@ -66,5 +68,27 @@ describe("DropdownContainer nested usage (real @floating-ui/react)", () => {
             document.body.dispatchEvent(new PointerEvent("pointerdown", { bubbles: true }));
         });
         expect(screen.queryByTestId("outer-panel")).toBeNull();
+    });
+});
+
+function FocusTrigger() {
+    const { dispatch, refs } = useDropdownContext<HTMLButtonElement>();
+    return <button ref={refs.setReference} data-testid="focus-trigger" onClick={() => dispatch({ type: 'setOpen', payload: true })}>Open autofocus panel</button>;
+}
+function AutofocusPanel() {
+    const ref = useRef<HTMLButtonElement>(null);
+    useLayoutEffect(() => { ref.current?.focus(); }, []);
+    return <button ref={ref} data-testid="autofocus-option">First option</button>;
+}
+describe('Dropdown autofocus restoration', () => {
+    it('returns Escape focus to its reference even after panel layout autofocus', async () => {
+        await render(<DropdownContainer overlay={<AutofocusPanel />}><FocusTrigger /></DropdownContainer>);
+        const trigger = screen.getByTestId('focus-trigger');
+        await act(() => trigger.focus());
+        await act(async () => { await fireEvent.click(trigger); await new Promise(resolve => setTimeout(resolve, 20)); });
+        expect(document.activeElement).toBe(screen.getByTestId('autofocus-option'));
+        await act(async () => { document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true, cancelable: true })); await new Promise(resolve => setTimeout(resolve, 20)); });
+        expect(screen.queryByTestId('autofocus-option')).toBeNull();
+        expect(document.activeElement).toBe(trigger);
     });
 });

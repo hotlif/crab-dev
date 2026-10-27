@@ -47,14 +47,16 @@ import { demos } from "../_generated/rc-split-pane.js";
 
 需要两块面板以外的自定义布局时，可直接使用 `@crab-dev/rc-hooks` 的 `useDragResize`。
 
+分隔条的默认无障碍名称随 `ConfigProvider.locale` 切换中英文，不重置当前面板尺寸。多个分栏并存时，通过 `aria-label` 指定可区分的名称。
+
 
 
 ### 设计风格与主题
 
-分隔线、拖动和焦点使用语义角色。macOS 使用紧凑的细分隔轨道，MD3 保留细线与较宽命中区，shadcn 增加居中的可见握柄。粗指针仍使用公共触控目标；方向键、Home/End、Enter、禁用及减少动态效果行为保持一致。所有演示的边框、背景和文字现已跟随当前主题。
-本范围以 M3 Lists / Divider 的表面、分隔、状态和无障碍规则作为扩展依据；数据表、图表、PDF 编辑器和可拖动分栏并非 Material Web 的同名标准组件。macOS 与 shadcn 是本项目在相同交互能力上的设计变体，未引入第三方 UI 运行时，也不宣称原生平台逐像素复刻。
+分隔线、拖动和焦点使用语义角色。Apple 使用紧凑的细分隔轨道，MD3 保留细线与较宽命中区，shadcn 增加居中的可见握柄。粗指针仍使用公共触控目标；方向键、Home/End、Enter、禁用及减少动态效果行为保持一致。所有演示的边框、背景和文字现已跟随当前主题。
+这是本库的可调整分栏扩展。MD3 的分隔角色用于视觉边界；Apple 的布局与焦点原则用于 Web 适配；shadcn/ui 参考固定 New York V4 Resizable 的握柄表达。分栏比例、约束与键盘调整属于本库契约，分隔线的视觉样式不能替代分栏行为验收。
 
-参考（2026-10-22）：[M3 Lists 指南](https://m3.material.io/components/lists/guidelines)、[规格](https://m3.material.io/components/lists/specs)、[无障碍](https://m3.material.io/components/lists/accessibility)、[M3 Divider](https://m3.material.io/components/divider/guidelines)、[Material Web List 文档及示例](https://material-web.dev/components/list/)、[列表项样式](https://github.com/material-components/material-web/blob/main/list/internal/listitem/_list-item.scss)、[列表令牌](https://github.com/material-components/material-web/blob/main/tokens/_md-comp-list-item.scss)、[Divider 样式](https://github.com/material-components/material-web/blob/main/divider/internal/_divider.scss)、[Apple Lists and tables](https://developer.apple.com/design/human-interface-guidelines/lists-and-tables)、[shadcn Table](https://ui.shadcn.com/docs/components/table)、[Table 源码](https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/new-york-v4/ui/table.tsx)、[shadcn Resizable](https://ui.shadcn.com/docs/components/resizable)。
+设计来源与固定参考版本见[三套设计体系](/guides/design-styles)，当前已核对范围见[设计覆盖矩阵](/guides/design-coverage)。这段说明记录适配边界，不代表完整视觉验收已通过。
 
 ### 适用场景
 
@@ -72,6 +74,14 @@ import { demos } from "../_generated/rc-split-pane.js";
 
 - 分隔条使用 separator 语义并提供当前值、方向键调整和可见焦点。
 - 触控命中区可以大于可见线；缩放和窄屏时两个面板仍要可达。
+
+### 设计依据与覆盖
+
+- **MD3 Expressive**：M3 没有独立 Split pane；面板 surface、divider、focus 与触控目标使用 M3 规则，调整行为参考 Web separator 模式。 [依据 1](https://m3.material.io/components/divider/overview) · [依据 2](https://material-web.dev/components/divider/) · [依据 3](https://github.com/material-components/material-web/tree/main/divider)
+- **Apple**：依据 Apple HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。 [依据 1](https://developer.apple.com/design/human-interface-guidelines/components) · [依据 2](https://developer.apple.com/design/human-interface-guidelines/accessibility)
+- **shadcn/ui**：参考 shadcn/ui 的组件用途、中性表面与设计变量，在本库公共语义和 React 交互模型中实现；完整状态覆盖仍需按矩阵验收。 [依据 1](https://ui.shadcn.com/docs/components) · [依据 2](https://ui.shadcn.com/docs/theming) · [依据 3](https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4)
+
+设计依据不等于完成验收；当前状态与适用边界见[覆盖矩阵](/guides/design-coverage)。
 
 ## 常见问题
 

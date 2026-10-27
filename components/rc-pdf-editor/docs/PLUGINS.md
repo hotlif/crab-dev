@@ -16,6 +16,8 @@
 
 简单按钮仍可使用 `toolbar.extraActions`。有资源、订阅、异步识别或卸载需求的能力使用 `plugins`。两者通过同一套工具栏展示，均不公开 PDFium 指针、Worker 协议或内部对象索引。
 
+省略 `createRegionOcrPlugin` 的 `label` 时，编辑器会按当前 `ConfigProvider.locale` 显示“区域 OCR”或“Region OCR”，在 Provider 外创建插件也一样。显式 `label` 和宿主错误消息原样显示；语言切换只更新库内名称、处理状态和库内错误说明，不重新安装插件或执行任务。
+
 ## 最小 OCR 接入
 
 下面的 `/api/ocr/region` 是宿主提供的示例服务：接收 PNG 文件并返回纯文本。组件不会自动创建该服务。

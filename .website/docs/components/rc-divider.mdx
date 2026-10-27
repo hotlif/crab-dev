@@ -51,6 +51,8 @@ import { demos } from "../_generated/rc-divider.js";
 
 已有留白、标题或边框能够清楚表达分组时，无需额外添加分割线。
 
+`variant="dotted"` 使用圆点线，点距为线宽的三倍，为 DPR 1 等低像素密度下的光栅边缘保留间隙；`dashed` 使用短划线。横向、竖向和带标题的分段线遵循相同规则。
+
 ### 无障碍
 
 默认使用 `role="separator"` 表达内容分组。纯装饰线可设置 `decorative`，使其通过 `role="none"` 和 `aria-hidden` 从无障碍树中隐藏。
@@ -82,6 +84,14 @@ import { demos } from "../_generated/rc-divider.js";
 - 纯装饰分隔隐藏语义；确实表示主题断点时保留 separator 角色和正确方向。
 - 不要只用 Divider 表达不可见的关系，标题与 DOM 结构仍要正确。
 
+### 设计依据与覆盖
+
+- **MD3 Expressive**：直接参考 M3 Dividers 的 full-width、inset、颜色和厚度，并对照 Material Web divider。 [依据 1](https://m3.material.io/components/divider/overview) · [依据 2](https://material-web.dev/components/divider/) · [依据 3](https://github.com/material-components/material-web/tree/main/divider)
+- **Apple**：依据 Apple HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。 [依据 1](https://developer.apple.com/design/human-interface-guidelines/components) · [依据 2](https://developer.apple.com/design/human-interface-guidelines/accessibility)
+- **shadcn/ui**：参考 shadcn/ui 的组件用途、中性表面与设计变量，在本库公共语义和 React 交互模型中实现；完整状态覆盖仍需按矩阵验收。 [依据 1](https://ui.shadcn.com/docs/components) · [依据 2](https://ui.shadcn.com/docs/theming) · [依据 3](https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4)
+
+设计依据不等于完成验收；当前状态与适用边界见[覆盖矩阵](/guides/design-coverage)。
+
 ## 常见问题
 
 ### 带标题时能设置 decorative 吗？
@@ -91,3 +101,10 @@ import { demos } from "../_generated/rc-divider.js";
 ## API
 
 <API source="../_generated_api/rc-divider.ts" symbol="DividerProps" component="Divider" />
+
+<details data-docs-native-props>
+<summary>Divider 继承的原生属性（277 项）</summary>
+
+<API source="../_generated_api/rc-divider-native.ts" symbol="DividerPropsNativeAttributes" component="Divider 继承的原生属性" />
+
+</details>

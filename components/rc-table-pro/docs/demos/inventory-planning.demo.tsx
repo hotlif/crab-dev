@@ -130,7 +130,7 @@ export default function InventoryPlanningDemo() {
                 groupBy={["$.warehouse"]}
                 defaultExpandAll
                 showSummary
-                rowSelection={{ type: "checkbox", selectedRowIds: selectedIds, onChange: ids => setSelectedIds(ids), getDisabled: row => row.dataRef.health !== "需补货" }}
+                rowSelection={{ type: "checkbox", selectedRowIds: selectedIds, onSelectedRowIdsChange: ids => setSelectedIds(ids), getDisabled: row => row.dataRef.health !== "需补货" }}
                 expandedRowRender={row => <div>供应商：{row.dataRef.supplier}　·　采购提前期：{row.dataRef.leadDays} 天　·　补货点：{row.dataRef.reorderPoint} 件</div>}
                 expandedRowHeight={72}
                 sideBar

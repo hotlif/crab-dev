@@ -24,7 +24,7 @@ export default function Example() {
                     setResult(record.name);
                 }}
             >
-                <Item name="name" label="姓名" labelPlacement="control" binding="event" supportingText="最多 30 字。">
+                <Item name="name" label="姓名" labelPlacement="control" supportingText="最多 30 字。">
                     <LineEdit maxLength={30} />
                 </Item>
                 <Button onClick={() => void form.submit()}>读取表单</Button>

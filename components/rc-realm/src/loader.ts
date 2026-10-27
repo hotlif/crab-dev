@@ -1,6 +1,6 @@
 import { importModule } from './importer.js';
 import { resolveShareScope } from './shareScope.js';
-import { RealmError } from './types.js';
+import { createBuiltinRealmError } from './errorMessages.js';
 import type { RemoteContainer, SharedConfig } from './types.js';
 
 export interface LoadRemoteOptions {
@@ -82,18 +82,16 @@ const injectScript = (entry: string, scope: string, containerKey: string): Promi
                 resolve(candidate);
             } else {
                 reject(
-                    new RealmError(
-                        'container',
+                    createBuiltinRealmError(
                         entry,
                         scope,
-                        `remoteEntry 加载完成但 globalThis['${scope}'] 不是 MF 容器：` +
-                            'scope 与 ModuleFederationPlugin.name 不符, 或该脚本不是 var 格式的 remote',
+                        { id: 'global-container' },
                     ),
                 );
             }
         });
         script.addEventListener('error', () => {
-            reject(new RealmError('script', entry, scope, `remoteEntry 脚本加载失败：${entry}`));
+            reject(createBuiltinRealmError(entry, scope, { id: 'script-load' }));
         });
         document.head.appendChild(script);
     });
@@ -109,17 +107,16 @@ const createContainer = async (
         try {
             ns = await importModule(entry);
         } catch (cause) {
-            throw new RealmError('script', entry, scope, `remoteEntry 模块导入失败：${entry}`, {
+            throw createBuiltinRealmError(entry, scope, { id: 'module-import' }, {
                 cause,
             });
         }
         const candidate = (ns as { default?: unknown }).default ?? ns;
         if (!isRemoteContainer(candidate)) {
-            throw new RealmError(
-                'container',
+            throw createBuiltinRealmError(
                 entry,
                 scope,
-                'remoteEntry 模块的导出不是 MF 容器（缺少 init/get）',
+                { id: 'module-container' },
             );
         }
         container = candidate;
@@ -137,7 +134,7 @@ const createContainer = async (
     } catch (cause) {
         // 宿主自身已 init 过同一容器时静默豁免（宽进）, 其余照常判失败
         if (!(cause instanceof Error && cause.message.includes('already been initialized'))) {
-            throw new RealmError('init', entry, scope, '远程容器 init(shareScope) 抛出异常', {
+            throw createBuiltinRealmError(entry, scope, { id: 'init' }, {
                 cause,
             });
         }
@@ -172,22 +169,20 @@ const getModule = (options: LoadRemoteOptions, containerKey: string): Promise<un
         try {
             factory = await container.get(options.module);
         } catch (cause) {
-            throw new RealmError(
-                'factory',
+            throw createBuiltinRealmError(
                 options.entry,
                 options.scope,
-                `容器不含模块 '${options.module}' 或其加载失败`,
+                { id: 'module-get', module: options.module },
                 { cause },
             );
         }
         try {
             return factory();
         } catch (cause) {
-            throw new RealmError(
-                'factory',
+            throw createBuiltinRealmError(
                 options.entry,
                 options.scope,
-                `模块 '${options.module}' 的工厂执行抛出异常`,
+                { id: 'factory', module: options.module },
                 { cause },
             );
         }
@@ -205,7 +200,7 @@ const getModule = (options: LoadRemoteOptions, containerKey: string): Promise<un
 export function loadRemoteModule<T = unknown>(options: LoadRemoteOptions): Promise<T> {
     if (!canUseDom()) {
         return Promise.reject(
-            new RealmError('ssr', options.entry, options.scope, '非浏览器环境无法加载远程模块'),
+            createBuiltinRealmError(options.entry, options.scope, { id: 'ssr' }),
         );
     }
     const containerKey = containerKeyOf(options);
@@ -224,11 +219,10 @@ export function loadRemoteModule<T = unknown>(options: LoadRemoteOptions): Promi
             invalidateModuleIfCurrent(moduleKeyOf(containerKey, options.module), modulePromise);
             invalidateContainerIfCurrent(containerKey, containerPromise);
             reject(
-                new RealmError(
-                    'timeout',
+                createBuiltinRealmError(
                     options.entry,
                     options.scope,
-                    `远程模块加载超过 ${timeout}ms 期限`,
+                    { id: 'timeout', timeout },
                 ),
             );
         }, timeout);

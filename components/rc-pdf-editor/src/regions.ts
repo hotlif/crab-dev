@@ -1,19 +1,20 @@
-import { PdfEditorError, type PdfPageDescriptor, type PdfPageRegion, type PdfRegionBounds } from './types.js';
+import type { PdfPageDescriptor, PdfPageRegion, PdfRegionBounds } from './types.js';
+import { pdfError } from './pdf-messages.js';
 import type { DocumentLayout } from './document-layout.js';
 
 export const MAX_CAPTURE_PIXELS = 16_777_216;
 export const MAX_CAPTURE_EDGE = 8192;
 
 export function validateRegions(regions: readonly PdfPageRegion[], pages: readonly PdfPageDescriptor[]): readonly PdfPageRegion[] {
-    if (!Array.isArray(regions) || !regions.length || regions.length > 32) throw new PdfEditorError('operation', '选区必须包含 1–32 个页面区域');
+    if (!Array.isArray(regions) || !regions.length || regions.length > 32) throw pdfError('operation', 'region.count');
     const seen = new Set<number>();
     const result = regions.map(region => {
         const page = pages[region.pageIndex];
-        if (!Number.isInteger(region.pageIndex) || !page || seen.has(region.pageIndex)) throw new PdfEditorError('operation', '选区页码无效或重复');
+        if (!Number.isInteger(region.pageIndex) || !page || seen.has(region.pageIndex)) throw pdfError('operation', 'region.page');
         seen.add(region.pageIndex);
         if (![region.x, region.y, region.width, region.height].every(Number.isFinite) || region.x < 0 || region.y < 0 || region.x >= page.width || region.y >= page.height ||
             region.width <= 0 || region.height <= 0 || region.x + region.width > page.width + 1e-7 || region.y + region.height > page.height + 1e-7) {
-            throw new PdfEditorError('operation', '选区必须位于页面内，且尺寸为有限正数');
+            throw pdfError('operation', 'region.bounds');
         }
         return Object.freeze({ pageIndex: region.pageIndex, x: region.x, y: region.y,
             width: Math.min(region.width, page.width - region.x), height: Math.min(region.height, page.height - region.y) });
@@ -33,15 +34,15 @@ export function regionsInRectangle(layout: DocumentLayout, start: { x: number; y
 
 /** 与 PDFium 的整数目标尺寸一致，返回用于坐标回映的实际页面边界。 */
 export function regionRaster(page: Pick<PdfPageDescriptor, 'width' | 'height'>, bounds: PdfRegionBounds, scale: number) {
-    if (!Number.isFinite(scale) || scale < 0.25 || scale > 8) throw new PdfEditorError('operation', '采样倍率必须在 0.25–8 之间');
+    if (!Number.isFinite(scale) || scale < 0.25 || scale > 8) throw pdfError('operation', 'region.scale');
     const pageWidth = Math.ceil(page.width * scale), pageHeight = Math.ceil(page.height * scale);
-    if (!Number.isSafeInteger(pageWidth) || !Number.isSafeInteger(pageHeight) || Math.max(pageWidth, pageHeight) > 2147483647) throw new PdfEditorError('operation', '页面渲染尺寸超出范围');
+    if (!Number.isSafeInteger(pageWidth) || !Number.isSafeInteger(pageHeight) || Math.max(pageWidth, pageHeight) > 2147483647) throw pdfError('operation', 'region.page-size');
     const scaleX = pageWidth / page.width, scaleY = pageHeight / page.height;
     const left = Math.floor(bounds.x * scaleX), top = Math.floor(bounds.y * scaleY);
     const width = Math.min(pageWidth, Math.ceil((bounds.x + bounds.width) * scaleX)) - left;
     const height = Math.min(pageHeight, Math.ceil((bounds.y + bounds.height) * scaleY)) - top;
     if (width < 1 || height < 1 || width > MAX_CAPTURE_EDGE || height > MAX_CAPTURE_EDGE || width * height > MAX_CAPTURE_PIXELS) {
-        throw new PdfEditorError('operation', '选区图像过大，请缩小选区或采样倍率');
+        throw pdfError('operation', 'region.image-budget');
     }
     return { pageWidth, pageHeight, left, top, width, height,
         sourceBounds: Object.freeze({ x: left / scaleX, y: top / scaleY, width: width / scaleX, height: height / scaleY }) };

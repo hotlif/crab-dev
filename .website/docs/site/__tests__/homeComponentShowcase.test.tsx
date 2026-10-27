@@ -5,16 +5,16 @@ import ConfigProvider from "@crab-dev/rc-config-provider";
 
 mock.module("@crab-dev/rc-segmented", () => ({
     __esModule: true,
-    default: ({ options, value, onChange, "aria-labelledby": labelledBy }: {
+    default: ({ options, value, onValueChange, "aria-labelledby": labelledBy }: {
         options: Array<string | number | { label: ReactNode; value: string | number }>;
         value?: string | number;
-        onChange?: (value: string | number) => void;
+        onValueChange?: (value: string | number) => void;
         "aria-labelledby"?: string;
     }) => (
         <div role="radiogroup" aria-labelledby={labelledBy}>
             {options.map((option) => {
                 const item = typeof option === "object" ? option : { label: option, value: option };
-                return <button key={String(item.value)} type="button" role="radio" aria-checked={value === item.value} onClick={() => onChange?.(item.value)}>{item.label}</button>;
+                return <button key={String(item.value)} type="button" role="radio" aria-checked={value === item.value} onClick={() => onValueChange?.(item.value)}>{item.label}</button>;
             })}
         </div>
     ),
@@ -62,11 +62,11 @@ describe("HomeComponentShowcase", () => {
     });
 
     it("默认继承全站风格和明暗，局部覆盖后可以恢复跟随", async () => {
-        const view = await render(<ConfigProvider design="material" theme="dark"><HomeComponentShowcase /></ConfigProvider>);
+        const view = await render(<ConfigProvider designSystem="md3" colorMode="dark"><HomeComponentShowcase /></ConfigProvider>);
         const preview = () => document.querySelector(".crab-home-demo-surface");
-        expect(preview()?.getAttribute("data-crab-design")).toBe("material");
+        expect(preview()?.getAttribute("data-crab-design")).toBe("md3");
         expect(preview()?.getAttribute("data-theme")).toBe("dark");
-        await view.rerender(<ConfigProvider design="shadcn" theme="light"><HomeComponentShowcase /></ConfigProvider>);
+        await view.rerender(<ConfigProvider designSystem="shadcn" colorMode="light"><HomeComponentShowcase /></ConfigProvider>);
         expect(preview()?.getAttribute("data-crab-design")).toBe("shadcn");
         expect(preview()?.getAttribute("data-theme")).toBe("light");
         await fireEvent.click(screen.getByRole("radio", { name: "暗色" }));

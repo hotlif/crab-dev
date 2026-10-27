@@ -20,9 +20,9 @@ import { demos } from "../_generated/rc-slider.js";
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
 
-##### 滑块基础用法 — 这是一个滑块的基础示例
+##### 滑块基础用法 — 将受控滑块与原生数字输入同步，演示 onValueChange 与原生 onChange 事件的适配。
 
-##### 三套设计与状态 — macOS 的窄胶囊手柄、MD3 的细竖柄和 shadcn 的圆形手柄；支持键盘步进与从右到左布局。
+##### 三套设计与状态 — Apple 的窄胶囊手柄、MD3 的细竖柄和 shadcn 的圆形手柄；支持键盘步进与从右到左布局。
 
 ##### 五档尺寸 — 尺寸会随设计风格调整；MD3 保留竖向手柄、轨道间隙与终点。
 
@@ -43,17 +43,24 @@ import { demos } from "../_generated/rc-slider.js";
 
 ### 桌面密度
 
-`material` 使用竖向手柄、轨道间隙与终点标记。`size` 提供 `xs`（默认）、`s`、`m`、`l`、`xl`，轨道高度分别为 4、6、8、12、16px，手柄高度分别为 20、24、28、32、40px。这是保留 Expressive 竖向手柄的项目密度定制，尺寸不等同于官方 Expressive 规格，也不同于 Material Web v0.192 的圆形手柄；粗指针仍提供至少 48px 的纵向操作区域。按压时手柄变细；数值更新立即跟随拖动，不对拖动位置添加延迟。
+`md3` 使用竖向手柄、轨道间隙与终点标记。`size` 提供 `xs`（默认）、`s`、`m`、`l`、`xl`，轨道高度分别为 4、6、8、12、16px，手柄高度分别为 20、24、28、32、40px。这是保留 Expressive 竖向手柄的项目密度定制，尺寸不等同于官方 Expressive 规格，也不同于 Material Web v0.192 的圆形手柄；粗指针仍提供至少 48px 的纵向操作区域。按压时手柄变细；数值更新立即跟随拖动，不对拖动位置添加延迟。
 
-`macos` 参考 Apple HIG 的线性滑块，采用 8×20px 的浅色窄胶囊手柄、轻阴影、连续细轨道；五档轨道高度为 4 / 4 / 6 / 8 / 10px。`shadcn` 使用 16px 白色圆柄、1px 品牌描边与连续轨道，五档高度为 6 / 6 / 8 / 10 / 12px。两者不显示 MD3 终点标记，按压不把圆柄压成竖线。macOS 尺寸与 shadcn 额外档位是项目 Web 定制。
+`apple` 参考 Apple HIG 的线性滑块，采用 8×20px 的浅色窄胶囊手柄、轻阴影、连续细轨道；五档轨道高度为 4 / 4 / 6 / 8 / 10px。`shadcn` 使用 16px 白色圆柄、1px 品牌描边与连续轨道，五档高度为 6 / 6 / 8 / 10 / 12px。两者不显示 MD3 终点标记，按压不把圆柄压成竖线。Apple 尺寸与 shadcn 额外档位是项目 Web 定制。
 
 所有设计共享 `aria-valuenow`、`aria-valuetext`、禁用、错误和键盘焦点能力。焦点轮廓跟随当前手柄；方向键逐步调整，Home / End 到达边界，PageUp / PageDown 调整十步。`dir="rtl"` 将低值放在行首，指针和左右方向键同步反转，上下方向键继续表达增加和减少。
 
-错误状态下轨道与焦点使用错误色，MD3 的实心手柄同步变色；macOS 与 shadcn 保留浅色手柄并显示错误描边。状态演示为每条轨道提供可见标签，并通过 `aria-labelledby` 关联控件。
+错误状态下轨道与焦点使用错误色，MD3 的实心手柄同步变色；Apple 与 shadcn 保留浅色手柄并显示错误描边。状态演示为每条轨道提供可见标签，并通过 `aria-labelledby` 关联控件。
 
 MD3 禁用状态采用 `on-surface` 中性色：已填充轨道与手柄为 38%，未填充轨道为 12%，避免继续以品牌色表示可用操作。
 
-设计来源（2026-10-22）：[M3 规格](https://m3.material.io/components/sliders/specs)、[使用指南](https://m3.material.io/components/sliders/guidelines)、[无障碍](https://m3.material.io/components/sliders/accessibility)、[Material Web 文档与演示](https://material-web.dev/components/slider/)、[实现样式](https://github.com/material-components/material-web/blob/main/slider/internal/_slider.scss)、[令牌](https://github.com/material-components/material-web/blob/main/tokens/_md-comp-slider.scss)、[Apple HIG Sliders](https://developer.apple.com/design/human-interface-guidelines/sliders)、[shadcn Slider 源码](https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/new-york-v4/ui/slider.tsx)。
+设计来源（2026-10-22）：[M3 规格](https://m3.material.io/components/sliders/specs)、[使用指南](https://m3.material.io/components/sliders/guidelines)、[无障碍](https://m3.material.io/components/sliders/accessibility)、[Material Web 文档与演示](https://material-web.dev/components/slider/)、[实现样式](https://github.com/material-components/material-web/blob/main/slider/internal/_slider.scss)、[令牌](https://github.com/material-components/material-web/blob/main/tokens/_md-comp-slider.scss)、[Apple HIG Sliders](https://developer.apple.com/design/human-interface-guidelines/sliders)、[shadcn Slider 源码](https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui/slider.tsx)。
+
+
+### 状态契约
+
+`value / defaultValue / onValueChange(next, details)` 管理数值。`details.reason` 区分 `pointer / keyboard / wheel`，并提供对应的原始事件。
+
+受控值与默认值互斥；默认值仅在初始化时使用。外部属性更新不触发操作回调，省略回调可展示只读受控快照。
 
 ### 适用场景
 
@@ -72,6 +79,14 @@ MD3 禁用状态采用 `on-surface` 中性色：已填充轨道与手柄为 38%�
 - 提供可访问名称、当前值文字、上下限和键盘增减操作。
 - 轨道颜色之外要有可定位手柄与焦点，触控目标大于可见手柄。
 
+### 设计依据与覆盖
+
+- **MD3 Expressive**：直接参考 M3 Sliders 的 continuous/discrete、尺寸、值指示、状态与触控目标，并对照 Material Web slider。 [依据 1](https://m3.material.io/components/sliders/overview) · [依据 2](https://material-web.dev/components/slider/) · [依据 3](https://github.com/material-components/material-web/tree/main/slider)
+- **Apple**：依据 Apple HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。 [依据 1](https://developer.apple.com/design/human-interface-guidelines/components) · [依据 2](https://developer.apple.com/design/human-interface-guidelines/accessibility)
+- **shadcn/ui**：参考 shadcn/ui 的组件用途、中性表面与设计变量，在本库公共语义和 React 交互模型中实现；完整状态覆盖仍需按矩阵验收。 [依据 1](https://ui.shadcn.com/docs/components) · [依据 2](https://ui.shadcn.com/docs/theming) · [依据 3](https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4)
+
+设计依据不等于完成验收；当前状态与适用边界见[覆盖矩阵](/guides/design-coverage)。
+
 ## 常见问题
 
 ### 如何精确键入数字？
@@ -81,3 +96,10 @@ MD3 禁用状态采用 `on-surface` 中性色：已填充轨道与手柄为 38%�
 ## API
 
 <API source="../_generated_api/rc-slider.ts" symbol="SliderProps" component="Slider" />
+
+<details data-docs-native-props>
+<summary>Slider 继承的原生属性（277 项）</summary>
+
+<API source="../_generated_api/rc-slider-native.ts" symbol="SliderPropsNativeAttributes" component="Slider 继承的原生属性" />
+
+</details>

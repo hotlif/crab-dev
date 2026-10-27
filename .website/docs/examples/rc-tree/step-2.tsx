@@ -58,15 +58,15 @@ export default function Example() {
                             treeData={treeData}
                             onTreeNodeChange={setTreeData}
                             expandedKeys={expanded}
-                            onExpanded={({ node }) =>
+                            onExpandedKeysChange={(_keys, { node }) =>
                                 setExpanded((current) =>
                                     current.includes(String(node.id))
                                         ? current.filter((id) => id !== String(node.id))
                                         : [...current, String(node.id)],
                                 )
                             }
-                            selectKeys={selected}
-                            onSelect={({ selectKeys }) => setSelected(selectKeys.map(String))}
+                            selectedKeys={selected}
+                            onSelectedKeysChange={keys => setSelected(keys.map(String))}
                             width={width}
                             height={height}
                         />

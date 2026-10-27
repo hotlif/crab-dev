@@ -19,7 +19,7 @@ panel.preview.border-color = "$ref(color.border.default)"
 panel.preview.margin-top = "$ref(space.section-gap)"
 
 panel.slider.container.gap = "$ref(space.component-gap)"
-panel.slider.label.width = "4em"
+panel.slider.label.width = "6em"
 panel.slider.label.font-size = "$ref(typography.label.font-size)"
 panel.slider.label.font-weight = "$ref(typography.label.font-weight)"
 panel.slider.label.line-height = "$ref(typography.label.line-height)"
@@ -31,6 +31,9 @@ slider.alpha.checker.color = "$ref(color.border.hover)"
 
 # ===== 触发器 Trigger =====
 trigger.border-color = "$ref(color.border.default)"
+trigger.border-color-hover = "$ref(color.border.hover)"
+trigger.background-color-hover = "$ref(color.background.hover-subtle)"
+trigger.background-color-active = "$ref(color.background.active-subtle)"
 trigger.border-radius = "$ref(shape.control)"
 trigger.padding = "0.25rem"
 trigger.gap = "$ref(space.inline-gap)"

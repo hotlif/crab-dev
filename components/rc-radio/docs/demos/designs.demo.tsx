@@ -5,7 +5,7 @@ import token from '@crab-dev/rc-token-semantic';
 import Radio from '../../src/radio.js';
 import RadioGroup from '../../src/radio-group.js';
 
-export const meta = { title: '三套设计与状态', description: 'macOS 使用填充圆盘和对比圆点，MD3 与 shadcn 分别使用不同尺寸的圆环、圆点与焦点反馈。' };
+export const meta = { title: '三套设计与状态', description: 'Apple 使用填充圆盘和对比圆点，MD3 与 shadcn 分别使用不同尺寸的圆环、圆点与焦点反馈。' };
 const panel = css`
     display: grid;
     gap: ${token.space['component-gap']};
@@ -20,9 +20,9 @@ const options = css`flex-direction: column; align-items: flex-start;`;
 export default function DesignsDemo() {
     const errorId = useId();
     return <div className={stack}>
-        {(['macos', 'material', 'shadcn'] as const).map(design => <ConfigProvider key={design} design={design}>
+        {(['apple', 'md3', 'shadcn'] as const).map(design => <ConfigProvider key={design} designSystem={design}>
             <section className={panel} aria-label={`${design} 单选框`}>
-                <strong>{design === 'material' ? 'MD3' : design === 'macos' ? 'macOS' : 'shadcn'}</strong>
+                <strong>{design === 'md3' ? 'MD3' : design === 'apple' ? 'Apple' : 'shadcn'}</strong>
                 <RadioGroup defaultValue="daily" aria-label="通知频率" className={options}>
                     <Radio value="daily">每天</Radio>
                     <Radio value="weekly">每周</Radio>

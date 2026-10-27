@@ -3,6 +3,7 @@ import { fireEvent, render } from '@crab-dev/wake/test/react';
 import RegionSelector from '../region-selector.js';
 import { layoutDocument } from '../document-layout.js';
 import { regionsInRectangle, validateRegions } from '../regions.js';
+import ConfigProvider from '@crab-dev/rc-config-provider';
 
 const pages = [0, 1].map(index => ({ index, id: index, contentRevision: 1, width: 100, height: 100, rotation: 0 }));
 const layout = layoutDocument(pages, 2, 300, 20);
@@ -18,6 +19,28 @@ function pointer(element: Element, type: string, x: number, y: number) {
 }
 
 describe('跨页区域选择', () => {
+    it('updates live instructions and page counts without losing the active region on locale changes', async () => {
+        const onComplete = mock.fn();
+        const props = { layout, scroll: { left: 0, top: 0 }, width: 300, height: 300, onComplete, onCancel: () => {}, onReveal: () => {} };
+        const view = await render(<ConfigProvider locale="zh-CN"><RegionSelector {...props} /></ConfigProvider>);
+        const root = view.container.querySelector<HTMLElement>('[data-region-selector]')!;
+        const status = root.querySelector('[role="status"]')!;
+        expect(status.textContent).toBe('拖动或使用键盘选择区域');
+        await pointer(root, 'pointerdown', 70, 200);
+        await pointer(root, 'pointermove', 170, 260);
+        expect(status.textContent).toBe('选区覆盖 2 页');
+        const rectangles = [...root.querySelectorAll('rect')];
+        await view.rerender(<ConfigProvider locale="en-US"><RegionSelector {...props} /></ConfigProvider>);
+        expect(view.container.querySelector('[data-region-selector]')).toBe(root);
+        expect(status.textContent).toBe('Selection covers 2 pages');
+        expect([...root.querySelectorAll('rect')]).toEqual(rectangles);
+        await fireEvent.keyDown(root, { key: 'Enter' });
+        expect(onComplete).toHaveBeenCalledWith([{ pageIndex: 0, x: 10, y: 90, width: 50, height: 10 }, { pageIndex: 1, x: 10, y: 0, width: 50, height: 10 }]);
+        await view.rerender(<ConfigProvider locale="zh-CN"><RegionSelector {...props} /></ConfigProvider>);
+        expect(status.textContent).toBe('选区覆盖 2 页');
+        await view.unmount();
+    });
+
     it('按每页裁切并去掉间隙，反向拖动、缩放和不同页宽保持页面坐标', () => {
         const expected = [{ pageIndex: 0, x: 10, y: 90, width: 50, height: 10 }, { pageIndex: 1, x: 10, y: 0, width: 50, height: 10 }];
         expect(regionsInRectangle(layout, { x: 70, y: 200 }, { x: 170, y: 260 })).toEqual(expected);

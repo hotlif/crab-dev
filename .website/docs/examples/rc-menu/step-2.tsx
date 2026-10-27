@@ -26,7 +26,7 @@ export default function Example() {
                 items={items}
                 mode="horizontal"
                 selectedKeys={selected}
-                onSelectItem={({ selectedKeys }) => setSelected(selectedKeys.map(String))}
+                onSelectedKeysChange={keys => setSelected(keys.map(String))}
             />
             <output>当前区域：{selected[0] === "members" ? "成员管理" : "项目概览"}</output>
         </div>

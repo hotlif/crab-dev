@@ -26,6 +26,11 @@ status = "experimental"
 - `width` / `height` 同时支持数字（自动补 `px`）与字符串（如 `"50%"`）。
 - `loading=false` 时直接渲染 `children`，便于嵌入到数据驱动的分支里。
 - 尊重 `prefers-reduced-motion`，自动禁用非必要动画。
+- 强制颜色模式以系统 `CanvasText` 内置轮廓显示占位形状，并停止装饰性的呼吸与渐变动画；仍由浏览器调整颜色，不关闭高对比模式。轮廓不增加宽高或行间距。
+
+`circle` 和 `avatar` 只提供 `width` 或 `height` 时，另一轴按 1:1 比例计算；例如 `width={56}` 与 `height={56}` 都得到 56 × 56 的圆形占位。百分比按指定轴的容器尺寸解析，再用于另一轴。显式同时提供宽高时保留两轴尺寸，可以表达椭圆占位。
+
+普通颜色模式继续使用公开 `TokenVars['root.background-color']`；Card 等组合组件的局部填充覆盖和原有 pulse / wave 动效不受强色适配影响。`loading=false` 后真实内容不会继承占位轮廓。
 
 ## 代码演示
 

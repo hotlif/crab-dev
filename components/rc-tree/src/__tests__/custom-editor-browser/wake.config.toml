@@ -1,0 +1,21 @@
+# Actual demo and real native focus/blur; CSS extraction is mocked only here.
+# Published layout/paint remain covered by test:browser and the CDP matrix.
+[test]
+setup = ["../../../../../test/wake-css.setup.ts"]
+environment = "browser"
+include = ["custom-editor.test.tsx"]
+timeout_ms = 10000
+leaks = "error"
+
+[test.react]
+strict_mode = false
+cleanup = true
+act_warnings = "error"
+
+[test.network]
+mode = "deny"
+allow_hosts = []
+
+[test.coverage]
+enabled = true
+reporters = ["text", "lcov"]

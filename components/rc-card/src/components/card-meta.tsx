@@ -17,6 +17,9 @@ const avatarStyle = css`
 const textStyle = css`
     display: flex;
     flex-direction: column;
+    /* Fill the remaining row so percentage-based loading slots have the same
+       available width as the final title and description. */
+    flex: 1 1 auto;
     gap: ${token.meta.text.gap};
     min-width: 0;
 `;

@@ -1,5 +1,6 @@
 import { type ReactNode, use, useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
+import { useLocale } from '@crab-dev/rc-config-provider';
 import { CanvasContext } from '../context/canvas-context.js';
 import { CanvasPaletteContext } from '../context/palette-context.js';
 import { parseColor } from '../math/color.js';
@@ -34,8 +35,18 @@ export interface TextProps extends CanvasInteractiveProps {
     mode?: 'sdf' | 'bitmap';
     /** 双击进入内联编辑模式（createPortal 挂载到 Canvas 容器 div） */
     editable?: boolean;
-    /** 编辑完成（失焦或按 Enter，Shift+Enter 换行）时触发，返回新文本内容 */
+    /** 内联文本编辑器的无障碍名称；未提供或仅为空白时使用当前语言的默认名称。 */
+    editorLabel?: string;
+    /** 编辑完成（失焦或非输入法组合态的 Enter，Shift+Enter 换行）时触发，每次编辑只通知一次。 */
     onEdit?: (text: string) => void;
+}
+
+// 无捕获的稳定 ref：只在编辑器挂载时初始化焦点与选区，语言/主题更新不重选草稿。
+function initializeTextEditor(node: HTMLTextAreaElement | null) {
+    if (node) {
+        node.focus();
+        node.select();
+    }
 }
 
 function Text({
@@ -55,6 +66,7 @@ function Text({
     draggable = false,
     cursor,
     editable = false,
+    editorLabel,
     onEdit,
     onClick,
     onMouseEnter,
@@ -65,6 +77,7 @@ function Text({
 }: TextProps) {
     const ctx = use(CanvasContext);
     const { palette } = use(CanvasPaletteContext);
+    const { messages } = useLocale();
     const fill = fillProp ?? palette.foreground;
     // 可变实例状态 ref：持有注册 id
     const cmdIdRef = useRef<number | null>(null);
@@ -76,11 +89,28 @@ function Text({
 
     // 内联编辑状态
     const [editing, setEditing] = useState(false);
+    // 可变实例状态：先结束会话，再通知应用，避免应用移焦触发 blur 重复提交。
+    const editingSessionRef = useRef(false);
 
     // latest-ref：onEdit 回调（避免 HitEntry 闭包陈旧）
     // 注：渲染期写 ref 违反 Rules of React，使编译器降级——是 latest-ref 的有意取舍
     const onEditRef = useRef(onEdit);
     onEditRef.current = onEdit;
+
+    const finishEditing = (editor: HTMLTextAreaElement, commit: boolean, restoreFocus: boolean) => {
+        if (!editingSessionRef.current) return;
+        editingSessionRef.current = false;
+        const container = ctx.containerRef.current;
+        const ownerDocument = editor.ownerDocument;
+        const ownedFocus = ownerDocument.activeElement === editor;
+        setEditing(false);
+        if (commit) onEditRef.current?.(editor.value);
+        // 显式结束才返回画布。应用回调可能转移焦点或同步卸载，不能覆盖它的决定。
+        if (restoreFocus && ownedFocus && ownerDocument.activeElement === editor
+            && container?.isConnected && ctx.containerRef.current === container) {
+            container.focus({ preventScroll: true });
+        }
+    };
 
     const alignOffset = (w: number): number =>
         textAlign === 'center' ? -w / 2 : textAlign === 'right' ? -w : 0;
@@ -122,7 +152,11 @@ function Text({
         },
         cursor,
         onClick,
-        onDblClick: editable ? () => { setEditing(true); } : undefined,
+        onDblClick: editable ? () => {
+            if (editingSessionRef.current) return;
+            editingSessionRef.current = true;
+            setEditing(true);
+        } : undefined,
         onMouseEnter,
         onMouseLeave,
         onDragStart,
@@ -183,7 +217,8 @@ function Text({
 
         overlay = createPortal(
             <textarea
-                ref={(node) => { if (node) { node.focus(); node.select(); } }}
+                aria-label={editorLabel?.trim() || messages.canvas.editText}
+                ref={initializeTextEditor}
                 defaultValue={children}
                 style={{
                     position: 'absolute',
@@ -204,19 +239,20 @@ function Text({
                     zIndex: 1000,
                 }}
                 onBlur={(e) => {
-                    onEditRef.current?.(e.target.value);
-                    setEditing(false);
+                    finishEditing(e.currentTarget, true, false);
                 }}
-                onKeyDown={(e) => {
+                onKeyDownCapture={(e) => {
+                    // 捕获阶段阻止事件，早于 Canvas 容器上的原生 keydown 监听器。
+                    e.stopPropagation();
+                    // 组合输入的确认/取消属于输入法；229 兼容结束组合时 isComposing 已复位的浏览器。
+                    if (e.nativeEvent.isComposing || e.nativeEvent.keyCode === 229) return;
                     if (e.key === 'Enter' && !e.shiftKey) {
                         e.preventDefault();
-                        onEditRef.current?.((e.target as HTMLTextAreaElement).value);
-                        setEditing(false);
+                        finishEditing(e.currentTarget, true, true);
                     } else if (e.key === 'Escape') {
-                        setEditing(false);
+                        e.preventDefault();
+                        finishEditing(e.currentTarget, false, true);
                     }
-                    // 防止 keydown 传递到 Canvas 容器（会触发 canvas keydown 回调）
-                    e.stopPropagation();
                 }}
             />,
             containerEl,

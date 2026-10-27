@@ -56,14 +56,14 @@ describe('Tabs indicator motion', () => {
     });
 
     it('supports reversed physical positions, controlled selection and variant changes', async () => {
-        const view = await render(<Tabs items={items} activeKey="One" dir="rtl" />);
+        const view = await render(<Tabs items={items} value="One" dir="rtl" />);
         indicator('One', 170, 30);
         const second = indicator('Two', 80, 60);
-        await view.rerender(<Tabs items={items} activeKey="Two" dir="rtl" />);
+        await view.rerender(<Tabs items={items} value="Two" dir="rtl" />);
         expect(second.animate.calls.calls[0][0]).toEqual([
             { transform: 'translateX(90px) scaleX(0.5)' }, { transform: 'none' },
         ]);
-        await view.rerender(<Tabs items={items} activeKey="Two" type="pill" />);
+        await view.rerender(<Tabs items={items} value="Two" type="pill" />);
         expect(second.cancel).toHaveBeenCalledTimes(1);
         expect(screen.getByRole('tab', { name: 'Two' }).getAttribute('aria-selected')).toBe('true');
     });
@@ -76,7 +76,7 @@ describe('Tabs indicator motion', () => {
         await fireEvent.click(screen.getByRole('tab', { name: 'Two' }));
         await act(() => {
             reduced = true;
-            listeners.forEach(listener => listener({ matches: true }));
+            [...listeners].forEach(listener => listener({ matches: true }));
         });
         expect(second.cancel).toHaveBeenCalledTimes(1);
         await fireEvent.click(screen.getByRole('tab', { name: 'Three' }));

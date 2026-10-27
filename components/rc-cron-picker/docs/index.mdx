@@ -13,7 +13,7 @@ status = "experimental"
 
 ## 三套主题的计划字段
 
-CronPicker 复用 LineEdit，支持 `label`、`supportingText`、`errorText` 和 `appearance`。MD3 使用浮动标签；macOS 与 shadcn 使用静态标签和各自的桌面焦点环。非法表达式除了错误边框，也显示可见修正说明并关联到输入框，修正后恢复辅助文字。
+CronPicker 复用 LineEdit，支持 `label`、`supportingText`、`errorText` 和 `appearance`。MD3 使用浮动标签；Apple 与 shadcn 使用静态标签和各自的桌面焦点环。非法表达式除了错误边框，也显示可见修正说明并关联到输入框，修正后恢复辅助文字。
 
 基础演示增加“执行计划”可见标签，结果说明使用语义文字颜色。面板中的 Select、NumberEdit、Checkbox 和 Tabs 分别继承主题，不改变表达式解析与提交规则。定时规则编辑器是项目组合能力，参考 [Material Web Text field](https://material-web.dev/components/text-field/)和 [Select](https://material-web.dev/components/select/)，没有对应的官方 Cron 组件。核对日期：2026-10-22。
 
@@ -25,10 +25,26 @@ CronPicker 复用 LineEdit，支持 `label`、`supportingText`、`errorText` 和
 
 表达式采用五段式，依次表示分、时、日、月、周。`parseCron`、`formatCron`、`describeCron` 和 `nextOccurrences` 均为具名导出的纯函数，可用于独立校验与预览。
 
+表达式输入和生成结果始终按从左到右的语法顺序显示；`direction="rtl"` 只改变面板、字段与操作的布局，不反转 Cron 五段的阅读顺序。动态切换方向保留当前值和面板实例。
+
 ## 代码演示
+
+“只读与填充计划字段”对照可编辑计划与归档计划。只读字段保留聚焦、选择和复制，可展开只读面板查看；filled 字段继续使用同一值协议和校验反馈。
 
 <Demos glob="./demos/*.demo.tsx" columns={2} />
 
 ## API
+
+`value/defaultValue/onValueChange(next, details)` 管理表达式，默认 `* * * * *`；受控值和默认值互斥。合法输入提交的原因是 `input`，面板编辑的原因是 `field` 并携带字段名；非法草稿不会对外提交。`open/defaultOpen/onOpenChange` 独立控制面板，外部同步不触发用户操作回调。
+
+面板以完整字段（含标签、辅助与错误说明）定位，保留修正说明的可见空间。手输非法草稿时，输入框保留草稿和错误提示，面板仍展示上一次已提交的合法计划；Enter 不提交非法值，失焦或 Escape 放弃草稿并回退。外部传入非法受控值时，面板使用默认计划兜底，输入保持错误反馈。
+
+`details.event` 透传实际触发提交的事件：手输在 Enter 或失焦提交时携带对应键盘或焦点事件，面板编辑保留下层控件提供的事件对象。下层控件没有提供事件时省略该字段，不创建替代事件；一次提交只触发一次 `onValueChange`。
+
+面板标签、校验说明、执行预览与 ARIA 名称跟随 `locale`。`describeCron(value, locale)` 可独立生成中英文描述，省略语言时使用中文；执行预览使用本地时区。日与周同时限定时按标准 Cron 并集语义计算。
+
+点击输入框或按下方向键展开面板；单独聚焦不会展开。方向键切换字段标签并操作字段控件，Tab 移动焦点。Escape 由共享弹层栈处理：先关闭嵌套选择菜单，再关闭计划面板并恢复输入焦点，每次只通知对应层一次。受控父级继续传入 `open={true}` 时面板保持显示；程序更新 `open` 不产生用户操作回调。
+
+`id`、`name`、`required`、`readOnly` 及 ARIA 关联传递给实际文本输入。使用外部 `<label htmlFor>` 时提供匹配的 `id`；未提供可见或外部标签时，用 `aria-label` 提供名称。只读字段可展开查看，输入和面板控件均不可修改表达式；禁用字段阻止编辑和展开，即使由父级保持面板展开也不能修改。面板限制可用宽度，长表达式换行。
 
 <API source="../src/types.ts" symbol="CronPickerProps" component="CronPicker" />

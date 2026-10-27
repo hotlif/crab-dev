@@ -1,6 +1,8 @@
+import Button from '@crab-dev/rc-button';
+import { useLocale } from '@crab-dev/rc-config-provider';
 import { css, cx } from '@crab-dev/css';
 import { usePresence } from '@crab-dev/rc-hooks';
-import { type FC, type KeyboardEvent, type MouseEvent as ReactMouseEvent, useState } from 'react';
+import { type FC, type MouseEvent as ReactMouseEvent, useState } from 'react';
 import { CloseIcon, ErrorIcon, InfoIcon, SuccessIcon, WarningIcon } from './icons.js';
 import token from './token.js';
 import type { AlertProps, AlertType } from './types.js';
@@ -86,7 +88,7 @@ const iconStyle = css`
     display: inline-flex;
     align-items: center;
     flex-shrink: 0;
-    margin-right: ${token.icon["margin-right"]};
+    margin-inline-end: ${token.icon["margin-right"]};
     height: calc(${token.root["font-size"]} * ${token.root["line-height"]});
     > svg {
         width: ${token.icon.width};
@@ -127,7 +129,7 @@ const closeButtonStyle = css`
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    margin-left: ${token.icon["margin-right"]};
+    margin-inline-start: ${token.icon["margin-right"]};
     height: calc(${token.root["font-size"]} * ${token.root["line-height"]});
     padding: 0;
     border: none;
@@ -165,6 +167,7 @@ const Alert: FC<AlertProps> = ({
     children,
     ...restProps
 }) => {
+    const { messages } = useLocale();
     const [closed, setClosed] = useState(false);
     const presence = usePresence<HTMLDivElement>(!closed);
 
@@ -193,20 +196,16 @@ const Alert: FC<AlertProps> = ({
         const iconNode = closeIcon ?? <CloseIcon size={token.close.width} />;
 
         return (
-            <button
+            <Button
                 type="button"
-                aria-label="close"
+                appearance="text"
+                size="xs"
+                aria-label={messages.common.close}
                 className={cx.call(undefined, closeButtonStyle, title ? closeButtonWithTitleStyle : undefined)}
                 onClick={handleClose}
-                onKeyDown={(e: KeyboardEvent<HTMLButtonElement>) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                        e.preventDefault();
-                        handleClose(e as unknown as ReactMouseEvent<HTMLButtonElement>);
-                    }
-                }}
             >
                 {iconNode}
-            </button>
+            </Button>
         );
     };
 
@@ -231,7 +230,7 @@ const Alert: FC<AlertProps> = ({
                         display: inline-flex;
                         align-items: center;
                         flex-shrink: 0;
-                        margin-left: ${token.icon["margin-right"]};
+                        margin-inline-start: ${token.icon["margin-right"]};
                         height: calc(${token.root["font-size"]} * ${token.root["line-height"]});
                     `}
                 >

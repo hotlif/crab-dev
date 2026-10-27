@@ -52,10 +52,11 @@ interface CatalogEntry {
     label: string;
     description: string;
     preview: CatalogPreviewName;
+    category?: string;
 }
 
 export function CatalogItem({ item }: { item: CatalogEntry }) {
-    const { href: slug, name, label, description, preview } = item;
+    const { href: slug, name, label, description, preview, category } = item;
     const href = useSiteHref();
     const descriptionId = useId();
     return (
@@ -71,7 +72,7 @@ export function CatalogItem({ item }: { item: CatalogEntry }) {
                 <span className="crab-catalog-item-title"><strong>{name}</strong><span className="crab-catalog-item-label">{label}</span></span>
                 <Arrow />
             </span>
-            <span className="crab-catalog-item-description" id={descriptionId}>{description}</span>
+            <span className="crab-catalog-item-description" id={descriptionId}>{category && <span>用途：{category} · </span>}{description}</span>
         </Button>
     );
 }

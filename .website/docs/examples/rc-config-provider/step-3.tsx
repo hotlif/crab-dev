@@ -1,7 +1,7 @@
 import { useId, useState } from 'react';
 import { css } from '@crab-dev/css';
 import token from '@crab-dev/rc-token-semantic';
-import ConfigProvider, { type ConfigSize, type ConfigTheme } from '@crab-dev/rc-config-provider';
+import ConfigProvider, { type ConfigSize, type ConfigColorMode } from '@crab-dev/rc-config-provider';
 import Button from '@crab-dev/rc-button';
 import Card from '@crab-dev/rc-card';
 import Checkbox from '@crab-dev/rc-checkbox';
@@ -58,10 +58,10 @@ const fullWidthStyle = css`
     box-sizing: border-box;
 `;
 
-function Preview({ mode, size }: { mode: ConfigTheme; size: ConfigSize }) {
+function Preview({ mode, size }: { mode: ConfigColorMode; size: ConfigSize }) {
     const fieldId = useId();
     return (
-        <ConfigProvider theme={mode} size={size}>
+        <ConfigProvider colorMode={mode} size={size}>
             <section className={panelStyle} aria-label={mode === 'light' ? '浅色品牌预览' : '暗黑品牌预览'}>
                 <strong>{mode === 'light' ? '浅色 Light' : '暗黑 Dark'}</strong>
                 <div className={rowStyle}>
@@ -93,7 +93,7 @@ function Preview({ mode, size }: { mode: ConfigTheme; size: ConfigSize }) {
                 <Alert type="success">保存成功：反馈色保持语义独立。</Alert>
                 <ConfigProvider brandColor={null}>
                     <div className={rowStyle}>
-                        <Button appearance="primary" size="small">局部默认紫色</Button>
+                        <Button appearance="primary" size="s">局部默认紫色</Button>
                         <span className={noteStyle}>brandColor=null</span>
                     </div>
                 </ConfigProvider>
@@ -105,7 +105,7 @@ function Preview({ mode, size }: { mode: ConfigTheme; size: ConfigSize }) {
 export default function Example() {
     const [draft, setDraft] = useState('#1677ff');
     const [brandColor, setBrandColor] = useState('#1677ff');
-    const [size, setSize] = useState<ConfigSize>('middle');
+    const [size, setSize] = useState<ConfigSize>('medium');
     const inputId = useId();
     const hintId = useId();
     const valid = /^#(?:[\da-f]{3}|[\da-f]{6})$/i.test(draft.trim());
@@ -117,7 +117,7 @@ export default function Example() {
         <div className={stackStyle}>
             <div className={fieldStyle}>
                 <label htmlFor={inputId}>品牌色</label>
-                <LineEdit id={inputId} value={draft} onChange={event => update(event.target.value)}
+                <LineEdit id={inputId} value={draft} onValueChange={value => update(value)}
                     aria-describedby={hintId} status={valid ? undefined : 'error'} spellCheck={false} />
                 <p id={hintId} className={noteStyle}>
                     {valid ? '输入 #RGB 或 #RRGGBB，自动生成浅色与暗黑配色；亮度会为可读性调整。' : '请输入有效的 #RGB 或 #RRGGBB；预览保留上一个有效颜色。'}
@@ -129,7 +129,7 @@ export default function Example() {
                 ].map(([label, color]) => <Button key={color} isSelected={brandColor.toLowerCase() === color} onClick={() => update(color)}>{label}</Button>)}
             </div>
             <div className={rowStyle} role="group" aria-label="对比控件尺寸">
-                {(['small', 'middle', 'large'] as const).map(value => (
+                {(['small', 'medium', 'large'] as const).map(value => (
                     <Button key={value} isSelected={size === value} onClick={() => setSize(value)}>{value}</Button>
                 ))}
             </div>

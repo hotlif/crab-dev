@@ -8,6 +8,7 @@ type DocsTypePlaceholder = ((...args: never[]) => unknown) & {
 type HTMLDivElement = DocsTypePlaceholder;
 type HTMLTextAreaElement = DocsTypePlaceholder;
 type Ref<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
+type TextEditChangeDetails = DocsTypePlaceholder;
 
 export interface TextEditProps {
     /**
@@ -42,9 +43,9 @@ export interface TextEditProps {
     "containerRef"?: Ref<HTMLDivElement>;
 
     /**
-     * 设置多行文本输入框的大小（内边距与排版），默认为 middle； 可视高度由 rows / autoSize 决定
+     * 控件几何档位，默认为 medium；不缩放正文，内容高度由 rows / autoSize 决定。 Apple / shadcn 调整内边距和最小高度；MD3 三档保持标准字段几何， 仅内部清除动作分档。bordered=false 时几何和排版由宿主提供。
      */
-    "size"?: "large" | "middle" | "small";
+    "size"?: "large" | "medium" | "small";
 
     /**
      * 验证状态，影响边框颜色以提供即时反馈
@@ -53,11 +54,12 @@ export interface TextEditProps {
 
     /**
      * 是否显示外层边框/背景/阴影，默认为 true。 设为 false 时容器变为无样式（透明、无边框）， 用于嵌入到已有边框的宿主容器中（例如作为表单项内部的备注框）
+     * @default true
      */
     "bordered"?: boolean;
 
     /**
-     * 是否允许一键清除内容；触发 onChange，受控模式由父组件接受新值
+     * 是否允许一键清除内容；触发 onValueChange，受控模式由父组件接受新值
      */
     "allowClear"?: boolean;
 
@@ -78,6 +80,22 @@ export interface TextEditProps {
 
     /**
      * 手动拖拽调整尺寸的方向，默认为 vertical；autoSize 开启时忽略
+     * @default "vertical"
      */
     "resize"?: "none" | "vertical" | "both";
+
+    /**
+     * 暂无说明。 与 defaultValue 互斥，不能同时提供。
+     */
+    "value"?: string;
+
+    /**
+     * 暂无说明。 与 value 互斥，不能同时提供。
+     */
+    "defaultValue"?: string;
+
+    /**
+     * 暂无说明。
+     */
+    "onValueChange"?: ((value: string, details: TextEditChangeDetails) => void);
 }

@@ -1,4 +1,4 @@
-import { useComponentSize } from '@crab-dev/rc-config-provider';
+import { useComponentSize, useLocale } from '@crab-dev/rc-config-provider';
 import { css, cx } from '@crab-dev/css';
 import { useEffect, useState } from 'react';
 import { useTimeout } from '@crab-dev/rc-hooks';
@@ -35,7 +35,7 @@ const spinnerStyle = css`
 
 const tipStyle = css`
     color: ${token.tip.color};
-    font-size: var(--rc-spin-font-size, ${token.size.middle['font-size']});
+    font-size: var(--rc-spin-font-size, ${token.size.medium['font-size']});
     line-height: 1.4;
     text-align: center;
 `;
@@ -90,13 +90,14 @@ const Spin = ({
     tip,
     delay = 0,
     indicator,
-    label = '加载中',
+    label,
     children,
     className,
     ref,
     ...restProps
 }: SpinProps) => {
     const size = useComponentSize(sizeProp);
+    const { messages } = useLocale();
     // 延迟显示：spinning 为真只是"开始加载", visible 才是"该让用户看见指示器"。
     // 二者分离, 才能让 delay 内完成的操作全程无 spinner。
     const [visible, setVisible] = useState(() => spinning && delay <= 0);
@@ -119,7 +120,7 @@ const Spin = ({
             role="status"
             aria-live="polite"
             // tip 是可见文案, 已能作为可访问名；此时再加 aria-label 反而会把它覆盖掉
-            aria-label={tip === undefined ? label : undefined}
+            aria-label={tip === undefined ? label ?? messages.common.loading : undefined}
         >
             {/* 尺寸由根节点的 --rc-spin-size 下发, 故此处不重复传 size */}
             {indicator ?? (variant === 'expressive' ? <ExpressiveSpinIndicator /> : <SpinIndicator />)}

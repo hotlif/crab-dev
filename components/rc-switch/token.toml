@@ -39,11 +39,11 @@ size.large.handle.left = "$ref(sizing.large.toggle.handle-inset)"
 
 # ─── 尺寸 — Middle (默认) ────────────────────────────────────────────────
 
-size.middle.track.width = "$ref(sizing.middle.toggle.track-width)"
-size.middle.track.height = "$ref(sizing.middle.toggle.track-height)"
-size.middle.track.border-radius = "$ref(shape.full)"
-size.middle.handle.width = "$ref(sizing.middle.toggle.handle-width)"
-size.middle.handle.left = "$ref(sizing.middle.toggle.handle-inset)"
+size.medium.track.width = "$ref(sizing.medium.toggle.track-width)"
+size.medium.track.height = "$ref(sizing.medium.toggle.track-height)"
+size.medium.track.border-radius = "$ref(shape.full)"
+size.medium.handle.width = "$ref(sizing.medium.toggle.handle-width)"
+size.medium.handle.left = "$ref(sizing.medium.toggle.handle-inset)"
 
 
 # ─── 尺寸 — Small ────────────────────────────────────────────────────────────

@@ -7,7 +7,9 @@ import type { RadioProps } from '../types.js';
     IS_REACT_ACT_ENVIRONMENT?: boolean;
 }).IS_REACT_ACT_ENVIRONMENT = true;
 const renderRadio = async (props: Partial<RadioProps> = {}) => {
-    const renderResult = await render(<Radio {...props}>Radio Text</Radio>);
+    const { checked, defaultChecked, onCheckedChange = () => {}, ...restProps } = props;
+    const stateProps = checked === undefined ? { defaultChecked, onCheckedChange } : { checked, onCheckedChange };
+    const renderResult = await render(<Radio {...restProps} {...stateProps}>Radio Text</Radio>);
     const input = renderResult.container.querySelector('input[type="radio"]') as HTMLInputElement;
     return {
         ...renderResult,
@@ -34,17 +36,17 @@ describe('Radio', () => {
         expect(input.checked).toBe(true);
     });
     it('supports controlled checked prop', async () => {
-        const { input } = await renderRadio({ checked: true, onChange: () => { } });
+        const { input } = await renderRadio({ checked: true, onCheckedChange: () => { } });
         expect(input.checked).toBe(true);
     });
-    it('calls onChange when clicked', async () => {
-        const onChange = mock.fn();
-        const { input } = await renderRadio({ onChange });
+    it('calls onCheckedChange when clicked', async () => {
+        const onCheckedChange = mock.fn();
+        const { input } = await renderRadio({ onCheckedChange });
         await act(async () => {
             await fireEvent.click(input);
         });
-        expect(onChange).toHaveBeenCalledTimes(1);
-        expect(onChange).toHaveBeenCalledWith(true, expect.anything());
+        expect(onCheckedChange).toHaveBeenCalledTimes(1);
+        expect(onCheckedChange).toHaveBeenCalledWith(true, expect.objectContaining({ reason: 'toggle' }));
     });
     it('marks input as disabled when disabled prop is set', async () => {
         const { input } = await renderRadio({ disabled: true });
@@ -56,7 +58,7 @@ describe('Radio', () => {
         expect(label?.hasAttribute('data-disabled')).toBe(true);
     });
     it('renders all size variants', async () => {
-        const sizes: NonNullable<RadioProps['size']>[] = ['large', 'middle', 'small'];
+        const sizes: NonNullable<RadioProps['size']>[] = ['large', 'medium', 'small'];
         for (const size of sizes) {
             const { container, unmount } = await renderRadio({ size });
             expect(container.querySelector('label')?.className.length).toBeGreaterThan(0);
@@ -69,13 +71,13 @@ describe('Radio', () => {
         expect(label?.className).toContain('custom-radio');
     });
     it('renders dot indicator when checked', async () => {
-        const { container } = await renderRadio({ checked: true, onChange: () => { } });
+        const { container } = await renderRadio({ checked: true, onCheckedChange: () => { } });
         const dot = container.querySelector('[data-radio-part="dot"]');
         expect(dot).toBeTruthy();
     });
-    it.each<NonNullable<RadioProps['size']>>(['small', 'middle', 'large'])(
+    it.each<NonNullable<RadioProps['size']>>(['small', 'medium', 'large'])(
         'keeps the same indicator across selection changes at size %s', async (size) => {
-            const view = await render(<Radio size={size} checked={false} onChange={() => {}}>Choice</Radio>);
+            const view = await render(<Radio size={size} checked={false}>Choice</Radio>);
             const label = view.container.querySelector('label')!;
             const control = view.container.querySelector('[data-radio-part="control"]')!;
             const box = view.container.querySelector('[data-radio-part="box"]')!;
@@ -84,7 +86,7 @@ describe('Radio', () => {
             expect(control.getAttribute('aria-hidden')).toBe('true');
             expect(label.getAttribute('data-state')).toBe('unchecked');
             for (const checked of [true, false, true]) {
-                await view.rerender(<Radio size={size} checked={checked} onChange={() => {}}>Choice</Radio>);
+                await view.rerender(<Radio size={size} checked={checked}>Choice</Radio>);
                 expect(view.container.querySelector('[data-radio-part="control"]')).toBe(control);
                 expect(view.container.querySelector('[data-radio-part="box"]')).toBe(box);
                 expect(view.container.querySelector('[data-radio-part="dot"]')).toBe(dot);
@@ -95,9 +97,9 @@ describe('Radio', () => {
     );
     it('selects from the label and keeps disabled choices unchanged', async () => {
         const user = userEvent.setup();
-        const onChange = mock.fn();
+        const onCheckedChange = mock.fn();
         const view = await render(
-            <RadioGroup defaultValue="a" onChange={onChange}>
+            <RadioGroup defaultValue="a" onValueChange={onCheckedChange}>
                 <Radio value="a">First</Radio>
                 <Radio value="b">Second</Radio>
                 <Radio value="c" disabled>Unavailable</Radio>
@@ -108,11 +110,11 @@ describe('Radio', () => {
         await user.click(labels[1]);
         expect(inputs[0].checked).toBe(false);
         expect(inputs[1].checked).toBe(true);
-        expect(onChange).toHaveBeenCalledTimes(1);
+        expect(onCheckedChange).toHaveBeenCalledTimes(1);
         await user.click(labels[2]);
         expect(inputs[1].checked).toBe(true);
         expect(inputs[2].checked).toBe(false);
-        expect(onChange).toHaveBeenCalledTimes(1);
+        expect(onCheckedChange).toHaveBeenCalledTimes(1);
     });
 });
 describe('RadioGroup', () => {
@@ -142,9 +144,9 @@ describe('RadioGroup', () => {
         expect(inputs[0].checked).toBe(false);
         expect(inputs[1].checked).toBe(true);
     });
-    it('calls onChange when a radio is clicked', async () => {
-        const onChange = mock.fn();
-        const { container } = await render(<RadioGroup value="a" onChange={onChange}>
+    it('calls onCheckedChange when a radio is clicked', async () => {
+        const onCheckedChange = mock.fn();
+        const { container } = await render(<RadioGroup value="a" onValueChange={onCheckedChange}>
             <Radio value="a">A</Radio>
             <Radio value="b">B</Radio>
         </RadioGroup>);
@@ -152,7 +154,7 @@ describe('RadioGroup', () => {
         await act(async () => {
             await fireEvent.click(inputs[1]);
         });
-        expect(onChange).toHaveBeenCalledWith('b');
+        expect(onCheckedChange).toHaveBeenCalledWith('b', expect.objectContaining({ reason: expect.any(String) }));
     });
     it('supports defaultValue (uncontrolled)', async () => {
         const { container } = await render(<RadioGroup defaultValue="b">

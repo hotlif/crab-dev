@@ -1,15 +1,17 @@
-import { useComponentSize } from '@crab-dev/rc-config-provider';
-import RcDropdownContainer from "@crab-dev/rc-dropdown-container";
+import { useComponentSize, useLocale } from '@crab-dev/rc-config-provider';
+import RcDropdownContainer, { type DropdownOpenChangeDetails } from "@crab-dev/rc-dropdown-container";
+import { useDropdownPositionReference } from '@crab-dev/rc-dropdown-container/internal';
 import { css } from "@crab-dev/css";
 import semanticToken from "@crab-dev/rc-token-semantic";
-import { useId, useRef, useState, type FC } from "react";
+import { useId, useRef, useState } from "react";
+import type { ReactNode } from 'react';
 import { useControllableValue } from "@crab-dev/rc-hooks";
 
 import useKeyboardNavigation from "./hooks/useKeyboardNavigation.js";
 import SelectInput from "./selectInput.js";
 import SelectOverlay from "./selectOverlay.js";
 import token from "./token.js";
-import type { FlatOption, SelectOption, SelectOptionGroup, SelectOptionOrGroup, SelectProps } from "./types.js";
+import type { FlatOption, SelectChangeDetails, SelectOption, SelectOptionGroup, SelectOptionOrGroup, SelectProps } from "./types.js";
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
@@ -102,13 +104,20 @@ const supportingStyle = css`
     @media (forced-colors: active) { color: CanvasText; }
 `;
 
+function SelectField({ children }: { children: ReactNode }) {
+    const setPositionReference = useDropdownPositionReference();
+    // Include this field's supporting/error text in popup geometry without
+    // changing the actual combobox reference used for focus, width and keys.
+    return <div className={fieldStyle} ref={setPositionReference}>{children}</div>;
+}
+
 // ─── Component ───────────────────────────────────────────────────────────────
 
-const Select: FC<SelectProps> = ({
+function Select({
     ref,
     id,
     options,
-    placeholder = "请选择",
+    placeholder,
     disabled = false,
     searchable = false,
     multiple = false,
@@ -131,7 +140,9 @@ const Select: FC<SelectProps> = ({
     dropdownRender,
     value,
     defaultValue,
-    onChange,
+    onValueChange,
+    open,
+    defaultOpen,
     onOpenChange,
     onFocus,
     onBlur,
@@ -140,8 +151,9 @@ const Select: FC<SelectProps> = ({
     "aria-labelledby": ariaLabelledBy,
     "aria-describedby": ariaDescribedBy,
     ...restProps
-}) => {
+}: SelectProps) {
     const size = useComponentSize(sizeProp);
+    const { messages } = useLocale();
     // combobox 的 aria-controls / aria-activedescendant 与 listbox 及各 option 的 id
     // 共享同一前缀(§3 触发器与目标显式关联),故在两个子组件的共同父级生成一次。
     const listboxId = useId();
@@ -161,9 +173,6 @@ const Select: FC<SelectProps> = ({
     // Persistent field instance: restore focus before a selected search input unmounts.
     const controlRef = useRef<HTMLDivElement | null>(null);
 
-    const onOpenChangeRef = useRef(onOpenChange);
-    onOpenChangeRef.current = onOpenChange;
-
     const allPlainOptions = flattenPlainOptions(options);
 
     const selectedOptions = allPlainOptions.filter((opt) => selectedValues.includes(opt.value));
@@ -175,7 +184,7 @@ const Select: FC<SelectProps> = ({
     const { highlightIndex, highlightedOption, moveHighlight, resetHighlight, setHighlightIndex } =
         useKeyboardNavigation({ filteredOptions, open: true });
 
-    const emitOpenChange = (nextOpen: boolean) => {
+    const syncOpenState = (nextOpen: boolean) => {
         if (nextOpen) {
             // 单选且已有选中值时,打开下拉应直接高亮当前选中项(继而被 SelectOverlay
             // 的滚动 effect 带入视口),而非从 -1 开始——否则选中项不在首屏时,
@@ -189,28 +198,33 @@ const Select: FC<SelectProps> = ({
             resetHighlight();
         }
 
-        onOpenChangeRef.current?.(nextOpen);
     };
+    const emitOpenChange = (nextOpen: boolean, details: DropdownOpenChangeDetails) => {
+        onOpenChange?.(nextOpen, details);
+    };
+    const openProps = open === undefined ? { defaultOpen } : { open };
 
-    const updateValue = (nextValues: string[]) => {
+    const updateValue = (nextValues: string[], reason: SelectChangeDetails['reason'], event?: SelectChangeDetails['event']) => {
+        if (disabled) return;
+        if (nextValues.length === selectedValues.length && nextValues.every((item, index) => item === selectedValues[index])) return;
         setSelectedValues(nextValues);
 
         if (multiple) {
             const nextOptions = allPlainOptions.filter((opt) => nextValues.includes(opt.value));
-            (onChange as ((v: string[], o: SelectOption[]) => void) | undefined)?.(nextValues, nextOptions);
+            (onValueChange as ((v: string[], details: SelectChangeDetails) => void) | undefined)?.(nextValues, { reason, options: nextOptions, event });
             return;
         }
 
         const nextValue = nextValues[0] ?? null;
         const nextOption = allPlainOptions.find((opt) => opt.value === nextValue);
-        (onChange as ((v: string | null, o: SelectOption | undefined) => void) | undefined)?.(
+        (onValueChange as ((v: string | null, details: SelectChangeDetails) => void) | undefined)?.(
             nextValue,
-            nextOption,
+            { reason, option: nextOption, options: nextOption ? [nextOption] : [], event },
         );
     };
 
-    const handleOptionSelect = (option: FlatOption) => {
-        if (option.disabled || option.isGroupLabel) {
+    const handleOptionSelect = (option: FlatOption, event?: SelectChangeDetails['event']) => {
+        if (disabled || option.disabled || option.isGroupLabel) {
             return;
         }
 
@@ -220,21 +234,22 @@ const Select: FC<SelectProps> = ({
                 ? selectedValues.filter((v) => v !== option.value)
                 : [...selectedValues, option.value];
 
-            updateValue(nextValues);
+            updateValue(nextValues, exists ? 'deselect' : 'select', event);
             return;
         }
 
         controlRef.current?.focus();
-        updateValue([option.value]);
+        updateValue([option.value], 'select', event);
     };
 
-    const handleClear = () => {
-        updateValue([]);
+    const handleClear = (event?: SelectChangeDetails['event']) => {
+        if (disabled) return;
+        updateValue([], 'clear', event);
         setSearchText("");
     };
 
-    const handleRemoveTag = (val: string) => {
-        updateValue(selectedValues.filter((v) => v !== val));
+    const handleRemoveTag = (val: string, event?: SelectChangeDetails['event']) => {
+        updateValue(selectedValues.filter((v) => v !== val), 'remove', event);
     };
 
     const handleTriggerWidthChange = (width: number) => {
@@ -242,6 +257,7 @@ const Select: FC<SelectProps> = ({
     };
 
     const handleSearchTextChange = (text: string) => {
+        if (disabled) return;
         setSearchText(text);
 
         // 过滤结果随搜索词变化,把高亮重置到新结果的第一个可选项:
@@ -257,6 +273,8 @@ const Select: FC<SelectProps> = ({
 
     return (
         <RcDropdownContainer
+            {...openProps}
+            onOpenChange={emitOpenChange}
             size={size}
             {...restProps}
             className={className}
@@ -264,6 +282,7 @@ const Select: FC<SelectProps> = ({
                 <SelectOverlay
                     size={size}
                     multiple={multiple}
+                    disabled={disabled}
                     loading={loading}
                     filteredOptions={filteredOptions}
                     selectedValues={selectedValues}
@@ -275,13 +294,12 @@ const Select: FC<SelectProps> = ({
                     optionRender={optionRender}
                     dropdownRender={dropdownRender}
                     onOptionSelect={handleOptionSelect}
-                    onOpenChange={emitOpenChange}
                     onHighlightChange={setHighlightIndex}
                 />
             }
             floatingContainerProps={{ style: floatingStyle }}
         >
-            <div className={fieldStyle}>
+            <SelectField>
                 <SelectInput
                     ref={ref}
                     controlRef={controlRef}
@@ -302,7 +320,7 @@ const Select: FC<SelectProps> = ({
                     loading={loading}
                     maxTagCount={maxTagCount}
                     autoFocus={autoFocus}
-                    placeholder={placeholder}
+                    placeholder={placeholder ?? messages.select.placeholder}
                     selectedOptions={selectedOptions}
                     searchText={searchText}
                     highlightIndex={highlightIndex}
@@ -310,7 +328,7 @@ const Select: FC<SelectProps> = ({
                     listboxId={listboxId}
                     tagRender={tagRender}
                     onSearchTextChange={handleSearchTextChange}
-                    onOpenChange={emitOpenChange}
+                    onOpenStateChange={syncOpenState}
                     onWidthChange={handleTriggerWidthChange}
                     onMoveHighlight={moveHighlight}
                     onSelectHighlighted={handleOptionSelect}
@@ -324,7 +342,7 @@ const Select: FC<SelectProps> = ({
                         {description}
                     </div>
                 )}
-            </div>
+            </SelectField>
         </RcDropdownContainer>
     );
 };

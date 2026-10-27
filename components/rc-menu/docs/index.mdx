@@ -15,19 +15,37 @@ status = "experimental"
 
 用于应用顶部或侧边栏导航，通过层级菜单组织页面入口。`mode` 支持 `horizontal`、`vertical` 和 `inline`；垂直与内嵌模式可通过 `inlineCollapsed` 收起为图标栏。
 
+## 状态契约
+
+`selectedKeys / defaultSelectedKeys / onSelectedKeysChange(next, details)` 管理选中集合；`openKeys / defaultOpenKeys / onOpenKeysChange(next, details)` 在全部模式下管理展开集合。受控值与默认值互斥，默认值仅初始化；外部属性更新不触发操作回调。受控模式只展示传入的集合，回调请求不会自行改变展开状态。选择详情包含 `select / deselect` 原因和原始 React 鼠标或键盘事件；展开详情包含 `expand / collapse` 原因，以及可选的 React 鼠标/键盘事件或原生 DOM 事件。点击、悬停、外部关闭和 Escape 保留各自的真实操作事件。组件不会修改传入的数组。
+
+水平菜单在可用宽度不足时换行，长标题省略但保留完整可访问名称与标题提示；根容器不采用会裁剪子菜单的横向滚动。水平子菜单支持悬停、点击、Enter/Space 展开，方向键按层级导航并适配 RTL。Escape 每次只关闭最上层并恢复其触发项焦点；选择叶项或点击整个菜单外部关闭全部已展开分支，同一次原生关闭事件只报告一次合并后的集合。外部已明确移动的焦点不会被叶项关闭抢回。
+
+横向叶子项和分支项在文字行首、行末使用相同的内容内边距，RTL 自动镜像；子菜单箭头占用独立槽位，该槽位位于共同内边距之内，不代替或重复末端留白。选中背景不会紧贴标题末字。
+
+垂直菜单的分组与嵌套项从文字起点缩进，图标与标题之间的间距随 LTR/RTL 镜像。展开、折叠箭头保持上下方向，文字方向不会改变其含义。
+
+普通竖向项使用内置焦点轮廓，轮廓偏移随公开宽度令牌变化；展开动画的裁剪和长文本省略保持生效，选中项仍需显示完整键盘焦点。
+
+收起菜单的子菜单与叶子提示层优先向文字行末侧展开：LTR 向右、RTL 向左，空间不足时翻转避让。方向继承最近的 ConfigProvider；Menu 显式 `dir="ltr"` 或 `dir="rtl"` 优先。
+
+收起为图标栏时，`openKeys` 仍表示当前模式下实际展开的子菜单，不会由 Menu 自动清空。如果应用希望保留内联分支的展开记忆，同时让浮层只在用户悬停或操作后打开，应像“收起内嵌菜单”示例一样分别维护 `inlineOpenKeys` 与 `popupOpenKeys`：切换模式时清空浮层集合，展开时恢复内联集合；浮层的 Escape、外部关闭和叶项选择只更新临时浮层状态，不覆盖内联记忆。两种模式共用的 `selectedKeys` 独立保留当前选择。
+
 ## 三套风格
 
 | 风格 | 导航项 | 选中状态 |
 | --- | --- | --- |
-| macOS | 6px 圆角、16px 图标 | 强调色背景与配对前景色 |
-| Material | 胶囊形导航容器、24px 图标 | Secondary container / On secondary container |
-| shadcn | 8px 圆角、16px 图标 | 中性选中背景与常规前景色 |
+| Apple | 6px 圆角、16px 图标 | 强调色背景与配对前景色 |
+| Material Design 3 Expressive | 胶囊形导航容器、24px 图标 | Secondary container / On secondary container |
+| shadcn/ui | 8px 圆角、16px 图标 | 中性选中背景与常规前景色 |
 
 横向、纵向和折叠导航共用选中角色；选中项悬停、按压仍保持配对前景色。当前项不额外叠加下划线或侧边竖条，键盘焦点独立显示。导航与浮层分别保留现有的方向键、展开和关闭交互。
 
-参考核对日期：2026-10-22。持久导航依据 [M3 Navigation drawer](https://m3.material.io/components/navigation-drawer/overview)（[使用](https://m3.material.io/components/navigation-drawer/guidelines)、[规格](https://m3.material.io/components/navigation-drawer/specs)、[无障碍](https://m3.material.io/components/navigation-drawer/accessibility)）；Material Web 没有对应 drawer，弹出子菜单参考其 [Menu 文档](https://material-web.dev/components/menu/)和 [Menu 样式](https://github.com/material-components/material-web/blob/main/menu/internal/_menu.scss)。macOS 参考 [Apple Sidebars](https://developer.apple.com/design/human-interface-guidelines/sidebars)，shadcn 对照 [Sidebar](https://ui.shadcn.com/docs/components/radix/sidebar)与 [Sidebar 实现](https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/new-york-v4/ui/sidebar.tsx)。树状展开是本项目导航扩展。
+强制颜色模式保留系统选中背景与配对文字色，选中项局部保护这组系统色，避免浏览器文字背板遮住文字；其他项继续使用自动颜色调整。展开箭头使用真实边框笔画，避免背景填充被系统替换后消失。横向未选中项没有透明底边，系统不会把它转换为额外的选中线；菜单整体分隔线使用 CanvasText，与当前项状态相互独立。
 
-Material 采用 baseline navigation drawer 的视觉角色并应用桌面密度：导航行默认 36px，区别于规范的 56px indicator；粗指针另提供至少 48px 目标。未迁移为 Expressive navigation rail。macOS 非选中导航图标使用强调色，选中时采用配对前景色。
+参考核对日期：2026-10-22。持久导航依据 [M3 Navigation drawer](https://m3.material.io/components/navigation-drawer/overview)（[使用](https://m3.material.io/components/navigation-drawer/guidelines)、[规格](https://m3.material.io/components/navigation-drawer/specs)、[无障碍](https://m3.material.io/components/navigation-drawer/accessibility)）；Material Web 没有对应 drawer，弹出子菜单参考其 [Menu 文档](https://material-web.dev/components/menu/)和 [Menu 样式](https://github.com/material-components/material-web/blob/main/menu/internal/_menu.scss)。Apple 参考 [Apple Sidebars](https://developer.apple.com/design/human-interface-guidelines/sidebars)，shadcn 对照 [Sidebar](https://ui.shadcn.com/docs/components/radix/sidebar)与 [Sidebar 实现](https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/new-york-v4/ui/sidebar.tsx)。树状展开是本项目导航扩展。
+
+md3 当前导航实现采用 baseline navigation drawer 的视觉角色并应用桌面密度：导航行默认 36px，区别于规范的 56px indicator；粗指针另提供至少 48px 目标。未迁移为 Expressive navigation rail。Apple 非选中导航图标使用强调色，选中时采用配对前景色。
 
 ## 代码演示
 

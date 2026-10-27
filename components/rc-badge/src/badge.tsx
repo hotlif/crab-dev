@@ -1,7 +1,7 @@
-import { useConfig } from '@crab-dev/rc-config-provider';
+import { useConfig, useLocale } from '@crab-dev/rc-config-provider';
 import { css, cx } from '@crab-dev/css';
 import type { CSSProperties, FC, ReactNode } from 'react';
-import token from './token.js';
+import token, { vars } from './token.js';
 import type { BadgePresetColor, BadgeProps } from './types.js';
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -39,11 +39,19 @@ const standaloneStyle = css`
 const indicatorPositionedStyle = css`
     position: absolute;
     top: 0;
-    right: 0;
+    inset-inline-end: 0;
+    ${vars['indicator.anchor.left']}: 50%;
+    ${vars['indicator.offset.left']}: 0px;
+    ${vars['indicator.offset.top']}: 0px;
     transform: ${token.indicator.transform};
     transform-origin: 100% 0%;
     z-index: 1;
     pointer-events: none;
+
+    &:dir(rtl) {
+        ${vars['indicator.anchor.left']}: -50%;
+        transform-origin: 0% 0%;
+    }
 `;
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -109,6 +117,20 @@ const dotSizeSmallStyle = css`
 
 const dotBorderStyle = css`
     box-shadow: 0 0 0 2px ${token.count['border-color']};
+`;
+
+// Own only the small indicator's system-color pair. Browser text backplates
+// otherwise paint Canvas behind HighlightText and hide the count. System
+// colors follow the user's palette; surrounding status text remains automatic.
+const forcedColorStyle = css`
+    @media (forced-colors: active) {
+        forced-color-adjust: none;
+        color: HighlightText !important;
+        background-color: Highlight !important;
+        box-shadow: none !important;
+        outline: 1px solid Canvas;
+        outline-offset: 0;
+    }
 `;
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -215,6 +237,13 @@ const statusTextStyle = css`
     display: inline-block;
 `;
 
+// Isolate the numeric expression without changing the indicator's logical
+// corner. Caller-provided content keeps its own writing direction.
+const numericCountStyle = css`
+    direction: ltr;
+    unicode-bidi: isolate;
+`;
+
 // ═══════════════════════════════════════════════════════════════════════════
 // 组件实现
 // ═══════════════════════════════════════════════════════════════════════════
@@ -246,6 +275,7 @@ const Badge: FC<BadgeProps> = ({
     ...restProps
 }) => {
     const config = useConfig();
+    const { messages } = useLocale();
     const size = sizeProp ?? (config.size === 'small' ? 'small' : 'default');
     const hasChildren = children !== undefined && children !== null && children !== false;
 
@@ -268,6 +298,7 @@ const Badge: FC<BadgeProps> = ({
                             ? PRESET_COLOR_MAP[color]
                             : statusColorStyle),
                         isProcessing && processingDotStyle,
+                        forcedColorStyle,
                     )}
                     style={customDotStyle}
                     aria-hidden="true"
@@ -311,10 +342,14 @@ const Badge: FC<BadgeProps> = ({
             ? { backgroundColor: color }
             : undefined;
 
+    // The anchor follows the actual DOM direction, including a native dir
+    // override. Offsets remain physical: positive x moves right, y moves down.
+    // Variables keep CSS lengths/calc intact without replacing the L3 transform.
     const positionedStyle: CSSProperties | undefined = offset
         ? {
-            transform: `translate(calc(50% + ${typeof offset[0] === 'number' ? `${offset[0]}px` : offset[0]}), calc(-50% + ${typeof offset[1] === 'number' ? `${offset[1]}px` : offset[1]}))`,
-        }
+            [vars['indicator.offset.left']]: typeof offset[0] === 'number' ? `${offset[0]}px` : offset[0],
+            [vars['indicator.offset.top']]: typeof offset[1] === 'number' ? `${offset[1]}px` : offset[1],
+        } as CSSProperties
         : undefined;
 
     const indicatorInlineStyle: CSSProperties | undefined = {
@@ -331,11 +366,12 @@ const Badge: FC<BadgeProps> = ({
                 presetColorClass,
                 hasChildren && dotBorderStyle,
                 hasChildren && indicatorPositionedStyle,
+                forcedColorStyle,
                 indicatorClassName,
             )}
             style={Object.keys(indicatorInlineStyle).length > 0 ? indicatorInlineStyle : undefined}
             role="status"
-            aria-label={title ?? (typeof text === 'string' ? text : 'badge')}
+            aria-label={title ?? (typeof text === 'string' ? text : messages.badge.dotLabel)}
         />
     ) : (
         <span
@@ -345,6 +381,7 @@ const Badge: FC<BadgeProps> = ({
                 presetColorClass,
                 hasChildren && countBorderStyle,
                 hasChildren && indicatorPositionedStyle,
+                forcedColorStyle,
                 indicatorClassName,
             )}
             style={Object.keys(indicatorInlineStyle).length > 0 ? indicatorInlineStyle : undefined}
@@ -354,7 +391,9 @@ const Badge: FC<BadgeProps> = ({
                 title ?? (typeof count === 'number' ? `${count}` : undefined)
             }
         >
-            {formatCount(count, overflowCount)}
+            {typeof count === 'number'
+                ? <bdi dir="ltr" className={numericCountStyle}>{formatCount(count, overflowCount)}</bdi>
+                : formatCount(count, overflowCount)}
         </span>
     );
 

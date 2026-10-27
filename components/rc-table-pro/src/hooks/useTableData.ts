@@ -1,6 +1,7 @@
 import { useState, useCallback, useEffect, useLayoutEffect, useRef } from "react";
 import type { Row, SortColumn } from "@crab-dev/rc-table";
 import type { TableDataSource } from "../types.js";
+import type { PaginationChangeDetails } from '@crab-dev/rc-pagination';
 
 export type UseTableDataOptions<T extends Row> = TableDataSource<T> & {
     autoRefreshInterval?: number;
@@ -21,7 +22,7 @@ export interface UseTableDataReturn<T extends Row> {
     dataLoading: boolean;
     dataError: Error | null;
     loadData: (page: number, pageSize: number, filters: Record<string, string>) => void;
-    handlePageChange: (page: number, pageSize: number) => void;
+    handlePageChange: (page: number, pageSize: number, reason?: PaginationChangeDetails['reason'], event?: PaginationChangeDetails['event']) => void;
     handleFilterChange: (filters: Record<string, string>) => void;
     handleSortChange: (columns: SortColumn[]) => void;
     restoreFilters: (filters: Record<string, string>) => void;
@@ -110,11 +111,11 @@ export function useTableData<T extends Row>(options: UseTableDataOptions<T>): Us
         return () => clearInterval(timer);
     }, [autoRefreshInterval, loadData]);
 
-    const handlePageChange = (nextPage: number, nextPageSize: number) => {
+    const handlePageChange = (nextPage: number, nextPageSize: number, reason: PaginationChangeDetails['reason'] = 'page', event?: PaginationChangeDetails['event']) => {
         setPage(nextPage);
         setPageSize(nextPageSize);
         loadData(nextPage, nextPageSize, params.current.filters);
-        if (pagination) pagination.onChange?.(nextPage, nextPageSize);
+        if (pagination) pagination.onValueChange?.(nextPage, { pageSize: nextPageSize, reason, ...(event ? { event } : {}) });
     };
     const handleFilterChange = (nextFilters: Record<string, string>) => {
         setFilters(nextFilters);

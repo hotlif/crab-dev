@@ -1,3 +1,4 @@
+import { useLocale } from '@crab-dev/rc-config-provider';
 import RcLineEdit from "@crab-dev/rc-line-edit";
 import RcSelect from "@crab-dev/rc-select";
 import { css } from "@crab-dev/css";
@@ -39,6 +40,7 @@ const ColorInput: FC<ColorInputProps> = ({
     onFormatChange,
     onValueChange,
 }) => {
+    const { messages } = useLocale();
     // 本地编辑草稿:输入期间不即时 parse,失焦 / Enter 才提交;draft 为 null 时跟随外部 value
     const [draft, setDraft] = useState<string | null>(null);
     const text = draft ?? formatColor(value, format);
@@ -63,22 +65,22 @@ const ColorInput: FC<ColorInputProps> = ({
     return (
         <div className={wrapStyle} onMouseDown={stopMouseDown}>
             <RcSelect
-                aria-label="颜色格式"
+                aria-label={messages.colorPicker.format}
                 className={selectStyle}
                 size="small"
                 options={FORMAT_OPTIONS}
                 value={format}
-                onChange={(next) => {
+                onValueChange={(next) => {
                     if (next) onFormatChange(next as ColorFormat);
                 }}
             />
             <RcLineEdit
-                aria-label="颜色值"
+                aria-label={messages.colorPicker.value}
                 className={inputStyle}
                 size="small"
                 spellCheck={false}
                 value={text}
-                onChange={(e) => setDraft(e.target.value)}
+                onValueChange={next => setDraft(next)}
                 onBlur={(e) => commit(e.target.value)}
                 onKeyDown={(e) => {
                     if (e.key === "Enter") {

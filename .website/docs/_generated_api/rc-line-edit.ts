@@ -7,6 +7,7 @@ type DocsTypePlaceholder = ((...args: never[]) => unknown) & {
 };
 type HTMLDivElement = DocsTypePlaceholder;
 type HTMLInputElement = DocsTypePlaceholder;
+type LineEditChangeDetails = DocsTypePlaceholder;
 type ReactNode = DocsTypePlaceholder;
 type Ref<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 
@@ -18,7 +19,7 @@ export interface LineEditProps {
     "appearance"?: "outlined" | "filled";
 
     /**
-     * 与输入框关联的可见标签；Material 浮动，macOS 与 shadcn 上置。
+     * 与输入框关联的可见标签；Material 浮动，Apple 与 shadcn 上置。
      */
     "label"?: string;
 
@@ -43,9 +44,9 @@ export interface LineEditProps {
     "containerRef"?: Ref<HTMLDivElement>;
 
     /**
-     * 设置单行文本输入框的大小，默认为 middle
+     * 设置单行文本输入框的大小，默认为 medium
      */
-    "size"?: "large" | "middle" | "small";
+    "size"?: "large" | "medium" | "small";
 
     /**
      * 前缀图标
@@ -64,11 +65,12 @@ export interface LineEditProps {
 
     /**
      * 是否显示外层边框/背景/阴影，默认为 true。 设为 false 时容器变为无样式（透明、无边框、高度随内容自适应）， 用于嵌入到已有边框的宿主容器中（例如作为另一个组件内部的搜索框）
+     * @default true
      */
     "bordered"?: boolean;
 
     /**
-     * 是否允许一键清除内容；触发 onChange，受控模式由父组件接受新值
+     * 是否允许一键清除内容；触发 onValueChange，受控模式由父组件接受新值
      */
     "allowClear"?: boolean;
 
@@ -81,4 +83,19 @@ export interface LineEditProps {
      * 是否显示字符计数，配合 maxLength 使用
      */
     "showCount"?: boolean;
+
+    /**
+     * 暂无说明。 与 defaultValue 互斥，不能同时提供。
+     */
+    "value"?: string;
+
+    /**
+     * 暂无说明。 与 value 互斥，不能同时提供。
+     */
+    "defaultValue"?: string;
+
+    /**
+     * 暂无说明。
+     */
+    "onValueChange"?: ((value: string, details: LineEditChangeDetails) => void);
 }

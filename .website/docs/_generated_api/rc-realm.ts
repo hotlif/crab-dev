@@ -9,11 +9,15 @@ type HTMLDivElement = DocsTypePlaceholder;
 type P = DocsTypePlaceholder;
 type ReactNode = DocsTypePlaceholder;
 type RealmError = DocsTypePlaceholder;
-type Record<T0 = unknown, T1 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0, T1] };
 type Ref<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
-type SharedEntryConfig = DocsTypePlaceholder;
+type SharedConfig = DocsTypePlaceholder;
 
 export interface RealmProps {
+    /**
+     * Props forwarded to the remote component or mount lifecycle without changing its protocol.
+     */
+    "remoteProps"?: P;
+
     /**
      * remoteEntry.js 完整 URL
      */
@@ -25,24 +29,24 @@ export interface RealmProps {
     "scope": string;
 
     /**
-     * exposes 键, 如 './Widget'
+     * exposes 键, 如 ’./Widget’
      */
     "module": string;
 
     /**
-     * remote 产物格式：'var'（默认, script 注入后取 globalThis[scope]）| 'module'（ESM, 经 import() 加载）
+     * remote 产物格式：’var’（默认, script 注入后取 globalThis[scope]）| ’module’（ESM, 经 import() 加载）
      */
     "entryType"?: 'var' | 'module';
 
     /**
-     * 远程模块上的导出名, 默认 'default'
+     * 远程模块上的导出名, 默认 ’default’
      */
     "exportName"?: string;
 
     /**
      * 额外注入 share scope 的共享依赖
      */
-    "shared"?: Record<string, SharedEntryConfig>;
+    "shared"?: SharedConfig;
 
     /**
      * 全程加载期限（毫秒, script → init → get 全覆盖）, 超时判失败并使缓存失效。默认 15000
@@ -55,7 +59,7 @@ export interface RealmProps {
     "delay"?: number;
 
     /**
-     * 透传 rc-spin 的 tip, 默认"正在加载远程模块"
+     * 透传 rc-spin 的 tip；缺省根据 locale 显示加载提示
      */
     "tip"?: ReactNode;
 
@@ -65,7 +69,7 @@ export interface RealmProps {
     "fallback"?: ReactNode;
 
     /**
-     * 自定义错误态；缺省渲染 rc-alert(type=error) + 操作区 rc-button 重试
+     * 自定义错误态，接收原始诊断；缺省为按 locale 显示的 rc-alert + 重试操作
      */
     "errorFallback"?: (error: RealmError, retry: () => void) => ReactNode;
 
@@ -75,7 +79,7 @@ export interface RealmProps {
     "onReady"?: () => void;
 
     /**
-     * 任意阶段失败回调（含渲染期）。Base 已 Omit 原生 onError, 避免与 HTMLAttributes 冲突
+     * 任意阶段失败的原始诊断（含渲染期），不因 locale 改写；Base 已 Omit 原生 onError
      */
     "onError"?: (error: RealmError) => void;
 
@@ -88,11 +92,6 @@ export interface RealmProps {
      * 暂无说明。
      */
     "protocol"?: 'component' | 'mount';
-
-    /**
-     * 暂无说明。
-     */
-    "remoteProps"?: P;
 
     /**
      * 暂无说明。

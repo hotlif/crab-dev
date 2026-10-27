@@ -2,7 +2,7 @@ import RcDropdownContainer from '@crab-dev/rc-dropdown-container';
 import { useComponentSize } from '@crab-dev/rc-config-provider';
 import { useControllableValue } from '@crab-dev/rc-hooks';
 import { useId } from 'react';
-import type { FC } from 'react';
+import { useCronLocale } from './locale.js';
 
 import {
     createDefaultCronValue,
@@ -13,43 +13,62 @@ import {
 import type { CronFieldKind, CronFieldValue } from './cron.js';
 import CronPickerInput from './cronPickerInput.js';
 import CronPickerOverlay from './cronPickerOverlay.js';
-import type { CronPickerProps } from './types.js';
+import type { CronPickerProps, CronPickerChangeDetails } from './types.js';
 
-const CronPicker: FC<CronPickerProps> = ({
+function CronPicker({
     ref,
     value,
     defaultValue,
-    onChange,
+    onValueChange,
     size: sizeProp,
     disabled = false,
+    readOnly = false,
     status,
     placeholder = DEFAULT_CRON_EXPRESSION,
     previewCount = 5,
+    open,
+    defaultOpen,
     onOpenChange,
+    onChange,
+    onInput,
+    onFocus,
+    onBlur,
     className,
     label,
     supportingText,
     errorText,
     appearance,
+    id,
+    name,
+    required,
+    'aria-labelledby': ariaLabelledBy,
+    'aria-describedby': ariaDescribedBy,
+    'aria-invalid': ariaInvalid,
+    'aria-busy': ariaBusy,
     'aria-label': ariaLabel,
-}) => {
+}: CronPickerProps) {
     const size = useComponentSize(sizeProp);
+    const openProps = open === undefined ? { defaultOpen } : { open };
     const overlayId = useId();
-    const [expression, setExpression] = useControllableValue<string>({
+    const triggerId = id ?? `${overlayId}-trigger`;
+    const messages = useCronLocale();
+    const [expression, setExpression] = useControllableValue<string, [CronPickerChangeDetails]>({
         value,
         defaultValue: defaultValue ?? DEFAULT_CRON_EXPRESSION,
-        onChange,
+        onValueChange,
     });
 
     // 受控传入非法表达式时,面板按默认值展示,输入框以 error 态提示(§4 反馈)
     const parsed = parseCron(expression);
     const cronValue = parsed ?? createDefaultCronValue();
 
-    const handleFieldChange = (kind: CronFieldKind, next: CronFieldValue) => {
-        setExpression(formatCron({ ...cronValue, [kind]: next }));
+    const handleFieldChange = (kind: CronFieldKind, next: CronFieldValue, event?: CronPickerChangeDetails['event']) => {
+        if (disabled || readOnly) return;
+        setExpression(formatCron({ ...cronValue, [kind]: next }), { reason: 'field', field: kind, ...(event ? { event } : {}) });
     };
 
-    const handleCommit = (text: string): boolean => {
+    const handleCommit = (text: string, event?: CronPickerChangeDetails['event']): boolean => {
+        if (disabled || readOnly) return false;
         const nextParsed = parseCron(text);
 
         if (nextParsed === null) {
@@ -57,18 +76,21 @@ const CronPicker: FC<CronPickerProps> = ({
         }
 
         // 手输经解析后重新格式化,统一归一(英文名转数字、周日 7 转 0、复合形态展开)
-        setExpression(formatCron(nextParsed));
+        setExpression(formatCron(nextParsed), { reason: 'input', ...(event ? { event } : {}) });
 
         return true;
     };
 
     return (
         <RcDropdownContainer
+            {...openProps}
+            onOpenChange={onOpenChange}
             size={size}
             className={className}
             overlay={
                 <CronPickerOverlay
                     overlayId={overlayId}
+                    disabled={disabled || readOnly}
                     cronValue={cronValue}
                     previewCount={previewCount}
                     onFieldChange={handleFieldChange}
@@ -77,6 +99,14 @@ const CronPicker: FC<CronPickerProps> = ({
         >
             <CronPickerInput
                 ref={ref}
+                id={triggerId}
+                name={name}
+                required={required}
+                readOnly={readOnly}
+                aria-labelledby={ariaLabelledBy}
+                aria-describedby={ariaDescribedBy}
+                aria-invalid={ariaInvalid}
+                aria-busy={ariaBusy}
                 label={label}
                 supportingText={supportingText}
                 errorText={errorText}
@@ -87,10 +117,13 @@ const CronPicker: FC<CronPickerProps> = ({
                 size={size}
                 status={status}
                 placeholder={placeholder}
-                ariaLabel={ariaLabel ?? (label ? undefined : 'Cron 表达式')}
+                ariaLabel={ariaLabel ?? (label || id || ariaLabelledBy ? undefined : messages.label)}
                 overlayId={overlayId}
                 onCommit={handleCommit}
-                onOpenChange={onOpenChange}
+                onChange={onChange}
+                onInput={onInput}
+                onFocus={onFocus}
+                onBlur={onBlur}
             />
         </RcDropdownContainer>
     );

@@ -1,6 +1,6 @@
 export const meta = {
     title: "复选框尺寸",
-    description: "通过 `size` 属性设置复选框尺寸, 支持 `large`、`middle`、`small` 三种",
+    description: "通过 `size` 属性设置复选框尺寸, 支持 `large`、`medium`、`small` 三种",
 };
 
 import { css } from "@crab-dev/css";
@@ -18,15 +18,15 @@ const SizeDemo = () => {
                 gap: 1rem;
             `}
         >
-            <CheckboxGroup value={value} onChange={setValue} size="large">
+            <CheckboxGroup value={value} onValueChange={setValue} size="large">
                 <Checkbox value="a">Large A</Checkbox>
                 <Checkbox value="b">Large B</Checkbox>
             </CheckboxGroup>
-            <CheckboxGroup value={value} onChange={setValue} size="middle">
+            <CheckboxGroup value={value} onValueChange={setValue} size="medium">
                 <Checkbox value="a">Middle A</Checkbox>
                 <Checkbox value="b">Middle B</Checkbox>
             </CheckboxGroup>
-            <CheckboxGroup value={value} onChange={setValue} size="small">
+            <CheckboxGroup value={value} onValueChange={setValue} size="small">
                 <Checkbox value="a">Small A</Checkbox>
                 <Checkbox value="b">Small B</Checkbox>
             </CheckboxGroup>
