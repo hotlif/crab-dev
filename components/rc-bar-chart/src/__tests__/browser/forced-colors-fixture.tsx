@@ -111,7 +111,19 @@ export function installForcedFocusFixture(subject: Subject): void {
         ];
         const pixels = edges.map(edge => {
             check(edge.width > 0 && edge.height > 0, `Invalid ${subject}/${edge.side} ring geometry`);
-            const ink = matchingPixels(image, edge, item.highlight);
+            // The bottom outline crosses the chart axis. Sample that axis just
+            // outside the bar so translucent system ink is composited against
+            // its actual backdrop as well as the surrounding Canvas.
+            const backdrops: number[][] = [];
+            if (subject === 'bar' && edge.side === 'bottom') {
+                const x = Math.floor(rect.left - inset * 2);
+                for (let y = Math.floor(edge.y); y < Math.ceil(edge.y + edge.height); y++) {
+                    check(x >= 0 && y >= 0 && x < image.width && y < image.height, 'Axis reference is outside the screenshot');
+                    const offset = (y * image.width + x) * 4;
+                    backdrops.push(Array.from(image.data.slice(offset, offset + 4)));
+                }
+            }
+            const ink = matchingPixels(image, edge, item.highlight, 2, backdrops);
             check(ink.ratio >= 0.65, `Actual ${subject}/${edge.side} focus outline is missing or obscured: ${ink.ratio}`);
             return { ...edge, ink };
         });
