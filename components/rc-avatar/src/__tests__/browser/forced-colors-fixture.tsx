@@ -126,10 +126,11 @@ async function inspectPixels(base64: string) {
     const image = await screenshotPixels(base64);
     check(image.width === globalThis.innerWidth && image.height === globalThis.innerHeight && globalThis.devicePixelRatio === 1, 'Pixel measurement requires the captured 1x viewport');
     const pixels = image.data;
-    const rgb = (value: string) => {
-        const match = /^rgba?\(\s*([\d.]+)[, ]+([\d.]+)[, ]+([\d.]+)/.exec(value);
+    const rgb = (value: string, backdrop: number[]) => {
+        const match = /^rgba?\(\s*([\d.]+)[, ]+([\d.]+)[, ]+([\d.]+)(?:\s*[,/]\s*([\d.]+))?\s*\)$/.exec(value);
         check(match, `Expected resolved system RGB: ${value}`);
-        return [Number(match[1]), Number(match[2]), Number(match[3])];
+        const alpha = match[4] === undefined ? 1 : Number(match[4]);
+        return [1, 2, 3].map((index, channel) => Number(match[index]) * alpha + backdrop[channel]! * (1 - alpha));
     };
     const counts = (rect: DOMRect | ReturnType<DOMRect['toJSON']>, color: number[]) => {
         let matches = 0;
@@ -142,11 +143,17 @@ async function inspectPixels(base64: string) {
         return matches;
     };
     return snapshot().subjects.map(item => {
-        const backgroundPixels = counts(item.rect, rgb(item.background));
+        // System colors can be translucent (for example Linux Highlight).
+        // The system Canvas is behind the indicator, and its fill is behind
+        // the text; compare the composited colors seen in the capture.
+        const canvas = rgb(getComputedStyle(required('[data-reference="canvas"]')).backgroundColor, [255, 255, 255]);
+        const background = rgb(item.background, canvas);
+        const foreground = rgb(item.color, background);
+        const backgroundPixels = counts(item.rect, background);
         check(backgroundPixels > 2, `Missing actual indicator background pixels: ${item.id}`);
         const characters = item.glyphs.map(glyph => {
-            const foregroundPixels = counts(glyph.rect, rgb(item.color));
-            const glyphBackgroundPixels = counts(glyph.rect, rgb(item.background));
+            const foregroundPixels = counts(glyph.rect, foreground);
+            const glyphBackgroundPixels = counts(glyph.rect, background);
             check(foregroundPixels > 1, `Actual screenshot hides glyph ${glyph.text}: ${item.id}`);
             // A solid HighlightText-colored backplate also contains foreground
             // pixels; require the indicator fill between the glyph strokes.

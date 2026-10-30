@@ -21,7 +21,7 @@ export default defineConfig({
     fullyParallel: true,
     retries: 0,
     maxFailures: 35,
-    workers: 4,
+    workers: job?.kind === 'natural' ? 1 : 4,
     timeout: 45_000,
     expect: { timeout: 10_000, toHaveScreenshot: { animations: "allow", caret: "hide", scale: "css", maxDiffPixels: 0 } },
     reporter: [["list"], ["html", { outputFolder: path.join(output, "report"), open: "never" }], ["json", { outputFile: path.join(output, "results.json") }], ["./matrix-reporter.mjs"]],

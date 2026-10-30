@@ -85,6 +85,8 @@ async function observe() {
     check(Number.isFinite(duration) && duration > 0 && duration <= 2500, 'Finite positive pulse duration required');
     const ranges = items.map((_, index) => ({ min: Infinity, max: -Infinity, samples: 0, startTime: Number(animations[index]!.currentTime), sameObject: true }));
     const started = performance.now(), reference = fill(required('[data-fill-reference]'));
+    // The animation timeline may advance more slowly than wall time on a
+    // loaded browser host. Observe a full actual cycle, with a bounded wait.
     do {
         await frame();
         for (const [index, item] of items.entries()) {
@@ -93,9 +95,10 @@ async function observe() {
             range.sameObject &&= item.getAnimations()[0] === animations[index];
             check(fill(item) === reference, 'Fill changed during natural animation');
         }
-    } while (performance.now() - started < duration + 100);
+    } while (animations.some((animation, index) => Number(animation.currentTime) - ranges[index]!.startTime < duration + 100)
+        && performance.now() - started < duration * 4 + 2000);
     const actual = ranges.map((range, index) => ({ ...range, endTime: Number(animations[index]!.currentTime), playState: animations[index]!.playState }));
-    for (const range of actual) check(range.sameObject && range.samples > 10 && range.min >= 0.49 && range.min < 0.6 && range.max > 0.9 && range.max <= 1 && range.endTime > range.startTime && range.playState === 'running', 'Natural full-cycle pulse evidence failed');
+    for (const range of actual) check(range.sameObject && range.samples > 10 && range.min >= 0.49 && range.min < 0.6 && range.max > 0.9 && range.max <= 1 && range.endTime - range.startTime >= duration && range.playState === 'running', `Natural full-cycle pulse evidence failed: ${JSON.stringify(range)}`);
     return { duration, elapsedMs: performance.now() - started, actual, snapshot: snapshot() };
 }
 async function overrides() {
