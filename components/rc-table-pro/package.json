@@ -2,7 +2,7 @@
     "name": "@crab-dev/rc-table-pro",
     "description": "基于 Table，集成数据加载、查询、列管理和导出的业务表格。",
     "packageManager": "yarn@4.18.0",
-    "version": "0.1.3",
+    "version": "0.2.0",
     "repository": {
         "type": "git",
         "url": "https://github.com/hotlif/crab-dev.git",

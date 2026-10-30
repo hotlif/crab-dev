@@ -3,7 +3,7 @@
     "description": "三套设计体系的明暗与强制颜色映射",
     "packageManager": "yarn@4.18.0",
     "type": "module",
-    "version": "0.0.2",
+    "version": "0.1.0",
     "repository": {
         "type": "git",
         "url": "https://github.com/hotlif/crab-dev.git",

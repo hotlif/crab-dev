@@ -3,7 +3,7 @@
     "description": "基于 rc-canvas 的流程图组件库，提供 Edge 连线、ELK 自动布局和正交边路由能力",
     "packageManager": "yarn@4.18.0",
     "type": "module",
-    "version": "0.0.2",
+    "version": "0.1.0",
     "repository": {
         "type": "git",
         "url": "https://github.com/hotlif/crab-dev.git",

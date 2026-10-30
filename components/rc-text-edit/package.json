@@ -1,7 +1,7 @@
 {
     "name": "@crab-dev/rc-text-edit",
     "description": "多行文本编辑组件, 支持尺寸/验证状态/一键清除/字符计数与内容自适应高度",
-    "version": "0.0.2",
+    "version": "0.1.0",
     "repository": {
         "type": "git",
         "url": "https://github.com/hotlif/crab-dev.git",
