@@ -154,7 +154,9 @@ async function inspectPixels(base64: string) {
         check(fill.ratio > 0.25, `Selected pill fill missing: ${subject.id}`);
         const characters = subject.glyphs.map(glyph => {
             const foreground = matchingPixels(image, glyph.rect, subject.color, 32);
-            const background = matchingPixels(image, glyph.rect, subject.background);
+            // Antialiased CJK strokes can leave near-background pixels around
+            // their edges; a solid text backplate still cannot match the fill.
+            const background = matchingPixels(image, glyph.rect, subject.background, 24);
             check(foreground.matched >= 2, `Selected glyph ink missing: ${subject.id}/${glyph.text}`);
             check(background.matched >= 2 && background.ratio > 0.2, `Text backplate hides glyph shape: ${subject.id}/${glyph.text}`);
             return { ...glyph, foreground, background };

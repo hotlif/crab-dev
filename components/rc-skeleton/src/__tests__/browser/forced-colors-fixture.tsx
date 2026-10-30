@@ -65,7 +65,9 @@ async function inspectPixels(base64: string) {
     const image = await screenshotPixels(base64);
     return snapshot().subjects.map(item => {
         const background = matchingPixels(image, item.rect, item.background);
-        const outline = matchingPixels(image, item.rect, item.outline);
+        // A one-pixel curved outline is antialiased by Linux Chromium; allow
+        // near-solid outline pixels while still requiring every quadrant.
+        const outline = matchingPixels(image, item.rect, item.outline, 32);
         check(background.ratio > 0.5 && outline.matched > 4, `Actual screenshot lost the placeholder: ${item.id}`);
         // Inspect all four quadrants, including the curved circle outline. A
         // nearby label or a single stray border cannot satisfy this check.
@@ -73,7 +75,7 @@ async function inspectPixels(base64: string) {
             const rect = { x: item.rect.x + (index % 2) * item.rect.width / 2,
                 y: item.rect.y + Math.floor(index / 2) * item.rect.height / 2,
                 width: item.rect.width / 2, height: item.rect.height / 2 };
-            const pixels = matchingPixels(image, rect, item.outline);
+            const pixels = matchingPixels(image, rect, item.outline, 32);
             check(pixels.matched > 0, `Incomplete actual outline quadrant ${index}: ${item.id}`);
             return pixels;
         });

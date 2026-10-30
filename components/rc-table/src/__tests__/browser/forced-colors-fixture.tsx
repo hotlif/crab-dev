@@ -3,7 +3,7 @@ import { flushSync } from 'react-dom';
 import ConfigProvider from '@crab-dev/rc-config-provider';
 import Table from '../../../esm/index.mjs';
 import type { ColumnType, Row } from '../../types.js';
-import { matchingPixels, screenshotPixels } from '../../../../../test/forced-color-pixels.mjs';
+import { colorChannels, matchingPixels, screenshotPixels } from '../../../../../test/forced-color-pixels.mjs';
 
 interface Entry extends Row { dataRef: { name: string; number: string; state: string }; }
 const rows: Entry[] = [
@@ -104,9 +104,15 @@ async function prepare() {
 async function inspectPixels(base64: string) {
     const image = await screenshotPixels(base64);
     return snapshot().subjects.map(item => {
+        // The selected cell and its selected row both use Highlight. On
+        // platforms with translucent Highlight, the cell is painted over the
+        // already-composited row rather than directly over Canvas.
+        const row = colorChannels(item.background), canvas = colorChannels('Canvas');
+        const alpha = Number(row[3]) / 255;
+        const rowBackdrop = row.map((channel, index) => index < 3 ? Math.round(channel * alpha + canvas[index]! * (1 - alpha)) : 255);
         const characters = item.glyphs.map(glyph => {
             const foreground = matchingPixels(image, glyph.rect, item.color), antialiasedForeground = matchingPixels(image, glyph.rect, item.color, 32);
-            const background = matchingPixels(image, glyph.rect, item.background);
+            const background = matchingPixels(image, glyph.rect, item.background, 2, [rowBackdrop]);
             // A one-pixel stem can contain only subpixel antialiasing. Preserve its
             // measurements; require strict background gaps per glyph, and actual
             // foreground strokes across each real word rather than increasing
@@ -115,7 +121,9 @@ async function inspectPixels(base64: string) {
             return { text: glyph.text, rect: glyph.rect, foreground, antialiasedForeground, background };
         });
         const textWords = item.words.map(word => {
-            const foreground = matchingPixels(image, word.rect, item.color, 32), background = matchingPixels(image, word.rect, item.background);
+            // Thin CJK strokes can be subpixel-antialiased against the selected
+            // surface; retain separate foreground and background requirements.
+            const foreground = matchingPixels(image, word.rect, item.color, 64), background = matchingPixels(image, word.rect, item.background, 2, [rowBackdrop]);
             check(foreground.matched >= 2 && background.matched > 0 && background.ratio > 0.2, `Actual selected cell word is hidden or backplated: ${item.id}/${word.text}`);
             return { text: word.text, rect: word.rect, foreground, background };
         });

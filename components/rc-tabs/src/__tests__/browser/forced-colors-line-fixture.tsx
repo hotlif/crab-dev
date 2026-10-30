@@ -206,10 +206,11 @@ async function inspectPixels(base64: string) {
             return { ...strip, pixels, otherState };
         });
         const characters = subject.glyphs.map(glyph => {
-            const foreground = matchingPixels(image, glyph.rect, subject.color, 32);
-            const background = matchingPixels(image, glyph.rect, colors.background, 2);
+            const foreground = matchingPixels(image, glyph.rect, subject.color, 64);
+            // Include near-background pixels along antialiased CJK strokes.
+            const background = matchingPixels(image, glyph.rect, colors.background, 24);
             check(foreground.matched >= 2 && background.matched >= 2 && background.ratio > 0.2,
-                `Actual selected text ink/gaps missing: ${subject.id}/${glyph.text}`);
+                `Actual selected text ink/gaps missing: ${subject.id}/${glyph.text} ${JSON.stringify({ foreground, background })}`);
             return { ...glyph, foreground, background };
         });
         const inner = -subject.outline.offset, outer = inner - subject.outline.width;
