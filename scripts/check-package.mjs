@@ -3,12 +3,10 @@ import { resolve } from "node:path";
 import { repositoryRoot } from "./library-manifest.mjs";
 import { resolveYarnEntry, runYarn } from "./package-manager.mjs";
 import { workspaceCheckPlan } from "./check-plan.mjs";
-import { inspectVisualStorage } from './visual/local-storage.mjs';
 
 const directory = process.cwd();
 const manifest = JSON.parse(await readFile(resolve(directory, "package.json"), "utf8"));
 const plan = workspaceCheckPlan(manifest);
-if (manifest.scripts?.['test:visual']) await inspectVisualStorage(repositoryRoot, 'filtered');
 const yarn = await resolveYarnEntry(process.env.npm_execpath);
 
 async function run(args, cwd = directory) {

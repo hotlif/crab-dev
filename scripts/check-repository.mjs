@@ -1,12 +1,10 @@
 import { repositoryCheckPlan } from "./check-plan.mjs";
 import { repositoryRoot } from "./library-manifest.mjs";
 import { resolveYarnEntry, runYarn } from "./package-manager.mjs";
-import { inspectVisualStorage } from './visual/local-storage.mjs';
 
 if (process.argv.includes("--list")) {
     console.log(repositoryCheckPlan.map(script => `yarn ${script}`).join("\n"));
 } else {
-    await inspectVisualStorage(repositoryRoot, 'repository');
     const yarn = await resolveYarnEntry(process.env.npm_execpath);
     for (const script of repositoryCheckPlan) {
         const started = Date.now();

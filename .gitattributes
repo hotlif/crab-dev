@@ -13,6 +13,9 @@
 /.website/docs/learn/practice-*.mdx text eol=lf
 /.website/docs/learn/components.mdx text eol=lf
 /.website/docs/components/*.mdx text eol=lf
+/.website/docs/**/*.mdx text eol=lf
+/.website/docs/navigation.toml text eol=lf
+/README.md text eol=lf
 /components/*/public/docgen.json text eol=lf
 /components/*/src/token.ts text eol=lf
 /components/rc-token-semantic/src/design-system.ts text eol=lf

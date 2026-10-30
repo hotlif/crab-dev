@@ -22,8 +22,4 @@ API 聚合使用官方 TypeScript API 读取真实类型源码；原始 docgen �
 
 在本工作区运行 generate:docs、check:docs、test:generator、lint、typecheck、test、build。构建成功后 preview 在本机 4173 提供生产预览。子路径使用 DOCS_PREVIEW_DIR、DOCS_PREVIEW_BASE、DOCS_PREVIEW_PORT 配置，并遵循当前 shell 语法。
 
-浏览器验收覆盖适用的三体系、明暗、尺寸/密度、320/768/桌面、长内容、键盘与焦点、触控、强制颜色和减少动画。配置、Portal 和消息测试不能替代组件逐状态视觉核对。
-
-## 证据
-
-review 保留历史，不作为现行规则或自动通过证明。新记录标明提交、产物、日期、范围、命令、结果和未验证项；正式规范维护于 guides。不得删除既有审查历史，也不得提交浏览器 profile、缓存和临时构建作为证据。
+组件的浏览器行为及无障碍检查按包登记的必跑项执行。全库截图基线回归不再作为统一检查或发布条件。

@@ -43,9 +43,11 @@ test("shared verification plans reference real scripts and retain every register
     const root = JSON.parse(await readFile(new URL("../package.json", import.meta.url), "utf8"));
     assert.equal(new Set(repositoryCheckPlan).size, repositoryCheckPlan.length);
     assert.ok(!repositoryCheckPlan.includes("check"));
+    assert.ok(!repositoryCheckPlan.includes("test:visual"));
     for (const name of repositoryCheckPlan) assert.ok(root.scripts[name], `Missing root script: ${name}`);
     for (const { packageJson: pkg } of await readWorkspaceManifests()) {
         const plan = workspaceCheckPlan(pkg);
+        assert.ok(!plan.some(step => step.args[0] === "run" && step.args[1] === "test:visual"), pkg.name);
         if (pkg.scripts["build:library"]) {
             assert.equal(plan[0].root, true);
             assert.ok(plan[0].args.includes("build:library"));
