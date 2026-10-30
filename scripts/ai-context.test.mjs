@@ -202,8 +202,9 @@ async function brokenLinks(file, source) {
 
 test("maintained task navigation, local rules and skills contain no broken local links", async () => {
     const files = ["AGENTS.md", "README.md", "components/AGENTS.md", "scripts/AGENTS.md", ".agents/README.md", ".website/README.md"];
-    for (const name of await readdir(resolve(repositoryRoot, "components"))) {
-        const file = `components/${name}/AGENTS.md`;
+    for (const entry of await readdir(resolve(repositoryRoot, "components"), { withFileTypes: true })) {
+        if (!entry.isDirectory()) continue;
+        const file = `components/${entry.name}/AGENTS.md`;
         try { await stat(resolve(repositoryRoot, file)); files.push(file); }
         catch (error) { if (error.code !== "ENOENT") throw error; }
     }

@@ -16,4 +16,5 @@
 /components/*/public/docgen.json text eol=lf
 /components/*/src/token.ts text eol=lf
 /components/rc-token-semantic/src/design-system.ts text eol=lf
+/components/rc-token-semantic/src/density-geometry.ts text eol=lf
 /turbo.json text eol=lf

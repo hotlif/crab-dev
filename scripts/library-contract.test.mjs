@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import { test } from "node:test";
 import { mkdtemp, mkdir, rm, writeFile, readFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
-import { join } from "node:path";
+import { join, posix } from "node:path";
 import { extractPackageImports, findDependencyCycle, inspectPackage, libraryBuildGraph, packageName } from "./library-graph.mjs";
 import { createTurboConfig } from "./generate-library-tasks.mjs";
 import { validateReleaseEvent } from "./check-release.mjs";
@@ -17,7 +17,13 @@ import { requiredCheckPlan } from "./check-required.mjs";
 import { waitForOwnDevTools } from "./published-browser-readiness.mjs";
 import { repositoryCheckPlan, workspaceCheckPlan } from "./check-plan.mjs";
 import { libraryMetadataOutputs } from "./generate-library-metadata.mjs";
-import { readLibraryMetadata } from "./library-manifest.mjs";
+import { loadLibraryManifest, readLibraryMetadata, repositoryRoot } from "./library-manifest.mjs";
+
+test('declared generated files preserve LF on Windows checkouts', async () => {
+    const paths = [...generatedLibraryPaths(await loadLibraryManifest()), 'turbo.json'];
+    const attributes = (await readFile(join(repositoryRoot, '.gitattributes'), 'utf8')).split(/\r?\n/).map(line => line.trim().split(/\s+/));
+    for (const file of paths) assert.ok(attributes.some(([pattern, ...values]) => values.includes('eol=lf') && posix.matchesGlob(file, pattern.replace(/^\//, ''))), `${file} must preserve generated LF bytes`);
+});
 
 test("published runtime rejects relative imports into another package or the documentation environment", async () => {
     const directory = await mkdtemp(join(tmpdir(), "crab-boundary-"));
