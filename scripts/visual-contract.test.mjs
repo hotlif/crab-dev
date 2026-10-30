@@ -4,7 +4,7 @@ import { parsePublishedVisualOptions } from "./visual/published-job.mjs";
 import { publicSourceFiles, renderingManifest } from "./visual/evidence-inputs.mjs";
 import { validateVisualSpec } from "./visual/specification.mjs";
 import { assessMatrix, expectedMatrix, expectedEnvironments, assessEnvironments, isFilteredVisualRun, parseEnvironmentAnnotation } from "./visual/matrix-contract.mjs";
-import { assertLocalDockerEndpoint } from "./visual/local-docker.mjs";
+import { assertLocalDockerEndpoint, localDockerResources } from "./visual/local-docker.mjs";
 import { assertVisualStorage, copyImmutableYarnCache } from './visual/local-storage.mjs';
 import { indexJsonAttachments } from './visual/evidence-attachments.mjs';
 import { hasSnapshotUpdateOption, transferNativeBaselines } from './visual/baseline-transfer.mjs';
@@ -228,6 +228,13 @@ test("explicit visual filters are recorded as partial, ordinary package and engi
 test("local Linux acceptance cannot silently use a remote Docker context", () => {
     for (const endpoint of ["npipe:////./pipe/dockerDesktopLinuxEngine", "unix:///var/run/docker.sock", "tcp://127.0.0.1:2375", "https://[::1]:2376"]) assert.doesNotThrow(() => assertLocalDockerEndpoint(endpoint));
     for (const endpoint of [undefined, "ssh://build-host", "tcp://example.com:2375", "malformed"]) assert.throws(() => assertLocalDockerEndpoint(endpoint));
+});
+
+test('Linux visual containers fit the local Docker CPU budget', () => {
+    assert.deepEqual(localDockerResources(1), { cpus: 1, nativeBuildThreads: 1 });
+    assert.deepEqual(localDockerResources(4), { cpus: 4, nativeBuildThreads: 2 });
+    for (const count of [6, 16]) assert.deepEqual(localDockerResources(count), { cpus: 6, nativeBuildThreads: 2 });
+    for (const count of [undefined, '4', NaN, Infinity, 0, -1, 1.5]) assert.throws(() => localDockerResources(count), /positive CPU count/);
 });
 
 test("environment coverage accounts for design/mode and explicit package exclusions", () => {

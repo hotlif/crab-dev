@@ -1,3 +1,10 @@
+/** Bound CPU requests to the local daemon, including smaller CI runners. */
+export function localDockerResources(availableCpus) {
+    if (!Number.isInteger(availableCpus) || availableCpus < 1) throw Error('Docker must report a positive CPU count.');
+    const cpus = Math.min(6, availableCpus);
+    return { cpus, nativeBuildThreads: Math.min(2, cpus) };
+}
+
 /** Local-only means the Docker endpoint must also remain on this computer. */
 export function assertLocalDockerEndpoint(endpoint) {
     if (typeof endpoint === "string" && (/^npipe:\/\//i.test(endpoint) || /^unix:\/\//i.test(endpoint))) return;

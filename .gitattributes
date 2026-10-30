@@ -3,6 +3,7 @@
 /.yarn/plugins/**/*  binary
 /.pnp.*              binary linguist-generated
 *.zip filter=lfs diff=lfs merge=lfs -text
+*.pdf binary
 
 # Wake generators always emit LF. Pin generated artifacts so Windows checkouts
 # do not report content-identical files as modified after docs/library commands.
@@ -14,3 +15,5 @@
 /.website/docs/components/*.mdx text eol=lf
 /components/*/public/docgen.json text eol=lf
 /components/*/src/token.ts text eol=lf
+/components/rc-token-semantic/src/design-system.ts text eol=lf
+/turbo.json text eol=lf

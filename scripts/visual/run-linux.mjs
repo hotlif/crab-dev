@@ -4,7 +4,7 @@ import { execFileSync, spawn } from "node:child_process";
 import { createHash } from 'node:crypto';
 import { repositoryRoot, readLibraryMetadata } from "../library-manifest.mjs";
 import { linuxVisualImage as image } from "./environment.mjs";
-import { assertLocalDockerEndpoint } from "./local-docker.mjs";
+import { assertLocalDockerEndpoint, localDockerResources } from "./local-docker.mjs";
 import { copyImmutableYarnCache, inspectVisualStorage } from './local-storage.mjs';
 import { visualCaptureScope } from './argument-intent.mjs';
 import { hasSnapshotUpdateOption, transferNativeBaselines } from './baseline-transfer.mjs';
@@ -19,7 +19,7 @@ assertLocalDockerEndpoint(endpoint);
 // A local snapshot includes uncommitted files. Windows native artifacts and PnP
 // runtime are not reused by Linux; installation/builds happen only in this copy.
 const id = new Date().toISOString().replaceAll(/[:.]/g, "-");
-const resources = { cpus: 6, nativeBuildThreads: 2 };
+const resources = localDockerResources(Number(execFileSync("docker", ["info", "--format", "{{.NCPU}}"], { encoding: "utf8" }).trim()));
 const root = path.join(repositoryRoot, ".tmp", `visual-linux-${id}`);
 await mkdir(root, { recursive: true });
 const files = execFileSync("git", ["ls-files", "--cached", "--others", "--exclude-standard", "-z"], { cwd: repositoryRoot, encoding: "utf8", maxBuffer: 32 * 1024 * 1024 }).split("\0").filter(Boolean);
