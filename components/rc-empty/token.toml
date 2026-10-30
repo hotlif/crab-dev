@@ -33,3 +33,11 @@ title.margin-bottom = "$ref(space.component-gap)"
 description.color         = "$ref(color.text.tertiary)"
 description.font-size     = "$ref(typography.caption.font-size)"
 description.margin-bottom = "$ref(space.stack-gap)"
+
+# Content geometry follows the shared typography and spacing scales.
+container.font-family = "$ref(typography.body.font-family)"
+title.line-height = "$ref(typography.title.medium.line-height)"
+description.line-height = "$ref(typography.body.line-height)"
+description.max-width = "calc($ref(size.64) * 5)"
+action.gap = "$ref(space.component-gap)"
+action.margin-top = "$ref(space.inline-gap)"

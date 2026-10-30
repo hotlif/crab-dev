@@ -18,10 +18,6 @@
 - 原生属性经 `Omit` 继承后覆盖；互斥与无障碍约束用可辨识联合。泛型用普通函数，不用 `React.FC`、`any` 或非必要双重断言。
 - 值和 Group 采用 `value` / `defaultValue` / `onValueChange`，单控件布尔采用 `checked` / `defaultChecked` / `onCheckedChange`；合法的只读受控展示允许省略语义回调。原生 `onChange` 保留 DOM 语义。具名集合保留 `selectedKeys` / `checkedKeys` / `expandedKeys` 与对应 Change 回调，详情说明原因和事件。
 - 配置采用 `designSystem`、`colorMode`、`brandColor`、`size`、`density`。通用尺寸 `small / medium / large` 与密度 `compact / standard / comfortable` 独立；Button 的 `xs / s / m / l / xl` 等专门变体必须显式声明。
-- Form 默认适配值接口，布尔控件使用 `adapter="checked"`；原生字段使用 `native` / `nativeChecked`。复杂适配使用公开 `FieldAdapter`；`getValueProps` 处理字段缺失或重置缺值的 `undefined`，Item 首次读取表单当前字段。不以旧 binding/trigger 配置掩盖接口差异。
-- `labelPlacement="control"` 将标签和说明布局交给控件，Form 只分配完整字段宽度；不得依赖子控件为直系 DOM 或跨结构包装器强改其内部轨道。需要表单统一对齐标签时使用 `labelPlacement="external"`。选择器清除状态依据真实值判断，格式化显示文字和 `placeholder` 不代表存在可清除的值。
-- 外部组标题显式使用 `labelPlacement="external"` 与 `labelTarget="group"`；标题关联 Group 根，组内各选项保留自身名称。渲染函数须转发提供的 `aria-labelledby`，已有显式可访问名称优先；不得根据子组件类型猜测组语义。
-- 字段型选择器的弹层上下定位须覆盖自身标签、控件及说明/错误边界，翻转时不得遮住这些内容；焦点、悬停和控件宽度仍以真实交互元素为准。定位范围不扩大到相邻字段或整张 Form；必要时使用共享弹层的内部定位入口，不能用示例 margin 掩盖问题。
 
 ## 样式与设计体系
 
@@ -33,7 +29,7 @@
 - CSS 模板内注释使用 `/* */`，不得使用 JavaScript 的 `//`；当前编译器保留行注释文本，会使相邻选择器或声明失效。状态样式需核对真实构建 CSS。
 - 组合组件定制 Button 时通过公开 `TokenVars` 映射局部前景、状态层和焦点角色；原生 button 不匹配旧的 `[role="button"]` 选择器。视觉边界与粗指针命中区域分别验证。
 - 焦点轮廓须在真实滚动、折叠、选中和 sticky 层下保持可见；按需使用随公开宽度变化的内置轮廓，不以取消必要的 overflow 或改变虚拟测量来隐藏问题。
-- 空数据的 loading/error 状态优先于默认 Empty；刷新已有数据时保留数据。富文本的作用域须能抵抗宿主通用元素重置，并明确提供退出作用域的约定。
+- 空数据的 loading/error 状态优先于默认 Empty；刷新已有数据时保留数据。
 - `data-crab-design` 承载设计体系，`data-theme` 承载解析后 light/dark；Portal 和嵌套 Provider 保持边界一致。
 
 ## 测试与交付

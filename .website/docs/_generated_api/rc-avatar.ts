@@ -18,9 +18,19 @@ type SyntheticEvent<T0 = unknown, T1 = unknown> = DocsTypePlaceholder & { readon
 
 export interface AvatarProps {
     /**
+     * 自定义样式
+     */
+    "style"?: CSSProperties;
+
+    /**
      * Defines a string value that labels the current element.
      */
-    "aria-label"?: string | undefined | string;
+    "aria-label"?: (string | undefined) & (string);
+
+    /**
+     * 图片加载失败回调，返回 false 可阻止回退
+     */
+    "onError"?: (event: SyntheticEvent<HTMLImageElement, Event>) => boolean | void;
 
     /**
      * 形状
@@ -78,11 +88,6 @@ export interface AvatarProps {
     "icon"?: ReactNode;
 
     /**
-     * 图片加载失败回调，返回 false 可阻止回退
-     */
-    "onError"?: (event: SyntheticEvent<HTMLImageElement, Event>) => boolean | void;
-
-    /**
      * img crossOrigin 属性
      */
     "crossOrigin"?: 'anonymous' | 'use-credentials' | '';
@@ -96,11 +101,6 @@ export interface AvatarProps {
      * img referrerPolicy 属性
      */
     "referrerPolicy"?: ImgHTMLAttributes<HTMLImageElement>['referrerPolicy'];
-
-    /**
-     * 自定义样式
-     */
-    "style"?: CSSProperties;
 
     /**
      * 暂无说明。

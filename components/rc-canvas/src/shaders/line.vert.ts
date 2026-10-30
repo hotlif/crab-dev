@@ -9,7 +9,8 @@
  * 构成宽度为 lineWidth 的四边形，避免上传每帧的顶点数据。
  */
 export const LINE_VERT = /* glsl */ `#version 300 es
-precision mediump float;
+// World-space lengths can exceed mediump's squared range (256px on Metal).
+precision highp float;
 
 layout(location = 0) in float a_side;
 layout(location = 1) in float a_t;

@@ -27,8 +27,11 @@ export const vars = defineTokens({
     'legend.item.opacity-hidden': '--bar-chart-legend-item-opacity-hidden',
     'legend.item.touch.min-width': '--bar-chart-legend-item-touch-min-width',
     'legend.item.touch.min-height': '--bar-chart-legend-item-touch-min-height',
+    'legend.item.padding': '--bar-chart-legend-item-padding',
+    'legend.item.background-color-pressed': '--bar-chart-legend-item-background-color-pressed',
     'legend.swatch.inline-size': '--bar-chart-legend-swatch-inline-size',
     'legend.swatch.block-size': '--bar-chart-legend-swatch-block-size',
+    'legend.swatch.border-radius': '--bar-chart-legend-swatch-border-radius',
     'legend.label.color': '--bar-chart-legend-label-color',
     'legend.label.font-size': '--bar-chart-legend-label-font-size',
     'root.box-shadow-focus': '--bar-chart-root-box-shadow-focus',
@@ -46,7 +49,15 @@ export const vars = defineTokens({
     'tooltip.category.color': '--bar-chart-tooltip-category-color',
     'tooltip.name.color': '--bar-chart-tooltip-name-color',
     'tooltip.value.color': '--bar-chart-tooltip-value-color',
-    'tooltip.value.font-weight': '--bar-chart-tooltip-value-font-weight'
+    'tooltip.value.font-weight': '--bar-chart-tooltip-value-font-weight',
+    'tooltip.value.padding-inline-start': '--bar-chart-tooltip-value-padding-inline-start',
+    'tooltip.line-height': '--bar-chart-tooltip-line-height',
+    'tooltip.key.inline-size': '--bar-chart-tooltip-key-inline-size',
+    'tooltip.key.block-size': '--bar-chart-tooltip-key-block-size',
+    'tooltip.key.border-radius': '--bar-chart-tooltip-key-border-radius',
+    'tooltip.border-color': '--bar-chart-tooltip-border-color',
+    'tooltip.border-width': '--bar-chart-tooltip-border-width',
+    'bar.border-radius': '--bar-chart-bar-border-radius'
 });
 
 const token = defineTokens({
@@ -91,11 +102,11 @@ const token = defineTokens({
         }
     },
     'legend': {
-        'gap': `var(${vars['legend.gap']}, var(--token-semantic-space-component-gap, var(--token-global-space-2, 8px)))`,
-        'column-gap': `var(${vars['legend.column-gap']}, var(--bar-chart-legend-item-gap, var(--token-semantic-space-component-gap, var(--token-global-space-2, 8px))))`,
-        'row-gap': `var(${vars['legend.row-gap']}, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)))`,
+        'gap': `var(${vars['legend.gap']}, var(--token-semantic-density-gap, var(--token-semantic-density-standard-gap, var(--token-global-space-2, 8px))))`,
+        'column-gap': `var(${vars['legend.column-gap']}, var(--bar-chart-legend-item-gap, var(--token-semantic-density-gap, var(--token-semantic-density-standard-gap, var(--token-global-space-2, 8px)))))`,
+        'row-gap': `var(${vars['legend.row-gap']}, calc(var(--token-semantic-density-gap, var(--token-semantic-density-standard-gap, var(--token-global-space-2, 8px))) / 2))`,
         'item': {
-            'gap': `var(${vars['legend.item.gap']}, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)))`,
+            'gap': `var(${vars['legend.item.gap']}, calc(var(--token-semantic-density-gap, var(--token-semantic-density-standard-gap, var(--token-global-space-2, 8px))) / 2))`,
             'border-radius': `var(${vars['legend.item.border-radius']}, var(--token-semantic-radius-sm, var(--token-global-radius-2, 4px)))`,
             'background-color-hover': `var(${vars['legend.item.background-color-hover']}, var(--token-semantic-color-state-hover, var(--token-semantic-color-background-hover-subtle, color-mix(in oklch, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695)) calc(var(--token-semantic-state-opacity-hover, var(--token-global-opacity-8, 0.08)) * 100%), var(--token-global-material-neutral-98, oklch(0.98379491 0.01284496 321.893957))))))`,
             'transition': `var(${vars['legend.item.transition']}, var(--token-semantic-motion-interaction, var(--token-global-duration-150, 150ms) var(--token-global-easing-expressive-effects-fast, cubic-bezier(0.31, 0.94, 0.34, 1.00))))`,
@@ -103,11 +114,14 @@ const token = defineTokens({
             'touch': {
                 'min-width': `var(${vars['legend.item.touch.min-width']}, var(--token-semantic-size-touch-target, var(--token-global-size-48, 48px)))`,
                 'min-height': `var(${vars['legend.item.touch.min-height']}, var(--token-semantic-size-touch-target, var(--token-global-size-48, 48px)))`
-            }
+            },
+            'padding': `var(${vars['legend.item.padding']}, calc(var(--token-semantic-density-gap, var(--token-semantic-density-standard-gap, var(--token-global-space-2, 8px))) / 4) var(--token-semantic-density-gap, var(--token-semantic-density-standard-gap, var(--token-global-space-2, 8px))))`,
+            'background-color-pressed': `var(${vars['legend.item.background-color-pressed']}, var(--token-semantic-color-state-pressed, var(--token-semantic-color-background-active-subtle, color-mix(in oklch, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695)) calc(var(--token-semantic-state-opacity-pressed, var(--token-global-opacity-12, 0.12)) * 100%), var(--token-global-material-neutral-98, oklch(0.98379491 0.01284496 321.893957))))))`
         },
         'swatch': {
             'inline-size': `var(${vars['legend.swatch.inline-size']}, 10px)`,
-            'block-size': `var(${vars['legend.swatch.block-size']}, 10px)`
+            'block-size': `var(${vars['legend.swatch.block-size']}, 10px)`,
+            'border-radius': `var(${vars['legend.swatch.border-radius']}, 2px)`
         },
         'label': {
             'color': `var(${vars['legend.label.color']}, var(--token-semantic-color-text-secondary, var(--token-global-material-neutral-variant-30, oklch(0.39805288 0.01735545 303.720936))))`,
@@ -122,15 +136,15 @@ const token = defineTokens({
         'outline-width-focus': `var(${vars['root.outline-width-focus']}, 2px)`
     },
     'tooltip': {
-        'background-color': `var(${vars['tooltip.background-color']}, var(--token-semantic-color-surface-overlay, var(--token-global-material-neutral-92, oklch(0.93250577 0.01478797 312.240074))))`,
-        'border-radius': `var(${vars['tooltip.border-radius']}, var(--token-semantic-shape-overlay, var(--token-global-radius-14, 28px)))`,
+        'background-color': `var(${vars['tooltip.background-color']}, var(--token-semantic-overlay-popover-background, var(--token-semantic-color-surface-container, var(--token-global-material-neutral-94, oklch(0.95362610 0.01470533 312.243326)))))`,
+        'border-radius': `var(${vars['tooltip.border-radius']}, var(--token-semantic-overlay-popover-shape, var(--token-global-radius-2, 4px)))`,
         'box-shadow': `var(${vars['tooltip.box-shadow']}, var(--token-semantic-shadow-float, var(--token-global-shadow-material-2, 0 1px 2px 0 oklch(0 0 0 / 0.3), 0 2px 6px 2px oklch(0 0 0 / 0.15))))`,
-        'padding': `var(${vars['tooltip.padding']}, 8px 12px)`,
+        'padding': `var(${vars['tooltip.padding']}, var(--token-semantic-density-gap, var(--token-semantic-density-standard-gap, var(--token-global-space-2, 8px))) var(--token-semantic-density-padding, var(--token-semantic-density-standard-padding, var(--token-global-space-3, 12px))))`,
         'rows': {
-            'row-gap': `var(${vars['tooltip.rows.row-gap']}, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)))`
+            'row-gap': `var(${vars['tooltip.rows.row-gap']}, calc(var(--token-semantic-density-gap, var(--token-semantic-density-standard-gap, var(--token-global-space-2, 8px))) / 2))`
         },
         'row': {
-            'column-gap': `var(${vars['tooltip.row.column-gap']}, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)))`
+            'column-gap': `var(${vars['tooltip.row.column-gap']}, calc(var(--token-semantic-density-gap, var(--token-semantic-density-standard-gap, var(--token-global-space-2, 8px))) / 2))`
         },
         'font-size': `var(${vars['tooltip.font-size']}, var(--token-semantic-typography-caption-font-size, var(--token-global-font-size-xs, 12px)))`,
         'category': {
@@ -141,8 +155,20 @@ const token = defineTokens({
         },
         'value': {
             'color': `var(${vars['tooltip.value.color']}, var(--token-semantic-color-text-primary, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695))))`,
-            'font-weight': `var(${vars['tooltip.value.font-weight']}, var(--token-semantic-typography-label-font-weight, var(--token-global-font-weight-medium, 500)))`
-        }
+            'font-weight': `var(${vars['tooltip.value.font-weight']}, var(--token-semantic-typography-label-font-weight, var(--token-global-font-weight-medium, 500)))`,
+            'padding-inline-start': `var(${vars['tooltip.value.padding-inline-start']}, var(--token-semantic-density-padding, var(--token-semantic-density-standard-padding, var(--token-global-space-3, 12px))))`
+        },
+        'line-height': `var(${vars['tooltip.line-height']}, var(--token-semantic-typography-body-line-height, var(--token-global-line-height-14-20, 1.4285714285714286)))`,
+        'key': {
+            'inline-size': `var(${vars['tooltip.key.inline-size']}, 10px)`,
+            'block-size': `var(${vars['tooltip.key.block-size']}, 3px)`,
+            'border-radius': `var(${vars['tooltip.key.border-radius']}, 1.5px)`
+        },
+        'border-color': `var(${vars['tooltip.border-color']}, var(--token-semantic-overlay-popover-border, transparent))`,
+        'border-width': `var(${vars['tooltip.border-width']}, 1px)`
+    },
+    'bar': {
+        'border-radius': `var(${vars['bar.border-radius']}, 2px)`
     }
 });
 

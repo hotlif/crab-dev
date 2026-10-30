@@ -3,7 +3,7 @@
  * 与 flat.vert 相同；独立文件便于后续各自扩展。
  */
 export const SDF_VERT = /* glsl */ `#version 300 es
-precision mediump float;
+precision highp float;
 
 layout(location = 0) in vec2 a_position;
 layout(location = 1) in vec2 a_uv;

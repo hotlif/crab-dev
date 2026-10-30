@@ -1,4 +1,4 @@
-import { css, cx } from '@crab-dev/css';
+import { cx } from '@crab-dev/css';
 import { createElement, useEffect, useReducer, useRef, useState } from 'react';
 import Alert from '@crab-dev/rc-alert';
 import Button from '@crab-dev/rc-button';
@@ -10,40 +10,10 @@ import { RealmErrorBoundary } from './errorBoundary.js';
 import { createBuiltinRealmError, getRealmErrorMessage } from './errorMessages.js';
 import { loadRemoteModule } from './loader.js';
 import { applyStyleSheets, ensureShadowRoot } from './sandbox.js';
-import token from './token.js';
+import { hostStyle, appearStyle, placeholderStyle } from './realm.styles.js';
 import { RealmError } from './types.js';
 import type { MountLifecycle, RealmProps, RealmRemoteProps } from './types.js';
 import type { ComponentType, ReactNode } from 'react';
-
-/* ────────────────────────────────── 静态样式 ────────────────────────────────── */
-
-const hostStyle = css`
-    position: relative;
-    display: block;
-`;
-
-/* 远程内容就绪淡入：只是修饰, reduce 下移除；加载中反馈由 rc-spin 承担 */
-const appearStyle = css`
-    animation: rc-realm-appear ${token.root.animation} both;
-
-    @keyframes rc-realm-appear {
-        from {
-            opacity: 0;
-        }
-        to {
-            opacity: 1;
-        }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-        animation: none;
-    }
-`;
-
-/* loading 占位下限：防 Spin 包裹遮罩塌陷成 0 高、防内容就绪时布局跳动 */
-const placeholderStyle = css`
-    min-block-size: ${token.placeholder['min-block-size']};
-`;
 
 /* ────────────────────────────────── 状态机 ────────────────────────────────── */
 

@@ -8,6 +8,8 @@ export const vars = defineTokens({
     'panel.padding-block': '--color-picker-panel-padding-block',
     'panel.padding-inline': '--color-picker-panel-padding-inline',
     'panel.gap': '--color-picker-panel-gap',
+    'panel.min-width': '--color-picker-panel-min-width',
+    'panel.rail.height': '--color-picker-panel-rail-height',
     'panel.preview.height': '--color-picker-panel-preview-height',
     'panel.preview.width': '--color-picker-panel-preview-width',
     'panel.preview.border-radius': '--color-picker-panel-preview-border-radius',
@@ -18,6 +20,8 @@ export const vars = defineTokens({
     'panel.slider.label.font-size': '--color-picker-panel-slider-label-font-size',
     'panel.slider.label.font-weight': '--color-picker-panel-slider-label-font-weight',
     'panel.slider.label.line-height': '--color-picker-panel-slider-label-line-height',
+    'footer.gap': '--color-picker-footer-gap',
+    'footer.margin-top': '--color-picker-footer-margin-top',
     'slider.thumb.stroke-color': '--color-picker-slider-thumb-stroke-color',
     'slider.alpha.checker.color': '--color-picker-slider-alpha-checker-color',
     'trigger.border-color': '--color-picker-trigger-border-color',
@@ -31,6 +35,8 @@ export const vars = defineTokens({
     'trigger.touch.min-height': '--color-picker-trigger-touch-min-height',
     'trigger.opacity-disabled': '--color-picker-trigger-opacity-disabled',
     'trigger.ring.color-focus': '--color-picker-trigger-ring-color-focus',
+    'trigger.ring.width-focus': '--color-picker-trigger-ring-width-focus',
+    'trigger.ring.outline-offset-focus': '--color-picker-trigger-ring-outline-offset-focus',
     'trigger.background-color-disabled': '--color-picker-trigger-background-color-disabled',
     'trigger.border-color-disabled': '--color-picker-trigger-border-color-disabled',
     'trigger.swatch.small.width': '--color-picker-trigger-swatch-small-width',
@@ -53,6 +59,10 @@ const token = defineTokens({
         'padding-block': `var(${vars['panel.padding-block']}, var(--token-semantic-space-stack-gap, var(--token-global-space-3, 12px)))`,
         'padding-inline': `var(${vars['panel.padding-inline']}, var(--token-semantic-space-section-gap, var(--token-global-space-4, 16px)))`,
         'gap': `var(${vars['panel.gap']}, var(--token-semantic-space-stack-gap, var(--token-global-space-3, 12px)))`,
+        'min-width': `var(${vars['panel.min-width']}, 250px)`,
+        'rail': {
+            'height': `var(${vars['panel.rail.height']}, 12px)`
+        },
         'preview': {
             'height': `var(${vars['panel.preview.height']}, 5rem)`,
             'width': `var(${vars['panel.preview.width']}, 100%)`,
@@ -71,6 +81,10 @@ const token = defineTokens({
                 'line-height': `var(${vars['panel.slider.label.line-height']}, var(--token-semantic-typography-label-line-height, var(--token-global-line-height-14-20, 1.4285714285714286)))`
             }
         }
+    },
+    'footer': {
+        'gap': `var(${vars['footer.gap']}, var(--token-semantic-space-component-gap, var(--token-global-space-2, 8px)))`,
+        'margin-top': `var(${vars['footer.margin-top']}, var(--token-semantic-space-section-gap, var(--token-global-space-4, 16px)))`
     },
     'slider': {
         'thumb': {
@@ -96,7 +110,9 @@ const token = defineTokens({
         },
         'opacity-disabled': `var(${vars['trigger.opacity-disabled']}, var(--token-semantic-opacity-disabled, var(--token-global-opacity-38, 0.38)))`,
         'ring': {
-            'color-focus': `var(${vars['trigger.ring.color-focus']}, var(--token-semantic-color-focus-ring, var(--token-semantic-color-border-focus, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078)))))`
+            'color-focus': `var(${vars['trigger.ring.color-focus']}, var(--token-semantic-color-focus-ring, var(--token-semantic-color-border-focus, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078)))))`,
+            'width-focus': `var(${vars['trigger.ring.width-focus']}, 2px)`,
+            'outline-offset-focus': `var(${vars['trigger.ring.outline-offset-focus']}, 2px)`
         },
         'background-color-disabled': `var(${vars['trigger.background-color-disabled']}, var(--token-semantic-color-background-disabled, var(--token-global-material-neutral-90, oklch(0.91401081 0.01366394 314.754144))))`,
         'border-color-disabled': `var(${vars['trigger.border-color-disabled']}, var(--token-semantic-color-border-default, var(--token-global-material-neutral-variant-50, oklch(0.56674707 0.01627446 308.142182))))`,

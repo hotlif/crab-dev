@@ -34,6 +34,7 @@ const buildRectKeys = (
 export function useCellSelection<T extends Row>(params: {
     displayRows: Array<T | InternalGroupRow<T> | InternalExpandedRow<T>>
     bottomColumnsRef: RefObject<ColumnType<T>[]>
+    rootRef?: RefObject<HTMLElement | null>
     selectCells?: Key[]
     onSelectCellsChange?: (cells: Key[]) => void
     onCopy?: (cells: Array<{ rowId: Key; rowIndex: number; columnIndex: number; columnName: string; value: unknown }>) => void
@@ -50,7 +51,7 @@ export function useCellSelection<T extends Row>(params: {
     handleCellMouseEnter: (_rowIndex: number, _columnIndex: number, event: ReactMouseEvent<HTMLDivElement>) => void;
     getCellSelectionState: (rowIndex: number, columnIndex: number, mergeCell?: MergeCell) => CellSelectionState | undefined;
 } {
-    const { displayRows, bottomColumnsRef, selectCells, onSelectCellsChange, onCopy, onCtrlZ, isInteractionActive } = params;
+    const { displayRows, bottomColumnsRef, rootRef, selectCells, onSelectCellsChange, onCopy, onCtrlZ, isInteractionActive } = params;
 
     const onCopyRef = useRef(onCopy);
     onCopyRef.current = onCopy;
@@ -188,9 +189,10 @@ export function useCellSelection<T extends Row>(params: {
             setDragRect(nextRect);
             isDraggingRef.current = true;
         }
+        const document = event.currentTarget?.ownerDocument ?? rootRef?.current?.ownerDocument ?? globalThis.document;
         (document.activeElement as HTMLElement | null)?.blur?.();
         event.preventDefault();
-    }, [anchorCell, anchorRowIndex, committedSelectCells, emitSelectCells, displayRows, selectedKeySet, bottomColumnsRef]);
+    }, [rootRef, anchorCell, anchorRowIndex, committedSelectCells, emitSelectCells, displayRows, selectedKeySet, bottomColumnsRef]);
 
     const handleCellMouseEnter = useCallback((_rowIndex: number, _columnIndex: number, event: ReactMouseEvent<HTMLDivElement>) => {
         if (!isDraggingRef.current) return;
@@ -222,6 +224,8 @@ export function useCellSelection<T extends Row>(params: {
     }, [anchorCell, displayRows, bottomColumnsRef, isCellSelected]);
 
     useEffect(() => {
+        const document = rootRef?.current?.ownerDocument ?? globalThis.document;
+        const target = document.defaultView ?? document;
         const handleMouseUp = () => {
             if (!isDraggingRef.current) return;
             isDraggingRef.current = false;
@@ -293,13 +297,13 @@ export function useCellSelection<T extends Row>(params: {
             if (committedSelectCells.length > 0) emitSelectCells([]);
         };
 
-        window.addEventListener("mouseup", handleMouseUp);
-        window.addEventListener("keydown", handleKeyDown);
+        target.addEventListener("mouseup", handleMouseUp);
+        target.addEventListener("keydown", handleKeyDown as EventListener);
         return () => {
-            window.removeEventListener("mouseup", handleMouseUp);
-            window.removeEventListener("keydown", handleKeyDown);
+            target.removeEventListener("mouseup", handleMouseUp);
+            target.removeEventListener("keydown", handleKeyDown as EventListener);
         };
-    }, [displayRows, emitSelectCells, committedSelectCells, anchorCell, serializedRowMap, bottomColumnsRef, isInteractionActive, cancelDragFrame]);
+    }, [rootRef, displayRows, emitSelectCells, committedSelectCells, anchorCell, serializedRowMap, bottomColumnsRef, isInteractionActive, cancelDragFrame]);
 
     useEffect(() => () => {
         cancelDragFrame();

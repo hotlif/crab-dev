@@ -1,76 +1,9 @@
-import { css, cx } from '@crab-dev/css';
+import { cx } from '@crab-dev/css';
 import Button from '@crab-dev/rc-button';
 import { useLocale } from '@crab-dev/rc-config-provider';
 import type { ReactNode } from 'react';
-import token from './token.js';
 import type { BreadcrumbsItem, BreadcrumbsProps } from './types.js';
-
-const rootStyle = css`
-    font-size: ${token.root['font-size']};
-    line-height: ${token.root['line-height']};
-`;
-
-const listStyle = css`
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    gap: ${token.root.gap};
-`;
-
-const itemStyle = css`
-    display: inline-flex;
-    align-items: center;
-    min-width: 0;
-`;
-
-const linkStyle = css`
-    @media (pointer: coarse) { min-width: ${token.interaction.touch['min-width']}; min-height: ${token.interaction.touch['min-height']}; }
-    &:focus-visible { outline: ${token.interaction['outline-width-focus']} solid ${token.interaction['outline-color-focus']}; outline-offset: ${token.interaction['outline-offset-focus']}; }
-    @media (forced-colors: active) { &:focus-visible { outline-color: Highlight; } &[aria-selected='true'], &[aria-current='page'] { outline: 2px solid Highlight; } }
-    @media (prefers-reduced-motion: reduce) { transition: none; }
-
-    color: ${token.item.color};
-    text-decoration: none;
-    transition: color ${token.interaction.transition};
-    display: inline-flex; align-items: center;
-
-    &:hover {
-        color: ${token.item['color-hover']};
-    }
-`;
-
-const currentStyle = css`
-    color: ${token.item['color-active']};
-    font-weight: ${token.item.current['font-weight']};
-`;
-
-const actionStyle = css`
-    && {
-        font: inherit;
-        color: ${token.item.color};
-        min-height: ${token.interaction.touch['min-height']};
-    }
-`;
-
-const disabledStyle = css`
-    color: ${token.item['color-disabled']};
-    cursor: not-allowed;
-    pointer-events: none;
-`;
-
-const separatorStyle = css`
-    color: ${token.separator.color};
-    padding: ${token.separator.padding};
-    user-select: none;
-`;
-
-const ellipsisStyle = css`
-    color: ${token.ellipsis.color};
-`;
-
+import { rootStyle, listStyle, itemStyle, linkStyle, currentStyle, actionStyle, disabledStyle, separatorStyle, ellipsisStyle } from "./breadcrumbs.styles.js";
 type RenderEntry =
     | { type: 'item'; item: BreadcrumbsItem; index: number }
     | { type: 'ellipsis'; key: string };

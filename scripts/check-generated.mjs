@@ -6,13 +6,14 @@ import { promisify } from "node:util";
 import { pathToFileURL } from "node:url";
 import { loadLibraryManifest, repositoryRoot } from "./library-manifest.mjs";
 import { resolveYarnEntry } from "./package-manager.mjs";
+import { libraryMetadataOutputs } from "./generate-library-metadata.mjs";
 
 export function generatedLibraryPaths(manifest) {
-    return manifest.packages.flatMap((entry) => {
+    return [...libraryMetadataOutputs(manifest).map(output => output.path), ...manifest.packages.flatMap((entry) => {
         if (!entry.packageJson.scripts?.["generate:token"]) return [];
         const files = entry.packageJson.crab?.generatedArtifacts?.["generate:token"] ?? ["src/token.ts"];
         return files.map((file) => `${entry.path}/${file}`);
-    }).sort();
+    })].sort();
 }
 
 export function generatedContentChanges(before, after) {
@@ -33,12 +34,13 @@ async function contentSnapshot(paths) {
 }
 
 export async function checkGeneratedDrift() {
-    const paths = [...generatedLibraryPaths(await loadLibraryManifest()), ".pnp.cjs", ".pnp.loader.mjs"];
+    const paths = [...generatedLibraryPaths(await loadLibraryManifest()), "turbo.json", ".pnp.cjs", ".pnp.loader.mjs"];
     const before = await contentSnapshot(paths);
     const yarn = await resolveYarnEntry(process.env.npm_execpath);
     const run = promisify(execFile);
     console.log("Regenerating declared artifacts and checking content drift without consulting Git status.");
     await run(process.execPath, [yarn, "install", "--immutable"], { cwd: repositoryRoot, windowsHide: true, maxBuffer: 16 * 1024 * 1024 });
+    await run(process.execPath, [yarn, "run", "generate:architecture"], { cwd: repositoryRoot, windowsHide: true, maxBuffer: 16 * 1024 * 1024 });
     await run(process.execPath, [yarn, "run", "generate:token", "--force"], { cwd: repositoryRoot, windowsHide: true, maxBuffer: 16 * 1024 * 1024 });
     const after = await contentSnapshot(paths);
     const missing = [...after].filter(([, content]) => content === null).map(([path]) => path);

@@ -1,0 +1,325 @@
+{
+  "status": "passed",
+  "workspace": "C:\\Users\\zhang\\Desktop\\crab-dev",
+  "generatedDirectory": "C:\\Users\\zhang\\Desktop\\crab-dev\\components\\rc-pdf-editor\\public\\runtime",
+  "backupDirectory": "C:\\Users\\zhang\\Desktop\\crab-dev\\.tmp\\pdf-runtime-cache-20261029-3\\original-runtime",
+  "failedAttemptDirectory": "C:\\Users\\zhang\\Desktop\\crab-dev\\.tmp\\pdf-runtime-cache-20261029-3\\failed-restoration-runtime",
+  "command": [
+    "yarn",
+    "exec",
+    "turbo",
+    "run",
+    "build:library",
+    "--filter=@crab-dev/rc-pdf-editor",
+    "--concurrency=2",
+    "--summarize"
+  ],
+  "temp": "C:\\Users\\zhang\\Desktop\\crab-dev\\.tmp\\verification-temp",
+  "tmpdir": "C:\\Users\\zhang\\Desktop\\crab-dev\\.tmp\\verification-temp",
+  "rayon": "2",
+  "startedAt": "2026-10-29T12:23:14.5343837Z",
+  "moves": [
+    {
+      "reason": "Preserve complete generated runtime before testing cold resource restoration",
+      "sourceAbsolute": "C:\\Users\\zhang\\Desktop\\crab-dev\\components\\rc-pdf-editor\\public\\runtime",
+      "sourceRealPath": "C:\\Users\\zhang\\Desktop\\crab-dev\\components\\rc-pdf-editor\\public\\runtime",
+      "destinationAbsolute": "C:\\Users\\zhang\\Desktop\\crab-dev\\.tmp\\pdf-runtime-cache-20261029-3\\original-runtime",
+      "destinationParentRealPath": "C:\\Users\\zhang\\Desktop\\crab-dev\\.tmp\\pdf-runtime-cache-20261029-3",
+      "allAncestorsAndTreeNonReparse": true,
+      "sourceInsideWorkspace": true,
+      "destinationInsideWorkspace": true,
+      "verifiedAt": "2026-10-29T12:23:15.0544575Z",
+      "completed": true,
+      "completedAt": "2026-10-29T12:23:15.0659279Z"
+    }
+  ],
+  "warmEnvMode": "strict",
+  "warmGlobalPassthrough": {
+    "specified": {
+      "env": [],
+      "passThroughEnv": [
+        "CRAB_TEST_BROWSER_PATH",
+        "PLAYWRIGHT_BROWSERS_PATH",
+        "RAYON_NUM_THREADS",
+        "TEMP",
+        "TMP",
+        "TMPDIR"
+      ]
+    },
+    "configured": [],
+    "inferred": [],
+    "passthrough": [
+      "RAYON_NUM_THREADS=d4735e3a265e16eee03f59718b9b5d03019c07d8b6c51f90da3a666eec13ab35",
+      "TEMP=8a696beb9bb52cc643cae79f71c72fd999a80392eb05060aaa9867744f11786c",
+      "TMP=8a696beb9bb52cc643cae79f71c72fd999a80392eb05060aaa9867744f11786c",
+      "TMPDIR=8a696beb9bb52cc643cae79f71c72fd999a80392eb05060aaa9867744f11786c"
+    ]
+  },
+  "warmResourceValues": [
+    {
+      "name": "RAYON_NUM_THREADS",
+      "expectedValueSha256": "d4735e3a265e16eee03f59718b9b5d03019c07d8b6c51f90da3a666eec13ab35",
+      "nativeEntry": "RAYON_NUM_THREADS=d4735e3a265e16eee03f59718b9b5d03019c07d8b6c51f90da3a666eec13ab35",
+      "matches": true
+    },
+    {
+      "name": "TEMP",
+      "expectedValueSha256": "8a696beb9bb52cc643cae79f71c72fd999a80392eb05060aaa9867744f11786c",
+      "nativeEntry": "TEMP=8a696beb9bb52cc643cae79f71c72fd999a80392eb05060aaa9867744f11786c",
+      "matches": true
+    },
+    {
+      "name": "TMP",
+      "expectedValueSha256": "8a696beb9bb52cc643cae79f71c72fd999a80392eb05060aaa9867744f11786c",
+      "nativeEntry": "TMP=8a696beb9bb52cc643cae79f71c72fd999a80392eb05060aaa9867744f11786c",
+      "matches": true
+    },
+    {
+      "name": "TMPDIR",
+      "expectedValueSha256": "8a696beb9bb52cc643cae79f71c72fd999a80392eb05060aaa9867744f11786c",
+      "nativeEntry": "TMPDIR=8a696beb9bb52cc643cae79f71c72fd999a80392eb05060aaa9867744f11786c",
+      "matches": true
+    }
+  ],
+  "pdfSourceStableAfterWarm": true,
+  "warmSummary": "warm-native-3LMv28BCHbduPwhJcJJOMbxYMGo.json",
+  "warmTaskHash": "26f5e1c82dd07ed9",
+  "fileCount": 5,
+  "totalBytes": 14182365.0,
+  "runtimeAbsentBeforeColdRun": true,
+  "coldExitCode": 0,
+  "coldEnvMode": "strict",
+  "coldGlobalPassthrough": {
+    "specified": {
+      "env": [],
+      "passThroughEnv": [
+        "CRAB_TEST_BROWSER_PATH",
+        "PLAYWRIGHT_BROWSERS_PATH",
+        "RAYON_NUM_THREADS",
+        "TEMP",
+        "TMP",
+        "TMPDIR"
+      ]
+    },
+    "configured": [],
+    "inferred": [],
+    "passthrough": [
+      "RAYON_NUM_THREADS=d4735e3a265e16eee03f59718b9b5d03019c07d8b6c51f90da3a666eec13ab35",
+      "TEMP=8a696beb9bb52cc643cae79f71c72fd999a80392eb05060aaa9867744f11786c",
+      "TMP=8a696beb9bb52cc643cae79f71c72fd999a80392eb05060aaa9867744f11786c",
+      "TMPDIR=8a696beb9bb52cc643cae79f71c72fd999a80392eb05060aaa9867744f11786c"
+    ]
+  },
+  "coldResourceValues": [
+    {
+      "name": "RAYON_NUM_THREADS",
+      "expectedValueSha256": "d4735e3a265e16eee03f59718b9b5d03019c07d8b6c51f90da3a666eec13ab35",
+      "nativeEntry": "RAYON_NUM_THREADS=d4735e3a265e16eee03f59718b9b5d03019c07d8b6c51f90da3a666eec13ab35",
+      "matches": true
+    },
+    {
+      "name": "TEMP",
+      "expectedValueSha256": "8a696beb9bb52cc643cae79f71c72fd999a80392eb05060aaa9867744f11786c",
+      "nativeEntry": "TEMP=8a696beb9bb52cc643cae79f71c72fd999a80392eb05060aaa9867744f11786c",
+      "matches": true
+    },
+    {
+      "name": "TMP",
+      "expectedValueSha256": "8a696beb9bb52cc643cae79f71c72fd999a80392eb05060aaa9867744f11786c",
+      "nativeEntry": "TMP=8a696beb9bb52cc643cae79f71c72fd999a80392eb05060aaa9867744f11786c",
+      "matches": true
+    },
+    {
+      "name": "TMPDIR",
+      "expectedValueSha256": "8a696beb9bb52cc643cae79f71c72fd999a80392eb05060aaa9867744f11786c",
+      "nativeEntry": "TMPDIR=8a696beb9bb52cc643cae79f71c72fd999a80392eb05060aaa9867744f11786c",
+      "matches": true
+    }
+  ],
+  "coldSummary": "cold-native-3LMv9795jh72dPRvh7VrmZ8Psjp.json",
+  "coldTaskHash": "26f5e1c82dd07ed9",
+  "coldCache": {
+    "local": true,
+    "remote": false,
+    "status": "HIT",
+    "source": "LOCAL",
+    "timeSaved": 9368,
+    "sha": "f10af97f48f9077ac87c545c44361e4a930e5789",
+    "dirtyHash": "ee5072fa1797eced7ce0abaca50a221e06bb913cff89e05c6f63b5cb3e1d943a"
+  },
+  "taskHashesEqual": true,
+  "nativeTaskResults": [
+    {
+      "taskId": "@crab-dev/rc-auto-sizer#build:library",
+      "hash": "4e2f69fd49c51317",
+      "cache": "HIT",
+      "source": "LOCAL",
+      "exitCode": 0
+    },
+    {
+      "taskId": "@crab-dev/rc-button#build:library",
+      "hash": "c81913acde7d61ac",
+      "cache": "HIT",
+      "source": "LOCAL",
+      "exitCode": 0
+    },
+    {
+      "taskId": "@crab-dev/rc-canvas#build:library",
+      "hash": "d86604b58e28c8f0",
+      "cache": "HIT",
+      "source": "LOCAL",
+      "exitCode": 0
+    },
+    {
+      "taskId": "@crab-dev/rc-checkbox#build:library",
+      "hash": "605994e355bae034",
+      "cache": "HIT",
+      "source": "LOCAL",
+      "exitCode": 0
+    },
+    {
+      "taskId": "@crab-dev/rc-color-picker#build:library",
+      "hash": "01bbc584888a7ff0",
+      "cache": "HIT",
+      "source": "LOCAL",
+      "exitCode": 0
+    },
+    {
+      "taskId": "@crab-dev/rc-config-provider#build:library",
+      "hash": "f1bc4046ead40bd6",
+      "cache": "HIT",
+      "source": "LOCAL",
+      "exitCode": 0
+    },
+    {
+      "taskId": "@crab-dev/rc-dialog#build:library",
+      "hash": "fbc6c68c9424ed1d",
+      "cache": "HIT",
+      "source": "LOCAL",
+      "exitCode": 0
+    },
+    {
+      "taskId": "@crab-dev/rc-dropdown-container#build:library",
+      "hash": "101ca683464d2001",
+      "cache": "HIT",
+      "source": "LOCAL",
+      "exitCode": 0
+    },
+    {
+      "taskId": "@crab-dev/rc-hooks#build:library",
+      "hash": "1aa1c1a40d381ee6",
+      "cache": "HIT",
+      "source": "LOCAL",
+      "exitCode": 0
+    },
+    {
+      "taskId": "@crab-dev/rc-line-edit#build:library",
+      "hash": "3b4218f8ed76dba9",
+      "cache": "HIT",
+      "source": "LOCAL",
+      "exitCode": 0
+    },
+    {
+      "taskId": "@crab-dev/rc-masonry#build:library",
+      "hash": "0df7557d154fbe56",
+      "cache": "HIT",
+      "source": "LOCAL",
+      "exitCode": 0
+    },
+    {
+      "taskId": "@crab-dev/rc-number-edit#build:library",
+      "hash": "930582dc2c2f9e58",
+      "cache": "HIT",
+      "source": "LOCAL",
+      "exitCode": 0
+    },
+    {
+      "taskId": "@crab-dev/rc-pdf-editor#build:library",
+      "hash": "26f5e1c82dd07ed9",
+      "cache": "HIT",
+      "source": "LOCAL",
+      "exitCode": 0
+    },
+    {
+      "taskId": "@crab-dev/rc-select#build:library",
+      "hash": "222b7a7e6b8e92fc",
+      "cache": "HIT",
+      "source": "LOCAL",
+      "exitCode": 0
+    },
+    {
+      "taskId": "@crab-dev/rc-slider#build:library",
+      "hash": "0f17679d27ee5a8a",
+      "cache": "HIT",
+      "source": "LOCAL",
+      "exitCode": 0
+    },
+    {
+      "taskId": "@crab-dev/rc-spin#build:library",
+      "hash": "82af281f0b58e5b7",
+      "cache": "HIT",
+      "source": "LOCAL",
+      "exitCode": 0
+    },
+    {
+      "taskId": "@crab-dev/rc-tag#build:library",
+      "hash": "77336141454bc2f6",
+      "cache": "HIT",
+      "source": "LOCAL",
+      "exitCode": 0
+    },
+    {
+      "taskId": "@crab-dev/rc-text-edit#build:library",
+      "hash": "ba39a007412e74cc",
+      "cache": "HIT",
+      "source": "LOCAL",
+      "exitCode": 0
+    },
+    {
+      "taskId": "@crab-dev/rc-theme#build:library",
+      "hash": "8597ef5e8d7ece76",
+      "cache": "HIT",
+      "source": "LOCAL",
+      "exitCode": 0
+    },
+    {
+      "taskId": "@crab-dev/rc-token-global#build:library",
+      "hash": "4ca34a142bf39873",
+      "cache": "HIT",
+      "source": "LOCAL",
+      "exitCode": 0
+    },
+    {
+      "taskId": "@crab-dev/rc-token-semantic#build:library",
+      "hash": "6faeea2cda6e29f0",
+      "cache": "HIT",
+      "source": "LOCAL",
+      "exitCode": 0
+    },
+    {
+      "taskId": "@crab-dev/rc-tooltip#build:library",
+      "hash": "8ff0ba1edce6e961",
+      "cache": "HIT",
+      "source": "LOCAL",
+      "exitCode": 0
+    },
+    {
+      "taskId": "@crab-dev/rc-tree#build:library",
+      "hash": "c5674fb7cb960100",
+      "cache": "HIT",
+      "source": "LOCAL",
+      "exitCode": 0
+    },
+    {
+      "taskId": "@crab-dev/rc-virtual#build:library",
+      "hash": "fede4ae16c5d31f6",
+      "cache": "HIT",
+      "source": "LOCAL",
+      "exitCode": 0
+    }
+  ],
+  "pdfSourceStableAfterCold": true,
+  "runtimeTreesEqual": true,
+  "backupPreserved": true,
+  "finishedAt": "2026-10-29T12:23:17.0396723Z"
+}

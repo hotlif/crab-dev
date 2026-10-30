@@ -109,3 +109,23 @@ Realm 是视觉中性的可选加载集成。默认加载、错误和重试反�
 `component` 协议在宿主 React 树中渲染；远端是否共享配置仍取决于所用库实例和共享约定。`mount` 协议中的独立应用需要通过挂载接口显式连接配置，Shadow DOM 的 CSS 变量继承不等于跨 React 根传递 Context。Realm 不改写远端自己的显式配色、字体和内容。
 
 默认反馈、样式隔离和远程内容分别核对。Realm 的加载或渲染成功不能替代远端应用的设计与交互验收；三体系及浅深色的覆盖等级以[覆盖矩阵](/guides/design-coverage)和对应候选记录为准。
+
+
+## 三体系传输反馈与边界规格
+
+核对日期：2026-10-29。Realm 透明承载远程内容，三体系反馈由已有 Spin、Alert 和 Button 的公共契约组成。它不新增容器配色、控件几何或远程页面主题系统。[Material Web Progress](https://material-web.dev/components/progress/)是等待状态及可访问名称的 M3 基线对照；Expressive 的 Spin 外观由对应组件维护。Apple 使用内容优先与清晰反馈原则；shadcn 保持固定 New York V4 的反馈、描边和焦点参考，具体控件规格见各自组件页。
+
+| 阶段 | 必须保留的行为与视觉 |
+| --- | --- |
+| 加载 | 真实远程模块 Promise 待定，aria-busy 与延迟反馈可观察；占位高度由本包 L3 控制 |
+| 失败与重试 | 保留原始诊断、当前语言错误说明、可键盘到达的重试入口；重试重新获取真实模块 |
+| React 远程就绪 | 配置从最近 Provider 继承，切换三体系、明暗、语言和方向不重建输入或丢失草稿 |
+| mount / Shadow DOM | 生命周期挂载到实际宿主 Document，样式位于 Shadow Root，语义变量继承；卸载清理与远程状态由协议负责 |
+
+“远程协议视觉矩阵”预注册符合 RemoteContainer 的容器，以完成/拒绝请求控制真实传输。component 与 mount 不是样式开关；二者分别加载 React 组件和生命周期对象。Shadow DOM 内的草稿与宿主切换配置同时验收。加载动画保留视频、自然时间序列和原始 PNG，不对持续动画建立冻结像素基准。small/medium/large 核对内置反馈的继承，密度不额外改变透明宿主；各轴和不适用状态维护在 docs/visual.json。
+
+预注册矩阵只覆盖容器的 `get`、挂载和反馈，不代表网络入口或 Web Component 验收。“网络入口与真实 Web Component”另用 `public/remote/web-component-entry.js` 与 `.mjs`，由当前站点同源服务器实际提供资源。Realm 分别走生产 script 注入与 ESM import，远端再加载共享实现、注册 `crab-realm-network-draft` 自定义元素，并由其连接/断开回调管理独立 Shadow DOM。示例不预注册 `globalThis` 容器；复制时同时部署这三个公开 remote 文件并保留 URL 相对关系。
+
+对应原生场景分别记录入口及实现模块的真实 200 响应，核对三体系、明暗、small/medium/large、实际元素类型、属性更新后的草稿、网络失败重试与卸载清理；配置循环只检查状态保持，不把循环后的配置截图标为初始配置。生命周期按显式 `instanceId` 区分消费者，避免 Realm 的模块缓存令多个挂载实例共用草稿。新增场景仍需实际捕获、逐图复审与稳定性验证，不能由测试发现或旧预注册候选升为 verified。
+
+独立远程应用、跨 Document、Portal 和 iframe 的配置协议仍需对应集成场景核对。默认截图、单元测试和协议类型不能替代这些验收；候选未复审或环境失败均保持 partial。

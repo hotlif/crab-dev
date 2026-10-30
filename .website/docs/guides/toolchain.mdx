@@ -33,6 +33,10 @@ Wake Library 输出 ESM、CommonJS、类型声明和静态 CSS。一般组件默
 
 工具版本以 `package.json` 和 `yarn.lock` 为准。TypeScript 配置继承 `standards/` 中的共享预设。`yarn lint` 使用 Wake 原生检查；规则集中在仓库根 `wake.config.toml`，各工作区显式指定源路径和环境。组件的构建、测试与文档配置保留在包内 `wake.config.toml`。
 
+工作区类型检查统一使用官方 TypeScript 6.0.2 与 Yarn 内置 PnP 补丁。包内 `typecheck` 直接调用 `tsc --noEmit`，根入口由 Turbo 编排；不下载编译器源码、Go SDK 或构建开发版。安装后运行 `yarn generate:sdk` 同步编辑器；诊断夹具与独立打包消费继续验证严格检查和错误退出码。
+
+SDK 生成器固定在开发依赖中，其 Yarn Core 固定为 4.9.1：当前范围解析会引用缺失的 got 补丁，此固定只影响编辑器工具。升级 SDK 时同时验证可重现安装和生成结果，再移除此固定；不改变库的运行时依赖。
+
 ## 文档站开发
 
 在仓库根目录运行 `yarn docs:dev`。Turbo 会复用未变化组件的 Library 构建产物；站点启动后，
@@ -41,11 +45,11 @@ Wake Library 输出 ESM、CommonJS、类型声明和静态 CSS。一般组件默
 
 教学文字 `.website/content/*.json` 与运行示例 `.website/docs/examples/**/*.tsx` 也会自动触发刷新。展示源码直接从运行文件提取；学习地图和搜索中的步骤说明随教学内容一起生成。
 
-文档生成器通过 Babel 静态解析 TypeScript / TSX 中的示例元数据、属性类型和注释，不执行示例代码。类型检查由 TypeScript 独立完成。
+文档生成器由读取编排、Demo 语法、真实类型提取、页面渲染和产物写入模块组成。Babel 处理静态 Demo 元数据与展示源码；TypeScript 官方类型检查器解析 API，不执行示例代码。
 
-Wake 0.1.45 的 docgen 对联合 Props、外部泛型状态协议与部分副入口可能给出空或不完整结果。站点生成器从真实类型源码递归解析接口、别名、union/intersection、相对及内部 workspace 类型导入，并代入 ControlledValue/Checked/Open 的参数；互斥的 never 分支自动进入属性约束说明。每个 API 标签分别生成搜索适配接口，原始 public/docgen.json 仍由 Wake 命令维护，不手工补写。
+Wake 0.1.45 的 docgen 对联合 Props、外部泛型状态协议与部分副入口可能给出空或不完整结果。站点生成器通过官方检查器解析真实接口、别名、映射类型、泛型和 re-export，内部 workspace 引用定位到源码；互斥的 never 分支进入属性约束说明。每个 API 标签分别生成搜索适配接口，原始 public/docgen.json 仍由 Wake 命令维护，不手工补写。
 
-来源提取不是完整 TypeScript 类型求值器。React 原生字段从真实类型声明解析，docgen 只补充现有属性的说明与默认值，不能重新引入已移除接口；无法可靠解析的属性类型使命令失败。真实组件与泛型/re-export 契约测试检查 Button、值、布尔、打开状态、尺寸与跨包 Pick 字段不会被遗漏。
+React 原生字段按真实声明来源分组；docgen 只补充现有属性的说明与默认值，不能重新引入已移除接口。作者类型别名在无需泛型替换时保留，无法可靠展示的类型使命令失败。真实组件与泛型/re-export 契约测试检查值、布尔、打开状态、尺寸及跨包工具类型不会遗漏。
 
 组件专属和语义属性直接展示；从 React 原生声明继承的字段保留在可展开的原生属性区。分组按真实声明来源生成，组件自行覆盖的同名属性仍常显，不以删除字段缩短文档。
 

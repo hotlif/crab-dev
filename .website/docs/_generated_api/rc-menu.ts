@@ -50,7 +50,7 @@ export interface MenuProps {
     "selectedKeys"?: Key[];
 
     /**
-     * 仅初始化的选中键集合 与 selectedKeys 互斥，不能同时提供。
+     * 暂无说明。 与 selectedKeys 互斥，不能同时提供。
      * @default []
      */
     "defaultSelectedKeys"?: Key[];
@@ -61,7 +61,7 @@ export interface MenuProps {
     "openKeys"?: Key[];
 
     /**
-     * 仅初始化的展开键集合 与 openKeys 互斥，不能同时提供。
+     * 暂无说明。 与 openKeys 互斥，不能同时提供。
      * @default []
      */
     "defaultOpenKeys"?: Key[];

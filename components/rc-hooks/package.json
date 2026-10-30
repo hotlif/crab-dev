@@ -12,8 +12,8 @@
     "scripts": {
         "build:library": "wake library build .",
         "test": "wake test --serial --coverage",
-        "test:browser": "yarn test src/__tests__/overlay.test.ts --environment browser",
-        "typecheck": "node ../../scripts/typecheck.mjs --noEmit",
+        "test:browser": "yarn test src/__tests__/overlay.test.ts --environment browser && yarn test --root src/__tests__/browser",
+        "typecheck": "tsc --noEmit",
         "start": "wake docs dev . --mode components",
         "lint": "wake lint --format human --root ../.. components/rc-hooks/src components/rc-hooks/docs --env browser --max-warnings 0",
         "check": "node ../../scripts/check-package.mjs"
@@ -48,7 +48,7 @@
         "@types/react-dom": "^19.3.0",
         "react": "19.3.0",
         "react-dom": "19.3.0",
-        "typescript": "^7.0.2"
+        "typescript": "6.0.2"
     },
     "engines": {
         "node": ">=22"

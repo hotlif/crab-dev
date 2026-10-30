@@ -9,4 +9,5 @@ export { default as DateTimePicker, type DateTimePickerProps } from "./dateTimeP
 export type { DateTimePickerPanelProps } from "./panels/dateTimePickerPanel.js";
 export { vars as TokenVars } from './token.js';
 export type { PickerFieldProps, PickerValueChangeDetails, PickerValueProps, PickerOpenProps } from './types.js';
+export { toPickerDateTime } from './temporal.js';
 

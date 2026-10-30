@@ -1,92 +1,12 @@
 import { useInterval } from '@crab-dev/rc-hooks';
 import Tabs from '@crab-dev/rc-tabs';
-import { css } from '@crab-dev/css';
 import { useState, type FC } from 'react';
 import { useLocale } from '@crab-dev/rc-config-provider';
 import { useCronLocale } from './locale.js';
-
-import {
-    CRON_FIELD_ORDER,
-    describeCron,
-    formatCron,
-    nextOccurrences,
-    type CronFieldKind,
-    type CronFieldValue,
-    type CronValue,
-} from './cron.js';
+import { CRON_FIELD_ORDER, describeCron, formatCron, nextOccurrences, type CronFieldKind, type CronFieldValue, type CronValue } from './cron.js';
 import FieldEditor from './fieldEditor.js';
 import type { CronPickerChangeDetails } from './types.js';
-import token from './token.js';
-
-// ─── Styles ──────────────────────────────────────────────────────────────────
-
-const overlayStyle = css`
-    inline-size: ${token.overlay.width};
-    /* 浮层滚动条会占用父容器宽度，必须同时约束在父级可用空间内。 */
-    max-inline-size: min(100%, calc(100vw - ${token.overlay.viewport.gap} * 2));
-    padding: ${token.overlay.padding};
-    box-sizing: border-box;
-`;
-
-const footerStyle = css`
-    display: flex;
-    flex-direction: column;
-    gap: ${token.field.parameter.gap};
-    margin-block-start: ${token.field.gap};
-    padding-block-start: ${token.field.gap};
-    border-block-start: 1px solid ${token.divider.color};
-`;
-
-const expressionStyle = css`
-    font-family: ui-monospace, 'SF Mono', 'Cascadia Mono', Consolas, monospace;
-    font-size: ${token.expression['font-size']};
-    color: ${token.expression.color};
-    background-color: ${token.expression['background-color']};
-    border-radius: ${token.expression['border-radius']};
-    padding: ${token.expression.padding};
-    text-align: start;
-    unicode-bidi: isolate;
-    user-select: all;
-    /* 指定值很多时(如几十个分钟值)表达式可能超宽,折行展示而非撑破弹层 */
-    overflow-wrap: anywhere;
-`;
-
-const describeStyle = css`
-    color: ${token.describe.color};
-    font-size: ${token.describe['font-size']};
-    font-weight: ${token.describe['font-weight']};
-    line-height: ${token.describe['line-height']};
-`;
-
-const previewStyle = css`
-    color: ${token.preview.color};
-    font-size: ${token.preview['font-size']};
-
-    ul {
-        margin: 0;
-        padding: 0;
-        list-style: none;
-        margin-block-start: ${token['mode-row'].gap};
-    }
-
-    li {
-        display: flex;
-        justify-content: space-between;
-        flex-wrap: wrap;
-        gap: ${token['mode-row'].gap};
-        color: ${token.preview.time.color};
-        font-variant-numeric: tabular-nums;
-        line-height: ${token.preview['line-height']};
-    }
-`;
-
-const previewHeadingStyle = css`
-    display: flex;
-    justify-content: space-between;
-    gap: ${token['mode-row'].gap};
-    flex-wrap: wrap;
-`;
-
+import { overlayStyle, footerStyle, expressionStyle, describeStyle, previewStyle, previewHeadingStyle } from "./cronPickerOverlay.styles.js";
 // ─── Component ───────────────────────────────────────────────────────────────
 
 export interface CronPickerOverlayProps {

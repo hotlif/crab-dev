@@ -1,13 +1,13 @@
 import { useLocale } from '@crab-dev/rc-config-provider';
 import { useControllableValue, type ControlledValueProps } from '@crab-dev/rc-hooks';
-import { css, cx } from "@crab-dev/css";
+import { cx } from "@crab-dev/css";
 import RcSlider, { CanonicalTokenVars as TokenVars } from '@crab-dev/rc-slider';
 import { type FC, type HTMLAttributes, useState } from "react";
 import token from "../token.js";
 import type { ColorFormat, ColorPickerPanelLocale, ColorPreset, OKLCHValue, ColorValueChangeDetails } from "../types.js";
 import ColorInput from "./colorInput.js";
 import PresetSwatches from "./presetSwatches.js";
-
+import { sliderContainerStyle, commonSliderStyle, rootStyle, previewStyle, hueRailStyle } from "./colorPickerPanel.styles.js";
 interface ColorPickerPanelBaseProps extends Omit<HTMLAttributes<HTMLDivElement>, "onChange" | "defaultValue"> {
     locale?: Partial<ColorPickerPanelLocale>;
     /** 是否显示透明度滑块,默认 true。 */
@@ -21,68 +21,6 @@ interface ColorPickerPanelBaseProps extends Omit<HTMLAttributes<HTMLDivElement>,
 }
 
 export type ColorPickerPanelProps = ColorPickerPanelBaseProps & ControlledValueProps<OKLCHValue, ColorValueChangeDetails>;
-
-const sliderContainerStyle = css`
-    display: grid;
-    grid-template-columns: ${token.panel.slider.label.width} minmax(0, 1fr);
-    align-items: center;
-    gap: ${token.panel.slider.container.gap};
-    > label {
-        font-size: ${token.panel.slider.label['font-size']};
-        font-weight: ${token.panel.slider.label['font-weight']};
-        line-height: ${token.panel.slider.label['line-height']};
-        overflow-wrap: anywhere;
-    }
-    > div {
-        min-width: 0;
-    }
-`;
-
-/** 颜色渐变覆盖完整值域，不随 Expressive Slider 的 active / inactive 分段缩短。 */
-const commonSliderStyle = css`
-    --color-picker-gradient-direction: to right;
-    &:dir(rtl) { --color-picker-gradient-direction: to left; }
-    ${TokenVars["rail.height"]}: 12px;
-    ${TokenVars['thumb.stroke-color']}: ${token.slider.thumb['stroke-color']};
-    ${TokenVars['rail.fill-active']}: transparent;
-    ${TokenVars["thumb.fill"]}: transparent;
-    > [data-slot="slider-rail"] {
-        inset-inline: 0;
-        border-radius: var(${TokenVars["rail.border-radius"]});
-    }
-`;
-
-
-const rootStyle = css`
-    min-width: 250px;
-    display: flex;
-    flex-direction: column;
-    gap: ${token.panel.gap};
-`;
-
-const previewStyle = css`
-    /* The selected color is data, like the preset swatches, not a UI surface. */
-    forced-color-adjust: none;
-    box-sizing: border-box;
-    width: ${token.panel.preview.width};
-    height: ${token.panel.preview.height};
-    border-radius: ${token.panel.preview['border-radius']};
-    border: 1px solid ${token.panel.preview['border-color']};
-    margin-top: ${token.panel.preview['margin-top']};
-`;
-
-/** 色相滑轨:固定的全色相环渐变(与当前值无关,可静态求值)。 */
-const hueRailStyle = css`
-    ${TokenVars['rail.fill-inactive']}: linear-gradient(var(--color-picker-gradient-direction),
-        oklch(0.7 0.15 0),
-        oklch(0.7 0.15 60),
-        oklch(0.7 0.15 120),
-        oklch(0.7 0.15 180),
-        oklch(0.7 0.15 240),
-        oklch(0.7 0.15 300),
-        oklch(0.7 0.15 360)
-    );
-`;
 
 const ColorPickerPanel: FC<ColorPickerPanelProps> = ({
     locale,

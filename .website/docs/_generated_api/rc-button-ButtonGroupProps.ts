@@ -20,17 +20,17 @@ export interface ButtonGroupProps {
     "className"?: string;
 
     /**
-     * Expressive 五档尺寸 xs/s/m/l/xl；省略时由全局 small/medium/large 映射为 xs/s/m
+     * 暂无说明。
      */
     "size"?: ButtonProps['size'];
 
     /**
-     * 外观：elevated（浮起）、primary（实色）、tonal（浅色）、outlined（描边，默认）、text（文字）。subtle 兼容映射为 outlined。
+     * 暂无说明。
      */
     "appearance"?: ButtonProps['appearance'];
 
     /**
-     * 危险操作语义，可与公开外观组合；应同时提供明确的动作文案。
+     * 暂无说明。
      */
     "danger"?: boolean;
 

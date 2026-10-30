@@ -3,6 +3,8 @@ import { act, fireEvent, render, screen } from '@crab-dev/wake/test/react';
 import { createRef, type ReactNode } from 'react';
 import type { PickerValueChangeDetails } from '../types.js';
 import { setupTimePickerDOM } from './timePicker-test-helpers.js';
+import { Temporal as TemporalValue } from '@js-temporal/polyfill';
+import { toPickerDateTime } from '../temporal.js';
 
 const dispatch = mock.fn();
 // 无布局环境下仅替代弹层定位，保留真实输入框和面板的属性路由。
@@ -21,6 +23,14 @@ beforeAll(async () => {
     DatePicker = (await mock.import<typeof import('../datePicker/datePicker.js')>('../datePicker/datePicker.js')).default;
 });
 describe('Picker field and panel boundaries', () => {
+    it('preserves the supplied sub-millisecond precision when confirming an unchanged value', async () => {
+        const initial = toPickerDateTime(TemporalValue.ZonedDateTime.from('2026-06-15T09:30:00.123456789+08:00[Asia/Shanghai]'));
+        let confirmed: Temporal.ZonedDateTime | null = null;
+        await render(<DatePicker value={initial} timeZone="Asia/Shanghai" onValueChange={next => { confirmed = next; }} />);
+        await fireEvent.click(screen.getByRole('button', { name: '确定' }));
+        expect((confirmed as Temporal.ZonedDateTime | null)?.epochNanoseconds).toBe(initial.epochNanoseconds);
+        expect(initial.nanosecond).toBe(789);
+    });
     it('owns the initial date and reports a confirmed draft with details', async () => {
         const initial = Temporal.ZonedDateTime.from('2026-10-01T12:00:00+08:00[Asia/Singapore]');
         let confirmedDay = 0;

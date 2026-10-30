@@ -1,0 +1,93 @@
+name: Test
+
+on:
+  push:
+    branches: ["canary"]
+  pull_request:
+    branches: ["canary"]
+
+concurrency:
+  group: test-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    name: verify (${{ matrix.os }})
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          lfs: true
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+      - name: Enable Corepack
+        run: corepack enable
+      - name: Install project package manager
+        run: corepack install
+      - name: Install dependencies
+        run: yarn install --immutable
+      - name: Install the pinned native browser prerequisites
+        if: runner.os == 'Windows'
+        run: yarn test:visual:install
+      - name: Run the repository verification contract
+        if: runner.os == 'Windows'
+        run: yarn check
+      - name: Run the same contract in the pinned Linux visual environment
+        if: runner.os == 'Linux'
+        run: yarn test:visual:linux check
+      - name: Preserve browser diagnostics and candidate screenshots
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: browser-evidence-${{ matrix.os }}-${{ github.sha }}
+          if-no-files-found: ignore
+          retention-days: 14
+          include-hidden-files: true
+          path: |
+            .cache/visual/**
+            .tmp/visual-linux-*/evidence/**
+            .tmp/visual-linux-*/container-result.json
+            .tmp/visual-linux-*/local-linux-snapshot.json
+            components/*/.cache/forced-colors/**/*.json
+            components/*/.cache/forced-colors/**/*.png
+            components/*/.cache/focus-colors/**/*.json
+            components/*/.cache/focus-colors/**/*.png
+            components/*/.cache/reduced-motion/**/*.json
+            components/*/.cache/reduced-motion/**/*.png
+            components/*/.cache/natural-motion/**/*.json
+            components/*/.cache/natural-motion/**/*.png
+
+  # Keep the existing check names without executing the same suites again.
+  # All three succeed only after the complete contract passes on both hosts.
+  test:
+    needs: verify
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - run: test "$RESULT" = success
+        env:
+          RESULT: ${{ needs.verify.result }}
+  lint:
+    needs: verify
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - run: test "$RESULT" = success
+        env:
+          RESULT: ${{ needs.verify.result }}
+  typecheck:
+    needs: verify
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - run: test "$RESULT" = success
+        env:
+          RESULT: ${{ needs.verify.result }}

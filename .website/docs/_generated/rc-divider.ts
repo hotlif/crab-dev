@@ -137,5 +137,34 @@ export const demos = [
         "density": "regular",
         "layout": "grid",
         "group": null
+    },
+    {
+        "id": "docs/demos/visual-matrix.demo.tsx",
+        "title": "三体系展示与状态矩阵",
+        "description": "公开组件、真实交互与自然动画；包内视觉规格是矩阵轴的来源。",
+        "learning": {
+            "components": [
+                "ConfigProvider",
+                "Divider"
+            ],
+            "props": [
+                "size",
+                "density",
+                "data-visual-target",
+                "direction",
+                "textAlign",
+                "decorative",
+                "variant",
+                "spacing"
+            ],
+            "events": [],
+            "hasState": true
+        },
+        "sourceCode": "import { css } from '@crab-dev/css';\nimport ConfigProvider, { useConfig } from '@crab-dev/rc-config-provider';\nimport token from '@crab-dev/rc-token-semantic';\nimport { useState } from 'react';\nimport Divider from '@crab-dev/rc-divider';\n\n\nexport const meta = { title: '三体系展示与状态矩阵', description: '公开组件、真实交互与自然动画；包内视觉规格是矩阵轴的来源。' };\nconst frameStyle = css`\n    box-sizing: border-box;\n    display: grid;\n    gap: ${token.space['group-gap']};\n    padding: calc(${token.space['group-gap']} * 2);\n    min-width: 0;\n    color: ${token.color.text.primary};\n    background-color: ${token.color.background.surface};\n`;\nconst rowStyle = css`display: flex; flex-wrap: wrap; gap: ${token.space['component-gap']}; align-items: center; min-width: 0;`;\nconst sceneStyle = css`display: grid; min-width: 0; gap: ${token.space['stack-gap']};`;\n\n\nexport default function VisualMatrixDemo() {\n    const { locale } = useConfig();\n    const [longContent, setLongContent] = useState(false);\n    const copy = (zh: string, en: string) => (locale === 'en-US' ? en : zh) + (longContent ? ' · abcdefghijklmnopqrstuvwxyz0123456789 · 长内容需要保留含义并适应可用宽度' : '');\n    const [size, setSize] = useState('medium');\n    const [density, setDensity] = useState\u003c'compact' | 'standard' | 'comfortable'>('standard');\n    const [state, setState] = useState('default');\n    const [draft, setDraft] = useState('保留这份草稿');\n    \n    return \u003cdiv>\n        \u003cdiv className={rowStyle}>\n            \u003clabel>验收尺寸\u003cselect aria-label=\"验收尺寸\" value={size} onChange={event => setSize(event.currentTarget.value)}>\u003coption>medium\u003c/option>\u003c/select>\u003c/label>\n            \u003clabel>验收密度\u003cselect aria-label=\"验收密度\" value={density} onChange={event => setDensity(event.currentTarget.value as typeof density)}>\u003coption>compact\u003c/option>\u003coption>standard\u003c/option>\u003coption>comfortable\u003c/option>\u003c/select>\u003c/label>\n            \u003clabel>验收状态\u003cselect aria-label=\"验收状态\" value={state} onChange={event => { const next = event.currentTarget.value; setState(next); }}>\u003coption value=\"default\">default\u003c/option>\u003coption value=\"dashed\">dashed\u003c/option>\u003coption value=\"dotted\">dotted\u003c/option>\u003coption value=\"with-text\">with-text\u003c/option>\u003coption value=\"start\">start\u003c/option>\u003coption value=\"end\">end\u003c/option>\u003coption value=\"vertical\">vertical\u003c/option>\u003coption value=\"decorative\">decorative\u003c/option>\u003c/select>\u003c/label>\n            \n        \u003c/div>\n        \u003clabel>\u003cinput type=\"checkbox\" aria-label=\"长文本\" checked={longContent} onChange={event => setLongContent(event.currentTarget.checked)} />长文本\u003c/label>\n        \u003clabel>配置切换草稿\u003cinput aria-label=\"配置切换草稿\" value={draft} onChange={event => setDraft(event.currentTarget.value)} />\u003c/label>\n        \u003cConfigProvider size={size === 'small' || size === 'large' ? size : 'medium'} density={density}>\n            \u003csection className={frameStyle} aria-label=\"Divider visual matrix\" data-visual-frame>\n                \u003cdiv className={sceneStyle} data-visual-scene data-size={size} data-density={density} data-state={state}>\n                    {state === 'vertical' ? \u003cdiv className={rowStyle}>\u003cspan>{copy('文件', 'File')}\u003c/span>\u003cDivider data-visual-target direction=\"vertical\" />\u003cspan>{copy('编辑', 'Edit')}\u003c/span>\u003c/div> : ['with-text','start','end'].includes(state) ? \u003cDivider data-visual-target textAlign={state === 'start' || state === 'end' ? state : 'center'}>{copy('团队工作区分组标题', 'Team workspace section')}\u003c/Divider> : \u003cDivider data-visual-target decorative={state === 'decorative'} variant={state === 'dashed' || state === 'dotted' ? state : 'solid'} />}\u003cDivider spacing=\"none\" />\u003cDivider spacing=\"small\" />\u003cDivider spacing=\"large\" />\n                    \n                \u003c/div>\n            \u003c/section>\n        \u003c/ConfigProvider>\n    \u003c/div>;\n}\n",
+        "previewPath": "/components/rc-divider/workbench/?__wake_demo=docs%2Fdemos%2Fvisual-matrix.demo.tsx",
+        "workbenchPath": "/components/rc-divider/workbench/#/components/docs%2Fdemos%2Fvisual-matrix.demo.tsx",
+        "density": "regular",
+        "layout": "grid",
+        "group": null
     }
 ] as const satisfies readonly ComponentDemoRecord[];

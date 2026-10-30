@@ -19,9 +19,11 @@
         "test": "wake test --serial --coverage",
         "test:browser": "yarn test --root src/__tests__/browser",
         "test:published": "yarn build:library && node ../../scripts/prepare-published-css.mjs . && yarn test --root src/__tests__/published",
-        "typecheck": "node ../../scripts/typecheck.mjs --noEmit",
+        "typecheck": "tsc --noEmit",
         "lint": "wake lint --format human --root ../.. components/rc-dropdown-container/src components/rc-dropdown-container/docs --env browser --max-warnings 0",
-        "check": "node ../../scripts/check-package.mjs"
+        "check": "node ../../scripts/check-package.mjs",
+        "build:visual": "wake docs build . --mode components --outdir .cache/visual-workbench",
+        "test:visual": "node ../../scripts/visual/run.mjs --package ."
     },
     "files": [
         "esm",
@@ -60,7 +62,7 @@
         "react-markdown": "^10.1.0",
         "react-router": "^8.3.1",
         "react-syntax-highlighter": "^16.1.1",
-        "typescript": "^7.0.2"
+        "typescript": "6.0.2"
     },
     "engines": {
         "node": ">=22"

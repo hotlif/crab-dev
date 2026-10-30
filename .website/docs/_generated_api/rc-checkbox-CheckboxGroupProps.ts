@@ -11,6 +11,16 @@ type ReactNode = DocsTypePlaceholder;
 
 export interface CheckboxGroupProps {
     /**
+     * 自定义类名
+     */
+    "className"?: string;
+
+    /**
+     * 子元素
+     */
+    "children": ReactNode;
+
+    /**
      * 是否禁用所有复选框
      */
     "disabled"?: boolean;
@@ -21,17 +31,7 @@ export interface CheckboxGroupProps {
     "size"?: 'large' | 'medium' | 'small';
 
     /**
-     * 子元素
-     */
-    "children": ReactNode;
-
-    /**
-     * 自定义类名
-     */
-    "className"?: string;
-
-    /**
-     * Checkbox 的值, 在 CheckboxGroup 中使用 与 defaultValue 互斥，不能同时提供。
+     * 暂无说明。 与 defaultValue 互斥，不能同时提供。
      */
     "value"?: Array<string | number>;
 
@@ -43,5 +43,5 @@ export interface CheckboxGroupProps {
     /**
      * 暂无说明。
      */
-    "onValueChange"?: ((value: Array<string | number>, details: CheckboxGroupChangeDetails) => void);
+    "onValueChange"?: ((value: (string | number)[], details: CheckboxGroupChangeDetails) => void);
 }

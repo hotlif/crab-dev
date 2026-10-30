@@ -26,6 +26,8 @@ import { demos } from "../_generated/rc-notification.js";
 
 ##### 多条通知层叠 — 连续发送通知，观察缩放、表面色和阴影的层级。点击前层的关闭按钮，后层会平滑接替；此示例需手动关闭。
 
+##### 三体系展示与状态矩阵 — 公开组件、真实交互与自然动画；包内视觉规格是矩阵轴的来源。
+
 </div>
 
 <ComponentDemos demos={demos} />
@@ -69,6 +71,24 @@ import { demos } from "../_generated/rc-notification.js";
 Apple 使用 16px 圆角的通知面板；MD3 Expressive 使用 12px 内容容器；shadcn 使用 8px 圆角和细描边。通知队列、关闭按钮、键盘焦点暂停和倒计时与主题无关。此组件为持续通知模式扩展，不宣称等同于 MD3 snackbar 或操作系统通知中心。
 
 切换文档站设计风格后，本页演示同步使用该设计；浅色和深色模式分别使用配对语义颜色。
+
+### 三体系规格与验收边界
+
+持久非阻塞通知属于项目 Web 扩展，不等同于模态 alert 或操作系统 notification。六方向、受控 open、队列与句柄更新保留；duration=0 明确避免采集途中自动消失。关闭按钮使用真实公开 Button 的焦点与状态层，堆叠背面不进入无障碍树。
+
+| 体系 | 组件视觉规则 |
+| --- | --- |
+| MD3 Expressive | 沿用反馈表面、明确内容层级与可达关闭操作；桌面通知队列为扩展。 |
+| Apple | 轻量浮动表面与精确对齐，保持自主 Web 定位。 |
+| shadcn | 依据 Card/Alert 的中性容器组合，参考提交没有同名组件；方向与堆叠均为扩展。 |
+
+本包几何与视觉来源：root.width / padding / border-radius / box-shadow；title/content 字阶与行高；close 的公开 Button 颜色/状态角色；stack.translate/gap/scale；窄屏 max-width 与内容内部滚动。设计值只在对应 token.toml 与它引用的语义角色维护，验收测量读取实际 DOM 计算值。
+
+颜色、字阶、形状、状态和动效分别从 L2 角色映射到包内 L3；Theme 负责最近配置边界。明暗模式使用配对前景/背景，不进行整体反相。视觉边界与命中区域分别检查，焦点截图保留外部轮廓与阴影。强制颜色采用系统色；减少动画保留信息与最终状态。
+
+矩阵定义在本包 `docs/visual.json`，场景使用 `visual-matrix.demo.tsx`。Chromium 覆盖其中全部设计/明暗/命名尺寸/适用密度/状态；Firefox 与 WebKit 按 `crossEngine` 的默认展示和重点交互子集执行。窄屏、RTL、中英文、长文本、品牌覆盖和配置切换后的草稿保持另有场景；未运行、未人工复核或失败的项不能计为通过。开放尺寸输入的代表样本不等于无限集合的穷尽。
+
+参考核对日期：2026-10-29。[Material 3 Cards](https://m3.material.io/components/cards/overview)、[Material Web Divider 使用/无障碍/令牌](https://material-web.dev/components/divider/)、[Material Web Progress 语义](https://material-web.dev/components/progress/)、[Apple Feedback](https://developer.apple.com/design/human-interface-guidelines/feedback)、[Apple Layout](https://developer.apple.com/design/human-interface-guidelines/layout)、[Apple Progress indicators](https://developer.apple.com/design/human-interface-guidelines/progress-indicators)、[shadcn New York V4 来源边界](https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui)。Material Web 是 Web 行为基线；Apple 是依据原则的自主 Web 实现；shadcn 固定参考提交 `3d98900e9b73c45f035f8109e9d41ba6a51685e7`，不跟随浮动最新版。
 
 ### 适用场景
 

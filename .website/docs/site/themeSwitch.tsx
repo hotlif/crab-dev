@@ -9,7 +9,7 @@ const modes = ["light", "dark", "system"] as const;
 type Mode = (typeof modes)[number];
 type Theme = HeaderProps["theme"];
 const names = { light: "浅色", dark: "深色", system: "跟随系统" };
-type TriggerRef = RefObject<HTMLSpanElement | null>;
+type TriggerRef = RefObject<HTMLButtonElement | null>;
 
 function ThemeIcon({ mode }: { mode: Mode }) {
     return <svg className="crab-docs-tool-icon" viewBox="0 0 20 20" aria-hidden="true">
@@ -23,18 +23,17 @@ function ThemeTrigger({ theme, menuId, trigger }: { theme: Theme; menuId: string
     const { design } = use(DocumentDesignContext);
     const { state, dispatch, refs } = useDropdownContext<HTMLSpanElement>();
     const setOpen = (open: boolean) => dispatch({ type: "setOpen", payload: open });
-    return <>
-        {/* This layout anchor aligns the popup's right edge with the compact trigger. */}
-        <span className="crab-docs-theme-anchor" aria-hidden="true" ref={refs.setReference} />
-        <span className="crab-docs-theme-control" ref={trigger}><Button appearance="text" className="crab-docs-theme-trigger"
+    // The same real control owns positioning and the dropdown's Escape return focus.
+    return <span className="crab-docs-theme-control" ref={refs.setReference}>
+        <Button ref={trigger} appearance="text" className="crab-docs-theme-trigger"
             aria-label={`文档外观：${SITE_DESIGN_NAMES[design].label} · ${names[theme.theme]}`} title={`外观：${SITE_DESIGN_NAMES[design].label} · ${names[theme.theme]}`}
             aria-haspopup="menu" aria-expanded={state.open} aria-controls={state.open ? menuId : undefined}
             icon={<ThemeIcon mode={theme.theme} />} onClick={() => setOpen(!state.open)}
             onKeyDown={event => {
                 if (event.key === "ArrowDown" || event.key === "ArrowUp") { event.preventDefault(); setOpen(true); }
                 if (event.key === "Escape") setOpen(false);
-            }} /></span>
-    </>;
+            }} />
+    </span>;
 }
 
 function ThemeOptions({ theme, menuId, trigger }: { theme: Theme; menuId: string; trigger: TriggerRef }) {
@@ -42,7 +41,7 @@ function ThemeOptions({ theme, menuId, trigger }: { theme: Theme; menuId: string
     const { dispatch } = useDropdownContext();
     const close = () => {
         dispatch({ type: "setOpen", payload: false });
-        trigger.current?.querySelector<HTMLButtonElement>("button")?.focus();
+        trigger.current?.focus();
     };
     return <div id={menuId} role="menu" aria-label="文档外观" className="crab-docs-theme-options"
         onKeyDown={event => {
@@ -77,7 +76,7 @@ export default function ThemeSwitch({ theme }: { theme: Theme }) {
     const { design } = use(DocumentDesignContext);
     const menuId = useId();
     // DOM reference for menu dismissal and focus restoration; never read during render.
-    const trigger = useRef<HTMLSpanElement>(null);
+    const trigger = useRef<HTMLButtonElement>(null);
     const popupProps = { className: "crab-docs-theme-popup", "data-crab-design": design, "data-theme": theme.resolved };
     return <DropdownContainer className="crab-docs-theme-switch"
         floatingContainerProps={popupProps}

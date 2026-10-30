@@ -1,0 +1,37 @@
+{
+    "previewDensity": "spacious",
+    "groups": [
+        {
+            "title": "三体系验收",
+            "demos": [
+                "visual-matrix.demo.tsx"
+            ]
+        },
+        {
+            "title": "基础展示",
+            "demos": [
+                "basic.demo.tsx",
+                "expand-all.demo.tsx",
+                "show-line.demo.tsx",
+                "icon-and-disabled.demo.tsx"
+            ]
+        },
+        {
+            "title": "选择与筛选",
+            "demos": [
+                "checkable.demo.tsx",
+                "filter.demo.tsx"
+            ]
+        },
+        {
+            "title": "编辑与交互",
+            "demos": [
+                "draggable.demo.tsx",
+                "allow-drop.demo.tsx",
+                "default-editor.demo.tsx",
+                "inline-edit.demo.tsx",
+                "keyboard.demo.tsx"
+            ]
+        }
+    ]
+}

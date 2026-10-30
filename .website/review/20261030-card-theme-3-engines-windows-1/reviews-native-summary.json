@@ -1,0 +1,361 @@
+{
+  "nativeStats": {
+    "startTime": "2026-10-29T19:50:59.298Z",
+    "duration": 71213.724,
+    "expected": 2,
+    "skipped": 0,
+    "unexpected": 1,
+    "flaky": 0
+  },
+  "scope": "filtered",
+  "complete": false,
+  "representatives": 3,
+  "passed": 2,
+  "failed": 1,
+  "classification": "Chromium and WebKit one initial md3/light case each pass all4variants; Firefox startup timeout30000 before component assertions.",
+  "workerRecords": [
+    {
+      "file": "inputs-worker-0.json",
+      "sha256": "1c0f0890ca9e8ffad06d798ed3cef91bc4986c939a1bd292cf5e797abf85cbe4",
+      "stable": true,
+      "beforeSource": "sha256:8cec2180bc9fe75ab1eaada7759846f294b8f8c4e631f47693e2d58918704c2c",
+      "afterSource": "sha256:8cec2180bc9fe75ab1eaada7759846f294b8f8c4e631f47693e2d58918704c2c",
+      "beforeArtifact": "sha256:139cf2a2b3724b2f3bfe665b195a1eed1d0604a246301110a0bc76f53706458f",
+      "afterArtifact": "sha256:139cf2a2b3724b2f3bfe665b195a1eed1d0604a246301110a0bc76f53706458f"
+    },
+    {
+      "file": "inputs-worker-2.json",
+      "sha256": "1c0f0890ca9e8ffad06d798ed3cef91bc4986c939a1bd292cf5e797abf85cbe4",
+      "stable": true,
+      "beforeSource": "sha256:8cec2180bc9fe75ab1eaada7759846f294b8f8c4e631f47693e2d58918704c2c",
+      "afterSource": "sha256:8cec2180bc9fe75ab1eaada7759846f294b8f8c4e631f47693e2d58918704c2c",
+      "beforeArtifact": "sha256:139cf2a2b3724b2f3bfe665b195a1eed1d0604a246301110a0bc76f53706458f",
+      "afterArtifact": "sha256:139cf2a2b3724b2f3bfe665b195a1eed1d0604a246301110a0bc76f53706458f"
+    }
+  ],
+  "records": [
+    {
+      "caseId": "0184f3e33b8f813a8f58-fe8d17aaa82ee83024da/chromium/0",
+      "project": "chromium",
+      "status": "passed",
+      "error": [],
+      "renderedScope": {
+        "variants": [
+          "default",
+          "elevated",
+          "outlined",
+          "filled"
+        ],
+        "renderedConfig": {
+          "designSystem": "md3",
+          "colorMode": "light"
+        },
+        "renderedState": "default",
+        "scope": "Transitions: native video and natural rAF JSON. Final PNG: returned initial configuration."
+      },
+      "input": {
+        "source": "sha256:8cec2180bc9fe75ab1eaada7759846f294b8f8c4e631f47693e2d58918704c2c",
+        "artifact": "sha256:139cf2a2b3724b2f3bfe665b195a1eed1d0604a246301110a0bc76f53706458f",
+        "file": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\card-theme-3-engines-windows-20261030-1\\inputs-worker-0.json",
+        "renderingEnvironment": {
+          "file": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\card-theme-3-engines-windows-20261030-1\\rendering-worker-0.json",
+          "browserName": "chromium",
+          "browser": "156.0.8078.4"
+        },
+        "browserName": "chromium",
+        "browser": "156.0.8078.4",
+        "platform": "win32",
+        "arch": "x64",
+        "mode": "native-check",
+        "visualReview": "pending"
+      },
+      "motions": [
+        {
+          "attachmentIndex": 0,
+          "name": "theme-transition-default",
+          "variant": "default",
+          "from": {
+            "designSystem": "md3",
+            "colorMode": "light"
+          },
+          "to": {
+            "designSystem": "apple",
+            "colorMode": "dark"
+          },
+          "samples": 9,
+          "firstCommitted": 630.4,
+          "last": 763.7,
+          "complete": true,
+          "paletteChanges": true,
+          "everyCommittedPaletteMatchesEndpoint": true,
+          "nodesAndDraftRetained": true,
+          "nativeJsonPointer": "cases.json#/cases/0/details/theme-transition-default"
+        },
+        {
+          "attachmentIndex": 1,
+          "name": "theme-transition-elevated",
+          "variant": "elevated",
+          "from": {
+            "designSystem": "apple",
+            "colorMode": "dark"
+          },
+          "to": {
+            "designSystem": "md3",
+            "colorMode": "light"
+          },
+          "samples": 13,
+          "firstCommitted": 980.4,
+          "last": 1163.7,
+          "complete": true,
+          "paletteChanges": true,
+          "everyCommittedPaletteMatchesEndpoint": true,
+          "nodesAndDraftRetained": true,
+          "nativeJsonPointer": "cases.json#/cases/0/details/theme-transition-elevated"
+        },
+        {
+          "attachmentIndex": 2,
+          "name": "theme-transition-outlined",
+          "variant": "outlined",
+          "from": {
+            "designSystem": "md3",
+            "colorMode": "light"
+          },
+          "to": {
+            "designSystem": "apple",
+            "colorMode": "dark"
+          },
+          "samples": 10,
+          "firstCommitted": 1647.1,
+          "last": 1780.4,
+          "complete": true,
+          "paletteChanges": true,
+          "everyCommittedPaletteMatchesEndpoint": true,
+          "nodesAndDraftRetained": true,
+          "nativeJsonPointer": "cases.json#/cases/0/details/theme-transition-outlined"
+        },
+        {
+          "attachmentIndex": 3,
+          "name": "theme-transition-filled",
+          "variant": "filled",
+          "from": {
+            "designSystem": "apple",
+            "colorMode": "dark"
+          },
+          "to": {
+            "designSystem": "md3",
+            "colorMode": "light"
+          },
+          "samples": 4,
+          "firstCommitted": 1980.4,
+          "last": 2013.7,
+          "complete": true,
+          "paletteChanges": true,
+          "everyCommittedPaletteMatchesEndpoint": true,
+          "nodesAndDraftRetained": true,
+          "nativeJsonPointer": "cases.json#/cases/0/details/theme-transition-filled"
+        }
+      ],
+      "images": [
+        {
+          "attachmentIndex": 6,
+          "name": "actual",
+          "path": "screens/rc-card/chromium/000001-6-actual.png",
+          "sha256": "f19ea3411cf4617ab44a1b77a5ad11688d277d01494dd11ce2f34dcae0d16b5a",
+          "nativeSha256": "f19ea3411cf4617ab44a1b77a5ad11688d277d01494dd11ce2f34dcae0d16b5a",
+          "actuallyViewed": true,
+          "observation": "实际查看：MD3/light、medium/standard返回端点，标题、正文、Meta主次文字和完整卡片阴影可见，未见内容缺失或重叠；顶部有极窄场外边缘片段，本PNG不覆盖外部草稿控件或完整外部焦点。",
+          "scope": "Card frame crop only; four-variant natural transition behavior is JSON/video evidence, not four static reviewed variants.",
+          "baselineApproved": false
+        }
+      ],
+      "videos": [
+        {
+          "path": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\card-theme-3-engines-windows-20261030-1\\results\\components-rc-card-docs-ca-bb51c-t-md3-light-theme-retention-chromium\\video.webm",
+          "bytes": 179494,
+          "sha256": "d30bde113e122a2b219ac926536cd7145ac7eb44fd75ee2da5b39a9e0ea0e2e5",
+          "reportCopies": [
+            ".website/review/20261030-card-theme-3-engines-windows-1/report/data/90c4a326b324d9e2c5c9f24e4cd493f8ecec652b.webm"
+          ],
+          "fullPlaybackReviewed": false
+        }
+      ]
+    },
+    {
+      "caseId": "0184f3e33b8f813a8f58-fe8d17aaa82ee83024da/firefox/0",
+      "project": "firefox",
+      "status": "failed",
+      "error": [
+        "TimeoutError: browserType.launch: Timeout 30000ms exceeded."
+      ],
+      "renderedScope": null,
+      "input": null,
+      "motions": [],
+      "images": [],
+      "videos": []
+    },
+    {
+      "caseId": "0184f3e33b8f813a8f58-fe8d17aaa82ee83024da/webkit/0",
+      "project": "webkit",
+      "status": "passed",
+      "error": [],
+      "renderedScope": {
+        "variants": [
+          "default",
+          "elevated",
+          "outlined",
+          "filled"
+        ],
+        "renderedConfig": {
+          "designSystem": "md3",
+          "colorMode": "light"
+        },
+        "renderedState": "default",
+        "scope": "Transitions: native video and natural rAF JSON. Final PNG: returned initial configuration."
+      },
+      "input": {
+        "source": "sha256:8cec2180bc9fe75ab1eaada7759846f294b8f8c4e631f47693e2d58918704c2c",
+        "artifact": "sha256:139cf2a2b3724b2f3bfe665b195a1eed1d0604a246301110a0bc76f53706458f",
+        "file": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\card-theme-3-engines-windows-20261030-1\\inputs-worker-2.json",
+        "renderingEnvironment": {
+          "file": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\card-theme-3-engines-windows-20261030-1\\rendering-worker-2.json",
+          "browserName": "webkit",
+          "browser": "27.2"
+        },
+        "browserName": "webkit",
+        "browser": "27.2",
+        "platform": "win32",
+        "arch": "x64",
+        "mode": "native-check",
+        "visualReview": "pending"
+      },
+      "motions": [
+        {
+          "attachmentIndex": 0,
+          "name": "theme-transition-default",
+          "variant": "default",
+          "from": {
+            "designSystem": "md3",
+            "colorMode": "light"
+          },
+          "to": {
+            "designSystem": "apple",
+            "colorMode": "dark"
+          },
+          "samples": 8,
+          "firstCommitted": 810,
+          "last": 918,
+          "complete": true,
+          "paletteChanges": true,
+          "everyCommittedPaletteMatchesEndpoint": true,
+          "nodesAndDraftRetained": true,
+          "nativeJsonPointer": "cases.json#/cases/2/details/theme-transition-default"
+        },
+        {
+          "attachmentIndex": 1,
+          "name": "theme-transition-elevated",
+          "variant": "elevated",
+          "from": {
+            "designSystem": "apple",
+            "colorMode": "dark"
+          },
+          "to": {
+            "designSystem": "md3",
+            "colorMode": "light"
+          },
+          "samples": 13,
+          "firstCommitted": 1234,
+          "last": 1416,
+          "complete": true,
+          "paletteChanges": true,
+          "everyCommittedPaletteMatchesEndpoint": true,
+          "nodesAndDraftRetained": true,
+          "nativeJsonPointer": "cases.json#/cases/2/details/theme-transition-elevated"
+        },
+        {
+          "attachmentIndex": 2,
+          "name": "theme-transition-outlined",
+          "variant": "outlined",
+          "from": {
+            "designSystem": "md3",
+            "colorMode": "light"
+          },
+          "to": {
+            "designSystem": "apple",
+            "colorMode": "dark"
+          },
+          "samples": 10,
+          "firstCommitted": 1946,
+          "last": 2082,
+          "complete": true,
+          "paletteChanges": true,
+          "everyCommittedPaletteMatchesEndpoint": true,
+          "nodesAndDraftRetained": true,
+          "nativeJsonPointer": "cases.json#/cases/2/details/theme-transition-outlined"
+        },
+        {
+          "attachmentIndex": 3,
+          "name": "theme-transition-filled",
+          "variant": "filled",
+          "from": {
+            "designSystem": "apple",
+            "colorMode": "dark"
+          },
+          "to": {
+            "designSystem": "md3",
+            "colorMode": "light"
+          },
+          "samples": 3,
+          "firstCommitted": 2352,
+          "last": 2378,
+          "complete": true,
+          "paletteChanges": true,
+          "everyCommittedPaletteMatchesEndpoint": true,
+          "nodesAndDraftRetained": true,
+          "nativeJsonPointer": "cases.json#/cases/2/details/theme-transition-filled"
+        }
+      ],
+      "images": [
+        {
+          "attachmentIndex": 6,
+          "name": "actual",
+          "path": "screens/rc-card/webkit/000003-6-actual.png",
+          "sha256": "063b4d00faef18a6e2a2f9a21ff4a8376976aefc325a3b4c5b172ba017269d38",
+          "nativeSha256": "063b4d00faef18a6e2a2f9a21ff4a8376976aefc325a3b4c5b172ba017269d38",
+          "actuallyViewed": true,
+          "observation": "实际查看：MD3/light、medium/standard返回端点，标题、正文、Meta主次文字和完整卡片阴影可见，未见内容缺失或重叠；顶部有极窄场外边缘片段，本PNG不覆盖外部草稿控件或完整外部焦点。",
+          "scope": "Card frame crop only; four-variant natural transition behavior is JSON/video evidence, not four static reviewed variants.",
+          "baselineApproved": false
+        }
+      ],
+      "videos": [
+        {
+          "path": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\card-theme-3-engines-windows-20261030-1\\results\\components-rc-card-docs-ca-bb51c-t-md3-light-theme-retention-webkit\\video.webm",
+          "bytes": 141600,
+          "sha256": "8246a4b2610cbfe349f708a944699d2cb58d74d10e902721e15aef5c707b5d42",
+          "reportCopies": [
+            ".website/review/20261030-card-theme-3-engines-windows-1/report/data/fe4cad30fd7c5e54592d823f577320a521cfbc77.webm"
+          ],
+          "fullPlaybackReviewed": false
+        }
+      ]
+    }
+  ],
+  "guard": {
+    "runId": "card-theme-3-engines-windows-20261030-1",
+    "ownerPid": 29152,
+    "ownerStarted": "2026-10-29T19:50:48.4190173Z",
+    "startedAt": "2026-10-29T19:50:49.3598993Z",
+    "stopThresholdBytes": 2147483648,
+    "minimumFreeBytes": 3289587712,
+    "samples": 107,
+    "status": "finished-without-threshold-stop",
+    "finishedAt": "2026-10-29T19:52:10.8737700Z",
+    "freeBytesAfter": 3293184000
+  },
+  "limits": [
+    "Only2success final PNG actually viewed; each is a default md3/light medium/standard endpoint after four switches.",
+    "8JSONgroups retain natural rAF observations; original2videos preserved but not fully played/reviewed.",
+    "Firefox has no input/rendering proof or component PNG/RAF; failure is launch prerequisite, not an observed Card palette failure.",
+    "18-case full theme scope and all core states/sizes/densities remain incomplete; no baseline/canonical/verified approval."
+  ]
+}

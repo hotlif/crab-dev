@@ -1,0 +1,41 @@
+{
+    "schemaVersion": 1,
+    "demo": "visual-matrix.demo.tsx",
+    "sizes": [
+        "small",
+        "medium",
+        "large"
+    ],
+    "densities": [
+        "standard"
+    ],
+    "states": [
+        "default",
+        "expanded",
+        "focus-visible",
+        "content-focus"
+    ],
+    "crossEngine": {
+        "sizes": [
+            "medium"
+        ],
+        "densities": [
+            "standard"
+        ],
+        "states": [
+            "default",
+            "expanded",
+            "focus-visible",
+            "content-focus"
+        ]
+    },
+    "notApplicable": {
+        "density": "DropdownContainer positions arbitrary content; collection density belongs to its consumer.",
+        "hover": "The surface does not activate on hover; trigger visuals belong to Button.",
+        "pressed": "The surface does not expose a pressed state.",
+        "disabled": "Disabling belongs to the reference control.",
+        "selected": "Selection belongs to overlay content.",
+        "error": "Validation belongs to the owning field.",
+        "loading": "Loading belongs to overlay content."
+    }
+}

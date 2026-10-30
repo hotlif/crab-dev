@@ -24,6 +24,7 @@ export const vars = defineTokens({
     'expressive.shape.width': '--spin-expressive-shape-width',
     'expressive.shape.height': '--spin-expressive-shape-height',
     'root.animation': '--spin-root-animation',
+    'root.font-family': '--spin-root-font-family',
     'content.transition': '--spin-content-transition',
     'content.opacity': '--spin-content-opacity',
     'content.filter': '--spin-content-filter',
@@ -76,7 +77,8 @@ const token = defineTokens({
         }
     },
     'root': {
-        'animation': `var(${vars['root.animation']}, var(--token-semantic-motion-fade, var(--token-global-duration-normal, 200ms) var(--token-global-easing-expressive-effects-default, cubic-bezier(0.34, 0.80, 0.34, 1.00))))`
+        'animation': `var(${vars['root.animation']}, var(--token-semantic-motion-fade, var(--token-global-duration-normal, 200ms) var(--token-global-easing-expressive-effects-default, cubic-bezier(0.34, 0.80, 0.34, 1.00))))`,
+        'font-family': `var(${vars['root.font-family']}, var(--token-semantic-typography-body-font-family, var(--token-global-font-family-material, 'Roboto', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei UI', sans-serif)))`
     },
     'content': {
         'transition': `var(${vars['content.transition']}, var(--token-semantic-motion-fade, var(--token-global-duration-normal, 200ms) var(--token-global-easing-expressive-effects-default, cubic-bezier(0.34, 0.80, 0.34, 1.00))))`,

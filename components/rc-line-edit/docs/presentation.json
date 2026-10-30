@@ -1,0 +1,30 @@
+{
+    "layout": "grid",
+    "groups": [
+        {
+            "title": "标签与状态",
+            "demos": [
+                "field-states.demo.tsx",
+                "visual-states.demo.tsx",
+                "visual-matrix.demo.tsx"
+            ]
+        },
+        {
+            "title": "基础与尺寸",
+            "demos": [
+                "simple.demo.tsx",
+                "size.demo.tsx",
+                "prefix-suffix.demo.tsx"
+            ]
+        },
+        {
+            "title": "输入能力",
+            "demos": [
+                "allow-clear.demo.tsx",
+                "password.demo.tsx",
+                "show-count.demo.tsx",
+                "status.demo.tsx"
+            ]
+        }
+    ]
+}

@@ -20,6 +20,10 @@ import { demos } from "../_generated/rc-table-pro.js";
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
 
+#### 三体系验收
+
+##### 专业表格验收矩阵 — 公开类型加载器提供编辑；可取消请求逐步完成刷新、错误与重试，真实滚动保留专业工具栏。
+
 #### 业务实战
 
 ##### 订单履约工作台：跨页查询与拣货 — 模拟 960 笔多区域订单。尝试在右侧筛选「待发货」、按承诺日期排序、跨页选择订单并生成拣货单；金额汇总与 CSV 只针对当前页。request 真正处理分页、筛选、排序及 AbortSignal。
@@ -123,6 +127,25 @@ Material Design 3 Expressive、Apple 和 shadcn/ui 的来源与固定 New York V
 `size` 设置内置控件尺寸，`density` 控制默认数据行和列面板节点几何，显式行高等配置优先。列定义、`request` 查询、持久化状态、业务编辑器和数据格式属于领域接口，切换设计体系不会重新解释它们。列加载错误、数据加载错误、空态和加载反馈应分别可识别。
 
 三体系、浅深色及适用数据状态的覆盖等级以[覆盖矩阵](/guides/design-coverage)和对应候选记录为准。
+
+
+### 专业工作区矩阵规格
+
+TablePro 保留 Table 的数据表语言，以公开 Table、Tree、字段、Button 和 Pagination 组合专业工作区。它不复制数据表样式或测量模型。MD3 Expressive 的强调动作、Apple 的轻量工具栏、shadcn 的紧凑描边通过各基础组件及 L2 角色传递；列协议、请求取消、查询及视图状态与外观分开维护。
+
+| 轴 | 项目规格 |
+| --- | --- |
+| 尺寸 / 密度 | small / medium / large × compact / standard / comfortable；尺寸用于控件，密度用于数据及列树 |
+| 表面 | 内容区、搜索工具栏、列面板、分页与错误覆盖分别取配对语义角色 |
+| 静态状态 | 已有数据、键盘焦点、行选择、列面板、编辑草稿及提交/取消、虚拟滚动、成功空结果、列/数据请求错误 |
+| 自然动态状态 | 初次加载无 Empty；已有数据刷新保留行；真实响应完成更新、失败保留内容、重试恢复 |
+| 错误 | 列错误和数据错误分别提供 alert、错误详情及可达的重试动作 |
+
+「专业表格验收矩阵」提供固定可取消传输。初次加载和刷新由真实 Promise 进入，Playwright 单独保存视频、两帧及动画时间序列；不停止动画或将动态帧设成静态基准。其余状态使用原生截图比较与控件断言。尺寸、密度与适用状态来自 docs/visual.json；Firefox / WebKit 子集同样在此声明。
+
+响应控制只完成或拒绝实际待处理请求，不修改组件状态样式。刷新验收保留同一个表格实例及选择，检查成功后更新文字、失败时保留已有行，以及内置重试恢复。编辑通过公开 `DataTypeLoader.editRender` 与字段的真实双击、输入、失焦提交或 Escape 取消；演示业务值由独立状态管理。滚动必须同时确认首行退出、末行进入视口以及非空且有界的虚拟行。尚未执行或复审的新候选仍保持未验证，不以场景声明代替结果。
+
+三体系基础来源沿用 [Table](/components/rc-table) 和 [Tree](/components/rc-tree)；专业工具栏、列协议、分页请求与重试编排属于本库桌面扩展。shadcn 保持 New York V4 提交 3d98900e9b73c45f035f8109e9d41ba6a51685e7 的 [Data Table 参考](https://ui.shadcn.com/docs/components/radix/data-table)，不引入其表格引擎。Apple 使用自主 Web 实现。参考记录日期：2026-10-29。
 
 ### 适用场景
 

@@ -1,4 +1,5 @@
 import { usePickerLocale } from '../locale.js';
+import { nowZonedDateTime } from '../temporal.js';
 import { useLayoutEffect, useRef, useState } from 'react';
 import Button from '@crab-dev/rc-button';
 import { useDropdownContext } from '@crab-dev/rc-dropdown-container';
@@ -14,7 +15,7 @@ export default function TimePickerOverlay({ value, onValueChange, onClose, ...re
     const containerRef = useRef<HTMLDivElement>(null);
     const [draft, setDraft] = useState<TimePickerValue>(() => {
         if (value) return { ...value };
-        const now = Temporal.Now.zonedDateTimeISO();
+        const now = nowZonedDateTime();
         return { hour: now.hour, minute: now.minute, second: 0 };
     });
     const [valid, setValid] = useState(true);

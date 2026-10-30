@@ -5,6 +5,7 @@ type DocsTypePlaceholder = ((...args: never[]) => unknown) & {
     readonly [key: string]: DocsTypePlaceholder;
     readonly [key: number]: DocsTypePlaceholder;
 };
+type Array<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 type DropdownOpenChangeDetails = DocsTypePlaceholder;
 type HTMLDivElement = DocsTypePlaceholder;
 type HTMLElement = DocsTypePlaceholder;
@@ -16,6 +17,11 @@ type SelectOptionOrGroup = DocsTypePlaceholder;
 type SyntheticEvent<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 
 export interface SelectProps {
+    /**
+     * 是否自动聚焦输入
+     */
+    "autoFocus"?: boolean;
+
     /**
      * 字段外观，默认 outlined
      */
@@ -92,11 +98,6 @@ export interface SelectProps {
     "maxTagCount"?: number;
 
     /**
-     * 是否自动聚焦输入
-     */
-    "autoFocus"?: boolean;
-
-    /**
      * 无匹配项时的自定义渲染内容
      */
     "notFoundContent"?: ReactNode;
@@ -114,27 +115,27 @@ export interface SelectProps {
     /**
      * 自定义选项渲染函数，提供当前选项及其选中状态
      */
-    "optionRender"?: ((option: SelectOption, info: { selected: boolean; }) => ReactNode);
+    "optionRender"?: (option: SelectOption, info: { selected: boolean; }) => ReactNode;
 
     /**
      * 自定义 tag 渲染（多选时）
      */
-    "tagRender"?: ((option: SelectOption, onClose: (event?: SyntheticEvent<HTMLElement>) => void) => ReactNode);
+    "tagRender"?: (option: SelectOption, onClose: (event?: SyntheticEvent<HTMLElement>) => void) => ReactNode;
 
     /**
      * 自定义下拉菜单整体渲染（包裹原始菜单）
      */
-    "dropdownRender"?: ((menu: ReactNode) => ReactNode);
+    "dropdownRender"?: (menu: ReactNode) => ReactNode;
 
     /**
      * 暂无说明。 与 defaultValue 互斥，不能同时提供。
      */
-    "value"?: string | null | string[];
+    "value"?: string | null | Array<string>;
 
     /**
      * 暂无说明。 与 value 互斥，不能同时提供。
      */
-    "defaultValue"?: string | null | string[];
+    "defaultValue"?: string | null | Array<string>;
 
     /**
      * 暂无说明。
@@ -154,7 +155,7 @@ export interface SelectProps {
     /**
      * 暂无说明。
      */
-    "onOpenChange"?: (((open: boolean, details: DropdownOpenChangeDetails) => void));
+    "onOpenChange"?: ((open: boolean, details: DropdownOpenChangeDetails) => void);
 
     /**
      * 暂无说明。

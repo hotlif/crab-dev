@@ -1,0 +1,45 @@
+{
+    "schemaVersion": 1,
+    "demo": "visual-matrix.demo.tsx",
+    "densities": [
+        "standard"
+    ],
+    "sizes": [
+        "xs",
+        "s",
+        "m",
+        "l",
+        "xl"
+    ],
+    "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "dragging",
+        "minimum",
+        "maximum",
+        "disabled",
+        "error"
+    ],
+    "crossEngine": {
+        "sizes": [
+            "xs"
+        ],
+        "densities": [
+            "standard"
+        ],
+        "states": [
+            "default",
+            "focus-visible",
+            "dragging",
+            "minimum",
+            "maximum"
+        ]
+    },
+    "notApplicable": {
+        "density": "Continuous scalar controls follow their explicit size. Collection density does not change track geometry.",
+        "selected": "The scalar value and active track express the selection; there is no binary selected state.",
+        "loading": "The slider has no asynchronous-loading protocol."
+    }
+}
+

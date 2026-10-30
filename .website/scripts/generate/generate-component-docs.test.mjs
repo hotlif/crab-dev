@@ -6,6 +6,7 @@ import { createRequire } from "node:module";
 import { loadLibraryManifest } from "../../../scripts/library-manifest.mjs";
 import { createTokenReferenceData, readGlobalTokens } from "./generate-token-reference.mjs";
 import { isComponentDocsSource } from "../dev/docs-source-watch.mjs";
+import { readPresentation, validatePresentation } from "./presentation.mjs";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -42,6 +43,26 @@ const tests = [];
 function test(name, run) {
     tests.push({ name, run });
 }
+
+test("展示配置有明确默认值并拒绝无效布局、越界文件与重复分组", () => {
+    const defaults = validatePresentation({}, "fixture");
+    assert.equal(defaults.layout, "wide");
+    assert.equal(defaults.previewDensity, "regular");
+    for (const value of [{ layout: "unknown" }, { previewDensity: "unknown" }, { heroDemo: "../outside.demo.tsx" }, { unknown: true }]) {
+        assert.throws(() => validatePresentation(value, "fixture"));
+    }
+    assert.throws(() => validatePresentation({ groups: [{ title: "Basics", demos: ["basic.demo.tsx"] }, { title: "State", demos: ["basic.demo.tsx"] }] }, "fixture"), /Demo 分组重复/);
+});
+
+test("展示配置随源文件内容更新，文档监视包含包内展示来源", async () => {
+    const root = path.join(temporaryDirectory, "presentation-fixture");
+    const directory = path.join(root, "components/rc-fixture/docs");
+    await mkdir(directory, { recursive: true });
+    assert.equal(readPresentation("rc-fixture", { root }).layout, "wide");
+    await writeFile(path.join(directory, "presentation.json"), '{"layout":"grid"}');
+    assert.equal(readPresentation("rc-fixture", { root }).layout, "grid");
+    assert.equal(isComponentDocsSource("rc-fixture/docs/presentation.json"), true);
+});
 
 test("Windows 生成文件短暂访问冲突有限重试，非临时错误直接失败", async () => {
     let attempts = 0;
@@ -114,6 +135,7 @@ test("覆盖矩阵为已验收体系列出证据，缺少记录时拒绝生成",
     };
     const manifest = {
         packages: [product],
+        designSystems: Object.keys(product.designCoverage).map(id => ({ id, title: id })),
         families: [{ id: "base", title: "基础组件" }],
         categories: [{ id: "general", title: "通用" }],
     };
@@ -224,6 +246,24 @@ test("真实 Button 与 workspace Controlled 状态的 value/checked/open/size �
         if (slug === "rc-button") assert.ok(api.props.find(prop => prop.name === "size").typeText.includes("xl"));
         if (slug === "rc-line-edit") assert.ok(api.props.find(prop => prop.name === "onValueChange").typeText.includes("string"));
     }
+});
+
+test("独立受控协议不展开组合积，交叉字段保持交叉约束且导入变更使缓存失效", async () => {
+    const directory = path.join(temporaryDirectory, "independent-state");
+    await mkdir(directory, { recursive: true });
+    const dependency = path.join(directory, "state.ts");
+    const sourcePath = path.join(directory, "props.ts");
+    const states = Array.from({ length: 10 }, (_, i) => `type State${i} = { value${i}?: string; default${i}?: never } | { value${i}?: ${i === 9 ? "undefined" : "never"}; default${i}?: string };`);
+    await writeFile(dependency, 'export interface Base { imported?: string; }');
+    await writeFile(sourcePath, `import type { Base } from "./state.js";\n${states.join("\n")}\nexport type Props = Base & ${states.map((_, i) => `State${i}`).join(" & ")} & { overlap: string | number } & { overlap: number | boolean };`);
+    const props = parseSourceApiProps(sourcePath, "Props");
+    assert.equal(props.length, 22);
+    assert.equal(props.find(prop => prop.name === "overlap").typeText, "(string | number) & (number | boolean)");
+    assert.deepEqual(props.find(prop => prop.name === "value9").exclusiveWith, ["default9"]);
+    assert.equal(props.find(prop => prop.name === "value9").typeText, "string");
+    assert.deepEqual(props.find(prop => prop.name === "default9").exclusiveWith, ["value9"]);
+    await writeFile(dependency, 'export interface Base { imported?: number; }');
+    assert.equal(parseSourceApiProps(sourcePath, "Props").find(prop => prop.name === "imported").typeText, "number");
 });
 
 test("API 类型校验接受复杂类型并拒绝不完整语法或额外声明", () => {
@@ -668,7 +708,8 @@ test("真实 Demo 完整进入教学分组，未登记或缺失的分组文件�
     assert.throws(() => organizeDemos("rc-canvas", [...groupedDemos, { id: "docs/demos/unregistered-contract.demo.tsx" }]), /Demo 未分组/);
     assert.throws(() => organizeDemos("rc-canvas", groupedDemos.filter(demo => demo.id !== "docs/demos/visual-states.demo.tsx")), /Demo 分组引用不存在的文件/);
     const ungrouped = [{ id: "docs/demos/visual-states.demo.tsx" }];
-    assert.deepEqual(organizeDemos("rc-prose", ungrouped), [{ ...ungrouped[0], group: null }]);
+    // The default branch uses an isolated fixture: real products may add groups.
+    assert.deepEqual(organizeDemos("rc-fixture", ungrouped, { root: temporaryDirectory }), [{ ...ungrouped[0], group: null }]);
 });
 
 test("API source 必须存在且位于组件 src 目录", async () => {

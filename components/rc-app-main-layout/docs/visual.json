@@ -1,0 +1,40 @@
+{
+    "schemaVersion": 1,
+    "demo": "visual-matrix.demo.tsx",
+    "sizes": [
+        "small",
+        "medium",
+        "large"
+    ],
+    "densities": [
+        "compact",
+        "standard",
+        "comfortable"
+    ],
+    "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "collapsed",
+        "account"
+    ],
+    "notApplicable": {
+        "error": "Layout delegates request errors to supplied page/menu content.",
+        "disabled": "Navigation destinations remain available; the layout has no global disabled mode.",
+        "loading": "Initial account/sidebar skeletons are transitional; fixed fulfilled requests establish deterministic default captures."
+    },
+    "crossEngine": {
+        "sizes": [
+            "medium"
+        ],
+        "densities": [
+            "standard"
+        ],
+        "states": [
+            "default",
+            "focus-visible",
+            "collapsed",
+            "account"
+        ]
+    }
+}

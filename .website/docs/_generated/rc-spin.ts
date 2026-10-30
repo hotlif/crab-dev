@@ -140,6 +140,37 @@ export const demos = [
         "group": null
     },
     {
+        "id": "docs/demos/visual-matrix.demo.tsx",
+        "title": "三体系加载状态矩阵",
+        "description": "环形、Expressive、包裹、延迟、自定义与结束状态；动画保留原始时间序列。",
+        "learning": {
+            "components": [
+                "Switch",
+                "Spin"
+            ],
+            "props": [
+                "checked",
+                "onCheckedChange",
+                "aria-label",
+                "spinning",
+                "delay",
+                "variant",
+                "tip",
+                "indicator"
+            ],
+            "events": [
+                "onCheckedChange"
+            ],
+            "hasState": true
+        },
+        "sourceCode": "import { css } from \"@crab-dev/css\";\nimport Spin from \"@crab-dev/rc-spin\";\nimport Switch from \"@crab-dev/rc-switch\";\nimport { useConfig } from \"@crab-dev/rc-config-provider\";\nimport token from \"@crab-dev/rc-token-semantic\";\nimport { useId, useState } from \"react\";\n\nexport const meta = { title: \"三体系加载状态矩阵\", description: \"环形、Expressive、包裹、延迟、自定义与结束状态；动画保留原始时间序列。\" };\nconst scene = css`\n    display: grid; gap: ${token.space['group-gap']}; padding: ${token.space['group-gap']}; max-inline-size: 36rem;\n    background: ${token.color.background.surface}; color: ${token.color.text.primary};\n`;\nconst samples = css`display: grid; gap: ${token.space['group-gap']}; padding: ${token.space['group-gap']}; min-block-size: 8rem; min-inline-size: 0;`;\nconst content = css`padding: ${token.space['group-gap']}; border: 1px solid ${token.color.border.default}; border-radius: ${token.shape.medium};`;\nconst states = [\"default\", \"expressive\", \"overlay\", \"idle\", \"delayed\", \"custom\"] as const;\nexport default function VisualMatrixDemo() {\n    const { size, locale } = useConfig();\n    const [state, setState] = useState\u003ctypeof states[number]>(\"default\");\n    const [started, setStarted] = useState(false);\n    const [enabled, setEnabled] = useState(false);\n    const id = useId();\n    const english = locale === \"en-US\";\n    const wrapped = state === \"overlay\" || state === \"idle\";\n    return \u003csection className={scene} aria-label=\"Spin visual matrix\" data-visual-scene data-state={state} data-size={size}>\n        \u003cdiv>\u003clabel htmlFor={id}>验收状态\u003c/label>{\" \"}\u003cselect id={id} value={state} onChange={event => {\n            const next = event.currentTarget.value;\n            if (states.some(item => item === next)) { setState(next as typeof state); setStarted(false); }\n        }}>{states.map(item => \u003coption key={item}>{item}\u003c/option>)}\u003c/select>\u003c/div>\n        {state === \"delayed\" && \u003cSwitch checked={started} onCheckedChange={setStarted} aria-label=\"Start delayed request\">{english ? \"Start delayed request\" : \"开始延迟请求\"}\u003c/Switch>}\n        \u003cdiv className={samples} data-visual-frame>\n            \u003cSpin spinning={state !== \"idle\" && (state !== \"delayed\" || started)} delay={state === \"delayed\" ? 600 : 0}\n                variant={state === \"expressive\" ? \"expressive\" : \"circular\"}\n                tip={english ? \"Refreshing the project list and preserving your current draft\" : \"正在刷新项目列表，保留当前编辑草稿\"}\n                indicator={state === \"custom\" ? \u003cspan aria-hidden=\"true\">⌛\u003c/span> : undefined}>\n                {wrapped ? \u003cdiv className={content}>\u003cp>{english ? \"Project draft\" : \"项目草稿\"}\u003c/p>\u003cSwitch checked={enabled} onCheckedChange={setEnabled}>{english ? \"Allow editing\" : \"允许编辑\"}\u003c/Switch>\u003c/div> : undefined}\n            \u003c/Spin>\n        \u003c/div>\n    \u003c/section>;\n}\n",
+        "previewPath": "/components/rc-spin/workbench/?__wake_demo=docs%2Fdemos%2Fvisual-matrix.demo.tsx",
+        "workbenchPath": "/components/rc-spin/workbench/#/components/docs%2Fdemos%2Fvisual-matrix.demo.tsx",
+        "density": "regular",
+        "layout": "grid",
+        "group": null
+    },
+    {
         "id": "docs/demos/wrapper.demo.tsx",
         "title": "包裹内容",
         "description": "传入 children 即笼罩该区域: 内容变淡并被 inert 阻断——鼠标点不到, 键盘 Tab 也进不去。",

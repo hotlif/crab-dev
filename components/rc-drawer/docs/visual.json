@@ -1,0 +1,43 @@
+{
+    "schemaVersion": 1,
+    "demo": "visual-matrix.demo.tsx",
+    "sizes": [
+        "small",
+        "medium",
+        "large"
+    ],
+    "densities": [
+        "standard"
+    ],
+    "states": [
+        "default",
+        "focus-visible",
+        "left",
+        "top",
+        "bottom",
+        "long-content"
+    ],
+    "crossEngine": {
+        "sizes": [
+            "medium"
+        ],
+        "densities": [
+            "standard"
+        ],
+        "states": [
+            "default",
+            "focus-visible",
+            "left",
+            "long-content"
+        ]
+    },
+    "notApplicable": {
+        "density": "Edge panel size is independent of child collection density.",
+        "hover": "Hover feedback belongs to the public Button used for closing, not the panel surface.",
+        "pressed": "Pressed actions are public Button behavior.",
+        "disabled": "The panel is not an action and has no disabled prop.",
+        "selected": "The panel does not select data.",
+        "error": "Validation belongs to the content supplied by callers.",
+        "loading": "Drawer exposes no loading state."
+    }
+}

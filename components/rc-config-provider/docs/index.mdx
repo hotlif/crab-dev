@@ -60,6 +60,12 @@ useLocale() 返回 locale 和类型化 messages，内置中英文文案在运行
 
 React Portal 保留 Context，但不会继承原祖先的 CSS。ConfigBoundary 在有 Provider 时重建设计、品牌、语言、方向、密度和 nonce 边界；没有 Provider 时保留目标容器的原生 CSS 继承。
 
+### 视觉验收边界
+
+Provider 是 Crab 的配置协议扩展，三体系没有对应的原生视觉控件；其职责是输出边界，具体颜色、字阶、形状和几何由 L2 与 Theme 负责。包内矩阵核对三体系、明暗、三档尺寸与三档密度独立继承，以及嵌套、品牌、Portal 和真实键盘焦点。示例中的业务输入与 Portal 输入共享实际草稿，切换配置不重建输入实例。
+
+跨文档示例在同源 iframe 与开放 Shadow DOM 安装真实工作台样式，并通过公开 `ConfigBoundary` 重建最近边界；检查八项配置、品牌样式的 nonce，以及配置切换后原输入实例和共享草稿。只输出 React Context 不代表样式已跨 Document 安装；实际弹层的目标文档、堆叠和焦点仍由所属组件验收。无禁用、选中或异步加载的 Provider 外观，适用范围与理由记录在包内 `visual.json`。设计来源及固定版本沿用[设计体系](/guides/design-styles)。
+
 DropdownContainer 和 Tooltip 按触发器的 ownerDocument 解析目标，并保留原生模态 dialog 内的交互范围。Dialog、Drawer 与浮层共享每个 Document 的弹层栈，Escape 只关闭顶层；滚动锁允许多个模态和乱序释放。关闭后恢复有效触发器焦点。
 
 <API source="../src/types.ts" symbol="ConfigProviderProps" component="ConfigProvider" />

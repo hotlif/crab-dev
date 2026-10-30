@@ -1,92 +1,12 @@
 import { useComponentSize, useLocale } from '@crab-dev/rc-config-provider';
-import { css, cx } from '@crab-dev/css';
+import { cx } from '@crab-dev/css';
 import { Children, cloneElement, isValidElement } from 'react';
 import type { CSSProperties, FC, ReactElement, ReactNode } from 'react';
-import Badge, { TokenVars as badgeVars } from '@crab-dev/rc-badge';
+import Badge from '@crab-dev/rc-badge';
 import Button from '@crab-dev/rc-button';
-import token, { vars } from './token.js';
+import { vars } from './token.js';
 import type { AvatarGroupProps, AvatarProps, AvatarShape, AvatarSize } from './types.js';
-
-const groupStyle = css`
-    position: relative;
-    display: inline-flex;
-    align-items: center;
-    isolation: isolate;
-`;
-
-// The group summary occupies inline space beside the last avatar. Only its
-// vertical half-height remains outside the row, like Badge's corner anchor.
-// Flow follows the actual DOM direction and measures arbitrary renderExtra
-// content, so an adjacent group cannot paint over an unmeasured counter.
-const overflowIndicatorStyle = css`
-    && {
-        position: relative;
-        top: auto;
-        inset-inline-end: auto;
-        align-self: flex-start;
-        flex-shrink: 0;
-        ${badgeVars['indicator.transform']}: translateY(-50%);
-    }
-`;
-
-const itemBaseStyle = css`
-    position: relative;
-    display: inline-flex;
-    margin-inline-start: ${token.group.margin};
-    transition: ${token.group.transition};
-    box-shadow: 0 0 0 ${token.group.item.ring.width} ${token.group.item['border-color']};
-
-    &:first-child {
-        margin-inline-start: 0;
-    }
-
-    &:hover {
-        z-index: 10;
-        transform: ${token.group['transform-hover']};
-    }
-
-    &:focus-within {
-        z-index: 10;
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-        transition: box-shadow 120ms linear;
-
-        &:hover {
-            transform: none;
-        }
-    }
-`;
-
-// The last wrapper also contains the in-flow counter. Its ring must remain on
-// the real avatar instead of stretching around the wider wrapper. Caller class
-// and inline style are preserved when this static group role is composed.
-const itemWithCounterStyle = css`
-    && { box-shadow: none; }
-`;
-
-const counterAvatarRingStyle = css`
-    &&& {
-        box-shadow: 0 0 0 ${token.group.item.ring.width} ${token.group.item['border-color']};
-    }
-`;
-
-const itemCircleStyle = css`
-    border-radius: 50%;
-`;
-
-const itemSquareStyle = css`
-    border-radius: ${token.shape.square['border-radius']};
-`;
-
-const extraActionStyle = css`
-    && {
-        min-width: ${token.interaction.touch['min-width']};
-        min-height: ${token.interaction.touch['min-height']};
-        margin-inline-start: ${token.group.action.gap};
-    }
-`;
-
+import { groupStyle, overflowIndicatorStyle, itemBaseStyle, itemWithCounterStyle, counterAvatarRingStyle, itemCircleStyle, itemSquareStyle, extraActionStyle } from "./avatar-group.styles.js";
 const itemShapeStyleMap: Record<AvatarShape, string> = {
     circle: itemCircleStyle,
     square: itemSquareStyle,

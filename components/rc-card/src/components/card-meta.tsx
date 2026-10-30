@@ -1,44 +1,12 @@
-import { css, cx } from '@crab-dev/css';
-import token from '../token.js';
+import { cx } from '@crab-dev/css';
+import { metaStyle, avatarStyle, textStyle, titleStyle, descriptionStyle } from './card-meta.styles.js';
 import type { CardMetaProps } from '../types.js';
 
 // Meta 组合：头像 + (标题 / 描述) 横排，文本列 min-width:0 保证长文本可截断。
-const metaStyle = css`
-    display: flex;
-    align-items: flex-start;
-    gap: ${token.meta.gap};
-    min-width: 0;
-`;
 
-const avatarStyle = css`
-    flex-shrink: 0;
-`;
 
-const textStyle = css`
-    display: flex;
-    flex-direction: column;
-    /* Fill the remaining row so percentage-based loading slots have the same
-       available width as the final title and description. */
-    flex: 1 1 auto;
-    gap: ${token.meta.text.gap};
-    min-width: 0;
-`;
 
-const titleStyle = css`
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    color: ${token.meta.title.color};
-    font-size: ${token.meta.title['font-size']};
-    font-weight: ${token.meta.title['font-weight']};
-    line-height: 1.5;
-`;
 
-const descriptionStyle = css`
-    color: ${token.meta.desc.color};
-    font-size: ${token.meta.desc['font-size']};
-    line-height: 1.5;
-`;
 
 const CardMeta = ({ avatar, title, description, className, ref, ...restProps }: CardMetaProps) => (
     <div {...restProps} ref={ref} className={cx(metaStyle, className)}>

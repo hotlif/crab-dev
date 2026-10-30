@@ -1,0 +1,8 @@
+{
+    "layout": "grid",
+    "previewDensity": "compact",
+    "groups": [
+        { "title": "规格验收", "demos": ["visual-matrix.demo.tsx"] },
+        { "title": "基础与位置", "demos": ["basic.demo.tsx", "placement.demo.tsx", "arrow.demo.tsx"] }
+    ]
+}

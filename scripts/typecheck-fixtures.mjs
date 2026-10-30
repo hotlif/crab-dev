@@ -2,21 +2,23 @@ import { spawnSync } from "node:child_process";
 import { mkdir, mkdtemp, rm, unlink, writeFile } from "node:fs/promises";
 import { dirname, join, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
+import { createRequire } from "node:module";
 
 const repository = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const workspace = join(repository, "standards", "typescript-preset");
-const runner = join(repository, "scripts", "typecheck.mjs");
+const require = createRequire(new URL("../standards/typescript-preset/package.json", import.meta.url));
+const compiler = require.resolve("typescript/bin/tsc");
 const temporaryRoot = join(workspace, ".tmp");
 const resultsPath = join(temporaryRoot, "typecheck-results.json");
 await mkdir(temporaryRoot, { recursive: true });
 await unlink(resultsPath).catch(error => {
     if (error.code !== "ENOENT") throw error;
 });
-const fixtures = await mkdtemp(join(temporaryRoot, "native-pnp-"));
+const fixtures = await mkdtemp(join(temporaryRoot, "typescript-pnp-"));
 if (!resolve(fixtures).startsWith(temporaryRoot + sep)) throw new Error("Unexpected fixture cleanup path");
 
 function compile(name, args) {
-    const result = spawnSync(process.execPath, [runner, ...args], {
+    const result = spawnSync(process.execPath, ["--require", join(repository, ".pnp.cjs"), compiler, ...args], {
         cwd: workspace, encoding: "utf8", timeout: 30000, windowsHide: true,
     });
     if (result.error) throw result.error;
@@ -46,7 +48,7 @@ try {
         results.push(compile(name, ["--noEmit", "--pretty", "false", "--project", directory]));
     }
     await writeFile(resultsPath, JSON.stringify(results, null, 4) + "\n");
-    console.log(`Executed ${results.length} native TypeScript 7 fixtures; Wake Test will verify their results.`);
+    console.log(`Executed ${results.length} official TypeScript PnP fixtures; Wake Test will verify their results.`);
 } finally {
     await rm(fixtures, { recursive: true, force: true });
 }

@@ -1,0 +1,211 @@
+{
+  "schemaVersion": 1,
+  "reviewer": "selection_overlays",
+  "reviewedAt": "2026-10-29T09:56:45.091Z",
+  "package": "@crab-dev/rc-dropdown-container",
+  "nativeRun": ".cache/visual/20261029-dropdown-label-gap-windows-2",
+  "scope": "Fresh Windows default base demo: Chromium three design systems × light/dark.",
+  "decision": "Chromium default demo label-gap issue resolved in this candidate; popup visual review and Firefox/WebKit remain pending",
+  "baselineApproved": false,
+  "designCoverageVerified": false,
+  "sourceIndex": [
+    {
+      "file": "cases.json",
+      "sha256": "09cd1dc5f8185e4380d4a39b95f02d1b60e6af80691107cabef9a8abfc65242a"
+    },
+    {
+      "file": "inputs-worker-0.json",
+      "sha256": "83753ad5f4812da09a92b7bf4cab21b9c86b61fa6221fc2237f35a836b3cbab6"
+    },
+    {
+      "file": "inputs-worker-1.json",
+      "sha256": "83753ad5f4812da09a92b7bf4cab21b9c86b61fa6221fc2237f35a836b3cbab6"
+    },
+    {
+      "file": "inputs-worker-2.json",
+      "sha256": "83753ad5f4812da09a92b7bf4cab21b9c86b61fa6221fc2237f35a836b3cbab6"
+    },
+    {
+      "file": "inputs-worker-3.json",
+      "sha256": "83753ad5f4812da09a92b7bf4cab21b9c86b61fa6221fc2237f35a836b3cbab6"
+    }
+  ],
+  "change": "Only docs/demos/base.demo.tsx: local inline-flex trigger wrapper, wrapping and semantic component gap. The existing label htmlFor and input ref/behavior are preserved.",
+  "priorFinding": {
+    "review": ".website/review/20261029-inventory-linux-1-v2/reviews-selection-overlays.json",
+    "id": "demo-label-gap",
+    "oldEvidencePreserved": true
+  },
+  "attempts": {
+    "passed": 6,
+    "premiseFailures": 12,
+    "firstNoTestsRun": ".cache/visual/20261029-dropdown-label-gap-windows",
+    "firstLog": ".tmp/selection-verification/dropdown-label-gap-candidate.log",
+    "candidateLog": ".tmp/selection-verification/dropdown-label-gap-candidate-2.log"
+  },
+  "pendingEngines": [
+    {
+      "project": "firefox",
+      "cases": 6,
+      "status": "pending",
+      "cause": "Missing .cache/playwright/firefox-1555/firefox/firefox.exe",
+      "originalLaunchFailuresRetained": true,
+      "actualImageViewed": false
+    },
+    {
+      "project": "webkit",
+      "cases": 6,
+      "status": "pending",
+      "cause": "Missing .cache/playwright/webkit-2370/Playwright.exe",
+      "originalLaunchFailuresRetained": true,
+      "actualImageViewed": false
+    }
+  ],
+  "limitations": [
+    "Default medium/standard/zh-CN/ltr demo only; the screenshot contains a closed input trigger.",
+    "Dropdown popup content, placement, keyboard/focus/hover/expanded states, other sizes and environment extensions are not visible and remain pending.",
+    "Firefox/WebKit never launched in this candidate and have no reviewable PNG. Their failed attempts are retained in cases.json.",
+    "No baseline update, cross-platform pixel comparison or full design coverage approval."
+  ],
+  "cases": [
+    {
+      "id": "73019a0006cb75aa6498-ab05921a8be73175da8b/chromium/0",
+      "title": "rc-dropdown-container md3 light",
+      "project": "chromium",
+      "image": "screens/rc-dropdown-container/chromium/000001-0-inventory-actual.png",
+      "sha256": "f2dc8164617f377474bd0f2918aa048d65a93c58f6194db6c989ab3f69e1880d",
+      "actualSha256": "f2dc8164617f377474bd0f2918aa048d65a93c58f6194db6c989ab3f69e1880d",
+      "source": "sha256:b6a7ab36f4e92a415f3c496cadf900aed071123f3349cc98af46566fa99d4388",
+      "artifact": "sha256:f5f7dac00303633a7a2812751d52b3853aeb08d7d15b4d9d44b331887afaa094",
+      "workerStable": true,
+      "bindingsMatch": true,
+      "actualImageViewed": true,
+      "hashMatches": true,
+      "conclusion": "The label is visibly separated from the input border, vertically aligned and readable. The closed trigger shows no label clipping or overlap at this default viewport.",
+      "issues": [],
+      "unverified": [
+        "popup visual appearance",
+        "expanded states",
+        "all sizes/densities/environments",
+        "Firefox",
+        "WebKit"
+      ]
+    },
+    {
+      "id": "73019a0006cb75aa6498-5625746cac142d7c2777/chromium/0",
+      "title": "rc-dropdown-container md3 dark",
+      "project": "chromium",
+      "image": "screens/rc-dropdown-container/chromium/000004-0-inventory-actual.png",
+      "sha256": "4b173a1448d64bb31464a9e1014b20881eeb7e4d9074603bedfa0e916540fd46",
+      "actualSha256": "4b173a1448d64bb31464a9e1014b20881eeb7e4d9074603bedfa0e916540fd46",
+      "source": "sha256:b6a7ab36f4e92a415f3c496cadf900aed071123f3349cc98af46566fa99d4388",
+      "artifact": "sha256:f5f7dac00303633a7a2812751d52b3853aeb08d7d15b4d9d44b331887afaa094",
+      "workerStable": true,
+      "bindingsMatch": true,
+      "actualImageViewed": true,
+      "hashMatches": true,
+      "conclusion": "The label is visibly separated from the input border, vertically aligned and readable. The closed trigger shows no label clipping or overlap at this default viewport.",
+      "issues": [],
+      "unverified": [
+        "popup visual appearance",
+        "expanded states",
+        "all sizes/densities/environments",
+        "Firefox",
+        "WebKit"
+      ]
+    },
+    {
+      "id": "73019a0006cb75aa6498-e99a633855738a280a63/chromium/0",
+      "title": "rc-dropdown-container apple light",
+      "project": "chromium",
+      "image": "screens/rc-dropdown-container/chromium/000007-0-inventory-actual.png",
+      "sha256": "149db8b5cbffae6fecdd3068d53b4620a05026bb3b1993cebb1e22dd2ebb86c5",
+      "actualSha256": "149db8b5cbffae6fecdd3068d53b4620a05026bb3b1993cebb1e22dd2ebb86c5",
+      "source": "sha256:b6a7ab36f4e92a415f3c496cadf900aed071123f3349cc98af46566fa99d4388",
+      "artifact": "sha256:f5f7dac00303633a7a2812751d52b3853aeb08d7d15b4d9d44b331887afaa094",
+      "workerStable": true,
+      "bindingsMatch": true,
+      "actualImageViewed": true,
+      "hashMatches": true,
+      "conclusion": "The label is visibly separated from the input border, vertically aligned and readable. The closed trigger shows no label clipping or overlap at this default viewport.",
+      "issues": [],
+      "unverified": [
+        "popup visual appearance",
+        "expanded states",
+        "all sizes/densities/environments",
+        "Firefox",
+        "WebKit"
+      ]
+    },
+    {
+      "id": "73019a0006cb75aa6498-2aa8864437c5560d01e1/chromium/0",
+      "title": "rc-dropdown-container apple dark",
+      "project": "chromium",
+      "image": "screens/rc-dropdown-container/chromium/000010-0-inventory-actual.png",
+      "sha256": "49f4da39984049c004c767e434a23a9576bfb0c8bb2a69522ad7a23b3150fc9c",
+      "actualSha256": "49f4da39984049c004c767e434a23a9576bfb0c8bb2a69522ad7a23b3150fc9c",
+      "source": "sha256:b6a7ab36f4e92a415f3c496cadf900aed071123f3349cc98af46566fa99d4388",
+      "artifact": "sha256:f5f7dac00303633a7a2812751d52b3853aeb08d7d15b4d9d44b331887afaa094",
+      "workerStable": true,
+      "bindingsMatch": true,
+      "actualImageViewed": true,
+      "hashMatches": true,
+      "conclusion": "The label is visibly separated from the input border, vertically aligned and readable. The closed trigger shows no label clipping or overlap at this default viewport.",
+      "issues": [],
+      "unverified": [
+        "popup visual appearance",
+        "expanded states",
+        "all sizes/densities/environments",
+        "Firefox",
+        "WebKit"
+      ]
+    },
+    {
+      "id": "73019a0006cb75aa6498-5c470dfe0c4f39adc044/chromium/0",
+      "title": "rc-dropdown-container shadcn light",
+      "project": "chromium",
+      "image": "screens/rc-dropdown-container/chromium/000013-0-inventory-actual.png",
+      "sha256": "fcde00f8a2ecc4b729cfa96034378dcc9b9ef8cf05f0f10ea76c256ddaa294d7",
+      "actualSha256": "fcde00f8a2ecc4b729cfa96034378dcc9b9ef8cf05f0f10ea76c256ddaa294d7",
+      "source": "sha256:b6a7ab36f4e92a415f3c496cadf900aed071123f3349cc98af46566fa99d4388",
+      "artifact": "sha256:f5f7dac00303633a7a2812751d52b3853aeb08d7d15b4d9d44b331887afaa094",
+      "workerStable": true,
+      "bindingsMatch": true,
+      "actualImageViewed": true,
+      "hashMatches": true,
+      "conclusion": "The label is visibly separated from the input border, vertically aligned and readable. The closed trigger shows no label clipping or overlap at this default viewport.",
+      "issues": [],
+      "unverified": [
+        "popup visual appearance",
+        "expanded states",
+        "all sizes/densities/environments",
+        "Firefox",
+        "WebKit"
+      ]
+    },
+    {
+      "id": "73019a0006cb75aa6498-3b0dccae41dd7d0ef649/chromium/0",
+      "title": "rc-dropdown-container shadcn dark",
+      "project": "chromium",
+      "image": "screens/rc-dropdown-container/chromium/000016-0-inventory-actual.png",
+      "sha256": "abc69e206ee42e0b2a11d43e27248521638ed59dcf14c796e22370a88caa5c95",
+      "actualSha256": "abc69e206ee42e0b2a11d43e27248521638ed59dcf14c796e22370a88caa5c95",
+      "source": "sha256:b6a7ab36f4e92a415f3c496cadf900aed071123f3349cc98af46566fa99d4388",
+      "artifact": "sha256:f5f7dac00303633a7a2812751d52b3853aeb08d7d15b4d9d44b331887afaa094",
+      "workerStable": true,
+      "bindingsMatch": true,
+      "actualImageViewed": true,
+      "hashMatches": true,
+      "conclusion": "The label is visibly separated from the input border, vertically aligned and readable. The closed trigger shows no label clipping or overlap at this default viewport.",
+      "issues": [],
+      "unverified": [
+        "popup visual appearance",
+        "expanded states",
+        "all sizes/densities/environments",
+        "Firefox",
+        "WebKit"
+      ]
+    }
+  ]
+}
+

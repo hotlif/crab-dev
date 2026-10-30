@@ -12,14 +12,14 @@ type Ref<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?
 
 export interface CronPickerProps {
     /**
-     * 字段外观，默认 outlined；bordered=false 时由宿主提供外观。
-     */
-    "appearance"?: "outlined" | "filled";
-
-    /**
      * 与输入框关联的可见标签；Material 浮动，Apple 与 shadcn 上置。
      */
     "label"?: string;
+
+    /**
+     * 字段外观，默认 outlined；bordered=false 时由宿主提供外观。
+     */
+    "appearance"?: "outlined" | "filled";
 
     /**
      * 输入框下方的辅助说明，自动加入 aria-describedby。

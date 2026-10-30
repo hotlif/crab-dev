@@ -1,0 +1,418 @@
+# Checkbox Linux Apple 原图复审
+
+132/132 张实际查看（112 唯一 SHA、20 重复记录逐张重看）。Chromium 核心90、普通环境18、真实缩放2、库存2；Firefox/WebKit 各核心8+库存2。6个worker前后稳定，原生397全部通过；每图SHA与索引、cases、原生附件和报告副本相同。
+
+源 sha256:b2018cc16cb225c80afbd0053f898b583953700f9c2bf88b94589cf87f32711b；产物 sha256:a6623d51bffaf00879e651744d65d5eed0ebbe47ba71fedaac78a7830ec1952a。
+
+- 132原图全部逐张实际查看，含20重复SHA记录；Windows旧图没有代替Linux图。
+- 6个disabled-selected核心原图和跨引擎4图均灰色勾+on；18个半选核心图明确横线+mixed/布尔off。截图只含半选布尔false；半选布尔true及切换同一DOM另由原生无PNG边界测试覆盖，不冒称其像素已看。
+- Chromium90核心=3尺寸×2明暗×15状态；FF/WK各8仅medium4状态，不能推广完整状态/尺寸。
+- forced-colors实际使用系统色，触控留白更大；外环在实际采样范围未见裁切。
+- 200%证明是浏览器实际tab zoom，1280→640CSS宽、813→406CSS高；PNG1280×813只含完整可见viewport，不是整页。
+- 原生397全过是独立自动证据，人工视觉观察不取代checked/indeterminate/焦点/命中/DOM身份/aria关联断言。
+- 本轮未完整播放录像、未新增采集、未执行第二轮像素稳定检查，未建立/批准baseline、canonical或verified。
+
+## 逐图记录
+
+- 0 | chromium | f64d25927e4d5b779add-7ad62d709ef3ec9e5ec1/chromium/0 | {"designSystem":"apple","colorMode":"light","size":"small","density":"standard","state":"default"}
+  - 原图 screens/rc-checkbox/chromium/000168-2-actual.png；SHA256 9a8e54ac0c8141a4e599f5db8dedf6942efcf90d9469966caa27c2cd3df1180e；首次该hash；worker 0。
+  - 空白圆角方框、完整标签与 off 反馈。 Chromium 三尺寸/明暗/15状态之一，组件 frame 原图。
+- 1 | chromium | f64d25927e4d5b779add-3441808ce2ea799e0b04/chromium/0 | {"designSystem":"apple","colorMode":"light","size":"small","density":"standard","state":"hover"}
+  - 原图 screens/rc-checkbox/chromium/000169-2-actual.png；SHA256 1acd212c573a5b7602d79c7ff4085a3f54723cb41cce61c24375bf8260a792f9；首次该hash；worker 1。
+  - 真实悬停后的方框边界可见，标签完整，off。 Chromium 三尺寸/明暗/15状态之一，组件 frame 原图。
+- 2 | chromium | f64d25927e4d5b779add-e1f2ce2b62a108bb1c6d/chromium/0 | {"designSystem":"apple","colorMode":"light","size":"small","density":"standard","state":"focus-visible"}
+  - 原图 screens/rc-checkbox/chromium/000170-2-actual.png；SHA256 cf5c4506047ab0e2b453369f18e95b1f681dacb5cff0844e04f4fc5c4bcdf4f6；首次该hash；worker 0。
+  - 蓝色外焦点圆角环完整，未裁切且不盖字，off。 Chromium 三尺寸/明暗/15状态之一，组件 frame 原图。
+- 3 | chromium | f64d25927e4d5b779add-1e1f0e8e4873aa13767a/chromium/0 | {"designSystem":"apple","colorMode":"light","size":"small","density":"standard","state":"pressed"}
+  - 原图 screens/rc-checkbox/chromium/000171-2-actual.png；SHA256 1acd212c573a5b7602d79c7ff4085a3f54723cb41cce61c24375bf8260a792f9；与记录1同hash，仍已单独查看；worker 1。
+  - 真实按下采样为空框，标签与 off 完整；静图不能替代按键/指针断言。 Chromium 三尺寸/明暗/15状态之一，组件 frame 原图。
+- 4 | chromium | f64d25927e4d5b779add-b4dd3150e0e4e56e3780/chromium/0 | {"designSystem":"apple","colorMode":"light","size":"small","density":"standard","state":"selected"}
+  - 原图 screens/rc-checkbox/chromium/000172-2-actual.png；SHA256 ae033386456225d01f50317a025e45c46bf43a2a14d952362d2e1b5fbdd379cc；首次该hash；worker 0。
+  - 蓝色填充与勾清晰，反馈 on。 Chromium 三尺寸/明暗/15状态之一，组件 frame 原图。
+- 5 | chromium | f64d25927e4d5b779add-8e542507b76aaac7d31b/chromium/0 | {"designSystem":"apple","colorMode":"light","size":"small","density":"standard","state":"selected-hover"}
+  - 原图 screens/rc-checkbox/chromium/000173-2-actual.png；SHA256 ae033386456225d01f50317a025e45c46bf43a2a14d952362d2e1b5fbdd379cc；与记录4同hash，仍已单独查看；worker 1。
+  - 蓝色勾选与 on 完整，悬停无文字遮挡。 Chromium 三尺寸/明暗/15状态之一，组件 frame 原图。
+- 6 | chromium | f64d25927e4d5b779add-63a896fc86c7ad732cd2/chromium/0 | {"designSystem":"apple","colorMode":"light","size":"small","density":"standard","state":"selected-focus-visible"}
+  - 原图 screens/rc-checkbox/chromium/000174-2-actual.png；SHA256 39437d1a6d849eda7dad57955ad135aae3634d2b29bbefb818803e8532f4a2fd；首次该hash；worker 0。
+  - 勾选与完整外焦点环共存，反馈 on。 Chromium 三尺寸/明暗/15状态之一，组件 frame 原图。
+- 7 | chromium | f64d25927e4d5b779add-e16dff2fb32718e6b77d/chromium/0 | {"designSystem":"apple","colorMode":"light","size":"small","density":"standard","state":"selected-pressed"}
+  - 原图 screens/rc-checkbox/chromium/000175-2-actual.png；SHA256 ae033386456225d01f50317a025e45c46bf43a2a14d952362d2e1b5fbdd379cc；与记录4同hash，仍已单独查看；worker 1。
+  - 按下采样保留勾选与 on。 Chromium 三尺寸/明暗/15状态之一，组件 frame 原图。
+- 8 | chromium | f64d25927e4d5b779add-f2b9296367ee40da5bf3/chromium/0 | {"designSystem":"apple","colorMode":"light","size":"small","density":"standard","state":"error"}
+  - 原图 screens/rc-checkbox/chromium/000176-2-actual.png；SHA256 85cc3782435a38ef654d08467ae733a7f3f7a87e4ca33d4dc99ad6ac97bf8abd；首次该hash；worker 0。
+  - 错误色空框及完整错误说明可见，反馈 off。 Chromium 三尺寸/明暗/15状态之一，组件 frame 原图。
+- 9 | chromium | f64d25927e4d5b779add-812294e6b0d5c5033c02/chromium/0 | {"designSystem":"apple","colorMode":"light","size":"small","density":"standard","state":"selected-error"}
+  - 原图 screens/rc-checkbox/chromium/000177-2-actual.png；SHA256 99edf6bda3df33ecd9730723b0bb9b2e5fa8b5e13e5876ca91faca390c51deba；首次该hash；worker 0。
+  - 错误色填充/勾和错误说明完整，反馈 on。 Chromium 三尺寸/明暗/15状态之一，组件 frame 原图。
+- 10 | chromium | f64d25927e4d5b779add-ace7c7f2959e65d22689/chromium/0 | {"designSystem":"apple","colorMode":"light","size":"small","density":"standard","state":"disabled"}
+  - 原图 screens/rc-checkbox/chromium/000178-2-actual.png；SHA256 f88b8b1bf217ec9ad3713472ee71723ee3fcb8852fb280dcaa6d97002a577efb；首次该hash；worker 1。
+  - 灰色禁用空框/标签，反馈 off。 Chromium 三尺寸/明暗/15状态之一，组件 frame 原图。
+- 11 | chromium | f64d25927e4d5b779add-a8ccdeecf516572f9282/chromium/0 | {"designSystem":"apple","colorMode":"light","size":"small","density":"standard","state":"disabled-selected"}
+  - 原图 screens/rc-checkbox/chromium/000179-2-actual.png；SHA256 ccd6a9e19ecca8559660349aa2227475fa267da4687b0968b9332e3c523adc37；首次该hash；worker 0。
+  - 灰色勾与 on 同时可见；旧候选勾选但 off 的 Demo 反馈矛盾未复现。 Chromium 三尺寸/明暗/15状态之一，组件 frame 原图。
+- 12 | chromium | f64d25927e4d5b779add-aec2cc5d833830e4d1f8/chromium/0 | {"designSystem":"apple","colorMode":"light","size":"small","density":"standard","state":"indeterminate"}
+  - 原图 screens/rc-checkbox/chromium/000180-2-actual.png；SHA256 415ceb46519072e02b4c6f077ce633fad9a6b16a6dd8728eea5c2b66ceaa9139；首次该hash；worker 1。
+  - 填充方框中为水平半选线，反馈明确 mixed（半选，布尔值: off），不误写为勾选。 Chromium 三尺寸/明暗/15状态之一，组件 frame 原图。
+- 13 | chromium | f64d25927e4d5b779add-c290c9d2a44cbe3e2470/chromium/0 | {"designSystem":"apple","colorMode":"light","size":"small","density":"standard","state":"indeterminate-error"}
+  - 原图 screens/rc-checkbox/chromium/000181-2-actual.png；SHA256 31a8b71c99a875de139b9823cd6eb5b22c2e6b51a354e541d200590771ebcba9；首次该hash；worker 0。
+  - 错误色半选线与错误说明并存，mixed/布尔 off 明确。 Chromium 三尺寸/明暗/15状态之一，组件 frame 原图。
+- 14 | chromium | f64d25927e4d5b779add-5bffcbe6a2d196feb91f/chromium/0 | {"designSystem":"apple","colorMode":"light","size":"small","density":"standard","state":"disabled-indeterminate"}
+  - 原图 screens/rc-checkbox/chromium/000182-2-actual.png；SHA256 bca0072fc923bd720d0288ac2bcbfad68eb0a08e89899bc6b2d8a4a11b1269d1；首次该hash；worker 1。
+  - 灰色半选横线及禁用标签，mixed/布尔 off 明确。 Chromium 三尺寸/明暗/15状态之一，组件 frame 原图。
+- 15 | chromium | f64d25927e4d5b779add-d582fb4084f6747ae542/chromium/0 | {"designSystem":"apple","colorMode":"light","size":"medium","density":"standard","state":"default"}
+  - 原图 screens/rc-checkbox/chromium/000183-2-actual.png；SHA256 8b2393410b5978f2ab5ea2a2d6ee973d24620ad96a46b2db6e47f3df955ee5e3；首次该hash；worker 0。
+  - 空白圆角方框、完整标签与 off 反馈。 Chromium 三尺寸/明暗/15状态之一，组件 frame 原图。
+- 16 | chromium | f64d25927e4d5b779add-c776abebeeda2da1b207/chromium/0 | {"designSystem":"apple","colorMode":"light","size":"medium","density":"standard","state":"hover"}
+  - 原图 screens/rc-checkbox/chromium/000186-2-actual.png；SHA256 fb6cf8b97178a91d41acee702ee57e98f32ed69f7e07dda9691fe777d4eaf928；首次该hash；worker 1。
+  - 真实悬停后的方框边界可见，标签完整，off。 Chromium 三尺寸/明暗/15状态之一，组件 frame 原图。
+- 17 | chromium | f64d25927e4d5b779add-84ae38398dc511bc8e71/chromium/0 | {"designSystem":"apple","colorMode":"light","size":"medium","density":"standard","state":"focus-visible"}
+  - 原图 screens/rc-checkbox/chromium/000187-2-actual.png；SHA256 f9aaf9f6bc0eb4aa85a8f67255e40df8b164f9b34f15425373c753e6bf044808；首次该hash；worker 0。
+  - 蓝色外焦点圆角环完整，未裁切且不盖字，off。 Chromium 三尺寸/明暗/15状态之一，组件 frame 原图。
+- 18 | chromium | f64d25927e4d5b779add-94e63ee431feee36c80a/chromium/0 | {"designSystem":"apple","colorMode":"light","size":"medium","density":"standard","state":"pressed"}
+  - 原图 screens/rc-checkbox/chromium/000190-2-actual.png；SHA256 fb6cf8b97178a91d41acee702ee57e98f32ed69f7e07dda9691fe777d4eaf928；与记录16同hash，仍已单独查看；worker 1。
+  - 真实按下采样为空框，标签与 off 完整；静图不能替代按键/指针断言。 Chromium 三尺寸/明暗/15状态之一，组件 frame 原图。
+- 19 | chromium | f64d25927e4d5b779add-9123a3d362d70c26de3a/chromium/0 | {"designSystem":"apple","colorMode":"light","size":"medium","density":"standard","state":"selected"}
+  - 原图 screens/rc-checkbox/chromium/000191-2-actual.png；SHA256 5c799698d4b6217a4cadfd2c0d6488f5b6022255c585f69c9374bc1af2b401b0；首次该hash；worker 0。
+  - 蓝色填充与勾清晰，反馈 on。 Chromium 三尺寸/明暗/15状态之一，组件 frame 原图。
+- 20 | chromium | f64d25927e4d5b779add-0a8fe98723b441629109/chromium/0 | {"designSystem":"apple","colorMode":"light","size":"medium","density":"standard","state":"selected-hover"}
+  - 原图 screens/rc-checkbox/chromium/000194-2-actual.png；SHA256 5c799698d4b6217a4cadfd2c0d6488f5b6022255c585f69c9374bc1af2b401b0；与记录19同hash，仍已单独查看；worker 1。
+  - 蓝色勾选与 on 完整，悬停无文字遮挡。 Chromium 三尺寸/明暗/15状态之一，组件 frame 原图。
+- 21 | chromium | f64d25927e4d5b779add-18b99b893f2f7b326464/chromium/0 | {"designSystem":"apple","colorMode":"light","size":"medium","density":"standard","state":"selected-focus-visible"}
+  - 原图 screens/rc-checkbox/chromium/000195-2-actual.png；SHA256 88c0f39520a1d0e5de81e1f357a064bf65bc3ccb9c491a44fcc3fa4361fe4e84；首次该hash；worker 0。
+  - 勾选与完整外焦点环共存，反馈 on。 Chromium 三尺寸/明暗/15状态之一，组件 frame 原图。
+- 22 | chromium | f64d25927e4d5b779add-98c69da05fec1668c9e9/chromium/0 | {"designSystem":"apple","colorMode":"light","size":"medium","density":"standard","state":"selected-pressed"}
+  - 原图 screens/rc-checkbox/chromium/000196-2-actual.png；SHA256 5c799698d4b6217a4cadfd2c0d6488f5b6022255c585f69c9374bc1af2b401b0；与记录19同hash，仍已单独查看；worker 1。
+  - 按下采样保留勾选与 on。 Chromium 三尺寸/明暗/15状态之一，组件 frame 原图。
+- 23 | chromium | f64d25927e4d5b779add-2c04fb80001f67e118a0/chromium/0 | {"designSystem":"apple","colorMode":"light","size":"medium","density":"standard","state":"error"}
+  - 原图 screens/rc-checkbox/chromium/000197-2-actual.png；SHA256 ab0c7822371b45d332fc5af79e7ea2f5a24e0e64284a5b55d56634fdf91cf190；首次该hash；worker 0。
+  - 错误色空框及完整错误说明可见，反馈 off。 Chromium 三尺寸/明暗/15状态之一，组件 frame 原图。
+- 24 | chromium | f64d25927e4d5b779add-e16df31052439a783bb0/chromium/0 | {"designSystem":"apple","colorMode":"light","size":"medium","density":"standard","state":"selected-error"}
+  - 原图 screens/rc-checkbox/chromium/000198-2-actual.png；SHA256 71f4800f58477206d09e8b888282cb721eff4519b11c30cfbfc9b6deb3355d4c；首次该hash；worker 1。
+  - 错误色填充/勾和错误说明完整，反馈 on。 Chromium 三尺寸/明暗/15状态之一，组件 frame 原图。
+- 25 | chromium | f64d25927e4d5b779add-b96b5713bc92cb02f162/chromium/0 | {"designSystem":"apple","colorMode":"light","size":"medium","density":"standard","state":"disabled"}
+  - 原图 screens/rc-checkbox/chromium/000199-2-actual.png；SHA256 3cbcce25ad0e27d2c58380408f20806397c29d4710f8bf626aea917061188403；首次该hash；worker 0。
+  - 灰色禁用空框/标签，反馈 off。 Chromium 三尺寸/明暗/15状态之一，组件 frame 原图。
+- 26 | chromium | f64d25927e4d5b779add-f48ed6d0b14724e67419/chromium/0 | {"designSystem":"apple","colorMode":"light","size":"medium","density":"standard","state":"disabled-selected"}
+  - 原图 screens/rc-checkbox/chromium/000200-2-actual.png；SHA256 f063a84f4dd416e499fe8c30e40ac47d5f4b06168d2502ef6ccb0ea7e597f9d1；首次该hash；worker 0。
+  - 灰色勾与 on 同时可见；旧候选勾选但 off 的 Demo 反馈矛盾未复现。 Chromium 三尺寸/明暗/15状态之一，组件 frame 原图。
+- 27 | chromium | f64d25927e4d5b779add-da1d9553b0bb32c1b7f1/chromium/0 | {"designSystem":"apple","colorMode":"light","size":"medium","density":"standard","state":"indeterminate"}
+  - 原图 screens/rc-checkbox/chromium/000203-2-actual.png；SHA256 8064c05acf6cbd6da480a7d8bf2a15e2fd3c515289ec7dcdcfaa16a52e502437；首次该hash；worker 1。
+  - 填充方框中为水平半选线，反馈明确 mixed（半选，布尔值: off），不误写为勾选。 Chromium 三尺寸/明暗/15状态之一，组件 frame 原图。
+- 28 | chromium | f64d25927e4d5b779add-aec297aed61b9482dd3f/chromium/0 | {"designSystem":"apple","colorMode":"light","size":"medium","density":"standard","state":"indeterminate-error"}
+  - 原图 screens/rc-checkbox/chromium/000204-2-actual.png；SHA256 89c20450634ad64aa30818ce806e5809e81268ca912937b001d8bcfbcb18a3cc；首次该hash；worker 0。
+  - 错误色半选线与错误说明并存，mixed/布尔 off 明确。 Chromium 三尺寸/明暗/15状态之一，组件 frame 原图。
+- 29 | chromium | f64d25927e4d5b779add-5b6051718d1d9c6b5233/chromium/0 | {"designSystem":"apple","colorMode":"light","size":"medium","density":"standard","state":"disabled-indeterminate"}
+  - 原图 screens/rc-checkbox/chromium/000205-2-actual.png；SHA256 84beb3bbcf61272e443f59aa0df3e172baecfb5afa4500f0662f4d02be3b4665；首次该hash；worker 1。
+  - 灰色半选横线及禁用标签，mixed/布尔 off 明确。 Chromium 三尺寸/明暗/15状态之一，组件 frame 原图。
+- 30 | chromium | f64d25927e4d5b779add-343c2a03eb11a4e13a6c/chromium/0 | {"designSystem":"apple","colorMode":"light","size":"large","density":"standard","state":"default"}
+  - 原图 screens/rc-checkbox/chromium/000206-2-actual.png；SHA256 3c24012b62f6853ed76cd048a8c58c8e790c3054665ff6b77d31281aa6c06b4a；首次该hash；worker 0。
+  - 空白圆角方框、完整标签与 off 反馈。 Chromium 三尺寸/明暗/15状态之一，组件 frame 原图。
+- 31 | chromium | f64d25927e4d5b779add-8a8635288c9570bc2da9/chromium/0 | {"designSystem":"apple","colorMode":"light","size":"large","density":"standard","state":"hover"}
+  - 原图 screens/rc-checkbox/chromium/000207-2-actual.png；SHA256 67543396083537f4dd56d304c8d75558c42cca28da152b1ae207412cba863cc3；首次该hash；worker 1。
+  - 真实悬停后的方框边界可见，标签完整，off。 Chromium 三尺寸/明暗/15状态之一，组件 frame 原图。
+- 32 | chromium | f64d25927e4d5b779add-0cfe38e3535754568675/chromium/0 | {"designSystem":"apple","colorMode":"light","size":"large","density":"standard","state":"focus-visible"}
+  - 原图 screens/rc-checkbox/chromium/000208-2-actual.png；SHA256 fb9dc89cfea1e40db3fcf30b6dfcca4124ab54c83b5d0956f412f2a194e5bbf7；首次该hash；worker 0。
+  - 蓝色外焦点圆角环完整，未裁切且不盖字，off。 Chromium 三尺寸/明暗/15状态之一，组件 frame 原图。
+- 33 | chromium | f64d25927e4d5b779add-d89a1ecbdd30f97fd728/chromium/0 | {"designSystem":"apple","colorMode":"light","size":"large","density":"standard","state":"pressed"}
+  - 原图 screens/rc-checkbox/chromium/000209-2-actual.png；SHA256 67543396083537f4dd56d304c8d75558c42cca28da152b1ae207412cba863cc3；与记录31同hash，仍已单独查看；worker 1。
+  - 真实按下采样为空框，标签与 off 完整；静图不能替代按键/指针断言。 Chromium 三尺寸/明暗/15状态之一，组件 frame 原图。
+- 34 | chromium | f64d25927e4d5b779add-629fee3d46a11c8ec5d3/chromium/0 | {"designSystem":"apple","colorMode":"light","size":"large","density":"standard","state":"selected"}
+  - 原图 screens/rc-checkbox/chromium/000210-2-actual.png；SHA256 6a8eb98a0ce662c984777527e2f22624f06f41202cdace443144825c61ed7659；首次该hash；worker 0。
+  - 蓝色填充与勾清晰，反馈 on。 Chromium 三尺寸/明暗/15状态之一，组件 frame 原图。
+- 35 | chromium | f64d25927e4d5b779add-c75abce818e65e0688d1/chromium/0 | {"designSystem":"apple","colorMode":"light","size":"large","density":"standard","state":"selected-hover"}
+  - 原图 screens/rc-checkbox/chromium/000211-2-actual.png；SHA256 6a8eb98a0ce662c984777527e2f22624f06f41202cdace443144825c61ed7659；与记录34同hash，仍已单独查看；worker 1。
+  - 蓝色勾选与 on 完整，悬停无文字遮挡。 Chromium 三尺寸/明暗/15状态之一，组件 frame 原图。
+- 36 | chromium | f64d25927e4d5b779add-424b8df0485ba98b1e2e/chromium/0 | {"designSystem":"apple","colorMode":"light","size":"large","density":"standard","state":"selected-focus-visible"}
+  - 原图 screens/rc-checkbox/chromium/000212-2-actual.png；SHA256 5ccc92563859a1f4cf35d9cfcb4f7993d85cb48d533fd59cb3eb60e02b3ec8fc；首次该hash；worker 0。
+  - 勾选与完整外焦点环共存，反馈 on。 Chromium 三尺寸/明暗/15状态之一，组件 frame 原图。
+- 37 | chromium | f64d25927e4d5b779add-18ea41cf2ac4a9c1e221/chromium/0 | {"designSystem":"apple","colorMode":"light","size":"large","density":"standard","state":"selected-pressed"}
+  - 原图 screens/rc-checkbox/chromium/000213-2-actual.png；SHA256 6a8eb98a0ce662c984777527e2f22624f06f41202cdace443144825c61ed7659；与记录34同hash，仍已单独查看；worker 1。
+  - 按下采样保留勾选与 on。 Chromium 三尺寸/明暗/15状态之一，组件 frame 原图。
+- 38 | chromium | f64d25927e4d5b779add-98321ba2f6b4baf3de38/chromium/0 | {"designSystem":"apple","colorMode":"light","size":"large","density":"standard","state":"error"}
+  - 原图 screens/rc-checkbox/chromium/000214-2-actual.png；SHA256 9195b8b83ae099f672aa4f06e1ebca8fa94188e480e9094ee03735591529a435；首次该hash；worker 0。
+  - 错误色空框及完整错误说明可见，反馈 off。 Chromium 三尺寸/明暗/15状态之一，组件 frame 原图。
+- 39 | chromium | f64d25927e4d5b779add-b332d3b39f7e2af05e2c/chromium/0 | {"designSystem":"apple","colorMode":"light","size":"large","density":"standard","state":"selected-error"}
+  - 原图 screens/rc-checkbox/chromium/000215-2-actual.png；SHA256 b10e84396dd2f70d3aa08b2826f5744940b06ba6ceab0c15da85837cd9b7db3a；首次该hash；worker 0。
+  - 错误色填充/勾和错误说明完整，反馈 on。 Chromium 三尺寸/明暗/15状态之一，组件 frame 原图。
+- 40 | chromium | f64d25927e4d5b779add-dd9d8be0a80bf6ee17e6/chromium/0 | {"designSystem":"apple","colorMode":"light","size":"large","density":"standard","state":"disabled"}
+  - 原图 screens/rc-checkbox/chromium/000216-2-actual.png；SHA256 add9e54780232578261f920a5595ac7b4f710631eedcdce5ef3637b79792cc27；首次该hash；worker 1。
+  - 灰色禁用空框/标签，反馈 off。 Chromium 三尺寸/明暗/15状态之一，组件 frame 原图。
+- 41 | chromium | f64d25927e4d5b779add-787403ea731a9669a744/chromium/0 | {"designSystem":"apple","colorMode":"light","size":"large","density":"standard","state":"disabled-selected"}
+  - 原图 screens/rc-checkbox/chromium/000217-2-actual.png；SHA256 85cb3220999b75589626c3e046524e45e531b886ddd6673268c143fa69066daa；首次该hash；worker 1。
+  - 灰色勾与 on 同时可见；旧候选勾选但 off 的 Demo 反馈矛盾未复现。 Chromium 三尺寸/明暗/15状态之一，组件 frame 原图。
+- 42 | chromium | f64d25927e4d5b779add-cece2494324a5ada2ae0/chromium/0 | {"designSystem":"apple","colorMode":"light","size":"large","density":"standard","state":"indeterminate"}
+  - 原图 screens/rc-checkbox/chromium/000218-2-actual.png；SHA256 2ebdd37dbf6f63fd9d12cb67e22c703a75d9dfb98010c7b1aa82c2191fb10f47；首次该hash；worker 0。
+  - 填充方框中为水平半选线，反馈明确 mixed（半选，布尔值: off），不误写为勾选。 Chromium 三尺寸/明暗/15状态之一，组件 frame 原图。
+- 43 | chromium | f64d25927e4d5b779add-c07d98929d66aa65f350/chromium/0 | {"designSystem":"apple","colorMode":"light","size":"large","density":"standard","state":"indeterminate-error"}
+  - 原图 screens/rc-checkbox/chromium/000219-2-actual.png；SHA256 ec2e674ad7cc1898e67c70ef4972b52efe69994e099eff7962c429499d0dd494；首次该hash；worker 1。
+  - 错误色半选线与错误说明并存，mixed/布尔 off 明确。 Chromium 三尺寸/明暗/15状态之一，组件 frame 原图。
+- 44 | chromium | f64d25927e4d5b779add-096d663eea9262da81b7/chromium/0 | {"designSystem":"apple","colorMode":"light","size":"large","density":"standard","state":"disabled-indeterminate"}
+  - 原图 screens/rc-checkbox/chromium/000220-2-actual.png；SHA256 834e36311f17d5f567a2de23eec5f3fe30757577b739fa93a494a5f86dd5e51d；首次该hash；worker 0。
+  - 灰色半选横线及禁用标签，mixed/布尔 off 明确。 Chromium 三尺寸/明暗/15状态之一，组件 frame 原图。
+- 45 | chromium | f64d25927e4d5b779add-3e5502bd08857e746398/chromium/0 | {"designSystem":"apple","colorMode":"dark","size":"small","density":"standard","state":"default"}
+  - 原图 screens/rc-checkbox/chromium/000221-2-actual.png；SHA256 36675655cd544c5d88b980901d9056db92f639eb25454d488793d4b86213d490；首次该hash；worker 1。
+  - 空白圆角方框、完整标签与 off 反馈。 Chromium 三尺寸/明暗/15状态之一，组件 frame 原图。
+- 46 | chromium | f64d25927e4d5b779add-d43c86d5b69e1d337396/chromium/0 | {"designSystem":"apple","colorMode":"dark","size":"small","density":"standard","state":"hover"}
+  - 原图 screens/rc-checkbox/chromium/000222-2-actual.png；SHA256 00dfbca4914743e5f6b2e651745dc693f9ebd407c651b874e1e80ca0b2a3aec4；首次该hash；worker 0。
+  - 真实悬停后的方框边界可见，标签完整，off。 Chromium 三尺寸/明暗/15状态之一，组件 frame 原图。
+- 47 | chromium | f64d25927e4d5b779add-a91bc4764702f9fdbf4e/chromium/0 | {"designSystem":"apple","colorMode":"dark","size":"small","density":"standard","state":"focus-visible"}
+  - 原图 screens/rc-checkbox/chromium/000223-2-actual.png；SHA256 2f25aaa49dbc455d0ebfb5bfbccb4ea97c0878f90af68587820c435e6e5586b9；首次该hash；worker 1。
+  - 蓝色外焦点圆角环完整，未裁切且不盖字，off。 Chromium 三尺寸/明暗/15状态之一，组件 frame 原图。
+- 48 | chromium | f64d25927e4d5b779add-faca214783edee223ebf/chromium/0 | {"designSystem":"apple","colorMode":"dark","size":"small","density":"standard","state":"pressed"}
+  - 原图 screens/rc-checkbox/chromium/000224-2-actual.png；SHA256 00dfbca4914743e5f6b2e651745dc693f9ebd407c651b874e1e80ca0b2a3aec4；与记录46同hash，仍已单独查看；worker 0。
+  - 真实按下采样为空框，标签与 off 完整；静图不能替代按键/指针断言。 Chromium 三尺寸/明暗/15状态之一，组件 frame 原图。
+- 49 | chromium | f64d25927e4d5b779add-9c9b31cae7d32c27ecdb/chromium/0 | {"designSystem":"apple","colorMode":"dark","size":"small","density":"standard","state":"selected"}
+  - 原图 screens/rc-checkbox/chromium/000225-2-actual.png；SHA256 fed212057ea737ee0358303dd67387a2fd62161542c0a108ef6d1435613d0f76；首次该hash；worker 1。
+  - 蓝色填充与勾清晰，反馈 on。 Chromium 三尺寸/明暗/15状态之一，组件 frame 原图。
+- 50 | chromium | f64d25927e4d5b779add-2e527fb0d5e2e65d54ba/chromium/0 | {"designSystem":"apple","colorMode":"dark","size":"small","density":"standard","state":"selected-hover"}
+  - 原图 screens/rc-checkbox/chromium/000226-2-actual.png；SHA256 fed212057ea737ee0358303dd67387a2fd62161542c0a108ef6d1435613d0f76；与记录49同hash，仍已单独查看；worker 0。
+  - 蓝色勾选与 on 完整，悬停无文字遮挡。 Chromium 三尺寸/明暗/15状态之一，组件 frame 原图。
+- 51 | chromium | f64d25927e4d5b779add-b76cf82eaef767f3784f/chromium/0 | {"designSystem":"apple","colorMode":"dark","size":"small","density":"standard","state":"selected-focus-visible"}
+  - 原图 screens/rc-checkbox/chromium/000227-2-actual.png；SHA256 318705c8fd11166aab7f08bb0dc1d1144500c1504d8c5022e5d7eba9cbc96be7；首次该hash；worker 1。
+  - 勾选与完整外焦点环共存，反馈 on。 Chromium 三尺寸/明暗/15状态之一，组件 frame 原图。
+- 52 | chromium | f64d25927e4d5b779add-f580da418892f954a99d/chromium/0 | {"designSystem":"apple","colorMode":"dark","size":"small","density":"standard","state":"selected-pressed"}
+  - 原图 screens/rc-checkbox/chromium/000228-2-actual.png；SHA256 fed212057ea737ee0358303dd67387a2fd62161542c0a108ef6d1435613d0f76；与记录49同hash，仍已单独查看；worker 0。
+  - 按下采样保留勾选与 on。 Chromium 三尺寸/明暗/15状态之一，组件 frame 原图。
+- 53 | chromium | f64d25927e4d5b779add-4ef651abd84146356455/chromium/0 | {"designSystem":"apple","colorMode":"dark","size":"small","density":"standard","state":"error"}
+  - 原图 screens/rc-checkbox/chromium/000229-2-actual.png；SHA256 11a7361e48a72f59d6688039ecd6f88fac7d5e408c1a4a17ac8b749bd5aedb20；首次该hash；worker 1。
+  - 错误色空框及完整错误说明可见，反馈 off。 Chromium 三尺寸/明暗/15状态之一，组件 frame 原图。
+- 54 | chromium | f64d25927e4d5b779add-00471be4afbf9e361564/chromium/0 | {"designSystem":"apple","colorMode":"dark","size":"small","density":"standard","state":"selected-error"}
+  - 原图 screens/rc-checkbox/chromium/000230-2-actual.png；SHA256 f1f6b9ba4661e4954c9c596c526ca76aee32124129a593f34c6d86266ab767b7；首次该hash；worker 1。
+  - 错误色填充/勾和错误说明完整，反馈 on。 Chromium 三尺寸/明暗/15状态之一，组件 frame 原图。
+- 55 | chromium | f64d25927e4d5b779add-69fe6692ad0af2ef4cab/chromium/0 | {"designSystem":"apple","colorMode":"dark","size":"small","density":"standard","state":"disabled"}
+  - 原图 screens/rc-checkbox/chromium/000231-2-actual.png；SHA256 1939955a387d4c8032c6d5b8b05fa0d06540da0392344467c8f2135fd3f89dab；首次该hash；worker 0。
+  - 灰色禁用空框/标签，反馈 off。 Chromium 三尺寸/明暗/15状态之一，组件 frame 原图。
+- 56 | chromium | f64d25927e4d5b779add-62e3a7456c8174499da8/chromium/0 | {"designSystem":"apple","colorMode":"dark","size":"small","density":"standard","state":"disabled-selected"}
+  - 原图 screens/rc-checkbox/chromium/000232-2-actual.png；SHA256 bf2e8e3ce03093821838464cb65b87cb7c5de66eb728566687247abde3d4ee0b；首次该hash；worker 1。
+  - 灰色勾与 on 同时可见；旧候选勾选但 off 的 Demo 反馈矛盾未复现。 Chromium 三尺寸/明暗/15状态之一，组件 frame 原图。
+- 57 | chromium | f64d25927e4d5b779add-bb858da43938b33f2ba8/chromium/0 | {"designSystem":"apple","colorMode":"dark","size":"small","density":"standard","state":"indeterminate"}
+  - 原图 screens/rc-checkbox/chromium/000233-2-actual.png；SHA256 027a676ab995e7f89554b0a2937ad36082ad5cde8af671f6f353db0991e495a2；首次该hash；worker 0。
+  - 填充方框中为水平半选线，反馈明确 mixed（半选，布尔值: off），不误写为勾选。 Chromium 三尺寸/明暗/15状态之一，组件 frame 原图。
+- 58 | chromium | f64d25927e4d5b779add-3e001e151a53780663eb/chromium/0 | {"designSystem":"apple","colorMode":"dark","size":"small","density":"standard","state":"indeterminate-error"}
+  - 原图 screens/rc-checkbox/chromium/000234-2-actual.png；SHA256 b849e2262c2c18339fb1e15f0a4b7aa69624d27830210c3685215b75c9f9c88f；首次该hash；worker 1。
+  - 错误色半选线与错误说明并存，mixed/布尔 off 明确。 Chromium 三尺寸/明暗/15状态之一，组件 frame 原图。
+- 59 | chromium | f64d25927e4d5b779add-da7ba8cf3693b6e54ea0/chromium/0 | {"designSystem":"apple","colorMode":"dark","size":"small","density":"standard","state":"disabled-indeterminate"}
+  - 原图 screens/rc-checkbox/chromium/000235-2-actual.png；SHA256 149629303176739cf6275f7a4389fb877e0251ef1242d13796bdd109f7956751；首次该hash；worker 0。
+  - 灰色半选横线及禁用标签，mixed/布尔 off 明确。 Chromium 三尺寸/明暗/15状态之一，组件 frame 原图。
+- 60 | chromium | f64d25927e4d5b779add-0ebc005fd9471a2053b0/chromium/0 | {"designSystem":"apple","colorMode":"dark","size":"medium","density":"standard","state":"default"}
+  - 原图 screens/rc-checkbox/chromium/000236-2-actual.png；SHA256 cb1ab953a37a5d82e4ce806d77291f19bdcddc148f9e3948f0316f61678f0c62；首次该hash；worker 1。
+  - 空白圆角方框、完整标签与 off 反馈。 Chromium 三尺寸/明暗/15状态之一，组件 frame 原图。
+- 61 | chromium | f64d25927e4d5b779add-fb0c1c0df26be99a713c/chromium/0 | {"designSystem":"apple","colorMode":"dark","size":"medium","density":"standard","state":"hover"}
+  - 原图 screens/rc-checkbox/chromium/000239-2-actual.png；SHA256 d77f24eb47d22b443cdc08004848d2e16dd71683776c34850ea22dcafa2e3063；首次该hash；worker 0。
+  - 真实悬停后的方框边界可见，标签完整，off。 Chromium 三尺寸/明暗/15状态之一，组件 frame 原图。
+- 62 | chromium | f64d25927e4d5b779add-87e6937230e051e91d3d/chromium/0 | {"designSystem":"apple","colorMode":"dark","size":"medium","density":"standard","state":"focus-visible"}
+  - 原图 screens/rc-checkbox/chromium/000240-2-actual.png；SHA256 bfceb58d4b52903e84a7187072ac23a48594b57e13e8ee776718f337998d49c1；首次该hash；worker 1。
+  - 蓝色外焦点圆角环完整，未裁切且不盖字，off。 Chromium 三尺寸/明暗/15状态之一，组件 frame 原图。
+- 63 | chromium | f64d25927e4d5b779add-cc9f4c1234bde4e0f6bd/chromium/0 | {"designSystem":"apple","colorMode":"dark","size":"medium","density":"standard","state":"pressed"}
+  - 原图 screens/rc-checkbox/chromium/000243-2-actual.png；SHA256 d77f24eb47d22b443cdc08004848d2e16dd71683776c34850ea22dcafa2e3063；与记录61同hash，仍已单独查看；worker 0。
+  - 真实按下采样为空框，标签与 off 完整；静图不能替代按键/指针断言。 Chromium 三尺寸/明暗/15状态之一，组件 frame 原图。
+- 64 | chromium | f64d25927e4d5b779add-c589676b306b2c8350a1/chromium/0 | {"designSystem":"apple","colorMode":"dark","size":"medium","density":"standard","state":"selected"}
+  - 原图 screens/rc-checkbox/chromium/000244-2-actual.png；SHA256 fd695048dedaafc75473514e5da11c3704110dd2602331dbf48295b9be5d5fe0；首次该hash；worker 1。
+  - 蓝色填充与勾清晰，反馈 on。 Chromium 三尺寸/明暗/15状态之一，组件 frame 原图。
+- 65 | chromium | f64d25927e4d5b779add-ee9552a36a5c5a1686c9/chromium/0 | {"designSystem":"apple","colorMode":"dark","size":"medium","density":"standard","state":"selected-hover"}
+  - 原图 screens/rc-checkbox/chromium/000247-2-actual.png；SHA256 fd695048dedaafc75473514e5da11c3704110dd2602331dbf48295b9be5d5fe0；与记录64同hash，仍已单独查看；worker 0。
+  - 蓝色勾选与 on 完整，悬停无文字遮挡。 Chromium 三尺寸/明暗/15状态之一，组件 frame 原图。
+- 66 | chromium | f64d25927e4d5b779add-1d76785753a07a2af2f8/chromium/0 | {"designSystem":"apple","colorMode":"dark","size":"medium","density":"standard","state":"selected-focus-visible"}
+  - 原图 screens/rc-checkbox/chromium/000248-2-actual.png；SHA256 8536f4be1ecf54985236b56405b08dc3162352a8ef9cde99546d658280d2387d；首次该hash；worker 1。
+  - 勾选与完整外焦点环共存，反馈 on。 Chromium 三尺寸/明暗/15状态之一，组件 frame 原图。
+- 67 | chromium | f64d25927e4d5b779add-205dcb55169e57884be4/chromium/0 | {"designSystem":"apple","colorMode":"dark","size":"medium","density":"standard","state":"selected-pressed"}
+  - 原图 screens/rc-checkbox/chromium/000249-2-actual.png；SHA256 fd695048dedaafc75473514e5da11c3704110dd2602331dbf48295b9be5d5fe0；与记录64同hash，仍已单独查看；worker 0。
+  - 按下采样保留勾选与 on。 Chromium 三尺寸/明暗/15状态之一，组件 frame 原图。
+- 68 | chromium | f64d25927e4d5b779add-d1e221eb252d6f6b55a7/chromium/0 | {"designSystem":"apple","colorMode":"dark","size":"medium","density":"standard","state":"error"}
+  - 原图 screens/rc-checkbox/chromium/000250-2-actual.png；SHA256 11e0a659f9d4440e65f59075cdf65f4ec3b3170344470255911c93f80db99ab4；首次该hash；worker 1。
+  - 错误色空框及完整错误说明可见，反馈 off。 Chromium 三尺寸/明暗/15状态之一，组件 frame 原图。
+- 69 | chromium | f64d25927e4d5b779add-21877c1ffc59e81ed4a3/chromium/0 | {"designSystem":"apple","colorMode":"dark","size":"medium","density":"standard","state":"selected-error"}
+  - 原图 screens/rc-checkbox/chromium/000251-2-actual.png；SHA256 8bb4e9db50d308e2801a2ebaf1883c3a53df8e155ffb573948106c634bdde37d；首次该hash；worker 0。
+  - 错误色填充/勾和错误说明完整，反馈 on。 Chromium 三尺寸/明暗/15状态之一，组件 frame 原图。
+- 70 | chromium | f64d25927e4d5b779add-4d7efa240682caa558ab/chromium/0 | {"designSystem":"apple","colorMode":"dark","size":"medium","density":"standard","state":"disabled"}
+  - 原图 screens/rc-checkbox/chromium/000252-2-actual.png；SHA256 49a143544b2848237a16221b3da4729b71c3c06cd3322400b902d4d5c5f6322b；首次该hash；worker 1。
+  - 灰色禁用空框/标签，反馈 off。 Chromium 三尺寸/明暗/15状态之一，组件 frame 原图。
+- 71 | chromium | f64d25927e4d5b779add-5b94ed214a16db9b7710/chromium/0 | {"designSystem":"apple","colorMode":"dark","size":"medium","density":"standard","state":"disabled-selected"}
+  - 原图 screens/rc-checkbox/chromium/000253-2-actual.png；SHA256 070b1d5575b8cd8998da37cfa9147cb28828cb7d39976880dde4d5e70ddd0be1；首次该hash；worker 1。
+  - 灰色勾与 on 同时可见；旧候选勾选但 off 的 Demo 反馈矛盾未复现。 Chromium 三尺寸/明暗/15状态之一，组件 frame 原图。
+- 72 | chromium | f64d25927e4d5b779add-6688485e563b1d2a52f5/chromium/0 | {"designSystem":"apple","colorMode":"dark","size":"medium","density":"standard","state":"indeterminate"}
+  - 原图 screens/rc-checkbox/chromium/000256-2-actual.png；SHA256 5eb9efbd412c590766510ebf2106642d86c7b3833216d64bce303045a5fcada3；首次该hash；worker 0。
+  - 填充方框中为水平半选线，反馈明确 mixed（半选，布尔值: off），不误写为勾选。 Chromium 三尺寸/明暗/15状态之一，组件 frame 原图。
+- 73 | chromium | f64d25927e4d5b779add-ef9f543e855416910d24/chromium/0 | {"designSystem":"apple","colorMode":"dark","size":"medium","density":"standard","state":"indeterminate-error"}
+  - 原图 screens/rc-checkbox/chromium/000257-2-actual.png；SHA256 b7a08846d6afb223e63f5a414879fd3f17852888108defd21dd61d1346283313；首次该hash；worker 1。
+  - 错误色半选线与错误说明并存，mixed/布尔 off 明确。 Chromium 三尺寸/明暗/15状态之一，组件 frame 原图。
+- 74 | chromium | f64d25927e4d5b779add-f466bd8c69576e78cdd0/chromium/0 | {"designSystem":"apple","colorMode":"dark","size":"medium","density":"standard","state":"disabled-indeterminate"}
+  - 原图 screens/rc-checkbox/chromium/000258-2-actual.png；SHA256 97df171ead30489812552343904a6cf27e0f1b481684802c0c56b82286075be5；首次该hash；worker 0。
+  - 灰色半选横线及禁用标签，mixed/布尔 off 明确。 Chromium 三尺寸/明暗/15状态之一，组件 frame 原图。
+- 75 | chromium | f64d25927e4d5b779add-9c737bf8c7fda6ed1638/chromium/0 | {"designSystem":"apple","colorMode":"dark","size":"large","density":"standard","state":"default"}
+  - 原图 screens/rc-checkbox/chromium/000259-2-actual.png；SHA256 8718177414930b0c4a97aba617d237ee75d478242590297938574b93d2ccee0c；首次该hash；worker 1。
+  - 空白圆角方框、完整标签与 off 反馈。 Chromium 三尺寸/明暗/15状态之一，组件 frame 原图。
+- 76 | chromium | f64d25927e4d5b779add-bf90e995d675a78f6269/chromium/0 | {"designSystem":"apple","colorMode":"dark","size":"large","density":"standard","state":"hover"}
+  - 原图 screens/rc-checkbox/chromium/000260-2-actual.png；SHA256 35e323703ead4e53e07de50fe1a808fc8685ae03ec9dfe3713580342874277e5；首次该hash；worker 0。
+  - 真实悬停后的方框边界可见，标签完整，off。 Chromium 三尺寸/明暗/15状态之一，组件 frame 原图。
+- 77 | chromium | f64d25927e4d5b779add-a6031e121eca77bb4106/chromium/0 | {"designSystem":"apple","colorMode":"dark","size":"large","density":"standard","state":"focus-visible"}
+  - 原图 screens/rc-checkbox/chromium/000261-2-actual.png；SHA256 c63d48313b77504a0cb7a090a05f1b2a42cb190b61e92a0d6f39a406ca9bd28d；首次该hash；worker 1。
+  - 蓝色外焦点圆角环完整，未裁切且不盖字，off。 Chromium 三尺寸/明暗/15状态之一，组件 frame 原图。
+- 78 | chromium | f64d25927e4d5b779add-420f327e45a2a2a06692/chromium/0 | {"designSystem":"apple","colorMode":"dark","size":"large","density":"standard","state":"pressed"}
+  - 原图 screens/rc-checkbox/chromium/000262-2-actual.png；SHA256 35e323703ead4e53e07de50fe1a808fc8685ae03ec9dfe3713580342874277e5；与记录76同hash，仍已单独查看；worker 0。
+  - 真实按下采样为空框，标签与 off 完整；静图不能替代按键/指针断言。 Chromium 三尺寸/明暗/15状态之一，组件 frame 原图。
+- 79 | chromium | f64d25927e4d5b779add-6c429dd97300c29bc67d/chromium/0 | {"designSystem":"apple","colorMode":"dark","size":"large","density":"standard","state":"selected"}
+  - 原图 screens/rc-checkbox/chromium/000263-2-actual.png；SHA256 c7133a9c01bfd1fd893d3f42393355f329e2cd479f5eadf066df54d2810d7e5d；首次该hash；worker 1。
+  - 蓝色填充与勾清晰，反馈 on。 Chromium 三尺寸/明暗/15状态之一，组件 frame 原图。
+- 80 | chromium | f64d25927e4d5b779add-90d7ade676336483d142/chromium/0 | {"designSystem":"apple","colorMode":"dark","size":"large","density":"standard","state":"selected-hover"}
+  - 原图 screens/rc-checkbox/chromium/000264-2-actual.png；SHA256 c7133a9c01bfd1fd893d3f42393355f329e2cd479f5eadf066df54d2810d7e5d；与记录79同hash，仍已单独查看；worker 0。
+  - 蓝色勾选与 on 完整，悬停无文字遮挡。 Chromium 三尺寸/明暗/15状态之一，组件 frame 原图。
+- 81 | chromium | f64d25927e4d5b779add-ab23c874e1815cc87319/chromium/0 | {"designSystem":"apple","colorMode":"dark","size":"large","density":"standard","state":"selected-focus-visible"}
+  - 原图 screens/rc-checkbox/chromium/000265-2-actual.png；SHA256 b1c7c0da8b36c49deab19b8be9ee5c9ec570e85d592954b50f64c268ba793caa；首次该hash；worker 1。
+  - 勾选与完整外焦点环共存，反馈 on。 Chromium 三尺寸/明暗/15状态之一，组件 frame 原图。
+- 82 | chromium | f64d25927e4d5b779add-218d8a4ac4373b36d806/chromium/0 | {"designSystem":"apple","colorMode":"dark","size":"large","density":"standard","state":"selected-pressed"}
+  - 原图 screens/rc-checkbox/chromium/000266-2-actual.png；SHA256 c7133a9c01bfd1fd893d3f42393355f329e2cd479f5eadf066df54d2810d7e5d；与记录79同hash，仍已单独查看；worker 0。
+  - 按下采样保留勾选与 on。 Chromium 三尺寸/明暗/15状态之一，组件 frame 原图。
+- 83 | chromium | f64d25927e4d5b779add-0c576345f6fcce2bbe26/chromium/0 | {"designSystem":"apple","colorMode":"dark","size":"large","density":"standard","state":"error"}
+  - 原图 screens/rc-checkbox/chromium/000267-2-actual.png；SHA256 e0f8a188f02ea66dd126647ff3b203c4de808b37462daf0a23dc6ecd578b4353；首次该hash；worker 1。
+  - 错误色空框及完整错误说明可见，反馈 off。 Chromium 三尺寸/明暗/15状态之一，组件 frame 原图。
+- 84 | chromium | f64d25927e4d5b779add-e1e0bd03fbeaca0da230/chromium/0 | {"designSystem":"apple","colorMode":"dark","size":"large","density":"standard","state":"selected-error"}
+  - 原图 screens/rc-checkbox/chromium/000268-2-actual.png；SHA256 a0f39c1f31d452667c11a79e6a64aed38c10ab5ce96f1b9772bd24d2cadf7bea；首次该hash；worker 0。
+  - 错误色填充/勾和错误说明完整，反馈 on。 Chromium 三尺寸/明暗/15状态之一，组件 frame 原图。
+- 85 | chromium | f64d25927e4d5b779add-0df0daba82943b6bf037/chromium/0 | {"designSystem":"apple","colorMode":"dark","size":"large","density":"standard","state":"disabled"}
+  - 原图 screens/rc-checkbox/chromium/000269-2-actual.png；SHA256 16cb08480921937d5aaeadb4f3c01b03431f18ced47442c219d7af5bf1db2ebd；首次该hash；worker 1。
+  - 灰色禁用空框/标签，反馈 off。 Chromium 三尺寸/明暗/15状态之一，组件 frame 原图。
+- 86 | chromium | f64d25927e4d5b779add-ad03edde562d8b7678b6/chromium/0 | {"designSystem":"apple","colorMode":"dark","size":"large","density":"standard","state":"disabled-selected"}
+  - 原图 screens/rc-checkbox/chromium/000270-2-actual.png；SHA256 ed3fcd6abbbd5d8d5b5275ed1942aa4d79463c1b03712a0affbb3e58bc344d0b；首次该hash；worker 1。
+  - 灰色勾与 on 同时可见；旧候选勾选但 off 的 Demo 反馈矛盾未复现。 Chromium 三尺寸/明暗/15状态之一，组件 frame 原图。
+- 87 | chromium | f64d25927e4d5b779add-1eae7108f0ba5a9094ea/chromium/0 | {"designSystem":"apple","colorMode":"dark","size":"large","density":"standard","state":"indeterminate"}
+  - 原图 screens/rc-checkbox/chromium/000271-2-actual.png；SHA256 caf3253668578eb55a4082213ba5c146d32ee73477f80c48fb5ed6f8ded1dc4f；首次该hash；worker 0。
+  - 填充方框中为水平半选线，反馈明确 mixed（半选，布尔值: off），不误写为勾选。 Chromium 三尺寸/明暗/15状态之一，组件 frame 原图。
+- 88 | chromium | f64d25927e4d5b779add-c57acf1704558c9ebcfc/chromium/0 | {"designSystem":"apple","colorMode":"dark","size":"large","density":"standard","state":"indeterminate-error"}
+  - 原图 screens/rc-checkbox/chromium/000272-2-actual.png；SHA256 e50ddd7466515af7c2b0957dab01c01353af8e91e10b41255abb1d27ebb490d6；首次该hash；worker 1。
+  - 错误色半选线与错误说明并存，mixed/布尔 off 明确。 Chromium 三尺寸/明暗/15状态之一，组件 frame 原图。
+- 89 | chromium | f64d25927e4d5b779add-4b7553a690be093816f9/chromium/0 | {"designSystem":"apple","colorMode":"dark","size":"large","density":"standard","state":"disabled-indeterminate"}
+  - 原图 screens/rc-checkbox/chromium/000273-2-actual.png；SHA256 36faddadc4607c8b878430798bdd3b68f553d87d12a978c5d076882328709bf5；首次该hash；worker 0。
+  - 灰色半选横线及禁用标签，mixed/布尔 off 明确。 Chromium 三尺寸/明暗/15状态之一，组件 frame 原图。
+- 90 | firefox | f64d25927e4d5b779add-d582fb4084f6747ae542/firefox/0 | {"designSystem":"apple","colorMode":"light","size":"medium","density":"standard","state":"default"}
+  - 原图 screens/rc-checkbox/firefox/000184-2-actual.png；SHA256 082c0fd649183d5a5d3760ea095be23539d2012c0fe16c784f5f982db89e7d4c；首次该hash；worker 2。
+  - 空白圆角方框、完整标签与 off 反馈。 Firefox/WebKit 仅 medium/standard/明暗与 default、focus-visible、selected、disabled-selected 子集之一。
+- 91 | firefox | f64d25927e4d5b779add-84ae38398dc511bc8e71/firefox/0 | {"designSystem":"apple","colorMode":"light","size":"medium","density":"standard","state":"focus-visible"}
+  - 原图 screens/rc-checkbox/firefox/000188-2-actual.png；SHA256 a4b63c68bc5b4ecdaaf31904510414cb963fca6e1e50624aca5c7c3a6a9e7a2f；首次该hash；worker 3。
+  - 蓝色外焦点圆角环完整，未裁切且不盖字，off。 Firefox/WebKit 仅 medium/standard/明暗与 default、focus-visible、selected、disabled-selected 子集之一。
+- 92 | firefox | f64d25927e4d5b779add-9123a3d362d70c26de3a/firefox/0 | {"designSystem":"apple","colorMode":"light","size":"medium","density":"standard","state":"selected"}
+  - 原图 screens/rc-checkbox/firefox/000192-2-actual.png；SHA256 45b4d519e1e9c1199f9f849f1aa73e2170e665501a5492bb14810c59b4679c32；首次该hash；worker 2。
+  - 蓝色填充与勾清晰，反馈 on。 Firefox/WebKit 仅 medium/standard/明暗与 default、focus-visible、selected、disabled-selected 子集之一。
+- 93 | firefox | f64d25927e4d5b779add-f48ed6d0b14724e67419/firefox/0 | {"designSystem":"apple","colorMode":"light","size":"medium","density":"standard","state":"disabled-selected"}
+  - 原图 screens/rc-checkbox/firefox/000201-2-actual.png；SHA256 ff670f329b0d390c757e076b1550447ca6984ca04418fac9882668da8d1be111；首次该hash；worker 3。
+  - 灰色勾与 on 同时可见；旧候选勾选但 off 的 Demo 反馈矛盾未复现。 Firefox/WebKit 仅 medium/standard/明暗与 default、focus-visible、selected、disabled-selected 子集之一。
+- 94 | firefox | f64d25927e4d5b779add-0ebc005fd9471a2053b0/firefox/0 | {"designSystem":"apple","colorMode":"dark","size":"medium","density":"standard","state":"default"}
+  - 原图 screens/rc-checkbox/firefox/000237-2-actual.png；SHA256 4e6e360235e83200a9096faf11415d7caa67ca8d7c2e004fbfd886913fe7df06；首次该hash；worker 2。
+  - 空白圆角方框、完整标签与 off 反馈。 Firefox/WebKit 仅 medium/standard/明暗与 default、focus-visible、selected、disabled-selected 子集之一。
+- 95 | firefox | f64d25927e4d5b779add-87e6937230e051e91d3d/firefox/0 | {"designSystem":"apple","colorMode":"dark","size":"medium","density":"standard","state":"focus-visible"}
+  - 原图 screens/rc-checkbox/firefox/000241-2-actual.png；SHA256 7dcb0769fadb47e1e33e775fa5d83b17f50d2a82d6fcef7e96e4beb50ee692eb；首次该hash；worker 3。
+  - 蓝色外焦点圆角环完整，未裁切且不盖字，off。 Firefox/WebKit 仅 medium/standard/明暗与 default、focus-visible、selected、disabled-selected 子集之一。
+- 96 | firefox | f64d25927e4d5b779add-c589676b306b2c8350a1/firefox/0 | {"designSystem":"apple","colorMode":"dark","size":"medium","density":"standard","state":"selected"}
+  - 原图 screens/rc-checkbox/firefox/000245-2-actual.png；SHA256 fb3354f2ce76a044d94cf985529ed854447909257555c993b90f03a30d2c377f；首次该hash；worker 2。
+  - 蓝色填充与勾清晰，反馈 on。 Firefox/WebKit 仅 medium/standard/明暗与 default、focus-visible、selected、disabled-selected 子集之一。
+- 97 | firefox | f64d25927e4d5b779add-5b94ed214a16db9b7710/firefox/0 | {"designSystem":"apple","colorMode":"dark","size":"medium","density":"standard","state":"disabled-selected"}
+  - 原图 screens/rc-checkbox/firefox/000254-2-actual.png；SHA256 89eb76832c3b244d431f4ad587a0d9f78183d6684c235761707bf9a448490de1；首次该hash；worker 3。
+  - 灰色勾与 on 同时可见；旧候选勾选但 off 的 Demo 反馈矛盾未复现。 Firefox/WebKit 仅 medium/standard/明暗与 default、focus-visible、selected、disabled-selected 子集之一。
+- 98 | webkit | f64d25927e4d5b779add-d582fb4084f6747ae542/webkit/0 | {"designSystem":"apple","colorMode":"light","size":"medium","density":"standard","state":"default"}
+  - 原图 screens/rc-checkbox/webkit/000185-2-actual.png；SHA256 b83ec6e483c8070d0b3da7f201b5bd392a70a2df387134b9bb8be3b4072b04ee；首次该hash；worker 5。
+  - 空白圆角方框、完整标签与 off 反馈。 Firefox/WebKit 仅 medium/standard/明暗与 default、focus-visible、selected、disabled-selected 子集之一。
+- 99 | webkit | f64d25927e4d5b779add-84ae38398dc511bc8e71/webkit/0 | {"designSystem":"apple","colorMode":"light","size":"medium","density":"standard","state":"focus-visible"}
+  - 原图 screens/rc-checkbox/webkit/000189-2-actual.png；SHA256 8c9f8f84f026b5efd1d0c28f6e3d814862084f2e58a06bb52200ffb9fbe1b7d4；首次该hash；worker 4。
+  - 蓝色外焦点圆角环完整，未裁切且不盖字，off。 Firefox/WebKit 仅 medium/standard/明暗与 default、focus-visible、selected、disabled-selected 子集之一。
+- 100 | webkit | f64d25927e4d5b779add-9123a3d362d70c26de3a/webkit/0 | {"designSystem":"apple","colorMode":"light","size":"medium","density":"standard","state":"selected"}
+  - 原图 screens/rc-checkbox/webkit/000193-2-actual.png；SHA256 66872c4d16703255224eae08eed18a6a95e513dd4a4b3744890cf55a2dde1553；首次该hash；worker 5。
+  - 蓝色填充与勾清晰，反馈 on。 Firefox/WebKit 仅 medium/standard/明暗与 default、focus-visible、selected、disabled-selected 子集之一。
+- 101 | webkit | f64d25927e4d5b779add-f48ed6d0b14724e67419/webkit/0 | {"designSystem":"apple","colorMode":"light","size":"medium","density":"standard","state":"disabled-selected"}
+  - 原图 screens/rc-checkbox/webkit/000202-2-actual.png；SHA256 2ba9c4dc80720bd40c037a72e21f46c417336ece9e7e1c22e2246b3ea8d54234；首次该hash；worker 4。
+  - 灰色勾与 on 同时可见；旧候选勾选但 off 的 Demo 反馈矛盾未复现。 Firefox/WebKit 仅 medium/standard/明暗与 default、focus-visible、selected、disabled-selected 子集之一。
+- 102 | webkit | f64d25927e4d5b779add-0ebc005fd9471a2053b0/webkit/0 | {"designSystem":"apple","colorMode":"dark","size":"medium","density":"standard","state":"default"}
+  - 原图 screens/rc-checkbox/webkit/000238-2-actual.png；SHA256 fff0649be3c8663aa7940724634321b20f4f7298cb62590b18f8fb8a503cefe6；首次该hash；worker 4。
+  - 空白圆角方框、完整标签与 off 反馈。 Firefox/WebKit 仅 medium/standard/明暗与 default、focus-visible、selected、disabled-selected 子集之一。
+- 103 | webkit | f64d25927e4d5b779add-87e6937230e051e91d3d/webkit/0 | {"designSystem":"apple","colorMode":"dark","size":"medium","density":"standard","state":"focus-visible"}
+  - 原图 screens/rc-checkbox/webkit/000242-2-actual.png；SHA256 526556962ad1e243abf6287ca2a9adbb5f07ba0510edfbb362cdc522df67b1d5；首次该hash；worker 5。
+  - 蓝色外焦点圆角环完整，未裁切且不盖字，off。 Firefox/WebKit 仅 medium/standard/明暗与 default、focus-visible、selected、disabled-selected 子集之一。
+- 104 | webkit | f64d25927e4d5b779add-c589676b306b2c8350a1/webkit/0 | {"designSystem":"apple","colorMode":"dark","size":"medium","density":"standard","state":"selected"}
+  - 原图 screens/rc-checkbox/webkit/000246-2-actual.png；SHA256 8defe1c312596362c7488639a84fc6bcf38fca281c1043bcc71ec771a9c274b4；首次该hash；worker 4。
+  - 蓝色填充与勾清晰，反馈 on。 Firefox/WebKit 仅 medium/standard/明暗与 default、focus-visible、selected、disabled-selected 子集之一。
+- 105 | webkit | f64d25927e4d5b779add-5b94ed214a16db9b7710/webkit/0 | {"designSystem":"apple","colorMode":"dark","size":"medium","density":"standard","state":"disabled-selected"}
+  - 原图 screens/rc-checkbox/webkit/000255-2-actual.png；SHA256 166d4c4857f331acf79d01587d8cd04cd144daa27427eaa3295b18bdda39830a；首次该hash；worker 5。
+  - 灰色勾与 on 同时可见；旧候选勾选但 off 的 Demo 反馈矛盾未复现。 Firefox/WebKit 仅 medium/standard/明暗与 default、focus-visible、selected、disabled-selected 子集之一。
+- 106 | chromium | d867639f9fcc14c63204-ae06d0ad2cd8cf017172/chromium/0 | {"id":"narrow","designSystem":"apple","colorMode":"light"}
+  - 原图 screens/rc-checkbox/chromium/000020-2-actual.png；SHA256 b9c87200042e8e15f14451385b737cabf66d0baffeb14f787e0c2ff4fdc204f3；首次该hash；worker 1。
+  - 窄屏标签自然分成两行，方框/禁用行/反馈均完整，未见横向裁切。 Chromium medium/standard 适用环境，组件 frame 裁切图。
+- 107 | chromium | d867639f9fcc14c63204-716ddedb5757627237b8/chromium/0 | {"id":"tablet","designSystem":"apple","colorMode":"light"}
+  - 原图 screens/rc-checkbox/chromium/000021-2-actual.png；SHA256 9fead7d1fb077e320bf2cc5328bd1cce7db8985d7e816bc60d9a06e66fe55e0d；首次该hash；worker 0。
+  - 中屏组件裁切区内标签一行、勾选与 on 完整；图不是整页。 Chromium medium/standard 适用环境，组件 frame 裁切图。
+- 108 | chromium | d867639f9fcc14c63204-c7ad2310687e9bf2d36a/chromium/0 | {"id":"desktop","designSystem":"apple","colorMode":"light"}
+  - 原图 screens/rc-checkbox/chromium/000022-2-actual.png；SHA256 9eafe75a996c3fb01b8ce18c90f92d49e474905d236d648c42507e15176d0357；首次该hash；worker 1。
+  - 桌面组件裁切区内标签一行、勾选与 on 完整；图不是整页。 Chromium medium/standard 适用环境，组件 frame 裁切图。
+- 109 | chromium | d867639f9fcc14c63204-fb766adc00009f7357c5/chromium/0 | {"id":"touch","designSystem":"apple","colorMode":"light"}
+  - 原图 screens/rc-checkbox/chromium/000023-2-actual.png；SHA256 982b4eab7c64fac9ee3018f80907830d068ee4ecb8e73c80ed9340178a097bc2；首次该hash；worker 0。
+  - 触控间距明显扩大，勾选、禁用行和 on 完整；48px 命中由原生几何断言独立证明。 Chromium medium/standard 适用环境，组件 frame 裁切图。
+- 110 | chromium | d867639f9fcc14c63204-156e8ee3dfe8265a5746/chromium/0 | {"id":"rtl","designSystem":"apple","colorMode":"light"}
+  - 原图 screens/rc-checkbox/chromium/000024-2-actual.png；SHA256 bb1d56447e2c871764f58e15e48bd49c1187444a6b27852284de62a922658e8e；首次该hash；worker 1。
+  - 方框位于标签右侧，行和反馈右对齐，文本未重叠。 Chromium medium/standard 适用环境，组件 frame 裁切图。
+- 111 | chromium | d867639f9fcc14c63204-f78dfde9b2690a2ae487/chromium/0 | {"id":"english","designSystem":"apple","colorMode":"light"}
+  - 原图 screens/rc-checkbox/chromium/000025-2-actual.png；SHA256 9cba033e4e5ee2cbc413c1592f24732b8f59d0f306693a3ce1c596118589be9f；首次该hash；worker 0。
+  - 英文长标签完整一行，Selected unavailable 及 Selection: on 可读。 Chromium medium/standard 适用环境，组件 frame 裁切图。
+- 112 | chromium | d867639f9fcc14c63204-b4537096a7514759a721/chromium/0 | {"id":"brand","designSystem":"apple","colorMode":"light"}
+  - 原图 screens/rc-checkbox/chromium/000026-2-actual.png；SHA256 55ec176811edb13bec48d35552abefa9f81ebddb58eeabc8045117e58f305790；首次该hash；worker 1。
+  - 品牌覆盖为紫色勾选，禁用行仍弱化，反馈 on。 Chromium medium/standard 适用环境，组件 frame 裁切图。
+- 113 | chromium | d867639f9fcc14c63204-6fe1786f482cf99565a6/chromium/0 | {"id":"forced-colors","designSystem":"apple","colorMode":"light"}
+  - 原图 screens/rc-checkbox/chromium/000027-2-actual.png；SHA256 d2f6de5facb0211f2b5290152e448aa5b5829ba35ed776b26dcac27829911ade；首次该hash；worker 0。
+  - 系统强制颜色下轮廓/勾及文本可见；禁用行呈系统 GrayText 色（浅色红/深色绿），不按普通主题色比较。 Chromium medium/standard 适用环境，组件 frame 裁切图。
+- 114 | chromium | d867639f9fcc14c63204-1df3043ad7cd5bf92705/chromium/0 | {"id":"reduced-motion","designSystem":"apple","colorMode":"light"}
+  - 原图 screens/rc-checkbox/chromium/000028-2-actual.png；SHA256 5c799698d4b6217a4cadfd2c0d6488f5b6022255c585f69c9374bc1af2b401b0；与记录19同hash，仍已单独查看；worker 1。
+  - 静态勾选与反馈完整；单帧不证明减少动画时序。 Chromium medium/standard 适用环境，组件 frame 裁切图。
+- 115 | chromium | d867639f9fcc14c63204-b020289d6bfcafa091e3/chromium/0 | {"id":"narrow","designSystem":"apple","colorMode":"dark"}
+  - 原图 screens/rc-checkbox/chromium/000029-2-actual.png；SHA256 c5e4b354426998a183dd27b5bb8d467d2f86a5b1477caf980aabdabb87769dd7；首次该hash；worker 0。
+  - 窄屏标签自然分成两行，方框/禁用行/反馈均完整，未见横向裁切。 Chromium medium/standard 适用环境，组件 frame 裁切图。
+- 116 | chromium | d867639f9fcc14c63204-fc8789f2b9c328578e75/chromium/0 | {"id":"tablet","designSystem":"apple","colorMode":"dark"}
+  - 原图 screens/rc-checkbox/chromium/000030-2-actual.png；SHA256 3bf7e65492e6f67ab23fc9cb711fd9a19805aa6c5d2826e3a4a7c3ec7239ee6e；首次该hash；worker 1。
+  - 中屏组件裁切区内标签一行、勾选与 on 完整；图不是整页。 Chromium medium/standard 适用环境，组件 frame 裁切图。
+- 117 | chromium | d867639f9fcc14c63204-5d4e84c90748de0c57c8/chromium/0 | {"id":"desktop","designSystem":"apple","colorMode":"dark"}
+  - 原图 screens/rc-checkbox/chromium/000031-2-actual.png；SHA256 1751f72b5581d11f9fc425342520ec4264f86ea3a9e046f80f1b3ae98cd1d531；首次该hash；worker 0。
+  - 桌面组件裁切区内标签一行、勾选与 on 完整；图不是整页。 Chromium medium/standard 适用环境，组件 frame 裁切图。
+- 118 | chromium | d867639f9fcc14c63204-c9209c0ac1f0ecdc2a7a/chromium/0 | {"id":"touch","designSystem":"apple","colorMode":"dark"}
+  - 原图 screens/rc-checkbox/chromium/000032-2-actual.png；SHA256 a17b43b29031c855a9f841ec0846efba9dd92fc291eb6a26824ca2452493cc0f；首次该hash；worker 1。
+  - 触控间距明显扩大，勾选、禁用行和 on 完整；48px 命中由原生几何断言独立证明。 Chromium medium/standard 适用环境，组件 frame 裁切图。
+- 119 | chromium | d867639f9fcc14c63204-be9756597e33e2e19f6b/chromium/0 | {"id":"rtl","designSystem":"apple","colorMode":"dark"}
+  - 原图 screens/rc-checkbox/chromium/000033-2-actual.png；SHA256 8513984a6976c5b8d04e06775c6ae001a837dbf35887235b373b3035a7628007；首次该hash；worker 0。
+  - 方框位于标签右侧，行和反馈右对齐，文本未重叠。 Chromium medium/standard 适用环境，组件 frame 裁切图。
+- 120 | chromium | d867639f9fcc14c63204-1bc728165925f36405e0/chromium/0 | {"id":"english","designSystem":"apple","colorMode":"dark"}
+  - 原图 screens/rc-checkbox/chromium/000034-2-actual.png；SHA256 38d94ac32c3dfe5bdce47cf5e28eca44d0e2d65a74cd5d46eab665023931e806；首次该hash；worker 1。
+  - 英文长标签完整一行，Selected unavailable 及 Selection: on 可读。 Chromium medium/standard 适用环境，组件 frame 裁切图。
+- 121 | chromium | d867639f9fcc14c63204-a70937539bc0d1aa9aa6/chromium/0 | {"id":"brand","designSystem":"apple","colorMode":"dark"}
+  - 原图 screens/rc-checkbox/chromium/000035-2-actual.png；SHA256 f9f43af691117190501506567b1290c49ad21014eb4f6b83844695350c2e5d27；首次该hash；worker 0。
+  - 品牌覆盖为紫色勾选，禁用行仍弱化，反馈 on。 Chromium medium/standard 适用环境，组件 frame 裁切图。
+- 122 | chromium | d867639f9fcc14c63204-21f8ffb32a89165b670e/chromium/0 | {"id":"forced-colors","designSystem":"apple","colorMode":"dark"}
+  - 原图 screens/rc-checkbox/chromium/000036-2-actual.png；SHA256 7e1f1098ebc1ab52bc021041363e1f8813138a6e6b656d37299862ab70a282a4；首次该hash；worker 1。
+  - 系统强制颜色下轮廓/勾及文本可见；禁用行呈系统 GrayText 色（浅色红/深色绿），不按普通主题色比较。 Chromium medium/standard 适用环境，组件 frame 裁切图。
+- 123 | chromium | d867639f9fcc14c63204-67d46c5cea96babcc460/chromium/0 | {"id":"reduced-motion","designSystem":"apple","colorMode":"dark"}
+  - 原图 screens/rc-checkbox/chromium/000037-2-actual.png；SHA256 fd695048dedaafc75473514e5da11c3704110dd2602331dbf48295b9be5d5fe0；与记录64同hash，仍已单独查看；worker 0。
+  - 静态勾选与反馈完整；单帧不证明减少动画时序。 Chromium medium/standard 适用环境，组件 frame 裁切图。
+- 124 | chromium | 4ce4212075a27b44e623-ac76c5494198d7837286/chromium/0 | {"id":"zoom-200","designSystem":"apple","colorMode":"light"}
+  - 原图 screens/rc-checkbox/chromium/000058-4-actual-zoom-200.png；SHA256 5435bfb9261d06657cea937ba3f71aebe38878e16f71fbc744337f17ca86dac5；首次该hash；worker 0。
+  - 真实200%可见视口内完整蓝色外焦点环、勾选、禁用行和 on；状态选择器也可见，未见文字横向裁切。只证明当前可见视口，非整页。 Chromium Linux 原生 chrome.tabs.setZoom 1→2；CSS视口1280→640，html/body zoom仍1。
+- 125 | chromium | 4ce4212075a27b44e623-eae32151e34a4990bfe0/chromium/0 | {"id":"zoom-200","designSystem":"apple","colorMode":"dark"}
+  - 原图 screens/rc-checkbox/chromium/000059-4-actual-zoom-200.png；SHA256 fbee2f0c4da29b2ba561d176b75d48797e084ef6f8485f55dc28f917d9069c70；首次该hash；worker 1。
+  - 真实200%可见视口内完整蓝色外焦点环、勾选、禁用行和 on；状态选择器也可见，未见文字横向裁切。只证明当前可见视口，非整页。 Chromium Linux 原生 chrome.tabs.setZoom 1→2；CSS视口1280→640，html/body zoom仍1。
+- 126 | chromium | 73019a0006cb75aa6498-ee9452314084c6902c0b/chromium/0 | {"type":"crab:preview-config","designSystem":"apple","colorMode":"light","size":"medium","density":"standard","locale":"zh-CN","direction":"ltr","brandColor":null}
+  - 原图 screens/rc-checkbox/chromium/000386-0-inventory-actual.png；SHA256 adca79bd9444b202842cecf739c058f39a74f180828cc3d2aa9e2dfe95b14b87；首次该hash；worker 1。
+  - 默认库存仅顶端一行 Checkbox 空框/标签，浅深表面清楚；其余为宿主空白，不能替代状态、尺寸或交互矩阵。 三引擎 medium/standard 默认库存可见视口。
+- 127 | chromium | 73019a0006cb75aa6498-6b6a64132a03f5110db1/chromium/0 | {"type":"crab:preview-config","designSystem":"apple","colorMode":"dark","size":"medium","density":"standard","locale":"zh-CN","direction":"ltr","brandColor":null}
+  - 原图 screens/rc-checkbox/chromium/000389-0-inventory-actual.png；SHA256 90cf9ef025d58ff38295b3baaed5d8147135252e9f8aefc2e8ba90f00ba0ceb7；首次该hash；worker 0。
+  - 默认库存仅顶端一行 Checkbox 空框/标签，浅深表面清楚；其余为宿主空白，不能替代状态、尺寸或交互矩阵。 三引擎 medium/standard 默认库存可见视口。
+- 128 | firefox | 73019a0006cb75aa6498-ee9452314084c6902c0b/firefox/0 | {"type":"crab:preview-config","designSystem":"apple","colorMode":"light","size":"medium","density":"standard","locale":"zh-CN","direction":"ltr","brandColor":null}
+  - 原图 screens/rc-checkbox/firefox/000387-0-inventory-actual.png；SHA256 ae93f4b89122b7e3576b6d1f61f5a562444ef60f876a126f791398bd90d3c15b；首次该hash；worker 3。
+  - 默认库存仅顶端一行 Checkbox 空框/标签，浅深表面清楚；其余为宿主空白，不能替代状态、尺寸或交互矩阵。 三引擎 medium/standard 默认库存可见视口。
+- 129 | firefox | 73019a0006cb75aa6498-6b6a64132a03f5110db1/firefox/0 | {"type":"crab:preview-config","designSystem":"apple","colorMode":"dark","size":"medium","density":"standard","locale":"zh-CN","direction":"ltr","brandColor":null}
+  - 原图 screens/rc-checkbox/firefox/000390-0-inventory-actual.png；SHA256 2374d757735f21e67a27f0339ec519774d79ab9a1d1c658e295a545e953698dd；首次该hash；worker 2。
+  - 默认库存仅顶端一行 Checkbox 空框/标签，浅深表面清楚；其余为宿主空白，不能替代状态、尺寸或交互矩阵。 三引擎 medium/standard 默认库存可见视口。
+- 130 | webkit | 73019a0006cb75aa6498-ee9452314084c6902c0b/webkit/0 | {"type":"crab:preview-config","designSystem":"apple","colorMode":"light","size":"medium","density":"standard","locale":"zh-CN","direction":"ltr","brandColor":null}
+  - 原图 screens/rc-checkbox/webkit/000388-0-inventory-actual.png；SHA256 f6565a31098f6810a06bb6819dfeaf27e66aaba1c68efab74c0f42ba81f9432d；首次该hash；worker 5。
+  - 默认库存仅顶端一行 Checkbox 空框/标签，浅深表面清楚；其余为宿主空白，不能替代状态、尺寸或交互矩阵。 三引擎 medium/standard 默认库存可见视口。
+- 131 | webkit | 73019a0006cb75aa6498-6b6a64132a03f5110db1/webkit/0 | {"type":"crab:preview-config","designSystem":"apple","colorMode":"dark","size":"medium","density":"standard","locale":"zh-CN","direction":"ltr","brandColor":null}
+  - 原图 screens/rc-checkbox/webkit/000391-0-inventory-actual.png；SHA256 d1b88069cf79408d08a37d48799970b5bb86208e01694b04822c9981918c395e；首次该hash；worker 4。
+  - 默认库存仅顶端一行 Checkbox 空框/标签，浅深表面清楚；其余为宿主空白，不能替代状态、尺寸或交互矩阵。 三引擎 medium/standard 默认库存可见视口。
+
+## 当前包对照附记
+
+本附记仅逐文件比较目标包当前文件与原worker捕获，不能推广为当前全仓身份一致。源文件 31，相同 31；产物文件 41，相同 17。完整逐文件hash见JSON。候选全局source/artifact仍保留原捕获值。
+
+目标包 CSS/ESM 产品产物 7 项全部相同。差异均位于当前宿主 visual-workbench 缓存；未就差异原因做新构建验证，也不用当前缓存替代冻结Linux产物。原快照、环境说明、执行审计、矩阵文件SHA另存JSON evidenceFiles。

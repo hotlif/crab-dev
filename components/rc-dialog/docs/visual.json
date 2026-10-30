@@ -1,0 +1,42 @@
+{
+    "schemaVersion": 1,
+    "demo": "visual-matrix.demo.tsx",
+    "sizes": [
+        "medium"
+    ],
+    "densities": [
+        "standard"
+    ],
+    "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "pressed",
+        "long-content",
+        "error",
+        "pending-confirm",
+        "pending-cancel"
+    ],
+    "crossEngine": {
+        "sizes": [
+            "medium"
+        ],
+        "densities": [
+            "standard"
+        ],
+        "states": [
+            "default",
+            "focus-visible",
+            "long-content",
+            "pending-confirm",
+            "pending-cancel"
+        ]
+    },
+    "notApplicable": {
+        "size": "Dialog has no public size variants; its viewport-constrained surface uses overlay roles.",
+        "density": "Modal surface geometry does not use collection density.",
+        "disabled": "The modal itself is not a disabled action; disabled sibling actions are exercised by pending-confirm/pending-cancel.",
+        "selected": "A modal does not select data.",
+        "loading": "The modal surface has no independent loading prop; its real pending-confirm/pending-cancel actions retain natural animation frames and video."
+    }
+}

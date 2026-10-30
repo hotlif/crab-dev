@@ -1,6 +1,7 @@
 import { readFile, readdir } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { stripJavaScriptComments } from "./javascript-comments.mjs";
 
 const repositoryRoot = path.resolve(
     path.dirname(fileURLToPath(import.meta.url)),
@@ -215,7 +216,7 @@ const uiRawColorAllowlist = new Map([
         ]),
     ],
     [
-        "components/rc-color-picker/src/panels/colorPickerPanel.tsx",
+        "components/rc-color-picker/src/panels/colorPickerPanel.styles.ts",
         allowExactLines(
             "user-selected color-space values and rendered gradients",
             [
@@ -226,6 +227,14 @@ const uiRawColorAllowlist = new Map([
                 "oklch(0.7 0.15 240),",
                 "oklch(0.7 0.15 300),",
                 "oklch(0.7 0.15 360)",
+            ],
+        ),
+    ],
+    [
+        "components/rc-color-picker/src/panels/colorPickerPanel.tsx",
+        allowExactLines(
+            "user-selected color-space values and rendered gradients",
+            [
                 "const opaque = `oklch(${value.lightness} ${value.chroma} ${value.hue})`;",
                 "backgroundColor: `oklch(${value.lightness} ${value.chroma} ${value.hue} / ${value.alpha ?? 1})`,",
                 "oklch(0 ${value.chroma} ${value.hue}),",
@@ -711,65 +720,6 @@ function requireContrast(
             `${label}: contrast ${ratio.toFixed(2)}:1 is below ${minimum}:1`,
         );
     }
-}
-
-function stripJavaScriptComments(source) {
-    let result = "";
-    let state = "code";
-    let escaped = false;
-    for (let index = 0; index < source.length; index += 1) {
-        const character = source[index];
-        const next = source[index + 1];
-        if (state === "line-comment") {
-            if (character === "\n") {
-                result += character;
-                state = "code";
-            } else {
-                result += " ";
-            }
-            continue;
-        }
-        if (state === "block-comment") {
-            if (character === "*" && next === "/") {
-                result += "  ";
-                index += 1;
-                state = "code";
-            } else {
-                result += character === "\n" ? "\n" : " ";
-            }
-            continue;
-        }
-        if (state !== "code") {
-            result += character;
-            if (escaped) {
-                escaped = false;
-            } else if (character === "\\") {
-                escaped = true;
-            } else if (
-                (state === "single" && character === "'") ||
-                (state === "double" && character === '"') ||
-                (state === "template" && character === "`")
-            ) {
-                state = "code";
-            }
-            continue;
-        }
-        if (character === "/" && next === "/") {
-            result += "  ";
-            index += 1;
-            state = "line-comment";
-        } else if (character === "/" && next === "*") {
-            result += "  ";
-            index += 1;
-            state = "block-comment";
-        } else {
-            result += character;
-            if (character === "'") state = "single";
-            if (character === '"') state = "double";
-            if (character === "`") state = "template";
-        }
-    }
-    return result;
 }
 
 async function sourceFiles(directory) {

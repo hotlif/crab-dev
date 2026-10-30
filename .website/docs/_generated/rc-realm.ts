@@ -6,6 +6,71 @@ import type { ComponentDemoRecord } from "../site/componentDemos.js";
 
 export const demos = [
     {
+        "id": "docs/demos/visual-matrix.demo.tsx",
+        "title": "远程协议视觉矩阵",
+        "description": "真实容器 Promise 保持待定，完成、失败和重试均通过公开协议；含保留草稿的 React 远程和 Shadow DOM mount 远程。",
+        "learning": {
+            "components": [
+                "Button",
+                "Realm"
+            ],
+            "props": [
+                "appearance",
+                "onClick",
+                "disabled",
+                "protocol",
+                "sandbox",
+                "styleSheets"
+            ],
+            "events": [
+                "onClick"
+            ],
+            "hasState": true
+        },
+        "sourceCode": "import { useEffect, useId, useRef, useState } from 'react';\nimport { css } from '@crab-dev/css';\nimport Realm, { clearRemoteCache, type MountLifecycle, type RemoteContainer } from '@crab-dev/rc-realm';\nimport Button from '@crab-dev/rc-button';\nimport { useLocale } from '@crab-dev/rc-config-provider';\nimport token from '@crab-dev/rc-token-semantic';\n\nexport const meta = { title: '远程协议视觉矩阵', description: '真实容器 Promise 保持待定，完成、失败和重试均通过公开协议；含保留草稿的 React 远程和 Shadow DOM mount 远程。' };\nconst stackStyle = css`display: flex; flex-direction: column; gap: ${token.space['stack-gap']};`;\nconst rowStyle = css`display: flex; flex-wrap: wrap; gap: ${token.space['component-gap']};`;\nconst sceneStyle = css`padding: ${token.space['card-padding']}; background: ${token.color.surface.content}; border: 1px solid ${token.color.border.default}; min-block-size: 160px; overflow-wrap: anywhere;`;\nconst fieldStyle = css`display: block; margin-block: ${token.space['component-gap']}; padding: ${token.space['component-gap']}; border: 1px solid ${token.color.border.default}; border-radius: ${token.shape.control}; color: ${token.color.text.primary}; background: ${token.color.surface.content}; font: inherit; max-inline-size: 100%; &:focus-visible { outline: 2px solid ${token.color.focus.ring}; }`;\nconst entry = '/virtual/professional-visual/remoteEntry.js';\ntype Request = { resolve: (factory: () => unknown) => void; reject: (error: Error) => void };\n\nfunction RemoteContent() {\n    const { locale } = useLocale();\n    const [draft, setDraft] = useState('CRAB-2026');\n    return \u003cdiv data-remote-ready=\"component\">\n        \u003cp>{locale === 'en-US' ? 'Remote content is ready. The host owns configuration.' : '远程内容已就绪，配置由最近宿主边界提供。'}\u003c/p>\n        \u003clabel>Remote draft\u003cinput className={fieldStyle} value={draft} onChange={event => setDraft(event.target.value)} />\u003c/label>\n    \u003c/div>;\n}\n\nconst shadowStyles = [`label { display: block; padding: ${token.space['component-gap']}; color: ${token.color.text.primary}; background: ${token.color.surface.content}; font-family: ${token.font.family.body}; } input { display: block; max-width: 100%; font: inherit; color: inherit; background: inherit; border: 1px solid ${token.color.border.default}; padding: ${token.space['component-gap']}; } input:focus-visible { outline: 2px solid ${token.color.focus.ring}; }`];\nconst sandboxLifecycle: MountLifecycle = {\n    mount(container) {\n        const label = container.ownerDocument.createElement('label');\n        label.textContent = 'Shadow draft';\n        const input = container.ownerDocument.createElement('input');\n        input.value = 'Shadow CRAB-2026';\n        label.append(input); container.append(label);\n        return () => label.remove();\n    },\n};\n\nexport default function VisualMatrixDemo() {\n    const id = useId(), scope = `crabProfessionalRealm${id}`;\n    const [registered, setRegistered] = useState(false);\n    const [waiting, setWaiting] = useState(false);\n    const [attempt, setAttempt] = useState(0);\n    const [protocol, setProtocol] = useState\u003c'component' | 'mount'>('component');\n    // Transport instance: only effects and events touch the active protocol requests.\n    const pending = useRef(new Set\u003cRequest>());\n    useEffect(() => {\n        const requests = pending.current;\n        const container: RemoteContainer = { init: () => undefined, get: () => {\n            setWaiting(true);\n            return new Promise((resolve, reject) => requests.add({ resolve, reject }));\n        } };\n        const registry = globalThis as Record\u003cstring, unknown>;\n        registry[scope] = container; setRegistered(true);\n        return () => {\n            for (const request of requests) request.reject(new Error('Remote demo unmounted'));\n            requests.clear(); clearRemoteCache(entry, scope);\n            if (registry[scope] === container) delete registry[scope];\n        };\n    }, [scope]);\n    function finish(failure: boolean) {\n        for (const request of pending.current) {\n            if (failure) request.reject(new Error('Deliberate remote transport failure'));\n            else request.resolve(() => ({ default: protocol === 'mount' ? sandboxLifecycle : RemoteContent }));\n        }\n        pending.current.clear(); setWaiting(false);\n    }\n    function restart(nextProtocol = protocol) {\n        finish(true); clearRemoteCache(entry, scope); setProtocol(nextProtocol); setAttempt(value => value + 1);\n    }\n    const common = { entry, scope, module: './VisualMatrix', delay: 0, timeout: 600000 };\n    return \u003cdiv className={stackStyle}>\n        \u003cdiv className={rowStyle}>\n            \u003cButton appearance=\"outlined\" onClick={() => restart()}>重新请求\u003c/Button>\n            \u003cButton appearance=\"outlined\" disabled={!waiting} onClick={() => finish(false)}>完成请求\u003c/Button>\n            \u003cButton appearance=\"outlined\" disabled={!waiting} onClick={() => finish(true)}>请求失败\u003c/Button>\n            \u003cButton appearance=\"outlined\" onClick={() => restart(protocol === 'mount' ? 'component' : 'mount')}>切换协议\u003c/Button>\n        \u003c/div>\n        \u003csection className={sceneStyle} aria-label=\"Realm visual matrix\" data-protocol={protocol}>\n            {registered && (protocol === 'component' ? \u003cRealm key={attempt} {...common} /> : \u003cRealm key={attempt} {...common} protocol=\"mount\" sandbox styleSheets={shadowStyles} />)}\n        \u003c/section>\n    \u003c/div>;\n}\n",
+        "previewPath": "/components/rc-realm/workbench/?__wake_demo=docs%2Fdemos%2Fvisual-matrix.demo.tsx",
+        "workbenchPath": "/components/rc-realm/workbench/#/components/docs%2Fdemos%2Fvisual-matrix.demo.tsx",
+        "density": "regular",
+        "layout": "wide",
+        "group": "三体系视觉与交互矩阵"
+    },
+    {
+        "id": "docs/demos/network-web-component.demo.tsx",
+        "title": "网络入口与真实 Web Component",
+        "description": "本机 public/remote 资源通过 Realm 的真实 script 或 ESM 入口加载；远程注册自定义元素并维护独立 Shadow DOM 草稿，未预注册容器。",
+        "learning": {
+            "components": [
+                "Button",
+                "Realm"
+            ],
+            "props": [
+                "appearance",
+                "disabled",
+                "onClick",
+                "entry",
+                "scope",
+                "module",
+                "entryType",
+                "protocol",
+                "remoteProps",
+                "onReady",
+                "onError"
+            ],
+            "events": [
+                "onClick",
+                "onReady",
+                "onError"
+            ],
+            "hasState": true
+        },
+        "sourceCode": "import { useEffect, useId, useState } from 'react';\nimport { css } from '@crab-dev/css';\nimport Realm from '@crab-dev/rc-realm';\nimport Button from '@crab-dev/rc-button';\nimport token from '@crab-dev/rc-token-semantic';\n\nexport const meta = { title: '网络入口与真实 Web Component', description: '本机 public/remote 资源通过 Realm 的真实 script 或 ESM 入口加载；远程注册自定义元素并维护独立 Shadow DOM 草稿，未预注册容器。' };\nconst sceneStyle = css`padding: ${token.space['card-padding']}; background: ${token.color.surface.content}; border: 1px solid ${token.color.border.default}; overflow-wrap: anywhere;`;\nconst rowStyle = css`display: flex; flex-wrap: wrap; align-items: center; gap: ${token.space['component-gap']}; margin-block-end: ${token.space['stack-gap']};`;\nconst remoteStyles = `:host { display: block; color: ${token.color.text.primary}; font-family: ${token.font.family.body}; } p { margin-block: 0 ${token.space['stack-gap']}; } label { display: block; } input { display: block; box-sizing: border-box; max-inline-size: 100%; margin-block-start: ${token.space['component-gap']}; padding: ${token.space['component-gap']}; color: inherit; font: inherit; background: ${token.color.surface.content}; border: 1px solid ${token.color.border.default}; border-radius: ${token.shape.control}; } input:focus-visible { outline: 2px solid ${token.color.focus.ring}; outline-offset: 2px; }`;\n\nexport default function NetworkWebComponentDemo() {\n    const instanceId = useId();\n    const [remoteBase, setRemoteBase] = useState('');\n    const [entryType, setEntryType] = useState\u003c'var' | 'module'>('var');\n    const [mounted, setMounted] = useState(false);\n    const [status, setStatus] = useState('idle');\n    const [caption, setCaption] = useState('A real network-loaded Web Component');\n    useEffect(() => { setRemoteBase(new URL('./remote/', document.baseURI).href); }, []);\n    const entry = `${remoteBase}web-component-entry.${entryType === 'var' ? 'js' : 'mjs'}`;\n    return \u003cdiv>\n        \u003cdiv className={rowStyle}>\n            \u003clabel>远程入口格式 \u003cselect aria-label=\"远程入口格式\" value={entryType} disabled={mounted} onChange={event => setEntryType(event.target.value as 'var' | 'module')}>\u003coption value=\"var\">script / var\u003c/option>\u003coption value=\"module\">ES module\u003c/option>\u003c/select>\u003c/label>\n            \u003cButton appearance=\"outlined\" disabled={!remoteBase || mounted} onClick={() => { setStatus('loading'); setMounted(true); }}>加载远程 Web Component\u003c/Button>\n            \u003cButton appearance=\"outlined\" disabled={!mounted} onClick={() => { setMounted(false); setStatus('idle'); }}>卸载远程内容\u003c/Button>\n            \u003cButton appearance=\"outlined\" disabled={status !== 'ready'} onClick={() => setCaption('Updated through the mount lifecycle')}>更新远程属性\u003c/Button>\n        \u003c/div>\n        \u003csection className={sceneStyle} aria-label=\"Realm network Web Component\" data-entry-type={entryType} data-status={status}>\n            {mounted && \u003cRealm entry={entry} scope=\"crabRealmNetworkDemo\" module=\"./WebComponent\" entryType={entryType} protocol=\"mount\"\n                remoteProps={{ instanceId, caption, styleText: remoteStyles }} onReady={() => setStatus('ready')} onError={() => setStatus('error')} />}\n        \u003c/section>\n    \u003c/div>;\n}\n",
+        "previewPath": "/components/rc-realm/workbench/?__wake_demo=docs%2Fdemos%2Fnetwork-web-component.demo.tsx",
+        "workbenchPath": "/components/rc-realm/workbench/#/components/docs%2Fdemos%2Fnetwork-web-component.demo.tsx",
+        "density": "regular",
+        "layout": "wide",
+        "group": "三体系视觉与交互矩阵"
+    },
+    {
         "id": "docs/demos/basic.demo.tsx",
         "title": "基础用法",
         "description": "component 协议加载远程 React 组件：远程与宿主共享同一 React 实例, remoteProps 实时透传, 与本地组件表现无异。此例通过预注册容器演示（globalThis[scope] 已存在时跳过 script 注入, 零网络）。",
@@ -31,7 +96,7 @@ export const demos = [
         "workbenchPath": "/components/rc-realm/workbench/#/components/docs%2Fdemos%2Fbasic.demo.tsx",
         "density": "regular",
         "layout": "wide",
-        "group": null
+        "group": "能力与集成示例"
     },
     {
         "id": "docs/demos/error-retry.demo.tsx",
@@ -54,7 +119,7 @@ export const demos = [
         "workbenchPath": "/components/rc-realm/workbench/#/components/docs%2Fdemos%2Ferror-retry.demo.tsx",
         "density": "regular",
         "layout": "wide",
-        "group": null
+        "group": "能力与集成示例"
     },
     {
         "id": "docs/demos/mount-sandbox.demo.tsx",
@@ -81,7 +146,7 @@ export const demos = [
         "workbenchPath": "/components/rc-realm/workbench/#/components/docs%2Fdemos%2Fmount-sandbox.demo.tsx",
         "density": "regular",
         "layout": "wide",
-        "group": null
+        "group": "能力与集成示例"
     },
     {
         "id": "docs/demos/script-entry.demo.tsx",
@@ -105,7 +170,7 @@ export const demos = [
         "workbenchPath": "/components/rc-realm/workbench/#/components/docs%2Fdemos%2Fscript-entry.demo.tsx",
         "density": "regular",
         "layout": "wide",
-        "group": null
+        "group": "能力与集成示例"
     },
     {
         "id": "docs/demos/visual-states.demo.tsx",
@@ -136,6 +201,6 @@ export const demos = [
         "workbenchPath": "/components/rc-realm/workbench/#/components/docs%2Fdemos%2Fvisual-states.demo.tsx",
         "density": "regular",
         "layout": "wide",
-        "group": null
+        "group": "能力与集成示例"
     }
 ] as const satisfies readonly ComponentDemoRecord[];

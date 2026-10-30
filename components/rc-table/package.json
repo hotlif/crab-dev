@@ -16,12 +16,14 @@
         "test": "wake test --serial --coverage",
         "test:selection": "yarn test src/__tests__/selectionVisibility.test.tsx --environment browser",
         "build:library": "yarn generate:token && wake library build .",
-        "typecheck": "node ../../scripts/typecheck.mjs --noEmit",
+        "typecheck": "tsc --noEmit",
         "lint": "wake lint --format human --root ../.. components/rc-table/src components/rc-table/docs --env browser --max-warnings 0 && yarn lint:tools",
         "lint:tools": "wake lint --format human --root ../.. components/rc-table/scripts --env node --max-warnings 0",
         "test:browser": "yarn --cwd ../.. exec turbo run build:library --filter=@crab-dev/rc-table && node scripts/prepare-browser-tests.mjs && yarn test --root src/__tests__/browser",
         "check": "node ../../scripts/check-package.mjs",
-        "test:forced-colors": "yarn --cwd ../.. exec turbo run build:library --filter=@crab-dev/rc-table && node ../../scripts/prepare-published-css.mjs && node ../../scripts/test-published-forced-colors.mjs --package=. --fixture=src/__tests__/browser/forced-colors-fixture.tsx --api=__tableForced"
+        "test:forced-colors": "yarn --cwd ../.. exec turbo run build:library --filter=@crab-dev/rc-table && node ../../scripts/prepare-published-css.mjs && node ../../scripts/test-published-forced-colors.mjs --package=. --fixture=src/__tests__/browser/forced-colors-fixture.tsx --api=__tableForced",
+        "build:visual": "wake docs build . --mode components --outdir .cache/visual-workbench",
+        "test:visual": "node ../../scripts/visual/run.mjs --package ."
     },
     "files": [
         "esm",
@@ -62,7 +64,7 @@
         "react-markdown": "^10.1.0",
         "react-router": "^8.3.1",
         "react-syntax-highlighter": "^16.1.1",
-        "typescript": "^7.0.2"
+        "typescript": "6.0.2"
     },
     "dependencies": {
         "@crab-dev/css": "0.1.45",

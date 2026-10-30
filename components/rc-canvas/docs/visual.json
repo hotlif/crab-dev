@@ -1,0 +1,6 @@
+{
+    "schemaVersion": 1, "demo": "visual-matrix.demo.tsx", "sizes": ["medium"], "densities": ["standard"], "capabilities": ["webgl2"],
+    "states": ["default", "hover", "focus-visible", "selected", "dragged", "editing", "committed", "cancelled", "restored", "flowing"],
+    "crossEngine": { "sizes": ["medium"], "densities": ["standard"], "states": ["default", "focus-visible", "editing", "committed"] },
+    "notApplicable": { "size": "Canvas width/height are explicit domain coordinates rather than ConfigProvider control sizes.", "density": "Drawing geometry is not multiplied by collection density.", "disabled": "Canvas has no blanket disabled protocol; applications control their own editing modes.", "error": "Engine initialization failures are surfaced as failures rather than simulated error styles.", "loading": "Resource and context recovery are covered by real browser lifecycle checks; this fixture contains no external images." }
+}

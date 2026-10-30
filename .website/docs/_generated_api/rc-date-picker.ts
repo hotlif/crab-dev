@@ -20,14 +20,34 @@ declare namespace Temporal {
 
 export interface DatePickerProps {
     /**
-     * 字段外观，默认 outlined；bordered=false 时由宿主提供外观。
+     * 前缀图标
      */
-    "appearance"?: "outlined" | "filled";
+    "prefix"?: ReactNode;
+
+    /**
+     * 验证状态，影响边框颜色以提供即时反馈
+     */
+    "status"?: "error" | "warning";
 
     /**
      * 与输入框关联的可见标签；Material 浮动，Apple 与 shadcn 上置。
      */
     "label"?: string;
+
+    /**
+     * input 元素的 ref
+     */
+    "ref"?: Ref<HTMLInputElement>;
+
+    /**
+     * 字段外观，默认 outlined；bordered=false 时由宿主提供外观。
+     */
+    "appearance"?: "outlined" | "filled";
+
+    /**
+     * 大小
+     */
+    "size"?: LineEditProps["size"];
 
     /**
      * 输入框下方的辅助说明，自动加入 aria-describedby。
@@ -38,21 +58,6 @@ export interface DatePickerProps {
      * 错误说明；提供时自动启用 error 状态并替换辅助说明。
      */
     "errorText"?: string;
-
-    /**
-     * input 元素的 ref
-     */
-    "ref"?: Ref<HTMLInputElement>;
-
-    /**
-     * 前缀图标
-     */
-    "prefix"?: ReactNode;
-
-    /**
-     * 验证状态，影响边框颜色以提供即时反馈
-     */
-    "status"?: "error" | "warning";
 
     /**
      * 是否显示外层边框/背景/阴影，默认为 true。 设为 false 时容器变为无样式（透明、无边框、高度随内容自适应）， 用于嵌入到已有边框的宿主容器中（例如作为另一个组件内部的搜索框）
@@ -68,11 +73,6 @@ export interface DatePickerProps {
      * 只传给日期面板；选择草稿和面板实例由选择器管理。
      */
     "panelProps"?: Omit<DatePickerPanelProps, 'value' | 'selectValues' | 'onSelect' | 'instance' | 'range' | 'timeZone' | 'weekStartDay' | 'locale'>;
-
-    /**
-     * 大小
-     */
-    "size"?: LineEditProps["size"];
 
     /**
      * 限制范围信息

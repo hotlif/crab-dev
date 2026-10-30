@@ -32,6 +32,8 @@ import { demos } from "../_generated/rc-avatar.js";
 
 ##### 形态与尺寸 — 支持 `circle` / `square` 形态与三档尺寸。
 
+##### 三体系展示与状态矩阵 — 公开组件、真实交互与自然动画；包内视觉规格是矩阵轴的来源。
+
 </div>
 
 <ComponentDemos demos={demos} />
@@ -56,7 +58,7 @@ import { demos } from "../_generated/rc-avatar.js";
 - 支持图片、文本、图标三种内容来源，自动回退。
 - 支持语义颜色变体（`default` / `primary` / `success` / `warning` / `error`）。
 - 支持 `prefers-reduced-motion`，减少不必要动画。
-- 设置 `onClick` 时复用 Button，支持 Enter / Space 激活与可见键盘焦点。头像视觉尺寸不变，交互容器至少为 48px；仅图标头像应提供动作名称 `aria-label`。
+- 设置 `onClick` 时复用 Button，支持 Enter / Space 激活与可见键盘焦点。按钮视觉边界与头像一致，粗指针使用至少 48px 的独立命中层，网格或弹性布局不把焦点面拉成整行；仅图标头像应提供动作名称 `aria-label`。
 - AvatarGroup 的 `onExtraClick` 使用独立的“+N”按钮，避免与成员头像的点击操作嵌套；纯展示时计数徽标与最后一个头像的上方逻辑外沿相切，LTR 向右、RTL 向左。计数的实际宽度参与头像组布局，长 `renderExtra` 不会侵入前一个头像或相邻组；头像外环保持自身形状。顶部半个徽标仍向上伸出，放入裁剪容器时需保留相应垂直空间。
 - 默认“+N”计数在 RTL 中保持加号在前；徽标标题与操作名称跟随最近 ConfigProvider 的中英文设置。`renderExtra` 自定义内容保留其自身文字和方向。
 - `max={0}` 隐藏所有成员头像，仍保留独立的计数徽标或 `renderExtra` 摘要；提供 `onExtraClick` 时保留额外操作按钮。没有成员时不显示折叠提示。
@@ -75,6 +77,24 @@ import { demos } from "../_generated/rc-avatar.js";
 圆形头像保持跨设计一致。方形头像分别采用 Material 12px、Apple 6px、shadcn 8px 圆角；颜色与回退文字由当前语义主题提供。可点击头像继续使用原生按钮、可访问名称及可见焦点。
 
 切换文档站设计风格后，本页演示同步使用该设计；浅色和深色模式分别使用配对语义颜色。
+
+### 三体系规格与验收边界
+
+头像不是独立的 Material 官方组件；依据身份展示、表面和焦点原则组合。数字 size 是开放 px 输入，以 37px 代表值另验，不能称为穷尽。可操作头像必须有名称，使用原生 Button 的键盘和命中区域；AvatarGroup 的 +N 是独立入口。
+
+| 体系 | 组件视觉规则 |
+| --- | --- |
+| MD3 Expressive | 语义色调身份容器，圆形/圆角方形保持角色边界；操作沿用动作状态层。 |
+| Apple | 内容清晰的身份展示与轻量边框；不模拟系统联系人头像。 |
+| shadcn | 参照 Avatar 的图片裁切、回退、重叠分组；语义色与数字尺寸为扩展。 |
+
+本包几何与视觉来源：size.small / medium / large 的 width 与 font-size；shape.square；group.margin 与 group.item.ring；interaction.touch 与焦点角色。圆形依宽高 1:1，开放数字尺寸不影响命名尺寸。设计值只在对应 token.toml 与它引用的语义角色维护，验收测量读取实际 DOM 计算值。
+
+颜色、字阶、形状、状态和动效分别从 L2 角色映射到包内 L3；Theme 负责最近配置边界。明暗模式使用配对前景/背景，不进行整体反相。视觉边界与命中区域分别检查，焦点截图保留外部轮廓与阴影。强制颜色采用系统色；减少动画保留信息与最终状态。
+
+矩阵定义在本包 `docs/visual.json`，场景使用 `visual-matrix.demo.tsx`。Chromium 覆盖其中全部设计/明暗/命名尺寸/适用密度/状态；Firefox 与 WebKit 按 `crossEngine` 的默认展示和重点交互子集执行。窄屏、RTL、中英文、长文本、品牌覆盖和配置切换后的草稿保持另有场景；未运行、未人工复核或失败的项不能计为通过。开放尺寸输入的代表样本不等于无限集合的穷尽。
+
+参考核对日期：2026-10-29。[Material 3 Cards](https://m3.material.io/components/cards/overview)、[Material Web Divider 使用/无障碍/令牌](https://material-web.dev/components/divider/)、[Material Web Progress 语义](https://material-web.dev/components/progress/)、[Apple Feedback](https://developer.apple.com/design/human-interface-guidelines/feedback)、[Apple Layout](https://developer.apple.com/design/human-interface-guidelines/layout)、[Apple Progress indicators](https://developer.apple.com/design/human-interface-guidelines/progress-indicators)、[shadcn New York V4 avatar](https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui/avatar.tsx)。Material Web 是 Web 行为基线；Apple 是依据原则的自主 Web 实现；shadcn 固定参考提交 `3d98900e9b73c45f035f8109e9d41ba6a51685e7`，不跟随浮动最新版。
 
 ### 适用场景
 

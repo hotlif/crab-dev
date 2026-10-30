@@ -263,6 +263,7 @@ describe("TablePro", () => {
             expect(container.querySelector('[data-testid="protocol-table-columns-error"]')).toBeTruthy();
         });
         expect(container.querySelector('[data-testid="protocol-table-loading"]')).toBeNull();
+        expect(container.querySelector('[role="alert"]')?.textContent).toContain('网络错误');
     });
     it("shows data error overlay when fetchData rejects", async () => {
         const fetchColumns = mock.fn<FetchColumnsFn>().resolve(COLUMNS);
@@ -272,6 +273,7 @@ describe("TablePro", () => {
             expect(container.querySelector('[data-testid="protocol-table-data-error"]')).toBeTruthy();
         });
         expect(container.querySelector('[data-testid="protocol-table-loading"]')).toBeNull();
+        expect(container.querySelector('[role="alert"]')?.textContent).toContain('服务器错误');
     });
     it("calls onError with source='columns' when fetchColumns rejects", async () => {
         type OnErrorFn = (error: Error, source: "columns" | "data") => void;

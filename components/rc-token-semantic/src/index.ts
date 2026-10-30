@@ -15,3 +15,14 @@ export { createBrandTheme, normalizeBrandColor } from './brand-theme.js';
 export type { BrandTheme, BrandThemeVariables } from './brand-theme.js';
 
 export default Token;
+
+export { designMetricsContract, designFieldContract, designShapeContract } from './design-geometry.js';
+export { designTypographyContract, designMotionContract } from './design-type-motion.js';
+export { themeSelectors, designThemeSelectors } from './design-system.js';
+
+export type { DesignMetrics, DesignField, DesignShape } from './design-geometry.js';
+export type { DesignTypography, DesignMotion } from './design-type-motion.js';
+export { designActionContract } from './design-actions.js';
+export type { ActionSize, ActionGeometry, ActionSizes } from './design-actions.js';
+export { desktopTimePickerContract } from './design-picker-time.js';
+export type { DesktopTimePickerContract } from './design-picker-time.js';

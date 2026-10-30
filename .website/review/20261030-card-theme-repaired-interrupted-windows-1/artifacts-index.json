@@ -1,0 +1,76 @@
+{
+  "type": "raw-interrupted-capture-archive-not-native-final-report",
+  "sourceRun": ".cache/visual/card-theme-repaired-18-windows-20261030-1",
+  "sourceFiles": [
+    {
+      "original": ".cache/visual/card-theme-repaired-18-windows-20261030-1/inputs-worker-0.json",
+      "archived": ".website/review/20261030-card-theme-repaired-interrupted-windows-1/raw-native-run/inputs-worker-0.json",
+      "sha256": "1d8e564cbc3e00a4d4cd36831bce32814f3ce816ed30f5bac5d9e72c2f49167c",
+      "bytes": 524925
+    },
+    {
+      "original": ".cache/visual/card-theme-repaired-18-windows-20261030-1/local-storage.json",
+      "archived": ".website/review/20261030-card-theme-repaired-interrupted-windows-1/raw-native-run/local-storage.json",
+      "sha256": "ab7dda4ea010288c11288f8533203c7feefd5333d6b7a0f86840a22c4cab995f",
+      "bytes": 130
+    },
+    {
+      "original": ".cache/visual/card-theme-repaired-18-windows-20261030-1/rendering-worker-0.json",
+      "archived": ".website/review/20261030-card-theme-repaired-interrupted-windows-1/raw-native-run/rendering-worker-0.json",
+      "sha256": "cd0dbbcfdc61100643fce317ff63367ca365fe714e2b52e335958f7a67e8e2eb",
+      "bytes": 384
+    },
+    {
+      "original": ".cache/visual/card-theme-repaired-18-windows-20261030-1/results/components-rc-card-docs-ca-1fdff-shadcn-dark-theme-retention-chromium/video.webm",
+      "archived": ".website/review/20261030-card-theme-repaired-interrupted-windows-1/raw-native-run/results/components-rc-card-docs-ca-1fdff-shadcn-dark-theme-retention-chromium/video.webm",
+      "sha256": "c769546d6537ed0114f57262f2fe2d9e85571544b7c6a74799e2c7893d78d4e6",
+      "bytes": 173393
+    },
+    {
+      "original": ".cache/visual/card-theme-repaired-18-windows-20261030-1/results/components-rc-card-docs-ca-39f0b-hadcn-light-theme-retention-chromium/video.webm",
+      "archived": ".website/review/20261030-card-theme-repaired-interrupted-windows-1/raw-native-run/results/components-rc-card-docs-ca-39f0b-hadcn-light-theme-retention-chromium/video.webm",
+      "sha256": "dd0050d82782b677d7fc15a5ab0491e556e871f49d2bc03df88a379f7fdf4132",
+      "bytes": 202167
+    },
+    {
+      "original": ".cache/visual/card-theme-repaired-18-windows-20261030-1/results/components-rc-card-docs-ca-423ed--apple-dark-theme-retention-chromium/video.webm",
+      "archived": ".website/review/20261030-card-theme-repaired-interrupted-windows-1/raw-native-run/results/components-rc-card-docs-ca-423ed--apple-dark-theme-retention-chromium/video.webm",
+      "sha256": "b665c0236be0964be04b02409ffd9edd0c234da9c5a11070409a5c61c19ae085",
+      "bytes": 169986
+    },
+    {
+      "original": ".cache/visual/card-theme-repaired-18-windows-20261030-1/results/components-rc-card-docs-ca-50802-apple-light-theme-retention-chromium/video.webm",
+      "archived": ".website/review/20261030-card-theme-repaired-interrupted-windows-1/raw-native-run/results/components-rc-card-docs-ca-50802-apple-light-theme-retention-chromium/video.webm",
+      "sha256": "3401adc63c2fd3f5bb2c0a7b137d729de3bfa4832e2d1e2496d982eb0c609cf5",
+      "bytes": 192497
+    },
+    {
+      "original": ".cache/visual/card-theme-repaired-18-windows-20261030-1/results/components-rc-card-docs-ca-bb51c-t-md3-light-theme-retention-chromium/video.webm",
+      "archived": ".website/review/20261030-card-theme-repaired-interrupted-windows-1/raw-native-run/results/components-rc-card-docs-ca-bb51c-t-md3-light-theme-retention-chromium/video.webm",
+      "sha256": "41b4187571557a7cdbb101a887aebc5412d51467e977f5b3181d48e7b8e5229c",
+      "bytes": 184974
+    },
+    {
+      "original": ".cache/visual/card-theme-repaired-18-windows-20261030-1/results/components-rc-card-docs-ca-bb51c-t-md3-light-theme-retention-firefox/error-context.md",
+      "archived": ".website/review/20261030-card-theme-repaired-interrupted-windows-1/raw-native-run/results/components-rc-card-docs-ca-bb51c-t-md3-light-theme-retention-firefox/error-context.md",
+      "sha256": "f7ac82b59a2199d7c9a6019a4bd087efa6cb38af7c45a083f73bf6022d7ed2b0",
+      "bytes": 800
+    },
+    {
+      "original": ".cache/visual/card-theme-repaired-18-windows-20261030-1/results/components-rc-card-docs-ca-bb51c-t-md3-light-theme-retention-firefox/trace.zip",
+      "archived": ".website/review/20261030-card-theme-repaired-interrupted-windows-1/raw-native-run/results/components-rc-card-docs-ca-bb51c-t-md3-light-theme-retention-firefox/trace.zip",
+      "sha256": "76973bfa9d0f845d05f531cc62e0a260968fefcb67d142737c0bcf26201134cf",
+      "bytes": 1961
+    },
+    {
+      "original": ".cache/visual/card-theme-repaired-18-windows-20261030-1/results/components-rc-card-docs-ca-c868f-nt-md3-dark-theme-retention-chromium/video.webm",
+      "archived": ".website/review/20261030-card-theme-repaired-interrupted-windows-1/raw-native-run/results/components-rc-card-docs-ca-c868f-nt-md3-dark-theme-retention-chromium/video.webm",
+      "sha256": "3e6eb59088f6f3f70aad859db6a8f323dd2a0726cb989d52053a24ec07228871",
+      "bytes": 198226
+    }
+  ],
+  "completedNativeReport": false,
+  "retainedNativeVideos": 6,
+  "retainedOriginalPngs": 0,
+  "limits": "6 Chromium progress pass lines and finalized videos; one Firefox180000ms startup failure/trace, subsequent interrupted/not-run, WebKit not-run. No results.json/cases.json/HTML/RAF recovery fabricated."
+}

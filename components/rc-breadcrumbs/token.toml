@@ -10,7 +10,7 @@ imports = [
 # ─── 容器 ────────────────────────────────────────────────────────────────────
 root.font-size = "$ref(typography.body.font-size)"
 root.line-height = "$ref(typography.label.line-height)"
-root.gap = "$ref(space.inline-gap)"
+root.gap = "$ref(density.gap)"
 
 # ─── 颜色 ────────────────────────────────────────────────────────────────────
 item.color = "$ref(color.text.secondary)"

@@ -65,6 +65,40 @@ export const demos = [
         "group": "标签与状态"
     },
     {
+        "id": "docs/demos/visual-matrix.demo.tsx",
+        "title": "输入状态矩阵",
+        "description": "同一字段树对照 outlined 与 filled，尺寸、设计和明暗变化保留已输入的草稿。",
+        "learning": {
+            "components": [
+                "LineEdit"
+            ],
+            "props": [
+                "appearance",
+                "label",
+                "placeholder",
+                "value",
+                "type",
+                "bordered",
+                "onValueChange",
+                "allowClear",
+                "disabled",
+                "readOnly",
+                "status",
+                "errorText"
+            ],
+            "events": [
+                "onValueChange"
+            ],
+            "hasState": true
+        },
+        "sourceCode": "import { css, cx } from \"@crab-dev/css\";\nimport LineEdit from \"@crab-dev/rc-line-edit\";\nimport { useConfig } from \"@crab-dev/rc-config-provider\";\nimport token from \"@crab-dev/rc-token-semantic\";\nimport { useId, useState } from \"react\";\n\nexport const meta = {\n    title: \"输入状态矩阵\",\n    description: \"同一字段树对照 outlined 与 filled，尺寸、设计和明暗变化保留已输入的草稿。\",\n};\nconst scene = css`\n    display: grid; gap: ${token.space['group-gap']};\n    padding: ${token.space['group-gap']};\n    max-width: calc(${token.size[40]} * 18);\n    background-color: ${token.color.background.surface}; color: ${token.color.text.primary};\n`;\nconst fields = css`\n    display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));\n    /* The sampled stage includes floating labels and outer focus rings. */\n    box-sizing: border-box; padding: ${token.space['group-gap']};\n    min-inline-size: 0;\n    align-items: start; gap: ${token.space['group-gap']};\n`;\nconst embeddedHost = css`\n    background-color: ${token.color.background.elevated};\n    border-radius: ${token.shape.control};\n`;\nconst states = [\"default\", \"hover\", \"focus-visible\", \"filled\", \"clear\", \"error\", \"filled-error\", \"warning\", \"filled-warning\", \"disabled\", \"disabled-filled\", \"read-only\", \"read-only-filled\", \"password-hidden\", \"password-visible\", \"borderless-focus\"] as const;\n\nexport default function VisualMatrixDemo() {\n    const { locale } = useConfig();\n    const [state, setState] = useState\u003ctypeof states[number]>(\"default\");\n    const [value, setValue] = useState(\"\");\n    const id = useId();\n    const english = locale === \"en-US\";\n    const disabled = state === \"disabled\" || state === \"disabled-filled\";\n    const readOnly = state === \"read-only\" || state === \"read-only-filled\";\n    const password = state === \"password-hidden\" || state === \"password-visible\";\n    const embedded = state === \"borderless-focus\";\n    const status = state === \"error\" || state === \"filled-error\" ? \"error\"\n        : state === \"warning\" || state === \"filled-warning\" ? \"warning\" : undefined;\n    return \u003csection className={scene} aria-label=\"LineEdit visual matrix\" data-visual-scene data-state={state}>\n        \u003cdiv>\u003clabel htmlFor={id}>验收状态\u003c/label>{\" \"}\u003cselect id={id} value={state} onChange={event => {\n            const next = event.currentTarget.value;\n            if (states.some(item => item === next)) {\n                setState(next as typeof state);\n                if (next === \"filled\" || (value === \"\" && [\"read-only-filled\", \"disabled-filled\", \"filled-error\", \"filled-warning\", \"borderless-focus\"].includes(next))) {\n                    setValue(english ? \"Design workspace\" : \"设计工作台\");\n                }\n                if (value === \"\" && (next === \"password-hidden\" || next === \"password-visible\")) setValue(\"Crab-visual-42\");\n            }\n        }}>{states.map(item => \u003coption key={item}>{item}\u003c/option>)}\u003c/select>\u003c/div>\n        \u003cdiv className={cx(fields, embedded && embeddedHost)} data-visual-frame data-visual-host={embedded || undefined}>\n            {([\"outlined\", \"filled\"] as const).map(appearance => \u003cLineEdit key={appearance}\n                appearance={appearance} label={`${english ? \"Project name\" : \"项目名称\"} · ${appearance}`}\n                placeholder={english ? \"Enter a project name\" : \"请输入项目名称\"}\n                value={value}\n                type={password ? \"password\" : \"text\"} bordered={!embedded}\n                onValueChange={setValue} allowClear\n                disabled={disabled} readOnly={readOnly}\n                status={status}\n                errorText={status === \"error\" ? (english ? \"Enter a valid project name.\" : \"请填写有效的项目名称。\") : undefined}\n                supportingText={english ? \"The name appears in the shared project list.\" : \"名称将显示在团队共享项目列表中。\"}\n            />)}\n        \u003c/div>\n    \u003c/section>;\n}\n",
+        "previewPath": "/components/rc-line-edit/workbench/?__wake_demo=docs%2Fdemos%2Fvisual-matrix.demo.tsx",
+        "workbenchPath": "/components/rc-line-edit/workbench/#/components/docs%2Fdemos%2Fvisual-matrix.demo.tsx",
+        "density": "regular",
+        "layout": "grid",
+        "group": "标签与状态"
+    },
+    {
         "id": "docs/demos/simple.demo.tsx",
         "title": "基础用法",
         "description": "Material 呈现浮动标签与描边缺口，Apple 与 shadcn 呈现上置标签和紧凑输入。通过顶部外观菜单统一切换。",

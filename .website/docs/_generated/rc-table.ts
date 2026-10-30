@@ -6,6 +6,45 @@ import type { ComponentDemoRecord } from "../site/componentDemos.js";
 
 export const demos = [
     {
+        "id": "docs/demos/visual-matrix.demo.tsx",
+        "title": "表格验收矩阵",
+        "description": "固定数据核对行密度、固定列、选择、展开、编辑及虚拟滚动。尺寸和密度由工作台独立切换。",
+        "learning": {
+            "components": [
+                "LineEdit",
+                "AutoSizer",
+                "Table"
+            ],
+            "props": [
+                "autoFocus",
+                "bordered",
+                "aria-label",
+                "value",
+                "onValueChange",
+                "onKeyDown",
+                "onBlur",
+                "width",
+                "height",
+                "rows",
+                "columns",
+                "onRowClick"
+            ],
+            "events": [
+                "onValueChange",
+                "onKeyDown",
+                "onBlur",
+                "onRowClick"
+            ],
+            "hasState": true
+        },
+        "sourceCode": "import { useState } from 'react';\nimport { css } from '@crab-dev/css';\nimport token from '@crab-dev/rc-token-semantic';\nimport AutoSizer from '@crab-dev/rc-auto-sizer';\nimport LineEdit from '@crab-dev/rc-line-edit';\nimport Table, { type ColumnType, type Row } from '@crab-dev/rc-table';\n\nexport const meta = {\n    title: '表格验收矩阵',\n    description: '固定数据核对行密度、固定列、选择、展开、编辑及虚拟滚动。尺寸和密度由工作台独立切换。',\n};\ninterface Order extends Row {\n    dataRef: { name: string; status: string; amount: number };\n}\nconst initialRows: Order[] = Array.from({ length: 80 }, (_, index) => ({\n    id: `order-${index + 1}`,\n    dataRef: {\n        name: `订单 ${String(index + 1).padStart(3, '0')} / Order`,\n        status: index % 2 ? '处理中 Processing' : '已完成 Ready',\n        amount: 1280 + index,\n    },\n}));\nconst frame = css`\n    width: 100%;\n    min-width: 0;\n    max-width: 800px;\n    padding: ${token.space['component-gap']};\n    box-sizing: border-box;\n    background: ${token.color.surface.content};\n    color: ${token.color.text.primary};\n`;\nconst measured = css`\n    width: 100%;\n    height: 300px;\n    min-width: 0;\n`;\nconst field = css`\n    width: 100%;\n    min-width: 0;\n`;\nexport default function VisualMatrixDemo() {\n    const [state, setState] = useState('default');\n    const [rows, setRows] = useState(initialRows);\n    const [activeOrder, setActiveOrder] = useState('尚未打开订单 / No order opened');\n    const columns: ColumnType\u003cOrder>[] = [\n        {\n            name: '$.name',\n            title: '项目 / Project',\n            width: 240,\n            fixed: 'left',\n            sortable: true,\n            editRender: ({ row, editorValue, onEditorValueChange, onCommit, onCancel }) => (\n                \u003cLineEdit\n                    autoFocus\n                    bordered={false}\n                    className={field}\n                    aria-label=\"订单名称草稿\"\n                    value={typeof editorValue === 'string' ? editorValue : row.dataRef.name}\n                    onValueChange={onEditorValueChange}\n                    onKeyDown={(event) => {\n                        if (event.key === 'Escape') {\n                            event.stopPropagation();\n                            onCancel?.();\n                        }\n                    }}\n                    onBlur={(event) => {\n                        const value = event.currentTarget.value;\n                        setRows((current) =>\n                            current.map((item) =>\n                                item.id === row.id ? { ...item, dataRef: { ...item.dataRef, name: value } } : item,\n                            ),\n                        );\n                        onCommit?.(value);\n                    }}\n                />\n            ),\n        },\n        { name: '$.status', title: '状态 / Status', width: 240 },\n        { name: '$.amount', title: '金额 / Amount', width: 180, align: 'right', sortable: true },\n    ];\n    return (\n        \u003c>\n            \u003clabel>\n                验收状态{' '}\n                \u003cselect aria-label=\"验收状态\" value={state} onChange={(event) => setState(event.target.value)}>\n                    \u003coption value=\"default\">已有数据\u003c/option>\n                    \u003coption value=\"empty\">空数据\u003c/option>\n                \u003c/select>\n            \u003c/label>\n            \u003csection aria-label=\"Table visual matrix\" className={frame}>\n                \u003cAutoSizer className={measured}>\n                    {({ width, height }) => (\n                        \u003cTable\n                            aria-label=\"订单验收表格\"\n                            width={width}\n                            height={height}\n                            rows={state === 'empty' ? [] : rows}\n                            columns={columns}\n                            onRowClick={(row) => setActiveOrder(row.dataRef.name)}\n                            editType=\"cell\"\n                            resizable\n                            showRowNumber\n                            rowSelection={{ type: 'checkbox' }}\n                            expandedRowHeight={80}\n                            expandedRowRender={(row) => (\n                                \u003cp>{row.dataRef.name}：固定日期 2026-10-29 的审批说明 / Review details\u003c/p>\n                            )}\n                        />\n                    )}\n                \u003c/AutoSizer>\n                \u003coutput aria-label=\"已打开订单\">{activeOrder}\u003c/output>\n            \u003c/section>\n        \u003c/>\n    );\n}\n",
+        "previewPath": "/components/rc-table/workbench/?__wake_demo=docs%2Fdemos%2Fvisual-matrix.demo.tsx",
+        "workbenchPath": "/components/rc-table/workbench/#/components/docs%2Fdemos%2Fvisual-matrix.demo.tsx",
+        "density": "regular",
+        "layout": "wide",
+        "group": "三体系验收"
+    },
+    {
         "id": "docs/demos/theme-states.demo.tsx",
         "title": "三套风格与选中状态",
         "description": "相同数据分别使用 MD3 Expressive、Apple 和 shadcn/ui；表头、分隔线、单元格留白及行选中配色随设计边界切换，窄屏可在各表格区域横向滚动。",

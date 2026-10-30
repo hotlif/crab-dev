@@ -1,0 +1,27 @@
+{
+    "previewDensity": "spacious",
+    "groups": [
+        {
+            "title": "三体系验收",
+            "demos": [
+                "visual-matrix.demo.tsx"
+            ]
+        },
+        {
+            "title": "文章与排版",
+            "demos": [
+                "basic.demo.tsx",
+                "size.demo.tsx",
+                "semantic-tag.demo.tsx",
+                "table.demo.tsx"
+            ]
+        },
+        {
+            "title": "主题与内容边界",
+            "demos": [
+                "visual-states.demo.tsx",
+                "scoped-content.demo.tsx"
+            ]
+        }
+    ]
+}

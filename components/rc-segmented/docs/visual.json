@@ -1,0 +1,44 @@
+{
+    "schemaVersion": 1,
+    "demo": "visual-matrix.demo.tsx",
+    "densities": [
+        "standard"
+    ],
+    "sizes": [
+        "small",
+        "medium",
+        "large"
+    ],
+    "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "pressed",
+        "selected",
+        "selected-hover",
+        "selected-pressed",
+        "disabled",
+        "item-disabled"
+    ],
+    "crossEngine": {
+        "sizes": [
+            "medium"
+        ],
+        "densities": [
+            "standard"
+        ],
+        "states": [
+            "default",
+            "focus-visible",
+            "selected",
+            "disabled"
+        ]
+    },
+    "notApplicable": {
+    "selected-focus-visible": "The focus-visible case uses native Tab and ArrowRight to select and focus Week; it already captures the selected keyboard-focus surface.",
+        "density": "Density belongs to the containing collection. Segmented geometry follows size without changing the selected value.",
+        "error": "Segmented has no field-validation appearance; the owning field provides validation text.",
+        "loading": "Async view loading belongs to the selected content region."
+    }
+}
+

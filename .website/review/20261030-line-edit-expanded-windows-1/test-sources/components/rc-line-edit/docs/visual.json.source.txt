@@ -1,0 +1,13 @@
+{
+    "schemaVersion": 1,
+    "demo": "visual-matrix.demo.tsx",
+    "sizes": ["small", "medium", "large"],
+    "densities": ["standard"],
+    "states": ["default", "hover", "focus-visible", "filled", "clear", "error", "filled-error", "warning", "filled-warning", "disabled", "disabled-filled", "read-only", "read-only-filled"],
+    "crossEngine": { "sizes": ["medium"], "densities": ["standard"], "states": ["default", "focus-visible", "error", "clear", "read-only-filled"] },
+    "notApplicable": {
+        "density": "Field geometry follows public size; collection density does not resize standalone fields.",
+        "pressed": "Text fields receive text selection and caret interaction rather than an action pressed surface.",
+        "loading": "Asynchronous loading belongs to the owning form or selector."
+    }
+}

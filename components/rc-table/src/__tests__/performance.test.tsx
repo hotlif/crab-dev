@@ -40,9 +40,13 @@ const getGrid = (container: HTMLElement): HTMLElement => {
 
 describe("Table performance regressions", () => {
     it("does not rerender retained cells, headers, or summary values during vertical scroll", async () => {
+        const frames: FrameRequestCallback[] = [];
         mock.spyOn(globalThis, "requestAnimationFrame").implement((callback) => {
-            callback(performance.now());
-            return 1;
+            frames.push(callback);
+            return frames.length;
+        });
+        const flushFrames = () => act(async () => {
+            frames.splice(0).forEach(callback => callback(performance.now()));
         });
 
         let headerRenderCount = 0;
@@ -54,6 +58,7 @@ describe("Table performance regressions", () => {
         const renderSummary = mock.fn(({ rows }: { rows: Row[] }) => rows.length);
         const rows: ValueRow[] = Array.from({ length: 100 }, (_, index) => ({
             id: index,
+            height: 40,
             dataRef: { value: index },
         }));
         const columns: ColumnType<ValueRow>[] = [{
@@ -65,14 +70,16 @@ describe("Table performance regressions", () => {
         }];
 
         const { container, unmount } = await render(
-            <Table width={160} height={180} rows={rows} columns={columns} showSummary />
+            <Table width={160} height={180} headerRowHeight={40} summaryRowHeight={40} rows={rows} columns={columns} showSummary />
         );
+        await flushFrames();
         const initialCellRenders = renderCell.calls.calls.length;
         const initialHeaderRenders = headerRenderCount;
         expect(renderSummary).toHaveBeenCalledTimes(1);
 
         // 小幅滚动不跨越虚拟行边界，但仍会更新 RcVirtual 的 scroll state。
         await fireWheelEvent(getGrid(container), { deltaY: 5 });
+        await flushFrames();
 
         expect(renderCell).toHaveBeenCalledTimes(initialCellRenders);
         expect(headerRenderCount).toBe(initialHeaderRenders);
@@ -80,6 +87,7 @@ describe("Table performance regressions", () => {
 
         // 跨过一行边界时只允许新进入 overscan 窗口的行执行 render，保留行不能集体重渲染。
         await fireWheelEvent(getGrid(container), { deltaY: 35 });
+        await flushFrames();
         expect(renderCell.calls.calls.length - initialCellRenders).toBeLessThanOrEqual(2);
         expect(headerRenderCount).toBe(initialHeaderRenders);
         expect(renderSummary).toHaveBeenCalledTimes(1);

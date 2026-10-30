@@ -12,29 +12,13 @@ description: 修改或新增 components/ 下的组件包时使用。覆盖包结
 
 不适用：只改 `.website/docs/guides/` 正文（用 [docs-change](../docs-change/SKILL.md)）、只改令牌值（用 [token-change](../token-change/SKILL.md)）。
 
-## 先读
-
-- [组件规则](../../../components/AGENTS.md)：实现约束。本技能只给流程，不复述条文。
-- [公共 API](../../../.website/docs/guides/public-api.mdx)、[设计体系](../../../.website/docs/guides/design-styles.mdx)、[尺寸与密度](../../../.website/docs/guides/component-sizing.mdx)。
-- 目标包 `package.json`：`crab.requiredChecks`、`crab.docsDependencies`、`peerDependencies`。
-
-## 结构
-
-1. 包在 `components/rc-<name>/`，`package.json#name` 为 `@crab-dev/rc-<name>`。
-2. 源码 `src/{component}.tsx`、类型 `src/types.ts`、入口 `src/index.ts`、测试 `src/__tests__/`。
-3. 文档 `docs/index.mdx`，示例 `docs/demos/*.demo.tsx`；`docs/preview.tsx`、`docs/theme.css` 按需存在。
-4. `token.toml` 生成 `src/token.ts`；`wake library docgen` 生成 `public/docgen.json`。两者都是生成物。
-5. `esm/`、`cjs/`、`declarations/`、`css/`、`coverage/`、`.wake/`、`.turbo/` 不是源码。
-
 ## 流程
 
-1. 先 `git status`：保留工作区已有改动，只动任务相关文件。
-2. 读实现与测试，确认导出面：主组件默认导出，类型、Hook、工具具名导出；跨包能力优先复用 `@crab-dev/rc-*` 并声明依赖。
-3. 改实现，遵守 Rules of React：ref 是普通 prop、`use(Context)`、默认不手写 `memo` / `useMemo` / `useCallback`；例外就近写类别与原因。
-4. 改样式：只动 `token.toml` 与静态 CSS；条件样式拆静态块并用 `cx()`；CSS 模板注释只用 `/* */`，不写 `//`。
-5. 同步 `src/types.ts`、`src/index.ts`、文档与示例。API 表由类型与 docgen 生成，不手写。
-6. 补测试：从具体源文件导入被测组件，API 来自 `@crab-dev/wake/test`；浮层、尺寸、动画用保留语义的最小替身。
-7. 跑验证（见下表）；用户可感知变化补 changeset（[release-change](../release-change/SKILL.md)）。
+1. 查看 `git status`，运行 `yarn ai:context <目标包或文件>`；读取返回的继承规则、包内说明与已有测试。新增包先按[组件规则](../../../components/AGENTS.md)建结构，再用 [library-inventory](../library-inventory/SKILL.md)登记。
+2. 确认导出面及调用方；仅接口变化时查[公共 API](../../../.website/docs/guides/public-api.mdx)，样式变化时查[设计体系](../../../.website/docs/guides/design-styles.mdx)与[尺寸密度](../../../.website/docs/guides/component-sizing.mdx)。
+3. 改实现并补行为回归；类型、导出、组件正文与 Demo 随影响同步。测试 API 与替身要求见组件规则，不在本技能重述。
+4. 涉及令牌使用 [token-change](../token-change/SKILL.md)，文档来源变化使用 [docs-change](../docs-change/SKILL.md)生成和检查；用户可感知变化按 [release-change](../release-change/SKILL.md)写 changeset。
+5. 跑下表检查，报告实际范围和未验证项。
 
 ## 验证
 

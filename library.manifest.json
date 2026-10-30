@@ -70,17 +70,28 @@
         {
             "id": "md3",
             "title": "MD3 Expressive",
-            "description": "采用 Material Design 3 Expressive 的组件与交互规则"
+            "description": "采用 Material Design 3 Expressive 的组件与交互规则",
+            "fullName": "Material Design 3 Expressive",
+            "source": "https://m3.material.io/"
         },
         {
             "id": "apple",
             "title": "Apple",
-            "description": "受 Apple 设计启发的自主 Web 规则，不声称复刻原生 macOS"
+            "description": "受 Apple 设计启发的自主 Web 规则，不声称复刻原生 macOS",
+            "fullName": "Apple",
+            "source": "https://developer.apple.com/design/human-interface-guidelines/"
         },
         {
             "id": "shadcn",
             "title": "shadcn/ui",
-            "description": "受 shadcn/ui 启发的中性 Web 设计规则"
+            "description": "受 shadcn/ui 启发的中性 Web 设计规则",
+            "fullName": "shadcn/ui",
+            "source": "https://ui.shadcn.com/",
+            "reference": {
+                "variant": "new-york-v4",
+                "revision": "3d98900e9b73c45f035f8109e9d41ba6a51685e7",
+                "reviewedAt": "2026-10-23"
+            }
         }
     ],
     "packages": [
@@ -786,5 +797,6 @@
                 "shadcn": "not-applicable"
             }
         }
-    ]
+    ],
+    "defaultDesignSystem": "md3"
 }

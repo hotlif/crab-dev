@@ -59,7 +59,7 @@ export const demos = [
             ],
             "hasState": true
         },
-        "sourceCode": "export const meta = {\n    title: \"可选日期范围\",\n    description: \"限制单个日期只能在今天前后 7 天内选择；范围外的日期禁用。\",\n};\n\nimport { css } from \"@crab-dev/css\";\nimport { useState } from \"react\";\n\nimport DatePicker from \"../../src/datePicker/datePicker.js\";\nimport { formatTemporal } from \"../../src/util.js\";\n\nconst now = Temporal.Now.zonedDateTimeISO();\n\nconst SizeDemo = () => {\n    const [value, setValue] = useState\u003cTemporal.ZonedDateTime | null>(now);\n    return (\n        \u003cdiv\n            className={css`\n                display: flex;\n                flex-direction: column;\n                margin-bottom: 2rem;\n            `}\n        >\n            \u003cDatePicker\n                label=\"计划日期\"\n                supportingText=\"只能选择今天前后 7 天内的一个日期。\"\n                value={value}\n                renderDisplayString={(value) => formatTemporal(value, \"yyyy-MM-dd\")}\n                range={{\n                    start: now.subtract({ days: 7 }),\n                    end: now.add({ days: 7 }),\n                }}\n                onValueChange={setValue}\n            />\n        \u003c/div>\n    )\n}\n\nexport default SizeDemo;\n",
+        "sourceCode": "import { toPickerDateTime } from '@crab-dev/rc-date-picker';\n\nexport const meta = {\n    title: \"可选日期范围\",\n    description: \"限制单个日期只能在今天前后 7 天内选择；范围外的日期禁用。\",\n};\n\nimport { css } from \"@crab-dev/css\";\nimport { useState } from \"react\";\n\nimport DatePicker from \"../../src/datePicker/datePicker.js\";\nimport { formatTemporal } from \"../../src/util.js\";\n\nconst now = toPickerDateTime(`${new Date().toISOString()}[${Intl.DateTimeFormat().resolvedOptions().timeZone}]`);\n\nconst SizeDemo = () => {\n    const [value, setValue] = useState\u003cTemporal.ZonedDateTime | null>(now);\n    return (\n        \u003cdiv\n            className={css`\n                display: flex;\n                flex-direction: column;\n                margin-bottom: 2rem;\n            `}\n        >\n            \u003cDatePicker\n                label=\"计划日期\"\n                supportingText=\"只能选择今天前后 7 天内的一个日期。\"\n                value={value}\n                renderDisplayString={(value) => formatTemporal(value, \"yyyy-MM-dd\")}\n                range={{\n                    start: now.subtract({ days: 7 }),\n                    end: now.add({ days: 7 }),\n                }}\n                onValueChange={setValue}\n            />\n        \u003c/div>\n    )\n}\n\nexport default SizeDemo;\n",
         "previewPath": "/components/rc-date-picker/workbench/?__wake_demo=docs%2Fdemos%2FdatePickerRange.demo.tsx",
         "workbenchPath": "/components/rc-date-picker/workbench/#/components/docs%2Fdemos%2FdatePickerRange.demo.tsx",
         "density": "regular",
@@ -82,7 +82,7 @@ export const demos = [
             "events": [],
             "hasState": false
         },
-        "sourceCode": "export const meta = {\n    title: \"日期面板\",\n    description: \"基础的日期选择面板组件示例。\",\n};\n\nimport DatePickerPanel from \"../../src/panels/datePickerPanel.js\";\n\n\nconst now = Temporal.Now.zonedDateTimeISO();\n\nconst SizeDemo = () => {\n\n    return (\n        \u003cdiv\n            style={{\n                width: 250\n            }}\n        >\n            \u003cDatePickerPanel\n                value={now}\n                weekStartDay={1}\n                range={{\n                    start: now.subtract({ days: 7 }),\n                    end: now.add({ days: 7 }),\n                }}\n            />\n        \u003c/div>\n    )\n}\n\nexport default SizeDemo;\n",
+        "sourceCode": "import { toPickerDateTime } from '@crab-dev/rc-date-picker';\n\nexport const meta = {\n    title: \"日期面板\",\n    description: \"基础的日期选择面板组件示例。\",\n};\n\nimport DatePickerPanel from \"../../src/panels/datePickerPanel.js\";\n\n\nconst now = toPickerDateTime(`${new Date().toISOString()}[${Intl.DateTimeFormat().resolvedOptions().timeZone}]`);\n\nconst SizeDemo = () => {\n\n    return (\n        \u003cdiv\n            style={{\n                width: 250\n            }}\n        >\n            \u003cDatePickerPanel\n                value={now}\n                weekStartDay={1}\n                range={{\n                    start: now.subtract({ days: 7 }),\n                    end: now.add({ days: 7 }),\n                }}\n            />\n        \u003c/div>\n    )\n}\n\nexport default SizeDemo;\n",
         "previewPath": "/components/rc-date-picker/workbench/?__wake_demo=docs%2Fdemos%2FdatePickerPanel.demo.tsx",
         "workbenchPath": "/components/rc-date-picker/workbench/#/components/docs%2Fdemos%2FdatePickerPanel.demo.tsx",
         "density": "regular",
@@ -130,7 +130,7 @@ export const demos = [
             "events": [],
             "hasState": false
         },
-        "sourceCode": "export const meta = {\n    title: \"日期时间面板\",\n    description: \"基础的日期时间选择面板组件示例。\",\n};\n\nimport DateTimePickerPanel from \"../../src/panels/dateTimePickerPanel.js\";\n\n\nconst now = Temporal.Now.zonedDateTimeISO();\n\nconst SizeDemo = () => {\n\n    return (\n        \u003cdiv>\n            \u003cDateTimePickerPanel\n                value={now}\n                weekStartDay={1}\n                range={{\n                    start: now.subtract({ days: 7 }),\n                    end: now.add({ days: 7 }),\n                }}\n            />\n        \u003c/div>\n    )\n}\n\nexport default SizeDemo;\n",
+        "sourceCode": "import { toPickerDateTime } from '@crab-dev/rc-date-picker';\n\nexport const meta = {\n    title: \"日期时间面板\",\n    description: \"基础的日期时间选择面板组件示例。\",\n};\n\nimport DateTimePickerPanel from \"../../src/panels/dateTimePickerPanel.js\";\n\n\nconst now = toPickerDateTime(`${new Date().toISOString()}[${Intl.DateTimeFormat().resolvedOptions().timeZone}]`);\n\nconst SizeDemo = () => {\n\n    return (\n        \u003cdiv>\n            \u003cDateTimePickerPanel\n                value={now}\n                weekStartDay={1}\n                range={{\n                    start: now.subtract({ days: 7 }),\n                    end: now.add({ days: 7 }),\n                }}\n            />\n        \u003c/div>\n    )\n}\n\nexport default SizeDemo;\n",
         "previewPath": "/components/rc-date-picker/workbench/?__wake_demo=docs%2Fdemos%2FdateTimePickerPanel.demo.tsx",
         "workbenchPath": "/components/rc-date-picker/workbench/#/components/docs%2Fdemos%2FdateTimePickerPanel.demo.tsx",
         "density": "regular",
@@ -208,7 +208,7 @@ export const demos = [
             ],
             "hasState": true
         },
-        "sourceCode": "\nexport const meta = {\n    title: \"时间面板\",\n    description: \"一个基础的时间选择面板组件\",\n};\n\nimport { useState } from \"react\";\nimport TimePickerPanel, { type TimePickerValue } from \"../../src/panels/timePickerPanel.js\";\n\n\nconst now = Temporal.Now.zonedDateTimeISO();\n\nconst SizeDemo = () => {\n    const [value, setValue] = useState\u003cTimePickerValue | null>({\n        hour: now.hour,\n        minute: now.minute,\n        second: now.second\n    });\n\n    return \u003cTimePickerPanel value={value} onValueChange={setValue} />;\n}\n\nexport default SizeDemo;\n",
+        "sourceCode": "\n\nexport const meta = {\n    title: \"时间面板\",\n    description: \"一个基础的时间选择面板组件\",\n};\n\nimport { useState } from \"react\";\nimport TimePickerPanel, { type TimePickerValue } from \"../../src/panels/timePickerPanel.js\";\n\n\nconst now = new Date();\n\nconst SizeDemo = () => {\n    const [value, setValue] = useState\u003cTimePickerValue | null>({\n        hour: now.getHours(),\n        minute: now.getMinutes(),\n        second: now.getSeconds()\n    });\n\n    return \u003cTimePickerPanel value={value} onValueChange={setValue} />;\n}\n\nexport default SizeDemo;\n",
         "previewPath": "/components/rc-date-picker/workbench/?__wake_demo=docs%2Fdemos%2FtimePickerPanel.demo.tsx",
         "workbenchPath": "/components/rc-date-picker/workbench/#/components/docs%2Fdemos%2FtimePickerPanel.demo.tsx",
         "density": "regular",
@@ -244,5 +244,36 @@ export const demos = [
         "density": "regular",
         "layout": "wide",
         "group": "标签与状态"
+    },
+    {
+        "id": "docs/demos/visual-matrix.demo.tsx",
+        "title": "日期与时间状态矩阵",
+        "description": "固定业务日期对照日期、日期时间、表盘与时间输入，保留真实选择草稿和确认行为。",
+        "learning": {
+            "components": [
+                "DatePicker",
+                "DateTimePicker",
+                "TimePicker"
+            ],
+            "props": [
+                "label",
+                "aria-label",
+                "timeZone",
+                "value",
+                "onValueChange",
+                "range",
+                "panelProps"
+            ],
+            "events": [
+                "onValueChange"
+            ],
+            "hasState": true
+        },
+        "sourceCode": "import { css } from '@crab-dev/css';\nimport DatePicker, { DateTimePicker, TimePicker, toPickerDateTime } from '@crab-dev/rc-date-picker';\nimport { useConfig } from '@crab-dev/rc-config-provider';\nimport token from '@crab-dev/rc-token-semantic';\nimport { useId, useState } from 'react';\n\nexport const meta = { title: '日期与时间状态矩阵', description: '固定业务日期对照日期、日期时间、表盘与时间输入，保留真实选择草稿和确认行为。' };\nconst frame = css`display: grid; gap: ${token.space['group-gap']}; padding: ${token.space['group-gap']}; background: ${token.color.background.surface}; color: ${token.color.text.primary}; max-width: calc(${token.size[40]} * 13); min-width: 0;`;\nexport default function VisualMatrixDemo() {\n    const { locale } = useConfig();\n    const [state, setState] = useState('default');\n    const [date, setDate] = useState\u003cReturnType\u003ctypeof toPickerDateTime> | null>(() => toPickerDateTime('2026-06-15T09:30:00+08:00[Asia/Shanghai]'));\n    const [dateTime, setDateTime] = useState(date);\n    const [time, setTime] = useState\u003c{ hour: number; minute: number; second: number } | null>({ hour: 9, minute: 30, second: 15 });\n    const [timePreset, setTimePreset] = useState('24-dial');\n    const id = useId();\n    const timeId = useId();\n    const english = locale === 'en-US';\n    const common = { disabled: state === 'disabled', status: state === 'error' ? 'error' as const : state === 'warning' ? 'warning' as const : undefined, errorText: state === 'error' ? (english ? 'Choose an available date or time.' : '请选择可用日期或时间。') : undefined, supportingText: english ? 'Confirm to save the selection.' : '确认后保存选择，取消保留原值。' };\n    return \u003csection className={frame} aria-label=\"DatePicker visual matrix\" data-visual-scene data-state={state}>\n        \u003cdiv>\u003clabel htmlFor={id}>验收状态\u003c/label>{' '}\u003cselect id={id} value={state} onChange={event => setState(event.currentTarget.value)}>{['default', 'disabled', 'error', 'warning'].map(value => \u003coption key={value}>{value}\u003c/option>)}\u003c/select>\u003c/div>\n        \u003cDatePicker {...common} label={english ? 'Schedule date' : '计划日期'} aria-label=\"计划日期\" timeZone=\"Asia/Shanghai\" value={date} onValueChange={setDate} range={{ start: toPickerDateTime('2026-06-05T00:00:00+08:00[Asia/Shanghai]'), end: toPickerDateTime('2026-07-25T23:59:00+08:00[Asia/Shanghai]') }} />\n        \u003cDateTimePicker {...common} label={english ? 'Schedule date and time' : '计划日期时间'} aria-label=\"计划日期时间\" timeZone=\"Asia/Shanghai\" value={dateTime} onValueChange={setDateTime} panelProps={{ timePanelProps: { hourCycle: timePreset.startsWith('12') ? 12 : 24, showSeconds: !timePreset.endsWith('input') } }} />\n        \u003cTimePicker {...common} label={english ? 'Time dial' : '表盘时间'} aria-label=\"表盘时间\" value={time} onValueChange={setTime} panelProps={{ hourCycle: timePreset.startsWith('12') ? 12 : 24, defaultMode: timePreset.endsWith('dial') ? 'dial' : 'input', showSeconds: timePreset.endsWith('seconds') }} />\n        \u003cTimePicker {...common} label={english ? 'Time with seconds' : '秒精度时间'} aria-label=\"秒精度时间\" value={time} onValueChange={setTime} panelProps={{ defaultMode: 'input', showSeconds: true, hourCycle: 12 }} />\n        \u003cdiv>\u003clabel htmlFor={timeId}>时间配置\u003c/label>{' '}\u003cselect id={timeId} value={timePreset} onChange={event => setTimePreset(event.currentTarget.value)}>{['24-dial', '12-dial', '24-input', '12-input', '24-seconds', '12-seconds'].map(value => \u003coption key={value}>{value}\u003c/option>)}\u003c/select>\u003c/div>\n        \u003coutput aria-live=\"polite\">{date?.toPlainDate().toString() ?? '未选择日期'} · {time ? `${time.hour}:${time.minute}:${time.second}` : '未选择时间'}\u003c/output>\n    \u003c/section>;\n}\n",
+        "previewPath": "/components/rc-date-picker/workbench/?__wake_demo=docs%2Fdemos%2Fvisual-matrix.demo.tsx",
+        "workbenchPath": "/components/rc-date-picker/workbench/#/components/docs%2Fdemos%2Fvisual-matrix.demo.tsx",
+        "density": "regular",
+        "layout": "wide",
+        "group": "视觉验收"
     }
 ] as const satisfies readonly ComponentDemoRecord[];

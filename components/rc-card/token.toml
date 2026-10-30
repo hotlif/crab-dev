@@ -8,7 +8,7 @@ imports = [
 [token]
 
 # ─── 表面 ────────────────────────────────────────────────────────────────────
-# Material Web：elevated 使用 surface-container-low，outlined 使用 surface。
+# M3 Card 基线：elevated 使用 surface-container-low，outlined 使用 surface。
 
 surface.background-color = "$ref(color.surface.content)"
 elevated.background-color = "var(--card-surface-background-color, $ref(color.surface.low))"
@@ -73,7 +73,7 @@ header.title.color = "$ref(color.text.primary)"
 header.title.font-weight = "$ref(typography.title.large.emphasized.font-weight)"
 
 # ─── 正文区 ──────────────────────────────────────────────────────────────────
-# L2 未定义 line-height 语义令牌，正文行高取静态 1.6。
+# 正文与标题分别引用语义字阶，避免组件内维护另一份行高。
 
 body.color       = "$ref(color.text.primary)"
 body.font-size   = "$ref(typography.body.font-size)"
@@ -105,7 +105,7 @@ meta.desc.font-size = "$ref(typography.caption.font-size)"
 # ─── 动效 ────────────────────────────────────────────────────────────────────
 # 状态反馈统一 interaction，封面缩放使用 expand。
 
-root.transition  = "transform $ref(motion.spatial.fast), box-shadow $ref(motion.interaction), border-color $ref(motion.interaction), background-color $ref(motion.interaction)"
+root.transition  = "transform $ref(motion.spatial.fast), box-shadow $ref(motion.interaction), border-color $ref(motion.interaction)"
 cover.transition = "transform $ref(motion.expand)"
 
 # ─── 焦点环 ──────────────────────────────────────────────────────────────────
@@ -121,3 +121,7 @@ interaction.touch.min-height = "$ref(size.touch-target)"
 interaction.outline-color-focus = "$ref(color.focus.ring)"
 interaction.outline-width-focus = "2px"
 interaction.outline-offset-focus = "2px"
+
+header.title.line-height = "$ref(typography.title.medium.line-height)"
+meta.title.line-height = "$ref(typography.body.line-height)"
+meta.desc.line-height = "$ref(typography.caption.line-height)"

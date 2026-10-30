@@ -13,14 +13,13 @@
         "generate:docs": "node scripts/generate/generate-component-docs.mjs",
         "check:docs": "node scripts/generate/generate-component-docs.mjs --check",
         "test:generator": "node scripts/generate/generate-component-docs.test.mjs",
-        "typecheck": "node ../scripts/typecheck.mjs --noEmit",
+        "typecheck": "tsc --noEmit",
         "test": "yarn test:generator && yarn test:build && yarn check:docs && wake test --serial",
         "preview": "node scripts/dev/preview-docs.mjs",
         "lint": "wake lint --format human --root .. .website/docs --env browser --max-warnings 0 && wake lint --format human --root .. .website/scripts --env browser --env node --max-warnings 0",
         "check": "node ../scripts/check-package.mjs"
     },
     "devDependencies": {
-        "@babel/generator": "^7.29.8",
         "@babel/parser": "^7.29.8",
         "@crab-dev/css": "0.1.45",
         "@crab-dev/rc-alert": "workspace:^",
@@ -85,7 +84,7 @@
         "globals": "^17.12.0",
         "react": "19.3.0",
         "react-dom": "19.3.0",
-        "typescript": "^7.0.2"
+        "typescript": "6.0.2"
     },
     "engines": {
         "node": ">=22"

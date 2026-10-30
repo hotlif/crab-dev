@@ -1,0 +1,40 @@
+{
+    "schemaVersion": 1,
+    "demo": "visual-matrix.demo.tsx",
+    "sizes": [
+        "medium"
+    ],
+    "densities": [
+        "standard"
+    ],
+    "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "arrow",
+        "long-text"
+    ],
+    "crossEngine": {
+        "sizes": [
+            "medium"
+        ],
+        "densities": [
+            "standard"
+        ],
+        "states": [
+            "default",
+            "hover",
+            "focus-visible",
+            "long-text"
+        ]
+    },
+    "notApplicable": {
+        "size": "Tooltip has no public size prop; trigger sizing belongs to the wrapped control.",
+        "density": "Plain tooltip typography and padding are independent of collection density.",
+        "pressed": "A tooltip supplements its trigger and does not activate a command.",
+        "disabled": "Disabled trigger behavior belongs to its control; a tooltip has no disabled prop.",
+        "selected": "A tooltip does not select data.",
+        "error": "Required errors belong to persistent field descriptions.",
+        "loading": "A tooltip does not load content or actions."
+    }
+}

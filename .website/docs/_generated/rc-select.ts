@@ -6,6 +6,38 @@ import type { ComponentDemoRecord } from "../site/componentDemos.js";
 
 export const demos = [
     {
+        "id": "docs/demos/visual-matrix.demo.tsx",
+        "title": "三体系状态矩阵",
+        "description": "同一字段对照真实键盘、选择、搜索、校验与加载状态。",
+        "learning": {
+            "components": [
+                "Select"
+            ],
+            "props": [
+                "aria-label",
+                "label",
+                "multiple",
+                "options",
+                "allowClear",
+                "defaultValue",
+                "disabled",
+                "loading",
+                "searchable",
+                "errorText",
+                "status",
+                "supportingText"
+            ],
+            "events": [],
+            "hasState": true
+        },
+        "sourceCode": "import { useState } from \"react\";\nimport { css } from \"@crab-dev/css\";\nimport token from \"@crab-dev/rc-token-semantic\";\nimport Select from \"@crab-dev/rc-select\";\n\nexport const meta = { title: \"三体系状态矩阵\", description: \"同一字段对照真实键盘、选择、搜索、校验与加载状态。\" };\nconst layout = css`\n    display: grid;\n    gap: ${token.space['section-gap']};\n    padding: ${token.space['section-gap']};\n    width: min(100%, 28rem);\n    min-height: 24rem;\n    box-sizing: border-box;\n`;\nconst options = [\n    { label: \"设计 Design\", value: \"design\" },\n    { label: \"工程 Engineering\", value: \"engineering\" },\n    { label: \"归档 Archived\", value: \"archived\", disabled: true },\n];\nexport default function VisualMatrixDemo() {\n    const [state, setState] = useState(\"default\");\n    return \u003csection aria-label=\"Select visual matrix\" className={layout}>\n        \u003clabel>验收状态\u003cselect aria-label=\"验收状态\" value={state} onChange={event => setState(event.target.value)}>\n            {[\"default\", \"error\", \"warning\", \"disabled\", \"multiple\", \"empty\", \"loading\"].map(value => \u003coption key={value}>{value}\u003c/option>)}\n        \u003c/select>\u003c/label>\n        {state === \"multiple\" ? \u003cSelect aria-label=\"团队\" label=\"团队 Team\" multiple options={options} allowClear defaultValue={[\"design\", \"engineering\"]} /> : \u003cSelect\n            aria-label=\"团队\" label=\"团队 Team\" options={state === \"empty\" || state === \"loading\" ? [] : options}\n            disabled={state === \"disabled\"} loading={state === \"loading\"} searchable allowClear\n            errorText={state === \"error\" ? \"请选择一个有效团队。\" : undefined} status={state === \"warning\" ? \"warning\" : undefined}\n            supportingText=\"选择负责本次交付的团队。\" placeholder=\"搜索或选择团队\"\n        />}\n        \u003cSelect aria-label=\"填充团队\" label=\"填充团队\" options={options} appearance=\"filled\" defaultValue=\"design\" supportingText=\"同一配置边界内的填充外观。\" />\n        \u003coutput aria-label=\"状态说明\">配置切换保留当前选择和输入草稿。\u003c/output>\n    \u003c/section>;\n}\n",
+        "previewPath": "/components/rc-select/workbench/?__wake_demo=docs%2Fdemos%2Fvisual-matrix.demo.tsx",
+        "workbenchPath": "/components/rc-select/workbench/#/components/docs%2Fdemos%2Fvisual-matrix.demo.tsx",
+        "density": "compact",
+        "layout": "wide",
+        "group": "标签与状态"
+    },
+    {
         "id": "docs/demos/field-states.demo.tsx",
         "title": "标签与选择状态",
         "description": "对照三套主题下的静态或浮动标签、选择面板、错误及禁用状态；切换主题保留当前值。",

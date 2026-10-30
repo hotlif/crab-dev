@@ -8,7 +8,7 @@ import Button from '../../src/index.js';
 import { css } from '@crab-dev/css';
 import { Plus, Pencil, Trash2, Search, Settings } from 'lucide-react';
 
-const CircleDemo = () => {
+const CircleDemo = ({ isSelected }: { isSelected?: boolean }) => {
     return (
         <div
             className={css`
@@ -24,9 +24,9 @@ const CircleDemo = () => {
                     gap: 0.75rem;
                 `}
             >
-                <Button appearance="primary" shape="circle" aria-label="新增" icon={<Plus />} size="m" />
-                <Button appearance="primary" shape="circle" aria-label="新增" icon={<Plus />} />
-                <Button appearance="primary" shape="circle" aria-label="新增" icon={<Plus />} size="xs" />
+                <Button appearance="primary" shape="circle" aria-label="新增" icon={<Plus />} size="m" isSelected={isSelected} />
+                <Button appearance="primary" shape="circle" aria-label="新增" icon={<Plus />} isSelected={isSelected} />
+                <Button appearance="primary" shape="circle" aria-label="新增" icon={<Plus />} size="xs" isSelected={isSelected} />
             </div>
 
             <div

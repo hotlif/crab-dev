@@ -1,0 +1,42 @@
+{
+    "groups": [
+        {
+            "title": "三体系验收",
+            "demos": [
+                "visual-matrix.demo.tsx"
+            ]
+        },
+        {
+            "title": "业务实战",
+            "demos": [
+                "order-operations.demo.tsx",
+                "inventory-planning.demo.tsx",
+                "receivables-review.demo.tsx"
+            ]
+        },
+        {
+            "title": "基础与数据",
+            "demos": [
+                "basic.demo.tsx",
+                "visual-states.demo.tsx",
+                "type-loaders.demo.tsx",
+                "auto-refresh.demo.tsx"
+            ]
+        },
+        {
+            "title": "工作区能力",
+            "demos": [
+                "search-bar.demo.tsx",
+                "sidebar.demo.tsx",
+                "pagination.demo.tsx"
+            ]
+        },
+        {
+            "title": "导出与状态",
+            "demos": [
+                "export.demo.tsx",
+                "state-persistence.demo.tsx"
+            ]
+        }
+    ]
+}

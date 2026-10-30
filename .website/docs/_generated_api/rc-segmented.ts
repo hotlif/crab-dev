@@ -46,7 +46,7 @@ export interface SegmentedProps {
     "ref"?: Ref<HTMLDivElement>;
 
     /**
-     * 选项值, 选中后经 onValueChange 回传 与 defaultValue 互斥，不能同时提供。
+     * 暂无说明。 与 defaultValue 互斥，不能同时提供。
      */
     "value"?: SegmentedValue;
 

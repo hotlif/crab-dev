@@ -1,0 +1,54 @@
+{
+  "archivedAt": "2026-10-29T18:30:05.189Z",
+  "sourceFingerprint": "sha256:52aef56d2ebe4c73702bb3888df63c253dca99c166021dd5a3bad031e6d345d8",
+  "files": [
+    {
+      "source": "components/rc-number-edit/docs/number-edit.visual.spec.mjs",
+      "path": ".website/review/20261030-number-scientific-locks-representative-windows-1/test-sources/components/rc-number-edit/docs/number-edit.visual.spec.mjs.source.txt",
+      "sha256": "a9a2e8ae1a9652820da189ab7916db7575ff340eee94e4e1ac2192c3709daada",
+      "capturedSha256": "a9a2e8ae1a9652820da189ab7916db7575ff340eee94e4e1ac2192c3709daada",
+      "bytes": 18439,
+      "archiveMatches": true
+    },
+    {
+      "source": "components/rc-number-edit/docs/demos/visual-matrix.demo.tsx",
+      "path": ".website/review/20261030-number-scientific-locks-representative-windows-1/test-sources/components/rc-number-edit/docs/demos/visual-matrix.demo.tsx.source.txt",
+      "sha256": "edbe76012a1ec8d13681b34032ecedc3f3704709c9ee71c02479a7850c3924fb",
+      "capturedSha256": "edbe76012a1ec8d13681b34032ecedc3f3704709c9ee71c02479a7850c3924fb",
+      "bytes": 3994,
+      "archiveMatches": true
+    },
+    {
+      "source": "components/rc-number-edit/docs/visual.json",
+      "path": ".website/review/20261030-number-scientific-locks-representative-windows-1/test-sources/components/rc-number-edit/docs/visual.json.source.txt",
+      "sha256": "cfebe176273e5bce7678511c0fb5ad096ec9a8d98d9f02e8484fc22d70466d8f",
+      "capturedSha256": "cfebe176273e5bce7678511c0fb5ad096ec9a8d98d9f02e8484fc22d70466d8f",
+      "bytes": 1254,
+      "archiveMatches": true
+    },
+    {
+      "source": "components/rc-number-edit/src/numberEdit.tsx",
+      "path": ".website/review/20261030-number-scientific-locks-representative-windows-1/test-sources/components/rc-number-edit/src/numberEdit.tsx.source.txt",
+      "sha256": "ee7c9ad35ea04a4bf3b0e9ab21c02f5cc361da652645a24b107654fbe29f56a9",
+      "capturedSha256": "ee7c9ad35ea04a4bf3b0e9ab21c02f5cc361da652645a24b107654fbe29f56a9",
+      "bytes": 14472,
+      "archiveMatches": true
+    },
+    {
+      "source": "components/rc-number-edit/src/superscript.tsx",
+      "path": ".website/review/20261030-number-scientific-locks-representative-windows-1/test-sources/components/rc-number-edit/src/superscript.tsx.source.txt",
+      "sha256": "e9a8d869bf4eb439ac43bcf04aab6f99048d599b00690600504cee16fe198390",
+      "capturedSha256": "e9a8d869bf4eb439ac43bcf04aab6f99048d599b00690600504cee16fe198390",
+      "bytes": 840,
+      "archiveMatches": true
+    },
+    {
+      "source": "test/visual/content-geometry.mjs",
+      "path": ".website/review/20261030-number-scientific-locks-representative-windows-1/test-sources/test/visual/content-geometry.mjs.source.txt",
+      "sha256": "d401737042cb9d6793c30ebba3da0826146d55a5348441cb91e41392afbfb58d",
+      "capturedSha256": "d401737042cb9d6793c30ebba3da0826146d55a5348441cb91e41392afbfb58d",
+      "bytes": 3955,
+      "archiveMatches": true
+    }
+  ]
+}

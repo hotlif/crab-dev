@@ -1,0 +1,31 @@
+import { zoomTest, expect, configurations, openDemo, readVisualSpec, settleFiniteAnimations, captureZoom } from "../../../test/visual/component-fixture.mjs";
+
+const spec = await readVisualSpec(import.meta.url);
+for (const config of configurations) zoomTest(`${config.designSystem} ${config.colorMode} real zoom 200%`, { tag: ["@rc-menu", "@environment", "@chromium-only"], annotation: { type: "environment", description: JSON.stringify({ id: "zoom-200", ...config }) } }, async ({ page, previewOrigin, realZoom }, info) => {
+    await openDemo(page, previewOrigin, "rc-menu", spec.demo, config);
+    await realZoom.set200(page);
+    await page.getByLabel("验收模式", { exact: true }).selectOption("horizontal");
+    const parent = page.getByRole("button", { name: "项目 Projects", exact: true }); await parent.focus(); await parent.press("Enter");
+    await expect(parent).toHaveAttribute("aria-expanded", "true");
+    const active = page.getByRole("button", { name: "进行中 Active", exact: true }); await expect(active).toBeVisible(); await active.focus(); await active.press("Tab");
+    const archived = page.getByRole("button", { name: "归档 Archived", exact: true }); await expect(archived).toBeFocused(); await expect(archived).toBeInViewport();
+    expect(await archived.evaluate(node => node.matches(":focus-visible"))).toBe(true);
+    await settleFiniteAnimations(page);
+    const rect = await archived.boundingBox(), viewport = await page.evaluate(() => ({ width: globalThis.innerWidth, height: globalThis.innerHeight }));
+    expect(rect.x).toBeGreaterThanOrEqual(0); expect(rect.y).toBeGreaterThanOrEqual(0); expect(rect.x + rect.width).toBeLessThanOrEqual(viewport.width); expect(rect.y + rect.height).toBeLessThanOrEqual(viewport.height);
+    await captureZoom(page, realZoom, `${config.designSystem}-${config.colorMode}-zoom-200-submenu.png`, info);
+    await archived.press("Escape"); await expect(active).not.toBeVisible(); await expect(parent).toBeFocused();
+    await page.getByLabel("验收模式", { exact: true }).selectOption("inline");
+    await page.getByLabel("折叠导航", { exact: true }).check();
+    const collapsedParent = page.getByRole("menuitem", { name: "项目 Projects", exact: true });
+    await collapsedParent.focus(); await collapsedParent.press("Enter"); await expect(collapsedParent).toHaveAttribute("aria-expanded", "true");
+    const collapsedLeaf = page.getByRole("button", { name: "进行中 Active", exact: true }); await expect(collapsedLeaf).toBeVisible();
+    await collapsedLeaf.focus(); await collapsedLeaf.press("Tab"); await expect(archived).toBeFocused(); await expect(archived).toBeInViewport();
+    expect(await archived.evaluate(node => node.matches(":focus-visible"))).toBe(true);
+    await settleFiniteAnimations(page);
+    const popup = page.locator(`[id="${await collapsedParent.getAttribute("aria-controls")}"]`); const popupRect = await popup.boundingBox();
+    expect(popupRect.x).toBeGreaterThanOrEqual(0); expect(popupRect.y).toBeGreaterThanOrEqual(0); expect(popupRect.x + popupRect.width).toBeLessThanOrEqual(viewport.width); expect(popupRect.y + popupRect.height).toBeLessThanOrEqual(viewport.height);
+    await expect(popup.locator("xpath=ancestor-or-self::*[@data-crab-design][1]")).toHaveAttribute("data-crab-design", config.designSystem);
+    await captureZoom(page, realZoom, `${config.designSystem}-${config.colorMode}-zoom-200-collapsed-submenu.png`, info);
+    await archived.press("Escape"); await expect(collapsedLeaf).not.toBeVisible(); await expect(collapsedParent).toBeFocused();
+});

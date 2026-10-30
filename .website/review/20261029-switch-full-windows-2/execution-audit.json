@@ -1,0 +1,2270 @@
+{
+  "auditedAt": "2026-10-29T16:31:37.993Z",
+  "runId": "switch-full-windows-20261029-2",
+  "execution": {
+    "command": "yarn test:visual --package rc-switch --project chromium --workers 2",
+    "runId": "switch-full-windows-20261029-2",
+    "exitCode": 0,
+    "startedAt": "2026-10-29T16:24:57.5940780Z",
+    "endedAt": "2026-10-29T16:30:21.1324006Z",
+    "durationSeconds": 323.3510319,
+    "rawLog": "C:\\Users\\zhang\\Desktop\\crab-dev\\.tmp\\switch-full-windows-20261029-2\\formal.log",
+    "freeBytesBefore": 3397136384,
+    "freeBytesAfter": 3259289600
+  },
+  "plannedTests": 283,
+  "statuses": {
+    "passed": 283
+  },
+  "nativeStats": {
+    "startTime": "2026-10-29T16:25:07.566Z",
+    "duration": 312844.029,
+    "expected": 283,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "nativeErrors": [],
+  "matrixScope": "package",
+  "matrices": [
+    {
+      "package": "rc-switch",
+      "engine": "chromium",
+      "expected": 216,
+      "passed": 216,
+      "errors": [],
+      "allCellsPassed": true
+    }
+  ],
+  "environments": [
+    {
+      "package": "rc-switch",
+      "expected": 60,
+      "passed": 60,
+      "errors": [],
+      "allCellsPassed": true
+    }
+  ],
+  "contractErrors": [],
+  "workers": [
+    {
+      "file": "inputs-worker-0.json",
+      "declaredStable": true,
+      "scopes": {
+        "source": {
+          "before": "sha256:1d017d0c4c1ea6d35670210281647d5c5fd8f4d749884c7d33b888021417d810",
+          "after": "sha256:1d017d0c4c1ea6d35670210281647d5c5fd8f4d749884c7d33b888021417d810",
+          "stable": true
+        },
+        "artifact": {
+          "before": "sha256:69831c138b2af1787c171949e9110e39041a98eaede23b565ed7d8e17c80429d",
+          "after": "sha256:69831c138b2af1787c171949e9110e39041a98eaede23b565ed7d8e17c80429d",
+          "stable": true
+        }
+      },
+      "renderingFile": "rendering-worker-0.json",
+      "browserName": "chromium",
+      "browser": "156.0.8078.4"
+    },
+    {
+      "file": "inputs-worker-1.json",
+      "declaredStable": true,
+      "scopes": {
+        "source": {
+          "before": "sha256:1d017d0c4c1ea6d35670210281647d5c5fd8f4d749884c7d33b888021417d810",
+          "after": "sha256:1d017d0c4c1ea6d35670210281647d5c5fd8f4d749884c7d33b888021417d810",
+          "stable": true
+        },
+        "artifact": {
+          "before": "sha256:69831c138b2af1787c171949e9110e39041a98eaede23b565ed7d8e17c80429d",
+          "after": "sha256:69831c138b2af1787c171949e9110e39041a98eaede23b565ed7d8e17c80429d",
+          "stable": true
+        }
+      },
+      "renderingFile": "rendering-worker-1.json",
+      "browserName": "chromium",
+      "browser": "156.0.8078.4"
+    }
+  ],
+  "sourceFingerprints": [
+    "sha256:1d017d0c4c1ea6d35670210281647d5c5fd8f4d749884c7d33b888021417d810"
+  ],
+  "artifactFingerprints": [
+    "sha256:69831c138b2af1787c171949e9110e39041a98eaede23b565ed7d8e17c80429d"
+  ],
+  "allWorkersStable": true,
+  "allWorkersChromium156": true,
+  "zoom": [
+    {
+      "caseId": "fa242b81ff824cff60df-adf473bfe5b50704afe5/chromium/0",
+      "status": "passed",
+      "proof": {
+        "method": "chrome.tabs.setZoom",
+        "before": {
+          "viewportOption": null,
+          "innerWidth": 1264,
+          "innerHeight": 805,
+          "outerWidth": 1280,
+          "outerHeight": 900,
+          "devicePixelRatio": 1,
+          "htmlZoom": "1",
+          "bodyZoom": "1",
+          "visualViewportScale": 1,
+          "tabZoom": 1
+        },
+        "after": {
+          "viewportOption": null,
+          "innerWidth": 632,
+          "innerHeight": 402,
+          "outerWidth": 1280,
+          "outerHeight": 900,
+          "devicePixelRatio": 2,
+          "htmlZoom": "1",
+          "bodyZoom": "1",
+          "visualViewportScale": 1,
+          "tabZoom": 2
+        }
+      }
+    },
+    {
+      "caseId": "fa242b81ff824cff60df-53bbe8f2429fe3ff254c/chromium/0",
+      "status": "passed",
+      "proof": {
+        "method": "chrome.tabs.setZoom",
+        "before": {
+          "viewportOption": null,
+          "innerWidth": 1264,
+          "innerHeight": 805,
+          "outerWidth": 1280,
+          "outerHeight": 900,
+          "devicePixelRatio": 1,
+          "htmlZoom": "1",
+          "bodyZoom": "1",
+          "visualViewportScale": 1,
+          "tabZoom": 1
+        },
+        "after": {
+          "viewportOption": null,
+          "innerWidth": 632,
+          "innerHeight": 402,
+          "outerWidth": 1280,
+          "outerHeight": 900,
+          "devicePixelRatio": 2,
+          "htmlZoom": "1",
+          "bodyZoom": "1",
+          "visualViewportScale": 1,
+          "tabZoom": 2
+        }
+      }
+    },
+    {
+      "caseId": "fa242b81ff824cff60df-27af86ec1b4be5bc05f0/chromium/0",
+      "status": "passed",
+      "proof": {
+        "method": "chrome.tabs.setZoom",
+        "before": {
+          "viewportOption": null,
+          "innerWidth": 1264,
+          "innerHeight": 805,
+          "outerWidth": 1280,
+          "outerHeight": 900,
+          "devicePixelRatio": 1,
+          "htmlZoom": "1",
+          "bodyZoom": "1",
+          "visualViewportScale": 1,
+          "tabZoom": 1
+        },
+        "after": {
+          "viewportOption": null,
+          "innerWidth": 632,
+          "innerHeight": 402,
+          "outerWidth": 1280,
+          "outerHeight": 900,
+          "devicePixelRatio": 2,
+          "htmlZoom": "1",
+          "bodyZoom": "1",
+          "visualViewportScale": 1,
+          "tabZoom": 2
+        }
+      }
+    },
+    {
+      "caseId": "fa242b81ff824cff60df-11eefbea1c14836548ea/chromium/0",
+      "status": "passed",
+      "proof": {
+        "method": "chrome.tabs.setZoom",
+        "before": {
+          "viewportOption": null,
+          "innerWidth": 1264,
+          "innerHeight": 805,
+          "outerWidth": 1280,
+          "outerHeight": 900,
+          "devicePixelRatio": 1,
+          "htmlZoom": "1",
+          "bodyZoom": "1",
+          "visualViewportScale": 1,
+          "tabZoom": 1
+        },
+        "after": {
+          "viewportOption": null,
+          "innerWidth": 632,
+          "innerHeight": 402,
+          "outerWidth": 1280,
+          "outerHeight": 900,
+          "devicePixelRatio": 2,
+          "htmlZoom": "1",
+          "bodyZoom": "1",
+          "visualViewportScale": 1,
+          "tabZoom": 2
+        }
+      }
+    },
+    {
+      "caseId": "fa242b81ff824cff60df-843d60ca2433a63493e6/chromium/0",
+      "status": "passed",
+      "proof": {
+        "method": "chrome.tabs.setZoom",
+        "before": {
+          "viewportOption": null,
+          "innerWidth": 1264,
+          "innerHeight": 805,
+          "outerWidth": 1280,
+          "outerHeight": 900,
+          "devicePixelRatio": 1,
+          "htmlZoom": "1",
+          "bodyZoom": "1",
+          "visualViewportScale": 1,
+          "tabZoom": 1
+        },
+        "after": {
+          "viewportOption": null,
+          "innerWidth": 632,
+          "innerHeight": 402,
+          "outerWidth": 1280,
+          "outerHeight": 900,
+          "devicePixelRatio": 2,
+          "htmlZoom": "1",
+          "bodyZoom": "1",
+          "visualViewportScale": 1,
+          "tabZoom": 2
+        }
+      }
+    },
+    {
+      "caseId": "fa242b81ff824cff60df-47140a0276652c8d074a/chromium/0",
+      "status": "passed",
+      "proof": {
+        "method": "chrome.tabs.setZoom",
+        "before": {
+          "viewportOption": null,
+          "innerWidth": 1264,
+          "innerHeight": 805,
+          "outerWidth": 1280,
+          "outerHeight": 900,
+          "devicePixelRatio": 1,
+          "htmlZoom": "1",
+          "bodyZoom": "1",
+          "visualViewportScale": 1,
+          "tabZoom": 1
+        },
+        "after": {
+          "viewportOption": null,
+          "innerWidth": 632,
+          "innerHeight": 402,
+          "outerWidth": 1280,
+          "outerHeight": 900,
+          "devicePixelRatio": 2,
+          "htmlZoom": "1",
+          "bodyZoom": "1",
+          "visualViewportScale": 1,
+          "tabZoom": 2
+        }
+      }
+    }
+  ],
+  "allSixRealZoomProofs": true,
+  "imageCount": 282,
+  "allImageHashesMatch": true,
+  "images": [
+    {
+      "caseId": "c9ebc3f7ae4608263fa6-324297dd9de24f4c6ea0/chromium/0",
+      "path": "screens/rc-switch/chromium/000002-2-actual.png",
+      "expectedHash": "7f1c9bee7397caf42f9a0587f37a925e82cbe1c0b16024270fa9d196b4fdf6c8",
+      "actualHash": "7f1c9bee7397caf42f9a0587f37a925e82cbe1c0b16024270fa9d196b4fdf6c8",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c9ebc3f7ae4608263fa6-72cf26dfc89e04074b6a/chromium/0",
+      "path": "screens/rc-switch/chromium/000003-2-actual.png",
+      "expectedHash": "3592f287324233def1aea63b15335141a880fdb753d1955b18858c9c061d1790",
+      "actualHash": "3592f287324233def1aea63b15335141a880fdb753d1955b18858c9c061d1790",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c9ebc3f7ae4608263fa6-5b8b0c1ca8c1d7c30af3/chromium/0",
+      "path": "screens/rc-switch/chromium/000004-2-actual.png",
+      "expectedHash": "3592f287324233def1aea63b15335141a880fdb753d1955b18858c9c061d1790",
+      "actualHash": "3592f287324233def1aea63b15335141a880fdb753d1955b18858c9c061d1790",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c9ebc3f7ae4608263fa6-e5754c6b6cf48f2e6f7d/chromium/0",
+      "path": "screens/rc-switch/chromium/000005-2-actual.png",
+      "expectedHash": "3592f287324233def1aea63b15335141a880fdb753d1955b18858c9c061d1790",
+      "actualHash": "3592f287324233def1aea63b15335141a880fdb753d1955b18858c9c061d1790",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c9ebc3f7ae4608263fa6-b4b8d602226e262d001e/chromium/0",
+      "path": "screens/rc-switch/chromium/000006-2-actual.png",
+      "expectedHash": "76d90af59bc11b5e6d72704927cf23bbad38e86209bf8af8fb49b20f479da67f",
+      "actualHash": "76d90af59bc11b5e6d72704927cf23bbad38e86209bf8af8fb49b20f479da67f",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c9ebc3f7ae4608263fa6-9143d74ba37717e2cdf2/chromium/0",
+      "path": "screens/rc-switch/chromium/000007-2-actual.png",
+      "expectedHash": "9a791c6b5d3111d946350597d97885b67a51d0f21a4f577f544c39c40b0be19d",
+      "actualHash": "9a791c6b5d3111d946350597d97885b67a51d0f21a4f577f544c39c40b0be19d",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c9ebc3f7ae4608263fa6-e3cd51744119462c0422/chromium/0",
+      "path": "screens/rc-switch/chromium/000008-2-actual.png",
+      "expectedHash": "073743f76aa5567165544107c8b3862a397e444bc806db5704f30988c81b80b3",
+      "actualHash": "073743f76aa5567165544107c8b3862a397e444bc806db5704f30988c81b80b3",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c9ebc3f7ae4608263fa6-4beb87a516e74848902e/chromium/0",
+      "path": "screens/rc-switch/chromium/000009-2-actual.png",
+      "expectedHash": "9c7bef31badb1241621733121f1e6e4ec144baf4dcdc90877095914235a36c5d",
+      "actualHash": "9c7bef31badb1241621733121f1e6e4ec144baf4dcdc90877095914235a36c5d",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c9ebc3f7ae4608263fa6-01a227a470e5ab1327d7/chromium/0",
+      "path": "screens/rc-switch/chromium/000010-2-actual.png",
+      "expectedHash": "3592f287324233def1aea63b15335141a880fdb753d1955b18858c9c061d1790",
+      "actualHash": "3592f287324233def1aea63b15335141a880fdb753d1955b18858c9c061d1790",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c9ebc3f7ae4608263fa6-53b69eb65b554322b05e/chromium/0",
+      "path": "screens/rc-switch/chromium/000011-2-actual.png",
+      "expectedHash": "6526ab1fcc0af209e6a7014801f10a456d99b92b7e104803d9c009602a78c15b",
+      "actualHash": "6526ab1fcc0af209e6a7014801f10a456d99b92b7e104803d9c009602a78c15b",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c9ebc3f7ae4608263fa6-57b19a495c00081a57bb/chromium/0",
+      "path": "screens/rc-switch/chromium/000012-2-actual.png",
+      "expectedHash": "a38798dc425d7aa6722d63819d14e6163269f11456b39f249bd659fbe916c849",
+      "actualHash": "a38798dc425d7aa6722d63819d14e6163269f11456b39f249bd659fbe916c849",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c9ebc3f7ae4608263fa6-848cf83f0630b9c4a11d/chromium/0",
+      "path": "screens/rc-switch/chromium/000013-2-actual.png",
+      "expectedHash": "a38798dc425d7aa6722d63819d14e6163269f11456b39f249bd659fbe916c849",
+      "actualHash": "a38798dc425d7aa6722d63819d14e6163269f11456b39f249bd659fbe916c849",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c9ebc3f7ae4608263fa6-0f36b338260f171b70c0/chromium/0",
+      "path": "screens/rc-switch/chromium/000014-2-actual.png",
+      "expectedHash": "a38798dc425d7aa6722d63819d14e6163269f11456b39f249bd659fbe916c849",
+      "actualHash": "a38798dc425d7aa6722d63819d14e6163269f11456b39f249bd659fbe916c849",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c9ebc3f7ae4608263fa6-3e15ff0b3d0f45bb63f3/chromium/0",
+      "path": "screens/rc-switch/chromium/000015-2-actual.png",
+      "expectedHash": "6b572a7177b8ae418aff3c28f88af7a1427450e3c396d4ba42661a8903516192",
+      "actualHash": "6b572a7177b8ae418aff3c28f88af7a1427450e3c396d4ba42661a8903516192",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c9ebc3f7ae4608263fa6-0da8e0e105d998b1d531/chromium/0",
+      "path": "screens/rc-switch/chromium/000016-2-actual.png",
+      "expectedHash": "042b63d63e5c22ecb31629c0850c581da51be541800bf74c6501915ab1beca36",
+      "actualHash": "042b63d63e5c22ecb31629c0850c581da51be541800bf74c6501915ab1beca36",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c9ebc3f7ae4608263fa6-f7fc1ffb6752c5940d3f/chromium/0",
+      "path": "screens/rc-switch/chromium/000017-2-actual.png",
+      "expectedHash": "26592797e776a58eef0429c9eaf81e2100b2b2dba8caf4959410414ea6b74730",
+      "actualHash": "26592797e776a58eef0429c9eaf81e2100b2b2dba8caf4959410414ea6b74730",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c9ebc3f7ae4608263fa6-6528ea273c63e7a5f271/chromium/0",
+      "path": "screens/rc-switch/chromium/000018-2-actual.png",
+      "expectedHash": "6c56c6ca662f02cd004470151f297f7f1b9f2bc7b650e7bca15bd3f482a887f8",
+      "actualHash": "6c56c6ca662f02cd004470151f297f7f1b9f2bc7b650e7bca15bd3f482a887f8",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c9ebc3f7ae4608263fa6-4d57eebd091f904018dc/chromium/0",
+      "path": "screens/rc-switch/chromium/000019-2-actual.png",
+      "expectedHash": "a38798dc425d7aa6722d63819d14e6163269f11456b39f249bd659fbe916c849",
+      "actualHash": "a38798dc425d7aa6722d63819d14e6163269f11456b39f249bd659fbe916c849",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c9ebc3f7ae4608263fa6-124f528244b4568577a9/chromium/0",
+      "path": "screens/rc-switch/chromium/000020-2-actual.png",
+      "expectedHash": "61a631a89929c5645bda30dc17bc9f95034c7ab158d86b3a5aed728271e12afc",
+      "actualHash": "61a631a89929c5645bda30dc17bc9f95034c7ab158d86b3a5aed728271e12afc",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c9ebc3f7ae4608263fa6-aca49b06c0ed47348bc1/chromium/0",
+      "path": "screens/rc-switch/chromium/000021-2-actual.png",
+      "expectedHash": "f89536218738f120cdc896f94a0b4e4d3cd27309b9df5aee32962a417e708384",
+      "actualHash": "f89536218738f120cdc896f94a0b4e4d3cd27309b9df5aee32962a417e708384",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c9ebc3f7ae4608263fa6-d7888b75517bffa6611a/chromium/0",
+      "path": "screens/rc-switch/chromium/000022-2-actual.png",
+      "expectedHash": "f89536218738f120cdc896f94a0b4e4d3cd27309b9df5aee32962a417e708384",
+      "actualHash": "f89536218738f120cdc896f94a0b4e4d3cd27309b9df5aee32962a417e708384",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c9ebc3f7ae4608263fa6-408e3e4d0424c246fd41/chromium/0",
+      "path": "screens/rc-switch/chromium/000023-2-actual.png",
+      "expectedHash": "f89536218738f120cdc896f94a0b4e4d3cd27309b9df5aee32962a417e708384",
+      "actualHash": "f89536218738f120cdc896f94a0b4e4d3cd27309b9df5aee32962a417e708384",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c9ebc3f7ae4608263fa6-7f68c7e5868889ba3271/chromium/0",
+      "path": "screens/rc-switch/chromium/000024-2-actual.png",
+      "expectedHash": "3d81aed6f5e03293698e6ba0603aa3f8e980f8e85343eed05b6effe946842513",
+      "actualHash": "3d81aed6f5e03293698e6ba0603aa3f8e980f8e85343eed05b6effe946842513",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c9ebc3f7ae4608263fa6-0ec054f91d5281fd1192/chromium/0",
+      "path": "screens/rc-switch/chromium/000025-2-actual.png",
+      "expectedHash": "bd468c9b23db7f8358532f830571e4887a0e60dabe06a3b5ba9c78efc01450e3",
+      "actualHash": "bd468c9b23db7f8358532f830571e4887a0e60dabe06a3b5ba9c78efc01450e3",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c9ebc3f7ae4608263fa6-8b8d227ae4baecc4a228/chromium/0",
+      "path": "screens/rc-switch/chromium/000026-2-actual.png",
+      "expectedHash": "2a1b0d921b597b0c372d04a2c8e8c88a3f8a5d94e41a55447458b1670cffbd5d",
+      "actualHash": "2a1b0d921b597b0c372d04a2c8e8c88a3f8a5d94e41a55447458b1670cffbd5d",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c9ebc3f7ae4608263fa6-28c6bce7872918c24234/chromium/0",
+      "path": "screens/rc-switch/chromium/000027-2-actual.png",
+      "expectedHash": "ca7e8108b59768fde48808e2d674aadfce37597b7e2f55c7ad3eeadcbebce1aa",
+      "actualHash": "ca7e8108b59768fde48808e2d674aadfce37597b7e2f55c7ad3eeadcbebce1aa",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c9ebc3f7ae4608263fa6-8339438d97848ac0c338/chromium/0",
+      "path": "screens/rc-switch/chromium/000028-2-actual.png",
+      "expectedHash": "f89536218738f120cdc896f94a0b4e4d3cd27309b9df5aee32962a417e708384",
+      "actualHash": "f89536218738f120cdc896f94a0b4e4d3cd27309b9df5aee32962a417e708384",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c9ebc3f7ae4608263fa6-cbe4b436505461465323/chromium/0",
+      "path": "screens/rc-switch/chromium/000029-2-actual.png",
+      "expectedHash": "8680fa88edfd75904c5b4d53821e98cfbc192e0bb6b66d0f1c186bb8f0f7fa6c",
+      "actualHash": "8680fa88edfd75904c5b4d53821e98cfbc192e0bb6b66d0f1c186bb8f0f7fa6c",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c9ebc3f7ae4608263fa6-3fe459cc136d573de4d2/chromium/0",
+      "path": "screens/rc-switch/chromium/000030-2-actual.png",
+      "expectedHash": "5826678111a15f3bf12dd186fa8101d502ca168d8045864c491f3535a792b28e",
+      "actualHash": "5826678111a15f3bf12dd186fa8101d502ca168d8045864c491f3535a792b28e",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c9ebc3f7ae4608263fa6-7de9a67af28cd3e27008/chromium/0",
+      "path": "screens/rc-switch/chromium/000031-2-actual.png",
+      "expectedHash": "5826678111a15f3bf12dd186fa8101d502ca168d8045864c491f3535a792b28e",
+      "actualHash": "5826678111a15f3bf12dd186fa8101d502ca168d8045864c491f3535a792b28e",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c9ebc3f7ae4608263fa6-b525e15b1bf60349e282/chromium/0",
+      "path": "screens/rc-switch/chromium/000032-2-actual.png",
+      "expectedHash": "5826678111a15f3bf12dd186fa8101d502ca168d8045864c491f3535a792b28e",
+      "actualHash": "5826678111a15f3bf12dd186fa8101d502ca168d8045864c491f3535a792b28e",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c9ebc3f7ae4608263fa6-39f8e884e4cad74cec0e/chromium/0",
+      "path": "screens/rc-switch/chromium/000033-2-actual.png",
+      "expectedHash": "fce5b44badb74d032ab5faac40a4ab7fa9460fc7b8500e0b51bf4ad4ff4476e9",
+      "actualHash": "fce5b44badb74d032ab5faac40a4ab7fa9460fc7b8500e0b51bf4ad4ff4476e9",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c9ebc3f7ae4608263fa6-e1bc6693dcba550842ed/chromium/0",
+      "path": "screens/rc-switch/chromium/000034-2-actual.png",
+      "expectedHash": "ad04758393ac56133700a3e5313aae18c92ee24e7a58973e175fd0c2523034c5",
+      "actualHash": "ad04758393ac56133700a3e5313aae18c92ee24e7a58973e175fd0c2523034c5",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c9ebc3f7ae4608263fa6-34f23c7fc16758db00dc/chromium/0",
+      "path": "screens/rc-switch/chromium/000035-2-actual.png",
+      "expectedHash": "5c393649a12b670136bf99803d4194a557c32472523cd14e9f76341c464f4835",
+      "actualHash": "5c393649a12b670136bf99803d4194a557c32472523cd14e9f76341c464f4835",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c9ebc3f7ae4608263fa6-4cc86d2de112990d393e/chromium/0",
+      "path": "screens/rc-switch/chromium/000036-2-actual.png",
+      "expectedHash": "abec503d57099cdb5c84a7e983f6848146ee5e16c9422100cb9787bd4558c057",
+      "actualHash": "abec503d57099cdb5c84a7e983f6848146ee5e16c9422100cb9787bd4558c057",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c9ebc3f7ae4608263fa6-48f9b41265accc46d6ca/chromium/0",
+      "path": "screens/rc-switch/chromium/000037-2-actual.png",
+      "expectedHash": "5826678111a15f3bf12dd186fa8101d502ca168d8045864c491f3535a792b28e",
+      "actualHash": "5826678111a15f3bf12dd186fa8101d502ca168d8045864c491f3535a792b28e",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c9ebc3f7ae4608263fa6-5be5cdc8ebdf9fe00e7e/chromium/0",
+      "path": "screens/rc-switch/chromium/000038-2-actual.png",
+      "expectedHash": "c58a434431b06537c59cb94c0e78e9cba3e8fbce01cbf8cff5fbe7c39cb43bd5",
+      "actualHash": "c58a434431b06537c59cb94c0e78e9cba3e8fbce01cbf8cff5fbe7c39cb43bd5",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c9ebc3f7ae4608263fa6-be237d58032932eeddd4/chromium/0",
+      "path": "screens/rc-switch/chromium/000039-2-actual.png",
+      "expectedHash": "8d1a74782c3857627008b95f342547b05095f9bff272f36d093b38d42d85c96b",
+      "actualHash": "8d1a74782c3857627008b95f342547b05095f9bff272f36d093b38d42d85c96b",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c9ebc3f7ae4608263fa6-6b88a3375207c13fa042/chromium/0",
+      "path": "screens/rc-switch/chromium/000040-2-actual.png",
+      "expectedHash": "8d1a74782c3857627008b95f342547b05095f9bff272f36d093b38d42d85c96b",
+      "actualHash": "8d1a74782c3857627008b95f342547b05095f9bff272f36d093b38d42d85c96b",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c9ebc3f7ae4608263fa6-96ec950b65a0b5195a41/chromium/0",
+      "path": "screens/rc-switch/chromium/000041-2-actual.png",
+      "expectedHash": "8d1a74782c3857627008b95f342547b05095f9bff272f36d093b38d42d85c96b",
+      "actualHash": "8d1a74782c3857627008b95f342547b05095f9bff272f36d093b38d42d85c96b",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c9ebc3f7ae4608263fa6-de1c8fb9650e09667e55/chromium/0",
+      "path": "screens/rc-switch/chromium/000042-2-actual.png",
+      "expectedHash": "88e3372cc2136353f56662df5a802aa9438ea63c82b4b450512ec66d00952623",
+      "actualHash": "88e3372cc2136353f56662df5a802aa9438ea63c82b4b450512ec66d00952623",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c9ebc3f7ae4608263fa6-a663353369fe9f23435b/chromium/0",
+      "path": "screens/rc-switch/chromium/000043-2-actual.png",
+      "expectedHash": "cb508f27647541758c06bccae2c110ca74ef56ef01fa1edbd28a9d69d06ddecb",
+      "actualHash": "cb508f27647541758c06bccae2c110ca74ef56ef01fa1edbd28a9d69d06ddecb",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c9ebc3f7ae4608263fa6-3350c8750ec7c082e8a1/chromium/0",
+      "path": "screens/rc-switch/chromium/000044-2-actual.png",
+      "expectedHash": "b5a8340c1676000426257053639428516c13d5bc49e9b44e41d66921792526d5",
+      "actualHash": "b5a8340c1676000426257053639428516c13d5bc49e9b44e41d66921792526d5",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c9ebc3f7ae4608263fa6-c85e1934aa6bf2ca5280/chromium/0",
+      "path": "screens/rc-switch/chromium/000045-2-actual.png",
+      "expectedHash": "06ca9a8117734c0e42fcdbae1b715560521bd03c07b6f4618a30eb6969717633",
+      "actualHash": "06ca9a8117734c0e42fcdbae1b715560521bd03c07b6f4618a30eb6969717633",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c9ebc3f7ae4608263fa6-3f9bc608f70119d2da9a/chromium/0",
+      "path": "screens/rc-switch/chromium/000046-2-actual.png",
+      "expectedHash": "8d1a74782c3857627008b95f342547b05095f9bff272f36d093b38d42d85c96b",
+      "actualHash": "8d1a74782c3857627008b95f342547b05095f9bff272f36d093b38d42d85c96b",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c9ebc3f7ae4608263fa6-24df7d90c25d4b0f05cf/chromium/0",
+      "path": "screens/rc-switch/chromium/000047-2-actual.png",
+      "expectedHash": "20b4979c67be922c451029ab663c86d67f702ccc49cf233e8e0b6a98b8ee6b32",
+      "actualHash": "20b4979c67be922c451029ab663c86d67f702ccc49cf233e8e0b6a98b8ee6b32",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c9ebc3f7ae4608263fa6-14e11f4f62d4ed4d0086/chromium/0",
+      "path": "screens/rc-switch/chromium/000048-2-actual.png",
+      "expectedHash": "f75c1d153dbbfe18ad18853d19c4f72c3ea94ebac8ca0d2a07489bf1ed3678a5",
+      "actualHash": "f75c1d153dbbfe18ad18853d19c4f72c3ea94ebac8ca0d2a07489bf1ed3678a5",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c9ebc3f7ae4608263fa6-90df718c3f16dc9b15d9/chromium/0",
+      "path": "screens/rc-switch/chromium/000049-2-actual.png",
+      "expectedHash": "f75c1d153dbbfe18ad18853d19c4f72c3ea94ebac8ca0d2a07489bf1ed3678a5",
+      "actualHash": "f75c1d153dbbfe18ad18853d19c4f72c3ea94ebac8ca0d2a07489bf1ed3678a5",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c9ebc3f7ae4608263fa6-fdbca3a917e56bd7611d/chromium/0",
+      "path": "screens/rc-switch/chromium/000050-2-actual.png",
+      "expectedHash": "f75c1d153dbbfe18ad18853d19c4f72c3ea94ebac8ca0d2a07489bf1ed3678a5",
+      "actualHash": "f75c1d153dbbfe18ad18853d19c4f72c3ea94ebac8ca0d2a07489bf1ed3678a5",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c9ebc3f7ae4608263fa6-abd09f96758fcef73165/chromium/0",
+      "path": "screens/rc-switch/chromium/000051-2-actual.png",
+      "expectedHash": "872535895deab1288f6fcfa684a794b92f7f328ab54e4fa2a037bb42729cc599",
+      "actualHash": "872535895deab1288f6fcfa684a794b92f7f328ab54e4fa2a037bb42729cc599",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c9ebc3f7ae4608263fa6-d4c9e083a92d6a6d9442/chromium/0",
+      "path": "screens/rc-switch/chromium/000052-2-actual.png",
+      "expectedHash": "cca3141328b169dbb46b46f6ac87a7d27cbf45b0cb3b384a3431d7626a27544d",
+      "actualHash": "cca3141328b169dbb46b46f6ac87a7d27cbf45b0cb3b384a3431d7626a27544d",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c9ebc3f7ae4608263fa6-873e7c490b59888967b1/chromium/0",
+      "path": "screens/rc-switch/chromium/000053-2-actual.png",
+      "expectedHash": "412963ff61a2e02ce5769ffe307bcd19bd84741731ac4fe648dcd39203343966",
+      "actualHash": "412963ff61a2e02ce5769ffe307bcd19bd84741731ac4fe648dcd39203343966",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c9ebc3f7ae4608263fa6-2fe41c30af960c51d1b4/chromium/0",
+      "path": "screens/rc-switch/chromium/000054-2-actual.png",
+      "expectedHash": "d66347c89fac009e1cbaa7516a34e998946d6a5eb823557534ff7ec7c869f061",
+      "actualHash": "d66347c89fac009e1cbaa7516a34e998946d6a5eb823557534ff7ec7c869f061",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c9ebc3f7ae4608263fa6-7cd891a58e9c432ee070/chromium/0",
+      "path": "screens/rc-switch/chromium/000055-2-actual.png",
+      "expectedHash": "f75c1d153dbbfe18ad18853d19c4f72c3ea94ebac8ca0d2a07489bf1ed3678a5",
+      "actualHash": "f75c1d153dbbfe18ad18853d19c4f72c3ea94ebac8ca0d2a07489bf1ed3678a5",
+      "hashMatches": true
+    },
+    {
+      "caseId": "fa242b81ff824cff60df-adf473bfe5b50704afe5/chromium/0",
+      "path": "screens/rc-switch/chromium/000056-4-actual-zoom-200.png",
+      "expectedHash": "d7c915145048c3bf6dd4f43faab804b40ba0f3250138493677c8a05a518adc8f",
+      "actualHash": "d7c915145048c3bf6dd4f43faab804b40ba0f3250138493677c8a05a518adc8f",
+      "hashMatches": true
+    },
+    {
+      "caseId": "fa242b81ff824cff60df-53bbe8f2429fe3ff254c/chromium/0",
+      "path": "screens/rc-switch/chromium/000057-4-actual-zoom-200.png",
+      "expectedHash": "2e6d28b043c2ba9cc95d334ac415107e7c97f7be5b339413dc7a4b1c17ebf6e5",
+      "actualHash": "2e6d28b043c2ba9cc95d334ac415107e7c97f7be5b339413dc7a4b1c17ebf6e5",
+      "hashMatches": true
+    },
+    {
+      "caseId": "fa242b81ff824cff60df-27af86ec1b4be5bc05f0/chromium/0",
+      "path": "screens/rc-switch/chromium/000058-4-actual-zoom-200.png",
+      "expectedHash": "797911224b9583bd4c13cde1217334713eda2b83b11475a5866a9e9581c0dff4",
+      "actualHash": "797911224b9583bd4c13cde1217334713eda2b83b11475a5866a9e9581c0dff4",
+      "hashMatches": true
+    },
+    {
+      "caseId": "fa242b81ff824cff60df-11eefbea1c14836548ea/chromium/0",
+      "path": "screens/rc-switch/chromium/000059-4-actual-zoom-200.png",
+      "expectedHash": "db0c6e266e8accd0adb80b7a1b96254a1aaa17ce92c565c1c2fbd81f02dad18a",
+      "actualHash": "db0c6e266e8accd0adb80b7a1b96254a1aaa17ce92c565c1c2fbd81f02dad18a",
+      "hashMatches": true
+    },
+    {
+      "caseId": "fa242b81ff824cff60df-843d60ca2433a63493e6/chromium/0",
+      "path": "screens/rc-switch/chromium/000060-4-actual-zoom-200.png",
+      "expectedHash": "54f445a9cfd30374724cf5fadc3c6ec4c564cdb090a45ccf6a0cc19e9d0a6be6",
+      "actualHash": "54f445a9cfd30374724cf5fadc3c6ec4c564cdb090a45ccf6a0cc19e9d0a6be6",
+      "hashMatches": true
+    },
+    {
+      "caseId": "fa242b81ff824cff60df-47140a0276652c8d074a/chromium/0",
+      "path": "screens/rc-switch/chromium/000061-4-actual-zoom-200.png",
+      "expectedHash": "5324d8365fac768f55888334de5d53bc15feae6f84e6f5ea1c15e2e834c951e8",
+      "actualHash": "5324d8365fac768f55888334de5d53bc15feae6f84e6f5ea1c15e2e834c951e8",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-36722ce38608ee58c3ab/chromium/0",
+      "path": "screens/rc-switch/chromium/000062-2-actual.png",
+      "expectedHash": "c511568b50aa4115e81664dcb7e75ca8ea6430692dd0c7753bee442f935975b1",
+      "actualHash": "c511568b50aa4115e81664dcb7e75ca8ea6430692dd0c7753bee442f935975b1",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-d870ba7aba0f489e6576/chromium/0",
+      "path": "screens/rc-switch/chromium/000063-2-actual.png",
+      "expectedHash": "3a28003d4952393986495a9c0ebd9795eff6d5bb36bb45c9bbfc56ffb5bab2a6",
+      "actualHash": "3a28003d4952393986495a9c0ebd9795eff6d5bb36bb45c9bbfc56ffb5bab2a6",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-085b22db335193f50ac5/chromium/0",
+      "path": "screens/rc-switch/chromium/000064-2-actual.png",
+      "expectedHash": "a0726c89e8e48dc2622785a4b2cb582d118034f457f94b0e552c5b1dd6f32912",
+      "actualHash": "a0726c89e8e48dc2622785a4b2cb582d118034f457f94b0e552c5b1dd6f32912",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-f066b27c3887ff9b8a05/chromium/0",
+      "path": "screens/rc-switch/chromium/000065-2-actual.png",
+      "expectedHash": "2c9f1d59658b4c0d9fdfe2bcc9d2e4db9a94c51d07238bcc374f94729e3724fb",
+      "actualHash": "2c9f1d59658b4c0d9fdfe2bcc9d2e4db9a94c51d07238bcc374f94729e3724fb",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-bba67a4dcc6360ced102/chromium/0",
+      "path": "screens/rc-switch/chromium/000066-2-actual.png",
+      "expectedHash": "455e64c85e176c5aea254d628cf0defaf17f89958629bce5e258988a8d038525",
+      "actualHash": "455e64c85e176c5aea254d628cf0defaf17f89958629bce5e258988a8d038525",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-6a370af43ec2e5cfb7a5/chromium/0",
+      "path": "screens/rc-switch/chromium/000067-2-actual.png",
+      "expectedHash": "c23a916223479d70a94c09fdeb8eee2e0233780cb6cc1c0ec996bbd8fe44474d",
+      "actualHash": "c23a916223479d70a94c09fdeb8eee2e0233780cb6cc1c0ec996bbd8fe44474d",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-9613d5aa3ff191185038/chromium/0",
+      "path": "screens/rc-switch/chromium/000068-2-actual.png",
+      "expectedHash": "24c196358e14f3f1bc0539a975565451b7927f7d91f37cba7fde8a7b37e16a4b",
+      "actualHash": "24c196358e14f3f1bc0539a975565451b7927f7d91f37cba7fde8a7b37e16a4b",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-4f266596ca89776bcc1a/chromium/0",
+      "path": "screens/rc-switch/chromium/000069-2-actual.png",
+      "expectedHash": "fdd49dcfc6db344c4f48326ccc02af26f3e75298b4687810a37cc5fb516f98eb",
+      "actualHash": "fdd49dcfc6db344c4f48326ccc02af26f3e75298b4687810a37cc5fb516f98eb",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-acac1bdd6f66520b79a0/chromium/0",
+      "path": "screens/rc-switch/chromium/000070-2-actual.png",
+      "expectedHash": "1f3e2a749b6127d2aebf7225c96ee4d03d128f7453c66157737aae4646382f1e",
+      "actualHash": "1f3e2a749b6127d2aebf7225c96ee4d03d128f7453c66157737aae4646382f1e",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-0f7ae2bdd3d259f9ff1f/chromium/0",
+      "path": "screens/rc-switch/chromium/000071-2-actual.png",
+      "expectedHash": "47c25bfe9707a9d08817f23d8b42081120c0483a151564c0ecbee30c2947130c",
+      "actualHash": "47c25bfe9707a9d08817f23d8b42081120c0483a151564c0ecbee30c2947130c",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-840fe17643c312121cd0/chromium/0",
+      "path": "screens/rc-switch/chromium/000072-2-actual.png",
+      "expectedHash": "5223cb588e573440b156df3ae75668a8881daab214a9ab6e5723c3eb410f95bc",
+      "actualHash": "5223cb588e573440b156df3ae75668a8881daab214a9ab6e5723c3eb410f95bc",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-d273554881deb16c0913/chromium/0",
+      "path": "screens/rc-switch/chromium/000073-2-actual.png",
+      "expectedHash": "1ccf0b1f1c68088d96c22d9c0f4bb77731914c5a9a8733d002edebc283f19597",
+      "actualHash": "1ccf0b1f1c68088d96c22d9c0f4bb77731914c5a9a8733d002edebc283f19597",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-6e1bb2ad1a78a169e26b/chromium/0",
+      "path": "screens/rc-switch/chromium/000074-2-actual.png",
+      "expectedHash": "512b39f32821af66e251c4335625d7025c39e06153c19dd904d638489f1a7ff4",
+      "actualHash": "512b39f32821af66e251c4335625d7025c39e06153c19dd904d638489f1a7ff4",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-1ff24c05c54091f6d8be/chromium/0",
+      "path": "screens/rc-switch/chromium/000075-2-actual.png",
+      "expectedHash": "ade970221f467a25a5909bc356d0037b85f69f4ed0b38564ccd825c9ea01563a",
+      "actualHash": "ade970221f467a25a5909bc356d0037b85f69f4ed0b38564ccd825c9ea01563a",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-914b382b15937cde3801/chromium/0",
+      "path": "screens/rc-switch/chromium/000076-2-actual.png",
+      "expectedHash": "3a9ef0cf2eae03098e2f9825365e4466bb1d2df361f3895c9d011087469e4b80",
+      "actualHash": "3a9ef0cf2eae03098e2f9825365e4466bb1d2df361f3895c9d011087469e4b80",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-c8b0bb2e2fec5f43f9ed/chromium/0",
+      "path": "screens/rc-switch/chromium/000077-2-actual.png",
+      "expectedHash": "972a5e3751201521fadb9fcf8142b9c1f652bc764a4b1f671c5d52500636f46c",
+      "actualHash": "972a5e3751201521fadb9fcf8142b9c1f652bc764a4b1f671c5d52500636f46c",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-45263361f9421abd2dcc/chromium/0",
+      "path": "screens/rc-switch/chromium/000078-2-actual.png",
+      "expectedHash": "2a5f9efac19c9d14dc8b8841d63a72f036e3e1c71ee8ff4992621ae90614db2a",
+      "actualHash": "2a5f9efac19c9d14dc8b8841d63a72f036e3e1c71ee8ff4992621ae90614db2a",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-fb341d14fd18d774988b/chromium/0",
+      "path": "screens/rc-switch/chromium/000079-2-actual.png",
+      "expectedHash": "3592f287324233def1aea63b15335141a880fdb753d1955b18858c9c061d1790",
+      "actualHash": "3592f287324233def1aea63b15335141a880fdb753d1955b18858c9c061d1790",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-f7086f20be889f00bcd9/chromium/0",
+      "path": "screens/rc-switch/chromium/000080-2-actual.png",
+      "expectedHash": "84760f37368cef7dfe21422d32c283fcaf5be85fec7fb77c9cc47e717ec32811",
+      "actualHash": "84760f37368cef7dfe21422d32c283fcaf5be85fec7fb77c9cc47e717ec32811",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-9650f2fa19465c213730/chromium/0",
+      "path": "screens/rc-switch/chromium/000081-2-actual.png",
+      "expectedHash": "23bd104a2c2ce8894e770323db3a83a01c63f95c8afd85b91bdb27b18e08ed72",
+      "actualHash": "23bd104a2c2ce8894e770323db3a83a01c63f95c8afd85b91bdb27b18e08ed72",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-0aeae6319ec72cf38e85/chromium/0",
+      "path": "screens/rc-switch/chromium/000082-2-actual.png",
+      "expectedHash": "ee765105066219ec8cd1dcd6dbfa20709f4bac3d76f4ab9c70baac0d7ba005d6",
+      "actualHash": "ee765105066219ec8cd1dcd6dbfa20709f4bac3d76f4ab9c70baac0d7ba005d6",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-0724e821b113368cd22a/chromium/0",
+      "path": "screens/rc-switch/chromium/000083-2-actual.png",
+      "expectedHash": "6ed4864205622a94f0ee6a9b0a907bd35ae790862850d269c631b9cb39400636",
+      "actualHash": "6ed4864205622a94f0ee6a9b0a907bd35ae790862850d269c631b9cb39400636",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-b8401c2c133bfafb2b44/chromium/0",
+      "path": "screens/rc-switch/chromium/000084-2-actual.png",
+      "expectedHash": "04d2b64e753b6eb8429dfcc8226cf47d7283d881f1065bdb2ae160c1da65aa0a",
+      "actualHash": "04d2b64e753b6eb8429dfcc8226cf47d7283d881f1065bdb2ae160c1da65aa0a",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-c28e068759b8f22cd9c5/chromium/0",
+      "path": "screens/rc-switch/chromium/000085-2-actual.png",
+      "expectedHash": "f3f90da3f5dd96cdc5a9c33b28e20e6fb010d4b5c0bccf5049833a3591c52828",
+      "actualHash": "f3f90da3f5dd96cdc5a9c33b28e20e6fb010d4b5c0bccf5049833a3591c52828",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-2512c6abacdc1f6a7410/chromium/0",
+      "path": "screens/rc-switch/chromium/000086-2-actual.png",
+      "expectedHash": "512b39f32821af66e251c4335625d7025c39e06153c19dd904d638489f1a7ff4",
+      "actualHash": "512b39f32821af66e251c4335625d7025c39e06153c19dd904d638489f1a7ff4",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-0da4b103b73865b93fb5/chromium/0",
+      "path": "screens/rc-switch/chromium/000087-2-actual.png",
+      "expectedHash": "ade970221f467a25a5909bc356d0037b85f69f4ed0b38564ccd825c9ea01563a",
+      "actualHash": "ade970221f467a25a5909bc356d0037b85f69f4ed0b38564ccd825c9ea01563a",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-d93a89a2586a8b7f5441/chromium/0",
+      "path": "screens/rc-switch/chromium/000088-2-actual.png",
+      "expectedHash": "3a9ef0cf2eae03098e2f9825365e4466bb1d2df361f3895c9d011087469e4b80",
+      "actualHash": "3a9ef0cf2eae03098e2f9825365e4466bb1d2df361f3895c9d011087469e4b80",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-946ca1ca165dc3acfa51/chromium/0",
+      "path": "screens/rc-switch/chromium/000089-2-actual.png",
+      "expectedHash": "972a5e3751201521fadb9fcf8142b9c1f652bc764a4b1f671c5d52500636f46c",
+      "actualHash": "972a5e3751201521fadb9fcf8142b9c1f652bc764a4b1f671c5d52500636f46c",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-ecfe3dd3e7dd3915380b/chromium/0",
+      "path": "screens/rc-switch/chromium/000090-2-actual.png",
+      "expectedHash": "2a5f9efac19c9d14dc8b8841d63a72f036e3e1c71ee8ff4992621ae90614db2a",
+      "actualHash": "2a5f9efac19c9d14dc8b8841d63a72f036e3e1c71ee8ff4992621ae90614db2a",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-a22cf966c561df2794c4/chromium/0",
+      "path": "screens/rc-switch/chromium/000091-2-actual.png",
+      "expectedHash": "3592f287324233def1aea63b15335141a880fdb753d1955b18858c9c061d1790",
+      "actualHash": "3592f287324233def1aea63b15335141a880fdb753d1955b18858c9c061d1790",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-4122d2d9b074d0613e82/chromium/0",
+      "path": "screens/rc-switch/chromium/000092-2-actual.png",
+      "expectedHash": "84760f37368cef7dfe21422d32c283fcaf5be85fec7fb77c9cc47e717ec32811",
+      "actualHash": "84760f37368cef7dfe21422d32c283fcaf5be85fec7fb77c9cc47e717ec32811",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-bedf88b2a8f2809196ea/chromium/0",
+      "path": "screens/rc-switch/chromium/000093-2-actual.png",
+      "expectedHash": "23bd104a2c2ce8894e770323db3a83a01c63f95c8afd85b91bdb27b18e08ed72",
+      "actualHash": "23bd104a2c2ce8894e770323db3a83a01c63f95c8afd85b91bdb27b18e08ed72",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-09a6f5b6808c7fb7ecba/chromium/0",
+      "path": "screens/rc-switch/chromium/000094-2-actual.png",
+      "expectedHash": "ee765105066219ec8cd1dcd6dbfa20709f4bac3d76f4ab9c70baac0d7ba005d6",
+      "actualHash": "ee765105066219ec8cd1dcd6dbfa20709f4bac3d76f4ab9c70baac0d7ba005d6",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-35e0d45f8f0be434f50d/chromium/0",
+      "path": "screens/rc-switch/chromium/000095-2-actual.png",
+      "expectedHash": "6ed4864205622a94f0ee6a9b0a907bd35ae790862850d269c631b9cb39400636",
+      "actualHash": "6ed4864205622a94f0ee6a9b0a907bd35ae790862850d269c631b9cb39400636",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-25fa6d06eb2a2ee5a780/chromium/0",
+      "path": "screens/rc-switch/chromium/000096-2-actual.png",
+      "expectedHash": "04d2b64e753b6eb8429dfcc8226cf47d7283d881f1065bdb2ae160c1da65aa0a",
+      "actualHash": "04d2b64e753b6eb8429dfcc8226cf47d7283d881f1065bdb2ae160c1da65aa0a",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-088a294a002f98526172/chromium/0",
+      "path": "screens/rc-switch/chromium/000097-2-actual.png",
+      "expectedHash": "f3f90da3f5dd96cdc5a9c33b28e20e6fb010d4b5c0bccf5049833a3591c52828",
+      "actualHash": "f3f90da3f5dd96cdc5a9c33b28e20e6fb010d4b5c0bccf5049833a3591c52828",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-9427dc1f9329b66a90ae/chromium/0",
+      "path": "screens/rc-switch/chromium/000098-2-actual.png",
+      "expectedHash": "2dda1ccc575497f90de1f088db27edf8366af3bf2d5362e9a32ce9df82a230e6",
+      "actualHash": "2dda1ccc575497f90de1f088db27edf8366af3bf2d5362e9a32ce9df82a230e6",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-9c3100782feeba503e64/chromium/0",
+      "path": "screens/rc-switch/chromium/000099-2-actual.png",
+      "expectedHash": "e0b04b045ce584812797b11eee9cae6d1aced344dd3f01c9c13132b0ccf94fe3",
+      "actualHash": "e0b04b045ce584812797b11eee9cae6d1aced344dd3f01c9c13132b0ccf94fe3",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-8509be59c46370647e36/chromium/0",
+      "path": "screens/rc-switch/chromium/000100-2-actual.png",
+      "expectedHash": "95557b6c9016575f8bd36500b74d03ba78fbc436be0c48b6dfe62d54187e8336",
+      "actualHash": "95557b6c9016575f8bd36500b74d03ba78fbc436be0c48b6dfe62d54187e8336",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-b27ea68280c59e8eb97b/chromium/0",
+      "path": "screens/rc-switch/chromium/000101-2-actual.png",
+      "expectedHash": "c3e2382c4fa53107eb88dc4d5c7081ece58f793fdd0f666af42c5a5ee07abe08",
+      "actualHash": "c3e2382c4fa53107eb88dc4d5c7081ece58f793fdd0f666af42c5a5ee07abe08",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-0b7e8471dc7206a7c2c2/chromium/0",
+      "path": "screens/rc-switch/chromium/000102-2-actual.png",
+      "expectedHash": "34ff2ff8172d54f3ef38ff9aa5d9ee8d4d7c25c98cfd826483db799e78c6b0c7",
+      "actualHash": "34ff2ff8172d54f3ef38ff9aa5d9ee8d4d7c25c98cfd826483db799e78c6b0c7",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-751dca421af0618c6f0d/chromium/0",
+      "path": "screens/rc-switch/chromium/000103-2-actual.png",
+      "expectedHash": "e5f72773ad7418a7c91f80dd7b69d5eacbc7bdb7b7c57c8702309144f69e1802",
+      "actualHash": "e5f72773ad7418a7c91f80dd7b69d5eacbc7bdb7b7c57c8702309144f69e1802",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-baa97561329928902657/chromium/0",
+      "path": "screens/rc-switch/chromium/000104-2-actual.png",
+      "expectedHash": "b7862129c2e4f629664e4f66e2f23cb5b6ce692268689d4de3968bb7d0f2ed62",
+      "actualHash": "b7862129c2e4f629664e4f66e2f23cb5b6ce692268689d4de3968bb7d0f2ed62",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-16c1f155254a107bda17/chromium/0",
+      "path": "screens/rc-switch/chromium/000105-2-actual.png",
+      "expectedHash": "56d0a521f956dd4afb28e8c25dad4e6e58ceef4654d05489f0c53a030c80c567",
+      "actualHash": "56d0a521f956dd4afb28e8c25dad4e6e58ceef4654d05489f0c53a030c80c567",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-983dff488707ba8e89f3/chromium/0",
+      "path": "screens/rc-switch/chromium/000106-2-actual.png",
+      "expectedHash": "1508337bfbfb4a932cea3be59482b41d88e60802cc64ffd8047466f990531136",
+      "actualHash": "1508337bfbfb4a932cea3be59482b41d88e60802cc64ffd8047466f990531136",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-d52de9f35a6b4460d05f/chromium/0",
+      "path": "screens/rc-switch/chromium/000107-2-actual.png",
+      "expectedHash": "8e5deced83e05541c2b8b77f857877b7e8bc96d4705c0cb6497d0fa7359b3b8b",
+      "actualHash": "8e5deced83e05541c2b8b77f857877b7e8bc96d4705c0cb6497d0fa7359b3b8b",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-9a88c1fb98a72c573f95/chromium/0",
+      "path": "screens/rc-switch/chromium/000108-2-actual.png",
+      "expectedHash": "9a300478ef967f9311f691b42e5e1b903dbe3bda388e44c097823e68fac53580",
+      "actualHash": "9a300478ef967f9311f691b42e5e1b903dbe3bda388e44c097823e68fac53580",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-db04a046b32745d8f40d/chromium/0",
+      "path": "screens/rc-switch/chromium/000109-2-actual.png",
+      "expectedHash": "07be954c04eb8582292fa3aef7ecc219f5fb95c53b76a4fb43b923b9835b1bb7",
+      "actualHash": "07be954c04eb8582292fa3aef7ecc219f5fb95c53b76a4fb43b923b9835b1bb7",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-105a8c4bda050980f821/chromium/0",
+      "path": "screens/rc-switch/chromium/000110-2-actual.png",
+      "expectedHash": "9cd6fdb318f46c8e455b39846986c8bb0d9252c4e192355d03de70bbc38c4737",
+      "actualHash": "9cd6fdb318f46c8e455b39846986c8bb0d9252c4e192355d03de70bbc38c4737",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-2983983914b605986e14/chromium/0",
+      "path": "screens/rc-switch/chromium/000111-2-actual.png",
+      "expectedHash": "5ab8929eb60fa0ecc0514e83003af5b9bb7fd4b4656c3dbda8c86bdef99fcb36",
+      "actualHash": "5ab8929eb60fa0ecc0514e83003af5b9bb7fd4b4656c3dbda8c86bdef99fcb36",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-10c86f06da560f53ec9f/chromium/0",
+      "path": "screens/rc-switch/chromium/000112-2-actual.png",
+      "expectedHash": "1699338c6c7c35cb28c8715a59793e134c2613a1127a0d597a29b19f93c011fc",
+      "actualHash": "1699338c6c7c35cb28c8715a59793e134c2613a1127a0d597a29b19f93c011fc",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-320994c4e219088ee8d3/chromium/0",
+      "path": "screens/rc-switch/chromium/000113-2-actual.png",
+      "expectedHash": "443cf12edeb1209feaa2d4564522af4c96419779e24729a9b56421405a37fc76",
+      "actualHash": "443cf12edeb1209feaa2d4564522af4c96419779e24729a9b56421405a37fc76",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-c90061a4c4abc7eeef1f/chromium/0",
+      "path": "screens/rc-switch/chromium/000114-2-actual.png",
+      "expectedHash": "b69b88aa114fa85e06ff0204aed360312e4a849b4528c76a9f3a78812d6d2c60",
+      "actualHash": "b69b88aa114fa85e06ff0204aed360312e4a849b4528c76a9f3a78812d6d2c60",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-7d1c6586be99e816d111/chromium/0",
+      "path": "screens/rc-switch/chromium/000115-2-actual.png",
+      "expectedHash": "a38798dc425d7aa6722d63819d14e6163269f11456b39f249bd659fbe916c849",
+      "actualHash": "a38798dc425d7aa6722d63819d14e6163269f11456b39f249bd659fbe916c849",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-bf151ba378e93bf436f1/chromium/0",
+      "path": "screens/rc-switch/chromium/000116-2-actual.png",
+      "expectedHash": "a844050b2cc177287b8c0bfc39593f80c41ac0d1b7b98f97e799985cb30d3f03",
+      "actualHash": "a844050b2cc177287b8c0bfc39593f80c41ac0d1b7b98f97e799985cb30d3f03",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-c5d6f9c3330b113ad963/chromium/0",
+      "path": "screens/rc-switch/chromium/000117-2-actual.png",
+      "expectedHash": "25acb8bcb86715915fe070f25ba44eebb167e7e5ebc561b9894744c7211e0e6c",
+      "actualHash": "25acb8bcb86715915fe070f25ba44eebb167e7e5ebc561b9894744c7211e0e6c",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-c5736cefb0908cbf11de/chromium/0",
+      "path": "screens/rc-switch/chromium/000118-2-actual.png",
+      "expectedHash": "33163d375f00302b11bac4690d02f56b1fe76c9ef7466e1e929ed80cc499bac2",
+      "actualHash": "33163d375f00302b11bac4690d02f56b1fe76c9ef7466e1e929ed80cc499bac2",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-d3e233505c6a1cf2af50/chromium/0",
+      "path": "screens/rc-switch/chromium/000119-2-actual.png",
+      "expectedHash": "ee99b10fd3796834d47b856b7884a7bbf069f2f664e40d782aeeb51f8f9eeae9",
+      "actualHash": "ee99b10fd3796834d47b856b7884a7bbf069f2f664e40d782aeeb51f8f9eeae9",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-fd739212c674403a21b7/chromium/0",
+      "path": "screens/rc-switch/chromium/000120-2-actual.png",
+      "expectedHash": "b3196051418f7a6b3599fc95ff1c7e6159daeed4cd4c47310aa72aca3fdbf2d6",
+      "actualHash": "b3196051418f7a6b3599fc95ff1c7e6159daeed4cd4c47310aa72aca3fdbf2d6",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-6384ef6eaa2b1c0f2a42/chromium/0",
+      "path": "screens/rc-switch/chromium/000121-2-actual.png",
+      "expectedHash": "2f5245386b10e321e7e6029e7037a3bffbf3d852667db150d5f63011e808030d",
+      "actualHash": "2f5245386b10e321e7e6029e7037a3bffbf3d852667db150d5f63011e808030d",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-2752ea23c0dedf4cbef9/chromium/0",
+      "path": "screens/rc-switch/chromium/000122-2-actual.png",
+      "expectedHash": "9cd6fdb318f46c8e455b39846986c8bb0d9252c4e192355d03de70bbc38c4737",
+      "actualHash": "9cd6fdb318f46c8e455b39846986c8bb0d9252c4e192355d03de70bbc38c4737",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-6991e2dd7b8f9773ddaf/chromium/0",
+      "path": "screens/rc-switch/chromium/000123-2-actual.png",
+      "expectedHash": "5ab8929eb60fa0ecc0514e83003af5b9bb7fd4b4656c3dbda8c86bdef99fcb36",
+      "actualHash": "5ab8929eb60fa0ecc0514e83003af5b9bb7fd4b4656c3dbda8c86bdef99fcb36",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-7f4e840e55e94b7b1d36/chromium/0",
+      "path": "screens/rc-switch/chromium/000124-2-actual.png",
+      "expectedHash": "1699338c6c7c35cb28c8715a59793e134c2613a1127a0d597a29b19f93c011fc",
+      "actualHash": "1699338c6c7c35cb28c8715a59793e134c2613a1127a0d597a29b19f93c011fc",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-f4ad4761b2f8452a986d/chromium/0",
+      "path": "screens/rc-switch/chromium/000125-2-actual.png",
+      "expectedHash": "443cf12edeb1209feaa2d4564522af4c96419779e24729a9b56421405a37fc76",
+      "actualHash": "443cf12edeb1209feaa2d4564522af4c96419779e24729a9b56421405a37fc76",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-3b42116767afb0feb390/chromium/0",
+      "path": "screens/rc-switch/chromium/000126-2-actual.png",
+      "expectedHash": "b69b88aa114fa85e06ff0204aed360312e4a849b4528c76a9f3a78812d6d2c60",
+      "actualHash": "b69b88aa114fa85e06ff0204aed360312e4a849b4528c76a9f3a78812d6d2c60",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-c6c2ff2818ab2a358c06/chromium/0",
+      "path": "screens/rc-switch/chromium/000127-2-actual.png",
+      "expectedHash": "a38798dc425d7aa6722d63819d14e6163269f11456b39f249bd659fbe916c849",
+      "actualHash": "a38798dc425d7aa6722d63819d14e6163269f11456b39f249bd659fbe916c849",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-2274ac026b9d3dee4afb/chromium/0",
+      "path": "screens/rc-switch/chromium/000128-2-actual.png",
+      "expectedHash": "a844050b2cc177287b8c0bfc39593f80c41ac0d1b7b98f97e799985cb30d3f03",
+      "actualHash": "a844050b2cc177287b8c0bfc39593f80c41ac0d1b7b98f97e799985cb30d3f03",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-9807bb5b3bf684178aee/chromium/0",
+      "path": "screens/rc-switch/chromium/000129-2-actual.png",
+      "expectedHash": "25acb8bcb86715915fe070f25ba44eebb167e7e5ebc561b9894744c7211e0e6c",
+      "actualHash": "25acb8bcb86715915fe070f25ba44eebb167e7e5ebc561b9894744c7211e0e6c",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-c01978d1791f739d9e3b/chromium/0",
+      "path": "screens/rc-switch/chromium/000130-2-actual.png",
+      "expectedHash": "33163d375f00302b11bac4690d02f56b1fe76c9ef7466e1e929ed80cc499bac2",
+      "actualHash": "33163d375f00302b11bac4690d02f56b1fe76c9ef7466e1e929ed80cc499bac2",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-f1a1150c3fdc2958dbc3/chromium/0",
+      "path": "screens/rc-switch/chromium/000131-2-actual.png",
+      "expectedHash": "ee99b10fd3796834d47b856b7884a7bbf069f2f664e40d782aeeb51f8f9eeae9",
+      "actualHash": "ee99b10fd3796834d47b856b7884a7bbf069f2f664e40d782aeeb51f8f9eeae9",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-6a1d1f0ea53edccba752/chromium/0",
+      "path": "screens/rc-switch/chromium/000132-2-actual.png",
+      "expectedHash": "b3196051418f7a6b3599fc95ff1c7e6159daeed4cd4c47310aa72aca3fdbf2d6",
+      "actualHash": "b3196051418f7a6b3599fc95ff1c7e6159daeed4cd4c47310aa72aca3fdbf2d6",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-a972c9f3bb1bf935edd6/chromium/0",
+      "path": "screens/rc-switch/chromium/000133-2-actual.png",
+      "expectedHash": "2f5245386b10e321e7e6029e7037a3bffbf3d852667db150d5f63011e808030d",
+      "actualHash": "2f5245386b10e321e7e6029e7037a3bffbf3d852667db150d5f63011e808030d",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-3e89312c892de9a6696c/chromium/0",
+      "path": "screens/rc-switch/chromium/000134-2-actual.png",
+      "expectedHash": "38df1d8af609503bb9e568f106a38616f6fd7bc365d906db030044a777782eb9",
+      "actualHash": "38df1d8af609503bb9e568f106a38616f6fd7bc365d906db030044a777782eb9",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-57a43bb373ff7e4cd803/chromium/0",
+      "path": "screens/rc-switch/chromium/000135-2-actual.png",
+      "expectedHash": "38df1d8af609503bb9e568f106a38616f6fd7bc365d906db030044a777782eb9",
+      "actualHash": "38df1d8af609503bb9e568f106a38616f6fd7bc365d906db030044a777782eb9",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-44b31442bf75c7f6e89d/chromium/0",
+      "path": "screens/rc-switch/chromium/000136-2-actual.png",
+      "expectedHash": "f3c4305c39d54e9f54ed52c02218d121d3203e066fdd52a845e20ac88e9ed739",
+      "actualHash": "f3c4305c39d54e9f54ed52c02218d121d3203e066fdd52a845e20ac88e9ed739",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-72f3dbba939ddff3e628/chromium/0",
+      "path": "screens/rc-switch/chromium/000137-2-actual.png",
+      "expectedHash": "38df1d8af609503bb9e568f106a38616f6fd7bc365d906db030044a777782eb9",
+      "actualHash": "38df1d8af609503bb9e568f106a38616f6fd7bc365d906db030044a777782eb9",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-dfa0888babe6980887e1/chromium/0",
+      "path": "screens/rc-switch/chromium/000138-2-actual.png",
+      "expectedHash": "456c49347eaa2c889ad393051bdbeaad8869c74cb5f1052cfeaf08dd9b84f70e",
+      "actualHash": "456c49347eaa2c889ad393051bdbeaad8869c74cb5f1052cfeaf08dd9b84f70e",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-0038e584f2d51ba77bcf/chromium/0",
+      "path": "screens/rc-switch/chromium/000139-2-actual.png",
+      "expectedHash": "456c49347eaa2c889ad393051bdbeaad8869c74cb5f1052cfeaf08dd9b84f70e",
+      "actualHash": "456c49347eaa2c889ad393051bdbeaad8869c74cb5f1052cfeaf08dd9b84f70e",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-24459f3bcc1a33a191cb/chromium/0",
+      "path": "screens/rc-switch/chromium/000140-2-actual.png",
+      "expectedHash": "feab77ffea260ea19fb499362e5d8b050f9f2f75d82263bbdba56bad475cf895",
+      "actualHash": "feab77ffea260ea19fb499362e5d8b050f9f2f75d82263bbdba56bad475cf895",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-c3faa9ee765b1cfe592b/chromium/0",
+      "path": "screens/rc-switch/chromium/000141-2-actual.png",
+      "expectedHash": "456c49347eaa2c889ad393051bdbeaad8869c74cb5f1052cfeaf08dd9b84f70e",
+      "actualHash": "456c49347eaa2c889ad393051bdbeaad8869c74cb5f1052cfeaf08dd9b84f70e",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-3289aff5fb3fd3ad2463/chromium/0",
+      "path": "screens/rc-switch/chromium/000142-2-actual.png",
+      "expectedHash": "acaa00ca1a21d851f70415c0b2c56c7f86efe2a6c66b66614b214f1adb36dad2",
+      "actualHash": "acaa00ca1a21d851f70415c0b2c56c7f86efe2a6c66b66614b214f1adb36dad2",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-20612752b585679913f8/chromium/0",
+      "path": "screens/rc-switch/chromium/000143-2-actual.png",
+      "expectedHash": "18da3ac6a52e03c2346abbda77a1168815e38569c0c007c30853f870f3e64882",
+      "actualHash": "18da3ac6a52e03c2346abbda77a1168815e38569c0c007c30853f870f3e64882",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-ea360c0bee25de0deb70/chromium/0",
+      "path": "screens/rc-switch/chromium/000144-2-actual.png",
+      "expectedHash": "579f9dcdda6d805d24e6b2e8da7a8eae105cb6f3aea7c971e89a694d09e964d9",
+      "actualHash": "579f9dcdda6d805d24e6b2e8da7a8eae105cb6f3aea7c971e89a694d09e964d9",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-27fbb2d56e87277057e1/chromium/0",
+      "path": "screens/rc-switch/chromium/000145-2-actual.png",
+      "expectedHash": "f3e081525dc2bed839a765b6b003a2de7e85cf899f1ff8bd683a4d5b688e59cf",
+      "actualHash": "f3e081525dc2bed839a765b6b003a2de7e85cf899f1ff8bd683a4d5b688e59cf",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-71220cb0461fbada8162/chromium/0",
+      "path": "screens/rc-switch/chromium/000146-2-actual.png",
+      "expectedHash": "250d97e2b1510fcf0a6f32d2aa2f955cb61e0a05ab6f2be9bb69b7f8e0b6de93",
+      "actualHash": "250d97e2b1510fcf0a6f32d2aa2f955cb61e0a05ab6f2be9bb69b7f8e0b6de93",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-f1bb6a55a707a228db59/chromium/0",
+      "path": "screens/rc-switch/chromium/000147-2-actual.png",
+      "expectedHash": "250d97e2b1510fcf0a6f32d2aa2f955cb61e0a05ab6f2be9bb69b7f8e0b6de93",
+      "actualHash": "250d97e2b1510fcf0a6f32d2aa2f955cb61e0a05ab6f2be9bb69b7f8e0b6de93",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-62deeef7e5c08d2f2c69/chromium/0",
+      "path": "screens/rc-switch/chromium/000148-2-actual.png",
+      "expectedHash": "543ec1d6875a0a24cda7e54553345a986a60b88f31f169582569d44f7edbea8a",
+      "actualHash": "543ec1d6875a0a24cda7e54553345a986a60b88f31f169582569d44f7edbea8a",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-7aa6e890cb994485a27e/chromium/0",
+      "path": "screens/rc-switch/chromium/000149-2-actual.png",
+      "expectedHash": "250d97e2b1510fcf0a6f32d2aa2f955cb61e0a05ab6f2be9bb69b7f8e0b6de93",
+      "actualHash": "250d97e2b1510fcf0a6f32d2aa2f955cb61e0a05ab6f2be9bb69b7f8e0b6de93",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-402ebeac77a270c1a8a6/chromium/0",
+      "path": "screens/rc-switch/chromium/000150-2-actual.png",
+      "expectedHash": "f89536218738f120cdc896f94a0b4e4d3cd27309b9df5aee32962a417e708384",
+      "actualHash": "f89536218738f120cdc896f94a0b4e4d3cd27309b9df5aee32962a417e708384",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-1d4a962a2ebf4a8a78f3/chromium/0",
+      "path": "screens/rc-switch/chromium/000151-2-actual.png",
+      "expectedHash": "f89536218738f120cdc896f94a0b4e4d3cd27309b9df5aee32962a417e708384",
+      "actualHash": "f89536218738f120cdc896f94a0b4e4d3cd27309b9df5aee32962a417e708384",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-38bf19e8ff73fcdf6fb3/chromium/0",
+      "path": "screens/rc-switch/chromium/000152-2-actual.png",
+      "expectedHash": "ef1313739ecad9747a51b127a1fab2fef4c38de4d6f3b1db8aeae2200a175272",
+      "actualHash": "ef1313739ecad9747a51b127a1fab2fef4c38de4d6f3b1db8aeae2200a175272",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-a00e74d7ec746d1ce905/chromium/0",
+      "path": "screens/rc-switch/chromium/000153-2-actual.png",
+      "expectedHash": "f89536218738f120cdc896f94a0b4e4d3cd27309b9df5aee32962a417e708384",
+      "actualHash": "f89536218738f120cdc896f94a0b4e4d3cd27309b9df5aee32962a417e708384",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-c963c9e74d6278cf377b/chromium/0",
+      "path": "screens/rc-switch/chromium/000154-2-actual.png",
+      "expectedHash": "21fa47ccfa1c9dff97074cf67597de6b42fca2ce433cfde9d842777f7acb7126",
+      "actualHash": "21fa47ccfa1c9dff97074cf67597de6b42fca2ce433cfde9d842777f7acb7126",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-4732a0314668b9050864/chromium/0",
+      "path": "screens/rc-switch/chromium/000155-2-actual.png",
+      "expectedHash": "185092cdb8268dee58b3a182008718362a5fd1959def94689ef0cbdcf7031a41",
+      "actualHash": "185092cdb8268dee58b3a182008718362a5fd1959def94689ef0cbdcf7031a41",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-865e1e8ca0af8096383b/chromium/0",
+      "path": "screens/rc-switch/chromium/000156-2-actual.png",
+      "expectedHash": "3555af4b3d03af3e5b3f1851b70b768199049b58b82b1b42ce9df9048bd2894f",
+      "actualHash": "3555af4b3d03af3e5b3f1851b70b768199049b58b82b1b42ce9df9048bd2894f",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-cbf9e4d7de3b4969bc28/chromium/0",
+      "path": "screens/rc-switch/chromium/000157-2-actual.png",
+      "expectedHash": "9f81c4a3ba80537208a88150f3515b03484494978a9e8cdbb2c1e4ab233a7bb9",
+      "actualHash": "9f81c4a3ba80537208a88150f3515b03484494978a9e8cdbb2c1e4ab233a7bb9",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-86b41c4b9188f067b175/chromium/0",
+      "path": "screens/rc-switch/chromium/000158-2-actual.png",
+      "expectedHash": "78abfdf8ed23081d717767a23bef054345fd788eb0ac0222d56e95035c5d6e26",
+      "actualHash": "78abfdf8ed23081d717767a23bef054345fd788eb0ac0222d56e95035c5d6e26",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-1122f2f2ebf005dccf0d/chromium/0",
+      "path": "screens/rc-switch/chromium/000159-2-actual.png",
+      "expectedHash": "78abfdf8ed23081d717767a23bef054345fd788eb0ac0222d56e95035c5d6e26",
+      "actualHash": "78abfdf8ed23081d717767a23bef054345fd788eb0ac0222d56e95035c5d6e26",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-eb858defefa0994647a8/chromium/0",
+      "path": "screens/rc-switch/chromium/000160-2-actual.png",
+      "expectedHash": "ca5447ca88a25030da1fb762fe324b7057eba475e0a838ea6b9afaf024fbba86",
+      "actualHash": "ca5447ca88a25030da1fb762fe324b7057eba475e0a838ea6b9afaf024fbba86",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-5c13c66026dcbbdfb20d/chromium/0",
+      "path": "screens/rc-switch/chromium/000161-2-actual.png",
+      "expectedHash": "78abfdf8ed23081d717767a23bef054345fd788eb0ac0222d56e95035c5d6e26",
+      "actualHash": "78abfdf8ed23081d717767a23bef054345fd788eb0ac0222d56e95035c5d6e26",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-cbe2813b09639377e2fc/chromium/0",
+      "path": "screens/rc-switch/chromium/000162-2-actual.png",
+      "expectedHash": "751f4f0ed3ba85bb0e18989aeaf60749c101e6907c8447027fca3a376dc040a4",
+      "actualHash": "751f4f0ed3ba85bb0e18989aeaf60749c101e6907c8447027fca3a376dc040a4",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-1c8c6dd43598c4dca98b/chromium/0",
+      "path": "screens/rc-switch/chromium/000163-2-actual.png",
+      "expectedHash": "751f4f0ed3ba85bb0e18989aeaf60749c101e6907c8447027fca3a376dc040a4",
+      "actualHash": "751f4f0ed3ba85bb0e18989aeaf60749c101e6907c8447027fca3a376dc040a4",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-e5982e604ea1aa97c048/chromium/0",
+      "path": "screens/rc-switch/chromium/000164-2-actual.png",
+      "expectedHash": "91ceb562930bd4755a62dcb2f32515a8026d9547c32b1e28079bc10f09358f1a",
+      "actualHash": "91ceb562930bd4755a62dcb2f32515a8026d9547c32b1e28079bc10f09358f1a",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-1cb3355324e71a6a00e8/chromium/0",
+      "path": "screens/rc-switch/chromium/000165-2-actual.png",
+      "expectedHash": "751f4f0ed3ba85bb0e18989aeaf60749c101e6907c8447027fca3a376dc040a4",
+      "actualHash": "751f4f0ed3ba85bb0e18989aeaf60749c101e6907c8447027fca3a376dc040a4",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-037b8f3f1840a53b7bdc/chromium/0",
+      "path": "screens/rc-switch/chromium/000166-2-actual.png",
+      "expectedHash": "2f54e428adf5268ed167d7579e28630b5aa5a36ad0739d4e4fa03f11944a5e7c",
+      "actualHash": "2f54e428adf5268ed167d7579e28630b5aa5a36ad0739d4e4fa03f11944a5e7c",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-e877216fd6f5f90fe982/chromium/0",
+      "path": "screens/rc-switch/chromium/000167-2-actual.png",
+      "expectedHash": "3633e2fb911b36e98ac7d172f312e1a406f9d94e700d8431f345ea48d529fe61",
+      "actualHash": "3633e2fb911b36e98ac7d172f312e1a406f9d94e700d8431f345ea48d529fe61",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-c5d267fc016d63e5f185/chromium/0",
+      "path": "screens/rc-switch/chromium/000168-2-actual.png",
+      "expectedHash": "3c010e987fe6ec23dee6cdb680f3ebfa4398e57a23a84744c6e96d8bb9b28aea",
+      "actualHash": "3c010e987fe6ec23dee6cdb680f3ebfa4398e57a23a84744c6e96d8bb9b28aea",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-a112c860a5ca45b6adf7/chromium/0",
+      "path": "screens/rc-switch/chromium/000169-2-actual.png",
+      "expectedHash": "175c104e32380ec074d9f3f547c0ddc53bcff9070f3abe7f63beb69a093d357f",
+      "actualHash": "175c104e32380ec074d9f3f547c0ddc53bcff9070f3abe7f63beb69a093d357f",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-937c292500aa31f61034/chromium/0",
+      "path": "screens/rc-switch/chromium/000170-2-actual.png",
+      "expectedHash": "f6d9b656b54ab34d6487e40c2df584c104b12e09276859c63860e8f9793c1574",
+      "actualHash": "f6d9b656b54ab34d6487e40c2df584c104b12e09276859c63860e8f9793c1574",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-4f0c10db08c9de61658f/chromium/0",
+      "path": "screens/rc-switch/chromium/000171-2-actual.png",
+      "expectedHash": "f6d9b656b54ab34d6487e40c2df584c104b12e09276859c63860e8f9793c1574",
+      "actualHash": "f6d9b656b54ab34d6487e40c2df584c104b12e09276859c63860e8f9793c1574",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-48e5e2a62dbd465e36c5/chromium/0",
+      "path": "screens/rc-switch/chromium/000172-2-actual.png",
+      "expectedHash": "8f15fc1f128f7c4b0c8e6e10e23a2377fc83bf236d05f09f6b1d99d4eb62fcf3",
+      "actualHash": "8f15fc1f128f7c4b0c8e6e10e23a2377fc83bf236d05f09f6b1d99d4eb62fcf3",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-99f0a57712c5b3d614aa/chromium/0",
+      "path": "screens/rc-switch/chromium/000173-2-actual.png",
+      "expectedHash": "f6d9b656b54ab34d6487e40c2df584c104b12e09276859c63860e8f9793c1574",
+      "actualHash": "f6d9b656b54ab34d6487e40c2df584c104b12e09276859c63860e8f9793c1574",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-ef8d2a55ec1f8a09fa51/chromium/0",
+      "path": "screens/rc-switch/chromium/000174-2-actual.png",
+      "expectedHash": "2fb0cd9a6b9237ee328d7e86e8a36c33a2b3b9d23ff2eedf0c0b1c4bf8263a85",
+      "actualHash": "2fb0cd9a6b9237ee328d7e86e8a36c33a2b3b9d23ff2eedf0c0b1c4bf8263a85",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-a7bfd0d81b44bd8e1e98/chromium/0",
+      "path": "screens/rc-switch/chromium/000175-2-actual.png",
+      "expectedHash": "2fb0cd9a6b9237ee328d7e86e8a36c33a2b3b9d23ff2eedf0c0b1c4bf8263a85",
+      "actualHash": "2fb0cd9a6b9237ee328d7e86e8a36c33a2b3b9d23ff2eedf0c0b1c4bf8263a85",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-6fd563c32b0e3aaf855c/chromium/0",
+      "path": "screens/rc-switch/chromium/000176-2-actual.png",
+      "expectedHash": "fc8d7e5fc191925fed52d28916be60fc9ad43dad61e39dda18b91d554db28333",
+      "actualHash": "fc8d7e5fc191925fed52d28916be60fc9ad43dad61e39dda18b91d554db28333",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-2e125d28b796ad4d2977/chromium/0",
+      "path": "screens/rc-switch/chromium/000177-2-actual.png",
+      "expectedHash": "2fb0cd9a6b9237ee328d7e86e8a36c33a2b3b9d23ff2eedf0c0b1c4bf8263a85",
+      "actualHash": "2fb0cd9a6b9237ee328d7e86e8a36c33a2b3b9d23ff2eedf0c0b1c4bf8263a85",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-6b06743e1fa3ca5f518a/chromium/0",
+      "path": "screens/rc-switch/chromium/000178-2-actual.png",
+      "expectedHash": "ee1254c256e9fee30b632ba0bd76717ca0f0b738104b68630136e8d0a9c77fac",
+      "actualHash": "ee1254c256e9fee30b632ba0bd76717ca0f0b738104b68630136e8d0a9c77fac",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-d79237d8dd961e24cd0b/chromium/0",
+      "path": "screens/rc-switch/chromium/000179-2-actual.png",
+      "expectedHash": "5deb84de04044f6668c95f86527aff15cfa9898008218238849483e45e89806a",
+      "actualHash": "5deb84de04044f6668c95f86527aff15cfa9898008218238849483e45e89806a",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-35abc6e9b68bb2e44f54/chromium/0",
+      "path": "screens/rc-switch/chromium/000180-2-actual.png",
+      "expectedHash": "aa4d3b3f490ddfca8d360a7939fdfc780e13a94b8760ed8a38b13440ace5c2e3",
+      "actualHash": "aa4d3b3f490ddfca8d360a7939fdfc780e13a94b8760ed8a38b13440ace5c2e3",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-385b2dc9b12d6ba0e920/chromium/0",
+      "path": "screens/rc-switch/chromium/000181-2-actual.png",
+      "expectedHash": "c0f5360358b5f7a784a8ecbb53613a8e66625b1bdb3b7d8f7b414849cdcc0714",
+      "actualHash": "c0f5360358b5f7a784a8ecbb53613a8e66625b1bdb3b7d8f7b414849cdcc0714",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-724eab731ebb5131ea48/chromium/0",
+      "path": "screens/rc-switch/chromium/000182-2-actual.png",
+      "expectedHash": "8e0ba1ccfac1ec73a50794a135e72bca8021fe79a22786f71d4014d70c58fbbe",
+      "actualHash": "8e0ba1ccfac1ec73a50794a135e72bca8021fe79a22786f71d4014d70c58fbbe",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-37f78f2585c9e62a79bf/chromium/0",
+      "path": "screens/rc-switch/chromium/000183-2-actual.png",
+      "expectedHash": "8e0ba1ccfac1ec73a50794a135e72bca8021fe79a22786f71d4014d70c58fbbe",
+      "actualHash": "8e0ba1ccfac1ec73a50794a135e72bca8021fe79a22786f71d4014d70c58fbbe",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-25e9131edb88d4003702/chromium/0",
+      "path": "screens/rc-switch/chromium/000184-2-actual.png",
+      "expectedHash": "e0ec7fb6df0afa7b002340d655f9c4ed7136af93d1343da156415a775ce4c733",
+      "actualHash": "e0ec7fb6df0afa7b002340d655f9c4ed7136af93d1343da156415a775ce4c733",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-2ed49a3e7485c8e261fe/chromium/0",
+      "path": "screens/rc-switch/chromium/000185-2-actual.png",
+      "expectedHash": "8e0ba1ccfac1ec73a50794a135e72bca8021fe79a22786f71d4014d70c58fbbe",
+      "actualHash": "8e0ba1ccfac1ec73a50794a135e72bca8021fe79a22786f71d4014d70c58fbbe",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-a29f66dc28b0da6ac670/chromium/0",
+      "path": "screens/rc-switch/chromium/000186-2-actual.png",
+      "expectedHash": "5826678111a15f3bf12dd186fa8101d502ca168d8045864c491f3535a792b28e",
+      "actualHash": "5826678111a15f3bf12dd186fa8101d502ca168d8045864c491f3535a792b28e",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-60bf6413002d5d7ec51c/chromium/0",
+      "path": "screens/rc-switch/chromium/000187-2-actual.png",
+      "expectedHash": "5826678111a15f3bf12dd186fa8101d502ca168d8045864c491f3535a792b28e",
+      "actualHash": "5826678111a15f3bf12dd186fa8101d502ca168d8045864c491f3535a792b28e",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-2250b35227b8c80805f4/chromium/0",
+      "path": "screens/rc-switch/chromium/000188-2-actual.png",
+      "expectedHash": "517c42c94c03cef1932e5c077beb22703f7e328809066542b5dd657e073e6bf2",
+      "actualHash": "517c42c94c03cef1932e5c077beb22703f7e328809066542b5dd657e073e6bf2",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-bcba990a3fecc43a5522/chromium/0",
+      "path": "screens/rc-switch/chromium/000189-2-actual.png",
+      "expectedHash": "5826678111a15f3bf12dd186fa8101d502ca168d8045864c491f3535a792b28e",
+      "actualHash": "5826678111a15f3bf12dd186fa8101d502ca168d8045864c491f3535a792b28e",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-a0f8f973f14b68abc7a2/chromium/0",
+      "path": "screens/rc-switch/chromium/000190-2-actual.png",
+      "expectedHash": "1a7dd527c5a023d88c9ecce855e60bf606a25f073d708979eddeff567b899800",
+      "actualHash": "1a7dd527c5a023d88c9ecce855e60bf606a25f073d708979eddeff567b899800",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-8ac2b4571733936cc4a0/chromium/0",
+      "path": "screens/rc-switch/chromium/000191-2-actual.png",
+      "expectedHash": "bbfcdcb26013cb27b81ba8b445d097ac60201d1f9101aa538302d0e53c1cdddd",
+      "actualHash": "bbfcdcb26013cb27b81ba8b445d097ac60201d1f9101aa538302d0e53c1cdddd",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-687beeaa0fb3b229f180/chromium/0",
+      "path": "screens/rc-switch/chromium/000192-2-actual.png",
+      "expectedHash": "8325cfa15f62e3be94b457c23a606cc6f6eda8e89e3b8f7e596930508730e585",
+      "actualHash": "8325cfa15f62e3be94b457c23a606cc6f6eda8e89e3b8f7e596930508730e585",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-03b5a13abe1213a0a166/chromium/0",
+      "path": "screens/rc-switch/chromium/000193-2-actual.png",
+      "expectedHash": "d5a9595fb28706d6e6ad683715988db760a48c6a43e3cd34fc0b3efe52dc39e5",
+      "actualHash": "d5a9595fb28706d6e6ad683715988db760a48c6a43e3cd34fc0b3efe52dc39e5",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-e325236a91907323f869/chromium/0",
+      "path": "screens/rc-switch/chromium/000194-2-actual.png",
+      "expectedHash": "a1eee90fc2b93a1587c4fc79ff861b8fcb89d606040522626289c6da37eee58a",
+      "actualHash": "a1eee90fc2b93a1587c4fc79ff861b8fcb89d606040522626289c6da37eee58a",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-84db363b78338ccd92ca/chromium/0",
+      "path": "screens/rc-switch/chromium/000195-2-actual.png",
+      "expectedHash": "a1eee90fc2b93a1587c4fc79ff861b8fcb89d606040522626289c6da37eee58a",
+      "actualHash": "a1eee90fc2b93a1587c4fc79ff861b8fcb89d606040522626289c6da37eee58a",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-d87df08b05c69abaca40/chromium/0",
+      "path": "screens/rc-switch/chromium/000196-2-actual.png",
+      "expectedHash": "b0eb18b1ab0fdf2827acb665c1696de49146b7b6f9d7e3dae1b106b2f4fbdfe8",
+      "actualHash": "b0eb18b1ab0fdf2827acb665c1696de49146b7b6f9d7e3dae1b106b2f4fbdfe8",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-2f9fd26c4c1bd39db535/chromium/0",
+      "path": "screens/rc-switch/chromium/000197-2-actual.png",
+      "expectedHash": "a1eee90fc2b93a1587c4fc79ff861b8fcb89d606040522626289c6da37eee58a",
+      "actualHash": "a1eee90fc2b93a1587c4fc79ff861b8fcb89d606040522626289c6da37eee58a",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-edc7055253c1b713b04f/chromium/0",
+      "path": "screens/rc-switch/chromium/000198-2-actual.png",
+      "expectedHash": "b0035853d4bf5d7139cb73b09a68a956fc2a1d0a73fd91fb9acad545ecbedbb6",
+      "actualHash": "b0035853d4bf5d7139cb73b09a68a956fc2a1d0a73fd91fb9acad545ecbedbb6",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-0890f585c253e2f366fa/chromium/0",
+      "path": "screens/rc-switch/chromium/000199-2-actual.png",
+      "expectedHash": "b0035853d4bf5d7139cb73b09a68a956fc2a1d0a73fd91fb9acad545ecbedbb6",
+      "actualHash": "b0035853d4bf5d7139cb73b09a68a956fc2a1d0a73fd91fb9acad545ecbedbb6",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-ff669243ed2cf4413085/chromium/0",
+      "path": "screens/rc-switch/chromium/000200-2-actual.png",
+      "expectedHash": "be1b41f86a17aee9a914a7502eb9e060577906d070fc5ff6d7bf6e4d078bbd50",
+      "actualHash": "be1b41f86a17aee9a914a7502eb9e060577906d070fc5ff6d7bf6e4d078bbd50",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-bc39dc476d3ba8fec7af/chromium/0",
+      "path": "screens/rc-switch/chromium/000201-2-actual.png",
+      "expectedHash": "b0035853d4bf5d7139cb73b09a68a956fc2a1d0a73fd91fb9acad545ecbedbb6",
+      "actualHash": "b0035853d4bf5d7139cb73b09a68a956fc2a1d0a73fd91fb9acad545ecbedbb6",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-2012c9e5c7407b448236/chromium/0",
+      "path": "screens/rc-switch/chromium/000202-2-actual.png",
+      "expectedHash": "0734bf64cfd3a06300e34cfddbcb67e243b0ccb61870268d68aa7eae24e51920",
+      "actualHash": "0734bf64cfd3a06300e34cfddbcb67e243b0ccb61870268d68aa7eae24e51920",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-93099fa6c0e5988f9537/chromium/0",
+      "path": "screens/rc-switch/chromium/000203-2-actual.png",
+      "expectedHash": "545eca9837a9b898b1dfb5e3e8f773132450ba83c448c98e20f9fae528d6f224",
+      "actualHash": "545eca9837a9b898b1dfb5e3e8f773132450ba83c448c98e20f9fae528d6f224",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-b14d0d9acb64158e9e46/chromium/0",
+      "path": "screens/rc-switch/chromium/000204-2-actual.png",
+      "expectedHash": "7b9615e037e4c6b6a1fdb765f1f27400fdc44d8828161248311e326ea98cf388",
+      "actualHash": "7b9615e037e4c6b6a1fdb765f1f27400fdc44d8828161248311e326ea98cf388",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-09825837727f55ce966f/chromium/0",
+      "path": "screens/rc-switch/chromium/000205-2-actual.png",
+      "expectedHash": "4dda971897b8b9e8756e33cfdc3360580914c294bc171b38324d39b474f25d90",
+      "actualHash": "4dda971897b8b9e8756e33cfdc3360580914c294bc171b38324d39b474f25d90",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-4e617554b40fe1f36c8b/chromium/0",
+      "path": "screens/rc-switch/chromium/000206-2-actual.png",
+      "expectedHash": "5aa36bcfdee7ec8b570bb896e123c32f59a13ac981b9ef101487063e03bb5c49",
+      "actualHash": "5aa36bcfdee7ec8b570bb896e123c32f59a13ac981b9ef101487063e03bb5c49",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-114b7ca5a361e0f7dc14/chromium/0",
+      "path": "screens/rc-switch/chromium/000207-2-actual.png",
+      "expectedHash": "5aa36bcfdee7ec8b570bb896e123c32f59a13ac981b9ef101487063e03bb5c49",
+      "actualHash": "5aa36bcfdee7ec8b570bb896e123c32f59a13ac981b9ef101487063e03bb5c49",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-6da291e299f1f373c013/chromium/0",
+      "path": "screens/rc-switch/chromium/000208-2-actual.png",
+      "expectedHash": "d15fe8cceec2f40bdf3a5ab1a493b55429599441c5ee43ad573e2ed3df51a1e9",
+      "actualHash": "d15fe8cceec2f40bdf3a5ab1a493b55429599441c5ee43ad573e2ed3df51a1e9",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-406f929de4d26f8bd16a/chromium/0",
+      "path": "screens/rc-switch/chromium/000209-2-actual.png",
+      "expectedHash": "5aa36bcfdee7ec8b570bb896e123c32f59a13ac981b9ef101487063e03bb5c49",
+      "actualHash": "5aa36bcfdee7ec8b570bb896e123c32f59a13ac981b9ef101487063e03bb5c49",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-caf700e464440abdfcbf/chromium/0",
+      "path": "screens/rc-switch/chromium/000210-2-actual.png",
+      "expectedHash": "42df834ca6d24a2e8ae10ac8c15d3f3bc69a3fd8e4b3204f7610722e659ebc28",
+      "actualHash": "42df834ca6d24a2e8ae10ac8c15d3f3bc69a3fd8e4b3204f7610722e659ebc28",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-260497644f40a4c49a52/chromium/0",
+      "path": "screens/rc-switch/chromium/000211-2-actual.png",
+      "expectedHash": "42df834ca6d24a2e8ae10ac8c15d3f3bc69a3fd8e4b3204f7610722e659ebc28",
+      "actualHash": "42df834ca6d24a2e8ae10ac8c15d3f3bc69a3fd8e4b3204f7610722e659ebc28",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-2f6588bf81fca1e98698/chromium/0",
+      "path": "screens/rc-switch/chromium/000212-2-actual.png",
+      "expectedHash": "6feebe6d0cc5bebddc06a6f8430ecee7ce10527f716a85c20d360dffe34bef7c",
+      "actualHash": "6feebe6d0cc5bebddc06a6f8430ecee7ce10527f716a85c20d360dffe34bef7c",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-0a957dd1d7071cf29994/chromium/0",
+      "path": "screens/rc-switch/chromium/000213-2-actual.png",
+      "expectedHash": "42df834ca6d24a2e8ae10ac8c15d3f3bc69a3fd8e4b3204f7610722e659ebc28",
+      "actualHash": "42df834ca6d24a2e8ae10ac8c15d3f3bc69a3fd8e4b3204f7610722e659ebc28",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-bef3d00250e88905b394/chromium/0",
+      "path": "screens/rc-switch/chromium/000214-2-actual.png",
+      "expectedHash": "afda2e7f3fd3493e5fa47c71cc4afb741014bd3c58150eb3140e3afa5af87e15",
+      "actualHash": "afda2e7f3fd3493e5fa47c71cc4afb741014bd3c58150eb3140e3afa5af87e15",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-33a2b141b756d3dd62e3/chromium/0",
+      "path": "screens/rc-switch/chromium/000215-2-actual.png",
+      "expectedHash": "d888783ea491db0d385a94ac04343a9416d5eb9f102533fca75ae4b64500d44f",
+      "actualHash": "d888783ea491db0d385a94ac04343a9416d5eb9f102533fca75ae4b64500d44f",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-b050d21a2f16285e39ef/chromium/0",
+      "path": "screens/rc-switch/chromium/000216-2-actual.png",
+      "expectedHash": "428743bb5474b14dd7a5cdc7920684f823b1ce9e326bf8733204309045ad2014",
+      "actualHash": "428743bb5474b14dd7a5cdc7920684f823b1ce9e326bf8733204309045ad2014",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-9af1140d913c15cfed80/chromium/0",
+      "path": "screens/rc-switch/chromium/000217-2-actual.png",
+      "expectedHash": "42377969f82840b6d5cdb2f4f4f6599e827b7b02c7f58b890c3c8ff98081fbb0",
+      "actualHash": "42377969f82840b6d5cdb2f4f4f6599e827b7b02c7f58b890c3c8ff98081fbb0",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-74bc1e23a0af736ee770/chromium/0",
+      "path": "screens/rc-switch/chromium/000218-2-actual.png",
+      "expectedHash": "a3abe517751139c3d2cbea58ba3b55c880b916b9dc2f88c80c6f956e5d5e9933",
+      "actualHash": "a3abe517751139c3d2cbea58ba3b55c880b916b9dc2f88c80c6f956e5d5e9933",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-5856cf107983297875d4/chromium/0",
+      "path": "screens/rc-switch/chromium/000219-2-actual.png",
+      "expectedHash": "a3abe517751139c3d2cbea58ba3b55c880b916b9dc2f88c80c6f956e5d5e9933",
+      "actualHash": "a3abe517751139c3d2cbea58ba3b55c880b916b9dc2f88c80c6f956e5d5e9933",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-24d65adf7c1b81397be4/chromium/0",
+      "path": "screens/rc-switch/chromium/000220-2-actual.png",
+      "expectedHash": "652505b09e3bb9c2b40701f9273703d855d0cd2b1e257126fb7de665b8a56333",
+      "actualHash": "652505b09e3bb9c2b40701f9273703d855d0cd2b1e257126fb7de665b8a56333",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-00899154b75fc292026e/chromium/0",
+      "path": "screens/rc-switch/chromium/000221-2-actual.png",
+      "expectedHash": "a3abe517751139c3d2cbea58ba3b55c880b916b9dc2f88c80c6f956e5d5e9933",
+      "actualHash": "a3abe517751139c3d2cbea58ba3b55c880b916b9dc2f88c80c6f956e5d5e9933",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-dabf02b441b42ad94b95/chromium/0",
+      "path": "screens/rc-switch/chromium/000222-2-actual.png",
+      "expectedHash": "8d1a74782c3857627008b95f342547b05095f9bff272f36d093b38d42d85c96b",
+      "actualHash": "8d1a74782c3857627008b95f342547b05095f9bff272f36d093b38d42d85c96b",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-f917716822f2f5ae23cb/chromium/0",
+      "path": "screens/rc-switch/chromium/000223-2-actual.png",
+      "expectedHash": "8d1a74782c3857627008b95f342547b05095f9bff272f36d093b38d42d85c96b",
+      "actualHash": "8d1a74782c3857627008b95f342547b05095f9bff272f36d093b38d42d85c96b",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-dda0b1a4ac9666248740/chromium/0",
+      "path": "screens/rc-switch/chromium/000224-2-actual.png",
+      "expectedHash": "ec39e0e72b5f8ee8827ee4f018c71bf7f6108ab413b0f200d1e2f6c4d72b6674",
+      "actualHash": "ec39e0e72b5f8ee8827ee4f018c71bf7f6108ab413b0f200d1e2f6c4d72b6674",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-1c59103267b9fb72bd5c/chromium/0",
+      "path": "screens/rc-switch/chromium/000225-2-actual.png",
+      "expectedHash": "8d1a74782c3857627008b95f342547b05095f9bff272f36d093b38d42d85c96b",
+      "actualHash": "8d1a74782c3857627008b95f342547b05095f9bff272f36d093b38d42d85c96b",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-4f0a6d0ab6dc3ec2c14e/chromium/0",
+      "path": "screens/rc-switch/chromium/000226-2-actual.png",
+      "expectedHash": "0e64c37481ccc7d68a077c9588733501e981ea70a2566cd4ed81960d9a0f9b10",
+      "actualHash": "0e64c37481ccc7d68a077c9588733501e981ea70a2566cd4ed81960d9a0f9b10",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-43dd614f87a449b5c132/chromium/0",
+      "path": "screens/rc-switch/chromium/000227-2-actual.png",
+      "expectedHash": "3d5d13a1b650198f6194ab814f328f1dacc8f15d2ab3fec3542e1dac476d2c33",
+      "actualHash": "3d5d13a1b650198f6194ab814f328f1dacc8f15d2ab3fec3542e1dac476d2c33",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-2789ada814a30fef21bf/chromium/0",
+      "path": "screens/rc-switch/chromium/000228-2-actual.png",
+      "expectedHash": "5bb8e07d208f521fc5393a24e98af05068ed1be6d882cd7123ee577eb138ffb4",
+      "actualHash": "5bb8e07d208f521fc5393a24e98af05068ed1be6d882cd7123ee577eb138ffb4",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-bbbbe4f0c05e0888aa46/chromium/0",
+      "path": "screens/rc-switch/chromium/000229-2-actual.png",
+      "expectedHash": "a1683647e95a53bd32454efac878c8d803d83ca8da45cfbc35d661cbf5c1df3f",
+      "actualHash": "a1683647e95a53bd32454efac878c8d803d83ca8da45cfbc35d661cbf5c1df3f",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-50a7b9a729c6da741cbf/chromium/0",
+      "path": "screens/rc-switch/chromium/000230-2-actual.png",
+      "expectedHash": "ee823fe114cda99022d7ffb8cbd4990e9ab97763a070606cc45ccd3fbaff24f6",
+      "actualHash": "ee823fe114cda99022d7ffb8cbd4990e9ab97763a070606cc45ccd3fbaff24f6",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-249f82d7e81bdb78430a/chromium/0",
+      "path": "screens/rc-switch/chromium/000231-2-actual.png",
+      "expectedHash": "ee823fe114cda99022d7ffb8cbd4990e9ab97763a070606cc45ccd3fbaff24f6",
+      "actualHash": "ee823fe114cda99022d7ffb8cbd4990e9ab97763a070606cc45ccd3fbaff24f6",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-03326800b7754a5e5593/chromium/0",
+      "path": "screens/rc-switch/chromium/000232-2-actual.png",
+      "expectedHash": "b016dcaeaaf98dbaf3c86fdd3883a17d24173792c9f01084d1f783887df5951a",
+      "actualHash": "b016dcaeaaf98dbaf3c86fdd3883a17d24173792c9f01084d1f783887df5951a",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-50a97a7d36710941a905/chromium/0",
+      "path": "screens/rc-switch/chromium/000233-2-actual.png",
+      "expectedHash": "ee823fe114cda99022d7ffb8cbd4990e9ab97763a070606cc45ccd3fbaff24f6",
+      "actualHash": "ee823fe114cda99022d7ffb8cbd4990e9ab97763a070606cc45ccd3fbaff24f6",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-78802fe8f72d10ff73e7/chromium/0",
+      "path": "screens/rc-switch/chromium/000234-2-actual.png",
+      "expectedHash": "ba79dc107b7550a9d25f15ff6f6eb1de49a3519bb4be4deeed6e6a337e6c2e11",
+      "actualHash": "ba79dc107b7550a9d25f15ff6f6eb1de49a3519bb4be4deeed6e6a337e6c2e11",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-9c5a068603f00cc40057/chromium/0",
+      "path": "screens/rc-switch/chromium/000235-2-actual.png",
+      "expectedHash": "ba79dc107b7550a9d25f15ff6f6eb1de49a3519bb4be4deeed6e6a337e6c2e11",
+      "actualHash": "ba79dc107b7550a9d25f15ff6f6eb1de49a3519bb4be4deeed6e6a337e6c2e11",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-194a8d5ac467ae34c36f/chromium/0",
+      "path": "screens/rc-switch/chromium/000236-2-actual.png",
+      "expectedHash": "f7ff12542a2bb656af8281022685e5419b3eefc2c1101c6e4649cabf1f477717",
+      "actualHash": "f7ff12542a2bb656af8281022685e5419b3eefc2c1101c6e4649cabf1f477717",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-cce486eec847fe150f44/chromium/0",
+      "path": "screens/rc-switch/chromium/000237-2-actual.png",
+      "expectedHash": "ba79dc107b7550a9d25f15ff6f6eb1de49a3519bb4be4deeed6e6a337e6c2e11",
+      "actualHash": "ba79dc107b7550a9d25f15ff6f6eb1de49a3519bb4be4deeed6e6a337e6c2e11",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-4807f5c0fce331a3fdfb/chromium/0",
+      "path": "screens/rc-switch/chromium/000238-2-actual.png",
+      "expectedHash": "c1c23489341345b110d9c5020bac02c725980acb910a1b8c726b6e4f83c68d73",
+      "actualHash": "c1c23489341345b110d9c5020bac02c725980acb910a1b8c726b6e4f83c68d73",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-f9881b7146844b2c9c6d/chromium/0",
+      "path": "screens/rc-switch/chromium/000239-2-actual.png",
+      "expectedHash": "559d240bc75a1ba7ee2625d806bbf776fb62463e230a689f3def89cf967e5418",
+      "actualHash": "559d240bc75a1ba7ee2625d806bbf776fb62463e230a689f3def89cf967e5418",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-923e1a7242e1646f4870/chromium/0",
+      "path": "screens/rc-switch/chromium/000240-2-actual.png",
+      "expectedHash": "e12caa8288a004231614c0dffecd23d8a6d0347334a67e8a9d0887485abb2811",
+      "actualHash": "e12caa8288a004231614c0dffecd23d8a6d0347334a67e8a9d0887485abb2811",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-c769014abb91bc5b96fa/chromium/0",
+      "path": "screens/rc-switch/chromium/000241-2-actual.png",
+      "expectedHash": "951a2e72ca61124c4fec71026ddb0ec385bd8a91d5edf6ba951d42f1d2e89b0f",
+      "actualHash": "951a2e72ca61124c4fec71026ddb0ec385bd8a91d5edf6ba951d42f1d2e89b0f",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-719abf707e8e20ad4e83/chromium/0",
+      "path": "screens/rc-switch/chromium/000242-2-actual.png",
+      "expectedHash": "f7867e999993fa87e040f19b09309180b70df81d6cc74ba36a741a5fd15cc207",
+      "actualHash": "f7867e999993fa87e040f19b09309180b70df81d6cc74ba36a741a5fd15cc207",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-d5ea881f503ca766b082/chromium/0",
+      "path": "screens/rc-switch/chromium/000243-2-actual.png",
+      "expectedHash": "f7867e999993fa87e040f19b09309180b70df81d6cc74ba36a741a5fd15cc207",
+      "actualHash": "f7867e999993fa87e040f19b09309180b70df81d6cc74ba36a741a5fd15cc207",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-f476906a089e4b6cc84d/chromium/0",
+      "path": "screens/rc-switch/chromium/000244-2-actual.png",
+      "expectedHash": "37a30fe83114984a604bb51bfd35ae1d0487218d9258fecdba9673e53c73247c",
+      "actualHash": "37a30fe83114984a604bb51bfd35ae1d0487218d9258fecdba9673e53c73247c",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-79dc182cf5f157bd3245/chromium/0",
+      "path": "screens/rc-switch/chromium/000245-2-actual.png",
+      "expectedHash": "f7867e999993fa87e040f19b09309180b70df81d6cc74ba36a741a5fd15cc207",
+      "actualHash": "f7867e999993fa87e040f19b09309180b70df81d6cc74ba36a741a5fd15cc207",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-0b951328f5fbd89478d5/chromium/0",
+      "path": "screens/rc-switch/chromium/000246-2-actual.png",
+      "expectedHash": "db917bf70f04b52a3145c3f86eba20dcae76f561bd19452f373146a740020521",
+      "actualHash": "db917bf70f04b52a3145c3f86eba20dcae76f561bd19452f373146a740020521",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-db73ae7adb73a238e277/chromium/0",
+      "path": "screens/rc-switch/chromium/000247-2-actual.png",
+      "expectedHash": "db917bf70f04b52a3145c3f86eba20dcae76f561bd19452f373146a740020521",
+      "actualHash": "db917bf70f04b52a3145c3f86eba20dcae76f561bd19452f373146a740020521",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-bb8b1e93947c9b9c0d42/chromium/0",
+      "path": "screens/rc-switch/chromium/000248-2-actual.png",
+      "expectedHash": "1490066871dccc0217e2bc6c5e6efa5ca8d2e42a4aaf24f20c9dc1f103096a66",
+      "actualHash": "1490066871dccc0217e2bc6c5e6efa5ca8d2e42a4aaf24f20c9dc1f103096a66",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-990783b57dbbefafff50/chromium/0",
+      "path": "screens/rc-switch/chromium/000249-2-actual.png",
+      "expectedHash": "db917bf70f04b52a3145c3f86eba20dcae76f561bd19452f373146a740020521",
+      "actualHash": "db917bf70f04b52a3145c3f86eba20dcae76f561bd19452f373146a740020521",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-00147fb070037f5a7884/chromium/0",
+      "path": "screens/rc-switch/chromium/000250-2-actual.png",
+      "expectedHash": "30313bd57f4674bc922735e49712d3450c7062cb025140119024be929692326a",
+      "actualHash": "30313bd57f4674bc922735e49712d3450c7062cb025140119024be929692326a",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-09b51d3c7c6972b3ba76/chromium/0",
+      "path": "screens/rc-switch/chromium/000251-2-actual.png",
+      "expectedHash": "f91679ef5352d15eeb337ddef9f89c1117daa961692d1bed56cd6379867913de",
+      "actualHash": "f91679ef5352d15eeb337ddef9f89c1117daa961692d1bed56cd6379867913de",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-a93c07083d85080c243c/chromium/0",
+      "path": "screens/rc-switch/chromium/000252-2-actual.png",
+      "expectedHash": "6690d7000348443a6d1a9ace79f4643275b216fae76ec85253f5bf5c82fa01f9",
+      "actualHash": "6690d7000348443a6d1a9ace79f4643275b216fae76ec85253f5bf5c82fa01f9",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-1d0b1b7b1a78cb5fb65f/chromium/0",
+      "path": "screens/rc-switch/chromium/000253-2-actual.png",
+      "expectedHash": "1002376d18ed9a97ed00cc726ad1e844c04ab1ac850198dd7f6f195a28260287",
+      "actualHash": "1002376d18ed9a97ed00cc726ad1e844c04ab1ac850198dd7f6f195a28260287",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-de87f79a9bc0442548f6/chromium/0",
+      "path": "screens/rc-switch/chromium/000254-2-actual.png",
+      "expectedHash": "ed95c66cafe86b6125addefdb0088a61dd9dcc049dc9eb83087923d8365330ba",
+      "actualHash": "ed95c66cafe86b6125addefdb0088a61dd9dcc049dc9eb83087923d8365330ba",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-e0f855d27dc8793b518b/chromium/0",
+      "path": "screens/rc-switch/chromium/000255-2-actual.png",
+      "expectedHash": "ed95c66cafe86b6125addefdb0088a61dd9dcc049dc9eb83087923d8365330ba",
+      "actualHash": "ed95c66cafe86b6125addefdb0088a61dd9dcc049dc9eb83087923d8365330ba",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-dd23a754f3875b83b307/chromium/0",
+      "path": "screens/rc-switch/chromium/000256-2-actual.png",
+      "expectedHash": "3d6ec0f345e4aad48a5111c93e424e6aca5fd107a371f0affc82564c8d77375f",
+      "actualHash": "3d6ec0f345e4aad48a5111c93e424e6aca5fd107a371f0affc82564c8d77375f",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-d2510a3cc952cbe2aba3/chromium/0",
+      "path": "screens/rc-switch/chromium/000257-2-actual.png",
+      "expectedHash": "ed95c66cafe86b6125addefdb0088a61dd9dcc049dc9eb83087923d8365330ba",
+      "actualHash": "ed95c66cafe86b6125addefdb0088a61dd9dcc049dc9eb83087923d8365330ba",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-87a0fc272142e05a73a8/chromium/0",
+      "path": "screens/rc-switch/chromium/000258-2-actual.png",
+      "expectedHash": "f75c1d153dbbfe18ad18853d19c4f72c3ea94ebac8ca0d2a07489bf1ed3678a5",
+      "actualHash": "f75c1d153dbbfe18ad18853d19c4f72c3ea94ebac8ca0d2a07489bf1ed3678a5",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-31a864d0d130aaa708e0/chromium/0",
+      "path": "screens/rc-switch/chromium/000259-2-actual.png",
+      "expectedHash": "f75c1d153dbbfe18ad18853d19c4f72c3ea94ebac8ca0d2a07489bf1ed3678a5",
+      "actualHash": "f75c1d153dbbfe18ad18853d19c4f72c3ea94ebac8ca0d2a07489bf1ed3678a5",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-584e01e9c7ff207017b6/chromium/0",
+      "path": "screens/rc-switch/chromium/000260-2-actual.png",
+      "expectedHash": "030f6631bb74dd2c0fec47502c1a0611187a67b8cbb9fa15faf1c148025c5d6e",
+      "actualHash": "030f6631bb74dd2c0fec47502c1a0611187a67b8cbb9fa15faf1c148025c5d6e",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-59567cd434475a64c388/chromium/0",
+      "path": "screens/rc-switch/chromium/000261-2-actual.png",
+      "expectedHash": "f75c1d153dbbfe18ad18853d19c4f72c3ea94ebac8ca0d2a07489bf1ed3678a5",
+      "actualHash": "f75c1d153dbbfe18ad18853d19c4f72c3ea94ebac8ca0d2a07489bf1ed3678a5",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-25771c7bf200405e8628/chromium/0",
+      "path": "screens/rc-switch/chromium/000262-2-actual.png",
+      "expectedHash": "01740944c2c3ab825d2253baa98e9cecd7e29ef502c31cbd00250818169d3060",
+      "actualHash": "01740944c2c3ab825d2253baa98e9cecd7e29ef502c31cbd00250818169d3060",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-f54e14e5993e7a81852a/chromium/0",
+      "path": "screens/rc-switch/chromium/000263-2-actual.png",
+      "expectedHash": "d73e52a3db29fe53630d99754df684d260d1894d502a5379ddfaf8dcd38e7007",
+      "actualHash": "d73e52a3db29fe53630d99754df684d260d1894d502a5379ddfaf8dcd38e7007",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-161864c413a6ad9f4a12/chromium/0",
+      "path": "screens/rc-switch/chromium/000264-2-actual.png",
+      "expectedHash": "1f92e4c42db1f8b4196092ed6b87336a9ec7f6644d298af199e2c7ff7f9b13dd",
+      "actualHash": "1f92e4c42db1f8b4196092ed6b87336a9ec7f6644d298af199e2c7ff7f9b13dd",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-b0e65b32d9615dffe283/chromium/0",
+      "path": "screens/rc-switch/chromium/000265-2-actual.png",
+      "expectedHash": "6630d78505d37f3f824966a8e22527f522e5b7bdfd383ea38b0440f191b1204b",
+      "actualHash": "6630d78505d37f3f824966a8e22527f522e5b7bdfd383ea38b0440f191b1204b",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-3f23e69dcfd31e7d6943/chromium/0",
+      "path": "screens/rc-switch/chromium/000266-2-actual.png",
+      "expectedHash": "77438b5fc107270da0a3af738bec97f96853f2cd7466ee919c74620c6bf78425",
+      "actualHash": "77438b5fc107270da0a3af738bec97f96853f2cd7466ee919c74620c6bf78425",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-d9f481ce6070441ec0ee/chromium/0",
+      "path": "screens/rc-switch/chromium/000267-2-actual.png",
+      "expectedHash": "77438b5fc107270da0a3af738bec97f96853f2cd7466ee919c74620c6bf78425",
+      "actualHash": "77438b5fc107270da0a3af738bec97f96853f2cd7466ee919c74620c6bf78425",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-82c151b7a77e59bb9671/chromium/0",
+      "path": "screens/rc-switch/chromium/000268-2-actual.png",
+      "expectedHash": "17c54c938170cca0682768463b8e052214a3408b45f5f6faebb4b79fc86cd636",
+      "actualHash": "17c54c938170cca0682768463b8e052214a3408b45f5f6faebb4b79fc86cd636",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-e78f3fd4895f39983303/chromium/0",
+      "path": "screens/rc-switch/chromium/000269-2-actual.png",
+      "expectedHash": "77438b5fc107270da0a3af738bec97f96853f2cd7466ee919c74620c6bf78425",
+      "actualHash": "77438b5fc107270da0a3af738bec97f96853f2cd7466ee919c74620c6bf78425",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-94bda3e08e400c87dff6/chromium/0",
+      "path": "screens/rc-switch/chromium/000270-2-actual.png",
+      "expectedHash": "9323e8e1dacf245e1570cb23234df2b73966262b0384d89bed4c91aaff0c58df",
+      "actualHash": "9323e8e1dacf245e1570cb23234df2b73966262b0384d89bed4c91aaff0c58df",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-6895d9cbcc91905a718c/chromium/0",
+      "path": "screens/rc-switch/chromium/000271-2-actual.png",
+      "expectedHash": "9323e8e1dacf245e1570cb23234df2b73966262b0384d89bed4c91aaff0c58df",
+      "actualHash": "9323e8e1dacf245e1570cb23234df2b73966262b0384d89bed4c91aaff0c58df",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-fe65a688f8f7c6f87c65/chromium/0",
+      "path": "screens/rc-switch/chromium/000272-2-actual.png",
+      "expectedHash": "5d02276a1e86383c4b6a1409eed8fadaf3379062640b82d17c73322e01d6ca11",
+      "actualHash": "5d02276a1e86383c4b6a1409eed8fadaf3379062640b82d17c73322e01d6ca11",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-4bc00d756039245aa152/chromium/0",
+      "path": "screens/rc-switch/chromium/000273-2-actual.png",
+      "expectedHash": "9323e8e1dacf245e1570cb23234df2b73966262b0384d89bed4c91aaff0c58df",
+      "actualHash": "9323e8e1dacf245e1570cb23234df2b73966262b0384d89bed4c91aaff0c58df",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-8e96acd6ef259eb01f2e/chromium/0",
+      "path": "screens/rc-switch/chromium/000274-2-actual.png",
+      "expectedHash": "fbff96f1d46b023d564685c70887f141a7edcb4405c129ecc6d90dcac14b316d",
+      "actualHash": "fbff96f1d46b023d564685c70887f141a7edcb4405c129ecc6d90dcac14b316d",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-cf51426bc7e166dfd736/chromium/0",
+      "path": "screens/rc-switch/chromium/000275-2-actual.png",
+      "expectedHash": "25470e9c050bb1ad93cd930abeec808fa63752dedd164bd79dc3f64e187cdefa",
+      "actualHash": "25470e9c050bb1ad93cd930abeec808fa63752dedd164bd79dc3f64e187cdefa",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-2d14f10f6a11dd34dd81/chromium/0",
+      "path": "screens/rc-switch/chromium/000276-2-actual.png",
+      "expectedHash": "5421f61c15835d8f0c4972be71ac59ec965199af34b2999b7cbda98831891cab",
+      "actualHash": "5421f61c15835d8f0c4972be71ac59ec965199af34b2999b7cbda98831891cab",
+      "hashMatches": true
+    },
+    {
+      "caseId": "c7e46b26bf79f78e141e-282cdf7f3c748872085b/chromium/0",
+      "path": "screens/rc-switch/chromium/000277-2-actual.png",
+      "expectedHash": "e1afc9019bd1a91293ff359f275dfdfffe1d9ce87b288bd0f01c77ec580c983f",
+      "actualHash": "e1afc9019bd1a91293ff359f275dfdfffe1d9ce87b288bd0f01c77ec580c983f",
+      "hashMatches": true
+    },
+    {
+      "caseId": "73019a0006cb75aa6498-ee5867e2b9668c370166/chromium/0",
+      "path": "screens/rc-switch/chromium/000278-0-inventory-actual.png",
+      "expectedHash": "b57f6737eeadb2ac16292e450ab8675c6033a2bc477c7f66025d5ee621227f7b",
+      "actualHash": "b57f6737eeadb2ac16292e450ab8675c6033a2bc477c7f66025d5ee621227f7b",
+      "hashMatches": true
+    },
+    {
+      "caseId": "73019a0006cb75aa6498-7205d4464a267f32f82b/chromium/0",
+      "path": "screens/rc-switch/chromium/000279-0-inventory-actual.png",
+      "expectedHash": "ac3241f9e2c85905856a6a3275ca65c4c82a06b7afe0c5b20114ff99bde8ba20",
+      "actualHash": "ac3241f9e2c85905856a6a3275ca65c4c82a06b7afe0c5b20114ff99bde8ba20",
+      "hashMatches": true
+    },
+    {
+      "caseId": "73019a0006cb75aa6498-a31c5bc5234de3f6a09a/chromium/0",
+      "path": "screens/rc-switch/chromium/000280-0-inventory-actual.png",
+      "expectedHash": "c3d95eea27af24da76e653085f446858fb186a5d580a01bc917ffb2831fd8a21",
+      "actualHash": "c3d95eea27af24da76e653085f446858fb186a5d580a01bc917ffb2831fd8a21",
+      "hashMatches": true
+    },
+    {
+      "caseId": "73019a0006cb75aa6498-af1e4444194dccc23631/chromium/0",
+      "path": "screens/rc-switch/chromium/000281-0-inventory-actual.png",
+      "expectedHash": "21e692a0b54d788964777159cbcb3eb661e5525ed8a87b1ea334b35aa80b7ae7",
+      "actualHash": "21e692a0b54d788964777159cbcb3eb661e5525ed8a87b1ea334b35aa80b7ae7",
+      "hashMatches": true
+    },
+    {
+      "caseId": "73019a0006cb75aa6498-c895f147abc5e314d11e/chromium/0",
+      "path": "screens/rc-switch/chromium/000282-0-inventory-actual.png",
+      "expectedHash": "40eedbb86e797406f4c0447950785be0d1cd4fb5fba4ef8e8c7f5d3b54b243c4",
+      "actualHash": "40eedbb86e797406f4c0447950785be0d1cd4fb5fba4ef8e8c7f5d3b54b243c4",
+      "hashMatches": true
+    },
+    {
+      "caseId": "73019a0006cb75aa6498-cee7a6e69644af2a3322/chromium/0",
+      "path": "screens/rc-switch/chromium/000283-0-inventory-actual.png",
+      "expectedHash": "3a84076c9598f8a81cf733a463bc593a47ef48084d81472170bae3838c439ffc",
+      "actualHash": "3a84076c9598f8a81cf733a463bc593a47ef48084d81472170bae3838c439ffc",
+      "hashMatches": true
+    }
+  ],
+  "visualReview": "pending; execution and file hashes do not substitute for image/video review",
+  "limitations": [
+    "Windows native candidate assertions and captures only; no canonical Linux pixel comparison, Firefox/WebKit, baseline approval or verified status.",
+    "No images or native reports were edited. The earlier candidate and its pending visual findings remain unchanged.",
+    "Switch source stayed frozen; only public build products and native evidence were produced."
+  ]
+}

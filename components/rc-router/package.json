@@ -14,7 +14,7 @@
         "build:library": "wake library build .",
         "generate:docgen": "wake library docgen .",
         "test": "wake test --serial --coverage",
-        "typecheck": "node ../../scripts/typecheck.mjs --noEmit",
+        "typecheck": "tsc --noEmit",
         "lint": "wake lint --format human --root ../.. components/rc-router/src components/rc-router/docs --env browser --max-warnings 0",
         "check": "node ../../scripts/check-package.mjs"
     },
@@ -42,7 +42,7 @@
         "@types/react-dom": "^19.3.0",
         "react": "19.3.0",
         "react-dom": "19.3.0",
-        "typescript": "^7.0.2"
+        "typescript": "6.0.2"
     },
     "engines": {
         "node": ">=22"

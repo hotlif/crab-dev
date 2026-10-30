@@ -39,3 +39,21 @@ status = "experimental"
 空状态的标题、说明、图像和操作沿用当前主题的字体及语义颜色。M3 没有独立 Empty 组件，本组件按内容层级与反馈布局扩展；三套设计不会为无数据状态额外添加无意义的边框或交互装饰。
 
 切换文档站设计风格后，本页演示同步使用该设计；浅色和深色模式分别使用配对语义颜色。
+
+## 三体系规格与验收边界
+
+三种预设是数据、搜索和权限的项目模式，三体系均没有一一对应的官方组件。图示辅助理解，标题、说明和恢复动作建立明确层级；加载或错误不能被默认空态替代。imageSize 属开放尺寸，48/72px 代表值在环境扩展验收。
+
+| 体系 | 组件视觉规则 |
+| --- | --- |
+| MD3 Expressive | 使用表面、次要文字和主操作角色，表达力集中在恢复动作。 |
+| Apple | 内容优先，减少装饰，说明和恢复动作保持可达。 |
+| shadcn | 沿用中性字阶、细分组和按钮组合，不冒称参考提交有 Empty。 |
+
+本包几何与视觉来源：container.padding / min-height；image.width / margin-bottom；title 字阶和行高；description.max-width / 行高；action.gap / margin-top。文字允许任意换行，动作允许折行。设计值只在对应 token.toml 与它引用的语义角色维护，验收测量读取实际 DOM 计算值。
+
+颜色、字阶、形状、状态和动效分别从 L2 角色映射到包内 L3；Theme 负责最近配置边界。明暗模式使用配对前景/背景，不进行整体反相。视觉边界与命中区域分别检查，焦点截图保留外部轮廓与阴影。强制颜色采用系统色；减少动画保留信息与最终状态。
+
+矩阵定义在本包 `docs/visual.json`，场景使用 `visual-matrix.demo.tsx`。Chromium 覆盖其中全部设计/明暗/命名尺寸/适用密度/状态；Firefox 与 WebKit 按 `crossEngine` 的默认展示和重点交互子集执行。窄屏、RTL、中英文、长文本、品牌覆盖和配置切换后的草稿保持另有场景；未运行、未人工复核或失败的项不能计为通过。开放尺寸输入的代表样本不等于无限集合的穷尽。
+
+参考核对日期：2026-10-29。[Material 3 Cards](https://m3.material.io/components/cards/overview)、[Material Web Divider 使用/无障碍/令牌](https://material-web.dev/components/divider/)、[Material Web Progress 语义](https://material-web.dev/components/progress/)、[Apple Feedback](https://developer.apple.com/design/human-interface-guidelines/feedback)、[Apple Layout](https://developer.apple.com/design/human-interface-guidelines/layout)、[Apple Progress indicators](https://developer.apple.com/design/human-interface-guidelines/progress-indicators)、[shadcn New York V4 来源边界](https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui)。Material Web 是 Web 行为基线；Apple 是依据原则的自主 Web 实现；shadcn 固定参考提交 `3d98900e9b73c45f035f8109e9d41ba6a51685e7`，不跟随浮动最新版。

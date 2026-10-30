@@ -231,6 +231,40 @@ export const demos = [
         "group": null
     },
     {
+        "id": "docs/demos/visual-matrix.demo.tsx",
+        "title": "三体系字段状态矩阵",
+        "description": "同一文本域保留多行草稿，实际验证清除、字数、原生只读与自动高度。",
+        "learning": {
+            "components": [
+                "TextEdit"
+            ],
+            "props": [
+                "appearance",
+                "label",
+                "aria-label",
+                "value",
+                "onValueChange",
+                "allowClear",
+                "rows",
+                "maxLength",
+                "showCount",
+                "autoSize",
+                "bordered",
+                "disabled"
+            ],
+            "events": [
+                "onValueChange"
+            ],
+            "hasState": true
+        },
+        "sourceCode": "import { css } from \"@crab-dev/css\";\nimport TextEdit from \"@crab-dev/rc-text-edit\";\nimport { useConfig } from \"@crab-dev/rc-config-provider\";\nimport { useId, useState } from \"react\";\nimport token from \"@crab-dev/rc-token-semantic\";\n\nexport const meta = { title: \"三体系字段状态矩阵\", description: \"同一文本域保留多行草稿，实际验证清除、字数、原生只读与自动高度。\" };\nconst scene = css`\n    display: grid; gap: ${token.space['group-gap']}; padding: ${token.space['group-gap']};\n    max-inline-size: 52rem; min-inline-size: 0; color: ${token.color.text.primary}; background: ${token.color.background.surface};\n`;\nconst samples = css`\n    display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));\n    gap: ${token.space['group-gap']}; padding: ${token.space['group-gap']}; min-inline-size: 0;\n`;\nconst states = [\"default\",\"hover\",\"focus-visible\",\"filled\",\"error\",\"filled-error\",\"warning\",\"filled-warning\",\"disabled\",\"read-only\",\"clear\",\"auto-size\",\"borderless\"] as const;\nexport default function VisualMatrixDemo() {\n    const { locale } = useConfig();\n    const english = locale === \"en-US\";\n    const [state, setState] = useState\u003ctypeof states[number]>(\"default\");\n    const [value, setValue] = useState(\"\");\n    const id = useId();\n    const status = state === \"error\" || state === \"filled-error\" ? \"error\"\n        : state === \"warning\" || state === \"filled-warning\" ? \"warning\" : undefined;\n    return \u003csection className={scene} aria-label=\"TextEdit visual matrix\" data-visual-scene data-state={state}>\n        \u003cdiv>\u003clabel htmlFor={id}>验收状态\u003c/label>{\" \"}\u003cselect id={id} value={state} onChange={event => {\n            const next = event.currentTarget.value;\n            if (states.some(item => item === next)) {\n                setState(next as typeof state);\n                if (next === \"disabled\" || next === \"read-only\") setValue(\"保留的多行草稿\\nSelected project notes.\");\n                else if (value === \"\" && (next === \"filled-error\" || next === \"filled-warning\")) setValue(\"保留的多行草稿\\nSelected project notes.\");\n            }\n        }}>{states.map(item => \u003coption key={item}>{item}\u003c/option>)}\u003c/select>\u003c/div>\n        \u003cdiv className={samples} data-visual-frame>\n            {([\"outlined\", \"filled\"] as const).map(appearance => \u003cTextEdit key={appearance}\n                appearance={appearance} label={`${english ? \"Project notes\" : \"项目备注\"} · ${appearance}`} aria-label={`TextEdit ${appearance}`}\n                value={value} onValueChange={setValue} allowClear\n                rows={2} maxLength={240} showCount autoSize={state === \"auto-size\"} bordered={state !== \"borderless\"}\n                disabled={state === \"disabled\"} readOnly={state === \"read-only\"}\n                status={status}\n                errorText={status === \"error\" ? (english ? \"Review your notes and try again.\" : \"请核对内容并修正后重试。\") : undefined}\n                supportingText={english ? \"Share notes in Chinese or English; up to 240 characters.\" : \"用于团队交接，可输入中英文和长文本；最多 240 字。\"}\n            />)}\n        \u003c/div>\n    \u003c/section>;\n}\n\n",
+        "previewPath": "/components/rc-text-edit/workbench/?__wake_demo=docs%2Fdemos%2Fvisual-matrix.demo.tsx",
+        "workbenchPath": "/components/rc-text-edit/workbench/#/components/docs%2Fdemos%2Fvisual-matrix.demo.tsx",
+        "density": "regular",
+        "layout": "grid",
+        "group": null
+    },
+    {
         "id": "docs/demos/visual-states.demo.tsx",
         "title": "只读多行字段",
         "description": "只读字段仍可聚焦、选择和复制；分别核对 outlined 与 filled 的标签、内容和计数。",

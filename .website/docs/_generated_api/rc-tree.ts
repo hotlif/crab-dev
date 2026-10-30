@@ -32,6 +32,11 @@ type TreeSelectedKeysChangeDetails = DocsTypePlaceholder;
 
 export interface TreeProps {
     /**
+     * 设置节点可拖拽
+     */
+    "draggable"?: boolean;
+
+    /**
      * 树组件的数据信息
      */
     "treeData": Array<Node>;
@@ -45,11 +50,6 @@ export interface TreeProps {
      * 宽度
      */
     "width": number;
-
-    /**
-     * 设置节点可拖拽
-     */
-    "draggable"?: boolean;
 
     /**
      * 拖拽放置前的校验回调，返回 false 则阻止此次放置。
@@ -177,34 +177,34 @@ export interface TreeProps {
     "onTreeNodeChange": Dispatch<SetStateAction<TreeProps["treeData"]>>;
 
     /**
-     * 暂无说明。
+     * 暂无说明。 与 defaultSelectedKeys 互斥，不能同时提供。
      */
-    "selectedKeys"?: Key[] | undefined;
+    "selectedKeys"?: Key[];
 
     /**
-     * 暂无说明。
+     * 暂无说明。 与 selectedKeys 互斥，不能同时提供。
      * @default []
      */
     "defaultSelectedKeys"?: Key[];
 
     /**
-     * 暂无说明。
+     * 暂无说明。 与 defaultCheckedKeys 互斥，不能同时提供。
      */
-    "checkedKeys"?: Key[] | undefined;
+    "checkedKeys"?: Key[];
 
     /**
-     * 暂无说明。
+     * 暂无说明。 与 checkedKeys 互斥，不能同时提供。
      * @default []
      */
     "defaultCheckedKeys"?: Key[];
 
     /**
-     * 暂无说明。
+     * 暂无说明。 与 defaultExpandedKeys 互斥，不能同时提供。
      */
-    "expandedKeys"?: Key[] | undefined;
+    "expandedKeys"?: Key[];
 
     /**
-     * 暂无说明。
+     * 暂无说明。 与 expandedKeys 互斥，不能同时提供。
      * @default []
      */
     "defaultExpandedKeys"?: Key[];

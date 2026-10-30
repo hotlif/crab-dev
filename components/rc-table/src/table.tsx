@@ -1,21 +1,27 @@
-import { useComponentSize, useConfig, useLocale, componentDensityMetrics, densityStyles, type ConfigSize, type ConfigDensity } from '@crab-dev/rc-config-provider';
+import { useFilterRowHeight } from "./hooks/useFilterRowHeight.js";
+import { useRowEditFocus } from "./hooks/useRowEditFocus.js";
+import type { TableProps } from "./table-props.js";
+export type { TableProps } from "./table-props.js";
+import ExpandedRowContent from "./expanded-row-content.js";
+import { paddingLeft, paddingLeftWithCompensation, paddingRight, paddingBottom, paddingTop } from "./virtual-spacers.js";
+import { makeRowReactKey, makeColumnReactKey } from "./util.js";
+import { useComponentSize, useConfig, useLocale, componentDensityMetrics, densityStyles } from '@crab-dev/rc-config-provider';
 import { RuntimeDirectionProvider } from '@crab-dev/rc-config-provider/internal';
 import Button from '@crab-dev/rc-button';
-import RcVirtual, { TokenVars as VirtualTokenVars } from "@crab-dev/rc-virtual";
-import { type CSSProperties, type FC, type HTMLAttributes, type Key, type ReactNode, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
+import RcVirtual from "@crab-dev/rc-virtual";
+import { type CSSProperties, type Key, type ReactNode, useCallback, useMemo, useRef } from "react";
 import { css, cx } from "@crab-dev/css";
-import Checkbox, { TokenVars as checkboxVars } from "@crab-dev/rc-checkbox";
-import Radio, { TokenVars as radioVars } from "@crab-dev/rc-radio";
+import Checkbox from "@crab-dev/rc-checkbox";
+import Radio from "@crab-dev/rc-radio";
 import Empty from "@crab-dev/rc-empty";
 import { useAnimatedRows, useMediaQuery } from "@crab-dev/rc-hooks";
-
 import BodyRow from "./bodyRow.js";
 import TableIconButton from "./iconButton.js";
 import token from "./token.js";
-import TableBodyCell, { type TableCellProps } from "./bodyCell.js";
+import TableBodyCell from "./bodyCell.js";
 import TableHeaderCell from "./headerCell.js";
 import { type HeaderCellType, makeCellIdentityKey } from "./util.js";
-import type { CellEditRecord, ColumnType, FilterEditorParam, GroupCellRenderParam, MergeCell, Row, RowSelection, SortColumn, TableStateProps } from "./types.js";
+import type { ColumnType, MergeCell, Row } from "./types.js";
 import { useRowSelection } from "./hooks/useRowSelection.js";
 import { useRowGroup } from "./hooks/useRowGroup.js";
 import { useColumnLayout } from "./hooks/useColumnLayout.js";
@@ -34,547 +40,19 @@ import { useSummary } from "./hooks/useSummary.js";
 import { useRowExpansion } from "./hooks/useRowExpansion.js";
 import { useRowNumber, ROW_NUMBER_COLUMN_NAME } from "./hooks/useRowNumber.js";
 import { useRowEvents } from "./hooks/useRowEvents.js";
-import type { RowEventHandler } from "./hooks/useRowEvents.js";
+
 import { useTableInteractionScope } from "./hooks/useTableInteractionScope.js";
-import { ROW_BG_VAR, ROW_BG_TRANSITION } from "./rowBg.js";
+import { ROW_BG_VAR } from "./rowBg.js";
 import type { InternalExpandedRow, InternalGroupRow } from "./util.js";
 import { EXPAND_COLUMN_NAME, isExpandedContentRow, isGroupRow } from "./util.js";
-
-const tableRootStyle = css`
-    --table-row-motion: ${token.motion.rows.transition};
-    position: relative;
-    width: fit-content;
-    font-family: ${token.root['font-family']};
-    font-size: ${token.root['font-size']};
-    line-height: ${token.root['line-height']};
-    font-variant-numeric: tabular-nums;
-    color: ${token.root.color};
-    background-color: ${token.cell['background-color']};
-    ${VirtualTokenVars['scrollbar.opacity']}: ${token.scrollbar.opacity};
-
-    &:focus-visible {
-        outline: none;
-    }
-    &:focus-visible > [data-table-focus-ring] {
-        display: block;
-    }
-
-    &::before, &::after {
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        width: ${token['fixed-edge'].width};
-        pointer-events: none;
-        z-index: 30;
-    }
-    &[data-fixed-left]::before {
-        content: '';
-        left: clamp(0px, var(--rc-table-fixed-left-width), calc(100% - ${token['fixed-edge'].width}));
-        background: linear-gradient(to right, ${token['fixed-edge'].color}, transparent);
-    }
-    &[data-fixed-right]::after {
-        content: '';
-        right: clamp(0px, var(--rc-table-fixed-right-width), calc(100% - ${token['fixed-edge'].width}));
-        background: linear-gradient(to left, ${token['fixed-edge'].color}, transparent);
-    }
-
-    @media (forced-colors: active) {
-        &[data-fixed-left]::before {
-            border-left: 1px solid CanvasText;
-        }
-        &[data-fixed-right]::after {
-            border-right: 1px solid CanvasText;
-        }
-        & [role='columnheader'], & [role='gridcell'] {
-            outline: 1px solid CanvasText;
-            outline-offset: -1px;
-        }
-    }
-`;
-
-/* A contained paint layer stays above sticky/selected cells without changing
-   the virtual viewport, row sizes, or the surrounding scroll container. */
-const tableFocusRingStyle = css`
-    display: none;
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    /* Above Virtual's local scrollbars (200), below semantic overlays (1000+). */
-    z-index: 300;
-    outline: ${token.root["outline-width-focus"]} solid ${token.root["outline-color-focus"]};
-    outline-offset: ${token.root["outline-offset-focus"]};
-    @media (forced-colors: active) { outline-color: Highlight; }
-`;
-
-const filterSizeProbeStyle = css`
-    position: absolute;
-    inset: 0 auto auto 0;
-    width: 0;
-    height: calc(${token['filter-cell'].control['min-height']} + ${token['filter-cell'].padding} * 2);
-    visibility: hidden;
-    pointer-events: none;
-    overflow: hidden;
-`;
-
-interface TableBaseProps<T extends Row> extends Omit<HTMLAttributes<HTMLDivElement>, "onCopy"> {
-    /** 表格内置控件尺寸；不改变数据行几何。省略时继承 ConfigProvider。 */
-    size?: ConfigSize;
-    /** 数据行与表头密度；显式行高回调和 row.height 优先。 */
-    density?: ConfigDensity;
-    // 表格的宽度
-    width: number
-    // 编辑模式
-    editType?: TableCellProps<T>["editType"]
-    // 表格的高度
-    height: number
-    // 表格的数据行
-    rows: T[]
-    // 表格的列定义
-    columns: ColumnType<T>[]
-    // 合并单元格的信息
-    mergeCells?: MergeCell[]
-    // 选择单元格的
-    selectCells?: Key[]
-    // 选择单元格改变后触发的事件
-    onSelectCellsChange?: (selectCells: Key[]) => void
-    // 自定义行高（优先级高于 row.height）
-    getRowHeight?: (row: T, rowIndex: number) => number | undefined
-    // 表格头部的高度
-    headerRowHeight?: number
-    // 是否展示过滤栏
-    filterBar?: boolean
-    // 过滤栏高度
-    filterRowHeight?: number
-    // 过滤栏单元格样式类名（可传入 css`` 生成的 className）
-    filterCellClassName?: string
-    // 外部受控过滤条件（key 为列 name）
-    filters?: Record<string, string>
-    // 自定义默认过滤编辑器（列级 filterEditor 优先级更高）
-    renderDefaultFilterEditor?: (param: FilterEditorParam<T>) => ReactNode
-    // 过滤条件变化回调
-    onFilterChange?: (filters: Record<string, string>) => void
-    // ====== 行分组 ======
-    groupBy?: string[]
-    groupRowHeight?: number
-    expandedGroupIds?: Set<Key>
-    defaultExpandedGroupIds?: Set<Key>
-    defaultExpandAll?: boolean
-    onExpandedGroupIdsChange?: (expandedGroupIds: Set<Key>) => void
-    renderGroupCell?: (param: GroupCellRenderParam<T>) => ReactNode
-    // 受控编辑操作记录
-    cellEditRecords?: CellEditRecord[]
-    onCellEditRecordsChange?: (records: CellEditRecord[]) => void
-    onUndo?: (record: CellEditRecord) => void
-    // ====== 行编辑（editType="row" 时生效） ======
-    /** 受控当前编辑行 ID */
-    editingRowId?: Key | null
-    /** 非受控初始编辑行 ID */
-    defaultEditingRowId?: Key | null
-    /** 编辑行 ID 变化回调 */
-    onEditingRowIdChange?: (id: Key | null) => void
-    /** 确认整行编辑：changes 为各列 name → 编辑后值的映射 */
-    onRowCommit?: (rowId: Key, changes: Record<string, unknown>) => void
-    /** 取消整行编辑 */
-    onRowCancel?: (rowId: Key) => void
-    // 高亮关键字
-    highlightKeyword?: string
-    activeMatchIndex?: number
-    onMatchCountChange?: (count: number) => void
-    // 是否允许拖拽调整列宽（默认 false；可通过 ColumnType.resizable 逐列覆盖）
-    resizable?: boolean
-    onColumnResize?: (columnName: string, width: number) => void
-    // 是否允许拖拽列头改变列顺序（默认 false；非固定的顶层列及分组内子列均生效）
-    draggableColumns?: boolean
-    // 顶层列顺序变化回调，参数为非固定顶层列的新 name 顺序
-    onColumnOrderChange?: (orderedColumnNames: string[]) => void
-    // 分组内子列顺序变化回调，groupName 为父分组列名，orderedChildNames 为新子列顺序
-    onGroupColumnOrderChange?: (groupName: string, orderedChildNames: string[]) => void
-    // 按下 Ctrl/Cmd+C 时触发；携带当前选区内所有单元格的数据
-    onCopy?: (cells: Array<{ rowId: Key; rowIndex: number; columnIndex: number; columnName: string; value: unknown }>) => void
-    // ====== 列排序 ======
-    /** 受控排序列配置 */
-    sortColumns?: SortColumn[]
-    /** server 保留排序交互，行顺序由调用者提供。 */
-    sortMode?: 'client' | 'server'
-    /** 非受控初始排序 */
-    defaultSortColumns?: SortColumn[]
-    /** 排序变化回调 */
-    onSortColumnsChange?: (columns: SortColumn[]) => void
-    // ====== 行选中 ======
-    rowSelection?: RowSelection<T>
-    // ====== 树形数据 ======
-    /** 启用树形数据模式 */
-    treeData?: boolean
-    /** 获取每行的子行；返回空数组或 null/undefined 表示叶子节点 */
-    getChildRows?: (row: T) => T[] | undefined | null
-    /** 显示缩进和展开/收起按钮的列名；默认使用第一个非 fixed="right" 的叶子列 */
-    treeColumn?: string
-    /** 受控展开行 id 集合 */
-    expandedRowIds?: Set<Key>
-    /** 非受控初始展开行 id 集合 */
-    defaultExpandedRowIds?: Set<Key>
-    /** 是否默认全部展开（默认 false） */
-    defaultTreeExpandAll?: boolean
-    /** 展开状态变化回调 */
-    onExpandedRowIdsChange?: (ids: Set<Key>) => void
-    // ====== 底部汇总 / 合计行 ======
-    /** 是否显示底部固定汇总行；各列内容由 ColumnType.summaryRender 提供，未设置的列为空 */
-    showSummary?: boolean
-    /** 汇总行高度（默认 52） */
-    summaryRowHeight?: number
-    // ====== 行展开（详情面板，独立于 treeData） ======
-    /** 提供即启用行展开：返回某行展开后在其下方插入的详情内容 */
-    expandedRowRender?: (row: T) => ReactNode
-    /** 控制某行能否展开；默认所有数据行均可展开 */
-    isRowExpandable?: (row: T) => boolean
-    /** 受控展开行 key 集合（与树形 expandedRowIds 相互独立） */
-    expandedRowKeys?: Set<Key>
-    /** 非受控初始展开行 key 集合 */
-    defaultExpandedRowKeys?: Set<Key>
-    /** 展开行 key 集合变化回调 */
-    onExpandedRowKeysChange?: (keys: Set<Key>) => void
-    /** 展开内容区默认高度（默认 200） */
-    expandedRowHeight?: number
-    /** 逐行覆盖展开内容区高度 */
-    getExpandedRowHeight?: (row: T) => number | undefined
-    /** 展开图标列宽度（默认 40） */
-    expandColumnWidth?: number
-    /** 展开图标列是否固定到左侧（默认 true） */
-    expandColumnFixed?: boolean
-    /**
-     * 无数据时渲染的空状态内容（rows 为空时显示）。
-     * - 不传（undefined）：显示默认 <Empty /> 组件
-     * - 传 null：不显示任何空状态
-     * - 传 ReactNode：显示自定义内容
-     */
-    empty?: ReactNode
-    // ====== 行序号 ======
-    /** 是否在最左侧（功能列之后）显示行序号列，从 1 开始，分组行与展开内容行不计入序号 */
-    showRowNumber?: boolean
-    /** 序号列宽度（默认 50） */
-    rowNumberColumnWidth?: number
-    /** 序号列是否固定到左侧（默认 true） */
-    rowNumberColumnFixed?: boolean
-    // ====== 行事件 ======
-    /**
-     * 点击数据行。传入后该行即成为可点击目标（pointer 光标 + hover 反馈），
-     * 并可用键盘触发：选中行内任一单元格后按 Enter。
-     *
-     * 以下情形**不会**触发，避免与既有交互打架：
-     * - 点在行内的控件上（展开图标、行选择复选框、单选框、按钮、链接、输入框等）；
-     * - 单元格拖选之后的那次 click（按下与抬起之间发生了拖动）；
-     * - 该行正处于行编辑态。
-     *
-     * 注意：双击会先产生两次 click（浏览器语义），如需与 onRowDoubleClick 互斥请自行去抖。
-     */
-    onRowClick?: RowEventHandler<T>
-    /**
-     * 双击数据行。以下情形**不会**触发：
-     * - `editType="cell"` 下双击可编辑单元格（该次双击已被单元格编辑消费）；
-     * - `editType="row"` 下双击进入行编辑（该次双击已被行编辑消费）；
-     * - 点在行内控件上，或该行正处于行编辑态。
-     */
-    onRowDoubleClick?: RowEventHandler<T>
-}
-
-export type TableProps<T extends Row> = TableBaseProps<T> & TableStateProps;
+import { tableRootStyle, tableFocusRingStyle, filterSizeProbeStyle, selectionCellStyle, expandChevronStyle, selectedRowStyle, clickableRowStyle, fixedCellBgWithRowVar, filterCellBorderShadow, emptyContainerStyle, emptyBodyStyle, rowEditingRowStyle, rowEditBorderOverlayStyle, rowEditActionsWrapperStyle, rowEditActionsInnerStyle, fixedCellRowEditBgStyle, filterCellBottomOnlyShadow } from "./table.styles.js";
 
 const SELECTION_COLUMN_NAME = '__rc_table_selection__';
 const EMPTY_MERGE_CELLS: MergeCell[] = [];
 
-const makeRowReactKey = (rowId: Key): string =>
-    JSON.stringify(["data", typeof rowId, String(rowId)]);
-
-const makeColumnReactKey = (columnName: string): string =>
-    JSON.stringify(["column", columnName]);
-
-// 选择列 body cell 居中容器
-const selectionCellStyle = css`
-    /* Dense rows own their spacing; selection targets must not overlap adjacent rows. */
-    ${checkboxVars['control.target.width']}: ${token['row-selection'].control.width};
-    ${checkboxVars['state-layer.width']}: ${token['row-selection'].control.width};
-    ${checkboxVars['root.touch.min-width']}: ${token['row-selection'].control.width};
-    ${checkboxVars['root.touch.min-height']}: ${token['row-selection'].control.width};
-    ${radioVars['control.target.width']}: ${token['row-selection'].control.width};
-    ${radioVars['state-layer.width']}: ${token['row-selection'].control.width};
-    ${radioVars['root.touch.min-width']}: ${token['row-selection'].control.width};
-    ${radioVars['root.touch.min-height']}: ${token['row-selection'].control.width};
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    width: 100%;
-    height: 100%;
-`;
-
-const expandChevronStyle = css`
-    transition: ${token.expand.chevron.transition};
-    @media (prefers-reduced-motion: reduce) {
-        transition: none;
-    }
-`;
-
-// 展开内容区：跨所有列、宽度等于内容总宽，作为整行内容随表格一起横向滚动；
-// 微提亮底 + 顶边分隔，内容超高时纵向独立可滚（横向交给表格，故 overflow-x 隐藏）
-const expandContentStyle = css`
-    display: inline-block;
-    box-sizing: border-box;
-    height: 100%;
-    overflow-x: hidden;
-    overflow-y: auto;
-    padding: ${token.expand.content.padding};
-    background-color: ${token.expand.content["background-color"]};
-    box-shadow: inset 0 1px 0 ${token.root["border-color"]},
-                inset 0 -1px 0 ${token.root["border-color"]};
-`;
-
-// 展开内容容器：RcVirtual 在网格容器上挂了原生 wheel 监听并 preventDefault 劫持滚轮去滚表格，
-// 导致面板自身的 overflow:auto 无法用滚轮滚动。这里在面板上挂冒泡阶段的原生 wheel 监听：
-// 当面板内部在该方向上仍可滚动时 stopPropagation（阻止冒泡到 RcVirtual 容器监听，浏览器默认行为即滚动面板）；
-// 滚到边界时不拦截，事件照常冒泡给表格，形成自然的嵌套滚动。
-const ExpandedRowContent: FC<{ width: number; colSpan: number; direction: 'ltr' | 'rtl'; children: ReactNode }> = ({ width, colSpan, direction, children }) => {
-    const ref = useRef<HTMLDivElement>(null);
-    useEffect(() => {
-        const el = ref.current;
-        /* istanbul ignore if -- ref 挂载后必有值 */
-        if (!el) return;
-        const onWheel = (e: WheelEvent) => {
-            // 按住 Shift 表示横向滚动意图，始终交给表格（面板随表格一起横向滚动）
-            if (e.shiftKey) return;
-            if (el.scrollHeight <= el.clientHeight) return;
-            const atTop = el.scrollTop <= 0;
-            const atBottom = el.scrollTop + el.clientHeight >= el.scrollHeight - 1;
-            if ((e.deltaY < 0 && !atTop) || (e.deltaY > 0 && !atBottom)) {
-                e.stopPropagation();
-            }
-        };
-        el.addEventListener("wheel", onWheel, { passive: false });
-        return () => el.removeEventListener("wheel", onWheel);
-    }, []);
-    return (
-        <div ref={ref} dir={direction} className={expandContentStyle} style={{ width }} role="gridcell" aria-colspan={colSpan}>
-            {children}
-        </div>
-    );
-};
-
-// 选中行背景色（通过 CSS 变量向下传递，固定列与合并单元格均通过 var() 继承；见 rowBg.ts）
-const selectedRowStyle = css`
-    background-color: var(${ROW_BG_VAR}, ${token.cell['background-color']});
-    color: ${token['row-selection']['color-selected']};
-    transition: ${ROW_BG_TRANSITION};
-
-    @media (forced-colors: active) {
-        forced-color-adjust: none;
-        color: HighlightText;
-        ${ROW_BG_VAR}: Highlight;
-        & [role='gridcell'] { background-color: Highlight; }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-        transition: none;
-    }
-`;
-
-/*
- * 可点击行的示能 —— 仅在使用方传入 onRowClick / onRowDoubleClick 时才施加。
- * 纯展示的表格不得伪造交互暗示（无 pointer、无 hover 高亮）。
- *
- * hover 底色写进行级 CSS 变量而非直接 background-color：只有走同一个变量，
- * 左右固定列才会跟着一起变，否则 hover 时整行会被固定列切成三段。
- */
-const clickableRowStyle = css`
-    cursor: ${token['row-click'].cursor};
-    background-color: var(${ROW_BG_VAR}, transparent);
-    transition: ${ROW_BG_TRANSITION};
-
-    &:hover {
-        ${ROW_BG_VAR}: ${token['row-click']['background-color-hover']};
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-        transition: none;
-    }
-`;
-
-// 固定列背景 —— 通过 CSS 变量感知行选中 / hover 状态，过渡必须与行严格一致（见 rowBgTransition）
-const fixedCellBgWithRowVar = css`
-    z-index: 9;
-    background-color: var(${ROW_BG_VAR}, ${token.cell['background-color']});
-    transition: ${ROW_BG_TRANSITION};
-
-    @media (prefers-reduced-motion: reduce) {
-        transition: none;
-    }
-`;
-
-// 虚拟列表左侧占位
-const paddingLeft = (
-    <div
-        key="table-virtual-left-padding"
-        className={css`
-            display: inline-block;
-            vertical-align: top;
-            box-sizing: border-box;
-            width: calc(var(--crab-rc-virtual-left-padding-width, 0px) - var(--crab-rc-virtual-left-padding-width-offset, 0px));
-            height: 100%;
-        `}
-    />
-);
-
-const paddingLeftWithCompensation = (leftPaddingCompensation: number) => (
-    <div
-        key="table-virtual-left-padding-body"
-        className={css`
-            display: inline-block;
-            vertical-align: top;
-            box-sizing: border-box;
-            height: 100%;
-        `}
-        style={{
-            width: `calc(var(--crab-rc-virtual-left-padding-width, 0px) - var(--crab-rc-virtual-left-padding-width-offset, 0px) - ${leftPaddingCompensation}px)`
-        }}
-    />
-);
-
-// 虚拟列表右侧占位
-const paddingRight = (
-    <div
-        key="table-virtual-right-padding"
-        className={css`
-            display: inline-block;
-            vertical-align: top;
-            box-sizing: border-box;
-            /* Fixed right columns are rendered independently of the window;
-               their widths must not also remain in its trailing spacer. */
-            width: max(0px, calc(var(--crab-rc-virtual-right-padding-width, 0px) - var(--rc-table-fixed-right-width, 0px)));
-            height: 100%;
-        `}
-    />
-);
-
-const verticalPaddingBaseStyle: CSSProperties = {
-    display: "block",
-    boxSizing: "border-box",
-    width: "100%"
-};
-
-// 表头与汇总行本身处于正常文档流中，因此纵向布局必须始终满足：
-// 表头 + 顶部未渲染数据 + 已渲染数据 + 底部未渲染数据 + 汇总行 = RcVirtual 总高度。
-// 使用 block 避免零高度占位元素受父级 line-height 影响而产生匿名行盒。
-// 虚拟列表底部占位
-const paddingBottom = (
-    <div
-        key="table-virtual-bottom-padding"
-        aria-hidden="true"
-        data-rc-table-virtual-spacer="bottom"
-        style={{
-            ...verticalPaddingBaseStyle,
-            height: "var(--crab-rc-virtual-bottom-padding-height, 0px)"
-        }}
-    />
-);
-
-// 虚拟列表顶部占位
-const paddingTop = (topPaddingCompensation = 0) => (
-    <div
-        key="table-virtual-top-padding-body"
-        aria-hidden="true"
-        data-rc-table-virtual-spacer="top"
-        style={{
-            ...verticalPaddingBaseStyle,
-            height: `max(0px, calc(var(--crab-rc-virtual-top-padding-height, 0px) - ${topPaddingCompensation}px))`
-        }}
-    />
-);
-
-const filterCellBorderShadow = css`
-    box-shadow: inset -1px 0 0 ${token.root["border-color"]},
-                inset 0 -1px 0 ${token.root["border-color"]};
-`;
-
-// 外层容器开启相对定位，以便 emptyBodyStyle 通过 absolute 定位到 body 区域
-const emptyContainerStyle = css`
-    position: relative;
-`;
-
-// 空状态覆盖层：绝对定位到 body 区域（top/width 由内联样式注入，匹配 viewport 尺寸）
-const emptyBodyStyle = css`
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-`;
-
-const rowEditingRowStyle = css`
-    position: relative;
-    /* The action strip extends over the next row. Its row stacking context must
-       clear ordinary sticky cells (9); child z-index alone cannot escape it.
-       The later summary row stays above at the same level, and headers/filter
-       cells retain their higher local layers (11/30). */
-    z-index: 10;
-`;
-
-// 编辑行整行描一道主题色边并浮起：用单层 overlay 画卡片边框 + 投影，
-// 不占布局空间（pointer-events:none），避免 hover/编辑切换时单元格盒模型抖动。
-// 底部留方角，与紧贴其下的操作浮条共用一条底边，二者衔接成连体卡片
-const rowEditBorderOverlayStyle = css`
-    position: absolute;
-    box-sizing: border-box;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    border: 1px solid ${token['row-edit']['border-color']};
-    border-radius: ${token['row-edit'].card["border-radius"]} ${token['row-edit'].card["border-radius"]} 0 0;
-    box-shadow: ${token['row-edit'].card["box-shadow"]};
-    pointer-events: none;
-    z-index: 10;
-`;
-
-const rowEditActionsWrapperStyle = css`
-    display: inline-block;
-    position: sticky;
-    inset-inline-end: 0;
-    width: 0;
-    height: 100%;
-    vertical-align: top;
-    z-index: 25;
-    overflow: visible;
-`;
-
-// 操作浮条：紧贴编辑行底边右侧、省去顶边与卡片底边共线，从右下角连体延伸而出；
-// 左/右/下三边沿用同一主题色描边，下两角圆角，与编辑行卡片拼成一张完整卡片
-const rowEditActionsInnerStyle = css`
-    position: absolute;
-    top: 100%;
-    inset-inline-end: 0;
-    box-sizing: border-box;
-    display: flex;
-    align-items: center;
-    gap: ${token['row-edit'].actions.gap};
-    padding: ${token['row-edit'].actions.padding};
-    background-color: ${token['row-edit'].actions["background-color"]};
-    border: 1px solid ${token['row-edit'].actions["border-color"]};
-    border-top: none;
-    border-radius: 0 0 ${token['row-edit'].actions["border-radius"]} ${token['row-edit'].actions["border-radius"]};
-    box-shadow: ${token['row-edit'].actions["box-shadow"]};
-`;
-
 // Table owns the action-bar placement; Button owns appearance, state layers,
 // typography, shape, focus and touch targets in each design system.
 const rowEditActionSizes = { small: 'xs', medium: 's', large: 'm' } as const;
-
-const fixedCellRowEditBgStyle = css`
-    z-index: 9;
-    background-color: ${token['row-edit'].row["background-color"]};
-`;
-
-const filterCellBottomOnlyShadow = css`
-    box-shadow: inset 0 -1px 0 ${token.root["border-color"]};
-`;
 
 
 function Table<T extends Row>(props: TableProps<T>): ReactNode {
@@ -662,19 +140,7 @@ function Table<T extends Row>(props: TableProps<T>): ReactNode {
     } = props;
 
     const { rootRef: interactionRootRef, activateInteraction, isInteractionActive } = useTableInteractionScope();
-    // 可变实例状态：CSS 测量节点只用于同步语义令牌与虚拟滚动几何。
-    const filterSizeRef = useRef<HTMLSpanElement>(null);
-    const [filterMinimumHeight, setFilterMinimumHeight] = useState(0);
-    useLayoutEffect(() => {
-        const element = filterSizeRef.current;
-        if (!element) return;
-        setFilterMinimumHeight(element.getBoundingClientRect().height);
-        if (typeof ResizeObserver === 'undefined') return;
-        const observer = new ResizeObserver(entries => { setFilterMinimumHeight(entries[0].contentRect.height); });
-        observer.observe(element);
-        return () => observer.disconnect();
-    }, []);
-    const filterRowHeight = suppliedFilterRowHeight ?? Math.max(metrics.header, filterMinimumHeight);
+    const { filterSizeRef, filterRowHeight } = useFilterRowHeight(metrics.header, suppliedFilterRowHeight);
 
     // ====== 行选中 ======
     const { selectedRowIds, isAllSelected, isIndeterminate, toggleRow, selectAllRows, clearAllRows } = useRowSelection<T>({
@@ -862,7 +328,7 @@ function Table<T extends Row>(props: TableProps<T>): ReactNode {
     const bottomColumnsRef = useRef<ColumnType<T>[]>([]);
 
     const { resizedWidths, handleResizeMouseDown, handleResizeKeyDown, gridTemplateColumnsRef } = useColumnResize({
-        bottomColumnsRef, onColumnResize
+        bottomColumnsRef, onColumnResize, rootRef: interactionRootRef
     });
 
     const {
@@ -915,28 +381,10 @@ function Table<T extends Row>(props: TableProps<T>): ReactNode {
     // ====== 行编辑 ======
     const { isRowEditMode, currentEditingRowId, editorValues, startRowEdit, setColumnValue, commitRowEdit, cancelRowEdit } = useRowEdit({
         editType, editingRowId, defaultEditingRowId, onEditingRowIdChange, onRowCommit, onRowCancel,
-        isInteractionActive
+        isInteractionActive, rootRef: interactionRootRef
     });
 
-    // Mutable instance state: remember the actual focused editing node across
-    // its removal. The existing grid is Table's keyboard entry, not a new API.
-    const rowEditFocusRef = useRef<HTMLElement | null>(null);
-    useLayoutEffect(() => {
-        const previousFocus = rowEditFocusRef.current;
-        if (currentEditingRowId != null) {
-            if (previousFocus && !previousFocus.isConnected) rowEditFocusRef.current = null;
-            return;
-        }
-        rowEditFocusRef.current = null;
-        const root = interactionRootRef.current;
-        if (!previousFocus || previousFocus.isConnected || !root?.isConnected || !isInteractionActive()) return;
-        const document = root.ownerDocument;
-        // A controlled owner may reject the close, focus another control, or
-        // replace this entire Table. Only recover focus actually lost on removal.
-        if (document.activeElement === document.body || document.activeElement === document.documentElement) {
-            root.focus({ preventScroll: true });
-        }
-    }, [currentEditingRowId, interactionRootRef, isInteractionActive]);
+    const rowEditFocusRef = useRowEditFocus(currentEditingRowId, interactionRootRef, isInteractionActive);
 
     // ====== 单元格编辑 ======
     const { undoDataVersion, editedCellKeys, handleCellCommit, handleUndo } = useCellEdit<T>({
@@ -955,7 +403,7 @@ function Table<T extends Row>(props: TableProps<T>): ReactNode {
         anchorCell, rowIdToIndex
     } = useCellSelection<T>({
         displayRows, bottomColumnsRef, selectCells, onSelectCellsChange,
-        onCopy, onCtrlZ: handleUndo, isInteractionActive
+        onCopy, onCtrlZ: handleUndo, isInteractionActive, rootRef: interactionRootRef
     });
 
     // ====== 行事件（点击 / 双击） ======
@@ -970,6 +418,7 @@ function Table<T extends Row>(props: TableProps<T>): ReactNode {
         anchorCell,
         rowIdToIndex,
         isInteractionActive,
+        rootRef: interactionRootRef,
     });
 
     const handleCellEditNavigate = useCallback((rowIndex: number, columnIndex: number, direction: CellNavDirection) => {

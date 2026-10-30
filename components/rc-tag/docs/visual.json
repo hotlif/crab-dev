@@ -1,0 +1,14 @@
+{
+    "schemaVersion": 1,
+    "demo": "visual-matrix.demo.tsx",
+    "sizes": ["small", "medium", "large"],
+    "densities": ["compact", "standard", "comfortable"],
+    "states": ["default", "hover", "focus-visible", "pressed", "disabled", "selected", "removed"],
+    "crossEngine": { "sizes": ["medium"], "densities": ["standard"], "states": ["default", "focus-visible", "selected", "removed"] },
+    "notApplicable": {
+        "checkable-size": "CheckableTag exposes a single chip geometry. The size axis changes Tag's public small/medium/large values only.",
+        "error": "Tag's error is a semantic preset visible in every frame rather than a validation state.",
+        "loading": "Neither Tag nor CheckableTag exposes an asynchronous loading protocol.",
+        "expanded": "Tags do not own a popup; close and selection are separate real interactions."
+    }
+}

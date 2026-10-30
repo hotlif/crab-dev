@@ -208,11 +208,12 @@ describe("Table", () => {
         rows[1].height = 70;
         const view = await render(<ConfigProvider size="large" density="compact"><Table width={700} height={400} columns={groupedColumns} rows={rows} /></ConfigProvider>);
         const rowHeights = () => [...view.container.querySelectorAll<HTMLElement>('[data-row-index]')].map(row => row.style.height);
-        expect(rowHeights()).toEqual(['32px', '70px', '32px']);
+        expect(rowHeights()).toEqual(['28px', '70px', '28px']);
         await view.rerender(<ConfigProvider size="small" density="comfortable"><Table width={700} height={400} columns={groupedColumns} rows={rows} /></ConfigProvider>);
-        expect(rowHeights()).toEqual(['48px', '70px', '48px']);
+        expect(rowHeights()).toEqual(['44px', '70px', '44px']);
         await view.rerender(<ConfigProvider size="small" density="comfortable"><Table size="large" density="compact" width={700} height={400} columns={groupedColumns} rows={rows} getRowHeight={(_, index) => index === 0 ? 80 : undefined} /></ConfigProvider>);
-        expect(rowHeights()).toEqual(['80px', '70px', '32px']);
+        expect(rowHeights()).toEqual(['80px', '70px', '28px']);
+        await view.unmount();
     });
     it('updates built-in row selection names with locale and emits selection details', async () => {
         const changed = mock.fn();

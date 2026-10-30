@@ -1,0 +1,40 @@
+{
+    "schemaVersion": 1,
+    "demo": "visual-matrix.demo.tsx",
+    "sizes": [
+        "medium"
+    ],
+    "densities": [
+        "compact",
+        "standard",
+        "comfortable"
+    ],
+    "states": [
+        "default",
+        "sequential",
+        "inserted",
+        "empty"
+    ],
+    "notApplicable": {
+        "size": "Layout consumes available width and item measurements; control size does not alter its geometry.",
+        "hover": "The layout has no interactive surface; child content owns interaction states.",
+        "selected": "Selection belongs to the supplied item component.",
+        "disabled": "The layout does not disable content.",
+        "error": "Request and content errors belong to the consumer.",
+        "loading": "No asynchronous data lifecycle is owned by Masonry."
+    },
+    "crossEngine": {
+        "sizes": [
+            "medium"
+        ],
+        "densities": [
+            "standard"
+        ],
+        "states": [
+            "default",
+            "sequential",
+            "inserted",
+            "empty"
+        ]
+    }
+}

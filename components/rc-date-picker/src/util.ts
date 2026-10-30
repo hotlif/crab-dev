@@ -1,3 +1,5 @@
+import { temporal } from './temporal.js';
+
 /**
  * 获取指定年月的日历矩阵数据
  * @param year - 年份
@@ -11,7 +13,7 @@ export const getCalendarMatrix = (
     weekStartDay: 1 | 2 | 3 | 4 | 5 | 6 | 7 = 1,
     timeZone: string,
 ) => {
-    const startOfMonth = Temporal.ZonedDateTime.from({
+    const startOfMonth = temporal.ZonedDateTime.from({
         year,
         month,
         day: 1,
@@ -34,7 +36,7 @@ export const getWeekDaysHeader = (
     locale: string,
     timeZone: string,
 ) => {
-    const startOfMonth = Temporal.ZonedDateTime.from({
+    const startOfMonth = temporal.ZonedDateTime.from({
         year,
         month,
         day: 1,
@@ -173,18 +175,18 @@ export const isWithinDateRange = (
     if (start && end) {
         const startDate = start.withTimeZone(tz).toPlainDate();
         const endDate = end.withTimeZone(tz).toPlainDate();
-        return Temporal.PlainDate.compare(targetDate, startDate) >= 0 && 
-               Temporal.PlainDate.compare(targetDate, endDate) <= 0;
+        return temporal.PlainDate.compare(targetDate.toString(), startDate.toString()) >= 0 &&
+               temporal.PlainDate.compare(targetDate.toString(), endDate.toString()) <= 0;
     }
 
     if (start) {
         const startDate = start.withTimeZone(tz).toPlainDate();
-        return Temporal.PlainDate.compare(targetDate, startDate) >= 0;
+        return temporal.PlainDate.compare(targetDate.toString(), startDate.toString()) >= 0;
     }
 
     if (end) {
         const endDate = end.withTimeZone(tz).toPlainDate();
-        return Temporal.PlainDate.compare(targetDate, endDate) <= 0;
+        return temporal.PlainDate.compare(targetDate.toString(), endDate.toString()) <= 0;
     }
     return true;
 }

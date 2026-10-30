@@ -26,6 +26,8 @@ import { demos } from "../_generated/rc-line-edit.js";
 
 ##### 填充字段的空值与内容 — 比较 filled 字段的空值、已有内容和只读状态；使用 Tab 检查标签与焦点边界。
 
+##### 输入状态矩阵 — 同一字段树对照 outlined 与 filled，尺寸、设计和明暗变化保留已输入的草稿。
+
 #### 基础与尺寸
 
 ##### 基础用法 — Material 呈现浮动标签与描边缺口，Apple 与 shadcn 呈现上置标签和紧凑输入。通过顶部外观菜单统一切换。
@@ -63,7 +65,7 @@ import { demos } from "../_generated/rc-line-edit.js";
 
 Apple 使用紧凑矩形字段、静态标签、轻微内阴影和蓝色外侧焦点环；shadcn 使用静态标签、细边框、微阴影和 3px 半透明外侧焦点环。MD3 保留浮动标签、真实描边缺口及 Filled 底部指示线。带标签与无标签字段都从同一个 L2 字段合约读取焦点和错误反馈；因此搜索框、复合选择器也随主题同步。
 
-错误与 warning 在聚焦时使用对应反馈色；桌面风格的标签保持中性色，错误标签使用错误色。Apple 的圆角、密度与蓝色光环是本项目的 Web 适配，不表示复刻任意版本 AppKit 的像素参数。只读、禁用、错误、清除和字符计数可在“标签、边界与状态”演示中对照。
+错误与警告状态在聚焦时保留各自的反馈色；桌面风格的普通标签保持中性色，错误与警告标签分别使用对应语义色。警告样式属于本项目的 Web 状态扩展。Apple 的圆角、密度与蓝色光环是本项目的 Web 适配，不表示复刻任意版本 AppKit 的像素参数。只读、禁用、错误、清除和字符计数可在“标签、边界与状态”演示中对照。
 
 2026-10-22 实际参考：[Apple Text fields](https://developer.apple.com/design/human-interface-guidelines/text-fields)、[Apple 官方正文](https://developer.apple.com/tutorials/data/design/human-interface-guidelines/text-fields.json)、[shadcn Input](https://ui.shadcn.com/docs/components/input)、[shadcn Input 源码](https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/new-york-v4/ui/input.tsx)；MD3 继续使用下文列出的 Material Web 浮动标签与 3px 焦点轮廓基线。
 
@@ -80,6 +82,22 @@ Apple 使用紧凑矩形字段、静态标签、轻微内阴影和蓝色外侧�
 用于名称、搜索词等单行文本输入。可根据场景配置前后缀、清除按钮、字数统计和密码可见性切换。备注、描述等多行内容请使用 `@crab-dev/rc-text-edit`。
 
 `allowClear` 支持受控和非受控模式，清除会触发标准 `onValueChange`，`onClear` 仅用于额外通知；使用 `showCount` 时可配合 `maxLength` 显示长度限制。
+
+### 维护与矩阵验收
+
+包内 `docs/visual.json` 覆盖三体系、明暗和全部 small / medium / large。独立字段的几何由 size 决定，collection density 不改变字段或草稿，因此密度矩阵使用 standard 并记录不适用理由。outlined 与 filled 分别进入真实悬停、键盘焦点和清除，并分别保存截图；默认、已有值、错误、warning、禁用和只读均保留原有断言与说明关联。Firefox / WebKit 执行清单指定的默认与关键状态子集。
+
+空值的错误、警告、禁用和只读与有值组合分别登记：`filled-error`、`filled-warning`、`disabled-filled`、`read-only-filled` 的 filled 指内容非空，不代表 `appearance="filled"`。两种外观都先通过真实输入保留草稿，再选择相应状态；只读检查键盘全选与拒绝修改，禁用检查跳过 Tab，二者都没有清除入口。错误和警告保留原值、清除动作及说明关联，核对非空时的浮动标签和轮廓。Firefox / WebKit 的关键子集另含有值只读。新增范围需形成新的浏览器候选与人工复审，旧空值矩阵通过不能替代这些组合。
+
+只读字段独立用真实 Tab、`ControlOrMeta+A` 和键入 `x` 核对选区 `[0, value.length]` 与拒绝修改，不要求可编辑输入的 Home / End 光标收缩行为。前轮原始追踪只证明只读属性、完整原值及 Home 后仍是全选区；该前提错误在后续全选与拒改断言前失败，不能把未执行步骤算作通过。修正后的只读断言仍待新的正式运行；环境与缩放中的可编辑长草稿继续保留原 Home / End、全选和真实内部滚动检查。
+
+环境与真实 200% 缩放场景逐外观检查长草稿、DOM 和受控值保持；使用原生 Home / End 和全选验证完整值可达，并记录实际内部横向滚动。单行输入允许合法的原生横向编辑，不要求字段为长值扩页。触控通过实际关联标签聚焦字段，再操作清空按钮，不强制绕过浮动标签的正常命中。标签、辅助说明、控件、按钮和图标使用共享的只读边界与文字测量；Demo 外层无溢出不能替代这些断言。
+
+`password-hidden` / `password-visible` 先真实输入固定示例值，再使用公开 `type="password"` 和组件自己的可见性按钮；键盘 Tab 到按钮、Enter 显示，隐藏场景再 Enter 恢复密码遮罩。两种外观分别核对原生 type、值保持、按钮名称和 `aria-controls`，不使用伪造显隐样式。密码输入没有隐式 textbox role，场景通过真实关联标签定位同一输入。
+
+`borderless-focus` 使用公开 `bordered={false}` 嵌入现有画框的语义宿主表面；不覆盖组件内部样式。先真实输入保留值，再用 Tab 进入键盘焦点，核对控件透明、无自身边框/阴影但仍有可见焦点，以及文字、说明、清除按钮和图标边界。Firefox / WebKit 的关键子集包含密码显示和无框焦点，复用相同交互与测量。以上为新增待执行范围，不由旧普通文本截图或已有单元测试推导为视觉通过。
+
+矩阵发现、自动断言、像素候选、稳定性与人工外观复审分别记录。新增场景仍需统一浏览器执行和逐项复审，未运行的范围保持 partial，不能由场景存在、默认测试或旧快照推导为 verified。
 
 
 ### 结构与输入边界

@@ -1,0 +1,57 @@
+{
+  "archivedAt": "2026-10-29T18:37:43.169Z",
+  "scope": "Before authorized structural superscript line-height normalization",
+  "source": "sha256:25458dd62c9b725d7fae441aa09181f9a85ec2a0106fdffc450ca2cc3ded3f30",
+  "artifact": "sha256:90fdeb33e48e8669e2f250ec5170cc9b5c76c4f3e890ceb20b3d7ee151cd4569",
+  "files": [
+    {
+      "source": "components/rc-number-edit/docs/number-edit.visual.spec.mjs",
+      "path": ".website/review/20261030-number-scientific-locks-measurement-windows-1/test-sources/components/rc-number-edit/docs/number-edit.visual.spec.mjs.source.txt",
+      "sha256": "ab0ded96f5eaac0c124c754b0d359c2fd4b1cb97589d65757457adc2ffb81c43",
+      "bytes": 25404,
+      "archiveMatches": true
+    },
+    {
+      "source": "components/rc-number-edit/docs/index.mdx",
+      "path": ".website/review/20261030-number-scientific-locks-measurement-windows-1/test-sources/components/rc-number-edit/docs/index.mdx.source.txt",
+      "sha256": "d888fdd5bc948705cbf822f14600bd3188ca699270c742404a78b37b794df86e",
+      "bytes": 9385,
+      "archiveMatches": true
+    },
+    {
+      "source": "components/rc-number-edit/src/superscript.tsx",
+      "path": ".website/review/20261030-number-scientific-locks-measurement-windows-1/test-sources/components/rc-number-edit/src/superscript.tsx.source.txt",
+      "sha256": "e9a8d869bf4eb439ac43bcf04aab6f99048d599b00690600504cee16fe198390",
+      "bytes": 840,
+      "archiveMatches": true
+    },
+    {
+      "source": "components/rc-number-edit/src/numberEdit.tsx",
+      "path": ".website/review/20261030-number-scientific-locks-measurement-windows-1/test-sources/components/rc-number-edit/src/numberEdit.tsx.source.txt",
+      "sha256": "ee7c9ad35ea04a4bf3b0e9ab21c02f5cc361da652645a24b107654fbe29f56a9",
+      "bytes": 14472,
+      "archiveMatches": true
+    },
+    {
+      "source": "test/visual/content-geometry.mjs",
+      "path": ".website/review/20261030-number-scientific-locks-measurement-windows-1/test-sources/test/visual/content-geometry.mjs.source.txt",
+      "sha256": "d401737042cb9d6793c30ebba3da0826146d55a5348441cb91e41392afbfb58d",
+      "bytes": 3955,
+      "archiveMatches": true
+    },
+    {
+      "source": "components/rc-number-edit/css/index.css",
+      "path": ".website/review/20261030-number-scientific-locks-measurement-windows-1/test-sources/components/rc-number-edit/css/index.css.source.txt",
+      "sha256": "4c5971bfb623b0e14d3d35a2cc7d2ff47ffdd676e4490b8b23244e09d6504f35",
+      "bytes": 4564,
+      "archiveMatches": true
+    },
+    {
+      "source": "components/rc-number-edit/esm/_wake/src/superscript.mjs",
+      "path": ".website/review/20261030-number-scientific-locks-measurement-windows-1/test-sources/components/rc-number-edit/esm/_wake/src/superscript.mjs.source.txt",
+      "sha256": "ef53359a734b691f68004850145d7d11a3cf70c0b324c339623a2af3e008cf82",
+      "bytes": 410,
+      "archiveMatches": true
+    }
+  ]
+}

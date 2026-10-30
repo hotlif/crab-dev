@@ -1,14 +1,12 @@
 import { useId, type FC, type ReactNode, type MouseEvent } from "react";
 import { css, cx } from "@crab-dev/css";
-
 import { usePresence } from "@crab-dev/rc-hooks";
-
 import { iconArrayBase, iconArrayDown, iconArrayUp } from "../icon.js";
 import { type MenuProps } from "../menu.js";
 import { ItemType, type Item } from "../type.js";
 import token from "../token.js";
 import { navigateMenu, menuActivationEvent } from '../keyboard.js';
-
+import { itemStyle, ulStyle, collapseStyle, ulChildrenItemGroupStyle, stateIconStyle, menuItemIcon } from "./normal.styles.js";
 const verticalItemTitleWidth = token.vertical.item.title.width;
 const verticalItemTitleMarginBottom = token.vertical.item.title["margin-bottom"];
 const verticalItemTitleMarginTop = token.vertical.item.title["margin-top"];
@@ -74,15 +72,6 @@ const itemTitleBaseStyle = css`
     }
 `
 
-const itemStyle = css`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    cursor: pointer;
-    user-select: none;
-`
-
 const itemGroupTitleStyle = css`
     cursor: default;
     height: ${itemGroupTitleHeight};
@@ -118,14 +107,6 @@ const itemOpenStyle = css`
     color: ${verticalItemTitleColorOpen};
 `
 
-const ulStyle = css`
-    list-style-type: none;
-    width: 100%;
-    padding: 0px;
-    margin: 0px;
-    overflow: hidden;
-`
-
 const ulChildrenStyle = css`
     overflow: hidden;
     padding: ${verticalItemChildrenPadding};
@@ -134,18 +115,6 @@ const ulChildrenStyle = css`
     background-color: ${verticalItemChildrenBackgroundColor};
 `
 
-const collapseStyle = css`
-    display: grid;
-    width: 100%;
-    grid-template-rows: 1fr;
-    transition: grid-template-rows ${token.motion.expand.transition};
-    &[data-state="closed"] { grid-template-rows: 0fr; }
-
-    @starting-style { grid-template-rows: 0fr; }
-    & > div { min-height: 0; overflow: hidden; }
-    @media (prefers-reduced-motion: reduce) { transition: none; }
-`;
-
 function Submenu({ open, children, id }: { open: boolean; children: ReactNode; id: string }) {
     const presence = usePresence<HTMLDivElement>(open);
     if (!presence.present) return null;
@@ -153,34 +122,6 @@ function Submenu({ open, children, id }: { open: boolean; children: ReactNode; i
         <div><ul className={cx(ulStyle, ulChildrenStyle)}>{children}</ul></div>
     </div>;
 }
-
-const ulChildrenItemGroupStyle = css`
-    overflow: hidden;
-`
-
-const stateIconStyle = css`
-    font-size: 1rem;
-    margin-inline-start: ${token.vertical.item.icon["margin-right"]};
-`
-
-const menuItemIcon = css`
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    color: ${token.vertical.item.icon.color};
-    width: ${token.vertical.item.icon.width};
-    height: ${token.vertical.item.icon.width};
-    margin-inline-end: ${token.vertical.item.icon["margin-right"]};
-    line-height: 1;
-
-    & > svg,
-    & > img {
-        width: 100%;
-        height: 100%;
-        display: block;
-    }
-`
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
 interface VerticalMenuProps extends Omit<MenuProps, "mode"> {

@@ -1,0 +1,45 @@
+{
+  "archivedAt": "2026-10-29T17:53:37.981Z",
+  "nativeSource": "sha256:832403c23d844ab8776df2426d2455990c127066139935326214cef0ae19558d",
+  "scope": "Exact original bytes before readonly contract repair; no original native report mutation",
+  "files": [
+    {
+      "source": "components/rc-line-edit/docs/line-edit.visual.spec.mjs",
+      "path": ".website/review/20261030-line-edit-expanded-windows-1/test-sources/components/rc-line-edit/docs/line-edit.visual.spec.mjs.source.txt",
+      "sha256": "8bc1539e985d77f654bcb8589d868a91a7ce2f33f964acd07f473c17457e45f3",
+      "capturedSha256": "8bc1539e985d77f654bcb8589d868a91a7ce2f33f964acd07f473c17457e45f3",
+      "bytes": 9859,
+      "archiveHashMatches": true,
+      "movedFrom": ".website/review/20261030-line-edit-expanded-windows-1/test-sources/components/rc-line-edit/docs/line-edit.visual.spec.mjs"
+    },
+    {
+      "source": "components/rc-line-edit/docs/visual-assertions.mjs",
+      "path": ".website/review/20261030-line-edit-expanded-windows-1/test-sources/components/rc-line-edit/docs/visual-assertions.mjs.source.txt",
+      "sha256": "7f8e1ceb317d5940ed9873636a26d1408c960c2f47163af710086f75cf83e826",
+      "capturedSha256": "7f8e1ceb317d5940ed9873636a26d1408c960c2f47163af710086f75cf83e826",
+      "bytes": 3342,
+      "archiveHashMatches": true,
+      "movedFrom": ".website/review/20261030-line-edit-expanded-windows-1/test-sources/components/rc-line-edit/docs/visual-assertions.mjs"
+    },
+    {
+      "source": "components/rc-line-edit/docs/demos/visual-matrix.demo.tsx",
+      "path": ".website/review/20261030-line-edit-expanded-windows-1/test-sources/components/rc-line-edit/docs/demos/visual-matrix.demo.tsx.source.txt",
+      "sha256": "696e79ef964d9d25c6fd7e26e01535339b58fb15dbf7715f15c2f24101fbb982",
+      "capturedSha256": "696e79ef964d9d25c6fd7e26e01535339b58fb15dbf7715f15c2f24101fbb982",
+      "bytes": 3349,
+      "archiveHashMatches": true,
+      "movedFrom": ".website/review/20261030-line-edit-expanded-windows-1/test-sources/components/rc-line-edit/docs/demos/visual-matrix.demo.tsx"
+    },
+    {
+      "source": "components/rc-line-edit/docs/visual.json",
+      "path": ".website/review/20261030-line-edit-expanded-windows-1/test-sources/components/rc-line-edit/docs/visual.json.source.txt",
+      "sha256": "f4a8e4c16595882017343e9156efec8ebcdd0279aa43ec1ff44f25e9f41859fd",
+      "capturedSha256": "f4a8e4c16595882017343e9156efec8ebcdd0279aa43ec1ff44f25e9f41859fd",
+      "bytes": 820,
+      "archiveHashMatches": true,
+      "movedFrom": ".website/review/20261030-line-edit-expanded-windows-1/test-sources/components/rc-line-edit/docs/visual.json"
+    }
+  ],
+  "storage": "Exact bytes with non-executable .source.txt suffix so historical specs are not discovered as active tests; source contains original repository path.",
+  "renamedAt": "2026-10-29T17:59:46.490Z"
+}

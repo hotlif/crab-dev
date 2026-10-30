@@ -11,6 +11,8 @@ status = "experimental"
 
 [打开组件工作台](/components/rc-badge/workbench/)
 
+包裹模式默认跟随宿主的实际内容尺寸，放入网格或弹性布局时，角标仍锚定宿主的右上逻辑外沿（RTL 为左上），不会跟随整行空白拉伸。受限宽度保留宿主自身的收缩行为，较长状态说明可以换行；需要覆盖默认宽度时仍可通过公开 `style` 或 `className` 设置。
+
 ## 何时使用
 
 - 在导航项、头像或图标上展示未读计数。
@@ -48,3 +50,21 @@ status = "experimental"
 Material 与 Apple 的默认计数徽标为 16px；shadcn 使用 20px 的计数容器。徽标维持成对的前景/背景语义，圆点与 small 变体保留紧凑尺寸；该定位计数徽标不同于 shadcn 的行内 Badge 标签。
 
 切换文档站设计风格后，本页演示同步使用该设计；浅色和深色模式分别使用配对语义颜色。
+
+## 三体系规格与验收边界
+
+计数和状态是展示信息，不制造独立焦点。processing 的持续脉冲在独立视频场景自然采样，不能停在某一帧作为静态默认基准。颜色字符串与 offset 是开放自定义值，另取代表值，预设语义完整覆盖。
+
+| 体系 | 组件视觉规则 |
+| --- | --- |
+| MD3 Expressive | 依据 badges 的小圆点/计数标识语义，计数与宿主分离。 |
+| Apple | 以紧凑计数和清晰的状态文字支持内容优先；属于自主 Web 扩展。 |
+| shadcn | 参照 Badge 的细描边、紧凑字阶和语义对比；角标定位和处理动画为扩展。 |
+
+本包几何与视觉来源：size.default / small 的 height、min-width、padding 与 font-size；dot.default / small；count 的前景、底色和宿主表面隔离环；status 文本与脉冲分别核验。设计值只在对应 token.toml 与它引用的语义角色维护，验收测量读取实际 DOM 计算值。
+
+颜色、字阶、形状、状态和动效分别从 L2 角色映射到包内 L3；Theme 负责最近配置边界。明暗模式使用配对前景/背景，不进行整体反相。视觉边界与命中区域分别检查，焦点截图保留外部轮廓与阴影。强制颜色采用系统色；减少动画保留信息与最终状态。
+
+矩阵定义在本包 `docs/visual.json`，场景使用 `visual-matrix.demo.tsx`。Chromium 覆盖其中全部设计/明暗/命名尺寸/适用密度/状态；Firefox 与 WebKit 按 `crossEngine` 的默认展示和重点交互子集执行。窄屏、RTL、中英文、长文本、品牌覆盖和配置切换后的草稿保持另有场景；未运行、未人工复核或失败的项不能计为通过。开放尺寸输入的代表样本不等于无限集合的穷尽。
+
+参考核对日期：2026-10-29。[Material 3 Cards](https://m3.material.io/components/cards/overview)、[Material Web Divider 使用/无障碍/令牌](https://material-web.dev/components/divider/)、[Material Web Progress 语义](https://material-web.dev/components/progress/)、[Apple Feedback](https://developer.apple.com/design/human-interface-guidelines/feedback)、[Apple Layout](https://developer.apple.com/design/human-interface-guidelines/layout)、[Apple Progress indicators](https://developer.apple.com/design/human-interface-guidelines/progress-indicators)、[shadcn New York V4 badge](https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui/badge.tsx)。Material Web 是 Web 行为基线；Apple 是依据原则的自主 Web 实现；shadcn 固定参考提交 `3d98900e9b73c45f035f8109e9d41ba6a51685e7`，不跟随浮动最新版。

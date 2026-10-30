@@ -1,0 +1,482 @@
+import {
+    test,
+    expect,
+    configurations,
+    openDemo,
+    readVisualSpec,
+    settleFiniteAnimations,
+    captureVisual,
+} from "../../../test/visual/component-fixture.mjs";
+import { assertContentGeometry } from "../../../test/visual/content-geometry.mjs";
+import { assertNumberEditGeometry } from "./visual-geometry.mjs";
+
+const spec = await readVisualSpec(import.meta.url);
+
+async function focusByTab(page, stateControl, input) {
+    await stateControl.focus();
+    for (let index = 0; index < 12; index += 1) {
+        await page.keyboard.press("Tab");
+        if (
+            await input.evaluate(
+                (node) => globalThis.document.activeElement === node,
+            )
+        )
+            break;
+    }
+    await expect(input).toBeFocused();
+}
+
+for (const config of configurations)
+    for (const size of spec.sizes)
+        for (const state of spec.states.filter(
+            (state) => state !== "long-press",
+        )) {
+            const crossEngine =
+                spec.crossEngine.sizes.includes(size) &&
+                spec.crossEngine.states.includes(state);
+            test(
+                `NumberEdit ${config.designSystem} ${config.colorMode} ${size} ${state}`,
+                {
+                    tag: [
+                        "@rc-number-edit",
+                        "@matrix",
+                        ...(!crossEngine ? ["@chromium-only"] : []),
+                    ],
+                    annotation: {
+                        type: "matrix",
+                        description: JSON.stringify({
+                            ...config,
+                            size,
+                            density: "standard",
+                            state,
+                        }),
+                    },
+                },
+                async ({ page, browserName, previewOrigin }, info) => {
+                    await openDemo(
+                        page,
+                        previewOrigin,
+                        "rc-number-edit",
+                        spec.demo,
+                        { ...config, size },
+                    );
+                    const stateControl = page.getByLabel("验收状态", {
+                        exact: true,
+                    });
+                    expect(await stateControl.locator("option").evaluateAll(options => options.map(option => option.value))).toEqual(spec.states);
+                    const valueValidation = state === "filled-error" || state === "filled-warning";
+                    const retainedValue = valueValidation ? "42.5" : "1234.5";
+                    const scientificLock = state === "scientific-read-only" || state === "scientific-disabled";
+                    const embeddedLayout = state === "borderless-focus" || state === "controls-hidden";
+                    if (scientificLock) {
+                        // Enable the public scientific preset before typing, so its real
+                        // blur commit is not clamped by the ordinary decimal range.
+                        await stateControl.selectOption("scientific");
+                        await page.getByRole("spinbutton", { name: "NumberEdit outlined", exact: true }).fill("1.25e3");
+                        await stateControl.focus();
+                    }
+                    if (valueValidation) {
+                        await page.getByRole("spinbutton", { name: "NumberEdit outlined", exact: true }).fill(retainedValue);
+                        // Real blur commits the numeric draft through the public value protocol.
+                        await stateControl.focus();
+                    }
+                    if (embeddedLayout) {
+                        await page.getByRole("spinbutton", { name: "NumberEdit outlined", exact: true }).fill("12.5");
+                        await stateControl.focus();
+                    }
+                    await stateControl.selectOption(state);
+                    const frame = page.locator("[data-visual-frame]");
+                    const scene = page.locator("[data-visual-scene]");
+                    await expect(frame.getByRole("spinbutton")).toHaveCount(2);
+                    for (const appearance of ["outlined", "filled"]) {
+                        const input = frame.getByRole("spinbutton", {
+                            name: `NumberEdit ${appearance}`,
+                            exact: true,
+                        });
+                        const field = input.locator("..").locator("..");
+                        if (state === "hover") {
+                            const control = input.locator(".."),
+                                bounds = await control.boundingBox();
+                            await control.hover({
+                                position: {
+                                    x: bounds.width / 2,
+                                    y: bounds.height * 0.85,
+                                },
+                            });
+                        }
+                        if (
+                            state === "focus-visible" ||
+                            state === "stepper-focus" ||
+                            state === "borderless-focus"
+                        ) {
+                            await focusByTab(page, stateControl, input);
+                            expect(
+                                await input.evaluate((node) =>
+                                    node.matches(":focus-visible"),
+                                ),
+                            ).toBe(true);
+                            const focus = await input
+                                .locator("..")
+                                .evaluate((node) => {
+                                    const style =
+                                            globalThis.getComputedStyle(node),
+                                        outline =
+                                            node.querySelector("fieldset");
+                                    return {
+                                        outline:
+                                            style.outlineStyle !== "none" &&
+                                            Number.parseFloat(
+                                                style.outlineWidth,
+                                            ) > 0,
+                                        shadow: style.boxShadow !== "none",
+                                        border: Math.max(
+                                            Number.parseFloat(
+                                                style.borderTopWidth,
+                                            ),
+                                            Number.parseFloat(
+                                                style.borderBottomWidth,
+                                            ),
+                                        ),
+                                        notch: outline
+                                            ? Number.parseFloat(
+                                                  globalThis.getComputedStyle(
+                                                      outline,
+                                                  ).borderTopWidth,
+                                              )
+                                            : 0,
+                                    };
+                                });
+                            expect(
+                                focus.outline ||
+                                    focus.shadow ||
+                                    focus.border >= 2 ||
+                                    focus.notch >= 2,
+                            ).toBe(true);
+                            if (state === "stepper-focus") {
+                                await page.keyboard.press("Tab");
+                                await expect(
+                                    field.getByRole("button", {
+                                        name: "增加",
+                                        exact: true,
+                                    }),
+                                ).toBeFocused();
+                            }
+                        }
+                        const disabled = state === "disabled" || state === "scientific-disabled";
+                        const readOnly = state === "read-only" || state === "scientific-read-only";
+                        if (disabled)
+                            await expect(input).toBeDisabled();
+                        if (readOnly)
+                            await expect(input).toHaveAttribute("readonly", "");
+                        if (state === "disabled" || state === "read-only" || valueValidation) {
+                            await expect(input).toHaveValue(retainedValue);
+                            await expect(input).toHaveAttribute("aria-valuenow", retainedValue);
+                        }
+                        if (disabled || readOnly) {
+                            await expect(field.getByRole("button", { name: "清除", exact: true, includeHidden: true })).toHaveCount(0);
+                            await expect(field.getByRole("button", { name: "增加", exact: true })).toBeDisabled();
+                            await expect(field.getByRole("button", { name: "减少", exact: true })).toBeDisabled();
+                        }
+                        if (embeddedLayout) {
+                            await expect(input).toHaveValue("12.5");
+                            await expect(input).toHaveAttribute("aria-valuenow", "12.5");
+                            await expect(field.locator("[data-field-suffix]")).toContainText("%");
+                        }
+                        if (state === "borderless-focus") {
+                            await expect(frame).toHaveAttribute("data-visual-host", "true");
+                            const control = input.locator("..");
+                            await expect(control).toHaveCSS("border-top-width", "0px");
+                            await expect(control).toHaveCSS("border-bottom-width", "0px");
+                            await expect(control).toHaveCSS("background-color", "rgba(0, 0, 0, 0)");
+                            await expect(control).toHaveCSS("box-shadow", "none");
+                            await expect(input).toBeFocused();
+                        }
+                        if (state === "controls-hidden") {
+                            await expect(field.getByRole("button", { name: "增加", exact: true, includeHidden: true })).toHaveCount(0);
+                            await expect(field.getByRole("button", { name: "减少", exact: true, includeHidden: true })).toHaveCount(0);
+                            await expect(field.locator("[data-field-suffix]")).toHaveText("%");
+                            const clear = field.getByRole("button", { name: "清除", exact: true });
+                            await expect(field.getByRole("button")).toHaveCount(1);
+                            await focusByTab(page, stateControl, input);
+                            await page.keyboard.press("Tab");
+                            await expect(clear).toBeFocused();
+                            await page.keyboard.press("Enter");
+                            await expect(input).toHaveValue("");
+                            await expect(input).toBeFocused();
+                            await expect(field.getByRole("button")).toHaveCount(0);
+                            await expect(field.locator("[data-field-suffix]")).toHaveText("%");
+                            await input.fill("12.5");
+                            await stateControl.focus();
+                            await expect(input).toHaveValue("12.5");
+                            await expect(input).toHaveAttribute("aria-valuenow", "12.5");
+                            await expect(clear).toBeVisible();
+                            await expect(field.getByRole("button")).toHaveCount(1);
+                        }
+                        if (scientificLock) {
+                            const owner = field.locator("..");
+                            await expect(input).toHaveValue("1.25e+3");
+                            await expect(input).toHaveAttribute("aria-valuenow", "1250");
+                            await expect(input).toHaveAttribute("aria-valuetext", "1.25 乘以 10 的 3 次方");
+                            if (readOnly) {
+                                await focusByTab(page, stateControl, input);
+                                await expect(owner.locator("sup")).toHaveCount(0);
+                                await input.press("ControlOrMeta+A");
+                                expect(await input.evaluate(node => ({ start: node.selectionStart, end: node.selectionEnd }))).toEqual({ start: 0, end: "1.25e+3".length });
+                                await input.press("x");
+                                await input.press("ArrowUp");
+                                await input.press("PageUp");
+                            } else {
+                                await stateControl.focus();
+                                await page.keyboard.press("Tab");
+                                expect(await frame.getByRole("spinbutton").evaluateAll(nodes => nodes.every(node => node !== globalThis.document.activeElement))).toBe(true);
+                                // Tab can cycle back to the state selector when every
+                                // field is disabled. Blur it through real scene padding
+                                // before ArrowUp, which would otherwise select a state.
+                                await scene.scrollIntoViewIfNeeded();
+                                const paddingPoint = await scene.evaluate(node => {
+                                    const bounds = node.getBoundingClientRect();
+                                    const style = globalThis.getComputedStyle(node);
+                                    const paddingLeft = Number.parseFloat(style.paddingLeft);
+                                    const paddingTop = Number.parseFloat(style.paddingTop);
+                                    const x = bounds.left + Number.parseFloat(style.borderLeftWidth) + paddingLeft / 2;
+                                    const y = bounds.top + Number.parseFloat(style.borderTopWidth) + paddingTop / 2;
+                                    return { x, y, paddingLeft, paddingTop, hitsScene: globalThis.document.elementFromPoint(x, y) === node };
+                                });
+                                expect(paddingPoint.paddingLeft).toBeGreaterThan(0);
+                                expect(paddingPoint.paddingTop).toBeGreaterThan(0);
+                                expect(paddingPoint.hitsScene).toBe(true);
+                                await page.mouse.click(paddingPoint.x, paddingPoint.y);
+                                await expect(stateControl).not.toBeFocused();
+                                await page.keyboard.press("ArrowUp");
+                                await expect(stateControl).toHaveValue(state);
+                                await expect(scene).toHaveAttribute("data-state", state);
+                                await expect(input).toBeDisabled();
+                            }
+                            // Native wheel and pointer events must not commit a step.
+                            // At 1250, the 0.5 step is observable (unlike 1e21).
+                            const wheelObserved = owner.evaluate(node => new Promise(resolve => node.addEventListener("wheel", event => resolve({ trusted: event.isTrusted, deltaY: event.deltaY }), { capture: true, once: true })));
+                            const inputBounds = await input.boundingBox();
+                            await page.mouse.move(inputBounds.x + inputBounds.width / 2, inputBounds.y + inputBounds.height / 2);
+                            await page.mouse.wheel(0, -120);
+                            const wheel = await wheelObserved;
+                            expect(wheel.trusted).toBe(true);
+                            expect(wheel.deltaY).toBe(-120);
+                            await expect(input).toHaveValue("1.25e+3");
+                            await expect(input).toHaveAttribute("aria-valuenow", "1250");
+                            for (const name of ["增加", "减少"]) {
+                                const button = field.getByRole("button", { name, exact: true });
+                                const bounds = await button.boundingBox();
+                                await page.mouse.click(bounds.x + bounds.width / 2, bounds.y + bounds.height / 2);
+                                await expect(input).toHaveAttribute("aria-valuenow", "1250");
+                            }
+                            await stateControl.focus();
+                            const overlay = owner.locator(':scope > div[aria-hidden="true"]');
+                            await expect(overlay).toBeVisible();
+                            await expect(overlay).toHaveCSS("opacity", "1");
+                            await expect(input).toHaveCSS("opacity", "0");
+                            await expect(overlay).toHaveText("1.25×103");
+                            await expect(overlay.locator("sup")).toHaveText("3");
+                            await expect(input).toHaveValue("1.25e+3");
+                            await expect(input).toHaveAttribute("aria-valuenow", "1250");
+                            await expect(input).toHaveAttribute("aria-valuetext", "1.25 乘以 10 的 3 次方");
+                            await settleFiniteAnimations(page);
+                            // Preserve the native measurements before a strict assertion can
+                            // fail; tracing does not serialize internal handle.evaluate data.
+                            const nativeMeasurement = await owner.evaluate(root => {
+                                const canvas = globalThis.document.createElement("canvas");
+                                const context = canvas.getContext("2d");
+                                const describe = node => node ? { tag: node.tagName, id: node.id, className: node.getAttribute("class") } : null;
+                                const measure = node => {
+                                    if (!node) return null;
+                                    const style = globalThis.getComputedStyle(node);
+                                    const textRanges = [];
+                                    const walker = globalThis.document.createTreeWalker(node, globalThis.NodeFilter.SHOW_TEXT);
+                                    for (let text = walker.nextNode(); text; text = walker.nextNode()) {
+                                        if (!text.textContent.trim()) continue;
+                                        const range = globalThis.document.createRange();
+                                        range.selectNodeContents(text);
+                                        const font = globalThis.getComputedStyle(text.parentElement).font;
+                                        let canvasMetrics = null;
+                                        if (context) {
+                                            context.font = font;
+                                            context.textBaseline = "alphabetic";
+                                            const metrics = context.measureText(text.textContent);
+                                            canvasMetrics = {
+                                                requestedFont: font,
+                                                resolvedFont: context.font,
+                                                width: metrics.width,
+                                                fontBoundingBoxAscent: metrics.fontBoundingBoxAscent,
+                                                fontBoundingBoxDescent: metrics.fontBoundingBoxDescent,
+                                                actualBoundingBoxAscent: metrics.actualBoundingBoxAscent,
+                                                actualBoundingBoxDescent: metrics.actualBoundingBoxDescent,
+                                            };
+                                        }
+                                        textRanges.push({ text: text.textContent, parent: describe(text.parentElement), rects: [...range.getClientRects()].map(rect => rect.toJSON()), canvasMetrics });
+                                    }
+                                    const clippingAncestors = [];
+                                    for (let ancestor = node.parentElement; ancestor; ancestor = ancestor.parentElement) {
+                                        const ancestorStyle = globalThis.getComputedStyle(ancestor);
+                                        if ([ancestorStyle.overflowX, ancestorStyle.overflowY].some(value => value !== "visible") || ancestorStyle.clipPath !== "none" || /paint|strict|content/.test(ancestorStyle.contain)) {
+                                            clippingAncestors.push({ node: describe(ancestor), rect: ancestor.getBoundingClientRect().toJSON(), clientWidth: ancestor.clientWidth, clientHeight: ancestor.clientHeight, scrollWidth: ancestor.scrollWidth, scrollHeight: ancestor.scrollHeight, overflowX: ancestorStyle.overflowX, overflowY: ancestorStyle.overflowY, clipPath: ancestorStyle.clipPath, contain: ancestorStyle.contain });
+                                        }
+                                    }
+                                    return {
+                                        node: describe(node),
+                                        rect: node.getBoundingClientRect().toJSON(),
+                                        clientWidth: node.clientWidth,
+                                        clientHeight: node.clientHeight,
+                                        scrollWidth: node.scrollWidth,
+                                        scrollHeight: node.scrollHeight,
+                                        scrollLeft: node.scrollLeft,
+                                        scrollTop: node.scrollTop,
+                                        style: { font: style.font, fontSize: style.fontSize, fontFamily: style.fontFamily, lineHeight: style.lineHeight, verticalAlign: style.verticalAlign, display: style.display, position: style.position, overflowX: style.overflowX, overflowY: style.overflowY, padding: style.padding, borderWidth: style.borderWidth, boxSizing: style.boxSizing, transform: style.transform, opacity: style.opacity },
+                                        inlineStyle: node.getAttribute("style"),
+                                        textRanges,
+                                        clippingAncestors,
+                                    };
+                                };
+                                const nativeField = root.querySelector("[data-field-root]");
+                                const nativeInput = root.querySelector("input");
+                                const nativeOverlay = root.querySelector(':scope > div[aria-hidden="true"]');
+                                return {
+                                    viewport: { width: globalThis.innerWidth, height: globalThis.innerHeight, dpr: globalThis.devicePixelRatio, scrollX: globalThis.scrollX, scrollY: globalThis.scrollY },
+                                    nativeValue: nativeInput.value,
+                                    readOnly: nativeInput.readOnly,
+                                    disabled: nativeInput.disabled,
+                                    focused: globalThis.document.activeElement === nativeInput,
+                                    owner: measure(root),
+                                    field: measure(nativeField),
+                                    input: measure(nativeInput),
+                                    overlay: measure(nativeOverlay),
+                                    innerSpan: measure(nativeOverlay?.querySelector(":scope > span")),
+                                    superscript: measure(nativeOverlay?.querySelector("sup")),
+                                    canvasLimit: "Detached Canvas font/ink metrics are diagnostic values, not positioned glyph geometry or substitutes for the original pixels.",
+                                };
+                            });
+                            await info.attach(`${appearance}-scientific-native-measurement`, {
+                                body: JSON.stringify({ wheel, ...nativeMeasurement }),
+                                contentType: "application/json",
+                            });
+                            await info.attach(`${appearance}-scientific-locked-content`, {
+                                body: JSON.stringify({
+                                    wheel,
+                                    owner: await assertContentGeometry(owner, frame, { checkText: false }),
+                                    field: await assertContentGeometry(field, owner, { checkText: false }),
+                                    overlay: await assertContentGeometry(overlay, owner),
+                                    exponent: await assertContentGeometry(overlay.locator("sup"), overlay),
+                                }),
+                                contentType: "application/json",
+                            });
+                        }
+                        if (state === "error" || state === "filled-error")
+                            await expect(input).toHaveAttribute(
+                                "aria-invalid",
+                                "true",
+                            );
+                        if (state === "warning" || state === "filled-warning") {
+                            await expect(field).toHaveAttribute(
+                                "data-status",
+                                "warning",
+                            );
+                            await expect(input).not.toHaveAttribute("aria-invalid", "true");
+                        }
+                        if (valueValidation) {
+                            await expect(field.getByRole("button", { name: "清除", exact: true })).toBeVisible();
+                            if (state === "filled-error") await expect(field.getByRole("alert")).toHaveText("请核对内容并修正后重试。");
+                        }
+                        if (
+                            state === "filled" ||
+                            state === "clear" ||
+                            state === "keyboard-step" ||
+                            state === "minimum" ||
+                            state === "maximum"
+                        ) {
+                            await input.fill("1234.5");
+                            if (state !== "keyboard-step")
+                                await stateControl.focus();
+                        }
+                        if (state === "keyboard-step") {
+                            await page.keyboard.press("ArrowUp");
+                            await expect(input).toHaveValue("1235");
+                            await expect(input).toHaveAttribute(
+                                "aria-valuenow",
+                                "1235",
+                            );
+                        }
+                        if (state === "minimum" || state === "maximum") {
+                            await input.fill(
+                                state === "minimum" ? "0" : "100000",
+                            );
+                            await stateControl.focus();
+                            await expect(
+                                field.getByRole("button", {
+                                    name: state === "minimum" ? "减少" : "增加",
+                                    exact: true,
+                                }),
+                            ).toBeDisabled();
+                        }
+                        if (state === "scientific") {
+                            await expect(input).toHaveAttribute(
+                                "aria-valuenow",
+                                "1.2345e+21",
+                            );
+                            await expect(frame.locator("sup")).toHaveCount(2);
+                        }
+                        if (state === "formatted")
+                            await expect(input).toHaveValue("12,345.5");
+                        if (state === "clear") {
+                            await field
+                                .getByRole("button", {
+                                    name: "清除",
+                                    exact: true,
+                                })
+                                .click();
+                            await expect(input).toHaveValue("");
+                            await expect(input).toBeFocused();
+                        }
+                        const associations = await input.evaluate((node) =>
+                            (node.getAttribute("aria-describedby") ?? "")
+                                .split(/\s+/)
+                                .filter(Boolean)
+                                .map(
+                                    (id) =>
+                                        globalThis.document.getElementById(id)
+                                            ?.textContent,
+                                ),
+                        );
+                        expect(associations.length).toBeGreaterThan(0);
+                        expect(
+                            associations.every(
+                                (text) =>
+                                    typeof text === "string" &&
+                                    text.trim().length > 0,
+                            ),
+                        ).toBe(true);
+                        await settleFiniteAnimations(page);
+                        const geometry = await input.boundingBox();
+                        expect(geometry.width).toBeGreaterThan(0);
+                        await info.attach(`${appearance}-geometry`, {
+                            body: JSON.stringify(geometry),
+                            contentType: "application/json",
+                        });
+                        if (embeddedLayout) {
+                            await info.attach(`${appearance}-embedded-layout`, {
+                                body: JSON.stringify(await assertNumberEditGeometry(input, frame)),
+                                contentType: "application/json",
+                            });
+                        }
+                        if (state === "scientific-disabled") {
+                            await expect(stateControl).toHaveValue(state);
+                            await expect(scene).toHaveAttribute("data-state", state);
+                            await expect(input).toBeDisabled();
+                        }
+                        await captureVisual(
+                            frame,
+                            `${config.designSystem}-${config.colorMode}-${size}-${appearance}-${state}.png`,
+                            info,
+                            browserName,
+                        );
+                    }
+                },
+            );
+        }

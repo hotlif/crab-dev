@@ -13,6 +13,11 @@ type SkeletonVariant = DocsTypePlaceholder;
 
 export interface SkeletonProps {
     /**
+     * 透传到容器根节点的内联样式（不推荐在组件层使用；仅在变量桥接时使用）
+     */
+    "style"?: CSSProperties;
+
+    /**
      * 骨架形状
      * @default "text"
      */
@@ -68,9 +73,4 @@ export interface SkeletonProps {
      * 加载完成后要渲染的真实内容
      */
     "children"?: ReactNode;
-
-    /**
-     * 透传到容器根节点的内联样式（不推荐在组件层使用；仅在变量桥接时使用）
-     */
-    "style"?: CSSProperties;
 }

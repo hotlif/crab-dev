@@ -147,6 +147,35 @@ export const demos = [
         "group": null
     },
     {
+        "id": "docs/demos/visual-matrix.demo.tsx",
+        "title": "三体系分段状态矩阵",
+        "description": "并列文字、图标与禁用选项，实际选择保留在同一组件实例。",
+        "learning": {
+            "components": [
+                "Segmented"
+            ],
+            "props": [
+                "aria-label",
+                "block",
+                "disabled",
+                "value",
+                "onValueChange",
+                "options",
+                "defaultValue"
+            ],
+            "events": [
+                "onValueChange"
+            ],
+            "hasState": true
+        },
+        "sourceCode": "import { css } from \"@crab-dev/css\";\nimport Segmented from \"@crab-dev/rc-segmented\";\nimport { useConfig } from \"@crab-dev/rc-config-provider\";\nimport token from \"@crab-dev/rc-token-semantic\";\nimport { useId, useState } from \"react\";\n\nexport const meta = { title: \"三体系分段状态矩阵\", description: \"并列文字、图标与禁用选项，实际选择保留在同一组件实例。\" };\nconst scene = css`\n    display: grid; gap: ${token.space['group-gap']}; padding: ${token.space['group-gap']};\n    max-inline-size: 42rem; min-inline-size: 0;\n    background: ${token.color.background.surface}; color: ${token.color.text.primary};\n`;\nconst samples = css`display: grid; gap: ${token.space['group-gap']}; padding: ${token.space['group-gap']}; min-inline-size: 0;`;\nconst icon = \u003csvg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" aria-hidden=\"true\">\u003cpath d=\"M4 7h16M4 12h16M4 17h16\" />\u003c/svg>;\nconst states = [\"default\", \"hover\", \"focus-visible\", \"pressed\", \"selected\", \"selected-hover\", \"selected-pressed\", \"disabled\", \"item-disabled\"] as const;\nexport default function VisualMatrixDemo() {\n    const { size, locale } = useConfig();\n    const [value, setValue] = useState\u003cstring | number>(\"day\");\n    const [state, setState] = useState\u003ctypeof states[number]>(\"default\");\n    const id = useId();\n    const english = locale === \"en-US\";\n    return \u003csection className={scene} aria-label=\"Segmented visual matrix\" data-visual-scene data-state={state} data-size={size}>\n        \u003cdiv>\u003clabel htmlFor={id}>验收状态\u003c/label>{\" \"}\u003cselect id={id} value={state} onChange={event => {\n            const next = event.currentTarget.value;\n            if (states.some(item => item === next)) setState(next as typeof state);\n        }}>{states.map(item => \u003coption key={item}>{item}\u003c/option>)}\u003c/select>\u003c/div>\n        \u003cdiv className={samples} data-visual-frame>\n            \u003cSegmented aria-label=\"Time range\" block disabled={state === \"disabled\"} value={value} onValueChange={setValue}\n                options={[\n                    { value: \"day\", label: english ? \"Day\" : \"日视图\", \"aria-label\": \"Day\" },\n                    { value: \"week\", label: english ? \"Week · shared project activity\" : \"周视图 · 团队共享项目动态\", \"aria-label\": \"Week\", icon },\n                    { value: \"month\", label: english ? \"Month\" : \"月视图\", \"aria-label\": \"Month\", disabled: true },\n                ]} />\n            \u003cSegmented aria-label=\"Icon views\" defaultValue=\"list\" options={[\n                { value: \"list\", label: \"\", icon, \"aria-label\": \"List\" },\n                { value: \"detail\", label: \"\", icon: \u003csvg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\">\u003cpath d=\"M4 4h16v16H4zM10 4v16\" />\u003c/svg>, \"aria-label\": \"Detail\" },\n            ]} />\n            \u003coutput aria-live=\"polite\">{english ? \"Range\" : \"当前范围\"}: {value}\u003c/output>\n        \u003c/div>\n    \u003c/section>;\n}\n\n",
+        "previewPath": "/components/rc-segmented/workbench/?__wake_demo=docs%2Fdemos%2Fvisual-matrix.demo.tsx",
+        "workbenchPath": "/components/rc-segmented/workbench/#/components/docs%2Fdemos%2Fvisual-matrix.demo.tsx",
+        "density": "regular",
+        "layout": "wide",
+        "group": null
+    },
+    {
         "id": "docs/demos/with-icon.demo.tsx",
         "title": "带图标",
         "description": "选项可搭配 icon; 纯图标选项须提供 aria-label 保证可访问性。",

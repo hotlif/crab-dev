@@ -102,6 +102,40 @@ export const demos = [
         "group": null
     },
     {
+        "id": "docs/demos/visual-matrix.demo.tsx",
+        "title": "三体系展示与状态矩阵",
+        "description": "公开组件、真实交互与自然动画；包内视觉规格是矩阵轴的来源。",
+        "learning": {
+            "components": [
+                "ConfigProvider",
+                "Badge",
+                "Button"
+            ],
+            "props": [
+                "size",
+                "density",
+                "data-visual-target",
+                "count",
+                "showZero",
+                "dot",
+                "status",
+                "text",
+                "data-wrapped-badge",
+                "onClick"
+            ],
+            "events": [
+                "onClick"
+            ],
+            "hasState": true
+        },
+        "sourceCode": "import { css, cx } from '@crab-dev/css';\nimport Button from '@crab-dev/rc-button';\nimport ConfigProvider, { useConfig } from '@crab-dev/rc-config-provider';\nimport token from '@crab-dev/rc-token-semantic';\nimport { useState } from 'react';\nimport Badge from '@crab-dev/rc-badge';\n\n\nexport const meta = { title: '三体系展示与状态矩阵', description: '公开组件、真实交互与自然动画；包内视觉规格是矩阵轴的来源。' };\nconst frameStyle = css`\n    box-sizing: border-box;\n    display: grid;\n    gap: ${token.space['group-gap']};\n    padding: calc(${token.space['group-gap']} * 2);\n    min-width: 0;\n    color: ${token.color.text.primary};\n    background-color: ${token.color.background.surface};\n`;\nconst rowStyle = css`display: flex; flex-wrap: wrap; gap: ${token.space['component-gap']}; align-items: center; min-width: 0;`;\nconst sceneStyle = css`display: grid; grid-template-columns: minmax(0, 1fr); min-width: 0; gap: ${token.space['stack-gap']};`;\nconst flexSceneStyle = css`display: flex; flex-wrap: wrap; align-items: center;`;\n\n\nexport default function VisualMatrixDemo() {\n    const { locale } = useConfig();\n    const [longContent, setLongContent] = useState(false);\n    const copy = (zh: string, en: string) => (locale === 'en-US' ? en : zh) + (longContent ? ' · abcdefghijklmnopqrstuvwxyz0123456789 · 长内容需要保留含义并适应可用宽度' : '');\n    const [size, setSize] = useState('default');\n    const [density, setDensity] = useState\u003c'compact' | 'standard' | 'comfortable'>('standard');\n    const [state, setState] = useState('default');\n    const [layout, setLayout] = useState('grid');\n    const [actionCount, setActionCount] = useState(0);\n    const [draft, setDraft] = useState('保留这份草稿');\n    \n    return \u003cdiv>\n        \u003cdiv className={rowStyle}>\n            \u003clabel>验收尺寸\u003cselect aria-label=\"验收尺寸\" value={size} onChange={event => setSize(event.currentTarget.value)}>\u003coption>default\u003c/option>\u003coption>small\u003c/option>\u003c/select>\u003c/label>\n            \u003clabel>验收密度\u003cselect aria-label=\"验收密度\" value={density} onChange={event => setDensity(event.currentTarget.value as typeof density)}>\u003coption>standard\u003c/option>\u003c/select>\u003c/label>\n            \u003clabel>验收状态\u003cselect aria-label=\"验收状态\" value={state} onChange={event => { const next = event.currentTarget.value; setState(next); }}>\u003coption value=\"default\">default\u003c/option>\u003coption value=\"zero\">zero\u003c/option>\u003coption value=\"overflow\">overflow\u003c/option>\u003coption value=\"dot\">dot\u003c/option>\u003coption value=\"status\">status\u003c/option>\u003coption value=\"error\">error\u003c/option>\u003coption value=\"processing\">processing\u003c/option>\u003c/select>\u003c/label>\n            \n        \u003c/div>\n        \u003clabel>宿主布局\u003cselect aria-label=\"宿主布局\" value={layout} onChange={event => setLayout(event.currentTarget.value)}>\u003coption>grid\u003c/option>\u003coption>flex\u003c/option>\u003c/select>\u003c/label>\n        \u003clabel>\u003cinput type=\"checkbox\" aria-label=\"长文本\" checked={longContent} onChange={event => setLongContent(event.currentTarget.checked)} />长文本\u003c/label>\n        \u003clabel>配置切换草稿\u003cinput aria-label=\"配置切换草稿\" value={draft} onChange={event => setDraft(event.currentTarget.value)} />\u003c/label>\n        \u003cConfigProvider size={size === 'small' || size === 'large' ? size : 'medium'} density={density}>\n            \u003csection className={frameStyle} aria-label=\"Badge visual matrix\" data-visual-frame>\n                \u003cdiv className={cx(sceneStyle, layout === 'flex' && flexSceneStyle)} data-visual-scene data-size={size} data-density={density} data-state={state} data-layout={layout}>\n                    \u003cBadge data-visual-target size={size as 'default' | 'small'} count={state === 'zero' ? 0 : state === 'overflow' ? 120 : 8} showZero dot={state === 'dot'} status={state === 'processing' ? 'processing' : state === 'error' ? 'error' : state === 'status' ? 'success' : undefined} text={state === 'processing' ? copy('正在同步', 'Syncing') : state === 'status' ? copy('已同步', 'Synced') : state === 'error' ? copy('同步失败', 'Sync failed') : undefined} />\u003cBadge data-wrapped-badge size={size as 'default' | 'small'} count={8}>\u003cButton onClick={() => setActionCount(actionCount + 1)}>{copy('收件箱', 'Inbox')}\u003c/Button>\u003c/Badge>\n                    \n                \u003c/div>\n                \u003coutput aria-label=\"宿主操作次数\">{actionCount}\u003c/output>\n            \u003c/section>\n        \u003c/ConfigProvider>\n    \u003c/div>;\n}\n",
+        "previewPath": "/components/rc-badge/workbench/?__wake_demo=docs%2Fdemos%2Fvisual-matrix.demo.tsx",
+        "workbenchPath": "/components/rc-badge/workbench/#/components/docs%2Fdemos%2Fvisual-matrix.demo.tsx",
+        "density": "compact",
+        "layout": "grid",
+        "group": null
+    },
+    {
         "id": "docs/demos/wrapped.demo.tsx",
         "title": "包裹子节点",
         "description": "将 Badge 包裹在按钮外部，展示计数、溢出计数与圆点提醒。",

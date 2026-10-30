@@ -1,0 +1,43 @@
+{
+    "schemaVersion": 1,
+    "demo": "visual-matrix.demo.tsx",
+    "sizes": [
+        "medium"
+    ],
+    "densities": [
+        "standard"
+    ],
+    "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "pressed",
+        "updated",
+        "closed",
+        "top",
+        "topLeft",
+        "bottom",
+        "bottomLeft",
+        "bottomRight"
+    ],
+    "notApplicable": {
+        "size": "This component has no public named size prop; medium identifies the inherited configuration, not a new component size.",
+        "density": "This component has fixed presentation geometry; density does not change its geometry.",
+        "selection": "This display/feedback component has no selected or checked protocol.",
+        "error": "Errors belong to the owning data/action flow, not an invented presentation state.",
+        "interaction": "Hover/focus/press apply only to the genuine public interactive control, never to the display surface."
+    },
+    "crossEngine": {
+        "sizes": [
+            "medium"
+        ],
+        "densities": [
+            "standard"
+        ],
+        "states": [
+            "default",
+            "focus-visible",
+            "pressed"
+        ]
+    }
+}

@@ -1,31 +1,9 @@
-import { css, cx } from '@crab-dev/css';
-import token from '../token.js';
+import { cx } from '@crab-dev/css';
+import { coverStyle } from './card-cover.styles.js';
 import type { CardCoverProps } from '../types.js';
 
 // 封面出血容器：占位底色垫在媒体加载前；媒体随卡片悬浮同步缩放
 // （--rc-card-cover-scale 由卡片容器驱动），overflow 由卡片根节点裁切。
-const coverStyle = css`
-    position: relative;
-    overflow: hidden;
-    background-color: ${token.cover['background-color']};
-
-    & > img,
-    & > video {
-        display: block;
-        width: 100%;
-        object-fit: cover;
-        transform: scale(var(--rc-card-cover-scale, 1));
-        transition: ${token.cover.transition};
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-        & > img,
-        & > video {
-            transform: none;
-            transition: none;
-        }
-    }
-`;
 
 const CardCover = ({ children, className, ref, ...restProps }: CardCoverProps) => (
     <div {...restProps} ref={ref} data-card-cover="" className={cx(coverStyle, className)}>

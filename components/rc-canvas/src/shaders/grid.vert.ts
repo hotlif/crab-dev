@@ -3,7 +3,7 @@
  * 顶点数据为 clip space 坐标（[-1,1] 范围），无需任何矩阵变换。
  */
 export const GRID_VERT = /* glsl */ `#version 300 es
-precision mediump float;
+precision highp float;
 
 layout(location = 0) in vec2 a_clip_pos;
 

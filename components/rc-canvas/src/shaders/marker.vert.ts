@@ -12,7 +12,7 @@
  * 乘以 u_size 后旋转 u_angle，再平移到 u_tip（局部坐标）。
  */
 export const MARKER_VERT = /* glsl */ `#version 300 es
-precision mediump float;
+precision highp float;
 
 uniform mat3 u_projection;
 uniform mat3 u_view;

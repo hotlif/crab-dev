@@ -41,3 +41,23 @@ status = "experimental"
 Material 保留语义反馈容器色；Apple 使用较淡的状态底色、10px 圆角和紧凑标题；shadcn 使用中性表面、细描边与 8px 圆角。success / warning / error / info 的图标和文字语义不随主题改变。内联 Alert 为项目消息模式扩展，不等同于阻塞式系统 alert dialog。
 
 切换文档站设计风格后，本页演示同步使用该设计；浅色和深色模式分别使用配对语义颜色。
+
+## 三体系规格与验收边界
+
+内联反馈是项目扩展，不等同于 Material 或 Apple 的模态 alert dialog。信息容器优先于动作，关闭和重试复用公开 Button；四种反馈语义分别具有图标、文字与容器色，不能仅靠颜色区分。
+
+关闭入口复用 Button 居中的粗指针命中层，遵循公共 48px 下限；视觉符号仍与首行图标和正文对齐，不通过扩大可视关闭盒子来增加提示高度。触控回归分别测量图标中心，并在真实命中区域边缘执行点击。
+
+| 体系 | 组件视觉规则 |
+| --- | --- |
+| MD3 Expressive | 色调反馈容器、标题与说明分层；Expressive 表现集中在真实操作的状态层。 |
+| Apple | 轻量反馈底色与精确对齐；内容优先，关闭保持可见。 |
+| shadcn | 参照 Alert 的中性表面、细描边和破坏性反馈语义；其余语义色是项目扩展。 |
+
+本包几何与视觉来源：root.padding / root.border-radius → feedback.banner；root.font-size / line-height → body；title → banner.title-font-size；close → Button Text TokenVars。设计值只在对应 token.toml 与它引用的语义角色维护，验收测量读取实际 DOM 计算值。
+
+颜色、字阶、形状、状态和动效分别从 L2 角色映射到包内 L3；Theme 负责最近配置边界。明暗模式使用配对前景/背景，不进行整体反相。视觉边界与命中区域分别检查，焦点截图保留外部轮廓与阴影。强制颜色采用系统色；减少动画保留信息与最终状态。
+
+矩阵定义在本包 `docs/visual.json`，场景使用 `visual-matrix.demo.tsx`。Chromium 覆盖其中全部设计/明暗/命名尺寸/适用密度/状态；Firefox 与 WebKit 按 `crossEngine` 的默认展示和重点交互子集执行。窄屏、RTL、中英文、长文本、品牌覆盖和配置切换后的草稿保持另有场景；未运行、未人工复核或失败的项不能计为通过。开放尺寸输入的代表样本不等于无限集合的穷尽。
+
+参考核对日期：2026-10-29。[Material 3 Cards](https://m3.material.io/components/cards/overview)、[Material Web Divider 使用/无障碍/令牌](https://material-web.dev/components/divider/)、[Material Web Progress 语义](https://material-web.dev/components/progress/)、[Apple Feedback](https://developer.apple.com/design/human-interface-guidelines/feedback)、[Apple Layout](https://developer.apple.com/design/human-interface-guidelines/layout)、[Apple Progress indicators](https://developer.apple.com/design/human-interface-guidelines/progress-indicators)、[shadcn New York V4 alert](https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui/alert.tsx)。Material Web 是 Web 行为基线；Apple 是依据原则的自主 Web 实现；shadcn 固定参考提交 `3d98900e9b73c45f035f8109e9d41ba6a51685e7`，不跟随浮动最新版。

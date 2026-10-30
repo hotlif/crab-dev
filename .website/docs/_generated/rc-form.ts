@@ -42,7 +42,7 @@ export const demos = [
         "workbenchPath": "/components/rc-form/workbench/#/components/docs%2Fdemos%2Fbase.demo.tsx",
         "density": "regular",
         "layout": "wide",
-        "group": null
+        "group": "使用示例"
     },
     {
         "id": "docs/demos/editors.demo.tsx",
@@ -84,7 +84,7 @@ export const demos = [
         "workbenchPath": "/components/rc-form/workbench/#/components/docs%2Fdemos%2Feditors.demo.tsx",
         "density": "regular",
         "layout": "wide",
-        "group": null
+        "group": "使用示例"
     },
     {
         "id": "docs/demos/filled.demo.tsx",
@@ -122,7 +122,7 @@ export const demos = [
         "workbenchPath": "/components/rc-form/workbench/#/components/docs%2Fdemos%2Ffilled.demo.tsx",
         "density": "regular",
         "layout": "wide",
-        "group": null
+        "group": "使用示例"
     },
     {
         "id": "docs/demos/validation.demo.tsx",
@@ -163,7 +163,7 @@ export const demos = [
         "workbenchPath": "/components/rc-form/workbench/#/components/docs%2Fdemos%2Fvalidation.demo.tsx",
         "density": "regular",
         "layout": "wide",
-        "group": null
+        "group": "使用示例"
     },
     {
         "id": "docs/demos/visual-states.demo.tsx",
@@ -202,6 +202,43 @@ export const demos = [
         "workbenchPath": "/components/rc-form/workbench/#/components/docs%2Fdemos%2Fvisual-states.demo.tsx",
         "density": "regular",
         "layout": "wide",
-        "group": null
+        "group": "使用示例"
+    },
+    {
+        "id": "docs/demos/visual-matrix.demo.tsx",
+        "title": "表单校验与布局矩阵",
+        "description": "通过真实校验进入错误、警告、成功和等待状态；外部标签与控件标签保持字段关联。",
+        "learning": {
+            "components": [
+                "Form",
+                "Item",
+                "LineEdit",
+                "Button"
+            ],
+            "props": [
+                "form",
+                "defaultValue",
+                "name",
+                "label",
+                "labelPlacement",
+                "required",
+                "rules",
+                "disabled",
+                "readOnly",
+                "supportingText",
+                "aria-label",
+                "onClick"
+            ],
+            "events": [
+                "onClick"
+            ],
+            "hasState": true
+        },
+        "sourceCode": "import { css } from '@crab-dev/css';\nimport Form, { Item, RuleType, useForm, type Rule } from '@crab-dev/rc-form';\nimport LineEdit from '@crab-dev/rc-line-edit';\nimport Button from '@crab-dev/rc-button';\nimport { useConfig } from '@crab-dev/rc-config-provider';\nimport token from '@crab-dev/rc-token-semantic';\nimport { useId, useRef, useState } from 'react';\n\nexport const meta = { title: '表单校验与布局矩阵', description: '通过真实校验进入错误、警告、成功和等待状态；外部标签与控件标签保持字段关联。' };\nconst frame = css`display: grid; gap: ${token.space['group-gap']}; padding: ${token.space['group-gap']}; background: ${token.color.background.surface}; color: ${token.color.text.primary}; max-width: calc(${token.size[40]} * 17); min-width: 0;`;\nconst actions = css`display: flex; flex-wrap: wrap; gap: ${token.space['group-gap']};`;\nexport default function VisualMatrixDemo() {\n    const { locale } = useConfig();\n    const [form] = useForm\u003c{ name: string; owner: string }>();\n    const [state, setState] = useState('default');\n    const [result, setResult] = useState('尚未校验');\n    // A user-controlled completion represents a pending server validation; it\n    // allows natural loading video without imposing an arbitrary capture delay.\n    const complete = useRef\u003c(() => void) | null>(null);\n    const id = useId();\n    const english = locale === 'en-US';\n    const rules: Rule[] = [{ type: state === 'warning' ? RuleType.WARNING : RuleType.ERROR, validator: async () => {\n        if (state === 'validating') await new Promise\u003cvoid>(resolve => { complete.current = resolve; });\n        if (state === 'error') throw new Error(english ? 'This project name is unavailable.' : '此项目名称不可用。');\n        if (state === 'warning') throw new Error(english ? 'Confirm the shared project name.' : '请确认团队共享项目名称。');\n    } }];\n    return \u003csection className={frame} aria-label=\"Form visual matrix\" data-visual-scene data-state={state}>\n        \u003cdiv>\u003clabel htmlFor={id}>验收状态\u003c/label>{' '}\u003cselect id={id} value={state} onChange={event => setState(event.currentTarget.value)}>{['default', 'disabled', 'read-only', 'error', 'warning', 'success', 'validating'].map(value => \u003coption key={value}>{value}\u003c/option>)}\u003c/select>\u003c/div>\n        \u003cForm form={form} defaultValue={{ name: 'Crab workspace', owner: 'Design team' }}>\n            \u003cItem name=\"name\" label={english ? 'Project name' : '项目名称'} labelPlacement=\"control\" required rules={rules} disabled={state === 'disabled'} readOnly={state === 'read-only'} supportingText={english ? 'Shared with your workspace members.' : '此名称会向工作区成员展示。'}>\u003cLineEdit aria-label=\"项目名称\" />\u003c/Item>\n            \u003cItem name=\"owner\" label={english ? 'Project owner' : '项目负责人'} disabled={state === 'disabled'} readOnly={state === 'read-only'}>\u003cLineEdit aria-label=\"项目负责人\" />\u003c/Item>\n        \u003c/Form>\n        \u003cdiv className={actions}>\n            \u003cButton onClick={async () => { try { await form.validateFields(); setResult('校验完成'); } catch { setResult('校验失败'); } }} disabled={state === 'disabled'}>校验字段\u003c/Button>\n            \u003cButton appearance=\"outlined\" onClick={async () => { complete.current?.(); complete.current = null; await form.resetFields(); setResult('字段已重置'); }}>重置字段\u003c/Button>\n            {state === 'validating' && \u003cButton appearance=\"text\" onClick={() => { complete.current?.(); complete.current = null; }}>完成校验\u003c/Button>}\n        \u003c/div>\n        \u003coutput aria-live=\"polite\">{result}\u003c/output>\n    \u003c/section>;\n}\n",
+        "previewPath": "/components/rc-form/workbench/?__wake_demo=docs%2Fdemos%2Fvisual-matrix.demo.tsx",
+        "workbenchPath": "/components/rc-form/workbench/#/components/docs%2Fdemos%2Fvisual-matrix.demo.tsx",
+        "density": "regular",
+        "layout": "wide",
+        "group": "视觉验收"
     }
 ] as const satisfies readonly ComponentDemoRecord[];

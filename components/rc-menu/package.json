@@ -17,12 +17,14 @@
         "prettier:check": "prettier --check \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
         "generate:docgen": "wake library docgen .",
         "generate:token": "wake library token .",
-        "typecheck": "node ../../scripts/typecheck.mjs --noEmit",
+        "typecheck": "tsc --noEmit",
         "lint": "wake lint --format human --root ../.. components/rc-menu/src components/rc-menu/docs --env browser --max-warnings 0 && yarn lint:tools",
         "lint:tools": "wake lint --format human --root ../.. components/rc-menu/scripts --env node --max-warnings 0",
         "check": "node ../../scripts/check-package.mjs",
         "test:browser": "yarn --cwd ../.. exec turbo run build:library --filter=@crab-dev/rc-menu --filter=@crab-dev/rc-button && node scripts/prepare-browser-tests.mjs && yarn test --root src/__tests__/browser-behavior && yarn test --root src/__tests__/browser",
-        "test:forced-colors": "yarn --cwd ../.. exec turbo run build:library --filter=@crab-dev/rc-menu && node scripts/prepare-browser-tests.mjs && node ../../scripts/test-published-forced-colors.mjs --package=. --fixture=src/__tests__/browser/forced-colors-fixture.tsx --api=__menuForced"
+        "test:forced-colors": "yarn --cwd ../.. exec turbo run build:library --filter=@crab-dev/rc-menu && node scripts/prepare-browser-tests.mjs && node ../../scripts/test-published-forced-colors.mjs --package=. --fixture=src/__tests__/browser/forced-colors-fixture.tsx --api=__menuForced",
+        "build:visual": "wake docs build . --mode components --outdir .cache/visual-workbench",
+        "test:visual": "node ../../scripts/visual/run.mjs --package ."
     },
     "files": [
         "esm",
@@ -54,7 +56,7 @@
         "react": "19.3.0",
         "react-dom": "19.3.0",
         "react-router": "^8.3.1",
-        "typescript": "^7.0.2"
+        "typescript": "6.0.2"
     },
     "dependencies": {
         "@crab-dev/css": "0.1.45",

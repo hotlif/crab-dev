@@ -50,6 +50,8 @@
 
 ## 工作区与工具
 
+AI 维护从 `yarn ai:context <包名或仓库相对路径>` 进入，例如 `yarn ai:context rc-button`。查询只列适用规则、编辑来源、生成物与验证命令；使用 `--json` 获取结构化结果，`--dependents` 查看直接使用方。完整任务入口见 [AGENTS.md](AGENTS.md)，来源与生成导航见[贡献与维护](.website/docs/guides/contributing.mdx#来源与生成)。
+
 | 位置 | 职责 |
 | --- | --- |
 | components/ | 组件、设计基础、可选集成与开发支持包 |
@@ -57,7 +59,7 @@
 | .website/ | 组件库规范、查阅、示例与工作台 |
 | scripts/ | 产品清单、拓扑与工程契约检查 |
 
-Node.js ≥ 22，通过 Corepack 使用根 packageManager 指定的 Yarn 4 PnP；不创建 node_modules。Wake 统一负责 lint、构建、令牌、API 提取、测试与文档，Turbo 按产品运行时拓扑编排。
+Node.js ≥ 22，通过 Corepack 使用根 packageManager 指定的 Yarn 4 PnP；不创建 node_modules。类型检查使用官方 TypeScript 6.0.2，编辑器通过 `yarn generate:sdk` 接入 Yarn PnP。Wake 负责 lint、构建、令牌、docgen、测试与文档，文档聚合通过官方 TypeScript API 读取真实类型，Turbo 按产品运行时拓扑编排。
 
 ```sh
 corepack enable
@@ -65,7 +67,7 @@ yarn install --immutable
 yarn docs:dev
 ```
 
-根命令包括 build:library、generate:token、check:tokens、lint、typecheck、test、docs:build；包内使用对应公开脚本。文档生成与验证见 [.website 维护说明](.website/README.md)。
+`yarn check` 是本地和双平台 CI 共用的全量入口；`yarn check --list` 只列检查计划。根命令包括 build:library、generate:token、check:tokens、lint、typecheck、test、docs:build；包内使用对应公开脚本。文档生成与验证见 [.website 维护说明](.website/README.md)。
 
 ## 版本与发布
 

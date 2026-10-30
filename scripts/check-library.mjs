@@ -35,6 +35,10 @@ export function validateLibrary(manifest, inspection, peers = requiredReactPeers
     const paths = new Set();
     const categories = new Set(manifest.categories.map(({ id }) => id));
     const designs = manifest.designSystems.map(({ id }) => id);
+    if (!designs.includes(manifest.defaultDesignSystem)) errors.push("The default design system must be registered.");
+    for (const design of manifest.designSystems) {
+        if (!design.fullName?.trim() || !/^https:\/\//.test(design.source ?? "")) errors.push(`${design.id}: design identity requires a full name and HTTPS source.`);
+    }
     if (manifest.schemaVersion !== 1) errors.push("Unsupported library manifest schema.");
     if (packages.size !== manifest.packages.length) errors.push("Duplicate library package names.");
     if (new Set(designs).size !== 3 || !["md3", "apple", "shadcn"].every((id) => designs.includes(id))) errors.push("Design system IDs must be md3, apple and shadcn.");
@@ -70,6 +74,9 @@ export function validateLibrary(manifest, inspection, peers = requiredReactPeers
             }
         }
         for (const problem of validateReactPeers(pkg, peers.get(entry.name))) report(entry, problem);
+        for (const { source, specifier } of facts.boundaryImports ?? []) {
+            report(entry, `${source} imports ${specifier} outside its package; runtime and declarations must use declared public package entries.`);
+        }
         for (const name of facts.productionImports) {
             if (name === entry.name || Object.hasOwn(reactPeerRanges, name) || name.startsWith("@types/")) continue;
             if (!pkg.dependencies?.[name]) report(entry, `production import ${name} is missing from dependencies.`);

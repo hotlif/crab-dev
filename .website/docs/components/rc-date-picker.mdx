@@ -46,6 +46,10 @@ import { demos } from "../_generated/rc-date-picker.js";
 
 ##### 选择器字段状态 — 日期、时间和日期时间字段分别展示禁用、错误、警告与 filled 外观，面板操作沿用各选择器协议。
 
+#### 视觉验收
+
+##### 日期与时间状态矩阵 — 固定业务日期对照日期、日期时间、表盘与时间输入，保留真实选择草稿和确认行为。
+
 </div>
 
 <ComponentDemos demos={demos} />
@@ -115,6 +119,44 @@ import { demos } from "../_generated/rc-date-picker.js";
 `size="small / medium / large"` 调整外部字段尺寸。下拉面板使用时间选择器专用的数字区和点击区域，不跟随字段缩小。窄于 360px 或低于 560px 的视口使用输入模式，保留可编辑的数字区。窗口恢复后保留当前输入，可手动切回表盘；关闭后再次打开则按 `defaultMode` 初始化。
 
 需要秒精度时传入 `panelProps={{ showSeconds: true }}`。`DateTimePicker` 是日期与时间的组合扩展，默认保留秒输入；可通过 `panelProps.timePanelProps.showSeconds` 关闭。
+
+### 三体系验收规格
+
+2026-10-29 参考 [M3 Date pickers](https://m3.material.io/components/date-pickers/guidelines)、[Time pickers](https://m3.material.io/components/time-pickers/guidelines)及 [Material Web Text field](https://material-web.dev/components/text-field/)的字段结构。日期/时间面板沿用对应 M3 基线；不能因为页面采用 Expressive 就套用 Button 的形状阶梯。32px 桌面日期单元、三档字段尺寸、秒输入、日期时间组合及非模态锚定面板是本项目扩展，粗指针日期单元保留独立 48px 命中几何。
+
+Apple 依据 [Pickers](https://developer.apple.com/design/human-interface-guidelines/pickers)的就近编辑、逻辑顺序与上下文选择原则自主实现 Web 规则；shadcn 对照产品清单锁定的 [New York V4 Calendar](https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui/calendar.tsx)与 [Popover](https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui/popover.tsx)，没有引入其日期库或替换 Temporal 协议。
+
+| 设计 | 字段与面板 |
+| --- | --- |
+| MD3 Expressive | 浮动字段标签、色调面板、圆形日期选中边界；今天描边与已选填充分别表达。时间输入与表盘保留 M3 对应基线。 |
+| Apple | 静态字段标签、轻量 overlay 表面与较小日期单元圆角；内容与精确对齐优先，选中仍有清晰前景/背景配对。 |
+| shadcn | 中性描边、紧凑日历、control 形状与聚焦轮廓；范围之外日期禁用，今天和选中分别可辨。 |
+
+几何由 L3 `cell / panel / time` 引用 L2 `picker / field / sizing`；三档字段尺寸与三档密度独立。面板定位覆盖完整字段标签和说明，Portal 继承最近边界。矩阵以固定业务日期和范围验证默认、hover、键盘焦点、禁用、错误、警告、清除、日期草稿选择、日期时间、表盘、秒输入及时间输入错误。确认前字段仍显示已提交值，非法时间阻止确认；清除按实际值判断，不依赖显示字符串。
+
+`docs/visual.json` 与 `date-picker.visual.spec.mjs` 是包内核心场景来源。只在测试中用 `page.clock.setFixedTime` 固定“今天”，保留产品计时器与动画运行。弹层状态截取整页以保留 Portal 和外部焦点，环境扩展检查窄屏、触控、RTL、语言、品牌、强制颜色、减少动画及配置切换保持草稿。候选、基准比较与人工复审分别记录，未完成范围不标记为 verified。
+
+时间矩阵分别展开 12/24 小时的小时与分钟表盘、无秒输入和秒输入；通过真实键盘调整时分、切换 AM/PM 与输入模式，并检查小时、分钟、秒和空草稿的错误关联及确认禁用。日期时间组合另覆盖 12 小时和非法分钟。字段的真实 Tab 焦点会打开日期面板，截图边界按实际可见 Portal 选择，不能只截取触发器。
+
+时间几何通过 L2 `picker.time` 单一来源映射到 L3：MD3 保留 96×72 输入及 display 字阶，表盘字段为 96×80（24h 为 114px 宽）；Apple / shadcn 的自主桌面扩展使用 64×48 输入及 title.large，72×56 表盘字段及 headline.small（24h 为 88px 宽），AM/PM 横向组为 152×32。表盘自身保留 256 坐标和原来的可访问交互。上述紧凑值是项目决策，不标为 Apple 或 shadcn 官方规格；尺寸与密度不会生成第二套表盘测量。
+
+### Temporal 运行时与“现在”
+
+组件通过包内唯一入口选择原生 Temporal，缺少原生支持时使用已有生产依赖 `@js-temporal/polyfill`，不安装或覆盖 `globalThis.Temporal`。独立使用方通过公开 `toPickerDateTime` 从 ISO 字符串构造值，浏览器没有全局 Temporal 也能打开和编辑选择器。公共值与 Props 类型保持原有协议。
+
+```tsx
+import DatePicker, { toPickerDateTime } from '@crab-dev/rc-date-picker';
+
+const date = toPickerDateTime('2026-06-15T09:30:00.123456789+08:00[Asia/Shanghai]');
+// date retains its time zone, calendar and nanoseconds.
+<DatePicker value={date} />;
+```
+
+`toPickerDateTime` 接受 ISO 字符串或 `{ toString(): string }` 序列化协议，序列化结果必须是有效的 Temporal 日期时间 ISO 字符串；非法输入会抛出异常。既有原生日期值与回调不必改写。公开声明不引入 polyfill 的完整 Intl 类型，因此普通消费方不必直接导入其类型扩展。比较与适配使用标准 ISO 字符串，避免跨实现对象品牌检查。TypeScript 6 原生声明与现有 ambient 声明的注解差异在唯一运行时边界说明，未扩散强制断言或输出联合类型；本轮保留既有 `setState` 回调兼容。
+
+已有官方 polyfill 值可选择在进入选择器前适配一次，例如 `toPickerDateTime(Temporal.ZonedDateTime.from(iso))`；该互操作由包内专项回归验证。`@js-temporal/polyfill@0.5.1` 自身的 Intl 声明与 TypeScript 6 的 `lib.esnext` 在 `skipLibCheck: false` 时存在冲突，直接导入它的类型会触发上游诊断。本库不会替用户关闭检查；严格消费推荐上面的 ISO 字符串入口，polyfill 仍作为包内运行时依赖提供缺失平台能力。
+
+当前时刻入口统一读取 `Date.now()` 并转换到实际业务时区，精度为毫秒，服务于日期、时分秒默认值和今天标记；不会改写调用方传入的 ZonedDateTime，也不会截断已有微秒/纳秒。在时区跨日及夏令时下，下一次午夜仍按目标时区计算。视觉测试只固定这个实际 Date 时钟；有限过渡、午夜计时器和表盘交互继续正常运行，避免伪造 Temporal.Now。
 
 
 先通过“选择器字段状态”观察日期、时间与日期时间字段的禁用、错误、警告及 filled 外观，再进入各选择器示例操作面板。字段反馈不会改变各自的值类型和面板键盘协议。

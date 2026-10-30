@@ -1,5 +1,13 @@
 {
     "$schema": "https://turbo.build/schema.json",
+    "globalPassThroughEnv": [
+        "RAYON_NUM_THREADS",
+        "TEMP",
+        "TMP",
+        "TMPDIR",
+        "PLAYWRIGHT_BROWSERS_PATH",
+        "CRAB_TEST_BROWSER_PATH"
+    ],
     "tasks": {
         "build:library": {
             "inputs": [
@@ -26,14 +34,13 @@
             ],
             "outputs": [
                 "coverage/**"
-            ]
+            ],
+            "cache": false
         },
         "typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*",
-                "$TURBO_ROOT$/scripts/typecheck.mjs",
-                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*"
             ],
             "outputs": []
         },
@@ -65,13 +72,12 @@
         "@crab-dev/standards-typescript-preset#test": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/scripts/typecheck.mjs",
-                "$TURBO_ROOT$/scripts/typecheck-fixtures.mjs",
-                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+                "$TURBO_ROOT$/scripts/typecheck-fixtures.mjs"
             ],
             "outputs": [
                 "coverage/**"
-            ]
+            ],
+            "cache": false
         },
         "@crab-dev/rc-alert#build:library": {
             "inputs": [
@@ -105,6 +111,7 @@
             "outputs": [
                 "coverage/**"
             ],
+            "cache": false,
             "dependsOn": [
                 "@crab-dev/rc-button#build:library",
                 "@crab-dev/rc-config-provider#build:library",
@@ -115,9 +122,7 @@
         "@crab-dev/rc-alert#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*",
-                "$TURBO_ROOT$/scripts/typecheck.mjs",
-                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*"
             ],
             "outputs": [],
             "dependsOn": [
@@ -176,6 +181,7 @@
             "outputs": [
                 "coverage/**"
             ],
+            "cache": false,
             "dependsOn": [
                 "@crab-dev/rc-avatar#build:library",
                 "@crab-dev/rc-breadcrumbs#build:library",
@@ -191,9 +197,7 @@
         "@crab-dev/rc-app-main-layout#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*",
-                "$TURBO_ROOT$/scripts/typecheck.mjs",
-                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*"
             ],
             "outputs": [],
             "dependsOn": [
@@ -249,6 +253,7 @@
             "outputs": [
                 "coverage/**"
             ],
+            "cache": false,
             "dependsOn": [
                 "@crab-dev/rc-hooks#build:library"
             ]
@@ -256,9 +261,7 @@
         "@crab-dev/rc-auto-sizer#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*",
-                "$TURBO_ROOT$/scripts/typecheck.mjs",
-                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*"
             ],
             "outputs": [],
             "dependsOn": [
@@ -297,6 +300,7 @@
             "outputs": [
                 "coverage/**"
             ],
+            "cache": false,
             "dependsOn": [
                 "@crab-dev/rc-badge#build:library",
                 "@crab-dev/rc-button#build:library",
@@ -307,9 +311,7 @@
         "@crab-dev/rc-avatar#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*",
-                "$TURBO_ROOT$/scripts/typecheck.mjs",
-                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*"
             ],
             "outputs": [],
             "dependsOn": [
@@ -361,6 +363,7 @@
             "outputs": [
                 "coverage/**"
             ],
+            "cache": false,
             "dependsOn": [
                 "@crab-dev/rc-config-provider#build:library",
                 "@crab-dev/rc-token-semantic#build:library"
@@ -369,9 +372,7 @@
         "@crab-dev/rc-badge#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*",
-                "$TURBO_ROOT$/scripts/typecheck.mjs",
-                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*"
             ],
             "outputs": [],
             "dependsOn": [
@@ -425,6 +426,7 @@
             "outputs": [
                 "coverage/**"
             ],
+            "cache": false,
             "dependsOn": [
                 "@crab-dev/rc-auto-sizer#build:library",
                 "@crab-dev/rc-canvas#build:library",
@@ -437,9 +439,7 @@
         "@crab-dev/rc-bar-chart#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*",
-                "$TURBO_ROOT$/scripts/typecheck.mjs",
-                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*"
             ],
             "outputs": [],
             "dependsOn": [
@@ -494,6 +494,7 @@
             "outputs": [
                 "coverage/**"
             ],
+            "cache": false,
             "dependsOn": [
                 "@crab-dev/rc-button#build:library",
                 "@crab-dev/rc-config-provider#build:library",
@@ -503,9 +504,7 @@
         "@crab-dev/rc-breadcrumbs#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*",
-                "$TURBO_ROOT$/scripts/typecheck.mjs",
-                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*"
             ],
             "outputs": [],
             "dependsOn": [
@@ -557,6 +556,7 @@
             "outputs": [
                 "coverage/**"
             ],
+            "cache": false,
             "dependsOn": [
                 "@crab-dev/rc-config-provider#build:library",
                 "@crab-dev/rc-spin#build:library",
@@ -566,9 +566,7 @@
         "@crab-dev/rc-button#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*",
-                "$TURBO_ROOT$/scripts/typecheck.mjs",
-                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*"
             ],
             "outputs": [],
             "dependsOn": [
@@ -609,6 +607,7 @@
             ],
             "dependsOn": [
                 "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-hooks#build:library",
                 "@crab-dev/rc-token-semantic#build:library"
             ]
         },
@@ -619,21 +618,22 @@
             "outputs": [
                 "coverage/**"
             ],
+            "cache": false,
             "dependsOn": [
                 "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-hooks#build:library",
                 "@crab-dev/rc-token-semantic#build:library"
             ]
         },
         "@crab-dev/rc-canvas#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*",
-                "$TURBO_ROOT$/scripts/typecheck.mjs",
-                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*"
             ],
             "outputs": [],
             "dependsOn": [
                 "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-hooks#build:library",
                 "@crab-dev/rc-token-semantic#build:library"
             ]
         },
@@ -680,6 +680,7 @@
             "outputs": [
                 "coverage/**"
             ],
+            "cache": false,
             "dependsOn": [
                 "@crab-dev/rc-config-provider#build:library",
                 "@crab-dev/rc-skeleton#build:library",
@@ -689,9 +690,7 @@
         "@crab-dev/rc-card#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*",
-                "$TURBO_ROOT$/scripts/typecheck.mjs",
-                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*"
             ],
             "outputs": [],
             "dependsOn": [
@@ -743,6 +742,7 @@
             "outputs": [
                 "coverage/**"
             ],
+            "cache": false,
             "dependsOn": [
                 "@crab-dev/rc-config-provider#build:library",
                 "@crab-dev/rc-hooks#build:library",
@@ -752,9 +752,7 @@
         "@crab-dev/rc-checkbox#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*",
-                "$TURBO_ROOT$/scripts/typecheck.mjs",
-                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*"
             ],
             "outputs": [],
             "dependsOn": [
@@ -812,6 +810,7 @@
             "outputs": [
                 "coverage/**"
             ],
+            "cache": false,
             "dependsOn": [
                 "@crab-dev/rc-button#build:library",
                 "@crab-dev/rc-config-provider#build:library",
@@ -827,9 +826,7 @@
         "@crab-dev/rc-color-picker#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*",
-                "$TURBO_ROOT$/scripts/typecheck.mjs",
-                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*"
             ],
             "outputs": [],
             "dependsOn": [
@@ -887,6 +884,7 @@
             "outputs": [
                 "coverage/**"
             ],
+            "cache": false,
             "dependsOn": [
                 "@crab-dev/rc-button#build:library",
                 "@crab-dev/rc-config-provider#build:library",
@@ -896,9 +894,7 @@
         "@crab-dev/rc-component-preview#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*",
-                "$TURBO_ROOT$/scripts/typecheck.mjs",
-                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*"
             ],
             "outputs": [],
             "dependsOn": [
@@ -949,6 +945,7 @@
             "outputs": [
                 "coverage/**"
             ],
+            "cache": false,
             "dependsOn": [
                 "@crab-dev/rc-theme#build:library",
                 "@crab-dev/rc-token-semantic#build:library"
@@ -957,9 +954,7 @@
         "@crab-dev/rc-config-provider#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*",
-                "$TURBO_ROOT$/scripts/typecheck.mjs",
-                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*"
             ],
             "outputs": [],
             "dependsOn": [
@@ -1005,6 +1000,7 @@
             "outputs": [
                 "coverage/**"
             ],
+            "cache": false,
             "dependsOn": [
                 "@crab-dev/rc-config-provider#build:library",
                 "@crab-dev/rc-dropdown-container#build:library",
@@ -1021,9 +1017,7 @@
         "@crab-dev/rc-cron-picker#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*",
-                "$TURBO_ROOT$/scripts/typecheck.mjs",
-                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*"
             ],
             "outputs": [],
             "dependsOn": [
@@ -1086,6 +1080,7 @@
             "outputs": [
                 "coverage/**"
             ],
+            "cache": false,
             "dependsOn": [
                 "@crab-dev/rc-button#build:library",
                 "@crab-dev/rc-config-provider#build:library",
@@ -1099,9 +1094,7 @@
         "@crab-dev/rc-date-picker#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*",
-                "$TURBO_ROOT$/scripts/typecheck.mjs",
-                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*"
             ],
             "outputs": [],
             "dependsOn": [
@@ -1158,6 +1151,7 @@
             "outputs": [
                 "coverage/**"
             ],
+            "cache": false,
             "dependsOn": [
                 "@crab-dev/rc-button#build:library",
                 "@crab-dev/rc-config-provider#build:library",
@@ -1168,9 +1162,7 @@
         "@crab-dev/rc-dialog#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*",
-                "$TURBO_ROOT$/scripts/typecheck.mjs",
-                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*"
             ],
             "outputs": [],
             "dependsOn": [
@@ -1221,6 +1213,7 @@
             "outputs": [
                 "coverage/**"
             ],
+            "cache": false,
             "dependsOn": [
                 "@crab-dev/rc-config-provider#build:library",
                 "@crab-dev/rc-token-semantic#build:library"
@@ -1229,9 +1222,7 @@
         "@crab-dev/rc-divider#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*",
-                "$TURBO_ROOT$/scripts/typecheck.mjs",
-                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*"
             ],
             "outputs": [],
             "dependsOn": [
@@ -1283,6 +1274,7 @@
             "outputs": [
                 "coverage/**"
             ],
+            "cache": false,
             "dependsOn": [
                 "@crab-dev/rc-button#build:library",
                 "@crab-dev/rc-config-provider#build:library",
@@ -1293,9 +1285,7 @@
         "@crab-dev/rc-drawer#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*",
-                "$TURBO_ROOT$/scripts/typecheck.mjs",
-                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*"
             ],
             "outputs": [],
             "dependsOn": [
@@ -1350,6 +1340,7 @@
             "outputs": [
                 "coverage/**"
             ],
+            "cache": false,
             "dependsOn": [
                 "@crab-dev/rc-button#build:library",
                 "@crab-dev/rc-config-provider#build:library",
@@ -1361,9 +1352,7 @@
         "@crab-dev/rc-dropdown-container#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*",
-                "$TURBO_ROOT$/scripts/typecheck.mjs",
-                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*"
             ],
             "outputs": [],
             "dependsOn": [
@@ -1416,6 +1405,7 @@
             "outputs": [
                 "coverage/**"
             ],
+            "cache": false,
             "dependsOn": [
                 "@crab-dev/rc-config-provider#build:library",
                 "@crab-dev/rc-token-semantic#build:library"
@@ -1424,9 +1414,7 @@
         "@crab-dev/rc-empty#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*",
-                "$TURBO_ROOT$/scripts/typecheck.mjs",
-                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*"
             ],
             "outputs": [],
             "dependsOn": [
@@ -1476,6 +1464,7 @@
             "outputs": [
                 "coverage/**"
             ],
+            "cache": false,
             "dependsOn": [
                 "@crab-dev/rc-canvas#build:library",
                 "@crab-dev/rc-token-semantic#build:library"
@@ -1484,9 +1473,7 @@
         "@crab-dev/rc-flow-diagram#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*",
-                "$TURBO_ROOT$/scripts/typecheck.mjs",
-                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*"
             ],
             "outputs": [],
             "dependsOn": [
@@ -1538,6 +1525,7 @@
             "outputs": [
                 "coverage/**"
             ],
+            "cache": false,
             "dependsOn": [
                 "@crab-dev/rc-checkbox#build:library",
                 "@crab-dev/rc-config-provider#build:library",
@@ -1553,9 +1541,7 @@
         "@crab-dev/rc-form#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*",
-                "$TURBO_ROOT$/scripts/typecheck.mjs",
-                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*"
             ],
             "outputs": [],
             "dependsOn": [
@@ -1609,14 +1595,13 @@
             "outputs": [
                 "coverage/**"
             ],
+            "cache": false,
             "dependsOn": []
         },
         "@crab-dev/rc-hooks#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*",
-                "$TURBO_ROOT$/scripts/typecheck.mjs",
-                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*"
             ],
             "outputs": [],
             "dependsOn": []
@@ -1653,6 +1638,7 @@
             "outputs": [
                 "coverage/**"
             ],
+            "cache": false,
             "dependsOn": [
                 "@crab-dev/rc-button#build:library",
                 "@crab-dev/rc-config-provider#build:library",
@@ -1663,9 +1649,7 @@
         "@crab-dev/rc-line-edit#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*",
-                "$TURBO_ROOT$/scripts/typecheck.mjs",
-                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*"
             ],
             "outputs": [],
             "dependsOn": [
@@ -1716,6 +1700,7 @@
             "outputs": [
                 "coverage/**"
             ],
+            "cache": false,
             "dependsOn": [
                 "@crab-dev/rc-config-provider#build:library",
                 "@crab-dev/rc-token-semantic#build:library"
@@ -1724,9 +1709,7 @@
         "@crab-dev/rc-masonry#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*",
-                "$TURBO_ROOT$/scripts/typecheck.mjs",
-                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*"
             ],
             "outputs": [],
             "dependsOn": [
@@ -1777,6 +1760,7 @@
             "outputs": [
                 "coverage/**"
             ],
+            "cache": false,
             "dependsOn": [
                 "@crab-dev/rc-config-provider#build:library",
                 "@crab-dev/rc-hooks#build:library",
@@ -1786,9 +1770,7 @@
         "@crab-dev/rc-menu#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*",
-                "$TURBO_ROOT$/scripts/typecheck.mjs",
-                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*"
             ],
             "outputs": [],
             "dependsOn": [
@@ -1830,6 +1812,7 @@
             "dependsOn": [
                 "@crab-dev/rc-config-provider#build:library",
                 "@crab-dev/rc-hooks#build:library",
+                "@crab-dev/rc-spin#build:library",
                 "@crab-dev/rc-token-semantic#build:library"
             ]
         },
@@ -1840,23 +1823,24 @@
             "outputs": [
                 "coverage/**"
             ],
+            "cache": false,
             "dependsOn": [
                 "@crab-dev/rc-config-provider#build:library",
                 "@crab-dev/rc-hooks#build:library",
+                "@crab-dev/rc-spin#build:library",
                 "@crab-dev/rc-token-semantic#build:library"
             ]
         },
         "@crab-dev/rc-message#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*",
-                "$TURBO_ROOT$/scripts/typecheck.mjs",
-                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*"
             ],
             "outputs": [],
             "dependsOn": [
                 "@crab-dev/rc-config-provider#build:library",
                 "@crab-dev/rc-hooks#build:library",
+                "@crab-dev/rc-spin#build:library",
                 "@crab-dev/rc-token-semantic#build:library"
             ]
         },
@@ -1904,6 +1888,7 @@
             "outputs": [
                 "coverage/**"
             ],
+            "cache": false,
             "dependsOn": [
                 "@crab-dev/rc-button#build:library",
                 "@crab-dev/rc-config-provider#build:library",
@@ -1914,9 +1899,7 @@
         "@crab-dev/rc-notification#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*",
-                "$TURBO_ROOT$/scripts/typecheck.mjs",
-                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*"
             ],
             "outputs": [],
             "dependsOn": [
@@ -1971,6 +1954,7 @@
             "outputs": [
                 "coverage/**"
             ],
+            "cache": false,
             "dependsOn": [
                 "@crab-dev/rc-button#build:library",
                 "@crab-dev/rc-config-provider#build:library",
@@ -1982,9 +1966,7 @@
         "@crab-dev/rc-number-edit#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*",
-                "$TURBO_ROOT$/scripts/typecheck.mjs",
-                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*"
             ],
             "outputs": [],
             "dependsOn": [
@@ -2041,6 +2023,7 @@
             "outputs": [
                 "coverage/**"
             ],
+            "cache": false,
             "dependsOn": [
                 "@crab-dev/rc-button#build:library",
                 "@crab-dev/rc-config-provider#build:library",
@@ -2053,9 +2036,7 @@
         "@crab-dev/rc-pagination#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*",
-                "$TURBO_ROOT$/scripts/typecheck.mjs",
-                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*"
             ],
             "outputs": [],
             "dependsOn": [
@@ -2087,7 +2068,8 @@
                 "!src/__tests__/**/*",
                 "!src/token.ts",
                 "!docs/**/*",
-                "!coverage/**/*"
+                "!coverage/**/*",
+                "!public/runtime/**"
             ],
             "outputs": [
                 "esm/**",
@@ -2095,7 +2077,8 @@
                 "declarations/**",
                 "css/**",
                 "src/token.ts",
-                "dist/**"
+                "dist/**",
+                "public/runtime/**"
             ],
             "dependsOn": [
                 "@crab-dev/rc-auto-sizer#build:library",
@@ -2124,6 +2107,7 @@
             "outputs": [
                 "coverage/**"
             ],
+            "cache": false,
             "dependsOn": [
                 "@crab-dev/rc-auto-sizer#build:library",
                 "@crab-dev/rc-button#build:library",
@@ -2147,9 +2131,7 @@
         "@crab-dev/rc-pdf-editor#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*",
-                "$TURBO_ROOT$/scripts/typecheck.mjs",
-                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*"
             ],
             "outputs": [],
             "dependsOn": [
@@ -2213,6 +2195,7 @@
             "outputs": [
                 "coverage/**"
             ],
+            "cache": false,
             "dependsOn": [
                 "@crab-dev/rc-config-provider#build:library",
                 "@crab-dev/rc-token-global#build:library",
@@ -2222,9 +2205,7 @@
         "@crab-dev/rc-prose#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*",
-                "$TURBO_ROOT$/scripts/typecheck.mjs",
-                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*"
             ],
             "outputs": [],
             "dependsOn": [
@@ -2276,6 +2257,7 @@
             "outputs": [
                 "coverage/**"
             ],
+            "cache": false,
             "dependsOn": [
                 "@crab-dev/rc-config-provider#build:library",
                 "@crab-dev/rc-hooks#build:library",
@@ -2285,9 +2267,7 @@
         "@crab-dev/rc-radio#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*",
-                "$TURBO_ROOT$/scripts/typecheck.mjs",
-                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*"
             ],
             "outputs": [],
             "dependsOn": [
@@ -2342,6 +2322,7 @@
             "outputs": [
                 "coverage/**"
             ],
+            "cache": false,
             "dependsOn": [
                 "@crab-dev/rc-alert#build:library",
                 "@crab-dev/rc-button#build:library",
@@ -2354,9 +2335,7 @@
         "@crab-dev/rc-realm#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*",
-                "$TURBO_ROOT$/scripts/typecheck.mjs",
-                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*"
             ],
             "outputs": [],
             "dependsOn": [
@@ -2407,14 +2386,13 @@
             "outputs": [
                 "coverage/**"
             ],
+            "cache": false,
             "dependsOn": []
         },
         "@crab-dev/rc-router#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*",
-                "$TURBO_ROOT$/scripts/typecheck.mjs",
-                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*"
             ],
             "outputs": [],
             "dependsOn": []
@@ -2450,6 +2428,7 @@
             "outputs": [
                 "coverage/**"
             ],
+            "cache": false,
             "dependsOn": [
                 "@crab-dev/rc-config-provider#build:library",
                 "@crab-dev/rc-hooks#build:library",
@@ -2459,9 +2438,7 @@
         "@crab-dev/rc-segmented#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*",
-                "$TURBO_ROOT$/scripts/typecheck.mjs",
-                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*"
             ],
             "outputs": [],
             "dependsOn": [
@@ -2520,6 +2497,7 @@
             "outputs": [
                 "coverage/**"
             ],
+            "cache": false,
             "dependsOn": [
                 "@crab-dev/rc-button#build:library",
                 "@crab-dev/rc-checkbox#build:library",
@@ -2536,9 +2514,7 @@
         "@crab-dev/rc-select#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*",
-                "$TURBO_ROOT$/scripts/typecheck.mjs",
-                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*"
             ],
             "outputs": [],
             "dependsOn": [
@@ -2596,6 +2572,7 @@
             "outputs": [
                 "coverage/**"
             ],
+            "cache": false,
             "dependsOn": [
                 "@crab-dev/rc-config-provider#build:library",
                 "@crab-dev/rc-token-semantic#build:library"
@@ -2604,9 +2581,7 @@
         "@crab-dev/rc-skeleton#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*",
-                "$TURBO_ROOT$/scripts/typecheck.mjs",
-                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*"
             ],
             "outputs": [],
             "dependsOn": [
@@ -2657,6 +2632,7 @@
             "outputs": [
                 "coverage/**"
             ],
+            "cache": false,
             "dependsOn": [
                 "@crab-dev/rc-config-provider#build:library",
                 "@crab-dev/rc-hooks#build:library",
@@ -2666,9 +2642,7 @@
         "@crab-dev/rc-slider#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*",
-                "$TURBO_ROOT$/scripts/typecheck.mjs",
-                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*"
             ],
             "outputs": [],
             "dependsOn": [
@@ -2720,6 +2694,7 @@
             "outputs": [
                 "coverage/**"
             ],
+            "cache": false,
             "dependsOn": [
                 "@crab-dev/rc-config-provider#build:library",
                 "@crab-dev/rc-hooks#build:library",
@@ -2729,9 +2704,7 @@
         "@crab-dev/rc-spin#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*",
-                "$TURBO_ROOT$/scripts/typecheck.mjs",
-                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*"
             ],
             "outputs": [],
             "dependsOn": [
@@ -2783,6 +2756,7 @@
             "outputs": [
                 "coverage/**"
             ],
+            "cache": false,
             "dependsOn": [
                 "@crab-dev/rc-config-provider#build:library",
                 "@crab-dev/rc-hooks#build:library",
@@ -2792,9 +2766,7 @@
         "@crab-dev/rc-split-pane#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*",
-                "$TURBO_ROOT$/scripts/typecheck.mjs",
-                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*"
             ],
             "outputs": [],
             "dependsOn": [
@@ -2846,6 +2818,7 @@
             "outputs": [
                 "coverage/**"
             ],
+            "cache": false,
             "dependsOn": [
                 "@crab-dev/rc-config-provider#build:library",
                 "@crab-dev/rc-hooks#build:library",
@@ -2855,9 +2828,7 @@
         "@crab-dev/rc-switch#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*",
-                "$TURBO_ROOT$/scripts/typecheck.mjs",
-                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*"
             ],
             "outputs": [],
             "dependsOn": [
@@ -2914,6 +2885,7 @@
             "outputs": [
                 "coverage/**"
             ],
+            "cache": false,
             "dependsOn": [
                 "@crab-dev/rc-button#build:library",
                 "@crab-dev/rc-checkbox#build:library",
@@ -2928,9 +2900,7 @@
         "@crab-dev/rc-table#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*",
-                "$TURBO_ROOT$/scripts/typecheck.mjs",
-                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*"
             ],
             "outputs": [],
             "dependsOn": [
@@ -2996,6 +2966,7 @@
             "outputs": [
                 "coverage/**"
             ],
+            "cache": false,
             "dependsOn": [
                 "@crab-dev/rc-auto-sizer#build:library",
                 "@crab-dev/rc-button#build:library",
@@ -3014,9 +2985,7 @@
         "@crab-dev/rc-table-pro#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*",
-                "$TURBO_ROOT$/scripts/typecheck.mjs",
-                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*"
             ],
             "outputs": [],
             "dependsOn": [
@@ -3078,6 +3047,7 @@
             "outputs": [
                 "coverage/**"
             ],
+            "cache": false,
             "dependsOn": [
                 "@crab-dev/rc-button#build:library",
                 "@crab-dev/rc-config-provider#build:library",
@@ -3088,9 +3058,7 @@
         "@crab-dev/rc-tabs#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*",
-                "$TURBO_ROOT$/scripts/typecheck.mjs",
-                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*"
             ],
             "outputs": [],
             "dependsOn": [
@@ -3144,6 +3112,7 @@
             "outputs": [
                 "coverage/**"
             ],
+            "cache": false,
             "dependsOn": [
                 "@crab-dev/rc-button#build:library",
                 "@crab-dev/rc-config-provider#build:library",
@@ -3154,9 +3123,7 @@
         "@crab-dev/rc-tag#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*",
-                "$TURBO_ROOT$/scripts/typecheck.mjs",
-                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*"
             ],
             "outputs": [],
             "dependsOn": [
@@ -3210,6 +3177,7 @@
             "outputs": [
                 "coverage/**"
             ],
+            "cache": false,
             "dependsOn": [
                 "@crab-dev/rc-button#build:library",
                 "@crab-dev/rc-config-provider#build:library",
@@ -3220,9 +3188,7 @@
         "@crab-dev/rc-text-edit#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*",
-                "$TURBO_ROOT$/scripts/typecheck.mjs",
-                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*"
             ],
             "outputs": [],
             "dependsOn": [
@@ -3274,6 +3240,7 @@
             "outputs": [
                 "coverage/**"
             ],
+            "cache": false,
             "dependsOn": [
                 "@crab-dev/rc-token-global#build:library",
                 "@crab-dev/rc-token-semantic#build:library"
@@ -3282,9 +3249,7 @@
         "@crab-dev/rc-theme#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*",
-                "$TURBO_ROOT$/scripts/typecheck.mjs",
-                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*"
             ],
             "outputs": [],
             "dependsOn": [
@@ -3315,9 +3280,7 @@
         "@crab-dev/rc-token-global#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*",
-                "$TURBO_ROOT$/scripts/typecheck.mjs",
-                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*"
             ],
             "outputs": [],
             "dependsOn": []
@@ -3341,7 +3304,10 @@
                 "!src/token.ts",
                 "!docs/**/*",
                 "!coverage/**/*",
-                "!src/density-geometry.ts"
+                "!src/density-geometry.ts",
+                "$TURBO_ROOT$/library.manifest.json",
+                "$TURBO_ROOT$/scripts/generate-library-metadata.mjs",
+                "!src/design-system.ts"
             ],
             "outputs": [
                 "esm/**",
@@ -3350,7 +3316,8 @@
                 "css/**",
                 "src/token.ts",
                 "dist/**",
-                "src/density-geometry.ts"
+                "src/density-geometry.ts",
+                "src/design-system.ts"
             ],
             "dependsOn": [
                 "@crab-dev/rc-token-global#build:library"
@@ -3363,6 +3330,7 @@
             "outputs": [
                 "coverage/**"
             ],
+            "cache": false,
             "dependsOn": [
                 "@crab-dev/rc-token-global#build:library"
             ]
@@ -3370,9 +3338,7 @@
         "@crab-dev/rc-token-semantic#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*",
-                "$TURBO_ROOT$/scripts/typecheck.mjs",
-                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*"
             ],
             "outputs": [],
             "dependsOn": [
@@ -3423,6 +3389,7 @@
             "outputs": [
                 "coverage/**"
             ],
+            "cache": false,
             "dependsOn": [
                 "@crab-dev/rc-config-provider#build:library",
                 "@crab-dev/rc-hooks#build:library",
@@ -3432,9 +3399,7 @@
         "@crab-dev/rc-tooltip#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*",
-                "$TURBO_ROOT$/scripts/typecheck.mjs",
-                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*"
             ],
             "outputs": [],
             "dependsOn": [
@@ -3490,6 +3455,7 @@
             "outputs": [
                 "coverage/**"
             ],
+            "cache": false,
             "dependsOn": [
                 "@crab-dev/rc-auto-sizer#build:library",
                 "@crab-dev/rc-checkbox#build:library",
@@ -3504,9 +3470,7 @@
         "@crab-dev/rc-tree#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*",
-                "$TURBO_ROOT$/scripts/typecheck.mjs",
-                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*"
             ],
             "outputs": [],
             "dependsOn": [
@@ -3561,6 +3525,7 @@
             "outputs": [
                 "coverage/**"
             ],
+            "cache": false,
             "dependsOn": [
                 "@crab-dev/rc-token-semantic#build:library"
             ]
@@ -3568,9 +3533,7 @@
         "@crab-dev/rc-virtual#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*",
-                "$TURBO_ROOT$/scripts/typecheck.mjs",
-                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*"
             ],
             "outputs": [],
             "dependsOn": [
@@ -3596,6 +3559,7 @@
             "outputs": [
                 "coverage/**"
             ],
+            "cache": false,
             "dependsOn": [
                 "@crab-dev/rc-alert#build:library",
                 "@crab-dev/rc-app-main-layout#build:library",
@@ -3656,9 +3620,7 @@
         "@crab-dev/website#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*",
-                "$TURBO_ROOT$/scripts/typecheck.mjs",
-                "$TURBO_ROOT$/scripts/typescript-pnp.lock.json"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*"
             ],
             "outputs": [],
             "dependsOn": [

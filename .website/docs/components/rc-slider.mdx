@@ -26,6 +26,8 @@ import { demos } from "../_generated/rc-slider.js";
 
 ##### 五档尺寸 — 尺寸会随设计风格调整；MD3 保留竖向手柄、轨道间隙与终点。
 
+##### 三体系轨道状态矩阵 — 五档视觉尺寸，真实拖动与键盘调整，范围、错误与禁用状态。
+
 </div>
 
 <ComponentDemos demos={demos} />
@@ -54,6 +56,20 @@ import { demos } from "../_generated/rc-slider.js";
 MD3 禁用状态采用 `on-surface` 中性色：已填充轨道与手柄为 38%，未填充轨道为 12%，避免继续以品牌色表示可用操作。
 
 设计来源（2026-10-22）：[M3 规格](https://m3.material.io/components/sliders/specs)、[使用指南](https://m3.material.io/components/sliders/guidelines)、[无障碍](https://m3.material.io/components/sliders/accessibility)、[Material Web 文档与演示](https://material-web.dev/components/slider/)、[实现样式](https://github.com/material-components/material-web/blob/main/slider/internal/_slider.scss)、[令牌](https://github.com/material-components/material-web/blob/main/tokens/_md-comp-slider.scss)、[Apple HIG Sliders](https://developer.apple.com/design/human-interface-guidelines/sliders)、[shadcn Slider 源码](https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui/slider.tsx)。
+
+### 维护与矩阵验收
+
+触控场景保留原键盘步进检查，再以原生触屏轻触轨道验证实际数值变化；窄屏与真实缩放检查轨道、手柄、标签、端点与说明的实际边界和文字范围。容器无溢出不能单独证明这些内容可用，新增断言仍需浏览器执行与人工复审。
+
+五档 xs / s / m / l / xl 逐档登记；CSS 轨道、手柄、停止点与焦点来自本包 L3 对 L2 range 角色的映射，指针测量仍读取实际轨道，不维护另一份尺寸表。MD3 采用 Expressive 竖向手柄的桌面扩展；Apple 与 shadcn 的轨道及手柄形态继续分别映射。
+
+矩阵以真实手柄拖动、方向键和 Home / End 进入数值状态，核对最小、最大、错误、禁用与焦点。拖动持有真实指针状态，未注入伪造 CSS 状态。Slider 只有单数值协议；range 双手柄与确定进度不是现有能力，不能作为遗漏用例计为通过。
+
+包内 `docs/visual.json` 是该组件的可执行尺寸、密度、状态与跨引擎范围清单；`visual-matrix.demo.tsx` 使用公开入口。Chromium 执行完整核心矩阵，Firefox / WebKit 执行清单指定的默认与关键交互子集。窄屏 320 / 768px、长内容、RTL / 英文、品牌覆盖、强制颜色与减少动画分别登记环境场景；配置切换保留原 DOM 与值。真实 200% 浏览器缩放、iframe / Shadow DOM 与跨 Document 验收仍由集成矩阵记录，不以视口或 DPR 代替。
+
+本批来源复核日期为 2026-10-29。[Material Web 控件文档](https://material-web.dev/components/slider/)提供 Web 行为对照；Material Web 不完整覆盖 Expressive，精确 Expressive 形态采用本页注明的项目扩展。[Apple HIG](https://developer.apple.com/design/human-interface-guidelines)作为自主 Web 实现的原则依据；shadcn 继续锁定 New York V4 的 `3d98900e9b73c45f035f8109e9d41ba6a51685e7`，引用提交以产品清单为准。M3 官网需 JavaScript 的规格页未在本批静态读取中补造精确参数。
+
+测试发现、截图候选、像素稳定性与人工外观复审分别记录。当前新增矩阵尚待统一浏览器执行和逐项复审，设计覆盖保持 partial，不能用用例存在或默认测试通过更新为 verified。
 
 
 ### 状态契约

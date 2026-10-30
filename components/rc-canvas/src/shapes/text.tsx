@@ -183,9 +183,10 @@ function Text({
     // 重新光栅化，仅轻微失去 1:1 对齐——与 ECharts v6.2.0 之前的行为一致。
     useEffect(() => {
         if (cmdIdRef.current === null) return;
+        const ownerDocument = ctx.containerRef.current?.ownerDocument;
         const glyph = mode === 'bitmap'
-            ? generateBitmapGlyph(children, fontSize, fontFamily, ctx.dprRef.current, lineHeight, maxWidth)
-            : generateGlyph(children, fontSize, fontFamily, lineHeight, maxWidth);
+            ? generateBitmapGlyph(children, fontSize, fontFamily, ctx.dprRef.current, lineHeight, maxWidth, ownerDocument)
+            : generateGlyph(children, fontSize, fontFamily, lineHeight, maxWidth, ownerDocument);
         ctx.uploadGlyph(glyph.key, glyph.data, glyph.width, glyph.height);
         glyphRef.current = { key: glyph.key, width: glyph.worldWidth, height: glyph.worldHeight };
         ctx.update(cmdIdRef.current, buildCmd(glyph.key, glyph.worldWidth, glyph.worldHeight));

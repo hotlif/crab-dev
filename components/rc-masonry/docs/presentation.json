@@ -1,0 +1,19 @@
+{
+    "previewDensity": "spacious",
+    "groups": [
+        {
+            "title": "三体系验收",
+            "demos": [
+                "visual-matrix.demo.tsx"
+            ]
+        },
+        {
+            "title": "布局与阅读顺序",
+            "demos": [
+                "basic.demo.tsx",
+                "columns.demo.tsx",
+                "sequential.demo.tsx"
+            ]
+        }
+    ]
+}

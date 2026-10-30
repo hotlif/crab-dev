@@ -1,4 +1,5 @@
 import { usePickerLocale } from '../locale.js';
+import { nowZonedDateTime } from '../temporal.js';
 import { cx } from '@crab-dev/css';
 import Button from '@crab-dev/rc-button';
 import LineEdit from '@crab-dev/rc-line-edit';
@@ -81,7 +82,7 @@ export default function TimePickerPanel({
 }: TimePickerPanelProps) {
     const { locale, messages } = usePickerLocale(localeProp);
     const [initialValue] = useState(() => {
-        const now = Temporal.Now.zonedDateTimeISO();
+        const now = nowZonedDateTime();
         return { hour: now.hour, minute: now.minute, second: 0 };
     });
     const resolved = value ?? initialValue;

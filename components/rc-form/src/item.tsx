@@ -1,23 +1,17 @@
 import { cloneElement, useState, useEffect, useEffectEvent, useId, useRef } from "react";
 import type { ReactElement, HTMLAttributes, ReactNode } from "react";
-import { css, cx } from "@crab-dev/css";
-import semanticToken from "@crab-dev/rc-token-semantic";
+import { cx } from "@crab-dev/css";
 import { CircleAlert, TriangleAlert, CircleCheck } from "lucide-react";
-import { SpinIndicator, TokenVars as spinVars } from '@crab-dev/rc-spin';
+import { SpinIndicator } from '@crab-dev/rc-spin';
 import { useLocale } from '@crab-dev/rc-config-provider';
 import { fieldAdapters } from './field-adapters.js';
 import type { FieldAdapter, FieldBinding } from './field-adapters.js';
-
-import token from "./token.js";
 import { RuleType, ValidateState } from "./types.js";
 import type { FormItemEditor, NamePath, Rule, FieldValidationResult } from "./types.js";
 import useFormContext from "./hooks/useFormContext.js";
 import { MessageEnum } from "./bus.js";
-import {
-    getRecordValue,
-    equalsNamePath
-} from "./util.js";
-
+import { getRecordValue, equalsNamePath } from "./util.js";
+import { rowStyle, labelStyle, requiredStyle, editorWrapStyle, controlEditorWrapStyle, statusSlotStyle, errorColorStyle, warningColorStyle, successColorStyle, validatingStyle, validationMessageStyle } from "./item.styles.js";
 const EMPTY_RULES: Rule[] = [];
 
 // Preserve the origin of library-owned feedback. Locale changes format these
@@ -90,107 +84,6 @@ export type FormItemProps = FormItemBaseProps & (
         supportingText?: string;
     }
 );
-
-// ─── 样式 ────────────────────────────────────────────────────────────────────
-
-// 字段行：以 subgrid 复用 Form 定义的三列轨道（标签 / 编辑器 / 状态图标），
-// 使所有字段的标签列宽度自动对齐到最长标签；不再用绝对定位承载校验文案，
-// 因此没有任何"为消息硬留的" margin，行高由内容自然决定。
-const rowStyle = css`
-    display: grid;
-    grid-template-columns: subgrid;
-    grid-column: 1 / -1;
-    align-items: center;
-`;
-
-const labelStyle = css`
-    grid-column: 1;
-    grid-row: 1;
-    justify-self: start;
-    display: inline-flex;
-    align-items: center;
-    gap: ${token.required.gap};
-    box-sizing: border-box;
-    font-size: ${token.label['font-size']};
-    font-weight: ${token.label['font-weight']};
-    color: ${token.label.color};
-`;
-
-const requiredStyle = css`
-    color: ${token.required.color};
-    order: ${semanticToken.field.required.order};
-    line-height: 1;
-`;
-
-// 编辑器占据第 2 列（1fr）；min-width: 0 允许在窄容器内正常收缩
-const editorWrapStyle = css`
-    grid-column: 2;
-    grid-row: 1;
-    min-width: 0;
-`;
-
-// control 模式只提供整行空间。字段自身负责标签、浮动状态和说明布局；
-// Dropdown 等结构包装与直接字段同样进入单一轨道，不依赖内部 DOM 标记。
-const controlEditorWrapStyle = css`
-    grid-column: 1 / -1;
-    min-width: 0;
-    display: grid;
-    grid-template-columns: minmax(0, 1fr);
-    & > * {
-        min-width: 0;
-        max-width: 100%;
-    }
-`;
-
-// 状态槽：固定尺寸，无论有无校验结果都占位，从根本上杜绝图标出现 / 消失引发的布局抖动
-const statusSlotStyle = css`
-    grid-column: 3;
-    grid-row: 1;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    width: ${token.status.width};
-    height: ${token.status.width};
-
-    & svg {
-        display: block;
-        width: 100%;
-        height: 100%;
-    }
-`;
-
-const errorColorStyle = css`
-    color: ${token.status['color-error']};
-`;
-
-const warningColorStyle = css`
-    color: ${token.status.warning.color};
-`;
-
-const successColorStyle = css`
-    color: ${token.status.success.color};
-`;
-
-// 校验中：复用 rc-spin 的纯视觉环（旋转与 reduced-motion 降级由其统一承担）。
-// 校验文案在字段下方显示；状态图标不增加额外的交互目标。
-const validatingStyle = css`
-    color: ${token.status.validating.color};
-    ${spinVars['ring.indicator.stroke']}: currentColor;
-    ${spinVars['ring.track.stroke']}: transparent;
-`;
-
-const validationMessageStyle = css`
-    grid-column: 2 / -1;
-    grid-row: 2;
-    min-width: 0;
-    padding-inline: ${token.message['padding-inline']};
-    margin-block-start: ${token.message.gap};
-    font-size: ${token.message['font-size']};
-    line-height: ${token.message['line-height']};
-    white-space: pre-line;
-    overflow-wrap: anywhere;
-`;
 
 function FormItemComponent({
     className,

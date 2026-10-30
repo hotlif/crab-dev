@@ -24,7 +24,7 @@ export const demos = [
         "workbenchPath": "/components/rc-tabs/workbench/#/components/docs%2Fdemos%2Fbasic.demo.tsx",
         "density": "regular",
         "layout": "wide",
-        "group": null
+        "group": "使用示例"
     },
     {
         "id": "docs/demos/card.demo.tsx",
@@ -46,7 +46,7 @@ export const demos = [
         "workbenchPath": "/components/rc-tabs/workbench/#/components/docs%2Fdemos%2Fcard.demo.tsx",
         "density": "regular",
         "layout": "wide",
-        "group": null
+        "group": "使用示例"
     },
     {
         "id": "docs/demos/centered.demo.tsx",
@@ -68,7 +68,7 @@ export const demos = [
         "workbenchPath": "/components/rc-tabs/workbench/#/components/docs%2Fdemos%2Fcentered.demo.tsx",
         "density": "regular",
         "layout": "wide",
-        "group": null
+        "group": "使用示例"
     },
     {
         "id": "docs/demos/closable.demo.tsx",
@@ -95,7 +95,7 @@ export const demos = [
         "workbenchPath": "/components/rc-tabs/workbench/#/components/docs%2Fdemos%2Fclosable.demo.tsx",
         "density": "regular",
         "layout": "wide",
-        "group": null
+        "group": "使用示例"
     },
     {
         "id": "docs/demos/designs.demo.tsx",
@@ -121,7 +121,7 @@ export const demos = [
         "workbenchPath": "/components/rc-tabs/workbench/#/components/docs%2Fdemos%2Fdesigns.demo.tsx",
         "density": "regular",
         "layout": "wide",
-        "group": null
+        "group": "使用示例"
     },
     {
         "id": "docs/demos/overflow.demo.tsx",
@@ -143,7 +143,7 @@ export const demos = [
         "workbenchPath": "/components/rc-tabs/workbench/#/components/docs%2Fdemos%2Foverflow.demo.tsx",
         "density": "regular",
         "layout": "wide",
-        "group": null
+        "group": "使用示例"
     },
     {
         "id": "docs/demos/pill.demo.tsx",
@@ -165,7 +165,7 @@ export const demos = [
         "workbenchPath": "/components/rc-tabs/workbench/#/components/docs%2Fdemos%2Fpill.demo.tsx",
         "density": "regular",
         "layout": "wide",
-        "group": null
+        "group": "使用示例"
     },
     {
         "id": "docs/demos/with-icon.demo.tsx",
@@ -192,6 +192,34 @@ export const demos = [
         "workbenchPath": "/components/rc-tabs/workbench/#/components/docs%2Fdemos%2Fwith-icon.demo.tsx",
         "density": "regular",
         "layout": "wide",
-        "group": null
+        "group": "使用示例"
+    },
+    {
+        "id": "docs/demos/visual-matrix.demo.tsx",
+        "title": "页签状态与溢出矩阵",
+        "description": "三种公开外观对照选中、禁用与关闭，切换配置保留活动页和面板草稿。",
+        "learning": {
+            "components": [
+                "Tabs"
+            ],
+            "props": [
+                "type",
+                "value",
+                "onValueChange",
+                "onTabClose",
+                "items"
+            ],
+            "events": [
+                "onValueChange",
+                "onTabClose"
+            ],
+            "hasState": true
+        },
+        "sourceCode": "import { css } from '@crab-dev/css';\nimport Tabs from '@crab-dev/rc-tabs';\nimport { useConfig } from '@crab-dev/rc-config-provider';\nimport token from '@crab-dev/rc-token-semantic';\nimport { useId, useState } from 'react';\n\nexport const meta = { title: '页签状态与溢出矩阵', description: '三种公开外观对照选中、禁用与关闭，切换配置保留活动页和面板草稿。' };\nconst frame = css`display: grid; gap: ${token.space['group-gap']}; padding: ${token.space['group-gap']}; background: ${token.color.background.surface}; color: ${token.color.text.primary}; min-width: 0;`;\nconst content = css`padding: ${token.space['group-gap']}; border: 1px solid ${token.color.border.subtle}; border-radius: ${token.shape.control}; overflow-wrap: anywhere;`;\nexport default function VisualMatrixDemo() {\n    const { locale } = useConfig();\n    const [variant, setVariant] = useState\u003c'line' | 'card' | 'pill'>('line');\n    const [value, setValue] = useState('overview');\n    const [keys, setKeys] = useState(['overview', 'activity', 'settings', 'archived']);\n    const [draft, setDraft] = useState('保留的工作区草稿');\n    const id = useId();\n    const english = locale === 'en-US';\n    const labels: Record\u003cstring, string> = { overview: english ? 'Overview' : '概览', activity: english ? 'Activity and audit history' : '活动与审计历史长标签', settings: english ? 'Project settings' : '项目设置', archived: english ? 'Archived' : '已归档' };\n    return \u003csection className={frame} aria-label=\"Tabs visual matrix\" data-visual-scene data-variant={variant}>\n        \u003cdiv>\u003clabel htmlFor={id}>页签外观\u003c/label>{' '}\u003cselect id={id} value={variant} onChange={event => setVariant(event.currentTarget.value as typeof variant)}>\u003coption>line\u003c/option>\u003coption>card\u003c/option>\u003coption>pill\u003c/option>\u003c/select>\u003c/div>\n        \u003cTabs type={variant} value={value} onValueChange={setValue} onTabClose={key => {\n            setKeys(keys.filter(candidate => candidate !== key));\n            if (value === key) setValue(keys.find(candidate => candidate !== key && candidate !== 'archived') ?? '');\n        }} items={keys.map(key => ({ key, label: labels[key], disabled: key === 'archived', closable: key === 'settings', children: \u003cdiv className={content}>{key === 'overview' ? \u003clabel>{english ? 'Project draft' : '项目草稿'}{' '}\u003cinput aria-label=\"项目草稿\" value={draft} onChange={event => setDraft(event.currentTarget.value)} />\u003c/label> : \u003cp>{labels[key]} · {english ? 'Workspace content' : '工作区内容'}\u003c/p>}\u003c/div> }))} />\n        \u003coutput aria-live=\"polite\">{value}\u003c/output>\n    \u003c/section>;\n}\n",
+        "previewPath": "/components/rc-tabs/workbench/?__wake_demo=docs%2Fdemos%2Fvisual-matrix.demo.tsx",
+        "workbenchPath": "/components/rc-tabs/workbench/#/components/docs%2Fdemos%2Fvisual-matrix.demo.tsx",
+        "density": "regular",
+        "layout": "wide",
+        "group": "视觉验收"
     }
 ] as const satisfies readonly ComponentDemoRecord[];

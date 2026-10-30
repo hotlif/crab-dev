@@ -20,6 +20,10 @@ import { demos } from "../_generated/rc-table.js";
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
 
+#### 三体系验收
+
+##### 表格验收矩阵 — 固定数据核对行密度、固定列、选择、展开、编辑及虚拟滚动。尺寸和密度由工作台独立切换。
+
 #### 三套风格对照
 
 ##### 三套风格与选中状态 — 相同数据分别使用 MD3 Expressive、Apple 和 shadcn/ui；表头、分隔线、单元格留白及行选中配色随设计边界切换，窄屏可在各表格区域横向滚动。
@@ -142,6 +146,25 @@ grid 入口的键盘焦点环绘制在表格边界内侧，并位于固定列、
 数据表的语义角色分别取自三套设计体系；虚拟列、固定列、行编辑、树与详情行是本库的数据交互扩展。MD3 的表面与状态角色不等同于 Material Web 已提供完整 Table；Apple 是浏览器适配；shadcn/ui 参考固定 New York V4 Table 的表面与描边约定。专业表格行为由本库单独验收。
 
 设计来源与固定参考版本见[三套设计体系](/guides/design-styles)，当前已核对范围见[设计覆盖矩阵](/guides/design-coverage)。这段说明记录适配边界，不代表完整视觉验收已通过。
+
+
+### 桌面矩阵规格
+
+本表格是数据密集 Web 扩展。MD3 Expressive 使用 tonal 表头、内容表面和配对的选中前景；表达集中于动作及状态，不扩大每条数据的视觉重量。Apple 使用轻量表头、精确列对齐及强调色选择；shadcn 使用内容表面、中性选择及清晰描边。三体系共享列坐标和交互模型，颜色、字阶、间距及圆角由 L2 输出，Table 的 L3 只组合组件角色。
+
+| 轴 | 项目规格 |
+| --- | --- |
+| 控件尺寸 | small / medium / large，影响内部复选框、编辑与操作；数据行高保持独立 |
+| 数据密度 | compact / standard / comfortable；默认行高及表头从同一 L2 几何生成，显式高度优先 |
+| 视觉与命中 | 焦点环位于 grid 内侧，覆盖 sticky 与固定列；行选择命中区限制在实际行内，避免重叠 |
+| 状态 | 默认、真实 hover、键盘焦点、选择、详情展开、编辑草稿、滚动、空数据 |
+| 数据生命周期 | Table 无请求引擎；加载和请求错误由 TablePro 或调用方管理，不能把空态当作加载 |
+
+固定数据的「表格验收矩阵」使用公开入口，保持固定列、可编辑字段、详情和虚拟滚动并存。矩阵声明在包内 docs/visual.json，场景由 Playwright 读取；截图与几何、语义、焦点断言共同使用。滚动必须实际改变可见行，编辑必须通过双击进入，不注入状态类。
+
+行 hover 通过真实 `onRowClick` 协议启用，点击结果由演示输出显示；验收同时检查悬停前后行背景变化。滚动到末页后既要求首行退出，也要求固定数据中的末行出现在视口，且实际渲染的行数保持有界，防止空白虚拟列表被误计为通过。
+
+参考：[M3 颜色角色](https://m3.material.io/styles/color/roles)、[Material Web List](https://material-web.dev/components/list/) 的表面与文本语义；它们没有提供本表格的专业交互实现。Apple 依据[布局原则](https://developer.apple.com/design/human-interface-guidelines/layout)自主适配。shadcn 固定 [New York V4 Table](https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui/table.tsx)，虚拟化、编辑、固定列和详情属于本库扩展。参考记录日期：2026-10-29。
 
 ### 适用场景
 

@@ -32,6 +32,8 @@ import { demos } from "../_generated/rc-divider.js";
 
 ##### 竖向分割线 — direction=vertical 用于行内切分: 按钮组、状态栏、面包屑。高度跟随当前字号。
 
+##### 三体系展示与状态矩阵 — 公开组件、真实交互与自然动画；包内视觉规格是矩阵轴的来源。
+
 </div>
 
 <ComponentDemos demos={demos} />
@@ -66,6 +68,24 @@ import { demos } from "../_generated/rc-divider.js";
 三套设计均使用 1px 分隔线，由当前主题的弱边界颜色、字阶与间距表达层级。Material 对应 divider；带文字、竖线和间距档位是项目扩展，不额外引入主题专属装饰。
 
 切换文档站设计风格后，本页演示同步使用该设计；浅色和深色模式分别使用配对语义颜色。
+
+### 三体系规格与验收边界
+
+保留语义 separator 与显式 decorative 协议。虚线、点线、嵌入标题和 spacing 是桌面分组扩展；长标题截断而不推挤分割线。竖向分割随行内字阶，不能包含文字。无可操作表面，不适用悬停、按下、禁用、选中或加载。
+
+| 体系 | 组件视觉规则 |
+| --- | --- |
+| MD3 Expressive | Material Web 的 outline-variant 细线为基线，粗细与表面层级分离。 |
+| Apple | 以微弱分隔组织内容，避免抢占阅读层级；自主 Web 分组规则。 |
+| shadcn | 参照 Separator 的横竖方向和装饰语义；文字/线型是项目扩展。 |
+
+本包几何与视觉来源：line.border-width / border-color；spacing.none/small/medium/large；vertical.block-size；text 字阶/间隙/省略与 start/end 的逻辑偏移。设计值只在对应 token.toml 与它引用的语义角色维护，验收测量读取实际 DOM 计算值。
+
+颜色、字阶、形状、状态和动效分别从 L2 角色映射到包内 L3；Theme 负责最近配置边界。明暗模式使用配对前景/背景，不进行整体反相。视觉边界与命中区域分别检查，焦点截图保留外部轮廓与阴影。强制颜色采用系统色；减少动画保留信息与最终状态。
+
+矩阵定义在本包 `docs/visual.json`，场景使用 `visual-matrix.demo.tsx`。Chromium 覆盖其中全部设计/明暗/命名尺寸/适用密度/状态；Firefox 与 WebKit 按 `crossEngine` 的默认展示和重点交互子集执行。窄屏、RTL、中英文、长文本、品牌覆盖和配置切换后的草稿保持另有场景；未运行、未人工复核或失败的项不能计为通过。开放尺寸输入的代表样本不等于无限集合的穷尽。
+
+参考核对日期：2026-10-29。[Material 3 Cards](https://m3.material.io/components/cards/overview)、[Material Web Divider 使用/无障碍/令牌](https://material-web.dev/components/divider/)、[Material Web Progress 语义](https://material-web.dev/components/progress/)、[Apple Feedback](https://developer.apple.com/design/human-interface-guidelines/feedback)、[Apple Layout](https://developer.apple.com/design/human-interface-guidelines/layout)、[Apple Progress indicators](https://developer.apple.com/design/human-interface-guidelines/progress-indicators)、[shadcn New York V4 separator](https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui/separator.tsx)。Material Web 是 Web 行为基线；Apple 是依据原则的自主 Web 实现；shadcn 固定参考提交 `3d98900e9b73c45f035f8109e9d41ba6a51685e7`，不跟随浮动最新版。
 
 ### 适用场景
 

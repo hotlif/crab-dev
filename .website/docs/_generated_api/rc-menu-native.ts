@@ -8,11 +8,12 @@ type DocsTypePlaceholder = ((...args: never[]) => unknown) & {
 type AnimationEventHandler<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 type AriaRole = DocsTypePlaceholder;
 type Booleanish = DocsTypePlaceholder;
-type ChangeEventHandler<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
+type ChangeEventHandler<T0 = unknown, T1 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0, T1] };
 type ClipboardEventHandler<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 type CompositionEventHandler<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 type CSSProperties = DocsTypePlaceholder;
 type DragEventHandler<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
+type Element = DocsTypePlaceholder;
 type FocusEventHandler<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 type HTMLUListElement = DocsTypePlaceholder;
 type InputEventHandler<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
@@ -30,6 +31,281 @@ type UIEventHandler<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeA
 type WheelEventHandler<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 
 export interface MenuPropsNativeAttributes {
+    /**
+     * 暂无说明。
+     */
+    "title"?: string | undefined;
+
+    /**
+     * React-specific Attributes
+     */
+    "defaultChecked"?: boolean | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "defaultValue"?: string | number | readonly string[] | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "suppressContentEditableWarning"?: boolean | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "suppressHydrationWarning"?: boolean | undefined;
+
+    /**
+     * Standard HTML Attributes
+     */
+    "accessKey"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "autoCapitalize"?: "off" | "none" | "on" | "sentences" | "words" | "characters" | undefined | (string & {});
+
+    /**
+     * 暂无说明。
+     */
+    "autoFocus"?: boolean | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "className"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "contentEditable"?: Booleanish | "inherit" | "plaintext-only" | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "contextMenu"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "dir"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "draggable"?: Booleanish | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "enterKeyHint"?: "enter" | "done" | "go" | "next" | "previous" | "search" | "send" | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "hidden"?: boolean | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "id"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "lang"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "nonce"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "slot"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "spellCheck"?: Booleanish | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "style"?: CSSProperties | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "tabIndex"?: number | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "translate"?: "yes" | "no" | undefined;
+
+    /**
+     * Unknown
+     */
+    "radioGroup"?: string | undefined;
+
+    /**
+     * WAI-ARIA
+     */
+    "role"?: AriaRole | undefined;
+
+    /**
+     * RDFa Attributes
+     */
+    "about"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "content"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "datatype"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "inlist"?: any;
+
+    /**
+     * 暂无说明。
+     */
+    "prefix"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "property"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "rel"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "resource"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "rev"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "typeof"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "vocab"?: string | undefined;
+
+    /**
+     * Non-standard Attributes
+     */
+    "autoCorrect"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "autoSave"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "color"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "itemProp"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "itemScope"?: boolean | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "itemType"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "itemID"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "itemRef"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "results"?: number | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "security"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "unselectable"?: "on" | "off" | undefined;
+
+    /**
+     * Popover API
+     */
+    "popover"?: "" | "auto" | "manual" | "hint" | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "popoverTargetAction"?: "toggle" | "show" | "hide" | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "popoverTarget"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "inert"?: boolean | undefined;
+
+    /**
+     * Hints at the type of data that might be entered by the user while editing the element or its contents
+     */
+    "inputMode"?: "none" | "text" | "tel" | "url" | "email" | "numeric" | "decimal" | "search" | undefined;
+
+    /**
+     * Specify that a standard HTML element should behave like a defined custom built-in element
+     */
+    "is"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "exportparts"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "part"?: string | undefined;
+
     /**
      * Identifies the currently active element when DOM focus is on a composite widget, textbox, group, or application.
      */
@@ -310,1112 +586,837 @@ export interface MenuPropsNativeAttributes {
     /**
      * Clipboard Events
      */
-    "onCopy"?: ClipboardEventHandler<HTMLUListElement> | undefined;
+    "onCopy"?: ClipboardEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onCopyCapture"?: ClipboardEventHandler<HTMLUListElement> | undefined;
+    "onCopyCapture"?: ClipboardEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onCut"?: ClipboardEventHandler<HTMLUListElement> | undefined;
+    "onCut"?: ClipboardEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onCutCapture"?: ClipboardEventHandler<HTMLUListElement> | undefined;
+    "onCutCapture"?: ClipboardEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onPaste"?: ClipboardEventHandler<HTMLUListElement> | undefined;
+    "onPaste"?: ClipboardEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onPasteCapture"?: ClipboardEventHandler<HTMLUListElement> | undefined;
+    "onPasteCapture"?: ClipboardEventHandler<HTMLUListElement>;
 
     /**
      * Composition Events
      */
-    "onCompositionEnd"?: CompositionEventHandler<HTMLUListElement> | undefined;
+    "onCompositionEnd"?: CompositionEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onCompositionEndCapture"?: CompositionEventHandler<HTMLUListElement> | undefined;
+    "onCompositionEndCapture"?: CompositionEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onCompositionStart"?: CompositionEventHandler<HTMLUListElement> | undefined;
+    "onCompositionStart"?: CompositionEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onCompositionStartCapture"?: CompositionEventHandler<HTMLUListElement> | undefined;
+    "onCompositionStartCapture"?: CompositionEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onCompositionUpdate"?: CompositionEventHandler<HTMLUListElement> | undefined;
+    "onCompositionUpdate"?: CompositionEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onCompositionUpdateCapture"?: CompositionEventHandler<HTMLUListElement> | undefined;
+    "onCompositionUpdateCapture"?: CompositionEventHandler<HTMLUListElement>;
 
     /**
      * Focus Events
      */
-    "onFocus"?: FocusEventHandler<HTMLUListElement> | undefined;
+    "onFocus"?: FocusEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onFocusCapture"?: FocusEventHandler<HTMLUListElement> | undefined;
+    "onFocusCapture"?: FocusEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onBlur"?: FocusEventHandler<HTMLUListElement> | undefined;
+    "onBlur"?: FocusEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onBlurCapture"?: FocusEventHandler<HTMLUListElement> | undefined;
+    "onBlurCapture"?: FocusEventHandler<HTMLUListElement>;
 
     /**
      * form related Events
      */
-    "onChange"?: ChangeEventHandler<HTMLUListElement> | undefined;
+    "onChange"?: ChangeEventHandler<HTMLUListElement, Element>;
 
     /**
      * 暂无说明。
      */
-    "onChangeCapture"?: ChangeEventHandler<HTMLUListElement> | undefined;
+    "onChangeCapture"?: ChangeEventHandler<HTMLUListElement, Element>;
 
     /**
      * 暂无说明。
      */
-    "onBeforeInput"?: InputEventHandler<HTMLUListElement> | undefined;
+    "onBeforeInput"?: InputEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onBeforeInputCapture"?: InputEventHandler<HTMLUListElement> | undefined;
+    "onBeforeInputCapture"?: InputEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onInput"?: InputEventHandler<HTMLUListElement> | undefined;
+    "onInput"?: InputEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onInputCapture"?: InputEventHandler<HTMLUListElement> | undefined;
+    "onInputCapture"?: InputEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onReset"?: ReactEventHandler<HTMLUListElement> | undefined;
+    "onReset"?: ReactEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onResetCapture"?: ReactEventHandler<HTMLUListElement> | undefined;
+    "onResetCapture"?: ReactEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onSubmit"?: SubmitEventHandler<HTMLUListElement> | undefined;
+    "onSubmit"?: SubmitEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onSubmitCapture"?: SubmitEventHandler<HTMLUListElement> | undefined;
+    "onSubmitCapture"?: SubmitEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onInvalid"?: ReactEventHandler<HTMLUListElement> | undefined;
+    "onInvalid"?: ReactEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onInvalidCapture"?: ReactEventHandler<HTMLUListElement> | undefined;
+    "onInvalidCapture"?: ReactEventHandler<HTMLUListElement>;
 
     /**
      * Image Events
      */
-    "onLoad"?: ReactEventHandler<HTMLUListElement> | undefined;
+    "onLoad"?: ReactEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onLoadCapture"?: ReactEventHandler<HTMLUListElement> | undefined;
+    "onLoadCapture"?: ReactEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onError"?: ReactEventHandler<HTMLUListElement> | undefined;
+    "onError"?: ReactEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onErrorCapture"?: ReactEventHandler<HTMLUListElement> | undefined;
+    "onErrorCapture"?: ReactEventHandler<HTMLUListElement>;
 
     /**
      * Keyboard Events
      */
-    "onKeyDown"?: KeyboardEventHandler<HTMLUListElement> | undefined;
+    "onKeyDown"?: KeyboardEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onKeyDownCapture"?: KeyboardEventHandler<HTMLUListElement> | undefined;
-
-    /**
-     * 暂无说明。
-     * @deprecated
-     */
-    "onKeyPress"?: KeyboardEventHandler<HTMLUListElement> | undefined;
+    "onKeyDownCapture"?: KeyboardEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      * @deprecated
      */
-    "onKeyPressCapture"?: KeyboardEventHandler<HTMLUListElement> | undefined;
+    "onKeyPress"?: KeyboardEventHandler<HTMLUListElement>;
+
+    /**
+     * 暂无说明。
+     * @deprecated
+     */
+    "onKeyPressCapture"?: KeyboardEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onKeyUp"?: KeyboardEventHandler<HTMLUListElement> | undefined;
+    "onKeyUp"?: KeyboardEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onKeyUpCapture"?: KeyboardEventHandler<HTMLUListElement> | undefined;
+    "onKeyUpCapture"?: KeyboardEventHandler<HTMLUListElement>;
 
     /**
      * Media Events
      */
-    "onAbort"?: ReactEventHandler<HTMLUListElement> | undefined;
+    "onAbort"?: ReactEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onAbortCapture"?: ReactEventHandler<HTMLUListElement> | undefined;
+    "onAbortCapture"?: ReactEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onCanPlay"?: ReactEventHandler<HTMLUListElement> | undefined;
+    "onCanPlay"?: ReactEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onCanPlayCapture"?: ReactEventHandler<HTMLUListElement> | undefined;
+    "onCanPlayCapture"?: ReactEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onCanPlayThrough"?: ReactEventHandler<HTMLUListElement> | undefined;
+    "onCanPlayThrough"?: ReactEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onCanPlayThroughCapture"?: ReactEventHandler<HTMLUListElement> | undefined;
+    "onCanPlayThroughCapture"?: ReactEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onDurationChange"?: ReactEventHandler<HTMLUListElement> | undefined;
+    "onDurationChange"?: ReactEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onDurationChangeCapture"?: ReactEventHandler<HTMLUListElement> | undefined;
+    "onDurationChangeCapture"?: ReactEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onEmptied"?: ReactEventHandler<HTMLUListElement> | undefined;
+    "onEmptied"?: ReactEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onEmptiedCapture"?: ReactEventHandler<HTMLUListElement> | undefined;
+    "onEmptiedCapture"?: ReactEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onEncrypted"?: ReactEventHandler<HTMLUListElement> | undefined;
+    "onEncrypted"?: ReactEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onEncryptedCapture"?: ReactEventHandler<HTMLUListElement> | undefined;
+    "onEncryptedCapture"?: ReactEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onEnded"?: ReactEventHandler<HTMLUListElement> | undefined;
+    "onEnded"?: ReactEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onEndedCapture"?: ReactEventHandler<HTMLUListElement> | undefined;
+    "onEndedCapture"?: ReactEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onLoadedData"?: ReactEventHandler<HTMLUListElement> | undefined;
+    "onLoadedData"?: ReactEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onLoadedDataCapture"?: ReactEventHandler<HTMLUListElement> | undefined;
+    "onLoadedDataCapture"?: ReactEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onLoadedMetadata"?: ReactEventHandler<HTMLUListElement> | undefined;
+    "onLoadedMetadata"?: ReactEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onLoadedMetadataCapture"?: ReactEventHandler<HTMLUListElement> | undefined;
+    "onLoadedMetadataCapture"?: ReactEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onLoadStart"?: ReactEventHandler<HTMLUListElement> | undefined;
+    "onLoadStart"?: ReactEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onLoadStartCapture"?: ReactEventHandler<HTMLUListElement> | undefined;
+    "onLoadStartCapture"?: ReactEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onPause"?: ReactEventHandler<HTMLUListElement> | undefined;
+    "onPause"?: ReactEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onPauseCapture"?: ReactEventHandler<HTMLUListElement> | undefined;
+    "onPauseCapture"?: ReactEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onPlay"?: ReactEventHandler<HTMLUListElement> | undefined;
+    "onPlay"?: ReactEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onPlayCapture"?: ReactEventHandler<HTMLUListElement> | undefined;
+    "onPlayCapture"?: ReactEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onPlaying"?: ReactEventHandler<HTMLUListElement> | undefined;
+    "onPlaying"?: ReactEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onPlayingCapture"?: ReactEventHandler<HTMLUListElement> | undefined;
+    "onPlayingCapture"?: ReactEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onProgress"?: ReactEventHandler<HTMLUListElement> | undefined;
+    "onProgress"?: ReactEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onProgressCapture"?: ReactEventHandler<HTMLUListElement> | undefined;
+    "onProgressCapture"?: ReactEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onRateChange"?: ReactEventHandler<HTMLUListElement> | undefined;
+    "onRateChange"?: ReactEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onRateChangeCapture"?: ReactEventHandler<HTMLUListElement> | undefined;
+    "onRateChangeCapture"?: ReactEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onSeeked"?: ReactEventHandler<HTMLUListElement> | undefined;
+    "onSeeked"?: ReactEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onSeekedCapture"?: ReactEventHandler<HTMLUListElement> | undefined;
+    "onSeekedCapture"?: ReactEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onSeeking"?: ReactEventHandler<HTMLUListElement> | undefined;
+    "onSeeking"?: ReactEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onSeekingCapture"?: ReactEventHandler<HTMLUListElement> | undefined;
+    "onSeekingCapture"?: ReactEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onStalled"?: ReactEventHandler<HTMLUListElement> | undefined;
+    "onStalled"?: ReactEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onStalledCapture"?: ReactEventHandler<HTMLUListElement> | undefined;
+    "onStalledCapture"?: ReactEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onSuspend"?: ReactEventHandler<HTMLUListElement> | undefined;
+    "onSuspend"?: ReactEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onSuspendCapture"?: ReactEventHandler<HTMLUListElement> | undefined;
+    "onSuspendCapture"?: ReactEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onTimeUpdate"?: ReactEventHandler<HTMLUListElement> | undefined;
+    "onTimeUpdate"?: ReactEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onTimeUpdateCapture"?: ReactEventHandler<HTMLUListElement> | undefined;
+    "onTimeUpdateCapture"?: ReactEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onVolumeChange"?: ReactEventHandler<HTMLUListElement> | undefined;
+    "onVolumeChange"?: ReactEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onVolumeChangeCapture"?: ReactEventHandler<HTMLUListElement> | undefined;
+    "onVolumeChangeCapture"?: ReactEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onWaiting"?: ReactEventHandler<HTMLUListElement> | undefined;
+    "onWaiting"?: ReactEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onWaitingCapture"?: ReactEventHandler<HTMLUListElement> | undefined;
+    "onWaitingCapture"?: ReactEventHandler<HTMLUListElement>;
 
     /**
      * MouseEvents
      */
-    "onAuxClick"?: MouseEventHandler<HTMLUListElement> | undefined;
+    "onAuxClick"?: MouseEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onAuxClickCapture"?: MouseEventHandler<HTMLUListElement> | undefined;
+    "onAuxClickCapture"?: MouseEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onClickCapture"?: MouseEventHandler<HTMLUListElement> | undefined;
+    "onClickCapture"?: MouseEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onContextMenu"?: MouseEventHandler<HTMLUListElement> | undefined;
+    "onContextMenu"?: MouseEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onContextMenuCapture"?: MouseEventHandler<HTMLUListElement> | undefined;
+    "onContextMenuCapture"?: MouseEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onDoubleClick"?: MouseEventHandler<HTMLUListElement> | undefined;
+    "onDoubleClick"?: MouseEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onDoubleClickCapture"?: MouseEventHandler<HTMLUListElement> | undefined;
+    "onDoubleClickCapture"?: MouseEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onDrag"?: DragEventHandler<HTMLUListElement> | undefined;
+    "onDrag"?: DragEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onDragCapture"?: DragEventHandler<HTMLUListElement> | undefined;
+    "onDragCapture"?: DragEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onDragEnd"?: DragEventHandler<HTMLUListElement> | undefined;
+    "onDragEnd"?: DragEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onDragEndCapture"?: DragEventHandler<HTMLUListElement> | undefined;
+    "onDragEndCapture"?: DragEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onDragEnter"?: DragEventHandler<HTMLUListElement> | undefined;
+    "onDragEnter"?: DragEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onDragEnterCapture"?: DragEventHandler<HTMLUListElement> | undefined;
+    "onDragEnterCapture"?: DragEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onDragExit"?: DragEventHandler<HTMLUListElement> | undefined;
+    "onDragExit"?: DragEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onDragExitCapture"?: DragEventHandler<HTMLUListElement> | undefined;
+    "onDragExitCapture"?: DragEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onDragLeave"?: DragEventHandler<HTMLUListElement> | undefined;
+    "onDragLeave"?: DragEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onDragLeaveCapture"?: DragEventHandler<HTMLUListElement> | undefined;
+    "onDragLeaveCapture"?: DragEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onDragOver"?: DragEventHandler<HTMLUListElement> | undefined;
+    "onDragOver"?: DragEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onDragOverCapture"?: DragEventHandler<HTMLUListElement> | undefined;
+    "onDragOverCapture"?: DragEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onDragStart"?: DragEventHandler<HTMLUListElement> | undefined;
+    "onDragStart"?: DragEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onDragStartCapture"?: DragEventHandler<HTMLUListElement> | undefined;
+    "onDragStartCapture"?: DragEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onDrop"?: DragEventHandler<HTMLUListElement> | undefined;
+    "onDrop"?: DragEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onDropCapture"?: DragEventHandler<HTMLUListElement> | undefined;
+    "onDropCapture"?: DragEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onMouseDown"?: MouseEventHandler<HTMLUListElement> | undefined;
+    "onMouseDown"?: MouseEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onMouseDownCapture"?: MouseEventHandler<HTMLUListElement> | undefined;
+    "onMouseDownCapture"?: MouseEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onMouseEnter"?: MouseEventHandler<HTMLUListElement> | undefined;
+    "onMouseEnter"?: MouseEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onMouseLeave"?: MouseEventHandler<HTMLUListElement> | undefined;
+    "onMouseLeave"?: MouseEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onMouseMove"?: MouseEventHandler<HTMLUListElement> | undefined;
+    "onMouseMove"?: MouseEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onMouseMoveCapture"?: MouseEventHandler<HTMLUListElement> | undefined;
+    "onMouseMoveCapture"?: MouseEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onMouseOut"?: MouseEventHandler<HTMLUListElement> | undefined;
+    "onMouseOut"?: MouseEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onMouseOutCapture"?: MouseEventHandler<HTMLUListElement> | undefined;
+    "onMouseOutCapture"?: MouseEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onMouseOver"?: MouseEventHandler<HTMLUListElement> | undefined;
+    "onMouseOver"?: MouseEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onMouseOverCapture"?: MouseEventHandler<HTMLUListElement> | undefined;
+    "onMouseOverCapture"?: MouseEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onMouseUp"?: MouseEventHandler<HTMLUListElement> | undefined;
+    "onMouseUp"?: MouseEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onMouseUpCapture"?: MouseEventHandler<HTMLUListElement> | undefined;
+    "onMouseUpCapture"?: MouseEventHandler<HTMLUListElement>;
 
     /**
      * Selection Events
      */
-    "onSelect"?: ReactEventHandler<HTMLUListElement> | undefined;
+    "onSelect"?: ReactEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onSelectCapture"?: ReactEventHandler<HTMLUListElement> | undefined;
+    "onSelectCapture"?: ReactEventHandler<HTMLUListElement>;
 
     /**
      * Touch Events
      */
-    "onTouchCancel"?: TouchEventHandler<HTMLUListElement> | undefined;
+    "onTouchCancel"?: TouchEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onTouchCancelCapture"?: TouchEventHandler<HTMLUListElement> | undefined;
+    "onTouchCancelCapture"?: TouchEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onTouchEnd"?: TouchEventHandler<HTMLUListElement> | undefined;
+    "onTouchEnd"?: TouchEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onTouchEndCapture"?: TouchEventHandler<HTMLUListElement> | undefined;
+    "onTouchEndCapture"?: TouchEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onTouchMove"?: TouchEventHandler<HTMLUListElement> | undefined;
+    "onTouchMove"?: TouchEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onTouchMoveCapture"?: TouchEventHandler<HTMLUListElement> | undefined;
+    "onTouchMoveCapture"?: TouchEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onTouchStart"?: TouchEventHandler<HTMLUListElement> | undefined;
+    "onTouchStart"?: TouchEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onTouchStartCapture"?: TouchEventHandler<HTMLUListElement> | undefined;
+    "onTouchStartCapture"?: TouchEventHandler<HTMLUListElement>;
 
     /**
      * Pointer Events
      */
-    "onPointerDown"?: PointerEventHandler<HTMLUListElement> | undefined;
+    "onPointerDown"?: PointerEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onPointerDownCapture"?: PointerEventHandler<HTMLUListElement> | undefined;
+    "onPointerDownCapture"?: PointerEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onPointerMove"?: PointerEventHandler<HTMLUListElement> | undefined;
+    "onPointerMove"?: PointerEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onPointerMoveCapture"?: PointerEventHandler<HTMLUListElement> | undefined;
+    "onPointerMoveCapture"?: PointerEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onPointerUp"?: PointerEventHandler<HTMLUListElement> | undefined;
+    "onPointerUp"?: PointerEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onPointerUpCapture"?: PointerEventHandler<HTMLUListElement> | undefined;
+    "onPointerUpCapture"?: PointerEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onPointerCancel"?: PointerEventHandler<HTMLUListElement> | undefined;
+    "onPointerCancel"?: PointerEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onPointerCancelCapture"?: PointerEventHandler<HTMLUListElement> | undefined;
+    "onPointerCancelCapture"?: PointerEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onPointerEnter"?: PointerEventHandler<HTMLUListElement> | undefined;
+    "onPointerEnter"?: PointerEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onPointerLeave"?: PointerEventHandler<HTMLUListElement> | undefined;
+    "onPointerLeave"?: PointerEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onPointerOver"?: PointerEventHandler<HTMLUListElement> | undefined;
+    "onPointerOver"?: PointerEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onPointerOverCapture"?: PointerEventHandler<HTMLUListElement> | undefined;
+    "onPointerOverCapture"?: PointerEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onPointerOut"?: PointerEventHandler<HTMLUListElement> | undefined;
+    "onPointerOut"?: PointerEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onPointerOutCapture"?: PointerEventHandler<HTMLUListElement> | undefined;
+    "onPointerOutCapture"?: PointerEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onGotPointerCapture"?: PointerEventHandler<HTMLUListElement> | undefined;
+    "onGotPointerCapture"?: PointerEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onGotPointerCaptureCapture"?: PointerEventHandler<HTMLUListElement> | undefined;
+    "onGotPointerCaptureCapture"?: PointerEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onLostPointerCapture"?: PointerEventHandler<HTMLUListElement> | undefined;
+    "onLostPointerCapture"?: PointerEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onLostPointerCaptureCapture"?: PointerEventHandler<HTMLUListElement> | undefined;
+    "onLostPointerCaptureCapture"?: PointerEventHandler<HTMLUListElement>;
 
     /**
      * UI Events
      */
-    "onScroll"?: UIEventHandler<HTMLUListElement> | undefined;
+    "onScroll"?: UIEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onScrollCapture"?: UIEventHandler<HTMLUListElement> | undefined;
+    "onScrollCapture"?: UIEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onScrollEnd"?: UIEventHandler<HTMLUListElement> | undefined;
+    "onScrollEnd"?: UIEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onScrollEndCapture"?: UIEventHandler<HTMLUListElement> | undefined;
+    "onScrollEndCapture"?: UIEventHandler<HTMLUListElement>;
 
     /**
      * Wheel Events
      */
-    "onWheel"?: WheelEventHandler<HTMLUListElement> | undefined;
+    "onWheel"?: WheelEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onWheelCapture"?: WheelEventHandler<HTMLUListElement> | undefined;
+    "onWheelCapture"?: WheelEventHandler<HTMLUListElement>;
 
     /**
      * Animation Events
      */
-    "onAnimationStart"?: AnimationEventHandler<HTMLUListElement> | undefined;
+    "onAnimationStart"?: AnimationEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onAnimationStartCapture"?: AnimationEventHandler<HTMLUListElement> | undefined;
+    "onAnimationStartCapture"?: AnimationEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onAnimationEnd"?: AnimationEventHandler<HTMLUListElement> | undefined;
+    "onAnimationEnd"?: AnimationEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onAnimationEndCapture"?: AnimationEventHandler<HTMLUListElement> | undefined;
+    "onAnimationEndCapture"?: AnimationEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onAnimationIteration"?: AnimationEventHandler<HTMLUListElement> | undefined;
+    "onAnimationIteration"?: AnimationEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onAnimationIterationCapture"?: AnimationEventHandler<HTMLUListElement> | undefined;
+    "onAnimationIterationCapture"?: AnimationEventHandler<HTMLUListElement>;
 
     /**
      * Toggle Events
      */
-    "onToggle"?: ToggleEventHandler<HTMLUListElement> | undefined;
+    "onToggle"?: ToggleEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onBeforeToggle"?: ToggleEventHandler<HTMLUListElement> | undefined;
+    "onBeforeToggle"?: ToggleEventHandler<HTMLUListElement>;
 
     /**
      * Transition Events
      */
-    "onTransitionCancel"?: TransitionEventHandler<HTMLUListElement> | undefined;
+    "onTransitionCancel"?: TransitionEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onTransitionCancelCapture"?: TransitionEventHandler<HTMLUListElement> | undefined;
+    "onTransitionCancelCapture"?: TransitionEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onTransitionEnd"?: TransitionEventHandler<HTMLUListElement> | undefined;
+    "onTransitionEnd"?: TransitionEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onTransitionEndCapture"?: TransitionEventHandler<HTMLUListElement> | undefined;
+    "onTransitionEndCapture"?: TransitionEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onTransitionRun"?: TransitionEventHandler<HTMLUListElement> | undefined;
+    "onTransitionRun"?: TransitionEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onTransitionRunCapture"?: TransitionEventHandler<HTMLUListElement> | undefined;
+    "onTransitionRunCapture"?: TransitionEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onTransitionStart"?: TransitionEventHandler<HTMLUListElement> | undefined;
+    "onTransitionStart"?: TransitionEventHandler<HTMLUListElement>;
 
     /**
      * 暂无说明。
      */
-    "onTransitionStartCapture"?: TransitionEventHandler<HTMLUListElement> | undefined;
-
-    /**
-     * React-specific Attributes
-     */
-    "defaultChecked"?: boolean | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "defaultValue"?: string | number | readonly string[] | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "suppressContentEditableWarning"?: boolean | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "suppressHydrationWarning"?: boolean | undefined;
-
-    /**
-     * Standard HTML Attributes
-     */
-    "accessKey"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "autoCapitalize"?: "off" | "none" | "on" | "sentences" | "words" | "characters" | undefined | (string & {});
-
-    /**
-     * 暂无说明。
-     */
-    "autoFocus"?: boolean | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "className"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "contentEditable"?: Booleanish | "inherit" | "plaintext-only" | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "contextMenu"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "dir"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "draggable"?: Booleanish | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "enterKeyHint"?: "enter" | "done" | "go" | "next" | "previous" | "search" | "send" | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "hidden"?: boolean | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "id"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "lang"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "nonce"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "slot"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "spellCheck"?: Booleanish | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "style"?: CSSProperties | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "tabIndex"?: number | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "title"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "translate"?: "yes" | "no" | undefined;
-
-    /**
-     * Unknown
-     */
-    "radioGroup"?: string | undefined;
-
-    /**
-     * WAI-ARIA
-     */
-    "role"?: AriaRole | undefined;
-
-    /**
-     * RDFa Attributes
-     */
-    "about"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "content"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "datatype"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "inlist"?: any;
-
-    /**
-     * 暂无说明。
-     */
-    "prefix"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "property"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "rel"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "resource"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "rev"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "typeof"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "vocab"?: string | undefined;
-
-    /**
-     * Non-standard Attributes
-     */
-    "autoCorrect"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "autoSave"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "color"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "itemProp"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "itemScope"?: boolean | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "itemType"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "itemID"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "itemRef"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "results"?: number | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "security"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "unselectable"?: "on" | "off" | undefined;
-
-    /**
-     * Popover API
-     */
-    "popover"?: "" | "auto" | "manual" | "hint" | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "popoverTargetAction"?: "toggle" | "show" | "hide" | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "popoverTarget"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "inert"?: boolean | undefined;
-
-    /**
-     * Hints at the type of data that might be entered by the user while editing the element or its contents
-     */
-    "inputMode"?: "none" | "text" | "tel" | "url" | "email" | "numeric" | "decimal" | "search" | undefined;
-
-    /**
-     * Specify that a standard HTML element should behave like a defined custom built-in element
-     */
-    "is"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "exportparts"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "part"?: string | undefined;
+    "onTransitionStartCapture"?: TransitionEventHandler<HTMLUListElement>;
 }

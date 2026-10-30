@@ -1,0 +1,2283 @@
+{
+  "scope": "filtered",
+  "visualReview": "pending",
+  "matrices": [
+    {
+      "package": "rc-line-edit",
+      "engine": "chromium",
+      "complete": false,
+      "expected": 234,
+      "passed": 18,
+      "cells": [
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "small",
+          "density": "standard",
+          "state": "default",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "small",
+          "density": "standard",
+          "state": "hover",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "small",
+          "density": "standard",
+          "state": "focus-visible",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "small",
+          "density": "standard",
+          "state": "filled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "small",
+          "density": "standard",
+          "state": "clear",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "small",
+          "density": "standard",
+          "state": "error",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "small",
+          "density": "standard",
+          "state": "filled-error",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "small",
+          "density": "standard",
+          "state": "warning",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "small",
+          "density": "standard",
+          "state": "filled-warning",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "small",
+          "density": "standard",
+          "state": "disabled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "small",
+          "density": "standard",
+          "state": "disabled-filled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "small",
+          "density": "standard",
+          "state": "read-only",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "small",
+          "density": "standard",
+          "state": "read-only-filled",
+          "status": "passed",
+          "testId": "2d3be1e57c741044f7ef-16f5b1ff9a7eb50b694a"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "standard",
+          "state": "default",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "standard",
+          "state": "hover",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "standard",
+          "state": "focus-visible",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "standard",
+          "state": "filled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "standard",
+          "state": "clear",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "standard",
+          "state": "error",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "standard",
+          "state": "filled-error",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "standard",
+          "state": "warning",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "standard",
+          "state": "filled-warning",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "standard",
+          "state": "disabled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "standard",
+          "state": "disabled-filled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "standard",
+          "state": "read-only",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "standard",
+          "state": "read-only-filled",
+          "status": "passed",
+          "testId": "2d3be1e57c741044f7ef-3127155ae8df86a1b847"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "large",
+          "density": "standard",
+          "state": "default",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "large",
+          "density": "standard",
+          "state": "hover",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "large",
+          "density": "standard",
+          "state": "focus-visible",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "large",
+          "density": "standard",
+          "state": "filled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "large",
+          "density": "standard",
+          "state": "clear",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "large",
+          "density": "standard",
+          "state": "error",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "large",
+          "density": "standard",
+          "state": "filled-error",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "large",
+          "density": "standard",
+          "state": "warning",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "large",
+          "density": "standard",
+          "state": "filled-warning",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "large",
+          "density": "standard",
+          "state": "disabled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "large",
+          "density": "standard",
+          "state": "disabled-filled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "large",
+          "density": "standard",
+          "state": "read-only",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "large",
+          "density": "standard",
+          "state": "read-only-filled",
+          "status": "passed",
+          "testId": "2d3be1e57c741044f7ef-dc667b335ec32597ce34"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "standard",
+          "state": "default",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "standard",
+          "state": "hover",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "standard",
+          "state": "focus-visible",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "standard",
+          "state": "filled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "standard",
+          "state": "clear",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "standard",
+          "state": "error",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "standard",
+          "state": "filled-error",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "standard",
+          "state": "warning",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "standard",
+          "state": "filled-warning",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "standard",
+          "state": "disabled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "standard",
+          "state": "disabled-filled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "standard",
+          "state": "read-only",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "standard",
+          "state": "read-only-filled",
+          "status": "passed",
+          "testId": "2d3be1e57c741044f7ef-fbe8ddb87b0048c58d50"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "standard",
+          "state": "default",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "standard",
+          "state": "hover",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "standard",
+          "state": "focus-visible",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "standard",
+          "state": "filled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "standard",
+          "state": "clear",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "standard",
+          "state": "error",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "standard",
+          "state": "filled-error",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "standard",
+          "state": "warning",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "standard",
+          "state": "filled-warning",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "standard",
+          "state": "disabled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "standard",
+          "state": "disabled-filled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "standard",
+          "state": "read-only",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "standard",
+          "state": "read-only-filled",
+          "status": "passed",
+          "testId": "2d3be1e57c741044f7ef-6402d324944bc9ecd283"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "standard",
+          "state": "default",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "standard",
+          "state": "hover",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "standard",
+          "state": "focus-visible",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "standard",
+          "state": "filled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "standard",
+          "state": "clear",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "standard",
+          "state": "error",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "standard",
+          "state": "filled-error",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "standard",
+          "state": "warning",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "standard",
+          "state": "filled-warning",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "standard",
+          "state": "disabled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "standard",
+          "state": "disabled-filled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "standard",
+          "state": "read-only",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "standard",
+          "state": "read-only-filled",
+          "status": "passed",
+          "testId": "2d3be1e57c741044f7ef-69a51c2330084922d54b"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "small",
+          "density": "standard",
+          "state": "default",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "small",
+          "density": "standard",
+          "state": "hover",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "small",
+          "density": "standard",
+          "state": "focus-visible",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "small",
+          "density": "standard",
+          "state": "filled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "small",
+          "density": "standard",
+          "state": "clear",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "small",
+          "density": "standard",
+          "state": "error",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "small",
+          "density": "standard",
+          "state": "filled-error",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "small",
+          "density": "standard",
+          "state": "warning",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "small",
+          "density": "standard",
+          "state": "filled-warning",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "small",
+          "density": "standard",
+          "state": "disabled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "small",
+          "density": "standard",
+          "state": "disabled-filled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "small",
+          "density": "standard",
+          "state": "read-only",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "small",
+          "density": "standard",
+          "state": "read-only-filled",
+          "status": "passed",
+          "testId": "2d3be1e57c741044f7ef-ff2347edc69cace444ef"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "standard",
+          "state": "default",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "standard",
+          "state": "hover",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "standard",
+          "state": "focus-visible",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "standard",
+          "state": "filled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "standard",
+          "state": "clear",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "standard",
+          "state": "error",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "standard",
+          "state": "filled-error",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "standard",
+          "state": "warning",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "standard",
+          "state": "filled-warning",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "standard",
+          "state": "disabled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "standard",
+          "state": "disabled-filled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "standard",
+          "state": "read-only",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "standard",
+          "state": "read-only-filled",
+          "status": "passed",
+          "testId": "2d3be1e57c741044f7ef-f48d24e98e35d33839e8"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "large",
+          "density": "standard",
+          "state": "default",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "large",
+          "density": "standard",
+          "state": "hover",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "large",
+          "density": "standard",
+          "state": "focus-visible",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "large",
+          "density": "standard",
+          "state": "filled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "large",
+          "density": "standard",
+          "state": "clear",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "large",
+          "density": "standard",
+          "state": "error",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "large",
+          "density": "standard",
+          "state": "filled-error",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "large",
+          "density": "standard",
+          "state": "warning",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "large",
+          "density": "standard",
+          "state": "filled-warning",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "large",
+          "density": "standard",
+          "state": "disabled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "large",
+          "density": "standard",
+          "state": "disabled-filled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "large",
+          "density": "standard",
+          "state": "read-only",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "large",
+          "density": "standard",
+          "state": "read-only-filled",
+          "status": "passed",
+          "testId": "2d3be1e57c741044f7ef-cb5c5d57be098ecf1625"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "standard",
+          "state": "default",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "standard",
+          "state": "hover",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "standard",
+          "state": "focus-visible",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "standard",
+          "state": "filled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "standard",
+          "state": "clear",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "standard",
+          "state": "error",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "standard",
+          "state": "filled-error",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "standard",
+          "state": "warning",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "standard",
+          "state": "filled-warning",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "standard",
+          "state": "disabled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "standard",
+          "state": "disabled-filled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "standard",
+          "state": "read-only",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "standard",
+          "state": "read-only-filled",
+          "status": "passed",
+          "testId": "2d3be1e57c741044f7ef-f6dd27c27bd6f88356a9"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "standard",
+          "state": "default",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "standard",
+          "state": "hover",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "standard",
+          "state": "focus-visible",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "standard",
+          "state": "filled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "standard",
+          "state": "clear",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "standard",
+          "state": "error",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "standard",
+          "state": "filled-error",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "standard",
+          "state": "warning",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "standard",
+          "state": "filled-warning",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "standard",
+          "state": "disabled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "standard",
+          "state": "disabled-filled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "standard",
+          "state": "read-only",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "standard",
+          "state": "read-only-filled",
+          "status": "passed",
+          "testId": "2d3be1e57c741044f7ef-dd0eac326ae4f5639981"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "standard",
+          "state": "default",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "standard",
+          "state": "hover",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "standard",
+          "state": "focus-visible",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "standard",
+          "state": "filled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "standard",
+          "state": "clear",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "standard",
+          "state": "error",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "standard",
+          "state": "filled-error",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "standard",
+          "state": "warning",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "standard",
+          "state": "filled-warning",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "standard",
+          "state": "disabled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "standard",
+          "state": "disabled-filled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "standard",
+          "state": "read-only",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "standard",
+          "state": "read-only-filled",
+          "status": "passed",
+          "testId": "2d3be1e57c741044f7ef-47e770b0b26c1f035675"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "small",
+          "density": "standard",
+          "state": "default",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "small",
+          "density": "standard",
+          "state": "hover",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "small",
+          "density": "standard",
+          "state": "focus-visible",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "small",
+          "density": "standard",
+          "state": "filled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "small",
+          "density": "standard",
+          "state": "clear",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "small",
+          "density": "standard",
+          "state": "error",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "small",
+          "density": "standard",
+          "state": "filled-error",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "small",
+          "density": "standard",
+          "state": "warning",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "small",
+          "density": "standard",
+          "state": "filled-warning",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "small",
+          "density": "standard",
+          "state": "disabled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "small",
+          "density": "standard",
+          "state": "disabled-filled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "small",
+          "density": "standard",
+          "state": "read-only",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "small",
+          "density": "standard",
+          "state": "read-only-filled",
+          "status": "passed",
+          "testId": "2d3be1e57c741044f7ef-bf1138f8d2573aa23af7"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "standard",
+          "state": "default",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "standard",
+          "state": "hover",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "standard",
+          "state": "focus-visible",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "standard",
+          "state": "filled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "standard",
+          "state": "clear",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "standard",
+          "state": "error",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "standard",
+          "state": "filled-error",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "standard",
+          "state": "warning",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "standard",
+          "state": "filled-warning",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "standard",
+          "state": "disabled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "standard",
+          "state": "disabled-filled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "standard",
+          "state": "read-only",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "standard",
+          "state": "read-only-filled",
+          "status": "passed",
+          "testId": "2d3be1e57c741044f7ef-ea4fc5c8daefcd07a4ec"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "large",
+          "density": "standard",
+          "state": "default",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "large",
+          "density": "standard",
+          "state": "hover",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "large",
+          "density": "standard",
+          "state": "focus-visible",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "large",
+          "density": "standard",
+          "state": "filled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "large",
+          "density": "standard",
+          "state": "clear",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "large",
+          "density": "standard",
+          "state": "error",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "large",
+          "density": "standard",
+          "state": "filled-error",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "large",
+          "density": "standard",
+          "state": "warning",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "large",
+          "density": "standard",
+          "state": "filled-warning",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "large",
+          "density": "standard",
+          "state": "disabled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "large",
+          "density": "standard",
+          "state": "disabled-filled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "large",
+          "density": "standard",
+          "state": "read-only",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "large",
+          "density": "standard",
+          "state": "read-only-filled",
+          "status": "passed",
+          "testId": "2d3be1e57c741044f7ef-4964b75dac7c4d5ca0ed"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "standard",
+          "state": "default",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "standard",
+          "state": "hover",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "standard",
+          "state": "focus-visible",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "standard",
+          "state": "filled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "standard",
+          "state": "clear",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "standard",
+          "state": "error",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "standard",
+          "state": "filled-error",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "standard",
+          "state": "warning",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "standard",
+          "state": "filled-warning",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "standard",
+          "state": "disabled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "standard",
+          "state": "disabled-filled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "standard",
+          "state": "read-only",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "standard",
+          "state": "read-only-filled",
+          "status": "passed",
+          "testId": "2d3be1e57c741044f7ef-45742b5188239e1e7519"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "standard",
+          "state": "default",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "standard",
+          "state": "hover",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "standard",
+          "state": "focus-visible",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "standard",
+          "state": "filled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "standard",
+          "state": "clear",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "standard",
+          "state": "error",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "standard",
+          "state": "filled-error",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "standard",
+          "state": "warning",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "standard",
+          "state": "filled-warning",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "standard",
+          "state": "disabled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "standard",
+          "state": "disabled-filled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "standard",
+          "state": "read-only",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "standard",
+          "state": "read-only-filled",
+          "status": "passed",
+          "testId": "2d3be1e57c741044f7ef-b2482b1717abcdbfe0af"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "standard",
+          "state": "default",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "standard",
+          "state": "hover",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "standard",
+          "state": "focus-visible",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "standard",
+          "state": "filled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "standard",
+          "state": "clear",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "standard",
+          "state": "error",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "standard",
+          "state": "filled-error",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "standard",
+          "state": "warning",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "standard",
+          "state": "filled-warning",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "standard",
+          "state": "disabled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "standard",
+          "state": "disabled-filled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "standard",
+          "state": "read-only",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "standard",
+          "state": "read-only-filled",
+          "status": "passed",
+          "testId": "2d3be1e57c741044f7ef-2443dadf436074adcc0f"
+        }
+      ],
+      "errors": [],
+      "notApplicable": {
+        "density": "Field geometry follows public size; collection density does not resize standalone fields.",
+        "pressed": "Text fields receive text selection and caret interaction rather than an action pressed surface.",
+        "loading": "Asynchronous loading belongs to the owning form or selector."
+      }
+    }
+  ],
+  "environments": [
+    {
+      "package": "rc-line-edit",
+      "complete": false,
+      "expected": 60,
+      "passed": 0,
+      "cells": [
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "id": "narrow",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "id": "tablet",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "id": "desktop",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "id": "touch",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "id": "rtl",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "id": "english",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "id": "brand",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "id": "forced-colors",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "id": "reduced-motion",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "id": "zoom-200",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "id": "narrow",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "id": "tablet",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "id": "desktop",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "id": "touch",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "id": "rtl",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "id": "english",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "id": "brand",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "id": "forced-colors",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "id": "reduced-motion",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "id": "zoom-200",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "id": "narrow",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "id": "tablet",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "id": "desktop",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "id": "touch",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "id": "rtl",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "id": "english",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "id": "brand",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "id": "forced-colors",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "id": "reduced-motion",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "id": "zoom-200",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "id": "narrow",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "id": "tablet",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "id": "desktop",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "id": "touch",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "id": "rtl",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "id": "english",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "id": "brand",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "id": "forced-colors",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "id": "reduced-motion",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "id": "zoom-200",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "id": "narrow",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "id": "tablet",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "id": "desktop",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "id": "touch",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "id": "rtl",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "id": "english",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "id": "brand",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "id": "forced-colors",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "id": "reduced-motion",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "id": "zoom-200",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "id": "narrow",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "id": "tablet",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "id": "desktop",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "id": "touch",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "id": "rtl",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "id": "english",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "id": "brand",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "id": "forced-colors",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "id": "reduced-motion",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "id": "zoom-200",
+          "status": "missing"
+        }
+      ],
+      "errors": []
+    }
+  ],
+  "errors": []
+}

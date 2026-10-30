@@ -1,0 +1,49 @@
+{
+    "schemaVersion": 1,
+    "demo": "visual-matrix.demo.tsx",
+    "sizes": [
+        "medium"
+    ],
+    "densities": [
+        "compact",
+        "standard",
+        "comfortable"
+    ],
+    "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "pressed",
+        "selected",
+        "expanded",
+        "horizontal",
+        "inline",
+        "collapsed",
+        "horizontal-expanded",
+        "collapsed-expanded"
+    ],
+    "crossEngine": {
+        "sizes": [
+            "medium"
+        ],
+        "densities": [
+            "standard"
+        ],
+        "states": [
+            "default",
+            "focus-visible",
+            "selected",
+            "expanded",
+            "horizontal",
+            "collapsed",
+            "horizontal-expanded",
+            "collapsed-expanded"
+        ]
+    },
+    "notApplicable": {
+        "size": "Menu has no public size prop; row geometry follows density.navigation independently.",
+        "disabled": "Menu items expose no disabled property; inventing one would change the public API.",
+        "error": "Navigation exposes no validation state.",
+        "loading": "Loading is the caller's data state and no public Menu loading prop exists."
+    }
+}

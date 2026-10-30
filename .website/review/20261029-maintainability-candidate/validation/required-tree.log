@@ -1,0 +1,279 @@
+Required check: @crab-dev/rc-tree test:browser
+
+  ⚡ WAKE / LIBRARY TOKEN  v0.1.45
+
+  ✓  Tokens generated in 36ms
+     1 files · 10.6 KB
+     Output  C:\Users\zhang\Desktop\crab-dev\components\rc-tree\src\token.ts
+
+
+  ⚡ WAKE / LIBRARY BUILD  v0.1.45
+
+  ✓  Built library in 465ms
+     9 modules · 27 files · 136.1 KB
+     Output  C:\Users\zhang\Desktop\crab-dev\components\rc-tree
+
+PASS inline-edit-demo.test.tsx
+  ✓ keeps normal and invalid counts readable for md3/light
+  ✓ keeps normal and invalid counts readable for md3/dark
+  ✓ keeps normal and invalid counts readable for apple/light
+  ✓ keeps normal and invalid counts readable for apple/dark
+  ✓ keeps normal and invalid counts readable for shadcn/light
+  ✓ keeps normal and invalid counts readable for shadcn/dark
+  ✓ contains the actual custom editor while loading for md3/light
+  ✓ contains the actual custom editor while loading for md3/dark
+  ✓ contains the actual custom editor while loading for apple/light
+  ✓ contains the actual custom editor while loading for apple/dark
+  ✓ contains the actual custom editor while loading for shadcn/light
+  ✓ contains the actual custom editor while loading for shadcn/dark
+PASS tree.test.tsx
+  ✓ pairs currentColor icons with md3/light selection and restores muted colors
+  ✓ pairs currentColor icons with md3/dark selection and restores muted colors
+  ✓ pairs currentColor icons with apple/light selection and restores muted colors
+  ✓ pairs currentColor icons with apple/dark selection and restores muted colors
+  ✓ pairs currentColor icons with shadcn/light selection and restores muted colors
+  ✓ pairs currentColor icons with shadcn/dark selection and restores muted colors
+  ✓ keeps every outline edge inside the measured clip for md3/light/defaultpx
+  ✓ keeps every outline edge inside the measured clip for md3/light/4px
+  ✓ keeps every outline edge inside the measured clip for md3/dark/defaultpx
+  ✓ keeps every outline edge inside the measured clip for md3/dark/4px
+  ✓ keeps every outline edge inside the measured clip for apple/light/defaultpx
+  ✓ keeps every outline edge inside the measured clip for apple/light/4px
+  ✓ keeps every outline edge inside the measured clip for apple/dark/defaultpx
+  ✓ keeps every outline edge inside the measured clip for apple/dark/4px
+  ✓ keeps every outline edge inside the measured clip for shadcn/light/defaultpx
+  ✓ keeps every outline edge inside the measured clip for shadcn/light/4px
+  ✓ keeps every outline edge inside the measured clip for shadcn/dark/defaultpx
+  ✓ keeps every outline edge inside the measured clip for shadcn/dark/4px
+  ✓ inherits an explicit public outline offset and removes the overlay after blur
+  ✓ keeps zero-height spacers out of inline layout and aligns rows before and after scrolling
+  ✓ preserves node 37/60 and adaptive defaults under coarse-pointer geometry
+  ✓ preserves node 37/60 and 44 defaults under coarse-pointer geometry
+  ✓ contains the md3/light default editor within its actual medium row
+  ✓ contains the md3/dark default editor within its actual medium row
+  ✓ contains the apple/light default editor within its actual medium row
+  ✓ contains the apple/dark default editor within its actual medium row
+  ✓ contains the shadcn/light default editor within its actual medium row
+  ✓ contains the shadcn/dark default editor within its actual medium row
+  ✓ mirrors md3 hierarchy spacing and caret orientation with showLine=false
+  ✓ mirrors md3 hierarchy spacing and caret orientation with showLine=true
+  ✓ mirrors apple hierarchy spacing and caret orientation with showLine=false
+  ✓ mirrors apple hierarchy spacing and caret orientation with showLine=true
+  ✓ mirrors shadcn hierarchy spacing and caret orientation with showLine=false
+  ✓ mirrors shadcn hierarchy spacing and caret orientation with showLine=true
+  ✓ uses rendered ltr keys with provider=ltr and dir=inherited
+  ✓ uses rendered rtl keys with provider=rtl and dir=inherited
+  ✓ uses rendered ltr keys with provider=rtl and dir=ltr
+  ✓ uses rendered rtl keys with provider=ltr and dir=rtl
+  ✓ restores the real tree focus after native input removal for Enter
+  ✓ restores the real tree focus after native input removal for Escape
+Test Suites: 2 passed, 0 failed, 2 total
+Tests:       52 passed, 0 failed, 0 pending, 52 total
+Wake coverage
+File	Lines	Functions	Blocks
+All files	100.00% (0/0)	100.00% (0/0)	100.00% (0/0)
+Seed:        1793245740068714520
+Time:        28174 ms
+Required check: @crab-dev/rc-tree test:custom-editor
+PASS custom-editor.test.tsx
+  ✓ returns focus to the same tree after Enter
+  ✓ returns focus to the same tree after Escape
+  ✓ keeps an invalid editor focused and respects a later external focus target
+  ✓ does not reclaim focus after consumer focus
+  ✓ does not reclaim focus after consumer blur
+  ✓ does not reclaim focus after consumer reject
+  ✓ does not reclaim focus after consumer unmount
+Test Suites: 1 passed, 0 failed, 1 total
+Tests:       7 passed, 0 failed, 0 pending, 7 total
+Wake coverage
+File	Lines	Functions	Blocks
+All files	100.00% (0/0)	100.00% (0/0)	100.00% (0/0)
+Seed:        1793245770324707476
+Time:        7829 ms
+Required check: @crab-dev/rc-tree test:forced-colors
+• turbo 2.10.12
+
+   • Packages in scope: @crab-dev/rc-tree
+   • Running build:library in 1 packages
+   • Remote caching disabled
+
+@crab-dev/rc-token-global:build:library: cache hit, replaying logs 6b1f535f016fbc23
+@crab-dev/rc-token-global:build:library: 
+@crab-dev/rc-token-global:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.45
+@crab-dev/rc-token-global:build:library: 
+@crab-dev/rc-token-global:build:library:   ✓  Tokens generated in 25ms
+@crab-dev/rc-token-global:build:library:      1 files · 33.2 KB
+@crab-dev/rc-token-global:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-token-global\src\token.ts
+@crab-dev/rc-token-global:build:library: 
+@crab-dev/rc-token-global:build:library: 
+@crab-dev/rc-token-global:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-token-global:build:library: 
+@crab-dev/rc-token-global:build:library:   ✓  Built library in 117ms
+@crab-dev/rc-token-global:build:library:      2 modules · 6 files · 75.7 KB
+@crab-dev/rc-token-global:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-token-global
+@crab-dev/rc-token-global:build:library: 
+@crab-dev/rc-token-semantic:build:library: cache hit, replaying logs f46ba485e3a4902e
+@crab-dev/rc-token-semantic:build:library: 
+@crab-dev/rc-token-semantic:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.45
+@crab-dev/rc-token-semantic:build:library: 
+@crab-dev/rc-token-semantic:build:library:   ✓  Tokens generated in 91ms
+@crab-dev/rc-token-semantic:build:library:      1 files · 150.3 KB
+@crab-dev/rc-token-semantic:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-token-semantic\src\token.ts
+@crab-dev/rc-token-semantic:build:library: 
+@crab-dev/rc-token-semantic:build:library: 
+@crab-dev/rc-token-semantic:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-token-semantic:build:library: 
+@crab-dev/rc-token-semantic:build:library:   ✓  Built library in 615ms
+@crab-dev/rc-token-semantic:build:library:      11 modules · 34 files · 577.1 KB
+@crab-dev/rc-token-semantic:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-token-semantic
+@crab-dev/rc-token-semantic:build:library: 
+@crab-dev/rc-hooks:build:library: cache hit, replaying logs a4f1cd49eeb98dc3
+@crab-dev/rc-hooks:build:library: 
+@crab-dev/rc-hooks:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-hooks:build:library: 
+@crab-dev/rc-hooks:build:library:   ✓  Built library in 602ms
+@crab-dev/rc-hooks:build:library:      19 modules · 58 files · 55.2 KB
+@crab-dev/rc-hooks:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-hooks
+@crab-dev/rc-hooks:build:library: 
+@crab-dev/rc-virtual:build:library: cache hit, replaying logs f309b52f62d32628
+@crab-dev/rc-virtual:build:library: 
+@crab-dev/rc-virtual:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.45
+@crab-dev/rc-virtual:build:library: 
+@crab-dev/rc-virtual:build:library:   ✓  Tokens generated in 124ms
+@crab-dev/rc-virtual:build:library:      1 files · 1.7 KB
+@crab-dev/rc-virtual:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-virtual\src\token.ts
+@crab-dev/rc-virtual:build:library: 
+@crab-dev/rc-virtual:build:library: 
+@crab-dev/rc-virtual:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-virtual:build:library: 
+@crab-dev/rc-virtual:build:library:   ✓  Built library in 343ms
+@crab-dev/rc-virtual:build:library:      8 modules · 21 files · 68.1 KB
+@crab-dev/rc-virtual:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-virtual
+@crab-dev/rc-virtual:build:library: 
+@crab-dev/rc-theme:build:library: cache hit, replaying logs e5755680e6cb106d
+@crab-dev/rc-theme:build:library: 
+@crab-dev/rc-theme:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-theme:build:library: 
+@crab-dev/rc-theme:build:library:   ✓  Built library in 1.44s
+@crab-dev/rc-theme:build:library:      11 modules · 24 files · 243.1 KB
+@crab-dev/rc-theme:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-theme
+@crab-dev/rc-theme:build:library: 
+@crab-dev/rc-config-provider:build:library: cache hit, replaying logs f4febe2fa1c5f230
+@crab-dev/rc-config-provider:build:library: 
+@crab-dev/rc-config-provider:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-config-provider:build:library: 
+@crab-dev/rc-config-provider:build:library:   ✓  Built library in 1.04s
+@crab-dev/rc-config-provider:build:library:      9 modules · 29 files · 46.5 KB
+@crab-dev/rc-config-provider:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-config-provider
+@crab-dev/rc-config-provider:build:library: 
+@crab-dev/rc-checkbox:build:library: cache hit, replaying logs bd845020d2328b48
+@crab-dev/rc-spin:build:library: cache hit, replaying logs 7f71d9d8525ab70f
+@crab-dev/rc-checkbox:build:library: 
+@crab-dev/rc-checkbox:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.45
+@crab-dev/rc-checkbox:build:library: 
+@crab-dev/rc-checkbox:build:library:   ✓  Tokens generated in 185ms
+@crab-dev/rc-checkbox:build:library:      1 files · 16.0 KB
+@crab-dev/rc-checkbox:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-checkbox\src\token.ts
+@crab-dev/rc-checkbox:build:library: 
+@crab-dev/rc-checkbox:build:library: 
+@crab-dev/rc-checkbox:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-checkbox:build:library: 
+@crab-dev/rc-checkbox:build:library:   ✓  Built library in 796ms
+@crab-dev/rc-checkbox:build:library:      6 modules · 18 files · 67.5 KB
+@crab-dev/rc-checkbox:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-checkbox
+@crab-dev/rc-checkbox:build:library: 
+@crab-dev/rc-spin:build:library: 
+@crab-dev/rc-spin:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.45
+@crab-dev/rc-spin:build:library: 
+@crab-dev/rc-spin:build:library:   ✓  Tokens generated in 93ms
+@crab-dev/rc-spin:build:library:      1 files · 6.4 KB
+@crab-dev/rc-spin:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-spin\src\token.ts
+@crab-dev/rc-spin:build:library: 
+@crab-dev/rc-spin:build:library: 
+@crab-dev/rc-spin:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-spin:build:library: 
+@crab-dev/rc-spin:build:library:   ✓  Built library in 760ms
+@crab-dev/rc-spin:build:library:      8 modules · 23 files · 40.2 KB
+@crab-dev/rc-spin:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-spin
+@crab-dev/rc-spin:build:library: 
+@crab-dev/rc-button:build:library: cache hit, replaying logs e7f86ffb2d954172
+@crab-dev/rc-button:build:library: 
+@crab-dev/rc-button:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.45
+@crab-dev/rc-button:build:library: 
+@crab-dev/rc-button:build:library:   ✓  Tokens generated in 91ms
+@crab-dev/rc-button:build:library:      1 files · 43.0 KB
+@crab-dev/rc-button:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-button\src\token.ts
+@crab-dev/rc-button:build:library: 
+@crab-dev/rc-button:build:library: 
+@crab-dev/rc-button:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-button:build:library: 
+@crab-dev/rc-button:build:library:   ✓  Built library in 872ms
+@crab-dev/rc-button:build:library:      6 modules · 18 files · 169.9 KB
+@crab-dev/rc-button:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-button
+@crab-dev/rc-button:build:library: 
+@crab-dev/rc-line-edit:build:library: cache hit, replaying logs a409744d2cff3f3d
+@crab-dev/rc-line-edit:build:library: 
+@crab-dev/rc-line-edit:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.45
+@crab-dev/rc-line-edit:build:library: 
+@crab-dev/rc-line-edit:build:library:   ✓  Tokens generated in 100ms
+@crab-dev/rc-line-edit:build:library:      1 files · 27.1 KB
+@crab-dev/rc-line-edit:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-line-edit\src\token.ts
+@crab-dev/rc-line-edit:build:library: 
+@crab-dev/rc-line-edit:build:library: 
+@crab-dev/rc-line-edit:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-line-edit:build:library: 
+@crab-dev/rc-line-edit:build:library:   ✓  Built library in 857ms
+@crab-dev/rc-line-edit:build:library:      4 modules · 12 files · 116.7 KB
+@crab-dev/rc-line-edit:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-line-edit
+@crab-dev/rc-line-edit:build:library: 
+@crab-dev/rc-tree:build:library: cache hit, replaying logs 5631c4af94df4d72
+@crab-dev/rc-tree:build:library: 
+@crab-dev/rc-tree:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.45
+@crab-dev/rc-tree:build:library: 
+@crab-dev/rc-tree:build:library:   ✓  Tokens generated in 115ms
+@crab-dev/rc-tree:build:library:      1 files · 10.6 KB
+@crab-dev/rc-tree:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-tree\src\token.ts
+@crab-dev/rc-tree:build:library: 
+@crab-dev/rc-tree:build:library: 
+@crab-dev/rc-tree:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-tree:build:library: 
+@crab-dev/rc-tree:build:library:   ✓  Built library in 1.10s
+@crab-dev/rc-tree:build:library:      9 modules · 27 files · 136.1 KB
+@crab-dev/rc-tree:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-tree
+@crab-dev/rc-tree:build:library: 
+
+ Tasks:    11 successful, 11 total
+Cached:    11 cached, 11 total
+  Time:    140ms >>> FULL TURBO
+
+{
+  "passed": true,
+  "records": 6,
+  "inputsStable": true,
+  "cleanupErrors": [],
+  "out": "C:\\Users\\zhang\\Desktop\\crab-dev\\components\\rc-tree\\.cache\\forced-colors\\2026-10-29T03-49-40-744Z"
+}
+Required check: @crab-dev/rc-virtual test:browser
+PASS virtual.test.tsx
+  ✓ synchronizes native focus scrolling with the rendered columns and thumb
+  ✓ synchronizes native scrollIntoView scrolling with the rendered columns and thumb
+  ✓ adds native browser deltas to a million-row local window without replacing the logical position
+  ✓ keeps rows and the thumb aligned during consecutive drag frames in the docs reduced-motion host
+  ✓ keeps medium-row geometry stable after browser layout and subsequent wheel frames
+  ✓ preserves variable row geometry across the spacer boundary and at the end
+  ✓ keeps million-column positioning and wheel deltas in the same logical axis
+  ✓ supports the constant-space axis through scrolling and scrollbar dragging
+  ✓ keeps the last 24px row visible and wheel movement continuous
+  ✓ keeps the last 32px row visible and wheel movement continuous
+  ✓ keeps the last 40px row visible and wheel movement continuous
+  ✓ keeps the last 48px row visible and wheel movement continuous
+  ✓ keeps the last 52px row visible and wheel movement continuous
+  ✓ preserves sticky header and footer space at the end of a million rows
+Test Suites: 1 passed, 0 failed, 1 total
+Tests:       14 passed, 0 failed, 0 pending, 14 total
+Wake coverage
+File	Lines	Functions	Blocks
+All files	100.00% (0/0)	100.00% (0/0)	100.00% (0/0)
+Seed:        1793245788100385916
+Time:        5621 ms
+Passed 4 remaining required checks.

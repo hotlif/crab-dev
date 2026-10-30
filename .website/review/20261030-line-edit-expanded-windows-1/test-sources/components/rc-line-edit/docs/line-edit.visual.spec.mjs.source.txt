@@ -1,0 +1,157 @@
+import {
+    test,
+    expect,
+    configurations,
+    openDemo,
+    readVisualSpec,
+    settleFiniteAnimations,
+    captureVisual,
+} from "../../../test/visual/component-fixture.mjs";
+import { matrixInput, focusByKeyboard, assertCompleteDraft, assertLineEditGeometry } from "./visual-assertions.mjs";
+
+const spec = await readVisualSpec(import.meta.url);
+for (const config of configurations)
+    for (const size of spec.sizes)
+        for (const state of spec.states) {
+            const crossEngine = spec.crossEngine.sizes.includes(size) && spec.crossEngine.states.includes(state);
+            test(
+                `${config.designSystem} ${config.colorMode} ${size} ${state}`,
+                {
+                    tag: ["@rc-line-edit", "@matrix", ...(!crossEngine ? ["@chromium-only"] : [])],
+                    annotation: { type: "matrix", description: JSON.stringify({ ...config, size, density: "standard", state }) },
+                },
+                async ({ page, browserName, previewOrigin }, info) => {
+                    await openDemo(page, previewOrigin, "rc-line-edit", spec.demo, { ...config, size });
+                    const stateControl = page.getByLabel("验收状态", { exact: true });
+                    expect(await stateControl.locator("option").evaluateAll(options => options.map(option => option.value))).toEqual(spec.states);
+                    const scene = page.getByRole("region", { name: "LineEdit visual matrix" });
+                    const frame = scene.locator("[data-visual-frame]");
+                    const valueState = ["read-only-filled", "disabled-filled", "filled-error", "filled-warning"].includes(state);
+                    const retainedValue = "保留项目名称 · Retained project";
+                    if (valueState) {
+                        await matrixInput(scene, "outlined").fill(retainedValue);
+                        await stateControl.focus();
+                    }
+                    await stateControl.selectOption(state);
+                    await expect(scene.getByRole("textbox")).toHaveCount(2);
+                    for (const appearance of ["outlined", "filled"]) {
+                        const input = matrixInput(scene, appearance);
+                        const field = input.locator("..").locator("..");
+                        // Empty M3 floating labels legitimately receive pointer events and focus
+                        // their input on click. Hover the field container through that real hit.
+                        if (state === "hover") {
+                            const control = input.locator(".."),
+                                bounds = await control.boundingBox();
+                            await control.hover({ position: { x: bounds.width / 2, y: bounds.height * 0.85 } });
+                            expect(await control.evaluate((node) => node.matches(":hover"))).toBe(true);
+                        }
+                        if (state === "focus-visible") {
+                            await focusByKeyboard(page, stateControl, input);
+                            await settleFiniteAnimations(page);
+                            const focus = await input.locator("..").evaluate((node) => {
+                                const style = globalThis.getComputedStyle(node),
+                                    outline = node.querySelector("fieldset");
+                                return {
+                                    outline: style.outlineStyle !== "none" && Number.parseFloat(style.outlineWidth) > 0,
+                                    shadow: style.boxShadow !== "none",
+                                    border: Math.max(Number.parseFloat(style.borderTopWidth), Number.parseFloat(style.borderBottomWidth)),
+                                    notch: outline ? Number.parseFloat(globalThis.getComputedStyle(outline).borderTopWidth) : 0,
+                                };
+                            });
+                            expect(focus.outline || focus.shadow || focus.border >= 2 || focus.notch >= 2).toBe(true);
+                        }
+                        const disabled = state === "disabled" || state === "disabled-filled";
+                        const readOnly = state === "read-only" || state === "read-only-filled";
+                        if (disabled) await expect(input).toBeDisabled();
+                        if (readOnly) await expect(input).toHaveAttribute("readonly", "");
+                        if (disabled || readOnly) await expect(field.getByRole("button", { name: "清除", exact: true })).toHaveCount(0);
+                        if (state === "error" || state === "filled-error") await expect(input).toHaveAttribute("aria-invalid", "true");
+                        if (state === "warning" || state === "filled-warning") {
+                            await expect(field).toHaveAttribute("data-status", "warning");
+                            await expect(input).not.toHaveAttribute("aria-invalid", "true");
+                        }
+                        if (valueState) await expect(input).toHaveValue(retainedValue);
+                        if (state === "read-only-filled") {
+                            await focusByKeyboard(page, stateControl, input);
+                            await info.attach(`${appearance}-readonly-selection`, {
+                                body: JSON.stringify(await assertCompleteDraft(input, retainedValue)),
+                                contentType: "application/json",
+                            });
+                            await input.press("x");
+                            await expect(input).toHaveValue(retainedValue);
+                            await stateControl.focus();
+                        }
+                        if (state === "disabled-filled") {
+                            await stateControl.focus();
+                            await page.keyboard.press("Tab");
+                            expect(await scene.getByRole("textbox").evaluateAll(nodes => nodes.every(node => node !== globalThis.document.activeElement))).toBe(true);
+                            await stateControl.focus();
+                        }
+                        if (state === "filled-error" || state === "filled-warning") {
+                            await expect(field.getByRole("button", { name: "清除", exact: true })).toBeVisible();
+                            if (state === "filled-error") await expect(field.getByRole("alert")).toHaveText("请填写有效的项目名称。");
+                        }
+                        if (state === "filled") await expect(input).not.toHaveValue("");
+                        if (state === "clear") {
+                            await input.fill("清除后继续编辑 · Clear this draft");
+                            await field.getByRole("button", { name: "清除", exact: true }).click();
+                            await expect(input).toHaveValue("");
+                            await expect(input).toBeFocused();
+                        }
+                        const descriptions = await input.evaluate((node) =>
+                            (node.getAttribute("aria-describedby") ?? "")
+                                .split(/\s+/)
+                                .filter(Boolean)
+                                .map((id) => globalThis.document.getElementById(id)?.textContent),
+                        );
+                        expect(descriptions.length).toBeGreaterThan(0);
+                        expect(descriptions.every((text) => typeof text === "string" && text.trim().length > 0)).toBe(true);
+                        await settleFiniteAnimations(page);
+                        await info.attach(`${appearance}-content-geometry`, {
+                            body: JSON.stringify(await assertLineEditGeometry(input, frame)),
+                            contentType: "application/json",
+                        });
+                        await captureVisual(
+                            scene,
+                            `${config.designSystem}-${config.colorMode}-${size}-${appearance}-${state}.png`,
+                            info,
+                            browserName,
+                        );
+                    }
+                },
+            );
+        }
+
+test(
+    "configuration switches preserve the actual input and draft",
+    { tag: ["@rc-line-edit", "@boundary"] },
+    async ({ page, previewOrigin }) => {
+        await openDemo(page, previewOrigin, "rc-line-edit", spec.demo, configurations[0]);
+        const scene = page.getByRole("region", { name: "LineEdit visual matrix" });
+        const input = matrixInput(scene, "outlined");
+        await input.fill("保留输入草稿");
+        const originals = await Promise.all(["outlined", "filled"].map((appearance) => matrixInput(scene, appearance).elementHandle()));
+        for (const config of configurations) {
+            await page.evaluate(
+                (config) =>
+                    globalThis.postMessage(
+                        {
+                            type: "crab:preview-config",
+                            ...config,
+                            size: "large",
+                            density: "comfortable",
+                            locale: "en-US",
+                            direction: "rtl",
+                        },
+                        globalThis.location.origin,
+                    ),
+                config,
+            );
+            await expect(page.locator(".demo-default-preview").first()).toHaveAttribute("data-crab-design", config.designSystem);
+            for (const [index, appearance] of ["outlined", "filled"].entries()) {
+                expect(await originals[index].evaluate((node) => node.isConnected)).toBe(true);
+                await expect(matrixInput(scene, appearance)).toHaveValue("保留输入草稿");
+            }
+        }
+    },
+);

@@ -1,23 +1,16 @@
 import { Fragment, useEffect, useState } from 'react';
 import type { FocusEvent, KeyboardEvent } from 'react';
-import { css, cx } from '@crab-dev/css';
+import { cx } from '@crab-dev/css';
 import { Canvas, Rect, Line, Text } from '@crab-dev/rc-canvas';
 import AutoSizer from '@crab-dev/rc-auto-sizer';
 import Empty from '@crab-dev/rc-empty';
 import { useLocale } from '@crab-dev/rc-config-provider';
-import token from './token.js';
-import {
-    MAX_SERIES,
-    mergeBarChartPalette,
-    resolveDimmedBarColor,
-    resolveReferenceLineColor,
-    resolveSeriesColor,
-} from './palette.js';
+import { MAX_SERIES, mergeBarChartPalette, resolveDimmedBarColor, resolveReferenceLineColor, resolveSeriesColor } from './palette.js';
 import { computeLayout, fitCategoryLabel, measureLabelWidth, CHART_METRICS } from './layout.js';
 import { useBarTransition } from './hooks/useBarTransition.js';
 import { useCategoryDim } from './hooks/useCategoryDim.js';
 import type { BarChartProps } from './types.js';
-
+import { rootStyle, legendStyle, legendItemStyle, legendItemHiddenStyle, legendSwatchStyle, legendSwatchHiddenStyle, canvasWrapStyle, keyboardLayerStyle, barButtonStyle, tooltipStyle, tooltipCategoryStyle, tooltipRowStyle, tooltipKeyStyle, tooltipNameStyle, tooltipValueStyle, emptyStyle, visuallyHiddenStyle } from "./barChart.styles.js";
 const DEFAULT_WIDTH = 600;
 const DEFAULT_HEIGHT = 320;
 
@@ -32,166 +25,6 @@ interface ActiveCategory {
     index: number;
     sticky: boolean;
 }
-
-const rootStyle = css`
-    font-family: ${token.root['font-family']};
-    line-height: ${token.root['line-height']};
-    display: inline-flex;
-    flex-direction: column;
-    gap: ${token.legend.gap};
-`;
-
-const legendStyle = css`
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    column-gap: ${token.legend['column-gap']};
-    row-gap: ${token.legend['row-gap']};
-`;
-
-/* 图例项是切换系列显隐的按钮：光标 / hover 背景 / 焦点环齐备 */
-const legendItemStyle = css`
-    @media (pointer: coarse) { min-width: ${token.legend.item.touch['min-width']}; min-height: ${token.legend.item.touch['min-height']}; }
-    display: inline-flex;
-    align-items: center;
-    gap: ${token.legend.item.gap};
-    padding: 2px 8px;
-    border: 0;
-    background: transparent;
-    border-radius: ${token.legend.item['border-radius']};
-    font-size: ${token.legend.label['font-size']};
-    color: ${token.legend.label.color};
-    cursor: pointer;
-    transition: ${token.legend.item.transition};
-    &:hover {
-        background-color: ${token.legend.item['background-color-hover']};
-    }
-    &:focus-visible {
-        outline: ${token.root['outline-width-focus']} solid ${token.root['outline-color-focus']};
-        box-shadow: ${token.root['box-shadow-focus']};
-    }
-    /* 强制颜色不绘制 box-shadow，系统焦点轮廓须覆盖上面的普通模式重置。 */
-    @media (forced-colors: active) {
-        &:focus-visible { outline: ${token.root['outline-width-focus']} solid Highlight; }
-    }
-    @media (prefers-reduced-motion: reduce) {
-        transition: none;
-    }
-`;
-
-/* 隐藏中的系列：整体减淡，保留位置与可点性（禁用而非消失） */
-const legendItemHiddenStyle = css`
-    opacity: ${token.legend.item['opacity-hidden']};
-    text-decoration: line-through;
-    /* 隐藏状态仍由划线表达；不能把键盘焦点轮廓一起减淡。 */
-    &:focus-visible { opacity: 1; }
-`;
-
-const legendSwatchStyle = css`
-    inline-size: ${token.legend.swatch['inline-size']};
-    block-size: ${token.legend.swatch['block-size']};
-    border-radius: 2px;
-    flex-shrink: 0;
-`;
-
-const legendSwatchHiddenStyle = css`
-    filter: grayscale(1);
-`;
-
-const canvasWrapStyle = css`
-    position: relative;
-    line-height: 0;
-`;
-
-/* 键盘专用层：不拦截指针，鼠标 / 触摸事件穿透到 Canvas 命中层 */
-const keyboardLayerStyle = css`
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-`;
-
-const barButtonStyle = css`
-    position: absolute;
-    padding: 0;
-    border: 0;
-    background: transparent;
-    border-radius: 2px;
-    pointer-events: none;
-    &:focus-visible {
-        outline: ${token.root['outline-width-focus']} solid ${token.root['outline-color-focus']};
-        /* 柱间距可能仅2px；表面色隔离边避免焦点轮廓直接贴住相近系列色。 */
-        box-shadow: 0 0 0 calc(${token.root['outline-width-focus']} + ${token.root['outline-width-focus']}) ${token.palette.canvas['background-color']};
-    }
-    /* 覆盖按钮保持具体柱体的焦点位置，不能仅依靠整类目的悬浮提示。 */
-    @media (forced-colors: active) {
-        &:focus-visible { outline: ${token.root['outline-width-focus']} solid Highlight; }
-    }
-`;
-
-const tooltipStyle = css`
-    position: absolute;
-    pointer-events: none;
-    display: flex;
-    flex-direction: column;
-    row-gap: ${token.tooltip.rows['row-gap']};
-    padding: ${token.tooltip.padding};
-    background-color: ${token.tooltip['background-color']};
-    border-radius: ${token.tooltip['border-radius']};
-    box-shadow: ${token.tooltip['box-shadow']};
-    font-size: ${token.tooltip['font-size']};
-    line-height: 1.4;
-    white-space: nowrap;
-`;
-
-const tooltipCategoryStyle = css`
-    color: ${token.tooltip.category.color};
-`;
-
-const tooltipRowStyle = css`
-    display: flex;
-    align-items: center;
-    column-gap: ${token.tooltip.row['column-gap']};
-`;
-
-/* 系列色键：短线而非色块，提示密度下线钥更轻 */
-const tooltipKeyStyle = css`
-    inline-size: 10px;
-    block-size: 3px;
-    border-radius: 1.5px;
-    flex-shrink: 0;
-`;
-
-const tooltipNameStyle = css`
-    color: ${token.tooltip.name.color};
-`;
-
-const tooltipValueStyle = css`
-    margin-inline-start: auto;
-    padding-inline-start: 12px;
-    color: ${token.tooltip.value.color};
-    font-weight: ${token.tooltip.value['font-weight']};
-    font-variant-numeric: tabular-nums;
-`;
-
-const emptyStyle = css`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-`;
-
-/* 数据表仅供辅助技术与选择复制，视觉上隐藏 */
-const visuallyHiddenStyle = css`
-    position: absolute;
-    inline-size: 1px;
-    block-size: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0 0 0 0);
-    white-space: nowrap;
-    border: 0;
-`;
 
 type InnerProps = Omit<BarChartProps, 'width'> & {
     width: number;

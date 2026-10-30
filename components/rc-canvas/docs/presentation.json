@@ -1,0 +1,40 @@
+{
+    "groups": [
+        {
+            "title": "基础图形",
+            "demos": [
+                "basic.demo.tsx",
+                "line.demo.tsx",
+                "rounded.demo.tsx",
+                "opacity.demo.tsx",
+                "text.demo.tsx",
+                "text-advanced.demo.tsx",
+                "group.demo.tsx"
+            ]
+        },
+        {
+            "title": "交互与变换",
+            "demos": [
+                "draggable.demo.tsx",
+                "hover.demo.tsx",
+                "transformer.demo.tsx",
+                "visual-states.demo.tsx"
+            ]
+        },
+        {
+            "title": "场景与性能",
+            "demos": [
+                "animation.demo.tsx",
+                "infinite-canvas.demo.tsx",
+                "minimap.demo.tsx"
+            ]
+        },
+        {
+            "title": "边界与视觉矩阵",
+            "demos": [
+                "visual-matrix.demo.tsx",
+                "document-shadow.demo.tsx"
+            ]
+        }
+    ]
+}

@@ -143,3 +143,7 @@ Apple 参考 [Apple HIG 色彩](https://developer.apple.com/design/human-interfa
 MD3 采用 Expressive 的排版与动效体系；Material Web v0.192 仅用于核对其实际支持的基础组件和系统令牌，不能作为 Expressive 全量实现的证明。Apple 与 shadcn/ui 各自维护完整字阶和动效，不继承 MD3 的数值。Apple 的具体 Web 尺寸与效果属于本库设计决定，shadcn/ui 适配保留本库 API、语义与键盘能力。逐组件的变体、状态和扩展范围记录在对应组件页；令牌与单元测试不能替代浏览器视觉和交互核对。
 
 shadcn/ui 固定参考 `new-york-v4`，提交为 [`3d98900e9b73c45f035f8109e9d41ba6a51685e7`](https://github.com/shadcn-ui/ui/commit/3d98900e9b73c45f035f8109e9d41ba6a51685e7)。注册表的 `reference` 保存变体、提交和核对日期；不随上游新默认 style 自动迁移。
+
+## 边界矩阵
+
+主题矩阵使用真实语义表面、品牌前景配对、字阶、焦点与三种嵌套浅色边界，核对从深色和其他体系恢复的独立性。Theme 不提供组件 size 或 density，不为静态映射虚构禁用、按下或加载外观；对应角色由组件矩阵验收。窄屏、触控、语言方向、品牌、强制颜色和减少动画使用同一套环境前提。首次候选与实际视觉复审分别记录，尚未完成的范围保持 `partial`。

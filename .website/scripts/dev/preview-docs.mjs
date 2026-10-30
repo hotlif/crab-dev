@@ -3,9 +3,7 @@ import { readFile, stat } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
-const root = path.resolve(fileURLToPath(new URL("../../", import.meta.url)), process.env.DOCS_PREVIEW_DIR ?? "docs-dist");
-const base = `/${(process.env.DOCS_PREVIEW_BASE ?? "").replace(/^\/+|\/+$/g, "")}`;
-const port = Number(process.env.DOCS_PREVIEW_PORT ?? 4173);
+const websiteRoot = fileURLToPath(new URL("../../", import.meta.url));
 const types = {
     ".html": "text/html; charset=utf-8",
     ".js": "text/javascript",
@@ -18,7 +16,10 @@ const types = {
     ".wasm": "application/wasm",
 };
 
-createServer(async (request, response) => {
+export function createDocsPreview({ root = path.resolve(websiteRoot, process.env.DOCS_PREVIEW_DIR ?? "docs-dist"), base = process.env.DOCS_PREVIEW_BASE ?? "" } = {}) {
+    root = path.resolve(root);
+    base = `/${base.replace(/^\/+|\/+$/g, "")}`;
+    return createServer(async (request, response) => {
     try {
         const requestPath = decodeURIComponent(new URL(request.url, "http://localhost").pathname);
         if (base !== "/" && requestPath !== base && !requestPath.startsWith(`${base}/`)) {
@@ -51,4 +52,10 @@ createServer(async (request, response) => {
             .writeHead(404, { "Content-Type": "text/plain; charset=utf-8" })
             .end("页面不存在。请先运行 yarn build。");
     }
-}).listen(port, "127.0.0.1", () => console.log(`生产文档预览：http://127.0.0.1:${port}${base === "/" ? "/" : `${base}/`}`));
+    });
+}
+
+if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+    const port = Number(process.env.DOCS_PREVIEW_PORT ?? 4173);
+    createDocsPreview().listen(port, "127.0.0.1", () => console.log(`生产文档预览：http://127.0.0.1:${port}/${(process.env.DOCS_PREVIEW_BASE ?? "").replace(/^\/+|\/+$/g, "")}`));
+}

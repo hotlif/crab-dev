@@ -1,0 +1,234 @@
+{
+  "nativeStats": {
+    "startTime": "2026-10-29T11:44:17.422Z",
+    "duration": 23648.894,
+    "expected": 1,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "nativeErrors": [],
+  "visualReview": "pending",
+  "cases": [
+    {
+      "id": "80ff4d678bb4227f8708-d9205d1647466ff8059c/chromium/0",
+      "package": "rc-canvas",
+      "file": "components/rc-canvas/docs/canvas-documents.visual.spec.mjs",
+      "title": "foreign iframe Shadow theme md3 light",
+      "project": "chromium",
+      "attempt": 0,
+      "status": "passed",
+      "visualReview": "pending",
+      "annotations": [
+        {
+          "type": "boundary",
+          "description": "{\"designSystem\":\"md3\",\"colorMode\":\"light\",\"id\":\"foreign-iframe-shadow\",\"explicitDpr\":1.5}",
+          "location": {
+            "file": "C:\\Users\\zhang\\Desktop\\crab-dev\\components\\rc-canvas\\docs\\canvas-documents.visual.spec.mjs",
+            "line": 29,
+            "column": 5
+          }
+        }
+      ],
+      "images": [
+        {
+          "name": "actual",
+          "path": "screens/rc-canvas/chromium/000001-3-actual.png",
+          "sha256": "4b578219f5641a0c64655bb9178e680b3172d1700721d25e76ee2dd5eee892f1"
+        }
+      ],
+      "errors": [],
+      "details": {
+        "foreign-realm-and-real-style-resources": {
+          "foreign": true,
+          "ownRealm": true,
+          "ownerDocument": true,
+          "documentSheets": [
+            "http://127.0.0.1:59163/components/rc-canvas/workbench/styles.8132a1ac.css",
+            "http://127.0.0.1:59163/components/rc-canvas/workbench/document-shadow.demo.9bf603bc.css"
+          ],
+          "shadowSheets": [
+            "http://127.0.0.1:59163/components/rc-canvas/workbench/styles.8132a1ac.css",
+            "http://127.0.0.1:59163/components/rc-canvas/workbench/document-shadow.demo.9bf603bc.css"
+          ],
+          "documentStyles": 0,
+          "shadowStyles": 0
+        },
+        "actual-gpu-theme-pixels": [
+          {
+            "step": "initial-after-real-drag",
+            "shape": [
+              29,
+              27,
+              32,
+              255
+            ],
+            "empty": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "error": 0,
+            "bitmap": [
+              540,
+              240
+            ],
+            "expected": [
+              29,
+              27,
+              32,
+              255
+            ],
+            "color": "oklch(0.226524 0.00999107 303.714)",
+            "count": 6
+          },
+          {
+            "step": "nearest-theme-changed",
+            "shape": [
+              230,
+              224,
+              233,
+              255
+            ],
+            "empty": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "error": 0,
+            "bitmap": [
+              540,
+              240
+            ],
+            "expected": [
+              230,
+              224,
+              233,
+              255
+            ],
+            "color": "oklch(0.914011 0.0136639 314.754)",
+            "count": 8
+          },
+          {
+            "step": "outer-theme-changed-nearest-preserved",
+            "shape": [
+              230,
+              224,
+              233,
+              255
+            ],
+            "empty": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "error": 0,
+            "bitmap": [
+              540,
+              240
+            ],
+            "expected": [
+              230,
+              224,
+              233,
+              255
+            ],
+            "color": "oklch(0.914011 0.0136639 314.754)",
+            "count": 9
+          },
+          {
+            "step": "nearest-design-changed",
+            "shape": [
+              248,
+              248,
+              250,
+              255
+            ],
+            "empty": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "error": 0,
+            "bitmap": [
+              540,
+              240
+            ],
+            "expected": [
+              248,
+              248,
+              250,
+              255
+            ],
+            "color": "oklch(0.98 0.002 286)",
+            "count": 11
+          },
+          {
+            "step": "nearest-mode-restored",
+            "shape": [
+              9,
+              9,
+              11,
+              255
+            ],
+            "empty": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "error": 0,
+            "bitmap": [
+              540,
+              240
+            ],
+            "expected": [
+              9,
+              9,
+              11,
+              255
+            ],
+            "color": "oklch(0.14 0.004 286)",
+            "count": 12
+          }
+        ],
+        "snapshot-target": {
+          "name": "md3-light-foreign-shadow-theme.png",
+          "path": "test/visual/baselines/win32/chromium/components/rc-canvas/docs/canvas-documents.visual.spec.mjs/md3-light-foreign-shadow-theme.png"
+        },
+        "candidate-inputs": {
+          "source": "sha256:0d718513bc7a1605ccef51bcd56f57aa098655e30472ef6e92fe7952ef7645d3",
+          "artifact": "sha256:2923a34187fbf19e0d5125c68b40e77fba1df281167c7d3e7de1caccde0ca679",
+          "file": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\canvas-composed-native-smoke-20261029-4\\inputs-worker-0.json",
+          "renderingEnvironment": {
+            "file": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\canvas-composed-native-smoke-20261029-4\\rendering-worker-0.json",
+            "browserName": "chromium",
+            "browser": "156.0.8078.4"
+          },
+          "browserName": "chromium",
+          "browser": "156.0.8078.4",
+          "platform": "win32",
+          "arch": "x64",
+          "mode": "native-check",
+          "visualReview": "pending"
+        },
+        "browser-console": [
+          {
+            "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+            "location": {
+              "url": "http://127.0.0.1:59163/favicon.ico",
+              "line": 0,
+              "column": 0,
+              "lineNumber": 0,
+              "columnNumber": 0
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

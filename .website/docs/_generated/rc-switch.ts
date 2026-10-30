@@ -123,5 +123,33 @@ export const demos = [
         "density": "compact",
         "layout": "grid",
         "group": null
+    },
+    {
+        "id": "docs/demos/visual-matrix.demo.tsx",
+        "title": "三体系状态矩阵",
+        "description": "真实输入对照默认、选择、错误、禁用和键盘焦点；切换外观保留选择。",
+        "learning": {
+            "components": [
+                "Switch"
+            ],
+            "props": [
+                "aria-label",
+                "checked",
+                "onCheckedChange",
+                "disabled",
+                "aria-invalid",
+                "aria-describedby"
+            ],
+            "events": [
+                "onCheckedChange"
+            ],
+            "hasState": true
+        },
+        "sourceCode": "import { css } from \"@crab-dev/css\";\nimport Switch from \"@crab-dev/rc-switch\";\nimport { useConfig } from \"@crab-dev/rc-config-provider\";\nimport token from \"@crab-dev/rc-token-semantic\";\nimport { useId, useState } from \"react\";\n\nexport const meta = {\n    title: \"三体系状态矩阵\",\n    description: \"真实输入对照默认、选择、错误、禁用和键盘焦点；切换外观保留选择。\",\n};\nconst scene = css`\n    display: grid; gap: ${token.space['group-gap']}; padding: ${token.space['group-gap']};\n    max-inline-size: 36rem; color: ${token.color.text.primary}; background: ${token.color.background.surface};\n`;\nconst samples = css`\n    display: grid; gap: ${token.space['group-gap']}; padding: ${token.space['group-gap']};\n    min-inline-size: 0; overflow-wrap: anywhere;\n`;\nconst states = [\"default\",\"hover\",\"focus-visible\",\"pressed\",\"selected\",\"selected-hover\",\"selected-focus-visible\",\"selected-pressed\",\"error\",\"selected-error\",\"disabled\",\"disabled-selected\"] as const;\n\nexport default function VisualMatrixDemo() {\n    const { size, locale } = useConfig();\n    const [state, setState] = useState\u003ctypeof states[number]>(\"default\");\n    const [checked, setChecked] = useState(false);\n    const id = useId();\n    const english = locale === \"en-US\";\n    const effectiveChecked = state === \"disabled-selected\" || checked;\n    return \u003csection className={scene} aria-label=\"Switch visual matrix\" data-visual-scene data-size={size} data-state={state}>\n        \u003cdiv>\u003clabel htmlFor={id}>验收状态\u003c/label>{\" \"}\u003cselect id={id} value={state} onChange={event => {\n            const next = event.currentTarget.value;\n            if (states.some(item => item === next)) setState(next as typeof state);\n        }}>{states.map(item => \u003coption key={item}>{item}\u003c/option>)}\u003c/select>\u003c/div>\n        \u003cdiv className={samples} data-visual-frame>\n            \u003cSwitch aria-label=\"Primary option\" checked={effectiveChecked}\n                onCheckedChange={setChecked} disabled={state.startsWith(\"disabled\")}\n                aria-invalid={state.includes(\"error\") || undefined}\n                aria-describedby={state.includes(\"error\") ? id + \"-error\" : undefined}\n            >{english ? \"Include archived projects and keep this selection when changing themes\" : \"包含归档项目，并在切换主题时保留选择\"}\u003c/Switch>\n            \u003cSwitch checked disabled aria-label=\"Unavailable selected option\">{english ? \"Selected · unavailable\" : \"已选择 · 暂不可用\"}\u003c/Switch>\n            {state.includes(\"error\") && \u003cspan id={id + \"-error\"} role=\"alert\">{english ? \"Review this selection before applying changes.\" : \"应用更改前请核对这一选择。\"}\u003c/span>}\n            \u003coutput aria-live=\"polite\">{english ? \"Selection\" : \"当前选择\"}: {effectiveChecked ? \"on\" : \"off\"}\u003c/output>\n        \u003c/div>\n    \u003c/section>;\n}\n\n",
+        "previewPath": "/components/rc-switch/workbench/?__wake_demo=docs%2Fdemos%2Fvisual-matrix.demo.tsx",
+        "workbenchPath": "/components/rc-switch/workbench/#/components/docs%2Fdemos%2Fvisual-matrix.demo.tsx",
+        "density": "compact",
+        "layout": "grid",
+        "group": null
     }
 ] as const satisfies readonly ComponentDemoRecord[];

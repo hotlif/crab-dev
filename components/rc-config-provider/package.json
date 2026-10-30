@@ -14,11 +14,13 @@
         "build:library": "wake library build .",
         "prettier:write": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
         "prettier:check": "prettier --check \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
-        "typecheck": "node ../../scripts/typecheck.mjs --noEmit",
+        "typecheck": "tsc --noEmit",
         "test": "wake test --serial --coverage",
         "check": "node ../../scripts/check-package.mjs",
         "lint": "wake lint --format human --root ../.. components/rc-config-provider/src components/rc-config-provider/docs --env browser --max-warnings 0",
-        "generate:docgen": "wake library docgen ."
+        "generate:docgen": "wake library docgen .",
+        "build:visual": "wake docs build . --mode components --outdir .cache/visual-workbench",
+        "test:visual": "node ../../scripts/visual/run.mjs --package ."
     },
     "files": [
         "esm",
@@ -56,13 +58,15 @@
         "prettier": "^3.9.6",
         "react": "19.3.0",
         "react-dom": "19.3.0",
-        "typescript": "^7.0.2"
+        "typescript": "6.0.2"
     },
     "engines": {
         "node": ">=22"
     },
     "crab": {
-        "docsDependencies": []
+        "docsDependencies": [
+            "react-dom"
+        ]
     },
     "peerDependencies": {
         "react": "^19.2.0"

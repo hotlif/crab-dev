@@ -1,0 +1,45 @@
+{
+    "schemaVersion": 1,
+    "demo": "visual-matrix.demo.tsx",
+    "sizes": [
+        "small",
+        "medium",
+        "large"
+    ],
+    "densities": [
+        "standard"
+    ],
+    "states": [
+        "default",
+        "focus-visible",
+        "error",
+        "sandbox",
+        "loading",
+        "web-component-var",
+        "web-component-module"
+    ],
+    "crossEngine": {
+        "sizes": [
+            "medium"
+        ],
+        "densities": [
+            "standard"
+        ],
+        "states": [
+            "default",
+            "focus-visible",
+            "error",
+            "sandbox",
+            "web-component-var",
+            "web-component-module"
+        ]
+    },
+    "notApplicable": {
+        "density": "Realm is a transparent transport host. Feedback and remote content own spacing; the wrapper does not add a second density system.",
+        "hover": "Remote content owns hover appearance; Realm adds none.",
+        "pressed": "Remote content owns press behavior; retry uses the public Button contract.",
+        "disabled": "Realm has no disabled protocol. Loading and failure expose actionable retry state.",
+        "selected": "Selection is remote application state, not a transport-host state.",
+        "expanded": "Realm has no disclosure state."
+    }
+}

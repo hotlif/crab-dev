@@ -16,4 +16,16 @@ describe('date-picker canonical token contract', () => {
             expect(values).not.toContain(alias);
         }
     });
+
+    it('uses one semantic source for input, dial-field and period geometry', () => {
+        expect(token.time.input.width).toContain('--token-semantic-picker-time-input-width');
+        expect(token.time.input.height).toContain('--token-semantic-picker-time-input-height');
+        expect(token.time.input['font-size']).toContain('--token-semantic-picker-time-input-font-size');
+        expect(token.time.input['line-height']).toContain('--token-semantic-picker-time-input-line-height');
+        expect(token.time.dial.field.width).toContain('--token-semantic-picker-time-dial-field-width');
+        expect(token.time.dial.field['24h'].width).toContain('--token-semantic-picker-time-dial-field-width-24h');
+        expect(token.time.dial.field.height).toContain('--token-semantic-picker-time-dial-field-height');
+        expect(token.time.period.horizontal.width).toContain('--token-semantic-picker-time-period-horizontal-width');
+        expect(token.time.period.horizontal.height).toContain('--token-semantic-picker-time-period-horizontal-height');
+    });
 });

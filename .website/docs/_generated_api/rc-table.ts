@@ -77,7 +77,7 @@ export interface TableProps {
     /**
      * 自定义行高（优先级高于 row.height）
      */
-    "getRowHeight"?: (row: T, rowIndex: number) => number | undefined;
+    "getRowHeight"?: ((row: T, rowIndex: number) => number | undefined);
 
     /**
      * 表格头部的高度
@@ -107,7 +107,7 @@ export interface TableProps {
     /**
      * 自定义默认过滤编辑器（列级 filterEditor 优先级更高）
      */
-    "renderDefaultFilterEditor"?: (param: FilterEditorParam<T>) => ReactNode;
+    "renderDefaultFilterEditor"?: ((param: FilterEditorParam<T>) => ReactNode);
 
     /**
      * 过滤条件变化回调
@@ -125,17 +125,17 @@ export interface TableProps {
     "groupRowHeight"?: number;
 
     /**
-     * 暂无说明。
+     * 暂无说明。 与 defaultExpandedGroupIds、defaultExpandAll 互斥，不能同时提供。
      */
-    "expandedGroupIds"?: Set<Key> | Set<Key> | undefined;
+    "expandedGroupIds"?: Set<Key>;
 
     /**
-     * 暂无说明。
+     * 暂无说明。 与 expandedGroupIds 互斥，不能同时提供。
      */
     "defaultExpandedGroupIds"?: Set<Key>;
 
     /**
-     * 暂无说明。
+     * 暂无说明。 与 expandedGroupIds 互斥，不能同时提供。
      */
     "defaultExpandAll"?: boolean;
 
@@ -147,7 +147,7 @@ export interface TableProps {
     /**
      * 暂无说明。
      */
-    "renderGroupCell"?: (param: GroupCellRenderParam<T>) => ReactNode;
+    "renderGroupCell"?: ((param: GroupCellRenderParam<T>) => ReactNode);
 
     /**
      * 受控编辑操作记录
@@ -165,12 +165,12 @@ export interface TableProps {
     "onUndo"?: (record: CellEditRecord) => void;
 
     /**
-     * 受控当前编辑行 ID
+     * 受控当前编辑行 ID 与 defaultEditingRowId 互斥，不能同时提供。
      */
-    "editingRowId"?: Key | null | Key | null | undefined;
+    "editingRowId"?: Key | null;
 
     /**
-     * 非受控初始编辑行 ID
+     * 非受控初始编辑行 ID 与 editingRowId 互斥，不能同时提供。
      */
     "defaultEditingRowId"?: Key | null;
 
@@ -235,9 +235,9 @@ export interface TableProps {
     "onCopy"?: (cells: Array<{ rowId: Key; rowIndex: number; columnIndex: number; columnName: string; value: unknown; }>) => void;
 
     /**
-     * 受控排序列配置
+     * 受控排序列配置 与 defaultSortColumns 互斥，不能同时提供。
      */
-    "sortColumns"?: SortColumn[] | SortColumn[] | undefined;
+    "sortColumns"?: SortColumn[];
 
     /**
      * server 保留排序交互，行顺序由调用者提供。
@@ -245,7 +245,7 @@ export interface TableProps {
     "sortMode"?: 'client' | 'server';
 
     /**
-     * 非受控初始排序
+     * 非受控初始排序 与 sortColumns 互斥，不能同时提供。
      */
     "defaultSortColumns"?: SortColumn[];
 
@@ -267,7 +267,7 @@ export interface TableProps {
     /**
      * 获取每行的子行；返回空数组或 null/undefined 表示叶子节点
      */
-    "getChildRows"?: (row: T) => T[] | undefined | null;
+    "getChildRows"?: ((row: T) => T[] | null | undefined);
 
     /**
      * 显示缩进和展开/收起按钮的列名；默认使用第一个非 fixed="right" 的叶子列
@@ -275,17 +275,17 @@ export interface TableProps {
     "treeColumn"?: string;
 
     /**
-     * 受控展开行 id 集合
+     * 受控展开行 id 集合 与 defaultExpandedRowIds、defaultTreeExpandAll 互斥，不能同时提供。
      */
-    "expandedRowIds"?: Set<Key> | Set<Key> | undefined;
+    "expandedRowIds"?: Set<Key>;
 
     /**
-     * 非受控初始展开行 id 集合
+     * 非受控初始展开行 id 集合 与 expandedRowIds 互斥，不能同时提供。
      */
     "defaultExpandedRowIds"?: Set<Key>;
 
     /**
-     * 是否默认全部展开（默认 false）
+     * 是否默认全部展开（默认 false） 与 expandedRowIds 互斥，不能同时提供。
      */
     "defaultTreeExpandAll"?: boolean;
 
@@ -307,20 +307,20 @@ export interface TableProps {
     /**
      * 提供即启用行展开：返回某行展开后在其下方插入的详情内容
      */
-    "expandedRowRender"?: (row: T) => ReactNode;
+    "expandedRowRender"?: ((row: T) => ReactNode);
 
     /**
      * 控制某行能否展开；默认所有数据行均可展开
      */
-    "isRowExpandable"?: (row: T) => boolean;
+    "isRowExpandable"?: ((row: T) => boolean);
 
     /**
-     * 受控展开行 key 集合（与树形 expandedRowIds 相互独立）
+     * 受控展开行 key 集合（与树形 expandedRowIds 相互独立） 与 defaultExpandedRowKeys 互斥，不能同时提供。
      */
-    "expandedRowKeys"?: Set<Key> | Set<Key> | undefined;
+    "expandedRowKeys"?: Set<Key>;
 
     /**
-     * 非受控初始展开行 key 集合
+     * 非受控初始展开行 key 集合 与 expandedRowKeys 互斥，不能同时提供。
      */
     "defaultExpandedRowKeys"?: Set<Key>;
 
@@ -337,7 +337,7 @@ export interface TableProps {
     /**
      * 逐行覆盖展开内容区高度
      */
-    "getExpandedRowHeight"?: (row: T) => number | undefined;
+    "getExpandedRowHeight"?: ((row: T) => number | undefined);
 
     /**
      * 展开图标列宽度（默认 40）

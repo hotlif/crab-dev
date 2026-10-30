@@ -1,6 +1,6 @@
 import { css } from '@crab-dev/css';
 import token from '@crab-dev/rc-token-semantic';
-import ConfigProvider, { useConfig } from '../../src/index.js';
+import ConfigProvider, { useConfig } from '@crab-dev/rc-config-provider';
 
 export const meta = {
     title: '嵌套设计风格与主题边界',
@@ -15,8 +15,9 @@ const panelStyle = css`
 `;
 
 function Summary() {
-    const { designSystem, colorMode, locale, size, density } = useConfig();
-    return <p className={panelStyle}>{designSystem} / {colorMode} / {locale} / {size} / {density}</p>;
+    const config = useConfig();
+    const { designSystem, colorMode, locale, size, density } = config;
+    return <p className={panelStyle} data-resolved-config={JSON.stringify(config)}>{designSystem} / {colorMode} / {locale} / {size} / {density}</p>;
 }
 
 export default function NestedDemo() {

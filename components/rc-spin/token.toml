@@ -38,6 +38,7 @@ expressive.shape.left = "12.5%"
 expressive.shape.width = "75%"
 expressive.shape.height = "75%"
 root.animation            = "$ref(motion.fade)"
+root.font-family = "$ref(typography.body.font-family)"
 content.transition        = "$ref(motion.fade)"
 
 

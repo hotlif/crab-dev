@@ -7,12 +7,13 @@ type DocsTypePlaceholder = ((...args: never[]) => unknown) & {
 };
 type AnimationEventHandler<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 type Booleanish = DocsTypePlaceholder;
-type ChangeEventHandler<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
+type ChangeEventHandler<T0 = unknown, T1 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0, T1] };
 type ClipboardEventHandler<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 type CompositionEventHandler<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 type CSSProperties = DocsTypePlaceholder;
 type DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_FORM_ACTIONS = DocsTypePlaceholder;
 type DragEventHandler<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
+type Element = DocsTypePlaceholder;
 type FocusEventHandler<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 type FormData = DocsTypePlaceholder;
 type HTMLButtonElement = DocsTypePlaceholder;
@@ -31,6 +32,271 @@ type UIEventHandler<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeA
 type WheelEventHandler<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 
 export interface SwitchPropsNativeAttributes {
+    /**
+     * 暂无说明。
+     */
+    "title"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "defaultValue"?: string | number | readonly string[] | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "suppressContentEditableWarning"?: boolean | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "suppressHydrationWarning"?: boolean | undefined;
+
+    /**
+     * Standard HTML Attributes
+     */
+    "accessKey"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "autoCapitalize"?: "off" | "none" | "on" | "sentences" | "words" | "characters" | undefined | (string & {});
+
+    /**
+     * 暂无说明。
+     */
+    "autoFocus"?: boolean | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "className"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "contentEditable"?: Booleanish | "inherit" | "plaintext-only" | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "contextMenu"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "dir"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "draggable"?: Booleanish | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "enterKeyHint"?: "enter" | "done" | "go" | "next" | "previous" | "search" | "send" | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "hidden"?: boolean | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "id"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "lang"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "nonce"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "slot"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "spellCheck"?: Booleanish | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "style"?: CSSProperties | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "tabIndex"?: number | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "translate"?: "yes" | "no" | undefined;
+
+    /**
+     * Unknown
+     */
+    "radioGroup"?: string | undefined;
+
+    /**
+     * RDFa Attributes
+     */
+    "about"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "content"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "datatype"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "inlist"?: any;
+
+    /**
+     * 暂无说明。
+     */
+    "prefix"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "property"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "rel"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "resource"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "rev"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "typeof"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "vocab"?: string | undefined;
+
+    /**
+     * Non-standard Attributes
+     */
+    "autoCorrect"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "autoSave"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "color"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "itemProp"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "itemScope"?: boolean | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "itemType"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "itemID"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "itemRef"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "results"?: number | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "security"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "unselectable"?: "on" | "off" | undefined;
+
+    /**
+     * Popover API
+     */
+    "popover"?: "" | "auto" | "manual" | "hint" | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "popoverTargetAction"?: "toggle" | "show" | "hide" | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "popoverTarget"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "inert"?: boolean | undefined;
+
+    /**
+     * Hints at the type of data that might be entered by the user while editing the element or its contents
+     */
+    "inputMode"?: "none" | "text" | "tel" | "url" | "email" | "numeric" | "decimal" | "search" | undefined;
+
+    /**
+     * Specify that a standard HTML element should behave like a defined custom built-in element
+     */
+    "is"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "exportparts"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "part"?: string | undefined;
+
     /**
      * Identifies the currently active element when DOM focus is on a composite widget, textbox, group, or application.
      */
@@ -301,1119 +567,854 @@ export interface SwitchPropsNativeAttributes {
     /**
      * Clipboard Events
      */
-    "onCopy"?: ClipboardEventHandler<HTMLButtonElement> | undefined;
+    "onCopy"?: ClipboardEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onCopyCapture"?: ClipboardEventHandler<HTMLButtonElement> | undefined;
+    "onCopyCapture"?: ClipboardEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onCut"?: ClipboardEventHandler<HTMLButtonElement> | undefined;
+    "onCut"?: ClipboardEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onCutCapture"?: ClipboardEventHandler<HTMLButtonElement> | undefined;
+    "onCutCapture"?: ClipboardEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onPaste"?: ClipboardEventHandler<HTMLButtonElement> | undefined;
+    "onPaste"?: ClipboardEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onPasteCapture"?: ClipboardEventHandler<HTMLButtonElement> | undefined;
+    "onPasteCapture"?: ClipboardEventHandler<HTMLButtonElement>;
 
     /**
      * Composition Events
      */
-    "onCompositionEnd"?: CompositionEventHandler<HTMLButtonElement> | undefined;
+    "onCompositionEnd"?: CompositionEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onCompositionEndCapture"?: CompositionEventHandler<HTMLButtonElement> | undefined;
+    "onCompositionEndCapture"?: CompositionEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onCompositionStart"?: CompositionEventHandler<HTMLButtonElement> | undefined;
+    "onCompositionStart"?: CompositionEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onCompositionStartCapture"?: CompositionEventHandler<HTMLButtonElement> | undefined;
+    "onCompositionStartCapture"?: CompositionEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onCompositionUpdate"?: CompositionEventHandler<HTMLButtonElement> | undefined;
+    "onCompositionUpdate"?: CompositionEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onCompositionUpdateCapture"?: CompositionEventHandler<HTMLButtonElement> | undefined;
+    "onCompositionUpdateCapture"?: CompositionEventHandler<HTMLButtonElement>;
 
     /**
      * Focus Events
      */
-    "onFocus"?: FocusEventHandler<HTMLButtonElement> | undefined;
+    "onFocus"?: FocusEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onFocusCapture"?: FocusEventHandler<HTMLButtonElement> | undefined;
+    "onFocusCapture"?: FocusEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onBlur"?: FocusEventHandler<HTMLButtonElement> | undefined;
+    "onBlur"?: FocusEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onBlurCapture"?: FocusEventHandler<HTMLButtonElement> | undefined;
+    "onBlurCapture"?: FocusEventHandler<HTMLButtonElement>;
 
     /**
      * form related Events
      */
-    "onChange"?: ChangeEventHandler<HTMLButtonElement> | undefined;
+    "onChange"?: ChangeEventHandler<HTMLButtonElement, Element>;
 
     /**
      * 暂无说明。
      */
-    "onChangeCapture"?: ChangeEventHandler<HTMLButtonElement> | undefined;
+    "onChangeCapture"?: ChangeEventHandler<HTMLButtonElement, Element>;
 
     /**
      * 暂无说明。
      */
-    "onBeforeInput"?: InputEventHandler<HTMLButtonElement> | undefined;
+    "onBeforeInput"?: InputEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onBeforeInputCapture"?: InputEventHandler<HTMLButtonElement> | undefined;
+    "onBeforeInputCapture"?: InputEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onInput"?: InputEventHandler<HTMLButtonElement> | undefined;
+    "onInput"?: InputEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onInputCapture"?: InputEventHandler<HTMLButtonElement> | undefined;
+    "onInputCapture"?: InputEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onReset"?: ReactEventHandler<HTMLButtonElement> | undefined;
+    "onReset"?: ReactEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onResetCapture"?: ReactEventHandler<HTMLButtonElement> | undefined;
+    "onResetCapture"?: ReactEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onSubmit"?: SubmitEventHandler<HTMLButtonElement> | undefined;
+    "onSubmit"?: SubmitEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onSubmitCapture"?: SubmitEventHandler<HTMLButtonElement> | undefined;
+    "onSubmitCapture"?: SubmitEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onInvalid"?: ReactEventHandler<HTMLButtonElement> | undefined;
+    "onInvalid"?: ReactEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onInvalidCapture"?: ReactEventHandler<HTMLButtonElement> | undefined;
+    "onInvalidCapture"?: ReactEventHandler<HTMLButtonElement>;
 
     /**
      * Image Events
      */
-    "onLoad"?: ReactEventHandler<HTMLButtonElement> | undefined;
+    "onLoad"?: ReactEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onLoadCapture"?: ReactEventHandler<HTMLButtonElement> | undefined;
+    "onLoadCapture"?: ReactEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onError"?: ReactEventHandler<HTMLButtonElement> | undefined;
+    "onError"?: ReactEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onErrorCapture"?: ReactEventHandler<HTMLButtonElement> | undefined;
+    "onErrorCapture"?: ReactEventHandler<HTMLButtonElement>;
 
     /**
      * Keyboard Events
      */
-    "onKeyDown"?: KeyboardEventHandler<HTMLButtonElement> | undefined;
+    "onKeyDown"?: KeyboardEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onKeyDownCapture"?: KeyboardEventHandler<HTMLButtonElement> | undefined;
-
-    /**
-     * 暂无说明。
-     * @deprecated
-     */
-    "onKeyPress"?: KeyboardEventHandler<HTMLButtonElement> | undefined;
+    "onKeyDownCapture"?: KeyboardEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      * @deprecated
      */
-    "onKeyPressCapture"?: KeyboardEventHandler<HTMLButtonElement> | undefined;
+    "onKeyPress"?: KeyboardEventHandler<HTMLButtonElement>;
+
+    /**
+     * 暂无说明。
+     * @deprecated
+     */
+    "onKeyPressCapture"?: KeyboardEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onKeyUp"?: KeyboardEventHandler<HTMLButtonElement> | undefined;
+    "onKeyUp"?: KeyboardEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onKeyUpCapture"?: KeyboardEventHandler<HTMLButtonElement> | undefined;
+    "onKeyUpCapture"?: KeyboardEventHandler<HTMLButtonElement>;
 
     /**
      * Media Events
      */
-    "onAbort"?: ReactEventHandler<HTMLButtonElement> | undefined;
+    "onAbort"?: ReactEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onAbortCapture"?: ReactEventHandler<HTMLButtonElement> | undefined;
+    "onAbortCapture"?: ReactEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onCanPlay"?: ReactEventHandler<HTMLButtonElement> | undefined;
+    "onCanPlay"?: ReactEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onCanPlayCapture"?: ReactEventHandler<HTMLButtonElement> | undefined;
+    "onCanPlayCapture"?: ReactEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onCanPlayThrough"?: ReactEventHandler<HTMLButtonElement> | undefined;
+    "onCanPlayThrough"?: ReactEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onCanPlayThroughCapture"?: ReactEventHandler<HTMLButtonElement> | undefined;
+    "onCanPlayThroughCapture"?: ReactEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onDurationChange"?: ReactEventHandler<HTMLButtonElement> | undefined;
+    "onDurationChange"?: ReactEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onDurationChangeCapture"?: ReactEventHandler<HTMLButtonElement> | undefined;
+    "onDurationChangeCapture"?: ReactEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onEmptied"?: ReactEventHandler<HTMLButtonElement> | undefined;
+    "onEmptied"?: ReactEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onEmptiedCapture"?: ReactEventHandler<HTMLButtonElement> | undefined;
+    "onEmptiedCapture"?: ReactEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onEncrypted"?: ReactEventHandler<HTMLButtonElement> | undefined;
+    "onEncrypted"?: ReactEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onEncryptedCapture"?: ReactEventHandler<HTMLButtonElement> | undefined;
+    "onEncryptedCapture"?: ReactEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onEnded"?: ReactEventHandler<HTMLButtonElement> | undefined;
+    "onEnded"?: ReactEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onEndedCapture"?: ReactEventHandler<HTMLButtonElement> | undefined;
+    "onEndedCapture"?: ReactEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onLoadedData"?: ReactEventHandler<HTMLButtonElement> | undefined;
+    "onLoadedData"?: ReactEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onLoadedDataCapture"?: ReactEventHandler<HTMLButtonElement> | undefined;
+    "onLoadedDataCapture"?: ReactEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onLoadedMetadata"?: ReactEventHandler<HTMLButtonElement> | undefined;
+    "onLoadedMetadata"?: ReactEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onLoadedMetadataCapture"?: ReactEventHandler<HTMLButtonElement> | undefined;
+    "onLoadedMetadataCapture"?: ReactEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onLoadStart"?: ReactEventHandler<HTMLButtonElement> | undefined;
+    "onLoadStart"?: ReactEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onLoadStartCapture"?: ReactEventHandler<HTMLButtonElement> | undefined;
+    "onLoadStartCapture"?: ReactEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onPause"?: ReactEventHandler<HTMLButtonElement> | undefined;
+    "onPause"?: ReactEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onPauseCapture"?: ReactEventHandler<HTMLButtonElement> | undefined;
+    "onPauseCapture"?: ReactEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onPlay"?: ReactEventHandler<HTMLButtonElement> | undefined;
+    "onPlay"?: ReactEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onPlayCapture"?: ReactEventHandler<HTMLButtonElement> | undefined;
+    "onPlayCapture"?: ReactEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onPlaying"?: ReactEventHandler<HTMLButtonElement> | undefined;
+    "onPlaying"?: ReactEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onPlayingCapture"?: ReactEventHandler<HTMLButtonElement> | undefined;
+    "onPlayingCapture"?: ReactEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onProgress"?: ReactEventHandler<HTMLButtonElement> | undefined;
+    "onProgress"?: ReactEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onProgressCapture"?: ReactEventHandler<HTMLButtonElement> | undefined;
+    "onProgressCapture"?: ReactEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onRateChange"?: ReactEventHandler<HTMLButtonElement> | undefined;
+    "onRateChange"?: ReactEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onRateChangeCapture"?: ReactEventHandler<HTMLButtonElement> | undefined;
+    "onRateChangeCapture"?: ReactEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onSeeked"?: ReactEventHandler<HTMLButtonElement> | undefined;
+    "onSeeked"?: ReactEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onSeekedCapture"?: ReactEventHandler<HTMLButtonElement> | undefined;
+    "onSeekedCapture"?: ReactEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onSeeking"?: ReactEventHandler<HTMLButtonElement> | undefined;
+    "onSeeking"?: ReactEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onSeekingCapture"?: ReactEventHandler<HTMLButtonElement> | undefined;
+    "onSeekingCapture"?: ReactEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onStalled"?: ReactEventHandler<HTMLButtonElement> | undefined;
+    "onStalled"?: ReactEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onStalledCapture"?: ReactEventHandler<HTMLButtonElement> | undefined;
+    "onStalledCapture"?: ReactEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onSuspend"?: ReactEventHandler<HTMLButtonElement> | undefined;
+    "onSuspend"?: ReactEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onSuspendCapture"?: ReactEventHandler<HTMLButtonElement> | undefined;
+    "onSuspendCapture"?: ReactEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onTimeUpdate"?: ReactEventHandler<HTMLButtonElement> | undefined;
+    "onTimeUpdate"?: ReactEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onTimeUpdateCapture"?: ReactEventHandler<HTMLButtonElement> | undefined;
+    "onTimeUpdateCapture"?: ReactEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onVolumeChange"?: ReactEventHandler<HTMLButtonElement> | undefined;
+    "onVolumeChange"?: ReactEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onVolumeChangeCapture"?: ReactEventHandler<HTMLButtonElement> | undefined;
+    "onVolumeChangeCapture"?: ReactEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onWaiting"?: ReactEventHandler<HTMLButtonElement> | undefined;
+    "onWaiting"?: ReactEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onWaitingCapture"?: ReactEventHandler<HTMLButtonElement> | undefined;
+    "onWaitingCapture"?: ReactEventHandler<HTMLButtonElement>;
 
     /**
      * MouseEvents
      */
-    "onAuxClick"?: MouseEventHandler<HTMLButtonElement> | undefined;
+    "onAuxClick"?: MouseEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onAuxClickCapture"?: MouseEventHandler<HTMLButtonElement> | undefined;
+    "onAuxClickCapture"?: MouseEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onClick"?: MouseEventHandler<HTMLButtonElement> | undefined;
+    "onClick"?: MouseEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onClickCapture"?: MouseEventHandler<HTMLButtonElement> | undefined;
+    "onClickCapture"?: MouseEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onContextMenu"?: MouseEventHandler<HTMLButtonElement> | undefined;
+    "onContextMenu"?: MouseEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onContextMenuCapture"?: MouseEventHandler<HTMLButtonElement> | undefined;
+    "onContextMenuCapture"?: MouseEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onDoubleClick"?: MouseEventHandler<HTMLButtonElement> | undefined;
+    "onDoubleClick"?: MouseEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onDoubleClickCapture"?: MouseEventHandler<HTMLButtonElement> | undefined;
+    "onDoubleClickCapture"?: MouseEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onDrag"?: DragEventHandler<HTMLButtonElement> | undefined;
+    "onDrag"?: DragEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onDragCapture"?: DragEventHandler<HTMLButtonElement> | undefined;
+    "onDragCapture"?: DragEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onDragEnd"?: DragEventHandler<HTMLButtonElement> | undefined;
+    "onDragEnd"?: DragEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onDragEndCapture"?: DragEventHandler<HTMLButtonElement> | undefined;
+    "onDragEndCapture"?: DragEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onDragEnter"?: DragEventHandler<HTMLButtonElement> | undefined;
+    "onDragEnter"?: DragEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onDragEnterCapture"?: DragEventHandler<HTMLButtonElement> | undefined;
+    "onDragEnterCapture"?: DragEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onDragExit"?: DragEventHandler<HTMLButtonElement> | undefined;
+    "onDragExit"?: DragEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onDragExitCapture"?: DragEventHandler<HTMLButtonElement> | undefined;
+    "onDragExitCapture"?: DragEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onDragLeave"?: DragEventHandler<HTMLButtonElement> | undefined;
+    "onDragLeave"?: DragEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onDragLeaveCapture"?: DragEventHandler<HTMLButtonElement> | undefined;
+    "onDragLeaveCapture"?: DragEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onDragOver"?: DragEventHandler<HTMLButtonElement> | undefined;
+    "onDragOver"?: DragEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onDragOverCapture"?: DragEventHandler<HTMLButtonElement> | undefined;
+    "onDragOverCapture"?: DragEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onDragStart"?: DragEventHandler<HTMLButtonElement> | undefined;
+    "onDragStart"?: DragEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onDragStartCapture"?: DragEventHandler<HTMLButtonElement> | undefined;
+    "onDragStartCapture"?: DragEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onDrop"?: DragEventHandler<HTMLButtonElement> | undefined;
+    "onDrop"?: DragEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onDropCapture"?: DragEventHandler<HTMLButtonElement> | undefined;
+    "onDropCapture"?: DragEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onMouseDown"?: MouseEventHandler<HTMLButtonElement> | undefined;
+    "onMouseDown"?: MouseEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onMouseDownCapture"?: MouseEventHandler<HTMLButtonElement> | undefined;
+    "onMouseDownCapture"?: MouseEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onMouseEnter"?: MouseEventHandler<HTMLButtonElement> | undefined;
+    "onMouseEnter"?: MouseEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onMouseLeave"?: MouseEventHandler<HTMLButtonElement> | undefined;
+    "onMouseLeave"?: MouseEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onMouseMove"?: MouseEventHandler<HTMLButtonElement> | undefined;
+    "onMouseMove"?: MouseEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onMouseMoveCapture"?: MouseEventHandler<HTMLButtonElement> | undefined;
+    "onMouseMoveCapture"?: MouseEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onMouseOut"?: MouseEventHandler<HTMLButtonElement> | undefined;
+    "onMouseOut"?: MouseEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onMouseOutCapture"?: MouseEventHandler<HTMLButtonElement> | undefined;
+    "onMouseOutCapture"?: MouseEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onMouseOver"?: MouseEventHandler<HTMLButtonElement> | undefined;
+    "onMouseOver"?: MouseEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onMouseOverCapture"?: MouseEventHandler<HTMLButtonElement> | undefined;
+    "onMouseOverCapture"?: MouseEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onMouseUp"?: MouseEventHandler<HTMLButtonElement> | undefined;
+    "onMouseUp"?: MouseEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onMouseUpCapture"?: MouseEventHandler<HTMLButtonElement> | undefined;
+    "onMouseUpCapture"?: MouseEventHandler<HTMLButtonElement>;
 
     /**
      * Selection Events
      */
-    "onSelect"?: ReactEventHandler<HTMLButtonElement> | undefined;
+    "onSelect"?: ReactEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onSelectCapture"?: ReactEventHandler<HTMLButtonElement> | undefined;
+    "onSelectCapture"?: ReactEventHandler<HTMLButtonElement>;
 
     /**
      * Touch Events
      */
-    "onTouchCancel"?: TouchEventHandler<HTMLButtonElement> | undefined;
+    "onTouchCancel"?: TouchEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onTouchCancelCapture"?: TouchEventHandler<HTMLButtonElement> | undefined;
+    "onTouchCancelCapture"?: TouchEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onTouchEnd"?: TouchEventHandler<HTMLButtonElement> | undefined;
+    "onTouchEnd"?: TouchEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onTouchEndCapture"?: TouchEventHandler<HTMLButtonElement> | undefined;
+    "onTouchEndCapture"?: TouchEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onTouchMove"?: TouchEventHandler<HTMLButtonElement> | undefined;
+    "onTouchMove"?: TouchEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onTouchMoveCapture"?: TouchEventHandler<HTMLButtonElement> | undefined;
+    "onTouchMoveCapture"?: TouchEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onTouchStart"?: TouchEventHandler<HTMLButtonElement> | undefined;
+    "onTouchStart"?: TouchEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onTouchStartCapture"?: TouchEventHandler<HTMLButtonElement> | undefined;
+    "onTouchStartCapture"?: TouchEventHandler<HTMLButtonElement>;
 
     /**
      * Pointer Events
      */
-    "onPointerDown"?: PointerEventHandler<HTMLButtonElement> | undefined;
+    "onPointerDown"?: PointerEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onPointerDownCapture"?: PointerEventHandler<HTMLButtonElement> | undefined;
+    "onPointerDownCapture"?: PointerEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onPointerMove"?: PointerEventHandler<HTMLButtonElement> | undefined;
+    "onPointerMove"?: PointerEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onPointerMoveCapture"?: PointerEventHandler<HTMLButtonElement> | undefined;
+    "onPointerMoveCapture"?: PointerEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onPointerUp"?: PointerEventHandler<HTMLButtonElement> | undefined;
+    "onPointerUp"?: PointerEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onPointerUpCapture"?: PointerEventHandler<HTMLButtonElement> | undefined;
+    "onPointerUpCapture"?: PointerEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onPointerCancel"?: PointerEventHandler<HTMLButtonElement> | undefined;
+    "onPointerCancel"?: PointerEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onPointerCancelCapture"?: PointerEventHandler<HTMLButtonElement> | undefined;
+    "onPointerCancelCapture"?: PointerEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onPointerEnter"?: PointerEventHandler<HTMLButtonElement> | undefined;
+    "onPointerEnter"?: PointerEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onPointerLeave"?: PointerEventHandler<HTMLButtonElement> | undefined;
+    "onPointerLeave"?: PointerEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onPointerOver"?: PointerEventHandler<HTMLButtonElement> | undefined;
+    "onPointerOver"?: PointerEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onPointerOverCapture"?: PointerEventHandler<HTMLButtonElement> | undefined;
+    "onPointerOverCapture"?: PointerEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onPointerOut"?: PointerEventHandler<HTMLButtonElement> | undefined;
+    "onPointerOut"?: PointerEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onPointerOutCapture"?: PointerEventHandler<HTMLButtonElement> | undefined;
+    "onPointerOutCapture"?: PointerEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onGotPointerCapture"?: PointerEventHandler<HTMLButtonElement> | undefined;
+    "onGotPointerCapture"?: PointerEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onGotPointerCaptureCapture"?: PointerEventHandler<HTMLButtonElement> | undefined;
+    "onGotPointerCaptureCapture"?: PointerEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onLostPointerCapture"?: PointerEventHandler<HTMLButtonElement> | undefined;
+    "onLostPointerCapture"?: PointerEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onLostPointerCaptureCapture"?: PointerEventHandler<HTMLButtonElement> | undefined;
+    "onLostPointerCaptureCapture"?: PointerEventHandler<HTMLButtonElement>;
 
     /**
      * UI Events
      */
-    "onScroll"?: UIEventHandler<HTMLButtonElement> | undefined;
+    "onScroll"?: UIEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onScrollCapture"?: UIEventHandler<HTMLButtonElement> | undefined;
+    "onScrollCapture"?: UIEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onScrollEnd"?: UIEventHandler<HTMLButtonElement> | undefined;
+    "onScrollEnd"?: UIEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onScrollEndCapture"?: UIEventHandler<HTMLButtonElement> | undefined;
+    "onScrollEndCapture"?: UIEventHandler<HTMLButtonElement>;
 
     /**
      * Wheel Events
      */
-    "onWheel"?: WheelEventHandler<HTMLButtonElement> | undefined;
+    "onWheel"?: WheelEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onWheelCapture"?: WheelEventHandler<HTMLButtonElement> | undefined;
+    "onWheelCapture"?: WheelEventHandler<HTMLButtonElement>;
 
     /**
      * Animation Events
      */
-    "onAnimationStart"?: AnimationEventHandler<HTMLButtonElement> | undefined;
+    "onAnimationStart"?: AnimationEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onAnimationStartCapture"?: AnimationEventHandler<HTMLButtonElement> | undefined;
+    "onAnimationStartCapture"?: AnimationEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onAnimationEnd"?: AnimationEventHandler<HTMLButtonElement> | undefined;
+    "onAnimationEnd"?: AnimationEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onAnimationEndCapture"?: AnimationEventHandler<HTMLButtonElement> | undefined;
+    "onAnimationEndCapture"?: AnimationEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onAnimationIteration"?: AnimationEventHandler<HTMLButtonElement> | undefined;
+    "onAnimationIteration"?: AnimationEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onAnimationIterationCapture"?: AnimationEventHandler<HTMLButtonElement> | undefined;
+    "onAnimationIterationCapture"?: AnimationEventHandler<HTMLButtonElement>;
 
     /**
      * Toggle Events
      */
-    "onToggle"?: ToggleEventHandler<HTMLButtonElement> | undefined;
+    "onToggle"?: ToggleEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onBeforeToggle"?: ToggleEventHandler<HTMLButtonElement> | undefined;
+    "onBeforeToggle"?: ToggleEventHandler<HTMLButtonElement>;
 
     /**
      * Transition Events
      */
-    "onTransitionCancel"?: TransitionEventHandler<HTMLButtonElement> | undefined;
+    "onTransitionCancel"?: TransitionEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onTransitionCancelCapture"?: TransitionEventHandler<HTMLButtonElement> | undefined;
+    "onTransitionCancelCapture"?: TransitionEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onTransitionEnd"?: TransitionEventHandler<HTMLButtonElement> | undefined;
+    "onTransitionEnd"?: TransitionEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onTransitionEndCapture"?: TransitionEventHandler<HTMLButtonElement> | undefined;
+    "onTransitionEndCapture"?: TransitionEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onTransitionRun"?: TransitionEventHandler<HTMLButtonElement> | undefined;
+    "onTransitionRun"?: TransitionEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onTransitionRunCapture"?: TransitionEventHandler<HTMLButtonElement> | undefined;
+    "onTransitionRunCapture"?: TransitionEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onTransitionStart"?: TransitionEventHandler<HTMLButtonElement> | undefined;
+    "onTransitionStart"?: TransitionEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
-    "onTransitionStartCapture"?: TransitionEventHandler<HTMLButtonElement> | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "defaultValue"?: string | number | readonly string[] | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "suppressContentEditableWarning"?: boolean | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "suppressHydrationWarning"?: boolean | undefined;
-
-    /**
-     * Standard HTML Attributes
-     */
-    "accessKey"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "autoCapitalize"?: "off" | "none" | "on" | "sentences" | "words" | "characters" | undefined | (string & {});
-
-    /**
-     * 暂无说明。
-     */
-    "autoFocus"?: boolean | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "className"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "contentEditable"?: Booleanish | "inherit" | "plaintext-only" | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "contextMenu"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "dir"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "draggable"?: Booleanish | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "enterKeyHint"?: "enter" | "done" | "go" | "next" | "previous" | "search" | "send" | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "hidden"?: boolean | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "id"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "lang"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "nonce"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "slot"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "spellCheck"?: Booleanish | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "style"?: CSSProperties | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "tabIndex"?: number | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "title"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "translate"?: "yes" | "no" | undefined;
-
-    /**
-     * Unknown
-     */
-    "radioGroup"?: string | undefined;
-
-    /**
-     * RDFa Attributes
-     */
-    "about"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "content"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "datatype"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "inlist"?: any;
-
-    /**
-     * 暂无说明。
-     */
-    "prefix"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "property"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "rel"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "resource"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "rev"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "typeof"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "vocab"?: string | undefined;
-
-    /**
-     * Non-standard Attributes
-     */
-    "autoCorrect"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "autoSave"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "color"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "itemProp"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "itemScope"?: boolean | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "itemType"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "itemID"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "itemRef"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "results"?: number | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "security"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "unselectable"?: "on" | "off" | undefined;
-
-    /**
-     * Popover API
-     */
-    "popover"?: "" | "auto" | "manual" | "hint" | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "popoverTargetAction"?: "toggle" | "show" | "hide" | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "popoverTarget"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "inert"?: boolean | undefined;
-
-    /**
-     * Hints at the type of data that might be entered by the user while editing the element or its contents
-     */
-    "inputMode"?: "none" | "text" | "tel" | "url" | "email" | "numeric" | "decimal" | "search" | undefined;
-
-    /**
-     * Specify that a standard HTML element should behave like a defined custom built-in element
-     */
-    "is"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "exportparts"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "part"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "disabled"?: boolean | undefined;
+    "onTransitionStartCapture"?: TransitionEventHandler<HTMLButtonElement>;
 
     /**
      * 暂无说明。
      */
     "form"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "disabled"?: boolean | undefined;
 
     /**
      * 暂无说明。

@@ -46,6 +46,7 @@ export const vars = defineTokens({
     'size.small.title.font-size': '--card-size-small-title-font-size',
     'header.title.color': '--card-header-title-color',
     'header.title.font-weight': '--card-header-title-font-weight',
+    'header.title.line-height': '--card-header-title-line-height',
     'body.color': '--card-body-color',
     'body.font-size': '--card-body-font-size',
     'body.font-family': '--card-body-font-family',
@@ -60,8 +61,10 @@ export const vars = defineTokens({
     'meta.title.color': '--card-meta-title-color',
     'meta.title.font-weight': '--card-meta-title-font-weight',
     'meta.title.font-size': '--card-meta-title-font-size',
+    'meta.title.line-height': '--card-meta-title-line-height',
     'meta.desc.color': '--card-meta-desc-color',
     'meta.desc.font-size': '--card-meta-desc-font-size',
+    'meta.desc.line-height': '--card-meta-desc-line-height',
     'ring.color-focus': '--card-ring-color-focus',
     'interaction.touch.min-width': '--card-interaction-touch-min-width',
     'interaction.touch.min-height': '--card-interaction-touch-min-height',
@@ -93,7 +96,7 @@ const token = defineTokens({
         'box-shadow-active': `var(${vars['root.box-shadow-active']}, var(--token-semantic-shadow-control, var(--token-global-shadow-material-1, 0 1px 2px 0 oklch(0 0 0 / 0.3), 0 1px 3px 1px oklch(0 0 0 / 0.15))))`,
         'transform-hover': `var(${vars['root.transform-hover']}, translateY(0px))`,
         'transform-active': `var(${vars['root.transform-active']}, translateY(0px))`,
-        'transition': `var(${vars['root.transition']}, transform var(--token-semantic-motion-spatial-fast, var(--token-global-duration-350, 350ms) var(--token-global-easing-expressive-spatial-fast, cubic-bezier(0.42, 1.67, 0.21, 0.90))), box-shadow var(--token-semantic-motion-interaction, var(--token-global-duration-150, 150ms) var(--token-global-easing-expressive-effects-fast, cubic-bezier(0.31, 0.94, 0.34, 1.00))), border-color var(--token-semantic-motion-interaction, var(--token-global-duration-150, 150ms) var(--token-global-easing-expressive-effects-fast, cubic-bezier(0.31, 0.94, 0.34, 1.00))), background-color var(--token-semantic-motion-interaction, var(--token-global-duration-150, 150ms) var(--token-global-easing-expressive-effects-fast, cubic-bezier(0.31, 0.94, 0.34, 1.00))))`,
+        'transition': `var(${vars['root.transition']}, transform var(--token-semantic-motion-spatial-fast, var(--token-global-duration-350, 350ms) var(--token-global-easing-expressive-spatial-fast, cubic-bezier(0.42, 1.67, 0.21, 0.90))), box-shadow var(--token-semantic-motion-interaction, var(--token-global-duration-150, 150ms) var(--token-global-easing-expressive-effects-fast, cubic-bezier(0.31, 0.94, 0.34, 1.00))), border-color var(--token-semantic-motion-interaction, var(--token-global-duration-150, 150ms) var(--token-global-easing-expressive-effects-fast, cubic-bezier(0.31, 0.94, 0.34, 1.00))))`,
         'opacity-disabled': `var(${vars['root.opacity-disabled']}, var(--token-semantic-opacity-disabled, var(--token-global-opacity-38, 0.38)))`
     },
     'filled': {
@@ -143,7 +146,8 @@ const token = defineTokens({
     'header': {
         'title': {
             'color': `var(${vars['header.title.color']}, var(--token-semantic-color-text-primary, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695))))`,
-            'font-weight': `var(${vars['header.title.font-weight']}, var(--token-semantic-typography-title-large-emphasized-font-weight, var(--token-global-font-weight-medium, 500)))`
+            'font-weight': `var(${vars['header.title.font-weight']}, var(--token-semantic-typography-title-large-emphasized-font-weight, var(--token-global-font-weight-medium, 500)))`,
+            'line-height': `var(${vars['header.title.line-height']}, var(--token-semantic-typography-title-medium-line-height, var(--token-global-line-height-16-24, 1.5)))`
         }
     },
     'body': {
@@ -171,11 +175,13 @@ const token = defineTokens({
         'title': {
             'color': `var(${vars['meta.title.color']}, var(--token-semantic-color-text-primary, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695))))`,
             'font-weight': `var(${vars['meta.title.font-weight']}, var(--token-semantic-typography-label-font-weight, var(--token-global-font-weight-medium, 500)))`,
-            'font-size': `var(${vars['meta.title.font-size']}, var(--token-semantic-typography-body-font-size, var(--token-global-font-size-sm, 14px)))`
+            'font-size': `var(${vars['meta.title.font-size']}, var(--token-semantic-typography-body-font-size, var(--token-global-font-size-sm, 14px)))`,
+            'line-height': `var(${vars['meta.title.line-height']}, var(--token-semantic-typography-body-line-height, var(--token-global-line-height-14-20, 1.4285714285714286)))`
         },
         'desc': {
             'color': `var(${vars['meta.desc.color']}, var(--token-semantic-color-text-secondary, var(--token-global-material-neutral-variant-30, oklch(0.39805288 0.01735545 303.720936))))`,
-            'font-size': `var(${vars['meta.desc.font-size']}, var(--token-semantic-typography-caption-font-size, var(--token-global-font-size-xs, 12px)))`
+            'font-size': `var(${vars['meta.desc.font-size']}, var(--token-semantic-typography-caption-font-size, var(--token-global-font-size-xs, 12px)))`,
+            'line-height': `var(${vars['meta.desc.line-height']}, var(--token-semantic-typography-caption-line-height, var(--token-global-line-height-12-16, 1.3333333333333333)))`
         }
     },
     'ring': {

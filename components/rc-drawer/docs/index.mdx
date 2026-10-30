@@ -21,6 +21,24 @@ status = "experimental"
 
 <Demos glob="./demos/*.demo.tsx" columns={2} />
 
+## 三体系规格与验收矩阵（2026-10-29）
+
+| 体系 | 边缘面板规格 | 扩展依据 |
+| --- | --- | --- |
+| MD3 Expressive | sheet 色调表面、未贴边角、遮罩与方向明确的空间动效 | 本组件承载临时任务，左右/顶部作为基于 sheet 的桌面扩展；不等同 navigation drawer |
+| Apple | 轻量内容面板、精确对齐、清楚标题与关闭入口 | 依据 popover/sidebar 的内容原则自主实现 Web 模态面板 |
+| shadcn New York V4 | Sheet 中性表面、直角、单侧分界和遮罩 | 保留四向 placement、三尺寸及异步阻止关闭能力 |
+
+L2 `overlay.sheet.*` 负责边界和表面，L3 仅维护本包横向/纵向尺寸与间距。small / medium / large 是面板宽/高档位，密度由内部集合独立消费；四向在窄屏都约束于视口。延续现有逻辑方向约定：left 对应 inline-start、right 对应 inline-end，RTL 时两侧位置和运动方向一起镜像。
+
+`visual.json` 为三体系浅深色 × 三尺寸 × default、focus-visible、left、top、bottom、long-content 建立核心矩阵。真实按钮打开，真实 Tab 获得焦点，整页截图保留遮罩和外侧边界。Firefox/WebKit 默认、焦点、左侧与长内容子集在 `crossEngine` 声明；面板没有 selected/error/loading/disabled 等虚构状态，理由就近记录。
+
+来源：[Material sheet](https://developer.android.com/develop/ui/compose/components/bottom-sheets) 与 [navigation drawer 的语义区分](https://developer.android.com/develop/ui/compose/components/drawer)；[Apple popovers](https://developer.apple.com/design/human-interface-guidelines/popovers)；[shadcn 固定 Sheet 源码](https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui/sheet.tsx)。Android 的手势及物理单位不直接视为 Web 要求。
+
+额外检查配置更新、草稿节点保留、关闭重开、焦点恢复、320/768px、RTL/英文、品牌、强制颜色和减少动画。原有堆叠与 Shadow 协调回归使用 DOM 环境，本包没有登记的额外浏览器入口；它们不能代表真实浏览器的跨文档验收。公开组合边界 Demo 在嵌套 Provider 的 iframe/Shadow 中承载 Select、Dropdown 和 Drawer，原生场景分别检查真实内容、所属 Document、最近配置、顶层 Escape 和返回焦点。新增场景需绑定实际构建运行、逐图复审，完成前保持待验。自动检查与人工外观分别记录，完整实际证据形成前保持 partial。
+
+跨文档组合的运行来源为本包 `document-boundaries.demo.tsx` 与 `document-boundaries.visual.spec.mjs`，由 Drawer 的 `test:visual` 和根视觉计划加载；Select/Dropdown 的包内入口不会单独加载此工作台。示例显式安装应用真实样式，外层使用冲突配置、内层解析完整八项配置，分别核验 Select 的选择和焦点、Dropdown 的两层 Escape，以及原生 Drawer 的所属文档滚动锁和两层焦点恢复。它是代表性的组合证据，不代替其他尺寸、状态或窄屏/缩放矩阵。
+
 ## API
 
 <API source="../src/drawer.tsx" symbol="DrawerProps" component="Drawer" />

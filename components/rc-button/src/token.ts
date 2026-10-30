@@ -51,6 +51,7 @@ export const vars = defineTokens({
     'size.large.square.border-radius': '--button-size-large-square-border-radius',
     'size.large.border-radius-active': '--button-size-large-border-radius-active',
     'size.large.icon.width': '--button-size-large-icon-width',
+    'size.large.border-width': '--button-size-large-border-width',
     'size.medium.gap': '--button-size-medium-gap',
     'size.medium.height': '--button-size-medium-height',
     'size.medium.padding': '--button-size-medium-padding',
@@ -60,6 +61,7 @@ export const vars = defineTokens({
     'size.medium.square.border-radius': '--button-size-medium-square-border-radius',
     'size.medium.border-radius-active': '--button-size-medium-border-radius-active',
     'size.medium.icon.width': '--button-size-medium-icon-width',
+    'size.medium.border-width': '--button-size-medium-border-width',
     'size.small.gap': '--button-size-small-gap',
     'size.small.height': '--button-size-small-height',
     'size.small.padding': '--button-size-small-padding',
@@ -69,6 +71,7 @@ export const vars = defineTokens({
     'size.small.square.border-radius': '--button-size-small-square-border-radius',
     'size.small.border-radius-active': '--button-size-small-border-radius-active',
     'size.small.icon.width': '--button-size-small-icon-width',
+    'size.small.border-width': '--button-size-small-border-width',
     'size.extra-large.height': '--button-size-extra-large-height',
     'size.extra-large.padding': '--button-size-extra-large-padding',
     'size.extra-large.font-size': '--button-size-extra-large-font-size',
@@ -222,79 +225,82 @@ const token = defineTokens({
     },
     'size': {
         'large': {
-            'gap': `var(${vars['size.large.gap']}, var(--token-semantic-space-component-gap, var(--token-global-space-2, 8px)))`,
-            'height': `var(${vars['size.large.height']}, var(--token-semantic-sizing-large-control, var(--token-global-size-40, 40px)))`,
-            'padding': `var(${vars['size.large.padding']}, 0 var(--token-semantic-space-section-gap, var(--token-global-space-4, 16px)))`,
+            'gap': `var(${vars['size.large.gap']}, var(--token-semantic-action-button-m-gap, var(--token-global-space-2, 8px)))`,
+            'height': `var(${vars['size.large.height']}, var(--token-semantic-action-button-m-height, var(--token-global-size-56, 56px)))`,
+            'padding': `var(${vars['size.large.padding']}, 0 var(--token-semantic-action-button-m-padding-inline, var(--token-global-space-6, 24px)))`,
             'border-radius': `var(${vars['size.large.border-radius']}, calc(var(--token-semantic-sizing-large-control, var(--token-global-size-40, 40px)) / 2))`,
-            'font-size': `var(${vars['size.large.font-size']}, var(--token-semantic-typography-label-large-font-size, var(--token-global-font-size-sm, 14px)))`,
-            'line-height': `var(${vars['size.large.line-height']}, var(--token-semantic-typography-label-large-line-height, var(--token-global-line-height-14-20, 1.4285714285714286)))`,
+            'font-size': `var(${vars['size.large.font-size']}, var(--token-semantic-action-button-m-font-size, var(--token-global-font-size-md, 16px)))`,
+            'line-height': `var(${vars['size.large.line-height']}, var(--token-semantic-action-button-m-line-height, var(--token-global-space-6, 24px)))`,
             'square': {
-                'border-radius': `var(${vars['size.large.square.border-radius']}, var(--token-semantic-shape-control, var(--token-global-radius-2, 4px)))`
+                'border-radius': `var(${vars['size.large.square.border-radius']}, var(--token-semantic-action-button-m-square-radius, var(--token-global-radius-8, 16px)))`
             },
-            'border-radius-active': `var(${vars['size.large.border-radius-active']}, var(--token-semantic-shape-medium, var(--token-global-radius-6, 12px)))`,
+            'border-radius-active': `var(${vars['size.large.border-radius-active']}, var(--token-semantic-action-button-m-pressed-radius, var(--token-global-radius-6, 12px)))`,
             'icon': {
-                'width': `var(${vars['size.large.icon.width']}, var(--token-semantic-size-icon-large, var(--token-global-space-5, 20px)))`
-            }
+                'width': `var(${vars['size.large.icon.width']}, var(--token-semantic-action-button-m-icon, var(--token-global-space-6, 24px)))`
+            },
+            'border-width': `var(${vars['size.large.border-width']}, var(--token-semantic-action-button-m-border-width, var(--token-global-space-px, 1px)))`
         },
         'medium': {
-            'gap': `var(${vars['size.medium.gap']}, var(--token-semantic-space-component-gap, var(--token-global-space-2, 8px)))`,
-            'height': `var(${vars['size.medium.height']}, var(--token-semantic-sizing-medium-control, var(--token-global-size-36, 36px)))`,
-            'padding': `var(${vars['size.medium.padding']}, 0 var(--token-semantic-space-section-gap, var(--token-global-space-4, 16px)))`,
+            'gap': `var(${vars['size.medium.gap']}, var(--token-semantic-action-button-s-gap, var(--token-global-space-2, 8px)))`,
+            'height': `var(${vars['size.medium.height']}, var(--token-semantic-action-button-s-height, var(--token-global-size-40, 40px)))`,
+            'padding': `var(${vars['size.medium.padding']}, 0 var(--token-semantic-action-button-s-padding-inline, var(--token-global-space-4, 16px)))`,
             'border-radius': `var(${vars['size.medium.border-radius']}, calc(var(--token-semantic-sizing-medium-control, var(--token-global-size-36, 36px)) / 2))`,
-            'font-size': `var(${vars['size.medium.font-size']}, var(--token-semantic-typography-label-large-font-size, var(--token-global-font-size-sm, 14px)))`,
-            'line-height': `var(${vars['size.medium.line-height']}, var(--token-semantic-typography-label-large-line-height, var(--token-global-line-height-14-20, 1.4285714285714286)))`,
+            'font-size': `var(${vars['size.medium.font-size']}, var(--token-semantic-action-button-s-font-size, var(--token-global-font-size-sm, 14px)))`,
+            'line-height': `var(${vars['size.medium.line-height']}, var(--token-semantic-action-button-s-line-height, var(--token-global-space-5, 20px)))`,
             'square': {
-                'border-radius': `var(${vars['size.medium.square.border-radius']}, var(--token-semantic-shape-control, var(--token-global-radius-2, 4px)))`
+                'border-radius': `var(${vars['size.medium.square.border-radius']}, var(--token-semantic-action-button-s-square-radius, var(--token-global-radius-6, 12px)))`
             },
-            'border-radius-active': `var(${vars['size.medium.border-radius-active']}, var(--token-semantic-shape-small, var(--token-global-radius-4, 8px)))`,
+            'border-radius-active': `var(${vars['size.medium.border-radius-active']}, var(--token-semantic-action-button-s-pressed-radius, var(--token-global-radius-4, 8px)))`,
             'icon': {
-                'width': `var(${vars['size.medium.icon.width']}, var(--token-semantic-space-card-padding, var(--token-global-space-4, 16px)))`
-            }
+                'width': `var(${vars['size.medium.icon.width']}, var(--token-semantic-action-button-s-icon, var(--token-global-space-5, 20px)))`
+            },
+            'border-width': `var(${vars['size.medium.border-width']}, var(--token-semantic-action-button-s-border-width, var(--token-global-space-px, 1px)))`
         },
         'small': {
-            'gap': `var(${vars['size.small.gap']}, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)))`,
-            'height': `var(${vars['size.small.height']}, var(--token-semantic-sizing-small-control, var(--token-global-size-32, 32px)))`,
-            'padding': `var(${vars['size.small.padding']}, 0 var(--token-semantic-space-control-padding-x, var(--token-global-space-3, 12px)))`,
+            'gap': `var(${vars['size.small.gap']}, var(--token-semantic-action-button-xs-gap, var(--token-global-space-2, 8px)))`,
+            'height': `var(${vars['size.small.height']}, var(--token-semantic-action-button-xs-height, var(--token-global-size-32, 32px)))`,
+            'padding': `var(${vars['size.small.padding']}, 0 var(--token-semantic-action-button-xs-padding-inline, var(--token-global-space-4, 16px)))`,
             'border-radius': `var(${vars['size.small.border-radius']}, calc(var(--token-semantic-sizing-small-control, var(--token-global-size-32, 32px)) / 2))`,
-            'font-size': `var(${vars['size.small.font-size']}, var(--token-semantic-typography-label-large-font-size, var(--token-global-font-size-sm, 14px)))`,
-            'line-height': `var(${vars['size.small.line-height']}, var(--token-semantic-typography-label-large-line-height, var(--token-global-line-height-14-20, 1.4285714285714286)))`,
+            'font-size': `var(${vars['size.small.font-size']}, var(--token-semantic-action-button-xs-font-size, var(--token-global-font-size-sm, 14px)))`,
+            'line-height': `var(${vars['size.small.line-height']}, var(--token-semantic-action-button-xs-line-height, var(--token-global-space-5, 20px)))`,
             'square': {
-                'border-radius': `var(${vars['size.small.square.border-radius']}, var(--token-semantic-shape-control, var(--token-global-radius-2, 4px)))`
+                'border-radius': `var(${vars['size.small.square.border-radius']}, var(--token-semantic-action-button-xs-square-radius, var(--token-global-radius-6, 12px)))`
             },
-            'border-radius-active': `var(${vars['size.small.border-radius-active']}, var(--token-semantic-shape-small, var(--token-global-radius-4, 8px)))`,
+            'border-radius-active': `var(${vars['size.small.border-radius-active']}, var(--token-semantic-action-button-xs-pressed-radius, var(--token-global-radius-4, 8px)))`,
             'icon': {
-                'width': `var(${vars['size.small.icon.width']}, var(--token-semantic-space-card-padding, var(--token-global-space-4, 16px)))`
-            }
+                'width': `var(${vars['size.small.icon.width']}, var(--token-semantic-action-button-xs-icon, var(--token-global-space-5, 20px)))`
+            },
+            'border-width': `var(${vars['size.small.border-width']}, var(--token-semantic-action-button-xs-border-width, var(--token-global-space-px, 1px)))`
         },
         'extra-large': {
-            'height': `var(${vars['size.extra-large.height']}, var(--token-semantic-size-48, var(--token-global-size-48, 48px)))`,
-            'padding': `var(${vars['size.extra-large.padding']}, 0 var(--token-semantic-space-dialog-padding, var(--token-global-space-5, 20px)))`,
-            'font-size': `var(${vars['size.extra-large.font-size']}, var(--token-semantic-typography-title-medium-font-size, var(--token-global-font-size-md, 16px)))`,
-            'gap': `var(${vars['size.extra-large.gap']}, var(--token-semantic-space-stack-gap, var(--token-global-space-3, 12px)))`,
-            'line-height': `var(${vars['size.extra-large.line-height']}, var(--token-semantic-typography-title-medium-line-height, var(--token-global-line-height-16-24, 1.5)))`,
+            'height': `var(${vars['size.extra-large.height']}, var(--token-semantic-action-button-l-height, var(--token-global-size-96, 96px)))`,
+            'padding': `var(${vars['size.extra-large.padding']}, 0 var(--token-semantic-action-button-l-padding-inline, var(--token-global-space-12, 48px)))`,
+            'font-size': `var(${vars['size.extra-large.font-size']}, var(--token-semantic-action-button-l-font-size, var(--token-global-font-size-2xl, 24px)))`,
+            'gap': `var(${vars['size.extra-large.gap']}, var(--token-semantic-action-button-l-gap, var(--token-global-space-3, 12px)))`,
+            'line-height': `var(${vars['size.extra-large.line-height']}, var(--token-semantic-action-button-l-line-height, var(--token-global-space-8, 32px)))`,
             'square': {
-                'border-radius': `var(${vars['size.extra-large.square.border-radius']}, var(--token-semantic-shape-extra-large, var(--token-global-radius-14, 28px)))`
+                'border-radius': `var(${vars['size.extra-large.square.border-radius']}, var(--token-semantic-action-button-l-square-radius, var(--token-global-radius-14, 28px)))`
             },
-            'border-radius-active': `var(${vars['size.extra-large.border-radius-active']}, var(--token-semantic-shape-large, var(--token-global-radius-8, 16px)))`,
+            'border-radius-active': `var(${vars['size.extra-large.border-radius-active']}, var(--token-semantic-action-button-l-pressed-radius, var(--token-global-radius-8, 16px)))`,
             'icon': {
-                'width': `var(${vars['size.extra-large.icon.width']}, var(--token-semantic-size-icon-large, var(--token-global-space-5, 20px)))`
+                'width': `var(${vars['size.extra-large.icon.width']}, var(--token-semantic-action-button-l-icon, var(--token-global-space-8, 32px)))`
             },
-            'border-width': `var(${vars['size.extra-large.border-width']}, 2px)`
+            'border-width': `var(${vars['size.extra-large.border-width']}, var(--token-semantic-action-button-l-border-width, var(--token-global-space-0-5, 2px)))`
         },
         'extra-extra-large': {
-            'height': `var(${vars['size.extra-extra-large.height']}, var(--token-semantic-size-56, var(--token-global-size-56, 56px)))`,
-            'padding': `var(${vars['size.extra-extra-large.padding']}, 0 var(--token-semantic-space-group-gap, var(--token-global-space-6, 24px)))`,
-            'font-size': `var(${vars['size.extra-extra-large.font-size']}, var(--token-semantic-typography-title-medium-font-size, var(--token-global-font-size-md, 16px)))`,
-            'gap': `var(${vars['size.extra-extra-large.gap']}, var(--token-semantic-space-section-gap, var(--token-global-space-4, 16px)))`,
-            'line-height': `var(${vars['size.extra-extra-large.line-height']}, var(--token-semantic-typography-title-medium-line-height, var(--token-global-line-height-16-24, 1.5)))`,
+            'height': `var(${vars['size.extra-extra-large.height']}, var(--token-semantic-action-button-xl-height, var(--token-global-size-136, 136px)))`,
+            'padding': `var(${vars['size.extra-extra-large.padding']}, 0 var(--token-semantic-action-button-xl-padding-inline, var(--token-global-space-16, 64px)))`,
+            'font-size': `var(${vars['size.extra-extra-large.font-size']}, var(--token-semantic-action-button-xl-font-size, var(--token-global-font-size-4xl, 32px)))`,
+            'gap': `var(${vars['size.extra-extra-large.gap']}, var(--token-semantic-action-button-xl-gap, var(--token-global-space-4, 16px)))`,
+            'line-height': `var(${vars['size.extra-extra-large.line-height']}, var(--token-semantic-action-button-xl-line-height, var(--token-global-space-10, 40px)))`,
             'square': {
-                'border-radius': `var(${vars['size.extra-extra-large.square.border-radius']}, var(--token-semantic-shape-extra-large, var(--token-global-radius-14, 28px)))`
+                'border-radius': `var(${vars['size.extra-extra-large.square.border-radius']}, var(--token-semantic-action-button-xl-square-radius, var(--token-global-radius-14, 28px)))`
             },
-            'border-radius-active': `var(${vars['size.extra-extra-large.border-radius-active']}, var(--token-semantic-shape-large, var(--token-global-radius-8, 16px)))`,
+            'border-radius-active': `var(${vars['size.extra-extra-large.border-radius-active']}, var(--token-semantic-action-button-xl-pressed-radius, var(--token-global-radius-8, 16px)))`,
             'icon': {
-                'width': `var(${vars['size.extra-extra-large.icon.width']}, var(--token-semantic-size-24, var(--token-global-space-6, 24px)))`
+                'width': `var(${vars['size.extra-extra-large.icon.width']}, var(--token-semantic-action-button-xl-icon, var(--token-global-space-10, 40px)))`
             },
-            'border-width': `var(${vars['size.extra-extra-large.border-width']}, 3px)`
+            'border-width': `var(${vars['size.extra-extra-large.border-width']}, var(--token-semantic-action-button-xl-border-width, var(--token-global-radius-1-5, 3px)))`
         }
     },
     'primary': {
@@ -402,8 +408,8 @@ const token = defineTokens({
         },
         'default': {
             'border-radius': `var(${vars['shape.default.border-radius']}, var(--token-semantic-shape-button, var(--token-semantic-shape-full, var(--token-global-radius-full, 9999px))))`,
-            'border-radius-selected': `var(${vars['shape.default.border-radius-selected']}, var(--token-semantic-shape-button-selected, var(--token-semantic-shape-medium, var(--token-global-radius-6, 12px))))`,
-            'border-radius-active': `var(${vars['shape.default.border-radius-active']}, var(--token-semantic-shape-button-pressed, var(--token-semantic-shape-small, var(--token-global-radius-4, 8px))))`
+            'border-radius-selected': `var(${vars['shape.default.border-radius-selected']}, var(--button-root-border-radius, var(--token-semantic-shape-button-selected, var(--token-semantic-shape-medium, var(--token-global-radius-6, 12px)))))`,
+            'border-radius-active': `var(${vars['shape.default.border-radius-active']}, var(--button-root-border-radius-active, var(--token-semantic-shape-button-pressed, var(--token-semantic-shape-small, var(--token-global-radius-4, 8px)))))`
         }
     },
     'icon': {

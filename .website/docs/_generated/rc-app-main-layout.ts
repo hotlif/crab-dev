@@ -6,6 +6,44 @@ import type { ComponentDemoRecord } from "../site/componentDemos.js";
 
 export const demos = [
     {
+        "id": "docs/demos/visual-matrix.demo.tsx",
+        "title": "工作区验收矩阵",
+        "description": "固定账户与菜单数据，核对导航、标签、账户浮层和窄屏抽屉；切换配置与标签保留输入草稿。",
+        "learning": {
+            "components": [
+                "LineEdit",
+                "AppMainLayout",
+                "AppMainLayoutProvider"
+            ],
+            "props": [
+                "label",
+                "placeholder",
+                "sidebarTitle",
+                "sidebarLogo",
+                "sidebarLoadMenus",
+                "headerLoadUser",
+                "fullscreenable",
+                "hasNotification",
+                "contentLandmark",
+                "onSwitchRole",
+                "onLogout",
+                "onSidebarMenuItemClick"
+            ],
+            "events": [
+                "onSwitchRole",
+                "onLogout",
+                "onSidebarMenuItemClick"
+            ],
+            "hasState": false
+        },
+        "sourceCode": "import { css } from '@crab-dev/css';\nimport token from '@crab-dev/rc-token-semantic';\nimport LineEdit from '@crab-dev/rc-line-edit';\nimport { MenuItemType, type MenuItem } from '@crab-dev/rc-menu';\nimport AppMainLayout, { AppMainLayoutProvider, useAppMainLayoutTabs, type TabItem } from '@crab-dev/rc-app-main-layout';\n\nexport const meta = {\n    title: '工作区验收矩阵',\n    description: '固定账户与菜单数据，核对导航、标签、账户浮层和窄屏抽屉；切换配置与标签保留输入草稿。',\n};\nconst frame = css`\n    width: 100%;\n    max-width: 1080px;\n    min-width: 0;\n    height: 480px;\n    padding: ${token.space['component-gap']};\n    box-sizing: border-box;\n    color: ${token.color.text.primary};\n    background: ${token.color.surface.content};\n`;\nconst page = css`\n    padding: ${token.space['group-gap']};\n    min-width: 0;\n`;\nfunction DraftPage({ name }: { name: string }) {\n    return (\n        \u003cdiv className={page}>\n            \u003ch2>{name}\u003c/h2>\n            \u003cLineEdit label=\"工作备注\" placeholder=\"保留当前草稿 / Keep this draft\" />\n        \u003c/div>\n    );\n}\nconst tabs: TabItem[] = [\n    { key: 'overview', title: '概览 Overview', closable: false, children: \u003cDraftPage name=\"概览 Overview\" /> },\n    { key: 'orders', title: '订单 Orders', children: \u003cDraftPage name=\"订单 Orders\" /> },\n];\nconst menus: MenuItem[] = [\n    { key: 'overview', title: '概览 Overview', type: MenuItemType.Item },\n    { key: 'orders', title: '订单 Orders', type: MenuItemType.Item },\n];\nconst loadMenus = () => Promise.resolve(menus);\nconst loadUser = () => Promise.resolve({ name: '张维 / Wei Zhang', roleName: '系统管理员 / Administrator' });\nfunction Workspace() {\n    const { openTab } = useAppMainLayoutTabs();\n    return (\n        \u003cAppMainLayout\n            sidebarTitle=\"Crab 专业工作区\"\n            sidebarLogo={\u003cspan aria-hidden>◈\u003c/span>}\n            sidebarLoadMenus={loadMenus}\n            headerLoadUser={loadUser}\n            fullscreenable={false}\n            hasNotification\n            contentLandmark={{ role: 'region', 'aria-label': '工作区页面' }}\n            onSwitchRole={() => {}}\n            onLogout={() => {}}\n            onSidebarMenuItemClick={({ item }) =>\n                openTab({ key: item.key, title: item.title, children: \u003cDraftPage name={item.title ?? ''} /> })\n            }\n        />\n    );\n}\nexport default function VisualMatrixDemo() {\n    return (\n        \u003csection aria-label=\"AppMainLayout visual matrix\" className={frame}>\n            \u003cAppMainLayoutProvider initialTabs={tabs}>\n                \u003cWorkspace />\n            \u003c/AppMainLayoutProvider>\n        \u003c/section>\n    );\n}\n",
+        "previewPath": "/components/rc-app-main-layout/workbench/?__wake_demo=docs%2Fdemos%2Fvisual-matrix.demo.tsx",
+        "workbenchPath": "/components/rc-app-main-layout/workbench/#/components/docs%2Fdemos%2Fvisual-matrix.demo.tsx",
+        "density": "spacious",
+        "layout": "wide",
+        "group": "三体系验收"
+    },
+    {
         "id": "docs/demos/base.demo.tsx",
         "title": "基础用法",
         "description": "点击侧边栏菜单打开标签页，顶部展示路径面包屑",
@@ -41,7 +79,7 @@ export const demos = [
         "workbenchPath": "/components/rc-app-main-layout/workbench/#/components/docs%2Fdemos%2Fbase.demo.tsx",
         "density": "spacious",
         "layout": "wide",
-        "group": null
+        "group": "工作区与账户"
     },
     {
         "id": "docs/demos/long-account.demo.tsx",
@@ -65,6 +103,6 @@ export const demos = [
         "workbenchPath": "/components/rc-app-main-layout/workbench/#/components/docs%2Fdemos%2Flong-account.demo.tsx",
         "density": "spacious",
         "layout": "wide",
-        "group": null
+        "group": "工作区与账户"
     }
 ] as const satisfies readonly ComponentDemoRecord[];

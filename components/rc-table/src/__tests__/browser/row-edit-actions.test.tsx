@@ -200,19 +200,33 @@ function readFixedColumnGeometry(grid: HTMLElement) {
 
 function assertActionAboveAdjacentFixedCells(button: HTMLButtonElement, grid: HTMLElement, beforeInput?: ReturnType<typeof readFixedColumnGeometry>) {
     const bounds = button.getBoundingClientRect();
-    const point = { x: bounds.left + bounds.width / 2, y: bounds.top + bounds.height / 2 };
+    const viewport = grid.getBoundingClientRect();
     const nextRow = required<HTMLElement>(grid, '[role="row"][data-row-index="1"]');
-    const coveredFixedCells = [...nextRow.querySelectorAll<HTMLElement>('[role="gridcell"]')].filter(cell => {
+    const fixedCells = [...nextRow.querySelectorAll<HTMLElement>('[role="gridcell"]')]
+        .filter(cell => getComputedStyle(cell).position === 'sticky');
+    const overlap = fixedCells.map(cell => {
         const rect = cell.getBoundingClientRect();
-        return getComputedStyle(cell).position === 'sticky'
-            && point.x > rect.left && point.x < rect.right && point.y > rect.top && point.y < rect.bottom;
-    });
+        return {
+            left: Math.max(bounds.left, rect.left, viewport.left),
+            right: Math.min(bounds.right, rect.right, viewport.right),
+            top: Math.max(bounds.top, rect.top, viewport.top),
+            bottom: Math.min(bounds.bottom, rect.bottom, viewport.bottom),
+        };
+    }).find(rect => rect.right > rect.left && rect.bottom > rect.top);
     // Prove this fixture exercises the original overlap, not just an isolated
-    // button with no competing sticky cell beneath its hit point.
-    if (coveredFixedCells.length === 0) throw new Error(`Table fixed-column overlap diagnostic: ${JSON.stringify({
-        point, button: bounds.toJSON(), beforeInput, afterInput: readFixedColumnGeometry(grid),
+    // button. Its center can be outside a real partial overlap, so choose an
+    // interior point shared by the visible button and competing fixed cell.
+    if (!overlap) throw new Error(`Table fixed-column overlap diagnostic: ${JSON.stringify({
+        point: null, button: bounds.toJSON(), beforeInput, afterInput: readFixedColumnGeometry(grid),
         fixture: { left: { index: 0, width: 160 }, right: { index: 8, width: 100 }, fixedContract: 'physical left/right' },
     })}`);
+    const point = { x: (overlap.left + overlap.right) / 2, y: (overlap.top + overlap.bottom) / 2 };
+    expect(point.x > bounds.left && point.x < bounds.right && point.y > bounds.top && point.y < bounds.bottom).toBe(true);
+    const coveredFixedCells = fixedCells.filter(cell => {
+        const rect = cell.getBoundingClientRect();
+        return point.x > rect.left && point.x < rect.right && point.y > rect.top && point.y < rect.bottom;
+    });
+    expect(coveredFixedCells.length).toBeGreaterThan(0);
     const hit = button.ownerDocument.elementFromPoint(point.x, point.y);
     expect(hit === button || (hit !== null && button.contains(hit))).toBe(true);
 }

@@ -1,4 +1,4 @@
-import { describe, expect, it } from '@crab-dev/wake/test';
+import { describe, expect, it, mock } from '@crab-dev/wake/test';
 import { act, fireEvent, render } from '@crab-dev/wake/test/react';
 import { createPortal } from 'react-dom';
 import type { ReactNode } from 'react';
@@ -13,8 +13,8 @@ import compiledCss from '../../../.cache/browser-css.json';
 
 interface GeometryRow extends Row { dataRef: Record<string, string>; }
 const ROW_COUNT = 200;
-const ROW_HEIGHT = 32;
-const HEADER_HEIGHT = 36;
+const ROW_HEIGHT = 28;
+const HEADER_HEIGHT = 32;
 const HEIGHT = 240;
 const TOTAL_HEIGHT = ROW_COUNT * ROW_HEIGHT + HEADER_HEIGHT;
 const settleLayout = () => act(async () => {
@@ -39,6 +39,56 @@ const rows: GeometryRow[] = Array.from({ length: ROW_COUNT }, (_, index) => ({
     dataRef: Object.fromEntries(columns.map((_column, columnIndex) => [`field${columnIndex}`, `Record ${index}:${columnIndex}`])),
 }));
 const tableProps: TableProps<GeometryRow> = { rows, columns, width: 320, height: HEIGHT, density: 'compact' };
+
+it('keeps shortcuts and resize resources inside the table owner Document in a real iframe', async () => {
+    const frame = document.createElement('iframe');
+    frame.title = 'Independent table document';
+    document.body.append(frame);
+    const other = frame.contentDocument;
+    if (!other?.body) throw new Error('A real same-origin iframe document is required');
+    const mainCopy = mock.fn((cells: Array<{ value: unknown }>) => cells);
+    const frameCopy = mock.fn((cells: Array<{ value: unknown }>) => cells);
+    const resized = mock.fn((column: string, width: number) => ({ column, width }));
+    const fields = [{ name: 'value', title: 'Value', width: 100 }];
+    const view = await render(<>
+        <style>{compiledCss}</style>
+        <Table width={180} height={180} columns={fields} rows={[{ id: 'main', dataRef: { value: 'main value' } }]} onCopy={mainCopy} />
+        {createPortal(<><style>{compiledCss}</style><Table width={180} height={180} columns={fields} rows={[{ id: 'frame', dataRef: { value: 'frame value' } }]} onCopy={frameCopy} resizable onColumnResize={resized} /></>, other.body)}
+    </>);
+    const select = async (owner: Document) => {
+        const cell = requiredElement<HTMLElement>(owner, '[data-row-index="0"] [data-col-index="0"]');
+        await fireEvent(cell, new MouseEvent('mousedown', { bubbles: true, button: 0, buttons: 1 }));
+        await fireEvent(owner.body, new MouseEvent('mouseup', { bubbles: true, button: 0 }));
+    };
+    const copy = (owner: Document) => fireEvent(owner.body, new KeyboardEvent('keydown', { bubbles: true, key: 'c', ctrlKey: true }));
+    try {
+        await select(document);
+        await select(other);
+        await copy(document);
+        expect(mainCopy).toHaveBeenCalledTimes(1);
+        expect(mainCopy.calls.calls[0][0][0].value).toBe('main value');
+        expect(frameCopy).not.toHaveBeenCalled();
+        await copy(other);
+        expect(frameCopy).toHaveBeenCalledTimes(1);
+        expect(frameCopy.calls.calls[0][0][0].value).toBe('frame value');
+        expect(mainCopy).toHaveBeenCalledTimes(1);
+        const mainCursor = document.body.style.cursor, mainSelect = document.body.style.userSelect;
+        const frameCursor = other.body.style.cursor, frameSelect = other.body.style.userSelect;
+        const handle = requiredElement<HTMLElement>(other, '[role="separator"]');
+        const width = requiredElement<HTMLElement>(other, '[role="columnheader"]').getBoundingClientRect().width;
+        await fireEvent(handle, new MouseEvent('mousedown', { bubbles: true, button: 0, clientX: 10 }));
+        expect(other.body.style.cursor).toBe('col-resize');
+        expect(document.body.style.cursor).toBe(mainCursor);
+        await fireEvent(other.body, new MouseEvent('mousemove', { bubbles: true, buttons: 1, clientX: 30 }));
+        await fireEvent(other.body, new MouseEvent('mouseup', { bubbles: true, button: 0, clientX: 30 }));
+        expect(resized).toHaveBeenCalledTimes(1);
+        expect(resized.calls.calls[0][1]).toBeCloseTo(width + 20, 1);
+        expect(other.body.style.cursor).toBe(frameCursor);
+        expect(other.body.style.userSelect).toBe(frameSelect);
+        expect(document.body.style.cursor).toBe(mainCursor);
+        expect(document.body.style.userSelect).toBe(mainSelect);
+    } finally { await view.unmount(); frame.remove(); }
+});
 
 describe('Table published virtual row geometry', () => {
     it('keeps inline horizontal spacers inside each row across fixed-column scrolling and the final row', async () => {

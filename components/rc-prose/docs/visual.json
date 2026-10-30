@@ -1,0 +1,39 @@
+{
+    "schemaVersion": 1,
+    "demo": "visual-matrix.demo.tsx",
+    "sizes": [
+        "sm",
+        "base",
+        "lg",
+        "xl"
+    ],
+    "densities": [
+        "standard"
+    ],
+    "states": [
+        "default",
+        "inverse",
+        "hover",
+        "focus-visible"
+    ],
+    "notApplicable": {
+        "density": "Article rhythm follows its explicit four typography sizes, independently from data density.",
+        "selected": "Text selection is a browser interaction, not an article state.",
+        "disabled": "Readable content is not disabled.",
+        "error": "Validation and request feedback are supplied content.",
+        "loading": "Prose renders synchronous semantic HTML."
+    },
+    "crossEngine": {
+        "sizes": [
+            "base"
+        ],
+        "densities": [
+            "standard"
+        ],
+        "states": [
+            "default",
+            "inverse",
+            "focus-visible"
+        ]
+    }
+}

@@ -18,7 +18,7 @@ export interface ProseProps {
     "size"?: ProseSize;
 
     /**
-     * 是否启用暗色排版（独立于全局 data-theme）
+     * 使用当前主题 inverse 背景配对的排版前景；承载容器需提供对应的 inverse 背景。
      * @default false
      */
     "invert"?: boolean;

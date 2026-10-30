@@ -153,5 +153,42 @@ export const demos = [
         "density": "compact",
         "layout": "grid",
         "group": null
+    },
+    {
+        "id": "docs/demos/visual-matrix.demo.tsx",
+        "title": "三体系展示与状态矩阵",
+        "description": "公开组件、真实交互与自然动画；包内视觉规格是矩阵轴的来源。",
+        "learning": {
+            "components": [
+                "ConfigProvider",
+                "AvatarGroup",
+                "Avatar"
+            ],
+            "props": [
+                "size",
+                "density",
+                "max",
+                "onExtraClick",
+                "data-visual-target",
+                "shape",
+                "bordered",
+                "disabled",
+                "onClick",
+                "aria-label",
+                "src",
+                "alt"
+            ],
+            "events": [
+                "onExtraClick",
+                "onClick"
+            ],
+            "hasState": true
+        },
+        "sourceCode": "import { css, cx } from '@crab-dev/css';\nimport ConfigProvider, { useConfig } from '@crab-dev/rc-config-provider';\nimport token from '@crab-dev/rc-token-semantic';\nimport { useState } from 'react';\nimport Avatar from '@crab-dev/rc-avatar';\nimport { AvatarGroup } from '@crab-dev/rc-avatar';\n\nexport const meta = { title: '三体系展示与状态矩阵', description: '公开组件、真实交互与自然动画；包内视觉规格是矩阵轴的来源。' };\nconst frameStyle = css`\n    box-sizing: border-box;\n    display: grid;\n    gap: ${token.space['group-gap']};\n    padding: calc(${token.space['group-gap']} * 2);\n    min-width: 0;\n    color: ${token.color.text.primary};\n    background-color: ${token.color.background.surface};\n`;\nconst rowStyle = css`display: flex; flex-wrap: wrap; gap: ${token.space['component-gap']}; align-items: center; min-width: 0;`;\nconst sceneStyle = css`display: grid; min-width: 0; gap: ${token.space['stack-gap']};`;\nconst flexSceneStyle = css`display: flex; flex-wrap: wrap; align-items: center;`;\nconst portrait = 'data:image/svg+xml,' + encodeURIComponent('\u003csvg xmlns=\"http://www.w3.org/2000/svg\" width=\"64\" height=\"64\" viewBox=\"0 0 64 64\">\u003crect width=\"64\" height=\"64\" fill=\"#b9d5df\"/>\u003ccircle cx=\"32\" cy=\"24\" r=\"12\" fill=\"#354952\"/>\u003cpath d=\"M8 64a24 24 0 0 1 48 0\" fill=\"#354952\"/>\u003c/svg>');\n\nexport default function VisualMatrixDemo() {\n    const { locale } = useConfig();\n    const [longContent, setLongContent] = useState(false);\n    const copy = (zh: string, en: string) => (locale === 'en-US' ? en : zh) + (longContent ? ' · abcdefghijklmnopqrstuvwxyz0123456789 · 长内容需要保留含义并适应可用宽度' : '');\n    const [size, setSize] = useState('medium');\n    const [density, setDensity] = useState\u003c'compact' | 'standard' | 'comfortable'>('standard');\n    const [state, setState] = useState('default');\n    const [layout, setLayout] = useState('grid');\n    const [count, setCount] = useState(0);\n    const [draft, setDraft] = useState('保留这份草稿');\n    \n    return \u003cdiv>\n        \u003cdiv className={rowStyle}>\n            \u003clabel>验收尺寸\u003cselect aria-label=\"验收尺寸\" value={size} onChange={event => setSize(event.currentTarget.value)}>\u003coption>small\u003c/option>\u003coption>medium\u003c/option>\u003coption>large\u003c/option>\u003c/select>\u003c/label>\n            \u003clabel>验收密度\u003cselect aria-label=\"验收密度\" value={density} onChange={event => setDensity(event.currentTarget.value as typeof density)}>\u003coption>standard\u003c/option>\u003c/select>\u003c/label>\n            \u003clabel>验收状态\u003cselect aria-label=\"验收状态\" value={state} onChange={event => { const next = event.currentTarget.value; setState(next); }}>\u003coption value=\"default\">default\u003c/option>\u003coption value=\"image\">image\u003c/option>\u003coption value=\"fallback\">fallback\u003c/option>\u003coption value=\"disabled\">disabled\u003c/option>\u003coption value=\"hover\">hover\u003c/option>\u003coption value=\"focus-visible\">focus-visible\u003c/option>\u003coption value=\"pressed\">pressed\u003c/option>\u003coption value=\"group\">group\u003c/option>\u003c/select>\u003c/label>\n            \n        \u003c/div>\n        \u003clabel>宿主布局\u003cselect aria-label=\"宿主布局\" value={layout} onChange={event => setLayout(event.currentTarget.value)}>\u003coption>grid\u003c/option>\u003coption>flex\u003c/option>\u003c/select>\u003c/label>\n        \u003clabel>\u003cinput type=\"checkbox\" aria-label=\"长文本\" checked={longContent} onChange={event => setLongContent(event.currentTarget.checked)} />长文本\u003c/label>\n        \u003clabel>配置切换草稿\u003cinput aria-label=\"配置切换草稿\" value={draft} onChange={event => setDraft(event.currentTarget.value)} />\u003c/label>\n        \u003cConfigProvider size={size === 'small' || size === 'large' ? size : 'medium'} density={density}>\n            \u003csection className={frameStyle} aria-label=\"Avatar visual matrix\" data-visual-frame>\n                \u003cdiv className={cx(sceneStyle, layout === 'flex' && flexSceneStyle)} data-visual-scene data-size={size} data-density={density} data-state={state} data-layout={layout}>\n                    {state === 'group' ? \u003cAvatarGroup size={size as 'small' | 'medium' | 'large'} max={2} onExtraClick={() => setCount(count + 1)}>{['甲','乙','丙','丁'].map(name => \u003cAvatar key={name}>{name}\u003c/Avatar>)}\u003c/AvatarGroup> : \u003cAvatar data-visual-target size={size as 'small' | 'medium' | 'large'} shape=\"circle\" bordered disabled={state === 'disabled'} onClick={() => setCount(count + 1)} aria-label={copy('打开个人资料', 'Open profile')} src={state === 'image' ? portrait : state === 'fallback' ? 'data:image/png;base64,broken' : undefined} alt={copy('成员头像', 'Member portrait')}>{state === 'fallback' ? undefined : longContent ? 'Long Member Identity' : '林'}\u003c/Avatar>}\u003cAvatar shape=\"square\" size={size as 'small' | 'medium' | 'large'} variant=\"primary\">AB\u003c/Avatar>\u003cAvatar data-numeric-avatar size={37} variant=\"success\">37\u003c/Avatar>\n                    \n                \u003c/div>\n                \u003coutput aria-label=\"操作次数\">{count}\u003c/output>\n            \u003c/section>\n        \u003c/ConfigProvider>\n    \u003c/div>;\n}\n",
+        "previewPath": "/components/rc-avatar/workbench/?__wake_demo=docs%2Fdemos%2Fvisual-matrix.demo.tsx",
+        "workbenchPath": "/components/rc-avatar/workbench/#/components/docs%2Fdemos%2Fvisual-matrix.demo.tsx",
+        "density": "compact",
+        "layout": "grid",
+        "group": null
     }
 ] as const satisfies readonly ComponentDemoRecord[];

@@ -15,6 +15,16 @@ const overlayStyle = css`
     width: calc(${token.size[20]} * 9);
 `;
 
+const triggerLayoutStyle = css`
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: ${token.space['component-gap']};
+    max-width: 100%;
+    min-width: 0;
+    & > label { color: ${token.color.text.primary}; }
+`;
+
 const Input = () => {
     const inputId = useId();
     const {
@@ -24,7 +34,7 @@ const Input = () => {
     } = useDropdownContext<HTMLDivElement>();
 
     return (
-        <>
+        <div className={triggerLayoutStyle}>
             <label htmlFor={inputId}>浮层触发输入框</label>
             <RcLineEdit
                 id={inputId}
@@ -53,7 +63,7 @@ const Input = () => {
                     }
                 }}
             />
-        </>
+        </div>
     )
 }
 

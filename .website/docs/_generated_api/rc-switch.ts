@@ -10,19 +10,19 @@ type SwitchChangeDetails = DocsTypePlaceholder;
 
 export interface SwitchProps {
     /**
+     * React-specific Attributes 与 checked 互斥，不能同时提供。
+     */
+    "defaultChecked"?: (boolean | undefined) & (boolean);
+
+    /**
      * Defines a string value that labels the current element.
      */
-    "aria-label"?: string | undefined | string;
+    "aria-label"?: (string | undefined) & (string);
 
     /**
      * 暂无说明。
      */
-    "children"?: ReactNode | undefined | ReactNode;
-
-    /**
-     * React-specific Attributes 与 checked 互斥，不能同时提供。
-     */
-    "defaultChecked"?: boolean | undefined | boolean;
+    "children"?: (ReactNode | undefined) & (ReactNode);
 
     /**
      * 按钮的大小, 默认为 medium

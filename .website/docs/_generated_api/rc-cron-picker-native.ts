@@ -15,6 +15,11 @@ export interface CronPickerPropsNativeAttributes {
     /**
      * 暂无说明。
      */
+    "id"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
     "aria-busy"?: Booleanish | undefined;
 
     /**
@@ -35,22 +40,22 @@ export interface CronPickerPropsNativeAttributes {
     /**
      * Focus Events
      */
-    "onFocus"?: FocusEventHandler<HTMLInputElement> | undefined;
+    "onFocus"?: FocusEventHandler<HTMLInputElement>;
 
     /**
      * 暂无说明。
      */
-    "onBlur"?: FocusEventHandler<HTMLInputElement> | undefined;
+    "onBlur"?: FocusEventHandler<HTMLInputElement>;
+
+    /**
+     * No other element dispatching change events can be nested in a <input> so we know the target will be a HTMLInputElement.
+     */
+    "onChange"?: ChangeEventHandler<HTMLInputElement, HTMLInputElement>;
 
     /**
      * 暂无说明。
      */
-    "onInput"?: InputEventHandler<HTMLInputElement> | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "id"?: string | undefined;
+    "onInput"?: InputEventHandler<HTMLInputElement>;
 
     /**
      * 暂无说明。
@@ -66,9 +71,4 @@ export interface CronPickerPropsNativeAttributes {
      * 暂无说明。
      */
     "required"?: boolean | undefined;
-
-    /**
-     * No other element dispatching change events can be nested in a <input> so we know the target will be a HTMLInputElement.
-     */
-    "onChange"?: ChangeEventHandler<HTMLInputElement, HTMLInputElement> | undefined;
 }

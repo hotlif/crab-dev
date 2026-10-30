@@ -24,6 +24,22 @@ MD3 使用浮动标签和描边／底线；Apple 与 shadcn 使用静态标签�
 需要用户输入多行文本（备注、描述、评论等）时使用，支持多种尺寸、验证状态、
 一键清除、字符计数与内容自适应高度。单行输入请使用 `@crab-dev/rc-line-edit`。
 
+## 维护与矩阵验收
+
+outlined 与 filled 分别进入适用的真实悬停、键盘焦点、输入、清除与自动高度场景，并分别保存候选；不能以同屏出现替代另一外观的交互验收。触控通过原生轻触字段和清除按钮；窄屏用真实键盘将长草稿滚至开头与末尾，检查合法的内部垂直滚动，同时测量输入、标签、说明、计数和操作按钮的边界及横向溢出。
+
+outlined / filled 复用公共字段角色；MD3 的浮动标签与状态底线、Apple 的上置标签和轻量表面、shadcn 的中性描边和可见焦点使用相同字段树。标签、正文和支持文字的字体随最近设计边界解析，三档 size 只调整几何；rows / autoSize 负责内容高度，density 不改变草稿。
+
+矩阵覆盖空值、多行草稿、hover、键盘焦点、错误、警告、只读、禁用、真实清除、autoSize 与无边框宿主。自动高度同时记录浏览器对 field-sizing 的支持；不支持时保留 rows 回退，不能据此宣称自动增长通过。字数计数和说明关联与真实输入一起检查。
+
+原有只读和禁用场景保留两行非空草稿，并明确核对实际值、计数和清除入口消失。`filled-error` / `filled-warning` 在保留空验证态的同时，通过真实输入进入有值验证态；filled 指内容非空，两种 appearance 都分别保存候选。验证状态不能清空草稿，计数、错误说明、浮动标签、轮廓与清除动作共同核对。新增组合仍待新的实际浏览器执行和逐图复审，不能从已有值的普通可编辑截图推导通过。
+
+包内 `docs/visual.json` 是该组件的可执行尺寸、密度、状态与跨引擎范围清单；`visual-matrix.demo.tsx` 使用公开入口。Chromium 执行完整核心矩阵，Firefox / WebKit 执行清单指定的默认与关键交互子集。窄屏 320 / 768px、长内容、RTL / 英文、品牌覆盖、强制颜色与减少动画分别登记环境场景；配置切换保留原 DOM 与值。真实 200% 浏览器缩放、iframe / Shadow DOM 与跨 Document 验收仍由集成矩阵记录，不以视口或 DPR 代替。
+
+本批来源复核日期为 2026-10-29。[Material Web 控件文档](https://material-web.dev/components/text-field/)提供 Web 行为对照；Material Web 不完整覆盖 Expressive，精确 Expressive 形态采用本页注明的项目扩展。[Apple HIG](https://developer.apple.com/design/human-interface-guidelines)作为自主 Web 实现的原则依据；shadcn 继续锁定 New York V4 的 `3d98900e9b73c45f035f8109e9d41ba6a51685e7`，引用提交以产品清单为准。M3 官网需 JavaScript 的规格页未在本批静态读取中补造精确参数。
+
+测试发现、截图候选、像素稳定性与人工外观复审分别记录。当前新增矩阵尚待统一浏览器执行和逐项复审，设计覆盖保持 partial，不能用用例存在或默认测试通过更新为 verified。
+
 ## 代码演示
 
 ### 选型与结构

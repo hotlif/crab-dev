@@ -1,0 +1,39 @@
+{
+    "groups": [
+        {
+            "title": "日期选择",
+            "demos": [
+                "datePicker.demo.tsx",
+                "datePickerRange.demo.tsx",
+                "datePickerPanel.demo.tsx"
+            ]
+        },
+        {
+            "title": "日期时间",
+            "demos": [
+                "dateTimePicker.demo.tsx",
+                "dateTimePickerPanel.demo.tsx"
+            ]
+        },
+        {
+            "title": "时间选择",
+            "demos": [
+                "timePicker.demo.tsx",
+                "timePickerDial.demo.tsx",
+                "timePickerPanel.demo.tsx"
+            ]
+        },
+        {
+            "title": "标签与状态",
+            "demos": [
+                "visual-states.demo.tsx"
+            ]
+        },
+        {
+            "title": "视觉验收",
+            "demos": [
+                "visual-matrix.demo.tsx"
+            ]
+        }
+    ]
+}

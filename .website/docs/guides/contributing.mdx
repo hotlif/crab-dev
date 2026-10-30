@@ -11,11 +11,43 @@ status = "experimental"
 
 ## 来源与生成
 
-产品名称、分类、生命周期和覆盖维护于 library.manifest.json；版本、依赖和导出维护于 package.json。组件正文维护于 docs/index.mdx，示例维护于 docs/demos，教学文字与运行文件分别维护于 .website/content 和 .website/docs/examples。
+任务开始时，从仓库根运行 `yarn ai:context <包名或仓库相对路径>`。默认目标 `.` 返回全局导航；`--json` 提供结构化结果，`--dependents` 补充直接使用方。输出只包含路径、用途和命令，不读取全部规范正文，不运行生成或验证，也不保存上下文快照。文件路径统一相对仓库根，未知目标报错。
+
+先读目标目录继承的 AGENTS，再按实际任务读取指南和技能。关联来源的规则单独列出，仅在编辑这些来源时适用。专项规则就近维护在有独有约束的包内，通用契约保留在指南；能力族通过产品清单表达，不另建物理目录分类。
+
+下表的命令在仓库根运行；`<包名>` 替换为真实 workspace 名。精确脚本以查询结果和各工作区 `package.json` 为准，生成物必须通过对应脚本刷新。
+
+| 内容类型 | 编辑来源 | 生成物或发布位置 | 生成与验证入口 |
+| --- | --- | --- | --- |
+| 产品信息、分类、生命周期、覆盖及设计身份 | `library.manifest.json` | 公共设计 registry、选择器、库目录、导航、覆盖矩阵、README 库存区域 | `yarn generate:architecture`、站点 `generate:docs`、`yarn check:architecture` |
+| 版本、依赖、导出 | 各包 `package.json`，版本由 Changesets 更新 | PnP 运行时、lockfile、发布入口 | `yarn install --immutable`、`yarn build:library`、`yarn check:exports`、`yarn check:consumer` |
+| 运行时拓扑 | 包声明、生产源码、令牌引用 | `turbo.json`、站点依赖图 | `yarn generate:architecture`、`yarn check:architecture`、站点 `generate:docs` |
+| 设计令牌 | 各包 `token.toml` 与包内生成器 | `src/token.ts` 及包声明的额外生成物 | `yarn workspace <包名> generate:token`、`yarn check:tokens`、包内 `check` |
+| 组件正文、交互 Demo、API | 包内 `docs/index.mdx`、`docs/demos/`、真实类型 | `public/docgen.json`、站点组件页与 API 数据 | 包内 `generate:docgen`（若提供）、站点文档验证 |
+| 教学文字与 FAQ | `.website/content/` | 教程模块、学习页与检索文字 | 站点文档验证 |
+| 组件预览布局、密度、分组与顶部 Demo | 各包 `docs/presentation.json` | 组件示例记录与预览索引 | 站点文档验证 |
+| 教学步骤运行文件 | `.website/docs/examples/` | 从运行文件提取的教程源码与预览 | 站点文档验证，运行代码另跑站点 `lint`、`typecheck`、`test` |
+| 维护与设计规范 | `.website/docs/guides/` 中非生成正文 | 原路径发布 | 站点文档验证 |
+| 站点布局、预览桥接 | `.website/docs/site/` | 站点构建产物 | 站点 `check`，界面变化另做浏览器验收 |
+| 工程工具与 AI 查询 | `scripts/` | 不生成持久化上下文 | `yarn lint:tools`、`yarn check:architecture` |
+
+“站点文档验证”指 `yarn workspace @crab-dev/website generate:docs`、`check:docs`、`test:generator` 及根 `yarn docs:build`；后三项分别通过同一 workspace 或根脚本执行。
+
+组件 Demo 用于工作台中的组件行为展示；教学步骤文件面向独立复制运行，由教学 JSON 的步骤关联，二者各有职责。查询生成文件会返回编辑来源；缓存、构建目录和历史资料不进入默认源码入口，仍可显式查询。混合文件如 README 仅库存区域生成，其他正文仍直接维护。
 
 令牌、docgen、聚合页面、导航、目录、覆盖矩阵和库存通过对应生成器产生。生成器检查清单覆盖、唯一 ID、来源关联和漂移；不要通过固定包数阻止合理新增能力。
 
 ## 验证契约
+
+根 `yarn check` 和包内 `check` 从 `scripts/check-plan.mjs` 读取检查计划。`yarn check --list` 只列出根阶段；CI 的 Test 工作流在 Windows 与 Linux 各执行同一个入口，原有 test、lint、typecheck 状态复用完整结果。发布仍等待同一提交的完整 Test 工作流成功。
+
+浏览器 CSS 统一通过 `scripts/published-styles.mjs` 收集真实产物，按依赖顺序去重；声明了 CSS 导出却缺少文件时直接失败。包内保留夹具、特有准备与断言，避免各自维护依赖遍历和缺失产物策略。
+
+包内额外生成产物通过 `package.json#crab.generatedArtifacts` 按实际任务登记。`build:library` 可登记包内正向输出模式，例如 `public/runtime/**`；拓扑生成器将其纳入缓存恢复并排除于输入，避免冷工作树命中缓存后缺少 Worker、WASM 或 Web Component 资源。不要在中央生成器维护组件名称分支。
+
+Turbo 保持严格环境模式，仅透传构建线程、临时目录与浏览器定位参数；在父进程设置这些参数，不代表它们已进入严格模式子任务。行为与浏览器测试每次实际执行，构建和生成物继续复用缓存，避免跨运行环境借用旧测试结果。
+
+视觉来源指纹也包含包内原始 `public/` 资源，如远程入口、字体和样本；`public/docgen.json` 与按 `generatedArtifacts` 声明的运行时复制产物分别按生成规则处理，避免把生成副本当成第二份来源。
 
 | 影响 | 最小验证 |
 | --- | --- |
@@ -27,6 +59,40 @@ status = "experimental"
 | 全库公共 API 或产品规则 | 统一验证入口，全部受影响包与同一提交的 CI 结果 |
 
 工程结果、浏览器自动测量和人工复审分别记录。库内 DOM 测试没有布局引擎；触控、窄屏、键盘焦点、强制颜色、减少动画和设计差异按实际影响另验。
+
+### Playwright 视觉回归
+
+视觉回归使用固定版本的 Playwright Test，Wake 继续构建组件和工作台并执行原有行为测试。场景复用包内 Demo，适用尺寸、密度、状态与不适用理由由包内 `docs/visual.json` 维护，组件断言放在相邻的 `*.visual.spec.mjs`。公共夹具只提供真实配置边界、预览服务和输入证据，不维护组件名称分支表。
+
+环境场景的 `environment` 注解统一携带 `{ designSystem, colorMode, id }`；缺少必要字段直接失败。每个设计、明暗和环境单元只登记一次；已有专用动效场景时，由它承担减少动画验收及相关几何断言。`--list` 用于原生测试发现，发现数量不能计为浏览器执行通过。
+
+```sh
+yarn test:visual:install
+yarn test:visual:inventory --project chromium
+yarn test:visual:candidate --package rc-button --project chromium
+yarn test:visual:linux test:visual:candidate --package rc-button --project chromium
+yarn test:visual:report .cache/visual/<run>/report
+```
+
+单包入口先构建实际依赖和独立组件工作台；全站入口使用生产文档产物。根检查在生产站点构建后执行一次视觉阶段，包内检查执行所属场景。框架生成 HTML/JSON 报告、截图和失败 trace，派生 `matrix.json` 将声明的笛卡尔积与原生测试结果对应。缺失、重复、跳过和失败不能计为通过；显式筛选、分片或仅运行库存时记录为部分范围。Firefox / WebKit 的默认和关键交互子集由每包 `crossEngine` 声明。
+
+Wake 0.1.45 对拥有工作台的包将公共自引用解析至源码，而站点共享预览中的同名依赖解析至公开 ESM。ConfigProvider 工作台因此由本包适配器将相同模块身份的 Provider 注入共享预览，继续复用唯一的八轴消息协议。它不创建第二上下文或全局注册表；上游统一两种解析且真实工作台矩阵通过后，删除本包适配与可选注入点。
+
+采集前后核对源码与真实产物，单包范围跟随实际依赖；覆盖记录与证据文件不进入渲染指纹，防止记录引用自身。完整站点产物另存构建指纹，包含覆盖派生页，不反向影响组件覆盖身份。PnP 下使用框架的异步 ESM 加载路径，测试工具保持原生 ESM，开发类型检查仍使用官方 TypeScript。正式 Linux 运行复制包含未提交内容的本地候选，在固定摘要的官方镜像中安装、构建和采集，记录字体清单与浏览器版本；Docker 端点必须位于本机。
+
+执行入口在构建和浏览器启动前检查本地可用空间：全库至少 8 GiB，单包或筛选范围至少 1 GiB；完整候选、基准与连续复验建议预留 30 GB，并留意其他本地任务的写入。空间记录随原生报告或 Linux 快照保存，磁盘不足中断的检查不能计为通过。Linux 本地快照优先用硬链接共享不可变的 Yarn ZIP 缓存，元数据独立复制；文件系统不支持时回退复制。缓存以原子替换方式更新，禁止就地修改共享 ZIP；历史源码、截图、报告与失败夹具继续保留。
+
+Windows 的安装入口将同版本官方浏览器放入项目 `.cache/playwright`，检查优先使用这一缓存，并尊重显式的 `PLAYWRIGHT_BROWSERS_PATH`；缓存缺失时旧 Chromium 检查才尝试已安装的 Chrome。原有 AppData 缓存保留。Windows 原生结果与 Linux 分开记录和比较。Linux 镜像中的 Firefox 通过 Xvfb 使用有窗口模式，避免当前无窗口模式缺少 WebGL2 的环境前提；每个原生 worker 保存实际驱动、着色器和像素绘制探针，声明需要 WebGL2 的范围在探针失败时直接失败。普通静态用例保存失败截图和 trace，持续动画及真实缩放用例另启用原生视频。
+
+候选采集通过只表示自动断言成功，仍需逐项视觉复审。首次确认外观后才能显式更新基准；普通检查不创建或更新基准。正式基准在固定版本的本地 Linux 镜像生成，Windows 原生检查单独记录，不能跨环境比较像素。没有对应组件矩阵、缺少基准或尚未查看的状态继续保持 `partial`。
+
+复审通过后，使用 `yarn test:visual:linux test:visual:update --package <包目录名>` 显式调用 Playwright 原生基准更新。成功运行后，本地入口将 Linux PNG 返回 `test/visual/baselines/linux/`，在该次快照的 `baseline-history/` 保存被替换的旧文件，并在证据中记录每个文件的前后哈希。运行期间已被本地修改的基准会阻止回传，原生输出与本地文件均保留。原生测试未通过的更新不回传；回传使用逐文件原子替换，异常时保留原生输出、旧文件归档与错误记录。随后连续两次执行不带更新参数的同范围 `yarn test:visual:linux test:visual --package <包目录名>`，确认稳定性。候选与更新参数不能混用，`-u`、`-uall` 和 `-xuall` 等原生短写也受相同的正式环境限制。检查范围与更新意图共用参数读取规则，区分选项、grep 值和 `--` 后的位置参数；合法值仍由 Playwright 校验。
+
+证据导出的 `cases.json` 同时保留原生 JSON 附件的有序 `jsonAttachments` 和 PNG 的 `attachmentIndex`。同一用例多次截图时，各自的 `snapshot-target` 都能追溯到对应原图；旧的 `details` 单项查找继续保留。路径附件仅从该次采集的 `results/` 读取，拒绝异盘、越界和目录链接；导出必须使用审查目录中的新子目录。原生报告与图片不因索引更新而改写。
+
+静态截图等待有限过渡自然结束，并隐藏闪烁插入符以保持比较稳定；真实焦点状态和产品动画保留。持续动画使用自然录像及时间序列断言，不冻结动画来取得静态通过。候选截图与基准比较使用相同的组件边界，边界应容纳外部焦点环。采集前提失败、组件断言失败和视觉差异分别保留原始证据。
+
+200% 场景使用独立的原生 persistent context 和只访问本机页面的扩展，通过 `chrome.tabs.setZoom/getZoom` 设置并读回真实浏览器缩放；外部窗口不变，CSS 视口与 DPR 的自然变化都保存为证明，不传 DPR、CSS zoom 或缩小视口代替。原生 trace 与视频继续生效。Playwright 1.64.1 的 Page/Locator 截图会在这种真实缩放下裁切，因此仅此场景使用原生 `CDPSession` 的无 clip 截图，并将 PNG 交给框架原生 `toMatchSnapshot` 处理基准、差异和报告；截图必须满足完整物理视口尺寸。兼容采集仅在截图期间按普通截图的 `caret: 'hide'` 策略临时隐藏同源文档和开放 Shadow DOM 中的插入符，随后恢复样式，焦点与动画保持真实状态。上游 Page 截图在同样前提下通过尺寸及外观检查后，删除这唯一兼容分支。可见视口、多次实际滚动与视频分别记录，不能把单帧当成整份长页面。
 
 必须持续执行的附加测试由包的 `package.json#crab.requiredChecks` 登记已有 `test:*` 脚本。包内 `yarn check`、根 `yarn test:required`、根统一 check 和 CI 会执行登记项；交付前不能仅凭默认 `yarn test` 通过省略这些检查。登记须为无重复的数组，脚本必须存在且以 `test:` 开头；仅需显式运行的其他 browser 测试不会因此自动变为全库必跑项。
 

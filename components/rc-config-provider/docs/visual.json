@@ -1,0 +1,9 @@
+{
+    "schemaVersion": 1,
+    "demo": "visual-matrix.demo.tsx",
+    "sizes": ["small", "medium", "large"],
+    "densities": ["compact", "standard", "comfortable"],
+    "states": ["default", "brand", "portal", "focus-visible"],
+    "crossEngine": { "sizes": ["medium"], "densities": ["standard"], "states": ["default", "portal", "focus-visible"] },
+    "notApplicable": { "disabled": "A configuration boundary has no disabled protocol; descendants retain their own disabled state.", "selected": "The boundary chooses configuration rather than a selectable value.", "error": "Invalid configuration is covered by strict types and runtime brand validation, not a visual error surface.", "loading": "Configuration inheritance is synchronous." }
+}

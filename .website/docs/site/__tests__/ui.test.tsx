@@ -32,6 +32,7 @@ mock.module("@crab-dev/rc-drawer", () => ({
 
 type DropdownFixtureValue = import("@crab-dev/rc-dropdown-container").DropdownContextValue;
 const DropdownFixtureContext = createContext<DropdownFixtureValue | null>(null);
+let dropdownReference: HTMLElement | null = null;
 
 // ThemeSwitch tests its own keyboard and selection behavior; floating geometry is covered by rc-dropdown-container.
 mock.module("@crab-dev/rc-dropdown-container", () => ({
@@ -41,7 +42,7 @@ mock.module("@crab-dev/rc-dropdown-container", () => ({
         const value: DropdownFixtureValue = {
             state: { open },
             dispatch: (action) => setOpen(action.payload),
-            refs: { setReference: () => {} },
+            refs: { setReference: (element) => { dropdownReference = element; } },
         };
         return <DropdownFixtureContext value={value}>{children}{open && overlay}</DropdownFixtureContext>;
     },
@@ -506,6 +507,10 @@ describe("Wake 文档展示适配器", () => {
         await click("导航");
         expect(mobileNavigation.setOpen).toHaveBeenCalledWith(true);
         const themeControl = screen.getByRole("button", { name: "文档外观：MD3 Expressive · 跟随系统" });
+        // The dropdown must be able to find its real return-focus target inside
+        // its DOM reference, including the document-capture Escape path.
+        expect(dropdownReference?.contains(themeControl)).toBe(true);
+        expect(dropdownReference?.getAttribute("aria-hidden")).not.toBe("true");
         expect(themeControl.getAttribute("aria-expanded")).toBe("false");
         await fireEvent.click(themeControl);
         const currentTheme = screen.getByRole("menuitemradio", { name: /跟随系统/ });
@@ -515,6 +520,10 @@ describe("Wake 文档展示适配器", () => {
         await fireEvent.click(darkTheme);
         expect(state.theme.setTheme).toHaveBeenCalledWith("dark");
         expect(themeControl.getAttribute("aria-expanded")).toBe("false");
+        expect(document.activeElement).toBe(themeControl);
+        await fireEvent.keyDown(themeControl, { key: "ArrowDown" });
+        await fireEvent.keyDown(screen.getByRole("menuitemradio", { name: /跟随系统/ }), { key: "Escape" });
+        expect(screen.queryByRole("menu", { name: "文档外观" })).toBeNull();
         expect(document.activeElement).toBe(themeControl);
     });
 

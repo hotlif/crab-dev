@@ -23,9 +23,11 @@
         "generate:token": "wake library token .",
         "generate:docgen": "wake library docgen .",
         "lint": "wake lint --format human --root ../.. components/rc-pdf-editor/src components/rc-pdf-editor/docs components/rc-pdf-editor/scripts components/rc-pdf-editor/browser-tests --env browser --env node --max-warnings 0",
-        "typecheck": "node ../../scripts/typecheck.mjs --noEmit",
+        "typecheck": "tsc --noEmit",
         "test": "yarn build:runtime && wake test --serial --coverage",
-        "check": "node ../../scripts/check-package.mjs"
+        "check": "node ../../scripts/check-package.mjs",
+        "build:visual": "wake docs build . --mode components --outdir .cache/visual-workbench",
+        "test:visual": "node ../../scripts/visual/run.mjs --package ."
     },
     "files": [
         "esm",
@@ -77,10 +79,15 @@
         "@types/react-dom": "^19.3.0",
         "react": "19.3.0",
         "react-dom": "19.3.0",
-        "typescript": "^7.0.2"
+        "typescript": "6.0.2"
     },
     "crab": {
         "docsDependencies": [],
+        "generatedArtifacts": {
+            "build:library": [
+                "public/runtime/**"
+            ]
+        },
         "requiredChecks": [
             "test:build-tools",
             "test:web-component"

@@ -1,6 +1,6 @@
 import { css } from '@crab-dev/css';
 import ConfigProvider, { type ConfigSize } from '@crab-dev/rc-config-provider';
-import token from '@crab-dev/rc-token-semantic';
+import token, { densityGeometry } from '@crab-dev/rc-token-semantic';
 import Button from '@crab-dev/rc-button';
 import Card from '@crab-dev/rc-card';
 import LineEdit from '@crab-dev/rc-line-edit';
@@ -71,6 +71,7 @@ export default function SizeShowcase() {
         <Segmented aria-label="界面密度" value={density}
             options={[{ value: 'compact', label: '紧凑' }, { value: 'standard', label: '标准' }, { value: 'comfortable', label: '宽松' }]}
             onValueChange={value => { if (value === 'compact' || value === 'standard' || value === 'comfortable') setDensity(value); }} />
+        <p role="status">数据行参考高度 {densityGeometry[density].row}px，表头 {densityGeometry[density].header}px。粗指针下的自动默认数据行至少为 48px。</p>
         <ConfigProvider size={size} density={density} colorMode={site?.theme.resolved} className={stackStyle} role="group" aria-label="尺寸演示区域">
             <Card title="任务筛选">
                 <div className={stackStyle}>

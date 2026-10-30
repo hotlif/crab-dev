@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef } from "react";
 
-let activeTableOwner: symbol | null = null;
+const activeTableOwners = new WeakMap<Document, symbol>();
 
 /**
  * 让页面中的多个 Table 共享唯一的快捷键所有者。
@@ -18,16 +18,24 @@ export function useTableInteractionScope(): TableInteractionScope {
     const rootRef = useRef<HTMLDivElement>(null);
 
     const activateInteraction = useCallback(() => {
-        activeTableOwner = ownerRef.current;
+        const document = rootRef.current?.ownerDocument;
+        if (document) activeTableOwners.set(document, ownerRef.current);
     }, []);
 
-    const isInteractionActive = useCallback(() => activeTableOwner === ownerRef.current, []);
+    const isInteractionActive = useCallback(() => {
+        const document = rootRef.current?.ownerDocument;
+        return document !== undefined && activeTableOwners.get(document) === ownerRef.current;
+    }, []);
 
     useEffect(() => {
+        const root = rootRef.current;
+        if (!root) return;
+        const document = root.ownerDocument;
         const clearWhenOutside = (target: EventTarget | null) => {
-            if (activeTableOwner !== ownerRef.current) return;
-            if (target instanceof Node && rootRef.current?.contains(target)) return;
-            activeTableOwner = null;
+            if (activeTableOwners.get(document) !== ownerRef.current) return;
+            const NodeConstructor = document.defaultView?.Node ?? Node;
+            if (target instanceof NodeConstructor && root.contains(target)) return;
+            activeTableOwners.delete(document);
         };
         const handleMouseDown = (event: MouseEvent) => clearWhenOutside(event.target);
         const handlePointerDown = (event: PointerEvent) => clearWhenOutside(event.target);
@@ -40,7 +48,7 @@ export function useTableInteractionScope(): TableInteractionScope {
             document.removeEventListener("mousedown", handleMouseDown, true);
             document.removeEventListener("pointerdown", handlePointerDown, true);
             document.removeEventListener("focusin", handleFocusIn, true);
-            if (activeTableOwner === ownerRef.current) activeTableOwner = null;
+            if (activeTableOwners.get(document) === ownerRef.current) activeTableOwners.delete(document);
         };
     }, []);
 

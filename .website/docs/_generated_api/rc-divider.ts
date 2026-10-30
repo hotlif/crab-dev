@@ -14,6 +14,11 @@ type Ref<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?
 
 export interface DividerProps {
     /**
+     * 根节点 ref
+     */
+    "ref"?: Ref<HTMLDivElement>;
+
+    /**
      * 线型, 默认 solid
      */
     "variant"?: DividerVariant;
@@ -24,37 +29,32 @@ export interface DividerProps {
     "spacing"?: DividerSpacing;
 
     /**
-     * 根节点 ref
-     */
-    "ref"?: Ref<HTMLDivElement>;
-
-    /**
-     * 方向, 默认 horizontal
+     * 暂无说明。
      */
     "direction"?: 'horizontal' | 'vertical';
 
     /**
-     * 是否为纯装饰线。为 true 时从无障碍树移除（role=none + aria-hidden）, 读屏不再播报「分隔线」。 当线只是重复了已有的视觉分组时应设为 true, 避免噪声反馈。与 children 互斥 与 children、textAlign、textOffset、plain 互斥，不能同时提供。
+     * 暂无说明。 与 children、textAlign、textOffset、plain 互斥，不能同时提供。
      */
     "decorative"?: boolean;
 
     /**
-     * 嵌在线中的文字, 兼作分节小标题。仅横向分割线支持 与 decorative 互斥，不能同时提供。
+     * 暂无说明。 与 decorative 互斥，不能同时提供。
      */
     "children"?: ReactNode;
 
     /**
-     * 文字落点, 默认 center。仅在传入 children 时有效 与 decorative 互斥，不能同时提供。
+     * 暂无说明。 与 decorative 互斥，不能同时提供。
      */
     "textAlign"?: DividerTextAlign;
 
     /**
-     * 文字距起止端的偏移, 仅在 textAlign 为 start / end 时生效。数字按 px 处理, 默认 5% 与 decorative 互斥，不能同时提供。
+     * 暂无说明。 与 decorative 互斥，不能同时提供。
      */
     "textOffset"?: number | string;
 
     /**
-     * 文字是否降级为正文字重 + 次要色（仅作说明而非小标题时使用） 与 decorative 互斥，不能同时提供。
+     * 暂无说明。 与 decorative 互斥，不能同时提供。
      */
     "plain"?: boolean;
 }

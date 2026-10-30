@@ -10,7 +10,7 @@
         "directory": "components/rc-tabs"
     },
     "scripts": {
-        "typecheck": "node ../../scripts/typecheck.mjs --noEmit",
+        "typecheck": "tsc --noEmit",
         "start": "yarn generate:token && yarn generate:docgen && wake docs dev . --mode components",
         "build:library": "yarn generate:token && wake library build .",
         "generate:docgen": "wake library docgen .",
@@ -20,7 +20,9 @@
         "check": "node ../../scripts/check-package.mjs",
         "test:browser": "yarn build:library && node scripts/prepare-browser-tests.mjs && yarn test --root src/__tests__/browser",
         "test:forced-colors": "yarn --cwd ../.. exec turbo run build:library --filter=@crab-dev/rc-tabs && node scripts/prepare-browser-tests.mjs && node ../../scripts/test-published-forced-colors.mjs --package=. --fixture=src/__tests__/browser/forced-colors-fixture.tsx --api=__tabsForced && node ../../scripts/test-published-forced-colors.mjs --package=. --fixture=src/__tests__/browser/forced-colors-line-fixture.tsx --api=__tabsLineForcedLtr && node ../../scripts/test-published-forced-colors.mjs --package=. --fixture=src/__tests__/browser/forced-colors-line-fixture.tsx --api=__tabsLineForcedRtl",
-        "lint:tools": "wake lint --format human --root ../.. components/rc-tabs/scripts --env node --max-warnings 0"
+        "lint:tools": "wake lint --format human --root ../.. components/rc-tabs/scripts --env node --max-warnings 0",
+        "build:visual": "wake docs build . --mode components --outdir .cache/visual-workbench",
+        "test:visual": "node ../../scripts/visual/run.mjs --package ."
     },
     "files": [
         "esm",
@@ -57,7 +59,7 @@
         "react": "19.3.0",
         "react-dom": "19.3.0",
         "react-router": "^8.3.1",
-        "typescript": "^7.0.2"
+        "typescript": "6.0.2"
     },
     "engines": {
         "node": ">=22"

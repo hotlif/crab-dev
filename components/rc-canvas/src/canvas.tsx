@@ -15,6 +15,7 @@ import {
     resolveCanvasPalette,
 } from './palette.js';
 import type { CanvasPalette } from './palette.js';
+import { getComposedParentElement, useDevicePixelRatio } from '@crab-dev/rc-hooks/internal';
 
 export interface CanvasProps {
     width?: number;
@@ -24,7 +25,7 @@ export interface CanvasProps {
      * 开启时 width/height 被忽略；父容器必须有明确的 CSS 尺寸。
      */
     fillParent?: boolean;
-    /** 设备像素比，默认 window.devicePixelRatio（≥1）*/
+    /** 绘图分辨率；默认跟随当前文档的实际 devicePixelRatio，显式值优先。 */
     dpr?: number;
     children?: ReactNode;
     ref?: Ref<HTMLCanvasElement>;
@@ -79,15 +80,7 @@ function collectThemeTargets(element: Element): Element[] {
 
     while (current) {
         if (!targets.includes(current)) targets.push(current);
-        if (current.parentElement) {
-            current = current.parentElement;
-            continue;
-        }
-
-        const root = current.getRootNode();
-        current = typeof ShadowRoot !== 'undefined' && root instanceof ShadowRoot
-            ? root.host
-            : null;
+        current = getComposedParentElement(current);
     }
 
     return targets;
@@ -141,7 +134,10 @@ function Canvas({
     const effectiveWidth = fillParent ? containerSize.width : (propWidth ?? 0);
     const effectiveHeight = fillParent ? containerSize.height : (propHeight ?? 0);
 
-    const devicePixelRatio = dpr ?? (typeof window !== 'undefined' ? (window.devicePixelRatio ?? 1) : 1);
+    // Mutable DOM owner: subscribe in an effect, without reading a ref in render.
+    const containerDivRef = useRef<HTMLDivElement | null>(null);
+    const observedRatio = useDevicePixelRatio(containerDivRef, dpr === undefined);
+    const devicePixelRatio = dpr ?? observedRatio;
     // 首次挂载提供画布尺寸；后续位图尺寸只在绘制任务中更新，避免 DOM 提交先清空可见像素。
     const [initialBitmapSize] = useState(() => ({
         width: Math.round(effectiveWidth * devicePixelRatio),
@@ -153,7 +149,6 @@ function Canvas({
     // 可变实例状态 ref：持有 <canvas> DOM 节点
     const internalCanvasRef = useRef<HTMLCanvasElement | null>(null);
     // 可变实例状态 ref：持有容器 div，供 portal overlay 使用
-    const containerDivRef = useRef<HTMLDivElement | null>(null);
     const colorProbeRef = useRef<HTMLSpanElement | null>(null);
     const rawPalette = mergeCanvasPalette(palette);
     const paletteKey = Object.values(rawPalette).join('\u0000');

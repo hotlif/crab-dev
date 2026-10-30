@@ -31,6 +31,7 @@ globalStyle`
         --token-semantic-selection-radio-disabled-selected-surface: transparent;
         --token-semantic-selection-radio-disabled-selected-dot: var(--token-semantic-color-text-primary);
         --token-semantic-toggle-handle-unchecked-scale: 0.666667;
+        --token-semantic-toggle-handle-unchecked-border-width: initial;
         --token-semantic-toggle-handle-pressed-scale: 1.166667;
         --token-semantic-toggle-handle-shadow: ${token.shadow.none};
         --token-semantic-toggle-handle-selected-color: var(--token-semantic-color-text-on-brand);
@@ -68,6 +69,7 @@ globalStyle`
     }
 
     [data-crab-design='apple'] {
+        --token-semantic-toggle-handle-unchecked-border-width: initial;
         --token-semantic-selection-control-size: ${token.space[6]};
         --token-semantic-selection-state-layer-size: ${token.space[0]};
         --token-semantic-selection-border-width: ${token.space.px};
@@ -128,6 +130,7 @@ globalStyle`
     }
 
     [data-crab-design='shadcn'] {
+        --token-semantic-toggle-handle-unchecked-border-width: initial;
         --token-semantic-selection-control-size: ${token.space[6]};
         --token-semantic-selection-state-layer-size: ${token.space[0]};
         --token-semantic-selection-border-width: ${token.space.px};
@@ -185,5 +188,13 @@ globalStyle`
         --token-semantic-range-l-thumb-height: ${token.space[4]};
         --token-semantic-range-xl-track-height: ${token.space[3]};
         --token-semantic-range-xl-thumb-height: ${token.space[4]};
+    }
+`;
+
+// Desktop readability extension to the pinned New York V4 light Switch:
+// preserve the pale track and add a boundary only around the unchecked thumb.
+globalStyle`
+    [data-crab-design='shadcn'][data-theme='light'] {
+        --token-semantic-toggle-handle-unchecked-border-width: ${token.space.px};
     }
 `;

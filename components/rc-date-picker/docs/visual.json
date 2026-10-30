@@ -1,0 +1,82 @@
+{
+    "schemaVersion": 1,
+    "demo": "visual-matrix.demo.tsx",
+    "sizes": [
+        "small",
+        "medium",
+        "large"
+    ],
+    "densities": [
+        "compact",
+        "standard",
+        "comfortable"
+    ],
+    "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "disabled",
+        "error",
+        "warning",
+        "cleared",
+        "date-open",
+        "date-selected",
+        "date-today",
+        "datetime-open",
+        "time-dial-open",
+        "time-input-open",
+        "time-error",
+        "time-12-dial-hour",
+        "time-12-dial-minute",
+        "time-24-dial-minute",
+        "time-12-input",
+        "time-24-input",
+        "time-24-seconds",
+        "time-minute-error",
+        "time-second-error",
+        "time-empty-error",
+        "time-period-pm",
+        "time-keyboard-steps",
+        "time-mode-switch",
+        "datetime-12-open",
+        "datetime-time-error",
+        "datetime-no-seconds",
+        "datetime-12-no-seconds",
+        "time-dial-keyboard"
+    ],
+    "crossEngine": {
+        "sizes": [
+            "medium"
+        ],
+        "densities": [
+            "standard"
+        ],
+        "states": [
+            "default",
+            "focus-visible",
+            "cleared",
+            "date-open",
+            "date-selected",
+            "date-today",
+            "datetime-open",
+            "time-dial-open",
+            "time-input-open",
+            "time-error",
+            "time-12-dial-minute",
+            "time-24-input",
+            "time-second-error",
+            "time-period-pm",
+            "time-keyboard-steps",
+            "time-mode-switch",
+            "datetime-time-error",
+            "datetime-12-no-seconds",
+            "time-dial-keyboard"
+        ]
+    },
+    "notApplicable": {
+        "pressed": "The read-only picker field has no pressed value state. Calendar, dial and confirm actions are verified through real opening and selection interactions.",
+        "loading": "Date and time calculations are local and synchronous; these pickers expose no loading protocol.",
+        "today-clock": "Public business values and ranges are fixed. The package test fixes Date with clock.setFixedTime for today's marker without freezing timers or animations.",
+        "read-only": "Date/time fields are intrinsically text-read-only because values are chosen through the popup; this is independent of disabled."
+    }
+}

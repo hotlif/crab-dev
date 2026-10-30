@@ -23,6 +23,9 @@ export const vars = defineTokens({
     'close.width': '--alert-close-width',
     'close.color': '--alert-close-color',
     'close.color-hover': '--alert-close-color-hover',
+    'close.background-color-hover': '--alert-close-background-color-hover',
+    'close.background-color-focus': '--alert-close-background-color-focus',
+    'close.background-color-active': '--alert-close-background-color-active',
     'success.color': '--alert-success-color',
     'success.icon.color': '--alert-success-icon-color',
     'success.background-color': '--alert-success-background-color',
@@ -71,7 +74,10 @@ const token = defineTokens({
     'close': {
         'width': `var(${vars['close.width']}, 16px)`,
         'color': `var(${vars['close.color']}, var(--token-semantic-color-text-secondary, var(--token-global-material-neutral-variant-30, oklch(0.39805288 0.01735545 303.720936))))`,
-        'color-hover': `var(${vars['close.color-hover']}, var(--token-semantic-color-text-primary, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695))))`
+        'color-hover': `var(${vars['close.color-hover']}, var(--token-semantic-color-text-primary, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695))))`,
+        'background-color-hover': `var(${vars['close.background-color-hover']}, var(--token-semantic-color-background-hover-subtle, color-mix(in oklch, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695)) calc(var(--token-semantic-state-opacity-hover, var(--token-global-opacity-8, 0.08)) * 100%), var(--token-global-material-neutral-98, oklch(0.98379491 0.01284496 321.893957)))))`,
+        'background-color-focus': `var(${vars['close.background-color-focus']}, var(--token-semantic-color-background-active-subtle, color-mix(in oklch, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695)) calc(var(--token-semantic-state-opacity-pressed, var(--token-global-opacity-12, 0.12)) * 100%), var(--token-global-material-neutral-98, oklch(0.98379491 0.01284496 321.893957)))))`,
+        'background-color-active': `var(${vars['close.background-color-active']}, var(--token-semantic-color-background-active-subtle, color-mix(in oklch, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695)) calc(var(--token-semantic-state-opacity-pressed, var(--token-global-opacity-12, 0.12)) * 100%), var(--token-global-material-neutral-98, oklch(0.98379491 0.01284496 321.893957)))))`
     },
     'success': {
         'color': `var(${vars['success.color']}, var(--token-semantic-color-feedback-success-text, var(--token-global-green-800, oklch(0.448 0.119 155))))`,

@@ -54,7 +54,6 @@ body { margin: 0; }
 .crab-docs-search-trigger .crab-docs-search-icon { width: ${globalToken.space[6]}; height: ${globalToken.space[6]}; }
 .crab-docs-theme-switch { flex: none; width: ${token.size.control}; }
 .crab-docs-theme-control { display: block; }
-.crab-docs-theme-anchor { position: absolute; right: 0; top: 0; bottom: 0; width: calc(${globalToken.space[24]} + ${globalToken.space[20]}); pointer-events: none; }
 .crab-docs-header .crab-docs-theme-trigger { width: 100%; height: ${token.size.control}; padding: 0; border: 0; box-shadow: none; color: ${token.color.text.secondary}; border-radius: ${token.shape.control}; }
 .crab-docs-header .crab-docs-theme-trigger[aria-expanded="true"] { background: ${token.color.background["hover-subtle"]}; }
 .crab-docs-theme-popup { width: calc(${globalToken.space[24]} * 2 + ${globalToken.space[4]}); }

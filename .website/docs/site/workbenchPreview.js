@@ -46,7 +46,7 @@ function isPreviewConfiguration(value) {
  * @param {import('./workbenchPreview.js').WorkbenchPreviewProps} props
  * @returns {import('react').ReactElement}
  */
-export default function WorkbenchPreview({ children, className = "demo-default-preview" }) {
+export default function WorkbenchPreview({ children, className = "demo-default-preview", boundary: Boundary = ConfigProvider }) {
     const [configuration, setConfiguration] = useState(
         /** @type {PreviewConfiguration} */ ({ designSystem: DEFAULT_SITE_DESIGN, colorMode: "light", size: "medium", density: "standard", locale: "zh-CN", direction: "ltr", brandColor: undefined, nonce: undefined }),
     );
@@ -160,7 +160,7 @@ export default function WorkbenchPreview({ children, className = "demo-default-p
         };
     }, []);
 
-    return createElement(ConfigProvider, {
+    return createElement(Boundary, {
         designSystem: configuration.designSystem,
         colorMode: configuration.colorMode,
         size: configuration.size,

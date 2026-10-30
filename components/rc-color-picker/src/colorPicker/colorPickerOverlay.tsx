@@ -5,6 +5,7 @@ import RcButton from "@crab-dev/rc-button";
 import { css } from "@crab-dev/css";
 import ColorPickerPanel, { type ColorPickerPanelProps } from "../panels/colorPickerPanel.js";
 import type { Locale, OKLCHValue } from "../types.js";
+import token from "../token.js";
 
 interface ColorPickerOverlayProps extends Omit<ColorPickerPanelProps, "value" | "defaultValue" | "onValueChange" | "locale"> {
     value: OKLCHValue;
@@ -17,10 +18,11 @@ interface ColorPickerOverlayProps extends Omit<ColorPickerPanelProps, "value" | 
 
 const footerStyle = css`
     display: flex;
+    flex-wrap: wrap;
     justify-content: flex-end;
     align-items: center;
-    margin-top: 1rem;
-    gap: 8px;
+    margin-top: ${token.footer['margin-top']};
+    gap: ${token.footer.gap};
 `;
 
 const clearStyle = css`

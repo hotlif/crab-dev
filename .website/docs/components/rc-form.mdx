@@ -20,6 +20,8 @@ import { demos } from "../_generated/rc-form.js";
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
 
+#### 使用示例
+
 ##### 基础用法 — 字段标签与校验反馈由 LineEdit 自行呈现：Material Design 3 Expressive 使用浮动标签，Apple 和 shadcn/ui 使用控件自有的上方静态标签；表单实例操作的结果直接显示在下方。
 
 ##### 搭配 crab-dev 编辑器 — 将 rc-form 与同体系的 rc-line-edit / rc-select / rc-checkbox / rc-radio / rc-switch / rc-slider / rc-button 组合，演示生态内循环。
@@ -29,6 +31,10 @@ import { demos } from "../_generated/rc-form.js";
 ##### 字段校验 — 使用 required 与自定义 rules 组合 rc-line-edit / rc-select，演示同步与异步校验。
 
 ##### 字段状态与显式适配 — 对照禁用、只读、原生值、原生勾选和类型化自定义协议；原生字段保留浏览器外观。
+
+#### 视觉验收
+
+##### 表单校验与布局矩阵 — 通过真实校验进入错误、警告、成功和等待状态；外部标签与控件标签保持字段关联。
 
 </div>
 
@@ -63,6 +69,20 @@ Form 管理字段行，控件管理自身结构。使用 `labelPlacement="contro
 - 提交期间设置 `aria-busy` 并保留明确反馈，避免仅禁用按钮而没有解释。
 
 更多通用要求见[无障碍使用指南](/guides/accessibility)。
+
+### 三体系验收规格
+
+本轮以 2026-10-29 查阅的 [M3 Text fields](https://m3.material.io/components/text-fields/guidelines)、[Material Web 的字段验证](https://material-web.dev/components/text-field/)、[Apple Text fields](https://developer.apple.com/design/human-interface-guidelines/text-fields)为依据。Form 是项目的组合与数据管理能力，没有对应的官方 M3 Form 容器。shadcn 对照产品清单锁定修订的 [New York V4 Form](https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui/form.tsx)，不引入其表单运行时。
+
+| 设计 | 字段、层级与反馈 |
+| --- | --- |
+| MD3 Expressive | 浮动标签和色调字段由编辑器呈现；表达性集中于提交动作，表单不增加卡片、装饰条或第二个焦点环。 |
+| Apple | 静态标签、对齐字段和轻量表面；沿自然 Tab 顺序编辑，保留可复制的只读数据。属于自主 Web 布局。 |
+| shadcn | 中性表面、描边和短标签；校验反馈同时具备文字与无障碍关联。外部标签布局是项目桌面扩展。 |
+
+`small / medium / large` 由字段公开能力继承；`compact / standard / comfortable` 独立改变 Form 的行间距。几何来源是 L2 `form.layout`、`field.layout` 和 L3 `row / item / message`，状态图标来自反馈角色。错误与警告关联实际控件的 `aria-describedby`，禁用与只读分别传给编辑器；成功不自动清空输入。异步校验保留字段与草稿，通过 `aria-busy` 和自然旋转的指示器提供反馈。减少动画由指示器自身处理，完成校验不依赖动画结束。
+
+`docs/visual.json` 是核心矩阵定义，`form.visual.spec.mjs` 使用真实校验进入错误、警告和成功；`form-motion.visual.spec.mjs` 在等待中的校验上保存视频与时间序列。新 Demo 同时包含 control / external 两种标签布局，验证它们不互相挤压。环境场景核对窄屏、RTL、中英文、品牌、强制颜色和减少动画；配置切换保留字段节点与值。未采集及未人工复审的格子保持待验收，测试发现不代表视觉通过。
 
 
 文本字段将标签交给编辑器呈现：`Item labelPlacement="control"` 与 `LineEdit` 配合时，Material Design 3 使用 56px 字段和浮动标签；Apple 与 shadcn 将静态标签放在输入上方。Form 为控件提供整行宽度，不重新排列控件内部的标签、输入或说明。DatePicker、Select 等带结构容器的控件使用同一布局槽，不会被挤入外部标签列。通过文档顶部的外观菜单切换设计风格，无需改写表单。`colorMode` 单独控制明暗，`size` 保持独立；Material 文本字段保留标签所需的 56px 基础高度。

@@ -74,6 +74,9 @@ if (code.includes('Download the React DevTools') || code.includes('react.dev/lin
     throw new Error('The standalone bundle must contain the production React runtime');
 }
 await writeFile(new URL('dist/pdf-editor.js', root), code);
+// The workbench uses the exact standalone artifact, never a second React/WASM loader.
+await mkdir(new URL('public/runtime/', root), { recursive: true });
+await writeFile(new URL('public/runtime/pdf-editor.js', root), code);
 await mkdir(new URL('.fixtures/', root), { recursive: true });
 await writeFile(new URL('.fixtures/test-web-component.json', root), JSON.stringify(code));
 await writeFile(new URL('dist/index.html', root), await readFile(new URL('scripts/web-component/index.html', root)));

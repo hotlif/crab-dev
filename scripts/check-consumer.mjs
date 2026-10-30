@@ -45,7 +45,7 @@ export async function checkConsumer() {
     await copyFile(join(repositoryRoot, "yarn.lock"), join(directory, "yarn.lock"));
     await writeFile(join(directory, "package.json"), JSON.stringify({
         name: "crab-library-consumer-check", private: true, type: "module", packageManager: rootPackage.packageManager,
-        dependencies: { ...dependencies, react: rootPackage.devDependencies.react, "react-dom": rootPackage.devDependencies["react-dom"], "@types/react": "^19.3.0", "@types/react-dom": "^19.3.0" },
+        dependencies: { ...dependencies, typescript: rootPackage.devDependencies.typescript, react: rootPackage.devDependencies.react, "react-dom": rootPackage.devDependencies["react-dom"], "@types/react": "^19.3.0", "@types/react-dom": "^19.3.0" },
         resolutions: dependencies,
     }, null, 4));
     await writeFile(join(directory, ".yarnrc.yml"), JSON.stringify({
@@ -121,7 +121,9 @@ console.log('Independent packaged ESM/CommonJS, internal and asset entrypoints v
     const imports = javascript.map(({ name }, index) => `import * as Package${index} from ${JSON.stringify(name)};\nvoid Package${index};`).join("\n");
     await writeFile(join(directory, "consumer.tsx"), `${imports}
 import { uniqueId } from '@crab-dev/rc-hooks';
+import { useDevicePixelRatio } from '@crab-dev/rc-hooks/internal';
 import type { OverlayLayer } from '@crab-dev/rc-hooks/internal';
+import type { RefObject } from 'react';
 import { useConfigStyleBoundary } from '@crab-dev/rc-config-provider/internal';
 import type { ConfigStyleBoundary } from '@crab-dev/rc-config-provider/internal';
 import { describeCron, parseCron } from '@crab-dev/rc-cron-picker';
@@ -135,12 +137,20 @@ const cron = parseCron('* * * * *');
 if (cron) { const text: string = describeCron(cron); void text; }
 export function useOptionalRoutingContract() { return useEdgeRouting({}, []); }
 export function useInternalConfigBoundaryContract(): ConfigStyleBoundary { return useConfigStyleBoundary(); }
+export function useInternalRasterContract(target: RefObject<Element | null>) {
+    const inherited: number = useDevicePixelRatio(target);
+    const explicit: number = useDevicePixelRatio(target, false);
+    const defaulted: number = useDevicePixelRatio(target, undefined);
+    // @ts-expect-error The internal flag accepts booleans, never string values.
+    useDevicePixelRatio(target, 'false');
+    return { inherited, explicit, defaulted };
+}
 export type { OverlayLayer, DefaultRealmProps, TypedRealmProps };
 `);
     await copyFile(join(repositoryRoot, "components", "rc-card", "src", "__tests__", "card-public.typecheck.tsx"), join(directory, "card-public.typecheck.tsx"));
     await writeFile(join(directory, "tsconfig.json"), JSON.stringify({ compilerOptions: { target: "ESNext", module: "ESNext", moduleResolution: "Bundler", jsx: "react-jsx", strict: true, noEmit: true, skipLibCheck: false, types: ["react", "react-dom"], lib: ["ESNext", "DOM", "DOM.Iterable"] }, include: ["consumer.tsx", "card-public.typecheck.tsx"] }, null, 4));
     try {
-        await run(process.execPath, [resolve(repositoryRoot, "scripts", "typecheck.mjs"), "--noEmit"], { cwd: directory, env });
+        await run(process.execPath, [yarn, "exec", "tsc", "--noEmit"], { cwd: directory, env });
     } catch (error) { failures.push(error.message); }
     if (failures.length) throw new Error(failures.join("\n\n"));
     assert.equal(packages.length, Object.keys(dependencies).length);

@@ -1,0 +1,39 @@
+{
+    "schemaVersion": 1,
+    "demo": "visual-matrix.demo.tsx",
+    "sizes": [
+        "default",
+        "small"
+    ],
+    "densities": [
+        "standard"
+    ],
+    "states": [
+        "default",
+        "zero",
+        "overflow",
+        "dot",
+        "status",
+        "error",
+        "processing"
+    ],
+    "notApplicable": {
+        "size": "All public named sizes are listed. Open numeric/string dimensions use documented representative samples, not an exhaustive claim.",
+        "density": "This component has fixed presentation geometry; density does not change its geometry.",
+        "selection": "This display/feedback component has no selected or checked protocol.",
+        "error": "Error is an explicit semantic state in the matrix.",
+        "interaction": "The display surface does not expose a user action; hover, focus and pressed are not synthesized.",
+        "motion": "Continuous states are recorded naturally with video/time-series in a separate file; they are never frozen into a static pixel baseline."
+    },
+    "crossEngine": {
+        "sizes": [
+            "default"
+        ],
+        "densities": [
+            "standard"
+        ],
+        "states": [
+            "default"
+        ]
+    }
+}

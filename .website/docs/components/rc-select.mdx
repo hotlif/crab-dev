@@ -22,6 +22,8 @@ import { demos } from "../_generated/rc-select.js";
 
 #### 标签与状态
 
+##### 三体系状态矩阵 — 同一字段对照真实键盘、选择、搜索、校验与加载状态。
+
 ##### 标签与选择状态 — 对照三套主题下的静态或浮动标签、选择面板、错误及禁用状态；切换主题保留当前值。
 
 #### 基础与状态
@@ -128,6 +130,23 @@ Escape 关闭时 `onOpenChange` 的原因是 `escape`，并保留原始键盘事
 | 清除按钮上的 Enter / Space | 清空选中值，焦点回到选择器 |
 
 更多要求见[无障碍使用指南](/guides/accessibility)。
+
+
+### 三体系规格与验收矩阵（2026-10-29）
+
+| 体系 | 字段与集合规格 | 桌面扩展 |
+| --- | --- | --- |
+| MD3 Expressive | outlined / filled 沿用字段标签、错误说明和色调表面；选中行、活动行与键盘焦点分别表达 | 搜索、多选标签、warning、虚拟集合和三档行密度是本库扩展 |
+| Apple | 内容优先、静态标签、轻量面板，选中与活动状态清晰；不复制系统原生弹出菜单 | Web combobox、长中英文标签及公开三档尺寸 |
+| shadcn New York V4 | 中性字段、描边、popover 层级、清晰焦点与选项高亮 | 保留本库字段标签、多选和虚拟化协议 |
+
+字段几何来自 L2 `field.*` / `sizing.*`，集合高度和虚拟测量共用 `density.item`，L3 不按设计 ID 分支。公开 small / medium / large 控制字段，compact / standard / comfortable 独立控制选项行；命中区域按粗指针规则扩展，不能通过视觉高度推断触控目标。三体系均使用配对浅深色、required / error 的持久说明，并保留清除入口及尾部键盘焦点。
+
+`visual.json` 是包内验收轴来源：三体系浅深色 × 三尺寸 × 三密度 × default、hover、focus-visible、expanded、selected、multiple、error、warning、disabled、empty、loading。通过实际键盘、打开与选项点击进入状态；loading 单独保留自然动画帧、视频与 trace，不用静止基准代替动态复审。其他稳定状态使用 Playwright 原生截图比较；Firefox / WebKit 子集以 `crossEngine` 为准。未支持的 pressed/readOnly 说明在 notApplicable 中。
+
+来源：[Material Web Select](https://material-web.dev/components/select/) 与 [Menu](https://material-web.dev/components/menu/)；[Apple menus](https://developer.apple.com/design/human-interface-guidelines/menus)；[shadcn 固定 Select 源码](https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui/select.tsx)。Material Web 是 Web 基线，搜索/密度扩展不宣称属于官方 Expressive 新组件。
+
+验收另外检查 Portal 配置更新、切换保留搜索实例与草稿、320/768px、RTL、英文、品牌、强制颜色及减少动画。已有 Dropdown 登记浏览器检查只覆盖底层 iframe 焦点协议，不能替代 Select 自身跨文档外观；嵌套 Provider、iframe/Shadow DOM 中的真实选择和最近配置由 Drawer 包的公开组合边界 Demo 与所属原生场景补充。新增场景在实际运行、逐图复审前仍为待验。规格与自动场景不表示人工外观已通过；以对应源码指纹的实际报告和逐项复审为准。
 
 ### 适用场景
 

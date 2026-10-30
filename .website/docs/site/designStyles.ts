@@ -150,11 +150,6 @@ globalStyle`
         margin: 0;
         padding: 0;
     }
-    .crab-docs:is([data-crab-design="apple"], [data-crab-design="shadcn"]) .crab-docs-header .crab-docs-theme-anchor {
-        right: 0;
-        left: auto;
-        width: calc(${globalToken.space[24]} + ${globalToken.space[20]});
-    }
     .crab-docs:is([data-crab-design="apple"], [data-crab-design="shadcn"]) .crab-docs-layout .crab-docs-sidebar {
         inset: ${token.size[64]} auto 0 0;
         width: calc(${token.size[64]} * 4);

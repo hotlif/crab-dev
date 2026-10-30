@@ -7,6 +7,22 @@ status = "experimental"
 
 # 迁移指南
 
+## 维护性重构与桌面数据密度
+
+组件包名、主入口、八项配置和受控状态协议保持一致。源码按样式、类型、布局和状态职责重组；应用继续使用公开入口，内部文件路径不作为稳定接口。
+
+默认密度仍为 `standard`。自动数据行参考高度调整为紧凑 28px、标准 36px、舒适 44px；表头分别为 32px、36px、44px。显式 `getRowHeight`、`row.height` 等几何优先级保持不变；需要旧固定几何的应用应显式声明行高，并核对滚动、编辑与焦点。粗指针自动默认值继续保留原有下限。
+
+开发环境统一使用官方 TypeScript 6.0.2。刷新依赖后运行 `yarn generate:sdk`，再执行包内检查；旧的编译器准备命令已移除。不要把历史编译器缓存当作当前入口，也无需清理已有缓存或审查记录。
+
+文档维护者将布局、预览密度和 Demo 分组写在包内 `docs/presentation.json`，再生成站点；运行示例和教学步骤仍分别维护。产品设计身份来自产品清单，生成的 registry 与选择器通过 `generate:architecture` 更新。
+
+## Button 专属几何
+
+MD3 按钮的 `xs / s / m / l / xl` 更新为 Expressive 的 32/40/56/96/136px 高度，字号、图标、间距及按压圆角随档位变化。默认 MD3 按钮由 36px 调整为 40px；固定工具栏和操作行应复核布局，密集桌面操作优先选择 `xs` 或 `s`。Provider 的 `small / medium / large` 继续映射为 `xs / s / m`，密度保持独立。
+
+Apple 使用 24/28/32/40/48px 的自主 Web 桌面尺度；shadcn 使用 32/36/40px 的参考尺度，并保留 48/56px 项目扩展。应用继续使用原有 Props；通过公共 TokenVars 定制的应用应检查尺寸与焦点边界。具体角色和状态见 [Button](/components/rc-button)。
+
 ## 独立消费与宿主依赖
 
 实际使用 React / ReactDOM 的公开包改为显式声明对应 peerDependencies，并保留构建和测试所需的开发依赖；不放入 dependencies 引入额外 React 副本。消费方应安装满足声明范围的 React 宿主，严格 PnP 安装不再依赖单仓开发依赖提供隐式 peer。此项修正不改变组件导入方式。
@@ -28,6 +44,8 @@ status = "experimental"
 `useConfig()` 使用 designSystem / colorMode / size / density 等同名新字段。ThemeDesign 改为 DesignSystem，themeColorContract 改为 md3ColorContract，macosColorContract 改为 appleColorContract。新设计名显示为 MD3 Expressive、Apple、shadcn/ui，根配置统一为 md3 / light / medium / standard / zh-CN / ltr。
 
 非 React 页面仍用 `data-crab-design` 和 `data-theme`，但前者的值必须迁移为 md3 / apple / shadcn；后者只写解析后的 light / dark。
+
+Card 切换设计体系或明暗时，内容表面与文字同步切换，背景色不再单独插值；位移、阴影、描边和状态层动效继续生效。无需修改 Props。自定义过渡的应用应一并核对标题、正文、Meta 和自定义子内容的中间态可读性。
 
 PDF Web Component 同步迁移：`editor.theme` 改为 `editor.colorMode`，`<crab-pdf-editor theme="dark">` 改为 `color-mode="dark"`，不保留旧别名。元素的 `designSystem / colorMode / brandColor` 分别映射 `design-system / color-mode / brand-color`，`size / density` 使用同名属性，`locale / direction` 映射标准 `lang / dir`，`nonce` 保留 HTMLElement 原生属性。
 
@@ -63,6 +81,8 @@ Form 中的 CheckboxGroup、RadioGroup 等选项组应使用 `Item labelPlacemen
 Form 的内置 `required` 现在将空数组 `[]` 视为缺值；使用必填 CheckboxGroup、多选值集合的页面需处理空选项校验及重置后重新校验。`0` 和 `false` 仍是已提供的值；不自动 trim 空白、遍历对象或判断日期元组等非空数组内的业务完整性，这些需求继续使用 `rules`。
 
 TextEdit 的三档尺寸统一控制多行字段几何：Apple、shadcn/ui 调整内边距和最小高度，MD3 映射到同一标准字段几何；正文不随尺寸缩放。`rows`、`autoSize`、密度和无边框宿主几何独立，具体数值与 MD3 例外见[尺寸与密度](/guides/component-sizing)。迁移时重新核对固定高度的表单布局。
+
+NumberEdit 科学计数显示改用内部 Flex 对齐主数字与上标，保留语义上标、原有相对字号和输入字段几何。数值、受控协议及 Props 无需迁移；依赖内部上标原生行内定位的样式覆盖应重新核对只读和禁用显示。
 
 Table 行编辑的确认、取消复用 Button 的实心与描边外观，移除了原 `row-edit.confirm.*`、`row-edit.cancel.*`、`row-edit.button.*` 及行编辑专用焦点、动效令牌。使用这些 Table `TokenVars` 做覆盖的应用应改用按钮的公共契约，操作浮条的表面、边框、间距和布局角色继续由 Table 管理。
 

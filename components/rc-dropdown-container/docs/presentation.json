@@ -1,0 +1,18 @@
+{
+    "layout": "wide",
+    "previewDensity": "regular",
+    "groups": [
+        {
+            "title": "规格验收",
+            "demos": [
+                "visual-matrix.demo.tsx"
+            ]
+        },
+        {
+            "title": "功能演示",
+            "demos": [
+                "base.demo.tsx"
+            ]
+        }
+    ]
+}

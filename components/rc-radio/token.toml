@@ -13,6 +13,7 @@ root.outline-offset-focus = "2px"
 root.touch.min-width = "$ref(size.selection-target)"
 root.touch.min-height = "$ref(size.selection-target)"
 root.line-height = "$ref(typography.body.medium.line-height)"
+root.font-family = "$ref(typography.body.font-family)"
 root.opacity-disabled = "$ref(opacity.disabled)"
 
 # ─── 通用 ────────────────────────────────────────────────────────────────────

@@ -16,7 +16,7 @@
         "generate:docgen": "wake library docgen .",
         "test": "wake test --serial --coverage",
         "test:browser": "node scripts/prepare-browser-tests.mjs && yarn test --root src/__tests__/browser",
-        "typecheck": "node ../../scripts/typecheck.mjs --noEmit",
+        "typecheck": "tsc --noEmit",
         "lint": "wake lint --format human --root ../.. components/rc-virtual/src components/rc-virtual/docs --env browser --max-warnings 0 && yarn lint:tools",
         "lint:tools": "wake lint --format human --root ../.. components/rc-virtual/scripts --env node --max-warnings 0",
         "check": "node ../../scripts/check-package.mjs"
@@ -51,7 +51,7 @@
         "react": "19.3.0",
         "react-dom": "19.3.0",
         "react-router": "^8.3.1",
-        "typescript": "^7.0.2"
+        "typescript": "6.0.2"
     },
     "engines": {
         "node": ">=22"

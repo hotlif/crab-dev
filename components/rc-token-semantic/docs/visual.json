@@ -1,0 +1,5 @@
+{
+    "schemaVersion": 1, "demo": "visual-matrix.demo.tsx", "sizes": ["medium"], "densities": ["standard"], "states": ["default", "focus-visible"],
+    "crossEngine": { "sizes": ["medium"], "densities": ["standard"], "states": ["default", "focus-visible"] },
+    "notApplicable": { "size": "L2 publishes semantic values rather than a sized component.", "density": "Density geometry is validated by its consumers and shared numeric contract.", "disabled": "A token has no disabled lifecycle; its disabled color roles are tested by consumers.", "loading": "Token values do not load asynchronously.", "pressed": "This sample identifies role pairings; component pressed surfaces have their own matrices." }
+}

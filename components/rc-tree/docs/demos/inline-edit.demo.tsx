@@ -86,6 +86,9 @@ const buildNodes = (): Node[] => {
 };
 
 const MAX_LEN = 20;
+// TokenVars contains property names, not assignments. A standalone consumer
+// supplies Tree's 2px focus fallback while inherited host overrides still win.
+const editorFocusWidth = `var(${treeVars['root.outline-width-focus']}, 2px)`;
 
 const editorStyle = css`
     display: flex;
@@ -101,8 +104,8 @@ const inputStyle = css`
        its resolved height; standalone MD3 fields retain their 56px minimum. */
     ${lineEditVars['root.touch.min-height']}: 0px;
     ${lineEditVars['root.outline-color-focus']}: currentColor;
-    ${lineEditVars['root.outline-width-focus']}: var(${treeVars['root.outline-width-focus']});
-    ${lineEditVars['root.outline-offset-focus']}: calc(-1 * var(${treeVars['root.outline-width-focus']}));
+    ${lineEditVars['root.outline-width-focus']}: ${editorFocusWidth};
+    ${lineEditVars['root.outline-offset-focus']}: calc(-1 * ${editorFocusWidth});
     flex: 1 1 auto;
     min-width: 0;
     font-size: inherit;
@@ -111,7 +114,7 @@ const inputStyle = css`
         height: 100%;
         max-height: 100%;
         padding-inline: 0.375rem;
-        border-radius: var(${treeVars['root.border-radius']});
+        border-radius: var(${treeVars['root.border-radius']}, ${token.navigation.item.radius});
         color: inherit;
     }
     /* A borderless editor still has a visible invalid state, paired with its

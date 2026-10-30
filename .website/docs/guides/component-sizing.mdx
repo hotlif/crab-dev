@@ -40,13 +40,15 @@ import SizeShowcase from "../site/sizeShowcase.js";
 
 Button 显式 `size` 使用 `xs / s / m / l / xl`，是组件自己的 Expressive 尺寸变体；Provider 的通用档位由组件映射到其默认规格。画布坐标、PDF 页面、图表数据和正文排版不随控件尺寸等比缩放。
 
-TextEdit 的 `rows` / `autoSize` 管内容高度，`size` 管输入边界的最小高度和间距，不缩放正文。字段几何由 `components/rc-theme/src/theme-values.ts` 的 `designFieldContract` 按体系分档：Apple 三档为本库 Web 几何；shadcn/ui 的 medium 采用固定 New York V4 的 64px 最小高度、上下 8px、左右 12px，small/large 是显式扩展。具体数值及全部外观见 [TextEdit 尺寸契约](/components/rc-text-edit)。
+TextEdit 的 `rows` / `autoSize` 管内容高度，`size` 管输入边界的最小高度和间距，不缩放正文。字段几何由语义层 `components/rc-token-semantic/src/design-geometry.ts` 的 `designFieldContract` 按体系分档，Theme 负责 CSS 边界映射：Apple 三档为本库 Web 几何；shadcn/ui 的 medium 采用固定 New York V4 的 64px 最小高度、上下 8px、左右 12px，small/large 是显式扩展。具体数值及全部外观见 [TextEdit 尺寸契约](/components/rc-text-edit)。
 
 TextEdit 在 MD3 下将三档映射到同一标准字段几何（当前为最小 56px、内边距 16px、正文 16px/24px），是保留浮动标签、正文与轮廓空间的例外，不是官方三档规格。该映射兼容已有 size 调用和内部清除动作分档，适用于带边界字段；无边框模式由宿主提供几何。实际 CSS 回归覆盖三档、标签、Filled、行数及 autoSize。只有引入有依据的新变体并同步迁移和复验后才退出此例外。
 
 密度可以调整布局间距和数据行节奏，但不能减少必要的标签空间、焦点可见性和触控命中区域。不可用更小字号掩盖宽度不足；窄屏改为合适布局，长内容保持阅读和操作顺序。
 
 Table/TablePro 的虚拟行几何使用独立 density；size 只影响内部控件。显式 getRowHeight 或 row.height 优先，切换密度时仍需核对滚动窗口和焦点位置。
+
+桌面专业场景以 `standard` 为默认密度。数据行和表头的参考几何从同一份 L2 令牌生成数值与 CSS，当前值可在上方演示中切换查看；不在组件内另写固定行高。密度变更保持行 ID、选择、编辑与展开状态，显式行高继续优先。
 
 Tree 的节点高度优先采用 node.height，其次采用显式 defaultNodeHeight，未提供时使用自动默认几何。Table/Tree 的粗指针最低高度只用于自动默认值，不覆盖显式行高或节点高度；显式较小高度保持传入值，由应用按实际输入方式选择尺寸。
 

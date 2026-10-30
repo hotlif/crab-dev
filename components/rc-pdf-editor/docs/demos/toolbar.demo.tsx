@@ -2,9 +2,10 @@ import { useState } from 'react';
 import { css } from '@crab-dev/css';
 import Button from '@crab-dev/rc-button';
 import Checkbox from '@crab-dev/rc-checkbox';
-import PdfEditor, { PDF_EDITOR_ACTIONS, type PdfEditorActionGroup, type PdfEditorActionVisibility, type PdfEditorToolbarAction } from '../../src/index.js';
-import token from '../../src/token.js';
-import { sampleDocument } from './sample-document.js';
+import PdfEditor, { PDF_EDITOR_ACTIONS, type PdfEditorActionGroup, type PdfEditorActionVisibility, type PdfEditorToolbarAction } from '@crab-dev/rc-pdf-editor';
+import token from '@crab-dev/rc-token-semantic';
+
+const sampleDocument = { id: 'toolbar-demo', fileName: 'toolbar-demo.pdf', source: './fixtures/visual-document.pdf' };
 
 export const meta = { title: '图标显隐与动作扩展', description: '逐项或分组控制全部内置图标，实时预览配置，并追加一个业务动作。隐藏入口不会限制快捷键和 ref。' };
 const runtime = { workerUrl: './runtime/pdf-editor.worker.js', wasmUrl: './runtime/pdfium.wasm' };
@@ -13,12 +14,12 @@ const groupLabels: Record<PdfEditorActionGroup, string> = {
     navigation: '画布工具', drawing: '绘图工具', panels: '侧栏图标', view: '视图',
 };
 const groups = [...new Set(PDF_EDITOR_ACTIONS.map(action => action.group))];
-const sectionStyle = css`display: flex; flex-direction: column; gap: ${token.panel.gap}; min-width: 0;`;
-const rowStyle = css`display: flex; flex-wrap: wrap; align-items: center; gap: ${token.toolbar.gap};`;
-const gridStyle = css`display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, ${token.panel.width}), 1fr)); gap: ${token.panel.gap};`;
-const fieldStyle = css`border: 0; padding: 0; margin: 0; min-width: 0; & legend { margin-bottom: ${token.toolbar.gap}; }`;
-const noteStyle = css`margin: 0; color: ${token.status.color}; font-size: ${token.status['font-size']};`;
-const codeStyle = css`margin: 0; padding: ${token.panel.padding}; overflow: auto; background: ${token.canvas.background}; border-radius: ${token.root['border-radius']};`;
+const sectionStyle = css`display: flex; flex-direction: column; gap: ${token.space['stack-gap']}; min-width: 0;`;
+const rowStyle = css`display: flex; flex-wrap: wrap; align-items: center; gap: ${token.space['component-gap']};`;
+const gridStyle = css`display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr)); gap: ${token.space['stack-gap']};`;
+const fieldStyle = css`border: 0; padding: 0; margin: 0; min-width: 0; & legend { margin-bottom: ${token.space['component-gap']}; }`;
+const noteStyle = css`margin: 0; color: ${token.color.text.secondary}; font-size: ${token.typography.caption['font-size']};`;
+const codeStyle = css`margin: 0; padding: ${token.space['card-padding']}; overflow: auto; background: ${token.color.surface.content}; border-radius: ${token.shape.control};`;
 
 export default function ToolbarDemo() {
     const [visibility, setVisibility] = useState<PdfEditorActionVisibility>({});

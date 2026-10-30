@@ -1,34 +1,13 @@
-import { css, cx } from '@crab-dev/css';
+import { cx } from '@crab-dev/css';
 import { use, type MouseEvent } from 'react';
-import token from '../token.js';
+import { headerStyle, titleStyle, extraStyle } from './card-header.styles.js';
 import { CardContext } from '../context.js';
 import type { CardHeaderProps } from '../types.js';
 
 // 标题区：下方留白交给后续区块（body 通过 [data-card-header] + & 压缩顶距），
 // 自身只负责顶部与两侧的容器边距。
-const headerStyle = css`
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: var(--rc-card-gap, ${token.size.medium.gap});
-    padding: var(--rc-card-pad, ${token.size.medium.padding});
-    padding-bottom: 0;
-`;
 
-const titleStyle = css`
-    min-width: 0;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    color: ${token.header.title.color};
-    font-size: var(--rc-card-title-size, ${token.size.medium.title['font-size']});
-    font-weight: ${token.header.title['font-weight']};
-    line-height: 1.4;
-`;
 
-const extraStyle = css`
-    flex-shrink: 0;
-`;
 
 const CardHeader = ({ title, extra, className, ref, ...restProps }: CardHeaderProps) => {
     const { clickable } = use(CardContext);

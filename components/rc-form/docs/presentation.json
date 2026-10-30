@@ -1,0 +1,22 @@
+{
+    "layout": "wide",
+    "previewDensity": "regular",
+    "groups": [
+        {
+            "title": "使用示例",
+            "demos": [
+                "base.demo.tsx",
+                "editors.demo.tsx",
+                "filled.demo.tsx",
+                "validation.demo.tsx",
+                "visual-states.demo.tsx"
+            ]
+        },
+        {
+            "title": "视觉验收",
+            "demos": [
+                "visual-matrix.demo.tsx"
+            ]
+        }
+    ]
+}

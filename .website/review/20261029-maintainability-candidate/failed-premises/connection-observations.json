@@ -1,0 +1,109 @@
+{
+  "trace": {
+    "startedAt": "2026-10-29T02:43:35.215Z",
+    "timeoutMs": 20000,
+    "portReads": [
+      {
+        "elapsedMs": 0.27779999999999916,
+        "error": {
+          "name": "Error",
+          "message": "ENOENT: no such file or directory, open 'C:\\Users\\zhang\\Desktop\\crab-dev\\.tmp\\docs-ui-review-2026-10-29T02-43-35-203Z\\profile\\DevToolsActivePort'",
+          "code": "ENOENT",
+          "errno": -4058,
+          "syscall": "open"
+        }
+      },
+      {
+        "elapsedMs": 53.7155,
+        "error": {
+          "name": "Error",
+          "message": "ENOENT: no such file or directory, open 'C:\\Users\\zhang\\Desktop\\crab-dev\\.tmp\\docs-ui-review-2026-10-29T02-43-35-203Z\\profile\\DevToolsActivePort'",
+          "code": "ENOENT",
+          "errno": -4058,
+          "syscall": "open"
+        }
+      },
+      {
+        "elapsedMs": 100.14580000000001,
+        "error": {
+          "name": "Error",
+          "message": "ENOENT: no such file or directory, open 'C:\\Users\\zhang\\Desktop\\crab-dev\\.tmp\\docs-ui-review-2026-10-29T02-43-35-203Z\\profile\\DevToolsActivePort'",
+          "code": "ENOENT",
+          "errno": -4058,
+          "syscall": "open"
+        }
+      },
+      {
+        "elapsedMs": 146.7999,
+        "error": {
+          "name": "Error",
+          "message": "ENOENT: no such file or directory, open 'C:\\Users\\zhang\\Desktop\\crab-dev\\.tmp\\docs-ui-review-2026-10-29T02-43-35-203Z\\profile\\DevToolsActivePort'",
+          "code": "ENOENT",
+          "errno": -4058,
+          "syscall": "open"
+        }
+      },
+      {
+        "elapsedMs": 192.7915,
+        "error": {
+          "name": "Error",
+          "message": "ENOENT: no such file or directory, open 'C:\\Users\\zhang\\Desktop\\crab-dev\\.tmp\\docs-ui-review-2026-10-29T02-43-35-203Z\\profile\\DevToolsActivePort'",
+          "code": "ENOENT",
+          "errno": -4058,
+          "syscall": "open"
+        }
+      },
+      {
+        "elapsedMs": 240.92340000000002,
+        "error": {
+          "name": "Error",
+          "message": "ENOENT: no such file or directory, open 'C:\\Users\\zhang\\Desktop\\crab-dev\\.tmp\\docs-ui-review-2026-10-29T02-43-35-203Z\\profile\\DevToolsActivePort'",
+          "code": "ENOENT",
+          "errno": -4058,
+          "syscall": "open"
+        }
+      },
+      {
+        "elapsedMs": 286.9587,
+        "port": 54432
+      }
+    ],
+    "requests": [
+      {
+        "endpoint": "http://127.0.0.1:54432/json/list",
+        "elapsedMs": 289.1667,
+        "status": 200,
+        "ready": true,
+        "finishedElapsedMs": 452.3154
+      }
+    ],
+    "status": "ready",
+    "finishedAt": "2026-10-29T02:43:35.668Z",
+    "elapsedMs": 453.3399,
+    "processState": {
+      "exitCode": null,
+      "signalCode": null
+    }
+  },
+  "records": [
+    {
+      "title": "127.0.0.1",
+      "body": "无法访问此网站\n\n127.0.0.1 的响应时间过长。\n\n请试试以下办法：\n\n检查网络连接\n检查代理服务器和防火墙\n运行 Windows 网络诊断\nERR_CONNECTION_TIMED_OUT\n重新加载\n详情",
+      "headings": [
+        "\n            无法访问此网站\n          "
+      ],
+      "buttons": [
+        {
+          "label": null,
+          "text": "\n              重新加载\n            "
+        },
+        {
+          "label": null,
+          "text": "\n            详情\n          "
+        }
+      ],
+      "inputs": []
+    }
+  ],
+  "exceptions": []
+}

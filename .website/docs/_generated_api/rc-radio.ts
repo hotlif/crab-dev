@@ -12,12 +12,12 @@ export interface RadioProps {
     /**
      * Defines a string value that labels the current element.
      */
-    "aria-label"?: string | undefined | string;
+    "aria-label"?: (string | undefined) & (string);
 
     /**
-     * 子元素
+     * 暂无说明。
      */
-    "children"?: ReactNode | undefined | ReactNode;
+    "children"?: (ReactNode | undefined) & (ReactNode);
 
     /**
      * 单选框的大小, 默认为 medium

@@ -1,0 +1,14 @@
+{
+    "schemaVersion": 1,
+    "demo": "visual-matrix.demo.tsx",
+    "sizes": ["small", "medium", "large"],
+    "densities": ["compact", "standard", "comfortable"],
+    "states": ["default", "hover", "focus-visible", "disabled", "read-only", "error", "warning", "success", "validating"],
+    "crossEngine": { "sizes": ["medium"], "densities": ["standard"], "states": ["default", "focus-visible", "error", "warning", "success"] },
+    "notApplicable": {
+        "pressed": "Form does not expose a pressed container; submit action feedback belongs to Button and fields retain their own interactions.",
+        "selected": "Form manages field records rather than a selectable container.",
+        "expanded": "Popup fields own expansion; the Form layout has no expansion protocol.",
+        "loading": "The equivalent applicable state is validating, sampled with live animation and video in form-motion.visual.spec.mjs."
+    }
+}

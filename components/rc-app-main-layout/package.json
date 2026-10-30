@@ -15,11 +15,13 @@
         "generate:docgen": "wake library docgen .",
         "generate:token": "wake library token .",
         "test": "wake test --serial --coverage",
-        "typecheck": "node ../../scripts/typecheck.mjs --noEmit",
+        "typecheck": "tsc --noEmit",
         "lint": "wake lint --format human --root ../.. components/rc-app-main-layout/src components/rc-app-main-layout/docs --env browser --max-warnings 0 && yarn lint:tools",
         "check": "node ../../scripts/check-package.mjs",
         "test:browser": "yarn build:library && node scripts/prepare-browser-tests.mjs && yarn test --root src/__tests__/browser",
-        "lint:tools": "wake lint --format human --root ../.. components/rc-app-main-layout/scripts --env node --max-warnings 0"
+        "lint:tools": "wake lint --format human --root ../.. components/rc-app-main-layout/scripts --env node --max-warnings 0",
+        "build:visual": "wake docs build . --mode components --outdir .cache/visual-workbench",
+        "test:visual": "node ../../scripts/visual/run.mjs --package ."
     },
     "files": [
         "esm",
@@ -54,7 +56,7 @@
         "react-markdown": "^10.1.0",
         "react-router": "^8.3.1",
         "react-syntax-highlighter": "^16.1.1",
-        "typescript": "^7.0.2"
+        "typescript": "6.0.2"
     },
     "dependencies": {
         "@crab-dev/css": "0.1.45",

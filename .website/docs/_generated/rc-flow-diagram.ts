@@ -6,6 +6,44 @@ import type { ComponentDemoRecord } from "../site/componentDemos.js";
 
 export const demos = [
     {
+        "id": "docs/demos/visual-matrix.demo.tsx",
+        "title": "流程工作区状态矩阵",
+        "description": "真实 ELK 布局、选中、拖动、手动路由和失败；下方等价节点入口可用键盘选择和移动。",
+        "learning": {
+            "components": [
+                "FlowDiagram",
+                "FlowEdge",
+                "FlowNode"
+            ],
+            "props": [
+                "nodes",
+                "edges",
+                "width",
+                "height",
+                "nodePositions",
+                "elkOptions",
+                "manualRoutes",
+                "onEmptyClick",
+                "points",
+                "crossings",
+                "dashLength",
+                "gapLength"
+            ],
+            "events": [
+                "onEmptyClick",
+                "onClick",
+                "onDrag"
+            ],
+            "hasState": true
+        },
+        "sourceCode": "import { useState } from 'react';\nimport { css } from '@crab-dev/css';\nimport FlowDiagram, { FlowNode, FlowEdge, type ElkLayoutNode, type ElkLayoutEdge, type FlowDiagramRenderContext } from '@crab-dev/rc-flow-diagram';\nimport token from '@crab-dev/rc-token-semantic';\n\nexport const meta = { title: '流程工作区状态矩阵', description: '真实 ELK 布局、选中、拖动、手动路由和失败；下方等价节点入口可用键盘选择和移动。' };\nconst nodes: ElkLayoutNode[] = [{ id: 'request', width: 148, height: 56 }, { id: 'review', width: 148, height: 56 }, { id: 'complete', width: 148, height: 56 }];\nconst edges: ElkLayoutEdge[] = [{ id: 'to-review', source: 'request', target: 'review' }, { id: 'to-complete', source: 'review', target: 'complete' }];\nconst sceneStyle = css`padding: ${token.space['card-padding']}; background: ${token.color.surface.content}; max-inline-size: 100%;`;\nconst scrollStyle = css`overflow: auto; max-inline-size: 100%; &:focus-visible { outline: 2px solid ${token.color.focus.ring}; outline-offset: -2px; }`;\nconst rowStyle = css`display: flex; flex-wrap: wrap; gap: ${token.space['component-gap']}; margin-block: ${token.space['component-gap']};`;\nconst nodeControlStyle = css`border: 1px solid ${token.color.border.default}; background: ${token.color.surface.content}; color: ${token.color.text.primary}; padding: ${token.space['component-gap']}; border-radius: ${token.shape.control}; font: inherit; &[aria-pressed='true'] { background: ${token.color.selection.background}; color: ${token.color.selection.foreground}; } &:focus-visible { outline: 2px solid ${token.color.focus.ring}; } @media (pointer: coarse) { min-inline-size: ${token.size['touch-target']}; min-block-size: ${token.size['touch-target']}; }`;\nconst statusStyle = css`margin: 0; color: ${token.color.text.secondary};`;\n\nfunction LayoutStatus({ context }: { context: FlowDiagramRenderContext }) {\n    return \u003coutput className={statusStyle} aria-label=\"布局状态\" data-layout={context.loading ? 'loading' : context.error ? 'error' : 'ready'} data-node-count={Object.keys(context.nodeRects).length} data-node-rects={JSON.stringify(context.nodeRects)} data-routes={JSON.stringify(context.routes)} data-label-color={context.palette.nodeLabel} data-zoom={context.zoom}>\n        {context.error ? `ELK: ${context.error.message}` : context.loading ? 'ELK loading' : `ELK ready · ${Object.keys(context.nodeRects).length} nodes`}\n    \u003c/output>;\n}\n\nexport default function VisualMatrixDemo() {\n    const [mode, setMode] = useState('default');\n    const [selected, setSelected] = useState('');\n    const [positions, setPositions] = useState\u003cRecord\u003cstring, { x: number; y: number }>>({});\n    const [exported, setExported] = useState('');\n    const visibleNodes = mode === 'empty' ? [] : mode === 'refresh' ? [...nodes, { id: 'archive', width: 148, height: 56 }] : nodes;\n    const visibleEdges = mode === 'empty' ? [] : mode === 'refresh' ? [...edges, { id: 'to-archive', source: 'complete', target: 'archive' }] : edges;\n    const move = (id: string, x: number, y: number, dx: number, dy: number) => setPositions(previous => ({ ...previous, [id]: { x: (previous[id]?.x ?? x) + dx, y: (previous[id]?.y ?? y) + dy } }));\n    return \u003cdiv>\n        \u003clabel>验收状态 \u003cselect aria-label=\"验收状态\" value={mode} onChange={event => { setMode(event.target.value); setPositions({}); }}>\n            {['default', 'empty', 'error', 'manual-route', 'long-text', 'refresh', 'motion'].map(value => \u003coption key={value} value={value}>{value}\u003c/option>)}\n        \u003c/select>\u003c/label>\n        \u003csection aria-label=\"FlowDiagram visual matrix\" className={sceneStyle} data-selection={selected} data-positions={JSON.stringify(positions)}>\n            \u003cdiv role=\"region\" aria-label=\"流程图滚动区域\" tabIndex={0} className={scrollStyle}>\n                \u003cFlowDiagram nodes={visibleNodes} edges={visibleEdges} width={640} height={250} nodePositions={positions}\n                    elkOptions={mode === 'error' ? { 'elk.algorithm': 'crab.invalid-algorithm' } : undefined}\n                    manualRoutes={mode === 'manual-route' ? { 'to-review': { source: 'request', target: 'review', sourcePort: { side: 'bottom', t: 0.5 }, targetPort: { side: 'bottom', t: 0.5 }, waypoints: [{ x: 180, y: 150 }] } } : undefined}\n                    onEmptyClick={() => setSelected('')}>\n                    {context => \u003c>\n                        \u003cLayoutStatus context={context} />\n                        \u003cdiv className={rowStyle} role=\"toolbar\" aria-label=\"流程图视图工具栏\">\n                            \u003cbutton className={nodeControlStyle} type=\"button\" onClick={() => context.controls.fitView(24)}>适应流程图\u003c/button>\n                            \u003cbutton className={nodeControlStyle} type=\"button\" onClick={context.controls.zoomIn}>放大流程图\u003c/button>\n                            \u003cbutton className={nodeControlStyle} type=\"button\" onClick={context.controls.zoomOut}>缩小流程图\u003c/button>\n                            \u003cbutton className={nodeControlStyle} type=\"button\" onClick={() => setExported(context.controls.exportPNG())}>导出流程图 PNG\u003c/button>\n                        \u003c/div>\n                        {visibleEdges.map(edge => {\n                            const points = context.routes[edge.id]?.points;\n                            return points && points.length > 1 ? \u003cFlowEdge key={edge.id} points={points} crossings={context.crossings[edge.id]} dashLength={mode === 'motion' ? 6 : 0} gapLength={4} flowSpeed={mode === 'motion' ? 30 : 0} /> : null;\n                        })}\n                        {visibleNodes.map(node => {\n                            const rect = context.nodeRects[node.id];\n                            return rect ? \u003cFlowNode key={node.id} {...rect} label={mode === 'long-text' ? `${node.id} · 长文本 Enterprise` : node.id}\n                                fill={selected === node.id ? token.color.selection.background : undefined} labelColor={selected === node.id ? token.color.selection.foreground : undefined}\n                                stroke={selected === node.id ? token.color.selection.border : undefined} strokeWidth={selected === node.id ? 2 : 1}\n                                draggable onClick={() => setSelected(node.id)} onDrag={(dx, dy) => move(node.id, rect.x, rect.y, dx, dy)} /> : null;\n                        })}\n                        \u003cdiv className={rowStyle} role=\"group\" aria-label=\"节点键盘入口\">\n                            {visibleNodes.map(node => \u003cbutton className={nodeControlStyle} key={node.id} type=\"button\" aria-pressed={selected === node.id}\n                                onClick={() => setSelected(node.id)} onKeyDown={event => {\n                                    const deltas: Record\u003cstring, [number, number]> = { ArrowRight: [10, 0], ArrowLeft: [-10, 0], ArrowUp: [0, -10], ArrowDown: [0, 10] };\n                                    const delta = deltas[event.key], rect = context.nodeRects[node.id];\n                                    if (delta && rect) { event.preventDefault(); move(node.id, rect.x, rect.y, ...delta); }\n                                }}>{node.id}\u003c/button>)}\n                        \u003c/div>\n                    \u003c/>}\n                \u003c/FlowDiagram>\n            \u003c/div>\n            {exported && \u003cimg src={exported} alt=\"导出的流程图 PNG\" />}\n        \u003c/section>\n    \u003c/div>;\n}\n",
+        "previewPath": "/components/rc-flow-diagram/workbench/?__wake_demo=docs%2Fdemos%2Fvisual-matrix.demo.tsx",
+        "workbenchPath": "/components/rc-flow-diagram/workbench/#/components/docs%2Fdemos%2Fvisual-matrix.demo.tsx",
+        "density": "regular",
+        "layout": "wide",
+        "group": "三体系视觉与交互矩阵"
+    },
+    {
         "id": "docs/demos/animated-edge.demo.tsx",
         "title": "FlowEdge 流动动效",
         "description": "flowSpeed 让虚线沿边流动，表达数据流向：正值顺流、负值逆流、数值越大越快。流动相位按累计弧长逐段衔接，拖拽节点改变走线后，图案跨拐角与交叉缺口依旧连续；系统开启「减弱动态效果」时自动降级为静态虚线。",
@@ -39,7 +77,7 @@ export const demos = [
         "workbenchPath": "/components/rc-flow-diagram/workbench/#/components/docs%2Fdemos%2Fanimated-edge.demo.tsx",
         "density": "regular",
         "layout": "wide",
-        "group": null
+        "group": "能力与集成示例"
     },
     {
         "id": "docs/demos/edge.demo.tsx",
@@ -75,7 +113,7 @@ export const demos = [
         "workbenchPath": "/components/rc-flow-diagram/workbench/#/components/docs%2Fdemos%2Fedge.demo.tsx",
         "density": "regular",
         "layout": "wide",
-        "group": null
+        "group": "能力与集成示例"
     },
     {
         "id": "docs/demos/elk-layout.demo.tsx",
@@ -113,7 +151,7 @@ export const demos = [
         "workbenchPath": "/components/rc-flow-diagram/workbench/#/components/docs%2Fdemos%2Felk-layout.demo.tsx",
         "density": "regular",
         "layout": "wide",
-        "group": null
+        "group": "能力与集成示例"
     },
     {
         "id": "docs/demos/visual-states.demo.tsx",
@@ -144,6 +182,6 @@ export const demos = [
         "workbenchPath": "/components/rc-flow-diagram/workbench/#/components/docs%2Fdemos%2Fvisual-states.demo.tsx",
         "density": "regular",
         "layout": "wide",
-        "group": null
+        "group": "能力与集成示例"
     }
 ] as const satisfies readonly ComponentDemoRecord[];

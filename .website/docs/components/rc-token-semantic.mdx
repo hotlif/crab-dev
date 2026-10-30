@@ -20,7 +20,11 @@ import { demos } from "../_generated/rc-token-semantic.js";
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
 
+#### 边界与视觉矩阵
+
 ##### 语义颜色与边界 — 表面、文本与边框使用语义令牌，随设计风格和明暗主题同步切换。
+
+##### 语义角色配对 — 实际消费 L2 的品牌、反馈、前景和边界；不建立第二份颜色表。
 
 </div>
 
@@ -119,6 +123,13 @@ L2 颜色变量名保持稳定；公开设计体系接口统一为新 ID 与新�
 - 在 Light、Dark、按压背景、选中底色和反馈容器上检查最终前景；数值测试不能替代键盘与真实浏览器验收。
 
 原始值见[全局令牌](/components/rc-token-global)，主题入口见[Theme](/components/rc-theme)，设计规则见[色彩与主题](https://material-web.dev/theming/color/)与[令牌与实施](/components/rc-token-semantic)。
+
+
+### 语义配对验收
+
+包内角色样张实际消费品牌、反馈、表面、前景、边界与焦点令牌；三体系来源与参考提交沿用[设计体系](/guides/design-styles)。样张不复制色值表，也不将 L1 原始尺度当作通用组件高度。L2 没有独立的组件尺寸或密度状态，数字几何与 CSS 映射由相同契约派生，具体消费者另做尺寸、密度、禁用和选中矩阵。
+
+`docs/visual.json` 声明角色样张、三体系明暗及键盘焦点，环境前提和截图策略复用原生 Playwright 夹具。自动检查、候选截图、人工复审及基准比较分别保留结果。
 
 ### 适用场景
 

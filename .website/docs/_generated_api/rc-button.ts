@@ -7,9 +7,14 @@ type DocsTypePlaceholder = ((...args: never[]) => unknown) & {
 };
 type ButtonAppearance = DocsTypePlaceholder;
 type ClickHandler<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
+type DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_FORM_ACTIONS = DocsTypePlaceholder;
+type FormData = DocsTypePlaceholder;
 type HTMLAnchorElement = DocsTypePlaceholder;
+type HTMLAttributeAnchorTarget = DocsTypePlaceholder;
+type HTMLAttributeReferrerPolicy = DocsTypePlaceholder;
 type HTMLButtonElement = DocsTypePlaceholder;
 type LegacyButtonAppearance = DocsTypePlaceholder;
+type Promise<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 type ReactNode = DocsTypePlaceholder;
 
 export interface ButtonProps {
@@ -71,14 +76,89 @@ export interface ButtonProps {
     "children"?: ReactNode;
 
     /**
-     * 暂无说明。
+     * Defines a string value that labels the current element.
      */
-    "aria-label"?: string;
+    "aria-label"?: (string) & ((string) & (string | undefined));
+
+    /**
+     * 暂无说明。 与 form、formAction、formEncType、formMethod、formNoValidate、formTarget、name、value 互斥，不能同时提供。
+     */
+    "referrerPolicy"?: HTMLAttributeReferrerPolicy | undefined;
+
+    /**
+     * 暂无说明。 与 form、formAction、formEncType、formMethod、formNoValidate、formTarget、name、value 互斥，不能同时提供。
+     */
+    "download"?: any;
 
     /**
      * 暂无说明。
      */
-    "href"?: string;
+    "href"?: (undefined) & (never) | string;
+
+    /**
+     * 暂无说明。 与 form、formAction、formEncType、formMethod、formNoValidate、formTarget、name、value 互斥，不能同时提供。
+     */
+    "hrefLang"?: string | undefined;
+
+    /**
+     * 暂无说明。 与 form、formAction、formEncType、formMethod、formNoValidate、formTarget、name、value 互斥，不能同时提供。
+     */
+    "media"?: string | undefined;
+
+    /**
+     * 暂无说明。 与 form、formAction、formEncType、formMethod、formNoValidate、formTarget、name、value 互斥，不能同时提供。
+     */
+    "ping"?: string | undefined;
+
+    /**
+     * 暂无说明。 与 form、formAction、formEncType、formMethod、formNoValidate、formTarget、name、value 互斥，不能同时提供。
+     */
+    "target"?: HTMLAttributeAnchorTarget | undefined;
+
+    /**
+     * 暂无说明。 与 referrerPolicy、download、hrefLang、media、ping、target 互斥，不能同时提供。
+     */
+    "form"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "disabled"?: boolean | undefined | boolean;
+
+    /**
+     * 暂无说明。 与 referrerPolicy、download、hrefLang、media、ping、target 互斥，不能同时提供。
+     */
+    "formAction"?: string | ((formData: FormData) => void | Promise<void>) | DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_FORM_ACTIONS[keyof DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_FORM_ACTIONS] | undefined;
+
+    /**
+     * 暂无说明。 与 referrerPolicy、download、hrefLang、media、ping、target 互斥，不能同时提供。
+     */
+    "formEncType"?: string | undefined;
+
+    /**
+     * 暂无说明。 与 referrerPolicy、download、hrefLang、media、ping、target 互斥，不能同时提供。
+     */
+    "formMethod"?: string | undefined;
+
+    /**
+     * 暂无说明。 与 referrerPolicy、download、hrefLang、media、ping、target 互斥，不能同时提供。
+     */
+    "formNoValidate"?: boolean | undefined;
+
+    /**
+     * 暂无说明。 与 referrerPolicy、download、hrefLang、media、ping、target 互斥，不能同时提供。
+     */
+    "formTarget"?: string | undefined;
+
+    /**
+     * 暂无说明。 与 referrerPolicy、download、hrefLang、media、ping、target 互斥，不能同时提供。
+     */
+    "name"?: string | undefined;
+
+    /**
+     * 暂无说明。 与 referrerPolicy、download、hrefLang、media、ping、target 互斥，不能同时提供。
+     */
+    "value"?: string | readonly string[] | number | undefined;
 
     /**
      * 暂无说明。
@@ -89,9 +169,4 @@ export interface ButtonProps {
      * 暂无说明。
      */
     "onClickCapture"?: ClickHandler<HTMLButtonElement> | ClickHandler<HTMLAnchorElement>;
-
-    /**
-     * 暂无说明。
-     */
-    "disabled"?: boolean;
 }

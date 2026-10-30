@@ -14,7 +14,7 @@ export interface SplitPaneProps {
     /**
      * 恰好两个面板：`[第一个, 第二个]`（horizontal 为左右，vertical 为上下）
      */
-    "children": [ReactNode, ReactNode];
+    "children": [ ReactNode, ReactNode ];
 
     /**
      * 分栏方向：`horizontal` 左右分栏（拖动调宽）；`vertical` 上下分栏（拖动调高）

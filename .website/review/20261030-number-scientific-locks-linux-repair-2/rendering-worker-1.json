@@ -1,0 +1,24 @@
+{
+  "browser": "157.0",
+  "webgl2": true,
+  "drawn": true,
+  "center": [
+    255,
+    0,
+    0,
+    255
+  ],
+  "background": [
+    51,
+    102,
+    153,
+    255
+  ],
+  "error": 0,
+  "vendor": "Mozilla",
+  "renderer": "llvmpipe, or similar",
+  "driver": "llvmpipe, or similar",
+  "errors": [],
+  "browserName": "firefox",
+  "image": "mcr.microsoft.com/playwright:v1.64.1-noble@sha256:47b510dd9230bf0b9bfc9b20102241e577ea7a99334ab4c3ca19f19770e9b8ea"
+}

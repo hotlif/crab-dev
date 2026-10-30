@@ -228,5 +228,40 @@ export const demos = [
         "density": "regular",
         "layout": "grid",
         "group": "交互与状态"
+    },
+    {
+        "id": "docs/demos/visual-matrix.demo.tsx",
+        "title": "三体系展示与状态矩阵",
+        "description": "公开组件、真实交互与自然动画；包内视觉规格是矩阵轴的来源。",
+        "learning": {
+            "components": [
+                "ConfigProvider",
+                "Card"
+            ],
+            "props": [
+                "size",
+                "density",
+                "data-visual-target",
+                "title",
+                "variant",
+                "hoverable",
+                "clickable",
+                "disabled",
+                "loading",
+                "onClick",
+                "data-theme-body",
+                "description"
+            ],
+            "events": [
+                "onClick"
+            ],
+            "hasState": true
+        },
+        "sourceCode": "import { css } from '@crab-dev/css';\nimport ConfigProvider, { useConfig } from '@crab-dev/rc-config-provider';\nimport token from '@crab-dev/rc-token-semantic';\nimport { useState } from 'react';\nimport Card from '@crab-dev/rc-card';\n\n\nexport const meta = { title: '三体系展示与状态矩阵', description: '公开组件、真实交互与自然动画；包内视觉规格是矩阵轴的来源。' };\nconst frameStyle = css`\n    box-sizing: border-box;\n    display: grid;\n    gap: ${token.space['group-gap']};\n    padding: calc(${token.space['group-gap']} * 2);\n    min-width: 0;\n    color: ${token.color.text.primary};\n    background-color: ${token.color.background.surface};\n`;\nconst rowStyle = css`display: flex; flex-wrap: wrap; gap: ${token.space['component-gap']}; align-items: center; min-width: 0;`;\nconst sceneStyle = css`display: grid; min-width: 0; gap: ${token.space['stack-gap']};`;\n\n\nexport default function VisualMatrixDemo() {\n    const { locale } = useConfig();\n    const [longContent, setLongContent] = useState(false);\n    const copy = (zh: string, en: string) => (locale === 'en-US' ? en : zh) + (longContent ? ' · abcdefghijklmnopqrstuvwxyz0123456789 · 长内容需要保留含义并适应可用宽度' : '');\n    const [size, setSize] = useState('medium');\n    const [density, setDensity] = useState\u003c'compact' | 'standard' | 'comfortable'>('standard');\n    const [state, setState] = useState('default');\n    const [count, setCount] = useState(0);\n    const [draft, setDraft] = useState('保留这份草稿');\n    \n    return \u003cdiv>\n        \u003cdiv className={rowStyle}>\n            \u003clabel>验收尺寸\u003cselect aria-label=\"验收尺寸\" value={size} onChange={event => setSize(event.currentTarget.value)}>\u003coption>small\u003c/option>\u003coption>medium\u003c/option>\u003coption>large\u003c/option>\u003c/select>\u003c/label>\n            \u003clabel>验收密度\u003cselect aria-label=\"验收密度\" value={density} onChange={event => setDensity(event.currentTarget.value as typeof density)}>\u003coption>compact\u003c/option>\u003coption>standard\u003c/option>\u003coption>comfortable\u003c/option>\u003c/select>\u003c/label>\n            \u003clabel>验收状态\u003cselect aria-label=\"验收状态\" value={state} onChange={event => { const next = event.currentTarget.value; setState(next); }}>\u003coption value=\"default\">default\u003c/option>\u003coption value=\"elevated\">elevated\u003c/option>\u003coption value=\"outlined\">outlined\u003c/option>\u003coption value=\"filled\">filled\u003c/option>\u003coption value=\"hover\">hover\u003c/option>\u003coption value=\"focus-visible\">focus-visible\u003c/option>\u003coption value=\"pressed\">pressed\u003c/option>\u003coption value=\"disabled\">disabled\u003c/option>\u003coption value=\"loading\">loading\u003c/option>\u003c/select>\u003c/label>\n            \n        \u003c/div>\n        \u003clabel>\u003cinput type=\"checkbox\" aria-label=\"长文本\" checked={longContent} onChange={event => setLongContent(event.currentTarget.checked)} />长文本\u003c/label>\n        \u003clabel>配置切换草稿\u003cinput data-theme-draft aria-label=\"配置切换草稿\" value={draft} onChange={event => setDraft(event.currentTarget.value)} />\u003c/label>\n        \u003cConfigProvider size={size === 'small' || size === 'large' ? size : 'medium'} density={density}>\n            \u003csection className={frameStyle} aria-label=\"Card visual matrix\" data-visual-frame>\n                \u003cdiv className={sceneStyle} data-visual-scene data-size={size} data-density={density} data-state={state}>\n                    \u003cCard data-visual-target size={size as 'small' | 'medium' | 'large'} title={\u003cspan data-theme-title>{copy('季度运营报告', 'Quarterly report')}\u003c/span>} variant={state === 'elevated' || state === 'outlined' || state === 'filled' ? state : undefined} hoverable clickable disabled={state === 'disabled'} loading={state === 'loading'} onClick={() => setCount(count + 1)}>\n                        \u003cCard.Body data-theme-body>\n                            \u003cp>{copy('保留项目说明、操作与草稿，便于连续处理数据。', 'Keep context, actions and drafts available while processing data.')}\u003c/p>\n                            \u003cCard.Meta title={\u003cspan data-theme-meta-title>{copy('项目负责人', 'Project owner')}\u003c/span>} description={\u003cspan data-theme-meta-description>{copy('保留说明与次要信息的可读层次。', 'Keep supporting details readable.')}\u003c/span>} />\n                        \u003c/Card.Body>\n                    \u003c/Card>\n                    \n                \u003c/div>\n                \u003coutput aria-label=\"操作次数\">{count}\u003c/output>\n            \u003c/section>\n        \u003c/ConfigProvider>\n    \u003c/div>;\n}\n",
+        "previewPath": "/components/rc-card/workbench/?__wake_demo=docs%2Fdemos%2Fvisual-matrix.demo.tsx",
+        "workbenchPath": "/components/rc-card/workbench/#/components/docs%2Fdemos%2Fvisual-matrix.demo.tsx",
+        "density": "regular",
+        "layout": "grid",
+        "group": "三体系验收"
     }
 ] as const satisfies readonly ComponentDemoRecord[];

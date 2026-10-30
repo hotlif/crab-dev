@@ -8,12 +8,13 @@ type DocsTypePlaceholder = ((...args: never[]) => unknown) & {
 type AnimationEventHandler<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 type AriaRole = DocsTypePlaceholder;
 type Booleanish = DocsTypePlaceholder;
-type ChangeEventHandler<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
+type ChangeEventHandler<T0 = unknown, T1 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0, T1] };
 type ClipboardEventHandler<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 type CompositionEventHandler<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 type CrossOrigin = DocsTypePlaceholder;
 type CSSProperties = DocsTypePlaceholder;
 type DragEventHandler<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
+type Element = DocsTypePlaceholder;
 type FocusEventHandler<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 type InputEventHandler<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 type KeyboardEventHandler<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
@@ -30,6 +31,66 @@ type UIEventHandler<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeA
 type WheelEventHandler<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 
 export interface SpinIndicatorPropsNativeAttributes {
+    /**
+     * 暂无说明。
+     */
+    "string"?: number | string | undefined;
+
+    /**
+     * React-specific Attributes
+     */
+    "suppressHydrationWarning"?: boolean | undefined;
+
+    /**
+     * Attributes which also defined in HTMLAttributes See comment in SVGDOMPropertyConfig.js
+     */
+    "className"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "id"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "lang"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "nonce"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "slot"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "style"?: CSSProperties | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "tabIndex"?: number | undefined;
+
+    /**
+     * Other HTML properties supported by SVG elements in browsers
+     */
+    "role"?: AriaRole | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "color"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "part"?: string | undefined;
+
     /**
      * Identifies the currently active element when DOM focus is on a composite widget, textbox, group, or application.
      */
@@ -305,919 +366,884 @@ export interface SpinIndicatorPropsNativeAttributes {
     /**
      * Clipboard Events
      */
-    "onCopy"?: ClipboardEventHandler<SVGSVGElement> | undefined;
+    "onCopy"?: ClipboardEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onCopyCapture"?: ClipboardEventHandler<SVGSVGElement> | undefined;
+    "onCopyCapture"?: ClipboardEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onCut"?: ClipboardEventHandler<SVGSVGElement> | undefined;
+    "onCut"?: ClipboardEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onCutCapture"?: ClipboardEventHandler<SVGSVGElement> | undefined;
+    "onCutCapture"?: ClipboardEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onPaste"?: ClipboardEventHandler<SVGSVGElement> | undefined;
+    "onPaste"?: ClipboardEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onPasteCapture"?: ClipboardEventHandler<SVGSVGElement> | undefined;
+    "onPasteCapture"?: ClipboardEventHandler<SVGSVGElement>;
 
     /**
      * Composition Events
      */
-    "onCompositionEnd"?: CompositionEventHandler<SVGSVGElement> | undefined;
+    "onCompositionEnd"?: CompositionEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onCompositionEndCapture"?: CompositionEventHandler<SVGSVGElement> | undefined;
+    "onCompositionEndCapture"?: CompositionEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onCompositionStart"?: CompositionEventHandler<SVGSVGElement> | undefined;
+    "onCompositionStart"?: CompositionEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onCompositionStartCapture"?: CompositionEventHandler<SVGSVGElement> | undefined;
+    "onCompositionStartCapture"?: CompositionEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onCompositionUpdate"?: CompositionEventHandler<SVGSVGElement> | undefined;
+    "onCompositionUpdate"?: CompositionEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onCompositionUpdateCapture"?: CompositionEventHandler<SVGSVGElement> | undefined;
+    "onCompositionUpdateCapture"?: CompositionEventHandler<SVGSVGElement>;
 
     /**
      * Focus Events
      */
-    "onFocus"?: FocusEventHandler<SVGSVGElement> | undefined;
+    "onFocus"?: FocusEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onFocusCapture"?: FocusEventHandler<SVGSVGElement> | undefined;
+    "onFocusCapture"?: FocusEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onBlur"?: FocusEventHandler<SVGSVGElement> | undefined;
+    "onBlur"?: FocusEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onBlurCapture"?: FocusEventHandler<SVGSVGElement> | undefined;
+    "onBlurCapture"?: FocusEventHandler<SVGSVGElement>;
 
     /**
      * form related Events
      */
-    "onChange"?: ChangeEventHandler<SVGSVGElement> | undefined;
+    "onChange"?: ChangeEventHandler<SVGSVGElement, Element>;
 
     /**
      * 暂无说明。
      */
-    "onChangeCapture"?: ChangeEventHandler<SVGSVGElement> | undefined;
+    "onChangeCapture"?: ChangeEventHandler<SVGSVGElement, Element>;
 
     /**
      * 暂无说明。
      */
-    "onBeforeInput"?: InputEventHandler<SVGSVGElement> | undefined;
+    "onBeforeInput"?: InputEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onBeforeInputCapture"?: InputEventHandler<SVGSVGElement> | undefined;
+    "onBeforeInputCapture"?: InputEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onInput"?: InputEventHandler<SVGSVGElement> | undefined;
+    "onInput"?: InputEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onInputCapture"?: InputEventHandler<SVGSVGElement> | undefined;
+    "onInputCapture"?: InputEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onReset"?: ReactEventHandler<SVGSVGElement> | undefined;
+    "onReset"?: ReactEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onResetCapture"?: ReactEventHandler<SVGSVGElement> | undefined;
+    "onResetCapture"?: ReactEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onSubmit"?: SubmitEventHandler<SVGSVGElement> | undefined;
+    "onSubmit"?: SubmitEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onSubmitCapture"?: SubmitEventHandler<SVGSVGElement> | undefined;
+    "onSubmitCapture"?: SubmitEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onInvalid"?: ReactEventHandler<SVGSVGElement> | undefined;
+    "onInvalid"?: ReactEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onInvalidCapture"?: ReactEventHandler<SVGSVGElement> | undefined;
+    "onInvalidCapture"?: ReactEventHandler<SVGSVGElement>;
 
     /**
      * Image Events
      */
-    "onLoad"?: ReactEventHandler<SVGSVGElement> | undefined;
+    "onLoad"?: ReactEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onLoadCapture"?: ReactEventHandler<SVGSVGElement> | undefined;
+    "onLoadCapture"?: ReactEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onError"?: ReactEventHandler<SVGSVGElement> | undefined;
+    "onError"?: ReactEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onErrorCapture"?: ReactEventHandler<SVGSVGElement> | undefined;
+    "onErrorCapture"?: ReactEventHandler<SVGSVGElement>;
 
     /**
      * Keyboard Events
      */
-    "onKeyDown"?: KeyboardEventHandler<SVGSVGElement> | undefined;
+    "onKeyDown"?: KeyboardEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onKeyDownCapture"?: KeyboardEventHandler<SVGSVGElement> | undefined;
-
-    /**
-     * 暂无说明。
-     * @deprecated
-     */
-    "onKeyPress"?: KeyboardEventHandler<SVGSVGElement> | undefined;
+    "onKeyDownCapture"?: KeyboardEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      * @deprecated
      */
-    "onKeyPressCapture"?: KeyboardEventHandler<SVGSVGElement> | undefined;
+    "onKeyPress"?: KeyboardEventHandler<SVGSVGElement>;
+
+    /**
+     * 暂无说明。
+     * @deprecated
+     */
+    "onKeyPressCapture"?: KeyboardEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onKeyUp"?: KeyboardEventHandler<SVGSVGElement> | undefined;
+    "onKeyUp"?: KeyboardEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onKeyUpCapture"?: KeyboardEventHandler<SVGSVGElement> | undefined;
+    "onKeyUpCapture"?: KeyboardEventHandler<SVGSVGElement>;
 
     /**
      * Media Events
      */
-    "onAbort"?: ReactEventHandler<SVGSVGElement> | undefined;
+    "onAbort"?: ReactEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onAbortCapture"?: ReactEventHandler<SVGSVGElement> | undefined;
+    "onAbortCapture"?: ReactEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onCanPlay"?: ReactEventHandler<SVGSVGElement> | undefined;
+    "onCanPlay"?: ReactEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onCanPlayCapture"?: ReactEventHandler<SVGSVGElement> | undefined;
+    "onCanPlayCapture"?: ReactEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onCanPlayThrough"?: ReactEventHandler<SVGSVGElement> | undefined;
+    "onCanPlayThrough"?: ReactEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onCanPlayThroughCapture"?: ReactEventHandler<SVGSVGElement> | undefined;
+    "onCanPlayThroughCapture"?: ReactEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onDurationChange"?: ReactEventHandler<SVGSVGElement> | undefined;
+    "onDurationChange"?: ReactEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onDurationChangeCapture"?: ReactEventHandler<SVGSVGElement> | undefined;
+    "onDurationChangeCapture"?: ReactEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onEmptied"?: ReactEventHandler<SVGSVGElement> | undefined;
+    "onEmptied"?: ReactEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onEmptiedCapture"?: ReactEventHandler<SVGSVGElement> | undefined;
+    "onEmptiedCapture"?: ReactEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onEncrypted"?: ReactEventHandler<SVGSVGElement> | undefined;
+    "onEncrypted"?: ReactEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onEncryptedCapture"?: ReactEventHandler<SVGSVGElement> | undefined;
+    "onEncryptedCapture"?: ReactEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onEnded"?: ReactEventHandler<SVGSVGElement> | undefined;
+    "onEnded"?: ReactEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onEndedCapture"?: ReactEventHandler<SVGSVGElement> | undefined;
+    "onEndedCapture"?: ReactEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onLoadedData"?: ReactEventHandler<SVGSVGElement> | undefined;
+    "onLoadedData"?: ReactEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onLoadedDataCapture"?: ReactEventHandler<SVGSVGElement> | undefined;
+    "onLoadedDataCapture"?: ReactEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onLoadedMetadata"?: ReactEventHandler<SVGSVGElement> | undefined;
+    "onLoadedMetadata"?: ReactEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onLoadedMetadataCapture"?: ReactEventHandler<SVGSVGElement> | undefined;
+    "onLoadedMetadataCapture"?: ReactEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onLoadStart"?: ReactEventHandler<SVGSVGElement> | undefined;
+    "onLoadStart"?: ReactEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onLoadStartCapture"?: ReactEventHandler<SVGSVGElement> | undefined;
+    "onLoadStartCapture"?: ReactEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onPause"?: ReactEventHandler<SVGSVGElement> | undefined;
+    "onPause"?: ReactEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onPauseCapture"?: ReactEventHandler<SVGSVGElement> | undefined;
+    "onPauseCapture"?: ReactEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onPlay"?: ReactEventHandler<SVGSVGElement> | undefined;
+    "onPlay"?: ReactEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onPlayCapture"?: ReactEventHandler<SVGSVGElement> | undefined;
+    "onPlayCapture"?: ReactEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onPlaying"?: ReactEventHandler<SVGSVGElement> | undefined;
+    "onPlaying"?: ReactEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onPlayingCapture"?: ReactEventHandler<SVGSVGElement> | undefined;
+    "onPlayingCapture"?: ReactEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onProgress"?: ReactEventHandler<SVGSVGElement> | undefined;
+    "onProgress"?: ReactEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onProgressCapture"?: ReactEventHandler<SVGSVGElement> | undefined;
+    "onProgressCapture"?: ReactEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onRateChange"?: ReactEventHandler<SVGSVGElement> | undefined;
+    "onRateChange"?: ReactEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onRateChangeCapture"?: ReactEventHandler<SVGSVGElement> | undefined;
+    "onRateChangeCapture"?: ReactEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onSeeked"?: ReactEventHandler<SVGSVGElement> | undefined;
+    "onSeeked"?: ReactEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onSeekedCapture"?: ReactEventHandler<SVGSVGElement> | undefined;
+    "onSeekedCapture"?: ReactEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onSeeking"?: ReactEventHandler<SVGSVGElement> | undefined;
+    "onSeeking"?: ReactEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onSeekingCapture"?: ReactEventHandler<SVGSVGElement> | undefined;
+    "onSeekingCapture"?: ReactEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onStalled"?: ReactEventHandler<SVGSVGElement> | undefined;
+    "onStalled"?: ReactEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onStalledCapture"?: ReactEventHandler<SVGSVGElement> | undefined;
+    "onStalledCapture"?: ReactEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onSuspend"?: ReactEventHandler<SVGSVGElement> | undefined;
+    "onSuspend"?: ReactEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onSuspendCapture"?: ReactEventHandler<SVGSVGElement> | undefined;
+    "onSuspendCapture"?: ReactEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onTimeUpdate"?: ReactEventHandler<SVGSVGElement> | undefined;
+    "onTimeUpdate"?: ReactEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onTimeUpdateCapture"?: ReactEventHandler<SVGSVGElement> | undefined;
+    "onTimeUpdateCapture"?: ReactEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onVolumeChange"?: ReactEventHandler<SVGSVGElement> | undefined;
+    "onVolumeChange"?: ReactEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onVolumeChangeCapture"?: ReactEventHandler<SVGSVGElement> | undefined;
+    "onVolumeChangeCapture"?: ReactEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onWaiting"?: ReactEventHandler<SVGSVGElement> | undefined;
+    "onWaiting"?: ReactEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onWaitingCapture"?: ReactEventHandler<SVGSVGElement> | undefined;
+    "onWaitingCapture"?: ReactEventHandler<SVGSVGElement>;
 
     /**
      * MouseEvents
      */
-    "onAuxClick"?: MouseEventHandler<SVGSVGElement> | undefined;
+    "onAuxClick"?: MouseEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onAuxClickCapture"?: MouseEventHandler<SVGSVGElement> | undefined;
+    "onAuxClickCapture"?: MouseEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onClick"?: MouseEventHandler<SVGSVGElement> | undefined;
+    "onClick"?: MouseEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onClickCapture"?: MouseEventHandler<SVGSVGElement> | undefined;
+    "onClickCapture"?: MouseEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onContextMenu"?: MouseEventHandler<SVGSVGElement> | undefined;
+    "onContextMenu"?: MouseEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onContextMenuCapture"?: MouseEventHandler<SVGSVGElement> | undefined;
+    "onContextMenuCapture"?: MouseEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onDoubleClick"?: MouseEventHandler<SVGSVGElement> | undefined;
+    "onDoubleClick"?: MouseEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onDoubleClickCapture"?: MouseEventHandler<SVGSVGElement> | undefined;
+    "onDoubleClickCapture"?: MouseEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onDrag"?: DragEventHandler<SVGSVGElement> | undefined;
+    "onDrag"?: DragEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onDragCapture"?: DragEventHandler<SVGSVGElement> | undefined;
+    "onDragCapture"?: DragEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onDragEnd"?: DragEventHandler<SVGSVGElement> | undefined;
+    "onDragEnd"?: DragEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onDragEndCapture"?: DragEventHandler<SVGSVGElement> | undefined;
+    "onDragEndCapture"?: DragEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onDragEnter"?: DragEventHandler<SVGSVGElement> | undefined;
+    "onDragEnter"?: DragEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onDragEnterCapture"?: DragEventHandler<SVGSVGElement> | undefined;
+    "onDragEnterCapture"?: DragEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onDragExit"?: DragEventHandler<SVGSVGElement> | undefined;
+    "onDragExit"?: DragEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onDragExitCapture"?: DragEventHandler<SVGSVGElement> | undefined;
+    "onDragExitCapture"?: DragEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onDragLeave"?: DragEventHandler<SVGSVGElement> | undefined;
+    "onDragLeave"?: DragEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onDragLeaveCapture"?: DragEventHandler<SVGSVGElement> | undefined;
+    "onDragLeaveCapture"?: DragEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onDragOver"?: DragEventHandler<SVGSVGElement> | undefined;
+    "onDragOver"?: DragEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onDragOverCapture"?: DragEventHandler<SVGSVGElement> | undefined;
+    "onDragOverCapture"?: DragEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onDragStart"?: DragEventHandler<SVGSVGElement> | undefined;
+    "onDragStart"?: DragEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onDragStartCapture"?: DragEventHandler<SVGSVGElement> | undefined;
+    "onDragStartCapture"?: DragEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onDrop"?: DragEventHandler<SVGSVGElement> | undefined;
+    "onDrop"?: DragEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onDropCapture"?: DragEventHandler<SVGSVGElement> | undefined;
+    "onDropCapture"?: DragEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onMouseDown"?: MouseEventHandler<SVGSVGElement> | undefined;
+    "onMouseDown"?: MouseEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onMouseDownCapture"?: MouseEventHandler<SVGSVGElement> | undefined;
+    "onMouseDownCapture"?: MouseEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onMouseEnter"?: MouseEventHandler<SVGSVGElement> | undefined;
+    "onMouseEnter"?: MouseEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onMouseLeave"?: MouseEventHandler<SVGSVGElement> | undefined;
+    "onMouseLeave"?: MouseEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onMouseMove"?: MouseEventHandler<SVGSVGElement> | undefined;
+    "onMouseMove"?: MouseEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onMouseMoveCapture"?: MouseEventHandler<SVGSVGElement> | undefined;
+    "onMouseMoveCapture"?: MouseEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onMouseOut"?: MouseEventHandler<SVGSVGElement> | undefined;
+    "onMouseOut"?: MouseEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onMouseOutCapture"?: MouseEventHandler<SVGSVGElement> | undefined;
+    "onMouseOutCapture"?: MouseEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onMouseOver"?: MouseEventHandler<SVGSVGElement> | undefined;
+    "onMouseOver"?: MouseEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onMouseOverCapture"?: MouseEventHandler<SVGSVGElement> | undefined;
+    "onMouseOverCapture"?: MouseEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onMouseUp"?: MouseEventHandler<SVGSVGElement> | undefined;
+    "onMouseUp"?: MouseEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onMouseUpCapture"?: MouseEventHandler<SVGSVGElement> | undefined;
+    "onMouseUpCapture"?: MouseEventHandler<SVGSVGElement>;
 
     /**
      * Selection Events
      */
-    "onSelect"?: ReactEventHandler<SVGSVGElement> | undefined;
+    "onSelect"?: ReactEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onSelectCapture"?: ReactEventHandler<SVGSVGElement> | undefined;
+    "onSelectCapture"?: ReactEventHandler<SVGSVGElement>;
 
     /**
      * Touch Events
      */
-    "onTouchCancel"?: TouchEventHandler<SVGSVGElement> | undefined;
+    "onTouchCancel"?: TouchEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onTouchCancelCapture"?: TouchEventHandler<SVGSVGElement> | undefined;
+    "onTouchCancelCapture"?: TouchEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onTouchEnd"?: TouchEventHandler<SVGSVGElement> | undefined;
+    "onTouchEnd"?: TouchEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onTouchEndCapture"?: TouchEventHandler<SVGSVGElement> | undefined;
+    "onTouchEndCapture"?: TouchEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onTouchMove"?: TouchEventHandler<SVGSVGElement> | undefined;
+    "onTouchMove"?: TouchEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onTouchMoveCapture"?: TouchEventHandler<SVGSVGElement> | undefined;
+    "onTouchMoveCapture"?: TouchEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onTouchStart"?: TouchEventHandler<SVGSVGElement> | undefined;
+    "onTouchStart"?: TouchEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onTouchStartCapture"?: TouchEventHandler<SVGSVGElement> | undefined;
+    "onTouchStartCapture"?: TouchEventHandler<SVGSVGElement>;
 
     /**
      * Pointer Events
      */
-    "onPointerDown"?: PointerEventHandler<SVGSVGElement> | undefined;
+    "onPointerDown"?: PointerEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onPointerDownCapture"?: PointerEventHandler<SVGSVGElement> | undefined;
+    "onPointerDownCapture"?: PointerEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onPointerMove"?: PointerEventHandler<SVGSVGElement> | undefined;
+    "onPointerMove"?: PointerEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onPointerMoveCapture"?: PointerEventHandler<SVGSVGElement> | undefined;
+    "onPointerMoveCapture"?: PointerEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onPointerUp"?: PointerEventHandler<SVGSVGElement> | undefined;
+    "onPointerUp"?: PointerEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onPointerUpCapture"?: PointerEventHandler<SVGSVGElement> | undefined;
+    "onPointerUpCapture"?: PointerEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onPointerCancel"?: PointerEventHandler<SVGSVGElement> | undefined;
+    "onPointerCancel"?: PointerEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onPointerCancelCapture"?: PointerEventHandler<SVGSVGElement> | undefined;
+    "onPointerCancelCapture"?: PointerEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onPointerEnter"?: PointerEventHandler<SVGSVGElement> | undefined;
+    "onPointerEnter"?: PointerEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onPointerLeave"?: PointerEventHandler<SVGSVGElement> | undefined;
+    "onPointerLeave"?: PointerEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onPointerOver"?: PointerEventHandler<SVGSVGElement> | undefined;
+    "onPointerOver"?: PointerEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onPointerOverCapture"?: PointerEventHandler<SVGSVGElement> | undefined;
+    "onPointerOverCapture"?: PointerEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onPointerOut"?: PointerEventHandler<SVGSVGElement> | undefined;
+    "onPointerOut"?: PointerEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onPointerOutCapture"?: PointerEventHandler<SVGSVGElement> | undefined;
+    "onPointerOutCapture"?: PointerEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onGotPointerCapture"?: PointerEventHandler<SVGSVGElement> | undefined;
+    "onGotPointerCapture"?: PointerEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onGotPointerCaptureCapture"?: PointerEventHandler<SVGSVGElement> | undefined;
+    "onGotPointerCaptureCapture"?: PointerEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onLostPointerCapture"?: PointerEventHandler<SVGSVGElement> | undefined;
+    "onLostPointerCapture"?: PointerEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onLostPointerCaptureCapture"?: PointerEventHandler<SVGSVGElement> | undefined;
+    "onLostPointerCaptureCapture"?: PointerEventHandler<SVGSVGElement>;
 
     /**
      * UI Events
      */
-    "onScroll"?: UIEventHandler<SVGSVGElement> | undefined;
+    "onScroll"?: UIEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onScrollCapture"?: UIEventHandler<SVGSVGElement> | undefined;
+    "onScrollCapture"?: UIEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onScrollEnd"?: UIEventHandler<SVGSVGElement> | undefined;
+    "onScrollEnd"?: UIEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onScrollEndCapture"?: UIEventHandler<SVGSVGElement> | undefined;
+    "onScrollEndCapture"?: UIEventHandler<SVGSVGElement>;
 
     /**
      * Wheel Events
      */
-    "onWheel"?: WheelEventHandler<SVGSVGElement> | undefined;
+    "onWheel"?: WheelEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onWheelCapture"?: WheelEventHandler<SVGSVGElement> | undefined;
+    "onWheelCapture"?: WheelEventHandler<SVGSVGElement>;
 
     /**
      * Animation Events
      */
-    "onAnimationStart"?: AnimationEventHandler<SVGSVGElement> | undefined;
+    "onAnimationStart"?: AnimationEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onAnimationStartCapture"?: AnimationEventHandler<SVGSVGElement> | undefined;
+    "onAnimationStartCapture"?: AnimationEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onAnimationEnd"?: AnimationEventHandler<SVGSVGElement> | undefined;
+    "onAnimationEnd"?: AnimationEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onAnimationEndCapture"?: AnimationEventHandler<SVGSVGElement> | undefined;
+    "onAnimationEndCapture"?: AnimationEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onAnimationIteration"?: AnimationEventHandler<SVGSVGElement> | undefined;
+    "onAnimationIteration"?: AnimationEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onAnimationIterationCapture"?: AnimationEventHandler<SVGSVGElement> | undefined;
+    "onAnimationIterationCapture"?: AnimationEventHandler<SVGSVGElement>;
 
     /**
      * Toggle Events
      */
-    "onToggle"?: ToggleEventHandler<SVGSVGElement> | undefined;
+    "onToggle"?: ToggleEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onBeforeToggle"?: ToggleEventHandler<SVGSVGElement> | undefined;
+    "onBeforeToggle"?: ToggleEventHandler<SVGSVGElement>;
 
     /**
      * Transition Events
      */
-    "onTransitionCancel"?: TransitionEventHandler<SVGSVGElement> | undefined;
+    "onTransitionCancel"?: TransitionEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onTransitionCancelCapture"?: TransitionEventHandler<SVGSVGElement> | undefined;
+    "onTransitionCancelCapture"?: TransitionEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onTransitionEnd"?: TransitionEventHandler<SVGSVGElement> | undefined;
+    "onTransitionEnd"?: TransitionEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onTransitionEndCapture"?: TransitionEventHandler<SVGSVGElement> | undefined;
+    "onTransitionEndCapture"?: TransitionEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onTransitionRun"?: TransitionEventHandler<SVGSVGElement> | undefined;
+    "onTransitionRun"?: TransitionEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onTransitionRunCapture"?: TransitionEventHandler<SVGSVGElement> | undefined;
+    "onTransitionRunCapture"?: TransitionEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onTransitionStart"?: TransitionEventHandler<SVGSVGElement> | undefined;
+    "onTransitionStart"?: TransitionEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "onTransitionStartCapture"?: TransitionEventHandler<SVGSVGElement> | undefined;
-
-    /**
-     * React-specific Attributes
-     */
-    "suppressHydrationWarning"?: boolean | undefined;
-
-    /**
-     * Attributes which also defined in HTMLAttributes See comment in SVGDOMPropertyConfig.js
-     */
-    "className"?: string | undefined;
+    "onTransitionStartCapture"?: TransitionEventHandler<SVGSVGElement>;
 
     /**
      * 暂无说明。
      */
-    "color"?: string | undefined;
+    "fill"?: string | undefined;
 
     /**
      * 暂无说明。
      */
-    "height"?: number | string | undefined;
+    "origin"?: number | string | undefined;
 
     /**
      * 暂无说明。
      */
-    "id"?: string | undefined;
+    "clipPath"?: string | undefined;
 
     /**
      * 暂无说明。
      */
-    "lang"?: string | undefined;
+    "filter"?: string | undefined;
 
     /**
      * 暂无说明。
      */
-    "max"?: number | string | undefined;
+    "mask"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "path"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "href"?: string | undefined;
 
     /**
      * 暂无说明。
      */
     "media"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "method"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "min"?: number | string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "name"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "nonce"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "part"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "slot"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "style"?: CSSProperties | undefined;
 
     /**
      * 暂无说明。
@@ -1232,17 +1258,47 @@ export interface SpinIndicatorPropsNativeAttributes {
     /**
      * 暂无说明。
      */
-    "width"?: number | string | undefined;
-
-    /**
-     * Other HTML properties supported by SVG elements in browsers
-     */
-    "role"?: AriaRole | undefined;
+    "name"?: string | undefined;
 
     /**
      * 暂无说明。
      */
-    "tabIndex"?: number | undefined;
+    "height"?: number | string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "max"?: number | string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "min"?: number | string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "width"?: number | string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "direction"?: number | string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "spacing"?: number | string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "end"?: number | string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "method"?: string | undefined;
 
     /**
      * 暂无说明。
@@ -1367,11 +1423,6 @@ export interface SpinIndicatorPropsNativeAttributes {
     /**
      * 暂无说明。
      */
-    "clipPath"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
     "clipPathUnits"?: number | string | undefined;
 
     /**
@@ -1447,11 +1498,6 @@ export interface SpinIndicatorPropsNativeAttributes {
     /**
      * 暂无说明。
      */
-    "direction"?: number | string | undefined;
-
-    /**
-     * 暂无说明。
-     */
     "display"?: number | string | undefined;
 
     /**
@@ -1497,11 +1543,6 @@ export interface SpinIndicatorPropsNativeAttributes {
     /**
      * 暂无说明。
      */
-    "end"?: number | string | undefined;
-
-    /**
-     * 暂无说明。
-     */
     "exponent"?: number | string | undefined;
 
     /**
@@ -1512,22 +1553,12 @@ export interface SpinIndicatorPropsNativeAttributes {
     /**
      * 暂无说明。
      */
-    "fill"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
     "fillOpacity"?: number | string | undefined;
 
     /**
      * 暂无说明。
      */
     "fillRule"?: "nonzero" | "evenodd" | "inherit" | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "filter"?: string | undefined;
 
     /**
      * 暂无说明。
@@ -1672,11 +1703,6 @@ export interface SpinIndicatorPropsNativeAttributes {
     /**
      * 暂无说明。
      */
-    "href"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
     "ideographic"?: number | string | undefined;
 
     /**
@@ -1812,11 +1838,6 @@ export interface SpinIndicatorPropsNativeAttributes {
     /**
      * 暂无说明。
      */
-    "mask"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
     "maskContentUnits"?: number | string | undefined;
 
     /**
@@ -1872,11 +1893,6 @@ export interface SpinIndicatorPropsNativeAttributes {
     /**
      * 暂无说明。
      */
-    "origin"?: number | string | undefined;
-
-    /**
-     * 暂无说明。
-     */
     "overflow"?: number | string | undefined;
 
     /**
@@ -1898,11 +1914,6 @@ export interface SpinIndicatorPropsNativeAttributes {
      * 暂无说明。
      */
     "panose1"?: number | string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "path"?: string | undefined;
 
     /**
      * 暂无说明。
@@ -2057,11 +2068,6 @@ export interface SpinIndicatorPropsNativeAttributes {
     /**
      * 暂无说明。
      */
-    "spacing"?: number | string | undefined;
-
-    /**
-     * 暂无说明。
-     */
     "specularConstant"?: number | string | undefined;
 
     /**
@@ -2123,11 +2129,6 @@ export interface SpinIndicatorPropsNativeAttributes {
      * 暂无说明。
      */
     "strikethroughThickness"?: number | string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "string"?: number | string | undefined;
 
     /**
      * 暂无说明。

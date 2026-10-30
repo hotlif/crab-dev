@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 import Button from '@crab-dev/rc-button';
-import PdfEditor, { type PdfFont } from '../../src/index.js';
+import PdfEditor, { type PdfFont } from '@crab-dev/rc-pdf-editor';
 
 export const meta = { title: '本地编辑', description: '打开 PDF，上传项目提供的 TTF 字体后修改文字；图片与页面操作无需额外字体。' };
 const runtime = { workerUrl: './runtime/pdf-editor.worker.js', wasmUrl: './runtime/pdfium.wasm' };

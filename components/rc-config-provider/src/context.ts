@@ -1,8 +1,9 @@
 import { createContext, use, type Context } from 'react';
+import { defaultDesignSystem } from '@crab-dev/rc-token-semantic';
 import type { ConfigValue } from './types.js';
 
 const defaultConfig: ConfigValue = {
-    designSystem: 'md3',
+    designSystem: defaultDesignSystem,
     colorMode: 'light',
     brandColor: null,
     locale: 'zh-CN',

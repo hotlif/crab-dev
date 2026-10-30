@@ -46,8 +46,22 @@ Apple 为参考 Apple HIG 的 Web 定制，并非 AppKit 原生控件的像素�
 
 规则依据：[状态系统](/guides/accessibility)、[无障碍与键盘](/guides/accessibility)、[布局与密度](/guides/getting-started)。
 
-设计来源（2026-10-22）：[M3 规格](https://m3.material.io/components/checkbox/specs)、[使用指南](https://m3.material.io/components/checkbox/guidelines)、[无障碍](https://m3.material.io/components/checkbox/accessibility)、[Material Web 文档与演示](https://material-web.dev/components/checkbox/)、[实现样式](https://github.com/material-components/material-web/blob/main/checkbox/internal/_checkbox.scss)、[v0.192 令牌](https://github.com/material-components/material-web/blob/main/tokens/versions/v0_192/_md-comp-checkbox.scss)、[Apple HIG Toggles](https://developer.apple.com/design/human-interface-guidelines/toggles)、[shadcn Checkbox 源码](https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/new-york-v4/ui/checkbox.tsx)。
+设计来源（2026-10-22）：[M3 规格](https://m3.material.io/components/checkbox/specs)、[使用指南](https://m3.material.io/components/checkbox/guidelines)、[无障碍](https://m3.material.io/components/checkbox/accessibility)、[Material Web 文档与演示](https://material-web.dev/components/checkbox/)、[实现样式](https://github.com/material-components/material-web/blob/main/checkbox/internal/_checkbox.scss)、[v0.192 令牌](https://github.com/material-components/material-web/blob/main/tokens/versions/v0_192/_md-comp-checkbox.scss)、[Apple HIG Toggles](https://developer.apple.com/design/human-interface-guidelines/toggles)、[shadcn Checkbox 源码](https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui/checkbox.tsx)。
 
+
+## 维护与矩阵验收
+
+触控场景使用原生轻触改变选择，保留粗指针几何检查；窄屏与真实缩放分别测量可见控件、标签和实际文字范围，不能仅凭 Demo 容器无溢出判定内容可用。新增断言仍需对应浏览器结果与人工外观复审。
+
+MD3 保留 18px 方框、40px 状态层和独立命中区；Apple 使用较小方框与轻阴影；shadcn 使用中性轮廓和明确勾选。尺寸、图标、错误与禁用颜色均通过本包 L3 引用 L2，文字字体现在也随最近设计边界解析。三档 size 与 collection density 独立，不能用 density 暗中缩放复选框。
+
+状态矩阵覆盖未选中和选中的 hover / focus-visible / pressed，另含半选、三种错误与三种禁用值；选中通过真实标签点击进入，半选通过公开 indeterminate 协议表达。disabled 保留原值，错误仍需提供可感知的文字说明。
+
+包内 `docs/visual.json` 是该组件的可执行尺寸、密度、状态与跨引擎范围清单；`visual-matrix.demo.tsx` 使用公开入口。Chromium 执行完整核心矩阵，Firefox / WebKit 执行清单指定的默认与关键交互子集。窄屏 320 / 768px、长内容、RTL / 英文、品牌覆盖、强制颜色与减少动画分别登记环境场景；配置切换保留原 DOM 与值。真实 200% 浏览器缩放、iframe / Shadow DOM 与跨 Document 验收仍由集成矩阵记录，不以视口或 DPR 代替。
+
+本批来源复核日期为 2026-10-29。[Material Web 控件文档](https://material-web.dev/components/checkbox/)提供 Web 行为对照；Material Web 不完整覆盖 Expressive，精确 Expressive 形态采用本页注明的项目扩展。[Apple HIG](https://developer.apple.com/design/human-interface-guidelines)作为自主 Web 实现的原则依据；shadcn 继续锁定 New York V4 的 `3d98900e9b73c45f035f8109e9d41ba6a51685e7`，引用提交以产品清单为准。M3 官网需 JavaScript 的规格页未在本批静态读取中补造精确参数。
+
+测试发现、截图候选、像素稳定性与人工外观复审分别记录。当前新增矩阵尚待统一浏览器执行和逐项复审，设计覆盖保持 partial，不能用用例存在或默认测试通过更新为 verified。
 
 ## 代码演示
 

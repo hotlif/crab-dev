@@ -38,6 +38,20 @@ Tab 进入原生单选组，方向键切换选项，Space 或 Enter 选中当前
 
 参考核对日期：2026-10-22。Material Web 未提供 Segmented 组件，Material 变体直接依据 [M3 Guidelines](https://m3.material.io/components/segmented-buttons/guidelines)、[Specs](https://m3.material.io/components/segmented-buttons/specs)、[Accessibility](https://m3.material.io/components/segmented-buttons/accessibility)。Apple 参考 [Apple Segmented controls](https://developer.apple.com/design/human-interface-guidelines/segmented-controls)，shadcn 参考 [Tabs 文档](https://ui.shadcn.com/docs/components/radix/tabs)及其[轨道实现](https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui/tabs.tsx)，只借鉴分段选择外观，组件语义仍为单选组。
 
+## 维护与矩阵验收
+
+触控场景通过原生轻触选择选项；窄屏与真实缩放测量每个选项和文字槽。标签实际截断时记录原文、槽尺寸与可访问名，并断言受约束的省略样式；允许省略不代表全文已经可见。选中按压与悬停先实际切换选择，单项禁用尝试也须保持原值。选中键盘焦点由原生方向键选择并聚焦后的 `focus-visible` 场景覆盖。
+
+MD3 保留基线 Segmented 的连续胶囊边界、次要色选中面与勾选槽；Apple 使用轻量轨道和浮起选中块；shadcn 使用 muted 轨道、细边界和清晰焦点。MD3 此变体是 M3 基线分段按钮，不宣称已经等同 Expressive connected button group。
+
+矩阵同时呈现文字、文字加图标、仅图标，以及单项禁用；三档 size 下验证选中、hover、键盘焦点、按压与整组禁用。键盘实际进入原生 radio 组并用方向键切换，长文字在 block 容器内省略，选中变化不改变选项测量槽。density 影响宿主集合，不改变分段几何。
+
+包内 `docs/visual.json` 是该组件的可执行尺寸、密度、状态与跨引擎范围清单；`visual-matrix.demo.tsx` 使用公开入口。Chromium 执行完整核心矩阵，Firefox / WebKit 执行清单指定的默认与关键交互子集。窄屏 320 / 768px、长内容、RTL / 英文、品牌覆盖、强制颜色与减少动画分别登记环境场景；配置切换保留原 DOM 与值。真实 200% 浏览器缩放、iframe / Shadow DOM 与跨 Document 验收仍由集成矩阵记录，不以视口或 DPR 代替。
+
+本批来源复核日期为 2026-10-29。[Material Web 控件文档](https://material-web.dev/components/radio/)提供 Web 行为对照；Material Web 不完整覆盖 Expressive，精确 Expressive 形态采用本页注明的项目扩展。[Apple HIG](https://developer.apple.com/design/human-interface-guidelines)作为自主 Web 实现的原则依据；shadcn 继续锁定 New York V4 的 `3d98900e9b73c45f035f8109e9d41ba6a51685e7`，引用提交以产品清单为准。M3 官网需 JavaScript 的规格页未在本批静态读取中补造精确参数。
+
+测试发现、截图候选、像素稳定性与人工外观复审分别记录。当前新增矩阵尚待统一浏览器执行和逐项复审，设计覆盖保持 partial，不能用用例存在或默认测试通过更新为 verified。
+
 ## 代码演示
 
 <Demos glob="./demos/*.demo.tsx" columns={2} />

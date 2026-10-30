@@ -20,6 +20,8 @@ import { demos } from "../_generated/rc-tabs.js";
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
 
+#### 使用示例
+
 ##### 基础用法 — 通过 items 配置基础标签页，默认使用 line 形态。
 
 ##### 卡片形态 — type='card' 提供更清晰的容器边界，适用于表单或配置区。
@@ -35,6 +37,10 @@ import { demos } from "../_generated/rc-tabs.js";
 ##### 药丸形态 — type='pill' 提供紧凑的切换样式，常用于工具栏或筛选面板；尺寸跟随 ConfigProvider。
 
 ##### 带图标与额外内容 — 通过 icon 为标签添加视觉标识，tabBarExtraContent 注入刷新操作，当前面板显示刷新次数。
+
+#### 视觉验收
+
+##### 页签状态与溢出矩阵 — 三种公开外观对照选中、禁用与关闭，切换配置保留活动页和面板草稿。
 
 </div>
 
@@ -80,6 +86,19 @@ import { demos } from "../_generated/rc-tabs.js";
 `yarn test:forced-colors` 保留原有 `pill` 检查，并分别采集 `line` 的 LTR、RTL 焦点场景，每个场景覆盖三套设计的浅深色。新增检查直接读取原 PNG 的四边轮廓、真实文字前景与背景，以及 Material 下划线；Apple/shadcn 检查没有该下划线。焦点由真实 `HTMLElement.focus({ focusVisible: true })` 产生，用于验证焦点绘制，不替代可信键盘 Tab 导航验收；像素检查和人工审图仍分别记录。
 
 参考核对日期：2026-10-22。Material 对照 [M3 Guidelines](https://m3.material.io/components/tabs/guidelines)、[Specs](https://m3.material.io/components/tabs/specs)、[Accessibility](https://m3.material.io/components/tabs/accessibility)、[Material Web 文档及示例](https://material-web.dev/components/tabs/)、[Tabs 交互实现](https://github.com/material-components/material-web/blob/main/tabs/internal/tabs.ts)、[Primary tab 样式](https://github.com/material-components/material-web/blob/main/tabs/internal/_primary-tab.scss)和 [v0.192 令牌](https://github.com/material-components/material-web/blob/main/tokens/versions/v0_192/_md-comp-primary-navigation-tab.scss)。Apple 参考 [Apple Segmented controls](https://developer.apple.com/design/human-interface-guidelines/segmented-controls)的页内选择表现；shadcn 对照 [Tabs 文档](https://ui.shadcn.com/docs/components/radix/tabs)与 [New York v4 实现](https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/new-york-v4/ui/tabs.tsx)。
+
+### 三体系验收规格
+
+2026-10-29 的重建沿用 [Material Web primary / secondary tabs 文档与示例](https://material-web.dev/components/tabs/)、[Primary tab 样式](https://github.com/material-components/material-web/blob/main/tabs/internal/_primary-tab.scss)与其 v0.192 令牌基线。M3 Expressive 不要求把已有页内导航改成按钮组；`line` 的主标签页基线保留，紧凑尺寸、可关闭页签、`card / pill` 明确属于本项目的桌面扩展。Apple 仅采用 [Segmented controls](https://developer.apple.com/design/human-interface-guidelines/segmented-controls)的关联选择与清晰选中原则；Web 页签仍保留 `tablist / tab / tabpanel` 语义。shadcn 以产品清单锁定的 [New York V4 Tabs](https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui/tabs.tsx)为参考，不随 upstream 新变体自动改变现有 API。
+
+| 边界 | 验收约定 |
+| --- | --- |
+| 颜色与表面 | MD3 的主色文字与指示条、Apple 的轻量选中块、shadcn 的 muted 轨道分别来自 L2 `navigation.tabs`；浅深色使用配对语义角色。 |
+| 几何与尺寸 | 三档公开尺寸改变标签高度与内边距；三档密度改变组间距，独立于尺寸。图标、关闭动作、触控命中和可见边界分别核对。 |
+| 状态 | 每种外观覆盖默认、hover、键盘焦点、按下、禁用、切换、键盘关闭与 320px 溢出揭示。禁用项不能激活；选中与焦点分别可见。 |
+| 动效与保持 | 指示器移动沿用空间动效，状态层使用颜色/透明度动效；减少动画仍立即揭示选中项。切换配置保留活动页及已输入草稿。 |
+
+`docs/visual.json` 将三种公开外观编码在状态名中，使每种外观都进入完整核心矩阵；`tabs.visual.spec.mjs` 用实际方向键、Delete 和横向滚动验证。截图不裁掉外部焦点，不用伪状态注入。环境采集及人工复审独立记录，矩阵发现和默认行为测试不自动提升覆盖状态。
 
 
 ### 状态契约

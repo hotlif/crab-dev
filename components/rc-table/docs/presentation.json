@@ -1,0 +1,59 @@
+{
+    "groups": [
+        {
+            "title": "三体系验收",
+            "demos": [
+                "visual-matrix.demo.tsx"
+            ]
+        },
+        {
+            "title": "三套风格对照",
+            "demos": [
+                "theme-states.demo.tsx"
+            ]
+        },
+        {
+            "title": "基础、汇总与性能",
+            "demos": [
+                "basis.demo.tsx",
+                "empty.demo.tsx",
+                "highlight.demo.tsx",
+                "summary.demo.tsx",
+                "largeScale.demo.tsx"
+            ]
+        },
+        {
+            "title": "列与表头",
+            "demos": [
+                "columnDrag.demo.tsx",
+                "columnResize.demo.tsx",
+                "filter.demo.tsx",
+                "mergeTableHeaders.demo.tsx",
+                "sort.demo.tsx"
+            ]
+        },
+        {
+            "title": "行与结构",
+            "demos": [
+                "dynamicRowHeight.demo.tsx",
+                "mergeCells.demo.tsx",
+                "rowExpansion.demo.tsx",
+                "rowGrouping.demo.tsx",
+                "rowNumber.demo.tsx",
+                "rowSelection.demo.tsx",
+                "rowState.demo.tsx",
+                "tree.demo.tsx"
+            ]
+        },
+        {
+            "title": "编辑与交互",
+            "demos": [
+                "copy.demo.tsx",
+                "edit.demo.tsx",
+                "rowEdit.demo.tsx",
+                "rowEvent.demo.tsx",
+                "selectCells.demo.tsx"
+            ]
+        }
+    ]
+}

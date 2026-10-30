@@ -1,0 +1,1093 @@
+{
+  "nativeStats": {
+    "startTime": "2026-10-29T19:11:56.384Z",
+    "duration": 29716.928,
+    "expected": 0,
+    "skipped": 0,
+    "unexpected": 1,
+    "flaky": 0
+  },
+  "nativeErrors": [],
+  "visualReview": "pending",
+  "cases": [
+    {
+      "id": "0184f3e33b8f813a8f58-fe8d17aaa82ee83024da/chromium/0",
+      "package": "rc-card",
+      "file": "components/rc-card/docs/card-theme-retention.visual.spec.mjs",
+      "title": "Card environment md3 light theme-retention",
+      "project": "chromium",
+      "attempt": 0,
+      "status": "failed",
+      "visualReview": "pending",
+      "annotations": [
+        {
+          "type": "environment",
+          "description": "{\"id\":\"theme-retention\",\"designSystem\":\"md3\",\"colorMode\":\"light\"}",
+          "location": {
+            "file": "C:\\Users\\zhang\\Desktop\\crab-dev\\components\\rc-card\\docs\\card-theme-retention.visual.spec.mjs",
+            "line": 8,
+            "column": 38
+          }
+        }
+      ],
+      "images": [
+        {
+          "attachmentIndex": 1,
+          "name": "screenshot",
+          "path": "screens/rc-card/chromium/000001-1-screenshot.png",
+          "sha256": "e2bc16b0665412fcc7712b0392b00b590294c5e12084bb5ce8541869cee56057"
+        },
+        {
+          "attachmentIndex": 5,
+          "name": "screenshot",
+          "path": "screens/rc-card/chromium/000001-5-screenshot.png",
+          "sha256": "3878570f4a62a0d65f57cf1754e0269e56ec797f4e36e26b44c172eb6e800401"
+        }
+      ],
+      "errors": [
+        {
+          "location": {
+            "file": "C:\\Users\\zhang\\Desktop\\crab-dev\\components\\rc-card\\docs\\card-theme-transition.mjs",
+            "column": 89,
+            "line": 82
+          },
+          "message": "Error: default coherent content palette at 641.928\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 1\u001b[39m\n\u001b[31m+ Received  + 1\u001b[39m\n\n\u001b[33m@@ -1,7 +1,7 @@\u001b[39m\n\u001b[2m  Object {\u001b[22m\n\u001b[32m-   \"background\": \"oklch(0.22 0.005 286)\",\u001b[39m\n\u001b[31m+   \"background\": \"oklab(0.967283 0.00808987 -0.0086097)\",\u001b[39m\n\u001b[2m    \"body\": \"oklch(0.98 0.002 286)\",\u001b[22m\n\u001b[2m    \"metaDescription\": \"oklch(0.84 0.008 286)\",\u001b[22m\n\u001b[2m    \"metaTitle\": \"oklch(0.98 0.002 286)\",\u001b[22m\n\u001b[2m    \"root\": \"oklch(0.98 0.002 286)\",\u001b[22m\n\u001b[2m    \"title\": \"oklch(0.98 0.002 286)\",\u001b[22m\n\n   at components\\rc-card\\docs\\card-theme-transition.mjs:82\n\n  80 |     for (const sample of committed) {\n  81 |         expect(sample.effective, variant + ' nearest boundary at ' + sample.time).toEqual(next);\n> 82 |         expect(sample.palette, variant + ' coherent content palette at ' + sample.time).toEqual(final.palette);\n     |                                                                                         ^\n  83 |     }\n  84 | }\n  85 |\n    at assertCardThemeTransition (C:\\Users\\zhang\\Desktop\\crab-dev\\components\\rc-card\\docs\\card-theme-transition.mjs:82:89)\n    at C:\\Users\\zhang\\Desktop\\crab-dev\\components\\rc-card\\docs\\card-theme-retention.visual.spec.mjs:26:9"
+        }
+      ],
+      "jsonAttachments": [
+        {
+          "attachmentIndex": 0,
+          "name": "theme-transition-default",
+          "value": {
+            "variant": "default",
+            "next": {
+              "designSystem": "apple",
+              "colorMode": "dark"
+            },
+            "scope": "Natural browser rAF timestamps and computed palette; no synthetic state or static motion golden",
+            "before": {
+              "time": 633.8000000119209,
+              "boundary": {
+                "designSystem": "md3",
+                "colorMode": "light"
+              },
+              "effective": {
+                "designSystem": "md3",
+                "colorMode": "light"
+              },
+              "palette": {
+                "background": "oklch(0.967283 0.0118141 313.217)",
+                "root": "oklch(0.226524 0.00999107 303.714)",
+                "title": "oklch(0.226524 0.00999107 303.714)",
+                "body": "oklch(0.226524 0.00999107 303.714)",
+                "metaTitle": "oklch(0.226524 0.00999107 303.714)",
+                "metaDescription": "oklch(0.398053 0.0173554 303.721)"
+              },
+              "nodesRetained": true,
+              "draftRetained": true,
+              "draft": "Draft retained through theme changes",
+              "finite": []
+            },
+            "samples": [
+              {
+                "time": 641.928,
+                "boundary": {
+                  "designSystem": "apple",
+                  "colorMode": "dark"
+                },
+                "effective": {
+                  "designSystem": "apple",
+                  "colorMode": "dark"
+                },
+                "palette": {
+                  "background": "oklab(0.967283 0.00808987 -0.0086097)",
+                  "root": "oklch(0.98 0.002 286)",
+                  "title": "oklch(0.98 0.002 286)",
+                  "body": "oklch(0.98 0.002 286)",
+                  "metaTitle": "oklch(0.98 0.002 286)",
+                  "metaDescription": "oklch(0.84 0.008 286)"
+                },
+                "nodesRetained": true,
+                "draftRetained": true,
+                "draft": "Draft retained through theme changes",
+                "finite": [
+                  {
+                    "property": "background-color",
+                    "time": 0,
+                    "endTime": 100
+                  },
+                  {
+                    "property": "border-bottom-color",
+                    "time": 0,
+                    "endTime": 100
+                  },
+                  {
+                    "property": "border-left-color",
+                    "time": 0,
+                    "endTime": 100
+                  },
+                  {
+                    "property": "border-right-color",
+                    "time": 0,
+                    "endTime": 100
+                  },
+                  {
+                    "property": "border-top-color",
+                    "time": 0,
+                    "endTime": 100
+                  },
+                  {
+                    "property": "box-shadow",
+                    "time": 0,
+                    "endTime": 100
+                  }
+                ]
+              },
+              {
+                "time": 691.8,
+                "boundary": {
+                  "designSystem": "apple",
+                  "colorMode": "dark"
+                },
+                "effective": {
+                  "designSystem": "apple",
+                  "colorMode": "dark"
+                },
+                "palette": {
+                  "background": "oklab(0.967283 0.00808987 -0.0086097)",
+                  "root": "oklch(0.98 0.002 286)",
+                  "title": "oklch(0.98 0.002 286)",
+                  "body": "oklch(0.98 0.002 286)",
+                  "metaTitle": "oklch(0.98 0.002 286)",
+                  "metaDescription": "oklch(0.84 0.008 286)"
+                },
+                "nodesRetained": true,
+                "draftRetained": true,
+                "draft": "Draft retained through theme changes",
+                "finite": [
+                  {
+                    "property": "background-color",
+                    "time": 0,
+                    "endTime": 100
+                  },
+                  {
+                    "property": "border-bottom-color",
+                    "time": 0,
+                    "endTime": 100
+                  },
+                  {
+                    "property": "border-left-color",
+                    "time": 0,
+                    "endTime": 100
+                  },
+                  {
+                    "property": "border-right-color",
+                    "time": 0,
+                    "endTime": 100
+                  },
+                  {
+                    "property": "border-top-color",
+                    "time": 0,
+                    "endTime": 100
+                  },
+                  {
+                    "property": "box-shadow",
+                    "time": 0,
+                    "endTime": 100
+                  }
+                ]
+              },
+              {
+                "time": 708.5,
+                "boundary": {
+                  "designSystem": "apple",
+                  "colorMode": "dark"
+                },
+                "effective": {
+                  "designSystem": "apple",
+                  "colorMode": "dark"
+                },
+                "palette": {
+                  "background": "oklab(0.637643 0.00512923 -0.00693196)",
+                  "root": "oklch(0.98 0.002 286)",
+                  "title": "oklch(0.98 0.002 286)",
+                  "body": "oklch(0.98 0.002 286)",
+                  "metaTitle": "oklch(0.98 0.002 286)",
+                  "metaDescription": "oklch(0.84 0.008 286)"
+                },
+                "nodesRetained": true,
+                "draftRetained": true,
+                "draft": "Draft retained through theme changes",
+                "finite": [
+                  {
+                    "property": "background-color",
+                    "time": 16.643000002019125,
+                    "endTime": 100
+                  },
+                  {
+                    "property": "border-bottom-color",
+                    "time": 16.643000002019125,
+                    "endTime": 100
+                  },
+                  {
+                    "property": "border-left-color",
+                    "time": 16.643000002019125,
+                    "endTime": 100
+                  },
+                  {
+                    "property": "border-right-color",
+                    "time": 16.643000002019125,
+                    "endTime": 100
+                  },
+                  {
+                    "property": "border-top-color",
+                    "time": 16.643000002019125,
+                    "endTime": 100
+                  },
+                  {
+                    "property": "box-shadow",
+                    "time": 16.643000002019125,
+                    "endTime": 100
+                  }
+                ]
+              },
+              {
+                "time": 725.2,
+                "boundary": {
+                  "designSystem": "apple",
+                  "colorMode": "dark"
+                },
+                "effective": {
+                  "designSystem": "apple",
+                  "colorMode": "dark"
+                },
+                "palette": {
+                  "background": "oklab(0.455241 0.00349099 -0.0060036)",
+                  "root": "oklch(0.98 0.002 286)",
+                  "title": "oklch(0.98 0.002 286)",
+                  "body": "oklch(0.98 0.002 286)",
+                  "metaTitle": "oklch(0.98 0.002 286)",
+                  "metaDescription": "oklch(0.84 0.008 286)"
+                },
+                "nodesRetained": true,
+                "draftRetained": true,
+                "draft": "Draft retained through theme changes",
+                "finite": [
+                  {
+                    "property": "background-color",
+                    "time": 33.34300000201906,
+                    "endTime": 100
+                  },
+                  {
+                    "property": "border-bottom-color",
+                    "time": 33.34300000201906,
+                    "endTime": 100
+                  },
+                  {
+                    "property": "border-left-color",
+                    "time": 33.34300000201906,
+                    "endTime": 100
+                  },
+                  {
+                    "property": "border-right-color",
+                    "time": 33.34300000201906,
+                    "endTime": 100
+                  },
+                  {
+                    "property": "border-top-color",
+                    "time": 33.34300000201906,
+                    "endTime": 100
+                  },
+                  {
+                    "property": "box-shadow",
+                    "time": 33.34300000201906,
+                    "endTime": 100
+                  }
+                ]
+              },
+              {
+                "time": 741.9,
+                "boundary": {
+                  "designSystem": "apple",
+                  "colorMode": "dark"
+                },
+                "effective": {
+                  "designSystem": "apple",
+                  "colorMode": "dark"
+                },
+                "palette": {
+                  "background": "oklab(0.339896 0.00245503 -0.00541653)",
+                  "root": "oklch(0.98 0.002 286)",
+                  "title": "oklch(0.98 0.002 286)",
+                  "body": "oklch(0.98 0.002 286)",
+                  "metaTitle": "oklch(0.98 0.002 286)",
+                  "metaDescription": "oklch(0.84 0.008 286)"
+                },
+                "nodesRetained": true,
+                "draftRetained": true,
+                "draft": "Draft retained through theme changes",
+                "finite": [
+                  {
+                    "property": "background-color",
+                    "time": 50.04300000201911,
+                    "endTime": 100
+                  },
+                  {
+                    "property": "border-bottom-color",
+                    "time": 50.04300000201911,
+                    "endTime": 100
+                  },
+                  {
+                    "property": "border-left-color",
+                    "time": 50.04300000201911,
+                    "endTime": 100
+                  },
+                  {
+                    "property": "border-right-color",
+                    "time": 50.04300000201911,
+                    "endTime": 100
+                  },
+                  {
+                    "property": "border-top-color",
+                    "time": 50.04300000201911,
+                    "endTime": 100
+                  },
+                  {
+                    "property": "box-shadow",
+                    "time": 50.04300000201911,
+                    "endTime": 100
+                  }
+                ]
+              },
+              {
+                "time": 758.6,
+                "boundary": {
+                  "designSystem": "apple",
+                  "colorMode": "dark"
+                },
+                "effective": {
+                  "designSystem": "apple",
+                  "colorMode": "dark"
+                },
+                "palette": {
+                  "background": "oklab(0.269028 0.00181853 -0.00505584)",
+                  "root": "oklch(0.98 0.002 286)",
+                  "title": "oklch(0.98 0.002 286)",
+                  "body": "oklch(0.98 0.002 286)",
+                  "metaTitle": "oklch(0.98 0.002 286)",
+                  "metaDescription": "oklch(0.84 0.008 286)"
+                },
+                "nodesRetained": true,
+                "draftRetained": true,
+                "draft": "Draft retained through theme changes",
+                "finite": [
+                  {
+                    "property": "background-color",
+                    "time": 66.74300000201916,
+                    "endTime": 100
+                  },
+                  {
+                    "property": "border-bottom-color",
+                    "time": 66.74300000201916,
+                    "endTime": 100
+                  },
+                  {
+                    "property": "border-left-color",
+                    "time": 66.74300000201916,
+                    "endTime": 100
+                  },
+                  {
+                    "property": "border-right-color",
+                    "time": 66.74300000201916,
+                    "endTime": 100
+                  },
+                  {
+                    "property": "border-top-color",
+                    "time": 66.74300000201916,
+                    "endTime": 100
+                  },
+                  {
+                    "property": "box-shadow",
+                    "time": 66.74300000201916,
+                    "endTime": 100
+                  }
+                ]
+              },
+              {
+                "time": 775.2,
+                "boundary": {
+                  "designSystem": "apple",
+                  "colorMode": "dark"
+                },
+                "effective": {
+                  "designSystem": "apple",
+                  "colorMode": "dark"
+                },
+                "palette": {
+                  "background": "oklab(0.23148 0.00148129 -0.00486474)",
+                  "root": "oklch(0.98 0.002 286)",
+                  "title": "oklch(0.98 0.002 286)",
+                  "body": "oklch(0.98 0.002 286)",
+                  "metaTitle": "oklch(0.98 0.002 286)",
+                  "metaDescription": "oklch(0.84 0.008 286)"
+                },
+                "nodesRetained": true,
+                "draftRetained": true,
+                "draft": "Draft retained through theme changes",
+                "finite": [
+                  {
+                    "property": "background-color",
+                    "time": 83.34300000201911,
+                    "endTime": 100
+                  },
+                  {
+                    "property": "border-bottom-color",
+                    "time": 83.34300000201911,
+                    "endTime": 100
+                  },
+                  {
+                    "property": "border-left-color",
+                    "time": 83.34300000201911,
+                    "endTime": 100
+                  },
+                  {
+                    "property": "border-right-color",
+                    "time": 83.34300000201911,
+                    "endTime": 100
+                  },
+                  {
+                    "property": "border-top-color",
+                    "time": 83.34300000201911,
+                    "endTime": 100
+                  },
+                  {
+                    "property": "box-shadow",
+                    "time": 83.34300000201911,
+                    "endTime": 100
+                  }
+                ]
+              },
+              {
+                "time": 792.1,
+                "boundary": {
+                  "designSystem": "apple",
+                  "colorMode": "dark"
+                },
+                "effective": {
+                  "designSystem": "apple",
+                  "colorMode": "dark"
+                },
+                "palette": {
+                  "background": "oklch(0.22 0.005 286)",
+                  "root": "oklch(0.98 0.002 286)",
+                  "title": "oklch(0.98 0.002 286)",
+                  "body": "oklch(0.98 0.002 286)",
+                  "metaTitle": "oklch(0.98 0.002 286)",
+                  "metaDescription": "oklch(0.84 0.008 286)"
+                },
+                "nodesRetained": true,
+                "draftRetained": true,
+                "draft": "Draft retained through theme changes",
+                "finite": []
+              },
+              {
+                "time": 808.5,
+                "boundary": {
+                  "designSystem": "apple",
+                  "colorMode": "dark"
+                },
+                "effective": {
+                  "designSystem": "apple",
+                  "colorMode": "dark"
+                },
+                "palette": {
+                  "background": "oklch(0.22 0.005 286)",
+                  "root": "oklch(0.98 0.002 286)",
+                  "title": "oklch(0.98 0.002 286)",
+                  "body": "oklch(0.98 0.002 286)",
+                  "metaTitle": "oklch(0.98 0.002 286)",
+                  "metaDescription": "oklch(0.84 0.008 286)"
+                },
+                "nodesRetained": true,
+                "draftRetained": true,
+                "draft": "Draft retained through theme changes",
+                "finite": []
+              },
+              {
+                "time": 825.7,
+                "boundary": {
+                  "designSystem": "apple",
+                  "colorMode": "dark"
+                },
+                "effective": {
+                  "designSystem": "apple",
+                  "colorMode": "dark"
+                },
+                "palette": {
+                  "background": "oklch(0.22 0.005 286)",
+                  "root": "oklch(0.98 0.002 286)",
+                  "title": "oklch(0.98 0.002 286)",
+                  "body": "oklch(0.98 0.002 286)",
+                  "metaTitle": "oklch(0.98 0.002 286)",
+                  "metaDescription": "oklch(0.84 0.008 286)"
+                },
+                "nodesRetained": true,
+                "draftRetained": true,
+                "draft": "Draft retained through theme changes",
+                "finite": []
+              }
+            ],
+            "complete": true
+          }
+        },
+        {
+          "attachmentIndex": 2,
+          "name": "candidate-inputs",
+          "value": {
+            "source": "sha256:2d66baa748cc46ede10c4ff04f5fe9699ef224433d1008c11d5087ab722c1597",
+            "artifact": "sha256:d8986be2787b5f08dbf0298d61eb45b9c70b26e8874c300e5cbb8dc5752f47cc",
+            "file": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\card-theme-old-negative-windows-20261030-1\\inputs-worker-0.json",
+            "renderingEnvironment": {
+              "file": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\card-theme-old-negative-windows-20261030-1\\rendering-worker-0.json",
+              "browserName": "chromium",
+              "browser": "156.0.8078.4"
+            },
+            "browserName": "chromium",
+            "browser": "156.0.8078.4",
+            "platform": "win32",
+            "arch": "x64",
+            "mode": "native-check",
+            "visualReview": "pending"
+          }
+        },
+        {
+          "attachmentIndex": 3,
+          "name": "browser-console",
+          "value": [
+            {
+              "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+              "location": {
+                "url": "http://127.0.0.1:58168/favicon.ico",
+                "line": 0,
+                "column": 0,
+                "lineNumber": 0,
+                "columnNumber": 0
+              }
+            }
+          ]
+        }
+      ],
+      "details": {
+        "theme-transition-default": {
+          "variant": "default",
+          "next": {
+            "designSystem": "apple",
+            "colorMode": "dark"
+          },
+          "scope": "Natural browser rAF timestamps and computed palette; no synthetic state or static motion golden",
+          "before": {
+            "time": 633.8000000119209,
+            "boundary": {
+              "designSystem": "md3",
+              "colorMode": "light"
+            },
+            "effective": {
+              "designSystem": "md3",
+              "colorMode": "light"
+            },
+            "palette": {
+              "background": "oklch(0.967283 0.0118141 313.217)",
+              "root": "oklch(0.226524 0.00999107 303.714)",
+              "title": "oklch(0.226524 0.00999107 303.714)",
+              "body": "oklch(0.226524 0.00999107 303.714)",
+              "metaTitle": "oklch(0.226524 0.00999107 303.714)",
+              "metaDescription": "oklch(0.398053 0.0173554 303.721)"
+            },
+            "nodesRetained": true,
+            "draftRetained": true,
+            "draft": "Draft retained through theme changes",
+            "finite": []
+          },
+          "samples": [
+            {
+              "time": 641.928,
+              "boundary": {
+                "designSystem": "apple",
+                "colorMode": "dark"
+              },
+              "effective": {
+                "designSystem": "apple",
+                "colorMode": "dark"
+              },
+              "palette": {
+                "background": "oklab(0.967283 0.00808987 -0.0086097)",
+                "root": "oklch(0.98 0.002 286)",
+                "title": "oklch(0.98 0.002 286)",
+                "body": "oklch(0.98 0.002 286)",
+                "metaTitle": "oklch(0.98 0.002 286)",
+                "metaDescription": "oklch(0.84 0.008 286)"
+              },
+              "nodesRetained": true,
+              "draftRetained": true,
+              "draft": "Draft retained through theme changes",
+              "finite": [
+                {
+                  "property": "background-color",
+                  "time": 0,
+                  "endTime": 100
+                },
+                {
+                  "property": "border-bottom-color",
+                  "time": 0,
+                  "endTime": 100
+                },
+                {
+                  "property": "border-left-color",
+                  "time": 0,
+                  "endTime": 100
+                },
+                {
+                  "property": "border-right-color",
+                  "time": 0,
+                  "endTime": 100
+                },
+                {
+                  "property": "border-top-color",
+                  "time": 0,
+                  "endTime": 100
+                },
+                {
+                  "property": "box-shadow",
+                  "time": 0,
+                  "endTime": 100
+                }
+              ]
+            },
+            {
+              "time": 691.8,
+              "boundary": {
+                "designSystem": "apple",
+                "colorMode": "dark"
+              },
+              "effective": {
+                "designSystem": "apple",
+                "colorMode": "dark"
+              },
+              "palette": {
+                "background": "oklab(0.967283 0.00808987 -0.0086097)",
+                "root": "oklch(0.98 0.002 286)",
+                "title": "oklch(0.98 0.002 286)",
+                "body": "oklch(0.98 0.002 286)",
+                "metaTitle": "oklch(0.98 0.002 286)",
+                "metaDescription": "oklch(0.84 0.008 286)"
+              },
+              "nodesRetained": true,
+              "draftRetained": true,
+              "draft": "Draft retained through theme changes",
+              "finite": [
+                {
+                  "property": "background-color",
+                  "time": 0,
+                  "endTime": 100
+                },
+                {
+                  "property": "border-bottom-color",
+                  "time": 0,
+                  "endTime": 100
+                },
+                {
+                  "property": "border-left-color",
+                  "time": 0,
+                  "endTime": 100
+                },
+                {
+                  "property": "border-right-color",
+                  "time": 0,
+                  "endTime": 100
+                },
+                {
+                  "property": "border-top-color",
+                  "time": 0,
+                  "endTime": 100
+                },
+                {
+                  "property": "box-shadow",
+                  "time": 0,
+                  "endTime": 100
+                }
+              ]
+            },
+            {
+              "time": 708.5,
+              "boundary": {
+                "designSystem": "apple",
+                "colorMode": "dark"
+              },
+              "effective": {
+                "designSystem": "apple",
+                "colorMode": "dark"
+              },
+              "palette": {
+                "background": "oklab(0.637643 0.00512923 -0.00693196)",
+                "root": "oklch(0.98 0.002 286)",
+                "title": "oklch(0.98 0.002 286)",
+                "body": "oklch(0.98 0.002 286)",
+                "metaTitle": "oklch(0.98 0.002 286)",
+                "metaDescription": "oklch(0.84 0.008 286)"
+              },
+              "nodesRetained": true,
+              "draftRetained": true,
+              "draft": "Draft retained through theme changes",
+              "finite": [
+                {
+                  "property": "background-color",
+                  "time": 16.643000002019125,
+                  "endTime": 100
+                },
+                {
+                  "property": "border-bottom-color",
+                  "time": 16.643000002019125,
+                  "endTime": 100
+                },
+                {
+                  "property": "border-left-color",
+                  "time": 16.643000002019125,
+                  "endTime": 100
+                },
+                {
+                  "property": "border-right-color",
+                  "time": 16.643000002019125,
+                  "endTime": 100
+                },
+                {
+                  "property": "border-top-color",
+                  "time": 16.643000002019125,
+                  "endTime": 100
+                },
+                {
+                  "property": "box-shadow",
+                  "time": 16.643000002019125,
+                  "endTime": 100
+                }
+              ]
+            },
+            {
+              "time": 725.2,
+              "boundary": {
+                "designSystem": "apple",
+                "colorMode": "dark"
+              },
+              "effective": {
+                "designSystem": "apple",
+                "colorMode": "dark"
+              },
+              "palette": {
+                "background": "oklab(0.455241 0.00349099 -0.0060036)",
+                "root": "oklch(0.98 0.002 286)",
+                "title": "oklch(0.98 0.002 286)",
+                "body": "oklch(0.98 0.002 286)",
+                "metaTitle": "oklch(0.98 0.002 286)",
+                "metaDescription": "oklch(0.84 0.008 286)"
+              },
+              "nodesRetained": true,
+              "draftRetained": true,
+              "draft": "Draft retained through theme changes",
+              "finite": [
+                {
+                  "property": "background-color",
+                  "time": 33.34300000201906,
+                  "endTime": 100
+                },
+                {
+                  "property": "border-bottom-color",
+                  "time": 33.34300000201906,
+                  "endTime": 100
+                },
+                {
+                  "property": "border-left-color",
+                  "time": 33.34300000201906,
+                  "endTime": 100
+                },
+                {
+                  "property": "border-right-color",
+                  "time": 33.34300000201906,
+                  "endTime": 100
+                },
+                {
+                  "property": "border-top-color",
+                  "time": 33.34300000201906,
+                  "endTime": 100
+                },
+                {
+                  "property": "box-shadow",
+                  "time": 33.34300000201906,
+                  "endTime": 100
+                }
+              ]
+            },
+            {
+              "time": 741.9,
+              "boundary": {
+                "designSystem": "apple",
+                "colorMode": "dark"
+              },
+              "effective": {
+                "designSystem": "apple",
+                "colorMode": "dark"
+              },
+              "palette": {
+                "background": "oklab(0.339896 0.00245503 -0.00541653)",
+                "root": "oklch(0.98 0.002 286)",
+                "title": "oklch(0.98 0.002 286)",
+                "body": "oklch(0.98 0.002 286)",
+                "metaTitle": "oklch(0.98 0.002 286)",
+                "metaDescription": "oklch(0.84 0.008 286)"
+              },
+              "nodesRetained": true,
+              "draftRetained": true,
+              "draft": "Draft retained through theme changes",
+              "finite": [
+                {
+                  "property": "background-color",
+                  "time": 50.04300000201911,
+                  "endTime": 100
+                },
+                {
+                  "property": "border-bottom-color",
+                  "time": 50.04300000201911,
+                  "endTime": 100
+                },
+                {
+                  "property": "border-left-color",
+                  "time": 50.04300000201911,
+                  "endTime": 100
+                },
+                {
+                  "property": "border-right-color",
+                  "time": 50.04300000201911,
+                  "endTime": 100
+                },
+                {
+                  "property": "border-top-color",
+                  "time": 50.04300000201911,
+                  "endTime": 100
+                },
+                {
+                  "property": "box-shadow",
+                  "time": 50.04300000201911,
+                  "endTime": 100
+                }
+              ]
+            },
+            {
+              "time": 758.6,
+              "boundary": {
+                "designSystem": "apple",
+                "colorMode": "dark"
+              },
+              "effective": {
+                "designSystem": "apple",
+                "colorMode": "dark"
+              },
+              "palette": {
+                "background": "oklab(0.269028 0.00181853 -0.00505584)",
+                "root": "oklch(0.98 0.002 286)",
+                "title": "oklch(0.98 0.002 286)",
+                "body": "oklch(0.98 0.002 286)",
+                "metaTitle": "oklch(0.98 0.002 286)",
+                "metaDescription": "oklch(0.84 0.008 286)"
+              },
+              "nodesRetained": true,
+              "draftRetained": true,
+              "draft": "Draft retained through theme changes",
+              "finite": [
+                {
+                  "property": "background-color",
+                  "time": 66.74300000201916,
+                  "endTime": 100
+                },
+                {
+                  "property": "border-bottom-color",
+                  "time": 66.74300000201916,
+                  "endTime": 100
+                },
+                {
+                  "property": "border-left-color",
+                  "time": 66.74300000201916,
+                  "endTime": 100
+                },
+                {
+                  "property": "border-right-color",
+                  "time": 66.74300000201916,
+                  "endTime": 100
+                },
+                {
+                  "property": "border-top-color",
+                  "time": 66.74300000201916,
+                  "endTime": 100
+                },
+                {
+                  "property": "box-shadow",
+                  "time": 66.74300000201916,
+                  "endTime": 100
+                }
+              ]
+            },
+            {
+              "time": 775.2,
+              "boundary": {
+                "designSystem": "apple",
+                "colorMode": "dark"
+              },
+              "effective": {
+                "designSystem": "apple",
+                "colorMode": "dark"
+              },
+              "palette": {
+                "background": "oklab(0.23148 0.00148129 -0.00486474)",
+                "root": "oklch(0.98 0.002 286)",
+                "title": "oklch(0.98 0.002 286)",
+                "body": "oklch(0.98 0.002 286)",
+                "metaTitle": "oklch(0.98 0.002 286)",
+                "metaDescription": "oklch(0.84 0.008 286)"
+              },
+              "nodesRetained": true,
+              "draftRetained": true,
+              "draft": "Draft retained through theme changes",
+              "finite": [
+                {
+                  "property": "background-color",
+                  "time": 83.34300000201911,
+                  "endTime": 100
+                },
+                {
+                  "property": "border-bottom-color",
+                  "time": 83.34300000201911,
+                  "endTime": 100
+                },
+                {
+                  "property": "border-left-color",
+                  "time": 83.34300000201911,
+                  "endTime": 100
+                },
+                {
+                  "property": "border-right-color",
+                  "time": 83.34300000201911,
+                  "endTime": 100
+                },
+                {
+                  "property": "border-top-color",
+                  "time": 83.34300000201911,
+                  "endTime": 100
+                },
+                {
+                  "property": "box-shadow",
+                  "time": 83.34300000201911,
+                  "endTime": 100
+                }
+              ]
+            },
+            {
+              "time": 792.1,
+              "boundary": {
+                "designSystem": "apple",
+                "colorMode": "dark"
+              },
+              "effective": {
+                "designSystem": "apple",
+                "colorMode": "dark"
+              },
+              "palette": {
+                "background": "oklch(0.22 0.005 286)",
+                "root": "oklch(0.98 0.002 286)",
+                "title": "oklch(0.98 0.002 286)",
+                "body": "oklch(0.98 0.002 286)",
+                "metaTitle": "oklch(0.98 0.002 286)",
+                "metaDescription": "oklch(0.84 0.008 286)"
+              },
+              "nodesRetained": true,
+              "draftRetained": true,
+              "draft": "Draft retained through theme changes",
+              "finite": []
+            },
+            {
+              "time": 808.5,
+              "boundary": {
+                "designSystem": "apple",
+                "colorMode": "dark"
+              },
+              "effective": {
+                "designSystem": "apple",
+                "colorMode": "dark"
+              },
+              "palette": {
+                "background": "oklch(0.22 0.005 286)",
+                "root": "oklch(0.98 0.002 286)",
+                "title": "oklch(0.98 0.002 286)",
+                "body": "oklch(0.98 0.002 286)",
+                "metaTitle": "oklch(0.98 0.002 286)",
+                "metaDescription": "oklch(0.84 0.008 286)"
+              },
+              "nodesRetained": true,
+              "draftRetained": true,
+              "draft": "Draft retained through theme changes",
+              "finite": []
+            },
+            {
+              "time": 825.7,
+              "boundary": {
+                "designSystem": "apple",
+                "colorMode": "dark"
+              },
+              "effective": {
+                "designSystem": "apple",
+                "colorMode": "dark"
+              },
+              "palette": {
+                "background": "oklch(0.22 0.005 286)",
+                "root": "oklch(0.98 0.002 286)",
+                "title": "oklch(0.98 0.002 286)",
+                "body": "oklch(0.98 0.002 286)",
+                "metaTitle": "oklch(0.98 0.002 286)",
+                "metaDescription": "oklch(0.84 0.008 286)"
+              },
+              "nodesRetained": true,
+              "draftRetained": true,
+              "draft": "Draft retained through theme changes",
+              "finite": []
+            }
+          ],
+          "complete": true
+        },
+        "candidate-inputs": {
+          "source": "sha256:2d66baa748cc46ede10c4ff04f5fe9699ef224433d1008c11d5087ab722c1597",
+          "artifact": "sha256:d8986be2787b5f08dbf0298d61eb45b9c70b26e8874c300e5cbb8dc5752f47cc",
+          "file": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\card-theme-old-negative-windows-20261030-1\\inputs-worker-0.json",
+          "renderingEnvironment": {
+            "file": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\card-theme-old-negative-windows-20261030-1\\rendering-worker-0.json",
+            "browserName": "chromium",
+            "browser": "156.0.8078.4"
+          },
+          "browserName": "chromium",
+          "browser": "156.0.8078.4",
+          "platform": "win32",
+          "arch": "x64",
+          "mode": "native-check",
+          "visualReview": "pending"
+        },
+        "browser-console": [
+          {
+            "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+            "location": {
+              "url": "http://127.0.0.1:58168/favicon.ico",
+              "line": 0,
+              "column": 0,
+              "lineNumber": 0,
+              "columnNumber": 0
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

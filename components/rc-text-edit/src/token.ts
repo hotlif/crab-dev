@@ -5,6 +5,8 @@
 import { defineTokens } from '@crab-dev/css';
 
 export const vars = defineTokens({
+    'text.font-family': '--text-edit-text-font-family',
+    'text.color': '--text-edit-text-color',
     'root.outline-color-focus': '--text-edit-root-outline-color-focus',
     'root.outline-width-focus': '--text-edit-root-outline-width-focus',
     'root.outline-offset-focus': '--text-edit-root-outline-offset-focus',
@@ -26,7 +28,6 @@ export const vars = defineTokens({
     'clear.touch.height': '--text-edit-clear-touch-height',
     'clear.inset-block-start': '--text-edit-clear-inset-block-start',
     'clear.inset-inline-end': '--text-edit-clear-inset-inline-end',
-    'text.color': '--text-edit-text-color',
     'placeholder.color': '--text-edit-placeholder-color',
     'icon.color': '--text-edit-icon-color',
     'icon.gap': '--text-edit-icon-gap',
@@ -116,6 +117,10 @@ export const vars = defineTokens({
 });
 
 const token = defineTokens({
+    'text': {
+        'font-family': `var(${vars['text.font-family']}, var(--token-semantic-typography-body-font-family, var(--token-global-font-family-material, 'Roboto', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei UI', sans-serif)))`,
+        'color': `var(${vars['text.color']}, var(--token-semantic-color-text-primary, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695))))`
+    },
     'root': {
         'outline-color-focus': `var(${vars['root.outline-color-focus']}, var(--token-semantic-color-focus-ring, var(--token-semantic-color-border-focus, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078)))))`,
         'outline-width-focus': `var(${vars['root.outline-width-focus']}, 2px)`,
@@ -144,9 +149,6 @@ const token = defineTokens({
         },
         'inset-block-start': `var(${vars['clear.inset-block-start']}, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)))`,
         'inset-inline-end': `var(${vars['clear.inset-inline-end']}, var(--token-semantic-space-control-padding-x, var(--token-global-space-3, 12px)))`
-    },
-    'text': {
-        'color': `var(${vars['text.color']}, var(--token-semantic-color-text-primary, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695))))`
     },
     'placeholder': {
         'color': `var(${vars['placeholder.color']}, var(--token-semantic-color-text-secondary, var(--token-global-material-neutral-variant-30, oklch(0.39805288 0.01735545 303.720936))))`

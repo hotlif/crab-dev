@@ -1,0 +1,23 @@
+{
+    "heroDemo": "visual-matrix.demo.tsx",
+    "groups": [
+        {
+            "title": "三体系视觉与交互矩阵",
+            "demos": [
+                "visual-matrix.demo.tsx"
+            ]
+        },
+        {
+            "title": "能力与集成示例",
+            "demos": [
+                "annotations.demo.tsx",
+                "basic.demo.tsx",
+                "horizontal.demo.tsx",
+                "live-update.demo.tsx",
+                "multi-series.demo.tsx",
+                "palette.demo.tsx",
+                "stacked.demo.tsx"
+            ]
+        }
+    ]
+}

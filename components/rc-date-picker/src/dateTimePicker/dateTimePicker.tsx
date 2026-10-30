@@ -1,4 +1,5 @@
 import type { DropdownOpenChangeDetails } from '@crab-dev/rc-dropdown-container';
+import { nowZonedDateTime } from '../temporal.js';
 import { useControllableValue, useControllableOpen } from '@crab-dev/rc-hooks';
 import { usePickerLocale } from '../locale.js';
 import { useId, useRef, useState, type FC } from 'react';
@@ -80,7 +81,7 @@ const DateTimePicker: FC<DateTimePickerProps> = ({
     const [value, setValue] = useControllableValue<Temporal.ZonedDateTime | null, [PickerValueChangeDetails]>({ value: valueProp, defaultValue: defaultValue ?? null, onValueChange });
     const [isOpen, setOpen] = useControllableOpen<DropdownOpenChangeDetails>({ open, defaultOpen, onOpenChange });
     const changeValue = (next: Temporal.ZonedDateTime | null, event?: PickerValueChangeDetails['event']) => setValue(next, { reason: next === null ? 'clear' : 'confirm', ...(event ? { event } : {}) });
-    const [selectValues, setSelectValues] = useState<Temporal.ZonedDateTime[]>(() => value == null ? [Temporal.Now.zonedDateTimeISO(timeZone)] : [value]);
+    const [selectValues, setSelectValues] = useState<Temporal.ZonedDateTime[]>(() => value == null ? [nowZonedDateTime(timeZone)] : [value]);
     
     const dateTimePickerPanelInstance = useRef<DatePickerPanelInstance>(null);
 
@@ -110,7 +111,7 @@ const DateTimePicker: FC<DateTimePickerProps> = ({
                 value={renderDisplayString(value)}
                 onValueChange={changeValue}
                 instance={dateTimePickerPanelInstance}
-                onOpen={() => setSelectValues([value ?? Temporal.Now.zonedDateTimeISO(timeZone)])}
+                onOpen={() => setSelectValues([value ?? nowZonedDateTime(timeZone)])}
                 {...restProps}
                 hasValue={value != null}
             />

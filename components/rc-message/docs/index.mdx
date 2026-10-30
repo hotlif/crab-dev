@@ -47,3 +47,21 @@ MD3 Expressive 使用逆色 snackbar 表面；Apple 使用 12px 圆角的面板�
 
 
 消息默认使用 `role="status"` 和 `aria-live="polite"` 排队通告，不抢占当前焦点。直接渲染组件时可通过原生属性显式设置紧急通告。自动消失的信息也应在触发位置提供持久反馈，较长内容建议传入至少 4000ms 的 duration。
+
+## 三体系规格与验收边界
+
+轻量操作结果参考 Snackbar 的非阻塞反馈语义，但多类型、加载、队列是项目扩展。矩阵独立组件明确 open 与 duration=0；自动关闭归 useMessage 管理，浮层场景使用真实 handle.update/close，不以修改样式假造状态。loading 图标复用公开 SpinIndicator 的三体系实现，不再维护私有 SMIL 旋转；减少动画沿用同一指示器的低频呼吸，单独自然视频验收。
+
+| 体系 | 组件视觉规则 |
+| --- | --- |
+| MD3 Expressive | 强调结果可读性与浮动层级；不把无限加载图标称为 Expressive loading indicator。 |
+| Apple | 轻量表面、内容清晰，自主 Web 通知模式。 |
+| shadcn | 参照中性浮动反馈与描边层级；参考提交未提供同名 Message，独立实现。 |
+
+本包几何与视觉来源：root.padding / border-radius / border-color / box-shadow；body 字阶；icon.width / margin-right；stack.translate 和空间动效；progress 仅在有限 duration 时显示。设计值只在对应 token.toml 与它引用的语义角色维护，验收测量读取实际 DOM 计算值。
+
+颜色、字阶、形状、状态和动效分别从 L2 角色映射到包内 L3；Theme 负责最近配置边界。明暗模式使用配对前景/背景，不进行整体反相。视觉边界与命中区域分别检查，焦点截图保留外部轮廓与阴影。强制颜色采用系统色；减少动画保留信息与最终状态。
+
+矩阵定义在本包 `docs/visual.json`，场景使用 `visual-matrix.demo.tsx`。Chromium 覆盖其中全部设计/明暗/命名尺寸/适用密度/状态；Firefox 与 WebKit 按 `crossEngine` 的默认展示和重点交互子集执行。窄屏、RTL、中英文、长文本、品牌覆盖和配置切换后的草稿保持另有场景；未运行、未人工复核或失败的项不能计为通过。开放尺寸输入的代表样本不等于无限集合的穷尽。
+
+参考核对日期：2026-10-29。[Material 3 Cards](https://m3.material.io/components/cards/overview)、[Material Web Divider 使用/无障碍/令牌](https://material-web.dev/components/divider/)、[Material Web Progress 语义](https://material-web.dev/components/progress/)、[Apple Feedback](https://developer.apple.com/design/human-interface-guidelines/feedback)、[Apple Layout](https://developer.apple.com/design/human-interface-guidelines/layout)、[Apple Progress indicators](https://developer.apple.com/design/human-interface-guidelines/progress-indicators)、[shadcn New York V4 来源边界](https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui)。Material Web 是 Web 行为基线；Apple 是依据原则的自主 Web 实现；shadcn 固定参考提交 `3d98900e9b73c45f035f8109e9d41ba6a51685e7`，不跟随浮动最新版。

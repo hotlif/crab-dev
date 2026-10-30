@@ -9,13 +9,18 @@ export interface SuperscriptProps {
     exponent: number;
 }
 
-// 普通 inline 容器（非 flex），以便 <sup> 的原生 vertical-align: super 生效
+// Keep the main text's input line box and align the semantic exponent within it.
 const rootStyle = css`
+    display: inline-flex;
+    align-items: baseline;
     white-space: nowrap;
 `;
 
 const expStyle = css`
     font-size: ${token.display.superscript['font-size']};
+    /* Flex alignment replaces native super positioning without inheriting the fixed input line-height. */
+    align-self: flex-start;
+    line-height: normal;
 `;
 
 /** 科学计数法上标呈现：mantissa × 10^exponent，用真正的 <sup> 渲染指数。 */

@@ -1,0 +1,23 @@
+{
+    "previewDensity": "spacious",
+    "heroDemo": "visual-matrix.demo.tsx",
+    "groups": [
+        {
+            "title": "三体系视觉与交互矩阵",
+            "demos": [
+                "visual-matrix.demo.tsx",
+                "professional-actions.demo.tsx",
+                "web-component-runtime.demo.tsx"
+            ]
+        },
+        {
+            "title": "能力与集成示例",
+            "demos": [
+                "basic.demo.tsx",
+                "readonly.demo.tsx",
+                "region-ocr.demo.tsx",
+                "toolbar.demo.tsx"
+            ]
+        }
+    ]
+}

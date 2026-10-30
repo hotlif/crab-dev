@@ -20,13 +20,19 @@ import { demos } from "../_generated/rc-cron-picker.js";
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
 
+#### 使用示例
+
 ##### 基础用法 — 点击输入框打开可视化面板;也可直接手输表达式,回车提交(非法输入会以 error 边框提示并在失焦时回退)
 
 ##### 受控与常用预设 — 受控模式配合快捷预设:外部一键切换常用调度周期,面板与输入框同步跟随
 
 ##### 尺寸与状态 — 三档尺寸、禁用态与外部校验状态;预览条数可通过 previewCount 调整或关闭
 
-##### 只读与填充计划字段 — 只读计划可聚焦和复制，但不会打开编辑面板；填充字段保留正常编辑和校验反馈。
+##### 只读与填充计划字段 — 只读计划可聚焦、复制和展开查看，面板控件不能修改计划；填充字段保留正常编辑和校验反馈。
+
+#### 视觉验收
+
+##### 计划编辑状态矩阵 — 真实文本草稿、五段式规则面板与只读查看，预览使用固定日期采集。
 
 </div>
 
@@ -54,6 +60,22 @@ CronPicker 复用 LineEdit，支持 `label`、`supportingText`、`errorText` 和
 表达式采用五段式，依次表示分、时、日、月、周。`parseCron`、`formatCron`、`describeCron` 和 `nextOccurrences` 均为具名导出的纯函数，可用于独立校验与预览。
 
 表达式输入和生成结果始终按从左到右的语法顺序显示；`direction="rtl"` 只改变面板、字段与操作的布局，不反转 Cron 五段的阅读顺序。动态切换方向保留当前值和面板实例。
+
+### 三体系验收规格
+
+Cron 没有官方 M3、Apple 或 shadcn 对应组件。2026-10-29 的组合规格参考 [Material Web Text field](https://material-web.dev/components/text-field/)、[Tabs](https://material-web.dev/components/tabs/)与 [Select](https://material-web.dev/components/select/)的已有基线；Expressive 规则集中于实际动作，五段式编辑器是本项目桌面扩展。Apple 参考 [Pickers](https://developer.apple.com/design/human-interface-guidelines/pickers)的就近编辑与可预测选项原则；shadcn 对照清单锁定修订的 [New York V4 Tabs](https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui/tabs.tsx)和 [Select](https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui/select.tsx)。
+
+| 层次 | 三体系约定 |
+| --- | --- |
+| 字段 | MD3 浮动标签与色调状态，Apple 静态标签和轻量边界，shadcn 中性描边；都由 LineEdit 的公共能力承接。 |
+| 面板 | Tabs 管理五个字段，Select / NumberEdit / CheckableTag 通过各自公共协议管理模式与参数。L3 只负责分组、表达式及预览排版。 |
+| 结果 | 描述使用 title 角色，表达式使用等宽字体及双向隔离，执行预览使用次级文字与等宽数字；不反转 Cron 语法。 |
+
+尺寸仅改变字段公开三档，密度独立改变面板分组与选项间距。默认、hover、键盘焦点、按下、禁用、只读查看、警告、非法草稿、合法提交、展开、步进与五字段均列入 `docs/visual.json`。错误必须来自真实输入；非法草稿不会污染已提交规则。只读允许展开查看，面板控件禁用；禁用阻止展开。有限过渡自然结束后截图，预览日期只固定 Date，不暂停计时器或产品动画。
+
+五字段按实际适用方式覆盖每个、固定间隔、连续范围和指定集合；星期不提供固定间隔。数值参数通过真实方向键修改，集合通过空格键选择；星期范围的两个 Select、各类集合的选中反馈以及只读间隔、数值范围和星期范围分别检查，避免只验默认分钟面板便计为编辑器完整覆盖。
+
+`cron-picker.visual.spec.mjs` 使用实际输入、Enter、页签和 Select 进入状态，完整截图保留 Portal 与焦点。环境场景另核对长表达式、320px/768px、触控、RTL、语言、品牌、强制颜色、减少动画和配置切换保持草稿。候选采集与人工复审独立记录，矩阵未完成前不升级设计覆盖。
 
 
 “只读与填充计划字段”对照可编辑计划与归档计划。只读字段保留聚焦、选择和复制，可展开只读面板查看；filled 字段继续使用同一值协议和校验反馈。

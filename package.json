@@ -5,15 +5,26 @@
     "type": "module",
     "scripts": {
         "start": "yarn docs:dev",
-        "build:library": "turbo run build:library",
+        "build:library": "turbo run build:library --concurrency=2",
         "docs:dev": "yarn build:library && yarn workspace @crab-dev/website start",
         "docs:build": "yarn build:library && yarn workspace @crab-dev/website build",
         "test": "turbo run test",
         "test:required": "node scripts/check-required.mjs",
+        "test:visual": "node scripts/visual/run.mjs",
+        "test:visual:inventory": "node scripts/visual/run.mjs inventory.visual.spec.mjs",
+        "test:visual:candidate": "node scripts/visual/run.mjs --candidate",
+        "test:visual:ui": "node scripts/visual/run.mjs --ui",
+        "test:visual:report": "node scripts/visual/run.mjs report",
+        "test:visual:export": "node scripts/visual/export-evidence.mjs",
+        "test:visual:install": "node scripts/visual/install.mjs",
+        "test:visual:update": "node scripts/visual/run.mjs --update-snapshots=all",
+        "test:visual:linux": "node scripts/visual/run-linux.mjs",
+        "test:visual:build": "yarn docs:build && yarn test:visual",
         "lint": "yarn lint:tools && turbo run lint",
-        "lint:tools": "wake lint --format human scripts test standards --env node --max-warnings 0 && yarn test:lint && yarn test:architecture",
-        "typecheck": "node scripts/typecheck.mjs --prepare && turbo run typecheck",
-        "typecheck:prepare": "node scripts/typecheck.mjs --prepare",
+        "lint:tools": "wake lint --format human scripts test standards --env node --max-warnings 0 && yarn test:lint && yarn test:architecture && yarn test:ai-context",
+        "ai:context": "node scripts/ai-context.mjs",
+        "test:ai-context": "node --test scripts/ai-context.test.mjs",
+        "typecheck": "turbo run typecheck",
         "generate:token": "turbo run generate:token",
         "check:tokens": "node ./scripts/check-token-contract.mjs",
         "changeset:version": "changeset version && yarn install --mode=update-lockfile && yarn install --immutable",
@@ -21,9 +32,10 @@
         "prepare": "husky",
         "test:lint": "node scripts/lint-contract.test.mjs",
         "generate:architecture": "node scripts/generate-library-tasks.mjs",
+        "generate:sdk": "sdks vscode",
         "check:architecture": "node scripts/check-library.mjs && node scripts/check-commands.mjs && node scripts/generate-library-tasks.mjs --check",
-        "test:architecture": "node --test scripts/library-contract.test.mjs",
-        "check": "yarn check:architecture && yarn check:tokens && yarn check:generated:local && yarn lint && yarn build:library && yarn check:exports && yarn check:consumer && yarn typecheck && yarn test && yarn test:required && yarn docs:build",
+        "test:architecture": "node --test scripts/library-contract.test.mjs scripts/published-styles.test.mjs scripts/visual-contract.test.mjs",
+        "check": "node scripts/check-repository.mjs",
         "check:commands": "node scripts/check-commands.mjs",
         "check:generated": "node scripts/check-generated.mjs",
         "check:generated:local": "node scripts/check-generated.mjs --regenerate",
@@ -46,7 +58,19 @@
         "@crab-dev/rc-segmented": "workspace:^",
         "@crab-dev/rc-switch": "workspace:^",
         "@crab-dev/rc-tag": "workspace:^",
-        "@crab-dev/rc-text-edit": "workspace:^"
+        "@crab-dev/rc-text-edit": "workspace:^",
+        "@yarnpkg/core": "4.9.1"
+    },
+    "dependenciesMeta": {
+        "@playwright/test": {
+            "unplugged": true
+        },
+        "playwright": {
+            "unplugged": true
+        },
+        "playwright-core": {
+            "unplugged": true
+        }
     },
     "devDependencies": {
         "@changesets/changelog-github": "^1.0.1",
@@ -55,11 +79,13 @@
         "@commitlint/config-conventional": "^21.2.2",
         "@crab-dev/standards-typescript-preset": "workspace:^",
         "@crab-dev/wake": "0.1.45",
-        "@types/node": "^22.20.2",
+        "@playwright/test": "1.64.1",
+        "@types/node": "^26.6.5",
+        "@yarnpkg/sdks": "3.3.1",
         "husky": "^9.1.7",
         "react": "19.3.0",
         "react-dom": "19.3.0",
         "turbo": "^2.10.12",
-        "typescript": "^7.0.2"
+        "typescript": "6.0.2"
     }
 }

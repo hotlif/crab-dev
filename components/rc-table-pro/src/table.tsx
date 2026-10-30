@@ -7,240 +7,15 @@ import LineEdit from "@crab-dev/rc-line-edit";
 import AutoSizer from "@crab-dev/rc-auto-sizer";
 import Pagination from "@crab-dev/rc-pagination";
 import Spin from "@crab-dev/rc-spin";
-import Button, { TokenVars as buttonVars } from "@crab-dev/rc-button";
-import { css, cx } from "@crab-dev/css";
+import Button from "@crab-dev/rc-button";
+import { cx } from "@crab-dev/css";
 import type { ProtocolColumnType, DataTypeLoader, ProtocolTableState, TableDataSource } from "./types.js";
-import token from "./token.js";
 import { collectAllLeafColumnNames, collectLeafColumns, exportToCSV, buildCurrentState } from "./columnUtils.js";
 import { useColumnManagement } from "./hooks/useColumnManagement.js";
 import { useTableData } from "./hooks/useTableData.js";
 import { useSearchBar } from "./hooks/useSearchBar.js";
 import { ColumnsIcon, FiltersIcon, ExpandAllIcon, CollapseAllIcon, ResetWidthIcon, RefreshIcon, ExportIcon, SearchPrevIcon, SearchNextIcon, ErrorIcon } from "./icons.js";
-
-/* ───────────────────────────── 样式 ───────────────────────────── */
-
-const flexColumnStyle = css`
-    display: flex;
-    flex-direction: column;
-`;
-
-const tableFlexStyle = css`
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    min-height: 0;
-    position: relative;
-`;
-
-const tableFillStyle = css`
-    position: relative;
-    width: 100%;
-    height: 100%;
-`;
-
-const loadingOverlayStyle = css`
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: ${token.overlay['background-color-loading']};
-    z-index: 10;
-`;
-
-
-const paginationBarStyle = css`
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    gap: 6px;
-    padding: 6px 12px;
-    flex-shrink: 0;
-    background-color: ${token.chrome['background-color']};
-    border-left: 1px solid ${token.root['border-color']};
-    border-right: 1px solid ${token.root['border-color']};
-    border-bottom: 1px solid ${token.root['border-color']};
-`;
-
-const iconButtonStyle = css`
-    flex-shrink: 0;
-    ${buttonVars['text.color']}: ${token.icon.color};
-    ${buttonVars['text.background-color-hover']}: ${token.icon['background-color-hover']};
-    ${buttonVars['text.background-color-focus']}: ${token.icon['background-color-focus']};
-    ${buttonVars['text.background-color-active']}: ${token.icon['background-color-pressed']};
-    && { width: ${token.control.target.width}; height: ${token.control.target.width}; }
-`;
-
-const tableAndPanelRowStyle = css`
-    position: relative;
-    container-type: inline-size;
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    height: 100%;
-`;
-
-const tableAreaStyle = css`
-    flex: 1;
-    min-width: 0;
-    position: relative;
-    /* Contain Table fixed-edge, focus and scrollbar layers below sibling panels. */
-    z-index: 0;
-`;
-
-const sideToolbarStyle = css`
-    position: relative;
-    z-index: 12;
-    box-sizing: border-box;
-    width: ${token.toolbar.width};
-    flex-shrink: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-block: ${token.toolbar.padding};
-    gap: ${token.toolbar.gap};
-    border-left: 1px solid ${token.root['border-color']};
-    background-color: ${token.chrome['background-color']};
-`;
-
-const sideBarStyle = css`
-    width: ${token.panel.width};
-    min-width: 0;
-    box-sizing: border-box;
-    flex-shrink: 0;
-    display: flex;
-    flex-direction: column;
-    border-left: 1px solid ${token.root['border-color']};
-    background-color: ${token.surface['background-color']};
-    overflow: hidden;
-    @container (max-width: 600px) {
-        position: absolute;
-        inset-block: 0;
-        inset-inline-end: ${token.toolbar.width};
-        z-index: 11;
-        max-width: calc(100% - ${token.toolbar.width});
-        box-shadow: ${token.panel['box-shadow']};
-    }
-`;
-
-const sideBarToolbarStyle = css`
-    min-height: ${token.control.target.width};
-    display: flex;
-    align-items: center;
-    padding: ${token.toolbar.padding};
-    gap: ${token.toolbar.gap};
-    border-bottom: 1px solid ${token.root['border-color']};
-    background-color: ${token.chrome['background-color']};
-    flex-shrink: 0;
-`;
-
-const sideBarSearchStyle = css`
-    flex: 1;
-    min-width: 0;
-`;
-
-const sideBarBodyStyle = css`
-    flex: 1;
-    min-height: 0;
-    overflow: hidden;
-`;
-
-const searchBarStyle = css`
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    padding: 4px 8px;
-    flex-shrink: 0;
-    background-color: ${token.chrome['background-color']};
-    border-bottom: 1px solid ${token.root['border-color']};
-`;
-
-const searchBarInputWrapStyle = css`
-    flex: 1;
-    min-width: 0;
-    max-width: 240px;
-`;
-
-const searchBarCountStyle = css`
-    font-size: 11px;
-    color: ${token.text.tertiary.color};
-    white-space: nowrap;
-    padding: 0 4px;
-`;
-
-const sideBarFooterStyle = css`
-    flex-shrink: 0;
-    border-top: 1px solid ${token.root['border-color']};
-    padding: 4px 8px;
-    display: flex;
-    justify-content: flex-end;
-`;
-
-const resetWidthBtnStyle = css`
-    min-height: ${token.control.target.width};
-`;
-
-const clearAllBtnStyle = css`
-    flex-shrink: 0;
-    min-height: ${token.control.target.width};
-`;
-
-const filterPanelScrollStyle = css`
-    overflow-y: auto;
-`;
-
-const filterPanelRowStyle = css`
-    padding: 6px 8px;
-    border-bottom: 1px solid ${token.root['border-color']};
-`;
-
-const filterPanelLabelStyle = css`
-    font-size: 11px;
-    color: ${token.text.secondary.color};
-    margin-bottom: 4px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-`;
-
-const filterPanelEditorWrapStyle = css`
-    min-width: 0;
-    & > * { max-width: 100%; }
-`;
-
-const filterPanelEmptyStyle = css`
-    padding: 20px 8px;
-    text-align: center;
-    font-size: 12px;
-    color: ${token.text.tertiary.color};
-`;
-
-const errorOverlayStyle = css`
-    position: absolute;
-    inset: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    background-color: ${token.overlay['background-color-error']};
-    z-index: 10;
-    color: ${token.failure.icon.color};
-`;
-
-const errorMessageStyle = css`
-    font-size: 12px;
-    color: ${token.failure.text.color};
-    max-width: 280px;
-    text-align: center;
-    word-break: break-word;
-    margin: 0;
-`;
-
-const retryBtnStyle = css`
-    min-height: ${token.control.target.width};
-`;
-
+import { flexColumnStyle, tableFlexStyle, tableFillStyle, loadingOverlayStyle, paginationBarStyle, iconButtonStyle, tableAndPanelRowStyle, tableAreaStyle, sideToolbarStyle, sideBarStyle, sideBarToolbarStyle, sideBarSearchStyle, sideBarBodyStyle, searchBarStyle, searchBarInputWrapStyle, searchBarCountStyle, sideBarFooterStyle, resetWidthBtnStyle, clearAllBtnStyle, filterPanelScrollStyle, filterPanelRowStyle, filterPanelLabelStyle, filterPanelEditorWrapStyle, filterPanelEmptyStyle, errorOverlayStyle, errorMessageStyle, retryBtnStyle } from "./table.styles.js";
 /* ───────────────────────────── Props ───────────────────────────── */
 
 interface BaseProps<T extends Row> extends Omit<HTMLAttributes<HTMLDivElement>, "children" | "onCopy" | "onError"> {
@@ -543,7 +318,7 @@ function TablePro<T extends Row>(props: TableProProps<T>) {
                 )}
             </AutoSizer>
             {colMgmt.columnsError && (
-                <div className={errorOverlayStyle} data-testid="protocol-table-columns-error">
+                <div className={errorOverlayStyle} role="alert" data-testid="protocol-table-columns-error">
                     <ErrorIcon />
                     <span>{messages.tablePro.columnLoadError}</span>
                     <p className={errorMessageStyle}>{colMgmt.columnsError.message}</p>
@@ -551,7 +326,7 @@ function TablePro<T extends Row>(props: TableProProps<T>) {
                 </div>
             )}
             {!colMgmt.columnsError && tableData.dataError && (
-                <div className={errorOverlayStyle} data-testid="protocol-table-data-error">
+                <div className={errorOverlayStyle} role="alert" data-testid="protocol-table-data-error">
                     <ErrorIcon />
                     <span>{messages.tablePro.dataLoadError}</span>
                     <p className={errorMessageStyle}>{tableData.dataError.message}</p>

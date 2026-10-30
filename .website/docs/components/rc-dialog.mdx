@@ -20,6 +20,12 @@ import { demos } from "../_generated/rc-dialog.js";
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
 
+#### 规格验收
+
+##### 三体系模态状态矩阵 — 真实打开、键盘焦点、按下、长内容和草稿保留。
+
+#### 功能演示
+
 ##### 基本 — 一个基础的对话框
 
 ##### 表单 + 日期选择器 — 在对话框中嵌入 rc-form 表单与 rc-date-picker 日期选择器，用对话框的「确定」按钮触发表单校验：校验通过才关闭，失败则保持打开。
@@ -63,6 +69,22 @@ import { demos } from "../_generated/rc-dialog.js";
 
 验收：在 320px 打开确认层，标题和正文完整可读，左右均留有空间；长正文可在层内滚动到操作区；Tab 能到达顶部关闭入口，Enter 可取消；异步确认与取消中焦点保留，连续触发不重复请求，返回 `false` 后继续操作。关闭后回到触发入口。原生模态限制背景页面控件，浏览器自身的地址栏仍可访问；嵌套、软键盘和真实读屏需要单独复核。
 
+
+### 三体系规格与验收矩阵（2026-10-29）
+
+| 体系 | 表面与动作 | 适配边界 |
+| --- | --- | --- |
+| MD3 Expressive | 高层色调容器、headline 层级、文字确认与取消；空间动效和透明度分别使用语义角色 | 桌面紧凑宽度、长内容滚动与安全关闭入口为项目约定 |
+| Apple | 轻面板、精确对齐、明确的填充确认与中性取消 | 自主 Web 模态层，不复制系统 alert 或 Liquid Glass |
+| shadcn New York V4 | 中性表面、细描边、清晰遮罩与填充主操作 | 保留原生 dialog、异步取消与本库尺寸约束 |
+
+Dialog 没有公开 size/density 变体；表面来自 `overlay.dialog.*`，操作继续复用 Button 的公开 TokenVars。不要为模态层新增独立主题。关闭、确认、Escape、焦点锁定和恢复不随设计变化。长内容仅在层内滚动，安全操作可达；错误是调用方正文，使用 alert 或持久说明表达。
+
+`visual.json` 展开三体系浅深色的 default、hover、focus-visible、pressed、long-content、error 及 pending-confirm/pending-cancel，真实打开后采集整个视口，包含遮罩、焦点与完整边界。Firefox / WebKit 默认、键盘焦点、长内容及异步子集在 `crossEngine` 声明。原有异步、重复请求、拒绝关闭与堆叠回归属于默认 DOM 测试，本包没有登记的额外浏览器入口。新增异步原生场景通过真实 Promise 保持处理中，核对发起按钮保留焦点、另一按钮禁用和重复/关闭拦截，保留自然动画帧与视频；实际运行和复审前仍为待验，不用 Button 独立外观代替 Dialog 组合验收。
+
+来源：[Material Web Dialog](https://material-web.dev/components/dialog/)；[Apple alerts](https://developer.apple.com/design/human-interface-guidelines/alerts)；[shadcn 固定 Dialog 源码](https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui/dialog.tsx)。参考版本与 Web 扩展不同的尺寸、按钮顺序和动效均保留本库公共协议。
+
+额外场景检查配置切换保留同一输入和草稿、关闭重开、焦点恢复，以及 320/768px、RTL/英文、品牌、强制颜色和减少动画。完整验收以实际构建报告与人工复审为准，场景发现或规格存在不等于 verified。
 
 
 ### 三套设计风格

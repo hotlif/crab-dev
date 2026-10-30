@@ -10,22 +10,22 @@ type ReactNode = DocsTypePlaceholder;
 
 export interface CheckableTagProps {
     /**
+     * React-specific Attributes 与 checked 互斥，不能同时提供。
+     */
+    "defaultChecked"?: (boolean | undefined) & (boolean);
+
+    /**
      * Defines a string value that labels the current element.
      */
-    "aria-label"?: string | undefined | string;
+    "aria-label"?: (string | undefined) & (string);
 
     /**
      * 暂无说明。
      */
-    "children"?: ReactNode | undefined | ReactNode;
+    "children"?: (ReactNode | undefined) & (ReactNode);
 
     /**
-     * React-specific Attributes 与 checked 互斥，不能同时提供。
-     */
-    "defaultChecked"?: boolean | undefined | boolean;
-
-    /**
-     * 标签图标
+     * 暂无说明。
      */
     "icon"?: ReactNode;
 

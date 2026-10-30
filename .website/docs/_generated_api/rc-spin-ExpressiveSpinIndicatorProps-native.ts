@@ -8,11 +8,12 @@ type DocsTypePlaceholder = ((...args: never[]) => unknown) & {
 type AnimationEventHandler<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 type AriaRole = DocsTypePlaceholder;
 type Booleanish = DocsTypePlaceholder;
-type ChangeEventHandler<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
+type ChangeEventHandler<T0 = unknown, T1 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0, T1] };
 type ClipboardEventHandler<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 type CompositionEventHandler<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 type CSSProperties = DocsTypePlaceholder;
 type DragEventHandler<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
+type Element = DocsTypePlaceholder;
 type FocusEventHandler<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 type HTMLSpanElement = DocsTypePlaceholder;
 type InputEventHandler<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
@@ -29,6 +30,281 @@ type UIEventHandler<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeA
 type WheelEventHandler<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 
 export interface ExpressiveSpinIndicatorPropsNativeAttributes {
+    /**
+     * 暂无说明。
+     */
+    "title"?: string | undefined;
+
+    /**
+     * React-specific Attributes
+     */
+    "defaultChecked"?: boolean | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "defaultValue"?: string | number | readonly string[] | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "suppressContentEditableWarning"?: boolean | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "suppressHydrationWarning"?: boolean | undefined;
+
+    /**
+     * Standard HTML Attributes
+     */
+    "accessKey"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "autoCapitalize"?: "off" | "none" | "on" | "sentences" | "words" | "characters" | undefined | (string & {});
+
+    /**
+     * 暂无说明。
+     */
+    "autoFocus"?: boolean | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "className"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "contentEditable"?: Booleanish | "inherit" | "plaintext-only" | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "contextMenu"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "dir"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "draggable"?: Booleanish | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "enterKeyHint"?: "enter" | "done" | "go" | "next" | "previous" | "search" | "send" | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "hidden"?: boolean | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "id"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "lang"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "nonce"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "slot"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "spellCheck"?: Booleanish | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "style"?: CSSProperties | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "tabIndex"?: number | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "translate"?: "yes" | "no" | undefined;
+
+    /**
+     * Unknown
+     */
+    "radioGroup"?: string | undefined;
+
+    /**
+     * WAI-ARIA
+     */
+    "role"?: AriaRole | undefined;
+
+    /**
+     * RDFa Attributes
+     */
+    "about"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "content"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "datatype"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "inlist"?: any;
+
+    /**
+     * 暂无说明。
+     */
+    "prefix"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "property"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "rel"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "resource"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "rev"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "typeof"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "vocab"?: string | undefined;
+
+    /**
+     * Non-standard Attributes
+     */
+    "autoCorrect"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "autoSave"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "color"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "itemProp"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "itemScope"?: boolean | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "itemType"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "itemID"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "itemRef"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "results"?: number | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "security"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "unselectable"?: "on" | "off" | undefined;
+
+    /**
+     * Popover API
+     */
+    "popover"?: "" | "auto" | "manual" | "hint" | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "popoverTargetAction"?: "toggle" | "show" | "hide" | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "popoverTarget"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "inert"?: boolean | undefined;
+
+    /**
+     * Hints at the type of data that might be entered by the user while editing the element or its contents
+     */
+    "inputMode"?: "none" | "text" | "tel" | "url" | "email" | "numeric" | "decimal" | "search" | undefined;
+
+    /**
+     * Specify that a standard HTML element should behave like a defined custom built-in element
+     */
+    "is"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "exportparts"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "part"?: string | undefined;
+
     /**
      * Identifies the currently active element when DOM focus is on a composite widget, textbox, group, or application.
      */
@@ -304,1117 +580,842 @@ export interface ExpressiveSpinIndicatorPropsNativeAttributes {
     /**
      * Clipboard Events
      */
-    "onCopy"?: ClipboardEventHandler<HTMLSpanElement> | undefined;
+    "onCopy"?: ClipboardEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onCopyCapture"?: ClipboardEventHandler<HTMLSpanElement> | undefined;
+    "onCopyCapture"?: ClipboardEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onCut"?: ClipboardEventHandler<HTMLSpanElement> | undefined;
+    "onCut"?: ClipboardEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onCutCapture"?: ClipboardEventHandler<HTMLSpanElement> | undefined;
+    "onCutCapture"?: ClipboardEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onPaste"?: ClipboardEventHandler<HTMLSpanElement> | undefined;
+    "onPaste"?: ClipboardEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onPasteCapture"?: ClipboardEventHandler<HTMLSpanElement> | undefined;
+    "onPasteCapture"?: ClipboardEventHandler<HTMLSpanElement>;
 
     /**
      * Composition Events
      */
-    "onCompositionEnd"?: CompositionEventHandler<HTMLSpanElement> | undefined;
+    "onCompositionEnd"?: CompositionEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onCompositionEndCapture"?: CompositionEventHandler<HTMLSpanElement> | undefined;
+    "onCompositionEndCapture"?: CompositionEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onCompositionStart"?: CompositionEventHandler<HTMLSpanElement> | undefined;
+    "onCompositionStart"?: CompositionEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onCompositionStartCapture"?: CompositionEventHandler<HTMLSpanElement> | undefined;
+    "onCompositionStartCapture"?: CompositionEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onCompositionUpdate"?: CompositionEventHandler<HTMLSpanElement> | undefined;
+    "onCompositionUpdate"?: CompositionEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onCompositionUpdateCapture"?: CompositionEventHandler<HTMLSpanElement> | undefined;
+    "onCompositionUpdateCapture"?: CompositionEventHandler<HTMLSpanElement>;
 
     /**
      * Focus Events
      */
-    "onFocus"?: FocusEventHandler<HTMLSpanElement> | undefined;
+    "onFocus"?: FocusEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onFocusCapture"?: FocusEventHandler<HTMLSpanElement> | undefined;
+    "onFocusCapture"?: FocusEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onBlur"?: FocusEventHandler<HTMLSpanElement> | undefined;
+    "onBlur"?: FocusEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onBlurCapture"?: FocusEventHandler<HTMLSpanElement> | undefined;
+    "onBlurCapture"?: FocusEventHandler<HTMLSpanElement>;
 
     /**
      * form related Events
      */
-    "onChange"?: ChangeEventHandler<HTMLSpanElement> | undefined;
+    "onChange"?: ChangeEventHandler<HTMLSpanElement, Element>;
 
     /**
      * 暂无说明。
      */
-    "onChangeCapture"?: ChangeEventHandler<HTMLSpanElement> | undefined;
+    "onChangeCapture"?: ChangeEventHandler<HTMLSpanElement, Element>;
 
     /**
      * 暂无说明。
      */
-    "onBeforeInput"?: InputEventHandler<HTMLSpanElement> | undefined;
+    "onBeforeInput"?: InputEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onBeforeInputCapture"?: InputEventHandler<HTMLSpanElement> | undefined;
+    "onBeforeInputCapture"?: InputEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onInput"?: InputEventHandler<HTMLSpanElement> | undefined;
+    "onInput"?: InputEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onInputCapture"?: InputEventHandler<HTMLSpanElement> | undefined;
+    "onInputCapture"?: InputEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onReset"?: ReactEventHandler<HTMLSpanElement> | undefined;
+    "onReset"?: ReactEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onResetCapture"?: ReactEventHandler<HTMLSpanElement> | undefined;
+    "onResetCapture"?: ReactEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onSubmit"?: SubmitEventHandler<HTMLSpanElement> | undefined;
+    "onSubmit"?: SubmitEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onSubmitCapture"?: SubmitEventHandler<HTMLSpanElement> | undefined;
+    "onSubmitCapture"?: SubmitEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onInvalid"?: ReactEventHandler<HTMLSpanElement> | undefined;
+    "onInvalid"?: ReactEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onInvalidCapture"?: ReactEventHandler<HTMLSpanElement> | undefined;
+    "onInvalidCapture"?: ReactEventHandler<HTMLSpanElement>;
 
     /**
      * Image Events
      */
-    "onLoad"?: ReactEventHandler<HTMLSpanElement> | undefined;
+    "onLoad"?: ReactEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onLoadCapture"?: ReactEventHandler<HTMLSpanElement> | undefined;
+    "onLoadCapture"?: ReactEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onError"?: ReactEventHandler<HTMLSpanElement> | undefined;
+    "onError"?: ReactEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onErrorCapture"?: ReactEventHandler<HTMLSpanElement> | undefined;
+    "onErrorCapture"?: ReactEventHandler<HTMLSpanElement>;
 
     /**
      * Keyboard Events
      */
-    "onKeyDown"?: KeyboardEventHandler<HTMLSpanElement> | undefined;
+    "onKeyDown"?: KeyboardEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onKeyDownCapture"?: KeyboardEventHandler<HTMLSpanElement> | undefined;
-
-    /**
-     * 暂无说明。
-     * @deprecated
-     */
-    "onKeyPress"?: KeyboardEventHandler<HTMLSpanElement> | undefined;
+    "onKeyDownCapture"?: KeyboardEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      * @deprecated
      */
-    "onKeyPressCapture"?: KeyboardEventHandler<HTMLSpanElement> | undefined;
+    "onKeyPress"?: KeyboardEventHandler<HTMLSpanElement>;
+
+    /**
+     * 暂无说明。
+     * @deprecated
+     */
+    "onKeyPressCapture"?: KeyboardEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onKeyUp"?: KeyboardEventHandler<HTMLSpanElement> | undefined;
+    "onKeyUp"?: KeyboardEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onKeyUpCapture"?: KeyboardEventHandler<HTMLSpanElement> | undefined;
+    "onKeyUpCapture"?: KeyboardEventHandler<HTMLSpanElement>;
 
     /**
      * Media Events
      */
-    "onAbort"?: ReactEventHandler<HTMLSpanElement> | undefined;
+    "onAbort"?: ReactEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onAbortCapture"?: ReactEventHandler<HTMLSpanElement> | undefined;
+    "onAbortCapture"?: ReactEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onCanPlay"?: ReactEventHandler<HTMLSpanElement> | undefined;
+    "onCanPlay"?: ReactEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onCanPlayCapture"?: ReactEventHandler<HTMLSpanElement> | undefined;
+    "onCanPlayCapture"?: ReactEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onCanPlayThrough"?: ReactEventHandler<HTMLSpanElement> | undefined;
+    "onCanPlayThrough"?: ReactEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onCanPlayThroughCapture"?: ReactEventHandler<HTMLSpanElement> | undefined;
+    "onCanPlayThroughCapture"?: ReactEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onDurationChange"?: ReactEventHandler<HTMLSpanElement> | undefined;
+    "onDurationChange"?: ReactEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onDurationChangeCapture"?: ReactEventHandler<HTMLSpanElement> | undefined;
+    "onDurationChangeCapture"?: ReactEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onEmptied"?: ReactEventHandler<HTMLSpanElement> | undefined;
+    "onEmptied"?: ReactEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onEmptiedCapture"?: ReactEventHandler<HTMLSpanElement> | undefined;
+    "onEmptiedCapture"?: ReactEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onEncrypted"?: ReactEventHandler<HTMLSpanElement> | undefined;
+    "onEncrypted"?: ReactEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onEncryptedCapture"?: ReactEventHandler<HTMLSpanElement> | undefined;
+    "onEncryptedCapture"?: ReactEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onEnded"?: ReactEventHandler<HTMLSpanElement> | undefined;
+    "onEnded"?: ReactEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onEndedCapture"?: ReactEventHandler<HTMLSpanElement> | undefined;
+    "onEndedCapture"?: ReactEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onLoadedData"?: ReactEventHandler<HTMLSpanElement> | undefined;
+    "onLoadedData"?: ReactEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onLoadedDataCapture"?: ReactEventHandler<HTMLSpanElement> | undefined;
+    "onLoadedDataCapture"?: ReactEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onLoadedMetadata"?: ReactEventHandler<HTMLSpanElement> | undefined;
+    "onLoadedMetadata"?: ReactEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onLoadedMetadataCapture"?: ReactEventHandler<HTMLSpanElement> | undefined;
+    "onLoadedMetadataCapture"?: ReactEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onLoadStart"?: ReactEventHandler<HTMLSpanElement> | undefined;
+    "onLoadStart"?: ReactEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onLoadStartCapture"?: ReactEventHandler<HTMLSpanElement> | undefined;
+    "onLoadStartCapture"?: ReactEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onPause"?: ReactEventHandler<HTMLSpanElement> | undefined;
+    "onPause"?: ReactEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onPauseCapture"?: ReactEventHandler<HTMLSpanElement> | undefined;
+    "onPauseCapture"?: ReactEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onPlay"?: ReactEventHandler<HTMLSpanElement> | undefined;
+    "onPlay"?: ReactEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onPlayCapture"?: ReactEventHandler<HTMLSpanElement> | undefined;
+    "onPlayCapture"?: ReactEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onPlaying"?: ReactEventHandler<HTMLSpanElement> | undefined;
+    "onPlaying"?: ReactEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onPlayingCapture"?: ReactEventHandler<HTMLSpanElement> | undefined;
+    "onPlayingCapture"?: ReactEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onProgress"?: ReactEventHandler<HTMLSpanElement> | undefined;
+    "onProgress"?: ReactEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onProgressCapture"?: ReactEventHandler<HTMLSpanElement> | undefined;
+    "onProgressCapture"?: ReactEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onRateChange"?: ReactEventHandler<HTMLSpanElement> | undefined;
+    "onRateChange"?: ReactEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onRateChangeCapture"?: ReactEventHandler<HTMLSpanElement> | undefined;
+    "onRateChangeCapture"?: ReactEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onSeeked"?: ReactEventHandler<HTMLSpanElement> | undefined;
+    "onSeeked"?: ReactEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onSeekedCapture"?: ReactEventHandler<HTMLSpanElement> | undefined;
+    "onSeekedCapture"?: ReactEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onSeeking"?: ReactEventHandler<HTMLSpanElement> | undefined;
+    "onSeeking"?: ReactEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onSeekingCapture"?: ReactEventHandler<HTMLSpanElement> | undefined;
+    "onSeekingCapture"?: ReactEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onStalled"?: ReactEventHandler<HTMLSpanElement> | undefined;
+    "onStalled"?: ReactEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onStalledCapture"?: ReactEventHandler<HTMLSpanElement> | undefined;
+    "onStalledCapture"?: ReactEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onSuspend"?: ReactEventHandler<HTMLSpanElement> | undefined;
+    "onSuspend"?: ReactEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onSuspendCapture"?: ReactEventHandler<HTMLSpanElement> | undefined;
+    "onSuspendCapture"?: ReactEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onTimeUpdate"?: ReactEventHandler<HTMLSpanElement> | undefined;
+    "onTimeUpdate"?: ReactEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onTimeUpdateCapture"?: ReactEventHandler<HTMLSpanElement> | undefined;
+    "onTimeUpdateCapture"?: ReactEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onVolumeChange"?: ReactEventHandler<HTMLSpanElement> | undefined;
+    "onVolumeChange"?: ReactEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onVolumeChangeCapture"?: ReactEventHandler<HTMLSpanElement> | undefined;
+    "onVolumeChangeCapture"?: ReactEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onWaiting"?: ReactEventHandler<HTMLSpanElement> | undefined;
+    "onWaiting"?: ReactEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onWaitingCapture"?: ReactEventHandler<HTMLSpanElement> | undefined;
+    "onWaitingCapture"?: ReactEventHandler<HTMLSpanElement>;
 
     /**
      * MouseEvents
      */
-    "onAuxClick"?: MouseEventHandler<HTMLSpanElement> | undefined;
+    "onAuxClick"?: MouseEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onAuxClickCapture"?: MouseEventHandler<HTMLSpanElement> | undefined;
+    "onAuxClickCapture"?: MouseEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onClick"?: MouseEventHandler<HTMLSpanElement> | undefined;
+    "onClick"?: MouseEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onClickCapture"?: MouseEventHandler<HTMLSpanElement> | undefined;
+    "onClickCapture"?: MouseEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onContextMenu"?: MouseEventHandler<HTMLSpanElement> | undefined;
+    "onContextMenu"?: MouseEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onContextMenuCapture"?: MouseEventHandler<HTMLSpanElement> | undefined;
+    "onContextMenuCapture"?: MouseEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onDoubleClick"?: MouseEventHandler<HTMLSpanElement> | undefined;
+    "onDoubleClick"?: MouseEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onDoubleClickCapture"?: MouseEventHandler<HTMLSpanElement> | undefined;
+    "onDoubleClickCapture"?: MouseEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onDrag"?: DragEventHandler<HTMLSpanElement> | undefined;
+    "onDrag"?: DragEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onDragCapture"?: DragEventHandler<HTMLSpanElement> | undefined;
+    "onDragCapture"?: DragEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onDragEnd"?: DragEventHandler<HTMLSpanElement> | undefined;
+    "onDragEnd"?: DragEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onDragEndCapture"?: DragEventHandler<HTMLSpanElement> | undefined;
+    "onDragEndCapture"?: DragEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onDragEnter"?: DragEventHandler<HTMLSpanElement> | undefined;
+    "onDragEnter"?: DragEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onDragEnterCapture"?: DragEventHandler<HTMLSpanElement> | undefined;
+    "onDragEnterCapture"?: DragEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onDragExit"?: DragEventHandler<HTMLSpanElement> | undefined;
+    "onDragExit"?: DragEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onDragExitCapture"?: DragEventHandler<HTMLSpanElement> | undefined;
+    "onDragExitCapture"?: DragEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onDragLeave"?: DragEventHandler<HTMLSpanElement> | undefined;
+    "onDragLeave"?: DragEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onDragLeaveCapture"?: DragEventHandler<HTMLSpanElement> | undefined;
+    "onDragLeaveCapture"?: DragEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onDragOver"?: DragEventHandler<HTMLSpanElement> | undefined;
+    "onDragOver"?: DragEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onDragOverCapture"?: DragEventHandler<HTMLSpanElement> | undefined;
+    "onDragOverCapture"?: DragEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onDragStart"?: DragEventHandler<HTMLSpanElement> | undefined;
+    "onDragStart"?: DragEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onDragStartCapture"?: DragEventHandler<HTMLSpanElement> | undefined;
+    "onDragStartCapture"?: DragEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onDrop"?: DragEventHandler<HTMLSpanElement> | undefined;
+    "onDrop"?: DragEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onDropCapture"?: DragEventHandler<HTMLSpanElement> | undefined;
+    "onDropCapture"?: DragEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onMouseDown"?: MouseEventHandler<HTMLSpanElement> | undefined;
+    "onMouseDown"?: MouseEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onMouseDownCapture"?: MouseEventHandler<HTMLSpanElement> | undefined;
+    "onMouseDownCapture"?: MouseEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onMouseEnter"?: MouseEventHandler<HTMLSpanElement> | undefined;
+    "onMouseEnter"?: MouseEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onMouseLeave"?: MouseEventHandler<HTMLSpanElement> | undefined;
+    "onMouseLeave"?: MouseEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onMouseMove"?: MouseEventHandler<HTMLSpanElement> | undefined;
+    "onMouseMove"?: MouseEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onMouseMoveCapture"?: MouseEventHandler<HTMLSpanElement> | undefined;
+    "onMouseMoveCapture"?: MouseEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onMouseOut"?: MouseEventHandler<HTMLSpanElement> | undefined;
+    "onMouseOut"?: MouseEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onMouseOutCapture"?: MouseEventHandler<HTMLSpanElement> | undefined;
+    "onMouseOutCapture"?: MouseEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onMouseOver"?: MouseEventHandler<HTMLSpanElement> | undefined;
+    "onMouseOver"?: MouseEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onMouseOverCapture"?: MouseEventHandler<HTMLSpanElement> | undefined;
+    "onMouseOverCapture"?: MouseEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onMouseUp"?: MouseEventHandler<HTMLSpanElement> | undefined;
+    "onMouseUp"?: MouseEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onMouseUpCapture"?: MouseEventHandler<HTMLSpanElement> | undefined;
+    "onMouseUpCapture"?: MouseEventHandler<HTMLSpanElement>;
 
     /**
      * Selection Events
      */
-    "onSelect"?: ReactEventHandler<HTMLSpanElement> | undefined;
+    "onSelect"?: ReactEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onSelectCapture"?: ReactEventHandler<HTMLSpanElement> | undefined;
+    "onSelectCapture"?: ReactEventHandler<HTMLSpanElement>;
 
     /**
      * Touch Events
      */
-    "onTouchCancel"?: TouchEventHandler<HTMLSpanElement> | undefined;
+    "onTouchCancel"?: TouchEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onTouchCancelCapture"?: TouchEventHandler<HTMLSpanElement> | undefined;
+    "onTouchCancelCapture"?: TouchEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onTouchEnd"?: TouchEventHandler<HTMLSpanElement> | undefined;
+    "onTouchEnd"?: TouchEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onTouchEndCapture"?: TouchEventHandler<HTMLSpanElement> | undefined;
+    "onTouchEndCapture"?: TouchEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onTouchMove"?: TouchEventHandler<HTMLSpanElement> | undefined;
+    "onTouchMove"?: TouchEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onTouchMoveCapture"?: TouchEventHandler<HTMLSpanElement> | undefined;
+    "onTouchMoveCapture"?: TouchEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onTouchStart"?: TouchEventHandler<HTMLSpanElement> | undefined;
+    "onTouchStart"?: TouchEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onTouchStartCapture"?: TouchEventHandler<HTMLSpanElement> | undefined;
+    "onTouchStartCapture"?: TouchEventHandler<HTMLSpanElement>;
 
     /**
      * Pointer Events
      */
-    "onPointerDown"?: PointerEventHandler<HTMLSpanElement> | undefined;
+    "onPointerDown"?: PointerEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onPointerDownCapture"?: PointerEventHandler<HTMLSpanElement> | undefined;
+    "onPointerDownCapture"?: PointerEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onPointerMove"?: PointerEventHandler<HTMLSpanElement> | undefined;
+    "onPointerMove"?: PointerEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onPointerMoveCapture"?: PointerEventHandler<HTMLSpanElement> | undefined;
+    "onPointerMoveCapture"?: PointerEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onPointerUp"?: PointerEventHandler<HTMLSpanElement> | undefined;
+    "onPointerUp"?: PointerEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onPointerUpCapture"?: PointerEventHandler<HTMLSpanElement> | undefined;
+    "onPointerUpCapture"?: PointerEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onPointerCancel"?: PointerEventHandler<HTMLSpanElement> | undefined;
+    "onPointerCancel"?: PointerEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onPointerCancelCapture"?: PointerEventHandler<HTMLSpanElement> | undefined;
+    "onPointerCancelCapture"?: PointerEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onPointerEnter"?: PointerEventHandler<HTMLSpanElement> | undefined;
+    "onPointerEnter"?: PointerEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onPointerLeave"?: PointerEventHandler<HTMLSpanElement> | undefined;
+    "onPointerLeave"?: PointerEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onPointerOver"?: PointerEventHandler<HTMLSpanElement> | undefined;
+    "onPointerOver"?: PointerEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onPointerOverCapture"?: PointerEventHandler<HTMLSpanElement> | undefined;
+    "onPointerOverCapture"?: PointerEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onPointerOut"?: PointerEventHandler<HTMLSpanElement> | undefined;
+    "onPointerOut"?: PointerEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onPointerOutCapture"?: PointerEventHandler<HTMLSpanElement> | undefined;
+    "onPointerOutCapture"?: PointerEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onGotPointerCapture"?: PointerEventHandler<HTMLSpanElement> | undefined;
+    "onGotPointerCapture"?: PointerEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onGotPointerCaptureCapture"?: PointerEventHandler<HTMLSpanElement> | undefined;
+    "onGotPointerCaptureCapture"?: PointerEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onLostPointerCapture"?: PointerEventHandler<HTMLSpanElement> | undefined;
+    "onLostPointerCapture"?: PointerEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onLostPointerCaptureCapture"?: PointerEventHandler<HTMLSpanElement> | undefined;
+    "onLostPointerCaptureCapture"?: PointerEventHandler<HTMLSpanElement>;
 
     /**
      * UI Events
      */
-    "onScroll"?: UIEventHandler<HTMLSpanElement> | undefined;
+    "onScroll"?: UIEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onScrollCapture"?: UIEventHandler<HTMLSpanElement> | undefined;
+    "onScrollCapture"?: UIEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onScrollEnd"?: UIEventHandler<HTMLSpanElement> | undefined;
+    "onScrollEnd"?: UIEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onScrollEndCapture"?: UIEventHandler<HTMLSpanElement> | undefined;
+    "onScrollEndCapture"?: UIEventHandler<HTMLSpanElement>;
 
     /**
      * Wheel Events
      */
-    "onWheel"?: WheelEventHandler<HTMLSpanElement> | undefined;
+    "onWheel"?: WheelEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onWheelCapture"?: WheelEventHandler<HTMLSpanElement> | undefined;
+    "onWheelCapture"?: WheelEventHandler<HTMLSpanElement>;
 
     /**
      * Animation Events
      */
-    "onAnimationStart"?: AnimationEventHandler<HTMLSpanElement> | undefined;
+    "onAnimationStart"?: AnimationEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onAnimationStartCapture"?: AnimationEventHandler<HTMLSpanElement> | undefined;
+    "onAnimationStartCapture"?: AnimationEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onAnimationEnd"?: AnimationEventHandler<HTMLSpanElement> | undefined;
+    "onAnimationEnd"?: AnimationEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onAnimationEndCapture"?: AnimationEventHandler<HTMLSpanElement> | undefined;
+    "onAnimationEndCapture"?: AnimationEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onAnimationIteration"?: AnimationEventHandler<HTMLSpanElement> | undefined;
+    "onAnimationIteration"?: AnimationEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onAnimationIterationCapture"?: AnimationEventHandler<HTMLSpanElement> | undefined;
+    "onAnimationIterationCapture"?: AnimationEventHandler<HTMLSpanElement>;
 
     /**
      * Toggle Events
      */
-    "onToggle"?: ToggleEventHandler<HTMLSpanElement> | undefined;
+    "onToggle"?: ToggleEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onBeforeToggle"?: ToggleEventHandler<HTMLSpanElement> | undefined;
+    "onBeforeToggle"?: ToggleEventHandler<HTMLSpanElement>;
 
     /**
      * Transition Events
      */
-    "onTransitionCancel"?: TransitionEventHandler<HTMLSpanElement> | undefined;
+    "onTransitionCancel"?: TransitionEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onTransitionCancelCapture"?: TransitionEventHandler<HTMLSpanElement> | undefined;
+    "onTransitionCancelCapture"?: TransitionEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onTransitionEnd"?: TransitionEventHandler<HTMLSpanElement> | undefined;
+    "onTransitionEnd"?: TransitionEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onTransitionEndCapture"?: TransitionEventHandler<HTMLSpanElement> | undefined;
+    "onTransitionEndCapture"?: TransitionEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onTransitionRun"?: TransitionEventHandler<HTMLSpanElement> | undefined;
+    "onTransitionRun"?: TransitionEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onTransitionRunCapture"?: TransitionEventHandler<HTMLSpanElement> | undefined;
+    "onTransitionRunCapture"?: TransitionEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onTransitionStart"?: TransitionEventHandler<HTMLSpanElement> | undefined;
+    "onTransitionStart"?: TransitionEventHandler<HTMLSpanElement>;
 
     /**
      * 暂无说明。
      */
-    "onTransitionStartCapture"?: TransitionEventHandler<HTMLSpanElement> | undefined;
-
-    /**
-     * React-specific Attributes
-     */
-    "defaultChecked"?: boolean | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "defaultValue"?: string | number | readonly string[] | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "suppressContentEditableWarning"?: boolean | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "suppressHydrationWarning"?: boolean | undefined;
-
-    /**
-     * Standard HTML Attributes
-     */
-    "accessKey"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "autoCapitalize"?: "off" | "none" | "on" | "sentences" | "words" | "characters" | undefined | (string & {});
-
-    /**
-     * 暂无说明。
-     */
-    "autoFocus"?: boolean | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "className"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "contentEditable"?: Booleanish | "inherit" | "plaintext-only" | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "contextMenu"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "dir"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "draggable"?: Booleanish | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "enterKeyHint"?: "enter" | "done" | "go" | "next" | "previous" | "search" | "send" | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "hidden"?: boolean | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "id"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "lang"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "nonce"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "slot"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "spellCheck"?: Booleanish | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "style"?: CSSProperties | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "tabIndex"?: number | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "title"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "translate"?: "yes" | "no" | undefined;
-
-    /**
-     * Unknown
-     */
-    "radioGroup"?: string | undefined;
-
-    /**
-     * WAI-ARIA
-     */
-    "role"?: AriaRole | undefined;
-
-    /**
-     * RDFa Attributes
-     */
-    "about"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "content"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "datatype"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "inlist"?: any;
-
-    /**
-     * 暂无说明。
-     */
-    "prefix"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "property"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "rel"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "resource"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "rev"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "typeof"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "vocab"?: string | undefined;
-
-    /**
-     * Non-standard Attributes
-     */
-    "autoCorrect"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "autoSave"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "color"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "itemProp"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "itemScope"?: boolean | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "itemType"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "itemID"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "itemRef"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "results"?: number | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "security"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "unselectable"?: "on" | "off" | undefined;
-
-    /**
-     * Popover API
-     */
-    "popover"?: "" | "auto" | "manual" | "hint" | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "popoverTargetAction"?: "toggle" | "show" | "hide" | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "popoverTarget"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "inert"?: boolean | undefined;
-
-    /**
-     * Hints at the type of data that might be entered by the user while editing the element or its contents
-     */
-    "inputMode"?: "none" | "text" | "tel" | "url" | "email" | "numeric" | "decimal" | "search" | undefined;
-
-    /**
-     * Specify that a standard HTML element should behave like a defined custom built-in element
-     */
-    "is"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "exportparts"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "part"?: string | undefined;
+    "onTransitionStartCapture"?: TransitionEventHandler<HTMLSpanElement>;
 }

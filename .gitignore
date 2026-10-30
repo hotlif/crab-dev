@@ -11,6 +11,8 @@ node_modules
 # Documentation here: https://yarnpkg.com/features/caching#zero-installs
 
 .pnp.*
+!.pnp.cjs
+!.pnp.loader.mjs
 .out
 declarations
 esm
@@ -28,3 +30,20 @@ trivy.report.txt
 
 
 .nx/polygraph
+
+# Keep review notes, indexes, input fingerprints, logs and referenced PNG evidence.
+# Archive full Playwright reports and raw run output separately from Git.
+/.website/review/**/report/
+/.website/review/**/playwright-report/
+/.website/review/**/blob-report/
+/.website/review/**/test-results/
+/.website/review/**/results.json
+
+# Browser recordings, traces and local profiles are not curated review evidence.
+/.website/review/**/*.webm
+/.website/review/**/*.mp4
+/.website/review/**/trace/
+/.website/review/**/trace.zip
+/.website/review/**/.playwright-artifacts-*/
+/.website/review/**/profile/
+/.website/review/**/browser-profile/

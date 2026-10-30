@@ -20,6 +20,10 @@ import { demos } from "../_generated/rc-tree.js";
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
 
+#### 三体系验收
+
+##### 树的验收矩阵 — 同一组固定层级核对选择、级联勾选、展开、禁用、编辑与虚拟滚动；切换配置保留草稿。
+
 #### 基础展示
 
 ##### 基础用法 — 最基本的树形组件用法，展示节点的展开、收起和选择功能。
@@ -120,6 +124,25 @@ M3 与 Material Web 没有独立 Tree；MD3 Expressive 的行选择扩展自 [Na
 未指定高度时，节点高度继承 `ConfigProvider.density`，局部 `density` 可覆盖：`compact` 为 32px、`standard` 为 36px、`comfortable` 为 40px；粗指针下，这些自适应默认值提高到至少 48px。高度优先级为单个节点 `height`、`defaultNodeHeight`、密度与指针模式计算的默认值。显式高度保持调用方提供的值，不会被粗指针模式扩大；调用方需确保可交互节点及内部控件的触控目标、可读性和间距充足。`size` 只控制内部控件尺寸。内置无障碍名称与拖拽提示继承 `ConfigProvider.locale`，`dragBadgeLabels` 可局部覆盖拖拽提示。
 
 `TreeNodeId` 为 `string | number`。拖拽回调使用本库导出的 `TreeDragStartEvent`、`TreeDragMoveEvent`、`TreeDragOverEvent`、`TreeDragEndEvent` 等类型，以及 `TreeDragContext`；事件保留激活来源、活动节点、目标节点、坐标变化和碰撞数据。消费方不需要导入内部拖拽库的类型；附加 `data` 字段以 `unknown` 表达，使用前应按业务数据检查。
+
+
+
+
+### 桌面矩阵规格
+
+| 轴 | 项目规格 |
+| --- | --- |
+| 尺寸与密度 | small / medium / large 控制内部控件；compact / standard / comfortable 控制节点几何，显式节点高度优先 |
+| 三体系 | MD3 次要色胶囊选中行、Apple 强调色圆角选中行、shadcn 中性圆角选中行；焦点与选择分别表达 |
+| 命中与虚拟测量 | 粗指针默认行高提高至触控下限；CSS 与虚拟数值共用几何，不通过视觉缩放改变测量 |
+| 状态 | 默认、hover、键盘焦点、选择、级联勾选、折叠、编辑、滚动、空树及真实异步加载 |
+| 内容 | 固定中文 / English 长标题、层级线、禁用叶节点、选中行内编辑器 |
+
+「树的验收矩阵」通过公开 Tree 与 Node 数据模型展示这些状态。默认编辑由双击进入；加载由点击未加载文件夹实际调用 loadData，持续指示器记录视频和时间序列。静态矩阵保留真实过渡，等待有限过渡自然结束后截图。
+
+虚拟滚动验收要求首节点退出、固定数据中的末节点进入视口，实际节点保持非空且数量有界。禁用属于节点能力，普通数据场景显示禁用叶子；空树、加载、折叠和已滚动范围不据此声明禁用交互通过。
+
+Tree 没有三方一一对应的组件：既有导航参考只指导表面与选中语言，不能代替树行为规范。[WAI-ARIA Tree View](https://www.w3.org/WAI/ARIA/apg/patterns/treeview/) 用于补充 Web 层级键盘与焦点语义；它不是视觉来源。shadcn 固定 New York V4 提交 3d98900e9b73c45f035f8109e9d41ba6a51685e7；Apple 保持依据原则自主实现的 Web 定位。参考记录日期：2026-10-29。
 
 ### 适用场景
 

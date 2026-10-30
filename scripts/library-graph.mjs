@@ -1,5 +1,6 @@
 import { readFile, readdir } from "node:fs/promises";
-import { join } from "node:path";
+import { dirname, join, relative, resolve, isAbsolute } from "node:path";
+import { stripJavaScriptComments } from "./javascript-comments.mjs";
 
 const sourceExtension = /\.(?:[cm]?[jt]sx?)$/;
 const testFile = /(?:^|[\\/])(?:__tests__|browser-tests)(?:[\\/])|\.(?:test|spec)\.[cm]?[jt]sx?$/;
@@ -11,17 +12,20 @@ export function packageName(specifier) {
 
 /** Include type exports: emitted declarations must be resolvable by consumers too. */
 export function extractPackageImports(source) {
-    const code = source.replace(/\/\*[\s\S]*?\*\/|^\s*\/\/.*$/gm, "");
+    return new Set([...extractImportSpecifiers(source)].map(packageName).filter(name => name !== null));
+}
+
+export function extractImportSpecifiers(source) {
+    const code = stripJavaScriptComments(source);
     const imports = new Set();
     const patterns = [
-        /(?:^|\n)\s*(?:import|export)\s+(?:type\s+)?(?:[\w\s{},*$]+?\s+from\s+)?["']([^"']+)["']/g,
+        /(?:^|[;\n])\s*(?:import|export)\s+(?:type\s+)?(?:[\w\s{},*$]+?\s+from\s+)?["']([^"']+)["']/g,
         /\bimport\s*\(\s*["']([^"']+)["']/g,
         /\brequire\s*\(\s*["']([^"']+)["']/g,
     ];
     for (const pattern of patterns) {
         for (const match of code.matchAll(pattern)) {
-            const name = packageName(match[1]);
-            if (name !== null) imports.add(name);
+            imports.add(match[1]);
         }
     }
     return imports;
@@ -38,6 +42,7 @@ export async function sourceFiles(directory) {
     }
     for (const entry of entries) {
         const absolutePath = join(directory, entry.name);
+        if ([".tmp", ".cache", ".turbo", "coverage", "node_modules", "esm", "cjs", "declarations", "css"].includes(entry.name) || entry.name.startsWith(".wake")) continue;
         if (entry.isDirectory()) files.push(...await sourceFiles(absolutePath));
         else if (sourceExtension.test(entry.name) && entry.name !== "token.ts") files.push(absolutePath);
     }
@@ -54,6 +59,17 @@ async function importsFrom(files) {
 
 export async function inspectPackage(entry) {
     const sources = await sourceFiles(join(entry.directory, "src"));
+    const productionFiles = sources.filter(file => !testFile.test(file));
+    const boundaryImports = [];
+    for (const file of productionFiles) {
+        for (const specifier of extractImportSpecifiers(await readFile(file, "utf8"))) {
+            if (!specifier.startsWith(".")) continue;
+            const target = relative(entry.directory, resolve(dirname(file), specifier));
+            if (target === ".." || target.startsWith("../") || target.startsWith("..\\") || isAbsolute(target)) {
+                boundaryImports.push({ source: relative(entry.directory, file).replaceAll("\\", "/"), specifier });
+            }
+        }
+    }
     const tokenImports = new Set();
     try {
         const definition = await readFile(join(entry.directory, "token.toml"), "utf8");
@@ -63,7 +79,8 @@ export async function inspectPackage(entry) {
         if (error.code !== "ENOENT") throw error;
     }
     return {
-        productionImports: await importsFrom(sources.filter((file) => !testFile.test(file))),
+        productionImports: await importsFrom(productionFiles),
+        boundaryImports,
         testImports: await importsFrom([
             ...sources.filter((file) => testFile.test(file)),
             ...await sourceFiles(join(entry.directory, "browser-tests")),

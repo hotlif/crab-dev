@@ -1,86 +1,12 @@
 import NumberEdit from '@crab-dev/rc-number-edit';
 import Select from '@crab-dev/rc-select';
 import { CheckableTag } from '@crab-dev/rc-tag';
-import { css, cx } from '@crab-dev/css';
+import { cx } from '@crab-dev/css';
 import { useId, type FC } from 'react';
-
 import { CRON_FIELD_SPECS, type CronFieldKind, type CronFieldValue } from './cron.js';
-import token from './token.js';
 import { useCronLocale } from './locale.js';
 import type { CronPickerChangeDetails } from './types.js';
-
-const editorStyle = css`
-    display: flex;
-    flex-direction: column;
-    gap: ${token.field.gap};
-    padding-block-start: ${token.field.gap};
-    min-inline-size: 0;
-`;
-
-const parametersStyle = css`
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(${token.field.parameter['min-width']}, 1fr));
-    gap: ${token.field.parameter.gap};
-    > * { min-inline-size: 0; }
-`;
-
-const inputStyle = css`
-    inline-size: 100%;
-    min-inline-size: 0;
-`;
-
-const hintStyle = css`
-    margin: 0;
-    color: ${token.field.hint.color};
-    font-size: ${token.field.hint['font-size']};
-    line-height: ${token.field.hint['line-height']};
-`;
-
-const selectionHeadingStyle = css`
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    flex-wrap: wrap;
-    gap: ${token['mode-row'].gap};
-    margin-block-end: ${token['value-grid'].gap};
-    color: ${token['mode-row'].text.color};
-    font-size: ${token['mode-row']['font-size']};
-`;
-
-const gridStyle = css`
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(${token['value-grid']['min-width']}, 1fr));
-    gap: ${token['value-grid'].gap};
-    row-gap: calc(${token['value-grid'].target.padding} * 2);
-    max-block-size: ${token['value-grid']['max-height']};
-    overflow-y: auto;
-    overscroll-behavior: contain;
-    padding: ${token['value-grid'].target.padding} ${token['value-grid']['padding-focus']};
-    scrollbar-gutter: stable;
-`;
-
-const namedGridStyle = css`
-    grid-template-columns: repeat(auto-fit, minmax(${token['value-grid'].named['min-width']}, 1fr));
-`;
-
-const gridTagStyle = css`
-    justify-content: center;
-    text-align: center;
-    margin: 0;
-    font-variant-numeric: tabular-nums;
-    /* 保持 32px chip 外观，向上下扩展命中区至 48px；行距防止目标重叠。 */
-    overflow: visible;
-    &::before {
-        content: '';
-        position: absolute;
-        inset-inline: 0;
-        inset-block: calc(-1 * ${token['value-grid'].target.padding});
-    }
-    @media (pointer: coarse) {
-        &::before { inset-block: 0; }
-    }
-`;
-
+import { editorStyle, parametersStyle, inputStyle, hintStyle, selectionHeadingStyle, gridStyle, namedGridStyle, gridTagStyle } from "./fieldEditor.styles.js";
 const DEFAULT_STEP: Record<CronFieldKind, number> = {
     minute: 5, hour: 2, dayOfMonth: 2, month: 3, dayOfWeek: 2,
 };

@@ -1,3 +1,5 @@
+import { toPickerDateTime } from '@crab-dev/rc-date-picker';
+
 export const meta = {
     title: "可选日期范围",
     description: "限制单个日期只能在今天前后 7 天内选择；范围外的日期禁用。",
@@ -9,7 +11,7 @@ import { useState } from "react";
 import DatePicker from "../../src/datePicker/datePicker.js";
 import { formatTemporal } from "../../src/util.js";
 
-const now = Temporal.Now.zonedDateTimeISO();
+const now = toPickerDateTime(`${new Date().toISOString()}[${Intl.DateTimeFormat().resolvedOptions().timeZone}]`);
 
 const SizeDemo = () => {
     const [value, setValue] = useState<Temporal.ZonedDateTime | null>(now);

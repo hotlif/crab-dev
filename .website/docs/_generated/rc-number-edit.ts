@@ -142,5 +142,39 @@ export const demos = [
         "density": "regular",
         "layout": "grid",
         "group": null
+    },
+    {
+        "id": "docs/demos/visual-matrix.demo.tsx",
+        "title": "三体系字段状态矩阵",
+        "description": "数值草稿、步进、边界、格式化与科学计数法共用公开字段外壳。",
+        "learning": {
+            "components": [
+                "NumberEdit"
+            ],
+            "props": [
+                "appearance",
+                "label",
+                "aria-label",
+                "value",
+                "onValueChange",
+                "allowClear",
+                "min",
+                "max",
+                "step",
+                "precision",
+                "thousandSeparator",
+                "scientific"
+            ],
+            "events": [
+                "onValueChange"
+            ],
+            "hasState": true
+        },
+        "sourceCode": "import { css, cx } from \"@crab-dev/css\";\nimport NumberEdit from \"@crab-dev/rc-number-edit\";\nimport { useConfig } from \"@crab-dev/rc-config-provider\";\nimport { useId, useState } from \"react\";\nimport token from \"@crab-dev/rc-token-semantic\";\n\nexport const meta = { title: \"三体系字段状态矩阵\", description: \"数值草稿、步进、边界、格式化与科学计数法共用公开字段外壳。\" };\nconst scene = css`\n    display: grid; gap: ${token.space['group-gap']}; padding: ${token.space['group-gap']};\n    max-inline-size: 52rem; min-inline-size: 0; color: ${token.color.text.primary}; background: ${token.color.background.surface};\n`;\nconst samples = css`\n    display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));\n    gap: ${token.space['group-gap']}; padding: ${token.space['group-gap']}; min-inline-size: 0;\n`;\nconst embeddedHost = css`\n    background-color: ${token.color.background.elevated};\n    border-radius: ${token.shape.control};\n`;\nconst states = [\"default\",\"hover\",\"focus-visible\",\"filled\",\"error\",\"filled-error\",\"warning\",\"filled-warning\",\"disabled\",\"read-only\",\"minimum\",\"maximum\",\"scientific\",\"scientific-read-only\",\"scientific-disabled\",\"formatted\",\"clear\",\"keyboard-step\",\"stepper-focus\",\"long-press\",\"borderless-focus\",\"controls-hidden\"] as const;\nexport default function VisualMatrixDemo() {\n    const { locale } = useConfig();\n    const english = locale === \"en-US\";\n    const [state, setState] = useState\u003ctypeof states[number]>(\"default\");\n    const [value, setValue] = useState\u003cnumber | null>(null);\n    const id = useId();\n    const status = state === \"error\" || state === \"filled-error\" ? \"error\"\n        : state === \"warning\" || state === \"filled-warning\" ? \"warning\" : undefined;\n    const scientific = state === \"scientific\" || state === \"scientific-read-only\" || state === \"scientific-disabled\";\n    const disabled = state === \"disabled\" || state === \"scientific-disabled\";\n    const readOnly = state === \"read-only\" || state === \"scientific-read-only\";\n    const embedded = state === \"borderless-focus\";\n    return \u003csection className={scene} aria-label=\"NumberEdit visual matrix\" data-visual-scene data-state={state}>\n        \u003cdiv>\u003clabel htmlFor={id}>验收状态\u003c/label>{\" \"}\u003cselect id={id} value={state} onChange={event => {\n            const next = event.currentTarget.value;\n            if (states.some(item => item === next)) {\n                setState(next as typeof state);\n                if (next === \"scientific\") setValue(1.2345e21);\n                else if (next === \"formatted\") setValue(12345.5);\n                else if (next === \"long-press\") setValue(10);\n                else if (next === \"disabled\" || next === \"read-only\") setValue(1234.5);\n                else if (value == null && (next === \"filled-error\" || next === \"filled-warning\")) setValue(1234.5);\n                else if (value == null && (next === \"scientific-read-only\" || next === \"scientific-disabled\")) setValue(1.2345e21);\n                else if (value == null && (next === \"borderless-focus\" || next === \"controls-hidden\")) setValue(12.5);\n            }\n        }}>{states.map(item => \u003coption key={item}>{item}\u003c/option>)}\u003c/select>\u003c/div>\n        \u003cdiv className={cx(samples, embedded && embeddedHost)} data-visual-frame data-visual-host={embedded || undefined}>\n            {([\"outlined\", \"filled\"] as const).map(appearance => \u003cNumberEdit key={appearance}\n                appearance={appearance} label={`${english ? \"Alert threshold\" : \"预警阈值\"} · ${appearance}`} aria-label={`NumberEdit ${appearance}`}\n                value={value} onValueChange={setValue} allowClear\n                min={scientific ? undefined : 0} max={scientific ? undefined : 100000}\n                step={0.5} precision={scientific ? undefined : 1}\n                thousandSeparator={state === \"formatted\"} scientific={scientific ? \"always\" : \"never\"}\n                suffix={scientific ? undefined : \"%\"}\n                disabled={disabled} readOnly={readOnly}\n                bordered={!embedded} controls={state !== \"controls-hidden\"}\n                status={status}\n                errorText={status === \"error\" ? (english ? \"Review the number and try again.\" : \"请核对内容并修正后重试。\") : undefined}\n                supportingText={english ? \"Use decimals; arrow keys step by 0.5 and blur commits.\" : \"可输入小数；方向键按 0.5 步进，失焦后提交。\"}\n            />)}\n        \u003c/div>\n    \u003c/section>;\n}\n\n",
+        "previewPath": "/components/rc-number-edit/workbench/?__wake_demo=docs%2Fdemos%2Fvisual-matrix.demo.tsx",
+        "workbenchPath": "/components/rc-number-edit/workbench/#/components/docs%2Fdemos%2Fvisual-matrix.demo.tsx",
+        "density": "regular",
+        "layout": "grid",
+        "group": null
     }
 ] as const satisfies readonly ComponentDemoRecord[];

@@ -6,6 +6,7 @@ imports = [
 ]
 
 [token]
+text.font-family = "$ref(typography.body.font-family)"
 
 root.outline-color-focus = "$ref(color.focus.ring)"
 root.outline-width-focus = "2px"

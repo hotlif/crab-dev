@@ -1,0 +1,55 @@
+{
+    "schemaVersion": 1,
+    "demo": "visual-matrix.demo.tsx",
+    "sizes": [
+        "small",
+        "medium",
+        "large"
+    ],
+    "densities": [
+        "compact",
+        "standard",
+        "comfortable"
+    ],
+    "states": [
+        "default",
+        "focus-visible",
+        "selected",
+        "sidebar",
+        "editing",
+        "edit-committed",
+        "edit-cancelled",
+        "scrolled",
+        "empty",
+        "error",
+        "columns-error",
+        "loading",
+        "refreshing",
+        "refreshed",
+        "refresh-error",
+        "refresh-recovered"
+    ],
+    "notApplicable": {
+        "disabled": "Disable individual row selection through rowSelection; the complete grid remains navigable."
+    },
+    "crossEngine": {
+        "sizes": [
+            "medium"
+        ],
+        "densities": [
+            "standard"
+        ],
+        "states": [
+            "default",
+            "focus-visible",
+            "selected",
+            "sidebar",
+            "editing",
+            "scrolled",
+            "error",
+            "refreshed",
+            "refresh-error",
+            "refresh-recovered"
+        ]
+    }
+}

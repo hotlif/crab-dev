@@ -12,18 +12,20 @@ description: 修改颜色、排版、形状、尺寸、动效或语义令牌时�
 
 ## 三层
 
+先运行 `yarn ai:context <令牌文件或包名>`，按实际修改读取[组件规则的样式与设计体系](../../../components/AGENTS.md#样式与设计体系)及[设计规范](../../../.website/docs/guides/design-styles.mdx)。分层与颜色约束以规则和规范为准。
+
 | 层 | 位置 | 职责 |
 | --- | --- | --- |
-| L1 全局 | `components/rc-token-global/token.toml` | 原始尺度：颜色（OKLCh）、字号、间距、动效、触控尺寸 |
+| L1 全局 | `components/rc-token-global/token.toml` | 原始尺度 |
 | L2 语义 | `components/rc-token-semantic/token.toml` | 语义角色，以及设计体系 / 明暗 / 密度映射 |
-| L3 组件 | `components/rc-*/token.toml` | 组件局部变量，用 `$ref()` 引用上层 |
+| L3 组件 | `components/rc-*/token.toml` | 组件局部变量 |
 
 L3 的 `[build]` 声明 `output`、`prefix` 与 `imports`，默认输出 `src/token.ts`；个别包用 `package.json#crab.generatedArtifacts["generate:token"]` 声明额外生成物。
 
 ## 流程
 
-1. 先定层级：原始值进 L1，角色与体系差异进 L2，组件私有进 L3。能用 `$ref()` 就不复制值。
-2. 颜色写 OKLCh；设计体系、明暗、密度的覆盖只在 L2 完成，组件不按旧设计名分支。
+1. 先按规则确定修改层级，再查引用该角色的消费方；`--dependents` 可补充直接使用方，不能替代逐层影响分析。
+2. 修改源 TOML 与必要的生成器，确认引用解析及受影响角色。
 3. 生成：
    - 单包 `yarn workspace @crab-dev/rc-<name> generate:token`
    - 全库 `yarn generate:token`（Turbo 按令牌依赖序执行）
@@ -41,14 +43,6 @@ L3 的 `[build]` 声明 `output`、`prefix` 与 `imports`，默认输出 `src/to
 | 密度、几何生成 | 上述 + `yarn workspace @crab-dev/rc-token-semantic check` |
 
 `rc-token-semantic` 的 `generate:token` 还会执行 `scripts/generate-density-geometry.mjs`，不要绕过包脚本手工只跑 `wake library token`。
-
-## 常见错误
-
-- 在组件里写死颜色、间距或时长，或内联样式绕过令牌。
-- 把设计体系差异塞进 L3，或按 `material` / `macos` 旧名分支。
-- 直接改 `src/token.ts`、`css/` 产物或发布包里的 CSS。
-- 契约失败后放宽 `scripts/check-token-contract.mjs`，而不是修令牌。
-- 只改 L2 值却没重新生成，留下过期 `src/token.ts`。
 
 ## 完成定义
 

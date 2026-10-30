@@ -2,6 +2,19 @@
 
 本仓库交付 React 19 组件库、设计基础、可选集成和文档工具。产品清单以 `library.manifest.json` 为准，不扩展为应用开发平台。
 
+## 按任务进入
+
+先运行 `yarn ai:context <包名或仓库相对路径>`，只查看路径、来源和命令；`--json` 提供结构化结果，`--dependents` 补充直接使用方。根目标 `.` 返回全局导航。再按任务读取相关正文，不预先通读所有指南和技能。
+
+| 任务 | 工作入口 |
+| --- | --- |
+| 组件行为、类型、样式 | [组件规则](components/AGENTS.md)，再读目标包及目标文件祖先目录的 AGENTS.md |
+| 文档、Demo、教学示例 | [网站规则](.website/AGENTS.md)、[来源与生成导航](.website/README.md) |
+| 工程脚本、命令契约 | [脚本规则](scripts/AGENTS.md) |
+| 令牌、产品清单、验证、发布 | [任务技能索引](.agents/README.md)，只加载匹配技能 |
+
+[里程碑](MILESTONE.md)、`.reports/` 和 `.website/review/` 是历史资料，按证据需求显式查询，不作为默认任务上下文或现行规范。
+
 ## 规则与唯一来源
 
 - 用户明确要求优先于仓库约定。用户可见沟通默认使用中文；标识符和提交信息使用项目语言。
@@ -25,7 +38,7 @@
 - 全仓 ESM，包声明 `type: module`；相对 TS/TSX 导入写 `.js`，内部依赖使用 `workspace:^`。
 - 实际使用 React / ReactDOM 的公开包显式声明对应 `peerDependencies`，并保留开发依赖；严格 PnP 下独立消费不能依赖隐式 peer。
 - Wake 与 Crab CSS 精确锁定 `0.1.45`。Wake 负责 lint、构建、令牌、docgen、测试和文档；Turbo 只编排真实包拓扑。
-- TypeScript 继承共享预设并保持严格模式；React 19 / Compiler、Crab CSS 和三层令牌的要求见组件规则。
+- TypeScript 统一使用官方 6.0.2 与 Yarn 内置 PnP 兼容补丁，继承共享预设并保持严格模式；升级同步依赖、lockfile、PnP 运行时和编辑器 SDK。不自构建编译器。React 19 / Compiler、Crab CSS 和三层令牌的要求见组件规则。
 - 依赖变化后刷新安装产物，再运行 `yarn install --immutable`；不可加载于 zip 的 ESM 依赖按实际需要标记 unplugged。
 
 ## 验证与发布

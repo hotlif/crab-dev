@@ -1,0 +1,54 @@
+{
+    "schemaVersion": 1,
+    "demo": "visual-matrix.demo.tsx",
+    "sizes": [
+        "small",
+        "medium",
+        "large"
+    ],
+    "densities": [
+        "standard"
+    ],
+    "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "filled",
+        "error",
+        "filled-error",
+        "warning",
+        "filled-warning",
+        "disabled",
+        "read-only",
+        "minimum",
+        "maximum",
+        "scientific",
+        "scientific-read-only",
+        "scientific-disabled",
+        "formatted",
+        "clear",
+        "keyboard-step",
+        "stepper-focus",
+        "long-press"
+    ],
+    "crossEngine": {
+        "sizes": [
+            "medium"
+        ],
+        "densities": [
+            "standard"
+        ],
+        "states": [
+            "default",
+            "focus-visible",
+            "keyboard-step",
+            "scientific"
+        ]
+    },
+    "notApplicable": {
+        "density": "Field geometry follows public size; collection density does not change the field or its draft.",
+        "selected": "Text selection and scalar editing are native input behavior, not a binary selection surface.",
+        "loading": "Asynchronous state belongs to the form or the owner."
+    }
+}
+

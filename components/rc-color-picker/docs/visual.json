@@ -1,0 +1,41 @@
+{
+    "schemaVersion": 1,
+    "demo": "visual-matrix.demo.tsx",
+    "sizes": [
+        "small",
+        "medium",
+        "large"
+    ],
+    "densities": [
+        "standard"
+    ],
+    "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "pressed",
+        "disabled",
+        "expanded",
+        "edited"
+    ],
+    "crossEngine": {
+        "sizes": [
+            "medium"
+        ],
+        "densities": [
+            "standard"
+        ],
+        "states": [
+            "default",
+            "focus-visible",
+            "expanded",
+            "edited"
+        ]
+    },
+    "notApplicable": {
+        "density": "Picker geometry follows its public size; no collection row density applies.",
+        "selected": "Current color and edited draft are covered by expanded/edited states.",
+        "error": "The picker has no public validation status; invalid color input remains covered by behavior tests.",
+        "loading": "No standalone picker loading prop exists. Native EyeDropper session pending uses Button loading and needs real system selection evidence; it is not faked or counted as exercised by this browser matrix."
+    }
+}

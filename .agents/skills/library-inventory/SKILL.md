@@ -12,11 +12,7 @@ description: 修改 library.manifest.json，新增或下线组件包，调整能
 
 ## 唯一来源
 
-`library.manifest.json` 维护 `schemaVersion`、`families`（六个能力族）、`categories`、`designSystems` 与 `packages`。
-
-每个包条目的字段：`name`、`path`、`title`、`family`、`category`、`status`（`experimental` / `stable` / `deprecated`）、`designCoverage`（`md3` / `apple` / `shadcn` → `partial` / `verified` / `not-applicable`）。
-
-包版本、依赖与导出只在各包 `package.json`。文档和生成器不得重复固定包数、族数或 Demo 数。
+运行 `yarn ai:context library.manifest.json` 定位入口；字段职责与生命周期见[库架构](../../../.website/docs/guides/library-architecture.mdx)，有效字段与校验以真实清单及 `scripts/check-library.mjs` 为准。
 
 ## 派生与校验
 

@@ -1,3 +1,5 @@
+import { createTextRasterContext } from './text-surface.js';
+
 /** 4x 超采样渲染，SDF/MSDF 在超采样空间中的扩展半径（px）。
  *  SDF_SPREAD 越大，fwidth(dist) 越小，边缘过渡越窄（更清晰）。
  *  16 → 世界空间 4px 扩散，fwidth ≈ 0.125，搭配着色器系数 0.5 → 约 1 物理像素过渡。 */
@@ -132,7 +134,7 @@ function tokenizeLine(line: string): string[] {
  */
 function wrapLine(
     line: string,
-    ctx: OffscreenCanvasRenderingContext2D,
+    ctx: Pick<CanvasRenderingContext2D, 'measureText'>,
     maxScaledWidth: number,
 ): string[] {
     if (!line) return [''];
@@ -177,14 +179,14 @@ function rasterizeText(
     pad: number,
     lineHeight?: number,
     maxWidth?: number,
+    ownerDocument?: Document,
 ): RasterizedText {
     const scaledSize = fontSize * scale;
     const scaledLineHeight = Math.ceil((lineHeight ?? fontSize * 1.4) * scale);
     const scaledMaxWidth = maxWidth !== undefined ? maxWidth * scale : undefined;
     const fontStr = `${scaledSize}px ${fontFamily}`;
 
-    const probe = new OffscreenCanvas(1, 1);
-    const probeCtx = probe.getContext('2d')!;
+    const probeCtx = createTextRasterContext(1, 1, ownerDocument);
     probeCtx.font = fontStr;
 
     // 按 \n 分割，再对每行做 maxWidth 词换行
@@ -206,8 +208,7 @@ function rasterizeText(
     const w = Math.ceil(maxLineWidth) + pad * 2;
     const h = lines.length * scaledLineHeight + pad * 2;
 
-    const canvas = new OffscreenCanvas(w, h);
-    const ctx2d = canvas.getContext('2d')!;
+    const ctx2d = createTextRasterContext(w, h, ownerDocument);
     ctx2d.fillStyle = '#000';
     ctx2d.fillRect(0, 0, w, h);
     ctx2d.fillStyle = '#fff';
@@ -239,8 +240,9 @@ export function generateGlyph(
     fontFamily: string,
     lineHeight?: number,
     maxWidth?: number,
+    ownerDocument?: Document,
 ): GlyphInfo {
-    const raster = rasterizeText(text, fontSize, fontFamily, OVERSAMPLE, SDF_SPREAD, lineHeight, maxWidth);
+    const raster = rasterizeText(text, fontSize, fontFamily, OVERSAMPLE, SDF_SPREAD, lineHeight, maxWidth, ownerDocument);
     const { width, height } = raster;
     const sdfData = computeSDF(raster.data, width, height, SDF_SPREAD);
 
@@ -272,10 +274,11 @@ export function generateBitmapGlyph(
     dpr: number,
     lineHeight?: number,
     maxWidth?: number,
+    ownerDocument?: Document,
 ): GlyphInfo {
     // 四周留 1 CSS px 边距：防 LINEAR 采样在纹理边缘处 clamp 切掉字形反走样像素
     const pad = Math.ceil(dpr);
-    const raster = rasterizeText(text, fontSize, fontFamily, dpr, pad, lineHeight, maxWidth);
+    const raster = rasterizeText(text, fontSize, fontFamily, dpr, pad, lineHeight, maxWidth, ownerDocument);
     const { width, height } = raster;
 
     // 白字黑底 → R 通道即 coverage alpha

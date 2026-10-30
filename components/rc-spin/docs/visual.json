@@ -1,0 +1,15 @@
+{
+    "schemaVersion": 1,
+    "demo": "visual-matrix.demo.tsx",
+    "sizes": ["small", "medium", "large"],
+    "densities": ["standard"],
+    "states": ["default", "expressive", "overlay", "idle", "delayed", "custom"],
+    "crossEngine": { "sizes": ["medium"], "densities": ["standard"], "states": ["default", "expressive", "overlay", "idle"] },
+    "notApplicable": {
+        "zoom-200-static-baseline": "The loading indicator keeps its natural continuous animation at real browser zoom. Native video and timed full-viewport PNG samples are reviewed; moving states do not establish static pixel baselines.",
+        "touch": "The activity indicator has no pointer action or hit target; inert blocking is verified in the overlay state, and wrapped controls own touch geometry.",
+        "density": "Activity indicators use their explicit size and do not use collection density.",
+        "hover-focus-pressed": "The indicator itself is not interactive; wrapped content is inert while loading.",
+        "disabled-selected-error": "Loading is an activity state. Disabled and validation feedback belong to the owning content."
+    }
+}

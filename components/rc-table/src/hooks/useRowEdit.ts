@@ -1,4 +1,4 @@
-import { type Key, useCallback, useEffect, useState } from "react";
+import { type Key, type RefObject, useCallback, useEffect, useState } from "react";
 
 const EMPTY_EDITOR_VALUES: Record<string, unknown> = {};
 
@@ -10,6 +10,7 @@ interface UseRowEditParams {
     onRowCommit?: (rowId: Key, changes: Record<string, unknown>) => void
     onRowCancel?: (rowId: Key) => void
     isInteractionActive: () => boolean
+    rootRef?: RefObject<HTMLElement | null>
 }
 
 export function useRowEdit(params: UseRowEditParams): {
@@ -21,7 +22,7 @@ export function useRowEdit(params: UseRowEditParams): {
     commitRowEdit: () => void;
     cancelRowEdit: () => void;
 } {
-    const { editType, editingRowId, defaultEditingRowId, onEditingRowIdChange, onRowCommit, onRowCancel, isInteractionActive } = params;
+    const { editType, editingRowId, defaultEditingRowId, onEditingRowIdChange, onRowCommit, onRowCancel, isInteractionActive, rootRef } = params;
 
     const [innerEditingRowId, setInnerEditingRowId] = useState<Key | null>(defaultEditingRowId ?? null);
 
@@ -81,12 +82,13 @@ export function useRowEdit(params: UseRowEditParams): {
 
     useEffect(() => {
         if (currentEditingRowId == null) return;
+        const document = rootRef?.current?.ownerDocument ?? globalThis.document;
         const handler = (e: KeyboardEvent) => {
             if (e.key === "Escape" && isInteractionActive()) cancelRowEdit();
         };
         document.addEventListener("keydown", handler);
         return () => document.removeEventListener("keydown", handler);
-    }, [currentEditingRowId, cancelRowEdit, isInteractionActive]);
+    }, [rootRef, currentEditingRowId, cancelRowEdit, isInteractionActive]);
 
     return { isRowEditMode, currentEditingRowId, editorValues, startRowEdit, setColumnValue, commitRowEdit, cancelRowEdit };
 }

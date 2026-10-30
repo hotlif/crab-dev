@@ -20,6 +20,12 @@ import { demos } from "../_generated/rc-color-picker.js";
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
 
+#### 规格验收
+
+##### 三体系取色状态矩阵 — 颜色数据、格式、透明度、预设与确认取消均保持真实交互。
+
+#### 功能演示
+
 ##### 颜色选择器 — 可视化取色:透明度、文本输入、格式切换、预设色板、吸管取色、受控/非受控、尺寸与禁用。
 
 ##### 颜色面板 — 内嵌式颜色面板:亮度 / 色度 / 色相 / 透明度 + 文本输入 + 预设色板。
@@ -49,12 +55,28 @@ import { demos } from "../_generated/rc-color-picker.js";
 - 通过预设色板限制常用颜色，或通过输入框精确编辑色值。
 - 需要切换颜色显示格式或调整透明度。
 
-格式切换只改变显示方式，输出统一为 OKLCh。确定或取消后，焦点返回颜色触发器；取消保留打开前的色值。吸管取色依赖浏览器的 EyeDropper API。
+格式切换只改变显示方式，输出统一为 OKLCh。确定或取消后，焦点返回颜色触发器；取消保留打开前的色值。屏幕取色仅在控件所属 Document 的浏览器提供 EyeDropper API 时显示，并要求真实用户操作。取消或拒绝取色保留当前值与输入草稿，卸载会中止在途会话；选取成功仍只是面板草稿，需由选择器确认后提交。缺少该 API 的 Firefox/WebKit 环境不能计为吸管能力通过，其他编辑方式保持可用。
 
 强制颜色模式下，当前颜色预览与预设色块保留作为数据的颜色值。触发器内部色样局部保留 RGB 与 alpha，外围文字、焦点和边框继续使用系统颜色，不把所选颜色替换为系统表面色。触发器色样不增加棋盘格底纹；半透明颜色按实际 Canvas 底色合成，因此看到的是合成结果，不能将它视为不透明原色。
 
 禁用触发器在强制颜色模式下不使用整体透明度淡化数据色，改用 GrayText 边框表达禁用，同时保留 `aria-disabled`、退出 Tab 顺序和禁止展开的行为。非强制颜色模式的禁用外观不变。状态应同时通过控件语义或文字表达，不能仅靠色样区分。
 
+
+### 三体系规格与验收矩阵（2026-10-29）
+
+| 体系 | 组合规格 | 扩展依据 |
+| --- | --- | --- |
+| MD3 Expressive | 使用字段、slider、Button 与色调 popover 的统一角色 | MD3 没有同名 OKLCh 取色器，颜色预览、预设与透明度属于专业桌面扩展 |
+| Apple | 可识别的 color well、紧凑面板、准确数值与明确确认/取消 | 依据 color well/popover 原则自主 Web 实现，不替代系统取色器 |
+| shadcn New York V4 | 中性 popover、描边字段、紧凑滑块与清晰焦点 | 组合公开基础组件，OKLCh/预设/格式与吸管属于本库扩展 |
+
+三体系复用 Slider、Select、LineEdit、Button 的公开协议；L3 维护预览、轨道、面板宽度和操作间距，不追加第二套主题。颜色是用户数据，预览和预设在强制颜色下保留真实颜色；控件边界与焦点使用系统颜色。small/medium/large 改变触发器色样，命中区域独立保持；collection density 不缩放色样或连续数值轨道。窄屏操作自然换行。
+
+`visual.json` 展开三体系浅深色 × 三尺寸 × default、hover、focus-visible、pressed、disabled、expanded、edited。点击、Tab 和方向键真实进入状态，expanded 核对四个 slider，edited 核对草稿值变化；整页截图包含父浮层。内部格式 Select 的打开与选择由边界行为场景核对，没有对应展开截图时不计为嵌套菜单外观已验。Firefox/WebKit 默认、焦点、展开与编辑子集在 `crossEngine` 声明。
+
+来源：[Material Web Select](https://material-web.dev/components/select/) / [Slider](https://material-web.dev/components/slider/)；[Apple color wells](https://developer.apple.com/design/human-interface-guidelines/color-wells) 和 [popovers](https://developer.apple.com/design/human-interface-guidelines/popovers)；[shadcn 固定 Popover 源码](https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui/popover.tsx)。没有官方同名映射时只声明组合依据，不宣称官方组件完全对齐。
+
+额外场景核对配置切换保留当前输入节点与未确认草稿、嵌套格式菜单不关闭父层、320/768px、RTL/英文、品牌、强制颜色和减少动画。EyeDropper 由真实浏览器特性检测，未模拟为跨浏览器可用。最终以绑定实际构建的自动报告与逐项人工外观为准。
 
 
 选择器使用互斥的 `value` / `defaultValue`，初始值只在首次挂载读取。`onValueChange(next, details)` 在确认时提交 OKLCh 值，`details.reason` 为 `confirm`；取消和重置草稿不提交。独立 `ColorPickerPanel` 在选择滑块、预设或输入颜色时使用 `reason: 'choose'`。

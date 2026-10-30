@@ -1,0 +1,114 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-29T18:50:29.785Z",
+  "reviewer": "root",
+  "reviewEvidence": "Parent root explicitly reported having individually viewed all4 originals in a collaboration message after capture.",
+  "source": "sha256:6c2ca2f6dfd9eedee6cbcab7458d0b0fc3ad7d5b90d11953f3d9ff751b8783c3",
+  "artifact": "sha256:49f2ebda2d5f78242ffa1cf6e55b13289d1e86d44288e6044ecbe516dd799cbd",
+  "scope": "Only MD3/light/medium scientific-read-only and scientific-disabled representatives; whole scene contains both appearances, interactionAppearance identifies the executed target before each PNG.",
+  "decision": "No new visible defects within this representative scope",
+  "images": [
+    {
+      "caseId": "de8ba6359ae09f9a88d6-221c89f60cfa92eaa65c/chromium/0",
+      "config": {
+        "designSystem": "md3",
+        "colorMode": "light",
+        "size": "medium",
+        "density": "standard",
+        "state": "scientific-read-only"
+      },
+      "interactionAppearance": "outlined",
+      "visibleAppearances": [
+        "outlined",
+        "filled"
+      ],
+      "attachmentIndex": 4,
+      "name": "actual",
+      "path": "screens/rc-number-edit/chromium/000001-4-actual.png",
+      "sha256": "a96b6d6b6602b504378f3463d5ffddbb7f5239a8cd02b55354e37ff2aff7afdb",
+      "absolutePath": "C:\\Users\\zhang\\Desktop\\crab-dev\\.website\\review\\20261030-number-scientific-line-box-fixed-windows-1\\screens\\rc-number-edit\\chromium\\000001-4-actual.png",
+      "hashMatches": true,
+      "nativeMatches": true,
+      "rootActuallyViewedIndividually": true,
+      "rootConclusion": "No new visible defect in these MD3/light/medium readonly/disabled representatives; exponent1.25×10³ complete. This is not36-state acceptance."
+    },
+    {
+      "caseId": "de8ba6359ae09f9a88d6-221c89f60cfa92eaa65c/chromium/0",
+      "config": {
+        "designSystem": "md3",
+        "colorMode": "light",
+        "size": "medium",
+        "density": "standard",
+        "state": "scientific-read-only"
+      },
+      "interactionAppearance": "filled",
+      "visibleAppearances": [
+        "outlined",
+        "filled"
+      ],
+      "attachmentIndex": 9,
+      "name": "actual",
+      "path": "screens/rc-number-edit/chromium/000001-9-actual.png",
+      "sha256": "9d25aa0ea0e0ef5690c9d7f6a27b47d37f7ae6e8844e0e43999f98dd12b94b30",
+      "absolutePath": "C:\\Users\\zhang\\Desktop\\crab-dev\\.website\\review\\20261030-number-scientific-line-box-fixed-windows-1\\screens\\rc-number-edit\\chromium\\000001-9-actual.png",
+      "hashMatches": true,
+      "nativeMatches": true,
+      "rootActuallyViewedIndividually": true,
+      "rootConclusion": "No new visible defect in these MD3/light/medium readonly/disabled representatives; exponent1.25×10³ complete. This is not36-state acceptance."
+    },
+    {
+      "caseId": "de8ba6359ae09f9a88d6-37838ad01730e73d33e3/chromium/0",
+      "config": {
+        "designSystem": "md3",
+        "colorMode": "light",
+        "size": "medium",
+        "density": "standard",
+        "state": "scientific-disabled"
+      },
+      "interactionAppearance": "outlined",
+      "visibleAppearances": [
+        "outlined",
+        "filled"
+      ],
+      "attachmentIndex": 4,
+      "name": "actual",
+      "path": "screens/rc-number-edit/chromium/000002-4-actual.png",
+      "sha256": "dc8223b76afafb7d79105b4973963e5df2397fab6b2092e766c8066e7fd9bf81",
+      "absolutePath": "C:\\Users\\zhang\\Desktop\\crab-dev\\.website\\review\\20261030-number-scientific-line-box-fixed-windows-1\\screens\\rc-number-edit\\chromium\\000002-4-actual.png",
+      "hashMatches": true,
+      "nativeMatches": true,
+      "rootActuallyViewedIndividually": true,
+      "rootConclusion": "No new visible defect in these MD3/light/medium readonly/disabled representatives; exponent1.25×10³ complete. This is not36-state acceptance."
+    },
+    {
+      "caseId": "de8ba6359ae09f9a88d6-37838ad01730e73d33e3/chromium/0",
+      "config": {
+        "designSystem": "md3",
+        "colorMode": "light",
+        "size": "medium",
+        "density": "standard",
+        "state": "scientific-disabled"
+      },
+      "interactionAppearance": "filled",
+      "visibleAppearances": [
+        "outlined",
+        "filled"
+      ],
+      "attachmentIndex": 9,
+      "name": "actual",
+      "path": "screens/rc-number-edit/chromium/000002-9-actual.png",
+      "sha256": "dc8223b76afafb7d79105b4973963e5df2397fab6b2092e766c8066e7fd9bf81",
+      "absolutePath": "C:\\Users\\zhang\\Desktop\\crab-dev\\.website\\review\\20261030-number-scientific-line-box-fixed-windows-1\\screens\\rc-number-edit\\chromium\\000002-9-actual.png",
+      "hashMatches": true,
+      "nativeMatches": true,
+      "rootActuallyViewedIndividually": true,
+      "rootConclusion": "No new visible defect in these MD3/light/medium readonly/disabled representatives; exponent1.25×10³ complete. This is not36-state acceptance."
+    }
+  ],
+  "notAccepted": [
+    "Broader36lockedscience cases",
+    "All20states full matrix",
+    "Canonical Linux/other engines",
+    "baseline/verified"
+  ]
+}

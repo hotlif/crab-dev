@@ -1,0 +1,6 @@
+{
+    "schemaVersion": 1, "demo": "visual-matrix.demo.tsx",
+    "sizes": ["medium"], "densities": ["standard"], "states": ["default", "nested", "focus-visible"],
+    "crossEngine": { "sizes": ["medium"], "densities": ["standard"], "states": ["default", "nested", "focus-visible"] },
+    "notApplicable": { "size": "Theme exports CSS boundary mappings, without a public component size.", "density": "Density geometry belongs to ConfigProvider and component measurements.", "disabled": "A CSS mapping is not a disabled control.", "selected": "Selection is represented by semantic roles consumed by each component.", "loading": "Theme mappings are static CSS.", "pressed": "Theme does not render an action target." }
+}

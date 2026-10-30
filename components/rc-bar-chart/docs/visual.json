@@ -1,0 +1,45 @@
+{
+    "schemaVersion": 1,
+    "demo": "visual-matrix.demo.tsx",
+    "sizes": [
+        "medium"
+    ],
+    "densities": [
+        "compact",
+        "standard",
+        "comfortable"
+    ],
+    "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "pressed",
+        "selected",
+        "empty",
+        "horizontal",
+        "stacked",
+        "negative",
+        "refresh"
+    ],
+    "crossEngine": {
+        "sizes": [
+            "medium"
+        ],
+        "densities": [
+            "standard"
+        ],
+        "states": [
+            "default",
+            "focus-visible",
+            "selected",
+            "empty"
+        ]
+    },
+    "notApplicable": {
+        "size": "The chart has explicit width/height domain geometry and no control-size prop; provider size does not rescale chart coordinates.",
+        "disabled": "The chart does not expose a disabled prop. Hidden series are real selected/unselected legend states.",
+        "error": "Loading and transport errors are owned by the data source. BarChart accepts complete synchronous data; refresh preserves existing chart data.",
+        "loading": "Finite data transitions are captured naturally in a dedicated video scenario, never frozen or replaced by a loading style.",
+        "expanded": "The chart has no disclosure or popup protocol."
+    }
+}

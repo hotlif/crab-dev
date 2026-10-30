@@ -22,7 +22,7 @@ dev_loading = "lazy"
 setup = ["../test/wake-css.setup.ts"]
 environment = "dom"
 include = ["docs/**/*.{test,spec}.{js,mjs,cjs,jsx,ts,mts,cts,tsx}"]
-exclude = ["**/coverage/**", "**/docs-dist/**", "**/.tmp/**", "**/.wake/**"]
+exclude = ["**/coverage/**", "**/docs-dist/**", "**/.tmp/**", "**/.wake/**", "docs/site/*.visual.spec.mjs"]
 timeout_ms = 5000
 leaks = "error"
 

@@ -1,0 +1,21 @@
+{
+    "layout": "wide",
+    "previewDensity": "regular",
+    "groups": [
+        {
+            "title": "使用示例",
+            "demos": [
+                "action.demo.tsx",
+                "basic.demo.tsx",
+                "custom-separator.demo.tsx",
+                "max-count.demo.tsx"
+            ]
+        },
+        {
+            "title": "视觉验收",
+            "demos": [
+                "visual-matrix.demo.tsx"
+            ]
+        }
+    ]
+}

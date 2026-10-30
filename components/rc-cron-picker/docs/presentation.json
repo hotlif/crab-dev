@@ -1,0 +1,21 @@
+{
+    "layout": "wide",
+    "previewDensity": "regular",
+    "groups": [
+        {
+            "title": "使用示例",
+            "demos": [
+                "basic.demo.tsx",
+                "controlled.demo.tsx",
+                "sizes.demo.tsx",
+                "visual-states.demo.tsx"
+            ]
+        },
+        {
+            "title": "视觉验收",
+            "demos": [
+                "visual-matrix.demo.tsx"
+            ]
+        }
+    ]
+}

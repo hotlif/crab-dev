@@ -1,0 +1,15 @@
+{
+    "schemaVersion": 1,
+    "demo": "visual-matrix.demo.tsx",
+    "sizes": ["medium"],
+    "densities": ["compact", "standard", "comfortable"],
+    "states": ["default", "hover", "focus-visible", "pressed", "disabled", "action", "collapsed"],
+    "crossEngine": { "sizes": ["medium"], "densities": ["standard"], "states": ["default", "focus-visible", "disabled", "action", "collapsed"] },
+    "notApplicable": {
+        "size": "Breadcrumbs exposes no size prop and uses shared body typography. The provider size is fixed to medium; density independently changes inline spacing.",
+        "selected": "The current page is a non-interactive aria-current location visible in every frame, not a selectable item.",
+        "error": "Navigation items do not validate input.",
+        "loading": "Navigation has no loading protocol.",
+        "expanded": "maxCount creates a non-interactive ellipsis and does not expose an expansion protocol."
+    }
+}

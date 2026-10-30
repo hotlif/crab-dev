@@ -29,7 +29,7 @@ export const demos = [
         "workbenchPath": "/components/rc-cron-picker/workbench/#/components/docs%2Fdemos%2Fbasic.demo.tsx",
         "density": "regular",
         "layout": "wide",
-        "group": null
+        "group": "使用示例"
     },
     {
         "id": "docs/demos/controlled.demo.tsx",
@@ -57,7 +57,7 @@ export const demos = [
         "workbenchPath": "/components/rc-cron-picker/workbench/#/components/docs%2Fdemos%2Fcontrolled.demo.tsx",
         "density": "regular",
         "layout": "wide",
-        "group": null
+        "group": "使用示例"
     },
     {
         "id": "docs/demos/sizes.demo.tsx",
@@ -83,12 +83,12 @@ export const demos = [
         "workbenchPath": "/components/rc-cron-picker/workbench/#/components/docs%2Fdemos%2Fsizes.demo.tsx",
         "density": "regular",
         "layout": "wide",
-        "group": null
+        "group": "使用示例"
     },
     {
         "id": "docs/demos/visual-states.demo.tsx",
         "title": "只读与填充计划字段",
-        "description": "只读计划可聚焦和复制，但不会打开编辑面板；填充字段保留正常编辑和校验反馈。",
+        "description": "只读计划可聚焦、复制和展开查看，面板控件不能修改计划；填充字段保留正常编辑和校验反馈。",
         "learning": {
             "components": [
                 "CronPicker"
@@ -104,11 +104,43 @@ export const demos = [
             "events": [],
             "hasState": false
         },
-        "sourceCode": "import { css } from '@crab-dev/css';\nimport CronPicker from '@crab-dev/rc-cron-picker';\nimport token from '@crab-dev/rc-token-semantic';\n\nexport const meta = {\n    title: '只读与填充计划字段',\n    description: '只读计划可聚焦和复制，但不会打开编辑面板；填充字段保留正常编辑和校验反馈。',\n};\n\nconst layout = css`\n    display: grid;\n    gap: ${token.space['group-gap']};\n    max-width: calc(${token.size['40']} * 12);\n`;\n\nexport default function VisualStatesDemo() {\n    return \u003csection className={layout} aria-label=\"计划字段状态\">\n        \u003cdiv data-demo-state=\"outlined-readonly\">\u003cCronPicker label=\"固定执行计划\" value=\"30 9 * * 1-5\" readOnly supportingText=\"工作日上午 9:30 执行，由管理员维护。\" />\u003c/div>\n        \u003cdiv data-demo-state=\"filled-value\">\u003cCronPicker appearance=\"filled\" label=\"可编辑执行计划\" defaultValue=\"0 10 * * *\" supportingText=\"点击字段编辑计划。\" />\u003c/div>\n        \u003cdiv data-demo-state=\"filled-readonly\">\u003cCronPicker appearance=\"filled\" label=\"归档执行计划\" value=\"0 8 * * 1\" readOnly supportingText=\"每周一上午 8:00 执行。\" />\u003c/div>\n    \u003c/section>;\n}\n",
+        "sourceCode": "import { css } from '@crab-dev/css';\nimport CronPicker from '@crab-dev/rc-cron-picker';\nimport token from '@crab-dev/rc-token-semantic';\n\nexport const meta = {\n    title: '只读与填充计划字段',\n    description: '只读计划可聚焦、复制和展开查看，面板控件不能修改计划；填充字段保留正常编辑和校验反馈。',\n};\n\nconst layout = css`\n    display: grid;\n    gap: ${token.space['group-gap']};\n    max-width: calc(${token.size['40']} * 12);\n`;\n\nexport default function VisualStatesDemo() {\n    return \u003csection className={layout} aria-label=\"计划字段状态\">\n        \u003cdiv data-demo-state=\"outlined-readonly\">\u003cCronPicker label=\"固定执行计划\" value=\"30 9 * * 1-5\" readOnly supportingText=\"工作日上午 9:30 执行，由管理员维护。\" />\u003c/div>\n        \u003cdiv data-demo-state=\"filled-value\">\u003cCronPicker appearance=\"filled\" label=\"可编辑执行计划\" defaultValue=\"0 10 * * *\" supportingText=\"点击字段编辑计划。\" />\u003c/div>\n        \u003cdiv data-demo-state=\"filled-readonly\">\u003cCronPicker appearance=\"filled\" label=\"归档执行计划\" value=\"0 8 * * 1\" readOnly supportingText=\"每周一上午 8:00 执行。\" />\u003c/div>\n    \u003c/section>;\n}\n",
         "previewPath": "/components/rc-cron-picker/workbench/?__wake_demo=docs%2Fdemos%2Fvisual-states.demo.tsx",
         "workbenchPath": "/components/rc-cron-picker/workbench/#/components/docs%2Fdemos%2Fvisual-states.demo.tsx",
         "density": "regular",
         "layout": "wide",
-        "group": null
+        "group": "使用示例"
+    },
+    {
+        "id": "docs/demos/visual-matrix.demo.tsx",
+        "title": "计划编辑状态矩阵",
+        "description": "真实文本草稿、五段式规则面板与只读查看，预览使用固定日期采集。",
+        "learning": {
+            "components": [
+                "CronPicker"
+            ],
+            "props": [
+                "label",
+                "aria-label",
+                "value",
+                "onValueChange",
+                "disabled",
+                "readOnly",
+                "status",
+                "supportingText",
+                "previewCount",
+                "appearance"
+            ],
+            "events": [
+                "onValueChange"
+            ],
+            "hasState": true
+        },
+        "sourceCode": "import { css } from '@crab-dev/css';\nimport CronPicker from '@crab-dev/rc-cron-picker';\nimport { useConfig } from '@crab-dev/rc-config-provider';\nimport token from '@crab-dev/rc-token-semantic';\nimport { useId, useState } from 'react';\n\nexport const meta = { title: '计划编辑状态矩阵', description: '真实文本草稿、五段式规则面板与只读查看，预览使用固定日期采集。' };\nconst frame = css`display: grid; gap: ${token.space['group-gap']}; padding: ${token.space['group-gap']}; background: ${token.color.background.surface}; color: ${token.color.text.primary}; max-width: calc(${token.size[40]} * 14); min-width: 0;`;\nexport default function VisualMatrixDemo() {\n    const { locale } = useConfig();\n    const [state, setState] = useState('default');\n    const [value, setValue] = useState('30 9 * * 1-5');\n    const id = useId();\n    const english = locale === 'en-US';\n    return \u003csection className={frame} aria-label=\"CronPicker visual matrix\" data-visual-scene data-state={state}>\n        \u003cdiv>\u003clabel htmlFor={id}>验收状态\u003c/label>{' '}\u003cselect id={id} value={state} onChange={event => setState(event.currentTarget.value)}>{['default', 'disabled', 'read-only', 'warning'].map(item => \u003coption key={item}>{item}\u003c/option>)}\u003c/select>\u003c/div>\n        \u003cCronPicker label={english ? 'Execution schedule' : '执行计划'} aria-label=\"执行计划\" value={value} onValueChange={setValue} disabled={state === 'disabled'} readOnly={state === 'read-only'} status={state === 'warning' ? 'warning' : undefined} supportingText={english ? 'Five fields: minute, hour, day, month, weekday.' : '五段式：分、时、日、月、周。'} previewCount={3} />\n        \u003cCronPicker appearance=\"filled\" label={english ? 'Archived schedule' : '归档计划'} aria-label=\"归档计划\" value=\"0 8 * * 1\" readOnly previewCount={0} />\n        \u003coutput aria-live=\"polite\">{value}\u003c/output>\n    \u003c/section>;\n}\n",
+        "previewPath": "/components/rc-cron-picker/workbench/?__wake_demo=docs%2Fdemos%2Fvisual-matrix.demo.tsx",
+        "workbenchPath": "/components/rc-cron-picker/workbench/#/components/docs%2Fdemos%2Fvisual-matrix.demo.tsx",
+        "density": "regular",
+        "layout": "wide",
+        "group": "视觉验收"
     }
 ] as const satisfies readonly ComponentDemoRecord[];

@@ -20,17 +20,25 @@ import { demos } from "../_generated/rc-prose.js";
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
 
+#### 三体系验收
+
+##### 排版验收矩阵 — 真实文章字阶、逆色表面、长链接、代码滚动、表格和退出作用域的嵌入区域。
+
+#### 文章与排版
+
 ##### 基础用法 — 默认 `size=base`，包含标题、段落、链接、粗体等基础排版元素
-
-##### 嵌入独立内容 — not-prose 排除区域自身及后代的直接排版规则；字体和颜色仍会正常继承，独立区域可定义自己的外观。
-
-##### 语义标签 — 通过 `as` 属性指定根元素标签：`div`（默认）、`article`、`section`、`main`
 
 ##### 尺寸变体 — 通过 `size` 属性设置排版尺寸：`sm`、`base`（默认）、`lg`、`xl`
 
+##### 语义标签 — 通过 `as` 属性指定根元素标签：`div`（默认）、`article`、`section`、`main`
+
 ##### 表格与定义列表 — 展示表格与定义列表的排版效果
 
+#### 主题与内容边界
+
 ##### 正色与逆色内容 — 四档文章字阶分别展示普通与 invert 排版。逆色容器使用当前主题的 inverse 背景，随明暗模式改变；内容覆盖中文、长链接、代码、表格和键盘提示。
+
+##### 嵌入独立内容 — not-prose 排除区域自身及后代的直接排版规则；字体和颜色仍会正常继承，独立区域可定义自己的外观。
 
 </div>
 
@@ -80,6 +88,21 @@ Prose 为后代排版规则保留一个组件根类的优先级，普通宿主 `
 这是本库的富文本展示扩展。MD3、Apple、shadcn/ui 分别提供排版、链接、代码、引用与表格的语义角色；HTML 内容结构及长文本溢出由 Prose 负责。文章字阶独立于通用控件尺寸，具体排版组合属于本库 Web 适配。
 
 设计来源与固定参考版本见[三套设计体系](/guides/design-styles)，当前已核对范围见[设计覆盖矩阵](/guides/design-coverage)。这段说明记录适配边界，不代表完整视觉验收已通过。
+
+
+### 排版矩阵规格
+
+| 轴 | 项目规格 |
+| --- | --- |
+| 字阶 | 公开 sm / base / lg / xl；独立于通用控件尺寸和数据密度 |
+| 三体系 | 标题、正文、链接、引用、代码和表格取最近设计边界的语义角色；HTML 结构保持 |
+| 状态 | 普通与 inverse 配对表面、真实链接 hover、键盘焦点 |
+| 长内容 | 连续链接换行；代码单独 LTR 并横向滚动；表格不挤出文章边界 |
+| 作用域 | not-prose 排除后代的直接排版，保留正常继承；嵌入区域自行提供配对表面 |
+
+「排版验收矩阵」在同一文章结构中切换四档字阶和逆色，不重建内容。静态比较显式保留动画和原生链接焦点；另检查代码方向、独立滚动与作用域内容。页面缩放使用真实浏览器缩放验收，不用 DPR 或窄视口替代。
+
+本文是基于语义 HTML 的 Web 排版扩展。MD3 参考 [Typography](https://m3.material.io/styles/typography/overview) 的层级，Apple 参考[布局原则](https://developer.apple.com/design/human-interface-guidelines/layout)，shadcn 参考 [Typography](https://ui.shadcn.com/docs/components/radix/typography) 的内容表达；不将整篇文章冒充原生平台组件。shadcn 项目参考仍固定 New York V4 提交 3d98900e9b73c45f035f8109e9d41ba6a51685e7。参考记录日期：2026-10-29。
 
 ### 适用场景
 

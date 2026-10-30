@@ -6,6 +6,42 @@ import type { ComponentDemoRecord } from "../site/componentDemos.js";
 
 export const demos = [
     {
+        "id": "docs/demos/visual-matrix.demo.tsx",
+        "title": "专业图表状态矩阵",
+        "description": "固定正负数据、真实图例切换、数据刷新与键盘柱焦点。动画保持自然播放，图表坐标独立于控件尺寸。",
+        "learning": {
+            "components": [
+                "Button",
+                "BarChart"
+            ],
+            "props": [
+                "appearance",
+                "onClick",
+                "width",
+                "height",
+                "aria-label",
+                "categories",
+                "series",
+                "orientation",
+                "stacked",
+                "showValues",
+                "referenceLines",
+                "onBarClick"
+            ],
+            "events": [
+                "onClick",
+                "onBarClick"
+            ],
+            "hasState": true
+        },
+        "sourceCode": "import { useState } from 'react';\nimport { css } from '@crab-dev/css';\nimport BarChart from '@crab-dev/rc-bar-chart';\nimport Button from '@crab-dev/rc-button';\nimport { useLocale } from '@crab-dev/rc-config-provider';\nimport token from '@crab-dev/rc-token-semantic';\n\nexport const meta = { title: '专业图表状态矩阵', description: '固定正负数据、真实图例切换、数据刷新与键盘柱焦点。动画保持自然播放，图表坐标独立于控件尺寸。' };\nconst sceneStyle = css`padding: ${token.space['card-padding']}; overflow: auto; max-inline-size: 100%; background: ${token.color.surface.content};`;\nconst stackStyle = css`display: flex; flex-direction: column; gap: ${token.space['stack-gap']}; min-inline-size: 0;`;\nconst rowStyle = css`display: flex; flex-wrap: wrap; align-items: center; gap: ${token.space['component-gap']};`;\nconst fixedStyle = css`inline-size: min(100%, 640px); min-inline-size: 240px;`;\n\nexport default function VisualMatrixDemo() {\n    const { locale } = useLocale();\n    const en = locale === 'en-US';\n    const [mode, setMode] = useState('default');\n    const [revision, setRevision] = useState(0);\n    const [selection, setSelection] = useState('');\n    const categories = en ? ['January', 'February', 'March', 'April'] : ['一月', '二月', '三月', '四月'];\n    const longCategories = en ? ['January – enterprise services', 'February – international operations', 'March – recurring subscriptions', 'April – customer success'] : ['一月：企业级服务长期运营收入', '二月：国际市场拓展与合作', '三月：订阅续费与新增客户', '四月：客户成功支持服务'];\n    const series = [\n        { name: en ? 'Revenue' : '收入', data: revision % 2 ? [180, 70, 140, 105] : [120, 85, 160, 95] },\n        { name: en ? 'Adjustments' : '调整', data: mode === 'negative' ? [-55, 30, -70, 40] : [55, 30, 70, 40] },\n    ];\n    return \u003cdiv className={stackStyle}>\n        \u003cdiv className={rowStyle}>\n            \u003clabel>验收状态 \u003cselect aria-label=\"验收状态\" value={mode} onChange={event => setMode(event.target.value)}>\n                {['default', 'empty', 'horizontal', 'stacked', 'negative', 'long-text'].map(value => \u003coption key={value} value={value}>{value}\u003c/option>)}\n            \u003c/select>\u003c/label>\n            \u003cButton appearance=\"outlined\" onClick={() => setRevision(value => value + 1)}>刷新数据\u003c/Button>\n        \u003c/div>\n        \u003csection className={sceneStyle} aria-label=\"BarChart visual matrix\" data-revision={revision}>\n            \u003cdiv className={fixedStyle}>\u003cBarChart width=\"auto\" height={280} aria-label=\"Revenue chart\"\n                categories={mode === 'empty' ? [] : mode === 'long-text' ? longCategories : categories}\n                series={series} orientation={mode === 'horizontal' ? 'horizontal' : 'vertical'} stacked={mode === 'stacked'} showValues\n                referenceLines={[{ value: 110, label: en ? 'Target 110' : '目标 110' }]}\n                onBarClick={value => setSelection(`${value.category} ${value.seriesName} ${value.value}`)} />\n            \u003c/div>\n            \u003coutput aria-label=\"已激活数据\">{selection || (en ? 'No activation' : '尚未激活数据')}\u003c/output>\n        \u003c/section>\n    \u003c/div>;\n}\n",
+        "previewPath": "/components/rc-bar-chart/workbench/?__wake_demo=docs%2Fdemos%2Fvisual-matrix.demo.tsx",
+        "workbenchPath": "/components/rc-bar-chart/workbench/#/components/docs%2Fdemos%2Fvisual-matrix.demo.tsx",
+        "density": "regular",
+        "layout": "wide",
+        "group": "三体系视觉与交互矩阵"
+    },
+    {
         "id": "docs/demos/annotations.demo.tsx",
         "title": "数值标签与参考线",
         "description": "showValues 在柱端标注数值（空间不足以容纳的自动省略；堆叠模式标注类目合计）；referenceLines 绘制均值 / 目标虚线，参考值自动纳入值轴刻度域。",
@@ -29,7 +65,7 @@ export const demos = [
         "workbenchPath": "/components/rc-bar-chart/workbench/#/components/docs%2Fdemos%2Fannotations.demo.tsx",
         "density": "regular",
         "layout": "wide",
-        "group": null
+        "group": "能力与集成示例"
     },
     {
         "id": "docs/demos/basic.demo.tsx",
@@ -53,7 +89,7 @@ export const demos = [
         "workbenchPath": "/components/rc-bar-chart/workbench/#/components/docs%2Fdemos%2Fbasic.demo.tsx",
         "density": "regular",
         "layout": "wide",
-        "group": null
+        "group": "能力与集成示例"
     },
     {
         "id": "docs/demos/horizontal.demo.tsx",
@@ -79,7 +115,7 @@ export const demos = [
         "workbenchPath": "/components/rc-bar-chart/workbench/#/components/docs%2Fdemos%2Fhorizontal.demo.tsx",
         "density": "regular",
         "layout": "wide",
-        "group": null
+        "group": "能力与集成示例"
     },
     {
         "id": "docs/demos/live-update.demo.tsx",
@@ -108,7 +144,7 @@ export const demos = [
         "workbenchPath": "/components/rc-bar-chart/workbench/#/components/docs%2Fdemos%2Flive-update.demo.tsx",
         "density": "regular",
         "layout": "wide",
-        "group": null
+        "group": "能力与集成示例"
     },
     {
         "id": "docs/demos/multi-series.demo.tsx",
@@ -135,7 +171,7 @@ export const demos = [
         "workbenchPath": "/components/rc-bar-chart/workbench/#/components/docs%2Fdemos%2Fmulti-series.demo.tsx",
         "density": "regular",
         "layout": "wide",
-        "group": null
+        "group": "能力与集成示例"
     },
     {
         "id": "docs/demos/palette.demo.tsx",
@@ -160,7 +196,7 @@ export const demos = [
         "workbenchPath": "/components/rc-bar-chart/workbench/#/components/docs%2Fdemos%2Fpalette.demo.tsx",
         "density": "regular",
         "layout": "wide",
-        "group": null
+        "group": "能力与集成示例"
     },
     {
         "id": "docs/demos/stacked.demo.tsx",
@@ -186,6 +222,6 @@ export const demos = [
         "workbenchPath": "/components/rc-bar-chart/workbench/#/components/docs%2Fdemos%2Fstacked.demo.tsx",
         "density": "regular",
         "layout": "wide",
-        "group": null
+        "group": "能力与集成示例"
     }
 ] as const satisfies readonly ComponentDemoRecord[];

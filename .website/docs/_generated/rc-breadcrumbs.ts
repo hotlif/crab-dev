@@ -24,7 +24,7 @@ export const demos = [
         "workbenchPath": "/components/rc-breadcrumbs/workbench/#/components/docs%2Fdemos%2Faction.demo.tsx",
         "density": "regular",
         "layout": "wide",
-        "group": null
+        "group": "使用示例"
     },
     {
         "id": "docs/demos/basic.demo.tsx",
@@ -45,7 +45,7 @@ export const demos = [
         "workbenchPath": "/components/rc-breadcrumbs/workbench/#/components/docs%2Fdemos%2Fbasic.demo.tsx",
         "density": "regular",
         "layout": "wide",
-        "group": null
+        "group": "使用示例"
     },
     {
         "id": "docs/demos/custom-separator.demo.tsx",
@@ -67,7 +67,7 @@ export const demos = [
         "workbenchPath": "/components/rc-breadcrumbs/workbench/#/components/docs%2Fdemos%2Fcustom-separator.demo.tsx",
         "density": "regular",
         "layout": "wide",
-        "group": null
+        "group": "使用示例"
     },
     {
         "id": "docs/demos/max-count.demo.tsx",
@@ -89,6 +89,29 @@ export const demos = [
         "workbenchPath": "/components/rc-breadcrumbs/workbench/#/components/docs%2Fdemos%2Fmax-count.demo.tsx",
         "density": "regular",
         "layout": "wide",
-        "group": null
+        "group": "使用示例"
+    },
+    {
+        "id": "docs/demos/visual-matrix.demo.tsx",
+        "title": "路径导航状态矩阵",
+        "description": "链接、动作、当前位置、禁用、折叠与长路径保持独立语义。",
+        "learning": {
+            "components": [
+                "Breadcrumbs"
+            ],
+            "props": [
+                "aria-label",
+                "maxCount",
+                "items"
+            ],
+            "events": [],
+            "hasState": true
+        },
+        "sourceCode": "import { css } from '@crab-dev/css';\nimport Breadcrumbs from '@crab-dev/rc-breadcrumbs';\nimport { useConfig } from '@crab-dev/rc-config-provider';\nimport token from '@crab-dev/rc-token-semantic';\nimport { useId, useState } from 'react';\n\nexport const meta = { title: '路径导航状态矩阵', description: '链接、动作、当前位置、禁用、折叠与长路径保持独立语义。' };\nconst frame = css`display: grid; gap: ${token.space['group-gap']}; padding: ${token.space['group-gap']}; background: ${token.color.background.surface}; color: ${token.color.text.primary}; min-width: 0;`;\nexport default function VisualMatrixDemo() {\n    const { locale } = useConfig();\n    const [collapsed, setCollapsed] = useState(false);\n    const [visited, setVisited] = useState('');\n    const id = useId();\n    const english = locale === 'en-US';\n    return \u003csection className={frame} aria-label=\"Breadcrumbs visual matrix\" data-visual-scene>\n        \u003cdiv>\u003clabel htmlFor={id}>路径显示\u003c/label>{' '}\u003cselect id={id} value={collapsed ? 'collapsed' : 'full'} onChange={event => setCollapsed(event.currentTarget.value === 'collapsed')}>\u003coption>full\u003c/option>\u003coption>collapsed\u003c/option>\u003c/select>\u003c/div>\n        \u003cBreadcrumbs aria-label=\"路径验收\" maxCount={collapsed ? 3 : undefined} items={[\n            { key: 'home', title: english ? 'Workspace' : '工作区', href: '#workspace', onClick: event => { event.preventDefault(); setVisited('workspace'); } },\n            { key: 'projects', title: english ? 'Projects' : '项目', onClick: () => setVisited('projects') },\n            { key: 'disabled', title: english ? 'Restricted' : '受限目录', disabled: true, onClick: () => setVisited('restricted') },\n            { key: 'team', title: english ? 'Design systems and shared resources' : '设计系统与团队共享资源目录', href: '#team', onClick: event => { event.preventDefault(); setVisited('team'); } },\n            { key: 'current', title: english ? 'Current component specifications' : '当前组件规范' },\n        ]} />\n        \u003coutput aria-live=\"polite\">{visited || (english ? 'Choose an ancestor' : '请选择上级路径')}\u003c/output>\n    \u003c/section>;\n}\n",
+        "previewPath": "/components/rc-breadcrumbs/workbench/?__wake_demo=docs%2Fdemos%2Fvisual-matrix.demo.tsx",
+        "workbenchPath": "/components/rc-breadcrumbs/workbench/#/components/docs%2Fdemos%2Fvisual-matrix.demo.tsx",
+        "density": "regular",
+        "layout": "wide",
+        "group": "视觉验收"
     }
 ] as const satisfies readonly ComponentDemoRecord[];

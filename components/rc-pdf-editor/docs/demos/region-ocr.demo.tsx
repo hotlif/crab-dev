@@ -1,17 +1,18 @@
 import { useEffect, useState } from 'react';
 import { css } from '@crab-dev/css';
 import Checkbox from '@crab-dev/rc-checkbox';
-import PdfEditor, { createRegionOcrPlugin, type PdfEditorPlugin, type PdfRegionImage } from '../../src/index.js';
-import token from '../../src/token.js';
-import { regionDocument } from './sample-document.js';
+import PdfEditor, { createRegionOcrPlugin, type PdfEditorPlugin, type PdfRegionImage } from '@crab-dev/rc-pdf-editor';
+import token from '@crab-dev/rc-token-semantic';
+
+const regionDocument = { id: 'region-demo', fileName: 'cross-page-region.pdf', source: './fixtures/visual-document.pdf' };
 
 export const meta = { title: '跨页区域与 OCR 插件', description: '框选相邻页交界区域，按页面坐标裁切并拼接为真实 PNG；通过 recognize 回调接入自己的 OCR 引擎。示例适配器只展示输入图像，不执行文字识别。' };
 const runtime = { workerUrl: './runtime/pdf-editor.worker.js', wasmUrl: './runtime/pdfium.wasm' };
-const sectionStyle = css`display: flex; flex-direction: column; gap: ${token.panel.gap}; min-width: 0;`;
-const rowStyle = css`display: flex; flex-wrap: wrap; gap: ${token.toolbar.gap}; align-items: center;`;
-const hintStyle = css`margin: 0; color: ${token.status.color}; font-size: ${token.status['font-size']};`;
-const imageStyle = css`display: block; max-width: 100%; height: auto; border: ${token.root['border-width']} solid ${token.root['border-color']};`;
-const codeStyle = css`overflow: auto; padding: ${token.panel.padding}; background: ${token.canvas.background}; border-radius: ${token.root['border-radius']};`;
+const sectionStyle = css`display: flex; flex-direction: column; gap: ${token.space['stack-gap']}; min-width: 0;`;
+const rowStyle = css`display: flex; flex-wrap: wrap; gap: ${token.space['component-gap']}; align-items: center;`;
+const hintStyle = css`margin: 0; color: ${token.color.text.secondary}; font-size: ${token.typography.caption['font-size']};`;
+const imageStyle = css`display: block; max-width: 100%; height: auto; border: 1px solid ${token.color.border.default};`;
+const codeStyle = css`overflow: auto; padding: ${token.space['card-padding']}; background: ${token.color.surface.content}; border-radius: ${token.shape.control};`;
 
 export default function RegionOcrDemo() {
     const [installed, setInstalled] = useState(true);

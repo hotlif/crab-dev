@@ -1,0 +1,17 @@
+{
+  "workspace": "C:\\Users\\zhang\\Desktop\\crab-dev",
+  "temp": "C:\\Users\\zhang\\Desktop\\crab-dev\\.tmp\\verification-temp",
+  "tmpdir": "C:\\Users\\zhang\\Desktop\\crab-dev\\.tmp\\verification-temp",
+  "rayon": "2",
+  "command": [
+    "yarn",
+    "exec",
+    "turbo",
+    "run",
+    "build:library",
+    "--filter=@crab-dev/rc-pdf-editor",
+    "--concurrency=2",
+    "--summarize"
+  ],
+  "startedAt": "2026-10-29T12:21:38.9697451Z"
+}

@@ -1,17 +1,63 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { extractPackageImports, findDependencyCycle, libraryBuildGraph, packageName } from "./library-graph.mjs";
+import { mkdtemp, mkdir, rm, writeFile, readFile } from "node:fs/promises";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
+import { extractPackageImports, findDependencyCycle, inspectPackage, libraryBuildGraph, packageName } from "./library-graph.mjs";
 import { createTurboConfig } from "./generate-library-tasks.mjs";
 import { validateReleaseEvent } from "./check-release.mjs";
-import { resolveYarnEntry } from "./package-manager.mjs";
+import { resolveYarnEntry, runYarn } from "./package-manager.mjs";
 import { generatedContentChanges, generatedLibraryPaths } from "./check-generated.mjs";
-import { exportTargets } from "./check-exports.mjs";
+import { exportTargets, verifyTarget } from "./check-exports.mjs";
 import { validateReactPeers } from "./check-library.mjs";
 import { requiredReactPeers } from "./react-peer-contract.mjs";
 import { validateDesignVerification } from "./design-verification.mjs";
-import { requiredCheckScripts } from "./check-commands.mjs";
+import { readWorkspaceManifests, requiredCheckScripts } from "./check-commands.mjs";
 import { requiredCheckPlan } from "./check-required.mjs";
 import { waitForOwnDevTools } from "./published-browser-readiness.mjs";
+import { repositoryCheckPlan, workspaceCheckPlan } from "./check-plan.mjs";
+import { libraryMetadataOutputs } from "./generate-library-metadata.mjs";
+import { readLibraryMetadata } from "./library-manifest.mjs";
+
+test("published runtime rejects relative imports into another package or the documentation environment", async () => {
+    const directory = await mkdtemp(join(tmpdir(), "crab-boundary-"));
+    try {
+        await mkdir(join(directory, "src", "__tests__"), { recursive: true });
+        await mkdir(join(directory, "src", ".cache"));
+        await writeFile(join(directory, "src", "index.ts"), `export * from "./engine.js"; import "../../.website/runtime.js"; export type { Protocol } from "../../rc-other/src/protocol.js";`);
+        await writeFile(join(directory, "src", "__tests__", "engine.test.ts"), 'import "../../../test/fixture.js";');
+        await writeFile(join(directory, "src", ".cache", "stale.ts"), 'import "@crab-dev/stale";');
+        const facts = await inspectPackage({ directory });
+        assert.deepEqual(facts.boundaryImports.map(item => item.specifier).sort(), ["../../.website/runtime.js", "../../rc-other/src/protocol.js"]);
+        assert.ok(!facts.productionImports.has("@crab-dev/stale"));
+    } finally { await rm(directory, { recursive: true, force: true }); }
+});
+
+test("shared verification plans reference real scripts and retain every registered regression", async () => {
+    const root = JSON.parse(await readFile(new URL("../package.json", import.meta.url), "utf8"));
+    assert.equal(new Set(repositoryCheckPlan).size, repositoryCheckPlan.length);
+    assert.ok(!repositoryCheckPlan.includes("check"));
+    for (const name of repositoryCheckPlan) assert.ok(root.scripts[name], `Missing root script: ${name}`);
+    for (const { packageJson: pkg } of await readWorkspaceManifests()) {
+        const plan = workspaceCheckPlan(pkg);
+        if (pkg.scripts["build:library"]) {
+            assert.equal(plan[0].root, true);
+            assert.ok(plan[0].args.includes("build:library"));
+        }
+        for (const name of requiredCheckScripts(pkg)) assert.equal(plan.filter(step => step.args[0] === "run" && step.args[1] === name).length, 1, pkg.name);
+    }
+});
+
+test("design registry and selectors follow authored identities instead of a second name table", () => {
+    const manifest = readLibraryMetadata();
+    const before = libraryMetadataOutputs(manifest);
+    manifest.designSystems[0].title = "Updated registry title";
+    const after = libraryMetadataOutputs(manifest);
+    assert.equal(before.length, 1);
+    assert.notEqual(before[0].content, after[0].content);
+    assert.ok(after[0].content.includes("Updated registry title"));
+    for (const design of manifest.designSystems) assert.ok(after[0].content.includes(`data-crab-design=\\\"${design.id}\\\"`));
+});
 
 const browserAlive = () => ({ exitCode: null, signalCode: null, launchError: undefined });
 const browserNotExited = new Promise(() => {});
@@ -92,6 +138,40 @@ test("root additional checks derive only from explicit workspace registrations",
     assert.throws(() => requiredCheckPlan([...workspaces, { packageJson: { name: "broken", crab: { requiredChecks: ["test:missing"] } } }]));
 });
 
+test("workspace discovery follows root declarations and rejects unsupported patterns", async () => {
+    const root = await mkdtemp(join(tmpdir(), "crab-workspaces-"));
+    try {
+        for (const path of ["packages/one", "site", "unused"]) {
+            await mkdir(join(root, path), { recursive: true });
+            await writeFile(join(root, path, "package.json"), JSON.stringify({ name: path }));
+        }
+        const writeRoot = (workspaces) => writeFile(join(root, "package.json"), JSON.stringify({ workspaces }));
+        await writeRoot(["packages/*", "site", "site"]);
+        assert.deepEqual((await readWorkspaceManifests({ root })).map((entry) => entry.path), ["packages/one", "site"]);
+        await writeRoot(["packages/**"]);
+        await assert.rejects(readWorkspaceManifests({ root }), /Unsupported workspace pattern/);
+    } finally {
+        await rm(root, { recursive: true, force: true });
+    }
+});
+
+test("wildcard export targets require matching files within the package", async () => {
+    const root = await mkdtemp(join(tmpdir(), "crab-exports-"));
+    try {
+        await mkdir(join(root, "dist", "nested"), { recursive: true });
+        await writeFile(join(root, "dist", "readme.txt"), "unrelated");
+        assert.equal(await verifyTarget(root, "./dist/*.js"), false);
+        assert.equal(await verifyTarget(root, "./dist/nested*"), false);
+        assert.equal(await verifyTarget(root, "../outside/*"), false);
+        await writeFile(join(root, "dist", "nested", "entry.js"), "export {};");
+        assert.equal(await verifyTarget(root, "./dist/*.js"), true);
+        assert.equal(await verifyTarget(root, "./dist/*/entry.js"), true);
+        assert.equal(await verifyTarget(root, "./dist/*.css"), false);
+    } finally {
+        await rm(root, { recursive: true, force: true });
+    }
+});
+
 test("verified design coverage requires source, artifact, matrix and recorded evidence", () => {
     const coverage = { md3: "verified", apple: "partial", shadcn: "partial" };
     const ids = ["md3", "apple", "shadcn"];
@@ -155,12 +235,32 @@ test("additional generated density artifacts participate in CI freshness checks"
     assert.deepEqual(generatedLibraryPaths({ packages }), ["components/tokens/src/density-geometry.ts", "components/tokens/src/token.ts"]);
 });
 
+test('generated runtime assets are restored by their owning build cache without hashing themselves as source', () => {
+    const entry = { name: 'assets', packageJson: { scripts: {}, crab: { generatedArtifacts: { 'build:library': ['public/runtime/**', 'public/runtime/**'] } } } };
+    const other = { name: 'other', packageJson: { scripts: {} } };
+    const manifest = { packages: [entry, other] };
+    const inspection = new Map(manifest.packages.map(product => [product.name, { productionImports: new Set(), testImports: new Set(), tokenImports: new Set() }]));
+    const tasks = createTurboConfig(manifest, inspection).tasks;
+    assert.equal(tasks['assets#build:library'].outputs.filter(file => file === 'public/runtime/**').length, 1);
+    assert.ok(tasks['assets#build:library'].inputs.includes('!public/runtime/**'));
+    assert.ok(!tasks['other#build:library'].outputs.includes('public/runtime/**'));
+    for (const invalid of [null, 'public/runtime/**', [''], ['../source/**'], ['/root/**'], ['C:/outside/**'], ['public\\runtime\\**'], ['!public/runtime/**']]) {
+        entry.packageJson.crab.generatedArtifacts['build:library'] = invalid;
+        assert.throws(() => createTurboConfig(manifest, inspection), /relative positive output patterns/);
+    }
+});
+
 test("workspace checks resolve both direct Yarn entries and Windows shell wrappers", async () => {
     assert.equal(await resolveYarnEntry("/tools/yarn.cjs"), "/tools/yarn.cjs");
     const entry = "C:\\Program Files\\nodejs\\node_modules\\corepack\\dist\\yarn.js";
     const wrapper = `#!/bin/sh\nexec "C:\\Program Files\\nodejs\\node.exe" '${entry}' "$@"\n`;
     assert.equal(await resolveYarnEntry("C:\\Temp\\xfs-123\\yarn", async () => wrapper), entry);
     await assert.rejects(() => resolveYarnEntry("/tmp/yarn", async () => "#!/bin/sh\necho invalid"));
+});
+
+test("workspace check runner preserves child exit codes", async () => {
+    assert.equal(await runYarn("-e", ["process.exit(0)"]), 0);
+    assert.equal(await runYarn("-e", ["process.exit(7)"]), 7);
 });
 
 test("release authorization rejects a different checkout or action SHA, failed run and pull request trigger", () => {
@@ -187,6 +287,18 @@ test("dependency extraction includes public type contracts and lazy runtime impo
     assert.equal(packageName("../../src/index.js"), null);
 });
 
+test("dependency extraction preserves comment markers in strings and ignores actual comments", () => {
+    const imports = extractPackageImports(`
+        const marker = "/*";
+        import { Button } from '@crab-dev/rc-button';
+        /* import Missing from 'not-a-dependency'; */
+        const end = "*/";
+        const url = "https://example.test"; // import('ignored')
+        import('@crab-dev/rc-table');
+    `);
+    assert.deepEqual([...imports].sort(), ["@crab-dev/rc-button", "@crab-dev/rc-table"]);
+});
+
 test("cycles report the dependency path instead of silently omitting prerequisites", () => {
     assert.deepEqual(findDependencyCycle(new Map([["button", ["spin"]], ["spin", ["button"]]])), ["button", "spin", "button"]);
     assert.equal(findDependencyCycle(new Map([["button", ["spin"]], ["spin", []]])), null);
@@ -206,6 +318,10 @@ test("documentation cycles do not enter library builds while token and runtime p
     assert.deepEqual(graph.get("button"), ["spin", "tokens"]);
     assert.equal(findDependencyCycle(graph), null);
     const config = createTurboConfig(manifest, inspection);
+    assert.equal(config.tasks.test.cache, false);
+    assert.equal(config.tasks['@crab-dev/standards-typescript-preset#test'].cache, false);
+    for (const variable of ['RAYON_NUM_THREADS', 'TEMP', 'TMP', 'TMPDIR', 'PLAYWRIGHT_BROWSERS_PATH', 'CRAB_TEST_BROWSER_PATH']) assert.ok(config.globalPassThroughEnv.includes(variable));
+    assert.ok(!config.globalPassThroughEnv.includes('*'));
     assert.deepEqual(config.tasks["preview#build:library"].dependsOn, ["button#build:library"]);
     assert.deepEqual(config.tasks["preview#build:library"].outputs, config.tasks["build:library"].outputs);
 });

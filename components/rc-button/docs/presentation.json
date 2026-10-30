@@ -1,0 +1,40 @@
+{
+    "previewDensity": "compact",
+    "groups": [
+        {
+            "title": "三套风格对照",
+            "demos": [
+                "designs.demo.tsx"
+            ]
+        },
+        {
+            "title": "基础与外观",
+            "demos": [
+                "basic.demo.tsx",
+                "appearance.demo.tsx",
+                "circle.demo.tsx",
+                "danger.demo.tsx",
+                "icon.demo.tsx",
+                "icon-after.demo.tsx",
+                "link-button.demo.tsx",
+                "size.demo.tsx"
+            ]
+        },
+        {
+            "title": "状态与反馈",
+            "demos": [
+                "disabled.demo.tsx",
+                "loading.demo.tsx",
+                "selected.demo.tsx",
+                "visual-matrix.demo.tsx"
+            ]
+        },
+        {
+            "title": "组合",
+            "demos": [
+                "button-group.demo.tsx",
+                "expressive.demo.tsx"
+            ]
+        }
+    ]
+}

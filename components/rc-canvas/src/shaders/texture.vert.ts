@@ -3,7 +3,7 @@
  * 与 flat.vert 相同；UV 传递给片元着色器采样纹理。
  */
 export const TEXTURE_VERT = /* glsl */ `#version 300 es
-precision mediump float;
+precision highp float;
 
 layout(location = 0) in vec2 a_position;
 layout(location = 1) in vec2 a_uv;

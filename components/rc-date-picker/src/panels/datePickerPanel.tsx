@@ -1,14 +1,13 @@
 import { usePickerLocale } from '../locale.js';
+import { temporal, nowZonedDateTime } from '../temporal.js';
 import { useState, useEffect } from 'react';
 import type { HTMLAttributes, RefObject } from 'react';
-import { css, cx } from '@crab-dev/css';
+import { cx } from '@crab-dev/css';
 import { getCalendarMatrix, getWeekDaysHeader, isWithinDateRange } from '../util.js';
 import { ChevronDoubleLeft, ChevronDoubleRight, ChevronLeft, ChevronRight } from '../icons.js';
-import token from '../token.js';
 import Button from '@crab-dev/rc-button';
-import semantic from '@crab-dev/rc-token-semantic';
 import { useConfig } from '@crab-dev/rc-config-provider';
-
+import { isOutOfRangeStyle, centerFlexStyle, panelStyle, headerStyle, monthStyle, timezoneStyle, navigationStyle, calendarCellStyle, calendarHeaderCellContentStyle, calendarDateCellContentStyle, todayStyle, calendarTableStyle } from "./datePickerPanel.styles.js";
 export interface DatePickerPanelInstance {
     keyboardNavigate: (direction: 'left' | 'right' | 'up' | 'down') => void;
 }
@@ -59,104 +58,10 @@ export interface DatePickerPanelProps extends Omit<HTMLAttributes<HTMLDivElement
     instance?: RefObject<DatePickerPanelInstance | null>
 }
 
-const isOutOfRangeStyle = css`
-    &:not(:disabled) { color: ${semantic.color.text.tertiary}; }
-`;
-
-const centerFlexStyle = css`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-`;
-
-const panelStyle = css`
-    width: calc(${token.cell.content.width} * 7);
-    @media (pointer: coarse) { width: calc(${token.cell.touch.width} * 7); }
-    max-width: min(100%, ${token.panel['max-width']});
-    font-size: ${token.panel['font-size']};
-    color: ${semantic.color.text.primary};
-    user-select: none;
-`;
-const headerStyle = css`
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding-block: ${semantic.space['component-gap']};
-`;
-const monthStyle = css`
-    display: grid;
-    gap: ${semantic.space['inline-gap']};
-    text-align: center;
-    white-space: nowrap;
-    font-weight: ${semantic.font.weight.heading};
-    line-height: ${token.header['line-height']};
-`;
-const timezoneStyle = css`
-    font-size: ${semantic.font.size.caption};
-    font-weight: ${semantic.font.weight.body};
-    color: ${semantic.color.text.secondary};
-`;
-const navigationStyle = css`
-    width: ${token.navigation.width};
-    height: ${token.navigation.width};
-    padding: 0;
-`;
-
-const calendarCellStyle = css`
-    text-align: center;
-    vertical-align: middle;
-    padding: 0;
-`;
-
-const calendarHeaderCellContentStyle = css`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: ${token.header.cell.height};
-    font-size: ${token.header["font-size"]};
-    font-weight: ${token.header["font-weight"]};
-    line-height: ${token.header.cell.height};
-    box-sizing: border-box;
-`;
-
-const calendarDateCellContentStyle = css`
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: ${token.cell["border-radius"]};
-    width: min(${token.cell.content.width}, 100%);
-    min-width: 0;
-    height: ${token.cell.content.width};
-    @media (pointer: coarse) { min-height: ${token.cell.touch.width}; min-width: min(${token.cell.touch.width}, 100%); }
-    line-height: ${token.cell.content.width};
-    font-size: ${token.cell["font-size"]};
-    font-weight: ${token.cell["font-weight"]};
-    margin: 0 auto;
-    padding: 0;
-    box-sizing: border-box;
-    /* 常驻过渡：hover 进出与选中切换获得对称、即时的颜色反馈 */
-    transition: background-color ${token.cell.transition}, color ${token.cell.transition};
-    @media (prefers-reduced-motion: reduce) { transition: none; }
-    @media (forced-colors: active) { &[aria-pressed="true"] { outline: 2px solid Highlight; } }
-`;
-
-const todayStyle = css`
-    &&:not([aria-pressed="true"]):not(:disabled) {
-        color: ${token.cell.today.color};
-        border: ${token.cell.today['border-width']} solid ${token.cell.today['border-color']};
-    }
-`;
-
-const calendarTableStyle = css`
-    width: 100%;
-    table-layout: fixed;
-    border-collapse: collapse;
-`;
-
 
 const DatePickerPanel = ({
     value,
-    timeZone = Temporal.Now.timeZoneId(),
+    timeZone = temporal.Now.timeZoneId(),
     weekStartDay = 1,
     locale: localeProp,
     selectValues = [],
@@ -170,12 +75,12 @@ const DatePickerPanel = ({
     const isRtl = (restProps.dir ?? direction) === 'rtl';
     const viewValue = value.withTimeZone(timeZone);
     const [viewDate, setViewDate] = useState(viewValue);
-    const [today, setToday] = useState(() => Temporal.Now.zonedDateTimeISO(timeZone).toPlainDate());
+    const [today, setToday] = useState(() => nowZonedDateTime(timeZone).toPlainDate());
 
     useEffect(() => {
         let midnight: ReturnType<typeof setTimeout>;
         const updateToday = () => {
-            const now = Temporal.Now.zonedDateTimeISO(timeZone);
+            const now = nowZonedDateTime(timeZone);
             const nextDate = now.toPlainDate();
             setToday(previous => previous.equals(nextDate) ? previous : nextDate);
             // Midnight follows the picker zone, including daylight-saving day lengths.
@@ -229,7 +134,7 @@ const DatePickerPanel = ({
         viewDate.year === element.year && viewDate.month === element.month;
 
     const isSelected = (element: Temporal.ZonedDateTime) =>
-        selectValues.some((v) => v.withTimeZone(timeZone).toPlainDate().equals(element.toPlainDate()));
+        selectValues.some((v) => v.withTimeZone(timeZone).toPlainDate().equals(element.toPlainDate().toString()));
 
     const rangeStart = range?.start ? range.start.withTimeZone(timeZone) : null;
     const rangeEnd = range?.end ? range.end.withTimeZone(timeZone) : null;

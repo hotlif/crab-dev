@@ -13,6 +13,7 @@ type ClipboardEventHandler<T0 = unknown> = DocsTypePlaceholder & { readonly __do
 type CompositionEventHandler<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 type CSSProperties = DocsTypePlaceholder;
 type DragEventHandler<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
+type Element = DocsTypePlaceholder;
 type FocusEventHandler<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 type HTMLTextAreaElement = DocsTypePlaceholder;
 type InputEventHandler<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
@@ -30,6 +31,276 @@ type UIEventHandler<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeA
 type WheelEventHandler<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 
 export interface TextEditPropsNativeAttributes {
+    /**
+     * 暂无说明。
+     */
+    "title"?: string | undefined;
+
+    /**
+     * React-specific Attributes
+     */
+    "defaultChecked"?: boolean | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "suppressContentEditableWarning"?: boolean | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "suppressHydrationWarning"?: boolean | undefined;
+
+    /**
+     * Standard HTML Attributes
+     */
+    "accessKey"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "autoCapitalize"?: "off" | "none" | "on" | "sentences" | "words" | "characters" | undefined | (string & {});
+
+    /**
+     * 暂无说明。
+     */
+    "autoFocus"?: boolean | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "className"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "contentEditable"?: Booleanish | "inherit" | "plaintext-only" | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "contextMenu"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "dir"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "draggable"?: Booleanish | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "enterKeyHint"?: "enter" | "done" | "go" | "next" | "previous" | "search" | "send" | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "hidden"?: boolean | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "id"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "lang"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "nonce"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "slot"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "spellCheck"?: Booleanish | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "style"?: CSSProperties | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "tabIndex"?: number | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "translate"?: "yes" | "no" | undefined;
+
+    /**
+     * Unknown
+     */
+    "radioGroup"?: string | undefined;
+
+    /**
+     * WAI-ARIA
+     */
+    "role"?: AriaRole | undefined;
+
+    /**
+     * RDFa Attributes
+     */
+    "about"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "content"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "datatype"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "inlist"?: any;
+
+    /**
+     * 暂无说明。
+     */
+    "prefix"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "property"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "rel"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "resource"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "rev"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "typeof"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "vocab"?: string | undefined;
+
+    /**
+     * Non-standard Attributes
+     */
+    "autoCorrect"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "autoSave"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "color"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "itemProp"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "itemScope"?: boolean | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "itemType"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "itemID"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "itemRef"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "results"?: number | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "security"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "unselectable"?: "on" | "off" | undefined;
+
+    /**
+     * Popover API
+     */
+    "popover"?: "" | "auto" | "manual" | "hint" | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "popoverTargetAction"?: "toggle" | "show" | "hide" | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "popoverTarget"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "inert"?: boolean | undefined;
+
+    /**
+     * Hints at the type of data that might be entered by the user while editing the element or its contents
+     */
+    "inputMode"?: "none" | "text" | "tel" | "url" | "email" | "numeric" | "decimal" | "search" | undefined;
+
+    /**
+     * Specify that a standard HTML element should behave like a defined custom built-in element
+     */
+    "is"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "exportparts"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "part"?: string | undefined;
+
     /**
      * Identifies the currently active element when DOM focus is on a composite widget, textbox, group, or application.
      */
@@ -310,1124 +581,849 @@ export interface TextEditPropsNativeAttributes {
     /**
      * Clipboard Events
      */
-    "onCopy"?: ClipboardEventHandler<HTMLTextAreaElement> | undefined;
+    "onCopy"?: ClipboardEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onCopyCapture"?: ClipboardEventHandler<HTMLTextAreaElement> | undefined;
+    "onCopyCapture"?: ClipboardEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onCut"?: ClipboardEventHandler<HTMLTextAreaElement> | undefined;
+    "onCut"?: ClipboardEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onCutCapture"?: ClipboardEventHandler<HTMLTextAreaElement> | undefined;
+    "onCutCapture"?: ClipboardEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onPaste"?: ClipboardEventHandler<HTMLTextAreaElement> | undefined;
+    "onPaste"?: ClipboardEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onPasteCapture"?: ClipboardEventHandler<HTMLTextAreaElement> | undefined;
+    "onPasteCapture"?: ClipboardEventHandler<HTMLTextAreaElement>;
 
     /**
      * Composition Events
      */
-    "onCompositionEnd"?: CompositionEventHandler<HTMLTextAreaElement> | undefined;
+    "onCompositionEnd"?: CompositionEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onCompositionEndCapture"?: CompositionEventHandler<HTMLTextAreaElement> | undefined;
+    "onCompositionEndCapture"?: CompositionEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onCompositionStart"?: CompositionEventHandler<HTMLTextAreaElement> | undefined;
+    "onCompositionStart"?: CompositionEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onCompositionStartCapture"?: CompositionEventHandler<HTMLTextAreaElement> | undefined;
+    "onCompositionStartCapture"?: CompositionEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onCompositionUpdate"?: CompositionEventHandler<HTMLTextAreaElement> | undefined;
+    "onCompositionUpdate"?: CompositionEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onCompositionUpdateCapture"?: CompositionEventHandler<HTMLTextAreaElement> | undefined;
+    "onCompositionUpdateCapture"?: CompositionEventHandler<HTMLTextAreaElement>;
 
     /**
      * Focus Events
      */
-    "onFocus"?: FocusEventHandler<HTMLTextAreaElement> | undefined;
+    "onFocus"?: FocusEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onFocusCapture"?: FocusEventHandler<HTMLTextAreaElement> | undefined;
+    "onFocusCapture"?: FocusEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onBlur"?: FocusEventHandler<HTMLTextAreaElement> | undefined;
+    "onBlur"?: FocusEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onBlurCapture"?: FocusEventHandler<HTMLTextAreaElement> | undefined;
+    "onBlurCapture"?: FocusEventHandler<HTMLTextAreaElement>;
+
+    /**
+     * No other element dispatching change events can be nested in a <textarea> so we know the target will be a HTMLTextAreaElement.
+     */
+    "onChange"?: ChangeEventHandler<HTMLTextAreaElement, HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onChangeCapture"?: ChangeEventHandler<HTMLTextAreaElement> | undefined;
+    "onChangeCapture"?: ChangeEventHandler<HTMLTextAreaElement, Element>;
 
     /**
      * 暂无说明。
      */
-    "onBeforeInput"?: InputEventHandler<HTMLTextAreaElement> | undefined;
+    "onBeforeInput"?: InputEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onBeforeInputCapture"?: InputEventHandler<HTMLTextAreaElement> | undefined;
+    "onBeforeInputCapture"?: InputEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onInput"?: InputEventHandler<HTMLTextAreaElement> | undefined;
+    "onInput"?: InputEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onInputCapture"?: InputEventHandler<HTMLTextAreaElement> | undefined;
+    "onInputCapture"?: InputEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onReset"?: ReactEventHandler<HTMLTextAreaElement> | undefined;
+    "onReset"?: ReactEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onResetCapture"?: ReactEventHandler<HTMLTextAreaElement> | undefined;
+    "onResetCapture"?: ReactEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onSubmit"?: SubmitEventHandler<HTMLTextAreaElement> | undefined;
+    "onSubmit"?: SubmitEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onSubmitCapture"?: SubmitEventHandler<HTMLTextAreaElement> | undefined;
+    "onSubmitCapture"?: SubmitEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onInvalid"?: ReactEventHandler<HTMLTextAreaElement> | undefined;
+    "onInvalid"?: ReactEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onInvalidCapture"?: ReactEventHandler<HTMLTextAreaElement> | undefined;
+    "onInvalidCapture"?: ReactEventHandler<HTMLTextAreaElement>;
 
     /**
      * Image Events
      */
-    "onLoad"?: ReactEventHandler<HTMLTextAreaElement> | undefined;
+    "onLoad"?: ReactEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onLoadCapture"?: ReactEventHandler<HTMLTextAreaElement> | undefined;
+    "onLoadCapture"?: ReactEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onError"?: ReactEventHandler<HTMLTextAreaElement> | undefined;
+    "onError"?: ReactEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onErrorCapture"?: ReactEventHandler<HTMLTextAreaElement> | undefined;
+    "onErrorCapture"?: ReactEventHandler<HTMLTextAreaElement>;
 
     /**
      * Keyboard Events
      */
-    "onKeyDown"?: KeyboardEventHandler<HTMLTextAreaElement> | undefined;
+    "onKeyDown"?: KeyboardEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onKeyDownCapture"?: KeyboardEventHandler<HTMLTextAreaElement> | undefined;
-
-    /**
-     * 暂无说明。
-     * @deprecated
-     */
-    "onKeyPress"?: KeyboardEventHandler<HTMLTextAreaElement> | undefined;
+    "onKeyDownCapture"?: KeyboardEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      * @deprecated
      */
-    "onKeyPressCapture"?: KeyboardEventHandler<HTMLTextAreaElement> | undefined;
+    "onKeyPress"?: KeyboardEventHandler<HTMLTextAreaElement>;
+
+    /**
+     * 暂无说明。
+     * @deprecated
+     */
+    "onKeyPressCapture"?: KeyboardEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onKeyUp"?: KeyboardEventHandler<HTMLTextAreaElement> | undefined;
+    "onKeyUp"?: KeyboardEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onKeyUpCapture"?: KeyboardEventHandler<HTMLTextAreaElement> | undefined;
+    "onKeyUpCapture"?: KeyboardEventHandler<HTMLTextAreaElement>;
 
     /**
      * Media Events
      */
-    "onAbort"?: ReactEventHandler<HTMLTextAreaElement> | undefined;
+    "onAbort"?: ReactEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onAbortCapture"?: ReactEventHandler<HTMLTextAreaElement> | undefined;
+    "onAbortCapture"?: ReactEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onCanPlay"?: ReactEventHandler<HTMLTextAreaElement> | undefined;
+    "onCanPlay"?: ReactEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onCanPlayCapture"?: ReactEventHandler<HTMLTextAreaElement> | undefined;
+    "onCanPlayCapture"?: ReactEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onCanPlayThrough"?: ReactEventHandler<HTMLTextAreaElement> | undefined;
+    "onCanPlayThrough"?: ReactEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onCanPlayThroughCapture"?: ReactEventHandler<HTMLTextAreaElement> | undefined;
+    "onCanPlayThroughCapture"?: ReactEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onDurationChange"?: ReactEventHandler<HTMLTextAreaElement> | undefined;
+    "onDurationChange"?: ReactEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onDurationChangeCapture"?: ReactEventHandler<HTMLTextAreaElement> | undefined;
+    "onDurationChangeCapture"?: ReactEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onEmptied"?: ReactEventHandler<HTMLTextAreaElement> | undefined;
+    "onEmptied"?: ReactEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onEmptiedCapture"?: ReactEventHandler<HTMLTextAreaElement> | undefined;
+    "onEmptiedCapture"?: ReactEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onEncrypted"?: ReactEventHandler<HTMLTextAreaElement> | undefined;
+    "onEncrypted"?: ReactEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onEncryptedCapture"?: ReactEventHandler<HTMLTextAreaElement> | undefined;
+    "onEncryptedCapture"?: ReactEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onEnded"?: ReactEventHandler<HTMLTextAreaElement> | undefined;
+    "onEnded"?: ReactEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onEndedCapture"?: ReactEventHandler<HTMLTextAreaElement> | undefined;
+    "onEndedCapture"?: ReactEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onLoadedData"?: ReactEventHandler<HTMLTextAreaElement> | undefined;
+    "onLoadedData"?: ReactEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onLoadedDataCapture"?: ReactEventHandler<HTMLTextAreaElement> | undefined;
+    "onLoadedDataCapture"?: ReactEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onLoadedMetadata"?: ReactEventHandler<HTMLTextAreaElement> | undefined;
+    "onLoadedMetadata"?: ReactEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onLoadedMetadataCapture"?: ReactEventHandler<HTMLTextAreaElement> | undefined;
+    "onLoadedMetadataCapture"?: ReactEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onLoadStart"?: ReactEventHandler<HTMLTextAreaElement> | undefined;
+    "onLoadStart"?: ReactEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onLoadStartCapture"?: ReactEventHandler<HTMLTextAreaElement> | undefined;
+    "onLoadStartCapture"?: ReactEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onPause"?: ReactEventHandler<HTMLTextAreaElement> | undefined;
+    "onPause"?: ReactEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onPauseCapture"?: ReactEventHandler<HTMLTextAreaElement> | undefined;
+    "onPauseCapture"?: ReactEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onPlay"?: ReactEventHandler<HTMLTextAreaElement> | undefined;
+    "onPlay"?: ReactEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onPlayCapture"?: ReactEventHandler<HTMLTextAreaElement> | undefined;
+    "onPlayCapture"?: ReactEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onPlaying"?: ReactEventHandler<HTMLTextAreaElement> | undefined;
+    "onPlaying"?: ReactEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onPlayingCapture"?: ReactEventHandler<HTMLTextAreaElement> | undefined;
+    "onPlayingCapture"?: ReactEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onProgress"?: ReactEventHandler<HTMLTextAreaElement> | undefined;
+    "onProgress"?: ReactEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onProgressCapture"?: ReactEventHandler<HTMLTextAreaElement> | undefined;
+    "onProgressCapture"?: ReactEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onRateChange"?: ReactEventHandler<HTMLTextAreaElement> | undefined;
+    "onRateChange"?: ReactEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onRateChangeCapture"?: ReactEventHandler<HTMLTextAreaElement> | undefined;
+    "onRateChangeCapture"?: ReactEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onSeeked"?: ReactEventHandler<HTMLTextAreaElement> | undefined;
+    "onSeeked"?: ReactEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onSeekedCapture"?: ReactEventHandler<HTMLTextAreaElement> | undefined;
+    "onSeekedCapture"?: ReactEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onSeeking"?: ReactEventHandler<HTMLTextAreaElement> | undefined;
+    "onSeeking"?: ReactEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onSeekingCapture"?: ReactEventHandler<HTMLTextAreaElement> | undefined;
+    "onSeekingCapture"?: ReactEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onStalled"?: ReactEventHandler<HTMLTextAreaElement> | undefined;
+    "onStalled"?: ReactEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onStalledCapture"?: ReactEventHandler<HTMLTextAreaElement> | undefined;
+    "onStalledCapture"?: ReactEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onSuspend"?: ReactEventHandler<HTMLTextAreaElement> | undefined;
+    "onSuspend"?: ReactEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onSuspendCapture"?: ReactEventHandler<HTMLTextAreaElement> | undefined;
+    "onSuspendCapture"?: ReactEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onTimeUpdate"?: ReactEventHandler<HTMLTextAreaElement> | undefined;
+    "onTimeUpdate"?: ReactEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onTimeUpdateCapture"?: ReactEventHandler<HTMLTextAreaElement> | undefined;
+    "onTimeUpdateCapture"?: ReactEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onVolumeChange"?: ReactEventHandler<HTMLTextAreaElement> | undefined;
+    "onVolumeChange"?: ReactEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onVolumeChangeCapture"?: ReactEventHandler<HTMLTextAreaElement> | undefined;
+    "onVolumeChangeCapture"?: ReactEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onWaiting"?: ReactEventHandler<HTMLTextAreaElement> | undefined;
+    "onWaiting"?: ReactEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onWaitingCapture"?: ReactEventHandler<HTMLTextAreaElement> | undefined;
+    "onWaitingCapture"?: ReactEventHandler<HTMLTextAreaElement>;
 
     /**
      * MouseEvents
      */
-    "onAuxClick"?: MouseEventHandler<HTMLTextAreaElement> | undefined;
+    "onAuxClick"?: MouseEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onAuxClickCapture"?: MouseEventHandler<HTMLTextAreaElement> | undefined;
+    "onAuxClickCapture"?: MouseEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onClick"?: MouseEventHandler<HTMLTextAreaElement> | undefined;
+    "onClick"?: MouseEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onClickCapture"?: MouseEventHandler<HTMLTextAreaElement> | undefined;
+    "onClickCapture"?: MouseEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onContextMenu"?: MouseEventHandler<HTMLTextAreaElement> | undefined;
+    "onContextMenu"?: MouseEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onContextMenuCapture"?: MouseEventHandler<HTMLTextAreaElement> | undefined;
+    "onContextMenuCapture"?: MouseEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onDoubleClick"?: MouseEventHandler<HTMLTextAreaElement> | undefined;
+    "onDoubleClick"?: MouseEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onDoubleClickCapture"?: MouseEventHandler<HTMLTextAreaElement> | undefined;
+    "onDoubleClickCapture"?: MouseEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onDrag"?: DragEventHandler<HTMLTextAreaElement> | undefined;
+    "onDrag"?: DragEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onDragCapture"?: DragEventHandler<HTMLTextAreaElement> | undefined;
+    "onDragCapture"?: DragEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onDragEnd"?: DragEventHandler<HTMLTextAreaElement> | undefined;
+    "onDragEnd"?: DragEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onDragEndCapture"?: DragEventHandler<HTMLTextAreaElement> | undefined;
+    "onDragEndCapture"?: DragEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onDragEnter"?: DragEventHandler<HTMLTextAreaElement> | undefined;
+    "onDragEnter"?: DragEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onDragEnterCapture"?: DragEventHandler<HTMLTextAreaElement> | undefined;
+    "onDragEnterCapture"?: DragEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onDragExit"?: DragEventHandler<HTMLTextAreaElement> | undefined;
+    "onDragExit"?: DragEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onDragExitCapture"?: DragEventHandler<HTMLTextAreaElement> | undefined;
+    "onDragExitCapture"?: DragEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onDragLeave"?: DragEventHandler<HTMLTextAreaElement> | undefined;
+    "onDragLeave"?: DragEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onDragLeaveCapture"?: DragEventHandler<HTMLTextAreaElement> | undefined;
+    "onDragLeaveCapture"?: DragEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onDragOver"?: DragEventHandler<HTMLTextAreaElement> | undefined;
+    "onDragOver"?: DragEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onDragOverCapture"?: DragEventHandler<HTMLTextAreaElement> | undefined;
+    "onDragOverCapture"?: DragEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onDragStart"?: DragEventHandler<HTMLTextAreaElement> | undefined;
+    "onDragStart"?: DragEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onDragStartCapture"?: DragEventHandler<HTMLTextAreaElement> | undefined;
+    "onDragStartCapture"?: DragEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onDrop"?: DragEventHandler<HTMLTextAreaElement> | undefined;
+    "onDrop"?: DragEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onDropCapture"?: DragEventHandler<HTMLTextAreaElement> | undefined;
+    "onDropCapture"?: DragEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onMouseDown"?: MouseEventHandler<HTMLTextAreaElement> | undefined;
+    "onMouseDown"?: MouseEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onMouseDownCapture"?: MouseEventHandler<HTMLTextAreaElement> | undefined;
+    "onMouseDownCapture"?: MouseEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onMouseEnter"?: MouseEventHandler<HTMLTextAreaElement> | undefined;
+    "onMouseEnter"?: MouseEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onMouseLeave"?: MouseEventHandler<HTMLTextAreaElement> | undefined;
+    "onMouseLeave"?: MouseEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onMouseMove"?: MouseEventHandler<HTMLTextAreaElement> | undefined;
+    "onMouseMove"?: MouseEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onMouseMoveCapture"?: MouseEventHandler<HTMLTextAreaElement> | undefined;
+    "onMouseMoveCapture"?: MouseEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onMouseOut"?: MouseEventHandler<HTMLTextAreaElement> | undefined;
+    "onMouseOut"?: MouseEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onMouseOutCapture"?: MouseEventHandler<HTMLTextAreaElement> | undefined;
+    "onMouseOutCapture"?: MouseEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onMouseOver"?: MouseEventHandler<HTMLTextAreaElement> | undefined;
+    "onMouseOver"?: MouseEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onMouseOverCapture"?: MouseEventHandler<HTMLTextAreaElement> | undefined;
+    "onMouseOverCapture"?: MouseEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onMouseUp"?: MouseEventHandler<HTMLTextAreaElement> | undefined;
+    "onMouseUp"?: MouseEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onMouseUpCapture"?: MouseEventHandler<HTMLTextAreaElement> | undefined;
+    "onMouseUpCapture"?: MouseEventHandler<HTMLTextAreaElement>;
 
     /**
      * Selection Events
      */
-    "onSelect"?: ReactEventHandler<HTMLTextAreaElement> | undefined;
+    "onSelect"?: ReactEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onSelectCapture"?: ReactEventHandler<HTMLTextAreaElement> | undefined;
+    "onSelectCapture"?: ReactEventHandler<HTMLTextAreaElement>;
 
     /**
      * Touch Events
      */
-    "onTouchCancel"?: TouchEventHandler<HTMLTextAreaElement> | undefined;
+    "onTouchCancel"?: TouchEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onTouchCancelCapture"?: TouchEventHandler<HTMLTextAreaElement> | undefined;
+    "onTouchCancelCapture"?: TouchEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onTouchEnd"?: TouchEventHandler<HTMLTextAreaElement> | undefined;
+    "onTouchEnd"?: TouchEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onTouchEndCapture"?: TouchEventHandler<HTMLTextAreaElement> | undefined;
+    "onTouchEndCapture"?: TouchEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onTouchMove"?: TouchEventHandler<HTMLTextAreaElement> | undefined;
+    "onTouchMove"?: TouchEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onTouchMoveCapture"?: TouchEventHandler<HTMLTextAreaElement> | undefined;
+    "onTouchMoveCapture"?: TouchEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onTouchStart"?: TouchEventHandler<HTMLTextAreaElement> | undefined;
+    "onTouchStart"?: TouchEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onTouchStartCapture"?: TouchEventHandler<HTMLTextAreaElement> | undefined;
+    "onTouchStartCapture"?: TouchEventHandler<HTMLTextAreaElement>;
 
     /**
      * Pointer Events
      */
-    "onPointerDown"?: PointerEventHandler<HTMLTextAreaElement> | undefined;
+    "onPointerDown"?: PointerEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onPointerDownCapture"?: PointerEventHandler<HTMLTextAreaElement> | undefined;
+    "onPointerDownCapture"?: PointerEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onPointerMove"?: PointerEventHandler<HTMLTextAreaElement> | undefined;
+    "onPointerMove"?: PointerEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onPointerMoveCapture"?: PointerEventHandler<HTMLTextAreaElement> | undefined;
+    "onPointerMoveCapture"?: PointerEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onPointerUp"?: PointerEventHandler<HTMLTextAreaElement> | undefined;
+    "onPointerUp"?: PointerEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onPointerUpCapture"?: PointerEventHandler<HTMLTextAreaElement> | undefined;
+    "onPointerUpCapture"?: PointerEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onPointerCancel"?: PointerEventHandler<HTMLTextAreaElement> | undefined;
+    "onPointerCancel"?: PointerEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onPointerCancelCapture"?: PointerEventHandler<HTMLTextAreaElement> | undefined;
+    "onPointerCancelCapture"?: PointerEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onPointerEnter"?: PointerEventHandler<HTMLTextAreaElement> | undefined;
+    "onPointerEnter"?: PointerEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onPointerLeave"?: PointerEventHandler<HTMLTextAreaElement> | undefined;
+    "onPointerLeave"?: PointerEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onPointerOver"?: PointerEventHandler<HTMLTextAreaElement> | undefined;
+    "onPointerOver"?: PointerEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onPointerOverCapture"?: PointerEventHandler<HTMLTextAreaElement> | undefined;
+    "onPointerOverCapture"?: PointerEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onPointerOut"?: PointerEventHandler<HTMLTextAreaElement> | undefined;
+    "onPointerOut"?: PointerEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onPointerOutCapture"?: PointerEventHandler<HTMLTextAreaElement> | undefined;
+    "onPointerOutCapture"?: PointerEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onGotPointerCapture"?: PointerEventHandler<HTMLTextAreaElement> | undefined;
+    "onGotPointerCapture"?: PointerEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onGotPointerCaptureCapture"?: PointerEventHandler<HTMLTextAreaElement> | undefined;
+    "onGotPointerCaptureCapture"?: PointerEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onLostPointerCapture"?: PointerEventHandler<HTMLTextAreaElement> | undefined;
+    "onLostPointerCapture"?: PointerEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onLostPointerCaptureCapture"?: PointerEventHandler<HTMLTextAreaElement> | undefined;
+    "onLostPointerCaptureCapture"?: PointerEventHandler<HTMLTextAreaElement>;
 
     /**
      * UI Events
      */
-    "onScroll"?: UIEventHandler<HTMLTextAreaElement> | undefined;
+    "onScroll"?: UIEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onScrollCapture"?: UIEventHandler<HTMLTextAreaElement> | undefined;
+    "onScrollCapture"?: UIEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onScrollEnd"?: UIEventHandler<HTMLTextAreaElement> | undefined;
+    "onScrollEnd"?: UIEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onScrollEndCapture"?: UIEventHandler<HTMLTextAreaElement> | undefined;
+    "onScrollEndCapture"?: UIEventHandler<HTMLTextAreaElement>;
 
     /**
      * Wheel Events
      */
-    "onWheel"?: WheelEventHandler<HTMLTextAreaElement> | undefined;
+    "onWheel"?: WheelEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onWheelCapture"?: WheelEventHandler<HTMLTextAreaElement> | undefined;
+    "onWheelCapture"?: WheelEventHandler<HTMLTextAreaElement>;
 
     /**
      * Animation Events
      */
-    "onAnimationStart"?: AnimationEventHandler<HTMLTextAreaElement> | undefined;
+    "onAnimationStart"?: AnimationEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onAnimationStartCapture"?: AnimationEventHandler<HTMLTextAreaElement> | undefined;
+    "onAnimationStartCapture"?: AnimationEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onAnimationEnd"?: AnimationEventHandler<HTMLTextAreaElement> | undefined;
+    "onAnimationEnd"?: AnimationEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onAnimationEndCapture"?: AnimationEventHandler<HTMLTextAreaElement> | undefined;
+    "onAnimationEndCapture"?: AnimationEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onAnimationIteration"?: AnimationEventHandler<HTMLTextAreaElement> | undefined;
+    "onAnimationIteration"?: AnimationEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onAnimationIterationCapture"?: AnimationEventHandler<HTMLTextAreaElement> | undefined;
+    "onAnimationIterationCapture"?: AnimationEventHandler<HTMLTextAreaElement>;
 
     /**
      * Toggle Events
      */
-    "onToggle"?: ToggleEventHandler<HTMLTextAreaElement> | undefined;
+    "onToggle"?: ToggleEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onBeforeToggle"?: ToggleEventHandler<HTMLTextAreaElement> | undefined;
+    "onBeforeToggle"?: ToggleEventHandler<HTMLTextAreaElement>;
 
     /**
      * Transition Events
      */
-    "onTransitionCancel"?: TransitionEventHandler<HTMLTextAreaElement> | undefined;
+    "onTransitionCancel"?: TransitionEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onTransitionCancelCapture"?: TransitionEventHandler<HTMLTextAreaElement> | undefined;
+    "onTransitionCancelCapture"?: TransitionEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onTransitionEnd"?: TransitionEventHandler<HTMLTextAreaElement> | undefined;
+    "onTransitionEnd"?: TransitionEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onTransitionEndCapture"?: TransitionEventHandler<HTMLTextAreaElement> | undefined;
+    "onTransitionEndCapture"?: TransitionEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onTransitionRun"?: TransitionEventHandler<HTMLTextAreaElement> | undefined;
+    "onTransitionRun"?: TransitionEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onTransitionRunCapture"?: TransitionEventHandler<HTMLTextAreaElement> | undefined;
+    "onTransitionRunCapture"?: TransitionEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onTransitionStart"?: TransitionEventHandler<HTMLTextAreaElement> | undefined;
+    "onTransitionStart"?: TransitionEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "onTransitionStartCapture"?: TransitionEventHandler<HTMLTextAreaElement> | undefined;
-
-    /**
-     * React-specific Attributes
-     */
-    "defaultChecked"?: boolean | undefined;
+    "onTransitionStartCapture"?: TransitionEventHandler<HTMLTextAreaElement>;
 
     /**
      * 暂无说明。
      */
-    "suppressContentEditableWarning"?: boolean | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "suppressHydrationWarning"?: boolean | undefined;
-
-    /**
-     * Standard HTML Attributes
-     */
-    "accessKey"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "autoCapitalize"?: "off" | "none" | "on" | "sentences" | "words" | "characters" | undefined | (string & {});
-
-    /**
-     * 暂无说明。
-     */
-    "autoFocus"?: boolean | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "className"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "contentEditable"?: Booleanish | "inherit" | "plaintext-only" | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "contextMenu"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "dir"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "draggable"?: Booleanish | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "enterKeyHint"?: "enter" | "done" | "go" | "next" | "previous" | "search" | "send" | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "hidden"?: boolean | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "id"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "lang"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "nonce"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "slot"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "spellCheck"?: Booleanish | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "style"?: CSSProperties | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "tabIndex"?: number | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "title"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "translate"?: "yes" | "no" | undefined;
-
-    /**
-     * Unknown
-     */
-    "radioGroup"?: string | undefined;
-
-    /**
-     * WAI-ARIA
-     */
-    "role"?: AriaRole | undefined;
-
-    /**
-     * RDFa Attributes
-     */
-    "about"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "content"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "datatype"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "inlist"?: any;
-
-    /**
-     * 暂无说明。
-     */
-    "prefix"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "property"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "rel"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "resource"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "rev"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "typeof"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "vocab"?: string | undefined;
-
-    /**
-     * Non-standard Attributes
-     */
-    "autoCorrect"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "autoSave"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "color"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "itemProp"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "itemScope"?: boolean | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "itemType"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "itemID"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "itemRef"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "results"?: number | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "security"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "unselectable"?: "on" | "off" | undefined;
-
-    /**
-     * Popover API
-     */
-    "popover"?: "" | "auto" | "manual" | "hint" | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "popoverTargetAction"?: "toggle" | "show" | "hide" | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "popoverTarget"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "inert"?: boolean | undefined;
-
-    /**
-     * Hints at the type of data that might be entered by the user while editing the element or its contents
-     */
-    "inputMode"?: "none" | "text" | "tel" | "url" | "email" | "numeric" | "decimal" | "search" | undefined;
-
-    /**
-     * Specify that a standard HTML element should behave like a defined custom built-in element
-     */
-    "is"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "exportparts"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "part"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "autoComplete"?: string | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "cols"?: number | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "dirName"?: string | undefined;
+    "form"?: string | undefined;
 
     /**
      * 暂无说明。
@@ -1437,7 +1433,12 @@ export interface TextEditPropsNativeAttributes {
     /**
      * 暂无说明。
      */
-    "form"?: string | undefined;
+    "name"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "autoComplete"?: string | undefined;
 
     /**
      * 暂无说明。
@@ -1448,11 +1449,6 @@ export interface TextEditPropsNativeAttributes {
      * 暂无说明。
      */
     "minLength"?: number | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "name"?: string | undefined;
 
     /**
      * 暂无说明。
@@ -1472,15 +1468,20 @@ export interface TextEditPropsNativeAttributes {
     /**
      * 暂无说明。
      */
+    "cols"?: number | undefined;
+
+    /**
+     * 暂无说明。
+     */
+    "dirName"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
     "rows"?: number | undefined;
 
     /**
      * 暂无说明。
      */
     "wrap"?: string | undefined;
-
-    /**
-     * No other element dispatching change events can be nested in a <textarea> so we know the target will be a HTMLTextAreaElement.
-     */
-    "onChange"?: ChangeEventHandler<HTMLTextAreaElement, HTMLTextAreaElement> | undefined;
 }

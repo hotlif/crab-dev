@@ -31,15 +31,15 @@ export interface FormProps {
     /**
      * 暂无说明。
      */
-    "onSubmitSuccess"?: (record: T) => void | Promise<void>;
+    "onSubmitSuccess"?: ((record: T) => void | Promise<void>);
 
     /**
      * 第一参数保留原数据协议，第二参数提供结构化错误。
      */
-    "onSubmitFailed"?: (record: T, error: FormValidationError<T>) => void | Promise<void>;
+    "onSubmitFailed"?: ((record: T, error: FormValidationError<T>) => void | Promise<void>);
 
     /**
      * 暂无说明。
      */
-    "onFieldValueChange"?: (changed: FieldChange<T>, allValues: T) => void | Promise<void>;
+    "onFieldValueChange"?: ((changed: FieldChange<T>, allValues: T) => void | Promise<void>);
 }

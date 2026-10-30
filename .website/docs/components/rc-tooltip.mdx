@@ -20,11 +20,17 @@ import { demos } from "../_generated/rc-tooltip.js";
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
 
-##### 箭头 — 默认无箭头；设置 arrow=（true） 可启用项目扩展的箭头样式。
+#### 规格验收
+
+##### 三体系文字提示矩阵 — 鼠标、键盘、箭头扩展与长文本在真实浮层中验收。
+
+#### 基础与位置
 
 ##### 基础用法 — 鼠标悬停或键盘聚焦按钮时展示提示文字，按 Escape 关闭。
 
 ##### 位置 — 宽屏留出展示空间以观察 12 个首选方位；窄屏中按钮随容器收缩，提示会根据可用空间自动翻转。
+
+##### 箭头 — 默认无箭头；设置 arrow=（true） 可启用项目扩展的箭头样式。
 
 </div>
 
@@ -56,6 +62,22 @@ import { demos } from "../_generated/rc-tooltip.js";
 
 提示用于补充简短说明。重要信息应直接呈现；含操作按钮的内容应使用相应弹层，不要把 plain tooltip 当作富交互容器。
 
+
+### 三体系规格与验收矩阵（2026-10-29）
+
+| 体系 | 视觉规格 | 边界 |
+| --- | --- | --- |
+| MD3 Expressive | plain tooltip 的 inverse surface / inverse on-surface、body-small 字阶、extra-small 形状 | 不含操作的补充说明；默认无箭头，arrow 是本库扩展 |
+| Apple | 轻面板、细边界、清晰文字和柔和阴影 | 依据 popover 原则的自主 Web 文字提示，不宣称原生平台 tooltip 复刻 |
+| shadcn New York V4 | inverse 中性表面、紧凑内边距与圆角 | 保留本库默认无箭头及延迟协议，区别于固定参考的箭头样式 |
+
+表面与形状来自 `overlay.tooltip.*`，L3 控制局部排版与宽度。Tooltip 不提供公开 size/density；触发控件仍独立接受配置。提示不可承载必需信息或交互动作；键盘 focus-visible 与 hover 采用同一说明，Escape 关闭，aria-describedby 指向实际提示。鼠标跨入提示区域应继续可读，不能用截图强行保持打开。
+
+`visual.json` 覆盖三体系浅深色 × default（关闭）、hover、focus-visible、arrow、long-text。真实悬停或 Tab 打开，等待有限过渡自然结束，整页截图保留 Portal 与触发器焦点。跨引擎默认、悬停、焦点、长文本子集在 `crossEngine` 声明；不存在的 selected/error/loading/disabled 状态不伪造。
+
+来源：[Material tooltip](https://developer.android.com/develop/ui/compose/components/tooltip) 及 [PlainTooltipTokens 固定源码](https://github.com/androidx/androidx/blob/b4e136e88a48dec3e039d06b69f055957cdc4071/compose/material3/material3/src/commonMain/kotlin/androidx/compose/material3/tokens/PlainTooltipTokens.kt)；[Apple popovers](https://developer.apple.com/design/human-interface-guidelines/popovers)；[shadcn 固定 Tooltip 源码](https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui/tooltip.tsx)。Material Web 没有对等 plain tooltip 发布组件，采用官方 Compose 作为角色补充，Web 交互仍使用现有语义。
+
+额外场景检查配置切换不重建触发器、Portal 最近边界、320/768px、RTL/英文、品牌、强制颜色及减少动画；触控不依赖 hover 暴露必需内容。报告和人工外观复审分别记录，规格或自动场景不替代实际 verified 证据。
 
 
 ### 三套设计风格

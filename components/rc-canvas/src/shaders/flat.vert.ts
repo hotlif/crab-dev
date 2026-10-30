@@ -4,7 +4,7 @@
  * 再经世界矩阵和正交投影矩阵变换到 clip space。
  */
 export const FLAT_VERT = /* glsl */ `#version 300 es
-precision mediump float;
+precision highp float;
 
 layout(location = 0) in vec2 a_position;
 layout(location = 1) in vec2 a_uv;

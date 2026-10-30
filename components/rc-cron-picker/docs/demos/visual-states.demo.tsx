@@ -4,7 +4,7 @@ import token from '@crab-dev/rc-token-semantic';
 
 export const meta = {
     title: '只读与填充计划字段',
-    description: '只读计划可聚焦和复制，但不会打开编辑面板；填充字段保留正常编辑和校验反馈。',
+    description: '只读计划可聚焦、复制和展开查看，面板控件不能修改计划；填充字段保留正常编辑和校验反馈。',
 };
 
 const layout = css`

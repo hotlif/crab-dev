@@ -13,10 +13,10 @@ export const componentPreviews = {
         "density": "regular"
     },
     "rc-app-main-layout": {
-        "id": "docs/demos/base.demo.tsx",
-        "title": "基础用法",
-        "previewPath": "/components/rc-app-main-layout/workbench/?__wake_demo=docs%2Fdemos%2Fbase.demo.tsx",
-        "workbenchPath": "/components/rc-app-main-layout/workbench/#/components/docs%2Fdemos%2Fbase.demo.tsx",
+        "id": "docs/demos/visual-matrix.demo.tsx",
+        "title": "工作区验收矩阵",
+        "previewPath": "/components/rc-app-main-layout/workbench/?__wake_demo=docs%2Fdemos%2Fvisual-matrix.demo.tsx",
+        "workbenchPath": "/components/rc-app-main-layout/workbench/#/components/docs%2Fdemos%2Fvisual-matrix.demo.tsx",
         "density": "spacious"
     },
     "rc-auto-sizer": {
@@ -41,10 +41,10 @@ export const componentPreviews = {
         "density": "compact"
     },
     "rc-bar-chart": {
-        "id": "docs/demos/annotations.demo.tsx",
-        "title": "数值标签与参考线",
-        "previewPath": "/components/rc-bar-chart/workbench/?__wake_demo=docs%2Fdemos%2Fannotations.demo.tsx",
-        "workbenchPath": "/components/rc-bar-chart/workbench/#/components/docs%2Fdemos%2Fannotations.demo.tsx",
+        "id": "docs/demos/visual-matrix.demo.tsx",
+        "title": "专业图表状态矩阵",
+        "previewPath": "/components/rc-bar-chart/workbench/?__wake_demo=docs%2Fdemos%2Fvisual-matrix.demo.tsx",
+        "workbenchPath": "/components/rc-bar-chart/workbench/#/components/docs%2Fdemos%2Fvisual-matrix.demo.tsx",
         "density": "regular"
     },
     "rc-breadcrumbs": {
@@ -83,10 +83,10 @@ export const componentPreviews = {
         "density": "compact"
     },
     "rc-color-picker": {
-        "id": "docs/demos/colorPicker.demo.tsx",
-        "title": "颜色选择器",
-        "previewPath": "/components/rc-color-picker/workbench/?__wake_demo=docs%2Fdemos%2FcolorPicker.demo.tsx",
-        "workbenchPath": "/components/rc-color-picker/workbench/#/components/docs%2Fdemos%2FcolorPicker.demo.tsx",
+        "id": "docs/demos/visual-matrix.demo.tsx",
+        "title": "三体系取色状态矩阵",
+        "previewPath": "/components/rc-color-picker/workbench/?__wake_demo=docs%2Fdemos%2Fvisual-matrix.demo.tsx",
+        "workbenchPath": "/components/rc-color-picker/workbench/#/components/docs%2Fdemos%2Fvisual-matrix.demo.tsx",
         "density": "regular"
     },
     "rc-component-preview": {
@@ -118,10 +118,10 @@ export const componentPreviews = {
         "density": "regular"
     },
     "rc-dialog": {
-        "id": "docs/demos/base.demo.tsx",
-        "title": "基本",
-        "previewPath": "/components/rc-dialog/workbench/?__wake_demo=docs%2Fdemos%2Fbase.demo.tsx",
-        "workbenchPath": "/components/rc-dialog/workbench/#/components/docs%2Fdemos%2Fbase.demo.tsx",
+        "id": "docs/demos/visual-matrix.demo.tsx",
+        "title": "三体系模态状态矩阵",
+        "previewPath": "/components/rc-dialog/workbench/?__wake_demo=docs%2Fdemos%2Fvisual-matrix.demo.tsx",
+        "workbenchPath": "/components/rc-dialog/workbench/#/components/docs%2Fdemos%2Fvisual-matrix.demo.tsx",
         "density": "regular"
     },
     "rc-divider": {
@@ -132,17 +132,17 @@ export const componentPreviews = {
         "density": "regular"
     },
     "rc-drawer": {
-        "id": "docs/demos/basic.demo.tsx",
-        "title": "基础用法",
-        "previewPath": "/components/rc-drawer/workbench/?__wake_demo=docs%2Fdemos%2Fbasic.demo.tsx",
-        "workbenchPath": "/components/rc-drawer/workbench/#/components/docs%2Fdemos%2Fbasic.demo.tsx",
+        "id": "docs/demos/visual-matrix.demo.tsx",
+        "title": "三体系边缘面板矩阵",
+        "previewPath": "/components/rc-drawer/workbench/?__wake_demo=docs%2Fdemos%2Fvisual-matrix.demo.tsx",
+        "workbenchPath": "/components/rc-drawer/workbench/#/components/docs%2Fdemos%2Fvisual-matrix.demo.tsx",
         "density": "regular"
     },
     "rc-dropdown-container": {
-        "id": "docs/demos/base.demo.tsx",
-        "title": "基本",
-        "previewPath": "/components/rc-dropdown-container/workbench/?__wake_demo=docs%2Fdemos%2Fbase.demo.tsx",
-        "workbenchPath": "/components/rc-dropdown-container/workbench/#/components/docs%2Fdemos%2Fbase.demo.tsx",
+        "id": "docs/demos/visual-matrix.demo.tsx",
+        "title": "三体系浮层边界矩阵",
+        "previewPath": "/components/rc-dropdown-container/workbench/?__wake_demo=docs%2Fdemos%2Fvisual-matrix.demo.tsx",
+        "workbenchPath": "/components/rc-dropdown-container/workbench/#/components/docs%2Fdemos%2Fvisual-matrix.demo.tsx",
         "density": "regular"
     },
     "rc-empty": {
@@ -153,10 +153,10 @@ export const componentPreviews = {
         "density": "regular"
     },
     "rc-flow-diagram": {
-        "id": "docs/demos/animated-edge.demo.tsx",
-        "title": "FlowEdge 流动动效",
-        "previewPath": "/components/rc-flow-diagram/workbench/?__wake_demo=docs%2Fdemos%2Fanimated-edge.demo.tsx",
-        "workbenchPath": "/components/rc-flow-diagram/workbench/#/components/docs%2Fdemos%2Fanimated-edge.demo.tsx",
+        "id": "docs/demos/visual-matrix.demo.tsx",
+        "title": "流程工作区状态矩阵",
+        "previewPath": "/components/rc-flow-diagram/workbench/?__wake_demo=docs%2Fdemos%2Fvisual-matrix.demo.tsx",
+        "workbenchPath": "/components/rc-flow-diagram/workbench/#/components/docs%2Fdemos%2Fvisual-matrix.demo.tsx",
         "density": "regular"
     },
     "rc-form": {
@@ -181,17 +181,17 @@ export const componentPreviews = {
         "density": "regular"
     },
     "rc-masonry": {
-        "id": "docs/demos/basic.demo.tsx",
-        "title": "基础用法",
-        "previewPath": "/components/rc-masonry/workbench/?__wake_demo=docs%2Fdemos%2Fbasic.demo.tsx",
-        "workbenchPath": "/components/rc-masonry/workbench/#/components/docs%2Fdemos%2Fbasic.demo.tsx",
+        "id": "docs/demos/visual-matrix.demo.tsx",
+        "title": "布局验收矩阵",
+        "previewPath": "/components/rc-masonry/workbench/?__wake_demo=docs%2Fdemos%2Fvisual-matrix.demo.tsx",
+        "workbenchPath": "/components/rc-masonry/workbench/#/components/docs%2Fdemos%2Fvisual-matrix.demo.tsx",
         "density": "spacious"
     },
     "rc-menu": {
-        "id": "docs/demos/basic.demo.tsx",
-        "title": "基础用法",
-        "previewPath": "/components/rc-menu/workbench/?__wake_demo=docs%2Fdemos%2Fbasic.demo.tsx",
-        "workbenchPath": "/components/rc-menu/workbench/#/components/docs%2Fdemos%2Fbasic.demo.tsx",
+        "id": "docs/demos/visual-matrix.demo.tsx",
+        "title": "三体系导航矩阵",
+        "previewPath": "/components/rc-menu/workbench/?__wake_demo=docs%2Fdemos%2Fvisual-matrix.demo.tsx",
+        "workbenchPath": "/components/rc-menu/workbench/#/components/docs%2Fdemos%2Fvisual-matrix.demo.tsx",
         "density": "regular"
     },
     "rc-message": {
@@ -223,17 +223,17 @@ export const componentPreviews = {
         "density": "regular"
     },
     "rc-pdf-editor": {
-        "id": "docs/demos/basic.demo.tsx",
-        "title": "本地编辑",
-        "previewPath": "/components/rc-pdf-editor/workbench/?__wake_demo=docs%2Fdemos%2Fbasic.demo.tsx",
-        "workbenchPath": "/components/rc-pdf-editor/workbench/#/components/docs%2Fdemos%2Fbasic.demo.tsx",
+        "id": "docs/demos/visual-matrix.demo.tsx",
+        "title": "真实 PDF 工作区矩阵",
+        "previewPath": "/components/rc-pdf-editor/workbench/?__wake_demo=docs%2Fdemos%2Fvisual-matrix.demo.tsx",
+        "workbenchPath": "/components/rc-pdf-editor/workbench/#/components/docs%2Fdemos%2Fvisual-matrix.demo.tsx",
         "density": "spacious"
     },
     "rc-prose": {
-        "id": "docs/demos/basic.demo.tsx",
-        "title": "基础用法",
-        "previewPath": "/components/rc-prose/workbench/?__wake_demo=docs%2Fdemos%2Fbasic.demo.tsx",
-        "workbenchPath": "/components/rc-prose/workbench/#/components/docs%2Fdemos%2Fbasic.demo.tsx",
+        "id": "docs/demos/visual-matrix.demo.tsx",
+        "title": "排版验收矩阵",
+        "previewPath": "/components/rc-prose/workbench/?__wake_demo=docs%2Fdemos%2Fvisual-matrix.demo.tsx",
+        "workbenchPath": "/components/rc-prose/workbench/#/components/docs%2Fdemos%2Fvisual-matrix.demo.tsx",
         "density": "spacious"
     },
     "rc-radio": {
@@ -244,10 +244,10 @@ export const componentPreviews = {
         "density": "compact"
     },
     "rc-realm": {
-        "id": "docs/demos/basic.demo.tsx",
-        "title": "基础用法",
-        "previewPath": "/components/rc-realm/workbench/?__wake_demo=docs%2Fdemos%2Fbasic.demo.tsx",
-        "workbenchPath": "/components/rc-realm/workbench/#/components/docs%2Fdemos%2Fbasic.demo.tsx",
+        "id": "docs/demos/visual-matrix.demo.tsx",
+        "title": "远程协议视觉矩阵",
+        "previewPath": "/components/rc-realm/workbench/?__wake_demo=docs%2Fdemos%2Fvisual-matrix.demo.tsx",
+        "workbenchPath": "/components/rc-realm/workbench/#/components/docs%2Fdemos%2Fvisual-matrix.demo.tsx",
         "density": "regular"
     },
     "rc-router": {
@@ -265,10 +265,10 @@ export const componentPreviews = {
         "density": "regular"
     },
     "rc-select": {
-        "id": "docs/demos/field-states.demo.tsx",
-        "title": "标签与选择状态",
-        "previewPath": "/components/rc-select/workbench/?__wake_demo=docs%2Fdemos%2Ffield-states.demo.tsx",
-        "workbenchPath": "/components/rc-select/workbench/#/components/docs%2Fdemos%2Ffield-states.demo.tsx",
+        "id": "docs/demos/visual-matrix.demo.tsx",
+        "title": "三体系状态矩阵",
+        "previewPath": "/components/rc-select/workbench/?__wake_demo=docs%2Fdemos%2Fvisual-matrix.demo.tsx",
+        "workbenchPath": "/components/rc-select/workbench/#/components/docs%2Fdemos%2Fvisual-matrix.demo.tsx",
         "density": "compact"
     },
     "rc-skeleton": {
@@ -293,10 +293,10 @@ export const componentPreviews = {
         "density": "regular"
     },
     "rc-split-pane": {
-        "id": "docs/demos/basic.demo.tsx",
-        "title": "基础用法",
-        "previewPath": "/components/rc-split-pane/workbench/?__wake_demo=docs%2Fdemos%2Fbasic.demo.tsx",
-        "workbenchPath": "/components/rc-split-pane/workbench/#/components/docs%2Fdemos%2Fbasic.demo.tsx",
+        "id": "docs/demos/visual-matrix.demo.tsx",
+        "title": "分栏验收矩阵",
+        "previewPath": "/components/rc-split-pane/workbench/?__wake_demo=docs%2Fdemos%2Fvisual-matrix.demo.tsx",
+        "workbenchPath": "/components/rc-split-pane/workbench/#/components/docs%2Fdemos%2Fvisual-matrix.demo.tsx",
         "density": "regular"
     },
     "rc-switch": {
@@ -307,17 +307,17 @@ export const componentPreviews = {
         "density": "compact"
     },
     "rc-table": {
-        "id": "docs/demos/theme-states.demo.tsx",
-        "title": "三套风格与选中状态",
-        "previewPath": "/components/rc-table/workbench/?__wake_demo=docs%2Fdemos%2Ftheme-states.demo.tsx",
-        "workbenchPath": "/components/rc-table/workbench/#/components/docs%2Fdemos%2Ftheme-states.demo.tsx",
+        "id": "docs/demos/visual-matrix.demo.tsx",
+        "title": "表格验收矩阵",
+        "previewPath": "/components/rc-table/workbench/?__wake_demo=docs%2Fdemos%2Fvisual-matrix.demo.tsx",
+        "workbenchPath": "/components/rc-table/workbench/#/components/docs%2Fdemos%2Fvisual-matrix.demo.tsx",
         "density": "regular"
     },
     "rc-table-pro": {
-        "id": "docs/demos/order-operations.demo.tsx",
-        "title": "订单履约工作台：跨页查询与拣货",
-        "previewPath": "/components/rc-table-pro/workbench/?__wake_demo=docs%2Fdemos%2Forder-operations.demo.tsx",
-        "workbenchPath": "/components/rc-table-pro/workbench/#/components/docs%2Fdemos%2Forder-operations.demo.tsx",
+        "id": "docs/demos/visual-matrix.demo.tsx",
+        "title": "专业表格验收矩阵",
+        "previewPath": "/components/rc-table-pro/workbench/?__wake_demo=docs%2Fdemos%2Fvisual-matrix.demo.tsx",
+        "workbenchPath": "/components/rc-table-pro/workbench/#/components/docs%2Fdemos%2Fvisual-matrix.demo.tsx",
         "density": "regular"
     },
     "rc-tabs": {
@@ -363,17 +363,17 @@ export const componentPreviews = {
         "density": "regular"
     },
     "rc-tooltip": {
-        "id": "docs/demos/arrow.demo.tsx",
-        "title": "箭头",
-        "previewPath": "/components/rc-tooltip/workbench/?__wake_demo=docs%2Fdemos%2Farrow.demo.tsx",
-        "workbenchPath": "/components/rc-tooltip/workbench/#/components/docs%2Fdemos%2Farrow.demo.tsx",
+        "id": "docs/demos/visual-matrix.demo.tsx",
+        "title": "三体系文字提示矩阵",
+        "previewPath": "/components/rc-tooltip/workbench/?__wake_demo=docs%2Fdemos%2Fvisual-matrix.demo.tsx",
+        "workbenchPath": "/components/rc-tooltip/workbench/#/components/docs%2Fdemos%2Fvisual-matrix.demo.tsx",
         "density": "compact"
     },
     "rc-tree": {
-        "id": "docs/demos/basic.demo.tsx",
-        "title": "基础用法",
-        "previewPath": "/components/rc-tree/workbench/?__wake_demo=docs%2Fdemos%2Fbasic.demo.tsx",
-        "workbenchPath": "/components/rc-tree/workbench/#/components/docs%2Fdemos%2Fbasic.demo.tsx",
+        "id": "docs/demos/visual-matrix.demo.tsx",
+        "title": "树的验收矩阵",
+        "previewPath": "/components/rc-tree/workbench/?__wake_demo=docs%2Fdemos%2Fvisual-matrix.demo.tsx",
+        "workbenchPath": "/components/rc-tree/workbench/#/components/docs%2Fdemos%2Fvisual-matrix.demo.tsx",
         "density": "spacious"
     },
     "rc-virtual": {

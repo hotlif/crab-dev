@@ -1,3 +1,5 @@
+import { getComposedParentElement, isShadowRoot } from './composed-tree.js';
+
 export interface OverlayLayer {
     isTop(): boolean;
     release(options?: { restoreFocus?: boolean }): void;
@@ -16,10 +18,6 @@ interface DocumentLayers {
 // Mutable instance registries are scoped by ownerDocument, including iframe documents.
 const overlayDocuments = new WeakMap<Document, DocumentLayers>();
 const scrollDocuments = new WeakMap<Document, { count: number; previousOverflow: string }>();
-
-function isShadowRoot(node: Node): node is ShadowRoot {
-    return node.nodeType === 11 && 'host' in node;
-}
 
 function activeElement(document: Document): Element | null {
     let active = document.activeElement;
@@ -59,8 +57,7 @@ function unavailableFocusTarget(target: Element): boolean {
     let current: Element | null = target;
     while (current) {
         if (current.matches('[inert], dialog:not([open])')) return true;
-        const root: Node = current.getRootNode();
-        current = current.parentElement ?? (isShadowRoot(root) ? root.host : null);
+        current = getComposedParentElement(current);
     }
     return false;
 }

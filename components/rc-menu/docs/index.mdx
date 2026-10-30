@@ -51,6 +51,22 @@ md3 当前导航实现采用 baseline navigation drawer 的视觉角色并应用
 
 <Demos glob="./demos/*.demo.tsx" columns={2} />
 
+## 三体系规格与验收矩阵（2026-10-29）
+
+| 体系 | 导航规格 | 扩展依据 |
+| --- | --- | --- |
+| MD3 Expressive | 色调选中容器、语义前景、清晰层级与独立焦点 | 本包是 disclosure navigation；不能将 action menu 的键盘模型强加到站点导航 |
+| Apple | 内容优先、精确对齐、可发现的展开层级与清晰选中 | 根据 sidebar/disclosure 原则自主实现 Web 导航，不复制 Liquid Glass |
+| shadcn New York V4 | 中性表面、紧凑导航与明确焦点/活动状态 | 参照 navigation-menu；垂直、内嵌和折叠组合保留本库协议 |
+
+导航几何和布局测量共用 L2 `density.navigation`；small/medium/large 没有本包公开几何变体，compact/standard/comfortable 独立改变导航行。选中内容通过 aria-current 表达，展开通过 aria-expanded 表达；当前页面、悬停、按下和键盘焦点分别可辨。图标沿选中前景继承，长标签截断不挤走展开入口。
+
+`visual.json` 展开三体系浅深色 × 三密度 × default、hover、focus-visible、pressed、selected、expanded、horizontal、inline、collapsed、horizontal-expanded、collapsed-expanded。真实 Tab/方向键、点击和展开进入状态；Firefox/WebKit 的 standard 默认、焦点、选中、展开、水平与折叠子集在 `crossEngine` 声明。items 没有 disabled 属性，API 不存在的状态不静默伪造。
+
+来源：[Material Web menus](https://material-web.dev/components/menu/) 与 [navigation drawer](https://developer.android.com/develop/ui/compose/components/drawer) 的语义区分；[Apple sidebars](https://developer.apple.com/design/human-interface-guidelines/sidebars)；[shadcn 固定 Navigation Menu 源码](https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui/navigation-menu.tsx)。持久导航、多种模式和键集合为明确的项目组合扩展。
+
+额外场景检查配置切换保留选中与 DOM、键盘顺序、320/768px、长中英文、RTL、品牌、强制颜色和减少动画。horizontal-expanded/collapsed-expanded 通过真实交互打开两种子菜单，200% 分别核对水平和折叠浮层的内容与焦点；新增范围在实际运行和复审前仍待验。Menu 当前子菜单留在本地 DOM 中定位，不宣称使用 Portal。已有登记 browser 检查另保留 iframe 键盘 realm 和折叠几何，Shadow 焦点回归使用 DOM 环境，不能改称真实浏览器视觉通过。真实构建截图、几何和人工复审共同形成证据，未核对部分仍为 partial。
+
 ## API
 
 <API source="../src/menu.tsx" symbol="MenuProps" component="Menu" />

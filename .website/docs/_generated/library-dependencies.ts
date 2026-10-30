@@ -12,6 +12,7 @@ export const libraryDependencies = [
         ],
         "docs": [
             "rc-button",
+            "rc-config-provider",
             "rc-token-semantic"
         ],
         "token": [
@@ -62,7 +63,9 @@ export const libraryDependencies = [
             "rc-config-provider"
         ],
         "docs": [
-            "rc-button"
+            "rc-button",
+            "rc-config-provider",
+            "rc-token-semantic"
         ],
         "token": [
             "rc-token-semantic"
@@ -77,6 +80,7 @@ export const libraryDependencies = [
         ],
         "docs": [
             "rc-button",
+            "rc-config-provider",
             "rc-token-semantic"
         ],
         "token": [
@@ -96,6 +100,7 @@ export const libraryDependencies = [
         ],
         "docs": [
             "rc-button",
+            "rc-config-provider",
             "rc-token-semantic"
         ],
         "token": [
@@ -110,7 +115,10 @@ export const libraryDependencies = [
             "rc-button",
             "rc-config-provider"
         ],
-        "docs": [],
+        "docs": [
+            "rc-config-provider",
+            "rc-token-semantic"
+        ],
         "token": [
             "rc-token-semantic"
         ]
@@ -136,9 +144,11 @@ export const libraryDependencies = [
         "title": "Canvas WebGL 画布",
         "family": "extension",
         "production": [
-            "rc-config-provider"
+            "rc-config-provider",
+            "rc-hooks"
         ],
         "docs": [
+            "rc-config-provider",
             "rc-hooks",
             "rc-token-semantic"
         ],
@@ -157,6 +167,7 @@ export const libraryDependencies = [
         "docs": [
             "rc-avatar",
             "rc-button",
+            "rc-config-provider",
             "rc-skeleton",
             "rc-tag",
             "rc-token-semantic"
@@ -211,7 +222,9 @@ export const libraryDependencies = [
             "rc-config-provider"
         ],
         "docs": [
-            "rc-button"
+            "rc-button",
+            "rc-config-provider",
+            "rc-token-semantic"
         ],
         "token": [
             "rc-token-semantic"
@@ -247,6 +260,7 @@ export const libraryDependencies = [
         ],
         "docs": [
             "rc-button",
+            "rc-config-provider",
             "rc-token-semantic"
         ],
         "token": [
@@ -268,6 +282,7 @@ export const libraryDependencies = [
         ],
         "docs": [
             "rc-button",
+            "rc-config-provider",
             "rc-token-semantic"
         ],
         "token": [
@@ -287,7 +302,8 @@ export const libraryDependencies = [
             "rc-button",
             "rc-date-picker",
             "rc-form",
-            "rc-line-edit"
+            "rc-line-edit",
+            "rc-token-semantic"
         ],
         "token": [
             "rc-token-semantic"
@@ -300,6 +316,7 @@ export const libraryDependencies = [
         "production": [],
         "docs": [
             "rc-button",
+            "rc-config-provider",
             "rc-token-semantic"
         ],
         "token": [
@@ -317,6 +334,9 @@ export const libraryDependencies = [
         ],
         "docs": [
             "rc-button",
+            "rc-config-provider",
+            "rc-dropdown-container",
+            "rc-select",
             "rc-token-semantic"
         ],
         "token": [
@@ -335,6 +355,7 @@ export const libraryDependencies = [
             "rc-token-semantic"
         ],
         "docs": [
+            "rc-button",
             "rc-line-edit",
             "rc-token-semantic"
         ],
@@ -351,6 +372,7 @@ export const libraryDependencies = [
         ],
         "docs": [
             "rc-button",
+            "rc-config-provider",
             "rc-token-semantic"
         ],
         "token": [
@@ -385,6 +407,7 @@ export const libraryDependencies = [
         "docs": [
             "rc-button",
             "rc-checkbox",
+            "rc-config-provider",
             "rc-line-edit",
             "rc-radio",
             "rc-select",
@@ -415,6 +438,7 @@ export const libraryDependencies = [
             "rc-token-semantic"
         ],
         "docs": [
+            "rc-config-provider",
             "rc-token-semantic"
         ],
         "token": [
@@ -457,10 +481,12 @@ export const libraryDependencies = [
         "family": "base",
         "production": [
             "rc-config-provider",
-            "rc-hooks"
+            "rc-hooks",
+            "rc-spin"
         ],
         "docs": [
             "rc-button",
+            "rc-config-provider",
             "rc-token-semantic"
         ],
         "token": [
@@ -478,6 +504,7 @@ export const libraryDependencies = [
         ],
         "docs": [
             "rc-button",
+            "rc-config-provider",
             "rc-select",
             "rc-text-edit",
             "rc-token-semantic"
@@ -497,6 +524,7 @@ export const libraryDependencies = [
             "rc-line-edit"
         ],
         "docs": [
+            "rc-config-provider",
             "rc-token-semantic"
         ],
         "token": [
@@ -514,7 +542,10 @@ export const libraryDependencies = [
             "rc-line-edit",
             "rc-select"
         ],
-        "docs": [],
+        "docs": [
+            "rc-config-provider",
+            "rc-token-semantic"
+        ],
         "token": [
             "rc-token-semantic"
         ]
@@ -544,7 +575,9 @@ export const libraryDependencies = [
         ],
         "docs": [
             "rc-button",
-            "rc-checkbox"
+            "rc-checkbox",
+            "rc-config-provider",
+            "rc-token-semantic"
         ],
         "token": [
             "rc-token-semantic"
@@ -591,6 +624,7 @@ export const libraryDependencies = [
         ],
         "docs": [
             "rc-button",
+            "rc-config-provider",
             "rc-token-semantic"
         ],
         "token": [
@@ -655,6 +689,7 @@ export const libraryDependencies = [
         ],
         "docs": [
             "rc-button",
+            "rc-config-provider",
             "rc-token-semantic"
         ],
         "token": [
@@ -686,6 +721,7 @@ export const libraryDependencies = [
             "rc-hooks"
         ],
         "docs": [
+            "rc-config-provider",
             "rc-hooks",
             "rc-switch",
             "rc-token-semantic"
@@ -810,6 +846,7 @@ export const libraryDependencies = [
         ],
         "docs": [
             "rc-button",
+            "rc-config-provider",
             "rc-token-semantic"
         ],
         "token": [
@@ -827,6 +864,7 @@ export const libraryDependencies = [
             "rc-token-semantic"
         ],
         "docs": [
+            "rc-config-provider",
             "rc-token-semantic"
         ],
         "token": [

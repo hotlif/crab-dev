@@ -198,5 +198,40 @@ export const demos = [
         "density": "regular",
         "layout": "wide",
         "group": "页码控制"
+    },
+    {
+        "id": "docs/demos/visual-matrix.demo.tsx",
+        "title": "分页导航状态矩阵",
+        "description": "真实页码、页大小、快速跳转和空数据，三档尺寸与密度独立。",
+        "learning": {
+            "components": [
+                "Pagination"
+            ],
+            "props": [
+                "aria-label",
+                "total",
+                "value",
+                "onValueChange",
+                "pageSize",
+                "onPageSizeChange",
+                "disabled",
+                "showQuickJumper",
+                "showSizeChanger",
+                "showTotal",
+                "pageLabel",
+                "prevLabel"
+            ],
+            "events": [
+                "onValueChange",
+                "onPageSizeChange"
+            ],
+            "hasState": true
+        },
+        "sourceCode": "import { css } from '@crab-dev/css';\nimport Pagination from '@crab-dev/rc-pagination';\nimport { useConfig } from '@crab-dev/rc-config-provider';\nimport token from '@crab-dev/rc-token-semantic';\nimport { useId, useState } from 'react';\n\nexport const meta = { title: '分页导航状态矩阵', description: '真实页码、页大小、快速跳转和空数据，三档尺寸与密度独立。' };\nconst frame = css`display: grid; gap: ${token.space['group-gap']}; padding: ${token.space['group-gap']}; background: ${token.color.background.surface}; color: ${token.color.text.primary}; min-width: 0;`;\nexport default function VisualMatrixDemo() {\n    const { locale } = useConfig();\n    const [state, setState] = useState('default');\n    const [value, setValue] = useState(6);\n    const [pageSize, setPageSize] = useState(10);\n    const id = useId();\n    const english = locale === 'en-US';\n    return \u003csection className={frame} aria-label=\"Pagination visual matrix\" data-visual-scene data-state={state}>\n        \u003cdiv>\u003clabel htmlFor={id}>验收状态\u003c/label>{' '}\u003cselect id={id} value={state} onChange={event => setState(event.currentTarget.value)}>\u003coption>default\u003c/option>\u003coption>disabled\u003c/option>\u003coption>empty\u003c/option>\u003c/select>\u003c/div>\n        \u003cPagination aria-label=\"分页验收\" total={state === 'empty' ? 0 : 240} value={value} onValueChange={setValue} pageSize={pageSize} onPageSizeChange={setPageSize} disabled={state === 'disabled'} showQuickJumper showSizeChanger showTotal pageLabel={page => `Page ${page}`} prevLabel=\"Previous page\" nextLabel=\"Next page\" />\n        \u003coutput aria-live=\"polite\">{english ? 'Current page' : '当前页'}: {value}; {english ? 'Rows per page' : '每页条数'}: {pageSize}\u003c/output>\n    \u003c/section>;\n}\n",
+        "previewPath": "/components/rc-pagination/workbench/?__wake_demo=docs%2Fdemos%2Fvisual-matrix.demo.tsx",
+        "workbenchPath": "/components/rc-pagination/workbench/#/components/docs%2Fdemos%2Fvisual-matrix.demo.tsx",
+        "density": "regular",
+        "layout": "wide",
+        "group": "视觉验收"
     }
 ] as const satisfies readonly ComponentDemoRecord[];

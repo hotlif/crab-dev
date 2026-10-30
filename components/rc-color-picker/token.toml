@@ -11,6 +11,11 @@ imports = [
 panel.padding-block = "$ref(space.stack-gap)"
 panel.padding-inline = "$ref(space.section-gap)"
 panel.gap = "$ref(space.stack-gap)"
+panel.min-width = "250px"
+panel.rail.height = "12px"
+
+footer.gap = "$ref(space.component-gap)"
+footer.margin-top = "$ref(space.section-gap)"
 
 panel.preview.height = "5rem"
 panel.preview.width = "100%"
@@ -41,6 +46,8 @@ trigger.touch.min-width = "$ref(size.touch-target)"
 trigger.touch.min-height = "$ref(size.touch-target)"
 trigger.opacity-disabled = "$ref(opacity.disabled)"
 trigger.ring.color-focus = "$ref(color.focus.ring)"
+trigger.ring.width-focus = "2px"
+trigger.ring.outline-offset-focus = "2px"
 trigger.background-color-disabled = "$ref(color.background.disabled)"
 trigger.border-color-disabled = "$ref(color.border.default)"
 

@@ -21,10 +21,10 @@ function result(name: string): CompilerResult {
     return match;
 }
 
-describe("native TypeScript 7 with Yarn PnP", () => {
-    it("runs the pinned TypeScript 7 compiler", () => {
+describe("official TypeScript with Yarn PnP", () => {
+    it("runs the pinned official TypeScript compiler", () => {
         expect(result("version").code).toBe(0);
-        expect(result("version").output).toMatch(/^Version 7\./);
+        expect(result("version").output.trim()).toBe("Version 6.0.2");
     });
 
     it("resolves a workspace preset and React JSX types inside the PnP archive", () => {

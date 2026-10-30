@@ -1,5 +1,5 @@
-import type { ReactElement, ReactNode } from "react";
-import type { ConfigColorMode, ConfigDensity, ConfigDesignSystem, ConfigDirection, ConfigLocale, ConfigSize, ConfigValue } from "@crab-dev/rc-config-provider";
+import type { ComponentType, ReactElement, ReactNode } from "react";
+import type { ConfigColorMode, ConfigDensity, ConfigDesignSystem, ConfigDirection, ConfigLocale, ConfigProviderProps, ConfigSize, ConfigValue } from "@crab-dev/rc-config-provider";
 
 /** Same-origin parent configuration. Omitted optional axes retain the current preview values. */
 export interface WorkbenchPreviewConfigurationMessage {
@@ -20,6 +20,8 @@ export interface WorkbenchPreviewProps {
     readonly children: ReactNode;
     /** Additional preview classes; the shared demo-default-preview boundary is always retained. */
     readonly className?: string;
+    /** Use the same provider module identity as an owner package's demos. */
+    readonly boundary?: ComponentType<ConfigProviderProps>;
 }
 
 export default function WorkbenchPreview(props: WorkbenchPreviewProps): ReactElement;

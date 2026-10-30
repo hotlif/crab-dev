@@ -1,0 +1,46 @@
+{
+    "schemaVersion": 1,
+    "demo": "visual-matrix.demo.tsx",
+    "sizes": [
+        "small",
+        "medium",
+        "large"
+    ],
+    "densities": [
+        "compact",
+        "standard",
+        "comfortable"
+    ],
+    "states": [
+        "default",
+        "elevated",
+        "outlined",
+        "filled",
+        "hover",
+        "focus-visible",
+        "pressed",
+        "disabled",
+        "loading"
+    ],
+    "notApplicable": {
+        "size": "All public named sizes are listed. Open numeric/string dimensions use documented representative samples, not an exhaustive claim.",
+        "density": "All three layout density boundaries are exercised independently of size.",
+        "selection": "This display/feedback component has no selected or checked protocol.",
+        "error": "Errors belong to the owning data/action flow, not an invented presentation state.",
+        "interaction": "Hover/focus/press apply only to the genuine public interactive control, never to the display surface.",
+        "motion": "Continuous states are recorded naturally with video/time-series in a separate file; they are never frozen into a static pixel baseline."
+    },
+    "crossEngine": {
+        "sizes": [
+            "medium"
+        ],
+        "densities": [
+            "standard"
+        ],
+        "states": [
+            "default",
+            "focus-visible",
+            "pressed"
+        ]
+    }
+}

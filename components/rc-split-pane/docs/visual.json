@@ -1,0 +1,42 @@
+{
+    "schemaVersion": 1,
+    "demo": "visual-matrix.demo.tsx",
+    "sizes": [
+        "medium"
+    ],
+    "densities": [
+        "standard"
+    ],
+    "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "pressed",
+        "disabled",
+        "vertical",
+        "minimum",
+        "maximum"
+    ],
+    "notApplicable": {
+        "size": "The public numeric size controls pane extent, not ConfigProvider control size. Min/max and resizing are explicit states.",
+        "density": "The separator follows pointer mode rather than data density.",
+        "selected": "A separator resizes panes and has no selected state.",
+        "error": "Constraint clamping handles out-of-range extents; no validation appearance exists.",
+        "loading": "Layout performs no asynchronous request."
+    },
+    "crossEngine": {
+        "sizes": [
+            "medium"
+        ],
+        "densities": [
+            "standard"
+        ],
+        "states": [
+            "default",
+            "focus-visible",
+            "vertical",
+            "minimum",
+            "maximum"
+        ]
+    }
+}

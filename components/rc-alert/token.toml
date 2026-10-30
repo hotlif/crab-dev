@@ -60,3 +60,7 @@ interaction.outline-width-focus = "2px"
 interaction.outline-offset-focus = "2px"
 interaction.transition = "$ref(motion.interaction)"
 motion.collapse.transition = "$ref(motion.layout)"
+
+close.background-color-hover = "$ref(color.background.hover-subtle)"
+close.background-color-focus = "$ref(color.background.active-subtle)"
+close.background-color-active = "$ref(color.background.active-subtle)"

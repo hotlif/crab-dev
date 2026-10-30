@@ -1,0 +1,6 @@
+{
+    "schemaVersion": 1, "demo": "visual-matrix.demo.tsx", "sizes": ["medium"], "densities": ["compact", "standard", "comfortable"],
+    "states": ["default", "expanded", "dark-source", "copy-success", "copy-error", "focus-visible", "external", "loading"],
+    "crossEngine": { "sizes": ["medium"], "densities": ["standard"], "states": ["default", "expanded", "focus-visible"] },
+    "notApplicable": { "size": "Preview has no public component size; action buttons choose their own compact toolbar size.", "disabled": "Preview does not expose a disabled state.", "pressed": "Action button press feedback is verified in Button; Preview verifies source expansion and action callbacks.", "densityNames": "The demo maps ConfigProvider compact/standard/comfortable to public Preview compact/regular/spacious; these are independent protocols." }
+}

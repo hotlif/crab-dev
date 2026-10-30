@@ -1,0 +1,43 @@
+{
+    "schemaVersion": 1,
+    "demo": "visual-matrix.demo.tsx",
+    "sizes": [
+        "medium"
+    ],
+    "densities": [
+        "standard"
+    ],
+    "states": [
+        "default",
+        "focus-visible",
+        "selected",
+        "dragged",
+        "empty",
+        "error",
+        "manual-route",
+        "refresh"
+    ],
+    "crossEngine": {
+        "sizes": [
+            "medium"
+        ],
+        "densities": [
+            "standard"
+        ],
+        "states": [
+            "default",
+            "focus-visible",
+            "selected",
+            "error"
+        ]
+    },
+    "notApplicable": {
+        "size": "Nodes, text, ports and canvas use explicit world geometry; global control size must not rescale diagram coordinates.",
+        "density": "Diagram layout and world spacing are domain parameters. The component has no density geometry override.",
+        "disabled": "FlowDiagram has no disabled prop; edit permissions belong to the render-prop host.",
+        "hover": "FlowNode has no hover state API; pointer hit testing is exercised by real selection and dragging.",
+        "pressed": "Transient pointer press has no independent diagram style; actual pointer capture is exercised during dragging.",
+        "loading": "ELK loading is transient and uses the real asynchronous layout; video and ready/error assertions cover it without extending its duration.",
+        "expanded": "The diagram exposes no expansion protocol."
+    }
+}

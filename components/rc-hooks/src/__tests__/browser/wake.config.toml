@@ -1,0 +1,14 @@
+# Slot assignment and foreign iframe constructors require a real browser.
+[test]
+environment = "browser"
+include = ["composed-tree.test.ts"]
+timeout_ms = 5000
+leaks = "error"
+
+[test.network]
+mode = "deny"
+allow_hosts = []
+
+[test.coverage]
+enabled = true
+reporters = ["text", "lcov"]

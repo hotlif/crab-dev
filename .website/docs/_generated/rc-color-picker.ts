@@ -6,6 +6,34 @@ import type { ComponentDemoRecord } from "../site/componentDemos.js";
 
 export const demos = [
     {
+        "id": "docs/demos/visual-matrix.demo.tsx",
+        "title": "三体系取色状态矩阵",
+        "description": "颜色数据、格式、透明度、预设与确认取消均保持真实交互。",
+        "learning": {
+            "components": [
+                "ColorPicker"
+            ],
+            "props": [
+                "aria-label",
+                "value",
+                "onValueChange",
+                "disabled",
+                "presets",
+                "allowClear"
+            ],
+            "events": [
+                "onValueChange"
+            ],
+            "hasState": true
+        },
+        "sourceCode": "import { useState } from \"react\";\nimport { css } from \"@crab-dev/css\";\nimport token from \"@crab-dev/rc-token-semantic\";\nimport ColorPicker, { type OKLCHValue } from \"@crab-dev/rc-color-picker\";\n\nexport const meta = { title: \"三体系取色状态矩阵\", description: \"颜色数据、格式、透明度、预设与确认取消均保持真实交互。\" };\nconst layout = css`padding: ${token.space['section-gap']}; display: grid; justify-items: start; gap: ${token.space['section-gap']}; min-height: 32rem; align-content: start;`;\nconst presets = [{ label: \"品牌预设\", colors: [{ lightness: 0.62, chroma: 0.19, hue: 255 }, { lightness: 0.7, chroma: 0.16, hue: 145 }] }];\nexport default function VisualMatrixDemo() {\n    const [state, setState] = useState(\"default\");\n    const [value, setValue] = useState\u003cOKLCHValue>({ lightness: 0.62, chroma: 0.19, hue: 255, alpha: 0.75 });\n    return \u003csection aria-label=\"ColorPicker visual matrix\" className={layout}>\n        \u003clabel>验收状态\u003cselect aria-label=\"验收状态\" value={state} onChange={event => setState(event.target.value)}>\u003coption>default\u003c/option>\u003coption>disabled\u003c/option>\u003c/select>\u003c/label>\n        \u003cColorPicker aria-label=\"主题颜色\" value={value} onValueChange={setValue} disabled={state === \"disabled\"} presets={presets} allowClear />\n        \u003coutput aria-label=\"已确认颜色\">{JSON.stringify(value)}\u003c/output>\n    \u003c/section>;\n}\n",
+        "previewPath": "/components/rc-color-picker/workbench/?__wake_demo=docs%2Fdemos%2Fvisual-matrix.demo.tsx",
+        "workbenchPath": "/components/rc-color-picker/workbench/#/components/docs%2Fdemos%2Fvisual-matrix.demo.tsx",
+        "density": "regular",
+        "layout": "wide",
+        "group": "规格验收"
+    },
+    {
         "id": "docs/demos/colorPicker.demo.tsx",
         "title": "颜色选择器",
         "description": "可视化取色:透明度、文本输入、格式切换、预设色板、吸管取色、受控/非受控、尺寸与禁用。",
@@ -34,7 +62,7 @@ export const demos = [
         "workbenchPath": "/components/rc-color-picker/workbench/#/components/docs%2Fdemos%2FcolorPicker.demo.tsx",
         "density": "regular",
         "layout": "wide",
-        "group": null
+        "group": "功能演示"
     },
     {
         "id": "docs/demos/colorPickerPanel.demo.tsx",
@@ -59,6 +87,6 @@ export const demos = [
         "workbenchPath": "/components/rc-color-picker/workbench/#/components/docs%2Fdemos%2FcolorPickerPanel.demo.tsx",
         "density": "regular",
         "layout": "wide",
-        "group": null
+        "group": "功能演示"
     }
 ] as const satisfies readonly ComponentDemoRecord[];

@@ -1,0 +1,1183 @@
+{
+  "schemaVersion": 1,
+  "reviewer": "/root/display_feedback",
+  "reviewedOn": "2026-10-29",
+  "package": "@crab-dev/rc-alert",
+  "directory": "20261029-alert-touch-repair-1",
+  "decision": "approve-observed-scope",
+  "coverage": "partial",
+  "baselineApproved": false,
+  "verifiedUpdated": false,
+  "lifecycleUpdated": false,
+  "fullLibraryComplete": false,
+  "method": "Every cases.json original PNG was individually opened with view_image at original resolution; no duplicate was skipped because its hash matched another. Native engineering pass was not substituted for visual inspection.",
+  "summary": {
+    "nativeCases": 6,
+    "nativePassed": 6,
+    "nativeFailed": 0,
+    "nativeSkipped": 0,
+    "originalPngs": 12,
+    "originalPngsPhysicallyViewed": 12,
+    "completedHighlightVideoFramesPhysicallyViewed": 0,
+    "pendingOriginalPngs": 0,
+    "newVisualIssues": 0
+  },
+  "nativeStats": {
+    "startTime": "2026-10-29T13:46:49.901Z",
+    "duration": 29951.063,
+    "expected": 6,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "nativeErrors": [],
+  "binding": {
+    "source": "sha256:bfd897ab345e64482c46312a80a978d3b59b8525afc7a7d97d6d4089fddf8219",
+    "artifact": "sha256:5d154efbac198cdabc6923ac53416360121b18b1ca1f4d8abba2627a58bf6cbc",
+    "workerFile": "inputs-worker-0.json",
+    "workerStable": true,
+    "sourceBeforeAfterAndAllCaseInputsMatch": true,
+    "allCaseBrowsersMatch": true,
+    "allOriginalPngHashesMatch": true,
+    "playwright": "1.64.1",
+    "rendering": {
+      "browser": "156.0.8078.4",
+      "webgl2": true,
+      "drawn": true,
+      "center": [
+        255,
+        0,
+        0,
+        255
+      ],
+      "background": [
+        51,
+        102,
+        153,
+        255
+      ],
+      "error": 0,
+      "vendor": "WebKit",
+      "renderer": "WebKit WebGL",
+      "driver": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3070 (0x00002484) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "errors": [],
+      "browserName": "chromium"
+    },
+    "sourceChecks": [
+      {
+        "path": "components/rc-alert/docs/alert-zoom.visual.spec.mjs",
+        "sha256": "ee97bfb95a31af5c6e339dd70f3e8217b4d5bf73c103766fd34624e5e1bf95f6",
+        "actualHash": "ee97bfb95a31af5c6e339dd70f3e8217b4d5bf73c103766fd34624e5e1bf95f6",
+        "matches": true
+      },
+      {
+        "path": "components/rc-alert/docs/alert.visual.spec.mjs",
+        "sha256": "d3bb5ecef4e7f34587fd91b7e12e60607e3b2eb171b2b58f6e81f050062d161b",
+        "actualHash": "d3bb5ecef4e7f34587fd91b7e12e60607e3b2eb171b2b58f6e81f050062d161b",
+        "matches": true
+      },
+      {
+        "path": "components/rc-alert/docs/demos/basic.demo.tsx",
+        "sha256": "ce75cb57123fa8408f3027cea710afdc86aeeadb64e11e161c2c1c7b60e36ff6",
+        "actualHash": "ce75cb57123fa8408f3027cea710afdc86aeeadb64e11e161c2c1c7b60e36ff6",
+        "matches": true
+      },
+      {
+        "path": "components/rc-alert/docs/demos/closable.demo.tsx",
+        "sha256": "0207ff1fb862f05e17e28b3c3219098f1cda372c48d87a0ba7905e7a4e4d7dd5",
+        "actualHash": "0207ff1fb862f05e17e28b3c3219098f1cda372c48d87a0ba7905e7a4e4d7dd5",
+        "matches": true
+      },
+      {
+        "path": "components/rc-alert/docs/demos/title.demo.tsx",
+        "sha256": "f237e30252d7d8e67844682a4fe19e8f4fc5644f66fedc1074bf24cba9ffd33d",
+        "actualHash": "f237e30252d7d8e67844682a4fe19e8f4fc5644f66fedc1074bf24cba9ffd33d",
+        "matches": true
+      },
+      {
+        "path": "components/rc-alert/docs/demos/visual-matrix.demo.tsx",
+        "sha256": "4a8b73247b85487b3b181c2e6ebb590994ede63abdb2ca70a29a8d0ab1486c37",
+        "actualHash": "4a8b73247b85487b3b181c2e6ebb590994ede63abdb2ca70a29a8d0ab1486c37",
+        "matches": true
+      },
+      {
+        "path": "components/rc-alert/docs/index.mdx",
+        "sha256": "c9ad6b552025321b93bef3b479416882eb372976830bf7aa27fa827b5747dcb4",
+        "actualHash": "c9ad6b552025321b93bef3b479416882eb372976830bf7aa27fa827b5747dcb4",
+        "matches": true
+      },
+      {
+        "path": "components/rc-alert/docs/presentation.json",
+        "sha256": "d963c77bed1caaa4b9aeffb0ff2207a936b6ac61c7703216bdaab6914046acca",
+        "actualHash": "d963c77bed1caaa4b9aeffb0ff2207a936b6ac61c7703216bdaab6914046acca",
+        "matches": true
+      },
+      {
+        "path": "components/rc-alert/docs/preview.tsx",
+        "sha256": "d3b8d3bc83f90d77f09843d1ec934ac485261049a297216496ff9345bb65811e",
+        "actualHash": "d3b8d3bc83f90d77f09843d1ec934ac485261049a297216496ff9345bb65811e",
+        "matches": true
+      },
+      {
+        "path": "components/rc-alert/docs/theme.css",
+        "sha256": "585b85a0fc8cf9dfb896d443d60170c59c8dbd0cd22372443ed95d756c4114c3",
+        "actualHash": "585b85a0fc8cf9dfb896d443d60170c59c8dbd0cd22372443ed95d756c4114c3",
+        "matches": true
+      },
+      {
+        "path": "components/rc-alert/docs/visual.json",
+        "sha256": "8d142195087bb8a020a9bff1ebef196938f019b87067901076192042ad746a23",
+        "actualHash": "8d142195087bb8a020a9bff1ebef196938f019b87067901076192042ad746a23",
+        "matches": true
+      },
+      {
+        "path": "components/rc-alert/package.json",
+        "sha256": "42b4a211a97965107d4a9fd3ef7cd988feb51aadfc1edf6f816e87d0dd76c0c2",
+        "actualHash": "42b4a211a97965107d4a9fd3ef7cd988feb51aadfc1edf6f816e87d0dd76c0c2",
+        "matches": true
+      },
+      {
+        "path": "components/rc-alert/src/__tests__/alert.test.tsx",
+        "sha256": "80d1ea6c677b68d3693abb1ee6b12c36001c2e3e1542c1e490f2f87851389e46",
+        "actualHash": "80d1ea6c677b68d3693abb1ee6b12c36001c2e3e1542c1e490f2f87851389e46",
+        "matches": true
+      },
+      {
+        "path": "components/rc-alert/src/alert.styles.ts",
+        "sha256": "970f534b2c9488212063ee6353a46b95aabb6f4954ded18f3e7b725467e7cdd7",
+        "actualHash": "970f534b2c9488212063ee6353a46b95aabb6f4954ded18f3e7b725467e7cdd7",
+        "matches": true
+      },
+      {
+        "path": "components/rc-alert/src/alert.tsx",
+        "sha256": "31782e8f4c390119578af3feb41d4216632cd28d932922a1331c7a77cd6222a0",
+        "actualHash": "31782e8f4c390119578af3feb41d4216632cd28d932922a1331c7a77cd6222a0",
+        "matches": true
+      },
+      {
+        "path": "components/rc-alert/src/icons.tsx",
+        "sha256": "922eebcf97da935e9fdb511bf7b3007036e228dc467eed7d533e512cd4ea23ac",
+        "actualHash": "922eebcf97da935e9fdb511bf7b3007036e228dc467eed7d533e512cd4ea23ac",
+        "matches": true
+      },
+      {
+        "path": "components/rc-alert/src/index.ts",
+        "sha256": "705026dfb5518594b4b4612e2ed1ffb21fa814d71b802353a72e84e0c81528a4",
+        "actualHash": "705026dfb5518594b4b4612e2ed1ffb21fa814d71b802353a72e84e0c81528a4",
+        "matches": true
+      },
+      {
+        "path": "components/rc-alert/src/token.ts",
+        "sha256": "8fa893220a1a25d338d70c5c8397d4a976def19091a6d114ebaf360ca4bdb242",
+        "actualHash": "8fa893220a1a25d338d70c5c8397d4a976def19091a6d114ebaf360ca4bdb242",
+        "matches": true
+      },
+      {
+        "path": "components/rc-alert/src/types.ts",
+        "sha256": "e4fca82964d61c16c80c547660519b150688c1370460f6f109575596f7d6a907",
+        "actualHash": "e4fca82964d61c16c80c547660519b150688c1370460f6f109575596f7d6a907",
+        "matches": true
+      },
+      {
+        "path": "components/rc-alert/token.toml",
+        "sha256": "b26f11aef46c6b065b2535a444c918bcf5808c7e9082d1d4f9678de6bc09cc0c",
+        "actualHash": "b26f11aef46c6b065b2535a444c918bcf5808c7e9082d1d4f9678de6bc09cc0c",
+        "matches": true
+      },
+      {
+        "path": "components/rc-alert/tsconfig.json",
+        "sha256": "204fabe12f19be9f23289e173110d8bef8903480ff1d057492579305240c8494",
+        "actualHash": "204fabe12f19be9f23289e173110d8bef8903480ff1d057492579305240c8494",
+        "matches": true
+      },
+      {
+        "path": "components/rc-alert/wake.config.toml",
+        "sha256": "dc610029c1ee33aa79f08128a3b79825d1f988851619c47e58e0b8f39ac449d2",
+        "actualHash": "dc610029c1ee33aa79f08128a3b79825d1f988851619c47e58e0b8f39ac449d2",
+        "matches": true
+      }
+    ],
+    "files": {
+      "inputSha256": "6e024fb60b03e6a38acbb558345e1c234dbcbdd783374a1defa3438bbe4d1819",
+      "nativeResultsSha256": "c4f1d35a6adeb45018773f7fdfbe28f52368be3a53e73947f8cad713c8d08325",
+      "originalCasesSha256": "6267d4e1831c67d590b22008e1b3be54cb877ce63e54f3a98fc5ea9f00301a06",
+      "renderingSha256": "cd0dbbcfdc61100643fce317ff63367ca365fe714e2b52e335958f7a67e8e2eb",
+      "localStorageSha256": "2eaf80eb8b6ea5aa644ba169f2ecbcde7d5b36c7b2c9cfebbe4001f6b3fd8269"
+    }
+  },
+  "findings": {
+    "alignment": "All six native icon-center differences are 0px, within the unchanged <=1px requirement. All six hit layers are48×48 with eight successful native edge/corner hits. Manual before-close images visibly align the close glyph with the first icon/text line, and after-tap images remove only the first item and show callback count1.",
+    "issues": []
+  },
+  "limitations": [
+    "仅 Windows/x64 原生 Chromium 156.0.8078.4 / Playwright Test 1.64.1；medium / standard，md3、apple、shadcn 各 light/dark 六种配置。本报告不推广到其他尺寸、密度、引擎、环境或完整组件状态矩阵。",
+    "仅有限认可实际看过的可见范围；未建立/批准 baseline、未更新 verified 或生命周期，整体全库仍未完成。",
+    "原始 cases.json、results.json、输入记录、PNG 和视频均未改写。静态外观、原生几何/行为断言及来源绑定分开记录。",
+    "候选 worker 的 before/after 源与资产指纹一致，且逐图 SHA-256 匹配。当前匹配仅复核本包来源文件，不宣称整个当前工作树都仍等于候选。",
+    "当前原生环境没有 Linux 镜像摘要/字体版本目录；不将其与 Linux 或其他平台像素基准交叉比较。",
+    "本批是 hasTouch 768×1024 场景的组件边界截图；PNG 尺寸是组件裁取范围，不冒充完整 viewport。",
+    "实际命中尺寸48×48、八个边缘点、真实外缘 tap、回调次数和 <=1px 中心断言由原生记录支持；人工仅核对图形对齐与前后结果，未从像素手算命中区域。",
+    "首条 default/info 可关闭状态及成功/警告伴随项被观察。title、action、error、hover、键盘焦点、按下、长文本、其他尺寸/密度等均未由本批补齐。"
+  ],
+  "cases": [
+    {
+      "caseId": "3d2b7864b1d353bd7ad4-628a30012a3393343c97/chromium/0",
+      "title": "Alert environment md3 light touch",
+      "testFile": "components/rc-alert/docs/alert.visual.spec.mjs",
+      "project": "chromium",
+      "nativeStatus": "passed",
+      "annotations": [
+        {
+          "type": "environment",
+          "value": {
+            "id": "touch",
+            "designSystem": "md3",
+            "colorMode": "light"
+          }
+        }
+      ],
+      "parameters": {
+        "designSystem": "md3",
+        "colorMode": "light",
+        "size": "medium",
+        "density": "standard",
+        "hasTouch": true,
+        "viewport": {
+          "width": 768,
+          "height": 1024
+        },
+        "conditionSource": "Source-matched environment test plus Demo local medium/standard defaults; config controls outside cropped PNG."
+      },
+      "candidateInputs": {
+        "source": "sha256:bfd897ab345e64482c46312a80a978d3b59b8525afc7a7d97d6d4089fddf8219",
+        "artifact": "sha256:5d154efbac198cdabc6923ac53416360121b18b1ca1f4d8abba2627a58bf6cbc",
+        "file": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\alert-touch-repair-20261029\\inputs-worker-0.json",
+        "renderingEnvironment": {
+          "file": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\alert-touch-repair-20261029\\rendering-worker-0.json",
+          "browserName": "chromium",
+          "browser": "156.0.8078.4"
+        },
+        "browserName": "chromium",
+        "browser": "156.0.8078.4",
+        "platform": "win32",
+        "arch": "x64",
+        "mode": "native-check",
+        "visualReview": "pending"
+      },
+      "inputMatches": true,
+      "browserMatches": true,
+      "images": [
+        {
+          "name": "actual",
+          "path": "screens/rc-alert/chromium/000001-2-actual.png",
+          "sha256": "7b9b2fb4755b3ea666ae83129c0ad5cba8acf20c71353b2ddcac924f3ad9f90d",
+          "actualHash": "7b9b2fb4755b3ea666ae83129c0ad5cba8acf20c71353b2ddcac924f3ad9f90d",
+          "hashMatches": true,
+          "width": 472,
+          "height": 332,
+          "physicallyViewed": true,
+          "stage": "before-close",
+          "decision": "approve-observed-scope",
+          "observed": "实际关闭前图：关闭×与首行信息图标/文字居中对齐，未再见旧3px上移；文字、描边与反馈表面清晰，操作次数0。48px与精确中心差由该case原生几何记录支持。",
+          "issues": []
+        },
+        {
+          "name": "actual",
+          "path": "screens/rc-alert/chromium/000001-4-actual.png",
+          "sha256": "b93d2dc8555c503b66a8562f38fab863941d276085360b7ec590adecf801cc61",
+          "actualHash": "b93d2dc8555c503b66a8562f38fab863941d276085360b7ec590adecf801cc61",
+          "hashMatches": true,
+          "width": 436,
+          "height": 266,
+          "physicallyViewed": true,
+          "stage": "after-real-tap",
+          "decision": "approve-observed-scope",
+          "observed": "真实外缘tap后，首条信息Alert已移除，成功/警告两条完整重排，操作次数显示1；未见残留关闭图标或裁切。时序与回调次数另由原生断言证明。",
+          "issues": []
+        }
+      ],
+      "nativeGeometry": {
+        "geometry": {
+          "visual": {
+            "x": 539,
+            "y": 131,
+            "width": 16,
+            "height": 20
+          },
+          "hit": {
+            "x": 523,
+            "y": 117,
+            "width": 48,
+            "height": 48
+          },
+          "center": {
+            "x": 547,
+            "y": 141
+          },
+          "points": [
+            {
+              "x": 523.5,
+              "y": 141
+            },
+            {
+              "x": 570.5,
+              "y": 141
+            },
+            {
+              "x": 547,
+              "y": 117.5
+            },
+            {
+              "x": 547,
+              "y": 164.5
+            },
+            {
+              "x": 523.5,
+              "y": 117.5
+            },
+            {
+              "x": 570.5,
+              "y": 164.5
+            },
+            {
+              "x": 523.5,
+              "y": 164.5
+            },
+            {
+              "x": 570.5,
+              "y": 117.5
+            }
+          ],
+          "hits": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ]
+        },
+        "firstIcon": {
+          "x": 213,
+          "y": 133,
+          "width": 16,
+          "height": 16
+        },
+        "closeIcon": {
+          "x": 539,
+          "y": 133,
+          "width": 16,
+          "height": 16
+        },
+        "scope": "actual elementFromPoint at the public 48px hit-region edges; visual first-line alignment",
+        "centerDifference": 0,
+        "allEightHits": true
+      },
+      "nativeErrors": [],
+      "console": [
+        {
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+          "location": {
+            "url": "http://127.0.0.1:63430/favicon.ico",
+            "line": 0,
+            "column": 0,
+            "lineNumber": 0,
+            "columnNumber": 0
+          }
+        }
+      ]
+    },
+    {
+      "caseId": "3d2b7864b1d353bd7ad4-46a77a6ad9f50ec713eb/chromium/0",
+      "title": "Alert environment md3 dark touch",
+      "testFile": "components/rc-alert/docs/alert.visual.spec.mjs",
+      "project": "chromium",
+      "nativeStatus": "passed",
+      "annotations": [
+        {
+          "type": "environment",
+          "value": {
+            "id": "touch",
+            "designSystem": "md3",
+            "colorMode": "dark"
+          }
+        }
+      ],
+      "parameters": {
+        "designSystem": "md3",
+        "colorMode": "dark",
+        "size": "medium",
+        "density": "standard",
+        "hasTouch": true,
+        "viewport": {
+          "width": 768,
+          "height": 1024
+        },
+        "conditionSource": "Source-matched environment test plus Demo local medium/standard defaults; config controls outside cropped PNG."
+      },
+      "candidateInputs": {
+        "source": "sha256:bfd897ab345e64482c46312a80a978d3b59b8525afc7a7d97d6d4089fddf8219",
+        "artifact": "sha256:5d154efbac198cdabc6923ac53416360121b18b1ca1f4d8abba2627a58bf6cbc",
+        "file": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\alert-touch-repair-20261029\\inputs-worker-0.json",
+        "renderingEnvironment": {
+          "file": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\alert-touch-repair-20261029\\rendering-worker-0.json",
+          "browserName": "chromium",
+          "browser": "156.0.8078.4"
+        },
+        "browserName": "chromium",
+        "browser": "156.0.8078.4",
+        "platform": "win32",
+        "arch": "x64",
+        "mode": "native-check",
+        "visualReview": "pending"
+      },
+      "inputMatches": true,
+      "browserMatches": true,
+      "images": [
+        {
+          "name": "actual",
+          "path": "screens/rc-alert/chromium/000002-2-actual.png",
+          "sha256": "cae3a2fd51e72049dd729360924515435853228564f508191a039843199eed6b",
+          "actualHash": "cae3a2fd51e72049dd729360924515435853228564f508191a039843199eed6b",
+          "hashMatches": true,
+          "width": 472,
+          "height": 332,
+          "physicallyViewed": true,
+          "stage": "before-close",
+          "decision": "approve-observed-scope",
+          "observed": "实际关闭前图：关闭×与首行信息图标/文字居中对齐，未再见旧3px上移；文字、描边与反馈表面清晰，操作次数0。48px与精确中心差由该case原生几何记录支持。",
+          "issues": []
+        },
+        {
+          "name": "actual",
+          "path": "screens/rc-alert/chromium/000002-4-actual.png",
+          "sha256": "c58c7a4e1ea1c3fca483c0736bfd5838f2447e9607200fcd82311d6831a13e7a",
+          "actualHash": "c58c7a4e1ea1c3fca483c0736bfd5838f2447e9607200fcd82311d6831a13e7a",
+          "hashMatches": true,
+          "width": 436,
+          "height": 266,
+          "physicallyViewed": true,
+          "stage": "after-real-tap",
+          "decision": "approve-observed-scope",
+          "observed": "真实外缘tap后，首条信息Alert已移除，成功/警告两条完整重排，操作次数显示1；未见残留关闭图标或裁切。时序与回调次数另由原生断言证明。",
+          "issues": []
+        }
+      ],
+      "nativeGeometry": {
+        "geometry": {
+          "visual": {
+            "x": 539,
+            "y": 131,
+            "width": 16,
+            "height": 20
+          },
+          "hit": {
+            "x": 523,
+            "y": 117,
+            "width": 48,
+            "height": 48
+          },
+          "center": {
+            "x": 547,
+            "y": 141
+          },
+          "points": [
+            {
+              "x": 523.5,
+              "y": 141
+            },
+            {
+              "x": 570.5,
+              "y": 141
+            },
+            {
+              "x": 547,
+              "y": 117.5
+            },
+            {
+              "x": 547,
+              "y": 164.5
+            },
+            {
+              "x": 523.5,
+              "y": 117.5
+            },
+            {
+              "x": 570.5,
+              "y": 164.5
+            },
+            {
+              "x": 523.5,
+              "y": 164.5
+            },
+            {
+              "x": 570.5,
+              "y": 117.5
+            }
+          ],
+          "hits": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ]
+        },
+        "firstIcon": {
+          "x": 213,
+          "y": 133,
+          "width": 16,
+          "height": 16
+        },
+        "closeIcon": {
+          "x": 539,
+          "y": 133,
+          "width": 16,
+          "height": 16
+        },
+        "scope": "actual elementFromPoint at the public 48px hit-region edges; visual first-line alignment",
+        "centerDifference": 0,
+        "allEightHits": true
+      },
+      "nativeErrors": [],
+      "console": null
+    },
+    {
+      "caseId": "3d2b7864b1d353bd7ad4-50c0f6187441aaa23824/chromium/0",
+      "title": "Alert environment apple light touch",
+      "testFile": "components/rc-alert/docs/alert.visual.spec.mjs",
+      "project": "chromium",
+      "nativeStatus": "passed",
+      "annotations": [
+        {
+          "type": "environment",
+          "value": {
+            "id": "touch",
+            "designSystem": "apple",
+            "colorMode": "light"
+          }
+        }
+      ],
+      "parameters": {
+        "designSystem": "apple",
+        "colorMode": "light",
+        "size": "medium",
+        "density": "standard",
+        "hasTouch": true,
+        "viewport": {
+          "width": 768,
+          "height": 1024
+        },
+        "conditionSource": "Source-matched environment test plus Demo local medium/standard defaults; config controls outside cropped PNG."
+      },
+      "candidateInputs": {
+        "source": "sha256:bfd897ab345e64482c46312a80a978d3b59b8525afc7a7d97d6d4089fddf8219",
+        "artifact": "sha256:5d154efbac198cdabc6923ac53416360121b18b1ca1f4d8abba2627a58bf6cbc",
+        "file": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\alert-touch-repair-20261029\\inputs-worker-0.json",
+        "renderingEnvironment": {
+          "file": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\alert-touch-repair-20261029\\rendering-worker-0.json",
+          "browserName": "chromium",
+          "browser": "156.0.8078.4"
+        },
+        "browserName": "chromium",
+        "browser": "156.0.8078.4",
+        "platform": "win32",
+        "arch": "x64",
+        "mode": "native-check",
+        "visualReview": "pending"
+      },
+      "inputMatches": true,
+      "browserMatches": true,
+      "images": [
+        {
+          "name": "actual",
+          "path": "screens/rc-alert/chromium/000003-2-actual.png",
+          "sha256": "f4b92e122f7e5902be7a4cd519e17abb03921e777c531774543ad86265725392",
+          "actualHash": "f4b92e122f7e5902be7a4cd519e17abb03921e777c531774543ad86265725392",
+          "hashMatches": true,
+          "width": 472,
+          "height": 308,
+          "physicallyViewed": true,
+          "stage": "before-close",
+          "decision": "approve-observed-scope",
+          "observed": "实际关闭前图：关闭×与首行信息图标/文字居中对齐，未再见旧3px上移；文字、描边与反馈表面清晰，操作次数0。48px与精确中心差由该case原生几何记录支持。",
+          "issues": []
+        },
+        {
+          "name": "actual",
+          "path": "screens/rc-alert/chromium/000003-4-actual.png",
+          "sha256": "b8ffb5e6fbc947035d7081f7481006ed7f58b668bcf04080f0a34eac36324ab9",
+          "actualHash": "b8ffb5e6fbc947035d7081f7481006ed7f58b668bcf04080f0a34eac36324ab9",
+          "hashMatches": true,
+          "width": 436,
+          "height": 250,
+          "physicallyViewed": true,
+          "stage": "after-real-tap",
+          "decision": "approve-observed-scope",
+          "observed": "真实外缘tap后，首条信息Alert已移除，成功/警告两条完整重排，操作次数显示1；未见残留关闭图标或裁切。时序与回调次数另由原生断言证明。",
+          "issues": []
+        }
+      ],
+      "nativeGeometry": {
+        "geometry": {
+          "visual": {
+            "x": 539,
+            "y": 127,
+            "width": 16,
+            "height": 20
+          },
+          "hit": {
+            "x": 523,
+            "y": 113,
+            "width": 48,
+            "height": 48
+          },
+          "center": {
+            "x": 547,
+            "y": 137
+          },
+          "points": [
+            {
+              "x": 523.5,
+              "y": 137
+            },
+            {
+              "x": 570.5,
+              "y": 137
+            },
+            {
+              "x": 547,
+              "y": 113.5
+            },
+            {
+              "x": 547,
+              "y": 160.5
+            },
+            {
+              "x": 523.5,
+              "y": 113.5
+            },
+            {
+              "x": 570.5,
+              "y": 160.5
+            },
+            {
+              "x": 523.5,
+              "y": 160.5
+            },
+            {
+              "x": 570.5,
+              "y": 113.5
+            }
+          ],
+          "hits": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ]
+        },
+        "firstIcon": {
+          "x": 213,
+          "y": 129,
+          "width": 16,
+          "height": 16
+        },
+        "closeIcon": {
+          "x": 539,
+          "y": 129,
+          "width": 16,
+          "height": 16
+        },
+        "scope": "actual elementFromPoint at the public 48px hit-region edges; visual first-line alignment",
+        "centerDifference": 0,
+        "allEightHits": true
+      },
+      "nativeErrors": [],
+      "console": null
+    },
+    {
+      "caseId": "3d2b7864b1d353bd7ad4-43560a71267793d0acee/chromium/0",
+      "title": "Alert environment apple dark touch",
+      "testFile": "components/rc-alert/docs/alert.visual.spec.mjs",
+      "project": "chromium",
+      "nativeStatus": "passed",
+      "annotations": [
+        {
+          "type": "environment",
+          "value": {
+            "id": "touch",
+            "designSystem": "apple",
+            "colorMode": "dark"
+          }
+        }
+      ],
+      "parameters": {
+        "designSystem": "apple",
+        "colorMode": "dark",
+        "size": "medium",
+        "density": "standard",
+        "hasTouch": true,
+        "viewport": {
+          "width": 768,
+          "height": 1024
+        },
+        "conditionSource": "Source-matched environment test plus Demo local medium/standard defaults; config controls outside cropped PNG."
+      },
+      "candidateInputs": {
+        "source": "sha256:bfd897ab345e64482c46312a80a978d3b59b8525afc7a7d97d6d4089fddf8219",
+        "artifact": "sha256:5d154efbac198cdabc6923ac53416360121b18b1ca1f4d8abba2627a58bf6cbc",
+        "file": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\alert-touch-repair-20261029\\inputs-worker-0.json",
+        "renderingEnvironment": {
+          "file": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\alert-touch-repair-20261029\\rendering-worker-0.json",
+          "browserName": "chromium",
+          "browser": "156.0.8078.4"
+        },
+        "browserName": "chromium",
+        "browser": "156.0.8078.4",
+        "platform": "win32",
+        "arch": "x64",
+        "mode": "native-check",
+        "visualReview": "pending"
+      },
+      "inputMatches": true,
+      "browserMatches": true,
+      "images": [
+        {
+          "name": "actual",
+          "path": "screens/rc-alert/chromium/000004-2-actual.png",
+          "sha256": "59161c3a3dfba8d1371274e415d8104e5d28737f819202d7eb3ce4add4b416b7",
+          "actualHash": "59161c3a3dfba8d1371274e415d8104e5d28737f819202d7eb3ce4add4b416b7",
+          "hashMatches": true,
+          "width": 472,
+          "height": 308,
+          "physicallyViewed": true,
+          "stage": "before-close",
+          "decision": "approve-observed-scope",
+          "observed": "实际关闭前图：×与首行信息图标/文字视觉中心对齐，三条反馈及轮廓完整；该设计明暗表面可辨，操作次数0。精确中心差0与48×48命中层属于原生几何证据。",
+          "issues": []
+        },
+        {
+          "name": "actual",
+          "path": "screens/rc-alert/chromium/000004-4-actual.png",
+          "sha256": "fbbff1ff508c2d817a73cad4df461f8f8e05e15fe7d3aa8bbdac5f97ebb3a746",
+          "actualHash": "fbbff1ff508c2d817a73cad4df461f8f8e05e15fe7d3aa8bbdac5f97ebb3a746",
+          "hashMatches": true,
+          "width": 436,
+          "height": 250,
+          "physicallyViewed": true,
+          "stage": "after-real-tap",
+          "decision": "approve-observed-scope",
+          "observed": "真实外缘tap后的图中首条已移除，成功/警告两条完整重排，计数1；无残留关闭图标或可见裁切。未把此图扩张为其他尺寸/状态验收。",
+          "issues": []
+        }
+      ],
+      "nativeGeometry": {
+        "geometry": {
+          "visual": {
+            "x": 539,
+            "y": 127,
+            "width": 16,
+            "height": 20
+          },
+          "hit": {
+            "x": 523,
+            "y": 113,
+            "width": 48,
+            "height": 48
+          },
+          "center": {
+            "x": 547,
+            "y": 137
+          },
+          "points": [
+            {
+              "x": 523.5,
+              "y": 137
+            },
+            {
+              "x": 570.5,
+              "y": 137
+            },
+            {
+              "x": 547,
+              "y": 113.5
+            },
+            {
+              "x": 547,
+              "y": 160.5
+            },
+            {
+              "x": 523.5,
+              "y": 113.5
+            },
+            {
+              "x": 570.5,
+              "y": 160.5
+            },
+            {
+              "x": 523.5,
+              "y": 160.5
+            },
+            {
+              "x": 570.5,
+              "y": 113.5
+            }
+          ],
+          "hits": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ]
+        },
+        "firstIcon": {
+          "x": 213,
+          "y": 129,
+          "width": 16,
+          "height": 16
+        },
+        "closeIcon": {
+          "x": 539,
+          "y": 129,
+          "width": 16,
+          "height": 16
+        },
+        "scope": "actual elementFromPoint at the public 48px hit-region edges; visual first-line alignment",
+        "centerDifference": 0,
+        "allEightHits": true
+      },
+      "nativeErrors": [],
+      "console": null
+    },
+    {
+      "caseId": "3d2b7864b1d353bd7ad4-0d09832cd6c4af672b1d/chromium/0",
+      "title": "Alert environment shadcn light touch",
+      "testFile": "components/rc-alert/docs/alert.visual.spec.mjs",
+      "project": "chromium",
+      "nativeStatus": "passed",
+      "annotations": [
+        {
+          "type": "environment",
+          "value": {
+            "id": "touch",
+            "designSystem": "shadcn",
+            "colorMode": "light"
+          }
+        }
+      ],
+      "parameters": {
+        "designSystem": "shadcn",
+        "colorMode": "light",
+        "size": "medium",
+        "density": "standard",
+        "hasTouch": true,
+        "viewport": {
+          "width": 768,
+          "height": 1024
+        },
+        "conditionSource": "Source-matched environment test plus Demo local medium/standard defaults; config controls outside cropped PNG."
+      },
+      "candidateInputs": {
+        "source": "sha256:bfd897ab345e64482c46312a80a978d3b59b8525afc7a7d97d6d4089fddf8219",
+        "artifact": "sha256:5d154efbac198cdabc6923ac53416360121b18b1ca1f4d8abba2627a58bf6cbc",
+        "file": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\alert-touch-repair-20261029\\inputs-worker-0.json",
+        "renderingEnvironment": {
+          "file": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\alert-touch-repair-20261029\\rendering-worker-0.json",
+          "browserName": "chromium",
+          "browser": "156.0.8078.4"
+        },
+        "browserName": "chromium",
+        "browser": "156.0.8078.4",
+        "platform": "win32",
+        "arch": "x64",
+        "mode": "native-check",
+        "visualReview": "pending"
+      },
+      "inputMatches": true,
+      "browserMatches": true,
+      "images": [
+        {
+          "name": "actual",
+          "path": "screens/rc-alert/chromium/000005-2-actual.png",
+          "sha256": "35a504618879c133dd7c411a6313fa436ac75792a9d84b48c4c4c8792d4ee109",
+          "actualHash": "35a504618879c133dd7c411a6313fa436ac75792a9d84b48c4c4c8792d4ee109",
+          "hashMatches": true,
+          "width": 472,
+          "height": 308,
+          "physicallyViewed": true,
+          "stage": "before-close",
+          "decision": "approve-observed-scope",
+          "observed": "实际关闭前图：×与首行信息图标/文字视觉中心对齐，三条反馈及轮廓完整；该设计明暗表面可辨，操作次数0。精确中心差0与48×48命中层属于原生几何证据。",
+          "issues": []
+        },
+        {
+          "name": "actual",
+          "path": "screens/rc-alert/chromium/000005-4-actual.png",
+          "sha256": "d2483c2f5e1e1322f2cf6d52731a05cc64da29c8828e12b779ed6a4f7e07305d",
+          "actualHash": "d2483c2f5e1e1322f2cf6d52731a05cc64da29c8828e12b779ed6a4f7e07305d",
+          "hashMatches": true,
+          "width": 436,
+          "height": 250,
+          "physicallyViewed": true,
+          "stage": "after-real-tap",
+          "decision": "approve-observed-scope",
+          "observed": "真实外缘tap后的图中首条已移除，成功/警告两条完整重排，计数1；无残留关闭图标或可见裁切。未把此图扩张为其他尺寸/状态验收。",
+          "issues": []
+        }
+      ],
+      "nativeGeometry": {
+        "geometry": {
+          "visual": {
+            "x": 539,
+            "y": 127,
+            "width": 16,
+            "height": 20
+          },
+          "hit": {
+            "x": 523,
+            "y": 113,
+            "width": 48,
+            "height": 48
+          },
+          "center": {
+            "x": 547,
+            "y": 137
+          },
+          "points": [
+            {
+              "x": 523.5,
+              "y": 137
+            },
+            {
+              "x": 570.5,
+              "y": 137
+            },
+            {
+              "x": 547,
+              "y": 113.5
+            },
+            {
+              "x": 547,
+              "y": 160.5
+            },
+            {
+              "x": 523.5,
+              "y": 113.5
+            },
+            {
+              "x": 570.5,
+              "y": 160.5
+            },
+            {
+              "x": 523.5,
+              "y": 160.5
+            },
+            {
+              "x": 570.5,
+              "y": 113.5
+            }
+          ],
+          "hits": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ]
+        },
+        "firstIcon": {
+          "x": 213,
+          "y": 129,
+          "width": 16,
+          "height": 16
+        },
+        "closeIcon": {
+          "x": 539,
+          "y": 129,
+          "width": 16,
+          "height": 16
+        },
+        "scope": "actual elementFromPoint at the public 48px hit-region edges; visual first-line alignment",
+        "centerDifference": 0,
+        "allEightHits": true
+      },
+      "nativeErrors": [],
+      "console": null
+    },
+    {
+      "caseId": "3d2b7864b1d353bd7ad4-1a3daca27356dcfe4d58/chromium/0",
+      "title": "Alert environment shadcn dark touch",
+      "testFile": "components/rc-alert/docs/alert.visual.spec.mjs",
+      "project": "chromium",
+      "nativeStatus": "passed",
+      "annotations": [
+        {
+          "type": "environment",
+          "value": {
+            "id": "touch",
+            "designSystem": "shadcn",
+            "colorMode": "dark"
+          }
+        }
+      ],
+      "parameters": {
+        "designSystem": "shadcn",
+        "colorMode": "dark",
+        "size": "medium",
+        "density": "standard",
+        "hasTouch": true,
+        "viewport": {
+          "width": 768,
+          "height": 1024
+        },
+        "conditionSource": "Source-matched environment test plus Demo local medium/standard defaults; config controls outside cropped PNG."
+      },
+      "candidateInputs": {
+        "source": "sha256:bfd897ab345e64482c46312a80a978d3b59b8525afc7a7d97d6d4089fddf8219",
+        "artifact": "sha256:5d154efbac198cdabc6923ac53416360121b18b1ca1f4d8abba2627a58bf6cbc",
+        "file": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\alert-touch-repair-20261029\\inputs-worker-0.json",
+        "renderingEnvironment": {
+          "file": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\alert-touch-repair-20261029\\rendering-worker-0.json",
+          "browserName": "chromium",
+          "browser": "156.0.8078.4"
+        },
+        "browserName": "chromium",
+        "browser": "156.0.8078.4",
+        "platform": "win32",
+        "arch": "x64",
+        "mode": "native-check",
+        "visualReview": "pending"
+      },
+      "inputMatches": true,
+      "browserMatches": true,
+      "images": [
+        {
+          "name": "actual",
+          "path": "screens/rc-alert/chromium/000006-2-actual.png",
+          "sha256": "779e0255fc27a599a6793ce648996b9fa1f50f4cfb01b29a0158a9aaffbafe3c",
+          "actualHash": "779e0255fc27a599a6793ce648996b9fa1f50f4cfb01b29a0158a9aaffbafe3c",
+          "hashMatches": true,
+          "width": 472,
+          "height": 308,
+          "physicallyViewed": true,
+          "stage": "before-close",
+          "decision": "approve-observed-scope",
+          "observed": "实际关闭前图：×与首行信息图标/文字视觉中心对齐，三条反馈及轮廓完整；该设计明暗表面可辨，操作次数0。精确中心差0与48×48命中层属于原生几何证据。",
+          "issues": []
+        },
+        {
+          "name": "actual",
+          "path": "screens/rc-alert/chromium/000006-4-actual.png",
+          "sha256": "c3041fe69880a5e69d7b5114e0fd210a1e045cdbab0d4baba1cf34da6d87579b",
+          "actualHash": "c3041fe69880a5e69d7b5114e0fd210a1e045cdbab0d4baba1cf34da6d87579b",
+          "hashMatches": true,
+          "width": 436,
+          "height": 250,
+          "physicallyViewed": true,
+          "stage": "after-real-tap",
+          "decision": "approve-observed-scope",
+          "observed": "真实外缘tap后的图中首条已移除，成功/警告两条完整重排，计数1；无残留关闭图标或可见裁切。未把此图扩张为其他尺寸/状态验收。",
+          "issues": []
+        }
+      ],
+      "nativeGeometry": {
+        "geometry": {
+          "visual": {
+            "x": 539,
+            "y": 127,
+            "width": 16,
+            "height": 20
+          },
+          "hit": {
+            "x": 523,
+            "y": 113,
+            "width": 48,
+            "height": 48
+          },
+          "center": {
+            "x": 547,
+            "y": 137
+          },
+          "points": [
+            {
+              "x": 523.5,
+              "y": 137
+            },
+            {
+              "x": 570.5,
+              "y": 137
+            },
+            {
+              "x": 547,
+              "y": 113.5
+            },
+            {
+              "x": 547,
+              "y": 160.5
+            },
+            {
+              "x": 523.5,
+              "y": 113.5
+            },
+            {
+              "x": 570.5,
+              "y": 160.5
+            },
+            {
+              "x": 523.5,
+              "y": 160.5
+            },
+            {
+              "x": 570.5,
+              "y": 113.5
+            }
+          ],
+          "hits": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ]
+        },
+        "firstIcon": {
+          "x": 213,
+          "y": 129,
+          "width": 16,
+          "height": 16
+        },
+        "closeIcon": {
+          "x": 539,
+          "y": 129,
+          "width": 16,
+          "height": 16
+        },
+        "scope": "actual elementFromPoint at the public 48px hit-region edges; visual first-line alignment",
+        "centerDifference": 0,
+        "allEightHits": true
+      },
+      "nativeErrors": [],
+      "console": null
+    }
+  ]
+}

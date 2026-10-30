@@ -10,17 +10,9 @@ description: 修改 .website 文档站、组件文档源、可运行示例或指
 - 改 `.website/docs/guides/` 的规范正文、组件 `docs/index.mdx`、`docs/demos/` 示例。
 - 站点构建失败、`check:docs` 报生成物漂移，或要新增指南页。
 
-## 源与生成物
+## 定位
 
-| 内容 | 源 | 生成物 |
-| --- | --- | --- |
-| 规范正文 | `.website/docs/guides/*.mdx` | 直接发布 |
-| 组件文档 | `components/rc-*/docs/index.mdx`、`docs/demos/*.demo.tsx` | `.website/docs/components/*.mdx` |
-| 教学文字 | `.website/content/` | `.website/docs/learn/`、`_generated_tutorials/` |
-| 运行示例 | `.website/docs/examples/` | `_generated_sources/` |
-| 导航、API、覆盖 | `library.manifest.json`、组件类型、docgen | `navigation.toml`、`_generated/`、`_generated_api/` |
-
-生成文件带 `THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY.` 标记，一律改源后重新生成。产品元数据只维护根清单，导航与数量由生成器派生。
+先运行 `yarn ai:context <文件或组件包>`，按结果定位来源；完整来源表见[贡献与维护](../../../.website/docs/guides/contributing.mdx#来源与生成)，示例约束见[网站规则](../../../.website/AGENTS.md)。教学文字变更按需读 [content 维护说明](../../../.website/content/README.md)。
 
 ## 流程
 
@@ -30,12 +22,6 @@ description: 修改 .website 文档站、组件文档源、可运行示例或指
 4. 生成器或契约变化：`yarn workspace @crab-dev/website test:generator`、`test:build`。
 5. 构建 `yarn docs:build`（先 `build:library`，再生成并构建站点）。
 6. 运行界面变化另做实际浏览器验收：三体系、明暗、窄屏、键盘、焦点、强制颜色、减少动画，按范围取舍并记录。
-
-## 示例规则
-
-- 只用公开包入口，复制到独立项目可运行。
-- 不引用组件 `src`、相邻示例或隐藏辅助文件。
-- 复用已有控件与公共 registry，默认 MD3 Expressive；设计体系、明暗、尺寸、密度各自独立。
 
 ## 验证
 

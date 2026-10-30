@@ -1,0 +1,12 @@
+{
+    "schemaVersion": 1,
+    "demo": "visual-matrix.demo.tsx",
+    "sizes": ["small", "medium", "large"],
+    "densities": ["compact", "standard", "comfortable"],
+    "states": ["default", "hover", "focus-visible", "pressed", "disabled", "empty", "selected", "jump", "size-menu"],
+    "crossEngine": { "sizes": ["medium"], "densities": ["standard"], "states": ["default", "focus-visible", "disabled", "selected", "jump", "size-menu"] },
+    "notApplicable": {
+        "error": "Pagination has no data-fetch or error protocol; invalid jump text is clamped/ignored by its existing value rules.",
+        "loading": "Fetching belongs to the owning data view. Pagination keeps its current location and can be disabled by that owner."
+    }
+}

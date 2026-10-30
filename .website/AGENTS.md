@@ -4,6 +4,7 @@
 
 - [规范目录](docs/guides/)是库架构、公共 API、设计、尺寸密度、迁移和维护规范的唯一正文；规则变化同步类型、实现、示例、测试和 AGENTS 索引。
 - 产品元数据只维护根[产品清单](../library.manifest.json)，通过[共享读取器](../scripts/library-manifest.mjs)读取。导航、覆盖矩阵、目录和数量由生成器派生。
+- 组件预览布局、预览密度、Demo 分组与顶部示例维护于各包 `docs/presentation.json`；默认 wide / regular，分组引用必须存在且唯一。生成器不维护组件名称分支表。
 - 组件正文来自 `components/rc-*/docs/index.mdx`，示例来自各包 `docs/demos/`；教学文字来自 `content/`，运行文件来自 `docs/examples/`。展示源码直接提取运行文件。
 - 不手改 `docs/components/`、`docs/_generated*/`、生成的学习/实战页、`docs/navigation.toml` 和覆盖矩阵。修改来源后运行 `generate:docs`，生成器变化补契约测试。
 - 示例使用公开包入口，独立可复制，不依赖组件 src、相邻示例或隐藏辅助文件；复用已有控件。

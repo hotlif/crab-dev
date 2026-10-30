@@ -1,0 +1,48 @@
+{
+    "schemaVersion": 1,
+    "demo": "visual-matrix.demo.tsx",
+    "sizes": [
+        "small",
+        "medium",
+        "large"
+    ],
+    "densities": [
+        "standard"
+    ],
+    "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "pressed",
+        "selected",
+        "selected-hover",
+        "selected-focus-visible",
+        "selected-pressed",
+        "error",
+        "selected-error",
+        "disabled",
+        "disabled-selected",
+        "indeterminate",
+        "indeterminate-error",
+        "disabled-indeterminate"
+    ],
+    "crossEngine": {
+        "sizes": [
+            "medium"
+        ],
+        "densities": [
+            "standard"
+        ],
+        "states": [
+            "default",
+            "focus-visible",
+            "selected",
+            "disabled-selected"
+        ]
+    },
+    "notApplicable": {
+        "density": "Standalone selection controls follow public size. Density controls collection spacing and does not resize this control.",
+        "loading": "Pending asynchronous changes belong to the owning form; this control has no loading contract."
+    }
+}
+

@@ -6,63 +6,7 @@ import { type FC, type MouseEvent as ReactMouseEvent, useState } from 'react';
 import { CloseIcon, ErrorIcon, InfoIcon, SuccessIcon, WarningIcon } from './icons.js';
 import token from './token.js';
 import type { AlertProps, AlertType } from './types.js';
-
-// ─── 基础样式 ────────────────────────────────────────────────────────────────
-
-const baseStyle = css`
-    display: flex;
-    align-items: flex-start;
-    box-sizing: border-box;
-    padding: ${token.root.padding};
-    border-radius: ${token.root["border-radius"]};
-    border: 1px solid transparent;
-    font-size: ${token.root["font-size"]};
-    line-height: ${token.root["line-height"]};
-    height: auto;
-    min-height: 0;
-    interpolate-size: allow-keywords;
-    transition: ${token.root.transition}, height ${token.motion.collapse.transition},
-        padding-block ${token.motion.collapse.transition}, border-block-width ${token.motion.collapse.transition},
-        opacity ${token.interaction.transition};
-    &[data-state="closed"] {
-        height: 0;
-        padding-block: 0;
-        border-block-width: 0;
-        opacity: 0;
-        overflow: clip;
-        pointer-events: none;
-    }
-    word-break: break-word;
-    @media (prefers-reduced-motion: reduce) { transition: none; }
-    @media (forced-colors: active) { border-color: CanvasText; }
-`;
-
-// ─── 类型颜色样式 ────────────────────────────────────────────────────────────
-
-const successStyle = css`
-    color: ${token.success.color};
-    background-color: ${token.success["background-color"]};
-    border-color: ${token.success['border-color']};
-`;
-
-const warningStyle = css`
-    color: ${token.warning.color};
-    background-color: ${token.warning["background-color"]};
-    border-color: ${token.warning['border-color']};
-`;
-
-const errorStyle = css`
-    color: ${token.root['color-error']};
-    background-color: ${token.root['background-color-error']};
-    border-color: ${token.root['border-color-error']};
-`;
-
-const infoStyle = css`
-    color: ${token.info.color};
-    background-color: ${token.info["background-color"]};
-    border-color: ${token.info['border-color']};
-`;
-
+import { baseStyle, successStyle, warningStyle, errorStyle, infoStyle, successIconStyle, warningIconStyle, errorIconStyle, infoIconStyle, iconStyle, iconWithTitleStyle, contentStyle, titleStyle, closeButtonStyle, closeButtonWithTitleStyle, closeIconStyle } from "./alert.styles.js";
 const typeStyleMap: Record<AlertType, string> = {
     success: successStyle,
     warning: warningStyle,
@@ -70,80 +14,12 @@ const typeStyleMap: Record<AlertType, string> = {
     info: infoStyle,
 };
 
-const successIconStyle = css`color: ${token.success.icon.color};`;
-const warningIconStyle = css`color: ${token.warning.icon.color};`;
-const errorIconStyle = css`color: ${token.icon['color-error']};`;
-const infoIconStyle = css`color: ${token.info.icon.color};`;
-
 const typeIconStyleMap: Record<AlertType, string> = {
     success: successIconStyle,
     warning: warningIconStyle,
     error: errorIconStyle,
     info: infoIconStyle,
 };
-
-// ─── 图标样式 ────────────────────────────────────────────────────────────────
-
-const iconStyle = css`
-    display: inline-flex;
-    align-items: center;
-    flex-shrink: 0;
-    margin-inline-end: ${token.icon["margin-right"]};
-    height: calc(${token.root["font-size"]} * ${token.root["line-height"]});
-    > svg {
-        width: ${token.icon.width};
-        height: ${token.icon.width};
-    }
-`;
-
-const iconWithTitleStyle = css`
-    height: calc(${token.title["font-size"]} * ${token.root["line-height"]});
-    > svg {
-        width: ${token.icon['with-title'].width};
-        height: ${token.icon['with-title'].width};
-    }
-`;
-
-// ─── 内容样式 ────────────────────────────────────────────────────────────────
-
-const contentStyle = css`
-    flex: 1;
-    min-width: 0;
-`;
-
-const titleStyle = css`
-    font-size: ${token.title["font-size"]};
-    font-weight: ${token.title["font-weight"]};
-    margin-bottom: ${token.title["margin-bottom"]};
-`;
-
-// ─── 关闭按钮样式 ────────────────────────────────────────────────────────────
-
-const closeButtonStyle = css`
-    @media (pointer: coarse) { min-width: ${token.interaction.touch['min-width']}; min-height: ${token.interaction.touch['min-height']}; }
-    &:focus-visible { outline: ${token.interaction['outline-width-focus']} solid ${token.interaction['outline-color-focus']}; outline-offset: ${token.interaction['outline-offset-focus']}; }
-    @media (forced-colors: active) { &:focus-visible { outline-color: Highlight; } &[aria-selected='true'], &[aria-current='page'] { outline: 2px solid Highlight; } }
-    @media (prefers-reduced-motion: reduce) { transition: none; }
-
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    margin-inline-start: ${token.icon["margin-right"]};
-    height: calc(${token.root["font-size"]} * ${token.root["line-height"]});
-    padding: 0;
-    border: none;
-    background: transparent;
-    cursor: pointer;
-    color: ${token.close.color};
-    &:hover {
-        color: ${token.close['color-hover']};
-    }
-`;
-
-const closeButtonWithTitleStyle = css`
-    height: calc(${token.title["font-size"]} * ${token.root["line-height"]});
-`;
 
 // ─── Alert 组件 ──────────────────────────────────────────────────────────────
 
@@ -204,7 +80,7 @@ const Alert: FC<AlertProps> = ({
                 className={cx.call(undefined, closeButtonStyle, title ? closeButtonWithTitleStyle : undefined)}
                 onClick={handleClose}
             >
-                {iconNode}
+                <span className={closeIconStyle}>{iconNode}</span>
             </Button>
         );
     };

@@ -1,0 +1,458 @@
+{
+  "scope": "Cumulative individually completed public Windows checks; not a successful single root/full invocation",
+  "originalFullEntryExitCode": 1,
+  "observedPassingChecks": 49,
+  "sourceDeltaBetweenSegments": [
+    {
+      "path": "components/rc-table/src/__tests__/browser/row-edit-actions.test.tsx",
+      "before": "2fc6de227244ef2e070cfd6ab20b6ed4f350b4d8afbc60cee6c3904004650792",
+      "after": "5e83cc1f39fe187eff9294fc498f30ef645bb71decd01b2b860a69791d27511e"
+    }
+  ],
+  "shippingArtifactsIdentical": true,
+  "completeSiteIdentical": true,
+  "checks": [
+    {
+      "ordinal": 1,
+      "workspace": "@crab-dev/rc-app-main-layout",
+      "task": "test:browser",
+      "status": "passed",
+      "nativeSectionSha256": "723f7f6c43fc370214c16772ab1ae86705354156d1cf42686931721f296520f5",
+      "evidence": ".tmp/visual-required-windows-frozen-5.log",
+      "source": "sha256:d018f95c6081d1d31fdf744594152fa140bac202ed2eafdd66250e6bfaf170a7"
+    },
+    {
+      "ordinal": 2,
+      "workspace": "@crab-dev/rc-avatar",
+      "task": "test:browser",
+      "status": "passed",
+      "nativeSectionSha256": "4ec8359db733b88f311c6c7477b2bd7ea54ecda03fa9bacba8eede4ad91ee0d4",
+      "evidence": ".tmp/visual-required-windows-frozen-5.log",
+      "source": "sha256:d018f95c6081d1d31fdf744594152fa140bac202ed2eafdd66250e6bfaf170a7"
+    },
+    {
+      "ordinal": 3,
+      "workspace": "@crab-dev/rc-avatar",
+      "task": "test:forced-colors",
+      "status": "passed",
+      "nativeSectionSha256": "baf501671c1a5507f2f8b1a5a729e26b9802a203bd12d7832e79b09f8c3d0f34",
+      "evidence": ".tmp/visual-required-windows-frozen-5.log",
+      "source": "sha256:d018f95c6081d1d31fdf744594152fa140bac202ed2eafdd66250e6bfaf170a7"
+    },
+    {
+      "ordinal": 4,
+      "workspace": "@crab-dev/rc-badge",
+      "task": "test:browser",
+      "status": "passed",
+      "nativeSectionSha256": "a794d2fc47b4ab069d73e5462ede5f5a9a2fb3a4c7b40e17ef93b15cc5001273",
+      "evidence": ".tmp/visual-required-windows-frozen-5.log",
+      "source": "sha256:d018f95c6081d1d31fdf744594152fa140bac202ed2eafdd66250e6bfaf170a7"
+    },
+    {
+      "ordinal": 5,
+      "workspace": "@crab-dev/rc-bar-chart",
+      "task": "test:browser",
+      "status": "passed",
+      "nativeSectionSha256": "95322ad31b8fb851650121a6d8bd08c8c82e09805c2387c1ee9548e0a02675ce",
+      "evidence": ".tmp/visual-required-windows-frozen-5.log",
+      "source": "sha256:d018f95c6081d1d31fdf744594152fa140bac202ed2eafdd66250e6bfaf170a7"
+    },
+    {
+      "ordinal": 6,
+      "workspace": "@crab-dev/rc-bar-chart",
+      "task": "test:forced-colors",
+      "status": "passed",
+      "nativeSectionSha256": "068abc63d44315387a6d815269d78ad3e97a15a3c349c6f7639c820c872bbc6e",
+      "evidence": ".tmp/visual-required-windows-frozen-5.log",
+      "source": "sha256:d018f95c6081d1d31fdf744594152fa140bac202ed2eafdd66250e6bfaf170a7"
+    },
+    {
+      "ordinal": 7,
+      "workspace": "@crab-dev/rc-bar-chart",
+      "task": "test:focus",
+      "status": "passed",
+      "nativeSectionSha256": "51ad16f341f657b4c8a69d4e51ec09553a91e1b44c7eee7d1bca0cd8b22fe098",
+      "evidence": ".tmp/visual-required-windows-frozen-5.log",
+      "source": "sha256:d018f95c6081d1d31fdf744594152fa140bac202ed2eafdd66250e6bfaf170a7"
+    },
+    {
+      "ordinal": 8,
+      "workspace": "@crab-dev/rc-canvas",
+      "task": "test:browser",
+      "status": "passed",
+      "nativeSectionSha256": "804d6b6af6a8427ae5ce795e0d036c853507e19d6c1a3d10a5b250fecfa69480",
+      "evidence": ".tmp/visual-required-windows-frozen-5.log",
+      "source": "sha256:d018f95c6081d1d31fdf744594152fa140bac202ed2eafdd66250e6bfaf170a7"
+    },
+    {
+      "ordinal": 9,
+      "workspace": "@crab-dev/rc-card",
+      "task": "test:browser",
+      "status": "passed",
+      "nativeSectionSha256": "0025cb703be4b854a559e3ce8b9581c578dcc49531d1854109c3956d4d45d2a7",
+      "evidence": ".tmp/visual-required-windows-frozen-5.log",
+      "source": "sha256:d018f95c6081d1d31fdf744594152fa140bac202ed2eafdd66250e6bfaf170a7"
+    },
+    {
+      "ordinal": 10,
+      "workspace": "@crab-dev/rc-card",
+      "task": "test:natural",
+      "status": "passed",
+      "nativeSectionSha256": "eb406b8f3ca662c243183036ef523a62222c042f71da1a9e4e6090326b45406d",
+      "evidence": ".tmp/visual-required-windows-frozen-5.log",
+      "source": "sha256:d018f95c6081d1d31fdf744594152fa140bac202ed2eafdd66250e6bfaf170a7"
+    },
+    {
+      "ordinal": 11,
+      "workspace": "@crab-dev/rc-color-picker",
+      "task": "test:browser",
+      "status": "passed",
+      "nativeSectionSha256": "eaec5cff7976f55c916ab8e515d33e01f3541bf7a7657450d3c519d0389f9501",
+      "evidence": ".tmp/visual-required-windows-frozen-5.log",
+      "source": "sha256:d018f95c6081d1d31fdf744594152fa140bac202ed2eafdd66250e6bfaf170a7"
+    },
+    {
+      "ordinal": 12,
+      "workspace": "@crab-dev/rc-color-picker",
+      "task": "test:forced-colors",
+      "status": "passed",
+      "nativeSectionSha256": "47167ed5301d6557a1066dcb8fcbfe38520cd04b92f340095cba696a8d10754a",
+      "evidence": ".tmp/visual-required-windows-frozen-5.log",
+      "source": "sha256:d018f95c6081d1d31fdf744594152fa140bac202ed2eafdd66250e6bfaf170a7"
+    },
+    {
+      "ordinal": 13,
+      "workspace": "@crab-dev/rc-cron-picker",
+      "task": "test:browser",
+      "status": "passed",
+      "nativeSectionSha256": "ba8c2c630ea2c38c837f2b513b00aa7d498baf512922919e14d1cf1d110b8c06",
+      "evidence": ".tmp/visual-required-windows-frozen-5.log",
+      "source": "sha256:d018f95c6081d1d31fdf744594152fa140bac202ed2eafdd66250e6bfaf170a7"
+    },
+    {
+      "ordinal": 14,
+      "workspace": "@crab-dev/rc-date-picker",
+      "task": "test:browser",
+      "status": "passed",
+      "nativeSectionSha256": "36f151e39923131c602e8dea1dc630ad3ae15eb1da9da502fffa4423a2a309a7",
+      "evidence": ".tmp/visual-required-windows-frozen-5.log",
+      "source": "sha256:d018f95c6081d1d31fdf744594152fa140bac202ed2eafdd66250e6bfaf170a7"
+    },
+    {
+      "ordinal": 15,
+      "workspace": "@crab-dev/rc-divider",
+      "task": "test:browser",
+      "status": "passed",
+      "nativeSectionSha256": "f1cfa77e457223f79d9067d2a1a42a1c596cb10b22ee3678e6cf346a9e66c3ed",
+      "evidence": ".tmp/visual-required-windows-frozen-5.log",
+      "source": "sha256:d018f95c6081d1d31fdf744594152fa140bac202ed2eafdd66250e6bfaf170a7"
+    },
+    {
+      "ordinal": 16,
+      "workspace": "@crab-dev/rc-dropdown-container",
+      "task": "test:browser",
+      "status": "passed",
+      "nativeSectionSha256": "790475503b8cbab776007d2e066c686b9af381f8931b738502e251ea1ca18c16",
+      "evidence": ".tmp/visual-required-windows-frozen-5.log",
+      "source": "sha256:d018f95c6081d1d31fdf744594152fa140bac202ed2eafdd66250e6bfaf170a7"
+    },
+    {
+      "ordinal": 17,
+      "workspace": "@crab-dev/rc-dropdown-container",
+      "task": "test:published",
+      "status": "passed",
+      "nativeSectionSha256": "1df44024b0013616b2cb99ea1cfe013cc3d4b5bc5e2016315ebc1308ae0d308d",
+      "evidence": ".tmp/visual-required-windows-frozen-5.log",
+      "source": "sha256:d018f95c6081d1d31fdf744594152fa140bac202ed2eafdd66250e6bfaf170a7"
+    },
+    {
+      "ordinal": 18,
+      "workspace": "@crab-dev/rc-form",
+      "task": "test:browser",
+      "status": "passed",
+      "nativeSectionSha256": "add2067629e2f130749a93d5aac30fce94817932fba1e8e5144f451a31346d6e",
+      "evidence": ".tmp/visual-required-windows-frozen-5.log",
+      "source": "sha256:d018f95c6081d1d31fdf744594152fa140bac202ed2eafdd66250e6bfaf170a7"
+    },
+    {
+      "ordinal": 19,
+      "workspace": "@crab-dev/rc-hooks",
+      "task": "test:browser",
+      "status": "passed",
+      "nativeSectionSha256": "670cff394d2934e8ad43cb624fbb654c40d238f428ac352f3ddb62f55a7121ee",
+      "evidence": ".tmp/visual-required-windows-frozen-5.log",
+      "source": "sha256:d018f95c6081d1d31fdf744594152fa140bac202ed2eafdd66250e6bfaf170a7"
+    },
+    {
+      "ordinal": 20,
+      "workspace": "@crab-dev/rc-line-edit",
+      "task": "test:browser",
+      "status": "passed",
+      "nativeSectionSha256": "a80a5b405f63f6d9c87bfe93d1ce921acd7da0afa60d6c1768f46e0d3b460436",
+      "evidence": ".tmp/visual-required-windows-frozen-5.log",
+      "source": "sha256:d018f95c6081d1d31fdf744594152fa140bac202ed2eafdd66250e6bfaf170a7"
+    },
+    {
+      "ordinal": 21,
+      "workspace": "@crab-dev/rc-line-edit",
+      "task": "test:forced-colors",
+      "status": "passed",
+      "nativeSectionSha256": "f90d68208989e365681856574af3148a065655622d21a974e32097653264f6cd",
+      "evidence": ".tmp/visual-required-windows-frozen-5.log",
+      "source": "sha256:d018f95c6081d1d31fdf744594152fa140bac202ed2eafdd66250e6bfaf170a7"
+    },
+    {
+      "ordinal": 22,
+      "workspace": "@crab-dev/rc-masonry",
+      "task": "test:browser",
+      "status": "passed",
+      "nativeSectionSha256": "dd15cd4a8c4a8642f168851cd5a82c1014bd26006776c621228d60f0e4e7ae06",
+      "evidence": ".tmp/visual-required-windows-frozen-5.log",
+      "source": "sha256:d018f95c6081d1d31fdf744594152fa140bac202ed2eafdd66250e6bfaf170a7"
+    },
+    {
+      "ordinal": 23,
+      "workspace": "@crab-dev/rc-menu",
+      "task": "test:browser",
+      "status": "passed",
+      "nativeSectionSha256": "4851e8ef5d654f7508f48c3b6f2867fd84a9b9a1b8c4c8395091ccc314a5a420",
+      "evidence": ".tmp/visual-required-windows-frozen-5.log",
+      "source": "sha256:d018f95c6081d1d31fdf744594152fa140bac202ed2eafdd66250e6bfaf170a7"
+    },
+    {
+      "ordinal": 24,
+      "workspace": "@crab-dev/rc-menu",
+      "task": "test:forced-colors",
+      "status": "passed",
+      "nativeSectionSha256": "250da00a8f895a99cd64b65010af94b0e24f7428ccfe6cae8d9060a3ff23c7fa",
+      "evidence": ".tmp/visual-required-windows-frozen-5.log",
+      "source": "sha256:d018f95c6081d1d31fdf744594152fa140bac202ed2eafdd66250e6bfaf170a7"
+    },
+    {
+      "ordinal": 25,
+      "workspace": "@crab-dev/rc-notification",
+      "task": "test:browser",
+      "status": "passed",
+      "nativeSectionSha256": "19d39fca355dd9323d2c99ee5708b6c031e31a84bdae791185c1248aeb156b6f",
+      "evidence": ".tmp/visual-required-windows-frozen-5.log",
+      "source": "sha256:d018f95c6081d1d31fdf744594152fa140bac202ed2eafdd66250e6bfaf170a7"
+    },
+    {
+      "ordinal": 26,
+      "workspace": "@crab-dev/rc-number-edit",
+      "task": "test:browser",
+      "status": "passed",
+      "nativeSectionSha256": "c44721d07e966dd94b306f6a4bc9598b9d4b148ed2048fb36f9a69ed7d6a5c2e",
+      "evidence": ".tmp/visual-required-windows-frozen-5.log",
+      "source": "sha256:d018f95c6081d1d31fdf744594152fa140bac202ed2eafdd66250e6bfaf170a7"
+    },
+    {
+      "ordinal": 27,
+      "workspace": "@crab-dev/rc-pagination",
+      "task": "test:browser",
+      "status": "passed",
+      "nativeSectionSha256": "9b6466f59e352574c31c333e98de9aa3658988a052f751d2e429747403ae1609",
+      "evidence": ".tmp/visual-required-windows-frozen-5.log",
+      "source": "sha256:d018f95c6081d1d31fdf744594152fa140bac202ed2eafdd66250e6bfaf170a7"
+    },
+    {
+      "ordinal": 28,
+      "workspace": "@crab-dev/rc-pdf-editor",
+      "task": "test:build-tools",
+      "status": "passed",
+      "nativeSectionSha256": "685904e19a4357bc602bd5354d172b6cb07baf7a9aa60c353fa90a24a9f33c1e",
+      "evidence": ".tmp/visual-required-windows-frozen-5.log",
+      "source": "sha256:d018f95c6081d1d31fdf744594152fa140bac202ed2eafdd66250e6bfaf170a7"
+    },
+    {
+      "ordinal": 29,
+      "workspace": "@crab-dev/rc-pdf-editor",
+      "task": "test:web-component",
+      "status": "passed",
+      "nativeSectionSha256": "2561f4f630edea03861de67633aedade152ec3bcde7f1624e07c0b4c21e37f93",
+      "evidence": ".tmp/visual-required-windows-frozen-5.log",
+      "source": "sha256:d018f95c6081d1d31fdf744594152fa140bac202ed2eafdd66250e6bfaf170a7"
+    },
+    {
+      "ordinal": 30,
+      "workspace": "@crab-dev/rc-prose",
+      "task": "test:browser",
+      "status": "passed",
+      "nativeSectionSha256": "8ed9edf9ae2239a154cf44ce265695b8bd5a34e141d40cdfb35d0b956dd67fbf",
+      "evidence": ".tmp/visual-required-windows-frozen-5.log",
+      "source": "sha256:d018f95c6081d1d31fdf744594152fa140bac202ed2eafdd66250e6bfaf170a7"
+    },
+    {
+      "ordinal": 31,
+      "workspace": "@crab-dev/rc-segmented",
+      "task": "test:browser",
+      "status": "passed",
+      "nativeSectionSha256": "8f067f21d4defcece0958a6154ba8f9bda79ac20a5410076e0c6b231f3ca1a80",
+      "evidence": ".tmp/visual-required-windows-frozen-5.log",
+      "source": "sha256:d018f95c6081d1d31fdf744594152fa140bac202ed2eafdd66250e6bfaf170a7"
+    },
+    {
+      "ordinal": 32,
+      "workspace": "@crab-dev/rc-select",
+      "task": "test:browser",
+      "status": "passed",
+      "nativeSectionSha256": "8231cb6b4a5c73660427015f36568e70c494f322ae9880cb46fe6b2f98bbe8d0",
+      "evidence": ".tmp/visual-required-windows-frozen-5.log",
+      "source": "sha256:d018f95c6081d1d31fdf744594152fa140bac202ed2eafdd66250e6bfaf170a7"
+    },
+    {
+      "ordinal": 33,
+      "workspace": "@crab-dev/rc-skeleton",
+      "task": "test:browser",
+      "status": "passed",
+      "nativeSectionSha256": "57f6b38a5a07f27a870386fdb70eca96d9d910d539ea890a94ef5b14d714a3fa",
+      "evidence": ".tmp/visual-required-windows-frozen-5.log",
+      "source": "sha256:d018f95c6081d1d31fdf744594152fa140bac202ed2eafdd66250e6bfaf170a7"
+    },
+    {
+      "ordinal": 34,
+      "workspace": "@crab-dev/rc-skeleton",
+      "task": "test:forced-colors",
+      "status": "passed",
+      "nativeSectionSha256": "976c69fecb5be0d07eb71e315d53c757527e27897233e083ddc55af946af6a7f",
+      "evidence": ".tmp/visual-required-windows-frozen-5.log",
+      "source": "sha256:d018f95c6081d1d31fdf744594152fa140bac202ed2eafdd66250e6bfaf170a7"
+    },
+    {
+      "ordinal": 35,
+      "workspace": "@crab-dev/rc-spin",
+      "task": "test:reduced-motion",
+      "status": "passed",
+      "nativeSectionSha256": "b51d52cf22368f1ffaa9b58804049d20f711d214725ac054e078f41cfc4cc05a",
+      "evidence": ".tmp/visual-required-windows-frozen-5.log",
+      "source": "sha256:d018f95c6081d1d31fdf744594152fa140bac202ed2eafdd66250e6bfaf170a7"
+    },
+    {
+      "ordinal": 36,
+      "workspace": "@crab-dev/rc-switch",
+      "task": "test:forced-colors",
+      "status": "passed",
+      "nativeSectionSha256": "4c27864f79de096dc77d20bb6d160308d4d674ecc51b8be37335e50f70be3abf",
+      "evidence": ".tmp/visual-required-windows-frozen-5.log",
+      "source": "sha256:d018f95c6081d1d31fdf744594152fa140bac202ed2eafdd66250e6bfaf170a7"
+    },
+    {
+      "ordinal": 37,
+      "workspace": "@crab-dev/rc-table",
+      "task": "test:browser",
+      "status": "passed",
+      "exitCode": 0,
+      "evidence": ".tmp/table-overlap-point-20261029-browser.log",
+      "testsPassed": 26,
+      "source": "sha256:a11ce8976a7851a78da7c3b1d5912c2430e753a9b3b035a9fa51c10925672005"
+    },
+    {
+      "ordinal": 38,
+      "workspace": "@crab-dev/rc-table",
+      "task": "test:selection",
+      "status": "passed",
+      "exitCode": 0,
+      "evidence": ".tmp/visual-required-windows-post-table-38-49-1/38-rc-table-test-selection.log",
+      "source": "sha256:a11ce8976a7851a78da7c3b1d5912c2430e753a9b3b035a9fa51c10925672005"
+    },
+    {
+      "ordinal": 39,
+      "workspace": "@crab-dev/rc-table",
+      "task": "test:forced-colors",
+      "status": "passed",
+      "exitCode": 0,
+      "evidence": ".tmp/visual-required-windows-post-table-38-49-1/39-rc-table-test-forced-colors.log",
+      "source": "sha256:a11ce8976a7851a78da7c3b1d5912c2430e753a9b3b035a9fa51c10925672005"
+    },
+    {
+      "ordinal": 40,
+      "workspace": "@crab-dev/rc-table-pro",
+      "task": "test:browser",
+      "status": "passed",
+      "exitCode": 0,
+      "evidence": ".tmp/visual-required-windows-post-table-38-49-1/40-rc-table-pro-test-browser.log",
+      "source": "sha256:a11ce8976a7851a78da7c3b1d5912c2430e753a9b3b035a9fa51c10925672005"
+    },
+    {
+      "ordinal": 41,
+      "workspace": "@crab-dev/rc-tabs",
+      "task": "test:browser",
+      "status": "passed",
+      "exitCode": 0,
+      "evidence": ".tmp/visual-required-windows-post-table-38-49-1/41-rc-tabs-test-browser.log",
+      "source": "sha256:a11ce8976a7851a78da7c3b1d5912c2430e753a9b3b035a9fa51c10925672005"
+    },
+    {
+      "ordinal": 42,
+      "workspace": "@crab-dev/rc-tabs",
+      "task": "test:forced-colors",
+      "status": "passed",
+      "exitCode": 0,
+      "evidence": ".tmp/visual-required-windows-post-table-38-49-1/42-rc-tabs-test-forced-colors.log",
+      "source": "sha256:a11ce8976a7851a78da7c3b1d5912c2430e753a9b3b035a9fa51c10925672005"
+    },
+    {
+      "ordinal": 43,
+      "workspace": "@crab-dev/rc-tag",
+      "task": "test:browser",
+      "status": "passed",
+      "exitCode": 0,
+      "evidence": ".tmp/visual-required-windows-post-table-38-49-1/43-rc-tag-test-browser.log",
+      "source": "sha256:a11ce8976a7851a78da7c3b1d5912c2430e753a9b3b035a9fa51c10925672005"
+    },
+    {
+      "ordinal": 44,
+      "workspace": "@crab-dev/rc-tag",
+      "task": "test:forced-colors",
+      "status": "passed",
+      "exitCode": 0,
+      "evidence": ".tmp/visual-required-windows-post-table-38-49-1/44-rc-tag-test-forced-colors.log",
+      "source": "sha256:a11ce8976a7851a78da7c3b1d5912c2430e753a9b3b035a9fa51c10925672005"
+    },
+    {
+      "ordinal": 45,
+      "workspace": "@crab-dev/rc-text-edit",
+      "task": "test:browser",
+      "status": "passed",
+      "exitCode": 0,
+      "evidence": ".tmp/visual-required-windows-post-table-38-49-1/45-rc-text-edit-test-browser.log",
+      "source": "sha256:a11ce8976a7851a78da7c3b1d5912c2430e753a9b3b035a9fa51c10925672005"
+    },
+    {
+      "ordinal": 46,
+      "workspace": "@crab-dev/rc-tree",
+      "task": "test:browser",
+      "status": "passed",
+      "exitCode": 0,
+      "evidence": ".tmp/visual-required-windows-post-table-38-49-1/46-rc-tree-test-browser.log",
+      "source": "sha256:a11ce8976a7851a78da7c3b1d5912c2430e753a9b3b035a9fa51c10925672005"
+    },
+    {
+      "ordinal": 47,
+      "workspace": "@crab-dev/rc-tree",
+      "task": "test:custom-editor",
+      "status": "passed",
+      "exitCode": 0,
+      "evidence": ".tmp/visual-required-windows-post-table-38-49-1/47-rc-tree-test-custom-editor.log",
+      "source": "sha256:a11ce8976a7851a78da7c3b1d5912c2430e753a9b3b035a9fa51c10925672005"
+    },
+    {
+      "ordinal": 48,
+      "workspace": "@crab-dev/rc-tree",
+      "task": "test:forced-colors",
+      "status": "passed",
+      "exitCode": 0,
+      "evidence": ".tmp/visual-required-windows-post-table-38-49-1/48-rc-tree-test-forced-colors.log",
+      "source": "sha256:a11ce8976a7851a78da7c3b1d5912c2430e753a9b3b035a9fa51c10925672005"
+    },
+    {
+      "ordinal": 49,
+      "workspace": "@crab-dev/rc-virtual",
+      "task": "test:browser",
+      "status": "passed",
+      "exitCode": 0,
+      "evidence": ".tmp/visual-required-windows-post-table-38-49-1/49-rc-virtual-test-browser.log",
+      "source": "sha256:a11ce8976a7851a78da7c3b1d5912c2430e753a9b3b035a9fa51c10925672005"
+    }
+  ]
+}

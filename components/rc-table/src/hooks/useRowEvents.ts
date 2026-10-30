@@ -1,4 +1,4 @@
-import { type HTMLAttributes, type Key, type MouseEvent as ReactMouseEvent, useEffect, useRef } from "react";
+import { type HTMLAttributes, type Key, type MouseEvent as ReactMouseEvent, type RefObject, useEffect, useRef } from "react";
 import type { Row } from "../types.js";
 import type { InternalExpandedRow, InternalGroupRow } from "../util.js";
 import { isInternalRow } from "../util.js";
@@ -62,12 +62,13 @@ interface UseRowEventsOptions<T extends Row> {
     anchorCell: { rowId: Key; columnIndex: number } | null;
     rowIdToIndex: Map<Key, number>;
     isInteractionActive: () => boolean;
+    rootRef?: RefObject<HTMLElement | null>;
 }
 
 export function useRowEvents<T extends Row>(options: UseRowEventsOptions<T>): UseRowEventsResult<T> {
     // 其余字段（currentEditingRowId / displayRows / anchorCell / rowIdToIndex）仅供键盘监听器
     // 在 effect 内经 latestRef 读取最新值，不在渲染期直接使用。
-    const { onRowClick, onRowDoubleClick, isRowEditMode, startRowEdit } = options;
+    const { onRowClick, onRowDoubleClick, isRowEditMode, startRowEdit, rootRef } = options;
 
     const hasRowEvents = onRowClick != null || onRowDoubleClick != null;
 
@@ -100,6 +101,8 @@ export function useRowEvents<T extends Row>(options: UseRowEventsOptions<T>): Us
      * 或有行正处于编辑态时，一律让位。
      */
     useEffect(() => {
+        const document = rootRef?.current?.ownerDocument ?? globalThis.document;
+        const target = document.defaultView ?? document;
         const handleKeyDown = (event: KeyboardEvent) => {
             if (event.key !== "Enter") return;
             if (event.shiftKey || event.ctrlKey || event.metaKey || event.altKey) return;
@@ -127,9 +130,9 @@ export function useRowEvents<T extends Row>(options: UseRowEventsOptions<T>): Us
             current.onRowClick(row as T, rowIndex, event);
         };
 
-        window.addEventListener("keydown", handleKeyDown);
-        return () => window.removeEventListener("keydown", handleKeyDown);
-    }, []);
+        target.addEventListener("keydown", handleKeyDown as EventListener);
+        return () => target.removeEventListener("keydown", handleKeyDown as EventListener);
+    }, [rootRef]);
 
     /**
      * 生成挂到 BodyRow 上的事件属性。没有任何行事件、且不处于行编辑模式时返回空对象，

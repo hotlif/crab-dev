@@ -1,0 +1,31 @@
+import { zoomTest, expect, configurations, openDemo, readVisualSpec, settleFiniteAnimations, captureZoom } from "../../../test/visual/component-fixture.mjs";
+
+const spec = await readVisualSpec(import.meta.url);
+for (const config of configurations) zoomTest(`${config.designSystem} ${config.colorMode} real zoom 200%`, { tag: ["@rc-dialog", "@environment", "@chromium-only"], annotation: { type: "environment", description: JSON.stringify({ id: "zoom-200", ...config }) } }, async ({ page, previewOrigin, realZoom }, info) => {
+    await openDemo(page, previewOrigin, "rc-dialog", spec.demo, config);
+    await realZoom.set200(page);
+    await page.getByLabel("验收状态", { exact: true }).selectOption("long-content");
+    const trigger = page.getByRole("button", { name: "打开验收对话框", exact: true });
+    await trigger.click();
+    const dialog = page.getByRole("dialog", { name: "保存工作区 Save workspace" });
+    await expect(dialog).toBeVisible();
+    const input = dialog.getByRole("textbox", { name: "工作区名称" });
+    await input.fill("200% 草稿 Draft");
+    await input.press("Shift+Tab");
+    await settleFiniteAnimations(page);
+    const rect = await dialog.boundingBox(), viewportWidth = await page.evaluate(() => globalThis.innerWidth);
+    expect(rect.x).toBeGreaterThanOrEqual(0); expect(rect.x + rect.width).toBeLessThanOrEqual(viewportWidth);
+    await expect(dialog).toHaveAttribute("data-crab-design", config.designSystem);
+    await captureZoom(page, realZoom, `${config.designSystem}-${config.colorMode}-zoom-200-content.png`, info);
+    await input.focus();
+    await input.press("Tab");
+    await page.keyboard.press("Tab");
+    const confirm = dialog.locator('[data-dialog-action="confirm"]');
+    await expect(confirm).toBeFocused();
+    await expect(confirm).toBeInViewport();
+    expect(await confirm.evaluate(node => node.matches(":focus-visible"))).toBe(true);
+    await settleFiniteAnimations(page);
+    await captureZoom(page, realZoom, `${config.designSystem}-${config.colorMode}-zoom-200-actions.png`, info);
+    await page.keyboard.press("Escape");
+    await expect(dialog).not.toBeVisible(); await expect(trigger).toBeFocused();
+});

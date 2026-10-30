@@ -610,3 +610,9 @@ export function buildExpansionDisplayRows<T extends Row>(params: {
 
     return { displayRows: result, allExpandableIds };
 }
+
+export const makeRowReactKey = (rowId: Key): string =>
+    JSON.stringify(["data", typeof rowId, String(rowId)]);
+
+export const makeColumnReactKey = (columnName: string): string =>
+    JSON.stringify(["column", columnName]);

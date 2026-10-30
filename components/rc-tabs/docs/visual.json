@@ -1,0 +1,13 @@
+{
+    "schemaVersion": 1,
+    "demo": "visual-matrix.demo.tsx",
+    "sizes": ["small", "medium", "large"],
+    "densities": ["compact", "standard", "comfortable"],
+    "states": ["default", "line:hover", "line:focus-visible", "line:pressed", "line:disabled", "line:selected", "line:closed", "line:overflow", "card:default", "card:hover", "card:focus-visible", "card:pressed", "card:disabled", "card:selected", "card:closed", "card:overflow", "pill:default", "pill:hover", "pill:focus-visible", "pill:pressed", "pill:disabled", "pill:selected", "pill:closed", "pill:overflow"],
+    "crossEngine": { "sizes": ["medium"], "densities": ["standard"], "states": ["default", "line:focus-visible", "line:selected", "line:closed", "line:overflow", "card:default", "card:focus-visible", "card:overflow", "pill:default", "pill:focus-visible", "pill:overflow"] },
+    "notApplicable": {
+        "error": "Tabs do not validate panel content; errors belong to the owning panel.",
+        "loading": "Tabs have no loading prop; asynchronous panel content retains its own status and lifecycle.",
+        "expanded": "All variants use a horizontal scrollable tab strip rather than a popup overflow menu."
+    }
+}

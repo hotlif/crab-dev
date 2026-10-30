@@ -1,0 +1,165 @@
+{
+  "caseId": "0184f3e33b8f813a8f58-fe8d17aaa82ee83024da/chromium/0",
+  "status": "expected-negative-control-failed",
+  "originalSource": "sha256:2d66baa748cc46ede10c4ff04f5fe9699ef224433d1008c11d5087ab722c1597",
+  "originalArtifact": "sha256:d8986be2787b5f08dbf0298d61eb45b9c70b26e8874c300e5cbb8dc5752f47cc",
+  "workerStable": true,
+  "browser": "156.0.8078.4",
+  "scope": {
+    "initial": {
+      "designSystem": "md3",
+      "colorMode": "light",
+      "size": "medium",
+      "density": "standard"
+    },
+    "next": {
+      "designSystem": "apple",
+      "colorMode": "dark"
+    },
+    "variant": "default",
+    "sampleCount": 10,
+    "otherVariants": "not reached after first failure"
+  },
+  "before": {
+    "time": 633.8000000119209,
+    "boundary": {
+      "designSystem": "md3",
+      "colorMode": "light"
+    },
+    "effective": {
+      "designSystem": "md3",
+      "colorMode": "light"
+    },
+    "palette": {
+      "background": "oklch(0.967283 0.0118141 313.217)",
+      "root": "oklch(0.226524 0.00999107 303.714)",
+      "title": "oklch(0.226524 0.00999107 303.714)",
+      "body": "oklch(0.226524 0.00999107 303.714)",
+      "metaTitle": "oklch(0.226524 0.00999107 303.714)",
+      "metaDescription": "oklch(0.398053 0.0173554 303.721)"
+    },
+    "nodesRetained": true,
+    "draftRetained": true,
+    "draft": "Draft retained through theme changes",
+    "finite": []
+  },
+  "firstNewConfiguration": {
+    "time": 641.928,
+    "boundary": {
+      "designSystem": "apple",
+      "colorMode": "dark"
+    },
+    "effective": {
+      "designSystem": "apple",
+      "colorMode": "dark"
+    },
+    "palette": {
+      "background": "oklab(0.967283 0.00808987 -0.0086097)",
+      "root": "oklch(0.98 0.002 286)",
+      "title": "oklch(0.98 0.002 286)",
+      "body": "oklch(0.98 0.002 286)",
+      "metaTitle": "oklch(0.98 0.002 286)",
+      "metaDescription": "oklch(0.84 0.008 286)"
+    },
+    "nodesRetained": true,
+    "draftRetained": true,
+    "draft": "Draft retained through theme changes",
+    "finite": [
+      {
+        "property": "background-color",
+        "time": 0,
+        "endTime": 100
+      },
+      {
+        "property": "border-bottom-color",
+        "time": 0,
+        "endTime": 100
+      },
+      {
+        "property": "border-left-color",
+        "time": 0,
+        "endTime": 100
+      },
+      {
+        "property": "border-right-color",
+        "time": 0,
+        "endTime": 100
+      },
+      {
+        "property": "border-top-color",
+        "time": 0,
+        "endTime": 100
+      },
+      {
+        "property": "box-shadow",
+        "time": 0,
+        "endTime": 100
+      }
+    ]
+  },
+  "final": {
+    "time": 825.7,
+    "boundary": {
+      "designSystem": "apple",
+      "colorMode": "dark"
+    },
+    "effective": {
+      "designSystem": "apple",
+      "colorMode": "dark"
+    },
+    "palette": {
+      "background": "oklch(0.22 0.005 286)",
+      "root": "oklch(0.98 0.002 286)",
+      "title": "oklch(0.98 0.002 286)",
+      "body": "oklch(0.98 0.002 286)",
+      "metaTitle": "oklch(0.98 0.002 286)",
+      "metaDescription": "oklch(0.84 0.008 286)"
+    },
+    "nodesRetained": true,
+    "draftRetained": true,
+    "draft": "Draft retained through theme changes",
+    "finite": []
+  },
+  "images": [
+    {
+      "attachmentIndex": 1,
+      "name": "screenshot",
+      "path": "screens/rc-card/chromium/000001-1-screenshot.png",
+      "sha256": "e2bc16b0665412fcc7712b0392b00b590294c5e12084bb5ce8541869cee56057",
+      "actuallyViewedOriginal": true,
+      "observation": "已自然结束的Apple深色最终端点；不是混色中间帧。",
+      "baselineApproved": false
+    },
+    {
+      "attachmentIndex": 5,
+      "name": "screenshot",
+      "path": "screens/rc-card/chromium/000001-5-screenshot.png",
+      "sha256": "3878570f4a62a0d65f57cf1754e0269e56ec797f4e36e26b44c172eb6e800401",
+      "actuallyViewedOriginal": true,
+      "observation": "空白诊断原图，不能据此判断组件外观或产生阶段。",
+      "baselineApproved": false
+    }
+  ],
+  "video": {
+    "name": "video",
+    "path": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\card-theme-old-negative-windows-20261030-1\\results\\components-rc-card-docs-ca-bb51c-t-md3-light-theme-retention-chromium\\video.webm",
+    "bytes": 60629,
+    "sha256": "2a31a13319bc902983a3bad1d88c20db8d64d4b726be14ae0429ccf4066d4ebf"
+  },
+  "trace": {
+    "name": "trace",
+    "path": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\card-theme-old-negative-windows-20261030-1\\results\\components-rc-card-docs-ca-bb51c-t-md3-light-theme-retention-chromium\\trace.zip",
+    "bytes": 329361,
+    "sha256": "ee5b4e77c835bef546e6a5e34102c4b84b75409d81bfb19f1b8019e7c83c0aff"
+  },
+  "videoReportCopies": [
+    ".website/review/20261030-card-theme-old-negative-windows-1/report/data/01ee1e544e01bc9293e327c979e82ca5c73039cf.webm"
+  ],
+  "fullVideoPlaybackReviewed": false,
+  "rootCause": "Both outer and nearest boundary already Apple/dark; all five text colors already final, while background-color transition starts at currentTime0/endTime100 and keeps old/intermediate light background. Nodes and draft remain unchanged.",
+  "limits": [
+    "Failure asserted from10natural rAF computed-style samples, not an old video seek request or the settled failure PNG.",
+    "Only default variant reached; no repaired candidate tested in this report.",
+    "Original native list prerequisite failure retained separately; no baseline/canonical/verified approval."
+  ]
+}

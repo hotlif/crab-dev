@@ -6,5 +6,7 @@ import "./input-theme.js";
 import "./navigation-theme.js";
 import "./surface-theme.js";
 import "./data-theme.js";
+import "./action-theme.js";
+import "./time-picker-theme.js";
 
 export {};

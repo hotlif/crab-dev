@@ -1,6 +1,6 @@
 import { describe, expect, it, mock } from '@crab-dev/wake/test';
 import { WebGLRenderer } from '../../renderer/renderer.js';
-import type { DrawCommand, SdfRectCommand } from '../../renderer/draw-command.js';
+import type { DrawCommand, SdfRectCommand, LineCommand } from '../../renderer/draw-command.js';
 import { identityMat3 } from '../../math/matrix.js';
 import { SDF_FRAG } from '../../shaders/sdf.frag.js';
 
@@ -83,6 +83,18 @@ function expectSolidInterior(image: ReturnType<typeof draw>, bounds: { x: number
 }
 
 describe('SDF renderer pixels', () => {
+    it('keeps long line extrusion finite beyond the 256px mediump boundary', () => {
+        for (const span of [255, 256, 600]) {
+            const line: LineCommand = { id: 1, kind: 'line', worldMatrix: identityMat3(), zIndexPath: [0], x1: 24, y1: 20.5, x2: 24 + span, y2: 20.5, color: [...red], lineWidth: 1 };
+            const image = draw(line, false, 660, 48);
+            for (const x of [32, 24 + Math.floor(span / 2), 16 + span]) {
+                expect(image.pixel(x, 20)[0]).toBeGreaterThan(150);
+                expect(image.pixel(x, 20)[3]).toBeGreaterThan(100);
+            }
+            expect(image.pixel(12, 20)).toEqual([0, 0, 0, 0]);
+            expect(image.pixel(32, 10)).toEqual([0, 0, 0, 0]);
+        }
+    });
     it('keeps fill in the interior, stroke at the edge and the outside transparent', () => {
         const command = rectangle();
         const image = draw(command);

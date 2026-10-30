@@ -1,0 +1,19 @@
+{
+    "groups": [
+        {
+            "title": "三体系验收",
+            "demos": [
+                "visual-matrix.demo.tsx"
+            ]
+        },
+        {
+            "title": "分栏与尺寸控制",
+            "demos": [
+                "basic.demo.tsx",
+                "vertical.demo.tsx",
+                "primary-second.demo.tsx",
+                "persist.demo.tsx"
+            ]
+        }
+    ]
+}

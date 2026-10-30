@@ -13,6 +13,8 @@ description: 不确定一次改动要跑哪些检查、需要全量验证入口�
 
 ## 变更类型 → 最小充分验证
 
+先用 `yarn ai:context <包名或路径>` 获取真实脚本和来源；查询不执行检查。根工具可单跑 `yarn test:ai-context` 排查导航、规则继承和查询契约。
+
 | 改动 | 至少运行 |
 | --- | --- |
 | 组件源码、类型、测试 | `yarn workspace @crab-dev/rc-<name> check` |
@@ -20,7 +22,7 @@ description: 不确定一次改动要跑哪些检查、需要全量验证入口�
 | 产品清单、拓扑 | `yarn check:architecture`、`yarn test:architecture` |
 | 文档站 | 站点 `generate:docs`、`check:docs`、`test:generator`、`yarn docs:build` |
 | 依赖、导出 | `yarn install --immutable`、`yarn build:library`、`yarn check:exports`、`yarn check:consumer` |
-| 根脚本、命令契约 | `yarn lint:tools`（含 `test:lint`、`test:architecture`） |
+| 根脚本、命令契约、任务导航 | `yarn lint:tools`（含 `test:lint`、`test:architecture`、`test:ai-context`） |
 | 提交 | pre-commit 跑 `yarn typecheck`、`yarn lint`、`yarn test` |
 
 ## 全量入口

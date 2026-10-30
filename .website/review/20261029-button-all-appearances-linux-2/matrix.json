@@ -1,0 +1,2897 @@
+{
+  "scope": "package",
+  "visualReview": "pending",
+  "matrices": [
+    {
+      "package": "rc-button",
+      "engine": "chromium",
+      "complete": true,
+      "expected": 270,
+      "passed": 270,
+      "cells": [
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "xs",
+          "density": "standard",
+          "state": "default",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-e9066dc52b06d2f1f2b9"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "xs",
+          "density": "standard",
+          "state": "hover",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-da8b2084d854e76d7b17"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "xs",
+          "density": "standard",
+          "state": "focus-visible",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-51a3b03e53b5e1fe3122"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "xs",
+          "density": "standard",
+          "state": "pressed",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-0a5075f9f704dee7f3b2"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "xs",
+          "density": "standard",
+          "state": "disabled",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-c095837696b6c91a9707"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "xs",
+          "density": "standard",
+          "state": "selected",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-316626ca01155dd2d607"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "xs",
+          "density": "standard",
+          "state": "unselected",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-140e22956a95d53eb5c9"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "xs",
+          "density": "standard",
+          "state": "variants",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-e1b3ea9886c7e73fd1be"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "xs",
+          "density": "standard",
+          "state": "loading",
+          "status": "passed",
+          "testId": "5b862e7b8dcfc4db17c8-b80ea71030153bd0f60b"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "s",
+          "density": "standard",
+          "state": "default",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-d7517f9ee31737f4335b"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "s",
+          "density": "standard",
+          "state": "hover",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-b3bbeb787aba130827a8"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "s",
+          "density": "standard",
+          "state": "focus-visible",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-1b0ccc31ee8b5ffd5c5e"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "s",
+          "density": "standard",
+          "state": "pressed",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-fc598c29f8476da34750"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "s",
+          "density": "standard",
+          "state": "disabled",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-80657fb8d5cb0868d40d"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "s",
+          "density": "standard",
+          "state": "selected",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-6edcb7ae93c283e8c2c5"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "s",
+          "density": "standard",
+          "state": "unselected",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-2e4e067d891796202c2b"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "s",
+          "density": "standard",
+          "state": "variants",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-0cafd80d3c01466b8ae8"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "s",
+          "density": "standard",
+          "state": "loading",
+          "status": "passed",
+          "testId": "5b862e7b8dcfc4db17c8-0a6347d58a086493d82f"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "m",
+          "density": "standard",
+          "state": "default",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-1f9c7e10395a08aa769c"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "m",
+          "density": "standard",
+          "state": "hover",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-c7a983e1011540cccba4"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "m",
+          "density": "standard",
+          "state": "focus-visible",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-dfd90da0f7607900fc99"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "m",
+          "density": "standard",
+          "state": "pressed",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-1cb6e83071ff2c51ef39"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "m",
+          "density": "standard",
+          "state": "disabled",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-11bf8bf2614d85158e42"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "m",
+          "density": "standard",
+          "state": "selected",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-2ac7b7b203d1e8f72614"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "m",
+          "density": "standard",
+          "state": "unselected",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-0351b181c7b7e284b81f"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "m",
+          "density": "standard",
+          "state": "variants",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-34782d5e10b857254c27"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "m",
+          "density": "standard",
+          "state": "loading",
+          "status": "passed",
+          "testId": "5b862e7b8dcfc4db17c8-5b91fffb99c9c189e1ce"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "l",
+          "density": "standard",
+          "state": "default",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-7287000dfb4726f707fa"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "l",
+          "density": "standard",
+          "state": "hover",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-49ada5b928c08787347d"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "l",
+          "density": "standard",
+          "state": "focus-visible",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-6224e6fa9b3d4072c7e5"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "l",
+          "density": "standard",
+          "state": "pressed",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-4e9483203af1b619d583"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "l",
+          "density": "standard",
+          "state": "disabled",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-dba8541a0ac8f3e5fb97"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "l",
+          "density": "standard",
+          "state": "selected",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-30686c55413bed3325e6"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "l",
+          "density": "standard",
+          "state": "unselected",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-7bf9d0f717fde3a9f6c2"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "l",
+          "density": "standard",
+          "state": "variants",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-f2a6dc5f3329ee1005e0"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "l",
+          "density": "standard",
+          "state": "loading",
+          "status": "passed",
+          "testId": "5b862e7b8dcfc4db17c8-167ae1cd4ad92ca0023d"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "xl",
+          "density": "standard",
+          "state": "default",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-d11286bd73833af358da"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "xl",
+          "density": "standard",
+          "state": "hover",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-fcff8d94dfcb38556db7"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "xl",
+          "density": "standard",
+          "state": "focus-visible",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-7a57177cb2bc91e6e431"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "xl",
+          "density": "standard",
+          "state": "pressed",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-133879765af53342a8ef"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "xl",
+          "density": "standard",
+          "state": "disabled",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-a04decde9bd5b2aee032"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "xl",
+          "density": "standard",
+          "state": "selected",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-e87223b4913637465bdb"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "xl",
+          "density": "standard",
+          "state": "unselected",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-9d96d4744d16cbe078ab"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "xl",
+          "density": "standard",
+          "state": "variants",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-4f821807ca5e8eb3806c"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "xl",
+          "density": "standard",
+          "state": "loading",
+          "status": "passed",
+          "testId": "5b862e7b8dcfc4db17c8-1bf359d58bd1af39b564"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "xs",
+          "density": "standard",
+          "state": "default",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-3e915b2b9c257c92b902"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "xs",
+          "density": "standard",
+          "state": "hover",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-7ac2db2063218de9546c"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "xs",
+          "density": "standard",
+          "state": "focus-visible",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-a28d8efd1b9174bc5609"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "xs",
+          "density": "standard",
+          "state": "pressed",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-dc7260420e5f19a9e7e9"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "xs",
+          "density": "standard",
+          "state": "disabled",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-836930826bb46c268c2d"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "xs",
+          "density": "standard",
+          "state": "selected",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-4363b6d995ba682af86b"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "xs",
+          "density": "standard",
+          "state": "unselected",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-728d322ffead0cf65374"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "xs",
+          "density": "standard",
+          "state": "variants",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-0576130c52aa8b351fe6"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "xs",
+          "density": "standard",
+          "state": "loading",
+          "status": "passed",
+          "testId": "5b862e7b8dcfc4db17c8-89f621a45976789cd387"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "s",
+          "density": "standard",
+          "state": "default",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-a20a0cfc433a14ab4a48"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "s",
+          "density": "standard",
+          "state": "hover",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-9d61caeb7b860806b55e"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "s",
+          "density": "standard",
+          "state": "focus-visible",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-55a2a95fd96a3d8cd31b"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "s",
+          "density": "standard",
+          "state": "pressed",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-236de5865a9bb7ba427c"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "s",
+          "density": "standard",
+          "state": "disabled",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-b16b9a59623f843dca26"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "s",
+          "density": "standard",
+          "state": "selected",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-52c4933fe1799a4498e4"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "s",
+          "density": "standard",
+          "state": "unselected",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-c54ddd0e40328a1f3cfb"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "s",
+          "density": "standard",
+          "state": "variants",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-9c656e08646e15f5ff05"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "s",
+          "density": "standard",
+          "state": "loading",
+          "status": "passed",
+          "testId": "5b862e7b8dcfc4db17c8-2ae9ec713ad49acfbc23"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "m",
+          "density": "standard",
+          "state": "default",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-6b510d003450e79cce54"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "m",
+          "density": "standard",
+          "state": "hover",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-cbe467bbbc72f771d2d5"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "m",
+          "density": "standard",
+          "state": "focus-visible",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-40fc1ead6c250f9541bb"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "m",
+          "density": "standard",
+          "state": "pressed",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-66936c5bfdc73fc9a4c8"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "m",
+          "density": "standard",
+          "state": "disabled",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-274a32c211cca8b41e83"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "m",
+          "density": "standard",
+          "state": "selected",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-64cb80b5409d56e191f1"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "m",
+          "density": "standard",
+          "state": "unselected",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-319c01fb4b14abb30354"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "m",
+          "density": "standard",
+          "state": "variants",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-7129e9ae425afd9c87a8"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "m",
+          "density": "standard",
+          "state": "loading",
+          "status": "passed",
+          "testId": "5b862e7b8dcfc4db17c8-0ee99f4ac82337155246"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "l",
+          "density": "standard",
+          "state": "default",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-428627d4054aacb9dca9"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "l",
+          "density": "standard",
+          "state": "hover",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-7406daae67b3efcd58cf"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "l",
+          "density": "standard",
+          "state": "focus-visible",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-0c45962caa373216f8ac"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "l",
+          "density": "standard",
+          "state": "pressed",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-9b1e6597f83de24e576c"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "l",
+          "density": "standard",
+          "state": "disabled",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-2b53d81b587930242536"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "l",
+          "density": "standard",
+          "state": "selected",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-9a7ec8e0ef056a825a8c"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "l",
+          "density": "standard",
+          "state": "unselected",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-fbdf0c2d980c45c0b3ff"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "l",
+          "density": "standard",
+          "state": "variants",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-02ccc1939b84b7dc7e80"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "l",
+          "density": "standard",
+          "state": "loading",
+          "status": "passed",
+          "testId": "5b862e7b8dcfc4db17c8-2865fa32e00178cdb0d5"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "xl",
+          "density": "standard",
+          "state": "default",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-d98773871e45268ee630"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "xl",
+          "density": "standard",
+          "state": "hover",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-c55b05203823599087f6"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "xl",
+          "density": "standard",
+          "state": "focus-visible",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-aa0cf4cc0ac16131c96e"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "xl",
+          "density": "standard",
+          "state": "pressed",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-30cd6cba8ae1b43ce086"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "xl",
+          "density": "standard",
+          "state": "disabled",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-52cb3e7fb4b19778efab"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "xl",
+          "density": "standard",
+          "state": "selected",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-90e08b0b915285e6a1e1"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "xl",
+          "density": "standard",
+          "state": "unselected",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-ac9815935b9bfa73afd3"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "xl",
+          "density": "standard",
+          "state": "variants",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-518e8b6c5d366e702fa6"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "xl",
+          "density": "standard",
+          "state": "loading",
+          "status": "passed",
+          "testId": "5b862e7b8dcfc4db17c8-7a41461f237bfb88b34b"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "xs",
+          "density": "standard",
+          "state": "default",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-09283b8283ce632acf59"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "xs",
+          "density": "standard",
+          "state": "hover",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-a7458896a85b123e2f89"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "xs",
+          "density": "standard",
+          "state": "focus-visible",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-bdda8907633a45e22b55"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "xs",
+          "density": "standard",
+          "state": "pressed",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-c41b82b55875d92058d9"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "xs",
+          "density": "standard",
+          "state": "disabled",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-706f95dd9c0220a21cd9"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "xs",
+          "density": "standard",
+          "state": "selected",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-24547fe5c17b310f5a2d"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "xs",
+          "density": "standard",
+          "state": "unselected",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-6a29b780de5738fe5cfd"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "xs",
+          "density": "standard",
+          "state": "variants",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-8f4c39dab1e9839a9a83"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "xs",
+          "density": "standard",
+          "state": "loading",
+          "status": "passed",
+          "testId": "5b862e7b8dcfc4db17c8-2f472a44c53e4d4c8a95"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "s",
+          "density": "standard",
+          "state": "default",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-3cf122419c82e8f8181d"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "s",
+          "density": "standard",
+          "state": "hover",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-690b4b2e0f6a6e53632e"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "s",
+          "density": "standard",
+          "state": "focus-visible",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-af50b9b18da4818b3042"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "s",
+          "density": "standard",
+          "state": "pressed",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-efc72ec5e6ebefe76f73"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "s",
+          "density": "standard",
+          "state": "disabled",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-5e77e968ae81f678f60f"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "s",
+          "density": "standard",
+          "state": "selected",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-00242e28f63347345b34"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "s",
+          "density": "standard",
+          "state": "unselected",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-c6169132adc3f5055b3a"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "s",
+          "density": "standard",
+          "state": "variants",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-a33da7709702f7805ad0"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "s",
+          "density": "standard",
+          "state": "loading",
+          "status": "passed",
+          "testId": "5b862e7b8dcfc4db17c8-2097d637bf0978a95997"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "m",
+          "density": "standard",
+          "state": "default",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-35dde0dbdf9ed6f9421e"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "m",
+          "density": "standard",
+          "state": "hover",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-975db1df60c61f4d3ee6"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "m",
+          "density": "standard",
+          "state": "focus-visible",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-cca005e70e6df6035e28"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "m",
+          "density": "standard",
+          "state": "pressed",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-d5fa855de38598af01af"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "m",
+          "density": "standard",
+          "state": "disabled",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-b09452344e740ae7675e"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "m",
+          "density": "standard",
+          "state": "selected",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-230e56e0cd95bc5887a9"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "m",
+          "density": "standard",
+          "state": "unselected",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-849c56a6242c197d7bd4"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "m",
+          "density": "standard",
+          "state": "variants",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-d7a43afb0c18541e03d2"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "m",
+          "density": "standard",
+          "state": "loading",
+          "status": "passed",
+          "testId": "5b862e7b8dcfc4db17c8-54bf80b1273d1962fab8"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "l",
+          "density": "standard",
+          "state": "default",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-48aa4fb28304363d227c"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "l",
+          "density": "standard",
+          "state": "hover",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-884e9f31f9623d90968c"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "l",
+          "density": "standard",
+          "state": "focus-visible",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-c65277c6c1212ab65802"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "l",
+          "density": "standard",
+          "state": "pressed",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-13a530d37be2823d5a42"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "l",
+          "density": "standard",
+          "state": "disabled",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-bda8405813193562f2c5"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "l",
+          "density": "standard",
+          "state": "selected",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-f902334b90065f234118"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "l",
+          "density": "standard",
+          "state": "unselected",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-b2a0870903db08833ffd"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "l",
+          "density": "standard",
+          "state": "variants",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-e53a764903416a14f0f9"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "l",
+          "density": "standard",
+          "state": "loading",
+          "status": "passed",
+          "testId": "5b862e7b8dcfc4db17c8-babece613f3fe071432f"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "xl",
+          "density": "standard",
+          "state": "default",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-cc86af1848eb5e61a544"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "xl",
+          "density": "standard",
+          "state": "hover",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-d1703877b34930ba12cf"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "xl",
+          "density": "standard",
+          "state": "focus-visible",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-dcaadccb6d3bab45e60f"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "xl",
+          "density": "standard",
+          "state": "pressed",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-842482ee67b82d23f033"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "xl",
+          "density": "standard",
+          "state": "disabled",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-fe0903a404d29f4b1dca"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "xl",
+          "density": "standard",
+          "state": "selected",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-a4d3fc4cbd35280e0db1"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "xl",
+          "density": "standard",
+          "state": "unselected",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-1c33cd9a9af00e1c00ab"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "xl",
+          "density": "standard",
+          "state": "variants",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-f4626f8fde9f80932546"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "xl",
+          "density": "standard",
+          "state": "loading",
+          "status": "passed",
+          "testId": "5b862e7b8dcfc4db17c8-2b5be52dc89ea867a09a"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "xs",
+          "density": "standard",
+          "state": "default",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-1192e62e9fad5487a9ab"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "xs",
+          "density": "standard",
+          "state": "hover",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-5cb7efdb6b98cf24aeba"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "xs",
+          "density": "standard",
+          "state": "focus-visible",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-18d46c09921ed500729a"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "xs",
+          "density": "standard",
+          "state": "pressed",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-8d0db2fb4b6f1c3a7989"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "xs",
+          "density": "standard",
+          "state": "disabled",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-5abc94dc72d8b83f0da6"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "xs",
+          "density": "standard",
+          "state": "selected",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-2c66e1fe6696077844c7"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "xs",
+          "density": "standard",
+          "state": "unselected",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-993169683a69c7ddc9bd"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "xs",
+          "density": "standard",
+          "state": "variants",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-50eefc4e47378e18a857"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "xs",
+          "density": "standard",
+          "state": "loading",
+          "status": "passed",
+          "testId": "5b862e7b8dcfc4db17c8-e403c8a974ac2df66250"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "s",
+          "density": "standard",
+          "state": "default",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-c9ab6a75580a3eb35a63"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "s",
+          "density": "standard",
+          "state": "hover",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-5afa9c93406835e27294"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "s",
+          "density": "standard",
+          "state": "focus-visible",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-dcc594126059ac21af45"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "s",
+          "density": "standard",
+          "state": "pressed",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-7e1d91af7577ec939c98"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "s",
+          "density": "standard",
+          "state": "disabled",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-4291740804271a20d023"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "s",
+          "density": "standard",
+          "state": "selected",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-a240b34c651e054aa766"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "s",
+          "density": "standard",
+          "state": "unselected",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-42e2b29fbc892bec6c9a"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "s",
+          "density": "standard",
+          "state": "variants",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-d7f0ba60bdaadffdb9f0"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "s",
+          "density": "standard",
+          "state": "loading",
+          "status": "passed",
+          "testId": "5b862e7b8dcfc4db17c8-be706cdaf7261c80cb70"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "m",
+          "density": "standard",
+          "state": "default",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-c58c2b4104e1b2a4e2be"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "m",
+          "density": "standard",
+          "state": "hover",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-4288df079f94b3587490"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "m",
+          "density": "standard",
+          "state": "focus-visible",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-7fbec2203498bba58df2"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "m",
+          "density": "standard",
+          "state": "pressed",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-46cd41baa3a06a4bb7be"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "m",
+          "density": "standard",
+          "state": "disabled",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-38645ae5a04118af048d"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "m",
+          "density": "standard",
+          "state": "selected",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-5487a4de4f280b1cb270"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "m",
+          "density": "standard",
+          "state": "unselected",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-359d64eea61b09022dea"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "m",
+          "density": "standard",
+          "state": "variants",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-22ed47e9c7da175873b8"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "m",
+          "density": "standard",
+          "state": "loading",
+          "status": "passed",
+          "testId": "5b862e7b8dcfc4db17c8-a61813534f25ed974ede"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "l",
+          "density": "standard",
+          "state": "default",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-f18d6a056cc0ff84cace"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "l",
+          "density": "standard",
+          "state": "hover",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-9a5015094849efce8e23"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "l",
+          "density": "standard",
+          "state": "focus-visible",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-eae2be19ea6620831c9e"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "l",
+          "density": "standard",
+          "state": "pressed",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-94fc541c15f72029ddcc"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "l",
+          "density": "standard",
+          "state": "disabled",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-ce7d236872a994d83706"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "l",
+          "density": "standard",
+          "state": "selected",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-ecbe7afe415a0de0b5d4"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "l",
+          "density": "standard",
+          "state": "unselected",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-cf90326ae04107c9f5f3"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "l",
+          "density": "standard",
+          "state": "variants",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-fa92bc6a9a2ab462bc1d"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "l",
+          "density": "standard",
+          "state": "loading",
+          "status": "passed",
+          "testId": "5b862e7b8dcfc4db17c8-437f5189298c84a43bbc"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "xl",
+          "density": "standard",
+          "state": "default",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-30cc448f2aea34d3a1aa"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "xl",
+          "density": "standard",
+          "state": "hover",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-aa79273587be8a32d15a"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "xl",
+          "density": "standard",
+          "state": "focus-visible",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-cdb06ea3402e53543d60"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "xl",
+          "density": "standard",
+          "state": "pressed",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-aa195f40e831cdf31198"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "xl",
+          "density": "standard",
+          "state": "disabled",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-b638bd411435210be321"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "xl",
+          "density": "standard",
+          "state": "selected",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-fd0866e5b2e0016cecb5"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "xl",
+          "density": "standard",
+          "state": "unselected",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-c3d49d008e09a7709320"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "xl",
+          "density": "standard",
+          "state": "variants",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-9679edbf7d36b74dc5f2"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "xl",
+          "density": "standard",
+          "state": "loading",
+          "status": "passed",
+          "testId": "5b862e7b8dcfc4db17c8-ffcf7cfa318071d4e951"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "xs",
+          "density": "standard",
+          "state": "default",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-e3a22af3de09e47ece28"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "xs",
+          "density": "standard",
+          "state": "hover",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-3e0adc0fcb48b5e261d6"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "xs",
+          "density": "standard",
+          "state": "focus-visible",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-49e73c3189101e394b23"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "xs",
+          "density": "standard",
+          "state": "pressed",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-6b7b5c9725ba2d0d5185"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "xs",
+          "density": "standard",
+          "state": "disabled",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-89a4d79b9d0ac88ee5ae"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "xs",
+          "density": "standard",
+          "state": "selected",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-711ee1721b751a979c66"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "xs",
+          "density": "standard",
+          "state": "unselected",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-60cbea3886eda62cb868"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "xs",
+          "density": "standard",
+          "state": "variants",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-3812004319dedfcf43b8"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "xs",
+          "density": "standard",
+          "state": "loading",
+          "status": "passed",
+          "testId": "5b862e7b8dcfc4db17c8-c8bdacf4380355436232"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "s",
+          "density": "standard",
+          "state": "default",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-747c3ec8557104695d73"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "s",
+          "density": "standard",
+          "state": "hover",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-c0e5c0fc41789ed2ed65"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "s",
+          "density": "standard",
+          "state": "focus-visible",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-cd02435b71c74732b239"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "s",
+          "density": "standard",
+          "state": "pressed",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-21bbc4758c10b6fe9a6b"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "s",
+          "density": "standard",
+          "state": "disabled",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-6ffb53468fbc85fa4fdd"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "s",
+          "density": "standard",
+          "state": "selected",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-c6ba0ad59a939b2edb76"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "s",
+          "density": "standard",
+          "state": "unselected",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-81485733f44e32219131"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "s",
+          "density": "standard",
+          "state": "variants",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-192212c150e18e2132e2"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "s",
+          "density": "standard",
+          "state": "loading",
+          "status": "passed",
+          "testId": "5b862e7b8dcfc4db17c8-1415b60ab6cf58dba205"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "m",
+          "density": "standard",
+          "state": "default",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-a02f5313a28715b9ab0f"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "m",
+          "density": "standard",
+          "state": "hover",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-fec04d12d858b2f00837"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "m",
+          "density": "standard",
+          "state": "focus-visible",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-3d2978d221be33eca2b4"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "m",
+          "density": "standard",
+          "state": "pressed",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-2a3f5093948553415c4a"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "m",
+          "density": "standard",
+          "state": "disabled",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-2d6e0a52bce17935269a"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "m",
+          "density": "standard",
+          "state": "selected",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-d47c08818151fc9ed433"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "m",
+          "density": "standard",
+          "state": "unselected",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-e727365d7183a58bcac0"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "m",
+          "density": "standard",
+          "state": "variants",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-5c96e8f57139f2f6e33e"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "m",
+          "density": "standard",
+          "state": "loading",
+          "status": "passed",
+          "testId": "5b862e7b8dcfc4db17c8-38432db64b6b9a0c8c1c"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "l",
+          "density": "standard",
+          "state": "default",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-19e7575f68a46bfeeea0"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "l",
+          "density": "standard",
+          "state": "hover",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-a6bac0bbd302cca3338a"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "l",
+          "density": "standard",
+          "state": "focus-visible",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-4b486f575d6a7950f355"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "l",
+          "density": "standard",
+          "state": "pressed",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-d0b1248cdb1923f5db9d"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "l",
+          "density": "standard",
+          "state": "disabled",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-7fc51ae98a846e1ba6a3"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "l",
+          "density": "standard",
+          "state": "selected",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-05eda0ddecff2b1c4b49"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "l",
+          "density": "standard",
+          "state": "unselected",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-52322d3b2c9bc4912926"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "l",
+          "density": "standard",
+          "state": "variants",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-55af8de3c6e87a3c0ecf"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "l",
+          "density": "standard",
+          "state": "loading",
+          "status": "passed",
+          "testId": "5b862e7b8dcfc4db17c8-090aa7c8354df66c01ec"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "xl",
+          "density": "standard",
+          "state": "default",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-c1124855b65afb60042c"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "xl",
+          "density": "standard",
+          "state": "hover",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-8fb1d5b1f31b19daa35c"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "xl",
+          "density": "standard",
+          "state": "focus-visible",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-e58ab83d9991261911f0"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "xl",
+          "density": "standard",
+          "state": "pressed",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-def11b6968d3e2aaafc3"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "xl",
+          "density": "standard",
+          "state": "disabled",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-aaac51fe9e00e8b54ef6"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "xl",
+          "density": "standard",
+          "state": "selected",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-b59849ed7514f3c39a99"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "xl",
+          "density": "standard",
+          "state": "unselected",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-43723c6441d716e292d7"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "xl",
+          "density": "standard",
+          "state": "variants",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-ba2340f78bbaaab029cb"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "xl",
+          "density": "standard",
+          "state": "loading",
+          "status": "passed",
+          "testId": "5b862e7b8dcfc4db17c8-5ab92519e6619470937a"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "xs",
+          "density": "standard",
+          "state": "default",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-06e5c4fbf9430bd0aa50"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "xs",
+          "density": "standard",
+          "state": "hover",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-ea5e98ac883af11dca9f"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "xs",
+          "density": "standard",
+          "state": "focus-visible",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-3b09167006d6e091ea7d"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "xs",
+          "density": "standard",
+          "state": "pressed",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-f23b40de7b7e83b00ff2"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "xs",
+          "density": "standard",
+          "state": "disabled",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-0853f9f7ee7c1cb5f69b"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "xs",
+          "density": "standard",
+          "state": "selected",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-9db3fc762b71ef0c2952"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "xs",
+          "density": "standard",
+          "state": "unselected",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-acd3fba08779428888c2"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "xs",
+          "density": "standard",
+          "state": "variants",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-68fbb0dd18cc2e02bf62"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "xs",
+          "density": "standard",
+          "state": "loading",
+          "status": "passed",
+          "testId": "5b862e7b8dcfc4db17c8-1cfb5bb25e3f1cc3ba1e"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "s",
+          "density": "standard",
+          "state": "default",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-2f3e66594a60100bf7eb"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "s",
+          "density": "standard",
+          "state": "hover",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-7121ea5ea9b61759c100"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "s",
+          "density": "standard",
+          "state": "focus-visible",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-562fee5c72f43bc639a4"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "s",
+          "density": "standard",
+          "state": "pressed",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-e58cd6518d895a8da5f3"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "s",
+          "density": "standard",
+          "state": "disabled",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-98c0d69dda9e0bb519c4"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "s",
+          "density": "standard",
+          "state": "selected",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-042aed26b23ffb9868d8"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "s",
+          "density": "standard",
+          "state": "unselected",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-e095e9423408ce3f9455"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "s",
+          "density": "standard",
+          "state": "variants",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-7b7f471a4e936c761e1c"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "s",
+          "density": "standard",
+          "state": "loading",
+          "status": "passed",
+          "testId": "5b862e7b8dcfc4db17c8-a175d393daaf0060ead9"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "m",
+          "density": "standard",
+          "state": "default",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-819e0f65e266747d3492"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "m",
+          "density": "standard",
+          "state": "hover",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-584cbac90bcb7ef11113"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "m",
+          "density": "standard",
+          "state": "focus-visible",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-ea36d525787c211840ab"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "m",
+          "density": "standard",
+          "state": "pressed",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-7860d7e437495bcef852"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "m",
+          "density": "standard",
+          "state": "disabled",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-3effb4ad6ed568fb3b6d"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "m",
+          "density": "standard",
+          "state": "selected",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-35bac1b8d6ac08519796"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "m",
+          "density": "standard",
+          "state": "unselected",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-4120859c3f28a3e87b1e"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "m",
+          "density": "standard",
+          "state": "variants",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-8c82d0654235acf64f59"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "m",
+          "density": "standard",
+          "state": "loading",
+          "status": "passed",
+          "testId": "5b862e7b8dcfc4db17c8-0f399080db723505fbf2"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "l",
+          "density": "standard",
+          "state": "default",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-294988716228178d966f"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "l",
+          "density": "standard",
+          "state": "hover",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-8387a0548ab255c9c75a"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "l",
+          "density": "standard",
+          "state": "focus-visible",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-4fb2936ffcf79a092d4f"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "l",
+          "density": "standard",
+          "state": "pressed",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-62338e04daa6312709e9"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "l",
+          "density": "standard",
+          "state": "disabled",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-3bf7b7048eedb2ef1b31"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "l",
+          "density": "standard",
+          "state": "selected",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-0f2efdcd77aec503a014"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "l",
+          "density": "standard",
+          "state": "unselected",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-7b0606d80272c904ce52"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "l",
+          "density": "standard",
+          "state": "variants",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-701075e65b60a0fe15ee"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "l",
+          "density": "standard",
+          "state": "loading",
+          "status": "passed",
+          "testId": "5b862e7b8dcfc4db17c8-b1ca0ff28c2535253e19"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "xl",
+          "density": "standard",
+          "state": "default",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-83633ef94fb85745cd85"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "xl",
+          "density": "standard",
+          "state": "hover",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-975bc6cf8719a27a9761"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "xl",
+          "density": "standard",
+          "state": "focus-visible",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-51a38b446a1add9283ed"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "xl",
+          "density": "standard",
+          "state": "pressed",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-631a0e49e251038eea43"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "xl",
+          "density": "standard",
+          "state": "disabled",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-a118244e5fe0e5bae008"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "xl",
+          "density": "standard",
+          "state": "selected",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-7b9fbd2ebbf25e3b3570"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "xl",
+          "density": "standard",
+          "state": "unselected",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-85f41e0e3fb419ee6aac"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "xl",
+          "density": "standard",
+          "state": "variants",
+          "status": "passed",
+          "testId": "b84dd6a488247b918e76-e5c372854efdd6a9bdee"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "xl",
+          "density": "standard",
+          "state": "loading",
+          "status": "passed",
+          "testId": "5b862e7b8dcfc4db17c8-61a8591c687fc7a263d6"
+        }
+      ],
+      "errors": [],
+      "notApplicable": {
+        "density": "Button uses its five explicit public size values; density does not alter action geometry.",
+        "error": "Errors belong to the surrounding action result; danger is a separate appearance semantic.",
+        "expanded": "Expansion belongs to the owning popup or disclosure component."
+      }
+    }
+  ],
+  "environments": [
+    {
+      "package": "rc-button",
+      "complete": true,
+      "expected": 60,
+      "passed": 54,
+      "cells": [
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "id": "narrow",
+          "status": "failed",
+          "testId": "5e7cfde592acf3410c62-7eb276aee93c21e73f42"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "id": "tablet",
+          "status": "passed",
+          "testId": "5e7cfde592acf3410c62-2fca396b7da3722932bf"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "id": "desktop",
+          "status": "passed",
+          "testId": "5e7cfde592acf3410c62-5218f74686d7387a7031"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "id": "touch",
+          "status": "passed",
+          "testId": "5e7cfde592acf3410c62-e9ef609f173c6f76028d"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "id": "rtl",
+          "status": "passed",
+          "testId": "5e7cfde592acf3410c62-f4f8be7180ab2f115c27"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "id": "english",
+          "status": "passed",
+          "testId": "5e7cfde592acf3410c62-a7b283729a9fbe0045b6"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "id": "brand",
+          "status": "passed",
+          "testId": "5e7cfde592acf3410c62-221bf43d2b1f07d9adee"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "id": "forced-colors",
+          "status": "passed",
+          "testId": "5e7cfde592acf3410c62-5387b811f0f911cf54fb"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "id": "reduced-motion",
+          "status": "passed",
+          "testId": "5e7cfde592acf3410c62-59cd7a394e83a253909e"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "id": "zoom-200",
+          "status": "passed",
+          "testId": "e0615b692a3cbec88509-2a0a130b124fb9d9bf0d"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "id": "narrow",
+          "status": "failed",
+          "testId": "5e7cfde592acf3410c62-143a0478407368fab6a8"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "id": "tablet",
+          "status": "passed",
+          "testId": "5e7cfde592acf3410c62-574d0a04c0b1a69ab37f"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "id": "desktop",
+          "status": "passed",
+          "testId": "5e7cfde592acf3410c62-73eb1af7af3127b1fde9"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "id": "touch",
+          "status": "passed",
+          "testId": "5e7cfde592acf3410c62-18392b62ef99a5a2312e"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "id": "rtl",
+          "status": "passed",
+          "testId": "5e7cfde592acf3410c62-1c64bd574d9d21c0d463"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "id": "english",
+          "status": "passed",
+          "testId": "5e7cfde592acf3410c62-333e4771c054ad1c8a7a"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "id": "brand",
+          "status": "passed",
+          "testId": "5e7cfde592acf3410c62-884fa6f244f78299c7ea"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "id": "forced-colors",
+          "status": "passed",
+          "testId": "5e7cfde592acf3410c62-e9683cac29284ce2500e"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "id": "reduced-motion",
+          "status": "passed",
+          "testId": "5e7cfde592acf3410c62-47ae3cde9430653e9d55"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "id": "zoom-200",
+          "status": "passed",
+          "testId": "e0615b692a3cbec88509-dafbfebee71f8ebf304a"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "id": "narrow",
+          "status": "failed",
+          "testId": "5e7cfde592acf3410c62-52ed033a623db6e0a174"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "id": "tablet",
+          "status": "passed",
+          "testId": "5e7cfde592acf3410c62-68287e27e82ae70b7a14"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "id": "desktop",
+          "status": "passed",
+          "testId": "5e7cfde592acf3410c62-45de36c90a1a60b09651"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "id": "touch",
+          "status": "passed",
+          "testId": "5e7cfde592acf3410c62-4821e70160b1b2717694"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "id": "rtl",
+          "status": "passed",
+          "testId": "5e7cfde592acf3410c62-0f767f98de953487ec81"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "id": "english",
+          "status": "passed",
+          "testId": "5e7cfde592acf3410c62-f86603b0c29353f619db"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "id": "brand",
+          "status": "passed",
+          "testId": "5e7cfde592acf3410c62-aea399fd77f1def6d701"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "id": "forced-colors",
+          "status": "passed",
+          "testId": "5e7cfde592acf3410c62-fa621edcd7b039407639"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "id": "reduced-motion",
+          "status": "passed",
+          "testId": "5e7cfde592acf3410c62-c4b1429951b480b68184"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "id": "zoom-200",
+          "status": "passed",
+          "testId": "e0615b692a3cbec88509-01304900fb671d6816fc"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "id": "narrow",
+          "status": "failed",
+          "testId": "5e7cfde592acf3410c62-29083420816c042151ab"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "id": "tablet",
+          "status": "passed",
+          "testId": "5e7cfde592acf3410c62-8feed59e7bb4d88d3ef8"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "id": "desktop",
+          "status": "passed",
+          "testId": "5e7cfde592acf3410c62-a16607a295b53292d9f1"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "id": "touch",
+          "status": "passed",
+          "testId": "5e7cfde592acf3410c62-e064fd12441d3a6a44e9"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "id": "rtl",
+          "status": "passed",
+          "testId": "5e7cfde592acf3410c62-931a2340a6f45b093a7e"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "id": "english",
+          "status": "passed",
+          "testId": "5e7cfde592acf3410c62-11de04c5f200900b4404"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "id": "brand",
+          "status": "passed",
+          "testId": "5e7cfde592acf3410c62-c91eb1bdda9e53e78211"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "id": "forced-colors",
+          "status": "passed",
+          "testId": "5e7cfde592acf3410c62-02d160c207ecaba21b8c"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "id": "reduced-motion",
+          "status": "passed",
+          "testId": "5e7cfde592acf3410c62-a74f077f04abed02d9e6"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "id": "zoom-200",
+          "status": "passed",
+          "testId": "e0615b692a3cbec88509-902c9e6fd4d2824b82a1"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "id": "narrow",
+          "status": "failed",
+          "testId": "5e7cfde592acf3410c62-b1e2b2935f6c9b7ca907"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "id": "tablet",
+          "status": "passed",
+          "testId": "5e7cfde592acf3410c62-d075f87cf94caf9305bf"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "id": "desktop",
+          "status": "passed",
+          "testId": "5e7cfde592acf3410c62-c2833bf6c0dafd656457"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "id": "touch",
+          "status": "passed",
+          "testId": "5e7cfde592acf3410c62-a33263492fa8a5ad7ced"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "id": "rtl",
+          "status": "passed",
+          "testId": "5e7cfde592acf3410c62-bb5f5c6e1f572953532b"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "id": "english",
+          "status": "passed",
+          "testId": "5e7cfde592acf3410c62-4799a152e25443eaddd1"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "id": "brand",
+          "status": "passed",
+          "testId": "5e7cfde592acf3410c62-6fe64082364883792267"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "id": "forced-colors",
+          "status": "passed",
+          "testId": "5e7cfde592acf3410c62-a6df7d2ab51d6ac51242"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "id": "reduced-motion",
+          "status": "passed",
+          "testId": "5e7cfde592acf3410c62-57924095669d39aba764"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "id": "zoom-200",
+          "status": "passed",
+          "testId": "e0615b692a3cbec88509-48aec40d2200fc7a6571"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "id": "narrow",
+          "status": "failed",
+          "testId": "5e7cfde592acf3410c62-cfd68ee975d720dadf5d"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "id": "tablet",
+          "status": "passed",
+          "testId": "5e7cfde592acf3410c62-30900dbac8990ad0b8a2"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "id": "desktop",
+          "status": "passed",
+          "testId": "5e7cfde592acf3410c62-71e65e8779ccd8523046"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "id": "touch",
+          "status": "passed",
+          "testId": "5e7cfde592acf3410c62-9eba55b9cbd5b9a98044"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "id": "rtl",
+          "status": "passed",
+          "testId": "5e7cfde592acf3410c62-677d4183a41e30b29d24"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "id": "english",
+          "status": "passed",
+          "testId": "5e7cfde592acf3410c62-1a7d0cae7e7e160382aa"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "id": "brand",
+          "status": "passed",
+          "testId": "5e7cfde592acf3410c62-51ab7419986d63dd4234"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "id": "forced-colors",
+          "status": "passed",
+          "testId": "5e7cfde592acf3410c62-5003c3cb105d9f1fc96c"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "id": "reduced-motion",
+          "status": "passed",
+          "testId": "5e7cfde592acf3410c62-3b7dc2a5e3f2b02625ab"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "id": "zoom-200",
+          "status": "passed",
+          "testId": "e0615b692a3cbec88509-d5c54fc748740664280c"
+        }
+      ],
+      "errors": [
+        "failed: md3/light/narrow",
+        "failed: md3/dark/narrow",
+        "failed: apple/light/narrow",
+        "failed: apple/dark/narrow",
+        "failed: shadcn/light/narrow",
+        "failed: shadcn/dark/narrow"
+      ]
+    }
+  ],
+  "errors": [
+    "rc-button/environment: failed: md3/light/narrow",
+    "rc-button/environment: failed: md3/dark/narrow",
+    "rc-button/environment: failed: apple/light/narrow",
+    "rc-button/environment: failed: apple/dark/narrow",
+    "rc-button/environment: failed: shadcn/light/narrow",
+    "rc-button/environment: failed: shadcn/dark/narrow"
+  ]
+}

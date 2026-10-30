@@ -1,0 +1,1812 @@
+{
+  "createdAt": "2026-10-30T01:05:08.686Z",
+  "status": "partial; storage-blocked",
+  "localOnly": true,
+  "changes": {
+    "sourceFiles": [
+      "components/rc-line-edit/docs/demos/visual-matrix.demo.tsx",
+      "components/rc-line-edit/docs/visual.json",
+      "components/rc-line-edit/docs/line-edit.visual.spec.mjs",
+      "components/rc-line-edit/docs/visual-assertions.mjs",
+      "components/rc-line-edit/docs/index.mdx",
+      "components/rc-number-edit/docs/demos/visual-matrix.demo.tsx",
+      "components/rc-number-edit/docs/visual.json",
+      "components/rc-number-edit/docs/number-edit.visual.spec.mjs",
+      "components/rc-number-edit/docs/index.mdx",
+      "components/rc-breadcrumbs/docs/environment.visual.spec.mjs",
+      "components/rc-cron-picker/docs/environment.visual.spec.mjs",
+      "components/rc-date-picker/docs/environment.visual.spec.mjs",
+      "components/rc-form/docs/environment.visual.spec.mjs",
+      "components/rc-pagination/docs/environment.visual.spec.mjs",
+      "components/rc-tabs/docs/environment.visual.spec.mjs",
+      "components/rc-tag/docs/environment.visual.spec.mjs",
+      "components/rc-message/docs/message.visual.spec.mjs",
+      "components/rc-message/docs/message.motion.visual.spec.mjs",
+      "scripts/visual/matrix-contract.mjs",
+      "scripts/visual-contract.test.mjs",
+      "test/visual/matrix-reporter.mjs",
+      ".website/docs/guides/contributing.mdx"
+    ],
+    "generatedFiles": [
+      ".website/docs/_generated/rc-line-edit.ts",
+      ".website/docs/components/rc-line-edit.mdx",
+      ".website/docs/_generated/rc-number-edit.ts",
+      ".website/docs/components/rc-number-edit.mdx"
+    ],
+    "inputStates": {
+      "line": {
+        "added": [
+          "password-hidden",
+          "password-visible",
+          "borderless-focus"
+        ],
+        "states": 16,
+        "crossEngineStates": 7
+      },
+      "number": {
+        "added": [
+          "borderless-focus",
+          "controls-hidden"
+        ],
+        "states": 22,
+        "crossEngineStates": 8
+      }
+    },
+    "environmentAnnotationReplacements": 15,
+    "messageDuplicateTestsRemoved": 18
+  },
+  "discovery": {
+    "exitCode": 0,
+    "totalTests": 25163,
+    "files": 178,
+    "counts": {
+      "chromium": 18605,
+      "firefox": 3279,
+      "webkit": 3279
+    },
+    "byPackage": {
+      "rc-alert": {
+        "chromium": 126,
+        "firefox": 90,
+        "webkit": 90
+      },
+      "rc-app-main-layout": {
+        "chromium": 337,
+        "firefox": 31,
+        "webkit": 31
+      },
+      "rc-avatar": {
+        "chromium": 240,
+        "firefox": 90,
+        "webkit": 90
+      },
+      "rc-badge": {
+        "chromium": 180,
+        "firefox": 78,
+        "webkit": 78
+      },
+      "rc-bar-chart": {
+        "chromium": 264,
+        "firefox": 42,
+        "webkit": 42
+      },
+      "rc-breadcrumbs": {
+        "chromium": 198,
+        "firefox": 90,
+        "webkit": 90
+      },
+      "rc-button": {
+        "chromium": 342,
+        "firefox": 24,
+        "webkit": 24
+      },
+      "rc-canvas": {
+        "chromium": 132,
+        "firefox": 36,
+        "webkit": 36
+      },
+      "rc-card": {
+        "chromium": 564,
+        "firefox": 90,
+        "webkit": 90
+      },
+      "rc-checkbox": {
+        "chromium": 337,
+        "firefox": 30,
+        "webkit": 30
+      },
+      "rc-color-picker": {
+        "chromium": 193,
+        "firefox": 85,
+        "webkit": 85
+      },
+      "rc-component-preview": {
+        "chromium": 210,
+        "firefox": 24,
+        "webkit": 24
+      },
+      "rc-config-provider": {
+        "chromium": 294,
+        "firefox": 36,
+        "webkit": 36
+      },
+      "rc-cron-picker": {
+        "chromium": 1746,
+        "firefox": 138,
+        "webkit": 138
+      },
+      "rc-date-picker": {
+        "chromium": 1752,
+        "firefox": 180,
+        "webkit": 180
+      },
+      "rc-dialog": {
+        "chromium": 115,
+        "firefox": 91,
+        "webkit": 91
+      },
+      "rc-divider": {
+        "chromium": 222,
+        "firefox": 78,
+        "webkit": 78
+      },
+      "rc-drawer": {
+        "chromium": 211,
+        "firefox": 121,
+        "webkit": 121
+      },
+      "rc-dropdown-container": {
+        "chromium": 139,
+        "firefox": 85,
+        "webkit": 85
+      },
+      "rc-empty": {
+        "chromium": 222,
+        "firefox": 90,
+        "webkit": 90
+      },
+      "rc-flow-diagram": {
+        "chromium": 132,
+        "firefox": 42,
+        "webkit": 42
+      },
+      "rc-form": {
+        "chromium": 558,
+        "firefox": 90,
+        "webkit": 90
+      },
+      "rc-line-edit": {
+        "chromium": 355,
+        "firefox": 49,
+        "webkit": 49
+      },
+      "rc-masonry": {
+        "chromium": 139,
+        "firefox": 31,
+        "webkit": 31
+      },
+      "rc-menu": {
+        "chromium": 265,
+        "firefox": 109,
+        "webkit": 109
+      },
+      "rc-message": {
+        "chromium": 132,
+        "firefox": 84,
+        "webkit": 84
+      },
+      "rc-notification": {
+        "chromium": 150,
+        "firefox": 96,
+        "webkit": 96
+      },
+      "rc-number-edit": {
+        "chromium": 463,
+        "firefox": 54,
+        "webkit": 54
+      },
+      "rc-pagination": {
+        "chromium": 558,
+        "firefox": 96,
+        "webkit": 96
+      },
+      "rc-pdf-editor": {
+        "chromium": 798,
+        "firefox": 72,
+        "webkit": 72
+      },
+      "rc-prose": {
+        "chromium": 163,
+        "firefox": 25,
+        "webkit": 25
+      },
+      "rc-radio": {
+        "chromium": 283,
+        "firefox": 30,
+        "webkit": 30
+      },
+      "rc-realm": {
+        "chromium": 234,
+        "firefox": 84,
+        "webkit": 84
+      },
+      "rc-segmented": {
+        "chromium": 229,
+        "firefox": 30,
+        "webkit": 30
+      },
+      "rc-select": {
+        "chromium": 661,
+        "firefox": 91,
+        "webkit": 91
+      },
+      "rc-skeleton": {
+        "chromium": 168,
+        "firefox": 78,
+        "webkit": 78
+      },
+      "rc-slider": {
+        "chromium": 307,
+        "firefox": 36,
+        "webkit": 36
+      },
+      "rc-spin": {
+        "chromium": 169,
+        "firefox": 30,
+        "webkit": 30
+      },
+      "rc-split-pane": {
+        "chromium": 115,
+        "firefox": 37,
+        "webkit": 37
+      },
+      "rc-switch": {
+        "chromium": 283,
+        "firefox": 30,
+        "webkit": 30
+      },
+      "rc-table": {
+        "chromium": 499,
+        "firefox": 31,
+        "webkit": 31
+      },
+      "rc-table-pro": {
+        "chromium": 931,
+        "firefox": 67,
+        "webkit": 67
+      },
+      "rc-tabs": {
+        "chromium": 1368,
+        "firefox": 126,
+        "webkit": 126
+      },
+      "rc-tag": {
+        "chromium": 450,
+        "firefox": 84,
+        "webkit": 84
+      },
+      "rc-text-edit": {
+        "chromium": 301,
+        "firefox": 30,
+        "webkit": 30
+      },
+      "rc-theme": {
+        "chromium": 84,
+        "firefox": 24,
+        "webkit": 24
+      },
+      "rc-token-global": {
+        "chromium": 72,
+        "firefox": 12,
+        "webkit": 12
+      },
+      "rc-token-semantic": {
+        "chromium": 78,
+        "firefox": 18,
+        "webkit": 18
+      },
+      "rc-tooltip": {
+        "chromium": 97,
+        "firefox": 85,
+        "webkit": 85
+      },
+      "rc-tree": {
+        "chromium": 607,
+        "firefox": 37,
+        "webkit": 37
+      }
+    },
+    "declarations": [
+      {
+        "kind": "core",
+        "package": "rc-alert",
+        "engine": "chromium",
+        "expected": 48,
+        "discovered": 48
+      },
+      {
+        "kind": "core",
+        "package": "rc-alert",
+        "engine": "firefox",
+        "expected": 18,
+        "discovered": 18
+      },
+      {
+        "kind": "core",
+        "package": "rc-alert",
+        "engine": "webkit",
+        "expected": 18,
+        "discovered": 18
+      },
+      {
+        "kind": "core",
+        "package": "rc-app-main-layout",
+        "engine": "chromium",
+        "expected": 270,
+        "discovered": 270
+      },
+      {
+        "kind": "core",
+        "package": "rc-app-main-layout",
+        "engine": "firefox",
+        "expected": 24,
+        "discovered": 24
+      },
+      {
+        "kind": "core",
+        "package": "rc-app-main-layout",
+        "engine": "webkit",
+        "expected": 24,
+        "discovered": 24
+      },
+      {
+        "kind": "core",
+        "package": "rc-avatar",
+        "engine": "chromium",
+        "expected": 144,
+        "discovered": 144
+      },
+      {
+        "kind": "core",
+        "package": "rc-avatar",
+        "engine": "firefox",
+        "expected": 18,
+        "discovered": 18
+      },
+      {
+        "kind": "core",
+        "package": "rc-avatar",
+        "engine": "webkit",
+        "expected": 18,
+        "discovered": 18
+      },
+      {
+        "kind": "core",
+        "package": "rc-badge",
+        "engine": "chromium",
+        "expected": 84,
+        "discovered": 84
+      },
+      {
+        "kind": "core",
+        "package": "rc-badge",
+        "engine": "firefox",
+        "expected": 6,
+        "discovered": 6
+      },
+      {
+        "kind": "core",
+        "package": "rc-badge",
+        "engine": "webkit",
+        "expected": 6,
+        "discovered": 6
+      },
+      {
+        "kind": "core",
+        "package": "rc-bar-chart",
+        "engine": "chromium",
+        "expected": 180,
+        "discovered": 180
+      },
+      {
+        "kind": "core",
+        "package": "rc-bar-chart",
+        "engine": "firefox",
+        "expected": 24,
+        "discovered": 24
+      },
+      {
+        "kind": "core",
+        "package": "rc-bar-chart",
+        "engine": "webkit",
+        "expected": 24,
+        "discovered": 24
+      },
+      {
+        "kind": "core",
+        "package": "rc-breadcrumbs",
+        "engine": "chromium",
+        "expected": 126,
+        "discovered": 126
+      },
+      {
+        "kind": "core",
+        "package": "rc-breadcrumbs",
+        "engine": "firefox",
+        "expected": 30,
+        "discovered": 30
+      },
+      {
+        "kind": "core",
+        "package": "rc-breadcrumbs",
+        "engine": "webkit",
+        "expected": 30,
+        "discovered": 30
+      },
+      {
+        "kind": "core",
+        "package": "rc-button",
+        "engine": "chromium",
+        "expected": 270,
+        "discovered": 270
+      },
+      {
+        "kind": "core",
+        "package": "rc-button",
+        "engine": "firefox",
+        "expected": 18,
+        "discovered": 18
+      },
+      {
+        "kind": "core",
+        "package": "rc-button",
+        "engine": "webkit",
+        "expected": 18,
+        "discovered": 18
+      },
+      {
+        "kind": "core",
+        "package": "rc-canvas",
+        "engine": "chromium",
+        "expected": 60,
+        "discovered": 60
+      },
+      {
+        "kind": "core",
+        "package": "rc-canvas",
+        "engine": "firefox",
+        "expected": 24,
+        "discovered": 24
+      },
+      {
+        "kind": "core",
+        "package": "rc-canvas",
+        "engine": "webkit",
+        "expected": 24,
+        "discovered": 24
+      },
+      {
+        "kind": "core",
+        "package": "rc-card",
+        "engine": "chromium",
+        "expected": 486,
+        "discovered": 486
+      },
+      {
+        "kind": "core",
+        "package": "rc-card",
+        "engine": "firefox",
+        "expected": 18,
+        "discovered": 18
+      },
+      {
+        "kind": "core",
+        "package": "rc-card",
+        "engine": "webkit",
+        "expected": 18,
+        "discovered": 18
+      },
+      {
+        "kind": "core",
+        "package": "rc-checkbox",
+        "engine": "chromium",
+        "expected": 270,
+        "discovered": 270
+      },
+      {
+        "kind": "core",
+        "package": "rc-checkbox",
+        "engine": "firefox",
+        "expected": 24,
+        "discovered": 24
+      },
+      {
+        "kind": "core",
+        "package": "rc-checkbox",
+        "engine": "webkit",
+        "expected": 24,
+        "discovered": 24
+      },
+      {
+        "kind": "core",
+        "package": "rc-color-picker",
+        "engine": "chromium",
+        "expected": 126,
+        "discovered": 126
+      },
+      {
+        "kind": "core",
+        "package": "rc-color-picker",
+        "engine": "firefox",
+        "expected": 24,
+        "discovered": 24
+      },
+      {
+        "kind": "core",
+        "package": "rc-color-picker",
+        "engine": "webkit",
+        "expected": 24,
+        "discovered": 24
+      },
+      {
+        "kind": "core",
+        "package": "rc-component-preview",
+        "engine": "chromium",
+        "expected": 144,
+        "discovered": 144
+      },
+      {
+        "kind": "core",
+        "package": "rc-component-preview",
+        "engine": "firefox",
+        "expected": 18,
+        "discovered": 18
+      },
+      {
+        "kind": "core",
+        "package": "rc-component-preview",
+        "engine": "webkit",
+        "expected": 18,
+        "discovered": 18
+      },
+      {
+        "kind": "core",
+        "package": "rc-config-provider",
+        "engine": "chromium",
+        "expected": 216,
+        "discovered": 216
+      },
+      {
+        "kind": "core",
+        "package": "rc-config-provider",
+        "engine": "firefox",
+        "expected": 18,
+        "discovered": 18
+      },
+      {
+        "kind": "core",
+        "package": "rc-config-provider",
+        "engine": "webkit",
+        "expected": 18,
+        "discovered": 18
+      },
+      {
+        "kind": "core",
+        "package": "rc-cron-picker",
+        "engine": "chromium",
+        "expected": 1674,
+        "discovered": 1674
+      },
+      {
+        "kind": "core",
+        "package": "rc-cron-picker",
+        "engine": "firefox",
+        "expected": 78,
+        "discovered": 78
+      },
+      {
+        "kind": "core",
+        "package": "rc-cron-picker",
+        "engine": "webkit",
+        "expected": 78,
+        "discovered": 78
+      },
+      {
+        "kind": "core",
+        "package": "rc-date-picker",
+        "engine": "chromium",
+        "expected": 1674,
+        "discovered": 1674
+      },
+      {
+        "kind": "core",
+        "package": "rc-date-picker",
+        "engine": "firefox",
+        "expected": 114,
+        "discovered": 114
+      },
+      {
+        "kind": "core",
+        "package": "rc-date-picker",
+        "engine": "webkit",
+        "expected": 114,
+        "discovered": 114
+      },
+      {
+        "kind": "core",
+        "package": "rc-dialog",
+        "engine": "chromium",
+        "expected": 48,
+        "discovered": 48
+      },
+      {
+        "kind": "core",
+        "package": "rc-dialog",
+        "engine": "firefox",
+        "expected": 30,
+        "discovered": 30
+      },
+      {
+        "kind": "core",
+        "package": "rc-dialog",
+        "engine": "webkit",
+        "expected": 30,
+        "discovered": 30
+      },
+      {
+        "kind": "core",
+        "package": "rc-divider",
+        "engine": "chromium",
+        "expected": 144,
+        "discovered": 144
+      },
+      {
+        "kind": "core",
+        "package": "rc-divider",
+        "engine": "firefox",
+        "expected": 6,
+        "discovered": 6
+      },
+      {
+        "kind": "core",
+        "package": "rc-divider",
+        "engine": "webkit",
+        "expected": 6,
+        "discovered": 6
+      },
+      {
+        "kind": "core",
+        "package": "rc-drawer",
+        "engine": "chromium",
+        "expected": 108,
+        "discovered": 108
+      },
+      {
+        "kind": "core",
+        "package": "rc-drawer",
+        "engine": "firefox",
+        "expected": 24,
+        "discovered": 24
+      },
+      {
+        "kind": "core",
+        "package": "rc-drawer",
+        "engine": "webkit",
+        "expected": 24,
+        "discovered": 24
+      },
+      {
+        "kind": "core",
+        "package": "rc-dropdown-container",
+        "engine": "chromium",
+        "expected": 72,
+        "discovered": 72
+      },
+      {
+        "kind": "core",
+        "package": "rc-dropdown-container",
+        "engine": "firefox",
+        "expected": 24,
+        "discovered": 24
+      },
+      {
+        "kind": "core",
+        "package": "rc-dropdown-container",
+        "engine": "webkit",
+        "expected": 24,
+        "discovered": 24
+      },
+      {
+        "kind": "core",
+        "package": "rc-empty",
+        "engine": "chromium",
+        "expected": 144,
+        "discovered": 144
+      },
+      {
+        "kind": "core",
+        "package": "rc-empty",
+        "engine": "firefox",
+        "expected": 18,
+        "discovered": 18
+      },
+      {
+        "kind": "core",
+        "package": "rc-empty",
+        "engine": "webkit",
+        "expected": 18,
+        "discovered": 18
+      },
+      {
+        "kind": "core",
+        "package": "rc-flow-diagram",
+        "engine": "chromium",
+        "expected": 48,
+        "discovered": 48
+      },
+      {
+        "kind": "core",
+        "package": "rc-flow-diagram",
+        "engine": "firefox",
+        "expected": 24,
+        "discovered": 24
+      },
+      {
+        "kind": "core",
+        "package": "rc-flow-diagram",
+        "engine": "webkit",
+        "expected": 24,
+        "discovered": 24
+      },
+      {
+        "kind": "core",
+        "package": "rc-form",
+        "engine": "chromium",
+        "expected": 486,
+        "discovered": 486
+      },
+      {
+        "kind": "core",
+        "package": "rc-form",
+        "engine": "firefox",
+        "expected": 30,
+        "discovered": 30
+      },
+      {
+        "kind": "core",
+        "package": "rc-form",
+        "engine": "webkit",
+        "expected": 30,
+        "discovered": 30
+      },
+      {
+        "kind": "core",
+        "package": "rc-line-edit",
+        "engine": "chromium",
+        "expected": 288,
+        "discovered": 288
+      },
+      {
+        "kind": "core",
+        "package": "rc-line-edit",
+        "engine": "firefox",
+        "expected": 42,
+        "discovered": 42
+      },
+      {
+        "kind": "core",
+        "package": "rc-line-edit",
+        "engine": "webkit",
+        "expected": 42,
+        "discovered": 42
+      },
+      {
+        "kind": "core",
+        "package": "rc-masonry",
+        "engine": "chromium",
+        "expected": 72,
+        "discovered": 72
+      },
+      {
+        "kind": "core",
+        "package": "rc-masonry",
+        "engine": "firefox",
+        "expected": 24,
+        "discovered": 24
+      },
+      {
+        "kind": "core",
+        "package": "rc-masonry",
+        "engine": "webkit",
+        "expected": 24,
+        "discovered": 24
+      },
+      {
+        "kind": "core",
+        "package": "rc-menu",
+        "engine": "chromium",
+        "expected": 198,
+        "discovered": 198
+      },
+      {
+        "kind": "core",
+        "package": "rc-menu",
+        "engine": "firefox",
+        "expected": 48,
+        "discovered": 48
+      },
+      {
+        "kind": "core",
+        "package": "rc-menu",
+        "engine": "webkit",
+        "expected": 48,
+        "discovered": 48
+      },
+      {
+        "kind": "core",
+        "package": "rc-message",
+        "engine": "chromium",
+        "expected": 48,
+        "discovered": 48
+      },
+      {
+        "kind": "core",
+        "package": "rc-message",
+        "engine": "firefox",
+        "expected": 6,
+        "discovered": 6
+      },
+      {
+        "kind": "core",
+        "package": "rc-message",
+        "engine": "webkit",
+        "expected": 6,
+        "discovered": 6
+      },
+      {
+        "kind": "core",
+        "package": "rc-notification",
+        "engine": "chromium",
+        "expected": 66,
+        "discovered": 66
+      },
+      {
+        "kind": "core",
+        "package": "rc-notification",
+        "engine": "firefox",
+        "expected": 18,
+        "discovered": 18
+      },
+      {
+        "kind": "core",
+        "package": "rc-notification",
+        "engine": "webkit",
+        "expected": 18,
+        "discovered": 18
+      },
+      {
+        "kind": "core",
+        "package": "rc-number-edit",
+        "engine": "chromium",
+        "expected": 396,
+        "discovered": 396
+      },
+      {
+        "kind": "core",
+        "package": "rc-number-edit",
+        "engine": "firefox",
+        "expected": 48,
+        "discovered": 48
+      },
+      {
+        "kind": "core",
+        "package": "rc-number-edit",
+        "engine": "webkit",
+        "expected": 48,
+        "discovered": 48
+      },
+      {
+        "kind": "core",
+        "package": "rc-pagination",
+        "engine": "chromium",
+        "expected": 486,
+        "discovered": 486
+      },
+      {
+        "kind": "core",
+        "package": "rc-pagination",
+        "engine": "firefox",
+        "expected": 36,
+        "discovered": 36
+      },
+      {
+        "kind": "core",
+        "package": "rc-pagination",
+        "engine": "webkit",
+        "expected": 36,
+        "discovered": 36
+      },
+      {
+        "kind": "core",
+        "package": "rc-pdf-editor",
+        "engine": "chromium",
+        "expected": 702,
+        "discovered": 702
+      },
+      {
+        "kind": "core",
+        "package": "rc-pdf-editor",
+        "engine": "firefox",
+        "expected": 36,
+        "discovered": 36
+      },
+      {
+        "kind": "core",
+        "package": "rc-pdf-editor",
+        "engine": "webkit",
+        "expected": 36,
+        "discovered": 36
+      },
+      {
+        "kind": "core",
+        "package": "rc-prose",
+        "engine": "chromium",
+        "expected": 96,
+        "discovered": 96
+      },
+      {
+        "kind": "core",
+        "package": "rc-prose",
+        "engine": "firefox",
+        "expected": 18,
+        "discovered": 18
+      },
+      {
+        "kind": "core",
+        "package": "rc-prose",
+        "engine": "webkit",
+        "expected": 18,
+        "discovered": 18
+      },
+      {
+        "kind": "core",
+        "package": "rc-radio",
+        "engine": "chromium",
+        "expected": 216,
+        "discovered": 216
+      },
+      {
+        "kind": "core",
+        "package": "rc-radio",
+        "engine": "firefox",
+        "expected": 24,
+        "discovered": 24
+      },
+      {
+        "kind": "core",
+        "package": "rc-radio",
+        "engine": "webkit",
+        "expected": 24,
+        "discovered": 24
+      },
+      {
+        "kind": "core",
+        "package": "rc-realm",
+        "engine": "chromium",
+        "expected": 126,
+        "discovered": 126
+      },
+      {
+        "kind": "core",
+        "package": "rc-realm",
+        "engine": "firefox",
+        "expected": 36,
+        "discovered": 36
+      },
+      {
+        "kind": "core",
+        "package": "rc-realm",
+        "engine": "webkit",
+        "expected": 36,
+        "discovered": 36
+      },
+      {
+        "kind": "core",
+        "package": "rc-segmented",
+        "engine": "chromium",
+        "expected": 162,
+        "discovered": 162
+      },
+      {
+        "kind": "core",
+        "package": "rc-segmented",
+        "engine": "firefox",
+        "expected": 24,
+        "discovered": 24
+      },
+      {
+        "kind": "core",
+        "package": "rc-segmented",
+        "engine": "webkit",
+        "expected": 24,
+        "discovered": 24
+      },
+      {
+        "kind": "core",
+        "package": "rc-select",
+        "engine": "chromium",
+        "expected": 594,
+        "discovered": 594
+      },
+      {
+        "kind": "core",
+        "package": "rc-select",
+        "engine": "firefox",
+        "expected": 30,
+        "discovered": 30
+      },
+      {
+        "kind": "core",
+        "package": "rc-select",
+        "engine": "webkit",
+        "expected": 30,
+        "discovered": 30
+      },
+      {
+        "kind": "core",
+        "package": "rc-skeleton",
+        "engine": "chromium",
+        "expected": 90,
+        "discovered": 90
+      },
+      {
+        "kind": "core",
+        "package": "rc-skeleton",
+        "engine": "firefox",
+        "expected": 6,
+        "discovered": 6
+      },
+      {
+        "kind": "core",
+        "package": "rc-skeleton",
+        "engine": "webkit",
+        "expected": 6,
+        "discovered": 6
+      },
+      {
+        "kind": "core",
+        "package": "rc-slider",
+        "engine": "chromium",
+        "expected": 240,
+        "discovered": 240
+      },
+      {
+        "kind": "core",
+        "package": "rc-slider",
+        "engine": "firefox",
+        "expected": 30,
+        "discovered": 30
+      },
+      {
+        "kind": "core",
+        "package": "rc-slider",
+        "engine": "webkit",
+        "expected": 30,
+        "discovered": 30
+      },
+      {
+        "kind": "core",
+        "package": "rc-spin",
+        "engine": "chromium",
+        "expected": 108,
+        "discovered": 108
+      },
+      {
+        "kind": "core",
+        "package": "rc-spin",
+        "engine": "firefox",
+        "expected": 24,
+        "discovered": 24
+      },
+      {
+        "kind": "core",
+        "package": "rc-spin",
+        "engine": "webkit",
+        "expected": 24,
+        "discovered": 24
+      },
+      {
+        "kind": "core",
+        "package": "rc-split-pane",
+        "engine": "chromium",
+        "expected": 48,
+        "discovered": 48
+      },
+      {
+        "kind": "core",
+        "package": "rc-split-pane",
+        "engine": "firefox",
+        "expected": 30,
+        "discovered": 30
+      },
+      {
+        "kind": "core",
+        "package": "rc-split-pane",
+        "engine": "webkit",
+        "expected": 30,
+        "discovered": 30
+      },
+      {
+        "kind": "core",
+        "package": "rc-switch",
+        "engine": "chromium",
+        "expected": 216,
+        "discovered": 216
+      },
+      {
+        "kind": "core",
+        "package": "rc-switch",
+        "engine": "firefox",
+        "expected": 24,
+        "discovered": 24
+      },
+      {
+        "kind": "core",
+        "package": "rc-switch",
+        "engine": "webkit",
+        "expected": 24,
+        "discovered": 24
+      },
+      {
+        "kind": "core",
+        "package": "rc-table",
+        "engine": "chromium",
+        "expected": 432,
+        "discovered": 432
+      },
+      {
+        "kind": "core",
+        "package": "rc-table",
+        "engine": "firefox",
+        "expected": 24,
+        "discovered": 24
+      },
+      {
+        "kind": "core",
+        "package": "rc-table",
+        "engine": "webkit",
+        "expected": 24,
+        "discovered": 24
+      },
+      {
+        "kind": "core",
+        "package": "rc-table-pro",
+        "engine": "chromium",
+        "expected": 864,
+        "discovered": 864
+      },
+      {
+        "kind": "core",
+        "package": "rc-table-pro",
+        "engine": "firefox",
+        "expected": 60,
+        "discovered": 60
+      },
+      {
+        "kind": "core",
+        "package": "rc-table-pro",
+        "engine": "webkit",
+        "expected": 60,
+        "discovered": 60
+      },
+      {
+        "kind": "core",
+        "package": "rc-tabs",
+        "engine": "chromium",
+        "expected": 1296,
+        "discovered": 1296
+      },
+      {
+        "kind": "core",
+        "package": "rc-tabs",
+        "engine": "firefox",
+        "expected": 66,
+        "discovered": 66
+      },
+      {
+        "kind": "core",
+        "package": "rc-tabs",
+        "engine": "webkit",
+        "expected": 66,
+        "discovered": 66
+      },
+      {
+        "kind": "core",
+        "package": "rc-tag",
+        "engine": "chromium",
+        "expected": 378,
+        "discovered": 378
+      },
+      {
+        "kind": "core",
+        "package": "rc-tag",
+        "engine": "firefox",
+        "expected": 24,
+        "discovered": 24
+      },
+      {
+        "kind": "core",
+        "package": "rc-tag",
+        "engine": "webkit",
+        "expected": 24,
+        "discovered": 24
+      },
+      {
+        "kind": "core",
+        "package": "rc-text-edit",
+        "engine": "chromium",
+        "expected": 234,
+        "discovered": 234
+      },
+      {
+        "kind": "core",
+        "package": "rc-text-edit",
+        "engine": "firefox",
+        "expected": 24,
+        "discovered": 24
+      },
+      {
+        "kind": "core",
+        "package": "rc-text-edit",
+        "engine": "webkit",
+        "expected": 24,
+        "discovered": 24
+      },
+      {
+        "kind": "core",
+        "package": "rc-theme",
+        "engine": "chromium",
+        "expected": 18,
+        "discovered": 18
+      },
+      {
+        "kind": "core",
+        "package": "rc-theme",
+        "engine": "firefox",
+        "expected": 18,
+        "discovered": 18
+      },
+      {
+        "kind": "core",
+        "package": "rc-theme",
+        "engine": "webkit",
+        "expected": 18,
+        "discovered": 18
+      },
+      {
+        "kind": "core",
+        "package": "rc-token-global",
+        "engine": "chromium",
+        "expected": 6,
+        "discovered": 6
+      },
+      {
+        "kind": "core",
+        "package": "rc-token-global",
+        "engine": "firefox",
+        "expected": 6,
+        "discovered": 6
+      },
+      {
+        "kind": "core",
+        "package": "rc-token-global",
+        "engine": "webkit",
+        "expected": 6,
+        "discovered": 6
+      },
+      {
+        "kind": "core",
+        "package": "rc-token-semantic",
+        "engine": "chromium",
+        "expected": 12,
+        "discovered": 12
+      },
+      {
+        "kind": "core",
+        "package": "rc-token-semantic",
+        "engine": "firefox",
+        "expected": 12,
+        "discovered": 12
+      },
+      {
+        "kind": "core",
+        "package": "rc-token-semantic",
+        "engine": "webkit",
+        "expected": 12,
+        "discovered": 12
+      },
+      {
+        "kind": "core",
+        "package": "rc-tooltip",
+        "engine": "chromium",
+        "expected": 30,
+        "discovered": 30
+      },
+      {
+        "kind": "core",
+        "package": "rc-tooltip",
+        "engine": "firefox",
+        "expected": 24,
+        "discovered": 24
+      },
+      {
+        "kind": "core",
+        "package": "rc-tooltip",
+        "engine": "webkit",
+        "expected": 24,
+        "discovered": 24
+      },
+      {
+        "kind": "core",
+        "package": "rc-tree",
+        "engine": "chromium",
+        "expected": 540,
+        "discovered": 540
+      },
+      {
+        "kind": "core",
+        "package": "rc-tree",
+        "engine": "firefox",
+        "expected": 30,
+        "discovered": 30
+      },
+      {
+        "kind": "core",
+        "package": "rc-tree",
+        "engine": "webkit",
+        "expected": 30,
+        "discovered": 30
+      },
+      {
+        "kind": "environment",
+        "package": "rc-alert",
+        "expected": 60,
+        "discovered": 60
+      },
+      {
+        "kind": "environment",
+        "package": "rc-app-main-layout",
+        "expected": 60,
+        "discovered": 60
+      },
+      {
+        "kind": "environment",
+        "package": "rc-avatar",
+        "expected": 60,
+        "discovered": 60
+      },
+      {
+        "kind": "environment",
+        "package": "rc-badge",
+        "expected": 60,
+        "discovered": 60
+      },
+      {
+        "kind": "environment",
+        "package": "rc-bar-chart",
+        "expected": 60,
+        "discovered": 60
+      },
+      {
+        "kind": "environment",
+        "package": "rc-breadcrumbs",
+        "expected": 60,
+        "discovered": 60
+      },
+      {
+        "kind": "environment",
+        "package": "rc-button",
+        "expected": 60,
+        "discovered": 60
+      },
+      {
+        "kind": "environment",
+        "package": "rc-canvas",
+        "expected": 60,
+        "discovered": 60
+      },
+      {
+        "kind": "environment",
+        "package": "rc-card",
+        "expected": 60,
+        "discovered": 60
+      },
+      {
+        "kind": "environment",
+        "package": "rc-checkbox",
+        "expected": 60,
+        "discovered": 60
+      },
+      {
+        "kind": "environment",
+        "package": "rc-color-picker",
+        "expected": 60,
+        "discovered": 60
+      },
+      {
+        "kind": "environment",
+        "package": "rc-component-preview",
+        "expected": 60,
+        "discovered": 60
+      },
+      {
+        "kind": "environment",
+        "package": "rc-config-provider",
+        "expected": 60,
+        "discovered": 60
+      },
+      {
+        "kind": "environment",
+        "package": "rc-cron-picker",
+        "expected": 60,
+        "discovered": 60
+      },
+      {
+        "kind": "environment",
+        "package": "rc-date-picker",
+        "expected": 60,
+        "discovered": 60
+      },
+      {
+        "kind": "environment",
+        "package": "rc-dialog",
+        "expected": 60,
+        "discovered": 60
+      },
+      {
+        "kind": "environment",
+        "package": "rc-divider",
+        "expected": 60,
+        "discovered": 60
+      },
+      {
+        "kind": "environment",
+        "package": "rc-drawer",
+        "expected": 60,
+        "discovered": 60
+      },
+      {
+        "kind": "environment",
+        "package": "rc-dropdown-container",
+        "expected": 60,
+        "discovered": 60
+      },
+      {
+        "kind": "environment",
+        "package": "rc-empty",
+        "expected": 60,
+        "discovered": 60
+      },
+      {
+        "kind": "environment",
+        "package": "rc-flow-diagram",
+        "expected": 60,
+        "discovered": 60
+      },
+      {
+        "kind": "environment",
+        "package": "rc-form",
+        "expected": 60,
+        "discovered": 60
+      },
+      {
+        "kind": "environment",
+        "package": "rc-line-edit",
+        "expected": 60,
+        "discovered": 60
+      },
+      {
+        "kind": "environment",
+        "package": "rc-masonry",
+        "expected": 60,
+        "discovered": 60
+      },
+      {
+        "kind": "environment",
+        "package": "rc-menu",
+        "expected": 60,
+        "discovered": 60
+      },
+      {
+        "kind": "environment",
+        "package": "rc-message",
+        "expected": 60,
+        "discovered": 60
+      },
+      {
+        "kind": "environment",
+        "package": "rc-notification",
+        "expected": 60,
+        "discovered": 60
+      },
+      {
+        "kind": "environment",
+        "package": "rc-number-edit",
+        "expected": 60,
+        "discovered": 60
+      },
+      {
+        "kind": "environment",
+        "package": "rc-pagination",
+        "expected": 60,
+        "discovered": 60
+      },
+      {
+        "kind": "environment",
+        "package": "rc-pdf-editor",
+        "expected": 60,
+        "discovered": 60
+      },
+      {
+        "kind": "environment",
+        "package": "rc-prose",
+        "expected": 60,
+        "discovered": 60
+      },
+      {
+        "kind": "environment",
+        "package": "rc-radio",
+        "expected": 60,
+        "discovered": 60
+      },
+      {
+        "kind": "environment",
+        "package": "rc-realm",
+        "expected": 60,
+        "discovered": 60
+      },
+      {
+        "kind": "environment",
+        "package": "rc-segmented",
+        "expected": 60,
+        "discovered": 60
+      },
+      {
+        "kind": "environment",
+        "package": "rc-select",
+        "expected": 60,
+        "discovered": 60
+      },
+      {
+        "kind": "environment",
+        "package": "rc-skeleton",
+        "expected": 60,
+        "discovered": 60
+      },
+      {
+        "kind": "environment",
+        "package": "rc-slider",
+        "expected": 60,
+        "discovered": 60
+      },
+      {
+        "kind": "environment",
+        "package": "rc-spin",
+        "expected": 54,
+        "discovered": 54
+      },
+      {
+        "kind": "environment",
+        "package": "rc-split-pane",
+        "expected": 60,
+        "discovered": 60
+      },
+      {
+        "kind": "environment",
+        "package": "rc-switch",
+        "expected": 60,
+        "discovered": 60
+      },
+      {
+        "kind": "environment",
+        "package": "rc-table",
+        "expected": 60,
+        "discovered": 60
+      },
+      {
+        "kind": "environment",
+        "package": "rc-table-pro",
+        "expected": 60,
+        "discovered": 60
+      },
+      {
+        "kind": "environment",
+        "package": "rc-tabs",
+        "expected": 60,
+        "discovered": 60
+      },
+      {
+        "kind": "environment",
+        "package": "rc-tag",
+        "expected": 60,
+        "discovered": 60
+      },
+      {
+        "kind": "environment",
+        "package": "rc-text-edit",
+        "expected": 60,
+        "discovered": 60
+      },
+      {
+        "kind": "environment",
+        "package": "rc-theme",
+        "expected": 60,
+        "discovered": 60
+      },
+      {
+        "kind": "environment",
+        "package": "rc-token-global",
+        "expected": 60,
+        "discovered": 60
+      },
+      {
+        "kind": "environment",
+        "package": "rc-token-semantic",
+        "expected": 60,
+        "discovered": 60
+      },
+      {
+        "kind": "environment",
+        "package": "rc-tooltip",
+        "expected": 60,
+        "discovered": 60
+      },
+      {
+        "kind": "environment",
+        "package": "rc-tree",
+        "expected": 60,
+        "discovered": 60
+      }
+    ],
+    "errors": [],
+    "missing": [],
+    "executedTests": 0,
+    "log": ".tmp/visual-resume-all-engines-discovery-20261030-4.log",
+    "matrix": ".cache/visual/resume-discovery-20261030-4/matrix.json",
+    "nativeScope": "filtered"
+  },
+  "checks": {
+    "tools": {
+      "exitCode": 0,
+      "engineeringContracts": 50,
+      "navigationContracts": 13,
+      "log": ".tmp/visual-resume-annotation-tools-20261030.log"
+    },
+    "messageLint": {
+      "exitCode": 0,
+      "log": ".tmp/visual-resume-message-lint-20261030.log"
+    },
+    "environmentPackageLint": [
+      {
+        "package": "rc-breadcrumbs",
+        "exitCode": 0,
+        "log": ".tmp/env-annotation-lint-rc-breadcrumbs-20261030.log"
+      },
+      {
+        "package": "rc-cron-picker",
+        "exitCode": 0,
+        "log": ".tmp/env-annotation-lint-rc-cron-picker-20261030.log"
+      },
+      {
+        "package": "rc-date-picker",
+        "exitCode": 0,
+        "log": ".tmp/env-annotation-lint-rc-date-picker-20261030.log"
+      },
+      {
+        "package": "rc-form",
+        "exitCode": 0,
+        "log": ".tmp/env-annotation-lint-rc-form-20261030.log"
+      },
+      {
+        "package": "rc-pagination",
+        "exitCode": 0,
+        "log": ".tmp/env-annotation-lint-rc-pagination-20261030.log"
+      },
+      {
+        "package": "rc-tabs",
+        "exitCode": 0,
+        "log": ".tmp/env-annotation-lint-rc-tabs-20261030.log"
+      },
+      {
+        "package": "rc-tag",
+        "exitCode": 0,
+        "log": ".tmp/env-annotation-lint-rc-tag-20261030.log"
+      }
+    ],
+    "inputLint": {
+      "exitCode": 0,
+      "log": ".tmp/visual-resume-input-lint-20261030.log"
+    },
+    "inputTypecheck": {
+      "exitCode": 0,
+      "log": ".tmp/visual-resume-input-typecheck-20261030.log"
+    },
+    "websiteTypecheck": {
+      "exitCode": 0,
+      "log": ".tmp/visual-resume-website-typecheck-20261030.log"
+    },
+    "docs": {
+      "exitCode": 0,
+      "firstChangedFiles": 4,
+      "secondChangedFiles": 0,
+      "driftChangedFiles": 0,
+      "generatorPassed": 53,
+      "logs": [
+        ".tmp/visual-resume-docs-generate-20261030-1.log",
+        ".tmp/visual-resume-docs-generate-20261030-2.log",
+        ".tmp/visual-resume-docs-check-20261030.log",
+        ".tmp/visual-resume-docs-generator-test-20261030.log"
+      ]
+    }
+  },
+  "storage": {
+    "checkedAt": "2026-10-30T01:03:27.0508310Z",
+    "drive": "C",
+    "freeBytes": 1050075136,
+    "freeGiB": 0.9779586791992188,
+    "environment": "actual verification environment",
+    "captureStarted": false
+  },
+  "preserved": [
+    {
+      "file": ".website/review/20261029-visual-rebuild-local/package-matrix-index-20261030-3.md",
+      "sha256": "33534c9829b5f39a4cd8a3de61e8477ef08dd29d64e978db0efc1b4d4c52e1d7"
+    },
+    {
+      "file": ".website/review/20261029-visual-rebuild-local/package-matrix-index-20261030-3.json",
+      "sha256": "707c845166da05c55ba6aec85a2b42bc84308a9bf91917196036a2e6de3ccf0a"
+    }
+  ],
+  "fileSha256": {
+    "components/rc-line-edit/docs/demos/visual-matrix.demo.tsx": "c2ea1c74efd2bd4bc876f3dee3b0a0dd85ab3f08fd76be2f4b030728bea7ebb0",
+    "components/rc-line-edit/docs/visual.json": "9ea947ce9c124d9fe1e63b28c8ae2e5d03167dba3578ff171370c558c568a309",
+    "components/rc-line-edit/docs/line-edit.visual.spec.mjs": "4d2baffbb5c4479eb583b177ebea8f7b40e28293321e52d258bdec8f097c80c2",
+    "components/rc-line-edit/docs/visual-assertions.mjs": "c0f8c6828d38ab1a79a20d5ea09a74616d04fc5c1fab06cc0bb9ebf3e7c43a09",
+    "components/rc-line-edit/docs/index.mdx": "e3701579500ff60734f804dd4efdaed1e46ea824c8e6c14f1cc0f6d1030efc32",
+    "components/rc-number-edit/docs/demos/visual-matrix.demo.tsx": "22b16a2cd92c9a5a04a8505fa09046723fece06812a9a185af1959df70acf0a0",
+    "components/rc-number-edit/docs/visual.json": "19999845de81d9931381128304019f3996f197254daa42c151fe8cbc5340dff6",
+    "components/rc-number-edit/docs/number-edit.visual.spec.mjs": "151b2977c90eccd2559aab60350d0f70ee3fa21f19d3485c401ecdfd558da22d",
+    "components/rc-number-edit/docs/index.mdx": "84765e80fa1162e8ed7308ec36214fe68a38894d6853525f2cbe7e0446aef2eb",
+    "components/rc-breadcrumbs/docs/environment.visual.spec.mjs": "972e9441feea2639aa5d8366ea238459add69a0a9d8da7f9709e4f96615aeefd",
+    "components/rc-cron-picker/docs/environment.visual.spec.mjs": "4b6c8531de9a54a87232bf4beb7ea82ec13aa9503aab3e6f3a2d6cc58507daf9",
+    "components/rc-date-picker/docs/environment.visual.spec.mjs": "c705afb50f5c18ba8153196424271849e5181aec442f9016bc5c41808e003577",
+    "components/rc-form/docs/environment.visual.spec.mjs": "f9240284a14fd2b40f4098203f33bcf09c76a1d02d2b9183c8186293bb4193ff",
+    "components/rc-pagination/docs/environment.visual.spec.mjs": "032f26eeeb1cda56e02b7d181c9d7b6bccfadd52c58055ed384abaa0d0cc2961",
+    "components/rc-tabs/docs/environment.visual.spec.mjs": "f3117887ff20155450b09073f87da468ed299f9ff82671aa35598f7b65e5e401",
+    "components/rc-tag/docs/environment.visual.spec.mjs": "5eeb1c1d3ea2438353b8d6c50e4f6722a998014f62cb02625a880b7c06e5cf8f",
+    "components/rc-message/docs/message.visual.spec.mjs": "1206b8e53f79b0175a68cecdab8e05999fa0f435223c083be2f0cdd12d710701",
+    "components/rc-message/docs/message.motion.visual.spec.mjs": "6ad452880a91c1b58b05f332a48f84b4dba397bb2c373f0912fdd0f5a3ebc421",
+    "scripts/visual/matrix-contract.mjs": "a887ccba6306c4f4d9859b3a77c1bfd7977c0277eea245a435deca58853334be",
+    "scripts/visual-contract.test.mjs": "b59ae3f16b036bf9f57169c3fb2bb49872cc3de7224651a0a98753432cf45cea",
+    "test/visual/matrix-reporter.mjs": "fe231709487e5d8740ee8a34a718f56f376031869810acdbdf1a13e9f253ac92",
+    ".website/docs/guides/contributing.mdx": "ad01d1d7fc71203fbead8aa87000f22f4437f25f6da22a936a901f4bd3d6d427",
+    ".website/docs/_generated/rc-line-edit.ts": "6e2fd3e32810b7ea0b6e752a2380007ca7fdd16f2242f5f604cce59a15c86d5d",
+    ".website/docs/components/rc-line-edit.mdx": "8b317975caab1f607708b6441d049e56092b6606dad1e018ebf6b0ee24d72fd4",
+    ".website/docs/_generated/rc-number-edit.ts": "d0d7978aa94d92b5cdebc65811c9b50e7921f5ee1accbb7cac8fb63b8e3053f1",
+    ".website/docs/components/rc-number-edit.mdx": "4b2f9c950a0fe0b80084e777ca41c101fb4daa9171fdb97e6ae6c0de38e7f589",
+    ".tmp/visual-resume-all-engines-discovery-20261030-4.log": "6d99d03343699044702757521ea54f708c6b8e80a198ebb1da496e141373d721",
+    ".cache/visual/resume-discovery-20261030-4/matrix.json": "158aecd88653add80be38bc856389a80547d284de96116503b6610e1c1bf77b5"
+  },
+  "evidenceBoundary": "Per-file hashes for this scoped discovery/documentation continuation; no full-worktree visual fingerprint or new built asset acceptance is claimed.",
+  "notExecuted": [
+    "New browser capture",
+    "Current complete component matrices",
+    "Current production documentation build",
+    "Full package checks including required/browser checks",
+    "Current unified Windows/Linux checks and packed PnP consumers",
+    "Approved baselines and two ordinary stable comparisons"
+  ],
+  "baselineUpdated": false,
+  "designCoverageUpdated": false,
+  "lifecycleUpdated": false
+}

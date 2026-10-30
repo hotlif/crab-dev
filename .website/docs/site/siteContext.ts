@@ -6,7 +6,7 @@ import { defaultDesignSystem, designSystemRegistry } from "@crab-dev/rc-token-se
 export const SiteContext = createContext<CommonProps | null>(null);
 export const SITE_DESIGN_STORAGE_KEY = "crab-docs-design";
 export const DEFAULT_SITE_DESIGN: DesignSystem = defaultDesignSystem;
-export const SITE_DESIGNS = ["md3", "apple", "shadcn"] as const satisfies readonly DesignSystem[];
+export const SITE_DESIGNS = Object.keys(designSystemRegistry) as DesignSystem[];
 export const SITE_DESIGN_NAMES = designSystemRegistry;
 export const DocumentDesignContext = createContext<{
     design: DesignSystem;

@@ -1,5 +1,19 @@
 import { describe, expect, it, mock } from '@crab-dev/wake/test';
 import { acquireScrollLock, registerOverlayLayer, resolveOverlayRoot } from '../overlay.js';
+import { getComposedParentElement } from '../composed-tree.js';
+
+describe('composed element ancestry', () => {
+    it('stops at ordinary detached elements and document fragments without a host', () => {
+        const parent = document.createElement('div'), child = document.createElement('span');
+        parent.append(child);
+        expect(getComposedParentElement(child)).toBe(parent);
+        const detached = document.createElement('div');
+        expect(getComposedParentElement(detached)).toBe(null);
+        const fragment = document.createDocumentFragment(); fragment.append(detached);
+        expect(getComposedParentElement(detached)).toBe(null);
+        expect(getComposedParentElement(document.documentElement)).toBe(null);
+    });
+});
 
 describe('document overlay coordination', () => {
     it('holds the original scroll lock until every out-of-order owner releases', () => {

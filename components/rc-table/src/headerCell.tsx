@@ -3,10 +3,9 @@ import { useLocale } from '@crab-dev/rc-config-provider';
 import token from "./token.js";
 import type { Align, ColumnType, MergeCell, Row, SortDirection } from "./types.js";
 import { getMergedCellSize } from "./util.js";
-
 import { memo, type HTMLAttributes, type KeyboardEvent, type MouseEvent, type ReactNode } from "react";
 import type { DropSide } from "./hooks/useColumnDrag.js";
-
+import { draggableStyle, sortableRootStyle, titleInnerBaseStyle, sortTitleInnerStyle, sortIconWrapStyle, sortIconPlaceholderStyle, sortIconIdleStyle, sortIconActiveStyle, sortBadgeStyle, fixedHeaderBgStyle, fixedRightSpanStyle, fixedRightSpanWithBottomStyle, fixedRightSkipStyle, draggingStyle, skipCellStyle, dropLineBaseStyle, dropLineLeftStyle, dropLineRightStyle } from "./headerCell.styles.js";
 interface TableHeaderCellProps<T extends Row> extends HTMLAttributes<HTMLDivElement> {
     columnIndex: number,
     rowIndex: number,
@@ -31,72 +30,6 @@ interface TableHeaderCellProps<T extends Row> extends HTMLAttributes<HTMLDivElem
     renderVersion?: object
 }
 
-const draggableStyle = css`
-    cursor: pointer;
-    &:active {
-        cursor: grabbing;
-    }
-`;
-
-// 未排序时也显示双向箭头，让鼠标、触控和键盘用户都能发现排序入口。
-const sortableRootStyle = css`
-    cursor: ${token.sort.header.cursor};
-    user-select: none;
-`;
-
-// sortable / 非 sortable 公共基础样式：确保两种状态盒模型一致，切换时不产生高度偏移
-const titleInnerBaseStyle = css`
-    display: inline-flex;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-    gap: ${token.header.gap};
-    padding-inline: ${token.cell['padding-inline']};
-    box-sizing: border-box;
-    overflow: hidden;
-`;
-
-// 标题 + 排序图标的行内容器（sortable 额外需要 gap 和交互样式）
-const sortTitleInnerStyle = css`
-    cursor: pointer;
-    &:focus-visible {
-        outline: ${token.root["outline-width-focus"]} solid ${token.root["outline-color-focus"]};
-        outline-offset: calc(-1 * ${token.root["outline-width-focus"]});
-    }
-`;
-
-// 排序图标外壳
-const sortIconWrapStyle = css`
-    display: inline-flex;
-    align-items: center;
-    flex-shrink: 0;
-    gap: 2px;
-`;
-
-// 不可排序的标题不占用图标空间。
-const sortIconPlaceholderStyle = css`
-    display: none;
-`;
-
-// 未排序图标使用次级颜色，排序状态同时通过箭头方向与 aria-sort 表达。
-const sortIconIdleStyle = css`
-    color: ${token.sort.icon.color};
-`;
-
-// 激活态（stroke 色）
-const sortIconActiveStyle = css`
-    stroke: ${token.sort.icon['color-active']};
-`;
-
-
-// 多列排序序号角标：无背景，小字号，垂直居中
-const sortBadgeStyle = css`
-    font-size: ${token.sort.badge['font-size']};
-    color: ${token.sort.badge.color};
-    line-height: 1;
-    font-variant-numeric: tabular-nums;
-`;
-
 
 function SortIcon({ direction }: { direction: SortDirection | null }): ReactNode {
     const isAsc = direction === "asc";
@@ -120,51 +53,6 @@ function SortIcon({ direction }: { direction: SortDirection | null }): ReactNode
         </svg>
     );
 }
-
-const fixedHeaderBgStyle = css`
-    background-color: ${token.header['background-color']};
-`;
-
-// 固定右列跨行起始格：上边框 + 左分隔线
-const fixedRightSpanStyle = css`
-    box-shadow: inset 0 1px 0 ${token.root["border-color"]}, inset 1px 0 0 ${token.cell.separator["border-color"]};
-`;
-
-// 固定右列跨行起始格（同时是最后一行时）：上边框 + 左分隔线 + 底部边框
-const fixedRightSpanWithBottomStyle = css`
-    box-shadow: inset 0 1px 0 ${token.root["border-color"]}, inset 1px 0 0 ${token.cell.separator["border-color"]}, inset 0 -1px 0 ${token.root["border-color"]};
-`;
-
-// 固定右列 skip 格（r>0）：左分隔线 + 底部边框
-const fixedRightSkipStyle = css`
-    box-shadow: inset 1px 0 0 ${token.cell.separator["border-color"]}, inset 0 -1px 0 ${token.root["border-color"]};
-`;
-
-const draggingStyle = css`
-    opacity: ${token['column-drag']['opacity-dragging']};
-`;
-
-const skipCellStyle = css`
-    pointer-events: none;
-`;
-
-const dropLineBaseStyle = css`
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    width: ${token['column-drag'].indicator.width};
-    background-color: ${token['column-drag'].indicator["background-color"]};
-    pointer-events: none;
-    z-index: 2;
-`;
-
-const dropLineLeftStyle = css`
-    left: 0;
-`;
-
-const dropLineRightStyle = css`
-    right: 0;
-`;
 
 function TableHeaderCell<T extends Row>({
     column,

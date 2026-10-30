@@ -25,6 +25,22 @@ status = "experimental"
 
 <Demos glob="./demos/*.demo.tsx" columns={2} />
 
+## 三体系规格与验收矩阵（2026-10-29）
+
+| 体系 | 容器角色 | 桌面扩展 |
+| --- | --- | --- |
+| MD3 Expressive | 基于菜单临时表面与锚点关系，使用色调表面、层级和自然进入/退出 | 任意交互内容、嵌套分支和字段定位边界是项目扩展 |
+| Apple | 内容紧邻触发器、轻表面、准确对齐 | 自主 Web popover，不默认添加平台箭头 |
+| shadcn New York V4 | popover 中性表面、描边与浮层阴影 | 原有受控协议和跨 Document 定位保持不变 |
+
+这是定位与交互分支基础设施，不替消费组件决定 menu/listbox/dialog 语义。表面统一来自 `overlay.popover.*`；浮层尺寸继承最近 size，集合密度由内容决定。触发器、面板及后代 Portal 属于同一焦点分支；Escape 关闭顶层并恢复引用，外部焦点退出不夺回焦点。
+
+`visual.json` 展开三体系浅深色 × small/medium/large × default、expanded、focus-visible、content-focus。真实触发和键盘移动后整页截图，包含面板和触发器焦点。Firefox/WebKit 的 medium 全状态子集在 `crossEngine` 声明；hover/selected/error/loading 等属于引用或内容，其不适用理由明确记录。
+
+来源：[Material Web menu 定位与键盘模型](https://material-web.dev/components/menu/)；[Apple popovers](https://developer.apple.com/design/human-interface-guidelines/popovers)；[shadcn 固定 Popover 源码](https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui/popover.tsx)。没有同名 MD3 组件，本包定位能力是明确的基础设施扩展。
+
+额外场景检查配置更新、草稿保留、关闭重开、Escape/外部退出，以及 320/768px、RTL/英文、品牌、强制颜色和减少动画。已有登记浏览器检查覆盖 iframe 所属 Document 与原生焦点协议；Shadow DOM 先前只有共享协调工具的 DOM 回归。嵌套 Provider 和 iframe/Shadow 中的真实弹层堆叠由 Drawer 包的公开组合边界 Demo 与所属原生场景补充，实际运行和复审前仍为待验。Playwright 产物需与实际源码指纹一起复审，不能仅凭发现用例更新设计覆盖。
+
 ## API
 
 <API source="../src/dropdownContainer.tsx" symbol="DropdownContainerProps" component="DropdownContainer" />

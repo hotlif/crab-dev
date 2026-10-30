@@ -14,14 +14,34 @@ type ScientificMode = DocsTypePlaceholder;
 
 export interface NumberEditProps {
     /**
-     * 字段外观，默认 outlined；bordered=false 时由宿主提供外观。
+     * 前缀图标
      */
-    "appearance"?: "outlined" | "filled";
+    "prefix"?: ReactNode;
+
+    /**
+     * 验证状态，影响边框颜色以提供即时反馈
+     */
+    "status"?: "error" | "warning";
 
     /**
      * 与输入框关联的可见标签；Material 浮动，Apple 与 shadcn 上置。
      */
     "label"?: string;
+
+    /**
+     * input 元素的 ref
+     */
+    "ref"?: Ref<HTMLInputElement>;
+
+    /**
+     * 字段外观，默认 outlined；bordered=false 时由宿主提供外观。
+     */
+    "appearance"?: "outlined" | "filled";
+
+    /**
+     * 设置单行文本输入框的大小，默认为 medium
+     */
+    "size"?: "large" | "medium" | "small";
 
     /**
      * 输入框下方的辅助说明，自动加入 aria-describedby。
@@ -34,39 +54,9 @@ export interface NumberEditProps {
     "errorText"?: string;
 
     /**
-     * input 元素的 ref
-     */
-    "ref"?: Ref<HTMLInputElement>;
-
-    /**
-     * 容器 div 的 ref
-     */
-    "containerRef"?: Ref<HTMLDivElement>;
-
-    /**
-     * 设置单行文本输入框的大小，默认为 medium
-     */
-    "size"?: "large" | "medium" | "small";
-
-    /**
-     * 前缀图标
-     */
-    "prefix"?: ReactNode;
-
-    /**
      * 后缀图标
      */
     "suffix"?: ReactNode;
-
-    /**
-     * 验证状态，影响边框颜色以提供即时反馈
-     */
-    "status"?: "error" | "warning";
-
-    /**
-     * 是否显示外层边框/背景/阴影，默认为 true。 设为 false 时容器变为无样式（透明、无边框、高度随内容自适应）， 用于嵌入到已有边框的宿主容器中（例如作为另一个组件内部的搜索框）
-     */
-    "bordered"?: boolean;
 
     /**
      * 是否允许一键清除内容；触发 onValueChange，受控模式由父组件接受新值
@@ -77,6 +67,16 @@ export interface NumberEditProps {
      * 点击清除按钮时的回调
      */
     "onClear"?: () => void;
+
+    /**
+     * 容器 div 的 ref
+     */
+    "containerRef"?: Ref<HTMLDivElement>;
+
+    /**
+     * 是否显示外层边框/背景/阴影，默认为 true。 设为 false 时容器变为无样式（透明、无边框、高度随内容自适应）， 用于嵌入到已有边框的宿主容器中（例如作为另一个组件内部的搜索框）
+     */
+    "bordered"?: boolean;
 
     /**
      * 暂无说明。 与 defaultValue 互斥，不能同时提供。

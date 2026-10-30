@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { access, readdir } from "node:fs/promises";
 import { createRequire } from "node:module";
-import { dirname, isAbsolute, relative, resolve } from "node:path";
+import { dirname, isAbsolute, join, relative, resolve } from "node:path";
 import { pathToFileURL } from "node:url";
 import { loadLibraryManifest } from "./library-manifest.mjs";
 
@@ -26,18 +26,30 @@ async function pathExists(target) {
     }
 }
 
-async function verifyTarget(directory, target) {
+export async function verifyTarget(directory, target) {
     const absolute = resolve(directory, target);
     const path = relative(directory, absolute);
     if (!target.startsWith("./") || path.startsWith("..") || isAbsolute(path)) return false;
     if (!target.includes("*")) return pathExists(absolute);
     const prefix = absolute.slice(0, absolute.indexOf("*"));
-    try {
-        const files = await readdir(prefix.endsWith("/") || prefix.endsWith("\\") ? prefix : dirname(prefix));
-        return files.length > 0;
-    } catch {
-        return false;
+    const searchRoot = prefix.endsWith("/") || prefix.endsWith("\\") ? prefix : dirname(prefix);
+    const pattern = new RegExp(`^${path.replaceAll("\\", "/").split("*").map((part) => part.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join(".*")}$`);
+    const pending = [searchRoot];
+    while (pending.length) {
+        const current = pending.pop();
+        let entries;
+        try { entries = await readdir(current, { withFileTypes: true }); }
+        catch (error) {
+            if (error.code === "ENOENT" || error.code === "ENOTDIR") continue;
+            throw error;
+        }
+        for (const entry of entries) {
+            const child = join(current, entry.name);
+            if (entry.isDirectory()) pending.push(child);
+            else if (entry.isFile() && pattern.test(relative(directory, child).replaceAll("\\", "/"))) return true;
+        }
     }
+    return false;
 }
 
 /** Verify packaged artifacts through manifest entrypoints; never import component source. */

@@ -36,3 +36,21 @@ status = "experimental"
 这是本库的可调整分栏扩展。MD3 的分隔角色用于视觉边界；Apple 的布局与焦点原则用于 Web 适配；shadcn/ui 参考固定 New York V4 Resizable 的握柄表达。分栏比例、约束与键盘调整属于本库契约，分隔线的视觉样式不能替代分栏行为验收。
 
 设计来源与固定参考版本见[三套设计体系](/guides/design-styles)，当前已核对范围见[设计覆盖矩阵](/guides/design-coverage)。这段说明记录适配边界，不代表完整视觉验收已通过。
+
+
+## 分栏矩阵规格
+
+本组件为桌面可调整分栏扩展。MD3 细分隔线与较宽交互区、Apple 紧凑轨道、shadcn 可见握柄由 L2 data.split 角色映射。可见边界、指针命中区和焦点轮廓分别维护，粗指针扩大命中区，不扩大分隔线。
+
+| 轴 | 项目规格 |
+| --- | --- |
+| 尺寸 | size 是主面板像素值；不使用通用 small / medium / large，验收独立覆盖最小值和最大值 |
+| 密度 | 数据密度不改变分隔条；命中区取决于输入方式 |
+| 状态 | 默认、hover、键盘焦点、实际按住拖动、禁用、垂直、Home 最小值、End 最大值 |
+| 动作 | 方向键步进，Enter / 双击复位；RTL 水平调整方向与布局一致 |
+| 减少动画 | 取消轨道颜色过渡，尺寸调整与状态反馈仍可用 |
+
+「分栏验收矩阵」实际驱动分隔条，不设置 data-dragging 或模拟按下类。Playwright 核对 aria-valuenow、方向和禁用语义，并在按住鼠标时截图。
+
+参考 [shadcn Resizable](https://ui.shadcn.com/docs/components/radix/resizable)，源码固定 [New York V4 Resizable](https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui/resizable.tsx)。MD3 与 Apple 不提供完全对应的 Web 组件；分隔、布局和焦点原则用于项目适配。参考记录日期：2026-10-29。
+

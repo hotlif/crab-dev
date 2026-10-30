@@ -28,7 +28,7 @@ const token = defineTokens({
     'root': {
         'font-size': `var(${vars['root.font-size']}, var(--token-semantic-typography-body-font-size, var(--token-global-font-size-sm, 14px)))`,
         'line-height': `var(${vars['root.line-height']}, var(--token-semantic-typography-label-line-height, var(--token-global-line-height-14-20, 1.4285714285714286)))`,
-        'gap': `var(${vars['root.gap']}, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)))`
+        'gap': `var(${vars['root.gap']}, var(--token-semantic-density-gap, var(--token-semantic-density-standard-gap, var(--token-global-space-2, 8px))))`
     },
     'item': {
         'color': `var(${vars['item.color']}, var(--token-semantic-color-text-secondary, var(--token-global-material-neutral-variant-30, oklch(0.39805288 0.01735545 303.720936))))`,

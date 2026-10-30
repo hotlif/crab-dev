@@ -1,0 +1,28 @@
+{
+    "groups": [
+        {
+            "title": "基础与外观",
+            "demos": [
+                "basic.demo.tsx",
+                "size.demo.tsx",
+                "disabled.demo.tsx"
+            ]
+        },
+        {
+            "title": "页码控制",
+            "demos": [
+                "controlled.demo.tsx",
+                "many-pages.demo.tsx",
+                "quick-jumper.demo.tsx",
+                "show-total.demo.tsx",
+                "size-changer.demo.tsx"
+            ]
+        },
+        {
+            "title": "视觉验收",
+            "demos": [
+                "visual-matrix.demo.tsx"
+            ]
+        }
+    ]
+}

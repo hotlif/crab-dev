@@ -39,6 +39,8 @@ function setRefs<T>(...refs: (Ref<T> | undefined)[]) {
 const rootStyle = css`
     position: relative;
     display: inline-block;
+    min-inline-size: 0;
+    max-inline-size: 100%;
 `;
 
 // Keep the unit clear of the stepper's external focus ring in either inline

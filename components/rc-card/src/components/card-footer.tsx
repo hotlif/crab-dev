@@ -1,20 +1,11 @@
-import { css, cx } from '@crab-dev/css';
+import { cx } from '@crab-dev/css';
 import { use, type MouseEvent } from 'react';
-import token from '../token.js';
+import { footerStyle } from './card-footer.styles.js';
 import { CardContext } from '../context.js';
 import type { CardFooterProps } from '../types.js';
 
 // 操作区：分割线 + 靠右排布；margin-top:auto 保证在等高网格中沉底。
 // L2 无 divider 令牌，分割线颜色复用 border.default（库内既定 workaround）。
-const footerStyle = css`
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    gap: ${token.footer.gap};
-    margin-top: auto;
-    padding: ${token.footer['padding-block']} var(--rc-card-pad, ${token.size.medium.padding});
-    border-top: 1px solid ${token.footer.divider['border-color']};
-`;
 
 const CardFooter = ({ children, className, ref, ...restProps }: CardFooterProps) => {
     const { clickable } = use(CardContext);

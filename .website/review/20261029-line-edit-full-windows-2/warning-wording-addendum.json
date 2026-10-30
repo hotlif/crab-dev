@@ -1,0 +1,18 @@
+{
+  "scope": "Documentation-only resolution after the captured Windows Chromium candidate",
+  "capturedSource": "sha256:95a3abd61ba6be7b449451f18c0ad5af3dc762e51bb7f51913f04b216717f399",
+  "beforeDocumentSha256": "f2314f2d76c7fc913c178526e9109c5a49737c35bff2111c384286971e8c5a53",
+  "afterDocumentSha256": "d2bd791a5f9e6636dfef16a0644c1824e399f1e3d38f1c16124a3500eccfd419",
+  "unchangedRendererCssSha256": "f425a9fba1708e7272263363c1896e98d551fd484c479482cd15452ee63365c9",
+  "basis": "Existing [data-status=\"warning\"] > label uses token.field.color-warning, alongside the error selector. Documentation now describes ordinary neutral labels and error/warning semantic labels, with warning identified as a project Web extension.",
+  "validation": [
+    ".tmp/line-warning-wording-docs-first-20261029.log",
+    ".tmp/line-warning-wording-docs-second-20261029.log",
+    ".tmp/line-warning-wording-docs-check-20261029.log",
+    ".tmp/line-warning-wording-docs-generator-20261029.log"
+  ],
+  "originalReviewsRetained": true,
+  "coverage": "partial",
+  "baseline": false,
+  "verified": false
+}

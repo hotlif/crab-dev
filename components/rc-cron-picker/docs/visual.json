@@ -1,0 +1,76 @@
+{
+    "schemaVersion": 1,
+    "demo": "visual-matrix.demo.tsx",
+    "sizes": [
+        "small",
+        "medium",
+        "large"
+    ],
+    "densities": [
+        "compact",
+        "standard",
+        "comfortable"
+    ],
+    "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "pressed",
+        "disabled",
+        "read-only",
+        "warning",
+        "error",
+        "committed",
+        "expanded",
+        "minute-step",
+        "field-hour",
+        "field-day",
+        "field-month",
+        "field-week",
+        "editor-minute-every",
+        "editor-minute-range",
+        "editor-hour-every",
+        "editor-hour-step",
+        "editor-hour-range",
+        "editor-day-step",
+        "editor-day-range",
+        "editor-day-list",
+        "editor-month-step",
+        "editor-month-range",
+        "editor-month-list",
+        "editor-week-every",
+        "editor-week-list",
+        "read-only-step",
+        "read-only-range",
+        "read-only-week-range"
+    ],
+    "crossEngine": {
+        "sizes": [
+            "medium"
+        ],
+        "densities": [
+            "standard"
+        ],
+        "states": [
+            "default",
+            "focus-visible",
+            "read-only",
+            "error",
+            "committed",
+            "expanded",
+            "minute-step",
+            "editor-minute-range",
+            "editor-day-list",
+            "editor-month-list",
+            "editor-week-list",
+            "read-only-step",
+            "read-only-week-range"
+        ]
+    },
+    "notApplicable": {
+        "loading": "Cron parsing, description and occurrence preview are synchronous public capabilities; no loading prop is exposed.",
+        "selected": "The expanded editor has five field selection states and the minute-step state; the input itself is not a toggle.",
+        "preview-clock": "The package test fixes Date via Playwright clock.setFixedTime to make occurrence text deterministic; product timers and animations continue normally.",
+        "weekday-step": "The weekday editor exposes every, continuous range and explicit list choices; it has no fixed-interval control. The other four fields cover interval parameter editing."
+    }
+}

@@ -60,6 +60,20 @@ const style = css`
 
 加载中的必要反馈会保护自身的呼吸时长和循环次数，避免 Wake 0.1.45 等宿主的全局减少动画重置把它缩短成一次不可见动画。此例外仅作用于指示器的减少动画分支，不会恢复页面上的普通装饰动画。
 
+## 维护与矩阵验收
+
+窄屏与真实缩放检查实际状态容器和提示文字范围，保留自然动画视频与时间序列；持续动画的环境和缩放场景不进入静态像素基准。指示器自身没有触控动作，包裹内容的可达性仍由 inert 与恢复交互场景验证。
+
+默认 circular 通过语义角色在 MD3 的弧环、Apple 的辐条和 shadcn 的克制圆环之间切换；expressive 是显式请求的 M3 Expressive 形变变体，Apple / shadcn 下仍是项目可选扩展，不冒充它们的官方活动指示器。提示文字字体随最近边界，长文案在窄容器内换行，不拉宽宿主。
+
+三档 size 的矩阵包含独立加载、Expressive、内容遮罩、结束、延迟出现和自定义图形。持续动画记录原始视频及多个时间点，不暂停旋转或形变来建立像素基准；结束与静态自定义图形才适合稳定截图。包裹模式逐项断言 aria-busy 与 inert；减少动画保留低频呼吸而非冻结加载反馈。
+
+包内 `docs/visual.json` 是该组件的可执行尺寸、密度、状态与跨引擎范围清单；`visual-matrix.demo.tsx` 使用公开入口。Chromium 执行完整核心矩阵，Firefox / WebKit 执行清单指定的默认与关键交互子集。窄屏 320 / 768px、长内容、RTL / 英文、品牌覆盖、强制颜色与减少动画分别登记环境场景；配置切换保留原 DOM 与值。真实 200% 浏览器缩放、iframe / Shadow DOM 与跨 Document 验收仍由集成矩阵记录，不以视口或 DPR 代替。
+
+本批来源复核日期为 2026-10-29。[Material Web 控件文档](https://material-web.dev/)提供 Web 行为对照；Material Web 不完整覆盖 Expressive，精确 Expressive 形态采用本页注明的项目扩展。[Apple HIG](https://developer.apple.com/design/human-interface-guidelines)作为自主 Web 实现的原则依据；shadcn 继续锁定 New York V4 的 `3d98900e9b73c45f035f8109e9d41ba6a51685e7`，引用提交以产品清单为准。M3 官网需 JavaScript 的规格页未在本批静态读取中补造精确参数。
+
+测试发现、截图候选、像素稳定性与人工外观复审分别记录。当前新增矩阵尚待统一浏览器执行和逐项复审，设计覆盖保持 partial，不能用用例存在或默认测试通过更新为 verified。
+
 ## 代码演示
 
 <Demos glob="./demos/*.demo.tsx" columns={2} />

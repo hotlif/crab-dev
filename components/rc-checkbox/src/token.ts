@@ -11,6 +11,7 @@ export const vars = defineTokens({
     'root.touch.min-width': '--checkbox-root-touch-min-width',
     'root.touch.min-height': '--checkbox-root-touch-min-height',
     'root.line-height': '--checkbox-root-line-height',
+    'root.font-family': '--checkbox-root-font-family',
     'root.opacity-disabled': '--checkbox-root-opacity-disabled',
     'control.transition': '--checkbox-control-transition',
     'control.target.width': '--checkbox-control-target-width',
@@ -82,6 +83,7 @@ const token = defineTokens({
             'min-height': `var(${vars['root.touch.min-height']}, var(--token-semantic-size-selection-target, var(--token-global-size-48, 48px)))`
         },
         'line-height': `var(${vars['root.line-height']}, var(--token-semantic-typography-body-medium-line-height, var(--token-global-line-height-14-20, 1.4285714285714286)))`,
+        'font-family': `var(${vars['root.font-family']}, var(--token-semantic-typography-body-font-family, var(--token-global-font-family-material, 'Roboto', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei UI', sans-serif)))`,
         'opacity-disabled': `var(${vars['root.opacity-disabled']}, var(--token-semantic-opacity-disabled, var(--token-global-opacity-38, 0.38)))`
     },
     'control': {

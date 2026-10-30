@@ -1,0 +1,46 @@
+{
+    "schemaVersion": 1,
+    "demo": "visual-matrix.demo.tsx",
+    "sizes": [
+        "small",
+        "medium",
+        "large"
+    ],
+    "densities": [
+        "compact",
+        "standard",
+        "comfortable"
+    ],
+    "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "expanded",
+        "selected",
+        "multiple",
+        "error",
+        "warning",
+        "disabled",
+        "empty",
+        "loading"
+    ],
+    "crossEngine": {
+        "sizes": [
+            "medium"
+        ],
+        "densities": [
+            "standard"
+        ],
+        "states": [
+            "default",
+            "focus-visible",
+            "expanded",
+            "selected",
+            "error"
+        ]
+    },
+    "notApplicable": {
+        "pressed": "The field opens a collection; option activation is covered by selection rather than a latched action surface.",
+        "read-only": "Select exposes disabled and controlled display; it has no readOnly prop."
+    }
+}

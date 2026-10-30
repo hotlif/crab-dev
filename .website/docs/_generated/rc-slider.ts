@@ -90,5 +90,37 @@ export const demos = [
         "density": "compact",
         "layout": "grid",
         "group": null
+    },
+    {
+        "id": "docs/demos/visual-matrix.demo.tsx",
+        "title": "三体系轨道状态矩阵",
+        "description": "五档视觉尺寸，真实拖动与键盘调整，范围、错误与禁用状态。",
+        "learning": {
+            "components": [
+                "Slider"
+            ],
+            "props": [
+                "aria-labelledby",
+                "size",
+                "value",
+                "onValueChange",
+                "min",
+                "max",
+                "step",
+                "disabled",
+                "aria-invalid",
+                "aria-describedby"
+            ],
+            "events": [
+                "onValueChange"
+            ],
+            "hasState": true
+        },
+        "sourceCode": "import { css } from \"@crab-dev/css\";\nimport Slider from \"@crab-dev/rc-slider\";\nimport { useConfig } from \"@crab-dev/rc-config-provider\";\nimport token from \"@crab-dev/rc-token-semantic\";\nimport { useId, useState } from \"react\";\n\nexport const meta = { title: \"三体系轨道状态矩阵\", description: \"五档视觉尺寸，真实拖动与键盘调整，范围、错误与禁用状态。\" };\nconst scene = css`\n    display: grid; gap: ${token.space['group-gap']}; padding: ${token.space['group-gap']}; max-inline-size: 36rem;\n    color: ${token.color.text.primary}; background: ${token.color.background.surface};\n`;\nconst samples = css`display: grid; gap: ${token.space['group-gap']}; padding: ${token.space['group-gap']}; min-inline-size: 0;`;\nconst limits = css`display: flex; justify-content: space-between; gap: ${token.space['inline-gap']};`;\nconst sizes = [\"xs\", \"s\", \"m\", \"l\", \"xl\"] as const;\nconst states = [\"default\", \"hover\", \"focus-visible\", \"dragging\", \"minimum\", \"maximum\", \"disabled\", \"error\"] as const;\nexport default function VisualMatrixDemo() {\n    const { locale } = useConfig();\n    const [size, setSize] = useState\u003ctypeof sizes[number]>(\"xs\");\n    const [state, setState] = useState\u003ctypeof states[number]>(\"default\");\n    const [value, setValue] = useState(40);\n    const id = useId();\n    const english = locale === \"en-US\";\n    return \u003csection className={scene} aria-label=\"Slider visual matrix\" data-visual-scene data-size={size} data-state={state}>\n        \u003cdiv>\u003clabel htmlFor={id + \"-size\"}>验收尺寸\u003c/label>{\" \"}\u003cselect id={id + \"-size\"} value={size} onChange={event => {\n            const next = event.currentTarget.value;\n            if (sizes.some(item => item === next)) setSize(next as typeof size);\n        }}>{sizes.map(item => \u003coption key={item}>{item}\u003c/option>)}\u003c/select>\u003c/div>\n        \u003cdiv>\u003clabel htmlFor={id + \"-state\"}>验收状态\u003c/label>{\" \"}\u003cselect id={id + \"-state\"} value={state} onChange={event => {\n            const next = event.currentTarget.value;\n            if (states.some(item => item === next)) setState(next as typeof state);\n        }}>{states.map(item => \u003coption key={item}>{item}\u003c/option>)}\u003c/select>\u003c/div>\n        \u003cdiv className={samples} data-visual-frame>\n            \u003cspan id={id + \"-label\"}>{english ? \"Preview opacity\" : \"预览不透明度\"}\u003c/span>\n            \u003cSlider aria-labelledby={id + \"-label\"} size={size} value={value} onValueChange={setValue}\n                min={0} max={100} step={5} disabled={state === \"disabled\"}\n                aria-invalid={state === \"error\" || undefined} aria-describedby={id + \"-help\"} />\n            \u003cdiv className={limits}>\u003cspan>0%\u003c/span>\u003coutput>{value}%\u003c/output>\u003cspan>100%\u003c/span>\u003c/div>\n            \u003cspan id={id + \"-help\"}>{state === \"error\" ? (english ? \"Review the opacity before publishing.\" : \"发布前请核对不透明度。\") : (english ? \"Use arrow keys for 5% steps.\" : \"方向键按 5% 调整。\")}\u003c/span>\n        \u003c/div>\n    \u003c/section>;\n}\n\n",
+        "previewPath": "/components/rc-slider/workbench/?__wake_demo=docs%2Fdemos%2Fvisual-matrix.demo.tsx",
+        "workbenchPath": "/components/rc-slider/workbench/#/components/docs%2Fdemos%2Fvisual-matrix.demo.tsx",
+        "density": "compact",
+        "layout": "grid",
+        "group": null
     }
 ] as const satisfies readonly ComponentDemoRecord[];

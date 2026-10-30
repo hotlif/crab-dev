@@ -1,0 +1,4322 @@
+{
+  "schemaVersion": 1,
+  "reviewer": "display_feedback",
+  "reviewedAt": "2026-10-29T17:04:16.437Z",
+  "candidate": ".website/review/20261030-site-focus-appearance-windows-2",
+  "native": ".cache/visual/site-focus-appearance-windows-20261030-2",
+  "scope": {
+    "platform": "win32",
+    "engine": "chromium",
+    "browser": "156.0.8078.4",
+    "designSystem": "md3",
+    "colorModes": [
+      "light",
+      "dark"
+    ],
+    "viewports": [
+      {
+        "id": "narrow",
+        "width": 320,
+        "height": 768
+      },
+      {
+        "id": "tablet",
+        "width": 768,
+        "height": 1024
+      },
+      {
+        "id": "desktop",
+        "width": 1440,
+        "height": 900
+      }
+    ],
+    "indexStructure": "groups.md3.images",
+    "actualImageCount": 46,
+    "actuallyViewedOriginalPNGs": 46,
+    "naturalFrames": 36,
+    "navigationStaticCandidates": 10,
+    "imageCases": 18,
+    "scopeStatement": "仅实际MD3渲染阶段的可见视口。不是全页、全组件状态矩阵、真实200%或三引擎验收。"
+  },
+  "result": {
+    "visual": "reviewed-no-visible-layout-or-focus-defect-within-recorded-viewport",
+    "unviewedOriginalPNGs": 0,
+    "imageOrNativeBindingMismatches": 0,
+    "sourceOrWorkerBindingMismatches": 0,
+    "baselineCreated": false,
+    "canonical": false,
+    "verifiedUpdated": false,
+    "fullLibraryComplete": false
+  },
+  "identity": {
+    "source": "sha256:4873b5ae3ae75e1ba5f1bf8d8dcae4ec72e361865304e630f8e5673fb36c31c7",
+    "artifact": "sha256:caaa2e325183ae7c996c04ca4f771c13c77aa1ac188dea3485041171368aa719",
+    "siteBuild": "sha256:49e777a2a23e7732e5b17e077b53ce172e692c995ae68f3d7a1bc34d46963dd0",
+    "workers": [
+      {
+        "index": 0,
+        "path": "inputs-worker-0.json",
+        "sha256": "b057bcb5c7615cd5d7bf15a4a00e43050b40e7d374df980e8c255b1f0ef32a2a",
+        "stable": true,
+        "allBeforeAfterIdentical": true,
+        "source": "sha256:4873b5ae3ae75e1ba5f1bf8d8dcae4ec72e361865304e630f8e5673fb36c31c7",
+        "artifact": "sha256:caaa2e325183ae7c996c04ca4f771c13c77aa1ac188dea3485041171368aa719",
+        "siteBuild": "sha256:49e777a2a23e7732e5b17e077b53ce172e692c995ae68f3d7a1bc34d46963dd0",
+        "environment": {
+          "browser": "156.0.8078.4",
+          "webgl2": true,
+          "drawn": true,
+          "center": [
+            255,
+            0,
+            0,
+            255
+          ],
+          "background": [
+            51,
+            102,
+            153,
+            255
+          ],
+          "error": 0,
+          "vendor": "WebKit",
+          "renderer": "WebKit WebGL",
+          "driver": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3070 (0x00002484) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "errors": [],
+          "browserName": "chromium"
+        },
+        "renderingSHA256": "cd0dbbcfdc61100643fce317ff63367ca365fe714e2b52e335958f7a67e8e2eb"
+      },
+      {
+        "index": 1,
+        "path": "inputs-worker-1.json",
+        "sha256": "b057bcb5c7615cd5d7bf15a4a00e43050b40e7d374df980e8c255b1f0ef32a2a",
+        "stable": true,
+        "allBeforeAfterIdentical": true,
+        "source": "sha256:4873b5ae3ae75e1ba5f1bf8d8dcae4ec72e361865304e630f8e5673fb36c31c7",
+        "artifact": "sha256:caaa2e325183ae7c996c04ca4f771c13c77aa1ac188dea3485041171368aa719",
+        "siteBuild": "sha256:49e777a2a23e7732e5b17e077b53ce172e692c995ae68f3d7a1bc34d46963dd0",
+        "environment": {
+          "browser": "156.0.8078.4",
+          "webgl2": true,
+          "drawn": true,
+          "center": [
+            255,
+            0,
+            0,
+            255
+          ],
+          "background": [
+            51,
+            102,
+            153,
+            255
+          ],
+          "error": 0,
+          "vendor": "WebKit",
+          "renderer": "WebKit WebGL",
+          "driver": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3070 (0x00002484) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "errors": [],
+          "browserName": "chromium"
+        },
+        "renderingSHA256": "cd0dbbcfdc61100643fce317ff63367ca365fe714e2b52e335958f7a67e8e2eb"
+      },
+      {
+        "index": 2,
+        "path": "inputs-worker-2.json",
+        "sha256": "b057bcb5c7615cd5d7bf15a4a00e43050b40e7d374df980e8c255b1f0ef32a2a",
+        "stable": true,
+        "allBeforeAfterIdentical": true,
+        "source": "sha256:4873b5ae3ae75e1ba5f1bf8d8dcae4ec72e361865304e630f8e5673fb36c31c7",
+        "artifact": "sha256:caaa2e325183ae7c996c04ca4f771c13c77aa1ac188dea3485041171368aa719",
+        "siteBuild": "sha256:49e777a2a23e7732e5b17e077b53ce172e692c995ae68f3d7a1bc34d46963dd0",
+        "environment": {
+          "browser": "156.0.8078.4",
+          "webgl2": true,
+          "drawn": true,
+          "center": [
+            255,
+            0,
+            0,
+            255
+          ],
+          "background": [
+            51,
+            102,
+            153,
+            255
+          ],
+          "error": 0,
+          "vendor": "WebKit",
+          "renderer": "WebKit WebGL",
+          "driver": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3070 (0x00002484) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "errors": [],
+          "browserName": "chromium"
+        },
+        "renderingSHA256": "cd0dbbcfdc61100643fce317ff63367ca365fe714e2b52e335958f7a67e8e2eb"
+      },
+      {
+        "index": 3,
+        "path": "inputs-worker-3.json",
+        "sha256": "b057bcb5c7615cd5d7bf15a4a00e43050b40e7d374df980e8c255b1f0ef32a2a",
+        "stable": true,
+        "allBeforeAfterIdentical": true,
+        "source": "sha256:4873b5ae3ae75e1ba5f1bf8d8dcae4ec72e361865304e630f8e5673fb36c31c7",
+        "artifact": "sha256:caaa2e325183ae7c996c04ca4f771c13c77aa1ac188dea3485041171368aa719",
+        "siteBuild": "sha256:49e777a2a23e7732e5b17e077b53ce172e692c995ae68f3d7a1bc34d46963dd0",
+        "environment": {
+          "browser": "156.0.8078.4",
+          "webgl2": true,
+          "drawn": true,
+          "center": [
+            255,
+            0,
+            0,
+            255
+          ],
+          "background": [
+            51,
+            102,
+            153,
+            255
+          ],
+          "error": 0,
+          "vendor": "WebKit",
+          "renderer": "WebKit WebGL",
+          "driver": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3070 (0x00002484) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "errors": [],
+          "browserName": "chromium"
+        },
+        "renderingSHA256": "cd0dbbcfdc61100643fce317ff63367ca365fe714e2b52e335958f7a67e8e2eb"
+      }
+    ],
+    "caseBindings": [
+      {
+        "caseId": "0e4135bc36f1ba174212-74c40d5ed0f201744e07/chromium/0",
+        "title": "Site appearance preserves drafts md3 light narrow",
+        "file": ".website/docs/site/site-appearance.visual.spec.mjs",
+        "status": "passed",
+        "worker": 0,
+        "input": {
+          "source": "sha256:4873b5ae3ae75e1ba5f1bf8d8dcae4ec72e361865304e630f8e5673fb36c31c7",
+          "artifact": "sha256:caaa2e325183ae7c996c04ca4f771c13c77aa1ac188dea3485041171368aa719",
+          "siteBuild": "sha256:49e777a2a23e7732e5b17e077b53ce172e692c995ae68f3d7a1bc34d46963dd0",
+          "file": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\site-focus-appearance-windows-20261030-2\\inputs-worker-0.json",
+          "renderingEnvironment": {
+            "file": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\site-focus-appearance-windows-20261030-2\\rendering-worker-0.json",
+            "browserName": "chromium",
+            "browser": "156.0.8078.4"
+          },
+          "browserName": "chromium",
+          "browser": "156.0.8078.4",
+          "platform": "win32",
+          "arch": "x64",
+          "mode": "native-check",
+          "visualReview": "pending"
+        },
+        "inputMatchesNative": true,
+        "workerMatchesInput": true,
+        "renderingMatches": true
+      },
+      {
+        "caseId": "0e4135bc36f1ba174212-c9dc72bfc883b1152402/chromium/0",
+        "title": "Site appearance preserves drafts md3 light tablet",
+        "file": ".website/docs/site/site-appearance.visual.spec.mjs",
+        "status": "passed",
+        "worker": 1,
+        "input": {
+          "source": "sha256:4873b5ae3ae75e1ba5f1bf8d8dcae4ec72e361865304e630f8e5673fb36c31c7",
+          "artifact": "sha256:caaa2e325183ae7c996c04ca4f771c13c77aa1ac188dea3485041171368aa719",
+          "siteBuild": "sha256:49e777a2a23e7732e5b17e077b53ce172e692c995ae68f3d7a1bc34d46963dd0",
+          "file": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\site-focus-appearance-windows-20261030-2\\inputs-worker-1.json",
+          "renderingEnvironment": {
+            "file": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\site-focus-appearance-windows-20261030-2\\rendering-worker-1.json",
+            "browserName": "chromium",
+            "browser": "156.0.8078.4"
+          },
+          "browserName": "chromium",
+          "browser": "156.0.8078.4",
+          "platform": "win32",
+          "arch": "x64",
+          "mode": "native-check",
+          "visualReview": "pending"
+        },
+        "inputMatchesNative": true,
+        "workerMatchesInput": true,
+        "renderingMatches": true
+      },
+      {
+        "caseId": "0e4135bc36f1ba174212-3a230b9eb11935bd37cc/chromium/0",
+        "title": "Site appearance preserves drafts md3 light desktop",
+        "file": ".website/docs/site/site-appearance.visual.spec.mjs",
+        "status": "passed",
+        "worker": 0,
+        "input": {
+          "source": "sha256:4873b5ae3ae75e1ba5f1bf8d8dcae4ec72e361865304e630f8e5673fb36c31c7",
+          "artifact": "sha256:caaa2e325183ae7c996c04ca4f771c13c77aa1ac188dea3485041171368aa719",
+          "siteBuild": "sha256:49e777a2a23e7732e5b17e077b53ce172e692c995ae68f3d7a1bc34d46963dd0",
+          "file": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\site-focus-appearance-windows-20261030-2\\inputs-worker-0.json",
+          "renderingEnvironment": {
+            "file": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\site-focus-appearance-windows-20261030-2\\rendering-worker-0.json",
+            "browserName": "chromium",
+            "browser": "156.0.8078.4"
+          },
+          "browserName": "chromium",
+          "browser": "156.0.8078.4",
+          "platform": "win32",
+          "arch": "x64",
+          "mode": "native-check",
+          "visualReview": "pending"
+        },
+        "inputMatchesNative": true,
+        "workerMatchesInput": true,
+        "renderingMatches": true
+      },
+      {
+        "caseId": "0e4135bc36f1ba174212-d936a135d446310e8c5c/chromium/0",
+        "title": "Site appearance preserves drafts md3 dark narrow",
+        "file": ".website/docs/site/site-appearance.visual.spec.mjs",
+        "status": "passed",
+        "worker": 1,
+        "input": {
+          "source": "sha256:4873b5ae3ae75e1ba5f1bf8d8dcae4ec72e361865304e630f8e5673fb36c31c7",
+          "artifact": "sha256:caaa2e325183ae7c996c04ca4f771c13c77aa1ac188dea3485041171368aa719",
+          "siteBuild": "sha256:49e777a2a23e7732e5b17e077b53ce172e692c995ae68f3d7a1bc34d46963dd0",
+          "file": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\site-focus-appearance-windows-20261030-2\\inputs-worker-1.json",
+          "renderingEnvironment": {
+            "file": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\site-focus-appearance-windows-20261030-2\\rendering-worker-1.json",
+            "browserName": "chromium",
+            "browser": "156.0.8078.4"
+          },
+          "browserName": "chromium",
+          "browser": "156.0.8078.4",
+          "platform": "win32",
+          "arch": "x64",
+          "mode": "native-check",
+          "visualReview": "pending"
+        },
+        "inputMatchesNative": true,
+        "workerMatchesInput": true,
+        "renderingMatches": true
+      },
+      {
+        "caseId": "0e4135bc36f1ba174212-4517299116a60c3ac300/chromium/0",
+        "title": "Site appearance preserves drafts md3 dark tablet",
+        "file": ".website/docs/site/site-appearance.visual.spec.mjs",
+        "status": "passed",
+        "worker": 0,
+        "input": {
+          "source": "sha256:4873b5ae3ae75e1ba5f1bf8d8dcae4ec72e361865304e630f8e5673fb36c31c7",
+          "artifact": "sha256:caaa2e325183ae7c996c04ca4f771c13c77aa1ac188dea3485041171368aa719",
+          "siteBuild": "sha256:49e777a2a23e7732e5b17e077b53ce172e692c995ae68f3d7a1bc34d46963dd0",
+          "file": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\site-focus-appearance-windows-20261030-2\\inputs-worker-0.json",
+          "renderingEnvironment": {
+            "file": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\site-focus-appearance-windows-20261030-2\\rendering-worker-0.json",
+            "browserName": "chromium",
+            "browser": "156.0.8078.4"
+          },
+          "browserName": "chromium",
+          "browser": "156.0.8078.4",
+          "platform": "win32",
+          "arch": "x64",
+          "mode": "native-check",
+          "visualReview": "pending"
+        },
+        "inputMatchesNative": true,
+        "workerMatchesInput": true,
+        "renderingMatches": true
+      },
+      {
+        "caseId": "0e4135bc36f1ba174212-920fec8248d896082552/chromium/0",
+        "title": "Site appearance preserves drafts md3 dark desktop",
+        "file": ".website/docs/site/site-appearance.visual.spec.mjs",
+        "status": "passed",
+        "worker": 1,
+        "input": {
+          "source": "sha256:4873b5ae3ae75e1ba5f1bf8d8dcae4ec72e361865304e630f8e5673fb36c31c7",
+          "artifact": "sha256:caaa2e325183ae7c996c04ca4f771c13c77aa1ac188dea3485041171368aa719",
+          "siteBuild": "sha256:49e777a2a23e7732e5b17e077b53ce172e692c995ae68f3d7a1bc34d46963dd0",
+          "file": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\site-focus-appearance-windows-20261030-2\\inputs-worker-1.json",
+          "renderingEnvironment": {
+            "file": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\site-focus-appearance-windows-20261030-2\\rendering-worker-1.json",
+            "browserName": "chromium",
+            "browser": "156.0.8078.4"
+          },
+          "browserName": "chromium",
+          "browser": "156.0.8078.4",
+          "platform": "win32",
+          "arch": "x64",
+          "mode": "native-check",
+          "visualReview": "pending"
+        },
+        "inputMatchesNative": true,
+        "workerMatchesInput": true,
+        "renderingMatches": true
+      },
+      {
+        "caseId": "0e4135bc36f1ba174212-4038d8a45668fba310e4/chromium/0",
+        "title": "Site appearance preserves drafts shadcn light narrow",
+        "file": ".website/docs/site/site-appearance.visual.spec.mjs",
+        "status": "passed",
+        "worker": 0,
+        "input": {
+          "source": "sha256:4873b5ae3ae75e1ba5f1bf8d8dcae4ec72e361865304e630f8e5673fb36c31c7",
+          "artifact": "sha256:caaa2e325183ae7c996c04ca4f771c13c77aa1ac188dea3485041171368aa719",
+          "siteBuild": "sha256:49e777a2a23e7732e5b17e077b53ce172e692c995ae68f3d7a1bc34d46963dd0",
+          "file": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\site-focus-appearance-windows-20261030-2\\inputs-worker-0.json",
+          "renderingEnvironment": {
+            "file": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\site-focus-appearance-windows-20261030-2\\rendering-worker-0.json",
+            "browserName": "chromium",
+            "browser": "156.0.8078.4"
+          },
+          "browserName": "chromium",
+          "browser": "156.0.8078.4",
+          "platform": "win32",
+          "arch": "x64",
+          "mode": "native-check",
+          "visualReview": "pending"
+        },
+        "inputMatchesNative": true,
+        "workerMatchesInput": true,
+        "renderingMatches": true
+      },
+      {
+        "caseId": "0e4135bc36f1ba174212-479efa30ca063fc21ab6/chromium/0",
+        "title": "Site appearance preserves drafts shadcn light tablet",
+        "file": ".website/docs/site/site-appearance.visual.spec.mjs",
+        "status": "passed",
+        "worker": 1,
+        "input": {
+          "source": "sha256:4873b5ae3ae75e1ba5f1bf8d8dcae4ec72e361865304e630f8e5673fb36c31c7",
+          "artifact": "sha256:caaa2e325183ae7c996c04ca4f771c13c77aa1ac188dea3485041171368aa719",
+          "siteBuild": "sha256:49e777a2a23e7732e5b17e077b53ce172e692c995ae68f3d7a1bc34d46963dd0",
+          "file": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\site-focus-appearance-windows-20261030-2\\inputs-worker-1.json",
+          "renderingEnvironment": {
+            "file": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\site-focus-appearance-windows-20261030-2\\rendering-worker-1.json",
+            "browserName": "chromium",
+            "browser": "156.0.8078.4"
+          },
+          "browserName": "chromium",
+          "browser": "156.0.8078.4",
+          "platform": "win32",
+          "arch": "x64",
+          "mode": "native-check",
+          "visualReview": "pending"
+        },
+        "inputMatchesNative": true,
+        "workerMatchesInput": true,
+        "renderingMatches": true
+      },
+      {
+        "caseId": "0e4135bc36f1ba174212-4c56f6639c0848cf937a/chromium/0",
+        "title": "Site appearance preserves drafts shadcn light desktop",
+        "file": ".website/docs/site/site-appearance.visual.spec.mjs",
+        "status": "passed",
+        "worker": 0,
+        "input": {
+          "source": "sha256:4873b5ae3ae75e1ba5f1bf8d8dcae4ec72e361865304e630f8e5673fb36c31c7",
+          "artifact": "sha256:caaa2e325183ae7c996c04ca4f771c13c77aa1ac188dea3485041171368aa719",
+          "siteBuild": "sha256:49e777a2a23e7732e5b17e077b53ce172e692c995ae68f3d7a1bc34d46963dd0",
+          "file": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\site-focus-appearance-windows-20261030-2\\inputs-worker-0.json",
+          "renderingEnvironment": {
+            "file": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\site-focus-appearance-windows-20261030-2\\rendering-worker-0.json",
+            "browserName": "chromium",
+            "browser": "156.0.8078.4"
+          },
+          "browserName": "chromium",
+          "browser": "156.0.8078.4",
+          "platform": "win32",
+          "arch": "x64",
+          "mode": "native-check",
+          "visualReview": "pending"
+        },
+        "inputMatchesNative": true,
+        "workerMatchesInput": true,
+        "renderingMatches": true
+      },
+      {
+        "caseId": "0e4135bc36f1ba174212-1d6cff7dfe37e725982b/chromium/0",
+        "title": "Site appearance preserves drafts shadcn dark narrow",
+        "file": ".website/docs/site/site-appearance.visual.spec.mjs",
+        "status": "passed",
+        "worker": 1,
+        "input": {
+          "source": "sha256:4873b5ae3ae75e1ba5f1bf8d8dcae4ec72e361865304e630f8e5673fb36c31c7",
+          "artifact": "sha256:caaa2e325183ae7c996c04ca4f771c13c77aa1ac188dea3485041171368aa719",
+          "siteBuild": "sha256:49e777a2a23e7732e5b17e077b53ce172e692c995ae68f3d7a1bc34d46963dd0",
+          "file": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\site-focus-appearance-windows-20261030-2\\inputs-worker-1.json",
+          "renderingEnvironment": {
+            "file": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\site-focus-appearance-windows-20261030-2\\rendering-worker-1.json",
+            "browserName": "chromium",
+            "browser": "156.0.8078.4"
+          },
+          "browserName": "chromium",
+          "browser": "156.0.8078.4",
+          "platform": "win32",
+          "arch": "x64",
+          "mode": "native-check",
+          "visualReview": "pending"
+        },
+        "inputMatchesNative": true,
+        "workerMatchesInput": true,
+        "renderingMatches": true
+      },
+      {
+        "caseId": "0e4135bc36f1ba174212-75c4f1e9946303a5f8c8/chromium/0",
+        "title": "Site appearance preserves drafts shadcn dark tablet",
+        "file": ".website/docs/site/site-appearance.visual.spec.mjs",
+        "status": "passed",
+        "worker": 0,
+        "input": {
+          "source": "sha256:4873b5ae3ae75e1ba5f1bf8d8dcae4ec72e361865304e630f8e5673fb36c31c7",
+          "artifact": "sha256:caaa2e325183ae7c996c04ca4f771c13c77aa1ac188dea3485041171368aa719",
+          "siteBuild": "sha256:49e777a2a23e7732e5b17e077b53ce172e692c995ae68f3d7a1bc34d46963dd0",
+          "file": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\site-focus-appearance-windows-20261030-2\\inputs-worker-0.json",
+          "renderingEnvironment": {
+            "file": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\site-focus-appearance-windows-20261030-2\\rendering-worker-0.json",
+            "browserName": "chromium",
+            "browser": "156.0.8078.4"
+          },
+          "browserName": "chromium",
+          "browser": "156.0.8078.4",
+          "platform": "win32",
+          "arch": "x64",
+          "mode": "native-check",
+          "visualReview": "pending"
+        },
+        "inputMatchesNative": true,
+        "workerMatchesInput": true,
+        "renderingMatches": true
+      },
+      {
+        "caseId": "0e4135bc36f1ba174212-050b8614ff43f7861293/chromium/0",
+        "title": "Site appearance preserves drafts shadcn dark desktop",
+        "file": ".website/docs/site/site-appearance.visual.spec.mjs",
+        "status": "passed",
+        "worker": 1,
+        "input": {
+          "source": "sha256:4873b5ae3ae75e1ba5f1bf8d8dcae4ec72e361865304e630f8e5673fb36c31c7",
+          "artifact": "sha256:caaa2e325183ae7c996c04ca4f771c13c77aa1ac188dea3485041171368aa719",
+          "siteBuild": "sha256:49e777a2a23e7732e5b17e077b53ce172e692c995ae68f3d7a1bc34d46963dd0",
+          "file": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\site-focus-appearance-windows-20261030-2\\inputs-worker-1.json",
+          "renderingEnvironment": {
+            "file": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\site-focus-appearance-windows-20261030-2\\rendering-worker-1.json",
+            "browserName": "chromium",
+            "browser": "156.0.8078.4"
+          },
+          "browserName": "chromium",
+          "browser": "156.0.8078.4",
+          "platform": "win32",
+          "arch": "x64",
+          "mode": "native-check",
+          "visualReview": "pending"
+        },
+        "inputMatchesNative": true,
+        "workerMatchesInput": true,
+        "renderingMatches": true
+      },
+      {
+        "caseId": "23c228f2ffdd18452a42-bdcee98e3242c282b8c6/chromium/0",
+        "title": "Site navigation md3 light narrow",
+        "file": ".website/docs/site/site-navigation.visual.spec.mjs",
+        "status": "passed",
+        "worker": 2,
+        "input": {
+          "source": "sha256:4873b5ae3ae75e1ba5f1bf8d8dcae4ec72e361865304e630f8e5673fb36c31c7",
+          "artifact": "sha256:caaa2e325183ae7c996c04ca4f771c13c77aa1ac188dea3485041171368aa719",
+          "siteBuild": "sha256:49e777a2a23e7732e5b17e077b53ce172e692c995ae68f3d7a1bc34d46963dd0",
+          "file": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\site-focus-appearance-windows-20261030-2\\inputs-worker-2.json",
+          "renderingEnvironment": {
+            "file": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\site-focus-appearance-windows-20261030-2\\rendering-worker-2.json",
+            "browserName": "chromium",
+            "browser": "156.0.8078.4"
+          },
+          "browserName": "chromium",
+          "browser": "156.0.8078.4",
+          "platform": "win32",
+          "arch": "x64",
+          "mode": "native-check",
+          "visualReview": "pending"
+        },
+        "inputMatchesNative": true,
+        "workerMatchesInput": true,
+        "renderingMatches": true
+      },
+      {
+        "caseId": "23c228f2ffdd18452a42-9743d364bbe6073fe848/chromium/0",
+        "title": "Site navigation md3 light tablet",
+        "file": ".website/docs/site/site-navigation.visual.spec.mjs",
+        "status": "passed",
+        "worker": 3,
+        "input": {
+          "source": "sha256:4873b5ae3ae75e1ba5f1bf8d8dcae4ec72e361865304e630f8e5673fb36c31c7",
+          "artifact": "sha256:caaa2e325183ae7c996c04ca4f771c13c77aa1ac188dea3485041171368aa719",
+          "siteBuild": "sha256:49e777a2a23e7732e5b17e077b53ce172e692c995ae68f3d7a1bc34d46963dd0",
+          "file": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\site-focus-appearance-windows-20261030-2\\inputs-worker-3.json",
+          "renderingEnvironment": {
+            "file": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\site-focus-appearance-windows-20261030-2\\rendering-worker-3.json",
+            "browserName": "chromium",
+            "browser": "156.0.8078.4"
+          },
+          "browserName": "chromium",
+          "browser": "156.0.8078.4",
+          "platform": "win32",
+          "arch": "x64",
+          "mode": "native-check",
+          "visualReview": "pending"
+        },
+        "inputMatchesNative": true,
+        "workerMatchesInput": true,
+        "renderingMatches": true
+      },
+      {
+        "caseId": "23c228f2ffdd18452a42-bfc084d45e2aa8a8c967/chromium/0",
+        "title": "Site navigation md3 light desktop",
+        "file": ".website/docs/site/site-navigation.visual.spec.mjs",
+        "status": "passed",
+        "worker": 2,
+        "input": {
+          "source": "sha256:4873b5ae3ae75e1ba5f1bf8d8dcae4ec72e361865304e630f8e5673fb36c31c7",
+          "artifact": "sha256:caaa2e325183ae7c996c04ca4f771c13c77aa1ac188dea3485041171368aa719",
+          "siteBuild": "sha256:49e777a2a23e7732e5b17e077b53ce172e692c995ae68f3d7a1bc34d46963dd0",
+          "file": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\site-focus-appearance-windows-20261030-2\\inputs-worker-2.json",
+          "renderingEnvironment": {
+            "file": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\site-focus-appearance-windows-20261030-2\\rendering-worker-2.json",
+            "browserName": "chromium",
+            "browser": "156.0.8078.4"
+          },
+          "browserName": "chromium",
+          "browser": "156.0.8078.4",
+          "platform": "win32",
+          "arch": "x64",
+          "mode": "native-check",
+          "visualReview": "pending"
+        },
+        "inputMatchesNative": true,
+        "workerMatchesInput": true,
+        "renderingMatches": true
+      },
+      {
+        "caseId": "23c228f2ffdd18452a42-795ba078db65c7cb5c06/chromium/0",
+        "title": "Site navigation md3 dark narrow",
+        "file": ".website/docs/site/site-navigation.visual.spec.mjs",
+        "status": "passed",
+        "worker": 3,
+        "input": {
+          "source": "sha256:4873b5ae3ae75e1ba5f1bf8d8dcae4ec72e361865304e630f8e5673fb36c31c7",
+          "artifact": "sha256:caaa2e325183ae7c996c04ca4f771c13c77aa1ac188dea3485041171368aa719",
+          "siteBuild": "sha256:49e777a2a23e7732e5b17e077b53ce172e692c995ae68f3d7a1bc34d46963dd0",
+          "file": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\site-focus-appearance-windows-20261030-2\\inputs-worker-3.json",
+          "renderingEnvironment": {
+            "file": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\site-focus-appearance-windows-20261030-2\\rendering-worker-3.json",
+            "browserName": "chromium",
+            "browser": "156.0.8078.4"
+          },
+          "browserName": "chromium",
+          "browser": "156.0.8078.4",
+          "platform": "win32",
+          "arch": "x64",
+          "mode": "native-check",
+          "visualReview": "pending"
+        },
+        "inputMatchesNative": true,
+        "workerMatchesInput": true,
+        "renderingMatches": true
+      },
+      {
+        "caseId": "23c228f2ffdd18452a42-63a3720560805934df18/chromium/0",
+        "title": "Site navigation md3 dark tablet",
+        "file": ".website/docs/site/site-navigation.visual.spec.mjs",
+        "status": "passed",
+        "worker": 2,
+        "input": {
+          "source": "sha256:4873b5ae3ae75e1ba5f1bf8d8dcae4ec72e361865304e630f8e5673fb36c31c7",
+          "artifact": "sha256:caaa2e325183ae7c996c04ca4f771c13c77aa1ac188dea3485041171368aa719",
+          "siteBuild": "sha256:49e777a2a23e7732e5b17e077b53ce172e692c995ae68f3d7a1bc34d46963dd0",
+          "file": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\site-focus-appearance-windows-20261030-2\\inputs-worker-2.json",
+          "renderingEnvironment": {
+            "file": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\site-focus-appearance-windows-20261030-2\\rendering-worker-2.json",
+            "browserName": "chromium",
+            "browser": "156.0.8078.4"
+          },
+          "browserName": "chromium",
+          "browser": "156.0.8078.4",
+          "platform": "win32",
+          "arch": "x64",
+          "mode": "native-check",
+          "visualReview": "pending"
+        },
+        "inputMatchesNative": true,
+        "workerMatchesInput": true,
+        "renderingMatches": true
+      },
+      {
+        "caseId": "23c228f2ffdd18452a42-aede4d30eb5f7edc30a2/chromium/0",
+        "title": "Site navigation md3 dark desktop",
+        "file": ".website/docs/site/site-navigation.visual.spec.mjs",
+        "status": "passed",
+        "worker": 3,
+        "input": {
+          "source": "sha256:4873b5ae3ae75e1ba5f1bf8d8dcae4ec72e361865304e630f8e5673fb36c31c7",
+          "artifact": "sha256:caaa2e325183ae7c996c04ca4f771c13c77aa1ac188dea3485041171368aa719",
+          "siteBuild": "sha256:49e777a2a23e7732e5b17e077b53ce172e692c995ae68f3d7a1bc34d46963dd0",
+          "file": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\site-focus-appearance-windows-20261030-2\\inputs-worker-3.json",
+          "renderingEnvironment": {
+            "file": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\site-focus-appearance-windows-20261030-2\\rendering-worker-3.json",
+            "browserName": "chromium",
+            "browser": "156.0.8078.4"
+          },
+          "browserName": "chromium",
+          "browser": "156.0.8078.4",
+          "platform": "win32",
+          "arch": "x64",
+          "mode": "native-check",
+          "visualReview": "pending"
+        },
+        "inputMatchesNative": true,
+        "workerMatchesInput": true,
+        "renderingMatches": true
+      }
+    ],
+    "siteSourceFileCountChecked": 63,
+    "siteSourceFiles": [
+      {
+        "path": ".website/docs/site/__tests__/colorAssertions.ts",
+        "sha256": "1e6b556583ee7a2f1c7f7c77157108f76ab22902dcb2be2c8fb6a9bd4cbebf92",
+        "currentMatches": true
+      },
+      {
+        "path": ".website/docs/site/__tests__/componentDemos.test.tsx",
+        "sha256": "eb155b2ceb0f1bf7b318de6ef7a7f582b1caf49562b5095f666983400e723b19",
+        "currentMatches": true
+      },
+      {
+        "path": ".website/docs/site/__tests__/componentHeroPreview.test.tsx",
+        "sha256": "d26b4ee81d29a0010856198d4e1749c82e479f5ac3a390d904e278829a596302",
+        "currentMatches": true
+      },
+      {
+        "path": ".website/docs/site/__tests__/documentNavigation.test.tsx",
+        "sha256": "98b42f3fc010cc2b5b28d7b7fd91cc1a91b7121a2ed316bb8882dcae43233fac",
+        "currentMatches": true
+      },
+      {
+        "path": ".website/docs/site/__tests__/formPage.test.tsx",
+        "sha256": "51de2cebaea1cfe3c2f1487482a5b3034e119ef6bc31dbe71845d9568599dcf6",
+        "currentMatches": true
+      },
+      {
+        "path": ".website/docs/site/__tests__/guideShowcases.test.tsx",
+        "sha256": "2b1b20f722b720c0539208177266749cdf64d6dfa7c86cef71588ea7734029fd",
+        "currentMatches": true
+      },
+      {
+        "path": ".website/docs/site/__tests__/homeComponentShowcase.test.tsx",
+        "sha256": "ed543988bf9deaa387f24195f4223bb02c2873929964584eb26139765ac39c02",
+        "currentMatches": true
+      },
+      {
+        "path": ".website/docs/site/__tests__/learningHome.test.tsx",
+        "sha256": "fe8e07787b2af197d0ff77af5c9e603800506243739930819af5988cba368008",
+        "currentMatches": true
+      },
+      {
+        "path": ".website/docs/site/__tests__/lineEditPage.test.tsx",
+        "sha256": "1c17f62a7b9ee5a71185b1f631aba5304b9ba94cc2a27cb4f12f552cce65fa80",
+        "currentMatches": true
+      },
+      {
+        "path": ".website/docs/site/__tests__/palette.test.ts",
+        "sha256": "51284b2c53e3876c5635f14dddb0a9c287382cbf13f57b30b269c107c367380d",
+        "currentMatches": true
+      },
+      {
+        "path": ".website/docs/site/__tests__/radioPage.test.tsx",
+        "sha256": "f8549aaecd77a477b912ea647af05aafad4facd81838110c5a0e13431ca56390",
+        "currentMatches": true
+      },
+      {
+        "path": ".website/docs/site/__tests__/tokenReference.test.tsx",
+        "sha256": "e1a85d2f6ac8b0edad78a77963032da935e5ec89d69a72732c3502cda0dbfc65",
+        "currentMatches": true
+      },
+      {
+        "path": ".website/docs/site/__tests__/tutorial.test.tsx",
+        "sha256": "8fbfc637b7416892e0c5a9d23906b6f7db5e3a648849cc4a75e74e2322ff0578",
+        "currentMatches": true
+      },
+      {
+        "path": ".website/docs/site/__tests__/ui.test.tsx",
+        "sha256": "9e6af25a041240331e773dc245d3c0021fd0a2a631eb73cc1241eb67b7ff27c7",
+        "currentMatches": true
+      },
+      {
+        "path": ".website/docs/site/__tests__/workbenchPreview.test.tsx",
+        "sha256": "477925fb75426a59afe3c47a15ae3740c8c048b6ccea61655f06f0d30d708f27",
+        "currentMatches": true
+      },
+      {
+        "path": ".website/docs/site/catalogStyles.ts",
+        "sha256": "0a4dfd9bdde2063901fa338e39922975da3eaba475af5731e3c0829ecf6642ed",
+        "currentMatches": true
+      },
+      {
+        "path": ".website/docs/site/catalog/display.tsx",
+        "sha256": "2a378be286b0b7b8e18737cf4488f46f3e94846ad8f766c2ee9fc39bae0a819d",
+        "currentMatches": true
+      },
+      {
+        "path": ".website/docs/site/catalog/form.tsx",
+        "sha256": "550d86aec534eded26e0f5002b8fed8e70f7d844b3ed4cf861d5dcf4959e2e8a",
+        "currentMatches": true
+      },
+      {
+        "path": ".website/docs/site/catalog/foundation.tsx",
+        "sha256": "138b3b2e816acddff90f33fbff00934c0588dec93149d9486de34b18af71271f",
+        "currentMatches": true
+      },
+      {
+        "path": ".website/docs/site/catalog/input.tsx",
+        "sha256": "1df872fa6942fe79c5b532af4587c51f67ca83342e7692731422b2e45b9d9527",
+        "currentMatches": true
+      },
+      {
+        "path": ".website/docs/site/catalog/preview.tsx",
+        "sha256": "c1aa9d25466043be8f6f1664f84213d8cc17bef03d3a651d0b9707e2459abce6",
+        "currentMatches": true
+      },
+      {
+        "path": ".website/docs/site/catalog/shapes.tsx",
+        "sha256": "fa37f5fade8fa5673c0e9db3e11dc809267df164fa48b99ab94536e28ca3797a",
+        "currentMatches": true
+      },
+      {
+        "path": ".website/docs/site/catalog/structure.tsx",
+        "sha256": "39c47b41ee6cb4ccf9b5e1564599f2bdd56caaef9ea61be90a3faed82009b614",
+        "currentMatches": true
+      },
+      {
+        "path": ".website/docs/site/componentCatalog.tsx",
+        "sha256": "0796b11c57fa7484c07602b82ee8a5a13648bb3a75af6f7ae6dcbe582e3cb116",
+        "currentMatches": true
+      },
+      {
+        "path": ".website/docs/site/componentDemoFrame.tsx",
+        "sha256": "c498110d55cd1b468d91aa5e8e8edc10f4c2d45638d5b485da27f9fe11862db6",
+        "currentMatches": true
+      },
+      {
+        "path": ".website/docs/site/componentDemos.tsx",
+        "sha256": "3d08e3e35637905157296f4689a0f6712827006e3bb42d7992845894b1e2a727",
+        "currentMatches": true
+      },
+      {
+        "path": ".website/docs/site/componentHeroPreview.tsx",
+        "sha256": "93eea60b494ce7890080413b32dc51f77ece26cfb650e4a7e5da7efd3a54fc61",
+        "currentMatches": true
+      },
+      {
+        "path": ".website/docs/site/designShowcase.tsx",
+        "sha256": "1e4a48c3a519f1a928ff44e84d43925a314c8658400d68f45385ff6fa0a0e86a",
+        "currentMatches": true
+      },
+      {
+        "path": ".website/docs/site/designStyles.ts",
+        "sha256": "0d9689db230a10864cc4913de5724e415029729138bd01814a6a76d902e640e0",
+        "currentMatches": true
+      },
+      {
+        "path": ".website/docs/site/documentNavigation.tsx",
+        "sha256": "bad69f069d61597c1352ce4b19d4d9d1b502e84dc28a50e6406ad7b439251e78",
+        "currentMatches": true
+      },
+      {
+        "path": ".website/docs/site/documentStyles.ts",
+        "sha256": "72a861e5ab187740fa56a057ad7a4f6c22d22f466fc20ca5a4c84b7e8f857be1",
+        "currentMatches": true
+      },
+      {
+        "path": ".website/docs/site/firstExample.tsx",
+        "sha256": "abc956cbc74aae5acc4b38c1e35baf34a624167497f1e511b5a5fe0916c830d4",
+        "currentMatches": true
+      },
+      {
+        "path": ".website/docs/site/homeComponentShowcase.tsx",
+        "sha256": "0cf2d2ae3a416f5d0e7aec66898098522470aa064c0fee14f91bd04f31b5af79",
+        "currentMatches": true
+      },
+      {
+        "path": ".website/docs/site/homeStyles.ts",
+        "sha256": "e4fca2e12eac84b3f156760a6afffdb48afc182a8cd237ce2df1cfda30544cdb",
+        "currentMatches": true
+      },
+      {
+        "path": ".website/docs/site/learningHome.tsx",
+        "sha256": "0b4fbc8c93b9df6bab0e0f61976113e3d0697cfc80ff51eddfe2b134d20704f9",
+        "currentMatches": true
+      },
+      {
+        "path": ".website/docs/site/libraryDependencies.tsx",
+        "sha256": "f704bab9862186b935d540d9dd6f65fe3f58265a28540f1488e690df1b96cfdc",
+        "currentMatches": true
+      },
+      {
+        "path": ".website/docs/site/lineEditPage.tsx",
+        "sha256": "0e88e6a6e7caa92f94471e068554282d2ca6ad8f5b6dbbfed8209d18fcd9ed4b",
+        "currentMatches": true
+      },
+      {
+        "path": ".website/docs/site/liveExample.tsx",
+        "sha256": "c0074e7463c8a09e10546b87b19ca83b58168514b13beb6d4fcdcd362dac0bc1",
+        "currentMatches": true
+      },
+      {
+        "path": ".website/docs/site/palette.ts",
+        "sha256": "c617ae5a99c9801a664c7004cd2c15ca93d7b38a70b0a7716bb7f48c68f076b1",
+        "currentMatches": true
+      },
+      {
+        "path": ".website/docs/site/paletteStyles.ts",
+        "sha256": "b49f072576f2c4a3265b4e8cb8d1ff4c73ba9689573f2950070115cd63256948",
+        "currentMatches": true
+      },
+      {
+        "path": ".website/docs/site/practiceGallery.tsx",
+        "sha256": "7a9167302d281fc48a464000a9dce63f5a2b522fbadafbb7bfe7402d570aaca0",
+        "currentMatches": true
+      },
+      {
+        "path": ".website/docs/site/radioPage.tsx",
+        "sha256": "d01e5eab5a1bbfe3c07acb0162b43776556aa39013b481d084f51c8bccd74193",
+        "currentMatches": true
+      },
+      {
+        "path": ".website/docs/site/site-appearance.visual.spec.mjs",
+        "sha256": "3e9e8582566886165d8d931702b798518facb2c61ebdf90779ebc9e460aea1ed",
+        "currentMatches": true
+      },
+      {
+        "path": ".website/docs/site/site-layout.visual.spec.mjs",
+        "sha256": "a2651d9baf00c45ef2ec58994a7b80d9fb078b0f8ba812ec97de8cdea0acf69b",
+        "currentMatches": true
+      },
+      {
+        "path": ".website/docs/site/site-navigation.visual.spec.mjs",
+        "sha256": "7722f339c4cfac6c1e12be3f71d0a38942c1a93868c16cd7faa253c4f9af8e35",
+        "currentMatches": true
+      },
+      {
+        "path": ".website/docs/site/site-visual-support.mjs",
+        "sha256": "04a1f25f4ad371e93f5812621fbed71307b0c3bf65580cfbd85e3cf7fd59838f",
+        "currentMatches": true
+      },
+      {
+        "path": ".website/docs/site/site-zoom.visual.spec.mjs",
+        "sha256": "93debdfa9e594b29ebbb0de4aa890f80e59509b36d6ed4abd06d338d033e3c03",
+        "currentMatches": true
+      },
+      {
+        "path": ".website/docs/site/siteContext.ts",
+        "sha256": "87f5a8baa2483911f1213ca24acd14abd6c7699464b181ddeee14f9d1b28f079",
+        "currentMatches": true
+      },
+      {
+        "path": ".website/docs/site/siteIcon.tsx",
+        "sha256": "9e289f84182c9f45396f692d7a048b32fbd751280c910ac6d6d42c5d7937e2f5",
+        "currentMatches": true
+      },
+      {
+        "path": ".website/docs/site/siteStyles.ts",
+        "sha256": "b108c43eb4b1537b3d97d91ff324ff7e54d797648386f5a08e0608e6f57c0430",
+        "currentMatches": true
+      },
+      {
+        "path": ".website/docs/site/sizeShowcase.tsx",
+        "sha256": "749eb12042c1fdde6b0bc8b4c26d34a3003d1c9bde259f20bbc046cbec0146f8",
+        "currentMatches": true
+      },
+      {
+        "path": ".website/docs/site/themeSwitch.tsx",
+        "sha256": "87e827eabf7c69642c64302cf4aa66be9d82021cc8686fd0f7b76185552a2374",
+        "currentMatches": true
+      },
+      {
+        "path": ".website/docs/site/tokenReference.tsx",
+        "sha256": "480fc70e68d4cf5356cf41730723334e866c9673478f6f7cdfb49d93b77dbf8e",
+        "currentMatches": true
+      },
+      {
+        "path": ".website/docs/site/tokenReferenceStyles.ts",
+        "sha256": "672cffce4fae52ff39c9d628173d7eea9a4d5a8eb4f4135fc755dd229c4a773b",
+        "currentMatches": true
+      },
+      {
+        "path": ".website/docs/site/tutorial.tsx",
+        "sha256": "1c57cdde7b201838b1d2506f044fc36261e0302218bffb008cc4a2a8b12ef1de",
+        "currentMatches": true
+      },
+      {
+        "path": ".website/docs/site/ui.tsx",
+        "sha256": "5ffc4e6442272375ca53c0ce8ef3d2b9879d94978e0b1466e6e240e09b98e398",
+        "currentMatches": true
+      },
+      {
+        "path": ".website/docs/site/ui/content.tsx",
+        "sha256": "f5eca13b907defbcb83a17772922c5c2efbe8784dbc201f229b901456fc380fb",
+        "currentMatches": true
+      },
+      {
+        "path": ".website/docs/site/ui/icons.tsx",
+        "sha256": "d59448c4d2a7b7a9fd351f66f6a2d27552ac1987fefd753524d56a55055bb19c",
+        "currentMatches": true
+      },
+      {
+        "path": ".website/docs/site/ui/navigation.tsx",
+        "sha256": "3dad65bf7264e34c19ca2a96178c437b23761c3fbe89f00ca0d847a4939a702b",
+        "currentMatches": true
+      },
+      {
+        "path": ".website/docs/site/ui/root.tsx",
+        "sha256": "fdbc6d401bf6a9825590188e23f743d78b696a8a292a5e42e00cca2daf3e28bc",
+        "currentMatches": true
+      },
+      {
+        "path": ".website/docs/site/ui/search-dialog.tsx",
+        "sha256": "c41eac35902c29090a57f13a76e829313f0983028b045a8ca5b00f523a3cee4f",
+        "currentMatches": true
+      },
+      {
+        "path": ".website/docs/site/workbenchPreview.d.ts",
+        "sha256": "94ed5e1ea7a6310fc17cb88090577c4df54454a088f3cb6b31129f714ce91de5",
+        "currentMatches": true
+      },
+      {
+        "path": ".website/docs/site/workbenchPreview.js",
+        "sha256": "e5ec25ea4229fc1bb8ef93d253ab22841f52bf26d6a36228a65a8264c6c7308b",
+        "currentMatches": true
+      }
+    ],
+    "previousBatch": {
+      "sourceBefore": "sha256:233a188b4f1fab60925de9affbd22c76e13aea0b303b23031bf57471086a3e65",
+      "sourceNow": "sha256:4873b5ae3ae75e1ba5f1bf8d8dcae4ec72e361865304e630f8e5673fb36c31c7",
+      "sourceChanged": [
+        {
+          "path": ".website/docs/guides/contributing.mdx",
+          "previousSHA256": "bcdd7b4b053ebb1851bbdf35f76a44f65b49aadb32beb546ca96e3bfcac3dc87",
+          "sha256": "981e38d6c703a46401ddea0386620b8a5304106f24edafa34c2a27217d2fdef7"
+        },
+        {
+          "path": ".website/docs/site/site-navigation.visual.spec.mjs",
+          "previousSHA256": "45f3d5b4bf8330af8b00b81e0c982cf068ae412207dc897cac7385cf2bcace00",
+          "sha256": "7722f339c4cfac6c1e12be3f71d0a38942c1a93868c16cd7faa253c4f9af8e35"
+        },
+        {
+          "path": "scripts/visual-contract.test.mjs",
+          "previousSHA256": "e891abdc1b58937c673a19dcd0e61e1966f32721b9ad9c2e7eefddf880e430f9",
+          "sha256": "57c098e402d1c5a905a362a42bad1f953f98cffdd63c41fdc3d70b7ec7854e3b"
+        },
+        {
+          "path": "scripts/visual/matrix-contract.mjs",
+          "previousSHA256": "1d49ee55618caf66123236577a44bda7a4770c53b67fa16d95172f19adb3006a",
+          "sha256": "5029c4eaa9dbb3d1a8c3e38b523bb2128ca682a90d8f8b957d0f444fdd3f3b03"
+        }
+      ],
+      "removed": [],
+      "artifactIdentical": true,
+      "siteBuildIdentical": true
+    },
+    "interpretation": "与失败-1产品资产/siteBuild逐文件记录完全相同。仅4项测试/工程/贡献说明源码变化。旧候选结果及图保留。"
+  },
+  "nativeExecution": {
+    "stats": {
+      "startTime": "2026-10-29T16:37:51.752Z",
+      "duration": 197274.779,
+      "expected": 36,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "errors": [],
+    "note": "36/36为整个站点本批原生结果；本人工评审只看46张实际MD3图，不据自动通过推断其余设计外观。"
+  },
+  "configurationAttribution": {
+    "tutorial": "初始MD3用例在教学页切回MD3与初始明暗后产生18图。",
+    "appearance": "初始shadcn用例经真实外观菜单切至MD3并翻转明暗后产生18图。",
+    "navigation": "初始MD3的6个导航用例产生10图，保持初始配置。",
+    "proof": "按index逐图renderedConfig及attachmentIndex、已捕获的通过断言/实际测试源对应，未按用例标题误判。"
+  },
+  "observedFindings": [
+    "全部46张原PNG实际查看，重复SHA也逐张登记。",
+    "6张搜索图的输入焦点环与首项选中面清晰。4张移动/平板抽屉图标题、关闭、导航与首页选中完整。",
+    "320px教学视口可见姓名、邮箱及摘要；768px/桌面教学图仅表单姓名上部，不能证明下半表单外观。",
+    "外观320px项目说明保留但项目名称在视口外；768px单行项目名称仅见英文片段，完整值与元素身份由原生断言独立证明；桌面可见完整名称。",
+    "外观Demo“未选择”是Checkbox固定文案，真实操作后勾选仍保留；此处不是动态输出off/on，不将固定标签当反馈错误。"
+  ],
+  "engineeringEvidence": {
+    "draftRetention": "原生真实填充/勾选后经菜单切换，断言完整值、checked与ElementHandle同一节点；教学姓名与output、同一节点断言通过。PNG只证明各自可见文字。",
+    "keyboard": "菜单Home/ArrowDown/End/Escape焦点、移动导航Escape回焦点、搜索ArrowDown/Up与aria-activedescendant/selected唯一、Enter跳转及正文焦点为原生通过；PNG实际仅捕获搜索输入焦点与首选项，未捕获所有键盘状态。",
+    "geometry": [
+      {
+        "caseId": "0e4135bc36f1ba174212-74c40d5ed0f201744e07/chromium/0",
+        "attachmentIndex": 4,
+        "nativeValueMatches": true,
+        "value": {
+          "client": 320,
+          "scroll": 305,
+          "viewport": 320,
+          "active": "<button aria-label=\"文档外观：Apple · 深色\" title=\"外观：Apple · 深色\" aria-haspopup=\"menu\" aria-expanded=\"false\" aria-busy=\"false\" aria-disabled=\"false\" class=\"rc-button-23b6d8dff9fb rc-button-54238a99f7f1 rc-button-a18299f45118 rc-button-e332475f25aa rc-button-fad1d1617c91 crab-docs-theme-trigger\"><span aria-hidden=\"true\" data-button-part=\"touch-target\" class=\"rc-button-aed1d83c792c\"></span><span aria-hidden=\"true\" class=\"rc-button-b64981ca54a3\"><svg class=\"crab-docs-tool-icon\" viewBox=\"0 0 20 20\" aria-hi"
+        }
+      },
+      {
+        "caseId": "0e4135bc36f1ba174212-c9dc72bfc883b1152402/chromium/0",
+        "attachmentIndex": 4,
+        "nativeValueMatches": true,
+        "value": {
+          "client": 768,
+          "scroll": 753,
+          "viewport": 768,
+          "active": "<button aria-label=\"文档外观：Apple · 深色\" title=\"外观：Apple · 深色\" aria-haspopup=\"menu\" aria-expanded=\"false\" aria-busy=\"false\" aria-disabled=\"false\" class=\"rc-button-23b6d8dff9fb rc-button-54238a99f7f1 rc-button-a18299f45118 rc-button-e332475f25aa rc-button-fad1d1617c91 crab-docs-theme-trigger\"><span aria-hidden=\"true\" data-button-part=\"touch-target\" class=\"rc-button-aed1d83c792c\"></span><span aria-hidden=\"true\" class=\"rc-button-b64981ca54a3\"><svg class=\"crab-docs-tool-icon\" viewBox=\"0 0 20 20\" aria-hi"
+        }
+      },
+      {
+        "caseId": "0e4135bc36f1ba174212-3a230b9eb11935bd37cc/chromium/0",
+        "attachmentIndex": 4,
+        "nativeValueMatches": true,
+        "value": {
+          "client": 1440,
+          "scroll": 1425,
+          "viewport": 1440,
+          "active": "<button aria-label=\"文档外观：Apple · 深色\" title=\"外观：Apple · 深色\" aria-haspopup=\"menu\" aria-expanded=\"false\" aria-busy=\"false\" aria-disabled=\"false\" class=\"rc-button-23b6d8dff9fb rc-button-54238a99f7f1 rc-button-a18299f45118 rc-button-e332475f25aa rc-button-fad1d1617c91 crab-docs-theme-trigger\"><span aria-hidden=\"true\" data-button-part=\"touch-target\" class=\"rc-button-aed1d83c792c\"></span><span aria-hidden=\"true\" class=\"rc-button-b64981ca54a3\"><svg class=\"crab-docs-tool-icon\" viewBox=\"0 0 20 20\" aria-hi"
+        }
+      },
+      {
+        "caseId": "0e4135bc36f1ba174212-d936a135d446310e8c5c/chromium/0",
+        "attachmentIndex": 4,
+        "nativeValueMatches": true,
+        "value": {
+          "client": 320,
+          "scroll": 305,
+          "viewport": 320,
+          "active": "<button aria-label=\"文档外观：Apple · 浅色\" title=\"外观：Apple · 浅色\" aria-haspopup=\"menu\" aria-expanded=\"false\" aria-busy=\"false\" aria-disabled=\"false\" class=\"rc-button-23b6d8dff9fb rc-button-54238a99f7f1 rc-button-a18299f45118 rc-button-e332475f25aa rc-button-fad1d1617c91 crab-docs-theme-trigger\"><span aria-hidden=\"true\" data-button-part=\"touch-target\" class=\"rc-button-aed1d83c792c\"></span><span aria-hidden=\"true\" class=\"rc-button-b64981ca54a3\"><svg class=\"crab-docs-tool-icon\" viewBox=\"0 0 20 20\" aria-hi"
+        }
+      },
+      {
+        "caseId": "0e4135bc36f1ba174212-4517299116a60c3ac300/chromium/0",
+        "attachmentIndex": 4,
+        "nativeValueMatches": true,
+        "value": {
+          "client": 768,
+          "scroll": 753,
+          "viewport": 768,
+          "active": "<button aria-label=\"文档外观：Apple · 浅色\" title=\"外观：Apple · 浅色\" aria-haspopup=\"menu\" aria-expanded=\"false\" aria-busy=\"false\" aria-disabled=\"false\" class=\"rc-button-23b6d8dff9fb rc-button-54238a99f7f1 rc-button-a18299f45118 rc-button-e332475f25aa rc-button-fad1d1617c91 crab-docs-theme-trigger\"><span aria-hidden=\"true\" data-button-part=\"touch-target\" class=\"rc-button-aed1d83c792c\"></span><span aria-hidden=\"true\" class=\"rc-button-b64981ca54a3\"><svg class=\"crab-docs-tool-icon\" viewBox=\"0 0 20 20\" aria-hi"
+        }
+      },
+      {
+        "caseId": "0e4135bc36f1ba174212-920fec8248d896082552/chromium/0",
+        "attachmentIndex": 4,
+        "nativeValueMatches": true,
+        "value": {
+          "client": 1440,
+          "scroll": 1425,
+          "viewport": 1440,
+          "active": "<button aria-label=\"文档外观：Apple · 浅色\" title=\"外观：Apple · 浅色\" aria-haspopup=\"menu\" aria-expanded=\"false\" aria-busy=\"false\" aria-disabled=\"false\" class=\"rc-button-23b6d8dff9fb rc-button-54238a99f7f1 rc-button-a18299f45118 rc-button-e332475f25aa rc-button-fad1d1617c91 crab-docs-theme-trigger\"><span aria-hidden=\"true\" data-button-part=\"touch-target\" class=\"rc-button-aed1d83c792c\"></span><span aria-hidden=\"true\" class=\"rc-button-b64981ca54a3\"><svg class=\"crab-docs-tool-icon\" viewBox=\"0 0 20 20\" aria-hi"
+        }
+      },
+      {
+        "caseId": "0e4135bc36f1ba174212-4038d8a45668fba310e4/chromium/0",
+        "attachmentIndex": 4,
+        "nativeValueMatches": true,
+        "value": {
+          "client": 320,
+          "scroll": 305,
+          "viewport": 320,
+          "active": "<button aria-label=\"文档外观：MD3 Expressive · 深色\" title=\"外观：MD3 Expressive · 深色\" aria-haspopup=\"menu\" aria-expanded=\"false\" aria-busy=\"false\" aria-disabled=\"false\" class=\"rc-button-23b6d8dff9fb rc-button-54238a99f7f1 rc-button-a18299f45118 rc-button-e332475f25aa rc-button-fad1d1617c91 crab-docs-theme-trigger\"><span aria-hidden=\"true\" data-button-part=\"touch-target\" class=\"rc-button-aed1d83c792c\"></span><span aria-hidden=\"true\" class=\"rc-button-b64981ca54a3\"><svg class=\"crab-docs-tool-icon\" viewBox=\""
+        }
+      },
+      {
+        "caseId": "0e4135bc36f1ba174212-479efa30ca063fc21ab6/chromium/0",
+        "attachmentIndex": 4,
+        "nativeValueMatches": true,
+        "value": {
+          "client": 768,
+          "scroll": 753,
+          "viewport": 768,
+          "active": "<button aria-label=\"文档外观：MD3 Expressive · 深色\" title=\"外观：MD3 Expressive · 深色\" aria-haspopup=\"menu\" aria-expanded=\"false\" aria-busy=\"false\" aria-disabled=\"false\" class=\"rc-button-23b6d8dff9fb rc-button-54238a99f7f1 rc-button-a18299f45118 rc-button-e332475f25aa rc-button-fad1d1617c91 crab-docs-theme-trigger\"><span aria-hidden=\"true\" data-button-part=\"touch-target\" class=\"rc-button-aed1d83c792c\"></span><span aria-hidden=\"true\" class=\"rc-button-b64981ca54a3\"><svg class=\"crab-docs-tool-icon\" viewBox=\""
+        }
+      },
+      {
+        "caseId": "0e4135bc36f1ba174212-4c56f6639c0848cf937a/chromium/0",
+        "attachmentIndex": 4,
+        "nativeValueMatches": true,
+        "value": {
+          "client": 1440,
+          "scroll": 1425,
+          "viewport": 1440,
+          "active": "<button aria-label=\"文档外观：MD3 Expressive · 深色\" title=\"外观：MD3 Expressive · 深色\" aria-haspopup=\"menu\" aria-expanded=\"false\" aria-busy=\"false\" aria-disabled=\"false\" class=\"rc-button-23b6d8dff9fb rc-button-54238a99f7f1 rc-button-a18299f45118 rc-button-e332475f25aa rc-button-fad1d1617c91 crab-docs-theme-trigger\"><span aria-hidden=\"true\" data-button-part=\"touch-target\" class=\"rc-button-aed1d83c792c\"></span><span aria-hidden=\"true\" class=\"rc-button-b64981ca54a3\"><svg class=\"crab-docs-tool-icon\" viewBox=\""
+        }
+      },
+      {
+        "caseId": "0e4135bc36f1ba174212-1d6cff7dfe37e725982b/chromium/0",
+        "attachmentIndex": 4,
+        "nativeValueMatches": true,
+        "value": {
+          "client": 320,
+          "scroll": 305,
+          "viewport": 320,
+          "active": "<button aria-label=\"文档外观：MD3 Expressive · 浅色\" title=\"外观：MD3 Expressive · 浅色\" aria-haspopup=\"menu\" aria-expanded=\"false\" aria-busy=\"false\" aria-disabled=\"false\" class=\"rc-button-23b6d8dff9fb rc-button-54238a99f7f1 rc-button-a18299f45118 rc-button-e332475f25aa rc-button-fad1d1617c91 crab-docs-theme-trigger\"><span aria-hidden=\"true\" data-button-part=\"touch-target\" class=\"rc-button-aed1d83c792c\"></span><span aria-hidden=\"true\" class=\"rc-button-b64981ca54a3\"><svg class=\"crab-docs-tool-icon\" viewBox=\""
+        }
+      },
+      {
+        "caseId": "0e4135bc36f1ba174212-75c4f1e9946303a5f8c8/chromium/0",
+        "attachmentIndex": 4,
+        "nativeValueMatches": true,
+        "value": {
+          "client": 768,
+          "scroll": 753,
+          "viewport": 768,
+          "active": "<button aria-label=\"文档外观：MD3 Expressive · 浅色\" title=\"外观：MD3 Expressive · 浅色\" aria-haspopup=\"menu\" aria-expanded=\"false\" aria-busy=\"false\" aria-disabled=\"false\" class=\"rc-button-23b6d8dff9fb rc-button-54238a99f7f1 rc-button-a18299f45118 rc-button-e332475f25aa rc-button-fad1d1617c91 crab-docs-theme-trigger\"><span aria-hidden=\"true\" data-button-part=\"touch-target\" class=\"rc-button-aed1d83c792c\"></span><span aria-hidden=\"true\" class=\"rc-button-b64981ca54a3\"><svg class=\"crab-docs-tool-icon\" viewBox=\""
+        }
+      },
+      {
+        "caseId": "0e4135bc36f1ba174212-050b8614ff43f7861293/chromium/0",
+        "attachmentIndex": 4,
+        "nativeValueMatches": true,
+        "value": {
+          "client": 1440,
+          "scroll": 1425,
+          "viewport": 1440,
+          "active": "<button aria-label=\"文档外观：MD3 Expressive · 浅色\" title=\"外观：MD3 Expressive · 浅色\" aria-haspopup=\"menu\" aria-expanded=\"false\" aria-busy=\"false\" aria-disabled=\"false\" class=\"rc-button-23b6d8dff9fb rc-button-54238a99f7f1 rc-button-a18299f45118 rc-button-e332475f25aa rc-button-fad1d1617c91 crab-docs-theme-trigger\"><span aria-hidden=\"true\" data-button-part=\"touch-target\" class=\"rc-button-aed1d83c792c\"></span><span aria-hidden=\"true\" class=\"rc-button-b64981ca54a3\"><svg class=\"crab-docs-tool-icon\" viewBox=\""
+        }
+      },
+      {
+        "caseId": "23c228f2ffdd18452a42-bdcee98e3242c282b8c6/chromium/0",
+        "attachmentIndex": 4,
+        "nativeValueMatches": true,
+        "value": {
+          "client": 320,
+          "scroll": 305,
+          "viewport": 320,
+          "active": "<h1 tabindex=\"-1\">LineEdit 单行输入框</h1>"
+        }
+      },
+      {
+        "caseId": "23c228f2ffdd18452a42-9743d364bbe6073fe848/chromium/0",
+        "attachmentIndex": 4,
+        "nativeValueMatches": true,
+        "value": {
+          "client": 768,
+          "scroll": 753,
+          "viewport": 768,
+          "active": "<h1 tabindex=\"-1\">LineEdit 单行输入框</h1>"
+        }
+      },
+      {
+        "caseId": "23c228f2ffdd18452a42-bfc084d45e2aa8a8c967/chromium/0",
+        "attachmentIndex": 2,
+        "nativeValueMatches": true,
+        "value": {
+          "client": 1440,
+          "scroll": 1425,
+          "viewport": 1440,
+          "active": "<h1 tabindex=\"-1\">LineEdit 单行输入框</h1>"
+        }
+      },
+      {
+        "caseId": "23c228f2ffdd18452a42-795ba078db65c7cb5c06/chromium/0",
+        "attachmentIndex": 4,
+        "nativeValueMatches": true,
+        "value": {
+          "client": 320,
+          "scroll": 305,
+          "viewport": 320,
+          "active": "<h1 tabindex=\"-1\">LineEdit 单行输入框</h1>"
+        }
+      },
+      {
+        "caseId": "23c228f2ffdd18452a42-63a3720560805934df18/chromium/0",
+        "attachmentIndex": 4,
+        "nativeValueMatches": true,
+        "value": {
+          "client": 768,
+          "scroll": 753,
+          "viewport": 768,
+          "active": "<h1 tabindex=\"-1\">LineEdit 单行输入框</h1>"
+        }
+      },
+      {
+        "caseId": "23c228f2ffdd18452a42-aede4d30eb5f7edc30a2/chromium/0",
+        "attachmentIndex": 2,
+        "nativeValueMatches": true,
+        "value": {
+          "client": 1440,
+          "scroll": 1425,
+          "viewport": 1440,
+          "active": "<h1 tabindex=\"-1\">LineEdit 单行输入框</h1>"
+        }
+      }
+    ],
+    "geometryPhaseCaution": "appearance用例site-geometry在appearance-live之后、tutorial-live之前；初始MD3用例该附件属于Apple阶段，不能当MD3教学页几何。navigation几何在Enter导航后，不是搜索截图时的activeElement。"
+  },
+  "naturalSeries": [
+    {
+      "caseId": "0e4135bc36f1ba174212-74c40d5ed0f201744e07/chromium/0",
+      "phase": "tutorial-live",
+      "renderedConfig": {
+        "designSystem": "md3",
+        "colorMode": "light",
+        "viewport": "narrow"
+      },
+      "attachmentIndex": 8,
+      "nativeValueMatches": true,
+      "samples": [
+        [],
+        [],
+        []
+      ],
+      "runningFirst": 0,
+      "naturalTimeAdvances": null,
+      "uniquePNGHashes": 1,
+      "interpretation": "样本均为空，三张同SHA；没有持续动画，未声称推进。",
+      "staticGolden": false
+    },
+    {
+      "caseId": "0e4135bc36f1ba174212-c9dc72bfc883b1152402/chromium/0",
+      "phase": "tutorial-live",
+      "renderedConfig": {
+        "designSystem": "md3",
+        "colorMode": "light",
+        "viewport": "tablet"
+      },
+      "attachmentIndex": 8,
+      "nativeValueMatches": true,
+      "samples": [
+        [],
+        [],
+        []
+      ],
+      "runningFirst": 0,
+      "naturalTimeAdvances": null,
+      "uniquePNGHashes": 1,
+      "interpretation": "样本均为空，三张同SHA；没有持续动画，未声称推进。",
+      "staticGolden": false
+    },
+    {
+      "caseId": "0e4135bc36f1ba174212-3a230b9eb11935bd37cc/chromium/0",
+      "phase": "tutorial-live",
+      "renderedConfig": {
+        "designSystem": "md3",
+        "colorMode": "light",
+        "viewport": "desktop"
+      },
+      "attachmentIndex": 8,
+      "nativeValueMatches": true,
+      "samples": [
+        [],
+        [],
+        []
+      ],
+      "runningFirst": 0,
+      "naturalTimeAdvances": null,
+      "uniquePNGHashes": 1,
+      "interpretation": "样本均为空，三张同SHA；没有持续动画，未声称推进。",
+      "staticGolden": false
+    },
+    {
+      "caseId": "0e4135bc36f1ba174212-d936a135d446310e8c5c/chromium/0",
+      "phase": "tutorial-live",
+      "renderedConfig": {
+        "designSystem": "md3",
+        "colorMode": "dark",
+        "viewport": "narrow"
+      },
+      "attachmentIndex": 8,
+      "nativeValueMatches": true,
+      "samples": [
+        [],
+        [],
+        []
+      ],
+      "runningFirst": 0,
+      "naturalTimeAdvances": null,
+      "uniquePNGHashes": 1,
+      "interpretation": "样本均为空，三张同SHA；没有持续动画，未声称推进。",
+      "staticGolden": false
+    },
+    {
+      "caseId": "0e4135bc36f1ba174212-4517299116a60c3ac300/chromium/0",
+      "phase": "tutorial-live",
+      "renderedConfig": {
+        "designSystem": "md3",
+        "colorMode": "dark",
+        "viewport": "tablet"
+      },
+      "attachmentIndex": 8,
+      "nativeValueMatches": true,
+      "samples": [
+        [],
+        [],
+        []
+      ],
+      "runningFirst": 0,
+      "naturalTimeAdvances": null,
+      "uniquePNGHashes": 1,
+      "interpretation": "样本均为空，三张同SHA；没有持续动画，未声称推进。",
+      "staticGolden": false
+    },
+    {
+      "caseId": "0e4135bc36f1ba174212-920fec8248d896082552/chromium/0",
+      "phase": "tutorial-live",
+      "renderedConfig": {
+        "designSystem": "md3",
+        "colorMode": "dark",
+        "viewport": "desktop"
+      },
+      "attachmentIndex": 8,
+      "nativeValueMatches": true,
+      "samples": [
+        [],
+        [],
+        []
+      ],
+      "runningFirst": 0,
+      "naturalTimeAdvances": null,
+      "uniquePNGHashes": 1,
+      "interpretation": "样本均为空，三张同SHA；没有持续动画，未声称推进。",
+      "staticGolden": false
+    },
+    {
+      "caseId": "0e4135bc36f1ba174212-4038d8a45668fba310e4/chromium/0",
+      "phase": "appearance-live",
+      "renderedConfig": {
+        "designSystem": "md3",
+        "colorMode": "dark",
+        "viewport": "narrow"
+      },
+      "attachmentIndex": 3,
+      "nativeValueMatches": true,
+      "samples": [
+        [
+          {
+            "name": "rc-spin-rotate-rc-spin-2ba3ea2364ff",
+            "time": 2733.512999993097,
+            "state": "running"
+          },
+          {
+            "name": "rc-spin-rotate-rc-spin-2ba3ea2364ff",
+            "time": 2733.512999993097,
+            "state": "running"
+          }
+        ],
+        [
+          {
+            "name": "rc-spin-rotate-rc-spin-2ba3ea2364ff",
+            "time": 3000.212999993097,
+            "state": "running"
+          },
+          {
+            "name": "rc-spin-rotate-rc-spin-2ba3ea2364ff",
+            "time": 3000.212999993097,
+            "state": "running"
+          }
+        ],
+        [
+          {
+            "name": "rc-spin-rotate-rc-spin-2ba3ea2364ff",
+            "time": 3266.870999993097,
+            "state": "running"
+          },
+          {
+            "name": "rc-spin-rotate-rc-spin-2ba3ea2364ff",
+            "time": 3266.870999993097,
+            "state": "running"
+          }
+        ]
+      ],
+      "runningFirst": 2,
+      "naturalTimeAdvances": true,
+      "uniquePNGHashes": 1,
+      "interpretation": "两条持续动画在记录中running且currentTime自然递增；旋转控件位于截图视口外，三张同像不证明可见运动。",
+      "staticGolden": false
+    },
+    {
+      "caseId": "0e4135bc36f1ba174212-479efa30ca063fc21ab6/chromium/0",
+      "phase": "appearance-live",
+      "renderedConfig": {
+        "designSystem": "md3",
+        "colorMode": "dark",
+        "viewport": "tablet"
+      },
+      "attachmentIndex": 3,
+      "nativeValueMatches": true,
+      "samples": [
+        [
+          {
+            "name": "rc-spin-rotate-rc-spin-2ba3ea2364ff",
+            "time": 2816.784999970626,
+            "state": "running"
+          },
+          {
+            "name": "rc-spin-rotate-rc-spin-2ba3ea2364ff",
+            "time": 2816.784999970626,
+            "state": "running"
+          }
+        ],
+        [
+          {
+            "name": "rc-spin-rotate-rc-spin-2ba3ea2364ff",
+            "time": 3083.448999970626,
+            "state": "running"
+          },
+          {
+            "name": "rc-spin-rotate-rc-spin-2ba3ea2364ff",
+            "time": 3083.448999970626,
+            "state": "running"
+          }
+        ],
+        [
+          {
+            "name": "rc-spin-rotate-rc-spin-2ba3ea2364ff",
+            "time": 3350.446999970626,
+            "state": "running"
+          },
+          {
+            "name": "rc-spin-rotate-rc-spin-2ba3ea2364ff",
+            "time": 3350.446999970626,
+            "state": "running"
+          }
+        ]
+      ],
+      "runningFirst": 2,
+      "naturalTimeAdvances": true,
+      "uniquePNGHashes": 3,
+      "interpretation": "running/currentTime自然递增，三张可见处理弧相位变化，布局稳定。",
+      "staticGolden": false
+    },
+    {
+      "caseId": "0e4135bc36f1ba174212-4c56f6639c0848cf937a/chromium/0",
+      "phase": "appearance-live",
+      "renderedConfig": {
+        "designSystem": "md3",
+        "colorMode": "dark",
+        "viewport": "desktop"
+      },
+      "attachmentIndex": 3,
+      "nativeValueMatches": true,
+      "samples": [
+        [
+          {
+            "name": "rc-spin-rotate-rc-spin-2ba3ea2364ff",
+            "time": 2800.015000003282,
+            "state": "running"
+          },
+          {
+            "name": "rc-spin-rotate-rc-spin-2ba3ea2364ff",
+            "time": 2800.015000003282,
+            "state": "running"
+          }
+        ],
+        [
+          {
+            "name": "rc-spin-rotate-rc-spin-2ba3ea2364ff",
+            "time": 3083.5050000032816,
+            "state": "running"
+          },
+          {
+            "name": "rc-spin-rotate-rc-spin-2ba3ea2364ff",
+            "time": 3083.5050000032816,
+            "state": "running"
+          }
+        ],
+        [
+          {
+            "name": "rc-spin-rotate-rc-spin-2ba3ea2364ff",
+            "time": 3366.8270000032817,
+            "state": "running"
+          },
+          {
+            "name": "rc-spin-rotate-rc-spin-2ba3ea2364ff",
+            "time": 3366.8270000032817,
+            "state": "running"
+          }
+        ]
+      ],
+      "runningFirst": 2,
+      "naturalTimeAdvances": true,
+      "uniquePNGHashes": 3,
+      "interpretation": "running/currentTime自然递增，截图顶部仅露出部分旋转弧；可见相位变化，不等于完整控件运动外观验收。",
+      "staticGolden": false
+    },
+    {
+      "caseId": "0e4135bc36f1ba174212-1d6cff7dfe37e725982b/chromium/0",
+      "phase": "appearance-live",
+      "renderedConfig": {
+        "designSystem": "md3",
+        "colorMode": "light",
+        "viewport": "narrow"
+      },
+      "attachmentIndex": 3,
+      "nativeValueMatches": true,
+      "samples": [
+        [
+          {
+            "name": "rc-spin-rotate-rc-spin-2ba3ea2364ff",
+            "time": 3300.0360000334676,
+            "state": "running"
+          },
+          {
+            "name": "rc-spin-rotate-rc-spin-2ba3ea2364ff",
+            "time": 3300.0360000334676,
+            "state": "running"
+          }
+        ],
+        [
+          {
+            "name": "rc-spin-rotate-rc-spin-2ba3ea2364ff",
+            "time": 3566.736000033468,
+            "state": "running"
+          },
+          {
+            "name": "rc-spin-rotate-rc-spin-2ba3ea2364ff",
+            "time": 3566.736000033468,
+            "state": "running"
+          }
+        ],
+        [
+          {
+            "name": "rc-spin-rotate-rc-spin-2ba3ea2364ff",
+            "time": 3800.1940000334675,
+            "state": "running"
+          },
+          {
+            "name": "rc-spin-rotate-rc-spin-2ba3ea2364ff",
+            "time": 3800.1940000334675,
+            "state": "running"
+          }
+        ]
+      ],
+      "runningFirst": 2,
+      "naturalTimeAdvances": true,
+      "uniquePNGHashes": 1,
+      "interpretation": "两条持续动画在记录中running且currentTime自然递增；旋转控件位于截图视口外，三张同像不证明可见运动。",
+      "staticGolden": false
+    },
+    {
+      "caseId": "0e4135bc36f1ba174212-75c4f1e9946303a5f8c8/chromium/0",
+      "phase": "appearance-live",
+      "renderedConfig": {
+        "designSystem": "md3",
+        "colorMode": "light",
+        "viewport": "tablet"
+      },
+      "attachmentIndex": 3,
+      "nativeValueMatches": true,
+      "samples": [
+        [
+          {
+            "name": "rc-spin-rotate-rc-spin-2ba3ea2364ff",
+            "time": 2849.9409999890104,
+            "state": "running"
+          },
+          {
+            "name": "rc-spin-rotate-rc-spin-2ba3ea2364ff",
+            "time": 2849.9409999890104,
+            "state": "running"
+          }
+        ],
+        [
+          {
+            "name": "rc-spin-rotate-rc-spin-2ba3ea2364ff",
+            "time": 3116.6749999890103,
+            "state": "running"
+          },
+          {
+            "name": "rc-spin-rotate-rc-spin-2ba3ea2364ff",
+            "time": 3116.6749999890103,
+            "state": "running"
+          }
+        ],
+        [
+          {
+            "name": "rc-spin-rotate-rc-spin-2ba3ea2364ff",
+            "time": 3399.9969999890104,
+            "state": "running"
+          },
+          {
+            "name": "rc-spin-rotate-rc-spin-2ba3ea2364ff",
+            "time": 3399.9969999890104,
+            "state": "running"
+          }
+        ]
+      ],
+      "runningFirst": 2,
+      "naturalTimeAdvances": true,
+      "uniquePNGHashes": 3,
+      "interpretation": "running/currentTime自然递增，三张可见处理弧相位变化，布局稳定。",
+      "staticGolden": false
+    },
+    {
+      "caseId": "0e4135bc36f1ba174212-050b8614ff43f7861293/chromium/0",
+      "phase": "appearance-live",
+      "renderedConfig": {
+        "designSystem": "md3",
+        "colorMode": "light",
+        "viewport": "desktop"
+      },
+      "attachmentIndex": 3,
+      "nativeValueMatches": true,
+      "samples": [
+        [
+          {
+            "name": "rc-spin-rotate-rc-spin-2ba3ea2364ff",
+            "time": 3250.09500003111,
+            "state": "running"
+          },
+          {
+            "name": "rc-spin-rotate-rc-spin-2ba3ea2364ff",
+            "time": 3250.09500003111,
+            "state": "running"
+          }
+        ],
+        [
+          {
+            "name": "rc-spin-rotate-rc-spin-2ba3ea2364ff",
+            "time": 3550.15100003111,
+            "state": "running"
+          },
+          {
+            "name": "rc-spin-rotate-rc-spin-2ba3ea2364ff",
+            "time": 3550.15100003111,
+            "state": "running"
+          }
+        ],
+        [
+          {
+            "name": "rc-spin-rotate-rc-spin-2ba3ea2364ff",
+            "time": 3816.8230000311096,
+            "state": "running"
+          },
+          {
+            "name": "rc-spin-rotate-rc-spin-2ba3ea2364ff",
+            "time": 3816.8230000311096,
+            "state": "running"
+          }
+        ]
+      ],
+      "runningFirst": 2,
+      "naturalTimeAdvances": true,
+      "uniquePNGHashes": 3,
+      "interpretation": "running/currentTime自然递增，截图顶部仅露出部分旋转弧；可见相位变化，不等于完整控件运动外观验收。",
+      "staticGolden": false
+    }
+  ],
+  "videoReview": {
+    "fullVideosWatched": 0,
+    "originalVideoBindings": [
+      {
+        "caseId": "0e4135bc36f1ba174212-74c40d5ed0f201744e07/chromium/0",
+        "initialConfig": {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "viewport": "narrow",
+          "state": "appearance-draft-retention"
+        },
+        "path": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\site-focus-appearance-windows-20261030-2\\results\\.website-docs-site-site-ap-840cc-ves-drafts-md3-light-narrow-chromium\\video.webm",
+        "sha256": "deb6c46fa9b2c72682d808088a7cf09f48c2df833265c8e059960d30c5a24767",
+        "bytes": 571367,
+        "initialMD3": true,
+        "wholeVideoDesign": "mixed phases; do not assign whole video to initial or MD3"
+      },
+      {
+        "caseId": "0e4135bc36f1ba174212-c9dc72bfc883b1152402/chromium/0",
+        "initialConfig": {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "viewport": "tablet",
+          "state": "appearance-draft-retention"
+        },
+        "path": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\site-focus-appearance-windows-20261030-2\\results\\.website-docs-site-site-ap-d02b1-ves-drafts-md3-light-tablet-chromium\\video.webm",
+        "sha256": "ab8a5874355e3948f5d4ff5c94fa5f21b677d9ace7ef9c35ca7ccff89fdb6cc3",
+        "bytes": 643522,
+        "initialMD3": true,
+        "wholeVideoDesign": "mixed phases; do not assign whole video to initial or MD3"
+      },
+      {
+        "caseId": "0e4135bc36f1ba174212-3a230b9eb11935bd37cc/chromium/0",
+        "initialConfig": {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "viewport": "desktop",
+          "state": "appearance-draft-retention"
+        },
+        "path": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\site-focus-appearance-windows-20261030-2\\results\\.website-docs-site-site-ap-2c327-es-drafts-md3-light-desktop-chromium\\video.webm",
+        "sha256": "1bc0d1118b2f1c93becff8b6b812406d958e421c9238cdbfa1c09895c60debe4",
+        "bytes": 839296,
+        "initialMD3": true,
+        "wholeVideoDesign": "mixed phases; do not assign whole video to initial or MD3"
+      },
+      {
+        "caseId": "0e4135bc36f1ba174212-d936a135d446310e8c5c/chromium/0",
+        "initialConfig": {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "viewport": "narrow",
+          "state": "appearance-draft-retention"
+        },
+        "path": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\site-focus-appearance-windows-20261030-2\\results\\.website-docs-site-site-ap-afa7b-rves-drafts-md3-dark-narrow-chromium\\video.webm",
+        "sha256": "895010f9526ad2d205ec2162bc610a028b4993eefa11218c5fc01ff8c1dea25b",
+        "bytes": 550702,
+        "initialMD3": true,
+        "wholeVideoDesign": "mixed phases; do not assign whole video to initial or MD3"
+      },
+      {
+        "caseId": "0e4135bc36f1ba174212-4517299116a60c3ac300/chromium/0",
+        "initialConfig": {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "viewport": "tablet",
+          "state": "appearance-draft-retention"
+        },
+        "path": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\site-focus-appearance-windows-20261030-2\\results\\.website-docs-site-site-ap-c76e4-rves-drafts-md3-dark-tablet-chromium\\video.webm",
+        "sha256": "56c2e742b2e7591694cfc925bf414446f57e6cfa5ea0fbc80a91ba9b3a13858b",
+        "bytes": 582757,
+        "initialMD3": true,
+        "wholeVideoDesign": "mixed phases; do not assign whole video to initial or MD3"
+      },
+      {
+        "caseId": "0e4135bc36f1ba174212-920fec8248d896082552/chromium/0",
+        "initialConfig": {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "viewport": "desktop",
+          "state": "appearance-draft-retention"
+        },
+        "path": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\site-focus-appearance-windows-20261030-2\\results\\.website-docs-site-site-ap-0867e-ves-drafts-md3-dark-desktop-chromium\\video.webm",
+        "sha256": "d9ba80a01072a3123ad37aacf247275010b2dcf2d9e509edca6a0b7945d79ad5",
+        "bytes": 913960,
+        "initialMD3": true,
+        "wholeVideoDesign": "mixed phases; do not assign whole video to initial or MD3"
+      },
+      {
+        "caseId": "0e4135bc36f1ba174212-4038d8a45668fba310e4/chromium/0",
+        "initialConfig": {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "viewport": "narrow",
+          "state": "appearance-draft-retention"
+        },
+        "path": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\site-focus-appearance-windows-20261030-2\\results\\.website-docs-site-site-ap-d2c08--drafts-shadcn-light-narrow-chromium\\video.webm",
+        "sha256": "9e7003f95fdbf6c6761b07df30f14641b7c0505abb376dad520c8f0050f7e91f",
+        "bytes": 498749,
+        "initialMD3": false,
+        "wholeVideoDesign": "mixed phases; do not assign whole video to initial or MD3"
+      },
+      {
+        "caseId": "0e4135bc36f1ba174212-479efa30ca063fc21ab6/chromium/0",
+        "initialConfig": {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "viewport": "tablet",
+          "state": "appearance-draft-retention"
+        },
+        "path": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\site-focus-appearance-windows-20261030-2\\results\\.website-docs-site-site-ap-547fe--drafts-shadcn-light-tablet-chromium\\video.webm",
+        "sha256": "7164c3d3a23eff055796e77a1177b55911b84089e10907ebdedcb2e8b6fbf717",
+        "bytes": 571937,
+        "initialMD3": false,
+        "wholeVideoDesign": "mixed phases; do not assign whole video to initial or MD3"
+      },
+      {
+        "caseId": "0e4135bc36f1ba174212-4c56f6639c0848cf937a/chromium/0",
+        "initialConfig": {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "viewport": "desktop",
+          "state": "appearance-draft-retention"
+        },
+        "path": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\site-focus-appearance-windows-20261030-2\\results\\.website-docs-site-site-ap-5d687-drafts-shadcn-light-desktop-chromium\\video.webm",
+        "sha256": "dfc074bc07741363cb93fc089cdf4fb13ea75696b8dee2c509e7aa5632a8804e",
+        "bytes": 882894,
+        "initialMD3": false,
+        "wholeVideoDesign": "mixed phases; do not assign whole video to initial or MD3"
+      },
+      {
+        "caseId": "0e4135bc36f1ba174212-1d6cff7dfe37e725982b/chromium/0",
+        "initialConfig": {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "viewport": "narrow",
+          "state": "appearance-draft-retention"
+        },
+        "path": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\site-focus-appearance-windows-20261030-2\\results\\.website-docs-site-site-ap-d5fdf-s-drafts-shadcn-dark-narrow-chromium\\video.webm",
+        "sha256": "fbb8ad7703aeee1b3ceb4a8a7493bffacd26bc5ab18299ebf53e2a2c2fbdaac3",
+        "bytes": 499496,
+        "initialMD3": false,
+        "wholeVideoDesign": "mixed phases; do not assign whole video to initial or MD3"
+      },
+      {
+        "caseId": "0e4135bc36f1ba174212-75c4f1e9946303a5f8c8/chromium/0",
+        "initialConfig": {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "viewport": "tablet",
+          "state": "appearance-draft-retention"
+        },
+        "path": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\site-focus-appearance-windows-20261030-2\\results\\.website-docs-site-site-ap-b22b7-s-drafts-shadcn-dark-tablet-chromium\\video.webm",
+        "sha256": "0e7cbb92a95ac1bb905d79a60c91b0b9d105841a5208326524d290c6585b8f29",
+        "bytes": 509601,
+        "initialMD3": false,
+        "wholeVideoDesign": "mixed phases; do not assign whole video to initial or MD3"
+      },
+      {
+        "caseId": "0e4135bc36f1ba174212-050b8614ff43f7861293/chromium/0",
+        "initialConfig": {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "viewport": "desktop",
+          "state": "appearance-draft-retention"
+        },
+        "path": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\site-focus-appearance-windows-20261030-2\\results\\.website-docs-site-site-ap-93fb1--drafts-shadcn-dark-desktop-chromium\\video.webm",
+        "sha256": "4e9068f0450e6218e9e061175971fbcaddf2f0f235a5ba64eca7488884778878",
+        "bytes": 804770,
+        "initialMD3": false,
+        "wholeVideoDesign": "mixed phases; do not assign whole video to initial or MD3"
+      }
+    ],
+    "originalVideosBound": 12,
+    "specifiedEndFramesActuallyViewed": 6,
+    "decoder": "C:/Users/zhang/AppData/Local/ms-playwright/ffmpeg-1013/ffmpeg-win64.exe",
+    "decoderSHA256": "7ccd7bbff94976033f130c802c5aa40801f640d0e7dfb7de12984e88133f329b",
+    "selection": "仅6条initial-MD3既有视频的EOF前0.08秒解码首帧。每段视频跨设计，未将整段归为MD3。",
+    "frames": [
+      {
+        "caseId": "0e4135bc36f1ba174212-74c40d5ed0f201744e07/chromium/0",
+        "initialConfig": {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "viewport": "narrow",
+          "state": "appearance-draft-retention"
+        },
+        "path": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\site-focus-appearance-windows-20261030-2\\results\\.website-docs-site-site-ap-840cc-ves-drafts-md3-light-narrow-chromium\\video.webm",
+        "sha256": "deb6c46fa9b2c72682d808088a7cf09f48c2df833265c8e059960d30c5a24767",
+        "bytes": 571367,
+        "initialMD3": true,
+        "wholeVideoDesign": "mixed phases; do not assign whole video to initial or MD3",
+        "videoSHA256Matches": true,
+        "decodedFrame": "video-observations-md3/light-narrow-eof-minus-080ms.png",
+        "decodedSHA256": "4e054768982398c6802612c6bc80eb32e5d1801a97cff5e4189af3e10cd3a927",
+        "width": 800,
+        "height": 450,
+        "selection": "first decoded existing-video frame from seek EOF minus 0.08 seconds; not full video playback",
+        "decoder": "C:/Users/zhang/AppData/Local/ms-playwright/ffmpeg-1013/ffmpeg-win64.exe",
+        "decoderSHA256": "7ccd7bbff94976033f130c802c5aa40801f640d0e7dfb7de12984e88133f329b",
+        "index": 0,
+        "actuallyViewed": true,
+        "observation": "EOF前80ms解码画面已恢复MD3教学页面；姓名草稿、邮箱与摘要可见。原生视频800×450内左侧为缩放后竖屏画面，右侧灰色填充属于录像画布，不能当网页空白或原尺寸文字评估。",
+        "fullVideoViewed": false,
+        "baselineEligible": false,
+        "renderedPhase": "tutorial-live",
+        "renderedConfig": {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "viewport": "narrow"
+        }
+      },
+      {
+        "caseId": "0e4135bc36f1ba174212-c9dc72bfc883b1152402/chromium/0",
+        "initialConfig": {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "viewport": "tablet",
+          "state": "appearance-draft-retention"
+        },
+        "path": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\site-focus-appearance-windows-20261030-2\\results\\.website-docs-site-site-ap-d02b1-ves-drafts-md3-light-tablet-chromium\\video.webm",
+        "sha256": "ab8a5874355e3948f5d4ff5c94fa5f21b677d9ace7ef9c35ca7ccff89fdb6cc3",
+        "bytes": 643522,
+        "initialMD3": true,
+        "wholeVideoDesign": "mixed phases; do not assign whole video to initial or MD3",
+        "videoSHA256Matches": true,
+        "decodedFrame": "video-observations-md3/light-tablet-eof-minus-080ms.png",
+        "decodedSHA256": "d5b184b9e19b5c7a2cf708cee3fddbe1f4026fc0c02f210ce1d0bbc598dbee6f",
+        "width": 800,
+        "height": 450,
+        "selection": "first decoded existing-video frame from seek EOF minus 0.08 seconds; not full video playback",
+        "decoder": "C:/Users/zhang/AppData/Local/ms-playwright/ffmpeg-1013/ffmpeg-win64.exe",
+        "decoderSHA256": "7ccd7bbff94976033f130c802c5aa40801f640d0e7dfb7de12984e88133f329b",
+        "index": 1,
+        "actuallyViewed": true,
+        "observation": "EOF前80ms解码画面为恢复MD3后的教学页，标题/步骤/正文及表单姓名上部可见；表单下部在录制视口外。800×450录像画布中的灰色区域为缩放适配，不是页面布局缺陷。",
+        "fullVideoViewed": false,
+        "baselineEligible": false,
+        "renderedPhase": "tutorial-live",
+        "renderedConfig": {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "viewport": "tablet"
+        }
+      },
+      {
+        "caseId": "0e4135bc36f1ba174212-3a230b9eb11935bd37cc/chromium/0",
+        "initialConfig": {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "viewport": "desktop",
+          "state": "appearance-draft-retention"
+        },
+        "path": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\site-focus-appearance-windows-20261030-2\\results\\.website-docs-site-site-ap-2c327-es-drafts-md3-light-desktop-chromium\\video.webm",
+        "sha256": "1bc0d1118b2f1c93becff8b6b812406d958e421c9238cdbfa1c09895c60debe4",
+        "bytes": 839296,
+        "initialMD3": true,
+        "wholeVideoDesign": "mixed phases; do not assign whole video to initial or MD3",
+        "videoSHA256Matches": true,
+        "decodedFrame": "video-observations-md3/light-desktop-eof-minus-080ms.png",
+        "decodedSHA256": "4d775df99366b3dcb948c03ad309aa59d9bd70ea9bce4c08f946bb9faf8e6a25",
+        "width": 800,
+        "height": 450,
+        "selection": "first decoded existing-video frame from seek EOF minus 0.08 seconds; not full video playback",
+        "decoder": "C:/Users/zhang/AppData/Local/ms-playwright/ffmpeg-1013/ffmpeg-win64.exe",
+        "decoderSHA256": "7ccd7bbff94976033f130c802c5aa40801f640d0e7dfb7de12984e88133f329b",
+        "index": 2,
+        "actuallyViewed": true,
+        "observation": "EOF前80ms解码画面为恢复MD3后的桌面教学页，侧栏选中、右侧目录与姓名草稿可见；下方表单未全显。录像画布800×450有灰色填充，不能代替1440×900原PNG细节。",
+        "fullVideoViewed": false,
+        "baselineEligible": false,
+        "renderedPhase": "tutorial-live",
+        "renderedConfig": {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "viewport": "desktop"
+        }
+      },
+      {
+        "caseId": "0e4135bc36f1ba174212-d936a135d446310e8c5c/chromium/0",
+        "initialConfig": {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "viewport": "narrow",
+          "state": "appearance-draft-retention"
+        },
+        "path": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\site-focus-appearance-windows-20261030-2\\results\\.website-docs-site-site-ap-afa7b-rves-drafts-md3-dark-narrow-chromium\\video.webm",
+        "sha256": "895010f9526ad2d205ec2162bc610a028b4993eefa11218c5fc01ff8c1dea25b",
+        "bytes": 550702,
+        "initialMD3": true,
+        "wholeVideoDesign": "mixed phases; do not assign whole video to initial or MD3",
+        "videoSHA256Matches": true,
+        "decodedFrame": "video-observations-md3/dark-narrow-eof-minus-080ms.png",
+        "decodedSHA256": "2c4f171022a6ef70985542e5efb57c4fba7990058c73bd0b3b593eb412fce5f9",
+        "width": 800,
+        "height": 450,
+        "selection": "first decoded existing-video frame from seek EOF minus 0.08 seconds; not full video playback",
+        "decoder": "C:/Users/zhang/AppData/Local/ms-playwright/ffmpeg-1013/ffmpeg-win64.exe",
+        "decoderSHA256": "7ccd7bbff94976033f130c802c5aa40801f640d0e7dfb7de12984e88133f329b",
+        "index": 3,
+        "actuallyViewed": true,
+        "observation": "EOF前80ms解码画面已恢复MD3教学页面；姓名草稿、邮箱与摘要可见。原生视频800×450内左侧为缩放后竖屏画面，右侧灰色填充属于录像画布，不能当网页空白或原尺寸文字评估。",
+        "fullVideoViewed": false,
+        "baselineEligible": false,
+        "renderedPhase": "tutorial-live",
+        "renderedConfig": {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "viewport": "narrow"
+        }
+      },
+      {
+        "caseId": "0e4135bc36f1ba174212-4517299116a60c3ac300/chromium/0",
+        "initialConfig": {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "viewport": "tablet",
+          "state": "appearance-draft-retention"
+        },
+        "path": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\site-focus-appearance-windows-20261030-2\\results\\.website-docs-site-site-ap-c76e4-rves-drafts-md3-dark-tablet-chromium\\video.webm",
+        "sha256": "56c2e742b2e7591694cfc925bf414446f57e6cfa5ea0fbc80a91ba9b3a13858b",
+        "bytes": 582757,
+        "initialMD3": true,
+        "wholeVideoDesign": "mixed phases; do not assign whole video to initial or MD3",
+        "videoSHA256Matches": true,
+        "decodedFrame": "video-observations-md3/dark-tablet-eof-minus-080ms.png",
+        "decodedSHA256": "a73581c4b41d878b8df982391a00758e9f5b7b78e150f8fbda5f9c20eb95e089",
+        "width": 800,
+        "height": 450,
+        "selection": "first decoded existing-video frame from seek EOF minus 0.08 seconds; not full video playback",
+        "decoder": "C:/Users/zhang/AppData/Local/ms-playwright/ffmpeg-1013/ffmpeg-win64.exe",
+        "decoderSHA256": "7ccd7bbff94976033f130c802c5aa40801f640d0e7dfb7de12984e88133f329b",
+        "index": 4,
+        "actuallyViewed": true,
+        "observation": "EOF前80ms解码画面为恢复MD3后的教学页，标题/步骤/正文及表单姓名上部可见；表单下部在录制视口外。800×450录像画布中的灰色区域为缩放适配，不是页面布局缺陷。",
+        "fullVideoViewed": false,
+        "baselineEligible": false,
+        "renderedPhase": "tutorial-live",
+        "renderedConfig": {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "viewport": "tablet"
+        }
+      },
+      {
+        "caseId": "0e4135bc36f1ba174212-920fec8248d896082552/chromium/0",
+        "initialConfig": {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "viewport": "desktop",
+          "state": "appearance-draft-retention"
+        },
+        "path": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\site-focus-appearance-windows-20261030-2\\results\\.website-docs-site-site-ap-0867e-ves-drafts-md3-dark-desktop-chromium\\video.webm",
+        "sha256": "d9ba80a01072a3123ad37aacf247275010b2dcf2d9e509edca6a0b7945d79ad5",
+        "bytes": 913960,
+        "initialMD3": true,
+        "wholeVideoDesign": "mixed phases; do not assign whole video to initial or MD3",
+        "videoSHA256Matches": true,
+        "decodedFrame": "video-observations-md3/dark-desktop-eof-minus-080ms.png",
+        "decodedSHA256": "e7fc82f5c43ebafe3660b5953b3d39f396ca9cd550099dd9e44152f1248852a4",
+        "width": 800,
+        "height": 450,
+        "selection": "first decoded existing-video frame from seek EOF minus 0.08 seconds; not full video playback",
+        "decoder": "C:/Users/zhang/AppData/Local/ms-playwright/ffmpeg-1013/ffmpeg-win64.exe",
+        "decoderSHA256": "7ccd7bbff94976033f130c802c5aa40801f640d0e7dfb7de12984e88133f329b",
+        "index": 5,
+        "actuallyViewed": true,
+        "observation": "EOF前80ms解码画面为恢复MD3后的桌面教学页，侧栏选中、右侧目录与姓名草稿可见；下方表单未全显。录像画布800×450有灰色填充，不能代替1440×900原PNG细节。",
+        "fullVideoViewed": false,
+        "baselineEligible": false,
+        "renderedPhase": "tutorial-live",
+        "renderedConfig": {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "viewport": "desktop"
+        }
+      }
+    ],
+    "limitations": [
+      "未完整播放任何视频；未查看另外6条initial-shadcn视频的MD3 appearance阶段指定视频帧，仅核其原视频hash及该阶段PNG/原生时间序列。",
+      "原生视频画布800×450含适配缩放和灰色填充，不能代替原PNG的文字/焦点/几何细节。",
+      "EOF教学帧无持续动画，不以此证明加载控件运动；36自然PNG均不得当静态golden。"
+    ]
+  },
+  "consoleEvidence": {
+    "records": [
+      {
+        "caseId": "0e4135bc36f1ba174212-74c40d5ed0f201744e07/chromium/0",
+        "messages": [
+          {
+            "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+            "location": {
+              "url": "http://127.0.0.1:59856/favicon.ico",
+              "line": 0,
+              "column": 0,
+              "lineNumber": 0,
+              "columnNumber": 0
+            }
+          }
+        ]
+      },
+      {
+        "caseId": "0e4135bc36f1ba174212-c9dc72bfc883b1152402/chromium/0",
+        "messages": [
+          {
+            "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+            "location": {
+              "url": "http://127.0.0.1:59855/favicon.ico",
+              "line": 0,
+              "column": 0,
+              "lineNumber": 0,
+              "columnNumber": 0
+            }
+          }
+        ]
+      },
+      {
+        "caseId": "23c228f2ffdd18452a42-bdcee98e3242c282b8c6/chromium/0",
+        "messages": [
+          {
+            "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+            "location": {
+              "url": "http://127.0.0.1:59750/favicon.ico",
+              "line": 0,
+              "column": 0,
+              "lineNumber": 0,
+              "columnNumber": 0
+            }
+          }
+        ]
+      },
+      {
+        "caseId": "23c228f2ffdd18452a42-9743d364bbe6073fe848/chromium/0",
+        "messages": [
+          {
+            "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+            "location": {
+              "url": "http://127.0.0.1:51368/favicon.ico",
+              "line": 0,
+              "column": 0,
+              "lineNumber": 0,
+              "columnNumber": 0
+            }
+          }
+        ]
+      }
+    ],
+    "interpretation": "4个相关用例保留favicon.ico 404记录；未发现由此造成的可见页面缺陷，不能声称console为空。"
+  },
+  "limitations": [
+    "仅Windows Chromium，本复审不推广Linux/Firefox/WebKit。",
+    "未覆盖真实200%、全组件尺寸/密度/状态矩阵或完整页面。",
+    "导航键盘所有位置、表单下半区域和视口外控件仅有对应原生断言或仍需单独外观证据。",
+    "静态导航10图仅作为有限范围候选可复审；未建立/批准基准，未更新canonical、verified或生命周期。"
+  ],
+  "originalEvidenceAnchors": [
+    {
+      "path": "cases.json",
+      "sha256": "293e0d687d6d7bf8dfc3d34d9452bc2a462fe3b385da2bb37e64f9531117144a"
+    },
+    {
+      "path": "design-image-index.json",
+      "sha256": "c1837baf2405bb2422fd7168c2d701c5ec8d439043a6df3537bc0bd893e2d03a"
+    },
+    {
+      "path": "execution-audit.json",
+      "sha256": "702bfc2abfea4bad682d72b31c36fa9b86a07015e9e8c42b1d8ff8adda194af4"
+    },
+    {
+      "path": "execution-audit.md",
+      "sha256": "e818df4ced23d6b2c7172f319bf74ae0d3816da41f04257a5ecd2212160ae1f8"
+    },
+    {
+      "path": "matrix.json",
+      "sha256": "9cad70806071ee1b4634cb38a37293e6235d6b2e872a700dd4667721f793e479"
+    },
+    {
+      "path": "results.json",
+      "sha256": "b70a7a51890e37377d81e9a573f18a046f26efde4d1de4ac84309d59038de307"
+    },
+    {
+      "path": "inputs-worker-0.json",
+      "sha256": "b057bcb5c7615cd5d7bf15a4a00e43050b40e7d374df980e8c255b1f0ef32a2a"
+    },
+    {
+      "path": "rendering-worker-0.json",
+      "sha256": "cd0dbbcfdc61100643fce317ff63367ca365fe714e2b52e335958f7a67e8e2eb"
+    },
+    {
+      "path": "inputs-worker-1.json",
+      "sha256": "b057bcb5c7615cd5d7bf15a4a00e43050b40e7d374df980e8c255b1f0ef32a2a"
+    },
+    {
+      "path": "rendering-worker-1.json",
+      "sha256": "cd0dbbcfdc61100643fce317ff63367ca365fe714e2b52e335958f7a67e8e2eb"
+    },
+    {
+      "path": "inputs-worker-2.json",
+      "sha256": "b057bcb5c7615cd5d7bf15a4a00e43050b40e7d374df980e8c255b1f0ef32a2a"
+    },
+    {
+      "path": "rendering-worker-2.json",
+      "sha256": "cd0dbbcfdc61100643fce317ff63367ca365fe714e2b52e335958f7a67e8e2eb"
+    },
+    {
+      "path": "inputs-worker-3.json",
+      "sha256": "b057bcb5c7615cd5d7bf15a4a00e43050b40e7d374df980e8c255b1f0ef32a2a"
+    },
+    {
+      "path": "rendering-worker-3.json",
+      "sha256": "cd0dbbcfdc61100643fce317ff63367ca365fe714e2b52e335958f7a67e8e2eb"
+    }
+  ],
+  "nativeCopyChecks": [
+    {
+      "path": "cases.json",
+      "sha256": "293e0d687d6d7bf8dfc3d34d9452bc2a462fe3b385da2bb37e64f9531117144a",
+      "nativeExists": false,
+      "nativeMatches": null
+    },
+    {
+      "path": "design-image-index.json",
+      "sha256": "c1837baf2405bb2422fd7168c2d701c5ec8d439043a6df3537bc0bd893e2d03a",
+      "nativeExists": false,
+      "nativeMatches": null
+    },
+    {
+      "path": "execution-audit.json",
+      "sha256": "702bfc2abfea4bad682d72b31c36fa9b86a07015e9e8c42b1d8ff8adda194af4",
+      "nativeExists": false,
+      "nativeMatches": null
+    },
+    {
+      "path": "execution-audit.md",
+      "sha256": "e818df4ced23d6b2c7172f319bf74ae0d3816da41f04257a5ecd2212160ae1f8",
+      "nativeExists": false,
+      "nativeMatches": null
+    },
+    {
+      "path": "matrix.json",
+      "sha256": "9cad70806071ee1b4634cb38a37293e6235d6b2e872a700dd4667721f793e479",
+      "nativeExists": true,
+      "nativeMatches": true
+    },
+    {
+      "path": "results.json",
+      "sha256": "b70a7a51890e37377d81e9a573f18a046f26efde4d1de4ac84309d59038de307",
+      "nativeExists": true,
+      "nativeMatches": true
+    },
+    {
+      "path": "inputs-worker-0.json",
+      "sha256": "b057bcb5c7615cd5d7bf15a4a00e43050b40e7d374df980e8c255b1f0ef32a2a",
+      "nativeExists": true,
+      "nativeMatches": true
+    },
+    {
+      "path": "rendering-worker-0.json",
+      "sha256": "cd0dbbcfdc61100643fce317ff63367ca365fe714e2b52e335958f7a67e8e2eb",
+      "nativeExists": true,
+      "nativeMatches": true
+    },
+    {
+      "path": "inputs-worker-1.json",
+      "sha256": "b057bcb5c7615cd5d7bf15a4a00e43050b40e7d374df980e8c255b1f0ef32a2a",
+      "nativeExists": true,
+      "nativeMatches": true
+    },
+    {
+      "path": "rendering-worker-1.json",
+      "sha256": "cd0dbbcfdc61100643fce317ff63367ca365fe714e2b52e335958f7a67e8e2eb",
+      "nativeExists": true,
+      "nativeMatches": true
+    },
+    {
+      "path": "inputs-worker-2.json",
+      "sha256": "b057bcb5c7615cd5d7bf15a4a00e43050b40e7d374df980e8c255b1f0ef32a2a",
+      "nativeExists": true,
+      "nativeMatches": true
+    },
+    {
+      "path": "rendering-worker-2.json",
+      "sha256": "cd0dbbcfdc61100643fce317ff63367ca365fe714e2b52e335958f7a67e8e2eb",
+      "nativeExists": true,
+      "nativeMatches": true
+    },
+    {
+      "path": "inputs-worker-3.json",
+      "sha256": "b057bcb5c7615cd5d7bf15a4a00e43050b40e7d374df980e8c255b1f0ef32a2a",
+      "nativeExists": true,
+      "nativeMatches": true
+    },
+    {
+      "path": "rendering-worker-3.json",
+      "sha256": "cd0dbbcfdc61100643fce317ff63367ca365fe714e2b52e335958f7a67e8e2eb",
+      "nativeExists": true,
+      "nativeMatches": true
+    }
+  ],
+  "preservation": "只新增本reviews-md3.json/md及既有视频解码观察帧；原报告、索引、PNG、视频、源及失败-1不改写。",
+  "images": [
+    {
+      "index": 1,
+      "caseId": "0e4135bc36f1ba174212-74c40d5ed0f201744e07/chromium/0",
+      "image": "screens/website/chromium/000001-5-tutorial-live-viewport-0.png",
+      "sha256": "bdebb77ba15b43e0386d313f212ea62089f169c5f30cc16ac8fa292035b055a1",
+      "actuallyViewed": true,
+      "viewTool": "view_image original",
+      "caseInitialConfig": {
+        "designSystem": "md3",
+        "colorMode": "light",
+        "viewport": "narrow",
+        "state": "appearance-draft-retention"
+      },
+      "renderedConfig": {
+        "designSystem": "md3",
+        "colorMode": "light",
+        "viewport": "narrow"
+      },
+      "phase": "tutorial-live",
+      "scope": "visible viewport only; not a full-page capture",
+      "viewportPixels": {
+        "width": 320,
+        "height": 768
+      },
+      "native": {
+        "project": "chromium",
+        "status": "passed",
+        "worker": 0,
+        "attachmentIndex": 5,
+        "attachmentName": "tutorial-live-viewport-0",
+        "sha256": "bdebb77ba15b43e0386d313f212ea62089f169c5f30cc16ac8fa292035b055a1",
+        "imageMatchesNativeAndIndex": true
+      },
+      "snapshotTargetRole": "natural-time-series-no-static-target",
+      "snapshotTarget": null,
+      "observation": "320px浅色教学视口：姓名“周宁 教学草稿”与摘要同步，姓名/邮箱浮动标签、输入轮廓和帮助文本完整；卡片在窄屏内换行，顶部导航与复制/源码动作可见。图仅为已滚动视口，底端后续内容未全显；三帧相同不证明动画推进。",
+      "conclusion": "no-visible-issue-in-captured-viewport",
+      "baselineEligibility": {
+        "eligibleAsApprovedBaseline": false,
+        "staticCandidateForSeparateReview": false,
+        "reason": "Natural live-series attachment; animations allowed, no static golden, including repeated frames."
+      }
+    },
+    {
+      "index": 2,
+      "caseId": "0e4135bc36f1ba174212-74c40d5ed0f201744e07/chromium/0",
+      "image": "screens/website/chromium/000001-6-tutorial-live-viewport-1.png",
+      "sha256": "bdebb77ba15b43e0386d313f212ea62089f169c5f30cc16ac8fa292035b055a1",
+      "actuallyViewed": true,
+      "viewTool": "view_image original",
+      "caseInitialConfig": {
+        "designSystem": "md3",
+        "colorMode": "light",
+        "viewport": "narrow",
+        "state": "appearance-draft-retention"
+      },
+      "renderedConfig": {
+        "designSystem": "md3",
+        "colorMode": "light",
+        "viewport": "narrow"
+      },
+      "phase": "tutorial-live",
+      "scope": "visible viewport only; not a full-page capture",
+      "viewportPixels": {
+        "width": 320,
+        "height": 768
+      },
+      "native": {
+        "project": "chromium",
+        "status": "passed",
+        "worker": 0,
+        "attachmentIndex": 6,
+        "attachmentName": "tutorial-live-viewport-1",
+        "sha256": "bdebb77ba15b43e0386d313f212ea62089f169c5f30cc16ac8fa292035b055a1",
+        "imageMatchesNativeAndIndex": true
+      },
+      "snapshotTargetRole": "natural-time-series-no-static-target",
+      "snapshotTarget": null,
+      "observation": "320px浅色教学视口：姓名“周宁 教学草稿”与摘要同步，姓名/邮箱浮动标签、输入轮廓和帮助文本完整；卡片在窄屏内换行，顶部导航与复制/源码动作可见。图仅为已滚动视口，底端后续内容未全显；三帧相同不证明动画推进。",
+      "conclusion": "no-visible-issue-in-captured-viewport",
+      "baselineEligibility": {
+        "eligibleAsApprovedBaseline": false,
+        "staticCandidateForSeparateReview": false,
+        "reason": "Natural live-series attachment; animations allowed, no static golden, including repeated frames."
+      }
+    },
+    {
+      "index": 3,
+      "caseId": "0e4135bc36f1ba174212-74c40d5ed0f201744e07/chromium/0",
+      "image": "screens/website/chromium/000001-7-tutorial-live-viewport-2.png",
+      "sha256": "bdebb77ba15b43e0386d313f212ea62089f169c5f30cc16ac8fa292035b055a1",
+      "actuallyViewed": true,
+      "viewTool": "view_image original",
+      "caseInitialConfig": {
+        "designSystem": "md3",
+        "colorMode": "light",
+        "viewport": "narrow",
+        "state": "appearance-draft-retention"
+      },
+      "renderedConfig": {
+        "designSystem": "md3",
+        "colorMode": "light",
+        "viewport": "narrow"
+      },
+      "phase": "tutorial-live",
+      "scope": "visible viewport only; not a full-page capture",
+      "viewportPixels": {
+        "width": 320,
+        "height": 768
+      },
+      "native": {
+        "project": "chromium",
+        "status": "passed",
+        "worker": 0,
+        "attachmentIndex": 7,
+        "attachmentName": "tutorial-live-viewport-2",
+        "sha256": "bdebb77ba15b43e0386d313f212ea62089f169c5f30cc16ac8fa292035b055a1",
+        "imageMatchesNativeAndIndex": true
+      },
+      "snapshotTargetRole": "natural-time-series-no-static-target",
+      "snapshotTarget": null,
+      "observation": "320px浅色教学视口：姓名“周宁 教学草稿”与摘要同步，姓名/邮箱浮动标签、输入轮廓和帮助文本完整；卡片在窄屏内换行，顶部导航与复制/源码动作可见。图仅为已滚动视口，底端后续内容未全显；三帧相同不证明动画推进。",
+      "conclusion": "no-visible-issue-in-captured-viewport",
+      "baselineEligibility": {
+        "eligibleAsApprovedBaseline": false,
+        "staticCandidateForSeparateReview": false,
+        "reason": "Natural live-series attachment; animations allowed, no static golden, including repeated frames."
+      }
+    },
+    {
+      "index": 4,
+      "caseId": "0e4135bc36f1ba174212-c9dc72bfc883b1152402/chromium/0",
+      "image": "screens/website/chromium/000002-5-tutorial-live-viewport-0.png",
+      "sha256": "3b241162abee5fb28e10e2fc6ab0f1b06a6637acf91195dcfca5bf9a142dee6c",
+      "actuallyViewed": true,
+      "viewTool": "view_image original",
+      "caseInitialConfig": {
+        "designSystem": "md3",
+        "colorMode": "light",
+        "viewport": "tablet",
+        "state": "appearance-draft-retention"
+      },
+      "renderedConfig": {
+        "designSystem": "md3",
+        "colorMode": "light",
+        "viewport": "tablet"
+      },
+      "phase": "tutorial-live",
+      "scope": "visible viewport only; not a full-page capture",
+      "viewportPixels": {
+        "width": 768,
+        "height": 1024
+      },
+      "native": {
+        "project": "chromium",
+        "status": "passed",
+        "worker": 1,
+        "attachmentIndex": 5,
+        "attachmentName": "tutorial-live-viewport-0",
+        "sha256": "3b241162abee5fb28e10e2fc6ab0f1b06a6637acf91195dcfca5bf9a142dee6c",
+        "imageMatchesNativeAndIndex": true
+      },
+      "snapshotTargetRole": "natural-time-series-no-static-target",
+      "snapshotTarget": null,
+      "observation": "768px浅色教学视口：标题、步骤与说明横排/换行自然，教学姓名“周宁 教学草稿”可读；表单仅上部进入视口，下方邮箱/摘要未在本图显示，不能当完整表单外观通过。三帧逐张查看相同，未显示动画推进。",
+      "conclusion": "no-visible-issue-in-captured-viewport; lower-form-not-visible",
+      "baselineEligibility": {
+        "eligibleAsApprovedBaseline": false,
+        "staticCandidateForSeparateReview": false,
+        "reason": "Natural live-series attachment; animations allowed, no static golden, including repeated frames."
+      }
+    },
+    {
+      "index": 5,
+      "caseId": "0e4135bc36f1ba174212-c9dc72bfc883b1152402/chromium/0",
+      "image": "screens/website/chromium/000002-6-tutorial-live-viewport-1.png",
+      "sha256": "3b241162abee5fb28e10e2fc6ab0f1b06a6637acf91195dcfca5bf9a142dee6c",
+      "actuallyViewed": true,
+      "viewTool": "view_image original",
+      "caseInitialConfig": {
+        "designSystem": "md3",
+        "colorMode": "light",
+        "viewport": "tablet",
+        "state": "appearance-draft-retention"
+      },
+      "renderedConfig": {
+        "designSystem": "md3",
+        "colorMode": "light",
+        "viewport": "tablet"
+      },
+      "phase": "tutorial-live",
+      "scope": "visible viewport only; not a full-page capture",
+      "viewportPixels": {
+        "width": 768,
+        "height": 1024
+      },
+      "native": {
+        "project": "chromium",
+        "status": "passed",
+        "worker": 1,
+        "attachmentIndex": 6,
+        "attachmentName": "tutorial-live-viewport-1",
+        "sha256": "3b241162abee5fb28e10e2fc6ab0f1b06a6637acf91195dcfca5bf9a142dee6c",
+        "imageMatchesNativeAndIndex": true
+      },
+      "snapshotTargetRole": "natural-time-series-no-static-target",
+      "snapshotTarget": null,
+      "observation": "768px浅色教学视口：标题、步骤与说明横排/换行自然，教学姓名“周宁 教学草稿”可读；表单仅上部进入视口，下方邮箱/摘要未在本图显示，不能当完整表单外观通过。三帧逐张查看相同，未显示动画推进。",
+      "conclusion": "no-visible-issue-in-captured-viewport; lower-form-not-visible",
+      "baselineEligibility": {
+        "eligibleAsApprovedBaseline": false,
+        "staticCandidateForSeparateReview": false,
+        "reason": "Natural live-series attachment; animations allowed, no static golden, including repeated frames."
+      }
+    },
+    {
+      "index": 6,
+      "caseId": "0e4135bc36f1ba174212-c9dc72bfc883b1152402/chromium/0",
+      "image": "screens/website/chromium/000002-7-tutorial-live-viewport-2.png",
+      "sha256": "3b241162abee5fb28e10e2fc6ab0f1b06a6637acf91195dcfca5bf9a142dee6c",
+      "actuallyViewed": true,
+      "viewTool": "view_image original",
+      "caseInitialConfig": {
+        "designSystem": "md3",
+        "colorMode": "light",
+        "viewport": "tablet",
+        "state": "appearance-draft-retention"
+      },
+      "renderedConfig": {
+        "designSystem": "md3",
+        "colorMode": "light",
+        "viewport": "tablet"
+      },
+      "phase": "tutorial-live",
+      "scope": "visible viewport only; not a full-page capture",
+      "viewportPixels": {
+        "width": 768,
+        "height": 1024
+      },
+      "native": {
+        "project": "chromium",
+        "status": "passed",
+        "worker": 1,
+        "attachmentIndex": 7,
+        "attachmentName": "tutorial-live-viewport-2",
+        "sha256": "3b241162abee5fb28e10e2fc6ab0f1b06a6637acf91195dcfca5bf9a142dee6c",
+        "imageMatchesNativeAndIndex": true
+      },
+      "snapshotTargetRole": "natural-time-series-no-static-target",
+      "snapshotTarget": null,
+      "observation": "768px浅色教学视口：标题、步骤与说明横排/换行自然，教学姓名“周宁 教学草稿”可读；表单仅上部进入视口，下方邮箱/摘要未在本图显示，不能当完整表单外观通过。三帧逐张查看相同，未显示动画推进。",
+      "conclusion": "no-visible-issue-in-captured-viewport; lower-form-not-visible",
+      "baselineEligibility": {
+        "eligibleAsApprovedBaseline": false,
+        "staticCandidateForSeparateReview": false,
+        "reason": "Natural live-series attachment; animations allowed, no static golden, including repeated frames."
+      }
+    },
+    {
+      "index": 7,
+      "caseId": "0e4135bc36f1ba174212-3a230b9eb11935bd37cc/chromium/0",
+      "image": "screens/website/chromium/000003-5-tutorial-live-viewport-0.png",
+      "sha256": "c24cb920467368fba19acaf1091dacb7501a892dde89a0a81a4cc81a5bc4cba2",
+      "actuallyViewed": true,
+      "viewTool": "view_image original",
+      "caseInitialConfig": {
+        "designSystem": "md3",
+        "colorMode": "light",
+        "viewport": "desktop",
+        "state": "appearance-draft-retention"
+      },
+      "renderedConfig": {
+        "designSystem": "md3",
+        "colorMode": "light",
+        "viewport": "desktop"
+      },
+      "phase": "tutorial-live",
+      "scope": "visible viewport only; not a full-page capture",
+      "viewportPixels": {
+        "width": 1440,
+        "height": 900
+      },
+      "native": {
+        "project": "chromium",
+        "status": "passed",
+        "worker": 0,
+        "attachmentIndex": 5,
+        "attachmentName": "tutorial-live-viewport-0",
+        "sha256": "c24cb920467368fba19acaf1091dacb7501a892dde89a0a81a4cc81a5bc4cba2",
+        "imageMatchesNativeAndIndex": true
+      },
+      "snapshotTargetRole": "natural-time-series-no-static-target",
+      "snapshotTarget": null,
+      "observation": "1440px浅色教学视口：左侧实战导航当前项有紫色圆角选中面，右侧目录与正文不重叠，步骤/说明完整；表单姓名及帮助文本可见，邮箱与摘要在视口下方，未作其外观结论。三帧逐张相同，仅证明捕获时静态可见范围。",
+      "conclusion": "no-visible-issue-in-captured-viewport; lower-form-not-visible",
+      "baselineEligibility": {
+        "eligibleAsApprovedBaseline": false,
+        "staticCandidateForSeparateReview": false,
+        "reason": "Natural live-series attachment; animations allowed, no static golden, including repeated frames."
+      }
+    },
+    {
+      "index": 8,
+      "caseId": "0e4135bc36f1ba174212-3a230b9eb11935bd37cc/chromium/0",
+      "image": "screens/website/chromium/000003-6-tutorial-live-viewport-1.png",
+      "sha256": "c24cb920467368fba19acaf1091dacb7501a892dde89a0a81a4cc81a5bc4cba2",
+      "actuallyViewed": true,
+      "viewTool": "view_image original",
+      "caseInitialConfig": {
+        "designSystem": "md3",
+        "colorMode": "light",
+        "viewport": "desktop",
+        "state": "appearance-draft-retention"
+      },
+      "renderedConfig": {
+        "designSystem": "md3",
+        "colorMode": "light",
+        "viewport": "desktop"
+      },
+      "phase": "tutorial-live",
+      "scope": "visible viewport only; not a full-page capture",
+      "viewportPixels": {
+        "width": 1440,
+        "height": 900
+      },
+      "native": {
+        "project": "chromium",
+        "status": "passed",
+        "worker": 0,
+        "attachmentIndex": 6,
+        "attachmentName": "tutorial-live-viewport-1",
+        "sha256": "c24cb920467368fba19acaf1091dacb7501a892dde89a0a81a4cc81a5bc4cba2",
+        "imageMatchesNativeAndIndex": true
+      },
+      "snapshotTargetRole": "natural-time-series-no-static-target",
+      "snapshotTarget": null,
+      "observation": "1440px浅色教学视口：左侧实战导航当前项有紫色圆角选中面，右侧目录与正文不重叠，步骤/说明完整；表单姓名及帮助文本可见，邮箱与摘要在视口下方，未作其外观结论。三帧逐张相同，仅证明捕获时静态可见范围。",
+      "conclusion": "no-visible-issue-in-captured-viewport; lower-form-not-visible",
+      "baselineEligibility": {
+        "eligibleAsApprovedBaseline": false,
+        "staticCandidateForSeparateReview": false,
+        "reason": "Natural live-series attachment; animations allowed, no static golden, including repeated frames."
+      }
+    },
+    {
+      "index": 9,
+      "caseId": "0e4135bc36f1ba174212-3a230b9eb11935bd37cc/chromium/0",
+      "image": "screens/website/chromium/000003-7-tutorial-live-viewport-2.png",
+      "sha256": "c24cb920467368fba19acaf1091dacb7501a892dde89a0a81a4cc81a5bc4cba2",
+      "actuallyViewed": true,
+      "viewTool": "view_image original",
+      "caseInitialConfig": {
+        "designSystem": "md3",
+        "colorMode": "light",
+        "viewport": "desktop",
+        "state": "appearance-draft-retention"
+      },
+      "renderedConfig": {
+        "designSystem": "md3",
+        "colorMode": "light",
+        "viewport": "desktop"
+      },
+      "phase": "tutorial-live",
+      "scope": "visible viewport only; not a full-page capture",
+      "viewportPixels": {
+        "width": 1440,
+        "height": 900
+      },
+      "native": {
+        "project": "chromium",
+        "status": "passed",
+        "worker": 0,
+        "attachmentIndex": 7,
+        "attachmentName": "tutorial-live-viewport-2",
+        "sha256": "c24cb920467368fba19acaf1091dacb7501a892dde89a0a81a4cc81a5bc4cba2",
+        "imageMatchesNativeAndIndex": true
+      },
+      "snapshotTargetRole": "natural-time-series-no-static-target",
+      "snapshotTarget": null,
+      "observation": "1440px浅色教学视口：左侧实战导航当前项有紫色圆角选中面，右侧目录与正文不重叠，步骤/说明完整；表单姓名及帮助文本可见，邮箱与摘要在视口下方，未作其外观结论。三帧逐张相同，仅证明捕获时静态可见范围。",
+      "conclusion": "no-visible-issue-in-captured-viewport; lower-form-not-visible",
+      "baselineEligibility": {
+        "eligibleAsApprovedBaseline": false,
+        "staticCandidateForSeparateReview": false,
+        "reason": "Natural live-series attachment; animations allowed, no static golden, including repeated frames."
+      }
+    },
+    {
+      "index": 10,
+      "caseId": "0e4135bc36f1ba174212-d936a135d446310e8c5c/chromium/0",
+      "image": "screens/website/chromium/000004-5-tutorial-live-viewport-0.png",
+      "sha256": "b2836f1c3260f99adb0f97a9c5f9bcfc663b921a8a87fcf02dc4812e13cbef8f",
+      "actuallyViewed": true,
+      "viewTool": "view_image original",
+      "caseInitialConfig": {
+        "designSystem": "md3",
+        "colorMode": "dark",
+        "viewport": "narrow",
+        "state": "appearance-draft-retention"
+      },
+      "renderedConfig": {
+        "designSystem": "md3",
+        "colorMode": "dark",
+        "viewport": "narrow"
+      },
+      "phase": "tutorial-live",
+      "scope": "visible viewport only; not a full-page capture",
+      "viewportPixels": {
+        "width": 320,
+        "height": 768
+      },
+      "native": {
+        "project": "chromium",
+        "status": "passed",
+        "worker": 1,
+        "attachmentIndex": 5,
+        "attachmentName": "tutorial-live-viewport-0",
+        "sha256": "b2836f1c3260f99adb0f97a9c5f9bcfc663b921a8a87fcf02dc4812e13cbef8f",
+        "imageMatchesNativeAndIndex": true
+      },
+      "snapshotTargetRole": "natural-time-series-no-static-target",
+      "snapshotTarget": null,
+      "observation": "320px深色教学视口：姓名“周宁 教学草稿”、邮箱与提交摘要一致可读，浮动标签/帮助文本及复制/源码动作完整；深色表单边界可辨，内容在视口宽度内。底部后续页面未全显，三帧同像不作动画推进结论。",
+      "conclusion": "no-visible-issue-in-captured-viewport",
+      "baselineEligibility": {
+        "eligibleAsApprovedBaseline": false,
+        "staticCandidateForSeparateReview": false,
+        "reason": "Natural live-series attachment; animations allowed, no static golden, including repeated frames."
+      }
+    },
+    {
+      "index": 11,
+      "caseId": "0e4135bc36f1ba174212-d936a135d446310e8c5c/chromium/0",
+      "image": "screens/website/chromium/000004-6-tutorial-live-viewport-1.png",
+      "sha256": "b2836f1c3260f99adb0f97a9c5f9bcfc663b921a8a87fcf02dc4812e13cbef8f",
+      "actuallyViewed": true,
+      "viewTool": "view_image original",
+      "caseInitialConfig": {
+        "designSystem": "md3",
+        "colorMode": "dark",
+        "viewport": "narrow",
+        "state": "appearance-draft-retention"
+      },
+      "renderedConfig": {
+        "designSystem": "md3",
+        "colorMode": "dark",
+        "viewport": "narrow"
+      },
+      "phase": "tutorial-live",
+      "scope": "visible viewport only; not a full-page capture",
+      "viewportPixels": {
+        "width": 320,
+        "height": 768
+      },
+      "native": {
+        "project": "chromium",
+        "status": "passed",
+        "worker": 1,
+        "attachmentIndex": 6,
+        "attachmentName": "tutorial-live-viewport-1",
+        "sha256": "b2836f1c3260f99adb0f97a9c5f9bcfc663b921a8a87fcf02dc4812e13cbef8f",
+        "imageMatchesNativeAndIndex": true
+      },
+      "snapshotTargetRole": "natural-time-series-no-static-target",
+      "snapshotTarget": null,
+      "observation": "320px深色教学视口：姓名“周宁 教学草稿”、邮箱与提交摘要一致可读，浮动标签/帮助文本及复制/源码动作完整；深色表单边界可辨，内容在视口宽度内。底部后续页面未全显，三帧同像不作动画推进结论。",
+      "conclusion": "no-visible-issue-in-captured-viewport",
+      "baselineEligibility": {
+        "eligibleAsApprovedBaseline": false,
+        "staticCandidateForSeparateReview": false,
+        "reason": "Natural live-series attachment; animations allowed, no static golden, including repeated frames."
+      }
+    },
+    {
+      "index": 12,
+      "caseId": "0e4135bc36f1ba174212-d936a135d446310e8c5c/chromium/0",
+      "image": "screens/website/chromium/000004-7-tutorial-live-viewport-2.png",
+      "sha256": "b2836f1c3260f99adb0f97a9c5f9bcfc663b921a8a87fcf02dc4812e13cbef8f",
+      "actuallyViewed": true,
+      "viewTool": "view_image original",
+      "caseInitialConfig": {
+        "designSystem": "md3",
+        "colorMode": "dark",
+        "viewport": "narrow",
+        "state": "appearance-draft-retention"
+      },
+      "renderedConfig": {
+        "designSystem": "md3",
+        "colorMode": "dark",
+        "viewport": "narrow"
+      },
+      "phase": "tutorial-live",
+      "scope": "visible viewport only; not a full-page capture",
+      "viewportPixels": {
+        "width": 320,
+        "height": 768
+      },
+      "native": {
+        "project": "chromium",
+        "status": "passed",
+        "worker": 1,
+        "attachmentIndex": 7,
+        "attachmentName": "tutorial-live-viewport-2",
+        "sha256": "b2836f1c3260f99adb0f97a9c5f9bcfc663b921a8a87fcf02dc4812e13cbef8f",
+        "imageMatchesNativeAndIndex": true
+      },
+      "snapshotTargetRole": "natural-time-series-no-static-target",
+      "snapshotTarget": null,
+      "observation": "320px深色教学视口：姓名“周宁 教学草稿”、邮箱与提交摘要一致可读，浮动标签/帮助文本及复制/源码动作完整；深色表单边界可辨，内容在视口宽度内。底部后续页面未全显，三帧同像不作动画推进结论。",
+      "conclusion": "no-visible-issue-in-captured-viewport",
+      "baselineEligibility": {
+        "eligibleAsApprovedBaseline": false,
+        "staticCandidateForSeparateReview": false,
+        "reason": "Natural live-series attachment; animations allowed, no static golden, including repeated frames."
+      }
+    },
+    {
+      "index": 13,
+      "caseId": "0e4135bc36f1ba174212-4517299116a60c3ac300/chromium/0",
+      "image": "screens/website/chromium/000005-5-tutorial-live-viewport-0.png",
+      "sha256": "ccc9de9e5c9f50e7d1c2e591e0545f37ba892836539e29d13519fba822f8fb21",
+      "actuallyViewed": true,
+      "viewTool": "view_image original",
+      "caseInitialConfig": {
+        "designSystem": "md3",
+        "colorMode": "dark",
+        "viewport": "tablet",
+        "state": "appearance-draft-retention"
+      },
+      "renderedConfig": {
+        "designSystem": "md3",
+        "colorMode": "dark",
+        "viewport": "tablet"
+      },
+      "phase": "tutorial-live",
+      "scope": "visible viewport only; not a full-page capture",
+      "viewportPixels": {
+        "width": 768,
+        "height": 1024
+      },
+      "native": {
+        "project": "chromium",
+        "status": "passed",
+        "worker": 0,
+        "attachmentIndex": 5,
+        "attachmentName": "tutorial-live-viewport-0",
+        "sha256": "ccc9de9e5c9f50e7d1c2e591e0545f37ba892836539e29d13519fba822f8fb21",
+        "imageMatchesNativeAndIndex": true
+      },
+      "snapshotTargetRole": "natural-time-series-no-static-target",
+      "snapshotTarget": null,
+      "observation": "768px深色教学视口：正文层级与四步导航清楚，姓名“周宁 教学草稿”在底部可见，容器边界未横向挤压；表单下半部不在图内，摘要外观未覆盖。三帧逐张查看一致，不作动画证据。",
+      "conclusion": "no-visible-issue-in-captured-viewport; lower-form-not-visible",
+      "baselineEligibility": {
+        "eligibleAsApprovedBaseline": false,
+        "staticCandidateForSeparateReview": false,
+        "reason": "Natural live-series attachment; animations allowed, no static golden, including repeated frames."
+      }
+    },
+    {
+      "index": 14,
+      "caseId": "0e4135bc36f1ba174212-4517299116a60c3ac300/chromium/0",
+      "image": "screens/website/chromium/000005-6-tutorial-live-viewport-1.png",
+      "sha256": "ccc9de9e5c9f50e7d1c2e591e0545f37ba892836539e29d13519fba822f8fb21",
+      "actuallyViewed": true,
+      "viewTool": "view_image original",
+      "caseInitialConfig": {
+        "designSystem": "md3",
+        "colorMode": "dark",
+        "viewport": "tablet",
+        "state": "appearance-draft-retention"
+      },
+      "renderedConfig": {
+        "designSystem": "md3",
+        "colorMode": "dark",
+        "viewport": "tablet"
+      },
+      "phase": "tutorial-live",
+      "scope": "visible viewport only; not a full-page capture",
+      "viewportPixels": {
+        "width": 768,
+        "height": 1024
+      },
+      "native": {
+        "project": "chromium",
+        "status": "passed",
+        "worker": 0,
+        "attachmentIndex": 6,
+        "attachmentName": "tutorial-live-viewport-1",
+        "sha256": "ccc9de9e5c9f50e7d1c2e591e0545f37ba892836539e29d13519fba822f8fb21",
+        "imageMatchesNativeAndIndex": true
+      },
+      "snapshotTargetRole": "natural-time-series-no-static-target",
+      "snapshotTarget": null,
+      "observation": "768px深色教学视口：正文层级与四步导航清楚，姓名“周宁 教学草稿”在底部可见，容器边界未横向挤压；表单下半部不在图内，摘要外观未覆盖。三帧逐张查看一致，不作动画证据。",
+      "conclusion": "no-visible-issue-in-captured-viewport; lower-form-not-visible",
+      "baselineEligibility": {
+        "eligibleAsApprovedBaseline": false,
+        "staticCandidateForSeparateReview": false,
+        "reason": "Natural live-series attachment; animations allowed, no static golden, including repeated frames."
+      }
+    },
+    {
+      "index": 15,
+      "caseId": "0e4135bc36f1ba174212-4517299116a60c3ac300/chromium/0",
+      "image": "screens/website/chromium/000005-7-tutorial-live-viewport-2.png",
+      "sha256": "ccc9de9e5c9f50e7d1c2e591e0545f37ba892836539e29d13519fba822f8fb21",
+      "actuallyViewed": true,
+      "viewTool": "view_image original",
+      "caseInitialConfig": {
+        "designSystem": "md3",
+        "colorMode": "dark",
+        "viewport": "tablet",
+        "state": "appearance-draft-retention"
+      },
+      "renderedConfig": {
+        "designSystem": "md3",
+        "colorMode": "dark",
+        "viewport": "tablet"
+      },
+      "phase": "tutorial-live",
+      "scope": "visible viewport only; not a full-page capture",
+      "viewportPixels": {
+        "width": 768,
+        "height": 1024
+      },
+      "native": {
+        "project": "chromium",
+        "status": "passed",
+        "worker": 0,
+        "attachmentIndex": 7,
+        "attachmentName": "tutorial-live-viewport-2",
+        "sha256": "ccc9de9e5c9f50e7d1c2e591e0545f37ba892836539e29d13519fba822f8fb21",
+        "imageMatchesNativeAndIndex": true
+      },
+      "snapshotTargetRole": "natural-time-series-no-static-target",
+      "snapshotTarget": null,
+      "observation": "768px深色教学视口：正文层级与四步导航清楚，姓名“周宁 教学草稿”在底部可见，容器边界未横向挤压；表单下半部不在图内，摘要外观未覆盖。三帧逐张查看一致，不作动画证据。",
+      "conclusion": "no-visible-issue-in-captured-viewport; lower-form-not-visible",
+      "baselineEligibility": {
+        "eligibleAsApprovedBaseline": false,
+        "staticCandidateForSeparateReview": false,
+        "reason": "Natural live-series attachment; animations allowed, no static golden, including repeated frames."
+      }
+    },
+    {
+      "index": 16,
+      "caseId": "0e4135bc36f1ba174212-920fec8248d896082552/chromium/0",
+      "image": "screens/website/chromium/000006-5-tutorial-live-viewport-0.png",
+      "sha256": "ef4b5a7e00300180d992ecb2c02f7b2478c2dc0e2e915756d9e1b35f01346c50",
+      "actuallyViewed": true,
+      "viewTool": "view_image original",
+      "caseInitialConfig": {
+        "designSystem": "md3",
+        "colorMode": "dark",
+        "viewport": "desktop",
+        "state": "appearance-draft-retention"
+      },
+      "renderedConfig": {
+        "designSystem": "md3",
+        "colorMode": "dark",
+        "viewport": "desktop"
+      },
+      "phase": "tutorial-live",
+      "scope": "visible viewport only; not a full-page capture",
+      "viewportPixels": {
+        "width": 1440,
+        "height": 900
+      },
+      "native": {
+        "project": "chromium",
+        "status": "passed",
+        "worker": 1,
+        "attachmentIndex": 5,
+        "attachmentName": "tutorial-live-viewport-0",
+        "sha256": "ef4b5a7e00300180d992ecb2c02f7b2478c2dc0e2e915756d9e1b35f01346c50",
+        "imageMatchesNativeAndIndex": true
+      },
+      "snapshotTargetRole": "natural-time-series-no-static-target",
+      "snapshotTarget": null,
+      "observation": "1440px深色教学视口：导航实战项及具体课程选中面清楚，正文/右侧目录对齐，姓名“周宁 教学草稿”及帮助文本完整；表单下部与摘要在视口之外，不能据本图确认。三帧同像，未独立证明运动。",
+      "conclusion": "no-visible-issue-in-captured-viewport; lower-form-not-visible",
+      "baselineEligibility": {
+        "eligibleAsApprovedBaseline": false,
+        "staticCandidateForSeparateReview": false,
+        "reason": "Natural live-series attachment; animations allowed, no static golden, including repeated frames."
+      }
+    },
+    {
+      "index": 17,
+      "caseId": "0e4135bc36f1ba174212-920fec8248d896082552/chromium/0",
+      "image": "screens/website/chromium/000006-6-tutorial-live-viewport-1.png",
+      "sha256": "ef4b5a7e00300180d992ecb2c02f7b2478c2dc0e2e915756d9e1b35f01346c50",
+      "actuallyViewed": true,
+      "viewTool": "view_image original",
+      "caseInitialConfig": {
+        "designSystem": "md3",
+        "colorMode": "dark",
+        "viewport": "desktop",
+        "state": "appearance-draft-retention"
+      },
+      "renderedConfig": {
+        "designSystem": "md3",
+        "colorMode": "dark",
+        "viewport": "desktop"
+      },
+      "phase": "tutorial-live",
+      "scope": "visible viewport only; not a full-page capture",
+      "viewportPixels": {
+        "width": 1440,
+        "height": 900
+      },
+      "native": {
+        "project": "chromium",
+        "status": "passed",
+        "worker": 1,
+        "attachmentIndex": 6,
+        "attachmentName": "tutorial-live-viewport-1",
+        "sha256": "ef4b5a7e00300180d992ecb2c02f7b2478c2dc0e2e915756d9e1b35f01346c50",
+        "imageMatchesNativeAndIndex": true
+      },
+      "snapshotTargetRole": "natural-time-series-no-static-target",
+      "snapshotTarget": null,
+      "observation": "1440px深色教学视口：导航实战项及具体课程选中面清楚，正文/右侧目录对齐，姓名“周宁 教学草稿”及帮助文本完整；表单下部与摘要在视口之外，不能据本图确认。三帧同像，未独立证明运动。",
+      "conclusion": "no-visible-issue-in-captured-viewport; lower-form-not-visible",
+      "baselineEligibility": {
+        "eligibleAsApprovedBaseline": false,
+        "staticCandidateForSeparateReview": false,
+        "reason": "Natural live-series attachment; animations allowed, no static golden, including repeated frames."
+      }
+    },
+    {
+      "index": 18,
+      "caseId": "0e4135bc36f1ba174212-920fec8248d896082552/chromium/0",
+      "image": "screens/website/chromium/000006-7-tutorial-live-viewport-2.png",
+      "sha256": "ef4b5a7e00300180d992ecb2c02f7b2478c2dc0e2e915756d9e1b35f01346c50",
+      "actuallyViewed": true,
+      "viewTool": "view_image original",
+      "caseInitialConfig": {
+        "designSystem": "md3",
+        "colorMode": "dark",
+        "viewport": "desktop",
+        "state": "appearance-draft-retention"
+      },
+      "renderedConfig": {
+        "designSystem": "md3",
+        "colorMode": "dark",
+        "viewport": "desktop"
+      },
+      "phase": "tutorial-live",
+      "scope": "visible viewport only; not a full-page capture",
+      "viewportPixels": {
+        "width": 1440,
+        "height": 900
+      },
+      "native": {
+        "project": "chromium",
+        "status": "passed",
+        "worker": 1,
+        "attachmentIndex": 7,
+        "attachmentName": "tutorial-live-viewport-2",
+        "sha256": "ef4b5a7e00300180d992ecb2c02f7b2478c2dc0e2e915756d9e1b35f01346c50",
+        "imageMatchesNativeAndIndex": true
+      },
+      "snapshotTargetRole": "natural-time-series-no-static-target",
+      "snapshotTarget": null,
+      "observation": "1440px深色教学视口：导航实战项及具体课程选中面清楚，正文/右侧目录对齐，姓名“周宁 教学草稿”及帮助文本完整；表单下部与摘要在视口之外，不能据本图确认。三帧同像，未独立证明运动。",
+      "conclusion": "no-visible-issue-in-captured-viewport; lower-form-not-visible",
+      "baselineEligibility": {
+        "eligibleAsApprovedBaseline": false,
+        "staticCandidateForSeparateReview": false,
+        "reason": "Natural live-series attachment; animations allowed, no static golden, including repeated frames."
+      }
+    },
+    {
+      "index": 19,
+      "caseId": "0e4135bc36f1ba174212-4038d8a45668fba310e4/chromium/0",
+      "image": "screens/website/chromium/000013-0-appearance-live-viewport-0.png",
+      "sha256": "9277b439c81d845ddfc119596a714428fa1f8f6c6f3cfea12ad6d0e0f364b0e3",
+      "actuallyViewed": true,
+      "viewTool": "view_image original",
+      "caseInitialConfig": {
+        "designSystem": "shadcn",
+        "colorMode": "light",
+        "viewport": "narrow",
+        "state": "appearance-draft-retention"
+      },
+      "renderedConfig": {
+        "designSystem": "md3",
+        "colorMode": "dark",
+        "viewport": "narrow"
+      },
+      "phase": "appearance-live",
+      "scope": "visible viewport only; not a full-page capture",
+      "viewportPixels": {
+        "width": 320,
+        "height": 768
+      },
+      "native": {
+        "project": "chromium",
+        "status": "passed",
+        "worker": 0,
+        "attachmentIndex": 0,
+        "attachmentName": "appearance-live-viewport-0",
+        "sha256": "9277b439c81d845ddfc119596a714428fa1f8f6c6f3cfea12ad6d0e0f364b0e3",
+        "imageMatchesNativeAndIndex": true
+      },
+      "snapshotTargetRole": "natural-time-series-no-static-target",
+      "snapshotTarget": null,
+      "observation": "由shadcn/light实际切到MD3/dark的320px视口：项目说明草稿全文换行保留，阶段/计数输入与多选勾选/半选/禁用轮廓清楚；“未选择”固定示例标签旁呈勾选（真实交互后的状态）。项目名称在上方视口外；顶部部分字段在固定导航下方裁出属滚动视角，不当整页。三帧相同，不能由像素断言动画推进。",
+      "conclusion": "no-visible-layout-issue-in-captured-viewport; project-name-not-visible",
+      "baselineEligibility": {
+        "eligibleAsApprovedBaseline": false,
+        "staticCandidateForSeparateReview": false,
+        "reason": "Natural live-series attachment; animations allowed, no static golden, including repeated frames."
+      }
+    },
+    {
+      "index": 20,
+      "caseId": "0e4135bc36f1ba174212-4038d8a45668fba310e4/chromium/0",
+      "image": "screens/website/chromium/000013-1-appearance-live-viewport-1.png",
+      "sha256": "9277b439c81d845ddfc119596a714428fa1f8f6c6f3cfea12ad6d0e0f364b0e3",
+      "actuallyViewed": true,
+      "viewTool": "view_image original",
+      "caseInitialConfig": {
+        "designSystem": "shadcn",
+        "colorMode": "light",
+        "viewport": "narrow",
+        "state": "appearance-draft-retention"
+      },
+      "renderedConfig": {
+        "designSystem": "md3",
+        "colorMode": "dark",
+        "viewport": "narrow"
+      },
+      "phase": "appearance-live",
+      "scope": "visible viewport only; not a full-page capture",
+      "viewportPixels": {
+        "width": 320,
+        "height": 768
+      },
+      "native": {
+        "project": "chromium",
+        "status": "passed",
+        "worker": 0,
+        "attachmentIndex": 1,
+        "attachmentName": "appearance-live-viewport-1",
+        "sha256": "9277b439c81d845ddfc119596a714428fa1f8f6c6f3cfea12ad6d0e0f364b0e3",
+        "imageMatchesNativeAndIndex": true
+      },
+      "snapshotTargetRole": "natural-time-series-no-static-target",
+      "snapshotTarget": null,
+      "observation": "由shadcn/light实际切到MD3/dark的320px视口：项目说明草稿全文换行保留，阶段/计数输入与多选勾选/半选/禁用轮廓清楚；“未选择”固定示例标签旁呈勾选（真实交互后的状态）。项目名称在上方视口外；顶部部分字段在固定导航下方裁出属滚动视角，不当整页。三帧相同，不能由像素断言动画推进。",
+      "conclusion": "no-visible-layout-issue-in-captured-viewport; project-name-not-visible",
+      "baselineEligibility": {
+        "eligibleAsApprovedBaseline": false,
+        "staticCandidateForSeparateReview": false,
+        "reason": "Natural live-series attachment; animations allowed, no static golden, including repeated frames."
+      }
+    },
+    {
+      "index": 21,
+      "caseId": "0e4135bc36f1ba174212-4038d8a45668fba310e4/chromium/0",
+      "image": "screens/website/chromium/000013-2-appearance-live-viewport-2.png",
+      "sha256": "9277b439c81d845ddfc119596a714428fa1f8f6c6f3cfea12ad6d0e0f364b0e3",
+      "actuallyViewed": true,
+      "viewTool": "view_image original",
+      "caseInitialConfig": {
+        "designSystem": "shadcn",
+        "colorMode": "light",
+        "viewport": "narrow",
+        "state": "appearance-draft-retention"
+      },
+      "renderedConfig": {
+        "designSystem": "md3",
+        "colorMode": "dark",
+        "viewport": "narrow"
+      },
+      "phase": "appearance-live",
+      "scope": "visible viewport only; not a full-page capture",
+      "viewportPixels": {
+        "width": 320,
+        "height": 768
+      },
+      "native": {
+        "project": "chromium",
+        "status": "passed",
+        "worker": 0,
+        "attachmentIndex": 2,
+        "attachmentName": "appearance-live-viewport-2",
+        "sha256": "9277b439c81d845ddfc119596a714428fa1f8f6c6f3cfea12ad6d0e0f364b0e3",
+        "imageMatchesNativeAndIndex": true
+      },
+      "snapshotTargetRole": "natural-time-series-no-static-target",
+      "snapshotTarget": null,
+      "observation": "由shadcn/light实际切到MD3/dark的320px视口：项目说明草稿全文换行保留，阶段/计数输入与多选勾选/半选/禁用轮廓清楚；“未选择”固定示例标签旁呈勾选（真实交互后的状态）。项目名称在上方视口外；顶部部分字段在固定导航下方裁出属滚动视角，不当整页。三帧相同，不能由像素断言动画推进。",
+      "conclusion": "no-visible-layout-issue-in-captured-viewport; project-name-not-visible",
+      "baselineEligibility": {
+        "eligibleAsApprovedBaseline": false,
+        "staticCandidateForSeparateReview": false,
+        "reason": "Natural live-series attachment; animations allowed, no static golden, including repeated frames."
+      }
+    },
+    {
+      "index": 22,
+      "caseId": "0e4135bc36f1ba174212-479efa30ca063fc21ab6/chromium/0",
+      "image": "screens/website/chromium/000014-0-appearance-live-viewport-0.png",
+      "sha256": "c5795ff783efd8a910bbcf8f218969c4f282b110a13b38c0a18711b7e8e3e08d",
+      "actuallyViewed": true,
+      "viewTool": "view_image original",
+      "caseInitialConfig": {
+        "designSystem": "shadcn",
+        "colorMode": "light",
+        "viewport": "tablet",
+        "state": "appearance-draft-retention"
+      },
+      "renderedConfig": {
+        "designSystem": "md3",
+        "colorMode": "dark",
+        "viewport": "tablet"
+      },
+      "phase": "appearance-live",
+      "scope": "visible viewport only; not a full-page capture",
+      "viewportPixels": {
+        "width": 768,
+        "height": 1024
+      },
+      "native": {
+        "project": "chromium",
+        "status": "passed",
+        "worker": 1,
+        "attachmentIndex": 0,
+        "attachmentName": "appearance-live-viewport-0",
+        "sha256": "c5795ff783efd8a910bbcf8f218969c4f282b110a13b38c0a18711b7e8e3e08d",
+        "imageMatchesNativeAndIndex": true
+      },
+      "snapshotTargetRole": "natural-time-series-no-static-target",
+      "snapshotTarget": null,
+      "observation": "由shadcn/light切到MD3/dark的768px视口：项目说明草稿完整，项目名称显示“Quarterly Planning”可见片段（末尾工作区受单行输入横向视口限制），清空动作/错误字段/只读及选择控件不重叠；“处理中”旋转弧第1帧位置与相邻帧不同，表单/选择布局稳定。下方反馈区未完整显示。",
+      "conclusion": "no-visible-issue-in-captured-viewport; spinner-phase-changes-visible",
+      "baselineEligibility": {
+        "eligibleAsApprovedBaseline": false,
+        "staticCandidateForSeparateReview": false,
+        "reason": "Natural live-series attachment; animations allowed, no static golden, including repeated frames."
+      }
+    },
+    {
+      "index": 23,
+      "caseId": "0e4135bc36f1ba174212-479efa30ca063fc21ab6/chromium/0",
+      "image": "screens/website/chromium/000014-1-appearance-live-viewport-1.png",
+      "sha256": "3083c65e056ad7bfc1573daa167b88ce328e9d8d90addc3af207fa376e6b5a4e",
+      "actuallyViewed": true,
+      "viewTool": "view_image original",
+      "caseInitialConfig": {
+        "designSystem": "shadcn",
+        "colorMode": "light",
+        "viewport": "tablet",
+        "state": "appearance-draft-retention"
+      },
+      "renderedConfig": {
+        "designSystem": "md3",
+        "colorMode": "dark",
+        "viewport": "tablet"
+      },
+      "phase": "appearance-live",
+      "scope": "visible viewport only; not a full-page capture",
+      "viewportPixels": {
+        "width": 768,
+        "height": 1024
+      },
+      "native": {
+        "project": "chromium",
+        "status": "passed",
+        "worker": 1,
+        "attachmentIndex": 1,
+        "attachmentName": "appearance-live-viewport-1",
+        "sha256": "3083c65e056ad7bfc1573daa167b88ce328e9d8d90addc3af207fa376e6b5a4e",
+        "imageMatchesNativeAndIndex": true
+      },
+      "snapshotTargetRole": "natural-time-series-no-static-target",
+      "snapshotTarget": null,
+      "observation": "由shadcn/light切到MD3/dark的768px视口：项目说明草稿完整，项目名称显示“Quarterly Planning”可见片段（末尾工作区受单行输入横向视口限制），清空动作/错误字段/只读及选择控件不重叠；“处理中”旋转弧第2帧位置与相邻帧不同，表单/选择布局稳定。下方反馈区未完整显示。",
+      "conclusion": "no-visible-issue-in-captured-viewport; spinner-phase-changes-visible",
+      "baselineEligibility": {
+        "eligibleAsApprovedBaseline": false,
+        "staticCandidateForSeparateReview": false,
+        "reason": "Natural live-series attachment; animations allowed, no static golden, including repeated frames."
+      }
+    },
+    {
+      "index": 24,
+      "caseId": "0e4135bc36f1ba174212-479efa30ca063fc21ab6/chromium/0",
+      "image": "screens/website/chromium/000014-2-appearance-live-viewport-2.png",
+      "sha256": "e6b63db139e74bd923748de0f52e475d8fe7a3e3275662382d4acd30cda4520b",
+      "actuallyViewed": true,
+      "viewTool": "view_image original",
+      "caseInitialConfig": {
+        "designSystem": "shadcn",
+        "colorMode": "light",
+        "viewport": "tablet",
+        "state": "appearance-draft-retention"
+      },
+      "renderedConfig": {
+        "designSystem": "md3",
+        "colorMode": "dark",
+        "viewport": "tablet"
+      },
+      "phase": "appearance-live",
+      "scope": "visible viewport only; not a full-page capture",
+      "viewportPixels": {
+        "width": 768,
+        "height": 1024
+      },
+      "native": {
+        "project": "chromium",
+        "status": "passed",
+        "worker": 1,
+        "attachmentIndex": 2,
+        "attachmentName": "appearance-live-viewport-2",
+        "sha256": "e6b63db139e74bd923748de0f52e475d8fe7a3e3275662382d4acd30cda4520b",
+        "imageMatchesNativeAndIndex": true
+      },
+      "snapshotTargetRole": "natural-time-series-no-static-target",
+      "snapshotTarget": null,
+      "observation": "由shadcn/light切到MD3/dark的768px视口：项目说明草稿完整，项目名称显示“Quarterly Planning”可见片段（末尾工作区受单行输入横向视口限制），清空动作/错误字段/只读及选择控件不重叠；“处理中”旋转弧第3帧位置与相邻帧不同，表单/选择布局稳定。下方反馈区未完整显示。",
+      "conclusion": "no-visible-issue-in-captured-viewport; spinner-phase-changes-visible",
+      "baselineEligibility": {
+        "eligibleAsApprovedBaseline": false,
+        "staticCandidateForSeparateReview": false,
+        "reason": "Natural live-series attachment; animations allowed, no static golden, including repeated frames."
+      }
+    },
+    {
+      "index": 25,
+      "caseId": "0e4135bc36f1ba174212-4c56f6639c0848cf937a/chromium/0",
+      "image": "screens/website/chromium/000015-0-appearance-live-viewport-0.png",
+      "sha256": "727534f90c44b5de5e5181f53b543a1fa03c9f242a04917f175d93603e4f838c",
+      "actuallyViewed": true,
+      "viewTool": "view_image original",
+      "caseInitialConfig": {
+        "designSystem": "shadcn",
+        "colorMode": "light",
+        "viewport": "desktop",
+        "state": "appearance-draft-retention"
+      },
+      "renderedConfig": {
+        "designSystem": "md3",
+        "colorMode": "dark",
+        "viewport": "desktop"
+      },
+      "phase": "appearance-live",
+      "scope": "visible viewport only; not a full-page capture",
+      "viewportPixels": {
+        "width": 1440,
+        "height": 900
+      },
+      "native": {
+        "project": "chromium",
+        "status": "passed",
+        "worker": 0,
+        "attachmentIndex": 0,
+        "attachmentName": "appearance-live-viewport-0",
+        "sha256": "727534f90c44b5de5e5181f53b543a1fa03c9f242a04917f175d93603e4f838c",
+        "imageMatchesNativeAndIndex": true
+      },
+      "snapshotTargetRole": "natural-time-series-no-static-target",
+      "snapshotTarget": null,
+      "observation": "由shadcn/light切到MD3/dark的1440px已滚动视口：项目名称“Quarterly Planning 工作区”与说明全文可见，勾选/半选/禁用、单选/开关与滑杆布局清楚，左右导航未压正文。顶部操作行部分在视口外，旋转弧可见部分第1帧变化但不当整组件动画外观验收；反馈区仅上部可见。",
+      "conclusion": "no-visible-issue-in-captured-viewport; top-actions-partially-visible",
+      "baselineEligibility": {
+        "eligibleAsApprovedBaseline": false,
+        "staticCandidateForSeparateReview": false,
+        "reason": "Natural live-series attachment; animations allowed, no static golden, including repeated frames."
+      }
+    },
+    {
+      "index": 26,
+      "caseId": "0e4135bc36f1ba174212-4c56f6639c0848cf937a/chromium/0",
+      "image": "screens/website/chromium/000015-1-appearance-live-viewport-1.png",
+      "sha256": "86e250783e5fbcea83228f80d878486d88ca01a2749f5e734fec139ed99fbac8",
+      "actuallyViewed": true,
+      "viewTool": "view_image original",
+      "caseInitialConfig": {
+        "designSystem": "shadcn",
+        "colorMode": "light",
+        "viewport": "desktop",
+        "state": "appearance-draft-retention"
+      },
+      "renderedConfig": {
+        "designSystem": "md3",
+        "colorMode": "dark",
+        "viewport": "desktop"
+      },
+      "phase": "appearance-live",
+      "scope": "visible viewport only; not a full-page capture",
+      "viewportPixels": {
+        "width": 1440,
+        "height": 900
+      },
+      "native": {
+        "project": "chromium",
+        "status": "passed",
+        "worker": 0,
+        "attachmentIndex": 1,
+        "attachmentName": "appearance-live-viewport-1",
+        "sha256": "86e250783e5fbcea83228f80d878486d88ca01a2749f5e734fec139ed99fbac8",
+        "imageMatchesNativeAndIndex": true
+      },
+      "snapshotTargetRole": "natural-time-series-no-static-target",
+      "snapshotTarget": null,
+      "observation": "由shadcn/light切到MD3/dark的1440px已滚动视口：项目名称“Quarterly Planning 工作区”与说明全文可见，勾选/半选/禁用、单选/开关与滑杆布局清楚，左右导航未压正文。顶部操作行部分在视口外，旋转弧可见部分第2帧变化但不当整组件动画外观验收；反馈区仅上部可见。",
+      "conclusion": "no-visible-issue-in-captured-viewport; top-actions-partially-visible",
+      "baselineEligibility": {
+        "eligibleAsApprovedBaseline": false,
+        "staticCandidateForSeparateReview": false,
+        "reason": "Natural live-series attachment; animations allowed, no static golden, including repeated frames."
+      }
+    },
+    {
+      "index": 27,
+      "caseId": "0e4135bc36f1ba174212-4c56f6639c0848cf937a/chromium/0",
+      "image": "screens/website/chromium/000015-2-appearance-live-viewport-2.png",
+      "sha256": "b7938dd95824864dcdd8158b512a15f8e5fbe846384f9813b62b735c1db2f860",
+      "actuallyViewed": true,
+      "viewTool": "view_image original",
+      "caseInitialConfig": {
+        "designSystem": "shadcn",
+        "colorMode": "light",
+        "viewport": "desktop",
+        "state": "appearance-draft-retention"
+      },
+      "renderedConfig": {
+        "designSystem": "md3",
+        "colorMode": "dark",
+        "viewport": "desktop"
+      },
+      "phase": "appearance-live",
+      "scope": "visible viewport only; not a full-page capture",
+      "viewportPixels": {
+        "width": 1440,
+        "height": 900
+      },
+      "native": {
+        "project": "chromium",
+        "status": "passed",
+        "worker": 0,
+        "attachmentIndex": 2,
+        "attachmentName": "appearance-live-viewport-2",
+        "sha256": "b7938dd95824864dcdd8158b512a15f8e5fbe846384f9813b62b735c1db2f860",
+        "imageMatchesNativeAndIndex": true
+      },
+      "snapshotTargetRole": "natural-time-series-no-static-target",
+      "snapshotTarget": null,
+      "observation": "由shadcn/light切到MD3/dark的1440px已滚动视口：项目名称“Quarterly Planning 工作区”与说明全文可见，勾选/半选/禁用、单选/开关与滑杆布局清楚，左右导航未压正文。顶部操作行部分在视口外，旋转弧可见部分第3帧变化但不当整组件动画外观验收；反馈区仅上部可见。",
+      "conclusion": "no-visible-issue-in-captured-viewport; top-actions-partially-visible",
+      "baselineEligibility": {
+        "eligibleAsApprovedBaseline": false,
+        "staticCandidateForSeparateReview": false,
+        "reason": "Natural live-series attachment; animations allowed, no static golden, including repeated frames."
+      }
+    },
+    {
+      "index": 28,
+      "caseId": "0e4135bc36f1ba174212-1d6cff7dfe37e725982b/chromium/0",
+      "image": "screens/website/chromium/000016-0-appearance-live-viewport-0.png",
+      "sha256": "93e8e92c78c23567252a61d2102ae841004f05fd4e9ee92026057c304c78801e",
+      "actuallyViewed": true,
+      "viewTool": "view_image original",
+      "caseInitialConfig": {
+        "designSystem": "shadcn",
+        "colorMode": "dark",
+        "viewport": "narrow",
+        "state": "appearance-draft-retention"
+      },
+      "renderedConfig": {
+        "designSystem": "md3",
+        "colorMode": "light",
+        "viewport": "narrow"
+      },
+      "phase": "appearance-live",
+      "scope": "visible viewport only; not a full-page capture",
+      "viewportPixels": {
+        "width": 320,
+        "height": 768
+      },
+      "native": {
+        "project": "chromium",
+        "status": "passed",
+        "worker": 1,
+        "attachmentIndex": 0,
+        "attachmentName": "appearance-live-viewport-0",
+        "sha256": "93e8e92c78c23567252a61d2102ae841004f05fd4e9ee92026057c304c78801e",
+        "imageMatchesNativeAndIndex": true
+      },
+      "snapshotTargetRole": "natural-time-series-no-static-target",
+      "snapshotTarget": null,
+      "observation": "由shadcn/dark切到MD3/light的320px视口：项目说明草稿全文两行保留，阶段/计数及多选勾选、半选、禁用清楚；“未选择”为固定示例标签，旁边已呈交互后勾选。项目名称及上方操作在视口外，未评价；三帧相同且未见旋转弧，不推断可见动画推进。",
+      "conclusion": "no-visible-layout-issue-in-captured-viewport; project-name-not-visible",
+      "baselineEligibility": {
+        "eligibleAsApprovedBaseline": false,
+        "staticCandidateForSeparateReview": false,
+        "reason": "Natural live-series attachment; animations allowed, no static golden, including repeated frames."
+      }
+    },
+    {
+      "index": 29,
+      "caseId": "0e4135bc36f1ba174212-1d6cff7dfe37e725982b/chromium/0",
+      "image": "screens/website/chromium/000016-1-appearance-live-viewport-1.png",
+      "sha256": "93e8e92c78c23567252a61d2102ae841004f05fd4e9ee92026057c304c78801e",
+      "actuallyViewed": true,
+      "viewTool": "view_image original",
+      "caseInitialConfig": {
+        "designSystem": "shadcn",
+        "colorMode": "dark",
+        "viewport": "narrow",
+        "state": "appearance-draft-retention"
+      },
+      "renderedConfig": {
+        "designSystem": "md3",
+        "colorMode": "light",
+        "viewport": "narrow"
+      },
+      "phase": "appearance-live",
+      "scope": "visible viewport only; not a full-page capture",
+      "viewportPixels": {
+        "width": 320,
+        "height": 768
+      },
+      "native": {
+        "project": "chromium",
+        "status": "passed",
+        "worker": 1,
+        "attachmentIndex": 1,
+        "attachmentName": "appearance-live-viewport-1",
+        "sha256": "93e8e92c78c23567252a61d2102ae841004f05fd4e9ee92026057c304c78801e",
+        "imageMatchesNativeAndIndex": true
+      },
+      "snapshotTargetRole": "natural-time-series-no-static-target",
+      "snapshotTarget": null,
+      "observation": "由shadcn/dark切到MD3/light的320px视口：项目说明草稿全文两行保留，阶段/计数及多选勾选、半选、禁用清楚；“未选择”为固定示例标签，旁边已呈交互后勾选。项目名称及上方操作在视口外，未评价；三帧相同且未见旋转弧，不推断可见动画推进。",
+      "conclusion": "no-visible-layout-issue-in-captured-viewport; project-name-not-visible",
+      "baselineEligibility": {
+        "eligibleAsApprovedBaseline": false,
+        "staticCandidateForSeparateReview": false,
+        "reason": "Natural live-series attachment; animations allowed, no static golden, including repeated frames."
+      }
+    },
+    {
+      "index": 30,
+      "caseId": "0e4135bc36f1ba174212-1d6cff7dfe37e725982b/chromium/0",
+      "image": "screens/website/chromium/000016-2-appearance-live-viewport-2.png",
+      "sha256": "93e8e92c78c23567252a61d2102ae841004f05fd4e9ee92026057c304c78801e",
+      "actuallyViewed": true,
+      "viewTool": "view_image original",
+      "caseInitialConfig": {
+        "designSystem": "shadcn",
+        "colorMode": "dark",
+        "viewport": "narrow",
+        "state": "appearance-draft-retention"
+      },
+      "renderedConfig": {
+        "designSystem": "md3",
+        "colorMode": "light",
+        "viewport": "narrow"
+      },
+      "phase": "appearance-live",
+      "scope": "visible viewport only; not a full-page capture",
+      "viewportPixels": {
+        "width": 320,
+        "height": 768
+      },
+      "native": {
+        "project": "chromium",
+        "status": "passed",
+        "worker": 1,
+        "attachmentIndex": 2,
+        "attachmentName": "appearance-live-viewport-2",
+        "sha256": "93e8e92c78c23567252a61d2102ae841004f05fd4e9ee92026057c304c78801e",
+        "imageMatchesNativeAndIndex": true
+      },
+      "snapshotTargetRole": "natural-time-series-no-static-target",
+      "snapshotTarget": null,
+      "observation": "由shadcn/dark切到MD3/light的320px视口：项目说明草稿全文两行保留，阶段/计数及多选勾选、半选、禁用清楚；“未选择”为固定示例标签，旁边已呈交互后勾选。项目名称及上方操作在视口外，未评价；三帧相同且未见旋转弧，不推断可见动画推进。",
+      "conclusion": "no-visible-layout-issue-in-captured-viewport; project-name-not-visible",
+      "baselineEligibility": {
+        "eligibleAsApprovedBaseline": false,
+        "staticCandidateForSeparateReview": false,
+        "reason": "Natural live-series attachment; animations allowed, no static golden, including repeated frames."
+      }
+    },
+    {
+      "index": 31,
+      "caseId": "0e4135bc36f1ba174212-75c4f1e9946303a5f8c8/chromium/0",
+      "image": "screens/website/chromium/000017-0-appearance-live-viewport-0.png",
+      "sha256": "b9b604002a9bf80a95b0b3257b2eebfb794d9456e3b7f727ebfc45292e67dbbc",
+      "actuallyViewed": true,
+      "viewTool": "view_image original",
+      "caseInitialConfig": {
+        "designSystem": "shadcn",
+        "colorMode": "dark",
+        "viewport": "tablet",
+        "state": "appearance-draft-retention"
+      },
+      "renderedConfig": {
+        "designSystem": "md3",
+        "colorMode": "light",
+        "viewport": "tablet"
+      },
+      "phase": "appearance-live",
+      "scope": "visible viewport only; not a full-page capture",
+      "viewportPixels": {
+        "width": 768,
+        "height": 1024
+      },
+      "native": {
+        "project": "chromium",
+        "status": "passed",
+        "worker": 0,
+        "attachmentIndex": 0,
+        "attachmentName": "appearance-live-viewport-0",
+        "sha256": "b9b604002a9bf80a95b0b3257b2eebfb794d9456e3b7f727ebfc45292e67dbbc",
+        "imageMatchesNativeAndIndex": true
+      },
+      "snapshotTargetRole": "natural-time-series-no-static-target",
+      "snapshotTarget": null,
+      "observation": "由shadcn/dark切到MD3/light的768px视口：项目说明完整、项目名称可见英文片段，错误轮廓/帮助、清空、只读/禁用状态与选择区排布完整；“处理中”弧第1帧相位不同，其余几何稳定。固定示例标签“未选择”旁勾选保留。下方导航反馈仅标题进入画面。",
+      "conclusion": "no-visible-issue-in-captured-viewport; spinner-phase-changes-visible",
+      "baselineEligibility": {
+        "eligibleAsApprovedBaseline": false,
+        "staticCandidateForSeparateReview": false,
+        "reason": "Natural live-series attachment; animations allowed, no static golden, including repeated frames."
+      }
+    },
+    {
+      "index": 32,
+      "caseId": "0e4135bc36f1ba174212-75c4f1e9946303a5f8c8/chromium/0",
+      "image": "screens/website/chromium/000017-1-appearance-live-viewport-1.png",
+      "sha256": "7879e9f14ec9175fea56ce86ca326a883a56995125a552b92d39970aa89dd9bb",
+      "actuallyViewed": true,
+      "viewTool": "view_image original",
+      "caseInitialConfig": {
+        "designSystem": "shadcn",
+        "colorMode": "dark",
+        "viewport": "tablet",
+        "state": "appearance-draft-retention"
+      },
+      "renderedConfig": {
+        "designSystem": "md3",
+        "colorMode": "light",
+        "viewport": "tablet"
+      },
+      "phase": "appearance-live",
+      "scope": "visible viewport only; not a full-page capture",
+      "viewportPixels": {
+        "width": 768,
+        "height": 1024
+      },
+      "native": {
+        "project": "chromium",
+        "status": "passed",
+        "worker": 0,
+        "attachmentIndex": 1,
+        "attachmentName": "appearance-live-viewport-1",
+        "sha256": "7879e9f14ec9175fea56ce86ca326a883a56995125a552b92d39970aa89dd9bb",
+        "imageMatchesNativeAndIndex": true
+      },
+      "snapshotTargetRole": "natural-time-series-no-static-target",
+      "snapshotTarget": null,
+      "observation": "由shadcn/dark切到MD3/light的768px视口：项目说明完整、项目名称可见英文片段，错误轮廓/帮助、清空、只读/禁用状态与选择区排布完整；“处理中”弧第2帧相位不同，其余几何稳定。固定示例标签“未选择”旁勾选保留。下方导航反馈仅标题进入画面。",
+      "conclusion": "no-visible-issue-in-captured-viewport; spinner-phase-changes-visible",
+      "baselineEligibility": {
+        "eligibleAsApprovedBaseline": false,
+        "staticCandidateForSeparateReview": false,
+        "reason": "Natural live-series attachment; animations allowed, no static golden, including repeated frames."
+      }
+    },
+    {
+      "index": 33,
+      "caseId": "0e4135bc36f1ba174212-75c4f1e9946303a5f8c8/chromium/0",
+      "image": "screens/website/chromium/000017-2-appearance-live-viewport-2.png",
+      "sha256": "57ee9d53a1828a0dbd3973845063d6567bcde1e33d70daa7e39ac5a3ea0b89ab",
+      "actuallyViewed": true,
+      "viewTool": "view_image original",
+      "caseInitialConfig": {
+        "designSystem": "shadcn",
+        "colorMode": "dark",
+        "viewport": "tablet",
+        "state": "appearance-draft-retention"
+      },
+      "renderedConfig": {
+        "designSystem": "md3",
+        "colorMode": "light",
+        "viewport": "tablet"
+      },
+      "phase": "appearance-live",
+      "scope": "visible viewport only; not a full-page capture",
+      "viewportPixels": {
+        "width": 768,
+        "height": 1024
+      },
+      "native": {
+        "project": "chromium",
+        "status": "passed",
+        "worker": 0,
+        "attachmentIndex": 2,
+        "attachmentName": "appearance-live-viewport-2",
+        "sha256": "57ee9d53a1828a0dbd3973845063d6567bcde1e33d70daa7e39ac5a3ea0b89ab",
+        "imageMatchesNativeAndIndex": true
+      },
+      "snapshotTargetRole": "natural-time-series-no-static-target",
+      "snapshotTarget": null,
+      "observation": "由shadcn/dark切到MD3/light的768px视口：项目说明完整、项目名称可见英文片段，错误轮廓/帮助、清空、只读/禁用状态与选择区排布完整；“处理中”弧第3帧相位不同，其余几何稳定。固定示例标签“未选择”旁勾选保留。下方导航反馈仅标题进入画面。",
+      "conclusion": "no-visible-issue-in-captured-viewport; spinner-phase-changes-visible",
+      "baselineEligibility": {
+        "eligibleAsApprovedBaseline": false,
+        "staticCandidateForSeparateReview": false,
+        "reason": "Natural live-series attachment; animations allowed, no static golden, including repeated frames."
+      }
+    },
+    {
+      "index": 34,
+      "caseId": "0e4135bc36f1ba174212-050b8614ff43f7861293/chromium/0",
+      "image": "screens/website/chromium/000018-0-appearance-live-viewport-0.png",
+      "sha256": "005655ae695bad75ab13a1b30136e76db0d711dd434e86b057c0cc5f7435d432",
+      "actuallyViewed": true,
+      "viewTool": "view_image original",
+      "caseInitialConfig": {
+        "designSystem": "shadcn",
+        "colorMode": "dark",
+        "viewport": "desktop",
+        "state": "appearance-draft-retention"
+      },
+      "renderedConfig": {
+        "designSystem": "md3",
+        "colorMode": "light",
+        "viewport": "desktop"
+      },
+      "phase": "appearance-live",
+      "scope": "visible viewport only; not a full-page capture",
+      "viewportPixels": {
+        "width": 1440,
+        "height": 900
+      },
+      "native": {
+        "project": "chromium",
+        "status": "passed",
+        "worker": 1,
+        "attachmentIndex": 0,
+        "attachmentName": "appearance-live-viewport-0",
+        "sha256": "005655ae695bad75ab13a1b30136e76db0d711dd434e86b057c0cc5f7435d432",
+        "imageMatchesNativeAndIndex": true
+      },
+      "snapshotTargetRole": "natural-time-series-no-static-target",
+      "snapshotTarget": null,
+      "observation": "由shadcn/dark切到MD3/light的1440px已滚动视口：项目名称和说明全文保留，选择/滑杆与左右导航空间清晰；顶部操作行只剩下部，处理弧第1帧有相位变化但其完整边界未被本图覆盖。下方反馈仅概览首段，不能当整页外观。",
+      "conclusion": "no-visible-issue-in-captured-viewport; top-actions-partially-visible",
+      "baselineEligibility": {
+        "eligibleAsApprovedBaseline": false,
+        "staticCandidateForSeparateReview": false,
+        "reason": "Natural live-series attachment; animations allowed, no static golden, including repeated frames."
+      }
+    },
+    {
+      "index": 35,
+      "caseId": "0e4135bc36f1ba174212-050b8614ff43f7861293/chromium/0",
+      "image": "screens/website/chromium/000018-1-appearance-live-viewport-1.png",
+      "sha256": "4410280755f46b938263a27441be3ee653ff0aceba11baf96b29bdd931cd0c15",
+      "actuallyViewed": true,
+      "viewTool": "view_image original",
+      "caseInitialConfig": {
+        "designSystem": "shadcn",
+        "colorMode": "dark",
+        "viewport": "desktop",
+        "state": "appearance-draft-retention"
+      },
+      "renderedConfig": {
+        "designSystem": "md3",
+        "colorMode": "light",
+        "viewport": "desktop"
+      },
+      "phase": "appearance-live",
+      "scope": "visible viewport only; not a full-page capture",
+      "viewportPixels": {
+        "width": 1440,
+        "height": 900
+      },
+      "native": {
+        "project": "chromium",
+        "status": "passed",
+        "worker": 1,
+        "attachmentIndex": 1,
+        "attachmentName": "appearance-live-viewport-1",
+        "sha256": "4410280755f46b938263a27441be3ee653ff0aceba11baf96b29bdd931cd0c15",
+        "imageMatchesNativeAndIndex": true
+      },
+      "snapshotTargetRole": "natural-time-series-no-static-target",
+      "snapshotTarget": null,
+      "observation": "由shadcn/dark切到MD3/light的1440px已滚动视口：项目名称和说明全文保留，选择/滑杆与左右导航空间清晰；顶部操作行只剩下部，处理弧第2帧有相位变化但其完整边界未被本图覆盖。下方反馈仅概览首段，不能当整页外观。",
+      "conclusion": "no-visible-issue-in-captured-viewport; top-actions-partially-visible",
+      "baselineEligibility": {
+        "eligibleAsApprovedBaseline": false,
+        "staticCandidateForSeparateReview": false,
+        "reason": "Natural live-series attachment; animations allowed, no static golden, including repeated frames."
+      }
+    },
+    {
+      "index": 36,
+      "caseId": "0e4135bc36f1ba174212-050b8614ff43f7861293/chromium/0",
+      "image": "screens/website/chromium/000018-2-appearance-live-viewport-2.png",
+      "sha256": "25b3ba67d763e85c724265599961b887618a6040c095430e5e3e2b6893d12773",
+      "actuallyViewed": true,
+      "viewTool": "view_image original",
+      "caseInitialConfig": {
+        "designSystem": "shadcn",
+        "colorMode": "dark",
+        "viewport": "desktop",
+        "state": "appearance-draft-retention"
+      },
+      "renderedConfig": {
+        "designSystem": "md3",
+        "colorMode": "light",
+        "viewport": "desktop"
+      },
+      "phase": "appearance-live",
+      "scope": "visible viewport only; not a full-page capture",
+      "viewportPixels": {
+        "width": 1440,
+        "height": 900
+      },
+      "native": {
+        "project": "chromium",
+        "status": "passed",
+        "worker": 1,
+        "attachmentIndex": 2,
+        "attachmentName": "appearance-live-viewport-2",
+        "sha256": "25b3ba67d763e85c724265599961b887618a6040c095430e5e3e2b6893d12773",
+        "imageMatchesNativeAndIndex": true
+      },
+      "snapshotTargetRole": "natural-time-series-no-static-target",
+      "snapshotTarget": null,
+      "observation": "由shadcn/dark切到MD3/light的1440px已滚动视口：项目名称和说明全文保留，选择/滑杆与左右导航空间清晰；顶部操作行只剩下部，处理弧第3帧有相位变化但其完整边界未被本图覆盖。下方反馈仅概览首段，不能当整页外观。",
+      "conclusion": "no-visible-issue-in-captured-viewport; top-actions-partially-visible",
+      "baselineEligibility": {
+        "eligibleAsApprovedBaseline": false,
+        "staticCandidateForSeparateReview": false,
+        "reason": "Natural live-series attachment; animations allowed, no static golden, including repeated frames."
+      }
+    },
+    {
+      "index": 37,
+      "caseId": "23c228f2ffdd18452a42-bdcee98e3242c282b8c6/chromium/0",
+      "image": "screens/website/chromium/000019-1-actual.png",
+      "sha256": "a4d49b8ab43b9da0ffb080a6337a876c8926fde232cd0cc7bdc599d91d5e5a55",
+      "actuallyViewed": true,
+      "viewTool": "view_image original",
+      "caseInitialConfig": {
+        "designSystem": "md3",
+        "colorMode": "light",
+        "viewport": "narrow",
+        "state": "navigation-search-keyboard"
+      },
+      "renderedConfig": {
+        "designSystem": "md3",
+        "colorMode": "light",
+        "viewport": "narrow"
+      },
+      "phase": "mobile-navigation",
+      "scope": "visible viewport only; not a full-page capture",
+      "viewportPixels": {
+        "width": 320,
+        "height": 768
+      },
+      "native": {
+        "project": "chromium",
+        "status": "passed",
+        "worker": 2,
+        "attachmentIndex": 1,
+        "attachmentName": "actual",
+        "sha256": "a4d49b8ab43b9da0ffb080a6337a876c8926fde232cd0cc7bdc599d91d5e5a55",
+        "imageMatchesNativeAndIndex": true
+      },
+      "snapshotTargetRole": "mobile-navigation-native-target-candidate",
+      "snapshotTarget": {
+        "name": "mobile-navigation-md3-light-narrow.png",
+        "path": "test/visual/baselines/win32/chromium/.website/docs/site/site-navigation.visual.spec.mjs/mobile-navigation-md3-light-narrow.png"
+      },
+      "observation": "320px浅色导航抽屉：标题/关闭图标完整，首页选中紫色圆角面与六个导航项/展开箭头清楚，背景遮罩可辨，无可见横向截字；本图不展示Escape后触发器焦点。",
+      "conclusion": "no-visible-issue-in-captured-viewport",
+      "baselineEligibility": {
+        "eligibleAsApprovedBaseline": false,
+        "staticCandidateForSeparateReview": true,
+        "reason": "Windows Chromium viewport candidate only; separate baseline approval and stability workflow still required."
+      }
+    },
+    {
+      "index": 38,
+      "caseId": "23c228f2ffdd18452a42-bdcee98e3242c282b8c6/chromium/0",
+      "image": "screens/website/chromium/000019-3-actual.png",
+      "sha256": "e60edf8b6e8e350a0173f593c0393bcc2a105bbb11e149c267a3524b17842a4c",
+      "actuallyViewed": true,
+      "viewTool": "view_image original",
+      "caseInitialConfig": {
+        "designSystem": "md3",
+        "colorMode": "light",
+        "viewport": "narrow",
+        "state": "navigation-search-keyboard"
+      },
+      "renderedConfig": {
+        "designSystem": "md3",
+        "colorMode": "light",
+        "viewport": "narrow"
+      },
+      "phase": "search-results",
+      "scope": "visible viewport only; not a full-page capture",
+      "viewportPixels": {
+        "width": 320,
+        "height": 768
+      },
+      "native": {
+        "project": "chromium",
+        "status": "passed",
+        "worker": 2,
+        "attachmentIndex": 3,
+        "attachmentName": "actual",
+        "sha256": "e60edf8b6e8e350a0173f593c0393bcc2a105bbb11e149c267a3524b17842a4c",
+        "imageMatchesNativeAndIndex": true
+      },
+      "snapshotTargetRole": "search-results-native-target-candidate",
+      "snapshotTarget": {
+        "name": "search-results-md3-light-narrow.png",
+        "path": "test/visual/baselines/win32/chromium/.website/docs/site/site-navigation.visual.spec.mjs/search-results-md3-light-narrow.png"
+      },
+      "observation": "320px浅色搜索：输入LineEdit紫色焦点轮廓清楚，首结果LineEdit单行输入框有独立紫色选中面、返回图标，文本摘要按可用宽度省略；关闭/打开文档及键盘说明可见，列表下方滚动内容不当全部结果。",
+      "conclusion": "no-visible-issue-in-captured-viewport",
+      "baselineEligibility": {
+        "eligibleAsApprovedBaseline": false,
+        "staticCandidateForSeparateReview": true,
+        "reason": "Windows Chromium viewport candidate only; separate baseline approval and stability workflow still required."
+      }
+    },
+    {
+      "index": 39,
+      "caseId": "23c228f2ffdd18452a42-9743d364bbe6073fe848/chromium/0",
+      "image": "screens/website/chromium/000020-1-actual.png",
+      "sha256": "31d654d86b634e4236b0ad7cc9e6b0e1a684d708e177074abbb4a4e70cff4be4",
+      "actuallyViewed": true,
+      "viewTool": "view_image original",
+      "caseInitialConfig": {
+        "designSystem": "md3",
+        "colorMode": "light",
+        "viewport": "tablet",
+        "state": "navigation-search-keyboard"
+      },
+      "renderedConfig": {
+        "designSystem": "md3",
+        "colorMode": "light",
+        "viewport": "tablet"
+      },
+      "phase": "mobile-navigation",
+      "scope": "visible viewport only; not a full-page capture",
+      "viewportPixels": {
+        "width": 768,
+        "height": 1024
+      },
+      "native": {
+        "project": "chromium",
+        "status": "passed",
+        "worker": 3,
+        "attachmentIndex": 1,
+        "attachmentName": "actual",
+        "sha256": "31d654d86b634e4236b0ad7cc9e6b0e1a684d708e177074abbb4a4e70cff4be4",
+        "imageMatchesNativeAndIndex": true
+      },
+      "snapshotTargetRole": "mobile-navigation-native-target-candidate",
+      "snapshotTarget": {
+        "name": "mobile-navigation-md3-light-tablet.png",
+        "path": "test/visual/baselines/win32/chromium/.website/docs/site/site-navigation.visual.spec.mjs/mobile-navigation-md3-light-tablet.png"
+      },
+      "observation": "768px浅色导航抽屉：左侧256px面板与完整标题/关闭图标、首页选中面/箭头清楚，背后首页遮罩与布局可辨；图只记录打开状态，不覆盖键盘返回后的焦点。",
+      "conclusion": "no-visible-issue-in-captured-viewport",
+      "baselineEligibility": {
+        "eligibleAsApprovedBaseline": false,
+        "staticCandidateForSeparateReview": true,
+        "reason": "Windows Chromium viewport candidate only; separate baseline approval and stability workflow still required."
+      }
+    },
+    {
+      "index": 40,
+      "caseId": "23c228f2ffdd18452a42-9743d364bbe6073fe848/chromium/0",
+      "image": "screens/website/chromium/000020-3-actual.png",
+      "sha256": "fccf7ea9546afe9ab0d6c445b13ff3571d83775fa0eb681428ed70e499deaca2",
+      "actuallyViewed": true,
+      "viewTool": "view_image original",
+      "caseInitialConfig": {
+        "designSystem": "md3",
+        "colorMode": "light",
+        "viewport": "tablet",
+        "state": "navigation-search-keyboard"
+      },
+      "renderedConfig": {
+        "designSystem": "md3",
+        "colorMode": "light",
+        "viewport": "tablet"
+      },
+      "phase": "search-results",
+      "scope": "visible viewport only; not a full-page capture",
+      "viewportPixels": {
+        "width": 768,
+        "height": 1024
+      },
+      "native": {
+        "project": "chromium",
+        "status": "passed",
+        "worker": 3,
+        "attachmentIndex": 3,
+        "attachmentName": "actual",
+        "sha256": "fccf7ea9546afe9ab0d6c445b13ff3571d83775fa0eb681428ed70e499deaca2",
+        "imageMatchesNativeAndIndex": true
+      },
+      "snapshotTargetRole": "search-results-native-target-candidate",
+      "snapshotTarget": {
+        "name": "search-results-md3-light-tablet.png",
+        "path": "test/visual/baselines/win32/chromium/.website/docs/site/site-navigation.visual.spec.mjs/search-results-md3-light-tablet.png"
+      },
+      "observation": "768px浅色搜索：输入紫色焦点轮廓完整，首结果紫色选中面与返回图标明确，12结果计数/可见摘要/键盘提示/底部动作未重叠；列表仅显示其滚动可见部分。背景组件正文在遮罩下，不替代其独立验收。",
+      "conclusion": "no-visible-issue-in-captured-viewport",
+      "baselineEligibility": {
+        "eligibleAsApprovedBaseline": false,
+        "staticCandidateForSeparateReview": true,
+        "reason": "Windows Chromium viewport candidate only; separate baseline approval and stability workflow still required."
+      }
+    },
+    {
+      "index": 41,
+      "caseId": "23c228f2ffdd18452a42-bfc084d45e2aa8a8c967/chromium/0",
+      "image": "screens/website/chromium/000021-1-actual.png",
+      "sha256": "d84e93d889ce7d27deacf6f1c9f5bf7f16251c854acfe0b0c4947ceb6bc11d6e",
+      "actuallyViewed": true,
+      "viewTool": "view_image original",
+      "caseInitialConfig": {
+        "designSystem": "md3",
+        "colorMode": "light",
+        "viewport": "desktop",
+        "state": "navigation-search-keyboard"
+      },
+      "renderedConfig": {
+        "designSystem": "md3",
+        "colorMode": "light",
+        "viewport": "desktop"
+      },
+      "phase": "search-results",
+      "scope": "visible viewport only; not a full-page capture",
+      "viewportPixels": {
+        "width": 1440,
+        "height": 900
+      },
+      "native": {
+        "project": "chromium",
+        "status": "passed",
+        "worker": 2,
+        "attachmentIndex": 1,
+        "attachmentName": "actual",
+        "sha256": "d84e93d889ce7d27deacf6f1c9f5bf7f16251c854acfe0b0c4947ceb6bc11d6e",
+        "imageMatchesNativeAndIndex": true
+      },
+      "snapshotTargetRole": "search-results-native-target-candidate",
+      "snapshotTarget": {
+        "name": "search-results-md3-light-desktop.png",
+        "path": "test/visual/baselines/win32/chromium/.website/docs/site/site-navigation.visual.spec.mjs/search-results-md3-light-desktop.png"
+      },
+      "observation": "1440px浅色搜索：居中对话框的输入焦点紫环与首项选中面清晰；标题/摘要按列表宽度换行或省略，关闭/打开动作可见；背后侧栏LineEdit项为当前选中。仅本视口与对话框可见部分，不评价背景Demo是否完整。",
+      "conclusion": "no-visible-issue-in-captured-viewport",
+      "baselineEligibility": {
+        "eligibleAsApprovedBaseline": false,
+        "staticCandidateForSeparateReview": true,
+        "reason": "Windows Chromium viewport candidate only; separate baseline approval and stability workflow still required."
+      }
+    },
+    {
+      "index": 42,
+      "caseId": "23c228f2ffdd18452a42-795ba078db65c7cb5c06/chromium/0",
+      "image": "screens/website/chromium/000022-1-actual.png",
+      "sha256": "7b28d55616b8576ba2abd15dd755734d9883be092d8b2d3ca10506d3d8020c53",
+      "actuallyViewed": true,
+      "viewTool": "view_image original",
+      "caseInitialConfig": {
+        "designSystem": "md3",
+        "colorMode": "dark",
+        "viewport": "narrow",
+        "state": "navigation-search-keyboard"
+      },
+      "renderedConfig": {
+        "designSystem": "md3",
+        "colorMode": "dark",
+        "viewport": "narrow"
+      },
+      "phase": "mobile-navigation",
+      "scope": "visible viewport only; not a full-page capture",
+      "viewportPixels": {
+        "width": 320,
+        "height": 768
+      },
+      "native": {
+        "project": "chromium",
+        "status": "passed",
+        "worker": 3,
+        "attachmentIndex": 1,
+        "attachmentName": "actual",
+        "sha256": "7b28d55616b8576ba2abd15dd755734d9883be092d8b2d3ca10506d3d8020c53",
+        "imageMatchesNativeAndIndex": true
+      },
+      "snapshotTargetRole": "mobile-navigation-native-target-candidate",
+      "snapshotTarget": {
+        "name": "mobile-navigation-md3-dark-narrow.png",
+        "path": "test/visual/baselines/win32/chromium/.website/docs/site/site-navigation.visual.spec.mjs/mobile-navigation-md3-dark-narrow.png"
+      },
+      "observation": "320px深色导航：深色面板与背景遮罩分层清楚，首页选中面、各导航名称/箭头及关闭图标完整；未出现文字横向截断。Escape返回焦点不在截图范围。",
+      "conclusion": "no-visible-issue-in-captured-viewport",
+      "baselineEligibility": {
+        "eligibleAsApprovedBaseline": false,
+        "staticCandidateForSeparateReview": true,
+        "reason": "Windows Chromium viewport candidate only; separate baseline approval and stability workflow still required."
+      }
+    },
+    {
+      "index": 43,
+      "caseId": "23c228f2ffdd18452a42-795ba078db65c7cb5c06/chromium/0",
+      "image": "screens/website/chromium/000022-3-actual.png",
+      "sha256": "4fd6ce9a4fd5038b9d051dafff23f2f23bb206733f63aa21dbba829b35f6fe6e",
+      "actuallyViewed": true,
+      "viewTool": "view_image original",
+      "caseInitialConfig": {
+        "designSystem": "md3",
+        "colorMode": "dark",
+        "viewport": "narrow",
+        "state": "navigation-search-keyboard"
+      },
+      "renderedConfig": {
+        "designSystem": "md3",
+        "colorMode": "dark",
+        "viewport": "narrow"
+      },
+      "phase": "search-results",
+      "scope": "visible viewport only; not a full-page capture",
+      "viewportPixels": {
+        "width": 320,
+        "height": 768
+      },
+      "native": {
+        "project": "chromium",
+        "status": "passed",
+        "worker": 3,
+        "attachmentIndex": 3,
+        "attachmentName": "actual",
+        "sha256": "4fd6ce9a4fd5038b9d051dafff23f2f23bb206733f63aa21dbba829b35f6fe6e",
+        "imageMatchesNativeAndIndex": true
+      },
+      "snapshotTargetRole": "search-results-native-target-candidate",
+      "snapshotTarget": {
+        "name": "search-results-md3-dark-narrow.png",
+        "path": "test/visual/baselines/win32/chromium/.website/docs/site/site-navigation.visual.spec.mjs/search-results-md3-dark-narrow.png"
+      },
+      "observation": "320px深色搜索：浅紫输入焦点边界和首项紫灰选中背景清楚，LineEdit首项标题/摘要及12结果计数可读；关闭/打开动作和键盘说明完整。结果列表只记录可见滚动区域。",
+      "conclusion": "no-visible-issue-in-captured-viewport",
+      "baselineEligibility": {
+        "eligibleAsApprovedBaseline": false,
+        "staticCandidateForSeparateReview": true,
+        "reason": "Windows Chromium viewport candidate only; separate baseline approval and stability workflow still required."
+      }
+    },
+    {
+      "index": 44,
+      "caseId": "23c228f2ffdd18452a42-63a3720560805934df18/chromium/0",
+      "image": "screens/website/chromium/000023-1-actual.png",
+      "sha256": "8213081b355ce2c9213d727c7fa20f16f4782733ea290c036d6f8eb114b198e5",
+      "actuallyViewed": true,
+      "viewTool": "view_image original",
+      "caseInitialConfig": {
+        "designSystem": "md3",
+        "colorMode": "dark",
+        "viewport": "tablet",
+        "state": "navigation-search-keyboard"
+      },
+      "renderedConfig": {
+        "designSystem": "md3",
+        "colorMode": "dark",
+        "viewport": "tablet"
+      },
+      "phase": "mobile-navigation",
+      "scope": "visible viewport only; not a full-page capture",
+      "viewportPixels": {
+        "width": 768,
+        "height": 1024
+      },
+      "native": {
+        "project": "chromium",
+        "status": "passed",
+        "worker": 2,
+        "attachmentIndex": 1,
+        "attachmentName": "actual",
+        "sha256": "8213081b355ce2c9213d727c7fa20f16f4782733ea290c036d6f8eb114b198e5",
+        "imageMatchesNativeAndIndex": true
+      },
+      "snapshotTargetRole": "mobile-navigation-native-target-candidate",
+      "snapshotTarget": {
+        "name": "mobile-navigation-md3-dark-tablet.png",
+        "path": "test/visual/baselines/win32/chromium/.website/docs/site/site-navigation.visual.spec.mjs/mobile-navigation-md3-dark-tablet.png"
+      },
+      "observation": "768px深色导航：抽屉标题/关闭与首页选中面完整，六项导航在面板内，背景遮罩有层级，无明显截字或重叠；打开状态不等于键盘返回后的焦点外观。",
+      "conclusion": "no-visible-issue-in-captured-viewport",
+      "baselineEligibility": {
+        "eligibleAsApprovedBaseline": false,
+        "staticCandidateForSeparateReview": true,
+        "reason": "Windows Chromium viewport candidate only; separate baseline approval and stability workflow still required."
+      }
+    },
+    {
+      "index": 45,
+      "caseId": "23c228f2ffdd18452a42-63a3720560805934df18/chromium/0",
+      "image": "screens/website/chromium/000023-3-actual.png",
+      "sha256": "5d8576e6463fad16b4905ec59d95dd6c0a32f28a68b7ac54a9fab85ad33c2ec3",
+      "actuallyViewed": true,
+      "viewTool": "view_image original",
+      "caseInitialConfig": {
+        "designSystem": "md3",
+        "colorMode": "dark",
+        "viewport": "tablet",
+        "state": "navigation-search-keyboard"
+      },
+      "renderedConfig": {
+        "designSystem": "md3",
+        "colorMode": "dark",
+        "viewport": "tablet"
+      },
+      "phase": "search-results",
+      "scope": "visible viewport only; not a full-page capture",
+      "viewportPixels": {
+        "width": 768,
+        "height": 1024
+      },
+      "native": {
+        "project": "chromium",
+        "status": "passed",
+        "worker": 2,
+        "attachmentIndex": 3,
+        "attachmentName": "actual",
+        "sha256": "5d8576e6463fad16b4905ec59d95dd6c0a32f28a68b7ac54a9fab85ad33c2ec3",
+        "imageMatchesNativeAndIndex": true
+      },
+      "snapshotTargetRole": "search-results-native-target-candidate",
+      "snapshotTarget": {
+        "name": "search-results-md3-dark-tablet.png",
+        "path": "test/visual/baselines/win32/chromium/.website/docs/site/site-navigation.visual.spec.mjs/search-results-md3-dark-tablet.png"
+      },
+      "observation": "768px深色搜索：输入浅紫焦点环与首项紫灰选中面明确，内容摘要/计数/键盘帮助和底部动作清楚，无容器挤压；背景正文仅作对话框定位环境，未替代组件状态验收。",
+      "conclusion": "no-visible-issue-in-captured-viewport",
+      "baselineEligibility": {
+        "eligibleAsApprovedBaseline": false,
+        "staticCandidateForSeparateReview": true,
+        "reason": "Windows Chromium viewport candidate only; separate baseline approval and stability workflow still required."
+      }
+    },
+    {
+      "index": 46,
+      "caseId": "23c228f2ffdd18452a42-aede4d30eb5f7edc30a2/chromium/0",
+      "image": "screens/website/chromium/000024-1-actual.png",
+      "sha256": "85967f7fd02b095e35b3845f2f9b44e04b488a70d9158cbc92940cf3d6b5061f",
+      "actuallyViewed": true,
+      "viewTool": "view_image original",
+      "caseInitialConfig": {
+        "designSystem": "md3",
+        "colorMode": "dark",
+        "viewport": "desktop",
+        "state": "navigation-search-keyboard"
+      },
+      "renderedConfig": {
+        "designSystem": "md3",
+        "colorMode": "dark",
+        "viewport": "desktop"
+      },
+      "phase": "search-results",
+      "scope": "visible viewport only; not a full-page capture",
+      "viewportPixels": {
+        "width": 1440,
+        "height": 900
+      },
+      "native": {
+        "project": "chromium",
+        "status": "passed",
+        "worker": 3,
+        "attachmentIndex": 1,
+        "attachmentName": "actual",
+        "sha256": "85967f7fd02b095e35b3845f2f9b44e04b488a70d9158cbc92940cf3d6b5061f",
+        "imageMatchesNativeAndIndex": true
+      },
+      "snapshotTargetRole": "search-results-native-target-candidate",
+      "snapshotTarget": {
+        "name": "search-results-md3-dark-desktop.png",
+        "path": "test/visual/baselines/win32/chromium/.website/docs/site/site-navigation.visual.spec.mjs/search-results-md3-dark-desktop.png"
+      },
+      "observation": "1440px深色搜索：浅紫输入焦点环、首项选中底色/返回图标与侧栏LineEdit当前项清楚；对话框标题/摘要/键盘提示/关闭与打开文档动作均可见，未见布局重叠。后方组件正文仅部分可见，不将其视为完整组件外观。",
+      "conclusion": "no-visible-issue-in-captured-viewport",
+      "baselineEligibility": {
+        "eligibleAsApprovedBaseline": false,
+        "staticCandidateForSeparateReview": true,
+        "reason": "Windows Chromium viewport candidate only; separate baseline approval and stability workflow still required."
+      }
+    }
+  ]
+}
+

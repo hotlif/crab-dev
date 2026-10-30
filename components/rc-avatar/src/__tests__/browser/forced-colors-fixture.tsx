@@ -3,6 +3,7 @@ import { flushSync } from 'react-dom';
 import ConfigProvider from '@crab-dev/rc-config-provider';
 import Badge from '@crab-dev/rc-badge';
 import Avatar, { AvatarGroup } from '../../../esm/index.mjs';
+import { screenshotPixels } from '../../../../../test/forced-color-pixels.mjs';
 
 const search = new URLSearchParams(location.search);
 const designSystem = search.get('designSystem') as 'md3' | 'apple' | 'shadcn';
@@ -122,13 +123,9 @@ async function prepare() {
 async function inspectPixels(base64: string) {
     // Decode only the actual CDP screenshot, never repaint component text to
     // infer visibility. Each real DOM glyph range must contain foreground ink.
-    const binary = globalThis.atob(base64), bytes = Uint8Array.from(binary, character => character.charCodeAt(0));
-    const bitmap = await globalThis.createImageBitmap(new Blob([bytes], { type: 'image/png' }));
-    check(bitmap.width === globalThis.innerWidth && bitmap.height === globalThis.innerHeight && globalThis.devicePixelRatio === 1, 'Pixel measurement requires the captured 1x viewport');
-    const canvas = new globalThis.OffscreenCanvas(bitmap.width, bitmap.height), context = canvas.getContext('2d');
-    check(context, 'Cannot decode screenshot pixels');
-    context.drawImage(bitmap, 0, 0); bitmap.close();
-    const pixels = context.getImageData(0, 0, canvas.width, canvas.height).data;
+    const image = await screenshotPixels(base64);
+    check(image.width === globalThis.innerWidth && image.height === globalThis.innerHeight && globalThis.devicePixelRatio === 1, 'Pixel measurement requires the captured 1x viewport');
+    const pixels = image.data;
     const rgb = (value: string) => {
         const match = /^rgba?\(\s*([\d.]+)[, ]+([\d.]+)[, ]+([\d.]+)/.exec(value);
         check(match, `Expected resolved system RGB: ${value}`);
@@ -136,9 +133,9 @@ async function inspectPixels(base64: string) {
     };
     const counts = (rect: DOMRect | ReturnType<DOMRect['toJSON']>, color: number[]) => {
         let matches = 0;
-        for (let y = Math.max(0, Math.floor(rect.top)); y < Math.min(canvas.height, Math.ceil(rect.bottom)); y++) {
-            for (let x = Math.max(0, Math.floor(rect.left)); x < Math.min(canvas.width, Math.ceil(rect.right)); x++) {
-                const index = (y * canvas.width + x) * 4;
+        for (let y = Math.max(0, Math.floor(rect.top)); y < Math.min(image.height, Math.ceil(rect.bottom)); y++) {
+            for (let x = Math.max(0, Math.floor(rect.left)); x < Math.min(image.width, Math.ceil(rect.right)); x++) {
+                const index = (y * image.width + x) * 4;
                 if (color.every((channel, channelIndex) => Math.abs(channel - pixels[index + channelIndex]!) <= 48)) matches++;
             }
         }

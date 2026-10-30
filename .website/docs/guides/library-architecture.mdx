@@ -32,6 +32,25 @@ Crab UI 是可按包使用的 React 组件库。设计令牌、配置和通用�
 
 [包依赖图](/guides/dependencies)与完整邻接表由产品清单、包声明、实际生产/文档源码和令牌引用生成，可以分别查看生产、文档和令牌关系。它和 Turbo 使用相同检查来源，不另外维护手写依赖图。
 
+生产源码及类型声明不能通过相对路径穿越包边界，也不能引用文档运行环境。跨包能力从已声明的公共入口取得；`check:architecture` 检查实际源码引用。
+
+## 包内职责
+
+保持现有发布包边界，在包内按修改原因组织模块。静态组件样式放在相邻的 `*.styles.ts`；渲染文件处理结构与事件，专属规则留在所属包。通用受控状态、字段关联与浮层协调放在 Hooks，配置与 CSS 边界放在 ConfigProvider。
+
+| 能力 | 模型与规则 | 状态、资源与边界 | 渲染 |
+| --- | --- | --- | --- |
+| Table / TablePro | `types`、`util`、`valueAccess` 与排序、树、分组 Hook | 选择、编辑、拖动、列布局、测量与焦点 Hook | Table 编排视图；TablePro 通过 Table 的公开能力组合 |
+| Form | `types`、`util`、`field-adapters` | `bus`、`hooks/useForm` 与字段上下文 | `form`、`item` 与相邻样式 |
+| Tree | `type`、`util` | `hooks/useTreeData` | `tree`、`nodeItem` 与相邻样式 |
+| Canvas / FlowDiagram | 形状、矩阵、路径与绘制协议；ELK 布局与连线路由 | 控制与路由 Hook、WebGL renderer、文字 atlas | Canvas 视口与形状；FlowDiagram 节点与边 |
+| PdfEditor | `protocol`、`geometry`、`document-layout` | `engine`、`client`、`session`、Worker 与插件宿主 | 文档舞台、页面、面板、工具栏及 Web Component 适配 |
+| Router / Realm | 路径匹配；加载协议与共享范围 | history 与导航；loader、importer 与 sandbox | Outlet、Link；Realm 与错误边界 |
+
+渲染器、Worker、WASM 和远程资源的创建与释放由所属引擎或会话承担。测试从相应模块或包入口进入；文档站只消费这些能力。ComponentPreview 负责演示与源码展示，不成为专业引擎的依赖。
+
+文档生成按读取、TypeScript 类型提取、页面渲染和产物写入分模块。包内 `docs/presentation.json` 定义展示布局与 Demo 分组，生成器不按组件名称维护另一套分支。根检查、包内检查与 CI 从 `scripts/check-plan.mjs` 组合真实公开脚本。
+
 ## 包生命周期
 
 | 状态 | 含义 | 进入下一阶段的依据 |

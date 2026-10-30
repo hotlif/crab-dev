@@ -1,0 +1,38 @@
+Required check: @crab-dev/rc-tree test:browser
+
+  ⚡ WAKE / LIBRARY TOKEN  v0.1.45
+
+  ✓  Tokens generated in 35ms
+     1 files · 10.6 KB
+     Output  C:\Users\zhang\Desktop\crab-dev\components\rc-tree\src\token.ts
+
+
+  ⚡ WAKE / LIBRARY BUILD  v0.1.45
+
+  ✓  Built library in 375ms
+     9 modules · 27 files · 136.1 KB
+     Output  C:\Users\zhang\Desktop\crab-dev\components\rc-tree
+
+C:\Users\zhang\Desktop\crab-dev\.yarn\__virtual__\@crab-dev-wake-virtual-e0f76dd8fb\0\cache\@crab-dev-wake-npm-0.1.45-63312d433d-b0484e008d.zip\node_modules\@crab-dev\wake\errors.cjs:16
+  return new WakeError(
+         ^
+
+WakeError: cannot statically compile CSS in `C:\Users\zhang\Desktop\crab-dev\components\rc-tree\.cache\inline-demo-library\src\demos\inline-edit.demo.tsx`: css`` 插值无法安全地在构建期求值; css`` 插值无法安全地在构建期求值; css`` 插值无法安全地在构建期求值
+    at wakeError (C:\Users\zhang\Desktop\crab-dev\.yarn\__virtual__\@crab-dev-wake-virtual-e0f76dd8fb\0\cache\@crab-dev-wake-npm-0.1.45-63312d433d-b0484e008d.zip\node_modules\@crab-dev\wake\errors.cjs:16:10)
+    at decodeEnvelope (C:\Users\zhang\Desktop\crab-dev\.yarn\__virtual__\@crab-dev-wake-virtual-e0f76dd8fb\0\cache\@crab-dev-wake-npm-0.1.45-63312d433d-b0484e008d.zip\node_modules\@crab-dev\wake\errors.cjs:54:27)
+    at invoke (C:\Users\zhang\Desktop\crab-dev\.yarn\__virtual__\@crab-dev-wake-virtual-e0f76dd8fb\0\cache\@crab-dev-wake-npm-0.1.45-63312d433d-b0484e008d.zip\node_modules\@crab-dev\wake\errors.cjs:60:12)
+    at async file:///C:/Users/zhang/Desktop/crab-dev/components/rc-tree/scripts/prepare-browser-tests.mjs:29:14 {
+  code: 'WAKE_LIBRARY_BUILD',
+  path: 'C:\\Users\\zhang\\Desktop\\crab-dev\\components\\rc-tree\\.cache\\inline-demo-library\\src\\index.ts'
+}
+
+Node.js v22.15.0
+file:///C:/Users/zhang/Desktop/crab-dev/.tmp/run-remaining-required.mjs:12
+ if(code!==0)throw Error(`${workspace} ${task} failed (${code})`);
+                   ^
+
+Error: @crab-dev/rc-tree test:browser failed (1)
+    at file:///C:/Users/zhang/Desktop/crab-dev/.tmp/run-remaining-required.mjs:12:20
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+
+Node.js v22.15.0

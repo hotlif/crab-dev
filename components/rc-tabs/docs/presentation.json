@@ -1,0 +1,25 @@
+{
+    "layout": "wide",
+    "previewDensity": "regular",
+    "groups": [
+        {
+            "title": "使用示例",
+            "demos": [
+                "basic.demo.tsx",
+                "card.demo.tsx",
+                "centered.demo.tsx",
+                "closable.demo.tsx",
+                "designs.demo.tsx",
+                "overflow.demo.tsx",
+                "pill.demo.tsx",
+                "with-icon.demo.tsx"
+            ]
+        },
+        {
+            "title": "视觉验收",
+            "demos": [
+                "visual-matrix.demo.tsx"
+            ]
+        }
+    ]
+}

@@ -1,0 +1,5 @@
+{
+    "schemaVersion": 1, "demo": "base.demo.tsx", "sizes": ["medium"], "densities": ["standard"], "states": ["default"],
+    "crossEngine": { "sizes": ["medium"], "densities": ["standard"], "states": ["default"] },
+    "notApplicable": { "size": "The displayed raw scale values are deliberately invariant to control sizes.", "density": "L1 primitives have no collection density.", "hover": "The raw swatch is not interactive.", "focus-visible": "The swatch has a text label and no keyboard action.", "pressed": "The swatch is not an action target.", "disabled": "A primitive value does not have disabled state.", "selected": "No value selection protocol is exposed by this sample.", "error": "Token syntax and references have separate contract checks.", "loading": "The sample consumes static primitives." }
+}

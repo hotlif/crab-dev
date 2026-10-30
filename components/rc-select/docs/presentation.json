@@ -1,0 +1,37 @@
+{
+    "previewDensity": "compact",
+    "groups": [
+        {
+            "title": "标签与状态",
+            "demos": [
+                "visual-matrix.demo.tsx",
+                "field-states.demo.tsx"
+            ]
+        },
+        {
+            "title": "基础与状态",
+            "demos": [
+                "basic.demo.tsx",
+                "size.demo.tsx",
+                "status.demo.tsx",
+                "disabled.demo.tsx",
+                "loading.demo.tsx",
+                "allowClear.demo.tsx"
+            ]
+        },
+        {
+            "title": "数据与搜索",
+            "demos": [
+                "group.demo.tsx",
+                "searchable.demo.tsx"
+            ]
+        },
+        {
+            "title": "多选能力",
+            "demos": [
+                "multiple.demo.tsx",
+                "maxTagCount.demo.tsx"
+            ]
+        }
+    ]
+}

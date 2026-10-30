@@ -33,9 +33,7 @@ describe('DatePickerPanel', () => {
     });
     it('marks today in the picker time zone independently of the selected date', async () => {
         const instant = Temporal.Instant.from('2026-09-12T00:30:00Z');
-        const now = mock.spyOn(Temporal.Now, 'zonedDateTimeISO').implement(
-            timeZone => instant.toZonedDateTimeISO(timeZone ?? 'UTC'),
-        );
+        const now = mock.spyOn(Date, 'now').return(instant.epochMilliseconds);
         try {
             const value = instant.toZonedDateTimeISO('UTC');
             const view = await render(<DatePickerPanel value={value} timeZone="America/Los_Angeles" />);

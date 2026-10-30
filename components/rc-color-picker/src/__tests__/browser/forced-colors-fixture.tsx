@@ -2,6 +2,7 @@ import { createRoot } from 'react-dom/client';
 import { flushSync } from 'react-dom';
 import ConfigProvider from '@crab-dev/rc-config-provider';
 import ColorPicker, { ColorPickerPanel } from '../../../esm/index.mjs';
+import token from '../../token.js';
 import compiledCss from '../../../.cache/browser-css.json';
 import { matchingPixels, screenshotPixels } from '../../../../../test/forced-color-pixels.mjs';
 
@@ -55,6 +56,23 @@ function compositeColor(color: string, background: string) {
     return { css: `rgb(${rgba[0]}, ${rgba[1]}, ${rgba[2]})`, rgba };
 }
 function panels() { return [...document.querySelectorAll<HTMLElement>('[data-panel]')]; }
+function focusTokenGeometry(reference: HTMLElement) {
+    // Resolve the generated L3 roles in the same inherited boundary as the real
+    // trigger. This reference never receives focus, never changes product CSS,
+    // and is removed before any further snapshot or pixel inspection.
+    const probe = reference.ownerDocument.createElement('span');
+    Object.assign(probe.style, { position: 'fixed', visibility: 'hidden', pointerEvents: 'none',
+        outlineStyle: 'solid', outlineWidth: token.trigger.ring['width-focus'],
+        outlineOffset: token.trigger.ring['outline-offset-focus'] });
+    reference.append(probe);
+    try {
+        const style = getComputedStyle(probe);
+        const geometry = { width: style.outlineWidth, offset: style.outlineOffset,
+            widthPx: Number.parseFloat(style.outlineWidth), offsetPx: Number.parseFloat(style.outlineOffset) };
+        if (!Number.isFinite(geometry.widthPx) || geometry.widthPx < 2 || !Number.isFinite(geometry.offsetPx) || geometry.offsetPx < 0) throw new Error('Invalid focus geometry tokens');
+        return geometry;
+    } finally { probe.remove(); }
+}
 function previews() {
     return panels().map(panel => {
         if (!(panel.firstElementChild instanceof HTMLElement)) throw new Error('Missing selected-color preview');
@@ -171,15 +189,17 @@ async function inspectPixels(base64: string) {
     const focused = triggers()[0];
     if (!focused || !focused.matches(':focus-visible') || document.activeElement !== focused) throw new Error('Focus lost before pixel check');
     const b = focused.getBoundingClientRect(), style = getComputedStyle(focused);
-    if (style.outlineWidth !== '2px' || style.outlineOffset !== '1px') throw new Error('Unexpected real input focus geometry');
+    const expectedFocus = focusTokenGeometry(focused);
+    if (style.outlineWidth !== expectedFocus.width || style.outlineOffset !== expectedFocus.offset) throw new Error(`Unexpected real input focus geometry: ${JSON.stringify({ expected: expectedFocus, outlineWidth: style.outlineWidth, outlineOffset: style.outlineOffset, focused: document.activeElement === focused, focusVisible: focused.matches(':focus-visible'), rect: b.toJSON() })}`);
+    const width = expectedFocus.widthPx, offset = expectedFocus.offsetPx;
     const focusEdges = [
-        { x: b.left - 3, y: b.top + b.height / 3, width: 2, height: b.height / 3 },
-        { x: b.right + 1, y: b.top + b.height / 3, width: 2, height: b.height / 3 },
-        { x: b.left + b.width / 3, y: b.top - 3, width: b.width / 3, height: 2 },
-        { x: b.left + b.width / 3, y: b.bottom + 1, width: b.width / 3, height: 2 },
+        { x: b.left - offset - width, y: b.top + b.height / 3, width, height: b.height / 3 },
+        { x: b.right + offset, y: b.top + b.height / 3, width, height: b.height / 3 },
+        { x: b.left + b.width / 3, y: b.top - offset - width, width: b.width / 3, height: width },
+        { x: b.left + b.width / 3, y: b.bottom + offset, width: b.width / 3, height: width },
     ].map(rect => ({ rect, ...matchingPixels(image, rect, style.outlineColor, 2) }));
     if (focusEdges.some(edge => edge.ratio < 0.9)) throw new Error('Input system focus outline is not visible on every side');
-    return { previewPixels, surfacePixels, triggerPixels, focusEdges,
+    return { previewPixels, surfacePixels, triggerPixels, focusGeometry: expectedFocus, focusEdges,
         limits: ['Native browser focus via HTMLElement.focus; no OS Tab or physical pointer claim.', 'Alpha samples composite over the measured Canvas surface; product has no checkerboard.'] };
 }
 (window as Window & { __colorForced?: unknown }).__colorForced = { prepare, snapshot, inspectPixels };

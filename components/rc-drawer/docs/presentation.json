@@ -1,0 +1,22 @@
+{
+    "layout": "wide",
+    "previewDensity": "regular",
+    "groups": [
+        {
+            "title": "规格验收",
+            "demos": [
+                "visual-matrix.demo.tsx",
+                "document-boundaries.demo.tsx"
+            ]
+        },
+        {
+            "title": "功能演示",
+            "demos": [
+                "basic.demo.tsx",
+                "placement.demo.tsx",
+                "nested.demo.tsx",
+                "with-footer.demo.tsx"
+            ]
+        }
+    ]
+}

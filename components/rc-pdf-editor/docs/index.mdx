@@ -66,3 +66,31 @@ Material Design 3 Expressive、Apple 和 shadcn/ui 的来源及固定基线见[�
 React 入口从最近 Provider 消费配置；独立 Web Component 使用公开属性显式桥接八项配置，见包内 `docs/WEB-COMPONENT.md`。独立 React 根的样式、语言、方向及 CSP nonce 需在实际宿主中核对，不能仅凭属性存在判定继承通过。
 
 三体系、浅深色、文档状态、编辑焦点和现有 Shadow DOM 场景分别验收，覆盖等级以[覆盖矩阵](/guides/design-coverage)及对应候选记录为准。
+
+
+## 专业工作区三体系矩阵规格
+
+核对日期：2026-10-29。专业 PDF 编辑区是项目扩展。工具分组参考 [M3 Expressive Toolbar 规格](https://m3.material.io/components/toolbars/specs)与[无障碍](https://m3.material.io/components/toolbars/accessibility)、[Apple Toolbars](https://developer.apple.com/design/human-interface-guidelines/toolbars)，控件参考固定 shadcn New York V4 提交 3d98900e9b73c45f035f8109e9d41ba6a51685e7；Material Web [Button](https://material-web.dev/components/button/)和 [Progress](https://material-web.dev/components/progress/)用于 M3 Web 基线对照，不代表其提供 PDF 编辑器或 Expressive 专业工具栏。
+
+| 项目 | MD3 Expressive | Apple Web | shadcn New York V4 |
+| --- | --- | --- | --- |
+| 工具区 | 中性/色调工作表面，选中工具通过 tonal 状态表达 | 内容优先、逻辑分组与轻量工具表面 | 中性表面、紧凑工具和清晰边界 |
+| 侧栏与属性 | 成对前景、语义选择与独立焦点 | 稳定对齐、清晰选中和可恢复面板 | 描边层次、紧凑字段与等宽数值 |
+| 纸面 | 三体系均保持真实文档颜色 | 不因明暗反相正文 | 品牌覆盖仅作用于编辑器外壳 |
+
+M3 官方工具栏默认为 64dp 高、外部内边距至少 16dp。本包采用可换行的桌面专业工具区，最小行高从 L3 toolbar.min-height 引用 48px 语义尺度，工具按钮使用公开 s 尺寸，状态栏缩放字段保持独立 32px 合同；这属于桌面扩展，不宣称是官方 docked/floating 工具栏的逐像素实现。粗指针命中下限由公开 Button/字段合同保证，不能把 32px 状态栏高度当作触控命中高度。三档控件尺寸与三档密度分别验收，PDF pt 坐标与视口倍率不随这些轴重写。
+
+“真实 PDF 工作区矩阵”从自包含双页 PDF 经实际 Worker/PDFium WASM 打开文档。通过真实文件输入触发坏文件错误，通过工具按钮改变选择、只读、面板、页面旋转及撤销能力；失败替换和已有数据操作保留当前文档。页面滚动、虚拟缩略图、对象树、属性草稿、工具栏键盘模型和配置切换分别断言。环境扩展覆盖 320/768/桌面、触控、RTL、中英文、品牌、长文件名、强制颜色与减少动画。文本内容编辑仍需宿主 TTF，未配置时添加文字禁用是正常权限状态。
+
+初始化验收只延迟真实 WASM 资源响应，保留实际 Worker 和忙碌指示；三体系明暗 × small/medium/large × compact/standard/comfortable 共用 loading matrix，持续反馈保留视频、自然时间序列和原始 PNG，不冻结动画。独立 Web Component/Shadow DOM 继续执行已有 test:web-component，并另有真实独立产物场景；不能用 React 工作台代替。200% 浏览器缩放须独立记录原生缩放值，不用 DPR 或缩小视口冒充。核心矩阵及跨引擎子集在 docs/visual.json 定义；截图候选、实际复审、稳定基准和独立消费全部完成前，覆盖状态仍为 partial。
+
+“真实资源、编辑与专业动作”从当前同源 URL 实际请求带请求头的 PDF、完整 Liberation Sans TTF 和两幅自有 PNG。字体及原 SIL-OFL 许可在 `public/fixtures` 保留；PDF/PNG 由现有 runtime 准备流程从包内来源生成，复制示例时同时部署这些公开资源。它不使用只含矩形轮廓的协议测试字体，也不把截图作为图片输入。固定内容使用真实 Latin 字形，宿主中英文界面另按 locale 验收。
+
+| 代表性交互组（medium / standard，三体系明暗与三引擎） | 实际数据与状态断言 |
+| --- | --- |
+| 文本与几何历史 | 配置真实字体后修改并提交正文，提交 X 变换，撤销/重做验证实际字段；文字对话框新增对象并重新选择核对内容 |
+| 图片与绘图 | 实际工具栏文件选择触发两幅 PNG 插入/替换；区域服务输出像素必须变化；真实指针绘制矩形并在对象树与新 PNG 中核对 |
+| 工具栏、插件、区域与文件 | 显隐内置动作、执行公开业务动作；卸载/重装核对真实 setup/cleanup/abort；指针框选与跨页拼接输出真实 PNG；保存清 dirty、导出后重新打开及提取单页再打开 |
+| 独立 Web Component | 从本机加载与发布路径相同的独立 JS，保留内嵌生产 React/CSS/Worker/WASM；独立 Shadow chrome 显式接收八轴，切换后恢复声明配置再截图；草稿、几何提交、保存及 PDF 导出均走真实元素接口 |
+
+领域组补充核心尺寸/密度/状态矩阵，不把代表性交互当成其余所有维度的截图。页面呈现前提始终定位当前活动页 Canvas、实际对象树与正确尺寸绘图缓冲，不能用主区第一张共享背景 Canvas 代替。区域与文件链接是绑定原会话版本的不可变快照，文档变化后不改写旧结果。

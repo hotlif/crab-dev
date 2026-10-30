@@ -1,0 +1,307 @@
+Native environment checks: assertions and captures run; canonical pixel comparison runs in the pinned Linux image.
+Playwright visual evidence: C:\Users\zhang\Desktop\crab-dev\.cache\visual\frozen-native-smoke-20261029
+
+Running 1127 tests using 2 workers
+
+(node:30340) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:26632) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:26632) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:30340) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:30340) ExperimentalWarning: glob is an experimental feature and might change at any time
+(node:26632) ExperimentalWarning: glob is an experimental feature and might change at any time
+  x     2 [chromium] › .website\docs\site\site-appearance.visual.spec.mjs:9:5 › Site appearance preserves drafts md3 light narrow @website @site-appearance @chromium-only (45.9s)
+(node:58772) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:58772) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x     1 [chromium] › .website\docs\site\site-appearance.visual.spec.mjs:9:5 › Site appearance preserves drafts md3 light tablet @website @site-appearance @chromium-only (50.4s)
+(node:51296) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:51296) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:58772) ExperimentalWarning: glob is an experimental feature and might change at any time
+(node:51296) ExperimentalWarning: glob is an experimental feature and might change at any time
+  ok    4 [chromium] › components\rc-badge\docs\badge.motion.visual.spec.mjs:7:5 › Badge natural md3 light default standard processing @rc-badge @matrix @chromium-only (3.7s)
+  ok    5 [chromium] › components\rc-bar-chart\docs\bar-chart-motion.visual.spec.mjs:6:38 › md3 light natural data transition @rc-bar-chart @motion @chromium-only (5.2s)
+  ok    6 [chromium] › components\rc-button\docs\button-motion.visual.spec.mjs:6:5 › md3 light s loading @rc-button @matrix @motion @chromium-only (3.4s)
+  ok    7 [chromium] › components\rc-canvas\docs\canvas-motion.visual.spec.mjs:5:5 › md3 light flowing @rc-canvas @matrix @motion @chromium-only (2.4s)
+  ok    8 [chromium] › components\rc-card\docs\card.motion.visual.spec.mjs:7:5 › Card natural md3 light medium standard loading @rc-card @matrix @chromium-only (3.1s)
+  x     9 [chromium] › components\rc-component-preview\docs\preview-loading.visual.spec.mjs:9:5 › md3 light standard loading @rc-component-preview @matrix @motion @chromium-only (5.3s)
+(node:53468) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:53468) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:53468) ExperimentalWarning: glob is an experimental feature and might change at any time
+  x     3 [chromium] › .website\docs\site\site-appearance.visual.spec.mjs:9:5 › Site appearance preserves drafts md3 light desktop @website @site-appearance (50.8s)
+(node:32120) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:32120) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:32120) ExperimentalWarning: glob is an experimental feature and might change at any time
+  x    10 [chromium] › components\rc-dialog\docs\dialog-motion.visual.spec.mjs:7:5 › md3 light medium standard pending-confirm @rc-dialog @matrix (12.8s)
+(node:51576) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:51576) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:51576) ExperimentalWarning: glob is an experimental feature and might change at any time
+  ok   12 [chromium] › components\rc-flow-diagram\docs\flow-diagram-motion.visual.spec.mjs:6:38 › md3 light natural flowing edges @rc-flow-diagram @motion @chromium-only (5.2s)
+  ok   13 [chromium] › components\rc-form\docs\form-motion.visual.spec.mjs:7:5 › md3 light medium standard validating @rc-form @matrix @chromium-only (3.4s)
+  ok   14 [chromium] › components\rc-message\docs\message.motion.visual.spec.mjs:7:5 › Message natural md3 light medium standard loading @rc-message @matrix @chromium-only (3.7s)
+  x    11 [chromium] › components\rc-dialog\docs\dialog-motion.visual.spec.mjs:7:5 › md3 light medium standard pending-cancel @rc-dialog @matrix (13.0s)
+(node:28940) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:28940) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:28940) ExperimentalWarning: glob is an experimental feature and might change at any time
+  x    15 [chromium] › components\rc-message\docs\message.motion.visual.spec.mjs:33:38 › Message reduced motion md3 light @rc-message @environment (2.3s)
+(node:22256) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:22256) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:22256) ExperimentalWarning: glob is an experimental feature and might change at any time
+  ok   16 [chromium] › components\rc-number-edit\docs\number-edit-motion.visual.spec.mjs:14:9 › NumberEdit md3 light medium long-press @rc-number-edit @matrix @motion @chromium-only (7.3s)
+  ok   18 [chromium] › components\rc-realm\docs\realm-motion.visual.spec.mjs:5:107 › md3 light medium standard loading @rc-realm @matrix @motion @chromium-only (2.9s)
+  ok   17 [chromium] › components\rc-pdf-editor\docs\pdf-editor-motion.visual.spec.mjs:6:107 › md3 light medium standard actual Worker WASM initialization @rc-pdf-editor @matrix @motion @chromium-only (5.5s)
+  ok   20 [chromium] › components\rc-skeleton\docs\skeleton.motion.visual.spec.mjs:7:5 › Skeleton natural md3 light medium standard default @rc-skeleton @matrix (4.2s)
+  ok   21 [chromium] › components\rc-skeleton\docs\skeleton.motion.visual.spec.mjs:7:5 › Skeleton natural md3 light medium standard wave @rc-skeleton @matrix @chromium-only (3.2s)
+  ok   22 [chromium] › components\rc-spin\docs\spin-environment.visual.spec.mjs:9:9 › Spin md3 light narrow › activity remains visible and contained @rc-spin @environment @chromium-only (3.7s)
+  ok   23 [chromium] › components\rc-spin\docs\spin-environment.visual.spec.mjs:9:9 › Spin md3 light tablet › activity remains visible and contained @rc-spin @environment @chromium-only (3.6s)
+  x    19 [chromium] › components\rc-select\docs\select-motion.visual.spec.mjs:5:107 › md3 light medium standard loading @rc-select @matrix @chromium-only (12.7s)
+(node:39796) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:39796) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok   24 [chromium] › components\rc-spin\docs\spin-environment.visual.spec.mjs:9:9 › Spin md3 light desktop › activity remains visible and contained @rc-spin @environment @chromium-only (3.7s)
+  ok   25 [chromium] › components\rc-spin\docs\spin-environment.visual.spec.mjs:9:9 › Spin md3 light english › activity remains visible and contained @rc-spin @environment @chromium-only (3.5s)
+(node:39796) ExperimentalWarning: glob is an experimental feature and might change at any time
+  ok   26 [chromium] › components\rc-spin\docs\spin-environment.visual.spec.mjs:9:9 › Spin md3 light brand › activity remains visible and contained @rc-spin @environment @chromium-only (3.5s)
+  ok   28 [chromium] › components\rc-spin\docs\spin-environment.visual.spec.mjs:9:9 › Spin md3 light forced-colors › activity remains visible and contained @rc-spin @environment @chromium-only (3.4s)
+  ok   27 [chromium] › components\rc-spin\docs\spin-environment.visual.spec.mjs:9:9 › Spin md3 light rtl › activity remains visible and contained @rc-spin @environment @chromium-only (3.6s)
+  ok   30 [chromium] › components\rc-spin\docs\spin-environment.visual.spec.mjs:30:1 › configuration changes preserve wrapped content and its selected value @rc-spin @boundary @chromium-only (2.5s)
+  x    29 [chromium] › components\rc-spin\docs\spin-environment.visual.spec.mjs:9:9 › Spin md3 light reduced-motion › activity remains visible and contained @rc-spin @environment @chromium-only (3.8s)
+  ok   31 [chromium] › components\rc-spin\docs\spin-motion.visual.spec.mjs:8:5 › Spin md3 light medium default @rc-spin @matrix @motion (3.2s)
+(node:42908) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:42908) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:42908) ExperimentalWarning: glob is an experimental feature and might change at any time
+  ok   33 [chromium] › components\rc-spin\docs\spin-motion.visual.spec.mjs:8:5 › Spin md3 light medium expressive @rc-spin @matrix @motion (3.5s)
+  x    32 [chromium] › components\rc-spin\docs\spin-motion.visual.spec.mjs:8:5 › Spin md3 light medium overlay @rc-spin @matrix @motion (12.5s)
+  ok   34 [chromium] › components\rc-spin\docs\spin-motion.visual.spec.mjs:8:5 › Spin md3 light medium idle @rc-spin @matrix @motion (2.3s)
+(node:60132) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:60132) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok   35 [chromium] › components\rc-spin\docs\spin-motion.visual.spec.mjs:8:5 › Spin md3 light medium custom @rc-spin @matrix @motion @chromium-only (1.9s)
+  ok   36 [chromium] › components\rc-table-pro\docs\table-pro-motion.visual.spec.mjs:9:17 › md3 light medium standard loading @rc-table-pro @matrix @chromium-only (3.0s)
+(node:60132) ExperimentalWarning: glob is an experimental feature and might change at any time
+  ok   37 [chromium] › components\rc-table-pro\docs\table-pro-motion.visual.spec.mjs:9:17 › md3 light medium standard refreshing @rc-table-pro @matrix @chromium-only (4.1s)
+  ok   39 [chromium] › components\rc-tree\docs\tree-motion.visual.spec.mjs:9:13 › md3 light medium standard loading @rc-tree @matrix @chromium-only (7.2s)
+(node:5948) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:5948) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok   38 [chromium] › components\rc-spin\docs\spin-motion.visual.spec.mjs:8:5 › Spin md3 light medium delayed @rc-spin @matrix @motion @chromium-only (5.3s)
+(node:720) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:720) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:5948) ExperimentalWarning: glob is an experimental feature and might change at any time
+(node:720) ExperimentalWarning: glob is an experimental feature and might change at any time
+  ok   40 [chromium] › .website\docs\site\site-layout.visual.spec.mjs:7:5 › Site home md3 light narrow @website @site-layout @chromium-only (4.0s)
+  ok   42 [chromium] › .website\docs\site\site-layout.visual.spec.mjs:7:5 › Site design md3 light narrow @website @site-layout @chromium-only (3.1s)
+  ok   41 [chromium] › .website\docs\site\site-layout.visual.spec.mjs:7:5 › Site catalog md3 light narrow @website @site-layout @chromium-only (3.1s)
+  ok   44 [chromium] › .website\docs\site\site-layout.visual.spec.mjs:7:5 › Site tutorial md3 light narrow @website @site-layout @chromium-only (3.7s)
+  ok   43 [chromium] › .website\docs\site\site-layout.visual.spec.mjs:7:5 › Site component md3 light narrow @website @site-layout @chromium-only (8.9s)
+  ok   45 [chromium] › .website\docs\site\site-layout.visual.spec.mjs:7:5 › Site home md3 light tablet @website @site-layout @chromium-only (3.1s)
+  ok   46 [chromium] › .website\docs\site\site-layout.visual.spec.mjs:7:5 › Site catalog md3 light tablet @website @site-layout @chromium-only (3.1s)
+  ok   47 [chromium] › .website\docs\site\site-layout.visual.spec.mjs:7:5 › Site design md3 light tablet @website @site-layout @chromium-only (3.1s)
+  ok   49 [chromium] › .website\docs\site\site-layout.visual.spec.mjs:7:5 › Site tutorial md3 light tablet @website @site-layout @chromium-only (3.1s)
+  ok   50 [chromium] › .website\docs\site\site-layout.visual.spec.mjs:7:5 › Site home md3 light desktop @website @site-layout (3.2s)
+  ok   48 [chromium] › .website\docs\site\site-layout.visual.spec.mjs:7:5 › Site component md3 light tablet @website @site-layout @chromium-only (8.5s)
+  ok   51 [chromium] › .website\docs\site\site-layout.visual.spec.mjs:7:5 › Site catalog md3 light desktop @website @site-layout (3.3s)
+  ok   52 [chromium] › .website\docs\site\site-layout.visual.spec.mjs:7:5 › Site design md3 light desktop @website @site-layout (3.4s)
+  ok   54 [chromium] › .website\docs\site\site-layout.visual.spec.mjs:7:5 › Site tutorial md3 light desktop @website @site-layout (3.3s)
+  ok   53 [chromium] › .website\docs\site\site-layout.visual.spec.mjs:7:5 › Site component md3 light desktop @website @site-layout (8.9s)
+  x    55 [chromium] › .website\docs\site\site-navigation.visual.spec.mjs:9:5 › Site navigation md3 light narrow @website @site-navigation @chromium-only (15.8s)
+(node:46220) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:46220) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x    56 [chromium] › .website\docs\site\site-navigation.visual.spec.mjs:9:5 › Site navigation md3 light tablet @website @site-navigation @chromium-only (15.9s)
+(node:40656) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:40656) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:46220) ExperimentalWarning: glob is an experimental feature and might change at any time
+(node:40656) ExperimentalWarning: glob is an experimental feature and might change at any time
+  ok   58 [chromium] › .website\docs\site\site-zoom.visual.spec.mjs:9:5 › Site real 200% md3 light @website @site-zoom @environment @chromium-only (18.4s)
+  ok   59 [chromium] › components\rc-alert\docs\alert-zoom.visual.spec.mjs:6:5 › Alert real 200% md3 light @rc-alert @environment @chromium-only (9.1s)
+  ok   60 [chromium] › components\rc-alert\docs\alert.visual.spec.mjs:7:5 › Alert md3 light medium standard default @rc-alert @matrix (4.2s)
+  ok   61 [chromium] › components\rc-alert\docs\alert.visual.spec.mjs:7:5 › Alert md3 light medium standard title @rc-alert @matrix @chromium-only (3.3s)
+  ok   62 [chromium] › components\rc-alert\docs\alert.visual.spec.mjs:7:5 › Alert md3 light medium standard action @rc-alert @matrix @chromium-only (2.8s)
+  ok   63 [chromium] › components\rc-alert\docs\alert.visual.spec.mjs:7:5 › Alert md3 light medium standard hover @rc-alert @matrix @chromium-only (2.2s)
+  x    57 [chromium] › .website\docs\site\site-navigation.visual.spec.mjs:9:5 › Site navigation md3 light desktop @website @site-navigation (17.3s)
+(node:46740) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:46740) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok   64 [chromium] › components\rc-alert\docs\alert.visual.spec.mjs:7:5 › Alert md3 light medium standard focus-visible @rc-alert @matrix (2.1s)
+  ok   65 [chromium] › components\rc-alert\docs\alert.visual.spec.mjs:7:5 › Alert md3 light medium standard error @rc-alert @matrix @chromium-only (2.0s)
+  ok   66 [chromium] › components\rc-alert\docs\alert.visual.spec.mjs:7:5 › Alert md3 light medium standard closed @rc-alert @matrix @chromium-only (2.3s)
+  ok   68 [chromium] › components\rc-alert\docs\alert.visual.spec.mjs:60:42 › Alert narrow › Alert environment md3 light narrow @rc-alert @environment (1.9s)
+(node:46740) ExperimentalWarning: glob is an experimental feature and might change at any time
+  ok   69 [chromium] › components\rc-alert\docs\alert.visual.spec.mjs:60:42 › Alert tablet › Alert environment md3 light tablet @rc-alert @environment (1.9s)
+  ok   70 [chromium] › components\rc-alert\docs\alert.visual.spec.mjs:60:42 › Alert desktop › Alert environment md3 light desktop @rc-alert @environment (1.8s)
+  ok   67 [chromium] › components\rc-alert\docs\alert.visual.spec.mjs:7:5 › Alert md3 light medium standard pressed @rc-alert @matrix (2.7s)
+  ok   72 [chromium] › components\rc-alert\docs\alert.visual.spec.mjs:60:42 › Alert rtl › Alert environment md3 light rtl @rc-alert @environment (1.8s)
+  x    71 [chromium] › components\rc-alert\docs\alert.visual.spec.mjs:60:42 › Alert touch › Alert environment md3 light touch @rc-alert @environment (2.1s)
+(node:51204) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:51204) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok   73 [chromium] › components\rc-alert\docs\alert.visual.spec.mjs:60:42 › Alert english › Alert environment md3 light english @rc-alert @environment (1.8s)
+  ok   74 [chromium] › components\rc-alert\docs\alert.visual.spec.mjs:60:42 › Alert forced-colors › Alert environment md3 light forced-colors @rc-alert @environment (1.8s)
+  ok   75 [chromium] › components\rc-alert\docs\alert.visual.spec.mjs:60:42 › Alert reduced-motion › Alert environment md3 light reduced-motion @rc-alert @environment (2.0s)
+  ok   76 [chromium] › components\rc-alert\docs\alert.visual.spec.mjs:60:42 › Alert long-text › Alert environment md3 light long-text @rc-alert @environment (2.2s)
+(node:51204) ExperimentalWarning: glob is an experimental feature and might change at any time
+  ok   78 [chromium] › components\rc-alert\docs\alert.visual.spec.mjs:60:42 › Alert theme-retention › Alert environment md3 light theme-retention @rc-alert @environment (2.3s)
+  ok   79 [chromium] › components\rc-app-main-layout\docs\app-main-layout-environment.visual.spec.mjs:15:9 › md3 light narrow @rc-app-main-layout @environment @chromium-only (2.0s)
+  ok   80 [chromium] › components\rc-app-main-layout\docs\app-main-layout-environment.visual.spec.mjs:15:9 › md3 light tablet @rc-app-main-layout @environment @chromium-only (2.2s)
+  ok   77 [chromium] › components\rc-alert\docs\alert.visual.spec.mjs:60:42 › Alert brand › Alert environment md3 light brand @rc-alert @environment (2.6s)
+  ok   81 [chromium] › components\rc-app-main-layout\docs\app-main-layout-environment.visual.spec.mjs:15:9 › md3 light desktop @rc-app-main-layout @environment @chromium-only (2.6s)
+  ok   82 [chromium] › components\rc-app-main-layout\docs\app-main-layout-environment.visual.spec.mjs:15:9 › md3 light rtl @rc-app-main-layout @environment @chromium-only (2.3s)
+  ok   83 [chromium] › components\rc-app-main-layout\docs\app-main-layout-environment.visual.spec.mjs:15:9 › md3 light english @rc-app-main-layout @environment @chromium-only (2.4s)
+  ok   84 [chromium] › components\rc-app-main-layout\docs\app-main-layout-environment.visual.spec.mjs:15:9 › md3 light brand @rc-app-main-layout @environment @chromium-only (2.4s)
+  ok   85 [chromium] › components\rc-app-main-layout\docs\app-main-layout-environment.visual.spec.mjs:15:9 › md3 light forced-colors @rc-app-main-layout @environment @chromium-only (2.3s)
+  ok   86 [chromium] › components\rc-app-main-layout\docs\app-main-layout-environment.visual.spec.mjs:15:9 › md3 light reduced-motion @rc-app-main-layout @environment @chromium-only (2.6s)
+  ok   87 [chromium] › components\rc-app-main-layout\docs\app-main-layout-persistence.visual.spec.mjs:10:1 › configuration switches retain actual nodes and user state @rc-app-main-layout @boundary (6.3s)
+  x    88 [chromium] › components\rc-app-main-layout\docs\app-main-layout-touch.visual.spec.mjs:16:5 › md3 light touch @rc-app-main-layout @environment @chromium-only (2.4s)
+  ok   89 [chromium] › components\rc-app-main-layout\docs\app-main-layout-zoom.visual.spec.mjs:12:5 › md3 light real zoom 200% @rc-app-main-layout @environment @chromium-only (8.0s)
+(node:13536) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:13536) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok   90 [chromium] › components\rc-app-main-layout\docs\app-main-layout.visual.spec.mjs:19:17 › md3 light medium standard hover @rc-app-main-layout @matrix @chromium-only (2.5s)
+  ok   91 [chromium] › components\rc-app-main-layout\docs\app-main-layout.visual.spec.mjs:19:17 › md3 light medium standard focus-visible @rc-app-main-layout @matrix (2.5s)
+  ok   92 [chromium] › components\rc-app-main-layout\docs\app-main-layout.visual.spec.mjs:19:17 › md3 light medium standard collapsed @rc-app-main-layout @matrix (2.6s)
+(node:13536) ExperimentalWarning: glob is an experimental feature and might change at any time
+  ok   94 [chromium] › components\rc-app-main-layout\docs\app-main-layout.visual.spec.mjs:19:17 › md3 light medium standard account @rc-app-main-layout @matrix (2.6s)
+  ok   95 [chromium] › components\rc-avatar\docs\avatar-layout.visual.spec.mjs:7:42 › Avatar intrinsic layout normal › md3 light @rc-avatar @environment @layout @chromium-only (4.4s)
+  ok   93 [chromium] › components\rc-app-main-layout\docs\app-main-layout.visual.spec.mjs:19:17 › md3 light medium standard default @rc-app-main-layout @matrix (2.5s)
+  ok   96 [chromium] › components\rc-avatar\docs\avatar-layout.visual.spec.mjs:7:42 › Avatar intrinsic layout forced-colors › md3 light @rc-avatar @environment @layout @chromium-only (4.7s)
+  ok   97 [chromium] › components\rc-avatar\docs\avatar-layout.visual.spec.mjs:7:42 › Avatar intrinsic layout touch › md3 light @rc-avatar @environment @layout @chromium-only (8.0s)
+  ok   98 [chromium] › components\rc-avatar\docs\avatar-zoom.visual.spec.mjs:6:5 › Avatar real 200% md3 light @rc-avatar @environment @chromium-only (10.0s)
+  ok   99 [chromium] › components\rc-avatar\docs\avatar.visual.spec.mjs:7:5 › Avatar md3 light medium standard default @rc-avatar @matrix (2.2s)
+  ok  100 [chromium] › components\rc-avatar\docs\avatar.visual.spec.mjs:7:5 › Avatar md3 light medium standard fallback @rc-avatar @matrix @chromium-only (2.7s)
+  ok  101 [chromium] › components\rc-avatar\docs\avatar.visual.spec.mjs:7:5 › Avatar md3 light medium standard image @rc-avatar @matrix @chromium-only (2.4s)
+  ok  103 [chromium] › components\rc-avatar\docs\avatar.visual.spec.mjs:7:5 › Avatar md3 light medium standard hover @rc-avatar @matrix @chromium-only (2.6s)
+  ok  102 [chromium] › components\rc-avatar\docs\avatar.visual.spec.mjs:7:5 › Avatar md3 light medium standard disabled @rc-avatar @matrix @chromium-only (5.5s)
+  ok  104 [chromium] › components\rc-avatar\docs\avatar.visual.spec.mjs:7:5 › Avatar md3 light medium standard focus-visible @rc-avatar @matrix (5.0s)
+  ok  105 [chromium] › components\rc-avatar\docs\avatar.visual.spec.mjs:7:5 › Avatar md3 light medium standard pressed @rc-avatar @matrix (4.0s)
+  ok  106 [chromium] › components\rc-avatar\docs\avatar.visual.spec.mjs:7:5 › Avatar md3 light medium standard group @rc-avatar @matrix @chromium-only (5.2s)
+  ok  107 [chromium] › components\rc-avatar\docs\avatar.visual.spec.mjs:59:42 › Avatar narrow › Avatar environment md3 light narrow @rc-avatar @environment (4.4s)
+  ok  108 [chromium] › components\rc-avatar\docs\avatar.visual.spec.mjs:59:42 › Avatar tablet › Avatar environment md3 light tablet @rc-avatar @environment (4.4s)
+  ok  109 [chromium] › components\rc-avatar\docs\avatar.visual.spec.mjs:59:42 › Avatar desktop › Avatar environment md3 light desktop @rc-avatar @environment (7.5s)
+  ok  110 [chromium] › components\rc-avatar\docs\avatar.visual.spec.mjs:59:42 › Avatar touch › Avatar environment md3 light touch @rc-avatar @environment (5.0s)
+  ok  111 [chromium] › components\rc-avatar\docs\avatar.visual.spec.mjs:59:42 › Avatar rtl › Avatar environment md3 light rtl @rc-avatar @environment (3.3s)
+  ok  112 [chromium] › components\rc-avatar\docs\avatar.visual.spec.mjs:59:42 › Avatar english › Avatar environment md3 light english @rc-avatar @environment (2.7s)
+  ok  113 [chromium] › components\rc-avatar\docs\avatar.visual.spec.mjs:59:42 › Avatar brand › Avatar environment md3 light brand @rc-avatar @environment (2.1s)
+  ok  114 [chromium] › components\rc-avatar\docs\avatar.visual.spec.mjs:59:42 › Avatar forced-colors › Avatar environment md3 light forced-colors @rc-avatar @environment (2.1s)
+  ok  115 [chromium] › components\rc-avatar\docs\avatar.visual.spec.mjs:59:42 › Avatar reduced-motion › Avatar environment md3 light reduced-motion @rc-avatar @environment (1.8s)
+  ok  116 [chromium] › components\rc-avatar\docs\avatar.visual.spec.mjs:59:42 › Avatar long-text › Avatar environment md3 light long-text @rc-avatar @environment (1.9s)
+  ok  117 [chromium] › components\rc-avatar\docs\avatar.visual.spec.mjs:59:42 › Avatar theme-retention › Avatar environment md3 light theme-retention @rc-avatar @environment (2.2s)
+  ok  118 [chromium] › components\rc-badge\docs\badge-layout.visual.spec.mjs:7:42 › Badge intrinsic anchor normal › md3 light @rc-badge @environment @layout @chromium-only (8.5s)
+  ok  119 [chromium] › components\rc-badge\docs\badge-layout.visual.spec.mjs:7:42 › Badge intrinsic anchor rtl › md3 light @rc-badge @environment @layout @chromium-only (9.5s)
+  ok  120 [chromium] › components\rc-badge\docs\badge-layout.visual.spec.mjs:7:42 › Badge intrinsic anchor touch › md3 light @rc-badge @environment @layout @chromium-only (9.3s)
+  ok  121 [chromium] › components\rc-badge\docs\badge-zoom.visual.spec.mjs:6:5 › Badge real 200% md3 light @rc-badge @environment @chromium-only (6.4s)
+  ok  122 [chromium] › components\rc-badge\docs\badge.visual.spec.mjs:7:5 › Badge md3 light default standard default @rc-badge @matrix (2.0s)
+  ok  123 [chromium] › components\rc-badge\docs\badge.visual.spec.mjs:7:5 › Badge md3 light default standard zero @rc-badge @matrix @chromium-only (2.1s)
+  ok  124 [chromium] › components\rc-badge\docs\badge.visual.spec.mjs:7:5 › Badge md3 light default standard overflow @rc-badge @matrix @chromium-only (2.0s)
+  ok  125 [chromium] › components\rc-badge\docs\badge.visual.spec.mjs:7:5 › Badge md3 light default standard dot @rc-badge @matrix @chromium-only (2.2s)
+  ok  126 [chromium] › components\rc-badge\docs\badge.visual.spec.mjs:7:5 › Badge md3 light default standard status @rc-badge @matrix @chromium-only (2.1s)
+  ok  127 [chromium] › components\rc-badge\docs\badge.visual.spec.mjs:7:5 › Badge md3 light default standard error @rc-badge @matrix @chromium-only (2.1s)
+  ok  128 [chromium] › components\rc-badge\docs\badge.visual.spec.mjs:42:42 › Badge narrow › Badge environment md3 light narrow @rc-badge @environment (2.0s)
+  ok  129 [chromium] › components\rc-badge\docs\badge.visual.spec.mjs:42:42 › Badge tablet › Badge environment md3 light tablet @rc-badge @environment (2.1s)
+  ok  130 [chromium] › components\rc-badge\docs\badge.visual.spec.mjs:42:42 › Badge desktop › Badge environment md3 light desktop @rc-badge @environment (1.9s)
+  ok  131 [chromium] › components\rc-badge\docs\badge.visual.spec.mjs:42:42 › Badge touch › Badge environment md3 light touch @rc-badge @environment (2.0s)
+  ok  132 [chromium] › components\rc-badge\docs\badge.visual.spec.mjs:42:42 › Badge rtl › Badge environment md3 light rtl @rc-badge @environment (2.2s)
+  ok  133 [chromium] › components\rc-badge\docs\badge.visual.spec.mjs:42:42 › Badge english › Badge environment md3 light english @rc-badge @environment (1.8s)
+  ok  134 [chromium] › components\rc-badge\docs\badge.visual.spec.mjs:42:42 › Badge brand › Badge environment md3 light brand @rc-badge @environment (1.9s)
+  ok  135 [chromium] › components\rc-badge\docs\badge.visual.spec.mjs:42:42 › Badge forced-colors › Badge environment md3 light forced-colors @rc-badge @environment (2.0s)
+  ok  136 [chromium] › components\rc-badge\docs\badge.visual.spec.mjs:42:42 › Badge reduced-motion › Badge environment md3 light reduced-motion @rc-badge @environment (1.9s)
+  ok  137 [chromium] › components\rc-badge\docs\badge.visual.spec.mjs:42:42 › Badge long-text › Badge environment md3 light long-text @rc-badge @environment (2.5s)
+  ok  138 [chromium] › components\rc-badge\docs\badge.visual.spec.mjs:42:42 › Badge theme-retention › Badge environment md3 light theme-retention @rc-badge @environment (2.1s)
+  ok  139 [chromium] › components\rc-bar-chart\docs\bar-chart-density.visual.spec.mjs:5:38 › md3 light density changes HTML rhythm and preserves plot geometry @rc-bar-chart @geometry (7.8s)
+  ok  140 [chromium] › components\rc-bar-chart\docs\bar-chart-zoom.visual.spec.mjs:5:38 › md3 light chart at real 200% @rc-bar-chart @environment @chromium-only (9.1s)
+  ok  141 [chromium] › components\rc-bar-chart\docs\bar-chart.visual.spec.mjs:11:5 › md3 light medium standard default @rc-bar-chart @matrix (3.5s)
+  ok  143 [chromium] › components\rc-bar-chart\docs\bar-chart.visual.spec.mjs:11:5 › md3 light medium standard focus-visible @rc-bar-chart @matrix (3.1s)
+  ok  142 [chromium] › components\rc-bar-chart\docs\bar-chart.visual.spec.mjs:11:5 › md3 light medium standard hover @rc-bar-chart @matrix @chromium-only (4.5s)
+  ok  144 [chromium] › components\rc-bar-chart\docs\bar-chart.visual.spec.mjs:11:5 › md3 light medium standard pressed @rc-bar-chart @matrix @chromium-only (3.6s)
+  ok  145 [chromium] › components\rc-bar-chart\docs\bar-chart.visual.spec.mjs:11:5 › md3 light medium standard selected @rc-bar-chart @matrix (3.5s)
+  ok  146 [chromium] › components\rc-bar-chart\docs\bar-chart.visual.spec.mjs:11:5 › md3 light medium standard empty @rc-bar-chart @matrix (3.2s)
+  ok  147 [chromium] › components\rc-bar-chart\docs\bar-chart.visual.spec.mjs:11:5 › md3 light medium standard horizontal @rc-bar-chart @matrix @chromium-only (3.2s)
+  ok  148 [chromium] › components\rc-bar-chart\docs\bar-chart.visual.spec.mjs:11:5 › md3 light medium standard stacked @rc-bar-chart @matrix @chromium-only (3.1s)
+  ok  149 [chromium] › components\rc-bar-chart\docs\bar-chart.visual.spec.mjs:11:5 › md3 light medium standard negative @rc-bar-chart @matrix @chromium-only (3.1s)
+  ok  150 [chromium] › components\rc-bar-chart\docs\bar-chart.visual.spec.mjs:11:5 › md3 light medium standard refresh @rc-bar-chart @matrix @chromium-only (3.0s)
+  ok  151 [chromium] › components\rc-bar-chart\docs\bar-chart.visual.spec.mjs:47:42 › BarChart environment narrow › md3 light @rc-bar-chart @environment @chromium-only (3.2s)
+  ok  152 [chromium] › components\rc-bar-chart\docs\bar-chart.visual.spec.mjs:47:42 › BarChart environment tablet › md3 light @rc-bar-chart @environment @chromium-only (3.2s)
+  ok  153 [chromium] › components\rc-bar-chart\docs\bar-chart.visual.spec.mjs:47:42 › BarChart environment desktop › md3 light @rc-bar-chart @environment @chromium-only (3.2s)
+  ok  154 [chromium] › components\rc-bar-chart\docs\bar-chart.visual.spec.mjs:47:42 › BarChart environment touch › md3 light @rc-bar-chart @environment @chromium-only (3.6s)
+  ok  155 [chromium] › components\rc-bar-chart\docs\bar-chart.visual.spec.mjs:47:42 › BarChart environment rtl › md3 light @rc-bar-chart @environment @chromium-only (3.6s)
+  ok  156 [chromium] › components\rc-bar-chart\docs\bar-chart.visual.spec.mjs:47:42 › BarChart environment english › md3 light @rc-bar-chart @environment @chromium-only (3.4s)
+  ok  157 [chromium] › components\rc-bar-chart\docs\bar-chart.visual.spec.mjs:47:42 › BarChart environment brand › md3 light @rc-bar-chart @environment @chromium-only (3.5s)
+  ok  158 [chromium] › components\rc-bar-chart\docs\bar-chart.visual.spec.mjs:47:42 › BarChart environment forced-colors › md3 light @rc-bar-chart @environment @chromium-only (3.5s)
+  ok  159 [chromium] › components\rc-bar-chart\docs\bar-chart.visual.spec.mjs:47:42 › BarChart environment reduced-motion › md3 light @rc-bar-chart @environment @chromium-only (3.4s)
+  x   160 [chromium] › components\rc-bar-chart\docs\bar-chart.visual.spec.mjs:66:38 › md3 light hidden series and live data survive configuration @rc-bar-chart @boundary (4.1s)
+  x   161 [chromium] › components\rc-breadcrumbs\docs\breadcrumbs-zoom.visual.spec.mjs:4:38 › md3 light Breadcrumbs at real 200% @rc-breadcrumbs @environment @chromium-only (3.8s)
+(node:23772) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:23772) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:3256) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:3256) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:3256) ExperimentalWarning: glob is an experimental feature and might change at any time
+(node:23772) ExperimentalWarning: glob is an experimental feature and might change at any time
+  ok  162 [chromium] › components\rc-breadcrumbs\docs\breadcrumbs.visual.spec.mjs:7:5 › md3 light medium standard default @rc-breadcrumbs @matrix (3.0s)
+  ok  163 [chromium] › components\rc-breadcrumbs\docs\breadcrumbs.visual.spec.mjs:7:5 › md3 light medium standard hover @rc-breadcrumbs @matrix @chromium-only (2.8s)
+  ok  164 [chromium] › components\rc-breadcrumbs\docs\breadcrumbs.visual.spec.mjs:7:5 › md3 light medium standard focus-visible @rc-breadcrumbs @matrix (2.4s)
+  ok  165 [chromium] › components\rc-breadcrumbs\docs\breadcrumbs.visual.spec.mjs:7:5 › md3 light medium standard pressed @rc-breadcrumbs @matrix @chromium-only (2.5s)
+  ok  166 [chromium] › components\rc-breadcrumbs\docs\breadcrumbs.visual.spec.mjs:7:5 › md3 light medium standard disabled @rc-breadcrumbs @matrix (2.3s)
+  ok  167 [chromium] › components\rc-breadcrumbs\docs\breadcrumbs.visual.spec.mjs:7:5 › md3 light medium standard action @rc-breadcrumbs @matrix (2.3s)
+  ok  168 [chromium] › components\rc-breadcrumbs\docs\breadcrumbs.visual.spec.mjs:7:5 › md3 light medium standard collapsed @rc-breadcrumbs @matrix (2.1s)
+  ok  169 [chromium] › components\rc-breadcrumbs\docs\environment.visual.spec.mjs:7:9 › md3 light narrow › component environment @rc-breadcrumbs @environment (2.0s)
+  ok  170 [chromium] › components\rc-breadcrumbs\docs\environment.visual.spec.mjs:7:9 › md3 light tablet › component environment @rc-breadcrumbs @environment (2.1s)
+  ok  171 [chromium] › components\rc-breadcrumbs\docs\environment.visual.spec.mjs:7:9 › md3 light desktop › component environment @rc-breadcrumbs @environment (2.3s)
+  ok  172 [chromium] › components\rc-breadcrumbs\docs\environment.visual.spec.mjs:7:9 › md3 light touch › component environment @rc-breadcrumbs @environment @chromium-only (2.2s)
+  ok  173 [chromium] › components\rc-breadcrumbs\docs\environment.visual.spec.mjs:7:9 › md3 light rtl › component environment @rc-breadcrumbs @environment (2.1s)
+  ok  174 [chromium] › components\rc-breadcrumbs\docs\environment.visual.spec.mjs:7:9 › md3 light english › component environment @rc-breadcrumbs @environment (2.1s)
+  ok  175 [chromium] › components\rc-breadcrumbs\docs\environment.visual.spec.mjs:7:9 › md3 light brand › component environment @rc-breadcrumbs @environment (2.0s)
+  ok  176 [chromium] › components\rc-breadcrumbs\docs\environment.visual.spec.mjs:7:9 › md3 light forced-colors › component environment @rc-breadcrumbs @environment (2.2s)
+  ok  177 [chromium] › components\rc-breadcrumbs\docs\environment.visual.spec.mjs:7:9 › md3 light reduced-motion › component environment @rc-breadcrumbs @environment (2.1s)
+  ok  178 [chromium] › components\rc-breadcrumbs\docs\environment.visual.spec.mjs:29:38 › md3 light configuration retention @rc-breadcrumbs @environment (2.7s)
+  ok  179 [chromium] › components\rc-button\docs\button-environment.visual.spec.mjs:6:9 › button md3 light narrow › action environment and all variants @rc-button @environment @chromium-only (2.8s)
+  ok  180 [chromium] › components\rc-button\docs\button-environment.visual.spec.mjs:6:9 › button md3 light tablet › action environment and all variants @rc-button @environment @chromium-only (2.6s)
+  ok  181 [chromium] › components\rc-button\docs\button-environment.visual.spec.mjs:6:9 › button md3 light desktop › action environment and all variants @rc-button @environment @chromium-only (2.5s)
+  ok  183 [chromium] › components\rc-button\docs\button-environment.visual.spec.mjs:6:9 › button md3 light rtl › action environment and all variants @rc-button @environment @chromium-only (2.8s)
+  ok  182 [chromium] › components\rc-button\docs\button-environment.visual.spec.mjs:6:9 › button md3 light touch › action environment and all variants @rc-button @environment @chromium-only (3.7s)
+  ok  184 [chromium] › components\rc-button\docs\button-environment.visual.spec.mjs:6:9 › button md3 light english › action environment and all variants @rc-button @environment @chromium-only (2.7s)
+  ok  185 [chromium] › components\rc-button\docs\button-environment.visual.spec.mjs:6:9 › button md3 light brand › action environment and all variants @rc-button @environment @chromium-only (3.0s)
+  ok  186 [chromium] › components\rc-button\docs\button-environment.visual.spec.mjs:6:9 › button md3 light forced-colors › action environment and all variants @rc-button @environment @chromium-only (2.4s)
+  ok  187 [chromium] › components\rc-button\docs\button-environment.visual.spec.mjs:6:9 › button md3 light reduced-motion › action environment and all variants @rc-button @environment @chromium-only (2.5s)
+  ok  189 [chromium] › components\rc-button\docs\button-zoom.visual.spec.mjs:4:5 › md3 light real 200% @rc-button @environment @chromium-only (10.0s)
+  ok  190 [chromium] › components\rc-button\docs\button.visual.spec.mjs:7:9 › md3 light s default › Button action matrix @rc-button @matrix (1.7s)
+  ok  191 [chromium] › components\rc-button\docs\button.visual.spec.mjs:7:9 › md3 light s hover › Button action matrix @rc-button @matrix @chromium-only (4.7s)
+  ok  192 [chromium] › components\rc-button\docs\button.visual.spec.mjs:7:9 › md3 light s focus-visible › Button action matrix @rc-button @matrix (4.3s)
+  ok  188 [chromium] › components\rc-button\docs\button-shape-parity.visual.spec.mjs:67:5 › owner/public Button shape parity md3 light @rc-button @boundary @chromium-only (27.3s)
+  ok  193 [chromium] › components\rc-button\docs\button.visual.spec.mjs:7:9 › md3 light s pressed › Button action matrix @rc-button @matrix (5.7s)
+  ok  194 [chromium] › components\rc-button\docs\button.visual.spec.mjs:7:9 › md3 light s disabled › Button action matrix @rc-button @matrix @chromium-only (2.0s)
+  ok  195 [chromium] › components\rc-button\docs\button.visual.spec.mjs:7:9 › md3 light s selected › Button action matrix @rc-button @matrix @chromium-only (2.4s)
+  ok  196 [chromium] › components\rc-button\docs\button.visual.spec.mjs:7:9 › md3 light s unselected › Button action matrix @rc-button @matrix @chromium-only (2.1s)
+  ok  197 [chromium] › components\rc-button\docs\button.visual.spec.mjs:7:9 › md3 light s variants › Button action matrix @rc-button @matrix @chromium-only (1.9s)

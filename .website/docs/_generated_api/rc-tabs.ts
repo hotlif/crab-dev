@@ -19,7 +19,7 @@ export interface TabsProps {
     /**
      * 暂无说明。 与 value 互斥，不能同时提供。
      */
-    "defaultValue"?: string | number | readonly string[] | undefined | string;
+    "defaultValue"?: (string | number | readonly string[] | undefined) & (string);
 
     /**
      * 暂无说明。

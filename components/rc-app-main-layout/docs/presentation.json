@@ -1,0 +1,18 @@
+{
+    "previewDensity": "spacious",
+    "groups": [
+        {
+            "title": "三体系验收",
+            "demos": [
+                "visual-matrix.demo.tsx"
+            ]
+        },
+        {
+            "title": "工作区与账户",
+            "demos": [
+                "base.demo.tsx",
+                "long-account.demo.tsx"
+            ]
+        }
+    ]
+}

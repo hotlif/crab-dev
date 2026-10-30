@@ -1,0 +1,13 @@
+{
+    "layout": "wide",
+    "previewDensity": "regular",
+    "groups": [
+        {
+            "title": "边界与视觉矩阵",
+            "demos": [
+                "base.demo.tsx",
+                "visual-matrix.demo.tsx"
+            ]
+        }
+    ]
+}

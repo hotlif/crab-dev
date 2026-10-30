@@ -31,7 +31,7 @@ export interface CanvasProps {
     "fillParent"?: boolean;
 
     /**
-     * 设备像素比，默认 window.devicePixelRatio（≥1）
+     * 绘图分辨率；默认跟随当前文档的实际 devicePixelRatio，显式值优先。
      */
     "dpr"?: number;
 

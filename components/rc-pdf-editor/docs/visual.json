@@ -1,0 +1,46 @@
+{
+    "schemaVersion": 1,
+    "demo": "visual-matrix.demo.tsx",
+    "sizes": [
+        "small",
+        "medium",
+        "large"
+    ],
+    "densities": [
+        "compact",
+        "standard",
+        "comfortable"
+    ],
+    "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "pressed",
+        "disabled",
+        "selected",
+        "error",
+        "empty",
+        "read-only",
+        "expanded",
+        "edited",
+        "scroll",
+        "loading"
+    ],
+    "crossEngine": {
+        "sizes": [
+            "medium"
+        ],
+        "densities": [
+            "standard"
+        ],
+        "states": [
+            "default",
+            "focus-visible",
+            "selected",
+            "error",
+            "read-only",
+            "scroll"
+        ]
+    },
+    "notApplicable": {}
+}

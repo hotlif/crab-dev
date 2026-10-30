@@ -22,6 +22,23 @@ export const demos = [
         "workbenchPath": "/components/rc-theme/workbench/#/components/docs%2Fdemos%2Flight-dark.demo.tsx",
         "density": "regular",
         "layout": "wide",
-        "group": null
+        "group": "边界与视觉矩阵"
+    },
+    {
+        "id": "docs/demos/visual-matrix.demo.tsx",
+        "title": "主题表面、字阶与嵌套恢复",
+        "description": "检查显式边界的表面、文本、品牌、焦点和形状；主题不改变业务草稿。",
+        "learning": {
+            "components": [],
+            "props": [],
+            "events": [],
+            "hasState": true
+        },
+        "sourceCode": "import { useState } from 'react';\nimport { css } from '@crab-dev/css';\nimport token, { designSystemRegistry } from '@crab-dev/rc-token-semantic';\n\nexport const meta = { title: '主题表面、字阶与嵌套恢复', description: '检查显式边界的表面、文本、品牌、焦点和形状；主题不改变业务草稿。' };\nconst frame = css`display: grid; gap: ${token.space['group-gap']}; padding: ${token.space['card-padding']}; color: ${token.color.text.primary}; background: ${token.color.background.surface}; border: 1px solid ${token.color.border.default}; border-radius: ${token.shape.card}; overflow-wrap: anywhere;`;\nconst strip = css`display: flex; flex-wrap: wrap; gap: ${token.space['component-gap']};`;\nconst brand = css`padding: ${token.space['component-gap']}; color: ${token.color.brand['on-container']}; background: ${token.color.brand.container}; border-radius: ${token.shape.control};`;\nconst raised = css`padding: ${token.space['component-gap']}; background: ${token.color.surface.raised}; border: 1px solid ${token.color.border.default}; box-shadow: ${token.shadow.card}; border-radius: ${token.shape.card};`;\nconst heading = css`margin: 0; font-family: ${token.typography.headline.small['font-family']}; font-size: ${token.typography.headline.small['font-size']}; line-height: ${token.typography.headline.small['line-height']}; font-weight: ${token.typography.headline.small['font-weight']};`;\nconst focus = css`max-width: 100%; box-sizing: border-box; color: inherit; background: inherit; border: 1px solid ${token.color.border.default}; padding: ${token.space['control-padding-y']} ${token.space['control-padding-x']}; font: inherit; &:focus-visible { outline: 2px solid ${token.color.focus.ring}; outline-offset: 2px; }`;\nexport default function VisualMatrixDemo() {\n    const [state, setState] = useState('default');\n    const [draft, setDraft] = useState('主题切换保留文字 Theme draft');\n    return \u003csection className={frame} aria-label=\"Theme visual matrix\">\n        \u003clabel>验收状态 \u003cselect value={state} onChange={event => setState(event.currentTarget.value)}>\u003coption>default\u003c/option>\u003coption>nested\u003c/option>\u003c/select>\u003c/label>\n        \u003ch2 className={heading}>内容、层级与清晰焦点\u003c/h2>\n        \u003cdiv className={strip}>\u003cspan className={brand} data-role=\"brand\">Brand container\u003c/span>\u003cspan className={raised} data-role=\"raised\">Raised surface\u003c/span>\u003c/div>\n        \u003clabel>主题草稿 \u003cinput className={focus} value={draft} onChange={event => setDraft(event.currentTarget.value)} />\u003c/label>\n        {state === 'nested' && Object.entries(designSystemRegistry).map(([id, design]) => \u003csection key={id} className={frame} data-crab-design={id} data-theme=\"light\" aria-label={`${id} nested`}>\u003cstrong>{design.label}\u003c/strong>\u003cspan className={brand}>Explicit light boundary\u003c/span>\u003cspan className={raised}>Independent geometry and color\u003c/span>\u003c/section>)}\n    \u003c/section>;\n}\n",
+        "previewPath": "/components/rc-theme/workbench/?__wake_demo=docs%2Fdemos%2Fvisual-matrix.demo.tsx",
+        "workbenchPath": "/components/rc-theme/workbench/#/components/docs%2Fdemos%2Fvisual-matrix.demo.tsx",
+        "density": "regular",
+        "layout": "wide",
+        "group": "边界与视觉矩阵"
     }
 ] as const satisfies readonly ComponentDemoRecord[];

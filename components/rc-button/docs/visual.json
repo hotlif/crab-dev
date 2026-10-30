@@ -1,0 +1,13 @@
+{
+    "schemaVersion": 1,
+    "demo": "visual-matrix.demo.tsx",
+    "sizes": ["xs", "s", "m", "l", "xl"],
+    "densities": ["standard"],
+    "states": ["default", "hover", "focus-visible", "pressed", "disabled", "selected", "unselected", "variants", "loading"],
+    "crossEngine": { "sizes": ["s"], "densities": ["standard"], "states": ["default", "focus-visible", "pressed"] },
+    "notApplicable": {
+        "density": "Button uses its five explicit public size values; density does not alter action geometry.",
+        "error": "Errors belong to the surrounding action result; danger is a separate appearance semantic.",
+        "expanded": "Expansion belongs to the owning popup or disclosure component."
+    }
+}

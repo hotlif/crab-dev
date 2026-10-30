@@ -1,0 +1,650 @@
+{
+  "nativeStats": {
+    "startTime": "2026-10-29T13:48:32.922Z",
+    "duration": 51603.766,
+    "expected": 12,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "nativeErrors": [],
+  "visualReview": "pending",
+  "cases": [
+    {
+      "id": "10eeb3b4bd2ba3b601d5-13f4d396b78e3f055f21/chromium/0",
+      "package": "rc-dialog",
+      "file": "components/rc-dialog/docs/dialog-motion.visual.spec.mjs",
+      "title": "md3 light medium standard pending-confirm",
+      "project": "chromium",
+      "attempt": 0,
+      "status": "passed",
+      "visualReview": "pending",
+      "annotations": [
+        {
+          "type": "matrix",
+          "description": "{\"designSystem\":\"md3\",\"colorMode\":\"light\",\"size\":\"medium\",\"density\":\"standard\",\"state\":\"pending-confirm\"}",
+          "location": {
+            "file": "C:\\Users\\zhang\\Desktop\\crab-dev\\components\\rc-dialog\\docs\\dialog-motion.visual.spec.mjs",
+            "line": 7,
+            "column": 5
+          }
+        }
+      ],
+      "images": [
+        {
+          "name": "natural-pending-confirm-frame-0",
+          "path": "screens/rc-dialog/chromium/000001-0-natural-pending-confirm-frame-0.png",
+          "sha256": "66deaa6379cf2817f3582a8358a9e9503ee9d01e20ef6c00a7a90d8b159f9664"
+        },
+        {
+          "name": "natural-pending-confirm-frame-1",
+          "path": "screens/rc-dialog/chromium/000001-1-natural-pending-confirm-frame-1.png",
+          "sha256": "012487597d002eed15d2ac912897fb4ba94cadce80e2d3a1582a8eaca1ae48dc"
+        }
+      ],
+      "errors": [],
+      "details": {
+        "candidate-inputs": {
+          "source": "sha256:ca16b34209a2fdfa97a435fb43d5e0600edc4f1995dd3baed8a1da005b599aba",
+          "artifact": "sha256:278c274d511264b10e0c8e51a6663851a4772f83b1c43ff853b1c2b34c9cc1c1",
+          "file": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\dialog-pending-repair-20261029\\inputs-worker-0.json",
+          "renderingEnvironment": {
+            "file": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\dialog-pending-repair-20261029\\rendering-worker-0.json",
+            "browserName": "chromium",
+            "browser": "156.0.8078.4"
+          },
+          "browserName": "chromium",
+          "browser": "156.0.8078.4",
+          "platform": "win32",
+          "arch": "x64",
+          "mode": "native-check",
+          "visualReview": "pending"
+        },
+        "browser-console": [
+          {
+            "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+            "location": {
+              "url": "http://127.0.0.1:55955/favicon.ico",
+              "line": 0,
+              "column": 0,
+              "lineNumber": 0,
+              "columnNumber": 0
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "10eeb3b4bd2ba3b601d5-f83b1ddd4464c8de2b8d/chromium/0",
+      "package": "rc-dialog",
+      "file": "components/rc-dialog/docs/dialog-motion.visual.spec.mjs",
+      "title": "md3 light medium standard pending-cancel",
+      "project": "chromium",
+      "attempt": 0,
+      "status": "passed",
+      "visualReview": "pending",
+      "annotations": [
+        {
+          "type": "matrix",
+          "description": "{\"designSystem\":\"md3\",\"colorMode\":\"light\",\"size\":\"medium\",\"density\":\"standard\",\"state\":\"pending-cancel\"}",
+          "location": {
+            "file": "C:\\Users\\zhang\\Desktop\\crab-dev\\components\\rc-dialog\\docs\\dialog-motion.visual.spec.mjs",
+            "line": 7,
+            "column": 5
+          }
+        }
+      ],
+      "images": [
+        {
+          "name": "natural-pending-cancel-frame-0",
+          "path": "screens/rc-dialog/chromium/000002-0-natural-pending-cancel-frame-0.png",
+          "sha256": "dc18df0ac6d459dc8d784e7e1e1bbea09474b62f17bf4745e28795dda4b71428"
+        },
+        {
+          "name": "natural-pending-cancel-frame-1",
+          "path": "screens/rc-dialog/chromium/000002-1-natural-pending-cancel-frame-1.png",
+          "sha256": "e7e3f30cc2ead933d3e45f2ab142b98131c9f4f81ba61c1be8ff03c6d1f758b8"
+        }
+      ],
+      "errors": [],
+      "details": {
+        "candidate-inputs": {
+          "source": "sha256:ca16b34209a2fdfa97a435fb43d5e0600edc4f1995dd3baed8a1da005b599aba",
+          "artifact": "sha256:278c274d511264b10e0c8e51a6663851a4772f83b1c43ff853b1c2b34c9cc1c1",
+          "file": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\dialog-pending-repair-20261029\\inputs-worker-0.json",
+          "renderingEnvironment": {
+            "file": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\dialog-pending-repair-20261029\\rendering-worker-0.json",
+            "browserName": "chromium",
+            "browser": "156.0.8078.4"
+          },
+          "browserName": "chromium",
+          "browser": "156.0.8078.4",
+          "platform": "win32",
+          "arch": "x64",
+          "mode": "native-check",
+          "visualReview": "pending"
+        }
+      }
+    },
+    {
+      "id": "10eeb3b4bd2ba3b601d5-d2ccda54eb3aad130aae/chromium/0",
+      "package": "rc-dialog",
+      "file": "components/rc-dialog/docs/dialog-motion.visual.spec.mjs",
+      "title": "md3 dark medium standard pending-confirm",
+      "project": "chromium",
+      "attempt": 0,
+      "status": "passed",
+      "visualReview": "pending",
+      "annotations": [
+        {
+          "type": "matrix",
+          "description": "{\"designSystem\":\"md3\",\"colorMode\":\"dark\",\"size\":\"medium\",\"density\":\"standard\",\"state\":\"pending-confirm\"}",
+          "location": {
+            "file": "C:\\Users\\zhang\\Desktop\\crab-dev\\components\\rc-dialog\\docs\\dialog-motion.visual.spec.mjs",
+            "line": 7,
+            "column": 5
+          }
+        }
+      ],
+      "images": [
+        {
+          "name": "natural-pending-confirm-frame-0",
+          "path": "screens/rc-dialog/chromium/000003-0-natural-pending-confirm-frame-0.png",
+          "sha256": "46ad99adf3510c0ef1e7da97c6da4e8fcaf82129240036f7d885037ea770532b"
+        },
+        {
+          "name": "natural-pending-confirm-frame-1",
+          "path": "screens/rc-dialog/chromium/000003-1-natural-pending-confirm-frame-1.png",
+          "sha256": "0f6394d0e123ee88a27004cc19fe79588fc9d201476982ff948c5b4199a0d77c"
+        }
+      ],
+      "errors": [],
+      "details": {
+        "candidate-inputs": {
+          "source": "sha256:ca16b34209a2fdfa97a435fb43d5e0600edc4f1995dd3baed8a1da005b599aba",
+          "artifact": "sha256:278c274d511264b10e0c8e51a6663851a4772f83b1c43ff853b1c2b34c9cc1c1",
+          "file": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\dialog-pending-repair-20261029\\inputs-worker-0.json",
+          "renderingEnvironment": {
+            "file": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\dialog-pending-repair-20261029\\rendering-worker-0.json",
+            "browserName": "chromium",
+            "browser": "156.0.8078.4"
+          },
+          "browserName": "chromium",
+          "browser": "156.0.8078.4",
+          "platform": "win32",
+          "arch": "x64",
+          "mode": "native-check",
+          "visualReview": "pending"
+        }
+      }
+    },
+    {
+      "id": "10eeb3b4bd2ba3b601d5-3f6339123fbefba21398/chromium/0",
+      "package": "rc-dialog",
+      "file": "components/rc-dialog/docs/dialog-motion.visual.spec.mjs",
+      "title": "md3 dark medium standard pending-cancel",
+      "project": "chromium",
+      "attempt": 0,
+      "status": "passed",
+      "visualReview": "pending",
+      "annotations": [
+        {
+          "type": "matrix",
+          "description": "{\"designSystem\":\"md3\",\"colorMode\":\"dark\",\"size\":\"medium\",\"density\":\"standard\",\"state\":\"pending-cancel\"}",
+          "location": {
+            "file": "C:\\Users\\zhang\\Desktop\\crab-dev\\components\\rc-dialog\\docs\\dialog-motion.visual.spec.mjs",
+            "line": 7,
+            "column": 5
+          }
+        }
+      ],
+      "images": [
+        {
+          "name": "natural-pending-cancel-frame-0",
+          "path": "screens/rc-dialog/chromium/000004-0-natural-pending-cancel-frame-0.png",
+          "sha256": "30dcead804451081e63518293f3f79128c9b34f026d92ea8858565ad78f3303f"
+        },
+        {
+          "name": "natural-pending-cancel-frame-1",
+          "path": "screens/rc-dialog/chromium/000004-1-natural-pending-cancel-frame-1.png",
+          "sha256": "618457c1a79ada40233ad3aec043c1a2afb8689cb4f6c9708ff778032d4e7c94"
+        }
+      ],
+      "errors": [],
+      "details": {
+        "candidate-inputs": {
+          "source": "sha256:ca16b34209a2fdfa97a435fb43d5e0600edc4f1995dd3baed8a1da005b599aba",
+          "artifact": "sha256:278c274d511264b10e0c8e51a6663851a4772f83b1c43ff853b1c2b34c9cc1c1",
+          "file": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\dialog-pending-repair-20261029\\inputs-worker-0.json",
+          "renderingEnvironment": {
+            "file": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\dialog-pending-repair-20261029\\rendering-worker-0.json",
+            "browserName": "chromium",
+            "browser": "156.0.8078.4"
+          },
+          "browserName": "chromium",
+          "browser": "156.0.8078.4",
+          "platform": "win32",
+          "arch": "x64",
+          "mode": "native-check",
+          "visualReview": "pending"
+        }
+      }
+    },
+    {
+      "id": "10eeb3b4bd2ba3b601d5-27dd6a836b8f2af529ca/chromium/0",
+      "package": "rc-dialog",
+      "file": "components/rc-dialog/docs/dialog-motion.visual.spec.mjs",
+      "title": "apple light medium standard pending-confirm",
+      "project": "chromium",
+      "attempt": 0,
+      "status": "passed",
+      "visualReview": "pending",
+      "annotations": [
+        {
+          "type": "matrix",
+          "description": "{\"designSystem\":\"apple\",\"colorMode\":\"light\",\"size\":\"medium\",\"density\":\"standard\",\"state\":\"pending-confirm\"}",
+          "location": {
+            "file": "C:\\Users\\zhang\\Desktop\\crab-dev\\components\\rc-dialog\\docs\\dialog-motion.visual.spec.mjs",
+            "line": 7,
+            "column": 5
+          }
+        }
+      ],
+      "images": [
+        {
+          "name": "natural-pending-confirm-frame-0",
+          "path": "screens/rc-dialog/chromium/000005-0-natural-pending-confirm-frame-0.png",
+          "sha256": "13c1ee249d27a44a36f5b1acabdac3fbf1901af88e250e6353f62db328414cfa"
+        },
+        {
+          "name": "natural-pending-confirm-frame-1",
+          "path": "screens/rc-dialog/chromium/000005-1-natural-pending-confirm-frame-1.png",
+          "sha256": "67c2e3909b253528494506fe91ff09e14ad27fa0f9eed79d5814ecef0fcd40f5"
+        }
+      ],
+      "errors": [],
+      "details": {
+        "candidate-inputs": {
+          "source": "sha256:ca16b34209a2fdfa97a435fb43d5e0600edc4f1995dd3baed8a1da005b599aba",
+          "artifact": "sha256:278c274d511264b10e0c8e51a6663851a4772f83b1c43ff853b1c2b34c9cc1c1",
+          "file": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\dialog-pending-repair-20261029\\inputs-worker-0.json",
+          "renderingEnvironment": {
+            "file": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\dialog-pending-repair-20261029\\rendering-worker-0.json",
+            "browserName": "chromium",
+            "browser": "156.0.8078.4"
+          },
+          "browserName": "chromium",
+          "browser": "156.0.8078.4",
+          "platform": "win32",
+          "arch": "x64",
+          "mode": "native-check",
+          "visualReview": "pending"
+        }
+      }
+    },
+    {
+      "id": "10eeb3b4bd2ba3b601d5-09d5dded8837c0421a54/chromium/0",
+      "package": "rc-dialog",
+      "file": "components/rc-dialog/docs/dialog-motion.visual.spec.mjs",
+      "title": "apple light medium standard pending-cancel",
+      "project": "chromium",
+      "attempt": 0,
+      "status": "passed",
+      "visualReview": "pending",
+      "annotations": [
+        {
+          "type": "matrix",
+          "description": "{\"designSystem\":\"apple\",\"colorMode\":\"light\",\"size\":\"medium\",\"density\":\"standard\",\"state\":\"pending-cancel\"}",
+          "location": {
+            "file": "C:\\Users\\zhang\\Desktop\\crab-dev\\components\\rc-dialog\\docs\\dialog-motion.visual.spec.mjs",
+            "line": 7,
+            "column": 5
+          }
+        }
+      ],
+      "images": [
+        {
+          "name": "natural-pending-cancel-frame-0",
+          "path": "screens/rc-dialog/chromium/000006-0-natural-pending-cancel-frame-0.png",
+          "sha256": "1b4fb386b72c04c030332ee82873e19aa3223e94e8f8b51a429911afdf8fcc5d"
+        },
+        {
+          "name": "natural-pending-cancel-frame-1",
+          "path": "screens/rc-dialog/chromium/000006-1-natural-pending-cancel-frame-1.png",
+          "sha256": "832484c4ed7ac0260a2f4c65e6f340058661fd852f632900dba52b0e7fe4f1f2"
+        }
+      ],
+      "errors": [],
+      "details": {
+        "candidate-inputs": {
+          "source": "sha256:ca16b34209a2fdfa97a435fb43d5e0600edc4f1995dd3baed8a1da005b599aba",
+          "artifact": "sha256:278c274d511264b10e0c8e51a6663851a4772f83b1c43ff853b1c2b34c9cc1c1",
+          "file": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\dialog-pending-repair-20261029\\inputs-worker-0.json",
+          "renderingEnvironment": {
+            "file": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\dialog-pending-repair-20261029\\rendering-worker-0.json",
+            "browserName": "chromium",
+            "browser": "156.0.8078.4"
+          },
+          "browserName": "chromium",
+          "browser": "156.0.8078.4",
+          "platform": "win32",
+          "arch": "x64",
+          "mode": "native-check",
+          "visualReview": "pending"
+        }
+      }
+    },
+    {
+      "id": "10eeb3b4bd2ba3b601d5-402698c5a5374de73182/chromium/0",
+      "package": "rc-dialog",
+      "file": "components/rc-dialog/docs/dialog-motion.visual.spec.mjs",
+      "title": "apple dark medium standard pending-confirm",
+      "project": "chromium",
+      "attempt": 0,
+      "status": "passed",
+      "visualReview": "pending",
+      "annotations": [
+        {
+          "type": "matrix",
+          "description": "{\"designSystem\":\"apple\",\"colorMode\":\"dark\",\"size\":\"medium\",\"density\":\"standard\",\"state\":\"pending-confirm\"}",
+          "location": {
+            "file": "C:\\Users\\zhang\\Desktop\\crab-dev\\components\\rc-dialog\\docs\\dialog-motion.visual.spec.mjs",
+            "line": 7,
+            "column": 5
+          }
+        }
+      ],
+      "images": [
+        {
+          "name": "natural-pending-confirm-frame-0",
+          "path": "screens/rc-dialog/chromium/000007-0-natural-pending-confirm-frame-0.png",
+          "sha256": "c42b143f4c0e5be71bb3844b3b49969eaa6fd77680646ffda6326e82bada8fb5"
+        },
+        {
+          "name": "natural-pending-confirm-frame-1",
+          "path": "screens/rc-dialog/chromium/000007-1-natural-pending-confirm-frame-1.png",
+          "sha256": "87e02821d7c4bca18bf65a13570e22e108e8fe43f3fac195bfab874fd6724097"
+        }
+      ],
+      "errors": [],
+      "details": {
+        "candidate-inputs": {
+          "source": "sha256:ca16b34209a2fdfa97a435fb43d5e0600edc4f1995dd3baed8a1da005b599aba",
+          "artifact": "sha256:278c274d511264b10e0c8e51a6663851a4772f83b1c43ff853b1c2b34c9cc1c1",
+          "file": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\dialog-pending-repair-20261029\\inputs-worker-0.json",
+          "renderingEnvironment": {
+            "file": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\dialog-pending-repair-20261029\\rendering-worker-0.json",
+            "browserName": "chromium",
+            "browser": "156.0.8078.4"
+          },
+          "browserName": "chromium",
+          "browser": "156.0.8078.4",
+          "platform": "win32",
+          "arch": "x64",
+          "mode": "native-check",
+          "visualReview": "pending"
+        }
+      }
+    },
+    {
+      "id": "10eeb3b4bd2ba3b601d5-1ff5b730a6102d6bf56d/chromium/0",
+      "package": "rc-dialog",
+      "file": "components/rc-dialog/docs/dialog-motion.visual.spec.mjs",
+      "title": "apple dark medium standard pending-cancel",
+      "project": "chromium",
+      "attempt": 0,
+      "status": "passed",
+      "visualReview": "pending",
+      "annotations": [
+        {
+          "type": "matrix",
+          "description": "{\"designSystem\":\"apple\",\"colorMode\":\"dark\",\"size\":\"medium\",\"density\":\"standard\",\"state\":\"pending-cancel\"}",
+          "location": {
+            "file": "C:\\Users\\zhang\\Desktop\\crab-dev\\components\\rc-dialog\\docs\\dialog-motion.visual.spec.mjs",
+            "line": 7,
+            "column": 5
+          }
+        }
+      ],
+      "images": [
+        {
+          "name": "natural-pending-cancel-frame-0",
+          "path": "screens/rc-dialog/chromium/000008-0-natural-pending-cancel-frame-0.png",
+          "sha256": "649f154c176f817f351c864ff8065ce1d090d241fa2a71cc7d4f2be8f1988b86"
+        },
+        {
+          "name": "natural-pending-cancel-frame-1",
+          "path": "screens/rc-dialog/chromium/000008-1-natural-pending-cancel-frame-1.png",
+          "sha256": "81797784b1f2f5a839f7f7093f6e105d28440268f2c6d0fbf14d9a5744e7bc76"
+        }
+      ],
+      "errors": [],
+      "details": {
+        "candidate-inputs": {
+          "source": "sha256:ca16b34209a2fdfa97a435fb43d5e0600edc4f1995dd3baed8a1da005b599aba",
+          "artifact": "sha256:278c274d511264b10e0c8e51a6663851a4772f83b1c43ff853b1c2b34c9cc1c1",
+          "file": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\dialog-pending-repair-20261029\\inputs-worker-0.json",
+          "renderingEnvironment": {
+            "file": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\dialog-pending-repair-20261029\\rendering-worker-0.json",
+            "browserName": "chromium",
+            "browser": "156.0.8078.4"
+          },
+          "browserName": "chromium",
+          "browser": "156.0.8078.4",
+          "platform": "win32",
+          "arch": "x64",
+          "mode": "native-check",
+          "visualReview": "pending"
+        }
+      }
+    },
+    {
+      "id": "10eeb3b4bd2ba3b601d5-82c3b9701a5171412df8/chromium/0",
+      "package": "rc-dialog",
+      "file": "components/rc-dialog/docs/dialog-motion.visual.spec.mjs",
+      "title": "shadcn light medium standard pending-confirm",
+      "project": "chromium",
+      "attempt": 0,
+      "status": "passed",
+      "visualReview": "pending",
+      "annotations": [
+        {
+          "type": "matrix",
+          "description": "{\"designSystem\":\"shadcn\",\"colorMode\":\"light\",\"size\":\"medium\",\"density\":\"standard\",\"state\":\"pending-confirm\"}",
+          "location": {
+            "file": "C:\\Users\\zhang\\Desktop\\crab-dev\\components\\rc-dialog\\docs\\dialog-motion.visual.spec.mjs",
+            "line": 7,
+            "column": 5
+          }
+        }
+      ],
+      "images": [
+        {
+          "name": "natural-pending-confirm-frame-0",
+          "path": "screens/rc-dialog/chromium/000009-0-natural-pending-confirm-frame-0.png",
+          "sha256": "f1762aed46535bbd97ed0b0e4119a07f526e91243ba51b424ae088d4faabd125"
+        },
+        {
+          "name": "natural-pending-confirm-frame-1",
+          "path": "screens/rc-dialog/chromium/000009-1-natural-pending-confirm-frame-1.png",
+          "sha256": "f3f559a4dc5847f5a955d8bbe126d1d4378e2b6c261cbafb82a1c8c1801ba991"
+        }
+      ],
+      "errors": [],
+      "details": {
+        "candidate-inputs": {
+          "source": "sha256:ca16b34209a2fdfa97a435fb43d5e0600edc4f1995dd3baed8a1da005b599aba",
+          "artifact": "sha256:278c274d511264b10e0c8e51a6663851a4772f83b1c43ff853b1c2b34c9cc1c1",
+          "file": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\dialog-pending-repair-20261029\\inputs-worker-0.json",
+          "renderingEnvironment": {
+            "file": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\dialog-pending-repair-20261029\\rendering-worker-0.json",
+            "browserName": "chromium",
+            "browser": "156.0.8078.4"
+          },
+          "browserName": "chromium",
+          "browser": "156.0.8078.4",
+          "platform": "win32",
+          "arch": "x64",
+          "mode": "native-check",
+          "visualReview": "pending"
+        }
+      }
+    },
+    {
+      "id": "10eeb3b4bd2ba3b601d5-e15658db8540108fe3ad/chromium/0",
+      "package": "rc-dialog",
+      "file": "components/rc-dialog/docs/dialog-motion.visual.spec.mjs",
+      "title": "shadcn light medium standard pending-cancel",
+      "project": "chromium",
+      "attempt": 0,
+      "status": "passed",
+      "visualReview": "pending",
+      "annotations": [
+        {
+          "type": "matrix",
+          "description": "{\"designSystem\":\"shadcn\",\"colorMode\":\"light\",\"size\":\"medium\",\"density\":\"standard\",\"state\":\"pending-cancel\"}",
+          "location": {
+            "file": "C:\\Users\\zhang\\Desktop\\crab-dev\\components\\rc-dialog\\docs\\dialog-motion.visual.spec.mjs",
+            "line": 7,
+            "column": 5
+          }
+        }
+      ],
+      "images": [
+        {
+          "name": "natural-pending-cancel-frame-0",
+          "path": "screens/rc-dialog/chromium/000010-0-natural-pending-cancel-frame-0.png",
+          "sha256": "bf79a92c5d4f3272c95ed5df7b5db1edf7771bbe7c26c97529ef5081c15e3f36"
+        },
+        {
+          "name": "natural-pending-cancel-frame-1",
+          "path": "screens/rc-dialog/chromium/000010-1-natural-pending-cancel-frame-1.png",
+          "sha256": "8b256007b9983d66db37c2b402ac861257bad7ab6913404c8596efef5a650a54"
+        }
+      ],
+      "errors": [],
+      "details": {
+        "candidate-inputs": {
+          "source": "sha256:ca16b34209a2fdfa97a435fb43d5e0600edc4f1995dd3baed8a1da005b599aba",
+          "artifact": "sha256:278c274d511264b10e0c8e51a6663851a4772f83b1c43ff853b1c2b34c9cc1c1",
+          "file": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\dialog-pending-repair-20261029\\inputs-worker-0.json",
+          "renderingEnvironment": {
+            "file": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\dialog-pending-repair-20261029\\rendering-worker-0.json",
+            "browserName": "chromium",
+            "browser": "156.0.8078.4"
+          },
+          "browserName": "chromium",
+          "browser": "156.0.8078.4",
+          "platform": "win32",
+          "arch": "x64",
+          "mode": "native-check",
+          "visualReview": "pending"
+        }
+      }
+    },
+    {
+      "id": "10eeb3b4bd2ba3b601d5-6651670091a2b00524fb/chromium/0",
+      "package": "rc-dialog",
+      "file": "components/rc-dialog/docs/dialog-motion.visual.spec.mjs",
+      "title": "shadcn dark medium standard pending-confirm",
+      "project": "chromium",
+      "attempt": 0,
+      "status": "passed",
+      "visualReview": "pending",
+      "annotations": [
+        {
+          "type": "matrix",
+          "description": "{\"designSystem\":\"shadcn\",\"colorMode\":\"dark\",\"size\":\"medium\",\"density\":\"standard\",\"state\":\"pending-confirm\"}",
+          "location": {
+            "file": "C:\\Users\\zhang\\Desktop\\crab-dev\\components\\rc-dialog\\docs\\dialog-motion.visual.spec.mjs",
+            "line": 7,
+            "column": 5
+          }
+        }
+      ],
+      "images": [
+        {
+          "name": "natural-pending-confirm-frame-0",
+          "path": "screens/rc-dialog/chromium/000011-0-natural-pending-confirm-frame-0.png",
+          "sha256": "a7b57f87c9f70a42b8a2af50d4f3d9052984dfc9706194e1580857332db0dc77"
+        },
+        {
+          "name": "natural-pending-confirm-frame-1",
+          "path": "screens/rc-dialog/chromium/000011-1-natural-pending-confirm-frame-1.png",
+          "sha256": "54d5894fbed32b42028682c87ecff432a0f2d6db5e12c29891d7320ed811431d"
+        }
+      ],
+      "errors": [],
+      "details": {
+        "candidate-inputs": {
+          "source": "sha256:ca16b34209a2fdfa97a435fb43d5e0600edc4f1995dd3baed8a1da005b599aba",
+          "artifact": "sha256:278c274d511264b10e0c8e51a6663851a4772f83b1c43ff853b1c2b34c9cc1c1",
+          "file": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\dialog-pending-repair-20261029\\inputs-worker-0.json",
+          "renderingEnvironment": {
+            "file": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\dialog-pending-repair-20261029\\rendering-worker-0.json",
+            "browserName": "chromium",
+            "browser": "156.0.8078.4"
+          },
+          "browserName": "chromium",
+          "browser": "156.0.8078.4",
+          "platform": "win32",
+          "arch": "x64",
+          "mode": "native-check",
+          "visualReview": "pending"
+        }
+      }
+    },
+    {
+      "id": "10eeb3b4bd2ba3b601d5-54899b924ca968cb3747/chromium/0",
+      "package": "rc-dialog",
+      "file": "components/rc-dialog/docs/dialog-motion.visual.spec.mjs",
+      "title": "shadcn dark medium standard pending-cancel",
+      "project": "chromium",
+      "attempt": 0,
+      "status": "passed",
+      "visualReview": "pending",
+      "annotations": [
+        {
+          "type": "matrix",
+          "description": "{\"designSystem\":\"shadcn\",\"colorMode\":\"dark\",\"size\":\"medium\",\"density\":\"standard\",\"state\":\"pending-cancel\"}",
+          "location": {
+            "file": "C:\\Users\\zhang\\Desktop\\crab-dev\\components\\rc-dialog\\docs\\dialog-motion.visual.spec.mjs",
+            "line": 7,
+            "column": 5
+          }
+        }
+      ],
+      "images": [
+        {
+          "name": "natural-pending-cancel-frame-0",
+          "path": "screens/rc-dialog/chromium/000012-0-natural-pending-cancel-frame-0.png",
+          "sha256": "f29e07357ef1ae7525307828fd4dba9bb6cd6db27be627e9acd42ab9c1f318c6"
+        },
+        {
+          "name": "natural-pending-cancel-frame-1",
+          "path": "screens/rc-dialog/chromium/000012-1-natural-pending-cancel-frame-1.png",
+          "sha256": "d0c944bab100175178a8bc0c6dc413b6f0c521b1154b97d643ebdd63a7e2c965"
+        }
+      ],
+      "errors": [],
+      "details": {
+        "candidate-inputs": {
+          "source": "sha256:ca16b34209a2fdfa97a435fb43d5e0600edc4f1995dd3baed8a1da005b599aba",
+          "artifact": "sha256:278c274d511264b10e0c8e51a6663851a4772f83b1c43ff853b1c2b34c9cc1c1",
+          "file": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\dialog-pending-repair-20261029\\inputs-worker-0.json",
+          "renderingEnvironment": {
+            "file": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\dialog-pending-repair-20261029\\rendering-worker-0.json",
+            "browserName": "chromium",
+            "browser": "156.0.8078.4"
+          },
+          "browserName": "chromium",
+          "browser": "156.0.8078.4",
+          "platform": "win32",
+          "arch": "x64",
+          "mode": "native-check",
+          "visualReview": "pending"
+        }
+      }
+    }
+  ]
+}

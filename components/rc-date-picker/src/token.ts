@@ -175,13 +175,13 @@ const token = defineTokens({
     'time': {
         'padding': `var(${vars['time.padding']}, var(--token-semantic-size-24, var(--token-global-space-6, 24px)))`,
         'input': {
-            'width': `var(${vars['time.input.width']}, var(--token-semantic-size-96, var(--token-global-size-96, 96px)))`,
-            'height': `var(${vars['time.input.height']}, 72px)`,
+            'width': `var(${vars['time.input.width']}, var(--token-semantic-picker-time-input-width, var(--token-global-size-96, 96px)))`,
+            'height': `var(${vars['time.input.height']}, var(--token-semantic-picker-time-input-height, calc(var(--token-global-space-4, 16px) * 4.5)))`,
             'gap': `var(${vars['time.input.gap']}, var(--token-semantic-space-component-gap, var(--token-global-space-2, 8px)))`,
-            'font-size': `var(${vars['time.input.font-size']}, var(--token-semantic-typography-display-medium-font-size, var(--token-global-font-size-45, 45px)))`,
-            'font-weight': `var(${vars['time.input.font-weight']}, var(--token-semantic-typography-display-medium-font-weight, var(--token-global-font-weight-regular, 400)))`,
-            'line-height': `var(${vars['time.input.line-height']}, var(--token-semantic-typography-display-medium-line-height, var(--token-global-line-height-45-52, 1.1555555555555554)))`,
-            'border-radius': `var(${vars['time.input.border-radius']}, var(--token-semantic-shape-small, var(--token-global-radius-4, 8px)))`,
+            'font-size': `var(${vars['time.input.font-size']}, var(--token-semantic-picker-time-input-font-size, var(--token-semantic-typography-display-medium-font-size, var(--token-global-font-size-45, 45px))))`,
+            'font-weight': `var(${vars['time.input.font-weight']}, var(--token-semantic-picker-time-input-font-weight, var(--token-global-font-weight-regular, 400)))`,
+            'line-height': `var(${vars['time.input.line-height']}, var(--token-semantic-picker-time-input-line-height, var(--token-semantic-typography-display-medium-line-height, var(--token-global-line-height-45-52, 1.1555555555555554))))`,
+            'border-radius': `var(${vars['time.input.border-radius']}, var(--token-semantic-picker-time-input-radius, var(--token-global-radius-4, 8px)))`,
             'background': `var(${vars['time.input.background']}, var(--token-semantic-color-surface-highest, var(--token-global-material-neutral-90, oklch(0.91401081 0.01366394 314.754144))))`,
             'color': `var(${vars['time.input.color']}, var(--token-semantic-color-text-primary, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695))))`,
             'background-selected': `var(${vars['time.input.background-selected']}, var(--token-semantic-color-brand-container, var(--token-semantic-color-selection-background, var(--token-global-purple-90, oklch(0.91829316 0.04770250 302.827510)))))`,
@@ -211,14 +211,14 @@ const token = defineTokens({
         'dial': {
             'width': `var(${vars['time.dial.width']}, calc(var(--token-semantic-size-64, var(--token-global-size-64, 64px)) * 4))`,
             'field': {
-                'width': `var(${vars['time.dial.field.width']}, var(--token-semantic-size-96, var(--token-global-size-96, 96px)))`,
+                'width': `var(${vars['time.dial.field.width']}, var(--token-semantic-picker-time-dial-field-width, var(--token-global-size-96, 96px)))`,
                 '24h': {
-                    'width': `var(${vars['time.dial.field.24h.width']}, 114px)`
+                    'width': `var(${vars['time.dial.field.24h.width']}, var(--token-semantic-picker-time-dial-field-width-24h, calc(var(--token-global-size-96, 96px) + var(--token-global-space-4, 16px) + var(--token-global-space-0-5, 2px))))`
                 },
-                'height': `var(${vars['time.dial.field.height']}, 80px)`
+                'height': `var(${vars['time.dial.field.height']}, var(--token-semantic-picker-time-dial-field-height, var(--token-global-space-20, 80px)))`
             },
-            'font-size': `var(${vars['time.dial.font-size']}, var(--token-semantic-typography-display-large-font-size, var(--token-global-font-size-57, 57px)))`,
-            'line-height': `var(${vars['time.dial.line-height']}, var(--token-semantic-typography-display-large-line-height, var(--token-global-line-height-57-64, 1.1228070175438596)))`,
+            'font-size': `var(${vars['time.dial.font-size']}, var(--token-semantic-picker-time-dial-field-font-size, var(--token-semantic-typography-display-large-font-size, var(--token-global-font-size-57, 57px))))`,
+            'line-height': `var(${vars['time.dial.line-height']}, var(--token-semantic-picker-time-dial-field-line-height, var(--token-semantic-typography-display-large-line-height, var(--token-global-line-height-57-64, 1.1228070175438596))))`,
             'label': {
                 'font-size': `var(${vars['time.dial.label.font-size']}, var(--token-semantic-typography-body-large-font-size, var(--token-global-font-size-md, 16px)))`
             },
@@ -232,10 +232,10 @@ const token = defineTokens({
             'color-selected': `var(${vars['time.dial.color-selected']}, var(--token-semantic-color-text-on-brand, var(--token-global-white, oklch(1.000 0 0))))`
         },
         'period': {
-            'width': `var(${vars['time.period.width']}, calc(var(--token-semantic-size-48, var(--token-global-size-48, 48px)) + var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px))))`,
+            'width': `var(${vars['time.period.width']}, var(--token-semantic-picker-time-period-width, calc(var(--token-global-size-48, 48px) + var(--token-global-space-1, 4px))))`,
             'horizontal': {
-                'width': `var(${vars['time.period.horizontal.width']}, 216px)`,
-                'height': `var(${vars['time.period.horizontal.height']}, 38px)`
+                'width': `var(${vars['time.period.horizontal.width']}, var(--token-semantic-picker-time-period-horizontal-width, calc(var(--token-global-size-96, 96px) * 2 + var(--token-global-space-6, 24px))))`,
+                'height': `var(${vars['time.period.horizontal.height']}, var(--token-semantic-picker-time-period-horizontal-height, calc(var(--token-global-size-40, 40px) - var(--token-global-space-0-5, 2px))))`
             },
             'touch': {
                 'height': `var(${vars['time.period.touch.height']}, var(--token-semantic-size-touch-target, var(--token-global-size-48, 48px)))`

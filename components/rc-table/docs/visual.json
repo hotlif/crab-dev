@@ -1,0 +1,43 @@
+{
+    "schemaVersion": 1,
+    "demo": "visual-matrix.demo.tsx",
+    "sizes": [
+        "small",
+        "medium",
+        "large"
+    ],
+    "densities": [
+        "compact",
+        "standard",
+        "comfortable"
+    ],
+    "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "selected",
+        "expanded",
+        "editing",
+        "scrolled",
+        "empty"
+    ],
+    "notApplicable": {
+        "loading": "Table does not own requests or a loading state; TablePro covers real requests.",
+        "error": "Request errors belong to TablePro. Table exposes custom empty content.",
+        "disabled": "The grid remains navigable; individual selection controls may be disabled."
+    },
+    "crossEngine": {
+        "sizes": [
+            "medium"
+        ],
+        "densities": [
+            "standard"
+        ],
+        "states": [
+            "default",
+            "focus-visible",
+            "selected",
+            "scrolled"
+        ]
+    }
+}

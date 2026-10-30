@@ -1,0 +1,4284 @@
+{
+  "scope": "filtered",
+  "visualReview": "pending",
+  "matrices": [
+    {
+      "package": "rc-card",
+      "engine": "chromium",
+      "complete": false,
+      "expected": 486,
+      "passed": 0,
+      "cells": [
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "small",
+          "density": "compact",
+          "state": "default",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "small",
+          "density": "compact",
+          "state": "elevated",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "small",
+          "density": "compact",
+          "state": "outlined",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "small",
+          "density": "compact",
+          "state": "filled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "small",
+          "density": "compact",
+          "state": "hover",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "small",
+          "density": "compact",
+          "state": "focus-visible",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "small",
+          "density": "compact",
+          "state": "pressed",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "small",
+          "density": "compact",
+          "state": "disabled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "small",
+          "density": "compact",
+          "state": "loading",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "small",
+          "density": "standard",
+          "state": "default",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "small",
+          "density": "standard",
+          "state": "elevated",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "small",
+          "density": "standard",
+          "state": "outlined",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "small",
+          "density": "standard",
+          "state": "filled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "small",
+          "density": "standard",
+          "state": "hover",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "small",
+          "density": "standard",
+          "state": "focus-visible",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "small",
+          "density": "standard",
+          "state": "pressed",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "small",
+          "density": "standard",
+          "state": "disabled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "small",
+          "density": "standard",
+          "state": "loading",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "small",
+          "density": "comfortable",
+          "state": "default",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "small",
+          "density": "comfortable",
+          "state": "elevated",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "small",
+          "density": "comfortable",
+          "state": "outlined",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "small",
+          "density": "comfortable",
+          "state": "filled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "small",
+          "density": "comfortable",
+          "state": "hover",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "small",
+          "density": "comfortable",
+          "state": "focus-visible",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "small",
+          "density": "comfortable",
+          "state": "pressed",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "small",
+          "density": "comfortable",
+          "state": "disabled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "small",
+          "density": "comfortable",
+          "state": "loading",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "compact",
+          "state": "default",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "compact",
+          "state": "elevated",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "compact",
+          "state": "outlined",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "compact",
+          "state": "filled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "compact",
+          "state": "hover",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "compact",
+          "state": "focus-visible",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "compact",
+          "state": "pressed",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "compact",
+          "state": "disabled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "compact",
+          "state": "loading",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "standard",
+          "state": "default",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "standard",
+          "state": "elevated",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "standard",
+          "state": "outlined",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "standard",
+          "state": "filled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "standard",
+          "state": "hover",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "standard",
+          "state": "focus-visible",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "standard",
+          "state": "pressed",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "standard",
+          "state": "disabled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "standard",
+          "state": "loading",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "comfortable",
+          "state": "default",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "comfortable",
+          "state": "elevated",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "comfortable",
+          "state": "outlined",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "comfortable",
+          "state": "filled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "comfortable",
+          "state": "hover",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "comfortable",
+          "state": "focus-visible",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "comfortable",
+          "state": "pressed",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "comfortable",
+          "state": "disabled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "comfortable",
+          "state": "loading",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "large",
+          "density": "compact",
+          "state": "default",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "large",
+          "density": "compact",
+          "state": "elevated",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "large",
+          "density": "compact",
+          "state": "outlined",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "large",
+          "density": "compact",
+          "state": "filled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "large",
+          "density": "compact",
+          "state": "hover",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "large",
+          "density": "compact",
+          "state": "focus-visible",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "large",
+          "density": "compact",
+          "state": "pressed",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "large",
+          "density": "compact",
+          "state": "disabled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "large",
+          "density": "compact",
+          "state": "loading",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "large",
+          "density": "standard",
+          "state": "default",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "large",
+          "density": "standard",
+          "state": "elevated",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "large",
+          "density": "standard",
+          "state": "outlined",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "large",
+          "density": "standard",
+          "state": "filled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "large",
+          "density": "standard",
+          "state": "hover",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "large",
+          "density": "standard",
+          "state": "focus-visible",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "large",
+          "density": "standard",
+          "state": "pressed",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "large",
+          "density": "standard",
+          "state": "disabled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "large",
+          "density": "standard",
+          "state": "loading",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "large",
+          "density": "comfortable",
+          "state": "default",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "large",
+          "density": "comfortable",
+          "state": "elevated",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "large",
+          "density": "comfortable",
+          "state": "outlined",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "large",
+          "density": "comfortable",
+          "state": "filled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "large",
+          "density": "comfortable",
+          "state": "hover",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "large",
+          "density": "comfortable",
+          "state": "focus-visible",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "large",
+          "density": "comfortable",
+          "state": "pressed",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "large",
+          "density": "comfortable",
+          "state": "disabled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "size": "large",
+          "density": "comfortable",
+          "state": "loading",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "compact",
+          "state": "default",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "compact",
+          "state": "elevated",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "compact",
+          "state": "outlined",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "compact",
+          "state": "filled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "compact",
+          "state": "hover",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "compact",
+          "state": "focus-visible",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "compact",
+          "state": "pressed",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "compact",
+          "state": "disabled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "compact",
+          "state": "loading",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "standard",
+          "state": "default",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "standard",
+          "state": "elevated",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "standard",
+          "state": "outlined",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "standard",
+          "state": "filled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "standard",
+          "state": "hover",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "standard",
+          "state": "focus-visible",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "standard",
+          "state": "pressed",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "standard",
+          "state": "disabled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "standard",
+          "state": "loading",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "comfortable",
+          "state": "default",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "comfortable",
+          "state": "elevated",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "comfortable",
+          "state": "outlined",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "comfortable",
+          "state": "filled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "comfortable",
+          "state": "hover",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "comfortable",
+          "state": "focus-visible",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "comfortable",
+          "state": "pressed",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "comfortable",
+          "state": "disabled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "comfortable",
+          "state": "loading",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "compact",
+          "state": "default",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "compact",
+          "state": "elevated",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "compact",
+          "state": "outlined",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "compact",
+          "state": "filled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "compact",
+          "state": "hover",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "compact",
+          "state": "focus-visible",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "compact",
+          "state": "pressed",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "compact",
+          "state": "disabled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "compact",
+          "state": "loading",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "standard",
+          "state": "default",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "standard",
+          "state": "elevated",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "standard",
+          "state": "outlined",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "standard",
+          "state": "filled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "standard",
+          "state": "hover",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "standard",
+          "state": "focus-visible",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "standard",
+          "state": "pressed",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "standard",
+          "state": "disabled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "standard",
+          "state": "loading",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "comfortable",
+          "state": "default",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "comfortable",
+          "state": "elevated",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "comfortable",
+          "state": "outlined",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "comfortable",
+          "state": "filled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "comfortable",
+          "state": "hover",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "comfortable",
+          "state": "focus-visible",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "comfortable",
+          "state": "pressed",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "comfortable",
+          "state": "disabled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "comfortable",
+          "state": "loading",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "compact",
+          "state": "default",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "compact",
+          "state": "elevated",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "compact",
+          "state": "outlined",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "compact",
+          "state": "filled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "compact",
+          "state": "hover",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "compact",
+          "state": "focus-visible",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "compact",
+          "state": "pressed",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "compact",
+          "state": "disabled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "compact",
+          "state": "loading",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "standard",
+          "state": "default",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "standard",
+          "state": "elevated",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "standard",
+          "state": "outlined",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "standard",
+          "state": "filled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "standard",
+          "state": "hover",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "standard",
+          "state": "focus-visible",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "standard",
+          "state": "pressed",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "standard",
+          "state": "disabled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "standard",
+          "state": "loading",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "comfortable",
+          "state": "default",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "comfortable",
+          "state": "elevated",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "comfortable",
+          "state": "outlined",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "comfortable",
+          "state": "filled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "comfortable",
+          "state": "hover",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "comfortable",
+          "state": "focus-visible",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "comfortable",
+          "state": "pressed",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "comfortable",
+          "state": "disabled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "comfortable",
+          "state": "loading",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "small",
+          "density": "compact",
+          "state": "default",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "small",
+          "density": "compact",
+          "state": "elevated",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "small",
+          "density": "compact",
+          "state": "outlined",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "small",
+          "density": "compact",
+          "state": "filled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "small",
+          "density": "compact",
+          "state": "hover",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "small",
+          "density": "compact",
+          "state": "focus-visible",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "small",
+          "density": "compact",
+          "state": "pressed",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "small",
+          "density": "compact",
+          "state": "disabled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "small",
+          "density": "compact",
+          "state": "loading",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "small",
+          "density": "standard",
+          "state": "default",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "small",
+          "density": "standard",
+          "state": "elevated",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "small",
+          "density": "standard",
+          "state": "outlined",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "small",
+          "density": "standard",
+          "state": "filled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "small",
+          "density": "standard",
+          "state": "hover",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "small",
+          "density": "standard",
+          "state": "focus-visible",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "small",
+          "density": "standard",
+          "state": "pressed",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "small",
+          "density": "standard",
+          "state": "disabled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "small",
+          "density": "standard",
+          "state": "loading",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "small",
+          "density": "comfortable",
+          "state": "default",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "small",
+          "density": "comfortable",
+          "state": "elevated",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "small",
+          "density": "comfortable",
+          "state": "outlined",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "small",
+          "density": "comfortable",
+          "state": "filled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "small",
+          "density": "comfortable",
+          "state": "hover",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "small",
+          "density": "comfortable",
+          "state": "focus-visible",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "small",
+          "density": "comfortable",
+          "state": "pressed",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "small",
+          "density": "comfortable",
+          "state": "disabled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "small",
+          "density": "comfortable",
+          "state": "loading",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "compact",
+          "state": "default",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "compact",
+          "state": "elevated",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "compact",
+          "state": "outlined",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "compact",
+          "state": "filled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "compact",
+          "state": "hover",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "compact",
+          "state": "focus-visible",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "compact",
+          "state": "pressed",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "compact",
+          "state": "disabled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "compact",
+          "state": "loading",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "standard",
+          "state": "default",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "standard",
+          "state": "elevated",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "standard",
+          "state": "outlined",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "standard",
+          "state": "filled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "standard",
+          "state": "hover",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "standard",
+          "state": "focus-visible",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "standard",
+          "state": "pressed",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "standard",
+          "state": "disabled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "standard",
+          "state": "loading",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "comfortable",
+          "state": "default",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "comfortable",
+          "state": "elevated",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "comfortable",
+          "state": "outlined",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "comfortable",
+          "state": "filled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "comfortable",
+          "state": "hover",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "comfortable",
+          "state": "focus-visible",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "comfortable",
+          "state": "pressed",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "comfortable",
+          "state": "disabled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "comfortable",
+          "state": "loading",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "large",
+          "density": "compact",
+          "state": "default",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "large",
+          "density": "compact",
+          "state": "elevated",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "large",
+          "density": "compact",
+          "state": "outlined",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "large",
+          "density": "compact",
+          "state": "filled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "large",
+          "density": "compact",
+          "state": "hover",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "large",
+          "density": "compact",
+          "state": "focus-visible",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "large",
+          "density": "compact",
+          "state": "pressed",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "large",
+          "density": "compact",
+          "state": "disabled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "large",
+          "density": "compact",
+          "state": "loading",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "large",
+          "density": "standard",
+          "state": "default",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "large",
+          "density": "standard",
+          "state": "elevated",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "large",
+          "density": "standard",
+          "state": "outlined",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "large",
+          "density": "standard",
+          "state": "filled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "large",
+          "density": "standard",
+          "state": "hover",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "large",
+          "density": "standard",
+          "state": "focus-visible",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "large",
+          "density": "standard",
+          "state": "pressed",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "large",
+          "density": "standard",
+          "state": "disabled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "large",
+          "density": "standard",
+          "state": "loading",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "large",
+          "density": "comfortable",
+          "state": "default",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "large",
+          "density": "comfortable",
+          "state": "elevated",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "large",
+          "density": "comfortable",
+          "state": "outlined",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "large",
+          "density": "comfortable",
+          "state": "filled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "large",
+          "density": "comfortable",
+          "state": "hover",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "large",
+          "density": "comfortable",
+          "state": "focus-visible",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "large",
+          "density": "comfortable",
+          "state": "pressed",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "large",
+          "density": "comfortable",
+          "state": "disabled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "size": "large",
+          "density": "comfortable",
+          "state": "loading",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "compact",
+          "state": "default",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "compact",
+          "state": "elevated",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "compact",
+          "state": "outlined",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "compact",
+          "state": "filled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "compact",
+          "state": "hover",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "compact",
+          "state": "focus-visible",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "compact",
+          "state": "pressed",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "compact",
+          "state": "disabled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "compact",
+          "state": "loading",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "standard",
+          "state": "default",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "standard",
+          "state": "elevated",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "standard",
+          "state": "outlined",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "standard",
+          "state": "filled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "standard",
+          "state": "hover",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "standard",
+          "state": "focus-visible",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "standard",
+          "state": "pressed",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "standard",
+          "state": "disabled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "standard",
+          "state": "loading",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "comfortable",
+          "state": "default",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "comfortable",
+          "state": "elevated",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "comfortable",
+          "state": "outlined",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "comfortable",
+          "state": "filled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "comfortable",
+          "state": "hover",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "comfortable",
+          "state": "focus-visible",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "comfortable",
+          "state": "pressed",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "comfortable",
+          "state": "disabled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "comfortable",
+          "state": "loading",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "compact",
+          "state": "default",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "compact",
+          "state": "elevated",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "compact",
+          "state": "outlined",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "compact",
+          "state": "filled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "compact",
+          "state": "hover",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "compact",
+          "state": "focus-visible",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "compact",
+          "state": "pressed",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "compact",
+          "state": "disabled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "compact",
+          "state": "loading",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "standard",
+          "state": "default",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "standard",
+          "state": "elevated",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "standard",
+          "state": "outlined",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "standard",
+          "state": "filled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "standard",
+          "state": "hover",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "standard",
+          "state": "focus-visible",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "standard",
+          "state": "pressed",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "standard",
+          "state": "disabled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "standard",
+          "state": "loading",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "comfortable",
+          "state": "default",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "comfortable",
+          "state": "elevated",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "comfortable",
+          "state": "outlined",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "comfortable",
+          "state": "filled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "comfortable",
+          "state": "hover",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "comfortable",
+          "state": "focus-visible",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "comfortable",
+          "state": "pressed",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "comfortable",
+          "state": "disabled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "comfortable",
+          "state": "loading",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "compact",
+          "state": "default",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "compact",
+          "state": "elevated",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "compact",
+          "state": "outlined",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "compact",
+          "state": "filled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "compact",
+          "state": "hover",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "compact",
+          "state": "focus-visible",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "compact",
+          "state": "pressed",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "compact",
+          "state": "disabled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "compact",
+          "state": "loading",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "standard",
+          "state": "default",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "standard",
+          "state": "elevated",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "standard",
+          "state": "outlined",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "standard",
+          "state": "filled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "standard",
+          "state": "hover",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "standard",
+          "state": "focus-visible",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "standard",
+          "state": "pressed",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "standard",
+          "state": "disabled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "standard",
+          "state": "loading",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "comfortable",
+          "state": "default",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "comfortable",
+          "state": "elevated",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "comfortable",
+          "state": "outlined",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "comfortable",
+          "state": "filled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "comfortable",
+          "state": "hover",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "comfortable",
+          "state": "focus-visible",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "comfortable",
+          "state": "pressed",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "comfortable",
+          "state": "disabled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "comfortable",
+          "state": "loading",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "small",
+          "density": "compact",
+          "state": "default",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "small",
+          "density": "compact",
+          "state": "elevated",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "small",
+          "density": "compact",
+          "state": "outlined",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "small",
+          "density": "compact",
+          "state": "filled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "small",
+          "density": "compact",
+          "state": "hover",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "small",
+          "density": "compact",
+          "state": "focus-visible",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "small",
+          "density": "compact",
+          "state": "pressed",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "small",
+          "density": "compact",
+          "state": "disabled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "small",
+          "density": "compact",
+          "state": "loading",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "small",
+          "density": "standard",
+          "state": "default",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "small",
+          "density": "standard",
+          "state": "elevated",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "small",
+          "density": "standard",
+          "state": "outlined",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "small",
+          "density": "standard",
+          "state": "filled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "small",
+          "density": "standard",
+          "state": "hover",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "small",
+          "density": "standard",
+          "state": "focus-visible",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "small",
+          "density": "standard",
+          "state": "pressed",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "small",
+          "density": "standard",
+          "state": "disabled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "small",
+          "density": "standard",
+          "state": "loading",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "small",
+          "density": "comfortable",
+          "state": "default",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "small",
+          "density": "comfortable",
+          "state": "elevated",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "small",
+          "density": "comfortable",
+          "state": "outlined",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "small",
+          "density": "comfortable",
+          "state": "filled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "small",
+          "density": "comfortable",
+          "state": "hover",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "small",
+          "density": "comfortable",
+          "state": "focus-visible",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "small",
+          "density": "comfortable",
+          "state": "pressed",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "small",
+          "density": "comfortable",
+          "state": "disabled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "small",
+          "density": "comfortable",
+          "state": "loading",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "compact",
+          "state": "default",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "compact",
+          "state": "elevated",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "compact",
+          "state": "outlined",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "compact",
+          "state": "filled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "compact",
+          "state": "hover",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "compact",
+          "state": "focus-visible",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "compact",
+          "state": "pressed",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "compact",
+          "state": "disabled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "compact",
+          "state": "loading",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "standard",
+          "state": "default",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "standard",
+          "state": "elevated",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "standard",
+          "state": "outlined",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "standard",
+          "state": "filled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "standard",
+          "state": "hover",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "standard",
+          "state": "focus-visible",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "standard",
+          "state": "pressed",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "standard",
+          "state": "disabled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "standard",
+          "state": "loading",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "comfortable",
+          "state": "default",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "comfortable",
+          "state": "elevated",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "comfortable",
+          "state": "outlined",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "comfortable",
+          "state": "filled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "comfortable",
+          "state": "hover",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "comfortable",
+          "state": "focus-visible",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "comfortable",
+          "state": "pressed",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "comfortable",
+          "state": "disabled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "medium",
+          "density": "comfortable",
+          "state": "loading",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "large",
+          "density": "compact",
+          "state": "default",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "large",
+          "density": "compact",
+          "state": "elevated",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "large",
+          "density": "compact",
+          "state": "outlined",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "large",
+          "density": "compact",
+          "state": "filled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "large",
+          "density": "compact",
+          "state": "hover",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "large",
+          "density": "compact",
+          "state": "focus-visible",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "large",
+          "density": "compact",
+          "state": "pressed",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "large",
+          "density": "compact",
+          "state": "disabled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "large",
+          "density": "compact",
+          "state": "loading",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "large",
+          "density": "standard",
+          "state": "default",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "large",
+          "density": "standard",
+          "state": "elevated",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "large",
+          "density": "standard",
+          "state": "outlined",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "large",
+          "density": "standard",
+          "state": "filled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "large",
+          "density": "standard",
+          "state": "hover",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "large",
+          "density": "standard",
+          "state": "focus-visible",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "large",
+          "density": "standard",
+          "state": "pressed",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "large",
+          "density": "standard",
+          "state": "disabled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "large",
+          "density": "standard",
+          "state": "loading",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "large",
+          "density": "comfortable",
+          "state": "default",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "large",
+          "density": "comfortable",
+          "state": "elevated",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "large",
+          "density": "comfortable",
+          "state": "outlined",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "large",
+          "density": "comfortable",
+          "state": "filled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "large",
+          "density": "comfortable",
+          "state": "hover",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "large",
+          "density": "comfortable",
+          "state": "focus-visible",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "large",
+          "density": "comfortable",
+          "state": "pressed",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "large",
+          "density": "comfortable",
+          "state": "disabled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "size": "large",
+          "density": "comfortable",
+          "state": "loading",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "compact",
+          "state": "default",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "compact",
+          "state": "elevated",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "compact",
+          "state": "outlined",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "compact",
+          "state": "filled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "compact",
+          "state": "hover",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "compact",
+          "state": "focus-visible",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "compact",
+          "state": "pressed",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "compact",
+          "state": "disabled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "compact",
+          "state": "loading",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "standard",
+          "state": "default",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "standard",
+          "state": "elevated",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "standard",
+          "state": "outlined",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "standard",
+          "state": "filled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "standard",
+          "state": "hover",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "standard",
+          "state": "focus-visible",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "standard",
+          "state": "pressed",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "standard",
+          "state": "disabled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "standard",
+          "state": "loading",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "comfortable",
+          "state": "default",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "comfortable",
+          "state": "elevated",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "comfortable",
+          "state": "outlined",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "comfortable",
+          "state": "filled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "comfortable",
+          "state": "hover",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "comfortable",
+          "state": "focus-visible",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "comfortable",
+          "state": "pressed",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "comfortable",
+          "state": "disabled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "small",
+          "density": "comfortable",
+          "state": "loading",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "compact",
+          "state": "default",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "compact",
+          "state": "elevated",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "compact",
+          "state": "outlined",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "compact",
+          "state": "filled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "compact",
+          "state": "hover",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "compact",
+          "state": "focus-visible",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "compact",
+          "state": "pressed",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "compact",
+          "state": "disabled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "compact",
+          "state": "loading",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "standard",
+          "state": "default",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "standard",
+          "state": "elevated",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "standard",
+          "state": "outlined",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "standard",
+          "state": "filled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "standard",
+          "state": "hover",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "standard",
+          "state": "focus-visible",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "standard",
+          "state": "pressed",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "standard",
+          "state": "disabled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "standard",
+          "state": "loading",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "comfortable",
+          "state": "default",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "comfortable",
+          "state": "elevated",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "comfortable",
+          "state": "outlined",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "comfortable",
+          "state": "filled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "comfortable",
+          "state": "hover",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "comfortable",
+          "state": "focus-visible",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "comfortable",
+          "state": "pressed",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "comfortable",
+          "state": "disabled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "medium",
+          "density": "comfortable",
+          "state": "loading",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "compact",
+          "state": "default",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "compact",
+          "state": "elevated",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "compact",
+          "state": "outlined",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "compact",
+          "state": "filled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "compact",
+          "state": "hover",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "compact",
+          "state": "focus-visible",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "compact",
+          "state": "pressed",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "compact",
+          "state": "disabled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "compact",
+          "state": "loading",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "standard",
+          "state": "default",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "standard",
+          "state": "elevated",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "standard",
+          "state": "outlined",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "standard",
+          "state": "filled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "standard",
+          "state": "hover",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "standard",
+          "state": "focus-visible",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "standard",
+          "state": "pressed",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "standard",
+          "state": "disabled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "standard",
+          "state": "loading",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "comfortable",
+          "state": "default",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "comfortable",
+          "state": "elevated",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "comfortable",
+          "state": "outlined",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "comfortable",
+          "state": "filled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "comfortable",
+          "state": "hover",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "comfortable",
+          "state": "focus-visible",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "comfortable",
+          "state": "pressed",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "comfortable",
+          "state": "disabled",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "size": "large",
+          "density": "comfortable",
+          "state": "loading",
+          "status": "missing"
+        }
+      ],
+      "errors": [],
+      "notApplicable": {
+        "size": "All public named sizes are listed. Open numeric/string dimensions use documented representative samples, not an exhaustive claim.",
+        "density": "All three layout density boundaries are exercised independently of size.",
+        "selection": "This display/feedback component has no selected or checked protocol.",
+        "error": "Errors belong to the owning data/action flow, not an invented presentation state.",
+        "interaction": "Hover/focus/press apply only to the genuine public interactive control, never to the display surface.",
+        "motion": "Continuous states are recorded naturally with video/time-series in a separate file; they are never frozen into a static pixel baseline."
+      }
+    }
+  ],
+  "environments": [
+    {
+      "package": "rc-card",
+      "complete": false,
+      "expected": 60,
+      "passed": 0,
+      "cells": [
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "id": "narrow",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "id": "tablet",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "id": "desktop",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "id": "touch",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "id": "rtl",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "id": "english",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "id": "brand",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "id": "forced-colors",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "id": "reduced-motion",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "light",
+          "id": "zoom-200",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "id": "narrow",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "id": "tablet",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "id": "desktop",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "id": "touch",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "id": "rtl",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "id": "english",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "id": "brand",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "id": "forced-colors",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "id": "reduced-motion",
+          "status": "missing"
+        },
+        {
+          "designSystem": "md3",
+          "colorMode": "dark",
+          "id": "zoom-200",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "id": "narrow",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "id": "tablet",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "id": "desktop",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "id": "touch",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "id": "rtl",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "id": "english",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "id": "brand",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "id": "forced-colors",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "id": "reduced-motion",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "light",
+          "id": "zoom-200",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "id": "narrow",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "id": "tablet",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "id": "desktop",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "id": "touch",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "id": "rtl",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "id": "english",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "id": "brand",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "id": "forced-colors",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "id": "reduced-motion",
+          "status": "missing"
+        },
+        {
+          "designSystem": "apple",
+          "colorMode": "dark",
+          "id": "zoom-200",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "id": "narrow",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "id": "tablet",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "id": "desktop",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "id": "touch",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "id": "rtl",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "id": "english",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "id": "brand",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "id": "forced-colors",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "id": "reduced-motion",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "light",
+          "id": "zoom-200",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "id": "narrow",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "id": "tablet",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "id": "desktop",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "id": "touch",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "id": "rtl",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "id": "english",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "id": "brand",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "id": "forced-colors",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "id": "reduced-motion",
+          "status": "missing"
+        },
+        {
+          "designSystem": "shadcn",
+          "colorMode": "dark",
+          "id": "zoom-200",
+          "status": "missing"
+        }
+      ],
+      "errors": []
+    }
+  ],
+  "errors": []
+}

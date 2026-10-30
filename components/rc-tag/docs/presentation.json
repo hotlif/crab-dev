@@ -1,0 +1,29 @@
+{
+    "layout": "grid",
+    "previewDensity": "compact",
+    "groups": [
+        {
+            "title": "基础与外观",
+            "demos": [
+                "basic.demo.tsx",
+                "bordered.demo.tsx",
+                "icon.demo.tsx",
+                "size.demo.tsx"
+            ]
+        },
+        {
+            "title": "交互与自定义",
+            "demos": [
+                "checkable.demo.tsx",
+                "closable.demo.tsx",
+                "custom-color-close-icon.demo.tsx"
+            ]
+        },
+        {
+            "title": "视觉验收",
+            "demos": [
+                "visual-matrix.demo.tsx"
+            ]
+        }
+    ]
+}

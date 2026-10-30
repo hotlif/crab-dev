@@ -20,6 +20,6 @@ export const demos = [
         "workbenchPath": "/components/rc-token-global/workbench/#/components/docs%2Fdemos%2Fbase.demo.tsx",
         "density": "regular",
         "layout": "wide",
-        "group": null
+        "group": "边界与视觉矩阵"
     }
 ] as const satisfies readonly ComponentDemoRecord[];

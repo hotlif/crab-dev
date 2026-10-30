@@ -1,6 +1,8 @@
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { createRequire } from 'node:module';
 import { dirname, join } from 'node:path';
+import { serverSamplePdf } from './web-component/sample-pdf.mjs';
+import { visualImage } from './visual-fixtures.mjs';
 
 const require = createRequire(import.meta.url);
 const root = new URL('../', import.meta.url);
@@ -12,6 +14,10 @@ await mkdir(new URL('public/runtime/', root), { recursive: true });
 await writeFile(new URL('public/runtime/pdfium.wasm', root), wasm);
 const worker = await readFile(new URL('dist/pdf-editor.worker.js', root), 'utf8');
 await writeFile(new URL('public/runtime/pdf-editor.worker.js', root), worker);
+await mkdir(new URL('public/fixtures/', root), { recursive: true });
+await writeFile(new URL('public/fixtures/visual-document.pdf', root), serverSamplePdf());
+await writeFile(new URL('public/fixtures/visual-image.png', root), visualImage());
+await writeFile(new URL('public/fixtures/visual-image-replacement.png', root), visualImage(true));
 const pdfiumRoot = dirname(dirname(require.resolve('@embedpdf/pdfium')));
 for (const destination of ['dist/licenses/', 'public/runtime/licenses/']) {
     await mkdir(new URL(destination, root), { recursive: true });

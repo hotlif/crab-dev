@@ -55,9 +55,9 @@ export interface TableProProps {
     "fetchColumns": () => Promise<ProtocolColumnType[]>;
 
     /**
-     * 暂无说明。
+     * 暂无说明。 与 defaultExpandedGroupIds、defaultExpandAll 互斥，不能同时提供。
      */
-    "expandedGroupIds"?: Set<Key> | Set<Key> | undefined;
+    "expandedGroupIds"?: Set<Key>;
 
     /**
      * 暂无说明。
@@ -67,7 +67,7 @@ export interface TableProProps {
     /**
      * 暂无说明。
      */
-    "renderDefaultFilterEditor"?: (param: FilterEditorParam<T>) => ReactNode;
+    "renderDefaultFilterEditor"?: ((param: FilterEditorParam<T>) => ReactNode);
 
     /**
      * 暂无说明。
@@ -87,7 +87,7 @@ export interface TableProProps {
     /**
      * 暂无说明。
      */
-    "getRowHeight"?: (row: T, rowIndex: number) => number | undefined;
+    "getRowHeight"?: ((row: T, rowIndex: number) => number | undefined);
 
     /**
      * 暂无说明。
@@ -140,32 +140,32 @@ export interface TableProProps {
     "groupRowHeight"?: number;
 
     /**
-     * 暂无说明。
+     * 暂无说明。 与 expandedGroupIds 互斥，不能同时提供。
      */
     "defaultExpandedGroupIds"?: Set<Key>;
 
     /**
-     * 暂无说明。
+     * 暂无说明。 与 expandedGroupIds 互斥，不能同时提供。
      */
     "defaultExpandAll"?: boolean;
 
     /**
      * 暂无说明。
      */
-    "renderGroupCell"?: (param: GroupCellRenderParam<T>) => ReactNode;
+    "renderGroupCell"?: ((param: GroupCellRenderParam<T>) => ReactNode);
 
     /**
-     * 暂无说明。
+     * 暂无说明。 与 defaultSortColumns 互斥，不能同时提供。
      */
-    "sortColumns"?: SortColumn[] | SortColumn[] | undefined;
+    "sortColumns"?: SortColumn[];
 
     /**
      * server 仅维护排序状态，排序结果由 request 返回。默认 client。
      */
-    "sortMode"?: 'client' | 'server' | 'client' | 'server' | 'client';
+    "sortMode"?: ('client' | 'server') & ('client' | 'server' | 'client');
 
     /**
-     * 暂无说明。
+     * 暂无说明。 与 sortColumns 互斥，不能同时提供。
      */
     "defaultSortColumns"?: SortColumn[];
 
@@ -222,7 +222,7 @@ export interface TableProProps {
     /**
      * 暂无说明。
      */
-    "getChildRows"?: (row: T) => T[] | undefined | null;
+    "getChildRows"?: ((row: T) => T[] | null | undefined);
 
     /**
      * 暂无说明。
@@ -230,17 +230,17 @@ export interface TableProProps {
     "treeColumn"?: string;
 
     /**
-     * 暂无说明。
+     * 暂无说明。 与 defaultExpandedRowIds、defaultTreeExpandAll 互斥，不能同时提供。
      */
-    "expandedRowIds"?: Set<Key> | Set<Key> | undefined;
+    "expandedRowIds"?: Set<Key>;
 
     /**
-     * 暂无说明。
+     * 暂无说明。 与 expandedRowIds 互斥，不能同时提供。
      */
     "defaultExpandedRowIds"?: Set<Key>;
 
     /**
-     * 暂无说明。
+     * 暂无说明。 与 expandedRowIds 互斥，不能同时提供。
      */
     "defaultTreeExpandAll"?: boolean;
 
@@ -252,20 +252,20 @@ export interface TableProProps {
     /**
      * 暂无说明。
      */
-    "expandedRowRender"?: (row: T) => ReactNode;
+    "expandedRowRender"?: ((row: T) => ReactNode);
 
     /**
      * 暂无说明。
      */
-    "isRowExpandable"?: (row: T) => boolean;
+    "isRowExpandable"?: ((row: T) => boolean);
 
     /**
-     * 暂无说明。
+     * 暂无说明。 与 defaultExpandedRowKeys 互斥，不能同时提供。
      */
-    "expandedRowKeys"?: Set<Key> | Set<Key> | undefined;
+    "expandedRowKeys"?: Set<Key>;
 
     /**
-     * 暂无说明。
+     * 暂无说明。 与 expandedRowKeys 互斥，不能同时提供。
      */
     "defaultExpandedRowKeys"?: Set<Key>;
 
@@ -282,7 +282,7 @@ export interface TableProProps {
     /**
      * 暂无说明。
      */
-    "getExpandedRowHeight"?: (row: T) => number | undefined;
+    "getExpandedRowHeight"?: ((row: T) => number | undefined);
 
     /**
      * 暂无说明。
@@ -300,12 +300,12 @@ export interface TableProProps {
     "editType"?: "cell" | "row";
 
     /**
-     * 暂无说明。
+     * 暂无说明。 与 defaultEditingRowId 互斥，不能同时提供。
      */
-    "editingRowId"?: Key | null | Key | null | undefined;
+    "editingRowId"?: Key | null;
 
     /**
-     * 暂无说明。
+     * 暂无说明。 与 editingRowId 互斥，不能同时提供。
      */
     "defaultEditingRowId"?: Key | null;
 

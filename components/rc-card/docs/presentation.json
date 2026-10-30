@@ -1,0 +1,29 @@
+{
+    "layout": "grid",
+    "groups": [
+        {
+            "title": "基础与布局",
+            "demos": [
+                "basic.demo.tsx",
+                "composition.demo.tsx",
+                "cover.demo.tsx",
+                "size.demo.tsx",
+                "variant.demo.tsx"
+            ]
+        },
+        {
+            "title": "交互与状态",
+            "demos": [
+                "clickable.demo.tsx",
+                "states.demo.tsx",
+                "loading.demo.tsx"
+            ]
+        },
+        {
+            "title": "三体系验收",
+            "demos": [
+                "visual-matrix.demo.tsx"
+            ]
+        }
+    ]
+}

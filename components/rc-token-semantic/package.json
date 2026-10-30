@@ -10,15 +10,17 @@
         "directory": "components/rc-token-semantic"
     },
     "scripts": {
-        "build:library": "yarn generate:token && wake library build .",
+        "build:library": "node ../../scripts/generate-library-metadata.mjs && yarn generate:token && wake library build .",
         "prettier:write": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
         "prettier:check": "prettier --check \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
         "generate:token": "wake library token . && node scripts/generate-density-geometry.mjs",
         "test": "wake test --serial --coverage",
         "check": "node ../../scripts/check-package.mjs",
-        "typecheck": "node ../../scripts/typecheck.mjs --noEmit",
+        "typecheck": "tsc --noEmit",
         "start": "yarn generate:token && wake docs dev . --mode components",
-        "lint": "wake lint --format human --root ../.. components/rc-token-semantic/src components/rc-token-semantic/docs components/rc-token-semantic/scripts --env browser --env node --max-warnings 0"
+        "lint": "wake lint --format human --root ../.. components/rc-token-semantic/src components/rc-token-semantic/docs components/rc-token-semantic/scripts --env browser --env node --max-warnings 0",
+        "build:visual": "wake docs build . --mode components --outdir .cache/visual-workbench",
+        "test:visual": "node ../../scripts/visual/run.mjs --package ."
     },
     "files": [
         "esm",
@@ -52,7 +54,7 @@
         "react": "19.3.0",
         "react-dom": "19.3.0",
         "react-router": "^8.3.1",
-        "typescript": "^7.0.2"
+        "typescript": "6.0.2"
     },
     "engines": {
         "node": ">=22"

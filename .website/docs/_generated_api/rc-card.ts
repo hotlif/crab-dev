@@ -14,6 +14,16 @@ type Ref<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?
 
 export interface CardProps {
     /**
+     * 卡片内容：裸内容自动包裹进内容区; 传入 Card.Cover / Card.Header / Card.Body / Card.Footer 时切换为自由拼装模式
+     */
+    "children"?: ReactNode;
+
+    /**
+     * 整卡点击回调, 仅 clickable 时生效
+     */
+    "onClick"?: MouseEventHandler<HTMLDivElement>;
+
+    /**
      * 视觉变体；省略时随设计风格，Material 使用 elevated，shadcn 使用 outlined
      */
     "variant"?: CardVariant;
@@ -72,16 +82,6 @@ export interface CardProps {
      * @default false
      */
     "disabled"?: boolean;
-
-    /**
-     * 整卡点击回调, 仅 clickable 时生效
-     */
-    "onClick"?: MouseEventHandler<HTMLDivElement>;
-
-    /**
-     * 卡片内容：裸内容自动包裹进内容区; 传入 Card.Cover / Card.Header / Card.Body / Card.Footer 时切换为自由拼装模式
-     */
-    "children"?: ReactNode;
 
     /**
      * 根节点 ref

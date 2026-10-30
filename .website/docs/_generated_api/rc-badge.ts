@@ -12,6 +12,26 @@ type ReactNode = DocsTypePlaceholder;
 
 export interface BadgeProps {
     /**
+     * 自定义类名
+     */
+    "className"?: string;
+
+    /**
+     * 自定义样式
+     */
+    "style"?: CSSProperties;
+
+    /**
+     * 自定义颜色：预设语义色或任意 CSS 颜色字符串
+     */
+    "color"?: BadgePresetColor | string;
+
+    /**
+     * 包裹的子节点；角标位于上方逻辑末端（LTR 右上、RTL 左上），以实际 DOM dir 为准。
+     */
+    "children"?: ReactNode;
+
+    /**
      * 展示的数字，大于 overflowCount 时显示为 `${overflowCount}+`
      */
     "count"?: number | ReactNode;
@@ -44,11 +64,6 @@ export interface BadgeProps {
     "text"?: ReactNode;
 
     /**
-     * 自定义颜色：预设语义色或任意 CSS 颜色字符串
-     */
-    "color"?: BadgePresetColor | string;
-
-    /**
      * 角标尺寸
      */
     "size"?: 'default' | 'small';
@@ -56,27 +71,12 @@ export interface BadgeProps {
     /**
      * 角标的物理偏移 [x, y]：正 x 向右、正 y 向下，不随 RTL 反转。数值为 px，也支持 CSS 长度或 calc() 字符串。
      */
-    "offset"?: [number | string, number | string];
+    "offset"?: [ number | string, number | string ];
 
     /**
      * 鼠标悬停时的提示内容（默认等于 count）
      */
     "title"?: string;
-
-    /**
-     * 包裹的子节点；角标位于上方逻辑末端（LTR 右上、RTL 左上），以实际 DOM dir 为准。
-     */
-    "children"?: ReactNode;
-
-    /**
-     * 自定义类名
-     */
-    "className"?: string;
-
-    /**
-     * 自定义样式
-     */
-    "style"?: CSSProperties;
 
     /**
      * 自定义角标类名

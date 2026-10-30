@@ -1,0 +1,45 @@
+{
+    "schemaVersion": 1,
+    "demo": "visual-matrix.demo.tsx",
+    "sizes": [
+        "small",
+        "medium",
+        "large"
+    ],
+    "densities": [
+        "compact",
+        "standard",
+        "comfortable"
+    ],
+    "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "selected",
+        "checked",
+        "collapsed",
+        "editing",
+        "scrolled",
+        "empty",
+        "loading"
+    ],
+    "notApplicable": {
+        "disabled": "Tree has no whole-tree disabled mode. Normal data scenes include a disabled leaf; empty, loading, collapsed and scrolled scenes do not claim disabled-node interaction coverage.",
+        "error": "Tree has no built-in error renderer; request error messaging belongs to its consuming application."
+    },
+    "crossEngine": {
+        "sizes": [
+            "medium"
+        ],
+        "densities": [
+            "standard"
+        ],
+        "states": [
+            "default",
+            "focus-visible",
+            "selected",
+            "collapsed",
+            "editing"
+        ]
+    }
+}

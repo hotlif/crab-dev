@@ -46,3 +46,21 @@ status = "experimental"
 骨架的中性填充、控件圆角与尺寸随当前语义主题变化，波动和呼吸模式均尊重减少动态效果偏好。Skeleton 属于加载占位模式扩展，不能替代实际加载状态的可访问通告。
 
 切换文档站设计风格后，本页演示同步使用该设计；浅色和深色模式分别使用配对语义颜色。
+
+## 三体系规格与验收边界
+
+Skeleton 是内容结构占位，不代替确定进度。text 的三个命名尺寸完整覆盖；width/height/rows 是开放输入，以多行、96px 媒体和单轴圆形等代表样本覆盖。默认 pulse 和 wave 自然运行，单独视频、时间序列与人工外观复核；inactive 使用公开 active=false。
+
+| 体系 | 组件视觉规则 |
+| --- | --- |
+| MD3 Expressive | 基于中性表面层级组织占位，是项目扩展；不等同于 Expressive loading indicator。 |
+| Apple | 以轻量占位保留内容位置，减少动画时立即保留静态结构。 |
+| shadcn | 参照 Skeleton 的中性表面和 pulse 语义；wave 和六种形状为扩展。 |
+
+本包几何与视觉来源：text.size.small / medium / large.height 与 rows.gap；rect/circle/button/avatar/image 几何；item/pill 形状；pulse/wave 时长。命名尺寸只控制 text 行高。设计值只在对应 token.toml 与它引用的语义角色维护，验收测量读取实际 DOM 计算值。
+
+颜色、字阶、形状、状态和动效分别从 L2 角色映射到包内 L3；Theme 负责最近配置边界。明暗模式使用配对前景/背景，不进行整体反相。视觉边界与命中区域分别检查，焦点截图保留外部轮廓与阴影。强制颜色采用系统色；减少动画保留信息与最终状态。
+
+矩阵定义在本包 `docs/visual.json`，场景使用 `visual-matrix.demo.tsx`。Chromium 覆盖其中全部设计/明暗/命名尺寸/适用密度/状态；Firefox 与 WebKit 按 `crossEngine` 的默认展示和重点交互子集执行。窄屏、RTL、中英文、长文本、品牌覆盖和配置切换后的草稿保持另有场景；未运行、未人工复核或失败的项不能计为通过。开放尺寸输入的代表样本不等于无限集合的穷尽。
+
+参考核对日期：2026-10-29。[Material 3 Cards](https://m3.material.io/components/cards/overview)、[Material Web Divider 使用/无障碍/令牌](https://material-web.dev/components/divider/)、[Material Web Progress 语义](https://material-web.dev/components/progress/)、[Apple Feedback](https://developer.apple.com/design/human-interface-guidelines/feedback)、[Apple Layout](https://developer.apple.com/design/human-interface-guidelines/layout)、[Apple Progress indicators](https://developer.apple.com/design/human-interface-guidelines/progress-indicators)、[shadcn New York V4 skeleton](https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui/skeleton.tsx)。Material Web 是 Web 行为基线；Apple 是依据原则的自主 Web 实现；shadcn 固定参考提交 `3d98900e9b73c45f035f8109e9d41ba6a51685e7`，不跟随浮动最新版。

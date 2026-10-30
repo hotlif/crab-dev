@@ -13,6 +13,7 @@ root.outline-offset-focus = "2px"
 root.touch.min-width = "$ref(size.touch-target)"
 root.touch.min-height = "$ref(size.touch-target)"
 root.line-height = "$ref(typography.body.medium.line-height)"
+root.font-family = "$ref(typography.body.font-family)"
 root.min-height = "$ref(size.touch-target)"
 root.opacity-disabled = "$ref(opacity.disabled)"
 track.border-width = "$ref(border.toggle.width)"
@@ -72,6 +73,8 @@ track.checked.background-color-hover = "$ref(color.brand.primary)"
 handle.background-color = "$ref(color.control.toggle-thumb)"
 handle.checked.background-color = "$ref(toggle.handle.selected-color)"
 handle.box-shadow = "$ref(toggle.handle.shadow)"
+handle.unchecked.border-width = "$ref(toggle.handle.unchecked-border-width)"
+handle.unchecked.border-color = "$ref(toggle.handle.unchecked-border-color)"
 
 
 # ─── 禁用状态 ────────────────────────────────────────────────────────────────

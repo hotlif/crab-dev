@@ -11,6 +11,7 @@ export const vars = defineTokens({
     'root.touch.min-width': '--switch-root-touch-min-width',
     'root.touch.min-height': '--switch-root-touch-min-height',
     'root.line-height': '--switch-root-line-height',
+    'root.font-family': '--switch-root-font-family',
     'root.min-height': '--switch-root-min-height',
     'root.opacity-disabled': '--switch-root-opacity-disabled',
     'root.transition': '--switch-root-transition',
@@ -56,8 +57,10 @@ export const vars = defineTokens({
     'handle.checked.background-color-disabled': '--switch-handle-checked-background-color-disabled',
     'handle.checked.interactive.background-color': '--switch-handle-checked-interactive-background-color',
     'handle.box-shadow': '--switch-handle-box-shadow',
-    'handle.background-color-disabled': '--switch-handle-background-color-disabled',
+    'handle.unchecked.border-width': '--switch-handle-unchecked-border-width',
+    'handle.unchecked.border-color': '--switch-handle-unchecked-border-color',
     'handle.unchecked.scale': '--switch-handle-unchecked-scale',
+    'handle.background-color-disabled': '--switch-handle-background-color-disabled',
     'handle.pressed.scale': '--switch-handle-pressed-scale',
     'handle.interactive.background-color': '--switch-handle-interactive-background-color',
     'handle.background-color-error': '--switch-handle-background-color-error'
@@ -73,6 +76,7 @@ const token = defineTokens({
             'min-height': `var(${vars['root.touch.min-height']}, var(--token-semantic-size-touch-target, var(--token-global-size-48, 48px)))`
         },
         'line-height': `var(${vars['root.line-height']}, var(--token-semantic-typography-body-medium-line-height, var(--token-global-line-height-14-20, 1.4285714285714286)))`,
+        'font-family': `var(${vars['root.font-family']}, var(--token-semantic-typography-body-font-family, var(--token-global-font-family-material, 'Roboto', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei UI', sans-serif)))`,
         'min-height': `var(${vars['root.min-height']}, var(--token-semantic-size-touch-target, var(--token-global-size-48, 48px)))`,
         'opacity-disabled': `var(${vars['root.opacity-disabled']}, var(--token-semantic-opacity-disabled, var(--token-global-opacity-38, 0.38)))`,
         'transition': `var(${vars['root.transition']}, transform var(--token-semantic-motion-spatial-fast, var(--token-global-duration-350, 350ms) var(--token-global-easing-expressive-spatial-fast, cubic-bezier(0.42, 1.67, 0.21, 0.90))), translate var(--token-semantic-motion-spatial-fast, var(--token-global-duration-350, 350ms) var(--token-global-easing-expressive-spatial-fast, cubic-bezier(0.42, 1.67, 0.21, 0.90))), scale var(--token-semantic-motion-spatial-fast, var(--token-global-duration-350, 350ms) var(--token-global-easing-expressive-spatial-fast, cubic-bezier(0.42, 1.67, 0.21, 0.90))), background-color var(--token-semantic-motion-interaction, var(--token-global-duration-150, 150ms) var(--token-global-easing-expressive-effects-fast, cubic-bezier(0.31, 0.94, 0.34, 1.00))), box-shadow var(--token-semantic-motion-interaction, var(--token-global-duration-150, 150ms) var(--token-global-easing-expressive-effects-fast, cubic-bezier(0.31, 0.94, 0.34, 1.00))))`
@@ -156,10 +160,12 @@ const token = defineTokens({
             }
         },
         'box-shadow': `var(${vars['handle.box-shadow']}, var(--token-semantic-toggle-handle-shadow, var(--token-global-shadow-none, none)))`,
-        'background-color-disabled': `var(${vars['handle.background-color-disabled']}, var(--token-semantic-toggle-disabled-handle-color, color-mix(in oklch, var(--token-semantic-color-text-primary, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695))) 38%, transparent)))`,
         'unchecked': {
+            'border-width': `var(${vars['handle.unchecked.border-width']}, var(--token-semantic-toggle-handle-unchecked-border-width, var(--token-global-space-0, 0px)))`,
+            'border-color': `var(${vars['handle.unchecked.border-color']}, var(--token-semantic-toggle-handle-unchecked-border-color, var(--token-semantic-color-border-strong, var(--token-global-material-neutral-variant-50, oklch(0.56674707 0.01627446 308.142182)))))`,
             'scale': `var(${vars['handle.unchecked.scale']}, var(--token-semantic-toggle-handle-unchecked-scale, 0.666667))`
         },
+        'background-color-disabled': `var(${vars['handle.background-color-disabled']}, var(--token-semantic-toggle-disabled-handle-color, color-mix(in oklch, var(--token-semantic-color-text-primary, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695))) 38%, transparent)))`,
         'pressed': {
             'scale': `var(${vars['handle.pressed.scale']}, var(--token-semantic-toggle-handle-pressed-scale, 1.166667))`
         },

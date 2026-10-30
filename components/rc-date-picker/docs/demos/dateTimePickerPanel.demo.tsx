@@ -1,3 +1,5 @@
+import { toPickerDateTime } from '@crab-dev/rc-date-picker';
+
 export const meta = {
     title: "日期时间面板",
     description: "基础的日期时间选择面板组件示例。",
@@ -6,7 +8,7 @@ export const meta = {
 import DateTimePickerPanel from "../../src/panels/dateTimePickerPanel.js";
 
 
-const now = Temporal.Now.zonedDateTimeISO();
+const now = toPickerDateTime(`${new Date().toISOString()}[${Intl.DateTimeFormat().resolvedOptions().timeZone}]`);
 
 const SizeDemo = () => {
 

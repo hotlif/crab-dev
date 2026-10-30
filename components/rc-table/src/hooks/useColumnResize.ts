@@ -2,6 +2,7 @@ import { type MouseEvent as ReactMouseEvent, type MutableRefObject, type RefObje
 
 export function useColumnResize(params: {
     bottomColumnsRef: RefObject<{ name: string }[]>
+    rootRef?: RefObject<HTMLElement | null>
     onColumnResize?: (columnName: string, width: number) => void
 }): {
     resizedWidths: Record<string, number>;
@@ -9,14 +10,14 @@ export function useColumnResize(params: {
     handleResizeKeyDown: (columnIndex: number, delta: number) => void;
     gridTemplateColumnsRef: MutableRefObject<number[]>;
 } {
-    const { bottomColumnsRef, onColumnResize } = params;
+    const { bottomColumnsRef, onColumnResize, rootRef } = params;
 
     const [resizedWidths, setResizedWidths] = useState<Record<string, number>>({});
     const resizeDragRef = useRef<{ columnName: string; startX: number; startWidth: number } | null>(null);
     const gridTemplateColumnsRef = useRef<number[]>([]) as MutableRefObject<number[]>;
     const resizeFrameRef = useRef<number | null>(null);
     const pendingResizeRef = useRef<{ columnName: string; width: number } | null>(null);
-    const previousBodyStyleRef = useRef<{ cursor: string; userSelect: string } | null>(null);
+    const previousBodyStyleRef = useRef<{ body: HTMLElement; cursor: string; userSelect: string } | null>(null);
     // latest-ref：全局 mouseup 监听只注册一次，但应调用最新的消费方回调。
     const onColumnResizeRef = useRef(onColumnResize);
     onColumnResizeRef.current = onColumnResize;
@@ -24,8 +25,8 @@ export function useColumnResize(params: {
     const restoreBodyStyles = useCallback(() => {
         const previous = previousBodyStyleRef.current;
         if (!previous) return;
-        document.body.style.cursor = previous.cursor;
-        document.body.style.userSelect = previous.userSelect;
+        previous.body.style.cursor = previous.cursor;
+        previous.body.style.userSelect = previous.userSelect;
         previousBodyStyleRef.current = null;
     }, []);
 
@@ -34,10 +35,12 @@ export function useColumnResize(params: {
         e.stopPropagation();
         const column = bottomColumnsRef.current[columnIndex];
         if (!column) return;
+        const body = e.currentTarget?.ownerDocument.body ?? rootRef?.current?.ownerDocument.body ?? globalThis.document.body;
         if (!previousBodyStyleRef.current) {
             previousBodyStyleRef.current = {
-                cursor: document.body.style.cursor,
-                userSelect: document.body.style.userSelect,
+                body,
+                cursor: body.style.cursor,
+                userSelect: body.style.userSelect,
             };
         }
         resizeDragRef.current = {
@@ -45,9 +48,9 @@ export function useColumnResize(params: {
             startX: e.clientX,
             startWidth: gridTemplateColumnsRef.current[columnIndex],
         };
-        document.body.style.cursor = "col-resize";
-        document.body.style.userSelect = "none";
-    }, [bottomColumnsRef]);
+        body.style.cursor = "col-resize";
+        body.style.userSelect = "none";
+    }, [bottomColumnsRef, rootRef]);
 
     const handleResizeKeyDown = useCallback((columnIndex: number, delta: number) => {
         const MIN_COL_WIDTH = 30;
@@ -60,6 +63,8 @@ export function useColumnResize(params: {
     }, [bottomColumnsRef, gridTemplateColumnsRef]);
 
     useEffect(() => {
+        const document = rootRef?.current?.ownerDocument ?? globalThis.document;
+        const target = document.defaultView ?? document;
         const MIN_COL_WIDTH = 30;
         const onMouseMove = (e: MouseEvent) => {
             if (!resizeDragRef.current) return;
@@ -86,18 +91,18 @@ export function useColumnResize(params: {
             resizeDragRef.current = null;
             restoreBodyStyles();
         };
-        window.addEventListener("mousemove", onMouseMove);
-        window.addEventListener("mouseup", onMouseUp);
+        target.addEventListener("mousemove", onMouseMove as EventListener);
+        target.addEventListener("mouseup", onMouseUp as EventListener);
         return () => {
-            window.removeEventListener("mousemove", onMouseMove);
-            window.removeEventListener("mouseup", onMouseUp);
+            target.removeEventListener("mousemove", onMouseMove as EventListener);
+            target.removeEventListener("mouseup", onMouseUp as EventListener);
             if (resizeFrameRef.current !== null) cancelAnimationFrame(resizeFrameRef.current);
             resizeFrameRef.current = null;
             pendingResizeRef.current = null;
             resizeDragRef.current = null;
             restoreBodyStyles();
         };
-    }, [restoreBodyStyles]);
+    }, [rootRef, restoreBodyStyles]);
 
     return { resizedWidths, handleResizeMouseDown, handleResizeKeyDown, gridTemplateColumnsRef };
 }

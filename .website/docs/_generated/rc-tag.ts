@@ -171,5 +171,38 @@ export const demos = [
         "density": "compact",
         "layout": "grid",
         "group": "交互与自定义"
+    },
+    {
+        "id": "docs/demos/visual-matrix.demo.tsx",
+        "title": "标签与筛选状态矩阵",
+        "description": "状态标签、可关闭标签和可选择筛选共用语义角色，保留各自的真实交互。",
+        "learning": {
+            "components": [
+                "Tag",
+                "CheckableTag"
+            ],
+            "props": [
+                "color",
+                "bordered",
+                "checked",
+                "disabled",
+                "onCheckedChange",
+                "defaultChecked",
+                "closable",
+                "closeAriaLabel",
+                "onClose"
+            ],
+            "events": [
+                "onCheckedChange",
+                "onClose"
+            ],
+            "hasState": true
+        },
+        "sourceCode": "import { css } from '@crab-dev/css';\nimport Tag, { CheckableTag } from '@crab-dev/rc-tag';\nimport { useConfig } from '@crab-dev/rc-config-provider';\nimport token from '@crab-dev/rc-token-semantic';\nimport { useId, useState } from 'react';\n\nexport const meta = { title: '标签与筛选状态矩阵', description: '状态标签、可关闭标签和可选择筛选共用语义角色，保留各自的真实交互。' };\nconst frame = css`display: grid; gap: ${token.space['group-gap']}; padding: ${token.space['group-gap']}; background: ${token.color.background.surface}; color: ${token.color.text.primary}; min-width: 0;`;\nconst row = css`display: flex; flex-wrap: wrap; align-items: center; gap: ${token.space['group-gap']}; padding: ${token.space['inline-gap']};`;\nexport default function VisualMatrixDemo() {\n    const { locale } = useConfig();\n    const [state, setState] = useState('default');\n    const [checked, setChecked] = useState(false);\n    const [closed, setClosed] = useState(false);\n    const id = useId();\n    const english = locale === 'en-US';\n    return \u003csection className={frame} aria-label=\"Tag visual matrix\" data-visual-scene data-state={state}>\n        \u003cdiv>\u003clabel htmlFor={id}>验收状态\u003c/label>{' '}\u003cselect id={id} value={state} onChange={event => setState(event.currentTarget.value)}>\u003coption>default\u003c/option>\u003coption>disabled\u003c/option>\u003c/select>\u003c/div>\n        \u003cdiv className={row} aria-label=\"状态标签\">{(['default', 'primary', 'success', 'warning', 'error'] as const).map(color => \u003cTag key={color} color={color}>{color}\u003c/Tag>)}\u003cTag bordered={false}>{english ? 'Without border' : '无描边'}\u003c/Tag>\u003c/div>\n        \u003cdiv className={row} aria-label=\"筛选标签\">\n            \u003cCheckableTag checked={checked} disabled={state === 'disabled'} onCheckedChange={setChecked}>{english ? 'Assigned to me' : '分配给我'}\u003c/CheckableTag>\n            \u003cCheckableTag defaultChecked disabled={state === 'disabled'}>{english ? 'In progress' : '进行中'}\u003c/CheckableTag>\n            {!closed && \u003cTag closable closeAriaLabel=\"移除筛选\" onClose={() => setClosed(true)}>{english ? 'Long project classification label' : '项目分类长文本标签'}\u003c/Tag>}\n        \u003c/div>\n        \u003coutput aria-live=\"polite\">{closed ? '筛选已移除' : checked ? '筛选已选中' : '尚未选择筛选'}\u003c/output>\n    \u003c/section>;\n}\n",
+        "previewPath": "/components/rc-tag/workbench/?__wake_demo=docs%2Fdemos%2Fvisual-matrix.demo.tsx",
+        "workbenchPath": "/components/rc-tag/workbench/#/components/docs%2Fdemos%2Fvisual-matrix.demo.tsx",
+        "density": "compact",
+        "layout": "grid",
+        "group": "视觉验收"
     }
 ] as const satisfies readonly ComponentDemoRecord[];

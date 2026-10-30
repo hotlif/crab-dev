@@ -10,6 +10,16 @@ type ReactNode = DocsTypePlaceholder;
 
 export interface RadioGroupProps {
     /**
+     * 自定义类名
+     */
+    "className"?: string;
+
+    /**
+     * 子元素
+     */
+    "children": ReactNode;
+
+    /**
      * 是否禁用所有单选框
      */
     "disabled"?: boolean;
@@ -25,17 +35,7 @@ export interface RadioGroupProps {
     "name"?: string;
 
     /**
-     * 子元素
-     */
-    "children": ReactNode;
-
-    /**
-     * 自定义类名
-     */
-    "className"?: string;
-
-    /**
-     * Radio 的值, 在 RadioGroup 中使用 与 defaultValue 互斥，不能同时提供。
+     * 暂无说明。 与 defaultValue 互斥，不能同时提供。
      */
     "value"?: string | number;
 
