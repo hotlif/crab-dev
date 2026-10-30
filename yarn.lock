@@ -507,7 +507,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@crab-dev/rc-alert@npm:^0.0.2, @crab-dev/rc-alert@workspace:^, @crab-dev/rc-alert@workspace:components/rc-alert":
+"@crab-dev/rc-alert@npm:^0.0.2":
+  version: 0.0.2
+  resolution: "@crab-dev/rc-alert@npm:0.0.2"
+  checksum: 10c0/dd1e598e8184faca81cf44ee591f2ea9f931d54a9575c7836c2086f36acad7c951415adcb3de5bf019554ff98fe3b489e2ca1bb40f76d56ad0893ea717d72245
+  languageName: node
+  linkType: hard
+
+"@crab-dev/rc-alert@workspace:^, @crab-dev/rc-alert@workspace:components/rc-alert":
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-alert@workspace:components/rc-alert"
   dependencies:
@@ -835,6 +842,17 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@crab-dev/rc-config-provider@npm:^0.0.2":
+  version: 0.0.2
+  resolution: "@crab-dev/rc-config-provider@npm:0.0.2"
+  dependencies:
+    "@crab-dev/css": "npm:0.1.45"
+    "@crab-dev/rc-theme": "npm:^0.0.2"
+    "@crab-dev/rc-token-semantic": "npm:^0.0.4"
+  checksum: 10c0/a16a868f8008297f7f4a74aa3b09c72b3e800c49d977c53315d166bc4d1a5f676bc9cca811e52f8004cfb7646c54b0668e121d52506e460683c6eb3450fb3c06
+  languageName: node
+  linkType: hard
+
 "@crab-dev/rc-config-provider@workspace:^, @crab-dev/rc-config-provider@workspace:components/rc-config-provider":
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-config-provider@workspace:components/rc-config-provider"
@@ -1137,7 +1155,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@crab-dev/rc-hooks@npm:^0.0.3, @crab-dev/rc-hooks@workspace:^, @crab-dev/rc-hooks@workspace:components/rc-hooks":
+"@crab-dev/rc-hooks@npm:^0.0.3":
+  version: 0.0.3
+  resolution: "@crab-dev/rc-hooks@npm:0.0.3"
+  checksum: 10c0/96808e8e817296b1e8f9955226b03f324245ff8a72ab9ebf1560ba787cce2e545eb96612d494df9c493fd778baf0b7ffa745e2aee5f0897c0cdaf22b51856d0d
+  languageName: node
+  linkType: hard
+
+"@crab-dev/rc-hooks@workspace:^, @crab-dev/rc-hooks@workspace:components/rc-hooks":
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-hooks@workspace:components/rc-hooks"
   dependencies:
@@ -1588,6 +1613,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@crab-dev/rc-spin@npm:^0.0.4":
+  version: 0.0.4
+  resolution: "@crab-dev/rc-spin@npm:0.0.4"
+  dependencies:
+    "@crab-dev/css": "npm:0.1.45"
+    "@crab-dev/rc-config-provider": "npm:^0.0.2"
+    "@crab-dev/rc-hooks": "npm:^0.0.3"
+  checksum: 10c0/d804d2e77ad19b13b92e111f280c61d8f7adb4d55e477b7955a122bf10fee0df9595b99b5e161405c4ebb0d7282ed5b8cd776d1cc3a8dc198ab02dc00df4a687
+  languageName: node
+  linkType: hard
+
 "@crab-dev/rc-spin@workspace:^, @crab-dev/rc-spin@workspace:components/rc-spin":
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-spin@workspace:components/rc-spin"
@@ -1805,6 +1841,17 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@crab-dev/rc-theme@npm:^0.0.2":
+  version: 0.0.2
+  resolution: "@crab-dev/rc-theme@npm:0.0.2"
+  dependencies:
+    "@crab-dev/css": "npm:0.1.45"
+    "@crab-dev/rc-token-global": "npm:^0.0.2"
+    "@crab-dev/rc-token-semantic": "npm:^0.0.4"
+  checksum: 10c0/810cc02e45f653aaebdee0c6f4e6119c73601fd05ef5405b19bf500f780b88750c196934687e287e44dc1f0095b3d30747eafa115538e0b80311428e975640f4
+  languageName: node
+  linkType: hard
+
 "@crab-dev/rc-theme@workspace:^, @crab-dev/rc-theme@workspace:components/rc-theme":
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-theme@workspace:components/rc-theme"
@@ -1824,7 +1871,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@crab-dev/rc-token-global@npm:^0.0.2, @crab-dev/rc-token-global@workspace:^, @crab-dev/rc-token-global@workspace:components/rc-token-global":
+"@crab-dev/rc-token-global@npm:^0.0.2":
+  version: 0.0.2
+  resolution: "@crab-dev/rc-token-global@npm:0.0.2"
+  checksum: 10c0/77a3b92b397c205f5e3712a4f9bddb2408167feded672d1f2ea591c1c350e6374cd8cc945a91d7102b6b0dc508f5fa49246c437b97fbf1f5de7e60fa2113a39b
+  languageName: node
+  linkType: hard
+
+"@crab-dev/rc-token-global@workspace:^, @crab-dev/rc-token-global@workspace:components/rc-token-global":
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-token-global@workspace:components/rc-token-global"
   dependencies:
@@ -1849,6 +1903,16 @@ __metadata:
   dependencies:
     "@crab-dev/rc-token-global": "npm:^0.0.2"
   checksum: 10c0/45afb3a211b9319114be300ca0b9dca2a852a50e52af67b60c3f338cf40912c3b16aba94be94b7b88108d755a2e2b571dfbf7bb0611ea32cffc8366f80bccaa3
+  languageName: node
+  linkType: hard
+
+"@crab-dev/rc-token-semantic@npm:^0.0.4":
+  version: 0.0.4
+  resolution: "@crab-dev/rc-token-semantic@npm:0.0.4"
+  dependencies:
+    "@crab-dev/css": "npm:0.1.45"
+    "@crab-dev/rc-token-global": "npm:^0.0.2"
+  checksum: 10c0/24b91df1a607283fb7ae2c68ca87ef78d9265292468054caba155badd06c3d87376f8e8f2f67ce4c28a4c7858a146264da92a32744bedbf9e44b881af845530d
   languageName: node
   linkType: hard
 
@@ -1908,7 +1972,27 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@crab-dev/rc-tree@npm:^0.1.2, @crab-dev/rc-tree@workspace:^, @crab-dev/rc-tree@workspace:components/rc-tree":
+"@crab-dev/rc-tree@npm:^0.1.2":
+  version: 0.1.4
+  resolution: "@crab-dev/rc-tree@npm:0.1.4"
+  dependencies:
+    "@crab-dev/css": "npm:0.1.45"
+    "@crab-dev/rc-checkbox": "npm:^0.0.4"
+    "@crab-dev/rc-config-provider": "npm:^0.0.2"
+    "@crab-dev/rc-hooks": "npm:^0.0.3"
+    "@crab-dev/rc-spin": "npm:^0.0.4"
+    "@crab-dev/rc-virtual": "npm:^0.1.4"
+    "@dnd-kit/core": "npm:^6.3.1"
+    "@dnd-kit/sortable": "npm:^10.0.0"
+    decimal.js: "npm:^10.6.0"
+  peerDependencies:
+    react: ^19.0.0
+    react-dom: ^19.0.0
+  checksum: 10c0/051540668f32c852aa658499d2fd82974823dcdfc56af759c79c337abd8a5dcf7b5915fd57beacef144ebd9c5daca1f19bcc56eae6e295c57382a7bd7d698a61
+  languageName: node
+  linkType: hard
+
+"@crab-dev/rc-tree@workspace:^, @crab-dev/rc-tree@workspace:components/rc-tree":
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-tree@workspace:components/rc-tree"
   dependencies:
@@ -1941,7 +2025,16 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@crab-dev/rc-virtual@npm:^0.1.2, @crab-dev/rc-virtual@workspace:^, @crab-dev/rc-virtual@workspace:components/rc-virtual":
+"@crab-dev/rc-virtual@npm:^0.1.2, @crab-dev/rc-virtual@npm:^0.1.4":
+  version: 0.1.4
+  resolution: "@crab-dev/rc-virtual@npm:0.1.4"
+  dependencies:
+    "@crab-dev/css": "npm:0.1.45"
+  checksum: 10c0/2bd82e2af24e3f6ca68ce3d5274f4249cdd4ebfe9d8cc794159a72f669cdc11d2cc7d311d58fdc9ee92a4e9115302402b383295bca84cbbe2c49e87bda3397a8
+  languageName: node
+  linkType: hard
+
+"@crab-dev/rc-virtual@workspace:^, @crab-dev/rc-virtual@workspace:components/rc-virtual":
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-virtual@workspace:components/rc-virtual"
   dependencies:
