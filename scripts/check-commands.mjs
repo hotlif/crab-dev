@@ -1,6 +1,7 @@
 import { readFile, readdir } from "node:fs/promises";
 import { relative, resolve } from "node:path";
 import { pathToFileURL } from "node:url";
+import { createRequire } from "node:module";
 import { repositoryRoot } from "./library-manifest.mjs";
 
 export function requiredCheckScripts(pkg) {
@@ -13,6 +14,11 @@ export function requiredCheckScripts(pkg) {
         if (typeof pkg.scripts?.[task] !== "string" || !pkg.scripts[task].trim()) throw new Error(`${pkg.name}: required check ${task} has no executable script.`);
     }
     return [...checks];
+}
+
+export function missingWakeWorkspaceResolutions(rootPackage, wake, workspaces) {
+    const names = new Set(workspaces.map(({ packageJson }) => packageJson.name));
+    return Object.keys(wake.dependencies ?? {}).filter(name => names.has(name) && rootPackage.resolutions?.[name] !== 'workspace:^');
 }
 
 export async function readWorkspaceManifests({ root = repositoryRoot } = {}) {
@@ -47,6 +53,11 @@ export async function checkCommandContracts({ root = repositoryRoot } = {}) {
     const compilerVersion = rootPackage.devDependencies?.typescript;
     if (compilerVersion !== "6.0.2") errors.push("The repository must pin official TypeScript 6.0.2.");
     const workspaces = await readWorkspaceManifests({ root });
+    // Wake's own controls are also workspaces in this repository. Its pinned
+    // published dependency ranges can stop matching after a Changesets bump.
+    const require = createRequire(resolve(root, 'package.json'));
+    const wake = JSON.parse(await readFile(require.resolve('@crab-dev/wake/package.json'), 'utf8'));
+    for (const name of missingWakeWorkspaceResolutions(rootPackage, wake, workspaces)) errors.push(`Wake dependency ${name} must resolve to workspace:^.`);
     for (const { path, directory, packageJson: pkg } of workspaces) {
         const runner = relative(directory, resolve(root, "scripts/check-package.mjs")).replaceAll("\\", "/");
         if (pkg.scripts?.check !== `node ${runner}`) errors.push(`${pkg.name}: check must use the shared workspace check runner.`);

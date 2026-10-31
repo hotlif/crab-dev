@@ -48,6 +48,7 @@
         ".website"
     ],
     "resolutions": {
+        "@crab-dev/rc-alert": "workspace:^",
         "@crab-dev/rc-button": "workspace:^",
         "@crab-dev/rc-checkbox": "workspace:^",
         "@crab-dev/rc-dialog": "workspace:^",
@@ -56,9 +57,12 @@
         "@crab-dev/rc-line-edit": "workspace:^",
         "@crab-dev/rc-number-edit": "workspace:^",
         "@crab-dev/rc-segmented": "workspace:^",
+        "@crab-dev/rc-select": "workspace:^",
         "@crab-dev/rc-switch": "workspace:^",
         "@crab-dev/rc-tag": "workspace:^",
         "@crab-dev/rc-text-edit": "workspace:^",
+        "@crab-dev/rc-tooltip": "workspace:^",
+        "@crab-dev/rc-tree": "workspace:^",
         "@yarnpkg/core": "4.9.1"
     },
     "dependenciesMeta": {

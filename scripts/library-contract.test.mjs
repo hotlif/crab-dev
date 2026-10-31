@@ -12,12 +12,19 @@ import { exportTargets, verifyTarget } from "./check-exports.mjs";
 import { validateReactPeers } from "./check-library.mjs";
 import { requiredReactPeers } from "./react-peer-contract.mjs";
 import { validateDesignVerification } from "./design-verification.mjs";
-import { readWorkspaceManifests, requiredCheckScripts } from "./check-commands.mjs";
+import { missingWakeWorkspaceResolutions, readWorkspaceManifests, requiredCheckScripts } from "./check-commands.mjs";
 import { requiredCheckPlan } from "./check-required.mjs";
 import { waitForOwnDevTools } from "./published-browser-readiness.mjs";
 import { repositoryCheckPlan, workspaceCheckPlan } from "./check-plan.mjs";
 import { libraryMetadataOutputs } from "./generate-library-metadata.mjs";
 import { loadLibraryManifest, readLibraryMetadata, repositoryRoot } from "./library-manifest.mjs";
+
+test('Wake controls stay on local workspaces after version bumps', () => {
+    const wake = { dependencies: { '@crab-dev/rc-alert': '^0.0.2', external: '^1.0.0' } };
+    const workspaces = [{ packageJson: { name: '@crab-dev/rc-alert' } }];
+    assert.deepEqual(missingWakeWorkspaceResolutions({ resolutions: {} }, wake, workspaces), ['@crab-dev/rc-alert']);
+    assert.deepEqual(missingWakeWorkspaceResolutions({ resolutions: { '@crab-dev/rc-alert': 'workspace:^' } }, wake, workspaces), []);
+});
 
 test('declared generated files preserve LF on Windows checkouts', async () => {
     const paths = [...generatedLibraryPaths(await loadLibraryManifest()), 'turbo.json'];

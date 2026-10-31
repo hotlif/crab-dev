@@ -507,13 +507,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@crab-dev/rc-alert@npm:^0.0.2":
-  version: 0.0.2
-  resolution: "@crab-dev/rc-alert@npm:0.0.2"
-  checksum: 10c0/dd1e598e8184faca81cf44ee591f2ea9f931d54a9575c7836c2086f36acad7c951415adcb3de5bf019554ff98fe3b489e2ca1bb40f76d56ad0893ea717d72245
-  languageName: node
-  linkType: hard
-
 "@crab-dev/rc-alert@workspace:^, @crab-dev/rc-alert@workspace:components/rc-alert":
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-alert@workspace:components/rc-alert"
@@ -842,17 +835,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@crab-dev/rc-config-provider@npm:^0.0.2":
-  version: 0.0.2
-  resolution: "@crab-dev/rc-config-provider@npm:0.0.2"
-  dependencies:
-    "@crab-dev/css": "npm:0.1.45"
-    "@crab-dev/rc-theme": "npm:^0.0.2"
-    "@crab-dev/rc-token-semantic": "npm:^0.0.4"
-  checksum: 10c0/a16a868f8008297f7f4a74aa3b09c72b3e800c49d977c53315d166bc4d1a5f676bc9cca811e52f8004cfb7646c54b0668e121d52506e460683c6eb3450fb3c06
-  languageName: node
-  linkType: hard
-
 "@crab-dev/rc-config-provider@workspace:^, @crab-dev/rc-config-provider@workspace:components/rc-config-provider":
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-config-provider@workspace:components/rc-config-provider"
@@ -1021,19 +1003,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@crab-dev/rc-dropdown-container@npm:^0.0.3":
-  version: 0.0.3
-  resolution: "@crab-dev/rc-dropdown-container@npm:0.0.3"
-  dependencies:
-    "@crab-dev/rc-button": "npm:^0.0.2"
-    "@crab-dev/rc-line-edit": "npm:^0.0.4"
-    "@crab-dev/rc-token-semantic": "npm:^0.0.2"
-    "@floating-ui/react": "npm:^0.27.19"
-    motion: "npm:^12.42.2"
-  checksum: 10c0/2e850b51176da9317e72a677a7cd64a23c948c301eb9c8a8246edca35a3af8f87219cd08c7b7b78f9ca5d29014269bc90fb53a3b47053c1621a66fe6f384afc4
-  languageName: node
-  linkType: hard
-
 "@crab-dev/rc-dropdown-container@workspace:^, @crab-dev/rc-dropdown-container@workspace:components/rc-dropdown-container":
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-dropdown-container@workspace:components/rc-dropdown-container"
@@ -1147,20 +1116,6 @@ __metadata:
     react-dom: ^19.2.0
   languageName: unknown
   linkType: soft
-
-"@crab-dev/rc-hooks@npm:^0.0.2":
-  version: 0.0.2
-  resolution: "@crab-dev/rc-hooks@npm:0.0.2"
-  checksum: 10c0/a01ddc1fb884fde05849a63b857bbe7a4868fcd2766f5bc653462846cd8afc28be98798de18f77881e5dc4109e047b2e8ea5f227924f16e46849ce11edb9bf65
-  languageName: node
-  linkType: hard
-
-"@crab-dev/rc-hooks@npm:^0.0.3":
-  version: 0.0.3
-  resolution: "@crab-dev/rc-hooks@npm:0.0.3"
-  checksum: 10c0/96808e8e817296b1e8f9955226b03f324245ff8a72ab9ebf1560ba787cce2e545eb96612d494df9c493fd778baf0b7ffa745e2aee5f0897c0cdaf22b51856d0d
-  languageName: node
-  linkType: hard
 
 "@crab-dev/rc-hooks@workspace:^, @crab-dev/rc-hooks@workspace:components/rc-hooks":
   version: 0.0.0-use.local
@@ -1512,21 +1467,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@crab-dev/rc-select@npm:^0.0.3":
-  version: 0.0.3
-  resolution: "@crab-dev/rc-select@npm:0.0.3"
-  dependencies:
-    "@crab-dev/rc-checkbox": "npm:^0.0.3"
-    "@crab-dev/rc-dropdown-container": "npm:^0.0.3"
-    "@crab-dev/rc-hooks": "npm:^0.0.3"
-    "@crab-dev/rc-line-edit": "npm:^0.0.4"
-    "@crab-dev/rc-spin": "npm:^0.0.2"
-    "@crab-dev/rc-tag": "npm:^0.0.2"
-    "@crab-dev/rc-virtual": "npm:^0.1.2"
-  checksum: 10c0/5e233e7657020aaa0b4ce49833174a8418d288f57b4a4e956c7e87b0a810440db1f0f07eab016e6acedf7728b03f08acd4fb6144aa05b266fe97ae9f19104fd3
-  languageName: node
-  linkType: hard
-
 "@crab-dev/rc-select@workspace:^, @crab-dev/rc-select@workspace:components/rc-select":
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-select@workspace:components/rc-select"
@@ -1603,26 +1543,6 @@ __metadata:
     react: ^19.2.0
   languageName: unknown
   linkType: soft
-
-"@crab-dev/rc-spin@npm:^0.0.2":
-  version: 0.0.2
-  resolution: "@crab-dev/rc-spin@npm:0.0.2"
-  dependencies:
-    "@crab-dev/rc-hooks": "npm:^0.0.2"
-  checksum: 10c0/728613c9cbd6ee9f98c2748c21b1649980659408eee8ffd32a7612d954e4f1cf085438a8dfa6774897a1bb389ae85c9d03c26c989bd4314eff85206311eabc9f
-  languageName: node
-  linkType: hard
-
-"@crab-dev/rc-spin@npm:^0.0.4":
-  version: 0.0.4
-  resolution: "@crab-dev/rc-spin@npm:0.0.4"
-  dependencies:
-    "@crab-dev/css": "npm:0.1.45"
-    "@crab-dev/rc-config-provider": "npm:^0.0.2"
-    "@crab-dev/rc-hooks": "npm:^0.0.3"
-  checksum: 10c0/d804d2e77ad19b13b92e111f280c61d8f7adb4d55e477b7955a122bf10fee0df9595b99b5e161405c4ebb0d7282ed5b8cd776d1cc3a8dc198ab02dc00df4a687
-  languageName: node
-  linkType: hard
 
 "@crab-dev/rc-spin@workspace:^, @crab-dev/rc-spin@workspace:components/rc-spin":
   version: 0.0.0-use.local
@@ -1841,17 +1761,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@crab-dev/rc-theme@npm:^0.0.2":
-  version: 0.0.2
-  resolution: "@crab-dev/rc-theme@npm:0.0.2"
-  dependencies:
-    "@crab-dev/css": "npm:0.1.45"
-    "@crab-dev/rc-token-global": "npm:^0.0.2"
-    "@crab-dev/rc-token-semantic": "npm:^0.0.4"
-  checksum: 10c0/810cc02e45f653aaebdee0c6f4e6119c73601fd05ef5405b19bf500f780b88750c196934687e287e44dc1f0095b3d30747eafa115538e0b80311428e975640f4
-  languageName: node
-  linkType: hard
-
 "@crab-dev/rc-theme@workspace:^, @crab-dev/rc-theme@workspace:components/rc-theme":
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-theme@workspace:components/rc-theme"
@@ -1870,13 +1779,6 @@ __metadata:
     typescript: "npm:6.0.2"
   languageName: unknown
   linkType: soft
-
-"@crab-dev/rc-token-global@npm:^0.0.2":
-  version: 0.0.2
-  resolution: "@crab-dev/rc-token-global@npm:0.0.2"
-  checksum: 10c0/77a3b92b397c205f5e3712a4f9bddb2408167feded672d1f2ea591c1c350e6374cd8cc945a91d7102b6b0dc508f5fa49246c437b97fbf1f5de7e60fa2113a39b
-  languageName: node
-  linkType: hard
 
 "@crab-dev/rc-token-global@workspace:^, @crab-dev/rc-token-global@workspace:components/rc-token-global":
   version: 0.0.0-use.local
@@ -1897,25 +1799,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@crab-dev/rc-token-semantic@npm:^0.0.2":
-  version: 0.0.2
-  resolution: "@crab-dev/rc-token-semantic@npm:0.0.2"
-  dependencies:
-    "@crab-dev/rc-token-global": "npm:^0.0.2"
-  checksum: 10c0/45afb3a211b9319114be300ca0b9dca2a852a50e52af67b60c3f338cf40912c3b16aba94be94b7b88108d755a2e2b571dfbf7bb0611ea32cffc8366f80bccaa3
-  languageName: node
-  linkType: hard
-
-"@crab-dev/rc-token-semantic@npm:^0.0.4":
-  version: 0.0.4
-  resolution: "@crab-dev/rc-token-semantic@npm:0.0.4"
-  dependencies:
-    "@crab-dev/css": "npm:0.1.45"
-    "@crab-dev/rc-token-global": "npm:^0.0.2"
-  checksum: 10c0/24b91df1a607283fb7ae2c68ca87ef78d9265292468054caba155badd06c3d87376f8e8f2f67ce4c28a4c7858a146264da92a32744bedbf9e44b881af845530d
-  languageName: node
-  linkType: hard
-
 "@crab-dev/rc-token-semantic@workspace:^, @crab-dev/rc-token-semantic@workspace:components/rc-token-semantic":
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-token-semantic@workspace:components/rc-token-semantic"
@@ -1935,17 +1818,6 @@ __metadata:
     typescript: "npm:6.0.2"
   languageName: unknown
   linkType: soft
-
-"@crab-dev/rc-tooltip@npm:^0.0.2":
-  version: 0.0.2
-  resolution: "@crab-dev/rc-tooltip@npm:0.0.2"
-  dependencies:
-    "@crab-dev/rc-hooks": "npm:^0.0.2"
-    "@floating-ui/react": "npm:^0.27.19"
-    motion: "npm:^12.42.2"
-  checksum: 10c0/e7ace5b5eb4cb4c091f2f46f9048ce74fc8a9d2dcdd2cbf31062681cb9382a5728d0e4275f33a30be546004f5348d721c48d12ace8acc23e0c87305be3b2a0c0
-  languageName: node
-  linkType: hard
 
 "@crab-dev/rc-tooltip@workspace:^, @crab-dev/rc-tooltip@workspace:components/rc-tooltip":
   version: 0.0.0-use.local
@@ -1971,26 +1843,6 @@ __metadata:
     react-dom: ^19.2.0
   languageName: unknown
   linkType: soft
-
-"@crab-dev/rc-tree@npm:^0.1.2":
-  version: 0.1.4
-  resolution: "@crab-dev/rc-tree@npm:0.1.4"
-  dependencies:
-    "@crab-dev/css": "npm:0.1.45"
-    "@crab-dev/rc-checkbox": "npm:^0.0.4"
-    "@crab-dev/rc-config-provider": "npm:^0.0.2"
-    "@crab-dev/rc-hooks": "npm:^0.0.3"
-    "@crab-dev/rc-spin": "npm:^0.0.4"
-    "@crab-dev/rc-virtual": "npm:^0.1.4"
-    "@dnd-kit/core": "npm:^6.3.1"
-    "@dnd-kit/sortable": "npm:^10.0.0"
-    decimal.js: "npm:^10.6.0"
-  peerDependencies:
-    react: ^19.0.0
-    react-dom: ^19.0.0
-  checksum: 10c0/051540668f32c852aa658499d2fd82974823dcdfc56af759c79c337abd8a5dcf7b5915fd57beacef144ebd9c5daca1f19bcc56eae6e295c57382a7bd7d698a61
-  languageName: node
-  linkType: hard
 
 "@crab-dev/rc-tree@workspace:^, @crab-dev/rc-tree@workspace:components/rc-tree":
   version: 0.0.0-use.local
@@ -2024,15 +1876,6 @@ __metadata:
     react-dom: ^19.2.0
   languageName: unknown
   linkType: soft
-
-"@crab-dev/rc-virtual@npm:^0.1.2, @crab-dev/rc-virtual@npm:^0.1.4":
-  version: 0.1.4
-  resolution: "@crab-dev/rc-virtual@npm:0.1.4"
-  dependencies:
-    "@crab-dev/css": "npm:0.1.45"
-  checksum: 10c0/2bd82e2af24e3f6ca68ce3d5274f4249cdd4ebfe9d8cc794159a72f669cdc11d2cc7d311d58fdc9ee92a4e9115302402b383295bca84cbbe2c49e87bda3397a8
-  languageName: node
-  linkType: hard
 
 "@crab-dev/rc-virtual@workspace:^, @crab-dev/rc-virtual@workspace:components/rc-virtual":
   version: 0.0.0-use.local
@@ -2430,7 +2273,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@floating-ui/react@npm:^0.27.19, @floating-ui/react@npm:^0.27.20":
+"@floating-ui/react@npm:^0.27.20":
   version: 0.27.20
   resolution: "@floating-ui/react@npm:0.27.20"
   dependencies:
@@ -4616,28 +4459,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"framer-motion@npm:^12.43.0":
-  version: 12.43.0
-  resolution: "framer-motion@npm:12.43.0"
-  dependencies:
-    motion-dom: "npm:^12.43.0"
-    motion-utils: "npm:^12.39.0"
-    tslib: "npm:^2.4.0"
-  peerDependencies:
-    "@emotion/is-prop-valid": "*"
-    react: ^18.0.0 || ^19.0.0
-    react-dom: ^18.0.0 || ^19.0.0
-  peerDependenciesMeta:
-    "@emotion/is-prop-valid":
-      optional: true
-    react:
-      optional: true
-    react-dom:
-      optional: true
-  checksum: 10c0/cce3c1daf8f53da4d9299e6bdd2a1e9f08a30e13d84ce1e468cf25285f9ec2a900c812e0aa3dce79e7453a2a3cf328a717451beef9bf0a6175a3d3794116e36a
-  languageName: node
-  linkType: hard
-
 "function-bind@npm:^1.1.2":
   version: 1.1.2
   resolution: "function-bind@npm:1.1.2"
@@ -6176,43 +5997,6 @@ __metadata:
   dependencies:
     minipass: "npm:^7.1.2"
   checksum: 10c0/5aad75ab0090b8266069c9aabe582c021ae53eb33c6c691054a13a45db3b4f91a7fb1bd79151e6b4e9e9a86727b522527c0a06ec7d45206b745d54cd3097bcec
-  languageName: node
-  linkType: hard
-
-"motion-dom@npm:^12.43.0":
-  version: 12.43.0
-  resolution: "motion-dom@npm:12.43.0"
-  dependencies:
-    motion-utils: "npm:^12.39.0"
-  checksum: 10c0/ef7d3f6eaa6cfeb1a939847a8b2581d119f2efc054948921ece0e2b1091f0969c15ca7707b87a46dddac7f156a714878f168e7b9f6ea189eeb7d5d9fbbb99d26
-  languageName: node
-  linkType: hard
-
-"motion-utils@npm:^12.39.0":
-  version: 12.39.0
-  resolution: "motion-utils@npm:12.39.0"
-  checksum: 10c0/6d7a2a2cc0797b72410a666a9cc1c201c8e39bf9669670464e433fe1e72af5f0217154c869867b34fbadf3664cf222c0d022bbc4eed7927f201ae971918e7440
-  languageName: node
-  linkType: hard
-
-"motion@npm:^12.42.2":
-  version: 12.43.0
-  resolution: "motion@npm:12.43.0"
-  dependencies:
-    framer-motion: "npm:^12.43.0"
-    tslib: "npm:^2.4.0"
-  peerDependencies:
-    "@emotion/is-prop-valid": "*"
-    react: ^18.0.0 || ^19.0.0
-    react-dom: ^18.0.0 || ^19.0.0
-  peerDependenciesMeta:
-    "@emotion/is-prop-valid":
-      optional: true
-    react:
-      optional: true
-    react-dom:
-      optional: true
-  checksum: 10c0/15544ecc71d356661a959c78c4f84b3ca91728f5d17265b68912d2bbcf86f20409ebf5acf2f6c82e0c0425d1024267b04abd5b786177a3694bf706f7a3a529d6
   languageName: node
   linkType: hard
 
