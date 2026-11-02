@@ -14,4 +14,3 @@ export function formatContext(context) {
     lines.push(...context.notes.map(note => `\n${note}`));
     return `${lines.join("\n")}\n`;
 }
-

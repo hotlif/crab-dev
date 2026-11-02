@@ -1,0 +1,4 @@
+# Frozen evidence is hashed as raw bytes. Checkout normalization or whitespace
+# cleanup would invalidate its provenance; ordinary source files are unaffected.
+* -text -whitespace
+*.txt binary

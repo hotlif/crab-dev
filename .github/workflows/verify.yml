@@ -66,8 +66,10 @@ jobs:
           import { captureVisualInputs } from './scripts/visual/evidence-inputs.mjs';
           const sourceCommit = execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim();
           if (sourceCommit !== process.env.CRAB_CI_SOURCE_SHA) throw Error('CI source revision changed during verification');
+          const inputs = await captureVisualInputs();
           await mkdir('.cache/visual', { recursive: true });
-          await writeFile('.cache/visual/ci-source-build.json', JSON.stringify({ recordedAt: new Date().toISOString(), sourceCommit, platform: process.platform, node: process.version, inputs: await captureVisualInputs() }, null, 2) + '\n');
+          await writeFile('.cache/visual/ci-source-build.json', JSON.stringify({ recordedAt: new Date().toISOString(), sourceCommit, platform: process.platform, node: process.version, inputs }, null, 2) + '\n');
+          console.log(JSON.stringify({ sourceCommit, source: inputs.source.fingerprint, artifact: inputs.artifact.fingerprint, siteBuild: inputs.siteBuild.fingerprint, sourceFiles: inputs.source.files.length }));
           JS
       - name: Preserve browser diagnostics and candidate screenshots
         if: always()
