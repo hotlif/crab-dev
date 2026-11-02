@@ -19,9 +19,9 @@ beforeEach(() => {
 afterEach(() => {
     Element.prototype.getBoundingClientRect = originalGetBoundingClientRect;
 });
-const pointerDown = async (el: HTMLElement, clientX: number) => {
+const pointerDown = async (el: HTMLElement, clientX: number, button = 0) => {
     await act(() => {
-        el.dispatchEvent(new PointerEvent('pointerdown', { clientX, bubbles: true, cancelable: true }));
+        el.dispatchEvent(new PointerEvent('pointerdown', { clientX, button, bubbles: true, cancelable: true }));
     });
 };
 const pointerMove = async (el: HTMLElement, clientX: number) => {
@@ -49,6 +49,40 @@ const renderSlider = async (props: Partial<SliderProps> = {}) => {
     };
 };
 describe('Slider', () => {
+    it('does not change the value or begin dragging for secondary mouse buttons', async () => {
+        const onValueChange = mock.fn();
+        const { slider } = await renderSlider({ value: 50, onValueChange });
+        for (const button of [1, 2]) {
+            await pointerDown(slider, 180, button);
+            await pointerMove(slider, 150);
+        }
+        expect(onValueChange).not.toHaveBeenCalled();
+        expect(slider.querySelector('[data-slot="slider-handle"]')?.getAttribute('data-is-dragging')).toBe('false');
+    });
+    it('keeps scientific-notation steps finite and consistent across pointer, keyboard and wheel', async () => {
+        const onValueChange = mock.fn();
+        const { slider } = await renderSlider({ min: 1e-7, max: 9e-7, step: 1e-7, value: 5e-7, onValueChange });
+        await pointerDown(slider, 150);
+        expect(onValueChange).toHaveBeenLastCalledWith(7e-7, expect.objectContaining({ reason: 'pointer' }));
+        await pointerUp(slider, 150);
+        await fireEvent.keyDown(slider, { key: 'ArrowRight' });
+        expect(onValueChange).toHaveBeenLastCalledWith(6e-7, expect.objectContaining({ reason: 'keyboard' }));
+        await act(() => { slider.dispatchEvent(new WheelEvent('wheel', { deltaY: 1, bubbles: true })); });
+        expect(onValueChange).toHaveBeenLastCalledWith(4e-7, expect.objectContaining({ reason: 'wheel' }));
+    });
+    it('leaves horizontal scrolling and browser zoom wheel gestures untouched', async () => {
+        const onValueChange = mock.fn();
+        const { slider } = await renderSlider({ value: 50, onValueChange });
+        for (const init of [{ deltaX: 80, deltaY: 0 }, { deltaY: -80, ctrlKey: true }, { deltaY: -80, metaKey: true }]) {
+            const event = new WheelEvent('wheel', { ...init, bubbles: true, cancelable: true });
+            // The DOM test runtime omits WheelEvent modifier-key properties.
+            Object.defineProperties(event, { ctrlKey: { value: Boolean(init.ctrlKey) }, metaKey: { value: Boolean(init.metaKey) } });
+            expect(event.deltaY).toBe(init.deltaY);
+            await act(() => { slider.dispatchEvent(event); });
+            expect(event.defaultPrevented).toBe(false);
+        }
+        expect(onValueChange).not.toHaveBeenCalled();
+    });
     it('keeps uncontrolled keyboard changes and only uses defaultValue for initialization', async () => {
         const onValueChange = mock.fn();
         const view = await render(<Slider defaultValue={10} step={2} onValueChange={onValueChange} />);

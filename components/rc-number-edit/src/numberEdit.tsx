@@ -1,7 +1,8 @@
 import { useComponentSize, useLocale } from '@crab-dev/rc-config-provider';
+import { isVerticalWheelStep } from '@crab-dev/rc-hooks/internal';
 import { css, cx } from "@crab-dev/css";
 import LineEdit, { type LineEditChangeDetails } from "@crab-dev/rc-line-edit";
-import { useEffect, useId, useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useEffectEvent, useId, useLayoutEffect, useRef, useState } from "react";
 import type { ChangeEvent, FocusEvent, KeyboardEvent, MouseEvent, Ref } from "react";
 
 import token from "./token.js";
@@ -193,12 +194,26 @@ function NumberEdit(props: NumberEditProps) {
     const spinner = useSpinner({ onStep: doStep, disabled: disabled || readOnly });
 
     const handleFocus = (e: FocusEvent<HTMLInputElement>): void => {
+        const editingText = numeric == null
+            ? ""
+            : formatEditing(numeric, { useScientific: useSci, precision, decimalSeparator });
+        const input = e.currentTarget;
+        if (input.value !== editingText) {
+            const previousText = input.value;
+            const { selectionStart, selectionEnd, selectionDirection } = input;
+            // Focus changes the text format. Synchronize it before a consumer's
+            // select() or native replacement, so the later React commit cannot
+            // collapse that selection by changing the input value again.
+            input.value = editingText;
+            if (selectionStart !== null && selectionEnd !== null && selectionStart !== selectionEnd) {
+                const offset = (position: number) => position === previousText.length
+                    ? editingText.length
+                    : Math.min((!formatter && sepNorm ? previousText.slice(0, position).split(sepNorm).join('') : previousText.slice(0, position)).length, editingText.length);
+                input.setSelectionRange(offset(selectionStart), offset(selectionEnd), selectionDirection ?? undefined);
+            }
+        }
         setFocused(true);
-        setInputText(
-            numeric == null
-                ? ""
-                : formatEditing(numeric, { useScientific: useSci, precision, decimalSeparator }),
-        );
+        setInputText(editingText);
         onFocus?.(e);
     };
 
@@ -257,27 +272,20 @@ function NumberEdit(props: NumberEditProps) {
         }
     };
 
-    // 例外②（latest-ref 模式）：wheel 原生监听只绑定一次，回调内读取最新状态与 doStep
-    const wheelStateRef = useRef({ focused, disabled, readOnly, doStep });
-    wheelStateRef.current = { focused, disabled, readOnly, doStep };
-
     // 滚轮步进：仅聚焦时响应，避免滚动页面时误改值。
     // 必须原生 non-passive 监听才能 preventDefault（React onWheel 是 passive，无法阻止页面滚动）。
+    const handleWheel = useEffectEvent((event: WheelEvent) => {
+        if (!focused || disabled || readOnly || !isVerticalWheelStep(event)) return;
+        event.preventDefault();
+        doStep(event.deltaY < 0 ? 1 : -1, event.shiftKey, event);
+    });
     useEffect(() => {
         const input = inputRef.current;
         if (!input) {
             return;
         }
-        const onWheel = (e: WheelEvent): void => {
-            const s = wheelStateRef.current;
-            if (!s.focused || s.disabled || s.readOnly) {
-                return;
-            }
-            e.preventDefault();
-            s.doStep(e.deltaY < 0 ? 1 : -1, e.shiftKey, e);
-        };
-        input.addEventListener("wheel", onWheel, { passive: false });
-        return () => input.removeEventListener("wheel", onWheel);
+        input.addEventListener("wheel", handleWheel, { passive: false });
+        return () => input.removeEventListener("wheel", handleWheel);
     }, []);
 
     // 覆盖层测量：把上标层精确对齐到 input 文本区（位置 + 字号）。

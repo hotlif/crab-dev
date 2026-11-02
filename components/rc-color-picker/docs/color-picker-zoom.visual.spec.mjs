@@ -1,5 +1,8 @@
 import { zoomTest, expect, configurations, openDemo, readVisualSpec, settleFiniteAnimations, captureZoom } from "../../../test/visual/component-fixture.mjs";
-import { commitHexPreservingAlpha } from "./color-picker-assertions.mjs";
+
+// Headed native zoom shares a display; retain independent, sequential cases.
+zoomTest.describe.configure({ mode: 'default' });
+import { assertHexReadable, commitHexPreservingAlpha } from "./color-picker-assertions.mjs";
 
 const spec = await readVisualSpec(import.meta.url);
 for (const config of configurations) zoomTest(`${config.designSystem} ${config.colorMode} real zoom 200%`, { tag: ["@rc-color-picker", "@environment", "@chromium-only"], annotation: { type: "environment", description: JSON.stringify({ id: "zoom-200", ...config }) } }, async ({ page, previewOrigin, realZoom }, info) => {
@@ -14,6 +17,7 @@ for (const config of configurations) zoomTest(`${config.designSystem} ${config.c
     await expect(floating).toHaveAttribute("data-crab-design", config.designSystem);
     await captureZoom(page, realZoom, `${config.designSystem}-${config.colorMode}-zoom-200-controls.png`, info);
     await dialog.getByRole("textbox").scrollIntoViewIfNeeded(); const input = await commitHexPreservingAlpha(page, dialog, "#123456"); await input.press("Tab");
+    await assertHexReadable(dialog, info);
     const confirm = dialog.getByRole("button", { name: "确定", exact: true }); await confirm.scrollIntoViewIfNeeded(); await confirm.focus(); await confirm.press("Shift+Tab"); await page.keyboard.press("Tab");
     await expect(confirm).toBeFocused(); await expect(confirm).toBeInViewport();
     expect(await confirm.evaluate(node => node.matches(":focus-visible"))).toBe(true);

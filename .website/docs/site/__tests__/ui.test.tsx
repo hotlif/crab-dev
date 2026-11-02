@@ -5,14 +5,16 @@ import type { ReactNode } from "react";
 import type { CommonProps, DemoProps, SearchState } from "@crab-dev/wake/docs";
 import { useConfig } from "@crab-dev/rc-config-provider";
 import { SITE_DESIGN_STORAGE_KEY } from "../siteContext.js";
+import { consumeDocumentRecovery, rememberDocumentRecovery } from "../ui/document-recovery.js";
+import { SearchReturnFocusContext } from "../ui/search-return-focus.js";
 
 // Keep delayed content mounting after open, plus controlled close semantics.
 mock.module("@crab-dev/rc-dialog", () => ({
     __esModule: true,
-    default: function DialogFixture({ ref, title, children, open }: import("@crab-dev/rc-dialog").DialogProps) {
+    default: function DialogFixture({ ref, title, children, open, className, onKeyDown }: import("@crab-dev/rc-dialog").DialogProps) {
         const [mounted, setMounted] = useState(open);
         useEffect(() => { if (open) setMounted(true); }, [open]);
-        return <dialog ref={ref} role="dialog" open={open}
+        return <dialog ref={ref} role="dialog" open={open} className={className} onKeyDown={onKeyDown}
             onClose={() => setMounted(false)}
             aria-label={typeof title === "string" ? title : "对话框"}>
             {mounted && children}
@@ -133,6 +135,22 @@ function designPreference(initial: string | null = null, unavailable = false) {
 function CurrentDocumentConfig() {
     const { designSystem: design, colorMode: theme } = useConfig();
     return <output aria-label="当前组件配置">{design}:{theme}</output>;
+}
+
+function DocumentRecoveryFixture({ deferred = false, reloaded = false }: { readonly deferred?: boolean; readonly reloaded?: boolean }) {
+    const [stage, setStage] = useState<"error" | "waiting" | "ready">(reloaded ? "ready" : "error");
+    const initial = common();
+    const page = { slug: "/guides/getting-started", title: "开始使用", href: "/handbook/guides/getting-started",
+        description: "安装组件", status: "stable", draft: false, headings: [] };
+    const state = { ...initial, route: { ...initial.route, path: page.slug, page } };
+    return <UI.Layout {...state} header={<button type="button" onClick={() => setStage("ready")}>继续操作导航</button>}
+        navigation={null} mobileNavigation={null} tableOfContents={null} searchDialog={null}>
+        <main tabIndex={-1}>{stage === "error"
+            ? <UI.PageError {...state} error="加载中断" retry={() => setStage(deferred ? "waiting" : "ready")} />
+            : stage === "waiting" ? <UI.PageLoading {...state} />
+                : <UI.Page {...state} page={page} breadcrumbs={[]} previous={null} next={null}><p>文档正文</p></UI.Page>}
+        </main>
+    </UI.Layout>;
 }
 
 describe("文档设计偏好", () => {
@@ -271,69 +289,66 @@ describe("Wake 文档展示适配器", () => {
             "/demo-route",
         );
     });
-    for (const kind of ["navigation", "table"] as const) {
-        for (const direction of ["ltr", "rtl"] as const) {
-            it(`${kind} ${direction} 焦点完整显露链接且不改纵向位置或示例`, async () => {
-                const state = common();
-                const link = <a href="#target" style={{ outlineStyle: "solid", outlineWidth: "2px", outlineOffset: "3px" }}>目标链接</a>;
-                await render(<UI.Page {...state} page={{ slug: "/guides/focus", title: "焦点", href: "/handbook/guides/focus",
-                    description: "", status: "stable", draft: false, headings: [] }} breadcrumbs={[]} previous={null} next={null}>
-                    {kind === "navigation" ? <nav className="crab-home-category-index" dir={direction}>{link}</nav>
-                        : <div className="table-scroll" dir={direction}><table><tbody><tr><td>{link}</td></tr></tbody></table></div>}
-                    <div data-wake-demo><nav className="crab-home-category-index"><a href="#demo">独立示例</a></nav></div>
-                </UI.Page>);
-                const anchor = screen.getByRole("link", { name: "目标链接" });
-                const port = anchor.closest<HTMLElement>(kind === "navigation" ? "nav" : ".table-scroll")!;
-                let x = 214;
-                let width = 94;
-                const scroll = mock.fn((options: ScrollToOptions) => { x -= options.left ?? 0; });
-                Object.defineProperties(port, {
-                    clientLeft: { configurable: true, value: 2 },
-                    clientWidth: { configurable: true, value: 257 },
-                    scrollWidth: { configurable: true, value: 600 },
-                    scrollTop: { configurable: true, value: 37 },
-                    scrollBy: { configurable: true, value: scroll },
-                    getBoundingClientRect: { configurable: true, value: () => new globalThis.DOMRect(10, 100, 261, 60) },
-                });
-                Object.defineProperty(anchor, "getBoundingClientRect", {
-                    configurable: true, value: () => new globalThis.DOMRect(x, 105, width, 40),
-                });
-                await act(() => { anchor.focus(); });
-                expect(document.activeElement).toBe(anchor);
-                expect(anchor.getBoundingClientRect().right + 5).toBeLessThanOrEqual(269);
-                expect(port.scrollTop).toBe(37);
-                expect(scroll).toHaveBeenCalledWith({ left: 44, behavior: "instant" });
-                scroll.clear();
-                await act(() => { anchor.blur(); anchor.focus(); });
-                expect(scroll).not.toHaveBeenCalled();
-                x = -20;
-                await act(() => { anchor.blur(); anchor.focus(); });
-                expect(anchor.getBoundingClientRect().left - 5).toBeGreaterThanOrEqual(12);
-                expect(port.scrollTop).toBe(37);
-                width = 400;
-                x = direction === "rtl" ? -150 : 150;
-                anchor.style.direction = direction;
-                await act(() => { anchor.blur(); anchor.focus(); });
-                expect(direction === "rtl" ? anchor.getBoundingClientRect().right + 5
-                    : anchor.getBoundingClientRect().left - 5).toBe(direction === "rtl" ? 269 : 12);
-                expect(port.scrollTop).toBe(37);
-                scroll.clear();
-                const demo = screen.getByRole("link", { name: "独立示例" });
-                Object.defineProperties(demo.parentElement!, {
-                    clientLeft: { configurable: true, value: 0 },
-                    clientWidth: { configurable: true, value: 257 },
-                    scrollWidth: { configurable: true, value: 600 },
-                    scrollBy: { configurable: true, value: scroll },
-                    getBoundingClientRect: { configurable: true, value: () => new globalThis.DOMRect(12, 100, 257, 60) },
-                });
-                Object.defineProperty(demo, "getBoundingClientRect", {
-                    configurable: true, value: () => new globalThis.DOMRect(300, 105, 94, 40),
-                });
-                await act(() => { demo.focus(); });
-                expect(document.activeElement).toBe(demo);
-                expect(scroll).not.toHaveBeenCalled();
+    for (const direction of ["ltr", "rtl"] as const) {
+        it(`table ${direction} 焦点完整显露链接且不改纵向位置或示例`, async () => {
+            const state = common();
+            const link = <a href="#target" style={{ outlineStyle: "solid", outlineWidth: "2px", outlineOffset: "3px" }}>目标链接</a>;
+            await render(<UI.Page {...state} page={{ slug: "/guides/focus", title: "焦点", href: "/handbook/guides/focus",
+                description: "", status: "stable", draft: false, headings: [] }} breadcrumbs={[]} previous={null} next={null}>
+                <div className="table-scroll" dir={direction}><table><tbody><tr><td>{link}</td></tr></tbody></table></div>
+                <div data-wake-demo className="crab-docs-prose"><div className="table-scroll"><a href="#demo">独立示例</a></div></div>
+            </UI.Page>);
+            const anchor = screen.getByRole("link", { name: "目标链接" });
+            const port = anchor.closest<HTMLElement>(".table-scroll")!;
+            let x = 214;
+            let width = 94;
+            const scroll = mock.fn((options: ScrollToOptions) => { x -= options.left ?? 0; });
+            Object.defineProperties(port, {
+                clientLeft: { configurable: true, value: 2 },
+                clientWidth: { configurable: true, value: 257 },
+                scrollWidth: { configurable: true, value: 600 },
+                scrollTop: { configurable: true, value: 37 },
+                scrollBy: { configurable: true, value: scroll },
+                getBoundingClientRect: { configurable: true, value: () => new globalThis.DOMRect(10, 100, 261, 60) },
             });
-        }
+            Object.defineProperty(anchor, "getBoundingClientRect", {
+                configurable: true, value: () => new globalThis.DOMRect(x, 105, width, 40),
+            });
+            await act(() => { anchor.focus(); });
+            expect(document.activeElement).toBe(anchor);
+            expect(anchor.getBoundingClientRect().right + 5).toBeLessThanOrEqual(269);
+            expect(port.scrollTop).toBe(37);
+            expect(scroll).toHaveBeenCalledWith({ left: 44, behavior: "instant" });
+            scroll.clear();
+            await act(() => { anchor.blur(); anchor.focus(); });
+            expect(scroll).not.toHaveBeenCalled();
+            x = -20;
+            await act(() => { anchor.blur(); anchor.focus(); });
+            expect(anchor.getBoundingClientRect().left - 5).toBeGreaterThanOrEqual(12);
+            expect(port.scrollTop).toBe(37);
+            width = 400;
+            x = direction === "rtl" ? -150 : 150;
+            anchor.style.direction = direction;
+            await act(() => { anchor.blur(); anchor.focus(); });
+            expect(direction === "rtl" ? anchor.getBoundingClientRect().right + 5
+                : anchor.getBoundingClientRect().left - 5).toBe(direction === "rtl" ? 269 : 12);
+            expect(port.scrollTop).toBe(37);
+            scroll.clear();
+            const demo = screen.getByRole("link", { name: "独立示例" });
+            Object.defineProperties(demo.parentElement!, {
+                clientLeft: { configurable: true, value: 0 },
+                clientWidth: { configurable: true, value: 257 },
+                scrollWidth: { configurable: true, value: 600 },
+                scrollBy: { configurable: true, value: scroll },
+                getBoundingClientRect: { configurable: true, value: () => new globalThis.DOMRect(12, 100, 257, 60) },
+            });
+            Object.defineProperty(demo, "getBoundingClientRect", {
+                configurable: true, value: () => new globalThis.DOMRect(300, 105, 94, 40),
+            });
+            await act(() => { demo.focus(); });
+            expect(document.activeElement).toBe(demo);
+            expect(scroll).not.toHaveBeenCalled();
+        });
     }
     it("导航保留部署前缀、修饰键与 Wake 回调", async () => {
         const state = common();
@@ -466,6 +481,8 @@ describe("Wake 文档展示适配器", () => {
         expect(components.getAttribute("aria-current")).toBeNull();
         expect(category("实战").getAttribute("aria-current")).toBe("true");
         expect(rail.querySelectorAll('[data-active="true"]').length).toBe(1);
+        expect(components.getAttribute("data-active")).toBe("true");
+        expect(category("实战").getAttribute("data-active")).toBe("false");
         expect(screen.getAllByRole("button", { name: /^组件$/ }).length).toBe(1);
         expect(screen.getByRole("link", { name: "组件目录" }).getAttribute("href")).toBe("/handbook/learn/components");
         expect(screen.getByRole("textbox", { name: "未提交的内容" })).toBe(draft);
@@ -603,6 +620,47 @@ describe("Wake 文档展示适配器", () => {
         expect(document.activeElement).toBe(screen.getByRole("link", { name: "首页" }));
     });
 
+    it("移动导航优先显露当前页面，并跳过收起分组中的链接", async () => {
+        const state = common();
+        const navigation = <nav>
+            <div inert aria-hidden="true"><a href="/old" aria-current="page">隐藏的旧页面</a></div>
+            <a href="/handbook/components/rc-button" aria-current="page">Button 按钮</a>
+            <a href="/handbook/learn/components">组件目录</a>
+        </nav>;
+        const view = await render(<UI.MobileNavigation {...state} open={false} setOpen={mock.fn()} navigation={navigation} />);
+        const current = screen.getByRole("link", { name: "Button 按钮" });
+        const reveal = mock.fn();
+        current.scrollIntoView = reveal;
+        await view.rerender(<UI.MobileNavigation {...state} open setOpen={mock.fn()} navigation={navigation} />);
+        expect(document.activeElement).toBe(current);
+        expect(reveal).toHaveBeenCalledTimes(1);
+    });
+
+    it("导航搜索快捷键交回 Wake，抽屉关闭后保持搜索输入焦点", async () => {
+        const state = common();
+        const setOpen = mock.fn();
+        const searchReturnFocus = { current: false };
+        await render(<SearchReturnFocusContext value={searchReturnFocus}>
+            <UI.MobileNavigation {...state} open setOpen={setOpen} navigation={<nav><a href="/current" aria-current="page">当前页面</a></nav>} />
+            <UI.SearchDialog {...state} search={searchState()} />
+        </SearchReturnFocusContext>);
+        const hostShortcut = mock.fn();
+        window.addEventListener("keydown", hostShortcut);
+        try {
+            await fireEvent.keyDown(screen.getByRole("link", { name: "当前页面" }), { key: "k", ctrlKey: true });
+            expect(setOpen).toHaveBeenCalledWith(false);
+            expect(searchReturnFocus.current).toBe(true);
+            expect(hostShortcut).toHaveBeenCalledTimes(1);
+            const input = screen.getByRole("combobox");
+            await act(() => input.focus());
+            await act(() => { screen.getByRole("dialog", { name: "文档导航" }).dispatchEvent(new Event("close")); });
+            expect(document.activeElement).toBe(input);
+            expect(state.route.focusContent).not.toHaveBeenCalled();
+        } finally {
+            window.removeEventListener("keydown", hostShortcut);
+        }
+    });
+
     it("移动导航选择页面后等待抽屉关闭完成再聚焦正文", async () => {
         const state = common();
         const props = { ...state, navigation: <span>导航内容</span>, setOpen: mock.fn() };
@@ -681,6 +739,8 @@ describe("Wake 文档展示适配器", () => {
         expect(input.getAttribute("aria-controls")).toBe(screen.getByRole("listbox").id);
         await fireEvent.keyDown(input, { key: "Enter", isComposing: true });
         expect(search.select).not.toHaveBeenCalled();
+        await fireEvent.keyDown(input, { key: "Enter", keyCode: 229 });
+        expect(search.select).not.toHaveBeenCalled();
         await fireEvent.keyDown(input, { key: "ArrowDown" });
         expect(search.setActiveIndex).toHaveBeenCalledWith(0);
         await fireEvent.keyDown(input, { key: "Enter" });
@@ -697,6 +757,12 @@ describe("Wake 文档展示适配器", () => {
         const search = searchState({ results: [] });
         await render(<UI.SearchDialog {...state} search={search} />);
         expect(screen.getByText("没有匹配的文档")).toBeTruthy();
+        expect(screen.getAllByRole("status").length).toBe(1);
+        const input = screen.getByRole("combobox");
+        expect(document.getElementById(input.getAttribute("aria-describedby")!)?.textContent).not.toContain("Enter");
+        await click("清空关键词");
+        expect(search.setQuery).toHaveBeenCalledWith("");
+        expect(document.activeElement).toBe(input);
         await fireEvent.keyDown(screen.getByRole("combobox"), { key: "Enter" });
         expect(search.select).not.toHaveBeenCalled();
         await act(async () => {
@@ -711,6 +777,57 @@ describe("Wake 文档展示适配器", () => {
         await click("清除搜索");
         expect(search.setQuery).toHaveBeenCalledWith("");
         expect(document.activeElement).toBe(screen.getByRole("combobox"));
+    });
+
+    it("搜索关闭使用原生取消路径，关闭控件保留明确名称", async () => {
+        const search = searchState();
+        await render(<UI.SearchDialog {...common()} search={search} />);
+        expect(screen.getByRole("heading", { name: "搜索文档" })).toBeTruthy();
+        const hostEscape = mock.fn();
+        window.addEventListener("keydown", hostEscape);
+        try {
+            const escape = new KeyboardEvent("keydown", { key: "Escape", bubbles: true, cancelable: true });
+            await act(() => { screen.getByRole("combobox").dispatchEvent(escape); });
+            expect(hostEscape).not.toHaveBeenCalled();
+            expect(escape.defaultPrevented).toBe(false);
+        } finally {
+            window.removeEventListener("keydown", hostEscape);
+        }
+        await click("关闭");
+        expect(search.setOpen).toHaveBeenCalledWith(false);
+    });
+
+    it("搜索取消后为已消失的抽屉入口提供返回位置，保留有效的原焦点", async () => {
+        const state = common();
+        await render(<>
+            <button className="crab-docs-rail-search">搜索入口</button>
+            <input aria-label="正在编辑的内容" />
+            <UI.SearchDialog {...state} search={searchState()} />
+        </>);
+        const dialog = screen.getByRole("dialog");
+        await act(() => { screen.getByRole("combobox").blur(); dialog.dispatchEvent(new Event("close")); });
+        expect(document.activeElement).toBe(screen.getByRole("button", { name: "搜索入口" }));
+        const editor = screen.getByRole("textbox", { name: "正在编辑的内容" });
+        await act(() => { editor.focus(); dialog.dispatchEvent(new Event("close")); });
+        expect(document.activeElement).toBe(editor);
+        expect(state.route.focusContent).not.toHaveBeenCalled();
+    });
+
+    it("减少动画先恢复导航入口时，搜索仍消费一次正确的返回位置", async () => {
+        const searchReturnFocus = { current: true };
+        await render(<SearchReturnFocusContext value={searchReturnFocus}>
+            <button className="crab-docs-rail-search">搜索入口</button>
+            <button>导航入口</button>
+            <input aria-label="正在编辑的内容" />
+            <UI.SearchDialog {...common()} search={searchState()} />
+        </SearchReturnFocusContext>);
+        const dialog = screen.getByRole("dialog");
+        await act(() => { screen.getByRole("button", { name: "导航入口" }).focus(); dialog.dispatchEvent(new Event("close")); });
+        expect(document.activeElement).toBe(screen.getByRole("button", { name: "搜索入口" }));
+        expect(searchReturnFocus.current).toBe(false);
+        const editor = screen.getByRole("textbox", { name: "正在编辑的内容" });
+        await act(() => { editor.focus(); dialog.dispatchEvent(new Event("close")); });
+        expect(document.activeElement).toBe(editor);
     });
 
     it("示例搜索结果分开名称、说明与来源，保留完整无障碍描述", async () => {
@@ -739,6 +856,7 @@ describe("Wake 文档展示适配器", () => {
         const search = searchState({ loading: true });
         const state = common();
         const view = await render(<UI.SearchDialog {...state} search={search} />);
+        expect(screen.getAllByRole("status").length).toBe(1);
         expect(screen.queryByRole("option")).toBe(null);
         await fireEvent.keyDown(screen.getByRole("combobox"), { key: "Enter" });
         expect(search.select).not.toHaveBeenCalled();
@@ -750,8 +868,14 @@ describe("Wake 文档展示适配器", () => {
         );
         expect(screen.queryByRole("option")).toBe(null);
         expect(screen.getByText("索引不可用")).toBeTruthy();
+        expect(screen.getByRole("alert").textContent).not.toContain("索引不可用");
+        expect(document.querySelector(".crab-docs-error-details")?.hasAttribute("open")).toBe(false);
         await fireEvent.keyDown(screen.getByRole("combobox"), { key: "Enter" });
         expect(search.select).not.toHaveBeenCalled();
+        await click("浏览组件目录");
+        expect(search.select).toHaveBeenCalledWith("/learn/components");
+        await act(async () => { screen.getByRole("dialog").dispatchEvent(new Event("close")); });
+        expect(state.route.focusContent).toHaveBeenCalledTimes(1);
     });
 
     it("章节目录保留完整名称和长标题提示，并调用 Wake 目录导航", async () => {
@@ -835,6 +959,7 @@ describe("Wake 文档展示适配器", () => {
     });
 
     it("API 空结果与继承信息、警告同时保留", async () => {
+        const setFilter = mock.fn();
         await render(
             <UI.ApiTable
                 {...common()}
@@ -845,20 +970,76 @@ describe("Wake 文档展示适配器", () => {
                 inherited={[{ name: "id", source: "HTMLAttributes", type_text: "string" }]}
                 warnings={["部分类型需要展开查看"]}
                 filter="missing"
-                setFilter={mock.fn()}
+                setFilter={setFilter}
                 error={null}
             />,
         );
         expect(screen.getByText("没有匹配的属性")).toBeTruthy();
         expect(screen.getByText("继承属性（1）")).toBeTruthy();
         expect(screen.getByText("部分类型需要展开查看")).toBeTruthy();
+        await click("清除筛选");
+        expect(setFilter).toHaveBeenCalledWith("");
+        expect(document.activeElement).toBe(screen.getByRole("textbox", { name: "筛选 API 属性" }));
+    });
+
+    it("API 没有属性时不误报筛选无结果，也不提供无效的清除操作", async () => {
+        await render(<UI.ApiTable {...common()} symbol="NoProps" description="" properties={[]} total={0}
+            inherited={[]} warnings={[]} filter="" setFilter={mock.fn()} error={null} />);
+        expect(screen.getByText("暂无属性说明")).toBeTruthy();
+        expect(screen.queryByRole("button", { name: "清除筛选" })).toBeNull();
+    });
+
+    it("API 错误保留原始诊断，但不混入主提示或误报为空结果", async () => {
+        await render(<UI.ApiTable {...common()} symbol="ButtonProps" description="" properties={[]} total={0}
+            inherited={[]} warnings={[]} filter="value" setFilter={mock.fn()} error="Failed to import api-data.js" />);
+        expect(screen.getByRole("alert").textContent).toContain("API 加载失败");
+        expect(screen.getByRole("alert").textContent).not.toContain("api-data.js");
+        expect(document.querySelector(".crab-docs-error-details pre")?.textContent).toContain("api-data.js");
+        expect(screen.queryByText("没有匹配的属性")).toBeNull();
     });
 
     it("页面错误使用 Wake 提供的重试操作", async () => {
         const retry = mock.fn();
         await render(<UI.PageError {...common()} error="模块加载失败" retry={retry} />);
+        expect(screen.getByRole("heading", { name: "文档加载失败", level: 1 })).toBeTruthy();
+        expect(screen.getByRole("alert").textContent).not.toContain("模块加载失败");
+        expect(document.querySelector(".crab-docs-error-details pre")?.textContent).toBe("模块加载失败");
+        expect(document.querySelector(".crab-docs-error-details")?.hasAttribute("open")).toBe(false);
+        expect(screen.getByRole("link", { name: "查看组件目录" }).getAttribute("href")).toBe("/handbook/learn/components");
         await click("重试加载");
         expect(retry).toHaveBeenCalledTimes(1);
+    });
+
+    it("404 提供真正的正文标题和带部署前缀的目录、首页入口", async () => {
+        await render(<UI.NotFound {...common()} />);
+        expect(screen.getByRole("heading", { name: "找不到这篇文档", level: 1 })).toBeTruthy();
+        expect(screen.getByRole("link", { name: "查看组件目录" }).getAttribute("href")).toBe("/handbook/learn/components");
+        expect(screen.getByRole("link", { name: "返回首页" }).getAttribute("href")).toBe("/handbook/");
+        expect(screen.queryByRole("alert")).toBeNull();
+    });
+
+    it("文档重试成功后将键盘焦点交给真实正文标题", async () => {
+        await render(<DocumentRecoveryFixture />);
+        await click("重试加载");
+        expect(document.activeElement).toBe(document.querySelector(".crab-docs-page-heading h1"));
+    });
+
+    it("文档重试期间转向导航后，完成时保留用户的新焦点", async () => {
+        await render(<DocumentRecoveryFixture deferred />);
+        await click("重试加载");
+        expect(document.activeElement?.getAttribute("aria-label")).toBe("文档内容");
+        const navigation = screen.getByRole("button", { name: "继续操作导航" });
+        await act(async () => { navigation.focus(); });
+        await fireEvent.click(navigation);
+        expect(screen.getByText("文档正文")).toBeTruthy();
+        expect(document.activeElement).toBe(navigation);
+    });
+
+    it("整页刷新后只消费一次正文焦点恢复请求", async () => {
+        rememberDocumentRecovery("/guides/getting-started");
+        await render(<DocumentRecoveryFixture reloaded />);
+        expect(document.activeElement).toBe(document.querySelector(".crab-docs-page-heading h1"));
+        expect(consumeDocumentRecovery()).toBeNull();
     });
 
     it("全屏退出期间 preview 始终只挂载一次", async () => {

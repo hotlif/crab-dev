@@ -41,6 +41,12 @@ for (const mode of modes) test.describe(`Avatar intrinsic layout ${mode.id}`, ()
             if (mode.hasTouch) {
                 expect(hit.width).toBeGreaterThanOrEqual(48);
                 expect(hit.height).toBeGreaterThanOrEqual(48);
+                if (layout === 'flex') {
+                    const neighbor = await frame.locator('[data-visual-scene] > span').first().boundingBox();
+                    // A touch has an area: a point hit-test alone misses native
+                    // retargeting onto an adjacent visual at a shared boundary.
+                    expect(neighbor.x - hit.x - hit.width).toBeGreaterThanOrEqual(2);
+                }
                 const center = { x: hit.x + hit.width / 2, y: hit.y + hit.height / 2 };
                 const points = [{ x: hit.x + 1, y: center.y }, { x: hit.x + hit.width - 1, y: center.y }, { x: center.x, y: hit.y + 1 }, { x: center.x, y: hit.y + hit.height - 1 }];
                 for (const point of points) {

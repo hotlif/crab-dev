@@ -8,6 +8,8 @@ import type { DesignSystem } from "@crab-dev/rc-token-semantic";
 import { DEFAULT_SITE_DESIGN, DocumentDesignContext, migrateSiteDesignPreference, SiteContext, SITE_DESIGN_STORAGE_KEY, TutorialDirectoryContext } from "../siteContext.js";
 import { categoryForPath, DocumentNavigationContext, navigationCategories } from "../documentNavigation.js";
 import type { NavigationCategory } from "../documentNavigation.js";
+import { consumeDocumentRecovery, DocumentRecoveryContext, rememberDocumentRecovery } from "./document-recovery.js";
+import { SearchReturnFocusContext } from "./search-return-focus.js";
 
 export function Root({ children, ...state }: UI.RootProps) {
     const [design, setDesign] = useState<DesignSystem>(DEFAULT_SITE_DESIGN);
@@ -61,6 +63,7 @@ export function Root({ children, ...state }: UI.RootProps) {
 export function Layout(props: UI.LayoutProps) {
     const contentId = useId();
     const sidebarId = useId();
+    const searchReturnFocus = useRef(false);
     const path = props.route.page?.slug ?? props.route.path;
     const home = props.route.page?.href === props.site.homeHref;
     const catalog = props.route.page?.slug.replace(/^\//, "") === "learn/components";
@@ -72,9 +75,33 @@ export function Layout(props: UI.LayoutProps) {
         select: (value: NavigationCategory | null) => setSelection({ path, category: value }) };
     // DOM reference for the in-page keyboard shortcut; it does not trigger routing.
     const content = useRef<HTMLDivElement>(null);
+    const recoveryTarget = useRef<string | null>(null);
+    useEffect(() => {
+        if (recoveryTarget.current !== path) recoveryTarget.current = null;
+    }, [path]);
+    const recovery = {
+        request() {
+            recoveryTarget.current = path;
+            // Wake's public retry reloads the document. Carry this one focus
+            // request across that reload without changing navigation or drafts.
+            rememberDocumentRecovery(path);
+            content.current?.focus({ preventScroll: true });
+        },
+        complete(slug: string, heading: HTMLElement | null) {
+            const stored = consumeDocumentRecovery();
+            const requested = recoveryTarget.current;
+            if ((requested ?? stored) !== slug) return;
+            recoveryTarget.current = null;
+            const active = document.activeElement;
+            if (active === content.current || (!requested && stored === slug && active === document.body)) {
+                heading?.focus({ preventScroll: true });
+            }
+        },
+    };
     const [directory, setDirectory] = useState<HTMLDivElement | null>(null);
     const component = /(^|\/)components\//.test(path);
     return (
+        <SearchReturnFocusContext value={searchReturnFocus}>
         <TutorialDirectoryContext value={component ? null : directory}>
             <DocumentNavigationContext value={navigation}>
                 <div className="crab-docs-layout" data-home={home} data-catalog={catalog} data-reading={!!props.route.page && !home && !catalog} data-navigation-open="true">
@@ -97,7 +124,10 @@ export function Layout(props: UI.LayoutProps) {
                             </div>
                             <div className="crab-docs-sidebar-scroll" key={navigation.category}>{props.navigation}</div>
                         </aside>
-                        <div className="crab-docs-content" id={contentId} ref={content}>{props.children}</div>
+                        <DocumentRecoveryContext value={recovery}>
+                            <div className="crab-docs-content" id={contentId} ref={content}
+                                role="group" aria-label="文档内容" tabIndex={-1}>{props.children}</div>
+                        </DocumentRecoveryContext>
                         <aside className="crab-docs-directory">
                             <div className="crab-docs-directory-panel">
                                 <div ref={setDirectory} />
@@ -112,5 +142,6 @@ export function Layout(props: UI.LayoutProps) {
                 </div>
             </DocumentNavigationContext>
         </TutorialDirectoryContext>
+        </SearchReturnFocusContext>
     );
 }

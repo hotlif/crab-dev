@@ -5,7 +5,7 @@ export const meta = {
 };
 
 import { useId, useState } from "react";
-import Slider from "../../src/slider.js";
+import Slider from "@crab-dev/rc-slider";
 import { css } from "@crab-dev/css";
 import token from "@crab-dev/rc-token-semantic";
 
@@ -23,6 +23,21 @@ const nativeFieldStyle = css`
     flex-direction: column;
     gap: ${token.space['inline-gap']};
     margin-block-start: ${token.space['component-gap']};
+`;
+
+const nativeEditorStyle = css`
+    box-sizing: border-box;
+    inline-size: 100%;
+    min-inline-size: 0;
+    min-block-size: ${token.size['32']};
+    padding: ${token.space['control-padding-y']} ${token.space['control-padding-x']};
+    border: 1px solid ${token.color.border.default};
+    border-radius: ${token.shape.control};
+    color: ${token.color.text.primary};
+    background: ${token.color.surface.content};
+    font: inherit;
+    &:focus-visible { outline: 2px solid ${token.color.focus.ring}; outline-offset: 2px; }
+    @media (pointer: coarse) { min-block-size: ${token.size['touch-target']}; }
 `;
 
 const BaseDemo = () => {
@@ -44,6 +59,7 @@ const BaseDemo = () => {
             <div className={nativeFieldStyle}>
                 <label htmlFor={numberId}>角度数值</label>
                 <input
+                    className={nativeEditorStyle}
                     id={numberId}
                     type="number"
                     min={0}

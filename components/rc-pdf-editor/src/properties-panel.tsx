@@ -6,7 +6,7 @@ import Select from '@crab-dev/rc-select';
 import TextEdit from '@crab-dev/rc-text-edit';
 import { cx } from '@crab-dev/css';
 import { useId } from 'react';
-import type { PdfObject, Rgba, ShapeStyle, Transform } from './protocol.js';
+import type { PdfObject, Rgba, ShapeKind, ShapeStyle, Transform } from './protocol.js';
 import { fieldsStyle, hintStyle, sectionStyle, propertiesContentStyle, propertiesScrollStyle, propertiesActionsStyle, rowStyle } from './styles.js';
 import { DEFAULT_SHAPE_STYLE } from './drawing.js';
 import { fromOklch, toOklch } from './color.js';
@@ -32,10 +32,19 @@ interface PropertiesProps {
     onRemove: () => void;
     onReplace: () => void;
     onClose: () => void;
+    showHeader?: boolean;
 }
 
-export default function PropertiesPanel({ object, draft, fonts, disabled, busy, onDraft, onApply, onRemove, onReplace, onClose }: PropertiesProps) {
-    const { text, actionLabel, objectReason } = usePdfLocale();
+export function PropertiesHeader({ object, shape, onClose }: { object?: PdfObject; shape?: ShapeKind; onClose: () => void }) {
+    const { text, actionLabel } = usePdfLocale();
+    const title = shape ? text('{shape}设置', { shape: actionLabel(shape) })
+        : object?.shape ? text('{shape}属性', { shape: actionLabel(object.shape) })
+            : object?.kind === 'text' ? text('文字属性') : object?.kind === 'image' ? text('图片属性') : object ? text('对象信息') : text('对象属性');
+    return <PanelHeader panel="properties" onClose={onClose} title={title} />;
+}
+
+export default function PropertiesPanel({ object, draft, fonts, disabled, busy, onDraft, onApply, onRemove, onReplace, onClose, showHeader = true }: PropertiesProps) {
+    const { text, objectReason } = usePdfLocale();
     const colorId = useId();
     const change = (value: ObjectDraft) => { if (!disabled && !busy) onDraft(value); };
     const geometry = (key: keyof Transform, value: number | null) => {
@@ -43,7 +52,7 @@ export default function PropertiesPanel({ object, draft, fonts, disabled, busy, 
     };
     return <BusyRegion className={propertiesContentStyle} busy={busy}>
         <div className={cx(sectionStyle, propertiesScrollStyle)} role="region" aria-label={text('属性字段')}>
-            <PanelHeader panel="properties" onClose={onClose} title={object.shape ? text('{shape}属性', { shape: actionLabel(object.shape) }) : object.kind === 'text' ? text('文字属性') : object.kind === 'image' ? text('图片属性') : text('对象信息')} />
+            {showHeader && <PropertiesHeader object={object} onClose={onClose} />}
             {object.reason ? <p className={hintStyle}>{objectReason(object)}</p> : <>
                 {object.kind === 'text' && <>
                     <TextEdit label={text('文字内容')} value={draft.text} rows={3} resize="none" disabled={disabled || !fonts.length} onValueChange={value => change({ ...draft, text: value })} />

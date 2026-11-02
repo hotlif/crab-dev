@@ -122,7 +122,7 @@ for (const config of configurations)
 test(
     "configuration changes keep the actual control and its value",
     { tag: ["@rc-number-edit", "@boundary", "@chromium-only"] },
-    async ({ page, previewOrigin }) => {
+    async ({ page, previewOrigin }, info) => {
         await openDemo(
             page,
             previewOrigin,
@@ -138,6 +138,7 @@ test(
         await control.fill("12.");
         await expect(control).toHaveValue("12.");
         const original = await control.elementHandle();
+        const wheelObservations = [];
         for (const [index, config] of configurations.entries()) {
             await page.evaluate(
                 (configuration) =>
@@ -160,6 +161,34 @@ test(
                 true,
             );
             await expect(control).toHaveValue("12.");
+            await expect(control).toBeFocused();
+            const bounds = await control.boundingBox();
+            await page.mouse.move(bounds.x + bounds.width / 2, bounds.y + bounds.height / 2);
+            await control.evaluate(node => {
+                globalThis.numberWheelObservations = [];
+                node.addEventListener('wheel', event => globalThis.numberWheelObservations.push({
+                    trusted: event.isTrusted, deltaX: event.deltaX, deltaY: event.deltaY, ctrlKey: event.ctrlKey, prevented: event.defaultPrevented,
+                }), { once: true });
+            });
+            await page.mouse.wheel(80, 0);
+            await expect.poll(() => page.evaluate(() => globalThis.numberWheelObservations.length)).toBe(1);
+            const [wheel] = await page.evaluate(() => globalThis.numberWheelObservations);
+            expect(wheel).toMatchObject({ trusted: true, deltaX: 80, deltaY: 0, prevented: false });
+            wheelObservations.push({ config, wheel });
+            await expect(control).toHaveValue('12.');
         }
+        await control.evaluate(node => {
+            globalThis.numberWheelObservations = [];
+            node.addEventListener('wheel', event => globalThis.numberWheelObservations.push({
+                trusted: event.isTrusted, ctrlKey: event.ctrlKey, prevented: event.defaultPrevented,
+            }), { once: true });
+        });
+        await page.keyboard.down('Control');
+        try { await page.mouse.wheel(0, -80); }
+        finally { await page.keyboard.up('Control'); }
+        await expect.poll(() => page.evaluate(() => globalThis.numberWheelObservations.length)).toBe(1);
+        expect((await page.evaluate(() => globalThis.numberWheelObservations))[0]).toMatchObject({ trusted: true, ctrlKey: true, prevented: false });
+        await expect(control).toHaveValue('12.');
+        await info.attach('native-wheel-preservation', { body: JSON.stringify(wheelObservations), contentType: 'application/json' });
     },
 );

@@ -1,6 +1,16 @@
 import { test, expect, configurations, openDemo, readVisualSpec, settleFiniteAnimations, captureVisual, environmentCases, applyEnvironment } from '../../../test/visual/component-fixture.mjs';
 import { readyPdf, waitForPdfPresentation } from './pdf-editor.visual-helpers.mjs';
 const spec = await readVisualSpec(import.meta.url);
+async function expectDocumentThumbnails(scene) {
+    const thumbnails = scene.getByRole('option');
+    await expect(thumbnails).toHaveCount(2);
+    const corners = await thumbnails.evaluateAll(nodes => nodes.map(node => {
+        const box = node.getBoundingClientRect(), style = getComputedStyle(node);
+        return { radius: parseFloat(style.borderTopLeftRadius), limit: Math.min(box.width, box.height) / 4 };
+    }));
+    for (const corner of corners) expect(corner.radius).toBeLessThan(corner.limit);
+    expect(corners[0].radius).toBe(corners[1].radius);
+}
 async function capture(scene, name, browserName, info, documentId = 'professional-visual', target = scene) {
     if (documentId !== null) await waitForPdfPresentation(scene, documentId);
     await settleFiniteAnimations(scene.page());
@@ -12,6 +22,7 @@ for (const config of configurations) for (const size of spec.sizes) for (const d
         await openDemo(page, previewOrigin, 'rc-pdf-editor', spec.demo, { ...config, size, density });
         const scene = await readyPdf(page), toolbar = scene.getByRole('toolbar', { name: 'PDF 编辑工具栏', exact: true });
         const open = toolbar.getByRole('button', { name: '打开 PDF', exact: true });
+        if (state === 'default') await expectDocumentThumbnails(scene);
         if (state === 'hover') { await open.hover(); await expect(page.getByRole('tooltip')).toBeVisible(); }
         if (state === 'focus-visible') {
             await page.getByRole('checkbox', { name: '只读模式', exact: true }).focus(); await page.keyboard.press('Tab');
@@ -37,7 +48,9 @@ for (const config of configurations) for (const size of spec.sizes) for (const d
             await expect(scene.getByRole('heading', { name: '在本地编辑 PDF', exact: true })).toBeVisible();
         }
         if (state === 'read-only') {
-            await page.getByRole('checkbox', { name: '只读模式', exact: true }).check();
+            const readOnly = page.getByRole('checkbox', { name: '只读模式', exact: true });
+            await readOnly.locator('..').click();
+            await expect(readOnly).toBeChecked();
             await expect(scene.getByRole('button', { name: '矩形边框', exact: true })).toBeDisabled();
             await expect(scene.getByRole('button', { name: '适应页面', exact: true })).toBeEnabled();
         }
@@ -91,13 +104,14 @@ for (const environment of environmentCases) test.describe('PdfEditor environment
         await page.getByRole('button', { name: '打开长文件名', exact: true }).click();
         await expect(scene).toHaveAttribute('data-document', 'professional-long');
         await expect(scene.locator('[aria-busy]').first()).toHaveAttribute('aria-busy', 'false');
-        await expect(scene.getByRole('toolbar', { name: en ? 'PDF editor toolbar' : 'PDF 编辑工具栏', exact: true })).toContainText('Enterprise professional document workspace');
+        await expect(scene.getByRole('toolbar', { name: en ? 'PDF editing toolbar' : 'PDF 编辑工具栏', exact: true })).toContainText('Enterprise professional document workspace');
         const tool = scene.getByRole('button', { name: en ? 'Rectangle' : '矩形边框', exact: true });
         if (environment.hasTouch) {
             const bounds = await tool.locator(':scope > span[aria-hidden=true]').first().boundingBox();
             expect(bounds.height).toBeGreaterThanOrEqual(44); expect(bounds.width).toBeGreaterThanOrEqual(44); await tool.tap();
         } else { await tool.focus(); await page.keyboard.press('Space'); }
         await expect(tool).toHaveAttribute('aria-pressed', 'true');
+        if (environment.id === 'forced-colors') await expectDocumentThumbnails(scene);
         expect(await scene.evaluate(node => node.getBoundingClientRect().right <= globalThis.innerWidth + 1)).toBe(true);
         await capture(scene, config.designSystem + '-' + config.colorMode + '-' + environment.id + '.png', browserName, info, 'professional-long');
     });

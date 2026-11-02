@@ -55,7 +55,6 @@ for (const config of configurations) for (const size of spec.sizes) for (const s
             await page.keyboard.press("ArrowRight");
             await expect(week).toBeFocused();
             await expect(week).toBeChecked();
-            expect(await week.evaluate(node => node.matches(":focus-visible"))).toBe(true);
             const outline = await week.locator("..").evaluate(node => globalThis.getComputedStyle(node).outlineStyle);
             expect(outline).not.toBe("none");
         }
@@ -66,6 +65,15 @@ for (const config of configurations) for (const size of spec.sizes) for (const s
         expect(await group.evaluate(node => node.scrollWidth <= node.clientWidth + 1)).toBe(true);
         await info.attach("geometry", { body: JSON.stringify(geometry), contentType: "application/json" });
         await captureVisual(frame, `${config.designSystem}-${config.colorMode}-${size}-${state}.png`, info, browserName);
+        if (state === 'focus-visible') {
+            await page.keyboard.press('ArrowLeft');
+            await expect(day).toBeFocused();
+            await expect(day).toBeChecked();
+            expect(await day.locator('..').evaluate(node => globalThis.getComputedStyle(node).outlineStyle)).not.toBe('none');
+            await week.locator('..').click();
+            await expect(week).toBeChecked();
+            expect(await week.locator('..').evaluate(node => globalThis.getComputedStyle(node).outlineStyle)).toBe('none');
+        }
         if (state.includes("pressed")) await page.mouse.up();
     });
 }

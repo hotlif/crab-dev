@@ -1,4 +1,4 @@
-import { useEffect, useRef, type Key, type RefObject } from 'react';
+import { useEffect, useLayoutEffect, useRef, type Key, type RefObject } from 'react';
 import { useEventCallback } from '@crab-dev/rc-hooks';
 import type { MenuProps, MenuOpenKeysChangeDetails } from './menu.js';
 import type { Item } from './type.js';
@@ -10,7 +10,11 @@ function branchKeys(item: Item): Key[] { return [item.key, ...(item.children ?? 
 export function useMenuDisclosure(openKeys: Key[], onChange: MenuProps['onOpenKeysChange'], root: RefObject<HTMLElement | null>) {
     const pending = useRef(new WeakMap<Event, PendingDismiss>());
     const timers = useRef(new Set<ReturnType<typeof setTimeout>>());
+    const hoverOpened = useRef(new Set<Key>());
     const mounted = useRef(true);
+    useLayoutEffect(() => {
+        for (const key of hoverOpened.current) if (!openKeys.includes(key)) hoverOpened.current.delete(key);
+    }, [openKeys]);
     useEffect(() => {
         mounted.current = true;
         return () => {
@@ -18,6 +22,7 @@ export function useMenuDisclosure(openKeys: Key[], onChange: MenuProps['onOpenKe
             for (const timer of timers.current) clearTimeout(timer);
             timers.current.clear();
             pending.current = new WeakMap();
+            hoverOpened.current.clear();
         };
     }, []);
     // Queued native events need the latest committed collection, outside an Effect.
@@ -29,6 +34,15 @@ export function useMenuDisclosure(openKeys: Key[], onChange: MenuProps['onOpenKe
     const requestOpen = (item: Item, depth: number, next: boolean, event?: MenuOpenKeysChangeDetails['event'], dismissal?: 'hover' | 'outside-press') => {
         if (next === openKeys.includes(item.key)) return;
         const keys = branchKeys(item);
+        if (next) {
+            if (dismissal === 'hover') hoverOpened.current.add(item.key);
+            else hoverOpened.current.delete(item.key);
+        } else {
+            // Pointer entry can open before the click arrives. Treat that first
+            // click as activation, then let subsequent clicks toggle normally.
+            if (!dismissal && event?.type === 'click' && hoverOpened.current.delete(item.key)) return;
+            keys.forEach(key => hoverOpened.current.delete(key));
+        }
         if (!next && dismissal && event) {
             const nativeEvent = 'nativeEvent' in event ? event.nativeEvent : event;
             const outside = dismissal === 'outside-press' && (!root.current || !nativeEvent.composedPath().includes(root.current));
@@ -56,6 +70,7 @@ export function useMenuDisclosure(openKeys: Key[], onChange: MenuProps['onOpenKe
         onChange?.(next ? [...openKeys, item.key] : openKeys.filter(key => !keys.includes(key)), { reason: next ? 'expand' : 'collapse', item, event });
     };
     const closeAll = (item: Item, event?: MenuOpenKeysChangeDetails['event']) => {
+        hoverOpened.current.clear();
         if (openKeys.length) onChange?.([], { reason: 'collapse', item, event });
     };
     return { requestOpen, closeAll };

@@ -1,0 +1,1257 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-11-02T05:13:39.087Z",
+  "policy": "Canonical Linux observations from frozen runs; latest attempted cell wins. Historical failures remain in runs.json. This union reports case coverage separately from manual image review, runtime-source compatibility, baseline approval and CI.",
+  "packages": [
+    {
+      "package": "@crab-dev/rc-alert",
+      "projects": {
+        "chromium": {
+          "expected": 48,
+          "passed": 48,
+          "remaining": []
+        },
+        "firefox": {
+          "expected": 18,
+          "passed": 18,
+          "remaining": []
+        },
+        "webkit": {
+          "expected": 18,
+          "passed": 18,
+          "remaining": []
+        }
+      },
+      "environments": {
+        "expected": 66,
+        "passed": 66,
+        "remaining": []
+      }
+    },
+    {
+      "package": "@crab-dev/rc-app-main-layout",
+      "projects": {
+        "chromium": {
+          "expected": 270,
+          "passed": 270,
+          "remaining": []
+        },
+        "firefox": {
+          "expected": 24,
+          "passed": 24,
+          "remaining": []
+        },
+        "webkit": {
+          "expected": 24,
+          "passed": 24,
+          "remaining": []
+        }
+      },
+      "environments": {
+        "expected": 66,
+        "passed": 66,
+        "remaining": []
+      }
+    },
+    {
+      "package": "@crab-dev/rc-avatar",
+      "projects": {
+        "chromium": {
+          "expected": 144,
+          "passed": 144,
+          "remaining": []
+        },
+        "firefox": {
+          "expected": 18,
+          "passed": 18,
+          "remaining": []
+        },
+        "webkit": {
+          "expected": 18,
+          "passed": 18,
+          "remaining": []
+        }
+      },
+      "environments": {
+        "expected": 66,
+        "passed": 66,
+        "remaining": []
+      }
+    },
+    {
+      "package": "@crab-dev/rc-badge",
+      "projects": {
+        "chromium": {
+          "expected": 84,
+          "passed": 84,
+          "remaining": []
+        },
+        "firefox": {
+          "expected": 6,
+          "passed": 6,
+          "remaining": []
+        },
+        "webkit": {
+          "expected": 6,
+          "passed": 6,
+          "remaining": []
+        }
+      },
+      "environments": {
+        "expected": 66,
+        "passed": 66,
+        "remaining": []
+      }
+    },
+    {
+      "package": "@crab-dev/rc-bar-chart",
+      "projects": {
+        "chromium": {
+          "expected": 180,
+          "passed": 180,
+          "remaining": []
+        },
+        "firefox": {
+          "expected": 24,
+          "passed": 24,
+          "remaining": []
+        },
+        "webkit": {
+          "expected": 24,
+          "passed": 24,
+          "remaining": []
+        }
+      },
+      "environments": {
+        "expected": 66,
+        "passed": 66,
+        "remaining": []
+      }
+    },
+    {
+      "package": "@crab-dev/rc-breadcrumbs",
+      "projects": {
+        "chromium": {
+          "expected": 144,
+          "passed": 144,
+          "remaining": []
+        },
+        "firefox": {
+          "expected": 36,
+          "passed": 36,
+          "remaining": []
+        },
+        "webkit": {
+          "expected": 36,
+          "passed": 36,
+          "remaining": []
+        }
+      },
+      "environments": {
+        "expected": 66,
+        "passed": 66,
+        "remaining": []
+      }
+    },
+    {
+      "package": "@crab-dev/rc-button",
+      "projects": {
+        "chromium": {
+          "expected": 270,
+          "passed": 270,
+          "remaining": []
+        },
+        "firefox": {
+          "expected": 18,
+          "passed": 18,
+          "remaining": []
+        },
+        "webkit": {
+          "expected": 18,
+          "passed": 18,
+          "remaining": []
+        }
+      },
+      "environments": {
+        "expected": 66,
+        "passed": 66,
+        "remaining": []
+      }
+    },
+    {
+      "package": "@crab-dev/rc-canvas",
+      "projects": {
+        "chromium": {
+          "expected": 60,
+          "passed": 60,
+          "remaining": []
+        },
+        "firefox": {
+          "expected": 24,
+          "passed": 24,
+          "remaining": []
+        },
+        "webkit": {
+          "expected": 24,
+          "passed": 24,
+          "remaining": []
+        }
+      },
+      "environments": {
+        "expected": 66,
+        "passed": 66,
+        "remaining": []
+      }
+    },
+    {
+      "package": "@crab-dev/rc-card",
+      "projects": {
+        "chromium": {
+          "expected": 486,
+          "passed": 486,
+          "remaining": []
+        },
+        "firefox": {
+          "expected": 18,
+          "passed": 18,
+          "remaining": []
+        },
+        "webkit": {
+          "expected": 18,
+          "passed": 18,
+          "remaining": []
+        }
+      },
+      "environments": {
+        "expected": 66,
+        "passed": 66,
+        "remaining": []
+      }
+    },
+    {
+      "package": "@crab-dev/rc-checkbox",
+      "projects": {
+        "chromium": {
+          "expected": 270,
+          "passed": 270,
+          "remaining": []
+        },
+        "firefox": {
+          "expected": 24,
+          "passed": 24,
+          "remaining": []
+        },
+        "webkit": {
+          "expected": 24,
+          "passed": 24,
+          "remaining": []
+        }
+      },
+      "environments": {
+        "expected": 66,
+        "passed": 66,
+        "remaining": []
+      }
+    },
+    {
+      "package": "@crab-dev/rc-color-picker",
+      "projects": {
+        "chromium": {
+          "expected": 126,
+          "passed": 126,
+          "remaining": []
+        },
+        "firefox": {
+          "expected": 24,
+          "passed": 24,
+          "remaining": []
+        },
+        "webkit": {
+          "expected": 24,
+          "passed": 24,
+          "remaining": []
+        }
+      },
+      "environments": {
+        "expected": 66,
+        "passed": 66,
+        "remaining": []
+      }
+    },
+    {
+      "package": "@crab-dev/rc-component-preview",
+      "projects": {
+        "chromium": {
+          "expected": 180,
+          "passed": 180,
+          "remaining": []
+        },
+        "firefox": {
+          "expected": 30,
+          "passed": 30,
+          "remaining": []
+        },
+        "webkit": {
+          "expected": 30,
+          "passed": 30,
+          "remaining": []
+        }
+      },
+      "environments": {
+        "expected": 66,
+        "passed": 66,
+        "remaining": []
+      }
+    },
+    {
+      "package": "@crab-dev/rc-config-provider",
+      "projects": {
+        "chromium": {
+          "expected": 216,
+          "passed": 216,
+          "remaining": []
+        },
+        "firefox": {
+          "expected": 18,
+          "passed": 18,
+          "remaining": []
+        },
+        "webkit": {
+          "expected": 18,
+          "passed": 18,
+          "remaining": []
+        }
+      },
+      "environments": {
+        "expected": 66,
+        "passed": 66,
+        "remaining": []
+      }
+    },
+    {
+      "package": "@crab-dev/rc-cron-picker",
+      "projects": {
+        "chromium": {
+          "expected": 1674,
+          "passed": 1674,
+          "remaining": []
+        },
+        "firefox": {
+          "expected": 78,
+          "passed": 78,
+          "remaining": []
+        },
+        "webkit": {
+          "expected": 78,
+          "passed": 78,
+          "remaining": []
+        }
+      },
+      "environments": {
+        "expected": 66,
+        "passed": 66,
+        "remaining": []
+      }
+    },
+    {
+      "package": "@crab-dev/rc-date-picker",
+      "projects": {
+        "chromium": {
+          "expected": 1674,
+          "passed": 1674,
+          "remaining": []
+        },
+        "firefox": {
+          "expected": 114,
+          "passed": 114,
+          "remaining": []
+        },
+        "webkit": {
+          "expected": 114,
+          "passed": 114,
+          "remaining": []
+        }
+      },
+      "environments": {
+        "expected": 66,
+        "passed": 66,
+        "remaining": []
+      }
+    },
+    {
+      "package": "@crab-dev/rc-dialog",
+      "projects": {
+        "chromium": {
+          "expected": 48,
+          "passed": 48,
+          "remaining": []
+        },
+        "firefox": {
+          "expected": 30,
+          "passed": 30,
+          "remaining": []
+        },
+        "webkit": {
+          "expected": 30,
+          "passed": 30,
+          "remaining": []
+        }
+      },
+      "environments": {
+        "expected": 66,
+        "passed": 66,
+        "remaining": []
+      }
+    },
+    {
+      "package": "@crab-dev/rc-divider",
+      "projects": {
+        "chromium": {
+          "expected": 144,
+          "passed": 144,
+          "remaining": []
+        },
+        "firefox": {
+          "expected": 6,
+          "passed": 6,
+          "remaining": []
+        },
+        "webkit": {
+          "expected": 6,
+          "passed": 6,
+          "remaining": []
+        }
+      },
+      "environments": {
+        "expected": 66,
+        "passed": 66,
+        "remaining": []
+      }
+    },
+    {
+      "package": "@crab-dev/rc-drawer",
+      "projects": {
+        "chromium": {
+          "expected": 108,
+          "passed": 108,
+          "remaining": []
+        },
+        "firefox": {
+          "expected": 24,
+          "passed": 24,
+          "remaining": []
+        },
+        "webkit": {
+          "expected": 24,
+          "passed": 24,
+          "remaining": []
+        }
+      },
+      "environments": {
+        "expected": 66,
+        "passed": 66,
+        "remaining": []
+      }
+    },
+    {
+      "package": "@crab-dev/rc-dropdown-container",
+      "projects": {
+        "chromium": {
+          "expected": 72,
+          "passed": 72,
+          "remaining": []
+        },
+        "firefox": {
+          "expected": 24,
+          "passed": 24,
+          "remaining": []
+        },
+        "webkit": {
+          "expected": 24,
+          "passed": 24,
+          "remaining": []
+        }
+      },
+      "environments": {
+        "expected": 66,
+        "passed": 66,
+        "remaining": []
+      }
+    },
+    {
+      "package": "@crab-dev/rc-empty",
+      "projects": {
+        "chromium": {
+          "expected": 144,
+          "passed": 144,
+          "remaining": []
+        },
+        "firefox": {
+          "expected": 18,
+          "passed": 18,
+          "remaining": []
+        },
+        "webkit": {
+          "expected": 18,
+          "passed": 18,
+          "remaining": []
+        }
+      },
+      "environments": {
+        "expected": 66,
+        "passed": 66,
+        "remaining": []
+      }
+    },
+    {
+      "package": "@crab-dev/rc-flow-diagram",
+      "projects": {
+        "chromium": {
+          "expected": 48,
+          "passed": 48,
+          "remaining": []
+        },
+        "firefox": {
+          "expected": 24,
+          "passed": 24,
+          "remaining": []
+        },
+        "webkit": {
+          "expected": 24,
+          "passed": 24,
+          "remaining": []
+        }
+      },
+      "environments": {
+        "expected": 66,
+        "passed": 66,
+        "remaining": []
+      }
+    },
+    {
+      "package": "@crab-dev/rc-form",
+      "projects": {
+        "chromium": {
+          "expected": 486,
+          "passed": 486,
+          "remaining": []
+        },
+        "firefox": {
+          "expected": 30,
+          "passed": 30,
+          "remaining": []
+        },
+        "webkit": {
+          "expected": 30,
+          "passed": 30,
+          "remaining": []
+        }
+      },
+      "environments": {
+        "expected": 66,
+        "passed": 66,
+        "remaining": []
+      }
+    },
+    {
+      "package": "@crab-dev/rc-line-edit",
+      "projects": {
+        "chromium": {
+          "expected": 288,
+          "passed": 288,
+          "remaining": []
+        },
+        "firefox": {
+          "expected": 42,
+          "passed": 42,
+          "remaining": []
+        },
+        "webkit": {
+          "expected": 42,
+          "passed": 42,
+          "remaining": []
+        }
+      },
+      "environments": {
+        "expected": 66,
+        "passed": 66,
+        "remaining": []
+      }
+    },
+    {
+      "package": "@crab-dev/rc-masonry",
+      "projects": {
+        "chromium": {
+          "expected": 72,
+          "passed": 72,
+          "remaining": []
+        },
+        "firefox": {
+          "expected": 24,
+          "passed": 24,
+          "remaining": []
+        },
+        "webkit": {
+          "expected": 24,
+          "passed": 24,
+          "remaining": []
+        }
+      },
+      "environments": {
+        "expected": 66,
+        "passed": 66,
+        "remaining": []
+      }
+    },
+    {
+      "package": "@crab-dev/rc-menu",
+      "projects": {
+        "chromium": {
+          "expected": 198,
+          "passed": 198,
+          "remaining": []
+        },
+        "firefox": {
+          "expected": 48,
+          "passed": 48,
+          "remaining": []
+        },
+        "webkit": {
+          "expected": 48,
+          "passed": 48,
+          "remaining": []
+        }
+      },
+      "environments": {
+        "expected": 66,
+        "passed": 66,
+        "remaining": []
+      }
+    },
+    {
+      "package": "@crab-dev/rc-message",
+      "projects": {
+        "chromium": {
+          "expected": 48,
+          "passed": 48,
+          "remaining": []
+        },
+        "firefox": {
+          "expected": 6,
+          "passed": 6,
+          "remaining": []
+        },
+        "webkit": {
+          "expected": 6,
+          "passed": 6,
+          "remaining": []
+        }
+      },
+      "environments": {
+        "expected": 66,
+        "passed": 66,
+        "remaining": []
+      }
+    },
+    {
+      "package": "@crab-dev/rc-notification",
+      "projects": {
+        "chromium": {
+          "expected": 66,
+          "passed": 66,
+          "remaining": []
+        },
+        "firefox": {
+          "expected": 18,
+          "passed": 18,
+          "remaining": []
+        },
+        "webkit": {
+          "expected": 18,
+          "passed": 18,
+          "remaining": []
+        }
+      },
+      "environments": {
+        "expected": 66,
+        "passed": 66,
+        "remaining": []
+      }
+    },
+    {
+      "package": "@crab-dev/rc-number-edit",
+      "projects": {
+        "chromium": {
+          "expected": 396,
+          "passed": 396,
+          "remaining": []
+        },
+        "firefox": {
+          "expected": 48,
+          "passed": 48,
+          "remaining": []
+        },
+        "webkit": {
+          "expected": 48,
+          "passed": 48,
+          "remaining": []
+        }
+      },
+      "environments": {
+        "expected": 66,
+        "passed": 66,
+        "remaining": []
+      }
+    },
+    {
+      "package": "@crab-dev/rc-pagination",
+      "projects": {
+        "chromium": {
+          "expected": 486,
+          "passed": 486,
+          "remaining": []
+        },
+        "firefox": {
+          "expected": 36,
+          "passed": 36,
+          "remaining": []
+        },
+        "webkit": {
+          "expected": 36,
+          "passed": 36,
+          "remaining": []
+        }
+      },
+      "environments": {
+        "expected": 66,
+        "passed": 66,
+        "remaining": []
+      }
+    },
+    {
+      "package": "@crab-dev/rc-pdf-editor",
+      "projects": {
+        "chromium": {
+          "expected": 702,
+          "passed": 702,
+          "remaining": []
+        },
+        "firefox": {
+          "expected": 36,
+          "passed": 36,
+          "remaining": []
+        },
+        "webkit": {
+          "expected": 36,
+          "passed": 36,
+          "remaining": []
+        }
+      },
+      "environments": {
+        "expected": 66,
+        "passed": 66,
+        "remaining": []
+      }
+    },
+    {
+      "package": "@crab-dev/rc-prose",
+      "projects": {
+        "chromium": {
+          "expected": 96,
+          "passed": 96,
+          "remaining": []
+        },
+        "firefox": {
+          "expected": 18,
+          "passed": 18,
+          "remaining": []
+        },
+        "webkit": {
+          "expected": 18,
+          "passed": 18,
+          "remaining": []
+        }
+      },
+      "environments": {
+        "expected": 66,
+        "passed": 66,
+        "remaining": []
+      }
+    },
+    {
+      "package": "@crab-dev/rc-radio",
+      "projects": {
+        "chromium": {
+          "expected": 216,
+          "passed": 216,
+          "remaining": []
+        },
+        "firefox": {
+          "expected": 24,
+          "passed": 24,
+          "remaining": []
+        },
+        "webkit": {
+          "expected": 24,
+          "passed": 24,
+          "remaining": []
+        }
+      },
+      "environments": {
+        "expected": 66,
+        "passed": 66,
+        "remaining": []
+      }
+    },
+    {
+      "package": "@crab-dev/rc-realm",
+      "projects": {
+        "chromium": {
+          "expected": 126,
+          "passed": 126,
+          "remaining": []
+        },
+        "firefox": {
+          "expected": 36,
+          "passed": 36,
+          "remaining": []
+        },
+        "webkit": {
+          "expected": 36,
+          "passed": 36,
+          "remaining": []
+        }
+      },
+      "environments": {
+        "expected": 66,
+        "passed": 66,
+        "remaining": []
+      }
+    },
+    {
+      "package": "@crab-dev/rc-segmented",
+      "projects": {
+        "chromium": {
+          "expected": 162,
+          "passed": 162,
+          "remaining": []
+        },
+        "firefox": {
+          "expected": 24,
+          "passed": 24,
+          "remaining": []
+        },
+        "webkit": {
+          "expected": 24,
+          "passed": 24,
+          "remaining": []
+        }
+      },
+      "environments": {
+        "expected": 66,
+        "passed": 66,
+        "remaining": []
+      }
+    },
+    {
+      "package": "@crab-dev/rc-select",
+      "projects": {
+        "chromium": {
+          "expected": 594,
+          "passed": 594,
+          "remaining": []
+        },
+        "firefox": {
+          "expected": 30,
+          "passed": 30,
+          "remaining": []
+        },
+        "webkit": {
+          "expected": 30,
+          "passed": 30,
+          "remaining": []
+        }
+      },
+      "environments": {
+        "expected": 66,
+        "passed": 66,
+        "remaining": []
+      }
+    },
+    {
+      "package": "@crab-dev/rc-skeleton",
+      "projects": {
+        "chromium": {
+          "expected": 90,
+          "passed": 90,
+          "remaining": []
+        },
+        "firefox": {
+          "expected": 6,
+          "passed": 6,
+          "remaining": []
+        },
+        "webkit": {
+          "expected": 6,
+          "passed": 6,
+          "remaining": []
+        }
+      },
+      "environments": {
+        "expected": 66,
+        "passed": 66,
+        "remaining": []
+      }
+    },
+    {
+      "package": "@crab-dev/rc-slider",
+      "projects": {
+        "chromium": {
+          "expected": 270,
+          "passed": 270,
+          "remaining": []
+        },
+        "firefox": {
+          "expected": 36,
+          "passed": 36,
+          "remaining": []
+        },
+        "webkit": {
+          "expected": 36,
+          "passed": 36,
+          "remaining": []
+        }
+      },
+      "environments": {
+        "expected": 66,
+        "passed": 66,
+        "remaining": []
+      }
+    },
+    {
+      "package": "@crab-dev/rc-spin",
+      "projects": {
+        "chromium": {
+          "expected": 108,
+          "passed": 108,
+          "remaining": []
+        },
+        "firefox": {
+          "expected": 24,
+          "passed": 24,
+          "remaining": []
+        },
+        "webkit": {
+          "expected": 24,
+          "passed": 24,
+          "remaining": []
+        }
+      },
+      "environments": {
+        "expected": 60,
+        "passed": 60,
+        "remaining": []
+      }
+    },
+    {
+      "package": "@crab-dev/rc-split-pane",
+      "projects": {
+        "chromium": {
+          "expected": 48,
+          "passed": 48,
+          "remaining": []
+        },
+        "firefox": {
+          "expected": 30,
+          "passed": 30,
+          "remaining": []
+        },
+        "webkit": {
+          "expected": 30,
+          "passed": 30,
+          "remaining": []
+        }
+      },
+      "environments": {
+        "expected": 66,
+        "passed": 66,
+        "remaining": []
+      }
+    },
+    {
+      "package": "@crab-dev/rc-switch",
+      "projects": {
+        "chromium": {
+          "expected": 216,
+          "passed": 216,
+          "remaining": []
+        },
+        "firefox": {
+          "expected": 24,
+          "passed": 24,
+          "remaining": []
+        },
+        "webkit": {
+          "expected": 24,
+          "passed": 24,
+          "remaining": []
+        }
+      },
+      "environments": {
+        "expected": 66,
+        "passed": 66,
+        "remaining": []
+      }
+    },
+    {
+      "package": "@crab-dev/rc-table",
+      "projects": {
+        "chromium": {
+          "expected": 432,
+          "passed": 432,
+          "remaining": []
+        },
+        "firefox": {
+          "expected": 24,
+          "passed": 24,
+          "remaining": []
+        },
+        "webkit": {
+          "expected": 24,
+          "passed": 24,
+          "remaining": []
+        }
+      },
+      "environments": {
+        "expected": 66,
+        "passed": 66,
+        "remaining": []
+      }
+    },
+    {
+      "package": "@crab-dev/rc-table-pro",
+      "projects": {
+        "chromium": {
+          "expected": 864,
+          "passed": 864,
+          "remaining": []
+        },
+        "firefox": {
+          "expected": 60,
+          "passed": 60,
+          "remaining": []
+        },
+        "webkit": {
+          "expected": 60,
+          "passed": 60,
+          "remaining": []
+        }
+      },
+      "environments": {
+        "expected": 66,
+        "passed": 66,
+        "remaining": []
+      }
+    },
+    {
+      "package": "@crab-dev/rc-tabs",
+      "projects": {
+        "chromium": {
+          "expected": 1296,
+          "passed": 1296,
+          "remaining": []
+        },
+        "firefox": {
+          "expected": 66,
+          "passed": 66,
+          "remaining": []
+        },
+        "webkit": {
+          "expected": 66,
+          "passed": 66,
+          "remaining": []
+        }
+      },
+      "environments": {
+        "expected": 66,
+        "passed": 66,
+        "remaining": []
+      }
+    },
+    {
+      "package": "@crab-dev/rc-tag",
+      "projects": {
+        "chromium": {
+          "expected": 378,
+          "passed": 378,
+          "remaining": []
+        },
+        "firefox": {
+          "expected": 24,
+          "passed": 24,
+          "remaining": []
+        },
+        "webkit": {
+          "expected": 24,
+          "passed": 24,
+          "remaining": []
+        }
+      },
+      "environments": {
+        "expected": 66,
+        "passed": 66,
+        "remaining": []
+      }
+    },
+    {
+      "package": "@crab-dev/rc-text-edit",
+      "projects": {
+        "chromium": {
+          "expected": 234,
+          "passed": 234,
+          "remaining": []
+        },
+        "firefox": {
+          "expected": 24,
+          "passed": 24,
+          "remaining": []
+        },
+        "webkit": {
+          "expected": 24,
+          "passed": 24,
+          "remaining": []
+        }
+      },
+      "environments": {
+        "expected": 66,
+        "passed": 66,
+        "remaining": []
+      }
+    },
+    {
+      "package": "@crab-dev/rc-theme",
+      "projects": {
+        "chromium": {
+          "expected": 18,
+          "passed": 18,
+          "remaining": []
+        },
+        "firefox": {
+          "expected": 18,
+          "passed": 18,
+          "remaining": []
+        },
+        "webkit": {
+          "expected": 18,
+          "passed": 18,
+          "remaining": []
+        }
+      },
+      "environments": {
+        "expected": 66,
+        "passed": 66,
+        "remaining": []
+      }
+    },
+    {
+      "package": "@crab-dev/rc-token-global",
+      "projects": {
+        "chromium": {
+          "expected": 6,
+          "passed": 6,
+          "remaining": []
+        },
+        "firefox": {
+          "expected": 6,
+          "passed": 6,
+          "remaining": []
+        },
+        "webkit": {
+          "expected": 6,
+          "passed": 6,
+          "remaining": []
+        }
+      },
+      "environments": {
+        "expected": 66,
+        "passed": 66,
+        "remaining": []
+      }
+    },
+    {
+      "package": "@crab-dev/rc-token-semantic",
+      "projects": {
+        "chromium": {
+          "expected": 12,
+          "passed": 12,
+          "remaining": []
+        },
+        "firefox": {
+          "expected": 12,
+          "passed": 12,
+          "remaining": []
+        },
+        "webkit": {
+          "expected": 12,
+          "passed": 12,
+          "remaining": []
+        }
+      },
+      "environments": {
+        "expected": 66,
+        "passed": 66,
+        "remaining": []
+      }
+    },
+    {
+      "package": "@crab-dev/rc-tooltip",
+      "projects": {
+        "chromium": {
+          "expected": 30,
+          "passed": 30,
+          "remaining": []
+        },
+        "firefox": {
+          "expected": 24,
+          "passed": 24,
+          "remaining": []
+        },
+        "webkit": {
+          "expected": 24,
+          "passed": 24,
+          "remaining": []
+        }
+      },
+      "environments": {
+        "expected": 66,
+        "passed": 66,
+        "remaining": []
+      }
+    },
+    {
+      "package": "@crab-dev/rc-tree",
+      "projects": {
+        "chromium": {
+          "expected": 540,
+          "passed": 540,
+          "remaining": []
+        },
+        "firefox": {
+          "expected": 30,
+          "passed": 30,
+          "remaining": []
+        },
+        "webkit": {
+          "expected": 30,
+          "passed": 30,
+          "remaining": []
+        }
+      },
+      "environments": {
+        "expected": 66,
+        "passed": 66,
+        "remaining": []
+      }
+    }
+  ]
+}

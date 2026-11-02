@@ -4,9 +4,10 @@ import { readSpinActivity, assertNaturalActivity } from './visual-behavior.mjs';
 
 test.use({ video: "on" });
 const spec = await readVisualSpec(import.meta.url);
-const scenarios = environmentCases.filter(scenario => !scenario.hasTouch);
+const scenarios = environmentCases.filter(scenario => !spec.notApplicable?.[scenario.id]);
 for (const config of configurations) for (const scenario of scenarios) {
     test.describe(`Spin ${config.designSystem} ${config.colorMode} ${scenario.id}`, () => {
+        test.use({ hasTouch: scenario.hasTouch ?? false });
         test("activity remains visible and contained", { tag: ["@rc-spin", "@environment", "@chromium-only"], annotation: { type: "environment", description: JSON.stringify({ id: scenario.id, ...config }) } }, async ({ page, previewOrigin }, info) => {
             await openDemo(page, previewOrigin, "rc-spin", spec.demo, { ...config, ...scenario.config });
             await applyEnvironment(page, scenario);

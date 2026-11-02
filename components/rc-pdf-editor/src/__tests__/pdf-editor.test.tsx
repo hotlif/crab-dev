@@ -383,7 +383,10 @@ describe('独立 Worker 与编辑器交互', () => {
             for (const canvas of main) expect(canvas.getContext('webgl2')!.isContextLost()).toBe(false);
             expect(bluePixels(visibleCanvas(view.container)!)).toBeGreaterThan(20);
         } finally { await view.unmount(); retired.clear(); }
-    });
+    // Eleven real page switches retain over 32 retired canvases and validate
+    // each Worker/GPU handoff. Software rendering can exceed the ordinary
+    // single-interaction budget; the per-frame assertions remain bounded.
+    }, { timeout: 90000 });
     it('连续预览与当前页只渲染一次，往返已缓存页面不会再次请求 Worker', async () => {
         const client = new PdfClient({ workerUrl, wasmBinary });
         const opened = await client.request('open', { bytes: fixture(), password: '' });
@@ -1070,11 +1073,24 @@ describe('独立 Worker 与编辑器交互', () => {
         expect(button(container, '撤销').disabled).toBe(true);
         await fireEvent.keyDown(tree, { key: 'ArrowUp' });
         expect(objectItem(container, '文字：Page 1').getAttribute('aria-selected')).toBe('true');
+        for (const control of [button(container, '收起页面面板'), button(container, '选择对象')]) {
+            await act(async () => { control.focus(); });
+            for (const key of ['ArrowDown', 'Delete', 'Backspace']) await fireEvent.keyDown(control, { key });
+            expect(button(container, '撤销').disabled).toBe(true);
+            expect(objectItem(container, '文字：Page 1').getAttribute('aria-selected')).toBe('true');
+        }
+        const closePages = button(container, '收起页面面板');
+        await fireEvent.keyDown(closePages, { key: 'ArrowRight' });
+        expect(button(container, '撤销').disabled).toBe(true);
         const canvas = container.querySelector('[aria-label="PDF 页面画布"]')!;
         await fireEvent.keyDown(canvas, { key: 'ArrowRight' });
         await settled(() => expect(button(container, '撤销').disabled).toBe(false));
-        await fireEvent.click(button(container, '撤销'));
+        const propertiesClose = button(container, '收起属性面板');
+        await act(async () => { propertiesClose.focus(); });
+        await fireEvent.keyDown(propertiesClose, { key: 'z', ctrlKey: true });
         await settled(() => expect(button(container, '重做').disabled).toBe(false));
+        expect(button(container, '收起属性面板')).toBe(propertiesClose);
+        expect(document.activeElement).toBe(propertiesClose);
         let before = 0;
         await act(async () => { before = (await ref.current!.exportPdf()).blob.size; });
         await act(async () => { await expect(ref.current!.open({ id: 'invalid', source: new Uint8Array([0, 1]) })).rejects.toThrow(); });

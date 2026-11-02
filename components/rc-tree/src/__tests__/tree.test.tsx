@@ -234,6 +234,30 @@ describe("Tree component", () => {
         expect(view.container.querySelectorAll('[role="treeitem"]')).toHaveLength(1);
     });
 
+    it('keeps checkbox keys inside the checkbox while preserving direct tree navigation', async () => {
+        const nodes = [createNode('one', { type: NodeType.FILE, priority: 1 }), createNode('two', { type: NodeType.FILE, priority: 2 })];
+        const selected = mock.fn();
+        const checked = mock.fn();
+        const view = await render(<Tree treeData={nodes} width={400} height={300} checkable defaultSelectedKeys={['one']}
+            onSelectedKeysChange={selected} onCheckedKeysChange={checked} onTreeNodeChange={mock.fn()} />);
+        const tree = screen.getByRole('tree');
+        const checkbox = view.container.querySelectorAll<HTMLInputElement>('input[type="checkbox"]')[1];
+        await act(() => checkbox.focus());
+        const activeNode = tree.getAttribute('aria-activedescendant');
+        for (const key of ['ArrowDown', 'Enter']) {
+            await fireEvent.keyDown(checkbox, { key });
+            expect(selected).not.toHaveBeenCalled();
+            expect(tree.getAttribute('aria-activedescendant')).toBe(activeNode);
+            expect(document.activeElement).toBe(checkbox);
+        }
+        await fireEvent.click(checkbox);
+        expect(checked).toHaveBeenCalledWith(['two'], expect.objectContaining({ reason: 'check', node: nodes[1], checked: true }));
+        expect(selected).not.toHaveBeenCalled();
+        await act(() => tree.focus());
+        await fireEvent.keyDown(tree, { key: 'ArrowDown' });
+        expect(selected).toHaveBeenCalledWith(['two'], expect.objectContaining({ reason: 'select', node: nodes[1] }));
+    });
+
     it('inherits built-in accessible names from the nearest locale boundary', async () => {
         await render(<ConfigProvider locale="en-US"><Tree treeData={[createNode('one')]} width={400} height={300} checkable onTreeNodeChange={mock.fn()} /></ConfigProvider>);
         expect(screen.getByRole('checkbox', { name: 'Select node' })).toBeTruthy();

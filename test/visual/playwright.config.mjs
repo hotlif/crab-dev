@@ -1,4 +1,4 @@
-import { defineConfig } from "@playwright/test";
+import { defineConfig, firefox } from "@playwright/test";
 import { readFileSync } from "node:fs";
 import path from "node:path";
 import { repositoryRoot } from "../../scripts/library-manifest.mjs";
@@ -8,6 +8,7 @@ const job = process.env.CRAB_VISUAL_JOB ? JSON.parse(readFileSync(process.env.CR
 const output = job?.output ?? path.join(repositoryRoot, ".cache/visual", process.env.CRAB_VISUAL_RUN ?? "current");
 const browserPath = process.env.CRAB_TEST_BROWSER_PATH ?? job?.browserPath;
 const selected = process.env.CRAB_VISUAL_PACKAGE;
+const firefoxWrapper = process.platform === 'linux' && process.env.CRAB_VISUAL_IMAGE === linuxVisualImage ? process.env.CRAB_VISUAL_FIREFOX_WRAPPER : undefined;
 
 export default defineConfig({
     testDir: job ? "." : repositoryRoot,
@@ -44,7 +45,14 @@ export default defineConfig({
             ...(browserName === 'chromium' ? { channel: 'chromium' } : {}),
             ...(browserName === 'firefox' && process.env.CRAB_VISUAL_IMAGE === linuxVisualImage ? { headless: false } : {}),
             // Worker browser startup has its own timeout, outside test.timeout.
-            launchOptions: { timeout: 30_000, ...(browserName === 'chromium' && browserPath ? { executablePath: browserPath } : {}) },
+            launchOptions: {
+                timeout: 30_000,
+                ...(browserName === 'chromium' && browserPath ? { executablePath: browserPath } : {}),
+                ...(browserName === 'firefox' && firefoxWrapper ? {
+                    executablePath: firefoxWrapper,
+                    env: { ...process.env, CRAB_VISUAL_FIREFOX_EXECUTABLE: firefox.executablePath() },
+                } : {}),
+            },
         },
     })),
 });

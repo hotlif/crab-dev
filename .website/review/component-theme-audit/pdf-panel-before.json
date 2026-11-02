@@ -1,0 +1,13 @@
+{
+  "method": "Manual IAB read-only DOM inspection of the actual local PDF workbench before correction",
+  "canonicalFrozenRun": false,
+  "route": "/components/rc-pdf-editor/workbench/?__wake_demo=docs%2Fdemos%2Fvisual-matrix.demo.tsx",
+  "steps": ["Select a real text object", "Fill X with 72", "Narrow viewport to 768 by 900"],
+  "observed": {
+    "activeElement": "BODY",
+    "pagesPanelHidden": true,
+    "propertiesPanelHidden": true,
+    "retainedXDisplay": "72.00"
+  },
+  "interpretation": "The numeric draft survived its normal blur formatting, but focus did not return to a usable editor control. Final cross-engine panel tests are recorded separately."
+}

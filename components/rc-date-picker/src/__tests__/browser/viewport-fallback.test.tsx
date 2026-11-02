@@ -121,7 +121,9 @@ describe('published dropdown viewport fallback with actual picker fields', () =>
                             await doc.fonts.ready;
                             const input = doc.querySelector<HTMLInputElement>('[data-viewport-picker] input');
                             if (!input) throw new Error('Actual picker input missing');
-                            const user = userEvent.setup();
+                            // Resolve keyboard focus in the real iframe document,
+                            // rather than treating the outer IFRAME as the target.
+                            const user = userEvent.setup({ document: doc });
                             // Wake's pointer target API is restricted to its own
                             // Element realm. Native DOM focus opens this real
                             // iframe field; subsequent keys use trusted CDP.
@@ -155,7 +157,7 @@ describe('published dropdown viewport fallback with actual picker fields', () =>
                             // Wake0.1.45's Enter bridge emits no native button
                             // activation; Space exercises a real default click.
                             // The recorded trusted events below must prove it.
-                            await act(() => user.keyboard(' '));
+                            await user.keyboard(' ');
                             await settle(input);
                             expect({ monthChanged: popup.textContent !== previousText, keyTrace,
                                 iframeActive: doc.activeElement?.tagName, parentActive: document.activeElement?.tagName,
@@ -166,14 +168,15 @@ describe('published dropdown viewport fallback with actual picker fields', () =>
                             if (!next) throw new Error('Real next-month button missing');
                             await act(() => next.focus({ preventScroll: true }));
                             expect(doc.activeElement).toBe(next);
-                            await act(() => user.keyboard(' '));
+                            await user.keyboard(' ');
                             await settle(input);
                             expect(popup.textContent).toBe(previousText);
                             const confirm = Array.from(popup.querySelectorAll<HTMLButtonElement>('button')).find(button => button.textContent?.trim() === '确定');
                             if (!confirm) throw new Error('Real confirm action missing');
                             // Native Tab scrolls the real clipped container; no scrollTop,
                             // scrollIntoView, synthetic keyboard event or DOM relocation.
-                            for (let step = 0; step < 70 && doc.activeElement !== confirm; step++) await act(() => user.tab());
+                            for (let step = 0; step < 70 && doc.activeElement !== confirm; step++) await user.tab();
+                            await settle(input);
                             expect(doc.activeElement).toBe(confirm);
                             expect(input.getAttribute('aria-expanded')).toBe('true');
                             visibleButton(confirm, popup);
@@ -181,7 +184,7 @@ describe('published dropdown viewport fallback with actual picker fields', () =>
                             const beforeConfirm = popup.getBoundingClientRect();
                             expect(beforeConfirm.left).toBeGreaterThanOrEqual(7.5);
                             expect(beforeConfirm.right).toBeLessThanOrEqual(scenario.width - 7.5);
-                            await act(() => user.keyboard(' '));
+                            await user.keyboard(' ');
                             await settle(input);
                             expect(input.getAttribute('aria-expanded')).toBe('false');
                         } finally {
@@ -192,7 +195,12 @@ describe('published dropdown viewport fallback with actual picker fields', () =>
                             await act(async () => { await view.unmount(); });
                             iframe.remove();
                         }
-                    });
+                    // Await native user events directly and settle real layout
+                    // separately; nesting act around IPC adds a second update
+                    // boundary. This bounded journey sends up to 70 trusted Tab
+                    // events and five layout settlements, so allow slow runners
+                    // enough IPC time while retaining every per-step assertion.
+                    }, { timeout: 90000 });
                 }
             }
         }

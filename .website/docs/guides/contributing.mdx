@@ -29,6 +29,7 @@ status = "experimental"
 | 教学步骤运行文件 | `.website/docs/examples/` | 从运行文件提取的教程源码与预览 | 站点文档验证，运行代码另跑站点 `lint`、`typecheck`、`test` |
 | 维护与设计规范 | `.website/docs/guides/` 中非生成正文 | 原路径发布 | 站点文档验证 |
 | 站点布局、预览桥接 | `.website/docs/site/` | 站点构建产物 | 站点 `check`，界面变化另做浏览器验收 |
+| 文档开发监听与生产预览 | `.website/scripts/dev/` | 不生成文档内容 | 站点 `test:dev`、`lint`，默认 `test` 已包含 |
 | 工程工具与 AI 查询 | `scripts/` | 不生成持久化上下文 | `yarn lint:tools`、`yarn check:architecture` |
 
 “站点文档验证”指 `yarn workspace @crab-dev/website generate:docs`、`check:docs`、`test:generator` 及根 `yarn docs:build`；后三项分别通过同一 workspace 或根脚本执行。
@@ -66,7 +67,7 @@ Turbo 保持严格环境模式，仅透传构建线程、临时目录与浏览�
 
 必须持续执行的附加测试由包的 `package.json#crab.requiredChecks` 登记已有 `test:*` 脚本。包内 `yarn check`、根 `yarn test:required`、根统一 check 和 CI 会执行登记项；交付前不能仅凭默认 `yarn test` 通过省略这些检查。登记须为无重复的数组，脚本必须存在且以 `test:` 开头；仅需显式运行的其他 browser 测试不会因此自动变为全库必跑项。
 
-登记范围与入口由包元数据派生，可用根 `yarn test:required --list` 查看；维护时检查已有独立测试是否属于持续必跑范围，不能用文档内固定清单替代元数据。网站默认测试另包含构建后绑定检查器的正反契约，实际生产产物扫描仍由构建入口执行。
+登记范围与入口由包元数据派生，可用根 `yarn test:required --list` 查看；维护时检查已有独立测试是否属于持续必跑范围，不能用文档内固定清单替代元数据。网站默认测试另包含开发工具、文档生成器和构建后绑定检查器的契约，实际生产产物扫描仍由构建入口执行。
 
 ## 例外
 

@@ -1,18 +1,47 @@
 import { test, expect, configurations, openDemo, readVisualSpec, captureVisual, settleFiniteAnimations, environmentCases, applyEnvironment } from '../../../test/visual/component-fixture.mjs';
-import { sourceToggle, highlightedSource, assertToolbarReachable, inspectSourceScroll } from './preview-visual-support.mjs';
+import { sourceToggle, highlightedSource, assertSourceContrast, focusSourceWithKeyboard, assertToolbarReachable, inspectSourceScroll } from './preview-visual-support.mjs';
 const spec = await readVisualSpec(import.meta.url);
+
+test('theme and code palette changes retain the draft and active editor', { tag: ['@rc-component-preview', '@boundary'] }, async ({ page, previewOrigin }, info) => {
+    const root = await openDemo(page, previewOrigin, 'rc-component-preview', spec.demo, configurations[0]);
+    const scene = root.getByRole('region', { name: 'ComponentPreview visual matrix' });
+    const input = scene.getByRole('textbox');
+    await input.fill('Edited draft survives every theme');
+    await sourceToggle(scene).click();
+    const code = await highlightedSource(scene);
+    const inputInstance = await input.elementHandle();
+    const sourceInstance = await code.elementHandle();
+    for (const config of configurations) {
+        await input.focus();
+        await page.evaluate(config => globalThis.postMessage({ type: 'crab:preview-config', ...config }, globalThis.location.origin), config);
+        await expect(root).toHaveAttribute('data-crab-design', config.designSystem);
+        await expect(root).toHaveAttribute('data-theme', config.colorMode);
+        await expect(input).toBeFocused();
+        for (const palette of ['light', 'dark']) {
+            await scene.getByLabel('源码配色').selectOption(palette);
+            await highlightedSource(scene);
+            await assertSourceContrast(scene, info);
+            expect(await inputInstance.evaluate(node => node.isConnected)).toBe(true);
+            expect(await sourceInstance.evaluate(node => node.isConnected)).toBe(true);
+            await expect(input).toHaveValue('Edited draft survives every theme');
+        }
+    }
+});
+
 for (const config of configurations) for (const density of spec.densities) for (const state of spec.states.filter(state => state !== 'loading')) {
     const cross = spec.crossEngine.densities.includes(density) && spec.crossEngine.states.includes(state);
     test(`${config.designSystem} ${config.colorMode} ${density} ${state}`, { tag: ['@rc-component-preview', '@matrix', ...(!cross ? ['@chromium-only'] : [])], annotation: { type: 'matrix', description: JSON.stringify({ ...config, size: 'medium', density, state }) } }, async ({ page, previewOrigin, browserName }, info) => {
         await openDemo(page, previewOrigin, 'rc-component-preview', spec.demo, { ...config, density });
         const scene = page.getByRole('region', { name: 'ComponentPreview visual matrix' });
         const source = sourceToggle(scene);
-        if (state === 'dark-source') await scene.getByLabel('源码配色').selectOption('dark');
-        if (['expanded', 'dark-source'].includes(state)) {
+        if (['dark-source', 'dark-source-focus'].includes(state)) await scene.getByLabel('源码配色').selectOption('dark');
+        if (['expanded', 'dark-source', 'source-focus', 'dark-source-focus'].includes(state)) {
             await source.click();
             await expect(source).toHaveAttribute('aria-expanded', 'true');
             await highlightedSource(scene);
+            await assertSourceContrast(scene, info);
         }
+        if (['source-focus', 'dark-source-focus'].includes(state)) await focusSourceWithKeyboard(scene, page);
         if (state === 'copy-error') await scene.getByLabel('拒绝复制').check();
         if (state.startsWith('copy-')) {
             await scene.getByRole('button', { name: '复制代码', exact: true }).click();

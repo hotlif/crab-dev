@@ -1,6 +1,8 @@
 import { zoomTest as test, expect, configurations, openDemo, readVisualSpec, settleFiniteAnimations, captureZoom } from '../../../test/visual/component-fixture.mjs';
 
 const spec = await readVisualSpec(import.meta.url);
+// Avoid simultaneous headed zoom captures; retain independent failures.
+test.describe.configure({ mode: 'default' });
 
 for (const config of configurations) {
     test('Skeleton real 200% '+config.designSystem+' '+config.colorMode, {

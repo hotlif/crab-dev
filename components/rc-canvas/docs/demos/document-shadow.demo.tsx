@@ -73,6 +73,7 @@ function ShadowCanvas() {
     const [target, setTarget] = useState<HTMLElement | null>(null);
     const [error, setError] = useState('');
     const [draft, setDraft] = useState('跨文档业务草稿 / Retained draft');
+    const [title, setTitle] = useState('iframe + Shadow DOM');
     const [position, setPosition] = useState({ x: 32, y: 64 });
     useEffect(() => {
         const element = host.current;
@@ -111,11 +112,12 @@ function ShadowCanvas() {
                         output.dataset.renderCount = String(++frames.current);
                         output.dataset.renderPixels = JSON.stringify({ shape: [...shape], empty: [...empty], error: gl.getError(), bitmap: [node.width, node.height] });
                     }}>
-                        <Text x={16} y={16} fontSize={18}>iframe + Shadow DOM</Text>
+                        <Text x={16} y={16} fontSize={18} maxWidth={320} editable editorLabel="跨文档画布文本" onEdit={setTitle}>{title}</Text>
                         <Rect x={position.x} y={position.y} width={120} height={64} fill={token.color.text.primary} draggable cursor="grab" onDrag={({ localDx, localDy }) => setPosition(value => ({ x: value.x + localDx, y: value.y + localDy }))} />
                     </Canvas>
                 </div>
                 <output aria-label="跨文档画布坐标">{Math.round(position.x)},{Math.round(position.y)}</output>
+                <output aria-label="跨文档画布文本模型">{title}</output>
             </section>, target,
         )}
     </>;

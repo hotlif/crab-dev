@@ -1,0 +1,306 @@
+{
+  "schemaVersion": 1,
+  "scope": "固定参考的样式与组合边界核对；不代替真实组件矩阵或逐像素等价声明。",
+  "references": [
+    {
+      "name": "alert",
+      "url": "https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui/alert.tsx",
+      "reviewNote": "Pinned default uses neutral card surface/foreground and an independent descriptive level. Semantic success/warning/info variants and close/actions are project extensions.",
+      "retrievedAt": "2026-11-01",
+      "packages": [
+        "rc-alert"
+      ],
+      "contentSha256": "d03dcae5cdb63c381c1144ca9a0c49ba0e46466967d7deb94662034042acb034"
+    },
+    {
+      "name": "sidebar",
+      "url": "https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui/sidebar.tsx",
+      "reviewNote": "核对中性侧栏、内容独立滚动、选中/焦点配对和移动端 Sheet；AppMainLayout 与 Tree 的能力是项目组合扩展。",
+      "retrievedAt": "2026-11-01",
+      "packages": [
+        "rc-app-main-layout",
+        "rc-tree"
+      ],
+      "contentSha256": "2ba1a9b9422f4172373f4cd0587b675d2331a41f4fa68f65dab2b23ca98fd9d2"
+    },
+    {
+      "name": "avatar",
+      "url": "https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui/avatar.tsx",
+      "reviewNote": "Circular image/fallback, 24/32/40px named geometry, and group ring match the pinned reference. Square shape, semantic variants, actionable avatar and count behavior remain documented library extensions.",
+      "retrievedAt": "2026-11-01",
+      "packages": [
+        "rc-avatar"
+      ],
+      "contentSha256": "0c5c48b8a1dff4fdc5ff9b6cb79cc9cd138682b7d86868068f571befe9675e88"
+    },
+    {
+      "name": "badge",
+      "url": "https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui/badge.tsx",
+      "reviewNote": "Pinned reference is a compact inline pill with paired foreground/background and border variants. Anchored counters, dots and processing states are explicit project extensions.",
+      "retrievedAt": "2026-11-01",
+      "packages": [
+        "rc-badge",
+        "rc-tag"
+      ],
+      "contentSha256": "13a9380dfff853ee730c14a52df49f22aecd31f40f2998d7c1e7ec458b6e1650"
+    },
+    {
+      "name": "chart",
+      "url": "https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui/chart.tsx",
+      "reviewNote": "核对轴文字、网格边界、数值层级与中性提示表面；仅借鉴展示原则，不引入 Recharts 或声称专业图表完全等价。",
+      "retrievedAt": "2026-11-01",
+      "packages": [
+        "rc-bar-chart"
+      ],
+      "contentSha256": "35e2fa755465ef8eb8ff8b483d493204d452152e7a8863474b1a69f5d44484db"
+    },
+    {
+      "name": "breadcrumb",
+      "url": "https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui/breadcrumb.tsx",
+      "reviewNote": "Wrapped hierarchy, secondary ancestors and a foreground current location align with the fixed reference. Native link/button semantics and maxCount are library extensions; the current page remains non-interactive.",
+      "retrievedAt": "2026-11-01",
+      "packages": [
+        "rc-breadcrumbs"
+      ],
+      "contentSha256": "c75fcd3d9e8470188bc0dd4b27a2b26fff3ad42b9c9c534a953dc090ae2cba33"
+    },
+    {
+      "name": "button",
+      "url": "https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui/button.tsx",
+      "reviewNote": "核对默认/描边/次级/文字/危险变体、图标间距、五档尺寸与焦点状态；MD3 Expressive 等专有扩展保留自己的映射。",
+      "retrievedAt": "2026-11-01",
+      "packages": [
+        "rc-button",
+        "rc-theme"
+      ],
+      "contentSha256": "79dd6f75f8136394442202d6b8b922fb269eaad0a5dba579397c9d5b41f893bb"
+    },
+    {
+      "name": "card",
+      "url": "https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui/card.tsx",
+      "reviewNote": "Pinned source separates header/action/content/footer, neutral card foreground and border/elevation. Clickable/loading behavior is a library extension and requires independent child keyboard activation.",
+      "retrievedAt": "2026-11-01",
+      "packages": [
+        "rc-card",
+        "rc-theme"
+      ],
+      "contentSha256": "ef8305b12c3112dab42a4708b41b1ebcc042fa5ab4c20f039da8d45b09ed5059"
+    },
+    {
+      "name": "checkbox",
+      "url": "https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui/checkbox.tsx",
+      "reviewNote": "Pinned source defines 16px box, 4px radius, primary/on-primary checked state and explicit invalid/disabled focus. Project size and mixed-state extensions retain native checkbox semantics.",
+      "retrievedAt": "2026-11-01",
+      "packages": [
+        "rc-checkbox"
+      ],
+      "contentSha256": "ba0ac64064e2d8fa7299d53e9e84b9a4772fef8dd4cf6170c56d3030a1d69941"
+    },
+    {
+      "name": "popover",
+      "url": "https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui/popover.tsx",
+      "reviewNote": "Pinned reference uses paired popover colors, border/shadow, origin-based motion and portal anchoring. Project DropdownContainer owns Web placement and close semantics.",
+      "retrievedAt": "2026-11-01",
+      "packages": [
+        "rc-color-picker",
+        "rc-date-picker",
+        "rc-dropdown-container"
+      ],
+      "contentSha256": "3f99d3add6c9fa4f03721e81297ee10e1310785ee1d9d9d4c82a114d84ab0757"
+    },
+    {
+      "name": "tabs",
+      "url": "https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui/tabs.tsx",
+      "reviewNote": "核对默认与线型容器、活动项前景、下划线、焦点和禁用；关闭、拖动及项目尺寸按公共语义另验。",
+      "retrievedAt": "2026-11-01",
+      "packages": [
+        "rc-cron-picker",
+        "rc-segmented",
+        "rc-tabs"
+      ],
+      "contentSha256": "e1df6e2f95ece373ca909c1d54b8ba8cf4c47dd425c1784bbb9a01c38dd0936b"
+    },
+    {
+      "name": "select",
+      "url": "https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui/select.tsx",
+      "reviewNote": "核对触发器高度/标签/占位、弹层表面、条目焦点和选择标记；多选、过滤与清除为项目扩展。",
+      "retrievedAt": "2026-11-01",
+      "packages": [
+        "rc-cron-picker",
+        "rc-select"
+      ],
+      "contentSha256": "962830436bd0b7ee50e556f0747e277d6a86869ed27d167516346b15f26309d8"
+    },
+    {
+      "name": "calendar",
+      "url": "https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui/calendar.tsx",
+      "reviewNote": "核对导航、日期网格、单选和范围首尾/中段配对、焦点层级；本库日期/时间与国际化行为单独验收。",
+      "retrievedAt": "2026-11-01",
+      "packages": [
+        "rc-date-picker"
+      ],
+      "contentSha256": "78ed2cc49dafc5bb5df7b1d4a325e5fc314237386747362e5f0761a2c539a934"
+    },
+    {
+      "name": "dialog",
+      "url": "https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui/dialog.tsx",
+      "reviewNote": "Pinned source establishes overlay, bounded neutral surface, named heading, close button and responsive footer. Project native dialog and async confirm/cancel semantics are checked independently.",
+      "retrievedAt": "2026-11-01",
+      "packages": [
+        "rc-dialog",
+        "rc-theme"
+      ],
+      "contentSha256": "2ade6074e5fad0a4eb171ead44c43d3301a3c83d186d7236fb1fdbea80ee556b"
+    },
+    {
+      "name": "separator",
+      "url": "https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui/separator.tsx",
+      "reviewNote": "核对 1px 边界、横竖方向及非收缩布局；标题分隔为项目扩展。",
+      "retrievedAt": "2026-11-01",
+      "packages": [
+        "rc-divider"
+      ],
+      "contentSha256": "ad7d5403fe337160e41dbf04147896e448ae3a747b8d06660d627d74d60021bc"
+    },
+    {
+      "name": "sheet",
+      "url": "https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui/sheet.tsx",
+      "reviewNote": "Pinned reference separates directional surface motion, overlay and named heading/footer. Project Drawer uses native modal/scroll ownership and nested-layer focus restoration.",
+      "retrievedAt": "2026-11-01",
+      "packages": [
+        "rc-drawer",
+        "rc-theme"
+      ],
+      "contentSha256": "ea473d38a26a9b0b879e5a13139899ad45e9782e896b3fa205c7763a6c506876"
+    },
+    {
+      "name": "form",
+      "url": "https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui/form.tsx",
+      "reviewNote": "核对标签、辅助说明、错误文字与字段关联；本库状态和提交协议不依赖参考实现的表单运行时。",
+      "retrievedAt": "2026-11-01",
+      "packages": [
+        "rc-form"
+      ],
+      "contentSha256": "dfa22e6614b807df60bbe7e40dd44ef74cf894b358f37c3ed356ebbeef9b4599"
+    },
+    {
+      "name": "navigation-menu",
+      "url": "https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui/navigation-menu.tsx",
+      "reviewNote": "核对导航触发器、活动/悬停/焦点、弹层表面和方向动效；项目 Menu 的横向、内联与折叠模式分别检查。",
+      "retrievedAt": "2026-11-01",
+      "packages": [
+        "rc-menu"
+      ],
+      "contentSha256": "fbe81d7c358df0d21e49b03174ef53be7d66226a3dce1a97ff3d4a260ed833a3"
+    },
+    {
+      "name": "pagination",
+      "url": "https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui/pagination.tsx",
+      "reviewNote": "核对导航地标、当前位置与前后入口、禁用语义和省略标记；跳页与页容量为项目扩展。",
+      "retrievedAt": "2026-11-01",
+      "packages": [
+        "rc-pagination"
+      ],
+      "contentSha256": "224843c4f509e8b8c9848adefa43d1491846f0851138fa9b51cc6ba1319c5653"
+    },
+    {
+      "name": "radio-group",
+      "url": "https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui/radio-group.tsx",
+      "reviewNote": "Pinned source defines circular 16px control, primary 8px dot, disabled opacity and focus/error ring. Native radio group keyboard behavior and project sizes are reviewed separately.",
+      "retrievedAt": "2026-11-01",
+      "packages": [
+        "rc-radio"
+      ],
+      "contentSha256": "cfc4f99ee68be2fbbd70de3ffad82e1462d5e8e0bb0aecfd190a4f5115325862"
+    },
+    {
+      "name": "skeleton",
+      "url": "https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui/skeleton.tsx",
+      "reviewNote": "核对中性占位表面、形状与脉冲；强制颜色和减少动画保留占位用途。",
+      "retrievedAt": "2026-11-01",
+      "packages": [
+        "rc-skeleton"
+      ],
+      "contentSha256": "f51ce0fcd31e5c31437382e80ea0af94b4fc3d64221d27091d36824546780a43"
+    },
+    {
+      "name": "slider",
+      "url": "https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui/slider.tsx",
+      "reviewNote": "Pinned source separates muted track, primary range, bordered thumb, focus ring and disabled opacity. Wheel editing, density and scientific steps are library extensions with preserved event reasons.",
+      "retrievedAt": "2026-11-01",
+      "packages": [
+        "rc-slider"
+      ],
+      "contentSha256": "6a531f6182de6efec2c25d30a7626b66cbf11cf52d505e47f907124934f7188e"
+    },
+    {
+      "name": "resizable",
+      "url": "https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui/resizable.tsx",
+      "reviewNote": "核对分隔线、独立拖动命中层、方向与焦点；项目比例/像素及键盘调整为扩展。",
+      "retrievedAt": "2026-11-01",
+      "packages": [
+        "rc-split-pane"
+      ],
+      "contentSha256": "aaf3ea20e8060c75dd86e06fedfca053d49f81071123ba647b5699efcbc010ea"
+    },
+    {
+      "name": "switch",
+      "url": "https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui/switch.tsx",
+      "reviewNote": "Pinned source uses a compact pill track, background thumb and checked/unchecked dark roles. Project large and compact variants remain documented extensions.",
+      "retrievedAt": "2026-11-01",
+      "packages": [
+        "rc-switch"
+      ],
+      "contentSha256": "743676f33f823ffa8008bbd5eb94cb68e227599447d60e132a202291a395f8e4"
+    },
+    {
+      "name": "table",
+      "url": "https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui/table.tsx",
+      "reviewNote": "核对行边界、悬停/选中配对、表头字重与滚动容器；虚拟化、编辑、排序与数据反馈是本库专业能力。",
+      "retrievedAt": "2026-11-01",
+      "packages": [
+        "rc-table"
+      ],
+      "contentSha256": "bd1a9fc83a5a2149e504038e274bb7e5a0351af59f6896df52ac4d5b439695ac"
+    },
+    {
+      "name": "textarea",
+      "url": "https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui/textarea.tsx",
+      "reviewNote": "核对稳定字段边界、标签/说明、明暗输入表面与焦点/禁用/错误；项目多行尺寸和计数独立检查。",
+      "retrievedAt": "2026-11-01",
+      "packages": [
+        "rc-text-edit"
+      ],
+      "contentSha256": "5cafcfeeee29534f449387a16b585f5923d2faab1a0cdc50a874416b175f59ce"
+    },
+    {
+      "name": "tooltip",
+      "url": "https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui/tooltip.tsx",
+      "reviewNote": "核对反色语义对、紧凑排版、Portal 和方向动效；本库键盘/指针关闭及嵌套边界单独验证。",
+      "retrievedAt": "2026-11-01",
+      "packages": [
+        "rc-tooltip"
+      ],
+      "contentSha256": "611e4305879b2773eafe76bf3c5caa69d8e47367fd97887a71634a27828f4433"
+    },
+    {
+      "name": "input",
+      "url": "https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui/input.tsx",
+      "reviewNote": "核对字段轮廓、占位、选中文本、焦点/错误与明暗表面；LineEdit/NumberEdit 共享公共字段布局，数字解析为扩展。",
+      "retrievedAt": "2026-11-01",
+      "packages": [
+        "rc-line-edit",
+        "rc-number-edit"
+      ],
+      "contentSha256": "0c9457181f6ddc80969bcf854e92c362903a55b6e889fbef3fd85343ecc4af5b"
+    },
+    {
+      "name": "dropdown-menu",
+      "url": "https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui/dropdown-menu.tsx",
+      "reviewNote": "Pinned reference distinguishes focus/selection, submenu motion and independent item icons. Project Menu also supports navigation layouts and remains a documented extension.",
+      "retrievedAt": "2026-11-01",
+      "packages": [],
+      "contentSha256": "d954efb735f13734751207ad22cb0cddd7f6ec53c59d16675d103dae08cb61fb"
+    }
+  ]
+}

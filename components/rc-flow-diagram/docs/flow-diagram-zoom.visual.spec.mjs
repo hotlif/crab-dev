@@ -1,5 +1,9 @@
+import { Buffer } from 'node:buffer';
 import { zoomTest as test, expect, configurations, openDemo, readVisualSpec, settleFiniteAnimations, captureZoom } from '../../../test/visual/component-fixture.mjs';
-import { waitForFlowPresentation } from './flow-diagram.visual-helpers.mjs';
+
+// Headed native zoom shares a display; retain independent, sequential cases.
+test.describe.configure({ mode: 'default' });
+import { sampleFlowFrames, waitForFlowPresentation } from './flow-diagram.visual-helpers.mjs';
 
 const spec = await readVisualSpec(import.meta.url);
 for (const config of configurations) test(`${config.designSystem} ${config.colorMode} diagram at real 200%`, {
@@ -39,14 +43,24 @@ for (const config of configurations) test(`${config.designSystem} ${config.color
     await page.getByLabel('验收状态', { exact: true }).selectOption('motion');
     await expect(scene.getByLabel('布局状态')).toHaveAttribute('data-layout', 'ready');
     await scroll.evaluate(node => node.scrollTo({ left: 0, behavior: 'instant' })); await scroll.scrollIntoViewIfNeeded();
-    const frames = [], images = [];
+    await waitForFlowPresentation(scene);
+    // Selection uses its own paired label paint; the initial default-label
+    // probe above is intentionally not reused for this selected node.
+    // Native desktop capture can sample the same phase of repeating dashes.
+    // Prove movement from actual GPU paints on natural frames at the real zoom.
+    const paints = await sampleFlowFrames(scene.locator('canvas').first(), 900);
+    const distinct = [...new Map(paints.map(frame => [frame.png, frame])).values()];
+    expect(distinct.length).toBeGreaterThan(2);
+    for (const index of [0, Math.floor(distinct.length / 2), distinct.length - 1]) {
+        await info.attach(`zoom-gpu-edge-${index}`, { body: Buffer.from(distinct[index].png.split(',')[1], 'base64'), contentType: 'image/png' });
+    }
+    const frames = [];
     for (let index = 0; index < 3; index++) {
         frames.push({ index, time: await page.evaluate(() => performance.now()) });
-        const image = await realZoom.capture200(page); images.push(image);
+        const image = await realZoom.capture200(page);
         await info.attach(`zoom-natural-edge-${index}`, { body: image, contentType: 'image/png' });
         if (index < 2) await page.waitForTimeout(120);
     }
     expect(frames[2].time).toBeGreaterThan(frames[0].time);
-    expect(images[0].equals(images[2])).toBe(false);
-    await info.attach('zoom-edge-time-series', { body: JSON.stringify(frames, null, 2), contentType: 'application/json' });
+    await info.attach('zoom-edge-time-series', { body: JSON.stringify({ desktopFrames: frames, gpuOffsets: paints.map(frame => frame.time - paints[0].time), distinctPaints: distinct.length }, null, 2), contentType: 'application/json' });
 });

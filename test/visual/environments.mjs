@@ -2,6 +2,7 @@
 export const environmentCases = [
     { id: "narrow", viewport: { width: 320, height: 768 } },
     { id: "tablet", viewport: { width: 768, height: 1024 } },
+    { id: "landscape", viewport: { width: 768, height: 320 }, hasTouch: true },
     { id: "desktop", viewport: { width: 1440, height: 900 } },
     { id: "touch", viewport: { width: 768, height: 1024 }, hasTouch: true },
     { id: "rtl", config: { direction: "rtl" } },

@@ -42,6 +42,15 @@ for (const config of configurations) for (const size of spec.sizes) for (const s
         }
         if (state === "minimum") await expect(control).toHaveAttribute("aria-valuenow", "0");
         if (state === "maximum") await expect(control).toHaveAttribute("aria-valuenow", "100");
+        if (state === 'scientific') {
+            await expect(control).toHaveAttribute('aria-valuenow', '5e-7');
+            await control.focus();
+            await control.press('ArrowRight');
+            await expect(control).toHaveAttribute('aria-valuenow', '6e-7');
+            const bounds = await control.boundingBox();
+            await page.mouse.click(bounds.x + bounds.width * 0.75, bounds.y + bounds.height / 2);
+            await expect(control).toHaveAttribute('aria-valuenow', '7e-7');
+        }
         if (state === "disabled") { await expect(control).toHaveAttribute("aria-disabled", "true"); await expect(control).toHaveAttribute("tabindex", "-1"); }
         if (state === "error") await expect(control).toHaveAttribute("aria-invalid", "true");
         await settleFiniteAnimations(page);
@@ -53,5 +62,23 @@ for (const config of configurations) for (const size of spec.sizes) for (const s
         await info.attach("geometry", { body: JSON.stringify({ geometry, handleGeometry }), contentType: "application/json" });
         await captureVisual(frame, `${config.designSystem}-${config.colorMode}-${size}-${state}.png`, info, browserName);
         if (state === "dragging") await page.mouse.up();
+    });
+}
+
+for (const config of configurations) {
+    test(`secondary pointer input and horizontal wheel ${config.designSystem} ${config.colorMode}`, { tag: ['@rc-slider', '@boundary'] }, async ({ page, previewOrigin }) => {
+        const root = await openDemo(page, previewOrigin, 'rc-slider', spec.demo, config);
+        const control = root.getByRole('slider');
+        const bounds = await control.boundingBox();
+        for (const button of ['middle', 'right']) {
+            await page.mouse.click(bounds.x + bounds.width * 0.8, bounds.y + bounds.height / 2, { button });
+            await page.keyboard.press('Escape');
+            await expect(control).toHaveAttribute('aria-valuenow', '40');
+            await expect(control.locator('[data-slot="slider-handle"]')).toHaveAttribute('data-is-dragging', 'false');
+        }
+        await control.hover();
+        await page.mouse.wheel(80, 0);
+        await page.evaluate(() => new Promise(resolve => globalThis.requestAnimationFrame(() => globalThis.requestAnimationFrame(resolve))));
+        await expect(control).toHaveAttribute('aria-valuenow', '40');
     });
 }

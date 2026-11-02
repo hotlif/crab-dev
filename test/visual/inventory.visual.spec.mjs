@@ -3,6 +3,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { createHash } from "node:crypto";
 import { loadLibraryManifest } from "../../scripts/library-manifest.mjs";
+import { measureTextContrast } from './text-contrast.mjs';
 
 // Inventory is a prerequisite, never a substitute for a component's state/size
 // matrix or reviewed pixel baselines. Product membership comes from the manifest.
@@ -23,6 +24,9 @@ for (const product of manifest.packages.filter(entry => Object.values(entry.desi
             const box = await root.boundingBox();
             expect(box.width).toBeGreaterThan(0);
             expect(box.height).toBeGreaterThan(0);
+            const contrast = await root.evaluate(measureTextContrast);
+            await testInfo.attach('inventory-text-contrast', { body: JSON.stringify(contrast), contentType: 'application/json' });
+            expect(contrast.failures, 'Visible default-demo text must meet its measured contrast threshold').toEqual([]);
             const bytes = await page.screenshot({ animations: "allow", caret: "initial", scale: "css" });
             await testInfo.attach("inventory-actual", { body: bytes, contentType: "image/png" });
             await testInfo.attach("inventory-scope", { body: JSON.stringify({ package: product.name, demo, config, box, browser: browser.version(), sha256: createHash("sha256").update(bytes).digest("hex"), visualReview: "pending", scope: "Default demo viewport only; no state/size acceptance or pixel baseline approval." }, null, 2), contentType: "application/json" });

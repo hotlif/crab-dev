@@ -214,6 +214,7 @@ export const fieldStyle = css`
         align-self: ${semanticToken.field.label.align};
         justify-self: start;
         margin-inline: ${semanticToken.field.label['margin-inline']};
+        margin-inline-start: var(--crab-line-edit-label-start, ${semanticToken.field.label['margin-inline']});
         max-width: calc(100% - ${token.field.control['padding-inline']} - ${token.field.control['padding-inline']});
         overflow: hidden;
         text-overflow: ellipsis;
@@ -225,7 +226,7 @@ export const fieldStyle = css`
         transition: ${token.field.transition};
     }
     &[data-labeled="true"][data-prefix="true"] > label {
-        margin-inline-start: ${semanticToken.field.label['prefix-margin-inline']};
+        margin-inline-start: var(--crab-line-edit-label-start, ${semanticToken.field.label['prefix-margin-inline']});
     }
     &[data-labeled="true"]:not(:focus-within) input:not(:disabled):placeholder-shown::placeholder {
         color: ${token.field.placeholder.color};
@@ -249,7 +250,7 @@ export const fieldStyle = css`
         transform: none;
     }
     &[data-labeled="true"][data-appearance="filled"][data-prefix="true"]:is(:focus-within, :has(input:not(:placeholder-shown)), :has(input:autofill)) > label {
-        margin-inline-start: ${semanticToken.field.label['prefix-margin-inline']};
+        margin-inline-start: var(--crab-line-edit-label-start, ${semanticToken.field.label['prefix-margin-inline']});
     }
     &[data-labeled="true"]:is(:focus-within, :has(input:not(:placeholder-shown)), :has(input:autofill)) legend {
         max-width: calc(100% - ${token.field.control['padding-inline']} - ${token.field.control['padding-inline']});

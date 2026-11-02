@@ -40,6 +40,7 @@ export const sidebarStyle = css`
 `;
 export const sectionStyle = css`display: flex; flex-direction: column; min-width: 0; gap: ${token.panel.gap};`;
 export const propertiesContentStyle = css`display: flex; flex-direction: column; flex: 1; min-width: 0; min-height: 0; overflow: hidden;`;
+export const propertiesHeaderStyle = css`flex-shrink: 0; padding: ${token.panel.scroll.padding};`;
 // 表单保留浏览器原生滚动与焦点自动滚入；不使用虚拟列表卸载正在编辑的字段。
 export const propertiesScrollStyle = css`
     flex: 1; min-width: 0; min-height: 0;
@@ -63,7 +64,11 @@ export const objectSectionStyle = css`
 `;
 export const objectHeadingStyle = css`font-size: ${token.objects['font-size']};`;
 export const headingStyle = css`margin: 0; font-size: ${token.panel.heading['font-size']}; font-weight: ${token.panel.heading['font-weight']};`;
-export const viewStyle = css`flex: 1; min-width: 0; min-height: 0; position: relative; background: ${token.canvas.background}; overflow: hidden;`;
+export const viewStyle = css`
+    flex: 1; min-width: 0; min-height: 0; position: relative; background: ${token.canvas.background}; overflow: hidden;
+    &[data-pdf-focus-return]:focus { outline: ${token.selection['border-width']} solid ${token.selection.color}; outline-offset: calc(-1 * ${token.selection['border-width']}); }
+    @media (forced-colors: active) { &[data-pdf-focus-return]:focus { outline-color: Highlight; } }
+`;
 export const documentRootStyle = css`position: relative; width: 100%; height: 100%; overflow: hidden; row-gap: ${token.canvas.padding};`;
 export const regionOverlayStyle = css`
     position: absolute; inset: 0; z-index: 2; cursor: crosshair; touch-action: none;
@@ -129,6 +134,11 @@ export const objectTreeStyle = css`
 export const iconStyle = css`width: ${token.toolbar.icon.width}; height: ${token.toolbar.icon.width}; display: block; flex-shrink: 0; & > svg { width: 100%; height: 100%; }`;
 export const toolbarButtonStyle = css`
     flex-shrink: 0;
+    &[data-pdf-focus-return]:focus {
+        outline: var(${buttonVars['root.outline-width-focus']}, ${token.thumbnail['outline-width-focus']}) solid var(${buttonVars['root.outline-color-focus']}, ${token.selection.color});
+        outline-offset: var(${buttonVars['root.outline-offset-focus']}, ${token.thumbnail['outline-offset-focus']});
+    }
+    @media (forced-colors: active) { &[data-pdf-focus-return]:focus { outline-color: Highlight; } }
     ${buttonVars['icon.width']}: ${token.toolbar.icon.width};
     ${buttonVars['size.medium.icon.width']}: ${token.toolbar.icon.width};
     ${buttonVars['text.color']}: ${token.toolbar.icon.color};

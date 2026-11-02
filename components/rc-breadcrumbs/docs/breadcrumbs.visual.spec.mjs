@@ -10,6 +10,12 @@ for (const config of configurations) for (const size of spec.sizes) for (const d
         const selector = page.getByLabel('路径显示', { exact: true });
         const link = frame.getByRole('link').first();
         if (state === 'collapsed') await selector.selectOption('collapsed');
+        if (state === 'collapsed-minimum') {
+            await selector.selectOption('minimum');
+            await expect(frame.getByRole('listitem', { includeHidden: true })).toHaveCount(2);
+            await expect(frame.getByRole('link')).toHaveCount(0);
+            await expect(frame.getByRole('button')).toHaveCount(0);
+        }
         if (state === 'hover' || state === 'pressed') await link.hover();
         if (state === 'pressed') await page.mouse.down();
         if (state === 'focus-visible') { await selector.focus(); await page.keyboard.press('Tab'); await expect(link).toBeFocused(); expect(await link.evaluate(node => node.matches(':focus-visible'))).toBe(true); }

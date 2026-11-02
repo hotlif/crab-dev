@@ -573,7 +573,7 @@ describe("ComponentDemoFrame", () => {
             const frame = screen.getByTitle("基础用法 交互演示");
             await act(async () => { await clock.advanceBy(50); });
 
-            expect(screen.getByRole("alert").textContent).toContain("演示仍在加载");
+            expect(screen.getByRole("status").textContent).toContain("演示仍在加载");
             expect(screen.getByTitle("基础用法 交互演示")).toBe(frame);
             expect(frame.getAttribute("aria-busy")).toBe("true");
             await rendered.rerender(preview("shadcn", "dark"));
@@ -611,10 +611,12 @@ describe("ComponentDemoFrame", () => {
             await act(async () => { await clock.advanceBy(50); });
             await dispatchWakeMessage(testFrameWindow, { type: "wake:error", error: "Demo boom" });
             expect(screen.queryByTitle("基础用法 交互演示")).toBeNull();
-            expect(screen.getByRole("alert").textContent).toContain("Demo boom");
+            expect(screen.getByRole("alert").textContent).toContain("演示加载失败");
+            expect(document.querySelector(".crab-docs-error-details pre")?.textContent).toContain("Demo boom");
             await dispatchWakeMessage(testFrameWindow, { type: "wake:ready" });
             expect(screen.queryByTitle("基础用法 交互演示")).toBeNull();
-            expect(screen.getByRole("alert").textContent).toContain("Demo boom");
+            expect(screen.getByRole("alert").textContent).toContain("演示加载失败");
+            expect(document.querySelector(".crab-docs-error-details")?.hasAttribute("open")).toBe(false);
         } finally {
             await unmount?.();
             await clock.restore();
@@ -643,7 +645,7 @@ describe("ComponentDemoFrame", () => {
                 await clock.advanceBy(50);
             });
 
-            expect(screen.getByRole("alert").textContent).toContain("演示仍在加载");
+            expect(screen.getByRole("status").textContent).toContain("演示仍在加载");
             activeFrameWindow = retryFrameWindow;
             await fireEvent.click(screen.getByRole("button", { name: "重新加载演示" }));
 
@@ -731,8 +733,26 @@ describe("ComponentDemoFrame", () => {
             error: "Demo boom",
         });
 
-        expect(screen.getByRole("alert").textContent).toContain("Demo boom");
+        expect(screen.getByRole("alert").textContent).toContain("演示加载失败");
+        expect(document.querySelector(".crab-docs-error-details pre")?.textContent).toContain("Demo boom");
         expect(screen.getByTitle("第二个演示 交互演示")).toBeTruthy();
+    });
+
+    it("重试期间保留预览焦点，用户离开后不被迟到的完成消息抢回", async () => {
+        const view = await renderImmediately(<>
+            <ComponentDemoFrame demo={demo} getFrameWindow={getTestFrameWindow} renderFrame={renderTestFrame} />
+            <button type="button">继续浏览文档</button>
+        </>);
+        await dispatchWakeMessage(testFrameWindow, { type: "wake:error", error: "retry focus check" });
+        const retry = screen.getByRole("button", { name: "重新加载演示" });
+        await act(async () => { retry.focus(); });
+        await fireEvent.click(retry);
+        const preview = view.container.querySelector('[data-presentation="interactive"]');
+        expect(document.activeElement).toBe(preview);
+        const outside = screen.getByRole("button", { name: "继续浏览文档" });
+        await act(async () => { outside.focus(); });
+        await dispatchWakeMessage(testFrameWindow, { type: "wake:ready" });
+        expect(document.activeElement).toBe(outside);
     });
 
     it("未知或无 Demo 的组件显示稳定回退", async () => {

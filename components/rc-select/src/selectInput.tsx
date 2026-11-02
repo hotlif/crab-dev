@@ -464,6 +464,7 @@ const SelectInput: FC<SelectInputProps> = ({
                     data-role={showClear ? 'select-clear' : 'select-caret'}
                     className={actionStyle}
                     type="button"
+                    tabIndex={canClear ? 0 : -1}
                     appearance="text"
                     shape="circle"
                     size={size === 'small' ? 'xs' : size === 'large' ? 'm' : 's'}

@@ -102,4 +102,18 @@ describe('Breadcrumbs', () => {
         const nav = container.querySelector('nav');
         expect(nav?.getAttribute('aria-label')).toBe('路径导航');
     });
+    it('keeps the current page when only two entries can be displayed', async () => {
+        const onClick = mock.fn();
+        const { container } = await render(<Breadcrumbs maxCount={2} items={[
+            { title: 'Home', href: '/home' },
+            { title: 'Components', href: '/components' },
+            { title: 'Current', href: '/current', onClick },
+        ]} />);
+        expect(container.querySelectorAll('li')).toHaveLength(2);
+        expect(container.querySelector('[aria-current="page"]')?.textContent).toBe('Current');
+        expect(container.querySelector('li[aria-hidden="true"]')?.textContent).toContain('...');
+        expect(container.querySelectorAll('a, button')).toHaveLength(0);
+        await fireEvent.click(screen.getByText('Current'));
+        expect(onClick).not.toHaveBeenCalled();
+    });
 });

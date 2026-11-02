@@ -10,6 +10,7 @@ import { visualCaptureScope } from './argument-intent.mjs';
 import { configureBrowserEnvironment } from "./browser-environment.mjs";
 import { inspectVisualStorage } from './local-storage.mjs';
 import { hasSnapshotUpdateOption } from './baseline-transfer.mjs';
+import { prepareFirefoxDisplay } from './firefox-display.mjs';
 
 process.env.PLAYWRIGHT_FORCE_ASYNC_LOADER ??= "1";
 configureBrowserEnvironment();
@@ -21,6 +22,9 @@ if (args[0] === "report") {
     process.exit(await runYarn(yarn, ["exec", "playwright", "show-report", ...args.slice(1)], { cwd: repositoryRoot }));
 }
 const canonical = process.platform === "linux" && process.env.CRAB_VISUAL_IMAGE === linuxVisualImage;
+if (canonical && !args.includes('--list') && !args.includes('--help')) {
+    process.env.CRAB_VISUAL_FIREFOX_WRAPPER = await prepareFirefoxDisplay({ root: repositoryRoot });
+}
 if (hasSnapshotUpdateOption(args) && !canonical) throw Error("Update visual baselines in the pinned local Linux image after reviewing its candidate report.");
 if (hasSnapshotUpdateOption(args) && args.includes('--candidate')) throw Error('Candidate capture and baseline updates must be separate explicit runs.');
 const candidateIndex = args.indexOf("--candidate");

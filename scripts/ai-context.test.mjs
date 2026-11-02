@@ -148,6 +148,12 @@ test("generated tokens, API, tutorials, component pages and topology resolve bac
     }
 });
 
+test("website development tools expose their dedicated public test without executing it", async () => {
+    const context = await buildContext(".website/scripts/dev/preview-docs.mjs");
+    assert.equal(context.workspace, "@crab-dev/website");
+    assert.ok(context.commands.some(item => item.script === "test:dev" && item.command === "yarn workspace @crab-dev/website test:dev"));
+});
+
 test("inventory changes expose derived outputs while README keeps its handwritten editing boundary", async () => {
     const inventory = await buildContext("library.manifest.json");
     assert.ok(paths(inventory.generated).includes("turbo.json"));

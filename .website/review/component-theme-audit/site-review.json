@@ -1,0 +1,144 @@
+{
+  "schemaVersion": 1,
+  "reviewedAt": "2026-11-02T04:34:11.055Z",
+  "run": "audit-final-site-published-complete-journeys-2026-11-02T03-42-57-072Z",
+  "rawReportSha256": "ed90328516981a4d39ec738fc2c33f9f0117baa8321ab600a7f65c9aecc5adb3",
+  "stats": {
+    "startTime": "2026-11-02T03:43:00.995Z",
+    "duration": 1786991.51,
+    "expected": 370,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "workers": [
+    {
+      "file": "inputs-worker-0.json",
+      "source": "sha256:ccd433798710c1cf72f87d0e9dd80283d20b3a8d120dd927c62e99f44e3754bd",
+      "artifact": "sha256:288a0c2f06fccd5f01f117c2a9e90be87a3c913d73adfcdcc3a217f47d8f102c",
+      "siteBuild": "sha256:aed9ae540b58d21a5db9f865cfb392979f365483d8f88534fd7858583f205fe9",
+      "stable": true
+    },
+    {
+      "file": "inputs-worker-1.json",
+      "source": "sha256:ccd433798710c1cf72f87d0e9dd80283d20b3a8d120dd927c62e99f44e3754bd",
+      "artifact": "sha256:288a0c2f06fccd5f01f117c2a9e90be87a3c913d73adfcdcc3a217f47d8f102c",
+      "siteBuild": "sha256:aed9ae540b58d21a5db9f865cfb392979f365483d8f88534fd7858583f205fe9",
+      "stable": true
+    },
+    {
+      "file": "inputs-worker-10.json",
+      "source": "sha256:ccd433798710c1cf72f87d0e9dd80283d20b3a8d120dd927c62e99f44e3754bd",
+      "artifact": "sha256:288a0c2f06fccd5f01f117c2a9e90be87a3c913d73adfcdcc3a217f47d8f102c",
+      "siteBuild": "sha256:aed9ae540b58d21a5db9f865cfb392979f365483d8f88534fd7858583f205fe9",
+      "stable": true
+    },
+    {
+      "file": "inputs-worker-11.json",
+      "source": "sha256:ccd433798710c1cf72f87d0e9dd80283d20b3a8d120dd927c62e99f44e3754bd",
+      "artifact": "sha256:288a0c2f06fccd5f01f117c2a9e90be87a3c913d73adfcdcc3a217f47d8f102c",
+      "siteBuild": "sha256:aed9ae540b58d21a5db9f865cfb392979f365483d8f88534fd7858583f205fe9",
+      "stable": true
+    },
+    {
+      "file": "inputs-worker-2.json",
+      "source": "sha256:ccd433798710c1cf72f87d0e9dd80283d20b3a8d120dd927c62e99f44e3754bd",
+      "artifact": "sha256:288a0c2f06fccd5f01f117c2a9e90be87a3c913d73adfcdcc3a217f47d8f102c",
+      "siteBuild": "sha256:aed9ae540b58d21a5db9f865cfb392979f365483d8f88534fd7858583f205fe9",
+      "stable": true
+    },
+    {
+      "file": "inputs-worker-3.json",
+      "source": "sha256:ccd433798710c1cf72f87d0e9dd80283d20b3a8d120dd927c62e99f44e3754bd",
+      "artifact": "sha256:288a0c2f06fccd5f01f117c2a9e90be87a3c913d73adfcdcc3a217f47d8f102c",
+      "siteBuild": "sha256:aed9ae540b58d21a5db9f865cfb392979f365483d8f88534fd7858583f205fe9",
+      "stable": true
+    },
+    {
+      "file": "inputs-worker-4.json",
+      "source": "sha256:ccd433798710c1cf72f87d0e9dd80283d20b3a8d120dd927c62e99f44e3754bd",
+      "artifact": "sha256:288a0c2f06fccd5f01f117c2a9e90be87a3c913d73adfcdcc3a217f47d8f102c",
+      "siteBuild": "sha256:aed9ae540b58d21a5db9f865cfb392979f365483d8f88534fd7858583f205fe9",
+      "stable": true
+    },
+    {
+      "file": "inputs-worker-5.json",
+      "source": "sha256:ccd433798710c1cf72f87d0e9dd80283d20b3a8d120dd927c62e99f44e3754bd",
+      "artifact": "sha256:288a0c2f06fccd5f01f117c2a9e90be87a3c913d73adfcdcc3a217f47d8f102c",
+      "siteBuild": "sha256:aed9ae540b58d21a5db9f865cfb392979f365483d8f88534fd7858583f205fe9",
+      "stable": true
+    },
+    {
+      "file": "inputs-worker-6.json",
+      "source": "sha256:ccd433798710c1cf72f87d0e9dd80283d20b3a8d120dd927c62e99f44e3754bd",
+      "artifact": "sha256:288a0c2f06fccd5f01f117c2a9e90be87a3c913d73adfcdcc3a217f47d8f102c",
+      "siteBuild": "sha256:aed9ae540b58d21a5db9f865cfb392979f365483d8f88534fd7858583f205fe9",
+      "stable": true
+    },
+    {
+      "file": "inputs-worker-7.json",
+      "source": "sha256:ccd433798710c1cf72f87d0e9dd80283d20b3a8d120dd927c62e99f44e3754bd",
+      "artifact": "sha256:288a0c2f06fccd5f01f117c2a9e90be87a3c913d73adfcdcc3a217f47d8f102c",
+      "siteBuild": "sha256:aed9ae540b58d21a5db9f865cfb392979f365483d8f88534fd7858583f205fe9",
+      "stable": true
+    },
+    {
+      "file": "inputs-worker-8.json",
+      "source": "sha256:ccd433798710c1cf72f87d0e9dd80283d20b3a8d120dd927c62e99f44e3754bd",
+      "artifact": "sha256:288a0c2f06fccd5f01f117c2a9e90be87a3c913d73adfcdcc3a217f47d8f102c",
+      "siteBuild": "sha256:aed9ae540b58d21a5db9f865cfb392979f365483d8f88534fd7858583f205fe9",
+      "stable": true
+    },
+    {
+      "file": "inputs-worker-9.json",
+      "source": "sha256:ccd433798710c1cf72f87d0e9dd80283d20b3a8d120dd927c62e99f44e3754bd",
+      "artifact": "sha256:288a0c2f06fccd5f01f117c2a9e90be87a3c913d73adfcdcc3a217f47d8f102c",
+      "siteBuild": "sha256:aed9ae540b58d21a5db9f865cfb392979f365483d8f88534fd7858583f205fe9",
+      "stable": true
+    }
+  ],
+  "scope": "All six theme/mode configurations: 1440px home/catalog/component/tutorial viewports; task section at 320/768/1440; 320px touch navigation/current focus, search results and appearance menu. The 370-case automated suite additionally covers runtime failures, loading, IME, system colors, reduced motion, keyboard-height and landscape. Manual screenshots and automated assertions are separate evidence.",
+  "observation": "十组联系图的60张原生截图已逐项查看。页面层级、单/双/三列任务入口、导航选中态、搜索高亮与关闭、外观菜单焦点及三体系明暗均协调；没有发现需要新增站点样式的缺陷。",
+  "images": [
+    {
+      "file": "site/catalog-desktop-viewport.png-1.png",
+      "sha256": "7e420d3192f2afb3a9c342b6bb4429382993014d6bb94ebee156a2f9fb88a611"
+    },
+    {
+      "file": "site/component-desktop-viewport.png-1.png",
+      "sha256": "1da983171353453df475cd4bb0817c37543aecac48839b2d2a14a19ba820ac4a"
+    },
+    {
+      "file": "site/desktop-task-categories.png-1.png",
+      "sha256": "505625e0122e97ea416dc8f6858782611c2b416f88f7e1c5bbe0e6555e7a301b"
+    },
+    {
+      "file": "site/home-desktop-viewport.png-1.png",
+      "sha256": "f2614f03d52fee8fe67271ecd95748b7e91c17c8aa9154c2b7bcda512b9b15ff"
+    },
+    {
+      "file": "site/narrow-task-categories.png-1.png",
+      "sha256": "29d757e4dca5c405e9f09d09be2054ffb2d75a7e156a7ef47e34c52fcf1d66fb"
+    },
+    {
+      "file": "site/portrait-appearance-menu.png-1.png",
+      "sha256": "c3ea9d482ddbda414535b7a43a6130fce9d3fc4d5197cc673ae263e97d31aed7"
+    },
+    {
+      "file": "site/portrait-navigation-current.png-1.png",
+      "sha256": "ad4767b0cde64273009401d15664c6f3325629492b8f0f914485811c76322c02"
+    },
+    {
+      "file": "site/portrait-search-results.png-1.png",
+      "sha256": "e49cfd09d31b1b085c606fb274478307a6ff2743f55c976b8a808d9886a9b3d1"
+    },
+    {
+      "file": "site/tablet-task-categories.png-1.png",
+      "sha256": "9cc4608adf5d3020a9c8cddec51a94d0eacd7ed3fddbdbc5a405f8bf084f1135"
+    },
+    {
+      "file": "site/tutorial-desktop-viewport.png-1.png",
+      "sha256": "86e2a44f00179eb5a46ba263bee58e24eb0669a3fc02ac18a5311aa4c8b8660b"
+    }
+  ]
+}

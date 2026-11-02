@@ -1,4 +1,4 @@
-import { Children, useEffect, useId, useRef, useState } from "react";
+import { Children, use, useEffect, useId, useRef, useState } from "react";
 import type { FocusEvent } from "react";
 
 import type * as UI from "@crab-dev/wake/docs";
@@ -10,9 +10,7 @@ import Dialog from "@crab-dev/rc-dialog";
 import LineEdit from "@crab-dev/rc-line-edit";
 
 import Segmented from "@crab-dev/rc-segmented";
-import Alert from "@crab-dev/rc-alert";
-import Empty from "@crab-dev/rc-empty";
-import Spin from "@crab-dev/rc-spin";
+import { SpinIndicator } from "@crab-dev/rc-spin";
 import { useMediaQuery } from "@crab-dev/rc-hooks";
 import { resolveSiteHref } from "../siteContext.js";
 import { PageSections } from "../documentNavigation.js";
@@ -21,11 +19,15 @@ import SiteIcon from "../siteIcon.js";
 import ComponentHeroPreview from "../componentHeroPreview.js";
 import { SearchIcon } from "./icons.js";
 import { follow } from "./navigation.js";
+export { default as PageLoading } from "./page-loading.js";
+export { PageError, NotFound } from "./document-state.js";
+import { EmptyFeedback, ErrorFeedback } from "./feedback.js";
+import { DocumentRecoveryContext } from "./document-recovery.js";
 
 export function revealDocumentLink(event: FocusEvent<HTMLElement>) {
     const link = event.target.closest<HTMLAnchorElement>("a[href]");
     if (!link || !event.currentTarget.contains(link) || link.closest("[data-wake-demo], [data-live-example]")) return;
-    const scrollport = link.closest<HTMLElement>(".crab-home-category-index, .crab-docs-prose > .table-scroll");
+    const scrollport = link.closest<HTMLElement>(".crab-docs-prose > .table-scroll");
     if (!scrollport || !event.currentTarget.contains(scrollport) || scrollport.clientWidth <= 0
         || scrollport.scrollWidth <= scrollport.clientWidth) return;
     // Native Tab scrolling can leave a partially visible link clipped. Reveal it
@@ -80,9 +82,13 @@ export function TableOfContents({
 }
 
 export function Page({ page, previous, next, route, site, children }: UI.PageProps) {
+    const recovery = use(DocumentRecoveryContext);
     const reducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
     // 例外：持有本站正文 DOM，将历史 Markdown 根路径链接适配到公开部署前缀。
     const article = useRef<HTMLElement>(null);
+    useEffect(() => {
+        recovery?.complete(page.slug, article.current?.querySelector<HTMLElement>("h1") ?? null);
+    }, [page.slug, recovery]);
     useEffect(() => {
         const base = site.basePath.replace(/\/$/, "");
         if (!base) return;
@@ -217,12 +223,14 @@ export function CodeBlock({
                     ))}
                 </code>
             </pre>
-            {copyStatus === "error" && <p role="status">复制失败，请重试或手动选择代码。</p>}
+            {copyStatus === "error" && <p className="crab-docs-copy-feedback" role="status">复制失败，请重试或手动选择代码。</p>}
         </figure>
     );
 }
 
 export function ApiTable(props: UI.ApiTableProps) {
+    const filterInput = useRef<HTMLInputElement>(null);
+    const filtered = props.filter.trim().length > 0;
     return (
         <section className="crab-docs-api" aria-label={`${props.symbol} 属性参考`}>
             <div className="crab-docs-api-heading">
@@ -234,6 +242,7 @@ export function ApiTable(props: UI.ApiTableProps) {
             {props.description && <p>{props.description}</p>}
             <LineEdit
                 className="crab-docs-api-filter"
+                ref={filterInput}
                 aria-label="筛选 API 属性"
                 placeholder="筛选属性…"
                 prefix={<SearchIcon />}
@@ -241,9 +250,9 @@ export function ApiTable(props: UI.ApiTableProps) {
                 onValueChange={(value) => props.setFilter(value)}
             />
             {props.error && (
-                <Alert type="error" title="API 加载失败">
-                    {props.error}
-                </Alert>
+                <ErrorFeedback title="API 加载失败" detail={props.error}>
+                    属性说明暂时无法显示，可以先阅读本页的用法与示例，稍后重新打开文档。
+                </ErrorFeedback>
             )}
             <dl className="crab-docs-properties">
                 {props.properties.map((property) => (
@@ -265,7 +274,12 @@ export function ApiTable(props: UI.ApiTableProps) {
                 ))}
             </dl>
             {!props.error && props.properties.length === 0 && (
-                <Empty preset="search" title="没有匹配的属性" />
+                <EmptyFeedback search={filtered} title={filtered ? "没有匹配的属性" : "暂无属性说明"}
+                    description={filtered ? "试试更短的属性名，或清除筛选查看全部属性。" : "可继续查看组件用法、继承属性与示例。"}
+                    actions={filtered && <Button appearance="outlined" onClick={() => {
+                        props.setFilter("");
+                        filterInput.current?.focus();
+                    }}>清除筛选</Button>} />
             )}
             {props.inherited.length > 0 && (
                 <details>
@@ -321,14 +335,14 @@ export function Demo(props: UI.DemoProps) {
             <h3>{props.title}</h3>
             <p>{props.description}</p>
             {props.loading && (
-                <div role="status">
-                    <Spin /> 正在加载示例…
+                <div className="crab-docs-search-pending" role="status">
+                    <SpinIndicator /> 正在加载示例…
                 </div>
             )}
             {props.error && (
-                <Alert type="error" title="示例加载失败">
-                    {props.error}
-                </Alert>
+                <ErrorFeedback title="示例加载失败" detail={props.error}>
+                    预览暂时无法显示，可以展开下方源码继续阅读。
+                </ErrorFeedback>
             )}
             {!inDialog && preview}
             <div className="crab-docs-actions">
@@ -377,33 +391,5 @@ export function Demo(props: UI.DemoProps) {
                 {inDialog && preview}
             </Dialog>
         </section>
-    );
-}
-
-export function PageLoading() {
-    return (
-        <div className="crab-docs-state" role="status" aria-busy="true">
-            <Spin /> 正在加载文档…
-        </div>
-    );
-}
-
-export function PageError({ error, retry }: UI.PageErrorProps) {
-    return (
-        <div className="crab-docs-state">
-            <Alert type="error" title="文档加载失败">
-                {error}
-            </Alert>
-            <Button onClick={retry}>重试加载</Button>
-        </div>
-    );
-}
-
-export function NotFound({ site }: UI.NotFoundProps) {
-    return (
-        <div className="crab-docs-state">
-            <Empty title="找不到这篇文档" description="请检查地址，或通过搜索查找组件。" />
-            <Button href={site.homeHref}>返回首页</Button>
-        </div>
     );
 }

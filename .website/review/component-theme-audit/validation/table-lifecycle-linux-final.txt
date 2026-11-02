@@ -1,0 +1,801 @@
+• turbo 2.10.12
+
+   • Packages in scope: @crab-dev/rc-table
+   • Running build:library in 1 packages
+   • Remote caching disabled
+
+@crab-dev/rc-hooks:build:library: cache hit, replaying logs 142305bce4255b6a
+@crab-dev/rc-hooks:build:library: 
+@crab-dev/rc-hooks:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-hooks:build:library: 
+@crab-dev/rc-hooks:build:library:   ✓  Built library in 43ms
+@crab-dev/rc-hooks:build:library:      23 modules · 70 files · 62.9 KB
+@crab-dev/rc-hooks:build:library:      Output  /workspace/components/rc-hooks
+@crab-dev/rc-hooks:build:library: 
+@crab-dev/rc-token-global:build:library: cache hit, replaying logs 401fd56d2dfc17b6
+@crab-dev/rc-token-global:build:library: 
+@crab-dev/rc-token-global:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.45
+@crab-dev/rc-token-global:build:library: 
+@crab-dev/rc-token-global:build:library:   ✓  Tokens generated in 4ms
+@crab-dev/rc-token-global:build:library:      1 files · 33.2 KB
+@crab-dev/rc-token-global:build:library:      Output  /workspace/components/rc-token-global/src/token.ts
+@crab-dev/rc-token-global:build:library: 
+@crab-dev/rc-token-global:build:library: 
+@crab-dev/rc-token-global:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-token-global:build:library: 
+@crab-dev/rc-token-global:build:library:   ✓  Built library in 37ms
+@crab-dev/rc-token-global:build:library:      2 modules · 6 files · 75.7 KB
+@crab-dev/rc-token-global:build:library:      Output  /workspace/components/rc-token-global
+@crab-dev/rc-token-global:build:library: 
+@crab-dev/rc-token-semantic:build:library: cache hit, replaying logs 7b96e99f1ee6d6c0
+@crab-dev/rc-token-semantic:build:library: 
+@crab-dev/rc-token-semantic:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.45
+@crab-dev/rc-token-semantic:build:library: 
+@crab-dev/rc-token-semantic:build:library:   ✓  Tokens generated in 21ms
+@crab-dev/rc-token-semantic:build:library:      1 files · 165.7 KB
+@crab-dev/rc-token-semantic:build:library:      Output  /workspace/components/rc-token-semantic/src/token.ts
+@crab-dev/rc-token-semantic:build:library: 
+@crab-dev/rc-token-semantic:build:library: 
+@crab-dev/rc-token-semantic:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-token-semantic:build:library: 
+@crab-dev/rc-token-semantic:build:library:   ✓  Built library in 559ms
+@crab-dev/rc-token-semantic:build:library:      13 modules · 40 files · 631.3 KB
+@crab-dev/rc-token-semantic:build:library:      Output  /workspace/components/rc-token-semantic
+@crab-dev/rc-token-semantic:build:library: 
+@crab-dev/rc-virtual:build:library: cache miss, executing 3b289e7f054f5ddf
+@crab-dev/rc-theme:build:library: cache hit, replaying logs 838a435c08a3fa23
+@crab-dev/rc-theme:build:library: 
+@crab-dev/rc-theme:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-theme:build:library: 
+@crab-dev/rc-theme:build:library:   ✓  Built library in 443ms
+@crab-dev/rc-theme:build:library:      13 modules · 28 files · 256.1 KB
+@crab-dev/rc-theme:build:library:      Output  /workspace/components/rc-theme
+@crab-dev/rc-theme:build:library: 
+@crab-dev/rc-config-provider:build:library: cache hit, replaying logs d11b772eab60bd10
+@crab-dev/rc-config-provider:build:library: 
+@crab-dev/rc-config-provider:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-config-provider:build:library: 
+@crab-dev/rc-config-provider:build:library:   ✓  Built library in 250ms
+@crab-dev/rc-config-provider:build:library:      9 modules · 29 files · 46.6 KB
+@crab-dev/rc-config-provider:build:library:      Output  /workspace/components/rc-config-provider
+@crab-dev/rc-config-provider:build:library: 
+@crab-dev/rc-empty:build:library: cache miss, executing 5f246fd70e9de65c
+@crab-dev/rc-empty:build:library: 
+@crab-dev/rc-empty:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.45
+@crab-dev/rc-empty:build:library: 
+@crab-dev/rc-empty:build:library:   ✓  Tokens generated in 120ms
+@crab-dev/rc-empty:build:library:      1 files · 3.9 KB
+@crab-dev/rc-empty:build:library:      Output  /workspace/components/rc-empty/src/token.ts
+@crab-dev/rc-empty:build:library: 
+@crab-dev/rc-virtual:build:library: 
+@crab-dev/rc-virtual:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.45
+@crab-dev/rc-virtual:build:library: 
+@crab-dev/rc-virtual:build:library:   ✓  Tokens generated in 56ms
+@crab-dev/rc-virtual:build:library:      1 files · 1.7 KB
+@crab-dev/rc-virtual:build:library:      Output  /workspace/components/rc-virtual/src/token.ts
+@crab-dev/rc-virtual:build:library: 
+@crab-dev/rc-empty:build:library: 
+@crab-dev/rc-empty:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-empty:build:library: 
+@crab-dev/rc-virtual:build:library: 
+@crab-dev/rc-virtual:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-virtual:build:library: 
+@crab-dev/rc-virtual:build:library:   ✓  Built library in 125ms
+@crab-dev/rc-virtual:build:library:      8 modules · 21 files · 68.1 KB
+@crab-dev/rc-virtual:build:library:      Output  /workspace/components/rc-virtual
+@crab-dev/rc-virtual:build:library: 
+@crab-dev/rc-radio:build:library: cache miss, executing e2869d1c81b38c25
+@crab-dev/rc-empty:build:library:   ✓  Built library in 617ms
+@crab-dev/rc-empty:build:library:      7 modules · 19 files · 25.2 KB
+@crab-dev/rc-empty:build:library:      Output  /workspace/components/rc-empty
+@crab-dev/rc-empty:build:library: 
+@crab-dev/rc-spin:build:library: cache miss, executing 5ad47b6744af7eff
+@crab-dev/rc-radio:build:library: 
+@crab-dev/rc-radio:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.45
+@crab-dev/rc-radio:build:library: 
+@crab-dev/rc-radio:build:library:   ✓  Tokens generated in 55ms
+@crab-dev/rc-radio:build:library:      1 files · 13.6 KB
+@crab-dev/rc-radio:build:library:      Output  /workspace/components/rc-radio/src/token.ts
+@crab-dev/rc-radio:build:library: 
+@crab-dev/rc-spin:build:library: 
+@crab-dev/rc-spin:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.45
+@crab-dev/rc-spin:build:library: 
+@crab-dev/rc-spin:build:library:   ✓  Tokens generated in 34ms
+@crab-dev/rc-spin:build:library:      1 files · 6.7 KB
+@crab-dev/rc-spin:build:library:      Output  /workspace/components/rc-spin/src/token.ts
+@crab-dev/rc-spin:build:library: 
+@crab-dev/rc-radio:build:library: 
+@crab-dev/rc-radio:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-radio:build:library: 
+@crab-dev/rc-spin:build:library: 
+@crab-dev/rc-spin:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-spin:build:library: 
+@crab-dev/rc-radio:build:library:   ✓  Built library in 440ms
+@crab-dev/rc-radio:build:library:      6 modules · 18 files · 59.1 KB
+@crab-dev/rc-radio:build:library:      Output  /workspace/components/rc-radio
+@crab-dev/rc-radio:build:library: 
+@crab-dev/rc-checkbox:build:library: cache miss, executing db97212f0e822295
+@crab-dev/rc-spin:build:library:   ✓  Built library in 432ms
+@crab-dev/rc-spin:build:library:      8 modules · 23 files · 41.1 KB
+@crab-dev/rc-spin:build:library:      Output  /workspace/components/rc-spin
+@crab-dev/rc-spin:build:library: 
+@crab-dev/rc-button:build:library: cache miss, executing 0286bfe252580b36
+@crab-dev/rc-checkbox:build:library: 
+@crab-dev/rc-checkbox:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.45
+@crab-dev/rc-checkbox:build:library: 
+@crab-dev/rc-checkbox:build:library:   ✓  Tokens generated in 42ms
+@crab-dev/rc-checkbox:build:library:      1 files · 16.3 KB
+@crab-dev/rc-checkbox:build:library:      Output  /workspace/components/rc-checkbox/src/token.ts
+@crab-dev/rc-checkbox:build:library: 
+@crab-dev/rc-button:build:library: 
+@crab-dev/rc-button:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.45
+@crab-dev/rc-button:build:library: 
+@crab-dev/rc-button:build:library:   ✓  Tokens generated in 40ms
+@crab-dev/rc-button:build:library:      1 files · 44.1 KB
+@crab-dev/rc-button:build:library:      Output  /workspace/components/rc-button/src/token.ts
+@crab-dev/rc-button:build:library: 
+@crab-dev/rc-checkbox:build:library: 
+@crab-dev/rc-checkbox:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-checkbox:build:library: 
+@crab-dev/rc-button:build:library: 
+@crab-dev/rc-button:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-button:build:library: 
+@crab-dev/rc-checkbox:build:library:   ✓  Built library in 381ms
+@crab-dev/rc-checkbox:build:library:      6 modules · 18 files · 68.3 KB
+@crab-dev/rc-checkbox:build:library:      Output  /workspace/components/rc-checkbox
+@crab-dev/rc-checkbox:build:library: 
+@crab-dev/rc-button:build:library:   ✓  Built library in 402ms
+@crab-dev/rc-button:build:library:      6 modules · 18 files · 173.1 KB
+@crab-dev/rc-button:build:library:      Output  /workspace/components/rc-button
+@crab-dev/rc-button:build:library: 
+@crab-dev/rc-table:build:library: cache miss, executing 3617bd1567d19383
+@crab-dev/rc-table:build:library: 
+@crab-dev/rc-table:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.45
+@crab-dev/rc-table:build:library: 
+@crab-dev/rc-table:build:library:   ✓  Tokens generated in 30ms
+@crab-dev/rc-table:build:library:      1 files · 23.9 KB
+@crab-dev/rc-table:build:library:      Output  /workspace/components/rc-table/src/token.ts
+@crab-dev/rc-table:build:library: 
+@crab-dev/rc-table:build:library: 
+@crab-dev/rc-table:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-table:build:library: 
+@crab-dev/rc-table:build:library:   ✓  Built library in 547ms
+@crab-dev/rc-table:build:library:      34 modules · 78 files · 435.2 KB
+@crab-dev/rc-table:build:library:      Output  /workspace/components/rc-table
+@crab-dev/rc-table:build:library: 
+
+ Tasks:    12 successful, 12 total
+Cached:    5 cached, 12 total
+  Time:    15.494s 
+
+0 errors, 0 warnings
+0 errors, 0 warnings
+PASS src/__tests__/demoData.test.ts
+  ✓ keeps employee roles, geography, tenure and annual compensation consistent at scale
+  ✓ keeps order totals, payments and fulfillment dates coherent across 3000 rows
+  ✓ reconciles monthly budgets and keeps meaningful overspend examples
+  ✓ recalculates inventory after a count correction and leaves the original record intact
+  ✓ rolls organization headcount and cost up from current employees without duplicating leaves
+  ✓ creates after-sales tickets after delivery and never resolves them in the future
+  ✓ provides one million business cells with consistent store metrics
+  ✓ combines exact status selection with tolerant text and numeric filters
+  ✓ approves only eligible orders and preserves the snapshot used for undo
+  ✓ preserves sparse rectangles and escapes multiline values when copying TSV
+PASS src/__tests__/interaction-scope.test.tsx
+  ✓ isolates interaction ownership per Document and transfers it between sibling tables
+PASS src/__tests__/performance.test.tsx
+  ✓ does not rerender retained cells, headers, or summary values during vertical scroll
+  ✓ keeps column layout and ordinary cells stable across controlled row-selection changes
+  ✓ materializes a drag rectangle only when the pointer is released
+  ✓ copies selected cells with indexed row lookup
+  ✓ cancels an obsolete chunked keyword scan
+  ✓ reuses compiled accessors and precomputes header span origins
+PASS src/__tests__/selectionVisibility.test.tsx
+  ✓ keeps the foreground transparent for fixed=undefined
+  ✓ keeps the foreground transparent for fixed=left
+  ✓ keeps the foreground transparent for fixed=right
+  ✓ does not cover text with an opaque legacy selection color in light mode
+  ✓ does not cover text with an opaque legacy selection color in dark mode
+  ✓ preserves the active cell while showing the rest of a selected range
+  ✓ outlines the full merged area without painting over its content
+  ✓ does not create duplicate foreground layers for covered merged cells
+  ✓ preserves custom text, highlights and controls inside a selected cell
+  ✓ keeps every cell readable across fixed and scrolling columns and removes the outline when cleared
+PASS src/__tests__/sort-mode.test.tsx
+  ✓ sorts loaded rows in client mode and preserves server ordering in server mode
+PASS src/__tests__/table.test.tsx
+  ✓ keeps filter geometry synchronized with semantic field sizing and honors an explicit height
+  ✓ recalculates virtual row geometry from density independently of size and keeps explicit heights
+  ✓ updates built-in row selection names with locale and emits selection details
+  ✓ preserves the input and cell click events for checkbox selection
+  ✓ preserves the input and cell click events for radio selection
+  ✓ preserves the checkbox event when selecting and clearing all rows
+  ✓ renders grouped headers and basic cell content
+  ✓ uses block virtual spacers with inherited line-height 1
+  ✓ uses block virtual spacers with inherited line-height 1.7
+  ✓ uses block virtual spacers with inherited line-height 2
+  ✓ preserves native styles and exposes grid semantics
+  ✓ supports keyboard column resize and restores document styles on unmount
+  ✓ recursively removes hidden child columns before deriving leaf indexes and widths
+  ✓ renders summary row with fixed columns when showSummary enabled
+  ✓ renders merged text when mergeCells and fixed columns are used together
+  ✓ keeps the merged origin mounted when horizontal virtualization starts inside its colSpan
+  ✓ supports getRowHeight and headerRowHeight props
+  ✓ keeps merged-row compensation and the last row correct while scrolling
+  ✓ does not filter rows by itself and only emits filter conditions
+  ✓ supports controlled filters from outside
+  ✓ supports custom filter editor
+  ✓ supports external renderDefaultFilterEditor
+  ✓ renders empty filter cell when no filter editor is provided
+  ✓ supports custom filter cell className
+  ✓ supports column-level filter cell className
+  ✓ renders expanded content only for rows in expandedRowKeys
+  ✓ toggles expansion via icon click and emits onExpandedRowKeysChange
+  ✓ uncontrolled expansion shows content after clicking the expand icon
+  ✓ hides the expand icon for rows disabled by isRowExpandable
+  ✓ recomputes expansion when isRowExpandable changes without changing rows
+  ✓ recomputes tree rows when getChildRows changes
+  ✓ counts repeated keyword matches without materializing one entry per occurrence
+  ✓ emits onRowClick with the row and its index
+  ✓ emits onRowDoubleClick with the row and its index
+  ✓ does not emit onRowClick when clicking the row-selection checkbox
+  ✓ does not emit onRowClick when clicking the expand icon
+  ✓ does not emit onRowClick when clicking a button rendered inside a cell
+  ✓ does not emit onRowClick after a cell drag-selection
+  ✓ does not emit onRowDoubleClick when a cell enters edit mode (editType=cell)
+  ✓ keeps cell editor state attached to row id and column name after row and column reorder
+  ✓ lets row-edit consume the double click instead of emitting onRowDoubleClick (editType=row)
+  ✓ returns focus to its keyboard grid after 确定 removes the focused action
+  ✓ returns focus to its keyboard grid after 取消 removes the focused action
+  ✓ keeps focus on a row action when a controlled owner rejects ending the edit
+  ✓ preserves application focus chosen while committing and does not focus an obsolete Table host
+  ✓ clears the previous draft when controlled row editing switches to another row
+  ✓ emits onRowClick via keyboard Enter on the anchored row
+  ✓ routes global keyboard actions only to the last active table
+  ✓ adds the clickable affordance class only when a row event is provided
+PASS src/__tests__/token-vars.test.ts
+  ✓ exposes canonical overrides with their semantic or static defaults
+  ✓ does not expose or consume removed aliases
+PASS src/__tests__/useRowSelection.test.tsx
+  ✓ does not fabricate an event for programmatic row, all, and clear changes
+PASS src/__tests__/util.test.ts
+  ✓ updates nested objects and array elements without creating missing parents
+  ✓ preserves business row callbacks through sorting and nested header traversal
+  ✓ should not change order if all columns are unfixed
+  ✓ should move left fixed columns to the front
+  ✓ should move right fixed columns to the end
+  ✓ should order left, normal, right columns correctly
+  ✓ should handle multiple left and right fixed columns
+  ✓ should not mutate the original array
+  ✓ should build mergeCellMap and skipCellSet for a single merged area
+  ✓ should support multiple merge areas without key collision
+  ✓ should keep map entry and skip set empty area for zero span cell
+  ✓ should calculate merged cell size for single cell (rowSpan=0, colSpan=0)
+  ✓ should calculate merged cell size for rowSpan only
+  ✓ should calculate merged cell size for colSpan only
+  ✓ should calculate merged cell size for both rowSpan and colSpan
+  ✓ should return 1 for a column with no children
+  ✓ should return correct depth for a column with one level of children
+  ✓ should return correct depth for a column with nested children
+  ✓ should return the maximum depth among all children
+  ✓ should handle empty children array
+  ✓ should return 0 for empty columns array
+  ✓ should return 1 for columns with no children
+  ✓ should return correct max depth for columns with one level of children
+  ✓ should return correct max depth for columns with nested children
+  ✓ should return the maximum depth among all columns
+  ✓ should handle columns with empty children arrays
+  ✓ should handle deeply nested columns
+  ✓ should return the same columns if there are no children
+  ✓ should return only leaf columns for one level of children
+  ✓ should return only leaf columns for nested children
+  ✓ should handle columns with empty children arrays
+  ✓ should handle deeply nested columns
+  ✓ should return correct header cells for flat columns
+  ✓ should return correct header cells for columns with one level of children
+  ✓ should return correct header cells for deeply nested columns
+  ✓ should handle columns with empty children arrays
+  ✓ should align child columns correctly when top-level leaf and grouped headers are mixed
+Test Suites: 9 passed, 0 failed, 9 total
+Tests:       117 passed, 0 failed, 0 pending, 117 total
+Wake coverage
+File	Lines	Functions	Blocks
+All files	85.49% (3365/3936)	84.65% (375/443)	64.85% (821/1266)
+docs/demos/_mock.ts	100.00% (158/158)	94.74% (18/19)	97.26% (71/73)
+docs/demos/_operations.ts	92.31% (36/39)	100.00% (10/10)	70.83% (17/24)
+docs/demos/_scenarios.ts	100.00% (70/70)	100.00% (20/20)	88.89% (24/27)
+src/bodyCell.tsx	85.64% (328/383)	75.86% (22/29)	71.95% (118/164)
+src/bodyRow.tsx	100.00% (19/19)	100.00% (2/2)	50.00% (1/2)
+src/expanded-row-content.tsx	68.42% (13/19)	75.00% (3/4)	0.00% (0/1)
+src/headerCell.styles.ts	100.00% (36/36)	100.00% (0/0)	0.00% (0/21)
+src/headerCell.tsx	85.19% (184/216)	43.75% (7/16)	52.73% (58/110)
+src/hooks/useCellEdit.ts	45.95% (17/37)	40.00% (2/5)	100.00% (0/0)
+src/hooks/useCellEditNav.ts	40.00% (34/85)	60.00% (6/10)	50.00% (5/10)
+src/hooks/useCellSelection.ts	83.88% (203/242)	93.10% (27/29)	53.66% (44/82)
+src/hooks/useColumnDrag.ts	38.54% (37/96)	60.00% (9/15)	40.00% (2/5)
+src/hooks/useColumnLayout.ts	99.24% (131/132)	97.14% (34/35)	75.00% (30/40)
+src/hooks/useColumnResize.ts	79.27% (65/82)	80.00% (8/10)	18.18% (2/11)
+src/hooks/useColumnSort.ts	74.32% (55/74)	90.91% (10/11)	52.38% (11/21)
+src/hooks/useEditFocus.ts	100.00% (16/16)	100.00% (2/2)	75.00% (9/12)
+src/hooks/useFilterRowHeight.ts	100.00% (14/14)	100.00% (4/4)	33.33% (1/3)
+src/hooks/useKeywordMatch.ts	94.85% (129/136)	100.00% (14/14)	80.00% (48/60)
+src/hooks/useRowEdit.ts	98.21% (55/56)	92.31% (12/13)	76.47% (13/17)
+src/hooks/useRowEvents.ts	100.00% (93/93)	100.00% (9/9)	70.31% (45/64)
+src/hooks/useRowExpansion.ts	97.22% (35/36)	100.00% (4/4)	66.67% (4/6)
+src/hooks/useRowGroup.ts	71.88% (23/32)	80.00% (4/5)	66.67% (2/3)
+src/hooks/useRowNumber.tsx	68.89% (31/45)	60.00% (3/5)	0.00% (0/10)
+src/hooks/useRowSelection.ts	98.28% (57/58)	94.44% (17/18)	93.75% (15/16)
+src/hooks/useSummary.tsx	98.88% (88/89)	88.89% (8/9)	63.41% (26/41)
+src/hooks/useTableFilter.ts	95.00% (19/20)	100.00% (3/3)	50.00% (2/4)
+src/hooks/useTableInteractionScope.ts	100.00% (32/32)	88.89% (8/9)	71.43% (5/7)
+src/hooks/useTreeData.ts	78.05% (32/41)	75.00% (3/4)	80.00% (4/5)
+src/iconButton.tsx	100.00% (15/15)	100.00% (1/1)	0.00% (0/12)
+src/rowBg.ts	100.00% (3/3)	100.00% (0/0)	0.00% (0/1)
+src/table.styles.ts	100.00% (75/75)	100.00% (0/0)	0.00% (0/50)
+src/table.tsx	86.56% (760/878)	77.92% (60/77)	69.31% (201/290)
+src/token.ts	100.00% (241/241)	100.00% (0/0)	100.00% (0/0)
+src/util.ts	65.33% (196/300)	87.80% (36/41)	86.67% (52/60)
+src/valueAccess.ts	90.91% (30/33)	87.50% (7/8)	78.57% (11/14)
+src/virtual-spacers.tsx	100.00% (35/35)	100.00% (2/2)	100.00% (0/0)
+Seed:        1793605182518237724
+Time:        22599 ms
+• turbo 2.10.12
+
+   • Packages in scope: @crab-dev/rc-table
+   • Running build:library in 1 packages
+   • Remote caching disabled
+
+@crab-dev/rc-token-global:build:library: cache hit, replaying logs 401fd56d2dfc17b6
+@crab-dev/rc-token-global:build:library: 
+@crab-dev/rc-token-global:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.45
+@crab-dev/rc-token-global:build:library: 
+@crab-dev/rc-token-global:build:library:   ✓  Tokens generated in 4ms
+@crab-dev/rc-token-global:build:library:      1 files · 33.2 KB
+@crab-dev/rc-token-global:build:library:      Output  /workspace/components/rc-token-global/src/token.ts
+@crab-dev/rc-token-global:build:library: 
+@crab-dev/rc-token-global:build:library: 
+@crab-dev/rc-token-global:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-token-global:build:library: 
+@crab-dev/rc-token-global:build:library:   ✓  Built library in 37ms
+@crab-dev/rc-token-global:build:library:      2 modules · 6 files · 75.7 KB
+@crab-dev/rc-token-global:build:library:      Output  /workspace/components/rc-token-global
+@crab-dev/rc-token-global:build:library: 
+@crab-dev/rc-token-semantic:build:library: cache hit, replaying logs 7b96e99f1ee6d6c0
+@crab-dev/rc-token-semantic:build:library: 
+@crab-dev/rc-token-semantic:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.45
+@crab-dev/rc-token-semantic:build:library: 
+@crab-dev/rc-token-semantic:build:library:   ✓  Tokens generated in 21ms
+@crab-dev/rc-token-semantic:build:library:      1 files · 165.7 KB
+@crab-dev/rc-token-semantic:build:library:      Output  /workspace/components/rc-token-semantic/src/token.ts
+@crab-dev/rc-token-semantic:build:library: 
+@crab-dev/rc-token-semantic:build:library: 
+@crab-dev/rc-token-semantic:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-token-semantic:build:library: 
+@crab-dev/rc-token-semantic:build:library:   ✓  Built library in 559ms
+@crab-dev/rc-token-semantic:build:library:      13 modules · 40 files · 631.3 KB
+@crab-dev/rc-token-semantic:build:library:      Output  /workspace/components/rc-token-semantic
+@crab-dev/rc-token-semantic:build:library: 
+@crab-dev/rc-hooks:build:library: cache hit, replaying logs 142305bce4255b6a
+@crab-dev/rc-hooks:build:library: 
+@crab-dev/rc-hooks:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-hooks:build:library: 
+@crab-dev/rc-hooks:build:library:   ✓  Built library in 43ms
+@crab-dev/rc-hooks:build:library:      23 modules · 70 files · 62.9 KB
+@crab-dev/rc-hooks:build:library:      Output  /workspace/components/rc-hooks
+@crab-dev/rc-hooks:build:library: 
+@crab-dev/rc-virtual:build:library: cache miss, executing abb3cec12df144da
+@crab-dev/rc-theme:build:library: cache hit, replaying logs ef3bc1c9edfd3e67
+@crab-dev/rc-theme:build:library: 
+@crab-dev/rc-theme:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-theme:build:library: 
+@crab-dev/rc-theme:build:library:   ✓  Built library in 440ms
+@crab-dev/rc-theme:build:library:      13 modules · 28 files · 256.1 KB
+@crab-dev/rc-theme:build:library:      Output  /workspace/components/rc-theme
+@crab-dev/rc-theme:build:library: 
+@crab-dev/rc-config-provider:build:library: cache hit, replaying logs 7bbe717a46f72664
+@crab-dev/rc-config-provider:build:library: 
+@crab-dev/rc-config-provider:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-config-provider:build:library: 
+@crab-dev/rc-config-provider:build:library:   ✓  Built library in 254ms
+@crab-dev/rc-config-provider:build:library:      9 modules · 29 files · 46.6 KB
+@crab-dev/rc-config-provider:build:library:      Output  /workspace/components/rc-config-provider
+@crab-dev/rc-config-provider:build:library: 
+@crab-dev/rc-spin:build:library: cache miss, executing 559539b941fccf23
+@crab-dev/rc-spin:build:library: 
+@crab-dev/rc-spin:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.45
+@crab-dev/rc-spin:build:library: 
+@crab-dev/rc-spin:build:library:   ✓  Tokens generated in 58ms
+@crab-dev/rc-spin:build:library:      1 files · 6.7 KB
+@crab-dev/rc-spin:build:library:      Output  /workspace/components/rc-spin/src/token.ts
+@crab-dev/rc-spin:build:library: 
+@crab-dev/rc-virtual:build:library: 
+@crab-dev/rc-virtual:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.45
+@crab-dev/rc-virtual:build:library: 
+@crab-dev/rc-virtual:build:library:   ✓  Tokens generated in 18ms
+@crab-dev/rc-virtual:build:library:      1 files · 1.7 KB
+@crab-dev/rc-virtual:build:library:      Output  /workspace/components/rc-virtual/src/token.ts
+@crab-dev/rc-virtual:build:library: 
+@crab-dev/rc-spin:build:library: 
+@crab-dev/rc-spin:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-spin:build:library: 
+@crab-dev/rc-virtual:build:library: 
+@crab-dev/rc-virtual:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-virtual:build:library: 
+@crab-dev/rc-virtual:build:library:   ✓  Built library in 42ms
+@crab-dev/rc-virtual:build:library:      8 modules · 21 files · 68.1 KB
+@crab-dev/rc-virtual:build:library:      Output  /workspace/components/rc-virtual
+@crab-dev/rc-virtual:build:library: 
+@crab-dev/rc-empty:build:library: cache miss, executing e32d1747c72c4a2f
+@crab-dev/rc-spin:build:library:   ✓  Built library in 343ms
+@crab-dev/rc-spin:build:library:      8 modules · 23 files · 41.1 KB
+@crab-dev/rc-spin:build:library:      Output  /workspace/components/rc-spin
+@crab-dev/rc-spin:build:library: 
+@crab-dev/rc-radio:build:library: cache miss, executing 7972c3a6fd3216ce
+@crab-dev/rc-empty:build:library: 
+@crab-dev/rc-empty:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.45
+@crab-dev/rc-empty:build:library: 
+@crab-dev/rc-empty:build:library:   ✓  Tokens generated in 22ms
+@crab-dev/rc-empty:build:library:      1 files · 3.9 KB
+@crab-dev/rc-empty:build:library:      Output  /workspace/components/rc-empty/src/token.ts
+@crab-dev/rc-empty:build:library: 
+@crab-dev/rc-radio:build:library: 
+@crab-dev/rc-radio:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.45
+@crab-dev/rc-radio:build:library: 
+@crab-dev/rc-radio:build:library:   ✓  Tokens generated in 19ms
+@crab-dev/rc-radio:build:library:      1 files · 13.6 KB
+@crab-dev/rc-radio:build:library:      Output  /workspace/components/rc-radio/src/token.ts
+@crab-dev/rc-radio:build:library: 
+@crab-dev/rc-empty:build:library: 
+@crab-dev/rc-empty:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-empty:build:library: 
+@crab-dev/rc-radio:build:library: 
+@crab-dev/rc-radio:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-radio:build:library: 
+@crab-dev/rc-empty:build:library:   ✓  Built library in 251ms
+@crab-dev/rc-empty:build:library:      7 modules · 19 files · 25.2 KB
+@crab-dev/rc-empty:build:library:      Output  /workspace/components/rc-empty
+@crab-dev/rc-empty:build:library: 
+@crab-dev/rc-checkbox:build:library: cache miss, executing c951b3efe9526e65
+@crab-dev/rc-radio:build:library:   ✓  Built library in 258ms
+@crab-dev/rc-radio:build:library:      6 modules · 18 files · 59.1 KB
+@crab-dev/rc-radio:build:library:      Output  /workspace/components/rc-radio
+@crab-dev/rc-radio:build:library: 
+@crab-dev/rc-button:build:library: cache miss, executing 5cf966965175cebf
+@crab-dev/rc-checkbox:build:library: 
+@crab-dev/rc-checkbox:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.45
+@crab-dev/rc-checkbox:build:library: 
+@crab-dev/rc-checkbox:build:library:   ✓  Tokens generated in 17ms
+@crab-dev/rc-checkbox:build:library:      1 files · 16.3 KB
+@crab-dev/rc-checkbox:build:library:      Output  /workspace/components/rc-checkbox/src/token.ts
+@crab-dev/rc-checkbox:build:library: 
+@crab-dev/rc-button:build:library: 
+@crab-dev/rc-button:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.45
+@crab-dev/rc-button:build:library: 
+@crab-dev/rc-button:build:library:   ✓  Tokens generated in 18ms
+@crab-dev/rc-button:build:library:      1 files · 44.1 KB
+@crab-dev/rc-button:build:library:      Output  /workspace/components/rc-button/src/token.ts
+@crab-dev/rc-button:build:library: 
+@crab-dev/rc-checkbox:build:library: 
+@crab-dev/rc-checkbox:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-checkbox:build:library: 
+@crab-dev/rc-button:build:library: 
+@crab-dev/rc-button:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-button:build:library: 
+@crab-dev/rc-checkbox:build:library:   ✓  Built library in 262ms
+@crab-dev/rc-checkbox:build:library:      6 modules · 18 files · 68.3 KB
+@crab-dev/rc-checkbox:build:library:      Output  /workspace/components/rc-checkbox
+@crab-dev/rc-checkbox:build:library: 
+@crab-dev/rc-button:build:library:   ✓  Built library in 292ms
+@crab-dev/rc-button:build:library:      6 modules · 18 files · 173.1 KB
+@crab-dev/rc-button:build:library:      Output  /workspace/components/rc-button
+@crab-dev/rc-button:build:library: 
+@crab-dev/rc-table:build:library: cache miss, executing b22bc76a1518f088
+@crab-dev/rc-table:build:library: 
+@crab-dev/rc-table:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.45
+@crab-dev/rc-table:build:library: 
+@crab-dev/rc-table:build:library:   ✓  Tokens generated in 16ms
+@crab-dev/rc-table:build:library:      1 files · 23.9 KB
+@crab-dev/rc-table:build:library:      Output  /workspace/components/rc-table/src/token.ts
+@crab-dev/rc-table:build:library: 
+@crab-dev/rc-table:build:library: 
+@crab-dev/rc-table:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-table:build:library: 
+@crab-dev/rc-table:build:library:   ✓  Built library in 436ms
+@crab-dev/rc-table:build:library:      34 modules · 78 files · 435.2 KB
+@crab-dev/rc-table:build:library:      Output  /workspace/components/rc-table
+@crab-dev/rc-table:build:library: 
+
+ Tasks:    12 successful, 12 total
+Cached:    5 cached, 12 total
+  Time:    7.867s 
+
+PASS composite-keyboard.test.tsx
+  ✓ md3/light: lets the cell combobox open and commit its own Enter selection
+  ✓ md3/dark: lets the cell combobox open and commit its own Enter selection
+  ✓ apple/light: lets the cell combobox open and commit its own Enter selection
+  ✓ apple/dark: lets the cell combobox open and commit its own Enter selection
+  ✓ shadcn/light: lets the cell combobox open and commit its own Enter selection
+  ✓ shadcn/dark: lets the cell combobox open and commit its own Enter selection
+  ✓ keeps native Enter activation on a cell editor action
+PASS contained-focus.test.tsx
+  ✓ md3/light: contains all four edges above selected/sticky cells after scrolling
+  ✓ md3/dark: contains all four edges above selected/sticky cells after scrolling
+  ✓ apple/light: contains all four edges above selected/sticky cells after scrolling
+  ✓ apple/dark: contains all four edges above selected/sticky cells after scrolling
+  ✓ shadcn/light: contains all four edges above selected/sticky cells after scrolling
+  ✓ shadcn/dark: contains all four edges above selected/sticky cells after scrolling
+PASS row-edit-actions.test.tsx
+  ✓ keeps action paint, observed focus and semantic activation feedback readable (md3/light/ltr)
+  ✓ keeps action paint, observed focus and semantic activation feedback readable (md3/light/rtl)
+  ✓ keeps action paint, observed focus and semantic activation feedback readable (md3/dark/ltr)
+  ✓ keeps action paint, observed focus and semantic activation feedback readable (md3/dark/rtl)
+  ✓ keeps action paint, observed focus and semantic activation feedback readable (apple/light/ltr)
+  ✓ keeps action paint, observed focus and semantic activation feedback readable (apple/light/rtl)
+  ✓ keeps action paint, observed focus and semantic activation feedback readable (apple/dark/ltr)
+  ✓ keeps action paint, observed focus and semantic activation feedback readable (apple/dark/rtl)
+  ✓ keeps action paint, observed focus and semantic activation feedback readable (shadcn/light/ltr)
+  ✓ keeps action paint, observed focus and semantic activation feedback readable (shadcn/light/rtl)
+  ✓ keeps action paint, observed focus and semantic activation feedback readable (shadcn/dark/ltr)
+  ✓ keeps action paint, observed focus and semantic activation feedback readable (shadcn/dark/rtl)
+PASS table.test.tsx
+  ✓ md3/light: commits in its editor Document and preserves grid focus
+  ✓ md3/light: commits in its editor Document and preserves outside focus
+  ✓ md3/dark: commits in its editor Document and preserves grid focus
+  ✓ md3/dark: commits in its editor Document and preserves outside focus
+  ✓ apple/light: commits in its editor Document and preserves grid focus
+  ✓ apple/light: commits in its editor Document and preserves outside focus
+  ✓ apple/dark: commits in its editor Document and preserves grid focus
+  ✓ apple/dark: commits in its editor Document and preserves outside focus
+  ✓ shadcn/light: commits in its editor Document and preserves grid focus
+  ✓ shadcn/light: commits in its editor Document and preserves outside focus
+  ✓ shadcn/dark: commits in its editor Document and preserves grid focus
+  ✓ shadcn/dark: commits in its editor Document and preserves outside focus
+  ✓ keeps shortcuts and resize resources inside the table owner Document in a real iframe
+  ✓ keeps inline horizontal spacers inside each row across fixed-column scrolling and the final row
+  ✓ pins both header and body columns throughout horizontal virtualization
+  ✓ updates offsets after a width change and restores relative positioning when unfixed
+  ✓ keeps both physical pins, the column window and thumb aligned under ltr
+  ✓ keeps both physical pins, the column window and thumb aligned under rtl
+  ✓ restores RTL content in filter, summary, grouped and expanded rows while explicit alignment stays physical
+  ✓ keeps explicit Table dir, nested controls and portal config consistent without changing the parent provider
+Test Suites: 4 passed, 0 failed, 4 total
+Tests:       45 passed, 0 failed, 0 pending, 45 total
+Wake coverage
+File	Lines	Functions	Blocks
+All files	100.00% (0/0)	100.00% (0/0)	100.00% (0/0)
+Seed:        1793605215042039777
+Time:        37516 ms
+PASS src/__tests__/selectionVisibility.test.tsx
+  ✓ keeps the foreground transparent for fixed=undefined
+  ✓ keeps the foreground transparent for fixed=left
+  ✓ keeps the foreground transparent for fixed=right
+  ✓ does not cover text with an opaque legacy selection color in light mode
+  ✓ does not cover text with an opaque legacy selection color in dark mode
+  ✓ preserves the active cell while showing the rest of a selected range
+  ✓ outlines the full merged area without painting over its content
+  ✓ does not create duplicate foreground layers for covered merged cells
+  ✓ preserves custom text, highlights and controls inside a selected cell
+  ✓ keeps every cell readable across fixed and scrolling columns and removes the outline when cleared
+Test Suites: 1 passed, 0 failed, 1 total
+Tests:       10 passed, 0 failed, 0 pending, 10 total
+Wake coverage
+File	Lines	Functions	Blocks
+All files	62.77% (2303/3669)	61.37% (224/365)	23.74% (146/615)
+src/bodyCell.tsx	68.93% (264/383)	62.07% (18/29)	56.91% (70/123)
+src/bodyRow.tsx	94.74% (18/19)	100.00% (2/2)	0.00% (0/2)
+src/expanded-row-content.tsx	10.53% (2/19)	0.00% (0/1)	100.00% (0/0)
+src/headerCell.styles.ts	100.00% (36/36)	100.00% (0/0)	0.00% (0/21)
+src/headerCell.tsx	64.35% (139/216)	37.50% (6/16)	15.62% (10/64)
+src/hooks/useCellEdit.ts	45.95% (17/37)	40.00% (2/5)	100.00% (0/0)
+src/hooks/useCellEditNav.ts	32.94% (28/85)	30.00% (3/10)	0.00% (0/3)
+src/hooks/useCellSelection.ts	42.15% (102/242)	66.67% (16/24)	40.74% (11/27)
+src/hooks/useColumnDrag.ts	37.50% (36/96)	53.33% (8/15)	0.00% (0/5)
+src/hooks/useColumnLayout.ts	98.48% (130/132)	97.14% (34/35)	19.23% (5/26)
+src/hooks/useColumnResize.ts	43.90% (36/82)	50.00% (4/8)	0.00% (0/4)
+src/hooks/useColumnSort.ts	44.59% (33/74)	54.55% (6/11)	14.29% (1/7)
+src/hooks/useEditFocus.ts	68.75% (11/16)	100.00% (2/2)	0.00% (0/6)
+src/hooks/useFilterRowHeight.ts	100.00% (14/14)	100.00% (4/4)	0.00% (0/2)
+src/hooks/useKeywordMatch.ts	44.85% (61/136)	69.23% (9/13)	39.13% (9/23)
+src/hooks/useRowEdit.ts	60.71% (34/56)	41.67% (5/12)	0.00% (0/5)
+src/hooks/useRowEvents.ts	44.09% (41/93)	44.44% (4/9)	0.00% (0/3)
+src/hooks/useRowExpansion.ts	63.89% (23/36)	75.00% (3/4)	0.00% (0/2)
+src/hooks/useRowGroup.ts	71.88% (23/32)	80.00% (4/5)	0.00% (0/1)
+src/hooks/useRowNumber.tsx	68.89% (31/45)	60.00% (3/5)	0.00% (0/10)
+src/hooks/useRowSelection.ts	63.79% (37/58)	60.00% (9/15)	0.00% (0/7)
+src/hooks/useSummary.tsx	51.69% (46/89)	33.33% (3/9)	0.00% (0/12)
+src/hooks/useTableFilter.ts	45.00% (9/20)	50.00% (1/2)	100.00% (0/0)
+src/hooks/useTableInteractionScope.ts	75.00% (24/32)	33.33% (3/9)	0.00% (0/2)
+src/hooks/useTreeData.ts	56.10% (23/41)	75.00% (3/4)	0.00% (0/4)
+src/iconButton.tsx	86.67% (13/15)	0.00% (0/1)	0.00% (0/11)
+src/rowBg.ts	100.00% (3/3)	100.00% (0/0)	0.00% (0/1)
+src/table.styles.ts	100.00% (75/75)	100.00% (0/0)	0.00% (0/50)
+src/table.tsx	64.92% (570/878)	55.22% (37/67)	16.77% (28/167)
+src/token.ts	100.00% (241/241)	100.00% (0/0)	100.00% (0/0)
+src/util.ts	40.67% (122/300)	73.68% (28/38)	50.00% (10/20)
+src/valueAccess.ts	78.79% (26/33)	62.50% (5/8)	28.57% (2/7)
+src/virtual-spacers.tsx	100.00% (35/35)	100.00% (2/2)	100.00% (0/0)
+Seed:        1793605254228891067
+Time:        4339 ms
+• turbo 2.10.12
+
+   • Packages in scope: @crab-dev/rc-table
+   • Running build:library in 1 packages
+   • Remote caching disabled
+
+@crab-dev/rc-token-global:build:library: cache hit, replaying logs 401fd56d2dfc17b6
+@crab-dev/rc-token-global:build:library: 
+@crab-dev/rc-token-global:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.45
+@crab-dev/rc-token-global:build:library: 
+@crab-dev/rc-token-global:build:library:   ✓  Tokens generated in 4ms
+@crab-dev/rc-token-global:build:library:      1 files · 33.2 KB
+@crab-dev/rc-token-global:build:library:      Output  /workspace/components/rc-token-global/src/token.ts
+@crab-dev/rc-token-global:build:library: 
+@crab-dev/rc-token-global:build:library: 
+@crab-dev/rc-token-global:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-token-global:build:library: 
+@crab-dev/rc-token-global:build:library:   ✓  Built library in 37ms
+@crab-dev/rc-token-global:build:library:      2 modules · 6 files · 75.7 KB
+@crab-dev/rc-token-global:build:library:      Output  /workspace/components/rc-token-global
+@crab-dev/rc-token-global:build:library: 
+@crab-dev/rc-hooks:build:library: cache hit, replaying logs 142305bce4255b6a
+@crab-dev/rc-hooks:build:library: 
+@crab-dev/rc-hooks:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-hooks:build:library: 
+@crab-dev/rc-hooks:build:library:   ✓  Built library in 43ms
+@crab-dev/rc-hooks:build:library:      23 modules · 70 files · 62.9 KB
+@crab-dev/rc-hooks:build:library:      Output  /workspace/components/rc-hooks
+@crab-dev/rc-hooks:build:library: 
+@crab-dev/rc-token-semantic:build:library: cache hit, replaying logs 7b96e99f1ee6d6c0
+@crab-dev/rc-token-semantic:build:library: 
+@crab-dev/rc-token-semantic:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.45
+@crab-dev/rc-token-semantic:build:library: 
+@crab-dev/rc-token-semantic:build:library:   ✓  Tokens generated in 21ms
+@crab-dev/rc-token-semantic:build:library:      1 files · 165.7 KB
+@crab-dev/rc-token-semantic:build:library:      Output  /workspace/components/rc-token-semantic/src/token.ts
+@crab-dev/rc-token-semantic:build:library: 
+@crab-dev/rc-token-semantic:build:library: 
+@crab-dev/rc-token-semantic:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-token-semantic:build:library: 
+@crab-dev/rc-token-semantic:build:library:   ✓  Built library in 559ms
+@crab-dev/rc-token-semantic:build:library:      13 modules · 40 files · 631.3 KB
+@crab-dev/rc-token-semantic:build:library:      Output  /workspace/components/rc-token-semantic
+@crab-dev/rc-token-semantic:build:library: 
+@crab-dev/rc-virtual:build:library: cache miss, executing cb8e3a3434882c10
+@crab-dev/rc-theme:build:library: cache hit, replaying logs 0758b79c60b29e65
+@crab-dev/rc-theme:build:library: 
+@crab-dev/rc-theme:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-theme:build:library: 
+@crab-dev/rc-theme:build:library:   ✓  Built library in 439ms
+@crab-dev/rc-theme:build:library:      13 modules · 28 files · 256.1 KB
+@crab-dev/rc-theme:build:library:      Output  /workspace/components/rc-theme
+@crab-dev/rc-theme:build:library: 
+@crab-dev/rc-config-provider:build:library: cache hit, replaying logs ab4fd965cc5f275d
+@crab-dev/rc-config-provider:build:library: 
+@crab-dev/rc-config-provider:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-config-provider:build:library: 
+@crab-dev/rc-config-provider:build:library:   ✓  Built library in 250ms
+@crab-dev/rc-config-provider:build:library:      9 modules · 29 files · 46.6 KB
+@crab-dev/rc-config-provider:build:library:      Output  /workspace/components/rc-config-provider
+@crab-dev/rc-config-provider:build:library: 
+@crab-dev/rc-checkbox:build:library: cache miss, executing b515c9db06be8abc
+@crab-dev/rc-checkbox:build:library: 
+@crab-dev/rc-checkbox:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.45
+@crab-dev/rc-checkbox:build:library: 
+@crab-dev/rc-virtual:build:library: 
+@crab-dev/rc-virtual:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.45
+@crab-dev/rc-virtual:build:library: 
+@crab-dev/rc-virtual:build:library:   ✓  Tokens generated in 45ms
+@crab-dev/rc-virtual:build:library:      1 files · 1.7 KB
+@crab-dev/rc-virtual:build:library:      Output  /workspace/components/rc-virtual/src/token.ts
+@crab-dev/rc-virtual:build:library: 
+@crab-dev/rc-checkbox:build:library:   ✓  Tokens generated in 57ms
+@crab-dev/rc-checkbox:build:library:      1 files · 16.3 KB
+@crab-dev/rc-checkbox:build:library:      Output  /workspace/components/rc-checkbox/src/token.ts
+@crab-dev/rc-checkbox:build:library: 
+@crab-dev/rc-virtual:build:library: 
+@crab-dev/rc-virtual:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-virtual:build:library: 
+@crab-dev/rc-checkbox:build:library: 
+@crab-dev/rc-checkbox:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-checkbox:build:library: 
+@crab-dev/rc-virtual:build:library:   ✓  Built library in 49ms
+@crab-dev/rc-virtual:build:library:      8 modules · 21 files · 68.1 KB
+@crab-dev/rc-virtual:build:library:      Output  /workspace/components/rc-virtual
+@crab-dev/rc-virtual:build:library: 
+@crab-dev/rc-radio:build:library: cache miss, executing 792698b543d0c97f
+@crab-dev/rc-checkbox:build:library:   ✓  Built library in 270ms
+@crab-dev/rc-checkbox:build:library:      6 modules · 18 files · 68.3 KB
+@crab-dev/rc-checkbox:build:library:      Output  /workspace/components/rc-checkbox
+@crab-dev/rc-checkbox:build:library: 
+@crab-dev/rc-empty:build:library: cache miss, executing 1d52e76acd0bade4
+@crab-dev/rc-radio:build:library: 
+@crab-dev/rc-radio:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.45
+@crab-dev/rc-radio:build:library: 
+@crab-dev/rc-radio:build:library:   ✓  Tokens generated in 31ms
+@crab-dev/rc-radio:build:library:      1 files · 13.6 KB
+@crab-dev/rc-radio:build:library:      Output  /workspace/components/rc-radio/src/token.ts
+@crab-dev/rc-radio:build:library: 
+@crab-dev/rc-empty:build:library: 
+@crab-dev/rc-empty:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.45
+@crab-dev/rc-empty:build:library: 
+@crab-dev/rc-radio:build:library: 
+@crab-dev/rc-radio:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-radio:build:library: 
+@crab-dev/rc-empty:build:library:   ✓  Tokens generated in 21ms
+@crab-dev/rc-empty:build:library:      1 files · 3.9 KB
+@crab-dev/rc-empty:build:library:      Output  /workspace/components/rc-empty/src/token.ts
+@crab-dev/rc-empty:build:library: 
+@crab-dev/rc-empty:build:library: 
+@crab-dev/rc-empty:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-empty:build:library: 
+@crab-dev/rc-radio:build:library:   ✓  Built library in 302ms
+@crab-dev/rc-radio:build:library:      6 modules · 18 files · 59.1 KB
+@crab-dev/rc-radio:build:library:      Output  /workspace/components/rc-radio
+@crab-dev/rc-radio:build:library: 
+@crab-dev/rc-spin:build:library: cache miss, executing 19d84c28841cbea4
+@crab-dev/rc-empty:build:library:   ✓  Built library in 313ms
+@crab-dev/rc-empty:build:library:      7 modules · 19 files · 25.2 KB
+@crab-dev/rc-empty:build:library:      Output  /workspace/components/rc-empty
+@crab-dev/rc-empty:build:library: 
+@crab-dev/rc-spin:build:library: 
+@crab-dev/rc-spin:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.45
+@crab-dev/rc-spin:build:library: 
+@crab-dev/rc-spin:build:library:   ✓  Tokens generated in 22ms
+@crab-dev/rc-spin:build:library:      1 files · 6.7 KB
+@crab-dev/rc-spin:build:library:      Output  /workspace/components/rc-spin/src/token.ts
+@crab-dev/rc-spin:build:library: 
+@crab-dev/rc-spin:build:library: 
+@crab-dev/rc-spin:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-spin:build:library: 
+@crab-dev/rc-spin:build:library:   ✓  Built library in 264ms
+@crab-dev/rc-spin:build:library:      8 modules · 23 files · 41.1 KB
+@crab-dev/rc-spin:build:library:      Output  /workspace/components/rc-spin
+@crab-dev/rc-spin:build:library: 
+@crab-dev/rc-button:build:library: cache miss, executing 429924ff94267743
+@crab-dev/rc-button:build:library: 
+@crab-dev/rc-button:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.45
+@crab-dev/rc-button:build:library: 
+@crab-dev/rc-button:build:library:   ✓  Tokens generated in 18ms
+@crab-dev/rc-button:build:library:      1 files · 44.1 KB
+@crab-dev/rc-button:build:library:      Output  /workspace/components/rc-button/src/token.ts
+@crab-dev/rc-button:build:library: 
+@crab-dev/rc-button:build:library: 
+@crab-dev/rc-button:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-button:build:library: 
+@crab-dev/rc-button:build:library:   ✓  Built library in 312ms
+@crab-dev/rc-button:build:library:      6 modules · 18 files · 173.1 KB
+@crab-dev/rc-button:build:library:      Output  /workspace/components/rc-button
+@crab-dev/rc-button:build:library: 
+@crab-dev/rc-table:build:library: cache miss, executing 232eece05d2b3cdf
+@crab-dev/rc-table:build:library: 
+@crab-dev/rc-table:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.45
+@crab-dev/rc-table:build:library: 
+@crab-dev/rc-table:build:library:   ✓  Tokens generated in 18ms
+@crab-dev/rc-table:build:library:      1 files · 23.9 KB
+@crab-dev/rc-table:build:library:      Output  /workspace/components/rc-table/src/token.ts
+@crab-dev/rc-table:build:library: 
+@crab-dev/rc-table:build:library: 
+@crab-dev/rc-table:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-table:build:library: 
+@crab-dev/rc-table:build:library:   ✓  Built library in 476ms
+@crab-dev/rc-table:build:library:      34 modules · 78 files · 435.2 KB
+@crab-dev/rc-table:build:library:      Output  /workspace/components/rc-table
+@crab-dev/rc-table:build:library: 
+
+ Tasks:    12 successful, 12 total
+Cached:    5 cached, 12 total
+  Time:    10.855s 
+
+
+Running 6 tests using 4 workers
+
+  ✓  3 [chromium] › test/visual/published.spec.mjs:46:5 › apple dark active colors (3.2s)
+  ✓  4 [chromium] › test/visual/published.spec.mjs:46:5 › md3 light active colors (3.6s)
+  ✓  2 [chromium] › test/visual/published.spec.mjs:46:5 › md3 dark active colors (3.4s)
+  ✓  1 [chromium] › test/visual/published.spec.mjs:46:5 › apple light active colors (3.9s)
+  ✓  5 [chromium] › test/visual/published.spec.mjs:46:5 › shadcn light active colors (1.8s)
+  ✓  6 [chromium] › test/visual/published.spec.mjs:46:5 › shadcn dark active colors (1.4s)
+
+  6 passed (13.8s)
+Playwright published fixture evidence: /workspace/components/rc-table/.cache/forced-colors/2026-11-02T07-41-11-612Z
+{"command":"yarn workspace @crab-dev/rc-table check","exitCode":0,"mismatches":[],"source":"sha256:2cb1a0f4f3566e465d82b9af81f8c005226e923499729938a9cf3017d6c1ed75","artifact":"sha256:6846460c57a1bdc8e57eef75f9a7cf7622114bf82282480c50210ce2160b5a4c"}

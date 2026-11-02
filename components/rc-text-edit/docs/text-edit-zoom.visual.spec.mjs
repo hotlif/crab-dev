@@ -7,6 +7,9 @@ import {
     settleFiniteAnimations,
     captureZoom,
 } from "../../../test/visual/component-fixture.mjs";
+
+// Headed native zoom shares a display; retain independent, sequential cases.
+test.describe.configure({ mode: 'default' });
 import { assertTextEditGeometry } from "./visual-geometry.mjs";
 
 const spec = await readVisualSpec(import.meta.url);

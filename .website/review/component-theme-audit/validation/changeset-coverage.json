@@ -1,0 +1,156 @@
+{
+  "checkedAt": "2026-11-02T06:22:31.978Z",
+  "runtimePackages": [
+    "rc-breadcrumbs",
+    "rc-canvas",
+    "rc-card",
+    "rc-color-picker",
+    "rc-component-preview",
+    "rc-flow-diagram",
+    "rc-hooks",
+    "rc-line-edit",
+    "rc-menu",
+    "rc-notification",
+    "rc-number-edit",
+    "rc-pdf-editor",
+    "rc-radio",
+    "rc-segmented",
+    "rc-select",
+    "rc-slider",
+    "rc-table",
+    "rc-table-pro",
+    "rc-token-semantic",
+    "rc-tree"
+  ],
+  "patchChangesets": [
+    {
+      "file": ".changeset/bounded-notification-width.md",
+      "packages": [
+        "@crab-dev/rc-notification"
+      ]
+    },
+    {
+      "file": ".changeset/clarify-system-highlight-demos.md",
+      "packages": [
+        "@crab-dev/rc-theme",
+        "@crab-dev/rc-token-semantic"
+      ]
+    },
+    {
+      "file": ".changeset/clear-avatar-touch-spacing.md",
+      "packages": [
+        "@crab-dev/rc-avatar"
+      ]
+    },
+    {
+      "file": ".changeset/clear-flow-layout-feedback.md",
+      "packages": [
+        "@crab-dev/rc-flow-diagram"
+      ]
+    },
+    {
+      "file": ".changeset/consistent-message-demo-feedback.md",
+      "packages": [
+        "@crab-dev/rc-message"
+      ]
+    },
+    {
+      "file": ".changeset/embedded-theme-surface.md",
+      "packages": [
+        "@crab-dev/rc-config-provider"
+      ]
+    },
+    {
+      "file": ".changeset/fit-floating-labels-around-decorations.md",
+      "packages": [
+        "@crab-dev/rc-line-edit",
+        "@crab-dev/rc-number-edit"
+      ]
+    },
+    {
+      "file": ".changeset/independent-card-keyboard-actions.md",
+      "packages": [
+        "@crab-dev/rc-card"
+      ]
+    },
+    {
+      "file": ".changeset/keep-search-with-paginated-tables.md",
+      "packages": [
+        "@crab-dev/rc-table-pro"
+      ]
+    },
+    {
+      "file": ".changeset/precise-slider-pointer-input.md",
+      "packages": [
+        "@crab-dev/rc-slider"
+      ]
+    },
+    {
+      "file": ".changeset/readable-canvas-inline-drafts.md",
+      "packages": [
+        "@crab-dev/rc-canvas"
+      ]
+    },
+    {
+      "file": ".changeset/readable-color-picker-value.md",
+      "packages": [
+        "@crab-dev/rc-color-picker"
+      ]
+    },
+    {
+      "file": ".changeset/readable-source-theme-pairs.md",
+      "packages": [
+        "@crab-dev/rc-token-semantic",
+        "@crab-dev/rc-component-preview"
+      ]
+    },
+    {
+      "file": ".changeset/retain-minimal-breadcrumb-location.md",
+      "packages": [
+        "@crab-dev/rc-breadcrumbs"
+      ]
+    },
+    {
+      "file": ".changeset/retain-native-radio-keyboard-focus.md",
+      "packages": [
+        "@crab-dev/rc-hooks",
+        "@crab-dev/rc-radio",
+        "@crab-dev/rc-segmented"
+      ]
+    },
+    {
+      "file": ".changeset/retain-nested-keyboard-ownership.md",
+      "packages": [
+        "@crab-dev/rc-tree",
+        "@crab-dev/rc-table"
+      ]
+    },
+    {
+      "file": ".changeset/retain-pdf-panel-focus.md",
+      "packages": [
+        "@crab-dev/rc-pdf-editor"
+      ]
+    },
+    {
+      "file": ".changeset/single-select-tab-entry.md",
+      "packages": [
+        "@crab-dev/rc-select"
+      ]
+    },
+    {
+      "file": ".changeset/stable-menu-hover-activation.md",
+      "packages": [
+        "@crab-dev/rc-menu"
+      ]
+    },
+    {
+      "file": ".changeset/stable-number-focus-replacement.md",
+      "packages": [
+        "@crab-dev/rc-number-edit",
+        "@crab-dev/rc-slider",
+        "@crab-dev/rc-hooks"
+      ]
+    }
+  ],
+  "missing": []
+}

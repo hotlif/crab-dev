@@ -1,6 +1,8 @@
 import { test, expect, configurations, environmentCases, applyEnvironment } from '../../../test/visual/component-fixture.mjs';
 import { sitePages, designIds, openSite, chooseDesign, chooseMode, assertSiteConfiguration, assertDocumentWidth, recordNaturalSite } from './site-visual-support.mjs';
 
+// Two cold routes, retained drafts and six natural screenshots share one case.
+test.describe.configure({ timeout: 120_000 });
 test.use({video:'on'});
 const guide=sitePages.find(page=>page.id==='design');
 const tutorial=sitePages.find(page=>page.id==='tutorial');

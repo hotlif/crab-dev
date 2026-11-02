@@ -1,4 +1,7 @@
 import { zoomTest as test, expect, configurations, openDemo, readVisualSpec, captureZoom } from '../../../test/visual/component-fixture.mjs';
+
+// Headed native zoom shares a display; retain independent, sequential cases.
+test.describe.configure({ mode: 'default' });
 const spec = await readVisualSpec(import.meta.url);
 for (const config of configurations) {
     test(`${config.designSystem} ${config.colorMode} real 200%`, { tag: ['@rc-canvas', '@environment', '@chromium-only'], annotation: { type: 'environment', description: JSON.stringify({ ...config, id: 'zoom-200' }) } }, async ({ page, previewOrigin, realZoom }, info) => {

@@ -1,4 +1,7 @@
 import { zoomTest as test, expect, configurations, openDemo, readVisualSpec, settleFiniteAnimations, captureZoom } from '../../../test/visual/component-fixture.mjs';
+
+// Headed native zoom shares a display; retain independent, sequential cases.
+test.describe.configure({ mode: 'default' });
 import { settleChart } from './bar-chart.visual-helpers.mjs';
 
 const spec = await readVisualSpec(import.meta.url);

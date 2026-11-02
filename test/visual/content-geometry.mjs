@@ -7,6 +7,7 @@ export async function assertContentGeometry(target, container, {
     accessibleName,
     allowHorizontalScroll = false,
     allowVerticalScroll = false,
+    allowVerticalPaint = false,
     checkText = true,
     tolerance = 1,
 } = {}) {
@@ -53,7 +54,11 @@ export async function assertContentGeometry(target, container, {
     } else if (!allowHorizontalScroll && content.clientWidth > 0) {
         expect(content.scrollWidth).toBeLessThanOrEqual(content.clientWidth + tolerance);
     }
-    if (!allowVerticalScroll && content.clientHeight > 0) {
+    if (allowVerticalPaint) {
+        // Some controls deliberately paint an expanded touch target outside
+        // their visual box. Text still has to fit its own measured bounds.
+        expect(content.overflowY).toBe('visible');
+    } else if (!allowVerticalScroll && content.clientHeight > 0) {
         expect(content.scrollHeight).toBeLessThanOrEqual(content.clientHeight + tolerance);
     } else if (allowVerticalScroll && content.scrollHeight > content.clientHeight + tolerance) {
         expect(['auto', 'scroll']).toContain(content.overflowY);

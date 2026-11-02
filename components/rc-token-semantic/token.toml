@@ -52,6 +52,22 @@ color.code.light.background = "$ref(material.neutral.98)"
 color.code.light.gutter = "$ref(material.neutral.40)"
 color.code.dark.background = "$ref(material.neutral.20)"
 color.code.dark.gutter = "$ref(material.neutral.80)"
+# Syntax roles use the code surface's own light/dark pair, independently of
+# surrounding application themes. Small source text must retain AA contrast.
+color.code.light.foreground = "$ref(zinc.900)"
+color.code.light.comment = "$ref(zinc.600)"
+color.code.light.keyword = "$ref(purple.40)"
+color.code.light.string = "$ref(green.800)"
+color.code.light.number = "$ref(amber.800)"
+color.code.light.function = "$ref(blue.700)"
+color.code.light.tag = "$ref(red.700)"
+color.code.dark.foreground = "$ref(zinc.100)"
+color.code.dark.comment = "$ref(zinc.300)"
+color.code.dark.keyword = "$ref(purple.80)"
+color.code.dark.string = "$ref(green.300)"
+color.code.dark.number = "$ref(amber.300)"
+color.code.dark.function = "$ref(blue.300)"
+color.code.dark.tag = "$ref(red.300)"
 
 # Shared states used by neutral interactive containers; filled actions keep their paired states.
 state.opacity.hover = "$ref(opacity.8)"

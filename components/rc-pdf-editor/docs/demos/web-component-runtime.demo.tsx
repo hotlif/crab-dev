@@ -18,7 +18,8 @@ export default function WebComponentRuntimeDemo() {
         editor.designSystem = config.designSystem; editor.colorMode = config.colorMode;
         editor.size = config.size; editor.density = config.density; editor.brandColor = config.brandColor;
         editor.locale = config.locale; editor.direction = config.direction;
-        if (config.nonce === undefined) editor.removeAttribute('nonce'); else editor.nonce = config.nonce;
+        editor.nonce = config.nonce ?? '';
+        if (config.nonce === undefined) editor.removeAttribute('nonce');
     });
     useEffect(() => {
         let cancelled = false, instance: PdfEditorElement | undefined;

@@ -50,7 +50,8 @@ for (const config of configurations)
                             expect(await grid.evaluate((node) => node.matches(':focus-visible'))).toBe(true);
                         }
                         if (state === 'selected') {
-                            await grid.getByRole('checkbox', { name: '选择行', exact: true }).first().check();
+                            await grid.locator('[data-table-selection-cell]').first().click();
+                            await expect(grid.getByRole('checkbox', { name: '选择行', exact: true }).first()).toBeChecked();
                             await expect(grid.getByRole('row').filter({ hasText: '订单 001 / Order' })).toHaveAttribute(
                                 'aria-selected',
                                 'true',

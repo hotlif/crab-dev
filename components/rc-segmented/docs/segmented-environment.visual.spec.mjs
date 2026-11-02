@@ -18,8 +18,19 @@ for (const config of configurations) for (const scenario of scenarios) {
             expect(await frame.evaluate(node => node.scrollWidth <= node.clientWidth + 1)).toBe(true);
             if (scenario.hasTouch) {
                 expect(await page.evaluate(() => globalThis.matchMedia("(pointer: coarse)").matches)).toBe(true);
-                const height = await control.locator("..").evaluate(node => Number.parseFloat(globalThis.getComputedStyle(node, "::after").minHeight));
+                const option = control.locator("..");
+                const height = await option.evaluate(node => Number.parseFloat(globalThis.getComputedStyle(node, "::after").height));
                 expect(height).toBeGreaterThanOrEqual(48);
+                for (const edge of [-1, 1]) {
+                    await frame.getByRole('radio', { name: 'Day', exact: true }).locator('..').tap();
+                    await expect(control).not.toBeChecked();
+                    await option.scrollIntoViewIfNeeded();
+                    const bounds = await option.boundingBox();
+                    const point = { x: bounds.x + bounds.width / 2, y: bounds.y + bounds.height / 2 + edge * (height / 2 - 1) };
+                    expect(await option.evaluate((node, point) => node.ownerDocument.elementFromPoint(point.x, point.y)?.closest('label') === node, point)).toBe(true);
+                    await page.touchscreen.tap(point.x, point.y);
+                    await expect(control).toBeChecked();
+                }
             }
             const geometry = await control.boundingBox();
             const content = await assertSegmentedGeometry(frame);

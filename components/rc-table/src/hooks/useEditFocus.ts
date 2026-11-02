@@ -1,11 +1,11 @@
 import { useLayoutEffect, useRef, type Key, type RefObject } from "react";
 
 /** Recover only focus lost when an editor is actually removed from this table. */
-export function useRowEditFocus(editingRowId: Key | null | undefined, rootRef: RefObject<HTMLElement | null>, isActive: () => boolean): RefObject<HTMLElement | null> {
+export function useEditFocus(editingKey: Key | null | undefined, rootRef: RefObject<HTMLElement | null>, isActive: () => boolean): RefObject<HTMLElement | null> {
     const focusRef = useRef<HTMLElement | null>(null);
     useLayoutEffect(() => {
         const previous = focusRef.current;
-        if (editingRowId != null) {
+        if (editingKey != null) {
             if (previous && !previous.isConnected) focusRef.current = null;
             return;
         }
@@ -17,6 +17,6 @@ export function useRowEditFocus(editingRowId: Key | null | undefined, rootRef: R
         if (document.activeElement === document.body || document.activeElement === document.documentElement) {
             root.focus({ preventScroll: true });
         }
-    }, [editingRowId, rootRef, isActive]);
+    }, [editingKey, rootRef, isActive]);
     return focusRef;
 }

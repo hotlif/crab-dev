@@ -67,7 +67,9 @@ import { demos } from "../_generated/rc-pdf-editor.js";
 
 中央预览将各页纵向连续排列，使用滚轮或滚动条浏览，不显示分页控件。点击左侧缩略图定位页面，滚动时同步当前页和对象树；底部保留缩放与适应页面。预览区支持 PageUp/PageDown、Home/End，普通滚轮不改变缩放倍率。
 
-缩略图列表为按钮的外侧焦点环预留行内空间；已选页面和 RTL 布局使用同一规则。`thumbnail.outline-width-focus`、`thumbnail.outline-offset-focus` 同时控制实际轮廓与这段留白，虚拟列表的行高与页面测量保持不变。
+缩略图列表使用矩形圆角按钮，选中与未选中保持同一页面形状，避免强制颜色描边显出胶囊轮廓。列表为按钮的外侧焦点环预留行内空间；已选页面和 RTL 布局使用同一规则。`thumbnail.outline-width-focus`、`thumbnail.outline-offset-focus` 同时控制实际轮廓与这段留白，虚拟列表的行高与页面测量保持不变。
+
+收窄窗口或切换紧凑侧栏时，若正在操作的面板被收起，焦点返回对应入口，并显示清晰轮廓，直到移焦或再次使用指针。关闭面板在当前编辑器内部解析焦点目标，兼容 iframe 与独立 Shadow DOM；入口不可用时回到画布。其他区域的有效焦点、当前文档和属性草稿保持。
 
 按住 Ctrl（macOS 也可使用 Command）加滚轮，以鼠标位置为中心缩放，也可在底部直接输入百分比。选择对象、切换侧栏和调整窗口大小保留倍率；首次打开文档或主动点击“适应页面”时才重新适应。
 
@@ -76,6 +78,8 @@ import { demos } from "../_generated/rc-pdf-editor.js";
 Ctrl/Cmd+Z 撤销，Ctrl/Cmd+Shift+Z 或 Ctrl/Cmd+Y 重做，Delete 删除，方向键移动，Shift+方向键移动 10 pt，Escape 取消选择。文字输入和中文输入法组合期间不接管这些快捷键。对象列表提供画布之外的键盘入口。
 
 
+
+对象属性面板的标题与关闭入口在选择、绘图和撤销重做时保持稳定；关闭入口获得键盘焦点后，切换对象状态也不会丢失焦点。
 
 通过 `toolbar.visibility` 按动作 ID 实时显示或隐藏图标，例如 `{ addText: false, deletePage: false }`。未配置的动作默认显示；显隐不会重载文档，也不会改变快捷键或编辑权限。
 

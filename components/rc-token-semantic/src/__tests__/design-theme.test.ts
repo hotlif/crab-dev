@@ -3,6 +3,7 @@ import { designColorContract } from '../design-theme.js';
 import { appleColorContract } from '../apple-theme.js';
 import { shadcnColorContract } from '../shadcn-theme.js';
 import { md3ColorContract } from '../theme.js';
+import token from '../token.js';
 
 function colors(expression: string): readonly { lightness: number; chroma: number; hue: number }[] {
     return [...expression.matchAll(/oklch\(([\d.]+) ([\d.]+) ([\d.]+)\)/g)].map(match => ({
@@ -18,7 +19,7 @@ function strings(value: unknown): string[] {
     return Object.values(value).flatMap(strings);
 }
 
-function contrast(first: string, second: string): number {
+function contrast(first: string, second: string, allowGamutMapping = false): number {
     // Evaluate the default OKLCh fallback in linear sRGB. L cubed alone
     // is only valid for neutral colors and cannot test MD3/Apple chroma.
     // Consumer CSS-variable overrides require separate rendered evidence.
@@ -36,7 +37,7 @@ function contrast(first: string, second: string): number {
             -0.0041960863 * l - 0.7034186147 * m + 1.707614701 * s,
         ];
         // Permit matrix rounding at black/white, not unreviewed gamut mapping.
-        if (channels.some(channel => channel < -0.000001 || channel > 1.000001)) {
+        if (!allowGamutMapping && channels.some(channel => channel < -0.000001 || channel > 1.000001)) {
             throw new Error(`Out-of-sRGB contract color needs explicit handling: ${expression}`);
         }
         const [red, green, blue] = channels.map(channel => Math.max(0, Math.min(1, channel)));
@@ -47,6 +48,18 @@ function contrast(first: string, second: string): number {
 }
 
 describe('design color contracts', () => {
+    it('keeps every syntax role readable on its independent code surface', () => {
+        for (const mode of ['light', 'dark'] as const) {
+            const palette = token.color.code[mode];
+            for (const [role, foreground] of Object.entries(palette)) {
+                // Stock chromatic L1 code colors can exceed sRGB. Check bounded
+                // fallback channels here; Preview's browser regression separately
+                // measures the colors after the browser's actual gamut mapping.
+                if (role !== 'background') expect(contrast(foreground, palette.background, true)).toBeGreaterThanOrEqual(4.5);
+            }
+        }
+    });
+
     it('keeps every design as an independent Light / Dark contract', () => {
         expect(designColorContract.md3).toBe(md3ColorContract);
         expect(designColorContract.shadcn).toBe(shadcnColorContract);

@@ -1,0 +1,12 @@
+{
+  "comparedAt": "2026-11-02T08:28:55.864Z",
+  "identicalSourceRecords": true,
+  "comparedSourceRecords": 2435,
+  "sourceSnapshotManifestSha256": "9a38fc5b0e16afcbee3ccd570e0fed9d1c67bdea906c3ed1d8f8df26907cea50",
+  "canonicalSourceFingerprint": "sha256:2cb1a0f4f3566e465d82b9af81f8c005226e923499729938a9cf3017d6c1ed75",
+  "rawFingerprints": {
+    "windows": "sha256:bc1679cffa347b7bca8c0f8c1ee5ae6871d15588760d0c0dc8c5788faf2d03f6",
+    "linux": "sha256:2cb1a0f4f3566e465d82b9af81f8c005226e923499729938a9cf3017d6c1ed75"
+  },
+  "explanation": "Raw fingerprints preserve the original platform records. The input collector sorts native absolute paths before normalizing separators: Windows orders catalogStyles.ts before catalog/display.tsx, whereas Linux orders the directory first. After sorting the recorded repository-relative paths with the same code-point order, every path and SHA is identical. No source record is omitted or altered."
+}

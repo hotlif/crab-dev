@@ -2,6 +2,7 @@ import { useComponentSize } from '@crab-dev/rc-config-provider';
 import { css, cx } from '@crab-dev/css';
 import { type FC, type ChangeEvent } from 'react';
 import { useControllableValue } from '@crab-dev/rc-hooks';
+import { useNativeRadioFocus } from '@crab-dev/rc-hooks/internal';
 import token from './token.js';
 import type { RadioProps } from './types.js';
 import { useRadioGroup } from './context.js';
@@ -16,9 +17,14 @@ const Radio: FC<RadioProps> = ({
     value,
     children,
     className,
+    onKeyDownCapture,
+    onPointerDownCapture,
+    onFocus,
+    onBlur,
     ...restProps
 }) => {
     const group = useRadioGroup();
+    const radioFocus = useNativeRadioFocus();
     const size = useComponentSize(sizeProp ?? group?.size);
 
     const getSizeStyle = () => {
@@ -97,12 +103,18 @@ const Radio: FC<RadioProps> = ({
 
     return (
         <label
+            onPointerDownCapture={radioFocus.onPointerDownCapture}
             className={cx(wrapperStyle, sizeStyle.wrapper, className)}
             data-disabled={disabled ? '' : undefined}
             data-state={checked ? 'checked' : 'unchecked'}
         >
             <input
                 {...restProps}
+                data-keyboard-focus={radioFocus.keyboardFocus ? '' : undefined}
+                onKeyDownCapture={event => { radioFocus.onKeyDownCapture(event); onKeyDownCapture?.(event); }}
+                onPointerDownCapture={event => { radioFocus.onPointerDownCapture(event); onPointerDownCapture?.(event); }}
+                onFocus={event => { radioFocus.onFocus(event); onFocus?.(event); }}
+                onBlur={event => { radioFocus.onBlur(); onBlur?.(event); }}
                 name={name}
                 type="radio"
                 className={hiddenInputStyle}

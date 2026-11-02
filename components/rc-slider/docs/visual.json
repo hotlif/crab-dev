@@ -19,7 +19,8 @@
         "minimum",
         "maximum",
         "disabled",
-        "error"
+        "error",
+        "scientific"
     ],
     "crossEngine": {
         "sizes": [
@@ -33,7 +34,8 @@
             "focus-visible",
             "dragging",
             "minimum",
-            "maximum"
+            "maximum",
+            "scientific"
         ]
     },
     "notApplicable": {

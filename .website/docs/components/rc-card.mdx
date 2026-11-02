@@ -65,6 +65,8 @@ import { demos } from "../_generated/rc-card.js";
 - 在列表或网格中展示产品、文章、项目等内容。
 - 通过 `clickable` 将整张卡片设为操作入口，或通过 `hoverable` 提供悬停反馈。
 
+整卡聚焦时，Enter / Space 激活卡片；焦点位于 `extra` 或 `actions` 的按钮时，按键由该按钮处理，其点击与整卡动作隔离。主题切换保留有效焦点与组件实例。
+
 ### 两种使用形态
 
 **属性配置**：使用 `title`、`extra`、`cover` 和 `actions` 描述常规结构，直接传入的 `children` 放入内容区。

@@ -53,6 +53,9 @@ const CardBase = ({
     // 键盘激活：Enter / Space 合成一次原生点击，onClick 以统一的事件路径触发
     const handleKeyDown = actionable
         ? (e: KeyboardEvent<HTMLDivElement>) => {
+            // Nested controls own their keys; native button keydown bubbles
+            // before its click and must not activate the card instead.
+            if (e.defaultPrevented || e.target !== e.currentTarget) return;
             if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault();
                 e.currentTarget.click();

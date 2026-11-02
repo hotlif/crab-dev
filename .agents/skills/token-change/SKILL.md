@@ -17,8 +17,8 @@ description: 修改颜色、排版、形状、尺寸、动效或语义令牌时�
 | 层 | 位置 | 职责 |
 | --- | --- | --- |
 | L1 全局 | `components/rc-token-global/token.toml` | 原始尺度 |
-| L2 语义 | `components/rc-token-semantic/token.toml` | 语义角色，以及设计体系 / 明暗 / 密度映射 |
-| L3 组件 | `components/rc-*/token.toml` | 组件局部变量 |
+| L2 语义 | `components/rc-token-semantic/token.toml` | 共享语义角色，以及设计体系 / 明暗 / 密度映射 |
+| L3 组件 | `components/rc-*/token.toml` | 组件局部变量；有依据的单组件主题特例由包内静态样式映射这些变量 |
 
 L3 的 `[build]` 声明 `output`、`prefix` 与 `imports`，默认输出 `src/token.ts`；个别包用 `package.json#crab.generatedArtifacts["generate:token"]` 声明额外生成物。
 

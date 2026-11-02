@@ -19,9 +19,24 @@ for (const config of configurations) for (const environment of environmentCases)
             expect(box.width).toBeGreaterThan(0);
             expect(box.x).toBeGreaterThanOrEqual(-1);
             expect(box.x + box.width).toBeLessThanOrEqual(page.viewportSize().width + 1);
-            const dialog = page.getByRole('dialog'); const popup = await dialog.boundingBox(); expect(popup.x).toBeGreaterThanOrEqual(-1); expect(popup.x + popup.width).toBeLessThanOrEqual(page.viewportSize().width + 1); expect(popup.y).toBeGreaterThanOrEqual(-1); expect(popup.y + popup.height).toBeLessThanOrEqual(page.viewportSize().height + 1);
-            await info.attach('geometry', { body: JSON.stringify({ component: box, viewport: page.viewportSize() }), contentType: 'application/json' });
+            const dialog = page.getByRole('dialog');
+            const popup = await dialog.evaluate(node => {
+                let surface = node;
+                for (let parent = node.parentElement; parent; parent = parent.parentElement) {
+                    if (['auto', 'scroll'].includes(globalThis.getComputedStyle(parent).overflowY)) { surface = parent; break; }
+                }
+                const rect = surface.getBoundingClientRect();
+                return { x: rect.x, y: rect.y, width: rect.width, height: rect.height, scrollable: surface.scrollHeight > surface.clientHeight + 1 };
+            });
+            expect(popup.x).toBeGreaterThanOrEqual(-1); expect(popup.x + popup.width).toBeLessThanOrEqual(page.viewportSize().width + 1);
+            expect(popup.y).toBeGreaterThanOrEqual(-1); expect(popup.y + popup.height).toBeLessThanOrEqual(page.viewportSize().height + 1);
+            await info.attach('geometry', { body: JSON.stringify({ component: box, popup, viewport: page.viewportSize() }), contentType: 'application/json' });
             await captureVisual(page, `${config.designSystem}-${config.colorMode}-environment-${environment.id}.png`, info, browserName);
+            if (popup.scrollable) {
+                const last = dialog.locator('time').last();
+                await last.scrollIntoViewIfNeeded(); await expect(last).toBeInViewport();
+                await captureVisual(page, `${config.designSystem}-${config.colorMode}-environment-${environment.id}-scrolled.png`, info, browserName);
+            }
         });
     });
 }

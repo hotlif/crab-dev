@@ -25,6 +25,8 @@ status = "experimental"
 
 显示时可使用千分位或自定义格式。极大、极小数值可显示为 `1.23×10²¹` 等科学计数法，聚焦后转为便于编辑的 `e` 记法。
 
+聚焦时先同步可编辑文本，再调用 `onFocus`；消费方可在回调中调用原生 `select()` 全选。切换格式不会在后续渲染中取消回调建立的选区，在编辑态全选后可直接替换内容。聚焦本身不提交数值变化。
+
 ## 标签与设计风格
 
 数字输入框复用 LineEdit 的字段外观，支持 `label`、`appearance="outlined" | "filled"`、`supportingText` 和 `errorText`。全局切换 Material Design 3、Apple 与 shadcn 时，标签、容器和说明会统一跟随；已有数值与编辑草稿继续保留。Material 使用浮动标签，Apple 与 shadcn 使用静态标签。
@@ -34,6 +36,8 @@ status = "experimental"
 ## 编辑、步进与范围
 
 **现有实现**：键入文本先保留为编辑草稿；失焦、步进或清除时提交数值。键盘 ↑ / ↓、PageUp / PageDown、Shift + ↑ / ↓、滚轮和步进按钮使用同一数值计算路径。`aria-valuenow` 随当前可解析的编辑文本更新。
+
+滚轮仅在字段聚焦时按垂直方向步进；横向滚动及 Ctrl / Meta 修饰的浏览器缩放手势保持原生行为，不改动数值或未完成草稿。
 
 | 场景 | 结果与规则 |
 | --- | --- |

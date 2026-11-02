@@ -1,0 +1,513 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-11-02T08:29:12.142Z",
+  "policy": "Actual public command results and immutable input/build evidence. Automated assertions, manual representative image review, historical pixel comparison, maintainer approval and same-commit CI remain separate.",
+  "commands": [
+    {
+      "command": "yarn generate:docs",
+      "startedAt": "2026-11-02T06:43:12.005Z",
+      "exitCode": 0,
+      "finishedAt": "2026-11-02T06:43:18.511Z"
+    },
+    {
+      "command": "yarn check:docs",
+      "startedAt": "2026-11-02T06:43:18.512Z",
+      "exitCode": 0,
+      "finishedAt": "2026-11-02T06:43:25.175Z"
+    },
+    {
+      "command": "yarn lint:tools",
+      "startedAt": "2026-11-02T06:43:25.177Z",
+      "exitCode": 0,
+      "finishedAt": "2026-11-02T06:43:31.403Z"
+    },
+    {
+      "command": "yarn check",
+      "startedAt": "2026-11-02T06:43:31.404Z",
+      "exitCode": 0,
+      "finishedAt": "2026-11-02T07:33:15.015Z"
+    }
+  ],
+  "stages": [
+    {
+      "command": "yarn check:architecture",
+      "result": "passed",
+      "durationSeconds": 2.3
+    },
+    {
+      "command": "yarn check:tokens",
+      "result": "passed",
+      "durationSeconds": 1.2
+    },
+    {
+      "command": "yarn check:generated:local",
+      "result": "passed",
+      "durationSeconds": 28.2
+    },
+    {
+      "command": "yarn lint",
+      "result": "passed",
+      "durationSeconds": 8.5
+    },
+    {
+      "command": "yarn build:library",
+      "result": "passed",
+      "durationSeconds": 52.8
+    },
+    {
+      "command": "yarn check:exports",
+      "result": "passed",
+      "durationSeconds": 5.6
+    },
+    {
+      "command": "yarn check:consumer",
+      "result": "passed",
+      "durationSeconds": 14.8
+    },
+    {
+      "command": "yarn typecheck",
+      "result": "passed",
+      "durationSeconds": 149.2
+    },
+    {
+      "command": "yarn test",
+      "result": "passed",
+      "durationSeconds": 450.5
+    },
+    {
+      "command": "yarn test:required",
+      "result": "passed",
+      "durationSeconds": 2039.3
+    },
+    {
+      "command": "yarn docs:build",
+      "result": "passed",
+      "durationSeconds": 229.7
+    }
+  ],
+  "runtime": {
+    "platform": "linux",
+    "node": "v24.22.1",
+    "yarn": "4.18.0",
+    "baseImage": "mcr.microsoft.com/playwright:v1.64.1-noble@sha256:47b510dd9230bf0b9bfc9b20102241e577ea7a99334ab4c3ca19f19770e9b8ea",
+    "originalContainer": "crab-audit-repository-budget-final-20261102",
+    "proofMode": "Read-only fingerprint in the same isolated container after all final public repository commands completed; no source mutation or rebuild is performed by this proof.",
+    "environment": {
+      "RAYON_NUM_THREADS": "2",
+      "TURBO_CONCURRENCY": "2"
+    },
+    "browserConfiguration": {
+      "startedAt": "2026-11-02T06:01:52.562Z",
+      "policy": "Use the actual pinned Playwright GPU default for the native runner: permit software WebGL, omit its contradictory disable-gpu switch. No case filter, timeout, assertion or source change.",
+      "browser": "/ms-playwright/chromium-1248/chrome-linux64/chrome",
+      "wrapper": "/workspace/.cache/visual/native-published-gpu/chromium",
+      "wrapperSha256": "27470b91f73413dc13a12e6ff10939b623dc14aee0109d71d419b255ab32ab3c",
+      "removedArguments": [
+        "--disable-gpu"
+      ],
+      "addedArguments": [
+        "--enable-unsafe-swiftshader"
+      ],
+      "pinnedPlaywrightSourceSha256": "829521b67ed7be90c7d6d6098ff39f2241562d47e4ad7ccab13710924a56001d",
+      "command": "yarn workspace @crab-dev/rc-pdf-editor test --browser-path /workspace/.cache/visual/native-published-gpu/chromium --reporter json --output /workspace/.cache/pdf-native-published-gpu-report.json",
+      "exitCode": 0,
+      "finishedAt": "2026-11-02T06:04:06.813Z"
+    }
+  },
+  "windowsValidation": {
+    "commands": [
+      {
+        "command": "yarn generate:docs",
+        "startedAt": "2026-11-02T07:37:52.8125304Z",
+        "exitCode": 0,
+        "finishedAt": "2026-11-02T07:38:00.7858677Z"
+      },
+      {
+        "command": "yarn check:docs",
+        "startedAt": "2026-11-02T07:38:00.7984075Z",
+        "exitCode": 0,
+        "finishedAt": "2026-11-02T07:38:11.8553547Z"
+      },
+      {
+        "command": "yarn lint:tools",
+        "startedAt": "2026-11-02T07:38:11.8641411Z",
+        "exitCode": 0,
+        "finishedAt": "2026-11-02T07:39:09.0889821Z"
+      },
+      {
+        "command": "yarn check",
+        "startedAt": "2026-11-02T07:39:09.1042422Z",
+        "exitCode": 0,
+        "finishedAt": "2026-11-02T08:26:15.0327124Z"
+      }
+    ],
+    "stages": [
+      {
+        "command": "yarn check:architecture",
+        "result": "passed",
+        "durationSeconds": 3.2
+      },
+      {
+        "command": "yarn check:tokens",
+        "result": "passed",
+        "durationSeconds": 2.3
+      },
+      {
+        "command": "yarn check:generated:local",
+        "result": "passed",
+        "durationSeconds": 47.1
+      },
+      {
+        "command": "yarn lint",
+        "result": "passed",
+        "durationSeconds": 104.3
+      },
+      {
+        "command": "yarn build:library",
+        "result": "passed",
+        "durationSeconds": 5.8
+      },
+      {
+        "command": "yarn check:exports",
+        "result": "passed",
+        "durationSeconds": 12.3
+      },
+      {
+        "command": "yarn check:consumer",
+        "result": "passed",
+        "durationSeconds": 20
+      },
+      {
+        "command": "yarn typecheck",
+        "result": "passed",
+        "durationSeconds": 96.8
+      },
+      {
+        "command": "yarn test",
+        "result": "passed",
+        "durationSeconds": 448.2
+      },
+      {
+        "command": "yarn test:required",
+        "result": "passed",
+        "durationSeconds": 1840.2
+      },
+      {
+        "command": "yarn docs:build",
+        "result": "passed",
+        "durationSeconds": 244.8
+      }
+    ],
+    "platform": "win32",
+    "node": "v22.15.0",
+    "yarn": "4.18.0",
+    "environment": {
+      "TURBO_CONCURRENCY": "2",
+      "TEMP": "C:\\Users\\zhang\\Desktop\\crab-dev\\.tmp\\validation-runtime-temp",
+      "TMP": "C:\\Users\\zhang\\Desktop\\crab-dev\\.tmp\\validation-runtime-temp",
+      "TMPDIR": "C:\\Users\\zhang\\Desktop\\crab-dev\\.tmp\\validation-runtime-temp",
+      "RAYON_NUM_THREADS": "2"
+    },
+    "source": "sha256:bc1679cffa347b7bca8c0f8c1ee5ae6871d15588760d0c0dc8c5788faf2d03f6",
+    "publishedArtifacts": "sha256:7e258a0d2b1b935fb76bfda24f6f16bd7063b7598d64cc12143d056eac0788e0",
+    "completeSiteBuild": "sha256:6a2f85bce437ad5e0cc6401dce9f1c6b97c942998c5afa292d657ccda5642a77",
+    "preview": {
+      "url": "http://127.0.0.1:4181/",
+      "status": 200,
+      "indexSha256": "9ca529bdf12bc7ae0dd561e29d312cbf4466f5017204d7bf0940a661abfdad42",
+      "processRestarted": false,
+      "tabsReloaded": false
+    }
+  },
+  "linuxTableFollowUp": {
+    "command": "yarn workspace @crab-dev/rc-table check",
+    "exitCode": 0,
+    "startedAt": "2026-11-02T07:39:12.943Z",
+    "finishedAt": "2026-11-02T07:41:27.544Z",
+    "sourceSnapshotManifestSha256": "9a38fc5b0e16afcbee3ccd570e0fed9d1c67bdea906c3ed1d8f8df26907cea50",
+    "mismatches": [],
+    "source": "sha256:2cb1a0f4f3566e465d82b9af81f8c005226e923499729938a9cf3017d6c1ed75",
+    "changedFileSinceFullCheck": "components/rc-table/src/__tests__/browser/composite-keyboard.test.tsx",
+    "publishedArtifactsUnchanged": true,
+    "completeSiteBuildUnchanged": true
+  },
+  "crossPlatformSource": {
+    "comparedAt": "2026-11-02T08:28:55.864Z",
+    "identicalSourceRecords": true,
+    "comparedSourceRecords": 2435,
+    "sourceSnapshotManifestSha256": "9a38fc5b0e16afcbee3ccd570e0fed9d1c67bdea906c3ed1d8f8df26907cea50",
+    "canonicalSourceFingerprint": "sha256:2cb1a0f4f3566e465d82b9af81f8c005226e923499729938a9cf3017d6c1ed75",
+    "rawFingerprints": {
+      "windows": "sha256:bc1679cffa347b7bca8c0f8c1ee5ae6871d15588760d0c0dc8c5788faf2d03f6",
+      "linux": "sha256:2cb1a0f4f3566e465d82b9af81f8c005226e923499729938a9cf3017d6c1ed75"
+    },
+    "explanation": "Raw fingerprints preserve the original platform records. The input collector sorts native absolute paths before normalizing separators: Windows orders catalogStyles.ts before catalog/display.tsx, whereas Linux orders the directory first. After sorting the recorded repository-relative paths with the same code-point order, every path and SHA is identical. No source record is omitted or altered."
+  },
+  "inputIdentity": {
+    "snapshotManifestSha256": "5fbbc1f47d3fdc5d5a8ab91f8cc42c9e104649ea1ab91a70c92dfe3ab61ff492",
+    "sourceFilesCompared": 2963,
+    "mismatches": [],
+    "source": "sha256:0886910fee5e7db352a02dba680b94dec883c9137baba4566e0f2b5186c9b59a",
+    "publishedArtifacts": "sha256:6846460c57a1bdc8e57eef75f9a7cf7622114bf82282480c50210ce2160b5a4c",
+    "publishedArtifactFiles": 2588,
+    "completeSiteBuild": "sha256:9887680e885e791eb2fe0e4b33183b562613ecb9a8065948766005670046b2f7",
+    "completeSiteBuildFiles": 2743
+  },
+  "auditIntegrity": {
+    "checkedAt": "2026-11-02T08:16:39.158Z",
+    "packages": 54,
+    "visualPackages": 50,
+    "reviewedGroups": 72,
+    "reviewedImageFiles": 404,
+    "runRecords": 164,
+    "frozenRuns": 162,
+    "matrixPassed": 17724,
+    "environmentsPassed": 3294,
+    "unresolvedSupplementary": 0,
+    "publicPackageAndVersionFilesUnchanged": true,
+    "nodeModulesAbsent": true,
+    "historyAndBaselineApproval": "Historical failed runs remain indexed; no designCoverage promotion or historical baseline approval is claimed."
+  },
+  "sourceBoundary": "Complete Linux public verification and production build are bound to their exact P1 snapshot. The only later source change is explicit native observer teardown in the table keyboard test; its complete Linux package check is bound to P2, with all product and site artifact bytes unchanged. Complete Windows public verification is also bound to P2. Every rendering/test source path and content SHA matches the Linux follow-up; raw fingerprints preserve native path ordering, with a separate strict canonical comparison. Review bookkeeping is excluded from rendering identity; original source versions and failures remain preserved.",
+  "priorWindowsFailure": "Earlier Windows attempts retained a LineEdit geometry assertion read before ResizeObserver delivery, a nested-task temporary-directory EPERM, and a 45-second native date-journey timeout. Final checks wait for natural layout delivery, use a writable task-local temporary directory and await native user events separately from layout settlement. Every behavior assertion remains, and final public check outcomes are recorded above.",
+  "testSourceChanges": {
+    "files": [
+      {
+        "file": "components/rc-table/src/__tests__/browser/composite-keyboard.test.tsx",
+        "before": "b1a48f7839f42e52faa406449b5134d9ca36163c41ab5e403e96a2c0e886ce43",
+        "after": "3630f12dcb1c6cc59d8cf325017764f1af4e4f877cfb3eeb100a3d56fca7a44e"
+      },
+      {
+        "file": "components/rc-date-picker/src/__tests__/browser/viewport-fallback.test.tsx",
+        "before": "9e4ed61dcb004ecf5303d7f8adc8bb48516497ba97ac25c23587fbf3240b047d",
+        "after": "3e8f722c1642f28e1f4a5c905b3f5d1244977ed2cf0206850777598f05f581d6"
+      },
+      {
+        "file": "components/rc-pdf-editor/src/__tests__/pdf-editor.test.tsx",
+        "before": "27359088b1b921243861ed5aac3499fa854ea77c4f9c60c20866636495731a1c",
+        "after": "c8cfb21608480a86083d526f4a23f20c10262ebefdb66468d2c984f09d8c14bb"
+      }
+    ],
+    "scope": "Only three test fixtures changed after the final visual source snapshot. Date user events are awaited directly with a separate natural layout settlement; bounded long journeys use 90 seconds. Table cell-editor tests explicitly unmount their owned views and drain finite queued observer delivery, while strict recurring-frame leak checks remain enabled. Geometry, trusted input, scroll, focus, Worker/GPU and pixel assertions remain. Product implementation, examples, dependency metadata and generated sources are unchanged."
+  },
+  "launchFailures": "Before the actual final run, wrapper attempts encountered Windows argument length, an omitted review-navigation file, and container entrypoint/setup issues. Those attempts did not complete the unified check and are not counted as passes or visual coverage.",
+  "nativeBrowserSetup": "The native runner discovers conventional executable paths and does not read CRAB_TEST_BROWSER_PATH. The first native attempt disabled GPU without the software WebGL option used by the pinned Playwright build; it timed out during binding cleanup. Headful alone produced 18 failures. Explicitly selecting the same pinned binary with the published GPU defaults passes all 107 original cases. Final Linux public checks discover that validated wrapper through owned disposable-container aliases. No assertion, case filter, timeout or source changed for this alignment.",
+  "remaining": {
+    "historicalPixelBaselineApproval": "not performed or updated",
+    "maintainerApproval": "not claimed",
+    "sameCommitCI": "not triggered; no commit was requested",
+    "manifestDesignCoverage": "unchanged partial"
+  },
+  "evidence": [
+    {
+      "file": "validation/repository-linux.txt",
+      "sha256": "13364df10d0ad8ebc43f573cdbebb48c1938911429db808949342b8a540e0a99",
+      "bytes": 881417,
+      "scope": "Final complete public repository validation with native GPU launch defaults aligned to the pinned published browser; actual Docker and command exit codes are separately preserved."
+    },
+    {
+      "file": "validation/public-commands.json",
+      "sha256": "13ad6f007707c4117f9846d182d55456b27102295d68ce7ea403f7cf04e85bd3",
+      "bytes": 2238,
+      "scope": "Original four-command start/end/exit record from the final container."
+    },
+    {
+      "file": "validation/inputs.json",
+      "sha256": "c01278fe12f04f8339728290204e6b3eb5a38990bad984467e0bd17ad2b21b39",
+      "bytes": 1496549,
+      "scope": "Actual final source, published package/workbench and complete site build fingerprints, computed without rebuilding."
+    },
+    {
+      "file": "validation/container-state.json",
+      "sha256": "18a6a6711520837a1eab1f2b9b52e8706e9418c4e648774fa1968f133b79f2d8",
+      "bytes": 224,
+      "scope": "Actual stopped repository-check container state."
+    },
+    {
+      "file": "validation/linux-environment.txt",
+      "sha256": "83790caa38a138883a86073c4e7ee2b4d8995f172203eecbac714dff9f199276",
+      "bytes": 9175,
+      "scope": "Original pinned Linux runtime/font provisioning evidence inherited by the final container."
+    },
+    {
+      "file": "validation/source-snapshot-linux-complete.json",
+      "sha256": "5fbbc1f47d3fdc5d5a8ab91f8cc42c9e104649ea1ab91a70c92dfe3ab61ff492",
+      "bytes": 516687,
+      "scope": "Exact source snapshot of the complete successful Linux public check and production build."
+    },
+    {
+      "file": "validation/source-snapshot.json",
+      "sha256": "9a38fc5b0e16afcbee3ccd570e0fed9d1c67bdea906c3ed1d8f8df26907cea50",
+      "bytes": 517532,
+      "scope": "Exact current source snapshot; only the table test teardown changed after complete Linux verification and is fully rechecked by that package."
+    },
+    {
+      "file": "validation/parent-visual-source-snapshot.json",
+      "sha256": "7904c2e5ce25df855861546ae42b76b0fcf697fd14dff0dc6df0c9ff4840affc",
+      "bytes": 518544,
+      "scope": "Original immutable final visual source snapshot; product implementation, demos and generated sources are unchanged."
+    },
+    {
+      "file": "validation/host-source-parity.json",
+      "sha256": "a5e6eeccf50c41c5736139c0e9b74752bd6841ade7b2835fe236450b78d3662f",
+      "bytes": 587,
+      "scope": "Final host worktree source comparison against that same snapshot."
+    },
+    {
+      "file": "validation/run-public-checks.mjs",
+      "sha256": "0c05e0cbb0b685de22450c345cbdfa6772667d10ff78f42a9828223e40c41c15",
+      "bytes": 3907,
+      "scope": "Exact supplementary command driver used by the final container; public source is unchanged."
+    },
+    {
+      "file": "validation/capture-complete-build.mjs",
+      "sha256": "e551c13c3aa42d056cdce8c828a277042dabcde1c3f56fc72c7a0b24d2d3a0c8",
+      "bytes": 2301,
+      "scope": "Exact read-only proof executed after all public commands in the same container."
+    },
+    {
+      "file": "validation/repository-windows.txt",
+      "sha256": "00dc17d5975e7bb8aa0bb4513038b5e377ad787b04a7a4cc4fbf5e75ac2057ee",
+      "bytes": 949349,
+      "scope": "Final complete public Windows repository validation."
+    },
+    {
+      "file": "validation/public-commands-windows.json",
+      "sha256": "af49a1712ad7ea822c2fc42afa91c80a6c79aac81ba632c1befea17924f9aabd",
+      "bytes": 1342,
+      "scope": "Original public Windows command start/end/exit and task environment record."
+    },
+    {
+      "file": "validation/inputs-windows.json",
+      "sha256": "cbac7e886d116d8dab8b1d5e27826fe2f9e71862d40824e2f478aec05e961434",
+      "bytes": 1495733,
+      "scope": "Actual final host source/build fingerprints and existing preview HTTP/hash verification."
+    },
+    {
+      "file": "validation/cross-platform-source.json",
+      "sha256": "61daf03c4e26abe28d30245d44986bf2845cdbad90447bd77e6e2c0d4d9e74ba",
+      "bytes": 944,
+      "scope": "Every current repository-relative source path and content SHA agrees across Windows and Linux; native absolute-path sorting explains the preserved raw fingerprint difference."
+    },
+    {
+      "file": "validation/pdf-native-aligned-gpu.json",
+      "sha256": "212beec56b364d7e99e436a41e533a88ad306808bcb0c371d82053fe344027d0",
+      "bytes": 63255,
+      "scope": "All 107 original native cases pass, zero skipped, in the pinned browser after explicit GPU-aligned launch."
+    },
+    {
+      "file": "validation/native-browser-configuration.json",
+      "sha256": "cfc9a3ad119627d3683e2732d90f6a7d2d322ebfab49f585567a4fae8321b3d7",
+      "bytes": 955,
+      "scope": "Actual physical browser, wrapper SHA and public command used to verify the GPU alignment."
+    },
+    {
+      "file": "validation/native-chromium.sh",
+      "sha256": "27470b91f73413dc13a12e6ff10939b623dc14aee0109d71d419b255ab32ab3c",
+      "bytes": 245,
+      "scope": "Exact disposable-container wrapper: same pinned binary, software WebGL enabled like the installed Playwright defaults."
+    },
+    {
+      "file": "validation/repository-linux-prior.txt",
+      "sha256": "02fab1e66ea36a12776263f5ae2251e147f41327fd1beaf1386664c462dbf307",
+      "bytes": 464287,
+      "scope": "Retained original default native launch failure during PDF binding cleanup; not final acceptance."
+    },
+    {
+      "file": "validation/pdf-native-headful-prior.json",
+      "sha256": "d1cf149e7b6438bf5870cb0d619d30fae4b1bf796b89da5ec6c8c3f2f6e6a692",
+      "bytes": 85148,
+      "scope": "Retained 89/107 headful diagnostic result; changing headless mode alone did not fix the GPU launch mismatch."
+    },
+    {
+      "file": "validation/windows-temp-permission-prior.txt",
+      "sha256": "451777bd0b2790f09f9f7086e1549dd69c156431318f770573eb5b0120e9ab4c",
+      "bytes": 2223,
+      "scope": "Exact nested-task EPERM on the system temporary directory; final checks use a workspace-local temp directory."
+    },
+    {
+      "file": "validation/windows-date-journey-prior.txt",
+      "sha256": "c040efbfb1676f47b121e704170534123ebe359efc11d375763b49024e7fb2a0",
+      "bytes": 648884,
+      "scope": "Retained complete-run timeout at the original 45-second native date journey budget, with remaining cases explicitly pending."
+    },
+    {
+      "file": "validation/linux-pdf-page-stress-prior.txt",
+      "sha256": "68148395d889789c264c2706048e7490408b78e50123b70048f5980a308b68ad",
+      "bytes": 463395,
+      "scope": "Retained complete-run timeout at the original 30-second 30-page/11-handoff stress budget."
+    },
+    {
+      "file": "validation/date-native-wait-focused.txt",
+      "sha256": "7dfab088a79d9958cf844aa8ee6bfc65b5ed5ef674f184708413106040e279c1",
+      "bytes": 23417,
+      "scope": "Exactly one previous failing short/dark/LTR native date scenario passes; 155 unselected cases are not acceptance coverage."
+    },
+    {
+      "file": "validation/navigation-source.txt",
+      "sha256": "bd3cb41a4e99425c05dcd17c3ce2ce7c893c3fa9778c20f790c77b7568ce58bb",
+      "bytes": 116851,
+      "scope": "Exact archived navigation input, omitted by visual snapshots and restored before full repository link validation. Later evidence-only updates are excluded from rendering identity."
+    },
+    {
+      "file": "validation/changeset-coverage.json",
+      "sha256": "7842e63ea356e0cbb7ec48e05eef71a30630df4f75db30843d3992e7f2a9a457",
+      "bytes": 3469,
+      "scope": "Patch changesets cover all 20 packages with runtime edits and 24 packages including perceptible demo changes."
+    },
+    {
+      "file": "validation/table-lifecycle-linux-final.json",
+      "sha256": "77f30b73164bccd2488f1aa6e36f7ab006ebb6015d19c177a4cb7ddff4473759",
+      "bytes": 1494111,
+      "scope": "Full Linux table package check on the current source, with exact source guards and unchanged product artifact/site hashes."
+    },
+    {
+      "file": "validation/table-lifecycle-linux-final.txt",
+      "sha256": "3cdc4588ac9eef6c701e99cf788d0830b5033c9848f269184e8a0928603952e1",
+      "bytes": 49739,
+      "scope": "Actual complete Linux table package check output, including registered browser/selection/system-color checks."
+    },
+    {
+      "file": "validation/table-lifecycle-windows-focused.txt",
+      "sha256": "1c437282e2dd4eb3e57ac7a88c9fc12ddafea6f6a8de8484a878a617ba364c84",
+      "bytes": 14739,
+      "scope": "All 45 table browser assertions and strict frame-leak checking pass with explicit native observer teardown."
+    },
+    {
+      "file": "validation/table-frame-windows-prior.txt",
+      "sha256": "5e881bb5a5580fd33cafeb29b21b2e724e9a62d0fd52ffe0ae8f7ff229d00b3b",
+      "bytes": 798033,
+      "scope": "Retained prior run: all 45 assertions passed but one queued Floating UI frame failed strict leak checking before explicit teardown."
+    },
+    {
+      "file": "validation/preview-published-build.json",
+      "sha256": "ca33ee9c4cca785e979b11efa0c375d42309b913ad0f53e15fa3f062278c39a8",
+      "bytes": 559,
+      "scope": "The fully verified Linux product build was synchronized to the existing local preview with all 2743 file hashes checked; no preview process restart or automatic tab reload. Final Windows preview bytes are independently recorded in inputs-windows.json after its full build."
+    },
+    {
+      "file": "validation/canvas-package-windows.txt",
+      "sha256": "f32914a0f000493b4bdd51d0dcc7fc7e2c3603305ff255153b70e67151791995",
+      "bytes": 20094,
+      "scope": "Final Canvas package check: lint, typecheck, 138 default cases and 7 real GPU cases."
+    },
+    {
+      "file": "validation/repository-windows-prior.txt",
+      "sha256": "e66920c5faf1d259c3ebf51cb5e3057a6160d17c7164b9a4db3c80906be9f609",
+      "bytes": 675796,
+      "scope": "Retained earlier Windows unified check: Date 156 passes; LineEdit has one immediate pre-ResizeObserver geometry failure. This is a failure, not final acceptance."
+    },
+    {
+      "file": "validation/line-edit-browser-windows.txt",
+      "sha256": "cf53ec08eb8d495ed5b82885db1ccf6efdaeaef7c657a1156e79e42350cf491f",
+      "bytes": 3250,
+      "scope": "Actual public follow-up: unchanged geometry assertions await natural ResizeObserver delivery, 37 passes."
+    },
+    {
+      "file": "validation/docs-windows.txt",
+      "sha256": "ef692054982449884ddeec28a2d7eb21390f13fc7360f9db9a11a856995b597a",
+      "bytes": 226,
+      "scope": "Final component documentation generation, then zero drift."
+    }
+  ]
+}

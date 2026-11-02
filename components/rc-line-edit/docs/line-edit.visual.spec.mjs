@@ -181,6 +181,7 @@ test(
         const scene = page.getByRole("region", { name: "LineEdit visual matrix" });
         const input = matrixInput(scene, "outlined");
         await input.fill("保留输入草稿");
+        await input.evaluate(node => node.setSelectionRange(1, 4));
         const originals = await Promise.all(["outlined", "filled"].map((appearance) => matrixInput(scene, appearance).elementHandle()));
         for (const config of configurations) {
             await page.evaluate(
@@ -203,6 +204,8 @@ test(
                 expect(await originals[index].evaluate((node) => node.isConnected)).toBe(true);
                 await expect(matrixInput(scene, appearance)).toHaveValue("保留输入草稿");
             }
+            await expect(input).toBeFocused();
+            expect(await input.evaluate(node => [node.selectionStart, node.selectionEnd])).toEqual([1, 4]);
         }
     },
 );

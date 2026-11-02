@@ -18,6 +18,9 @@ for (const config of configurations) for (const size of spec.sizes) for (const d
         await expect(scene).toHaveAttribute('data-state',state);
         await expect(scene).toHaveAttribute('data-size',size);
         await expect(scene).toHaveAttribute('data-density',density);
+        if (state === 'error') await expect(target).toContainText('保存失败');
+        if (state === 'warning') await expect(target).toContainText('未保存的更改');
+        if (state === 'success') await expect(target).toContainText('工作区已保存');
 
         if (state === 'closed') {
             await page.getByRole('button',{name:'关闭展示',exact:true}).click();

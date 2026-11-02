@@ -72,23 +72,29 @@ for (const environment of environments) test.describe('Notification '+environmen
         if (environment.id === 'theme-retention') {
             const draft=page.getByLabel('配置切换草稿',{exact:true});
             await draft.fill('Draft retained through theme changes');
+            await draft.focus();
             const instance=await draft.elementHandle();
             await page.evaluate(next=>globalThis.postMessage({type:'crab:preview-config',...next},globalThis.location.origin),{designSystem:config.designSystem==='md3'?'apple':'md3',colorMode:config.colorMode==='light'?'dark':'light'});
             const boundary=page.locator('.demo-default-preview').first();
             await expect(boundary).toHaveAttribute('data-crab-design',config.designSystem==='md3'?'apple':'md3');
             await expect(boundary).toHaveAttribute('data-theme',config.colorMode==='light'?'dark':'light');
             await expect(draft).toHaveValue('Draft retained through theme changes');
+            await expect(draft).toBeFocused();
             expect(await draft.evaluate((node,previous)=>node===previous,instance)).toBe(true);
         }
 
-        if(environment.id==='touch') {
+        if(environment.hasTouch) {
 
             const target=frame.locator('[data-visual-target]').first();
             const action=target.getByRole('button').first();
-            const bounds=await action.boundingBox();
-            expect(bounds.width).toBeGreaterThanOrEqual(44); expect(bounds.height).toBeGreaterThanOrEqual(44);
-            await captureVisual(frame,[config.designSystem,config.colorMode,'touch-target'].join('-')+'.png',info,browserName);
-            await action.tap();
+            const hit=action.locator('[data-button-part="touch-target"]');
+            await hit.scrollIntoViewIfNeeded();
+            const bounds=await hit.boundingBox();
+            expect(bounds.width).toBeGreaterThanOrEqual(48); expect(bounds.height).toBeGreaterThanOrEqual(48);
+            const point={x:bounds.x+bounds.width-1,y:bounds.y+bounds.height/2};
+            expect(await action.evaluate((node,point)=>node.ownerDocument.elementFromPoint(point.x,point.y)?.closest('button')===node,point)).toBe(true);
+            await page.touchscreen.tap(point.x,point.y);
+            await expect(target).toHaveCount(0);
         }
         await settleFiniteAnimations(page);
         const geometry=await frame.evaluate(node=>({client:node.clientWidth,scroll:node.scrollWidth}));

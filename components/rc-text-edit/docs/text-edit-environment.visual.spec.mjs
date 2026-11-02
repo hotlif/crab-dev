@@ -103,9 +103,27 @@ for (const config of configurations)
                             await control.press("ControlOrMeta+Home");
                             await expect
                                 .poll(() =>
-                                    control.evaluate((node) => node.scrollTop),
+                                    control.evaluate((node) => [node.selectionStart, node.selectionEnd]),
                                 )
-                                .toBe(0);
+                                .toEqual([0, 0]);
+                            const start = await control.evaluate(node => {
+                                const style = node.ownerDocument.defaultView.getComputedStyle(node);
+                                const context = node.ownerDocument.createElement('canvas').getContext('2d');
+                                context.font = `${style.fontStyle} ${style.fontWeight} ${style.fontSize} ${style.fontFamily}`;
+                                const metrics = context.measureText(node.value.split('\n')[0]);
+                                const baseline = parseFloat(style.paddingTop)
+                                    + (parseFloat(style.lineHeight) - metrics.fontBoundingBoxAscent - metrics.fontBoundingBoxDescent) / 2
+                                    + metrics.fontBoundingBoxAscent - node.scrollTop;
+                                return { scrollTop: node.scrollTop, height: node.clientHeight,
+                                    glyphTop: baseline - metrics.actualBoundingBoxAscent,
+                                    glyphBottom: baseline + metrics.actualBoundingBoxDescent };
+                            });
+                            // Native caret scrolling can retain a small offset. Verify
+                            // the actual first-line glyph bounds, rather than an exact zero.
+                            expect(start.glyphTop).toBeGreaterThanOrEqual(0);
+                            expect(start.glyphBottom).toBeLessThanOrEqual(start.height);
+                            await info.attach('first-line-visibility', { body: JSON.stringify(start), contentType: 'application/json' });
+                            await captureVisual(field, `${config.designSystem}-${config.colorMode}-${appearance}-narrow-first-line.png`, info, browserName);
                             await control.press("ControlOrMeta+End");
                             await expect.poll(() => control.evaluate(node => node.scrollTop)).toBeGreaterThan(0);
                             const scrolling = await control.evaluate(

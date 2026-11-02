@@ -1,0 +1,11 @@
+{
+  "updatedAt": "2026-11-02T07:44:35.748Z",
+  "url": "http://127.0.0.1:4181/",
+  "filesVerified": 2743,
+  "testedBuild": "sha256:9887680e885e791eb2fe0e4b33183b562613ecb9a8065948766005670046b2f7",
+  "servedIndexSha256": "b9418398ee865afdfd316374386e81525172c22262aa57ed8dc965e375332c2a",
+  "status": 200,
+  "processRestarted": false,
+  "openTabsReloaded": false,
+  "compatibility": "Previous hashed files are retained for already-open tabs; every file in the final tested build is present with its original SHA. No cleanup or source mutation is performed."
+}

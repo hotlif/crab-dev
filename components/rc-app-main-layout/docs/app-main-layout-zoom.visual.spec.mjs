@@ -8,6 +8,9 @@ import {
     captureZoom,
 } from '../../../test/visual/component-fixture.mjs';
 const spec = await readVisualSpec(import.meta.url);
+// Native zoom uses a headed browser; keep configurations sequential while
+// retaining independent failures and the existing per-case time budget.
+zoomTest.describe.configure({ mode: 'default' });
 for (const config of configurations)
     zoomTest(
         `${config.designSystem} ${config.colorMode} real zoom 200%`,

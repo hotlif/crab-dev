@@ -14,6 +14,7 @@ import { categoryForPath, DocumentNavigationContext, groupsForCategory, navigati
 import SiteIcon from "../siteIcon.js";
 
 import { SearchIcon, NavigationChevron } from "./icons.js";
+import { isSearchShortcut, SearchReturnFocusContext } from "./search-return-focus.js";
 
 export function follow(event: MouseEvent<HTMLElement>, slug: string, navigate: (slug: string) => void) {
     if (event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey)
@@ -51,9 +52,6 @@ export function Header({ site, route, search, mobileNavigation, theme }: UI.Head
     const activeCategory = categoryForPath(route.page?.slug ?? route.path);
     return (
         <header className="crab-docs-header crab-docs-rail" role="banner">
-            <Button appearance="text" className="crab-docs-rail-search" icon={<SearchIcon />}
-                aria-label="搜索文档" aria-haspopup="dialog" title={`搜索文档 (${search.shortcut})`}
-                onClick={() => search.setOpen(true)} />
             <Button
                 appearance="text"
                 className="crab-docs-brand"
@@ -64,11 +62,11 @@ export function Header({ site, route, search, mobileNavigation, theme }: UI.Head
                 href={site.homeHref}
                 onClick={(event) => follow(event, "/", route.navigate)}
             >
-                <span className="crab-docs-brand-desktop">首页</span><span className="crab-docs-brand-mobile">Crab UI</span>
+                <span className="crab-docs-brand-desktop">Crab UI</span>
             </Button>
             <nav className="crab-docs-header-links" role="navigation" aria-label="主导航">
                 {navigationCategories.map(item => <Button key={item.id} appearance="text" className="crab-docs-rail-item"
-                    data-active={activeCategory === item.id} aria-expanded={navigation?.category === item.id}
+                    data-active={(navigation?.category ?? activeCategory) === item.id} aria-expanded={navigation?.category === item.id}
                     aria-current={activeCategory === item.id ? "true" : undefined}
                     aria-controls={navigation?.sidebarId}
                     onClick={() => navigation?.select(item.id)}
@@ -80,6 +78,11 @@ export function Header({ site, route, search, mobileNavigation, theme }: UI.Head
                     </Button>
                 )}
             </nav>
+            <Button appearance="text" className="crab-docs-rail-search" icon={<SearchIcon />}
+                aria-label="搜索文档" aria-haspopup="dialog" title={`搜索文档 (${search.shortcut})`}
+                onClick={() => search.setOpen(true)}>
+                <span className="crab-docs-rail-search-label">搜索文档…</span><kbd className="crab-docs-search-hint">{search.shortcut}</kbd>
+            </Button>
             <div className="crab-docs-header-tools">
                 <ThemeSwitch theme={theme} />
                 <Button
@@ -188,12 +191,18 @@ export function MobileNavigation({
     const { designSystem: design } = useConfig();
     const title = "文档导航";
     const navigationState = use(DocumentNavigationContext);
+    const searchReturnFocus = use(SearchReturnFocusContext);
     // DOM instance used after Drawer enters the top layer, never during rendering.
     const navigationRoot = useRef<HTMLDivElement>(null);
     // 例外：记录弹层关闭原因，直到原生 close 事件完成焦点恢复。
-    const closeReason = useRef<"navigation" | "cancel" | "desktop">("navigation");
+    const closeReason = useRef<"navigation" | "cancel" | "desktop" | "search">("navigation");
     const closed = () => {
-        if (closeReason.current === "desktop") {
+        if (closeReason.current === "search") {
+            const search = document.querySelector<HTMLDialogElement>(".crab-docs-search-dialog[open]");
+            if (search) {
+                if (!search.contains(document.activeElement)) search.querySelector<HTMLInputElement>('input[role="combobox"]')?.focus({ preventScroll: true });
+            } else document.querySelector<HTMLButtonElement>(".crab-docs-rail-search")?.focus({ preventScroll: true });
+        } else if (closeReason.current === "desktop") {
             const trigger = document.querySelector<HTMLButtonElement>(".crab-docs-rail-item[aria-expanded=true]");
             if (trigger) trigger.focus({ preventScroll: true });
             else route.focusContent();
@@ -205,9 +214,11 @@ export function MobileNavigation({
         if (!open) return;
         closeReason.current = "navigation";
         const items = navigationRoot.current?.querySelectorAll<HTMLElement>("nav a[href], nav button:not(:disabled)");
-        const first = [...items ?? []].find(item => !item.closest('[inert], [hidden], [aria-hidden="true"]')
+        const visible = [...items ?? []].filter(item => !item.closest('[inert], [hidden], [aria-hidden="true"]')
             && item.getAttribute("aria-disabled") !== "true");
-        first?.focus({ preventScroll: true });
+        const destination = visible.find(item => item.getAttribute("aria-current") === "page") ?? visible[0];
+        destination?.focus({ preventScroll: true });
+        destination?.scrollIntoView?.({ block: "nearest" });
     }, [open]);
     useEffect(() => {
         if (!open) return;
@@ -246,6 +257,13 @@ export function MobileNavigation({
                     // Let the native dialog cancel path own Escape; Wake's
                     // window shortcut would otherwise close it before onCancel.
                     if (event.key === "Escape") event.stopPropagation();
+                    // Wake still owns the search shortcut. Close this surface
+                    // in the same event so its exit cannot take search focus.
+                    if (isSearchShortcut(event)) {
+                        if (searchReturnFocus) searchReturnFocus.current = true;
+                        closeReason.current = "search";
+                        setOpen(false);
+                    }
                 }}
                 onOpenChange={(value) => {
                     closeReason.current = value ? "navigation" : "cancel";

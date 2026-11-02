@@ -17,7 +17,8 @@ const frameStyle = css`
 `;
 const rowStyle = css`display: flex; flex-wrap: wrap; gap: ${token.space['component-gap']}; align-items: center; min-width: 0;`;
 const sceneStyle = css`display: grid; min-width: 0; gap: ${token.space['stack-gap']};`;
-const flexSceneStyle = css`display: flex; flex-wrap: wrap; align-items: center;`;
+/* Keep the expanded touch target clear of adjacent identity content. */
+const flexSceneStyle = css`display: flex; flex-wrap: wrap; align-items: center; gap: ${token.space['group-gap']};`;
 const portrait = 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64"><rect width="64" height="64" fill="#b9d5df"/><circle cx="32" cy="24" r="12" fill="#354952"/><path d="M8 64a24 24 0 0 1 48 0" fill="#354952"/></svg>');
 
 export default function VisualMatrixDemo() {

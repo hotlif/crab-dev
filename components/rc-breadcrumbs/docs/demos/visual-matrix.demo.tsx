@@ -8,13 +8,13 @@ export const meta = { title: '路径导航状态矩阵', description: '链接、
 const frame = css`display: grid; gap: ${token.space['group-gap']}; padding: ${token.space['group-gap']}; background: ${token.color.background.surface}; color: ${token.color.text.primary}; min-width: 0;`;
 export default function VisualMatrixDemo() {
     const { locale } = useConfig();
-    const [collapsed, setCollapsed] = useState(false);
+    const [pathDisplay, setPathDisplay] = useState<'full' | 'collapsed' | 'minimum'>('full');
     const [visited, setVisited] = useState('');
     const id = useId();
     const english = locale === 'en-US';
     return <section className={frame} aria-label="Breadcrumbs visual matrix" data-visual-scene>
-        <div><label htmlFor={id}>路径显示</label>{' '}<select id={id} value={collapsed ? 'collapsed' : 'full'} onChange={event => setCollapsed(event.currentTarget.value === 'collapsed')}><option>full</option><option>collapsed</option></select></div>
-        <Breadcrumbs aria-label="路径验收" maxCount={collapsed ? 3 : undefined} items={[
+        <div><label htmlFor={id}>路径显示</label>{' '}<select id={id} value={pathDisplay} onChange={event => setPathDisplay(event.currentTarget.value as typeof pathDisplay)}><option>full</option><option>collapsed</option><option>minimum</option></select></div>
+        <Breadcrumbs aria-label="路径验收" maxCount={pathDisplay === 'minimum' ? 2 : pathDisplay === 'collapsed' ? 3 : undefined} items={[
             { key: 'home', title: english ? 'Workspace' : '工作区', href: '#workspace', onClick: event => { event.preventDefault(); setVisited('workspace'); } },
             { key: 'projects', title: english ? 'Projects' : '项目', onClick: () => setVisited('projects') },
             { key: 'disabled', title: english ? 'Restricted' : '受限目录', disabled: true, onClick: () => setVisited('restricted') },

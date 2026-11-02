@@ -25,6 +25,7 @@ status = "experimental"
 - 支持语义颜色变体（`default` / `primary` / `success` / `warning` / `error`）。
 - 支持 `prefers-reduced-motion`，减少不必要动画。
 - 设置 `onClick` 时复用 Button，支持 Enter / Space 激活与可见键盘焦点。按钮视觉边界与头像一致，粗指针使用至少 48px 的独立命中层，网格或弹性布局不把焦点面拉成整行；仅图标头像应提供动作名称 `aria-label`。
+- 排列小尺寸操作头像时，为扩展的触控命中层与相邻内容保留间隔，避免边缘触摸被浏览器转向旁边的元素；工作台的横向组合使用组间距，并以真实触摸检查四侧边缘。
 - AvatarGroup 的 `onExtraClick` 使用独立的“+N”按钮，避免与成员头像的点击操作嵌套；纯展示时计数徽标与最后一个头像的上方逻辑外沿相切，LTR 向右、RTL 向左。计数的实际宽度参与头像组布局，长 `renderExtra` 不会侵入前一个头像或相邻组；头像外环保持自身形状。顶部半个徽标仍向上伸出，放入裁剪容器时需保留相应垂直空间。
 - 默认“+N”计数在 RTL 中保持加号在前；徽标标题与操作名称跟随最近 ConfigProvider 的中英文设置。`renderExtra` 自定义内容保留其自身文字和方向。
 - `max={0}` 隐藏所有成员头像，仍保留独立的计数徽标或 `renderExtra` 摘要；提供 `onExtraClick` 时保留额外操作按钮。没有成员时不显示折叠提示。

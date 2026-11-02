@@ -3,6 +3,13 @@ import { readFile } from 'node:fs/promises';
 import { test, expect, configurations, openDemo, captureVisual, settleFiniteAnimations } from '../../../test/visual/component-fixture.mjs';
 import { readyPdf, waitForPdfPresentation } from './pdf-editor.visual-helpers.mjs';
 
+async function setCheckbox(control, checked) {
+    // Native inputs are visually clipped; operate their visible label.
+    if (await control.isChecked() !== checked) await control.locator('..').click();
+    if (checked) await expect(control).toBeChecked();
+    else await expect(control).not.toBeChecked();
+}
+
 async function prepare(page, previewOrigin, config) {
     const resources = Promise.all([
         page.waitForResponse(response => response.url().endsWith('/fixtures/visual-document.pdf')),
@@ -21,6 +28,8 @@ async function changed(scene, revision) {
     await waitForPdfPresentation(scene, await scene.getAttribute('data-document'));
 }
 async function selectObject(page, scene, text, end = false) {
+    const properties = scene.getByRole('button', { name: '属性面板', exact: true });
+    if (await properties.getAttribute('aria-expanded') === 'false') await properties.click();
     const tree = scene.getByRole('tree', { name: '页面对象', exact: true });
     await tree.hover(); await page.mouse.wheel(0, end ? 1000 : -1000);
     const item = scene.getByRole('treeitem').filter({ hasText: text }).first();
@@ -69,11 +78,11 @@ for (const config of configurations) test(`${config.designSystem} ${config.color
     await expect(scene.getByRole('treeitem').filter({ hasText: 'Edited professional text' })).toBeVisible();
     const x = scene.getByLabel('X（pt）', { exact: true }), originalX = await x.inputValue();
     await x.fill('72'); revision = await scene.getAttribute('data-revision');
-    await scene.getByRole('button', { name: '应用修改', exact: true }).click(); await changed(scene, revision); await expect(x).toHaveValue('72');
+    await scene.getByRole('button', { name: '应用修改', exact: true }).click(); await changed(scene, revision); await expect(x).toHaveValue('72.00');
     revision = await scene.getAttribute('data-revision'); await scene.getByRole('button', { name: '撤销', exact: true }).click(); await changed(scene, revision);
     await selectObject(page, scene, 'Edited professional text'); await expect(x).toHaveValue(originalX);
     revision = await scene.getAttribute('data-revision'); await scene.getByRole('button', { name: '重做', exact: true }).click(); await changed(scene, revision);
-    await selectObject(page, scene, 'Edited professional text'); await expect(x).toHaveValue('72');
+    await selectObject(page, scene, 'Edited professional text'); await expect(x).toHaveValue('72.00');
     await scene.getByRole('button', { name: '添加文字', exact: true }).click();
     const dialog = page.getByRole('dialog', { name: '添加文字', exact: true });
     await dialog.getByRole('textbox', { name: '文字内容', exact: true }).fill('Inserted professional text'); await chooseFont(page, dialog);
@@ -113,14 +122,14 @@ for (const config of configurations) test(`${config.designSystem} ${config.color
     test.setTimeout(90000);
     const scene = await prepare(page, previewOrigin, config);
     await scene.getByRole('button', { name: '文档摘要', exact: true }).click(); await expect(scene.getByLabel('文档摘要结果')).toContainText('professional-rich.pdf · 2页');
-    await scene.getByRole('checkbox', { name: '显示绘图工具', exact: true }).uncheck(); await expect(scene.getByRole('button', { name: '矩形边框', exact: true })).toHaveCount(0);
-    await scene.getByRole('checkbox', { name: '显示绘图工具', exact: true }).check(); await expect(scene.getByRole('button', { name: '矩形边框', exact: true })).toBeVisible();
+    await setCheckbox(scene.getByRole('checkbox', { name: '显示绘图工具', exact: true }), false); await expect(scene.getByRole('button', { name: '矩形边框', exact: true })).toHaveCount(0);
+    await setCheckbox(scene.getByRole('checkbox', { name: '显示绘图工具', exact: true }), true); await expect(scene.getByRole('button', { name: '矩形边框', exact: true })).toBeVisible();
     const life = scene.getByLabel('区域插件状态');
     await expect.poll(async () => Number(await life.getAttribute('data-installs'))).toBeGreaterThan(0);
     const installs = Number(await life.getAttribute('data-installs')), cleanups = Number(await life.getAttribute('data-cleanups')), aborts = Number(await life.getAttribute('data-aborts'));
-    await scene.getByRole('checkbox', { name: '启用区域插件', exact: true }).uncheck(); await expect(scene.getByRole('button', { name: '交互区域捕获', exact: true })).toHaveCount(0);
+    await setCheckbox(scene.getByRole('checkbox', { name: '启用区域插件', exact: true }), false); await expect(scene.getByRole('button', { name: '交互区域捕获', exact: true })).toHaveCount(0);
     await expect(life).toHaveAttribute('data-cleanups', String(cleanups + 1)); await expect(life).toHaveAttribute('data-aborts', String(aborts + 1));
-    await scene.getByRole('checkbox', { name: '启用区域插件', exact: true }).check(); await expect(life).toHaveAttribute('data-installs', String(installs + 1));
+    await setCheckbox(scene.getByRole('checkbox', { name: '启用区域插件', exact: true }), true); await expect(life).toHaveAttribute('data-installs', String(installs + 1));
     await scene.getByRole('button', { name: '交互区域捕获', exact: true }).click();
     const selector = scene.getByRole('region', { name: 'PDF 区域选择', exact: true }); await expect(selector).toBeFocused();
     await selector.scrollIntoViewIfNeeded();
@@ -155,6 +164,8 @@ for (const config of configurations) test(`${config.designSystem} ${config.color
     expect(await element.evaluate(node => node instanceof globalThis.customElements.get('crab-pdf-editor') && node.shadowRoot instanceof globalThis.ShadowRoot)).toBe(true);
     const boundary = element.locator('[data-crab-design][data-theme]').first();
     await expect(boundary).toHaveAttribute('data-crab-design', config.designSystem); await expect(boundary).toHaveAttribute('data-theme', config.colorMode);
+    const properties = scene.getByRole('button', { name: '属性面板', exact: true });
+    if (await properties.getAttribute('aria-expanded') === 'false') await properties.click();
     await scene.getByRole('treeitem').first().click(); const x = scene.getByLabel('X（pt）', { exact: true }); await x.fill('72');
     const original = await x.elementHandle(), revision = await scene.getAttribute('data-revision');
     // Flip through another real configuration, then restore the declared one
@@ -173,11 +184,58 @@ for (const config of configurations) test(`${config.designSystem} ${config.color
         await expect(scene.getByLabel(next.locale === 'en-US' ? 'X (pt)' : 'X（pt）', { exact: true })).toHaveValue('72');
     }
     await expect(scene).toHaveAttribute('data-revision', revision); await waitForPdfPresentation(scene, 'professional-web-component');
+    // Closing a panel must resolve focus inside this actual ShadowRoot.
+    await scene.getByRole('button', { name: '收起属性面板', exact: true }).click();
+    await expect(properties).toBeFocused();
+    await expect(properties).toHaveAttribute('aria-expanded', 'false');
+    await properties.click();
+    await expect(x).toHaveValue('72.00');
+    expect(await original.evaluate(node => node.isConnected)).toBe(true);
     await captureDomain(page, scene, `${config.designSystem}-${config.colorMode}-standalone-web-component.png`, info, browserName);
     await scene.getByRole('button', { name: '应用修改', exact: true }).click(); await changed(scene, revision);
+    await waitForPdfPresentation(scene, 'professional-web-component');
+    const appliedRevision = await scene.getAttribute('data-revision');
+    const closeProperties = scene.getByRole('button', { name: '收起属性面板', exact: true });
+    await closeProperties.focus(); await page.keyboard.press('ControlOrMeta+z');
+    await expect(scene).not.toHaveAttribute('data-revision', appliedRevision);
+    await expect(scene).toHaveAttribute('data-dirty', 'false');
+    await expect(closeProperties).toBeFocused();
+    await waitForPdfPresentation(scene, 'professional-web-component');
+    const undoneRevision = await scene.getAttribute('data-revision');
+    await page.keyboard.press('ControlOrMeta+Shift+z');
+    await expect(scene).not.toHaveAttribute('data-revision', undoneRevision);
+    await expect(scene).toHaveAttribute('data-dirty', 'true');
+    await expect(closeProperties).toBeFocused();
+    await waitForPdfPresentation(scene, 'professional-web-component');
+    await scene.getByRole('treeitem').first().click(); await expect.poll(async () => Number(await x.inputValue())).toBe(72);
     await scene.getByRole('button', { name: '保存 PDF', exact: true }).click();
     await expect(scene.getByText('Web Component 文档已保存', { exact: true })).toBeVisible(); await expect(scene).toHaveAttribute('data-dirty', 'false');
     await scene.getByRole('button', { name: '导出 Web Component PDF', exact: true }).click();
     const pdf = await downloadPdf(page, scene.getByRole('link', { name: '下载 Web Component PDF', exact: true }));
     await info.attach('standalone-web-component-export', { body: pdf, contentType: 'application/pdf' });
+    // Region selection intentionally leaves object-edit mode. Exercise it only
+    // after saving the object draft, keeping the existing selection semantics.
+    const savedRevision = await scene.getAttribute('data-revision');
+    const canvas = scene.getByRole('main', { name: 'PDF 页面画布', exact: true });
+    for (const cancel of [true, false]) {
+        await element.evaluate(node => {
+            node.__visualRegionResult = node.selectRegion().then(selection => ({ regions: selection.regions.length }), error => ({ code: error.code }));
+        });
+        const selector = scene.getByRole('region', { name: 'PDF 区域选择', exact: true });
+        await expect(selector).toBeFocused();
+        if (cancel) await page.keyboard.press('Escape');
+        else {
+            const box = await selector.boundingBox();
+            await page.mouse.move(box.x + box.width * 0.3, box.y + box.height * 0.3); await page.mouse.down();
+            await page.mouse.move(box.x + box.width * 0.6, box.y + box.height * 0.6, { steps: 4 }); await page.mouse.up();
+        }
+        await expect(selector).toHaveCount(0);
+        await expect(canvas).toBeFocused();
+        const outcome = await element.evaluate(node => node.__visualRegionResult);
+        if (cancel) expect(outcome).toEqual({ code: 'cancelled' });
+        else expect(outcome.regions).toBeGreaterThan(0);
+        await expect(scene).toHaveAttribute('data-revision', savedRevision);
+        await expect(scene).toHaveAttribute('data-dirty', 'false');
+        await captureDomain(page, scene, `${config.designSystem}-${config.colorMode}-region-${cancel ? 'cancelled' : 'completed'}-focus.png`, info, browserName);
+    }
 });

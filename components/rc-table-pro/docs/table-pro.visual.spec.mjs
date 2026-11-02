@@ -66,7 +66,8 @@ for (const config of configurations)
                                 expect(await grid.evaluate((node) => node.matches(':focus-visible'))).toBe(true);
                             }
                             if (state === 'selected') {
-                                await grid.getByRole('checkbox', { name: '选择行', exact: true }).first().check();
+                                await grid.locator('[data-table-selection-cell]').first().click();
+                                await expect(grid.getByRole('checkbox', { name: '选择行', exact: true }).first()).toBeChecked();
                                 await expect(
                                     grid.getByRole('checkbox', { name: '选择行', exact: true }).first(),
                                 ).toBeChecked();
@@ -90,7 +91,8 @@ for (const config of configurations)
                             if (['refreshed', 'refresh-error', 'refresh-recovered'].includes(state)) {
                                 const original = await grid.elementHandle();
                                 const selected = grid.getByRole('checkbox', { name: '选择行', exact: true }).first();
-                                await selected.check();
+                                await grid.locator('[data-table-selection-cell]').first().click();
+                                await expect(selected).toBeChecked();
                                 await page.getByLabel('验收状态', { exact: true }).selectOption('refreshing');
                                 await scene.getByRole('button', { name: '刷新', exact: true }).click();
                                 await expect(scene.getByRole('status')).toContainText('加载中');

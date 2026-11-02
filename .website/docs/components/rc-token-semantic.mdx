@@ -48,6 +48,7 @@ import { demos } from "../_generated/rc-token-semantic.js";
 | 阅读容器 | color.background.surface | color.text.primary / secondary | 必要边界用 border.default，装饰分隔用 border.subtle |
 | 反馈 | color.feedback 中对应意图的 background / solid | text / on-solid | 不混用容器文字和实心按钮前景 |
 | 键盘位置 | color.focus.ring | 与所在表面比较 | 焦点独立于选中和错误 |
+| 独立源码 | color.code.light / dark.background | 同组 foreground、comment、keyword、string、number、function、tag 与 gutter | 由代码配色选择，独立于页面明暗；覆盖时成对检查文字对比度 |
 
 ```tsx
 import { css } from "@crab-dev/css";

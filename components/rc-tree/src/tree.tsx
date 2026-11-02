@@ -571,6 +571,14 @@ const Tree: FC<TreeProps> = ({
                         @media (forced-colors: active) { &:focus-visible { outline-color: Highlight; } }
                     `)}
                     onKeyDown={(e) => {
+                        if (e.defaultPrevented) return;
+                        // Fields own their keys. Other node actions still allow
+                        // arrow navigation, while native Enter activates the action.
+                        const ElementConstructor = e.currentTarget.ownerDocument.defaultView?.Element;
+                        if (ElementConstructor && e.target instanceof ElementConstructor && e.target !== e.currentTarget) {
+                            if (e.target.closest('input, textarea, select, [contenteditable="true"], [role="checkbox"], [role="combobox"]')) return;
+                            if (e.key === 'Enter' && e.target.closest('button, [role="button"]')) return;
+                        }
                         // Use the rendered direction, including native dir overrides
                         // and the current Document, so keys follow the visible hierarchy.
                         const isRtl = e.currentTarget.ownerDocument.defaultView?.getComputedStyle(e.currentTarget).direction === 'rtl';

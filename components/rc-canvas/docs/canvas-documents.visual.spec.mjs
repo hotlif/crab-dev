@@ -36,6 +36,18 @@ for (const config of configurations) {
         const frame = outer.frameLocator('iframe[title="Canvas iframe Shadow boundary"]');
         const scene = frame.getByRole('region', { name: 'iframe Shadow canvas', exact: true });
         await expect(scene).toBeVisible();
+        // The workbench applies preview configuration after mounting. These
+        // local selectors intentionally preserve their own state, so exercise
+        // the requested initial boundary through its real controls first.
+        const nearestMode = outer.getByRole('combobox', { name: '最近边界明暗', exact: true });
+        const nearestDesign = outer.getByRole('combobox', { name: '最近边界设计体系', exact: true });
+        const outerMode = outer.getByRole('combobox', { name: '外层边界明暗', exact: true });
+        await nearestDesign.selectOption(config.designSystem);
+        await nearestMode.selectOption(config.colorMode);
+        await outerMode.selectOption(config.colorMode === 'light' ? 'dark' : 'light');
+        const nearestBoundary = frame.getByRole('region', { name: 'Nearest Canvas theme', exact: true });
+        await expect(nearestBoundary).toHaveAttribute('data-crab-design', config.designSystem);
+        await expect(nearestBoundary).toHaveAttribute('data-theme', config.colorMode);
         await expect.poll(async () => Number(await scene.getAttribute('data-render-count'))).toBeGreaterThan(0);
         await expectActualThemePixels(scene);
         const realm = await iframe.evaluate(element => {
@@ -85,18 +97,17 @@ for (const config of configurations) {
             return result;
         };
         const opposite = config.colorMode === 'light' ? 'dark' : 'light';
-        const nearestMode = outer.getByRole('combobox', { name: '最近边界明暗', exact: true });
         await nearestMode.selectOption(opposite);
         const nearest = await waitForDrawing(initial.count);
         expect(nearest.shape).not.toEqual(initial.shape);
         history.push({ step: 'nearest-theme-changed', ...nearest });
 
         // Changing the outer boundary must not override the nearest one.
-        await outer.getByRole('combobox', { name: '外层边界明暗', exact: true }).selectOption(config.colorMode);
+        await outerMode.selectOption(config.colorMode);
         const inherited = await waitForDrawing(nearest.count);
         expect(inherited.shape).toEqual(nearest.shape);
         history.push({ step: 'outer-theme-changed-nearest-preserved', ...inherited });
-        await outer.getByRole('combobox', { name: '最近边界设计体系', exact: true }).selectOption(designs.find(design => design !== config.designSystem));
+        await nearestDesign.selectOption(designs.find(design => design !== config.designSystem));
         const design = await waitForDrawing(inherited.count);
         history.push({ step: 'nearest-design-changed', ...design });
         await nearestMode.selectOption(config.colorMode);
@@ -107,5 +118,49 @@ for (const config of configurations) {
         await scene.evaluate(node => node.ownerDocument.fonts.ready);
         await settleFiniteAnimations(page);
         await captureVisual(outer, `${config.designSystem}-${config.colorMode}-foreign-shadow-theme.png`, info, browserName);
+    });
+
+    test(`shadow text editing ${config.designSystem} ${config.colorMode}`, {
+        tag: ['@rc-canvas', '@boundary', '@inline-shadow'],
+        annotation: { type: 'boundary', description: JSON.stringify({ ...config, id: 'foreign-shadow-native-editor' }) },
+    }, async ({ page, previewOrigin, browserName }, info) => {
+        test.setTimeout(90_000);
+        await openDemo(page, previewOrigin, 'rc-canvas', 'document-shadow.demo.tsx', config);
+        const outer = page.getByRole('region', { name: 'Canvas foreign Shadow document', exact: true });
+        const nearestDesign = outer.getByRole('combobox', { name: '最近边界设计体系', exact: true });
+        const nearestMode = outer.getByRole('combobox', { name: '最近边界明暗', exact: true });
+        await nearestDesign.selectOption(config.designSystem); await nearestMode.selectOption(config.colorMode);
+        const frame = outer.frameLocator('iframe[title="Canvas iframe Shadow boundary"]');
+        const scene = frame.getByRole('region', { name: 'iframe Shadow canvas', exact: true });
+        const canvas = scene.locator('canvas');
+        await expectActualThemePixels(scene);
+        const editor = scene.getByRole('textbox', { name: '跨文档画布文本', exact: true });
+        const openEditor = async () => {
+            const bounds = await canvas.boundingBox();
+            await page.mouse.dblclick(bounds.x + 80, bounds.y + 24);
+            await expect(editor).toBeFocused();
+        };
+        await openEditor();
+        const draft = '保留跨文档编辑草稿 / Shadow draft';
+        await editor.fill(draft);
+        await editor.press('ControlOrMeta+Home'); await editor.press('ArrowRight'); await editor.press('Shift+ArrowRight');
+        const handle = await editor.elementHandle();
+        const selection = await editor.evaluate(node => [node.selectionStart, node.selectionEnd]);
+        await nearestDesign.selectOption(designs.find(design => design !== config.designSystem));
+        await nearestMode.selectOption(config.colorMode === 'light' ? 'dark' : 'light');
+        expect(await handle.evaluate(node => node.isConnected)).toBe(true);
+        await expect(editor).toBeFocused(); await expect(editor).toHaveValue(draft);
+        expect(await editor.evaluate(node => [node.selectionStart, node.selectionEnd])).toEqual(selection);
+        await editor.press('Escape'); await expect(editor).toHaveCount(0);
+        await expect(scene.getByLabel('跨文档画布文本模型', { exact: true })).toHaveText('iframe + Shadow DOM');
+        const canvasOwnsFocus = () => canvas.evaluate(node => node.getRootNode().activeElement === node.parentElement);
+        await expect.poll(canvasOwnsFocus, { message: 'Escape restores the canvas inside its actual ShadowRoot' }).toBe(true);
+        await openEditor(); await editor.fill('已提交的跨文档文字'); await editor.press('Enter');
+        await expect(editor).toHaveCount(0);
+        await expect(scene.getByLabel('跨文档画布文本模型', { exact: true })).toHaveText('已提交的跨文档文字');
+        await expect.poll(canvasOwnsFocus, { message: 'Enter restores the canvas inside its actual ShadowRoot' }).toBe(true);
+        await nearestDesign.selectOption(config.designSystem); await nearestMode.selectOption(config.colorMode);
+        await expectActualThemePixels(scene); await settleFiniteAnimations(page);
+        await captureVisual(outer, `${config.designSystem}-${config.colorMode}-shadow-text-focus.png`, info, browserName);
     });
 }

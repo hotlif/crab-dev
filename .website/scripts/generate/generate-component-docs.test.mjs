@@ -5,7 +5,6 @@ import { execFileSync } from "node:child_process";
 import { createRequire } from "node:module";
 import { loadLibraryManifest } from "../../../scripts/library-manifest.mjs";
 import { createTokenReferenceData, readGlobalTokens } from "./generate-token-reference.mjs";
-import { isComponentDocsSource } from "../dev/docs-source-watch.mjs";
 import { readPresentation, validatePresentation } from "./presentation.mjs";
 import { tmpdir } from "node:os";
 import path from "node:path";
@@ -54,14 +53,13 @@ test("展示配置有明确默认值并拒绝无效布局、越界文件与重�
     assert.throws(() => validatePresentation({ groups: [{ title: "Basics", demos: ["basic.demo.tsx"] }, { title: "State", demos: ["basic.demo.tsx"] }] }, "fixture"), /Demo 分组重复/);
 });
 
-test("展示配置随源文件内容更新，文档监视包含包内展示来源", async () => {
+test("展示配置随源文件内容更新", async () => {
     const root = path.join(temporaryDirectory, "presentation-fixture");
     const directory = path.join(root, "components/rc-fixture/docs");
     await mkdir(directory, { recursive: true });
     assert.equal(readPresentation("rc-fixture", { root }).layout, "wide");
     await writeFile(path.join(directory, "presentation.json"), '{"layout":"grid"}');
     assert.equal(readPresentation("rc-fixture", { root }).layout, "grid");
-    assert.equal(isComponentDocsSource("rc-fixture/docs/presentation.json"), true);
 });
 
 test("Windows 生成文件短暂访问冲突有限重试，非临时错误直接失败", async () => {
@@ -75,15 +73,7 @@ test("Windows 生成文件短暂访问冲突有限重试，非临时错误直接
     await assert.rejects(() => withGeneratedFileRetry(async () => { throw Object.assign(new Error("not a Windows conflict"), { code: "UNKNOWN" }); }, "linux"), /not a Windows conflict/);
 });
 
-test("增量来源包含真实类型和跨包状态源码，排除测试与令牌产物", () => {
-    for (const source of ["rc-button/src/types.ts", "rc-hooks/src/useControllableState.ts", "rc-checkbox/src/group/group.tsx", "rc-button/docs/index.mdx", "rc-button/public/docgen.json", "rc-button/package.json", "rc-button/token.toml"]) {
-        assert.equal(isComponentDocsSource(source), true, source);
-        assert.equal(isComponentDocsSource(source.replaceAll("/", "\\")), true, source);
-    }
-    for (const ignored of ["rc-button/src/token.ts", "rc-button/src/__tests__/button.test.tsx", "rc-button/src/group/__tests__/group.test.tsx", "rc-button/esm/index.js", "rc-button/coverage/result.ts"]) {
-        assert.equal(isComponentDocsSource(ignored), false, ignored);
-    }
-});
+
 
 test("依赖图从真实角色来源生成三类边，排除自身与清单外依赖", () => {
     const packages = ["a", "b", "c"].map(slug => ({ name: `@crab-dev/rc-${slug}`, slug: `rc-${slug}`, title: slug, family: "base", packageJson: {} }));
@@ -1016,20 +1006,29 @@ test("全部组件概览都有用途介绍和唯一的静态示意图，示意�
 });
 
 test("站点样式模板的 CSS 规则保持完整，不让无效闭括号吞掉后续选择器", async () => {
-    const source = await readFile(new URL("../../docs/site/siteStyles.ts", import.meta.url), "utf8");
-    const ast = parse(source, { sourceType: "module", plugins: ["typescript"] });
-    const stylesheet = ast.program.body.find(node => node.type === "ExpressionStatement"
-        && node.expression.type === "TaggedTemplateExpression"
-        && node.expression.tag.name === "globalStyle");
-    assert.ok(stylesheet, "Missing global stylesheet");
-    const css = stylesheet.expression.quasi.quasis.map(part => part.value.cooked).join("0");
-    let depth = 0;
-    for (const character of css) {
-        if (character === "{") depth += 1;
-        if (character === "}") depth -= 1;
-        assert.ok(depth >= 0, "Unexpected closing CSS brace");
+    const visited = new Set();
+    async function check(file) {
+        if (visited.has(file.href)) return;
+        visited.add(file.href);
+        const ast = parse(await readFile(file, "utf8"), { sourceType: "module", plugins: ["typescript"] });
+        const stylesheets = ast.program.body.filter(node => node.type === "ExpressionStatement"
+            && node.expression.type === "TaggedTemplateExpression"
+            && node.expression.tag.name === "globalStyle");
+        const imports = ast.program.body.filter(node => node.type === "ImportDeclaration" && !node.specifiers.length && node.source.value.startsWith("."));
+        assert.ok(stylesheets.length || imports.length, `Missing stylesheet or registration imports: ${file.pathname}`);
+        for (const stylesheet of stylesheets) {
+            const css = stylesheet.expression.quasi.quasis.map(part => part.value.cooked).join("0");
+            let depth = 0;
+            for (const character of css) {
+                if (character === "{") depth += 1;
+                if (character === "}") depth -= 1;
+                assert.ok(depth >= 0, `Unexpected closing CSS brace: ${file.pathname}`);
+            }
+            assert.equal(depth, 0, `Unclosed CSS rule: ${file.pathname}`);
+        }
+        for (const node of imports) await check(new URL(node.source.value.replace(/\.js$/, ".ts"), file));
     }
-    assert.equal(depth, 0, "Unclosed CSS rule");
+    for (const entry of ["siteStyles.ts", "documentStyles.ts", "homeStyles.ts", "designStyles.ts"]) await check(new URL(`../../docs/site/${entry}`, import.meta.url));
 });
 
 test("全局令牌目录完整覆盖原始定义并保留非标准键和零值", async () => {

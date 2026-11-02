@@ -1,0 +1,846 @@
+# 全组件三主题审查记录
+
+本次入口按 `library.manifest.json` 核对；包名和能力归属以清单为准。以下是工作记录，不替代清单中的设计覆盖、生命周期或验证证据。
+
+## 本次边界
+
+- 整库组件、工作台与文档示例；三套体系分别检查明暗及各包适用矩阵。
+- 允许包内主题专属样式、内部布局、反馈和动效；公共接口、值与事件语义保持稳定。
+- 输入、选择、草稿、有效焦点与最近 Provider 边界必须保留。
+- 保留已有文档站与工程工具改动，不升级依赖，不手改版本，不自动发布。
+
+## 状态与证据
+
+“待审查”“发现问题”“修复待验”“已验证”“审查无须修改”分别记录真实进度。无独立视觉的包标注“不适用”，仍完成其行为、类型与依赖检查。
+
+默认 Demo 的全量盘点不是状态/尺寸验收。静态检查、自动断言、截图人工复核与像素比较分别记录；采集绑定固定源码和产物，失败原图保留。
+
+<!-- audit-live-summary -->
+## 当前验收汇总
+
+- 按清单逐项记录54个包，其中50个有独立视觉；50个可视包已有三体系明暗的代表状态人工复核。
+- 固定Linux声明矩阵单元 17724/17724，适用环境单元 3294/3294；领域、边界、输入法、真实缩放、对比度与站点交互是额外用例，未混入上述矩阵计数。
+- 已索引162份运行记录，其中160份具备冻结的工作进程输入；其余预检失败没有执行用例，不计覆盖。最新单元覆盖与当前额外用例优先，原始失败、取消、测量前提修正及产物哈希仍保留。
+- 统一验证：最终工作区统一检查进行中；不以之前检查替代本次结果。
+- 历史像素基线、维护者批准与同一提交CI未完成，清单设计覆盖保持partial；本次截图是固定Linux候选与逐项审查证据，没有自动提升覆盖状态。
+<!-- /audit-live-summary -->
+
+## 逐包概览
+
+| 包 | MD3 | Apple | shadcn | 当前工作 |
+| --- | --- | --- | --- | --- |
+| [rc-auto-sizer](../../components/rc-auto-sizer/docs/index.mdx) | 不适用 | 不适用 | 不适用 | check 通过（含已登记浏览器检查） |
+| [rc-config-provider](../../components/rc-config-provider/docs/index.mdx) | 浅深已复核 | 浅深已复核 | 浅深已复核 | 矩阵与环境已验；结论见下方 |
+| [rc-hooks](../../components/rc-hooks/docs/index.mdx) | 不适用 | 不适用 | 不适用 | check 通过（含已登记浏览器检查） |
+| [rc-theme](../../components/rc-theme/docs/index.mdx) | 浅深已复核 | 浅深已复核 | 浅深已复核 | 矩阵与环境已验；结论见下方 |
+| [rc-token-global](../../components/rc-token-global/docs/index.mdx) | 浅深已复核 | 浅深已复核 | 浅深已复核 | 矩阵与环境已验；结论见下方 |
+| [rc-token-semantic](../../components/rc-token-semantic/docs/index.mdx) | 浅深已复核 | 浅深已复核 | 浅深已复核 | 矩阵与环境已验；结论见下方 |
+| [rc-virtual](../../components/rc-virtual/docs/index.mdx) | 不适用 | 不适用 | 不适用 | check 通过（含已登记浏览器检查） |
+| [rc-alert](../../components/rc-alert/docs/index.mdx) | 浅深已复核 | 浅深已复核 | 浅深已复核 | 矩阵与环境已验；结论见下方 |
+| [rc-avatar](../../components/rc-avatar/docs/index.mdx) | 浅深已复核 | 浅深已复核 | 浅深已复核 | 矩阵与环境已验；结论见下方 |
+| [rc-badge](../../components/rc-badge/docs/index.mdx) | 浅深已复核 | 浅深已复核 | 浅深已复核 | 矩阵与环境已验；结论见下方 |
+| [rc-breadcrumbs](../../components/rc-breadcrumbs/docs/index.mdx) | 浅深已复核 | 浅深已复核 | 浅深已复核 | 矩阵与环境已验；结论见下方 |
+| [rc-button](../../components/rc-button/docs/index.mdx) | 浅深已复核 | 浅深已复核 | 浅深已复核 | 矩阵与环境已验；结论见下方 |
+| [rc-card](../../components/rc-card/docs/index.mdx) | 浅深已复核 | 浅深已复核 | 浅深已复核 | 矩阵与环境已验；结论见下方 |
+| [rc-checkbox](../../components/rc-checkbox/docs/index.mdx) | 浅深已复核 | 浅深已复核 | 浅深已复核 | 矩阵与环境已验；结论见下方 |
+| [rc-dialog](../../components/rc-dialog/docs/index.mdx) | 浅深已复核 | 浅深已复核 | 浅深已复核 | 矩阵与环境已验；结论见下方 |
+| [rc-divider](../../components/rc-divider/docs/index.mdx) | 浅深已复核 | 浅深已复核 | 浅深已复核 | 矩阵与环境已验；结论见下方 |
+| [rc-drawer](../../components/rc-drawer/docs/index.mdx) | 浅深已复核 | 浅深已复核 | 浅深已复核 | 矩阵与环境已验；结论见下方 |
+| [rc-dropdown-container](../../components/rc-dropdown-container/docs/index.mdx) | 浅深已复核 | 浅深已复核 | 浅深已复核 | 矩阵与环境已验；结论见下方 |
+| [rc-empty](../../components/rc-empty/docs/index.mdx) | 浅深已复核 | 浅深已复核 | 浅深已复核 | 矩阵与环境已验；结论见下方 |
+| [rc-line-edit](../../components/rc-line-edit/docs/index.mdx) | 浅深已复核 | 浅深已复核 | 浅深已复核 | 矩阵与环境已验；结论见下方 |
+| [rc-masonry](../../components/rc-masonry/docs/index.mdx) | 浅深已复核 | 浅深已复核 | 浅深已复核 | 矩阵与环境已验；结论见下方 |
+| [rc-menu](../../components/rc-menu/docs/index.mdx) | 浅深已复核 | 浅深已复核 | 浅深已复核 | 矩阵与环境已验；结论见下方 |
+| [rc-message](../../components/rc-message/docs/index.mdx) | 浅深已复核 | 浅深已复核 | 浅深已复核 | 矩阵与环境已验；结论见下方 |
+| [rc-notification](../../components/rc-notification/docs/index.mdx) | 浅深已复核 | 浅深已复核 | 浅深已复核 | 矩阵与环境已验；结论见下方 |
+| [rc-prose](../../components/rc-prose/docs/index.mdx) | 浅深已复核 | 浅深已复核 | 浅深已复核 | 矩阵与环境已验；结论见下方 |
+| [rc-radio](../../components/rc-radio/docs/index.mdx) | 浅深已复核 | 浅深已复核 | 浅深已复核 | 矩阵与环境已验；结论见下方 |
+| [rc-segmented](../../components/rc-segmented/docs/index.mdx) | 浅深已复核 | 浅深已复核 | 浅深已复核 | 矩阵与环境已验；结论见下方 |
+| [rc-skeleton](../../components/rc-skeleton/docs/index.mdx) | 浅深已复核 | 浅深已复核 | 浅深已复核 | 矩阵与环境已验；结论见下方 |
+| [rc-slider](../../components/rc-slider/docs/index.mdx) | 浅深已复核 | 浅深已复核 | 浅深已复核 | 矩阵与环境已验；结论见下方 |
+| [rc-spin](../../components/rc-spin/docs/index.mdx) | 浅深已复核 | 浅深已复核 | 浅深已复核 | 矩阵与环境已验；结论见下方 |
+| [rc-split-pane](../../components/rc-split-pane/docs/index.mdx) | 浅深已复核 | 浅深已复核 | 浅深已复核 | 矩阵与环境已验；结论见下方 |
+| [rc-switch](../../components/rc-switch/docs/index.mdx) | 浅深已复核 | 浅深已复核 | 浅深已复核 | 矩阵与环境已验；结论见下方 |
+| [rc-tabs](../../components/rc-tabs/docs/index.mdx) | 浅深已复核 | 浅深已复核 | 浅深已复核 | 矩阵与环境已验；结论见下方 |
+| [rc-tag](../../components/rc-tag/docs/index.mdx) | 浅深已复核 | 浅深已复核 | 浅深已复核 | 矩阵与环境已验；结论见下方 |
+| [rc-text-edit](../../components/rc-text-edit/docs/index.mdx) | 浅深已复核 | 浅深已复核 | 浅深已复核 | 矩阵与环境已验；结论见下方 |
+| [rc-tooltip](../../components/rc-tooltip/docs/index.mdx) | 浅深已复核 | 浅深已复核 | 浅深已复核 | 矩阵与环境已验；结论见下方 |
+| [rc-app-main-layout](../../components/rc-app-main-layout/docs/index.mdx) | 浅深已复核 | 浅深已复核 | 浅深已复核 | 矩阵与环境已验；结论见下方 |
+| [rc-color-picker](../../components/rc-color-picker/docs/index.mdx) | 浅深已复核 | 浅深已复核 | 浅深已复核 | 矩阵与环境已验；结论见下方 |
+| [rc-cron-picker](../../components/rc-cron-picker/docs/index.mdx) | 浅深已复核 | 浅深已复核 | 浅深已复核 | 矩阵与环境已验；结论见下方 |
+| [rc-date-picker](../../components/rc-date-picker/docs/index.mdx) | 浅深已复核 | 浅深已复核 | 浅深已复核 | 矩阵与环境已验；结论见下方 |
+| [rc-form](../../components/rc-form/docs/index.mdx) | 浅深已复核 | 浅深已复核 | 浅深已复核 | 矩阵与环境已验；结论见下方 |
+| [rc-number-edit](../../components/rc-number-edit/docs/index.mdx) | 浅深已复核 | 浅深已复核 | 浅深已复核 | 矩阵与环境已验；结论见下方 |
+| [rc-pagination](../../components/rc-pagination/docs/index.mdx) | 浅深已复核 | 浅深已复核 | 浅深已复核 | 矩阵与环境已验；结论见下方 |
+| [rc-select](../../components/rc-select/docs/index.mdx) | 浅深已复核 | 浅深已复核 | 浅深已复核 | 矩阵与环境已验；结论见下方 |
+| [rc-table](../../components/rc-table/docs/index.mdx) | 浅深已复核 | 浅深已复核 | 浅深已复核 | 矩阵与环境已验；结论见下方 |
+| [rc-tree](../../components/rc-tree/docs/index.mdx) | 浅深已复核 | 浅深已复核 | 浅深已复核 | 矩阵与环境已验；结论见下方 |
+| [rc-bar-chart](../../components/rc-bar-chart/docs/index.mdx) | 浅深已复核 | 浅深已复核 | 浅深已复核 | 矩阵与环境已验；结论见下方 |
+| [rc-canvas](../../components/rc-canvas/docs/index.mdx) | 浅深已复核 | 浅深已复核 | 浅深已复核 | 矩阵与环境已验；结论见下方 |
+| [rc-flow-diagram](../../components/rc-flow-diagram/docs/index.mdx) | 浅深已复核 | 浅深已复核 | 浅深已复核 | 矩阵与环境已验；结论见下方 |
+| [rc-pdf-editor](../../components/rc-pdf-editor/docs/index.mdx) | 浅深已复核 | 浅深已复核 | 浅深已复核 | 矩阵与环境已验；结论见下方 |
+| [rc-table-pro](../../components/rc-table-pro/docs/index.mdx) | 浅深已复核 | 浅深已复核 | 浅深已复核 | 矩阵与环境已验；结论见下方 |
+| [rc-realm](../../components/rc-realm/docs/index.mdx) | 浅深已复核 | 浅深已复核 | 浅深已复核 | 矩阵与环境已验；结论见下方 |
+| [rc-router](../../components/rc-router/docs/index.mdx) | 不适用 | 不适用 | 不适用 | 统一检查通过，18 项行为测试 |
+| [rc-component-preview](../../components/rc-component-preview/docs/index.mdx) | 浅深已复核 | 浅深已复核 | 浅深已复核 | 矩阵与环境已验；结论见下方 |
+
+## 执行记录
+
+- 2026-11-01：固定 Linux 镜像完成 300 项默认示例采集，全部通过，已复核 50 份三体系明暗联系图。AppMainLayout 菜单、TablePro 数据与 ComponentPreview 源码出现异步加载中截图，不能作为完成态结论；关闭的弹层仅证明入口可见。
+- 2026-11-01：基础 7 包的 check 通过，rc-hooks / rc-virtual 包括已登记浏览器检查；后续源码调整另记复验。
+- 2026-11-01：Linux 全组件矩阵共发现 18,173 项，运行至第 463 项后 Docker 服务连接中断；重启后再次中断，未取得完整稳定输入及矩阵报告，不计为全量通过。
+- 2026-11-01：实际浏览器默认文字颜色诊断完成；发现 ComponentPreview 小字号语法颜色最低约 3.05:1，分隔符与透明占位文字单独识别，不列为有效文字缺陷。
+
+- 2026-11-01：核对所有包的已有视觉矩阵与附加检查；开始固定 Linux 环境的三主题默认 Demo 基准候选。此步骤仅用于盘点。
+
+## 逐包明细
+
+### rc-auto-sizer
+
+- 来源：components/rc-auto-sizer/src、docs/index.mdx、docs/demos。
+- 现有矩阵：无独立视觉矩阵；按包内公共检查验证适用行为。
+- 已登记附加检查：无。
+- 设计依据与问题：无独立主题表面；核对 ResizeObserver 尺寸去重、禁用单轴与 render-prop 状态。
+- 修正与验证：11 项单元测试及包 check 通过；不增加主题分支。
+- 截图与产物证据：无独立主题界面；行为检查记录于统一检查与包 check 日志。
+- 审查结论：无独立视觉，已核对适用行为、类型和工作区契约；视觉矩阵不适用。
+
+### rc-config-provider
+
+- 来源：components/rc-config-provider/src、docs/index.mdx、docs/demos。
+- 现有矩阵：尺寸 small / medium / large；密度 compact / standard / comfortable；状态 default / brand / portal / focus-visible。
+- 已登记附加检查：无。
+- 设计依据与问题：最近配置边界、跨文档和 Portal 继承；修正 iframe 演示的深色底部露白。
+- 修正与验证：固定Linux最新有效矩阵单元：chromium 216/216，firefox 18/18，webkit 18/18；适用环境 66/66。已覆盖声明的矩阵与环境。公共包检查与最终统一验证分别记录，早期失败保留于runs.json。
+- 首轮截图：[三体系 × 明暗默认示例](component-theme-audit/inventory/rc-config-provider-sheet.png)；原图 SHA 与冻结标识见 [inventory.json](component-theme-audit/inventory.json)。仅默认可见区域，弹层、长页、异步完成和状态矩阵另验。
+- 首轮结论：默认可见区域已逐张复核；具体状态、尺寸、环境与当前结论见本节验证以及 visual-review.json，分别记录自动断言和人工查看范围。
+- 逐项截图：[最新已查看联系图](component-theme-audit/states/rc-config-provider-a42fa2b83e-00001-chromium.png)；[人工复核范围与图片SHA](component-theme-audit/visual-review.json)、[冻结运行与原始报告SHA](component-theme-audit/runs.json)、[矩阵覆盖](component-theme-audit/coverage.json)。六配置及具体状态以索引为准，不把代表截图等同全部尺寸的人工像素评审。
+- 审查结论：已审查三体系明暗，未发现需要新增包内实现补丁的问题；保留该组件已有的设计差异。
+
+### rc-hooks
+
+- 来源：components/rc-hooks/src、docs/index.mdx、docs/demos。
+- 现有矩阵：无独立视觉矩阵；按包内公共检查验证适用行为。
+- 已登记附加检查：test:browser。
+- 设计依据与问题：无独立界面；核对受控状态、最新事件回调、字段关联、关闭动画取消和组合树行为。
+- 修正与验证：64 项单元测试、3 项已登记浏览器测试及包 check 通过；主题变化不重建状态。
+- 截图与产物证据：无独立主题界面；行为检查记录于统一检查与包 check 日志。
+- 审查结论：无独立视觉，已核对适用行为、类型和工作区契约；视觉矩阵不适用。
+
+### rc-theme
+
+- 来源：components/rc-theme/src、docs/index.mdx、docs/demos。
+- 现有矩阵：尺寸 medium；密度 standard；状态 default / nested / focus-visible。
+- 已登记附加检查：无。
+- 设计依据与问题：保留三体系表面和嵌套恢复；高对比度下系统HighlightText被Canvas文字底板遮住，局部示例禁止额外底板并继续消费系统色配对。
+- 修正与验证：固定Linux最新有效矩阵单元：chromium 18/18，firefox 18/18，webkit 18/18；适用环境 66/66。已覆盖声明的矩阵与环境。公共包检查与最终统一验证分别记录，早期失败保留于runs.json。
+- 首轮截图：[三体系 × 明暗默认示例](component-theme-audit/inventory/rc-theme-sheet.png)；原图 SHA 与冻结标识见 [inventory.json](component-theme-audit/inventory.json)。仅默认可见区域，弹层、长页、异步完成和状态矩阵另验。
+- 首轮结论：默认可见区域已逐张复核；具体状态、尺寸、环境与当前结论见本节验证以及 visual-review.json，分别记录自动断言和人工查看范围。
+- 逐项截图：[最新已查看联系图](component-theme-audit/states/rc-theme-1187a580b9-environment-forced-colors-1.png)；[人工复核范围与图片SHA](component-theme-audit/visual-review.json)、[冻结运行与原始报告SHA](component-theme-audit/runs.json)、[矩阵覆盖](component-theme-audit/coverage.json)。六配置及具体状态以索引为准，不把代表截图等同全部尺寸的人工像素评审。
+- 审查结论：已审查三体系明暗，未发现需要新增包内实现补丁的问题；保留该组件已有的设计差异。
+
+### rc-token-global
+
+- 来源：components/rc-token-global/src、docs/index.mdx、docs/demos。
+- 现有矩阵：尺寸 medium；密度 standard；状态 default。
+- 已登记附加检查：无。
+- 设计依据与问题：全局基础尺度通过令牌展示器检查，公共配置由最近 Provider 继承。没有发现需要新增的全局视觉值。
+- 修正与验证：固定Linux最新有效矩阵单元：chromium 6/6，firefox 6/6，webkit 6/6；适用环境 66/66。已覆盖声明的矩阵与环境。公共包检查与最终统一验证分别记录，早期失败保留于runs.json。
+- 首轮截图：[三体系 × 明暗默认示例](component-theme-audit/inventory/rc-token-global-sheet.png)；原图 SHA 与冻结标识见 [inventory.json](component-theme-audit/inventory.json)。仅默认可见区域，弹层、长页、异步完成和状态矩阵另验。
+- 首轮结论：默认可见区域已逐张复核；具体状态、尺寸、环境与当前结论见本节验证以及 visual-review.json，分别记录自动断言和人工查看范围。
+- 逐项截图：[最新已查看联系图](component-theme-audit/states/rc-token-global-96b15c5e1e-environment-rtl-1.png)；[人工复核范围与图片SHA](component-theme-audit/visual-review.json)、[冻结运行与原始报告SHA](component-theme-audit/runs.json)、[矩阵覆盖](component-theme-audit/coverage.json)。六配置及具体状态以索引为准，不把代表截图等同全部尺寸的人工像素评审。
+- 审查结论：已审查三体系明暗，未发现需要新增包内实现补丁的问题；保留该组件已有的设计差异。
+
+### rc-token-semantic
+
+- 来源：components/rc-token-semantic/src、docs/index.mdx、docs/demos。
+- 现有矩阵：尺寸 medium；密度 standard；状态 default / focus-visible。
+- 已登记附加检查：无。
+- 设计依据与问题：配对语法颜色已修正；高对比度品牌示例的系统色配对需防止额外Canvas文字底板遮挡。
+- 修正与验证：固定Linux最新有效矩阵单元：chromium 12/12，firefox 12/12，webkit 12/12；适用环境 66/66。已覆盖声明的矩阵与环境。公共包检查与最终统一验证分别记录，早期失败保留于runs.json。
+- 首轮截图：[三体系 × 明暗默认示例](component-theme-audit/inventory/rc-token-semantic-sheet.png)；原图 SHA 与冻结标识见 [inventory.json](component-theme-audit/inventory.json)。仅默认可见区域，弹层、长页、异步完成和状态矩阵另验。
+- 首轮结论：默认可见区域已逐张复核；具体状态、尺寸、环境与当前结论见本节验证以及 visual-review.json，分别记录自动断言和人工查看范围。
+- 逐项截图：[最新已查看联系图](component-theme-audit/states/rc-token-semantic-f0571feae0-environment-forced-colors-1.png)；[人工复核范围与图片SHA](component-theme-audit/visual-review.json)、[冻结运行与原始报告SHA](component-theme-audit/runs.json)、[矩阵覆盖](component-theme-audit/coverage.json)。六配置及具体状态以索引为准，不把代表截图等同全部尺寸的人工像素评审。
+- 审查结论：工作区中的组件修正已按三体系明暗、声明矩阵与适用环境验证；具体行为及截图见本节。
+
+### rc-virtual
+
+- 来源：components/rc-virtual/src、docs/index.mdx、docs/demos。
+- 现有矩阵：无独立视觉矩阵；按包内公共检查验证适用行为。
+- 已登记附加检查：test:browser。
+- 设计依据与问题：虚拟测量、滚动位置、隐藏后恢复和滚动条为组合组件提供能力；颜色消费最近语义边界。
+- 修正与验证：109 项单元测试及已登记真实布局浏览器检查通过；可视消费方继续逐包验收。
+- 截图与产物证据：无独立主题界面；行为检查记录于统一检查与包 check 日志。
+- 审查结论：无独立视觉，已核对适用行为、类型和工作区契约；视觉矩阵不适用。
+
+### rc-alert
+
+- 来源：components/rc-alert/src、docs/index.mdx、docs/demos。
+- 现有矩阵：尺寸 medium；密度 standard；状态 default / title / action / hover / focus-visible / pressed / error / closed。
+- 已登记附加检查：无。
+- 设计依据与问题：标题、说明、状态图标、动作与关闭入口逐项核对；保留各体系的语义表面和反馈层级。未发现新增实现问题。
+- 修正与验证：固定Linux最新有效矩阵单元：chromium 48/48，firefox 18/18，webkit 18/18；适用环境 66/66。已覆盖声明的矩阵与环境。公共包检查与最终统一验证分别记录，早期失败保留于runs.json。
+- 首轮截图：[三体系 × 明暗默认示例](component-theme-audit/inventory/rc-alert-sheet.png)；原图 SHA 与冻结标识见 [inventory.json](component-theme-audit/inventory.json)。仅默认可见区域，弹层、长页、异步完成和状态矩阵另验。
+- 首轮结论：默认可见区域已逐张复核；具体状态、尺寸、环境与当前结论见本节验证以及 visual-review.json，分别记录自动断言和人工查看范围。
+- 逐项截图：[最新已查看联系图](component-theme-audit/states/rc-alert-720ff6bae7-matrix-title-1.png)；[人工复核范围与图片SHA](component-theme-audit/visual-review.json)、[冻结运行与原始报告SHA](component-theme-audit/runs.json)、[矩阵覆盖](component-theme-audit/coverage.json)。六配置及具体状态以索引为准，不把代表截图等同全部尺寸的人工像素评审。
+- 审查结论：已审查三体系明暗，未发现需要新增包内实现补丁的问题；保留该组件已有的设计差异。
+
+### rc-avatar
+
+- 来源：components/rc-avatar/src、docs/index.mdx、docs/demos。
+- 现有矩阵：尺寸 small / medium / large；密度 standard；状态 default / image / fallback / disabled / hover / focus-visible / pressed / group。
+- 已登记附加检查：test:browser、test:forced-colors。
+- 设计依据与问题：触控目标边缘受演示中相邻头像影响；使用公共组间距为实际命中区留出空间。
+- 修正与验证：固定Linux最新有效矩阵单元：chromium 144/144，firefox 18/18，webkit 18/18；适用环境 66/66。已覆盖声明的矩阵与环境。公共包检查与最终统一验证分别记录，早期失败保留于runs.json。
+- 首轮截图：[三体系 × 明暗默认示例](component-theme-audit/inventory/rc-avatar-sheet.png)；原图 SHA 与冻结标识见 [inventory.json](component-theme-audit/inventory.json)。仅默认可见区域，弹层、长页、异步完成和状态矩阵另验。
+- 首轮结论：默认可见区域已逐张复核；具体状态、尺寸、环境与当前结论见本节验证以及 visual-review.json，分别记录自动断言和人工查看范围。
+- 逐项截图：[最新已查看联系图](component-theme-audit/states/rc-avatar-e053152db4-environment-touch-1.png)；[人工复核范围与图片SHA](component-theme-audit/visual-review.json)、[冻结运行与原始报告SHA](component-theme-audit/runs.json)、[矩阵覆盖](component-theme-audit/coverage.json)。六配置及具体状态以索引为准，不把代表截图等同全部尺寸的人工像素评审。
+- 审查结论：已审查三体系明暗，未发现需要新增包内实现补丁的问题；保留该组件已有的设计差异。
+
+### rc-badge
+
+- 来源：components/rc-badge/src、docs/index.mdx、docs/demos。
+- 现有矩阵：尺寸 default / small；密度 standard；状态 default / zero / overflow / dot / status / error / processing。
+- 已登记附加检查：test:browser。
+- 设计依据与问题：检查计数、溢出、定位与非交互语义；状态不凭颜色单独表达。未发现新增实现问题。
+- 修正与验证：固定Linux最新有效矩阵单元：chromium 84/84，firefox 6/6，webkit 6/6；适用环境 66/66。已覆盖声明的矩阵与环境。公共包检查与最终统一验证分别记录，早期失败保留于runs.json。
+- 首轮截图：[三体系 × 明暗默认示例](component-theme-audit/inventory/rc-badge-sheet.png)；原图 SHA 与冻结标识见 [inventory.json](component-theme-audit/inventory.json)。仅默认可见区域，弹层、长页、异步完成和状态矩阵另验。
+- 首轮结论：默认可见区域已逐张复核；具体状态、尺寸、环境与当前结论见本节验证以及 visual-review.json，分别记录自动断言和人工查看范围。
+- 逐项截图：[最新已查看联系图](component-theme-audit/states/rc-badge-d036f1af18-matrix-overflow-1.png)；[人工复核范围与图片SHA](component-theme-audit/visual-review.json)、[冻结运行与原始报告SHA](component-theme-audit/runs.json)、[矩阵覆盖](component-theme-audit/coverage.json)。六配置及具体状态以索引为准，不把代表截图等同全部尺寸的人工像素评审。
+- 审查结论：已审查三体系明暗，未发现需要新增包内实现补丁的问题；保留该组件已有的设计差异。
+
+### rc-breadcrumbs
+
+- 来源：components/rc-breadcrumbs/src、docs/index.mdx、docs/demos。
+- 现有矩阵：尺寸 medium；密度 compact / standard / comfortable；状态 default / hover / focus-visible / pressed / disabled / action / collapsed。
+- 已登记附加检查：无。
+- 设计依据与问题：maxCount=2 原先丢失当前页；保持末级位置、aria-current 与非交互当前页语义。
+- 修正与验证：固定Linux最新有效矩阵单元：chromium 144/144，firefox 36/36，webkit 36/36；适用环境 66/66。已覆盖声明的矩阵与环境。公共包检查与最终统一验证分别记录，早期失败保留于runs.json。
+- 首轮截图：[三体系 × 明暗默认示例](component-theme-audit/inventory/rc-breadcrumbs-sheet.png)；原图 SHA 与冻结标识见 [inventory.json](component-theme-audit/inventory.json)。仅默认可见区域，弹层、长页、异步完成和状态矩阵另验。
+- 首轮结论：默认可见区域已逐张复核；具体状态、尺寸、环境与当前结论见本节验证以及 visual-review.json，分别记录自动断言和人工查看范围。
+- 逐项截图：[最新已查看联系图](component-theme-audit/states/rc-breadcrumbs-753619e59f-matrix-collapsed-minimum-1.png)；[人工复核范围与图片SHA](component-theme-audit/visual-review.json)、[冻结运行与原始报告SHA](component-theme-audit/runs.json)、[矩阵覆盖](component-theme-audit/coverage.json)。六配置及具体状态以索引为准，不把代表截图等同全部尺寸的人工像素评审。
+- 审查结论：工作区中的组件修正已按三体系明暗、声明矩阵与适用环境验证；具体行为及截图见本节。
+
+### rc-button
+
+- 来源：components/rc-button/src、docs/index.mdx、docs/demos。
+- 现有矩阵：尺寸 xs / s / m / l / xl；密度 standard；状态 default / hover / focus-visible / pressed / disabled / selected / unselected / variants / loading。
+- 已登记附加检查：无。
+- 设计依据与问题：三体系明暗分别核对五档视觉尺寸、变体、选中与交互状态；视觉盒与扩展命中层独立测量。未发现新增实现问题。
+- 修正与验证：固定Linux最新有效矩阵单元：chromium 270/270，firefox 18/18，webkit 18/18；适用环境 66/66。已覆盖声明的矩阵与环境。公共包检查与最终统一验证分别记录，早期失败保留于runs.json。
+- 首轮截图：[三体系 × 明暗默认示例](component-theme-audit/inventory/rc-button-sheet.png)；原图 SHA 与冻结标识见 [inventory.json](component-theme-audit/inventory.json)。仅默认可见区域，弹层、长页、异步完成和状态矩阵另验。
+- 首轮结论：默认可见区域已逐张复核；具体状态、尺寸、环境与当前结论见本节验证以及 visual-review.json，分别记录自动断言和人工查看范围。
+- 逐项截图：[最新已查看联系图](component-theme-audit/states/rc-button-21125671b3-matrix-variants-1.png)；[人工复核范围与图片SHA](component-theme-audit/visual-review.json)、[冻结运行与原始报告SHA](component-theme-audit/runs.json)、[矩阵覆盖](component-theme-audit/coverage.json)。六配置及具体状态以索引为准，不把代表截图等同全部尺寸的人工像素评审。
+- 审查结论：已审查三体系明暗，未发现需要新增包内实现补丁的问题；保留该组件已有的设计差异。
+
+### rc-card
+
+- 来源：components/rc-card/src、docs/index.mdx、docs/demos。
+- 现有矩阵：尺寸 small / medium / large；密度 compact / standard / comfortable；状态 default / elevated / outlined / filled / hover / focus-visible / pressed / disabled / loading。
+- 已登记附加检查：test:browser、test:natural。
+- 设计依据与问题：内部按钮的 Enter/Space 曾触发整卡动作；整卡现在仅处理自身焦点，后代保持原生键盘行为。
+- 修正与验证：固定Linux最新有效矩阵单元：chromium 486/486，firefox 18/18，webkit 18/18；适用环境 66/66。已覆盖声明的矩阵与环境。公共包检查与最终统一验证分别记录，早期失败保留于runs.json。
+- 首轮截图：[三体系 × 明暗默认示例](component-theme-audit/inventory/rc-card-sheet.png)；原图 SHA 与冻结标识见 [inventory.json](component-theme-audit/inventory.json)。仅默认可见区域，弹层、长页、异步完成和状态矩阵另验。
+- 首轮结论：默认可见区域已逐张复核；具体状态、尺寸、环境与当前结论见本节验证以及 visual-review.json，分别记录自动断言和人工查看范围。
+- 逐项截图：[最新已查看联系图](component-theme-audit/states/rc-card-1f91f7f470-matrix-loading-1.png)；[人工复核范围与图片SHA](component-theme-audit/visual-review.json)、[冻结运行与原始报告SHA](component-theme-audit/runs.json)、[矩阵覆盖](component-theme-audit/coverage.json)。六配置及具体状态以索引为准，不把代表截图等同全部尺寸的人工像素评审。
+- 审查结论：工作区中的组件修正已按三体系明暗、声明矩阵与适用环境验证；具体行为及截图见本节。
+
+### rc-checkbox
+
+- 来源：components/rc-checkbox/src、docs/index.mdx、docs/demos。
+- 现有矩阵：尺寸 small / medium / large；密度 standard；状态 default / hover / focus-visible / pressed / selected / selected-hover / selected-focus-visible / selected-pressed / error / selected-error / disabled / disabled-selected / indeterminate / indeterminate-error / disabled-indeterminate。
+- 已登记附加检查：无。
+- 设计依据与问题：核对三档尺寸、已选、半选、错误与键盘焦点，保留体系各自的形状与状态层。未发现新增实现问题。
+- 修正与验证：固定Linux最新有效矩阵单元：chromium 270/270，firefox 24/24，webkit 24/24；适用环境 66/66。已覆盖声明的矩阵与环境。公共包检查与最终统一验证分别记录，早期失败保留于runs.json。
+- 首轮截图：[三体系 × 明暗默认示例](component-theme-audit/inventory/rc-checkbox-sheet.png)；原图 SHA 与冻结标识见 [inventory.json](component-theme-audit/inventory.json)。仅默认可见区域，弹层、长页、异步完成和状态矩阵另验。
+- 首轮结论：默认可见区域已逐张复核；具体状态、尺寸、环境与当前结论见本节验证以及 visual-review.json，分别记录自动断言和人工查看范围。
+- 逐项截图：[最新已查看联系图](component-theme-audit/states/rc-checkbox-701c01b7db-matrix-error-1.png)；[人工复核范围与图片SHA](component-theme-audit/visual-review.json)、[冻结运行与原始报告SHA](component-theme-audit/runs.json)、[矩阵覆盖](component-theme-audit/coverage.json)。六配置及具体状态以索引为准，不把代表截图等同全部尺寸的人工像素评审。
+- 审查结论：已审查三体系明暗，未发现需要新增包内实现补丁的问题；保留该组件已有的设计差异。
+
+### rc-dialog
+
+- 来源：components/rc-dialog/src、docs/index.mdx、docs/demos。
+- 现有矩阵：尺寸 medium；密度 standard；状态 default / hover / focus-visible / pressed / long-content / error / pending-confirm / pending-cancel。
+- 已登记附加检查：无。
+- 设计依据与问题：模态层次、长内容滚动、关闭、焦点恢复及最近配置边界；补强切换后的实际焦点断言。未发现新增实现问题。
+- 修正与验证：固定Linux最新有效矩阵单元：chromium 48/48，firefox 30/30，webkit 30/30；适用环境 66/66。已覆盖声明的矩阵与环境。公共包检查与最终统一验证分别记录，早期失败保留于runs.json。
+- 状态截图复核：已查看三体系明暗的打开、错误、长内容、窄屏、键盘焦点与强制颜色图；长内容截图是在滚动到底部后采集，标题离开可视区不等于内容缺失。当前未发现需要修改的组件运行时样式。
+- 首轮截图：[三体系 × 明暗默认示例](component-theme-audit/inventory/rc-dialog-sheet.png)；原图 SHA 与冻结标识见 [inventory.json](component-theme-audit/inventory.json)。仅默认可见区域，弹层、长页、异步完成和状态矩阵另验。
+- 首轮结论：默认可见区域已逐张复核；具体状态、尺寸、环境与当前结论见本节验证以及 visual-review.json，分别记录自动断言和人工查看范围。
+- 逐项截图：[最新已查看联系图](component-theme-audit/states/rc-dialog-a8a78c3029-matrix-focus-visible-1.png)；[人工复核范围与图片SHA](component-theme-audit/visual-review.json)、[冻结运行与原始报告SHA](component-theme-audit/runs.json)、[矩阵覆盖](component-theme-audit/coverage.json)。六配置及具体状态以索引为准，不把代表截图等同全部尺寸的人工像素评审。
+- 审查结论：已审查三体系明暗，未发现需要新增包内实现补丁的问题；保留该组件已有的设计差异。
+
+### rc-divider
+
+- 来源：components/rc-divider/src、docs/index.mdx、docs/demos。
+- 现有矩阵：尺寸 medium；密度 compact / standard / comfortable；状态 default / dashed / dotted / with-text / start / end / vertical / decorative。
+- 已登记附加检查：test:browser。
+- 设计依据与问题：分隔线为非交互结构，检查默认、文字、垂直及 RTL 的节奏与边界；没有增添焦点节点。
+- 修正与验证：固定Linux最新有效矩阵单元：chromium 144/144，firefox 6/6，webkit 6/6；适用环境 66/66。已覆盖声明的矩阵与环境。公共包检查与最终统一验证分别记录，早期失败保留于runs.json。
+- 首轮截图：[三体系 × 明暗默认示例](component-theme-audit/inventory/rc-divider-sheet.png)；原图 SHA 与冻结标识见 [inventory.json](component-theme-audit/inventory.json)。仅默认可见区域，弹层、长页、异步完成和状态矩阵另验。
+- 首轮结论：默认可见区域已逐张复核；具体状态、尺寸、环境与当前结论见本节验证以及 visual-review.json，分别记录自动断言和人工查看范围。
+- 逐项截图：[最新已查看联系图](component-theme-audit/states/rc-divider-cac1bc80b0-matrix-default-1.png)；[人工复核范围与图片SHA](component-theme-audit/visual-review.json)、[冻结运行与原始报告SHA](component-theme-audit/runs.json)、[矩阵覆盖](component-theme-audit/coverage.json)。六配置及具体状态以索引为准，不把代表截图等同全部尺寸的人工像素评审。
+- 审查结论：已审查三体系明暗，未发现需要新增包内实现补丁的问题；保留该组件已有的设计差异。
+
+### rc-drawer
+
+- 来源：components/rc-drawer/src、docs/index.mdx、docs/demos。
+- 现有矩阵：尺寸 small / medium / large；密度 standard；状态 default / focus-visible / left / top / bottom / long-content。
+- 已登记附加检查：无。
+- 设计依据与问题：检查四边方向、浮层表面、滚动、关闭与焦点恢复，RTL 跟随最近边界。未发现新增实现问题。
+- 修正与验证：固定Linux最新有效矩阵单元：chromium 108/108，firefox 24/24，webkit 24/24；适用环境 66/66。已覆盖声明的矩阵与环境。公共包检查与最终统一验证分别记录，早期失败保留于runs.json。
+- 首轮截图：[三体系 × 明暗默认示例](component-theme-audit/inventory/rc-drawer-sheet.png)；原图 SHA 与冻结标识见 [inventory.json](component-theme-audit/inventory.json)。仅默认可见区域，弹层、长页、异步完成和状态矩阵另验。
+- 首轮结论：默认可见区域已逐张复核；具体状态、尺寸、环境与当前结论见本节验证以及 visual-review.json，分别记录自动断言和人工查看范围。
+- 逐项截图：[最新已查看联系图](component-theme-audit/states/rc-drawer-4f236dec93-matrix-default-1.png)；[人工复核范围与图片SHA](component-theme-audit/visual-review.json)、[冻结运行与原始报告SHA](component-theme-audit/runs.json)、[矩阵覆盖](component-theme-audit/coverage.json)。六配置及具体状态以索引为准，不把代表截图等同全部尺寸的人工像素评审。
+- 审查结论：已审查三体系明暗，未发现需要新增包内实现补丁的问题；保留该组件已有的设计差异。
+
+### rc-dropdown-container
+
+- 来源：components/rc-dropdown-container/src、docs/index.mdx、docs/demos。
+- 现有矩阵：尺寸 small / medium / large；密度 standard；状态 default / expanded / focus-visible / content-focus。
+- 已登记附加检查：test:browser、test:published。
+- 设计依据与问题：未发现新增组件缺陷；旧触控检查误量图标外框，外部点击目标被正常浮层覆盖。改为实际命中层和真实 Tab 离开。
+- 修正与验证：固定Linux最新有效矩阵单元：chromium 72/72，firefox 24/24，webkit 24/24；适用环境 66/66。已覆盖声明的矩阵与环境。公共包检查与最终统一验证分别记录，早期失败保留于runs.json。
+- 首轮截图：[三体系 × 明暗默认示例](component-theme-audit/inventory/rc-dropdown-container-sheet.png)；原图 SHA 与冻结标识见 [inventory.json](component-theme-audit/inventory.json)。仅默认可见区域，弹层、长页、异步完成和状态矩阵另验。
+- 首轮结论：默认可见区域已逐张复核；具体状态、尺寸、环境与当前结论见本节验证以及 visual-review.json，分别记录自动断言和人工查看范围。
+- 逐项截图：[最新已查看联系图](component-theme-audit/states/rc-dropdown-container-bd4f3e5832-matrix-expanded-1.png)；[人工复核范围与图片SHA](component-theme-audit/visual-review.json)、[冻结运行与原始报告SHA](component-theme-audit/runs.json)、[矩阵覆盖](component-theme-audit/coverage.json)。六配置及具体状态以索引为准，不把代表截图等同全部尺寸的人工像素评审。
+- 审查结论：已审查三体系明暗，未发现需要新增包内实现补丁的问题；保留该组件已有的设计差异。
+
+### rc-empty
+
+- 来源：components/rc-empty/src、docs/index.mdx、docs/demos。
+- 现有矩阵：尺寸 medium；密度 compact / standard / comfortable；状态 default / search / no-permission / action / hover / focus-visible / pressed / custom。
+- 已登记附加检查：无。
+- 设计依据与问题：搜索、权限、自定义动作层次已查看；旧触控检查将按钮视觉高度当作命中高度。使用真实四边点击核对。
+- 修正与验证：固定Linux最新有效矩阵单元：chromium 144/144，firefox 18/18，webkit 18/18；适用环境 66/66。已覆盖声明的矩阵与环境。公共包检查与最终统一验证分别记录，早期失败保留于runs.json。
+- 首轮截图：[三体系 × 明暗默认示例](component-theme-audit/inventory/rc-empty-sheet.png)；原图 SHA 与冻结标识见 [inventory.json](component-theme-audit/inventory.json)。仅默认可见区域，弹层、长页、异步完成和状态矩阵另验。
+- 首轮结论：默认可见区域已逐张复核；具体状态、尺寸、环境与当前结论见本节验证以及 visual-review.json，分别记录自动断言和人工查看范围。
+- 逐项截图：[最新已查看联系图](component-theme-audit/states/rc-empty-25843b86c5-matrix-search-1.png)；[人工复核范围与图片SHA](component-theme-audit/visual-review.json)、[冻结运行与原始报告SHA](component-theme-audit/runs.json)、[矩阵覆盖](component-theme-audit/coverage.json)。六配置及具体状态以索引为准，不把代表截图等同全部尺寸的人工像素评审。
+- 审查结论：已审查三体系明暗，未发现需要新增包内实现补丁的问题；保留该组件已有的设计差异。
+
+### rc-line-edit
+
+- 来源：components/rc-line-edit/src、docs/index.mdx、docs/demos。
+- 现有矩阵：尺寸 small / medium / large；密度 standard；状态 default / hover / focus-visible / filled / clear / error / filled-error / warning / filled-warning / disabled / disabled-filled / read-only / read-only-filled / password-hidden / password-visible / borderless-focus。
+- 已登记附加检查：test:browser、test:forced-colors。
+- 设计依据与问题：MD3浮动标签按实际输入内容区域避让任意前后缀、单位和动作；仅最近MD3边界选用包内静态修正，外部标签维持原布局。
+- 修正与验证：固定Linux最新有效矩阵单元：chromium 288/288，firefox 42/42，webkit 42/42；适用环境 66/66。已覆盖声明的矩阵与环境。公共包检查与最终统一验证分别记录，早期失败保留于runs.json。
+- 首轮截图：[三体系 × 明暗默认示例](component-theme-audit/inventory/rc-line-edit-sheet.png)；原图 SHA 与冻结标识见 [inventory.json](component-theme-audit/inventory.json)。仅默认可见区域，弹层、长页、异步完成和状态矩阵另验。
+- 首轮结论：默认可见区域已逐张复核；具体状态、尺寸、环境与当前结论见本节验证以及 visual-review.json，分别记录自动断言和人工查看范围。
+- 逐项截图：[最新已查看联系图](component-theme-audit/states/rc-line-edit-d7a0f4caf0-matrix-borderless-focus-1.png)；[人工复核范围与图片SHA](component-theme-audit/visual-review.json)、[冻结运行与原始报告SHA](component-theme-audit/runs.json)、[矩阵覆盖](component-theme-audit/coverage.json)。六配置及具体状态以索引为准，不把代表截图等同全部尺寸的人工像素评审。
+- 审查结论：工作区中的组件修正已按三体系明暗、声明矩阵与适用环境验证；具体行为及截图见本节。
+
+### rc-masonry
+
+- 来源：components/rc-masonry/src、docs/index.mdx、docs/demos。
+- 现有矩阵：尺寸 medium；密度 compact / standard / comfortable；状态 default / sequential / inserted / empty。
+- 已登记附加检查：test:browser。
+- 设计依据与问题：WebKit 插入用例在新项隐藏、未测量时过早读取位置；现在等待全部项显露，保留原有严格不重叠检查。
+- 修正与验证：固定Linux最新有效矩阵单元：chromium 72/72，firefox 24/24，webkit 24/24；适用环境 66/66。已覆盖声明的矩阵与环境。公共包检查与最终统一验证分别记录，早期失败保留于runs.json。
+- 首轮截图：[三体系 × 明暗默认示例](component-theme-audit/inventory/rc-masonry-sheet.png)；原图 SHA 与冻结标识见 [inventory.json](component-theme-audit/inventory.json)。仅默认可见区域，弹层、长页、异步完成和状态矩阵另验。
+- 首轮结论：默认可见区域已逐张复核；具体状态、尺寸、环境与当前结论见本节验证以及 visual-review.json，分别记录自动断言和人工查看范围。
+- 逐项截图：[最新已查看联系图](component-theme-audit/states/rc-masonry-f7a8391eac-matrix-inserted-1.png)；[人工复核范围与图片SHA](component-theme-audit/visual-review.json)、[冻结运行与原始报告SHA](component-theme-audit/runs.json)、[矩阵覆盖](component-theme-audit/coverage.json)。六配置及具体状态以索引为准，不把代表截图等同全部尺寸的人工像素评审。
+- 审查结论：已审查三体系明暗，未发现需要新增包内实现补丁的问题；保留该组件已有的设计差异。
+
+### rc-menu
+
+- 来源：components/rc-menu/src、docs/index.mdx、docs/demos。
+- 现有矩阵：尺寸 medium；密度 compact / standard / comfortable；状态 default / hover / focus-visible / pressed / selected / expanded / horizontal / inline / collapsed / horizontal-expanded / collapsed-expanded。
+- 已登记附加检查：test:browser、test:forced-colors。
+- 设计依据与问题：悬停后首次点击关闭的问题已在共享菜单交互层修正；Firefox 并发窗口的鼠标/焦点干扰由测试工具的独立显示环境隔离。
+- 修正与验证：固定Linux最新有效矩阵单元：chromium 198/198，firefox 48/48，webkit 48/48；适用环境 66/66。已覆盖声明的矩阵与环境。公共包检查与最终统一验证分别记录，早期失败保留于runs.json。
+- 首轮截图：[三体系 × 明暗默认示例](component-theme-audit/inventory/rc-menu-sheet.png)；原图 SHA 与冻结标识见 [inventory.json](component-theme-audit/inventory.json)。仅默认可见区域，弹层、长页、异步完成和状态矩阵另验。
+- 首轮结论：默认可见区域已逐张复核；具体状态、尺寸、环境与当前结论见本节验证以及 visual-review.json，分别记录自动断言和人工查看范围。
+- 逐项截图：[最新已查看联系图](component-theme-audit/states/rc-menu-dcaaf7a550-matrix-horizontal-expanded-1.png)；[人工复核范围与图片SHA](component-theme-audit/visual-review.json)、[冻结运行与原始报告SHA](component-theme-audit/runs.json)、[矩阵覆盖](component-theme-audit/coverage.json)。六配置及具体状态以索引为准，不把代表截图等同全部尺寸的人工像素评审。
+- 审查结论：工作区中的组件修正已按三体系明暗、声明矩阵与适用环境验证；具体行为及截图见本节。
+
+### rc-message
+
+- 来源：components/rc-message/src、docs/index.mdx、docs/demos。
+- 现有矩阵：尺寸 medium；密度 standard；状态 default / success / warning / error / long-content / updated / closed / loading。
+- 已登记附加检查：无。
+- 设计依据与问题：错误、警告和加载演示现分别说明结果、草稿保留或进度；演示操作保持可达，不改变组件接口。
+- 修正与验证：固定Linux最新有效矩阵单元：chromium 48/48，firefox 6/6，webkit 6/6；适用环境 66/66。已覆盖声明的矩阵与环境。公共包检查与最终统一验证分别记录，早期失败保留于runs.json。
+- 首轮截图：[三体系 × 明暗默认示例](component-theme-audit/inventory/rc-message-sheet.png)；原图 SHA 与冻结标识见 [inventory.json](component-theme-audit/inventory.json)。仅默认可见区域，弹层、长页、异步完成和状态矩阵另验。
+- 首轮结论：默认可见区域已逐张复核；具体状态、尺寸、环境与当前结论见本节验证以及 visual-review.json，分别记录自动断言和人工查看范围。
+- 逐项截图：[最新已查看联系图](component-theme-audit/states/rc-message-6b05edb6c5-matrix-error-1.png)；[人工复核范围与图片SHA](component-theme-audit/visual-review.json)、[冻结运行与原始报告SHA](component-theme-audit/runs.json)、[矩阵覆盖](component-theme-audit/coverage.json)。六配置及具体状态以索引为准，不把代表截图等同全部尺寸的人工像素评审。
+- 审查结论：已审查三体系明暗，未发现需要新增包内实现补丁的问题；保留该组件已有的设计差异。
+
+### rc-notification
+
+- 来源：components/rc-notification/src、docs/index.mdx、docs/demos。
+- 现有矩阵：尺寸 medium；密度 standard；状态 default / hover / focus-visible / pressed / updated / closed / top / topLeft / bottom / bottomLeft / bottomRight。
+- 已登记附加检查：test:browser。
+- 设计依据与问题：固定宽度曾撑开窄容器；改为受可用空间约束。演示的持久浮层不再遮住自身更新和关闭操作。
+- 修正与验证：固定Linux最新有效矩阵单元：chromium 66/66，firefox 18/18，webkit 18/18；适用环境 66/66。已覆盖声明的矩阵与环境。公共包检查与最终统一验证分别记录，早期失败保留于runs.json。
+- 首轮截图：[三体系 × 明暗默认示例](component-theme-audit/inventory/rc-notification-sheet.png)；原图 SHA 与冻结标识见 [inventory.json](component-theme-audit/inventory.json)。仅默认可见区域，弹层、长页、异步完成和状态矩阵另验。
+- 首轮结论：默认可见区域已逐张复核；具体状态、尺寸、环境与当前结论见本节验证以及 visual-review.json，分别记录自动断言和人工查看范围。
+- 逐项截图：[最新已查看联系图](component-theme-audit/states/rc-notification-fe80be2223-environment-zoom-200-1.png)；[人工复核范围与图片SHA](component-theme-audit/visual-review.json)、[冻结运行与原始报告SHA](component-theme-audit/runs.json)、[矩阵覆盖](component-theme-audit/coverage.json)。六配置及具体状态以索引为准，不把代表截图等同全部尺寸的人工像素评审。
+- 审查结论：工作区中的组件修正已按三体系明暗、声明矩阵与适用环境验证；具体行为及截图见本节。
+
+### rc-prose
+
+- 来源：components/rc-prose/src、docs/index.mdx、docs/demos。
+- 现有矩阵：尺寸 sm / base / lg / xl；密度 standard；状态 default / inverse / hover / focus-visible。
+- 已登记附加检查：test:browser。
+- 设计依据与问题：检查标题/正文层次、链接/焦点、代码内滚动、表格、反色正文与独立嵌入内容。未发现新增实现问题。
+- 修正与验证：固定Linux最新有效矩阵单元：chromium 96/96，firefox 18/18，webkit 18/18；适用环境 66/66。已覆盖声明的矩阵与环境。公共包检查与最终统一验证分别记录，早期失败保留于runs.json。
+- 首轮截图：[三体系 × 明暗默认示例](component-theme-audit/inventory/rc-prose-sheet.png)；原图 SHA 与冻结标识见 [inventory.json](component-theme-audit/inventory.json)。仅默认可见区域，弹层、长页、异步完成和状态矩阵另验。
+- 首轮结论：默认可见区域已逐张复核；具体状态、尺寸、环境与当前结论见本节验证以及 visual-review.json，分别记录自动断言和人工查看范围。
+- 逐项截图：[最新已查看联系图](component-theme-audit/states/rc-prose-44d65a838f-matrix-focus-visible-1.png)；[人工复核范围与图片SHA](component-theme-audit/visual-review.json)、[冻结运行与原始报告SHA](component-theme-audit/runs.json)、[矩阵覆盖](component-theme-audit/coverage.json)。六配置及具体状态以索引为准，不把代表截图等同全部尺寸的人工像素评审。
+- 审查结论：已审查三体系明暗，未发现需要新增包内实现补丁的问题；保留该组件已有的设计差异。
+
+### rc-radio
+
+- 来源：components/rc-radio/src、docs/index.mdx、docs/demos。
+- 现有矩阵：尺寸 small / medium / large；密度 standard；状态 default / hover / focus-visible / pressed / selected / selected-hover / selected-focus-visible / selected-pressed / error / selected-error / disabled / disabled-selected。
+- 已登记附加检查：无。
+- 设计依据与问题：原生 WebKit 单选框方向键后的焦点轮廓由内部键盘模态补足，保留原生选择、边界和指针行为。
+- 修正与验证：固定Linux最新有效矩阵单元：chromium 216/216，firefox 24/24，webkit 24/24；适用环境 66/66。已覆盖声明的矩阵与环境。公共包检查与最终统一验证分别记录，早期失败保留于runs.json。
+- 首轮截图：[三体系 × 明暗默认示例](component-theme-audit/inventory/rc-radio-sheet.png)；原图 SHA 与冻结标识见 [inventory.json](component-theme-audit/inventory.json)。仅默认可见区域，弹层、长页、异步完成和状态矩阵另验。
+- 首轮结论：默认可见区域已逐张复核；具体状态、尺寸、环境与当前结论见本节验证以及 visual-review.json，分别记录自动断言和人工查看范围。
+- 逐项截图：[最新已查看联系图](component-theme-audit/states/rc-radio-925c578042-00063-webkit.png)；[人工复核范围与图片SHA](component-theme-audit/visual-review.json)、[冻结运行与原始报告SHA](component-theme-audit/runs.json)、[矩阵覆盖](component-theme-audit/coverage.json)。六配置及具体状态以索引为准，不把代表截图等同全部尺寸的人工像素评审。
+- 审查结论：工作区中的组件修正已按三体系明暗、声明矩阵与适用环境验证；具体行为及截图见本节。
+
+### rc-segmented
+
+- 来源：components/rc-segmented/src、docs/index.mdx、docs/demos。
+- 现有矩阵：尺寸 small / medium / large；密度 standard；状态 default / hover / focus-visible / pressed / selected / selected-hover / selected-pressed / disabled / item-disabled。
+- 已登记附加检查：test:browser。
+- 设计依据与问题：粗指针目标与可见内容分别测量，共享原生单选键盘模态补足 WebKit 焦点。
+- 修正与验证：固定Linux最新有效矩阵单元：chromium 162/162，firefox 24/24，webkit 24/24；适用环境 66/66。已覆盖声明的矩阵与环境。公共包检查与最终统一验证分别记录，早期失败保留于runs.json。
+- 首轮截图：[三体系 × 明暗默认示例](component-theme-audit/inventory/rc-segmented-sheet.png)；原图 SHA 与冻结标识见 [inventory.json](component-theme-audit/inventory.json)。仅默认可见区域，弹层、长页、异步完成和状态矩阵另验。
+- 首轮结论：默认可见区域已逐张复核；具体状态、尺寸、环境与当前结论见本节验证以及 visual-review.json，分别记录自动断言和人工查看范围。
+- 逐项截图：[最新已查看联系图](component-theme-audit/states/rc-segmented-052f45fc4b-matrix-focus-visible-1.png)；[人工复核范围与图片SHA](component-theme-audit/visual-review.json)、[冻结运行与原始报告SHA](component-theme-audit/runs.json)、[矩阵覆盖](component-theme-audit/coverage.json)。六配置及具体状态以索引为准，不把代表截图等同全部尺寸的人工像素评审。
+- 审查结论：工作区中的组件修正已按三体系明暗、声明矩阵与适用环境验证；具体行为及截图见本节。
+
+### rc-skeleton
+
+- 来源：components/rc-skeleton/src、docs/index.mdx、docs/demos。
+- 现有矩阵：尺寸 small / medium / large；密度 standard；状态 default / inactive / loaded / round / wave。
+- 已登记附加检查：test:browser、test:forced-colors。
+- 设计依据与问题：持续动画自然运行；旧四项真实缩放采集异常经单工作进程复验，不需要修改组件布局。
+- 修正与验证：固定Linux最新有效矩阵单元：chromium 90/90，firefox 6/6，webkit 6/6；适用环境 66/66。已覆盖声明的矩阵与环境。公共包检查与最终统一验证分别记录，早期失败保留于runs.json。
+- 首轮截图：[三体系 × 明暗默认示例](component-theme-audit/inventory/rc-skeleton-sheet.png)；原图 SHA 与冻结标识见 [inventory.json](component-theme-audit/inventory.json)。仅默认可见区域，弹层、长页、异步完成和状态矩阵另验。
+- 首轮结论：默认可见区域已逐张复核；具体状态、尺寸、环境与当前结论见本节验证以及 visual-review.json，分别记录自动断言和人工查看范围。
+- 逐项截图：[最新已查看联系图](component-theme-audit/states/rc-skeleton-77b36fbaab-environment-zoom-200-1.png)；[人工复核范围与图片SHA](component-theme-audit/visual-review.json)、[冻结运行与原始报告SHA](component-theme-audit/runs.json)、[矩阵覆盖](component-theme-audit/coverage.json)。六配置及具体状态以索引为准，不把代表截图等同全部尺寸的人工像素评审。
+- 审查结论：已审查三体系明暗，未发现需要新增包内实现补丁的问题；保留该组件已有的设计差异。
+
+### rc-slider
+
+- 来源：components/rc-slider/src、docs/index.mdx、docs/demos。
+- 现有矩阵：尺寸 xs / s / m / l / xl；密度 standard；状态 default / hover / focus-visible / dragging / minimum / maximum / disabled / error。
+- 已登记附加检查：无。
+- 设计依据与问题：修正科学计数法步进精度和主指针处理；共享滚轮判断保留横向滚动与Ctrl/Meta缩放。
+- 修正与验证：固定Linux最新有效矩阵单元：chromium 270/270，firefox 36/36，webkit 36/36；适用环境 66/66。已覆盖声明的矩阵与环境。公共包检查与最终统一验证分别记录，早期失败保留于runs.json。
+- 首轮截图：[三体系 × 明暗默认示例](component-theme-audit/inventory/rc-slider-sheet.png)；原图 SHA 与冻结标识见 [inventory.json](component-theme-audit/inventory.json)。仅默认可见区域，弹层、长页、异步完成和状态矩阵另验。
+- 首轮结论：默认可见区域已逐张复核；具体状态、尺寸、环境与当前结论见本节验证以及 visual-review.json，分别记录自动断言和人工查看范围。
+- 逐项截图：[最新已查看联系图](component-theme-audit/states/rc-slider-d466399a3f-matrix-scientific-1.png)；[人工复核范围与图片SHA](component-theme-audit/visual-review.json)、[冻结运行与原始报告SHA](component-theme-audit/runs.json)、[矩阵覆盖](component-theme-audit/coverage.json)。六配置及具体状态以索引为准，不把代表截图等同全部尺寸的人工像素评审。
+- 审查结论：工作区中的组件修正已按三体系明暗、声明矩阵与适用环境验证；具体行为及截图见本节。
+
+### rc-spin
+
+- 来源：components/rc-spin/src、docs/index.mdx、docs/demos。
+- 现有矩阵：尺寸 small / medium / large；密度 standard；状态 default / expressive / overlay / idle / delayed / custom。
+- 已登记附加检查：test:reduced-motion。
+- 设计依据与问题：自然动画、默认/遮罩与显式Expressive变体分别核对；不为指示增加交互焦点。
+- 修正与验证：固定Linux最新有效矩阵单元：chromium 108/108，firefox 24/24，webkit 24/24；适用环境 60/60。已覆盖声明的矩阵与环境。公共包检查与最终统一验证分别记录，早期失败保留于runs.json。
+- 首轮截图：[三体系 × 明暗默认示例](component-theme-audit/inventory/rc-spin-sheet.png)；原图 SHA 与冻结标识见 [inventory.json](component-theme-audit/inventory.json)。仅默认可见区域，弹层、长页、异步完成和状态矩阵另验。
+- 首轮结论：默认可见区域已逐张复核；具体状态、尺寸、环境与当前结论见本节验证以及 visual-review.json，分别记录自动断言和人工查看范围。
+- 逐项截图：[最新已查看联系图](component-theme-audit/states/rc-spin-3dfe16be8a-matrix-default-1.png)；[人工复核范围与图片SHA](component-theme-audit/visual-review.json)、[冻结运行与原始报告SHA](component-theme-audit/runs.json)、[矩阵覆盖](component-theme-audit/coverage.json)。六配置及具体状态以索引为准，不把代表截图等同全部尺寸的人工像素评审。
+- 审查结论：已审查三体系明暗，未发现需要新增包内实现补丁的问题；保留该组件已有的设计差异。
+
+### rc-split-pane
+
+- 来源：components/rc-split-pane/src、docs/index.mdx、docs/demos。
+- 现有矩阵：尺寸 medium；密度 standard；状态 default / hover / focus-visible / pressed / disabled / vertical / minimum / maximum。
+- 已登记附加检查：无。
+- 设计依据与问题：分隔线、可拖命中区、键盘轮廓与内容尺寸分别核对。
+- 修正与验证：固定Linux最新有效矩阵单元：chromium 48/48，firefox 30/30，webkit 30/30；适用环境 66/66。已覆盖声明的矩阵与环境。公共包检查与最终统一验证分别记录，早期失败保留于runs.json。
+- 首轮截图：[三体系 × 明暗默认示例](component-theme-audit/inventory/rc-split-pane-sheet.png)；原图 SHA 与冻结标识见 [inventory.json](component-theme-audit/inventory.json)。仅默认可见区域，弹层、长页、异步完成和状态矩阵另验。
+- 首轮结论：默认可见区域已逐张复核；具体状态、尺寸、环境与当前结论见本节验证以及 visual-review.json，分别记录自动断言和人工查看范围。
+- 逐项截图：[最新已查看联系图](component-theme-audit/states/rc-split-pane-60ce52dd38-matrix-focus-visible-1.png)；[人工复核范围与图片SHA](component-theme-audit/visual-review.json)、[冻结运行与原始报告SHA](component-theme-audit/runs.json)、[矩阵覆盖](component-theme-audit/coverage.json)。六配置及具体状态以索引为准，不把代表截图等同全部尺寸的人工像素评审。
+- 审查结论：已审查三体系明暗，未发现需要新增包内实现补丁的问题；保留该组件已有的设计差异。
+
+### rc-switch
+
+- 来源：components/rc-switch/src、docs/index.mdx、docs/demos。
+- 现有矩阵：尺寸 small / medium / large；密度 standard；状态 default / hover / focus-visible / pressed / selected / selected-hover / selected-focus-visible / selected-pressed / error / selected-error / disabled / disabled-selected。
+- 已登记附加检查：test:forced-colors。
+- 设计依据与问题：六配置、三档尺寸和已选/错误/禁用及输入状态已采集；没有发现需新增的实现修正。
+- 修正与验证：固定Linux最新有效矩阵单元：chromium 216/216，firefox 24/24，webkit 24/24；适用环境 66/66。已覆盖声明的矩阵与环境。公共包检查与最终统一验证分别记录，早期失败保留于runs.json。
+- 首轮截图：[三体系 × 明暗默认示例](component-theme-audit/inventory/rc-switch-sheet.png)；原图 SHA 与冻结标识见 [inventory.json](component-theme-audit/inventory.json)。仅默认可见区域，弹层、长页、异步完成和状态矩阵另验。
+- 首轮结论：默认可见区域已逐张复核；具体状态、尺寸、环境与当前结论见本节验证以及 visual-review.json，分别记录自动断言和人工查看范围。
+- 逐项截图：[最新已查看联系图](component-theme-audit/states/rc-switch-cacc0c4d25-matrix-default-1.png)；[人工复核范围与图片SHA](component-theme-audit/visual-review.json)、[冻结运行与原始报告SHA](component-theme-audit/runs.json)、[矩阵覆盖](component-theme-audit/coverage.json)。六配置及具体状态以索引为准，不把代表截图等同全部尺寸的人工像素评审。
+- 审查结论：已审查三体系明暗，未发现需要新增包内实现补丁的问题；保留该组件已有的设计差异。
+
+### rc-tabs
+
+- 来源：components/rc-tabs/src、docs/index.mdx、docs/demos。
+- 现有矩阵：尺寸 small / medium / large；密度 compact / standard / comfortable；状态 default / line:hover / line:focus-visible / line:pressed / line:disabled / line:selected / line:closed / line:overflow / card:default / card:hover / card:focus-visible / card:pressed / card:disabled / card:selected / card:closed / card:overflow / pill:default / pill:hover / pill:focus-visible / pill:pressed / pill:disabled / pill:selected / pill:closed / pill:overflow。
+- 已登记附加检查：test:browser、test:forced-colors。
+- 设计依据与问题：原生tab和关闭按钮保持独立稳定节点；核对三种外观、删除、溢出显露、RTL和草稿保留。
+- 修正与验证：固定Linux最新有效矩阵单元：chromium 1296/1296，firefox 66/66，webkit 66/66；适用环境 66/66。已覆盖声明的矩阵与环境。公共包检查与最终统一验证分别记录，早期失败保留于runs.json。
+- 首轮截图：[三体系 × 明暗默认示例](component-theme-audit/inventory/rc-tabs-sheet.png)；原图 SHA 与冻结标识见 [inventory.json](component-theme-audit/inventory.json)。仅默认可见区域，弹层、长页、异步完成和状态矩阵另验。
+- 首轮结论：默认可见区域已逐张复核；具体状态、尺寸、环境与当前结论见本节验证以及 visual-review.json，分别记录自动断言和人工查看范围。
+- 逐项截图：[最新已查看联系图](component-theme-audit/states/rc-tabs-b1361e142b-matrix-line-focus-visible-1.png)；[人工复核范围与图片SHA](component-theme-audit/visual-review.json)、[冻结运行与原始报告SHA](component-theme-audit/runs.json)、[矩阵覆盖](component-theme-audit/coverage.json)。六配置及具体状态以索引为准，不把代表截图等同全部尺寸的人工像素评审。
+- 审查结论：已审查三体系明暗，未发现需要新增包内实现补丁的问题；保留该组件已有的设计差异。
+
+### rc-tag
+
+- 来源：components/rc-tag/src、docs/index.mdx、docs/demos。
+- 现有矩阵：尺寸 small / medium / large；密度 compact / standard / comfortable；状态 default / hover / focus-visible / pressed / disabled / selected / removed。
+- 已登记附加检查：test:browser、test:forced-colors。
+- 设计依据与问题：状态与可选标签分别维持对应语义，紧凑关闭绘制与 Button 的完整触控命中层分离。
+- 修正与验证：固定Linux最新有效矩阵单元：chromium 378/378，firefox 24/24，webkit 24/24；适用环境 66/66。已覆盖声明的矩阵与环境。公共包检查与最终统一验证分别记录，早期失败保留于runs.json。
+- 首轮截图：[三体系 × 明暗默认示例](component-theme-audit/inventory/rc-tag-sheet.png)；原图 SHA 与冻结标识见 [inventory.json](component-theme-audit/inventory.json)。仅默认可见区域，弹层、长页、异步完成和状态矩阵另验。
+- 首轮结论：默认可见区域已逐张复核；具体状态、尺寸、环境与当前结论见本节验证以及 visual-review.json，分别记录自动断言和人工查看范围。
+- 逐项截图：[最新已查看联系图](component-theme-audit/states/rc-tag-dd1a73699e-matrix-default-1.png)；[人工复核范围与图片SHA](component-theme-audit/visual-review.json)、[冻结运行与原始报告SHA](component-theme-audit/runs.json)、[矩阵覆盖](component-theme-audit/coverage.json)。六配置及具体状态以索引为准，不把代表截图等同全部尺寸的人工像素评审。
+- 审查结论：已审查三体系明暗，未发现需要新增包内实现补丁的问题；保留该组件已有的设计差异。
+
+### rc-text-edit
+
+- 来源：components/rc-text-edit/src、docs/index.mdx、docs/demos。
+- 现有矩阵：尺寸 small / medium / large；密度 standard；状态 default / hover / focus-visible / filled / error / filled-error / warning / filled-warning / disabled / read-only / clear / auto-size / borderless。
+- 已登记附加检查：test:browser。
+- 设计依据与问题：复核错误、焦点和只读的两种外观。首行检查改为光标抵达起点及实际字体字形边界，避免把原生2px滚动偏移误判为裁切。
+- 修正与验证：固定Linux最新有效矩阵单元：chromium 234/234，firefox 24/24，webkit 24/24；适用环境 66/66。已覆盖声明的矩阵与环境。公共包检查与最终统一验证分别记录，早期失败保留于runs.json。
+- 首轮截图：[三体系 × 明暗默认示例](component-theme-audit/inventory/rc-text-edit-sheet.png)；原图 SHA 与冻结标识见 [inventory.json](component-theme-audit/inventory.json)。仅默认可见区域，弹层、长页、异步完成和状态矩阵另验。
+- 首轮结论：默认可见区域已逐张复核；具体状态、尺寸、环境与当前结论见本节验证以及 visual-review.json，分别记录自动断言和人工查看范围。
+- 逐项截图：[最新已查看联系图](component-theme-audit/states/rc-text-edit-2a0b46f97c-environment-narrow-1.png)；[人工复核范围与图片SHA](component-theme-audit/visual-review.json)、[冻结运行与原始报告SHA](component-theme-audit/runs.json)、[矩阵覆盖](component-theme-audit/coverage.json)。六配置及具体状态以索引为准，不把代表截图等同全部尺寸的人工像素评审。
+- 审查结论：已审查三体系明暗，未发现需要新增包内实现补丁的问题；保留该组件已有的设计差异。
+
+### rc-tooltip
+
+- 来源：components/rc-tooltip/src、docs/index.mdx、docs/demos。
+- 现有矩阵：尺寸 medium；密度 standard；状态 default / hover / focus-visible / arrow / long-text。
+- 已登记附加检查：无。
+- 设计依据与问题：复核原生触发、键盘提示、长文本与Portal语义；触控量完整命中层，并检查命中点及真实键盘焦点。
+- 修正与验证：固定Linux最新有效矩阵单元：chromium 30/30，firefox 24/24，webkit 24/24；适用环境 66/66。已覆盖声明的矩阵与环境。公共包检查与最终统一验证分别记录，早期失败保留于runs.json。
+- 首轮截图：[三体系 × 明暗默认示例](component-theme-audit/inventory/rc-tooltip-sheet.png)；原图 SHA 与冻结标识见 [inventory.json](component-theme-audit/inventory.json)。仅默认可见区域，弹层、长页、异步完成和状态矩阵另验。
+- 首轮结论：默认可见区域已逐张复核；具体状态、尺寸、环境与当前结论见本节验证以及 visual-review.json，分别记录自动断言和人工查看范围。
+- 逐项截图：[最新已查看联系图](component-theme-audit/states/rc-tooltip-29b3e75856-environment-brand-1.png)；[人工复核范围与图片SHA](component-theme-audit/visual-review.json)、[冻结运行与原始报告SHA](component-theme-audit/runs.json)、[矩阵覆盖](component-theme-audit/coverage.json)。六配置及具体状态以索引为准，不把代表截图等同全部尺寸的人工像素评审。
+- 审查结论：已审查三体系明暗，未发现需要新增包内实现补丁的问题；保留该组件已有的设计差异。
+
+### rc-app-main-layout
+
+- 来源：components/rc-app-main-layout/src、docs/index.mdx、docs/demos。
+- 现有矩阵：尺寸 small / medium / large；密度 compact / standard / comfortable；状态 default / hover / focus-visible / collapsed / account。
+- 已登记附加检查：test:browser。
+- 设计依据与问题：账户、侧栏、窄屏和触控已查看；补充横屏真实边缘命中。旧缩放末段超时未被当作组件缺陷。
+- 修正与验证：固定Linux最新有效矩阵单元：chromium 270/270，firefox 24/24，webkit 24/24；适用环境 66/66。已覆盖声明的矩阵与环境。公共包检查与最终统一验证分别记录，早期失败保留于runs.json。
+- 首轮截图：[三体系 × 明暗默认示例](component-theme-audit/inventory/rc-app-main-layout-sheet.png)；原图 SHA 与冻结标识见 [inventory.json](component-theme-audit/inventory.json)。仅默认可见区域，弹层、长页、异步完成和状态矩阵另验。
+- 首轮结论：默认可见区域已逐张复核；具体状态、尺寸、环境与当前结论见本节验证以及 visual-review.json，分别记录自动断言和人工查看范围。
+- 逐项截图：[最新已查看联系图](component-theme-audit/states/rc-app-main-layout-5e1d986cb0-matrix-default-1.png)；[人工复核范围与图片SHA](component-theme-audit/visual-review.json)、[冻结运行与原始报告SHA](component-theme-audit/runs.json)、[矩阵覆盖](component-theme-audit/coverage.json)。六配置及具体状态以索引为准，不把代表截图等同全部尺寸的人工像素评审。
+- 审查结论：已审查三体系明暗，未发现需要新增包内实现补丁的问题；保留该组件已有的设计差异。
+
+### rc-color-picker
+
+- 来源：components/rc-color-picker/src、docs/index.mdx、docs/demos。
+- 现有矩阵：尺寸 small / medium / large；密度 standard；状态 default / hover / focus-visible / pressed / disabled / expanded / edited。
+- 已登记附加检查：test:browser、test:forced-colors。
+- 设计依据与问题：为完整 HEX/透明度保留可读宽度；格式独占一行，色值与可用吸管同行，无吸管时输入填满。触控留出命中间距，节点、草稿和焦点保持。
+- 修正与验证：固定Linux最新有效矩阵单元：chromium 126/126，firefox 24/24，webkit 24/24；适用环境 66/66。已覆盖声明的矩阵与环境。公共包检查与最终统一验证分别记录，早期失败保留于runs.json。
+- 首轮截图：[三体系 × 明暗默认示例](component-theme-audit/inventory/rc-color-picker-sheet.png)；原图 SHA 与冻结标识见 [inventory.json](component-theme-audit/inventory.json)。仅默认可见区域，弹层、长页、异步完成和状态矩阵另验。
+- 首轮结论：默认可见区域已逐张复核；具体状态、尺寸、环境与当前结论见本节验证以及 visual-review.json，分别记录自动断言和人工查看范围。
+- 逐项截图：[最新已查看联系图](component-theme-audit/states/rc-color-picker-aded000b7a-matrix-expanded-1.png)；[人工复核范围与图片SHA](component-theme-audit/visual-review.json)、[冻结运行与原始报告SHA](component-theme-audit/runs.json)、[矩阵覆盖](component-theme-audit/coverage.json)。六配置及具体状态以索引为准，不把代表截图等同全部尺寸的人工像素评审。
+- 审查结论：工作区中的组件修正已按三体系明暗、声明矩阵与适用环境验证；具体行为及截图见本节。
+
+### rc-cron-picker
+
+- 来源：components/rc-cron-picker/src、docs/index.mdx、docs/demos。
+- 现有矩阵：尺寸 small / medium / large；密度 compact / standard / comfortable；状态 default / hover / focus-visible / pressed / disabled / read-only / warning / error / committed / expanded / minute-step / field-hour / field-day / field-month / field-week / editor-minute-every / editor-minute-range / editor-hour-every / editor-hour-step / editor-hour-range / editor-day-step / editor-day-range / editor-day-list / editor-month-step / editor-month-range / editor-month-list / editor-week-every / editor-week-list / read-only-step / read-only-range / read-only-week-range。
+- 已登记附加检查：test:browser。
+- 设计依据与问题：静态状态矩阵通过；真实缩放暴露共享 Select 的重复 Tab 入口。窄屏断言改量实际滚动容器，并检查末尾预览可滚动到达。
+- 修正与验证：固定Linux最新有效矩阵单元：chromium 1674/1674，firefox 78/78，webkit 78/78；适用环境 66/66。已覆盖声明的矩阵与环境。公共包检查与最终统一验证分别记录，早期失败保留于runs.json。
+- 首轮截图：[三体系 × 明暗默认示例](component-theme-audit/inventory/rc-cron-picker-sheet.png)；原图 SHA 与冻结标识见 [inventory.json](component-theme-audit/inventory.json)。仅默认可见区域，弹层、长页、异步完成和状态矩阵另验。
+- 首轮结论：默认可见区域已逐张复核；具体状态、尺寸、环境与当前结论见本节验证以及 visual-review.json，分别记录自动断言和人工查看范围。
+- 逐项截图：[最新已查看联系图](component-theme-audit/states/rc-cron-picker-7950b40503-matrix-editor-day-list-1.png)；[人工复核范围与图片SHA](component-theme-audit/visual-review.json)、[冻结运行与原始报告SHA](component-theme-audit/runs.json)、[矩阵覆盖](component-theme-audit/coverage.json)。六配置及具体状态以索引为准，不把代表截图等同全部尺寸的人工像素评审。
+- 审查结论：已审查三体系明暗，未发现需要新增包内实现补丁的问题；保留该组件已有的设计差异。
+
+### rc-date-picker
+
+- 来源：components/rc-date-picker/src、docs/index.mdx、docs/demos。
+- 现有矩阵：尺寸 small / medium / large；密度 compact / standard / comfortable；状态 default / hover / focus-visible / disabled / error / warning / cleared / date-open / date-selected / date-today / datetime-open / time-dial-open / time-input-open / time-error / time-12-dial-hour / time-12-dial-minute / time-24-dial-minute / time-12-input / time-24-input / time-24-seconds / time-minute-error / time-second-error / time-empty-error / time-period-pm / time-keyboard-steps / time-mode-switch / datetime-12-open / datetime-time-error / datetime-no-seconds / datetime-12-no-seconds / time-dial-keyboard。
+- 已登记附加检查：test:browser。
+- 设计依据与问题：日历、表盘、十二小时输入、日期时间校验和窄屏已逐主题查看；保留各体系的字段、选择、轮廓和动作层级。
+- 修正与验证：固定Linux最新有效矩阵单元：chromium 1674/1674，firefox 114/114，webkit 114/114；适用环境 66/66。已覆盖声明的矩阵与环境。公共包检查与最终统一验证分别记录，早期失败保留于runs.json。
+- 首轮截图：[三体系 × 明暗默认示例](component-theme-audit/inventory/rc-date-picker-sheet.png)；原图 SHA 与冻结标识见 [inventory.json](component-theme-audit/inventory.json)。仅默认可见区域，弹层、长页、异步完成和状态矩阵另验。
+- 首轮结论：默认可见区域已逐张复核；具体状态、尺寸、环境与当前结论见本节验证以及 visual-review.json，分别记录自动断言和人工查看范围。
+- 逐项截图：[最新已查看联系图](component-theme-audit/states/rc-date-picker-5e8cf573f9-matrix-date-open-1.png)；[人工复核范围与图片SHA](component-theme-audit/visual-review.json)、[冻结运行与原始报告SHA](component-theme-audit/runs.json)、[矩阵覆盖](component-theme-audit/coverage.json)。六配置及具体状态以索引为准，不把代表截图等同全部尺寸的人工像素评审。
+- 审查结论：已审查三体系明暗，未发现需要新增包内实现补丁的问题；保留该组件已有的设计差异。
+
+### rc-form
+
+- 来源：components/rc-form/src、docs/index.mdx、docs/demos。
+- 现有矩阵：尺寸 small / medium / large；密度 compact / standard / comfortable；状态 default / hover / focus-visible / disabled / read-only / error / warning / success / validating。
+- 已登记附加检查：test:browser。
+- 设计依据与问题：标签、说明、错误/警告、只读/禁用、焦点与窄屏已核对；没有新增实现修正。
+- 修正与验证：固定Linux最新有效矩阵单元：chromium 486/486，firefox 30/30，webkit 30/30；适用环境 66/66。已覆盖声明的矩阵与环境。公共包检查与最终统一验证分别记录，早期失败保留于runs.json。
+- 首轮截图：[三体系 × 明暗默认示例](component-theme-audit/inventory/rc-form-sheet.png)；原图 SHA 与冻结标识见 [inventory.json](component-theme-audit/inventory.json)。仅默认可见区域，弹层、长页、异步完成和状态矩阵另验。
+- 首轮结论：默认可见区域已逐张复核；具体状态、尺寸、环境与当前结论见本节验证以及 visual-review.json，分别记录自动断言和人工查看范围。
+- 逐项截图：[最新已查看联系图](component-theme-audit/states/rc-form-317fd9e03a-matrix-warning-1.png)；[人工复核范围与图片SHA](component-theme-audit/visual-review.json)、[冻结运行与原始报告SHA](component-theme-audit/runs.json)、[矩阵覆盖](component-theme-audit/coverage.json)。六配置及具体状态以索引为准，不把代表截图等同全部尺寸的人工像素评审。
+- 审查结论：已审查三体系明暗，未发现需要新增包内实现补丁的问题；保留该组件已有的设计差异。
+
+### rc-number-edit
+
+- 来源：components/rc-number-edit/src、docs/index.mdx、docs/demos。
+- 现有矩阵：尺寸 small / medium / large；密度 standard；状态 default / hover / focus-visible / filled / error / filled-error / warning / filled-warning / disabled / read-only / minimum / maximum / scientific / scientific-read-only / scientific-disabled / formatted / clear / keyboard-step / stepper-focus / long-press / borderless-focus / controls-hidden。
+- 已登记附加检查：test:browser。
+- 设计依据与问题：沿用精确草稿与滚轮修正，继承LineEdit对MD3窄字段标签/单位重叠的局部修正。
+- 修正与验证：固定Linux最新有效矩阵单元：chromium 396/396，firefox 48/48，webkit 48/48；适用环境 66/66。已覆盖声明的矩阵与环境。公共包检查与最终统一验证分别记录，早期失败保留于runs.json。
+- 首轮截图：[三体系 × 明暗默认示例](component-theme-audit/inventory/rc-number-edit-sheet.png)；原图 SHA 与冻结标识见 [inventory.json](component-theme-audit/inventory.json)。仅默认可见区域，弹层、长页、异步完成和状态矩阵另验。
+- 首轮结论：默认可见区域已逐张复核；具体状态、尺寸、环境与当前结论见本节验证以及 visual-review.json，分别记录自动断言和人工查看范围。
+- 逐项截图：[最新已查看联系图](component-theme-audit/states/rc-number-edit-5d24d15d21-matrix-borderless-focus-1.png)；[人工复核范围与图片SHA](component-theme-audit/visual-review.json)、[冻结运行与原始报告SHA](component-theme-audit/runs.json)、[矩阵覆盖](component-theme-audit/coverage.json)。六配置及具体状态以索引为准，不把代表截图等同全部尺寸的人工像素评审。
+- 审查结论：工作区中的组件修正已按三体系明暗、声明矩阵与适用环境验证；具体行为及截图见本节。
+
+### rc-pagination
+
+- 来源：components/rc-pagination/src、docs/index.mdx、docs/demos。
+- 现有矩阵：尺寸 small / medium / large；密度 compact / standard / comfortable；状态 default / hover / focus-visible / pressed / disabled / empty / selected / jump / size-menu。
+- 已登记附加检查：test:browser。
+- 设计依据与问题：按明确名称定位每页条数菜单；组件实现和页码语义保持。
+- 修正与验证：固定Linux最新有效矩阵单元：chromium 486/486，firefox 36/36，webkit 36/36；适用环境 66/66。已覆盖声明的矩阵与环境。公共包检查与最终统一验证分别记录，早期失败保留于runs.json。
+- 首轮截图：[三体系 × 明暗默认示例](component-theme-audit/inventory/rc-pagination-sheet.png)；原图 SHA 与冻结标识见 [inventory.json](component-theme-audit/inventory.json)。仅默认可见区域，弹层、长页、异步完成和状态矩阵另验。
+- 首轮结论：默认可见区域已逐张复核；具体状态、尺寸、环境与当前结论见本节验证以及 visual-review.json，分别记录自动断言和人工查看范围。
+- 逐项截图：[最新已查看联系图](component-theme-audit/states/rc-pagination-d3fc86709f-matrix-size-menu-1.png)；[人工复核范围与图片SHA](component-theme-audit/visual-review.json)、[冻结运行与原始报告SHA](component-theme-audit/runs.json)、[矩阵覆盖](component-theme-audit/coverage.json)。六配置及具体状态以索引为准，不把代表截图等同全部尺寸的人工像素评审。
+- 审查结论：已审查三体系明暗，未发现需要新增包内实现补丁的问题；保留该组件已有的设计差异。
+
+### rc-select
+
+- 来源：components/rc-select/src、docs/index.mdx、docs/demos。
+- 现有矩阵：尺寸 small / medium / large；密度 compact / standard / comfortable；状态 default / hover / focus-visible / expanded / selected / multiple / error / warning / disabled / empty / loading。
+- 已登记附加检查：test:browser。
+- 设计依据与问题：清空入口保留独立键盘动作，冗余展开箭头退出Tab顺序；缩放沿用真实搜索焦点，透明span与可见低对比度分别诊断。
+- 修正与验证：固定Linux最新有效矩阵单元：chromium 594/594，firefox 30/30，webkit 30/30；适用环境 66/66。已覆盖声明的矩阵与环境。公共包检查与最终统一验证分别记录，早期失败保留于runs.json。
+- 首轮截图：[三体系 × 明暗默认示例](component-theme-audit/inventory/rc-select-sheet.png)；原图 SHA 与冻结标识见 [inventory.json](component-theme-audit/inventory.json)。仅默认可见区域，弹层、长页、异步完成和状态矩阵另验。
+- 首轮结论：默认可见区域已逐张复核；具体状态、尺寸、环境与当前结论见本节验证以及 visual-review.json，分别记录自动断言和人工查看范围。
+- 逐项截图：[最新已查看联系图](component-theme-audit/states/rc-select-df430d0500-environment-zoom-200-1.png)；[人工复核范围与图片SHA](component-theme-audit/visual-review.json)、[冻结运行与原始报告SHA](component-theme-audit/runs.json)、[矩阵覆盖](component-theme-audit/coverage.json)。六配置及具体状态以索引为准，不把代表截图等同全部尺寸的人工像素评审。
+- 审查结论：工作区中的组件修正已按三体系明暗、声明矩阵与适用环境验证；具体行为及截图见本节。
+
+### rc-table
+
+- 来源：components/rc-table/src、docs/index.mdx、docs/demos。
+- 现有矩阵：尺寸 small / medium / large；密度 compact / standard / comfortable；状态 default / hover / focus-visible / selected / expanded / editing / scrolled / empty。
+- 已登记附加检查：test:browser、test:selection、test:forced-colors。
+- 设计依据与问题：编辑器先处理按键，保留输入法候选、选择器确认和原生按钮；已消费的Enter不再误触发行打开。退出编辑按所属文档恢复有效焦点，保留业务指定焦点；粗指针选择列至少48px。
+- 修正与验证：固定Linux最新有效矩阵单元：chromium 432/432，firefox 24/24，webkit 24/24；适用环境 66/66。已覆盖声明的矩阵与环境。公共包检查与最终统一验证分别记录，早期失败保留于runs.json。
+- 首轮截图：[三体系 × 明暗默认示例](component-theme-audit/inventory/rc-table-sheet.png)；原图 SHA 与冻结标识见 [inventory.json](component-theme-audit/inventory.json)。仅默认可见区域，弹层、长页、异步完成和状态矩阵另验。
+- 首轮结论：默认可见区域已逐张复核；具体状态、尺寸、环境与当前结论见本节验证以及 visual-review.json，分别记录自动断言和人工查看范围。
+- 逐项截图：[最新已查看联系图](component-theme-audit/states/rc-table-aa3153c4d2-matrix-default-1.png)；[人工复核范围与图片SHA](component-theme-audit/visual-review.json)、[冻结运行与原始报告SHA](component-theme-audit/runs.json)、[矩阵覆盖](component-theme-audit/coverage.json)。六配置及具体状态以索引为准，不把代表截图等同全部尺寸的人工像素评审。
+- 审查结论：工作区中的组件修正已按三体系明暗、声明矩阵与适用环境验证；具体行为及截图见本节。
+
+### rc-tree
+
+- 来源：components/rc-tree/src、docs/index.mdx、docs/demos。
+- 现有矩阵：尺寸 small / medium / large；密度 compact / standard / comfortable；状态 default / hover / focus-visible / selected / checked / collapsed / editing / scrolled / empty / loading。
+- 已登记附加检查：test:browser、test:custom-editor、test:forced-colors。
+- 设计依据与问题：字段与勾选控件保留自己的键盘行为；节点操作按钮仍可用方向键浏览，Enter保留原生激活。按所属文档识别节点。
+- 修正与验证：固定Linux最新有效矩阵单元：chromium 540/540，firefox 30/30，webkit 30/30；适用环境 66/66。已覆盖声明的矩阵与环境。公共包检查与最终统一验证分别记录，早期失败保留于runs.json。
+- 首轮截图：[三体系 × 明暗默认示例](component-theme-audit/inventory/rc-tree-sheet.png)；原图 SHA 与冻结标识见 [inventory.json](component-theme-audit/inventory.json)。仅默认可见区域，弹层、长页、异步完成和状态矩阵另验。
+- 首轮结论：默认可见区域已逐张复核；具体状态、尺寸、环境与当前结论见本节验证以及 visual-review.json，分别记录自动断言和人工查看范围。
+- 逐项截图：[最新已查看联系图](component-theme-audit/states/rc-tree-f53996d143-matrix-default-1.png)；[人工复核范围与图片SHA](component-theme-audit/visual-review.json)、[冻结运行与原始报告SHA](component-theme-audit/runs.json)、[矩阵覆盖](component-theme-audit/coverage.json)。六配置及具体状态以索引为准，不把代表截图等同全部尺寸的人工像素评审。
+- 审查结论：工作区中的组件修正已按三体系明暗、声明矩阵与适用环境验证；具体行为及截图见本节。
+
+### rc-bar-chart
+
+- 来源：components/rc-bar-chart/src、docs/index.mdx、docs/demos。
+- 现有矩阵：尺寸 medium；密度 compact / standard / comfortable；状态 default / hover / focus-visible / pressed / selected / empty / horizontal / stacked / negative / refresh。
+- 已登记附加检查：test:browser、test:forced-colors、test:focus。
+- 设计依据与问题：核对正负柱、横向、堆叠、图例选择、提示、刷新、键盘与主题/系统颜色。状态与环境联系图逐项查看，无须新增组件样式补丁。自然过渡改采真实rAF中的GPU帧，避免远程截图晚于动画结束而误报静止；保留原始动效和失败证据。
+- 修正与验证：固定Linux最新有效矩阵单元：chromium 180/180，firefox 24/24，webkit 24/24；适用环境 66/66。已覆盖声明的矩阵与环境。公共包检查与最终统一验证分别记录，早期失败保留于runs.json。
+- 首轮截图：[三体系 × 明暗默认示例](component-theme-audit/inventory/rc-bar-chart-sheet.png)；原图 SHA 与冻结标识见 [inventory.json](component-theme-audit/inventory.json)。仅默认可见区域，弹层、长页、异步完成和状态矩阵另验。
+- 首轮结论：默认可见区域已逐张复核；具体状态、尺寸、环境与当前结论见本节验证以及 visual-review.json，分别记录自动断言和人工查看范围。
+- 逐项截图：[最新已查看联系图](component-theme-audit/states/rc-bar-chart-513642425e-capture-0-1.png)；[人工复核范围与图片SHA](component-theme-audit/visual-review.json)、[冻结运行与原始报告SHA](component-theme-audit/runs.json)、[矩阵覆盖](component-theme-audit/coverage.json)。六配置及具体状态以索引为准，不把代表截图等同全部尺寸的人工像素评审。
+- 审查结论：已审查三体系明暗，未发现需要新增包内实现补丁的问题；保留该组件已有的设计差异。
+
+### rc-canvas
+
+- 来源：components/rc-canvas/src、docs/index.mdx、docs/demos。
+- 现有矩阵：尺寸 medium；密度 standard；状态 default / hover / focus-visible / selected / dragged / editing / committed / cancelled / restored / flowing。
+- 已登记附加检查：test:browser。
+- 设计依据与问题：发现较长内联草稿被旧字形宽高裁切，以及Chromium在原生编辑层后错误遮挡WebGL图形。编辑器按声明宽度换行并增高，超出画布后原生滚动；容器用同一语义背景绘制CSS图像，原生文本框保持透明及自动系统色适配。主题切换不重建输入或重选草稿。跨iframe/Shadow、DPR1.5、GPU与实际合成像素、系统色文字对比度和恢复资源分别验证。
+- 修正与验证：固定Linux最新有效矩阵单元：chromium 60/60，firefox 24/24，webkit 24/24；适用环境 66/66。已覆盖声明的矩阵与环境。最终完整构建228项通过，另24项三引擎草稿/选区与Chromium系统色编辑回归通过，编辑表面文字对比度最低12.02:1。公共包检查与最终统一验证分别记录，早期失败保留于runs.json。
+- 首轮截图：[三体系 × 明暗默认示例](component-theme-audit/inventory/rc-canvas-sheet.png)；原图 SHA 与冻结标识见 [inventory.json](component-theme-audit/inventory.json)。仅默认可见区域，弹层、长页、异步完成和状态矩阵另验。
+- 首轮结论：默认可见区域已逐张复核；具体状态、尺寸、环境与当前结论见本节验证以及 visual-review.json，分别记录自动断言和人工查看范围。
+- 逐项截图：[最新已查看联系图](component-theme-audit/states/rc-canvas-7ec79d01d3-forced-colors-multiline-inline-draft.png-1.png)；[人工复核范围与图片SHA](component-theme-audit/visual-review.json)、[冻结运行与原始报告SHA](component-theme-audit/runs.json)、[矩阵覆盖](component-theme-audit/coverage.json)。六配置及具体状态以索引为准，不把代表截图等同全部尺寸的人工像素评审。
+- 审查结论：工作区中的组件修正已按三体系明暗、声明矩阵与适用环境验证；具体行为及截图见本节。
+
+### rc-flow-diagram
+
+- 来源：components/rc-flow-diagram/src、docs/index.mdx、docs/demos。
+- 现有矩阵：尺寸 medium；密度 standard；状态 default / focus-visible / selected / dragged / empty / error / manual-route / refresh。
+- 已登记附加检查：无。
+- 设计依据与问题：发现节点子区域的点击处理挡住父组拖动、长标签超出节点、窄屏工具栏被裁切，以及原始布局错误挤坏反馈。点击与拖动归于同一Rect命中区域，标签按声明宽度换行；示例工具栏/说明按局部视口排列，空态可解释，原始错误用可展开详情呈现。系统色选中按钮局部保留Highlight/HighlightText，消除文字底板遮挡。保留公开坐标、事件和布局语义。
+- 修正与验证：固定Linux最新有效矩阵单元：chromium 48/48，firefox 24/24，webkit 24/24；适用环境 66/66。已覆盖声明的矩阵与环境。三引擎长标签、真实拖动、320px触控反馈和自然GPU动效分别留证。公共包检查与最终统一验证分别记录，早期失败保留于runs.json。
+- 首轮截图：[三体系 × 明暗默认示例](component-theme-audit/inventory/rc-flow-diagram-sheet.png)；原图 SHA 与冻结标识见 [inventory.json](component-theme-audit/inventory.json)。仅默认可见区域，弹层、长页、异步完成和状态矩阵另验。
+- 首轮结论：默认可见区域已逐张复核；具体状态、尺寸、环境与当前结论见本节验证以及 visual-review.json，分别记录自动断言和人工查看范围。
+- 逐项截图：[最新已查看联系图](component-theme-audit/states/rc-flow-diagram-0c6d26472b-environment-forced-colors-1.png)；[人工复核范围与图片SHA](component-theme-audit/visual-review.json)、[冻结运行与原始报告SHA](component-theme-audit/runs.json)、[矩阵覆盖](component-theme-audit/coverage.json)。六配置及具体状态以索引为准，不把代表截图等同全部尺寸的人工像素评审。
+- 审查结论：工作区中的组件修正已按三体系明暗、声明矩阵与适用环境验证；具体行为及截图见本节。
+
+### rc-pdf-editor
+
+- 来源：components/rc-pdf-editor/src、docs/index.mdx、docs/demos。
+- 现有矩阵：尺寸 small / medium / large；密度 compact / standard / comfortable；状态 default / hover / focus-visible / pressed / disabled / selected / error / empty / read-only / expanded / edited / scroll / loading。
+- 已登记附加检查：test:build-tools、test:web-component。
+- 设计依据与问题：区分工作区表面与真实白色PDF纸张。修正窄屏收起面板后丢失焦点、Firefox恢复焦点轮廓不显露、独立示例nonce复位残留、MD3缩略图胶囊描边，以及面板按钮方向键泄漏为对象移动。属性标题和关闭入口保持稳定，撤销不再卸载当前焦点；区域操作在所属Document/ShadowRoot内归还画布焦点。保留文档、草稿、输入身份、历史与公共事件。
+- 修正与验证：固定Linux最新有效矩阵单元：chromium 702/702，firefox 36/36，webkit 36/36；适用环境 66/66。已覆盖声明的矩阵与环境。最终公开构建的966项完整矩阵、领域与独立产物回归全部通过。公共包检查与最终统一验证分别记录，早期失败保留于runs.json。
+- 首轮截图：[三体系 × 明暗默认示例](component-theme-audit/inventory/rc-pdf-editor-sheet.png)；原图 SHA 与冻结标识见 [inventory.json](component-theme-audit/inventory.json)。仅默认可见区域，弹层、长页、异步完成和状态矩阵另验。
+- 首轮结论：默认可见区域已逐张复核；具体状态、尺寸、环境与当前结论见本节验证以及 visual-review.json，分别记录自动断言和人工查看范围。
+- 逐项截图：[最新已查看联系图](component-theme-audit/states/rc-pdf-editor-b1dd606aa8-actual-cross-page-region.png-1.png)；[人工复核范围与图片SHA](component-theme-audit/visual-review.json)、[冻结运行与原始报告SHA](component-theme-audit/runs.json)、[矩阵覆盖](component-theme-audit/coverage.json)。六配置及具体状态以索引为准，不把代表截图等同全部尺寸的人工像素评审。
+- 审查结论：工作区中的组件修正已按三体系明暗、声明矩阵与适用环境验证；具体行为及截图见本节。
+
+### rc-table-pro
+
+- 来源：components/rc-table-pro/src、docs/index.mdx、docs/demos。
+- 现有矩阵：尺寸 small / medium / large；密度 compact / standard / comfortable；状态 default / focus-visible / selected / sidebar / editing / edit-committed / edit-cancelled / scrolled / empty / error / columns-error / loading / refreshing / refreshed / refresh-error / refresh-recovered。
+- 已登记附加检查：test:browser。
+- 设计依据与问题：发现分页分支漏渲染搜索栏；补回同一搜索控件，保留原有搜索、高亮、分页及编辑语义。
+- 修正与验证：固定Linux最新有效矩阵单元：chromium 864/864，firefox 60/60，webkit 60/60；适用环境 66/66。已覆盖声明的矩阵与环境。公共包检查与最终统一验证分别记录，早期失败保留于runs.json。
+- 首轮截图：[三体系 × 明暗默认示例](component-theme-audit/inventory/rc-table-pro-sheet.png)；原图 SHA 与冻结标识见 [inventory.json](component-theme-audit/inventory.json)。仅默认可见区域，弹层、长页、异步完成和状态矩阵另验。
+- 首轮结论：默认可见区域已逐张复核；具体状态、尺寸、环境与当前结论见本节验证以及 visual-review.json，分别记录自动断言和人工查看范围。
+- 逐项截图：[最新已查看联系图](component-theme-audit/states/rc-table-pro-37ffc8a1d9-environment-brand-1.png)；[人工复核范围与图片SHA](component-theme-audit/visual-review.json)、[冻结运行与原始报告SHA](component-theme-audit/runs.json)、[矩阵覆盖](component-theme-audit/coverage.json)。六配置及具体状态以索引为准，不把代表截图等同全部尺寸的人工像素评审。
+- 审查结论：工作区中的组件修正已按三体系明暗、声明矩阵与适用环境验证；具体行为及截图见本节。
+
+### rc-realm
+
+- 来源：components/rc-realm/src、docs/index.mdx、docs/demos。
+- 现有矩阵：尺寸 small / medium / large；密度 standard；状态 default / focus-visible / error / sandbox / loading / web-component-var / web-component-module。
+- 已登记附加检查：无。
+- 设计依据与问题：核对远程内容、失败重试、自然加载、sandbox、var/module独立元素、Shadow隔离、输入焦点和配置保留。宿主保持主题边界及语义，不覆盖远端自有内容的设计。完整408项断言通过，六配置状态/环境与真实200%窗口已复核，无须新增组件补丁。
+- 修正与验证：固定Linux最新有效矩阵单元：chromium 126/126，firefox 36/36，webkit 36/36；适用环境 66/66。已覆盖声明的矩阵与环境。公共包检查与最终统一验证分别记录，早期失败保留于runs.json。
+- 首轮截图：[三体系 × 明暗默认示例](component-theme-audit/inventory/rc-realm-sheet.png)；原图 SHA 与冻结标识见 [inventory.json](component-theme-audit/inventory.json)。仅默认可见区域，弹层、长页、异步完成和状态矩阵另验。
+- 首轮结论：默认可见区域已逐张复核；具体状态、尺寸、环境与当前结论见本节验证以及 visual-review.json，分别记录自动断言和人工查看范围。
+- 逐项截图：[最新已查看联系图](component-theme-audit/states/rc-realm-5e6c4622a0-matrix-default-1.png)；[人工复核范围与图片SHA](component-theme-audit/visual-review.json)、[冻结运行与原始报告SHA](component-theme-audit/runs.json)、[矩阵覆盖](component-theme-audit/coverage.json)。六配置及具体状态以索引为准，不把代表截图等同全部尺寸的人工像素评审。
+- 审查结论：已审查三体系明暗，未发现需要新增包内实现补丁的问题；保留该组件已有的设计差异。
+
+### rc-router
+
+- 来源：components/rc-router/src、docs/index.mdx、docs/demos。
+- 现有矩阵：无独立视觉矩阵；按包内公共检查验证适用行为。
+- 已登记附加检查：无。
+- 设计依据与问题：无独立外观；核对 basename、真实 href、修饰键和外链、相对路径、历史恢复与当前位置语义。
+- 修正与验证：统一检查中的 lint、类型及 18 项测试通过；无需主题样式。
+- 截图与产物证据：无独立主题界面；行为检查记录于统一检查与包 check 日志。
+- 审查结论：无独立视觉，已核对适用行为、类型和工作区契约；视觉矩阵不适用。
+
+### rc-component-preview
+
+- 来源：components/rc-component-preview/src、docs/index.mdx、docs/demos。
+- 现有矩阵：尺寸 medium；密度 compact / standard / comfortable；状态 default / expanded / dark-source / source-focus / dark-source-focus / copy-success / copy-error / focus-visible / external / loading；另验语言兼容与草稿/焦点保留。
+- 已登记附加检查：无。
+- 设计依据与问题：代码语法颜色使用成对语义角色；常用语言走轻量入口，其他语言保留完整兼容加载。明确 busy/语言就绪、滚动和焦点保留。
+- 修正与验证：固定Linux最新有效矩阵单元：chromium 180/180，firefox 30/30，webkit 30/30；适用环境 66/66。已覆盖声明的矩阵与环境。公共包检查与最终统一验证分别记录，早期失败保留于runs.json。
+- 首轮截图：[三体系 × 明暗默认示例](component-theme-audit/inventory/rc-component-preview-sheet.png)；原图 SHA 与冻结标识见 [inventory.json](component-theme-audit/inventory.json)。仅默认可见区域，弹层、长页、异步完成和状态矩阵另验。
+- 首轮结论：默认可见区域已逐张复核；具体状态、尺寸、环境与当前结论见本节验证以及 visual-review.json，分别记录自动断言和人工查看范围。
+- 逐项截图：[最新已查看联系图](component-theme-audit/states/rc-component-preview-2b3ccc6031-matrix-dark-source-focus-1.png)；[人工复核范围与图片SHA](component-theme-audit/visual-review.json)、[冻结运行与原始报告SHA](component-theme-audit/runs.json)、[矩阵覆盖](component-theme-audit/coverage.json)。六配置及具体状态以索引为准，不把代表截图等同全部尺寸的人工像素评审。
+- 审查结论：工作区中的组件修正已按三体系明暗、声明矩阵与适用环境验证；具体行为及截图见本节。
+
+## 专项发现与最终复验
+
+以下保留问题发现及早期验证过程；当前矩阵、最终回归、实际查看范围与源码/产物指纹分别以逐包明细、runs.json、visual-review.json 和 site-review.json 为准。
+
+### 配置示例 iframe 表面
+
+- 原图：ConfigProvider 联系图的深色 iframe 下方露出浅色背景。
+- 修改：仅 iframe 内部主题容器填满其可视高度，内容从顶部排列；不改 ConfigProvider 公共行为。
+- 验证：包 check 通过；固定 Linux Chromium / Firefox / WebKit 的 18 项跨文档回归通过，包含 iframe 底部实际命中点；完整矩阵 366 项通过。
+
+### ComponentPreview 源码对比度
+
+- 原因：第三方 One Light 小字号高亮颜色直接用于本库代码表面，字符串约 3.05:1，函数与属性约 3.85～3.90:1。
+- 修改：L2 新增独立代码表面的 7 类语法角色，L3 消费；源码高亮按 codeTheme 静态选择，继续独立于舞台主题。无依赖或版本调整。
+- 依据：[WCAG 2.2 SC 1.4.3](https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html)，2026-11-01。开发支持展示没有三体系同名标准组件，沿用各自容器和 Button 操作。
+- 验证：令牌契约及包 check 通过；固定 Linux 的 63 项预检通过，覆盖明暗源码、源码区真实 Tab/滚动焦点与三体系草稿／焦点保留。跨三引擎实际文字对比度最低 4.59:1，最终完整组件矩阵及环境已通过，逐项范围见上方明细。
+- Changeset：readable-source-theme-pairs。
+
+### Slider 指针与小步长
+
+- 复现：右键／中键会修改数值并开始拖动；1e-7 步长被误判为整数精度，产生无效值。新增两项回归在修复前失败。
+- 修改：仅主按钮开始拖动；精度解析纳入十进制指数。横向滚轮与 Ctrl+滚轮交还浏览器。原生事件与 onValueChange 的 reason 协议保持稳定。基础示例数字输入补主题、间距、焦点与粗指针最小尺寸。
+- 依据：[Material Web Sliders](https://material-web.dev/components/slider/)、[Apple Sliders](https://developer.apple.com/design/human-interface-guidelines/sliders)、固定 shadcn 参考沿用产品清单；2026-11-01 复核范围与步进行为，几何不变。
+- 验证：修复后包 check 通过，35 项测试（含 33 项 Slider 行为测试）；新增科学记数状态矩阵、非主按钮及横向滚轮、联动数字输入与 320px 触控回归，冻结 Linux 完整矩阵 443 项通过。
+- Changeset：precise-slider-pointer-input。
+
+### Avatar 示例的边缘触摸
+
+- 固定 Linux 的六配置触控检查均在横向小尺寸右边缘失败；点命中检查成功，真实 pointer/touch/click 却被 Chromium 转向旁边的展示头像。Windows 的同一检查通过，不能替代 Linux 结果。
+- 使用公共组间距为扩展命中层留出实际空隙；保留四边真实触摸，并新增与相邻内容的几何间隔检查。组件接口、头像视觉尺寸与 Button 能力不变。
+- 依据：Apple Layout 的分组、对齐和可适配布局原则；项目 48px 触控契约。Changeset：clear-avatar-touch-spacing。
+
+### Breadcrumbs 最小折叠
+
+- 新增 maxCount=2 回归在修复前失败，当前位置及 aria-current 丢失。
+- 尾部至少保留一个位置，仅两项时显示省略号与非交互的当前页；其他已有折叠规则不变。三密度矩阵新增 collapsed-minimum，Firefox/WebKit 同时纳入关键子集。
+- 依据：[WAI-ARIA Breadcrumb](https://www.w3.org/WAI/ARIA/apg/patterns/breadcrumb/) 的层级与当前位置语义。包 check 11 项通过；最终三引擎矩阵与附加交互复验已通过。Changeset：retain-minimal-breadcrumb-location。
+
+### Card 内部键盘动作
+
+- `extra` / `actions` 内的原生按钮按键先冒泡到卡片，旧处理会阻止子按钮默认激活并触发整卡动作；新增失败回归确认。
+- 整卡仅处理自身焦点的 Enter / Space，后代与已消费的事件保留原语义。公共 clickable、extra、actions 和事件接口不变。
+- 包 check 的 21 项单元、12 项布局、6 项自然动效检查通过；真实示例在本机六配置下验证 Enter / Space、主题切换焦点与卡片自身激活。最终固定 Linux 全矩阵与相关原生交互已通过。
+- Changeset：independent-card-keyboard-actions。
+
+### Menu 悬停与点击衔接
+
+- 冻结矩阵中 Firefox 的水平、收起浮层 12 项失败；本机真实悬停后点击也确认子菜单会立即关闭。
+- 共享展开逻辑记录悬停来源，首次点击保留已经展开的菜单，后续点击、默认展开和键盘切换沿用原语义。点击事件回调仍然执行，不引入计时门槛。
+- 新增单元回归在修正前两模式均失败；修正后包 check 通过，Chromium / WebKit 的真实悬停、点击、键盘与配置保留 50 项通过。最终固定 Linux 完整矩阵与环境已通过。
+- Changeset：stable-menu-hover-activation。
+
+### Notification 容器宽度与演示操作
+
+- 320px 窗口下，网格中卡片的固定宽度撑开可用空间；实测改为同时约束首选宽度后，区块 scrollWidth 从 320px 回到 clientWidth 302px。
+- 宽度随容器自然收缩，保留公开宽度令牌；持久浮层示例移到右下方，避免遮挡自身更新、关闭操作。触控检查改为真实 48px 命中层及边缘点击，配置切换另核对原草稿焦点。
+- 包 check 通过，Chromium / WebKit 的窄屏、横屏、触控、浮层队列与焦点保留 60 项通过；最终固定 Linux 完整矩阵与环境已通过。
+- Changeset：bounded-notification-width。
+
+### Message 演示反馈语义
+
+- 六配置的错误、加载截图仍显示“工作区已保存”，状态图标与文字相互冲突。
+- 成功、警告、错误、加载分别描述当前结果或进度；保留组件事件与外观。已有矩阵用例直接核对对应文案，最终六配置状态截图已复核。
+- Changeset：consistent-message-demo-feedback。
+
+### 视觉检查测量修正
+
+- Segmented 的透明触控层超出视觉高度是预期行为；通用内容检查将它计为文字溢出。仅其可见溢出的容器允许垂直绘制，文字槽仍按实际字形、裁切与名称检查，新增上下命中边缘的真实点击。
+- Masonry 插入后等待全部新项完成显露再测量布局，避免对尚未测量、隐藏的新项读取坐标；Chromium / WebKit 的 24 项插入回归通过。
+- Dropdown 的浮层外关闭使用真实 Tab 离开，避免点击被浮层正常遮挡的控件；Empty / Dropdown / Notification 的触控均测量实际扩展命中层，不把图标视觉尺寸当作命中尺寸。
+
+### 参考与截图索引
+
+- [固定 shadcn 参考核对](component-theme-audit/references.json)：记录逐包关联、正文摘要 SHA 与设计边界；不引入参考实现的依赖，也不把项目扩展称为上游原生组件。
+- 源码区已复核：[浅色](component-theme-audit/changes/source-light.png)、[深色](component-theme-audit/changes/source-dark.png)、[浅色键盘焦点](component-theme-audit/changes/source-light-focus.png)、[深色键盘焦点](component-theme-audit/changes/source-dark-focus.png)。完整输入身份与矩阵报告按冻结运行归档。
+- 新增公共 768×320 横屏触控环境；该补充与最新修正已在独立冻结 Linux 批次覆盖；未用旧窄屏截图替代。
+- [逐包状态截图复核](component-theme-audit/visual-review.json)：保留已查看的代表状态、图片 SHA 与对应冻结运行。自动矩阵断言、截图复核、维护者批准和历史像素比较分别记录。
+
+### 浮动标签、分页搜索与系统色示例
+
+- 2026-11-02：窄数字字段原图复核发现MD3标签与单位重叠，发布CSS测试先复现8项失败，随后按最近配置限制实际输入区。完整名称、ref清理、原生输入节点、草稿、选区与焦点保持。
+- 同时启用分页与搜索时，TablePro的分页分支漏掉搜索栏，旧完整矩阵复现。新增三种分页位置及主题/语言保持回归；最终新构建1071项通过，旧批及失败原图保留。
+- Theme和语义令牌的系统高对比度示例出现HighlightText与额外Canvas文字底板冲突。仅调整已不可读的品牌示例块，仍使用用户的系统颜色配对；依据[CSS颜色调整规范](https://www.w3.org/TR/css-color-adjust-1/#forced-color-adjust-prop)，不全局关闭强制颜色适配。
+- 早期联系图缩放造成的裁切经原图和实际浏览器核对为汇总图问题；重建联系图，不据此修改正常页面。
+- 新增changeset：fit-floating-labels-around-decorations、keep-search-with-paginated-tables、clarify-system-highlight-demos。
+
+### PDF 面板、原生配置与页面缩略图
+
+- 实际浏览器诊断：1440收至768时，原属性输入仍连接、值保留，但activeElement变为BODY；诊断原始值另存于[pdf-panel-before.json](component-theme-audit/pdf-panel-before.json)，不作为冻结像素候选。
+- 面板收起前在实际Document/ShadowRoot中找到当前焦点，返回对应入口；入口不可用时回到画布。Firefox可能不保留原生focus-visible启发式，局部恢复轮廓在blur/指针使用后清除，并测量真实绘制的outline。公共Button变量允许外部覆盖，未设置时采用组件内现有焦点宽度、间距与语义颜色。
+- 固定Firefox/WebKit实测旧独立示例仅移除nonce属性后仍读出旧值；示例改为先显式清空原生IDL property，再移除属性。标准预期见[HTML nonce属性](https://html.spec.whatwg.org/multipage/urls-and-fetching.html#attr-nonce)，保留真实浏览器差异证据。
+- 强制颜色截图发现MD3未选缩略图因默认按钮形状显出胶囊描边；组合组件显式采用公开square形状，保持选中/未选中的矩形圆角和虚拟行尺寸。补验比较实际圆角与页面尺寸，并复核各主题截图。
+- 专业域验证实际字体编辑、图片替换、绘制、跨页区域、保存/提取/重开与独立产物，不用模拟像素替代。最终完整公开构建966项通过，包含专业领域与独立产物；旧超时、失败和后续精确子集分别保留。
+- 本批patch changeset：retain-pdf-panel-focus。
+
+
+### 原生画布编辑层与实际合成
+
+- 三行草稿和选区保留后，Chromium截图中的下方图形消失，GPU读回仍有像素。最小原生按钮/画布、整窗口与局部截图、自然帧及叠放诊断分别保留；没有仅凭GPU数据将其判为通过。
+- 单独裁切不透明背景的首次修正仍有4项真实显示回归失败。最终由局部容器以同一语义角色绘制CSS背景图像，原生textarea保持透明与自动系统色适配；输入节点、草稿、选区和焦点不变，超过画布高度后保留原生滚动。
+- 最终完整构建228项通过；另24项正常三引擎/Chromium系统色编辑回归通过。每项比较实际合成截图与GPU露出区域，并测量编辑表面的实际颜色；最低文字对比度12.02:1，仅代表该场景。六配置多行、普通编辑/提交、系统色均已人工复核。
+- 包check通过，新增行为沿用patch changeset readable-canvas-inline-drafts。源码与生成文档同步，全部原失败保留。
+
+### 站点布局观察与最终页面复核
+
+- WebKit在主题/布局切换时复现ResizeObserver交付中的祖先布局更新。仅将站点目录布局状态合并到下一自然帧提交，卸载时取消；不筛除运行错误，也不重建输入。
+- 新增回归验证观察交付时不立即改布局、下一帧保持原输入与焦点；站点lint、类型与143项测试通过。最终生产构建后的7项WebKit预检及370项三引擎页面交互全部通过，输入、导航、搜索、重试、主题、横屏、触控及表格LTR/RTL焦点分别验收。
+- [最终站点截图与冻结指纹](component-theme-audit/site-review.json)记录十组六配置联系图，覆盖1440px首页/目录/组件/教程、320/768/1440任务区域及320px导航/搜索/外观菜单。逐张查看的60张截图未发现新的站点样式问题。

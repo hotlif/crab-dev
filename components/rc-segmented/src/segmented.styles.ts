@@ -95,7 +95,7 @@ export const segmentStyle = css`
         transition: opacity ${token.item.transition};
     }
     &:hover:not(:has(input:disabled))::before { opacity: ${token.item['state-layer']['opacity-hover']}; }
-    &:has(input:focus-visible)::before { opacity: ${token.item['state-layer']['opacity-focus']}; }
+    &:has(input:is(:focus-visible, [data-keyboard-focus]:focus))::before { opacity: ${token.item['state-layer']['opacity-focus']}; }
     &:active:not(:has(input:disabled))::before { opacity: ${token.item['state-layer']['opacity-active']}; }
 
     &:hover:not(:has(input:disabled)):not([data-selected]) {
@@ -103,7 +103,7 @@ export const segmentStyle = css`
     }
 
     /* 键盘焦点意符：焦点落在隐藏 input 上时高亮所属分段（forced-colors 下 outline 保留） */
-    &:has(input:focus-visible) {
+    &:has(input:is(:focus-visible, [data-keyboard-focus]:focus)) {
         outline: ${token.item['outline-width-focus']} solid ${token.item['outline-color-focus']};
         outline-offset: ${token.item['outline-offset-focus']};
         z-index: 2;
@@ -120,8 +120,8 @@ export const segmentStyle = css`
         &:not(:last-child) { border-color: ButtonText; }
         &[data-selected] { color: HighlightText; background: Highlight; }
         &:has(input:disabled) { color: GrayText; border-color: GrayText; }
-        &:has(input:focus-visible) { outline-color: Highlight; }
-        &[data-selected]:has(input:focus-visible) { outline-color: HighlightText; }
+        &:has(input:is(:focus-visible, [data-keyboard-focus]:focus)) { outline-color: Highlight; }
+        &[data-selected]:has(input:is(:focus-visible, [data-keyboard-focus]:focus)) { outline-color: HighlightText; }
         &::before { display: none; }
         }
     }

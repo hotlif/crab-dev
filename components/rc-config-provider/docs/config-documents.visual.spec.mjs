@@ -19,6 +19,12 @@ for (const config of configurations) {
         const iframeBoundary = frame.getByRole('region', { name: 'iframe boundary', exact: true });
         const shadowBoundary = scene.getByRole('region', { name: 'Shadow boundary', exact: true });
         await expect(iframeBoundary).toBeVisible(); await expect(shadowBoundary).toBeVisible();
+        // The nested theme must paint the whole iframe, including the space
+        // below its editor, rather than exposing the host document's surface.
+        expect(await iframeBoundary.evaluate(node => {
+            const view = node.ownerDocument.defaultView;
+            return node.contains(node.ownerDocument.elementFromPoint(view.innerWidth / 2, view.innerHeight - 2));
+        })).toBe(true);
         const inputs = [outer, iframeBoundary.getByRole('textbox'), shadowBoundary.getByRole('textbox')];
         const originals = await Promise.all(inputs.map(input => input.elementHandle()));
         for (const [index, input] of inputs.entries()) {

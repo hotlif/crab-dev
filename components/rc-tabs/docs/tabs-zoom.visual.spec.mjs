@@ -1,5 +1,8 @@
 import { zoomTest, expect, configurations, openDemo, readVisualSpec, settleFiniteAnimations, captureZoom } from '../../../test/visual/component-fixture.mjs';
 
+// Headed native zoom shares a display; retain independent, sequential cases.
+zoomTest.describe.configure({ mode: 'default' });
+
 const spec = await readVisualSpec(import.meta.url);
 for (const config of configurations) zoomTest(`${config.designSystem} ${config.colorMode} Tabs at real 200%`, {
     tag: ['@rc-tabs', '@environment', '@chromium-only'],

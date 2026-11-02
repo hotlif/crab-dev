@@ -1,6 +1,8 @@
 import { test, expect, configurations, environmentCases, applyEnvironment, captureVisual, settleFiniteAnimations } from '../../../test/visual/component-fixture.mjs';
 import { sitePages, openSite, readySitePage, article, navigateFromSite, appearanceTrigger, openAppearance, assertDocumentWidth } from './site-visual-support.mjs';
 
+// Real page navigation, keyboard menus and search run as one complete journey.
+test.describe.configure({ timeout: 120_000 });
 const home=sitePages.find(page=>page.id==='home');
 const catalog=sitePages.find(page=>page.id==='catalog');
 const component=sitePages.find(page=>page.id==='component');
@@ -33,6 +35,18 @@ for(const config of configurations) for(const environment of viewports) {
         }
         await navigateFromSite(page,'组件','组件目录');
         await readySitePage(page,catalog,config);
+        if(environment.id==='desktop') {
+            const sidebar=page.locator('.crab-docs-sidebar');
+            const base=sidebar.getByRole('button',{name:'基础组件',exact:true});
+            if(await base.getAttribute('aria-expanded')!=='true') await base.click();
+            await settleFiniteAnimations(page);
+            const geometry=await sidebar.evaluate(node=>{
+                const scroll=node.querySelector('.crab-docs-sidebar-scroll');
+                return {bottom:node.getBoundingClientRect().bottom,viewport:globalThis.innerHeight,scroll:scroll.scrollHeight,client:scroll.clientHeight};
+            });
+            expect(geometry.bottom).toBeLessThanOrEqual(geometry.viewport);
+            expect(geometry.scroll).toBeGreaterThan(geometry.client);
+        }
         await article(page).getByRole('link',{name:'LineEdit 单行输入框',exact:true}).click();
         await readySitePage(page,component,config);
         await expect(page.getByRole('navigation',{name:'组件快捷入口',exact:true})).toBeVisible();

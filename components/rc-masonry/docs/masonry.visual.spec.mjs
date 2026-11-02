@@ -36,15 +36,12 @@ for (const config of configurations)
                         await expect(scene.locator('[data-masonry-card]')).toHaveCount(
                             state === 'empty' ? 0 : state === 'inserted' ? 10 : 8,
                         );
-                        if (state !== 'empty')
-                            await expect
-                                .poll(() =>
-                                    scene
-                                        .locator('[data-masonry-card]')
-                                        .first()
-                                        .evaluate((node) => node.getBoundingClientRect().width),
-                                )
-                                .toBeGreaterThan(0);
+                        // Inserted items stay hidden until ResizeObserver has
+                        // measured and placed them. Existing first-item width
+                        // alone cannot prove that the new items are ready.
+                        for (const card of await scene.locator('[data-masonry-card]').all()) {
+                            await expect(card).toBeVisible();
+                        }
                         await settleFiniteAnimations(page);
                         const boxes = await scene.locator('[data-masonry-card]').evaluateAll((nodes) =>
                             nodes.map((node) => {

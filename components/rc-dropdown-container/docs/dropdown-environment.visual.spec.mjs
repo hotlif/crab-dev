@@ -6,7 +6,14 @@ for (const environment of environmentCases) test.describe(environment.id, () => 
     for (const config of configurations) test(`${config.designSystem} ${config.colorMode} ${environment.id}`, { tag: ["@rc-dropdown-container", "@environment"], annotation: { type: "environment", description: JSON.stringify({ id: environment.id, ...config }) } }, async ({ page, browserName, previewOrigin }, info) => {
         await applyEnvironment(page, environment);
         await openDemo(page, previewOrigin, "rc-dropdown-container", spec.demo, { ...config, ...environment.config });
-        const trigger = page.getByRole("button", { name: "打开验收浮层", exact: true }); if (environment.hasTouch) { expect((await trigger.boundingBox()).height).toBeGreaterThanOrEqual(44); await trigger.tap(); } else await trigger.click();
+        const trigger = page.getByRole("button", { name: "打开验收浮层", exact: true });
+        if (environment.hasTouch) {
+            const bounds = await trigger.locator('[data-button-part="touch-target"]').boundingBox();
+            expect(bounds.height).toBeGreaterThanOrEqual(48); expect(bounds.width).toBeGreaterThanOrEqual(48);
+            const point = { x: bounds.x + bounds.width / 2, y: bounds.y + 1 };
+            expect(await trigger.evaluate((node, point) => node.ownerDocument.elementFromPoint(point.x, point.y)?.closest('button') === node, point)).toBe(true);
+            await page.touchscreen.tap(point.x, point.y);
+        } else await trigger.click();
         const popup = page.getByRole("dialog", { name: "浮层内容" }); await expect(popup).toBeVisible(); const rect = await popup.boundingBox(); expect(rect.x).toBeGreaterThanOrEqual(0); expect(rect.x + rect.width).toBeLessThanOrEqual(page.viewportSize().width); const input = popup.getByRole("textbox", { name: "浮层草稿" }); await input.fill("保持草稿 Draft");
         await settleFiniteAnimations(page); await captureVisual(page, `${config.designSystem}-${config.colorMode}-${environment.id}.png`, info, browserName);
         await input.press("Escape"); await expect(popup).not.toBeVisible(); await expect(trigger).toBeFocused();

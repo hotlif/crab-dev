@@ -7,7 +7,7 @@ import { useState } from 'react';
 import { css } from '@crab-dev/css';
 import token from '@crab-dev/rc-token-semantic';
 import Button from '@crab-dev/rc-button';
-import Card from '../../src/index.js';
+import Card from '@crab-dev/rc-card';
 
 const cardStyle = css`max-width: calc(${token.size[64]} * 5 + ${token.size[40]});`;
 

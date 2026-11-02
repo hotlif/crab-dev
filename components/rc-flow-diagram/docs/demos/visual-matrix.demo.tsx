@@ -7,15 +7,33 @@ export const meta = { title: '流程工作区状态矩阵', description: '真实
 const nodes: ElkLayoutNode[] = [{ id: 'request', width: 148, height: 56 }, { id: 'review', width: 148, height: 56 }, { id: 'complete', width: 148, height: 56 }];
 const edges: ElkLayoutEdge[] = [{ id: 'to-review', source: 'request', target: 'review' }, { id: 'to-complete', source: 'review', target: 'complete' }];
 const sceneStyle = css`padding: ${token.space['card-padding']}; background: ${token.color.surface.content}; max-inline-size: 100%;`;
-const scrollStyle = css`overflow: auto; max-inline-size: 100%; &:focus-visible { outline: 2px solid ${token.color.focus.ring}; outline-offset: -2px; }`;
-const rowStyle = css`display: flex; flex-wrap: wrap; gap: ${token.space['component-gap']}; margin-block: ${token.space['component-gap']};`;
-const nodeControlStyle = css`border: 1px solid ${token.color.border.default}; background: ${token.color.surface.content}; color: ${token.color.text.primary}; padding: ${token.space['component-gap']}; border-radius: ${token.shape.control}; font: inherit; &[aria-pressed='true'] { background: ${token.color.selection.background}; color: ${token.color.selection.foreground}; } &:focus-visible { outline: 2px solid ${token.color.focus.ring}; } @media (pointer: coarse) { min-inline-size: ${token.size['touch-target']}; min-block-size: ${token.size['touch-target']}; }`;
-const statusStyle = css`margin: 0; color: ${token.color.text.secondary};`;
+// Match the actual 640px graph when a shrink-to-fit preview needs intrinsic size.
+// The local scroll viewport still shrinks to the available document width.
+const scrollStyle = css`container-type: inline-size; contain-intrinsic-inline-size: 640px; overflow: auto; max-inline-size: 100%; &:focus-visible { outline: 2px solid ${token.color.focus.ring}; outline-offset: -2px; }`;
+const rowStyle = css`display: flex; flex-wrap: wrap; inline-size: min(100%, 100cqi); gap: ${token.space['component-gap']}; margin-block: ${token.space['component-gap']};`;
+// The selected state already pairs system Highlight/HighlightText. Prevent an
+// additional UA text backplate from obscuring that pair in forced colors.
+const nodeControlStyle = css`border: 1px solid ${token.color.border.default}; background: ${token.color.surface.content}; color: ${token.color.text.primary}; padding: ${token.space['component-gap']}; border-radius: ${token.shape.control}; font: inherit; &[aria-pressed='true'] { background: ${token.color.selection.background}; color: ${token.color.selection.foreground}; } &:focus-visible { outline: 2px solid ${token.color.focus.ring}; } @media (forced-colors: active) { &[aria-pressed='true'] { forced-color-adjust: none; } } @media (pointer: coarse) { min-inline-size: ${token.size['touch-target']}; min-block-size: ${token.size['touch-target']}; }`;
+const statusStyle = css`display: block; inline-size: min(100%, 100cqi); min-inline-size: 0; margin: 0; color: ${token.color.text.secondary}; overflow-wrap: anywhere;`;
+const errorDetailsStyle = css`
+    box-sizing: border-box; inline-size: min(100%, 100cqi); min-inline-size: 0; max-inline-size: 100%; padding: ${token.space['component-gap']};
+    border: 1px solid ${token.color.border.default}; border-radius: ${token.shape.control};
+    color: ${token.color.text.primary}; background: ${token.color.surface.content}; overflow-wrap: anywhere;
+    & summary { cursor: pointer; }
+    & summary:focus-visible { outline: 2px solid ${token.color.focus.ring}; outline-offset: 2px; }
+    & p { margin-block-end: 0; }
+    @media (pointer: coarse) { & summary { box-sizing: border-box; min-block-size: ${token.size['touch-target']}; padding-block: ${token.space['component-gap']}; } }
+`;
 
 function LayoutStatus({ context }: { context: FlowDiagramRenderContext }) {
-    return <output className={statusStyle} aria-label="布局状态" data-layout={context.loading ? 'loading' : context.error ? 'error' : 'ready'} data-node-count={Object.keys(context.nodeRects).length} data-node-rects={JSON.stringify(context.nodeRects)} data-routes={JSON.stringify(context.routes)} data-label-color={context.palette.nodeLabel} data-zoom={context.zoom}>
-        {context.error ? `ELK: ${context.error.message}` : context.loading ? 'ELK loading' : `ELK ready · ${Object.keys(context.nodeRects).length} nodes`}
-    </output>;
+    return <>
+        <output className={statusStyle} role={context.error ? 'alert' : undefined} aria-label="布局状态" data-layout={context.loading ? 'loading' : context.error ? 'error' : 'ready'} data-node-count={Object.keys(context.nodeRects).length} data-node-rects={JSON.stringify(context.nodeRects)} data-routes={JSON.stringify(context.routes)} data-label-color={context.palette.nodeLabel} data-zoom={context.zoom}>
+            {context.error ? '布局计算失败，已保留上次画面。请检查布局配置。' : context.loading ? '正在计算布局…' : Object.keys(context.nodeRects).length ? `ELK ready · ${Object.keys(context.nodeRects).length} nodes` : '暂无节点。切换上方状态可查看示例流程。'}
+        </output>
+        {context.error && <details className={errorDetailsStyle} data-layout-error>
+            <summary>查看布局错误详情</summary><p>{context.error.message}</p>
+        </details>}
+    </>;
 }
 
 export default function VisualMatrixDemo() {
