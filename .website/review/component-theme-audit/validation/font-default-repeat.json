@@ -1,0 +1,1709 @@
+{
+  "config": {
+    "argv": [
+      "/usr/bin/node",
+      "/workspace/.yarn/unplugged/@playwright-test-npm-1.64.1-959c781428/node_modules/@playwright/test/cli.js",
+      "test",
+      "--config",
+      "test/visual/playwright.config.mjs",
+      "components/rc-spin/docs/spin-motion.visual.spec.mjs",
+      "--grep",
+      "Spin (apple|shadcn) light (medium|large) custom",
+      "--project",
+      "chromium",
+      "--repeat-each=4"
+    ],
+    "configFile": "/workspace/test/visual/playwright.config.mjs",
+    "rootDir": "/workspace",
+    "failOnFlakyTests": false,
+    "forbidOnly": true,
+    "fullyParallel": true,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 35,
+    "metadata": {
+      "actualWorkers": 4
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "/workspace/.cache/visual/custom-pixel-repro-20261102/results",
+        "repeatEach": 4,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 4
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "/workspace",
+        "testIgnore": [
+          "**/.tmp/**",
+          "**/.yarn/**",
+          "**/.cache/**",
+          "**/.website/review/**",
+          "**/.reports/**"
+        ],
+        "testMatch": [
+          "test/visual/*.visual.spec.mjs",
+          "components/*/docs/*.visual.spec.mjs",
+          ".website/docs/site/*.visual.spec.mjs"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "/workspace/.cache/visual/custom-pixel-repro-20261102/results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 4
+        },
+        "id": "firefox",
+        "name": "firefox",
+        "testDir": "/workspace",
+        "testIgnore": [
+          "**/.tmp/**",
+          "**/.yarn/**",
+          "**/.cache/**",
+          "**/.website/review/**",
+          "**/.reports/**"
+        ],
+        "testMatch": [
+          "test/visual/*.visual.spec.mjs",
+          "components/*/docs/*.visual.spec.mjs",
+          ".website/docs/site/*.visual.spec.mjs"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "/workspace/.cache/visual/custom-pixel-repro-20261102/results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 4
+        },
+        "id": "webkit",
+        "name": "webkit",
+        "testDir": "/workspace",
+        "testIgnore": [
+          "**/.tmp/**",
+          "**/.yarn/**",
+          "**/.cache/**",
+          "**/.website/review/**",
+          "**/.reports/**"
+        ],
+        "testMatch": [
+          "test/visual/*.visual.spec.mjs",
+          "components/*/docs/*.visual.spec.mjs",
+          ".website/docs/site/*.visual.spec.mjs"
+        ],
+        "timeout": 45000
+      }
+    ],
+    "filteredProjects": [
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "/workspace/.cache/visual/custom-pixel-repro-20261102/results",
+        "repeatEach": 4,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 4
+        },
+        "name": "chromium",
+        "testDir": "/workspace",
+        "snapshotDir": "/workspace",
+        "testIgnore": [
+          "**/.tmp/**",
+          "**/.yarn/**",
+          "**/.cache/**",
+          "**/.website/review/**",
+          "**/.reports/**"
+        ],
+        "testMatch": [
+          "test/visual/*.visual.spec.mjs",
+          "components/*/docs/*.visual.spec.mjs",
+          ".website/docs/site/*.visual.spec.mjs"
+        ],
+        "timeout": 45000,
+        "use": {
+          "viewport": {
+            "width": 1280,
+            "height": 720
+          },
+          "locale": "zh-CN",
+          "timezoneId": "Asia/Shanghai",
+          "reducedMotion": "no-preference",
+          "trace": "retain-on-failure",
+          "screenshot": "only-on-failure",
+          "video": "off",
+          "browserName": "chromium",
+          "channel": "chromium",
+          "launchOptions": {
+            "timeout": 30000
+          }
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": "chromium"
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "html",
+        {
+          "outputFolder": "/workspace/.cache/visual/custom-pixel-repro-20261102/report",
+          "open": "never"
+        }
+      ],
+      [
+        "json",
+        {
+          "outputFile": "/workspace/.cache/visual/custom-pixel-repro-20261102/results.json"
+        }
+      ],
+      [
+        "/workspace/test/visual/matrix-reporter.mjs",
+        null
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "none",
+    "updateSourceMethod": "patch",
+    "version": "1.64.1",
+    "workers": 4,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "components/rc-spin/docs/spin-motion.visual.spec.mjs",
+      "file": "components/rc-spin/docs/spin-motion.visual.spec.mjs",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "Spin apple light medium custom",
+          "ok": false,
+          "tags": [
+            "rc-spin",
+            "matrix",
+            "motion",
+            "chromium-only"
+          ],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [
+                {
+                  "type": "matrix",
+                  "description": "{\"designSystem\":\"apple\",\"colorMode\":\"light\",\"size\":\"medium\",\"density\":\"standard\",\"state\":\"custom\"}",
+                  "location": {
+                    "file": "/workspace/components/rc-spin/docs/spin-motion.visual.spec.mjs",
+                    "line": 9,
+                    "column": 5
+                  }
+                }
+              ],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 4301,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveScreenshot\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('[data-visual-frame]')\n  8 pixels (ratio 0.01 of all image pixels) are different.\n\n  Snapshot: apple-light-medium-custom.png\n\nCall log:\n\u001b[2m  - Expect \"toHaveScreenshot(apple-light-medium-custom.png)\" locator('[data-visual-frame]') with timeout 10000ms\u001b[22m\n\u001b[2m    - verifying given screenshot expectation\u001b[22m\n\u001b[2m  - waiting for locator('[data-visual-frame]')\u001b[22m\n\u001b[2m    - locator resolved to <div data-visual-frame=\"true\" class=\"samples_36e7ffec2eb5\">…</div>\u001b[22m\n\u001b[2m  - taking element screenshot\u001b[22m\n\u001b[2m  - waiting for fonts to load...\u001b[22m\n\u001b[2m  - fonts loaded\u001b[22m\n\u001b[2m  - attempting scroll into view action\u001b[22m\n\u001b[2m    - waiting for element to be stable\u001b[22m\n\u001b[2m  - 8 pixels (ratio 0.01 of all image pixels) are different.\u001b[22m\n\u001b[2m  - waiting 100ms before taking screenshot\u001b[22m\n\u001b[2m  - waiting for locator('[data-visual-frame]')\u001b[22m\n\u001b[2m    - locator resolved to <div data-visual-frame=\"true\" class=\"samples_36e7ffec2eb5\">…</div>\u001b[22m\n\u001b[2m  - taking element screenshot\u001b[22m\n\u001b[2m  - waiting for fonts to load...\u001b[22m\n\u001b[2m  - fonts loaded\u001b[22m\n\u001b[2m  - attempting scroll into view action\u001b[22m\n\u001b[2m    - waiting for element to be stable\u001b[22m\n\u001b[2m  - captured a stable screenshot\u001b[22m\n\u001b[2m  - 8 pixels (ratio 0.01 of all image pixels) are different.\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveScreenshot\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('[data-visual-frame]')\n  8 pixels (ratio 0.01 of all image pixels) are different.\n\n  Snapshot: apple-light-medium-custom.png\n\nCall log:\n\u001b[2m  - Expect \"toHaveScreenshot(apple-light-medium-custom.png)\" locator('[data-visual-frame]') with timeout 10000ms\u001b[22m\n\u001b[2m    - verifying given screenshot expectation\u001b[22m\n\u001b[2m  - waiting for locator('[data-visual-frame]')\u001b[22m\n\u001b[2m    - locator resolved to <div data-visual-frame=\"true\" class=\"samples_36e7ffec2eb5\">…</div>\u001b[22m\n\u001b[2m  - taking element screenshot\u001b[22m\n\u001b[2m  - waiting for fonts to load...\u001b[22m\n\u001b[2m  - fonts loaded\u001b[22m\n\u001b[2m  - attempting scroll into view action\u001b[22m\n\u001b[2m    - waiting for element to be stable\u001b[22m\n\u001b[2m  - 8 pixels (ratio 0.01 of all image pixels) are different.\u001b[22m\n\u001b[2m  - waiting 100ms before taking screenshot\u001b[22m\n\u001b[2m  - waiting for locator('[data-visual-frame]')\u001b[22m\n\u001b[2m    - locator resolved to <div data-visual-frame=\"true\" class=\"samples_36e7ffec2eb5\">…</div>\u001b[22m\n\u001b[2m  - taking element screenshot\u001b[22m\n\u001b[2m  - waiting for fonts to load...\u001b[22m\n\u001b[2m  - fonts loaded\u001b[22m\n\u001b[2m  - attempting scroll into view action\u001b[22m\n\u001b[2m    - waiting for element to be stable\u001b[22m\n\u001b[2m  - captured a stable screenshot\u001b[22m\n\u001b[2m  - 8 pixels (ratio 0.01 of all image pixels) are different.\u001b[22m\n\n    at captureVisual (/workspace/test/visual/component-fixture.mjs:40:30)\n    at /workspace/components/rc-spin/docs/spin-motion.visual.spec.mjs:38:13",
+                    "location": {
+                      "file": "/workspace/test/visual/component-fixture.mjs",
+                      "column": 30,
+                      "line": 40
+                    },
+                    "snippet": "   at test/visual/component-fixture.mjs:40\n\n  38 |     await attachSnapshotTarget(info, name);\n  39 |     if (process.env.CRAB_VISUAL_CANDIDATE !== \"1\") {\n> 40 |         await expect(target).toHaveScreenshot(name, { animations: \"allow\", caret: \"hide\" });\n     |                              ^\n  41 |     } else {\n  42 |         await info.attach(\"actual\", { body: await target.screenshot({ animations: \"allow\", caret: \"hide\" }), contentType: \"image/png\" });\n  43 |     }"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "/workspace/test/visual/component-fixture.mjs",
+                        "column": 30,
+                        "line": 40
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveScreenshot\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('[data-visual-frame]')\n  8 pixels (ratio 0.01 of all image pixels) are different.\n\n  Snapshot: apple-light-medium-custom.png\n\nCall log:\n\u001b[2m  - Expect \"toHaveScreenshot(apple-light-medium-custom.png)\" locator('[data-visual-frame]') with timeout 10000ms\u001b[22m\n\u001b[2m    - verifying given screenshot expectation\u001b[22m\n\u001b[2m  - waiting for locator('[data-visual-frame]')\u001b[22m\n\u001b[2m    - locator resolved to <div data-visual-frame=\"true\" class=\"samples_36e7ffec2eb5\">…</div>\u001b[22m\n\u001b[2m  - taking element screenshot\u001b[22m\n\u001b[2m  - waiting for fonts to load...\u001b[22m\n\u001b[2m  - fonts loaded\u001b[22m\n\u001b[2m  - attempting scroll into view action\u001b[22m\n\u001b[2m    - waiting for element to be stable\u001b[22m\n\u001b[2m  - 8 pixels (ratio 0.01 of all image pixels) are different.\u001b[22m\n\u001b[2m  - waiting 100ms before taking screenshot\u001b[22m\n\u001b[2m  - waiting for locator('[data-visual-frame]')\u001b[22m\n\u001b[2m    - locator resolved to <div data-visual-frame=\"true\" class=\"samples_36e7ffec2eb5\">…</div>\u001b[22m\n\u001b[2m  - taking element screenshot\u001b[22m\n\u001b[2m  - waiting for fonts to load...\u001b[22m\n\u001b[2m  - fonts loaded\u001b[22m\n\u001b[2m  - attempting scroll into view action\u001b[22m\n\u001b[2m    - waiting for element to be stable\u001b[22m\n\u001b[2m  - captured a stable screenshot\u001b[22m\n\u001b[2m  - 8 pixels (ratio 0.01 of all image pixels) are different.\u001b[22m\n\n\n   at test/visual/component-fixture.mjs:40\n\n  38 |     await attachSnapshotTarget(info, name);\n  39 |     if (process.env.CRAB_VISUAL_CANDIDATE !== \"1\") {\n> 40 |         await expect(target).toHaveScreenshot(name, { animations: \"allow\", caret: \"hide\" });\n     |                              ^\n  41 |     } else {\n  42 |         await info.attach(\"actual\", { body: await target.screenshot({ animations: \"allow\", caret: \"hide\" }), contentType: \"image/png\" });\n  43 |     }\n    at captureVisual (/workspace/test/visual/component-fixture.mjs:40:30)\n    at /workspace/components/rc-spin/docs/spin-motion.visual.spec.mjs:38:13"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-02T10:14:45.188Z",
+                  "annotations": [
+                    {
+                      "type": "matrix",
+                      "description": "{\"designSystem\":\"apple\",\"colorMode\":\"light\",\"size\":\"medium\",\"density\":\"standard\",\"state\":\"custom\"}",
+                      "location": {
+                        "file": "/workspace/components/rc-spin/docs/spin-motion.visual.spec.mjs",
+                        "line": 9,
+                        "column": 5
+                      }
+                    }
+                  ],
+                  "attachments": [
+                    {
+                      "name": "snapshot-target",
+                      "contentType": "application/json",
+                      "body": "eyJuYW1lIjoiYXBwbGUtbGlnaHQtbWVkaXVtLWN1c3RvbS5wbmciLCJwYXRoIjoidGVzdC92aXN1YWwvYmFzZWxpbmVzL2xpbnV4L2Nocm9taXVtL2NvbXBvbmVudHMvcmMtc3Bpbi9kb2NzL3NwaW4tbW90aW9uLnZpc3VhbC5zcGVjLm1qcy9hcHBsZS1saWdodC1tZWRpdW0tY3VzdG9tLnBuZyJ9"
+                    },
+                    {
+                      "name": "apple-light-medium-custom-expected.png",
+                      "contentType": "image/png",
+                      "path": "/workspace/test/visual/baselines/linux/chromium/components/rc-spin/docs/spin-motion.visual.spec.mjs/apple-light-medium-custom.png"
+                    },
+                    {
+                      "name": "apple-light-medium-custom-actual.png",
+                      "contentType": "image/png",
+                      "path": "/workspace/.cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-2995b-n-apple-light-medium-custom-chromium/apple-light-medium-custom-actual.png"
+                    },
+                    {
+                      "name": "apple-light-medium-custom-diff.png",
+                      "contentType": "image/png",
+                      "path": "/workspace/.cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-2995b-n-apple-light-medium-custom-chromium/apple-light-medium-custom-diff.png"
+                    },
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/workspace/.cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-2995b-n-apple-light-medium-custom-chromium/test-failed-1.png"
+                    },
+                    {
+                      "name": "candidate-inputs",
+                      "contentType": "application/json",
+                      "body": "ewogICJzb3VyY2UiOiAic2hhMjU2OmZiYWMzZDA5MDliZmNmNWJlMDJhYjBhNWMzNDBhN2Q4MDEyMTJjZThlNzkyNTYwMmY2MWM4ZDIxMjJiMzc0ZTYiLAogICJhcnRpZmFjdCI6ICJzaGEyNTY6YzVjNzQ0ODFlMmJkMzkzYjc5NjM5MWRjYWM2YjE1ZjZlZDc2YjhlM2RiYTNkODJlMGI2ZDNiYmY0ZDFmODNjMSIsCiAgInNpdGVCdWlsZCI6ICJzaGEyNTY6MWNkMzhjYzRjNjZjOWU2ZjE4MmNmZjY4NDIwODBjMzg0MTUwZWI5NjkzNmI1OGViNmY2Yzg5ZWIxMzlmYWFmNSIsCiAgImZpbGUiOiAiL3dvcmtzcGFjZS8uY2FjaGUvdmlzdWFsL2N1c3RvbS1waXhlbC1yZXByby0yMDI2MTEwMi9pbnB1dHMtd29ya2VyLTAuanNvbiIsCiAgInJlbmRlcmluZ0Vudmlyb25tZW50IjogewogICAgImZpbGUiOiAiL3dvcmtzcGFjZS8uY2FjaGUvdmlzdWFsL2N1c3RvbS1waXhlbC1yZXByby0yMDI2MTEwMi9yZW5kZXJpbmctd29ya2VyLTAuanNvbiIsCiAgICAiYnJvd3Nlck5hbWUiOiAiY2hyb21pdW0iLAogICAgImJyb3dzZXIiOiAiMTU2LjAuODA3OC40IgogIH0sCiAgImJyb3dzZXJOYW1lIjogImNocm9taXVtIiwKICAiYnJvd3NlciI6ICIxNTYuMC44MDc4LjQiLAogICJwbGF0Zm9ybSI6ICJsaW51eCIsCiAgImFyY2giOiAieDY0IiwKICAiaW1hZ2UiOiAibWNyLm1pY3Jvc29mdC5jb20vcGxheXdyaWdodDp2MS42NC4xLW5vYmxlQHNoYTI1Njo0N2I1MTBkZDkyMzBiZjBiOWJmYzliMjAxMDIyNDFlNTc3ZWE3YTk5MzM0YWI0YzNjYTE5ZjE5NzcwZTliOGVhIiwKICAibW9kZSI6ICJyZWdyZXNzaW9uIiwKICAidmlzdWFsUmV2aWV3IjogInBlbmRpbmciCn0="
+                    },
+                    {
+                      "name": "browser-console",
+                      "contentType": "application/json",
+                      "body": "W3sidGV4dCI6IkZhaWxlZCB0byBsb2FkIHJlc291cmNlOiB0aGUgc2VydmVyIHJlc3BvbmRlZCB3aXRoIGEgc3RhdHVzIG9mIDQwNCAoTm90IEZvdW5kKSIsImxvY2F0aW9uIjp7InVybCI6Imh0dHA6Ly8xMjcuMC4wLjE6NDQ3ODEvZmF2aWNvbi5pY28iLCJsaW5lIjowLCJjb2x1bW4iOjAsImxpbmVOdW1iZXIiOjAsImNvbHVtbk51bWJlciI6MH19XQ=="
+                    },
+                    {
+                      "name": "video",
+                      "contentType": "video/webm",
+                      "path": "/workspace/.cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-2995b-n-apple-light-medium-custom-chromium/video.webm"
+                    },
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/workspace/.cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-2995b-n-apple-light-medium-custom-chromium/test-failed-2.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "/workspace/.cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-2995b-n-apple-light-medium-custom-chromium/error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "/workspace/.cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-2995b-n-apple-light-medium-custom-chromium/trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "/workspace/test/visual/component-fixture.mjs",
+                    "column": 30,
+                    "line": 40
+                  }
+                }
+              ],
+              "status": "unexpected"
+            },
+            {
+              "timeout": 45000,
+              "annotations": [
+                {
+                  "type": "matrix",
+                  "description": "{\"designSystem\":\"apple\",\"colorMode\":\"light\",\"size\":\"medium\",\"density\":\"standard\",\"state\":\"custom\"}",
+                  "location": {
+                    "file": "/workspace/components/rc-spin/docs/spin-motion.visual.spec.mjs",
+                    "line": 9,
+                    "column": 5
+                  }
+                }
+              ],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 3,
+                  "status": "failed",
+                  "duration": 2452,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveScreenshot\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('[data-visual-frame]')\n  8 pixels (ratio 0.01 of all image pixels) are different.\n\n  Snapshot: apple-light-medium-custom.png\n\nCall log:\n\u001b[2m  - Expect \"toHaveScreenshot(apple-light-medium-custom.png)\" locator('[data-visual-frame]') with timeout 10000ms\u001b[22m\n\u001b[2m    - verifying given screenshot expectation\u001b[22m\n\u001b[2m  - waiting for locator('[data-visual-frame]')\u001b[22m\n\u001b[2m    - locator resolved to <div data-visual-frame=\"true\" class=\"samples_36e7ffec2eb5\">…</div>\u001b[22m\n\u001b[2m  - taking element screenshot\u001b[22m\n\u001b[2m  - waiting for fonts to load...\u001b[22m\n\u001b[2m  - fonts loaded\u001b[22m\n\u001b[2m  - attempting scroll into view action\u001b[22m\n\u001b[2m    - waiting for element to be stable\u001b[22m\n\u001b[2m  - 8 pixels (ratio 0.01 of all image pixels) are different.\u001b[22m\n\u001b[2m  - waiting 100ms before taking screenshot\u001b[22m\n\u001b[2m  - waiting for locator('[data-visual-frame]')\u001b[22m\n\u001b[2m    - locator resolved to <div data-visual-frame=\"true\" class=\"samples_36e7ffec2eb5\">…</div>\u001b[22m\n\u001b[2m  - taking element screenshot\u001b[22m\n\u001b[2m  - waiting for fonts to load...\u001b[22m\n\u001b[2m  - fonts loaded\u001b[22m\n\u001b[2m  - attempting scroll into view action\u001b[22m\n\u001b[2m    - waiting for element to be stable\u001b[22m\n\u001b[2m  - captured a stable screenshot\u001b[22m\n\u001b[2m  - 8 pixels (ratio 0.01 of all image pixels) are different.\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveScreenshot\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('[data-visual-frame]')\n  8 pixels (ratio 0.01 of all image pixels) are different.\n\n  Snapshot: apple-light-medium-custom.png\n\nCall log:\n\u001b[2m  - Expect \"toHaveScreenshot(apple-light-medium-custom.png)\" locator('[data-visual-frame]') with timeout 10000ms\u001b[22m\n\u001b[2m    - verifying given screenshot expectation\u001b[22m\n\u001b[2m  - waiting for locator('[data-visual-frame]')\u001b[22m\n\u001b[2m    - locator resolved to <div data-visual-frame=\"true\" class=\"samples_36e7ffec2eb5\">…</div>\u001b[22m\n\u001b[2m  - taking element screenshot\u001b[22m\n\u001b[2m  - waiting for fonts to load...\u001b[22m\n\u001b[2m  - fonts loaded\u001b[22m\n\u001b[2m  - attempting scroll into view action\u001b[22m\n\u001b[2m    - waiting for element to be stable\u001b[22m\n\u001b[2m  - 8 pixels (ratio 0.01 of all image pixels) are different.\u001b[22m\n\u001b[2m  - waiting 100ms before taking screenshot\u001b[22m\n\u001b[2m  - waiting for locator('[data-visual-frame]')\u001b[22m\n\u001b[2m    - locator resolved to <div data-visual-frame=\"true\" class=\"samples_36e7ffec2eb5\">…</div>\u001b[22m\n\u001b[2m  - taking element screenshot\u001b[22m\n\u001b[2m  - waiting for fonts to load...\u001b[22m\n\u001b[2m  - fonts loaded\u001b[22m\n\u001b[2m  - attempting scroll into view action\u001b[22m\n\u001b[2m    - waiting for element to be stable\u001b[22m\n\u001b[2m  - captured a stable screenshot\u001b[22m\n\u001b[2m  - 8 pixels (ratio 0.01 of all image pixels) are different.\u001b[22m\n\n    at captureVisual (/workspace/test/visual/component-fixture.mjs:40:30)\n    at /workspace/components/rc-spin/docs/spin-motion.visual.spec.mjs:38:13",
+                    "location": {
+                      "file": "/workspace/test/visual/component-fixture.mjs",
+                      "column": 30,
+                      "line": 40
+                    },
+                    "snippet": "   at test/visual/component-fixture.mjs:40\n\n  38 |     await attachSnapshotTarget(info, name);\n  39 |     if (process.env.CRAB_VISUAL_CANDIDATE !== \"1\") {\n> 40 |         await expect(target).toHaveScreenshot(name, { animations: \"allow\", caret: \"hide\" });\n     |                              ^\n  41 |     } else {\n  42 |         await info.attach(\"actual\", { body: await target.screenshot({ animations: \"allow\", caret: \"hide\" }), contentType: \"image/png\" });\n  43 |     }"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "/workspace/test/visual/component-fixture.mjs",
+                        "column": 30,
+                        "line": 40
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveScreenshot\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('[data-visual-frame]')\n  8 pixels (ratio 0.01 of all image pixels) are different.\n\n  Snapshot: apple-light-medium-custom.png\n\nCall log:\n\u001b[2m  - Expect \"toHaveScreenshot(apple-light-medium-custom.png)\" locator('[data-visual-frame]') with timeout 10000ms\u001b[22m\n\u001b[2m    - verifying given screenshot expectation\u001b[22m\n\u001b[2m  - waiting for locator('[data-visual-frame]')\u001b[22m\n\u001b[2m    - locator resolved to <div data-visual-frame=\"true\" class=\"samples_36e7ffec2eb5\">…</div>\u001b[22m\n\u001b[2m  - taking element screenshot\u001b[22m\n\u001b[2m  - waiting for fonts to load...\u001b[22m\n\u001b[2m  - fonts loaded\u001b[22m\n\u001b[2m  - attempting scroll into view action\u001b[22m\n\u001b[2m    - waiting for element to be stable\u001b[22m\n\u001b[2m  - 8 pixels (ratio 0.01 of all image pixels) are different.\u001b[22m\n\u001b[2m  - waiting 100ms before taking screenshot\u001b[22m\n\u001b[2m  - waiting for locator('[data-visual-frame]')\u001b[22m\n\u001b[2m    - locator resolved to <div data-visual-frame=\"true\" class=\"samples_36e7ffec2eb5\">…</div>\u001b[22m\n\u001b[2m  - taking element screenshot\u001b[22m\n\u001b[2m  - waiting for fonts to load...\u001b[22m\n\u001b[2m  - fonts loaded\u001b[22m\n\u001b[2m  - attempting scroll into view action\u001b[22m\n\u001b[2m    - waiting for element to be stable\u001b[22m\n\u001b[2m  - captured a stable screenshot\u001b[22m\n\u001b[2m  - 8 pixels (ratio 0.01 of all image pixels) are different.\u001b[22m\n\n\n   at test/visual/component-fixture.mjs:40\n\n  38 |     await attachSnapshotTarget(info, name);\n  39 |     if (process.env.CRAB_VISUAL_CANDIDATE !== \"1\") {\n> 40 |         await expect(target).toHaveScreenshot(name, { animations: \"allow\", caret: \"hide\" });\n     |                              ^\n  41 |     } else {\n  42 |         await info.attach(\"actual\", { body: await target.screenshot({ animations: \"allow\", caret: \"hide\" }), contentType: \"image/png\" });\n  43 |     }\n    at captureVisual (/workspace/test/visual/component-fixture.mjs:40:30)\n    at /workspace/components/rc-spin/docs/spin-motion.visual.spec.mjs:38:13"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-02T10:14:58.713Z",
+                  "annotations": [
+                    {
+                      "type": "matrix",
+                      "description": "{\"designSystem\":\"apple\",\"colorMode\":\"light\",\"size\":\"medium\",\"density\":\"standard\",\"state\":\"custom\"}",
+                      "location": {
+                        "file": "/workspace/components/rc-spin/docs/spin-motion.visual.spec.mjs",
+                        "line": 9,
+                        "column": 5
+                      }
+                    }
+                  ],
+                  "attachments": [
+                    {
+                      "name": "snapshot-target",
+                      "contentType": "application/json",
+                      "body": "eyJuYW1lIjoiYXBwbGUtbGlnaHQtbWVkaXVtLWN1c3RvbS5wbmciLCJwYXRoIjoidGVzdC92aXN1YWwvYmFzZWxpbmVzL2xpbnV4L2Nocm9taXVtL2NvbXBvbmVudHMvcmMtc3Bpbi9kb2NzL3NwaW4tbW90aW9uLnZpc3VhbC5zcGVjLm1qcy9hcHBsZS1saWdodC1tZWRpdW0tY3VzdG9tLnBuZyJ9"
+                    },
+                    {
+                      "name": "apple-light-medium-custom-expected.png",
+                      "contentType": "image/png",
+                      "path": "/workspace/test/visual/baselines/linux/chromium/components/rc-spin/docs/spin-motion.visual.spec.mjs/apple-light-medium-custom.png"
+                    },
+                    {
+                      "name": "apple-light-medium-custom-actual.png",
+                      "contentType": "image/png",
+                      "path": "/workspace/.cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-2995b-n-apple-light-medium-custom-chromium-repeat1/apple-light-medium-custom-actual.png"
+                    },
+                    {
+                      "name": "apple-light-medium-custom-diff.png",
+                      "contentType": "image/png",
+                      "path": "/workspace/.cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-2995b-n-apple-light-medium-custom-chromium-repeat1/apple-light-medium-custom-diff.png"
+                    },
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/workspace/.cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-2995b-n-apple-light-medium-custom-chromium-repeat1/test-failed-1.png"
+                    },
+                    {
+                      "name": "candidate-inputs",
+                      "contentType": "application/json",
+                      "body": "ewogICJzb3VyY2UiOiAic2hhMjU2OmZiYWMzZDA5MDliZmNmNWJlMDJhYjBhNWMzNDBhN2Q4MDEyMTJjZThlNzkyNTYwMmY2MWM4ZDIxMjJiMzc0ZTYiLAogICJhcnRpZmFjdCI6ICJzaGEyNTY6YzVjNzQ0ODFlMmJkMzkzYjc5NjM5MWRjYWM2YjE1ZjZlZDc2YjhlM2RiYTNkODJlMGI2ZDNiYmY0ZDFmODNjMSIsCiAgInNpdGVCdWlsZCI6ICJzaGEyNTY6MWNkMzhjYzRjNjZjOWU2ZjE4MmNmZjY4NDIwODBjMzg0MTUwZWI5NjkzNmI1OGViNmY2Yzg5ZWIxMzlmYWFmNSIsCiAgImZpbGUiOiAiL3dvcmtzcGFjZS8uY2FjaGUvdmlzdWFsL2N1c3RvbS1waXhlbC1yZXByby0yMDI2MTEwMi9pbnB1dHMtd29ya2VyLTUuanNvbiIsCiAgInJlbmRlcmluZ0Vudmlyb25tZW50IjogewogICAgImZpbGUiOiAiL3dvcmtzcGFjZS8uY2FjaGUvdmlzdWFsL2N1c3RvbS1waXhlbC1yZXByby0yMDI2MTEwMi9yZW5kZXJpbmctd29ya2VyLTUuanNvbiIsCiAgICAiYnJvd3Nlck5hbWUiOiAiY2hyb21pdW0iLAogICAgImJyb3dzZXIiOiAiMTU2LjAuODA3OC40IgogIH0sCiAgImJyb3dzZXJOYW1lIjogImNocm9taXVtIiwKICAiYnJvd3NlciI6ICIxNTYuMC44MDc4LjQiLAogICJwbGF0Zm9ybSI6ICJsaW51eCIsCiAgImFyY2giOiAieDY0IiwKICAiaW1hZ2UiOiAibWNyLm1pY3Jvc29mdC5jb20vcGxheXdyaWdodDp2MS42NC4xLW5vYmxlQHNoYTI1Njo0N2I1MTBkZDkyMzBiZjBiOWJmYzliMjAxMDIyNDFlNTc3ZWE3YTk5MzM0YWI0YzNjYTE5ZjE5NzcwZTliOGVhIiwKICAibW9kZSI6ICJyZWdyZXNzaW9uIiwKICAidmlzdWFsUmV2aWV3IjogInBlbmRpbmciCn0="
+                    },
+                    {
+                      "name": "browser-console",
+                      "contentType": "application/json",
+                      "body": "W3sidGV4dCI6IkZhaWxlZCB0byBsb2FkIHJlc291cmNlOiB0aGUgc2VydmVyIHJlc3BvbmRlZCB3aXRoIGEgc3RhdHVzIG9mIDQwNCAoTm90IEZvdW5kKSIsImxvY2F0aW9uIjp7InVybCI6Imh0dHA6Ly8xMjcuMC4wLjE6MzQxMTUvZmF2aWNvbi5pY28iLCJsaW5lIjowLCJjb2x1bW4iOjAsImxpbmVOdW1iZXIiOjAsImNvbHVtbk51bWJlciI6MH19XQ=="
+                    },
+                    {
+                      "name": "video",
+                      "contentType": "video/webm",
+                      "path": "/workspace/.cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-2995b-n-apple-light-medium-custom-chromium-repeat1/video.webm"
+                    },
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/workspace/.cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-2995b-n-apple-light-medium-custom-chromium-repeat1/test-failed-2.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "/workspace/.cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-2995b-n-apple-light-medium-custom-chromium-repeat1/error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "/workspace/.cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-2995b-n-apple-light-medium-custom-chromium-repeat1/trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "/workspace/test/visual/component-fixture.mjs",
+                    "column": 30,
+                    "line": 40
+                  }
+                }
+              ],
+              "status": "unexpected"
+            },
+            {
+              "timeout": 45000,
+              "annotations": [
+                {
+                  "type": "matrix",
+                  "description": "{\"designSystem\":\"apple\",\"colorMode\":\"light\",\"size\":\"medium\",\"density\":\"standard\",\"state\":\"custom\"}",
+                  "location": {
+                    "file": "/workspace/components/rc-spin/docs/spin-motion.visual.spec.mjs",
+                    "line": 9,
+                    "column": 5
+                  }
+                }
+              ],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 8,
+                  "parallelIndex": 1,
+                  "status": "failed",
+                  "duration": 3298,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveScreenshot\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('[data-visual-frame]')\n  8 pixels (ratio 0.01 of all image pixels) are different.\n\n  Snapshot: apple-light-medium-custom.png\n\nCall log:\n\u001b[2m  - Expect \"toHaveScreenshot(apple-light-medium-custom.png)\" locator('[data-visual-frame]') with timeout 10000ms\u001b[22m\n\u001b[2m    - verifying given screenshot expectation\u001b[22m\n\u001b[2m  - waiting for locator('[data-visual-frame]')\u001b[22m\n\u001b[2m    - locator resolved to <div data-visual-frame=\"true\" class=\"samples_36e7ffec2eb5\">…</div>\u001b[22m\n\u001b[2m  - taking element screenshot\u001b[22m\n\u001b[2m  - waiting for fonts to load...\u001b[22m\n\u001b[2m  - fonts loaded\u001b[22m\n\u001b[2m  - attempting scroll into view action\u001b[22m\n\u001b[2m    - waiting for element to be stable\u001b[22m\n\u001b[2m  - 8 pixels (ratio 0.01 of all image pixels) are different.\u001b[22m\n\u001b[2m  - waiting 100ms before taking screenshot\u001b[22m\n\u001b[2m  - waiting for locator('[data-visual-frame]')\u001b[22m\n\u001b[2m    - locator resolved to <div data-visual-frame=\"true\" class=\"samples_36e7ffec2eb5\">…</div>\u001b[22m\n\u001b[2m  - taking element screenshot\u001b[22m\n\u001b[2m  - waiting for fonts to load...\u001b[22m\n\u001b[2m  - fonts loaded\u001b[22m\n\u001b[2m  - attempting scroll into view action\u001b[22m\n\u001b[2m    - waiting for element to be stable\u001b[22m\n\u001b[2m  - captured a stable screenshot\u001b[22m\n\u001b[2m  - 8 pixels (ratio 0.01 of all image pixels) are different.\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveScreenshot\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('[data-visual-frame]')\n  8 pixels (ratio 0.01 of all image pixels) are different.\n\n  Snapshot: apple-light-medium-custom.png\n\nCall log:\n\u001b[2m  - Expect \"toHaveScreenshot(apple-light-medium-custom.png)\" locator('[data-visual-frame]') with timeout 10000ms\u001b[22m\n\u001b[2m    - verifying given screenshot expectation\u001b[22m\n\u001b[2m  - waiting for locator('[data-visual-frame]')\u001b[22m\n\u001b[2m    - locator resolved to <div data-visual-frame=\"true\" class=\"samples_36e7ffec2eb5\">…</div>\u001b[22m\n\u001b[2m  - taking element screenshot\u001b[22m\n\u001b[2m  - waiting for fonts to load...\u001b[22m\n\u001b[2m  - fonts loaded\u001b[22m\n\u001b[2m  - attempting scroll into view action\u001b[22m\n\u001b[2m    - waiting for element to be stable\u001b[22m\n\u001b[2m  - 8 pixels (ratio 0.01 of all image pixels) are different.\u001b[22m\n\u001b[2m  - waiting 100ms before taking screenshot\u001b[22m\n\u001b[2m  - waiting for locator('[data-visual-frame]')\u001b[22m\n\u001b[2m    - locator resolved to <div data-visual-frame=\"true\" class=\"samples_36e7ffec2eb5\">…</div>\u001b[22m\n\u001b[2m  - taking element screenshot\u001b[22m\n\u001b[2m  - waiting for fonts to load...\u001b[22m\n\u001b[2m  - fonts loaded\u001b[22m\n\u001b[2m  - attempting scroll into view action\u001b[22m\n\u001b[2m    - waiting for element to be stable\u001b[22m\n\u001b[2m  - captured a stable screenshot\u001b[22m\n\u001b[2m  - 8 pixels (ratio 0.01 of all image pixels) are different.\u001b[22m\n\n    at captureVisual (/workspace/test/visual/component-fixture.mjs:40:30)\n    at /workspace/components/rc-spin/docs/spin-motion.visual.spec.mjs:38:13",
+                    "location": {
+                      "file": "/workspace/test/visual/component-fixture.mjs",
+                      "column": 30,
+                      "line": 40
+                    },
+                    "snippet": "   at test/visual/component-fixture.mjs:40\n\n  38 |     await attachSnapshotTarget(info, name);\n  39 |     if (process.env.CRAB_VISUAL_CANDIDATE !== \"1\") {\n> 40 |         await expect(target).toHaveScreenshot(name, { animations: \"allow\", caret: \"hide\" });\n     |                              ^\n  41 |     } else {\n  42 |         await info.attach(\"actual\", { body: await target.screenshot({ animations: \"allow\", caret: \"hide\" }), contentType: \"image/png\" });\n  43 |     }"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "/workspace/test/visual/component-fixture.mjs",
+                        "column": 30,
+                        "line": 40
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveScreenshot\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('[data-visual-frame]')\n  8 pixels (ratio 0.01 of all image pixels) are different.\n\n  Snapshot: apple-light-medium-custom.png\n\nCall log:\n\u001b[2m  - Expect \"toHaveScreenshot(apple-light-medium-custom.png)\" locator('[data-visual-frame]') with timeout 10000ms\u001b[22m\n\u001b[2m    - verifying given screenshot expectation\u001b[22m\n\u001b[2m  - waiting for locator('[data-visual-frame]')\u001b[22m\n\u001b[2m    - locator resolved to <div data-visual-frame=\"true\" class=\"samples_36e7ffec2eb5\">…</div>\u001b[22m\n\u001b[2m  - taking element screenshot\u001b[22m\n\u001b[2m  - waiting for fonts to load...\u001b[22m\n\u001b[2m  - fonts loaded\u001b[22m\n\u001b[2m  - attempting scroll into view action\u001b[22m\n\u001b[2m    - waiting for element to be stable\u001b[22m\n\u001b[2m  - 8 pixels (ratio 0.01 of all image pixels) are different.\u001b[22m\n\u001b[2m  - waiting 100ms before taking screenshot\u001b[22m\n\u001b[2m  - waiting for locator('[data-visual-frame]')\u001b[22m\n\u001b[2m    - locator resolved to <div data-visual-frame=\"true\" class=\"samples_36e7ffec2eb5\">…</div>\u001b[22m\n\u001b[2m  - taking element screenshot\u001b[22m\n\u001b[2m  - waiting for fonts to load...\u001b[22m\n\u001b[2m  - fonts loaded\u001b[22m\n\u001b[2m  - attempting scroll into view action\u001b[22m\n\u001b[2m    - waiting for element to be stable\u001b[22m\n\u001b[2m  - captured a stable screenshot\u001b[22m\n\u001b[2m  - 8 pixels (ratio 0.01 of all image pixels) are different.\u001b[22m\n\n\n   at test/visual/component-fixture.mjs:40\n\n  38 |     await attachSnapshotTarget(info, name);\n  39 |     if (process.env.CRAB_VISUAL_CANDIDATE !== \"1\") {\n> 40 |         await expect(target).toHaveScreenshot(name, { animations: \"allow\", caret: \"hide\" });\n     |                              ^\n  41 |     } else {\n  42 |         await info.attach(\"actual\", { body: await target.screenshot({ animations: \"allow\", caret: \"hide\" }), contentType: \"image/png\" });\n  43 |     }\n    at captureVisual (/workspace/test/visual/component-fixture.mjs:40:30)\n    at /workspace/components/rc-spin/docs/spin-motion.visual.spec.mjs:38:13"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-02T10:15:08.810Z",
+                  "annotations": [
+                    {
+                      "type": "matrix",
+                      "description": "{\"designSystem\":\"apple\",\"colorMode\":\"light\",\"size\":\"medium\",\"density\":\"standard\",\"state\":\"custom\"}",
+                      "location": {
+                        "file": "/workspace/components/rc-spin/docs/spin-motion.visual.spec.mjs",
+                        "line": 9,
+                        "column": 5
+                      }
+                    }
+                  ],
+                  "attachments": [
+                    {
+                      "name": "snapshot-target",
+                      "contentType": "application/json",
+                      "body": "eyJuYW1lIjoiYXBwbGUtbGlnaHQtbWVkaXVtLWN1c3RvbS5wbmciLCJwYXRoIjoidGVzdC92aXN1YWwvYmFzZWxpbmVzL2xpbnV4L2Nocm9taXVtL2NvbXBvbmVudHMvcmMtc3Bpbi9kb2NzL3NwaW4tbW90aW9uLnZpc3VhbC5zcGVjLm1qcy9hcHBsZS1saWdodC1tZWRpdW0tY3VzdG9tLnBuZyJ9"
+                    },
+                    {
+                      "name": "apple-light-medium-custom-expected.png",
+                      "contentType": "image/png",
+                      "path": "/workspace/test/visual/baselines/linux/chromium/components/rc-spin/docs/spin-motion.visual.spec.mjs/apple-light-medium-custom.png"
+                    },
+                    {
+                      "name": "apple-light-medium-custom-actual.png",
+                      "contentType": "image/png",
+                      "path": "/workspace/.cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-2995b-n-apple-light-medium-custom-chromium-repeat2/apple-light-medium-custom-actual.png"
+                    },
+                    {
+                      "name": "apple-light-medium-custom-diff.png",
+                      "contentType": "image/png",
+                      "path": "/workspace/.cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-2995b-n-apple-light-medium-custom-chromium-repeat2/apple-light-medium-custom-diff.png"
+                    },
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/workspace/.cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-2995b-n-apple-light-medium-custom-chromium-repeat2/test-failed-1.png"
+                    },
+                    {
+                      "name": "candidate-inputs",
+                      "contentType": "application/json",
+                      "body": "ewogICJzb3VyY2UiOiAic2hhMjU2OmZiYWMzZDA5MDliZmNmNWJlMDJhYjBhNWMzNDBhN2Q4MDEyMTJjZThlNzkyNTYwMmY2MWM4ZDIxMjJiMzc0ZTYiLAogICJhcnRpZmFjdCI6ICJzaGEyNTY6YzVjNzQ0ODFlMmJkMzkzYjc5NjM5MWRjYWM2YjE1ZjZlZDc2YjhlM2RiYTNkODJlMGI2ZDNiYmY0ZDFmODNjMSIsCiAgInNpdGVCdWlsZCI6ICJzaGEyNTY6MWNkMzhjYzRjNjZjOWU2ZjE4MmNmZjY4NDIwODBjMzg0MTUwZWI5NjkzNmI1OGViNmY2Yzg5ZWIxMzlmYWFmNSIsCiAgImZpbGUiOiAiL3dvcmtzcGFjZS8uY2FjaGUvdmlzdWFsL2N1c3RvbS1waXhlbC1yZXByby0yMDI2MTEwMi9pbnB1dHMtd29ya2VyLTguanNvbiIsCiAgInJlbmRlcmluZ0Vudmlyb25tZW50IjogewogICAgImZpbGUiOiAiL3dvcmtzcGFjZS8uY2FjaGUvdmlzdWFsL2N1c3RvbS1waXhlbC1yZXByby0yMDI2MTEwMi9yZW5kZXJpbmctd29ya2VyLTguanNvbiIsCiAgICAiYnJvd3Nlck5hbWUiOiAiY2hyb21pdW0iLAogICAgImJyb3dzZXIiOiAiMTU2LjAuODA3OC40IgogIH0sCiAgImJyb3dzZXJOYW1lIjogImNocm9taXVtIiwKICAiYnJvd3NlciI6ICIxNTYuMC44MDc4LjQiLAogICJwbGF0Zm9ybSI6ICJsaW51eCIsCiAgImFyY2giOiAieDY0IiwKICAiaW1hZ2UiOiAibWNyLm1pY3Jvc29mdC5jb20vcGxheXdyaWdodDp2MS42NC4xLW5vYmxlQHNoYTI1Njo0N2I1MTBkZDkyMzBiZjBiOWJmYzliMjAxMDIyNDFlNTc3ZWE3YTk5MzM0YWI0YzNjYTE5ZjE5NzcwZTliOGVhIiwKICAibW9kZSI6ICJyZWdyZXNzaW9uIiwKICAidmlzdWFsUmV2aWV3IjogInBlbmRpbmciCn0="
+                    },
+                    {
+                      "name": "browser-console",
+                      "contentType": "application/json",
+                      "body": "W3sidGV4dCI6IkZhaWxlZCB0byBsb2FkIHJlc291cmNlOiB0aGUgc2VydmVyIHJlc3BvbmRlZCB3aXRoIGEgc3RhdHVzIG9mIDQwNCAoTm90IEZvdW5kKSIsImxvY2F0aW9uIjp7InVybCI6Imh0dHA6Ly8xMjcuMC4wLjE6NDQ3MDMvZmF2aWNvbi5pY28iLCJsaW5lIjowLCJjb2x1bW4iOjAsImxpbmVOdW1iZXIiOjAsImNvbHVtbk51bWJlciI6MH19XQ=="
+                    },
+                    {
+                      "name": "video",
+                      "contentType": "video/webm",
+                      "path": "/workspace/.cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-2995b-n-apple-light-medium-custom-chromium-repeat2/video.webm"
+                    },
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/workspace/.cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-2995b-n-apple-light-medium-custom-chromium-repeat2/test-failed-2.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "/workspace/.cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-2995b-n-apple-light-medium-custom-chromium-repeat2/error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "/workspace/.cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-2995b-n-apple-light-medium-custom-chromium-repeat2/trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "/workspace/test/visual/component-fixture.mjs",
+                    "column": 30,
+                    "line": 40
+                  }
+                }
+              ],
+              "status": "unexpected"
+            },
+            {
+              "timeout": 45000,
+              "annotations": [
+                {
+                  "type": "matrix",
+                  "description": "{\"designSystem\":\"apple\",\"colorMode\":\"light\",\"size\":\"medium\",\"density\":\"standard\",\"state\":\"custom\"}",
+                  "location": {
+                    "file": "/workspace/components/rc-spin/docs/spin-motion.visual.spec.mjs",
+                    "line": 9,
+                    "column": 5
+                  }
+                }
+              ],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 12,
+                  "parallelIndex": 2,
+                  "status": "passed",
+                  "duration": 1972,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-02T10:15:21.189Z",
+                  "annotations": [
+                    {
+                      "type": "matrix",
+                      "description": "{\"designSystem\":\"apple\",\"colorMode\":\"light\",\"size\":\"medium\",\"density\":\"standard\",\"state\":\"custom\"}",
+                      "location": {
+                        "file": "/workspace/components/rc-spin/docs/spin-motion.visual.spec.mjs",
+                        "line": 9,
+                        "column": 5
+                      }
+                    }
+                  ],
+                  "attachments": [
+                    {
+                      "name": "snapshot-target",
+                      "contentType": "application/json",
+                      "body": "eyJuYW1lIjoiYXBwbGUtbGlnaHQtbWVkaXVtLWN1c3RvbS5wbmciLCJwYXRoIjoidGVzdC92aXN1YWwvYmFzZWxpbmVzL2xpbnV4L2Nocm9taXVtL2NvbXBvbmVudHMvcmMtc3Bpbi9kb2NzL3NwaW4tbW90aW9uLnZpc3VhbC5zcGVjLm1qcy9hcHBsZS1saWdodC1tZWRpdW0tY3VzdG9tLnBuZyJ9"
+                    },
+                    {
+                      "name": "candidate-inputs",
+                      "contentType": "application/json",
+                      "body": "ewogICJzb3VyY2UiOiAic2hhMjU2OmZiYWMzZDA5MDliZmNmNWJlMDJhYjBhNWMzNDBhN2Q4MDEyMTJjZThlNzkyNTYwMmY2MWM4ZDIxMjJiMzc0ZTYiLAogICJhcnRpZmFjdCI6ICJzaGEyNTY6YzVjNzQ0ODFlMmJkMzkzYjc5NjM5MWRjYWM2YjE1ZjZlZDc2YjhlM2RiYTNkODJlMGI2ZDNiYmY0ZDFmODNjMSIsCiAgInNpdGVCdWlsZCI6ICJzaGEyNTY6MWNkMzhjYzRjNjZjOWU2ZjE4MmNmZjY4NDIwODBjMzg0MTUwZWI5NjkzNmI1OGViNmY2Yzg5ZWIxMzlmYWFmNSIsCiAgImZpbGUiOiAiL3dvcmtzcGFjZS8uY2FjaGUvdmlzdWFsL2N1c3RvbS1waXhlbC1yZXByby0yMDI2MTEwMi9pbnB1dHMtd29ya2VyLTEyLmpzb24iLAogICJyZW5kZXJpbmdFbnZpcm9ubWVudCI6IHsKICAgICJmaWxlIjogIi93b3Jrc3BhY2UvLmNhY2hlL3Zpc3VhbC9jdXN0b20tcGl4ZWwtcmVwcm8tMjAyNjExMDIvcmVuZGVyaW5nLXdvcmtlci0xMi5qc29uIiwKICAgICJicm93c2VyTmFtZSI6ICJjaHJvbWl1bSIsCiAgICAiYnJvd3NlciI6ICIxNTYuMC44MDc4LjQiCiAgfSwKICAiYnJvd3Nlck5hbWUiOiAiY2hyb21pdW0iLAogICJicm93c2VyIjogIjE1Ni4wLjgwNzguNCIsCiAgInBsYXRmb3JtIjogImxpbnV4IiwKICAiYXJjaCI6ICJ4NjQiLAogICJpbWFnZSI6ICJtY3IubWljcm9zb2Z0LmNvbS9wbGF5d3JpZ2h0OnYxLjY0LjEtbm9ibGVAc2hhMjU2OjQ3YjUxMGRkOTIzMGJmMGI5YmZjOWIyMDEwMjI0MWU1NzdlYTdhOTkzMzRhYjRjM2NhMTlmMTk3NzBlOWI4ZWEiLAogICJtb2RlIjogInJlZ3Jlc3Npb24iLAogICJ2aXN1YWxSZXZpZXciOiAicGVuZGluZyIKfQ=="
+                    },
+                    {
+                      "name": "browser-console",
+                      "contentType": "application/json",
+                      "body": "W3sidGV4dCI6IkZhaWxlZCB0byBsb2FkIHJlc291cmNlOiB0aGUgc2VydmVyIHJlc3BvbmRlZCB3aXRoIGEgc3RhdHVzIG9mIDQwNCAoTm90IEZvdW5kKSIsImxvY2F0aW9uIjp7InVybCI6Imh0dHA6Ly8xMjcuMC4wLjE6NDUyOTkvZmF2aWNvbi5pY28iLCJsaW5lIjowLCJjb2x1bW4iOjAsImxpbmVOdW1iZXIiOjAsImNvbHVtbk51bWJlciI6MH19XQ=="
+                    },
+                    {
+                      "name": "video",
+                      "contentType": "video/webm",
+                      "path": "/workspace/.cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-2995b-n-apple-light-medium-custom-chromium-repeat3/video.webm"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "f0426626d6f8e37fe854-312e93917b97ec607711",
+          "file": "components/rc-spin/docs/spin-motion.visual.spec.mjs",
+          "line": 9,
+          "column": 5
+        },
+        {
+          "title": "Spin apple light large custom",
+          "ok": true,
+          "tags": [
+            "rc-spin",
+            "matrix",
+            "motion",
+            "chromium-only"
+          ],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [
+                {
+                  "type": "matrix",
+                  "description": "{\"designSystem\":\"apple\",\"colorMode\":\"light\",\"size\":\"large\",\"density\":\"standard\",\"state\":\"custom\"}",
+                  "location": {
+                    "file": "/workspace/components/rc-spin/docs/spin-motion.visual.spec.mjs",
+                    "line": 9,
+                    "column": 5
+                  }
+                }
+              ],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 3970,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-02T10:14:45.166Z",
+                  "annotations": [
+                    {
+                      "type": "matrix",
+                      "description": "{\"designSystem\":\"apple\",\"colorMode\":\"light\",\"size\":\"large\",\"density\":\"standard\",\"state\":\"custom\"}",
+                      "location": {
+                        "file": "/workspace/components/rc-spin/docs/spin-motion.visual.spec.mjs",
+                        "line": 9,
+                        "column": 5
+                      }
+                    }
+                  ],
+                  "attachments": [
+                    {
+                      "name": "snapshot-target",
+                      "contentType": "application/json",
+                      "body": "eyJuYW1lIjoiYXBwbGUtbGlnaHQtbGFyZ2UtY3VzdG9tLnBuZyIsInBhdGgiOiJ0ZXN0L3Zpc3VhbC9iYXNlbGluZXMvbGludXgvY2hyb21pdW0vY29tcG9uZW50cy9yYy1zcGluL2RvY3Mvc3Bpbi1tb3Rpb24udmlzdWFsLnNwZWMubWpzL2FwcGxlLWxpZ2h0LWxhcmdlLWN1c3RvbS5wbmcifQ=="
+                    },
+                    {
+                      "name": "candidate-inputs",
+                      "contentType": "application/json",
+                      "body": "ewogICJzb3VyY2UiOiAic2hhMjU2OmZiYWMzZDA5MDliZmNmNWJlMDJhYjBhNWMzNDBhN2Q4MDEyMTJjZThlNzkyNTYwMmY2MWM4ZDIxMjJiMzc0ZTYiLAogICJhcnRpZmFjdCI6ICJzaGEyNTY6YzVjNzQ0ODFlMmJkMzkzYjc5NjM5MWRjYWM2YjE1ZjZlZDc2YjhlM2RiYTNkODJlMGI2ZDNiYmY0ZDFmODNjMSIsCiAgInNpdGVCdWlsZCI6ICJzaGEyNTY6MWNkMzhjYzRjNjZjOWU2ZjE4MmNmZjY4NDIwODBjMzg0MTUwZWI5NjkzNmI1OGViNmY2Yzg5ZWIxMzlmYWFmNSIsCiAgImZpbGUiOiAiL3dvcmtzcGFjZS8uY2FjaGUvdmlzdWFsL2N1c3RvbS1waXhlbC1yZXByby0yMDI2MTEwMi9pbnB1dHMtd29ya2VyLTEuanNvbiIsCiAgInJlbmRlcmluZ0Vudmlyb25tZW50IjogewogICAgImZpbGUiOiAiL3dvcmtzcGFjZS8uY2FjaGUvdmlzdWFsL2N1c3RvbS1waXhlbC1yZXByby0yMDI2MTEwMi9yZW5kZXJpbmctd29ya2VyLTEuanNvbiIsCiAgICAiYnJvd3Nlck5hbWUiOiAiY2hyb21pdW0iLAogICAgImJyb3dzZXIiOiAiMTU2LjAuODA3OC40IgogIH0sCiAgImJyb3dzZXJOYW1lIjogImNocm9taXVtIiwKICAiYnJvd3NlciI6ICIxNTYuMC44MDc4LjQiLAogICJwbGF0Zm9ybSI6ICJsaW51eCIsCiAgImFyY2giOiAieDY0IiwKICAiaW1hZ2UiOiAibWNyLm1pY3Jvc29mdC5jb20vcGxheXdyaWdodDp2MS42NC4xLW5vYmxlQHNoYTI1Njo0N2I1MTBkZDkyMzBiZjBiOWJmYzliMjAxMDIyNDFlNTc3ZWE3YTk5MzM0YWI0YzNjYTE5ZjE5NzcwZTliOGVhIiwKICAibW9kZSI6ICJyZWdyZXNzaW9uIiwKICAidmlzdWFsUmV2aWV3IjogInBlbmRpbmciCn0="
+                    },
+                    {
+                      "name": "browser-console",
+                      "contentType": "application/json",
+                      "body": "W3sidGV4dCI6IkZhaWxlZCB0byBsb2FkIHJlc291cmNlOiB0aGUgc2VydmVyIHJlc3BvbmRlZCB3aXRoIGEgc3RhdHVzIG9mIDQwNCAoTm90IEZvdW5kKSIsImxvY2F0aW9uIjp7InVybCI6Imh0dHA6Ly8xMjcuMC4wLjE6NDE2NzEvZmF2aWNvbi5pY28iLCJsaW5lIjowLCJjb2x1bW4iOjAsImxpbmVOdW1iZXIiOjAsImNvbHVtbk51bWJlciI6MH19XQ=="
+                    },
+                    {
+                      "name": "video",
+                      "contentType": "video/webm",
+                      "path": "/workspace/.cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-33d69-in-apple-light-large-custom-chromium/video.webm"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            },
+            {
+              "timeout": 45000,
+              "annotations": [
+                {
+                  "type": "matrix",
+                  "description": "{\"designSystem\":\"apple\",\"colorMode\":\"light\",\"size\":\"large\",\"density\":\"standard\",\"state\":\"custom\"}",
+                  "location": {
+                    "file": "/workspace/components/rc-spin/docs/spin-motion.visual.spec.mjs",
+                    "line": 9,
+                    "column": 5
+                  }
+                }
+              ],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 2274,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-02T10:14:58.698Z",
+                  "annotations": [
+                    {
+                      "type": "matrix",
+                      "description": "{\"designSystem\":\"apple\",\"colorMode\":\"light\",\"size\":\"large\",\"density\":\"standard\",\"state\":\"custom\"}",
+                      "location": {
+                        "file": "/workspace/components/rc-spin/docs/spin-motion.visual.spec.mjs",
+                        "line": 9,
+                        "column": 5
+                      }
+                    }
+                  ],
+                  "attachments": [
+                    {
+                      "name": "snapshot-target",
+                      "contentType": "application/json",
+                      "body": "eyJuYW1lIjoiYXBwbGUtbGlnaHQtbGFyZ2UtY3VzdG9tLnBuZyIsInBhdGgiOiJ0ZXN0L3Zpc3VhbC9iYXNlbGluZXMvbGludXgvY2hyb21pdW0vY29tcG9uZW50cy9yYy1zcGluL2RvY3Mvc3Bpbi1tb3Rpb24udmlzdWFsLnNwZWMubWpzL2FwcGxlLWxpZ2h0LWxhcmdlLWN1c3RvbS5wbmcifQ=="
+                    },
+                    {
+                      "name": "candidate-inputs",
+                      "contentType": "application/json",
+                      "body": "ewogICJzb3VyY2UiOiAic2hhMjU2OmZiYWMzZDA5MDliZmNmNWJlMDJhYjBhNWMzNDBhN2Q4MDEyMTJjZThlNzkyNTYwMmY2MWM4ZDIxMjJiMzc0ZTYiLAogICJhcnRpZmFjdCI6ICJzaGEyNTY6YzVjNzQ0ODFlMmJkMzkzYjc5NjM5MWRjYWM2YjE1ZjZlZDc2YjhlM2RiYTNkODJlMGI2ZDNiYmY0ZDFmODNjMSIsCiAgInNpdGVCdWlsZCI6ICJzaGEyNTY6MWNkMzhjYzRjNjZjOWU2ZjE4MmNmZjY4NDIwODBjMzg0MTUwZWI5NjkzNmI1OGViNmY2Yzg5ZWIxMzlmYWFmNSIsCiAgImZpbGUiOiAiL3dvcmtzcGFjZS8uY2FjaGUvdmlzdWFsL2N1c3RvbS1waXhlbC1yZXByby0yMDI2MTEwMi9pbnB1dHMtd29ya2VyLTQuanNvbiIsCiAgInJlbmRlcmluZ0Vudmlyb25tZW50IjogewogICAgImZpbGUiOiAiL3dvcmtzcGFjZS8uY2FjaGUvdmlzdWFsL2N1c3RvbS1waXhlbC1yZXByby0yMDI2MTEwMi9yZW5kZXJpbmctd29ya2VyLTQuanNvbiIsCiAgICAiYnJvd3Nlck5hbWUiOiAiY2hyb21pdW0iLAogICAgImJyb3dzZXIiOiAiMTU2LjAuODA3OC40IgogIH0sCiAgImJyb3dzZXJOYW1lIjogImNocm9taXVtIiwKICAiYnJvd3NlciI6ICIxNTYuMC44MDc4LjQiLAogICJwbGF0Zm9ybSI6ICJsaW51eCIsCiAgImFyY2giOiAieDY0IiwKICAiaW1hZ2UiOiAibWNyLm1pY3Jvc29mdC5jb20vcGxheXdyaWdodDp2MS42NC4xLW5vYmxlQHNoYTI1Njo0N2I1MTBkZDkyMzBiZjBiOWJmYzliMjAxMDIyNDFlNTc3ZWE3YTk5MzM0YWI0YzNjYTE5ZjE5NzcwZTliOGVhIiwKICAibW9kZSI6ICJyZWdyZXNzaW9uIiwKICAidmlzdWFsUmV2aWV3IjogInBlbmRpbmciCn0="
+                    },
+                    {
+                      "name": "browser-console",
+                      "contentType": "application/json",
+                      "body": "W3sidGV4dCI6IkZhaWxlZCB0byBsb2FkIHJlc291cmNlOiB0aGUgc2VydmVyIHJlc3BvbmRlZCB3aXRoIGEgc3RhdHVzIG9mIDQwNCAoTm90IEZvdW5kKSIsImxvY2F0aW9uIjp7InVybCI6Imh0dHA6Ly8xMjcuMC4wLjE6NDQyNjUvZmF2aWNvbi5pY28iLCJsaW5lIjowLCJjb2x1bW4iOjAsImxpbmVOdW1iZXIiOjAsImNvbHVtbk51bWJlciI6MH19XQ=="
+                    },
+                    {
+                      "name": "video",
+                      "contentType": "video/webm",
+                      "path": "/workspace/.cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-33d69-in-apple-light-large-custom-chromium-repeat1/video.webm"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            },
+            {
+              "timeout": 45000,
+              "annotations": [
+                {
+                  "type": "matrix",
+                  "description": "{\"designSystem\":\"apple\",\"colorMode\":\"light\",\"size\":\"large\",\"density\":\"standard\",\"state\":\"custom\"}",
+                  "location": {
+                    "file": "/workspace/components/rc-spin/docs/spin-motion.visual.spec.mjs",
+                    "line": 9,
+                    "column": 5
+                  }
+                }
+              ],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 9,
+                  "parallelIndex": 2,
+                  "status": "passed",
+                  "duration": 3428,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-02T10:15:08.900Z",
+                  "annotations": [
+                    {
+                      "type": "matrix",
+                      "description": "{\"designSystem\":\"apple\",\"colorMode\":\"light\",\"size\":\"large\",\"density\":\"standard\",\"state\":\"custom\"}",
+                      "location": {
+                        "file": "/workspace/components/rc-spin/docs/spin-motion.visual.spec.mjs",
+                        "line": 9,
+                        "column": 5
+                      }
+                    }
+                  ],
+                  "attachments": [
+                    {
+                      "name": "snapshot-target",
+                      "contentType": "application/json",
+                      "body": "eyJuYW1lIjoiYXBwbGUtbGlnaHQtbGFyZ2UtY3VzdG9tLnBuZyIsInBhdGgiOiJ0ZXN0L3Zpc3VhbC9iYXNlbGluZXMvbGludXgvY2hyb21pdW0vY29tcG9uZW50cy9yYy1zcGluL2RvY3Mvc3Bpbi1tb3Rpb24udmlzdWFsLnNwZWMubWpzL2FwcGxlLWxpZ2h0LWxhcmdlLWN1c3RvbS5wbmcifQ=="
+                    },
+                    {
+                      "name": "candidate-inputs",
+                      "contentType": "application/json",
+                      "body": "ewogICJzb3VyY2UiOiAic2hhMjU2OmZiYWMzZDA5MDliZmNmNWJlMDJhYjBhNWMzNDBhN2Q4MDEyMTJjZThlNzkyNTYwMmY2MWM4ZDIxMjJiMzc0ZTYiLAogICJhcnRpZmFjdCI6ICJzaGEyNTY6YzVjNzQ0ODFlMmJkMzkzYjc5NjM5MWRjYWM2YjE1ZjZlZDc2YjhlM2RiYTNkODJlMGI2ZDNiYmY0ZDFmODNjMSIsCiAgInNpdGVCdWlsZCI6ICJzaGEyNTY6MWNkMzhjYzRjNjZjOWU2ZjE4MmNmZjY4NDIwODBjMzg0MTUwZWI5NjkzNmI1OGViNmY2Yzg5ZWIxMzlmYWFmNSIsCiAgImZpbGUiOiAiL3dvcmtzcGFjZS8uY2FjaGUvdmlzdWFsL2N1c3RvbS1waXhlbC1yZXByby0yMDI2MTEwMi9pbnB1dHMtd29ya2VyLTkuanNvbiIsCiAgInJlbmRlcmluZ0Vudmlyb25tZW50IjogewogICAgImZpbGUiOiAiL3dvcmtzcGFjZS8uY2FjaGUvdmlzdWFsL2N1c3RvbS1waXhlbC1yZXByby0yMDI2MTEwMi9yZW5kZXJpbmctd29ya2VyLTkuanNvbiIsCiAgICAiYnJvd3Nlck5hbWUiOiAiY2hyb21pdW0iLAogICAgImJyb3dzZXIiOiAiMTU2LjAuODA3OC40IgogIH0sCiAgImJyb3dzZXJOYW1lIjogImNocm9taXVtIiwKICAiYnJvd3NlciI6ICIxNTYuMC44MDc4LjQiLAogICJwbGF0Zm9ybSI6ICJsaW51eCIsCiAgImFyY2giOiAieDY0IiwKICAiaW1hZ2UiOiAibWNyLm1pY3Jvc29mdC5jb20vcGxheXdyaWdodDp2MS42NC4xLW5vYmxlQHNoYTI1Njo0N2I1MTBkZDkyMzBiZjBiOWJmYzliMjAxMDIyNDFlNTc3ZWE3YTk5MzM0YWI0YzNjYTE5ZjE5NzcwZTliOGVhIiwKICAibW9kZSI6ICJyZWdyZXNzaW9uIiwKICAidmlzdWFsUmV2aWV3IjogInBlbmRpbmciCn0="
+                    },
+                    {
+                      "name": "browser-console",
+                      "contentType": "application/json",
+                      "body": "W3sidGV4dCI6IkZhaWxlZCB0byBsb2FkIHJlc291cmNlOiB0aGUgc2VydmVyIHJlc3BvbmRlZCB3aXRoIGEgc3RhdHVzIG9mIDQwNCAoTm90IEZvdW5kKSIsImxvY2F0aW9uIjp7InVybCI6Imh0dHA6Ly8xMjcuMC4wLjE6Mzg4MjkvZmF2aWNvbi5pY28iLCJsaW5lIjowLCJjb2x1bW4iOjAsImxpbmVOdW1iZXIiOjAsImNvbHVtbk51bWJlciI6MH19XQ=="
+                    },
+                    {
+                      "name": "video",
+                      "contentType": "video/webm",
+                      "path": "/workspace/.cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-33d69-in-apple-light-large-custom-chromium-repeat2/video.webm"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            },
+            {
+              "timeout": 45000,
+              "annotations": [
+                {
+                  "type": "matrix",
+                  "description": "{\"designSystem\":\"apple\",\"colorMode\":\"light\",\"size\":\"large\",\"density\":\"standard\",\"state\":\"custom\"}",
+                  "location": {
+                    "file": "/workspace/components/rc-spin/docs/spin-motion.visual.spec.mjs",
+                    "line": 9,
+                    "column": 5
+                  }
+                }
+              ],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 13,
+                  "parallelIndex": 3,
+                  "status": "passed",
+                  "duration": 2481,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-02T10:15:21.513Z",
+                  "annotations": [
+                    {
+                      "type": "matrix",
+                      "description": "{\"designSystem\":\"apple\",\"colorMode\":\"light\",\"size\":\"large\",\"density\":\"standard\",\"state\":\"custom\"}",
+                      "location": {
+                        "file": "/workspace/components/rc-spin/docs/spin-motion.visual.spec.mjs",
+                        "line": 9,
+                        "column": 5
+                      }
+                    }
+                  ],
+                  "attachments": [
+                    {
+                      "name": "snapshot-target",
+                      "contentType": "application/json",
+                      "body": "eyJuYW1lIjoiYXBwbGUtbGlnaHQtbGFyZ2UtY3VzdG9tLnBuZyIsInBhdGgiOiJ0ZXN0L3Zpc3VhbC9iYXNlbGluZXMvbGludXgvY2hyb21pdW0vY29tcG9uZW50cy9yYy1zcGluL2RvY3Mvc3Bpbi1tb3Rpb24udmlzdWFsLnNwZWMubWpzL2FwcGxlLWxpZ2h0LWxhcmdlLWN1c3RvbS5wbmcifQ=="
+                    },
+                    {
+                      "name": "candidate-inputs",
+                      "contentType": "application/json",
+                      "body": "ewogICJzb3VyY2UiOiAic2hhMjU2OmZiYWMzZDA5MDliZmNmNWJlMDJhYjBhNWMzNDBhN2Q4MDEyMTJjZThlNzkyNTYwMmY2MWM4ZDIxMjJiMzc0ZTYiLAogICJhcnRpZmFjdCI6ICJzaGEyNTY6YzVjNzQ0ODFlMmJkMzkzYjc5NjM5MWRjYWM2YjE1ZjZlZDc2YjhlM2RiYTNkODJlMGI2ZDNiYmY0ZDFmODNjMSIsCiAgInNpdGVCdWlsZCI6ICJzaGEyNTY6MWNkMzhjYzRjNjZjOWU2ZjE4MmNmZjY4NDIwODBjMzg0MTUwZWI5NjkzNmI1OGViNmY2Yzg5ZWIxMzlmYWFmNSIsCiAgImZpbGUiOiAiL3dvcmtzcGFjZS8uY2FjaGUvdmlzdWFsL2N1c3RvbS1waXhlbC1yZXByby0yMDI2MTEwMi9pbnB1dHMtd29ya2VyLTEzLmpzb24iLAogICJyZW5kZXJpbmdFbnZpcm9ubWVudCI6IHsKICAgICJmaWxlIjogIi93b3Jrc3BhY2UvLmNhY2hlL3Zpc3VhbC9jdXN0b20tcGl4ZWwtcmVwcm8tMjAyNjExMDIvcmVuZGVyaW5nLXdvcmtlci0xMy5qc29uIiwKICAgICJicm93c2VyTmFtZSI6ICJjaHJvbWl1bSIsCiAgICAiYnJvd3NlciI6ICIxNTYuMC44MDc4LjQiCiAgfSwKICAiYnJvd3Nlck5hbWUiOiAiY2hyb21pdW0iLAogICJicm93c2VyIjogIjE1Ni4wLjgwNzguNCIsCiAgInBsYXRmb3JtIjogImxpbnV4IiwKICAiYXJjaCI6ICJ4NjQiLAogICJpbWFnZSI6ICJtY3IubWljcm9zb2Z0LmNvbS9wbGF5d3JpZ2h0OnYxLjY0LjEtbm9ibGVAc2hhMjU2OjQ3YjUxMGRkOTIzMGJmMGI5YmZjOWIyMDEwMjI0MWU1NzdlYTdhOTkzMzRhYjRjM2NhMTlmMTk3NzBlOWI4ZWEiLAogICJtb2RlIjogInJlZ3Jlc3Npb24iLAogICJ2aXN1YWxSZXZpZXciOiAicGVuZGluZyIKfQ=="
+                    },
+                    {
+                      "name": "browser-console",
+                      "contentType": "application/json",
+                      "body": "W3sidGV4dCI6IkZhaWxlZCB0byBsb2FkIHJlc291cmNlOiB0aGUgc2VydmVyIHJlc3BvbmRlZCB3aXRoIGEgc3RhdHVzIG9mIDQwNCAoTm90IEZvdW5kKSIsImxvY2F0aW9uIjp7InVybCI6Imh0dHA6Ly8xMjcuMC4wLjE6NDEyMjMvZmF2aWNvbi5pY28iLCJsaW5lIjowLCJjb2x1bW4iOjAsImxpbmVOdW1iZXIiOjAsImNvbHVtbk51bWJlciI6MH19XQ=="
+                    },
+                    {
+                      "name": "video",
+                      "contentType": "video/webm",
+                      "path": "/workspace/.cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-33d69-in-apple-light-large-custom-chromium-repeat3/video.webm"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "f0426626d6f8e37fe854-f87da631217612b69c3e",
+          "file": "components/rc-spin/docs/spin-motion.visual.spec.mjs",
+          "line": 9,
+          "column": 5
+        },
+        {
+          "title": "Spin shadcn light medium custom",
+          "ok": false,
+          "tags": [
+            "rc-spin",
+            "matrix",
+            "motion",
+            "chromium-only"
+          ],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [
+                {
+                  "type": "matrix",
+                  "description": "{\"designSystem\":\"shadcn\",\"colorMode\":\"light\",\"size\":\"medium\",\"density\":\"standard\",\"state\":\"custom\"}",
+                  "location": {
+                    "file": "/workspace/components/rc-spin/docs/spin-motion.visual.spec.mjs",
+                    "line": 9,
+                    "column": 5
+                  }
+                }
+              ],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 2,
+                  "status": "failed",
+                  "duration": 4190,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveScreenshot\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('[data-visual-frame]')\n  8 pixels (ratio 0.01 of all image pixels) are different.\n\n  Snapshot: shadcn-light-medium-custom.png\n\nCall log:\n\u001b[2m  - Expect \"toHaveScreenshot(shadcn-light-medium-custom.png)\" locator('[data-visual-frame]') with timeout 10000ms\u001b[22m\n\u001b[2m    - verifying given screenshot expectation\u001b[22m\n\u001b[2m  - waiting for locator('[data-visual-frame]')\u001b[22m\n\u001b[2m    - locator resolved to <div data-visual-frame=\"true\" class=\"samples_36e7ffec2eb5\">…</div>\u001b[22m\n\u001b[2m  - taking element screenshot\u001b[22m\n\u001b[2m  - waiting for fonts to load...\u001b[22m\n\u001b[2m  - fonts loaded\u001b[22m\n\u001b[2m  - attempting scroll into view action\u001b[22m\n\u001b[2m    - waiting for element to be stable\u001b[22m\n\u001b[2m  - 8 pixels (ratio 0.01 of all image pixels) are different.\u001b[22m\n\u001b[2m  - waiting 100ms before taking screenshot\u001b[22m\n\u001b[2m  - waiting for locator('[data-visual-frame]')\u001b[22m\n\u001b[2m    - locator resolved to <div data-visual-frame=\"true\" class=\"samples_36e7ffec2eb5\">…</div>\u001b[22m\n\u001b[2m  - taking element screenshot\u001b[22m\n\u001b[2m  - waiting for fonts to load...\u001b[22m\n\u001b[2m  - fonts loaded\u001b[22m\n\u001b[2m  - attempting scroll into view action\u001b[22m\n\u001b[2m    - waiting for element to be stable\u001b[22m\n\u001b[2m  - captured a stable screenshot\u001b[22m\n\u001b[2m  - 8 pixels (ratio 0.01 of all image pixels) are different.\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveScreenshot\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('[data-visual-frame]')\n  8 pixels (ratio 0.01 of all image pixels) are different.\n\n  Snapshot: shadcn-light-medium-custom.png\n\nCall log:\n\u001b[2m  - Expect \"toHaveScreenshot(shadcn-light-medium-custom.png)\" locator('[data-visual-frame]') with timeout 10000ms\u001b[22m\n\u001b[2m    - verifying given screenshot expectation\u001b[22m\n\u001b[2m  - waiting for locator('[data-visual-frame]')\u001b[22m\n\u001b[2m    - locator resolved to <div data-visual-frame=\"true\" class=\"samples_36e7ffec2eb5\">…</div>\u001b[22m\n\u001b[2m  - taking element screenshot\u001b[22m\n\u001b[2m  - waiting for fonts to load...\u001b[22m\n\u001b[2m  - fonts loaded\u001b[22m\n\u001b[2m  - attempting scroll into view action\u001b[22m\n\u001b[2m    - waiting for element to be stable\u001b[22m\n\u001b[2m  - 8 pixels (ratio 0.01 of all image pixels) are different.\u001b[22m\n\u001b[2m  - waiting 100ms before taking screenshot\u001b[22m\n\u001b[2m  - waiting for locator('[data-visual-frame]')\u001b[22m\n\u001b[2m    - locator resolved to <div data-visual-frame=\"true\" class=\"samples_36e7ffec2eb5\">…</div>\u001b[22m\n\u001b[2m  - taking element screenshot\u001b[22m\n\u001b[2m  - waiting for fonts to load...\u001b[22m\n\u001b[2m  - fonts loaded\u001b[22m\n\u001b[2m  - attempting scroll into view action\u001b[22m\n\u001b[2m    - waiting for element to be stable\u001b[22m\n\u001b[2m  - captured a stable screenshot\u001b[22m\n\u001b[2m  - 8 pixels (ratio 0.01 of all image pixels) are different.\u001b[22m\n\n    at captureVisual (/workspace/test/visual/component-fixture.mjs:40:30)\n    at /workspace/components/rc-spin/docs/spin-motion.visual.spec.mjs:38:13",
+                    "location": {
+                      "file": "/workspace/test/visual/component-fixture.mjs",
+                      "column": 30,
+                      "line": 40
+                    },
+                    "snippet": "   at test/visual/component-fixture.mjs:40\n\n  38 |     await attachSnapshotTarget(info, name);\n  39 |     if (process.env.CRAB_VISUAL_CANDIDATE !== \"1\") {\n> 40 |         await expect(target).toHaveScreenshot(name, { animations: \"allow\", caret: \"hide\" });\n     |                              ^\n  41 |     } else {\n  42 |         await info.attach(\"actual\", { body: await target.screenshot({ animations: \"allow\", caret: \"hide\" }), contentType: \"image/png\" });\n  43 |     }"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "/workspace/test/visual/component-fixture.mjs",
+                        "column": 30,
+                        "line": 40
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveScreenshot\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('[data-visual-frame]')\n  8 pixels (ratio 0.01 of all image pixels) are different.\n\n  Snapshot: shadcn-light-medium-custom.png\n\nCall log:\n\u001b[2m  - Expect \"toHaveScreenshot(shadcn-light-medium-custom.png)\" locator('[data-visual-frame]') with timeout 10000ms\u001b[22m\n\u001b[2m    - verifying given screenshot expectation\u001b[22m\n\u001b[2m  - waiting for locator('[data-visual-frame]')\u001b[22m\n\u001b[2m    - locator resolved to <div data-visual-frame=\"true\" class=\"samples_36e7ffec2eb5\">…</div>\u001b[22m\n\u001b[2m  - taking element screenshot\u001b[22m\n\u001b[2m  - waiting for fonts to load...\u001b[22m\n\u001b[2m  - fonts loaded\u001b[22m\n\u001b[2m  - attempting scroll into view action\u001b[22m\n\u001b[2m    - waiting for element to be stable\u001b[22m\n\u001b[2m  - 8 pixels (ratio 0.01 of all image pixels) are different.\u001b[22m\n\u001b[2m  - waiting 100ms before taking screenshot\u001b[22m\n\u001b[2m  - waiting for locator('[data-visual-frame]')\u001b[22m\n\u001b[2m    - locator resolved to <div data-visual-frame=\"true\" class=\"samples_36e7ffec2eb5\">…</div>\u001b[22m\n\u001b[2m  - taking element screenshot\u001b[22m\n\u001b[2m  - waiting for fonts to load...\u001b[22m\n\u001b[2m  - fonts loaded\u001b[22m\n\u001b[2m  - attempting scroll into view action\u001b[22m\n\u001b[2m    - waiting for element to be stable\u001b[22m\n\u001b[2m  - captured a stable screenshot\u001b[22m\n\u001b[2m  - 8 pixels (ratio 0.01 of all image pixels) are different.\u001b[22m\n\n\n   at test/visual/component-fixture.mjs:40\n\n  38 |     await attachSnapshotTarget(info, name);\n  39 |     if (process.env.CRAB_VISUAL_CANDIDATE !== \"1\") {\n> 40 |         await expect(target).toHaveScreenshot(name, { animations: \"allow\", caret: \"hide\" });\n     |                              ^\n  41 |     } else {\n  42 |         await info.attach(\"actual\", { body: await target.screenshot({ animations: \"allow\", caret: \"hide\" }), contentType: \"image/png\" });\n  43 |     }\n    at captureVisual (/workspace/test/visual/component-fixture.mjs:40:30)\n    at /workspace/components/rc-spin/docs/spin-motion.visual.spec.mjs:38:13"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-02T10:14:45.206Z",
+                  "annotations": [
+                    {
+                      "type": "matrix",
+                      "description": "{\"designSystem\":\"shadcn\",\"colorMode\":\"light\",\"size\":\"medium\",\"density\":\"standard\",\"state\":\"custom\"}",
+                      "location": {
+                        "file": "/workspace/components/rc-spin/docs/spin-motion.visual.spec.mjs",
+                        "line": 9,
+                        "column": 5
+                      }
+                    }
+                  ],
+                  "attachments": [
+                    {
+                      "name": "snapshot-target",
+                      "contentType": "application/json",
+                      "body": "eyJuYW1lIjoic2hhZGNuLWxpZ2h0LW1lZGl1bS1jdXN0b20ucG5nIiwicGF0aCI6InRlc3QvdmlzdWFsL2Jhc2VsaW5lcy9saW51eC9jaHJvbWl1bS9jb21wb25lbnRzL3JjLXNwaW4vZG9jcy9zcGluLW1vdGlvbi52aXN1YWwuc3BlYy5tanMvc2hhZGNuLWxpZ2h0LW1lZGl1bS1jdXN0b20ucG5nIn0="
+                    },
+                    {
+                      "name": "shadcn-light-medium-custom-expected.png",
+                      "contentType": "image/png",
+                      "path": "/workspace/test/visual/baselines/linux/chromium/components/rc-spin/docs/spin-motion.visual.spec.mjs/shadcn-light-medium-custom.png"
+                    },
+                    {
+                      "name": "shadcn-light-medium-custom-actual.png",
+                      "contentType": "image/png",
+                      "path": "/workspace/.cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-0f034--shadcn-light-medium-custom-chromium/shadcn-light-medium-custom-actual.png"
+                    },
+                    {
+                      "name": "shadcn-light-medium-custom-diff.png",
+                      "contentType": "image/png",
+                      "path": "/workspace/.cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-0f034--shadcn-light-medium-custom-chromium/shadcn-light-medium-custom-diff.png"
+                    },
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/workspace/.cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-0f034--shadcn-light-medium-custom-chromium/test-failed-1.png"
+                    },
+                    {
+                      "name": "candidate-inputs",
+                      "contentType": "application/json",
+                      "body": "ewogICJzb3VyY2UiOiAic2hhMjU2OmZiYWMzZDA5MDliZmNmNWJlMDJhYjBhNWMzNDBhN2Q4MDEyMTJjZThlNzkyNTYwMmY2MWM4ZDIxMjJiMzc0ZTYiLAogICJhcnRpZmFjdCI6ICJzaGEyNTY6YzVjNzQ0ODFlMmJkMzkzYjc5NjM5MWRjYWM2YjE1ZjZlZDc2YjhlM2RiYTNkODJlMGI2ZDNiYmY0ZDFmODNjMSIsCiAgInNpdGVCdWlsZCI6ICJzaGEyNTY6MWNkMzhjYzRjNjZjOWU2ZjE4MmNmZjY4NDIwODBjMzg0MTUwZWI5NjkzNmI1OGViNmY2Yzg5ZWIxMzlmYWFmNSIsCiAgImZpbGUiOiAiL3dvcmtzcGFjZS8uY2FjaGUvdmlzdWFsL2N1c3RvbS1waXhlbC1yZXByby0yMDI2MTEwMi9pbnB1dHMtd29ya2VyLTIuanNvbiIsCiAgInJlbmRlcmluZ0Vudmlyb25tZW50IjogewogICAgImZpbGUiOiAiL3dvcmtzcGFjZS8uY2FjaGUvdmlzdWFsL2N1c3RvbS1waXhlbC1yZXByby0yMDI2MTEwMi9yZW5kZXJpbmctd29ya2VyLTIuanNvbiIsCiAgICAiYnJvd3Nlck5hbWUiOiAiY2hyb21pdW0iLAogICAgImJyb3dzZXIiOiAiMTU2LjAuODA3OC40IgogIH0sCiAgImJyb3dzZXJOYW1lIjogImNocm9taXVtIiwKICAiYnJvd3NlciI6ICIxNTYuMC44MDc4LjQiLAogICJwbGF0Zm9ybSI6ICJsaW51eCIsCiAgImFyY2giOiAieDY0IiwKICAiaW1hZ2UiOiAibWNyLm1pY3Jvc29mdC5jb20vcGxheXdyaWdodDp2MS42NC4xLW5vYmxlQHNoYTI1Njo0N2I1MTBkZDkyMzBiZjBiOWJmYzliMjAxMDIyNDFlNTc3ZWE3YTk5MzM0YWI0YzNjYTE5ZjE5NzcwZTliOGVhIiwKICAibW9kZSI6ICJyZWdyZXNzaW9uIiwKICAidmlzdWFsUmV2aWV3IjogInBlbmRpbmciCn0="
+                    },
+                    {
+                      "name": "browser-console",
+                      "contentType": "application/json",
+                      "body": "W3sidGV4dCI6IkZhaWxlZCB0byBsb2FkIHJlc291cmNlOiB0aGUgc2VydmVyIHJlc3BvbmRlZCB3aXRoIGEgc3RhdHVzIG9mIDQwNCAoTm90IEZvdW5kKSIsImxvY2F0aW9uIjp7InVybCI6Imh0dHA6Ly8xMjcuMC4wLjE6Mzg1NzkvZmF2aWNvbi5pY28iLCJsaW5lIjowLCJjb2x1bW4iOjAsImxpbmVOdW1iZXIiOjAsImNvbHVtbk51bWJlciI6MH19XQ=="
+                    },
+                    {
+                      "name": "video",
+                      "contentType": "video/webm",
+                      "path": "/workspace/.cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-0f034--shadcn-light-medium-custom-chromium/video.webm"
+                    },
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/workspace/.cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-0f034--shadcn-light-medium-custom-chromium/test-failed-2.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "/workspace/.cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-0f034--shadcn-light-medium-custom-chromium/error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "/workspace/.cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-0f034--shadcn-light-medium-custom-chromium/trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "/workspace/test/visual/component-fixture.mjs",
+                    "column": 30,
+                    "line": 40
+                  }
+                }
+              ],
+              "status": "unexpected"
+            },
+            {
+              "timeout": 45000,
+              "annotations": [
+                {
+                  "type": "matrix",
+                  "description": "{\"designSystem\":\"shadcn\",\"colorMode\":\"light\",\"size\":\"medium\",\"density\":\"standard\",\"state\":\"custom\"}",
+                  "location": {
+                    "file": "/workspace/components/rc-spin/docs/spin-motion.visual.spec.mjs",
+                    "line": 9,
+                    "column": 5
+                  }
+                }
+              ],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 2,
+                  "status": "passed",
+                  "duration": 2425,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-02T10:14:58.955Z",
+                  "annotations": [
+                    {
+                      "type": "matrix",
+                      "description": "{\"designSystem\":\"shadcn\",\"colorMode\":\"light\",\"size\":\"medium\",\"density\":\"standard\",\"state\":\"custom\"}",
+                      "location": {
+                        "file": "/workspace/components/rc-spin/docs/spin-motion.visual.spec.mjs",
+                        "line": 9,
+                        "column": 5
+                      }
+                    }
+                  ],
+                  "attachments": [
+                    {
+                      "name": "snapshot-target",
+                      "contentType": "application/json",
+                      "body": "eyJuYW1lIjoic2hhZGNuLWxpZ2h0LW1lZGl1bS1jdXN0b20ucG5nIiwicGF0aCI6InRlc3QvdmlzdWFsL2Jhc2VsaW5lcy9saW51eC9jaHJvbWl1bS9jb21wb25lbnRzL3JjLXNwaW4vZG9jcy9zcGluLW1vdGlvbi52aXN1YWwuc3BlYy5tanMvc2hhZGNuLWxpZ2h0LW1lZGl1bS1jdXN0b20ucG5nIn0="
+                    },
+                    {
+                      "name": "candidate-inputs",
+                      "contentType": "application/json",
+                      "body": "ewogICJzb3VyY2UiOiAic2hhMjU2OmZiYWMzZDA5MDliZmNmNWJlMDJhYjBhNWMzNDBhN2Q4MDEyMTJjZThlNzkyNTYwMmY2MWM4ZDIxMjJiMzc0ZTYiLAogICJhcnRpZmFjdCI6ICJzaGEyNTY6YzVjNzQ0ODFlMmJkMzkzYjc5NjM5MWRjYWM2YjE1ZjZlZDc2YjhlM2RiYTNkODJlMGI2ZDNiYmY0ZDFmODNjMSIsCiAgInNpdGVCdWlsZCI6ICJzaGEyNTY6MWNkMzhjYzRjNjZjOWU2ZjE4MmNmZjY4NDIwODBjMzg0MTUwZWI5NjkzNmI1OGViNmY2Yzg5ZWIxMzlmYWFmNSIsCiAgImZpbGUiOiAiL3dvcmtzcGFjZS8uY2FjaGUvdmlzdWFsL2N1c3RvbS1waXhlbC1yZXByby0yMDI2MTEwMi9pbnB1dHMtd29ya2VyLTYuanNvbiIsCiAgInJlbmRlcmluZ0Vudmlyb25tZW50IjogewogICAgImZpbGUiOiAiL3dvcmtzcGFjZS8uY2FjaGUvdmlzdWFsL2N1c3RvbS1waXhlbC1yZXByby0yMDI2MTEwMi9yZW5kZXJpbmctd29ya2VyLTYuanNvbiIsCiAgICAiYnJvd3Nlck5hbWUiOiAiY2hyb21pdW0iLAogICAgImJyb3dzZXIiOiAiMTU2LjAuODA3OC40IgogIH0sCiAgImJyb3dzZXJOYW1lIjogImNocm9taXVtIiwKICAiYnJvd3NlciI6ICIxNTYuMC44MDc4LjQiLAogICJwbGF0Zm9ybSI6ICJsaW51eCIsCiAgImFyY2giOiAieDY0IiwKICAiaW1hZ2UiOiAibWNyLm1pY3Jvc29mdC5jb20vcGxheXdyaWdodDp2MS42NC4xLW5vYmxlQHNoYTI1Njo0N2I1MTBkZDkyMzBiZjBiOWJmYzliMjAxMDIyNDFlNTc3ZWE3YTk5MzM0YWI0YzNjYTE5ZjE5NzcwZTliOGVhIiwKICAibW9kZSI6ICJyZWdyZXNzaW9uIiwKICAidmlzdWFsUmV2aWV3IjogInBlbmRpbmciCn0="
+                    },
+                    {
+                      "name": "browser-console",
+                      "contentType": "application/json",
+                      "body": "W3sidGV4dCI6IkZhaWxlZCB0byBsb2FkIHJlc291cmNlOiB0aGUgc2VydmVyIHJlc3BvbmRlZCB3aXRoIGEgc3RhdHVzIG9mIDQwNCAoTm90IEZvdW5kKSIsImxvY2F0aW9uIjp7InVybCI6Imh0dHA6Ly8xMjcuMC4wLjE6MzQ3MjcvZmF2aWNvbi5pY28iLCJsaW5lIjowLCJjb2x1bW4iOjAsImxpbmVOdW1iZXIiOjAsImNvbHVtbk51bWJlciI6MH19XQ=="
+                    },
+                    {
+                      "name": "video",
+                      "contentType": "video/webm",
+                      "path": "/workspace/.cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-0f034--shadcn-light-medium-custom-chromium-repeat1/video.webm"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            },
+            {
+              "timeout": 45000,
+              "annotations": [
+                {
+                  "type": "matrix",
+                  "description": "{\"designSystem\":\"shadcn\",\"colorMode\":\"light\",\"size\":\"medium\",\"density\":\"standard\",\"state\":\"custom\"}",
+                  "location": {
+                    "file": "/workspace/components/rc-spin/docs/spin-motion.visual.spec.mjs",
+                    "line": 9,
+                    "column": 5
+                  }
+                }
+              ],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 11,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 3601,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveScreenshot\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('[data-visual-frame]')\n  8 pixels (ratio 0.01 of all image pixels) are different.\n\n  Snapshot: shadcn-light-medium-custom.png\n\nCall log:\n\u001b[2m  - Expect \"toHaveScreenshot(shadcn-light-medium-custom.png)\" locator('[data-visual-frame]') with timeout 10000ms\u001b[22m\n\u001b[2m    - verifying given screenshot expectation\u001b[22m\n\u001b[2m  - waiting for locator('[data-visual-frame]')\u001b[22m\n\u001b[2m    - locator resolved to <div data-visual-frame=\"true\" class=\"samples_36e7ffec2eb5\">…</div>\u001b[22m\n\u001b[2m  - taking element screenshot\u001b[22m\n\u001b[2m  - waiting for fonts to load...\u001b[22m\n\u001b[2m  - fonts loaded\u001b[22m\n\u001b[2m  - attempting scroll into view action\u001b[22m\n\u001b[2m    - waiting for element to be stable\u001b[22m\n\u001b[2m  - 8 pixels (ratio 0.01 of all image pixels) are different.\u001b[22m\n\u001b[2m  - waiting 100ms before taking screenshot\u001b[22m\n\u001b[2m  - waiting for locator('[data-visual-frame]')\u001b[22m\n\u001b[2m    - locator resolved to <div data-visual-frame=\"true\" class=\"samples_36e7ffec2eb5\">…</div>\u001b[22m\n\u001b[2m  - taking element screenshot\u001b[22m\n\u001b[2m  - waiting for fonts to load...\u001b[22m\n\u001b[2m  - fonts loaded\u001b[22m\n\u001b[2m  - attempting scroll into view action\u001b[22m\n\u001b[2m    - waiting for element to be stable\u001b[22m\n\u001b[2m  - captured a stable screenshot\u001b[22m\n\u001b[2m  - 8 pixels (ratio 0.01 of all image pixels) are different.\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveScreenshot\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('[data-visual-frame]')\n  8 pixels (ratio 0.01 of all image pixels) are different.\n\n  Snapshot: shadcn-light-medium-custom.png\n\nCall log:\n\u001b[2m  - Expect \"toHaveScreenshot(shadcn-light-medium-custom.png)\" locator('[data-visual-frame]') with timeout 10000ms\u001b[22m\n\u001b[2m    - verifying given screenshot expectation\u001b[22m\n\u001b[2m  - waiting for locator('[data-visual-frame]')\u001b[22m\n\u001b[2m    - locator resolved to <div data-visual-frame=\"true\" class=\"samples_36e7ffec2eb5\">…</div>\u001b[22m\n\u001b[2m  - taking element screenshot\u001b[22m\n\u001b[2m  - waiting for fonts to load...\u001b[22m\n\u001b[2m  - fonts loaded\u001b[22m\n\u001b[2m  - attempting scroll into view action\u001b[22m\n\u001b[2m    - waiting for element to be stable\u001b[22m\n\u001b[2m  - 8 pixels (ratio 0.01 of all image pixels) are different.\u001b[22m\n\u001b[2m  - waiting 100ms before taking screenshot\u001b[22m\n\u001b[2m  - waiting for locator('[data-visual-frame]')\u001b[22m\n\u001b[2m    - locator resolved to <div data-visual-frame=\"true\" class=\"samples_36e7ffec2eb5\">…</div>\u001b[22m\n\u001b[2m  - taking element screenshot\u001b[22m\n\u001b[2m  - waiting for fonts to load...\u001b[22m\n\u001b[2m  - fonts loaded\u001b[22m\n\u001b[2m  - attempting scroll into view action\u001b[22m\n\u001b[2m    - waiting for element to be stable\u001b[22m\n\u001b[2m  - captured a stable screenshot\u001b[22m\n\u001b[2m  - 8 pixels (ratio 0.01 of all image pixels) are different.\u001b[22m\n\n    at captureVisual (/workspace/test/visual/component-fixture.mjs:40:30)\n    at /workspace/components/rc-spin/docs/spin-motion.visual.spec.mjs:38:13",
+                    "location": {
+                      "file": "/workspace/test/visual/component-fixture.mjs",
+                      "column": 30,
+                      "line": 40
+                    },
+                    "snippet": "   at test/visual/component-fixture.mjs:40\n\n  38 |     await attachSnapshotTarget(info, name);\n  39 |     if (process.env.CRAB_VISUAL_CANDIDATE !== \"1\") {\n> 40 |         await expect(target).toHaveScreenshot(name, { animations: \"allow\", caret: \"hide\" });\n     |                              ^\n  41 |     } else {\n  42 |         await info.attach(\"actual\", { body: await target.screenshot({ animations: \"allow\", caret: \"hide\" }), contentType: \"image/png\" });\n  43 |     }"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "/workspace/test/visual/component-fixture.mjs",
+                        "column": 30,
+                        "line": 40
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveScreenshot\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('[data-visual-frame]')\n  8 pixels (ratio 0.01 of all image pixels) are different.\n\n  Snapshot: shadcn-light-medium-custom.png\n\nCall log:\n\u001b[2m  - Expect \"toHaveScreenshot(shadcn-light-medium-custom.png)\" locator('[data-visual-frame]') with timeout 10000ms\u001b[22m\n\u001b[2m    - verifying given screenshot expectation\u001b[22m\n\u001b[2m  - waiting for locator('[data-visual-frame]')\u001b[22m\n\u001b[2m    - locator resolved to <div data-visual-frame=\"true\" class=\"samples_36e7ffec2eb5\">…</div>\u001b[22m\n\u001b[2m  - taking element screenshot\u001b[22m\n\u001b[2m  - waiting for fonts to load...\u001b[22m\n\u001b[2m  - fonts loaded\u001b[22m\n\u001b[2m  - attempting scroll into view action\u001b[22m\n\u001b[2m    - waiting for element to be stable\u001b[22m\n\u001b[2m  - 8 pixels (ratio 0.01 of all image pixels) are different.\u001b[22m\n\u001b[2m  - waiting 100ms before taking screenshot\u001b[22m\n\u001b[2m  - waiting for locator('[data-visual-frame]')\u001b[22m\n\u001b[2m    - locator resolved to <div data-visual-frame=\"true\" class=\"samples_36e7ffec2eb5\">…</div>\u001b[22m\n\u001b[2m  - taking element screenshot\u001b[22m\n\u001b[2m  - waiting for fonts to load...\u001b[22m\n\u001b[2m  - fonts loaded\u001b[22m\n\u001b[2m  - attempting scroll into view action\u001b[22m\n\u001b[2m    - waiting for element to be stable\u001b[22m\n\u001b[2m  - captured a stable screenshot\u001b[22m\n\u001b[2m  - 8 pixels (ratio 0.01 of all image pixels) are different.\u001b[22m\n\n\n   at test/visual/component-fixture.mjs:40\n\n  38 |     await attachSnapshotTarget(info, name);\n  39 |     if (process.env.CRAB_VISUAL_CANDIDATE !== \"1\") {\n> 40 |         await expect(target).toHaveScreenshot(name, { animations: \"allow\", caret: \"hide\" });\n     |                              ^\n  41 |     } else {\n  42 |         await info.attach(\"actual\", { body: await target.screenshot({ animations: \"allow\", caret: \"hide\" }), contentType: \"image/png\" });\n  43 |     }\n    at captureVisual (/workspace/test/visual/component-fixture.mjs:40:30)\n    at /workspace/components/rc-spin/docs/spin-motion.visual.spec.mjs:38:13"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-02T10:15:09.207Z",
+                  "annotations": [
+                    {
+                      "type": "matrix",
+                      "description": "{\"designSystem\":\"shadcn\",\"colorMode\":\"light\",\"size\":\"medium\",\"density\":\"standard\",\"state\":\"custom\"}",
+                      "location": {
+                        "file": "/workspace/components/rc-spin/docs/spin-motion.visual.spec.mjs",
+                        "line": 9,
+                        "column": 5
+                      }
+                    }
+                  ],
+                  "attachments": [
+                    {
+                      "name": "snapshot-target",
+                      "contentType": "application/json",
+                      "body": "eyJuYW1lIjoic2hhZGNuLWxpZ2h0LW1lZGl1bS1jdXN0b20ucG5nIiwicGF0aCI6InRlc3QvdmlzdWFsL2Jhc2VsaW5lcy9saW51eC9jaHJvbWl1bS9jb21wb25lbnRzL3JjLXNwaW4vZG9jcy9zcGluLW1vdGlvbi52aXN1YWwuc3BlYy5tanMvc2hhZGNuLWxpZ2h0LW1lZGl1bS1jdXN0b20ucG5nIn0="
+                    },
+                    {
+                      "name": "shadcn-light-medium-custom-expected.png",
+                      "contentType": "image/png",
+                      "path": "/workspace/test/visual/baselines/linux/chromium/components/rc-spin/docs/spin-motion.visual.spec.mjs/shadcn-light-medium-custom.png"
+                    },
+                    {
+                      "name": "shadcn-light-medium-custom-actual.png",
+                      "contentType": "image/png",
+                      "path": "/workspace/.cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-0f034--shadcn-light-medium-custom-chromium-repeat2/shadcn-light-medium-custom-actual.png"
+                    },
+                    {
+                      "name": "shadcn-light-medium-custom-diff.png",
+                      "contentType": "image/png",
+                      "path": "/workspace/.cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-0f034--shadcn-light-medium-custom-chromium-repeat2/shadcn-light-medium-custom-diff.png"
+                    },
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/workspace/.cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-0f034--shadcn-light-medium-custom-chromium-repeat2/test-failed-1.png"
+                    },
+                    {
+                      "name": "candidate-inputs",
+                      "contentType": "application/json",
+                      "body": "ewogICJzb3VyY2UiOiAic2hhMjU2OmZiYWMzZDA5MDliZmNmNWJlMDJhYjBhNWMzNDBhN2Q4MDEyMTJjZThlNzkyNTYwMmY2MWM4ZDIxMjJiMzc0ZTYiLAogICJhcnRpZmFjdCI6ICJzaGEyNTY6YzVjNzQ0ODFlMmJkMzkzYjc5NjM5MWRjYWM2YjE1ZjZlZDc2YjhlM2RiYTNkODJlMGI2ZDNiYmY0ZDFmODNjMSIsCiAgInNpdGVCdWlsZCI6ICJzaGEyNTY6MWNkMzhjYzRjNjZjOWU2ZjE4MmNmZjY4NDIwODBjMzg0MTUwZWI5NjkzNmI1OGViNmY2Yzg5ZWIxMzlmYWFmNSIsCiAgImZpbGUiOiAiL3dvcmtzcGFjZS8uY2FjaGUvdmlzdWFsL2N1c3RvbS1waXhlbC1yZXByby0yMDI2MTEwMi9pbnB1dHMtd29ya2VyLTExLmpzb24iLAogICJyZW5kZXJpbmdFbnZpcm9ubWVudCI6IHsKICAgICJmaWxlIjogIi93b3Jrc3BhY2UvLmNhY2hlL3Zpc3VhbC9jdXN0b20tcGl4ZWwtcmVwcm8tMjAyNjExMDIvcmVuZGVyaW5nLXdvcmtlci0xMS5qc29uIiwKICAgICJicm93c2VyTmFtZSI6ICJjaHJvbWl1bSIsCiAgICAiYnJvd3NlciI6ICIxNTYuMC44MDc4LjQiCiAgfSwKICAiYnJvd3Nlck5hbWUiOiAiY2hyb21pdW0iLAogICJicm93c2VyIjogIjE1Ni4wLjgwNzguNCIsCiAgInBsYXRmb3JtIjogImxpbnV4IiwKICAiYXJjaCI6ICJ4NjQiLAogICJpbWFnZSI6ICJtY3IubWljcm9zb2Z0LmNvbS9wbGF5d3JpZ2h0OnYxLjY0LjEtbm9ibGVAc2hhMjU2OjQ3YjUxMGRkOTIzMGJmMGI5YmZjOWIyMDEwMjI0MWU1NzdlYTdhOTkzMzRhYjRjM2NhMTlmMTk3NzBlOWI4ZWEiLAogICJtb2RlIjogInJlZ3Jlc3Npb24iLAogICJ2aXN1YWxSZXZpZXciOiAicGVuZGluZyIKfQ=="
+                    },
+                    {
+                      "name": "browser-console",
+                      "contentType": "application/json",
+                      "body": "W3sidGV4dCI6IkZhaWxlZCB0byBsb2FkIHJlc291cmNlOiB0aGUgc2VydmVyIHJlc3BvbmRlZCB3aXRoIGEgc3RhdHVzIG9mIDQwNCAoTm90IEZvdW5kKSIsImxvY2F0aW9uIjp7InVybCI6Imh0dHA6Ly8xMjcuMC4wLjE6NDA3OTcvZmF2aWNvbi5pY28iLCJsaW5lIjowLCJjb2x1bW4iOjAsImxpbmVOdW1iZXIiOjAsImNvbHVtbk51bWJlciI6MH19XQ=="
+                    },
+                    {
+                      "name": "video",
+                      "contentType": "video/webm",
+                      "path": "/workspace/.cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-0f034--shadcn-light-medium-custom-chromium-repeat2/video.webm"
+                    },
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/workspace/.cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-0f034--shadcn-light-medium-custom-chromium-repeat2/test-failed-2.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "/workspace/.cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-0f034--shadcn-light-medium-custom-chromium-repeat2/error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "/workspace/.cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-0f034--shadcn-light-medium-custom-chromium-repeat2/trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "/workspace/test/visual/component-fixture.mjs",
+                    "column": 30,
+                    "line": 40
+                  }
+                }
+              ],
+              "status": "unexpected"
+            },
+            {
+              "timeout": 45000,
+              "annotations": [
+                {
+                  "type": "matrix",
+                  "description": "{\"designSystem\":\"shadcn\",\"colorMode\":\"light\",\"size\":\"medium\",\"density\":\"standard\",\"state\":\"custom\"}",
+                  "location": {
+                    "file": "/workspace/components/rc-spin/docs/spin-motion.visual.spec.mjs",
+                    "line": 9,
+                    "column": 5
+                  }
+                }
+              ],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 14,
+                  "parallelIndex": 1,
+                  "status": "failed",
+                  "duration": 2685,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveScreenshot\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('[data-visual-frame]')\n  8 pixels (ratio 0.01 of all image pixels) are different.\n\n  Snapshot: shadcn-light-medium-custom.png\n\nCall log:\n\u001b[2m  - Expect \"toHaveScreenshot(shadcn-light-medium-custom.png)\" locator('[data-visual-frame]') with timeout 10000ms\u001b[22m\n\u001b[2m    - verifying given screenshot expectation\u001b[22m\n\u001b[2m  - waiting for locator('[data-visual-frame]')\u001b[22m\n\u001b[2m    - locator resolved to <div data-visual-frame=\"true\" class=\"samples_36e7ffec2eb5\">…</div>\u001b[22m\n\u001b[2m  - taking element screenshot\u001b[22m\n\u001b[2m  - waiting for fonts to load...\u001b[22m\n\u001b[2m  - fonts loaded\u001b[22m\n\u001b[2m  - attempting scroll into view action\u001b[22m\n\u001b[2m    - waiting for element to be stable\u001b[22m\n\u001b[2m  - 8 pixels (ratio 0.01 of all image pixels) are different.\u001b[22m\n\u001b[2m  - waiting 100ms before taking screenshot\u001b[22m\n\u001b[2m  - waiting for locator('[data-visual-frame]')\u001b[22m\n\u001b[2m    - locator resolved to <div data-visual-frame=\"true\" class=\"samples_36e7ffec2eb5\">…</div>\u001b[22m\n\u001b[2m  - taking element screenshot\u001b[22m\n\u001b[2m  - waiting for fonts to load...\u001b[22m\n\u001b[2m  - fonts loaded\u001b[22m\n\u001b[2m  - attempting scroll into view action\u001b[22m\n\u001b[2m    - waiting for element to be stable\u001b[22m\n\u001b[2m  - captured a stable screenshot\u001b[22m\n\u001b[2m  - 8 pixels (ratio 0.01 of all image pixels) are different.\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveScreenshot\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('[data-visual-frame]')\n  8 pixels (ratio 0.01 of all image pixels) are different.\n\n  Snapshot: shadcn-light-medium-custom.png\n\nCall log:\n\u001b[2m  - Expect \"toHaveScreenshot(shadcn-light-medium-custom.png)\" locator('[data-visual-frame]') with timeout 10000ms\u001b[22m\n\u001b[2m    - verifying given screenshot expectation\u001b[22m\n\u001b[2m  - waiting for locator('[data-visual-frame]')\u001b[22m\n\u001b[2m    - locator resolved to <div data-visual-frame=\"true\" class=\"samples_36e7ffec2eb5\">…</div>\u001b[22m\n\u001b[2m  - taking element screenshot\u001b[22m\n\u001b[2m  - waiting for fonts to load...\u001b[22m\n\u001b[2m  - fonts loaded\u001b[22m\n\u001b[2m  - attempting scroll into view action\u001b[22m\n\u001b[2m    - waiting for element to be stable\u001b[22m\n\u001b[2m  - 8 pixels (ratio 0.01 of all image pixels) are different.\u001b[22m\n\u001b[2m  - waiting 100ms before taking screenshot\u001b[22m\n\u001b[2m  - waiting for locator('[data-visual-frame]')\u001b[22m\n\u001b[2m    - locator resolved to <div data-visual-frame=\"true\" class=\"samples_36e7ffec2eb5\">…</div>\u001b[22m\n\u001b[2m  - taking element screenshot\u001b[22m\n\u001b[2m  - waiting for fonts to load...\u001b[22m\n\u001b[2m  - fonts loaded\u001b[22m\n\u001b[2m  - attempting scroll into view action\u001b[22m\n\u001b[2m    - waiting for element to be stable\u001b[22m\n\u001b[2m  - captured a stable screenshot\u001b[22m\n\u001b[2m  - 8 pixels (ratio 0.01 of all image pixels) are different.\u001b[22m\n\n    at captureVisual (/workspace/test/visual/component-fixture.mjs:40:30)\n    at /workspace/components/rc-spin/docs/spin-motion.visual.spec.mjs:38:13",
+                    "location": {
+                      "file": "/workspace/test/visual/component-fixture.mjs",
+                      "column": 30,
+                      "line": 40
+                    },
+                    "snippet": "   at test/visual/component-fixture.mjs:40\n\n  38 |     await attachSnapshotTarget(info, name);\n  39 |     if (process.env.CRAB_VISUAL_CANDIDATE !== \"1\") {\n> 40 |         await expect(target).toHaveScreenshot(name, { animations: \"allow\", caret: \"hide\" });\n     |                              ^\n  41 |     } else {\n  42 |         await info.attach(\"actual\", { body: await target.screenshot({ animations: \"allow\", caret: \"hide\" }), contentType: \"image/png\" });\n  43 |     }"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "/workspace/test/visual/component-fixture.mjs",
+                        "column": 30,
+                        "line": 40
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveScreenshot\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('[data-visual-frame]')\n  8 pixels (ratio 0.01 of all image pixels) are different.\n\n  Snapshot: shadcn-light-medium-custom.png\n\nCall log:\n\u001b[2m  - Expect \"toHaveScreenshot(shadcn-light-medium-custom.png)\" locator('[data-visual-frame]') with timeout 10000ms\u001b[22m\n\u001b[2m    - verifying given screenshot expectation\u001b[22m\n\u001b[2m  - waiting for locator('[data-visual-frame]')\u001b[22m\n\u001b[2m    - locator resolved to <div data-visual-frame=\"true\" class=\"samples_36e7ffec2eb5\">…</div>\u001b[22m\n\u001b[2m  - taking element screenshot\u001b[22m\n\u001b[2m  - waiting for fonts to load...\u001b[22m\n\u001b[2m  - fonts loaded\u001b[22m\n\u001b[2m  - attempting scroll into view action\u001b[22m\n\u001b[2m    - waiting for element to be stable\u001b[22m\n\u001b[2m  - 8 pixels (ratio 0.01 of all image pixels) are different.\u001b[22m\n\u001b[2m  - waiting 100ms before taking screenshot\u001b[22m\n\u001b[2m  - waiting for locator('[data-visual-frame]')\u001b[22m\n\u001b[2m    - locator resolved to <div data-visual-frame=\"true\" class=\"samples_36e7ffec2eb5\">…</div>\u001b[22m\n\u001b[2m  - taking element screenshot\u001b[22m\n\u001b[2m  - waiting for fonts to load...\u001b[22m\n\u001b[2m  - fonts loaded\u001b[22m\n\u001b[2m  - attempting scroll into view action\u001b[22m\n\u001b[2m    - waiting for element to be stable\u001b[22m\n\u001b[2m  - captured a stable screenshot\u001b[22m\n\u001b[2m  - 8 pixels (ratio 0.01 of all image pixels) are different.\u001b[22m\n\n\n   at test/visual/component-fixture.mjs:40\n\n  38 |     await attachSnapshotTarget(info, name);\n  39 |     if (process.env.CRAB_VISUAL_CANDIDATE !== \"1\") {\n> 40 |         await expect(target).toHaveScreenshot(name, { animations: \"allow\", caret: \"hide\" });\n     |                              ^\n  41 |     } else {\n  42 |         await info.attach(\"actual\", { body: await target.screenshot({ animations: \"allow\", caret: \"hide\" }), contentType: \"image/png\" });\n  43 |     }\n    at captureVisual (/workspace/test/visual/component-fixture.mjs:40:30)\n    at /workspace/components/rc-spin/docs/spin-motion.visual.spec.mjs:38:13"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-02T10:15:21.558Z",
+                  "annotations": [
+                    {
+                      "type": "matrix",
+                      "description": "{\"designSystem\":\"shadcn\",\"colorMode\":\"light\",\"size\":\"medium\",\"density\":\"standard\",\"state\":\"custom\"}",
+                      "location": {
+                        "file": "/workspace/components/rc-spin/docs/spin-motion.visual.spec.mjs",
+                        "line": 9,
+                        "column": 5
+                      }
+                    }
+                  ],
+                  "attachments": [
+                    {
+                      "name": "snapshot-target",
+                      "contentType": "application/json",
+                      "body": "eyJuYW1lIjoic2hhZGNuLWxpZ2h0LW1lZGl1bS1jdXN0b20ucG5nIiwicGF0aCI6InRlc3QvdmlzdWFsL2Jhc2VsaW5lcy9saW51eC9jaHJvbWl1bS9jb21wb25lbnRzL3JjLXNwaW4vZG9jcy9zcGluLW1vdGlvbi52aXN1YWwuc3BlYy5tanMvc2hhZGNuLWxpZ2h0LW1lZGl1bS1jdXN0b20ucG5nIn0="
+                    },
+                    {
+                      "name": "shadcn-light-medium-custom-expected.png",
+                      "contentType": "image/png",
+                      "path": "/workspace/test/visual/baselines/linux/chromium/components/rc-spin/docs/spin-motion.visual.spec.mjs/shadcn-light-medium-custom.png"
+                    },
+                    {
+                      "name": "shadcn-light-medium-custom-actual.png",
+                      "contentType": "image/png",
+                      "path": "/workspace/.cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-0f034--shadcn-light-medium-custom-chromium-repeat3/shadcn-light-medium-custom-actual.png"
+                    },
+                    {
+                      "name": "shadcn-light-medium-custom-diff.png",
+                      "contentType": "image/png",
+                      "path": "/workspace/.cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-0f034--shadcn-light-medium-custom-chromium-repeat3/shadcn-light-medium-custom-diff.png"
+                    },
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/workspace/.cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-0f034--shadcn-light-medium-custom-chromium-repeat3/test-failed-1.png"
+                    },
+                    {
+                      "name": "candidate-inputs",
+                      "contentType": "application/json",
+                      "body": "ewogICJzb3VyY2UiOiAic2hhMjU2OmZiYWMzZDA5MDliZmNmNWJlMDJhYjBhNWMzNDBhN2Q4MDEyMTJjZThlNzkyNTYwMmY2MWM4ZDIxMjJiMzc0ZTYiLAogICJhcnRpZmFjdCI6ICJzaGEyNTY6YzVjNzQ0ODFlMmJkMzkzYjc5NjM5MWRjYWM2YjE1ZjZlZDc2YjhlM2RiYTNkODJlMGI2ZDNiYmY0ZDFmODNjMSIsCiAgInNpdGVCdWlsZCI6ICJzaGEyNTY6MWNkMzhjYzRjNjZjOWU2ZjE4MmNmZjY4NDIwODBjMzg0MTUwZWI5NjkzNmI1OGViNmY2Yzg5ZWIxMzlmYWFmNSIsCiAgImZpbGUiOiAiL3dvcmtzcGFjZS8uY2FjaGUvdmlzdWFsL2N1c3RvbS1waXhlbC1yZXByby0yMDI2MTEwMi9pbnB1dHMtd29ya2VyLTE0Lmpzb24iLAogICJyZW5kZXJpbmdFbnZpcm9ubWVudCI6IHsKICAgICJmaWxlIjogIi93b3Jrc3BhY2UvLmNhY2hlL3Zpc3VhbC9jdXN0b20tcGl4ZWwtcmVwcm8tMjAyNjExMDIvcmVuZGVyaW5nLXdvcmtlci0xNC5qc29uIiwKICAgICJicm93c2VyTmFtZSI6ICJjaHJvbWl1bSIsCiAgICAiYnJvd3NlciI6ICIxNTYuMC44MDc4LjQiCiAgfSwKICAiYnJvd3Nlck5hbWUiOiAiY2hyb21pdW0iLAogICJicm93c2VyIjogIjE1Ni4wLjgwNzguNCIsCiAgInBsYXRmb3JtIjogImxpbnV4IiwKICAiYXJjaCI6ICJ4NjQiLAogICJpbWFnZSI6ICJtY3IubWljcm9zb2Z0LmNvbS9wbGF5d3JpZ2h0OnYxLjY0LjEtbm9ibGVAc2hhMjU2OjQ3YjUxMGRkOTIzMGJmMGI5YmZjOWIyMDEwMjI0MWU1NzdlYTdhOTkzMzRhYjRjM2NhMTlmMTk3NzBlOWI4ZWEiLAogICJtb2RlIjogInJlZ3Jlc3Npb24iLAogICJ2aXN1YWxSZXZpZXciOiAicGVuZGluZyIKfQ=="
+                    },
+                    {
+                      "name": "browser-console",
+                      "contentType": "application/json",
+                      "body": "W3sidGV4dCI6IkZhaWxlZCB0byBsb2FkIHJlc291cmNlOiB0aGUgc2VydmVyIHJlc3BvbmRlZCB3aXRoIGEgc3RhdHVzIG9mIDQwNCAoTm90IEZvdW5kKSIsImxvY2F0aW9uIjp7InVybCI6Imh0dHA6Ly8xMjcuMC4wLjE6NDAxMzUvZmF2aWNvbi5pY28iLCJsaW5lIjowLCJjb2x1bW4iOjAsImxpbmVOdW1iZXIiOjAsImNvbHVtbk51bWJlciI6MH19XQ=="
+                    },
+                    {
+                      "name": "video",
+                      "contentType": "video/webm",
+                      "path": "/workspace/.cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-0f034--shadcn-light-medium-custom-chromium-repeat3/video.webm"
+                    },
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/workspace/.cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-0f034--shadcn-light-medium-custom-chromium-repeat3/test-failed-2.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "/workspace/.cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-0f034--shadcn-light-medium-custom-chromium-repeat3/error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "/workspace/.cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-0f034--shadcn-light-medium-custom-chromium-repeat3/trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "/workspace/test/visual/component-fixture.mjs",
+                    "column": 30,
+                    "line": 40
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "f0426626d6f8e37fe854-98bb940941358e2e1447",
+          "file": "components/rc-spin/docs/spin-motion.visual.spec.mjs",
+          "line": 9,
+          "column": 5
+        },
+        {
+          "title": "Spin shadcn light large custom",
+          "ok": true,
+          "tags": [
+            "rc-spin",
+            "matrix",
+            "motion",
+            "chromium-only"
+          ],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [
+                {
+                  "type": "matrix",
+                  "description": "{\"designSystem\":\"shadcn\",\"colorMode\":\"light\",\"size\":\"large\",\"density\":\"standard\",\"state\":\"custom\"}",
+                  "location": {
+                    "file": "/workspace/components/rc-spin/docs/spin-motion.visual.spec.mjs",
+                    "line": 9,
+                    "column": 5
+                  }
+                }
+              ],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 3,
+                  "status": "passed",
+                  "duration": 3950,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-02T10:14:45.212Z",
+                  "annotations": [
+                    {
+                      "type": "matrix",
+                      "description": "{\"designSystem\":\"shadcn\",\"colorMode\":\"light\",\"size\":\"large\",\"density\":\"standard\",\"state\":\"custom\"}",
+                      "location": {
+                        "file": "/workspace/components/rc-spin/docs/spin-motion.visual.spec.mjs",
+                        "line": 9,
+                        "column": 5
+                      }
+                    }
+                  ],
+                  "attachments": [
+                    {
+                      "name": "snapshot-target",
+                      "contentType": "application/json",
+                      "body": "eyJuYW1lIjoic2hhZGNuLWxpZ2h0LWxhcmdlLWN1c3RvbS5wbmciLCJwYXRoIjoidGVzdC92aXN1YWwvYmFzZWxpbmVzL2xpbnV4L2Nocm9taXVtL2NvbXBvbmVudHMvcmMtc3Bpbi9kb2NzL3NwaW4tbW90aW9uLnZpc3VhbC5zcGVjLm1qcy9zaGFkY24tbGlnaHQtbGFyZ2UtY3VzdG9tLnBuZyJ9"
+                    },
+                    {
+                      "name": "candidate-inputs",
+                      "contentType": "application/json",
+                      "body": "ewogICJzb3VyY2UiOiAic2hhMjU2OmZiYWMzZDA5MDliZmNmNWJlMDJhYjBhNWMzNDBhN2Q4MDEyMTJjZThlNzkyNTYwMmY2MWM4ZDIxMjJiMzc0ZTYiLAogICJhcnRpZmFjdCI6ICJzaGEyNTY6YzVjNzQ0ODFlMmJkMzkzYjc5NjM5MWRjYWM2YjE1ZjZlZDc2YjhlM2RiYTNkODJlMGI2ZDNiYmY0ZDFmODNjMSIsCiAgInNpdGVCdWlsZCI6ICJzaGEyNTY6MWNkMzhjYzRjNjZjOWU2ZjE4MmNmZjY4NDIwODBjMzg0MTUwZWI5NjkzNmI1OGViNmY2Yzg5ZWIxMzlmYWFmNSIsCiAgImZpbGUiOiAiL3dvcmtzcGFjZS8uY2FjaGUvdmlzdWFsL2N1c3RvbS1waXhlbC1yZXByby0yMDI2MTEwMi9pbnB1dHMtd29ya2VyLTMuanNvbiIsCiAgInJlbmRlcmluZ0Vudmlyb25tZW50IjogewogICAgImZpbGUiOiAiL3dvcmtzcGFjZS8uY2FjaGUvdmlzdWFsL2N1c3RvbS1waXhlbC1yZXByby0yMDI2MTEwMi9yZW5kZXJpbmctd29ya2VyLTMuanNvbiIsCiAgICAiYnJvd3Nlck5hbWUiOiAiY2hyb21pdW0iLAogICAgImJyb3dzZXIiOiAiMTU2LjAuODA3OC40IgogIH0sCiAgImJyb3dzZXJOYW1lIjogImNocm9taXVtIiwKICAiYnJvd3NlciI6ICIxNTYuMC44MDc4LjQiLAogICJwbGF0Zm9ybSI6ICJsaW51eCIsCiAgImFyY2giOiAieDY0IiwKICAiaW1hZ2UiOiAibWNyLm1pY3Jvc29mdC5jb20vcGxheXdyaWdodDp2MS42NC4xLW5vYmxlQHNoYTI1Njo0N2I1MTBkZDkyMzBiZjBiOWJmYzliMjAxMDIyNDFlNTc3ZWE3YTk5MzM0YWI0YzNjYTE5ZjE5NzcwZTliOGVhIiwKICAibW9kZSI6ICJyZWdyZXNzaW9uIiwKICAidmlzdWFsUmV2aWV3IjogInBlbmRpbmciCn0="
+                    },
+                    {
+                      "name": "browser-console",
+                      "contentType": "application/json",
+                      "body": "W3sidGV4dCI6IkZhaWxlZCB0byBsb2FkIHJlc291cmNlOiB0aGUgc2VydmVyIHJlc3BvbmRlZCB3aXRoIGEgc3RhdHVzIG9mIDQwNCAoTm90IEZvdW5kKSIsImxvY2F0aW9uIjp7InVybCI6Imh0dHA6Ly8xMjcuMC4wLjE6NDY2NTEvZmF2aWNvbi5pY28iLCJsaW5lIjowLCJjb2x1bW4iOjAsImxpbmVOdW1iZXIiOjAsImNvbHVtbk51bWJlciI6MH19XQ=="
+                    },
+                    {
+                      "name": "video",
+                      "contentType": "video/webm",
+                      "path": "/workspace/.cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-af53d-n-shadcn-light-large-custom-chromium/video.webm"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            },
+            {
+              "timeout": 45000,
+              "annotations": [
+                {
+                  "type": "matrix",
+                  "description": "{\"designSystem\":\"shadcn\",\"colorMode\":\"light\",\"size\":\"large\",\"density\":\"standard\",\"state\":\"custom\"}",
+                  "location": {
+                    "file": "/workspace/components/rc-spin/docs/spin-motion.visual.spec.mjs",
+                    "line": 9,
+                    "column": 5
+                  }
+                }
+              ],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 7,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2063,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-02T10:14:59.311Z",
+                  "annotations": [
+                    {
+                      "type": "matrix",
+                      "description": "{\"designSystem\":\"shadcn\",\"colorMode\":\"light\",\"size\":\"large\",\"density\":\"standard\",\"state\":\"custom\"}",
+                      "location": {
+                        "file": "/workspace/components/rc-spin/docs/spin-motion.visual.spec.mjs",
+                        "line": 9,
+                        "column": 5
+                      }
+                    }
+                  ],
+                  "attachments": [
+                    {
+                      "name": "snapshot-target",
+                      "contentType": "application/json",
+                      "body": "eyJuYW1lIjoic2hhZGNuLWxpZ2h0LWxhcmdlLWN1c3RvbS5wbmciLCJwYXRoIjoidGVzdC92aXN1YWwvYmFzZWxpbmVzL2xpbnV4L2Nocm9taXVtL2NvbXBvbmVudHMvcmMtc3Bpbi9kb2NzL3NwaW4tbW90aW9uLnZpc3VhbC5zcGVjLm1qcy9zaGFkY24tbGlnaHQtbGFyZ2UtY3VzdG9tLnBuZyJ9"
+                    },
+                    {
+                      "name": "candidate-inputs",
+                      "contentType": "application/json",
+                      "body": "ewogICJzb3VyY2UiOiAic2hhMjU2OmZiYWMzZDA5MDliZmNmNWJlMDJhYjBhNWMzNDBhN2Q4MDEyMTJjZThlNzkyNTYwMmY2MWM4ZDIxMjJiMzc0ZTYiLAogICJhcnRpZmFjdCI6ICJzaGEyNTY6YzVjNzQ0ODFlMmJkMzkzYjc5NjM5MWRjYWM2YjE1ZjZlZDc2YjhlM2RiYTNkODJlMGI2ZDNiYmY0ZDFmODNjMSIsCiAgInNpdGVCdWlsZCI6ICJzaGEyNTY6MWNkMzhjYzRjNjZjOWU2ZjE4MmNmZjY4NDIwODBjMzg0MTUwZWI5NjkzNmI1OGViNmY2Yzg5ZWIxMzlmYWFmNSIsCiAgImZpbGUiOiAiL3dvcmtzcGFjZS8uY2FjaGUvdmlzdWFsL2N1c3RvbS1waXhlbC1yZXByby0yMDI2MTEwMi9pbnB1dHMtd29ya2VyLTcuanNvbiIsCiAgInJlbmRlcmluZ0Vudmlyb25tZW50IjogewogICAgImZpbGUiOiAiL3dvcmtzcGFjZS8uY2FjaGUvdmlzdWFsL2N1c3RvbS1waXhlbC1yZXByby0yMDI2MTEwMi9yZW5kZXJpbmctd29ya2VyLTcuanNvbiIsCiAgICAiYnJvd3Nlck5hbWUiOiAiY2hyb21pdW0iLAogICAgImJyb3dzZXIiOiAiMTU2LjAuODA3OC40IgogIH0sCiAgImJyb3dzZXJOYW1lIjogImNocm9taXVtIiwKICAiYnJvd3NlciI6ICIxNTYuMC44MDc4LjQiLAogICJwbGF0Zm9ybSI6ICJsaW51eCIsCiAgImFyY2giOiAieDY0IiwKICAiaW1hZ2UiOiAibWNyLm1pY3Jvc29mdC5jb20vcGxheXdyaWdodDp2MS42NC4xLW5vYmxlQHNoYTI1Njo0N2I1MTBkZDkyMzBiZjBiOWJmYzliMjAxMDIyNDFlNTc3ZWE3YTk5MzM0YWI0YzNjYTE5ZjE5NzcwZTliOGVhIiwKICAibW9kZSI6ICJyZWdyZXNzaW9uIiwKICAidmlzdWFsUmV2aWV3IjogInBlbmRpbmciCn0="
+                    },
+                    {
+                      "name": "browser-console",
+                      "contentType": "application/json",
+                      "body": "W3sidGV4dCI6IkZhaWxlZCB0byBsb2FkIHJlc291cmNlOiB0aGUgc2VydmVyIHJlc3BvbmRlZCB3aXRoIGEgc3RhdHVzIG9mIDQwNCAoTm90IEZvdW5kKSIsImxvY2F0aW9uIjp7InVybCI6Imh0dHA6Ly8xMjcuMC4wLjE6NDYzNzEvZmF2aWNvbi5pY28iLCJsaW5lIjowLCJjb2x1bW4iOjAsImxpbmVOdW1iZXIiOjAsImNvbHVtbk51bWJlciI6MH19XQ=="
+                    },
+                    {
+                      "name": "video",
+                      "contentType": "video/webm",
+                      "path": "/workspace/.cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-af53d-n-shadcn-light-large-custom-chromium-repeat1/video.webm"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            },
+            {
+              "timeout": 45000,
+              "annotations": [
+                {
+                  "type": "matrix",
+                  "description": "{\"designSystem\":\"shadcn\",\"colorMode\":\"light\",\"size\":\"large\",\"density\":\"standard\",\"state\":\"custom\"}",
+                  "location": {
+                    "file": "/workspace/components/rc-spin/docs/spin-motion.visual.spec.mjs",
+                    "line": 9,
+                    "column": 5
+                  }
+                }
+              ],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 10,
+                  "parallelIndex": 3,
+                  "status": "passed",
+                  "duration": 3332,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-02T10:15:08.913Z",
+                  "annotations": [
+                    {
+                      "type": "matrix",
+                      "description": "{\"designSystem\":\"shadcn\",\"colorMode\":\"light\",\"size\":\"large\",\"density\":\"standard\",\"state\":\"custom\"}",
+                      "location": {
+                        "file": "/workspace/components/rc-spin/docs/spin-motion.visual.spec.mjs",
+                        "line": 9,
+                        "column": 5
+                      }
+                    }
+                  ],
+                  "attachments": [
+                    {
+                      "name": "snapshot-target",
+                      "contentType": "application/json",
+                      "body": "eyJuYW1lIjoic2hhZGNuLWxpZ2h0LWxhcmdlLWN1c3RvbS5wbmciLCJwYXRoIjoidGVzdC92aXN1YWwvYmFzZWxpbmVzL2xpbnV4L2Nocm9taXVtL2NvbXBvbmVudHMvcmMtc3Bpbi9kb2NzL3NwaW4tbW90aW9uLnZpc3VhbC5zcGVjLm1qcy9zaGFkY24tbGlnaHQtbGFyZ2UtY3VzdG9tLnBuZyJ9"
+                    },
+                    {
+                      "name": "candidate-inputs",
+                      "contentType": "application/json",
+                      "body": "ewogICJzb3VyY2UiOiAic2hhMjU2OmZiYWMzZDA5MDliZmNmNWJlMDJhYjBhNWMzNDBhN2Q4MDEyMTJjZThlNzkyNTYwMmY2MWM4ZDIxMjJiMzc0ZTYiLAogICJhcnRpZmFjdCI6ICJzaGEyNTY6YzVjNzQ0ODFlMmJkMzkzYjc5NjM5MWRjYWM2YjE1ZjZlZDc2YjhlM2RiYTNkODJlMGI2ZDNiYmY0ZDFmODNjMSIsCiAgInNpdGVCdWlsZCI6ICJzaGEyNTY6MWNkMzhjYzRjNjZjOWU2ZjE4MmNmZjY4NDIwODBjMzg0MTUwZWI5NjkzNmI1OGViNmY2Yzg5ZWIxMzlmYWFmNSIsCiAgImZpbGUiOiAiL3dvcmtzcGFjZS8uY2FjaGUvdmlzdWFsL2N1c3RvbS1waXhlbC1yZXByby0yMDI2MTEwMi9pbnB1dHMtd29ya2VyLTEwLmpzb24iLAogICJyZW5kZXJpbmdFbnZpcm9ubWVudCI6IHsKICAgICJmaWxlIjogIi93b3Jrc3BhY2UvLmNhY2hlL3Zpc3VhbC9jdXN0b20tcGl4ZWwtcmVwcm8tMjAyNjExMDIvcmVuZGVyaW5nLXdvcmtlci0xMC5qc29uIiwKICAgICJicm93c2VyTmFtZSI6ICJjaHJvbWl1bSIsCiAgICAiYnJvd3NlciI6ICIxNTYuMC44MDc4LjQiCiAgfSwKICAiYnJvd3Nlck5hbWUiOiAiY2hyb21pdW0iLAogICJicm93c2VyIjogIjE1Ni4wLjgwNzguNCIsCiAgInBsYXRmb3JtIjogImxpbnV4IiwKICAiYXJjaCI6ICJ4NjQiLAogICJpbWFnZSI6ICJtY3IubWljcm9zb2Z0LmNvbS9wbGF5d3JpZ2h0OnYxLjY0LjEtbm9ibGVAc2hhMjU2OjQ3YjUxMGRkOTIzMGJmMGI5YmZjOWIyMDEwMjI0MWU1NzdlYTdhOTkzMzRhYjRjM2NhMTlmMTk3NzBlOWI4ZWEiLAogICJtb2RlIjogInJlZ3Jlc3Npb24iLAogICJ2aXN1YWxSZXZpZXciOiAicGVuZGluZyIKfQ=="
+                    },
+                    {
+                      "name": "browser-console",
+                      "contentType": "application/json",
+                      "body": "W3sidGV4dCI6IkZhaWxlZCB0byBsb2FkIHJlc291cmNlOiB0aGUgc2VydmVyIHJlc3BvbmRlZCB3aXRoIGEgc3RhdHVzIG9mIDQwNCAoTm90IEZvdW5kKSIsImxvY2F0aW9uIjp7InVybCI6Imh0dHA6Ly8xMjcuMC4wLjE6MzU0NzkvZmF2aWNvbi5pY28iLCJsaW5lIjowLCJjb2x1bW4iOjAsImxpbmVOdW1iZXIiOjAsImNvbHVtbk51bWJlciI6MH19XQ=="
+                    },
+                    {
+                      "name": "video",
+                      "contentType": "video/webm",
+                      "path": "/workspace/.cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-af53d-n-shadcn-light-large-custom-chromium-repeat2/video.webm"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            },
+            {
+              "timeout": 45000,
+              "annotations": [
+                {
+                  "type": "matrix",
+                  "description": "{\"designSystem\":\"shadcn\",\"colorMode\":\"light\",\"size\":\"large\",\"density\":\"standard\",\"state\":\"custom\"}",
+                  "location": {
+                    "file": "/workspace/components/rc-spin/docs/spin-motion.visual.spec.mjs",
+                    "line": 9,
+                    "column": 5
+                  }
+                }
+              ],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 15,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 2069,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveScreenshot\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('[data-visual-frame]')\n  2 pixels (ratio 0.01 of all image pixels) are different.\n\n  Snapshot: shadcn-light-large-custom.png\n\nCall log:\n\u001b[2m  - Expect \"toHaveScreenshot(shadcn-light-large-custom.png)\" locator('[data-visual-frame]') with timeout 10000ms\u001b[22m\n\u001b[2m    - verifying given screenshot expectation\u001b[22m\n\u001b[2m  - waiting for locator('[data-visual-frame]')\u001b[22m\n\u001b[2m    - locator resolved to <div data-visual-frame=\"true\" class=\"samples_36e7ffec2eb5\">…</div>\u001b[22m\n\u001b[2m  - taking element screenshot\u001b[22m\n\u001b[2m  - waiting for fonts to load...\u001b[22m\n\u001b[2m  - fonts loaded\u001b[22m\n\u001b[2m  - attempting scroll into view action\u001b[22m\n\u001b[2m    - waiting for element to be stable\u001b[22m\n\u001b[2m  - 2 pixels (ratio 0.01 of all image pixels) are different.\u001b[22m\n\u001b[2m  - waiting 100ms before taking screenshot\u001b[22m\n\u001b[2m  - waiting for locator('[data-visual-frame]')\u001b[22m\n\u001b[2m    - locator resolved to <div data-visual-frame=\"true\" class=\"samples_36e7ffec2eb5\">…</div>\u001b[22m\n\u001b[2m  - taking element screenshot\u001b[22m\n\u001b[2m  - waiting for fonts to load...\u001b[22m\n\u001b[2m  - fonts loaded\u001b[22m\n\u001b[2m  - attempting scroll into view action\u001b[22m\n\u001b[2m    - waiting for element to be stable\u001b[22m\n\u001b[2m  - captured a stable screenshot\u001b[22m\n\u001b[2m  - 2 pixels (ratio 0.01 of all image pixels) are different.\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveScreenshot\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('[data-visual-frame]')\n  2 pixels (ratio 0.01 of all image pixels) are different.\n\n  Snapshot: shadcn-light-large-custom.png\n\nCall log:\n\u001b[2m  - Expect \"toHaveScreenshot(shadcn-light-large-custom.png)\" locator('[data-visual-frame]') with timeout 10000ms\u001b[22m\n\u001b[2m    - verifying given screenshot expectation\u001b[22m\n\u001b[2m  - waiting for locator('[data-visual-frame]')\u001b[22m\n\u001b[2m    - locator resolved to <div data-visual-frame=\"true\" class=\"samples_36e7ffec2eb5\">…</div>\u001b[22m\n\u001b[2m  - taking element screenshot\u001b[22m\n\u001b[2m  - waiting for fonts to load...\u001b[22m\n\u001b[2m  - fonts loaded\u001b[22m\n\u001b[2m  - attempting scroll into view action\u001b[22m\n\u001b[2m    - waiting for element to be stable\u001b[22m\n\u001b[2m  - 2 pixels (ratio 0.01 of all image pixels) are different.\u001b[22m\n\u001b[2m  - waiting 100ms before taking screenshot\u001b[22m\n\u001b[2m  - waiting for locator('[data-visual-frame]')\u001b[22m\n\u001b[2m    - locator resolved to <div data-visual-frame=\"true\" class=\"samples_36e7ffec2eb5\">…</div>\u001b[22m\n\u001b[2m  - taking element screenshot\u001b[22m\n\u001b[2m  - waiting for fonts to load...\u001b[22m\n\u001b[2m  - fonts loaded\u001b[22m\n\u001b[2m  - attempting scroll into view action\u001b[22m\n\u001b[2m    - waiting for element to be stable\u001b[22m\n\u001b[2m  - captured a stable screenshot\u001b[22m\n\u001b[2m  - 2 pixels (ratio 0.01 of all image pixels) are different.\u001b[22m\n\n    at captureVisual (/workspace/test/visual/component-fixture.mjs:40:30)\n    at /workspace/components/rc-spin/docs/spin-motion.visual.spec.mjs:38:13",
+                    "location": {
+                      "file": "/workspace/test/visual/component-fixture.mjs",
+                      "column": 30,
+                      "line": 40
+                    },
+                    "snippet": "   at test/visual/component-fixture.mjs:40\n\n  38 |     await attachSnapshotTarget(info, name);\n  39 |     if (process.env.CRAB_VISUAL_CANDIDATE !== \"1\") {\n> 40 |         await expect(target).toHaveScreenshot(name, { animations: \"allow\", caret: \"hide\" });\n     |                              ^\n  41 |     } else {\n  42 |         await info.attach(\"actual\", { body: await target.screenshot({ animations: \"allow\", caret: \"hide\" }), contentType: \"image/png\" });\n  43 |     }"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "/workspace/test/visual/component-fixture.mjs",
+                        "column": 30,
+                        "line": 40
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveScreenshot\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('[data-visual-frame]')\n  2 pixels (ratio 0.01 of all image pixels) are different.\n\n  Snapshot: shadcn-light-large-custom.png\n\nCall log:\n\u001b[2m  - Expect \"toHaveScreenshot(shadcn-light-large-custom.png)\" locator('[data-visual-frame]') with timeout 10000ms\u001b[22m\n\u001b[2m    - verifying given screenshot expectation\u001b[22m\n\u001b[2m  - waiting for locator('[data-visual-frame]')\u001b[22m\n\u001b[2m    - locator resolved to <div data-visual-frame=\"true\" class=\"samples_36e7ffec2eb5\">…</div>\u001b[22m\n\u001b[2m  - taking element screenshot\u001b[22m\n\u001b[2m  - waiting for fonts to load...\u001b[22m\n\u001b[2m  - fonts loaded\u001b[22m\n\u001b[2m  - attempting scroll into view action\u001b[22m\n\u001b[2m    - waiting for element to be stable\u001b[22m\n\u001b[2m  - 2 pixels (ratio 0.01 of all image pixels) are different.\u001b[22m\n\u001b[2m  - waiting 100ms before taking screenshot\u001b[22m\n\u001b[2m  - waiting for locator('[data-visual-frame]')\u001b[22m\n\u001b[2m    - locator resolved to <div data-visual-frame=\"true\" class=\"samples_36e7ffec2eb5\">…</div>\u001b[22m\n\u001b[2m  - taking element screenshot\u001b[22m\n\u001b[2m  - waiting for fonts to load...\u001b[22m\n\u001b[2m  - fonts loaded\u001b[22m\n\u001b[2m  - attempting scroll into view action\u001b[22m\n\u001b[2m    - waiting for element to be stable\u001b[22m\n\u001b[2m  - captured a stable screenshot\u001b[22m\n\u001b[2m  - 2 pixels (ratio 0.01 of all image pixels) are different.\u001b[22m\n\n\n   at test/visual/component-fixture.mjs:40\n\n  38 |     await attachSnapshotTarget(info, name);\n  39 |     if (process.env.CRAB_VISUAL_CANDIDATE !== \"1\") {\n> 40 |         await expect(target).toHaveScreenshot(name, { animations: \"allow\", caret: \"hide\" });\n     |                              ^\n  41 |     } else {\n  42 |         await info.attach(\"actual\", { body: await target.screenshot({ animations: \"allow\", caret: \"hide\" }), contentType: \"image/png\" });\n  43 |     }\n    at captureVisual (/workspace/test/visual/component-fixture.mjs:40:30)\n    at /workspace/components/rc-spin/docs/spin-motion.visual.spec.mjs:38:13"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-02T10:15:23.016Z",
+                  "annotations": [
+                    {
+                      "type": "matrix",
+                      "description": "{\"designSystem\":\"shadcn\",\"colorMode\":\"light\",\"size\":\"large\",\"density\":\"standard\",\"state\":\"custom\"}",
+                      "location": {
+                        "file": "/workspace/components/rc-spin/docs/spin-motion.visual.spec.mjs",
+                        "line": 9,
+                        "column": 5
+                      }
+                    }
+                  ],
+                  "attachments": [
+                    {
+                      "name": "snapshot-target",
+                      "contentType": "application/json",
+                      "body": "eyJuYW1lIjoic2hhZGNuLWxpZ2h0LWxhcmdlLWN1c3RvbS5wbmciLCJwYXRoIjoidGVzdC92aXN1YWwvYmFzZWxpbmVzL2xpbnV4L2Nocm9taXVtL2NvbXBvbmVudHMvcmMtc3Bpbi9kb2NzL3NwaW4tbW90aW9uLnZpc3VhbC5zcGVjLm1qcy9zaGFkY24tbGlnaHQtbGFyZ2UtY3VzdG9tLnBuZyJ9"
+                    },
+                    {
+                      "name": "shadcn-light-large-custom-expected.png",
+                      "contentType": "image/png",
+                      "path": "/workspace/test/visual/baselines/linux/chromium/components/rc-spin/docs/spin-motion.visual.spec.mjs/shadcn-light-large-custom.png"
+                    },
+                    {
+                      "name": "shadcn-light-large-custom-actual.png",
+                      "contentType": "image/png",
+                      "path": "/workspace/.cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-af53d-n-shadcn-light-large-custom-chromium-repeat3/shadcn-light-large-custom-actual.png"
+                    },
+                    {
+                      "name": "shadcn-light-large-custom-diff.png",
+                      "contentType": "image/png",
+                      "path": "/workspace/.cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-af53d-n-shadcn-light-large-custom-chromium-repeat3/shadcn-light-large-custom-diff.png"
+                    },
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/workspace/.cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-af53d-n-shadcn-light-large-custom-chromium-repeat3/test-failed-1.png"
+                    },
+                    {
+                      "name": "candidate-inputs",
+                      "contentType": "application/json",
+                      "body": "ewogICJzb3VyY2UiOiAic2hhMjU2OmZiYWMzZDA5MDliZmNmNWJlMDJhYjBhNWMzNDBhN2Q4MDEyMTJjZThlNzkyNTYwMmY2MWM4ZDIxMjJiMzc0ZTYiLAogICJhcnRpZmFjdCI6ICJzaGEyNTY6YzVjNzQ0ODFlMmJkMzkzYjc5NjM5MWRjYWM2YjE1ZjZlZDc2YjhlM2RiYTNkODJlMGI2ZDNiYmY0ZDFmODNjMSIsCiAgInNpdGVCdWlsZCI6ICJzaGEyNTY6MWNkMzhjYzRjNjZjOWU2ZjE4MmNmZjY4NDIwODBjMzg0MTUwZWI5NjkzNmI1OGViNmY2Yzg5ZWIxMzlmYWFmNSIsCiAgImZpbGUiOiAiL3dvcmtzcGFjZS8uY2FjaGUvdmlzdWFsL2N1c3RvbS1waXhlbC1yZXByby0yMDI2MTEwMi9pbnB1dHMtd29ya2VyLTE1Lmpzb24iLAogICJyZW5kZXJpbmdFbnZpcm9ubWVudCI6IHsKICAgICJmaWxlIjogIi93b3Jrc3BhY2UvLmNhY2hlL3Zpc3VhbC9jdXN0b20tcGl4ZWwtcmVwcm8tMjAyNjExMDIvcmVuZGVyaW5nLXdvcmtlci0xNS5qc29uIiwKICAgICJicm93c2VyTmFtZSI6ICJjaHJvbWl1bSIsCiAgICAiYnJvd3NlciI6ICIxNTYuMC44MDc4LjQiCiAgfSwKICAiYnJvd3Nlck5hbWUiOiAiY2hyb21pdW0iLAogICJicm93c2VyIjogIjE1Ni4wLjgwNzguNCIsCiAgInBsYXRmb3JtIjogImxpbnV4IiwKICAiYXJjaCI6ICJ4NjQiLAogICJpbWFnZSI6ICJtY3IubWljcm9zb2Z0LmNvbS9wbGF5d3JpZ2h0OnYxLjY0LjEtbm9ibGVAc2hhMjU2OjQ3YjUxMGRkOTIzMGJmMGI5YmZjOWIyMDEwMjI0MWU1NzdlYTdhOTkzMzRhYjRjM2NhMTlmMTk3NzBlOWI4ZWEiLAogICJtb2RlIjogInJlZ3Jlc3Npb24iLAogICJ2aXN1YWxSZXZpZXciOiAicGVuZGluZyIKfQ=="
+                    },
+                    {
+                      "name": "browser-console",
+                      "contentType": "application/json",
+                      "body": "W3sidGV4dCI6IkZhaWxlZCB0byBsb2FkIHJlc291cmNlOiB0aGUgc2VydmVyIHJlc3BvbmRlZCB3aXRoIGEgc3RhdHVzIG9mIDQwNCAoTm90IEZvdW5kKSIsImxvY2F0aW9uIjp7InVybCI6Imh0dHA6Ly8xMjcuMC4wLjE6NDIxNzUvZmF2aWNvbi5pY28iLCJsaW5lIjowLCJjb2x1bW4iOjAsImxpbmVOdW1iZXIiOjAsImNvbHVtbk51bWJlciI6MH19XQ=="
+                    },
+                    {
+                      "name": "video",
+                      "contentType": "video/webm",
+                      "path": "/workspace/.cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-af53d-n-shadcn-light-large-custom-chromium-repeat3/video.webm"
+                    },
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/workspace/.cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-af53d-n-shadcn-light-large-custom-chromium-repeat3/test-failed-2.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "/workspace/.cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-af53d-n-shadcn-light-large-custom-chromium-repeat3/error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "/workspace/.cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-af53d-n-shadcn-light-large-custom-chromium-repeat3/trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "/workspace/test/visual/component-fixture.mjs",
+                    "column": 30,
+                    "line": 40
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "f0426626d6f8e37fe854-d5ff1d60c0e7ea6d74fb",
+          "file": "components/rc-spin/docs/spin-motion.visual.spec.mjs",
+          "line": 9,
+          "column": 5
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-11-02T10:14:41.800Z",
+    "duration": 49626.221,
+    "expected": 9,
+    "skipped": 0,
+    "unexpected": 7,
+    "flaky": 0
+  }
+}

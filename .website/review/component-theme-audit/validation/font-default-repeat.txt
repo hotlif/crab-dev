@@ -1,0 +1,548 @@
+Playwright visual evidence: /workspace/.cache/visual/custom-pixel-repro-20261102
+
+Running 16 tests using 4 workers
+
+  ✓   1 [chromium] › components/rc-spin/docs/spin-motion.visual.spec.mjs:9:5 › Spin apple light large custom @rc-spin @matrix @motion @chromium-only (4.0s)
+  ✓   4 [chromium] › components/rc-spin/docs/spin-motion.visual.spec.mjs:9:5 › Spin shadcn light large custom @rc-spin @matrix @motion @chromium-only (4.0s)
+  ✘   3 [chromium] › components/rc-spin/docs/spin-motion.visual.spec.mjs:9:5 › Spin shadcn light medium custom @rc-spin @matrix @motion @chromium-only (4.2s)
+  ✘   2 [chromium] › components/rc-spin/docs/spin-motion.visual.spec.mjs:9:5 › Spin apple light medium custom @rc-spin @matrix @motion @chromium-only (4.3s)
+  ✓   5 [chromium] › components/rc-spin/docs/spin-motion.visual.spec.mjs:9:5 › Spin apple light large custom @rc-spin @matrix @motion @chromium-only (2.3s)
+  ✓   7 [chromium] › components/rc-spin/docs/spin-motion.visual.spec.mjs:9:5 › Spin shadcn light medium custom @rc-spin @matrix @motion @chromium-only (2.4s)
+  ✓   8 [chromium] › components/rc-spin/docs/spin-motion.visual.spec.mjs:9:5 › Spin shadcn light large custom @rc-spin @matrix @motion @chromium-only (2.1s)
+  ✘   6 [chromium] › components/rc-spin/docs/spin-motion.visual.spec.mjs:9:5 › Spin apple light medium custom @rc-spin @matrix @motion @chromium-only (2.5s)
+  ✓  10 [chromium] › components/rc-spin/docs/spin-motion.visual.spec.mjs:9:5 › Spin apple light large custom @rc-spin @matrix @motion @chromium-only (3.4s)
+  ✓  11 [chromium] › components/rc-spin/docs/spin-motion.visual.spec.mjs:9:5 › Spin shadcn light large custom @rc-spin @matrix @motion @chromium-only (3.3s)
+  ✘   9 [chromium] › components/rc-spin/docs/spin-motion.visual.spec.mjs:9:5 › Spin apple light medium custom @rc-spin @matrix @motion @chromium-only (3.3s)
+  ✘  12 [chromium] › components/rc-spin/docs/spin-motion.visual.spec.mjs:9:5 › Spin shadcn light medium custom @rc-spin @matrix @motion @chromium-only (3.6s)
+  ✓  13 [chromium] › components/rc-spin/docs/spin-motion.visual.spec.mjs:9:5 › Spin apple light medium custom @rc-spin @matrix @motion @chromium-only (2.0s)
+  ✓  14 [chromium] › components/rc-spin/docs/spin-motion.visual.spec.mjs:9:5 › Spin apple light large custom @rc-spin @matrix @motion @chromium-only (2.5s)
+  ✘  15 [chromium] › components/rc-spin/docs/spin-motion.visual.spec.mjs:9:5 › Spin shadcn light medium custom @rc-spin @matrix @motion @chromium-only (2.7s)
+  ✘  16 [chromium] › components/rc-spin/docs/spin-motion.visual.spec.mjs:9:5 › Spin shadcn light large custom @rc-spin @matrix @motion @chromium-only (2.1s)
+
+
+  1) [chromium] › components/rc-spin/docs/spin-motion.visual.spec.mjs:9:5 › Spin apple light medium custom @rc-spin @matrix @motion @chromium-only 
+
+    Error: expect(locator).toHaveScreenshot(expected) failed
+
+    Locator: locator('[data-visual-frame]')
+      8 pixels (ratio 0.01 of all image pixels) are different.
+
+      Snapshot: apple-light-medium-custom.png
+
+    Call log:
+      - Expect "toHaveScreenshot(apple-light-medium-custom.png)" locator('[data-visual-frame]') with timeout 10000ms
+        - verifying given screenshot expectation
+      - waiting for locator('[data-visual-frame]')
+        - locator resolved to <div data-visual-frame="true" class="samples_36e7ffec2eb5">…</div>
+      - taking element screenshot
+      - waiting for fonts to load...
+      - fonts loaded
+      - attempting scroll into view action
+        - waiting for element to be stable
+      - 8 pixels (ratio 0.01 of all image pixels) are different.
+      - waiting 100ms before taking screenshot
+      - waiting for locator('[data-visual-frame]')
+        - locator resolved to <div data-visual-frame="true" class="samples_36e7ffec2eb5">…</div>
+      - taking element screenshot
+      - waiting for fonts to load...
+      - fonts loaded
+      - attempting scroll into view action
+        - waiting for element to be stable
+      - captured a stable screenshot
+      - 8 pixels (ratio 0.01 of all image pixels) are different.
+
+
+       at test/visual/component-fixture.mjs:40
+
+      38 |     await attachSnapshotTarget(info, name);
+      39 |     if (process.env.CRAB_VISUAL_CANDIDATE !== "1") {
+    > 40 |         await expect(target).toHaveScreenshot(name, { animations: "allow", caret: "hide" });
+         |                              ^
+      41 |     } else {
+      42 |         await info.attach("actual", { body: await target.screenshot({ animations: "allow", caret: "hide" }), contentType: "image/png" });
+      43 |     }
+        at captureVisual (/workspace/test/visual/component-fixture.mjs:40:30)
+        at /workspace/components/rc-spin/docs/spin-motion.visual.spec.mjs:38:13
+
+    attachment #2: apple-light-medium-custom (image/png) ───────────────────────────────────────────
+    Expected: test/visual/baselines/linux/chromium/components/rc-spin/docs/spin-motion.visual.spec.mjs/apple-light-medium-custom.png
+    Received: .cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-2995b-n-apple-light-medium-custom-chromium/apple-light-medium-custom-actual.png
+    Diff:     .cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-2995b-n-apple-light-medium-custom-chromium/apple-light-medium-custom-diff.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #3: screenshot (image/png) ──────────────────────────────────────────────────────────
+    .cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-2995b-n-apple-light-medium-custom-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #6: video (video/webm) ──────────────────────────────────────────────────────────────
+    .cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-2995b-n-apple-light-medium-custom-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #7: screenshot (image/png) ──────────────────────────────────────────────────────────
+    .cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-2995b-n-apple-light-medium-custom-chromium/test-failed-2.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: .cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-2995b-n-apple-light-medium-custom-chromium/error-context.md
+
+    attachment #9: trace (application/zip) ─────────────────────────────────────────────────────────
+    .cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-2995b-n-apple-light-medium-custom-chromium/trace.zip
+    Usage:
+
+        yarn playwright show-trace .cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-2995b-n-apple-light-medium-custom-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [chromium] › components/rc-spin/docs/spin-motion.visual.spec.mjs:9:5 › Spin shadcn light medium custom @rc-spin @matrix @motion @chromium-only 
+
+    Error: expect(locator).toHaveScreenshot(expected) failed
+
+    Locator: locator('[data-visual-frame]')
+      8 pixels (ratio 0.01 of all image pixels) are different.
+
+      Snapshot: shadcn-light-medium-custom.png
+
+    Call log:
+      - Expect "toHaveScreenshot(shadcn-light-medium-custom.png)" locator('[data-visual-frame]') with timeout 10000ms
+        - verifying given screenshot expectation
+      - waiting for locator('[data-visual-frame]')
+        - locator resolved to <div data-visual-frame="true" class="samples_36e7ffec2eb5">…</div>
+      - taking element screenshot
+      - waiting for fonts to load...
+      - fonts loaded
+      - attempting scroll into view action
+        - waiting for element to be stable
+      - 8 pixels (ratio 0.01 of all image pixels) are different.
+      - waiting 100ms before taking screenshot
+      - waiting for locator('[data-visual-frame]')
+        - locator resolved to <div data-visual-frame="true" class="samples_36e7ffec2eb5">…</div>
+      - taking element screenshot
+      - waiting for fonts to load...
+      - fonts loaded
+      - attempting scroll into view action
+        - waiting for element to be stable
+      - captured a stable screenshot
+      - 8 pixels (ratio 0.01 of all image pixels) are different.
+
+
+       at test/visual/component-fixture.mjs:40
+
+      38 |     await attachSnapshotTarget(info, name);
+      39 |     if (process.env.CRAB_VISUAL_CANDIDATE !== "1") {
+    > 40 |         await expect(target).toHaveScreenshot(name, { animations: "allow", caret: "hide" });
+         |                              ^
+      41 |     } else {
+      42 |         await info.attach("actual", { body: await target.screenshot({ animations: "allow", caret: "hide" }), contentType: "image/png" });
+      43 |     }
+        at captureVisual (/workspace/test/visual/component-fixture.mjs:40:30)
+        at /workspace/components/rc-spin/docs/spin-motion.visual.spec.mjs:38:13
+
+    attachment #2: shadcn-light-medium-custom (image/png) ──────────────────────────────────────────
+    Expected: test/visual/baselines/linux/chromium/components/rc-spin/docs/spin-motion.visual.spec.mjs/shadcn-light-medium-custom.png
+    Received: .cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-0f034--shadcn-light-medium-custom-chromium/shadcn-light-medium-custom-actual.png
+    Diff:     .cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-0f034--shadcn-light-medium-custom-chromium/shadcn-light-medium-custom-diff.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #3: screenshot (image/png) ──────────────────────────────────────────────────────────
+    .cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-0f034--shadcn-light-medium-custom-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #6: video (video/webm) ──────────────────────────────────────────────────────────────
+    .cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-0f034--shadcn-light-medium-custom-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #7: screenshot (image/png) ──────────────────────────────────────────────────────────
+    .cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-0f034--shadcn-light-medium-custom-chromium/test-failed-2.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: .cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-0f034--shadcn-light-medium-custom-chromium/error-context.md
+
+    attachment #9: trace (application/zip) ─────────────────────────────────────────────────────────
+    .cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-0f034--shadcn-light-medium-custom-chromium/trace.zip
+    Usage:
+
+        yarn playwright show-trace .cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-0f034--shadcn-light-medium-custom-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) [chromium] › components/rc-spin/docs/spin-motion.visual.spec.mjs:9:5 › Spin apple light medium custom @rc-spin @matrix @motion @chromium-only 
+
+    Error: expect(locator).toHaveScreenshot(expected) failed
+
+    Locator: locator('[data-visual-frame]')
+      8 pixels (ratio 0.01 of all image pixels) are different.
+
+      Snapshot: apple-light-medium-custom.png
+
+    Call log:
+      - Expect "toHaveScreenshot(apple-light-medium-custom.png)" locator('[data-visual-frame]') with timeout 10000ms
+        - verifying given screenshot expectation
+      - waiting for locator('[data-visual-frame]')
+        - locator resolved to <div data-visual-frame="true" class="samples_36e7ffec2eb5">…</div>
+      - taking element screenshot
+      - waiting for fonts to load...
+      - fonts loaded
+      - attempting scroll into view action
+        - waiting for element to be stable
+      - 8 pixels (ratio 0.01 of all image pixels) are different.
+      - waiting 100ms before taking screenshot
+      - waiting for locator('[data-visual-frame]')
+        - locator resolved to <div data-visual-frame="true" class="samples_36e7ffec2eb5">…</div>
+      - taking element screenshot
+      - waiting for fonts to load...
+      - fonts loaded
+      - attempting scroll into view action
+        - waiting for element to be stable
+      - captured a stable screenshot
+      - 8 pixels (ratio 0.01 of all image pixels) are different.
+
+
+       at test/visual/component-fixture.mjs:40
+
+      38 |     await attachSnapshotTarget(info, name);
+      39 |     if (process.env.CRAB_VISUAL_CANDIDATE !== "1") {
+    > 40 |         await expect(target).toHaveScreenshot(name, { animations: "allow", caret: "hide" });
+         |                              ^
+      41 |     } else {
+      42 |         await info.attach("actual", { body: await target.screenshot({ animations: "allow", caret: "hide" }), contentType: "image/png" });
+      43 |     }
+        at captureVisual (/workspace/test/visual/component-fixture.mjs:40:30)
+        at /workspace/components/rc-spin/docs/spin-motion.visual.spec.mjs:38:13
+
+    attachment #2: apple-light-medium-custom (image/png) ───────────────────────────────────────────
+    Expected: test/visual/baselines/linux/chromium/components/rc-spin/docs/spin-motion.visual.spec.mjs/apple-light-medium-custom.png
+    Received: .cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-2995b-n-apple-light-medium-custom-chromium-repeat1/apple-light-medium-custom-actual.png
+    Diff:     .cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-2995b-n-apple-light-medium-custom-chromium-repeat1/apple-light-medium-custom-diff.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #3: screenshot (image/png) ──────────────────────────────────────────────────────────
+    .cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-2995b-n-apple-light-medium-custom-chromium-repeat1/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #6: video (video/webm) ──────────────────────────────────────────────────────────────
+    .cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-2995b-n-apple-light-medium-custom-chromium-repeat1/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #7: screenshot (image/png) ──────────────────────────────────────────────────────────
+    .cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-2995b-n-apple-light-medium-custom-chromium-repeat1/test-failed-2.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: .cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-2995b-n-apple-light-medium-custom-chromium-repeat1/error-context.md
+
+    attachment #9: trace (application/zip) ─────────────────────────────────────────────────────────
+    .cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-2995b-n-apple-light-medium-custom-chromium-repeat1/trace.zip
+    Usage:
+
+        yarn playwright show-trace .cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-2995b-n-apple-light-medium-custom-chromium-repeat1/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4) [chromium] › components/rc-spin/docs/spin-motion.visual.spec.mjs:9:5 › Spin apple light medium custom @rc-spin @matrix @motion @chromium-only 
+
+    Error: expect(locator).toHaveScreenshot(expected) failed
+
+    Locator: locator('[data-visual-frame]')
+      8 pixels (ratio 0.01 of all image pixels) are different.
+
+      Snapshot: apple-light-medium-custom.png
+
+    Call log:
+      - Expect "toHaveScreenshot(apple-light-medium-custom.png)" locator('[data-visual-frame]') with timeout 10000ms
+        - verifying given screenshot expectation
+      - waiting for locator('[data-visual-frame]')
+        - locator resolved to <div data-visual-frame="true" class="samples_36e7ffec2eb5">…</div>
+      - taking element screenshot
+      - waiting for fonts to load...
+      - fonts loaded
+      - attempting scroll into view action
+        - waiting for element to be stable
+      - 8 pixels (ratio 0.01 of all image pixels) are different.
+      - waiting 100ms before taking screenshot
+      - waiting for locator('[data-visual-frame]')
+        - locator resolved to <div data-visual-frame="true" class="samples_36e7ffec2eb5">…</div>
+      - taking element screenshot
+      - waiting for fonts to load...
+      - fonts loaded
+      - attempting scroll into view action
+        - waiting for element to be stable
+      - captured a stable screenshot
+      - 8 pixels (ratio 0.01 of all image pixels) are different.
+
+
+       at test/visual/component-fixture.mjs:40
+
+      38 |     await attachSnapshotTarget(info, name);
+      39 |     if (process.env.CRAB_VISUAL_CANDIDATE !== "1") {
+    > 40 |         await expect(target).toHaveScreenshot(name, { animations: "allow", caret: "hide" });
+         |                              ^
+      41 |     } else {
+      42 |         await info.attach("actual", { body: await target.screenshot({ animations: "allow", caret: "hide" }), contentType: "image/png" });
+      43 |     }
+        at captureVisual (/workspace/test/visual/component-fixture.mjs:40:30)
+        at /workspace/components/rc-spin/docs/spin-motion.visual.spec.mjs:38:13
+
+    attachment #2: apple-light-medium-custom (image/png) ───────────────────────────────────────────
+    Expected: test/visual/baselines/linux/chromium/components/rc-spin/docs/spin-motion.visual.spec.mjs/apple-light-medium-custom.png
+    Received: .cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-2995b-n-apple-light-medium-custom-chromium-repeat2/apple-light-medium-custom-actual.png
+    Diff:     .cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-2995b-n-apple-light-medium-custom-chromium-repeat2/apple-light-medium-custom-diff.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #3: screenshot (image/png) ──────────────────────────────────────────────────────────
+    .cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-2995b-n-apple-light-medium-custom-chromium-repeat2/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #6: video (video/webm) ──────────────────────────────────────────────────────────────
+    .cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-2995b-n-apple-light-medium-custom-chromium-repeat2/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #7: screenshot (image/png) ──────────────────────────────────────────────────────────
+    .cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-2995b-n-apple-light-medium-custom-chromium-repeat2/test-failed-2.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: .cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-2995b-n-apple-light-medium-custom-chromium-repeat2/error-context.md
+
+    attachment #9: trace (application/zip) ─────────────────────────────────────────────────────────
+    .cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-2995b-n-apple-light-medium-custom-chromium-repeat2/trace.zip
+    Usage:
+
+        yarn playwright show-trace .cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-2995b-n-apple-light-medium-custom-chromium-repeat2/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  5) [chromium] › components/rc-spin/docs/spin-motion.visual.spec.mjs:9:5 › Spin shadcn light medium custom @rc-spin @matrix @motion @chromium-only 
+
+    Error: expect(locator).toHaveScreenshot(expected) failed
+
+    Locator: locator('[data-visual-frame]')
+      8 pixels (ratio 0.01 of all image pixels) are different.
+
+      Snapshot: shadcn-light-medium-custom.png
+
+    Call log:
+      - Expect "toHaveScreenshot(shadcn-light-medium-custom.png)" locator('[data-visual-frame]') with timeout 10000ms
+        - verifying given screenshot expectation
+      - waiting for locator('[data-visual-frame]')
+        - locator resolved to <div data-visual-frame="true" class="samples_36e7ffec2eb5">…</div>
+      - taking element screenshot
+      - waiting for fonts to load...
+      - fonts loaded
+      - attempting scroll into view action
+        - waiting for element to be stable
+      - 8 pixels (ratio 0.01 of all image pixels) are different.
+      - waiting 100ms before taking screenshot
+      - waiting for locator('[data-visual-frame]')
+        - locator resolved to <div data-visual-frame="true" class="samples_36e7ffec2eb5">…</div>
+      - taking element screenshot
+      - waiting for fonts to load...
+      - fonts loaded
+      - attempting scroll into view action
+        - waiting for element to be stable
+      - captured a stable screenshot
+      - 8 pixels (ratio 0.01 of all image pixels) are different.
+
+
+       at test/visual/component-fixture.mjs:40
+
+      38 |     await attachSnapshotTarget(info, name);
+      39 |     if (process.env.CRAB_VISUAL_CANDIDATE !== "1") {
+    > 40 |         await expect(target).toHaveScreenshot(name, { animations: "allow", caret: "hide" });
+         |                              ^
+      41 |     } else {
+      42 |         await info.attach("actual", { body: await target.screenshot({ animations: "allow", caret: "hide" }), contentType: "image/png" });
+      43 |     }
+        at captureVisual (/workspace/test/visual/component-fixture.mjs:40:30)
+        at /workspace/components/rc-spin/docs/spin-motion.visual.spec.mjs:38:13
+
+    attachment #2: shadcn-light-medium-custom (image/png) ──────────────────────────────────────────
+    Expected: test/visual/baselines/linux/chromium/components/rc-spin/docs/spin-motion.visual.spec.mjs/shadcn-light-medium-custom.png
+    Received: .cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-0f034--shadcn-light-medium-custom-chromium-repeat2/shadcn-light-medium-custom-actual.png
+    Diff:     .cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-0f034--shadcn-light-medium-custom-chromium-repeat2/shadcn-light-medium-custom-diff.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #3: screenshot (image/png) ──────────────────────────────────────────────────────────
+    .cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-0f034--shadcn-light-medium-custom-chromium-repeat2/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #6: video (video/webm) ──────────────────────────────────────────────────────────────
+    .cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-0f034--shadcn-light-medium-custom-chromium-repeat2/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #7: screenshot (image/png) ──────────────────────────────────────────────────────────
+    .cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-0f034--shadcn-light-medium-custom-chromium-repeat2/test-failed-2.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: .cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-0f034--shadcn-light-medium-custom-chromium-repeat2/error-context.md
+
+    attachment #9: trace (application/zip) ─────────────────────────────────────────────────────────
+    .cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-0f034--shadcn-light-medium-custom-chromium-repeat2/trace.zip
+    Usage:
+
+        yarn playwright show-trace .cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-0f034--shadcn-light-medium-custom-chromium-repeat2/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  6) [chromium] › components/rc-spin/docs/spin-motion.visual.spec.mjs:9:5 › Spin shadcn light medium custom @rc-spin @matrix @motion @chromium-only 
+
+    Error: expect(locator).toHaveScreenshot(expected) failed
+
+    Locator: locator('[data-visual-frame]')
+      8 pixels (ratio 0.01 of all image pixels) are different.
+
+      Snapshot: shadcn-light-medium-custom.png
+
+    Call log:
+      - Expect "toHaveScreenshot(shadcn-light-medium-custom.png)" locator('[data-visual-frame]') with timeout 10000ms
+        - verifying given screenshot expectation
+      - waiting for locator('[data-visual-frame]')
+        - locator resolved to <div data-visual-frame="true" class="samples_36e7ffec2eb5">…</div>
+      - taking element screenshot
+      - waiting for fonts to load...
+      - fonts loaded
+      - attempting scroll into view action
+        - waiting for element to be stable
+      - 8 pixels (ratio 0.01 of all image pixels) are different.
+      - waiting 100ms before taking screenshot
+      - waiting for locator('[data-visual-frame]')
+        - locator resolved to <div data-visual-frame="true" class="samples_36e7ffec2eb5">…</div>
+      - taking element screenshot
+      - waiting for fonts to load...
+      - fonts loaded
+      - attempting scroll into view action
+        - waiting for element to be stable
+      - captured a stable screenshot
+      - 8 pixels (ratio 0.01 of all image pixels) are different.
+
+
+       at test/visual/component-fixture.mjs:40
+
+      38 |     await attachSnapshotTarget(info, name);
+      39 |     if (process.env.CRAB_VISUAL_CANDIDATE !== "1") {
+    > 40 |         await expect(target).toHaveScreenshot(name, { animations: "allow", caret: "hide" });
+         |                              ^
+      41 |     } else {
+      42 |         await info.attach("actual", { body: await target.screenshot({ animations: "allow", caret: "hide" }), contentType: "image/png" });
+      43 |     }
+        at captureVisual (/workspace/test/visual/component-fixture.mjs:40:30)
+        at /workspace/components/rc-spin/docs/spin-motion.visual.spec.mjs:38:13
+
+    attachment #2: shadcn-light-medium-custom (image/png) ──────────────────────────────────────────
+    Expected: test/visual/baselines/linux/chromium/components/rc-spin/docs/spin-motion.visual.spec.mjs/shadcn-light-medium-custom.png
+    Received: .cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-0f034--shadcn-light-medium-custom-chromium-repeat3/shadcn-light-medium-custom-actual.png
+    Diff:     .cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-0f034--shadcn-light-medium-custom-chromium-repeat3/shadcn-light-medium-custom-diff.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #3: screenshot (image/png) ──────────────────────────────────────────────────────────
+    .cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-0f034--shadcn-light-medium-custom-chromium-repeat3/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #6: video (video/webm) ──────────────────────────────────────────────────────────────
+    .cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-0f034--shadcn-light-medium-custom-chromium-repeat3/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #7: screenshot (image/png) ──────────────────────────────────────────────────────────
+    .cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-0f034--shadcn-light-medium-custom-chromium-repeat3/test-failed-2.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: .cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-0f034--shadcn-light-medium-custom-chromium-repeat3/error-context.md
+
+    attachment #9: trace (application/zip) ─────────────────────────────────────────────────────────
+    .cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-0f034--shadcn-light-medium-custom-chromium-repeat3/trace.zip
+    Usage:
+
+        yarn playwright show-trace .cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-0f034--shadcn-light-medium-custom-chromium-repeat3/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  7) [chromium] › components/rc-spin/docs/spin-motion.visual.spec.mjs:9:5 › Spin shadcn light large custom @rc-spin @matrix @motion @chromium-only 
+
+    Error: expect(locator).toHaveScreenshot(expected) failed
+
+    Locator: locator('[data-visual-frame]')
+      2 pixels (ratio 0.01 of all image pixels) are different.
+
+      Snapshot: shadcn-light-large-custom.png
+
+    Call log:
+      - Expect "toHaveScreenshot(shadcn-light-large-custom.png)" locator('[data-visual-frame]') with timeout 10000ms
+        - verifying given screenshot expectation
+      - waiting for locator('[data-visual-frame]')
+        - locator resolved to <div data-visual-frame="true" class="samples_36e7ffec2eb5">…</div>
+      - taking element screenshot
+      - waiting for fonts to load...
+      - fonts loaded
+      - attempting scroll into view action
+        - waiting for element to be stable
+      - 2 pixels (ratio 0.01 of all image pixels) are different.
+      - waiting 100ms before taking screenshot
+      - waiting for locator('[data-visual-frame]')
+        - locator resolved to <div data-visual-frame="true" class="samples_36e7ffec2eb5">…</div>
+      - taking element screenshot
+      - waiting for fonts to load...
+      - fonts loaded
+      - attempting scroll into view action
+        - waiting for element to be stable
+      - captured a stable screenshot
+      - 2 pixels (ratio 0.01 of all image pixels) are different.
+
+
+       at test/visual/component-fixture.mjs:40
+
+      38 |     await attachSnapshotTarget(info, name);
+      39 |     if (process.env.CRAB_VISUAL_CANDIDATE !== "1") {
+    > 40 |         await expect(target).toHaveScreenshot(name, { animations: "allow", caret: "hide" });
+         |                              ^
+      41 |     } else {
+      42 |         await info.attach("actual", { body: await target.screenshot({ animations: "allow", caret: "hide" }), contentType: "image/png" });
+      43 |     }
+        at captureVisual (/workspace/test/visual/component-fixture.mjs:40:30)
+        at /workspace/components/rc-spin/docs/spin-motion.visual.spec.mjs:38:13
+
+    attachment #2: shadcn-light-large-custom (image/png) ───────────────────────────────────────────
+    Expected: test/visual/baselines/linux/chromium/components/rc-spin/docs/spin-motion.visual.spec.mjs/shadcn-light-large-custom.png
+    Received: .cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-af53d-n-shadcn-light-large-custom-chromium-repeat3/shadcn-light-large-custom-actual.png
+    Diff:     .cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-af53d-n-shadcn-light-large-custom-chromium-repeat3/shadcn-light-large-custom-diff.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #3: screenshot (image/png) ──────────────────────────────────────────────────────────
+    .cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-af53d-n-shadcn-light-large-custom-chromium-repeat3/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #6: video (video/webm) ──────────────────────────────────────────────────────────────
+    .cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-af53d-n-shadcn-light-large-custom-chromium-repeat3/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #7: screenshot (image/png) ──────────────────────────────────────────────────────────
+    .cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-af53d-n-shadcn-light-large-custom-chromium-repeat3/test-failed-2.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: .cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-af53d-n-shadcn-light-large-custom-chromium-repeat3/error-context.md
+
+    attachment #9: trace (application/zip) ─────────────────────────────────────────────────────────
+    .cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-af53d-n-shadcn-light-large-custom-chromium-repeat3/trace.zip
+    Usage:
+
+        yarn playwright show-trace .cache/visual/custom-pixel-repro-20261102/results/components-rc-spin-docs-sp-af53d-n-shadcn-light-large-custom-chromium-repeat3/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  7 failed
+    [chromium] › components/rc-spin/docs/spin-motion.visual.spec.mjs:9:5 › Spin apple light medium custom @rc-spin @matrix @motion @chromium-only 
+    [chromium] › components/rc-spin/docs/spin-motion.visual.spec.mjs:9:5 › Spin shadcn light medium custom @rc-spin @matrix @motion @chromium-only 
+    [chromium] › components/rc-spin/docs/spin-motion.visual.spec.mjs:9:5 › Spin apple light medium custom @rc-spin @matrix @motion @chromium-only 
+    [chromium] › components/rc-spin/docs/spin-motion.visual.spec.mjs:9:5 › Spin apple light medium custom @rc-spin @matrix @motion @chromium-only 
+    [chromium] › components/rc-spin/docs/spin-motion.visual.spec.mjs:9:5 › Spin shadcn light medium custom @rc-spin @matrix @motion @chromium-only 
+    [chromium] › components/rc-spin/docs/spin-motion.visual.spec.mjs:9:5 › Spin shadcn light medium custom @rc-spin @matrix @motion @chromium-only 
+    [chromium] › components/rc-spin/docs/spin-motion.visual.spec.mjs:9:5 › Spin shadcn light large custom @rc-spin @matrix @motion @chromium-only 
+  9 passed (49.6s)
+Matrix contract failed (12 issues). /workspace/.cache/visual/custom-pixel-repro-20261102/matrix.json
+rc-spin/chromium: Duplicate matrix cell: apple/light/medium/standard/custom
+rc-spin/chromium: Duplicate matrix cell: apple/light/large/standard/custom
+rc-spin/chromium: Duplicate matrix cell: shadcn/light/medium/standard/custom
+rc-spin/chromium: Duplicate matrix cell: shadcn/light/large/standard/custom
+rc-spin/chromium: Duplicate matrix cell: apple/light/medium/standard/custom
+rc-spin/chromium: Duplicate matrix cell: apple/light/large/standard/custom
+rc-spin/chromium: Duplicate matrix cell: shadcn/light/medium/standard/custom
+rc-spin/chromium: Duplicate matrix cell: shadcn/light/large/standard/custom
+rc-spin/chromium: Duplicate matrix cell: apple/light/medium/standard/custom
+rc-spin/chromium: Duplicate matrix cell: apple/light/large/standard/custom
+rc-spin/chromium: Duplicate matrix cell: shadcn/light/medium/standard/custom
+rc-spin/chromium: Duplicate matrix cell: shadcn/light/large/standard/custom

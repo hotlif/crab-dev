@@ -48,7 +48,7 @@ export const test = base.extend({
         const record = await inspectBrowserRendering(browser);
         const file = path.join(path.dirname(workerInfo.project.outputDir), `rendering-worker-${workerInfo.workerIndex}.json`);
         await fs.mkdir(path.dirname(file), { recursive: true });
-        await fs.writeFile(file, JSON.stringify({ ...record, browserName, image: process.env.CRAB_VISUAL_IMAGE }, null, 2));
+        await fs.writeFile(file, JSON.stringify({ ...record, browserName, image: process.env.CRAB_VISUAL_IMAGE, launchArguments: workerInfo.project.use.launchOptions?.args ?? [] }, null, 2));
         if (process.env.CRAB_VISUAL_REQUIRE_WEBGL2 === '1') expect(record.webgl2 && record.drawn && record.error === 0, `Real WebGL2 drawing is required; see ${file}`).toBe(true);
         await use({ file, browserName, browser: record.browser });
     }, { scope: 'worker', timeout: 120_000 }],

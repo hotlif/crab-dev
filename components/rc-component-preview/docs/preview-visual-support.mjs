@@ -96,12 +96,27 @@ export async function assertToolbarReachable(scene, page, info) {
     expect(document.scroll).toBeLessThanOrEqual(document.client + 1);
 }
 
+async function settleSourceScroll(scrollport) {
+    const stable = await scrollport.evaluate(async node => {
+        let previous = node.scrollLeft, frames = 0;
+        for (let index = 0; index < 120 && frames < 4; index += 1) {
+            await new Promise(resolve => node.ownerDocument.defaultView.requestAnimationFrame(resolve));
+            const current = node.scrollLeft;
+            frames = Math.abs(current - previous) < 0.01 ? frames + 1 : 0;
+            previous = current;
+        }
+        return frames;
+    });
+    expect(stable, 'Native source scroll converges through real frames').toBe(4);
+}
+
 export async function inspectSourceScroll(scene, page, info, { touch = false } = {}) {
     const pre = scene.locator('pre');
     const scrollport = pre.locator('..');
     await expect(scrollport).toHaveAttribute('tabindex', '0');
     await expect(scrollport).toHaveAttribute('dir', 'ltr');
     await scrollport.scrollIntoViewIfNeeded();
+    await page.evaluate(() => globalThis.document.fonts.ready);
     const geometry = await scrollport.evaluate(node => ({ client: node.clientWidth, scroll: node.scrollWidth, overflow: globalThis.getComputedStyle(node).overflowX }));
     expect(geometry.client).toBeGreaterThan(0);
     const overflowing = geometry.scroll > geometry.client + 1;
@@ -111,12 +126,37 @@ export async function inspectSourceScroll(scene, page, info, { touch = false } =
             await focusSourceWithKeyboard(scene, page);
             await page.keyboard.press('ArrowRight');
             await expect.poll(() => scrollport.evaluate(node => Math.abs(node.scrollLeft))).toBeGreaterThan(0);
+            await settleSourceScroll(scrollport);
+            // Start the wheel gesture after the native key scroll has ended.
+            // Returning with the opposite key also proves both directions use
+            // this code-owned scrollport, without assigning scroll positions.
+            await page.keyboard.press('ArrowLeft');
+            await expect.poll(() => scrollport.evaluate(node => Math.abs(node.scrollLeft))).toBeLessThanOrEqual(1);
+            await settleSourceScroll(scrollport);
             await scrollport.hover();
             // A real horizontal wheel gesture moves this code-owned scrollport.
             // Keep the document fixed and never crop or hide the source text.
             const direction = await scrollport.evaluate(node => globalThis.getComputedStyle(node).direction === 'rtl' ? -1 : 1);
             await page.mouse.wheel(direction * geometry.scroll, 0);
             await expect.poll(() => scrollport.evaluate(node => Math.abs(node.scrollLeft))).toBeGreaterThan(0);
+            await settleSourceScroll(scrollport);
+            const extent = await scrollport.evaluate(node => {
+                const range = node.ownerDocument.createRange();
+                const walker = node.ownerDocument.createTreeWalker(node.querySelector('code'), globalThis.NodeFilter.SHOW_TEXT);
+                let contentRight = -Infinity;
+                while (walker.nextNode()) {
+                    if (!walker.currentNode.textContent.trim()) continue;
+                    range.selectNodeContents(walker.currentNode);
+                    for (const rect of range.getClientRects()) contentRight = Math.max(contentRight, rect.right);
+                }
+                const rect = node.getBoundingClientRect();
+                const style = node.ownerDocument.defaultView.getComputedStyle(node);
+                // Overflow paints inside the padding box. clientWidth omits
+                // the stable scrollbar gutter, including when it is unpainted.
+                return { contentRight, viewportRight: rect.right - Number.parseFloat(style.borderRightWidth), clientRight: rect.left + node.clientLeft + node.clientWidth, left: node.scrollLeft, maximum: node.scrollWidth - node.clientWidth };
+            });
+            await info.attach('native-source-scroll-end', { body: JSON.stringify(extent), contentType: 'application/json' });
+            expect(extent.contentRight, 'Rightmost source text is reachable through the native wheel').toBeLessThanOrEqual(extent.viewportRight + 1);
         }
     }
     await info.attach('preview-source-scroll', { body: JSON.stringify({ ...geometry, overflowing, input: overflowing ? touch ? 'touch pan not exercised; tap actions covered separately' : 'native horizontal wheel' : 'source fits; no horizontal scroll required' }), contentType: 'application/json' });

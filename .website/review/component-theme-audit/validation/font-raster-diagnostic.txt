@@ -1,0 +1,65 @@
+FONT DIAGNOSTIC START yarn test:visual:update components/rc-spin/docs/spin-motion.visual.spec.mjs --grep Spin (apple|shadcn) light (medium|large) custom --project chromium
+Playwright visual evidence: /workspace/.cache/visual/font-raster-0-20261102
+
+Running 4 tests using 4 workers
+
+/workspace/test/visual/baselines/linux/chromium/components/rc-spin/docs/spin-motion.visual.spec.mjs/shadcn-light-large-custom.png is re-generated, writing actual.
+/workspace/test/visual/baselines/linux/chromium/components/rc-spin/docs/spin-motion.visual.spec.mjs/shadcn-light-large-custom.png is re-generated, writing actual.
+/workspace/test/visual/baselines/linux/chromium/components/rc-spin/docs/spin-motion.visual.spec.mjs/apple-light-large-custom.png is re-generated, writing actual.
+/workspace/test/visual/baselines/linux/chromium/components/rc-spin/docs/spin-motion.visual.spec.mjs/apple-light-large-custom.png is re-generated, writing actual.
+  ✓  2 [chromium] › components/rc-spin/docs/spin-motion.visual.spec.mjs:9:5 › Spin apple light medium custom @rc-spin @matrix @motion @chromium-only (3.1s)
+  ✓  1 [chromium] › components/rc-spin/docs/spin-motion.visual.spec.mjs:9:5 › Spin shadcn light large custom @rc-spin @matrix @motion @chromium-only (3.2s)
+  ✓  3 [chromium] › components/rc-spin/docs/spin-motion.visual.spec.mjs:9:5 › Spin apple light large custom @rc-spin @matrix @motion @chromium-only (3.1s)
+  ✓  4 [chromium] › components/rc-spin/docs/spin-motion.visual.spec.mjs:9:5 › Spin shadcn light medium custom @rc-spin @matrix @motion @chromium-only (3.0s)
+
+  4 passed (14.2s)
+FONT DIAGNOSTIC END 0 0
+FONT DIAGNOSTIC START yarn test:visual components/rc-spin/docs/spin-motion.visual.spec.mjs --grep Spin (apple|shadcn) light (medium|large) custom --project chromium
+Playwright visual evidence: /workspace/.cache/visual/font-raster-1-20261102
+
+Running 4 tests using 4 workers
+
+  ✓  1 [chromium] › components/rc-spin/docs/spin-motion.visual.spec.mjs:9:5 › Spin apple light medium custom @rc-spin @matrix @motion @chromium-only (2.7s)
+  ✓  4 [chromium] › components/rc-spin/docs/spin-motion.visual.spec.mjs:9:5 › Spin shadcn light large custom @rc-spin @matrix @motion @chromium-only (3.1s)
+  ✓  2 [chromium] › components/rc-spin/docs/spin-motion.visual.spec.mjs:9:5 › Spin shadcn light medium custom @rc-spin @matrix @motion @chromium-only (2.9s)
+  ✓  3 [chromium] › components/rc-spin/docs/spin-motion.visual.spec.mjs:9:5 › Spin apple light large custom @rc-spin @matrix @motion @chromium-only (3.0s)
+
+  4 passed (12.9s)
+FONT DIAGNOSTIC END 1 0
+FONT DIAGNOSTIC START yarn test:visual components/rc-spin/docs/spin-motion.visual.spec.mjs --grep Spin (apple|shadcn) light (medium|large) custom --project chromium
+Playwright visual evidence: /workspace/.cache/visual/font-raster-2-20261102
+
+Running 4 tests using 4 workers
+
+  ✓  3 [chromium] › components/rc-spin/docs/spin-motion.visual.spec.mjs:9:5 › Spin apple light large custom @rc-spin @matrix @motion @chromium-only (2.9s)
+  ✓  4 [chromium] › components/rc-spin/docs/spin-motion.visual.spec.mjs:9:5 › Spin apple light medium custom @rc-spin @matrix @motion @chromium-only (2.9s)
+  ✓  2 [chromium] › components/rc-spin/docs/spin-motion.visual.spec.mjs:9:5 › Spin shadcn light medium custom @rc-spin @matrix @motion @chromium-only (2.9s)
+  ✓  1 [chromium] › components/rc-spin/docs/spin-motion.visual.spec.mjs:9:5 › Spin shadcn light large custom @rc-spin @matrix @motion @chromium-only (2.9s)
+
+  4 passed (12.9s)
+FONT DIAGNOSTIC END 2 0
+FONT DIAGNOSTIC START yarn test:visual components/rc-spin/docs/spin-motion.visual.spec.mjs --grep Spin (apple|shadcn) light (medium|large) custom --project chromium
+Playwright visual evidence: /workspace/.cache/visual/font-raster-3-20261102
+
+Running 4 tests using 4 workers
+
+  ✓  2 [chromium] › components/rc-spin/docs/spin-motion.visual.spec.mjs:9:5 › Spin shadcn light large custom @rc-spin @matrix @motion @chromium-only (2.9s)
+  ✓  1 [chromium] › components/rc-spin/docs/spin-motion.visual.spec.mjs:9:5 › Spin apple light large custom @rc-spin @matrix @motion @chromium-only (2.7s)
+  ✓  3 [chromium] › components/rc-spin/docs/spin-motion.visual.spec.mjs:9:5 › Spin apple light medium custom @rc-spin @matrix @motion @chromium-only (2.7s)
+  ✓  4 [chromium] › components/rc-spin/docs/spin-motion.visual.spec.mjs:9:5 › Spin shadcn light medium custom @rc-spin @matrix @motion @chromium-only (2.9s)
+
+  4 passed (12.9s)
+FONT DIAGNOSTIC END 3 0
+FONT DIAGNOSTIC START yarn test:visual components/rc-spin/docs/spin-motion.visual.spec.mjs --grep Spin (apple|shadcn) light (medium|large) custom --project chromium
+Playwright visual evidence: /workspace/.cache/visual/font-raster-4-20261102
+
+Running 4 tests using 4 workers
+
+  ✓  1 [chromium] › components/rc-spin/docs/spin-motion.visual.spec.mjs:9:5 › Spin apple light large custom @rc-spin @matrix @motion @chromium-only (2.8s)
+  ✓  4 [chromium] › components/rc-spin/docs/spin-motion.visual.spec.mjs:9:5 › Spin apple light medium custom @rc-spin @matrix @motion @chromium-only (2.8s)
+  ✓  3 [chromium] › components/rc-spin/docs/spin-motion.visual.spec.mjs:9:5 › Spin shadcn light large custom @rc-spin @matrix @motion @chromium-only (2.9s)
+  ✓  2 [chromium] › components/rc-spin/docs/spin-motion.visual.spec.mjs:9:5 › Spin shadcn light medium custom @rc-spin @matrix @motion @chromium-only (2.7s)
+
+  4 passed (12.4s)
+FONT DIAGNOSTIC END 4 0
+{"commands":[{"command":"yarn test:visual:update components/rc-spin/docs/spin-motion.visual.spec.mjs --grep Spin (apple|shadcn) light (medium|large) custom --project chromium","run":"font-raster-0-20261102","startedAt":"2026-11-02T10:19:03.245Z","exitCode":0,"finishedAt":"2026-11-02T10:19:19.923Z"},{"command":"yarn test:visual components/rc-spin/docs/spin-motion.visual.spec.mjs --grep Spin (apple|shadcn) light (medium|large) custom --project chromium","run":"font-raster-1-20261102","startedAt":"2026-11-02T10:19:19.934Z","exitCode":0,"finishedAt":"2026-11-02T10:19:35.034Z"},{"command":"yarn test:visual components/rc-spin/docs/spin-motion.visual.spec.mjs --grep Spin (apple|shadcn) light (medium|large) custom --project chromium","run":"font-raster-2-20261102","startedAt":"2026-11-02T10:19:35.040Z","exitCode":0,"finishedAt":"2026-11-02T10:19:50.006Z"},{"command":"yarn test:visual components/rc-spin/docs/spin-motion.visual.spec.mjs --grep Spin (apple|shadcn) light (medium|large) custom --project chromium","run":"font-raster-3-20261102","startedAt":"2026-11-02T10:19:50.012Z","exitCode":0,"finishedAt":"2026-11-02T10:20:05.032Z"},{"command":"yarn test:visual components/rc-spin/docs/spin-motion.visual.spec.mjs --grep Spin (apple|shadcn) light (medium|large) custom --project chromium","run":"font-raster-4-20261102","startedAt":"2026-11-02T10:20:05.037Z","exitCode":0,"finishedAt":"2026-11-02T10:20:19.595Z"}],"inputsStable":true}

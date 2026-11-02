@@ -47,13 +47,15 @@ async function withoutCarets(page, capture) {
 /** Only dedicated 200% tests override native context; ordinary matrix tests reuse browsers. */
 export const zoomFixtures = {
     context: async ({ headless, locale, timezoneId, colorScheme, reducedMotion }, use, info) => {
+        const launchArguments = [...(info.project.use.launchOptions?.args ?? []), '--window-size=1280,900', `--disable-extensions-except=${extension}`, `--load-extension=${extension}`];
         const context = await chromium.launchPersistentContext('', {
             // Clear Test's ordinary DPR=1 option. Undefined requests the actual
             // browser display scale; it neither sets nor simulates a DPR.
             channel: 'chromium', headless, viewport: null, deviceScaleFactor: undefined, locale, timezoneId, colorScheme, reducedMotion,
-            args: ['--window-size=1280,900', `--disable-extensions-except=${extension}`, `--load-extension=${extension}`],
+            args: launchArguments,
             recordVideo: { dir: info.outputPath('native-video'), size: { width: 1280, height: 900 } },
         });
+        await info.attach('real-zoom-browser-launch', { body: JSON.stringify({ requestedArguments: launchArguments }), contentType: 'application/json' });
         try { await use(context); }
         finally {
             const videos = context.pages().map(page => page.video()).filter(Boolean);
