@@ -1,5 +1,5 @@
 import { describe, expect, it } from '@crab-dev/wake/test';
-import { act, render } from '@crab-dev/wake/test/react';
+import { act, render, waitFor } from '@crab-dev/wake/test/react';
 import ConfigProvider from '@crab-dev/rc-config-provider';
 import LineEdit from '../../../esm/index.mjs';
 import token from '../../token.js';
@@ -123,6 +123,87 @@ describe('Published placeholder roles and actual contrast', () => {
                         await act(() => input.blur());
                     }
                 });
+            }
+        }
+    }
+});
+
+describe('Published decorated field label geometry', () => {
+    it('uses the nearest design boundary while preserving focus, selection, refs and draft', async () => {
+        let current: HTMLInputElement | null = null;
+        let cleanups = 0;
+        const ref = (node: HTMLInputElement | null) => {
+            current = node;
+            return () => { current = null; cleanups += 1; };
+        };
+        const field = <><style>{compiledCss}</style><div style={{ width: 180 }}><LineEdit label="Retained decorated draft" prefix="$" suffix="%" appearance="filled" defaultValue="preserved draft" ref={ref} /></div></>;
+        const view = await render(<ConfigProvider designSystem="md3"><ConfigProvider designSystem="apple">{field}</ConfigProvider></ConfigProvider>);
+        const input = current!;
+        await act(() => { input.focus(); input.setSelectionRange(2, 7); });
+        for (const designSystem of ['md3', 'apple', 'shadcn'] as const) {
+            for (const colorMode of ['light', 'dark'] as const) {
+                await view.rerender(<ConfigProvider designSystem={designSystem === 'md3' ? 'apple' : 'md3'}><ConfigProvider designSystem={designSystem} colorMode={colorMode} direction="rtl">{field}</ConfigProvider></ConfigProvider>);
+                expect(current === input).toBe(true);
+                expect(document.activeElement === input).toBe(true);
+                expect(input.value).toBe('preserved draft');
+                expect([input.selectionStart, input.selectionEnd]).toEqual([2, 7]);
+                // ResizeObserver delivers the measured decoration space after
+                // the theme's layout. Keep every bound assertion and wait for
+                // that real delivery rather than reading the previous layout.
+                await waitFor(() => {
+                    const label = input.closest('[data-field-root]')!.querySelector('label')!.getBoundingClientRect();
+                    if (designSystem === 'md3') {
+                        const content = input.getBoundingClientRect();
+                        expect(label.left).toBeGreaterThanOrEqual(content.left - 1);
+                        expect(label.right).toBeLessThanOrEqual(content.right + 1);
+                    } else {
+                        expect(label.bottom).toBeLessThanOrEqual(input.parentElement!.getBoundingClientRect().top + 1);
+                    }
+                });
+            }
+        }
+        await view.unmount();
+        expect(current).toBe(null);
+        expect(cleanups).toBeGreaterThan(0);
+    });
+    for (const designSystem of ['md3', 'apple', 'shadcn'] as const) {
+        for (const colorMode of ['light', 'dark'] as const) {
+            for (const direction of ['ltr', 'rtl'] as const) {
+                for (const appearance of ['outlined', 'filled'] as const) {
+                    it(`keeps ${designSystem}/${colorMode}/${direction}/${appearance} labels clear of decorations`, async () => {
+                        const label = '完整的预警阈值 · decorated field';
+                        const view = await render(<ConfigProvider designSystem={designSystem} colorMode={colorMode} direction={direction}>
+                            <style>{compiledCss}</style>
+                            <div style={{ width: 180 }}>
+                                <LineEdit label={label} appearance={appearance} prefix="$" suffix="%" required />
+                                <LineEdit label={label} appearance={appearance} prefix="$" suffix="US dollars" required dir={direction === 'ltr' ? 'rtl' : 'ltr'} />
+                            </div>
+                        </ConfigProvider>);
+                        for (const input of view.container.querySelectorAll<HTMLInputElement>('input')) {
+                            const field = input.closest<HTMLElement>('[data-field-root]')!;
+                            const visibleLabel = field.querySelector<HTMLLabelElement>('label')!;
+                            const assertGeometry = () => {
+                                const bounds = visibleLabel.getBoundingClientRect();
+                                const content = input.getBoundingClientRect();
+                                if (designSystem === 'md3') {
+                                    expect(bounds.left).toBeGreaterThanOrEqual(content.left - 1);
+                                    expect(bounds.right).toBeLessThanOrEqual(content.right + 1);
+                                    expect(getComputedStyle(visibleLabel.querySelector('[data-field-label-text]')!).textOverflow).toBe('ellipsis');
+                                } else {
+                                    expect(bounds.bottom).toBeLessThanOrEqual(input.parentElement!.getBoundingClientRect().top + 1);
+                                }
+                                expect(visibleLabel.htmlFor).toBe(input.id);
+                                expect(visibleLabel.textContent).toBe(`${label}*`);
+                            };
+                            assertGeometry();
+                            await act(() => input.focus());
+                            if (appearance === 'filled' || designSystem !== 'md3') assertGeometry();
+                            expect(document.activeElement === input).toBe(true);
+                            await act(() => input.blur());
+                            assertGeometry();
+                        }
+                    });
+                }
             }
         }
     }

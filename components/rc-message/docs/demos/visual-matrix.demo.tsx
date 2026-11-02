@@ -32,23 +32,34 @@ export default function VisualMatrixDemo() {
     const longText = copy('这是一段需要在窄屏中自然换行的工作区说明，包含很长的标识符 abcdefghijklmnopqrstuvwxyz0123456789，不能导致页面横向滚动。', 'A long workspace explanation with an unbroken identifier abcdefghijklmnopqrstuvwxyz0123456789 must wrap within the available width.');
     const [message, contextHolder] = useMessage();
     const [handle, setHandle] = useState<MessageHandle | null>(null);
+    const statusContent = {
+        success: copy('工作区已保存。', 'Workspace saved.'),
+        warning: copy('仍有未保存的更改，请检查后继续。', 'Unsaved changes remain. Review them before continuing.'),
+        error: copy('保存失败，请重试。当前草稿已保留。', 'Save failed. Retry; your draft is retained.'),
+        loading: copy('正在保存工作区…', 'Saving the workspace…'),
+    };
     return <div>
         <div className={rowStyle}>
             <label>验收尺寸<select aria-label="验收尺寸" value={size} onChange={event => setSize(event.currentTarget.value)}><option>medium</option></select></label>
             <label>验收密度<select aria-label="验收密度" value={density} onChange={event => setDensity(event.currentTarget.value as typeof density)}><option>standard</option></select></label>
             <label>验收状态<select aria-label="验收状态" value={state} onChange={event => { const next = event.currentTarget.value; setState(next); setVisible(true); }}><option value="default">default</option><option value="success">success</option><option value="warning">warning</option><option value="error">error</option><option value="long-content">long-content</option><option value="updated">updated</option><option value="closed">closed</option><option value="loading">loading</option></select></label>
             <Button onClick={() => setVisible(false)}>关闭展示</Button>
-            <Button onClick={() => setHandle(message.info(copy('浮层消息', 'Portal message'), 0))}>打开浮层</Button><Button onClick={() => handle?.update({content: copy('浮层已更新', 'Portal updated')})}>更新浮层</Button><Button onClick={() => handle?.close()}>关闭浮层</Button>{contextHolder}
         </div>
         <label><input type="checkbox" aria-label="长文本" checked={longContent} onChange={event => setLongContent(event.currentTarget.checked)} />长文本</label>
         <label>配置切换草稿<input aria-label="配置切换草稿" value={draft} onChange={event => setDraft(event.currentTarget.value)} /></label>
         <ConfigProvider size={size === 'small' || size === 'large' ? size : 'medium'} density={density}>
             <section className={frameStyle} aria-label="Message visual matrix" data-visual-frame>
                 <div className={sceneStyle} data-visual-scene data-size={size} data-density={density} data-state={state}>
-                    <Message data-visual-target open={visible} type={['success','warning','error','loading'].includes(state) ? state as 'success' | 'warning' | 'error' | 'loading' : 'info'} duration={0} content={state === 'long-content' ? longText : state === 'updated' ? copy('记录已更新，草稿仍然保留。', 'Record updated; the draft is retained.') : copy('操作结果：工作区已保存', 'Result: workspace saved')} />
+                    <Message data-visual-target open={visible} type={['success','warning','error','loading'].includes(state) ? state as 'success' | 'warning' | 'error' | 'loading' : 'info'} duration={0} content={state === 'long-content' ? longText : state === 'updated' ? copy('记录已更新，草稿仍然保留。', 'Record updated; the draft is retained.') : statusContent[state as keyof typeof statusContent] ?? copy('可以继续处理下一组记录。', 'Continue with the next group of records.')} />
                     
                 </div>
             </section>
         </ConfigProvider>
+        <div className={rowStyle} role="group" aria-label="浮层操作">
+            <Button onClick={() => setHandle(message.info(copy('浮层消息', 'Portal message'), 0))}>打开浮层</Button>
+            <Button onClick={() => handle?.update({content: copy('浮层已更新', 'Portal updated')})}>更新浮层</Button>
+            <Button onClick={() => handle?.close()}>关闭浮层</Button>
+        </div>
+        {contextHolder}
     </div>;
 }

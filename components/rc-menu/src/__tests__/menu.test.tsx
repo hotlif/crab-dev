@@ -90,6 +90,40 @@ afterEach(() => {
     floatingRequests.clear();
 });
 describe("Menu", () => {
+    for (const collapsed of [false, true]) {
+        const mode = collapsed ? 'collapsed' : 'horizontal';
+        it(`keeps the ${mode} submenu open on its first click after hover`, async () => {
+            const onOpenKeysChange = mock.fn();
+            const onClick = mock.fn();
+            await render(<Menu mode={collapsed ? 'vertical' : 'horizontal'} inlineCollapsed={collapsed} onOpenKeysChange={onOpenKeysChange} onClick={onClick} items={[
+                { type: ItemType.Item, key: 'parent', title: 'Hover parent', children: [{ type: ItemType.Item, key: 'child', title: 'Hover child' }] },
+            ]} />);
+            const parent = screen.getByRole(collapsed ? 'menuitem' : 'button', { name: 'Hover parent' });
+            const request = floatingRequests.get(parent.closest('li')!)!;
+            await act(async () => { request(true, new MouseEvent('mouseenter'), 'hover'); });
+            expect(parent.getAttribute('aria-expanded')).toBe('true');
+            await fireEvent.click(parent);
+            expect(parent.getAttribute('aria-expanded')).toBe('true');
+            expect(onOpenKeysChange).toHaveBeenCalledTimes(1);
+            expect(onClick).toHaveBeenCalledTimes(1);
+            await fireEvent.click(parent);
+            expect(parent.getAttribute('aria-expanded')).toBe('false');
+            expect(onOpenKeysChange).toHaveBeenCalledTimes(2);
+            expect(onClick).toHaveBeenCalledTimes(2);
+        });
+
+        it(`still closes a default-open ${mode} submenu on its first click`, async () => {
+            const onOpenKeysChange = mock.fn();
+            await render(<Menu mode={collapsed ? 'vertical' : 'horizontal'} inlineCollapsed={collapsed} defaultOpenKeys={['parent']} onOpenKeysChange={onOpenKeysChange} items={[
+                { type: ItemType.Item, key: 'parent', title: 'Default parent', children: [{ type: ItemType.Item, key: 'child', title: 'Default child' }] },
+            ]} />);
+            const parent = screen.getByRole(collapsed ? 'menuitem' : 'button', { name: 'Default parent' });
+            await fireEvent.click(parent);
+            expect(parent.getAttribute('aria-expanded')).toBe('false');
+            expect(onOpenKeysChange).toHaveBeenCalledWith([], expect.objectContaining({ reason: 'collapse' }));
+        });
+    }
+
     it('preserves the actual click event in expansion and collapse details', async () => {
         const requests: { keys: Key[]; details: MenuOpenKeysChangeDetails }[] = [];
         const onOpenKeysChange = mock.fn((keys: Key[], details: MenuOpenKeysChangeDetails) => { requests.push({ keys, details }); });

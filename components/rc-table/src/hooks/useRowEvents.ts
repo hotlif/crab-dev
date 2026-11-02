@@ -22,6 +22,10 @@ const INTERACTIVE_SELECTOR = [
     '[role="radio"]',
     '[role="switch"]',
     '[role="link"]',
+    '[role="combobox"]',
+    '[role="listbox"]',
+    '[role="textbox"]',
+    '[role="slider"]',
     '[contenteditable="true"]',
 ].join(",");
 
@@ -104,6 +108,7 @@ export function useRowEvents<T extends Row>(options: UseRowEventsOptions<T>): Us
         const document = rootRef?.current?.ownerDocument ?? globalThis.document;
         const target = document.defaultView ?? document;
         const handleKeyDown = (event: KeyboardEvent) => {
+            if (event.defaultPrevented) return;
             if (event.key !== "Enter") return;
             if (event.shiftKey || event.ctrlKey || event.metaKey || event.altKey) return;
 
@@ -113,6 +118,15 @@ export function useRowEvents<T extends Row>(options: UseRowEventsOptions<T>): Us
             if (current.currentEditingRowId != null) return;
 
             const active = document.activeElement as HTMLElement | null;
+            const root = rootRef?.current;
+            const ElementConstructor = document.defaultView?.Element;
+            // Preserve native actions, including controls inside a shadow tree.
+            for (const origin of event.composedPath()) {
+                if (origin === root) break;
+                if (ElementConstructor && origin instanceof ElementConstructor && origin.matches(INTERACTIVE_SELECTOR)) return;
+            }
+            const control = active?.closest?.(INTERACTIVE_SELECTOR);
+            if (control && (!root || root.contains(control))) return;
             const tag = active?.tagName?.toLowerCase();
             if (tag === "input" || tag === "textarea" || tag === "select") return;
             if (active?.isContentEditable) return;

@@ -1,0 +1,41 @@
+{
+  "startedAt": "2026-11-02T07:37:52.4689193Z",
+  "platform": "win32",
+  "node": "v22.15.0",
+  "yarn": "4.18.0",
+  "sourceSnapshotManifestSha256": "9a38fc5b0e16afcbee3ccd570e0fed9d1c67bdea906c3ed1d8f8df26907cea50",
+  "environment": {
+    "TURBO_CONCURRENCY": "2",
+    "TEMP": "C:\\Users\\zhang\\Desktop\\crab-dev\\.tmp\\validation-runtime-temp",
+    "TMP": "C:\\Users\\zhang\\Desktop\\crab-dev\\.tmp\\validation-runtime-temp",
+    "TMPDIR": "C:\\Users\\zhang\\Desktop\\crab-dev\\.tmp\\validation-runtime-temp",
+    "RAYON_NUM_THREADS": "2"
+  },
+  "commands": [
+    {
+      "command": "yarn generate:docs",
+      "startedAt": "2026-11-02T07:37:52.8125304Z",
+      "exitCode": 0,
+      "finishedAt": "2026-11-02T07:38:00.7858677Z"
+    },
+    {
+      "command": "yarn check:docs",
+      "startedAt": "2026-11-02T07:38:00.7984075Z",
+      "exitCode": 0,
+      "finishedAt": "2026-11-02T07:38:11.8553547Z"
+    },
+    {
+      "command": "yarn lint:tools",
+      "startedAt": "2026-11-02T07:38:11.8641411Z",
+      "exitCode": 0,
+      "finishedAt": "2026-11-02T07:39:09.0889821Z"
+    },
+    {
+      "command": "yarn check",
+      "startedAt": "2026-11-02T07:39:09.1042422Z",
+      "exitCode": 0,
+      "finishedAt": "2026-11-02T08:26:15.0327124Z"
+    }
+  ],
+  "finishedAt": "2026-11-02T08:26:15.0516945Z"
+}

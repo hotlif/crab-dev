@@ -74,8 +74,8 @@ const Preview: FC<PreviewProps> = ({
 }) => {
     const { locale } = useLocale();
     const copy = locale === 'en-US'
-        ? { actions: 'Preview actions', copyCode: 'Copy code', copied: 'Copied', copy: 'Copy', hideSource: 'Hide source', showSource: 'Show source', collapse: 'Collapse', source: 'Source', open: 'Open in new window', window: 'New window', loading: 'Loading syntax highlighting…' }
-        : { actions: '预览操作', copyCode: '复制代码', copied: '已复制', copy: '复制', hideSource: '收起源码', showSource: '查看源码', collapse: '收起', source: '源码', open: '在新窗口打开', window: '新窗口', loading: '正在加载源码高亮…' };
+        ? { actions: 'Preview actions', copyCode: 'Copy code', copied: 'Copied', copy: 'Copy', hideSource: 'Hide source', showSource: 'Show source', collapse: 'Collapse', source: 'Source', sourceRegion: 'Example source', open: 'Open in new window', window: 'New window', loading: 'Loading syntax highlighting…' }
+        : { actions: '预览操作', copyCode: '复制代码', copied: '已复制', copy: '复制', hideSource: '收起源码', showSource: '查看源码', collapse: '收起', source: '源码', sourceRegion: '示例源码', open: '在新窗口打开', window: '新窗口', loading: '正在加载源码高亮…' };
     const hasSource = typeof sourceCode === 'string' && sourceCode.length > 0;
     const hasPath = typeof path === 'string' && path.length > 0;
     const hasDescription =
@@ -225,7 +225,7 @@ const Preview: FC<PreviewProps> = ({
                 >
                     <div className={sourceClipStyle}>
                         {sourceMounted && (
-                            <div className={sourceScrollStyle}>
+                            <div className={sourceScrollStyle} tabIndex={0} role="region" aria-label={copy.sourceRegion} dir="ltr">
                                 <Suspense
                                     fallback={(
                                         <div className={cx.call(undefined, sourceLoadingStyle, codeTheme === 'dark' && sourceLoadingDarkStyle)} role="status">

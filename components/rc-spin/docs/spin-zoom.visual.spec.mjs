@@ -1,4 +1,7 @@
 import { zoomTest as test, expect, configurations, openDemo, readVisualSpec, settleFiniteAnimations } from "../../../test/visual/component-fixture.mjs";
+
+// Headed native zoom shares a display; retain independent, sequential cases.
+test.describe.configure({ mode: 'default' });
 import { assertSpinGeometry } from './visual-geometry.mjs';
 import { readSpinActivity, assertNaturalActivity, prepareWrappedControl, assertOverlayIsolation, assertWrappedControlRestored } from './visual-behavior.mjs';
 

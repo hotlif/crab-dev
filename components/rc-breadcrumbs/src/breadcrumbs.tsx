@@ -21,8 +21,9 @@ const getVisibleEntries = (
     }
 
     const remaining = maxCount - 1;
-    const headCount = Math.ceil(remaining / 2);
-    const tailCount = Math.floor(remaining / 2);
+    // The current page takes priority when only one non-ellipsis slot remains.
+    const tailCount = Math.max(1, Math.floor(remaining / 2));
+    const headCount = remaining - tailCount;
     const headItems = items.slice(0, headCount);
     const tailItems = items.slice(items.length - tailCount);
 

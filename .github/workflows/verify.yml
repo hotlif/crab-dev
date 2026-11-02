@@ -16,6 +16,10 @@ permissions:
 jobs:
   verify:
     name: verify (${{ matrix.os }})
+    env:
+      CRAB_CI_SOURCE_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+      RAYON_NUM_THREADS: "2"
+      TURBO_CONCURRENCY: "2"
     strategy:
       fail-fast: false
       matrix:
@@ -25,9 +29,19 @@ jobs:
       - uses: actions/checkout@v7
         with:
           lfs: true
+          ref: ${{ env.CRAB_CI_SOURCE_SHA }}
       - uses: actions/setup-node@v7
         with:
           node-version: "24"
+      - name: Verify the exact submitted revision
+        shell: bash
+        run: |
+          node --input-type=module <<'JS'
+          import { execFileSync } from 'node:child_process';
+          const actual = execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim();
+          if (actual !== process.env.CRAB_CI_SOURCE_SHA) throw Error('CI checkout does not match the submitted revision');
+          console.log(`Verified CI source revision: ${actual}`);
+          JS
       - name: Enable Corepack
         run: corepack enable
       - name: Install project package manager
@@ -43,15 +57,28 @@ jobs:
         run: yarn test:browser:install
       - name: Run the repository verification contract
         run: yarn check
+      - name: Preserve exact source and build fingerprints
+        shell: bash
+        run: |
+          yarn node --input-type=module <<'JS'
+          import { mkdir, writeFile } from 'node:fs/promises';
+          import { execFileSync } from 'node:child_process';
+          import { captureVisualInputs } from './scripts/visual/evidence-inputs.mjs';
+          const sourceCommit = execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim();
+          if (sourceCommit !== process.env.CRAB_CI_SOURCE_SHA) throw Error('CI source revision changed during verification');
+          await mkdir('.cache/visual', { recursive: true });
+          await writeFile('.cache/visual/ci-source-build.json', JSON.stringify({ recordedAt: new Date().toISOString(), sourceCommit, platform: process.platform, node: process.version, inputs: await captureVisualInputs() }, null, 2) + '\n');
+          JS
       - name: Preserve browser diagnostics and candidate screenshots
         if: always()
         uses: actions/upload-artifact@v7
         with:
-          name: browser-evidence-${{ matrix.os }}-${{ github.sha }}
+          name: browser-evidence-${{ matrix.os }}-${{ env.CRAB_CI_SOURCE_SHA }}
           if-no-files-found: ignore
           retention-days: 14
           include-hidden-files: true
           path: |
+            .cache/visual/ci-source-build.json
             components/*/.cache/forced-colors/**/*.json
             components/*/.cache/forced-colors/**/*.png
             components/*/.cache/focus-colors/**/*.json

@@ -2893,6 +2893,7 @@
                 "@crab-dev/rc-empty#build:library",
                 "@crab-dev/rc-hooks#build:library",
                 "@crab-dev/rc-radio#build:library",
+                "@crab-dev/rc-select#build:library",
                 "@crab-dev/rc-token-semantic#build:library",
                 "@crab-dev/rc-virtual#build:library"
             ]
@@ -2910,6 +2911,7 @@
                 "@crab-dev/rc-empty#build:library",
                 "@crab-dev/rc-hooks#build:library",
                 "@crab-dev/rc-radio#build:library",
+                "@crab-dev/rc-select#build:library",
                 "@crab-dev/rc-token-semantic#build:library",
                 "@crab-dev/rc-virtual#build:library"
             ]

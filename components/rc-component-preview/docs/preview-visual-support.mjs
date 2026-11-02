@@ -5,8 +5,8 @@ export const sourceLoading = scene => scene.getByRole('status').filter({ hasText
 
 export async function highlightedSource(scene) {
     await expect(sourceToggle(scene)).toHaveAttribute('aria-expanded', 'true');
-    // The complete Prism language module graph is lazy. Cold local production
-    // routes may still be importing after the panel itself has expanded.
+    // The light highlighter is lazy. Wait for actual syntax, not merely the
+    // panel's completed expansion or an unhighlighted compatibility fallback.
     await expect(sourceLoading(scene)).toHaveCount(0, { timeout: 30_000 });
     // The installed Prism renderer applies inline styles and may omit the
     // optional language class. Its real code structure and tokens prove ready.
@@ -17,6 +17,57 @@ export async function highlightedSource(scene) {
     // cannot prove the lazy highlighter has finished rendering its output.
     await expect(code.locator('.token').filter({ hasText: /^export$/ }).first()).toBeVisible();
     return code;
+}
+
+export async function assertSourceContrast(scene, info) {
+    const samples = await scene.locator('pre > code').evaluate(code => {
+        const canvas = code.ownerDocument.createElement('canvas');
+        canvas.width = canvas.height = 1;
+        const context = canvas.getContext('2d', { willReadFrequently: true });
+        const rgba = color => {
+            context.clearRect(0, 0, 1, 1);
+            context.fillStyle = color;
+            context.fillRect(0, 0, 1, 1);
+            return [...context.getImageData(0, 0, 1, 1).data].map((value, index) => index === 3 ? value / 255 : value);
+        };
+        const blend = (color, background) => color.slice(0, 3).map((value, index) => value * color[3] + background[index] * (1 - color[3]));
+        const luminance = color => color.map(value => value / 255).map(value => value <= 0.04045 ? value / 12.92 : ((value + 0.055) / 1.055) ** 2.4).reduce((sum, value, index) => sum + value * [0.2126, 0.7152, 0.0722][index], 0);
+        const samples = new Map();
+        const walker = code.ownerDocument.createTreeWalker(code, globalThis.NodeFilter.SHOW_TEXT);
+        while (walker.nextNode()) {
+            const text = walker.currentNode.textContent.trim();
+            if (!text) continue;
+            const element = walker.currentNode.parentElement;
+            const style = globalThis.getComputedStyle(element);
+            const ancestors = []; let current = element;
+            while (current) { ancestors.unshift(current); current = current.parentElement; }
+            let background = [255, 255, 255];
+            for (const ancestor of ancestors) background = blend(rgba(globalThis.getComputedStyle(ancestor).backgroundColor), background);
+            const foreground = blend(rgba(style.color), background);
+            const lightness = [luminance(foreground), luminance(background)];
+            const ratio = (Math.max(...lightness) + 0.05) / (Math.min(...lightness) + 0.05);
+            samples.set(`${style.color}/${background}`, { text, foreground, background, ratio });
+        }
+        return [...samples.values()];
+    });
+    await info.attach('source-text-contrast', { body: JSON.stringify(samples), contentType: 'application/json' });
+    expect(samples.length, 'Real syntax and line-number colors').toBeGreaterThan(5);
+    for (const sample of samples) expect(sample.ratio, `Source text contrast: ${sample.text}`).toBeGreaterThanOrEqual(4.5);
+}
+
+export async function focusSourceWithKeyboard(scene, page) {
+    const scrollport = scene.getByRole('region', { name: /^(示例源码|Example source)$/ });
+    const actions = scene.getByRole('group', { name: /^(预览操作|Preview actions)$/ }).getByRole('button');
+    await actions.last().focus();
+    await page.keyboard.press('Tab');
+    await expect(scrollport).toBeFocused();
+    const outline = await scrollport.evaluate(node => {
+        const style = globalThis.getComputedStyle(node);
+        return { visible: node.matches(':focus-visible'), width: Number.parseFloat(style.outlineWidth), style: style.outlineStyle, direction: style.direction };
+    });
+    expect(outline).toMatchObject({ visible: true, style: 'solid', direction: 'ltr' });
+    expect(outline.width).toBeGreaterThan(0);
+    return scrollport;
 }
 
 export async function assertToolbarReachable(scene, page, info) {
@@ -48,6 +99,8 @@ export async function assertToolbarReachable(scene, page, info) {
 export async function inspectSourceScroll(scene, page, info, { touch = false } = {}) {
     const pre = scene.locator('pre');
     const scrollport = pre.locator('..');
+    await expect(scrollport).toHaveAttribute('tabindex', '0');
+    await expect(scrollport).toHaveAttribute('dir', 'ltr');
     await scrollport.scrollIntoViewIfNeeded();
     const geometry = await scrollport.evaluate(node => ({ client: node.clientWidth, scroll: node.scrollWidth, overflow: globalThis.getComputedStyle(node).overflowX }));
     expect(geometry.client).toBeGreaterThan(0);
@@ -55,6 +108,9 @@ export async function inspectSourceScroll(scene, page, info, { touch = false } =
     if (overflowing) {
         expect(['auto', 'scroll']).toContain(geometry.overflow);
         if (!touch) {
+            await focusSourceWithKeyboard(scene, page);
+            await page.keyboard.press('ArrowRight');
+            await expect.poll(() => scrollport.evaluate(node => Math.abs(node.scrollLeft))).toBeGreaterThan(0);
             await scrollport.hover();
             // A real horizontal wheel gesture moves this code-owned scrollport.
             // Keep the document fixed and never crop or hide the source text.

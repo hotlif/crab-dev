@@ -1,5 +1,5 @@
 import { useFilterRowHeight } from "./hooks/useFilterRowHeight.js";
-import { useRowEditFocus } from "./hooks/useRowEditFocus.js";
+import { useEditFocus } from "./hooks/useEditFocus.js";
 import type { TableProps } from "./table-props.js";
 export type { TableProps } from "./table-props.js";
 import ExpandedRowContent from "./expanded-row-content.js";
@@ -171,7 +171,7 @@ function Table<T extends Row>(props: TableProps<T>): ReactNode {
             name: SELECTION_COLUMN_NAME,
             title: '',
             fixed: isFixed ? 'left' : undefined,
-            width: selectionColumnWidth ?? 40,
+            width: Math.max(selectionColumnWidth ?? 40, coarsePointer ? 48 : 0),
             selectable: false,
             sortable: false,
             resizable: false,
@@ -219,6 +219,7 @@ function Table<T extends Row>(props: TableProps<T>): ReactNode {
     }, [
         selectionFixed,
         selectionColumnWidth,
+        coarsePointer,
         hasRowSelection,
         locale,
         size,
@@ -384,7 +385,7 @@ function Table<T extends Row>(props: TableProps<T>): ReactNode {
         isInteractionActive, rootRef: interactionRootRef
     });
 
-    const rowEditFocusRef = useRowEditFocus(currentEditingRowId, interactionRootRef, isInteractionActive);
+    const rowEditFocusRef = useEditFocus(currentEditingRowId, interactionRootRef, isInteractionActive);
 
     // ====== 单元格编辑 ======
     const { undoDataVersion, editedCellKeys, handleCellCommit, handleUndo } = useCellEdit<T>({
@@ -396,6 +397,8 @@ function Table<T extends Row>(props: TableProps<T>): ReactNode {
         editType, displayRows, bottomColumnsRef, skipCellSet, getCellKey,
         selectionColumnName: SELECTION_COLUMN_NAME,
     });
+    const cellEditFocusRef = useEditFocus(editingCellPos === null ? null
+        : makeCellIdentityKey(editingCellPos.rowId, editingCellPos.columnName), interactionRootRef, isInteractionActive);
 
     // ====== 单元格选区（同时处理 Ctrl+Z/C/Esc 键盘事件） ======
     const {
@@ -1150,8 +1153,13 @@ function Table<T extends Row>(props: TableProps<T>): ReactNode {
             }}
             onFocusCapture={(event) => {
                 activateInteraction();
-                if (currentEditingRowId != null && event.target instanceof HTMLElement
-                    && event.target.closest('[data-table-row-editing]')) rowEditFocusRef.current = event.target;
+                const ElementConstructor = event.currentTarget.ownerDocument.defaultView?.HTMLElement;
+                if (ElementConstructor && event.target instanceof ElementConstructor) {
+                    if (currentEditingRowId != null && event.target.closest('[data-table-row-editing]'))
+                        rowEditFocusRef.current = event.target;
+                    if (editingCellPos !== null && event.target.closest('[data-table-cell-editing]'))
+                        cellEditFocusRef.current = event.target;
+                }
                 restProps.onFocusCapture?.(event);
             }}
             className={cx.call(undefined, tableRootStyle, densityStyles[density], emptyNode !== null && emptyContainerStyle, restProps.className)}

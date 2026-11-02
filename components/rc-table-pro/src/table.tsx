@@ -656,6 +656,7 @@ function TablePro<T extends Row>(props: TableProProps<T>) {
 
     return (
         <div {...cleanRest} className={cx.call(undefined, flexColumnStyle, className)}>
+            {searchBarEl}
             {position !== "bottom" && paginationBar}
             <div className={tableFlexStyle}>
                 {tableAreaContent}

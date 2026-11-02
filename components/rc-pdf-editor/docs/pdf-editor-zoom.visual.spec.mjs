@@ -1,4 +1,7 @@
 import { zoomTest as test, expect, configurations, openDemo, readVisualSpec, settleFiniteAnimations, captureZoom } from '../../../test/visual/component-fixture.mjs';
+
+// Headed native zoom shares a display; retain independent, sequential cases.
+test.describe.configure({ mode: 'default' });
 import { readyPdf, waitForPdfPresentation } from './pdf-editor.visual-helpers.mjs';
 
 const spec = await readVisualSpec(import.meta.url);
@@ -31,7 +34,9 @@ for (const config of configurations) test(`${config.designSystem} ${config.color
     // existing compact layout. Reopen the real panel to inspect the same draft.
     await properties.scrollIntoViewIfNeeded();
     if (await properties.getAttribute('aria-expanded') === 'false') await properties.click();
-    await expect(x).toHaveValue('72'); await x.scrollIntoViewIfNeeded();
+    // Focusing the toolbar commits NumberEdit's existing precision=2 display.
+    // The numeric draft and document revision must both remain unchanged.
+    await expect(x).toHaveValue('72.00'); await x.scrollIntoViewIfNeeded();
     await waitForPdfPresentation(scene);
     await captureZoom(page, realZoom, `${config.designSystem}-${config.colorMode}-zoom-200-pdf-draft.png`, info);
     await expect(scene.getByRole('button', { name: '应用修改', exact: true })).toBeEnabled();

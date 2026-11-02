@@ -1,4 +1,4 @@
-import { type ReactNode, use, useEffect, useRef, useState } from 'react';
+import { type ReactNode, use, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useLocale } from '@crab-dev/rc-config-provider';
 import { CanvasContext } from '../context/canvas-context.js';
@@ -41,12 +41,27 @@ export interface TextProps extends CanvasInteractiveProps {
     onEdit?: (text: string) => void;
 }
 
-// 无捕获的稳定 ref：只在编辑器挂载时初始化焦点与选区，语言/主题更新不重选草稿。
+// 只在编辑会话开始时初始化焦点与选区，语言/主题更新不重选草稿。
 function initializeTextEditor(node: HTMLTextAreaElement | null) {
     if (node) {
         node.focus();
         node.select();
     }
+}
+
+function fitTextEditor(node: HTMLTextAreaElement, container: HTMLDivElement | null) {
+    const view = node.ownerDocument.defaultView;
+    if (!view) return;
+    const style = view.getComputedStyle(node);
+    const padding = parseFloat(style.paddingTop) + parseFloat(style.paddingBottom);
+    const border = parseFloat(style.borderTopWidth) + parseFloat(style.borderBottomWidth);
+    const minimum = parseFloat(style.minHeight);
+    const top = container ? node.getBoundingClientRect().top - container.getBoundingClientRect().top : node.offsetTop;
+    const available = Math.max(minimum, (container?.clientHeight ?? 0) - top - padding - border);
+    // Measure native wrapping without controlling the draft or resetting its
+    // selection. Longer documents keep the editor's own vertical scrolling.
+    node.style.height = '0px';
+    node.style.height = `${Math.ceil(Math.min(available, Math.max(minimum, node.scrollHeight - padding)))}px`;
 }
 
 function Text({
@@ -91,6 +106,9 @@ function Text({
     const [editing, setEditing] = useState(false);
     // 可变实例状态：先结束会话，再通知应用，避免应用移焦触发 blur 重复提交。
     const editingSessionRef = useRef(false);
+    const editorRef = useRef<HTMLTextAreaElement>(null);
+    useLayoutEffect(() => { if (editorRef.current) fitTextEditor(editorRef.current, ctx.containerRef.current); });
+    useLayoutEffect(() => { if (editing) initializeTextEditor(editorRef.current); }, [editing]);
 
     // latest-ref：onEdit 回调（避免 HitEntry 闭包陈旧）
     // 注：渲染期写 ref 违反 Rules of React，使编译器降级——是 latest-ref 的有意取舍
@@ -101,12 +119,15 @@ function Text({
         if (!editingSessionRef.current) return;
         editingSessionRef.current = false;
         const container = ctx.containerRef.current;
-        const ownerDocument = editor.ownerDocument;
-        const ownedFocus = ownerDocument.activeElement === editor;
+        // The owner document exposes only a shadow host for focused descendants.
+        // Read the actual root without assuming this window's ShadowRoot realm.
+        const focusRoot = editor.getRootNode();
+        const activeElement = () => 'activeElement' in focusRoot ? focusRoot.activeElement : editor.ownerDocument.activeElement;
+        const ownedFocus = activeElement() === editor;
         setEditing(false);
         if (commit) onEditRef.current?.(editor.value);
         // 显式结束才返回画布。应用回调可能转移焦点或同步卸载，不能覆盖它的决定。
-        if (restoreFocus && ownedFocus && ownerDocument.activeElement === editor
+        if (restoreFocus && ownedFocus && activeElement() === editor
             && container?.isConnected && ctx.containerRef.current === container) {
             container.focus({ preventScroll: true });
         }
@@ -213,32 +234,43 @@ function Text({
         const ay = glyph ? y + baselineOffset(glyph.height) : y;
         const [wx, wy] = applyMat3(worldMatrixRef.current, ax, ay);
         const [canvasAnchorX, canvasAnchorY] = applyMat3(ctx.viewMatrixRef.current, wx, wy);
-        const overlayW = Math.max((glyph?.width ?? 80) * zoom, 80);
+        const overlayW = Math.max((maxWidth ?? glyph?.width ?? 80) * zoom, 80);
         const overlayH = Math.max((glyph?.height ?? fontSize * zoom * 1.4) * zoom, fontSize * zoom * 1.4);
 
         overlay = createPortal(
+            // Paint the opaque editing surface separately from the native
+            // textarea. Chromium can otherwise occlude the sibling WebGL layer
+            // beyond an auto-sized textarea's actual bounds.
+            <div style={{
+                position: 'absolute', left: canvasAnchorX, top: canvasAnchorY,
+                display: 'inline-grid', zIndex: 1000,
+                // A CSS image avoids Chromium's opaque-control occlusion path.
+                // In forced colors this role resolves to the user's Canvas.
+                backgroundImage: `linear-gradient(${palette.editorBackground}, ${palette.editorBackground})`,
+                forcedColorAdjust: 'none',
+            }}>
             <textarea
                 aria-label={editorLabel?.trim() || messages.canvas.editText}
-                ref={initializeTextEditor}
+                ref={editorRef}
                 defaultValue={children}
                 style={{
-                    position: 'absolute',
-                    left: canvasAnchorX,
-                    top: canvasAnchorY,
                     width: overlayW,
                     height: overlayH,
+                    minHeight: overlayH,
                     fontSize: fontSize * zoom,
                     fontFamily,
                     color: fill,
-                    background: palette.editorBackground,
+                    background: 'transparent',
+                    forcedColorAdjust: 'auto',
                     border: `1.5px solid ${palette.editorBorder}`,
                     outline: 'none',
                     padding: 2,
-                    boxSizing: 'border-box',
+                    margin: 0,
+                    boxSizing: 'content-box',
                     resize: 'none',
                     lineHeight: `${(lineHeight ?? fontSize * 1.4) * zoom}px`,
-                    zIndex: 1000,
                 }}
+                onInput={event => fitTextEditor(event.currentTarget, ctx.containerRef.current)}
                 onBlur={(e) => {
                     finishEditing(e.currentTarget, true, false);
                 }}
@@ -255,7 +287,8 @@ function Text({
                         finishEditing(e.currentTarget, false, true);
                     }
                 }}
-            />,
+            />
+            </div>,
             containerEl,
         );
     }

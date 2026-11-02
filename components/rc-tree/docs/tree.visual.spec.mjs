@@ -45,7 +45,8 @@ for (const config of configurations)
                             await expect(tree.getByRole('treeitem').nth(1)).toHaveAttribute('aria-selected', 'true');
                         }
                         if (state === 'checked') {
-                            await tree.getByRole('checkbox').nth(1).check();
+                            // Operate the visible native label; the input itself is clipped.
+                            await tree.getByRole('checkbox').nth(1).locator('..').click();
                             await expect(tree.getByRole('checkbox').nth(1)).toBeChecked();
                         }
                         if (state === 'collapsed') {

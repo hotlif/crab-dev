@@ -19,11 +19,21 @@ for (const config of configurations) for (const size of spec.sizes) for (const d
         if (state === "multiple") await expect(page.getByRole("listbox")).toHaveAttribute("aria-multiselectable", "true");
         if (state === "disabled") await expect(field).toHaveAttribute("aria-disabled", "true");
         if (state === "error") await expect(field).toHaveAttribute("aria-invalid", "true");
-        if (state === "empty") await expect(page.getByRole("option")).toHaveCount(0);
+        if (state === "empty") {
+            const listbox = page.getByRole('listbox');
+            await expect(listbox.getByRole('option')).toHaveCount(0);
+            await expect(listbox).toContainText('暂无选项');
+        }
         await settleFiniteAnimations(page);
         const rect = await field.boundingBox(); expect(rect.width).toBeGreaterThan(0); expect(rect.height).toBeGreaterThan(0);
         if (await page.getByRole("listbox").count()) { const popup = await page.getByRole("listbox").boundingBox(); expect(popup.x).toBeGreaterThanOrEqual(0); expect(popup.y).toBeGreaterThanOrEqual(0); }
         await captureVisual(page, `${config.designSystem}-${config.colorMode}-${size}-${density}-${state}.png`, info, browserName);
+        if (state === 'focus-visible') {
+            await field.press('Tab');
+            await expect(page.getByRole('combobox', { name: '填充团队', exact: true })).toBeFocused();
+            await page.keyboard.press('Shift+Tab');
+            await expect(field).toBeFocused();
+        }
     });
 }
 
@@ -43,5 +53,13 @@ test("selection and search draft survive configuration changes across the Portal
     }
     await page.getByRole("option", { name: "工程 Engineering", exact: true }).click();
     await expect(field).toContainText("工程 Engineering");
+    await page.mouse.move(0, 0);
+    await field.focus();
+    await field.press('Tab');
+    const clear = field.getByRole('button', { name: /Clear|清除/ });
+    await expect(clear).toBeFocused();
+    await clear.press('Enter');
+    await expect(field).toBeFocused();
+    await expect(field).not.toContainText('工程 Engineering');
 });
 

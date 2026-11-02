@@ -7,6 +7,9 @@ import {
     settleFiniteAnimations,
     captureZoom,
 } from "../../../test/visual/component-fixture.mjs";
+
+// Headed native zoom shares a display; retain independent, sequential cases.
+test.describe.configure({ mode: 'default' });
 import { assertNumberEditGeometry } from "./visual-geometry.mjs";
 
 const spec = await readVisualSpec(import.meta.url);
@@ -40,6 +43,18 @@ for (const config of configurations)
                 true,
             );
             await expect(input).toHaveValue("12.");
+            await page.evaluate(() => {
+                globalThis.numberEditingTrace = [];
+                for (const type of ['focusin', 'focusout', 'beforeinput', 'input', 'change', 'select', 'keydown']) {
+                    globalThis.document.addEventListener(type, event => {
+                        const node = event.target;
+                        if (node?.matches?.('input[role="spinbutton"]')) globalThis.numberEditingTrace.push({
+                            type, name: node.getAttribute('aria-label'), value: node.value,
+                            start: node.selectionStart, end: node.selectionEnd, data: event.data ?? null, key: event.key ?? null,
+                        });
+                    }, true);
+                }
+            });
             // The unfinished draft survives zoom. Actual keyboard stepping and blur
             // then follow the existing numeric commit protocol.
             for (const appearance of ["outlined", "filled"]) {
@@ -48,7 +63,17 @@ for (const config of configurations)
                     exact: true,
                 });
                 const field = fieldInput.locator("..").locator("..");
-                if (appearance === "filled") await fieldInput.fill("12.");
+                if (appearance === "filled") {
+                    // Enter the editor before replacing its formatted display,
+                    // matching a user's focus -> select -> type sequence.
+                    await fieldInput.focus();
+                    await fieldInput.fill("12.");
+                }
+                await info.attach(`zoom-${appearance}-editing-before-step`, { body: JSON.stringify({
+                    input: await fieldInput.evaluate(node => ({ value: node.value, start: node.selectionStart, end: node.selectionEnd, focused: node === node.ownerDocument.activeElement })),
+                    events: await page.evaluate(() => globalThis.numberEditingTrace),
+                }), contentType: 'application/json' });
+                await expect(fieldInput).toHaveValue('12.');
                 await fieldInput.press("ArrowUp");
                 await expect(fieldInput).toHaveAttribute(
                     "aria-valuenow",

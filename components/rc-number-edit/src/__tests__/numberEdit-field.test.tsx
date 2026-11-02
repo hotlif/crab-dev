@@ -38,6 +38,22 @@ describe('NumberEdit text field integration', () => {
         expect(changed.calls.calls[0][1].event).toBe(event);
     });
 
+    it('leaves horizontal scrolling and modified browser zoom gestures untouched', async () => {
+        const changed = mock.fn();
+        await render(<NumberEdit defaultValue={3} onValueChange={changed} />);
+        const input = screen.getByRole('spinbutton');
+        await act(() => input.focus());
+        for (const init of [{ deltaX: 80, deltaY: 0 }, { deltaY: -80, ctrlKey: true }, { deltaY: -80, metaKey: true }]) {
+            const event = new WheelEvent('wheel', { ...init, bubbles: true, cancelable: true });
+            // The DOM test runtime omits WheelEvent modifier-key properties.
+            Object.defineProperties(event, { ctrlKey: { value: Boolean(init.ctrlKey) }, metaKey: { value: Boolean(init.metaKey) } });
+            await fireEvent(input, event);
+            expect(event.defaultPrevented).toBe(false);
+        }
+        expect(changed).not.toHaveBeenCalled();
+        expect(input.getAttribute('aria-valuenow')).toBe('3');
+    });
+
     it('keeps the original pointer event for long-press repeats without a duplicate click step', async () => {
         await clock.fake();
         try {

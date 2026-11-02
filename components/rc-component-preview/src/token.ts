@@ -10,6 +10,24 @@ export const vars = defineTokens({
     'source.background-color': '--component-preview-source-background-color',
     'source.dark.background-color': '--component-preview-source-dark-background-color',
     'source.dark.gutter.color': '--component-preview-source-dark-gutter-color',
+    'source.dark.outline-color-focus': '--component-preview-source-dark-outline-color-focus',
+    'source.outline-color-focus': '--component-preview-source-outline-color-focus',
+    'source.outline-width-focus': '--component-preview-source-outline-width-focus',
+    'source.outline-offset-focus': '--component-preview-source-outline-offset-focus',
+    'source.syntax.light.foreground.color': '--component-preview-source-syntax-light-foreground-color',
+    'source.syntax.light.comment.color': '--component-preview-source-syntax-light-comment-color',
+    'source.syntax.light.keyword.color': '--component-preview-source-syntax-light-keyword-color',
+    'source.syntax.light.string.color': '--component-preview-source-syntax-light-string-color',
+    'source.syntax.light.number.color': '--component-preview-source-syntax-light-number-color',
+    'source.syntax.light.function.color': '--component-preview-source-syntax-light-function-color',
+    'source.syntax.light.tag.color': '--component-preview-source-syntax-light-tag-color',
+    'source.syntax.dark.foreground.color': '--component-preview-source-syntax-dark-foreground-color',
+    'source.syntax.dark.comment.color': '--component-preview-source-syntax-dark-comment-color',
+    'source.syntax.dark.keyword.color': '--component-preview-source-syntax-dark-keyword-color',
+    'source.syntax.dark.string.color': '--component-preview-source-syntax-dark-string-color',
+    'source.syntax.dark.number.color': '--component-preview-source-syntax-dark-number-color',
+    'source.syntax.dark.function.color': '--component-preview-source-syntax-dark-function-color',
+    'source.syntax.dark.tag.color': '--component-preview-source-syntax-dark-tag-color',
     'source.padding-block': '--component-preview-source-padding-block',
     'source.font-size': '--component-preview-source-font-size',
     'source.font-family': '--component-preview-source-font-family',
@@ -90,6 +108,58 @@ const token = defineTokens({
             'background-color': `var(${vars['source.dark.background-color']}, var(--token-semantic-color-code-dark-background, var(--token-global-material-neutral-20, oklch(0.31065597 0.01134802 308.055889))))`,
             'gutter': {
                 'color': `var(${vars['source.dark.gutter.color']}, var(--token-semantic-color-code-dark-gutter, var(--token-global-material-neutral-80, oklch(0.82982891 0.01227594 313.200360))))`
+            },
+            'outline-color-focus': `var(${vars['source.dark.outline-color-focus']}, var(--token-semantic-color-code-dark-foreground, var(--token-global-zinc-100, oklch(0.950 0.003 286))))`
+        },
+        'outline-color-focus': `var(${vars['source.outline-color-focus']}, var(--token-semantic-color-code-light-foreground, var(--token-global-zinc-900, oklch(0.220 0.005 286))))`,
+        'outline-width-focus': `var(${vars['source.outline-width-focus']}, 2px)`,
+        'outline-offset-focus': `var(${vars['source.outline-offset-focus']}, calc(-1 * var(--component-preview-source-outline-width-focus, 2px)))`,
+        'syntax': {
+            'light': {
+                'foreground': {
+                    'color': `var(${vars['source.syntax.light.foreground.color']}, var(--token-semantic-color-code-light-foreground, var(--token-global-zinc-900, oklch(0.220 0.005 286))))`
+                },
+                'comment': {
+                    'color': `var(${vars['source.syntax.light.comment.color']}, var(--token-semantic-color-code-light-comment, var(--token-global-zinc-600, oklch(0.550 0.014 286))))`
+                },
+                'keyword': {
+                    'color': `var(${vars['source.syntax.light.keyword.color']}, var(--token-semantic-color-code-light-keyword, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078))))`
+                },
+                'string': {
+                    'color': `var(${vars['source.syntax.light.string.color']}, var(--token-semantic-color-code-light-string, var(--token-global-green-800, oklch(0.448 0.119 155))))`
+                },
+                'number': {
+                    'color': `var(${vars['source.syntax.light.number.color']}, var(--token-semantic-color-code-light-number, var(--token-global-amber-800, oklch(0.473 0.137 69))))`
+                },
+                'function': {
+                    'color': `var(${vars['source.syntax.light.function.color']}, var(--token-semantic-color-code-light-function, var(--token-global-blue-700, oklch(0.488 0.230 264))))`
+                },
+                'tag': {
+                    'color': `var(${vars['source.syntax.light.tag.color']}, var(--token-semantic-color-code-light-tag, var(--token-global-red-700, oklch(0.505 0.213 26))))`
+                }
+            },
+            'dark': {
+                'foreground': {
+                    'color': `var(${vars['source.syntax.dark.foreground.color']}, var(--token-semantic-color-code-dark-foreground, var(--token-global-zinc-100, oklch(0.950 0.003 286))))`
+                },
+                'comment': {
+                    'color': `var(${vars['source.syntax.dark.comment.color']}, var(--token-semantic-color-code-dark-comment, var(--token-global-zinc-300, oklch(0.840 0.008 286))))`
+                },
+                'keyword': {
+                    'color': `var(${vars['source.syntax.dark.keyword.color']}, var(--token-semantic-color-code-dark-keyword, var(--token-global-purple-80, oklch(0.83492620 0.09457492 298.017957))))`
+                },
+                'string': {
+                    'color': `var(${vars['source.syntax.dark.string.color']}, var(--token-semantic-color-code-dark-string, var(--token-global-green-300, oklch(0.871 0.138 151))))`
+                },
+                'number': {
+                    'color': `var(${vars['source.syntax.dark.number.color']}, var(--token-semantic-color-code-dark-number, var(--token-global-amber-300, oklch(0.879 0.169 79))))`
+                },
+                'function': {
+                    'color': `var(${vars['source.syntax.dark.function.color']}, var(--token-semantic-color-code-dark-function, var(--token-global-blue-300, oklch(0.809 0.105 257))))`
+                },
+                'tag': {
+                    'color': `var(${vars['source.syntax.dark.tag.color']}, var(--token-semantic-color-code-dark-tag, var(--token-global-red-300, oklch(0.808 0.114 20))))`
+                }
             }
         },
         'padding-block': `var(${vars['source.padding-block']}, 16px)`,

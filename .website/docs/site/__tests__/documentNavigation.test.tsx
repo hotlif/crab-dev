@@ -1,7 +1,10 @@
-import { describe, expect, it } from "@crab-dev/wake/test";
+import { afterEach, describe, expect, it } from "@crab-dev/wake/test";
 import { act, fireEvent, render, screen, within } from "@crab-dev/wake/test/react";
 import type { PageProps } from "@crab-dev/wake/docs";
 import { categoryForPath, groupsForCategory, PageSections } from "../documentNavigation.js";
+
+const initialViewport = window.innerWidth;
+afterEach(() => { Object.defineProperty(window, "innerWidth", { configurable: true, value: initialViewport }); });
 
 describe("文档导航", () => {
     it("分类从现有导航数据划分，组件目录不混入实战", () => {
@@ -77,6 +80,7 @@ describe("文档导航", () => {
     });
 
     it("宽窄布局切换移动目录但保留正文中的输入与实例", async () => {
+        Object.defineProperty(window, "innerWidth", { configurable: true, value: 1440 });
         const page: PageProps["page"] = {
             slug: "/guides/start", href: "/guides/start", title: "开始", description: "", status: "stable", draft: false,
             headings: [{ title: "安装", id: "install", depth: 2, href: "/guides/start#install" }],
@@ -90,7 +94,10 @@ describe("文档导航", () => {
         const content = view.container.querySelector(".crab-docs-content")!;
         for (const width of [1000, 999, 700, 1200]) {
             Object.defineProperty(content, "clientWidth", { configurable: true, value: width });
-            await act(() => { window.dispatchEvent(new Event("resize")); });
+            await act(async () => {
+                window.dispatchEvent(new Event("resize"));
+                await new Promise<void>(resolve => requestAnimationFrame(() => resolve()));
+            });
             expect(screen.getByRole("textbox", { name: "未提交的草稿" })).toBe(draft);
             expect(draft.value).toBe("保留内容");
             if (width >= 1000) {
@@ -100,6 +107,53 @@ describe("文档导航", () => {
                 expect(screen.getByRole("button", { name: "本页内容" }).getAttribute("aria-expanded")).toBe("false");
                 expect(screen.queryByRole("navigation", { name: "章节导航" })).toBeNull();
             }
+        }
+        Object.defineProperty(window, "innerWidth", { configurable: true, value: 1100 });
+        await act(async () => {
+            window.dispatchEvent(new Event("resize"));
+            await new Promise<void>(resolve => requestAnimationFrame(() => resolve()));
+        });
+        expect(screen.queryByRole("navigation", { name: "章节导航" })).toBeNull();
+        expect(screen.getByRole("button", { name: "本页内容" })).toBeTruthy();
+        expect(screen.getByRole("textbox", { name: "未提交的草稿" })).toBe(draft);
+        expect(draft.value).toBe("保留内容");
+    });
+
+    it("尺寸通知不在当前布局中切换目录，下一帧保留输入焦点", async () => {
+        const descriptor = Object.getOwnPropertyDescriptor(globalThis, "ResizeObserver");
+        let notify = () => {};
+        let disconnected = false;
+        Object.defineProperty(globalThis, "ResizeObserver", { configurable: true, value: class {
+            constructor(callback: () => void) { notify = callback; }
+            observe() {}
+            disconnect() { disconnected = true; }
+        } });
+        try {
+            Object.defineProperty(window, "innerWidth", { configurable: true, value: 1440 });
+            const page: PageProps["page"] = {
+                slug: "/guides/start", href: "/guides/start", title: "开始", description: "", status: "stable", draft: false,
+                headings: [{ title: "安装", id: "install", depth: 2, href: "/guides/start#install" }],
+            };
+            const view = await render(<div className="crab-docs-content"><PageSections page={page}>
+                <input aria-label="目录旁的草稿" defaultValue="尚未提交" />
+            </PageSections></div>);
+            const content = view.container.querySelector(".crab-docs-content")!;
+            const input = screen.getByRole("textbox", { name: "目录旁的草稿" });
+            Object.defineProperty(content, "clientWidth", { configurable: true, value: 1100 });
+            await act(async () => {
+                input.focus();
+                notify(); notify(); notify();
+                expect(screen.getByRole("button", { name: "本页内容" })).toBeTruthy();
+                await new Promise<void>(resolve => requestAnimationFrame(() => resolve()));
+            });
+            expect(screen.getByRole("navigation", { name: "章节导航" })).toBeTruthy();
+            expect(screen.getByRole("textbox", { name: "目录旁的草稿" })).toBe(input);
+            expect(document.activeElement).toBe(input);
+            await view.unmount();
+            expect(disconnected).toBe(true);
+        } finally {
+            if (descriptor) Object.defineProperty(globalThis, "ResizeObserver", descriptor);
+            else Reflect.deleteProperty(globalThis, "ResizeObserver");
         }
     });
 });

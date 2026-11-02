@@ -45,7 +45,11 @@ import { demos } from "../_generated/rc-component-preview.js";
 
 操作栏复用 Crab Button。接入时引入 `@crab-dev/rc-component-preview/css/index.css` 和 `@crab-dev/rc-button/css/index.css`。源码保持整行并在组件内滚动，复制内容保留原始字符串，行号不属于复制内容。
 
+首次展开使用轻量高亮入口，优先加载 TSX、JavaScript、TypeScript、CSS、JSON 和 Python 及其原有别名。其他语言按需进入兼容路径，继续保留原有 Prism 语言支持；兼容模块加载时先显示可读源码，并通过 `aria-busy` 表达高亮仍在准备，完成后清除。未知语言保持纯文本。语言变化不会重建正在编辑的预览内容。
+
 `codeTheme` 控制源码的独立浅色或深色配色，语法颜色、背景、行号及高亮加载提示成对切换，不受示例舞台或页面主题影响。
+
+语法高亮使用公共 `color.code.light / dark` 角色，分别为普通文字、注释、关键字、字符串、数字、函数与标签配对背景。默认小字号源码及行号的文字对比度至少为 4.5:1；覆盖这些颜色时同时检查对应代码背景。配色切换继续使用同一源码区域，不替换正在编辑的预览实例。核对依据：[WCAG 2.2 文字对比度](https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html)，日期：2026-11-01。
 
 
 
@@ -61,6 +65,8 @@ import { demos } from "../_generated/rc-component-preview.js";
 预览的 `compact / regular / spacious` 控制舞台留白，独立于全局数据密度。矩阵 Demo 将全局三档密度显式映射到这三个公开值，工具栏仍使用 Button 的独立小尺寸。核对折叠、真实动态源码加载、明暗源码、复制成功/失败、键盘焦点和外部打开回调；复制失败由调用方的 `onCopyCode` 就近说明，预览不假报成功。
 
 源码加载场景仅延迟实际网络响应，保持真实 Suspense 界面；草稿输入在展开、配色及配置变化中保留。窄屏代码在自己的滚动区域内查看，外层标题、说明与工具栏可换行，焦点和复制反馈分别断言。
+
+展开后可用 Tab 从操作栏进入名为“示例源码”的滚动区域，用方向键浏览长行；收起时由外层 inert 同步退出键盘顺序。源码始终按 LTR 排列，工具栏继续遵循页面方向。焦点轮廓按独立代码明暗配色配对，使用内置轮廓避免裁切，强制颜色模式使用系统 Highlight。[滚动区域的键盘与命名依据](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/overflow#accessibility)，核对日期：2026-11-01。
 
 展开和深色源码场景等待加载提示消失及真实语法分段出现后截图。加载场景独立保存原生视频、自然帧与时间序列，不建立静态像素基准；当前加载提示是文字，不据此宣称旋转指示器动效通过。触控场景实际轻触展开、复制、外部打开和收起；窄屏检查代码独立滚动及工具栏命中，触摸拖动代码的手势仍需另验。
 

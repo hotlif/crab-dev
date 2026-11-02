@@ -391,11 +391,13 @@ for (const config of configurations)
                             state === "minimum" ||
                             state === "maximum"
                         ) {
+                            if (state === "keyboard-step") await focusByTab(page, stateControl, input);
                             await input.fill("1234.5");
                             if (state !== "keyboard-step")
                                 await stateControl.focus();
                         }
                         if (state === "keyboard-step") {
+                            await expect(input).toHaveValue("1234.5");
                             await page.keyboard.press("ArrowUp");
                             await expect(input).toHaveValue("1235");
                             await expect(input).toHaveAttribute(

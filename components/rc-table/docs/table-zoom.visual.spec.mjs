@@ -7,6 +7,9 @@ import {
     settleFiniteAnimations,
     captureZoom,
 } from '../../../test/visual/component-fixture.mjs';
+
+// Headed native zoom shares a display; retain independent, sequential cases.
+zoomTest.describe.configure({ mode: 'default' });
 const spec = await readVisualSpec(import.meta.url);
 for (const config of configurations)
     zoomTest(
@@ -21,7 +24,10 @@ for (const config of configurations)
             const grid = scene.getByRole('grid');
             await expect(grid.getByText('订单 001 / Order', { exact: true })).toBeVisible();
             const selected = grid.getByRole('checkbox', { name: '选择行', exact: true }).first();
-            await selected.check();
+            // Operate the actual selection cell; the clipped native input is
+            // intentionally covered by its visible checkbox control.
+            await grid.locator('[data-table-selection-cell]').filter({ has: page.getByRole('checkbox', { name: '选择行', exact: true }) }).first().click();
+            await expect(selected).toBeChecked();
             const original = await grid.elementHandle();
             await realZoom.set200(page);
             await settleFiniteAnimations(page);

@@ -1,0 +1,9 @@
+{
+  "checkedAt": "2026-11-02T08:16:42.838Z",
+  "snapshot": "component-audit-final-source-snapshot.json",
+  "snapshotManifestSha256": "9a38fc5b0e16afcbee3ccd570e0fed9d1c67bdea906c3ed1d8f8df26907cea50",
+  "baseImage": "mcr.microsoft.com/playwright:v1.64.1-noble@sha256:47b510dd9230bf0b9bfc9b20102241e577ea7a99334ab4c3ca19f19770e9b8ea",
+  "checkedFiles": 2963,
+  "changed": [],
+  "note": "Audit review artifacts are excluded from the original visual source snapshot. The actual authored navigation file restored in the final repository container is separately hashed by validation.json."
+}

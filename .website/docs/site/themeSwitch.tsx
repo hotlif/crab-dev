@@ -4,6 +4,7 @@ import type { HeaderProps } from "@crab-dev/wake/docs";
 import Button from "@crab-dev/rc-button";
 import DropdownContainer, { useDropdownContext } from "@crab-dev/rc-dropdown-container";
 import { DocumentDesignContext, SITE_DESIGNS, SITE_DESIGN_NAMES } from "./siteContext.js";
+import { isSearchShortcut, SearchReturnFocusContext } from "./ui/search-return-focus.js";
 
 const modes = ["light", "dark", "system"] as const;
 type Mode = (typeof modes)[number];
@@ -39,12 +40,17 @@ function ThemeTrigger({ theme, menuId, trigger }: { theme: Theme; menuId: string
 function ThemeOptions({ theme, menuId, trigger }: { theme: Theme; menuId: string; trigger: TriggerRef }) {
     const { design, setDesign } = use(DocumentDesignContext);
     const { dispatch } = useDropdownContext();
+    const searchReturnFocus = use(SearchReturnFocusContext);
     const close = () => {
         dispatch({ type: "setOpen", payload: false });
-        trigger.current?.focus();
+        trigger.current?.focus({ preventScroll: true });
     };
     return <div id={menuId} role="menu" aria-label="文档外观" className="crab-docs-theme-options"
         onKeyDown={event => {
+            if (isSearchShortcut(event)) {
+                if (searchReturnFocus) searchReturnFocus.current = true;
+                return;
+            }
             if (event.key === "Escape") { event.preventDefault(); event.stopPropagation(); close(); return; }
             // Refocus the trigger before the browser applies normal Tab navigation.
             if (event.key === "Tab") { close(); return; }
@@ -57,17 +63,26 @@ function ThemeOptions({ theme, menuId, trigger }: { theme: Theme; menuId: string
         }}>
         <div role="group" aria-label="设计体系">
             <span className="crab-docs-theme-group-label" aria-hidden="true">设计体系</span>
-            {SITE_DESIGNS.map(value => <Button key={value} appearance="text" role="menuitemradio" aria-checked={design === value}
+            {SITE_DESIGNS.map(value => <Button key={value} appearance="text" className="crab-docs-theme-option" role="menuitemradio" aria-checked={design === value}
                 tabIndex={-1}
-                iconAfter={<span className="crab-docs-theme-check" aria-hidden="true">{design === value ? "✓" : ""}</span>}
-                onClick={() => { setDesign(value); close(); }}>{SITE_DESIGN_NAMES[value].label}</Button>)}
+                onClick={() => { setDesign(value); close(); }}>
+                <span className="crab-docs-theme-option-content">
+                    <span className="crab-docs-theme-option-label">{SITE_DESIGN_NAMES[value].label}</span>
+                    <span className="crab-docs-theme-check" aria-hidden="true">{design === value ? "✓" : ""}</span>
+                </span>
+            </Button>)}
         </div>
         <div role="group" aria-label="明暗模式">
             <span className="crab-docs-theme-group-label" aria-hidden="true">明暗模式</span>
-            {modes.map(mode => <Button key={mode} appearance="text" role="menuitemradio" aria-checked={theme.theme === mode} autoFocus={theme.theme === mode}
-                tabIndex={-1} icon={<ThemeIcon mode={mode} />}
-                iconAfter={<span className="crab-docs-theme-check" aria-hidden="true">{theme.theme === mode ? "✓" : ""}</span>}
-                onClick={() => { theme.setTheme(mode); close(); }}>{names[mode]}</Button>)}
+            {modes.map(mode => <Button key={mode} appearance="text" className="crab-docs-theme-option" role="menuitemradio" aria-checked={theme.theme === mode} autoFocus={theme.theme === mode}
+                tabIndex={-1}
+                onClick={() => { theme.setTheme(mode); close(); }}>
+                <span className="crab-docs-theme-option-content">
+                    <ThemeIcon mode={mode} />
+                    <span className="crab-docs-theme-option-label">{names[mode]}</span>
+                    <span className="crab-docs-theme-check" aria-hidden="true">{theme.theme === mode ? "✓" : ""}</span>
+                </span>
+            </Button>)}
         </div>
     </div>;
 }
@@ -78,7 +93,7 @@ export default function ThemeSwitch({ theme }: { theme: Theme }) {
     // DOM reference for menu dismissal and focus restoration; never read during render.
     const trigger = useRef<HTMLButtonElement>(null);
     const popupProps = { className: "crab-docs-theme-popup", "data-crab-design": design, "data-theme": theme.resolved };
-    return <DropdownContainer className="crab-docs-theme-switch"
+    return <DropdownContainer className="crab-docs-theme-switch" closeOnFocusOut
         floatingContainerProps={popupProps}
         overlay={<ThemeOptions theme={theme} menuId={menuId} trigger={trigger} />}>
         <ThemeTrigger theme={theme} menuId={menuId} trigger={trigger} />

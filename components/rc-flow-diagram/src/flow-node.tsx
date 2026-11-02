@@ -59,12 +59,6 @@ function FlowNode({
             x={x}
             y={y}
             zIndex={zIndex}
-            draggable={draggable}
-            hitArea={{ x: 0, y: 0, width, height }}
-            cursor={draggable ? (cursor ?? 'grab') : cursor}
-            onDragStart={onDragStart}
-            onDrag={({ localDx, localDy }: DragMoveEvent) => onDrag?.(localDx, localDy)}
-            onDragEnd={onDragEnd}
         >
             <Rect
                 x={0}
@@ -75,13 +69,19 @@ function FlowNode({
                 stroke={stroke}
                 strokeWidth={stroke !== 'transparent' ? strokeWidth : undefined}
                 radius={radius}
+                draggable={draggable}
+                cursor={draggable ? (cursor ?? 'grab') : cursor}
                 onClick={onClick}
+                onDragStart={onDragStart}
+                onDrag={({ localDx, localDy }: DragMoveEvent) => onDrag?.(localDx, localDy)}
+                onDragEnd={onDragEnd}
             />
             {label && (
                 <Text
                     x={width / 2}
                     y={height / 2}
                     fontSize={fontSize}
+                    maxWidth={Math.max(1, width - strokeWidth * 2)}
                     fill={labelColor}
                     textAlign="center"
                     textBaseline="middle"

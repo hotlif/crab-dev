@@ -1,0 +1,331 @@
+• turbo 2.10.12
+
+   • Packages in scope: @crab-dev/rc-canvas
+   • Running build:library in 1 packages
+   • Remote caching disabled
+
+@crab-dev/rc-token-global:build:library: cache hit, replaying logs 650824da8d7ffe7b
+@crab-dev/rc-token-global:build:library: 
+@crab-dev/rc-token-global:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.45
+@crab-dev/rc-token-global:build:library: 
+@crab-dev/rc-token-global:build:library:   ✓  Tokens generated in 17ms
+@crab-dev/rc-token-global:build:library:      1 files · 33.2 KB
+@crab-dev/rc-token-global:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-token-global\src\token.ts
+@crab-dev/rc-token-global:build:library: 
+@crab-dev/rc-token-global:build:library: 
+@crab-dev/rc-token-global:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-token-global:build:library: 
+@crab-dev/rc-token-global:build:library:   ✓  Built library in 110ms
+@crab-dev/rc-token-global:build:library:      2 modules · 6 files · 75.7 KB
+@crab-dev/rc-token-global:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-token-global
+@crab-dev/rc-token-global:build:library: 
+@crab-dev/rc-token-semantic:build:library: cache hit, replaying logs 8c93afe45a39156f
+@crab-dev/rc-token-semantic:build:library: 
+@crab-dev/rc-token-semantic:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.45
+@crab-dev/rc-token-semantic:build:library: 
+@crab-dev/rc-token-semantic:build:library:   ✓  Tokens generated in 28ms
+@crab-dev/rc-token-semantic:build:library:      1 files · 165.7 KB
+@crab-dev/rc-token-semantic:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-token-semantic\src\token.ts
+@crab-dev/rc-token-semantic:build:library: 
+@crab-dev/rc-token-semantic:build:library: 
+@crab-dev/rc-token-semantic:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-token-semantic:build:library: 
+@crab-dev/rc-token-semantic:build:library:   ✓  Built library in 637ms
+@crab-dev/rc-token-semantic:build:library:      13 modules · 40 files · 631.3 KB
+@crab-dev/rc-token-semantic:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-token-semantic
+@crab-dev/rc-token-semantic:build:library: 
+@crab-dev/rc-hooks:build:library: cache hit, replaying logs 6130883f1578fb9f
+@crab-dev/rc-hooks:build:library: 
+@crab-dev/rc-hooks:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-hooks:build:library: 
+@crab-dev/rc-hooks:build:library:   ✓  Built library in 909ms
+@crab-dev/rc-hooks:build:library:      23 modules · 70 files · 62.9 KB
+@crab-dev/rc-hooks:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-hooks
+@crab-dev/rc-hooks:build:library: 
+@crab-dev/rc-theme:build:library: cache hit, replaying logs ee82b753f58fcadb
+@crab-dev/rc-theme:build:library: 
+@crab-dev/rc-theme:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-theme:build:library: 
+@crab-dev/rc-theme:build:library:   ✓  Built library in 830ms
+@crab-dev/rc-theme:build:library:      13 modules · 28 files · 256.1 KB
+@crab-dev/rc-theme:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-theme
+@crab-dev/rc-theme:build:library: 
+@crab-dev/rc-config-provider:build:library: cache hit, replaying logs 0e947770a18a2668
+@crab-dev/rc-config-provider:build:library: 
+@crab-dev/rc-config-provider:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-config-provider:build:library: 
+@crab-dev/rc-config-provider:build:library:   ✓  Built library in 413ms
+@crab-dev/rc-config-provider:build:library:      9 modules · 29 files · 46.6 KB
+@crab-dev/rc-config-provider:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-config-provider
+@crab-dev/rc-config-provider:build:library: 
+@crab-dev/rc-canvas:build:library: cache miss, executing af7de722dae5f2b8
+@crab-dev/rc-canvas:build:library: 
+@crab-dev/rc-canvas:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.45
+@crab-dev/rc-canvas:build:library: 
+@crab-dev/rc-canvas:build:library:   ✓  Tokens generated in 61ms
+@crab-dev/rc-canvas:build:library:      1 files · 5.2 KB
+@crab-dev/rc-canvas:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-canvas\src\token.ts
+@crab-dev/rc-canvas:build:library: 
+@crab-dev/rc-canvas:build:library: 
+@crab-dev/rc-canvas:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-canvas:build:library: 
+@crab-dev/rc-canvas:build:library:   ✓  Built library in 802ms
+@crab-dev/rc-canvas:build:library:      40 modules · 109 files · 357.2 KB
+@crab-dev/rc-canvas:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-canvas
+@crab-dev/rc-canvas:build:library: 
+
+ Tasks:    6 successful, 6 total
+Cached:    5 cached, 6 total
+  Time:    3.837s 
+
+0 errors, 0 warnings
+PASS src/__tests__/canvas.test.tsx
+  ✓ 尺寸与 DPR 更新在重绘前保留旧缓冲区，连续测量只提交最终尺寸
+  ✓ 真实卸载释放 WebGL 配额，StrictMode 挂载检查不释放仍在使用的上下文
+  ✓ 上下文丢失时不通知已绘制，恢复后重建仍被消费的图片和字形
+  ✓ onRender 仅在真实绘制完成后通知，上传失败时保留旧图片命令
+  ✓ 共享字形纹理在最后一个消费者卸载后释放，重新挂载可再次上传
+  ✓ ImageBitmap 更换和卸载释放纹理，位图仍由调用者拥有
+  ✓ 渲染 <canvas> 元素
+  ✓ 按 width/height/dpr 设置 canvas 尺寸
+  ✓ 调用 getContext("webgl2") 初始化 WebGL
+  ✓ unmount 时调用 dispose（deleteProgram 被调用）
+  ✓ children 被渲染（React 树中可以包含子组件）
+  ✓ 祖先主题属性变化时递增 palette revision，驱动绘制节点重绘
+  ✓ 默认语义色板在祖先主题切换后向 WebGL 上传新的网格色
+  ✓ forced-colors 变化时清理颜色缓存并刷新 palette
+PASS src/__tests__/color.test.ts
+  ✓ clearColorCache 清除主题切换前的解析引用
+  ✓ transparent → [0,0,0,0]
+  ✓ #rrggbb 解析
+  ✓ #rgb 简写解析
+  ✓ #rrggbbaa 含 alpha 解析
+  ✓ #000000 → 黑色
+  ✓ rgb(255, 0, 0) → 红色
+  ✓ rgba(0, 0, 255, 0.5) → 半透明蓝
+  ✓ oklch(0 0 0) → 黑色
+  ✓ oklch(1 0 0) → 白色
+  ✓ oklch(0.5 0 0) → 中灰（无色相）
+  ✓ oklch 带 / alpha 语法
+  ✓ 结果各通道在 [0,1] 范围内
+PASS src/__tests__/flow-animation.test.tsx
+  ✓ 纯静态命令：首帧渲染后循环停驻（按需渲染）
+  ✓ 存在 flowSpeed 命令：渲染循环逐帧持续重绘
+  ✓ 动画命令注销后循环回到按需渲染
+  ✓ prefers-reduced-motion: reduce 时不持续重绘（降级为静态）
+PASS src/__tests__/group.test.tsx
+  ✓ 平移：子组件 worldMatrix 将 (0,0) 映射到 (x, y)
+  ✓ 缩放：子组件 worldMatrix 将 (1,1) 映射到 (scaleX, scaleY)
+  ✓ 旋转 90°：(1,0) 映射到 (0,1)
+  ✓ 嵌套 Group：矩阵叠加，平移 (10,0) 内再平移 (5,0)，合计 (15,0)
+  ✓ zIndexPath：Group 将自身 zIndex 追加到路径，子 Rect 再追加自身 zIndex
+  ✓ 无 children 时不报错
+  ✓ 不注册 DrawCommand，只传递 Context
+PASS src/__tests__/line.test.tsx
+  ✓ mount 时注册 line 命令并携带端点与线宽
+  ✓ flowSpeed / dashPhase 透传到 DrawCommand
+  ✓ 显式旧 color 优先于 palette.foreground，否则使用 palette
+  ✓ 未设置 flowSpeed 时命令中为 undefined（静态虚线）
+  ✓ unmount 时注销命令
+PASS src/__tests__/matrix.test.ts
+  ✓ 将左上角 (0,0) 映射到 clip space (-1, 1)
+  ✓ 将右下角 (w,h) 映射到 clip space (1, -1)
+  ✓ 将中心点 (w/2,h/2) 映射到 clip space (0, 0)
+  ✓ 平移点 (0,0) 到 (tx,ty)
+  ✓ 不改变单位矩阵乘法结果
+  ✓ 旋转 90 度：(1,0) → (0,1)
+  ✓ 旋转 180 度：(1,0) → (-1,0)
+  ✓ 缩放点 (1,1) 到 (sx, sy)
+  ✓ 平移 × 缩放：先缩放再平移
+  ✓ 单位矩阵不改变结果
+  ✓ 对任意点不做变换
+  ✓ 变换向量时忽略平移分量
+  ✓ 旋转矩阵对向量的变换与对点一致（旋转矩阵无平移）
+  ✓ 缩放矩阵正确缩放向量
+  ✓ 单位矩阵的逆是单位矩阵
+  ✓ 平移矩阵的逆：将点映射回原位
+  ✓ 旋转矩阵的逆：将点映射回原位
+  ✓ 缩放矩阵的逆：将点映射回原位
+  ✓ 奇异矩阵（行列式为 0）返回 null
+PASS src/__tests__/palette.test.ts
+  ✓ 显式旧版色板逐字保留既有绘制视觉
+  ✓ 默认和局部覆盖均消费语义角色，旧版色板仍可显式选择
+  ✓ 语义色板只暴露 Canvas L3 变量，minimap 边框保留 8% 透明度
+  ✓ 选区 chrome 消费 selection 语义角色，不借用 focus 边框
+  ✓ DOM 不可用时保留 CSS 表达式，供 SSR 安全透传
+  ✓ 普通十六进制输入也规范为 WebGL 可消费的 rgb/rgba
+  ✓ OKLCh 字面量直接归一化，不进入 DOM style/computed-style 桥
+  ✓ 透明状态层保持原色并按比例缩放已有 alpha，无需 Canvas2D
+  ✓ 在 probe 的 DOM 继承上下文中解析 CSS var 为 rgb/rgba
+  ✓ CSS 变量在 computed-value 阶段缺失时告警并使用字段 fallback
+  ✓ style 赋值失败时开发期告警并使用字段明确 fallback
+  ✓ computed style 保留系统色关键字时用 Canvas2D 归一化为 RGBA
+  ✓ Canvas2D 拒绝 computed color 时告警并回退，不把默认黑误判为解析结果
+  ✓ 测试环境无 Canvas2D 时对现代 computed color 明确告警并回退字段默认
+PASS src/__tests__/rect.test.tsx
+  ✓ mount 时向 Context 注册一条 DrawCommand
+  ✓ 无圆角时注册 flat-rect 命令
+  ✓ 有圆角时注册 sdf-rect 命令
+  ✓ unmount 时调用 unregister 清理 DrawCommand
+  ✓ props 变化时调用 update 更新 DrawCommand
+  ✓ fill 颜色被正确解析为归一化 rgba
+  ✓ palette revision 变化时重新解析显式 CSS 颜色并更新命令
+  ✓ opacity 影响 fill 的 alpha 通道
+  ✓ zIndexPath 追加到 parentZIndexPath
+  ✓ return null：不渲染任何 DOM 节点
+PASS src/__tests__/routing.test.ts
+  ✓ anchorPoint 落在对应边上
+  ✓ dominantSide 按主导轴判定
+  ✓ nearestSideAnchor 投影到最近边
+  ✓ segmentIntersectsRect 仅判严格内部（贴边不算）
+  ✓ simplifyOrthogonal 合并共线 + 去重
+  ✓ 两端水平边 → H-V-H，正交且沿边进出
+  ✓ 两端竖直边 → V-H-V
+  ✓ 穿过 waypoints 且保持正交 / 沿边进出
+  ✓ 无 waypoints 时退化为简单正交
+  ✓ 把过短的末段夹到至少 stub，且保持正交
+  ✓ 幂等：已满足 stub 再次处理不变
+  ✓ 末段已足够长则原样返回
+  ✓ 障碍居中：绕行且不遮挡、保持正交
+  ✓ 竖直收窄通道：从间隙绕行无遮挡
+  ✓ 无障碍：直接走简单正交（无绕行）
+  ✓ 端口被障碍覆盖（退化）：兜底回简单路由，边不消失
+  ✓ routeAvoidingObstacles 在通路存在时返回非空正交路径
+  ✓ 同节点同侧的多条边分布到不同端口（不重叠）
+  ✓ 缺失节点的边被跳过
+PASS src/__tests__/text-atlas.test.ts
+  ✓ 返回 key、width、height 和 Uint8Array data
+  ✓ channels=1（SDF），data 长度等于 width * height
+  ✓ key 随 text/fontSize/fontFamily 唯一确定
+  ✓ 相同参数产生相同 key
+  ✓ 全内部像素（mock R=200 > 127）经 SDF 变换后结果均为 255
+  ✓ 含 \n 的文字高度大于单行
+  ✓ lineHeight 影响 key 唯一性
+  ✓ maxWidth 影响 key 唯一性
+  ✓ maxWidth 较小时高度大于不限宽
+  ✓ channels=1，data 长度等于 width * height
+  ✓ 纹理为物理像素尺寸，world 尺寸 = 纹理 / dpr
+  ✓ data 直接取光栅 R 通道（无 SDF 变换）
+  ✓ key 含 dpr，且与同参数的 SDF key 不冲突
+PASS src/__tests__/text-editing.test.tsx
+  ✓ 双击图元后使用默认中文名称，并聚焦选中原文
+  ✓ 默认名称继承最近英文 Provider，原生编辑器仍挂载于 Canvas 容器
+  ✓ editorLabel 优先于默认名称，空白名称回退到本地化名称
+  ✓ 语言更新保留编辑器、草稿和已有光标选区
+  ✓ Enter 每次编辑提交一次，关闭编辑器并把焦点交还画布
+  ✓ 失焦提交一次，Shift+Enter 不提前提交
+  ✓ onEdit 主动移焦引发 blur 时仍只提交一次且不抢回焦点
+  ✓ onEdit 同步卸载画布后不尝试恢复到已移除的容器
+  ✓ Escape 取消草稿，不通知 onEdit 或 Canvas 键盘处理器
+  ✓ 输入法组合态的 Enter 和 Escape 留给输入法，不提交或关闭编辑器
+  ✓ 输入法结束时 isComposing 已复位但 keyCode=229 的 Enter 不提前提交
+PASS src/__tests__/text-surface.test.ts
+  ✓ uses the supplied owning document when OffscreenCanvas is unavailable
+  ✓ reports a missing 2D context explicitly rather than returning an unusable surface
+PASS src/__tests__/transformer-demo.test.tsx
+  ✓ starts with every rotated shape fully inside the actual Canvas dimensions
+  ✓ keeps user pan and zoom while selecting and resizing a shape
+PASS src/__tests__/zindex.test.tsx
+  ✓ 根级别叶子的 zIndexPath = [zIndex]
+  ✓ Group 内叶子的 zIndexPath = [groupZIndex, leafZIndex]
+  ✓ Group(zIndex=1) 内的元素路径 > Group(zIndex=0) 内的高 zIndex 元素
+  ✓ 三层嵌套 Group：zIndexPath 正确追加
+  ✓ parentZIndexPath 非空时正确拼接
+Test Suites: 14 passed, 0 failed, 14 total
+Tests:       138 passed, 0 failed, 0 pending, 138 total
+Wake coverage
+File	Lines	Functions	Blocks
+All files	45.17% (2216/4906)	81.57% (208/255)	63.18% (314/497)
+docs/demo-layout.ts	100.00% (12/12)	100.00% (0/0)	0.00% (0/8)
+docs/demos/transformer.demo.tsx	100.00% (61/61)	88.89% (8/9)	100.00% (3/3)
+esm/_wake/src/canvas.mjs	0.00% (0/386)	100.00% (0/0)	100.00% (0/0)
+esm/_wake/src/context/canvas-context.mjs	0.00% (0/26)	100.00% (0/0)	100.00% (0/0)
+esm/_wake/src/context/palette-context.mjs	0.00% (0/3)	100.00% (0/0)	100.00% (0/0)
+esm/_wake/src/hooks/useCanvasControls.mjs	0.00% (0/14)	100.00% (0/0)	100.00% (0/0)
+esm/_wake/src/math/color.mjs	0.00% (0/69)	100.00% (0/0)	100.00% (0/0)
+esm/_wake/src/math/matrix.mjs	0.00% (0/48)	100.00% (0/0)	100.00% (0/0)
+esm/_wake/src/palette.mjs	0.00% (0/172)	100.00% (0/0)	100.00% (0/0)
+esm/_wake/src/renderer/renderer.mjs	0.00% (0/423)	100.00% (0/0)	100.00% (0/0)
+esm/_wake/src/renderer/text-atlas.mjs	0.00% (0/115)	100.00% (0/0)	100.00% (0/0)
+esm/_wake/src/renderer/text-surface.mjs	0.00% (0/13)	100.00% (0/0)	100.00% (0/0)
+esm/_wake/src/routing/geometry.mjs	0.00% (0/65)	100.00% (0/0)	100.00% (0/0)
+esm/_wake/src/routing/index.mjs	0.00% (0/4)	100.00% (0/0)	100.00% (0/0)
+esm/_wake/src/routing/obstacle-avoidance.mjs	0.00% (0/80)	100.00% (0/0)	100.00% (0/0)
+esm/_wake/src/routing/orthogonal.mjs	0.00% (0/51)	100.00% (0/0)	100.00% (0/0)
+esm/_wake/src/routing/ports.mjs	0.00% (0/34)	100.00% (0/0)	100.00% (0/0)
+esm/_wake/src/shaders/flat.frag.mjs	0.00% (0/1)	100.00% (0/0)	100.00% (0/0)
+esm/_wake/src/shaders/flat.vert.mjs	0.00% (0/1)	100.00% (0/0)	100.00% (0/0)
+esm/_wake/src/shaders/grid.frag.mjs	0.00% (0/1)	100.00% (0/0)	100.00% (0/0)
+esm/_wake/src/shaders/grid.vert.mjs	0.00% (0/1)	100.00% (0/0)	100.00% (0/0)
+esm/_wake/src/shaders/line.frag.mjs	0.00% (0/1)	100.00% (0/0)	100.00% (0/0)
+esm/_wake/src/shaders/line.vert.mjs	0.00% (0/1)	100.00% (0/0)	100.00% (0/0)
+esm/_wake/src/shaders/marker.frag.mjs	0.00% (0/1)	100.00% (0/0)	100.00% (0/0)
+esm/_wake/src/shaders/marker.vert.mjs	0.00% (0/1)	100.00% (0/0)	100.00% (0/0)
+esm/_wake/src/shaders/sdf.frag.mjs	0.00% (0/1)	100.00% (0/0)	100.00% (0/0)
+esm/_wake/src/shaders/sdf.vert.mjs	0.00% (0/1)	100.00% (0/0)	100.00% (0/0)
+esm/_wake/src/shaders/texture.frag.mjs	0.00% (0/1)	100.00% (0/0)	100.00% (0/0)
+esm/_wake/src/shaders/texture.vert.mjs	0.00% (0/1)	100.00% (0/0)	100.00% (0/0)
+esm/_wake/src/shapes/circle.mjs	0.00% (0/41)	100.00% (0/0)	100.00% (0/0)
+esm/_wake/src/shapes/group.mjs	0.00% (0/33)	100.00% (0/0)	100.00% (0/0)
+esm/_wake/src/shapes/image.mjs	0.00% (0/67)	100.00% (0/0)	100.00% (0/0)
+esm/_wake/src/shapes/infinite-grid.mjs	0.00% (0/25)	100.00% (0/0)	100.00% (0/0)
+esm/_wake/src/shapes/line.mjs	0.00% (0/53)	100.00% (0/0)	100.00% (0/0)
+esm/_wake/src/shapes/marker.mjs	0.00% (0/24)	100.00% (0/0)	100.00% (0/0)
+esm/_wake/src/shapes/minimap.mjs	0.00% (0/187)	100.00% (0/0)	100.00% (0/0)
+esm/_wake/src/shapes/rect.mjs	0.00% (0/40)	100.00% (0/0)	100.00% (0/0)
+esm/_wake/src/shapes/text.mjs	0.00% (0/124)	100.00% (0/0)	100.00% (0/0)
+esm/_wake/src/shapes/transformer.mjs	0.00% (0/69)	100.00% (0/0)	100.00% (0/0)
+esm/_wake/src/token.mjs	0.00% (0/4)	100.00% (0/0)	100.00% (0/0)
+esm/_wake/src/viewport.mjs	0.00% (0/136)	100.00% (0/0)	100.00% (0/0)
+esm/index.mjs	0.00% (0/19)	100.00% (0/0)	100.00% (0/0)
+src/__tests__/__mocks__/webgl-mock.ts	100.00% (72/72)	77.78% (7/9)	100.00% (0/0)
+src/canvas.tsx	75.91% (353/465)	76.92% (40/52)	46.58% (34/73)
+src/context/canvas-context.ts	100.00% (30/30)	0.00% (0/14)	100.00% (0/0)
+src/context/palette-context.ts	100.00% (5/5)	100.00% (0/0)	100.00% (0/0)
+src/math/color.ts	97.26% (71/73)	100.00% (9/9)	81.82% (27/33)
+src/math/matrix.ts	94.20% (65/69)	90.91% (10/11)	100.00% (4/4)
+src/palette.ts	92.80% (219/236)	100.00% (16/16)	62.75% (64/102)
+src/renderer/renderer.ts	78.16% (383/490)	74.19% (23/31)	48.39% (15/31)
+src/renderer/text-atlas.ts	100.00% (166/166)	100.00% (9/9)	79.41% (27/34)
+src/renderer/text-surface.ts	100.00% (13/13)	100.00% (1/1)	80.00% (8/10)
+src/routing/geometry.ts	97.01% (65/67)	100.00% (14/14)	97.30% (36/37)
+src/routing/index.ts	100.00% (4/4)	100.00% (0/0)	100.00% (0/0)
+src/routing/obstacle-avoidance.ts	100.00% (83/83)	100.00% (14/14)	73.08% (38/52)
+src/routing/orthogonal.ts	72.73% (40/55)	83.33% (5/6)	65.00% (13/20)
+src/routing/ports.ts	100.00% (34/34)	100.00% (3/3)	90.00% (9/10)
+src/shaders/flat.frag.ts	100.00% (1/1)	100.00% (0/0)	100.00% (0/0)
+src/shaders/flat.vert.ts	100.00% (1/1)	100.00% (0/0)	100.00% (0/0)
+src/shaders/grid.frag.ts	100.00% (1/1)	100.00% (0/0)	100.00% (0/0)
+src/shaders/grid.vert.ts	100.00% (1/1)	100.00% (0/0)	100.00% (0/0)
+src/shaders/line.frag.ts	100.00% (1/1)	100.00% (0/0)	100.00% (0/0)
+src/shaders/line.vert.ts	100.00% (1/1)	100.00% (0/0)	100.00% (0/0)
+src/shaders/marker.frag.ts	100.00% (1/1)	100.00% (0/0)	100.00% (0/0)
+src/shaders/marker.vert.ts	100.00% (1/1)	100.00% (0/0)	100.00% (0/0)
+src/shaders/sdf.frag.ts	100.00% (1/1)	100.00% (0/0)	100.00% (0/0)
+src/shaders/sdf.vert.ts	100.00% (1/1)	100.00% (0/0)	100.00% (0/0)
+src/shaders/texture.frag.ts	100.00% (1/1)	100.00% (0/0)	100.00% (0/0)
+src/shaders/texture.vert.ts	100.00% (1/1)	100.00% (0/0)	100.00% (0/0)
+src/shapes/group.tsx	61.29% (38/62)	60.00% (3/5)	0.00% (0/3)
+src/shapes/image.tsx	81.05% (77/95)	76.92% (10/13)	42.86% (6/14)
+src/shapes/infinite-grid.tsx	95.12% (39/41)	100.00% (5/5)	0.00% (0/3)
+src/shapes/line.tsx	66.33% (65/98)	71.43% (5/7)	16.67% (1/6)
+src/shapes/rect.tsx	83.33% (70/84)	83.33% (5/6)	60.00% (6/10)
+src/shapes/text.tsx	98.48% (194/197)	100.00% (21/21)	52.27% (23/44)
+src/token.ts	100.00% (45/45)	100.00% (0/0)	100.00% (0/0)
+Seed:        1793595745922735428
+Time:        28480 ms
+PASS sdf-pixels.test.ts
+  ✓ keeps long line extrusion finite beyond the 256px mediump boundary
+  ✓ keeps fill in the interior, stroke at the edge and the outside transparent
+  ✓ preserves a transparent interior for an outlined shape
+  ✓ applies dash gaps only to the stroke band, leaving the fill intact
+  ✓ ignores stroke color when strokeWidth is zero, including tall chart-bar interiors
+  ✓ classifies real GPU derivatives for the affected chart geometry and keeps the production fill solid
+  ✓ uses the same fill/stroke ownership for circles
+Test Suites: 1 passed, 0 failed, 1 total
+Tests:       7 passed, 0 failed, 0 pending, 7 total
+Wake coverage
+File	Lines	Functions	Blocks
+All files	100.00% (0/0)	100.00% (0/0)	100.00% (0/0)
+Seed:        1793595775890030420
+Time:        2808 ms

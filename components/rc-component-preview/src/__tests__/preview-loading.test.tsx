@@ -6,10 +6,10 @@ const highlighter = { ready: false, resolve: () => { /* Set by the controlled pr
 const pending = new Promise<void>(resolve => { highlighter.resolve = resolve; });
 // Keep the real lazy SourceCode module and Suspense boundary. Only the external
 // highlighter is delayed, so its import completion can be awaited inside act.
-mock.module('react-syntax-highlighter', () => ({ Prism: () => {
+mock.module('react-syntax-highlighter/dist/cjs/prism-light.js', () => ({ default: Object.assign(() => {
     if (!highlighter.ready) throw pending;
     return null;
-} }));
+}, { registerLanguage: () => { /* Grammar registration does not settle the renderer. */ } }) }));
 
 let Preview: (typeof import('../preview.js'))['default'];
 beforeAll(async () => {

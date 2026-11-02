@@ -1,0 +1,59 @@
+
+  ⚡ WAKE / LIBRARY TOKEN  v0.1.45
+
+  ✓  Tokens generated in 66ms
+     1 files · 27.1 KB
+     Output  C:\Users\zhang\Desktop\crab-dev\components\rc-line-edit\src\token.ts
+
+
+  ⚡ WAKE / LIBRARY BUILD  v0.1.45
+
+  ✓  Built library in 415ms
+     5 modules · 14 files · 121.6 KB
+     Output  C:\Users\zhang\Desktop\crab-dev\components\rc-line-edit
+
+PASS placeholder.test.tsx
+  ✓ preserves md3/light/outlined enabled/readonly contrast and disabled roles
+  ✓ preserves md3/light/filled enabled/readonly contrast and disabled roles
+  ✓ preserves md3/dark/outlined enabled/readonly contrast and disabled roles
+  ✓ preserves md3/dark/filled enabled/readonly contrast and disabled roles
+  ✓ preserves apple/light/outlined enabled/readonly contrast and disabled roles
+  ✓ preserves apple/light/filled enabled/readonly contrast and disabled roles
+  ✓ preserves apple/dark/outlined enabled/readonly contrast and disabled roles
+  ✓ preserves apple/dark/filled enabled/readonly contrast and disabled roles
+  ✓ preserves shadcn/light/outlined enabled/readonly contrast and disabled roles
+  ✓ preserves shadcn/light/filled enabled/readonly contrast and disabled roles
+  ✓ preserves shadcn/dark/outlined enabled/readonly contrast and disabled roles
+  ✓ preserves shadcn/dark/filled enabled/readonly contrast and disabled roles
+  ✓ uses the nearest design boundary while preserving focus, selection, refs and draft
+  ✓ keeps md3/light/ltr/outlined labels clear of decorations
+  ✓ keeps md3/light/ltr/filled labels clear of decorations
+  ✓ keeps md3/light/rtl/outlined labels clear of decorations
+  ✓ keeps md3/light/rtl/filled labels clear of decorations
+  ✓ keeps md3/dark/ltr/outlined labels clear of decorations
+  ✓ keeps md3/dark/ltr/filled labels clear of decorations
+  ✓ keeps md3/dark/rtl/outlined labels clear of decorations
+  ✓ keeps md3/dark/rtl/filled labels clear of decorations
+  ✓ keeps apple/light/ltr/outlined labels clear of decorations
+  ✓ keeps apple/light/ltr/filled labels clear of decorations
+  ✓ keeps apple/light/rtl/outlined labels clear of decorations
+  ✓ keeps apple/light/rtl/filled labels clear of decorations
+  ✓ keeps apple/dark/ltr/outlined labels clear of decorations
+  ✓ keeps apple/dark/ltr/filled labels clear of decorations
+  ✓ keeps apple/dark/rtl/outlined labels clear of decorations
+  ✓ keeps apple/dark/rtl/filled labels clear of decorations
+  ✓ keeps shadcn/light/ltr/outlined labels clear of decorations
+  ✓ keeps shadcn/light/ltr/filled labels clear of decorations
+  ✓ keeps shadcn/light/rtl/outlined labels clear of decorations
+  ✓ keeps shadcn/light/rtl/filled labels clear of decorations
+  ✓ keeps shadcn/dark/ltr/outlined labels clear of decorations
+  ✓ keeps shadcn/dark/ltr/filled labels clear of decorations
+  ✓ keeps shadcn/dark/rtl/outlined labels clear of decorations
+  ✓ keeps shadcn/dark/rtl/filled labels clear of decorations
+Test Suites: 1 passed, 0 failed, 1 total
+Tests:       37 passed, 0 failed, 0 pending, 37 total
+Wake coverage
+File	Lines	Functions	Blocks
+All files	100.00% (0/0)	100.00% (0/0)	100.00% (0/0)
+Seed:        1793595461553046572
+Time:        12021 ms

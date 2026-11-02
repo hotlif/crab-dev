@@ -1,4 +1,4 @@
-import { describe, expect, it } from '@crab-dev/wake/test';
+import { describe, expect, it, mock } from '@crab-dev/wake/test';
 import { act, render } from '@crab-dev/wake/test/react';
 import ConfigProvider from '@crab-dev/rc-config-provider';
 // Layout-only exception: measure the same extracted styles as an application,
@@ -51,6 +51,26 @@ function expectUnitClearOfFocusRing(unit: HTMLElement, target: HTMLButtonElement
 describe('NumberEdit unit and actual stepper focus geometry', () => {
     for (const designSystem of ['md3', 'apple', 'shadcn'] as const) {
         for (const colorMode of ['light', 'dark'] as const) {
+            it(`preserves select-all requested by the consumer when focus changes numeric formatting (${designSystem}/${colorMode})`, async () => {
+                for (const appearance of ['outlined', 'filled'] as const) {
+                    const onValueChange = mock.fn();
+                    const view = await render(<>
+                        <style>{compiledCss}</style>
+                        <ConfigProvider designSystem={designSystem} colorMode={colorMode}>
+                            <NumberEdit appearance={appearance} defaultValue={1235} precision={1}
+                                onFocus={event => event.currentTarget.select()} onValueChange={onValueChange} />
+                        </ConfigProvider>
+                    </>);
+                    const input = view.container.querySelector<HTMLInputElement>('input');
+                    if (!input) throw Error('Missing numeric input');
+                    await act(() => input.focus());
+                    expect(input.value).toBe('1235');
+                    expect(input.selectionStart).toBe(0);
+                    expect(input.selectionEnd).toBe(4);
+                    expect(onValueChange).not.toHaveBeenCalled();
+                    await view.unmount();
+                }
+            });
             for (const direction of ['ltr', 'rtl'] as const) {
                 it(`keeps the unit outside enabled boundary controls' focus rings (${designSystem}/${colorMode}/${direction})`, async () => {
                     const fixture = (value: number, withSuffix = true, controls = true) => <>

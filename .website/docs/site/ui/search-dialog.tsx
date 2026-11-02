@@ -1,4 +1,4 @@
-import { useEffect, useId, useRef } from "react";
+import { use, useEffect, useId, useRef } from "react";
 
 import type * as UI from "@crab-dev/wake/docs";
 import Button from "@crab-dev/rc-button";
@@ -8,14 +8,15 @@ import Dialog from "@crab-dev/rc-dialog";
 
 import LineEdit from "@crab-dev/rc-line-edit";
 
-import Alert from "@crab-dev/rc-alert";
-import Empty from "@crab-dev/rc-empty";
-import Spin from "@crab-dev/rc-spin";
+import { SpinIndicator } from "@crab-dev/rc-spin";
+import { EmptyFeedback, ErrorFeedback } from "./feedback.js";
 
 import { SearchIcon } from "./icons.js";
+import { SearchReturnFocusContext } from "./search-return-focus.js";
 
 export function SearchDialog({ search, route, theme }: UI.SearchDialogProps) {
     const { designSystem: design } = useConfig();
+    const searchReturnFocus = use(SearchReturnFocusContext);
     const id = useId();
     // 例外：搜索输入 DOM 和关闭原因只供事件、effect 使用，不触发渲染。
     const input = useRef<HTMLInputElement>(null);
@@ -24,9 +25,18 @@ export function SearchDialog({ search, route, theme }: UI.SearchDialogProps) {
     const results = search.loading || search.error ? [] : search.results;
     const activeResult = results[search.activeIndex];
     const closed = () => {
+        const returnToSearch = searchReturnFocus?.current;
+        if (searchReturnFocus) searchReturnFocus.current = false;
         if (navigating.current) {
             navigating.current = false;
             route.focusContent();
+        } else {
+            const active = document.activeElement;
+            // A shortcut can open search from the navigation drawer. Its old
+            // control may be hidden by the time the native dialog returns focus.
+            if (returnToSearch || active === document.body || active?.closest('[inert], dialog:not([open])')) {
+                document.querySelector<HTMLButtonElement>(".crab-docs-rail-search")?.focus({ preventScroll: true });
+            }
         }
     };
     const choose = (slug: string) => {
@@ -54,21 +64,30 @@ export function SearchDialog({ search, route, theme }: UI.SearchDialogProps) {
             data-theme={theme.resolved}
             data-crab-design={design}
             title="搜索文档"
+            header={null}
+            aria-labelledby={`${id}-title`}
             open={search.open}
             maskClosable
+            footer={null}
+            i18n={{ cancelText: "关闭" }}
             onOpenChange={search.setOpen}
+            onKeyDown={event => {
+                // Native cancel owns dismissal and return focus. Do not let
+                // Wake's window shortcut close an underlying surface as well.
+                if (event.key === "Escape") event.stopPropagation();
+            }}
             ref={(node) => {
                 node?.addEventListener("close", closed);
                 return () => node?.removeEventListener("close", closed);
             }}
-            onConfirm={() => {
-                if (activeResult) choose(activeResult.slug);
-                else input.current?.focus();
-                return false;
-            }}
-            i18n={{ confirmText: activeResult ? "打开文档" : "编辑关键词", cancelText: "关闭" }}
         >
             <div className="crab-docs-search" aria-busy={search.loading}>
+                <div className="crab-docs-search-heading">
+                    <h2 id={`${id}-title`}>搜索文档</h2>
+                    <Button appearance="text" className="crab-docs-search-close" aria-label="关闭"
+                        onClick={() => search.setOpen(false)}
+                        icon={<svg className="crab-docs-tool-icon" viewBox="0 0 20 20" aria-hidden="true"><path d="m5 5 10 10M15 5 5 15" /></svg>} />
+                </div>
                 <div className="crab-docs-search-field">
                     <LineEdit
                         id={`${id}-query`}
@@ -87,6 +106,9 @@ export function SearchDialog({ search, route, theme }: UI.SearchDialogProps) {
                         }
                         aria-describedby={`${id}-help`}
                         autoComplete="off"
+                        autoCapitalize="none"
+                        spellCheck={false}
+                        enterKeyHint="search"
                         placeholder="搜索组件、API 或教程…"
                         prefix={<SearchIcon />}
                         suffix={
@@ -110,7 +132,7 @@ export function SearchDialog({ search, route, theme }: UI.SearchDialogProps) {
                         value={search.query}
                         onValueChange={(value) => search.setQuery(value)}
                         onKeyDown={(event) => {
-                            if (event.nativeEvent.isComposing) return;
+                            if (event.nativeEvent.isComposing || event.keyCode === 229) return;
                             if (event.key === "ArrowDown" && results.length) {
                                 event.preventDefault();
                                 search.setActiveIndex(
@@ -128,7 +150,7 @@ export function SearchDialog({ search, route, theme }: UI.SearchDialogProps) {
                         }}
                     />
                 </div>
-                <div className="crab-docs-search-meta" role="status">
+                <div className="crab-docs-search-meta" role={search.error ? undefined : "status"}>
                     <span>{search.query.trim() ? "搜索结果" : "文档索引"}</span>
                     <span>
                         {search.loading
@@ -140,20 +162,21 @@ export function SearchDialog({ search, route, theme }: UI.SearchDialogProps) {
                 </div>
                 <div className="crab-docs-search-scroll">
                     {search.loading && (
-                        <div className="crab-docs-search-pending" role="status">
-                            <Spin /> 正在搜索…
+                        <div className="crab-docs-search-pending" aria-hidden="true">
+                            <SpinIndicator /> 正在搜索…
                         </div>
                     )}
                     {search.error && (
-                        <Alert type="error" title="搜索失败">
-                            {search.error}
-                        </Alert>
+                        <ErrorFeedback title="搜索暂时不可用" detail={search.error}
+                            actions={<Button appearance="outlined" onClick={() => choose("/learn/components")}>浏览组件目录</Button>}>
+                            暂时无法获取搜索结果，可以先通过组件目录或站点导航查找文档。
+                        </ErrorFeedback>
                     )}
                     {!search.loading && !search.error && results.length === 0 && (
-                        <Empty
-                            preset="search"
+                        <EmptyFeedback search announce={false}
                             title={search.query ? "没有匹配的文档" : "输入关键词开始搜索"}
-                            description="可以搜索组件名、API 属性或教程步骤。"
+                            description={search.query ? "试试更短的关键词，或清空后查看文档推荐。" : "可以搜索组件名、API 属性或教程步骤。"}
+                            actions={search.query && <Button appearance="outlined" onClick={clear}>清空关键词</Button>}
                         />
                     )}
                     <ul
@@ -215,12 +238,12 @@ export function SearchDialog({ search, route, theme }: UI.SearchDialogProps) {
                     </ul>
                 </div>
                 <div className="crab-docs-search-help" id={`${id}-help`}>
-                    <span>
+                    {results.length > 0 && <><span>
                         <kbd>↑</kbd> <kbd>↓</kbd> 选择
                     </span>
                     <span>
                         <kbd>Enter</kbd> 打开
-                    </span>
+                    </span></>}
                     <span>
                         <kbd>Esc</kbd> 关闭
                     </span>

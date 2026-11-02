@@ -1,7 +1,6 @@
 import { css } from "@crab-dev/css";
 import Button from "@crab-dev/rc-button";
-import Alert from "@crab-dev/rc-alert";
-import Empty from "@crab-dev/rc-empty";
+import { EmptyFeedback, ErrorFeedback } from "./ui/feedback.js";
 import { SpinIndicator } from "@crab-dev/rc-spin";
 import { useConfig } from "@crab-dev/rc-config-provider";
 import type { ConfigValue } from "@crab-dev/rc-config-provider";
@@ -272,7 +271,7 @@ export function getComponentDemoFrameAttributes(
 
 export function EmptyComponentDemos() {
     return (
-        <Empty title="暂无可用的组件演示" />
+        <EmptyFeedback title="暂无可用的组件演示" description="可继续阅读组件用法、API 与源码。" />
     );
 }
 
@@ -288,6 +287,8 @@ export default function ComponentDemoFrame({
     const config = useConfig();
     const containerRef = useRef<HTMLDivElement>(null);
     const frameRef = useRef<HTMLIFrameElement>(null);
+    // A retry restores focus only while the user remains in this preview.
+    const retryFocus = useRef(false);
     // Mutable observer ownership is read by messages without triggering rendering.
     const measuresContentRef = useRef(false);
     const [shouldLoad, setShouldLoad] = useState(false);
@@ -401,7 +402,16 @@ export default function ComponentDemoFrame({
         return () => window.clearTimeout(timeoutId);
     }, [attempt, error, ready, readyTimeoutMs, shouldLoad]);
 
+    useEffect(() => {
+        if (!ready || !retryFocus.current) return;
+        retryFocus.current = false;
+        if (document.activeElement === containerRef.current) frameRef.current?.focus({ preventScroll: true });
+    }, [ready]);
+
     const handleRetry = () => {
+        const container = containerRef.current;
+        retryFocus.current = !!container?.contains(document.activeElement);
+        if (retryFocus.current) container?.focus({ preventScroll: true });
         setReady(false);
         setError(null);
         setTimedOut(false);
@@ -419,26 +429,30 @@ export default function ComponentDemoFrame({
 
     return (
         <div ref={containerRef} className={presentationStyle} data-presentation={presentation}
-            inert={artwork || undefined} aria-hidden={artwork || undefined}>
+            inert={artwork || undefined} aria-hidden={artwork || undefined}
+            role={artwork ? undefined : "group"} tabIndex={artwork ? undefined : -1}
+            aria-label={artwork ? undefined : `${demo.title} 交互演示`}>
             {error && (artwork ? (
                 <div className={loadingStyle} data-density={demo.density}>
                     预览暂时无法显示，请查看下方组件示例。
                 </div>
             ) : (
-                <Alert type="error" title="演示加载失败" action={
+                <ErrorFeedback title="演示加载失败" detail={error} actions={
                     <>
-                        <Button onClick={handleRetry}>重新加载演示</Button>
-                        <Button href={href(workbenchPath)} target="_blank" rel="noreferrer">在工作台中打开</Button>
+                        <Button appearance="primary" onClick={handleRetry}>重新加载演示</Button>
+                        <Button appearance="outlined" href={href(workbenchPath)} target="_blank" rel="noreferrer"
+                            aria-label="在工作台中打开（新窗口）">在工作台中打开 <span aria-hidden="true">↗</span></Button>
                     </>
-                }>{error}</Alert>
+                }>交互演示暂时无法显示。可以重新加载，或在独立工作台中继续查看。</ErrorFeedback>
             ))}
             {timedOut && !error && !artwork && (
-                <Alert type="warning" title="演示仍在加载" action={
+                <ErrorFeedback tone="info" title="演示仍在加载" actions={
                     <>
-                        <Button onClick={handleRetry}>重新加载演示</Button>
-                        <Button href={href(workbenchPath)} target="_blank" rel="noreferrer">在工作台中打开</Button>
+                        <Button appearance="outlined" onClick={handleRetry}>重新加载演示</Button>
+                        <Button appearance="text" href={href(workbenchPath)} target="_blank" rel="noreferrer"
+                            aria-label="在工作台中打开（新窗口）">在工作台中打开 <span aria-hidden="true">↗</span></Button>
                     </>
-                }>加载时间较长，完成后将自动显示。也可以重新加载或在工作台中查看。</Alert>
+                }>加载时间较长，完成后会自动显示。你也可以重新加载或在独立工作台中查看。</ErrorFeedback>
             )}
             {!error && !shouldLoad && (
                 <div
@@ -473,11 +487,11 @@ export default function ComponentDemoFrame({
                         <div
                             className={loadingStyle}
                             data-overlay="true"
-                            role="status"
-                            aria-live="polite"
+                            role={timedOut && !artwork ? undefined : "status"}
+                            aria-live={timedOut && !artwork ? "off" : "polite"}
                         >
                             <SpinIndicator size="medium" />
-                            <span>{artwork ? "正在加载组件预览…" : "正在加载交互演示…"}</span>
+                            {(!timedOut || artwork) && <span>{artwork ? "正在加载组件预览…" : "正在加载交互演示…"}</span>}
                         </div>
                     )}
                 </div>

@@ -13,6 +13,12 @@ async function renderTable(element: ReactElement) {
     await act(async () => { view = await render(element); });
     return view;
 }
+async function enterText(input: HTMLInputElement, value: string) {
+    // A browser edit changes the native value before React receives input;
+    // assigning through React's tracked property only changes the DOM witness.
+    Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value')?.set?.call(input, value);
+    await fireEvent.input(input);
+}
 let TablePro: (typeof import("../table.js"))["default"];
 beforeAll(async () => {
     const tableModule = await mock.import<typeof import("../table.js")>("../table.js");
@@ -63,6 +69,22 @@ function deferred<T>() {
 }
 
 describe("TablePro", () => {
+    it.each(['top', 'bottom', 'both'] as const)('keeps search available with %s pagination', async (position) => {
+        const fetchColumns = mock.fn<FetchColumnsFn>().resolve(COLUMNS);
+        const fetchData = mock.fn<PaginatedFetchFn>().resolve({ rows: ROWS, total: ROWS.length });
+        const view = await renderTable(<ConfigProvider designSystem="md3" colorMode="light" locale="zh-CN"><TablePro<PersonRow> fetchColumns={fetchColumns} fetchData={fetchData} showSearchBar pagination={{ position }} style={{ width: 700, height: 400 }} /></ConfigProvider>);
+        const search = screen.getByRole('textbox', { name: '搜索表格' }) as HTMLInputElement;
+        await enterText(search, 'Alice');
+        expect(search.value).toBe('Alice');
+        await view.rerender(<ConfigProvider designSystem="apple" colorMode="dark" locale="en-US"><TablePro<PersonRow> fetchColumns={fetchColumns} fetchData={fetchData} showSearchBar pagination={{ position }} style={{ width: 700, height: 400 }} /></ConfigProvider>);
+        const configuredSearch = screen.getByRole('textbox', { name: 'Search table' }) as HTMLInputElement;
+        expect(configuredSearch === search).toBe(true);
+        expect(configuredSearch.value).toBe('Alice');
+        await enterText(configuredSearch, 'Bob');
+        await view.rerender(<ConfigProvider designSystem="shadcn" colorMode="light" locale="zh-CN"><TablePro<PersonRow> fetchColumns={fetchColumns} fetchData={fetchData} showSearchBar pagination={{ position }} style={{ width: 700, height: 400 }} /></ConfigProvider>);
+        expect(screen.getByRole('textbox', { name: '搜索表格' }) === configuredSearch).toBe(true);
+        expect(configuredSearch.value).toBe('Bob');
+    });
     it.each([false, true])('shows empty content only after a successful empty response (custom=%s)', async (custom) => {
         const result = deferred<PersonRow[]>();
         const fetchColumns = mock.fn<FetchColumnsFn>().resolve(COLUMNS);

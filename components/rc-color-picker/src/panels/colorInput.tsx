@@ -21,19 +21,27 @@ export interface ColorInputProps {
 }
 
 const wrapStyle = css`
-    display: flex;
-    align-items: stretch;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    align-items: center;
     gap: ${token.input.gap};
+    &:has([data-color-eye-dropper]) {
+        grid-template-columns: minmax(0, 1fr) auto;
+    }
+    @media (pointer: coarse) {
+        gap: ${token.input.touch.gap};
+    }
 `;
 
 const selectStyle = css`
-    flex: 0 0 auto;
+    grid-column: 1 / -1;
     width: ${token.input.format.width};
+    max-width: 100%;
 `;
 
 const inputStyle = css`
-    flex: 1;
-    min-width: 0;
+    grid-column: 1;
+    min-width: min(100%, ${token.input.value['min-width']});
 `;
 
 const ColorInput: FC<ColorInputProps> = ({

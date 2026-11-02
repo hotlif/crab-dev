@@ -17,15 +17,15 @@ export const wrapperStyle = css`
     &:not([data-disabled]):hover > input + span::before {
         opacity: ${token['state-layer']['opacity-hover']};
     }
-    &:not([data-disabled]):is(:hover, :active, :has(> input:focus-visible)) [data-radio-part='box'] {
+    &:not([data-disabled]):is(:hover, :active, :has(> input:is(:focus-visible, [data-keyboard-focus]:focus))) [data-radio-part='box'] {
         border-color: ${token.control['border-color-hover']};
     }
 
-    > input:focus-visible + span {
+    > input:is(:focus-visible, [data-keyboard-focus]:focus) + span {
         outline: ${token.root['outline-width-focus']} solid ${token.root['outline-color-focus']};
         outline-offset: ${token.root['outline-offset-focus']};
     }
-    > input:focus-visible + span::before {
+    > input:is(:focus-visible, [data-keyboard-focus]:focus) + span::before {
         opacity: ${token['state-layer']['opacity-focus']};
     }
     &:not([data-disabled]):active > input + span::before,
@@ -41,7 +41,7 @@ export const wrapperStyle = css`
             background-color: ${token.control.checked['background-color']};
             border-color: ${token.control.checked['border-color']};
         }
-        &:not([data-disabled]):is(:hover, :active, :has(> input:focus-visible)) [data-radio-part='box'] {
+        &:not([data-disabled]):is(:hover, :active, :has(> input:is(:focus-visible, [data-keyboard-focus]:focus))) [data-radio-part='box'] {
             background-color: ${token.control.checked['background-color-hover']};
             border-color: ${token.control.checked['border-color']};
         }
@@ -55,7 +55,7 @@ export const wrapperStyle = css`
         > input + span::before { background-color: ${token['state-layer']['color-error']}; }
         [data-radio-part='box'] { border-color: ${token.control['border-color-error']}; }
         [data-radio-part='dot'] { background-color: ${token.dot['color-error']}; }
-        > input:focus-visible + span { outline-color: ${token.control['border-color-error']}; }
+        > input:is(:focus-visible, [data-keyboard-focus]:focus) + span { outline-color: ${token.control['border-color-error']}; }
         &[data-state='checked'] {
             [data-radio-part='box'] { background-color: ${token.control.checked['background-color-error']}; }
             [data-radio-part='dot'] { background-color: ${token.dot.checked['color-error']}; }
@@ -88,7 +88,7 @@ export const wrapperStyle = css`
     @media (forced-colors: active) {
         color: CanvasText !important;
         > input + span::before { display: none; }
-        > input:focus-visible + span { outline-color: Highlight !important; }
+        > input:is(:focus-visible, [data-keyboard-focus]:focus) + span { outline-color: Highlight !important; }
         &[data-state] [data-radio-part='box'] {
             forced-color-adjust: none;
             background-color: Canvas !important;

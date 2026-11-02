@@ -63,6 +63,8 @@ import { demos } from "../_generated/rc-breadcrumbs.js";
 
 面包屑保持链接与当前位置语义，不将路径伪装为一排按钮。Apple 使用较强调的当前项字重；Material 使用 medium；shadcn 使用常规字重。文本、分隔符、焦点和禁用状态随当前浅深色主题切换。
 
+折叠路径始终保留当前位置。`maxCount={2}` 仅显示省略号和当前位置；更大的有效值在省略号两侧保留首尾路径，当前位置不作为可点击链接或按钮。
+
 M3 与 Material Web 没有独立的面包屑组件；本组件是依据层级导航和文本角色扩展的 Web 导航能力。参考核对日期：2026-10-22；对照 [shadcn Breadcrumb](https://ui.shadcn.com/docs/components/radix/breadcrumb)及 [Breadcrumb 实现](https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/new-york-v4/ui/breadcrumb.tsx)，无障碍采用 [WAI-ARIA Breadcrumb pattern](https://www.w3.org/WAI/ARIA/apg/patterns/breadcrumb/)。
 
 ### 三体系验收规格

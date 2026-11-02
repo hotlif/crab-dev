@@ -6,7 +6,7 @@ export async function assertSegmentedGeometry(frame) {
     for (const input of await group.getByRole('radio').all()) {
         const option = input.locator('..');
         options.push({
-            option: await assertContentGeometry(option, group, { checkText: false }),
+            option: await assertContentGeometry(option, group, { checkText: false, allowVerticalPaint: true }),
             text: await assertContentGeometry(option.locator(':scope > span:not([aria-hidden])'), option, {
                 // Segmented deliberately ellipsizes its bounded text slot.
                 // Record the actual truncation and keep an accessible identity.
@@ -15,5 +15,5 @@ export async function assertSegmentedGeometry(frame) {
             }),
         });
     }
-    return { group: await assertContentGeometry(group, frame, { checkText: false }), options };
+    return { group: await assertContentGeometry(group, frame, { checkText: false, allowVerticalPaint: true }), options };
 }

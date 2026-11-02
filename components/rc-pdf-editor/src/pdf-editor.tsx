@@ -26,14 +26,15 @@ import type { DocumentInfo, Drawing, EditCommand, ObjectPatch, PdfObject, ShapeK
 import DocumentStage, { type PageNavigation } from './document-stage.js';
 import PagesPanel from './pages-panel.js';
 import { pageMoveOrder, togglePageSelection } from './page-selection.js';
-import PropertiesPanel, { draftFor, type LoadedFont, type ObjectDraft } from './properties-panel.js';
+import PropertiesPanel, { PropertiesHeader, draftFor, type LoadedFont, type ObjectDraft } from './properties-panel.js';
 import ObjectTree from './object-tree.js';
 import BusyRegion from './busy-region.js';
 import ToolbarButton from './toolbar-button.js';
 import PanelHeader from './panel-header.js';
+import { focusedPanel, returnPanelFocus } from './panel-focus.js';
 import ShapeStyleFields from './shape-style-fields.js';
 import { DEFAULT_SHAPE_STYLE, isShapeTool, type EditorTool } from './drawing.js';
-import { bodyStyle, centerStyle, drawToolbarStyle, errorStyle, headingStyle, hintStyle, nameStyle, objectHeadingStyle, objectSectionStyle, panelTogglesStyle, progressSlotStyle, propertiesContentStyle, propertiesScrollStyle, rootStyle, sectionStyle, sidebarStyle, statusStyle, toolbarNameStyle, toolbarStyle, toolDividerStyle, viewStyle, zoomStyle } from './styles.js';
+import { bodyStyle, centerStyle, drawToolbarStyle, errorStyle, headingStyle, hintStyle, nameStyle, objectHeadingStyle, objectSectionStyle, panelTogglesStyle, progressSlotStyle, propertiesContentStyle, propertiesHeaderStyle, propertiesScrollStyle, rootStyle, sectionStyle, sidebarStyle, statusStyle, toolbarNameStyle, toolbarStyle, toolDividerStyle, viewStyle, zoomStyle } from './styles.js';
 
 const NO_FONTS: NonNullable<PdfEditorProps['fonts']> = [];
 const NO_PLUGINS: NonNullable<PdfEditorProps['plugins']> = [];
@@ -118,23 +119,29 @@ export default function PdfEditor({ initialDocument, runtime, fonts = NO_FONTS, 
             const next = width <= 1000;
             if (next === previous) return;
             previous = next;
+            if (next) {
+                const panel = focusedPanel(root, [pagesId, propertiesId]);
+                if (panel) returnPanelFocus(root, panel, `${pagesId}-canvas`);
+            }
             setCompact(next); setShowPages(!next); setShowProperties(!next);
         };
         const observer = new ResizeObserver(entries => { update(entries[0].contentRect.width); });
         update(root.getBoundingClientRect().width);
         observer.observe(root);
         return () => observer.disconnect();
-    }, []);
+    }, [pagesId, propertiesId]);
 
     function togglePanel(panel: 'pages' | 'properties') {
+        const root = rootRef.current, target = panel === 'pages' ? pagesId : propertiesId;
+        if (root && focusedPanel(root, compact ? [pagesId, propertiesId] : [target])) {
+            returnPanelFocus(root, target, `${pagesId}-canvas`);
+        }
         if (panel === 'pages') { setShowPages(!showPages); if (compact) setShowProperties(false); }
         else { setShowProperties(!showProperties); if (compact) setShowPages(false); }
     }
     function closePanel(panel: 'pages' | 'properties') {
         if (panel === 'pages') setShowPages(false); else setShowProperties(false);
-        const toggle = document.getElementById(`${panel === 'pages' ? pagesId : propertiesId}-toggle`);
-        // 显隐配置可能移除原来的返回焦点入口。
-        if (toggle) toggle.focus(); else document.getElementById(`${pagesId}-canvas`)?.focus();
+        if (rootRef.current) returnPanelFocus(rootRef.current, panel === 'pages' ? pagesId : propertiesId, `${pagesId}-canvas`);
     }
 
     function report(value: unknown) {
@@ -385,6 +392,9 @@ export default function PdfEditor({ initialDocument, runtime, fonts = NO_FONTS, 
         } else if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'y') {
             event.preventDefault(); perform(() => history('redo'));
         } else if (activeTool === 'select' && selected && !selected.reason && draft) {
+            // Controls own object-editing keys; document undo/redo and Escape
+            // remain available without moving focus back to the canvas.
+            if (target instanceof HTMLElement && target.closest('button, a[href], summary, [role="button"], [role="tree"], [role="listbox"]')) return;
             if (event.key === 'Delete' || event.key === 'Backspace') { event.preventDefault(); perform(removeObject); }
             const moves: Record<string, [number, number]> = { ArrowLeft: [-1, 0], ArrowRight: [1, 0], ArrowUp: [0, -1], ArrowDown: [0, 1] };
             const move = moves[event.key];
@@ -443,7 +453,7 @@ export default function PdfEditor({ initialDocument, runtime, fonts = NO_FONTS, 
         </div>}
         {(selectionRequest || pluginState.task) && <div className={toolbarStyle}>
             <span className={nameStyle} role="status">{selectionRequest ? text('区域选择：拖动框选，可跨页；滚轮翻页，Shift + 方向键扩选，Enter 完成，Esc 取消。') : text('{label}处理中…', { label: toolbarLabel(pluginState.task!) })}</span>
-            <Button appearance="text" onClick={() => { regionSelection.cancel(); pluginHost.cancel(); document.getElementById(`${pagesId}-canvas`)?.focus(); }}>{selectionRequest ? text('取消区域选择') : text('取消插件任务')}</Button>
+            <Button appearance="text" onClick={() => { regionSelection.cancel(); pluginHost.cancel(); if (rootRef.current) returnPanelFocus(rootRef.current, undefined, `${pagesId}-canvas`); }}>{selectionRequest ? text('取消区域选择') : text('取消插件任务')}</Button>
         </div>}
         {error && <div className={errorStyle} role="alert">{errorMessage(error)}</div>}
         <div className={bodyStyle}>
@@ -458,8 +468,8 @@ export default function PdfEditor({ initialDocument, runtime, fonts = NO_FONTS, 
                 {client && info && currentInfo ? <AutoSizer onResize={setSize}>{({ width, height }) => <DocumentStage
                     pages={info.pages} navigation={navigation} onCurrentPage={currentPage}
                     regionSelection={selectionRequest ? {
-                        onComplete: regions => { regionSelection.complete(regions); document.getElementById(`${pagesId}-canvas`)?.focus(); },
-                        onCancel: () => { regionSelection.cancel(); document.getElementById(`${pagesId}-canvas`)?.focus(); },
+                        onComplete: regions => { regionSelection.complete(regions); if (rootRef.current) returnPanelFocus(rootRef.current, undefined, `${pagesId}-canvas`); },
+                        onCancel: () => { regionSelection.cancel(); if (rootRef.current) returnPanelFocus(rootRef.current, undefined, `${pagesId}-canvas`); },
                     } : undefined}
                     client={client} page={currentInfo} revision={info.revision} selected={selected}
                     transform={draft?.transform} preview={preview} width={width} height={height} disabled={objectDisabled} viewport={viewport}
@@ -479,12 +489,11 @@ export default function PdfEditor({ initialDocument, runtime, fonts = NO_FONTS, 
                 </div>}
             </main>
             {info && <aside id={propertiesId} className={sidebarStyle} data-panel="properties" hidden={!showProperties} aria-label={text('对象属性')}>
+                <div className={propertiesHeaderStyle}><PropertiesHeader object={selected} shape={isShapeTool(activeTool) ? activeTool : undefined} onClose={() => closePanel('properties')} /></div>
                 <div className={propertiesContentStyle}>{isShapeTool(activeTool) ? <BusyRegion className={cx(sectionStyle, propertiesScrollStyle)} busy={pending}>
-                    <PanelHeader panel="properties" onClose={() => closePanel('properties')} title={text('{shape}设置', { shape: actionLabel(activeTool) })} />
                     <ShapeStyleFields shape={activeTool} value={drawingStyle} disabled={locked} onChange={value => { if (!pending && !locked) setDrawingStyle(value); }} />
                     <p className={hintStyle}>{text('在页面内按下并拖动鼠标，松开完成一笔。绘制完成后，可从对象树选择图形继续编辑。')}</p>
-                </BusyRegion> : selected && draft ? <PropertiesPanel object={selected} draft={draft} fonts={loadedFonts} disabled={locked} busy={objectBusy} onClose={() => closePanel('properties')} onDraft={setDraft} onApply={() => perform(() => applyDraft())} onRemove={() => perform(removeObject)} onReplace={() => { replaceRef.current = true; imageRef.current?.click(); }} /> : <div className={cx(sectionStyle, propertiesScrollStyle)}>
-                    <PanelHeader panel="properties" onClose={() => closePanel('properties')} title={text('对象属性')} />
+                </BusyRegion> : selected && draft ? <PropertiesPanel object={selected} draft={draft} fonts={loadedFonts} disabled={locked} busy={objectBusy} showHeader={false} onClose={() => closePanel('properties')} onDraft={setDraft} onApply={() => perform(() => applyDraft())} onRemove={() => perform(removeObject)} onReplace={() => { replaceRef.current = true; imageRef.current?.click(); }} /> : <div className={cx(sectionStyle, propertiesScrollStyle)}>
                     <p className={hintStyle}>{text('点击画布中的文字、图片或图形，或从下方对象树选择。')}</p>
                 </div>}</div>
                 <div className={objectSectionStyle}>

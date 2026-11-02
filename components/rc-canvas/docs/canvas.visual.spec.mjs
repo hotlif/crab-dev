@@ -15,11 +15,23 @@ for (const config of configurations) for (const state of spec.states.filter(valu
             await page.mouse.dblclick(rect.x + 90, rect.y + 40);
             const editor = scene.getByRole('textbox', { name: 'Canvas draft' }); await expect(editor).toBeFocused();
             await editor.fill('跨主题的编辑草稿 Canvas draft');
+            const draftGeometry = await editor.evaluate(node => ({ client: node.clientHeight, scroll: node.scrollHeight, top: node.scrollTop }));
+            expect(draftGeometry.scroll).toBeLessThanOrEqual(draftGeometry.client + 1); expect(draftGeometry.top).toBe(0);
             if (state !== 'editing') { await editor.press(state === 'committed' ? 'Enter' : 'Escape'); await expect(editor).toHaveCount(0); await expect(scene.getByLabel('画布模型')).toContainText(state === 'committed' ? '跨主题的编辑草稿 Canvas draft' : '双击编辑 Edit text'); }
         }
         if (state === 'restored') {
             const count = Number(await scene.getByRole('region', { name: '画布局部滚动区' }).getAttribute('data-render-count'));
-            await canvas.evaluate(async node => { const gl = node.getContext('webgl2'), extension = gl?.getExtension('WEBGL_lose_context'); if (!extension) throw Error('WEBGL_lose_context is required for the recovery scenario'); const lost = new Promise(resolve => node.addEventListener('webglcontextlost', resolve, { once: true })); extension.loseContext(); await lost; const restored = new Promise(resolve => node.addEventListener('webglcontextrestored', resolve, { once: true })); extension.restoreContext(); await restored; });
+            await canvas.evaluate(async node => {
+                const gl = node.getContext('webgl2'), extension = gl?.getExtension('WEBGL_lose_context');
+                if (!extension) throw Error('WEBGL_lose_context is required for the recovery scenario');
+                const lost = new Promise(resolve => node.addEventListener('webglcontextlost', resolve, { once: true }));
+                extension.loseContext(); await lost;
+                // WEBGL_lose_context forbids restoration until the lost event
+                // finishes dispatching; a promise continuation can run inside it.
+                await new Promise(resolve => setTimeout(resolve, 0));
+                const restored = new Promise(resolve => node.addEventListener('webglcontextrestored', resolve, { once: true }));
+                extension.restoreContext(); await restored;
+            });
             await expect.poll(async () => Number(await scene.getByRole('region', { name: '画布局部滚动区' }).getAttribute('data-render-count'))).toBeGreaterThan(count);
         }
         await captureVisual(scene, `${config.designSystem}-${config.colorMode}-${state}.png`, info, browserName);

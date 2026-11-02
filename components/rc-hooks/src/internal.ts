@@ -4,3 +4,5 @@ export type { OverlayLayer } from './overlay.js';
 export { useFieldA11y } from './useFieldA11y.js';
 export { useDevicePixelRatio } from './useDevicePixelRatio.js';
 export { getComposedParentElement } from './composed-tree.js';
+export { useNativeRadioFocus } from './useNativeRadioFocus.js';
+export { isVerticalWheelStep } from './wheel.js';

@@ -16,6 +16,7 @@ for (const config of configurations) for (const size of spec.sizes) for (const d
         if (state === "expanded") { const parent = scene.getByRole("button", { name: "项目 Projects", exact: true }); await parent.click(); await expect(parent).toHaveAttribute("aria-expanded", "true"); await expect(scene.getByRole("button", { name: "进行中 Active", exact: true })).toBeVisible(); }
         if (["horizontal-expanded", "collapsed-expanded"].includes(state)) {
             const parent = scene.getByRole(collapsed ? "menuitem" : "button", { name: "项目 Projects", exact: true });
+            await parent.hover(); await expect(parent).toHaveAttribute("aria-expanded", "true");
             await parent.click(); await expect(parent).toHaveAttribute("aria-expanded", "true");
             const active = page.getByRole("button", { name: "进行中 Active", exact: true }); await expect(active).toBeVisible();
             await active.focus(); await active.press("Tab");

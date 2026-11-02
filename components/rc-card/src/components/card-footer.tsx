@@ -11,7 +11,7 @@ const CardFooter = ({ children, className, ref, ...restProps }: CardFooterProps)
     const { clickable } = use(CardContext);
 
     // 整卡可点击时, 操作区内点击不得冒泡触发整卡 onClick（事件隔离）。
-    // 键盘路径由焦点所在控件自行消费 Enter / Space, 无需等价处理。
+    // 卡片根节点忽略后代的按键，保留内部控件的原生激活。
     const stopBubble = clickable
         ? (e: MouseEvent<HTMLDivElement>) => e.stopPropagation()
         : undefined;

@@ -133,6 +133,20 @@ describe('Card', () => {
         expect(onAction).toHaveBeenCalledTimes(1);
         expect(onCard).not.toHaveBeenCalled();
     });
+    it('leaves nested extra and footer keyboard activation to their controls', async () => {
+        const onCard = mock.fn();
+        await render(<Card clickable onClick={onCard}
+            extra={<button type="button">More options</button>}
+            actions={[<button key="edit" type="button">Edit item</button>]}>
+            Content
+        </Card>);
+        for (const name of ['More options', 'Edit item']) {
+            const control = screen.getByText(name);
+            await fireEvent.keyDown(control, { key: 'Enter' });
+            await fireEvent.keyDown(control, { key: ' ' });
+        }
+        expect(onCard).not.toHaveBeenCalled();
+    });
     // ─── 防错：disabled / loading 撤销交互 ───────────────────────────────────
     it('does not fire onClick when disabled', async () => {
         const onClick = mock.fn();

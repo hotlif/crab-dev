@@ -9,6 +9,8 @@ import {
 } from "../../../test/visual/component-fixture.mjs";
 import { matrixInput, focusByKeyboard, assertCompleteDraft, assertLineEditGeometry } from "./visual-assertions.mjs";
 const spec = await readVisualSpec(import.meta.url);
+// Avoid simultaneous headed zoom captures; retain independent failures.
+test.describe.configure({ mode: 'default' });
 for (const config of configurations) {
     test(
         `${config.designSystem} ${config.colorMode} real 200%`,

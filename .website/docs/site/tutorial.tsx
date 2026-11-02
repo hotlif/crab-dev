@@ -4,7 +4,7 @@ import type { ComponentType } from "react";
 import { createPortal } from "react-dom";
 import { css } from "@crab-dev/css";
 import Button from "@crab-dev/rc-button";
-import Alert from "@crab-dev/rc-alert";
+import { ErrorFeedback } from "./ui/feedback.js";
 import { PreviewBoundary, InlineExample } from "./liveExample.js";
 import Preview from "@crab-dev/rc-component-preview";
 import token from "@crab-dev/rc-token-semantic";
@@ -241,9 +241,9 @@ export default function Tutorial({ tutorial }: { readonly tutorial: TutorialReco
     const step = tutorial.steps[index];
     if (!step)
         return (
-            <Alert type="error" title="教程缺少步骤">
-                请检查教程配置。
-            </Alert>
+            <ErrorFeedback title="教程暂时无法显示">
+                当前没有可运行的步骤，可以通过站点导航查看其他教程。
+            </ErrorFeedback>
         );
     const reset = () => setAttempt((value) => value + 1);
     const changes = step.changes.filter((change) => change !== step.goal);
@@ -353,7 +353,7 @@ export default function Tutorial({ tutorial }: { readonly tutorial: TutorialReco
                         )}
                     </div>
                 </Preview>
-                {copyError && <p role="status">{copyError}</p>}
+                {copyError && <p className="crab-docs-copy-feedback" role="status">{copyError}</p>}
                 <nav className={actionsStyle} aria-label="教程翻页">
                     <Button disabled={index === 0} onClick={() => select(index - 1)}>
                         上一步

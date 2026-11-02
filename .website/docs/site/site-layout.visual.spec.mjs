@@ -1,6 +1,8 @@
 import { test, expect, configurations, environmentCases, applyEnvironment, captureVisual, settleFiniteAnimations } from '../../../test/visual/component-fixture.mjs';
 import { sitePages, openSite, article, assertDocumentWidth } from './site-visual-support.mjs';
 
+// Cold MDX, real component frames and tutorial screenshots share this budget.
+test.describe.configure({ timeout: 60_000 });
 const viewports=environmentCases.filter(environment => ['narrow','tablet','desktop'].includes(environment.id));
 for(const config of configurations) for(const environment of viewports) for(const definition of sitePages) {
     const crossEngine=environment.id==='desktop';
@@ -10,6 +12,12 @@ for(const config of configurations) for(const environment of viewports) for(cons
     },async({page,previewOrigin,browserName},info)=>{
         await applyEnvironment(page,environment);
         await openSite(page,previewOrigin,definition,config);
+        await expect(page.getByRole('link',{name:'Crab UI',exact:true}).getByText('Crab UI',{exact:true})).toBeVisible();
+        if(environment.id==='desktop') {
+            const label=page.getByRole('button',{name:'搜索文档',exact:true}).getByText('搜索文档…',{exact:true});
+            await expect(label).toBeVisible();
+            await expect(label).toBeInViewport();
+        }
         await expect(article(page)).toBeVisible();
         await assertDocumentWidth(page,info);
         // Page captures are the visible viewport. Component states have separate

@@ -1,12 +1,12 @@
 import { Component, Suspense, lazy, useEffect, useState } from "react";
 import type { ComponentType, ReactNode } from "react";
 import Button from "@crab-dev/rc-button";
-import Alert from "@crab-dev/rc-alert";
 import Spin from "@crab-dev/rc-spin";
 import Preview from "@crab-dev/rc-component-preview";
 import { css } from "@crab-dev/css";
 import token from "@crab-dev/rc-token-semantic";
 import { subscribeTheme } from "./componentDemoFrame.js";
+import { ErrorFeedback } from "./ui/feedback.js";
 
 export type ExampleLoader = () => Promise<{ default: ComponentType }>;
 
@@ -33,21 +33,21 @@ const exampleDescription = css`
 
 export class PreviewBoundary extends Component<
     { children: ReactNode; onRetry: () => void },
-    { failed: boolean }
+    { failed: boolean; detail: string | null }
 > {
-    state = { failed: false };
-    static getDerivedStateFromError() {
-        return { failed: true };
+    state: { failed: boolean; detail: string | null } = { failed: false, detail: null };
+    static getDerivedStateFromError(error: unknown) {
+        return { failed: true, detail: error instanceof Error ? error.message : String(error) };
     }
     render() {
         return this.state.failed ? (
-            <Alert
-                type="error"
+            <ErrorFeedback
                 title="示例暂时无法显示"
-                action={<Button onClick={this.props.onRetry}>重新加载示例</Button>}
+                detail={this.state.detail}
+                actions={<Button appearance="primary" onClick={this.props.onRetry}>重新加载示例</Button>}
             >
                 请重试；仍失败时可先阅读下方完整代码。
-            </Alert>
+            </ErrorFeedback>
         ) : (
             this.props.children
         );
@@ -131,9 +131,9 @@ export default function LiveExample({
                 <InlineExample load={load} resetKey={attempt} />
             </Preview>
             {copyError && (
-                <Alert type="error" title="复制失败">
+                <p className="crab-docs-copy-feedback" role="status">
                     {copyError}
-                </Alert>
+                </p>
             )}
         </section>
     );

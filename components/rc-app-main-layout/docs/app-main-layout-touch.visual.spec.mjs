@@ -9,12 +9,12 @@ import {
     environmentCases,
     applyEnvironment,
 } from '../../../test/visual/component-fixture.mjs';
-const spec = await readVisualSpec(import.meta.url),
-    environment = environmentCases.find((item) => item.id === 'touch');
-test.use({ hasTouch: environment.hasTouch });
+const spec = await readVisualSpec(import.meta.url);
+test.use({ hasTouch: true });
+for (const environment of environmentCases.filter((item) => item.hasTouch))
 for (const config of configurations)
     test(
-        `${config.designSystem} ${config.colorMode} touch`,
+        `${config.designSystem} ${config.colorMode} ${environment.id}`,
         {
             tag: ['@rc-app-main-layout', '@environment', '@chromium-only'],
             annotation: { type: 'environment', description: JSON.stringify({ id: environment.id, ...config }) },
@@ -71,6 +71,6 @@ for (const config of configurations)
             }
 
             await settleFiniteAnimations(page);
-            await captureVisual(scene, `${config.designSystem}-${config.colorMode}-touch.png`, info, browserName);
+            await captureVisual(scene, `${config.designSystem}-${config.colorMode}-${environment.id}.png`, info, browserName);
         },
     );

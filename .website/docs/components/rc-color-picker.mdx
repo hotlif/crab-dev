@@ -47,6 +47,8 @@ import { demos } from "../_generated/rc-color-picker.js";
 
 取色触发器的悬停、按下和键盘焦点分别有独立反馈；禁用触发器保持禁用表面并阻止展开，反馈不改变色值预览。
 
+格式选择单独排列，颜色输入与可用的吸管按钮同处下一行，为完整 HEX 与透明度保留可读宽度；不支持吸管时颜色输入占满可用宽度。触控模式增加间距，使吸管按钮的扩展命中区与颜色字段分开。输入、格式与吸管的节点顺序保持不变，切换主题继续保留正在编辑的草稿和焦点。
+
 颜色取值面板没有直接对应的 Material Web 组件，是输入、菜单和滑块的项目组合。参考 [Material Web Text field](https://material-web.dev/components/text-field/)、[Material Web Select](https://material-web.dev/components/select/)与 [shadcn Input](https://ui.shadcn.com/docs/components/input)；具体取色算法、色域和吸管能力属于本库扩展。核对日期：2026-10-22。
 
 ### 何时使用

@@ -12,6 +12,8 @@
 
 API 聚合使用官方 TypeScript API 读取真实类型源码；原始 docgen 和适配文件都由工具生成。生成入口只编排读取、类型提取、页面渲染与文件写入，具体模块位于 `scripts/generate/`。展示布局、预览密度、首屏示例和分组由各组件的 `docs/presentation.json` 提供；默认 `wide / regular`，引用的 Demo 必须存在且不能重复分组。
 
+站点界面从 `docs/site/ui.tsx` 接入 Wake；首页区块维护在 `docs/site/home/`，通用样式维护在 `docs/site/styles/`，按基础、导航、内容、搜索、预览、响应式的顺序注册，再应用布局与阅读样式。保留入口文件负责组装，避免在入口堆积页面内容或互相覆盖的样式。
+
 ## 设计与运行边界
 
 设计、主题和预览配置的公共约定见 [设计体系](docs/guides/design-styles.mdx)和[站点规则](AGENTS.md)。站点样式使用公共令牌，不覆盖 Wake 私有类或真实示例的控件样式。
@@ -20,6 +22,8 @@ API 聚合使用官方 TypeScript API 读取真实类型源码；原始 docgen �
 
 仓库根 yarn docs:dev 先构建库，再启动增量文档；产品清单、正文、Demo、真实类型源码、教学文字和运行文件变化时重新生成。修改 UI 或加载配置后重启开发服务。
 
-在本工作区运行 generate:docs、check:docs、test:generator、lint、typecheck、test、build。构建成功后 preview 在本机 4173 提供生产预览。子路径使用 DOCS_PREVIEW_DIR、DOCS_PREVIEW_BASE、DOCS_PREVIEW_PORT 配置，并遵循当前 shell 语法。
+在本工作区运行 generate:docs、check:docs、test:generator、test:dev、lint、typecheck、test、build。test:dev 检查开发监听来源与生产预览的 HTTP 行为，test:generator 检查内容派生契约，二者都由 test 执行。构建成功后 preview 在本机 4173 提供生产预览。子路径使用 DOCS_PREVIEW_DIR、DOCS_PREVIEW_BASE、DOCS_PREVIEW_PORT 配置，并遵循当前 shell 语法。
 
 组件的浏览器行为及无障碍检查按包登记的必跑项执行。全库截图基线回归不再作为统一检查或发布条件。
+
+本轮全组件三主题精修的范围、逐包发现和验证进度维护于[组件主题审查记录](review/component-theme-audit.md)；默认截图盘点、状态矩阵、人工复核与像素基线结论分别记录。

@@ -1,11 +1,10 @@
-import { createElement } from 'react';
-import { Prism } from 'react-syntax-highlighter';
-// @ts-expect-error: 第三方库类型定义不全；CJS 子路径同时兼容 Wake 的 ESM 与 CommonJS 产物。
-import oneLight from 'react-syntax-highlighter/dist/cjs/styles/prism/one-light.js';
-// @ts-expect-error: 第三方库类型定义不全；CJS 子路径同时兼容 Wake 的 ESM 与 CommonJS 产物。
-import oneDark from 'react-syntax-highlighter/dist/cjs/styles/prism/one-dark.js';
+import { createElement, lazy, Suspense } from 'react';
+import { LightPrism, lightLanguages } from './source-code-languages.js';
 import token from './token.js';
+import { sourceCodeThemes } from './source-code-themes.js';
 import type { PreviewCodeTheme } from './preview.js';
+
+const LegacySourceCode = lazy(() => import('./source-code-legacy.js'));
 
 interface SourceCodeProps {
     readonly sourceCode: string;
@@ -46,14 +45,22 @@ const prismLineNumberStyle = {
 export function SourceCode({ sourceCode, language, codeTheme }: SourceCodeProps) {
     const prismProps = {
         language,
-        style: codeTheme === 'dark' ? oneDark : oneLight,
+        style: sourceCodeThemes[codeTheme],
         wrapLongLines: false,
         showLineNumbers: true,
         lineNumberStyle: prismLineNumberStyle,
         customStyle: prismCustomStyle,
-        codeTagProps: prismCodeTagProps,
+        codeTagProps: { ...prismCodeTagProps, 'data-source-language': language },
         children: sourceCode,
     };
     // Wake 0.1.23 的 CJS 转换会破坏具名懒加载模块中的 JSX；createElement 可保持双产物一致。
-    return createElement(Prism, prismProps);
+    if (lightLanguages.has(language)) return createElement(LightPrism, prismProps);
+    return createElement(Suspense, {
+        fallback: createElement(LightPrism, {
+            ...prismProps,
+            language: 'text',
+            codeTagProps: { ...prismProps.codeTagProps, 'aria-busy': true },
+        }),
+        children: createElement(LegacySourceCode, prismProps),
+    });
 }

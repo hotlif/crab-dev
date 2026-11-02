@@ -26,7 +26,7 @@ test("modal configuration switches and close/reopen preserve the actual draft", 
     await openDemo(page, previewOrigin, "rc-dialog", spec.demo, configurations[0]);
     const trigger = page.getByRole("button", { name: "打开验收对话框", exact: true }); await trigger.click();
     const input = page.getByRole("textbox", { name: "工作区名称" }); await input.fill("持久草稿 Draft"); const original = await input.elementHandle();
-    for (const config of configurations) { await page.evaluate(config => globalThis.postMessage({ type: "crab:preview-config", ...config, direction: "rtl", locale: "en-US" }, globalThis.location.origin), config); await expect(page.getByRole("dialog")).toHaveAttribute("data-crab-design", config.designSystem); await expect(input).toHaveValue("持久草稿 Draft"); expect(await original.evaluate(node => node.isConnected)).toBe(true); }
+    for (const config of configurations) { await page.evaluate(config => globalThis.postMessage({ type: "crab:preview-config", ...config, direction: "rtl", locale: "en-US" }, globalThis.location.origin), config); await expect(page.getByRole("dialog")).toHaveAttribute("data-crab-design", config.designSystem); await expect(input).toHaveValue("持久草稿 Draft"); expect(await original.evaluate(node => node.isConnected && node === node.ownerDocument.activeElement)).toBe(true); }
     await page.keyboard.press("Escape"); await expect(page.getByRole("dialog")).not.toBeVisible(); await expect(trigger).toBeFocused(); await trigger.click(); await expect(input).toHaveValue("持久草稿 Draft");
 });
 

@@ -8,6 +8,9 @@ import {
 
 // Long press intentionally changes values over time; preserve the real sequence.
 test.use({ video: "on" });
+// Capture the long-press video sequences one at a time, without sharing the
+// compositor between simultaneous recordings or skipping independent failures.
+test.describe.configure({ mode: 'default' });
 const spec = await readVisualSpec(import.meta.url);
 for (const config of configurations)
     for (const size of spec.sizes) {

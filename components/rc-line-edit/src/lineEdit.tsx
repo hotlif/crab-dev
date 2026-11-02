@@ -1,12 +1,13 @@
 import { useFieldA11y } from "@crab-dev/rc-hooks/internal";
-import { useControllableValue, type ControlledValueProps } from '@crab-dev/rc-hooks';
-import { useComponentSize, useLocale } from '@crab-dev/rc-config-provider';
+import { useControllableValue, useIsomorphicLayoutEffect, type ControlledValueProps } from '@crab-dev/rc-hooks';
+import { useComponentSize, useConfig, useLocale } from '@crab-dev/rc-config-provider';
 import { css, cx } from "@crab-dev/css";
 import Button from "@crab-dev/rc-button";
 import { Eye, EyeOff, X } from "lucide-react";
-import { useState, type InputHTMLAttributes, type ReactNode, type Ref, type ChangeEvent, type MouseEvent } from "react";
+import { useRef, useState, type InputHTMLAttributes, type ReactNode, type Ref, type ChangeEvent, type MouseEvent } from "react";
 import token, { vars } from "./token.js";
 import { containerBaseStyle, errorStyle, warningStyle, borderlessStyle, inputBaseStyle, borderlessInputStyle, iconBaseStyle, prefixStyle, suffixStyle, actionButtonStyle, countStyle, legendRequiredStyle, fieldStyle, labeledControlStyle, filledControlStyle, supportingStyle } from "./lineEdit.styles.js";
+import { md3FieldStyle } from './lineEdit.designs.js';
 interface BaseLineEditProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "prefix" | "size" | "value" | "defaultValue"> {
     /** 字段外观，默认 outlined；bordered=false 时由宿主提供外观。 */
     appearance?: "outlined" | "filled";
@@ -149,7 +150,10 @@ function LineEdit({
     ...rest
 }: LineEditProps) {
     const size = useComponentSize(sizeProp);
+    const { designSystem, direction, density } = useConfig();
     const { messages } = useLocale();
+    const fieldRef = useRef<HTMLDivElement>(null);
+    const inputRef = useRef<HTMLInputElement>(null);
     // 密码可见性：内部 UI 状态，与业务无关
     const [showPassword, setShowPassword] = useState(false);
     const [displayValue, setValue] = useControllableValue<string, [LineEditChangeDetails]>({ value, defaultValue: defaultValue ?? '', onValueChange });
@@ -160,6 +164,35 @@ function LineEdit({
     const hasValue = typeof displayValue === "string" && displayValue.length > 0;
     const showClearButton = allowClear && hasValue && !disabled && !readOnly;
     const enhancedField = Boolean(label || supportingText || errorText);
+    useIsomorphicLayoutEffect(() => {
+        const field = fieldRef.current, input = inputRef.current;
+        if (!field || !input || !label || !bordered || designSystem !== 'md3') return;
+        const view = input.ownerDocument.defaultView;
+        if (!view) return;
+        const measure = () => {
+            const outer = field.getBoundingClientRect(), bounds = input.getBoundingClientRect();
+            if (outer.width === 0) return;
+            const computed = view.getComputedStyle(input);
+            const left = Number.parseFloat(computed.paddingLeft) || 0;
+            const right = Number.parseFloat(computed.paddingRight) || 0;
+            // Native input dir can differ from its labeled field. Logical label
+            // margins follow the field, while input content uses physical pads.
+            const rtl = view.getComputedStyle(field).direction === 'rtl';
+            // Private runtime geometry, not a design default: arbitrary consumer
+            // decorations determine the remaining label space. No node is replaced.
+            field.style.setProperty('--crab-line-edit-label-width', `${Math.max(0, input.clientWidth - left - right)}px`);
+            field.style.setProperty('--crab-line-edit-label-start', `${rtl ? outer.right - bounds.right + right : bounds.left - outer.left + left}px`);
+        };
+        measure();
+        const observer = new view.ResizeObserver(measure);
+        observer.observe(input);
+        observer.observe(field);
+        return () => {
+            observer.disconnect();
+            field.style.removeProperty('--crab-line-edit-label-width');
+            field.style.removeProperty('--crab-line-edit-label-start');
+        };
+    }, [label, bordered, designSystem, direction, density, size, prefix, suffix, showClearButton, isPassword]);
     const { inputId, description, descriptionId, countId, fieldStatus, describedBy } = useFieldA11y({
         id, supportingText, errorText, status, describedBy: rest["aria-describedby"],
         hasCount: Boolean(showCount && typeof displayValue === "string"),
@@ -196,7 +229,13 @@ function LineEdit({
                 </div>
             )}
             <input
-                ref={ref}
+                ref={node => {
+                    inputRef.current = node;
+                    if (typeof ref === 'function') {
+                        const cleanup = ref(node);
+                        if (cleanup) return () => { inputRef.current = null; cleanup(); };
+                    } else if (ref) ref.current = node;
+                }}
                 id={inputId}
                 type={inputType}
                 value={displayValue}
@@ -255,7 +294,7 @@ function LineEdit({
             {!enhancedField && count}
         </div>
     );
-    return enhancedField ? <div data-field-root="" className={fieldStyle} data-labeled={Boolean(label && bordered)} data-appearance={appearance} data-status={fieldStatus} data-disabled={disabled || undefined} data-prefix={Boolean(prefix)}>
+    return enhancedField ? <div ref={fieldRef} data-field-root="" className={cx(fieldStyle, designSystem === 'md3' && md3FieldStyle)} data-labeled={Boolean(label && bordered)} data-appearance={appearance} data-status={fieldStatus} data-disabled={disabled || undefined} data-prefix={Boolean(prefix)}>
         {label && <label htmlFor={inputId}><span data-field-label-text="">{label}</span>{rest.required && <span data-required-marker="" aria-hidden="true">*</span>}</label>}
         {control}
         {(description || count) && <div className={supportingStyle} data-field-support="" data-status={fieldStatus}>

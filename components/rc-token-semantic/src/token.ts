@@ -28,8 +28,22 @@ export const vars = defineTokens({
     'color.workspace.content': '--token-semantic-color-workspace-content',
     'color.code.light.background': '--token-semantic-color-code-light-background',
     'color.code.light.gutter': '--token-semantic-color-code-light-gutter',
+    'color.code.light.foreground': '--token-semantic-color-code-light-foreground',
+    'color.code.light.comment': '--token-semantic-color-code-light-comment',
+    'color.code.light.keyword': '--token-semantic-color-code-light-keyword',
+    'color.code.light.string': '--token-semantic-color-code-light-string',
+    'color.code.light.number': '--token-semantic-color-code-light-number',
+    'color.code.light.function': '--token-semantic-color-code-light-function',
+    'color.code.light.tag': '--token-semantic-color-code-light-tag',
     'color.code.dark.background': '--token-semantic-color-code-dark-background',
     'color.code.dark.gutter': '--token-semantic-color-code-dark-gutter',
+    'color.code.dark.foreground': '--token-semantic-color-code-dark-foreground',
+    'color.code.dark.comment': '--token-semantic-color-code-dark-comment',
+    'color.code.dark.keyword': '--token-semantic-color-code-dark-keyword',
+    'color.code.dark.string': '--token-semantic-color-code-dark-string',
+    'color.code.dark.number': '--token-semantic-color-code-dark-number',
+    'color.code.dark.function': '--token-semantic-color-code-dark-function',
+    'color.code.dark.tag': '--token-semantic-color-code-dark-tag',
     'color.state.hover': '--token-semantic-color-state-hover',
     'color.state.pressed': '--token-semantic-color-state-pressed',
     'color.state.dragged': '--token-semantic-color-state-dragged',
@@ -782,11 +796,25 @@ const token = defineTokens({
         'code': {
             'light': {
                 'background': `var(${vars['color.code.light.background']}, var(--token-global-material-neutral-98, oklch(0.98379491 0.01284496 321.893957)))`,
-                'gutter': `var(${vars['color.code.light.gutter']}, var(--token-global-material-neutral-40, oklch(0.48353660 0.01164279 305.217760)))`
+                'gutter': `var(${vars['color.code.light.gutter']}, var(--token-global-material-neutral-40, oklch(0.48353660 0.01164279 305.217760)))`,
+                'foreground': `var(${vars['color.code.light.foreground']}, var(--token-global-zinc-900, oklch(0.220 0.005 286)))`,
+                'comment': `var(${vars['color.code.light.comment']}, var(--token-global-zinc-600, oklch(0.550 0.014 286)))`,
+                'keyword': `var(${vars['color.code.light.keyword']}, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078)))`,
+                'string': `var(${vars['color.code.light.string']}, var(--token-global-green-800, oklch(0.448 0.119 155)))`,
+                'number': `var(${vars['color.code.light.number']}, var(--token-global-amber-800, oklch(0.473 0.137 69)))`,
+                'function': `var(${vars['color.code.light.function']}, var(--token-global-blue-700, oklch(0.488 0.230 264)))`,
+                'tag': `var(${vars['color.code.light.tag']}, var(--token-global-red-700, oklch(0.505 0.213 26)))`
             },
             'dark': {
                 'background': `var(${vars['color.code.dark.background']}, var(--token-global-material-neutral-20, oklch(0.31065597 0.01134802 308.055889)))`,
-                'gutter': `var(${vars['color.code.dark.gutter']}, var(--token-global-material-neutral-80, oklch(0.82982891 0.01227594 313.200360)))`
+                'gutter': `var(${vars['color.code.dark.gutter']}, var(--token-global-material-neutral-80, oklch(0.82982891 0.01227594 313.200360)))`,
+                'foreground': `var(${vars['color.code.dark.foreground']}, var(--token-global-zinc-100, oklch(0.950 0.003 286)))`,
+                'comment': `var(${vars['color.code.dark.comment']}, var(--token-global-zinc-300, oklch(0.840 0.008 286)))`,
+                'keyword': `var(${vars['color.code.dark.keyword']}, var(--token-global-purple-80, oklch(0.83492620 0.09457492 298.017957)))`,
+                'string': `var(${vars['color.code.dark.string']}, var(--token-global-green-300, oklch(0.871 0.138 151)))`,
+                'number': `var(${vars['color.code.dark.number']}, var(--token-global-amber-300, oklch(0.879 0.169 79)))`,
+                'function': `var(${vars['color.code.dark.function']}, var(--token-global-blue-300, oklch(0.809 0.105 257)))`,
+                'tag': `var(${vars['color.code.dark.tag']}, var(--token-global-red-300, oklch(0.808 0.114 20)))`
             }
         },
         'state': {

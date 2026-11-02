@@ -1,0 +1,61 @@
+{
+  "startedAt": "2026-11-02T06:43:12.004Z",
+  "platform": "linux",
+  "node": "v24.22.1",
+  "browser": "/workspace/.cache/visual/native-published-gpu/chromium",
+  "physicalBrowser": "/ms-playwright/chromium-1248/chrome-linux64/chrome",
+  "browserConfiguration": {
+    "startedAt": "2026-11-02T06:01:52.562Z",
+    "policy": "Use the actual pinned Playwright GPU default for the native runner: permit software WebGL, omit its contradictory disable-gpu switch. No case filter, timeout, assertion or source change.",
+    "browser": "/ms-playwright/chromium-1248/chrome-linux64/chrome",
+    "wrapper": "/workspace/.cache/visual/native-published-gpu/chromium",
+    "wrapperSha256": "27470b91f73413dc13a12e6ff10939b623dc14aee0109d71d419b255ab32ab3c",
+    "removedArguments": [
+      "--disable-gpu"
+    ],
+    "addedArguments": [
+      "--enable-unsafe-swiftshader"
+    ],
+    "pinnedPlaywrightSourceSha256": "829521b67ed7be90c7d6d6098ff39f2241562d47e4ad7ccab13710924a56001d",
+    "command": "yarn workspace @crab-dev/rc-pdf-editor test --browser-path /workspace/.cache/visual/native-published-gpu/chromium --reporter json --output /workspace/.cache/pdf-native-published-gpu-report.json",
+    "exitCode": 0,
+    "finishedAt": "2026-11-02T06:04:06.813Z"
+  },
+  "environment": {
+    "RAYON_NUM_THREADS": "2",
+    "TURBO_CONCURRENCY": "2"
+  },
+  "supplementarySources": [
+    {
+      "file": ".website/review/component-theme-audit.md",
+      "sha256": "bd3cb41a4e99425c05dcd17c3ce2ce7c893c3fa9778c20f790c77b7568ce58bb"
+    }
+  ],
+  "commands": [
+    {
+      "command": "yarn generate:docs",
+      "startedAt": "2026-11-02T06:43:12.005Z",
+      "exitCode": 0,
+      "finishedAt": "2026-11-02T06:43:18.511Z"
+    },
+    {
+      "command": "yarn check:docs",
+      "startedAt": "2026-11-02T06:43:18.512Z",
+      "exitCode": 0,
+      "finishedAt": "2026-11-02T06:43:25.175Z"
+    },
+    {
+      "command": "yarn lint:tools",
+      "startedAt": "2026-11-02T06:43:25.177Z",
+      "exitCode": 0,
+      "finishedAt": "2026-11-02T06:43:31.403Z"
+    },
+    {
+      "command": "yarn check",
+      "startedAt": "2026-11-02T06:43:31.404Z",
+      "exitCode": 0,
+      "finishedAt": "2026-11-02T07:33:15.015Z"
+    }
+  ],
+  "finishedAt": "2026-11-02T07:33:15.144Z"
+}

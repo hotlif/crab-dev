@@ -41,6 +41,43 @@ test("configuration changes keep the actual control and its value", { tag: ["@rc
         await expect(page.locator(".demo-default-preview").first()).toHaveAttribute("data-crab-design", config.designSystem);
         expect(await original.evaluate(node => node.isConnected)).toBe(true);
         await expect(control).toHaveAttribute("aria-valuenow", "45");
+        await expect(control).toBeFocused();
     }
+});
+
+test('linked number input keeps its draft and focus through theme changes', { tag: ['@rc-slider', '@boundary'] }, async ({ page, previewOrigin }) => {
+    const root = await openDemo(page, previewOrigin, 'rc-slider', 'base.demo.tsx', configurations[0]);
+    const input = root.getByRole('spinbutton', { name: '角度数值' });
+    await input.fill('135');
+    const original = await input.elementHandle();
+    for (const config of configurations) {
+        await page.evaluate(config => globalThis.postMessage({ type: 'crab:preview-config', ...config }, globalThis.location.origin), config);
+        await expect(root).toHaveAttribute('data-crab-design', config.designSystem);
+        await expect(input).toHaveValue('135');
+        await expect(root.getByRole('slider', { name: '滑块角度' })).toHaveAttribute('aria-valuenow', '135');
+        expect(await original.evaluate(node => node.isConnected)).toBe(true);
+        await expect(input).toBeFocused();
+    }
+});
+
+test.describe('linked numeric touch target', () => {
+    test.use({ hasTouch: true });
+    test('linked number input remains usable at 320px', { tag: ['@rc-slider', '@boundary', '@chromium-only'] }, async ({ page, previewOrigin }, info) => {
+        await page.setViewportSize({ width: 320, height: 768 });
+        const root = await openDemo(page, previewOrigin, 'rc-slider', 'base.demo.tsx', configurations[0]);
+        const input = root.getByRole('spinbutton', { name: '角度数值' });
+        await input.tap();
+        await input.fill('135');
+        for (const config of configurations) {
+            await page.evaluate(config => globalThis.postMessage({ type: 'crab:preview-config', ...config }, globalThis.location.origin), config);
+            await expect(root).toHaveAttribute('data-crab-design', config.designSystem);
+            await expect(input).toBeFocused();
+            await expect(input).toHaveValue('135');
+            expect((await input.boundingBox()).height).toBeGreaterThanOrEqual(48);
+            expect(await root.evaluate(node => node.scrollWidth <= node.clientWidth + 1)).toBe(true);
+            await settleFiniteAnimations(page);
+            await captureVisual(root, `${config.designSystem}-${config.colorMode}-linked-number-320.png`, info);
+        }
+    });
 });
 

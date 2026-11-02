@@ -15,7 +15,7 @@ for (const config of configurations) for (const size of spec.sizes) for (const d
         if (state === 'selected') { await frame.getByRole('button', { name: 'Page 7', exact: true }).click(); await expect(frame.locator('[aria-current="page"]')).toHaveText('7'); await expect(frame.getByRole('status')).toContainText('7'); }
         if (state === 'disabled' || state === 'empty') await expect(next).toBeDisabled();
         if (state === 'jump') { const input = frame.getByRole('textbox').first(); await input.fill('12'); await input.press('Enter'); await expect(frame.locator('[aria-current="page"]')).toHaveText('12'); }
-        if (state === 'size-menu') { await frame.getByRole('combobox').click(); await expect(page.getByRole('listbox')).toBeVisible(); }
+        if (state === 'size-menu') { await frame.getByRole('combobox', { name: '每页条数', exact: true }).click(); await expect(page.getByRole('listbox')).toBeVisible(); }
         await settleFiniteAnimations(page);
         const target = state === 'size-menu' ? page : frame;
         await captureVisual(target, `${config.designSystem}-${config.colorMode}-${size}-${density}-${state}.png`, info, browserName);

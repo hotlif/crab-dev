@@ -15,9 +15,27 @@ for (const config of configurations) for (const size of spec.sizes) for (const d
     });
 }
 
-test("Portal draft and configuration remain connected; Escape restores the trigger", { tag: ["@rc-dropdown-container", "@boundary"] }, async ({ page, previewOrigin }) => {
+test("Portal draft and configuration remain connected; Escape restores the trigger", { tag: ["@rc-dropdown-container", "@boundary"] }, async ({ page, previewOrigin }, info) => {
     await openDemo(page, previewOrigin, "rc-dropdown-container", spec.demo, configurations[0]); const trigger = page.getByRole("button", { name: "打开验收浮层", exact: true }); await trigger.click(); const input = page.getByRole("textbox", { name: "浮层草稿" }); await input.fill("保持输入 Draft"); const original = await input.elementHandle();
-    for (const config of configurations) { await page.evaluate(config => globalThis.postMessage({ type: "crab:preview-config", ...config, direction: "rtl", locale: "en-US", brandColor: "#8b5cf6" }, globalThis.location.origin), config); const boundary = page.getByRole("dialog", { name: "浮层内容" }).locator("xpath=ancestor::*[@data-crab-design][1]"); await expect(boundary).toHaveAttribute("data-crab-design", config.designSystem); await expect(input).toHaveValue("保持输入 Draft"); expect(await original.evaluate(node => node.isConnected)).toBe(true); }
-    await input.press("Escape"); await expect(page.getByRole("dialog", { name: "浮层内容" })).not.toBeVisible(); await expect(trigger).toBeFocused(); await trigger.click(); await expect(input).toHaveValue("保持输入 Draft"); await page.getByRole("button", { name: "浮层外操作", exact: true }).click(); await expect(trigger).toHaveAttribute("aria-expanded", "false");
+    for (const config of configurations) { await page.evaluate(config => globalThis.postMessage({ type: "crab:preview-config", ...config, direction: "rtl", locale: "en-US", brandColor: "#8b5cf6" }, globalThis.location.origin), config); const boundary = page.getByRole("dialog", { name: "浮层内容" }).locator("xpath=ancestor::*[@data-crab-design][1]"); await expect(boundary).toHaveAttribute("data-crab-design", config.designSystem); await expect(input).toHaveValue("保持输入 Draft"); expect(await original.evaluate(node => node.isConnected && node === node.ownerDocument.activeElement)).toBe(true); }
+    await input.press("Escape"); await expect(page.getByRole("dialog", { name: "浮层内容" })).not.toBeVisible(); await expect(trigger).toBeFocused(); await trigger.click(); await expect(input).toHaveValue("保持输入 Draft");
+    // A normal floating panel can cover the adjacent outside button. Exercise
+    // closeOnFocusOut with actual Tab traversal rather than a covered click.
+    await input.focus();
+    const outside = page.getByRole('button', { name: '浮层外操作', exact: true });
+    let steps = 0;
+    // The Portal is last in the document. Exit backwards to the known external
+    // control, keeping the test in page content rather than browser chrome.
+    for (; steps < 10 && !await outside.evaluate(node => node === node.ownerDocument.activeElement); steps++)
+        await page.keyboard.press('Shift+Tab');
+    await info.attach('focus-after-native-exit', { body: JSON.stringify({ steps, ...await page.evaluate(() => ({
+        tag: globalThis.document.activeElement?.tagName,
+        name: globalThis.document.activeElement?.textContent,
+        documentFocus: globalThis.document.hasFocus(),
+    })) }), contentType: 'application/json' });
+    await expect(outside).toBeFocused();
+    await expect(trigger).toHaveAttribute("aria-expanded", "false");
+    await expect(page.getByRole('dialog', { name: '浮层内容' })).not.toBeVisible();
+    await expect(input).toHaveCount(0);
 });
 

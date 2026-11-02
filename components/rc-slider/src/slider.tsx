@@ -1,4 +1,5 @@
 import { useControllableValue, type ControlledValueProps } from '@crab-dev/rc-hooks';
+import { isVerticalWheelStep } from '@crab-dev/rc-hooks/internal';
 import { useConfig } from '@crab-dev/rc-config-provider';
 import { css, cx } from "@crab-dev/css";
 import { type HTMLAttributes, type FC, type PointerEvent, type KeyboardEvent, useRef, useState, useEffect, useEffectEvent, useLayoutEffect } from "react";
@@ -23,9 +24,8 @@ export type SliderProps = BaseSliderProps & ControlledValueProps<number, SliderC
 // 获取最大精度
 function getPrecision(num: number): number {
     if (!isFinite(num)) return 0;
-    const s = num.toString();
-    if (s.indexOf('.') === -1) return 0;
-    return s.split('.')[1].length;
+    const [coefficient, exponent = '0'] = num.toString().toLowerCase().split('e');
+    return Math.max(0, (coefficient.split('.')[1]?.length ?? 0) - Number(exponent));
 }
 
 const xsStyle = css`
@@ -106,7 +106,7 @@ const Slider: FC<SliderProps> = ({
     };
 
     const handlePointerDown = (e: PointerEvent<HTMLDivElement>) => {
-        if (unavailable) return;
+        if (unavailable || e.button !== 0) return;
         e.preventDefault();
         e.currentTarget.focus();
         setIsDragging(true);
@@ -128,7 +128,7 @@ const Slider: FC<SliderProps> = ({
     };
 
     const handleWheel = useEffectEvent((e: WheelEvent) => {
-        if (unavailable) return;
+        if (unavailable || !isVerticalWheelStep(e)) return;
         e.preventDefault();
         const direction = e.deltaY < 0 ? 1 : -1;
         let intValue = Math.round(value * factor);

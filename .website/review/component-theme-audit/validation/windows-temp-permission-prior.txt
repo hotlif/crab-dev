@@ -1,0 +1,17 @@
+• turbo 2.10.12
+
+   • Packages in scope: @crab-dev/rc-alert, @crab-dev/rc-app-main-layout, @crab-dev/rc-auto-sizer, @crab-dev/rc-avatar, @crab-dev/rc-badge, @crab-dev/rc-bar-chart, @crab-dev/rc-breadcrumbs, @crab-dev/rc-button, @crab-dev/rc-canvas, @crab-dev/rc-card, @crab-dev/rc-checkbox, @crab-dev/rc-color-picker, @crab-dev/rc-component-preview, @crab-dev/rc-config-provider, @crab-dev/rc-cron-picker, @crab-dev/rc-date-picker, @crab-dev/rc-dialog, @crab-dev/rc-divider, @crab-dev/rc-drawer, @crab-dev/rc-dropdown-container, @crab-dev/rc-empty, @crab-dev/rc-flow-diagram, @crab-dev/rc-form, @crab-dev/rc-hooks, @crab-dev/rc-line-edit, @crab-dev/rc-masonry, @crab-dev/rc-menu, @crab-dev/rc-message, @crab-dev/rc-notification, @crab-dev/rc-number-edit, @crab-dev/rc-pagination, @crab-dev/rc-pdf-editor, @crab-dev/rc-prose, @crab-dev/rc-radio, @crab-dev/rc-realm, @crab-dev/rc-router, @crab-dev/rc-segmented, @crab-dev/rc-select, @crab-dev/rc-skeleton, @crab-dev/rc-slider, @crab-dev/rc-spin, @crab-dev/rc-split-pane, @crab-dev/rc-switch, @crab-dev/rc-table, @crab-dev/rc-table-pro, @crab-dev/rc-tabs, @crab-dev/rc-tag, @crab-dev/rc-text-edit, @crab-dev/rc-theme, @crab-dev/rc-token-global, @crab-dev/rc-token-semantic, @crab-dev/rc-tooltip, @crab-dev/rc-tree, @crab-dev/rc-virtual, @crab-dev/standards-eslint-preset, @crab-dev/standards-typescript-preset, @crab-dev/website
+   • Running generate:token in 57 packages
+   • Remote caching disabled
+
+@crab-dev/rc-token-global:generate:token: cache bypass, force executing 4af3dd21f30b5bca
+@crab-dev/rc-token-global:generate:token: Internal Error: EPERM: operation not permitted, mkdir 'C:\Users\zhang\AppData\Local\Temp\xfs-9f0459c6'
+@crab-dev/rc-token-global:generate:token: Error: EPERM: operation not permitted, mkdir 'C:\Users\zhang\AppData\Local\Temp\xfs-9f0459c6'
+@crab-dev/rc-token-global#generate:token:  ERROR  command (C:\Users\zhang\Desktop\crab-dev\components\rc-token-global) C:\Users\zhang\AppData\Local\Temp\xfs-c8f8edea\yarn.cmd run generate:token exited (1)
+
+ Tasks:    0 successful, 1 total
+Cached:    0 cached, 1 total
+  Time:    949ms 
+Failed:    @crab-dev/rc-token-global#generate:token
+
+ ERROR  run failed: command  exited (1)

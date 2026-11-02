@@ -1,0 +1,321 @@
+• turbo 2.10.12
+
+   • Packages in scope: @crab-dev/rc-date-picker
+   • Running build:library in 1 packages
+   • Remote caching disabled
+
+@crab-dev/rc-token-global:build:library: cache hit, replaying logs 650824da8d7ffe7b
+@crab-dev/rc-token-global:build:library: 
+@crab-dev/rc-token-global:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.45
+@crab-dev/rc-token-global:build:library: 
+@crab-dev/rc-token-global:build:library:   ✓  Tokens generated in 17ms
+@crab-dev/rc-token-global:build:library:      1 files · 33.2 KB
+@crab-dev/rc-token-global:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-token-global\src\token.ts
+@crab-dev/rc-token-global:build:library: 
+@crab-dev/rc-token-global:build:library: 
+@crab-dev/rc-token-global:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-token-global:build:library: 
+@crab-dev/rc-token-global:build:library:   ✓  Built library in 110ms
+@crab-dev/rc-token-global:build:library:      2 modules · 6 files · 75.7 KB
+@crab-dev/rc-token-global:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-token-global
+@crab-dev/rc-token-global:build:library: 
+@crab-dev/rc-hooks:build:library: cache hit, replaying logs 6130883f1578fb9f
+@crab-dev/rc-hooks:build:library: 
+@crab-dev/rc-hooks:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-hooks:build:library: 
+@crab-dev/rc-hooks:build:library:   ✓  Built library in 909ms
+@crab-dev/rc-hooks:build:library:      23 modules · 70 files · 62.9 KB
+@crab-dev/rc-hooks:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-hooks
+@crab-dev/rc-hooks:build:library: 
+@crab-dev/rc-token-semantic:build:library: cache hit, replaying logs 8c93afe45a39156f
+@crab-dev/rc-token-semantic:build:library: 
+@crab-dev/rc-token-semantic:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.45
+@crab-dev/rc-token-semantic:build:library: 
+@crab-dev/rc-token-semantic:build:library:   ✓  Tokens generated in 48ms
+@crab-dev/rc-token-semantic:build:library:      1 files · 165.7 KB
+@crab-dev/rc-token-semantic:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-token-semantic\src\token.ts
+@crab-dev/rc-token-semantic:build:library: 
+@crab-dev/rc-token-semantic:build:library: 
+@crab-dev/rc-token-semantic:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-token-semantic:build:library: 
+@crab-dev/rc-token-semantic:build:library:   ✓  Built library in 651ms
+@crab-dev/rc-token-semantic:build:library:      13 modules · 40 files · 631.3 KB
+@crab-dev/rc-token-semantic:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-token-semantic
+@crab-dev/rc-token-semantic:build:library: 
+@crab-dev/rc-theme:build:library: cache hit, replaying logs ee82b753f58fcadb
+@crab-dev/rc-theme:build:library: 
+@crab-dev/rc-theme:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-theme:build:library: 
+@crab-dev/rc-theme:build:library:   ✓  Built library in 830ms
+@crab-dev/rc-theme:build:library:      13 modules · 28 files · 256.1 KB
+@crab-dev/rc-theme:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-theme
+@crab-dev/rc-theme:build:library: 
+@crab-dev/rc-config-provider:build:library: cache hit, replaying logs 0e947770a18a2668
+@crab-dev/rc-config-provider:build:library: 
+@crab-dev/rc-config-provider:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-config-provider:build:library: 
+@crab-dev/rc-config-provider:build:library:   ✓  Built library in 413ms
+@crab-dev/rc-config-provider:build:library:      9 modules · 29 files · 46.6 KB
+@crab-dev/rc-config-provider:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-config-provider
+@crab-dev/rc-config-provider:build:library: 
+@crab-dev/rc-spin:build:library: cache hit, replaying logs b0f245527e3f092e
+@crab-dev/rc-spin:build:library: 
+@crab-dev/rc-spin:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.45
+@crab-dev/rc-spin:build:library: 
+@crab-dev/rc-spin:build:library:   ✓  Tokens generated in 113ms
+@crab-dev/rc-spin:build:library:      1 files · 6.7 KB
+@crab-dev/rc-spin:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-spin\src\token.ts
+@crab-dev/rc-spin:build:library: 
+@crab-dev/rc-spin:build:library: 
+@crab-dev/rc-spin:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-spin:build:library: 
+@crab-dev/rc-spin:build:library:   ✓  Built library in 1.01s
+@crab-dev/rc-spin:build:library:      8 modules · 23 files · 41.1 KB
+@crab-dev/rc-spin:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-spin
+@crab-dev/rc-spin:build:library: 
+@crab-dev/rc-button:build:library: cache hit, replaying logs e8b90a5bbca57e90
+@crab-dev/rc-button:build:library: 
+@crab-dev/rc-button:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.45
+@crab-dev/rc-button:build:library: 
+@crab-dev/rc-button:build:library:   ✓  Tokens generated in 51ms
+@crab-dev/rc-button:build:library:      1 files · 44.1 KB
+@crab-dev/rc-button:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-button\src\token.ts
+@crab-dev/rc-button:build:library: 
+@crab-dev/rc-button:build:library: 
+@crab-dev/rc-button:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-button:build:library: 
+@crab-dev/rc-button:build:library:   ✓  Built library in 695ms
+@crab-dev/rc-button:build:library:      6 modules · 18 files · 173.1 KB
+@crab-dev/rc-button:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-button
+@crab-dev/rc-button:build:library: 
+@crab-dev/rc-line-edit:build:library: cache hit, replaying logs fb796293654c72cd
+@crab-dev/rc-line-edit:build:library: 
+@crab-dev/rc-line-edit:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.45
+@crab-dev/rc-line-edit:build:library: 
+@crab-dev/rc-line-edit:build:library:   ✓  Tokens generated in 97ms
+@crab-dev/rc-line-edit:build:library:      1 files · 27.1 KB
+@crab-dev/rc-line-edit:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-line-edit\src\token.ts
+@crab-dev/rc-line-edit:build:library: 
+@crab-dev/rc-line-edit:build:library: 
+@crab-dev/rc-line-edit:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-line-edit:build:library: 
+@crab-dev/rc-line-edit:build:library:   ✓  Built library in 793ms
+@crab-dev/rc-line-edit:build:library:      5 modules · 14 files · 121.6 KB
+@crab-dev/rc-line-edit:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-line-edit
+@crab-dev/rc-line-edit:build:library: 
+@crab-dev/rc-number-edit:build:library: cache hit, replaying logs 248ab0ad321c71db
+@crab-dev/rc-number-edit:build:library: 
+@crab-dev/rc-number-edit:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.45
+@crab-dev/rc-number-edit:build:library: 
+@crab-dev/rc-number-edit:build:library:   ✓  Tokens generated in 83ms
+@crab-dev/rc-number-edit:build:library:      1 files · 7.0 KB
+@crab-dev/rc-number-edit:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-number-edit\src\token.ts
+@crab-dev/rc-number-edit:build:library: 
+@crab-dev/rc-number-edit:build:library: 
+@crab-dev/rc-number-edit:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-number-edit:build:library: 
+@crab-dev/rc-number-edit:build:library:   ✓  Built library in 948ms
+@crab-dev/rc-number-edit:build:library:      7 modules · 19 files · 61.7 KB
+@crab-dev/rc-number-edit:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-number-edit
+@crab-dev/rc-number-edit:build:library: 
+@crab-dev/rc-dropdown-container:build:library: cache hit, replaying logs 6cd08e31230a05b0
+@crab-dev/rc-dropdown-container:build:library: 
+@crab-dev/rc-dropdown-container:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.45
+@crab-dev/rc-dropdown-container:build:library: 
+@crab-dev/rc-dropdown-container:build:library:   ✓  Tokens generated in 67ms
+@crab-dev/rc-dropdown-container:build:library:      1 files · 3.8 KB
+@crab-dev/rc-dropdown-container:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-dropdown-container\src\token.ts
+@crab-dev/rc-dropdown-container:build:library: 
+@crab-dev/rc-dropdown-container:build:library: 
+@crab-dev/rc-dropdown-container:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-dropdown-container:build:library: 
+@crab-dev/rc-dropdown-container:build:library:   ✓  Built library in 848ms
+@crab-dev/rc-dropdown-container:build:library:      6 modules · 20 files · 33.6 KB
+@crab-dev/rc-dropdown-container:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-dropdown-container
+@crab-dev/rc-dropdown-container:build:library: 
+@crab-dev/rc-date-picker:build:library: cache hit, replaying logs 17c3993d917af03f
+@crab-dev/rc-date-picker:build:library: 
+@crab-dev/rc-date-picker:build:library:   ⚡ WAKE / LIBRARY TOKEN  v0.1.45
+@crab-dev/rc-date-picker:build:library: 
+@crab-dev/rc-date-picker:build:library:   ✓  Tokens generated in 143ms
+@crab-dev/rc-date-picker:build:library:      1 files · 20.8 KB
+@crab-dev/rc-date-picker:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-date-picker\src\token.ts
+@crab-dev/rc-date-picker:build:library: 
+@crab-dev/rc-date-picker:build:library: 
+@crab-dev/rc-date-picker:build:library:   ⚡ WAKE / LIBRARY BUILD  v0.1.45
+@crab-dev/rc-date-picker:build:library: 
+@crab-dev/rc-date-picker:build:library:   ✓  Built library in 1.72s
+@crab-dev/rc-date-picker:build:library:      26 modules · 66 files · 219.3 KB
+@crab-dev/rc-date-picker:build:library:      Output  C:\Users\zhang\Desktop\crab-dev\components\rc-date-picker
+@crab-dev/rc-date-picker:build:library: 
+
+ Tasks:    11 successful, 11 total
+Cached:    11 cached, 11 total
+  Time:    252ms >>> FULL TURBO
+
+PASS dial-labels.test.tsx
+  ○ masks the hand behind labels without masking neighboring selection circles (md3/light)
+  ○ masks the hand behind labels without masking neighboring selection circles (md3/dark)
+  ○ masks the hand behind labels without masking neighboring selection circles (apple/light)
+  ○ masks the hand behind labels without masking neighboring selection circles (apple/dark)
+  ○ masks the hand behind labels without masking neighboring selection circles (shadcn/light)
+  ○ masks the hand behind labels without masking neighboring selection circles (shadcn/dark)
+PASS field-position.test.tsx
+  ○ date clears its own label/support/error below (md3/light)
+  ○ date clears its own label/support/error above (md3/light)
+  ○ date preserves input ref, Escape and a single semantic clear (md3/light)
+  ○ date clears its own label/support/error below (md3/dark)
+  ○ date clears its own label/support/error above (md3/dark)
+  ○ date preserves input ref, Escape and a single semantic clear (md3/dark)
+  ○ date clears its own label/support/error below (apple/light)
+  ○ date clears its own label/support/error above (apple/light)
+  ○ date preserves input ref, Escape and a single semantic clear (apple/light)
+  ○ date clears its own label/support/error below (apple/dark)
+  ○ date clears its own label/support/error above (apple/dark)
+  ○ date preserves input ref, Escape and a single semantic clear (apple/dark)
+  ○ date clears its own label/support/error below (shadcn/light)
+  ○ date clears its own label/support/error above (shadcn/light)
+  ○ date preserves input ref, Escape and a single semantic clear (shadcn/light)
+  ○ date clears its own label/support/error below (shadcn/dark)
+  ○ date clears its own label/support/error above (shadcn/dark)
+  ○ date preserves input ref, Escape and a single semantic clear (shadcn/dark)
+  ○ datetime clears its own label/support/error below (md3/light)
+  ○ datetime clears its own label/support/error above (md3/light)
+  ○ datetime preserves input ref, Escape and a single semantic clear (md3/light)
+  ○ datetime clears its own label/support/error below (md3/dark)
+  ○ datetime clears its own label/support/error above (md3/dark)
+  ○ datetime preserves input ref, Escape and a single semantic clear (md3/dark)
+  ○ datetime clears its own label/support/error below (apple/light)
+  ○ datetime clears its own label/support/error above (apple/light)
+  ○ datetime preserves input ref, Escape and a single semantic clear (apple/light)
+  ○ datetime clears its own label/support/error below (apple/dark)
+  ○ datetime clears its own label/support/error above (apple/dark)
+  ○ datetime preserves input ref, Escape and a single semantic clear (apple/dark)
+  ○ datetime clears its own label/support/error below (shadcn/light)
+  ○ datetime clears its own label/support/error above (shadcn/light)
+  ○ datetime preserves input ref, Escape and a single semantic clear (shadcn/light)
+  ○ datetime clears its own label/support/error below (shadcn/dark)
+  ○ datetime clears its own label/support/error above (shadcn/dark)
+  ○ datetime preserves input ref, Escape and a single semantic clear (shadcn/dark)
+  ○ time clears its own label/support/error below (md3/light)
+  ○ time clears its own label/support/error above (md3/light)
+  ○ time preserves input ref, Escape and a single semantic clear (md3/light)
+  ○ time clears its own label/support/error below (md3/dark)
+  ○ time clears its own label/support/error above (md3/dark)
+  ○ time preserves input ref, Escape and a single semantic clear (md3/dark)
+  ○ time clears its own label/support/error below (apple/light)
+  ○ time clears its own label/support/error above (apple/light)
+  ○ time preserves input ref, Escape and a single semantic clear (apple/light)
+  ○ time clears its own label/support/error below (apple/dark)
+  ○ time clears its own label/support/error above (apple/dark)
+  ○ time preserves input ref, Escape and a single semantic clear (apple/dark)
+  ○ time clears its own label/support/error below (shadcn/light)
+  ○ time clears its own label/support/error above (shadcn/light)
+  ○ time preserves input ref, Escape and a single semantic clear (shadcn/light)
+  ○ time clears its own label/support/error below (shadcn/dark)
+  ○ time clears its own label/support/error above (shadcn/dark)
+  ○ time preserves input ref, Escape and a single semantic clear (shadcn/dark)
+PASS viewport-fallback.test.tsx
+  ○ original-demo-720x480/md3/light/ltr: contains the frame and reaches real navigation/confirm
+  ○ below/md3/light/ltr: contains the frame and reaches real navigation/confirm
+  ○ above/md3/light/ltr: contains the frame and reaches real navigation/confirm
+  ○ available-right/md3/light/ltr: contains the frame and reaches real navigation/confirm
+  ○ available-left/md3/light/ltr: contains the frame and reaches real navigation/confirm
+  ○ narrow/md3/light/ltr: contains the frame and reaches real navigation/confirm
+  ○ short/md3/light/ltr: contains the frame and reaches real navigation/confirm
+  ○ short-bottom-anchor/md3/light/ltr: contains the frame and reaches real navigation/confirm
+  ○ original-demo-720x480/md3/light/rtl: contains the frame and reaches real navigation/confirm
+  ○ below/md3/light/rtl: contains the frame and reaches real navigation/confirm
+  ○ above/md3/light/rtl: contains the frame and reaches real navigation/confirm
+  ○ available-right/md3/light/rtl: contains the frame and reaches real navigation/confirm
+  ○ available-left/md3/light/rtl: contains the frame and reaches real navigation/confirm
+  ○ narrow/md3/light/rtl: contains the frame and reaches real navigation/confirm
+  ○ short/md3/light/rtl: contains the frame and reaches real navigation/confirm
+  ○ short-bottom-anchor/md3/light/rtl: contains the frame and reaches real navigation/confirm
+  ○ original-demo-720x480/md3/dark/ltr: contains the frame and reaches real navigation/confirm
+  ○ below/md3/dark/ltr: contains the frame and reaches real navigation/confirm
+  ○ above/md3/dark/ltr: contains the frame and reaches real navigation/confirm
+  ○ available-right/md3/dark/ltr: contains the frame and reaches real navigation/confirm
+  ○ available-left/md3/dark/ltr: contains the frame and reaches real navigation/confirm
+  ○ narrow/md3/dark/ltr: contains the frame and reaches real navigation/confirm
+  ✓ short/md3/dark/ltr: contains the frame and reaches real navigation/confirm
+  ○ short-bottom-anchor/md3/dark/ltr: contains the frame and reaches real navigation/confirm
+  ○ original-demo-720x480/md3/dark/rtl: contains the frame and reaches real navigation/confirm
+  ○ below/md3/dark/rtl: contains the frame and reaches real navigation/confirm
+  ○ above/md3/dark/rtl: contains the frame and reaches real navigation/confirm
+  ○ available-right/md3/dark/rtl: contains the frame and reaches real navigation/confirm
+  ○ available-left/md3/dark/rtl: contains the frame and reaches real navigation/confirm
+  ○ narrow/md3/dark/rtl: contains the frame and reaches real navigation/confirm
+  ○ short/md3/dark/rtl: contains the frame and reaches real navigation/confirm
+  ○ short-bottom-anchor/md3/dark/rtl: contains the frame and reaches real navigation/confirm
+  ○ original-demo-720x480/apple/light/ltr: contains the frame and reaches real navigation/confirm
+  ○ below/apple/light/ltr: contains the frame and reaches real navigation/confirm
+  ○ above/apple/light/ltr: contains the frame and reaches real navigation/confirm
+  ○ available-right/apple/light/ltr: contains the frame and reaches real navigation/confirm
+  ○ available-left/apple/light/ltr: contains the frame and reaches real navigation/confirm
+  ○ narrow/apple/light/ltr: contains the frame and reaches real navigation/confirm
+  ○ short/apple/light/ltr: contains the frame and reaches real navigation/confirm
+  ○ short-bottom-anchor/apple/light/ltr: contains the frame and reaches real navigation/confirm
+  ○ original-demo-720x480/apple/light/rtl: contains the frame and reaches real navigation/confirm
+  ○ below/apple/light/rtl: contains the frame and reaches real navigation/confirm
+  ○ above/apple/light/rtl: contains the frame and reaches real navigation/confirm
+  ○ available-right/apple/light/rtl: contains the frame and reaches real navigation/confirm
+  ○ available-left/apple/light/rtl: contains the frame and reaches real navigation/confirm
+  ○ narrow/apple/light/rtl: contains the frame and reaches real navigation/confirm
+  ○ short/apple/light/rtl: contains the frame and reaches real navigation/confirm
+  ○ short-bottom-anchor/apple/light/rtl: contains the frame and reaches real navigation/confirm
+  ○ original-demo-720x480/apple/dark/ltr: contains the frame and reaches real navigation/confirm
+  ○ below/apple/dark/ltr: contains the frame and reaches real navigation/confirm
+  ○ above/apple/dark/ltr: contains the frame and reaches real navigation/confirm
+  ○ available-right/apple/dark/ltr: contains the frame and reaches real navigation/confirm
+  ○ available-left/apple/dark/ltr: contains the frame and reaches real navigation/confirm
+  ○ narrow/apple/dark/ltr: contains the frame and reaches real navigation/confirm
+  ○ short/apple/dark/ltr: contains the frame and reaches real navigation/confirm
+  ○ short-bottom-anchor/apple/dark/ltr: contains the frame and reaches real navigation/confirm
+  ○ original-demo-720x480/apple/dark/rtl: contains the frame and reaches real navigation/confirm
+  ○ below/apple/dark/rtl: contains the frame and reaches real navigation/confirm
+  ○ above/apple/dark/rtl: contains the frame and reaches real navigation/confirm
+  ○ available-right/apple/dark/rtl: contains the frame and reaches real navigation/confirm
+  ○ available-left/apple/dark/rtl: contains the frame and reaches real navigation/confirm
+  ○ narrow/apple/dark/rtl: contains the frame and reaches real navigation/confirm
+  ○ short/apple/dark/rtl: contains the frame and reaches real navigation/confirm
+  ○ short-bottom-anchor/apple/dark/rtl: contains the frame and reaches real navigation/confirm
+  ○ original-demo-720x480/shadcn/light/ltr: contains the frame and reaches real navigation/confirm
+  ○ below/shadcn/light/ltr: contains the frame and reaches real navigation/confirm
+  ○ above/shadcn/light/ltr: contains the frame and reaches real navigation/confirm
+  ○ available-right/shadcn/light/ltr: contains the frame and reaches real navigation/confirm
+  ○ available-left/shadcn/light/ltr: contains the frame and reaches real navigation/confirm
+  ○ narrow/shadcn/light/ltr: contains the frame and reaches real navigation/confirm
+  ○ short/shadcn/light/ltr: contains the frame and reaches real navigation/confirm
+  ○ short-bottom-anchor/shadcn/light/ltr: contains the frame and reaches real navigation/confirm
+  ○ original-demo-720x480/shadcn/light/rtl: contains the frame and reaches real navigation/confirm
+  ○ below/shadcn/light/rtl: contains the frame and reaches real navigation/confirm
+  ○ above/shadcn/light/rtl: contains the frame and reaches real navigation/confirm
+  ○ available-right/shadcn/light/rtl: contains the frame and reaches real navigation/confirm
+  ○ available-left/shadcn/light/rtl: contains the frame and reaches real navigation/confirm
+  ○ narrow/shadcn/light/rtl: contains the frame and reaches real navigation/confirm
+  ○ short/shadcn/light/rtl: contains the frame and reaches real navigation/confirm
+  ○ short-bottom-anchor/shadcn/light/rtl: contains the frame and reaches real navigation/confirm
+  ○ original-demo-720x480/shadcn/dark/ltr: contains the frame and reaches real navigation/confirm
+  ○ below/shadcn/dark/ltr: contains the frame and reaches real navigation/confirm
+  ○ above/shadcn/dark/ltr: contains the frame and reaches real navigation/confirm
+  ○ available-right/shadcn/dark/ltr: contains the frame and reaches real navigation/confirm
+  ○ available-left/shadcn/dark/ltr: contains the frame and reaches real navigation/confirm
+  ○ narrow/shadcn/dark/ltr: contains the frame and reaches real navigation/confirm
+  ○ short/shadcn/dark/ltr: contains the frame and reaches real navigation/confirm
+  ○ short-bottom-anchor/shadcn/dark/ltr: contains the frame and reaches real navigation/confirm
+  ○ original-demo-720x480/shadcn/dark/rtl: contains the frame and reaches real navigation/confirm
+  ○ below/shadcn/dark/rtl: contains the frame and reaches real navigation/confirm
+  ○ above/shadcn/dark/rtl: contains the frame and reaches real navigation/confirm
+  ○ available-right/shadcn/dark/rtl: contains the frame and reaches real navigation/confirm
+  ○ available-left/shadcn/dark/rtl: contains the frame and reaches real navigation/confirm
+  ○ narrow/shadcn/dark/rtl: contains the frame and reaches real navigation/confirm
+  ○ short/shadcn/dark/rtl: contains the frame and reaches real navigation/confirm
+  ○ short-bottom-anchor/shadcn/dark/rtl: contains the frame and reaches real navigation/confirm
+Test Suites: 3 passed, 0 failed, 3 total
+Tests:       1 passed, 0 failed, 155 pending, 156 total
+Wake coverage
+File	Lines	Functions	Blocks
+All files	100.00% (0/0)	100.00% (0/0)	100.00% (0/0)
+Seed:        1793601431084090624
+Time:        27878 ms

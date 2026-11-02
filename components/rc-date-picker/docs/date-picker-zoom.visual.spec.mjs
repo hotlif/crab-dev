@@ -1,6 +1,9 @@
 import { zoomTest, expect, configurations, openDemo, readVisualSpec, settleFiniteAnimations, captureZoom } from '../../../test/visual/component-fixture.mjs';
 
 const spec = await readVisualSpec(import.meta.url);
+// Keep the multi-panel native zoom flows sequential within this file. A failed
+// case still leaves the other configurations runnable, with unchanged budgets.
+zoomTest.describe.configure({ mode: 'default' });
 async function expectPopupWithinWidth(page, dialog) {
     const width = await page.evaluate(() => globalThis.innerWidth);
     const popup = await dialog.boundingBox();

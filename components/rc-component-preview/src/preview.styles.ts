@@ -1,5 +1,5 @@
 import { css } from '@crab-dev/css';
-import token from './token.js';
+import token, { vars } from './token.js';
 
 export const cardStyle = css`
     position: relative;
@@ -146,7 +146,10 @@ export const sourceFrameExpandedStyle = css`
 `;
 
 export const sourceFrameDarkStyle = css`
-    && { background-color: ${token.source.dark['background-color']}; }
+    && {
+        background-color: ${token.source.dark['background-color']};
+        ${vars['source.outline-color-focus']}: ${token.source.dark['outline-color-focus']};
+    }
     && .linenumber { color: ${token.source.dark.gutter.color} !important; }
 `;
 
@@ -164,6 +167,11 @@ export const sourceScrollStyle = css`
     max-height: ${token.source.expanded['max-height']};
     overflow: auto;
     scrollbar-gutter: stable;
+    &:focus-visible {
+        outline: ${token.source['outline-width-focus']} solid ${token.source['outline-color-focus']};
+        outline-offset: ${token.source['outline-offset-focus']};
+    }
+    @media (forced-colors: active) { &:focus-visible { outline-color: Highlight; } }
 
     &::-webkit-scrollbar {
         width: 10px;

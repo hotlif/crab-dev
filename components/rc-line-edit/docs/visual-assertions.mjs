@@ -45,6 +45,20 @@ export async function assertCompleteDraft(input, draft) {
 export async function assertLineEditGeometry(input, frame) {
     const control = input.locator("..");
     const field = control.locator("..");
+    const label = field.locator("[data-field-label-text]");
+    const accessibleName = await label.textContent();
+    await expect(input).toHaveAccessibleName(accessibleName);
+    const labelArea = await input.evaluate(node => {
+        const root = node.closest('[data-field-root]'), bounds = node.getBoundingClientRect();
+        const labelBounds = root.querySelector(':scope > label').getBoundingClientRect();
+        const inside = root.dataset.labeled === 'true' && root.closest('[data-crab-design]')?.getAttribute('data-crab-design') === 'md3'
+            && (root.dataset.appearance === 'filled' || (!root.matches(':focus-within') && node.matches(':placeholder-shown') && !node.matches(':autofill')));
+        return { inside, start: labelBounds.left - bounds.left, end: bounds.right - labelBounds.right };
+    });
+    if (labelArea.inside) {
+        expect(labelArea.start).toBeGreaterThanOrEqual(-1);
+        expect(labelArea.end).toBeGreaterThanOrEqual(-1);
+    }
     const buttons = [];
     for (const button of await field.getByRole("button").all()) {
         buttons.push({
@@ -61,7 +75,8 @@ export async function assertLineEditGeometry(input, frame) {
         field: await assertContentGeometry(field, frame, { checkText: false }),
         control: await assertContentGeometry(control, field, { checkText: false }),
         input: await assertContentGeometry(input, control, { checkText: false, allowHorizontalScroll: true }),
-        label: await assertContentGeometry(field.locator("[data-field-label-text]"), frame),
+        label: await assertContentGeometry(label, frame, { allowEllipsis: true, accessibleName }),
+        labelArea,
         supporting,
         buttons,
     };

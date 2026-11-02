@@ -51,12 +51,23 @@ export function PageSections({ page, children }: Pick<PageProps, "page"> & { chi
     useEffect(() => {
         const content = document.querySelector<HTMLElement>(".crab-docs-content");
         if (!content) return;
-        const update = () => setWide(content.clientWidth >= 1000);
-        const observer = typeof ResizeObserver === "undefined" ? null : new ResizeObserver(update);
+        let frame = 0;
+        const update = () => {
+            frame = 0;
+            setWide(content.clientWidth >= 1000 && window.innerWidth >= 1280);
+        };
+        // Changing the outline also changes its observed ancestor's height. Commit
+        // outside ResizeObserver delivery so WebKit can finish the current layout.
+        const schedule = () => { if (!frame) frame = requestAnimationFrame(update); };
+        const observer = typeof ResizeObserver === "undefined" ? null : new ResizeObserver(schedule);
         observer?.observe(content);
-        update();
-        window.addEventListener("resize", update);
-        return () => { observer?.disconnect(); window.removeEventListener("resize", update); };
+        schedule();
+        window.addEventListener("resize", schedule);
+        return () => {
+            observer?.disconnect();
+            window.removeEventListener("resize", schedule);
+            cancelAnimationFrame(frame);
+        };
     }, []);
     useEffect(() => {
         // Observe rendered headings, including lazy examples, without moving or hiding article content.

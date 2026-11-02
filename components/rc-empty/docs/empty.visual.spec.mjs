@@ -68,23 +68,35 @@ for (const environment of environments) test.describe('Empty '+environment.id,()
         if (environment.id === 'theme-retention') {
             const draft=page.getByLabel('配置切换草稿',{exact:true});
             await draft.fill('Draft retained through theme changes');
+            await draft.focus();
             const instance=await draft.elementHandle();
             await page.evaluate(next=>globalThis.postMessage({type:'crab:preview-config',...next},globalThis.location.origin),{designSystem:config.designSystem==='md3'?'apple':'md3',colorMode:config.colorMode==='light'?'dark':'light'});
             const boundary=page.locator('.demo-default-preview').first();
             await expect(boundary).toHaveAttribute('data-crab-design',config.designSystem==='md3'?'apple':'md3');
             await expect(boundary).toHaveAttribute('data-theme',config.colorMode==='light'?'dark':'light');
             await expect(draft).toHaveValue('Draft retained through theme changes');
+            await expect(draft).toBeFocused();
             expect(await draft.evaluate((node,previous)=>node===previous,instance)).toBe(true);
         }
 
-        if(environment.id==='touch') {
+        if(environment.hasTouch) {
             await page.getByLabel('验收状态',{exact:true}).selectOption('action');
             const target=frame.locator('[data-visual-target]').first();
             const action=target.getByRole('button').first();
-            const bounds=await action.boundingBox();
-            expect(bounds.width).toBeGreaterThanOrEqual(44); expect(bounds.height).toBeGreaterThanOrEqual(44);
+            // Button preserves each design's visual height and expands a real
+            // hit layer. Check that Empty's action layout does not clip it.
+            const hit=action.locator('[data-button-part="touch-target"]');
+            await hit.scrollIntoViewIfNeeded();
+            const bounds=await hit.boundingBox();
+            expect(bounds.width).toBeGreaterThanOrEqual(48); expect(bounds.height).toBeGreaterThanOrEqual(48);
+            const center={x:bounds.x+bounds.width/2,y:bounds.y+bounds.height/2};
+            const points=[{x:bounds.x+1,y:center.y},{x:bounds.x+bounds.width-1,y:center.y},{x:center.x,y:bounds.y+1},{x:center.x,y:bounds.y+bounds.height-1}];
+            for(const [index,point] of points.entries()) {
+                expect(await action.evaluate((node,point)=>node.ownerDocument.elementFromPoint(point.x,point.y)?.closest('button')===node,point)).toBe(true);
+                await page.touchscreen.tap(point.x,point.y);
+                await expect(frame.getByLabel('操作次数',{exact:true})).toHaveText(String(index+1));
+            }
             await captureVisual(frame,[config.designSystem,config.colorMode,'touch-target'].join('-')+'.png',info,browserName);
-            await action.tap();
         }
         await settleFiniteAnimations(page);
         const geometry=await frame.evaluate(node=>({client:node.clientWidth,scroll:node.scrollWidth}));

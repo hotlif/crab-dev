@@ -10,10 +10,29 @@ import { indexJsonAttachments } from './visual/evidence-attachments.mjs';
 import { hasSnapshotUpdateOption, transferNativeBaselines } from './visual/baseline-transfer.mjs';
 import { assertRelativeChild, assertUnlinkedChild, resolveNativeAttachment } from './visual/evidence-paths.mjs';
 import { visualCaptureScope } from './visual/argument-intent.mjs';
+import { prepareFirefoxDisplay } from './visual/firefox-display.mjs';
+import { linuxVisualImage } from './visual/environment.mjs';
 import { createHash } from 'node:crypto';
 import { mkdtemp, mkdir, readFile, rename, rm, stat, symlink, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
+
+test('headful Firefox isolation is restricted to the pinned Linux image and preserves native arguments', async () => {
+    const root = await mkdtemp(path.join(tmpdir(), 'crab-firefox-display-'));
+    try {
+        for (const [platform, image] of [['win32', linuxVisualImage], ['linux', 'unrecognized-image'], ['darwin', undefined]]) {
+            assert.equal(await prepareFirefoxDisplay({ root, platform, image }), undefined);
+        }
+        await assert.rejects(stat(path.join(root, '.cache')), { code: 'ENOENT' });
+        const file = await prepareFirefoxDisplay({ root, platform: 'linux', image: linuxVisualImage });
+        assert.equal(await prepareFirefoxDisplay({ root, platform: 'linux', image: linuxVisualImage }), file);
+        const source = await readFile(file, 'utf8');
+        assert.match(source, /exec xvfb-run -a/);
+        assert.match(source, /"\$CRAB_VISUAL_FIREFOX_EXECUTABLE" "\$@"/);
+        assert.match(source, /1920x1080x24/);
+        if (process.platform !== 'win32') assert.equal((await stat(file)).mode & 0o777, 0o700);
+    } finally { await rm(root, { recursive: true, force: true }); }
+});
 
 test('explicit native snapshot update aliases share the canonical-environment guard', () => {
     for (const args of [['-u'], ['-uall'], ['-uchanged'], ['-umissing'], ['-unone'], ['-udefault'], ['-xuall'], ['-xumissing'], ['--update-snapshots'], ['--update-snapshots=all'], ['--update-snapshots', 'missing']]) assert.equal(hasSnapshotUpdateOption(args), true, args.join(' '));

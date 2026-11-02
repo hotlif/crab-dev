@@ -1,0 +1,2159 @@
+{
+  "schemaVersion": 1,
+  "policy": "Representative screenshots inspected by Codex. This records image review separately from automated assertions, maintainer approval and historical pixel comparison. Complete matrices remain in runs.json.",
+  "reviews": [
+    {
+      "package": "rc-alert",
+      "run": "audit-rc-alert-2026-11-01T13-51-28-144Z",
+      "scope": "Chromium representative state/environment sheets; axes are printed in each image. Full automated coverage is recorded separately in runs.json.",
+      "observation": "标题、图标首行、动作焦点和窄屏换行已查看；没有新增实现问题。",
+      "images": [
+        {
+          "file": "states/rc-alert-720ff6bae7-matrix-title-1.png",
+          "sha256": "fce5afa91b71b07cf9af16c9b070bc12d6c0b204d1c40d64fd0178c52943f269"
+        },
+        {
+          "file": "states/rc-alert-720ff6bae7-matrix-focus-visible-1.png",
+          "sha256": "6ff77beaf57aae0613593902b94f1d429b7dcd9adbf46030134ea7ba208e5c77"
+        },
+        {
+          "file": "states/rc-alert-720ff6bae7-environment-narrow-1.png",
+          "sha256": "58bcf12a86426e469427441a1890cd65b40ceaedbadf3a4f91377b264a9dde2c"
+        }
+      ]
+    },
+    {
+      "package": "rc-badge",
+      "run": "audit-rc-badge-2026-11-01T14-06-30-858Z",
+      "scope": "Chromium representative state/environment sheets; axes are printed in each image. Full automated coverage is recorded separately in runs.json.",
+      "observation": "计数溢出与强制颜色已查看；不把装饰计数层当作可交互焦点。",
+      "images": [
+        {
+          "file": "states/rc-badge-d036f1af18-matrix-overflow-1.png",
+          "sha256": "b4be533f0c9dbd472562e3680591ec070e6a50e58a353158f4a6546553e7355e"
+        },
+        {
+          "file": "states/rc-badge-d036f1af18-environment-forced-colors-1.png",
+          "sha256": "6e45c75ed9aa2078dbde51f3a2f35812ab0fdc39757b29e46cc10c79d61a7bcb"
+        }
+      ]
+    },
+    {
+      "package": "rc-button",
+      "run": "audit-rc-button-2026-11-01T14-16-06-421Z",
+      "scope": "Chromium representative state/environment sheets; axes are printed in each image. Full automated coverage is recorded separately in runs.json.",
+      "observation": "三体系明暗、全部五档尺寸的外观矩阵已查看；按下、焦点及选中另有状态复核。",
+      "images": [
+        {
+          "file": "states/rc-button-21125671b3-matrix-variants-1.png",
+          "sha256": "2102fd402dbc15c460a10927eb61dca1a29880d947ba938d00bb33bc8185ea71"
+        },
+        {
+          "file": "states/rc-button-21125671b3-matrix-variants-2.png",
+          "sha256": "229a767349fde6bbfe044393379718abe9968d3d67097fecfcd901fbba3d8919"
+        },
+        {
+          "file": "states/rc-button-21125671b3-matrix-variants-3.png",
+          "sha256": "ae943f2c7b6f3de485973dafd6bd22e18f0dba1aac07c84e2e3ae846330fbc70"
+        },
+        {
+          "file": "states/rc-button-21125671b3-matrix-variants-4.png",
+          "sha256": "6b5b29a0b002b5540c7f003dcf95d5e6e38203ddefe29ea889b33181392154a8"
+        },
+        {
+          "file": "states/rc-button-21125671b3-matrix-variants-5.png",
+          "sha256": "3a0d85b93acaf4f6483a0c8d79967d2021541613e1e684ca31489fd84f8b6748"
+        }
+      ]
+    },
+    {
+      "package": "rc-checkbox",
+      "run": "audit-rc-checkbox-2026-11-01T14-43-03-299Z",
+      "scope": "Chromium representative state/environment sheets; axes are printed in each image. Full automated coverage is recorded separately in runs.json.",
+      "observation": "错误、半选与键盘焦点已查看；各体系的视觉尺寸及状态层保持独立。",
+      "images": [
+        {
+          "file": "states/rc-checkbox-701c01b7db-matrix-error-1.png",
+          "sha256": "210aaf33e3d6697c25957a5242538f6875629d6c3513eaba26aca01303f388ab"
+        },
+        {
+          "file": "states/rc-checkbox-701c01b7db-matrix-focus-visible-1.png",
+          "sha256": "c919f7c318cf489223f96dc58df47220754a70c09703e0edadd28d5c48436fa5"
+        },
+        {
+          "file": "states/rc-checkbox-701c01b7db-matrix-indeterminate-1.png",
+          "sha256": "aa22c9de8d3033dc3308e181960f424097d0d0fa7639de8a37aadceda78fa56b"
+        }
+      ]
+    },
+    {
+      "package": "rc-dialog",
+      "run": "audit-rc-dialog-2026-11-01T14-52-09-968Z",
+      "scope": "Chromium representative state/environment sheets; axes are printed in each image. Full automated coverage is recorded separately in runs.json.",
+      "observation": "打开、错误、长内容、窄屏和强制颜色已查看；长内容图为滚动到底部的状态。",
+      "images": [
+        {
+          "file": "states/rc-dialog-a8a78c3029-matrix-focus-visible-1.png",
+          "sha256": "c3fd729797e2afa2f61b0ca134ccc89088bd8bfe26361174c9e9d04143028ecc"
+        },
+        {
+          "file": "states/rc-dialog-a8a78c3029-environment-narrow-1.png",
+          "sha256": "9288524dc64875d0b32503cbe596047dbd81ba3581d4c3101a5fe2f153c44611"
+        }
+      ]
+    },
+    {
+      "package": "rc-divider",
+      "run": "audit-rc-divider-2026-11-01T15-03-44-604Z",
+      "scope": "Chromium representative state/environment sheets; axes are printed in each image. Full automated coverage is recorded separately in runs.json.",
+      "observation": "三体系明暗与三档密度的默认分隔线、RTL 已查看；不额外增加交互节点。",
+      "images": [
+        {
+          "file": "states/rc-divider-cac1bc80b0-matrix-default-1.png",
+          "sha256": "de9b5084591cd18319bd7f193272ab7858933e326540d771070f77fe20c7d223"
+        },
+        {
+          "file": "states/rc-divider-cac1bc80b0-matrix-default-2.png",
+          "sha256": "4ed2d5b803fdc8cd89bf76521d508b0896e26f547ff2622c158390b03e0a5f64"
+        },
+        {
+          "file": "states/rc-divider-cac1bc80b0-matrix-default-3.png",
+          "sha256": "17471655fdb093b8bf36cc2876822f2a5293f08b4702ad792cac29d2877d2185"
+        },
+        {
+          "file": "states/rc-divider-cac1bc80b0-environment-rtl-1.png",
+          "sha256": "a51a123817524e52c57ac552434faf87d8ddbc2c74002bb8a84d76b8cdff457d"
+        }
+      ]
+    },
+    {
+      "package": "rc-drawer",
+      "run": "audit-rc-drawer-2026-11-01T15-13-37-019Z",
+      "scope": "Chromium representative state/environment sheets; axes are printed in each image. Full automated coverage is recorded separately in runs.json.",
+      "observation": "左右/上下方向、表面分层和 RTL 镜像已查看；动作区域保持独立。",
+      "images": [
+        {
+          "file": "states/rc-drawer-4f236dec93-matrix-default-1.png",
+          "sha256": "5d161c6b9931f9944d6eab3ac43dd81933d2710ee2159e5557f05cb943c4a221"
+        },
+        {
+          "file": "states/rc-drawer-4f236dec93-matrix-top-1.png",
+          "sha256": "78517a4fb2460e31ad25d7d6a0aea0323fd4868bfb269179abe7eb50da3f4019"
+        },
+        {
+          "file": "states/rc-drawer-4f236dec93-matrix-bottom-1.png",
+          "sha256": "d4b35104221d09b26e3e03f3075ba4eb87812749af05eeb6ee5975948b739036"
+        },
+        {
+          "file": "states/rc-drawer-4f236dec93-environment-rtl-1.png",
+          "sha256": "bfab880cbb6721291de78e1f4cfc05441ee06aa89d234b93d5723941982a36e2"
+        }
+      ]
+    },
+    {
+      "package": "rc-dropdown-container",
+      "run": "audit-rc-dropdown-container-2026-11-01T15-35-13-671Z",
+      "scope": "Chromium representative state/environment sheets; axes are printed in each image. Full automated coverage is recorded separately in runs.json.",
+      "observation": "展开与内容焦点已查看；该运行中的触控及外部点击测试失败另记，不据此宣称全量通过。",
+      "images": [
+        {
+          "file": "states/rc-dropdown-container-bd4f3e5832-matrix-expanded-1.png",
+          "sha256": "42eafe0feb335208b1a2e51e92054c80b9a71ce0dd812eb43f168bfacc6d4125"
+        },
+        {
+          "file": "states/rc-dropdown-container-bd4f3e5832-matrix-content-focus-1.png",
+          "sha256": "59ad9f99b811474889ff1be6b6a5c83e801b5f364766beb65e167bc1892ba64f"
+        }
+      ]
+    },
+    {
+      "package": "rc-empty",
+      "run": "audit-rc-empty-2026-11-01T15-43-00-162Z",
+      "scope": "Chromium representative state/environment sheets; axes are printed in each image. Full automated coverage is recorded separately in runs.json.",
+      "observation": "搜索、权限、自定义和窄屏层次已查看；触控测试修正后的证据另记。",
+      "images": [
+        {
+          "file": "states/rc-empty-25843b86c5-matrix-search-1.png",
+          "sha256": "ad743ec844c476b6e463ee63e029afccd490584fb656f4b2042498af81c6a244"
+        },
+        {
+          "file": "states/rc-empty-25843b86c5-matrix-no-permission-1.png",
+          "sha256": "63f34647e1d39f0f4ff033badacfdfd93d791b417710ba5ddb19883e4ed907f4"
+        },
+        {
+          "file": "states/rc-empty-25843b86c5-matrix-custom-1.png",
+          "sha256": "dc4742f66f724ede56e7d2ddb7703b95538df71fa4c68abf91bb2e15a8a02a79"
+        },
+        {
+          "file": "states/rc-empty-25843b86c5-environment-narrow-1.png",
+          "sha256": "0bf2a59da90da57200fd0d37a36834dabb6f95fe2ead6ff21ad447f3a2483265"
+        }
+      ]
+    },
+    {
+      "package": "rc-line-edit",
+      "run": "audit-rc-line-edit-2026-11-01T15-51-36-822Z",
+      "scope": "Chromium representative state/environment sheets; axes are printed in each image. Full automated coverage is recorded separately in runs.json.",
+      "observation": "三体系明暗的字段焦点和错误说明已查看；只读、密码显隐、窄屏与强制颜色另有复核。两个真实缩放失败仍待复验。",
+      "images": [
+        {
+          "file": "states/rc-line-edit-13b06ecbc5-matrix-focus-visible-1.png",
+          "sha256": "8cada7834869549d27f79420bc6d7fe52d49beb8f0cffff327d6ce55e133248f"
+        },
+        {
+          "file": "states/rc-line-edit-13b06ecbc5-matrix-focus-visible-2.png",
+          "sha256": "23ebf827b4d12c6aeb7314ff5020b8e770d775febd7ace80e4cb031f93d016ea"
+        },
+        {
+          "file": "states/rc-line-edit-13b06ecbc5-matrix-filled-error-1.png",
+          "sha256": "2a029c89363ae4f0a56fcae5b6203c35fbc258572587231c31e93255330fa795"
+        },
+        {
+          "file": "states/rc-line-edit-13b06ecbc5-matrix-filled-error-2.png",
+          "sha256": "d2f14713a9c9d5bbabdf7cadc4dbeb171498cb31895c14bebf991c3890780410"
+        }
+      ]
+    },
+    {
+      "package": "rc-form",
+      "run": "audit-rc-form-2026-11-01T14-51-37-196Z",
+      "scope": "Chromium representative state/environment sheets; axes are printed in each image. Full automated coverage is recorded separately in runs.json.",
+      "observation": "三体系明暗的组合字段警告、只读和焦点已查看；校验语义由真实断言核对。",
+      "images": [
+        {
+          "file": "states/rc-form-317fd9e03a-matrix-warning-1.png",
+          "sha256": "981f9931a0f9454386e7197fe4367a53ca5b18e1b7a8da1e65f69ba1e6138c9f"
+        },
+        {
+          "file": "states/rc-form-317fd9e03a-matrix-read-only-1.png",
+          "sha256": "87142e649ce30fbdd878276ec638c6bd32e8b8287297167b66ce628a7fa78c08"
+        },
+        {
+          "file": "states/rc-form-317fd9e03a-matrix-focus-visible-1.png",
+          "sha256": "e414068ff94887d96c4329ca560b8e272b33c375a686b0f7701bfed9a4b1432d"
+        }
+      ]
+    },
+    {
+      "package": "rc-avatar",
+      "run": "audit-rc-avatar-2026-11-01T15-58-10-682Z",
+      "scope": "Chromium representative state/environment sheets; axes are printed in each image. Full automated coverage is recorded separately in runs.json.",
+      "observation": "已查看修正后六配置的触控前后、分组和焦点；完整矩阵 438 项通过。",
+      "images": [
+        {
+          "file": "states/rc-avatar-e053152db4-environment-touch-1.png",
+          "sha256": "1dc42047968c39c1fa284c38d9fcf7f5b3351c702bd24e5bddbb8741b2a80239"
+        },
+        {
+          "file": "states/rc-avatar-e053152db4-environment-touch-2.png",
+          "sha256": "2791252b66b30c8019fb5da6d783c824fcc2ec897040d5411941cdd8e334fe4a"
+        },
+        {
+          "file": "states/rc-avatar-e053152db4-matrix-group-1.png",
+          "sha256": "1f07e86044d27fcd85d42b24601a4529754d9ed4b1be1a56432fc873cbf06241"
+        },
+        {
+          "file": "states/rc-avatar-e053152db4-matrix-focus-visible-1.png",
+          "sha256": "60c3524fe610ec599b97b1317fe42d4f8678588ec3c4c8091a1ac874e647e12c"
+        }
+      ]
+    },
+    {
+      "package": "rc-breadcrumbs",
+      "run": "audit-rc-breadcrumbs-2026-11-01T16-08-29-936Z",
+      "scope": "Chromium representative state/environment sheets; axes are printed in each image. Full automated coverage is recorded separately in runs.json.",
+      "observation": "已查看修正后六配置的最少层级、焦点和 RTL；当前位置保持可读且非交互。",
+      "images": [
+        {
+          "file": "states/rc-breadcrumbs-753619e59f-matrix-collapsed-minimum-1.png",
+          "sha256": "6910e364ca1c89662fcd3152e741ef7167191712babdb04b1fdcaed6c8dd2346"
+        },
+        {
+          "file": "states/rc-breadcrumbs-753619e59f-matrix-focus-visible-1.png",
+          "sha256": "5839bf1b5ff1a853c45aa5db7cd4e06eee4a0be6faf529ef08a6d40cb975289f"
+        },
+        {
+          "file": "states/rc-breadcrumbs-753619e59f-environment-rtl-1.png",
+          "sha256": "eb3b2da650f0817a437b4d3ab674ca38fd444d857be9adbd7c2610183358c657"
+        }
+      ]
+    },
+    {
+      "package": "rc-color-picker",
+      "run": "audit-rc-color-picker-2026-11-01T14-38-26-493Z",
+      "scope": "Chromium representative state/environment sheets; axes are printed in each image. Full automated coverage is recorded separately in runs.json.",
+      "observation": "修正前原图：MD3 颜色值截断，吸管触控区覆盖字段边缘；新的宽度和间距修正另待 Linux 完整矩阵。",
+      "images": [
+        {
+          "file": "states/rc-color-picker-f363bf20c0-matrix-expanded-1.png",
+          "sha256": "5efd735ca79073e9ba147e9ae08262fc85ee84e4e45ac55f489fbd93e900ddd8"
+        },
+        {
+          "file": "states/rc-color-picker-f363bf20c0-environment-touch-1.png",
+          "sha256": "8017bc45c7516ce444255fa332dc0be18cc5e48619733816dd7ab16d7feabe80"
+        }
+      ]
+    },
+    {
+      "package": "rc-card",
+      "run": "audit-rc-card-2026-11-01T16-18-44-157Z",
+      "scope": "Chromium representative state/environment sheets inspected by Codex; printed axes and runs.json distinguish this from the full automated matrix.",
+      "observation": "三体系明暗的自然加载动画各三帧已查看；完整冻结矩阵 780 项通过，嵌套动作键盘回归另有断言。",
+      "images": [
+        {
+          "file": "states/rc-card-1f91f7f470-matrix-loading-1.png",
+          "sha256": "bea90977dcb6e7de538cdfa04e12e1d2813c6e4dd1014257a8495cf0af9f411e"
+        },
+        {
+          "file": "states/rc-card-1f91f7f470-matrix-loading-2.png",
+          "sha256": "54ee45f22dee413ed9ed5b33670d69df0564c3e688ecb738ca4cc98456a99083"
+        },
+        {
+          "file": "states/rc-card-1f91f7f470-matrix-loading-3.png",
+          "sha256": "6c1c99b2563d94a1b646722d839d39f47aa7a4356d353e3a0f63616c91b7fa8c"
+        }
+      ]
+    },
+    {
+      "package": "rc-masonry",
+      "run": "audit-rc-masonry-2026-11-01T16-08-34-854Z",
+      "scope": "Chromium representative state/environment sheets inspected by Codex; printed axes and runs.json distinguish this from the full automated matrix.",
+      "observation": "插入后的排列与窄屏三列配置已查看；固定列数保留自然换行，尚未测量的新项等待修正另行验证。",
+      "images": [
+        {
+          "file": "states/rc-masonry-f7a8391eac-matrix-inserted-1.png",
+          "sha256": "c807b8f2d84cda9345daf0cd476afbcc12da10f1c014c186fe54960733bf5ec0"
+        },
+        {
+          "file": "states/rc-masonry-f7a8391eac-environment-narrow-1.png",
+          "sha256": "be980276a07bb0d4e3309c7146d93d6f908a1bb42e88d3fc8be5374a7d906e4b"
+        }
+      ]
+    },
+    {
+      "package": "rc-menu",
+      "run": "audit-rc-menu-2026-11-01T16-15-43-382Z",
+      "scope": "Chromium representative state/environment sheets inspected by Codex; printed axes and runs.json distinguish this from the full automated matrix.",
+      "observation": "选中与折叠浮层焦点已查看；旧运行的悬停后点击错误保留，新的行为修正尚待冻结复验。",
+      "images": [
+        {
+          "file": "states/rc-menu-5dc4df38a3-matrix-selected-1.png",
+          "sha256": "65b6345702b1ca0dff8955a8e716e9683cc45d242f0b15e2607fe3fdf98abae9"
+        },
+        {
+          "file": "states/rc-menu-5dc4df38a3-matrix-collapsed-expanded-1.png",
+          "sha256": "4ae8f18017092a7602bab5849bb8d0a547e5176864ab9f466013023c71df7d5e"
+        }
+      ]
+    },
+    {
+      "package": "rc-message",
+      "run": "audit-rc-message-2026-11-01T16-26-33-374Z",
+      "scope": "Chromium representative state/environment sheets inspected by Codex; printed axes and runs.json distinguish this from the full automated matrix.",
+      "observation": "修正前截图确认错误、加载状态仍写已保存；演示文字已按结果分别调整，新图另验。",
+      "images": [
+        {
+          "file": "states/rc-message-d0daf0ca30-matrix-error-1.png",
+          "sha256": "d1db8d8408ed45610e23e621a7623a0d6094319577f5bd584b6411f3acf85625"
+        },
+        {
+          "file": "states/rc-message-d0daf0ca30-matrix-loading-1.png",
+          "sha256": "310cd7663f380a55494350db3de0d5e5562eb9a647221b66ff8b5d690b83479c"
+        }
+      ]
+    },
+    {
+      "package": "rc-prose",
+      "run": "audit-rc-prose-2026-11-01T16-53-14-112Z",
+      "scope": "Chromium representative state/environment sheets inspected by Codex; printed axes and runs.json distinguish this from the full automated matrix.",
+      "observation": "六配置的链接焦点、反色正文及窄屏长链接/代码/表格已查看；213 项冻结检查通过，无需修改。",
+      "images": [
+        {
+          "file": "states/rc-prose-44d65a838f-matrix-focus-visible-1.png",
+          "sha256": "d7c88b5dfc0d3f84eb7b1ce266416f7295af40c7fd3ba03b18c29e7f440bdfa4"
+        },
+        {
+          "file": "states/rc-prose-44d65a838f-matrix-inverse-1.png",
+          "sha256": "dcdc594d30a625579b848f45aad9ac42a7de88b17f46302cab6bac974a4c6f92"
+        },
+        {
+          "file": "states/rc-prose-44d65a838f-environment-narrow-1.png",
+          "sha256": "bc0916aae419e4c91b2884a4c603721fdaefb92ca69eb6fb8ccd89e49e744f24"
+        }
+      ]
+    },
+    {
+      "package": "rc-radio",
+      "run": "audit-rc-radio-2026-11-01T17-03-46-549Z",
+      "scope": "Chromium representative state/environment sheets inspected by Codex; printed axes and runs.json distinguish this from the full automated matrix.",
+      "observation": "已选焦点、错误、强制颜色及 RTL 已查看；343 项冻结检查通过，无需修改。禁用项沿用系统 GrayText。",
+      "images": [
+        {
+          "file": "states/rc-radio-f7d819b92b-matrix-selected-focus-visible-1.png",
+          "sha256": "fbe9efe43f6db2182c995235126eb2b2fd89c0bba5ea7433ecc489ce5359afd1"
+        },
+        {
+          "file": "states/rc-radio-f7d819b92b-matrix-selected-error-1.png",
+          "sha256": "21aa86a59276881b7454bd981295abc2765cf4ab61bd2eedf22b4aa667ce2c3f"
+        },
+        {
+          "file": "states/rc-radio-f7d819b92b-environment-forced-colors-1.png",
+          "sha256": "3f65cff3ea60d4a48b0c5cab880f2a56c0351ad71b3d82a4e3cd7b1c08f5d4d0"
+        },
+        {
+          "file": "states/rc-radio-f7d819b92b-environment-rtl-1.png",
+          "sha256": "3dfe1beeee414956d244acfe9f41cc42bce8cb15deb977d43013895d3602fdf9"
+        }
+      ]
+    },
+    {
+      "package": "rc-message",
+      "run": "audit-rc-message-2026-11-01T18-23-30-395Z",
+      "scope": "Chromium six-configuration representative state/environment sheets inspected by Codex; axes and frozen run identifiers are retained. This does not represent historical pixel comparison or every Cartesian cell.",
+      "observation": "已复核修正后的六配置错误文案与窄屏自然换行；318 项冻结测试通过。错误明确告知保存失败及草稿保留，不再显示成功文案。",
+      "images": [
+        {
+          "file": "states/rc-message-6b05edb6c5-matrix-error-1.png",
+          "sha256": "96890ed7732048f5edcbcd02e9482a62ee6a881c39d20439fd792cd3761c41c0"
+        },
+        {
+          "file": "states/rc-message-6b05edb6c5-environment-narrow-1.png",
+          "sha256": "9423db51cac0b0eb4c77fdea731dd9969d8f48e71e8151e2df7f42000962558e"
+        }
+      ]
+    },
+    {
+      "package": "rc-segmented",
+      "run": "audit-rc-segmented-2026-11-01T18-32-09-550Z",
+      "scope": "Chromium six-configuration representative state/environment sheets inspected by Codex; axes and frozen run identifiers are retained. This does not represent historical pixel comparison or every Cartesian cell.",
+      "observation": "Chromium 六配置的已选焦点和粗指针外观已复核；本轮 WebKit 方向键丢失原生 focus-visible 的六个失败已定位，内部键盘模态修正另行冻结验证。",
+      "images": [
+        {
+          "file": "states/rc-segmented-809206e90f-matrix-focus-visible-1.png",
+          "sha256": "6df8df3236de9a1bcd83d1f72ceb520a2a36c5e6e82e7ea3db03d16dbc2d3fff"
+        },
+        {
+          "file": "states/rc-segmented-809206e90f-environment-touch-1.png",
+          "sha256": "dd02a20c43d793d1b83c2e8a715d539f4c7b8b73e7144d69f95ea5ba685803ec"
+        }
+      ]
+    },
+    {
+      "package": "rc-cron-picker",
+      "run": "audit-rc-cron-picker-2026-11-01T17-42-19-226Z",
+      "scope": "Chromium six-configuration representative state/environment sheets inspected by Codex; axes and frozen run identifiers are retained. This does not represent historical pixel comparison or every Cartesian cell.",
+      "observation": "六配置的日期列表、错误说明与小时范围编辑已复核，保持主题各自字段和焦点角色。2028 项冻结测试中 30 个失败分别为共享 Select 重复 Tab 入口及滚动容器测量问题；修正和复验另记。",
+      "images": [
+        {
+          "file": "states/rc-cron-picker-7950b40503-matrix-editor-day-list-1.png",
+          "sha256": "8477c5615da5f42f6500190a55897182986d882d80921ffaaaea352fca3f9038"
+        },
+        {
+          "file": "states/rc-cron-picker-7950b40503-matrix-error-1.png",
+          "sha256": "192821817152937814d5ac7e68c837c53b566234bf01a977e069b8ad41d95e3c"
+        },
+        {
+          "file": "states/rc-cron-picker-7950b40503-matrix-editor-hour-range-1.png",
+          "sha256": "04fcdd09aba6d35e5b32fc760ea03f328c26f2343bd2efbb16aade735d00501c"
+        }
+      ]
+    },
+    {
+      "package": "rc-color-picker",
+      "run": "audit-rc-color-picker-2026-11-01T19-41-29-474Z",
+      "scope": "Representative six-configuration state/environment sheets inspected by Codex; all original axes, hashes and frozen run identifiers remain available. This records image review, not historical pixel comparison.",
+      "observation": "最终两行网格的展开、触控、320px 六配置及 WebKit Apple 浅色无 EyeDropper 分支已复核；颜色文本完整、无按钮时填满输入行。381 项冻结检查通过。",
+      "images": [
+        {
+          "file": "states/rc-color-picker-aded000b7a-matrix-expanded-1.png",
+          "sha256": "358f7f00a88dc696a9e2ddc4cf9f188c2b4a77e99d30f43485eecc64c82b0ca9"
+        },
+        {
+          "file": "states/rc-color-picker-aded000b7a-environment-touch-1.png",
+          "sha256": "f61522e44410155acaaadd3d1bf550dd29e036881a72b4cf739d05ed06d9b9bb"
+        },
+        {
+          "file": "states/rc-color-picker-aded000b7a-environment-narrow-1.png",
+          "sha256": "c5a228312387860f23513ace3df24a4c9f89d99c05470308a7b5d598913c8acb"
+        },
+        {
+          "file": "states/rc-color-picker-aded000b7a-00269-webkit.png",
+          "sha256": "db77ada0b45ae9e1758c03c11f5103e03812529ab6ff940be08d7533fcd822a0"
+        }
+      ]
+    },
+    {
+      "package": "rc-menu",
+      "run": "audit-rc-menu-2026-11-01T19-51-22-932Z",
+      "scope": "Representative six-configuration state/environment sheets inspected by Codex; all original axes, hashes and frozen run identifiers remain available. This records image review, not historical pixel comparison.",
+      "observation": "六配置横向和收起后的子菜单层级已复核；首次悬停点击与每个 Firefox 测试进程的独立显示环境已完成，501 项检查通过。",
+      "images": [
+        {
+          "file": "states/rc-menu-dcaaf7a550-matrix-horizontal-expanded-1.png",
+          "sha256": "e52ed51f00449896251b9c2c038ff9cc5b48ac809b70f4f86ad4b9498ee18317"
+        },
+        {
+          "file": "states/rc-menu-dcaaf7a550-matrix-collapsed-expanded-1.png",
+          "sha256": "4ae8f18017092a7602bab5849bb8d0a547e5176864ab9f466013023c71df7d5e"
+        }
+      ]
+    },
+    {
+      "package": "rc-radio",
+      "run": "audit-rc-radio-2026-11-01T20-11-51-597Z",
+      "scope": "WebKit native radio-group arrow focus, six configurations, actual clipped group screenshots inspected by Codex.",
+      "observation": "已逐张复核 WebKit 方向键移动后的六配置原生单选焦点截图。向前、向后保持选择和焦点；保留浏览器原生组边界行为。全包367项通过。",
+      "images": [
+        {
+          "file": "states/rc-radio-925c578042-00063-webkit.png",
+          "sha256": "e574af9e4d9fac1d0a0c14fa36338f5847bb79cdc45b3bb7aaa9730ed324c442"
+        },
+        {
+          "file": "states/rc-radio-925c578042-00066-webkit.png",
+          "sha256": "040eb20724900ac23d0b2ae5b8d459c8066df5514ae3a487b996a3cebafa0f77"
+        },
+        {
+          "file": "states/rc-radio-925c578042-00069-webkit.png",
+          "sha256": "2ab7f01e48b862fb936245522579f2d0121d7718b15c9ea4be7f4344d790bc23"
+        },
+        {
+          "file": "states/rc-radio-925c578042-00072-webkit.png",
+          "sha256": "e6877681b2696ce6e22698ec612d9d6ffdf2b1d8876df96615d7fdc6305ca638"
+        },
+        {
+          "file": "states/rc-radio-925c578042-00075-webkit.png",
+          "sha256": "b38c8e0afae5e4ef6c9c2caba94af09f83561a6fed63f51a04e50e99b46157c2"
+        },
+        {
+          "file": "states/rc-radio-925c578042-00078-webkit.png",
+          "sha256": "16ea704795fd16cc1ec99841e9ab5ce2bed2ad82a6f397f0564fbbd6463242ad"
+        }
+      ]
+    },
+    {
+      "package": "rc-segmented",
+      "run": "audit-rc-segmented-2026-11-01T20-04-00-825Z",
+      "scope": "Representative six-configuration state/environment sheets inspected by Codex; all original axes, hashes and frozen run identifiers remain available. This records image review, not historical pixel comparison.",
+      "observation": "WebKit 六配置的键盘焦点已逐项复核，Chromium 粗指针尺寸保留。独立原生单选焦点回归与全包295项检查通过。",
+      "images": [
+        {
+          "file": "states/rc-segmented-052f45fc4b-matrix-focus-visible-1.png",
+          "sha256": "b14326d5ab6fb6b705f116b118c13052936a413f4286e4a61226a005c42c1913"
+        },
+        {
+          "file": "states/rc-segmented-052f45fc4b-environment-touch-1.png",
+          "sha256": "395eae7bde44ef054b7807e3ec1f41621df08cbf8a60ef78e93d3be9afc8bec6"
+        }
+      ]
+    },
+    {
+      "package": "rc-date-picker",
+      "run": "audit-rc-date-picker-2026-11-01T18-28-55-899Z",
+      "scope": "Representative six-configuration state/environment sheets inspected by Codex; all original axes, hashes and frozen run identifiers remain available. This records image review, not historical pixel comparison.",
+      "observation": "日期网格、时钟面板、12小时输入、日期时间错误与窄屏六配置已复核。旧运行的200%四个资源超时另由串行同文件检查复验，不把失败记为通过。",
+      "images": [
+        {
+          "file": "states/rc-date-picker-5e8cf573f9-matrix-date-open-1.png",
+          "sha256": "15be90b3aa64ede05aad9872d5c8791b9e8e7eb202305eac84da650f231eefbd"
+        },
+        {
+          "file": "states/rc-date-picker-5e8cf573f9-matrix-time-dial-open-1.png",
+          "sha256": "5499d1f545ad747c0f1fa483aece5a1b41c92ca040f84fdd59d84e12f4ff0a72"
+        },
+        {
+          "file": "states/rc-date-picker-5e8cf573f9-matrix-time-12-input-1.png",
+          "sha256": "7015e4f31ede9b22fe41033f0935748d2f4d2c4603fc47e78fdb06f05a215844"
+        },
+        {
+          "file": "states/rc-date-picker-5e8cf573f9-matrix-datetime-time-error-1.png",
+          "sha256": "5bc283269c53dad2ede8a9705a96516e52ab48decb49fe22808b9815dc98072f"
+        },
+        {
+          "file": "states/rc-date-picker-5e8cf573f9-environment-narrow-1.png",
+          "sha256": "f98e5df4c6eed05d48ff106cfe42cf7c4f7777a006cc430eaba4888d5566957a"
+        }
+      ]
+    },
+    {
+      "package": "rc-notification",
+      "run": "audit-rc-notification-2026-11-01T18-15-03-800Z",
+      "scope": "Representative six-configuration state/environment sheets inspected by Codex; all original axes, hashes and frozen run identifiers remain available. This records image review, not historical pixel comparison.",
+      "observation": "六配置窄屏边界、关闭焦点和更新反馈已复核；发现窄标题末行孤字后，补充 text-wrap:balance，最终源码截图由后续新运行复核。本组保留修正前的证据。",
+      "images": [
+        {
+          "file": "states/rc-notification-0e68924f87-environment-narrow-1.png",
+          "sha256": "e577161ba8cd289816d43f5bdc2708ce07f809cb21d6a761cc29cc7c94e63086"
+        },
+        {
+          "file": "states/rc-notification-0e68924f87-matrix-focus-visible-1.png",
+          "sha256": "7f36b5a3850ee7c468e73b71ed82bf07dc688650e509326bed54919a19fcd23e"
+        },
+        {
+          "file": "states/rc-notification-0e68924f87-matrix-updated-1.png",
+          "sha256": "0b98721fc98bc898cfa288265417b976d78f05ee5623352ed8b470c9dfb012e3"
+        }
+      ]
+    },
+    {
+      "package": "rc-spin",
+      "run": "audit-rc-spin-2026-11-01T18-50-29-811Z",
+      "scope": "Representative six-configuration state/environment sheets inspected by Codex; all original axes, hashes and frozen run identifiers remain available. This records image review, not historical pixel comparison.",
+      "observation": "默认、遮罩及显式 Expressive 变体在六配置中的自然动画四帧已逐张复核。Apple 保持辐条、shadcn 保持中性圆环；遮罩保留底层内容。229项断言通过，新增横屏另行补齐。",
+      "images": [
+        {
+          "file": "states/rc-spin-3dfe16be8a-matrix-default-1.png",
+          "sha256": "9d203d11810c74c9465a3dbab4d0d1961e88540a2853ce9b904911fcb102d577"
+        },
+        {
+          "file": "states/rc-spin-3dfe16be8a-matrix-default-2.png",
+          "sha256": "b2eb7cb43fe6825c34ed7232357a4f9663ee49efd196b0ef2b529d6d9206595c"
+        },
+        {
+          "file": "states/rc-spin-3dfe16be8a-matrix-default-3.png",
+          "sha256": "c61351967da778e5fcbb44f211214b4fedb56be075f39f91d3e31ac167305bdb"
+        },
+        {
+          "file": "states/rc-spin-3dfe16be8a-matrix-default-4.png",
+          "sha256": "2b04baba6c5f8978a6449029ad79c989d8108171eeba2c4f00b06ac26270f0b6"
+        },
+        {
+          "file": "states/rc-spin-3dfe16be8a-matrix-overlay-1.png",
+          "sha256": "96c85e5cc491aebc94b7e2c2711ee346fb060e8e11527da339a81a668f32a269"
+        },
+        {
+          "file": "states/rc-spin-3dfe16be8a-matrix-overlay-2.png",
+          "sha256": "f2612397b14ed277ac8ea1b861e73498cfe80625ae6863f2afedd2739b73204b"
+        },
+        {
+          "file": "states/rc-spin-3dfe16be8a-matrix-overlay-3.png",
+          "sha256": "46ff4906b27133eb9515b2c6926b7bfe833a7830cd4ccc3419479d8710e3f877"
+        },
+        {
+          "file": "states/rc-spin-3dfe16be8a-matrix-overlay-4.png",
+          "sha256": "1897735821b53920abf81925be21d5a00eca4372c612e15a7c9a73fb803d9ea8"
+        },
+        {
+          "file": "states/rc-spin-3dfe16be8a-matrix-expressive-1.png",
+          "sha256": "cbdcd3fb2a5e437e88592b8975195bdef3045e727f32d39744474189617929ac"
+        },
+        {
+          "file": "states/rc-spin-3dfe16be8a-matrix-expressive-2.png",
+          "sha256": "406ccbee83d9e963581258e49cdfd7f00503d086ccc391b712eb0baecbd582e7"
+        },
+        {
+          "file": "states/rc-spin-3dfe16be8a-matrix-expressive-3.png",
+          "sha256": "b1a5cf8558f4b10b666562f2e6d54cc69208d683b611bb68e722b8a5bd7f72cc"
+        },
+        {
+          "file": "states/rc-spin-3dfe16be8a-matrix-expressive-4.png",
+          "sha256": "30bdd30d981436caf0eda2c6836752c3ac11c7bc668f249dfd65505304ab01b4"
+        }
+      ]
+    },
+    {
+      "package": "rc-split-pane",
+      "run": "audit-rc-split-pane-2026-11-01T19-04-05-809Z",
+      "scope": "Representative six-configuration state/environment sheets inspected by Codex; all original axes, hashes and frozen run identifiers remain available. This records image review, not historical pixel comparison.",
+      "observation": "六配置分隔条键盘焦点与触控手柄已复核，保持面板内容、尺寸与焦点。189项原有检查通过，横屏另补。",
+      "images": [
+        {
+          "file": "states/rc-split-pane-60ce52dd38-matrix-focus-visible-1.png",
+          "sha256": "b866f357f5c20f86c25c70f021f3a2ccef8ed73b927691bfeea4b03abc3921dd"
+        },
+        {
+          "file": "states/rc-split-pane-60ce52dd38-environment-touch-1.png",
+          "sha256": "5ac90843f6ac55e42984085f2b8187a4e0697b4c1be3475e2aae686c0ed30362"
+        }
+      ]
+    },
+    {
+      "package": "rc-switch",
+      "run": "audit-rc-switch-2026-11-01T19-11-21-880Z",
+      "scope": "Representative six-configuration state/environment sheets inspected by Codex; all original axes, hashes and frozen run identifiers remain available. This records image review, not historical pixel comparison.",
+      "observation": "逐项复核三尺寸×六配置默认外观，以及六配置选中错误、选中焦点和RTL。三体系的轨道、拇指和焦点角色保留各自设计；349项冻结检查通过，本轮无需额外源码修正。",
+      "images": [
+        {
+          "file": "states/rc-switch-cacc0c4d25-matrix-default-1.png",
+          "sha256": "ddd57d3f2052d2c3dfb3f376c9ab14c21e65cbd7c7770f866f36fcafffe501d7"
+        },
+        {
+          "file": "states/rc-switch-cacc0c4d25-matrix-default-2.png",
+          "sha256": "9d65023faaba7fe01c47e17793a85e1579073885354d2e9b9aaa67e80fcaffcc"
+        },
+        {
+          "file": "states/rc-switch-cacc0c4d25-matrix-default-3.png",
+          "sha256": "d29bbe3732341e5b300052d3ed057dddce695464f751668a03083a0182d975af"
+        },
+        {
+          "file": "states/rc-switch-cacc0c4d25-matrix-selected-error-1.png",
+          "sha256": "b34e3ea3863131241ea11a4deeecc0d381d58f60e5074f4dbe72e10e319393b7"
+        },
+        {
+          "file": "states/rc-switch-cacc0c4d25-matrix-selected-focus-visible-1.png",
+          "sha256": "3a3af33d85648e666e1e23feef313c7ba922de4d3ded72b6cd1a6f91cd9f89f2"
+        },
+        {
+          "file": "states/rc-switch-cacc0c4d25-environment-rtl-1.png",
+          "sha256": "bca0886b083fdb795057bab5de75bb4b42731dcdadc3c20277fbe9bcfc07d097"
+        }
+      ]
+    },
+    {
+      "package": "rc-tabs",
+      "run": "audit-rc-tabs-2026-11-01T20-26-18-057Z",
+      "scope": "Representative six-configuration state/environment sheets inspected by Codex; all original axes, hashes and frozen run identifiers remain available. This records image review, not historical pixel comparison.",
+      "observation": "三种外观的六配置键盘焦点、删除后的焦点与草稿保留、横向滚动显露、RTL已复核。1626项冻结检查通过；关闭按钮与tab为稳定的独立交互节点，本轮无需额外源码修正。",
+      "images": [
+        {
+          "file": "states/rc-tabs-b1361e142b-matrix-line-focus-visible-1.png",
+          "sha256": "812f031f648913479c37b71d54d0c6e8c460685b0ab1f15c2749e97eb878027b"
+        },
+        {
+          "file": "states/rc-tabs-b1361e142b-matrix-card-focus-visible-1.png",
+          "sha256": "e475379a6cc581378580c079b504bdfd1d7e0452f116494eb520ba9256463bb7"
+        },
+        {
+          "file": "states/rc-tabs-b1361e142b-matrix-pill-focus-visible-1.png",
+          "sha256": "afbee96f5aa28e807e2c3345f9392f46326fef0ea37db674c3b8c9847ea5e1d5"
+        },
+        {
+          "file": "states/rc-tabs-b1361e142b-matrix-line-overflow-1.png",
+          "sha256": "36f8a3b66d12ebc48d72df1527d512c2caaea07d2a5c23880df5a23055536fde"
+        },
+        {
+          "file": "states/rc-tabs-b1361e142b-matrix-line-closed-1.png",
+          "sha256": "7ae4ff0b18c039e3dfc0141170e4e08ccfc8d34430627d296c994492cefa4df9"
+        },
+        {
+          "file": "states/rc-tabs-b1361e142b-matrix-card-closed-1.png",
+          "sha256": "8e94ad762b1ea6385c748cffb126b57dd0ba211c67aae16c6824336790e44cd5"
+        },
+        {
+          "file": "states/rc-tabs-b1361e142b-matrix-pill-closed-1.png",
+          "sha256": "b5b62b56c53673cfd4de53ffa2db16030ecaaa47879b511ddc02ede86f2cbb1d"
+        },
+        {
+          "file": "states/rc-tabs-b1361e142b-environment-rtl-1.png",
+          "sha256": "341ef37eff8daf214568c07c31bd48973e5cafd0aff064561d21c53d3039b6ef"
+        }
+      ]
+    },
+    {
+      "package": "rc-pagination",
+      "run": "audit-rc-pagination-2026-11-01T20-26-05-687Z",
+      "scope": "Representative six-configuration state/environment sheets inspected by Codex; all original axes, hashes and frozen run identifiers remain available. This records image review, not historical pixel comparison.",
+      "observation": "六配置每页条数菜单、窄屏换行和跳页后的焦点/页码已复核。旧无名称combobox定位问题修正后，完整756项冻结检查通过；组件实现无需额外修正。",
+      "images": [
+        {
+          "file": "states/rc-pagination-d3fc86709f-matrix-size-menu-1.png",
+          "sha256": "a2d723010b3b514a88d580beee9480ac82ed1063cfa8237b7fedbceb34a6278b"
+        },
+        {
+          "file": "states/rc-pagination-d3fc86709f-environment-narrow-1.png",
+          "sha256": "fe1c1f5e7b14f5654a6e97372469e0b8bdff3d0e4d37b18a6b0241eb9069a5e7"
+        },
+        {
+          "file": "states/rc-pagination-d3fc86709f-matrix-jump-1.png",
+          "sha256": "bb5eabd058e0be63bea6799952be37f011936594e738ff41fcddca1f43c4c215"
+        }
+      ]
+    },
+    {
+      "package": "rc-select",
+      "run": "audit-rc-select-2026-11-01T22-19-25-908Z",
+      "scope": "Representative six-configuration state/environment sheets inspected by Codex; run hashes and original axes remain available. Image review is distinct from historical pixel comparison and maintainer approval.",
+      "observation": "六配置展开、多选、键盘焦点、错误、空结果与窄屏已逐张复核。完整861项中849通过；六项缩放的旧箭头Tab假设、六项透明span对比度误判需补验，原始失败保留。",
+      "images": [
+        {
+          "file": "states/rc-select-40d8127433-matrix-expanded-1.png",
+          "sha256": "07779e259037da3ddc2aa761ea5dddb0abe13726e05c430750fecbdb8185cf69"
+        },
+        {
+          "file": "states/rc-select-40d8127433-matrix-multiple-1.png",
+          "sha256": "d54c5a6ffda47e26cb265bbedcff6780feb4e09c5c62c4c92d6470d570d4a600"
+        },
+        {
+          "file": "states/rc-select-40d8127433-matrix-focus-visible-1.png",
+          "sha256": "1f8da0142da7886b5f890431c055abea5abdb6b9ca395047606ef0c5478b6a1f"
+        },
+        {
+          "file": "states/rc-select-40d8127433-matrix-error-1.png",
+          "sha256": "8cc85a07d85718177caf29ae24667fce0a5c7259485feface99fc4faa67bb301"
+        },
+        {
+          "file": "states/rc-select-40d8127433-matrix-empty-1.png",
+          "sha256": "437de5262319f3ee0998ac7d7efe1a48741b1c315d19480c9060c6fb46d1d9a0"
+        },
+        {
+          "file": "states/rc-select-40d8127433-environment-narrow-1.png",
+          "sha256": "6d59bbafe688ae8f1e9facedf26e5fd228690937754a0780a59960dfb6f7eef3"
+        }
+      ]
+    },
+    {
+      "package": "rc-notification",
+      "run": "audit-rc-notification-2026-11-01T22-09-09-740Z",
+      "scope": "Representative six-configuration state/environment sheets inspected by Codex; run hashes and original axes remain available. Image review is distinct from historical pixel comparison and maintainer approval.",
+      "observation": "最终标题平衡换行与窄屏六配置已复核，关闭入口与正文均可见。旧冻结运行的四项并行缩放超时另由顺序真实缩放补验，不以截图代替。",
+      "images": [
+        {
+          "file": "states/rc-notification-a84dfaba8e-environment-narrow-1.png",
+          "sha256": "1ab95579c11793cc405e932e3a98bc05e454ae3bec5be77faf9ef3aa0c7373b3"
+        },
+        {
+          "file": "states/rc-notification-a84dfaba8e-matrix-updated-1.png",
+          "sha256": "0b98721fc98bc898cfa288265417b976d78f05ee5623352ed8b470c9dfb012e3"
+        }
+      ]
+    },
+    {
+      "package": "rc-tag",
+      "run": "audit-rc-tag-2026-11-01T20-53-00-744Z",
+      "scope": "Representative six-configuration state/environment sheets inspected by Codex; run hashes and original axes remain available. Image review is distinct from historical pixel comparison and maintainer approval.",
+      "observation": "六配置语义色、选中、焦点和触控已复核。关闭图标绘制与Button透明触控命中层分别检查，保留紧凑外观。",
+      "images": [
+        {
+          "file": "states/rc-tag-dd1a73699e-matrix-default-1.png",
+          "sha256": "9df9f8d3acc4005c8b8fd3eef0f41e44b3bb27b0ce709e36d4b1d038ddc1d770"
+        },
+        {
+          "file": "states/rc-tag-dd1a73699e-matrix-selected-1.png",
+          "sha256": "0108f9bb9d0fd110ce04fe3b634e42e9b9774651c28766bae1f91940720d412b"
+        },
+        {
+          "file": "states/rc-tag-dd1a73699e-matrix-focus-visible-1.png",
+          "sha256": "41f09259af3f7a6f11709a888af3181ade15f0d20ccb855d51c3ad7eedb387a3"
+        },
+        {
+          "file": "states/rc-tag-dd1a73699e-environment-touch-1.png",
+          "sha256": "a6f104f323863e45dc5db4d91094f7501aa95641653ef45c5f09216c6e4db0fd"
+        }
+      ]
+    },
+    {
+      "package": "rc-config-provider",
+      "run": "audit-rc-config-provider-2026-11-01T13-38-09-010Z",
+      "scope": "Representative screenshots inspected by Codex with printed axes; automated coverage, input stability, maintainer approval and historical pixel comparison are recorded separately.",
+      "observation": "六配置继承、最近嵌套边界、品牌表面与系统颜色已复核。重新生成正确缩放的联系图，并用原图及实际浏览器确认内容没有裁切。",
+      "images": [
+        {
+          "file": "states/rc-config-provider-4387002071-environment-brand-1.png",
+          "sha256": "71c7d87c1a8253d5f9de4ba56bc1b7504ea263a147bf1740a986f8618366432d"
+        },
+        {
+          "file": "states/rc-config-provider-4387002071-environment-forced-colors-1.png",
+          "sha256": "1e0b62e5b3f2db13101c72da25520e888c85f447db530f459cafc220d1257606"
+        }
+      ]
+    },
+    {
+      "package": "rc-config-provider",
+      "run": "audit-preflight-config-2026-11-01T14-20-13-076Z",
+      "scope": "Representative screenshots inspected by Codex with printed axes; automated coverage, input stability, maintainer approval and historical pixel comparison are recorded separately.",
+      "observation": "六配置真实iframe与Shadow DOM的继承、样式覆盖、完整背景、输入草稿与有效焦点原图已逐张复核。",
+      "images": [
+        {
+          "file": "states/rc-config-provider-a42fa2b83e-00001-chromium.png",
+          "sha256": "4128ef256c74361ba3b48fdb45a17e91c401cbee9c65d6fc5830db8f2d4bdfe1"
+        },
+        {
+          "file": "states/rc-config-provider-a42fa2b83e-00004-chromium.png",
+          "sha256": "e04f8314bce60c1b000bcb25e4d80d1d3e4762434109fdd1cfb3d65686c2a670"
+        },
+        {
+          "file": "states/rc-config-provider-a42fa2b83e-00007-chromium.png",
+          "sha256": "6d625ad60497ab68532399d3e8361767846d85ae7dad725a2c817b08a6af6b76"
+        },
+        {
+          "file": "states/rc-config-provider-a42fa2b83e-00010-chromium.png",
+          "sha256": "da2886847551b1619bef86a6848d9e0e9488d9c1c76a2d655c705154ef64489b"
+        },
+        {
+          "file": "states/rc-config-provider-a42fa2b83e-00013-chromium.png",
+          "sha256": "2f855eb1908cd4ad7be379274e1ae5c5bed1449c7340e76d23a20be2babb80bc"
+        },
+        {
+          "file": "states/rc-config-provider-a42fa2b83e-00016-chromium.png",
+          "sha256": "985165dc45cf6631a03ef0454a4753e05c660f6066fa6ada2f53060949896c72"
+        }
+      ]
+    },
+    {
+      "package": "rc-theme",
+      "run": "audit-rc-theme-2026-11-01T14-26-17-353Z",
+      "scope": "Representative screenshots inspected by Codex with printed axes; automated coverage, input stability, maintainer approval and historical pixel comparison are recorded separately.",
+      "observation": "六配置内同时查看三体系显式浅色嵌套边界、各自几何与配对表面，另核对RTL输入。强制颜色的文字底板问题单独修正并补验，不把该范围记为已通过。",
+      "images": [
+        {
+          "file": "states/rc-theme-9c06c33df5-matrix-nested-1.png",
+          "sha256": "5ce0afee2a3ebedf9e7573c31343eb7ca35bb99bb47dff6d54d363d584a523f1"
+        },
+        {
+          "file": "states/rc-theme-9c06c33df5-environment-rtl-1.png",
+          "sha256": "c400112a4105ecda0ea2403e2858816b4b9fb9f52adf22a6b88424102c59430a"
+        }
+      ]
+    },
+    {
+      "package": "rc-token-global",
+      "run": "audit-rc-token-global-2026-11-01T13-46-02-854Z",
+      "scope": "Representative screenshots inspected by Codex with printed axes; automated coverage, input stability, maintainer approval and historical pixel comparison are recorded separately.",
+      "observation": "六配置L1原始色块、说明文字、RTL和窄屏已复核；基元本身不随控件尺寸或主题变换，示例文字与宿主主题一致。",
+      "images": [
+        {
+          "file": "states/rc-token-global-96b15c5e1e-environment-rtl-1.png",
+          "sha256": "102b896b0d230f332d9a81a5f9ac788db0a68c44611415ae299633f761862275"
+        },
+        {
+          "file": "states/rc-token-global-96b15c5e1e-environment-narrow-1.png",
+          "sha256": "25793ade568b649d852b15345059bba509cf96f2c6ea647220d412e8ca15b927"
+        }
+      ]
+    },
+    {
+      "package": "rc-token-semantic",
+      "run": "audit-rc-token-semantic-2026-11-01T13-48-39-344Z",
+      "scope": "Representative screenshots inspected by Codex with printed axes; automated coverage, input stability, maintainer approval and historical pixel comparison are recorded separately.",
+      "observation": "六配置品牌、成功、错误与焦点角色已复核；系统高对比度原图暴露的文字底板冲突另由新局部示例修正和新截图验收。",
+      "images": [
+        {
+          "file": "states/rc-token-semantic-b6a427d015-environment-brand-1.png",
+          "sha256": "bfb9ecc1c5c0612d5f799912fd719fd7e65856c7870c27b428fed98fd124a4c5"
+        }
+      ]
+    },
+    {
+      "package": "rc-component-preview",
+      "run": "audit-rc-component-preview-2026-11-01T18-41-02-776Z",
+      "scope": "Representative screenshots inspected by Codex with printed axes; automated coverage, input stability, maintainer approval and historical pixel comparison are recorded separately.",
+      "observation": "六配置暗色源码的语法、行号、滚动区焦点轮廓与复制失败反馈均已复核；浅色与暗色代码独立于外层主题，业务草稿保留。",
+      "images": [
+        {
+          "file": "states/rc-component-preview-2b3ccc6031-matrix-dark-source-focus-1.png",
+          "sha256": "0fc58df6372188f9347958c68f8d3ea9dad47ed04c61e55794ddcb7631097cef"
+        },
+        {
+          "file": "states/rc-component-preview-2b3ccc6031-matrix-copy-error-1.png",
+          "sha256": "3e42f1a4f137018022ae9bbdef86f287780420472ea7860deb3463dcd957fb51"
+        }
+      ]
+    },
+    {
+      "package": "rc-skeleton",
+      "run": "audit-rc-skeleton-2026-11-01T17-17-46-406Z",
+      "scope": "Representative screenshots inspected by Codex with printed axes; automated coverage, input stability, maintainer approval and historical pixel comparison are recorded separately.",
+      "observation": "六配置静态/自然帧骨架及圆形变体已查看。该图只记录装饰性占位，不作为文字对比度或最终缩放通过的替代证据；最新缩放另验。",
+      "images": [
+        {
+          "file": "states/rc-skeleton-2e2006619e-matrix-default-1.png",
+          "sha256": "9247c819ce1a71de59db32f45c2566daec0843c67b5930eb9c749cce79bb6949"
+        },
+        {
+          "file": "states/rc-skeleton-2e2006619e-matrix-round-1.png",
+          "sha256": "996d0ac402e514fc2973f7a8bc8f14febdffe4aed137fd6df722c9108020da0b"
+        }
+      ]
+    },
+    {
+      "package": "rc-text-edit",
+      "run": "audit-rc-text-edit-2026-11-01T21-07-36-096Z",
+      "scope": "Representative screenshots inspected by Codex with printed axes; automated coverage, input stability, maintainer approval and historical pixel comparison are recorded separately.",
+      "observation": "六配置描边/填充的错误、键盘焦点、只读外观已逐张复核；窄屏首行以真实字形边界及光标位置补验，不要求原生scrollTop精确为0。",
+      "images": [
+        {
+          "file": "states/rc-text-edit-47f97adb48-matrix-error-1.png",
+          "sha256": "e514bca77b01c6200d6fcb318357eb1bc45c067c0679dedfc428e098373983ff"
+        },
+        {
+          "file": "states/rc-text-edit-47f97adb48-matrix-error-2.png",
+          "sha256": "5d9bd67d0184a36afac53ddd0cc9321d4db37dfd8f2c78f11066ac3493872348"
+        },
+        {
+          "file": "states/rc-text-edit-47f97adb48-matrix-focus-visible-1.png",
+          "sha256": "1f6a687010834a9c0a7982f791868823c57a62e5c2df56d4c161f6f99c1b8982"
+        },
+        {
+          "file": "states/rc-text-edit-47f97adb48-matrix-focus-visible-2.png",
+          "sha256": "b63e3afa67aa2abb3f0e5bc5b6235ff4992b3803ebd68745a2e31b3bf62803ac"
+        },
+        {
+          "file": "states/rc-text-edit-47f97adb48-matrix-read-only-1.png",
+          "sha256": "4e3f119d9b1f7569ea331238770fdd9dcc391f15cd5dd0577da455df5aac04f3"
+        },
+        {
+          "file": "states/rc-text-edit-47f97adb48-matrix-read-only-2.png",
+          "sha256": "9d0053b69600808de15dab07a437f9fdb145069faa5e1e3b1ddd4b05879efa72"
+        }
+      ]
+    },
+    {
+      "package": "rc-slider",
+      "run": "audit-rc-slider-2026-11-01T21-08-57-425Z",
+      "scope": "Representative screenshots inspected by Codex with printed axes; automated coverage, input stability, maintainer approval and historical pixel comparison are recorded separately.",
+      "observation": "结合前轮五档精度原图复核，查看科学计数法1e-7与XS至XL尺寸的轨道、拇指、刻度和焦点。449项完整冻结检查通过。",
+      "images": [
+        {
+          "file": "states/rc-slider-d466399a3f-matrix-scientific-1.png",
+          "sha256": "d3e3017ac69990094d2df2a4676998ef8037d8123c9043977fdb2be742d9c14b"
+        },
+        {
+          "file": "states/rc-slider-d466399a3f-matrix-scientific-5.png",
+          "sha256": "dd35cf155f8094227ccbf549125128db08e89e0b2150842ffb0ee359e4ca730f"
+        }
+      ]
+    },
+    {
+      "package": "rc-table-pro",
+      "run": "audit-final-table-pro-search-pagination-2026-11-01T23-25-46-507Z",
+      "scope": "Every representative state/environment sheet in this run was inspected by Codex. Complete automated matrices, source hashes and original axes remain separate from historical pixel comparison and maintainer approval.",
+      "observation": "完整1071项通过。代表尺寸的全部状态和环境联系图已逐张查看：搜索、分页、编辑提交/取消、选择、侧栏、空态、错误、刷新恢复、滚动、320/768/桌面、触控、RTL、品牌、系统颜色、减少动画及真实200%缩放。布局与层次无新增问题；不以代表尺寸人工复核冒充所有像素基线批准。",
+      "images": [
+        {
+          "file": "states/rc-table-pro-37ffc8a1d9-environment-brand-1.png",
+          "sha256": "6db17368721a1f9d26375abb6d2f7a932b32afa335e89120c8712d32b4c2ef81"
+        },
+        {
+          "file": "states/rc-table-pro-37ffc8a1d9-environment-desktop-1.png",
+          "sha256": "88123ddb3083403eec576330775f23f03efe6ba9cf7aee1a4827c6c7a33a530e"
+        },
+        {
+          "file": "states/rc-table-pro-37ffc8a1d9-environment-english-1.png",
+          "sha256": "b2485f9468fc149eb39c08068c356cf99b6d58e081df33f6cd4f334bf1025a82"
+        },
+        {
+          "file": "states/rc-table-pro-37ffc8a1d9-environment-forced-colors-1.png",
+          "sha256": "2d352c430a219d1045de61417c2c0154ee86f6bc2b7f9eef7a40056187a1dd57"
+        },
+        {
+          "file": "states/rc-table-pro-37ffc8a1d9-environment-landscape-1.png",
+          "sha256": "f3c8b4a96fd97877a4a613bbfa8182a1bf2e745daafe0aaad3a6d7cd4014c094"
+        },
+        {
+          "file": "states/rc-table-pro-37ffc8a1d9-environment-narrow-1.png",
+          "sha256": "7f39fc6139e0e1694b1ff6b2899141776b1c4dbec4314215a781eedecc996464"
+        },
+        {
+          "file": "states/rc-table-pro-37ffc8a1d9-environment-reduced-motion-1.png",
+          "sha256": "0af9c95af7514a15315f0b0cf4ef2439dd6840ebd8c7ef5fb284c7e22d01a408"
+        },
+        {
+          "file": "states/rc-table-pro-37ffc8a1d9-environment-rtl-1.png",
+          "sha256": "ed8b236d360f51bc1f8796f557b287fa539b467f89e60cdbaa9641b6bf73a078"
+        },
+        {
+          "file": "states/rc-table-pro-37ffc8a1d9-environment-tablet-1.png",
+          "sha256": "2fcc72d6b7c8508fdcdb20c12b0f9c9d253886d4172f3b844e04aa6c904f4a2c"
+        },
+        {
+          "file": "states/rc-table-pro-37ffc8a1d9-environment-touch-1.png",
+          "sha256": "dbaa15c8896246f436725a3aec465749b830703ab4c6c45f6f8f48138b9506bb"
+        },
+        {
+          "file": "states/rc-table-pro-37ffc8a1d9-environment-zoom-200-1.png",
+          "sha256": "c7efb2dfb890f504245f3292fb00465b529355f3ddd86048725f18d736a4077a"
+        },
+        {
+          "file": "states/rc-table-pro-37ffc8a1d9-environment-zoom-200-2.png",
+          "sha256": "0c88557562dba7f8c153050e8b2dcb1a1bc3e87820292927ab87279f1475a2c4"
+        },
+        {
+          "file": "states/rc-table-pro-37ffc8a1d9-matrix-columns-error-1.png",
+          "sha256": "2d19d8dd01a5de8d326aa6f9e154b2b5115e441c1324d49fda62f1ab449d26dd"
+        },
+        {
+          "file": "states/rc-table-pro-37ffc8a1d9-matrix-default-1.png",
+          "sha256": "6a33eb9a26caf3758c9e2ef480d1d664cda56d087881ad8d9bcd47bc3164e3ea"
+        },
+        {
+          "file": "states/rc-table-pro-37ffc8a1d9-matrix-edit-cancelled-1.png",
+          "sha256": "61cb9d70229cf855dbdfeb83f71a21cbfbbbde256a31dcf618e7e55ab4a9475d"
+        },
+        {
+          "file": "states/rc-table-pro-37ffc8a1d9-matrix-edit-committed-1.png",
+          "sha256": "c3735384a4b131868d403307766915e8ce6d863a9be54cdec3a50d0aaffaa858"
+        },
+        {
+          "file": "states/rc-table-pro-37ffc8a1d9-matrix-editing-1.png",
+          "sha256": "b5b172cbcfb5fcafc2891aceed719679ad9402d07f6b3d406140a39f8dd348dd"
+        },
+        {
+          "file": "states/rc-table-pro-37ffc8a1d9-matrix-empty-1.png",
+          "sha256": "07156d06a9298968eb02d7da9a6d1515105c8d25c43129e101135b1d0a65db71"
+        },
+        {
+          "file": "states/rc-table-pro-37ffc8a1d9-matrix-error-1.png",
+          "sha256": "e1278521f418f8886b317176aeebc696b2847d6145d6883cdcee3d8fd83299ae"
+        },
+        {
+          "file": "states/rc-table-pro-37ffc8a1d9-matrix-focus-visible-1.png",
+          "sha256": "8b659cfa7a7a3da81a1cbfe1c1960385382b3597702ccfca37d6de3980fc9356"
+        },
+        {
+          "file": "states/rc-table-pro-37ffc8a1d9-matrix-loading-1.png",
+          "sha256": "525b2054dc142a4ece8941d848e6c085a48fda7c5dc8e28960640361ca2471a0"
+        },
+        {
+          "file": "states/rc-table-pro-37ffc8a1d9-matrix-loading-2.png",
+          "sha256": "a04fd6af136de5dfece5306742110adfe8ecfc740923645eef1935ee4e9203ed"
+        },
+        {
+          "file": "states/rc-table-pro-37ffc8a1d9-matrix-refresh-error-1.png",
+          "sha256": "7a78fbd40740d1afac9e1ee47fd821373e07642ddf6d138eb3c19383445a3de3"
+        },
+        {
+          "file": "states/rc-table-pro-37ffc8a1d9-matrix-refresh-recovered-1.png",
+          "sha256": "067c1e1577a232813f834e88da9ae5515f481b4e3d5b81e7dd9e829980864701"
+        },
+        {
+          "file": "states/rc-table-pro-37ffc8a1d9-matrix-refreshed-1.png",
+          "sha256": "f1d1854249429643c560de1c691643659b1f24ede61b805bed3f8e6fbd3b20ae"
+        },
+        {
+          "file": "states/rc-table-pro-37ffc8a1d9-matrix-refreshing-1.png",
+          "sha256": "c74226bb7fc37b244d8618c393a80a205b1a3d5dec3e1893354843d61e93fac6"
+        },
+        {
+          "file": "states/rc-table-pro-37ffc8a1d9-matrix-refreshing-2.png",
+          "sha256": "1d1969e700b4e39b87c72ed42e056f0590c40e90b66807f6c7f73b6ef5a7f16e"
+        },
+        {
+          "file": "states/rc-table-pro-37ffc8a1d9-matrix-scrolled-1.png",
+          "sha256": "9c2d3eb95d5d98d071e3cce85d2312e27f2930f41c66b896f8c547cb4956a720"
+        },
+        {
+          "file": "states/rc-table-pro-37ffc8a1d9-matrix-selected-1.png",
+          "sha256": "3ef1b9e3c0f8f016243df7235472b144c487aff99e4f2244a0c835ebeff4dea3"
+        },
+        {
+          "file": "states/rc-table-pro-37ffc8a1d9-matrix-sidebar-1.png",
+          "sha256": "70b1aef360f20c87e4f2c8aaceb256f84cb952e2c3e5cde82494ca42095ce75e"
+        }
+      ]
+    },
+    {
+      "package": "rc-theme",
+      "run": "audit-final-theme-system-palette-2026-11-01T23-59-26-998Z",
+      "scope": "Every representative state/environment sheet in this run was inspected by Codex. Complete automated matrices, source hashes and original axes remain separate from historical pixel comparison and maintainer approval.",
+      "observation": "已复核修正后的六配置系统色截图：Highlight / HighlightText 品牌容器不再被文字背板擦除，草稿和焦点仍可见。",
+      "images": [
+        {
+          "file": "states/rc-theme-1187a580b9-environment-forced-colors-1.png",
+          "sha256": "a900810aecc124f5967c8c68e4c0bcd6569d9a2f610e98db5e9b062dce8cf059"
+        }
+      ]
+    },
+    {
+      "package": "rc-token-semantic",
+      "run": "audit-final-semantic-system-palette-2026-11-02T00-01-17-687Z",
+      "scope": "Every representative state/environment sheet in this run was inspected by Codex. Complete automated matrices, source hashes and original axes remain separate from historical pixel comparison and maintainer approval.",
+      "observation": "已复核修正后的六配置系统色截图：品牌文字与背景配对，错误、成功和焦点在系统色下仍清楚。",
+      "images": [
+        {
+          "file": "states/rc-token-semantic-f0571feae0-environment-forced-colors-1.png",
+          "sha256": "36d3c45a2096ec21aaabb077461781c998bcbb58c0d84a0960d86091df87396d"
+        }
+      ]
+    },
+    {
+      "package": "rc-table",
+      "run": "audit-rc-table-2026-11-01T22-42-43-004Z",
+      "scope": "Representative six-configuration screenshots inspected by Codex; complete automated case coverage, historical baseline comparison and maintainer approval are recorded separately.",
+      "observation": "已复核六配置编辑、展开、选择、空态、悬停、焦点、虚拟滚动、窄屏、触控、RTL与系统颜色。原完整运行579通过、6缩放操作失败；独立新构建的六项真实缩放已通过，保留原始失败。",
+      "images": [
+        {
+          "file": "states/rc-table-aa3153c4d2-matrix-default-1.png",
+          "sha256": "d7318b7ab6960ad7ed709f936be235ad5296bf1adc9ced2252aa7ea9b5fd3e02"
+        },
+        {
+          "file": "states/rc-table-aa3153c4d2-matrix-editing-1.png",
+          "sha256": "b8be96743cb3543744671a4a37c08f4f94322e2157e8426bd62a969c2e738408"
+        },
+        {
+          "file": "states/rc-table-aa3153c4d2-matrix-expanded-1.png",
+          "sha256": "ca5a7d47703eb7516c09dda01b2a8c8685eee3654b60128331f87bea01b05381"
+        },
+        {
+          "file": "states/rc-table-aa3153c4d2-matrix-selected-1.png",
+          "sha256": "3018f42604d60fa273b8243db18596eed33723a38e27f271228ae160564730b6"
+        },
+        {
+          "file": "states/rc-table-aa3153c4d2-matrix-focus-visible-1.png",
+          "sha256": "96ca1d48b30d14ebb7c5f1a967f70d56a39db7035ed63e55fcc986e205c30abb"
+        },
+        {
+          "file": "states/rc-table-aa3153c4d2-matrix-empty-1.png",
+          "sha256": "b6df987dc3cb9d948fed235566ce62a26466b5bf26f66915e1d7fc22ae76bbae"
+        },
+        {
+          "file": "states/rc-table-aa3153c4d2-matrix-hover-1.png",
+          "sha256": "9783b0ff163fbcb26efa78ef9471e9e86fe64f216d3c108f459446cd4dd5d759"
+        },
+        {
+          "file": "states/rc-table-aa3153c4d2-matrix-scrolled-1.png",
+          "sha256": "1d2fefde1257d1dbc8ef601f6542ba4a590af9b98f82743ca0acfe8b3f34f4fb"
+        },
+        {
+          "file": "states/rc-table-aa3153c4d2-environment-narrow-1.png",
+          "sha256": "536e9462209d97ca41f03ec919a2bba0d0551b6972020d5bd4bab6f132215888"
+        },
+        {
+          "file": "states/rc-table-aa3153c4d2-environment-touch-1.png",
+          "sha256": "2e4cf30af31ddafa1ab074657866cfc331dde627152c87029060241fc4a0413f"
+        },
+        {
+          "file": "states/rc-table-aa3153c4d2-environment-rtl-1.png",
+          "sha256": "d534ff80f6c8afad9fbbc1786faa2f2903843c7ccbf9110f4a7cc265a7bce287"
+        },
+        {
+          "file": "states/rc-table-aa3153c4d2-environment-forced-colors-1.png",
+          "sha256": "b327268e57bc334c89d0730ca22294d153e2095848ab54f438f58d212a08cc43"
+        }
+      ]
+    },
+    {
+      "package": "rc-number-edit",
+      "run": "audit-final-number-edit-2026-11-01T23-25-14-142Z",
+      "scope": "Representative six-configuration screenshots inspected by Codex; complete automated case coverage, historical baseline comparison and maintainer approval are recorded separately.",
+      "observation": "最新标签修正后的六配置窄屏、RTL与焦点已复核；MD3标签不再压住单位，完整可访问名称保留。567通过、10个无边框标签测量误判已由独立30项三引擎补验覆盖。",
+      "images": [
+        {
+          "file": "states/rc-number-edit-a99cc52fd6-environment-narrow-1.png",
+          "sha256": "1a8b3419e61f378c52041e61b58d12235473ffedd99aa5c59f2c3721c67c1188"
+        },
+        {
+          "file": "states/rc-number-edit-a99cc52fd6-environment-narrow-2.png",
+          "sha256": "64461505c28ccbf56deb5fb3eb1b56505d495b812d20932652c10729336a3cde"
+        },
+        {
+          "file": "states/rc-number-edit-a99cc52fd6-environment-rtl-1.png",
+          "sha256": "b169455ff89c7adcb07bb21e1da0634193faddb2234c6e0b1819071ed54d4afd"
+        },
+        {
+          "file": "states/rc-number-edit-a99cc52fd6-environment-rtl-2.png",
+          "sha256": "f1199ae9173d5fa2a788bf080a0bd2e530ce5c7fb8f49bad3366479822cfecc9"
+        },
+        {
+          "file": "states/rc-number-edit-a99cc52fd6-matrix-focus-visible-1.png",
+          "sha256": "7a52af05ccc777b092e736c582f4f7dde4c60c257af5a94bf3d47f2293c971b7"
+        },
+        {
+          "file": "states/rc-number-edit-a99cc52fd6-matrix-focus-visible-2.png",
+          "sha256": "87e938dcdf28e3da3c22a3dc41841918dc9357eadcf8a29b6702db4142b4ba23"
+        }
+      ]
+    },
+    {
+      "package": "rc-number-edit",
+      "run": "audit-final-number-edit-borderless-2026-11-02T00-10-09-130Z",
+      "scope": "Representative six-configuration screenshots inspected by Codex; complete automated case coverage, historical baseline comparison and maintainer approval are recorded separately.",
+      "observation": "无边框上置标签与内部浮动标签分别测量；三引擎30项通过，六配置清除、单位、步进和焦点原图已查看。",
+      "images": [
+        {
+          "file": "states/rc-number-edit-5d24d15d21-matrix-borderless-focus-1.png",
+          "sha256": "4ece5c650d9723a5bbd66c0ef7a265ef9013b16ae27d29252fa769fbaa965965"
+        },
+        {
+          "file": "states/rc-number-edit-5d24d15d21-matrix-borderless-focus-2.png",
+          "sha256": "d4fa5acc33ba9a48b9fae2e31f9d73b425d1ecd512b36d34981f4bfceaac0f3a"
+        }
+      ]
+    },
+    {
+      "package": "rc-line-edit",
+      "run": "audit-final-line-edit-borderless-2026-11-02T00-03-38-641Z",
+      "scope": "Representative six-configuration screenshots inspected by Codex; complete automated case coverage, historical baseline comparison and maintainer approval are recorded separately.",
+      "observation": "三引擎30项通过；六配置无边框标签、清除按钮及焦点原图已查看。此范围使用相同继承方向，不代表混合原生dir的附加浏览器回归。",
+      "images": [
+        {
+          "file": "states/rc-line-edit-d7a0f4caf0-matrix-borderless-focus-1.png",
+          "sha256": "1df3cbc73fb008c94d73c45c5985b62da2552bb4e93dcad8906821469d5b06dd"
+        },
+        {
+          "file": "states/rc-line-edit-d7a0f4caf0-matrix-borderless-focus-2.png",
+          "sha256": "2004ab58e8a32e481b12f93fa9d3e916559d957112bcd54154db0311063ccf73"
+        }
+      ]
+    },
+    {
+      "package": "rc-app-main-layout",
+      "run": "audit-rc-app-main-layout-2026-11-01T17-33-52-467Z",
+      "scope": "Representative six-configuration screenshots inspected by Codex; complete automated case coverage, historical baseline comparison and maintainer approval are recorded separately.",
+      "observation": "已复核六配置账户菜单、导航折叠、焦点、窄屏和RTL；MD3空值显示标签，Apple/shadcn显示外置标签与占位，并非草稿丢失。原完整398通过、一项缩放失败；后续六项实际缩放通过。",
+      "images": [
+        {
+          "file": "states/rc-app-main-layout-5e1d986cb0-matrix-default-1.png",
+          "sha256": "cedd79da7ef78ee40a4a952130bc97abc191d9b37e59c1fb97be45e3a81c5e46"
+        },
+        {
+          "file": "states/rc-app-main-layout-5e1d986cb0-matrix-account-1.png",
+          "sha256": "2bf0dd80dffd37f0b75ff3a554feca8f7a0d0015310a0f5535b819a752bd77f0"
+        },
+        {
+          "file": "states/rc-app-main-layout-5e1d986cb0-matrix-collapsed-1.png",
+          "sha256": "475528d1e740c6e247bca5e8358d0b128639f7689164b10e5e0cc35f7f918d03"
+        },
+        {
+          "file": "states/rc-app-main-layout-5e1d986cb0-matrix-focus-visible-1.png",
+          "sha256": "7619862d93dbca6b695fa0af3943594942680b68190fa13c8a0a2a9d8da5ca20"
+        },
+        {
+          "file": "states/rc-app-main-layout-5e1d986cb0-environment-narrow-1.png",
+          "sha256": "68fc5f56a0cda718f61a589c13ab143549c72667dc424165ebe713f1184d4d76"
+        },
+        {
+          "file": "states/rc-app-main-layout-5e1d986cb0-environment-rtl-1.png",
+          "sha256": "169f9386126f1941f6d1861aeef05c3ae497013bfce44bf44ba35e9e7ace4976"
+        }
+      ]
+    },
+    {
+      "package": "rc-tree",
+      "run": "audit-rc-tree-2026-11-02T00-24-02-319Z",
+      "scope": "Explicitly listed representative screenshots inspected by Codex. Full automated matrices and source/artifact hashes are separate from historical pixel comparison and maintainer approval.",
+      "observation": "705项完整矩阵通过。六配置节点层级、复选/选中分离、内联草稿、焦点、折叠、空树、自然加载帧、虚拟滚动、窄屏、RTL、系统颜色与触控已复核。保留各体系形状和原生编辑焦点，没有新增视觉缺陷。",
+      "images": [
+        {
+          "file": "states/rc-tree-f53996d143-matrix-default-1.png",
+          "sha256": "adea9db5ff1c2daca77da7b80cd83e1b9b05de61153601cf4633531704a5f282"
+        },
+        {
+          "file": "states/rc-tree-f53996d143-matrix-editing-1.png",
+          "sha256": "6c1c60a72b131c82ca5d96e8873e730e7ad51615c2a836386b3dad51f124f70a"
+        },
+        {
+          "file": "states/rc-tree-f53996d143-matrix-checked-1.png",
+          "sha256": "4f576dd003846aaa14801055cc4996b01c57f708d209bbc005186e1dcb20340c"
+        },
+        {
+          "file": "states/rc-tree-f53996d143-matrix-selected-1.png",
+          "sha256": "57758f7728d288e68c9c23283c836d8a146a32423921d16c6543d9a37042576e"
+        },
+        {
+          "file": "states/rc-tree-f53996d143-matrix-focus-visible-1.png",
+          "sha256": "0f2997433b4a442d430a36ef26a68a804991aea5acb139e645649179fa22d8df"
+        },
+        {
+          "file": "states/rc-tree-f53996d143-matrix-collapsed-1.png",
+          "sha256": "0344c176486cc25d7bb66cded138c38fa01fd19c92d1a516a174df9c3420f5a7"
+        },
+        {
+          "file": "states/rc-tree-f53996d143-matrix-empty-1.png",
+          "sha256": "a1dc058a327d4640909a9e0adbfa072ebd12133c6fa9fb7f3d0d1419b396dbd9"
+        },
+        {
+          "file": "states/rc-tree-f53996d143-matrix-loading-1.png",
+          "sha256": "750e5b3370780da96dd9588ae62a27323e6136e8e45ee1ea0d35e1a45bb661ea"
+        },
+        {
+          "file": "states/rc-tree-f53996d143-matrix-loading-2.png",
+          "sha256": "38ba14c31f3caced0f85e5b22fbcd0313d2bd605b0568472dd0d3726f63e7b13"
+        },
+        {
+          "file": "states/rc-tree-f53996d143-matrix-scrolled-1.png",
+          "sha256": "ae364e9e788807957629f842cef81ec2a451c0cc67c69a8cde85258b6b447f19"
+        },
+        {
+          "file": "states/rc-tree-f53996d143-environment-narrow-1.png",
+          "sha256": "7f4c79d3a98c2caeb55c69e6c93ff5a635c9d7d72154f38de1f935916c7bf1a1"
+        },
+        {
+          "file": "states/rc-tree-f53996d143-environment-rtl-1.png",
+          "sha256": "ce277114d431e52766695aa10fef1f5fa616600303ae0f1e9eeaa4a53a39be52"
+        },
+        {
+          "file": "states/rc-tree-f53996d143-environment-forced-colors-1.png",
+          "sha256": "b51e3042ffcb3604a2ee892abd379c5fc07e849b541bb395f5b33f0af6b9c6eb"
+        },
+        {
+          "file": "states/rc-tree-f53996d143-environment-touch-1.png",
+          "sha256": "1c928ffe9e6f627c3c727721b68330780194a27d705235d34e58daaf7a31ff09"
+        }
+      ]
+    },
+    {
+      "package": "rc-realm",
+      "run": "audit-rc-realm-2026-11-02T00-21-43-603Z",
+      "scope": "Explicitly listed representative screenshots inspected by Codex. Full automated matrices and source/artifact hashes are separate from historical pixel comparison and maintainer approval.",
+      "observation": "408项完整矩阵通过。六配置远程内容、错误重试、输入焦点、Shadow隔离、真实var/module独立元素、自然加载帧、窄屏/触控、RTL、系统颜色和200%缩放已查看。宿主不覆盖远程自有内容的形状，公开配置与草稿保留另有真实网络断言。",
+      "images": [
+        {
+          "file": "states/rc-realm-5e6c4622a0-matrix-default-1.png",
+          "sha256": "35ed3de987ae5de5a637cc5e8181ca251f4b7b6d9cb529e32760dcf019d769f9"
+        },
+        {
+          "file": "states/rc-realm-5e6c4622a0-matrix-error-1.png",
+          "sha256": "f606dd0023f759d38f00e481916d1f16351334e2f4877bb9c52a85c5b0a5be80"
+        },
+        {
+          "file": "states/rc-realm-5e6c4622a0-matrix-focus-visible-1.png",
+          "sha256": "37bba6aad7309a110a70acfbdbcce5af3934d89a99412cdaec51884fed6f4797"
+        },
+        {
+          "file": "states/rc-realm-5e6c4622a0-matrix-sandbox-1.png",
+          "sha256": "16d02bf3d35cd86f17f32d130ab08ba972c26ae7808cb56bb1f115643f000a0c"
+        },
+        {
+          "file": "states/rc-realm-5e6c4622a0-matrix-web-component-module-1.png",
+          "sha256": "351e30545ac65b4d2846b4a6d7843d6389079c1e2349d46f52b42f13d4354e3f"
+        },
+        {
+          "file": "states/rc-realm-5e6c4622a0-matrix-web-component-var-1.png",
+          "sha256": "351e30545ac65b4d2846b4a6d7843d6389079c1e2349d46f52b42f13d4354e3f"
+        },
+        {
+          "file": "states/rc-realm-5e6c4622a0-matrix-loading-1.png",
+          "sha256": "511290d085becccee0621e4ba95b1b19b12baa490d54d64f2baf90c4f706f0b1"
+        },
+        {
+          "file": "states/rc-realm-5e6c4622a0-matrix-loading-2.png",
+          "sha256": "a66e7bebe85f7ba14fd5243e891ca52cea4c5dc4950aa5030db11f7d016f0a45"
+        },
+        {
+          "file": "states/rc-realm-5e6c4622a0-matrix-loading-3.png",
+          "sha256": "1f2cff8c0a219e2c424322d939397440aab6471dc297bc58298e56f0594b7ceb"
+        },
+        {
+          "file": "states/rc-realm-5e6c4622a0-environment-narrow-1.png",
+          "sha256": "60c6b8edfab6c2ea71666f50998d9a8b6a4e1ce1409187c8153b084b926dd978"
+        },
+        {
+          "file": "states/rc-realm-5e6c4622a0-environment-touch-1.png",
+          "sha256": "384288d3806882adb085d026f1688f82e49c5cab09588b6ca59cf62798185013"
+        },
+        {
+          "file": "states/rc-realm-5e6c4622a0-environment-rtl-1.png",
+          "sha256": "1bc1282c5ec86a82e487973f06f1022db6850a160265b9a4fab92fef4590f464"
+        },
+        {
+          "file": "states/rc-realm-5e6c4622a0-environment-forced-colors-1.png",
+          "sha256": "2ab959ffd533db3de48477f4604e4206140f347f3c4003aedf1428209e479c07"
+        },
+        {
+          "file": "states/rc-realm-5e6c4622a0-environment-zoom-200-1.png",
+          "sha256": "3f242151b151be93480c60c08b484e686aac66be75b59a14b8fe11d47e7ce437"
+        },
+        {
+          "file": "states/rc-realm-5e6c4622a0-environment-zoom-200-2.png",
+          "sha256": "504f4a2476e3f8a220300861ad970049c24f2f7e4728815eca876c15d477f077"
+        },
+        {
+          "file": "states/rc-realm-5e6c4622a0-environment-zoom-200-3.png",
+          "sha256": "5ad417ada6b959931caa1e27f8237bf780f2b29551d1bc033bc668efa88e05c2"
+        },
+        {
+          "file": "states/rc-realm-5e6c4622a0-environment-zoom-200-4.png",
+          "sha256": "25f3a466f3d7d0805aa6eafe56b252b1a925310d237f437fea78dd7f1c85d446"
+        },
+        {
+          "file": "states/rc-realm-5e6c4622a0-environment-zoom-200-5.png",
+          "sha256": "370d9bf3906b10758279556c293e4cb687546b8a13af3a52cca312184fc8378b"
+        }
+      ]
+    },
+    {
+      "package": "rc-pdf-editor",
+      "run": "audit-rc-pdf-editor-2026-11-01T21-49-17-156Z",
+      "scope": "Explicitly listed representative screenshots inspected by Codex. Full automated matrices and source/artifact hashes are separate from historical pixel comparison and maintainer approval.",
+      "observation": "旧冻结矩阵的六配置工作区、真实纸张、旋转、选择工具、面板、错误保留文档、空态、权限、焦点、滚动、自然加载帧、窄屏、系统颜色与RTL已查看。此轮人工复核发现MD3未选缩略图在系统颜色下出现胶囊描边；焦点/缩略图修正后的新构建与专业域另行记录，不把旧失败运行标为通过。",
+      "images": [
+        {
+          "file": "states/rc-pdf-editor-a88f67a722-matrix-default-1.png",
+          "sha256": "9c5ebcfdc8bb3bf9493bb560301aad462fd903e380a080d6d924d51010968192"
+        },
+        {
+          "file": "states/rc-pdf-editor-a88f67a722-matrix-edited-1.png",
+          "sha256": "44122b47d6519541bfc534a6fda52b0c6fc28668cee429abbfa1df2bc3eb1824"
+        },
+        {
+          "file": "states/rc-pdf-editor-a88f67a722-matrix-selected-1.png",
+          "sha256": "2abda37dd58f6c1d55f872b8ca97f6c3b885d6aec155148c41a652ba8c98be75"
+        },
+        {
+          "file": "states/rc-pdf-editor-a88f67a722-matrix-expanded-1.png",
+          "sha256": "bbf96d65d97c01874c3bdcc456909e2e3c5879f9ec373e598646ad8a3a2b90f9"
+        },
+        {
+          "file": "states/rc-pdf-editor-a88f67a722-matrix-error-1.png",
+          "sha256": "a37c2a4322f7332b4992b4689669d7e40625f0577f866045b4132a4ed9db8767"
+        },
+        {
+          "file": "states/rc-pdf-editor-a88f67a722-matrix-empty-1.png",
+          "sha256": "b0f64723861f89bc34530299d93094156a4e2231790c99782496372fa0aacf97"
+        },
+        {
+          "file": "states/rc-pdf-editor-a88f67a722-matrix-disabled-1.png",
+          "sha256": "3e8517cf8996ad13ccffc3e4cd60fd046e132302a03854f9bf4555844ff60631"
+        },
+        {
+          "file": "states/rc-pdf-editor-a88f67a722-matrix-read-only-1.png",
+          "sha256": "e6ec4db73ddcd2a22e3719bb4509aab0187abd40548b3ab4a7b62f85a692d22a"
+        },
+        {
+          "file": "states/rc-pdf-editor-a88f67a722-matrix-focus-visible-1.png",
+          "sha256": "bef0c90e4035dc22bdbb032b43844d73d96dadd3aec7eb3d2eb60671bbef31fe"
+        },
+        {
+          "file": "states/rc-pdf-editor-a88f67a722-matrix-scroll-1.png",
+          "sha256": "83b727d70018f5d9a1317c89c57299e4d5f46d4d01693e75777756ba3b3c1738"
+        },
+        {
+          "file": "states/rc-pdf-editor-a88f67a722-matrix-loading-1.png",
+          "sha256": "f2c04f8ead421ee61d14e16b8150f5f591c3b54a81d5a611b8475dd06793731b"
+        },
+        {
+          "file": "states/rc-pdf-editor-a88f67a722-matrix-loading-2.png",
+          "sha256": "00589879c9ed05bcf8344b14a3167eb828c24ef64b7152ebcb5720f0bf397f19"
+        },
+        {
+          "file": "states/rc-pdf-editor-a88f67a722-matrix-loading-3.png",
+          "sha256": "6d036b8245d27b77e24f15bc1d9c7e8ff3ef633987fefefa49229d341ddc7848"
+        },
+        {
+          "file": "states/rc-pdf-editor-a88f67a722-environment-narrow-1.png",
+          "sha256": "56a2f309a03797951863b0148d4b1f06d492a053ac66d824280265a777448877"
+        },
+        {
+          "file": "states/rc-pdf-editor-a88f67a722-environment-forced-colors-1.png",
+          "sha256": "f46375d2bfb90b9c0c028f99610c03408447d3bd65d61603acf20112350cb460"
+        },
+        {
+          "file": "states/rc-pdf-editor-a88f67a722-environment-rtl-1.png",
+          "sha256": "7ff896223691ab15704a41bf104d79499e117f0f5987d4b7300499394fa7cfba"
+        }
+      ]
+    },
+    {
+      "package": "rc-tooltip",
+      "run": "audit-rc-tooltip-2026-11-02T00-44-50-795Z",
+      "scope": "All listed contact sheets actually inspected; complete automated coverage, historical failures and final targeted checks remain separate.",
+      "observation": "已逐张查看此目录的17张六配置状态/环境联系表：默认、悬停、焦点、箭头、长文本、320/768/1440、横屏、触控、RTL、品牌、强制颜色、减少动画和真实200%缩放。文本换行、弹层边界、可见焦点均协调；不增加组件主题补丁。旧运行的MD3深色长文本与Apple浅色缩放超时保留为失败，最终补验单独记录。",
+      "images": [
+        {
+          "file": "states/rc-tooltip-29b3e75856-environment-brand-1.png",
+          "sha256": "4b7c108b5b115bc5fb78ff261e677006e071e0c65b985b0f8380b1def14bc2fd"
+        },
+        {
+          "file": "states/rc-tooltip-29b3e75856-environment-desktop-1.png",
+          "sha256": "be652d4cc96cd841811a523a69cea9e75a3e2f696e2ecbc20d84e281c5817f7b"
+        },
+        {
+          "file": "states/rc-tooltip-29b3e75856-environment-english-1.png",
+          "sha256": "7daa1af5e51c8682a7acd0d9e885b19381cc5e206a5dd853c3687389426d0fbd"
+        },
+        {
+          "file": "states/rc-tooltip-29b3e75856-environment-forced-colors-1.png",
+          "sha256": "5c5bc3fce93ead3ef8e9bcbb02da685debe0a7f7ec936cf1bf2648a2910b860f"
+        },
+        {
+          "file": "states/rc-tooltip-29b3e75856-environment-landscape-1.png",
+          "sha256": "3937f8ea011798992a6dfd6224ec4f68fdf8af5292ee5b710ee92d34e2803e61"
+        },
+        {
+          "file": "states/rc-tooltip-29b3e75856-environment-narrow-1.png",
+          "sha256": "c928f86ebbb083594585f07df4b74a838a89177d53b6e88a997e9164934178a1"
+        },
+        {
+          "file": "states/rc-tooltip-29b3e75856-environment-reduced-motion-1.png",
+          "sha256": "a81f7db9316cb6fd87d6bdb03068187a0308f3bbde22621394cfee155ac8e895"
+        },
+        {
+          "file": "states/rc-tooltip-29b3e75856-environment-rtl-1.png",
+          "sha256": "263347498689fada84a3e8100d1b0ff8c66f728bb682fd4819a9c71fb8fa2ddd"
+        },
+        {
+          "file": "states/rc-tooltip-29b3e75856-environment-tablet-1.png",
+          "sha256": "0aa77046f80145c3f8a2b1337f5b769959ab9783c731928e643cfc280b389eb2"
+        },
+        {
+          "file": "states/rc-tooltip-29b3e75856-environment-touch-1.png",
+          "sha256": "3cc1df33f4f0bc89c7358a61d0f2ebdac689b7e867bfded975bcddc6dc554529"
+        },
+        {
+          "file": "states/rc-tooltip-29b3e75856-environment-zoom-200-1.png",
+          "sha256": "d99a5942e691c7f59e28c8f7413627db0ffed4ad7f6feac7a7c014454e5f0357"
+        },
+        {
+          "file": "states/rc-tooltip-29b3e75856-environment-zoom-200-2.png",
+          "sha256": "9f53cd7db2b16a246296d5494a3653e9cbe4aa91a2956cc393b153d780a8f61e"
+        },
+        {
+          "file": "states/rc-tooltip-29b3e75856-matrix-arrow-1.png",
+          "sha256": "ae2b4dabea09c8a5468ddb37e465b5cf10779035e46f502cdc629e756cb86cfd"
+        },
+        {
+          "file": "states/rc-tooltip-29b3e75856-matrix-default-1.png",
+          "sha256": "7968348cdb22b2b27131c8c09e843e0f71c513ef93f4c3b566b42232f52db521"
+        },
+        {
+          "file": "states/rc-tooltip-29b3e75856-matrix-focus-visible-1.png",
+          "sha256": "17c6797a0cc125f62b4bae886620d723ac47efc2c590589e91ab4d91561465f6"
+        },
+        {
+          "file": "states/rc-tooltip-29b3e75856-matrix-hover-1.png",
+          "sha256": "e09f483157353ca12ddc19e86680f698f443d1d9af3a4480d19f3740938f8e7a"
+        },
+        {
+          "file": "states/rc-tooltip-29b3e75856-matrix-long-text-1.png",
+          "sha256": "ffeb5336e3784b14a86f7ca999ac6e8511324254b47935e79573e30067ef98ba"
+        }
+      ]
+    },
+    {
+      "package": "rc-bar-chart",
+      "run": "audit-rc-bar-chart-2026-11-02T00-55-56-152Z",
+      "scope": "All listed contact sheets actually inspected; complete automated coverage, historical failures and final targeted checks remain separate.",
+      "observation": "已逐张查看此目录的21张六配置状态/环境联系表：正负值、横向、堆叠、空数据、悬停、键盘焦点、图例选择、刷新、320/768/1440、横屏、触控、RTL、品牌、强制颜色、减少动画和真实200%缩放。坐标、图例、提示、数据及焦点无新增视觉缺陷。三项自然动画旧检查的首张远程截图已晚于动画结束；改采自然rAF实际GPU帧，最终补验另记。",
+      "images": [
+        {
+          "file": "states/rc-bar-chart-c66dacd54c-environment-brand-1.png",
+          "sha256": "4599e4aba9c5427e91434af2a9dc6a5d0be23fcbda56c972ac74daa0784521ef"
+        },
+        {
+          "file": "states/rc-bar-chart-c66dacd54c-environment-desktop-1.png",
+          "sha256": "09356b6777d4060bdcfb1170a99d548bfe7e83c3c0e8d27581e81d27f4892a8c"
+        },
+        {
+          "file": "states/rc-bar-chart-c66dacd54c-environment-english-1.png",
+          "sha256": "3d314e482a796215f047f9247f6f092aa20f3e687bd01537ce1d21d6039c8666"
+        },
+        {
+          "file": "states/rc-bar-chart-c66dacd54c-environment-forced-colors-1.png",
+          "sha256": "95421f82527274314dc8d8ebd8d616ba4a2efe2a1b47238812fddbd72a7100d6"
+        },
+        {
+          "file": "states/rc-bar-chart-c66dacd54c-environment-landscape-1.png",
+          "sha256": "0e3ebb5d52c53e9e1b223dc5c515583fc0263cf63e910b57f96f94d0133403ee"
+        },
+        {
+          "file": "states/rc-bar-chart-c66dacd54c-environment-narrow-1.png",
+          "sha256": "42b8dc4091aae34717db5a4a15f1046d2b3fd66276f2914ffc15b69bd3c0d9b9"
+        },
+        {
+          "file": "states/rc-bar-chart-c66dacd54c-environment-reduced-motion-1.png",
+          "sha256": "00c59592c53794ede1493cbc13294023eb4e8fa27de52e283c102a45df45a0d4"
+        },
+        {
+          "file": "states/rc-bar-chart-c66dacd54c-environment-rtl-1.png",
+          "sha256": "c1992ef0e5be15d1c960cf602e8bd5c0368def91c8c6b2adbeac178e0c2135e6"
+        },
+        {
+          "file": "states/rc-bar-chart-c66dacd54c-environment-tablet-1.png",
+          "sha256": "a0ee9a6102b86017416c5c92ab7698cabc70d2991040d95b3c9df08bbfbe5cda"
+        },
+        {
+          "file": "states/rc-bar-chart-c66dacd54c-environment-touch-1.png",
+          "sha256": "082c001ce0cc0aba958c3afab76860bba169df6271256a33036319bd4c881209"
+        },
+        {
+          "file": "states/rc-bar-chart-c66dacd54c-environment-zoom-200-1.png",
+          "sha256": "b83b8d24477f918f6994c2f746e0c61dc54f4bfc0a08055419cbf35e49cb21dc"
+        },
+        {
+          "file": "states/rc-bar-chart-c66dacd54c-matrix-default-1.png",
+          "sha256": "68d68a34027d0270faf149c07637bcc4ebe5965599f7393b13b9fa5060951b93"
+        },
+        {
+          "file": "states/rc-bar-chart-c66dacd54c-matrix-empty-1.png",
+          "sha256": "ac7006fe229f9b2ac46a64addab6654b1bf0b9441f011f1e26df4a07f0d9ca68"
+        },
+        {
+          "file": "states/rc-bar-chart-c66dacd54c-matrix-focus-visible-1.png",
+          "sha256": "9e0b918f21afbb06c5d0234a9ed524cec9b8a33cb9a565a7d5c471b89e1a3dc8"
+        },
+        {
+          "file": "states/rc-bar-chart-c66dacd54c-matrix-horizontal-1.png",
+          "sha256": "23c99ed965fe81775383bc6e9c76769a05a10d332751a512b0b432db42c0705a"
+        },
+        {
+          "file": "states/rc-bar-chart-c66dacd54c-matrix-hover-1.png",
+          "sha256": "7e2ad17f638e18bee1ee60e4bde2103107920be483f624f2314b4ad3490c3765"
+        },
+        {
+          "file": "states/rc-bar-chart-c66dacd54c-matrix-negative-1.png",
+          "sha256": "f978fa07bc712c7d8a7b68bed59f54082d862bbd11e63895486c8cb840e8530f"
+        },
+        {
+          "file": "states/rc-bar-chart-c66dacd54c-matrix-pressed-1.png",
+          "sha256": "d7680c82cfcf4204aaa22cc1c1e13dfbf4d3a23daf012d6fe984fc5ee2625c90"
+        },
+        {
+          "file": "states/rc-bar-chart-c66dacd54c-matrix-refresh-1.png",
+          "sha256": "f33e365708ed627fd5b0e0ea531b71fdc051d864a5d0b43644b8c905516abb0d"
+        },
+        {
+          "file": "states/rc-bar-chart-c66dacd54c-matrix-selected-1.png",
+          "sha256": "31fa20693e2983c530ee96085e9eafb324fc7b3eb1a5c21f86c9baf14e046a52"
+        },
+        {
+          "file": "states/rc-bar-chart-c66dacd54c-matrix-stacked-1.png",
+          "sha256": "9dc9153e213ddf5daee9aa13524d6748a4d5bb91e47d33b042f00065971bdfc5"
+        }
+      ]
+    },
+    {
+      "package": "rc-canvas",
+      "run": "audit-final-canvas-realm-and-state-matrix-2026-11-02T02-22-46-873Z",
+      "scope": "Only these explicitly viewed screenshots are recorded as manual review. Automated matrices, current follow-ups and historical pixel comparison remain separate.",
+      "observation": "已逐张查看21张六配置联系图：10种状态及11种环境，包含修正后的编辑草稿、提交/取消、选中、拖动、恢复、焦点、流动、320/768/1440、横屏、触控、RTL、品牌、强制颜色、减少动画与真实200%缩放。草稿文本不再裁切，选择与焦点状态可辨；独立多行编辑与原生滚动补验另记。Canvas为坐标工作区，窄屏由局部滚动显示余下内容。",
+      "images": [
+        {
+          "file": "states/rc-canvas-8e362911e1-environment-brand-1.png",
+          "sha256": "726207cce79b1ff5de3ea0fda743c243e288719afa387786e0e71c29a61a668e"
+        },
+        {
+          "file": "states/rc-canvas-8e362911e1-environment-desktop-1.png",
+          "sha256": "e6665669e1c19dd794bc205913b997801f0c734c48eaf850b64fbbc83f6b2d2c"
+        },
+        {
+          "file": "states/rc-canvas-8e362911e1-environment-english-1.png",
+          "sha256": "ce122d88e7311c720eeab4966c9fcda42eabb49759cce21b04bf5abf2368f109"
+        },
+        {
+          "file": "states/rc-canvas-8e362911e1-environment-forced-colors-1.png",
+          "sha256": "eb146abcf710c1438bfeb0e87f6c691860656baff9b667f4a60e5888047ebdc2"
+        },
+        {
+          "file": "states/rc-canvas-8e362911e1-environment-landscape-1.png",
+          "sha256": "c807fb9e1ed8285ef3970090769c3adb374340fd1d23ee4bb736f67b52c1e03a"
+        },
+        {
+          "file": "states/rc-canvas-8e362911e1-environment-narrow-1.png",
+          "sha256": "6d923f3687cb613f26e207c3f6fd2cbc81ccdbeba61f5922554d937e925137d1"
+        },
+        {
+          "file": "states/rc-canvas-8e362911e1-environment-reduced-motion-1.png",
+          "sha256": "436e772ae15fadf9a0070fc0eedfd1ed12f52ef8c22793556116ab20d5da9576"
+        },
+        {
+          "file": "states/rc-canvas-8e362911e1-environment-rtl-1.png",
+          "sha256": "3b9aed6ab1e9442c80c3660b2c5e8a90f7470a07a9a1f36c769af5f8d0970ed3"
+        },
+        {
+          "file": "states/rc-canvas-8e362911e1-environment-tablet-1.png",
+          "sha256": "1db0d6e3b7c03ff0d312a88595828bf7c65049f14b18df38fbeff8bad7cb894c"
+        },
+        {
+          "file": "states/rc-canvas-8e362911e1-environment-touch-1.png",
+          "sha256": "593324f8d466f6d6c0a962e728573226a84541a6849a8e63a39a4844ea302fe1"
+        },
+        {
+          "file": "states/rc-canvas-8e362911e1-environment-zoom-200-1.png",
+          "sha256": "c6398762a6b30460475a7dae591b325e31cf6e2727d22c9a405a434bd4d5c060"
+        },
+        {
+          "file": "states/rc-canvas-8e362911e1-matrix-cancelled-1.png",
+          "sha256": "a881bf06cc8c3db3c5d01f60563f319bc2e4f116514724df4b4e28fee1e2d02f"
+        },
+        {
+          "file": "states/rc-canvas-8e362911e1-matrix-committed-1.png",
+          "sha256": "8cedcf4af899c48583e8b4ccfc7c131e86db7aa275fbfad547cdceade29e94c8"
+        },
+        {
+          "file": "states/rc-canvas-8e362911e1-matrix-default-1.png",
+          "sha256": "6aa8542b19d692c709a2167f39091d9c0e99ee8adee693aeafdb30da43bdaa9c"
+        },
+        {
+          "file": "states/rc-canvas-8e362911e1-matrix-dragged-1.png",
+          "sha256": "3fc313743393c4794a1432cd4c6eb9fab58c24b5cee0f09f5d66bf4f155a993e"
+        },
+        {
+          "file": "states/rc-canvas-8e362911e1-matrix-editing-1.png",
+          "sha256": "3b6a149480d54edee5da0c79cb071728675ba5ef314213d4ac3c56586bf4bbdf"
+        },
+        {
+          "file": "states/rc-canvas-8e362911e1-matrix-flowing-1.png",
+          "sha256": "0125aa6617e08e684dac46f5d5bef9db44493ed9bff3fb48b7cf31988d988737"
+        },
+        {
+          "file": "states/rc-canvas-8e362911e1-matrix-focus-visible-1.png",
+          "sha256": "c658d95c3b91a447ee58244241d34f55db52dd2de5f98987eb9bed5e3b0b778d"
+        },
+        {
+          "file": "states/rc-canvas-8e362911e1-matrix-hover-1.png",
+          "sha256": "f351d06f4a35dc9af1f80e3a901b7782cad870d2ab30e3396ed105434d68a996"
+        },
+        {
+          "file": "states/rc-canvas-8e362911e1-matrix-restored-1.png",
+          "sha256": "6aa8542b19d692c709a2167f39091d9c0e99ee8adee693aeafdb30da43bdaa9c"
+        },
+        {
+          "file": "states/rc-canvas-8e362911e1-matrix-selected-1.png",
+          "sha256": "917d9c57d4673075920704f14b62edfe4909fe1a3823ff4fa1349d2014437887"
+        }
+      ]
+    },
+    {
+      "package": "rc-bar-chart",
+      "run": "audit-final-chart-natural-gpu-frames-2026-11-02T01-47-01-656Z",
+      "scope": "Only these explicitly viewed screenshots are recorded as manual review. Automated matrices, current follow-ups and historical pixel comparison remain separate.",
+      "observation": "已逐张查看5张联系图：三体系明暗的自然GPU首/中/末帧和过渡前后完整场景。柱形按真实数据变化，图例、标签、参考线与主题配色保持一致；原始透明GPU帧在联系图灰底上展示，完整场景另含真实主题背景。未调整动效时间轴。",
+      "images": [
+        {
+          "file": "states/rc-bar-chart-513642425e-capture-0-1.png",
+          "sha256": "7b686a7bd009c1165b22fb35b1e3a270109846375740226b9b4cf884b5131288"
+        },
+        {
+          "file": "states/rc-bar-chart-513642425e-capture-1-1.png",
+          "sha256": "f943c67739259a7a33328ddd369f7b75b31fa49eb5aae0b2f20bb46aa6bc7282"
+        },
+        {
+          "file": "states/rc-bar-chart-513642425e-capture-2-1.png",
+          "sha256": "1c87211e9cf3024b926c05dab736bce0497fd5628ccbd659b730b279cc579bd1"
+        },
+        {
+          "file": "states/rc-bar-chart-513642425e-capture-3-1.png",
+          "sha256": "d91aaa72c1172652a76fced39a5f3ac057116753102543e3b319349089eb665b"
+        },
+        {
+          "file": "states/rc-bar-chart-513642425e-capture-4-1.png",
+          "sha256": "42ab7d275b9c4d83c69c6ce720873e3286569e9a5d09f57b81ef69f83dde7a68"
+        }
+      ]
+    },
+    {
+      "package": "rc-pdf-editor",
+      "run": "audit-final-pdf-thumbnails-focus-regions-2026-11-02T01-28-44-308Z",
+      "scope": "Only these explicitly viewed screenshots are recorded as manual review. Automated matrices, current follow-ups and historical pixel comparison remain separate.",
+      "observation": "已查看4张三体系明暗联系图：折叠属性面板后焦点显露、独立WebComponent及区域操作取消/完成后的真实画布焦点。公开编辑和导出内容存在，面板返回焦点轮廓可辨；后续稳定属性标题修正及完整领域复验单独记录。",
+      "images": [
+        {
+          "file": "states/rc-pdf-editor-3d13e06c70-collapsed-properties-focus.png-1.png",
+          "sha256": "89f551e3a7c4ff1c44189edcb63398f90853185d69369563469011855ab365be"
+        },
+        {
+          "file": "states/rc-pdf-editor-3d13e06c70-region-cancelled-focus.png-1.png",
+          "sha256": "517e897e57ef78aea62f8d727c70251c336cca1ab624329783fbb6ff3e2ea385"
+        },
+        {
+          "file": "states/rc-pdf-editor-3d13e06c70-region-completed-focus.png-1.png",
+          "sha256": "7eee05af8bae704476cde4c2274225b18f7a630995be1fe89a8c01fd3483fe8f"
+        },
+        {
+          "file": "states/rc-pdf-editor-3d13e06c70-standalone-web-component.png-1.png",
+          "sha256": "3956640ceb08c1a0ed224d487a384bc90440df0b54adcfbb489a1b9542a6973b"
+        }
+      ]
+    },
+    {
+      "package": "rc-text-edit",
+      "run": "audit-final-text-edit-narrow-2026-11-02T02-42-38-279Z",
+      "scope": "All listed contact sheets explicitly inspected after the completed frozen run. Native viewport screenshots and actual interaction assertions remain distinct evidence.",
+      "observation": "已逐张复核4张联系图的24张320px字段及完整场景截图，含outlined/filled、Home首行与End末行、三主题明暗。实际字形测量证明首行在原生2px滚动偏移下仍可读，保留标签、说明、计数、清除入口与焦点。字段局部截图不扩展裁切边界，悬浮标签同时在完整场景复核。",
+      "images": [
+        {
+          "file": "states/rc-text-edit-2a0b46f97c-environment-narrow-1.png",
+          "sha256": "6f6aa60959da25dccc796d87abfb349ffb469756d0767eecb2b65ae13600a824"
+        },
+        {
+          "file": "states/rc-text-edit-2a0b46f97c-environment-narrow-2.png",
+          "sha256": "23dd4e3bbe5cf44c3fa30106396669dfae1b5617b1c63c947341264f9ac4d802"
+        },
+        {
+          "file": "states/rc-text-edit-2a0b46f97c-environment-narrow-3.png",
+          "sha256": "c1019cd5b0479ed866fc1484a17e625578c62d346a6ee20b990487d770329e15"
+        },
+        {
+          "file": "states/rc-text-edit-2a0b46f97c-environment-narrow-4.png",
+          "sha256": "4600de46282c421ae4a0a884efc6afcc30dac19022671ac6df7e306cfbfd3ea1"
+        }
+      ]
+    },
+    {
+      "package": "rc-notification",
+      "run": "audit-final-notification-zoom-2026-11-02T02-43-34-785Z",
+      "scope": "All listed contact sheets explicitly inspected after the completed frozen run. Native viewport screenshots and actual interaction assertions remain distinct evidence.",
+      "observation": "已逐张复核3张联系图的18张真实200%窗口截图；六配置普通通知、关闭按钮键盘焦点和浮层通知的长文本均在窗口内换行。保留各主题的表面、形状与焦点，草稿和队列交互另有断言。",
+      "images": [
+        {
+          "file": "states/rc-notification-fe80be2223-environment-zoom-200-1.png",
+          "sha256": "2c7066d92cdd681f6d00558d68cbd8c563459b241c93c6b031bb8330918e6071"
+        },
+        {
+          "file": "states/rc-notification-fe80be2223-environment-zoom-200-2.png",
+          "sha256": "95469f68a8f64e65f117a2ae6d71b619417c8c2115b192c7c21dc44cf6283182"
+        },
+        {
+          "file": "states/rc-notification-fe80be2223-environment-zoom-200-3.png",
+          "sha256": "02738a91464cec3bdd78c07adb10e0df3cfd00d6ec76f9658048f0cc187176b9"
+        }
+      ]
+    },
+    {
+      "package": "rc-select",
+      "run": "audit-final-select-zoom-and-contrast-2026-11-02T02-44-54-623Z",
+      "scope": "All listed contact sheets explicitly inspected after the completed frozen run. Native viewport screenshots and actual interaction assertions remain distinct evidence.",
+      "observation": "已查看2张联系图的12张真实200%窗口截图；六配置搜索选择、选中标签、filled字段与键盘焦点协调。浮层覆盖相邻内容属正常叠层；选择与草稿保留、透明span与真实低对比度对照契约另有自动断言。",
+      "images": [
+        {
+          "file": "states/rc-select-df430d0500-environment-zoom-200-1.png",
+          "sha256": "47b3884edf0aa7098a986dd01ae254180aec6bea85f2ab14c31de533cf841b9c"
+        },
+        {
+          "file": "states/rc-select-df430d0500-environment-zoom-200-2.png",
+          "sha256": "baa908da92051d5b3ba85fd4b00247427300091d92332375b6439e9799a40bcb"
+        }
+      ]
+    },
+    {
+      "package": "rc-skeleton",
+      "run": "audit-final-skeleton-zoom-2026-11-02T02-41-17-453Z",
+      "scope": "All listed contact sheets explicitly inspected after the completed frozen run. Native viewport screenshots and actual interaction assertions remain distinct evidence.",
+      "observation": "已逐张查看5张联系图的30张真实200%窗口截图，包括六配置的自然首/中/末帧、内容就绪与向下滚动。骨架保持各主题层次，脉冲自然变化，完成文案和草稿清晰；物理窗口截到下方骨架时另有实际滚动截图，不拼接图片。",
+      "images": [
+        {
+          "file": "states/rc-skeleton-77b36fbaab-environment-zoom-200-1.png",
+          "sha256": "a14afeb7050aff2b371f9629351a809890f82206c509281dc6db46e0fdc22c9e"
+        },
+        {
+          "file": "states/rc-skeleton-77b36fbaab-environment-zoom-200-2.png",
+          "sha256": "82ac48cfd06afea03074e086476907b084dd11c7ef27d20a1fc960327edcc16b"
+        },
+        {
+          "file": "states/rc-skeleton-77b36fbaab-environment-zoom-200-3.png",
+          "sha256": "7f09cd6b40443aee3d1bfc5ad82f6cdc0563ada61f01ec9b8c419c473e676aed"
+        },
+        {
+          "file": "states/rc-skeleton-77b36fbaab-environment-zoom-200-4.png",
+          "sha256": "877c370e79fa29f4d4484142963635cc8da0b5d4d35321f544d73d8792fd9460"
+        },
+        {
+          "file": "states/rc-skeleton-77b36fbaab-environment-zoom-200-5.png",
+          "sha256": "ca52c8f190657b484ee5140100c07ab7476184d45742ec5d712fdf717f892573"
+        }
+      ]
+    },
+    {
+      "package": "rc-flow-diagram",
+      "run": "audit-final-flow-container-and-gpu-reference-2026-11-02T02-55-54-690Z",
+      "scope": "All explicitly viewed 26 representative state/environment sheets plus two domain sheets from the same frozen run; the system-color control fix is a separately reviewed run. Size/density assertions and historical pixel comparison remain separate.",
+      "observation": "已逐张查看26张六配置联系图：8种状态及错误详情展开/收起、320/768/1440、横屏、触控、RTL、英语、品牌、减少动画，以及真实200%缩放的物理窗口与自然GPU帧。另2张六配置领域图核对长标签及320px触控错误详情。图形保留世界坐标与局部滚动；系统色按钮另用最终新构建复核。",
+      "images": [
+        {
+          "file": "states/rc-flow-diagram-fbfd4b1ce3-environment-brand-1.png",
+          "sha256": "c62670e52b884ed4680fba668ed2afe3bf3ec1dbcd72555cbf9b16aae52245a9"
+        },
+        {
+          "file": "states/rc-flow-diagram-fbfd4b1ce3-environment-desktop-1.png",
+          "sha256": "48040a3c2c6dccc81dedb248e44c18fef484eac9792498976e2287219c597a24"
+        },
+        {
+          "file": "states/rc-flow-diagram-fbfd4b1ce3-environment-english-1.png",
+          "sha256": "abe8cfc3bac022e72948948c0efcf5d31cfd1ac72be529810d96f965cada083e"
+        },
+        {
+          "file": "states/rc-flow-diagram-fbfd4b1ce3-environment-landscape-1.png",
+          "sha256": "90bc07ad8aff91791fc4e3b0fc22f079474083d85e4a6d92045134366e2d0ae2"
+        },
+        {
+          "file": "states/rc-flow-diagram-fbfd4b1ce3-environment-narrow-1.png",
+          "sha256": "e249989e938aa7c4d262958ff1452c37f16e42a99835163fb90895da1fba08be"
+        },
+        {
+          "file": "states/rc-flow-diagram-fbfd4b1ce3-environment-reduced-motion-1.png",
+          "sha256": "b8f9f5d879164669ea105dd170ba7e50335f10a7ad8e47ebec649a688ae6a9d3"
+        },
+        {
+          "file": "states/rc-flow-diagram-fbfd4b1ce3-environment-rtl-1.png",
+          "sha256": "e35d282c05ba67339653d9e00f1441b5331f10609ca2a14e93bf17a3949d06a9"
+        },
+        {
+          "file": "states/rc-flow-diagram-fbfd4b1ce3-environment-tablet-1.png",
+          "sha256": "b6160ef0eb49879f2e94eef9d9105ceaa0ee5770db6bd130cfb186c96095cc69"
+        },
+        {
+          "file": "states/rc-flow-diagram-fbfd4b1ce3-environment-touch-1.png",
+          "sha256": "22e93fc5fcc4e51f853f303d591ea2fbb7cfa69f4aa3052333fc92e0704caee8"
+        },
+        {
+          "file": "states/rc-flow-diagram-fbfd4b1ce3-environment-zoom-200-1.png",
+          "sha256": "d3070983eab0c806c5539688cdeb5e9fedba82365d66162e1a1d08364c9c819c"
+        },
+        {
+          "file": "states/rc-flow-diagram-fbfd4b1ce3-environment-zoom-200-2.png",
+          "sha256": "d005e6889737a9af6d99880eb823c96f289716d73583f6f67c532c7d65d1c6a1"
+        },
+        {
+          "file": "states/rc-flow-diagram-fbfd4b1ce3-environment-zoom-200-3.png",
+          "sha256": "2603a17f8c908d378b2136b5ba73627c21421fec29c0fbc6c6f7ef3d7dcdd8af"
+        },
+        {
+          "file": "states/rc-flow-diagram-fbfd4b1ce3-environment-zoom-200-4.png",
+          "sha256": "9de21fbfb9d1b8543e56f1319deb741f30150269c885976421edf283b89fbb2e"
+        },
+        {
+          "file": "states/rc-flow-diagram-fbfd4b1ce3-environment-zoom-200-5.png",
+          "sha256": "808bef395e4f5bce01d27f51d47594810bf5bc47c37c1e744aa3a16f82cc47d8"
+        },
+        {
+          "file": "states/rc-flow-diagram-fbfd4b1ce3-environment-zoom-200-6.png",
+          "sha256": "3e2e568b3af1627ae805903fda8fe9f643037c754de1b4439a14ab02dcac25ba"
+        },
+        {
+          "file": "states/rc-flow-diagram-fbfd4b1ce3-environment-zoom-200-7.png",
+          "sha256": "86417155f4459ad813dd2420075ff69bce9af61a306422bbdda73345d49236b4"
+        },
+        {
+          "file": "states/rc-flow-diagram-fbfd4b1ce3-environment-zoom-200-8.png",
+          "sha256": "0c3526762de5f75a2b5f65990c4bc8242e4aa72872847142bcb823aa93b2a912"
+        },
+        {
+          "file": "states/rc-flow-diagram-fbfd4b1ce3-matrix-default-1.png",
+          "sha256": "8cb9c54e7fae482c76143c88ef8d13ad2a6c8c1b3c9697e17662fdfa3ed5818c"
+        },
+        {
+          "file": "states/rc-flow-diagram-fbfd4b1ce3-matrix-dragged-1.png",
+          "sha256": "32947c73477abd72512dd1b1bec37e42b46623743cf0f462615735db88f6ed51"
+        },
+        {
+          "file": "states/rc-flow-diagram-fbfd4b1ce3-matrix-empty-1.png",
+          "sha256": "152ec49b801b6e3354f4aba9ae748720eb2ef42655b426372fcb80949d9bd67b"
+        },
+        {
+          "file": "states/rc-flow-diagram-fbfd4b1ce3-matrix-error-1.png",
+          "sha256": "26da9815eb85a608adef26b6b62446e03d8ac8f0b4b640903a575363b1a1e45e"
+        },
+        {
+          "file": "states/rc-flow-diagram-fbfd4b1ce3-matrix-error-2.png",
+          "sha256": "9ff8baf519835a25d1a8f72f1081a287b764ee7629e0126e3bd4fceee549f129"
+        },
+        {
+          "file": "states/rc-flow-diagram-fbfd4b1ce3-matrix-focus-visible-1.png",
+          "sha256": "aba83e45121dced2331d8ff4666bf3d99202dd5dc480a6713e2f28b8ab186295"
+        },
+        {
+          "file": "states/rc-flow-diagram-fbfd4b1ce3-matrix-manual-route-1.png",
+          "sha256": "e2e5377672dd0636db58826c1b53b373cfeb9aa2900dc9979641dd976148486f"
+        },
+        {
+          "file": "states/rc-flow-diagram-fbfd4b1ce3-matrix-refresh-1.png",
+          "sha256": "38ae6383e843b7f73b8a6df537e6b1c6fe0af487c5d4269ea825481abf062402"
+        },
+        {
+          "file": "states/rc-flow-diagram-fbfd4b1ce3-matrix-selected-1.png",
+          "sha256": "72b17e2f1b69c96cdf7be600bbf91fff4d5e57d834dc131c404bedfb6e2d5888"
+        },
+        {
+          "file": "states/rc-flow-diagram-fbfd4b1ce3-contained-long-labels.png-1.png",
+          "sha256": "a3948d64882bd393743206ef5bc44c86fe3a9680ca1a9fc4f7e43e4c80b676c2"
+        },
+        {
+          "file": "states/rc-flow-diagram-fbfd4b1ce3-narrow-touch-error.png-1.png",
+          "sha256": "35cc76922336d31f0990ccb048f230a398807ffa978530e2357e8f49e64b244b"
+        }
+      ]
+    },
+    {
+      "package": "rc-flow-diagram",
+      "run": "2026-11-02T03-10-24-831Z",
+      "scope": "Explicitly viewed representative states and environments; current source deltas and historical failures remain separately indexed.",
+      "observation": "人工复核旧系统色截图发现选中原生按钮的文字底板遮住名称。局部保留系统Highlight/HighlightText配对后，新构建六配置全部通过；已逐项查看此联系图，request名称与焦点均可辨，画布仍消费实际系统颜色。",
+      "images": [
+        {
+          "file": "states/rc-flow-diagram-0c6d26472b-environment-forced-colors-1.png",
+          "sha256": "9ce412e35706745e905cfe47361ec33b1deaae4c5d0158bb3373877daca85196"
+        }
+      ]
+    },
+    {
+      "package": "rc-pdf-editor",
+      "run": "audit-final-pdf-stable-properties-header-2026-11-02T03-05-43-808Z",
+      "scope": "All six theme/mode configurations of final published professional workflows: responsive panel focus, actual font text editing, image replacement/drawing, cross-page region, and standalone WebComponent close/cancel/export. Full original images also inspected for MD3 dialog and scrolled properties panel; contact sheets preserve the complete frame.",
+      "observation": "九组六配置图已逐项查看：文字与图片确实进入白色文档纸张，深色工作区与纸张分离；新增文字弹窗、属性面板、区域导出及焦点轮廓正常。滚动后被面板上缘裁切的字段属于真实局部滚动，标题和关闭入口保持稳定。未把联系图缩放等同所有尺寸的人工像素评审。",
+      "images": [
+        {
+          "file": "states/rc-pdf-editor-b1dd606aa8-actual-cross-page-region.png-1.png",
+          "sha256": "6641ef1b38e771e8e8024ed09fcb144dfd15a6496bc3bc46c1af2294a2718def"
+        },
+        {
+          "file": "states/rc-pdf-editor-b1dd606aa8-actual-page-with-inserted-image-and-drawing-1.png",
+          "sha256": "c9b5aa3b810f03892f3eb0945c475a87e3fd7d7052cd91e8c1002e85e09a004f"
+        },
+        {
+          "file": "states/rc-pdf-editor-b1dd606aa8-collapsed-properties-focus.png-1.png",
+          "sha256": "5c57db16474f180563f2c0229996baba623ce8628c99d490247ed0c0e52e2d78"
+        },
+        {
+          "file": "states/rc-pdf-editor-b1dd606aa8-committed-text-history.png-1.png",
+          "sha256": "4c506a7c5a0ae8ac3f19ff423033df44860fb147d273eccdae60c3dac271734c"
+        },
+        {
+          "file": "states/rc-pdf-editor-b1dd606aa8-image-replacement-drawing.png-1.png",
+          "sha256": "61269d7a66b8e7cb97ecd7b3d2d27ab48913f6af325f328908c206781728ded3"
+        },
+        {
+          "file": "states/rc-pdf-editor-b1dd606aa8-real-text-dialog.png-1.png",
+          "sha256": "995a447dbd81a30f3e12dd8f3fcb80ff53ee3cbf3b1af23081aec5539d0cc9ba"
+        },
+        {
+          "file": "states/rc-pdf-editor-b1dd606aa8-region-cancelled-focus.png-1.png",
+          "sha256": "e812d68012313f44d158ddae02470bcfb17de580dfa11d8a5ee414c86e2d83a7"
+        },
+        {
+          "file": "states/rc-pdf-editor-b1dd606aa8-region-completed-focus.png-1.png",
+          "sha256": "0f1513b4cf7be4fcd823c59ff174da074fe186562187c059c88a1da5e18e9f49"
+        },
+        {
+          "file": "states/rc-pdf-editor-b1dd606aa8-standalone-web-component.png-1.png",
+          "sha256": "7818e8d021724be5f7950e156be3706c28bfc5a93268add73829abe7309a3173"
+        }
+      ]
+    },
+    {
+      "package": "rc-canvas",
+      "run": "2026-11-02T04-12-35-935Z",
+      "scope": "Final full published 228-case build: all six configurations of native multiline editor/compositor, ordinary editing/commit, and system-color environment. Earlier complete state/environment review remains separately indexed.",
+      "observation": "实际合成截图与GPU读回配对核对，六配置中草稿、选区与下方图形同时可见；编辑、提交与系统色场景逐项查看。背景采用同一语义角色的局部CSS图像绘制，原生文本框保持自动系统色适配；不依靠GPU读回单独宣称显示正确。",
+      "images": [
+        {
+          "file": "states/rc-canvas-aacf0049ab-inline-composited-canvas-1.png",
+          "sha256": "b6a617ea63e6b20914eac864fce0d2305219d9b2e4a2ddff03ad4c8e199e61b7"
+        },
+        {
+          "file": "states/rc-canvas-aacf0049ab-multiline-inline-draft.png-1.png",
+          "sha256": "5d2a73afeddd187750d204b21b6848b8a2d54084e2fc04acf245f1256e85a49a"
+        },
+        {
+          "file": "states/rc-canvas-aacf0049ab-matrix-editing-1.png",
+          "sha256": "051e5963b35d000eb6563f070e2ad9f6ad6d2d87f68b5e65c4eed5a694a7a0bd"
+        },
+        {
+          "file": "states/rc-canvas-aacf0049ab-matrix-committed-1.png",
+          "sha256": "8cedcf4af899c48583e8b4ccfc7c131e86db7aa275fbfad547cdceade29e94c8"
+        },
+        {
+          "file": "states/rc-canvas-aacf0049ab-environment-forced-colors-1.png",
+          "sha256": "eb146abcf710c1438bfeb0e87f6c691860656baff9b667f4a60e5888047ebdc2"
+        }
+      ]
+    },
+    {
+      "package": "rc-canvas",
+      "run": "2026-11-02T04-28-18-612Z",
+      "scope": "Six Chromium forced-color multiline editor captures, plus 18 normal-config native draft/selection journeys across all three engines, with composited background/foreground contrast measured in every case.",
+      "observation": "系统浅深色六配置均已查看；文本背景、选区、边框及露出的图形正常。24项原生编辑回归通过，实际编辑表面的文字对比度最低12.02:1；此值仅代表该编辑场景。",
+      "images": [
+        {
+          "file": "states/rc-canvas-7ec79d01d3-forced-colors-multiline-inline-draft.png-1.png",
+          "sha256": "8fbc194f5fdff77350134e3d19cfad6d0ddcfdc5b19c9a6a472951344c073546"
+        },
+        {
+          "file": "states/rc-canvas-7ec79d01d3-inline-composited-canvas-1.png",
+          "sha256": "dfe78f7b050382709447d60ca0da309b86b75dc7af1880d280e2368f977bcc30"
+        }
+      ]
+    },
+    {
+      "package": "rc-canvas",
+      "run": "2026-11-02T05-02-15-660Z",
+      "scope": "Six Chromium snapshots of actual foreign-iframe ShadowRoot text commits; 18 real native edit, theme/mode retention, Escape cancellation, Enter commit and owner-root focus journeys pass across Chromium, Firefox and WebKit. The final full published build passes all 252 cases.",
+      "observation": "已逐项查看三体系明暗的六张原生截图：最近边界的表面、文字、草稿字段、提交结果及下方图形可辨。原生输入的身份、选区、主题切换和取消/提交后的ShadowRoot焦点由18项真实浏览器断言另行确认；截图不替代焦点检查。",
+      "images": [
+        {
+          "file": "states/rc-canvas-fbc455d951-shadow-text-focus.png-1.png",
+          "sha256": "0670704ce8151e9a05b2f1eee6bba5e3febfb25c2227c343553a4a358c5ae7f5"
+        }
+      ]
+    }
+  ],
+  "updatedAt": "2026-11-02T05:13:27.343Z"
+}

@@ -1,4 +1,5 @@
 import { test, expect, configurations, openDemo, readVisualSpec, captureVisual, environmentCases, applyEnvironment } from '../../../test/visual/component-fixture.mjs';
+import { measureTextContrast } from '../../../test/visual/text-contrast.mjs';
 const spec = await readVisualSpec(import.meta.url);
 for (const config of configurations) for (const state of spec.states) {
     test(`${config.designSystem} ${config.colorMode} ${state}`, { tag: ['@rc-token-semantic', '@matrix'], annotation: { type: 'matrix', description: JSON.stringify({ ...config, size: 'medium', density: 'standard', state }) } }, async ({ page, previewOrigin, browserName }, info) => {
@@ -19,6 +20,12 @@ for (const config of configurations) for (const environment of environmentCases)
             const root = await openDemo(page, previewOrigin, 'rc-token-semantic', spec.demo, { ...config, ...environment.config });
             const scene = root.getByRole('region', { name: 'Semantic token visual matrix' });
             expect(await scene.evaluate(node => node.scrollWidth <= node.clientWidth + 1)).toBe(true);
+            if (environment.id === 'forced-colors') {
+                await expect(scene.locator('[data-role="brand"]')).toHaveCSS('forced-color-adjust', 'none');
+                const contrast = await scene.evaluate(measureTextContrast);
+                expect(contrast.failures).toEqual([]);
+                await info.attach('system-palette-text-contrast', { body: JSON.stringify(contrast), contentType: 'application/json' });
+            }
             await captureVisual(scene, `${config.designSystem}-${config.colorMode}-${environment.id}.png`, info, browserName);
         });
     });

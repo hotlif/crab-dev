@@ -2,6 +2,7 @@ import { useComponentSize, useConfig } from '@crab-dev/rc-config-provider';
 import { cx } from '@crab-dev/css';
 import { useId } from 'react';
 import { useControllableValue } from '@crab-dev/rc-hooks';
+import { useNativeRadioFocus } from '@crab-dev/rc-hooks/internal';
 import type { SegmentedOption, SegmentedProps, SegmentedRawOption, SegmentedSize, SegmentedValue, SegmentedChangeDetails } from './types.js';
 import { trackStyle, trackBlockStyle, trackPadSmallStyle, trackPadMiddleStyle, trackPadLargeStyle, hiddenInputStyle, segmentStyle, segmentSmallStyle, segmentMiddleStyle, segmentLargeStyle, segmentBlockStyle, labelStyle, unselectedSmallLabelStyle, unselectedMediumLabelStyle, unselectedLargeLabelStyle, selectionIconStyle, checkIconStyle, selectedOptionIconStyle, segmentSelectedStyle, segmentDisabledStyle } from "./segmented.styles.js";
 // ─── 辅助 ────────────────────────────────────────────────────────────────────
@@ -38,10 +39,15 @@ const Segmented = ({
     name,
     className,
     ref,
+    onKeyDownCapture,
+    onPointerDownCapture,
+    onFocus,
+    onBlur,
     ...restProps
 }: SegmentedProps) => {
     const size = useComponentSize(sizeProp);
     const { designSystem } = useConfig();
+    const radioFocus = useNativeRadioFocus();
     const reactId = useId();
     const groupName = name ?? `rc-segmented-${reactId.replace(/:/g, '')}`;
 
@@ -59,6 +65,10 @@ const Segmented = ({
         <div
             {...restProps}
             ref={ref}
+            onKeyDownCapture={event => { radioFocus.onKeyDownCapture(event); onKeyDownCapture?.(event); }}
+            onPointerDownCapture={event => { radioFocus.onPointerDownCapture(event); onPointerDownCapture?.(event); }}
+            onFocus={event => { radioFocus.onFocus(event); onFocus?.(event); }}
+            onBlur={event => { radioFocus.onBlur(); onBlur?.(event); }}
             role="radiogroup"
             aria-disabled={disabled || undefined}
             data-disabled={disabled ? '' : undefined}
@@ -84,6 +94,7 @@ const Segmented = ({
                     >
                         <input
                             type="radio"
+                            data-keyboard-focus={radioFocus.keyboardFocus ? '' : undefined}
                             className={hiddenInputStyle}
                             name={groupName}
                             value={option.value}

@@ -16,6 +16,7 @@ description: 修改或新增 components/ 下的组件包时使用。覆盖包结
 
 1. 查看 `git status`，运行 `yarn ai:context <目标包或文件>`；读取返回的继承规则、包内说明与已有测试。新增包先按[组件规则](../../../components/AGENTS.md)建结构，再用 [library-inventory](../library-inventory/SKILL.md)登记。
 2. 确认导出面及调用方；仅接口变化时查[公共 API](../../../.website/docs/guides/public-api.mdx)，样式变化时查[设计体系](../../../.website/docs/guides/design-styles.mdx)与[尺寸密度](../../../.website/docs/guides/component-sizing.mdx)。
+   三体系精修先区分共享问题与单组件特例；局部主题样式使用静态块并按最近配置选择，同时验证嵌套 Provider、Portal 和主题切换后的交互节点及草稿保留。
 3. 改实现并补行为回归；类型、导出、组件正文与 Demo 随影响同步。测试 API 与替身要求见组件规则，不在本技能重述。
 4. 涉及令牌使用 [token-change](../token-change/SKILL.md)，文档来源变化使用 [docs-change](../docs-change/SKILL.md)生成和检查；用户可感知变化按 [release-change](../release-change/SKILL.md)写 changeset。
 5. 跑下表检查，报告实际范围和未验证项。

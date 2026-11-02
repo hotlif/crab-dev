@@ -40,6 +40,51 @@ const rows: GeometryRow[] = Array.from({ length: ROW_COUNT }, (_, index) => ({
 }));
 const tableProps: TableProps<GeometryRow> = { rows, columns, width: 320, height: HEIGHT, density: 'compact' };
 
+for (const designSystem of ['md3', 'apple', 'shadcn'] as const)
+for (const colorMode of ['light', 'dark'] as const)
+for (const destination of ['grid', 'outside'] as const)
+it(`${designSystem}/${colorMode}: commits in its editor Document and preserves ${destination} focus`, async () => {
+    const frame = document.createElement('iframe');
+    frame.title = 'Independent editing document';
+    document.body.append(frame);
+    const owner = frame.contentDocument;
+    if (!owner?.body) throw new Error('A real same-origin iframe document is required');
+    const committed = mock.fn();
+    const fields: ColumnType<GeometryRow>[] = [{ name: '$.value', title: 'Value', width: 200,
+        editRender: ({ onCommit }) => <input aria-label="Frame editor" defaultValue="Frame draft"
+            onBlur={event => onCommit?.(event.currentTarget.value)} /> }];
+    const view = await render(createPortal(<ConfigProvider designSystem={designSystem} colorMode={colorMode}>
+        <style>{compiledCss}</style>
+        <button data-outside>Outside editor</button>
+        <Table width={300} height={160} columns={fields} rows={[{ id: 'frame-row', dataRef: { value: 'Original' } }]}
+            editType="cell" onCellEditRecordsChange={records => {
+                committed(records);
+                if (destination === 'outside') requiredElement(owner, '[data-outside]').focus();
+            }} />
+    </ConfigProvider>, owner.body));
+    try {
+        await settleLayout();
+        const cell = requiredElement<HTMLElement>(owner, '[role="gridcell"]');
+        await fireEvent(cell, new MouseEvent('dblclick', { bubbles: true, button: 0 }));
+        const editor = requiredElement<HTMLInputElement>(owner, 'input[aria-label="Frame editor"]');
+        await act(() => editor.focus());
+        expect(owner.activeElement).toBe(editor);
+        expect(document.activeElement === frame).toBe(true);
+        await fireEvent(editor, new KeyboardEvent('keydown', { bubbles: true, cancelable: true, key: 'Enter' }));
+        expect(committed).toHaveBeenCalledWith([expect.objectContaining({
+            rowId: 'frame-row', columnName: '$.value', columnIndex: 0, newValue: 'Frame draft',
+        })]);
+        expect(committed).toHaveBeenCalledTimes(1);
+        expect(editor.isConnected).toBe(false);
+        if (destination === 'grid') expect(owner.activeElement?.getAttribute('role')).toBe('grid');
+        else expect(owner.activeElement?.hasAttribute('data-outside')).toBe(true);
+        expect(document.activeElement === frame).toBe(true);
+    } finally {
+        await view.unmount();
+        frame.remove();
+    }
+});
+
 it('keeps shortcuts and resize resources inside the table owner Document in a real iframe', async () => {
     const frame = document.createElement('iframe');
     frame.title = 'Independent table document';

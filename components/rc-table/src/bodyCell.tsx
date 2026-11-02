@@ -433,6 +433,7 @@ function TableCell<T extends Row>({
                             onCellCommit?.(row.id, column.name, columnIndex, originalValueRef.current, valueToCommit);
                         }
                         exitEditing();
+                        onCellEditNavigate?.(rowIndex, columnIndex, 'escape');
                     },
                 onCancel: isRowEditActive
                     ? () => onRowCancel?.()
@@ -443,23 +444,28 @@ function TableCell<T extends Row>({
                 originalElement: renderElement
             });
 
-            // cell-edit 模式下：Tab / Enter 提交当前值并跳转到相邻可编辑格。
+            // 编辑器优先处理按键；未被消费的 Tab / Enter 提交并跳转到相邻可编辑格。
             // 通过手动 blur() 触发消费者的 onBlur → patchRow → onCommit → exitEditing 路径，
-            // 而非在 capture 阶段直接 exitEditing()，避免 input unmount 导致 onBlur 不触发、
+            // 而非直接 exitEditing()，避免 input unmount 导致 onBlur 不触发、
             // 消费者无法调用 patchRow 而显示陈旧值。
             const handleEditKeyDown = !isRowEditActive
                 ? (e: ReactKeyboardEvent<HTMLDivElement>) => {
+                    // Candidate selection belongs to the input method, including
+                    // engines that report the final composing key as keyCode 229.
+                    if (e.defaultPrevented || e.nativeEvent.isComposing || e.keyCode === 229) return;
                     if (e.key === 'Tab') {
                         e.preventDefault();
                         e.stopPropagation();
-                        (document.activeElement as HTMLElement | null)?.blur?.();
+                        (e.currentTarget.ownerDocument.activeElement as HTMLElement | null)?.blur?.();
                         onCellEditNavigate?.(rowIndex, columnIndex, e.shiftKey ? 'tab-backward' : 'tab-forward');
                     } else if (e.key === 'Enter' && !e.ctrlKey && !e.metaKey && !e.altKey) {
-                        // textarea 里的 Enter 保留默认换行行为
-                        if ((e.target as HTMLElement).tagName.toLowerCase() === 'textarea') return;
+                        const ElementConstructor = e.currentTarget.ownerDocument.defaultView?.Element;
+                        // Native actions/selectors and multiline fields keep their Enter.
+                        if (ElementConstructor && e.target instanceof ElementConstructor
+                            && e.target.closest('textarea, button, select, input[type="button"], input[type="submit"], input[type="reset"]')) return;
                         e.preventDefault();
                         e.stopPropagation();
-                        (document.activeElement as HTMLElement | null)?.blur?.();
+                        (e.currentTarget.ownerDocument.activeElement as HTMLElement | null)?.blur?.();
                         onCellEditNavigate?.(rowIndex, columnIndex, e.shiftKey ? 'shift-enter' : 'enter');
                     }
                 }
@@ -488,7 +494,8 @@ function TableCell<T extends Row>({
                             width: mergedSize.width,
                             height: mergedSize.height
                         }}
-                        onKeyDownCapture={handleEditKeyDown}
+                        onKeyDown={handleEditKeyDown}
+                        data-table-cell-editing={!isRowEditActive || undefined}
                     >
                         {editorElement}
                     </div>
@@ -507,7 +514,8 @@ function TableCell<T extends Row>({
                             font-family: inherit;
                         }
                     `}
-                    onKeyDownCapture={handleEditKeyDown}
+                    onKeyDown={handleEditKeyDown}
+                    data-table-cell-editing={!isRowEditActive || undefined}
                 >
                     {editorElement}
                 </div>

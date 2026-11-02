@@ -22,7 +22,7 @@ export const notificationStyle = css`
     position: relative;
     display: flex;
     flex-direction: column;
-    width: ${token.root.width};
+    width: min(${token.root.width}, 100%);
     min-width: 0;
     padding: ${dimensionPadding};
     border-radius: ${dimensionBorderRadius};
@@ -96,6 +96,7 @@ export const headerStyle = css`
 export const titleStyle = css`
     flex: 1;
     min-width: 0;
+    text-wrap: balance;
     overflow-wrap: anywhere;
 `;
 

@@ -1,0 +1,1446 @@
+{
+  "schemaVersion": 1,
+  "policy": "Named receipts below record their own queue boundary and source hashes. They do not assert that every independent supplementary job had stopped; source/artifact stability for each actual capture is separately established by its finalized worker inputs in runs.json. Final standalone public Linux snapshots have their own immutable snapshot manifests and input fingerprints. Original failed/paused progress is preserved.",
+  "updates": [
+    {
+      "snapshot": "2026-11-01T21-46-13-686Z",
+      "receipt": "source-updates/table.json",
+      "receiptSha256": "189c2778207290ff0cc1b0dec432e9c5c77d935d3688382b59d09b92d5181dee",
+      "updatedAt": "2026-11-01T22:15:17.005Z",
+      "activeRun": "audit-rc-notification-2026-11-01T22-09-09-740Z",
+      "policy": "Only upcoming table source was refreshed. Every active worker excludes the entire table package; active source/artifact inputs remain frozen. Subsequent package runs build and capture their own input hashes.",
+      "activeWorkerInputs": [
+        {
+          "file": "inputs-worker-0.json",
+          "source": "sha256:88735a7473b7be7cdc17cb466406fa05d1c009dca2e330bc7f0aee663bf13df2",
+          "artifact": "sha256:176b1023bba968a80efb6bb970dcfc7ee275f93096d2708e287b2249c786cd5a"
+        },
+        {
+          "file": "inputs-worker-1.json",
+          "source": "sha256:88735a7473b7be7cdc17cb466406fa05d1c009dca2e330bc7f0aee663bf13df2",
+          "artifact": "sha256:176b1023bba968a80efb6bb970dcfc7ee275f93096d2708e287b2249c786cd5a"
+        },
+        {
+          "file": "inputs-worker-10.json",
+          "source": "sha256:88735a7473b7be7cdc17cb466406fa05d1c009dca2e330bc7f0aee663bf13df2",
+          "artifact": "sha256:176b1023bba968a80efb6bb970dcfc7ee275f93096d2708e287b2249c786cd5a"
+        },
+        {
+          "file": "inputs-worker-11.json",
+          "source": "sha256:88735a7473b7be7cdc17cb466406fa05d1c009dca2e330bc7f0aee663bf13df2",
+          "artifact": "sha256:176b1023bba968a80efb6bb970dcfc7ee275f93096d2708e287b2249c786cd5a"
+        },
+        {
+          "file": "inputs-worker-2.json",
+          "source": "sha256:88735a7473b7be7cdc17cb466406fa05d1c009dca2e330bc7f0aee663bf13df2",
+          "artifact": "sha256:176b1023bba968a80efb6bb970dcfc7ee275f93096d2708e287b2249c786cd5a"
+        },
+        {
+          "file": "inputs-worker-3.json",
+          "source": "sha256:88735a7473b7be7cdc17cb466406fa05d1c009dca2e330bc7f0aee663bf13df2",
+          "artifact": "sha256:176b1023bba968a80efb6bb970dcfc7ee275f93096d2708e287b2249c786cd5a"
+        },
+        {
+          "file": "inputs-worker-4.json",
+          "source": "sha256:88735a7473b7be7cdc17cb466406fa05d1c009dca2e330bc7f0aee663bf13df2",
+          "artifact": "sha256:176b1023bba968a80efb6bb970dcfc7ee275f93096d2708e287b2249c786cd5a"
+        },
+        {
+          "file": "inputs-worker-5.json",
+          "source": "sha256:88735a7473b7be7cdc17cb466406fa05d1c009dca2e330bc7f0aee663bf13df2",
+          "artifact": "sha256:176b1023bba968a80efb6bb970dcfc7ee275f93096d2708e287b2249c786cd5a"
+        },
+        {
+          "file": "inputs-worker-6.json",
+          "source": "sha256:88735a7473b7be7cdc17cb466406fa05d1c009dca2e330bc7f0aee663bf13df2",
+          "artifact": "sha256:176b1023bba968a80efb6bb970dcfc7ee275f93096d2708e287b2249c786cd5a"
+        },
+        {
+          "file": "inputs-worker-7.json",
+          "source": "sha256:88735a7473b7be7cdc17cb466406fa05d1c009dca2e330bc7f0aee663bf13df2",
+          "artifact": "sha256:176b1023bba968a80efb6bb970dcfc7ee275f93096d2708e287b2249c786cd5a"
+        },
+        {
+          "file": "inputs-worker-8.json",
+          "source": "sha256:88735a7473b7be7cdc17cb466406fa05d1c009dca2e330bc7f0aee663bf13df2",
+          "artifact": "sha256:176b1023bba968a80efb6bb970dcfc7ee275f93096d2708e287b2249c786cd5a"
+        },
+        {
+          "file": "inputs-worker-9.json",
+          "source": "sha256:88735a7473b7be7cdc17cb466406fa05d1c009dca2e330bc7f0aee663bf13df2",
+          "artifact": "sha256:176b1023bba968a80efb6bb970dcfc7ee275f93096d2708e287b2249c786cd5a"
+        }
+      ],
+      "files": [
+        {
+          "file": "components/rc-table/src/hooks/useRowEvents.ts",
+          "before": "20d649c852a6f35160877ea204fbc9b943a9eb5da06dd5134a5765fe59508380",
+          "after": "3fa2b58134e45847b7007d7c08fac20999b0452f9108184f1cc0c354b9956154"
+        },
+        {
+          "file": "components/rc-table/src/__tests__/browser/composite-keyboard.test.tsx",
+          "before": "aba6cdc1a39d4e17e7b114c7503c7e12933bda5b4ad23ae2a9146e252f80f637",
+          "after": "b1a48f7839f42e52faa406449b5134d9ca36163c41ab5e403e96a2c0e886ce43"
+        }
+      ]
+    },
+    {
+      "snapshot": "2026-11-01T21-47-45-897Z",
+      "receipt": "source-updates/table.json",
+      "receiptSha256": "553d23ae9db90941ce30a9b8fb372a4d63416a8f045676c47a797c0956e9381c",
+      "updatedAt": "2026-11-01T22:15:20.064Z",
+      "activeRun": "audit-rc-pdf-editor-2026-11-01T21-49-17-156Z",
+      "policy": "Only upcoming table source was refreshed. Every active worker excludes the entire table package; active source/artifact inputs remain frozen. Subsequent package runs build and capture their own input hashes.",
+      "activeWorkerInputs": [
+        {
+          "file": "inputs-worker-0.json",
+          "source": "sha256:79ba6b619c783a8a16cbd0430ab28470d5251457b9f4ae0c92481465dc777de0",
+          "artifact": "sha256:bf34d036a16031d828ed87cd7c08d9277c0e0eebf06655c0814b88ea4771f0e8"
+        },
+        {
+          "file": "inputs-worker-1.json",
+          "source": "sha256:79ba6b619c783a8a16cbd0430ab28470d5251457b9f4ae0c92481465dc777de0",
+          "artifact": "sha256:bf34d036a16031d828ed87cd7c08d9277c0e0eebf06655c0814b88ea4771f0e8"
+        },
+        {
+          "file": "inputs-worker-10.json",
+          "source": "sha256:79ba6b619c783a8a16cbd0430ab28470d5251457b9f4ae0c92481465dc777de0",
+          "artifact": "sha256:bf34d036a16031d828ed87cd7c08d9277c0e0eebf06655c0814b88ea4771f0e8"
+        },
+        {
+          "file": "inputs-worker-11.json",
+          "source": "sha256:79ba6b619c783a8a16cbd0430ab28470d5251457b9f4ae0c92481465dc777de0",
+          "artifact": "sha256:bf34d036a16031d828ed87cd7c08d9277c0e0eebf06655c0814b88ea4771f0e8"
+        },
+        {
+          "file": "inputs-worker-12.json",
+          "source": "sha256:79ba6b619c783a8a16cbd0430ab28470d5251457b9f4ae0c92481465dc777de0",
+          "artifact": "sha256:bf34d036a16031d828ed87cd7c08d9277c0e0eebf06655c0814b88ea4771f0e8"
+        },
+        {
+          "file": "inputs-worker-13.json",
+          "source": "sha256:79ba6b619c783a8a16cbd0430ab28470d5251457b9f4ae0c92481465dc777de0",
+          "artifact": "sha256:bf34d036a16031d828ed87cd7c08d9277c0e0eebf06655c0814b88ea4771f0e8"
+        },
+        {
+          "file": "inputs-worker-2.json",
+          "source": "sha256:79ba6b619c783a8a16cbd0430ab28470d5251457b9f4ae0c92481465dc777de0",
+          "artifact": "sha256:bf34d036a16031d828ed87cd7c08d9277c0e0eebf06655c0814b88ea4771f0e8"
+        },
+        {
+          "file": "inputs-worker-3.json",
+          "source": "sha256:79ba6b619c783a8a16cbd0430ab28470d5251457b9f4ae0c92481465dc777de0",
+          "artifact": "sha256:bf34d036a16031d828ed87cd7c08d9277c0e0eebf06655c0814b88ea4771f0e8"
+        },
+        {
+          "file": "inputs-worker-4.json",
+          "source": "sha256:79ba6b619c783a8a16cbd0430ab28470d5251457b9f4ae0c92481465dc777de0",
+          "artifact": "sha256:bf34d036a16031d828ed87cd7c08d9277c0e0eebf06655c0814b88ea4771f0e8"
+        },
+        {
+          "file": "inputs-worker-5.json",
+          "source": "sha256:79ba6b619c783a8a16cbd0430ab28470d5251457b9f4ae0c92481465dc777de0",
+          "artifact": "sha256:bf34d036a16031d828ed87cd7c08d9277c0e0eebf06655c0814b88ea4771f0e8"
+        },
+        {
+          "file": "inputs-worker-6.json",
+          "source": "sha256:79ba6b619c783a8a16cbd0430ab28470d5251457b9f4ae0c92481465dc777de0",
+          "artifact": "sha256:bf34d036a16031d828ed87cd7c08d9277c0e0eebf06655c0814b88ea4771f0e8"
+        },
+        {
+          "file": "inputs-worker-7.json",
+          "source": "sha256:79ba6b619c783a8a16cbd0430ab28470d5251457b9f4ae0c92481465dc777de0",
+          "artifact": "sha256:bf34d036a16031d828ed87cd7c08d9277c0e0eebf06655c0814b88ea4771f0e8"
+        },
+        {
+          "file": "inputs-worker-8.json",
+          "source": "sha256:79ba6b619c783a8a16cbd0430ab28470d5251457b9f4ae0c92481465dc777de0",
+          "artifact": "sha256:bf34d036a16031d828ed87cd7c08d9277c0e0eebf06655c0814b88ea4771f0e8"
+        },
+        {
+          "file": "inputs-worker-9.json",
+          "source": "sha256:79ba6b619c783a8a16cbd0430ab28470d5251457b9f4ae0c92481465dc777de0",
+          "artifact": "sha256:bf34d036a16031d828ed87cd7c08d9277c0e0eebf06655c0814b88ea4771f0e8"
+        }
+      ],
+      "files": [
+        {
+          "file": "components/rc-table/src/hooks/useRowEvents.ts",
+          "before": "20d649c852a6f35160877ea204fbc9b943a9eb5da06dd5134a5765fe59508380",
+          "after": "3fa2b58134e45847b7007d7c08fac20999b0452f9108184f1cc0c354b9956154"
+        },
+        {
+          "file": "components/rc-table/src/__tests__/browser/composite-keyboard.test.tsx",
+          "before": "aba6cdc1a39d4e17e7b114c7503c7e12933bda5b4ad23ae2a9146e252f80f637",
+          "after": "b1a48f7839f42e52faa406449b5134d9ca36163c41ab5e403e96a2c0e886ce43"
+        }
+      ]
+    },
+    {
+      "snapshot": "2026-11-01T21-47-45-897Z",
+      "receipt": "gated-receipt.json",
+      "updatedAt": "2026-11-01T22:59:31.809Z",
+      "queue": "f",
+      "completedRun": "audit-rc-pdf-editor-2026-11-01T21-49-17-156Z",
+      "completedStats": {
+        "startTime": "2026-11-01T21:50:22.266Z",
+        "duration": 4052213.805,
+        "expected": 816,
+        "skipped": 97,
+        "unexpected": 35,
+        "flaky": 0
+      },
+      "policy": "Driver paused at a completed product boundary; every previous worker input was finalized and stable before refreshing upcoming source. Next public runner rebuilds products and fingerprints its own inputs.",
+      "files": [
+        {
+          "file": ".changeset/fit-floating-labels-around-decorations.md",
+          "before": null,
+          "after": "f490ee0bcef2eb28ad92cfa6b4825dd690b4762781b83dc54c1d00f505d0b14e"
+        },
+        {
+          "file": ".changeset/retain-nested-keyboard-ownership.md",
+          "before": "1227e0d83ca4933489bfd293090abb83b3010bd5e5093ae5dcd1b71c23b74186",
+          "after": "501894be6f03dc585584b7ff3b2e287ac56ed1afb3d771c79ecd12abb361e640"
+        },
+        {
+          "file": "components/rc-line-edit/src/lineEdit.designs.ts",
+          "before": null,
+          "after": "e590fbff86f2862d91f1dd7599e0d510588eabde104b525fe83b0c668f4f5807"
+        },
+        {
+          "file": "test/visual/text-contrast.mjs",
+          "before": "19d4aac7d83d32d0ed345751e0593c7b7179431bcbbb31edb4b0f7427a52c6bd",
+          "after": "89839a8a9d579b6174b450b1dfd7dc753c7d12300d7a3cf390e24c0892de3cce"
+        },
+        {
+          "file": "test/visual/text-contrast.visual.spec.mjs",
+          "before": "e52f4c01b1b3894edf0441cf5e50c9a514965b7a44f3bbeae0622f1bbc5853df",
+          "after": "2c89dfdc6c1188da4f0dd4a3d55f9edd2337218900a3eac5d381fe8927277920"
+        },
+        {
+          "file": "components/rc-alert/docs/alert-zoom.visual.spec.mjs",
+          "before": "ee97bfb95a31af5c6e339dd70f3e8217b4d5bf73c103766fd34624e5e1bf95f6",
+          "after": "58035bf2431ce8e0057253094d2e661aa8f2e16b51943a265ee2a5cbf34c701f"
+        },
+        {
+          "file": "components/rc-avatar/docs/avatar-zoom.visual.spec.mjs",
+          "before": "0a92f4907f7006fb08031ac5675d84ccb2395f6e2d3f9882818e2dcdba7edd4a",
+          "after": "0ff3a1a2f55f1d0164c77098ca5efda9ca781e0234a225674e99f60aeaa53715"
+        },
+        {
+          "file": "components/rc-badge/docs/badge-zoom.visual.spec.mjs",
+          "before": "6d4c19023f3c0ce4a431ce9149ac79c5c9595e33a740ab829ee565b72a70ab8d",
+          "after": "117095219e33dbf4c09c8cf838399fd025137d70b82910da60928f5cbac52015"
+        },
+        {
+          "file": "components/rc-bar-chart/docs/bar-chart-zoom.visual.spec.mjs",
+          "before": "8f2e2ed48ded6b676920cc7d6b58d79f26d68cf1d383cec053c0c4d6b0024766",
+          "after": "1015c41618b75b9e291e6041753ac536efc47ecf8f27dabbd35cd68cf8387153"
+        },
+        {
+          "file": "components/rc-breadcrumbs/docs/breadcrumbs-zoom.visual.spec.mjs",
+          "before": "c4cf942bc7a0426f587f66429f70f7fb8bc4e3eaeb33e4976ccd8d12c5a18e62",
+          "after": "fff3399c02a6d68be8b3c2fdbea9324cb616ea7df386f0686bc551e4331c90e6"
+        },
+        {
+          "file": "components/rc-button/docs/button-zoom.visual.spec.mjs",
+          "before": "9de6ec4d518b25e3f236decb0a372feed9c8826baa33aadc680942f6130cb023",
+          "after": "8830f4e0b09ec7c61fc25710d3006ad466fea0d1497b0652d91122727b39da5a"
+        },
+        {
+          "file": "components/rc-canvas/docs/canvas-zoom.visual.spec.mjs",
+          "before": "d02d2bd0ed15e9a5a01d14eb4da4ab152253a98c0b5b41e95e0f3af061e38707",
+          "after": "a0791d17a4d8865c3750a8b41c43db18a9ae4a7918d1cf3565851cf8a857ad89"
+        },
+        {
+          "file": "components/rc-card/docs/card-zoom.visual.spec.mjs",
+          "before": "17545c6ab852025b66e2397cdef772ac497a991b980ee83d04599297080ae0ae",
+          "after": "775167f844fbacf302a4df84f212394b0ccb130ca448785ee3879f435deb12e8"
+        },
+        {
+          "file": "components/rc-checkbox/docs/checkbox-zoom.visual.spec.mjs",
+          "before": "95de04971f814fc4aa39db6e5788bda2e2276e47472f785a0b85d1b28f846ea2",
+          "after": "3e23c8ad506822e7903efcdf4374d511b04419c92f4f26af332b99eb26a07628"
+        },
+        {
+          "file": "components/rc-color-picker/docs/color-picker-zoom.visual.spec.mjs",
+          "before": "dea9ec39dd89f80a7f64e2748c5859644196b657b0ee7ce273496396e06e7d1a",
+          "after": "3a6f9c1ed8fb6b49b899fe46423255fd72e1e8c456921fda2c925a3576c9838f"
+        },
+        {
+          "file": "components/rc-component-preview/docs/preview-zoom.visual.spec.mjs",
+          "before": "96a448b3e94b1a38100c5d413cb299a5d9f167b42922c998b3718dbc4b61a0c0",
+          "after": "d09ba3fae6af545c2c5b4acd04ffb2b821741f41276fd3d727565edd6339633b"
+        },
+        {
+          "file": "components/rc-config-provider/docs/config-provider-zoom.visual.spec.mjs",
+          "before": "7b558ba8524cdbb0c86b324bb419f1b0238bb7fec92705bc3151323932a187f3",
+          "after": "f80642411ce9ee6e79a8bf5ee4f2863f98a4c424ab2abdbdcf9b6157ecf6336a"
+        },
+        {
+          "file": "components/rc-cron-picker/docs/cron-picker-zoom.visual.spec.mjs",
+          "before": "f75728ca7586c5fa18edc60d63f6f3099729a162e4bd0d9c242ca05c161bf107",
+          "after": "6b51538cf6bed8c149ee70a2f62f627a70cb58e1a75c625af5ef318de3de6fdc"
+        },
+        {
+          "file": "components/rc-dialog/docs/dialog-zoom.visual.spec.mjs",
+          "before": "05bdc1390d7a6d1d45025723c8c4e0846333f9924e9ba228a7887f4a68381e7f",
+          "after": "ba8743b3759c7587096d1ec7515d61a59a535f066c53ac6ceb92411f66b682b4"
+        },
+        {
+          "file": "components/rc-divider/docs/divider-zoom.visual.spec.mjs",
+          "before": "850a5e08a1c3d8ab0ad4472a174e8eaece7c3b19c61d0b1a00f3abe76f93610a",
+          "after": "31e01ad988ff04ebae9bb7339dc1967765dc22a546940abdb7acd565cf0b7242"
+        },
+        {
+          "file": "components/rc-drawer/docs/drawer-zoom.visual.spec.mjs",
+          "before": "97ba6ac8e921b4a05b50e033d6edaad05c55eedc508a5d72102ede1e59903101",
+          "after": "2a08751d63e003d237a3db43d1ec96bc150d4900d9e88af29335280dd958ff01"
+        },
+        {
+          "file": "components/rc-dropdown-container/docs/dropdown-zoom.visual.spec.mjs",
+          "before": "9d17d33c751386c0142ec4d32c328e4bfacf27c8b605367a4a95ce74514b61bf",
+          "after": "bec9a680d22badf931f9e601185f6248c034a731779f95498109557c757a7ab2"
+        },
+        {
+          "file": "components/rc-dropdown-container/docs/dropdown.visual.spec.mjs",
+          "before": "5f8fcc0505e0ac934c47d6f0646d2f08824df08857b226bccb57ac087bbd9ee3",
+          "after": "1c8b7b5c7256c7cda679ab18038e005d492107fd29b3d555429070b3d9b995cc"
+        },
+        {
+          "file": "components/rc-empty/docs/empty-zoom.visual.spec.mjs",
+          "before": "8edb176ad82ebcf6bc743911103215909007c56d785c302c133e4563b8aeebcf",
+          "after": "d2a9799fc473461734f83a09fb33e11e8024b16f77191e98facd1b33455a9708"
+        },
+        {
+          "file": "components/rc-flow-diagram/docs/flow-diagram-zoom.visual.spec.mjs",
+          "before": "d047380c76e3524697fd71a35c5ce9240b51e2a4dc25609a176e37d10e111344",
+          "after": "86eb494c8e0b4fc6facb3fce1f9c710a873ea75cfeec6a2aeec8c1114266f1ed"
+        },
+        {
+          "file": "components/rc-form/docs/form-zoom.visual.spec.mjs",
+          "before": "e4f035776493a53aae9b03d85583a7ee13d33dd73a0aff6494a2ccc7bc0dc529",
+          "after": "847a1ab19c35fc6e2cfcd4b9af1790a7430b97cecb1e359f2cb53d10c6aeaa9e"
+        },
+        {
+          "file": "components/rc-line-edit/docs/index.mdx",
+          "before": "e3701579500ff60734f804dd4efdaed1e46ea824c8e6c14f1cc0f6d1030efc32",
+          "after": "74ae573fea16e62f70ada07e88edf538887d864f53f8b59bc5b31b553bf567c5"
+        },
+        {
+          "file": "components/rc-line-edit/docs/line-edit-zoom.visual.spec.mjs",
+          "before": "58a80625fd20cf5423fe181714d877cc122824eded3e0713aebaf35d6ead74a4",
+          "after": "d560b451dde62141ff614c7fe5d5dd974c350467f6aeca6c8c068667e324f421"
+        },
+        {
+          "file": "components/rc-line-edit/docs/line-edit.visual.spec.mjs",
+          "before": "4d2baffbb5c4479eb583b177ebea8f7b40e28293321e52d258bdec8f097c80c2",
+          "after": "19324cbf1ae475aa5aeca24a84722338ac71370f6fe5b67f86489ba2adba6d69"
+        },
+        {
+          "file": "components/rc-line-edit/docs/visual-assertions.mjs",
+          "before": "c0f8c6828d38ab1a79a20d5ea09a74616d04fc5c1fab06cc0bb9ebf3e7c43a09",
+          "after": "3551cf9887ea6c190ba75f0205ccda1c3fa5090f3cf773813eb3678eb2069e83"
+        },
+        {
+          "file": "components/rc-line-edit/src/__tests__/browser/placeholder.test.tsx",
+          "before": "c3d891b934589db940e95e37f6bb01bae8461b5196916932c871e68d1df683b0",
+          "after": "b15249f8368273e0e2d1111646f98a8f107f703f680d8a36af79810a10c94740"
+        },
+        {
+          "file": "components/rc-line-edit/src/lineEdit.styles.ts",
+          "before": "f425a9fba1708e7272263363c1896e98d551fd484c479482cd15452ee63365c9",
+          "after": "698d16780b09d774fcadbe600c41694a7f04eeb9e845a176d490aac9b8417717"
+        },
+        {
+          "file": "components/rc-line-edit/src/lineEdit.tsx",
+          "before": "92752e7620344cfd3838897bbcebd46f8ec1feced09ca4f7f227e30fa630604c",
+          "after": "1c14bb4b99cfc5895970b09c91bcf6626c016b7f19ff02e6fca5e494db6ae01b"
+        },
+        {
+          "file": "components/rc-masonry/docs/masonry-zoom.visual.spec.mjs",
+          "before": "49d12858029e82fd989fa3332849056f27fdd002fbfe640b22ae683aebb02666",
+          "after": "9d705d25d0aa698cb2409c3a2076258216d10da5b40140673128c210db0565e4"
+        },
+        {
+          "file": "components/rc-menu/docs/menu-zoom.visual.spec.mjs",
+          "before": "f986900288be933f80fed035d9061f77ad37acd438515ae607f0e4e40bb20bcd",
+          "after": "d350376d83bf1fff9c136f03e68ec9fccbc28853f10ad46c52c7296111ef1145"
+        },
+        {
+          "file": "components/rc-message/docs/message-zoom.visual.spec.mjs",
+          "before": "b40b37dca98acbcf7304fad3bfdbdee84fa13b42456ecbee99bbe00ddef51896",
+          "after": "c359b2273d19f76e8c88097be1ab131a2984179b0e41255c554d8162ea97ad3a"
+        },
+        {
+          "file": "components/rc-notification/docs/notification-zoom.visual.spec.mjs",
+          "before": "feb3b1bb1ca0af60298dd08860ca0aa24b02b747b68ee95f690293178fe81037",
+          "after": "359778a5e192e834b373eca38eb683eb22e5a568cebdd4477fe1bafd233b1e0c"
+        },
+        {
+          "file": "components/rc-number-edit/docs/number-edit-zoom.visual.spec.mjs",
+          "before": "4360cdf3425d963c6e89224995da0f9a5222dc49b69e53535bcc4269ee41cb63",
+          "after": "c4d2ef07842f2214b86c43a123e67fb9e46627fabb0df88eba7e70728e4f35d4"
+        },
+        {
+          "file": "components/rc-number-edit/docs/visual-geometry.mjs",
+          "before": "17e7235316e5abbc54bae42c221b0341e29dfdee4b8f93da2a090421d945fe23",
+          "after": "96def1b27a4139659d83813f722ddfcb9ca5d84b2c8313e7ef325b4a3da5db38"
+        },
+        {
+          "file": "components/rc-pagination/docs/pagination-zoom.visual.spec.mjs",
+          "before": "ad776f4e6b83ce0deeacd98cf40eb35e919f915612ccff45ae498d3f20885b08",
+          "after": "bd1faf06b231cb38f4fdc60aab0f2fb7202b7d235802a7586fb96d0740c3ecee"
+        },
+        {
+          "file": "components/rc-pdf-editor/docs/pdf-editor-zoom.visual.spec.mjs",
+          "before": "b58b6c6afdc8f79be939b5ba5d8bb2596ad67c9b3f5f5f947c6b0d1882fbf6c8",
+          "after": "bfc87930cbfe081767b6b0ca23202aa394cebbf4c5d8681e7953f67f3e7ef59d"
+        },
+        {
+          "file": "components/rc-pdf-editor/docs/pdf-editor.visual.spec.mjs",
+          "before": "e79c21abe69ff8e9da678bfc57d2611fb90190345e931aed277f2b130ce8c053",
+          "after": "9476a66f04fb52cdb52cd7642ca8b0e596b5c60be8111230f0068d5ae0cebcfc"
+        },
+        {
+          "file": "components/rc-pdf-editor/docs/pdf-professional.visual.spec.mjs",
+          "before": "01527f0ea7caa123951b431e759fec9820f8cee79a5a68d9a6bc4adc54f8d869",
+          "after": "bf0a37ce3c826e476b0073402093c5044025d3ecd0269ee8ab3226637ac354d0"
+        },
+        {
+          "file": "components/rc-prose/docs/prose-zoom.visual.spec.mjs",
+          "before": "24087c455855df9becdc12d366e401768c5fc46b3a6436a33325c72fd85d303e",
+          "after": "9138c3b9f60e99c06e695b433155782370d5d284b78a8e93e8aa2c8220e9df1e"
+        },
+        {
+          "file": "components/rc-radio/docs/radio-zoom.visual.spec.mjs",
+          "before": "fb3e43f6dcf1f97300007722c3797a6808b655c15052283607fc002f58ec9ecc",
+          "after": "e574c032cf45d1bf8c86c65dfb720f07f5d65387c2b16f9723f9928c3e4813b3"
+        },
+        {
+          "file": "components/rc-realm/docs/realm-zoom.visual.spec.mjs",
+          "before": "a1f6e0f5add1c3bc7b0a6f97fb96e675fa1d32233c1035cb8ab6b449badcf7ba",
+          "after": "b8c306a8caff9b88dde2b25ca43d9d78b07cee29d73fba9e7abcfc5e8239cb92"
+        },
+        {
+          "file": "components/rc-segmented/docs/segmented-zoom.visual.spec.mjs",
+          "before": "bb78085e947ccb4a20e8cbd3ceb088a44c71c3eba6293976a75a86926ce344f5",
+          "after": "bb5e1fe4284e61d9558e214d789cfbf7b07babc699fb221c4f487d7c5f3d601b"
+        },
+        {
+          "file": "components/rc-select/docs/select-zoom.visual.spec.mjs",
+          "before": "1f0fb24d1e36722204e63b1347550b40cda2be3c11cf3cc66f43c9699061f170",
+          "after": "a57c1d89739987b48dbd9af626cad18667b15062cd46cc8e40f7c088a57e301b"
+        },
+        {
+          "file": "components/rc-skeleton/docs/skeleton-zoom.visual.spec.mjs",
+          "before": "413a2ffc24228b516f00131207f660c6b65a195119947a7cc6f9cf06774a269b",
+          "after": "73971819a3dd13a0dd5e5f4fa84d238b8099587f5b92d4bf5ebe38fcb1a60efa"
+        },
+        {
+          "file": "components/rc-slider/docs/slider-zoom.visual.spec.mjs",
+          "before": "34967840129f419f9a4612c157df0040d34d8db3852b772459fd7e92d353f888",
+          "after": "2cb578041c441692c51563c46ce79ef68bc39dbe4ea5c429dbd673cc74e584d0"
+        },
+        {
+          "file": "components/rc-spin/docs/spin-zoom.visual.spec.mjs",
+          "before": "202174f570cd3378624233e24d68de865c86dabb5d48a0d871932c45982145b4",
+          "after": "0c2abfb6d851ff51cb29bc1728dd6fae793e7c77dd9baeafd9c0332dac9133a4"
+        },
+        {
+          "file": "components/rc-split-pane/docs/split-pane-zoom.visual.spec.mjs",
+          "before": "6cdb6aa66a1cc38dc8e0414008df3dc5b0413a1c8795927b994ed2019e31cbce",
+          "after": "d008b423328e93debfdfa6f8a2233d233bf6c3b1b61445be2c914d1abe774e24"
+        },
+        {
+          "file": "components/rc-switch/docs/switch-zoom.visual.spec.mjs",
+          "before": "4f0ea48f9e33fb853e7e8308c57c5562adb95869dc7f561e633f6ef7d0af9294",
+          "after": "5c8b220e8890199695efeec2aa8807c20f281e329ed1b29e708d17c678d86d8f"
+        },
+        {
+          "file": "components/rc-table-pro/docs/table-pro-zoom.visual.spec.mjs",
+          "before": "e46828aaabc1ea87947a87f5cf98da77b6fb706653977734d57d06122afadcd2",
+          "after": "458249c73764b57e471dbae6851a2155d58feb13134c099effc17623c1d18449"
+        },
+        {
+          "file": "components/rc-table/docs/table-zoom.visual.spec.mjs",
+          "before": "fed8db22d1d8605bca347161fb81db0e5fcdcc9640c61cc40d477bf21f7aae3a",
+          "after": "49e412a2fc1daddd21a9756f68bc93c06c6c756e1d2dd2f1082391d177d6fe2f"
+        },
+        {
+          "file": "components/rc-tabs/docs/tabs-zoom.visual.spec.mjs",
+          "before": "6b22165b91fe66dd9a1b92fc1ba6c416220d6a4f5ae5b3a8c114c7158d62ade7",
+          "after": "b7a8ed342cc885c008ef781e7405f9664e20338ca47b2bc8a0a0eb0018c96a30"
+        },
+        {
+          "file": "components/rc-tag/docs/tag-zoom.visual.spec.mjs",
+          "before": "723c561639eaa8345f8c29152588d5dcec991617a6727a006f8e725c4598274e",
+          "after": "45f48b1621789a7f2e58f03c5ff7a1ff1faf7c401da8a792951db9339fc3f107"
+        },
+        {
+          "file": "components/rc-text-edit/docs/text-edit-environment.visual.spec.mjs",
+          "before": "a1b9610b21da02c5ad3c43d5e4f19a705aed05bcb7fe2bd53c17415ca43478e2",
+          "after": "675e94a4f0d08d03a803b67b971a921a188dd1dfe4b0073d5ee1c6a6c0f895b8"
+        },
+        {
+          "file": "components/rc-text-edit/docs/text-edit-zoom.visual.spec.mjs",
+          "before": "f42b1c7e32b70194ac1801981841ca397e4b99faf57a3806a749186718e795f3",
+          "after": "31020f3b0c5a951d7a5154d47cb8bc9422dc665571d731eda5a2a5e1a904415d"
+        },
+        {
+          "file": "components/rc-theme/docs/theme-zoom.visual.spec.mjs",
+          "before": "a186bf8221359a256d43fdf6bb784aeaf1f7250a4f4b9c09415c58d21129c7a7",
+          "after": "5c270161018c395a97b62e8928197f4cdaae7b1ef60163d0fc3fc22525903648"
+        },
+        {
+          "file": "components/rc-token-global/docs/primitives-zoom.visual.spec.mjs",
+          "before": "42262cb43c2bdaaa3835d28614cf93d296327bf8ff28c38a4efdc4786d6b1f73",
+          "after": "09c64db13ae0c35ecc7d48b60bc665c835220792b8ac9a75504c661e3ffdc241"
+        },
+        {
+          "file": "components/rc-token-semantic/docs/semantic-zoom.visual.spec.mjs",
+          "before": "ab473217c08a270ddb3aa6c8c4da0f63a3f8e1813828be106f35668d05400c68",
+          "after": "07b251da777bf9df4220746fbcdbe9997fcd8a1d813c1773d8e4b36f083b4c35"
+        },
+        {
+          "file": "components/rc-tooltip/docs/tooltip-zoom.visual.spec.mjs",
+          "before": "815f953b4b99cedb12a6f90b736aa471dadbefceee46a0654b3c2ced04da8382",
+          "after": "04f025515239506612489679a20fd9232aa9457a21fa174b567b91286d447f92"
+        },
+        {
+          "file": "components/rc-tree/docs/tree-zoom.visual.spec.mjs",
+          "before": "e8fd2c768ac38039097828f0e39382d5f204b44eb860f6168d4e14c602f7479e",
+          "after": "40b709c787972977028bbabe42485c29b2b8e6e2eb9bd2d80a3570e86a2b2e46"
+        },
+        {
+          "file": "turbo.json",
+          "before": "faa14a6b5b4510ff329e69863b5af8a15cd4c0a0c1f83ccd55ad545ddbc26968",
+          "after": "cdea5ed6affc5859762fe0372cf222e01bdd91d0914502f1b1afb771d7273792"
+        }
+      ]
+    },
+    {
+      "snapshot": "2026-11-01T21-46-13-686Z",
+      "receipt": "gated-receipt.json",
+      "updatedAt": "2026-11-01T23:01:48.619Z",
+      "queue": "e",
+      "completedRun": "audit-rc-table-2026-11-01T22-42-43-004Z",
+      "completedStats": {
+        "startTime": "2026-11-01T22:43:38.499Z",
+        "duration": 1028823.186,
+        "expected": 579,
+        "skipped": 0,
+        "unexpected": 6,
+        "flaky": 0
+      },
+      "policy": "Driver paused at a completed product boundary; every previous worker input was finalized and stable before refreshing upcoming source. Next public runner rebuilds products and fingerprints its own inputs.",
+      "files": [
+        {
+          "file": ".changeset/fit-floating-labels-around-decorations.md",
+          "before": null,
+          "after": "f490ee0bcef2eb28ad92cfa6b4825dd690b4762781b83dc54c1d00f505d0b14e"
+        },
+        {
+          "file": ".changeset/retain-nested-keyboard-ownership.md",
+          "before": "1227e0d83ca4933489bfd293090abb83b3010bd5e5093ae5dcd1b71c23b74186",
+          "after": "501894be6f03dc585584b7ff3b2e287ac56ed1afb3d771c79ecd12abb361e640"
+        },
+        {
+          "file": "components/rc-line-edit/src/lineEdit.designs.ts",
+          "before": null,
+          "after": "e590fbff86f2862d91f1dd7599e0d510588eabde104b525fe83b0c668f4f5807"
+        },
+        {
+          "file": "test/visual/text-contrast.mjs",
+          "before": "19d4aac7d83d32d0ed345751e0593c7b7179431bcbbb31edb4b0f7427a52c6bd",
+          "after": "89839a8a9d579b6174b450b1dfd7dc753c7d12300d7a3cf390e24c0892de3cce"
+        },
+        {
+          "file": "test/visual/text-contrast.visual.spec.mjs",
+          "before": "e52f4c01b1b3894edf0441cf5e50c9a514965b7a44f3bbeae0622f1bbc5853df",
+          "after": "2c89dfdc6c1188da4f0dd4a3d55f9edd2337218900a3eac5d381fe8927277920"
+        },
+        {
+          "file": "components/rc-alert/docs/alert-zoom.visual.spec.mjs",
+          "before": "ee97bfb95a31af5c6e339dd70f3e8217b4d5bf73c103766fd34624e5e1bf95f6",
+          "after": "58035bf2431ce8e0057253094d2e661aa8f2e16b51943a265ee2a5cbf34c701f"
+        },
+        {
+          "file": "components/rc-avatar/docs/avatar-zoom.visual.spec.mjs",
+          "before": "0a92f4907f7006fb08031ac5675d84ccb2395f6e2d3f9882818e2dcdba7edd4a",
+          "after": "0ff3a1a2f55f1d0164c77098ca5efda9ca781e0234a225674e99f60aeaa53715"
+        },
+        {
+          "file": "components/rc-badge/docs/badge-zoom.visual.spec.mjs",
+          "before": "6d4c19023f3c0ce4a431ce9149ac79c5c9595e33a740ab829ee565b72a70ab8d",
+          "after": "117095219e33dbf4c09c8cf838399fd025137d70b82910da60928f5cbac52015"
+        },
+        {
+          "file": "components/rc-bar-chart/docs/bar-chart-zoom.visual.spec.mjs",
+          "before": "8f2e2ed48ded6b676920cc7d6b58d79f26d68cf1d383cec053c0c4d6b0024766",
+          "after": "1015c41618b75b9e291e6041753ac536efc47ecf8f27dabbd35cd68cf8387153"
+        },
+        {
+          "file": "components/rc-breadcrumbs/docs/breadcrumbs-zoom.visual.spec.mjs",
+          "before": "c4cf942bc7a0426f587f66429f70f7fb8bc4e3eaeb33e4976ccd8d12c5a18e62",
+          "after": "fff3399c02a6d68be8b3c2fdbea9324cb616ea7df386f0686bc551e4331c90e6"
+        },
+        {
+          "file": "components/rc-button/docs/button-zoom.visual.spec.mjs",
+          "before": "9de6ec4d518b25e3f236decb0a372feed9c8826baa33aadc680942f6130cb023",
+          "after": "8830f4e0b09ec7c61fc25710d3006ad466fea0d1497b0652d91122727b39da5a"
+        },
+        {
+          "file": "components/rc-canvas/docs/canvas-zoom.visual.spec.mjs",
+          "before": "d02d2bd0ed15e9a5a01d14eb4da4ab152253a98c0b5b41e95e0f3af061e38707",
+          "after": "a0791d17a4d8865c3750a8b41c43db18a9ae4a7918d1cf3565851cf8a857ad89"
+        },
+        {
+          "file": "components/rc-card/docs/card-zoom.visual.spec.mjs",
+          "before": "17545c6ab852025b66e2397cdef772ac497a991b980ee83d04599297080ae0ae",
+          "after": "775167f844fbacf302a4df84f212394b0ccb130ca448785ee3879f435deb12e8"
+        },
+        {
+          "file": "components/rc-checkbox/docs/checkbox-zoom.visual.spec.mjs",
+          "before": "95de04971f814fc4aa39db6e5788bda2e2276e47472f785a0b85d1b28f846ea2",
+          "after": "3e23c8ad506822e7903efcdf4374d511b04419c92f4f26af332b99eb26a07628"
+        },
+        {
+          "file": "components/rc-color-picker/docs/color-picker-zoom.visual.spec.mjs",
+          "before": "dea9ec39dd89f80a7f64e2748c5859644196b657b0ee7ce273496396e06e7d1a",
+          "after": "3a6f9c1ed8fb6b49b899fe46423255fd72e1e8c456921fda2c925a3576c9838f"
+        },
+        {
+          "file": "components/rc-component-preview/docs/preview-zoom.visual.spec.mjs",
+          "before": "96a448b3e94b1a38100c5d413cb299a5d9f167b42922c998b3718dbc4b61a0c0",
+          "after": "d09ba3fae6af545c2c5b4acd04ffb2b821741f41276fd3d727565edd6339633b"
+        },
+        {
+          "file": "components/rc-config-provider/docs/config-provider-zoom.visual.spec.mjs",
+          "before": "7b558ba8524cdbb0c86b324bb419f1b0238bb7fec92705bc3151323932a187f3",
+          "after": "f80642411ce9ee6e79a8bf5ee4f2863f98a4c424ab2abdbdcf9b6157ecf6336a"
+        },
+        {
+          "file": "components/rc-cron-picker/docs/cron-picker-zoom.visual.spec.mjs",
+          "before": "f75728ca7586c5fa18edc60d63f6f3099729a162e4bd0d9c242ca05c161bf107",
+          "after": "6b51538cf6bed8c149ee70a2f62f627a70cb58e1a75c625af5ef318de3de6fdc"
+        },
+        {
+          "file": "components/rc-dialog/docs/dialog-zoom.visual.spec.mjs",
+          "before": "05bdc1390d7a6d1d45025723c8c4e0846333f9924e9ba228a7887f4a68381e7f",
+          "after": "ba8743b3759c7587096d1ec7515d61a59a535f066c53ac6ceb92411f66b682b4"
+        },
+        {
+          "file": "components/rc-divider/docs/divider-zoom.visual.spec.mjs",
+          "before": "850a5e08a1c3d8ab0ad4472a174e8eaece7c3b19c61d0b1a00f3abe76f93610a",
+          "after": "31e01ad988ff04ebae9bb7339dc1967765dc22a546940abdb7acd565cf0b7242"
+        },
+        {
+          "file": "components/rc-drawer/docs/drawer-zoom.visual.spec.mjs",
+          "before": "97ba6ac8e921b4a05b50e033d6edaad05c55eedc508a5d72102ede1e59903101",
+          "after": "2a08751d63e003d237a3db43d1ec96bc150d4900d9e88af29335280dd958ff01"
+        },
+        {
+          "file": "components/rc-dropdown-container/docs/dropdown-zoom.visual.spec.mjs",
+          "before": "9d17d33c751386c0142ec4d32c328e4bfacf27c8b605367a4a95ce74514b61bf",
+          "after": "bec9a680d22badf931f9e601185f6248c034a731779f95498109557c757a7ab2"
+        },
+        {
+          "file": "components/rc-dropdown-container/docs/dropdown.visual.spec.mjs",
+          "before": "5f8fcc0505e0ac934c47d6f0646d2f08824df08857b226bccb57ac087bbd9ee3",
+          "after": "1c8b7b5c7256c7cda679ab18038e005d492107fd29b3d555429070b3d9b995cc"
+        },
+        {
+          "file": "components/rc-empty/docs/empty-zoom.visual.spec.mjs",
+          "before": "8edb176ad82ebcf6bc743911103215909007c56d785c302c133e4563b8aeebcf",
+          "after": "d2a9799fc473461734f83a09fb33e11e8024b16f77191e98facd1b33455a9708"
+        },
+        {
+          "file": "components/rc-flow-diagram/docs/flow-diagram-zoom.visual.spec.mjs",
+          "before": "d047380c76e3524697fd71a35c5ce9240b51e2a4dc25609a176e37d10e111344",
+          "after": "86eb494c8e0b4fc6facb3fce1f9c710a873ea75cfeec6a2aeec8c1114266f1ed"
+        },
+        {
+          "file": "components/rc-form/docs/form-zoom.visual.spec.mjs",
+          "before": "e4f035776493a53aae9b03d85583a7ee13d33dd73a0aff6494a2ccc7bc0dc529",
+          "after": "847a1ab19c35fc6e2cfcd4b9af1790a7430b97cecb1e359f2cb53d10c6aeaa9e"
+        },
+        {
+          "file": "components/rc-line-edit/docs/index.mdx",
+          "before": "e3701579500ff60734f804dd4efdaed1e46ea824c8e6c14f1cc0f6d1030efc32",
+          "after": "74ae573fea16e62f70ada07e88edf538887d864f53f8b59bc5b31b553bf567c5"
+        },
+        {
+          "file": "components/rc-line-edit/docs/line-edit-zoom.visual.spec.mjs",
+          "before": "58a80625fd20cf5423fe181714d877cc122824eded3e0713aebaf35d6ead74a4",
+          "after": "d560b451dde62141ff614c7fe5d5dd974c350467f6aeca6c8c068667e324f421"
+        },
+        {
+          "file": "components/rc-line-edit/docs/line-edit.visual.spec.mjs",
+          "before": "4d2baffbb5c4479eb583b177ebea8f7b40e28293321e52d258bdec8f097c80c2",
+          "after": "19324cbf1ae475aa5aeca24a84722338ac71370f6fe5b67f86489ba2adba6d69"
+        },
+        {
+          "file": "components/rc-line-edit/docs/visual-assertions.mjs",
+          "before": "c0f8c6828d38ab1a79a20d5ea09a74616d04fc5c1fab06cc0bb9ebf3e7c43a09",
+          "after": "3551cf9887ea6c190ba75f0205ccda1c3fa5090f3cf773813eb3678eb2069e83"
+        },
+        {
+          "file": "components/rc-line-edit/src/__tests__/browser/placeholder.test.tsx",
+          "before": "c3d891b934589db940e95e37f6bb01bae8461b5196916932c871e68d1df683b0",
+          "after": "b15249f8368273e0e2d1111646f98a8f107f703f680d8a36af79810a10c94740"
+        },
+        {
+          "file": "components/rc-line-edit/src/lineEdit.styles.ts",
+          "before": "f425a9fba1708e7272263363c1896e98d551fd484c479482cd15452ee63365c9",
+          "after": "698d16780b09d774fcadbe600c41694a7f04eeb9e845a176d490aac9b8417717"
+        },
+        {
+          "file": "components/rc-line-edit/src/lineEdit.tsx",
+          "before": "92752e7620344cfd3838897bbcebd46f8ec1feced09ca4f7f227e30fa630604c",
+          "after": "1c14bb4b99cfc5895970b09c91bcf6626c016b7f19ff02e6fca5e494db6ae01b"
+        },
+        {
+          "file": "components/rc-masonry/docs/masonry-zoom.visual.spec.mjs",
+          "before": "49d12858029e82fd989fa3332849056f27fdd002fbfe640b22ae683aebb02666",
+          "after": "9d705d25d0aa698cb2409c3a2076258216d10da5b40140673128c210db0565e4"
+        },
+        {
+          "file": "components/rc-menu/docs/menu-zoom.visual.spec.mjs",
+          "before": "f986900288be933f80fed035d9061f77ad37acd438515ae607f0e4e40bb20bcd",
+          "after": "d350376d83bf1fff9c136f03e68ec9fccbc28853f10ad46c52c7296111ef1145"
+        },
+        {
+          "file": "components/rc-message/docs/message-zoom.visual.spec.mjs",
+          "before": "b40b37dca98acbcf7304fad3bfdbdee84fa13b42456ecbee99bbe00ddef51896",
+          "after": "c359b2273d19f76e8c88097be1ab131a2984179b0e41255c554d8162ea97ad3a"
+        },
+        {
+          "file": "components/rc-notification/docs/notification-zoom.visual.spec.mjs",
+          "before": "feb3b1bb1ca0af60298dd08860ca0aa24b02b747b68ee95f690293178fe81037",
+          "after": "359778a5e192e834b373eca38eb683eb22e5a568cebdd4477fe1bafd233b1e0c"
+        },
+        {
+          "file": "components/rc-number-edit/docs/number-edit-zoom.visual.spec.mjs",
+          "before": "4360cdf3425d963c6e89224995da0f9a5222dc49b69e53535bcc4269ee41cb63",
+          "after": "c4d2ef07842f2214b86c43a123e67fb9e46627fabb0df88eba7e70728e4f35d4"
+        },
+        {
+          "file": "components/rc-number-edit/docs/visual-geometry.mjs",
+          "before": "17e7235316e5abbc54bae42c221b0341e29dfdee4b8f93da2a090421d945fe23",
+          "after": "96def1b27a4139659d83813f722ddfcb9ca5d84b2c8313e7ef325b4a3da5db38"
+        },
+        {
+          "file": "components/rc-pagination/docs/pagination-zoom.visual.spec.mjs",
+          "before": "ad776f4e6b83ce0deeacd98cf40eb35e919f915612ccff45ae498d3f20885b08",
+          "after": "bd1faf06b231cb38f4fdc60aab0f2fb7202b7d235802a7586fb96d0740c3ecee"
+        },
+        {
+          "file": "components/rc-pdf-editor/docs/pdf-editor-zoom.visual.spec.mjs",
+          "before": "b58b6c6afdc8f79be939b5ba5d8bb2596ad67c9b3f5f5f947c6b0d1882fbf6c8",
+          "after": "bfc87930cbfe081767b6b0ca23202aa394cebbf4c5d8681e7953f67f3e7ef59d"
+        },
+        {
+          "file": "components/rc-pdf-editor/docs/pdf-editor.visual.spec.mjs",
+          "before": "e79c21abe69ff8e9da678bfc57d2611fb90190345e931aed277f2b130ce8c053",
+          "after": "9476a66f04fb52cdb52cd7642ca8b0e596b5c60be8111230f0068d5ae0cebcfc"
+        },
+        {
+          "file": "components/rc-pdf-editor/docs/pdf-professional.visual.spec.mjs",
+          "before": "01527f0ea7caa123951b431e759fec9820f8cee79a5a68d9a6bc4adc54f8d869",
+          "after": "bf0a37ce3c826e476b0073402093c5044025d3ecd0269ee8ab3226637ac354d0"
+        },
+        {
+          "file": "components/rc-prose/docs/prose-zoom.visual.spec.mjs",
+          "before": "24087c455855df9becdc12d366e401768c5fc46b3a6436a33325c72fd85d303e",
+          "after": "9138c3b9f60e99c06e695b433155782370d5d284b78a8e93e8aa2c8220e9df1e"
+        },
+        {
+          "file": "components/rc-radio/docs/radio-zoom.visual.spec.mjs",
+          "before": "fb3e43f6dcf1f97300007722c3797a6808b655c15052283607fc002f58ec9ecc",
+          "after": "e574c032cf45d1bf8c86c65dfb720f07f5d65387c2b16f9723f9928c3e4813b3"
+        },
+        {
+          "file": "components/rc-realm/docs/realm-zoom.visual.spec.mjs",
+          "before": "a1f6e0f5add1c3bc7b0a6f97fb96e675fa1d32233c1035cb8ab6b449badcf7ba",
+          "after": "b8c306a8caff9b88dde2b25ca43d9d78b07cee29d73fba9e7abcfc5e8239cb92"
+        },
+        {
+          "file": "components/rc-segmented/docs/segmented-zoom.visual.spec.mjs",
+          "before": "bb78085e947ccb4a20e8cbd3ceb088a44c71c3eba6293976a75a86926ce344f5",
+          "after": "bb5e1fe4284e61d9558e214d789cfbf7b07babc699fb221c4f487d7c5f3d601b"
+        },
+        {
+          "file": "components/rc-select/docs/select-zoom.visual.spec.mjs",
+          "before": "1f0fb24d1e36722204e63b1347550b40cda2be3c11cf3cc66f43c9699061f170",
+          "after": "a57c1d89739987b48dbd9af626cad18667b15062cd46cc8e40f7c088a57e301b"
+        },
+        {
+          "file": "components/rc-skeleton/docs/skeleton-zoom.visual.spec.mjs",
+          "before": "413a2ffc24228b516f00131207f660c6b65a195119947a7cc6f9cf06774a269b",
+          "after": "73971819a3dd13a0dd5e5f4fa84d238b8099587f5b92d4bf5ebe38fcb1a60efa"
+        },
+        {
+          "file": "components/rc-slider/docs/slider-zoom.visual.spec.mjs",
+          "before": "34967840129f419f9a4612c157df0040d34d8db3852b772459fd7e92d353f888",
+          "after": "2cb578041c441692c51563c46ce79ef68bc39dbe4ea5c429dbd673cc74e584d0"
+        },
+        {
+          "file": "components/rc-spin/docs/spin-zoom.visual.spec.mjs",
+          "before": "202174f570cd3378624233e24d68de865c86dabb5d48a0d871932c45982145b4",
+          "after": "0c2abfb6d851ff51cb29bc1728dd6fae793e7c77dd9baeafd9c0332dac9133a4"
+        },
+        {
+          "file": "components/rc-split-pane/docs/split-pane-zoom.visual.spec.mjs",
+          "before": "6cdb6aa66a1cc38dc8e0414008df3dc5b0413a1c8795927b994ed2019e31cbce",
+          "after": "d008b423328e93debfdfa6f8a2233d233bf6c3b1b61445be2c914d1abe774e24"
+        },
+        {
+          "file": "components/rc-switch/docs/switch-zoom.visual.spec.mjs",
+          "before": "4f0ea48f9e33fb853e7e8308c57c5562adb95869dc7f561e633f6ef7d0af9294",
+          "after": "5c8b220e8890199695efeec2aa8807c20f281e329ed1b29e708d17c678d86d8f"
+        },
+        {
+          "file": "components/rc-table-pro/docs/table-pro-zoom.visual.spec.mjs",
+          "before": "e46828aaabc1ea87947a87f5cf98da77b6fb706653977734d57d06122afadcd2",
+          "after": "458249c73764b57e471dbae6851a2155d58feb13134c099effc17623c1d18449"
+        },
+        {
+          "file": "components/rc-table/docs/table-zoom.visual.spec.mjs",
+          "before": "fed8db22d1d8605bca347161fb81db0e5fcdcc9640c61cc40d477bf21f7aae3a",
+          "after": "49e412a2fc1daddd21a9756f68bc93c06c6c756e1d2dd2f1082391d177d6fe2f"
+        },
+        {
+          "file": "components/rc-tabs/docs/tabs-zoom.visual.spec.mjs",
+          "before": "6b22165b91fe66dd9a1b92fc1ba6c416220d6a4f5ae5b3a8c114c7158d62ade7",
+          "after": "b7a8ed342cc885c008ef781e7405f9664e20338ca47b2bc8a0a0eb0018c96a30"
+        },
+        {
+          "file": "components/rc-tag/docs/tag-zoom.visual.spec.mjs",
+          "before": "723c561639eaa8345f8c29152588d5dcec991617a6727a006f8e725c4598274e",
+          "after": "45f48b1621789a7f2e58f03c5ff7a1ff1faf7c401da8a792951db9339fc3f107"
+        },
+        {
+          "file": "components/rc-text-edit/docs/text-edit-environment.visual.spec.mjs",
+          "before": "a1b9610b21da02c5ad3c43d5e4f19a705aed05bcb7fe2bd53c17415ca43478e2",
+          "after": "675e94a4f0d08d03a803b67b971a921a188dd1dfe4b0073d5ee1c6a6c0f895b8"
+        },
+        {
+          "file": "components/rc-text-edit/docs/text-edit-zoom.visual.spec.mjs",
+          "before": "f42b1c7e32b70194ac1801981841ca397e4b99faf57a3806a749186718e795f3",
+          "after": "31020f3b0c5a951d7a5154d47cb8bc9422dc665571d731eda5a2a5e1a904415d"
+        },
+        {
+          "file": "components/rc-theme/docs/theme-zoom.visual.spec.mjs",
+          "before": "a186bf8221359a256d43fdf6bb784aeaf1f7250a4f4b9c09415c58d21129c7a7",
+          "after": "5c270161018c395a97b62e8928197f4cdaae7b1ef60163d0fc3fc22525903648"
+        },
+        {
+          "file": "components/rc-token-global/docs/primitives-zoom.visual.spec.mjs",
+          "before": "42262cb43c2bdaaa3835d28614cf93d296327bf8ff28c38a4efdc4786d6b1f73",
+          "after": "09c64db13ae0c35ecc7d48b60bc665c835220792b8ac9a75504c661e3ffdc241"
+        },
+        {
+          "file": "components/rc-token-semantic/docs/semantic-zoom.visual.spec.mjs",
+          "before": "ab473217c08a270ddb3aa6c8c4da0f63a3f8e1813828be106f35668d05400c68",
+          "after": "07b251da777bf9df4220746fbcdbe9997fcd8a1d813c1773d8e4b36f083b4c35"
+        },
+        {
+          "file": "components/rc-tooltip/docs/tooltip-zoom.visual.spec.mjs",
+          "before": "815f953b4b99cedb12a6f90b736aa471dadbefceee46a0654b3c2ced04da8382",
+          "after": "04f025515239506612489679a20fd9232aa9457a21fa174b567b91286d447f92"
+        },
+        {
+          "file": "components/rc-tree/docs/tree-zoom.visual.spec.mjs",
+          "before": "e8fd2c768ac38039097828f0e39382d5f204b44eb860f6168d4e14c602f7479e",
+          "after": "40b709c787972977028bbabe42485c29b2b8e6e2eb9bd2d80a3570e86a2b2e46"
+        },
+        {
+          "file": "turbo.json",
+          "before": "faa14a6b5b4510ff329e69863b5af8a15cd4c0a0c1f83ccd55ad545ddbc26968",
+          "after": "cdea5ed6affc5859762fe0372cf222e01bdd91d0914502f1b1afb771d7273792"
+        }
+      ]
+    },
+    {
+      "snapshot": "2026-11-01T21-46-13-686Z",
+      "receipt": "gated-followup-receipt.json",
+      "updatedAt": "2026-11-01T23:23:49.080Z",
+      "queue": "e",
+      "completedRun": "audit-rc-table-2026-11-01T22-42-43-004Z",
+      "completedStats": {
+        "startTime": "2026-11-01T22:43:38.499Z",
+        "duration": 1028823.186,
+        "expected": 579,
+        "skipped": 0,
+        "unexpected": 6,
+        "flaky": 0
+      },
+      "policy": "Driver paused at a completed product boundary; every previous worker input was finalized and stable before refreshing upcoming source. Next public runner rebuilds products and fingerprints its own inputs.",
+      "files": [
+        {
+          "file": ".changeset/clarify-system-highlight-demos.md",
+          "before": null,
+          "after": "45a22f69573103ec44d4ca8a9e480ffc652cc686f3650ba7e6fb56993a3a9430"
+        },
+        {
+          "file": ".changeset/keep-search-with-paginated-tables.md",
+          "before": null,
+          "after": "21bb41e44c4a5d64032dd59a41e5acb956b447e5d88bdb9fc5c47362ecf5a708"
+        },
+        {
+          "file": ".website/docs/_generated/rc-theme.ts",
+          "before": "e85aea4ac3696270f349fe4458bc2bf0e38b7251a2a283f07f9e2e8f3c097759",
+          "after": "fb6ffaef694faf7212ac8ad2ebccf56a6104d12600c18e000fd09af10b55aa29"
+        },
+        {
+          "file": ".website/docs/_generated/rc-token-semantic.ts",
+          "before": "9592694a12058ca43bff1113a80e699f332401ee375033e57e530e8955971631",
+          "after": "deee5d232ce4bc9d403741ee0bf56a9e4bad3222ffc518463ea5281ac0448433"
+        },
+        {
+          "file": ".website/docs/components/rc-line-edit.mdx",
+          "before": "8b317975caab1f607708b6441d049e56092b6606dad1e018ebf6b0ee24d72fd4",
+          "after": "5611b85378bb66bce8df4fd7ee004cce1efb7a230aebede3bf0dc3c4e7c63695"
+        },
+        {
+          "file": ".website/docs/components/rc-table-pro.mdx",
+          "before": "2cdfdeebd3fea7eec2bae9f723f6feb428dcdc63102211912d8a4b0965865783",
+          "after": "3b609a8abb591178a2169024a91b94f5dae35d82a1948a9c2e670928f7b4b3ea"
+        },
+        {
+          "file": "components/rc-line-edit/docs/visual-assertions.mjs",
+          "before": "3551cf9887ea6c190ba75f0205ccda1c3fa5090f3cf773813eb3678eb2069e83",
+          "after": "2a2a02a3b930a01e09a320cdaf8e0ea078373ffde85917a7ec4880b96d936603"
+        },
+        {
+          "file": "components/rc-number-edit/docs/visual-geometry.mjs",
+          "before": "96def1b27a4139659d83813f722ddfcb9ca5d84b2c8313e7ef325b4a3da5db38",
+          "after": "d686a96b33432e1f8c90402d631068fab57371bef75ee1d6e8d431832138a742"
+        },
+        {
+          "file": "components/rc-table-pro/docs/index.mdx",
+          "before": "9f102125aac63b39a7fdcb2b11158cfce2069b857386c958b9f86ce8e2e44429",
+          "after": "840ee4c539fb681f90cb85ad5337283ba5ecf0646e870fc0dd07001b87e30e6b"
+        },
+        {
+          "file": "components/rc-table-pro/src/__tests__/table.test.tsx",
+          "before": "111a8567bb76211cf719f541f78c1fa95caf1b289a39d0ef446c5d7fb2b464af",
+          "after": "94e1a092cec73c68555d2a3b893b5cabbfc31097cb6b3fe7c8f2c74f67457d17"
+        },
+        {
+          "file": "components/rc-table-pro/src/table.tsx",
+          "before": "a3e5120b9d5032b8c179c1be64965cc5cf59e3934d1250f5ed5528fceb59a383",
+          "after": "dd869c64ab9f33055c4c277e01b15a3dbdef8d8280839d0b5d1de47171e52464"
+        },
+        {
+          "file": "components/rc-table/docs/table-zoom.visual.spec.mjs",
+          "before": "49e412a2fc1daddd21a9756f68bc93c06c6c756e1d2dd2f1082391d177d6fe2f",
+          "after": "60a42f0cf12b8e7fbd2b373a5d1a378327a08d6fa885cb5bf38811a88cc7d10f"
+        },
+        {
+          "file": "components/rc-theme/docs/demos/visual-matrix.demo.tsx",
+          "before": "dd3ac257fb3270fbd3e9bdb0f95375dfd43c552039b1aab6558728f4c67bf7c0",
+          "after": "be44e389bea83058331c19491ee0c4572fcf1e2b829f732bfba57952a29816e5"
+        },
+        {
+          "file": "components/rc-theme/docs/theme.visual.spec.mjs",
+          "before": "591af1fe1e4618a0cf0160885f07841d66b657d5c8891c36bfa0b3babbc43cd5",
+          "after": "6887c36de52ffb74296cc44bad20230e2e2be913bdc5d52223da1380e4452f8a"
+        },
+        {
+          "file": "components/rc-token-semantic/docs/demos/visual-matrix.demo.tsx",
+          "before": "b7a9d5f4ad10d115e02929982045cb1260045488136b541c1064a40154052a98",
+          "after": "48bd74b30ec6d52ca91e9f6ca551901110c2f5117b406eb8bd99e3e5bad0d166"
+        },
+        {
+          "file": "components/rc-token-semantic/docs/semantic.visual.spec.mjs",
+          "before": "5781665e136c5ddddf7edc7f338cd56f83d4569ed5da43242a441390cd312844",
+          "after": "9a53538d8f43064dd6f97bdd63f4f5abd4f588f342b5d59938410a3078bab618"
+        }
+      ]
+    },
+    {
+      "snapshot": "2026-11-01T21-47-45-897Z",
+      "receipt": "gated-followup-receipt.json",
+      "updatedAt": "2026-11-01T23:23:51.788Z",
+      "queue": "f",
+      "completedRun": "audit-rc-table-pro-2026-11-01T23-01-16-238Z",
+      "completedStats": {
+        "startTime": "2026-11-01T23:02:52.799Z",
+        "duration": 1073887.382,
+        "expected": 526,
+        "skipped": 510,
+        "unexpected": 35,
+        "flaky": 0
+      },
+      "policy": "Driver paused at a completed product boundary; every previous worker input was finalized and stable before refreshing upcoming source. Next public runner rebuilds products and fingerprints its own inputs.",
+      "files": [
+        {
+          "file": ".changeset/clarify-system-highlight-demos.md",
+          "before": null,
+          "after": "45a22f69573103ec44d4ca8a9e480ffc652cc686f3650ba7e6fb56993a3a9430"
+        },
+        {
+          "file": ".changeset/keep-search-with-paginated-tables.md",
+          "before": null,
+          "after": "21bb41e44c4a5d64032dd59a41e5acb956b447e5d88bdb9fc5c47362ecf5a708"
+        },
+        {
+          "file": ".website/docs/_generated/rc-theme.ts",
+          "before": "e85aea4ac3696270f349fe4458bc2bf0e38b7251a2a283f07f9e2e8f3c097759",
+          "after": "fb6ffaef694faf7212ac8ad2ebccf56a6104d12600c18e000fd09af10b55aa29"
+        },
+        {
+          "file": ".website/docs/_generated/rc-token-semantic.ts",
+          "before": "9592694a12058ca43bff1113a80e699f332401ee375033e57e530e8955971631",
+          "after": "deee5d232ce4bc9d403741ee0bf56a9e4bad3222ffc518463ea5281ac0448433"
+        },
+        {
+          "file": ".website/docs/components/rc-line-edit.mdx",
+          "before": "8b317975caab1f607708b6441d049e56092b6606dad1e018ebf6b0ee24d72fd4",
+          "after": "5611b85378bb66bce8df4fd7ee004cce1efb7a230aebede3bf0dc3c4e7c63695"
+        },
+        {
+          "file": ".website/docs/components/rc-table-pro.mdx",
+          "before": "2cdfdeebd3fea7eec2bae9f723f6feb428dcdc63102211912d8a4b0965865783",
+          "after": "3b609a8abb591178a2169024a91b94f5dae35d82a1948a9c2e670928f7b4b3ea"
+        },
+        {
+          "file": "components/rc-line-edit/docs/visual-assertions.mjs",
+          "before": "3551cf9887ea6c190ba75f0205ccda1c3fa5090f3cf773813eb3678eb2069e83",
+          "after": "2a2a02a3b930a01e09a320cdaf8e0ea078373ffde85917a7ec4880b96d936603"
+        },
+        {
+          "file": "components/rc-number-edit/docs/visual-geometry.mjs",
+          "before": "96def1b27a4139659d83813f722ddfcb9ca5d84b2c8313e7ef325b4a3da5db38",
+          "after": "d686a96b33432e1f8c90402d631068fab57371bef75ee1d6e8d431832138a742"
+        },
+        {
+          "file": "components/rc-table-pro/docs/index.mdx",
+          "before": "9f102125aac63b39a7fdcb2b11158cfce2069b857386c958b9f86ce8e2e44429",
+          "after": "840ee4c539fb681f90cb85ad5337283ba5ecf0646e870fc0dd07001b87e30e6b"
+        },
+        {
+          "file": "components/rc-table-pro/src/__tests__/table.test.tsx",
+          "before": "111a8567bb76211cf719f541f78c1fa95caf1b289a39d0ef446c5d7fb2b464af",
+          "after": "94e1a092cec73c68555d2a3b893b5cabbfc31097cb6b3fe7c8f2c74f67457d17"
+        },
+        {
+          "file": "components/rc-table-pro/src/table.tsx",
+          "before": "a3e5120b9d5032b8c179c1be64965cc5cf59e3934d1250f5ed5528fceb59a383",
+          "after": "dd869c64ab9f33055c4c277e01b15a3dbdef8d8280839d0b5d1de47171e52464"
+        },
+        {
+          "file": "components/rc-table/docs/table-zoom.visual.spec.mjs",
+          "before": "49e412a2fc1daddd21a9756f68bc93c06c6c756e1d2dd2f1082391d177d6fe2f",
+          "after": "60a42f0cf12b8e7fbd2b373a5d1a378327a08d6fa885cb5bf38811a88cc7d10f"
+        },
+        {
+          "file": "components/rc-theme/docs/demos/visual-matrix.demo.tsx",
+          "before": "dd3ac257fb3270fbd3e9bdb0f95375dfd43c552039b1aab6558728f4c67bf7c0",
+          "after": "be44e389bea83058331c19491ee0c4572fcf1e2b829f732bfba57952a29816e5"
+        },
+        {
+          "file": "components/rc-theme/docs/theme.visual.spec.mjs",
+          "before": "591af1fe1e4618a0cf0160885f07841d66b657d5c8891c36bfa0b3babbc43cd5",
+          "after": "6887c36de52ffb74296cc44bad20230e2e2be913bdc5d52223da1380e4452f8a"
+        },
+        {
+          "file": "components/rc-token-semantic/docs/demos/visual-matrix.demo.tsx",
+          "before": "b7a9d5f4ad10d115e02929982045cb1260045488136b541c1064a40154052a98",
+          "after": "48bd74b30ec6d52ca91e9f6ca551901110c2f5117b406eb8bd99e3e5bad0d166"
+        },
+        {
+          "file": "components/rc-token-semantic/docs/semantic.visual.spec.mjs",
+          "before": "5781665e136c5ddddf7edc7f338cd56f83d4569ed5da43242a441390cd312844",
+          "after": "9a53538d8f43064dd6f97bdd63f4f5abd4f588f342b5d59938410a3078bab618"
+        }
+      ]
+    },
+    {
+      "snapshot": "2026-11-01T22-59-39-377Z",
+      "receipt": "source-updates/pdf-focus.json",
+      "receiptSha256": "edd78c4dfd285603abd0df2aeeaedb704b138934f7a5eb82a39e087bb05a1f59",
+      "updatedAt": "2026-11-01T23:41:04.739Z",
+      "activeRun": "audit-final-number-edit-2026-11-01T23-25-14-142Z",
+      "policy": "Only upcoming PDF source was refreshed. Queue dispatch was briefly stopped; every active NumberEdit worker excludes the entire PDF package. Next public PDF runner rebuilds and fingerprints the new source.",
+      "activeWorkerInputs": [
+        {
+          "file": "inputs-worker-0.json",
+          "source": "sha256:8742cee6ca8ba4d2986cb060e46cbafd25f20472aa5f402c299f9f0d4d804c6b",
+          "artifact": "sha256:7356181fce31cf1e3ce112974a1d51479a010cca2a2a74e630be0b6c2caab4f4"
+        },
+        {
+          "file": "inputs-worker-1.json",
+          "source": "sha256:8742cee6ca8ba4d2986cb060e46cbafd25f20472aa5f402c299f9f0d4d804c6b",
+          "artifact": "sha256:7356181fce31cf1e3ce112974a1d51479a010cca2a2a74e630be0b6c2caab4f4"
+        },
+        {
+          "file": "inputs-worker-10.json",
+          "source": "sha256:8742cee6ca8ba4d2986cb060e46cbafd25f20472aa5f402c299f9f0d4d804c6b",
+          "artifact": "sha256:7356181fce31cf1e3ce112974a1d51479a010cca2a2a74e630be0b6c2caab4f4"
+        },
+        {
+          "file": "inputs-worker-11.json",
+          "source": "sha256:8742cee6ca8ba4d2986cb060e46cbafd25f20472aa5f402c299f9f0d4d804c6b",
+          "artifact": "sha256:7356181fce31cf1e3ce112974a1d51479a010cca2a2a74e630be0b6c2caab4f4"
+        },
+        {
+          "file": "inputs-worker-12.json",
+          "source": "sha256:8742cee6ca8ba4d2986cb060e46cbafd25f20472aa5f402c299f9f0d4d804c6b",
+          "artifact": "sha256:7356181fce31cf1e3ce112974a1d51479a010cca2a2a74e630be0b6c2caab4f4"
+        },
+        {
+          "file": "inputs-worker-13.json",
+          "source": "sha256:8742cee6ca8ba4d2986cb060e46cbafd25f20472aa5f402c299f9f0d4d804c6b",
+          "artifact": "sha256:7356181fce31cf1e3ce112974a1d51479a010cca2a2a74e630be0b6c2caab4f4"
+        },
+        {
+          "file": "inputs-worker-2.json",
+          "source": "sha256:8742cee6ca8ba4d2986cb060e46cbafd25f20472aa5f402c299f9f0d4d804c6b",
+          "artifact": "sha256:7356181fce31cf1e3ce112974a1d51479a010cca2a2a74e630be0b6c2caab4f4"
+        },
+        {
+          "file": "inputs-worker-3.json",
+          "source": "sha256:8742cee6ca8ba4d2986cb060e46cbafd25f20472aa5f402c299f9f0d4d804c6b",
+          "artifact": "sha256:7356181fce31cf1e3ce112974a1d51479a010cca2a2a74e630be0b6c2caab4f4"
+        },
+        {
+          "file": "inputs-worker-4.json",
+          "source": "sha256:8742cee6ca8ba4d2986cb060e46cbafd25f20472aa5f402c299f9f0d4d804c6b",
+          "artifact": "sha256:7356181fce31cf1e3ce112974a1d51479a010cca2a2a74e630be0b6c2caab4f4"
+        },
+        {
+          "file": "inputs-worker-5.json",
+          "source": "sha256:8742cee6ca8ba4d2986cb060e46cbafd25f20472aa5f402c299f9f0d4d804c6b",
+          "artifact": "sha256:7356181fce31cf1e3ce112974a1d51479a010cca2a2a74e630be0b6c2caab4f4"
+        },
+        {
+          "file": "inputs-worker-6.json",
+          "source": "sha256:8742cee6ca8ba4d2986cb060e46cbafd25f20472aa5f402c299f9f0d4d804c6b",
+          "artifact": "sha256:7356181fce31cf1e3ce112974a1d51479a010cca2a2a74e630be0b6c2caab4f4"
+        },
+        {
+          "file": "inputs-worker-7.json",
+          "source": "sha256:8742cee6ca8ba4d2986cb060e46cbafd25f20472aa5f402c299f9f0d4d804c6b",
+          "artifact": "sha256:7356181fce31cf1e3ce112974a1d51479a010cca2a2a74e630be0b6c2caab4f4"
+        },
+        {
+          "file": "inputs-worker-8.json",
+          "source": "sha256:8742cee6ca8ba4d2986cb060e46cbafd25f20472aa5f402c299f9f0d4d804c6b",
+          "artifact": "sha256:7356181fce31cf1e3ce112974a1d51479a010cca2a2a74e630be0b6c2caab4f4"
+        },
+        {
+          "file": "inputs-worker-9.json",
+          "source": "sha256:8742cee6ca8ba4d2986cb060e46cbafd25f20472aa5f402c299f9f0d4d804c6b",
+          "artifact": "sha256:7356181fce31cf1e3ce112974a1d51479a010cca2a2a74e630be0b6c2caab4f4"
+        }
+      ],
+      "files": [
+        {
+          "file": "components/rc-pdf-editor/src/panel-focus.ts",
+          "before": null,
+          "after": "dc9aa16c3a82a40c7e7e06f9784b104581ca6b6d9d1b5e5611b7adb8b56e5581"
+        },
+        {
+          "file": "components/rc-pdf-editor/src/pdf-editor.tsx",
+          "before": "9d0d0d1a56f6df3ec3ed012750bd4ccc50194c020d4d82fabe38e480b68809df",
+          "after": "6ce395b4b3bce3c918614ebb40cb6eade936cb4d3dacb90f9d239084bc09c236"
+        },
+        {
+          "file": "components/rc-pdf-editor/src/__tests__/panel-focus.test.ts",
+          "before": null,
+          "after": "4abe26304ac18a2714f1886ea30fba801a028fc0cea4994baaecd9991d24bdfd"
+        },
+        {
+          "file": "components/rc-pdf-editor/docs/pdf-panel-focus.visual.spec.mjs",
+          "before": null,
+          "after": "a3bc3c187d6a9ba4dab04a6e6b6978c5fd15d13669867a8eb6d1779bcfaa76a8"
+        },
+        {
+          "file": "components/rc-pdf-editor/docs/pdf-professional.visual.spec.mjs",
+          "before": "bf0a37ce3c826e476b0073402093c5044025d3ecd0269ee8ab3226637ac354d0",
+          "after": "b5b27b621d5aa5364875423aea31808ed93a27dcfe4071d2732fa5728903e7e9"
+        },
+        {
+          "file": "components/rc-pdf-editor/docs/index.mdx",
+          "before": "d02615d764dc51b9acc23617fb2888cd69ead8a3df01d15ca91fd38143823715",
+          "after": "d31aec6e42d23f9b7caaa3f16506a027f8293ada4e5018c0784ff92f5298a09c"
+        }
+      ]
+    },
+    {
+      "snapshot": "2026-11-01T21-46-13-686Z",
+      "receipt": "source-updates/gated-e.json",
+      "receiptSha256": "c4198f08b4b20f1c55d6ccf061c01a2834a0cb95a886ab4701d43daba1984b2c",
+      "updatedAt": "2026-11-02T00:23:58.476Z",
+      "queue": "e",
+      "completedRun": "audit-rc-table-2026-11-01T22-42-43-004Z",
+      "completedStats": {
+        "startTime": "2026-11-01T22:43:38.499Z",
+        "duration": 1028823.186,
+        "expected": 579,
+        "skipped": 0,
+        "unexpected": 6,
+        "flaky": 0
+      },
+      "policy": "Driver paused at a completed product boundary; every previous worker input was finalized and stable before refreshing upcoming source. Next public runner rebuilds products and fingerprints its own inputs.",
+      "files": [
+        {
+          "file": "components/rc-pdf-editor/docs/pdf-panel-focus.visual.spec.mjs",
+          "before": "f921dbece227b25c2f030cab4c1b67116e6fba486c53303e0ce449d6bca50aac",
+          "after": "f48eafb0bf3ef9a7cf40272345abb44f2c89574540a6432ba47af0b257adf4d7"
+        },
+        {
+          "file": "components/rc-pdf-editor/src/__tests__/panel-focus.test.ts",
+          "before": "4abe26304ac18a2714f1886ea30fba801a028fc0cea4994baaecd9991d24bdfd",
+          "after": "60926411a8fd69ec22ff43e0b6844bd53d299d54e4aed95f363766be13aa6427"
+        },
+        {
+          "file": "components/rc-pdf-editor/src/panel-focus.ts",
+          "before": "dc9aa16c3a82a40c7e7e06f9784b104581ca6b6d9d1b5e5611b7adb8b56e5581",
+          "after": "1cdb086d2b7af6e5fcd1fa30b386b5f2662b3592e28cf8d47481d62c0d706837"
+        },
+        {
+          "file": "components/rc-pdf-editor/docs/demos/web-component-runtime.demo.tsx",
+          "before": "879e613c80413c903dac8df1b76b642d61c0cf22a706c8ad45c26419c4f0c498",
+          "after": "764233071e3320465bf14e6653a87657124f6d96fd0b758a1b589b63f19b9578"
+        },
+        {
+          "file": "components/rc-pdf-editor/src/styles.ts",
+          "before": "4c3397b8944d6bc3d3d8f4c3e6b2d2ed904cee8de32244fbc921fd0380bb1cde",
+          "after": "3a5507b920412cf045210161cdfa048c5e1c23f969c9db89370dd45236201333"
+        }
+      ]
+    },
+    {
+      "snapshot": "2026-11-01T22-59-39-377Z",
+      "receipt": "source-updates/gated-j.json",
+      "receiptSha256": "2070bf7915406972f9b901b12f7888bd251b277e3cce479ecf7232252188badf",
+      "updatedAt": "2026-11-02T00:46:17.882Z",
+      "queue": "j",
+      "completedRun": "audit-final-pdf-visible-panel-focus-2026-11-02T00-37-27-352Z",
+      "completedStats": {
+        "startTime": "2026-11-02T00:39:52.702Z",
+        "duration": 309342.00999999995,
+        "expected": 0,
+        "skipped": 0,
+        "unexpected": 18,
+        "flaky": 0
+      },
+      "policy": "Driver paused at a completed product boundary; every previous worker input was finalized and stable before refreshing upcoming source. Next public runner rebuilds products and fingerprints its own inputs.",
+      "files": [
+        {
+          "file": ".changeset/retain-pdf-panel-focus.md",
+          "before": "509e3ce95fcb0de09b62977dbf2b45700c88978c556d758cd592474bb8027207",
+          "after": "77956cca2685b45b9187fc8258814572c15cc3e699a6906564e3e0f200d2051a"
+        },
+        {
+          "file": "components/rc-pdf-editor/docs/index.mdx",
+          "before": "176318db105f464a57960caa9e3bf846a212169b7a2ac9b6d0b9ff4ec110e709",
+          "after": "0fc9587f608013763a1c510dcc231b57246a7009ced01813abe5d7351fa4ff4a"
+        },
+        {
+          "file": "components/rc-pdf-editor/docs/pdf-editor.visual.spec.mjs",
+          "before": "9476a66f04fb52cdb52cd7642ca8b0e596b5c60be8111230f0068d5ae0cebcfc",
+          "after": "7eb8bd25e1fe850cc714f8da9dbdf7daa4f4fd242eb8ac055976c8ccd626cf53"
+        },
+        {
+          "file": "components/rc-pdf-editor/src/pages-panel.tsx",
+          "before": "8d52674b686fc6a7a648a2d8567b29d125c1a91b7a6c800a85389d5c4542a1fb",
+          "after": "ba8c853fad2e799f97ebccf017a2629d344894436afa4c75104f26b8afa377ed"
+        },
+        {
+          "file": "components/rc-pdf-editor/src/styles.ts",
+          "before": "3a5507b920412cf045210161cdfa048c5e1c23f969c9db89370dd45236201333",
+          "after": "541f3dbd02e1d0585999796482f417be9c045a140913e9359894dcdb29c5e064"
+        }
+      ]
+    },
+    {
+      "snapshot": "2026-11-01T22-59-39-377Z",
+      "receipt": "source-updates/gated-g.json",
+      "receiptSha256": "28687c951717d25234480ec6d7262502493ec3b84af71bcaaef16e3af70e7296",
+      "updatedAt": "2026-11-02T02:39:20.811Z",
+      "queue": "g",
+      "completedRun": "audit-final-pdf-cross-engine-2026-11-01T23-56-17-677Z",
+      "completedStats": {
+        "startTime": "2026-11-01T23:57:33.860Z",
+        "duration": 1363071.237,
+        "expected": 137,
+        "skipped": 0,
+        "unexpected": 19,
+        "flaky": 0
+      },
+      "policy": "Driver paused at a completed product boundary; every previous worker input was finalized and stable before refreshing upcoming source. Next public runner rebuilds products and fingerprints its own inputs.",
+      "files": [
+        {
+          "file": ".changeset/clear-flow-layout-feedback.md",
+          "before": null,
+          "after": "3a1751d85495fffc1be5edf49d398c69b95b78746a706ac2e7e8c253ac2c22fa"
+        },
+        {
+          "file": ".changeset/retain-pdf-panel-focus.md",
+          "before": "548d5e59714f8d480cc7393bce41a31bc4b527960cc782ea03228c2883ff9301",
+          "after": "81aaf9245cefa92096b231860c9961f327056cb49100c132d8e4ac97812146b5"
+        },
+        {
+          "file": "components/rc-canvas/docs/canvas-inline-edit.visual.spec.mjs",
+          "before": "c8a1658faf59cecf6088578b417e0c3976dd99a11cebba8800a7e7891a6a861c",
+          "after": "55577c7067c684274ef1f3a085240046c451ab588613b4bbab665fe28ea146c3"
+        },
+        {
+          "file": ".website/docs/_generated/rc-flow-diagram.ts",
+          "before": "d6832fcf9ded43a745facfbc5e3ad0a04f9947bfb4143250f146a3ed83b99d88",
+          "after": "b43021ae5ed5cb0691025f0cc94eb0be62b82e8051ce7924466461fb83527217"
+        },
+        {
+          "file": ".website/docs/components/rc-flow-diagram.mdx",
+          "before": "42b724ebb605d159fc65ab89fe9d0a8202eb17c4db824677d6d4f1c96a56d174",
+          "after": "f58382bf0a8cf838d00ba21028de993face5a81bb1268fa58e90b4532d711ffc"
+        },
+        {
+          "file": ".website/docs/components/rc-pdf-editor.mdx",
+          "before": "3fd9ebbab6f70c812ce58752b5ee162270c962cfc22e85a4b9f40482126355ac",
+          "after": "1e9c92c9756fa92e9f603af4156cb8c9067ade9a1400dac3018f5df0a91d34e3"
+        },
+        {
+          "file": ".website/docs/site/__tests__/documentNavigation.test.tsx",
+          "before": "6c963a26a2c4b4a1f1a85acb9a1d5f99fab11a9baf7d3138918e86ef3935fd81",
+          "after": "f197b49b2ce00b4d36dc8f55bab2393578fc3bc20321402a959e4e430274addc"
+        },
+        {
+          "file": ".website/docs/site/documentNavigation.tsx",
+          "before": "608d7b533b0234296eccd00638b95d17ea8f41ef034d84e1fe376e9be3b31122",
+          "after": "2335d9f058b69ebe600030d189048aa17911767cf09de1da36b090c23cf90739"
+        },
+        {
+          "file": "components/rc-flow-diagram/docs/demos/visual-matrix.demo.tsx",
+          "before": "5af8b5d62aaf82c7afa33eed8ccffedb25d9a430a157c103e452538086fb63ec",
+          "after": "03397ccbbaf7804f15a91a3e6590e4805baffb5a3da3b683629749648f12163a"
+        },
+        {
+          "file": "components/rc-flow-diagram/docs/flow-diagram.visual-helpers.mjs",
+          "before": "a370fcac37c3f3f278f386884d25a28dd830db9e6011a6f8e348b26988fa6e96",
+          "after": "c6e49d73fe11b9523280c070843c8f3d4d842cb9cea6a6a032181f75e0f76915"
+        },
+        {
+          "file": "components/rc-flow-diagram/docs/flow-diagram.visual.spec.mjs",
+          "before": "bf1721b79a9d0598a80901e71a598caad883154fc5d0fb12cb1d89d0d9dba9f0",
+          "after": "ced44b9ec00b44f3600461071b7cb56f370683cf230fcc793cd29468f70a423e"
+        },
+        {
+          "file": "components/rc-flow-diagram/docs/index.mdx",
+          "before": "a94567ae22b325e6e7b0968c427e6c4cc1699955f7b5ffe432432ab1f595fc4b",
+          "after": "3281429e74f0a77f9f656a652f1f5fbfb2c28755d4e21f1952602b3d27dde73d"
+        },
+        {
+          "file": "components/rc-flow-diagram/src/flow-node.tsx",
+          "before": "ced9c73e0d4f433573e8aacc35c18668a7dbdce1fbf99b330eab6e36f3d5af29",
+          "after": "7aec13d1db326ea0d92683de6114fe66cdaa0aaed1519644ad3428348db533a4"
+        },
+        {
+          "file": "components/rc-pdf-editor/docs/index.mdx",
+          "before": "0fc9587f608013763a1c510dcc231b57246a7009ced01813abe5d7351fa4ff4a",
+          "after": "c95b27669eface1cbd2fcdcb5e625e853b3f996de120e66ad5f331cf19f84bdf"
+        },
+        {
+          "file": "components/rc-pdf-editor/docs/pdf-professional.visual.spec.mjs",
+          "before": "1c8e3276969bc28108654fcb54816fccd316dbb04b4727124553ef38a3eeda68",
+          "after": "f41b1fde1f047bb9748fd169ad76a23824f94cb4d05bc29cbf8a22ac811f0677"
+        },
+        {
+          "file": "components/rc-pdf-editor/src/__tests__/pdf-editor.test.tsx",
+          "before": "a2710de5fcae0cb316ab0e89694775afffcfae78f6c0f9d021722ffd8888aa82",
+          "after": "27359088b1b921243861ed5aac3499fa854ea77c4f9c60c20866636495731a1c"
+        },
+        {
+          "file": "components/rc-pdf-editor/src/pdf-editor.tsx",
+          "before": "72fd855835b05800210559e5ae40776dbdced50e4caaaa0c55b6e1f9e153436d",
+          "after": "29a8363990a4f3c31afb4b8074c604324c24bf6c7761e1492db1abfd3a3b0f68"
+        },
+        {
+          "file": "components/rc-pdf-editor/src/properties-panel.tsx",
+          "before": "1332f7d591edf20e53b3ecce7a01504c3c30214bcc3819e37432a359660a50c9",
+          "after": "45fcc785aeb828c04e328f1765a162e8ef2e772635643aa1596615d75fea8995"
+        },
+        {
+          "file": "components/rc-pdf-editor/src/styles.ts",
+          "before": "541f3dbd02e1d0585999796482f417be9c045a140913e9359894dcdb29c5e064",
+          "after": "c38352738155b30f9c6e48c8e8f638d738bde896d6814333768e82c4e4ff72c1"
+        }
+      ]
+    },
+    {
+      "snapshot": "2026-11-01T21-47-45-897Z",
+      "receipt": "source-updates/gated-f.json",
+      "receiptSha256": "cb3d100ff53582f0da9d5561c1f64c1bde306ee0bc75418bf037cd19990afcc3",
+      "updatedAt": "2026-11-02T03:03:43.272Z",
+      "queue": "f",
+      "completedRun": "audit-final-site-interactions-2026-11-02T01-35-44-127Z",
+      "completedStats": {
+        "startTime": "2026-11-02T01:35:51.702Z",
+        "duration": 447190.006,
+        "expected": 0,
+        "skipped": 358,
+        "unexpected": 12,
+        "flaky": 0
+      },
+      "policy": "Driver paused at a completed product boundary; every previous worker input was finalized and stable before refreshing upcoming source. Next public runner rebuilds products and fingerprints its own inputs.",
+      "files": [
+        {
+          "file": ".website/docs/_generated/rc-flow-diagram.ts",
+          "before": "b43021ae5ed5cb0691025f0cc94eb0be62b82e8051ce7924466461fb83527217",
+          "after": "62a5daa8e6e923115c3e4176e90852f9a7306227d61146825643b79a72e07e12"
+        },
+        {
+          "file": "components/rc-flow-diagram/docs/flow-diagram.visual-helpers.mjs",
+          "before": "ba5fd7448bdd8107fa5a527e2c023c2420c0e434537711b6dc3bae03ef8fe260",
+          "after": "109fdb2f034dcea2ca00127f239e9ebef32269f424aff2567038636cdfc1a310"
+        }
+      ]
+    }
+  ],
+  "supervisorShutdowns": [
+    {
+      "snapshot": "2026-11-01T21-47-45-897Z",
+      "receipt": "audit-supervisor-shutdown.json",
+      "sha256": "7096d66ba758dc2a4d8c671d4bde9878dbcfddf237ff1f491154da76e5bba66b",
+      "stoppedAt": "2026-11-02T04:29:26.015Z",
+      "drivers": [
+        {
+          "pid": 115,
+          "state": "T",
+          "marker": "audit-driver-f.mjs",
+          "children": [
+            {
+              "pid": 232828,
+              "state": "Z",
+              "kernelExitCode": "33280"
+            }
+          ]
+        },
+        {
+          "pid": 267163,
+          "state": "T",
+          "marker": "audit-polish-subsets.mjs",
+          "children": [
+            {
+              "pid": 315104,
+              "state": "Z",
+              "kernelExitCode": "0"
+            }
+          ]
+        }
+      ],
+      "reason": "All child reports are finalized. Superseded paused supervisors are terminated without starting duplicate production builds. Original running progress is preserved, and the completed PDF child has its separately verified recovered index. Final standalone public runs supersede these queues.",
+      "finalRuns": [
+        "final-pdf-complete-published-matrix",
+        "final-canvas-composited-editor-and-full-matrix",
+        "final-site-published-complete-journeys"
+      ]
+    }
+  ],
+  "updatedAt": "2026-11-02T04:39:57.545Z"
+}

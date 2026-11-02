@@ -12,12 +12,14 @@ const scene = css`
 const samples = css`display: grid; gap: ${token.space['group-gap']}; padding: ${token.space['group-gap']}; min-inline-size: 0;`;
 const limits = css`display: flex; justify-content: space-between; gap: ${token.space['inline-gap']};`;
 const sizes = ["xs", "s", "m", "l", "xl"] as const;
-const states = ["default", "hover", "focus-visible", "dragging", "minimum", "maximum", "disabled", "error"] as const;
+const states = ["default", "hover", "focus-visible", "dragging", "minimum", "maximum", "disabled", "error", "scientific"] as const;
 export default function VisualMatrixDemo() {
     const { locale } = useConfig();
     const [size, setSize] = useState<typeof sizes[number]>("xs");
     const [state, setState] = useState<typeof states[number]>("default");
     const [value, setValue] = useState(40);
+    const [preciseValue, setPreciseValue] = useState(5e-7);
+    const scientific = state === 'scientific';
     const id = useId();
     const english = locale === "en-US";
     return <section className={scene} aria-label="Slider visual matrix" data-visual-scene data-size={size} data-state={state}>
@@ -31,11 +33,11 @@ export default function VisualMatrixDemo() {
         }}>{states.map(item => <option key={item}>{item}</option>)}</select></div>
         <div className={samples} data-visual-frame>
             <span id={id + "-label"}>{english ? "Preview opacity" : "预览不透明度"}</span>
-            <Slider aria-labelledby={id + "-label"} size={size} value={value} onValueChange={setValue}
-                min={0} max={100} step={5} disabled={state === "disabled"}
+            <Slider aria-labelledby={id + "-label"} size={size} value={scientific ? preciseValue : value} onValueChange={scientific ? setPreciseValue : setValue}
+                min={scientific ? 1e-7 : 0} max={scientific ? 9e-7 : 100} step={scientific ? 1e-7 : 5} disabled={state === "disabled"}
                 aria-invalid={state === "error" || undefined} aria-describedby={id + "-help"} />
-            <div className={limits}><span>0%</span><output>{value}%</output><span>100%</span></div>
-            <span id={id + "-help"}>{state === "error" ? (english ? "Review the opacity before publishing." : "发布前请核对不透明度。") : (english ? "Use arrow keys for 5% steps." : "方向键按 5% 调整。")}</span>
+            <div className={limits}><span>{scientific ? '1e-7' : '0%'}</span><output>{scientific ? preciseValue : `${value}%`}</output><span>{scientific ? '9e-7' : '100%'}</span></div>
+            <span id={id + "-help"}>{scientific ? (english ? 'Use arrow keys for 1e-7 steps.' : '方向键按 1e-7 调整。') : state === "error" ? (english ? "Review the opacity before publishing." : "发布前请核对不透明度。") : (english ? "Use arrow keys for 5% steps." : "方向键按 5% 调整。")}</span>
         </div>
     </section>;
 }

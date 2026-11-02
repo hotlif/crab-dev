@@ -13,8 +13,7 @@ const CardHeader = ({ title, extra, className, ref, ...restProps }: CardHeaderPr
     const { clickable } = use(CardContext);
 
     // 整卡可点击时, extra 内操作（按钮 / 链接）的点击不得冒泡触发整卡 onClick。
-    // 键盘路径无需等价处理：焦点落在 extra 内控件上时, Enter / Space 由该控件消费,
-    // 不会再触发卡片根节点的键盘激活。
+    // 卡片根节点仅响应自身焦点的按键；内部控件保留原生键盘行为。
     const stopBubble = clickable
         ? (e: MouseEvent<HTMLDivElement>) => e.stopPropagation()
         : undefined;
