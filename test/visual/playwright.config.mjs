@@ -8,7 +8,8 @@ const job = process.env.CRAB_VISUAL_JOB ? JSON.parse(readFileSync(process.env.CR
 const output = job?.output ?? path.join(repositoryRoot, ".cache/visual", process.env.CRAB_VISUAL_RUN ?? "current");
 const browserPath = process.env.CRAB_TEST_BROWSER_PATH ?? job?.browserPath;
 const selected = process.env.CRAB_VISUAL_PACKAGE;
-const firefoxWrapper = process.platform === 'linux' && process.env.CRAB_VISUAL_IMAGE === linuxVisualImage ? process.env.CRAB_VISUAL_FIREFOX_WRAPPER : undefined;
+const canonical = process.platform === 'linux' && process.env.CRAB_VISUAL_IMAGE === linuxVisualImage;
+const firefoxWrapper = canonical ? process.env.CRAB_VISUAL_FIREFOX_WRAPPER : undefined;
 
 export default defineConfig({
     testDir: job ? "." : repositoryRoot,
@@ -47,6 +48,10 @@ export default defineConfig({
             // Worker browser startup has its own timeout, outside test.timeout.
             launchOptions: {
                 timeout: 30_000,
+                // Compositor promotion can switch opaque text between LCD and
+                // grayscale AA. Pin grayscale raster in the canonical renderer;
+                // keep the real glyphs, animations and zero-pixel comparison.
+                ...(browserName === 'chromium' && canonical ? { args: ['--disable-lcd-text'] } : {}),
                 ...(browserName === 'chromium' && browserPath ? { executablePath: browserPath } : {}),
                 ...(browserName === 'firefox' && firefoxWrapper ? {
                     executablePath: firefoxWrapper,

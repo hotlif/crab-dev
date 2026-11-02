@@ -1,0 +1,35 @@
+SCROLL FOCUSED START yarn test:visual:update components/rc-component-preview/docs/preview-zoom.visual.spec.mjs --project chromium
+Playwright visual evidence: /workspace/.cache/visual/preview-zoom-inherit-0-20261102
+
+Running 6 tests using 1 worker
+
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview-zoom.visual.spec.mjs/md3-light-zoom200.png is not the same, writing actual.
+  ✓  1 [chromium] › components/rc-component-preview/docs/preview-zoom.visual.spec.mjs:8:5 › md3 light real 200% @rc-component-preview @environment @chromium-only (2.9s)
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview-zoom.visual.spec.mjs/md3-dark-zoom200.png is not the same, writing actual.
+  ✓  2 [chromium] › components/rc-component-preview/docs/preview-zoom.visual.spec.mjs:8:5 › md3 dark real 200% @rc-component-preview @environment @chromium-only (2.9s)
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview-zoom.visual.spec.mjs/apple-light-zoom200.png is not the same, writing actual.
+  ✓  3 [chromium] › components/rc-component-preview/docs/preview-zoom.visual.spec.mjs:8:5 › apple light real 200% @rc-component-preview @environment @chromium-only (2.9s)
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview-zoom.visual.spec.mjs/apple-dark-zoom200.png is not the same, writing actual.
+  ✓  4 [chromium] › components/rc-component-preview/docs/preview-zoom.visual.spec.mjs:8:5 › apple dark real 200% @rc-component-preview @environment @chromium-only (3.0s)
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview-zoom.visual.spec.mjs/shadcn-light-zoom200.png is not the same, writing actual.
+  ✓  5 [chromium] › components/rc-component-preview/docs/preview-zoom.visual.spec.mjs:8:5 › shadcn light real 200% @rc-component-preview @environment @chromium-only (3.0s)
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview-zoom.visual.spec.mjs/shadcn-dark-zoom200.png is not the same, writing actual.
+  ✓  6 [chromium] › components/rc-component-preview/docs/preview-zoom.visual.spec.mjs:8:5 › shadcn dark real 200% @rc-component-preview @environment @chromium-only (3.0s)
+
+  6 passed (26.1s)
+SCROLL FOCUSED END 0 0
+SCROLL FOCUSED START yarn test:visual components/rc-component-preview/docs/preview-zoom.visual.spec.mjs --project chromium
+Playwright visual evidence: /workspace/.cache/visual/preview-zoom-inherit-1-20261102
+
+Running 6 tests using 1 worker
+
+  ✓  1 [chromium] › components/rc-component-preview/docs/preview-zoom.visual.spec.mjs:8:5 › md3 light real 200% @rc-component-preview @environment @chromium-only (2.7s)
+  ✓  2 [chromium] › components/rc-component-preview/docs/preview-zoom.visual.spec.mjs:8:5 › md3 dark real 200% @rc-component-preview @environment @chromium-only (3.0s)
+  ✓  3 [chromium] › components/rc-component-preview/docs/preview-zoom.visual.spec.mjs:8:5 › apple light real 200% @rc-component-preview @environment @chromium-only (2.9s)
+  ✓  4 [chromium] › components/rc-component-preview/docs/preview-zoom.visual.spec.mjs:8:5 › apple dark real 200% @rc-component-preview @environment @chromium-only (3.0s)
+  ✓  5 [chromium] › components/rc-component-preview/docs/preview-zoom.visual.spec.mjs:8:5 › shadcn light real 200% @rc-component-preview @environment @chromium-only (2.9s)
+  ✓  6 [chromium] › components/rc-component-preview/docs/preview-zoom.visual.spec.mjs:8:5 › shadcn dark real 200% @rc-component-preview @environment @chromium-only (2.9s)
+
+  6 passed (24.9s)
+SCROLL FOCUSED END 1 0
+{"commands":[{"command":"yarn test:visual:update components/rc-component-preview/docs/preview-zoom.visual.spec.mjs --project chromium","run":"preview-zoom-inherit-0-20261102","startedAt":"2026-11-02T10:46:33.183Z","exitCode":0,"finishedAt":"2026-11-02T10:47:01.939Z"},{"command":"yarn test:visual components/rc-component-preview/docs/preview-zoom.visual.spec.mjs --project chromium","run":"preview-zoom-inherit-1-20261102","startedAt":"2026-11-02T10:47:01.945Z","exitCode":0,"finishedAt":"2026-11-02T10:47:29.025Z"}],"inputsStable":true}

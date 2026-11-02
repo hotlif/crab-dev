@@ -1,0 +1,272 @@
+SCROLL FOCUSED START yarn test:visual:update components/rc-component-preview/docs/preview.visual.spec.mjs components/rc-component-preview/docs/preview-zoom.visual.spec.mjs --grep preview environment and source draft|zoom --project chromium
+Playwright visual evidence: /workspace/.cache/visual/preview-scroll-focused-0-20261102
+
+Running 66 tests using 4 workers
+
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/md3-light-landscape.png is re-generated, writing actual.
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/md3-light-landscape.png is re-generated, writing actual.
+  ✓   2 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview md3 light landscape › preview environment and source draft @rc-component-preview @environment @chromium-only (3.8s)
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/md3-light-narrow.png is re-generated, writing actual.
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/md3-light-narrow.png is re-generated, writing actual.
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview-zoom.visual.spec.mjs/md3-light-zoom200.png is not the same, writing actual.
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/md3-light-tablet.png is re-generated, writing actual.
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/md3-light-tablet.png is re-generated, writing actual.
+  ✓   3 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview md3 light narrow › preview environment and source draft @rc-component-preview @environment @chromium-only (4.5s)
+  ✓   1 [chromium] › components/rc-component-preview/docs/preview-zoom.visual.spec.mjs:8:5 › md3 light real 200% @rc-component-preview @environment @chromium-only (5.0s)
+  ✓   4 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview md3 light tablet › preview environment and source draft @rc-component-preview @environment @chromium-only (5.3s)
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/md3-light-desktop.png is re-generated, writing actual.
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/md3-light-desktop.png is re-generated, writing actual.
+  ✓   5 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview md3 light desktop › preview environment and source draft @rc-component-preview @environment @chromium-only (4.1s)
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/md3-light-touch.png is re-generated, writing actual.
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/md3-light-touch.png is re-generated, writing actual.
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/md3-light-rtl.png is re-generated, writing actual.
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/md3-light-rtl.png is re-generated, writing actual.
+  ✓   6 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview md3 light touch › preview environment and source draft @rc-component-preview @environment @chromium-only (4.4s)
+  ✓   8 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview md3 light rtl › preview environment and source draft @rc-component-preview @environment @chromium-only (4.5s)
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview-zoom.visual.spec.mjs/md3-dark-zoom200.png is not the same, writing actual.
+  ✓   7 [chromium] › components/rc-component-preview/docs/preview-zoom.visual.spec.mjs:8:5 › md3 dark real 200% @rc-component-preview @environment @chromium-only (5.7s)
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/md3-light-english.png is re-generated, writing actual.
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/md3-light-english.png is re-generated, writing actual.
+  ✓   9 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview md3 light english › preview environment and source draft @rc-component-preview @environment @chromium-only (3.6s)
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/md3-light-brand.png is re-generated, writing actual.
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/md3-light-brand.png is re-generated, writing actual.
+  ✓  10 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview md3 light brand › preview environment and source draft @rc-component-preview @environment @chromium-only (4.0s)
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/md3-light-forced-colors.png is re-generated, writing actual.
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/md3-light-forced-colors.png is re-generated, writing actual.
+  ✓  11 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview md3 light forced-colors › preview environment and source draft @rc-component-preview @environment @chromium-only (3.8s)
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/md3-light-reduced-motion.png is re-generated, writing actual.
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/md3-light-reduced-motion.png is re-generated, writing actual.
+  ✓  12 [chromium] › components/rc-component-preview/docs/preview-zoom.visual.spec.mjs:8:5 › apple light real 200% @rc-component-preview @environment @chromium-only (4.5s)
+  ✓  13 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview md3 light reduced-motion › preview environment and source draft @rc-component-preview @environment @chromium-only (3.3s)
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/md3-dark-narrow.png is re-generated, writing actual.
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/md3-dark-narrow.png is re-generated, writing actual.
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/md3-dark-tablet.png is re-generated, writing actual.
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/md3-dark-tablet.png is re-generated, writing actual.
+  ✓  14 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview md3 dark narrow › preview environment and source draft @rc-component-preview @environment @chromium-only (4.3s)
+  ✓  15 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview md3 dark tablet › preview environment and source draft @rc-component-preview @environment @chromium-only (4.2s)
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/md3-dark-landscape.png is re-generated, writing actual.
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/md3-dark-landscape.png is re-generated, writing actual.
+  ✓  17 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview md3 dark landscape › preview environment and source draft @rc-component-preview @environment @chromium-only (3.9s)
+  ✓  16 [chromium] › components/rc-component-preview/docs/preview-zoom.visual.spec.mjs:8:5 › apple dark real 200% @rc-component-preview @environment @chromium-only (4.6s)
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/md3-dark-desktop.png is re-generated, writing actual.
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/md3-dark-desktop.png is re-generated, writing actual.
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/md3-dark-touch.png is re-generated, writing actual.
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/md3-dark-touch.png is re-generated, writing actual.
+  ✓  18 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview md3 dark desktop › preview environment and source draft @rc-component-preview @environment @chromium-only (4.3s)
+  ✓  19 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview md3 dark touch › preview environment and source draft @rc-component-preview @environment @chromium-only (4.2s)
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/md3-dark-rtl.png is re-generated, writing actual.
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/md3-dark-rtl.png is re-generated, writing actual.
+  ✓  20 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview md3 dark rtl › preview environment and source draft @rc-component-preview @environment @chromium-only (3.8s)
+  ✓  21 [chromium] › components/rc-component-preview/docs/preview-zoom.visual.spec.mjs:8:5 › shadcn light real 200% @rc-component-preview @environment @chromium-only (4.8s)
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/md3-dark-english.png is re-generated, writing actual.
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/md3-dark-english.png is re-generated, writing actual.
+  ✓  22 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview md3 dark english › preview environment and source draft @rc-component-preview @environment @chromium-only (3.9s)
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/md3-dark-brand.png is re-generated, writing actual.
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/md3-dark-brand.png is re-generated, writing actual.
+  ✓  23 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview md3 dark brand › preview environment and source draft @rc-component-preview @environment @chromium-only (4.3s)
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/md3-dark-forced-colors.png is re-generated, writing actual.
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/md3-dark-forced-colors.png is re-generated, writing actual.
+  ✓  24 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview md3 dark forced-colors › preview environment and source draft @rc-component-preview @environment @chromium-only (4.5s)
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview-zoom.visual.spec.mjs/shadcn-dark-zoom200.png is not the same, writing actual.
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/md3-dark-reduced-motion.png is re-generated, writing actual.
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/md3-dark-reduced-motion.png is re-generated, writing actual.
+  ✓  25 [chromium] › components/rc-component-preview/docs/preview-zoom.visual.spec.mjs:8:5 › shadcn dark real 200% @rc-component-preview @environment @chromium-only (4.4s)
+  ✓  26 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview md3 dark reduced-motion › preview environment and source draft @rc-component-preview @environment @chromium-only (3.3s)
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/apple-light-narrow.png is re-generated, writing actual.
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/apple-light-narrow.png is re-generated, writing actual.
+  ✓  27 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview apple light narrow › preview environment and source draft @rc-component-preview @environment @chromium-only (3.8s)
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/apple-light-tablet.png is re-generated, writing actual.
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/apple-light-tablet.png is re-generated, writing actual.
+  ✓  28 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview apple light tablet › preview environment and source draft @rc-component-preview @environment @chromium-only (3.8s)
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/apple-light-desktop.png is re-generated, writing actual.
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/apple-light-desktop.png is re-generated, writing actual.
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/apple-light-landscape.png is re-generated, writing actual.
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/apple-light-landscape.png is re-generated, writing actual.
+  ✓  30 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview apple light desktop › preview environment and source draft @rc-component-preview @environment @chromium-only (2.7s)
+  ✓  29 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview apple light landscape › preview environment and source draft @rc-component-preview @environment @chromium-only (2.8s)
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/apple-light-touch.png is re-generated, writing actual.
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/apple-light-touch.png is re-generated, writing actual.
+  ✓  31 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview apple light touch › preview environment and source draft @rc-component-preview @environment @chromium-only (3.3s)
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/apple-light-rtl.png is re-generated, writing actual.
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/apple-light-rtl.png is re-generated, writing actual.
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/apple-light-english.png is re-generated, writing actual.
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/apple-light-english.png is re-generated, writing actual.
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/apple-light-brand.png is re-generated, writing actual.
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/apple-light-brand.png is re-generated, writing actual.
+  ✓  32 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview apple light rtl › preview environment and source draft @rc-component-preview @environment @chromium-only (3.5s)
+  ✓  33 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview apple light english › preview environment and source draft @rc-component-preview @environment @chromium-only (3.1s)
+  ✓  34 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview apple light brand › preview environment and source draft @rc-component-preview @environment @chromium-only (3.1s)
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/apple-light-forced-colors.png is re-generated, writing actual.
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/apple-light-forced-colors.png is re-generated, writing actual.
+  ✓  35 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview apple light forced-colors › preview environment and source draft @rc-component-preview @environment @chromium-only (2.9s)
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/apple-light-reduced-motion.png is re-generated, writing actual.
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/apple-light-reduced-motion.png is re-generated, writing actual.
+  ✓  36 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview apple light reduced-motion › preview environment and source draft @rc-component-preview @environment @chromium-only (2.9s)
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/apple-dark-tablet.png is re-generated, writing actual.
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/apple-dark-tablet.png is re-generated, writing actual.
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/apple-dark-narrow.png is re-generated, writing actual.
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/apple-dark-narrow.png is re-generated, writing actual.
+  ✓  38 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview apple dark tablet › preview environment and source draft @rc-component-preview @environment @chromium-only (3.7s)
+  ✓  37 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview apple dark narrow › preview environment and source draft @rc-component-preview @environment @chromium-only (3.8s)
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/apple-dark-landscape.png is re-generated, writing actual.
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/apple-dark-landscape.png is re-generated, writing actual.
+  ✓  39 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview apple dark landscape › preview environment and source draft @rc-component-preview @environment @chromium-only (2.9s)
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/apple-dark-desktop.png is re-generated, writing actual.
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/apple-dark-desktop.png is re-generated, writing actual.
+  ✓  40 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview apple dark desktop › preview environment and source draft @rc-component-preview @environment @chromium-only (2.9s)
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/apple-dark-rtl.png is re-generated, writing actual.
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/apple-dark-rtl.png is re-generated, writing actual.
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/apple-dark-touch.png is re-generated, writing actual.
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/apple-dark-touch.png is re-generated, writing actual.
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/apple-dark-english.png is re-generated, writing actual.
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/apple-dark-english.png is re-generated, writing actual.
+  ✓  42 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview apple dark rtl › preview environment and source draft @rc-component-preview @environment @chromium-only (3.2s)
+  ✓  41 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview apple dark touch › preview environment and source draft @rc-component-preview @environment @chromium-only (3.5s)
+  ✓  43 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview apple dark english › preview environment and source draft @rc-component-preview @environment @chromium-only (2.9s)
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/apple-dark-brand.png is re-generated, writing actual.
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/apple-dark-brand.png is re-generated, writing actual.
+  ✓  44 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview apple dark brand › preview environment and source draft @rc-component-preview @environment @chromium-only (3.4s)
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/apple-dark-forced-colors.png is re-generated, writing actual.
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/apple-dark-forced-colors.png is re-generated, writing actual.
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/apple-dark-reduced-motion.png is re-generated, writing actual.
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/apple-dark-reduced-motion.png is re-generated, writing actual.
+  ✓  45 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview apple dark forced-colors › preview environment and source draft @rc-component-preview @environment @chromium-only (3.1s)
+  ✓  46 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview apple dark reduced-motion › preview environment and source draft @rc-component-preview @environment @chromium-only (2.9s)
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/shadcn-light-narrow.png is re-generated, writing actual.
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/shadcn-light-narrow.png is re-generated, writing actual.
+  ✓  47 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview shadcn light narrow › preview environment and source draft @rc-component-preview @environment @chromium-only (3.8s)
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/shadcn-light-tablet.png is re-generated, writing actual.
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/shadcn-light-tablet.png is re-generated, writing actual.
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/shadcn-light-desktop.png is re-generated, writing actual.
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/shadcn-light-desktop.png is re-generated, writing actual.
+  ✓  48 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview shadcn light tablet › preview environment and source draft @rc-component-preview @environment @chromium-only (3.3s)
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/shadcn-light-landscape.png is re-generated, writing actual.
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/shadcn-light-landscape.png is re-generated, writing actual.
+  ✓  50 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview shadcn light desktop › preview environment and source draft @rc-component-preview @environment @chromium-only (2.6s)
+  ✓  49 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview shadcn light landscape › preview environment and source draft @rc-component-preview @environment @chromium-only (3.0s)
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/shadcn-light-touch.png is re-generated, writing actual.
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/shadcn-light-touch.png is re-generated, writing actual.
+  ✓  51 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview shadcn light touch › preview environment and source draft @rc-component-preview @environment @chromium-only (3.1s)
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/shadcn-light-rtl.png is re-generated, writing actual.
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/shadcn-light-rtl.png is re-generated, writing actual.
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/shadcn-light-english.png is re-generated, writing actual.
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/shadcn-light-english.png is re-generated, writing actual.
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/shadcn-light-brand.png is re-generated, writing actual.
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/shadcn-light-brand.png is re-generated, writing actual.
+  ✓  52 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview shadcn light rtl › preview environment and source draft @rc-component-preview @environment @chromium-only (3.4s)
+  ✓  53 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview shadcn light english › preview environment and source draft @rc-component-preview @environment @chromium-only (3.2s)
+  ✓  54 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview shadcn light brand › preview environment and source draft @rc-component-preview @environment @chromium-only (3.3s)
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/shadcn-light-forced-colors.png is re-generated, writing actual.
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/shadcn-light-forced-colors.png is re-generated, writing actual.
+  ✓  55 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview shadcn light forced-colors › preview environment and source draft @rc-component-preview @environment @chromium-only (3.1s)
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/shadcn-light-reduced-motion.png is re-generated, writing actual.
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/shadcn-light-reduced-motion.png is re-generated, writing actual.
+  ✓  56 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview shadcn light reduced-motion › preview environment and source draft @rc-component-preview @environment @chromium-only (2.8s)
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/shadcn-dark-landscape.png is re-generated, writing actual.
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/shadcn-dark-landscape.png is re-generated, writing actual.
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/shadcn-dark-narrow.png is re-generated, writing actual.
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/shadcn-dark-narrow.png is re-generated, writing actual.
+  ✓  59 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview shadcn dark landscape › preview environment and source draft @rc-component-preview @environment @chromium-only (2.4s)
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/shadcn-dark-tablet.png is re-generated, writing actual.
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/shadcn-dark-tablet.png is re-generated, writing actual.
+  ✓  57 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview shadcn dark narrow › preview environment and source draft @rc-component-preview @environment @chromium-only (4.0s)
+  ✓  58 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview shadcn dark tablet › preview environment and source draft @rc-component-preview @environment @chromium-only (4.3s)
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/shadcn-dark-desktop.png is re-generated, writing actual.
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/shadcn-dark-desktop.png is re-generated, writing actual.
+  ✓  60 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview shadcn dark desktop › preview environment and source draft @rc-component-preview @environment @chromium-only (3.4s)
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/shadcn-dark-touch.png is re-generated, writing actual.
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/shadcn-dark-touch.png is re-generated, writing actual.
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/shadcn-dark-rtl.png is re-generated, writing actual.
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/shadcn-dark-rtl.png is re-generated, writing actual.
+  ✓  61 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview shadcn dark touch › preview environment and source draft @rc-component-preview @environment @chromium-only (3.4s)
+  ✓  62 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview shadcn dark rtl › preview environment and source draft @rc-component-preview @environment @chromium-only (3.5s)
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/shadcn-dark-english.png is re-generated, writing actual.
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/shadcn-dark-english.png is re-generated, writing actual.
+  ✓  63 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview shadcn dark english › preview environment and source draft @rc-component-preview @environment @chromium-only (3.6s)
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/shadcn-dark-brand.png is re-generated, writing actual.
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/shadcn-dark-brand.png is re-generated, writing actual.
+  ✓  64 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview shadcn dark brand › preview environment and source draft @rc-component-preview @environment @chromium-only (3.1s)
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/shadcn-dark-reduced-motion.png is re-generated, writing actual.
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/shadcn-dark-reduced-motion.png is re-generated, writing actual.
+  ✓  66 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview shadcn dark reduced-motion › preview environment and source draft @rc-component-preview @environment @chromium-only (2.4s)
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/shadcn-dark-forced-colors.png is re-generated, writing actual.
+/workspace/test/visual/baselines/linux/chromium/components/rc-component-preview/docs/preview.visual.spec.mjs/shadcn-dark-forced-colors.png is re-generated, writing actual.
+  ✓  65 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview shadcn dark forced-colors › preview environment and source draft @rc-component-preview @environment @chromium-only (2.9s)
+
+  66 passed (1.2m)
+SCROLL FOCUSED END 0 0
+SCROLL FOCUSED START yarn test:visual components/rc-component-preview/docs/preview.visual.spec.mjs components/rc-component-preview/docs/preview-zoom.visual.spec.mjs --grep preview environment and source draft|zoom --project chromium
+Playwright visual evidence: /workspace/.cache/visual/preview-scroll-focused-1-20261102
+
+Running 66 tests using 4 workers
+
+  ✓   2 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview md3 light landscape › preview environment and source draft @rc-component-preview @environment @chromium-only (4.0s)
+  ✓   4 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview md3 light narrow › preview environment and source draft @rc-component-preview @environment @chromium-only (4.8s)
+  ✓   3 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview md3 light tablet › preview environment and source draft @rc-component-preview @environment @chromium-only (4.9s)
+  ✓   1 [chromium] › components/rc-component-preview/docs/preview-zoom.visual.spec.mjs:8:5 › md3 light real 200% @rc-component-preview @environment @chromium-only (5.5s)
+  ✓   5 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview md3 light desktop › preview environment and source draft @rc-component-preview @environment @chromium-only (3.8s)
+  ✓   6 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview md3 light touch › preview environment and source draft @rc-component-preview @environment @chromium-only (4.1s)
+  ✓   7 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview md3 light rtl › preview environment and source draft @rc-component-preview @environment @chromium-only (4.1s)
+  ✓   8 [chromium] › components/rc-component-preview/docs/preview-zoom.visual.spec.mjs:8:5 › md3 dark real 200% @rc-component-preview @environment @chromium-only (5.8s)
+  ✓   9 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview md3 light english › preview environment and source draft @rc-component-preview @environment @chromium-only (3.7s)
+  ✓  11 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview md3 light forced-colors › preview environment and source draft @rc-component-preview @environment @chromium-only (3.5s)
+  ✓  10 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview md3 light brand › preview environment and source draft @rc-component-preview @environment @chromium-only (3.6s)
+  ✓  13 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview md3 light reduced-motion › preview environment and source draft @rc-component-preview @environment @chromium-only (3.5s)
+  ✓  12 [chromium] › components/rc-component-preview/docs/preview-zoom.visual.spec.mjs:8:5 › apple light real 200% @rc-component-preview @environment @chromium-only (4.5s)
+  ✓  14 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview md3 dark narrow › preview environment and source draft @rc-component-preview @environment @chromium-only (4.7s)
+  ✓  15 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview md3 dark tablet › preview environment and source draft @rc-component-preview @environment @chromium-only (4.6s)
+  ✓  16 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview md3 dark landscape › preview environment and source draft @rc-component-preview @environment @chromium-only (3.4s)
+  ✓  17 [chromium] › components/rc-component-preview/docs/preview-zoom.visual.spec.mjs:8:5 › apple dark real 200% @rc-component-preview @environment @chromium-only (4.5s)
+  ✓  18 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview md3 dark desktop › preview environment and source draft @rc-component-preview @environment @chromium-only (4.1s)
+  ✓  19 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview md3 dark touch › preview environment and source draft @rc-component-preview @environment @chromium-only (4.1s)
+  ✓  20 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview md3 dark rtl › preview environment and source draft @rc-component-preview @environment @chromium-only (4.0s)
+  ✓  21 [chromium] › components/rc-component-preview/docs/preview-zoom.visual.spec.mjs:8:5 › shadcn light real 200% @rc-component-preview @environment @chromium-only (5.0s)
+  ✓  22 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview md3 dark english › preview environment and source draft @rc-component-preview @environment @chromium-only (4.1s)
+  ✓  23 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview md3 dark brand › preview environment and source draft @rc-component-preview @environment @chromium-only (4.1s)
+  ✓  24 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview md3 dark forced-colors › preview environment and source draft @rc-component-preview @environment @chromium-only (4.0s)
+  ✓  26 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview md3 dark reduced-motion › preview environment and source draft @rc-component-preview @environment @chromium-only (3.3s)
+  ✓  27 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview apple light narrow › preview environment and source draft @rc-component-preview @environment @chromium-only (4.3s)
+  ✓  25 [chromium] › components/rc-component-preview/docs/preview-zoom.visual.spec.mjs:8:5 › shadcn dark real 200% @rc-component-preview @environment @chromium-only (5.1s)
+  ✓  28 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview apple light tablet › preview environment and source draft @rc-component-preview @environment @chromium-only (4.0s)
+  ✓  29 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview apple light landscape › preview environment and source draft @rc-component-preview @environment @chromium-only (2.7s)
+  ✓  30 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview apple light desktop › preview environment and source draft @rc-component-preview @environment @chromium-only (3.0s)
+  ✓  31 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview apple light rtl › preview environment and source draft @rc-component-preview @environment @chromium-only (3.0s)
+  ✓  32 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview apple light touch › preview environment and source draft @rc-component-preview @environment @chromium-only (3.6s)
+  ✓  33 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview apple light english › preview environment and source draft @rc-component-preview @environment @chromium-only (2.9s)
+  ✓  34 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview apple light brand › preview environment and source draft @rc-component-preview @environment @chromium-only (3.1s)
+  ✓  35 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview apple light forced-colors › preview environment and source draft @rc-component-preview @environment @chromium-only (3.0s)
+  ✓  36 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview apple light reduced-motion › preview environment and source draft @rc-component-preview @environment @chromium-only (2.8s)
+  ✓  37 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview apple dark narrow › preview environment and source draft @rc-component-preview @environment @chromium-only (4.3s)
+  ✓  39 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview apple dark landscape › preview environment and source draft @rc-component-preview @environment @chromium-only (2.7s)
+  ✓  38 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview apple dark tablet › preview environment and source draft @rc-component-preview @environment @chromium-only (3.3s)
+  ✓  40 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview apple dark desktop › preview environment and source draft @rc-component-preview @environment @chromium-only (3.1s)
+  ✓  41 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview apple dark touch › preview environment and source draft @rc-component-preview @environment @chromium-only (3.2s)
+  ✓  42 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview apple dark rtl › preview environment and source draft @rc-component-preview @environment @chromium-only (3.3s)
+  ✓  43 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview apple dark english › preview environment and source draft @rc-component-preview @environment @chromium-only (3.4s)
+  ✓  44 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview apple dark brand › preview environment and source draft @rc-component-preview @environment @chromium-only (3.4s)
+  ✓  45 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview apple dark forced-colors › preview environment and source draft @rc-component-preview @environment @chromium-only (2.8s)
+  ✓  46 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview apple dark reduced-motion › preview environment and source draft @rc-component-preview @environment @chromium-only (2.8s)
+  ✓  47 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview shadcn light narrow › preview environment and source draft @rc-component-preview @environment @chromium-only (4.1s)
+  ✓  48 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview shadcn light tablet › preview environment and source draft @rc-component-preview @environment @chromium-only (3.7s)
+  ✓  49 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview shadcn light landscape › preview environment and source draft @rc-component-preview @environment @chromium-only (2.8s)
+  ✓  50 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview shadcn light desktop › preview environment and source draft @rc-component-preview @environment @chromium-only (3.1s)
+  ✓  51 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview shadcn light touch › preview environment and source draft @rc-component-preview @environment @chromium-only (3.2s)
+  ✓  52 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview shadcn light rtl › preview environment and source draft @rc-component-preview @environment @chromium-only (3.4s)
+  ✓  53 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview shadcn light english › preview environment and source draft @rc-component-preview @environment @chromium-only (3.4s)
+  ✓  54 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview shadcn light brand › preview environment and source draft @rc-component-preview @environment @chromium-only (3.4s)
+  ✓  55 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview shadcn light forced-colors › preview environment and source draft @rc-component-preview @environment @chromium-only (2.8s)
+  ✓  56 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview shadcn light reduced-motion › preview environment and source draft @rc-component-preview @environment @chromium-only (2.7s)
+  ✓  57 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview shadcn dark narrow › preview environment and source draft @rc-component-preview @environment @chromium-only (4.3s)
+  ✓  58 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview shadcn dark tablet › preview environment and source draft @rc-component-preview @environment @chromium-only (3.6s)
+  ✓  59 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview shadcn dark landscape › preview environment and source draft @rc-component-preview @environment @chromium-only (2.8s)
+  ✓  60 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview shadcn dark desktop › preview environment and source draft @rc-component-preview @environment @chromium-only (3.1s)
+  ✓  61 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview shadcn dark touch › preview environment and source draft @rc-component-preview @environment @chromium-only (3.1s)
+  ✓  62 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview shadcn dark rtl › preview environment and source draft @rc-component-preview @environment @chromium-only (3.5s)
+  ✓  63 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview shadcn dark english › preview environment and source draft @rc-component-preview @environment @chromium-only (3.7s)
+  ✓  64 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview shadcn dark brand › preview environment and source draft @rc-component-preview @environment @chromium-only (3.4s)
+  ✓  65 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview shadcn dark forced-colors › preview environment and source draft @rc-component-preview @environment @chromium-only (2.6s)
+  ✓  66 [chromium] › components/rc-component-preview/docs/preview.visual.spec.mjs:66:9 › preview shadcn dark reduced-motion › preview environment and source draft @rc-component-preview @environment @chromium-only (2.3s)
+
+  66 passed (1.2m)
+SCROLL FOCUSED END 1 0
+{"commands":[{"command":"yarn test:visual:update components/rc-component-preview/docs/preview.visual.spec.mjs components/rc-component-preview/docs/preview-zoom.visual.spec.mjs --grep preview environment and source draft|zoom --project chromium","run":"preview-scroll-focused-0-20261102","startedAt":"2026-11-02T10:39:05.160Z","exitCode":0,"finishedAt":"2026-11-02T10:40:19.911Z"},{"command":"yarn test:visual components/rc-component-preview/docs/preview.visual.spec.mjs components/rc-component-preview/docs/preview-zoom.visual.spec.mjs --grep preview environment and source draft|zoom --project chromium","run":"preview-scroll-focused-1-20261102","startedAt":"2026-11-02T10:40:19.917Z","exitCode":0,"finishedAt":"2026-11-02T10:41:33.388Z"}],"inputsStable":true}
