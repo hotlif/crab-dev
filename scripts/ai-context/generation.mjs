@@ -58,4 +58,3 @@ export function generationFor(path, manifest) {
     return { sources: [...sources, reference(".website/scripts/generate/generate-component-docs.mjs", "站点生成入口")],
         workspace: "@crab-dev/website", script: "generate:docs" };
 }
-

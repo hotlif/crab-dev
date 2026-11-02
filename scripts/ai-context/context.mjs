@@ -155,4 +155,3 @@ export async function buildContext(target = ".", { root = repositoryRoot, depend
         commands, dependencies, ...(users ? { dependents: users } : {}), notes,
     };
 }
-
