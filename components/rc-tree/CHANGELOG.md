@@ -1,5 +1,16 @@
 # @crab-dev/rc-tree
 
+## 0.2.1
+
+### Patch Changes
+
+- [#22](https://github.com/hotlif/crab-dev/pull/22) [`8f0ac0d`](https://github.com/hotlif/crab-dev/commit/8f0ac0dada263e35783626524c69509c64e39d96) Thanks [@hotlif](https://github.com/hotlif)! - Keep nested tree checkboxes and editors in control of their own keyboard events while retaining arrow navigation from node actions. Let table editors consume their own keys before grid navigation or row activation, preserving native action activation, combobox selection and input-method drafts. Recover grid focus when a cell editor is removed without another focus destination, including iframe tables. Give coarse-pointer table selection columns a 48px minimum hit area, consistent with row expansion controls.
+- Updated dependencies [[`8f0ac0d`](https://github.com/hotlif/crab-dev/commit/8f0ac0dada263e35783626524c69509c64e39d96), [`8f0ac0d`](https://github.com/hotlif/crab-dev/commit/8f0ac0dada263e35783626524c69509c64e39d96), [`cb1361d`](https://github.com/hotlif/crab-dev/commit/cb1361d1e5fec7f6f73a10b48883d698aad729bd), [`20064d5`](https://github.com/hotlif/crab-dev/commit/20064d52b3442bda7eef16ca9045d9746cb28fce), [`8f0ac0d`](https://github.com/hotlif/crab-dev/commit/8f0ac0dada263e35783626524c69509c64e39d96), [`8f0ac0d`](https://github.com/hotlif/crab-dev/commit/8f0ac0dada263e35783626524c69509c64e39d96)]:
+  - @crab-dev/rc-config-provider@0.1.1
+  - @crab-dev/rc-line-edit@0.1.1
+  - @crab-dev/rc-hooks@0.1.1
+  - @crab-dev/rc-spin@0.1.1
+
 ## 0.2.0
 
 ### Minor Changes

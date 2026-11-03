@@ -1,5 +1,20 @@
 # @crab-dev/rc-table-pro
 
+## 0.2.1
+
+### Patch Changes
+
+- [#22](https://github.com/hotlif/crab-dev/pull/22) [`8f0ac0d`](https://github.com/hotlif/crab-dev/commit/8f0ac0dada263e35783626524c69509c64e39d96) Thanks [@hotlif](https://github.com/hotlif)! - Render the search bar when pagination is enabled, including top, bottom and both placements. Preserve search state and input identity across design, color mode and locale changes.
+- Updated dependencies [[`ab93160`](https://github.com/hotlif/crab-dev/commit/ab93160f53925f875c66bfabf871766e9e919af3), [`8f0ac0d`](https://github.com/hotlif/crab-dev/commit/8f0ac0dada263e35783626524c69509c64e39d96), [`8f0ac0d`](https://github.com/hotlif/crab-dev/commit/8f0ac0dada263e35783626524c69509c64e39d96), [`20064d5`](https://github.com/hotlif/crab-dev/commit/20064d52b3442bda7eef16ca9045d9746cb28fce), [`8f0ac0d`](https://github.com/hotlif/crab-dev/commit/8f0ac0dada263e35783626524c69509c64e39d96)]:
+  - @crab-dev/rc-dropdown-container@0.1.1
+  - @crab-dev/rc-config-provider@0.1.1
+  - @crab-dev/rc-line-edit@0.1.1
+  - @crab-dev/rc-button@1.0.1
+  - @crab-dev/rc-pagination@0.1.1
+  - @crab-dev/rc-spin@0.1.1
+  - @crab-dev/rc-tree@0.2.1
+  - @crab-dev/rc-table@0.1.1
+
 ## 0.2.0
 
 ### Minor Changes

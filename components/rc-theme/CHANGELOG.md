@@ -1,5 +1,13 @@
 # @crab-dev/rc-theme
 
+## 0.1.1
+
+### Patch Changes
+
+- [#22](https://github.com/hotlif/crab-dev/pull/22) [`8f0ac0d`](https://github.com/hotlif/crab-dev/commit/8f0ac0dada263e35783626524c69509c64e39d96) Thanks [@hotlif](https://github.com/hotlif)! - Keep the system Highlight and HighlightText pair visible in theme and semantic-token examples under forced colors. Limit the backplate adjustment to the affected sample blocks and preserve the user's system palette.
+- Updated dependencies [[`8f0ac0d`](https://github.com/hotlif/crab-dev/commit/8f0ac0dada263e35783626524c69509c64e39d96), [`8f0ac0d`](https://github.com/hotlif/crab-dev/commit/8f0ac0dada263e35783626524c69509c64e39d96)]:
+  - @crab-dev/rc-token-semantic@1.0.1
+
 ## 0.1.0
 
 ### Minor Changes

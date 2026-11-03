@@ -1,5 +1,18 @@
 # @crab-dev/rc-number-edit
 
+## 0.1.1
+
+### Patch Changes
+
+- [#22](https://github.com/hotlif/crab-dev/pull/22) [`8f0ac0d`](https://github.com/hotlif/crab-dev/commit/8f0ac0dada263e35783626524c69509c64e39d96) Thanks [@hotlif](https://github.com/hotlif)! - Keep Material floating labels within the actual text area so narrow fields avoid overlapping prefixes, units, clear actions and steppers. Preserve the full accessible label, input identity, selection and draft across theme and layout changes.
+
+- [#22](https://github.com/hotlif/crab-dev/pull/22) [`8f0ac0d`](https://github.com/hotlif/crab-dev/commit/8f0ac0dada263e35783626524c69509c64e39d96) Thanks [@hotlif](https://github.com/hotlif)! - Keep numeric focus formatting in sync with native selection so select-all and immediate replacement retain the user's intended text. Preserve native numeric events and commit semantics. Share wheel intent handling between number fields and sliders, allowing horizontal scrolling and modified browser zoom gestures without changing values.
+- Updated dependencies [[`8f0ac0d`](https://github.com/hotlif/crab-dev/commit/8f0ac0dada263e35783626524c69509c64e39d96), [`8f0ac0d`](https://github.com/hotlif/crab-dev/commit/8f0ac0dada263e35783626524c69509c64e39d96), [`cb1361d`](https://github.com/hotlif/crab-dev/commit/cb1361d1e5fec7f6f73a10b48883d698aad729bd), [`20064d5`](https://github.com/hotlif/crab-dev/commit/20064d52b3442bda7eef16ca9045d9746cb28fce), [`8f0ac0d`](https://github.com/hotlif/crab-dev/commit/8f0ac0dada263e35783626524c69509c64e39d96), [`8f0ac0d`](https://github.com/hotlif/crab-dev/commit/8f0ac0dada263e35783626524c69509c64e39d96)]:
+  - @crab-dev/rc-config-provider@0.1.1
+  - @crab-dev/rc-line-edit@0.1.1
+  - @crab-dev/rc-hooks@0.1.1
+  - @crab-dev/rc-button@1.0.1
+
 ## 0.1.0
 
 ### Minor Changes

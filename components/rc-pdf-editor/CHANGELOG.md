@@ -1,5 +1,33 @@
 # @crab-dev/rc-pdf-editor
 
+## 0.1.1
+
+### Patch Changes
+
+- [#22](https://github.com/hotlif/crab-dev/pull/22) [`8f0ac0d`](https://github.com/hotlif/crab-dev/commit/8f0ac0dada263e35783626524c69509c64e39d96) Thanks [@hotlif](https://github.com/hotlif)! - Return focus to the matching panel toggle when the PDF workspace collapses a focused sidebar, with a visible outline until blur or pointer interaction. Resolve close-panel focus inside the actual editor so standalone ShadowRoot and iframe instances retain valid focus, with the canvas as fallback when a toggle is unavailable. Keep document and draft state unchanged. Clear the native nonce value when the standalone example resets its configuration.
+  
+  Use the public square Button shape for document thumbnails so selected and unselected pages keep matching rectangular corners, including in forced colors.
+  
+  Restore canvas focus within the actual editor after region selection completes or is cancelled, including standalone ShadowRoot instances.
+  
+  Keep sidebar and toolbar button keystrokes from moving or deleting the selected canvas object; retain canvas editing and toolbar arrow navigation.
+  
+  Keep the properties heading and close button mounted across object selection, drawing modes and document history changes, preserving valid keyboard focus in standalone editors.
+- Updated dependencies [[`8f0ac0d`](https://github.com/hotlif/crab-dev/commit/8f0ac0dada263e35783626524c69509c64e39d96), [`ab93160`](https://github.com/hotlif/crab-dev/commit/ab93160f53925f875c66bfabf871766e9e919af3), [`8f0ac0d`](https://github.com/hotlif/crab-dev/commit/8f0ac0dada263e35783626524c69509c64e39d96), [`8f0ac0d`](https://github.com/hotlif/crab-dev/commit/8f0ac0dada263e35783626524c69509c64e39d96), [`8f0ac0d`](https://github.com/hotlif/crab-dev/commit/8f0ac0dada263e35783626524c69509c64e39d96), [`8f0ac0d`](https://github.com/hotlif/crab-dev/commit/8f0ac0dada263e35783626524c69509c64e39d96), [`8f0ac0d`](https://github.com/hotlif/crab-dev/commit/8f0ac0dada263e35783626524c69509c64e39d96), [`20064d5`](https://github.com/hotlif/crab-dev/commit/20064d52b3442bda7eef16ca9045d9746cb28fce), [`8f0ac0d`](https://github.com/hotlif/crab-dev/commit/8f0ac0dada263e35783626524c69509c64e39d96), [`8f0ac0d`](https://github.com/hotlif/crab-dev/commit/8f0ac0dada263e35783626524c69509c64e39d96), [`8f0ac0d`](https://github.com/hotlif/crab-dev/commit/8f0ac0dada263e35783626524c69509c64e39d96)]:
+  - @crab-dev/rc-theme@0.1.1
+  - @crab-dev/rc-token-semantic@1.0.1
+  - @crab-dev/rc-dialog@0.1.1
+  - @crab-dev/rc-config-provider@0.1.1
+  - @crab-dev/rc-line-edit@0.1.1
+  - @crab-dev/rc-number-edit@0.1.1
+  - @crab-dev/rc-canvas@0.1.1
+  - @crab-dev/rc-color-picker@0.1.1
+  - @crab-dev/rc-button@1.0.1
+  - @crab-dev/rc-select@0.1.1
+  - @crab-dev/rc-spin@0.1.1
+  - @crab-dev/rc-text-edit@0.1.1
+  - @crab-dev/rc-tree@0.2.1
+
 ## 0.1.0
 
 ### Minor Changes

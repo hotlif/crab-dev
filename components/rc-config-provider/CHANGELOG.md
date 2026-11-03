@@ -1,5 +1,14 @@
 # @crab-dev/rc-config-provider
 
+## 0.1.1
+
+### Patch Changes
+
+- [#22](https://github.com/hotlif/crab-dev/pull/22) [`8f0ac0d`](https://github.com/hotlif/crab-dev/commit/8f0ac0dada263e35783626524c69509c64e39d96) Thanks [@hotlif](https://github.com/hotlif)! - 修正跨文档配置示例的主题表面，使深色 iframe 的背景覆盖整个可视区域，并保持草稿与配置边界。
+- Updated dependencies [[`8f0ac0d`](https://github.com/hotlif/crab-dev/commit/8f0ac0dada263e35783626524c69509c64e39d96), [`8f0ac0d`](https://github.com/hotlif/crab-dev/commit/8f0ac0dada263e35783626524c69509c64e39d96)]:
+  - @crab-dev/rc-theme@0.1.1
+  - @crab-dev/rc-token-semantic@1.0.1
+
 ## 0.1.0
 
 ### Minor Changes

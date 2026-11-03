@@ -1,5 +1,14 @@
 # @crab-dev/rc-breadcrumbs
 
+## 0.1.1
+
+### Patch Changes
+
+- [#22](https://github.com/hotlif/crab-dev/pull/22) [`8f0ac0d`](https://github.com/hotlif/crab-dev/commit/8f0ac0dada263e35783626524c69509c64e39d96) Thanks [@hotlif](https://github.com/hotlif)! - Retain the non-interactive current page when maxCount is two, with coverage for minimal collapsed navigation across themes and densities.
+- Updated dependencies [[`8f0ac0d`](https://github.com/hotlif/crab-dev/commit/8f0ac0dada263e35783626524c69509c64e39d96), [`20064d5`](https://github.com/hotlif/crab-dev/commit/20064d52b3442bda7eef16ca9045d9746cb28fce)]:
+  - @crab-dev/rc-config-provider@0.1.1
+  - @crab-dev/rc-button@1.0.1
+
 ## 0.1.0
 
 ### Minor Changes

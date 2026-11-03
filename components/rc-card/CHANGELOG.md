@@ -1,5 +1,13 @@
 # @crab-dev/rc-card
 
+## 0.1.1
+
+### Patch Changes
+
+- [#22](https://github.com/hotlif/crab-dev/pull/22) [`8f0ac0d`](https://github.com/hotlif/crab-dev/commit/8f0ac0dada263e35783626524c69509c64e39d96) Thanks [@hotlif](https://github.com/hotlif)! - Keep Enter and Space on nested controls from activating the whole card. Preserve native extra/footer button activation and focus across theme changes.
+- Updated dependencies [[`8f0ac0d`](https://github.com/hotlif/crab-dev/commit/8f0ac0dada263e35783626524c69509c64e39d96)]:
+  - @crab-dev/rc-config-provider@0.1.1
+
 ## 0.1.0
 
 ### Minor Changes

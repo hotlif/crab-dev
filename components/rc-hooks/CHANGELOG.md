@@ -1,5 +1,15 @@
 # @crab-dev/rc-hooks
 
+## 0.1.1
+
+### Patch Changes
+
+- [#22](https://github.com/hotlif/crab-dev/pull/22) [`cb1361d`](https://github.com/hotlif/crab-dev/commit/cb1361d1e5fec7f6f73a10b48883d698aad729bd) Thanks [@hotlif](https://github.com/hotlif)! - 退出动画被主题或令牌更新替换后继续等待当前有效动画；快速重开或卸载取消旧退出任务，无动画时立即完成，子级无限动画不阻止关闭，退出回调只执行一次。
+
+- [#22](https://github.com/hotlif/crab-dev/pull/22) [`8f0ac0d`](https://github.com/hotlif/crab-dev/commit/8f0ac0dada263e35783626524c69509c64e39d96) Thanks [@hotlif](https://github.com/hotlif)! - Preserve the visible keyboard focus indicator when native radio arrow navigation loses the browser's focus-visible state. Keep native selection, events, pointer feedback and theme boundaries intact.
+
+- [#22](https://github.com/hotlif/crab-dev/pull/22) [`8f0ac0d`](https://github.com/hotlif/crab-dev/commit/8f0ac0dada263e35783626524c69509c64e39d96) Thanks [@hotlif](https://github.com/hotlif)! - Keep numeric focus formatting in sync with native selection so select-all and immediate replacement retain the user's intended text. Preserve native numeric events and commit semantics. Share wheel intent handling between number fields and sliders, allowing horizontal scrolling and modified browser zoom gestures without changing values.
+
 ## 0.1.0
 
 ### Minor Changes
