@@ -11,7 +11,9 @@ beforeAll(async () => {
         configurable: true,
         value: () => cssExitTestState.deferExit ? [{
             playState: "running",
-            finished: new Promise<void>(resolve => { cssExitTestState.finishExit = resolve; }),
+            finished: new Promise<void>(resolve => {
+                cssExitTestState.finishExit = () => { cssExitTestState.deferExit = false; resolve(); };
+            }),
         }] : [],
     });
     const dialogModule = await mock.import<typeof import("../dialog.js")>("../dialog.js");

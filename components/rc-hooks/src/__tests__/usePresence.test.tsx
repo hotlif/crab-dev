@@ -75,4 +75,39 @@ describe("usePresence", () => {
         await act(async () => exit.resolve());
         expect(complete).not.toHaveBeenCalled();
     });
+
+    it("waits for replacement transitions after an exiting theme changes", async () => {
+        const complete = mock.fn();
+        const view = await render(<Subject open complete={complete} />);
+        const element = view.container.firstElementChild!;
+        const original = Promise.withResolvers<void>();
+        const replacement = Promise.withResolvers<void>();
+        let finished = original.promise;
+        Object.defineProperty(element, "getAnimations", {
+            value: () => [{ playState: "running", finished }],
+        });
+        await view.rerender(<Subject open={false} complete={complete} />);
+        finished = replacement.promise;
+        await act(async () => original.reject(new Error("Theme replaced transition")));
+        expect(complete).not.toHaveBeenCalled();
+        expect(view.container.firstElementChild).toBe(element);
+        await act(async () => replacement.resolve());
+        expect(complete).toHaveBeenCalledTimes(1);
+        expect(view.container.firstElementChild).toBeNull();
+    });
+
+    it("ignores finished, idle and infinite animations without waiting for children", async () => {
+        const complete = mock.fn();
+        const view = await render(<Subject open complete={complete} />);
+        const getAnimations = mock.fn(() => [
+            { playState: "finished" },
+            { playState: "idle" },
+            { playState: "running", effect: { getTiming: () => ({ iterations: Infinity }) } },
+        ]);
+        Object.defineProperty(view.container.firstElementChild, "getAnimations", { value: getAnimations });
+        await view.rerender(<Subject open={false} complete={complete} />);
+        expect(complete).toHaveBeenCalledTimes(1);
+        expect(getAnimations).toHaveBeenCalledWith();
+        expect(view.container.firstElementChild).toBeNull();
+    });
 });

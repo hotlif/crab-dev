@@ -1,9 +1,14 @@
 # Slot assignment and foreign iframe constructors require a real browser.
 [test]
 environment = "browser"
-include = ["composed-tree.test.ts"]
+include = ["composed-tree.test.ts", "presence.test.tsx"]
 timeout_ms = 5000
 leaks = "error"
+
+[test.react]
+strict_mode = false
+cleanup = true
+act_warnings = "error"
 
 [test.network]
 mode = "deny"
