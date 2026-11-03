@@ -163,7 +163,7 @@ export const ellipsisStyle = css`
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        transition: opacity 120ms cubic-bezier(0.4, 0, 0.2, 1);
+        transition: opacity ${token.interaction.transition};
     }
     & .rc-pagination-ellipsis-dots {
         letter-spacing: 0.05em;

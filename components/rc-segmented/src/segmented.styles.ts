@@ -71,7 +71,7 @@ export const segmentStyle = css`
     color: ${token.item.color};
     cursor: pointer;
     white-space: nowrap;
-    transition: color ${token.item.transition}, background-color ${token.item.transition};
+    transition: color ${token.item.transition}, background-color ${token.item.transition}, box-shadow ${token.item.transition};
 
     /* Keep a 48px target without clipping it to the 40px visual container. */
     &::after {
@@ -159,29 +159,61 @@ export const labelStyle = css`
     min-width: 0;
     overflow: hidden;
     text-overflow: ellipsis;
+    translate: 0 0;
+    transition: ${token.item.label.transition};
+    @media (prefers-reduced-motion: reduce) { transition: none; }
 `;
 
 export const unselectedSmallLabelStyle = css`
-    position: relative;
-    inset-inline-start: calc((${token.item.icon.width} + ${token.size.small.gap}) / -2);
+    translate: calc((${token.item.icon.width} + ${token.size.small.gap}) / -2) 0;
+    &:dir(rtl) { translate: calc((${token.item.icon.width} + ${token.size.small.gap}) / 2) 0; }
 `;
 
 export const unselectedMediumLabelStyle = css`
-    position: relative;
-    inset-inline-start: calc((${token.item.icon.width} + ${token.size.medium.gap}) / -2);
+    translate: calc((${token.item.icon.width} + ${token.size.medium.gap}) / -2) 0;
+    &:dir(rtl) { translate: calc((${token.item.icon.width} + ${token.size.medium.gap}) / 2) 0; }
 `;
 
 export const unselectedLargeLabelStyle = css`
-    position: relative;
-    inset-inline-start: calc((${token.item.icon.width} + ${token.size.large.gap}) / -2);
+    translate: calc((${token.item.icon.width} + ${token.size.large.gap}) / -2) 0;
+    &:dir(rtl) { translate: calc((${token.item.icon.width} + ${token.size.large.gap}) / 2) 0; }
 `;
 
 export const selectionIconStyle = css`
+    position: relative;
     display: inline-flex;
     flex: none;
     width: ${token.item.icon.width};
     height: ${token.item.icon.width};
     > svg { width: 100%; height: 100%; }
+`;
+
+// Keep the check and optional icon mounted so reversing a selection starts
+// from the current opacity/scale instead of replacing the graphic mid-frame.
+export const indicatorGraphicStyle = css`
+    position: absolute;
+    inset: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    scale: 0.6;
+    transition: ${token.item.icon.transition};
+    &[data-visible="true"] { opacity: 1; scale: 1; }
+    > svg { width: 100%; height: 100%; }
+    @media (prefers-reduced-motion: reduce) { transition: none; }
+`;
+
+export const iconOnlyIndicatorStyle = css`
+    width: auto;
+    & > [data-segment-graphic] { position: relative; width: ${token.item.icon.width}; height: ${token.item.icon.width}; }
+    & > [data-segment-graphic="check"] {
+        width: 0;
+        overflow: hidden;
+        transition: ${token.item.icon.transition};
+        &[data-visible="true"] { width: ${token.item.icon.width}; }
+    }
+    @media (prefers-reduced-motion: reduce) { & > [data-segment-graphic] { transition: none; } }
 `;
 
 export const checkIconStyle = css`display: ${token.item.check.display};`;
@@ -203,6 +235,7 @@ export const segmentDisabledStyle = css`
     cursor: not-allowed;
     &:not(:last-child) { border-color: ${token.track['border-color-disabled']}; }
     &[data-selected] { background-color: ${token.item['background-color-disabled']}; box-shadow: none; }
+    &, &::before, & > span, & [data-segment-graphic] { transition: none; }
 
     &:hover {
         color: ${token.item['color-disabled']};

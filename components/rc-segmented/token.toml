@@ -79,6 +79,8 @@ root.opacity-disabled = "$ref(opacity.disabled)"
 # item：选项文字颜色过渡，走 semantic interaction（快到近乎即时）
 
 item.transition = "$ref(motion.interaction)"
+item.icon.transition = "opacity $ref(motion.effects.fast), scale $ref(motion.spatial.fast), width $ref(motion.layout)"
+item.label.transition = "translate $ref(motion.layout)"
 
 interaction.touch.min-width = "$ref(size.touch-target)"
 interaction.touch.min-height = "$ref(size.touch-target)"

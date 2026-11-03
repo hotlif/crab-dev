@@ -4,7 +4,7 @@ import { useId } from 'react';
 import { useControllableValue } from '@crab-dev/rc-hooks';
 import { useNativeRadioFocus } from '@crab-dev/rc-hooks/internal';
 import type { SegmentedOption, SegmentedProps, SegmentedRawOption, SegmentedSize, SegmentedValue, SegmentedChangeDetails } from './types.js';
-import { trackStyle, trackBlockStyle, trackPadSmallStyle, trackPadMiddleStyle, trackPadLargeStyle, hiddenInputStyle, segmentStyle, segmentSmallStyle, segmentMiddleStyle, segmentLargeStyle, segmentBlockStyle, labelStyle, unselectedSmallLabelStyle, unselectedMediumLabelStyle, unselectedLargeLabelStyle, selectionIconStyle, checkIconStyle, selectedOptionIconStyle, segmentSelectedStyle, segmentDisabledStyle } from "./segmented.styles.js";
+import { trackStyle, trackBlockStyle, trackPadSmallStyle, trackPadMiddleStyle, trackPadLargeStyle, hiddenInputStyle, segmentStyle, segmentSmallStyle, segmentMiddleStyle, segmentLargeStyle, segmentBlockStyle, labelStyle, unselectedSmallLabelStyle, unselectedMediumLabelStyle, unselectedLargeLabelStyle, selectionIconStyle, indicatorGraphicStyle, iconOnlyIndicatorStyle, checkIconStyle, selectedOptionIconStyle, segmentSelectedStyle, segmentDisabledStyle } from "./segmented.styles.js";
 // ─── 辅助 ────────────────────────────────────────────────────────────────────
 
 const normalizeOption = (raw: SegmentedRawOption): SegmentedOption =>
@@ -113,10 +113,12 @@ const Segmented = ({
                                 setSelectedValue(option.value, { reason: 'select', event });
                             }}
                         />
-                        <span aria-hidden="true" data-selection-indicator="" className={cx(selectionIconStyle, (selected || !option.icon) && checkIconStyle)}>
-                            {selected ? <svg viewBox="0 0 24 24" fill="none" focusable="false"><path d="m5 12 4 4L19 6" stroke="currentColor" strokeWidth="2" /></svg> : option.icon}
+                        <span aria-hidden="true" data-selection-indicator="" className={cx(selectionIconStyle, !option.icon && checkIconStyle, Boolean(option.icon) && !hasLabel && iconOnlyIndicatorStyle)}>
+                            <span data-segment-graphic="check" data-visible={selected} className={cx(indicatorGraphicStyle, checkIconStyle)}>
+                                <svg viewBox="0 0 24 24" fill="none" focusable="false"><path d="m5 12 4 4L19 6" stroke="currentColor" strokeWidth="2" /></svg>
+                            </span>
+                            {option.icon && <span aria-hidden="true" data-option-icon="" data-segment-graphic="option" data-visible={!selected || designSystem !== 'md3' || !hasLabel} className={cx(indicatorGraphicStyle, selected && hasLabel && selectedOptionIconStyle)}>{option.icon}</span>}
                         </span>
-                        {selected && option.icon && <span aria-hidden="true" data-option-icon="" className={cx(selectionIconStyle, hasLabel && selectedOptionIconStyle)}>{option.icon}</span>}
                         {hasLabel && <span className={cx(labelStyle, designSystem === 'md3' && !selected && !option.icon && unselectedLabelStyleOf(size))}>{option.label}</span>}
                     </label>
                 );

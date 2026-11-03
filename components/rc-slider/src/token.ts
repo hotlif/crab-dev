@@ -27,6 +27,7 @@ export const vars = defineTokens({
     'thumb.halo.opacity-focus': '--slider-thumb-halo-opacity-focus',
     'thumb.halo.opacity-dragging': '--slider-thumb-halo-opacity-dragging',
     'thumb.halo.width': '--slider-thumb-halo-width',
+    'thumb.halo.transition': '--slider-thumb-halo-transition',
     'thumb.width': '--slider-thumb-width',
     'thumb.height': '--slider-thumb-height',
     'thumb.width-active': '--slider-thumb-width-active',
@@ -92,7 +93,8 @@ const token = defineTokens({
             'opacity-hover': `var(${vars['thumb.halo.opacity-hover']}, var(--token-semantic-state-opacity-hover, var(--token-global-opacity-8, 0.08)))`,
             'opacity-focus': `var(${vars['thumb.halo.opacity-focus']}, var(--token-semantic-state-opacity-focus, var(--token-global-opacity-12, 0.12)))`,
             'opacity-dragging': `var(${vars['thumb.halo.opacity-dragging']}, var(--token-semantic-state-opacity-dragged, var(--token-global-opacity-16, 0.16)))`,
-            'width': `var(${vars['thumb.halo.width']}, var(--token-semantic-range-thumb-halo-size, var(--token-global-space-7, 28px)))`
+            'width': `var(${vars['thumb.halo.width']}, var(--token-semantic-range-thumb-halo-size, var(--token-global-space-7, 28px)))`,
+            'transition': `var(${vars['thumb.halo.transition']}, width var(--token-semantic-motion-spatial-fast, var(--token-global-duration-350, 350ms) var(--token-global-easing-expressive-spatial-fast, cubic-bezier(0.42, 1.67, 0.21, 0.90))), height var(--token-semantic-motion-spatial-fast, var(--token-global-duration-350, 350ms) var(--token-global-easing-expressive-spatial-fast, cubic-bezier(0.42, 1.67, 0.21, 0.90))), opacity var(--token-semantic-motion-effects-fast, var(--token-global-duration-150, 150ms) var(--token-global-easing-expressive-effects-fast, cubic-bezier(0.31, 0.94, 0.34, 1.00))))`
         },
         'width': `var(${vars['thumb.width']}, var(--token-semantic-range-thumb-width, var(--token-global-space-1, 4px)))`,
         'height': `var(${vars['thumb.height']}, var(--token-semantic-size-20, var(--token-global-space-5, 20px)))`,

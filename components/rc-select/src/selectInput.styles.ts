@@ -208,6 +208,25 @@ export const fieldLayoutStyle = css`
     }
 `;
 
+// Material shares the control row with its label. A stable alignment lets top
+// interpolate across the entire distance instead of jumping at focus time.
+export const md3LabelMotionStyle = css`
+    position: relative;
+    &&[data-labeled="true"] > [data-role="select-label"] {
+        position: absolute;
+        grid-row: ${semanticToken.field.layout['label-row']} / span 1;
+        align-self: start;
+        top: 50%;
+        transform: ${semanticToken.field.label.floating.transform};
+    }
+    &&[data-labeled="true"]:is(:focus-within, [data-floating="true"]) > [data-role="select-label"] {
+        top: 0%;
+    }
+    &&[data-labeled="true"][data-appearance="filled"]:is(:focus-within, [data-floating="true"]) > [data-role="select-label"] {
+        transform: none;
+    }
+`;
+
 export const controlDisabledStyle = css`
     opacity: ${token.root['opacity-disabled']};
     cursor: not-allowed;

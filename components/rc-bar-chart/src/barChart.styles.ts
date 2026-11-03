@@ -30,7 +30,7 @@ export const legendItemStyle = css`
     font-size: ${token.legend.label['font-size']};
     color: ${token.legend.label.color};
     cursor: pointer;
-    transition: ${token.legend.item.transition};
+    transition: background-color ${token.legend.item.transition}, opacity ${token.legend.item.transition};
     &:hover {
         background-color: ${token.legend.item['background-color-hover']};
     }
