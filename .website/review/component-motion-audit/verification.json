@@ -1,0 +1,296 @@
+{
+  "date": "2026-11-02",
+  "scope": "Motion assertions and representative visual review; no pixel baseline approval or product coverage promotion.",
+  "selection": "Latest verified batch for each file, full test title and browser replaces its earlier result. Original failed batches remain retained.",
+  "runtimeFingerprint": "eba5b3935ede7af3fb82364011f45b0de97a9f446c2f39a217507ba203932459",
+  "latest": {
+    "groups": {
+      "natural": {
+        "passed": 996,
+        "failed": 0
+      },
+      "live-preference": {
+        "passed": 954,
+        "failed": 0
+      },
+      "environment": {
+        "passed": 297,
+        "failed": 0
+      },
+      "presence": {
+        "passed": 18,
+        "failed": 0
+      }
+    },
+    "total": 2265,
+    "unexpected": 0
+  },
+  "batches": [
+    {
+      "name": "combined",
+      "run": ".tmp/visual-linux-2026-11-02T13-19-50-412Z/evidence/2026-11-02T13-28-18-836Z",
+      "command": [
+        "yarn",
+        "test:visual:build",
+        "(motion-contract|notice-motion|line-edit-motion|segmented-motion|switch-motion|dropdown-motion|dialog-reversal|select-label-motion|drawer-motion|button-motion|badge\\.motion|card\\.motion|message\\.motion|spin-motion|bar-chart-motion|canvas-motion|flow-diagram-motion|tree-motion|number-edit-motion|form-motion|select-motion|table-pro-motion|realm-motion|skeleton\\.motion|dialog-motion)\\.visual\\.spec\\.mjs",
+        "--project=chromium",
+        "--project=firefox",
+        "--project=webkit",
+        "--grep",
+        "(chromium|@motion(?!-contract)|natural|reduced motion|activity|data transition)",
+        "--workers=4",
+        "--candidate"
+      ],
+      "sourceFingerprint": "sha256:2ddc3b2ed6c438aaa8a0eab35d71cf01e1ea73be5dc8e9f398c6e275f3475e2e",
+      "artifactFingerprint": "sha256:0189b2a730dca964c02c1b173d5ee45bfaeee6b1616bbcd6b03609f9e3a7ba55",
+      "runtimeFingerprint": "eba5b3935ede7af3fb82364011f45b0de97a9f446c2f39a217507ba203932459",
+      "runtimeFiles": 1033,
+      "inputsStable": true,
+      "stats": {
+        "startTime": "2026-11-02T13:28:28.376Z",
+        "duration": 2690687.816,
+        "expected": 1943,
+        "skipped": 0,
+        "unexpected": 7,
+        "flaky": 0
+      }
+    },
+    {
+      "name": "viewport-natural",
+      "run": ".tmp/visual-linux-2026-11-02T14-20-21-357Z/evidence/2026-11-02T14-26-22-594Z",
+      "command": [
+        "yarn",
+        "test:visual:build",
+        "(notice-motion|line-edit-motion|segmented-motion|switch-motion|dropdown-motion|dialog-reversal|select-label-motion|drawer-motion)\\.visual\\.spec\\.mjs",
+        "--project=chromium",
+        "--project=firefox",
+        "--project=webkit",
+        "--workers=4",
+        "--candidate"
+      ],
+      "sourceFingerprint": "sha256:617ae50369d344065f82dcdca06d45fbf48ebc7a4e37212a28d0b8f21d4b5440",
+      "artifactFingerprint": "sha256:0189b2a730dca964c02c1b173d5ee45bfaeee6b1616bbcd6b03609f9e3a7ba55",
+      "runtimeFingerprint": "eba5b3935ede7af3fb82364011f45b0de97a9f446c2f39a217507ba203932459",
+      "runtimeFiles": 1033,
+      "inputsStable": true,
+      "stats": {
+        "startTime": "2026-11-02T14:26:26.863Z",
+        "duration": 622179.6329999999,
+        "expected": 335,
+        "skipped": 0,
+        "unexpected": 1,
+        "flaky": 0
+      }
+    },
+    {
+      "name": "live-preference-final",
+      "run": ".tmp/visual-linux-2026-11-02T13-57-56-567Z/evidence/2026-11-02T14-08-04-932Z",
+      "command": [
+        "yarn",
+        "test:visual:build",
+        "motion-contract.visual.spec.mjs",
+        "--project=chromium",
+        "--workers=4",
+        "--candidate"
+      ],
+      "sourceFingerprint": "sha256:595e9168572f7f5f6f9d0532829108ffd41c5850901a5cca227fa6566ebc27fb",
+      "artifactFingerprint": "sha256:0189b2a730dca964c02c1b173d5ee45bfaeee6b1616bbcd6b03609f9e3a7ba55",
+      "runtimeFingerprint": "eba5b3935ede7af3fb82364011f45b0de97a9f446c2f39a217507ba203932459",
+      "runtimeFiles": 1033,
+      "inputsStable": true,
+      "stats": {
+        "startTime": "2026-11-02T14:08:11.589Z",
+        "duration": 821342.0970000001,
+        "expected": 954,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      }
+    },
+    {
+      "name": "field-line-final",
+      "run": ".tmp/visual-linux-2026-11-02T14-40-05-801Z/evidence/2026-11-02T14-41-33-424Z",
+      "command": [
+        "yarn",
+        "test:visual",
+        "--package",
+        "rc-line-edit",
+        "line-edit-motion.visual.spec.mjs",
+        "--project=chromium",
+        "--project=firefox",
+        "--project=webkit",
+        "--workers=2",
+        "--candidate"
+      ],
+      "sourceFingerprint": "sha256:a61fc948a481640006c8f46321d33d892371fba1ab0bd3c76c036563a755d4f9",
+      "artifactFingerprint": "sha256:3d8ceb7741bf34ee33f3416291d655213d1b7eed66d0f6869f54b454540e01fc",
+      "runtimeFingerprint": "eba5b3935ede7af3fb82364011f45b0de97a9f446c2f39a217507ba203932459",
+      "runtimeFiles": 1033,
+      "inputsStable": true,
+      "stats": {
+        "startTime": "2026-11-02T14:42:14.559Z",
+        "duration": 80017.025,
+        "expected": 30,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      }
+    },
+    {
+      "name": "field-select-final",
+      "run": ".tmp/visual-linux-2026-11-02T14-40-20-008Z/evidence/2026-11-02T14-41-33-268Z",
+      "command": [
+        "yarn",
+        "test:visual",
+        "--package",
+        "rc-select",
+        "select-label-motion.visual.spec.mjs",
+        "--project=chromium",
+        "--project=firefox",
+        "--project=webkit",
+        "--workers=2",
+        "--candidate"
+      ],
+      "sourceFingerprint": "sha256:a61fc948a481640006c8f46321d33d892371fba1ab0bd3c76c036563a755d4f9",
+      "artifactFingerprint": "sha256:74f41a8a8bbf8f98245961ff2284c6e8881f13169dd840dd63482f111f88dcd7",
+      "runtimeFingerprint": "eba5b3935ede7af3fb82364011f45b0de97a9f446c2f39a217507ba203932459",
+      "runtimeFiles": 1033,
+      "inputsStable": true,
+      "stats": {
+        "startTime": "2026-11-02T14:42:14.906Z",
+        "duration": 69430.77,
+        "expected": 30,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      }
+    },
+    {
+      "name": "environment",
+      "run": ".tmp/visual-linux-2026-11-02T13-24-02-411Z/evidence/2026-11-02T13-33-41-648Z",
+      "command": [
+        "yarn",
+        "test:visual:build",
+        "(switch|segmented|line-edit|text-edit|select|dialog|drawer|dropdown|menu|app-main-layout)-environment\\.visual\\.spec\\.mjs",
+        "--project=chromium",
+        "--grep",
+        "(narrow|touch|rtl|forced-colors|reduced-motion|@boundary)",
+        "--workers=3",
+        "--candidate"
+      ],
+      "sourceFingerprint": "sha256:27b0054096ccc69535874d50488427c145f7432b8072f65f05b0e42bd3af2ffb",
+      "artifactFingerprint": "sha256:0189b2a730dca964c02c1b173d5ee45bfaeee6b1616bbcd6b03609f9e3a7ba55",
+      "runtimeFingerprint": "eba5b3935ede7af3fb82364011f45b0de97a9f446c2f39a217507ba203932459",
+      "runtimeFiles": 1033,
+      "inputsStable": true,
+      "stats": {
+        "startTime": "2026-11-02T13:33:47.183Z",
+        "duration": 382362.92100000003,
+        "expected": 297,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      }
+    },
+    {
+      "name": "presence",
+      "run": ".tmp/visual-linux-2026-11-02T13-36-46-741Z/evidence/2026-11-02T13-39-16-604Z",
+      "command": [
+        "yarn",
+        "test:visual",
+        "--package",
+        "rc-dialog",
+        "presence-lifecycle.visual.spec.mjs",
+        "--project=chromium",
+        "--project=firefox",
+        "--project=webkit",
+        "--workers=2",
+        "--candidate"
+      ],
+      "sourceFingerprint": "sha256:2cde796e6f8c8045de0b441c8fdf8c3c543135a1c51359cc3e57bb4ec6cb31c8",
+      "artifactFingerprint": "sha256:2537376f7313058903fba26ca90a3e070b5182b01ffeecbd30d7e9f8a04dd7d9",
+      "runtimeFingerprint": "eba5b3935ede7af3fb82364011f45b0de97a9f446c2f39a217507ba203932459",
+      "runtimeFiles": 1033,
+      "inputsStable": true,
+      "stats": {
+        "startTime": "2026-11-02T13:40:27.174Z",
+        "duration": 57013.731,
+        "expected": 18,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      }
+    }
+  ],
+  "currentRuntimeMatches": true,
+  "runtimeInputScope": "Component src excluding tests, component token definitions, package manifests, runnable demos, library manifest and root dependency contracts.",
+  "repositoryCheck": {
+    "command": "yarn check",
+    "platform": "win32",
+    "node": "v22.15.0",
+    "yarn": "4.18.0",
+    "exitCode": 0,
+    "conditions": {
+      "RAYON_NUM_THREADS": 2,
+      "TEMP": ".tmp/motion-runtime",
+      "parallelVisualBatches": false
+    },
+    "log": ".tmp/motion-check-isolated-final.log",
+    "stages": [
+      {
+        "script": "check:architecture",
+        "seconds": 2.6
+      },
+      {
+        "script": "check:tokens",
+        "seconds": 2
+      },
+      {
+        "script": "check:generated:local",
+        "seconds": 22.9
+      },
+      {
+        "script": "lint",
+        "seconds": 82
+      },
+      {
+        "script": "build:library",
+        "seconds": 2.2
+      },
+      {
+        "script": "check:exports",
+        "seconds": 13.3
+      },
+      {
+        "script": "check:consumer",
+        "seconds": 21.6
+      },
+      {
+        "script": "typecheck",
+        "seconds": 60.2
+      },
+      {
+        "script": "test",
+        "seconds": 418.5
+      },
+      {
+        "script": "test:required",
+        "seconds": 1702.8
+      },
+      {
+        "script": "docs:build",
+        "seconds": 245.8
+      }
+    ],
+    "requiredScripts": 49,
+    "datePickerBrowser": {
+      "passed": 156,
+      "failed": 0,
+      "pending": 0
+    },
+    "productionJavaScriptBindings": {
+      "files": 2028,
+      "unbound": 0
+    }
+  }
+}
