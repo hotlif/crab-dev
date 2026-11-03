@@ -1,5 +1,14 @@
 # @crab-dev/rc-canvas
 
+## 0.1.1
+
+### Patch Changes
+
+- [#22](https://github.com/hotlif/crab-dev/pull/22) [`8f0ac0d`](https://github.com/hotlif/crab-dev/commit/8f0ac0dada263e35783626524c69509c64e39d96) Thanks [@hotlif](https://github.com/hotlif)! - Keep longer inline text drafts readable by using the declared text width and fitting the native editor height to its content within the available canvas. Preserve the same editor, selection, focus and draft during theme changes, and retain internal scrolling for longer content. Paint the paired editing background in its container so Chromium keeps surrounding WebGL shapes visible behind the transparent native textarea. Restore focus through the editor's actual Document or ShadowRoot when committing or cancelling.
+- Updated dependencies [[`8f0ac0d`](https://github.com/hotlif/crab-dev/commit/8f0ac0dada263e35783626524c69509c64e39d96), [`cb1361d`](https://github.com/hotlif/crab-dev/commit/cb1361d1e5fec7f6f73a10b48883d698aad729bd), [`8f0ac0d`](https://github.com/hotlif/crab-dev/commit/8f0ac0dada263e35783626524c69509c64e39d96), [`8f0ac0d`](https://github.com/hotlif/crab-dev/commit/8f0ac0dada263e35783626524c69509c64e39d96)]:
+  - @crab-dev/rc-config-provider@0.1.1
+  - @crab-dev/rc-hooks@0.1.1
+
 ## 0.1.0
 
 ### Minor Changes

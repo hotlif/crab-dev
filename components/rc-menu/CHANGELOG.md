@@ -1,5 +1,16 @@
 # @crab-dev/rc-menu
 
+## 0.1.1
+
+### Patch Changes
+
+- [#22](https://github.com/hotlif/crab-dev/pull/22) [`ab93160`](https://github.com/hotlif/crab-dev/commit/ab93160f53925f875c66bfabf871766e9e919af3) Thanks [@hotlif](https://github.com/hotlif)! - 协调三体系弹层与布局动效：快速重开保留内容和有效焦点，浮层在定位就绪后按实际方向入场，退出完整结束后释放资源。缩短弹层退出、收敛消息位移，侧栏与菜单跟随宿主实际宽度过渡并支持连续反转和减少动画。
+
+- [#22](https://github.com/hotlif/crab-dev/pull/22) [`8f0ac0d`](https://github.com/hotlif/crab-dev/commit/8f0ac0dada263e35783626524c69509c64e39d96) Thanks [@hotlif](https://github.com/hotlif)! - Keep horizontal and collapsed submenus open on the first pointer click after hover activation, while preserving subsequent toggles and keyboard behavior.
+- Updated dependencies [[`8f0ac0d`](https://github.com/hotlif/crab-dev/commit/8f0ac0dada263e35783626524c69509c64e39d96), [`cb1361d`](https://github.com/hotlif/crab-dev/commit/cb1361d1e5fec7f6f73a10b48883d698aad729bd), [`8f0ac0d`](https://github.com/hotlif/crab-dev/commit/8f0ac0dada263e35783626524c69509c64e39d96), [`8f0ac0d`](https://github.com/hotlif/crab-dev/commit/8f0ac0dada263e35783626524c69509c64e39d96)]:
+  - @crab-dev/rc-config-provider@0.1.1
+  - @crab-dev/rc-hooks@0.1.1
+
 ## 0.1.0
 
 ### Minor Changes

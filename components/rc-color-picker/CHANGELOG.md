@@ -1,5 +1,21 @@
 # @crab-dev/rc-color-picker
 
+## 0.1.1
+
+### Patch Changes
+
+- [#22](https://github.com/hotlif/crab-dev/pull/22) [`8f0ac0d`](https://github.com/hotlif/crab-dev/commit/8f0ac0dada263e35783626524c69509c64e39d96) Thanks [@hotlif](https://github.com/hotlif)! - 为颜色值保留与当前字段字体匹配的最小可读宽度；格式选择单独排列，颜色值与吸管同行，避免 MD3 等较宽字段截断 HEX 透明度或使吸管孤立换行。不支持吸管时输入占满可用宽度。保留控件顺序、输入节点、草稿和确认行为。
+  
+  触控模式增加控件间距，避免吸管按钮的扩展命中区覆盖颜色字段边缘。
+- Updated dependencies [[`ab93160`](https://github.com/hotlif/crab-dev/commit/ab93160f53925f875c66bfabf871766e9e919af3), [`8f0ac0d`](https://github.com/hotlif/crab-dev/commit/8f0ac0dada263e35783626524c69509c64e39d96), [`8f0ac0d`](https://github.com/hotlif/crab-dev/commit/8f0ac0dada263e35783626524c69509c64e39d96), [`8f0ac0d`](https://github.com/hotlif/crab-dev/commit/8f0ac0dada263e35783626524c69509c64e39d96), [`cb1361d`](https://github.com/hotlif/crab-dev/commit/cb1361d1e5fec7f6f73a10b48883d698aad729bd), [`20064d5`](https://github.com/hotlif/crab-dev/commit/20064d52b3442bda7eef16ca9045d9746cb28fce), [`8f0ac0d`](https://github.com/hotlif/crab-dev/commit/8f0ac0dada263e35783626524c69509c64e39d96), [`8f0ac0d`](https://github.com/hotlif/crab-dev/commit/8f0ac0dada263e35783626524c69509c64e39d96), [`8f0ac0d`](https://github.com/hotlif/crab-dev/commit/8f0ac0dada263e35783626524c69509c64e39d96)]:
+  - @crab-dev/rc-dropdown-container@0.1.1
+  - @crab-dev/rc-config-provider@0.1.1
+  - @crab-dev/rc-line-edit@0.1.1
+  - @crab-dev/rc-slider@0.1.1
+  - @crab-dev/rc-hooks@0.1.1
+  - @crab-dev/rc-button@1.0.1
+  - @crab-dev/rc-select@0.1.1
+
 ## 0.1.0
 
 ### Minor Changes

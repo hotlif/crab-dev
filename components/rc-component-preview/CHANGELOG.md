@@ -1,5 +1,18 @@
 # @crab-dev/rc-component-preview
 
+## 0.1.1
+
+### Patch Changes
+
+- [#22](https://github.com/hotlif/crab-dev/pull/22) [`8f0ac0d`](https://github.com/hotlif/crab-dev/commit/8f0ac0dada263e35783626524c69509c64e39d96) Thanks [@hotlif](https://github.com/hotlif)! - 为独立明暗源码增加成对语法颜色，修复字符串、函数与属性等高亮文字对比度不足的问题；补齐源码滚动区域的键盘入口、名称和明暗焦点轮廓，保留 LTR 代码排列、展开状态和预览草稿。
+  
+  使用轻量入口加载常用示例语言，避免默认 TSX 展开时请求完整语言模块图；其他语言和别名继续按需走兼容路径，加载时保持源码可读。
+
+- [#22](https://github.com/hotlif/crab-dev/pull/22) [`20064d5`](https://github.com/hotlif/crab-dev/commit/20064d52b3442bda7eef16ca9045d9746cb28fce) Thanks [@hotlif](https://github.com/hotlif)! - 精修三体系控件反馈：浮动标签、分段标记及文字位置连续过渡，分离开关各部件与滑块光晕的空间和颜色反馈，将零散时序集中到组件令牌。保留开关 root.transition 覆盖，减少动画时保留必要的焦点、选中与加载反馈。
+- Updated dependencies [[`8f0ac0d`](https://github.com/hotlif/crab-dev/commit/8f0ac0dada263e35783626524c69509c64e39d96), [`20064d5`](https://github.com/hotlif/crab-dev/commit/20064d52b3442bda7eef16ca9045d9746cb28fce)]:
+  - @crab-dev/rc-config-provider@0.1.1
+  - @crab-dev/rc-button@1.0.1
+
 ## 0.1.0
 
 ### Minor Changes

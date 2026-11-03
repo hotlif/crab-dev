@@ -1,5 +1,15 @@
 # @crab-dev/rc-token-semantic
 
+## 1.0.1
+
+### Patch Changes
+
+- [#22](https://github.com/hotlif/crab-dev/pull/22) [`8f0ac0d`](https://github.com/hotlif/crab-dev/commit/8f0ac0dada263e35783626524c69509c64e39d96) Thanks [@hotlif](https://github.com/hotlif)! - Keep the system Highlight and HighlightText pair visible in theme and semantic-token examples under forced colors. Limit the backplate adjustment to the affected sample blocks and preserve the user's system palette.
+
+- [#22](https://github.com/hotlif/crab-dev/pull/22) [`8f0ac0d`](https://github.com/hotlif/crab-dev/commit/8f0ac0dada263e35783626524c69509c64e39d96) Thanks [@hotlif](https://github.com/hotlif)! - 为独立明暗源码增加成对语法颜色，修复字符串、函数与属性等高亮文字对比度不足的问题；补齐源码滚动区域的键盘入口、名称和明暗焦点轮廓，保留 LTR 代码排列、展开状态和预览草稿。
+  
+  使用轻量入口加载常用示例语言，避免默认 TSX 展开时请求完整语言模块图；其他语言和别名继续按需走兼容路径，加载时保持源码可读。
+
 ## 1.0.0
 
 ### Major Changes
