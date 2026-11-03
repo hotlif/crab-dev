@@ -26,6 +26,8 @@ export const vars = defineTokens({
     'progress.animation-delay': '--message-progress-animation-delay',
     'motion.interaction.transition': '--message-motion-interaction-transition',
     'motion.spatial.transition': '--message-motion-spatial-transition',
+    'motion.exit.transition': '--message-motion-exit-transition',
+    'motion.offset.translate': '--message-motion-offset-translate',
     'stack.translate': '--message-stack-translate'
 });
 
@@ -79,6 +81,12 @@ const token = defineTokens({
         },
         'spatial': {
             'transition': `var(${vars['motion.spatial.transition']}, var(--token-semantic-motion-spatial-fast, var(--token-global-duration-350, 350ms) var(--token-global-easing-expressive-spatial-fast, cubic-bezier(0.42, 1.67, 0.21, 0.90))))`
+        },
+        'exit': {
+            'transition': `var(${vars['motion.exit.transition']}, var(--token-semantic-motion-layout, var(--token-global-duration-normal, 200ms) var(--token-global-easing-out, cubic-bezier(0, 0, 0.2, 1))))`
+        },
+        'offset': {
+            'translate': `var(${vars['motion.offset.translate']}, var(--token-semantic-space-component-gap, var(--token-global-space-2, 8px)))`
         }
     },
     'stack': {

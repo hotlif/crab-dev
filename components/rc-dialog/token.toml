@@ -54,3 +54,5 @@ motion.interaction.transition = "$ref(motion.interaction)"
 motion.offset.translate = "calc($ref(space.component-gap) * -1)"
 
 motion.spatial.transition = "$ref(motion.spatial.fast)"
+# Exit stays bounded and brief; invisible modal content must not hold focus/scroll locks.
+motion.exit.transition = "$ref(motion.layout)"

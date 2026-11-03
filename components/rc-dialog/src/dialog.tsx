@@ -136,7 +136,7 @@ const contentMotionStyle = css`
     @starting-style { opacity: 0; translate: 0 ${token.motion.offset.translate}; }
     &[data-state="closed"] {
         opacity: 0; translate: 0 ${token.motion.offset.translate};
-        transition: opacity ${token.motion.interaction.transition}, translate ${token.motion.spatial.transition};
+        transition: opacity ${token.motion.interaction.transition}, translate ${token.motion.exit.transition};
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -164,6 +164,7 @@ function Dialog({
     maskClosable = false,
     onConfirm,
     onCancel,
+    onFocusCapture,
     i18n = {},
     ...restProps
 }: DialogProps) {
@@ -174,6 +175,8 @@ function Dialog({
     // Mutable instance state: hold the scroll restoration through the entire exit.
     const restoreScroll = useRef<(() => void) | null>(null);
     const layer = useRef<OverlayLayer | null>(null);
+    // Mutable instance: restore an in-panel focus displaced by inert on a reversal.
+    const focusedContent = useRef<HTMLElement | null>(null);
     const [contentHidden, setContentHidden] = useState(false);
     const [isPending, startTransition] = useTransition();
     const [pendingAction, setPendingAction] = useState<"confirm" | "cancel" | "close" | null>(null);
@@ -186,6 +189,7 @@ function Dialog({
         restoreScroll.current = null;
         layer.current?.release();
         layer.current = null;
+        focusedContent.current = null;
         if (shouldResetContent) setContentHidden(true);
     });
     const {
@@ -202,6 +206,10 @@ function Dialog({
         restoreScroll.current ??= acquireScrollLock(node);
         layer.current ??= registerOverlayLayer(node);
         if (!node.open) node.showModal();
+        else if (layer.current.isTop() && !node.contains(node.ownerDocument.activeElement)
+            && focusedContent.current?.isConnected && !focusedContent.current.closest('[inert]')) {
+            focusedContent.current.focus({ preventScroll: true });
+        }
     }, [open])
 
     useEffect(() => () => {
@@ -282,6 +290,11 @@ function Dialog({
             }}
             aria-labelledby={header === undefined && title ? titleId : undefined}
             aria-busy={isPending || undefined}
+            onFocusCapture={event => {
+                const ElementClass = event.currentTarget.ownerDocument.defaultView?.HTMLElement;
+                if (ElementClass && event.target instanceof ElementClass) focusedContent.current = event.target;
+                onFocusCapture?.(event);
+            }}
             className={cx(css`
                 position: fixed;
                 top: ${top};

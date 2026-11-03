@@ -85,6 +85,7 @@ export const vars = defineTokens({
     'horizontal.group-item.icon.color': '--menu-horizontal-group-item-icon-color',
     'horizontal.group-item.icon.margin-right': '--menu-horizontal-group-item-icon-margin-right',
     'motion.expand.transition': '--menu-motion-expand-transition',
+    'motion.layout.transition': '--menu-motion-layout-transition',
     'motion.arrow.transition': '--menu-motion-arrow-transition',
     'interaction.touch.min-width': '--menu-interaction-touch-min-width',
     'interaction.touch.min-height': '--menu-interaction-touch-min-height',
@@ -228,6 +229,9 @@ const token = defineTokens({
     'motion': {
         'expand': {
             'transition': `var(${vars['motion.expand.transition']}, var(--token-semantic-motion-expand, var(--token-global-duration-500, 500ms) var(--token-global-easing-expressive-spatial-default, cubic-bezier(0.38, 1.21, 0.22, 1.00))))`
+        },
+        'layout': {
+            'transition': `var(${vars['motion.layout.transition']}, var(--token-semantic-motion-layout, var(--token-global-duration-normal, 200ms) var(--token-global-easing-out, cubic-bezier(0, 0, 0.2, 1))))`
         },
         'arrow': {
             'transition': `var(${vars['motion.arrow.transition']}, var(--token-semantic-motion-spatial-fast, var(--token-global-duration-350, 350ms) var(--token-global-easing-expressive-spatial-fast, cubic-bezier(0.42, 1.67, 0.21, 0.90))))`

@@ -8,6 +8,7 @@ imports = [
 [token]
 
 root.background-color = "$ref(color.workspace.content)"
+sidebar.transition = "width $ref(motion.layout), padding $ref(motion.layout)"
 
 header.box-shadow = "none"
 header.background-color = "$ref(color.workspace.toolbar)"

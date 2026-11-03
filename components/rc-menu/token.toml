@@ -106,6 +106,7 @@ horizontal.group-item.icon.margin-right = "$ref(space.component-gap)"
 horizontal.item.icon.margin-right = "$ref(space.component-gap)"
 
 motion.expand.transition = "$ref(motion.expand)"
+motion.layout.transition = "$ref(motion.layout)"
 motion.arrow.transition = "$ref(motion.spatial.fast)"
 
 interaction.touch.min-width = "$ref(size.touch-target)"

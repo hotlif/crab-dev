@@ -145,6 +145,7 @@ const Drawer: FC<DrawerProps> = ({
     shouldResetContent = true,
     closeLabel,
     onClick,
+    onFocusCapture,
     ...restProps
 }) => {
     const boundary = useConfigStyleBoundary();
@@ -157,12 +158,15 @@ const Drawer: FC<DrawerProps> = ({
     // Mutable instance state: retain the background lock until the panel has left.
     const restoreScroll = useRef<(() => void) | null>(null);
     const layer = useRef<OverlayLayer | null>(null);
+    // Mutable instance: preserve meaningful focus when an exit is reversed.
+    const focusedContent = useRef<HTMLElement | null>(null);
     const presence = usePresence<HTMLDivElement>(open, () => {
         dialogRef.current?.close();
         restoreScroll.current?.();
         restoreScroll.current = null;
         layer.current?.release();
         layer.current = null;
+        focusedContent.current = null;
     });
 
     // Enter the top layer before painting so the panel and mask start together.
@@ -172,6 +176,10 @@ const Drawer: FC<DrawerProps> = ({
         restoreScroll.current ??= acquireScrollLock(node);
         layer.current ??= registerOverlayLayer(node);
         if (!node.open) node.showModal();
+        else if (layer.current.isTop() && !node.contains(node.ownerDocument.activeElement)
+            && focusedContent.current?.isConnected && !focusedContent.current.closest('[inert]')) {
+            focusedContent.current.focus({ preventScroll: true });
+        }
     }, [open]);
 
     useEffect(() => () => {
@@ -218,6 +226,11 @@ const Drawer: FC<DrawerProps> = ({
             aria-modal="true"
             aria-labelledby={title && !restProps['aria-label'] ? titleId : undefined}
             {...restProps}
+            onFocusCapture={event => {
+                const ElementClass = event.currentTarget.ownerDocument.defaultView?.HTMLElement;
+                if (ElementClass && event.target instanceof ElementClass) focusedContent.current = event.target;
+                onFocusCapture?.(event);
+            }}
         >
             {boundary.brandStyle}
             {(presence.present || !shouldResetContent) && (

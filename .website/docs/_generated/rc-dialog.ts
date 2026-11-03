@@ -70,6 +70,35 @@ export const demos = [
         "group": "功能演示"
     },
     {
+        "id": "docs/demos/motion.demo.tsx",
+        "title": "连续开关与草稿保留",
+        "description": "在退出过程中重新打开，检查画面、草稿和焦点是否连续。系统减少动画时直接呈现状态。",
+        "learning": {
+            "components": [
+                "Button",
+                "Dialog"
+            ],
+            "props": [
+                "onClick",
+                "title",
+                "open",
+                "onOpenChange",
+                "shouldResetContent"
+            ],
+            "events": [
+                "onClick",
+                "onOpenChange"
+            ],
+            "hasState": true
+        },
+        "sourceCode": "import { useEffect, useRef, useState } from 'react';\nimport Dialog from '@crab-dev/rc-dialog';\nimport Button from '@crab-dev/rc-button';\n\nexport const meta = { title: '连续开关与草稿保留', description: '在退出过程中重新打开，检查画面、草稿和焦点是否连续。系统减少动画时直接呈现状态。' };\n\nexport default function MotionDemo() {\n    const [open, setOpen] = useState(false);\n    const [draft, setDraft] = useState('保留这份草稿');\n    // Mutable instance: cancel the demonstration's pending reopen on unmount.\n    const timer = useRef\u003cReturnType\u003ctypeof setTimeout> | undefined>(undefined);\n    useEffect(() => () => clearTimeout(timer.current), []);\n    return \u003c>\n        \u003cButton onClick={() => setOpen(true)}>打开连续性演示\u003c/Button>\n        \u003cDialog title=\"动效连续性\" open={open} onOpenChange={setOpen} shouldResetContent={false}>\n            \u003clabel>草稿 \u003cinput aria-label=\"连续性草稿\" value={draft} onChange={event => setDraft(event.target.value)} />\u003c/label>\n            \u003cp>点击下方按钮，面板会在关闭后 80ms 重新打开。\u003c/p>\n            \u003cButton onClick={() => {\n                clearTimeout(timer.current);\n                setOpen(false);\n                timer.current = setTimeout(() => setOpen(true), 80);\n            }}>关闭后立即重开\u003c/Button>\n        \u003c/Dialog>\n    \u003c/>;\n}\n",
+        "previewPath": "/components/rc-dialog/workbench/?__wake_demo=docs%2Fdemos%2Fmotion.demo.tsx",
+        "workbenchPath": "/components/rc-dialog/workbench/#/components/docs%2Fdemos%2Fmotion.demo.tsx",
+        "density": "regular",
+        "layout": "wide",
+        "group": "功能演示"
+    },
+    {
         "id": "docs/demos/formWithDatePicker.demo.tsx",
         "title": "表单 + 日期选择器",
         "description": "在对话框中嵌入 rc-form 表单与 rc-date-picker 日期选择器，用对话框的「确定」按钮触发表单校验：校验通过才关闭，失败则保持打开。",

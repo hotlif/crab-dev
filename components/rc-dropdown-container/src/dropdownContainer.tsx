@@ -1,6 +1,6 @@
 import { registerOverlayLayer, resolveOverlayRoot } from '@crab-dev/rc-hooks/internal';
 import { useComponentSize, ConfigBoundary, type ConfigSize } from '@crab-dev/rc-config-provider';
-import { type HTMLAttributes, type MouseEvent as ReactMouseEvent, type ReactNode, useEffect, useEffectEvent, useRef, useState } from 'react';
+import { type HTMLAttributes, type MouseEvent as ReactMouseEvent, type ReactNode, useCallback, useEffect, useEffectEvent, useLayoutEffect, useRef, useState } from 'react';
 import { css, cx } from '@crab-dev/css';
 import {
     useFloating,
@@ -70,11 +70,30 @@ const floatingContainerStyle = css`
     overscroll-behavior: contain;
     opacity: 1;
     translate: 0 0;
+    --crab-dropdown-enter-x: 0px;
+    --crab-dropdown-enter-y: ${token.motion.offset.translate};
+    &[data-placement^="top"] { --crab-dropdown-enter-y: calc(-1 * ${token.motion.offset.translate}); }
+    &[data-placement^="left"] {
+        --crab-dropdown-enter-x: calc(-1 * ${token.motion.offset.translate});
+        --crab-dropdown-enter-y: 0px;
+    }
+    &[data-placement^="right"] {
+        --crab-dropdown-enter-x: ${token.motion.offset.translate};
+        --crab-dropdown-enter-y: 0px;
+    }
     transition: opacity ${token.motion.interaction.transition}, translate ${token.motion.spatial.transition};
-    @starting-style { opacity: 0; translate: 0 ${token.motion.offset.translate}; }
-    &[data-state="closed"] { opacity: 0; translate: 0 ${token.motion.offset.translate}; pointer-events: none; }
+    @starting-style { opacity: 0; translate: var(--crab-dropdown-enter-x) var(--crab-dropdown-enter-y); }
+    &[data-state="closed"], &[data-positioned="false"] {
+        opacity: 0;
+        translate: var(--crab-dropdown-enter-x) var(--crab-dropdown-enter-y);
+        pointer-events: none;
+    }
+    &[data-positioned="false"] { visibility: hidden; transition: none; }
+    &[data-state="closed"] {
+        transition: opacity ${token.motion.interaction.transition}, translate ${token.motion.exit.transition};
+    }
 
-    @media (prefers-reduced-motion: reduce) { transition: none; }
+    @media (prefers-reduced-motion: reduce) { &, &[data-state="closed"] { transition: none; } }
 `;
 
 const overlayStyle = css`
@@ -136,7 +155,7 @@ function DropdownContainerContent({ size: sizeProp, closeOnFocusOut = false, ope
     const nodeId = useFloatingNodeId();
     const tree = useFloatingTree();
 
-    const { refs, elements, floatingStyles, context } = useFloating({
+    const { refs, elements, floatingStyles, context, placement: resolvedPlacement, isPositioned } = useFloating({
         nodeId,
         placement: 'bottom-start',
         strategy: 'fixed',
@@ -178,6 +197,24 @@ function DropdownContainerContent({ size: sizeProp, closeOnFocusOut = false, ope
             }),
         ],
     });
+
+    const setFloating = refs.setFloating;
+    const setPresence = presence.ref;
+    // Ref-identity exception: Floating UI resets positioning when its ref clears.
+    // Keep the combined callback stable during readiness renders and StrictMode,
+    // including consumers that do not run React Compiler.
+    const floatingRef = useCallback((node: HTMLDivElement | null) => {
+        setFloating(node);
+        setPresence(node);
+    }, [setFloating, setPresence]);
+
+    // Floating UI resets isPositioned when open becomes false. Retain readiness
+    // through the exit and a reversal so the panel does not blink or skip exit.
+    const [positioned, setPositioned] = useState(false);
+    useLayoutEffect(() => {
+        if (!presence.present) setPositioned(false);
+        else if (isPositioned !== false) setPositioned(true);
+    }, [presence.present, isPositioned]);
 
     const dismissTop = useEffectEvent((event: KeyboardEvent) => requestOpen(false, { reason: 'escape', event }));
     useEffect(() => {
@@ -278,10 +315,12 @@ function DropdownContainerContent({ size: sizeProp, closeOnFocusOut = false, ope
                     <FloatingPortal root={portalRoot}>
                         {presence.present && (
                             <ConfigBoundary
-                                ref={(node) => { refs.setFloating(node); presence.ref(node); }}
+                                ref={floatingRef}
                                 className={cx(floatingContainerStyle, floatingClassName)}
                                 size={componentSize}
                                 data-state={presence.state}
+                                data-placement={resolvedPlacement}
+                                data-positioned={positioned ? 'true' : 'false'}
                                 inert={!state.open}
                                 style={{ ...floatingStyles, ...floatingUserStyle }}
                                 {...getFloatingProps({

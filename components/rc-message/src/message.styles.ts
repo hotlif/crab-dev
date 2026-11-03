@@ -26,11 +26,16 @@ export const baseStyle = css`
     &[data-stack="3"] { translate: 0 calc(${token.stack.translate} * 3); }
     transition: opacity ${token.motion.interaction.transition}, translate ${token.motion.spatial.transition};
     @starting-style {
-        &[data-state="open"] { opacity: 0; translate: 0 -100%; }
+        &[data-state="open"] { opacity: 0; translate: 0 calc(-1 * ${token.motion.offset.translate}); }
     }
-    &[data-state="closed"] { opacity: 0; translate: 0 -100%; pointer-events: none; }
+    &[data-state="closed"] {
+        opacity: 0;
+        translate: 0 calc(-1 * ${token.motion.offset.translate});
+        pointer-events: none;
+        transition: opacity ${token.motion.interaction.transition}, translate ${token.motion.exit.transition};
+    }
 
-    @media (prefers-reduced-motion: reduce) { transition: none; }
+    @media (prefers-reduced-motion: reduce) { &, &[data-state="closed"] { transition: none; } }
     @media (forced-colors: active) { outline: 1px solid CanvasText; box-shadow: none; }
 `;
 
