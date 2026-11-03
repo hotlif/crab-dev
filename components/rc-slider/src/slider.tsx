@@ -291,7 +291,7 @@ const Slider: FC<SliderProps> = ({
                         border-radius: 50%;
                         background-color: ${token.thumb.halo.fill};
                         opacity: ${token.thumb.halo['opacity-hover']};
-                        transition: width ${token.root.transition}, height ${token.root.transition}, opacity ${token.root.transition};
+                        transition: ${token.thumb.halo.transition};
                         @media (prefers-reduced-motion: reduce) { transition: none; }
                         pointer-events: none;
                         width: 0;

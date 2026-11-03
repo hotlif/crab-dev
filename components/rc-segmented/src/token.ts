@@ -40,10 +40,12 @@ export const vars = defineTokens({
     'item.outline-width-focus': '--segmented-item-outline-width-focus',
     'item.outline-offset-focus': '--segmented-item-outline-offset-focus',
     'item.transition': '--segmented-item-transition',
-    'item.border-color': '--segmented-item-border-color',
-    'item.check.display': '--segmented-item-check-display',
+    'item.icon.transition': '--segmented-item-icon-transition',
     'item.icon.display-selected': '--segmented-item-icon-display-selected',
     'item.icon.width': '--segmented-item-icon-width',
+    'item.label.transition': '--segmented-item-label-transition',
+    'item.border-color': '--segmented-item-border-color',
+    'item.check.display': '--segmented-item-check-display',
     'item.state-layer.opacity-hover': '--segmented-item-state-layer-opacity-hover',
     'item.state-layer.opacity-focus': '--segmented-item-state-layer-opacity-focus',
     'item.state-layer.opacity-active': '--segmented-item-state-layer-opacity-active',
@@ -113,13 +115,17 @@ const token = defineTokens({
         'outline-width-focus': `var(${vars['item.outline-width-focus']}, 2px)`,
         'outline-offset-focus': `var(${vars['item.outline-offset-focus']}, -2px)`,
         'transition': `var(${vars['item.transition']}, var(--token-semantic-motion-interaction, var(--token-global-duration-150, 150ms) var(--token-global-easing-expressive-effects-fast, cubic-bezier(0.31, 0.94, 0.34, 1.00))))`,
+        'icon': {
+            'transition': `var(${vars['item.icon.transition']}, opacity var(--token-semantic-motion-effects-fast, var(--token-global-duration-150, 150ms) var(--token-global-easing-expressive-effects-fast, cubic-bezier(0.31, 0.94, 0.34, 1.00))), scale var(--token-semantic-motion-spatial-fast, var(--token-global-duration-350, 350ms) var(--token-global-easing-expressive-spatial-fast, cubic-bezier(0.42, 1.67, 0.21, 0.90))), width var(--token-semantic-motion-layout, var(--token-global-duration-normal, 200ms) var(--token-global-easing-out, cubic-bezier(0, 0, 0.2, 1))))`,
+            'display-selected': `var(${vars['item.icon.display-selected']}, var(--token-semantic-navigation-segment-selected-icon-display, none))`,
+            'width': `var(${vars['item.icon.width']}, var(--token-semantic-size-icon, var(--token-global-space-4, 16px)))`
+        },
+        'label': {
+            'transition': `var(${vars['item.label.transition']}, translate var(--token-semantic-motion-layout, var(--token-global-duration-normal, 200ms) var(--token-global-easing-out, cubic-bezier(0, 0, 0.2, 1))))`
+        },
         'border-color': `var(${vars['item.border-color']}, var(--token-semantic-navigation-segment-divider, var(--token-semantic-color-border-default, var(--token-global-material-neutral-variant-50, oklch(0.56674707 0.01627446 308.142182)))))`,
         'check': {
             'display': `var(${vars['item.check.display']}, var(--token-semantic-navigation-segment-check-display, inline-flex))`
-        },
-        'icon': {
-            'display-selected': `var(${vars['item.icon.display-selected']}, var(--token-semantic-navigation-segment-selected-icon-display, none))`,
-            'width': `var(${vars['item.icon.width']}, var(--token-semantic-size-icon, var(--token-global-space-4, 16px)))`
         },
         'state-layer': {
             'opacity-hover': `var(${vars['item.state-layer.opacity-hover']}, var(--token-semantic-state-opacity-hover, var(--token-global-opacity-8, 0.08)))`,

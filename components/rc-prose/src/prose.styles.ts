@@ -45,7 +45,7 @@ export const baseStyle = css`
         color: ${token.link.color};
         text-decoration: none;
         font-weight: ${token['a']['font-weight']};
-        transition: color 150ms ease;
+        transition: ${token.link.transition};
 
         &:hover {
             color: ${token.link['color-hover']};

@@ -41,7 +41,7 @@ export const itemBaseStyle = css`
     }
 
     @media (prefers-reduced-motion: reduce) {
-        transition: box-shadow 120ms linear;
+        transition: ${token.group['reduced-motion'].transition};
 
         &:hover {
             transform: none;

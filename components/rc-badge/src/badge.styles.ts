@@ -173,7 +173,7 @@ export const processingDotStyle = css`
         box-shadow: 0 0 0 0 currentColor;
         opacity: 0.6;
         background-color: inherit;
-        animation: badge-pulse 1.2s cubic-bezier(0, 0, 0.2, 1) infinite;
+        animation: badge-pulse ${token.processing['animation-duration']} ${token.processing['animation-timing-function']} infinite;
     }
     @keyframes badge-pulse {
         0% {

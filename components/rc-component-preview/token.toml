@@ -8,7 +8,7 @@ imports = ["@crab-dev/rc-token-semantic"]
 # ─── 通用 ────────────────────────────────────────────────────────────────────
 
 root.transition = "color $ref(motion.interaction), background-color $ref(motion.interaction), border-color $ref(motion.interaction), box-shadow $ref(motion.interaction), transform $ref(motion.spatial.fast)"
-source.transition = "grid-template-rows $ref(motion.expand)"
+source.transition = "grid-template-rows $ref(motion.layout)"
 
 
 # ─── 卡片容器 ────────────────────────────────────────────────────────────────

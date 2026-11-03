@@ -150,8 +150,8 @@ export const linkStyle = css`
                 background-color: ${token.link['text-decoration-color']};
                 transform: scaleX(0);
                 transform-origin: right;
-                transition: ${token.root.transition};
-    @media (prefers-reduced-motion: reduce) { transition: none; } transition-property: transform;
+                transition: ${token.link.transition};
+                @media (prefers-reduced-motion: reduce) { transition: none; }
             }
             &:hover::after {
                 transform: scaleX(1);

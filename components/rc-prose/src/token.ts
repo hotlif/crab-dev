@@ -14,6 +14,7 @@ export const vars = defineTokens({
     'lead.color': '--prose-lead-color',
     'link.color': '--prose-link-color',
     'link.color-hover': '--prose-link-color-hover',
+    'link.transition': '--prose-link-transition',
     'link.outline-color-focus': '--prose-link-outline-color-focus',
     'link.outline-width-focus': '--prose-link-outline-width-focus',
     'link.outline-offset-focus': '--prose-link-outline-offset-focus',
@@ -99,6 +100,7 @@ const token = defineTokens({
     'link': {
         'color': `var(${vars['link.color']}, var(--token-semantic-color-text-link, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078))))`,
         'color-hover': `var(${vars['link.color-hover']}, var(--token-semantic-color-text-link-hover, var(--token-global-purple-30, oklch(0.41029262 0.13369038 292.705951))))`,
+        'transition': `var(${vars['link.transition']}, color var(--token-semantic-motion-effects-fast, var(--token-global-duration-150, 150ms) var(--token-global-easing-expressive-effects-fast, cubic-bezier(0.31, 0.94, 0.34, 1.00))))`,
         'outline-color-focus': `var(${vars['link.outline-color-focus']}, var(--token-semantic-color-focus-ring, var(--token-semantic-color-border-focus, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078)))))`,
         'outline-width-focus': `var(${vars['link.outline-width-focus']}, 2px)`,
         'outline-offset-focus': `var(${vars['link.outline-offset-focus']}, 2px)`

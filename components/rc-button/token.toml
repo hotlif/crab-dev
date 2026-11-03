@@ -30,6 +30,7 @@ state-layer.transition = "opacity $ref(motion.interaction)"
 # ─── 通用 ────────────────────────────────────────────────────────────────────
 
 root.transition = "border-radius $ref(motion.spatial.fast), background-color $ref(motion.interaction), border-color $ref(motion.interaction), color $ref(motion.interaction), opacity $ref(motion.interaction), box-shadow $ref(motion.interaction)"
+link.transition = "transform $ref(motion.spatial.fast)"
 root.opacity-loading = "1"
 root.border-width = "1px"
 root.opacity-disabled = "$ref(opacity.disabled)"

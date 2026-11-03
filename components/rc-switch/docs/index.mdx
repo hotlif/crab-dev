@@ -17,6 +17,8 @@ status = "experimental"
 
 ## 视觉状态与验证
 
+轨道、手柄和状态光晕分别控制自己的颜色与空间过渡，连续切换可从当前位置反转。新增 `track.transition`、`handle.transition`、`track.halo.transition` 可分别精修；既有 `root.transition` 覆盖仍作为三者的兼容入口。减少动画时保留最终状态，取消各部件的非必要过渡。
+
 切换轨道使用独立的实线焦点环，强制颜色下保留轨道、手柄位置与焦点。立即生效操作如涉及异步保存，应在业务层明确处理中和失败恢复；组件本身不会请求服务器。
 
 强制颜色使用系统配对颜色：关闭为 Canvas / CanvasText，开启为 Highlight / HighlightText，禁用手柄为 GrayText。悬停、按压和焦点不能用普通主题的手柄颜色覆盖这组配对；半透明状态光晕不参与强制颜色绘制，键盘焦点由独立轮廓表达。LTR/RTL 只改变手柄移动方向，不改变开启或禁用语义。

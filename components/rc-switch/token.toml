@@ -21,6 +21,10 @@ track.border-width = "$ref(border.toggle.width)"
 # ─── 通用 ────────────────────────────────────────────────────────────────────
 
 root.transition = "transform $ref(motion.spatial.fast), translate $ref(motion.spatial.fast), scale $ref(motion.spatial.fast), background-color $ref(motion.interaction), box-shadow $ref(motion.interaction)"
+# Preserve root overrides while assigning each moving part only its own properties.
+track.transition = "var(--switch-root-transition, background-color $ref(motion.effects.fast), box-shadow $ref(motion.effects.fast))"
+handle.transition = "var(--switch-root-transition, translate $ref(motion.spatial.fast), scale $ref(motion.spatial.fast), background-color $ref(motion.effects.fast), border-color $ref(motion.effects.fast), box-shadow $ref(motion.effects.fast))"
+track.halo.transition = "var(--switch-root-transition, translate $ref(motion.spatial.fast), background-color $ref(motion.effects.fast))"
 
 
 # ─── 通用尺寸 ────────────────────────────────────────────────────────────────

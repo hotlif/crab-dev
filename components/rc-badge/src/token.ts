@@ -6,6 +6,8 @@ import { defineTokens } from '@crab-dev/css';
 
 export const vars = defineTokens({
     'root.transition': '--badge-root-transition',
+    'processing.animation-duration': '--badge-processing-animation-duration',
+    'processing.animation-timing-function': '--badge-processing-animation-timing-function',
     'size.default.height': '--badge-size-default-height',
     'size.default.min-width': '--badge-size-default-min-width',
     'size.default.padding': '--badge-size-default-padding',
@@ -49,6 +51,10 @@ export const vars = defineTokens({
 const token = defineTokens({
     'root': {
         'transition': `var(${vars['root.transition']}, background-color var(--token-semantic-motion-interaction, var(--token-global-duration-150, 150ms) var(--token-global-easing-expressive-effects-fast, cubic-bezier(0.31, 0.94, 0.34, 1.00))), color var(--token-semantic-motion-interaction, var(--token-global-duration-150, 150ms) var(--token-global-easing-expressive-effects-fast, cubic-bezier(0.31, 0.94, 0.34, 1.00))), transform var(--token-semantic-motion-spatial-fast, var(--token-global-duration-350, 350ms) var(--token-global-easing-expressive-spatial-fast, cubic-bezier(0.42, 1.67, 0.21, 0.90))))`
+    },
+    'processing': {
+        'animation-duration': `var(${vars['processing.animation-duration']}, 1200ms)`,
+        'animation-timing-function': `var(${vars['processing.animation-timing-function']}, cubic-bezier(0, 0, 0.2, 1))`
     },
     'size': {
         'default': {

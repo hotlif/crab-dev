@@ -9,6 +9,10 @@ import compiledCss from '../../../.cache/browser-css.json';
 const settleLayout = () => act(async () => {
     await document.fonts.ready;
     await new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve())));
+    // This suite measures final geometry; natural playback is checked separately.
+    for (const animation of document.getAnimations()) {
+        if (animation.effect?.getTiming().iterations !== Infinity) animation.finish();
+    }
 });
 
 function group(container: HTMLElement): HTMLElement {
@@ -26,7 +30,9 @@ function expectCenteredLabels(root: HTMLElement, requireCompleteText: boolean) {
     const widths = segments.map(segment => segment.getBoundingClientRect().width);
     expect(Math.max(...widths) - Math.min(...widths)).toBeLessThan(1);
     for (const segment of segments) {
-        const text = segment.querySelector<HTMLElement>('span:not([aria-hidden])');
+        // Only the direct text slot; graphic layers inherit aria-hidden from
+        // their parent and must not be measured as visible label text.
+        const text = segment.querySelector<HTMLElement>(':scope > span:not([aria-hidden])');
         const input = segment.querySelector<HTMLInputElement>('input');
         if (!text || !input) throw new Error('Missing segment label/input');
         const textBounds = text.getBoundingClientRect();

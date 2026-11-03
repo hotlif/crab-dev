@@ -47,7 +47,7 @@ export const ringStyle = css`
            仅保护必要加载反馈的呼吸周期与次数；宿主移除该 reset 并通过集成回归后可去掉此优先级。 */
         animation-duration: ${token.indicator['reduced-motion']['animation-duration']} !important;
         animation-iteration-count: infinite !important;
-        animation-timing-function: ease-in-out;
+        animation-timing-function: ${token.indicator['reduced-motion']['animation-timing-function']};
     }
 `;
 

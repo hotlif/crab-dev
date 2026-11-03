@@ -14,6 +14,7 @@ export const vars = defineTokens({
     'indicator.animation-duration': '--spin-indicator-animation-duration',
     'indicator.animation-timing-function': '--spin-indicator-animation-timing-function',
     'indicator.reduced-motion.animation-duration': '--spin-indicator-reduced-motion-animation-duration',
+    'indicator.reduced-motion.animation-timing-function': '--spin-indicator-reduced-motion-animation-timing-function',
     'indicator.reduced-motion.opacity': '--spin-indicator-reduced-motion-opacity',
     'expressive.color': '--spin-expressive-color',
     'expressive.orbit.animation-duration': '--spin-expressive-orbit-animation-duration',
@@ -59,6 +60,7 @@ const token = defineTokens({
         'animation-timing-function': `var(${vars['indicator.animation-timing-function']}, var(--token-semantic-status-spinner-easing, linear))`,
         'reduced-motion': {
             'animation-duration': `var(${vars['indicator.reduced-motion.animation-duration']}, 1.6s)`,
+            'animation-timing-function': `var(${vars['indicator.reduced-motion.animation-timing-function']}, ease-in-out)`,
             'opacity': `var(${vars['indicator.reduced-motion.opacity']}, var(--token-semantic-opacity-disabled, var(--token-global-opacity-38, 0.38)))`
         }
     },

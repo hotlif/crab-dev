@@ -55,6 +55,7 @@ root.background-color-error = "$ref(color.feedback.error.background)"
 # ─── AvatarGroup ─────────────────────────────────────────────────────────────
 group.margin                 = "-8px"
 group.transition             = "transform $ref(motion.spatial.fast), box-shadow $ref(motion.effects.fast)"
+group.reduced-motion.transition = "box-shadow $ref(motion.effects.fast)"
 group.transform-hover = "translateY(-2px)"
 
 group.item.ring.width = "2px"

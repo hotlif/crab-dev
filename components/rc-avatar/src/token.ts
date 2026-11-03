@@ -34,6 +34,7 @@ export const vars = defineTokens({
     'warning.background-color': '--avatar-warning-background-color',
     'group.margin': '--avatar-group-margin',
     'group.transition': '--avatar-group-transition',
+    'group.reduced-motion.transition': '--avatar-group-reduced-motion-transition',
     'group.transform-hover': '--avatar-group-transform-hover',
     'group.item.ring.width': '--avatar-group-item-ring-width',
     'group.item.border-color': '--avatar-group-item-border-color',
@@ -110,6 +111,9 @@ const token = defineTokens({
     'group': {
         'margin': `var(${vars['group.margin']}, -8px)`,
         'transition': `var(${vars['group.transition']}, transform var(--token-semantic-motion-spatial-fast, var(--token-global-duration-350, 350ms) var(--token-global-easing-expressive-spatial-fast, cubic-bezier(0.42, 1.67, 0.21, 0.90))), box-shadow var(--token-semantic-motion-effects-fast, var(--token-global-duration-150, 150ms) var(--token-global-easing-expressive-effects-fast, cubic-bezier(0.31, 0.94, 0.34, 1.00))))`,
+        'reduced-motion': {
+            'transition': `var(${vars['group.reduced-motion.transition']}, box-shadow var(--token-semantic-motion-effects-fast, var(--token-global-duration-150, 150ms) var(--token-global-easing-expressive-effects-fast, cubic-bezier(0.31, 0.94, 0.34, 1.00))))`
+        },
         'transform-hover': `var(${vars['group.transform-hover']}, translateY(-2px))`,
         'item': {
             'ring': {

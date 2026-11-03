@@ -157,6 +157,25 @@ describe('Segmented', () => {
         });
         expect(container.querySelector('input[aria-label="网格视图"]')).toBeTruthy();
     });
+    it('retains input, check and icon nodes when a selection reverses', async () => {
+        const { container, inputs } = await renderSegmented({
+            options: [{ value: 'day', label: '日', icon: <svg /> }, { value: 'week', label: '周' }],
+        });
+        const label = inputs[0].closest('label')!;
+        const check = label.querySelector('[data-segment-graphic="check"]');
+        const icon = label.querySelector('[data-segment-graphic="option"]');
+        const copy = label.querySelector('[data-option-icon]');
+        await fireEvent.click(inputs[1]);
+        expect(check?.getAttribute('data-visible')).toBe('false');
+        expect(icon?.getAttribute('data-visible')).toBe('true');
+        await fireEvent.click(inputs[0]);
+        expect(check?.getAttribute('data-visible')).toBe('true');
+        expect(icon?.getAttribute('data-visible')).toBe('false');
+        expect(label.querySelector('[data-segment-graphic="check"]')).toBe(check);
+        expect(label.querySelector('[data-segment-graphic="option"]')).toBe(icon);
+        expect(label.querySelector('[data-option-icon]')).toBe(copy);
+        expect(container.querySelector('input')).toBe(inputs[0]);
+    });
     it('forwards className to the root', async () => {
         const { container } = await renderSegmented({ className: 'custom-seg' });
         const root = container.querySelector('[role="radiogroup"]');

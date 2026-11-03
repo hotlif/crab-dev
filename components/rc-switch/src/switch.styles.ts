@@ -33,7 +33,7 @@ export const trackStyle = css`
     display: inline-flex;
     align-items: center;
     background-color: ${token.track['background-color']};
-    transition: ${token.root.transition};
+    transition: ${token.track.transition};
     @media (prefers-reduced-motion: reduce) { transition: none; }
     border: none;
     box-shadow: inset 0 0 0 ${token.track['border-width']} ${token.track['border-color']};
@@ -50,7 +50,7 @@ export const trackStyle = css`
         height: ${token.track.halo.width};
         inset-inline-start: ${token.track.halo.left};
         border-radius: inherit;
-        transition: ${token.root.transition};
+        transition: ${token.track.halo.transition};
     }
     &[aria-checked='true']::after { translate: ${token.track.halo['translate-checked']} 0; }
     &:dir(rtl)[aria-checked='true']::after { translate: calc(-1 * ${token.track.halo['translate-checked']}) 0; }
@@ -136,7 +136,7 @@ export const handleStyle = css`
     border-radius: 50%;
     background-color: ${token.handle['background-color']};
     box-shadow: ${token.handle['box-shadow']};
-    transition: ${token.root.transition};
+    transition: ${token.handle.transition};
     @media (prefers-reduced-motion: reduce) { transition: none; }
     scale: ${token.handle.unchecked.scale};
 `;
