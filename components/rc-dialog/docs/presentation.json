@@ -12,6 +12,7 @@
             "title": "功能演示",
             "demos": [
                 "base.demo.tsx",
+                "motion.demo.tsx",
                 "formWithDatePicker.demo.tsx"
             ]
         }

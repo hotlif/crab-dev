@@ -46,7 +46,8 @@ export const vars = defineTokens({
     'motion.fade.transition': '--dialog-motion-fade-transition',
     'motion.interaction.transition': '--dialog-motion-interaction-transition',
     'motion.offset.translate': '--dialog-motion-offset-translate',
-    'motion.spatial.transition': '--dialog-motion-spatial-transition'
+    'motion.spatial.transition': '--dialog-motion-spatial-transition',
+    'motion.exit.transition': '--dialog-motion-exit-transition'
 });
 
 const token = defineTokens({
@@ -120,6 +121,9 @@ const token = defineTokens({
         },
         'spatial': {
             'transition': `var(${vars['motion.spatial.transition']}, var(--token-semantic-motion-spatial-fast, var(--token-global-duration-350, 350ms) var(--token-global-easing-expressive-spatial-fast, cubic-bezier(0.42, 1.67, 0.21, 0.90))))`
+        },
+        'exit': {
+            'transition': `var(${vars['motion.exit.transition']}, var(--token-semantic-motion-layout, var(--token-global-duration-normal, 200ms) var(--token-global-easing-out, cubic-bezier(0, 0, 0.2, 1))))`
         }
     }
 });

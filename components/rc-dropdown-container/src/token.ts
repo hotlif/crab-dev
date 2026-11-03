@@ -14,6 +14,7 @@ export const vars = defineTokens({
     'motion.interaction.transition': '--dropdown-container-motion-interaction-transition',
     'motion.offset.translate': '--dropdown-container-motion-offset-translate',
     'motion.spatial.transition': '--dropdown-container-motion-spatial-transition',
+    'motion.exit.transition': '--dropdown-container-motion-exit-transition',
     'interaction.touch.min-width': '--dropdown-container-interaction-touch-min-width',
     'interaction.touch.min-height': '--dropdown-container-interaction-touch-min-height',
     'interaction.outline-color-focus': '--dropdown-container-interaction-outline-color-focus',
@@ -39,6 +40,9 @@ const token = defineTokens({
         },
         'spatial': {
             'transition': `var(${vars['motion.spatial.transition']}, var(--token-semantic-motion-spatial-fast, var(--token-global-duration-350, 350ms) var(--token-global-easing-expressive-spatial-fast, cubic-bezier(0.42, 1.67, 0.21, 0.90))))`
+        },
+        'exit': {
+            'transition': `var(${vars['motion.exit.transition']}, var(--token-semantic-motion-layout, var(--token-global-duration-normal, 200ms) var(--token-global-easing-out, cubic-bezier(0, 0, 0.2, 1))))`
         }
     },
     'interaction': {

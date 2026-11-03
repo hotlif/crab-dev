@@ -123,11 +123,12 @@ function Submenu({ open, children, id }: { open: boolean; children: ReactNode; i
     </div>;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 interface VerticalMenuProps extends Omit<MenuProps, "mode"> {
+    motionRef?: (element: HTMLUListElement | null) => void;
 }
 
 const VerticalNormalMenu: FC<VerticalMenuProps> = ({
+    motionRef,
     className,
     openKeys,
     selectedKeys = [],
@@ -287,6 +288,7 @@ const VerticalNormalMenu: FC<VerticalMenuProps> = ({
 
     return (
         <ul
+            ref={motionRef}
             className={cx.call(undefined, className, ulStyle)}
             {...props}
             onKeyDown={event => { onKeyDown?.(event); navigateMenu(event); }}

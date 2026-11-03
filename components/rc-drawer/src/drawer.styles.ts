@@ -30,7 +30,7 @@ export const overlayStyle = css`
     @starting-style { opacity: 0; }
     &[data-state="closed"] {
         opacity: 0;
-        transition: opacity ${token.motion.fade.transition};
+        transition: opacity ${token.motion.interaction.transition};
     }
 
     @media (prefers-reduced-motion: reduce) {

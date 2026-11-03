@@ -22,7 +22,7 @@ import { demos } from "../_generated/rc-dropdown-container.js";
 
 #### 规格验收
 
-##### 三体系浮层边界矩阵 — 真实触发、Escape、焦点移出与 Portal 配置继承。
+##### 三体系浮层边界矩阵 — 真实触发、快速反转、上下翻转、Escape、焦点移出与 Portal 配置继承。
 
 #### 功能演示
 
@@ -42,6 +42,8 @@ import { demos } from "../_generated/rc-dropdown-container.js";
 组合控件通过 `useDropdownContext().dispatch` 请求展开变化时，可在 `details` 中传入准确的原因与原始事件；未指定时按 `trigger` 处理。Escape 请求应携带 `reason: 'escape'`，以保持关闭通知与焦点恢复的语义一致。
 
 ### 何时使用
+
+浮层完成定位后再入场，并按实际弹出方向从靠近触发器的一侧轻微移动。进出场不改变定位坐标；快速重开保留正在退出的节点，系统减少动画时直接呈现最终状态。
 
 - Select、Menu 等需要相对触发器定位的下拉浮层。
 - 下拉内容需要在窗口边缘自动调整位置；可用高度不足时，浮层会限制在视口内并提供内部滚动。

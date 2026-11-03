@@ -49,3 +49,5 @@ stack.third.background-color = "color-mix(in oklch, $ref(color.surface.overlay) 
 stack.box-shadow = "$ref(shadow.float)"
 
 motion.spatial.transition = "$ref(motion.spatial.fast)"
+motion.exit.transition = "$ref(motion.layout)"
+motion.offset.translate = "$ref(space.component-gap)"

@@ -6,6 +6,23 @@ import { defineTokens } from '@crab-dev/css';
 
 export const vars = defineTokens({
     'root.background-color': '--app-main-layout-root-background-color',
+    'sidebar.transition': '--app-main-layout-sidebar-transition',
+    'sidebar.width': '--app-main-layout-sidebar-width',
+    'sidebar.collapsed.width': '--app-main-layout-sidebar-collapsed-width',
+    'sidebar.collapsed.padding': '--app-main-layout-sidebar-collapsed-padding',
+    'sidebar.padding': '--app-main-layout-sidebar-padding',
+    'sidebar.gap': '--app-main-layout-sidebar-gap',
+    'sidebar.background-color': '--app-main-layout-sidebar-background-color',
+    'sidebar.border-color': '--app-main-layout-sidebar-border-color',
+    'sidebar.logo.width': '--app-main-layout-sidebar-logo-width',
+    'sidebar.logo.touch.min-height': '--app-main-layout-sidebar-logo-touch-min-height',
+    'sidebar.logo.gap': '--app-main-layout-sidebar-logo-gap',
+    'sidebar.logo.padding': '--app-main-layout-sidebar-logo-padding',
+    'sidebar.logo.border-radius': '--app-main-layout-sidebar-logo-border-radius',
+    'sidebar.logo.background-color': '--app-main-layout-sidebar-logo-background-color',
+    'sidebar.logo.color': '--app-main-layout-sidebar-logo-color',
+    'sidebar.logo.title.font-size': '--app-main-layout-sidebar-logo-title-font-size',
+    'sidebar.logo.title.color': '--app-main-layout-sidebar-logo-title-color',
     'header.box-shadow': '--app-main-layout-header-box-shadow',
     'header.background-color': '--app-main-layout-header-background-color',
     'header.z-index': '--app-main-layout-header-z-index',
@@ -51,22 +68,6 @@ export const vars = defineTokens({
     'header.user.menu.item.font-weight': '--app-main-layout-header-user-menu-item-font-weight',
     'header.user.menu.item.line-height': '--app-main-layout-header-user-menu-item-line-height',
     'header.user.menu.item.icon.width': '--app-main-layout-header-user-menu-item-icon-width',
-    'sidebar.width': '--app-main-layout-sidebar-width',
-    'sidebar.collapsed.width': '--app-main-layout-sidebar-collapsed-width',
-    'sidebar.collapsed.padding': '--app-main-layout-sidebar-collapsed-padding',
-    'sidebar.padding': '--app-main-layout-sidebar-padding',
-    'sidebar.gap': '--app-main-layout-sidebar-gap',
-    'sidebar.background-color': '--app-main-layout-sidebar-background-color',
-    'sidebar.border-color': '--app-main-layout-sidebar-border-color',
-    'sidebar.logo.width': '--app-main-layout-sidebar-logo-width',
-    'sidebar.logo.touch.min-height': '--app-main-layout-sidebar-logo-touch-min-height',
-    'sidebar.logo.gap': '--app-main-layout-sidebar-logo-gap',
-    'sidebar.logo.padding': '--app-main-layout-sidebar-logo-padding',
-    'sidebar.logo.border-radius': '--app-main-layout-sidebar-logo-border-radius',
-    'sidebar.logo.background-color': '--app-main-layout-sidebar-logo-background-color',
-    'sidebar.logo.color': '--app-main-layout-sidebar-logo-color',
-    'sidebar.logo.title.font-size': '--app-main-layout-sidebar-logo-title-font-size',
-    'sidebar.logo.title.color': '--app-main-layout-sidebar-logo-title-color',
     'content.background-color': '--app-main-layout-content-background-color',
     'breadcrumbs.padding': '--app-main-layout-breadcrumbs-padding',
     'breadcrumbs.background-color': '--app-main-layout-breadcrumbs-background-color',
@@ -134,6 +135,33 @@ export const vars = defineTokens({
 const token = defineTokens({
     'root': {
         'background-color': `var(${vars['root.background-color']}, var(--token-semantic-color-workspace-content, var(--token-global-white, oklch(1.000 0 0))))`
+    },
+    'sidebar': {
+        'transition': `var(${vars['sidebar.transition']}, width var(--token-semantic-motion-layout, var(--token-global-duration-normal, 200ms) var(--token-global-easing-out, cubic-bezier(0, 0, 0.2, 1))), padding var(--token-semantic-motion-layout, var(--token-global-duration-normal, 200ms) var(--token-global-easing-out, cubic-bezier(0, 0, 0.2, 1))))`,
+        'width': `var(${vars['sidebar.width']}, 280px)`,
+        'collapsed': {
+            'width': `var(${vars['sidebar.collapsed.width']}, 80px)`,
+            'padding': `var(${vars['sidebar.collapsed.padding']}, 12px 0)`
+        },
+        'padding': `var(${vars['sidebar.padding']}, 12px 8px)`,
+        'gap': `var(${vars['sidebar.gap']}, 4px)`,
+        'background-color': `var(${vars['sidebar.background-color']}, var(--token-semantic-color-workspace-sidebar, var(--token-global-zinc-100, oklch(0.950 0.003 286))))`,
+        'border-color': `var(${vars['sidebar.border-color']}, var(--token-semantic-navigation-sidebar-border, transparent))`,
+        'logo': {
+            'width': `var(${vars['sidebar.logo.width']}, 40px)`,
+            'touch': {
+                'min-height': `var(${vars['sidebar.logo.touch.min-height']}, var(--token-semantic-size-touch-target, var(--token-global-size-48, 48px)))`
+            },
+            'gap': `var(${vars['sidebar.logo.gap']}, 12px)`,
+            'padding': `var(${vars['sidebar.logo.padding']}, 4px 8px 16px)`,
+            'border-radius': `var(${vars['sidebar.logo.border-radius']}, var(--token-semantic-shape-card, var(--token-global-radius-6, 12px)))`,
+            'background-color': `var(${vars['sidebar.logo.background-color']}, var(--token-semantic-color-brand-primary, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078))))`,
+            'color': `var(${vars['sidebar.logo.color']}, var(--token-semantic-color-text-on-brand, var(--token-global-white, oklch(1.000 0 0))))`,
+            'title': {
+                'font-size': `var(${vars['sidebar.logo.title.font-size']}, var(--token-semantic-font-size-heading, var(--token-global-font-size-22, 22px)))`,
+                'color': `var(${vars['sidebar.logo.title.color']}, var(--token-semantic-color-text-primary, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695))))`
+            }
+        }
     },
     'header': {
         'box-shadow': `var(${vars['header.box-shadow']}, none)`,
@@ -207,32 +235,6 @@ const token = defineTokens({
                         'width': `var(${vars['header.user.menu.item.icon.width']}, 20px)`
                     }
                 }
-            }
-        }
-    },
-    'sidebar': {
-        'width': `var(${vars['sidebar.width']}, 280px)`,
-        'collapsed': {
-            'width': `var(${vars['sidebar.collapsed.width']}, 80px)`,
-            'padding': `var(${vars['sidebar.collapsed.padding']}, 12px 0)`
-        },
-        'padding': `var(${vars['sidebar.padding']}, 12px 8px)`,
-        'gap': `var(${vars['sidebar.gap']}, 4px)`,
-        'background-color': `var(${vars['sidebar.background-color']}, var(--token-semantic-color-workspace-sidebar, var(--token-global-zinc-100, oklch(0.950 0.003 286))))`,
-        'border-color': `var(${vars['sidebar.border-color']}, var(--token-semantic-navigation-sidebar-border, transparent))`,
-        'logo': {
-            'width': `var(${vars['sidebar.logo.width']}, 40px)`,
-            'touch': {
-                'min-height': `var(${vars['sidebar.logo.touch.min-height']}, var(--token-semantic-size-touch-target, var(--token-global-size-48, 48px)))`
-            },
-            'gap': `var(${vars['sidebar.logo.gap']}, 12px)`,
-            'padding': `var(${vars['sidebar.logo.padding']}, 4px 8px 16px)`,
-            'border-radius': `var(${vars['sidebar.logo.border-radius']}, var(--token-semantic-shape-card, var(--token-global-radius-6, 12px)))`,
-            'background-color': `var(${vars['sidebar.logo.background-color']}, var(--token-semantic-color-brand-primary, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078))))`,
-            'color': `var(${vars['sidebar.logo.color']}, var(--token-semantic-color-text-on-brand, var(--token-global-white, oklch(1.000 0 0))))`,
-            'title': {
-                'font-size': `var(${vars['sidebar.logo.title.font-size']}, var(--token-semantic-font-size-heading, var(--token-global-font-size-22, 22px)))`,
-                'color': `var(${vars['sidebar.logo.title.color']}, var(--token-semantic-color-text-primary, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695))))`
             }
         }
     },

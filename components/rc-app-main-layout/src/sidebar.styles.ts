@@ -13,9 +13,7 @@ export const sidebarStyle = css`
     box-sizing: border-box;
     flex-shrink: 0;
     overflow: hidden auto;
-    transition:
-        width 300ms cubic-bezier(0, 0, 0.2, 1),
-        padding 300ms cubic-bezier(0, 0, 0.2, 1);
+    transition: ${token.sidebar.transition};
 
     &[data-collapsed="true"] {
         width: ${token.sidebar.collapsed.width};

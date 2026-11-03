@@ -69,16 +69,21 @@ export const notificationStyle = css`
         scale ${token.motion.spatial.transition}, background-color ${token.motion.interaction.transition},
         box-shadow ${token.motion.interaction.transition};
     @starting-style {
-        &[data-state="open"] { opacity: 0; translate: 0 -100%; }
-        &[data-direction^="bottom"] { translate: 0 100%; }
-        &[data-direction$="Left"] { translate: -120% 0; }
-        &[data-direction$="Right"] { translate: 120% 0; }
+        &[data-state="open"] { opacity: 0; translate: 0 calc(-1 * ${token.motion.offset.translate}); }
+        &[data-direction^="bottom"] { translate: 0 ${token.motion.offset.translate}; }
+        &[data-direction$="Left"] { translate: calc(-1 * ${token.motion.offset.translate}) 0; }
+        &[data-direction$="Right"] { translate: ${token.motion.offset.translate} 0; }
     }
-    &[data-state="closed"] { opacity: 0; translate: 0 -100%; pointer-events: none; }
-    &[data-direction^="bottom"][data-state="closed"] { translate: 0 100%; }
-    &[data-direction$="Left"][data-state="closed"] { translate: -120% 0; }
-    &[data-direction$="Right"][data-state="closed"] { translate: 120% 0; }
-    @media (prefers-reduced-motion: reduce) { transition: none; }
+    &[data-state="closed"] {
+        opacity: 0;
+        translate: 0 calc(-1 * ${token.motion.offset.translate});
+        pointer-events: none;
+        transition: opacity ${token.motion.interaction.transition}, translate ${token.motion.exit.transition}, scale ${token.motion.exit.transition};
+    }
+    &[data-direction^="bottom"][data-state="closed"] { translate: 0 ${token.motion.offset.translate}; }
+    &[data-direction$="Left"][data-state="closed"] { translate: calc(-1 * ${token.motion.offset.translate}) 0; }
+    &[data-direction$="Right"][data-state="closed"] { translate: ${token.motion.offset.translate} 0; }
+    @media (prefers-reduced-motion: reduce) { &, &[data-state="closed"] { transition: none; } }
     @media (forced-colors: active) { outline: 1px solid CanvasText; box-shadow: none; }
 `;
 

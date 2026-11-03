@@ -766,6 +766,33 @@ describe("Menu", () => {
         expect(onOpenKeysChange).toHaveBeenCalledWith([], expect.objectContaining({ reason: 'collapse', event }));
     });
 
+    it('follows the actual host width transition and ignores a reversed collapse', async () => {
+        const items = [{ type: ItemType.Item, key: 'motion-leaf', title: 'Motion leaf' }];
+        const view = await render(<Menu mode="inline" items={items} />);
+        const original = view.container.querySelector('ul');
+        const first = Promise.withResolvers<void>();
+        const second = Promise.withResolvers<void>();
+        let active = true;
+        let finished = first.promise;
+        Object.defineProperty(view.container, 'getAnimations', {
+            configurable: true,
+            value: () => active ? [{ transitionProperty: 'width', playState: 'running', finished }] : [],
+        });
+        await view.rerender(<Menu mode="inline" inlineCollapsed items={items} />);
+        expect(view.container.querySelector('ul')).toBe(original);
+        await view.rerender(<Menu mode="inline" items={items} />);
+        active = false;
+        await act(async () => first.resolve());
+        expect(view.container.querySelector('ul')).toBe(original);
+        active = true; finished = second.promise;
+        await view.rerender(<Menu mode="inline" inlineCollapsed items={items} />);
+        expect(view.container.querySelector('ul')).toBe(original);
+        active = false;
+        await act(async () => second.resolve());
+        expect(view.container.querySelector('ul')).not.toBe(original);
+        expect(screen.getByRole('menuitem', { name: 'Motion leaf' })).toBeTruthy();
+    });
+
     it("renders inline-collapsed vertical menu with icons only and opens floating submenu on hover", async () => {
         mockFloatingForceOpen = true;
         const onSelectedKeysChange = mock.fn();
