@@ -1,0 +1,78 @@
+{
+  "browser": "Windows Chromium",
+  "description": "Real browser 200% zoom, six configurations × home/catalog/tutorial",
+  "captures": [
+    {
+      "file": "zoom/apple-dark-site-zoom-catalog-viewport.png",
+      "sha256": "e2f8446d9dc000c0abe5f38120af70fb1f7f8f0d7e2b3848ce0a8b0ed49d295d"
+    },
+    {
+      "file": "zoom/apple-dark-site-zoom-home-viewport.png",
+      "sha256": "e89c7c2ae7f381019692d96868bba6e44716c94417a53a2390ad90dbca1f9363"
+    },
+    {
+      "file": "zoom/apple-dark-site-zoom-tutorial-viewport.png",
+      "sha256": "3a714f0bf7b67666b2bd343727786c9dc6ccbcc0e0912611538000d37cd42b24"
+    },
+    {
+      "file": "zoom/apple-light-site-zoom-catalog-viewport.png",
+      "sha256": "f0199acfc95e81a32af8fec46074a6b270be913d7fdb7e2e489cc7ea063bc859"
+    },
+    {
+      "file": "zoom/apple-light-site-zoom-home-viewport.png",
+      "sha256": "34791ffddaf500f521c74b616ee7d8e806d40f2d23d2c6c9f9e9c46ec764180d"
+    },
+    {
+      "file": "zoom/apple-light-site-zoom-tutorial-viewport.png",
+      "sha256": "c2550a7631af3cfad3ff7d9bda8b86c5c510b8cf919c793077d939aaba7a3502"
+    },
+    {
+      "file": "zoom/md3-dark-site-zoom-catalog-viewport.png",
+      "sha256": "fb94d89e8092a9c71332647228a1d56995a278db84aa4d0aecce3a3093e7fb2e"
+    },
+    {
+      "file": "zoom/md3-dark-site-zoom-home-viewport.png",
+      "sha256": "96dc427c61224ee3c4c678c1219f5ed7c8e82542c9d8cf4693d14a18c369988c"
+    },
+    {
+      "file": "zoom/md3-dark-site-zoom-tutorial-viewport.png",
+      "sha256": "14fb8f757bd56e069515dee6fbf56186af7814e34b562e61548aa24f6a0b4ce7"
+    },
+    {
+      "file": "zoom/md3-light-site-zoom-catalog-viewport.png",
+      "sha256": "61f4662357abd9799ae5bd652a63688ed1dbc00caf2258fa599303cd56e9f20f"
+    },
+    {
+      "file": "zoom/md3-light-site-zoom-home-viewport.png",
+      "sha256": "4e164aad292c2f928c896e34d14eb910af68a0aa0fddbb4b57cea4afccd4289b"
+    },
+    {
+      "file": "zoom/md3-light-site-zoom-tutorial-viewport.png",
+      "sha256": "06cbe2b25b4a261890793c28d471601851be3f050c779374e6ec23d4fdb2650b"
+    },
+    {
+      "file": "zoom/shadcn-dark-site-zoom-catalog-viewport.png",
+      "sha256": "e8d10c6fd9fa81dad10296fa53c01ce0a1be6011a178db2357ebcfb0ff8e0816"
+    },
+    {
+      "file": "zoom/shadcn-dark-site-zoom-home-viewport.png",
+      "sha256": "9523de3d67dbaa15c8914e3481547e4eb1d52ae6457e21b5238849b5691c235b"
+    },
+    {
+      "file": "zoom/shadcn-dark-site-zoom-tutorial-viewport.png",
+      "sha256": "8181307318d5ca21c36313f7ef80da269684a43854c044bfa9a0776b3d6e93dc"
+    },
+    {
+      "file": "zoom/shadcn-light-site-zoom-catalog-viewport.png",
+      "sha256": "ff78b8d2644ea81699b8aeae1ed877fb0b9323a85e18ed313774c289613338fd"
+    },
+    {
+      "file": "zoom/shadcn-light-site-zoom-home-viewport.png",
+      "sha256": "13d81ba3b798d84f4424c0b6e7df5079ac52b2e15927579fb49352f3c4c1f838"
+    },
+    {
+      "file": "zoom/shadcn-light-site-zoom-tutorial-viewport.png",
+      "sha256": "7ff3475b83187683f2f4a6b19f04ae9d53d918ba576f94b40aad95a857e74394"
+    }
+  ]
+}

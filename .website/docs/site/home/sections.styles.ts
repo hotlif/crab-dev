@@ -16,7 +16,7 @@ globalStyle`
 .crab-home-demo-heading { align-items: start; }
 .crab-home-theme-controls { display: flex; flex-wrap: wrap; justify-content: end; gap: ${token.space["stack-gap"]}; }
 .crab-home-theme-controls > div { display: grid; gap: ${token.space["inline-gap"]}; color: ${token.color.text.secondary}; font-size: ${token.font.size.caption}; }
-.crab-home-demo-surface { min-width: 0; padding: ${token.space["section-gap"]}; border: 1px solid ${token.color.border.subtle}; border-radius: ${home.demoRadius}; background: ${token.color.surface.content}; color: ${token.color.text.primary}; box-shadow: none; }
+.crab-home-demo-surface { min-width: 0; padding: ${globalToken.space[6]}; border: 1px solid ${token.color.border.subtle}; border-radius: ${home.demoRadius}; background: ${token.color.surface.low}; color: ${token.color.text.primary}; box-shadow: none; }
 .crab-home-component-wall { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); align-items: start; gap: ${token.space["section-gap"]}; }
 .crab-home-component-column { display: grid; min-width: 0; gap: ${token.space["section-gap"]}; }
 .crab-home-component-column > * { min-width: 0; }
@@ -32,7 +32,7 @@ globalStyle`
 .crab-home-team-row > span, .crab-home-status-row { color: ${token.color.text.secondary}; font-size: ${token.font.size.caption}; }
 .crab-home-switch-row > span { display: grid; }
 .crab-home-switch-row small { color: ${token.color.text.secondary}; font-size: ${token.font.size.caption}; }
-.crab-home-status-dot { display: inline-block; width: ${globalToken.space[2]}; height: ${globalToken.space[2]}; margin-right: ${token.space["component-gap"]}; border-radius: ${token.radius.pill}; background: ${token.color.feedback.success.text}; }
+.crab-home-status-dot { display: inline-block; width: ${globalToken.space[2]}; height: ${globalToken.space[2]}; margin-inline-end: ${token.space["component-gap"]}; border-radius: ${token.radius.pill}; background: ${token.color.feedback.success.text}; }
 .crab-home-account-card { text-align: center; }
 .crab-home-account-card > div { display: grid; justify-items: stretch; gap: ${token.space["section-gap"]}; }
 .crab-home-account-card h3 { font-size: ${token.font.size.heading}; font-weight: ${token.typography.title.large.emphasized['font-weight']}; }
@@ -45,7 +45,7 @@ globalStyle`
 .crab-home-demo-feedback { display: block; min-height: ${globalToken.space[8]}; margin-top: ${token.space["section-gap"]}; padding: ${token.space["stack-gap"]} ${token.space["section-gap"]}; border-radius: ${token.radius.md}; background: ${token.color.background.surface}; color: ${token.color.text.secondary}; font-size: ${token.font.size.body}; }
 
 .crab-home-practices { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: ${token.space["section-gap"]}; }
-.crab-home-practices > article { display: grid; grid-template-columns: auto minmax(0,1fr) auto; align-items: start; gap: ${token.space["section-gap"]}; padding: ${token.space["section-gap"]}; border-top: 1px solid ${token.color.border.subtle}; }
+.crab-home-practices > article { display: grid; grid-template-columns: auto minmax(0,1fr) auto; align-items: start; gap: ${token.space["section-gap"]}; padding: ${globalToken.space[6]}; border: 1px solid ${token.color.border.subtle}; border-radius: ${token.shape.card}; background: ${token.color.surface.low}; }
 .crab-home-practice-number { color: ${token.color.brand.primary}; font-size: ${token.font.size.caption}; font-weight: ${token.font.weight.label}; }
 .crab-home-practices h3 { margin-bottom: ${token.space["component-gap"]}; font-size: ${token.font.size.subhead}; font-weight: ${token.typography.title.large.emphasized['font-weight']}; }
 .crab-home-practices p, .crab-home-practice-components { color: ${token.color.text.secondary}; font-size: ${token.font.size.body}; }

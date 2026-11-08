@@ -1,4 +1,4 @@
-import { use, useId, useRef } from "react";
+import { use, useEffect, useId, useRef } from "react";
 import type { RefObject } from "react";
 import type { HeaderProps } from "@crab-dev/wake/docs";
 import Button from "@crab-dev/rc-button";
@@ -22,6 +22,7 @@ function ThemeIcon({ mode }: { mode: Mode }) {
 
 function ThemeTrigger({ theme, menuId, trigger }: { theme: Theme; menuId: string; trigger: TriggerRef }) {
     const { design } = use(DocumentDesignContext);
+    const searchReturnFocus = use(SearchReturnFocusContext);
     const { state, dispatch, refs } = useDropdownContext<HTMLSpanElement>();
     const setOpen = (open: boolean) => dispatch({ type: "setOpen", payload: open });
     // The same real control owns positioning and the dropdown's Escape return focus.
@@ -31,21 +32,41 @@ function ThemeTrigger({ theme, menuId, trigger }: { theme: Theme; menuId: string
             aria-haspopup="menu" aria-expanded={state.open} aria-controls={state.open ? menuId : undefined}
             icon={<ThemeIcon mode={theme.theme} />} onClick={() => setOpen(!state.open)}
             onKeyDown={event => {
+                if (state.open && isSearchShortcut(event) && searchReturnFocus) searchReturnFocus.current = true;
                 if (event.key === "ArrowDown" || event.key === "ArrowUp") { event.preventDefault(); setOpen(true); }
                 if (event.key === "Escape") setOpen(false);
-            }} />
+            }}><span className="crab-docs-theme-name">{SITE_DESIGN_NAMES[design].label}</span></Button>
     </span>;
 }
 
 function ThemeOptions({ theme, menuId, trigger }: { theme: Theme; menuId: string; trigger: TriggerRef }) {
     const { design, setDesign } = use(DocumentDesignContext);
-    const { dispatch } = useDropdownContext();
+    const { state, dispatch } = useDropdownContext();
     const searchReturnFocus = use(SearchReturnFocusContext);
+    const menu = useRef<HTMLDivElement>(null);
+    useEffect(() => {
+        if (!state.open || !menu.current) return;
+        const node = menu.current;
+        const popup = node.closest(".crab-docs-theme-popup");
+        // Positioning temporarily hides the popup, so native autoFocus may run
+        // too early. Observe this site's surface only until it can take focus.
+        const focusCurrent = () => {
+            if (getComputedStyle(node).visibility === "hidden") return false;
+            if (document.activeElement === trigger.current || node.contains(document.activeElement)) {
+                node.querySelector<HTMLButtonElement>('[role="group"][aria-label="明暗模式"] [aria-checked="true"]')?.focus({ preventScroll: true });
+            }
+            return true;
+        };
+        if (focusCurrent() || !popup) return;
+        const observer = new MutationObserver(() => { if (focusCurrent()) observer.disconnect(); });
+        observer.observe(popup, { attributes: true });
+        return () => observer.disconnect();
+    }, [state.open, trigger]);
     const close = () => {
         dispatch({ type: "setOpen", payload: false });
         trigger.current?.focus({ preventScroll: true });
     };
-    return <div id={menuId} role="menu" aria-label="文档外观" className="crab-docs-theme-options"
+    return <div ref={menu} id={menuId} role="menu" aria-label="文档外观" className="crab-docs-theme-options"
         onKeyDown={event => {
             if (isSearchShortcut(event)) {
                 if (searchReturnFocus) searchReturnFocus.current = true;
@@ -74,7 +95,7 @@ function ThemeOptions({ theme, menuId, trigger }: { theme: Theme; menuId: string
         </div>
         <div role="group" aria-label="明暗模式">
             <span className="crab-docs-theme-group-label" aria-hidden="true">明暗模式</span>
-            {modes.map(mode => <Button key={mode} appearance="text" className="crab-docs-theme-option" role="menuitemradio" aria-checked={theme.theme === mode} autoFocus={theme.theme === mode}
+            {modes.map(mode => <Button key={mode} appearance="text" className="crab-docs-theme-option" role="menuitemradio" aria-checked={theme.theme === mode}
                 tabIndex={-1}
                 onClick={() => { theme.setTheme(mode); close(); }}>
                 <span className="crab-docs-theme-option-content">

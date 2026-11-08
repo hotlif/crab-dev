@@ -5,7 +5,7 @@ import { docs } from "./metrics.js";
 
 globalStyle`
 .crab-docs-page-hero { display: grid; grid-template-columns: minmax(0,1fr); gap: ${token.space["stack-gap"]}; margin-bottom: ${token.space["stack-gap"]}; }
-.crab-docs-layout .crab-docs-page-heading { display: grid; grid-template-columns: minmax(0,1fr); padding: ${globalToken.space[8]} ${globalToken.space[6]}; border: 0; border-bottom: ${globalToken.space.px} solid ${token.color.border.subtle}; border-radius: 0; background: transparent; gap: ${globalToken.space[3]}; margin: 0; }
+.crab-docs-layout .crab-docs-page-heading { display: grid; grid-template-columns: minmax(0,1fr); padding: ${globalToken.space[8]} ${globalToken.space[6]}; border: ${globalToken.space.px} solid ${token.color.border.subtle}; border-radius: ${token.shape.card}; background: ${token.color.surface.low}; gap: ${globalToken.space[3]}; margin: 0 0 ${globalToken.space[4]}; }
 .crab-docs-layout .crab-docs-page-heading h1 { margin: 0; font-size: ${token.typography.headline.large["font-size"]}; line-height: ${token.typography.headline.large["line-height"]}; font-weight: ${token.typography.headline.large["font-weight"]}; letter-spacing: normal; text-wrap: balance; overflow-wrap: anywhere; }
 .crab-docs-layout .crab-docs-page-heading > p { margin: 0; max-width: 64ch; font-size: ${token.typography.body.large["font-size"]}; line-height: ${token.typography.body.large["line-height"]}; color: ${token.color.text.secondary}; text-wrap: pretty; }
 .crab-docs-page-heading .crab-docs-actions { display: flex; align-items: center; flex-wrap: wrap; gap: ${token.space["section-gap"]}; margin: ${globalToken.space[2]} 0 0; }
@@ -41,7 +41,7 @@ globalStyle`
 .crab-docs-page[data-reading="true"] .crab-docs-prose > :is(.crab-docs-code,.table-scroll) { margin-block: ${globalToken.space[6]}; }
 .crab-docs-page[data-reading="true"] .crab-docs-prose > .table-scroll { border: ${globalToken.space.px} solid ${token.color.border.subtle}; border-radius: ${token.shape.card}; }
 .crab-docs-page[data-reading="true"] .crab-docs-prose > .table-scroll > table { font-size: ${token.typography.body.medium["font-size"]}; line-height: ${token.typography.body.large["line-height"]}; }
-.crab-docs-layout[data-catalog="true"] .crab-docs-prose { width: 100%; padding: ${globalToken.space[6]} ${globalToken.space[6]} ${globalToken.space[10]}; }
+.crab-docs-layout[data-catalog="true"] .crab-docs-prose { width: 100%; padding: ${globalToken.space[6]} 0 ${globalToken.space[10]}; }
 .crab-docs-layout .crab-docs-pager { border: 0; display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); margin: 0; padding: 0; gap: ${globalToken.space[2]}; }
 .crab-docs-layout .crab-docs-pager a { height: auto; min-height: ${globalToken.space[20]}; padding: ${token.space["section-gap"]} ${globalToken.space[6]}; border: ${globalToken.space.px} solid ${token.color.border.subtle}; border-radius: ${token.shape.card}; background: ${token.color.surface.content}; justify-content: start; text-align: left; }
 .crab-docs-pager a > span { display: grid; gap: ${token.space["component-gap"]}; min-width: 0; }
@@ -77,7 +77,6 @@ globalStyle`
     .crab-docs-footer { grid-template-columns: minmax(0,1fr); padding: ${globalToken.space[10]} ${globalToken.space[4]}; gap: ${globalToken.space[6]}; }
 }
 @media (pointer: coarse) {
-    .crab-docs-header .crab-docs-rail-search { min-width: ${token.size["touch-target"]}; min-height: ${token.size["touch-target"]}; }
     .crab-docs-page-sections a { min-height: ${token.size["touch-target"]}; }
 }
 @media (forced-colors: active) {

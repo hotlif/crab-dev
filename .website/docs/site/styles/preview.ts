@@ -13,9 +13,7 @@ globalStyle`
 .crab-docs-demo-viewport[data-background="dark"] { background: ${token.color.background.inverse}; }
 .crab-docs-demo > .crab-docs-actions { margin-top: ${token["space"]["section-gap"]}; }
 .crab-docs-fullscreen { width: calc(100vw - 2rem); }
-.crab-docs-inline-toc, .crab-docs-menu-trigger { display: none; }
-.crab-docs-layout[data-home="true"] .crab-docs-grid { grid-template-columns: minmax(0,1fr); max-width: 86rem; }
-.crab-docs-layout[data-home="true"] :is(.crab-docs-sidebar,.crab-docs-directory) { display: none; }
+.crab-docs-inline-toc { display: none; }
 [data-tutorial] { container-type: inline-size; }
 [data-tutorial] :is(section,article,figure) { min-width: 0; }
 [data-tutorial] pre { tab-size: 4; }

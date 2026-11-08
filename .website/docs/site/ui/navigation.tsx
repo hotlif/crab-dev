@@ -56,6 +56,7 @@ export function Header({ site, route, search, mobileNavigation, theme }: UI.Head
                 appearance="text"
                 className="crab-docs-brand"
                 aria-label="Crab UI"
+                aria-current={route.path === "/" ? "page" : undefined}
                 icon={
                     <span className="crab-docs-rail-indicator"><SiteIcon name="home" /></span>
                 }
@@ -66,10 +67,10 @@ export function Header({ site, route, search, mobileNavigation, theme }: UI.Head
             </Button>
             <nav className="crab-docs-header-links" role="navigation" aria-label="主导航">
                 {navigationCategories.map(item => <Button key={item.id} appearance="text" className="crab-docs-rail-item"
-                    data-active={(navigation?.category ?? activeCategory) === item.id} aria-expanded={navigation?.category === item.id}
+                    data-active={activeCategory === item.id}
                     aria-current={activeCategory === item.id ? "true" : undefined}
-                    aria-controls={navigation?.sidebarId}
-                    onClick={() => navigation?.select(item.id)}
+                    href={route.href(item.slug)}
+                    onClick={(event: MouseEvent<HTMLElement>) => follow(event, item.slug, route.navigate)}
                     icon={<span className="crab-docs-rail-indicator"><SiteIcon name={item.id} /></span>}>{item.title}</Button>)}
                 {site.repositoryUrl && (
                     <Button appearance="text" className="crab-docs-rail-item crab-docs-repository-link" href={site.repositoryUrl}
@@ -203,7 +204,7 @@ export function MobileNavigation({
                 if (!search.contains(document.activeElement)) search.querySelector<HTMLInputElement>('input[role="combobox"]')?.focus({ preventScroll: true });
             } else document.querySelector<HTMLButtonElement>(".crab-docs-rail-search")?.focus({ preventScroll: true });
         } else if (closeReason.current === "desktop") {
-            const trigger = document.querySelector<HTMLButtonElement>(".crab-docs-rail-item[aria-expanded=true]");
+            const trigger = document.querySelector<HTMLElement>(".crab-docs-header-links a[aria-current], .crab-docs-brand[aria-current]");
             if (trigger) trigger.focus({ preventScroll: true });
             else route.focusContent();
         } else if (closeReason.current === "cancel") {

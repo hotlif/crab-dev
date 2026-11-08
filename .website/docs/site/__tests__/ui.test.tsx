@@ -446,14 +446,12 @@ describe("Wake 文档展示适配器", () => {
         expect(props.onNavigate).toHaveBeenCalledWith("/button");
     });
 
-    it("桌面侧栏常驻，重复点击、Escape 与页面跳转均不收起", async () => {
+    it("主导航使用真实链接，侧栏和选中态跟随路由，展示页释放侧栏空间", async () => {
         const state = common();
         const groups = [
             { id: "project", title: "项目", pages: [
-                { slug: "/learn", href: "/handbook/learn", title: "实战概览" },
                 { slug: "/learn/practice-profile", href: "/handbook/learn/practice-profile", title: "资料表单" },
                 { slug: "/learn/components", href: "/handbook/learn/components", title: "组件目录" },
-                { slug: "/guides/getting-started", href: "/handbook/guides/getting-started", title: "安装指南" },
             ], sections: [] },
             { id: "components", title: "组件", pages: [], sections: [{ id: "inputs", title: "输入", expanded: true, active: false,
                 pages: [{ slug: "/components/rc-radio", href: "/handbook/components/rc-radio", title: "Radio" }] }] },
@@ -461,56 +459,34 @@ describe("Wake 文档展示适配器", () => {
         const layout = (path: string) => <UI.Layout {...state} route={{ ...state.route, path }}
             header={<UI.Header {...state} route={{ ...state.route, path }} search={searchState({ open: false })}
                 mobileNavigation={{ open: false, setOpen: mock.fn() }} />} tableOfContents={null}
-            mobileNavigation={null} searchDialog={<dialog open><input aria-label="浮层输入" /></dialog>}
+            mobileNavigation={null} searchDialog={null}
             navigation={<UI.Navigation {...state} groups={groups} current={path} toggleSection={mock.fn()} onNavigate={state.route.navigate} />}>
             <main><input aria-label="未提交的内容" defaultValue="保留草稿" /></main>
         </UI.Layout>;
-        const view = await render(layout("/learn"));
+        const view = await render(layout("/learn/practice-profile"));
         const rail = screen.getByRole("navigation", { name: "主导航" });
-        const category = (name: string) => Array.from(rail.querySelectorAll("button")).find(button => button.textContent === name)!;
-        const components = category("组件");
-        expect(components.getAttribute("aria-expanded")).toBe("false");
-        expect(category("实战").getAttribute("aria-expanded")).toBe("true");
-        expect(screen.getByRole("link", { name: "资料表单" })).toBeTruthy();
-        expect(screen.queryByRole("button", { name: "关闭侧栏" })).toBeNull();
+        const category = (name: string) => Array.from(rail.querySelectorAll("a")).find(link => link.textContent === name)!;
         const draft = screen.getByRole("textbox", { name: "未提交的内容" });
-        await fireEvent.click(category("实战"));
-        expect(screen.getByRole("link", { name: "资料表单" })).toBeTruthy();
-        await fireEvent.click(components);
-        expect(screen.queryByRole("link", { name: "资料表单" })).toBeNull();
-        expect(components.getAttribute("aria-current")).toBeNull();
         expect(category("实战").getAttribute("aria-current")).toBe("true");
-        expect(rail.querySelectorAll('[data-active="true"]').length).toBe(1);
-        expect(components.getAttribute("data-active")).toBe("true");
-        expect(category("实战").getAttribute("data-active")).toBe("false");
-        expect(screen.getAllByRole("button", { name: /^组件$/ }).length).toBe(1);
-        expect(screen.getByRole("link", { name: "组件目录" }).getAttribute("href")).toBe("/handbook/learn/components");
-        expect(screen.getByRole("textbox", { name: "未提交的内容" })).toBe(draft);
+        for (const [label, slug] of [["开始", "/guides/getting-started"], ["组件", "/learn/components"], ["设计", "/guides/design-styles"], ["实战", "/learn"], ["维护", "/guides/contributing"]]) {
+            expect(category(label).getAttribute("href")).toBe("/handbook" + slug);
+            expect(category(label).hasAttribute("aria-expanded")).toBe(false);
+        }
+        await fireEvent.click(category("组件"), { ctrlKey: true });
         expect(state.route.navigate).not.toHaveBeenCalled();
-        expect(document.getElementById(components.getAttribute("aria-controls")!)?.contains(screen.getByRole("link", { name: "Radio" }))).toBe(true);
-        await fireEvent.click(screen.getByRole("link", { name: "Radio" }), { ctrlKey: true });
-        expect(state.route.navigate).not.toHaveBeenCalled();
-        expect(components.getAttribute("aria-expanded")).toBe("true");
-        await fireEvent.keyDown(screen.getByRole("textbox", { name: "浮层输入" }), { key: "Escape" });
-        expect(components.getAttribute("aria-expanded")).toBe("true");
-        await fireEvent.keyDown(components, { key: "Escape" });
-        expect(components.getAttribute("aria-expanded")).toBe("true");
-        await fireEvent.click(components);
-        expect(components.getAttribute("aria-expanded")).toBe("true");
-        await fireEvent.click(screen.getByRole("link", { name: "Radio" }));
-        expect(state.route.navigate).toHaveBeenCalledWith("/components/rc-radio");
-        expect(components.getAttribute("aria-expanded")).toBe("true");
+        await fireEvent.click(category("组件"));
+        expect(state.route.navigate).toHaveBeenCalledWith("/learn/components");
+        expect(category("实战").getAttribute("data-active")).toBe("true");
+        await view.rerender(layout("/learn/components"));
+        expect(document.querySelector(".crab-docs-layout")?.getAttribute("data-navigation-open")).toBe("false");
         await view.rerender(layout("/components/rc-radio"));
-        expect(components.getAttribute("aria-expanded")).toBe("true");
+        expect(category("组件").getAttribute("data-active")).toBe("true");
+        expect(category("实战").hasAttribute("aria-current")).toBe(false);
+        expect(document.querySelector(".crab-docs-layout")?.getAttribute("data-navigation-open")).toBe("true");
         expect(screen.getByRole("link", { name: "Radio" }).getAttribute("aria-current")).toBe("page");
-        await view.rerender(layout("/guides/getting-started"));
-        expect(category("开始").getAttribute("aria-expanded")).toBe("true");
-        expect(screen.getByRole("link", { name: "安装指南" }).getAttribute("aria-current")).toBe("page");
-        await act(() => { draft.dispatchEvent(new Event("pointerdown", { bubbles: true })); });
-        expect(category("开始").getAttribute("aria-expanded")).toBe("true");
+        expect(screen.getByRole("textbox", { name: "未提交的内容" })).toBe(draft);
         await view.rerender(layout("/"));
-        expect(category("开始").getAttribute("aria-expanded")).toBe("true");
-        expect(screen.getByRole("link", { name: "安装指南" })).toBeTruthy();
+        expect(document.querySelector(".crab-docs-layout")?.getAttribute("data-navigation-open")).toBe("false");
     });
     it("顶栏将搜索、移动菜单和主题操作交回 Wake", async () => {
         const state = common();
@@ -518,7 +494,7 @@ describe("Wake 文档展示适配器", () => {
         const mobileNavigation = { open: false, setOpen: mock.fn() };
         await render(<UI.Header {...state} search={search} mobileNavigation={mobileNavigation} />);
         expect(screen.queryByRole("link", { name: "设计语言" })).toBeNull();
-        expect(screen.queryByRole("link", { name: "组件" })).toBeNull();
+        expect(screen.getByRole("link", { name: "组件" }).getAttribute("href")).toBe("/handbook/learn/components");
         await click("搜索文档");
         expect(search.setOpen).toHaveBeenCalledWith(true);
         await click("导航");
@@ -690,7 +666,7 @@ describe("Wake 文档展示适配器", () => {
         Object.defineProperty(window, "matchMedia", { configurable: true, value: () => media });
         try {
             const view = await render(<>
-                <button className="crab-docs-rail-item" aria-expanded="true">桌面组件入口</button>
+                <nav className="crab-docs-header-links"><a href="/components" aria-current="true">桌面组件入口</a></nav>
                 <UI.MobileNavigation {...state} open navigation={<span>导航内容</span>} setOpen={setOpen} />
             </>);
             const dialog = screen.getByRole("dialog");
@@ -698,7 +674,7 @@ describe("Wake 文档展示适配器", () => {
             await act(() => { media.matches = true; media.dispatchEvent(new Event("change")); });
             expect(setOpen).toHaveBeenCalledWith(false);
             await act(() => { dialog.dispatchEvent(new Event("close")); });
-            expect(document.activeElement).toBe(screen.getByRole("button", { name: "桌面组件入口" }));
+            expect(document.activeElement).toBe(screen.getByRole("link", { name: "桌面组件入口" }));
             expect(state.route.focusContent).not.toHaveBeenCalled();
             await view.unmount();
         } finally {

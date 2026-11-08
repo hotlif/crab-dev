@@ -2,6 +2,7 @@ import Button from "@crab-dev/rc-button";
 import { sourceCode } from "../../_generated_tutorials/home.js";
 import LiveExample from "../liveExample.js";
 import type { HomeSectionProps } from "./hero.js";
+import { SiteReveal } from "../siteMotion.js";
 
 const loadProfile = () => import("../../examples/home/profile.js");
 
@@ -13,7 +14,7 @@ const practices = [
 
 export default function HomePractices({ href }: HomeSectionProps) {
     return <>
-            <section className="crab-home-section" id="practice" aria-labelledby="practice-title">
+            <SiteReveal><section className="crab-home-section" id="practice" aria-labelledby="practice-title">
                 <header className="crab-home-section-heading">
                     <div><span className="crab-home-eyebrow">业务实战</span><h2 id="practice-title">把组件组合成完整流程。</h2></div>
                     <p className="crab-home-secondary">从一个场景进入，跟随步骤完成可运行的界面。</p>
@@ -27,15 +28,15 @@ export default function HomePractices({ href }: HomeSectionProps) {
                         </article>
                     ))}
                 </div>
-            </section>
+            </section></SiteReveal>
 
-            <section className="crab-home-section crab-home-showcase" id="first-example" aria-labelledby="showcase-title">
+            <SiteReveal><section className="crab-home-section crab-home-showcase" id="first-example" aria-labelledby="showcase-title">
                 <header className="crab-home-section-heading">
                     <div><span className="crab-home-eyebrow">在线实战</span><h2 id="showcase-title">先试用，再读实现。</h2></div>
                     <p className="crab-home-secondary">完成邀请表单，再展开源码理解组件如何协作。</p>
                 </header>
                 <LiveExample title="组件，自然组合。" heading="outside" density="regular" sourceCode={sourceCode} load={loadProfile} />
-            </section>
+            </section></SiteReveal>
 
     </>;
 }

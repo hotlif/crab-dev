@@ -1,0 +1,37 @@
+{
+  "reviewedAt": "2026-11-05T03:49:37.181Z",
+  "defaultViewports": 90,
+  "beforeViewports": 90,
+  "method": "15 contact sheets per phase; each sheet includes all three themes and both color modes. Final sheets regenerated from the final native run plus the unchanged-source retest.",
+  "preliminaryIdenticalCaptures": 76,
+  "themes": [
+    "md3",
+    "apple",
+    "shadcn"
+  ],
+  "colorModes": [
+    "light",
+    "dark"
+  ],
+  "widths": [
+    320,
+    768,
+    1440
+  ],
+  "pages": [
+    "home",
+    "catalog",
+    "design",
+    "component",
+    "tutorial"
+  ],
+  "findings": {
+    "home": "Centered hierarchy, complete theme labels, stacked narrow layout",
+    "catalog": "3/2/1 columns, wrapping category anchors, distinct surfaces",
+    "design": "Heading/reading hierarchy, side outlines on wide view, collapsed outline on narrow view",
+    "component": "Live preview centered, inherited compact field geometry preserved",
+    "tutorial": "Steps wrap and reading order preserved"
+  },
+  "scope": "Default viewport only; not every component state or full-page content.",
+  "pixelBaselinesUpdated": false
+}

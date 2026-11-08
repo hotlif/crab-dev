@@ -4,7 +4,6 @@ import globalToken from "@crab-dev/rc-token-global";
 
 // Documentation-only layout candidates; future L3 catalog presentation tokens.
 const catalogToken = defineTokens({
-    columnMin: "19rem",
     artworkWidth: "240px",
     artworkHeight: "128px",
 });
@@ -25,7 +24,7 @@ globalStyle`
 .crab-catalog-section-heading h2 { margin: 0; font-size: ${token.typography.headline.small["font-size"]}; font-weight: ${token.typography.headline.small["font-weight"]}; line-height: ${token.typography.headline.small["line-height"]}; letter-spacing: 0; }
 .crab-catalog-section-heading h2 > a { display: none; }
 .crab-catalog-count { padding: ${globalToken.space[1]} ${globalToken.space[2]}; border-radius: ${token.radius.sm}; background: var(--crab-docs-nav-hover); font-size: ${token.font.size.caption}; color: ${token.color.text.secondary}; font-variant-numeric: tabular-nums; }
-.crab-catalog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, ${catalogToken.columnMin}), 1fr)); gap: ${token.space["section-gap"]}; }
+.crab-catalog-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: ${globalToken.space[6]}; }
 .crab-catalog-grid .crab-catalog-item { display: block; height: 100%; min-width: 0; width: 100%; padding: ${token.space["stack-gap"]} ${token.space["stack-gap"]} ${token.space["section-gap"]}; border: ${globalToken.space.px} solid ${token.color.border.subtle}; border-radius: ${token.shape.card}; text-align: left; white-space: normal; color: ${token.color.text.primary}; background: ${token.color.surface.content}; box-shadow: none; transition: background ${token.motion.interaction}, border-color ${token.motion.interaction}; }
 .crab-catalog-item > span { display: block; min-width: 0; }
 .crab-catalog-item-heading { display: flex; align-items: center; justify-content: space-between; gap: ${token.space["component-gap"]}; margin: ${token.space["section-gap"]} ${token.space["stack-gap"]} ${token.space["component-gap"]}; }
@@ -67,7 +66,9 @@ globalStyle`
 .crab-catalog-grid .crab-catalog-item:hover { background: ${token.color.background["hover-subtle"]}; border-color: ${token.color.border.default}; box-shadow: none; }
 .crab-catalog-item:hover .crab-catalog-item-heading { color: ${token.color.text.link}; }
 .crab-catalog-grid .crab-catalog-item:focus-visible { outline: 2px solid ${token.color.focus.ring}; outline-offset: 3px; }
+@media (max-width: 1199px) { .crab-catalog-grid { grid-template-columns: repeat(2,minmax(0,1fr)); } }
 @media (max-width: 767px) {
+    .crab-catalog-grid { grid-template-columns: minmax(0,1fr); }
     .crab-catalog-intro, .crab-catalog-section { margin-bottom: ${globalToken.space[8]}; }
     .crab-catalog-actions a, .crab-catalog-categories a { min-height: ${token.size[48]}; }
     .crab-catalog-categories { grid-template-columns: repeat(2,minmax(0,1fr)); gap: ${token.space["inline-gap"]}; }

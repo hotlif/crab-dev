@@ -35,6 +35,8 @@ for(const config of configurations) for(const environment of viewports) {
         }
         await navigateFromSite(page,'组件','组件目录');
         await readySitePage(page,catalog,config);
+        await article(page).getByRole('link',{name:'LineEdit 单行输入框',exact:true}).click();
+        await readySitePage(page,component,config);
         if(environment.id==='desktop') {
             const sidebar=page.locator('.crab-docs-sidebar');
             const base=sidebar.getByRole('button',{name:'基础组件',exact:true});
@@ -47,8 +49,6 @@ for(const config of configurations) for(const environment of viewports) {
             expect(geometry.bottom).toBeLessThanOrEqual(geometry.viewport);
             expect(geometry.scroll).toBeGreaterThan(geometry.client);
         }
-        await article(page).getByRole('link',{name:'LineEdit 单行输入框',exact:true}).click();
-        await readySitePage(page,component,config);
         await expect(page.getByRole('navigation',{name:'组件快捷入口',exact:true})).toBeVisible();
 
         await page.getByRole('button',{name:'搜索文档',exact:true}).click();

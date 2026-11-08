@@ -65,13 +65,13 @@ export function Layout(props: UI.LayoutProps) {
     const sidebarId = useId();
     const searchReturnFocus = useRef(false);
     const path = props.route.page?.slug ?? props.route.path;
-    const home = props.route.page?.href === props.site.homeHref;
-    const catalog = props.route.page?.slug.replace(/^\//, "") === "learn/components";
+    const home = props.route.page?.href === props.site.homeHref || path === "/";
+    const catalog = path.replace(/^\//, "").replace(/\/$/, "") === "learn/components";
     const [selection, setSelection] = useState<{ path: string; category: NavigationCategory | null } | null>(null);
     const routeCategory = categoryForPath(path) ?? "start";
     const category = selection?.path === path ? selection.category : routeCategory;
     // Desktop navigation stays visible; only the mobile accordion can have no expanded category.
-    const navigation = { category: category ?? routeCategory, sidebarId,
+    const navigation = { category: routeCategory, sidebarId,
         select: (value: NavigationCategory | null) => setSelection({ path, category: value }) };
     // DOM reference for the in-page keyboard shortcut; it does not trigger routing.
     const content = useRef<HTMLDivElement>(null);
@@ -104,7 +104,7 @@ export function Layout(props: UI.LayoutProps) {
         <SearchReturnFocusContext value={searchReturnFocus}>
         <TutorialDirectoryContext value={component ? null : directory}>
             <DocumentNavigationContext value={navigation}>
-                <div className="crab-docs-layout" data-home={home} data-catalog={catalog} data-reading={!!props.route.page && !home && !catalog} data-navigation-open="true">
+                <div className="crab-docs-layout" data-home={home} data-catalog={catalog} data-reading={!!props.route.page && !home && !catalog} data-navigation-open={!home && !catalog}>
                     <Button className="crab-docs-skip-link" appearance="primary" href={`#${contentId}`}
                         onClick={event => {
                             event.preventDefault();

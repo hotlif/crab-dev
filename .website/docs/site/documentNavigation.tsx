@@ -4,11 +4,11 @@ import type { NavigationProps, PageProps } from "@crab-dev/wake/docs";
 import Button from "@crab-dev/rc-button";
 
 export const navigationCategories = [
-    { id: "start", title: "开始", heading: "开始使用" },
-    { id: "components", title: "组件", heading: "组件" },
-    { id: "design", title: "设计", heading: "设计体系" },
-    { id: "learn", title: "实战", heading: "实战教程" },
-    { id: "tools", title: "维护", heading: "组件库维护" },
+    { id: "start", title: "开始", heading: "开始使用", slug: "/guides/getting-started" },
+    { id: "components", title: "组件", heading: "组件", slug: "/learn/components" },
+    { id: "design", title: "设计", heading: "设计体系", slug: "/guides/design-styles" },
+    { id: "learn", title: "实战", heading: "实战教程", slug: "/learn" },
+    { id: "tools", title: "维护", heading: "组件库维护", slug: "/guides/contributing" },
 ] as const;
 
 export type NavigationCategory = typeof navigationCategories[number]["id"];

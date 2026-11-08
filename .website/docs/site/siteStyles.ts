@@ -7,3 +7,4 @@ import "./styles/preview.js";
 import "./styles/page-loading.js";
 import "./styles/feedback.js";
 import "./styles/responsive.js";
+import "./styles/motion.js";

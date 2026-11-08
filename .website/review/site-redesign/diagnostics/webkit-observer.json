@@ -1,0 +1,18 @@
+{
+  "status": "unresolved",
+  "message": "ResizeObserver loop completed with undelivered notifications.",
+  "observation": "The last callback before the reproduced warning measured the component wall application-type Select as 0 × 0. The separate ancestor diagnostic identifies aria-labelledby=\"_r_i_-projects\" and selected tags 设计系统 / 数据应用. Root cause is not yet established; this is not proof of an inherited component defect.",
+  "records": [
+    {
+      "source": "@web-inspector://bootstrap.js:576:28\n@http://host.docker.internal:4173/shared_9.6ec9d7ff.js:25:2259\nMd@http://host.docker.internal:4173/entry.47b36bb5.js:154:117069\nNc@http://host.docker.internal:4173/entry.47b36bb5.js:154:144622",
+      "targets": [
+        {
+          "tag": "DIV",
+          "class": "rc-select-5e896678dc89 rc-select-de4a743b542e rc-select-5e07f79a30fd rc-select-29edc097b42b",
+          "width": 0,
+          "height": 0
+        }
+      ]
+    }
+  ]
+}

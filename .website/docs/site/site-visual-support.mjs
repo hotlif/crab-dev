@@ -61,6 +61,7 @@ export async function openAppearance(page,{keyboard=false}={}) {
     const menu=page.getByRole('menu',{name:'文档外观',exact:true});
     await expect(menu).toBeVisible();
     await expect(trigger).toHaveAttribute('aria-expanded','true');
+    if(keyboard) await expect(menu.getByRole('group',{name:'明暗模式',exact:true}).getByRole('menuitemradio',{checked:true})).toBeFocused();
     return menu;
 }
 
@@ -93,7 +94,8 @@ export async function navigateFromSite(page,category,title) {
         await dialog.getByRole('link',{name:title,exact:true}).click();
         await expect(dialog).not.toBeVisible();
     } else {
-        await page.getByRole('navigation',{name:'主导航',exact:true}).getByRole('button',{name:category,exact:true}).click();
+        await page.getByRole('navigation',{name:'主导航',exact:true}).getByRole('link',{name:category,exact:true}).click();
+        if(category==='组件' && title==='组件目录') return;
         await page.locator('.crab-docs-sidebar').getByRole('link',{name:title,exact:true}).click();
     }
 }

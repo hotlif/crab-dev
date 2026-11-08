@@ -1,0 +1,223 @@
+{
+  "browser": "156.0.8078.4",
+  "scope": "Site shell direction, long draft and injected long heading; no component RTL claim",
+  "assertions": "direction=rtl, no document overflow, draft retained",
+  "records": [
+    {
+      "design": "md3",
+      "mode": "light",
+      "width": 1440,
+      "state": "RTL shell and long mixed-language draft",
+      "file": "md3-light-1440-rtl.png",
+      "geometry": {
+        "viewport": 1440,
+        "scroll": 1425,
+        "direction": "rtl"
+      }
+    },
+    {
+      "design": "md3",
+      "mode": "light",
+      "width": 320,
+      "state": "RTL shell and long mixed-language draft",
+      "file": "md3-light-320-rtl.png",
+      "geometry": {
+        "viewport": 320,
+        "scroll": 305,
+        "direction": "rtl"
+      }
+    },
+    {
+      "design": "md3",
+      "mode": "light",
+      "width": 320,
+      "state": "Long Chinese and unbroken English title",
+      "file": "md3-light-320-long-title.png",
+      "geometry": {
+        "viewport": 320,
+        "scroll": 305,
+        "heading": 255
+      }
+    },
+    {
+      "design": "md3",
+      "mode": "dark",
+      "width": 1440,
+      "state": "RTL shell and long mixed-language draft",
+      "file": "md3-dark-1440-rtl.png",
+      "geometry": {
+        "viewport": 1440,
+        "scroll": 1425,
+        "direction": "rtl"
+      }
+    },
+    {
+      "design": "md3",
+      "mode": "dark",
+      "width": 320,
+      "state": "RTL shell and long mixed-language draft",
+      "file": "md3-dark-320-rtl.png",
+      "geometry": {
+        "viewport": 320,
+        "scroll": 305,
+        "direction": "rtl"
+      }
+    },
+    {
+      "design": "md3",
+      "mode": "dark",
+      "width": 320,
+      "state": "Long Chinese and unbroken English title",
+      "file": "md3-dark-320-long-title.png",
+      "geometry": {
+        "viewport": 320,
+        "scroll": 305,
+        "heading": 255
+      }
+    },
+    {
+      "design": "apple",
+      "mode": "light",
+      "width": 1440,
+      "state": "RTL shell and long mixed-language draft",
+      "file": "apple-light-1440-rtl.png",
+      "geometry": {
+        "viewport": 1440,
+        "scroll": 1425,
+        "direction": "rtl"
+      }
+    },
+    {
+      "design": "apple",
+      "mode": "light",
+      "width": 320,
+      "state": "RTL shell and long mixed-language draft",
+      "file": "apple-light-320-rtl.png",
+      "geometry": {
+        "viewport": 320,
+        "scroll": 305,
+        "direction": "rtl"
+      }
+    },
+    {
+      "design": "apple",
+      "mode": "light",
+      "width": 320,
+      "state": "Long Chinese and unbroken English title",
+      "file": "apple-light-320-long-title.png",
+      "geometry": {
+        "viewport": 320,
+        "scroll": 305,
+        "heading": 255
+      }
+    },
+    {
+      "design": "apple",
+      "mode": "dark",
+      "width": 1440,
+      "state": "RTL shell and long mixed-language draft",
+      "file": "apple-dark-1440-rtl.png",
+      "geometry": {
+        "viewport": 1440,
+        "scroll": 1425,
+        "direction": "rtl"
+      }
+    },
+    {
+      "design": "apple",
+      "mode": "dark",
+      "width": 320,
+      "state": "RTL shell and long mixed-language draft",
+      "file": "apple-dark-320-rtl.png",
+      "geometry": {
+        "viewport": 320,
+        "scroll": 305,
+        "direction": "rtl"
+      }
+    },
+    {
+      "design": "apple",
+      "mode": "dark",
+      "width": 320,
+      "state": "Long Chinese and unbroken English title",
+      "file": "apple-dark-320-long-title.png",
+      "geometry": {
+        "viewport": 320,
+        "scroll": 305,
+        "heading": 255
+      }
+    },
+    {
+      "design": "shadcn",
+      "mode": "light",
+      "width": 1440,
+      "state": "RTL shell and long mixed-language draft",
+      "file": "shadcn-light-1440-rtl.png",
+      "geometry": {
+        "viewport": 1440,
+        "scroll": 1425,
+        "direction": "rtl"
+      }
+    },
+    {
+      "design": "shadcn",
+      "mode": "light",
+      "width": 320,
+      "state": "RTL shell and long mixed-language draft",
+      "file": "shadcn-light-320-rtl.png",
+      "geometry": {
+        "viewport": 320,
+        "scroll": 305,
+        "direction": "rtl"
+      }
+    },
+    {
+      "design": "shadcn",
+      "mode": "light",
+      "width": 320,
+      "state": "Long Chinese and unbroken English title",
+      "file": "shadcn-light-320-long-title.png",
+      "geometry": {
+        "viewport": 320,
+        "scroll": 305,
+        "heading": 255
+      }
+    },
+    {
+      "design": "shadcn",
+      "mode": "dark",
+      "width": 1440,
+      "state": "RTL shell and long mixed-language draft",
+      "file": "shadcn-dark-1440-rtl.png",
+      "geometry": {
+        "viewport": 1440,
+        "scroll": 1425,
+        "direction": "rtl"
+      }
+    },
+    {
+      "design": "shadcn",
+      "mode": "dark",
+      "width": 320,
+      "state": "RTL shell and long mixed-language draft",
+      "file": "shadcn-dark-320-rtl.png",
+      "geometry": {
+        "viewport": 320,
+        "scroll": 305,
+        "direction": "rtl"
+      }
+    },
+    {
+      "design": "shadcn",
+      "mode": "dark",
+      "width": 320,
+      "state": "Long Chinese and unbroken English title",
+      "file": "shadcn-dark-320-long-title.png",
+      "geometry": {
+        "viewport": 320,
+        "scroll": 305,
+        "heading": 255
+      }
+    }
+  ]
+}

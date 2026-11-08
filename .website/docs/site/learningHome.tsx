@@ -4,6 +4,7 @@ import HomeHero from "./home/hero.js";
 import HomeCategories from "./home/categories.js";
 import HomePractices from "./home/practices.js";
 import { useSiteHref } from "./siteContext.js";
+import { SiteReveal } from "./siteMotion.js";
 import "./homeStyles.js";
 
 export { HomeHero, HomeCategories };
@@ -14,9 +15,9 @@ export default function LearningHome() {
         <div className="crab-home" data-learning-home>
             <HomeHero href={href} />
 
-            <HomeComponentShowcase />
+            <SiteReveal><HomeComponentShowcase /></SiteReveal>
 
-            <HomeCategories href={href} />
+            <SiteReveal><HomeCategories href={href} /></SiteReveal>
 
             <HomePractices href={href} />
 

@@ -3,6 +3,7 @@ import { useId } from "react";
 import CatalogPreview from "./catalog/preview.js";
 import type { CatalogPreviewName } from "./catalog/preview.js";
 import { useSiteHref } from "./siteContext.js";
+import { useCatalogReveal } from "./siteMotion.js";
 import "./catalogStyles.js";
 
 interface Category {
@@ -20,8 +21,9 @@ function Arrow() {
 
 export function CatalogIntro({ categories }: { categories: Category[] }) {
     const href = useSiteHref();
+    const ref = useCatalogReveal();
     return (
-        <div className="crab-catalog-intro">
+        <div className="crab-catalog-intro" ref={ref}>
             <div className="crab-catalog-actions">
                 <Button appearance="primary" href={href("guides/getting-started")}>
                     开始使用

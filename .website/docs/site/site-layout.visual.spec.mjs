@@ -20,6 +20,18 @@ for(const config of configurations) for(const environment of viewports) for(cons
         }
         await expect(article(page)).toBeVisible();
         await assertDocumentWidth(page,info);
+        if(definition.id==='home') {
+            const labels=await page.getByRole('radiogroup',{name:'首页设计体系',exact:true}).getByRole('radio').evaluateAll(nodes=>nodes.map(node=>{
+                const label=node.parentElement.lastElementChild;
+                return {text:label.textContent,client:label.clientWidth,scroll:label.scrollWidth};
+            }));
+            for(const label of labels) expect(label.scroll,label.text+' stays readable').toBeLessThanOrEqual(label.client+1);
+        }
+        if(definition.id==='catalog') {
+            const columns=await page.locator('.crab-catalog-grid').first().evaluate(node=>getComputedStyle(node).gridTemplateColumns.split(' ').length);
+            expect(columns).toBe(environment.id==='desktop'?3:environment.id==='tablet'?2:1);
+            await expect(page.locator('.crab-docs-sidebar')).not.toBeVisible();
+        }
         // Page captures are the visible viewport. Component states have separate
         // owner matrices and are never inferred from this site-level screenshot.
         await captureVisual(page,[definition.id,config.designSystem,config.colorMode,environment.id,'viewport'].join('-')+'.png',info,browserName);

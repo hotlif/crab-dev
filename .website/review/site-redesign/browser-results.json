@@ -1,0 +1,4090 @@
+{
+  "generatedAt": "2026-11-05T03:49:37.126Z",
+  "runs": [
+    {
+      "id": "chromium-final",
+      "directory": ".cache/visual/site-redesign-final-2026-11-05",
+      "stats": {
+        "startTime": "2026-11-05T03:17:38.310Z",
+        "duration": 996593.818,
+        "expected": 304,
+        "skipped": 0,
+        "unexpected": 1,
+        "flaky": 0
+      },
+      "counts": {
+        "chromium": {
+          "passed": 304,
+          "failed": 1
+        }
+      },
+      "workers": [
+        {
+          "name": "inputs-worker-0.json",
+          "stable": true,
+          "source": "sha256:8f9b49fbaefd2e1eadd3371e8b3c7cb2a96759b71a7753d1167e21fde553f9f7",
+          "artifact": "sha256:f14e0121413b05dedab65a928e535367f7b319ed501726a052f23b36beff5008",
+          "siteBuild": "sha256:b395b40b6d2d2c8d11f234877b30d27c490ef9f0e5fb9745622b5b9ceea92407"
+        },
+        {
+          "name": "inputs-worker-1.json",
+          "stable": true,
+          "source": "sha256:8f9b49fbaefd2e1eadd3371e8b3c7cb2a96759b71a7753d1167e21fde553f9f7",
+          "artifact": "sha256:f14e0121413b05dedab65a928e535367f7b319ed501726a052f23b36beff5008",
+          "siteBuild": "sha256:b395b40b6d2d2c8d11f234877b30d27c490ef9f0e5fb9745622b5b9ceea92407"
+        },
+        {
+          "name": "inputs-worker-2.json",
+          "stable": true,
+          "source": "sha256:8f9b49fbaefd2e1eadd3371e8b3c7cb2a96759b71a7753d1167e21fde553f9f7",
+          "artifact": "sha256:f14e0121413b05dedab65a928e535367f7b319ed501726a052f23b36beff5008",
+          "siteBuild": "sha256:b395b40b6d2d2c8d11f234877b30d27c490ef9f0e5fb9745622b5b9ceea92407"
+        },
+        {
+          "name": "inputs-worker-3.json",
+          "stable": true,
+          "source": "sha256:8f9b49fbaefd2e1eadd3371e8b3c7cb2a96759b71a7753d1167e21fde553f9f7",
+          "artifact": "sha256:f14e0121413b05dedab65a928e535367f7b319ed501726a052f23b36beff5008",
+          "siteBuild": "sha256:b395b40b6d2d2c8d11f234877b30d27c490ef9f0e5fb9745622b5b9ceea92407"
+        },
+        {
+          "name": "inputs-worker-4.json",
+          "stable": true,
+          "source": "sha256:8f9b49fbaefd2e1eadd3371e8b3c7cb2a96759b71a7753d1167e21fde553f9f7",
+          "artifact": "sha256:f14e0121413b05dedab65a928e535367f7b319ed501726a052f23b36beff5008",
+          "siteBuild": "sha256:b395b40b6d2d2c8d11f234877b30d27c490ef9f0e5fb9745622b5b9ceea92407"
+        },
+        {
+          "name": "inputs-worker-5.json",
+          "stable": true,
+          "source": "sha256:8f9b49fbaefd2e1eadd3371e8b3c7cb2a96759b71a7753d1167e21fde553f9f7",
+          "artifact": "sha256:f14e0121413b05dedab65a928e535367f7b319ed501726a052f23b36beff5008",
+          "siteBuild": "sha256:b395b40b6d2d2c8d11f234877b30d27c490ef9f0e5fb9745622b5b9ceea92407"
+        },
+        {
+          "name": "inputs-worker-6.json",
+          "stable": true,
+          "source": "sha256:8f9b49fbaefd2e1eadd3371e8b3c7cb2a96759b71a7753d1167e21fde553f9f7",
+          "artifact": "sha256:f14e0121413b05dedab65a928e535367f7b319ed501726a052f23b36beff5008",
+          "siteBuild": "sha256:b395b40b6d2d2c8d11f234877b30d27c490ef9f0e5fb9745622b5b9ceea92407"
+        },
+        {
+          "name": "inputs-worker-7.json",
+          "stable": true,
+          "source": "sha256:8f9b49fbaefd2e1eadd3371e8b3c7cb2a96759b71a7753d1167e21fde553f9f7",
+          "artifact": "sha256:f14e0121413b05dedab65a928e535367f7b319ed501726a052f23b36beff5008",
+          "siteBuild": "sha256:b395b40b6d2d2c8d11f234877b30d27c490ef9f0e5fb9745622b5b9ceea92407"
+        },
+        {
+          "name": "inputs-worker-8.json",
+          "stable": true,
+          "source": "sha256:8f9b49fbaefd2e1eadd3371e8b3c7cb2a96759b71a7753d1167e21fde553f9f7",
+          "artifact": "sha256:f14e0121413b05dedab65a928e535367f7b319ed501726a052f23b36beff5008",
+          "siteBuild": "sha256:b395b40b6d2d2c8d11f234877b30d27c490ef9f0e5fb9745622b5b9ceea92407"
+        }
+      ],
+      "cases": [
+        {
+          "title": "Site appearance preserves drafts md3 light narrow",
+          "file": ".website/docs/site/site-appearance.visual.spec.mjs",
+          "line": 11,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 17424,
+          "errors": []
+        },
+        {
+          "title": "Site appearance preserves drafts md3 light tablet",
+          "file": ".website/docs/site/site-appearance.visual.spec.mjs",
+          "line": 11,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 17305,
+          "errors": []
+        },
+        {
+          "title": "Site appearance preserves drafts md3 light desktop",
+          "file": ".website/docs/site/site-appearance.visual.spec.mjs",
+          "line": 11,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 17370,
+          "errors": []
+        },
+        {
+          "title": "Site appearance preserves drafts md3 dark narrow",
+          "file": ".website/docs/site/site-appearance.visual.spec.mjs",
+          "line": 11,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 17602,
+          "errors": []
+        },
+        {
+          "title": "Site appearance preserves drafts md3 dark tablet",
+          "file": ".website/docs/site/site-appearance.visual.spec.mjs",
+          "line": 11,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 17028,
+          "errors": []
+        },
+        {
+          "title": "Site appearance preserves drafts md3 dark desktop",
+          "file": ".website/docs/site/site-appearance.visual.spec.mjs",
+          "line": 11,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 17138,
+          "errors": []
+        },
+        {
+          "title": "Site appearance preserves drafts apple light narrow",
+          "file": ".website/docs/site/site-appearance.visual.spec.mjs",
+          "line": 11,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 17835,
+          "errors": []
+        },
+        {
+          "title": "Site appearance preserves drafts apple light tablet",
+          "file": ".website/docs/site/site-appearance.visual.spec.mjs",
+          "line": 11,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 17401,
+          "errors": []
+        },
+        {
+          "title": "Site appearance preserves drafts apple light desktop",
+          "file": ".website/docs/site/site-appearance.visual.spec.mjs",
+          "line": 11,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 17964,
+          "errors": []
+        },
+        {
+          "title": "Site appearance preserves drafts apple dark narrow",
+          "file": ".website/docs/site/site-appearance.visual.spec.mjs",
+          "line": 11,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 18743,
+          "errors": []
+        },
+        {
+          "title": "Site appearance preserves drafts apple dark tablet",
+          "file": ".website/docs/site/site-appearance.visual.spec.mjs",
+          "line": 11,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 17610,
+          "errors": []
+        },
+        {
+          "title": "Site appearance preserves drafts apple dark desktop",
+          "file": ".website/docs/site/site-appearance.visual.spec.mjs",
+          "line": 11,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 17257,
+          "errors": []
+        },
+        {
+          "title": "Site appearance preserves drafts shadcn light narrow",
+          "file": ".website/docs/site/site-appearance.visual.spec.mjs",
+          "line": 11,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 15328,
+          "errors": []
+        },
+        {
+          "title": "Site appearance preserves drafts shadcn light tablet",
+          "file": ".website/docs/site/site-appearance.visual.spec.mjs",
+          "line": 11,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 15296,
+          "errors": []
+        },
+        {
+          "title": "Site appearance preserves drafts shadcn light desktop",
+          "file": ".website/docs/site/site-appearance.visual.spec.mjs",
+          "line": 11,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 15400,
+          "errors": []
+        },
+        {
+          "title": "Site appearance preserves drafts shadcn dark narrow",
+          "file": ".website/docs/site/site-appearance.visual.spec.mjs",
+          "line": 11,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 16619,
+          "errors": []
+        },
+        {
+          "title": "Site appearance preserves drafts shadcn dark tablet",
+          "file": ".website/docs/site/site-appearance.visual.spec.mjs",
+          "line": 11,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 17228,
+          "errors": []
+        },
+        {
+          "title": "Site appearance preserves drafts shadcn dark desktop",
+          "file": ".website/docs/site/site-appearance.visual.spec.mjs",
+          "line": 11,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 17153,
+          "errors": []
+        },
+        {
+          "title": "Site task categories md3 light narrow",
+          "file": ".website/docs/site/site-categories.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 15386,
+          "errors": []
+        },
+        {
+          "title": "Site task categories md3 light tablet",
+          "file": ".website/docs/site/site-categories.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 14793,
+          "errors": []
+        },
+        {
+          "title": "Site task categories md3 light desktop",
+          "file": ".website/docs/site/site-categories.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 15384,
+          "errors": []
+        },
+        {
+          "title": "Site task categories md3 light forced-colors",
+          "file": ".website/docs/site/site-categories.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 15852,
+          "errors": []
+        },
+        {
+          "title": "Site task categories md3 light reduced-motion",
+          "file": ".website/docs/site/site-categories.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 15699,
+          "errors": []
+        },
+        {
+          "title": "Site task categories md3 dark narrow",
+          "file": ".website/docs/site/site-categories.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 14896,
+          "errors": []
+        },
+        {
+          "title": "Site task categories md3 dark tablet",
+          "file": ".website/docs/site/site-categories.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 14425,
+          "errors": []
+        },
+        {
+          "title": "Site task categories md3 dark desktop",
+          "file": ".website/docs/site/site-categories.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 14717,
+          "errors": []
+        },
+        {
+          "title": "Site task categories md3 dark forced-colors",
+          "file": ".website/docs/site/site-categories.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 11867,
+          "errors": []
+        },
+        {
+          "title": "Site task categories md3 dark reduced-motion",
+          "file": ".website/docs/site/site-categories.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 11222,
+          "errors": []
+        },
+        {
+          "title": "Site task categories apple light narrow",
+          "file": ".website/docs/site/site-categories.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 11916,
+          "errors": []
+        },
+        {
+          "title": "Site task categories apple light tablet",
+          "file": ".website/docs/site/site-categories.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 11607,
+          "errors": []
+        },
+        {
+          "title": "Site task categories apple light desktop",
+          "file": ".website/docs/site/site-categories.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 12222,
+          "errors": []
+        },
+        {
+          "title": "Site task categories apple light forced-colors",
+          "file": ".website/docs/site/site-categories.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 11747,
+          "errors": []
+        },
+        {
+          "title": "Site task categories apple light reduced-motion",
+          "file": ".website/docs/site/site-categories.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 12357,
+          "errors": []
+        },
+        {
+          "title": "Site task categories apple dark narrow",
+          "file": ".website/docs/site/site-categories.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 13268,
+          "errors": []
+        },
+        {
+          "title": "Site task categories apple dark tablet",
+          "file": ".website/docs/site/site-categories.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 14291,
+          "errors": []
+        },
+        {
+          "title": "Site task categories apple dark desktop",
+          "file": ".website/docs/site/site-categories.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 13782,
+          "errors": []
+        },
+        {
+          "title": "Site task categories apple dark forced-colors",
+          "file": ".website/docs/site/site-categories.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 13188,
+          "errors": []
+        },
+        {
+          "title": "Site task categories apple dark reduced-motion",
+          "file": ".website/docs/site/site-categories.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 14724,
+          "errors": []
+        },
+        {
+          "title": "Site task categories shadcn light narrow",
+          "file": ".website/docs/site/site-categories.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 15784,
+          "errors": []
+        },
+        {
+          "title": "Site task categories shadcn light tablet",
+          "file": ".website/docs/site/site-categories.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 15303,
+          "errors": []
+        },
+        {
+          "title": "Site task categories shadcn light desktop",
+          "file": ".website/docs/site/site-categories.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 14693,
+          "errors": []
+        },
+        {
+          "title": "Site task categories shadcn light forced-colors",
+          "file": ".website/docs/site/site-categories.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 14935,
+          "errors": []
+        },
+        {
+          "title": "Site task categories shadcn light reduced-motion",
+          "file": ".website/docs/site/site-categories.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 14779,
+          "errors": []
+        },
+        {
+          "title": "Site task categories shadcn dark narrow",
+          "file": ".website/docs/site/site-categories.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 14698,
+          "errors": []
+        },
+        {
+          "title": "Site task categories shadcn dark tablet",
+          "file": ".website/docs/site/site-categories.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 14181,
+          "errors": []
+        },
+        {
+          "title": "Site task categories shadcn dark desktop",
+          "file": ".website/docs/site/site-categories.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 16094,
+          "errors": []
+        },
+        {
+          "title": "Site task categories shadcn dark forced-colors",
+          "file": ".website/docs/site/site-categories.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 15286,
+          "errors": []
+        },
+        {
+          "title": "Site task categories shadcn dark reduced-motion",
+          "file": ".website/docs/site/site-categories.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 15616,
+          "errors": []
+        },
+        {
+          "title": "Site RTL shell and long content md3 light",
+          "file": ".website/docs/site/site-environment.visual.spec.mjs",
+          "line": 8,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 8537,
+          "errors": []
+        },
+        {
+          "title": "Site RTL shell and long content md3 dark",
+          "file": ".website/docs/site/site-environment.visual.spec.mjs",
+          "line": 8,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 7108,
+          "errors": []
+        },
+        {
+          "title": "Site RTL shell and long content apple light",
+          "file": ".website/docs/site/site-environment.visual.spec.mjs",
+          "line": 8,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 7035,
+          "errors": []
+        },
+        {
+          "title": "Site RTL shell and long content apple dark",
+          "file": ".website/docs/site/site-environment.visual.spec.mjs",
+          "line": 8,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 7726,
+          "errors": []
+        },
+        {
+          "title": "Site RTL shell and long content shadcn light",
+          "file": ".website/docs/site/site-environment.visual.spec.mjs",
+          "line": 8,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 7811,
+          "errors": []
+        },
+        {
+          "title": "Site RTL shell and long content shadcn dark",
+          "file": ".website/docs/site/site-environment.visual.spec.mjs",
+          "line": 8,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 7506,
+          "errors": []
+        },
+        {
+          "title": "Site document network recovery",
+          "file": ".website/docs/site/site-feedback.visual.spec.mjs",
+          "line": 19,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 6207,
+          "errors": []
+        },
+        {
+          "title": "Site feedback md3 light narrow",
+          "file": ".website/docs/site/site-feedback.visual.spec.mjs",
+          "line": 33,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 11171,
+          "errors": []
+        },
+        {
+          "title": "Site feedback md3 light tablet",
+          "file": ".website/docs/site/site-feedback.visual.spec.mjs",
+          "line": 33,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 10660,
+          "errors": []
+        },
+        {
+          "title": "Site feedback md3 light desktop",
+          "file": ".website/docs/site/site-feedback.visual.spec.mjs",
+          "line": 33,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 10961,
+          "errors": []
+        },
+        {
+          "title": "Site feedback md3 light forced-colors",
+          "file": ".website/docs/site/site-feedback.visual.spec.mjs",
+          "line": 33,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 10797,
+          "errors": []
+        },
+        {
+          "title": "Site feedback md3 light reduced-motion",
+          "file": ".website/docs/site/site-feedback.visual.spec.mjs",
+          "line": 33,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 9448,
+          "errors": []
+        },
+        {
+          "title": "Site feedback md3 dark narrow",
+          "file": ".website/docs/site/site-feedback.visual.spec.mjs",
+          "line": 33,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 10196,
+          "errors": []
+        },
+        {
+          "title": "Site feedback md3 dark tablet",
+          "file": ".website/docs/site/site-feedback.visual.spec.mjs",
+          "line": 33,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 10238,
+          "errors": []
+        },
+        {
+          "title": "Site feedback md3 dark desktop",
+          "file": ".website/docs/site/site-feedback.visual.spec.mjs",
+          "line": 33,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 10314,
+          "errors": []
+        },
+        {
+          "title": "Site feedback md3 dark forced-colors",
+          "file": ".website/docs/site/site-feedback.visual.spec.mjs",
+          "line": 33,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 9333,
+          "errors": []
+        },
+        {
+          "title": "Site feedback md3 dark reduced-motion",
+          "file": ".website/docs/site/site-feedback.visual.spec.mjs",
+          "line": 33,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 9134,
+          "errors": []
+        },
+        {
+          "title": "Site feedback apple light narrow",
+          "file": ".website/docs/site/site-feedback.visual.spec.mjs",
+          "line": 33,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 10067,
+          "errors": []
+        },
+        {
+          "title": "Site feedback apple light tablet",
+          "file": ".website/docs/site/site-feedback.visual.spec.mjs",
+          "line": 33,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 9829,
+          "errors": []
+        },
+        {
+          "title": "Site feedback apple light desktop",
+          "file": ".website/docs/site/site-feedback.visual.spec.mjs",
+          "line": 33,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 10110,
+          "errors": []
+        },
+        {
+          "title": "Site feedback apple light forced-colors",
+          "file": ".website/docs/site/site-feedback.visual.spec.mjs",
+          "line": 33,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 10462,
+          "errors": []
+        },
+        {
+          "title": "Site feedback apple light reduced-motion",
+          "file": ".website/docs/site/site-feedback.visual.spec.mjs",
+          "line": 33,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 9485,
+          "errors": []
+        },
+        {
+          "title": "Site feedback apple dark narrow",
+          "file": ".website/docs/site/site-feedback.visual.spec.mjs",
+          "line": 33,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 9775,
+          "errors": []
+        },
+        {
+          "title": "Site feedback apple dark tablet",
+          "file": ".website/docs/site/site-feedback.visual.spec.mjs",
+          "line": 33,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 9859,
+          "errors": []
+        },
+        {
+          "title": "Site feedback apple dark desktop",
+          "file": ".website/docs/site/site-feedback.visual.spec.mjs",
+          "line": 33,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 10357,
+          "errors": []
+        },
+        {
+          "title": "Site feedback apple dark forced-colors",
+          "file": ".website/docs/site/site-feedback.visual.spec.mjs",
+          "line": 33,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 10306,
+          "errors": []
+        },
+        {
+          "title": "Site feedback apple dark reduced-motion",
+          "file": ".website/docs/site/site-feedback.visual.spec.mjs",
+          "line": 33,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 10053,
+          "errors": []
+        },
+        {
+          "title": "Site feedback shadcn light narrow",
+          "file": ".website/docs/site/site-feedback.visual.spec.mjs",
+          "line": 33,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 10256,
+          "errors": []
+        },
+        {
+          "title": "Site feedback shadcn light tablet",
+          "file": ".website/docs/site/site-feedback.visual.spec.mjs",
+          "line": 33,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 10192,
+          "errors": []
+        },
+        {
+          "title": "Site feedback shadcn light desktop",
+          "file": ".website/docs/site/site-feedback.visual.spec.mjs",
+          "line": 33,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 10394,
+          "errors": []
+        },
+        {
+          "title": "Site feedback shadcn light forced-colors",
+          "file": ".website/docs/site/site-feedback.visual.spec.mjs",
+          "line": 33,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 10185,
+          "errors": []
+        },
+        {
+          "title": "Site feedback shadcn light reduced-motion",
+          "file": ".website/docs/site/site-feedback.visual.spec.mjs",
+          "line": 33,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 10740,
+          "errors": []
+        },
+        {
+          "title": "Site feedback shadcn dark narrow",
+          "file": ".website/docs/site/site-feedback.visual.spec.mjs",
+          "line": 33,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 11831,
+          "errors": []
+        },
+        {
+          "title": "Site feedback shadcn dark tablet",
+          "file": ".website/docs/site/site-feedback.visual.spec.mjs",
+          "line": 33,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 11484,
+          "errors": []
+        },
+        {
+          "title": "Site feedback shadcn dark desktop",
+          "file": ".website/docs/site/site-feedback.visual.spec.mjs",
+          "line": 33,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 11701,
+          "errors": []
+        },
+        {
+          "title": "Site feedback shadcn dark forced-colors",
+          "file": ".website/docs/site/site-feedback.visual.spec.mjs",
+          "line": 33,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 13158,
+          "errors": []
+        },
+        {
+          "title": "Site feedback shadcn dark reduced-motion",
+          "file": ".website/docs/site/site-feedback.visual.spec.mjs",
+          "line": 33,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 13900,
+          "errors": []
+        },
+        {
+          "title": "Site inline feedback md3 light narrow",
+          "file": ".website/docs/site/site-feedback.visual.spec.mjs",
+          "line": 92,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 22700,
+          "errors": []
+        },
+        {
+          "title": "Site inline feedback md3 light desktop",
+          "file": ".website/docs/site/site-feedback.visual.spec.mjs",
+          "line": 92,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 24194,
+          "errors": []
+        },
+        {
+          "title": "Site inline feedback md3 dark narrow",
+          "file": ".website/docs/site/site-feedback.visual.spec.mjs",
+          "line": 92,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 21918,
+          "errors": []
+        },
+        {
+          "title": "Site inline feedback md3 dark desktop",
+          "file": ".website/docs/site/site-feedback.visual.spec.mjs",
+          "line": 92,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 21265,
+          "errors": []
+        },
+        {
+          "title": "Site inline feedback apple light narrow",
+          "file": ".website/docs/site/site-feedback.visual.spec.mjs",
+          "line": 92,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 18816,
+          "errors": []
+        },
+        {
+          "title": "Site inline feedback apple light desktop",
+          "file": ".website/docs/site/site-feedback.visual.spec.mjs",
+          "line": 92,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 19674,
+          "errors": []
+        },
+        {
+          "title": "Site inline feedback apple dark narrow",
+          "file": ".website/docs/site/site-feedback.visual.spec.mjs",
+          "line": 92,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 18211,
+          "errors": []
+        },
+        {
+          "title": "Site inline feedback apple dark desktop",
+          "file": ".website/docs/site/site-feedback.visual.spec.mjs",
+          "line": 92,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 18839,
+          "errors": []
+        },
+        {
+          "title": "Site inline feedback shadcn light narrow",
+          "file": ".website/docs/site/site-feedback.visual.spec.mjs",
+          "line": 92,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 15880,
+          "errors": []
+        },
+        {
+          "title": "Site inline feedback shadcn light desktop",
+          "file": ".website/docs/site/site-feedback.visual.spec.mjs",
+          "line": 92,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 19963,
+          "errors": []
+        },
+        {
+          "title": "Site inline feedback shadcn dark narrow",
+          "file": ".website/docs/site/site-feedback.visual.spec.mjs",
+          "line": 92,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 16991,
+          "errors": []
+        },
+        {
+          "title": "Site inline feedback shadcn dark desktop",
+          "file": ".website/docs/site/site-feedback.visual.spec.mjs",
+          "line": 92,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 19003,
+          "errors": []
+        },
+        {
+          "title": "Site home draft and accessibility md3 light forced-colors",
+          "file": ".website/docs/site/site-home.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 9627,
+          "errors": []
+        },
+        {
+          "title": "Site home draft and accessibility md3 light reduced-motion",
+          "file": ".website/docs/site/site-home.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 8860,
+          "errors": []
+        },
+        {
+          "title": "Site home draft and accessibility md3 dark forced-colors",
+          "file": ".website/docs/site/site-home.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 8688,
+          "errors": []
+        },
+        {
+          "title": "Site home draft and accessibility md3 dark reduced-motion",
+          "file": ".website/docs/site/site-home.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 8920,
+          "errors": []
+        },
+        {
+          "title": "Site home draft and accessibility apple light forced-colors",
+          "file": ".website/docs/site/site-home.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 7854,
+          "errors": []
+        },
+        {
+          "title": "Site home draft and accessibility apple light reduced-motion",
+          "file": ".website/docs/site/site-home.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 8178,
+          "errors": []
+        },
+        {
+          "title": "Site home draft and accessibility apple dark forced-colors",
+          "file": ".website/docs/site/site-home.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 8046,
+          "errors": []
+        },
+        {
+          "title": "Site home draft and accessibility apple dark reduced-motion",
+          "file": ".website/docs/site/site-home.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 8344,
+          "errors": []
+        },
+        {
+          "title": "Site home draft and accessibility shadcn light forced-colors",
+          "file": ".website/docs/site/site-home.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 8381,
+          "errors": []
+        },
+        {
+          "title": "Site home draft and accessibility shadcn light reduced-motion",
+          "file": ".website/docs/site/site-home.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 7990,
+          "errors": []
+        },
+        {
+          "title": "Site home draft and accessibility shadcn dark forced-colors",
+          "file": ".website/docs/site/site-home.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 8403,
+          "errors": []
+        },
+        {
+          "title": "Site home draft and accessibility shadcn dark reduced-motion",
+          "file": ".website/docs/site/site-home.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 8709,
+          "errors": []
+        },
+        {
+          "title": "Site home md3 light narrow",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 4106,
+          "errors": []
+        },
+        {
+          "title": "Site catalog md3 light narrow",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 3925,
+          "errors": []
+        },
+        {
+          "title": "Site design md3 light narrow",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 3477,
+          "errors": []
+        },
+        {
+          "title": "Site component md3 light narrow",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 9692,
+          "errors": []
+        },
+        {
+          "title": "Site tutorial md3 light narrow",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 3850,
+          "errors": []
+        },
+        {
+          "title": "Site home md3 light tablet",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 4453,
+          "errors": []
+        },
+        {
+          "title": "Site catalog md3 light tablet",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 4158,
+          "errors": []
+        },
+        {
+          "title": "Site design md3 light tablet",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 3950,
+          "errors": []
+        },
+        {
+          "title": "Site component md3 light tablet",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 10573,
+          "errors": []
+        },
+        {
+          "title": "Site tutorial md3 light tablet",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 4187,
+          "errors": []
+        },
+        {
+          "title": "Site home md3 light desktop",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 4894,
+          "errors": []
+        },
+        {
+          "title": "Site catalog md3 light desktop",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 4164,
+          "errors": []
+        },
+        {
+          "title": "Site design md3 light desktop",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 3927,
+          "errors": []
+        },
+        {
+          "title": "Site component md3 light desktop",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 10319,
+          "errors": []
+        },
+        {
+          "title": "Site tutorial md3 light desktop",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 4395,
+          "errors": []
+        },
+        {
+          "title": "Site home md3 dark narrow",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 4356,
+          "errors": []
+        },
+        {
+          "title": "Site catalog md3 dark narrow",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 3961,
+          "errors": []
+        },
+        {
+          "title": "Site design md3 dark narrow",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 3562,
+          "errors": []
+        },
+        {
+          "title": "Site component md3 dark narrow",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 8984,
+          "errors": []
+        },
+        {
+          "title": "Site tutorial md3 dark narrow",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 3921,
+          "errors": []
+        },
+        {
+          "title": "Site home md3 dark tablet",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 3870,
+          "errors": []
+        },
+        {
+          "title": "Site catalog md3 dark tablet",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 3494,
+          "errors": []
+        },
+        {
+          "title": "Site design md3 dark tablet",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 3431,
+          "errors": []
+        },
+        {
+          "title": "Site component md3 dark tablet",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 9272,
+          "errors": []
+        },
+        {
+          "title": "Site tutorial md3 dark tablet",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 3888,
+          "errors": []
+        },
+        {
+          "title": "Site home md3 dark desktop",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 4098,
+          "errors": []
+        },
+        {
+          "title": "Site catalog md3 dark desktop",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 3706,
+          "errors": []
+        },
+        {
+          "title": "Site design md3 dark desktop",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 3579,
+          "errors": []
+        },
+        {
+          "title": "Site component md3 dark desktop",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 9698,
+          "errors": []
+        },
+        {
+          "title": "Site tutorial md3 dark desktop",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 3874,
+          "errors": []
+        },
+        {
+          "title": "Site home apple light narrow",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 4077,
+          "errors": []
+        },
+        {
+          "title": "Site catalog apple light narrow",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 3589,
+          "errors": []
+        },
+        {
+          "title": "Site design apple light narrow",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 3439,
+          "errors": []
+        },
+        {
+          "title": "Site component apple light narrow",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 8933,
+          "errors": []
+        },
+        {
+          "title": "Site tutorial apple light narrow",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 3548,
+          "errors": []
+        },
+        {
+          "title": "Site home apple light tablet",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 3765,
+          "errors": []
+        },
+        {
+          "title": "Site catalog apple light tablet",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 3744,
+          "errors": []
+        },
+        {
+          "title": "Site design apple light tablet",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 3365,
+          "errors": []
+        },
+        {
+          "title": "Site component apple light tablet",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 9091,
+          "errors": []
+        },
+        {
+          "title": "Site tutorial apple light tablet",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 3466,
+          "errors": []
+        },
+        {
+          "title": "Site home apple light desktop",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 4006,
+          "errors": []
+        },
+        {
+          "title": "Site catalog apple light desktop",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 3432,
+          "errors": []
+        },
+        {
+          "title": "Site design apple light desktop",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 3484,
+          "errors": []
+        },
+        {
+          "title": "Site component apple light desktop",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 9356,
+          "errors": []
+        },
+        {
+          "title": "Site tutorial apple light desktop",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 3753,
+          "errors": []
+        },
+        {
+          "title": "Site home apple dark narrow",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 3698,
+          "errors": []
+        },
+        {
+          "title": "Site catalog apple dark narrow",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 3595,
+          "errors": []
+        },
+        {
+          "title": "Site design apple dark narrow",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 3103,
+          "errors": []
+        },
+        {
+          "title": "Site component apple dark narrow",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 9374,
+          "errors": []
+        },
+        {
+          "title": "Site tutorial apple dark narrow",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 3434,
+          "errors": []
+        },
+        {
+          "title": "Site home apple dark tablet",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 3425,
+          "errors": []
+        },
+        {
+          "title": "Site catalog apple dark tablet",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 3329,
+          "errors": []
+        },
+        {
+          "title": "Site design apple dark tablet",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 3498,
+          "errors": []
+        },
+        {
+          "title": "Site component apple dark tablet",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 9194,
+          "errors": []
+        },
+        {
+          "title": "Site tutorial apple dark tablet",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 4125,
+          "errors": []
+        },
+        {
+          "title": "Site home apple dark desktop",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 4275,
+          "errors": []
+        },
+        {
+          "title": "Site catalog apple dark desktop",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 3789,
+          "errors": []
+        },
+        {
+          "title": "Site design apple dark desktop",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 3703,
+          "errors": []
+        },
+        {
+          "title": "Site component apple dark desktop",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 9686,
+          "errors": []
+        },
+        {
+          "title": "Site tutorial apple dark desktop",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 3954,
+          "errors": []
+        },
+        {
+          "title": "Site home shadcn light narrow",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 3762,
+          "errors": []
+        },
+        {
+          "title": "Site catalog shadcn light narrow",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 3504,
+          "errors": []
+        },
+        {
+          "title": "Site design shadcn light narrow",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 3296,
+          "errors": []
+        },
+        {
+          "title": "Site component shadcn light narrow",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 6936,
+          "errors": []
+        },
+        {
+          "title": "Site tutorial shadcn light narrow",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 3418,
+          "errors": []
+        },
+        {
+          "title": "Site home shadcn light tablet",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 3711,
+          "errors": []
+        },
+        {
+          "title": "Site catalog shadcn light tablet",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 3317,
+          "errors": []
+        },
+        {
+          "title": "Site design shadcn light tablet",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 3304,
+          "errors": []
+        },
+        {
+          "title": "Site component shadcn light tablet",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 9207,
+          "errors": []
+        },
+        {
+          "title": "Site tutorial shadcn light tablet",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 3721,
+          "errors": []
+        },
+        {
+          "title": "Site home shadcn light desktop",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 3819,
+          "errors": []
+        },
+        {
+          "title": "Site catalog shadcn light desktop",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 3635,
+          "errors": []
+        },
+        {
+          "title": "Site design shadcn light desktop",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 3413,
+          "errors": []
+        },
+        {
+          "title": "Site component shadcn light desktop",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 10156,
+          "errors": []
+        },
+        {
+          "title": "Site tutorial shadcn light desktop",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 4104,
+          "errors": []
+        },
+        {
+          "title": "Site home shadcn dark narrow",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 4104,
+          "errors": []
+        },
+        {
+          "title": "Site catalog shadcn dark narrow",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 3819,
+          "errors": []
+        },
+        {
+          "title": "Site design shadcn dark narrow",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 3815,
+          "errors": []
+        },
+        {
+          "title": "Site component shadcn dark narrow",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "failed",
+          "duration": 32434,
+          "errors": [
+            "Error: expect(locator).toBeVisible() failed\n\nLocator: locator('.crab-docs-page').first()\nExpected: visible\nTimeout: 30000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeVisible\" locator('.crab-docs-page').first() with timeout 30000ms\n  - waiting for locator('.crab-docs-page').first()\n\n\n   at .website\\docs\\site\\site-visual-support.mjs:29\n\n  27 |     // A cold production route loads its Page module after the shell. Wait for\n  28 |     // the actual document before checking its exact content and configuration.\n> 29 |     await expect(article(page)).toBeVisible({timeout:30_000});\n     |                                 ^\n  30 |     await expect(article(page).getByRole('heading',{level:1}).first()).toHaveText(definition.heading);\n  31 |     await assertSiteConfiguration(page,config);\n  32 |     await page.evaluate(() => globalThis.document.fonts.ready);\n    at readySitePage (C:\\Users\\zhang\\Desktop\\crab-dev\\.website\\docs\\site\\site-visual-support.mjs:29:33)\n    at openSite (C:\\Users\\zhang\\Desktop\\crab-dev\\.website\\docs\\site\\site-visual-support.mjs:53:11)\n    at C:\\Users\\zhang\\Desktop\\crab-dev\\.website\\docs\\site\\site-layout.visual.spec.mjs:14:9"
+          ]
+        },
+        {
+          "title": "Site tutorial shadcn dark narrow",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 3348,
+          "errors": []
+        },
+        {
+          "title": "Site home shadcn dark tablet",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 3512,
+          "errors": []
+        },
+        {
+          "title": "Site catalog shadcn dark tablet",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 2896,
+          "errors": []
+        },
+        {
+          "title": "Site design shadcn dark tablet",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 2874,
+          "errors": []
+        },
+        {
+          "title": "Site component shadcn dark tablet",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 8094,
+          "errors": []
+        },
+        {
+          "title": "Site tutorial shadcn dark tablet",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 3058,
+          "errors": []
+        },
+        {
+          "title": "Site home shadcn dark desktop",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 3550,
+          "errors": []
+        },
+        {
+          "title": "Site catalog shadcn dark desktop",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 3040,
+          "errors": []
+        },
+        {
+          "title": "Site design shadcn dark desktop",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 2974,
+          "errors": []
+        },
+        {
+          "title": "Site component shadcn dark desktop",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 9294,
+          "errors": []
+        },
+        {
+          "title": "Site tutorial shadcn dark desktop",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 3370,
+          "errors": []
+        },
+        {
+          "title": "Site document transition md3 light narrow",
+          "file": ".website/docs/site/site-loading.visual.spec.mjs",
+          "line": 51,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 4577,
+          "errors": []
+        },
+        {
+          "title": "Site document transition md3 light tablet",
+          "file": ".website/docs/site/site-loading.visual.spec.mjs",
+          "line": 51,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 4412,
+          "errors": []
+        },
+        {
+          "title": "Site document transition md3 light desktop",
+          "file": ".website/docs/site/site-loading.visual.spec.mjs",
+          "line": 51,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 4342,
+          "errors": []
+        },
+        {
+          "title": "Site document transition md3 light forced-colors",
+          "file": ".website/docs/site/site-loading.visual.spec.mjs",
+          "line": 51,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 4401,
+          "errors": []
+        },
+        {
+          "title": "Site document transition md3 light reduced-motion",
+          "file": ".website/docs/site/site-loading.visual.spec.mjs",
+          "line": 51,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 3876,
+          "errors": []
+        },
+        {
+          "title": "Site document transition md3 dark narrow",
+          "file": ".website/docs/site/site-loading.visual.spec.mjs",
+          "line": 51,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 4078,
+          "errors": []
+        },
+        {
+          "title": "Site document transition md3 dark tablet",
+          "file": ".website/docs/site/site-loading.visual.spec.mjs",
+          "line": 51,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 3839,
+          "errors": []
+        },
+        {
+          "title": "Site document transition md3 dark desktop",
+          "file": ".website/docs/site/site-loading.visual.spec.mjs",
+          "line": 51,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 4445,
+          "errors": []
+        },
+        {
+          "title": "Site document transition md3 dark forced-colors",
+          "file": ".website/docs/site/site-loading.visual.spec.mjs",
+          "line": 51,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 4310,
+          "errors": []
+        },
+        {
+          "title": "Site document transition md3 dark reduced-motion",
+          "file": ".website/docs/site/site-loading.visual.spec.mjs",
+          "line": 51,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 4335,
+          "errors": []
+        },
+        {
+          "title": "Site document transition apple light narrow",
+          "file": ".website/docs/site/site-loading.visual.spec.mjs",
+          "line": 51,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 3872,
+          "errors": []
+        },
+        {
+          "title": "Site document transition apple light tablet",
+          "file": ".website/docs/site/site-loading.visual.spec.mjs",
+          "line": 51,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 3890,
+          "errors": []
+        },
+        {
+          "title": "Site document transition apple light desktop",
+          "file": ".website/docs/site/site-loading.visual.spec.mjs",
+          "line": 51,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 4236,
+          "errors": []
+        },
+        {
+          "title": "Site document transition apple light forced-colors",
+          "file": ".website/docs/site/site-loading.visual.spec.mjs",
+          "line": 51,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 4088,
+          "errors": []
+        },
+        {
+          "title": "Site document transition apple light reduced-motion",
+          "file": ".website/docs/site/site-loading.visual.spec.mjs",
+          "line": 51,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 4288,
+          "errors": []
+        },
+        {
+          "title": "Site document transition apple dark narrow",
+          "file": ".website/docs/site/site-loading.visual.spec.mjs",
+          "line": 51,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 4036,
+          "errors": []
+        },
+        {
+          "title": "Site document transition apple dark tablet",
+          "file": ".website/docs/site/site-loading.visual.spec.mjs",
+          "line": 51,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 4267,
+          "errors": []
+        },
+        {
+          "title": "Site document transition apple dark desktop",
+          "file": ".website/docs/site/site-loading.visual.spec.mjs",
+          "line": 51,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 4414,
+          "errors": []
+        },
+        {
+          "title": "Site document transition apple dark forced-colors",
+          "file": ".website/docs/site/site-loading.visual.spec.mjs",
+          "line": 51,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 4449,
+          "errors": []
+        },
+        {
+          "title": "Site document transition apple dark reduced-motion",
+          "file": ".website/docs/site/site-loading.visual.spec.mjs",
+          "line": 51,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 4434,
+          "errors": []
+        },
+        {
+          "title": "Site document transition shadcn light narrow",
+          "file": ".website/docs/site/site-loading.visual.spec.mjs",
+          "line": 51,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 4807,
+          "errors": []
+        },
+        {
+          "title": "Site document transition shadcn light tablet",
+          "file": ".website/docs/site/site-loading.visual.spec.mjs",
+          "line": 51,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 5539,
+          "errors": []
+        },
+        {
+          "title": "Site document transition shadcn light desktop",
+          "file": ".website/docs/site/site-loading.visual.spec.mjs",
+          "line": 51,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 5218,
+          "errors": []
+        },
+        {
+          "title": "Site document transition shadcn light forced-colors",
+          "file": ".website/docs/site/site-loading.visual.spec.mjs",
+          "line": 51,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 5231,
+          "errors": []
+        },
+        {
+          "title": "Site document transition shadcn light reduced-motion",
+          "file": ".website/docs/site/site-loading.visual.spec.mjs",
+          "line": 51,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 5598,
+          "errors": []
+        },
+        {
+          "title": "Site document transition shadcn dark narrow",
+          "file": ".website/docs/site/site-loading.visual.spec.mjs",
+          "line": 51,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 5364,
+          "errors": []
+        },
+        {
+          "title": "Site document transition shadcn dark tablet",
+          "file": ".website/docs/site/site-loading.visual.spec.mjs",
+          "line": 51,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 5350,
+          "errors": []
+        },
+        {
+          "title": "Site document transition shadcn dark desktop",
+          "file": ".website/docs/site/site-loading.visual.spec.mjs",
+          "line": 51,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 5208,
+          "errors": []
+        },
+        {
+          "title": "Site document transition shadcn dark forced-colors",
+          "file": ".website/docs/site/site-loading.visual.spec.mjs",
+          "line": 51,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 4630,
+          "errors": []
+        },
+        {
+          "title": "Site document transition shadcn dark reduced-motion",
+          "file": ".website/docs/site/site-loading.visual.spec.mjs",
+          "line": 51,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 4485,
+          "errors": []
+        },
+        {
+          "title": "Site component transition md3 light",
+          "file": ".website/docs/site/site-loading.visual.spec.mjs",
+          "line": 82,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 9796,
+          "errors": []
+        },
+        {
+          "title": "Site component transition md3 dark",
+          "file": ".website/docs/site/site-loading.visual.spec.mjs",
+          "line": 82,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 9407,
+          "errors": []
+        },
+        {
+          "title": "Site component transition apple light",
+          "file": ".website/docs/site/site-loading.visual.spec.mjs",
+          "line": 82,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 9156,
+          "errors": []
+        },
+        {
+          "title": "Site component transition apple dark",
+          "file": ".website/docs/site/site-loading.visual.spec.mjs",
+          "line": 82,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 10059,
+          "errors": []
+        },
+        {
+          "title": "Site component transition shadcn light",
+          "file": ".website/docs/site/site-loading.visual.spec.mjs",
+          "line": 82,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 8144,
+          "errors": []
+        },
+        {
+          "title": "Site component transition shadcn dark",
+          "file": ".website/docs/site/site-loading.visual.spec.mjs",
+          "line": 82,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 7973,
+          "errors": []
+        },
+        {
+          "title": "Site initial document, slow response, theme and keyboard",
+          "file": ".website/docs/site/site-loading.visual.spec.mjs",
+          "line": 102,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 10626,
+          "errors": []
+        },
+        {
+          "title": "Site abandoned transition ignores late completion",
+          "file": ".website/docs/site/site-loading.visual.spec.mjs",
+          "line": 129,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 5413,
+          "errors": []
+        },
+        {
+          "title": "Site failed transition keeps the framework retry action",
+          "file": ".website/docs/site/site-loading.visual.spec.mjs",
+          "line": 150,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 4552,
+          "errors": []
+        },
+        {
+          "title": "Mobile controls md3 light portrait",
+          "file": ".website/docs/site/site-mobile.visual.spec.mjs",
+          "line": 17,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 27149,
+          "errors": []
+        },
+        {
+          "title": "Mobile controls md3 light landscape",
+          "file": ".website/docs/site/site-mobile.visual.spec.mjs",
+          "line": 17,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 20249,
+          "errors": []
+        },
+        {
+          "title": "Mobile controls md3 light keyboard-height",
+          "file": ".website/docs/site/site-mobile.visual.spec.mjs",
+          "line": 17,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 19687,
+          "errors": []
+        },
+        {
+          "title": "Mobile controls md3 light forced-colors",
+          "file": ".website/docs/site/site-mobile.visual.spec.mjs",
+          "line": 17,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 25748,
+          "errors": []
+        },
+        {
+          "title": "Mobile controls md3 light reduced-motion",
+          "file": ".website/docs/site/site-mobile.visual.spec.mjs",
+          "line": 17,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 19050,
+          "errors": []
+        },
+        {
+          "title": "Mobile controls md3 dark portrait",
+          "file": ".website/docs/site/site-mobile.visual.spec.mjs",
+          "line": 17,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 26167,
+          "errors": []
+        },
+        {
+          "title": "Mobile controls md3 dark landscape",
+          "file": ".website/docs/site/site-mobile.visual.spec.mjs",
+          "line": 17,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 19057,
+          "errors": []
+        },
+        {
+          "title": "Mobile controls md3 dark keyboard-height",
+          "file": ".website/docs/site/site-mobile.visual.spec.mjs",
+          "line": 17,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 19896,
+          "errors": []
+        },
+        {
+          "title": "Mobile controls md3 dark forced-colors",
+          "file": ".website/docs/site/site-mobile.visual.spec.mjs",
+          "line": 17,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 25692,
+          "errors": []
+        },
+        {
+          "title": "Mobile controls md3 dark reduced-motion",
+          "file": ".website/docs/site/site-mobile.visual.spec.mjs",
+          "line": 17,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 18086,
+          "errors": []
+        },
+        {
+          "title": "Mobile controls apple light portrait",
+          "file": ".website/docs/site/site-mobile.visual.spec.mjs",
+          "line": 17,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 26069,
+          "errors": []
+        },
+        {
+          "title": "Mobile controls apple light landscape",
+          "file": ".website/docs/site/site-mobile.visual.spec.mjs",
+          "line": 17,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 18911,
+          "errors": []
+        },
+        {
+          "title": "Mobile controls apple light keyboard-height",
+          "file": ".website/docs/site/site-mobile.visual.spec.mjs",
+          "line": 17,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 19820,
+          "errors": []
+        },
+        {
+          "title": "Mobile controls apple light forced-colors",
+          "file": ".website/docs/site/site-mobile.visual.spec.mjs",
+          "line": 17,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 25896,
+          "errors": []
+        },
+        {
+          "title": "Mobile controls apple light reduced-motion",
+          "file": ".website/docs/site/site-mobile.visual.spec.mjs",
+          "line": 17,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 18796,
+          "errors": []
+        },
+        {
+          "title": "Mobile controls apple dark portrait",
+          "file": ".website/docs/site/site-mobile.visual.spec.mjs",
+          "line": 17,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 26343,
+          "errors": []
+        },
+        {
+          "title": "Mobile controls apple dark landscape",
+          "file": ".website/docs/site/site-mobile.visual.spec.mjs",
+          "line": 17,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 19837,
+          "errors": []
+        },
+        {
+          "title": "Mobile controls apple dark keyboard-height",
+          "file": ".website/docs/site/site-mobile.visual.spec.mjs",
+          "line": 17,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 20286,
+          "errors": []
+        },
+        {
+          "title": "Mobile controls apple dark forced-colors",
+          "file": ".website/docs/site/site-mobile.visual.spec.mjs",
+          "line": 17,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 26111,
+          "errors": []
+        },
+        {
+          "title": "Mobile controls apple dark reduced-motion",
+          "file": ".website/docs/site/site-mobile.visual.spec.mjs",
+          "line": 17,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 19893,
+          "errors": []
+        },
+        {
+          "title": "Mobile controls shadcn light portrait",
+          "file": ".website/docs/site/site-mobile.visual.spec.mjs",
+          "line": 17,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 25459,
+          "errors": []
+        },
+        {
+          "title": "Mobile controls shadcn light landscape",
+          "file": ".website/docs/site/site-mobile.visual.spec.mjs",
+          "line": 17,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 22195,
+          "errors": []
+        },
+        {
+          "title": "Mobile controls shadcn light keyboard-height",
+          "file": ".website/docs/site/site-mobile.visual.spec.mjs",
+          "line": 17,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 23903,
+          "errors": []
+        },
+        {
+          "title": "Mobile controls shadcn light forced-colors",
+          "file": ".website/docs/site/site-mobile.visual.spec.mjs",
+          "line": 17,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 27957,
+          "errors": []
+        },
+        {
+          "title": "Mobile controls shadcn light reduced-motion",
+          "file": ".website/docs/site/site-mobile.visual.spec.mjs",
+          "line": 17,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 21999,
+          "errors": []
+        },
+        {
+          "title": "Mobile controls shadcn dark portrait",
+          "file": ".website/docs/site/site-mobile.visual.spec.mjs",
+          "line": 17,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 26362,
+          "errors": []
+        },
+        {
+          "title": "Mobile controls shadcn dark landscape",
+          "file": ".website/docs/site/site-mobile.visual.spec.mjs",
+          "line": 17,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 20783,
+          "errors": []
+        },
+        {
+          "title": "Mobile controls shadcn dark keyboard-height",
+          "file": ".website/docs/site/site-mobile.visual.spec.mjs",
+          "line": 17,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 21092,
+          "errors": []
+        },
+        {
+          "title": "Mobile controls shadcn dark forced-colors",
+          "file": ".website/docs/site/site-mobile.visual.spec.mjs",
+          "line": 17,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 27606,
+          "errors": []
+        },
+        {
+          "title": "Mobile controls shadcn dark reduced-motion",
+          "file": ".website/docs/site/site-mobile.visual.spec.mjs",
+          "line": 17,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 23913,
+          "errors": []
+        },
+        {
+          "title": "Site motion and live theme picker md3 light",
+          "file": ".website/docs/site/site-motion.visual.spec.mjs",
+          "line": 20,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 16126,
+          "errors": []
+        },
+        {
+          "title": "Site motion respects focus and reduced motion md3 light",
+          "file": ".website/docs/site/site-motion.visual.spec.mjs",
+          "line": 88,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 7654,
+          "errors": []
+        },
+        {
+          "title": "Site motion and live theme picker md3 dark",
+          "file": ".website/docs/site/site-motion.visual.spec.mjs",
+          "line": 20,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 15956,
+          "errors": []
+        },
+        {
+          "title": "Site motion respects focus and reduced motion md3 dark",
+          "file": ".website/docs/site/site-motion.visual.spec.mjs",
+          "line": 88,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 7310,
+          "errors": []
+        },
+        {
+          "title": "Site motion and live theme picker apple light",
+          "file": ".website/docs/site/site-motion.visual.spec.mjs",
+          "line": 20,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 16231,
+          "errors": []
+        },
+        {
+          "title": "Site motion respects focus and reduced motion apple light",
+          "file": ".website/docs/site/site-motion.visual.spec.mjs",
+          "line": 88,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 7137,
+          "errors": []
+        },
+        {
+          "title": "Site motion and live theme picker apple dark",
+          "file": ".website/docs/site/site-motion.visual.spec.mjs",
+          "line": 20,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 15107,
+          "errors": []
+        },
+        {
+          "title": "Site motion respects focus and reduced motion apple dark",
+          "file": ".website/docs/site/site-motion.visual.spec.mjs",
+          "line": 88,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 7209,
+          "errors": []
+        },
+        {
+          "title": "Site motion and live theme picker shadcn light",
+          "file": ".website/docs/site/site-motion.visual.spec.mjs",
+          "line": 20,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 15083,
+          "errors": []
+        },
+        {
+          "title": "Site motion respects focus and reduced motion shadcn light",
+          "file": ".website/docs/site/site-motion.visual.spec.mjs",
+          "line": 88,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 6673,
+          "errors": []
+        },
+        {
+          "title": "Site motion and live theme picker shadcn dark",
+          "file": ".website/docs/site/site-motion.visual.spec.mjs",
+          "line": 20,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 13560,
+          "errors": []
+        },
+        {
+          "title": "Site motion respects focus and reduced motion shadcn dark",
+          "file": ".website/docs/site/site-motion.visual.spec.mjs",
+          "line": 88,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 5756,
+          "errors": []
+        },
+        {
+          "title": "Site reveals stay readable without IntersectionObserver",
+          "file": ".website/docs/site/site-motion.visual.spec.mjs",
+          "line": 107,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 4226,
+          "errors": []
+        },
+        {
+          "title": "Site navigation md3 light narrow",
+          "file": ".website/docs/site/site-navigation.visual.spec.mjs",
+          "line": 11,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 23550,
+          "errors": []
+        },
+        {
+          "title": "Site navigation md3 light tablet",
+          "file": ".website/docs/site/site-navigation.visual.spec.mjs",
+          "line": 11,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 26600,
+          "errors": []
+        },
+        {
+          "title": "Site navigation md3 light desktop",
+          "file": ".website/docs/site/site-navigation.visual.spec.mjs",
+          "line": 11,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 23370,
+          "errors": []
+        },
+        {
+          "title": "Site navigation md3 dark narrow",
+          "file": ".website/docs/site/site-navigation.visual.spec.mjs",
+          "line": 11,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 25762,
+          "errors": []
+        },
+        {
+          "title": "Site navigation md3 dark tablet",
+          "file": ".website/docs/site/site-navigation.visual.spec.mjs",
+          "line": 11,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 28092,
+          "errors": []
+        },
+        {
+          "title": "Site navigation md3 dark desktop",
+          "file": ".website/docs/site/site-navigation.visual.spec.mjs",
+          "line": 11,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 26217,
+          "errors": []
+        },
+        {
+          "title": "Site navigation apple light narrow",
+          "file": ".website/docs/site/site-navigation.visual.spec.mjs",
+          "line": 11,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 27363,
+          "errors": []
+        },
+        {
+          "title": "Site navigation apple light tablet",
+          "file": ".website/docs/site/site-navigation.visual.spec.mjs",
+          "line": 11,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 26226,
+          "errors": []
+        },
+        {
+          "title": "Site navigation apple light desktop",
+          "file": ".website/docs/site/site-navigation.visual.spec.mjs",
+          "line": 11,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 25242,
+          "errors": []
+        },
+        {
+          "title": "Site navigation apple dark narrow",
+          "file": ".website/docs/site/site-navigation.visual.spec.mjs",
+          "line": 11,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 25624,
+          "errors": []
+        },
+        {
+          "title": "Site navigation apple dark tablet",
+          "file": ".website/docs/site/site-navigation.visual.spec.mjs",
+          "line": 11,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 25820,
+          "errors": []
+        },
+        {
+          "title": "Site navigation apple dark desktop",
+          "file": ".website/docs/site/site-navigation.visual.spec.mjs",
+          "line": 11,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 23357,
+          "errors": []
+        },
+        {
+          "title": "Site navigation shadcn light narrow",
+          "file": ".website/docs/site/site-navigation.visual.spec.mjs",
+          "line": 11,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 23187,
+          "errors": []
+        },
+        {
+          "title": "Site navigation shadcn light tablet",
+          "file": ".website/docs/site/site-navigation.visual.spec.mjs",
+          "line": 11,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 28667,
+          "errors": []
+        },
+        {
+          "title": "Site navigation shadcn light desktop",
+          "file": ".website/docs/site/site-navigation.visual.spec.mjs",
+          "line": 11,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 24041,
+          "errors": []
+        },
+        {
+          "title": "Site navigation shadcn dark narrow",
+          "file": ".website/docs/site/site-navigation.visual.spec.mjs",
+          "line": 11,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 24220,
+          "errors": []
+        },
+        {
+          "title": "Site navigation shadcn dark tablet",
+          "file": ".website/docs/site/site-navigation.visual.spec.mjs",
+          "line": 11,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 29365,
+          "errors": []
+        },
+        {
+          "title": "Site navigation shadcn dark desktop",
+          "file": ".website/docs/site/site-navigation.visual.spec.mjs",
+          "line": 11,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 36083,
+          "errors": []
+        },
+        {
+          "title": "Site real 200% md3 light",
+          "file": ".website/docs/site/site-zoom.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 43889,
+          "errors": []
+        },
+        {
+          "title": "Site real 200% md3 dark",
+          "file": ".website/docs/site/site-zoom.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 41906,
+          "errors": []
+        },
+        {
+          "title": "Site real 200% apple light",
+          "file": ".website/docs/site/site-zoom.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 31907,
+          "errors": []
+        },
+        {
+          "title": "Site real 200% apple dark",
+          "file": ".website/docs/site/site-zoom.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 37671,
+          "errors": []
+        },
+        {
+          "title": "Site real 200% shadcn light",
+          "file": ".website/docs/site/site-zoom.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 29358,
+          "errors": []
+        },
+        {
+          "title": "Site real 200% shadcn dark",
+          "file": ".website/docs/site/site-zoom.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 30674,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "id": "chromium-retest",
+      "directory": ".cache/visual/site-redesign-final-layout-retry-2026-11-05",
+      "stats": {
+        "startTime": "2026-11-05T03:38:50.034Z",
+        "duration": 34669.689999999995,
+        "expected": 1,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "counts": {
+        "chromium": {
+          "passed": 1
+        }
+      },
+      "workers": [
+        {
+          "name": "inputs-worker-0.json",
+          "stable": true,
+          "source": "sha256:8f9b49fbaefd2e1eadd3371e8b3c7cb2a96759b71a7753d1167e21fde553f9f7",
+          "artifact": "sha256:f14e0121413b05dedab65a928e535367f7b319ed501726a052f23b36beff5008",
+          "siteBuild": "sha256:b395b40b6d2d2c8d11f234877b30d27c490ef9f0e5fb9745622b5b9ceea92407"
+        }
+      ],
+      "cases": [
+        {
+          "title": "Site component shadcn dark narrow",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "chromium",
+          "status": "passed",
+          "duration": 5519,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "id": "firefox-webkit-final",
+      "directory": ".tmp/visual-linux-2026-11-05T02-58-53-414Z/evidence/2026-11-05T03-07-30-561Z",
+      "stats": {
+        "startTime": "2026-11-05T03:07:35.271Z",
+        "duration": 586442.252,
+        "expected": 120,
+        "skipped": 0,
+        "unexpected": 2,
+        "flaky": 0
+      },
+      "counts": {
+        "firefox": {
+          "passed": 61
+        },
+        "webkit": {
+          "passed": 59,
+          "failed": 2
+        }
+      },
+      "workers": [
+        {
+          "name": "inputs-worker-0.json",
+          "stable": true,
+          "source": "sha256:c241e210bfd44516a29b70c7138bc8e7a3029aa33f71fdbe851e946af7c79a4f",
+          "artifact": "sha256:53712c1c41746555abc1f0d856bbd2c946946ee465c1ed99c65e5f53a81260f2",
+          "siteBuild": "sha256:f773cd239f3e63027346a98006620f25dc8a1678c24629483d53753677b1e4a8"
+        },
+        {
+          "name": "inputs-worker-1.json",
+          "stable": true,
+          "source": "sha256:c241e210bfd44516a29b70c7138bc8e7a3029aa33f71fdbe851e946af7c79a4f",
+          "artifact": "sha256:53712c1c41746555abc1f0d856bbd2c946946ee465c1ed99c65e5f53a81260f2",
+          "siteBuild": "sha256:f773cd239f3e63027346a98006620f25dc8a1678c24629483d53753677b1e4a8"
+        },
+        {
+          "name": "inputs-worker-2.json",
+          "stable": true,
+          "source": "sha256:c241e210bfd44516a29b70c7138bc8e7a3029aa33f71fdbe851e946af7c79a4f",
+          "artifact": "sha256:53712c1c41746555abc1f0d856bbd2c946946ee465c1ed99c65e5f53a81260f2",
+          "siteBuild": "sha256:f773cd239f3e63027346a98006620f25dc8a1678c24629483d53753677b1e4a8"
+        },
+        {
+          "name": "inputs-worker-3.json",
+          "stable": true,
+          "source": "sha256:c241e210bfd44516a29b70c7138bc8e7a3029aa33f71fdbe851e946af7c79a4f",
+          "artifact": "sha256:53712c1c41746555abc1f0d856bbd2c946946ee465c1ed99c65e5f53a81260f2",
+          "siteBuild": "sha256:f773cd239f3e63027346a98006620f25dc8a1678c24629483d53753677b1e4a8"
+        },
+        {
+          "name": "inputs-worker-4.json",
+          "stable": true,
+          "source": "sha256:c241e210bfd44516a29b70c7138bc8e7a3029aa33f71fdbe851e946af7c79a4f",
+          "artifact": "sha256:53712c1c41746555abc1f0d856bbd2c946946ee465c1ed99c65e5f53a81260f2",
+          "siteBuild": "sha256:f773cd239f3e63027346a98006620f25dc8a1678c24629483d53753677b1e4a8"
+        },
+        {
+          "name": "inputs-worker-5.json",
+          "stable": true,
+          "source": "sha256:c241e210bfd44516a29b70c7138bc8e7a3029aa33f71fdbe851e946af7c79a4f",
+          "artifact": "sha256:53712c1c41746555abc1f0d856bbd2c946946ee465c1ed99c65e5f53a81260f2",
+          "siteBuild": "sha256:f773cd239f3e63027346a98006620f25dc8a1678c24629483d53753677b1e4a8"
+        },
+        {
+          "name": "inputs-worker-6.json",
+          "stable": true,
+          "source": "sha256:c241e210bfd44516a29b70c7138bc8e7a3029aa33f71fdbe851e946af7c79a4f",
+          "artifact": "sha256:53712c1c41746555abc1f0d856bbd2c946946ee465c1ed99c65e5f53a81260f2",
+          "siteBuild": "sha256:f773cd239f3e63027346a98006620f25dc8a1678c24629483d53753677b1e4a8"
+        },
+        {
+          "name": "inputs-worker-7.json",
+          "stable": true,
+          "source": "sha256:c241e210bfd44516a29b70c7138bc8e7a3029aa33f71fdbe851e946af7c79a4f",
+          "artifact": "sha256:53712c1c41746555abc1f0d856bbd2c946946ee465c1ed99c65e5f53a81260f2",
+          "siteBuild": "sha256:f773cd239f3e63027346a98006620f25dc8a1678c24629483d53753677b1e4a8"
+        },
+        {
+          "name": "inputs-worker-8.json",
+          "stable": true,
+          "source": "sha256:c241e210bfd44516a29b70c7138bc8e7a3029aa33f71fdbe851e946af7c79a4f",
+          "artifact": "sha256:53712c1c41746555abc1f0d856bbd2c946946ee465c1ed99c65e5f53a81260f2",
+          "siteBuild": "sha256:f773cd239f3e63027346a98006620f25dc8a1678c24629483d53753677b1e4a8"
+        },
+        {
+          "name": "inputs-worker-9.json",
+          "stable": true,
+          "source": "sha256:c241e210bfd44516a29b70c7138bc8e7a3029aa33f71fdbe851e946af7c79a4f",
+          "artifact": "sha256:53712c1c41746555abc1f0d856bbd2c946946ee465c1ed99c65e5f53a81260f2",
+          "siteBuild": "sha256:f773cd239f3e63027346a98006620f25dc8a1678c24629483d53753677b1e4a8"
+        }
+      ],
+      "cases": [
+        {
+          "title": "Site appearance preserves drafts md3 light desktop",
+          "file": ".website/docs/site/site-appearance.visual.spec.mjs",
+          "line": 11,
+          "project": "firefox",
+          "status": "passed",
+          "duration": 22527,
+          "errors": []
+        },
+        {
+          "title": "Site appearance preserves drafts md3 light desktop",
+          "file": ".website/docs/site/site-appearance.visual.spec.mjs",
+          "line": 11,
+          "project": "webkit",
+          "status": "passed",
+          "duration": 17004,
+          "errors": []
+        },
+        {
+          "title": "Site appearance preserves drafts md3 dark desktop",
+          "file": ".website/docs/site/site-appearance.visual.spec.mjs",
+          "line": 11,
+          "project": "firefox",
+          "status": "passed",
+          "duration": 23845,
+          "errors": []
+        },
+        {
+          "title": "Site appearance preserves drafts md3 dark desktop",
+          "file": ".website/docs/site/site-appearance.visual.spec.mjs",
+          "line": 11,
+          "project": "webkit",
+          "status": "passed",
+          "duration": 14838,
+          "errors": []
+        },
+        {
+          "title": "Site appearance preserves drafts apple light desktop",
+          "file": ".website/docs/site/site-appearance.visual.spec.mjs",
+          "line": 11,
+          "project": "firefox",
+          "status": "passed",
+          "duration": 12949,
+          "errors": []
+        },
+        {
+          "title": "Site appearance preserves drafts apple light desktop",
+          "file": ".website/docs/site/site-appearance.visual.spec.mjs",
+          "line": 11,
+          "project": "webkit",
+          "status": "passed",
+          "duration": 13757,
+          "errors": []
+        },
+        {
+          "title": "Site appearance preserves drafts apple dark desktop",
+          "file": ".website/docs/site/site-appearance.visual.spec.mjs",
+          "line": 11,
+          "project": "firefox",
+          "status": "passed",
+          "duration": 13349,
+          "errors": []
+        },
+        {
+          "title": "Site appearance preserves drafts apple dark desktop",
+          "file": ".website/docs/site/site-appearance.visual.spec.mjs",
+          "line": 11,
+          "project": "webkit",
+          "status": "passed",
+          "duration": 12417,
+          "errors": []
+        },
+        {
+          "title": "Site appearance preserves drafts shadcn light desktop",
+          "file": ".website/docs/site/site-appearance.visual.spec.mjs",
+          "line": 11,
+          "project": "firefox",
+          "status": "passed",
+          "duration": 11068,
+          "errors": []
+        },
+        {
+          "title": "Site appearance preserves drafts shadcn light desktop",
+          "file": ".website/docs/site/site-appearance.visual.spec.mjs",
+          "line": 11,
+          "project": "webkit",
+          "status": "passed",
+          "duration": 14002,
+          "errors": []
+        },
+        {
+          "title": "Site appearance preserves drafts shadcn dark desktop",
+          "file": ".website/docs/site/site-appearance.visual.spec.mjs",
+          "line": 11,
+          "project": "firefox",
+          "status": "passed",
+          "duration": 11682,
+          "errors": []
+        },
+        {
+          "title": "Site appearance preserves drafts shadcn dark desktop",
+          "file": ".website/docs/site/site-appearance.visual.spec.mjs",
+          "line": 11,
+          "project": "webkit",
+          "status": "passed",
+          "duration": 14032,
+          "errors": []
+        },
+        {
+          "title": "Site RTL shell and long content md3 light",
+          "file": ".website/docs/site/site-environment.visual.spec.mjs",
+          "line": 8,
+          "project": "firefox",
+          "status": "passed",
+          "duration": 5790,
+          "errors": []
+        },
+        {
+          "title": "Site RTL shell and long content md3 light",
+          "file": ".website/docs/site/site-environment.visual.spec.mjs",
+          "line": 8,
+          "project": "webkit",
+          "status": "passed",
+          "duration": 4999,
+          "errors": []
+        },
+        {
+          "title": "Site RTL shell and long content md3 dark",
+          "file": ".website/docs/site/site-environment.visual.spec.mjs",
+          "line": 8,
+          "project": "firefox",
+          "status": "passed",
+          "duration": 6231,
+          "errors": []
+        },
+        {
+          "title": "Site RTL shell and long content md3 dark",
+          "file": ".website/docs/site/site-environment.visual.spec.mjs",
+          "line": 8,
+          "project": "webkit",
+          "status": "passed",
+          "duration": 9737,
+          "errors": []
+        },
+        {
+          "title": "Site RTL shell and long content apple light",
+          "file": ".website/docs/site/site-environment.visual.spec.mjs",
+          "line": 8,
+          "project": "firefox",
+          "status": "passed",
+          "duration": 3917,
+          "errors": []
+        },
+        {
+          "title": "Site RTL shell and long content apple light",
+          "file": ".website/docs/site/site-environment.visual.spec.mjs",
+          "line": 8,
+          "project": "webkit",
+          "status": "passed",
+          "duration": 9449,
+          "errors": []
+        },
+        {
+          "title": "Site RTL shell and long content apple dark",
+          "file": ".website/docs/site/site-environment.visual.spec.mjs",
+          "line": 8,
+          "project": "firefox",
+          "status": "passed",
+          "duration": 4152,
+          "errors": []
+        },
+        {
+          "title": "Site RTL shell and long content apple dark",
+          "file": ".website/docs/site/site-environment.visual.spec.mjs",
+          "line": 8,
+          "project": "webkit",
+          "status": "passed",
+          "duration": 4579,
+          "errors": []
+        },
+        {
+          "title": "Site RTL shell and long content shadcn light",
+          "file": ".website/docs/site/site-environment.visual.spec.mjs",
+          "line": 8,
+          "project": "firefox",
+          "status": "passed",
+          "duration": 3699,
+          "errors": []
+        },
+        {
+          "title": "Site RTL shell and long content shadcn light",
+          "file": ".website/docs/site/site-environment.visual.spec.mjs",
+          "line": 8,
+          "project": "webkit",
+          "status": "passed",
+          "duration": 4823,
+          "errors": []
+        },
+        {
+          "title": "Site RTL shell and long content shadcn dark",
+          "file": ".website/docs/site/site-environment.visual.spec.mjs",
+          "line": 8,
+          "project": "firefox",
+          "status": "passed",
+          "duration": 3752,
+          "errors": []
+        },
+        {
+          "title": "Site RTL shell and long content shadcn dark",
+          "file": ".website/docs/site/site-environment.visual.spec.mjs",
+          "line": 8,
+          "project": "webkit",
+          "status": "passed",
+          "duration": 4649,
+          "errors": []
+        },
+        {
+          "title": "Site home md3 light desktop",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "firefox",
+          "status": "passed",
+          "duration": 2357,
+          "errors": []
+        },
+        {
+          "title": "Site home md3 light desktop",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "webkit",
+          "status": "passed",
+          "duration": 2811,
+          "errors": []
+        },
+        {
+          "title": "Site catalog md3 light desktop",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "firefox",
+          "status": "passed",
+          "duration": 1953,
+          "errors": []
+        },
+        {
+          "title": "Site catalog md3 light desktop",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "webkit",
+          "status": "passed",
+          "duration": 1745,
+          "errors": []
+        },
+        {
+          "title": "Site design md3 light desktop",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "firefox",
+          "status": "passed",
+          "duration": 2544,
+          "errors": []
+        },
+        {
+          "title": "Site design md3 light desktop",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "webkit",
+          "status": "passed",
+          "duration": 2024,
+          "errors": []
+        },
+        {
+          "title": "Site component md3 light desktop",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "firefox",
+          "status": "passed",
+          "duration": 8434,
+          "errors": []
+        },
+        {
+          "title": "Site component md3 light desktop",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "webkit",
+          "status": "passed",
+          "duration": 12279,
+          "errors": []
+        },
+        {
+          "title": "Site tutorial md3 light desktop",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "firefox",
+          "status": "passed",
+          "duration": 5236,
+          "errors": []
+        },
+        {
+          "title": "Site tutorial md3 light desktop",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "webkit",
+          "status": "passed",
+          "duration": 2276,
+          "errors": []
+        },
+        {
+          "title": "Site home md3 dark desktop",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "firefox",
+          "status": "passed",
+          "duration": 2484,
+          "errors": []
+        },
+        {
+          "title": "Site home md3 dark desktop",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "webkit",
+          "status": "passed",
+          "duration": 3592,
+          "errors": []
+        },
+        {
+          "title": "Site catalog md3 dark desktop",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "firefox",
+          "status": "passed",
+          "duration": 2062,
+          "errors": []
+        },
+        {
+          "title": "Site catalog md3 dark desktop",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "webkit",
+          "status": "passed",
+          "duration": 2208,
+          "errors": []
+        },
+        {
+          "title": "Site design md3 dark desktop",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "firefox",
+          "status": "passed",
+          "duration": 2307,
+          "errors": []
+        },
+        {
+          "title": "Site design md3 dark desktop",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "webkit",
+          "status": "passed",
+          "duration": 1878,
+          "errors": []
+        },
+        {
+          "title": "Site component md3 dark desktop",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "firefox",
+          "status": "passed",
+          "duration": 7877,
+          "errors": []
+        },
+        {
+          "title": "Site component md3 dark desktop",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "webkit",
+          "status": "passed",
+          "duration": 12327,
+          "errors": []
+        },
+        {
+          "title": "Site tutorial md3 dark desktop",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "firefox",
+          "status": "passed",
+          "duration": 5027,
+          "errors": []
+        },
+        {
+          "title": "Site tutorial md3 dark desktop",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "webkit",
+          "status": "passed",
+          "duration": 2699,
+          "errors": []
+        },
+        {
+          "title": "Site home apple light desktop",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "firefox",
+          "status": "passed",
+          "duration": 2570,
+          "errors": []
+        },
+        {
+          "title": "Site home apple light desktop",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "webkit",
+          "status": "passed",
+          "duration": 2938,
+          "errors": []
+        },
+        {
+          "title": "Site catalog apple light desktop",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "firefox",
+          "status": "passed",
+          "duration": 2129,
+          "errors": []
+        },
+        {
+          "title": "Site catalog apple light desktop",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "webkit",
+          "status": "passed",
+          "duration": 2087,
+          "errors": []
+        },
+        {
+          "title": "Site design apple light desktop",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "firefox",
+          "status": "passed",
+          "duration": 2193,
+          "errors": []
+        },
+        {
+          "title": "Site design apple light desktop",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "webkit",
+          "status": "passed",
+          "duration": 2123,
+          "errors": []
+        },
+        {
+          "title": "Site component apple light desktop",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "firefox",
+          "status": "passed",
+          "duration": 8226,
+          "errors": []
+        },
+        {
+          "title": "Site component apple light desktop",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "webkit",
+          "status": "passed",
+          "duration": 12976,
+          "errors": []
+        },
+        {
+          "title": "Site tutorial apple light desktop",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "firefox",
+          "status": "passed",
+          "duration": 3777,
+          "errors": []
+        },
+        {
+          "title": "Site tutorial apple light desktop",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "webkit",
+          "status": "passed",
+          "duration": 2520,
+          "errors": []
+        },
+        {
+          "title": "Site home apple dark desktop",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "firefox",
+          "status": "passed",
+          "duration": 2444,
+          "errors": []
+        },
+        {
+          "title": "Site home apple dark desktop",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "webkit",
+          "status": "passed",
+          "duration": 3922,
+          "errors": []
+        },
+        {
+          "title": "Site catalog apple dark desktop",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "firefox",
+          "status": "passed",
+          "duration": 1780,
+          "errors": []
+        },
+        {
+          "title": "Site catalog apple dark desktop",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "webkit",
+          "status": "passed",
+          "duration": 2259,
+          "errors": []
+        },
+        {
+          "title": "Site design apple dark desktop",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "firefox",
+          "status": "passed",
+          "duration": 2294,
+          "errors": []
+        },
+        {
+          "title": "Site design apple dark desktop",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "webkit",
+          "status": "passed",
+          "duration": 2137,
+          "errors": []
+        },
+        {
+          "title": "Site component apple dark desktop",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "firefox",
+          "status": "passed",
+          "duration": 7689,
+          "errors": []
+        },
+        {
+          "title": "Site component apple dark desktop",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "webkit",
+          "status": "passed",
+          "duration": 12182,
+          "errors": []
+        },
+        {
+          "title": "Site tutorial apple dark desktop",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "firefox",
+          "status": "passed",
+          "duration": 4079,
+          "errors": []
+        },
+        {
+          "title": "Site tutorial apple dark desktop",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "webkit",
+          "status": "passed",
+          "duration": 2492,
+          "errors": []
+        },
+        {
+          "title": "Site home shadcn light desktop",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "firefox",
+          "status": "passed",
+          "duration": 2376,
+          "errors": []
+        },
+        {
+          "title": "Site home shadcn light desktop",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "webkit",
+          "status": "passed",
+          "duration": 3007,
+          "errors": []
+        },
+        {
+          "title": "Site catalog shadcn light desktop",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "firefox",
+          "status": "passed",
+          "duration": 2173,
+          "errors": []
+        },
+        {
+          "title": "Site catalog shadcn light desktop",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "webkit",
+          "status": "passed",
+          "duration": 2323,
+          "errors": []
+        },
+        {
+          "title": "Site design shadcn light desktop",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "firefox",
+          "status": "passed",
+          "duration": 2131,
+          "errors": []
+        },
+        {
+          "title": "Site design shadcn light desktop",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "webkit",
+          "status": "passed",
+          "duration": 2079,
+          "errors": []
+        },
+        {
+          "title": "Site component shadcn light desktop",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "firefox",
+          "status": "passed",
+          "duration": 7991,
+          "errors": []
+        },
+        {
+          "title": "Site component shadcn light desktop",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "webkit",
+          "status": "passed",
+          "duration": 11730,
+          "errors": []
+        },
+        {
+          "title": "Site tutorial shadcn light desktop",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "firefox",
+          "status": "passed",
+          "duration": 3188,
+          "errors": []
+        },
+        {
+          "title": "Site tutorial shadcn light desktop",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "webkit",
+          "status": "passed",
+          "duration": 2575,
+          "errors": []
+        },
+        {
+          "title": "Site home shadcn dark desktop",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "firefox",
+          "status": "passed",
+          "duration": 3686,
+          "errors": []
+        },
+        {
+          "title": "Site home shadcn dark desktop",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "webkit",
+          "status": "passed",
+          "duration": 2570,
+          "errors": []
+        },
+        {
+          "title": "Site catalog shadcn dark desktop",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "firefox",
+          "status": "passed",
+          "duration": 1989,
+          "errors": []
+        },
+        {
+          "title": "Site catalog shadcn dark desktop",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "webkit",
+          "status": "passed",
+          "duration": 2046,
+          "errors": []
+        },
+        {
+          "title": "Site design shadcn dark desktop",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "firefox",
+          "status": "passed",
+          "duration": 2543,
+          "errors": []
+        },
+        {
+          "title": "Site design shadcn dark desktop",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "webkit",
+          "status": "passed",
+          "duration": 1968,
+          "errors": []
+        },
+        {
+          "title": "Site component shadcn dark desktop",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "firefox",
+          "status": "passed",
+          "duration": 9958,
+          "errors": []
+        },
+        {
+          "title": "Site component shadcn dark desktop",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "webkit",
+          "status": "passed",
+          "duration": 11866,
+          "errors": []
+        },
+        {
+          "title": "Site tutorial shadcn dark desktop",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "firefox",
+          "status": "passed",
+          "duration": 7492,
+          "errors": []
+        },
+        {
+          "title": "Site tutorial shadcn dark desktop",
+          "file": ".website/docs/site/site-layout.visual.spec.mjs",
+          "line": 9,
+          "project": "webkit",
+          "status": "passed",
+          "duration": 2531,
+          "errors": []
+        },
+        {
+          "title": "Site motion and live theme picker md3 light",
+          "file": ".website/docs/site/site-motion.visual.spec.mjs",
+          "line": 20,
+          "project": "firefox",
+          "status": "passed",
+          "duration": 10806,
+          "errors": []
+        },
+        {
+          "title": "Site motion and live theme picker md3 light",
+          "file": ".website/docs/site/site-motion.visual.spec.mjs",
+          "line": 20,
+          "project": "webkit",
+          "status": "passed",
+          "duration": 9584,
+          "errors": []
+        },
+        {
+          "title": "Site motion respects focus and reduced motion md3 light",
+          "file": ".website/docs/site/site-motion.visual.spec.mjs",
+          "line": 88,
+          "project": "firefox",
+          "status": "passed",
+          "duration": 4655,
+          "errors": []
+        },
+        {
+          "title": "Site motion respects focus and reduced motion md3 light",
+          "file": ".website/docs/site/site-motion.visual.spec.mjs",
+          "line": 88,
+          "project": "webkit",
+          "status": "passed",
+          "duration": 4136,
+          "errors": []
+        },
+        {
+          "title": "Site motion and live theme picker md3 dark",
+          "file": ".website/docs/site/site-motion.visual.spec.mjs",
+          "line": 20,
+          "project": "firefox",
+          "status": "passed",
+          "duration": 9847,
+          "errors": []
+        },
+        {
+          "title": "Site motion and live theme picker md3 dark",
+          "file": ".website/docs/site/site-motion.visual.spec.mjs",
+          "line": 20,
+          "project": "webkit",
+          "status": "passed",
+          "duration": 9459,
+          "errors": []
+        },
+        {
+          "title": "Site motion respects focus and reduced motion md3 dark",
+          "file": ".website/docs/site/site-motion.visual.spec.mjs",
+          "line": 88,
+          "project": "firefox",
+          "status": "passed",
+          "duration": 4107,
+          "errors": []
+        },
+        {
+          "title": "Site motion respects focus and reduced motion md3 dark",
+          "file": ".website/docs/site/site-motion.visual.spec.mjs",
+          "line": 88,
+          "project": "webkit",
+          "status": "passed",
+          "duration": 3761,
+          "errors": []
+        },
+        {
+          "title": "Site motion and live theme picker apple light",
+          "file": ".website/docs/site/site-motion.visual.spec.mjs",
+          "line": 20,
+          "project": "firefox",
+          "status": "passed",
+          "duration": 9632,
+          "errors": []
+        },
+        {
+          "title": "Site motion and live theme picker apple light",
+          "file": ".website/docs/site/site-motion.visual.spec.mjs",
+          "line": 20,
+          "project": "webkit",
+          "status": "passed",
+          "duration": 8382,
+          "errors": []
+        },
+        {
+          "title": "Site motion respects focus and reduced motion apple light",
+          "file": ".website/docs/site/site-motion.visual.spec.mjs",
+          "line": 88,
+          "project": "firefox",
+          "status": "passed",
+          "duration": 4684,
+          "errors": []
+        },
+        {
+          "title": "Site motion respects focus and reduced motion apple light",
+          "file": ".website/docs/site/site-motion.visual.spec.mjs",
+          "line": 88,
+          "project": "webkit",
+          "status": "passed",
+          "duration": 3744,
+          "errors": []
+        },
+        {
+          "title": "Site motion and live theme picker apple dark",
+          "file": ".website/docs/site/site-motion.visual.spec.mjs",
+          "line": 20,
+          "project": "firefox",
+          "status": "passed",
+          "duration": 10325,
+          "errors": []
+        },
+        {
+          "title": "Site motion and live theme picker apple dark",
+          "file": ".website/docs/site/site-motion.visual.spec.mjs",
+          "line": 20,
+          "project": "webkit",
+          "status": "passed",
+          "duration": 8663,
+          "errors": []
+        },
+        {
+          "title": "Site motion respects focus and reduced motion apple dark",
+          "file": ".website/docs/site/site-motion.visual.spec.mjs",
+          "line": 88,
+          "project": "firefox",
+          "status": "passed",
+          "duration": 4945,
+          "errors": []
+        },
+        {
+          "title": "Site motion respects focus and reduced motion apple dark",
+          "file": ".website/docs/site/site-motion.visual.spec.mjs",
+          "line": 88,
+          "project": "webkit",
+          "status": "failed",
+          "duration": 3972,
+          "errors": [
+            "Error: Browser runtime errors\n\nexpect(received).toEqual(expected) // deep equality\n\n- Expected  - 1\n+ Received  + 3\n\n- Array []\n+ Array [\n+   \"ResizeObserver loop completed with undelivered notifications.\",\n+ ]\n\n   at test/visual/component-fixture.mjs:81\n\n  79 |         await use(errors);\n  80 |         if (consoleErrors.length) await info.attach('browser-console', { body: JSON.stringify(consoleErrors), contentType: 'application/json' });\n> 81 |         expect(errors, \"Browser runtime errors\").toEqual([]);\n     |                                                  ^\n  82 |     }, { auto: true }],\n  83 |     evidence: [async ({ visualInputs, context, browserName }, use, info) => {\n  84 |         await use();\n    at Object.base.extend.runtimeErrors.auto (/workspace/test/visual/component-fixture.mjs:81:50)"
+          ]
+        },
+        {
+          "title": "Site motion and live theme picker shadcn light",
+          "file": ".website/docs/site/site-motion.visual.spec.mjs",
+          "line": 20,
+          "project": "firefox",
+          "status": "passed",
+          "duration": 10076,
+          "errors": []
+        },
+        {
+          "title": "Site motion and live theme picker shadcn light",
+          "file": ".website/docs/site/site-motion.visual.spec.mjs",
+          "line": 20,
+          "project": "webkit",
+          "status": "passed",
+          "duration": 7691,
+          "errors": []
+        },
+        {
+          "title": "Site motion respects focus and reduced motion shadcn light",
+          "file": ".website/docs/site/site-motion.visual.spec.mjs",
+          "line": 88,
+          "project": "firefox",
+          "status": "passed",
+          "duration": 4414,
+          "errors": []
+        },
+        {
+          "title": "Site motion respects focus and reduced motion shadcn light",
+          "file": ".website/docs/site/site-motion.visual.spec.mjs",
+          "line": 88,
+          "project": "webkit",
+          "status": "failed",
+          "duration": 4391,
+          "errors": [
+            "Error: Browser runtime errors\n\nexpect(received).toEqual(expected) // deep equality\n\n- Expected  - 1\n+ Received  + 3\n\n- Array []\n+ Array [\n+   \"ResizeObserver loop completed with undelivered notifications.\",\n+ ]\n\n   at test/visual/component-fixture.mjs:81\n\n  79 |         await use(errors);\n  80 |         if (consoleErrors.length) await info.attach('browser-console', { body: JSON.stringify(consoleErrors), contentType: 'application/json' });\n> 81 |         expect(errors, \"Browser runtime errors\").toEqual([]);\n     |                                                  ^\n  82 |     }, { auto: true }],\n  83 |     evidence: [async ({ visualInputs, context, browserName }, use, info) => {\n  84 |         await use();\n    at Object.base.extend.runtimeErrors.auto (/workspace/test/visual/component-fixture.mjs:81:50)"
+          ]
+        },
+        {
+          "title": "Site motion and live theme picker shadcn dark",
+          "file": ".website/docs/site/site-motion.visual.spec.mjs",
+          "line": 20,
+          "project": "firefox",
+          "status": "passed",
+          "duration": 10155,
+          "errors": []
+        },
+        {
+          "title": "Site motion and live theme picker shadcn dark",
+          "file": ".website/docs/site/site-motion.visual.spec.mjs",
+          "line": 20,
+          "project": "webkit",
+          "status": "passed",
+          "duration": 8790,
+          "errors": []
+        },
+        {
+          "title": "Site motion respects focus and reduced motion shadcn dark",
+          "file": ".website/docs/site/site-motion.visual.spec.mjs",
+          "line": 88,
+          "project": "firefox",
+          "status": "passed",
+          "duration": 4415,
+          "errors": []
+        },
+        {
+          "title": "Site motion respects focus and reduced motion shadcn dark",
+          "file": ".website/docs/site/site-motion.visual.spec.mjs",
+          "line": 88,
+          "project": "webkit",
+          "status": "passed",
+          "duration": 3199,
+          "errors": []
+        },
+        {
+          "title": "Site reveals stay readable without IntersectionObserver",
+          "file": ".website/docs/site/site-motion.visual.spec.mjs",
+          "line": 107,
+          "project": "firefox",
+          "status": "passed",
+          "duration": 2368,
+          "errors": []
+        },
+        {
+          "title": "Site reveals stay readable without IntersectionObserver",
+          "file": ".website/docs/site/site-motion.visual.spec.mjs",
+          "line": 107,
+          "project": "webkit",
+          "status": "passed",
+          "duration": 2240,
+          "errors": []
+        },
+        {
+          "title": "Site navigation md3 light desktop",
+          "file": ".website/docs/site/site-navigation.visual.spec.mjs",
+          "line": 11,
+          "project": "firefox",
+          "status": "passed",
+          "duration": 20774,
+          "errors": []
+        },
+        {
+          "title": "Site navigation md3 light desktop",
+          "file": ".website/docs/site/site-navigation.visual.spec.mjs",
+          "line": 11,
+          "project": "webkit",
+          "status": "passed",
+          "duration": 30077,
+          "errors": []
+        },
+        {
+          "title": "Site navigation md3 dark desktop",
+          "file": ".website/docs/site/site-navigation.visual.spec.mjs",
+          "line": 11,
+          "project": "firefox",
+          "status": "passed",
+          "duration": 20361,
+          "errors": []
+        },
+        {
+          "title": "Site navigation md3 dark desktop",
+          "file": ".website/docs/site/site-navigation.visual.spec.mjs",
+          "line": 11,
+          "project": "webkit",
+          "status": "passed",
+          "duration": 28210,
+          "errors": []
+        },
+        {
+          "title": "Site navigation apple light desktop",
+          "file": ".website/docs/site/site-navigation.visual.spec.mjs",
+          "line": 11,
+          "project": "firefox",
+          "status": "passed",
+          "duration": 15972,
+          "errors": []
+        },
+        {
+          "title": "Site navigation apple light desktop",
+          "file": ".website/docs/site/site-navigation.visual.spec.mjs",
+          "line": 11,
+          "project": "webkit",
+          "status": "passed",
+          "duration": 27605,
+          "errors": []
+        },
+        {
+          "title": "Site navigation apple dark desktop",
+          "file": ".website/docs/site/site-navigation.visual.spec.mjs",
+          "line": 11,
+          "project": "firefox",
+          "status": "passed",
+          "duration": 16850,
+          "errors": []
+        },
+        {
+          "title": "Site navigation apple dark desktop",
+          "file": ".website/docs/site/site-navigation.visual.spec.mjs",
+          "line": 11,
+          "project": "webkit",
+          "status": "passed",
+          "duration": 28450,
+          "errors": []
+        },
+        {
+          "title": "Site navigation shadcn light desktop",
+          "file": ".website/docs/site/site-navigation.visual.spec.mjs",
+          "line": 11,
+          "project": "firefox",
+          "status": "passed",
+          "duration": 24533,
+          "errors": []
+        },
+        {
+          "title": "Site navigation shadcn light desktop",
+          "file": ".website/docs/site/site-navigation.visual.spec.mjs",
+          "line": 11,
+          "project": "webkit",
+          "status": "passed",
+          "duration": 63205,
+          "errors": []
+        },
+        {
+          "title": "Site navigation shadcn dark desktop",
+          "file": ".website/docs/site/site-navigation.visual.spec.mjs",
+          "line": 11,
+          "project": "firefox",
+          "status": "passed",
+          "duration": 24855,
+          "errors": []
+        },
+        {
+          "title": "Site navigation shadcn dark desktop",
+          "file": ".website/docs/site/site-navigation.visual.spec.mjs",
+          "line": 11,
+          "project": "webkit",
+          "status": "passed",
+          "duration": 64137,
+          "errors": []
+        }
+      ]
+    }
+  ],
+  "chromiumRetest": {
+    "sourceAndBuildUnchanged": true,
+    "originalFailure": "net::ERR_NO_BUFFER_SPACE fetching shared_4.cb2da410.js",
+    "result": "passed",
+    "fullRunStillRecordedAs": "304 passed, 1 failed"
+  },
+  "crossBrowserEnvironment": {
+    "image": "mcr.microsoft.com/playwright:v1.64.1-noble@sha256:47b510dd9230bf0b9bfc9b20102241e577ea7a99334ab4c3ca19f19770e9b8ea",
+    "workers": 2,
+    "LP_NUM_THREADS": 2,
+    "testCorrectionBeforeCapture": {
+      "file": ".website/docs/site/site-motion.visual.spec.mjs",
+      "reason": "Observe the reveal wrapper animations; Firefox retains pending child transitions in closed details. Runtime source and build unchanged.",
+      "appliedAt": "2026-11-05T03:03:10.8873260Z",
+      "after": "8D6F229687802F6A3DEAE24CF218473EF1989930999B04A783953395D6148AB5",
+      "beforeVisualCapture": true,
+      "before": "99FDD2C82980492728396B9C6FF004AC6D1B5317BBA66CDA425E38364C738EF4"
+    }
+  }
+}

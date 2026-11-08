@@ -28,7 +28,7 @@ export default function HomeCategories({ href }: HomeSectionProps) {
                                     <p>{category.detail}</p>
                                 </header>
                                 <nav className="crab-home-component-links" aria-label={`${category.title}组件`}>
-                                    {category.items.map(([label, slug]) => <Button key={slug} className="crab-home-category-link" appearance="text" href={href(`components/rc-${slug}`)} iconAfter={<span aria-hidden="true">→</span>}>{label}</Button>)}
+                                    {category.items.map(([label, slug]) => <Button key={slug} className="crab-home-category-link" appearance="text" href={href(`components/rc-${slug}`)} iconAfter={<span className="crab-home-category-arrow" aria-hidden="true">→</span>}>{label}</Button>)}
                                 </nav>
                             </Card.Body>
                         </Card>

@@ -130,14 +130,14 @@ for(const config of configurations) for(const environment of environments) {
         await expect(drawer).toBeVisible();
         await page.setViewportSize({width:1440,height:900});
         await expect(drawer).not.toBeVisible();
-        await expect(page.getByRole('navigation',{name:'主导航',exact:true}).getByRole('button',{name:'组件',exact:true})).toBeFocused();
+        await expect(page.getByRole('navigation',{name:'主导航',exact:true}).getByRole('link',{name:'组件',exact:true})).toBeFocused();
         await expect(page.locator('dialog[open]')).toHaveCount(0);
         expect(await article(page).evaluate((node,previous)=>node===previous,documentInstance)).toBe(true);
         const rail=page.getByRole('navigation',{name:'主导航',exact:true});
-        await rail.getByRole('button',{name:'设计',exact:true}).click();
-        await expect(rail.getByRole('button',{name:'设计',exact:true})).toHaveAttribute('data-active','true');
-        await expect(rail.getByRole('button',{name:'组件',exact:true})).toHaveAttribute('data-active','false');
-        await expect(rail.getByRole('button',{name:'组件',exact:true})).toHaveAttribute('aria-current','true');
+        await rail.getByRole('link',{name:'设计',exact:true}).click();
+        await expect(rail.getByRole('link',{name:'设计',exact:true})).toHaveAttribute('data-active','true');
+        await expect(rail.getByRole('link',{name:'组件',exact:true})).toHaveAttribute('data-active','false');
+        await expect(rail.getByRole('link',{name:'设计',exact:true})).toHaveAttribute('aria-current','true');
         await assertDocumentWidth(page,info);
     });
 }

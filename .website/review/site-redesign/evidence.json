@@ -1,0 +1,1554 @@
+{
+  "before": {
+    "run": "site-redesign-before-2026-11-05",
+    "stats": {
+      "startTime": "2026-11-05T01:27:14.151Z",
+      "duration": 258744.02800000002,
+      "expected": 90,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "runs": [
+      {
+        "run": "site-redesign-before-2026-11-05",
+        "stats": {
+          "startTime": "2026-11-05T01:27:14.151Z",
+          "duration": 258744.02800000002,
+          "expected": 90,
+          "skipped": 0,
+          "unexpected": 0,
+          "flaky": 0
+        }
+      }
+    ],
+    "inputs": [
+      {
+        "source": "sha256:cac6916b7e7efebf402882f4fac7a4eda773468437277953da8cfe3fddba9165",
+        "artifact": "sha256:f14e0121413b05dedab65a928e535367f7b319ed501726a052f23b36beff5008",
+        "siteBuild": "sha256:d01ea357fc89bf5c512962a1a6774e5baceceb8f8feba2882d3b33561670c580",
+        "file": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\site-redesign-before-2026-11-05\\inputs-worker-3.json",
+        "renderingEnvironment": {
+          "file": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\site-redesign-before-2026-11-05\\rendering-worker-3.json",
+          "browserName": "chromium",
+          "browser": "156.0.8078.4"
+        },
+        "browserName": "chromium",
+        "browser": "156.0.8078.4",
+        "platform": "win32",
+        "arch": "x64",
+        "mode": "native-check",
+        "visualReview": "pending"
+      }
+    ],
+    "workers": [
+      {
+        "run": "site-redesign-before-2026-11-05",
+        "name": "inputs-worker-0.json",
+        "stable": true,
+        "source": "sha256:cac6916b7e7efebf402882f4fac7a4eda773468437277953da8cfe3fddba9165",
+        "artifact": "sha256:f14e0121413b05dedab65a928e535367f7b319ed501726a052f23b36beff5008",
+        "siteBuild": "sha256:d01ea357fc89bf5c512962a1a6774e5baceceb8f8feba2882d3b33561670c580"
+      },
+      {
+        "run": "site-redesign-before-2026-11-05",
+        "name": "inputs-worker-1.json",
+        "stable": true,
+        "source": "sha256:cac6916b7e7efebf402882f4fac7a4eda773468437277953da8cfe3fddba9165",
+        "artifact": "sha256:f14e0121413b05dedab65a928e535367f7b319ed501726a052f23b36beff5008",
+        "siteBuild": "sha256:d01ea357fc89bf5c512962a1a6774e5baceceb8f8feba2882d3b33561670c580"
+      },
+      {
+        "run": "site-redesign-before-2026-11-05",
+        "name": "inputs-worker-2.json",
+        "stable": true,
+        "source": "sha256:cac6916b7e7efebf402882f4fac7a4eda773468437277953da8cfe3fddba9165",
+        "artifact": "sha256:f14e0121413b05dedab65a928e535367f7b319ed501726a052f23b36beff5008",
+        "siteBuild": "sha256:d01ea357fc89bf5c512962a1a6774e5baceceb8f8feba2882d3b33561670c580"
+      },
+      {
+        "run": "site-redesign-before-2026-11-05",
+        "name": "inputs-worker-3.json",
+        "stable": true,
+        "source": "sha256:cac6916b7e7efebf402882f4fac7a4eda773468437277953da8cfe3fddba9165",
+        "artifact": "sha256:f14e0121413b05dedab65a928e535367f7b319ed501726a052f23b36beff5008",
+        "siteBuild": "sha256:d01ea357fc89bf5c512962a1a6774e5baceceb8f8feba2882d3b33561670c580"
+      }
+    ],
+    "captures": [
+      {
+        "title": "Site home md3 light narrow",
+        "file": "before/home-md3-light-narrow-viewport.png",
+        "sha256": "e95dc9f8ef14eaecadfdd7a92679706a96ee976c15e2191c8f9323a0da6146fa",
+        "status": "passed",
+        "run": "site-redesign-before-2026-11-05"
+      },
+      {
+        "title": "Site catalog md3 light narrow",
+        "file": "before/catalog-md3-light-narrow-viewport.png",
+        "sha256": "9f830aa1d9f944f8f28b744f7033c02d2e094c280e3cc4457893e2399dc74e16",
+        "status": "passed",
+        "run": "site-redesign-before-2026-11-05"
+      },
+      {
+        "title": "Site design md3 light narrow",
+        "file": "before/design-md3-light-narrow-viewport.png",
+        "sha256": "bed42d8ff8857aa3ade88ab1f39f57a1830e733ee21776fbd28bd7aca183e019",
+        "status": "passed",
+        "run": "site-redesign-before-2026-11-05"
+      },
+      {
+        "title": "Site component md3 light narrow",
+        "file": "before/component-md3-light-narrow-viewport.png",
+        "sha256": "094d2ed96842c896ad44ce79f5a833dbcccafc3f97b8e320220c226afde08c90",
+        "status": "passed",
+        "run": "site-redesign-before-2026-11-05"
+      },
+      {
+        "title": "Site tutorial md3 light narrow",
+        "file": "before/tutorial-md3-light-narrow-viewport.png",
+        "sha256": "f65f90b4ca13e66c615d9ee47d4fd643d71e3eee402c2715f4db9e05401852a4",
+        "status": "passed",
+        "run": "site-redesign-before-2026-11-05"
+      },
+      {
+        "title": "Site home md3 light tablet",
+        "file": "before/home-md3-light-tablet-viewport.png",
+        "sha256": "1c66e87c8806c41d453d7f678458178a02237447e68e42882d6261b416763bbc",
+        "status": "passed",
+        "run": "site-redesign-before-2026-11-05"
+      },
+      {
+        "title": "Site catalog md3 light tablet",
+        "file": "before/catalog-md3-light-tablet-viewport.png",
+        "sha256": "03596b8e10a8b5e5e2da2b0ff8b81d312df5f99404c19443f7b3c2a2022831e1",
+        "status": "passed",
+        "run": "site-redesign-before-2026-11-05"
+      },
+      {
+        "title": "Site design md3 light tablet",
+        "file": "before/design-md3-light-tablet-viewport.png",
+        "sha256": "dab504269e7254d34fb90ea6da511cc0234bbd97331a76e50b186b902e555201",
+        "status": "passed",
+        "run": "site-redesign-before-2026-11-05"
+      },
+      {
+        "title": "Site component md3 light tablet",
+        "file": "before/component-md3-light-tablet-viewport.png",
+        "sha256": "12aa77825c5c483eccdb0ef49bd4b203c1ae83d1702d91403c16e1b67607f413",
+        "status": "passed",
+        "run": "site-redesign-before-2026-11-05"
+      },
+      {
+        "title": "Site tutorial md3 light tablet",
+        "file": "before/tutorial-md3-light-tablet-viewport.png",
+        "sha256": "a720c8b6a3731ebca47c6c2e33bb98ba2fa1a666d4fceee358cc89c4159fc582",
+        "status": "passed",
+        "run": "site-redesign-before-2026-11-05"
+      },
+      {
+        "title": "Site home md3 light desktop",
+        "file": "before/home-md3-light-desktop-viewport.png",
+        "sha256": "ca471bf0cb57454cdcfbffa8ad3d19ff8dcb6f43c3b130bd556601fbf70acbf3",
+        "status": "passed",
+        "run": "site-redesign-before-2026-11-05"
+      },
+      {
+        "title": "Site catalog md3 light desktop",
+        "file": "before/catalog-md3-light-desktop-viewport.png",
+        "sha256": "c3a58f70a20ec4709df4fca5c27420f361c04f50d991cd09b56196e184bd3225",
+        "status": "passed",
+        "run": "site-redesign-before-2026-11-05"
+      },
+      {
+        "title": "Site design md3 light desktop",
+        "file": "before/design-md3-light-desktop-viewport.png",
+        "sha256": "8933441802e8a833c8f6cb51d6260432c414c446588fff6119bea9f8ee1fdf11",
+        "status": "passed",
+        "run": "site-redesign-before-2026-11-05"
+      },
+      {
+        "title": "Site component md3 light desktop",
+        "file": "before/component-md3-light-desktop-viewport.png",
+        "sha256": "0252c0fc40269113a9950fa4e36e8b163a0cbc3688f3e05361b07c1862190a59",
+        "status": "passed",
+        "run": "site-redesign-before-2026-11-05"
+      },
+      {
+        "title": "Site tutorial md3 light desktop",
+        "file": "before/tutorial-md3-light-desktop-viewport.png",
+        "sha256": "0464a9bd54d79846ec64e01800879a9854b68a78076a0fece0885774b56571d7",
+        "status": "passed",
+        "run": "site-redesign-before-2026-11-05"
+      },
+      {
+        "title": "Site home md3 dark narrow",
+        "file": "before/home-md3-dark-narrow-viewport.png",
+        "sha256": "6c55d9967047eb28da20d584c611b6bfcd7ac0e74b7922a43a2f356582c14bd2",
+        "status": "passed",
+        "run": "site-redesign-before-2026-11-05"
+      },
+      {
+        "title": "Site catalog md3 dark narrow",
+        "file": "before/catalog-md3-dark-narrow-viewport.png",
+        "sha256": "51a8bf0b32d31fe631e6a68d2cddf27e4314a37739223cfb244ae8f048be3cdc",
+        "status": "passed",
+        "run": "site-redesign-before-2026-11-05"
+      },
+      {
+        "title": "Site design md3 dark narrow",
+        "file": "before/design-md3-dark-narrow-viewport.png",
+        "sha256": "f19e0b3ca3e09036cea2cdfff666f03f83a9f761babb3064ab9201de1d15afd4",
+        "status": "passed",
+        "run": "site-redesign-before-2026-11-05"
+      },
+      {
+        "title": "Site component md3 dark narrow",
+        "file": "before/component-md3-dark-narrow-viewport.png",
+        "sha256": "9b0fb3dce640137b9d8b4bbe25852c9bcb89b1aa1034ce4c4ae4cd60fae6f343",
+        "status": "passed",
+        "run": "site-redesign-before-2026-11-05"
+      },
+      {
+        "title": "Site tutorial md3 dark narrow",
+        "file": "before/tutorial-md3-dark-narrow-viewport.png",
+        "sha256": "cf1d4dc730ff589b430a8bab8b87368b6ebc4ecc8bb3696470fe972de49b2f83",
+        "status": "passed",
+        "run": "site-redesign-before-2026-11-05"
+      },
+      {
+        "title": "Site home md3 dark tablet",
+        "file": "before/home-md3-dark-tablet-viewport.png",
+        "sha256": "faa33595ff931fd234b6a96d39e98db4a892c71730b325341c9bd5aa2f0ec822",
+        "status": "passed",
+        "run": "site-redesign-before-2026-11-05"
+      },
+      {
+        "title": "Site catalog md3 dark tablet",
+        "file": "before/catalog-md3-dark-tablet-viewport.png",
+        "sha256": "61314b911781cde766abb836d5a71c909347bc37c4482555d85558f5e9e299a7",
+        "status": "passed",
+        "run": "site-redesign-before-2026-11-05"
+      },
+      {
+        "title": "Site design md3 dark tablet",
+        "file": "before/design-md3-dark-tablet-viewport.png",
+        "sha256": "ee4c6901ceaca298900c061037c0274f466768a48d089afe80065636f15568a4",
+        "status": "passed",
+        "run": "site-redesign-before-2026-11-05"
+      },
+      {
+        "title": "Site component md3 dark tablet",
+        "file": "before/component-md3-dark-tablet-viewport.png",
+        "sha256": "9bab4a06d5a327f55d2721b03b47837c34a33371d17616b39080335f1bc4b736",
+        "status": "passed",
+        "run": "site-redesign-before-2026-11-05"
+      },
+      {
+        "title": "Site tutorial md3 dark tablet",
+        "file": "before/tutorial-md3-dark-tablet-viewport.png",
+        "sha256": "c3e63ae1367e3b9da90ebcaaa847680e14eaaebe6182229cc21d2a69fed12755",
+        "status": "passed",
+        "run": "site-redesign-before-2026-11-05"
+      },
+      {
+        "title": "Site home md3 dark desktop",
+        "file": "before/home-md3-dark-desktop-viewport.png",
+        "sha256": "170ac3dbd46144f68649add04dea6c3b4661ad4456c9990697f58985c47ed22e",
+        "status": "passed",
+        "run": "site-redesign-before-2026-11-05"
+      },
+      {
+        "title": "Site catalog md3 dark desktop",
+        "file": "before/catalog-md3-dark-desktop-viewport.png",
+        "sha256": "1474877d64d60755bd42ad6820a15002e2f62c05114c34279bbf11b5c7722ad3",
+        "status": "passed",
+        "run": "site-redesign-before-2026-11-05"
+      },
+      {
+        "title": "Site design md3 dark desktop",
+        "file": "before/design-md3-dark-desktop-viewport.png",
+        "sha256": "0d011ed58d0d040e474400e2ae04e885d58811f9104989ed36135a340f4b84a9",
+        "status": "passed",
+        "run": "site-redesign-before-2026-11-05"
+      },
+      {
+        "title": "Site component md3 dark desktop",
+        "file": "before/component-md3-dark-desktop-viewport.png",
+        "sha256": "28f7110674b730e0d4c3fd99a4e4bfc1e412b73c36fba2f3e26cd22044a62d36",
+        "status": "passed",
+        "run": "site-redesign-before-2026-11-05"
+      },
+      {
+        "title": "Site tutorial md3 dark desktop",
+        "file": "before/tutorial-md3-dark-desktop-viewport.png",
+        "sha256": "a8b2da223cddaa95b50b8ad0bede655588e36c4a1e16bcffcba716d39d1efa0d",
+        "status": "passed",
+        "run": "site-redesign-before-2026-11-05"
+      },
+      {
+        "title": "Site home apple light narrow",
+        "file": "before/home-apple-light-narrow-viewport.png",
+        "sha256": "cebd0fc977ff00de6a71ff9e46d137f402c2c1207ee0ae6c75319723f303ecc4",
+        "status": "passed",
+        "run": "site-redesign-before-2026-11-05"
+      },
+      {
+        "title": "Site catalog apple light narrow",
+        "file": "before/catalog-apple-light-narrow-viewport.png",
+        "sha256": "d863bb71db98b6473f2e0b4867f1bea6477defe83ab80d7b96a8605b1be93292",
+        "status": "passed",
+        "run": "site-redesign-before-2026-11-05"
+      },
+      {
+        "title": "Site design apple light narrow",
+        "file": "before/design-apple-light-narrow-viewport.png",
+        "sha256": "1b4e7d4372ab8b51400ecebba2c578229b79ee00351fee088a0a3c724557f076",
+        "status": "passed",
+        "run": "site-redesign-before-2026-11-05"
+      },
+      {
+        "title": "Site component apple light narrow",
+        "file": "before/component-apple-light-narrow-viewport.png",
+        "sha256": "57d881f1c7844cbc0ee8f40af1ceeea27e9a757bf3c38bfbf22e7f38a187c62b",
+        "status": "passed",
+        "run": "site-redesign-before-2026-11-05"
+      },
+      {
+        "title": "Site tutorial apple light narrow",
+        "file": "before/tutorial-apple-light-narrow-viewport.png",
+        "sha256": "84213ed666433c4b5c229930d71140c3a5d7358ae72bfc65b0530b287f09fc13",
+        "status": "passed",
+        "run": "site-redesign-before-2026-11-05"
+      },
+      {
+        "title": "Site home apple light tablet",
+        "file": "before/home-apple-light-tablet-viewport.png",
+        "sha256": "995f01aa902ba3e26935c76ec439c3977bbeb3e440ff82c92a87fa399aea5a14",
+        "status": "passed",
+        "run": "site-redesign-before-2026-11-05"
+      },
+      {
+        "title": "Site catalog apple light tablet",
+        "file": "before/catalog-apple-light-tablet-viewport.png",
+        "sha256": "30ac164e0c2dc2dd884b2eb62adf74d4b0e513214693f5fbcd612d565a737f1e",
+        "status": "passed",
+        "run": "site-redesign-before-2026-11-05"
+      },
+      {
+        "title": "Site design apple light tablet",
+        "file": "before/design-apple-light-tablet-viewport.png",
+        "sha256": "835593955fab34b1f6ac31fbf03801387c61c6b27c397e1a8675cfb6d668e01a",
+        "status": "passed",
+        "run": "site-redesign-before-2026-11-05"
+      },
+      {
+        "title": "Site component apple light tablet",
+        "file": "before/component-apple-light-tablet-viewport.png",
+        "sha256": "0a8a118b9c9cdc8988ef67a1b8d25e985f0e7643c473b10b7d511561dffd151d",
+        "status": "passed",
+        "run": "site-redesign-before-2026-11-05"
+      },
+      {
+        "title": "Site tutorial apple light tablet",
+        "file": "before/tutorial-apple-light-tablet-viewport.png",
+        "sha256": "2c34374bd55e631fc1fd12233d325c0e0c3a9b91462731e3f0770175d4bd7d6c",
+        "status": "passed",
+        "run": "site-redesign-before-2026-11-05"
+      },
+      {
+        "title": "Site home apple light desktop",
+        "file": "before/home-apple-light-desktop-viewport.png",
+        "sha256": "91e8609dd4153d47dcab678e348aaac48f5c93acf942aaa82df7d895716d5274",
+        "status": "passed",
+        "run": "site-redesign-before-2026-11-05"
+      },
+      {
+        "title": "Site catalog apple light desktop",
+        "file": "before/catalog-apple-light-desktop-viewport.png",
+        "sha256": "01c77ad40e1d008173241b32f81bf94540a6e3b3544d5fd3659e171495ef4da1",
+        "status": "passed",
+        "run": "site-redesign-before-2026-11-05"
+      },
+      {
+        "title": "Site design apple light desktop",
+        "file": "before/design-apple-light-desktop-viewport.png",
+        "sha256": "eb5b23a2fb97507d3f2674986814cb52b132b79519d9e2ff194eb317c97cf4cd",
+        "status": "passed",
+        "run": "site-redesign-before-2026-11-05"
+      },
+      {
+        "title": "Site component apple light desktop",
+        "file": "before/component-apple-light-desktop-viewport.png",
+        "sha256": "51f16435ff9ae297df76ee97ef46eade98b9c2e4f353b9b7dee7b194109ded62",
+        "status": "passed",
+        "run": "site-redesign-before-2026-11-05"
+      },
+      {
+        "title": "Site tutorial apple light desktop",
+        "file": "before/tutorial-apple-light-desktop-viewport.png",
+        "sha256": "5a0927bbbcb44f3537f4330985ddd4fc80199e599bd18e2bd4eb245e089c60e1",
+        "status": "passed",
+        "run": "site-redesign-before-2026-11-05"
+      },
+      {
+        "title": "Site home apple dark narrow",
+        "file": "before/home-apple-dark-narrow-viewport.png",
+        "sha256": "db9edbfc54447f2573c05f0a7ec138fb70cee47cabd47902dfcac4c544a657ab",
+        "status": "passed",
+        "run": "site-redesign-before-2026-11-05"
+      },
+      {
+        "title": "Site catalog apple dark narrow",
+        "file": "before/catalog-apple-dark-narrow-viewport.png",
+        "sha256": "4a6073a5554bf7d92ff7def5d4467741ebc32c6757bce3521aa0cafbe29a739b",
+        "status": "passed",
+        "run": "site-redesign-before-2026-11-05"
+      },
+      {
+        "title": "Site design apple dark narrow",
+        "file": "before/design-apple-dark-narrow-viewport.png",
+        "sha256": "4b5241f7acf471be2b18f953f6d787bd006f5bf05fd61ea39c9d1542fc9c2f38",
+        "status": "passed",
+        "run": "site-redesign-before-2026-11-05"
+      },
+      {
+        "title": "Site component apple dark narrow",
+        "file": "before/component-apple-dark-narrow-viewport.png",
+        "sha256": "73ccbc3ad9974e1f871ee9a8aff2aa0dcce6ade38edaba31b9ad324a8db0b872",
+        "status": "passed",
+        "run": "site-redesign-before-2026-11-05"
+      },
+      {
+        "title": "Site tutorial apple dark narrow",
+        "file": "before/tutorial-apple-dark-narrow-viewport.png",
+        "sha256": "e8e8a6440ba35fc00e4fe871be512b3770da48808e875e83e7efdecd1fb31ca1",
+        "status": "passed",
+        "run": "site-redesign-before-2026-11-05"
+      },
+      {
+        "title": "Site home apple dark tablet",
+        "file": "before/home-apple-dark-tablet-viewport.png",
+        "sha256": "206e1f206987e7de882132c6df001d08c41daef6a4e0cb46db31f0d7cc408224",
+        "status": "passed",
+        "run": "site-redesign-before-2026-11-05"
+      },
+      {
+        "title": "Site catalog apple dark tablet",
+        "file": "before/catalog-apple-dark-tablet-viewport.png",
+        "sha256": "6ca26b8f4985f4be9ffe494b643f18c0561e88972d58cf2f407db8d7ab7c6f63",
+        "status": "passed",
+        "run": "site-redesign-before-2026-11-05"
+      },
+      {
+        "title": "Site design apple dark tablet",
+        "file": "before/design-apple-dark-tablet-viewport.png",
+        "sha256": "bd21853e84df0322a2c2e88a01c1c15b344c91407b8054c4764afb7815b96e77",
+        "status": "passed",
+        "run": "site-redesign-before-2026-11-05"
+      },
+      {
+        "title": "Site component apple dark tablet",
+        "file": "before/component-apple-dark-tablet-viewport.png",
+        "sha256": "4ffcf48fb2932882f0f98a4a1b647be8a0dd97ba0d6c41d8894c4a74f515cdee",
+        "status": "passed",
+        "run": "site-redesign-before-2026-11-05"
+      },
+      {
+        "title": "Site tutorial apple dark tablet",
+        "file": "before/tutorial-apple-dark-tablet-viewport.png",
+        "sha256": "376c5748fba31cf9b73d61ebdbeabe91fc245d45f23b2a6a7814faf21cc41d4f",
+        "status": "passed",
+        "run": "site-redesign-before-2026-11-05"
+      },
+      {
+        "title": "Site home apple dark desktop",
+        "file": "before/home-apple-dark-desktop-viewport.png",
+        "sha256": "8b7b70c47d303126b512f1b1b7aef7bd79cbc3426ffe33e87d5b1c10cfdab3a8",
+        "status": "passed",
+        "run": "site-redesign-before-2026-11-05"
+      },
+      {
+        "title": "Site catalog apple dark desktop",
+        "file": "before/catalog-apple-dark-desktop-viewport.png",
+        "sha256": "7cc8097b8e6b8dbe4b947de1303d526d0884efc6c5ba6103222f1eb760f785e4",
+        "status": "passed",
+        "run": "site-redesign-before-2026-11-05"
+      },
+      {
+        "title": "Site design apple dark desktop",
+        "file": "before/design-apple-dark-desktop-viewport.png",
+        "sha256": "608696888cf0843c5f0424907616a2dc24ce1c07e08c1dc72a994c6725a9cf9b",
+        "status": "passed",
+        "run": "site-redesign-before-2026-11-05"
+      },
+      {
+        "title": "Site component apple dark desktop",
+        "file": "before/component-apple-dark-desktop-viewport.png",
+        "sha256": "cf42ae74e70deec9e74d544df3ae02bb57b518c6e4bb1ab98ab0ecb477eea14a",
+        "status": "passed",
+        "run": "site-redesign-before-2026-11-05"
+      },
+      {
+        "title": "Site tutorial apple dark desktop",
+        "file": "before/tutorial-apple-dark-desktop-viewport.png",
+        "sha256": "e12e9694f8c1903922d1e6011acbd4c5cd61e546361f90475a5c74a8c9b07883",
+        "status": "passed",
+        "run": "site-redesign-before-2026-11-05"
+      },
+      {
+        "title": "Site home shadcn light narrow",
+        "file": "before/home-shadcn-light-narrow-viewport.png",
+        "sha256": "8ea4fac269322c4b2d76533d28139ae1c94c6d69a3f969f06faf844be1047002",
+        "status": "passed",
+        "run": "site-redesign-before-2026-11-05"
+      },
+      {
+        "title": "Site catalog shadcn light narrow",
+        "file": "before/catalog-shadcn-light-narrow-viewport.png",
+        "sha256": "d5920e3559c4ef3a91250606dbd0f6f370cc6637176cc19c777c0f5ea8f1b159",
+        "status": "passed",
+        "run": "site-redesign-before-2026-11-05"
+      },
+      {
+        "title": "Site design shadcn light narrow",
+        "file": "before/design-shadcn-light-narrow-viewport.png",
+        "sha256": "e50e52442f86e261d7a3e05151e9186031dae9033f1dc1469b5fba0df80bd29f",
+        "status": "passed",
+        "run": "site-redesign-before-2026-11-05"
+      },
+      {
+        "title": "Site component shadcn light narrow",
+        "file": "before/component-shadcn-light-narrow-viewport.png",
+        "sha256": "0a70a88eee369708b47877fa8f344a13838e1bfa940a27c3d3358d729fef3e0c",
+        "status": "passed",
+        "run": "site-redesign-before-2026-11-05"
+      },
+      {
+        "title": "Site tutorial shadcn light narrow",
+        "file": "before/tutorial-shadcn-light-narrow-viewport.png",
+        "sha256": "792e0a43c5be53b6ddea4c25cfd4e4e9a52e1df3d7f2301fefe1be04611ff09c",
+        "status": "passed",
+        "run": "site-redesign-before-2026-11-05"
+      },
+      {
+        "title": "Site home shadcn light tablet",
+        "file": "before/home-shadcn-light-tablet-viewport.png",
+        "sha256": "39648ee0a7ae4f347f63bd3d2db814860230a13d72491731050b885b038ee0cd",
+        "status": "passed",
+        "run": "site-redesign-before-2026-11-05"
+      },
+      {
+        "title": "Site catalog shadcn light tablet",
+        "file": "before/catalog-shadcn-light-tablet-viewport.png",
+        "sha256": "71e6a0a2efae231f8ffe52709f76b89ec6ebd2a16dca8560b12630901937cd0b",
+        "status": "passed",
+        "run": "site-redesign-before-2026-11-05"
+      },
+      {
+        "title": "Site design shadcn light tablet",
+        "file": "before/design-shadcn-light-tablet-viewport.png",
+        "sha256": "ba9d96e71e41d89746512608f32eb7e99bb2229a43790c3e5cbaa66459a953a3",
+        "status": "passed",
+        "run": "site-redesign-before-2026-11-05"
+      },
+      {
+        "title": "Site component shadcn light tablet",
+        "file": "before/component-shadcn-light-tablet-viewport.png",
+        "sha256": "a855dca0622f7197e3cdebf16b588ba5da358b62b70a2b8f31c70764f8c685f1",
+        "status": "passed",
+        "run": "site-redesign-before-2026-11-05"
+      },
+      {
+        "title": "Site tutorial shadcn light tablet",
+        "file": "before/tutorial-shadcn-light-tablet-viewport.png",
+        "sha256": "ba4fc9ea1280cea1acae87cbc2d6911ffa0fad59b101e3e1cfed0a21139b6e1a",
+        "status": "passed",
+        "run": "site-redesign-before-2026-11-05"
+      },
+      {
+        "title": "Site home shadcn light desktop",
+        "file": "before/home-shadcn-light-desktop-viewport.png",
+        "sha256": "0d5b1aa52d34e607b9dbd87392cad0e002cd2288cd768e4e8fe36c1a6a4e3899",
+        "status": "passed",
+        "run": "site-redesign-before-2026-11-05"
+      },
+      {
+        "title": "Site catalog shadcn light desktop",
+        "file": "before/catalog-shadcn-light-desktop-viewport.png",
+        "sha256": "7a9d6ca5421fbc35c2c1f8ede2e76f6a0401eede31853165086ad29c78b2573f",
+        "status": "passed",
+        "run": "site-redesign-before-2026-11-05"
+      },
+      {
+        "title": "Site design shadcn light desktop",
+        "file": "before/design-shadcn-light-desktop-viewport.png",
+        "sha256": "48f8a00d4754af18a3cf14ff8d6ce4c15062fd05147617c412eaeb9155791986",
+        "status": "passed",
+        "run": "site-redesign-before-2026-11-05"
+      },
+      {
+        "title": "Site component shadcn light desktop",
+        "file": "before/component-shadcn-light-desktop-viewport.png",
+        "sha256": "0d06df5a7880e6ccbc223acde5f88c759a024216128939fd155321a173219fa6",
+        "status": "passed",
+        "run": "site-redesign-before-2026-11-05"
+      },
+      {
+        "title": "Site tutorial shadcn light desktop",
+        "file": "before/tutorial-shadcn-light-desktop-viewport.png",
+        "sha256": "cd45f80ae4bb1452ed91610be433c670080392df9c17f0d3638b1e30c021cd07",
+        "status": "passed",
+        "run": "site-redesign-before-2026-11-05"
+      },
+      {
+        "title": "Site home shadcn dark narrow",
+        "file": "before/home-shadcn-dark-narrow-viewport.png",
+        "sha256": "d22eabb20330774f59f6564a51f769428e1fa499ea6bc8d80e00aa008df7f067",
+        "status": "passed",
+        "run": "site-redesign-before-2026-11-05"
+      },
+      {
+        "title": "Site catalog shadcn dark narrow",
+        "file": "before/catalog-shadcn-dark-narrow-viewport.png",
+        "sha256": "9b6403835e49b3475425442cda01107546714b59199ae2d59538496b4d471422",
+        "status": "passed",
+        "run": "site-redesign-before-2026-11-05"
+      },
+      {
+        "title": "Site design shadcn dark narrow",
+        "file": "before/design-shadcn-dark-narrow-viewport.png",
+        "sha256": "5b38d9657fc1b4f54a711515d2eaedc7a580d0a34ce08cb2db4fc2e07da27677",
+        "status": "passed",
+        "run": "site-redesign-before-2026-11-05"
+      },
+      {
+        "title": "Site component shadcn dark narrow",
+        "file": "before/component-shadcn-dark-narrow-viewport.png",
+        "sha256": "7566f8662a989d2db27eeca32b531555fb0e833d22d6b566501f082c873ea2c9",
+        "status": "passed",
+        "run": "site-redesign-before-2026-11-05"
+      },
+      {
+        "title": "Site tutorial shadcn dark narrow",
+        "file": "before/tutorial-shadcn-dark-narrow-viewport.png",
+        "sha256": "19bab137a7693fdc779f7a004f83456cea568c7f9760636525356f1a1303b4cf",
+        "status": "passed",
+        "run": "site-redesign-before-2026-11-05"
+      },
+      {
+        "title": "Site home shadcn dark tablet",
+        "file": "before/home-shadcn-dark-tablet-viewport.png",
+        "sha256": "2700f8ecc3e077c40f71241e4ff0bb1aab7eb7a7166e0ad55f0bf1a815c82237",
+        "status": "passed",
+        "run": "site-redesign-before-2026-11-05"
+      },
+      {
+        "title": "Site catalog shadcn dark tablet",
+        "file": "before/catalog-shadcn-dark-tablet-viewport.png",
+        "sha256": "9814a76809d3128ca702d97a02d2677e76260b6f40ef8554dd12a3a3a62e70f0",
+        "status": "passed",
+        "run": "site-redesign-before-2026-11-05"
+      },
+      {
+        "title": "Site design shadcn dark tablet",
+        "file": "before/design-shadcn-dark-tablet-viewport.png",
+        "sha256": "88ea02ecbd933dc3b06c3c0ed34308f5f7c06d771dce88a2cd51e6d9f5fc61b1",
+        "status": "passed",
+        "run": "site-redesign-before-2026-11-05"
+      },
+      {
+        "title": "Site component shadcn dark tablet",
+        "file": "before/component-shadcn-dark-tablet-viewport.png",
+        "sha256": "03a1b37d1b1d3729049d580344c0d1af57e4c56fcb8a44fb3bec6916daf76732",
+        "status": "passed",
+        "run": "site-redesign-before-2026-11-05"
+      },
+      {
+        "title": "Site tutorial shadcn dark tablet",
+        "file": "before/tutorial-shadcn-dark-tablet-viewport.png",
+        "sha256": "f4a64da364499a14b5aff00de063506236dd87a5182fc950d94dcaea85d793da",
+        "status": "passed",
+        "run": "site-redesign-before-2026-11-05"
+      },
+      {
+        "title": "Site home shadcn dark desktop",
+        "file": "before/home-shadcn-dark-desktop-viewport.png",
+        "sha256": "bb68373519aea242e3aedc12cc4d0f3794a2cf498d8778c3adc6cf579474e137",
+        "status": "passed",
+        "run": "site-redesign-before-2026-11-05"
+      },
+      {
+        "title": "Site catalog shadcn dark desktop",
+        "file": "before/catalog-shadcn-dark-desktop-viewport.png",
+        "sha256": "9fc694972215c1f489f6f1671fd2acfd29de2480be4e67c8381c6e73e00a6304",
+        "status": "passed",
+        "run": "site-redesign-before-2026-11-05"
+      },
+      {
+        "title": "Site design shadcn dark desktop",
+        "file": "before/design-shadcn-dark-desktop-viewport.png",
+        "sha256": "54e92610c94df91cafabb277242692f3101d745e1ed3de28affac1e6b00f37a6",
+        "status": "passed",
+        "run": "site-redesign-before-2026-11-05"
+      },
+      {
+        "title": "Site component shadcn dark desktop",
+        "file": "before/component-shadcn-dark-desktop-viewport.png",
+        "sha256": "a6dd2ca590dcf39033a793ea8b98d38f440f80b9a991ad32f51ed91090bf8fb6",
+        "status": "passed",
+        "run": "site-redesign-before-2026-11-05"
+      },
+      {
+        "title": "Site tutorial shadcn dark desktop",
+        "file": "before/tutorial-shadcn-dark-desktop-viewport.png",
+        "sha256": "26311eea67fa8fff2ece48a2bcd6ae2d7bf79a5252fd27b6fbf61be01fe587c2",
+        "status": "passed",
+        "run": "site-redesign-before-2026-11-05"
+      }
+    ],
+    "motion": []
+  },
+  "after": {
+    "run": "site-redesign-final-2026-11-05",
+    "stats": {
+      "startTime": "2026-11-05T03:17:38.310Z",
+      "duration": 996593.818,
+      "expected": 304,
+      "skipped": 0,
+      "unexpected": 1,
+      "flaky": 0
+    },
+    "runs": [
+      {
+        "run": "site-redesign-final-2026-11-05",
+        "stats": {
+          "startTime": "2026-11-05T03:17:38.310Z",
+          "duration": 996593.818,
+          "expected": 304,
+          "skipped": 0,
+          "unexpected": 1,
+          "flaky": 0
+        }
+      },
+      {
+        "run": "site-redesign-final-layout-retry-2026-11-05",
+        "stats": {
+          "startTime": "2026-11-05T03:38:50.034Z",
+          "duration": 34669.689999999995,
+          "expected": 1,
+          "skipped": 0,
+          "unexpected": 0,
+          "flaky": 0
+        }
+      }
+    ],
+    "inputs": [
+      {
+        "source": "sha256:8f9b49fbaefd2e1eadd3371e8b3c7cb2a96759b71a7753d1167e21fde553f9f7",
+        "artifact": "sha256:f14e0121413b05dedab65a928e535367f7b319ed501726a052f23b36beff5008",
+        "siteBuild": "sha256:b395b40b6d2d2c8d11f234877b30d27c490ef9f0e5fb9745622b5b9ceea92407",
+        "file": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\site-redesign-final-layout-retry-2026-11-05\\inputs-worker-0.json",
+        "renderingEnvironment": {
+          "file": "C:\\Users\\zhang\\Desktop\\crab-dev\\.cache\\visual\\site-redesign-final-layout-retry-2026-11-05\\rendering-worker-0.json",
+          "browserName": "chromium",
+          "browser": "156.0.8078.4"
+        },
+        "browserName": "chromium",
+        "browser": "156.0.8078.4",
+        "platform": "win32",
+        "arch": "x64",
+        "mode": "native-check",
+        "visualReview": "pending"
+      }
+    ],
+    "workers": [
+      {
+        "run": "site-redesign-final-2026-11-05",
+        "name": "inputs-worker-0.json",
+        "stable": true,
+        "source": "sha256:8f9b49fbaefd2e1eadd3371e8b3c7cb2a96759b71a7753d1167e21fde553f9f7",
+        "artifact": "sha256:f14e0121413b05dedab65a928e535367f7b319ed501726a052f23b36beff5008",
+        "siteBuild": "sha256:b395b40b6d2d2c8d11f234877b30d27c490ef9f0e5fb9745622b5b9ceea92407"
+      },
+      {
+        "run": "site-redesign-final-2026-11-05",
+        "name": "inputs-worker-1.json",
+        "stable": true,
+        "source": "sha256:8f9b49fbaefd2e1eadd3371e8b3c7cb2a96759b71a7753d1167e21fde553f9f7",
+        "artifact": "sha256:f14e0121413b05dedab65a928e535367f7b319ed501726a052f23b36beff5008",
+        "siteBuild": "sha256:b395b40b6d2d2c8d11f234877b30d27c490ef9f0e5fb9745622b5b9ceea92407"
+      },
+      {
+        "run": "site-redesign-final-2026-11-05",
+        "name": "inputs-worker-2.json",
+        "stable": true,
+        "source": "sha256:8f9b49fbaefd2e1eadd3371e8b3c7cb2a96759b71a7753d1167e21fde553f9f7",
+        "artifact": "sha256:f14e0121413b05dedab65a928e535367f7b319ed501726a052f23b36beff5008",
+        "siteBuild": "sha256:b395b40b6d2d2c8d11f234877b30d27c490ef9f0e5fb9745622b5b9ceea92407"
+      },
+      {
+        "run": "site-redesign-final-2026-11-05",
+        "name": "inputs-worker-3.json",
+        "stable": true,
+        "source": "sha256:8f9b49fbaefd2e1eadd3371e8b3c7cb2a96759b71a7753d1167e21fde553f9f7",
+        "artifact": "sha256:f14e0121413b05dedab65a928e535367f7b319ed501726a052f23b36beff5008",
+        "siteBuild": "sha256:b395b40b6d2d2c8d11f234877b30d27c490ef9f0e5fb9745622b5b9ceea92407"
+      },
+      {
+        "run": "site-redesign-final-2026-11-05",
+        "name": "inputs-worker-4.json",
+        "stable": true,
+        "source": "sha256:8f9b49fbaefd2e1eadd3371e8b3c7cb2a96759b71a7753d1167e21fde553f9f7",
+        "artifact": "sha256:f14e0121413b05dedab65a928e535367f7b319ed501726a052f23b36beff5008",
+        "siteBuild": "sha256:b395b40b6d2d2c8d11f234877b30d27c490ef9f0e5fb9745622b5b9ceea92407"
+      },
+      {
+        "run": "site-redesign-final-2026-11-05",
+        "name": "inputs-worker-5.json",
+        "stable": true,
+        "source": "sha256:8f9b49fbaefd2e1eadd3371e8b3c7cb2a96759b71a7753d1167e21fde553f9f7",
+        "artifact": "sha256:f14e0121413b05dedab65a928e535367f7b319ed501726a052f23b36beff5008",
+        "siteBuild": "sha256:b395b40b6d2d2c8d11f234877b30d27c490ef9f0e5fb9745622b5b9ceea92407"
+      },
+      {
+        "run": "site-redesign-final-2026-11-05",
+        "name": "inputs-worker-6.json",
+        "stable": true,
+        "source": "sha256:8f9b49fbaefd2e1eadd3371e8b3c7cb2a96759b71a7753d1167e21fde553f9f7",
+        "artifact": "sha256:f14e0121413b05dedab65a928e535367f7b319ed501726a052f23b36beff5008",
+        "siteBuild": "sha256:b395b40b6d2d2c8d11f234877b30d27c490ef9f0e5fb9745622b5b9ceea92407"
+      },
+      {
+        "run": "site-redesign-final-2026-11-05",
+        "name": "inputs-worker-7.json",
+        "stable": true,
+        "source": "sha256:8f9b49fbaefd2e1eadd3371e8b3c7cb2a96759b71a7753d1167e21fde553f9f7",
+        "artifact": "sha256:f14e0121413b05dedab65a928e535367f7b319ed501726a052f23b36beff5008",
+        "siteBuild": "sha256:b395b40b6d2d2c8d11f234877b30d27c490ef9f0e5fb9745622b5b9ceea92407"
+      },
+      {
+        "run": "site-redesign-final-2026-11-05",
+        "name": "inputs-worker-8.json",
+        "stable": true,
+        "source": "sha256:8f9b49fbaefd2e1eadd3371e8b3c7cb2a96759b71a7753d1167e21fde553f9f7",
+        "artifact": "sha256:f14e0121413b05dedab65a928e535367f7b319ed501726a052f23b36beff5008",
+        "siteBuild": "sha256:b395b40b6d2d2c8d11f234877b30d27c490ef9f0e5fb9745622b5b9ceea92407"
+      },
+      {
+        "run": "site-redesign-final-layout-retry-2026-11-05",
+        "name": "inputs-worker-0.json",
+        "stable": true,
+        "source": "sha256:8f9b49fbaefd2e1eadd3371e8b3c7cb2a96759b71a7753d1167e21fde553f9f7",
+        "artifact": "sha256:f14e0121413b05dedab65a928e535367f7b319ed501726a052f23b36beff5008",
+        "siteBuild": "sha256:b395b40b6d2d2c8d11f234877b30d27c490ef9f0e5fb9745622b5b9ceea92407"
+      }
+    ],
+    "captures": [
+      {
+        "title": "Site home md3 light narrow",
+        "file": "after/home-md3-light-narrow-viewport.png",
+        "sha256": "dc5eecbf9771671995ba12fe93a98db56484cb4af22d7fc966aff9849e3b26fd",
+        "status": "passed",
+        "run": "site-redesign-final-2026-11-05"
+      },
+      {
+        "title": "Site catalog md3 light narrow",
+        "file": "after/catalog-md3-light-narrow-viewport.png",
+        "sha256": "aa9b605ad7893734fdf677267e2ba1bd268eaffee2cb1378b0f761cb4971bf11",
+        "status": "passed",
+        "run": "site-redesign-final-2026-11-05"
+      },
+      {
+        "title": "Site design md3 light narrow",
+        "file": "after/design-md3-light-narrow-viewport.png",
+        "sha256": "1c714514068eee4ba1b9fc50a5d4ce9bffef153a2f27f51efcb30628a214b7e4",
+        "status": "passed",
+        "run": "site-redesign-final-2026-11-05"
+      },
+      {
+        "title": "Site component md3 light narrow",
+        "file": "after/component-md3-light-narrow-viewport.png",
+        "sha256": "973510a25672dabcffbc2624fd693a8459671b066fc3d44ad23933bdd7fb3f5d",
+        "status": "passed",
+        "run": "site-redesign-final-2026-11-05"
+      },
+      {
+        "title": "Site tutorial md3 light narrow",
+        "file": "after/tutorial-md3-light-narrow-viewport.png",
+        "sha256": "c134723b75fd84b1f2eca9a77046ca8ad9ecad1d597a1b4cac485f51c64b6734",
+        "status": "passed",
+        "run": "site-redesign-final-2026-11-05"
+      },
+      {
+        "title": "Site home md3 light tablet",
+        "file": "after/home-md3-light-tablet-viewport.png",
+        "sha256": "cbadc7eb396fdd5e515981217873324f4725f13c5884674240513bea27c9c7d9",
+        "status": "passed",
+        "run": "site-redesign-final-2026-11-05"
+      },
+      {
+        "title": "Site catalog md3 light tablet",
+        "file": "after/catalog-md3-light-tablet-viewport.png",
+        "sha256": "d747c8713e0d3868b4187a9d961ca20a13d62bc32024f011c804048a71e51efe",
+        "status": "passed",
+        "run": "site-redesign-final-2026-11-05"
+      },
+      {
+        "title": "Site design md3 light tablet",
+        "file": "after/design-md3-light-tablet-viewport.png",
+        "sha256": "35b79dc6e424595a344dc3aa860c3cc08305d823e7c136dc7a1e9e065784ac84",
+        "status": "passed",
+        "run": "site-redesign-final-2026-11-05"
+      },
+      {
+        "title": "Site component md3 light tablet",
+        "file": "after/component-md3-light-tablet-viewport.png",
+        "sha256": "466819ad9dd54f804d8561ddbc1330214e779b0bca4518ddf50cfb77cf1ac5a3",
+        "status": "passed",
+        "run": "site-redesign-final-2026-11-05"
+      },
+      {
+        "title": "Site tutorial md3 light tablet",
+        "file": "after/tutorial-md3-light-tablet-viewport.png",
+        "sha256": "d7cf08fcf9eb692495db12498ae84da6b24d88b8d8759ac21522f5842b9b1b1e",
+        "status": "passed",
+        "run": "site-redesign-final-2026-11-05"
+      },
+      {
+        "title": "Site home md3 light desktop",
+        "file": "after/home-md3-light-desktop-viewport.png",
+        "sha256": "6a9d88152defec5d221b0b4b9f8680b0e5b9fd3d704e2cbfb33762b8ebde0289",
+        "status": "passed",
+        "run": "site-redesign-final-2026-11-05"
+      },
+      {
+        "title": "Site catalog md3 light desktop",
+        "file": "after/catalog-md3-light-desktop-viewport.png",
+        "sha256": "489118ffe054aa10f7fb112f1e25523f70caff8fe1591bd0ccdf69e2a4b4a7f9",
+        "status": "passed",
+        "run": "site-redesign-final-2026-11-05"
+      },
+      {
+        "title": "Site design md3 light desktop",
+        "file": "after/design-md3-light-desktop-viewport.png",
+        "sha256": "69444322380e05ade94d5c886799e80e28edfea72ede91acb847e465ee5680b3",
+        "status": "passed",
+        "run": "site-redesign-final-2026-11-05"
+      },
+      {
+        "title": "Site component md3 light desktop",
+        "file": "after/component-md3-light-desktop-viewport.png",
+        "sha256": "d87258766f3993dd87c59c2bb4cd2efa558d0feb3386e926e806e863a1fa36a1",
+        "status": "passed",
+        "run": "site-redesign-final-2026-11-05"
+      },
+      {
+        "title": "Site tutorial md3 light desktop",
+        "file": "after/tutorial-md3-light-desktop-viewport.png",
+        "sha256": "7df88ff040b247772d7e6df37c5bb03a4419bbc5a0460df5560fb9afdd426cfc",
+        "status": "passed",
+        "run": "site-redesign-final-2026-11-05"
+      },
+      {
+        "title": "Site home md3 dark narrow",
+        "file": "after/home-md3-dark-narrow-viewport.png",
+        "sha256": "a961108e4c370d3029c8c69f0c67da5d25ed5ad3b1a3b8ef9e50f870ffd257a1",
+        "status": "passed",
+        "run": "site-redesign-final-2026-11-05"
+      },
+      {
+        "title": "Site catalog md3 dark narrow",
+        "file": "after/catalog-md3-dark-narrow-viewport.png",
+        "sha256": "119727cde46c91c0a547e490224103cd61e3f8bb773b121ff7d0cb6552b6c714",
+        "status": "passed",
+        "run": "site-redesign-final-2026-11-05"
+      },
+      {
+        "title": "Site design md3 dark narrow",
+        "file": "after/design-md3-dark-narrow-viewport.png",
+        "sha256": "11e078ad5190f3f9e261dcb3c50efef43ca72738a38bb8ae0ac758a72d9bd267",
+        "status": "passed",
+        "run": "site-redesign-final-2026-11-05"
+      },
+      {
+        "title": "Site component md3 dark narrow",
+        "file": "after/component-md3-dark-narrow-viewport.png",
+        "sha256": "f4becdb52ef9f4c955706ffbc3cef8ba052ba229438dd37766796d1f8a94b30f",
+        "status": "passed",
+        "run": "site-redesign-final-2026-11-05"
+      },
+      {
+        "title": "Site tutorial md3 dark narrow",
+        "file": "after/tutorial-md3-dark-narrow-viewport.png",
+        "sha256": "c64272dd7f412eca7ea20befecd7f343417aa5334edc35adeb1b975940199fb2",
+        "status": "passed",
+        "run": "site-redesign-final-2026-11-05"
+      },
+      {
+        "title": "Site home md3 dark tablet",
+        "file": "after/home-md3-dark-tablet-viewport.png",
+        "sha256": "49e25551e587ec1cab9fb1bd77666f467a5a0d94f8589c887db00da40e8582de",
+        "status": "passed",
+        "run": "site-redesign-final-2026-11-05"
+      },
+      {
+        "title": "Site catalog md3 dark tablet",
+        "file": "after/catalog-md3-dark-tablet-viewport.png",
+        "sha256": "cb03dda07729c55bf290231fb692cc5b483a674c4a94e839154c3e8295717dc3",
+        "status": "passed",
+        "run": "site-redesign-final-2026-11-05"
+      },
+      {
+        "title": "Site design md3 dark tablet",
+        "file": "after/design-md3-dark-tablet-viewport.png",
+        "sha256": "b458d31fadef5b02691194e26b65dd888050d0c71b79a7937d754fa87ef46532",
+        "status": "passed",
+        "run": "site-redesign-final-2026-11-05"
+      },
+      {
+        "title": "Site component md3 dark tablet",
+        "file": "after/component-md3-dark-tablet-viewport.png",
+        "sha256": "e43121d2e3fecbdc77478abff24de88caaa2119573c62f77bbc3a46093288898",
+        "status": "passed",
+        "run": "site-redesign-final-2026-11-05"
+      },
+      {
+        "title": "Site tutorial md3 dark tablet",
+        "file": "after/tutorial-md3-dark-tablet-viewport.png",
+        "sha256": "2e62f9a1ddbccffef81b4f8c03ed5c13a55829e4830e033ee89cbf1ae5fd7576",
+        "status": "passed",
+        "run": "site-redesign-final-2026-11-05"
+      },
+      {
+        "title": "Site home md3 dark desktop",
+        "file": "after/home-md3-dark-desktop-viewport.png",
+        "sha256": "8d85984fc501ad797bdb8e0d6394ccd1dcb01802f19ad1091268929e628cc4dd",
+        "status": "passed",
+        "run": "site-redesign-final-2026-11-05"
+      },
+      {
+        "title": "Site catalog md3 dark desktop",
+        "file": "after/catalog-md3-dark-desktop-viewport.png",
+        "sha256": "f2b70f544c9b1bd2f5cb37f6ce1c326ce2f6a7e2275de3a05c5e425b7dcced47",
+        "status": "passed",
+        "run": "site-redesign-final-2026-11-05"
+      },
+      {
+        "title": "Site design md3 dark desktop",
+        "file": "after/design-md3-dark-desktop-viewport.png",
+        "sha256": "2274e4f76a71d8f54b988f9b318b76965071c5e445c95f6eb5ca44669f7729ec",
+        "status": "passed",
+        "run": "site-redesign-final-2026-11-05"
+      },
+      {
+        "title": "Site component md3 dark desktop",
+        "file": "after/component-md3-dark-desktop-viewport.png",
+        "sha256": "78867f10fd38b4c012f8f3ed9dea6992ea3446be5569cfa61e267a0d3e9e8502",
+        "status": "passed",
+        "run": "site-redesign-final-2026-11-05"
+      },
+      {
+        "title": "Site tutorial md3 dark desktop",
+        "file": "after/tutorial-md3-dark-desktop-viewport.png",
+        "sha256": "bbdd535f677783eab982b3aefcae8042bf8bdf56ee285467da4f90779ee55f07",
+        "status": "passed",
+        "run": "site-redesign-final-2026-11-05"
+      },
+      {
+        "title": "Site home apple light narrow",
+        "file": "after/home-apple-light-narrow-viewport.png",
+        "sha256": "cbd0ec0af6eff6eb988c5b277c862819205d09a013e516a5fb7262d9d6ef25b8",
+        "status": "passed",
+        "run": "site-redesign-final-2026-11-05"
+      },
+      {
+        "title": "Site catalog apple light narrow",
+        "file": "after/catalog-apple-light-narrow-viewport.png",
+        "sha256": "216d604d4d0ac5ce324fa85482236bde671625ea7293167e1c03cb39896465f3",
+        "status": "passed",
+        "run": "site-redesign-final-2026-11-05"
+      },
+      {
+        "title": "Site design apple light narrow",
+        "file": "after/design-apple-light-narrow-viewport.png",
+        "sha256": "3e9eb8b200976a131071770848ca9299bfaed3e832300381f84318afa53e7ded",
+        "status": "passed",
+        "run": "site-redesign-final-2026-11-05"
+      },
+      {
+        "title": "Site component apple light narrow",
+        "file": "after/component-apple-light-narrow-viewport.png",
+        "sha256": "b42b67cfd0059a0fde6dd1e2fdf875e85fc09034d39483df506da21c527c03fb",
+        "status": "passed",
+        "run": "site-redesign-final-2026-11-05"
+      },
+      {
+        "title": "Site tutorial apple light narrow",
+        "file": "after/tutorial-apple-light-narrow-viewport.png",
+        "sha256": "1dd6ca1a465abe0898fb4a22992050f073263e4befa5afe4ea50f55dec2c83fd",
+        "status": "passed",
+        "run": "site-redesign-final-2026-11-05"
+      },
+      {
+        "title": "Site home apple light tablet",
+        "file": "after/home-apple-light-tablet-viewport.png",
+        "sha256": "373d68727ef6994bea5f7d99f8b2c88cae367155c95f80fe37e9b284ac467e59",
+        "status": "passed",
+        "run": "site-redesign-final-2026-11-05"
+      },
+      {
+        "title": "Site catalog apple light tablet",
+        "file": "after/catalog-apple-light-tablet-viewport.png",
+        "sha256": "1413b3e2ab4b981ad71cd02f058d46f216d3b0416cc931ea79b01631af1bc65c",
+        "status": "passed",
+        "run": "site-redesign-final-2026-11-05"
+      },
+      {
+        "title": "Site design apple light tablet",
+        "file": "after/design-apple-light-tablet-viewport.png",
+        "sha256": "b4a4801916c1057dc6b2191eb50b7f964dc5d860414a77aa89dd231e8052ac52",
+        "status": "passed",
+        "run": "site-redesign-final-2026-11-05"
+      },
+      {
+        "title": "Site component apple light tablet",
+        "file": "after/component-apple-light-tablet-viewport.png",
+        "sha256": "c90185bdc9906fcf2a24d0cf0a82ddc927c37de92c83846ba5f5867d1f56e957",
+        "status": "passed",
+        "run": "site-redesign-final-2026-11-05"
+      },
+      {
+        "title": "Site tutorial apple light tablet",
+        "file": "after/tutorial-apple-light-tablet-viewport.png",
+        "sha256": "80bc8dd4d8142e346156252bc0adf9f2d1c879469ee31e01a2f0599c4eecaf77",
+        "status": "passed",
+        "run": "site-redesign-final-2026-11-05"
+      },
+      {
+        "title": "Site home apple light desktop",
+        "file": "after/home-apple-light-desktop-viewport.png",
+        "sha256": "385fa222e91ce3ad0d62dbbfaee426bbf378c20b1fb5c736ffc98bb2ab8584d1",
+        "status": "passed",
+        "run": "site-redesign-final-2026-11-05"
+      },
+      {
+        "title": "Site catalog apple light desktop",
+        "file": "after/catalog-apple-light-desktop-viewport.png",
+        "sha256": "cf92e7c5a38451d4c96db090e9eda166647b597cef1157063df69f83958810ff",
+        "status": "passed",
+        "run": "site-redesign-final-2026-11-05"
+      },
+      {
+        "title": "Site design apple light desktop",
+        "file": "after/design-apple-light-desktop-viewport.png",
+        "sha256": "f120c4e346e99ff00e6c1f0c00156c850e87f7c597009c1e633ce6ebd67403e9",
+        "status": "passed",
+        "run": "site-redesign-final-2026-11-05"
+      },
+      {
+        "title": "Site component apple light desktop",
+        "file": "after/component-apple-light-desktop-viewport.png",
+        "sha256": "97a70fe59efc89af11829025eeba18ff48d2d2e63a40590727785efdbaf744dd",
+        "status": "passed",
+        "run": "site-redesign-final-2026-11-05"
+      },
+      {
+        "title": "Site tutorial apple light desktop",
+        "file": "after/tutorial-apple-light-desktop-viewport.png",
+        "sha256": "100f17039fece4ed03cf45f4a7f976c236a0bbb7321ee52e3509a19238c698b8",
+        "status": "passed",
+        "run": "site-redesign-final-2026-11-05"
+      },
+      {
+        "title": "Site home apple dark narrow",
+        "file": "after/home-apple-dark-narrow-viewport.png",
+        "sha256": "d7198089a38e25ee47a8379b084c74cdaf168a51694b598bd1b16cea9edde408",
+        "status": "passed",
+        "run": "site-redesign-final-2026-11-05"
+      },
+      {
+        "title": "Site catalog apple dark narrow",
+        "file": "after/catalog-apple-dark-narrow-viewport.png",
+        "sha256": "2f473ee3172a63cbb6f29097180e19787f295a5f968a924348a075988ec1d9a7",
+        "status": "passed",
+        "run": "site-redesign-final-2026-11-05"
+      },
+      {
+        "title": "Site design apple dark narrow",
+        "file": "after/design-apple-dark-narrow-viewport.png",
+        "sha256": "d37ee0b4dfbf7e851cdd97f84a0a653f6dad50018563c5318ef24c8ca06730c9",
+        "status": "passed",
+        "run": "site-redesign-final-2026-11-05"
+      },
+      {
+        "title": "Site component apple dark narrow",
+        "file": "after/component-apple-dark-narrow-viewport.png",
+        "sha256": "4b96b21a786384e8a750cef9b94668310514bc171272172164237c29a8157022",
+        "status": "passed",
+        "run": "site-redesign-final-2026-11-05"
+      },
+      {
+        "title": "Site tutorial apple dark narrow",
+        "file": "after/tutorial-apple-dark-narrow-viewport.png",
+        "sha256": "fa9bafd7af7a3b6ffee86f8311057952627caee4059cfd4d796b88e6681e5ec9",
+        "status": "passed",
+        "run": "site-redesign-final-2026-11-05"
+      },
+      {
+        "title": "Site home apple dark tablet",
+        "file": "after/home-apple-dark-tablet-viewport.png",
+        "sha256": "3cc6c981d10a80da22f62151cfc0a36cf70d8ac7b026685a7daa1bba137b411d",
+        "status": "passed",
+        "run": "site-redesign-final-2026-11-05"
+      },
+      {
+        "title": "Site catalog apple dark tablet",
+        "file": "after/catalog-apple-dark-tablet-viewport.png",
+        "sha256": "69316e93f092bed70d3dce02521a55ed11045ad8d4d448d7480aa5728ebc9d50",
+        "status": "passed",
+        "run": "site-redesign-final-2026-11-05"
+      },
+      {
+        "title": "Site design apple dark tablet",
+        "file": "after/design-apple-dark-tablet-viewport.png",
+        "sha256": "ce1a6580ab16fd25cc857d93cb88b252253d6516bd0e69e0284ca3c0a7f5a9c0",
+        "status": "passed",
+        "run": "site-redesign-final-2026-11-05"
+      },
+      {
+        "title": "Site component apple dark tablet",
+        "file": "after/component-apple-dark-tablet-viewport.png",
+        "sha256": "f1bb246f5df38a95a287043d0387fe828cdbd83215cbd847870088f1f6ce7d59",
+        "status": "passed",
+        "run": "site-redesign-final-2026-11-05"
+      },
+      {
+        "title": "Site tutorial apple dark tablet",
+        "file": "after/tutorial-apple-dark-tablet-viewport.png",
+        "sha256": "f568fe429d944858d775a7f76d5ebc4f05fb3875b629b2ff091fb64ffda68fa4",
+        "status": "passed",
+        "run": "site-redesign-final-2026-11-05"
+      },
+      {
+        "title": "Site home apple dark desktop",
+        "file": "after/home-apple-dark-desktop-viewport.png",
+        "sha256": "f86808faf1d18dc34cf798daede3114c82edcab2b0ac75edf6c867d996d37b75",
+        "status": "passed",
+        "run": "site-redesign-final-2026-11-05"
+      },
+      {
+        "title": "Site catalog apple dark desktop",
+        "file": "after/catalog-apple-dark-desktop-viewport.png",
+        "sha256": "79088648a76b1e88ed42bd9f7f24b4abfb33420b3002228b0f7ba6d4c12d22b2",
+        "status": "passed",
+        "run": "site-redesign-final-2026-11-05"
+      },
+      {
+        "title": "Site design apple dark desktop",
+        "file": "after/design-apple-dark-desktop-viewport.png",
+        "sha256": "e43ed8d7288d15f890f3e5126a42c52666f8328f8ba0411088dbaf9fcc5a31d8",
+        "status": "passed",
+        "run": "site-redesign-final-2026-11-05"
+      },
+      {
+        "title": "Site component apple dark desktop",
+        "file": "after/component-apple-dark-desktop-viewport.png",
+        "sha256": "a97ee66ab2bdab44c2f29cb0b79aed73c5bc179eaab2fc9f2fa932f99b1c490c",
+        "status": "passed",
+        "run": "site-redesign-final-2026-11-05"
+      },
+      {
+        "title": "Site tutorial apple dark desktop",
+        "file": "after/tutorial-apple-dark-desktop-viewport.png",
+        "sha256": "29c6b0b81eb3ff1557d6a5382422207d4cf45e52751a5de5462faa381ea6401d",
+        "status": "passed",
+        "run": "site-redesign-final-2026-11-05"
+      },
+      {
+        "title": "Site home shadcn light narrow",
+        "file": "after/home-shadcn-light-narrow-viewport.png",
+        "sha256": "cab07697a4f127c900e9652d052cfaed3c0d17e448b5c5188051ccd533f44b86",
+        "status": "passed",
+        "run": "site-redesign-final-2026-11-05"
+      },
+      {
+        "title": "Site catalog shadcn light narrow",
+        "file": "after/catalog-shadcn-light-narrow-viewport.png",
+        "sha256": "c4d66dc2a41aaad28edd2b66259502f26644ad89b99bd56ff866f5a1539dd6e1",
+        "status": "passed",
+        "run": "site-redesign-final-2026-11-05"
+      },
+      {
+        "title": "Site design shadcn light narrow",
+        "file": "after/design-shadcn-light-narrow-viewport.png",
+        "sha256": "77b2378ea6f4e03a322f0f08c22d4446efb52401d337869de180938a9e498a93",
+        "status": "passed",
+        "run": "site-redesign-final-2026-11-05"
+      },
+      {
+        "title": "Site component shadcn light narrow",
+        "file": "after/component-shadcn-light-narrow-viewport.png",
+        "sha256": "e469f8d6291a03766fa7edcbbebbd4b072baefa2cc7f27c2bd59cd2f9b0f31c4",
+        "status": "passed",
+        "run": "site-redesign-final-2026-11-05"
+      },
+      {
+        "title": "Site tutorial shadcn light narrow",
+        "file": "after/tutorial-shadcn-light-narrow-viewport.png",
+        "sha256": "984c1868c4ed8b0caf79cd2b948e9da35a6174e857106ea4e039bdaf5ac61a03",
+        "status": "passed",
+        "run": "site-redesign-final-2026-11-05"
+      },
+      {
+        "title": "Site home shadcn light tablet",
+        "file": "after/home-shadcn-light-tablet-viewport.png",
+        "sha256": "b855db21f75ad513e8f00bc5a67c96d955842fbfa625e2bd14ae3f16d723efbd",
+        "status": "passed",
+        "run": "site-redesign-final-2026-11-05"
+      },
+      {
+        "title": "Site catalog shadcn light tablet",
+        "file": "after/catalog-shadcn-light-tablet-viewport.png",
+        "sha256": "da92f98660b13e90b7f824379b351bb49f4ebd6507341e5ed5088ed554acc9cc",
+        "status": "passed",
+        "run": "site-redesign-final-2026-11-05"
+      },
+      {
+        "title": "Site design shadcn light tablet",
+        "file": "after/design-shadcn-light-tablet-viewport.png",
+        "sha256": "05ccf93542e958e8c31f80068b70d2a93d70f33e61183d3ac6c670369e5943b2",
+        "status": "passed",
+        "run": "site-redesign-final-2026-11-05"
+      },
+      {
+        "title": "Site component shadcn light tablet",
+        "file": "after/component-shadcn-light-tablet-viewport.png",
+        "sha256": "80bc67dd2c92813a213af531d0ba2e6b3e86308ba82b25ec49310fdf5275170a",
+        "status": "passed",
+        "run": "site-redesign-final-2026-11-05"
+      },
+      {
+        "title": "Site tutorial shadcn light tablet",
+        "file": "after/tutorial-shadcn-light-tablet-viewport.png",
+        "sha256": "cf961e7e252b53b5062f94bb92a5f84900595ce2ce2f9bbe966dd3e846478896",
+        "status": "passed",
+        "run": "site-redesign-final-2026-11-05"
+      },
+      {
+        "title": "Site home shadcn light desktop",
+        "file": "after/home-shadcn-light-desktop-viewport.png",
+        "sha256": "45d6157eda162cfa6ecbb59ca5a18b2ab3c5925f94db3f93dc75af71966903c3",
+        "status": "passed",
+        "run": "site-redesign-final-2026-11-05"
+      },
+      {
+        "title": "Site catalog shadcn light desktop",
+        "file": "after/catalog-shadcn-light-desktop-viewport.png",
+        "sha256": "f231238bcfd4620d1f9b18016b1d3b6f8129a290f71bff44fc36e16959055c56",
+        "status": "passed",
+        "run": "site-redesign-final-2026-11-05"
+      },
+      {
+        "title": "Site design shadcn light desktop",
+        "file": "after/design-shadcn-light-desktop-viewport.png",
+        "sha256": "ccdc740b30c88ca0f22c540976457771884f4c78c13cc5357dbb6ed730c2ef5f",
+        "status": "passed",
+        "run": "site-redesign-final-2026-11-05"
+      },
+      {
+        "title": "Site component shadcn light desktop",
+        "file": "after/component-shadcn-light-desktop-viewport.png",
+        "sha256": "3db7d821fb4cc0f8ece52493a73decbda2b07160307237c793476f0aadc0f48a",
+        "status": "passed",
+        "run": "site-redesign-final-2026-11-05"
+      },
+      {
+        "title": "Site tutorial shadcn light desktop",
+        "file": "after/tutorial-shadcn-light-desktop-viewport.png",
+        "sha256": "69ec2ec0322743bb0048b74d18a36492de20b7aac358f74fc7facee6637f6cf1",
+        "status": "passed",
+        "run": "site-redesign-final-2026-11-05"
+      },
+      {
+        "title": "Site home shadcn dark narrow",
+        "file": "after/home-shadcn-dark-narrow-viewport.png",
+        "sha256": "d9277585b0f1289f3fe27b31f8738ee3c46a785593485bf0fbf54d23744db573",
+        "status": "passed",
+        "run": "site-redesign-final-2026-11-05"
+      },
+      {
+        "title": "Site catalog shadcn dark narrow",
+        "file": "after/catalog-shadcn-dark-narrow-viewport.png",
+        "sha256": "5db044effcb62e8d9f3a9545cefd90454393aafb9791601e3efdbdc5b822ba10",
+        "status": "passed",
+        "run": "site-redesign-final-2026-11-05"
+      },
+      {
+        "title": "Site design shadcn dark narrow",
+        "file": "after/design-shadcn-dark-narrow-viewport.png",
+        "sha256": "77f3998d0ff5bde93b075c0c4a7f68095d49c5be0a0079f5949b0010539b359a",
+        "status": "passed",
+        "run": "site-redesign-final-2026-11-05"
+      },
+      {
+        "title": "Site tutorial shadcn dark narrow",
+        "file": "after/tutorial-shadcn-dark-narrow-viewport.png",
+        "sha256": "24b1afd5ca7f37eb43976bc2ecf4fe78724d10077c69dfd89fc367ddadaf5508",
+        "status": "passed",
+        "run": "site-redesign-final-2026-11-05"
+      },
+      {
+        "title": "Site home shadcn dark tablet",
+        "file": "after/home-shadcn-dark-tablet-viewport.png",
+        "sha256": "b824762ffe236e0ccabd98f23ddddb2e347ed4f88826b145ca452021cd93dba5",
+        "status": "passed",
+        "run": "site-redesign-final-2026-11-05"
+      },
+      {
+        "title": "Site catalog shadcn dark tablet",
+        "file": "after/catalog-shadcn-dark-tablet-viewport.png",
+        "sha256": "85c4c2172390d1b2aed1194df003f05230d1fa645520eb5db39e45d5b6eee3f0",
+        "status": "passed",
+        "run": "site-redesign-final-2026-11-05"
+      },
+      {
+        "title": "Site design shadcn dark tablet",
+        "file": "after/design-shadcn-dark-tablet-viewport.png",
+        "sha256": "056171e2859734beb99618745da7e6b2d8bbbb0df71da6a2bad7b07cc369fb04",
+        "status": "passed",
+        "run": "site-redesign-final-2026-11-05"
+      },
+      {
+        "title": "Site component shadcn dark tablet",
+        "file": "after/component-shadcn-dark-tablet-viewport.png",
+        "sha256": "a0ed3882bee3d5cf0046c3b5988919a095f348ffafb9db4003105e05df99bf65",
+        "status": "passed",
+        "run": "site-redesign-final-2026-11-05"
+      },
+      {
+        "title": "Site tutorial shadcn dark tablet",
+        "file": "after/tutorial-shadcn-dark-tablet-viewport.png",
+        "sha256": "cc5c942684af555b03c25a7a4d68ee1c84bde424ed34b590c1d4c576862a7847",
+        "status": "passed",
+        "run": "site-redesign-final-2026-11-05"
+      },
+      {
+        "title": "Site home shadcn dark desktop",
+        "file": "after/home-shadcn-dark-desktop-viewport.png",
+        "sha256": "099943ef9cfeae9206bf782cb8fad489cfd0b3e5279f39db7f9f235e704c93bd",
+        "status": "passed",
+        "run": "site-redesign-final-2026-11-05"
+      },
+      {
+        "title": "Site catalog shadcn dark desktop",
+        "file": "after/catalog-shadcn-dark-desktop-viewport.png",
+        "sha256": "c31ff313b76c6cf1c9f4619ee981130871d208f9a04f55ee7e4c31031f348f87",
+        "status": "passed",
+        "run": "site-redesign-final-2026-11-05"
+      },
+      {
+        "title": "Site design shadcn dark desktop",
+        "file": "after/design-shadcn-dark-desktop-viewport.png",
+        "sha256": "564169fb813cb77cb6488c29c718dd59f6d5f84a63a4c80b24f9da3a5954dadb",
+        "status": "passed",
+        "run": "site-redesign-final-2026-11-05"
+      },
+      {
+        "title": "Site component shadcn dark desktop",
+        "file": "after/component-shadcn-dark-desktop-viewport.png",
+        "sha256": "7e2c8d5b2028e8b1a105c7584cc0931eee6b3294287cdf33d3fe824d09efca19",
+        "status": "passed",
+        "run": "site-redesign-final-2026-11-05"
+      },
+      {
+        "title": "Site tutorial shadcn dark desktop",
+        "file": "after/tutorial-shadcn-dark-desktop-viewport.png",
+        "sha256": "94abe040e45bc631f64ce0bdc143719c88d2b0333e3ede5b287bc0f78aee4150",
+        "status": "passed",
+        "run": "site-redesign-final-2026-11-05"
+      },
+      {
+        "title": "Site component shadcn dark narrow",
+        "file": "after/component-shadcn-dark-narrow-viewport.png",
+        "sha256": "e9cc3b33dbf8cc1b97026a6cc9566ba67aeeb967c33a9f7e95e3d29deaeb3d56",
+        "status": "passed",
+        "run": "site-redesign-final-layout-retry-2026-11-05"
+      }
+    ],
+    "motion": [
+      {
+        "title": "Site motion and live theme picker md3 light",
+        "file": "motion/md3-light.json",
+        "sha256": "005a96489a8a82024bd8bc11aa2ac30c5685bf8c6664f14d74933c29bfca96c2",
+        "status": "passed"
+      },
+      {
+        "title": "Site motion and live theme picker md3 light",
+        "file": "motion/md3-light.webm",
+        "sha256": "69f16bfbbad36c6c823d33a2e57a20fa2fc619a5cdabd2ae8777e87ea3db1365",
+        "status": "passed"
+      },
+      {
+        "title": "Site motion and live theme picker md3 dark",
+        "file": "motion/md3-dark.json",
+        "sha256": "005a96489a8a82024bd8bc11aa2ac30c5685bf8c6664f14d74933c29bfca96c2",
+        "status": "passed"
+      },
+      {
+        "title": "Site motion and live theme picker md3 dark",
+        "file": "motion/md3-dark.webm",
+        "sha256": "eb4dceeb258dd15b8bffbb29a7f3bee7d1c79226b2aea515d69b76e2007dedbe",
+        "status": "passed"
+      },
+      {
+        "title": "Site motion and live theme picker apple light",
+        "file": "motion/apple-light.json",
+        "sha256": "b9ffd32700d95662355366fb4825ebb711ec450eaa1ba5a754e9f299a8caa5e8",
+        "status": "passed"
+      },
+      {
+        "title": "Site motion and live theme picker apple light",
+        "file": "motion/apple-light.webm",
+        "sha256": "d7675664ad8b4289227c0beaec12ce1e0a60b75fb75d843cf1c716d492f8aec1",
+        "status": "passed"
+      },
+      {
+        "title": "Site motion and live theme picker apple dark",
+        "file": "motion/apple-dark.json",
+        "sha256": "b9ffd32700d95662355366fb4825ebb711ec450eaa1ba5a754e9f299a8caa5e8",
+        "status": "passed"
+      },
+      {
+        "title": "Site motion and live theme picker apple dark",
+        "file": "motion/apple-dark.webm",
+        "sha256": "dc545d56e828cb16bb3d41df78f5c8a75765aaec72361a9a4300960ba0a81bfb",
+        "status": "passed"
+      },
+      {
+        "title": "Site motion and live theme picker shadcn light",
+        "file": "motion/shadcn-light.json",
+        "sha256": "cab7ef03d62e56e718d73d53f2da379b1f296d5d9eacfe74d4f533317fe3a5c0",
+        "status": "passed"
+      },
+      {
+        "title": "Site motion and live theme picker shadcn light",
+        "file": "motion/shadcn-light.webm",
+        "sha256": "5ecf011324b803a14b2fa39ef69827cd98ea135372ebdfc7193007db09de6ffa",
+        "status": "passed"
+      },
+      {
+        "title": "Site motion and live theme picker shadcn dark",
+        "file": "motion/shadcn-dark.json",
+        "sha256": "cab7ef03d62e56e718d73d53f2da379b1f296d5d9eacfe74d4f533317fe3a5c0",
+        "status": "passed"
+      },
+      {
+        "title": "Site motion and live theme picker shadcn dark",
+        "file": "motion/shadcn-dark.webm",
+        "sha256": "17567ce79b51f38fd76f71a410f6a56baf22948eaf36b8eb5636d052ac4eba4d",
+        "status": "passed"
+      }
+    ]
+  }
+}

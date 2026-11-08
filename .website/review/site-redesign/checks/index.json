@@ -1,0 +1,36 @@
+{
+  "checks": [
+    {
+      "command": "yarn workspace @crab-dev/website check",
+      "status": "passed",
+      "log": "website-check.log",
+      "unitTests": 143,
+      "generatorContracts": 52,
+      "previewTests": 7,
+      "buildBindingRegressionTests": 5,
+      "generatedFilesChanged": 0,
+      "unboundProductionReferences": 0
+    },
+    {
+      "command": "yarn docs:build",
+      "status": "passed",
+      "log": "docs-build.log",
+      "libraryBuildTasks": 54,
+      "siteRoutes": 71,
+      "productionJavaScriptFiles": 2029
+    },
+    {
+      "command": "yarn workspace @crab-dev/website lint",
+      "status": "passed",
+      "log": "final-lint.log",
+      "errors": 0,
+      "warnings": 0,
+      "purpose": "Final test-only adjustment checked after browser capture"
+    }
+  ],
+  "notRun": [
+    "Repository-wide yarn check",
+    "CI on a submitted commit",
+    "Deployment"
+  ]
+}
