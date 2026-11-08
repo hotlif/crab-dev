@@ -1,0 +1,104 @@
+{
+  "status": "completed-with-reconciled-success",
+  "records": [
+    {
+      "run": ".tmp/theme-check-*.log / .tmp/theme-recheck-*.log",
+      "scope": "早期包内检查与生成",
+      "result": "更新旧尺寸预期、修正 Button 配置切换测试树后，semantic、Button、Select、LineEdit 等包复测通过。Select 的一次并发原生构建互斥失败经串行重跑通过。Switch 漏写 globalThis 的 lint 错误已修正；统一检查 lint 通过。旧 Switch 生成令牌漂移经公开生成器刷新后通过54文件无漂移检查。"
+    },
+    {
+      "run": "2026-11-03T12-17-04-722Z",
+      "scope": "首轮默认库存",
+      "result": "300 passed；人工逐项检查，随后修复图标按钮内边距与 Switch 的 Apple/shadcn 布局预留。"
+    },
+    {
+      "run": "2026-11-03T12-39-46-612Z",
+      "scope": "中间库存",
+      "result": "主动中断：67 passed、4 interrupted、229 未运行；不作为最终验收。"
+    },
+    {
+      "run": "2026-11-03T12-48-05-621Z",
+      "scope": "最终运行时默认库存",
+      "result": "300 passed；最终截图逐项复核，运行时/Demo 文件与当前源码一致。"
+    },
+    {
+      "run": "2026-11-03T12-54-00-892Z",
+      "scope": "第一阶段 Chromium 完整矩阵",
+      "result": "2088 passed、3 failed、4 主动中断、4169 未运行。按钮/日期选择器分组完成后，为后续组件换用修正后的断言主动结束；全部采集输入稳定。",
+      "issues": [
+        {
+          "case": "MD3 浅深色 Button circle shape parity",
+          "cause": "旧断言将继承 medium 和显式 s 都要求为40px。",
+          "resolution": "分别验证36px与40px，保留圆形/选中/按压断言；后续矩阵六配置已通过。"
+        },
+        {
+          "case": "DatePicker apple light medium comfortable datetime-time-error",
+          "cause": "10秒内未加载出预览根节点，尚未进入控件操作。",
+          "resolution": "同一原场景以1个工作进程复测通过：2026-11-03T14-09-41-174Z，无源码或超时放宽。"
+        }
+      ]
+    },
+    {
+      "run": "2026-11-03T13-18-19-490Z",
+      "scope": "核心默认尺寸/密度",
+      "result": "168 passed；其中36项medium/standard/default完成逐项人工复核。"
+    },
+    {
+      "run": "2026-11-03T13-24-15-169Z",
+      "scope": "Firefox/WebKit既有子集",
+      "result": "1489 passed、5 failed：4项NumberEdit仍使用旧浮动标签断言，1项Firefox Select页面响应超时。",
+      "resolution": "数字输入框更新外置标签几何断言后，24项Firefox/WebKit复测全部通过（14:07:47）；Select原场景以1个工作进程复测通过（14:12:30），未放宽超时。"
+    },
+    {
+      "run": ".tmp/theme-repository-final-check.log",
+      "scope": "第一轮最终统一工程检查",
+      "result": "架构、令牌、生成物、lint、构建、导出、独立消费、类型与单元测试通过；登记浏览器检查在PDF的旧56px断言处失败。"
+    },
+    {
+      "run": ".tmp/theme-final-pdf-web-component.log",
+      "scope": "PDF Shadow DOM修正后定向检查",
+      "result": "10 passed、0 failed；验证新的三档字段和外置标签变量，以及实际PDF绘制、导出和会话保持。"
+    },
+    {
+      "run": "2026-11-03T14-10-01-985Z / 2026-11-03T14-10-58-687Z",
+      "scope": "核心原生像素基线",
+      "result": "36场景生成48张PNG，随后36场景按原maxDiffPixels:0设置比较通过。48张最终图片均有人工复核记录；8张候选图与原生图的轻微边缘差异另行记录。"
+    },
+    {
+      "run": ".tmp/theme-final-docs-sync.log",
+      "scope": "最终文案一致性修正",
+      "result": "补充修正Token、Theme、Tree、PDF说明与Button/Form/Profile教程中的旧尺寸或标签描述；只改说明文字，重新生成与验证文档。运行时和既有截图输入不变。"
+    },
+    {
+      "run": "2026-11-03T13-49-14-292Z",
+      "scope": "Chromium第二阶段",
+      "result": "1685 passed、0 failed、4主动中断、2517未运行。Button动作/形状、Dialog、Form、LineEdit、NumberEdit完整通过；已完成Select和Switch的动态场景。为并行执行最终未覆盖组，在组件边界停止，所有采集输入稳定。"
+    },
+    {
+      "run": "2026-11-03T14-13-27-228Z",
+      "scope": "Chromium选择器与开关并行组",
+      "result": "946 passed、0 failed、4主动中断、1699未运行。补齐Select和Switch的全部非动态场景；剩余Tabs/TextEdit由两个原生分片继续，重复用例按标识去重，不按运行次数累计。"
+    },
+    {
+      "run": "2026-11-03T14-32-05-475Z / 2026-11-03T14-32-43-641Z",
+      "scope": "最终Tabs/TextEdit分片",
+      "result": "835 passed与834 passed，均无失败、跳过或重试。完整专项矩阵按唯一用例归并为7758/7758通过，0 unresolved；8个首轮失败均保留并已复测恢复。"
+    },
+    {
+      "run": ".tmp/theme-repository-verified-check.log",
+      "scope": "第二轮统一工程检查",
+      "result": "架构至单元测试通过，随后登记附加检查中的Tree浏览器测试为50 passed、2 failed。失败只在独立small字段的旧>=56px断言，实际为新契约32px；Tree虚拟行36/37px、加载图标、输入容纳和焦点恢复断言均通过。",
+      "resolution": "将该断言收紧为所有主题精确32px，保留树行与交互检查；先进行Tree包内check，再执行最终全库检查。运行时代码未变，7758项专项矩阵及48张基线仍对应最终实现。"
+    },
+    {
+      "run": ".tmp/theme-final-tree-check.log",
+      "scope": "Tree旧尺寸断言修正后的包内检查",
+      "result": "check通过：lint、typecheck、123单元测试、52浏览器测试、7自定义编辑器测试和6强制颜色场景。虚拟行几何、加载图标、提交/取消和焦点恢复保留。"
+    },
+    {
+      "run": ".tmp/theme-repository-complete-check.log",
+      "scope": "最终统一工程检查",
+      "result": "yarn check 全部11阶段通过；49项登记附加检查通过，最终文档站构建通过。最终文案另行生成、漂移检查和52项生成器测试通过。"
+    }
+  ]
+}

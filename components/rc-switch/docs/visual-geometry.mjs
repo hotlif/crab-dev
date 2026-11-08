@@ -76,10 +76,16 @@ export async function assertSwitchGeometry(frame) {
         expect(track.width).toBeCloseTo(metrics.width, 1); expect(track.height).toBeCloseTo(metrics.height, 1);
         expect(metrics.text.trim()).toBe('');
         expect(metrics.overflowX).toBe('visible'); expect(metrics.overflowY).toBe('visible');
-        const hit = pseudo.find(entry => entry.type === 'before');
-        expect(hit.rendered).toBe(true); expect(hit.style.pointerEvents).toBe('auto');
-        expect(hit.bounds.width).toBeGreaterThanOrEqual(48);
-        expect(hit.bounds.height).toBeGreaterThanOrEqual(48);
+        const coarse = await page.evaluate(() => globalThis.matchMedia('(pointer: coarse)').matches);
+        const extension = pseudo.find(entry => entry.type === 'before');
+        expect(extension.rendered).toBe(coarse);
+        const hit = coarse ? extension : { model: track, bounds: trackBounds };
+        if (coarse) {
+            expect(extension.style.pointerEvents).toBe('auto');
+            expect(hit.bounds.width).toBeGreaterThanOrEqual(48);
+            expect(hit.bounds.height).toBeGreaterThanOrEqual(48);
+            contained(hit.bounds, labelContent.bounds, 'Touch target stays inside the reserved label layout');
+        }
         for (const entry of pseudo.filter(entry => entry.rendered)) contained(entry.bounds, frameBounds, `Actual ::${entry.type} inside frame`);
         expect(pseudo.find(entry => entry.type === 'after').style.pointerEvents).toBe('none');
         if (metrics.focusVisible) {

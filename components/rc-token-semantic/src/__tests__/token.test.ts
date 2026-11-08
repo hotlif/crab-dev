@@ -4,13 +4,13 @@ import { md3ColorContract } from '../theme.js';
 
 describe('semantic token contract', () => {
     it('provides complete standalone Material multiline geometry for every size', () => {
-        for (const size of ['small', 'medium', 'large'] as const) {
+        for (const [index, size] of (['small', 'medium', 'large'] as const).entries()) {
             const geometry = token.field.multiline[size];
-            expect(geometry['min-height']).toContain('--token-global-size-56');
-            expect(geometry['padding-inline']).toContain('--token-global-space-4');
-            expect(geometry['padding-block']).toContain('--token-global-space-4');
-            expect(geometry['filled-padding-top']).toContain('--token-global-space-6');
-            expect(geometry['filled-padding-bottom']).toContain('--token-global-space-2');
+            expect(geometry['min-height']).toContain('--token-global-size-' + [32, 40, 48][index]);
+            expect(geometry['padding-inline']).toContain('--token-global-space-' + [2, 3, 4][index]);
+            expect(geometry['padding-block']).toContain('--token-global-space-' + [1, 2, 3][index]);
+            expect(geometry['filled-padding-top']).toContain('--token-global-space-' + [1, 2, 3][index]);
+            expect(geometry['filled-padding-bottom']).toContain('--token-global-space-' + [1, 2, 3][index]);
             for (const role of ['min-height', 'padding-inline', 'padding-block', 'filled-padding-top', 'filled-padding-bottom'] as const) {
                 expect(TokenVars[`field.multiline.${size}.${role}`]).toBe(`--token-semantic-field-multiline-${size}-${role}`);
             }

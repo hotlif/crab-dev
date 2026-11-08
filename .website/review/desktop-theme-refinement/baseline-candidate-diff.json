@@ -1,0 +1,98 @@
+[
+  {
+    "snapshot": "test/visual/baselines/linux/chromium/components/rc-line-edit/docs/line-edit.visual.spec.mjs/apple-light-medium-outlined-default.png",
+    "candidate": "C:\\Users\\zhang\\Desktop\\crab-dev\\.tmp\\theme-core-after\\rc-line-edit-apple-light.png",
+    "changedPixels": 4,
+    "maxChannelDifference": 3,
+    "bounds": [
+      62,
+      137,
+      62,
+      250
+    ]
+  },
+  {
+    "snapshot": "test/visual/baselines/linux/chromium/components/rc-line-edit/docs/line-edit.visual.spec.mjs/apple-dark-medium-outlined-default.png",
+    "candidate": "C:\\Users\\zhang\\Desktop\\crab-dev\\.tmp\\theme-core-after\\rc-line-edit-apple-dark.png",
+    "changedPixels": 4,
+    "maxChannelDifference": 5,
+    "bounds": [
+      62,
+      137,
+      62,
+      250
+    ]
+  },
+  {
+    "snapshot": "test/visual/baselines/linux/chromium/components/rc-line-edit/docs/line-edit.visual.spec.mjs/shadcn-dark-medium-outlined-default.png",
+    "candidate": "C:\\Users\\zhang\\Desktop\\crab-dev\\.tmp\\theme-core-after\\rc-line-edit-shadcn-dark.png",
+    "changedPixels": 11,
+    "maxChannelDifference": 1,
+    "bounds": [
+      48,
+      129,
+      239,
+      273
+    ]
+  },
+  {
+    "snapshot": "test/visual/baselines/linux/chromium/components/rc-select/docs/select.visual.spec.mjs/md3-dark-medium-standard-default.png",
+    "candidate": "C:\\Users\\zhang\\Desktop\\crab-dev\\.tmp\\theme-core-after\\rc-select-md3-dark.png",
+    "changedPixels": 8,
+    "maxChannelDifference": 1,
+    "bounds": [
+      846,
+      114,
+      847,
+      151
+    ]
+  },
+  {
+    "snapshot": "test/visual/baselines/linux/chromium/components/rc-select/docs/select.visual.spec.mjs/apple-dark-medium-standard-default.png",
+    "candidate": "C:\\Users\\zhang\\Desktop\\crab-dev\\.tmp\\theme-core-after\\rc-select-apple-dark.png",
+    "changedPixels": 31,
+    "maxChannelDifference": 1,
+    "bounds": [
+      842,
+      115,
+      847,
+      275
+    ]
+  },
+  {
+    "snapshot": "test/visual/baselines/linux/chromium/components/rc-tabs/docs/tabs.visual.spec.mjs/apple-light-medium-standard-default.png",
+    "candidate": "C:\\Users\\zhang\\Desktop\\crab-dev\\.tmp\\theme-core-after\\rc-tabs-apple-light.png",
+    "changedPixels": 2,
+    "maxChannelDifference": 2,
+    "bounds": [
+      27,
+      113,
+      28,
+      113
+    ]
+  },
+  {
+    "snapshot": "test/visual/baselines/linux/chromium/components/rc-tabs/docs/tabs.visual.spec.mjs/shadcn-dark-medium-standard-default.png",
+    "candidate": "C:\\Users\\zhang\\Desktop\\crab-dev\\.tmp\\theme-core-after\\rc-tabs-shadcn-dark.png",
+    "changedPixels": 172,
+    "maxChannelDifference": 4,
+    "bounds": [
+      26,
+      87,
+      448,
+      115
+    ]
+  },
+  {
+    "snapshot": "test/visual/baselines/linux/chromium/components/rc-line-edit/docs/line-edit.visual.spec.mjs/shadcn-dark-medium-filled-default.png",
+    "candidate": "C:\\Users\\zhang\\Desktop\\crab-dev\\.tmp\\theme-filled-baseline-review\\rc-line-edit-shadcn-dark.png",
+    "changedPixels": 11,
+    "maxChannelDifference": 1,
+    "bounds": [
+      48,
+      129,
+      239,
+      273
+    ]
+  }
+]

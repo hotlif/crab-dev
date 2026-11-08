@@ -4,11 +4,11 @@ import Button from "@crab-dev/rc-button";
 import { SpinIndicator } from '@crab-dev/rc-spin';
 import Tag from "@crab-dev/rc-tag";
 import { css, cx } from "@crab-dev/css";
-import { useConfig, useLocale } from '@crab-dev/rc-config-provider';
+import { useLocale } from '@crab-dev/rc-config-provider';
 import { useCallback, useEffect, useEffectEvent, useRef, useState, type FC, type FocusEventHandler, type KeyboardEvent, type MouseEvent as ReactMouseEvent, type ReactNode, type Ref, type RefObject } from "react";
 import token, { vars } from "./token.js";
 import type { FlatOption, SelectChangeDetails, SelectOption } from "./types.js";
-import { controlStyle, fieldControlStyle, fieldLayoutStyle, md3LabelMotionStyle, controlDisabledStyle, controlErrorStyle, controlWarningStyle, valueWrapStyle, singleValueStyle, placeholderStyle, searchInputStyle, caretStyle, caretOpenStyle, tagLabelStyle, suffixWrapStyle, actionStyle, loadingIconStyle } from "./selectInput.styles.js";
+import { controlStyle, fieldControlStyle, fieldLayoutStyle, controlDisabledStyle, controlErrorStyle, controlWarningStyle, valueWrapStyle, singleValueStyle, placeholderStyle, searchInputStyle, caretStyle, caretOpenStyle, tagLabelStyle, suffixWrapStyle, actionStyle, loadingIconStyle } from "./selectInput.styles.js";
 // ref 可能是回调形式或 RefObject 形式，统一赋值以便与内部 ref 合并
 const setRef = (ref: Ref<HTMLDivElement> | undefined, node: HTMLDivElement | null) => {
     if (typeof ref === "function") {
@@ -45,9 +45,9 @@ const sizeMetricsMap = {
 
 // 单选按字段档位对齐；文本行高增大时允许高度随内容增长。
 const sizeHeightFixedMap = {
-    large: css`height: max(${token.size.large.height}, ${token.field['min-height']}, calc(1lh + 2 * ${token.root['border-width']}));`,
-    medium: css`height: max(${token.size.medium.height}, ${token.field['min-height']}, calc(1lh + 2 * ${token.root['border-width']}));`,
-    small: css`height: max(${token.size.small.height}, ${token.field['min-height']}, calc(1lh + 2 * ${token.root['border-width']}));`,
+    large: css`padding-block: 0; height: max(${token.size.large.height}, ${token.field['min-height']}, calc(1lh + 2 * ${token.root['border-width']}));`,
+    medium: css`padding-block: 0; height: max(${token.size.medium.height}, ${token.field['min-height']}, calc(1lh + 2 * ${token.root['border-width']}));`,
+    small: css`padding-block: 0; height: max(${token.size.small.height}, ${token.field['min-height']}, calc(1lh + 2 * ${token.root['border-width']}));`,
 };
 
 // 多选:必须用 min-height——tag 多到换行时若也用固定 height,换行的 tag 会直接
@@ -153,7 +153,6 @@ const SelectInput: FC<SelectInputProps> = ({
 }) => {
     const { state, refs, dispatch } = useDropdownContext<HTMLDivElement>();
     const { messages } = useLocale();
-    const { designSystem } = useConfig();
     const inputRef = useRef<HTMLInputElement>(null);
     const open = state.open;
     const [hovered, setHovered] = useState(false);
@@ -407,7 +406,7 @@ const SelectInput: FC<SelectInputProps> = ({
         open && highlightIndex >= 0 ? `${listboxId}-option-${highlightIndex}` : undefined;
 
     return (
-        <div className={cx.call(undefined, fieldLayoutStyle, designSystem === 'md3' && md3LabelMotionStyle)} data-labeled={Boolean(label)} data-appearance={appearance}
+        <div className={fieldLayoutStyle} data-labeled={Boolean(label)} data-appearance={appearance}
             data-floating={Boolean(open || selectedOptions.length > 0 || searchText)} data-open={open}
             data-status={status} data-disabled={disabled || undefined}>
         {label && <span data-role="select-label"><span id={labelId}>{label}</span>{required && <span data-required-marker="" aria-hidden="true">*</span>}</span>}

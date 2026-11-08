@@ -1,5 +1,5 @@
 import { globalStyle } from "@crab-dev/css";
-import { md3ColorContract as color, shadcnColorContract as shadcn, appleColorContract as apple, designShapeContract as shape, designFieldContract as field, designMetricsContract as metrics } from "./theme-values.js";
+import { md3ColorContract as color, shadcnColorContract as shadcn, appleColorContract as apple, designShapeContract as shape, designFieldContract as field, designFieldSizeContract as fieldSizes, designMetricsContract as metrics } from "./theme-values.js";
 
 // Derived surface and tonal aliases resolve at each consumer, so a descendant
 // overriding a legacy L2 variable is not frozen to the root computed value.
@@ -142,6 +142,9 @@ globalStyle`
         --token-semantic-field-layout-label-row: ${field.md3.layoutLabelRow};
         --token-semantic-field-layout-support-row: ${field.md3.layoutSupportRow};
         --token-semantic-field-layout-row-gap: ${field.md3.layoutRowGap};
+        --token-semantic-sizing-small-field: ${fieldSizes.md3.small};
+        --token-semantic-sizing-medium-field: ${fieldSizes.md3.medium};
+        --token-semantic-sizing-large-field: ${fieldSizes.md3.large};
         --token-semantic-field-control-min-height: ${field.md3.controlMinHeight};
         --token-semantic-field-control-padding-inline: ${field.md3.controlPaddingInline};
         --token-semantic-field-control-icon-padding-inline: ${field.md3.controlIconPaddingInline};
@@ -348,6 +351,9 @@ globalStyle`
         --token-semantic-field-layout-label-row: ${field.md3.layoutLabelRow};
         --token-semantic-field-layout-support-row: ${field.md3.layoutSupportRow};
         --token-semantic-field-layout-row-gap: ${field.md3.layoutRowGap};
+        --token-semantic-sizing-small-field: ${fieldSizes.md3.small};
+        --token-semantic-sizing-medium-field: ${fieldSizes.md3.medium};
+        --token-semantic-sizing-large-field: ${fieldSizes.md3.large};
         --token-semantic-field-control-min-height: ${field.md3.controlMinHeight};
         --token-semantic-field-control-padding-inline: ${field.md3.controlPaddingInline};
         --token-semantic-field-control-icon-padding-inline: ${field.md3.controlIconPaddingInline};
@@ -553,6 +559,9 @@ globalStyle`
         --token-semantic-field-layout-label-row: ${field.shadcn.layoutLabelRow};
         --token-semantic-field-layout-support-row: ${field.shadcn.layoutSupportRow};
         --token-semantic-field-layout-row-gap: ${field.shadcn.layoutRowGap};
+        --token-semantic-sizing-small-field: ${fieldSizes.shadcn.small};
+        --token-semantic-sizing-medium-field: ${fieldSizes.shadcn.medium};
+        --token-semantic-sizing-large-field: ${fieldSizes.shadcn.large};
         --token-semantic-field-control-min-height: ${field.shadcn.controlMinHeight};
         --token-semantic-field-control-padding-inline: ${field.shadcn.controlPaddingInline};
         --token-semantic-field-control-icon-padding-inline: ${field.shadcn.controlIconPaddingInline};
@@ -758,6 +767,9 @@ globalStyle`
         --token-semantic-field-layout-label-row: ${field.shadcn.layoutLabelRow};
         --token-semantic-field-layout-support-row: ${field.shadcn.layoutSupportRow};
         --token-semantic-field-layout-row-gap: ${field.shadcn.layoutRowGap};
+        --token-semantic-sizing-small-field: ${fieldSizes.shadcn.small};
+        --token-semantic-sizing-medium-field: ${fieldSizes.shadcn.medium};
+        --token-semantic-sizing-large-field: ${fieldSizes.shadcn.large};
         --token-semantic-field-control-min-height: ${field.shadcn.controlMinHeight};
         --token-semantic-field-control-padding-inline: ${field.shadcn.controlPaddingInline};
         --token-semantic-field-control-icon-padding-inline: ${field.shadcn.controlIconPaddingInline};
@@ -963,6 +975,9 @@ globalStyle`
         --token-semantic-field-layout-label-row: ${field.apple.layoutLabelRow};
         --token-semantic-field-layout-support-row: ${field.apple.layoutSupportRow};
         --token-semantic-field-layout-row-gap: ${field.apple.layoutRowGap};
+        --token-semantic-sizing-small-field: ${fieldSizes.apple.small};
+        --token-semantic-sizing-medium-field: ${fieldSizes.apple.medium};
+        --token-semantic-sizing-large-field: ${fieldSizes.apple.large};
         --token-semantic-field-control-min-height: ${field.apple.controlMinHeight};
         --token-semantic-field-control-padding-inline: ${field.apple.controlPaddingInline};
         --token-semantic-field-control-icon-padding-inline: ${field.apple.controlIconPaddingInline};
@@ -1168,6 +1183,9 @@ globalStyle`
         --token-semantic-field-layout-label-row: ${field.apple.layoutLabelRow};
         --token-semantic-field-layout-support-row: ${field.apple.layoutSupportRow};
         --token-semantic-field-layout-row-gap: ${field.apple.layoutRowGap};
+        --token-semantic-sizing-small-field: ${fieldSizes.apple.small};
+        --token-semantic-sizing-medium-field: ${fieldSizes.apple.medium};
+        --token-semantic-sizing-large-field: ${fieldSizes.apple.large};
         --token-semantic-field-control-min-height: ${field.apple.controlMinHeight};
         --token-semantic-field-control-padding-inline: ${field.apple.controlPaddingInline};
         --token-semantic-field-control-icon-padding-inline: ${field.apple.controlIconPaddingInline};
@@ -1261,6 +1279,8 @@ globalStyle`
         --token-semantic-sizing-large-toggle-track-height: ${metrics.md3.toggle.large.height};
         --token-semantic-sizing-large-toggle-handle-width: ${metrics.md3.toggle.large.handle};
         --token-semantic-sizing-large-toggle-handle-inset: ${metrics.md3.toggle.large.inset};
+        --token-semantic-size-toggle-layout-block: ${metrics.md3.toggle.layoutBlock};
+        --token-semantic-size-toggle-layout-inline: ${metrics.md3.toggle.layoutInline};
         --token-semantic-size-toggle-state-layer: ${metrics.md3.toggle.stateLayer};
         --token-semantic-border-toggle-width: ${metrics.md3.toggle.border};
     }
@@ -1287,6 +1307,8 @@ globalStyle`
         --token-semantic-sizing-large-toggle-track-height: ${metrics.shadcn.toggle.large.height};
         --token-semantic-sizing-large-toggle-handle-width: ${metrics.shadcn.toggle.large.handle};
         --token-semantic-sizing-large-toggle-handle-inset: ${metrics.shadcn.toggle.large.inset};
+        --token-semantic-size-toggle-layout-block: ${metrics.shadcn.toggle.layoutBlock};
+        --token-semantic-size-toggle-layout-inline: ${metrics.shadcn.toggle.layoutInline};
         --token-semantic-size-toggle-state-layer: ${metrics.shadcn.toggle.stateLayer};
         --token-semantic-border-toggle-width: ${metrics.shadcn.toggle.border};
     }
@@ -1313,6 +1335,8 @@ globalStyle`
         --token-semantic-sizing-large-toggle-track-height: ${metrics.apple.toggle.large.height};
         --token-semantic-sizing-large-toggle-handle-width: ${metrics.apple.toggle.large.handle};
         --token-semantic-sizing-large-toggle-handle-inset: ${metrics.apple.toggle.large.inset};
+        --token-semantic-size-toggle-layout-block: ${metrics.apple.toggle.layoutBlock};
+        --token-semantic-size-toggle-layout-inline: ${metrics.apple.toggle.layoutInline};
         --token-semantic-size-toggle-state-layer: ${metrics.apple.toggle.stateLayer};
         --token-semantic-border-toggle-width: ${metrics.apple.toggle.border};
     }

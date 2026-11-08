@@ -1,0 +1,175 @@
+[
+  {
+    "file": "rc-dialog-chromium-narrow.png",
+    "source": ".tmp/theme-continuation-evidence/results.json",
+    "project": "chromium",
+    "case": "md3 dark narrow",
+    "config": {
+      "id": "narrow",
+      "designSystem": "md3",
+      "colorMode": "dark"
+    },
+    "sha256": "eb5bbfaf544f058adb706b174abb103e5433a411e897075a392b2accaa800765",
+    "review": "automated-pass-not-manually-reviewed"
+  },
+  {
+    "file": "rc-dialog-chromium-touch.png",
+    "source": ".tmp/theme-continuation-evidence/results.json",
+    "project": "chromium",
+    "case": "md3 dark touch",
+    "config": {
+      "id": "touch",
+      "designSystem": "md3",
+      "colorMode": "dark"
+    },
+    "sha256": "176bbd914cf6399b6d71c42b8b78a63b70ca192d6d607f694f47a64f0a9fd539",
+    "review": "automated-pass-not-manually-reviewed"
+  },
+  {
+    "file": "rc-dialog-chromium-rtl.png",
+    "source": ".tmp/theme-continuation-evidence/results.json",
+    "project": "chromium",
+    "case": "md3 dark rtl",
+    "config": {
+      "id": "rtl",
+      "designSystem": "md3",
+      "colorMode": "dark"
+    },
+    "sha256": "2a5bdb0d03800e98d814e6cb85f4b912b8f316d0c9fdeeef46384e2e9046625f",
+    "review": "automated-pass-not-manually-reviewed"
+  },
+  {
+    "file": "rc-dialog-chromium-forced-colors.png",
+    "source": ".tmp/theme-continuation-evidence/results.json",
+    "project": "chromium",
+    "case": "md3 dark forced-colors",
+    "config": {
+      "id": "forced-colors",
+      "designSystem": "md3",
+      "colorMode": "dark"
+    },
+    "sha256": "4f42a82c73efea061250f07e10c66ab71a81a2fbea60ad48bdd23c441518b907",
+    "review": "automated-pass-not-manually-reviewed"
+  },
+  {
+    "file": "rc-dialog-chromium-zoom-200.png",
+    "source": ".tmp/theme-continuation-evidence/results.json",
+    "project": "chromium",
+    "case": "md3 dark real zoom 200%",
+    "config": {
+      "id": "zoom-200",
+      "designSystem": "md3",
+      "colorMode": "dark"
+    },
+    "sha256": "afda52185bab617ee626036ceefe35071ffe2215e7041c90af51be1b50f47be9",
+    "review": "automated-pass-not-manually-reviewed"
+  },
+  {
+    "file": "rc-line-edit-chromium-narrow.png",
+    "source": ".tmp/theme-continuation-evidence/results.json",
+    "project": "chromium",
+    "case": "field environment and long draft",
+    "config": {
+      "designSystem": "md3",
+      "colorMode": "dark",
+      "id": "narrow"
+    },
+    "sha256": "a440d82296a4cfef1db48a47e41a34aca32820d21b2751441399b268732e267d",
+    "review": "automated-pass-not-manually-reviewed"
+  },
+  {
+    "file": "rc-line-edit-chromium-touch.png",
+    "source": ".tmp/theme-continuation-evidence/results.json",
+    "project": "chromium",
+    "case": "field environment and long draft",
+    "config": {
+      "designSystem": "md3",
+      "colorMode": "dark",
+      "id": "touch"
+    },
+    "sha256": "d24e98f4f1bd76de05315daf31b5d81224b1c51bf714452dcc1d2300794f06a5",
+    "review": "passed",
+    "note": "最终原图人工抽查：标签、正文、清除/选择操作与焦点轮廓无碰撞；真实200%缩放、RTL、触控或强制颜色按该图配置复核。"
+  },
+  {
+    "file": "rc-line-edit-chromium-rtl.png",
+    "source": ".tmp/theme-continuation-evidence/results.json",
+    "project": "chromium",
+    "case": "field environment and long draft",
+    "config": {
+      "designSystem": "md3",
+      "colorMode": "dark",
+      "id": "rtl"
+    },
+    "sha256": "9bb1a4dd11661186115c54170b3e67709b0183702daefd380c4d7c68cd4b9e28",
+    "review": "passed",
+    "note": "最终原图人工抽查：标签、正文、清除/选择操作与焦点轮廓无碰撞；真实200%缩放、RTL、触控或强制颜色按该图配置复核。"
+  },
+  {
+    "file": "rc-line-edit-chromium-forced-colors.png",
+    "source": ".tmp/theme-continuation-evidence/results.json",
+    "project": "chromium",
+    "case": "field environment and long draft",
+    "config": {
+      "designSystem": "md3",
+      "colorMode": "dark",
+      "id": "forced-colors"
+    },
+    "sha256": "9be4d07887819bf96195fa4e1455c5f50e41de5b516d57b530c3e032f8d5f846",
+    "review": "passed",
+    "note": "最终原图人工抽查：标签、正文、清除/选择操作与焦点轮廓无碰撞；真实200%缩放、RTL、触控或强制颜色按该图配置复核。"
+  },
+  {
+    "file": "rc-line-edit-chromium-zoom-200.png",
+    "source": ".tmp/theme-continuation-evidence/results.json",
+    "project": "chromium",
+    "case": "md3 dark real 200%",
+    "config": {
+      "designSystem": "md3",
+      "colorMode": "dark",
+      "id": "zoom-200"
+    },
+    "sha256": "977f00eb236ae63b0a7fb9ff00858c39f5ed6659d2a30a775da31153d6848408",
+    "review": "passed",
+    "note": "最终原图人工抽查：标签、正文、清除/选择操作与焦点轮廓无碰撞；真实200%缩放、RTL、触控或强制颜色按该图配置复核。"
+  },
+  {
+    "file": "rc-select-chromium-narrow.png",
+    "source": ".tmp/theme-continuation-evidence/results.json",
+    "project": "chromium",
+    "case": "md3 dark narrow",
+    "config": {
+      "id": "narrow",
+      "designSystem": "md3",
+      "colorMode": "dark"
+    },
+    "sha256": "6fafebf5f4c847ce17333dfa703920220e8ce8f735c4e9c29dfce6d3095775ec",
+    "review": "automated-pass-not-manually-reviewed"
+  },
+  {
+    "file": "rc-select-chromium-touch.png",
+    "source": ".tmp/theme-continuation-evidence/results.json",
+    "project": "chromium",
+    "case": "md3 dark touch",
+    "config": {
+      "id": "touch",
+      "designSystem": "md3",
+      "colorMode": "dark"
+    },
+    "sha256": "126e93fd795ff54e7ec01091b5d95dc6bef2c532d79e38821da9ccee93c84c47",
+    "review": "automated-pass-not-manually-reviewed"
+  },
+  {
+    "file": "rc-select-chromium-rtl.png",
+    "source": ".tmp/theme-continuation-evidence/results.json",
+    "project": "chromium",
+    "case": "md3 dark rtl",
+    "config": {
+      "id": "rtl",
+      "designSystem": "md3",
+      "colorMode": "dark"
+    },
+    "sha256": "20a67f2883ee140d3257b6e38cf88a2dbc3c17b0c90dfc6370f7e5034f80010a",
+    "review": "automated-pass-not-manually-reviewed"
+  }
+]

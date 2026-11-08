@@ -52,8 +52,7 @@ for (const config of configurations)
                         const draft =
                             "保留草稿\nA long project note with 中文 and English.";
                         if (scenario.hasTouch) {
-                            // The floating label shares the empty M3 control row.
-                            // Its native label association is a real focus target.
+                            // The external label remains a native focus target on touch devices.
                             await field.locator(':scope > label').tap();
                             await expect(control).toBeFocused();
                         }

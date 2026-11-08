@@ -1,0 +1,846 @@
+{
+  "status": "native-update-comparison-and-final-review-passed",
+  "sourceRun": "2026-11-03T13-18-19-490Z",
+  "scope": "Chromium medium / standard / default：6 个核心组件 × 三主题 × 浅深色，共36个测试场景、48张截图；LineEdit/TextEdit各含outlined和filled。",
+  "count": 48,
+  "priorTrackedBaselines": 0,
+  "records": [
+    {
+      "package": "@crab-dev/rc-dialog",
+      "config": {
+        "designSystem": "md3",
+        "colorMode": "light",
+        "size": "medium",
+        "density": "standard",
+        "state": "default"
+      },
+      "snapshot": "test/visual/baselines/linux/chromium/components/rc-dialog/docs/dialog.visual.spec.mjs/md3-light-default.png",
+      "sha256": "dc9b352d4b30fb3161eafad8a8c7272be62a64d2134b404ef341f75d4809c796",
+      "manualReview": "passed",
+      "note": "展开后标题、48px 关闭目标、正文和动作无碰撞；MD3 默认 20px 内边距及标题生效。",
+      "contact": "core-defaults/rc-dialog.png",
+      "candidateSha256": "dc9b352d4b30fb3161eafad8a8c7272be62a64d2134b404ef341f75d4809c796",
+      "finalManualReview": "passed"
+    },
+    {
+      "package": "@crab-dev/rc-dialog",
+      "config": {
+        "designSystem": "md3",
+        "colorMode": "dark",
+        "size": "medium",
+        "density": "standard",
+        "state": "default"
+      },
+      "snapshot": "test/visual/baselines/linux/chromium/components/rc-dialog/docs/dialog.visual.spec.mjs/md3-dark-default.png",
+      "sha256": "15dc62ce7addacba4cfb75da02749c317e96127f169e9696c88c0cdad69a968e",
+      "manualReview": "passed",
+      "note": "展开后标题、48px 关闭目标、正文和动作无碰撞；MD3 默认 20px 内边距及标题生效。",
+      "contact": "core-defaults/rc-dialog.png",
+      "candidateSha256": "15dc62ce7addacba4cfb75da02749c317e96127f169e9696c88c0cdad69a968e",
+      "finalManualReview": "passed"
+    },
+    {
+      "package": "@crab-dev/rc-dialog",
+      "config": {
+        "designSystem": "apple",
+        "colorMode": "light",
+        "size": "medium",
+        "density": "standard",
+        "state": "default"
+      },
+      "snapshot": "test/visual/baselines/linux/chromium/components/rc-dialog/docs/dialog.visual.spec.mjs/apple-light-default.png",
+      "sha256": "efe26b890a54491d1119b9dec640812d5c2b225ad5ef5b35dc0410bc05f31878",
+      "manualReview": "passed",
+      "note": "展开后标题、48px 关闭目标、正文和动作无碰撞；MD3 默认 20px 内边距及标题生效。",
+      "contact": "core-defaults/rc-dialog.png",
+      "candidateSha256": "efe26b890a54491d1119b9dec640812d5c2b225ad5ef5b35dc0410bc05f31878",
+      "finalManualReview": "passed"
+    },
+    {
+      "package": "@crab-dev/rc-dialog",
+      "config": {
+        "designSystem": "apple",
+        "colorMode": "dark",
+        "size": "medium",
+        "density": "standard",
+        "state": "default"
+      },
+      "snapshot": "test/visual/baselines/linux/chromium/components/rc-dialog/docs/dialog.visual.spec.mjs/apple-dark-default.png",
+      "sha256": "55b0697f199d49f798d03f332394cd0102cf83444d5551b4e691278a9a30845f",
+      "manualReview": "passed",
+      "note": "展开后标题、48px 关闭目标、正文和动作无碰撞；MD3 默认 20px 内边距及标题生效。",
+      "contact": "core-defaults/rc-dialog.png",
+      "candidateSha256": "55b0697f199d49f798d03f332394cd0102cf83444d5551b4e691278a9a30845f",
+      "finalManualReview": "passed"
+    },
+    {
+      "package": "@crab-dev/rc-dialog",
+      "config": {
+        "designSystem": "shadcn",
+        "colorMode": "light",
+        "size": "medium",
+        "density": "standard",
+        "state": "default"
+      },
+      "snapshot": "test/visual/baselines/linux/chromium/components/rc-dialog/docs/dialog.visual.spec.mjs/shadcn-light-default.png",
+      "sha256": "ce25eaabac63a6be3dba2c15c71b4a62c7b33f4952eb98b9c38a73ed8d62c3a9",
+      "manualReview": "passed",
+      "note": "展开后标题、48px 关闭目标、正文和动作无碰撞；MD3 默认 20px 内边距及标题生效。",
+      "contact": "core-defaults/rc-dialog.png",
+      "candidateSha256": "ce25eaabac63a6be3dba2c15c71b4a62c7b33f4952eb98b9c38a73ed8d62c3a9",
+      "finalManualReview": "passed"
+    },
+    {
+      "package": "@crab-dev/rc-dialog",
+      "config": {
+        "designSystem": "shadcn",
+        "colorMode": "dark",
+        "size": "medium",
+        "density": "standard",
+        "state": "default"
+      },
+      "snapshot": "test/visual/baselines/linux/chromium/components/rc-dialog/docs/dialog.visual.spec.mjs/shadcn-dark-default.png",
+      "sha256": "c6f3f33f9e1ddbd40e0ebe115ee7367cf60b82fb41bd039a203cc6f6eadd48e4",
+      "manualReview": "passed",
+      "note": "展开后标题、48px 关闭目标、正文和动作无碰撞；MD3 默认 20px 内边距及标题生效。",
+      "contact": "core-defaults/rc-dialog.png",
+      "candidateSha256": "c6f3f33f9e1ddbd40e0ebe115ee7367cf60b82fb41bd039a203cc6f6eadd48e4",
+      "finalManualReview": "passed"
+    },
+    {
+      "package": "@crab-dev/rc-line-edit",
+      "config": {
+        "designSystem": "md3",
+        "colorMode": "light",
+        "size": "medium",
+        "density": "standard",
+        "state": "default"
+      },
+      "snapshot": "test/visual/baselines/linux/chromium/components/rc-line-edit/docs/line-edit.visual.spec.mjs/md3-light-medium-outlined-default.png",
+      "sha256": "30c98aeb3657dfd8cfd4c250dc08c76ba1f8d5efc9aca5375ccaecf2516146f8",
+      "manualReview": "passed",
+      "note": "两种外观标签固定在上方；占位文字、4px 间距与连续边框/底线清晰。",
+      "contact": "core-defaults/rc-line-edit.png",
+      "candidateSha256": "30c98aeb3657dfd8cfd4c250dc08c76ba1f8d5efc9aca5375ccaecf2516146f8",
+      "finalManualReview": "passed"
+    },
+    {
+      "package": "@crab-dev/rc-line-edit",
+      "config": {
+        "designSystem": "md3",
+        "colorMode": "dark",
+        "size": "medium",
+        "density": "standard",
+        "state": "default"
+      },
+      "snapshot": "test/visual/baselines/linux/chromium/components/rc-line-edit/docs/line-edit.visual.spec.mjs/md3-dark-medium-outlined-default.png",
+      "sha256": "fd62e63e0f60a129701a549084f672ef0690fdd9dc181f5783657ddcc78d4dc0",
+      "manualReview": "passed",
+      "note": "两种外观标签固定在上方；占位文字、4px 间距与连续边框/底线清晰。",
+      "contact": "core-defaults/rc-line-edit.png",
+      "candidateSha256": "fd62e63e0f60a129701a549084f672ef0690fdd9dc181f5783657ddcc78d4dc0",
+      "finalManualReview": "passed"
+    },
+    {
+      "package": "@crab-dev/rc-line-edit",
+      "config": {
+        "designSystem": "apple",
+        "colorMode": "light",
+        "size": "medium",
+        "density": "standard",
+        "state": "default"
+      },
+      "snapshot": "test/visual/baselines/linux/chromium/components/rc-line-edit/docs/line-edit.visual.spec.mjs/apple-light-medium-outlined-default.png",
+      "sha256": "914a91d69f5bd17a5fd012a8b952269e323a2057901cf2b1c8b3e1b98d0000e5",
+      "manualReview": "passed",
+      "note": "两种外观标签固定在上方；占位文字、4px 间距与连续边框/底线清晰。",
+      "contact": "core-defaults/rc-line-edit.png",
+      "candidateSha256": "f94f27cf779f0b85264d45834c8ad5595691d97e938906d8a375d0eae6052a26",
+      "finalManualReview": "passed",
+      "finalReviewNote": "复核最终原生 PNG：仅2–172个边缘像素的1–5级通道差异，控件几何与文字布局相同；本张最终图已重新查看。详见baseline-candidate-diff.json。"
+    },
+    {
+      "package": "@crab-dev/rc-line-edit",
+      "config": {
+        "designSystem": "apple",
+        "colorMode": "dark",
+        "size": "medium",
+        "density": "standard",
+        "state": "default"
+      },
+      "snapshot": "test/visual/baselines/linux/chromium/components/rc-line-edit/docs/line-edit.visual.spec.mjs/apple-dark-medium-outlined-default.png",
+      "sha256": "a09112fdd3677974953f6b7e318b5dff0a2b64def5e8f757b2211c11fc1dbc52",
+      "manualReview": "passed",
+      "note": "两种外观标签固定在上方；占位文字、4px 间距与连续边框/底线清晰。",
+      "contact": "core-defaults/rc-line-edit.png",
+      "candidateSha256": "e688eca902fa5e6617da914de347a23d748bf28282a3e6cbfd7abc8f2de73481",
+      "finalManualReview": "passed",
+      "finalReviewNote": "复核最终原生 PNG：仅2–172个边缘像素的1–5级通道差异，控件几何与文字布局相同；本张最终图已重新查看。详见baseline-candidate-diff.json。"
+    },
+    {
+      "package": "@crab-dev/rc-line-edit",
+      "config": {
+        "designSystem": "shadcn",
+        "colorMode": "light",
+        "size": "medium",
+        "density": "standard",
+        "state": "default"
+      },
+      "snapshot": "test/visual/baselines/linux/chromium/components/rc-line-edit/docs/line-edit.visual.spec.mjs/shadcn-light-medium-outlined-default.png",
+      "sha256": "7e4c0abc03b3b6e04001f8c0db68dbc8dc13c81f7dfcd7431d9e555624eae937",
+      "manualReview": "passed",
+      "note": "两种外观标签固定在上方；占位文字、4px 间距与连续边框/底线清晰。",
+      "contact": "core-defaults/rc-line-edit.png",
+      "candidateSha256": "7e4c0abc03b3b6e04001f8c0db68dbc8dc13c81f7dfcd7431d9e555624eae937",
+      "finalManualReview": "passed"
+    },
+    {
+      "package": "@crab-dev/rc-line-edit",
+      "config": {
+        "designSystem": "shadcn",
+        "colorMode": "dark",
+        "size": "medium",
+        "density": "standard",
+        "state": "default"
+      },
+      "snapshot": "test/visual/baselines/linux/chromium/components/rc-line-edit/docs/line-edit.visual.spec.mjs/shadcn-dark-medium-outlined-default.png",
+      "sha256": "33919016b146987402635736f98df1990721c989ea51f16b3ce60420900b137e",
+      "manualReview": "passed",
+      "note": "两种外观标签固定在上方；占位文字、4px 间距与连续边框/底线清晰。",
+      "contact": "core-defaults/rc-line-edit.png",
+      "candidateSha256": "b527c9f4cb3d9376204b7aba43a867d0a35e327d66deaf4e853dc4d7ec22dedf",
+      "finalManualReview": "passed",
+      "finalReviewNote": "复核最终原生 PNG：仅2–172个边缘像素的1–5级通道差异，控件几何与文字布局相同；本张最终图已重新查看。详见baseline-candidate-diff.json。"
+    },
+    {
+      "package": "@crab-dev/rc-select",
+      "config": {
+        "designSystem": "md3",
+        "colorMode": "light",
+        "size": "medium",
+        "density": "standard",
+        "state": "default"
+      },
+      "snapshot": "test/visual/baselines/linux/chromium/components/rc-select/docs/select.visual.spec.mjs/md3-light-medium-standard-default.png",
+      "sha256": "8d4cd4c6632c8a26bebd927f2c43f497f08fee81078e3b5a7cbf3b2376aa672e",
+      "manualReview": "passed",
+      "note": "标签、占位文字与已选值清晰；Filled 和 Outlined 保留主题差异。",
+      "contact": "core-defaults/rc-select.png",
+      "candidateSha256": "8d4cd4c6632c8a26bebd927f2c43f497f08fee81078e3b5a7cbf3b2376aa672e",
+      "finalManualReview": "passed"
+    },
+    {
+      "package": "@crab-dev/rc-select",
+      "config": {
+        "designSystem": "md3",
+        "colorMode": "dark",
+        "size": "medium",
+        "density": "standard",
+        "state": "default"
+      },
+      "snapshot": "test/visual/baselines/linux/chromium/components/rc-select/docs/select.visual.spec.mjs/md3-dark-medium-standard-default.png",
+      "sha256": "5a86e14f2c1bc042ea1302e614782150f07c722ea0f7aae91673032a302cf497",
+      "manualReview": "passed",
+      "note": "标签、占位文字与已选值清晰；Filled 和 Outlined 保留主题差异。",
+      "contact": "core-defaults/rc-select.png",
+      "candidateSha256": "1c136e465b00996759c979fe74f99863ef42fb014a6f5b559080232e81337b82",
+      "finalManualReview": "passed",
+      "finalReviewNote": "复核最终原生 PNG：仅2–172个边缘像素的1–5级通道差异，控件几何与文字布局相同；本张最终图已重新查看。详见baseline-candidate-diff.json。"
+    },
+    {
+      "package": "@crab-dev/rc-select",
+      "config": {
+        "designSystem": "apple",
+        "colorMode": "light",
+        "size": "medium",
+        "density": "standard",
+        "state": "default"
+      },
+      "snapshot": "test/visual/baselines/linux/chromium/components/rc-select/docs/select.visual.spec.mjs/apple-light-medium-standard-default.png",
+      "sha256": "1f622922727d93de7611eb9cc44c0ee7c6b8714264f9dc024b11bc47366aef61",
+      "manualReview": "passed",
+      "note": "标签、占位文字与已选值清晰；Filled 和 Outlined 保留主题差异。",
+      "contact": "core-defaults/rc-select.png",
+      "candidateSha256": "1f622922727d93de7611eb9cc44c0ee7c6b8714264f9dc024b11bc47366aef61",
+      "finalManualReview": "passed"
+    },
+    {
+      "package": "@crab-dev/rc-select",
+      "config": {
+        "designSystem": "apple",
+        "colorMode": "dark",
+        "size": "medium",
+        "density": "standard",
+        "state": "default"
+      },
+      "snapshot": "test/visual/baselines/linux/chromium/components/rc-select/docs/select.visual.spec.mjs/apple-dark-medium-standard-default.png",
+      "sha256": "ad1e0d79e616cb00ec025f315d461e12179df57dea69d9cc3cdcf3298618511e",
+      "manualReview": "passed",
+      "note": "标签、占位文字与已选值清晰；Filled 和 Outlined 保留主题差异。",
+      "contact": "core-defaults/rc-select.png",
+      "candidateSha256": "715ac289f0d61ca595ffc9f9950d659c5427f99979312e3a82a54daceb5af1b2",
+      "finalManualReview": "passed",
+      "finalReviewNote": "复核最终原生 PNG：仅2–172个边缘像素的1–5级通道差异，控件几何与文字布局相同；本张最终图已重新查看。详见baseline-candidate-diff.json。"
+    },
+    {
+      "package": "@crab-dev/rc-select",
+      "config": {
+        "designSystem": "shadcn",
+        "colorMode": "light",
+        "size": "medium",
+        "density": "standard",
+        "state": "default"
+      },
+      "snapshot": "test/visual/baselines/linux/chromium/components/rc-select/docs/select.visual.spec.mjs/shadcn-light-medium-standard-default.png",
+      "sha256": "0d15dfc3e38e271871bd509ff4207ef58d131cc0f687f6983a3ffdb4c99b54e2",
+      "manualReview": "passed",
+      "note": "标签、占位文字与已选值清晰；Filled 和 Outlined 保留主题差异。",
+      "contact": "core-defaults/rc-select.png",
+      "candidateSha256": "0d15dfc3e38e271871bd509ff4207ef58d131cc0f687f6983a3ffdb4c99b54e2",
+      "finalManualReview": "passed"
+    },
+    {
+      "package": "@crab-dev/rc-select",
+      "config": {
+        "designSystem": "shadcn",
+        "colorMode": "dark",
+        "size": "medium",
+        "density": "standard",
+        "state": "default"
+      },
+      "snapshot": "test/visual/baselines/linux/chromium/components/rc-select/docs/select.visual.spec.mjs/shadcn-dark-medium-standard-default.png",
+      "sha256": "7584cb9fd42f0e25218557434662b288e05e50d234730d51fa60c93d8c360d7e",
+      "manualReview": "passed",
+      "note": "标签、占位文字与已选值清晰；Filled 和 Outlined 保留主题差异。",
+      "contact": "core-defaults/rc-select.png",
+      "candidateSha256": "7584cb9fd42f0e25218557434662b288e05e50d234730d51fa60c93d8c360d7e",
+      "finalManualReview": "passed"
+    },
+    {
+      "package": "@crab-dev/rc-switch",
+      "config": {
+        "designSystem": "md3",
+        "colorMode": "light",
+        "size": "medium",
+        "density": "standard",
+        "state": "default"
+      },
+      "snapshot": "test/visual/baselines/linux/chromium/components/rc-switch/docs/switch.visual.spec.mjs/md3-light-medium-default.png",
+      "sha256": "38ab3c548fd2b0d3619578d50a6f9341cef14e2bf9e6486ce7a61c7de04128a8",
+      "manualReview": "passed",
+      "note": "MD3 轨道和留白收紧；三主题标签对齐，默认与禁用状态区分明确。",
+      "contact": "core-defaults/rc-switch.png",
+      "candidateSha256": "38ab3c548fd2b0d3619578d50a6f9341cef14e2bf9e6486ce7a61c7de04128a8",
+      "finalManualReview": "passed"
+    },
+    {
+      "package": "@crab-dev/rc-switch",
+      "config": {
+        "designSystem": "md3",
+        "colorMode": "dark",
+        "size": "medium",
+        "density": "standard",
+        "state": "default"
+      },
+      "snapshot": "test/visual/baselines/linux/chromium/components/rc-switch/docs/switch.visual.spec.mjs/md3-dark-medium-default.png",
+      "sha256": "46cd19bab6fb7582aaf7096e5b26623f02496b21f213ce528893b9de19c06084",
+      "manualReview": "passed",
+      "note": "MD3 轨道和留白收紧；三主题标签对齐，默认与禁用状态区分明确。",
+      "contact": "core-defaults/rc-switch.png",
+      "candidateSha256": "46cd19bab6fb7582aaf7096e5b26623f02496b21f213ce528893b9de19c06084",
+      "finalManualReview": "passed"
+    },
+    {
+      "package": "@crab-dev/rc-switch",
+      "config": {
+        "designSystem": "apple",
+        "colorMode": "light",
+        "size": "medium",
+        "density": "standard",
+        "state": "default"
+      },
+      "snapshot": "test/visual/baselines/linux/chromium/components/rc-switch/docs/switch.visual.spec.mjs/apple-light-medium-default.png",
+      "sha256": "2d8570c192601b6bd5954e0d6d0ace0a8291e0f824fa5d9ee89a337aa288f5cc",
+      "manualReview": "passed",
+      "note": "MD3 轨道和留白收紧；三主题标签对齐，默认与禁用状态区分明确。",
+      "contact": "core-defaults/rc-switch.png",
+      "candidateSha256": "2d8570c192601b6bd5954e0d6d0ace0a8291e0f824fa5d9ee89a337aa288f5cc",
+      "finalManualReview": "passed"
+    },
+    {
+      "package": "@crab-dev/rc-switch",
+      "config": {
+        "designSystem": "apple",
+        "colorMode": "dark",
+        "size": "medium",
+        "density": "standard",
+        "state": "default"
+      },
+      "snapshot": "test/visual/baselines/linux/chromium/components/rc-switch/docs/switch.visual.spec.mjs/apple-dark-medium-default.png",
+      "sha256": "2346dacccd86a434917f911d8957711ebf1336e89505e065eb640be1d82a311b",
+      "manualReview": "passed",
+      "note": "MD3 轨道和留白收紧；三主题标签对齐，默认与禁用状态区分明确。",
+      "contact": "core-defaults/rc-switch.png",
+      "candidateSha256": "2346dacccd86a434917f911d8957711ebf1336e89505e065eb640be1d82a311b",
+      "finalManualReview": "passed"
+    },
+    {
+      "package": "@crab-dev/rc-switch",
+      "config": {
+        "designSystem": "shadcn",
+        "colorMode": "light",
+        "size": "medium",
+        "density": "standard",
+        "state": "default"
+      },
+      "snapshot": "test/visual/baselines/linux/chromium/components/rc-switch/docs/switch.visual.spec.mjs/shadcn-light-medium-default.png",
+      "sha256": "485e6d0026f47be9126687258e30c8c8c12bb1261ffdd9a7e25377fbcfc80014",
+      "manualReview": "passed",
+      "note": "MD3 轨道和留白收紧；三主题标签对齐，默认与禁用状态区分明确。",
+      "contact": "core-defaults/rc-switch.png",
+      "candidateSha256": "485e6d0026f47be9126687258e30c8c8c12bb1261ffdd9a7e25377fbcfc80014",
+      "finalManualReview": "passed"
+    },
+    {
+      "package": "@crab-dev/rc-switch",
+      "config": {
+        "designSystem": "shadcn",
+        "colorMode": "dark",
+        "size": "medium",
+        "density": "standard",
+        "state": "default"
+      },
+      "snapshot": "test/visual/baselines/linux/chromium/components/rc-switch/docs/switch.visual.spec.mjs/shadcn-dark-medium-default.png",
+      "sha256": "683351c9c2ba7d3e11954d757faafc515eb3985796eef6454f95ab4b345703d3",
+      "manualReview": "passed",
+      "note": "MD3 轨道和留白收紧；三主题标签对齐，默认与禁用状态区分明确。",
+      "contact": "core-defaults/rc-switch.png",
+      "candidateSha256": "683351c9c2ba7d3e11954d757faafc515eb3985796eef6454f95ab4b345703d3",
+      "finalManualReview": "passed"
+    },
+    {
+      "package": "@crab-dev/rc-tabs",
+      "config": {
+        "designSystem": "md3",
+        "colorMode": "light",
+        "size": "medium",
+        "density": "standard",
+        "state": "default"
+      },
+      "snapshot": "test/visual/baselines/linux/chromium/components/rc-tabs/docs/tabs.visual.spec.mjs/md3-light-medium-standard-default.png",
+      "sha256": "117cd8520dc0da634ded9d723352b7acbaf634bb903b00ce278410ec644927e9",
+      "manualReview": "passed",
+      "note": "MD3 页签收紧；激活标识、关闭图标、禁用态和内容区未被裁切。",
+      "contact": "core-defaults/rc-tabs.png",
+      "candidateSha256": "117cd8520dc0da634ded9d723352b7acbaf634bb903b00ce278410ec644927e9",
+      "finalManualReview": "passed"
+    },
+    {
+      "package": "@crab-dev/rc-tabs",
+      "config": {
+        "designSystem": "md3",
+        "colorMode": "dark",
+        "size": "medium",
+        "density": "standard",
+        "state": "default"
+      },
+      "snapshot": "test/visual/baselines/linux/chromium/components/rc-tabs/docs/tabs.visual.spec.mjs/md3-dark-medium-standard-default.png",
+      "sha256": "c7e32c7c1102d8fa271870ff7abb681f6238628e4e51631c5ec114ff159d500a",
+      "manualReview": "passed",
+      "note": "MD3 页签收紧；激活标识、关闭图标、禁用态和内容区未被裁切。",
+      "contact": "core-defaults/rc-tabs.png",
+      "candidateSha256": "c7e32c7c1102d8fa271870ff7abb681f6238628e4e51631c5ec114ff159d500a",
+      "finalManualReview": "passed"
+    },
+    {
+      "package": "@crab-dev/rc-tabs",
+      "config": {
+        "designSystem": "apple",
+        "colorMode": "light",
+        "size": "medium",
+        "density": "standard",
+        "state": "default"
+      },
+      "snapshot": "test/visual/baselines/linux/chromium/components/rc-tabs/docs/tabs.visual.spec.mjs/apple-light-medium-standard-default.png",
+      "sha256": "f524fe841a5e9fa846e62d1c11c22eadfe4d11c18165b6ec54438d3c76da373d",
+      "manualReview": "passed",
+      "note": "MD3 页签收紧；激活标识、关闭图标、禁用态和内容区未被裁切。",
+      "contact": "core-defaults/rc-tabs.png",
+      "candidateSha256": "986c12536858f468a38d063a3e152a5a08689363982af23c85270484a15f3bbe",
+      "finalManualReview": "passed",
+      "finalReviewNote": "复核最终原生 PNG：仅2–172个边缘像素的1–5级通道差异，控件几何与文字布局相同；本张最终图已重新查看。详见baseline-candidate-diff.json。"
+    },
+    {
+      "package": "@crab-dev/rc-tabs",
+      "config": {
+        "designSystem": "apple",
+        "colorMode": "dark",
+        "size": "medium",
+        "density": "standard",
+        "state": "default"
+      },
+      "snapshot": "test/visual/baselines/linux/chromium/components/rc-tabs/docs/tabs.visual.spec.mjs/apple-dark-medium-standard-default.png",
+      "sha256": "8d9edbfe2241d1aa280a0c86a5e9fb29eacab44b078ec20b9521ac060eb02833",
+      "manualReview": "passed",
+      "note": "MD3 页签收紧；激活标识、关闭图标、禁用态和内容区未被裁切。",
+      "contact": "core-defaults/rc-tabs.png",
+      "candidateSha256": "8d9edbfe2241d1aa280a0c86a5e9fb29eacab44b078ec20b9521ac060eb02833",
+      "finalManualReview": "passed"
+    },
+    {
+      "package": "@crab-dev/rc-tabs",
+      "config": {
+        "designSystem": "shadcn",
+        "colorMode": "light",
+        "size": "medium",
+        "density": "standard",
+        "state": "default"
+      },
+      "snapshot": "test/visual/baselines/linux/chromium/components/rc-tabs/docs/tabs.visual.spec.mjs/shadcn-light-medium-standard-default.png",
+      "sha256": "da7785c88b85959c871d4d33bf3e2aa405cb52fe89cc1d7ad6f3145f7af17cc3",
+      "manualReview": "passed",
+      "note": "MD3 页签收紧；激活标识、关闭图标、禁用态和内容区未被裁切。",
+      "contact": "core-defaults/rc-tabs.png",
+      "candidateSha256": "da7785c88b85959c871d4d33bf3e2aa405cb52fe89cc1d7ad6f3145f7af17cc3",
+      "finalManualReview": "passed"
+    },
+    {
+      "package": "@crab-dev/rc-tabs",
+      "config": {
+        "designSystem": "shadcn",
+        "colorMode": "dark",
+        "size": "medium",
+        "density": "standard",
+        "state": "default"
+      },
+      "snapshot": "test/visual/baselines/linux/chromium/components/rc-tabs/docs/tabs.visual.spec.mjs/shadcn-dark-medium-standard-default.png",
+      "sha256": "97efcb429008fc1c4410c52db4f1ebfa1a27507331468d4e2bfb57d34825b20d",
+      "manualReview": "passed",
+      "note": "MD3 页签收紧；激活标识、关闭图标、禁用态和内容区未被裁切。",
+      "contact": "core-defaults/rc-tabs.png",
+      "candidateSha256": "4404939d3629553964d71d0cc940dba64eeeca507c6dd1df370c7e02fed3c707",
+      "finalManualReview": "passed",
+      "finalReviewNote": "复核最终原生 PNG：仅2–172个边缘像素的1–5级通道差异，控件几何与文字布局相同；本张最终图已重新查看。详见baseline-candidate-diff.json。"
+    },
+    {
+      "package": "@crab-dev/rc-text-edit",
+      "config": {
+        "designSystem": "md3",
+        "colorMode": "light",
+        "size": "medium",
+        "density": "standard",
+        "state": "default"
+      },
+      "snapshot": "test/visual/baselines/linux/chromium/components/rc-text-edit/docs/text-edit.visual.spec.mjs/md3-light-medium-outlined-default.png",
+      "sha256": "6374b79a1c721d6aabfa7574b96b608dd067744d2c57db0371590f892d84856d",
+      "manualReview": "passed",
+      "note": "两种外观保持内容行高；说明与计数对齐，没有侵入输入内容。",
+      "contact": "core-defaults/rc-text-edit.png",
+      "candidateSha256": "6374b79a1c721d6aabfa7574b96b608dd067744d2c57db0371590f892d84856d",
+      "finalManualReview": "passed"
+    },
+    {
+      "package": "@crab-dev/rc-text-edit",
+      "config": {
+        "designSystem": "md3",
+        "colorMode": "dark",
+        "size": "medium",
+        "density": "standard",
+        "state": "default"
+      },
+      "snapshot": "test/visual/baselines/linux/chromium/components/rc-text-edit/docs/text-edit.visual.spec.mjs/md3-dark-medium-outlined-default.png",
+      "sha256": "bdac6021b2d4babaceb01f2b9ac1922eb5c2f4cb47b8bb573268fbb23e1d5bb4",
+      "manualReview": "passed",
+      "note": "两种外观保持内容行高；说明与计数对齐，没有侵入输入内容。",
+      "contact": "core-defaults/rc-text-edit.png",
+      "candidateSha256": "bdac6021b2d4babaceb01f2b9ac1922eb5c2f4cb47b8bb573268fbb23e1d5bb4",
+      "finalManualReview": "passed"
+    },
+    {
+      "package": "@crab-dev/rc-text-edit",
+      "config": {
+        "designSystem": "apple",
+        "colorMode": "light",
+        "size": "medium",
+        "density": "standard",
+        "state": "default"
+      },
+      "snapshot": "test/visual/baselines/linux/chromium/components/rc-text-edit/docs/text-edit.visual.spec.mjs/apple-light-medium-outlined-default.png",
+      "sha256": "280b673b3d71aa5dd6bc15086720910dc60c339a7f0a76df16de622b5bd109d6",
+      "manualReview": "passed",
+      "note": "两种外观保持内容行高；说明与计数对齐，没有侵入输入内容。",
+      "contact": "core-defaults/rc-text-edit.png",
+      "candidateSha256": "280b673b3d71aa5dd6bc15086720910dc60c339a7f0a76df16de622b5bd109d6",
+      "finalManualReview": "passed"
+    },
+    {
+      "package": "@crab-dev/rc-text-edit",
+      "config": {
+        "designSystem": "apple",
+        "colorMode": "dark",
+        "size": "medium",
+        "density": "standard",
+        "state": "default"
+      },
+      "snapshot": "test/visual/baselines/linux/chromium/components/rc-text-edit/docs/text-edit.visual.spec.mjs/apple-dark-medium-outlined-default.png",
+      "sha256": "f70818acfbfda91534ef75fa28a64c23619b7c009ca5adfe5b379e8f798fb363",
+      "manualReview": "passed",
+      "note": "两种外观保持内容行高；说明与计数对齐，没有侵入输入内容。",
+      "contact": "core-defaults/rc-text-edit.png",
+      "candidateSha256": "f70818acfbfda91534ef75fa28a64c23619b7c009ca5adfe5b379e8f798fb363",
+      "finalManualReview": "passed"
+    },
+    {
+      "package": "@crab-dev/rc-text-edit",
+      "config": {
+        "designSystem": "shadcn",
+        "colorMode": "light",
+        "size": "medium",
+        "density": "standard",
+        "state": "default"
+      },
+      "snapshot": "test/visual/baselines/linux/chromium/components/rc-text-edit/docs/text-edit.visual.spec.mjs/shadcn-light-medium-outlined-default.png",
+      "sha256": "8508ef5b46e59b004c7c63ccd1f35d8d4a8a262762554e392a96ea114c811494",
+      "manualReview": "passed",
+      "note": "两种外观保持内容行高；说明与计数对齐，没有侵入输入内容。",
+      "contact": "core-defaults/rc-text-edit.png",
+      "candidateSha256": "8508ef5b46e59b004c7c63ccd1f35d8d4a8a262762554e392a96ea114c811494",
+      "finalManualReview": "passed"
+    },
+    {
+      "package": "@crab-dev/rc-text-edit",
+      "config": {
+        "designSystem": "shadcn",
+        "colorMode": "dark",
+        "size": "medium",
+        "density": "standard",
+        "state": "default"
+      },
+      "snapshot": "test/visual/baselines/linux/chromium/components/rc-text-edit/docs/text-edit.visual.spec.mjs/shadcn-dark-medium-outlined-default.png",
+      "sha256": "d80e8e2cb74acc817d222bf83b65305221033190e39b4094844e9d3ef966da31",
+      "manualReview": "passed",
+      "note": "两种外观保持内容行高；说明与计数对齐，没有侵入输入内容。",
+      "contact": "core-defaults/rc-text-edit.png",
+      "candidateSha256": "d80e8e2cb74acc817d222bf83b65305221033190e39b4094844e9d3ef966da31",
+      "finalManualReview": "passed"
+    },
+    {
+      "package": "@crab-dev/rc-line-edit",
+      "config": {
+        "designSystem": "md3",
+        "colorMode": "light",
+        "size": "medium",
+        "density": "standard",
+        "state": "default"
+      },
+      "snapshot": "test/visual/baselines/linux/chromium/components/rc-line-edit/docs/line-edit.visual.spec.mjs/md3-light-medium-filled-default.png",
+      "sha256": "30c98aeb3657dfd8cfd4c250dc08c76ba1f8d5efc9aca5375ccaecf2516146f8",
+      "manualReview": "passed",
+      "contact": "core-defaults/rc-line-edit-filled.png",
+      "note": "Filled 与 outlined 同屏复核：外置标签、底线、正文和说明无碰撞；MD3 的色调层级保留，Apple/shadcn 原比例保持。",
+      "candidateSha256": "30c98aeb3657dfd8cfd4c250dc08c76ba1f8d5efc9aca5375ccaecf2516146f8",
+      "finalManualReview": "passed"
+    },
+    {
+      "package": "@crab-dev/rc-line-edit",
+      "config": {
+        "designSystem": "md3",
+        "colorMode": "dark",
+        "size": "medium",
+        "density": "standard",
+        "state": "default"
+      },
+      "snapshot": "test/visual/baselines/linux/chromium/components/rc-line-edit/docs/line-edit.visual.spec.mjs/md3-dark-medium-filled-default.png",
+      "sha256": "fd62e63e0f60a129701a549084f672ef0690fdd9dc181f5783657ddcc78d4dc0",
+      "manualReview": "passed",
+      "contact": "core-defaults/rc-line-edit-filled.png",
+      "note": "Filled 与 outlined 同屏复核：外置标签、底线、正文和说明无碰撞；MD3 的色调层级保留，Apple/shadcn 原比例保持。",
+      "candidateSha256": "fd62e63e0f60a129701a549084f672ef0690fdd9dc181f5783657ddcc78d4dc0",
+      "finalManualReview": "passed"
+    },
+    {
+      "package": "@crab-dev/rc-line-edit",
+      "config": {
+        "designSystem": "apple",
+        "colorMode": "light",
+        "size": "medium",
+        "density": "standard",
+        "state": "default"
+      },
+      "snapshot": "test/visual/baselines/linux/chromium/components/rc-line-edit/docs/line-edit.visual.spec.mjs/apple-light-medium-filled-default.png",
+      "sha256": "914a91d69f5bd17a5fd012a8b952269e323a2057901cf2b1c8b3e1b98d0000e5",
+      "manualReview": "passed",
+      "contact": "core-defaults/rc-line-edit-filled.png",
+      "note": "Filled 与 outlined 同屏复核：外置标签、底线、正文和说明无碰撞；MD3 的色调层级保留，Apple/shadcn 原比例保持。",
+      "candidateSha256": "914a91d69f5bd17a5fd012a8b952269e323a2057901cf2b1c8b3e1b98d0000e5",
+      "finalManualReview": "passed"
+    },
+    {
+      "package": "@crab-dev/rc-line-edit",
+      "config": {
+        "designSystem": "apple",
+        "colorMode": "dark",
+        "size": "medium",
+        "density": "standard",
+        "state": "default"
+      },
+      "snapshot": "test/visual/baselines/linux/chromium/components/rc-line-edit/docs/line-edit.visual.spec.mjs/apple-dark-medium-filled-default.png",
+      "sha256": "a09112fdd3677974953f6b7e318b5dff0a2b64def5e8f757b2211c11fc1dbc52",
+      "manualReview": "passed",
+      "contact": "core-defaults/rc-line-edit-filled.png",
+      "note": "Filled 与 outlined 同屏复核：外置标签、底线、正文和说明无碰撞；MD3 的色调层级保留，Apple/shadcn 原比例保持。",
+      "candidateSha256": "a09112fdd3677974953f6b7e318b5dff0a2b64def5e8f757b2211c11fc1dbc52",
+      "finalManualReview": "passed"
+    },
+    {
+      "package": "@crab-dev/rc-line-edit",
+      "config": {
+        "designSystem": "shadcn",
+        "colorMode": "light",
+        "size": "medium",
+        "density": "standard",
+        "state": "default"
+      },
+      "snapshot": "test/visual/baselines/linux/chromium/components/rc-line-edit/docs/line-edit.visual.spec.mjs/shadcn-light-medium-filled-default.png",
+      "sha256": "7e4c0abc03b3b6e04001f8c0db68dbc8dc13c81f7dfcd7431d9e555624eae937",
+      "manualReview": "passed",
+      "contact": "core-defaults/rc-line-edit-filled.png",
+      "note": "Filled 与 outlined 同屏复核：外置标签、底线、正文和说明无碰撞；MD3 的色调层级保留，Apple/shadcn 原比例保持。",
+      "candidateSha256": "7e4c0abc03b3b6e04001f8c0db68dbc8dc13c81f7dfcd7431d9e555624eae937",
+      "finalManualReview": "passed"
+    },
+    {
+      "package": "@crab-dev/rc-line-edit",
+      "config": {
+        "designSystem": "shadcn",
+        "colorMode": "dark",
+        "size": "medium",
+        "density": "standard",
+        "state": "default"
+      },
+      "snapshot": "test/visual/baselines/linux/chromium/components/rc-line-edit/docs/line-edit.visual.spec.mjs/shadcn-dark-medium-filled-default.png",
+      "sha256": "33919016b146987402635736f98df1990721c989ea51f16b3ce60420900b137e",
+      "manualReview": "passed",
+      "contact": "core-defaults/rc-line-edit-filled.png",
+      "note": "Filled 与 outlined 同屏复核：外置标签、底线、正文和说明无碰撞；MD3 的色调层级保留，Apple/shadcn 原比例保持。",
+      "candidateSha256": "b527c9f4cb3d9376204b7aba43a867d0a35e327d66deaf4e853dc4d7ec22dedf",
+      "finalManualReview": "passed",
+      "finalReviewNote": "复核最终原生 PNG：仅2–172个边缘像素的1–5级通道差异，控件几何与文字布局相同；本张最终图已重新查看。详见baseline-candidate-diff.json。"
+    },
+    {
+      "package": "@crab-dev/rc-text-edit",
+      "config": {
+        "designSystem": "md3",
+        "colorMode": "light",
+        "size": "medium",
+        "density": "standard",
+        "state": "default"
+      },
+      "snapshot": "test/visual/baselines/linux/chromium/components/rc-text-edit/docs/text-edit.visual.spec.mjs/md3-light-medium-filled-default.png",
+      "sha256": "6374b79a1c721d6aabfa7574b96b608dd067744d2c57db0371590f892d84856d",
+      "manualReview": "passed",
+      "contact": "core-defaults/rc-text-edit-filled.png",
+      "note": "Filled 与 outlined 同屏复核：外置标签、底线、正文和说明无碰撞；MD3 的色调层级保留，Apple/shadcn 原比例保持。",
+      "candidateSha256": "6374b79a1c721d6aabfa7574b96b608dd067744d2c57db0371590f892d84856d",
+      "finalManualReview": "passed"
+    },
+    {
+      "package": "@crab-dev/rc-text-edit",
+      "config": {
+        "designSystem": "md3",
+        "colorMode": "dark",
+        "size": "medium",
+        "density": "standard",
+        "state": "default"
+      },
+      "snapshot": "test/visual/baselines/linux/chromium/components/rc-text-edit/docs/text-edit.visual.spec.mjs/md3-dark-medium-filled-default.png",
+      "sha256": "bdac6021b2d4babaceb01f2b9ac1922eb5c2f4cb47b8bb573268fbb23e1d5bb4",
+      "manualReview": "passed",
+      "contact": "core-defaults/rc-text-edit-filled.png",
+      "note": "Filled 与 outlined 同屏复核：外置标签、底线、正文和说明无碰撞；MD3 的色调层级保留，Apple/shadcn 原比例保持。",
+      "candidateSha256": "bdac6021b2d4babaceb01f2b9ac1922eb5c2f4cb47b8bb573268fbb23e1d5bb4",
+      "finalManualReview": "passed"
+    },
+    {
+      "package": "@crab-dev/rc-text-edit",
+      "config": {
+        "designSystem": "apple",
+        "colorMode": "light",
+        "size": "medium",
+        "density": "standard",
+        "state": "default"
+      },
+      "snapshot": "test/visual/baselines/linux/chromium/components/rc-text-edit/docs/text-edit.visual.spec.mjs/apple-light-medium-filled-default.png",
+      "sha256": "280b673b3d71aa5dd6bc15086720910dc60c339a7f0a76df16de622b5bd109d6",
+      "manualReview": "passed",
+      "contact": "core-defaults/rc-text-edit-filled.png",
+      "note": "Filled 与 outlined 同屏复核：外置标签、底线、正文和说明无碰撞；MD3 的色调层级保留，Apple/shadcn 原比例保持。",
+      "candidateSha256": "280b673b3d71aa5dd6bc15086720910dc60c339a7f0a76df16de622b5bd109d6",
+      "finalManualReview": "passed"
+    },
+    {
+      "package": "@crab-dev/rc-text-edit",
+      "config": {
+        "designSystem": "apple",
+        "colorMode": "dark",
+        "size": "medium",
+        "density": "standard",
+        "state": "default"
+      },
+      "snapshot": "test/visual/baselines/linux/chromium/components/rc-text-edit/docs/text-edit.visual.spec.mjs/apple-dark-medium-filled-default.png",
+      "sha256": "f70818acfbfda91534ef75fa28a64c23619b7c009ca5adfe5b379e8f798fb363",
+      "manualReview": "passed",
+      "contact": "core-defaults/rc-text-edit-filled.png",
+      "note": "Filled 与 outlined 同屏复核：外置标签、底线、正文和说明无碰撞；MD3 的色调层级保留，Apple/shadcn 原比例保持。",
+      "candidateSha256": "f70818acfbfda91534ef75fa28a64c23619b7c009ca5adfe5b379e8f798fb363",
+      "finalManualReview": "passed"
+    },
+    {
+      "package": "@crab-dev/rc-text-edit",
+      "config": {
+        "designSystem": "shadcn",
+        "colorMode": "light",
+        "size": "medium",
+        "density": "standard",
+        "state": "default"
+      },
+      "snapshot": "test/visual/baselines/linux/chromium/components/rc-text-edit/docs/text-edit.visual.spec.mjs/shadcn-light-medium-filled-default.png",
+      "sha256": "8508ef5b46e59b004c7c63ccd1f35d8d4a8a262762554e392a96ea114c811494",
+      "manualReview": "passed",
+      "contact": "core-defaults/rc-text-edit-filled.png",
+      "note": "Filled 与 outlined 同屏复核：外置标签、底线、正文和说明无碰撞；MD3 的色调层级保留，Apple/shadcn 原比例保持。",
+      "candidateSha256": "8508ef5b46e59b004c7c63ccd1f35d8d4a8a262762554e392a96ea114c811494",
+      "finalManualReview": "passed"
+    },
+    {
+      "package": "@crab-dev/rc-text-edit",
+      "config": {
+        "designSystem": "shadcn",
+        "colorMode": "dark",
+        "size": "medium",
+        "density": "standard",
+        "state": "default"
+      },
+      "snapshot": "test/visual/baselines/linux/chromium/components/rc-text-edit/docs/text-edit.visual.spec.mjs/shadcn-dark-medium-filled-default.png",
+      "sha256": "d80e8e2cb74acc817d222bf83b65305221033190e39b4094844e9d3ef966da31",
+      "manualReview": "passed",
+      "contact": "core-defaults/rc-text-edit-filled.png",
+      "note": "Filled 与 outlined 同屏复核：外置标签、底线、正文和说明无碰撞；MD3 的色调层级保留，Apple/shadcn 原比例保持。",
+      "candidateSha256": "d80e8e2cb74acc817d222bf83b65305221033190e39b4094844e9d3ef966da31",
+      "finalManualReview": "passed"
+    }
+  ],
+  "caseCount": 36,
+  "updateRun": ".tmp/theme-baseline-update-evidence",
+  "comparisonRun": ".tmp/theme-baseline-zero-evidence",
+  "comparison": {
+    "passedCases": 36,
+    "snapshots": 48,
+    "maxDiffPixels": 0,
+    "threshold": "unchanged project/Playwright default",
+    "nativeImagesReviewed": 48,
+    "byteIdenticalToCandidate": 40,
+    "minorEdgeDifferencesReviewed": 8
+  },
+  "reviewMethod": "由本次助手查看实际浏览器截图；与自动断言结果分开记录。"
+}

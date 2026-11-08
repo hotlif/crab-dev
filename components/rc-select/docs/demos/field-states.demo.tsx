@@ -1,6 +1,6 @@
 export const meta = {
     title: "标签与选择状态",
-    description: "对照三套主题下的静态或浮动标签、选择面板、错误及禁用状态；切换主题保留当前值。",
+    description: "对照三套主题下的上置标签、选择面板、错误及禁用状态；切换主题保留当前值。",
 };
 
 import { css } from "@crab-dev/css";

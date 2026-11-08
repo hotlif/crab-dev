@@ -1,0 +1,45 @@
+{
+  "run": "2026-11-03T13-18-19-490Z",
+  "stats": {
+    "startTime": "2026-11-03T13:18:23.029Z",
+    "duration": 347678.861,
+    "expected": 168,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "inputStable": true,
+  "source": [
+    "sha256:8a4827cd44be9db7cdf10d983a8f5bdcc856931d47d2066dca36e996d8027dad"
+  ],
+  "artifact": [
+    "sha256:53712c1c41746555abc1f0d856bbd2c946946ee465c1ed99c65e5f53a81260f2"
+  ],
+  "rendering": {
+    "browser": "156.0.8078.4",
+    "webgl2": true,
+    "drawn": true,
+    "center": [
+      255,
+      0,
+      0,
+      255
+    ],
+    "background": [
+      51,
+      102,
+      153,
+      255
+    ],
+    "error": 0,
+    "vendor": "WebKit",
+    "renderer": "WebKit WebGL",
+    "driver": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+    "errors": [],
+    "browserName": "chromium",
+    "image": "mcr.microsoft.com/playwright:v1.64.1-noble@sha256:47b510dd9230bf0b9bfc9b20102241e577ea7a99334ab4c3ca19f19770e9b8ea",
+    "launchArguments": [
+      "--disable-lcd-text"
+    ]
+  }
+}

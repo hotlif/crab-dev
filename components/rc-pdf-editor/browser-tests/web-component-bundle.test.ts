@@ -205,7 +205,15 @@ describe('无需框架、网络或额外资源的独立 JS', () => {
                     expect(boundary.lang).toBe('en-US'); expect(boundary.dir).toBe('rtl');
                     expect(page.defaultView!.getComputedStyle(boundary).direction).toBe('rtl');
                     // Real collected theme CSS must resolve the independent field contract.
-                    expect(page.defaultView!.getComputedStyle(boundary).getPropertyValue('--token-semantic-field-control-min-height').trim()).toBe(designSystem === 'md3' ? '56px' : '0px');
+                    const boundaryStyle = page.defaultView!.getComputedStyle(boundary);
+                    expect(boundaryStyle.getPropertyValue('--token-semantic-field-control-min-height').trim()).toBe('0px');
+                    const fieldSizes = designSystem === 'md3'
+                        ? { small: '32px', medium: '40px', large: '48px' }
+                        : { small: '32px', medium: '36px', large: '40px' };
+                    for (const [size, height] of Object.entries(fieldSizes))
+                        expect(boundaryStyle.getPropertyValue(`--token-semantic-sizing-${size}-field`).trim()).toBe(height);
+                    expect(boundaryStyle.getPropertyValue('--token-semantic-field-layout-label-row').trim()).toBe('1');
+                    expect(boundaryStyle.getPropertyValue('--token-semantic-field-layout-control-row').trim()).toBe('2');
                     expect(element.shadowRoot!.querySelector('[aria-label="Open PDF"]')).not.toBe(null);
                     expect(element.shadowRoot!.querySelector('[aria-label="Zoom percentage"]')).not.toBe(null);
                 });

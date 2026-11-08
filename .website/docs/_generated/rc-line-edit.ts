@@ -101,7 +101,7 @@ export const demos = [
     {
         "id": "docs/demos/simple.demo.tsx",
         "title": "基础用法",
-        "description": "Material 呈现浮动标签与描边缺口，Apple 与 shadcn 呈现上置标签和紧凑输入。通过顶部外观菜单统一切换。",
+        "description": "三主题统一呈现上置标签，MD3 采用紧凑桌面尺寸并保留色调表面与状态边框。通过顶部外观菜单统一切换。",
         "learning": {
             "components": [
                 "LineEdit"
@@ -115,7 +115,7 @@ export const demos = [
             "events": [],
             "hasState": false
         },
-        "sourceCode": "export const meta = {\n    title: \"基础用法\",\n    description: \"Material 呈现浮动标签与描边缺口，Apple 与 shadcn 呈现上置标签和紧凑输入。通过顶部外观菜单统一切换。\",\n};\n\nimport { css } from \"@crab-dev/css\";\nimport token from \"@crab-dev/rc-token-semantic\";\nimport LineEdit from \"../../src/index.js\";\n\nconst wrapperStyle = css`\n    padding: ${token.space['card-padding']};\n    display: grid;\n    gap: ${token.space['group-gap']};\n`;\n\nconst SimpleDemo = () => {\n    return (\n        \u003cdiv className={wrapperStyle}>\n            \u003cLineEdit label=\"项目名称\" supportingText=\"用于团队首页和项目列表。\" />\n            \u003cLineEdit label=\"项目编号\" defaultValue=\"CRAB-2026\" readOnly supportingText=\"编号可选择和复制。\" />\n        \u003c/div>\n    );\n};\n\nexport default SimpleDemo;\n",
+        "sourceCode": "export const meta = {\n    title: \"基础用法\",\n    description: \"三主题统一呈现上置标签，MD3 采用紧凑桌面尺寸并保留色调表面与状态边框。通过顶部外观菜单统一切换。\",\n};\n\nimport { css } from \"@crab-dev/css\";\nimport token from \"@crab-dev/rc-token-semantic\";\nimport LineEdit from \"../../src/index.js\";\n\nconst wrapperStyle = css`\n    padding: ${token.space['card-padding']};\n    display: grid;\n    gap: ${token.space['group-gap']};\n`;\n\nconst SimpleDemo = () => {\n    return (\n        \u003cdiv className={wrapperStyle}>\n            \u003cLineEdit label=\"项目名称\" supportingText=\"用于团队首页和项目列表。\" />\n            \u003cLineEdit label=\"项目编号\" defaultValue=\"CRAB-2026\" readOnly supportingText=\"编号可选择和复制。\" />\n        \u003c/div>\n    );\n};\n\nexport default SimpleDemo;\n",
         "previewPath": "/components/rc-line-edit/workbench/?__wake_demo=docs%2Fdemos%2Fsimple.demo.tsx",
         "workbenchPath": "/components/rc-line-edit/workbench/#/components/docs%2Fdemos%2Fsimple.demo.tsx",
         "density": "regular",

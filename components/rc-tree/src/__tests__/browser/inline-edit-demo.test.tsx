@@ -255,7 +255,9 @@ describe('published custom editor and loading row geometry', () => {
                     const ordinary = required<HTMLInputElement>(view.container, 'input[aria-label="Standalone field geometry"]');
                     const ordinaryField = ordinary.closest<HTMLElement>('[data-field-control]');
                     if (!ordinaryField) throw new Error('Missing ordinary published field.');
-                    if (designSystem === 'md3') expect(ordinaryField.getBoundingClientRect().height).toBeGreaterThanOrEqual(56);
+                    // The standalone small field follows the desktop contract;
+                    // virtual rows keep their own 36/37px geometry above.
+                    expect(ordinaryField.getBoundingClientRect().height).toBe(32);
                     await fireEvent.keyDown(input, { key: 'Escape' });
                     await settlePaint(tree);
                     expect(input.isConnected).toBe(false);

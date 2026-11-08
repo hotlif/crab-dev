@@ -10,7 +10,7 @@ import { containerBaseStyle, errorStyle, warningStyle, borderlessStyle, textarea
 interface BaseTextEditProps extends Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, "ref" | "value" | "defaultValue"> {
     /** 字段外观，默认 outlined；bordered=false 时由宿主提供外观。 */
     appearance?: "outlined" | "filled";
-    /** 可见标签；Material 使用浮动标签，shadcn 使用上方标签。 */
+    /** 可见标签；三套设计体系均使用上方标签。 */
     label?: string;
     /** 文本域下方的辅助说明，自动加入 aria-describedby。 */
     supportingText?: string;
@@ -28,8 +28,7 @@ interface BaseTextEditProps extends Omit<TextareaHTMLAttributes<HTMLTextAreaElem
 
     /**
      * 控件几何档位，默认为 medium；不缩放正文，内容高度由 rows / autoSize 决定。
-     * Apple / shadcn 调整内边距和最小高度；MD3 三档保持标准字段几何，
-     * 仅内部清除动作分档。bordered=false 时几何和排版由宿主提供。
+     * 三套体系分别调整内边距和最小高度；MD3 使用桌面紧凑几何。bordered=false 时几何和排版由宿主提供。
      */
     size?: "large" | "medium" | "small";
 

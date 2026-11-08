@@ -23,11 +23,11 @@ status = "experimental"
 
 强制颜色使用系统配对颜色：关闭为 Canvas / CanvasText，开启为 Highlight / HighlightText，禁用手柄为 GrayText。悬停、按压和焦点不能用普通主题的手柄颜色覆盖这组配对；半透明状态光晕不参与强制颜色绘制，键盘焦点由独立轮廓表达。LTR/RTL 只改变手柄移动方向，不改变开启或禁用语义。
 
-`md3` 下，`medium`（默认）与 `large` 使用 52×32px 轨道；`small` 保留 28×16px，作为显式紧凑选项。`shadcn` 的 `small` / `medium` / `large` 轨道维持 28×16、32×18、36×20px。
+`md3` 下，`small` / `medium`（默认）/ `large` 使用 28×16、40×24、52×32px 轨道；默认尺寸采用本库桌面紧凑适配。`shadcn` 的三档轨道维持 28×16、32×18、36×20px。
 
 `apple` 的 small / medium / large 轨道为 28×16、36×22、44×26px，手柄分别为 12、18、22px；这组比例保留桌面 mini 与 regular 控件的层级，尺寸为项目的 Web 适配。
 
-三套设计各自定义手柄和状态反馈：MD3 默认未选中手柄 16px、选中 24px、按压 28px，并保留圆形状态层；Apple 使用带轻阴影的白色手柄与蓝色选中轨道；shadcn 使用中性色轨道，选中手柄消费配对前景色。后两者在选中前后保持手柄等大，不叠加 MD3 光晕。浅深色与嵌套风格均通过 L2 变量切换。
+三套设计各自定义手柄和状态反馈：MD3 默认选中手柄 20px，未选中缩至约 13.33px，按压扩大至约 23.33px，并保留 32px 圆形状态层；Apple 使用带轻阴影的白色手柄与蓝色选中轨道；shadcn 使用中性色轨道，选中手柄消费配对前景色。后两者在选中前后保持手柄等大，不叠加 MD3 光晕。浅深色与嵌套风格均通过 L2 变量切换。
 
 shadcn 浅色关闭态在固定 New York V4 参考基础上增加 1px 手柄边界，作为项目桌面辨识扩展，不属于上游修复。描边宽度与颜色由公共 L2 `toggle.handle.unchecked-border-width` / `toggle.handle.unchecked-border-color` 映射到本包 L3，颜色沿用 `border.strong`；`border-box` 保持手柄外部几何。开启态、深色、MD3 与 Apple 的手柄不增加该边界；强制颜色继续使用既有系统配对颜色。
 
@@ -69,3 +69,5 @@ MD3 的描边轨道、状态层与可变手柄，Apple 的紧凑胶囊和轻阴�
 ## API
 
 <API source="../src/types.ts" symbol="SwitchProps" component="Switch" />
+
+MD3 默认轨道为 40×24px，桌面布局最小高度 36px；粗指针继续保留至少 48px 命中区并预留左右空间，避免相邻操作重叠。

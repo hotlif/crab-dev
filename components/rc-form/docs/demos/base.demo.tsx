@@ -1,6 +1,6 @@
 export const meta = {
     title: "基础用法",
-    description: "字段标签与校验反馈由 LineEdit 自行呈现：Material Design 3 Expressive 使用浮动标签，Apple 和 shadcn/ui 使用控件自有的上方静态标签；表单实例操作的结果直接显示在下方。",
+    description: "字段标签与校验反馈由 LineEdit 自行呈现：三主题统一使用控件自有的上置标签；表单实例操作的结果直接显示在下方。",
 };
 
 import { css } from "@crab-dev/css";

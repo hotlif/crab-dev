@@ -136,10 +136,10 @@ const token = defineTokens({
             'gap': `var(${vars['input.touch.gap']}, var(--token-semantic-space-group-gap, var(--token-global-space-6, 24px)))`
         },
         'format': {
-            'width': `var(${vars['input.format.width']}, calc(var(--token-semantic-field-input-font-size, var(--token-global-font-size-md, 16px)) * 4 + var(--token-semantic-field-control-padding-inline, var(--token-global-space-4, 16px)) * 2 + var(--token-semantic-sizing-small-action, var(--token-global-space-6, 24px)) + var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px))))`
+            'width': `var(${vars['input.format.width']}, calc(var(--token-semantic-field-input-font-size, var(--token-global-font-size-md, 16px)) * 4 + var(--token-semantic-field-control-padding-inline, var(--token-global-space-3, 12px)) * 2 + var(--token-semantic-sizing-small-action, var(--token-global-space-6, 24px)) + var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px))))`
         },
         'value': {
-            'min-width': `var(${vars['input.value.min-width']}, calc(var(--token-semantic-field-input-font-size, var(--token-global-font-size-md, 16px)) * 7 + var(--token-semantic-field-control-padding-inline, var(--token-global-space-4, 16px)) * 2))`
+            'min-width': `var(${vars['input.value.min-width']}, calc(var(--token-semantic-field-input-font-size, var(--token-global-font-size-md, 16px)) * 7 + var(--token-semantic-field-control-padding-inline, var(--token-global-space-3, 12px)) * 2))`
         }
     },
     'swatch': {

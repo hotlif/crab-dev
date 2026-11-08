@@ -37,7 +37,7 @@ export const trackStyle = css`
     @media (prefers-reduced-motion: reduce) { transition: none; }
     border: none;
     box-shadow: inset 0 0 0 ${token.track['border-width']} ${token.track['border-color']};
-    &::before { content: ""; position: absolute; inset: calc((100% - max(100%, ${token.root.touch['min-height']})) / 2) calc((100% - max(100%, ${token.root.touch['min-width']})) / 2); }
+    @media (pointer: coarse) { &::before { content: ""; position: absolute; inset: calc((100% - max(100%, ${token.root.touch['min-height']})) / 2) calc((100% - max(100%, ${token.root.touch['min-width']})) / 2); } }
     padding: 0;
     cursor: inherit;
     outline: none;

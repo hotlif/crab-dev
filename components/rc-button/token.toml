@@ -241,3 +241,11 @@ danger.tonal.background-color = "$ref(color.feedback.error.background)"
 size.small.border-width = "$ref(action.button.xs.border-width)"
 size.medium.border-width = "$ref(action.button.s.border-width)"
 size.large.border-width = "$ref(action.button.m.border-width)"
+
+# MD3 desktop defaults when size is inherited; explicit Expressive sizes stay intact.
+size.inherited.small.height = "$ref(sizing.small.control)"
+size.inherited.small.padding = "0 $ref(action.desktop.small.padding-inline)"
+size.inherited.medium.height = "$ref(sizing.medium.control)"
+size.inherited.medium.padding = "0 $ref(action.desktop.medium.padding-inline)"
+size.inherited.large.height = "$ref(sizing.large.control)"
+size.inherited.large.padding = "0 $ref(action.desktop.large.padding-inline)"

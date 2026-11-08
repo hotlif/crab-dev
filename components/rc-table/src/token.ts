@@ -137,7 +137,7 @@ const token = defineTokens({
     'filter-cell': {
         'padding': `var(${vars['filter-cell.padding']}, 2px)`,
         'control': {
-            'min-height': `var(${vars['filter-cell.control.min-height']}, var(--token-semantic-field-control-min-height, var(--token-global-size-56, 56px)))`
+            'min-height': `var(${vars['filter-cell.control.min-height']}, var(--token-semantic-field-control-min-height, 0px))`
         }
     },
     'resize-handle': {

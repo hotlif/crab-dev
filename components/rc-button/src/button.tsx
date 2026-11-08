@@ -4,7 +4,7 @@ import { SpinIndicator } from '@crab-dev/rc-spin';
 import { useConfig } from '@crab-dev/rc-config-provider';
 import type { ButtonProps } from './types.js';
 import ButtonGroupContext from './buttonGroupContext.js';
-import { baseStyle, iconWrapStyle, labelStyle, loadingIndicatorStyle, primaryStyle, dangerStyle, linkStyle, dashedStyle, textStyle, layeredStyle, touchTargetStyle, elevatedStyle, dangerTextStyle, dangerSubtleStyle, dangerSelectedStyle, tonalStyle, dangerTonalStyle, dangerElevatedStyle, outlinedStyle, outlinedSelectedStyle, sizeLargeStyle, sizeMiddleStyle, sizeSmallStyle, sizeExtraLargeStyle, sizeExtraExtraLargeStyle, squareStyle, roundStyle, defaultShapeStyle, defaultSelectedShapeStyle, selectedFeedbackStyle, pressShapeStyle, tonalSelectedStyle, primaryUnselectedStyle, selectedDisabledStyle, fitContainerStyle, selectedStyle, circleStyle, iconOnlyStyle } from "./button.styles.js";
+import { inheritedSizeStyles, baseStyle, iconWrapStyle, labelStyle, loadingIndicatorStyle, primaryStyle, dangerStyle, linkStyle, dashedStyle, textStyle, layeredStyle, touchTargetStyle, elevatedStyle, dangerTextStyle, dangerSubtleStyle, dangerSelectedStyle, tonalStyle, dangerTonalStyle, dangerElevatedStyle, outlinedStyle, outlinedSelectedStyle, sizeLargeStyle, sizeMiddleStyle, sizeSmallStyle, sizeExtraLargeStyle, sizeExtraExtraLargeStyle, squareStyle, roundStyle, defaultShapeStyle, defaultSelectedShapeStyle, selectedFeedbackStyle, pressShapeStyle, tonalSelectedStyle, primaryUnselectedStyle, selectedDisabledStyle, fitContainerStyle, selectedStyle, circleStyle, iconOnlyStyle } from "./button.styles.js";
 // Match Material Web's minimum press feedback for keyboard/assistive clicks.
 const minimumPressMs = 225;
 
@@ -75,7 +75,9 @@ const Button: FC<ButtonProps> = ({
             : resolvedAppearance === 'elevated' ? dangerElevatedStyle
                 : resolvedAppearance === 'text' || resolvedAppearance === 'link' ? dangerTextStyle : dangerSubtleStyle;
     const configuredSizes = { small: 'xs', medium: 's', large: 'm' } as const;
-    const resolvedSize = size ?? groupCtx.size ?? configuredSizes[config.size];
+    const explicitSize = size ?? groupCtx.size;
+    const inheritedDesktopSize = config.designSystem === 'md3' && explicitSize === undefined;
+    const resolvedSize = explicitSize ?? (inheritedDesktopSize ? 's' : configuredSizes[config.size]);
     const unselectedPrimary = !resolvedDanger && resolvedAppearance === 'primary' && isSelected === false;
     const iconOnly = children == null && (icon != null || iconAfter != null || loading);
 
@@ -85,6 +87,7 @@ const Button: FC<ButtonProps> = ({
         resolvedDanger ? dangerAppearanceStyle : null,
         resolvedAppearance === 'tonal' || unselectedPrimary ? layeredStyle : null,
         sizeStyleMap[resolvedSize],
+        inheritedDesktopSize ? inheritedSizeStyles[config.size] : null,
         !resolvedDanger && resolvedAppearance === 'tonal' && isSelected ? tonalSelectedStyle : null,
         shape === undefined ? defaultShapeStyle : shape === 'square' || (shape === 'round' && isSelected) ? squareStyle : shape === 'round' ? roundStyle : null,
         shape === undefined && isSelected ? defaultSelectedShapeStyle : null,

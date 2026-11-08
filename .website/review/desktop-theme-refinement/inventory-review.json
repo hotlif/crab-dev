@@ -1,0 +1,2721 @@
+{
+  "date": "2026-11-03",
+  "status": "default-inventory-reviewed-final",
+  "sourceRun": ".tmp/theme-after-evidence",
+  "scope": "默认 Demo 视口；不等于全部状态、交互或像素基线通过。",
+  "packages": [
+    {
+      "package": "@crab-dev/rc-alert",
+      "defaultInventory": {
+        "automated": "passed-final-candidate",
+        "manual": "reviewed-final-candidate",
+        "cases": [
+          {
+            "designSystem": "md3",
+            "colorMode": "light",
+            "sha256": "01595357a37d952f5e561ab745ca81addab09755c619367f62983b60daedefd4",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "md3",
+            "colorMode": "dark",
+            "sha256": "1e46cd15f078f9fac965b273141dfd4715c596f57ea0fa25347ee24c59c6cda1",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "apple",
+            "colorMode": "light",
+            "sha256": "959ab87569af3fea9271c81a59e630d43dcbdd6031bebb382d062ec196d6619d",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "apple",
+            "colorMode": "dark",
+            "sha256": "eb8860dbaaa833cab902541e58660b706676e50be0f592124f7f74ec219f2a19",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "shadcn",
+            "colorMode": "light",
+            "sha256": "e4adbcc7deb42a602dd4ca3be70b8402182c3d71af90962a4c0b9b156999b6d2",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "shadcn",
+            "colorMode": "dark",
+            "sha256": "5bdda1c4eecca7ca6ef91272f22342156386b1ac516603a5d276cb5c4e41dd77",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          }
+        ],
+        "finalReview": "最终六项 PNG 与已逐项人工检查的首轮 PNG 字节相同",
+        "contact": "inventory/rc-alert.png"
+      },
+      "note": "已逐项复核三主题浅深色默认视口：文字、图标、表面和组件对齐未见新增问题；状态与响应式覆盖按专项证据记录。"
+    },
+    {
+      "package": "@crab-dev/rc-app-main-layout",
+      "defaultInventory": {
+        "automated": "passed-final-candidate",
+        "manual": "reviewed-final-candidate",
+        "cases": [
+          {
+            "designSystem": "md3",
+            "colorMode": "light",
+            "sha256": "9e30020ecfcac00edb7081456f104ebdae99ae4e7d2ba3b468a91e6174208050",
+            "demo": "base.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "md3",
+            "colorMode": "dark",
+            "sha256": "3ea6dcc393c7e3069d90b799d83e3d5d19ce05c63ff2d55c1c579dff740a65af",
+            "demo": "base.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "apple",
+            "colorMode": "light",
+            "sha256": "e0f1c8a98a12ec6c382c0b5f5b4c56e8a778453865fe876e1e9f3ec022a2a9f4",
+            "demo": "base.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "apple",
+            "colorMode": "dark",
+            "sha256": "84baef705612c10a9252515f7d2d1524fbf4a7425a4b5de1d556ff67d96bf4ca",
+            "demo": "base.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "shadcn",
+            "colorMode": "light",
+            "sha256": "a631113ccc6184595bacdb2fc6be86efcc17dc6ce59d15fec2945cd868ffb471",
+            "demo": "base.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "shadcn",
+            "colorMode": "dark",
+            "sha256": "1d7a4ebe7a65ef8705218678d1b04be4f04f0f9c251803a5cc900fbd78225dd5",
+            "demo": "base.demo.tsx",
+            "browser": "156.0.8078.4"
+          }
+        ],
+        "finalReview": "最终六宫格已再次人工检查",
+        "contact": "inventory/rc-app-main-layout.png"
+      },
+      "note": "默认库存含异步加载骨架，不能替代加载完成后的菜单、用户区验收。"
+    },
+    {
+      "package": "@crab-dev/rc-avatar",
+      "defaultInventory": {
+        "automated": "passed-final-candidate",
+        "manual": "reviewed-final-candidate",
+        "cases": [
+          {
+            "designSystem": "md3",
+            "colorMode": "light",
+            "sha256": "3219cc9a3773d3c88789e84e0a9ddf3e330161c915c4ea884ce0e303e67978d1",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "md3",
+            "colorMode": "dark",
+            "sha256": "f562b44d28fc8bf7e07099bfcc121614c21b0e1643644600340323cbd3376b3e",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "apple",
+            "colorMode": "light",
+            "sha256": "842d2b3831a98393b93627279b5261c29b3047a76af2cce549f58590dafc8421",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "apple",
+            "colorMode": "dark",
+            "sha256": "49d9bb644d3712706b172db4c475c74d60d5e74b65f2ab7ca2c449724f849247",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "shadcn",
+            "colorMode": "light",
+            "sha256": "27bc982bf53331d27fd0bb7e146cdd8510a1dd8832934e415239ffd267f7c886",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "shadcn",
+            "colorMode": "dark",
+            "sha256": "a1d4810ae2b9e659b6efd8f5890a53504d3c5f7690897c717f2dd3d905bef1a6",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          }
+        ],
+        "finalReview": "最终六项 PNG 与已逐项人工检查的首轮 PNG 字节相同",
+        "contact": "inventory/rc-avatar.png"
+      },
+      "note": "已逐项复核三主题浅深色默认视口：文字、图标、表面和组件对齐未见新增问题；状态与响应式覆盖按专项证据记录。"
+    },
+    {
+      "package": "@crab-dev/rc-badge",
+      "defaultInventory": {
+        "automated": "passed-final-candidate",
+        "manual": "reviewed-final-candidate",
+        "cases": [
+          {
+            "designSystem": "md3",
+            "colorMode": "light",
+            "sha256": "c3bdc98df2d5a616f53b66832673c51b3d6b84ff1ab746be0819f612e4e2a459",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "md3",
+            "colorMode": "dark",
+            "sha256": "2f7a75993be9e862c306f57ee1f4619332457224d071b8ce4032270fb48576fa",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "apple",
+            "colorMode": "light",
+            "sha256": "a22dc39303e68358f5978e7edddf6a83d778cda67c11aacd6b3976da968b0fe3",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "apple",
+            "colorMode": "dark",
+            "sha256": "5b1ff78fb5aa39444c408e215dee874feb0f936d19cede6dd9c66d119c1f5775",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "shadcn",
+            "colorMode": "light",
+            "sha256": "bf87700b45a3ff64d8ad1511b8469e9b0d017b9fc5423e522be320c147c4c838",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "shadcn",
+            "colorMode": "dark",
+            "sha256": "219628b5eda6fd1be42650659e947e430a3b10edffd3dd903b1296b007a5c891",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          }
+        ],
+        "finalReview": "最终六项 PNG 与已逐项人工检查的首轮 PNG 字节相同",
+        "contact": "inventory/rc-badge.png"
+      },
+      "note": "已逐项复核三主题浅深色默认视口：文字、图标、表面和组件对齐未见新增问题；状态与响应式覆盖按专项证据记录。"
+    },
+    {
+      "package": "@crab-dev/rc-bar-chart",
+      "defaultInventory": {
+        "automated": "passed-final-candidate",
+        "manual": "reviewed-final-candidate",
+        "cases": [
+          {
+            "designSystem": "md3",
+            "colorMode": "light",
+            "sha256": "235c8d6ae0d9e0b054604d89d4b5872d13f5887bd9e8b3b16ea249154e92e4a4",
+            "demo": "visual-matrix.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "md3",
+            "colorMode": "dark",
+            "sha256": "029c9c9fac21ec262bc366339c65759d030c4ae0d1bb7274d880b1b230d3e975",
+            "demo": "visual-matrix.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "apple",
+            "colorMode": "light",
+            "sha256": "cdc45dbc192098c2ca9691533e10f964b2476797a3fd4db070c050ce9be53262",
+            "demo": "visual-matrix.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "apple",
+            "colorMode": "dark",
+            "sha256": "68d67c155a9e2b400509616e8eb2045c5f018ba33fb0e365d4db6d65564d8122",
+            "demo": "visual-matrix.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "shadcn",
+            "colorMode": "light",
+            "sha256": "694e55481ac3698220dd9a012f46bdfa33883f467ad1edb75b86283373337775",
+            "demo": "visual-matrix.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "shadcn",
+            "colorMode": "dark",
+            "sha256": "21a97977d98a54f5d4d4a7d4a79813fad2b89fc89f6f515f96233c4b58497cbd",
+            "demo": "visual-matrix.demo.tsx",
+            "browser": "156.0.8078.4"
+          }
+        ],
+        "finalReview": "最终六项 PNG 与已逐项人工检查的首轮 PNG 字节相同",
+        "contact": "inventory/rc-bar-chart.png"
+      },
+      "note": "已逐项复核三主题浅深色默认视口：文字、图标、表面和组件对齐未见新增问题；状态与响应式覆盖按专项证据记录。"
+    },
+    {
+      "package": "@crab-dev/rc-breadcrumbs",
+      "defaultInventory": {
+        "automated": "passed-final-candidate",
+        "manual": "reviewed-final-candidate",
+        "cases": [
+          {
+            "designSystem": "md3",
+            "colorMode": "light",
+            "sha256": "9e92fd65934f720d3a0f538bd8c15c6cce12d71dafec31061d338564c868e343",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "md3",
+            "colorMode": "dark",
+            "sha256": "a3a479e030984349556c2bc442cf48ffee0d3547cb9b6f7786d10ddce3e86a29",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "apple",
+            "colorMode": "light",
+            "sha256": "95f23b62bab478084c9c3d592d8765e9f56a0b4e8c25d62ec22a253095ad9645",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "apple",
+            "colorMode": "dark",
+            "sha256": "0d61514f2cd8dbeaa15ca64ac5fa3a634a229450691785e13459f7b5e576fcc1",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "shadcn",
+            "colorMode": "light",
+            "sha256": "a08bbbcc72c9ec8efb06b2fbd2831d623221dd970ef5da159ab78d768859c089",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "shadcn",
+            "colorMode": "dark",
+            "sha256": "c518533d42e892de2a3b0b24351d999095fa0f7ce38c6d36e6430c3c4cb852cc",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          }
+        ],
+        "finalReview": "最终六项 PNG 与已逐项人工检查的首轮 PNG 字节相同",
+        "contact": "inventory/rc-breadcrumbs.png"
+      },
+      "note": "已逐项复核三主题浅深色默认视口：文字、图标、表面和组件对齐未见新增问题；状态与响应式覆盖按专项证据记录。"
+    },
+    {
+      "package": "@crab-dev/rc-button",
+      "defaultInventory": {
+        "automated": "passed-final-candidate",
+        "manual": "reviewed-final-candidate",
+        "cases": [
+          {
+            "designSystem": "md3",
+            "colorMode": "light",
+            "sha256": "2bd4142fbe0d0356e43e94cc0c840e78bd1b35260725c81e92009db8a8cb1cfc",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "md3",
+            "colorMode": "dark",
+            "sha256": "07d221c649c1661fecc059945767e6407ecd7d55cf47f04758dc7161bc787f0c",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "apple",
+            "colorMode": "light",
+            "sha256": "80e929d4c0e938a08bd3e74e5d26b534c1c40950fcf9412b6b86ceae08154a94",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "apple",
+            "colorMode": "dark",
+            "sha256": "008e55bbf5fe0cbf21cc18f2f490c9305816a978fc977585e4fff7c5332eed33",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "shadcn",
+            "colorMode": "light",
+            "sha256": "7e880fd826ab304bafaef521b0406497bb855a05d6fe7f5b8f6c79858512ee65",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "shadcn",
+            "colorMode": "dark",
+            "sha256": "b9e05ab8d0e359d442fc3d7eae136c3e2de47806102262a83cdfcabf295b0a7a",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          }
+        ],
+        "finalReview": "最终六项 PNG 与已逐项人工检查的首轮 PNG 字节相同",
+        "contact": "inventory/rc-button.png"
+      },
+      "note": "普通动作居中；显式五档与继承三档另外测量，图标按钮和粗指针布局使用最终复测。"
+    },
+    {
+      "package": "@crab-dev/rc-canvas",
+      "defaultInventory": {
+        "automated": "passed-final-candidate",
+        "manual": "reviewed-final-candidate",
+        "cases": [
+          {
+            "designSystem": "md3",
+            "colorMode": "light",
+            "sha256": "07795e0513f0134564b13e6335f46b046b93f51310a5bc2ae8002a68bbd70593",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "md3",
+            "colorMode": "dark",
+            "sha256": "de35c11e466e2dd2b06d7fde29ad3e8f090aa7248cf709f75d66ad514b0f5daa",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "apple",
+            "colorMode": "light",
+            "sha256": "01122957e08deb705932276e754a2a74ef1ab8a7b45c9743daa2e8db8220390c",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "apple",
+            "colorMode": "dark",
+            "sha256": "170daadaccbb375a522f6c5d8455861720710b4330df6ce2e8cf0bdd7dcf4196",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "shadcn",
+            "colorMode": "light",
+            "sha256": "69da4f1cfcdd78c88b812ad6a95f33adec25de1c1315cc15a866670a515f9769",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "shadcn",
+            "colorMode": "dark",
+            "sha256": "cbca826ddb699066c73e78890c41b6fdd5cee6681fe97ae749fa553f57ee9fb0",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          }
+        ],
+        "finalReview": "最终六项 PNG 与已逐项人工检查的首轮 PNG 字节相同",
+        "contact": "inventory/rc-canvas.png"
+      },
+      "note": "图形绘制与坐标保持原样，仅宿主边界随主题变化。"
+    },
+    {
+      "package": "@crab-dev/rc-card",
+      "defaultInventory": {
+        "automated": "passed-final-candidate",
+        "manual": "reviewed-final-candidate",
+        "cases": [
+          {
+            "designSystem": "md3",
+            "colorMode": "light",
+            "sha256": "0f91137290271464d92259e7ec8a2f8779d690b1b17bcd26b4bb912f491cbe6a",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "md3",
+            "colorMode": "dark",
+            "sha256": "4d2e5906805985524b337e97d570f372240893e6a42ca29626eecfe40670bb8f",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "apple",
+            "colorMode": "light",
+            "sha256": "4ffd8d4d7dc3137fcfc2c0e01ebe748bb7659961b173661200cd9385ca9bc99d",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "apple",
+            "colorMode": "dark",
+            "sha256": "5ef11b97b6cc73032b512329186edcd8eba6ed383ac89c1eb47fe5138f9cbe8b",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "shadcn",
+            "colorMode": "light",
+            "sha256": "af091b191880b921f2a6b00ee5bc9e50b21d87bfe143edd30d9f84b6d531b5b2",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "shadcn",
+            "colorMode": "dark",
+            "sha256": "c0a0aae99430341cce6a56ee7c557a13715653066c3e230394f6eebe2b3243cb",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          }
+        ],
+        "finalReview": "最终六项 PNG 与已逐项人工检查的首轮 PNG 字节相同",
+        "contact": "inventory/rc-card.png"
+      },
+      "note": "已逐项复核三主题浅深色默认视口：文字、图标、表面和组件对齐未见新增问题；状态与响应式覆盖按专项证据记录。"
+    },
+    {
+      "package": "@crab-dev/rc-checkbox",
+      "defaultInventory": {
+        "automated": "passed-final-candidate",
+        "manual": "reviewed-final-candidate",
+        "cases": [
+          {
+            "designSystem": "md3",
+            "colorMode": "light",
+            "sha256": "64cc7028606cd40d4bb4b59de275962df01f0c8837f5d87e2fc64ac2d232a25a",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "md3",
+            "colorMode": "dark",
+            "sha256": "f98082be3deb90f7e7cefa3cdc10e95fd16cdaf2f274025771f9f5f7dc440a45",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "apple",
+            "colorMode": "light",
+            "sha256": "213a73c62008df0302aaa14370881c7c23fceec1067d090bcb734e9a64f36b52",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "apple",
+            "colorMode": "dark",
+            "sha256": "048c5019f34ea9f43f9388f5976a279420e0e4d1acafe1f9cbffbaf1434eee72",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "shadcn",
+            "colorMode": "light",
+            "sha256": "1f8a95c6faaafdd5854e533cd0836a4cd77f0e9b4f19e91f3f457ead2d9d4a23",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "shadcn",
+            "colorMode": "dark",
+            "sha256": "60a1d258c92d9300992360f4b95b0a71e26cd66a1d985315667f44552e76d218",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          }
+        ],
+        "finalReview": "最终六项 PNG 与已逐项人工检查的首轮 PNG 字节相同",
+        "contact": "inventory/rc-checkbox.png"
+      },
+      "note": "已逐项复核三主题浅深色默认视口：文字、图标、表面和组件对齐未见新增问题；状态与响应式覆盖按专项证据记录。"
+    },
+    {
+      "package": "@crab-dev/rc-color-picker",
+      "defaultInventory": {
+        "automated": "passed-final-candidate",
+        "manual": "reviewed-final-candidate",
+        "cases": [
+          {
+            "designSystem": "md3",
+            "colorMode": "light",
+            "sha256": "f9d58869d4a7b79ba4a542a9f58300106f999b5182b67aa07270e59971246880",
+            "demo": "colorPicker.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "md3",
+            "colorMode": "dark",
+            "sha256": "f132211ab1283efdd04eb80dbd24532ba78165dda86454b05c1a09661453e180",
+            "demo": "colorPicker.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "apple",
+            "colorMode": "light",
+            "sha256": "72fd8509aba1d5ae88406f9c70a26038427f3851d20b3a4151a2b29aed629773",
+            "demo": "colorPicker.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "apple",
+            "colorMode": "dark",
+            "sha256": "79f4c2c4b2d1946252894a8c6c07149d59aff757563860b1905a569b604bf46d",
+            "demo": "colorPicker.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "shadcn",
+            "colorMode": "light",
+            "sha256": "f7bf33e1f61d8e66bee459a6a0b4e534e78a8bf2f025203a97ced79e93e75d8e",
+            "demo": "colorPicker.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "shadcn",
+            "colorMode": "dark",
+            "sha256": "ec3694391ea3b80b18d78b897ac9306ea8d7c508e12e4c63dda628ffbd85b9b3",
+            "demo": "colorPicker.demo.tsx",
+            "browser": "156.0.8078.4"
+          }
+        ],
+        "finalReview": "最终六项 PNG 与已逐项人工检查的首轮 PNG 字节相同",
+        "contact": "inventory/rc-color-picker.png"
+      },
+      "note": "已逐项复核三主题浅深色默认视口：文字、图标、表面和组件对齐未见新增问题；状态与响应式覆盖按专项证据记录。"
+    },
+    {
+      "package": "@crab-dev/rc-component-preview",
+      "defaultInventory": {
+        "automated": "passed-final-candidate",
+        "manual": "reviewed-final-candidate",
+        "cases": [
+          {
+            "designSystem": "md3",
+            "colorMode": "light",
+            "sha256": "5f6fcf6b562b6952b8dc033ad39f69fb3b098786a525801f3959ecf05c4d348d",
+            "demo": "base.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "md3",
+            "colorMode": "dark",
+            "sha256": "3df2ff2ac28d11cb09f9426351338e558335d3393236cec45edf7cb2e34fb583",
+            "demo": "base.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "apple",
+            "colorMode": "light",
+            "sha256": "7ca7279688929d90a51dfad51612305f6f9f2c90a5c5c40fa9348040493bdb59",
+            "demo": "base.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "apple",
+            "colorMode": "dark",
+            "sha256": "e63da42eec971ae7bb9a42716da7338b330de17883235b5d43eb2f124ffc6be4",
+            "demo": "base.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "shadcn",
+            "colorMode": "light",
+            "sha256": "133583a85fe033f5fdacee2b92db824c95e821a038cf17b08d76f4dbb9f53088",
+            "demo": "base.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "shadcn",
+            "colorMode": "dark",
+            "sha256": "2a221d0d79bd6e98ddfddd16c6675320f346d6d71632b9b46e977ba655c62c44",
+            "demo": "base.demo.tsx",
+            "browser": "156.0.8078.4"
+          }
+        ],
+        "finalReview": "最终六项 PNG 与已逐项人工检查的首轮 PNG 字节相同",
+        "contact": "inventory/rc-component-preview.png"
+      },
+      "note": "独立源码明暗设置保持独立；默认视口未展示整页，后续内容不计入本轮默认截图。"
+    },
+    {
+      "package": "@crab-dev/rc-config-provider",
+      "defaultInventory": {
+        "automated": "passed-final-candidate",
+        "manual": "reviewed-final-candidate",
+        "cases": [
+          {
+            "designSystem": "md3",
+            "colorMode": "light",
+            "sha256": "58fabee8d27f3b1ae96a555fde546e9e063e583aa83ac4ec9147bb12ce865930",
+            "demo": "config-documents.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "md3",
+            "colorMode": "dark",
+            "sha256": "93f7716ac99f0819a9268fac5532d671e023f18f00ee1726538c0b38944b5f13",
+            "demo": "config-documents.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "apple",
+            "colorMode": "light",
+            "sha256": "f69e421e8227e69a7f9cb0710e5f93bf63f4b05b9e8e6982c7ad743ede0242f1",
+            "demo": "config-documents.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "apple",
+            "colorMode": "dark",
+            "sha256": "4ce6acce7aa8b9c2d968d03505e34919a3cabd09215239aae6eef62358e13e32",
+            "demo": "config-documents.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "shadcn",
+            "colorMode": "light",
+            "sha256": "1edf8fcd7e97cd9c849dc8200b7b07463b3ec13ff758d4541b434f0b39ae9db6",
+            "demo": "config-documents.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "shadcn",
+            "colorMode": "dark",
+            "sha256": "6807769ed1d43e4c37d8e2627b418cfc1be6ea4a3261c6f04b1d2fd6aba5cac5",
+            "demo": "config-documents.demo.tsx",
+            "browser": "156.0.8078.4"
+          }
+        ],
+        "finalReview": "最终六项 PNG 与已逐项人工检查的首轮 PNG 字节相同",
+        "contact": "inventory/rc-config-provider.png"
+      },
+      "note": "iframe 与 Shadow 子边界展示不同主题和方向，外层变化未覆盖显式子配置。"
+    },
+    {
+      "package": "@crab-dev/rc-cron-picker",
+      "defaultInventory": {
+        "automated": "passed-final-candidate",
+        "manual": "reviewed-final-candidate",
+        "cases": [
+          {
+            "designSystem": "md3",
+            "colorMode": "light",
+            "sha256": "2174c51faee5aa2169da70bf5d1733e95496ddeaa8787b16995b51c0500557e2",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "md3",
+            "colorMode": "dark",
+            "sha256": "5eebb3e7db4773217d9102f5f6f9748052e12ac5ef38b295e72b862591c69334",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "apple",
+            "colorMode": "light",
+            "sha256": "9015ee5541de7b836f4eb50c9d05df83acdd7d849aaedbd42f4d91e6e97a4be6",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "apple",
+            "colorMode": "dark",
+            "sha256": "d028d3b603ff82265d6b27fbfbe9135a8da401d7b07f0cf7646df53bf84e76a2",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "shadcn",
+            "colorMode": "light",
+            "sha256": "f81e810e7b1f8c69a3f5110994ce94530a2e4577bc1fc070ef3be690ab1214a4",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "shadcn",
+            "colorMode": "dark",
+            "sha256": "c638c1e611f9a0af3586d1da184c1b3deec24af85298841b6828806e56874416",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          }
+        ],
+        "finalReview": "最终六项 PNG 与已逐项人工检查的首轮 PNG 字节相同",
+        "contact": "inventory/rc-cron-picker.png"
+      },
+      "note": "已逐项复核三主题浅深色默认视口：文字、图标、表面和组件对齐未见新增问题；状态与响应式覆盖按专项证据记录。"
+    },
+    {
+      "package": "@crab-dev/rc-date-picker",
+      "defaultInventory": {
+        "automated": "passed-final-candidate",
+        "manual": "reviewed-final-candidate",
+        "cases": [
+          {
+            "designSystem": "md3",
+            "colorMode": "light",
+            "sha256": "ccb01c098c2dd50e519b0eb388f1809b76b193747a1c3ab96bf0e7383574ebee",
+            "demo": "datePicker.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "md3",
+            "colorMode": "dark",
+            "sha256": "8c9038b0ca723789ddf4f8d2e5ac45d735da21b84a4de41552ae2a5897e78d27",
+            "demo": "datePicker.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "apple",
+            "colorMode": "light",
+            "sha256": "4eb3bc2d7eb7112cec079f0c8287df6a191c59941b65a70cdef506d84673b7a8",
+            "demo": "datePicker.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "apple",
+            "colorMode": "dark",
+            "sha256": "d985a40751c58716f729b3a8695019f0c541e862c9f144913913f05f2bd64550",
+            "demo": "datePicker.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "shadcn",
+            "colorMode": "light",
+            "sha256": "a405c3932e2d126fbb5518056f7c939b2442385c5339f95a490d9e77063b20f6",
+            "demo": "datePicker.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "shadcn",
+            "colorMode": "dark",
+            "sha256": "db6d6f66b7010334c6959bd2e950d9dbb953e5754c8b0cd2f837bb5b88048691",
+            "demo": "datePicker.demo.tsx",
+            "browser": "156.0.8078.4"
+          }
+        ],
+        "finalReview": "最终六宫格已再次人工检查",
+        "contact": "inventory/rc-date-picker.png"
+      },
+      "note": "已逐项复核三主题浅深色默认视口：文字、图标、表面和组件对齐未见新增问题；状态与响应式覆盖按专项证据记录。"
+    },
+    {
+      "package": "@crab-dev/rc-dialog",
+      "defaultInventory": {
+        "automated": "passed-final-candidate",
+        "manual": "reviewed-final-candidate",
+        "cases": [
+          {
+            "designSystem": "md3",
+            "colorMode": "light",
+            "sha256": "51cd3afd4cd98d4653c1bad4db41082ee21416d113c825674b0e53699ca0bec4",
+            "demo": "base.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "md3",
+            "colorMode": "dark",
+            "sha256": "1273e11be30a5503cedf850640e23cd13983d4b567199f4e8808ca45a0c18c29",
+            "demo": "base.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "apple",
+            "colorMode": "light",
+            "sha256": "91e933fdc307c7546b9440c6acfaf4f2575cc31142075b51d98354417b0ad2ae",
+            "demo": "base.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "apple",
+            "colorMode": "dark",
+            "sha256": "bd3f009bcc8b9b36c70f917fe84671e3e9fa85daab1755437809428e245cc6df",
+            "demo": "base.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "shadcn",
+            "colorMode": "light",
+            "sha256": "15c85b961ac8b813303faf9abea22cfdf19390a58e850d9140af01a9575f4707",
+            "demo": "base.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "shadcn",
+            "colorMode": "dark",
+            "sha256": "274b34bce8285e5a240e303e58f8702e074ea01dd422e9ea03316f0d35b87b37",
+            "demo": "base.demo.tsx",
+            "browser": "156.0.8078.4"
+          }
+        ],
+        "finalReview": "最终六项 PNG 与已逐项人工检查的首轮 PNG 字节相同",
+        "contact": "inventory/rc-dialog.png"
+      },
+      "note": "默认库存仅含打开按钮；标题、内边距、Portal 与焦点恢复须由展开状态验证。"
+    },
+    {
+      "package": "@crab-dev/rc-divider",
+      "defaultInventory": {
+        "automated": "passed-final-candidate",
+        "manual": "reviewed-final-candidate",
+        "cases": [
+          {
+            "designSystem": "md3",
+            "colorMode": "light",
+            "sha256": "fd8609ce9fac90d0d0de83ef630c66be0e7f77725736d8f6eaacc76631e38b22",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "md3",
+            "colorMode": "dark",
+            "sha256": "f1e756c2b9ff47a650f9eb4bf35052770ae174cdedbea38258c23460dec66cde",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "apple",
+            "colorMode": "light",
+            "sha256": "7917fa90da8043ee9e1f0aee6de5fac7e5ad75231d89c6da4e91d240e91eff1d",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "apple",
+            "colorMode": "dark",
+            "sha256": "fdfd42450191669ce3563a37e7c95664125be0a788442ec82da6f360f7c53fb5",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "shadcn",
+            "colorMode": "light",
+            "sha256": "b016d6dfcfe42fd3770a67a66eb31834e380161f5afcd0cef4766df875f6ca60",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "shadcn",
+            "colorMode": "dark",
+            "sha256": "d4cb3f2ed70224f189c02f12bf6a9512862f2cde8fa0825972a1013a94e221f1",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          }
+        ],
+        "finalReview": "最终六项 PNG 与已逐项人工检查的首轮 PNG 字节相同",
+        "contact": "inventory/rc-divider.png"
+      },
+      "note": "已逐项复核三主题浅深色默认视口：文字、图标、表面和组件对齐未见新增问题；状态与响应式覆盖按专项证据记录。"
+    },
+    {
+      "package": "@crab-dev/rc-drawer",
+      "defaultInventory": {
+        "automated": "passed-final-candidate",
+        "manual": "reviewed-final-candidate",
+        "cases": [
+          {
+            "designSystem": "md3",
+            "colorMode": "light",
+            "sha256": "27a50d52b9d80129d8de93078985c2bfcde3577ae5a791e1781999d6bb6fe253",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "md3",
+            "colorMode": "dark",
+            "sha256": "57254212a78fdbe27d63f89a771dfbdfb2b9e0a3fb980b3d0594ebc026676cf2",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "apple",
+            "colorMode": "light",
+            "sha256": "d081373ebe170f5bb4cb19fad282a519db05a304e5cffaf3a70025ff4beaa101",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "apple",
+            "colorMode": "dark",
+            "sha256": "336a6b28911a50ff01f35776735225e449183d981c0cf29b267a070dd53b13f1",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "shadcn",
+            "colorMode": "light",
+            "sha256": "9ca722a3597b9f299b6500603ce261e06bca21a58fcf746fa57f33fc11c6ab43",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "shadcn",
+            "colorMode": "dark",
+            "sha256": "570a530192ef7fecff35078ea820d0f14a09fd2239ca714b262cb0e1d27b147e",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          }
+        ],
+        "finalReview": "最终六项 PNG 与已逐项人工检查的首轮 PNG 字节相同",
+        "contact": "inventory/rc-drawer.png"
+      },
+      "note": "默认库存仅含打开按钮，未据此声明抽屉展开态完整覆盖。"
+    },
+    {
+      "package": "@crab-dev/rc-dropdown-container",
+      "defaultInventory": {
+        "automated": "passed-final-candidate",
+        "manual": "reviewed-final-candidate",
+        "cases": [
+          {
+            "designSystem": "md3",
+            "colorMode": "light",
+            "sha256": "a8ac18a41e0bad4774aa5236012994e81cdecd04529dd6980451499df13da949",
+            "demo": "base.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "md3",
+            "colorMode": "dark",
+            "sha256": "564e233193e7dc7b38f0da26ebe263fe1cdbae71c2935251010d48c3d9b4a748",
+            "demo": "base.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "apple",
+            "colorMode": "light",
+            "sha256": "112a9e85347f35b0948f9c61da39f9865735a4ab7ad00615a958b33cdf18a3a4",
+            "demo": "base.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "apple",
+            "colorMode": "dark",
+            "sha256": "6e16731f40fcf55faeb56784c9ab4cb9be0b8f8ac673720da3fea0b4500f73fd",
+            "demo": "base.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "shadcn",
+            "colorMode": "light",
+            "sha256": "4196ff36b90f3dadc540ac0e5b086f29f27d0f5a6ff366e7ff63c80a550fdf15",
+            "demo": "base.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "shadcn",
+            "colorMode": "dark",
+            "sha256": "51c43a9e4eb9a51804fafe9c0f72735943e15c2d4dfcbd55451fe6ccc57b59c4",
+            "demo": "base.demo.tsx",
+            "browser": "156.0.8078.4"
+          }
+        ],
+        "finalReview": "最终六项 PNG 与已逐项人工检查的首轮 PNG 字节相同",
+        "contact": "inventory/rc-dropdown-container.png"
+      },
+      "note": "默认库存仅为触发输入框，浮层定位由选择器专项回归覆盖。"
+    },
+    {
+      "package": "@crab-dev/rc-empty",
+      "defaultInventory": {
+        "automated": "passed-final-candidate",
+        "manual": "reviewed-final-candidate",
+        "cases": [
+          {
+            "designSystem": "md3",
+            "colorMode": "light",
+            "sha256": "06151e98225f50432b435dfd4bf48a0dfdccac87939609ebc3678e49e55ba958",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "md3",
+            "colorMode": "dark",
+            "sha256": "2c86bf04b8273f3ee575be11c54792631ddaef697c65634e036ef15901308d1a",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "apple",
+            "colorMode": "light",
+            "sha256": "8a9098427b3f6123eef6d0f45797ec758444ab8201774e645a54496303316fa9",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "apple",
+            "colorMode": "dark",
+            "sha256": "aa9405a4423d5ed75249d8d990d5a41f01e5cd93abafea29d8bf25f5a3d8ade9",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "shadcn",
+            "colorMode": "light",
+            "sha256": "d093c24e94e97a4544845e41d2d867025ee66de928ee8c3b745975cafb7bf6aa",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "shadcn",
+            "colorMode": "dark",
+            "sha256": "b479575b92c664e8a622a97f311d354c04ff3b7769366a15a87b91ed70a42b44",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          }
+        ],
+        "finalReview": "最终六项 PNG 与已逐项人工检查的首轮 PNG 字节相同",
+        "contact": "inventory/rc-empty.png"
+      },
+      "note": "已逐项复核三主题浅深色默认视口：文字、图标、表面和组件对齐未见新增问题；状态与响应式覆盖按专项证据记录。"
+    },
+    {
+      "package": "@crab-dev/rc-flow-diagram",
+      "defaultInventory": {
+        "automated": "passed-final-candidate",
+        "manual": "reviewed-final-candidate",
+        "cases": [
+          {
+            "designSystem": "md3",
+            "colorMode": "light",
+            "sha256": "e89bdae40583cc31c2576da8948e47dfbbf29ace4fe39e8833037f93072408bf",
+            "demo": "visual-matrix.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "md3",
+            "colorMode": "dark",
+            "sha256": "9ae2c5d0891aaed466a7ea35d91e5b10c82b076c95bfd33b8109da1e7ca85562",
+            "demo": "visual-matrix.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "apple",
+            "colorMode": "light",
+            "sha256": "d8743b1dd21a3a518c9026d1188fc699c1d4543b3db90c843e5ce96c227b037a",
+            "demo": "visual-matrix.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "apple",
+            "colorMode": "dark",
+            "sha256": "444354862ee109b68f834ef31af6a5a72c3ecff6a079b85f6b1903ab3426a8c7",
+            "demo": "visual-matrix.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "shadcn",
+            "colorMode": "light",
+            "sha256": "3a699f3fc1842e08157f2e77348fd773e79d0571b8ea7ed991bc7dd4901f33d9",
+            "demo": "visual-matrix.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "shadcn",
+            "colorMode": "dark",
+            "sha256": "7593d2adc18749a0fd2834e5e2acbdcdacf89c5b7232015a860d3300dc903032",
+            "demo": "visual-matrix.demo.tsx",
+            "browser": "156.0.8078.4"
+          }
+        ],
+        "finalReview": "最终六项 PNG 与已逐项人工检查的首轮 PNG 字节相同",
+        "contact": "inventory/rc-flow-diagram.png"
+      },
+      "note": "实际 WebGL 图形、连线、操作区均可见，未缩放内容坐标。"
+    },
+    {
+      "package": "@crab-dev/rc-form",
+      "defaultInventory": {
+        "automated": "passed-final-candidate",
+        "manual": "reviewed-final-candidate",
+        "cases": [
+          {
+            "designSystem": "md3",
+            "colorMode": "light",
+            "sha256": "9f12fc647e1575d890deeb481b30072b2e988b4e36a8e194976f942dca3dd86e",
+            "demo": "base.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "md3",
+            "colorMode": "dark",
+            "sha256": "640b7f269d6203767e525dcb79931362e62a02515f965ce60d12ad3a40601093",
+            "demo": "base.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "apple",
+            "colorMode": "light",
+            "sha256": "467dcb7cb96a6f6e4400fbba0e88f41df298da017990c4c696ede37e8964ebcd",
+            "demo": "base.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "apple",
+            "colorMode": "dark",
+            "sha256": "618d7502adfc7a05156c24853468a56fe4284b403b1d5bbd7068d5a154ad025c",
+            "demo": "base.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "shadcn",
+            "colorMode": "light",
+            "sha256": "a22d0dd574ab7d647a883753a8b3f666706f51574fdc88b2cc2b8f25a0c9cd37",
+            "demo": "base.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "shadcn",
+            "colorMode": "dark",
+            "sha256": "a299aade699954775225dd32a52817c47bf1d18d6a94a0e408af2af1546fd80d",
+            "demo": "base.demo.tsx",
+            "browser": "156.0.8078.4"
+          }
+        ],
+        "finalReview": "最终六宫格已再次人工检查",
+        "contact": "inventory/rc-form.png"
+      },
+      "note": "组合标签、必填标记、密码切换与操作行清楚；无控件宽度收缩。"
+    },
+    {
+      "package": "@crab-dev/rc-line-edit",
+      "defaultInventory": {
+        "automated": "passed-final-candidate",
+        "manual": "reviewed-final-candidate",
+        "cases": [
+          {
+            "designSystem": "md3",
+            "colorMode": "light",
+            "sha256": "274ec9b352866a3bfb74033cdcbbca65ea3dbbd683d0c7a4c60a0ec1e6d87bb4",
+            "demo": "simple.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "md3",
+            "colorMode": "dark",
+            "sha256": "e689887d77b9b624055edeece0542cf9fa9094106116d81a61fea8fad299d486",
+            "demo": "simple.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "apple",
+            "colorMode": "light",
+            "sha256": "a8bdedf1ac67ebf940b715ee485edcaca361d3dd344c0b7a142aed88772ae488",
+            "demo": "simple.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "apple",
+            "colorMode": "dark",
+            "sha256": "2254af13771eef8586316a7214fb0b17929fae7d81ccca6be1de213c672717c8",
+            "demo": "simple.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "shadcn",
+            "colorMode": "light",
+            "sha256": "46c6640f8b44835fa642d253548bf1e79f11ffe7810f79803d569a75aa584911",
+            "demo": "simple.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "shadcn",
+            "colorMode": "dark",
+            "sha256": "445fb7b0e65c9fba520dbbd9a6cd97e5fd9d6ed8af87e080452e5833cc7bcd2c",
+            "demo": "simple.demo.tsx",
+            "browser": "156.0.8078.4"
+          }
+        ],
+        "finalReview": "最终六项 PNG 与已逐项人工检查的首轮 PNG 字节相同",
+        "contact": "inventory/rc-line-edit.png"
+      },
+      "note": "三主题标签均在上方；MD3 连续轮廓、4px 标签间距，辅助说明不占输入高度。"
+    },
+    {
+      "package": "@crab-dev/rc-masonry",
+      "defaultInventory": {
+        "automated": "passed-final-candidate",
+        "manual": "reviewed-final-candidate",
+        "cases": [
+          {
+            "designSystem": "md3",
+            "colorMode": "light",
+            "sha256": "6db147f3113c6fac277bb6f0525a6c21181ae626736b639253a876c5a44b2689",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "md3",
+            "colorMode": "dark",
+            "sha256": "f462c0de70fbbe3a63f81606143eb5344d0ed8839ebf0c151a51b79cf2d44604",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "apple",
+            "colorMode": "light",
+            "sha256": "417780ccd7471ef65181c040f542e098fb76c231e77cfa497801f003fe2f5983",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "apple",
+            "colorMode": "dark",
+            "sha256": "7492d29d919da62e0224087241b42985bbf6ec17fe99d40e18c5d5ef79f47846",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "shadcn",
+            "colorMode": "light",
+            "sha256": "9ea4ecff8dd030a5166b397beec72409170468a5686ce9e1445428ea9df9dd7a",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "shadcn",
+            "colorMode": "dark",
+            "sha256": "f80b364d4a9c70c7e670279f223d41314e3e69f738afba840bd98a327169ebff",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          }
+        ],
+        "finalReview": "最终六项 PNG 与已逐项人工检查的首轮 PNG 字节相同",
+        "contact": "inventory/rc-masonry.png"
+      },
+      "note": "已逐项复核三主题浅深色默认视口：文字、图标、表面和组件对齐未见新增问题；状态与响应式覆盖按专项证据记录。"
+    },
+    {
+      "package": "@crab-dev/rc-menu",
+      "defaultInventory": {
+        "automated": "passed-final-candidate",
+        "manual": "reviewed-final-candidate",
+        "cases": [
+          {
+            "designSystem": "md3",
+            "colorMode": "light",
+            "sha256": "e7d1efe3b2c2b6b5b469db0cee9d4e512236a27aa1a7118a7f2cb2971a454d9a",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "md3",
+            "colorMode": "dark",
+            "sha256": "10b4cf94b339aeab8bdcb6485728212ee1206e9c3a8523c44987f19ffa62ae2c",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "apple",
+            "colorMode": "light",
+            "sha256": "e76e7c458f9d002cc3741c7154167964721bdf12bf662a790270c91f99a12279",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "apple",
+            "colorMode": "dark",
+            "sha256": "a90bc1e5d7f84742b6a545b87e2b33b67824be52fd4e2087cb54a4afc64f115a",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "shadcn",
+            "colorMode": "light",
+            "sha256": "ef57bd92e8675a0923d0db717206fee6c5e7bd68220368330d5abba8f1194736",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "shadcn",
+            "colorMode": "dark",
+            "sha256": "3894c9b054b1d15c8b23b39ce71414da345053a048d159c60928dd0c3816552a",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          }
+        ],
+        "finalReview": "最终六项 PNG 与已逐项人工检查的首轮 PNG 字节相同",
+        "contact": "inventory/rc-menu.png"
+      },
+      "note": "已逐项复核三主题浅深色默认视口：文字、图标、表面和组件对齐未见新增问题；状态与响应式覆盖按专项证据记录。"
+    },
+    {
+      "package": "@crab-dev/rc-message",
+      "defaultInventory": {
+        "automated": "passed-final-candidate",
+        "manual": "reviewed-final-candidate",
+        "cases": [
+          {
+            "designSystem": "md3",
+            "colorMode": "light",
+            "sha256": "05983272d21ef38228e7e453f41f018acf845d68a28e5f37f6d198c637b1a54a",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "md3",
+            "colorMode": "dark",
+            "sha256": "7fc805c199d5479d9f7017e258b46cd9b8b29457661722eeacc60311f2e1a65b",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "apple",
+            "colorMode": "light",
+            "sha256": "1b7d20366372e7f98894eff932f657dfd1241e1f1c36642c074721d520fb0b4d",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "apple",
+            "colorMode": "dark",
+            "sha256": "8f9e7791abd10287f4644deb9debe5f40a94f9f369c45808c3cdf4136c20abf3",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "shadcn",
+            "colorMode": "light",
+            "sha256": "7d55e295f05ac28832b719c065748e8dd73a0a30de8ca04f8187a99538b175c6",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "shadcn",
+            "colorMode": "dark",
+            "sha256": "9a286dbccc8e99940eba4ff089fed85922b0cfb51f8612b91609ad5c81d455c0",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          }
+        ],
+        "finalReview": "最终六项 PNG 与已逐项人工检查的首轮 PNG 字节相同",
+        "contact": "inventory/rc-message.png"
+      },
+      "note": "默认库存仅含触发按钮，未据此声明消息完整覆盖。"
+    },
+    {
+      "package": "@crab-dev/rc-notification",
+      "defaultInventory": {
+        "automated": "passed-final-candidate",
+        "manual": "reviewed-final-candidate",
+        "cases": [
+          {
+            "designSystem": "md3",
+            "colorMode": "light",
+            "sha256": "d0c8c387f1c0d170c39cba0ab24e64dc52259c8fa2e13a48b60d39e4f1d34d8b",
+            "demo": "base.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "md3",
+            "colorMode": "dark",
+            "sha256": "e8d7c117afa39aa32fb7764d3a0717e14da30279980a17c6afc905cf98fc9b04",
+            "demo": "base.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "apple",
+            "colorMode": "light",
+            "sha256": "dac00edaf3dfadddd5545fb40f705f76d874bf59b45137b406ac20c54891fab7",
+            "demo": "base.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "apple",
+            "colorMode": "dark",
+            "sha256": "0136fdaa4ec2d8ee945a033b20dfe10cd1dfd8d30046190f4d5ae7e328382cca",
+            "demo": "base.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "shadcn",
+            "colorMode": "light",
+            "sha256": "27f084076afd4b82fd50cfa7bb7bde98a95c2885ecbc96d80563de7358105f96",
+            "demo": "base.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "shadcn",
+            "colorMode": "dark",
+            "sha256": "da7cb87b95891733153238980ff31f8753b9915ed6fa04a3b8e8f25b652863cc",
+            "demo": "base.demo.tsx",
+            "browser": "156.0.8078.4"
+          }
+        ],
+        "finalReview": "最终六宫格已再次人工检查",
+        "contact": "inventory/rc-notification.png"
+      },
+      "note": "默认库存包括方向选择和触发按钮，通知浮层需另验。"
+    },
+    {
+      "package": "@crab-dev/rc-number-edit",
+      "defaultInventory": {
+        "automated": "passed-final-candidate",
+        "manual": "reviewed-final-candidate",
+        "cases": [
+          {
+            "designSystem": "md3",
+            "colorMode": "light",
+            "sha256": "f9ea0190d88cfe494e33d4f93f125e53144d08372b32e9313e150d212730e643",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "md3",
+            "colorMode": "dark",
+            "sha256": "6b5f0e6cfe2e196c7e5b866ceaa2fdcca77993c4663d602411c5d2ba0ad32e69",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "apple",
+            "colorMode": "light",
+            "sha256": "9e293a630ee1ff437baf728e4a2a6d0b69334a67e539f992f09cec82f1f96852",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "apple",
+            "colorMode": "dark",
+            "sha256": "17f9da1cb0c8b150b922b8104e99b9c1578a0dbb05383fc195cc01dc445064d9",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "shadcn",
+            "colorMode": "light",
+            "sha256": "e47691a0193e594e14bef548096c4a640508aea7e24aa0fba22bfe4442572804",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "shadcn",
+            "colorMode": "dark",
+            "sha256": "3ecad3d19b940f29e599d58c31dfdce9e936f5128efdfc347472d4902879c7d6",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          }
+        ],
+        "finalReview": "最终六宫格已再次人工检查",
+        "contact": "inventory/rc-number-edit.png"
+      },
+      "note": "已逐项复核三主题浅深色默认视口：文字、图标、表面和组件对齐未见新增问题；状态与响应式覆盖按专项证据记录。"
+    },
+    {
+      "package": "@crab-dev/rc-pagination",
+      "defaultInventory": {
+        "automated": "passed-final-candidate",
+        "manual": "reviewed-final-candidate",
+        "cases": [
+          {
+            "designSystem": "md3",
+            "colorMode": "light",
+            "sha256": "a5274bd1cb53b36f27251f78ac0bc4fac9d595b71d4376c58a91c91959c8b098",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "md3",
+            "colorMode": "dark",
+            "sha256": "b7ba994a0a3d7f216cd05d8b8a027c249f86cee6bf636857f3f04fb116512a71",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "apple",
+            "colorMode": "light",
+            "sha256": "ddf1a5831df92d09a773080abc4dfef85b8b3ff4bcdce504577f5eccde7bcfe4",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "apple",
+            "colorMode": "dark",
+            "sha256": "8447f4438734aebecbb7df65032d5b5d89de9340026be9d9b439bc9630b469ea",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "shadcn",
+            "colorMode": "light",
+            "sha256": "b729553d542c04ac7800a14ccff4eb6eb861185d08083cda529c806b434eb152",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "shadcn",
+            "colorMode": "dark",
+            "sha256": "d00e3de445fc933f29be108d218c3473248272197350ade6fcc14aefe56ad94d",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          }
+        ],
+        "finalReview": "最终六项 PNG 与已逐项人工检查的首轮 PNG 字节相同",
+        "contact": "inventory/rc-pagination.png"
+      },
+      "note": "已逐项复核三主题浅深色默认视口：文字、图标、表面和组件对齐未见新增问题；状态与响应式覆盖按专项证据记录。"
+    },
+    {
+      "package": "@crab-dev/rc-pdf-editor",
+      "defaultInventory": {
+        "automated": "passed-final-candidate",
+        "manual": "reviewed-final-candidate",
+        "cases": [
+          {
+            "designSystem": "md3",
+            "colorMode": "light",
+            "sha256": "201699aeebf8d8004d0da700aea1f7353c5fd279b36395e22a024a8dd85b6d00",
+            "demo": "visual-matrix.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "md3",
+            "colorMode": "dark",
+            "sha256": "02e41ecfc08de73284b90e065c916fa638f34f19891d2809931c655a6b0752a4",
+            "demo": "visual-matrix.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "apple",
+            "colorMode": "light",
+            "sha256": "7b567b8a4cd3a495479a84e39133ada330761799c29c00b60d8755d4dade68a5",
+            "demo": "visual-matrix.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "apple",
+            "colorMode": "dark",
+            "sha256": "4e788f327d9d7a19f4a30e67522cee9560d8754c6a4a017150fcf9710317283a",
+            "demo": "visual-matrix.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "shadcn",
+            "colorMode": "light",
+            "sha256": "e1407356d027767e83cca0fa7be6d77246e8e9d34a0bdf0f484dd068116a1daf",
+            "demo": "visual-matrix.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "shadcn",
+            "colorMode": "dark",
+            "sha256": "0e8302f78e9acbd33c26e4eb1f8f0303316536bbde5b6421adff5d81f6377d7e",
+            "demo": "visual-matrix.demo.tsx",
+            "browser": "156.0.8078.4"
+          }
+        ],
+        "finalReview": "最终六宫格已再次人工检查",
+        "contact": "inventory/rc-pdf-editor.png"
+      },
+      "note": "工具栏主题生效，PDF 页面内容和缩放不随控件尺寸变化。"
+    },
+    {
+      "package": "@crab-dev/rc-prose",
+      "defaultInventory": {
+        "automated": "passed-final-candidate",
+        "manual": "reviewed-final-candidate",
+        "cases": [
+          {
+            "designSystem": "md3",
+            "colorMode": "light",
+            "sha256": "2810bf4831f3819132716b67f657e6cccbfa04cabc26d1e2263bd8d04f891fea",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "md3",
+            "colorMode": "dark",
+            "sha256": "75e2b6d27c18cc5d4613f17ecc619208aeb3c63930ffcc3954621d8f0e5cac58",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "apple",
+            "colorMode": "light",
+            "sha256": "2ec1ac07931ad261a89226d845155fc24fd249cc29c4ef4332ba9a2f9c48e1fd",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "apple",
+            "colorMode": "dark",
+            "sha256": "d6789c631b092ad354c5061a3a99f9b944431d32c8d4d86ff043365bfecf6740",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "shadcn",
+            "colorMode": "light",
+            "sha256": "5c861ef97e67a3f927108f5ca06e0768b7ee96792265ea997ae7ad37b194a88f",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "shadcn",
+            "colorMode": "dark",
+            "sha256": "eed105e28fedee018c7b31359044c80eae7d8a93ab8ee4eacb4923a159009d8b",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          }
+        ],
+        "finalReview": "最终六项 PNG 与已逐项人工检查的首轮 PNG 字节相同",
+        "contact": "inventory/rc-prose.png"
+      },
+      "note": "已逐项复核三主题浅深色默认视口：文字、图标、表面和组件对齐未见新增问题；状态与响应式覆盖按专项证据记录。"
+    },
+    {
+      "package": "@crab-dev/rc-radio",
+      "defaultInventory": {
+        "automated": "passed-final-candidate",
+        "manual": "reviewed-final-candidate",
+        "cases": [
+          {
+            "designSystem": "md3",
+            "colorMode": "light",
+            "sha256": "1b7c0f73afea8b5158d7406a5d44dc5026333298c5220a134c37a8b17413f151",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "md3",
+            "colorMode": "dark",
+            "sha256": "63a559ee19f789e2df94f1af018d87725c5df39d232ede1e9096a8dc7ad40472",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "apple",
+            "colorMode": "light",
+            "sha256": "bf37632b6d5dc34a3895a975c4e955c2227b5b0e9d64fea13cb303d4c8b64f3f",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "apple",
+            "colorMode": "dark",
+            "sha256": "64f4a156a26c2cc3a6bc10fcfecd1eee3bdcb36ce4c47eb1103b7cb1304e9287",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "shadcn",
+            "colorMode": "light",
+            "sha256": "2adb8697cdecb33a7d7c33e7f9da283b3072e63fdbd283a3ec3c6b26c381f9dc",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "shadcn",
+            "colorMode": "dark",
+            "sha256": "bfaa7f53e8fd865b62d328c297c7f33ccae5c644f3e3636a1a9fa3078bf5baf3",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          }
+        ],
+        "finalReview": "最终六项 PNG 与已逐项人工检查的首轮 PNG 字节相同",
+        "contact": "inventory/rc-radio.png"
+      },
+      "note": "已逐项复核三主题浅深色默认视口：文字、图标、表面和组件对齐未见新增问题；状态与响应式覆盖按专项证据记录。"
+    },
+    {
+      "package": "@crab-dev/rc-realm",
+      "defaultInventory": {
+        "automated": "passed-final-candidate",
+        "manual": "reviewed-final-candidate",
+        "cases": [
+          {
+            "designSystem": "md3",
+            "colorMode": "light",
+            "sha256": "f6449ed886ab08784b12714f8502435a0677f0df8c9d1519405aabdefde06f0a",
+            "demo": "visual-matrix.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "md3",
+            "colorMode": "dark",
+            "sha256": "8c02e237b6341d6eede3f6727eb12ae4c128fa3400534c08765cd0ffb25283fa",
+            "demo": "visual-matrix.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "apple",
+            "colorMode": "light",
+            "sha256": "25115098fcda42e82befe552bc66bf4985b30efc6cf68a1446df466946f3dce9",
+            "demo": "visual-matrix.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "apple",
+            "colorMode": "dark",
+            "sha256": "e2615d5d5cd6ca32393d23f2eff8c77c7179a23d1f4f8d4c0079d7f79be51f5d",
+            "demo": "visual-matrix.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "shadcn",
+            "colorMode": "light",
+            "sha256": "4c56630c1836c78b834886fb435493bcbf3a804efcde4ae080dd8c933c091a09",
+            "demo": "visual-matrix.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "shadcn",
+            "colorMode": "dark",
+            "sha256": "afa37542e9b63ff0c84c1a075f009889cdd5239925c4a3abeceec971eb103de5",
+            "demo": "visual-matrix.demo.tsx",
+            "browser": "156.0.8078.4"
+          }
+        ],
+        "finalReview": "最终六宫格已再次人工检查",
+        "contact": "inventory/rc-realm.png"
+      },
+      "note": "默认 Demo 有意展示远程模块加载中状态。"
+    },
+    {
+      "package": "@crab-dev/rc-segmented",
+      "defaultInventory": {
+        "automated": "passed-final-candidate",
+        "manual": "reviewed-final-candidate",
+        "cases": [
+          {
+            "designSystem": "md3",
+            "colorMode": "light",
+            "sha256": "98b34b6a1074175bfc141d952d1ed9cf250b7809112be3a4da41c46243648e6c",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "md3",
+            "colorMode": "dark",
+            "sha256": "9a770c0d73803ecf648915b9e6b20247387ce1b5089a3783cb5d840ab3c8617d",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "apple",
+            "colorMode": "light",
+            "sha256": "8ff1dceaded5771849661ca21e328be9709dd92e8bbd9c43aefe31dd5f81c9f6",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "apple",
+            "colorMode": "dark",
+            "sha256": "82a697c333d2a091c0ce0e66802ba84fe0cb01dd6833680717f2d20c4c5c2db5",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "shadcn",
+            "colorMode": "light",
+            "sha256": "0faa291eecd9e8d85dff194c8687889d316b1389acc7083d373399fa0b7c40fe",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "shadcn",
+            "colorMode": "dark",
+            "sha256": "688f68c7e9e97d662d10d97bb1d5d8b9315a7cc49b137441bff675d19e1791b5",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          }
+        ],
+        "finalReview": "最终六宫格已再次人工检查",
+        "contact": "inventory/rc-segmented.png"
+      },
+      "note": "已逐项复核三主题浅深色默认视口：文字、图标、表面和组件对齐未见新增问题；状态与响应式覆盖按专项证据记录。"
+    },
+    {
+      "package": "@crab-dev/rc-select",
+      "defaultInventory": {
+        "automated": "passed-final-candidate",
+        "manual": "reviewed-final-candidate",
+        "cases": [
+          {
+            "designSystem": "md3",
+            "colorMode": "light",
+            "sha256": "b19d6d8d1df93fc4663a268b67fad413a13ca1fec58aaa9b0342f11d46a53a4d",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "md3",
+            "colorMode": "dark",
+            "sha256": "dde17f4469851f83e65a694e79b8709c5a2f35e18af1ce99d24f4cb47648a531",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "apple",
+            "colorMode": "light",
+            "sha256": "0835b7900d3e30466b86cb89e97a7022a2505499012b3ca2136b3e0189544b51",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "apple",
+            "colorMode": "dark",
+            "sha256": "cadce6258bf1f7ef4741b5749230a83794810190f1ddc807e7a416e0d10d73ba",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "shadcn",
+            "colorMode": "light",
+            "sha256": "75b2d0045e4f972c9766937c5c09dc980654f73a61d8f1c73a8c2467875db1ec",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "shadcn",
+            "colorMode": "dark",
+            "sha256": "df283fd5a0b38f355ffb6bab174005c0f088bc44ebf1c4737a6434b5fb62ca9e",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          }
+        ],
+        "finalReview": "最终六宫格已再次人工检查",
+        "contact": "inventory/rc-select.png"
+      },
+      "note": "外置标签使用完整字段宽度，值和箭头居中；展开、清除另做状态测试。"
+    },
+    {
+      "package": "@crab-dev/rc-skeleton",
+      "defaultInventory": {
+        "automated": "passed-final-candidate",
+        "manual": "reviewed-final-candidate",
+        "cases": [
+          {
+            "designSystem": "md3",
+            "colorMode": "light",
+            "sha256": "f8fe74511531df3849feb4b56ae52ac64ba858812e0b18d7ef6bc7ab1f247eb4",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "md3",
+            "colorMode": "dark",
+            "sha256": "1babd41d83de411c8f45282fdb3ed41b63433745687f845680a1eabb3323389c",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "apple",
+            "colorMode": "light",
+            "sha256": "b8de9302bc8579d80b0ba29daca60ae20e19447d445d498c79bca1254fcd87e3",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "apple",
+            "colorMode": "dark",
+            "sha256": "150ffa0e4e22ee7f045085aa7541752fc352871e17774fc4eee974fa18503d70",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "shadcn",
+            "colorMode": "light",
+            "sha256": "ab9c98b3ebac1b9d67bd0b265eb4076d922c9907aedff93fbe6ac8ae17cbeb64",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "shadcn",
+            "colorMode": "dark",
+            "sha256": "2908e672ee1c6d175b55e99b9ab4335c5bda66a48dd6ad03601a410d0cc4c582",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          }
+        ],
+        "finalReview": "最终六宫格已再次人工检查",
+        "contact": "inventory/rc-skeleton.png"
+      },
+      "note": "已逐项复核三主题浅深色默认视口：文字、图标、表面和组件对齐未见新增问题；状态与响应式覆盖按专项证据记录。"
+    },
+    {
+      "package": "@crab-dev/rc-slider",
+      "defaultInventory": {
+        "automated": "passed-final-candidate",
+        "manual": "reviewed-final-candidate",
+        "cases": [
+          {
+            "designSystem": "md3",
+            "colorMode": "light",
+            "sha256": "394d91c7dc9fc446c478f6807528155831ff18327978ca9da18efd1db97354e5",
+            "demo": "base.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "md3",
+            "colorMode": "dark",
+            "sha256": "65a11af5c2ac11e00b850bd8e02a55a11a4886eacbac89873b5ece86b87f34db",
+            "demo": "base.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "apple",
+            "colorMode": "light",
+            "sha256": "31d8a9aa978d34679a0f5e26db2da6623d0837632b92f4000811e9b0b51fe751",
+            "demo": "base.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "apple",
+            "colorMode": "dark",
+            "sha256": "335e5c1788ad54d469f897c734cfedf9bffab9076eae433b1aed7aca00c01338",
+            "demo": "base.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "shadcn",
+            "colorMode": "light",
+            "sha256": "6296fdfc4206f4a86d138e3ad83d934225116632643b385e311e5abf565d7ecd",
+            "demo": "base.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "shadcn",
+            "colorMode": "dark",
+            "sha256": "6355029b49f1ea983482b863f7a5dce6f9bd2cde28f79671fc9f3e1ac2abe938",
+            "demo": "base.demo.tsx",
+            "browser": "156.0.8078.4"
+          }
+        ],
+        "finalReview": "最终六项 PNG 与已逐项人工检查的首轮 PNG 字节相同",
+        "contact": "inventory/rc-slider.png"
+      },
+      "note": "已逐项复核三主题浅深色默认视口：文字、图标、表面和组件对齐未见新增问题；状态与响应式覆盖按专项证据记录。"
+    },
+    {
+      "package": "@crab-dev/rc-spin",
+      "defaultInventory": {
+        "automated": "passed-final-candidate",
+        "manual": "reviewed-final-candidate",
+        "cases": [
+          {
+            "designSystem": "md3",
+            "colorMode": "light",
+            "sha256": "7884bb462ec820e2dcd2c1978907c4d9ba4fd18beb50f9312f52fc73cd81d59d",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "md3",
+            "colorMode": "dark",
+            "sha256": "d73f683e9f93f80c25151ad71d40596c638595de3b93aab4488355d73a836a23",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "apple",
+            "colorMode": "light",
+            "sha256": "152a8a95f57268cf768c15ca4261500e2dbfa84c1608a150d63243b9c14e02f2",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "apple",
+            "colorMode": "dark",
+            "sha256": "0c407efe31d9c40418f6f54ab2404518b333c4843763926690b67329a8a21d6a",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "shadcn",
+            "colorMode": "light",
+            "sha256": "11da2360f570339f6fbb95672cb5336105dfab62639da358434f688e48309229",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "shadcn",
+            "colorMode": "dark",
+            "sha256": "414b5946ba9ab6f27ab1267691d91ba8978be229fa5d971f773374cda16f3bdc",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          }
+        ],
+        "finalReview": "最终六宫格已再次人工检查",
+        "contact": "inventory/rc-spin.png"
+      },
+      "note": "已逐项复核三主题浅深色默认视口：文字、图标、表面和组件对齐未见新增问题；状态与响应式覆盖按专项证据记录。"
+    },
+    {
+      "package": "@crab-dev/rc-split-pane",
+      "defaultInventory": {
+        "automated": "passed-final-candidate",
+        "manual": "reviewed-final-candidate",
+        "cases": [
+          {
+            "designSystem": "md3",
+            "colorMode": "light",
+            "sha256": "16d75bba8d781ab3f889cdc995464b856e3934c75bdc281e86f3d6111db041a7",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "md3",
+            "colorMode": "dark",
+            "sha256": "0ad824efe5419c8ccde7336d8feaba95399dec6d61476dd81e2a9488d18e21b2",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "apple",
+            "colorMode": "light",
+            "sha256": "19684719f1a0076477de111c64ce9116d382be9f0bdd2876afba8ee24a2da7e9",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "apple",
+            "colorMode": "dark",
+            "sha256": "6683d4070403223adc70f76a244b548f3a0743b4b706eadbf1710552cc3c5ca7",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "shadcn",
+            "colorMode": "light",
+            "sha256": "9cefafcbe2a15256fccbaa229dc26f46635bf809d50695fdf4677ccd807c5e7a",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "shadcn",
+            "colorMode": "dark",
+            "sha256": "1991bdbb61f26714a75946d356a7bdf1aca6b2350484a356fc8b05b237d6a787",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          }
+        ],
+        "finalReview": "最终六项 PNG 与已逐项人工检查的首轮 PNG 字节相同",
+        "contact": "inventory/rc-split-pane.png"
+      },
+      "note": "已逐项复核三主题浅深色默认视口：文字、图标、表面和组件对齐未见新增问题；状态与响应式覆盖按专项证据记录。"
+    },
+    {
+      "package": "@crab-dev/rc-switch",
+      "defaultInventory": {
+        "automated": "passed-final-candidate",
+        "manual": "reviewed-final-candidate",
+        "cases": [
+          {
+            "designSystem": "md3",
+            "colorMode": "light",
+            "sha256": "2ad66a7b109287d85ee408aa6aa64e48d62263556ff75687634428b51ddc6dae",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "md3",
+            "colorMode": "dark",
+            "sha256": "99a8ae946c516da4e656b926bc8af71d7c8ece3753d4f2eee5c42492f6b3d173",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "apple",
+            "colorMode": "light",
+            "sha256": "321680b3144f3c4bcbcbffbfb6cc1b976c6ed949b6c5e00d8735b873b0c9b74b",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "apple",
+            "colorMode": "dark",
+            "sha256": "4f5bc26ed99f007b8768a282fd8f7ccd2de00e661c4dde746700dcb74d818116",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "shadcn",
+            "colorMode": "light",
+            "sha256": "cafd010de9123ae0b716724aab8bec176d68661d69f052c92be6e2e0c30b6e16",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "shadcn",
+            "colorMode": "dark",
+            "sha256": "cef02876c4d23af02ad17c176aa4c1b85e8969175b85e9252dada7d31c2447bd",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          }
+        ],
+        "finalReview": "最终六宫格已再次人工检查",
+        "contact": "inventory/rc-switch.png"
+      },
+      "note": "MD3 轨道紧凑；最终复测恢复 Apple/shadcn 的桌面布局预留，触控目标单独检查。"
+    },
+    {
+      "package": "@crab-dev/rc-table",
+      "defaultInventory": {
+        "automated": "passed-final-candidate",
+        "manual": "reviewed-final-candidate",
+        "cases": [
+          {
+            "designSystem": "md3",
+            "colorMode": "light",
+            "sha256": "6362f45e3c025457798a779e1148f8035d791d5b2e616aed9c201fd9ee291be0",
+            "demo": "basis.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "md3",
+            "colorMode": "dark",
+            "sha256": "fe5282c879516dc1ce053ed532542c22497e47ed4b76b27da9d0ad1b2545d390",
+            "demo": "basis.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "apple",
+            "colorMode": "light",
+            "sha256": "9c3e88cbaf2e4341b4609a7ca2e7001a89023edf566fa48c5b385d13329b4340",
+            "demo": "basis.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "apple",
+            "colorMode": "dark",
+            "sha256": "91e89c4e5c975e3cd6cb3a22ecfcaa880d4f980e06d2b48418701e5915f9dc47",
+            "demo": "basis.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "shadcn",
+            "colorMode": "light",
+            "sha256": "5f440c84bc4ade082491aa54227b9a627f2e6000fcd1d6637df8430adca28741",
+            "demo": "basis.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "shadcn",
+            "colorMode": "dark",
+            "sha256": "ebbe3803e74b6d85d83cb6140281d099bbd6c4532a9449e31f53067c3f24afc9",
+            "demo": "basis.demo.tsx",
+            "browser": "156.0.8078.4"
+          }
+        ],
+        "finalReview": "最终六项 PNG 与已逐项人工检查的首轮 PNG 字节相同",
+        "contact": "inventory/rc-table.png"
+      },
+      "note": "表头、行、边框与滚动区域正常；未修改数据密度或虚拟坐标。"
+    },
+    {
+      "package": "@crab-dev/rc-table-pro",
+      "defaultInventory": {
+        "automated": "passed-final-candidate",
+        "manual": "reviewed-final-candidate",
+        "cases": [
+          {
+            "designSystem": "md3",
+            "colorMode": "light",
+            "sha256": "ade5f19b53fe7b56d7710e77e5f88f2c3d4c104518a1749ddb661b361ff063bf",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "md3",
+            "colorMode": "dark",
+            "sha256": "26c54fc3c592a388b138a94503ed65306def05f3fbba21cd031175dccc16cf2a",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "apple",
+            "colorMode": "light",
+            "sha256": "1fd287886bb24d78dfc83bc73895ba6918cbfb7d699b55540a390916e0b1127a",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "apple",
+            "colorMode": "dark",
+            "sha256": "4c46267dc3f36bc942aac0d8e932cf5641bb4903a1c13c7815ee06387111d1c9",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "shadcn",
+            "colorMode": "light",
+            "sha256": "e614db731bbd89cf812dfa2dbe6c988aac2d5d3e60c6419dd02b7c399dfcb46b",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "shadcn",
+            "colorMode": "dark",
+            "sha256": "d4fef3bea9e9fb4fd60c54766c6385215cbd05e6403ef8dd4cdc326b7b048a15",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          }
+        ],
+        "finalReview": "最终六项 PNG 与已逐项人工检查的首轮 PNG 字节相同",
+        "contact": "inventory/rc-table-pro.png"
+      },
+      "note": "按完整原图检查表格（自动裁切预览不适用）；保持原虚拟行几何。"
+    },
+    {
+      "package": "@crab-dev/rc-tabs",
+      "defaultInventory": {
+        "automated": "passed-final-candidate",
+        "manual": "reviewed-final-candidate",
+        "cases": [
+          {
+            "designSystem": "md3",
+            "colorMode": "light",
+            "sha256": "1cecbcba0b64a65ca095791fbd19ba9c731742ba5d77ef9cf084b17aac9c7db0",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "md3",
+            "colorMode": "dark",
+            "sha256": "93a87e202844107183e3ebd746faf7013576f6df9a7e20a7ad21084ed703d6dd",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "apple",
+            "colorMode": "light",
+            "sha256": "ccaa1ba63a4aca3e565b5fc704f2ea85fb7a53070c336e0051bef45251c463d8",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "apple",
+            "colorMode": "dark",
+            "sha256": "5ae03460ba79115cf55b0434edf48c4751ffbd3a833717ad6525833e99958e6a",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "shadcn",
+            "colorMode": "light",
+            "sha256": "31509a195f75d6572f4aa6ae7c1bfb35a2fd026486d07e797c68e2df8bc702ae",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "shadcn",
+            "colorMode": "dark",
+            "sha256": "69b282edb2a6cac574e61f4c7039d9e6f5b3db41f084780d494d999a28b759d4",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          }
+        ],
+        "finalReview": "最终六宫格已再次人工检查",
+        "contact": "inventory/rc-tabs.png"
+      },
+      "note": "MD3 标签和下划线居中；Apple/shadcn 保留各自选中表面。"
+    },
+    {
+      "package": "@crab-dev/rc-tag",
+      "defaultInventory": {
+        "automated": "passed-final-candidate",
+        "manual": "reviewed-final-candidate",
+        "cases": [
+          {
+            "designSystem": "md3",
+            "colorMode": "light",
+            "sha256": "46f23a6ebb1d5e755976d853940658daf7ca8b3f2fbf7140d8254ce44a434421",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "md3",
+            "colorMode": "dark",
+            "sha256": "fc27afab48505f63bad218fcaf5e6a111dc031dbf04504ae42ebafcfc5247ab8",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "apple",
+            "colorMode": "light",
+            "sha256": "16b31f474215e5da2b2a4ab2645e405dd30da86bb6ca8bf74d73a17a37e9c37f",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "apple",
+            "colorMode": "dark",
+            "sha256": "e8135275c4b8b96e87b9fccc8823661e165e4c4d807402ad4b92a4965736fbc5",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "shadcn",
+            "colorMode": "light",
+            "sha256": "cda5655c92b30f7bc644ca06bd5f5a836ef43d63beae4f528b4ae9190b3102b5",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "shadcn",
+            "colorMode": "dark",
+            "sha256": "b2619c9d9db692d38a661dae8e32b88257cb281ab96636dd7037fc14165c0e3b",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          }
+        ],
+        "finalReview": "最终六宫格已再次人工检查",
+        "contact": "inventory/rc-tag.png"
+      },
+      "note": "已逐项复核三主题浅深色默认视口：文字、图标、表面和组件对齐未见新增问题；状态与响应式覆盖按专项证据记录。"
+    },
+    {
+      "package": "@crab-dev/rc-text-edit",
+      "defaultInventory": {
+        "automated": "passed-final-candidate",
+        "manual": "reviewed-final-candidate",
+        "cases": [
+          {
+            "designSystem": "md3",
+            "colorMode": "light",
+            "sha256": "308ed8299859ca596abcceba8ab15dfe18d28518064935a25361ef4436f9ef91",
+            "demo": "simple.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "md3",
+            "colorMode": "dark",
+            "sha256": "6470709c547ce91f6a716a1e82c4966b5723f49bac1c07c5324061662a5261c7",
+            "demo": "simple.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "apple",
+            "colorMode": "light",
+            "sha256": "2191bd27b6415b8c13064ee0d72bc309ce26ccef7b382e057bc20de186e39f12",
+            "demo": "simple.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "apple",
+            "colorMode": "dark",
+            "sha256": "38a918488640650a4857ccbe3436116bf141e6ebf29052f8bcc25b2715872d14",
+            "demo": "simple.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "shadcn",
+            "colorMode": "light",
+            "sha256": "935c3934593fad464509b345bb5cb203faa3bec7c062d6137bbb780b284c1416",
+            "demo": "simple.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "shadcn",
+            "colorMode": "dark",
+            "sha256": "5608989cdf83b36841668fe45d01ad77b5cf18210c992f03c5c0f616b550360f",
+            "demo": "simple.demo.tsx",
+            "browser": "156.0.8078.4"
+          }
+        ],
+        "finalReview": "最终六项 PNG 与已逐项人工检查的首轮 PNG 字节相同",
+        "contact": "inventory/rc-text-edit.png"
+      },
+      "note": "MD3 保留 Filled 表面和底线，移除内部标签占位；正文和 rows 不缩放。"
+    },
+    {
+      "package": "@crab-dev/rc-theme",
+      "defaultInventory": {
+        "automated": "passed-final-candidate",
+        "manual": "reviewed-final-candidate",
+        "cases": [
+          {
+            "designSystem": "md3",
+            "colorMode": "light",
+            "sha256": "5003ab7adb9de157a6724f4632e875290c1fba34cc94c535f93a91b44714f11f",
+            "demo": "light-dark.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "md3",
+            "colorMode": "dark",
+            "sha256": "8d78fbf8a5a904bc1440568b4c7a2ba74f968d65c45aa3c49838862d72172651",
+            "demo": "light-dark.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "apple",
+            "colorMode": "light",
+            "sha256": "953890e11ed13657c19e95fd06904383ab8779092568529830da160afa3879d3",
+            "demo": "light-dark.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "apple",
+            "colorMode": "dark",
+            "sha256": "c8533d020f572f81748f6fd0145b2f694e83a4b949fe97a9d7b7aa5d768ceacf",
+            "demo": "light-dark.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "shadcn",
+            "colorMode": "light",
+            "sha256": "3b5b8c8c5acafb8b8c56c9add98757f652369def6ad1f1ab7be775a7639d5d52",
+            "demo": "light-dark.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "shadcn",
+            "colorMode": "dark",
+            "sha256": "ec653ab97ca759e8c4ce8cab93943b1391a30d0e903e8c0b0387a298dfad91ba",
+            "demo": "light-dark.demo.tsx",
+            "browser": "156.0.8078.4"
+          }
+        ],
+        "finalReview": "最终六项 PNG 与已逐项人工检查的首轮 PNG 字节相同",
+        "contact": "inventory/rc-theme.png"
+      },
+      "note": "示例本身显式展示六个局部主题，外层主题与局部主题保持独立。"
+    },
+    {
+      "package": "@crab-dev/rc-token-global",
+      "defaultInventory": {
+        "automated": "passed-final-candidate",
+        "manual": "reviewed-final-candidate",
+        "cases": [
+          {
+            "designSystem": "md3",
+            "colorMode": "light",
+            "sha256": "67a1de22dc1d44473f5fdbc4067db3718dddbf78b9a44d820a4801a4f75bfba2",
+            "demo": "base.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "md3",
+            "colorMode": "dark",
+            "sha256": "0f16cfdbcf17ed0776556519d1119337a7c68bb98b539ada6eea3eb5a19d7972",
+            "demo": "base.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "apple",
+            "colorMode": "light",
+            "sha256": "db5c4c0b7a6605627faf063baf57c143c56dbfcec9e2e1cb0b89063b57a66d1d",
+            "demo": "base.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "apple",
+            "colorMode": "dark",
+            "sha256": "b77f275d0dd53d7fb69330947e199df2aa69c3c8ef6c7fa277270fb7a6df2cab",
+            "demo": "base.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "shadcn",
+            "colorMode": "light",
+            "sha256": "b63d4bf9a5a72118ac1f2afe32331d52c498b4b1f5f4cd0b4a069b3a7de3a82b",
+            "demo": "base.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "shadcn",
+            "colorMode": "dark",
+            "sha256": "eca1ef9e4bb2b2b2fd30acddb5b3e697633bdb5ee1d0996f56f8d6fa70b52baa",
+            "demo": "base.demo.tsx",
+            "browser": "156.0.8078.4"
+          }
+        ],
+        "finalReview": "最终六项 PNG 与已逐项人工检查的首轮 PNG 字节相同",
+        "contact": "inventory/rc-token-global.png"
+      },
+      "note": "原始色块不随语义主题变色，属预期。"
+    },
+    {
+      "package": "@crab-dev/rc-token-semantic",
+      "defaultInventory": {
+        "automated": "passed-final-candidate",
+        "manual": "reviewed-final-candidate",
+        "cases": [
+          {
+            "designSystem": "md3",
+            "colorMode": "light",
+            "sha256": "7930b01a9f5799896c781b82a4f5175c813a7d971b711e00c783e0c3ce247bbe",
+            "demo": "base.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "md3",
+            "colorMode": "dark",
+            "sha256": "9bbfc86f4e39add3e8173a10e99af498ea393ade929c714ef08d326d4a57a507",
+            "demo": "base.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "apple",
+            "colorMode": "light",
+            "sha256": "02c88e89305459ef78d3f38a4ae8ee64f94effd6b8812e2d5245c1856fd4aeae",
+            "demo": "base.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "apple",
+            "colorMode": "dark",
+            "sha256": "ffb1a9990c95e6c480b1a34d7520ca4c2608b605460a8a6978bf8d6640debf0f",
+            "demo": "base.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "shadcn",
+            "colorMode": "light",
+            "sha256": "273678926396c199f5f151a46994a9cb76635526e88a35a959e7bb7be64bbb36",
+            "demo": "base.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "shadcn",
+            "colorMode": "dark",
+            "sha256": "7ebc32995fb423ef968dcaf574cbe06dd4a257380127bca452c951926bc37e2a",
+            "demo": "base.demo.tsx",
+            "browser": "156.0.8078.4"
+          }
+        ],
+        "finalReview": "最终六项 PNG 与已逐项人工检查的首轮 PNG 字节相同",
+        "contact": "inventory/rc-token-semantic.png"
+      },
+      "note": "语义表面、文字、边框随主题变化，浅深色可读。"
+    },
+    {
+      "package": "@crab-dev/rc-tooltip",
+      "defaultInventory": {
+        "automated": "passed-final-candidate",
+        "manual": "reviewed-final-candidate",
+        "cases": [
+          {
+            "designSystem": "md3",
+            "colorMode": "light",
+            "sha256": "2268b689f19c7e0cc2c2140f6a86dc618cc968a442eb7b8da941d4a47296d335",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "md3",
+            "colorMode": "dark",
+            "sha256": "5780c98ce2e5dce2f964d99081cfeb7282d32bfb4fbb18b985836019b8f111d9",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "apple",
+            "colorMode": "light",
+            "sha256": "49b43c7f6884c8b4f288d81ffa1bd72bc9042fe75ff2ab33aae64534d22099d8",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "apple",
+            "colorMode": "dark",
+            "sha256": "23a1564b6c9434e9cb44edab0e6060a1fb7b10241e217003cd414b48d4be0755",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "shadcn",
+            "colorMode": "light",
+            "sha256": "c12b5ae76cc9d5f0ccc25fd84cebde1d98c7abbef6cec401112acccdc11fccf5",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "shadcn",
+            "colorMode": "dark",
+            "sha256": "73ae96ee4f975c80283896b550fd55addb14230dff998cef9128125ac3c86aeb",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          }
+        ],
+        "finalReview": "最终六项 PNG 与已逐项人工检查的首轮 PNG 字节相同",
+        "contact": "inventory/rc-tooltip.png"
+      },
+      "note": "默认库存仅含触发按钮，未据此声明提示气泡完整覆盖。"
+    },
+    {
+      "package": "@crab-dev/rc-tree",
+      "defaultInventory": {
+        "automated": "passed-final-candidate",
+        "manual": "reviewed-final-candidate",
+        "cases": [
+          {
+            "designSystem": "md3",
+            "colorMode": "light",
+            "sha256": "87fcef4adfa2ff71b0b26b7924c7471f60831b7d14c7fef10b3ba6de40810728",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "md3",
+            "colorMode": "dark",
+            "sha256": "d16e1e7527e9de9cc2585aea93596d755288432c973829c616590c9e1cd4eccf",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "apple",
+            "colorMode": "light",
+            "sha256": "03aec013a57b0afe244da8c34a5379a3f7ad1163ecaa46fa2c5f490a001ec1f7",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "apple",
+            "colorMode": "dark",
+            "sha256": "3b36505e6a20a9c127770726c73df714331593ba0f26251d89c9fcdba038b1a5",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "shadcn",
+            "colorMode": "light",
+            "sha256": "bb92857876db156b28096c66ca8f3ab71a8def3482b5b12c899d667e97f38a95",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          },
+          {
+            "designSystem": "shadcn",
+            "colorMode": "dark",
+            "sha256": "7a0a472131ca3d78e2e316c3d8631708354ffd64590ec244547b8240657b09ff",
+            "demo": "basic.demo.tsx",
+            "browser": "156.0.8078.4"
+          }
+        ],
+        "finalReview": "最终六项 PNG 与已逐项人工检查的首轮 PNG 字节相同",
+        "contact": "inventory/rc-tree.png"
+      },
+      "note": "已逐项复核三主题浅深色默认视口：文字、图标、表面和组件对齐未见新增问题；状态与响应式覆盖按专项证据记录。"
+    }
+  ],
+  "runId": "2026-11-03T12-48-05-621Z",
+  "automated": {
+    "passed": 300,
+    "failed": 0
+  },
+  "manualReview": {
+    "packages": 50,
+    "cases": 300,
+    "identicalToFirstReview": 261,
+    "visuallyRecheckedCases": 39,
+    "scope": "默认 Demo 视口；保留异步加载状态、动画相位和触发器视图的范围限制。"
+  },
+  "reviewMethod": "由本次助手查看实际浏览器截图；与自动断言结果分开记录。"
+}

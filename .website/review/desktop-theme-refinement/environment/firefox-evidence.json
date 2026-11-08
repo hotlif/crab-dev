@@ -1,0 +1,163 @@
+[
+  {
+    "file": "rc-dialog-firefox-narrow.png",
+    "source": ".tmp/theme-cross-evidence/results.json",
+    "project": "firefox",
+    "case": "md3 dark narrow",
+    "config": {
+      "id": "narrow",
+      "designSystem": "md3",
+      "colorMode": "dark"
+    },
+    "sha256": "94d6e8431f83ad954b10f9092066e7b14085cf3603292aac784196634951b99d",
+    "review": "passed",
+    "note": "长内容已滚动到底部，末段与底部操作可见；顶部截断是当前滚动位置，边界/RTL/强制颜色正常。"
+  },
+  {
+    "file": "rc-dialog-firefox-touch.png",
+    "source": ".tmp/theme-cross-evidence/results.json",
+    "project": "firefox",
+    "case": "md3 dark touch",
+    "config": {
+      "id": "touch",
+      "designSystem": "md3",
+      "colorMode": "dark"
+    },
+    "sha256": "11d7bcbb150cad6f78d6ae0271f3a1280b4e79afe203671b22ab4b3497338cbd",
+    "review": "passed",
+    "note": "长内容已滚动到底部，末段与底部操作可见；顶部截断是当前滚动位置，边界/RTL/强制颜色正常。"
+  },
+  {
+    "file": "rc-dialog-firefox-rtl.png",
+    "source": ".tmp/theme-cross-evidence/results.json",
+    "project": "firefox",
+    "case": "md3 dark rtl",
+    "config": {
+      "id": "rtl",
+      "designSystem": "md3",
+      "colorMode": "dark"
+    },
+    "sha256": "7df96448aae860606f26efbed3d80873f69eb5aa51b79b5d552d96ab93d27032",
+    "review": "passed",
+    "note": "长内容已滚动到底部，末段与底部操作可见；顶部截断是当前滚动位置，边界/RTL/强制颜色正常。"
+  },
+  {
+    "file": "rc-dialog-firefox-forced-colors.png",
+    "source": ".tmp/theme-cross-evidence/results.json",
+    "project": "firefox",
+    "case": "md3 dark forced-colors",
+    "config": {
+      "id": "forced-colors",
+      "designSystem": "md3",
+      "colorMode": "dark"
+    },
+    "sha256": "e25b357afbcb4848b54512ac55fab15f961b4450634442d5d079b6d6d9285208",
+    "review": "passed",
+    "note": "长内容已滚动到底部，末段与底部操作可见；顶部截断是当前滚动位置，边界/RTL/强制颜色正常。"
+  },
+  {
+    "file": "rc-select-firefox-narrow.png",
+    "source": ".tmp/theme-cross-evidence/results.json",
+    "project": "firefox",
+    "case": "md3 dark narrow",
+    "config": {
+      "id": "narrow",
+      "designSystem": "md3",
+      "colorMode": "dark"
+    },
+    "sha256": "440e3d5dda4433ff48bd03f38ba0c66ef89fcf1fd0c598a20df1518c0fcb7811",
+    "review": "passed",
+    "note": "外置标签、焦点描边和展开列表对齐；触控空间扩大，窄屏无横向溢出，RTL 和强制颜色可辨。"
+  },
+  {
+    "file": "rc-select-firefox-touch.png",
+    "source": ".tmp/theme-cross-evidence/results.json",
+    "project": "firefox",
+    "case": "md3 dark touch",
+    "config": {
+      "id": "touch",
+      "designSystem": "md3",
+      "colorMode": "dark"
+    },
+    "sha256": "1c11c24b5509143d114ae7c1da6729034255a3043c7733174831ce1b98ccd9ed",
+    "review": "passed",
+    "note": "外置标签、焦点描边和展开列表对齐；触控空间扩大，窄屏无横向溢出，RTL 和强制颜色可辨。"
+  },
+  {
+    "file": "rc-select-firefox-rtl.png",
+    "source": ".tmp/theme-cross-evidence/results.json",
+    "project": "firefox",
+    "case": "md3 dark rtl",
+    "config": {
+      "id": "rtl",
+      "designSystem": "md3",
+      "colorMode": "dark"
+    },
+    "sha256": "eafb7735d9eec7180e2b2ecd6e5db024e20880113fa47ee7dcab84d797807f24",
+    "review": "passed",
+    "note": "外置标签、焦点描边和展开列表对齐；触控空间扩大，窄屏无横向溢出，RTL 和强制颜色可辨。"
+  },
+  {
+    "file": "rc-select-firefox-forced-colors.png",
+    "source": ".tmp/theme-cross-evidence/results.json",
+    "project": "firefox",
+    "case": "md3 dark forced-colors",
+    "config": {
+      "id": "forced-colors",
+      "designSystem": "md3",
+      "colorMode": "dark"
+    },
+    "sha256": "fbe762cb88ab91aca322274b79a9796a86f6863c9e634b17e864b2231d3afbbc",
+    "review": "passed",
+    "note": "外置标签、焦点描边和展开列表对齐；触控空间扩大，窄屏无横向溢出，RTL 和强制颜色可辨。"
+  },
+  {
+    "file": "rc-tabs-firefox-narrow.png",
+    "source": ".tmp/theme-cross-evidence/results.json",
+    "project": "firefox",
+    "case": "component environment",
+    "config": {
+      "designSystem": "md3",
+      "colorMode": "dark",
+      "id": "narrow",
+      "size": "medium",
+      "density": "standard"
+    },
+    "sha256": "7fbbfdc16c54a1fad4dbb67afd45ff1f2d5e9550a4d7e6f34f777c2957596e22",
+    "review": "passed",
+    "note": "选中线、焦点和草稿可辨；窄屏使用可滚动页签区域，RTL 顺序正常。"
+  },
+  {
+    "file": "rc-tabs-firefox-rtl.png",
+    "source": ".tmp/theme-cross-evidence/results.json",
+    "project": "firefox",
+    "case": "component environment",
+    "config": {
+      "designSystem": "md3",
+      "colorMode": "dark",
+      "id": "rtl",
+      "size": "medium",
+      "density": "standard",
+      "direction": "rtl"
+    },
+    "sha256": "31fb2b7364626043c5b0ba172f27c59bae173fa22a2703f695beb10b52098f3d",
+    "review": "passed",
+    "note": "选中线、焦点和草稿可辨；窄屏使用可滚动页签区域，RTL 顺序正常。"
+  },
+  {
+    "file": "rc-tabs-firefox-forced-colors.png",
+    "source": ".tmp/theme-cross-evidence/results.json",
+    "project": "firefox",
+    "case": "component environment",
+    "config": {
+      "designSystem": "md3",
+      "colorMode": "dark",
+      "id": "forced-colors",
+      "size": "medium",
+      "density": "standard"
+    },
+    "sha256": "01114b08383ea43f63b0bd95da6baaf9596706c250f019fb393793ca0d3e25b8",
+    "review": "passed",
+    "note": "选中线、焦点和草稿可辨；窄屏使用可滚动页签区域，RTL 顺序正常。"
+  }
+]

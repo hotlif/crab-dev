@@ -23,6 +23,12 @@ export const baseStyle = css`
     font-weight: ${token.root['font-weight']};
     line-height: ${token.root['line-height']};
     vertical-align: middle;
+    /* Reserve the coarse-pointer target in layout so adjacent actions cannot
+       steal one another's hit area. Desktop visual sizes stay independent. */
+    @media (pointer: coarse) {
+        min-width: ${token.root.touch['min-width']};
+        min-height: ${token.root.touch['min-height']};
+    }
     text-decoration: none;
     white-space: nowrap;
     &:focus-visible {
@@ -513,3 +519,19 @@ export const iconOnlyStyle = css`
     padding: ${token.shape.circle.padding};
     aspect-ratio: 1;
 `;
+
+// Keep default desktop geometry independent of explicit Expressive variants.
+export const inheritedSizeStyles = {
+    small: css`
+        ${buttonVars['size.medium.height']}: ${token.size.inherited.small.height};
+        ${buttonVars['size.medium.padding']}: ${token.size.inherited.small.padding};
+    `,
+    medium: css`
+        ${buttonVars['size.medium.height']}: ${token.size.inherited.medium.height};
+        ${buttonVars['size.medium.padding']}: ${token.size.inherited.medium.padding};
+    `,
+    large: css`
+        ${buttonVars['size.medium.height']}: ${token.size.inherited.large.height};
+        ${buttonVars['size.medium.padding']}: ${token.size.inherited.large.padding};
+    `,
+};

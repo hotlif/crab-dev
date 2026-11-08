@@ -13,6 +13,7 @@ export const vars = defineTokens({
     'root.line-height': '--switch-root-line-height',
     'root.font-family': '--switch-root-font-family',
     'root.min-height': '--switch-root-min-height',
+    'root.layout.min-width': '--switch-root-layout-min-width',
     'root.opacity-disabled': '--switch-root-opacity-disabled',
     'root.transition': '--switch-root-transition',
     'track.border-width': '--switch-track-border-width',
@@ -80,7 +81,10 @@ const token = defineTokens({
         },
         'line-height': `var(${vars['root.line-height']}, var(--token-semantic-typography-body-medium-line-height, var(--token-global-line-height-14-20, 1.4285714285714286)))`,
         'font-family': `var(${vars['root.font-family']}, var(--token-semantic-typography-body-font-family, var(--token-global-font-family-material, 'Roboto', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei UI', sans-serif)))`,
-        'min-height': `var(${vars['root.min-height']}, var(--token-semantic-size-touch-target, var(--token-global-size-48, 48px)))`,
+        'min-height': `var(${vars['root.min-height']}, var(--token-semantic-size-toggle-layout-block, var(--token-global-size-36, 36px)))`,
+        'layout': {
+            'min-width': `var(${vars['root.layout.min-width']}, var(--token-semantic-size-toggle-layout-inline, var(--token-global-space-0, 0px)))`
+        },
         'opacity-disabled': `var(${vars['root.opacity-disabled']}, var(--token-semantic-opacity-disabled, var(--token-global-opacity-38, 0.38)))`,
         'transition': `var(${vars['root.transition']}, transform var(--token-semantic-motion-spatial-fast, var(--token-global-duration-350, 350ms) var(--token-global-easing-expressive-spatial-fast, cubic-bezier(0.42, 1.67, 0.21, 0.90))), translate var(--token-semantic-motion-spatial-fast, var(--token-global-duration-350, 350ms) var(--token-global-easing-expressive-spatial-fast, cubic-bezier(0.42, 1.67, 0.21, 0.90))), scale var(--token-semantic-motion-spatial-fast, var(--token-global-duration-350, 350ms) var(--token-global-easing-expressive-spatial-fast, cubic-bezier(0.42, 1.67, 0.21, 0.90))), background-color var(--token-semantic-motion-interaction, var(--token-global-duration-150, 150ms) var(--token-global-easing-expressive-effects-fast, cubic-bezier(0.31, 0.94, 0.34, 1.00))), box-shadow var(--token-semantic-motion-interaction, var(--token-global-duration-150, 150ms) var(--token-global-easing-expressive-effects-fast, cubic-bezier(0.31, 0.94, 0.34, 1.00))))`
     },
@@ -89,7 +93,7 @@ const token = defineTokens({
         'transition': `var(${vars['track.transition']}, var(--switch-root-transition, background-color var(--token-semantic-motion-effects-fast, var(--token-global-duration-150, 150ms) var(--token-global-easing-expressive-effects-fast, cubic-bezier(0.31, 0.94, 0.34, 1.00))), box-shadow var(--token-semantic-motion-effects-fast, var(--token-global-duration-150, 150ms) var(--token-global-easing-expressive-effects-fast, cubic-bezier(0.31, 0.94, 0.34, 1.00)))))`,
         'halo': {
             'transition': `var(${vars['track.halo.transition']}, var(--switch-root-transition, translate var(--token-semantic-motion-spatial-fast, var(--token-global-duration-350, 350ms) var(--token-global-easing-expressive-spatial-fast, cubic-bezier(0.42, 1.67, 0.21, 0.90))), background-color var(--token-semantic-motion-effects-fast, var(--token-global-duration-150, 150ms) var(--token-global-easing-expressive-effects-fast, cubic-bezier(0.31, 0.94, 0.34, 1.00)))))`,
-            'width': `var(${vars['track.halo.width']}, var(--token-semantic-size-toggle-state-layer, var(--token-global-size-40, 40px)))`,
+            'width': `var(${vars['track.halo.width']}, var(--token-semantic-size-toggle-state-layer, var(--token-global-size-32, 32px)))`,
             'left': `var(${vars['track.halo.left']}, -5px)`,
             'translate-checked': `var(${vars['track.halo.translate-checked']}, 14px)`
         },
@@ -159,13 +163,13 @@ const token = defineTokens({
         },
         'medium': {
             'track': {
-                'width': `var(${vars['size.medium.track.width']}, var(--token-semantic-sizing-medium-toggle-track-width, var(--token-global-size-52, 52px)))`,
-                'height': `var(${vars['size.medium.track.height']}, var(--token-semantic-sizing-medium-toggle-track-height, var(--token-global-size-32, 32px)))`,
+                'width': `var(${vars['size.medium.track.width']}, var(--token-semantic-sizing-medium-toggle-track-width, var(--token-global-size-40, 40px)))`,
+                'height': `var(${vars['size.medium.track.height']}, var(--token-semantic-sizing-medium-toggle-track-height, var(--token-global-space-6, 24px)))`,
                 'border-radius': `var(${vars['size.medium.track.border-radius']}, var(--token-semantic-shape-full, var(--token-global-radius-full, 9999px)))`
             },
             'handle': {
-                'width': `var(${vars['size.medium.handle.width']}, var(--token-semantic-sizing-medium-toggle-handle-width, var(--token-global-space-6, 24px)))`,
-                'left': `var(${vars['size.medium.handle.left']}, var(--token-semantic-sizing-medium-toggle-handle-inset, var(--token-global-space-1, 4px)))`
+                'width': `var(${vars['size.medium.handle.width']}, var(--token-semantic-sizing-medium-toggle-handle-width, var(--token-global-space-5, 20px)))`,
+                'left': `var(${vars['size.medium.handle.left']}, var(--token-semantic-sizing-medium-toggle-handle-inset, var(--token-global-space-0-5, 2px)))`
             }
         },
         'small': {

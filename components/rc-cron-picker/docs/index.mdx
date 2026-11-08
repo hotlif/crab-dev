@@ -13,7 +13,7 @@ status = "experimental"
 
 ## 三套主题的计划字段
 
-CronPicker 复用 LineEdit，支持 `label`、`supportingText`、`errorText` 和 `appearance`。MD3 使用浮动标签；Apple 与 shadcn 使用静态标签和各自的桌面焦点环。非法表达式除了错误边框，也显示可见修正说明并关联到输入框，修正后恢复辅助文字。
+CronPicker 复用 LineEdit，支持 `label`、`supportingText`、`errorText` 和 `appearance`。MD3 使用外置标签；Apple 与 shadcn 使用静态标签和各自的桌面焦点环。非法表达式除了错误边框，也显示可见修正说明并关联到输入框，修正后恢复辅助文字。
 
 基础演示增加“执行计划”可见标签，结果说明使用语义文字颜色。面板中的 Select、NumberEdit、Checkbox 和 Tabs 分别继承主题，不改变表达式解析与提交规则。定时规则编辑器是项目组合能力，参考 [Material Web Text field](https://material-web.dev/components/text-field/)和 [Select](https://material-web.dev/components/select/)，没有对应的官方 Cron 组件。核对日期：2026-10-22。
 
@@ -33,7 +33,7 @@ Cron 没有官方 M3、Apple 或 shadcn 对应组件。2026-10-29 的组合规�
 
 | 层次 | 三体系约定 |
 | --- | --- |
-| 字段 | MD3 浮动标签与色调状态，Apple 静态标签和轻量边界，shadcn 中性描边；都由 LineEdit 的公共能力承接。 |
+| 字段 | MD3 外置标签与色调状态，Apple 静态标签和轻量边界，shadcn 中性描边；都由 LineEdit 的公共能力承接。 |
 | 面板 | Tabs 管理五个字段，Select / NumberEdit / CheckableTag 通过各自公共协议管理模式与参数。L3 只负责分组、表达式及预览排版。 |
 | 结果 | 描述使用 title 角色，表达式使用等宽字体及双向隔离，执行预览使用次级文字与等宽数字；不反转 Cron 语法。 |
 

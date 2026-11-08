@@ -55,7 +55,7 @@ const token = defineTokens({
     'message': {
         'font-size': `var(${vars['message.font-size']}, var(--token-semantic-typography-body-small-font-size, var(--token-global-font-size-xs, 12px)))`,
         'line-height': `var(${vars['message.line-height']}, var(--token-semantic-typography-body-small-line-height, var(--token-global-line-height-12-16, 1.3333333333333333)))`,
-        'padding-inline': `var(${vars['message.padding-inline']}, var(--token-semantic-field-support-padding-inline, var(--token-global-space-4, 16px)))`,
+        'padding-inline': `var(${vars['message.padding-inline']}, var(--token-semantic-field-support-padding-inline, 0px))`,
         'gap': `var(${vars['message.gap']}, var(--token-semantic-field-layout-row-gap, var(--token-global-space-1, 4px)))`
     }
 });

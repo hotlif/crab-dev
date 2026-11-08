@@ -33,7 +33,8 @@ const Switch: FC<SwitchProps> = ({
                     ${vars['track.halo.left']}: calc(${token.size.large.handle.left} + (${token.size.large.handle.width} - ${token.track.halo.width}) / 2);
                     ${vars['track.halo.translate-checked']}: calc(${token.size.large.track.width} - ${token.size.large.handle.width} - 2 * ${token.size.large.handle.left});
                     width: ${token.size.large.track.width};
-                    margin-inline: max(0px, calc((${token.root.touch['min-width']} - ${token.size.large.track.width}) / 2));
+                    margin-inline: max(0px, calc((${token.root.layout['min-width']} - ${token.size.large.track.width}) / 2));
+                    @media (pointer: coarse) { margin-inline: max(0px, calc((${token.root.touch['min-width']} - ${token.size.large.track.width}) / 2)); }
                     height: ${token.size.large.track.height};
                     border-radius: ${token.size.large.track['border-radius']};
                 `,
@@ -53,7 +54,8 @@ const Switch: FC<SwitchProps> = ({
                     ${vars['track.halo.left']}: calc(${token.size.small.handle.left} + (${token.size.small.handle.width} - ${token.track.halo.width}) / 2);
                     ${vars['track.halo.translate-checked']}: calc(${token.size.small.track.width} - ${token.size.small.handle.width} - 2 * ${token.size.small.handle.left});
                     width: ${token.size.small.track.width};
-                    margin-inline: max(0px, calc((${token.root.touch['min-width']} - ${token.size.small.track.width}) / 2));
+                    margin-inline: max(0px, calc((${token.root.layout['min-width']} - ${token.size.small.track.width}) / 2));
+                    @media (pointer: coarse) { margin-inline: max(0px, calc((${token.root.touch['min-width']} - ${token.size.small.track.width}) / 2)); }
                     height: ${token.size.small.track.height};
                     border-radius: ${token.size.small.track['border-radius']};
                 `,
@@ -73,7 +75,8 @@ const Switch: FC<SwitchProps> = ({
                     ${vars['track.halo.left']}: calc(${token.size.medium.handle.left} + (${token.size.medium.handle.width} - ${token.track.halo.width}) / 2);
                     ${vars['track.halo.translate-checked']}: calc(${token.size.medium.track.width} - ${token.size.medium.handle.width} - 2 * ${token.size.medium.handle.left});
                     width: ${token.size.medium.track.width};
-                    margin-inline: max(0px, calc((${token.root.touch['min-width']} - ${token.size.medium.track.width}) / 2));
+                    margin-inline: max(0px, calc((${token.root.layout['min-width']} - ${token.size.medium.track.width}) / 2));
+                    @media (pointer: coarse) { margin-inline: max(0px, calc((${token.root.touch['min-width']} - ${token.size.medium.track.width}) / 2)); }
                     height: ${token.size.medium.track.height};
                     border-radius: ${token.size.medium.track['border-radius']};
                 `,

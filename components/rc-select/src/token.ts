@@ -189,13 +189,13 @@ const token = defineTokens({
         'box-shadow-focus': `var(${vars['clear.box-shadow-focus']}, inset 0 0 0 1px var(--token-semantic-color-focus-ring, var(--token-semantic-color-border-focus, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078)))))`
     },
     'icon': {
-        'width': `var(${vars['icon.width']}, var(--token-semantic-field-icon-size, var(--token-global-space-6, 24px)))`,
+        'width': `var(${vars['icon.width']}, var(--token-semantic-field-icon-size, var(--token-global-space-5, 20px)))`,
         'color': `var(${vars['icon.color']}, var(--token-semantic-color-text-secondary, var(--token-global-material-neutral-variant-30, oklch(0.39805288 0.01735545 303.720936))))`
     },
     'field': {
         'gap': `var(${vars['field.gap']}, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)))`,
-        'padding-inline': `var(${vars['field.padding-inline']}, var(--token-semantic-field-control-padding-inline, var(--token-global-space-4, 16px)))`,
-        'min-height': `var(${vars['field.min-height']}, var(--token-semantic-field-control-min-height, var(--token-global-size-56, 56px)))`,
+        'padding-inline': `var(${vars['field.padding-inline']}, var(--token-semantic-field-control-padding-inline, var(--token-global-space-3, 12px)))`,
+        'min-height': `var(${vars['field.min-height']}, var(--token-semantic-field-control-min-height, 0px))`,
         'label': {
             'top': `var(${vars['field.label.top']}, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)))`,
             'padding-inline': `var(${vars['field.label.padding-inline']}, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)))`,
@@ -234,8 +234,8 @@ const token = defineTokens({
     },
     'size': {
         'large': {
-            'height': `var(${vars['size.large.height']}, var(--token-semantic-sizing-large-field, var(--token-global-size-40, 40px)))`,
-            'padding': `var(${vars['size.large.padding']}, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)) var(--token-semantic-field-control-padding-inline, var(--token-global-space-4, 16px)))`,
+            'height': `var(${vars['size.large.height']}, var(--token-semantic-sizing-large-field, var(--token-global-size-48, 48px)))`,
+            'padding': `var(${vars['size.large.padding']}, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)) var(--token-semantic-field-control-padding-inline, var(--token-global-space-3, 12px)))`,
             'font-size': `var(${vars['size.large.font-size']}, var(--token-semantic-field-input-font-size, var(--token-global-font-size-md, 16px)))`,
             'line-height': `var(${vars['size.large.line-height']}, var(--token-semantic-field-input-line-height, var(--token-global-space-6, 24px)))`,
             'action': {
@@ -243,8 +243,8 @@ const token = defineTokens({
             }
         },
         'medium': {
-            'height': `var(${vars['size.medium.height']}, var(--token-semantic-sizing-medium-field, var(--token-global-size-36, 36px)))`,
-            'padding': `var(${vars['size.medium.padding']}, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)) var(--token-semantic-field-control-padding-inline, var(--token-global-space-4, 16px)))`,
+            'height': `var(${vars['size.medium.height']}, var(--token-semantic-sizing-medium-field, var(--token-global-size-40, 40px)))`,
+            'padding': `var(${vars['size.medium.padding']}, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)) var(--token-semantic-field-control-padding-inline, var(--token-global-space-3, 12px)))`,
             'font-size': `var(${vars['size.medium.font-size']}, var(--token-semantic-field-input-font-size, var(--token-global-font-size-md, 16px)))`,
             'line-height': `var(${vars['size.medium.line-height']}, var(--token-semantic-field-input-line-height, var(--token-global-space-6, 24px)))`,
             'action': {
@@ -253,7 +253,7 @@ const token = defineTokens({
         },
         'small': {
             'height': `var(${vars['size.small.height']}, var(--token-semantic-sizing-small-field, var(--token-global-size-32, 32px)))`,
-            'padding': `var(${vars['size.small.padding']}, 0 var(--token-semantic-field-control-padding-inline, var(--token-global-space-4, 16px)))`,
+            'padding': `var(${vars['size.small.padding']}, 0 var(--token-semantic-field-control-padding-inline, var(--token-global-space-3, 12px)))`,
             'font-size': `var(${vars['size.small.font-size']}, var(--token-semantic-field-input-font-size, var(--token-global-font-size-md, 16px)))`,
             'line-height': `var(${vars['size.small.line-height']}, var(--token-semantic-field-input-line-height, var(--token-global-space-6, 24px)))`,
             'action': {

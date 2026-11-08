@@ -18,7 +18,7 @@ export interface TextEditProps {
     "appearance"?: "outlined" | "filled";
 
     /**
-     * 可见标签；Material 使用浮动标签，shadcn 使用上方标签。
+     * 可见标签；三套设计体系均使用上方标签。
      */
     "label"?: string;
 
@@ -43,7 +43,7 @@ export interface TextEditProps {
     "containerRef"?: Ref<HTMLDivElement>;
 
     /**
-     * 控件几何档位，默认为 medium；不缩放正文，内容高度由 rows / autoSize 决定。 Apple / shadcn 调整内边距和最小高度；MD3 三档保持标准字段几何， 仅内部清除动作分档。bordered=false 时几何和排版由宿主提供。
+     * 控件几何档位，默认为 medium；不缩放正文，内容高度由 rows / autoSize 决定。 三套体系分别调整内边距和最小高度；MD3 使用桌面紧凑几何。bordered=false 时几何和排版由宿主提供。
      */
     "size"?: "large" | "medium" | "small";
 

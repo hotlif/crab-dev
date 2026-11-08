@@ -1,0 +1,196 @@
+[
+  {
+    "file": "rc-select-chromium-narrow.png",
+    "source": ".tmp/theme-tail-evidence/results.json",
+    "project": "chromium",
+    "case": "md3 dark narrow",
+    "config": {
+      "id": "narrow",
+      "designSystem": "md3",
+      "colorMode": "dark"
+    },
+    "sha256": "6fafebf5f4c847ce17333dfa703920220e8ce8f735c4e9c29dfce6d3095775ec",
+    "review": "automated-pass-not-manually-reviewed"
+  },
+  {
+    "file": "rc-select-chromium-touch.png",
+    "source": ".tmp/theme-tail-evidence/results.json",
+    "project": "chromium",
+    "case": "md3 dark touch",
+    "config": {
+      "id": "touch",
+      "designSystem": "md3",
+      "colorMode": "dark"
+    },
+    "sha256": "126e93fd795ff54e7ec01091b5d95dc6bef2c532d79e38821da9ccee93c84c47",
+    "review": "automated-pass-not-manually-reviewed"
+  },
+  {
+    "file": "rc-select-chromium-rtl.png",
+    "source": ".tmp/theme-tail-evidence/results.json",
+    "project": "chromium",
+    "case": "md3 dark rtl",
+    "config": {
+      "id": "rtl",
+      "designSystem": "md3",
+      "colorMode": "dark"
+    },
+    "sha256": "20a67f2883ee140d3257b6e38cf88a2dbc3c17b0c90dfc6370f7e5034f80010a",
+    "review": "automated-pass-not-manually-reviewed"
+  },
+  {
+    "file": "rc-select-chromium-forced-colors.png",
+    "source": ".tmp/theme-tail-evidence/results.json",
+    "project": "chromium",
+    "case": "md3 dark forced-colors",
+    "config": {
+      "id": "forced-colors",
+      "designSystem": "md3",
+      "colorMode": "dark"
+    },
+    "sha256": "1b2267826cc69f35e5e3da06cb24a6bf4c20eae0a12438ff52296d6c1e1e494f",
+    "review": "automated-pass-not-manually-reviewed"
+  },
+  {
+    "file": "rc-select-chromium-zoom-200.png",
+    "source": ".tmp/theme-tail-evidence/results.json",
+    "project": "chromium",
+    "case": "md3 dark real zoom 200%",
+    "config": {
+      "id": "zoom-200",
+      "designSystem": "md3",
+      "colorMode": "dark"
+    },
+    "sha256": "9faf93e578da66e3f844c8c994dd6faa5a3eb1dfa9ef72d3208c1af70fc28caf",
+    "review": "passed",
+    "note": "最终原图人工抽查：标签、正文、清除/选择操作与焦点轮廓无碰撞；真实200%缩放、RTL、触控或强制颜色按该图配置复核。"
+  },
+  {
+    "file": "rc-switch-chromium-narrow.png",
+    "source": ".tmp/theme-tail-evidence/results.json",
+    "project": "chromium",
+    "case": "environment and real input",
+    "config": {
+      "id": "narrow",
+      "designSystem": "md3",
+      "colorMode": "dark"
+    },
+    "sha256": "8727691a09aa3935dbc63dfae6815a00cf43b782d2b5bbdb0f917d8824fc777a",
+    "review": "automated-pass-not-manually-reviewed"
+  },
+  {
+    "file": "rc-switch-chromium-touch.png",
+    "source": ".tmp/theme-tail-evidence/results.json",
+    "project": "chromium",
+    "case": "environment and real input",
+    "config": {
+      "id": "touch",
+      "designSystem": "md3",
+      "colorMode": "dark"
+    },
+    "sha256": "65b7978e63d9bc55e15017e6ee00babc9712510c1a899a67a4739c2628ec412c",
+    "review": "passed",
+    "note": "最终原图人工抽查：标签、正文、清除/选择操作与焦点轮廓无碰撞；真实200%缩放、RTL、触控或强制颜色按该图配置复核。"
+  },
+  {
+    "file": "rc-switch-chromium-rtl.png",
+    "source": ".tmp/theme-tail-evidence/results.json",
+    "project": "chromium",
+    "case": "environment and real input",
+    "config": {
+      "id": "rtl",
+      "designSystem": "md3",
+      "colorMode": "dark"
+    },
+    "sha256": "19514f77c0bdd4461c26e51de3778cefc8c17b786c74465466d0b5323dacb71a",
+    "review": "automated-pass-not-manually-reviewed"
+  },
+  {
+    "file": "rc-switch-chromium-forced-colors.png",
+    "source": ".tmp/theme-tail-evidence/results.json",
+    "project": "chromium",
+    "case": "environment and real input",
+    "config": {
+      "id": "forced-colors",
+      "designSystem": "md3",
+      "colorMode": "dark"
+    },
+    "sha256": "f85b1814e176a2edc2cdaf19c74d77338dbddf2db5aa27f18976ed3b31a6025a",
+    "review": "automated-pass-not-manually-reviewed"
+  },
+  {
+    "file": "rc-switch-chromium-zoom-200.png",
+    "source": ".tmp/theme-tail-evidence/results.json",
+    "project": "chromium",
+    "case": "Switch md3 dark real 200% zoom",
+    "config": {
+      "id": "zoom-200",
+      "designSystem": "md3",
+      "colorMode": "dark"
+    },
+    "sha256": "80c577cc82d6dd1a637c667d7530dccac07626706c8cfdd7fe39c769102f61b0",
+    "review": "passed",
+    "note": "最终原图人工抽查：标签、正文、清除/选择操作与焦点轮廓无碰撞；真实200%缩放、RTL、触控或强制颜色按该图配置复核。"
+  },
+  {
+    "file": "rc-tabs-chromium-narrow.png",
+    "source": ".tmp/theme-tail-evidence/results.json",
+    "project": "chromium",
+    "case": "component environment",
+    "config": {
+      "designSystem": "md3",
+      "colorMode": "dark",
+      "id": "narrow",
+      "size": "medium",
+      "density": "standard"
+    },
+    "sha256": "4efb54ff9a6152dc835944cd3f545f161fec50abf540d756c096d749e507b9a8",
+    "review": "automated-pass-not-manually-reviewed"
+  },
+  {
+    "file": "rc-tabs-chromium-touch.png",
+    "source": ".tmp/theme-tail-evidence/results.json",
+    "project": "chromium",
+    "case": "component environment",
+    "config": {
+      "designSystem": "md3",
+      "colorMode": "dark",
+      "id": "touch",
+      "size": "medium",
+      "density": "standard"
+    },
+    "sha256": "e1dcaf3b5c0c6e70ec7b5d0a4338ffca3df50d69f5cf2869f6a464f2e2e9d52c",
+    "review": "automated-pass-not-manually-reviewed"
+  },
+  {
+    "file": "rc-tabs-chromium-rtl.png",
+    "source": ".tmp/theme-tail-evidence/results.json",
+    "project": "chromium",
+    "case": "component environment",
+    "config": {
+      "designSystem": "md3",
+      "colorMode": "dark",
+      "id": "rtl",
+      "size": "medium",
+      "density": "standard",
+      "direction": "rtl"
+    },
+    "sha256": "7dc783cf7397448fc500fc480d47a8a2d99bc72c3164edd8281fa4687ba243aa",
+    "review": "automated-pass-not-manually-reviewed"
+  },
+  {
+    "file": "rc-tabs-chromium-forced-colors.png",
+    "source": ".tmp/theme-tail-evidence/results.json",
+    "project": "chromium",
+    "case": "component environment",
+    "config": {
+      "designSystem": "md3",
+      "colorMode": "dark",
+      "id": "forced-colors",
+      "size": "medium",
+      "density": "standard"
+    },
+    "sha256": "8b2c4806f188b155e7649b0da8d71aa09f0e372211668dfc852b94880f4ffa48",
+    "review": "automated-pass-not-manually-reviewed"
+  }
+]

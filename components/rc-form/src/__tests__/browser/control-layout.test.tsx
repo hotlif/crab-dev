@@ -41,7 +41,7 @@ function describedText(control: HTMLElement) {
         .map(id => document.getElementById(id)?.textContent ?? '').join(' ');
 }
 
-function assertGeometry(form: HTMLFormElement, designSystem: string, direction: string) {
+function assertGeometry(form: HTMLFormElement, _designSystem: string, direction: string) {
     const formRect = form.getBoundingClientRect();
     expect(getComputedStyle(form).direction).toBe(direction);
     expect(form.scrollWidth).toBeLessThanOrEqual(form.clientWidth + 1);
@@ -61,9 +61,9 @@ function assertGeometry(form: HTMLFormElement, designSystem: string, direction: 
         const label = requiredElement<HTMLElement>(row, name === 'project' ? '[data-role="select-label"]' : 'label');
         const labelRect = label.getBoundingClientRect();
         const controlRect = control.getBoundingClientRect();
-        // Apple/shadcn fields own their above-control label layout. Form must
+        // Every design owns its above-control label layout. Form must
         // not turn only direct LineEdit into a different inline-label design.
-        if (designSystem !== 'md3') expect(labelRect.bottom).toBeLessThanOrEqual(controlRect.top + 1);
+        expect(labelRect.bottom).toBeLessThanOrEqual(controlRect.top - 3);
         expect(labelRect.left).toBeGreaterThanOrEqual(formRect.left - 1);
         expect(labelRect.right).toBeLessThanOrEqual(formRect.right + 1);
         for (const id of input.getAttribute('aria-describedby')?.split(/\s+/) ?? []) {

@@ -45,12 +45,12 @@ count.color = "$ref(color.text.tertiary)"
 count.font-size = "$ref(typography.caption.font-size)"
 
 size.large.height = "$ref(sizing.large.field)"
-size.large.padding = "$ref(space.inline-gap) $ref(field.control.padding-inline)"
+size.large.padding = "0 $ref(field.control.padding-inline)"
 size.large.font-size = "$ref(field.input.font-size)"
 size.large.line-height = "$ref(field.input.line-height)"
 
 size.medium.height = "$ref(sizing.medium.field)"
-size.medium.padding = "$ref(space.inline-gap) $ref(field.control.padding-inline)"
+size.medium.padding = "0 $ref(field.control.padding-inline)"
 size.medium.font-size = "$ref(field.input.font-size)"
 size.medium.line-height = "$ref(field.input.line-height)"
 

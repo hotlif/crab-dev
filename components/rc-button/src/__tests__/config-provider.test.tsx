@@ -36,25 +36,31 @@ describe('Button global size', () => {
         }
     });
     it('resolves explicit size before group size before provider size', async () => {
-        const { rerender } = await render(
-            <ConfigProvider size="large">
+        const example = (size: 'small' | 'large') => (
+            <ConfigProvider size={size}>
                 <Button>Inherited</Button>
+                <ButtonGroup><Button>Inherited group</Button></ButtonGroup>
                 <Button size="m">Large</Button>
                 <Button size="xs">Small</Button>
                 <ButtonGroup size="xs">
                     <Button>Grouped</Button>
                     <Button size="m">Explicit</Button>
                 </ButtonGroup>
-            </ConfigProvider>,
+            </ConfigProvider>
         );
+        const { rerender } = await render(example('large'));
         const large = screen.getByText('Large').closest('button')?.className;
         const small = screen.getByText('Small').closest('button')?.className;
         expect(large).not.toBe(small);
-        expect(screen.getByText('Inherited').closest('button')?.className).toBe(large);
+        const inherited = screen.getByText('Inherited').closest('button')!;
+        const inheritedLarge = inherited.className;
+        expect(inheritedLarge).not.toBe(large);
+        expect(screen.getByText('Inherited group').closest('button')?.className).toBe(inheritedLarge);
         expect(screen.getByText('Grouped').closest('button')?.className).toBe(small);
         expect(screen.getByText('Explicit').closest('button')?.className).toBe(large);
-        await rerender(<ConfigProvider size="small"><Button>Inherited</Button></ConfigProvider>);
-        expect(screen.getByText('Inherited').closest('button')?.className).toBe(small);
+        await rerender(example('small'));
+        expect(screen.getByText('Inherited').closest('button')).toBe(inherited);
+        expect(inherited.className).not.toBe(inheritedLarge);
     });
 
     it('keeps group spacing consistent with inherited size', async () => {

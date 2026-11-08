@@ -36,7 +36,7 @@ interface BaseButtonProps {
     danger?: boolean;
 
     /**
-     * Expressive 五档尺寸 xs/s/m/l/xl；省略时由全局 small/medium/large 映射为 xs/s/m
+     * 显式 Expressive 五档 xs/s/m/l/xl；省略时 MD3 按全局三档使用 32/36/40px，Apple/shadcn 映射 xs/s/m
      */
     size?: 'xs' | 's' | 'm' | 'l' | 'xl';
 

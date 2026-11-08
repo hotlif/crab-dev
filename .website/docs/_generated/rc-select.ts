@@ -40,7 +40,7 @@ export const demos = [
     {
         "id": "docs/demos/field-states.demo.tsx",
         "title": "标签与选择状态",
-        "description": "对照三套主题下的静态或浮动标签、选择面板、错误及禁用状态；切换主题保留当前值。",
+        "description": "对照三套主题下的上置标签、选择面板、错误及禁用状态；切换主题保留当前值。",
         "learning": {
             "components": [
                 "Select"
@@ -62,7 +62,7 @@ export const demos = [
             "events": [],
             "hasState": false
         },
-        "sourceCode": "export const meta = {\n    title: \"标签与选择状态\",\n    description: \"对照三套主题下的静态或浮动标签、选择面板、错误及禁用状态；切换主题保留当前值。\",\n};\n\nimport { css } from \"@crab-dev/css\";\nimport token from \"@crab-dev/rc-token-semantic\";\nimport Select from \"../../src/index.js\";\n\nconst layout = css`\n    display: grid;\n    gap: ${token.space['group-gap']};\n    padding: ${token.space['section-gap']};\n`;\nconst options = [\n    { label: \"产品设计\", value: \"design\" },\n    { label: \"工程研发\", value: \"engineering\" },\n    { label: \"市场运营\", value: \"marketing\" },\n    { label: \"已归档团队\", value: \"archived\", disabled: true },\n];\n\nexport default function FieldStatesDemo() {\n    return \u003cdiv className={layout}>\n        \u003cSelect label=\"所属团队\" options={options} placeholder=\"选择团队\" searchable allowClear defaultValue=\"design\" supportingText=\"输入名称可以筛选团队。\" />\n        \u003cSelect label=\"审核团队\" options={options} appearance=\"filled\" required errorText=\"请选择一个审核团队。\" />\n        \u003cSelect label=\"参与团队\" options={options} multiple defaultValue={['design', 'engineering']} />\n        \u003cSelect label=\"归档团队\" options={options} disabled defaultValue=\"archived\" />\n    \u003c/div>;\n}\n",
+        "sourceCode": "export const meta = {\n    title: \"标签与选择状态\",\n    description: \"对照三套主题下的上置标签、选择面板、错误及禁用状态；切换主题保留当前值。\",\n};\n\nimport { css } from \"@crab-dev/css\";\nimport token from \"@crab-dev/rc-token-semantic\";\nimport Select from \"../../src/index.js\";\n\nconst layout = css`\n    display: grid;\n    gap: ${token.space['group-gap']};\n    padding: ${token.space['section-gap']};\n`;\nconst options = [\n    { label: \"产品设计\", value: \"design\" },\n    { label: \"工程研发\", value: \"engineering\" },\n    { label: \"市场运营\", value: \"marketing\" },\n    { label: \"已归档团队\", value: \"archived\", disabled: true },\n];\n\nexport default function FieldStatesDemo() {\n    return \u003cdiv className={layout}>\n        \u003cSelect label=\"所属团队\" options={options} placeholder=\"选择团队\" searchable allowClear defaultValue=\"design\" supportingText=\"输入名称可以筛选团队。\" />\n        \u003cSelect label=\"审核团队\" options={options} appearance=\"filled\" required errorText=\"请选择一个审核团队。\" />\n        \u003cSelect label=\"参与团队\" options={options} multiple defaultValue={['design', 'engineering']} />\n        \u003cSelect label=\"归档团队\" options={options} disabled defaultValue=\"archived\" />\n    \u003c/div>;\n}\n",
         "previewPath": "/components/rc-select/workbench/?__wake_demo=docs%2Fdemos%2Ffield-states.demo.tsx",
         "workbenchPath": "/components/rc-select/workbench/#/components/docs%2Fdemos%2Ffield-states.demo.tsx",
         "density": "compact",

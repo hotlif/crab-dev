@@ -95,7 +95,7 @@ const token = defineTokens({
         'opacity-disabled': `var(${vars['item.opacity-disabled']}, var(--token-semantic-opacity-disabled, var(--token-global-opacity-38, 0.38)))`,
         'icon': {
             'gap': `var(${vars['item.icon.gap']}, var(--token-semantic-space-tab-icon-gap, var(--token-global-space-2, 8px)))`,
-            'width': `var(${vars['item.icon.width']}, var(--token-semantic-size-tab-icon, var(--token-global-space-6, 24px)))`
+            'width': `var(${vars['item.icon.width']}, var(--token-semantic-size-tab-icon, var(--token-global-space-5, 20px)))`
         }
     },
     'content': {
@@ -108,12 +108,12 @@ const token = defineTokens({
             'padding-inline': `var(${vars['size.small.padding-inline']}, 12px)`
         },
         'medium': {
-            'height': `var(${vars['size.medium.height']}, var(--token-semantic-sizing-medium-tab, var(--token-global-size-48, 48px)))`,
+            'height': `var(${vars['size.medium.height']}, var(--token-semantic-sizing-medium-tab, var(--token-global-size-36, 36px)))`,
             'font-size': `var(${vars['size.medium.font-size']}, var(--token-semantic-typography-label-large-font-size, var(--token-global-font-size-sm, 14px)))`,
             'padding-inline': `var(${vars['size.medium.padding-inline']}, 16px)`
         },
         'large': {
-            'height': `var(${vars['size.large.height']}, var(--token-semantic-sizing-large-tab, var(--token-global-size-48, 48px)))`,
+            'height': `var(${vars['size.large.height']}, var(--token-semantic-sizing-large-tab, var(--token-global-size-40, 40px)))`,
             'font-size': `var(${vars['size.large.font-size']}, var(--token-semantic-typography-label-large-font-size, var(--token-global-font-size-sm, 14px)))`,
             'padding-inline': `var(${vars['size.large.padding-inline']}, 20px)`
         }

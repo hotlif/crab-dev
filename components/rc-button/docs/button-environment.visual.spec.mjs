@@ -29,6 +29,19 @@ for (const config of configurations) for (const environment of environmentCases)
                 await expect(hit).toHaveCount(1);
                 const bounds = await hit.boundingBox();
                 expect(bounds.width).toBeGreaterThanOrEqual(48); expect(bounds.height).toBeGreaterThanOrEqual(48);
+                const targets = await frame.locator('[data-visual-scene] button').evaluateAll(nodes => nodes.filter(node => !node.disabled).map(node => {
+                    const box = node.getBoundingClientRect();
+                    return { x: box.x, y: box.y, right: box.right, bottom: box.bottom, width: box.width, height: box.height };
+                }));
+                for (const [index, first] of targets.entries()) {
+                    expect(first.width).toBeGreaterThanOrEqual(48);
+                    expect(first.height).toBeGreaterThanOrEqual(48);
+                    for (const second of targets.slice(index + 1)) {
+                        const width = Math.min(first.right, second.right) - Math.max(first.x, second.x);
+                        const height = Math.min(first.bottom, second.bottom) - Math.max(first.y, second.y);
+                        expect(width > 1 && height > 1, 'Adjacent coarse-pointer actions must not overlap').toBe(false);
+                    }
+                }
                 const point = { x: bounds.x + bounds.width / 2, y: bounds.y + 1 };
                 expect(await primary.evaluate((node, point) => node.ownerDocument.elementFromPoint(point.x, point.y)?.closest('button') === node, point)).toBe(true);
                 await page.touchscreen.tap(point.x, point.y);

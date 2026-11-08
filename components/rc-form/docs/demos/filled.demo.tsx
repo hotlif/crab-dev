@@ -1,6 +1,6 @@
 export const meta = {
     title: "Filled 填充字段",
-    description: "同一表单统一使用 filled，并由控件布局标签。Material Design 3 Expressive 呈现填充容器、浮动标签和焦点底线；Apple 和 shadcn/ui 使用控件自有的上方静态标签。",
+    description: "同一表单统一使用 filled，并由控件布局标签。三主题统一使用上置标签；MD3 保留填充容器和焦点底线。",
 };
 
 import { useState } from "react";

@@ -1,6 +1,6 @@
 export const meta = {
     title: "随主题切换的文本字段",
-    description: "Material 下展示 outlined / filled 与浮动标签；切换至 Apple 或 shadcn 后，同一文本域自动采用上置标签和紧凑边框。",
+    description: "三主题统一使用上置标签；对比 MD3、Apple 和 shadcn 的 outlined / filled 表面与边框。",
 };
 
 import { css } from "@crab-dev/css";

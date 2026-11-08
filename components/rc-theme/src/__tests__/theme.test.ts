@@ -440,7 +440,7 @@ describe("theme color contract", () => {
     it('defines all multiline size geometries and resets them at every design/mode boundary', async () => {
         const terminalLength = (value: string) => Number(value.match(/([\d.]+)px\)+$/)?.[1]);
         const expected = {
-            md3: { min: [56, 56, 56], inline: [16, 16, 16], block: [16, 16, 16] },
+            md3: { min: [32, 40, 48], inline: [8, 12, 16], block: [4, 8, 12] },
             apple: { min: [32, 36, 40], inline: [8, 12, 16], block: [2, 4, 8] },
             shadcn: { min: [56, 64, 72], inline: [8, 12, 16], block: [4, 8, 12] },
         } as const;
@@ -455,8 +455,8 @@ describe("theme color contract", () => {
                 } else expect(terminalLength(geometry.minHeight)).toBe(expected[design].min[index]);
                 expect(terminalLength(geometry.paddingInline)).toBe(expected[design].inline[index]);
                 expect(terminalLength(geometry.paddingBlock)).toBe(expected[design].block[index]);
-                expect(terminalLength(geometry.filledPaddingTop)).toBe(design === 'md3' ? 24 : expected[design].block[index]);
-                expect(terminalLength(geometry.filledPaddingBottom)).toBe(design === 'md3' ? 8 : expected[design].block[index]);
+                expect(terminalLength(geometry.filledPaddingTop)).toBe(expected[design].block[index]);
+                expect(terminalLength(geometry.filledPaddingBottom)).toBe(expected[design].block[index]);
                 for (const [role, property] of [
                     ['min-height', 'minHeight'], ['padding-inline', 'paddingInline'], ['padding-block', 'paddingBlock'],
                     ['filled-padding-top', 'filledPaddingTop'], ['filled-padding-bottom', 'filledPaddingBottom'],
@@ -472,7 +472,7 @@ describe("theme color contract", () => {
         const material = designFieldContract.md3;
         const shadcn = designFieldContract.shadcn;
         expect(Object.keys(material).sort()).toEqual(Object.keys(shadcn).sort());
-        expect(material.controlMinHeight).toContain('56px');
+        expect(material.controlMinHeight).toBe('0px');
         expect(material.requiredColor).toBe('initial');
         expect(material.requiredOrder).toBe('1');
         expect(shadcn.requiredColor).toContain('--token-semantic-color-feedback-error-text');
@@ -481,15 +481,16 @@ describe("theme color contract", () => {
         expect(material.requiredGap).toBe(shadcn.requiredGap);
         expect(material.inputFontSize).toContain('16px');
         expect(material.controlIconPaddingInline).toContain('12px');
-        expect(material.iconSize).toContain('24px');
-        expect(material.iconGap).toContain('16px');
+        expect(material.iconSize).toContain('20px');
+        expect(material.iconGap).toContain('8px');
         const terminalLength = (value: string) => Number(value.match(/([\d.]+)px\)+$/)?.[1]);
-        expect(terminalLength(material.controlIconPaddingInline) + terminalLength(material.iconSize) + terminalLength(material.iconGap)).toBe(52);
-        expect(material.labelPrefixMarginInline).toContain('--token-global-space-6');
-        expect(material.labelFloatingFontSize).toContain('12px');
-        expect(material.layoutControlRow).toBe(material.layoutLabelRow);
-        expect(material.outlineDisplay).toBe('block');
-        expect(material.labelFloatingTransform).toBe('translateY(-50%)');
+        expect(terminalLength(material.controlIconPaddingInline) + terminalLength(material.iconSize) + terminalLength(material.iconGap)).toBe(40);
+        expect(material.labelPrefixMarginInline).toBe('0px');
+        expect(material.labelFloatingFontSize).toContain('14px');
+        expect(material.layoutControlRow).toBe('2');
+        expect(material.layoutLabelRow).toBe('1');
+        expect(material.outlineDisplay).toBe('none');
+        expect(material.labelFloatingTransform).toBe('none');
         expect(material.filledBorderWidth).toBe('0 0 1px');
         expect(material.disabledColor).toContain('38%');
         expect(material.disabledBorderColor).toContain('12%');
@@ -547,6 +548,12 @@ describe("theme color contract", () => {
         expect(propertiesFor('apple')).toEqual(propertiesFor('shadcn'));
         expect(propertiesFor('apple')).toContain('--token-semantic-sizing-medium-toggle-handle-inset');
         expect(propertiesFor('apple')).toContain('--token-semantic-overlay-dialog-padding');
+        expect(propertiesFor('apple')).toContain('--token-semantic-size-toggle-layout-block');
+        expect(designMetricsContract.md3.toggle.layoutBlock).toContain('36px');
+        for (const design of ['apple', 'shadcn'] as const) {
+            expect(designMetricsContract[design].toggle.layoutBlock).toContain('48px');
+            expect(designMetricsContract[design].toggle.layoutInline).toContain('48px');
+        }
     });
 
     it('keeps shadcn Filled surfaces paired with readable text in both color modes', async () => {

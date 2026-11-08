@@ -152,7 +152,13 @@ for (const config of configurations)
             const circle = circleRoot.getByRole('button', { name: '新增', exact: true }).nth(1);
             const sourceCircle = await normalAndPressed(page, circle);
             for (const phase of ['normal', 'pressed']) {
-                sameShape(sourceCircle[phase], publicShapes.circle[phase]);
+                // This demo inherits medium; the public matrix explicitly uses s.
+                // MD3 keeps their circle shape while separating 36px and 40px.
+                if (config.designSystem === 'md3') {
+                    expect(sourceCircle[phase].radii).toEqual(publicShapes.circle[phase].radii);
+                    expect(sourceCircle[phase].height).toBeCloseTo(36, 1);
+                    expect(publicShapes.circle[phase].height).toBeCloseTo(40, 1);
+                } else sameShape(sourceCircle[phase], publicShapes.circle[phase]);
                 expect(sourceCircle[phase].width).toBeCloseTo(sourceCircle[phase].height, 1);
                 expect(Number.parseFloat(sourceCircle[phase].radii[0])).toBeGreaterThanOrEqual(sourceCircle[phase].height / 2);
             }

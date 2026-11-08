@@ -88,21 +88,21 @@ import { demos } from "../_generated/rc-button.js";
 | `tonal` | Tonal，需要适度强调的次级操作 |
 | `text` | Text，说明、展开等轻量入口 |
 
-五种外观对应 [Material 按钮概览](https://m3.material.io/components/buttons/overview)。Elevated 单独提供，使用 Surface container low、Primary 文字和 Level 1 阴影，悬停提升至 Level 2。普通按钮采用当前 [Material 按钮 Specs](https://m3.material.io/components/buttons/specs) 的 On surface variant 文字和 Outline variant 描边；MD3 默认 S 采用 40px 高度、16px 水平内边距和 14px 标签文字。
+五种外观对应 [Material 按钮概览](https://m3.material.io/components/buttons/overview)。Elevated 单独提供，使用 Surface container low、Primary 文字和 Level 1 阴影，悬停提升至 Level 2。普通按钮采用当前 [Material 按钮 Specs](https://m3.material.io/components/buttons/specs) 的 On surface variant 文字和 Outline variant 描边；MD3 显式 S 采用 40px 高度、16px 水平内边距和 14px 标签文字。
 
 ### 尺寸
 
 | size | MD3 高度 / 水平内边距 | Apple 高度 / 水平内边距 | shadcn 高度 / 水平内边距 |
 | --- | --- | --- | --- |
 | `xs` | 32 / 16px | 24 / 8px | 32 / 12px |
-| `s`（默认） | 40 / 16px | 28 / 12px | 36 / 16px |
+| `s` | 40 / 16px | 28 / 12px | 36 / 16px |
 | `m` | 56 / 24px | 32 / 16px | 40 / 24px |
 | `l` | 96 / 48px | 40 / 20px | 48 / 24px |
 | `xl` | 136 / 64px | 48 / 24px | 56 / 32px |
 
-显式 `size` 保留五档；省略时，全局 `small / medium / large` 分别映射为 `xs / s / m`。`density` 不改变按钮尺寸。MD3 使用当前 Expressive 五档尺寸；桌面专业界面的普通动作建议使用 XS/S，L/XL 留给关键操作。Apple 是自主 Web 设计，shadcn 的 L/XL 是 Crab 扩展；参考实现的 XS 微型按钮不映射为本库同名档位。
+显式 `size` 保留五档。省略 Button 与 Group 的 size 时，MD3 按全局 `small / medium / large` 使用 32 / 36 / 40px；Apple 和 shadcn 仍分别映射到自身 `xs / s / m`。根配置下 MD3 普通按钮为 36px。`density` 不改变按钮尺寸；显式 L/XL 留给关键操作。Apple 是自主 Web 设计，shadcn 的 L/XL 是 Crab 扩展；参考实现的 XS 微型按钮不映射为本库同名档位。
 
-MD3 的字号依次为 14/14/16/24/32px，图标为 20/20/24/32/40px，图标间距为 8/8/8/12/16px，描边为 1/1/1/2/3px。Square 圆角为 12/12/16/28/28px，按压圆角为 8/8/12/16/16px。Apple 和 shadcn 保持稳定的 6px、8px 圆角及 1px 描边。粗指针命中区域至少 48×48px，独立于视觉边界；文字放大允许按钮自然增高。
+MD3 的字号依次为 14/14/16/24/32px，图标为 20/20/24/32/40px，图标间距为 8/8/8/12/16px，描边为 1/1/1/2/3px。Square 圆角为 12/12/16/28/28px，按压圆角为 8/8/12/16/16px。Apple 和 shadcn 保持稳定的 6px、8px 圆角及 1px 描边。粗指针命中区域至少 48×48px，并在布局中预留空间，避免相邻操作命中重叠；文字放大允许按钮自然增高。
 
 MD3 默认几何在 L2 TOML 维护；Apple/shadcn 扩展在 L2 `design-actions.ts` 维护，Theme 只做变量映射。嵌套 MD3 边界清除上层设计覆盖并恢复默认角色。实际状态场景在本包 `visual-matrix.demo.tsx`，Playwright 用例与适用轴随包维护。
 
@@ -158,6 +158,12 @@ Apple 是参考 Apple 控件层级的 Web 风格，不模拟操作系统私有�
 
 
 ### ButtonGroup
+
+
+
+### 继承尺寸的桌面按钮
+
+未显式设置 Button 或 Group 的 size 时，MD3 按 Provider 的 small / medium / large 使用 32 / 36 / 40px，高度与显式 Expressive 五档独立。标签保持 14px / 20px，左右内边距分别为 12 / 16 / 20px。主题切换保留同一交互节点和焦点；Apple 与 shadcn 继承尺寸的原有映射保持不变。
 
 ### 适用场景
 

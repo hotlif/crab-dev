@@ -16,7 +16,7 @@ export type { BrandTheme, BrandThemeVariables } from './brand-theme.js';
 
 export default Token;
 
-export { designMetricsContract, designFieldContract, designShapeContract } from './design-geometry.js';
+export { designFieldSizeContract, designMetricsContract, designFieldContract, designShapeContract } from './design-geometry.js';
 export { designTypographyContract, designMotionContract } from './design-type-motion.js';
 export { themeSelectors, designThemeSelectors } from './design-system.js';
 

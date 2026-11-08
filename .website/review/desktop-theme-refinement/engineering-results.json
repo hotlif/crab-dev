@@ -1,0 +1,363 @@
+{
+  "status": "passed",
+  "reviewMethod": "由本次助手查看实际浏览器截图；与自动断言结果分开记录。",
+  "completedAt": "2026-11-03T15:52:53.035Z",
+  "repository": {
+    "command": "yarn check",
+    "result": "passed",
+    "steps": [
+      {
+        "script": "check:architecture",
+        "seconds": 3,
+        "result": "passed"
+      },
+      {
+        "script": "check:tokens",
+        "seconds": 2,
+        "result": "passed"
+      },
+      {
+        "script": "check:generated:local",
+        "seconds": 23.7,
+        "result": "passed"
+      },
+      {
+        "script": "lint",
+        "seconds": 117.7,
+        "result": "passed"
+      },
+      {
+        "script": "build:library",
+        "seconds": 4.6,
+        "result": "passed"
+      },
+      {
+        "script": "check:exports",
+        "seconds": 14.2,
+        "result": "passed"
+      },
+      {
+        "script": "check:consumer",
+        "seconds": 22.7,
+        "result": "passed"
+      },
+      {
+        "script": "typecheck",
+        "seconds": 66.1,
+        "result": "passed"
+      },
+      {
+        "script": "test",
+        "seconds": 504.9,
+        "result": "passed"
+      },
+      {
+        "script": "test:required",
+        "seconds": 1782.8,
+        "result": "passed"
+      },
+      {
+        "script": "docs:build",
+        "seconds": 288.4,
+        "result": "passed"
+      }
+    ],
+    "requiredChecks": [
+      {
+        "workspace": "@crab-dev/rc-app-main-layout",
+        "script": "test:browser",
+        "result": "passed"
+      },
+      {
+        "workspace": "@crab-dev/rc-avatar",
+        "script": "test:browser",
+        "result": "passed"
+      },
+      {
+        "workspace": "@crab-dev/rc-avatar",
+        "script": "test:forced-colors",
+        "result": "passed"
+      },
+      {
+        "workspace": "@crab-dev/rc-badge",
+        "script": "test:browser",
+        "result": "passed"
+      },
+      {
+        "workspace": "@crab-dev/rc-bar-chart",
+        "script": "test:browser",
+        "result": "passed"
+      },
+      {
+        "workspace": "@crab-dev/rc-bar-chart",
+        "script": "test:forced-colors",
+        "result": "passed"
+      },
+      {
+        "workspace": "@crab-dev/rc-bar-chart",
+        "script": "test:focus",
+        "result": "passed"
+      },
+      {
+        "workspace": "@crab-dev/rc-canvas",
+        "script": "test:browser",
+        "result": "passed"
+      },
+      {
+        "workspace": "@crab-dev/rc-card",
+        "script": "test:browser",
+        "result": "passed"
+      },
+      {
+        "workspace": "@crab-dev/rc-card",
+        "script": "test:natural",
+        "result": "passed"
+      },
+      {
+        "workspace": "@crab-dev/rc-color-picker",
+        "script": "test:browser",
+        "result": "passed"
+      },
+      {
+        "workspace": "@crab-dev/rc-color-picker",
+        "script": "test:forced-colors",
+        "result": "passed"
+      },
+      {
+        "workspace": "@crab-dev/rc-cron-picker",
+        "script": "test:browser",
+        "result": "passed"
+      },
+      {
+        "workspace": "@crab-dev/rc-date-picker",
+        "script": "test:browser",
+        "result": "passed"
+      },
+      {
+        "workspace": "@crab-dev/rc-divider",
+        "script": "test:browser",
+        "result": "passed"
+      },
+      {
+        "workspace": "@crab-dev/rc-dropdown-container",
+        "script": "test:browser",
+        "result": "passed"
+      },
+      {
+        "workspace": "@crab-dev/rc-dropdown-container",
+        "script": "test:published",
+        "result": "passed"
+      },
+      {
+        "workspace": "@crab-dev/rc-form",
+        "script": "test:browser",
+        "result": "passed"
+      },
+      {
+        "workspace": "@crab-dev/rc-hooks",
+        "script": "test:browser",
+        "result": "passed"
+      },
+      {
+        "workspace": "@crab-dev/rc-line-edit",
+        "script": "test:browser",
+        "result": "passed"
+      },
+      {
+        "workspace": "@crab-dev/rc-line-edit",
+        "script": "test:forced-colors",
+        "result": "passed"
+      },
+      {
+        "workspace": "@crab-dev/rc-masonry",
+        "script": "test:browser",
+        "result": "passed"
+      },
+      {
+        "workspace": "@crab-dev/rc-menu",
+        "script": "test:browser",
+        "result": "passed"
+      },
+      {
+        "workspace": "@crab-dev/rc-menu",
+        "script": "test:forced-colors",
+        "result": "passed"
+      },
+      {
+        "workspace": "@crab-dev/rc-notification",
+        "script": "test:browser",
+        "result": "passed"
+      },
+      {
+        "workspace": "@crab-dev/rc-number-edit",
+        "script": "test:browser",
+        "result": "passed"
+      },
+      {
+        "workspace": "@crab-dev/rc-pagination",
+        "script": "test:browser",
+        "result": "passed"
+      },
+      {
+        "workspace": "@crab-dev/rc-pdf-editor",
+        "script": "test:build-tools",
+        "result": "passed"
+      },
+      {
+        "workspace": "@crab-dev/rc-pdf-editor",
+        "script": "test:web-component",
+        "result": "passed"
+      },
+      {
+        "workspace": "@crab-dev/rc-prose",
+        "script": "test:browser",
+        "result": "passed"
+      },
+      {
+        "workspace": "@crab-dev/rc-segmented",
+        "script": "test:browser",
+        "result": "passed"
+      },
+      {
+        "workspace": "@crab-dev/rc-select",
+        "script": "test:browser",
+        "result": "passed"
+      },
+      {
+        "workspace": "@crab-dev/rc-skeleton",
+        "script": "test:browser",
+        "result": "passed"
+      },
+      {
+        "workspace": "@crab-dev/rc-skeleton",
+        "script": "test:forced-colors",
+        "result": "passed"
+      },
+      {
+        "workspace": "@crab-dev/rc-spin",
+        "script": "test:reduced-motion",
+        "result": "passed"
+      },
+      {
+        "workspace": "@crab-dev/rc-switch",
+        "script": "test:forced-colors",
+        "result": "passed"
+      },
+      {
+        "workspace": "@crab-dev/rc-table",
+        "script": "test:browser",
+        "result": "passed"
+      },
+      {
+        "workspace": "@crab-dev/rc-table",
+        "script": "test:selection",
+        "result": "passed"
+      },
+      {
+        "workspace": "@crab-dev/rc-table",
+        "script": "test:forced-colors",
+        "result": "passed"
+      },
+      {
+        "workspace": "@crab-dev/rc-table-pro",
+        "script": "test:browser",
+        "result": "passed"
+      },
+      {
+        "workspace": "@crab-dev/rc-tabs",
+        "script": "test:browser",
+        "result": "passed"
+      },
+      {
+        "workspace": "@crab-dev/rc-tabs",
+        "script": "test:forced-colors",
+        "result": "passed"
+      },
+      {
+        "workspace": "@crab-dev/rc-tag",
+        "script": "test:browser",
+        "result": "passed"
+      },
+      {
+        "workspace": "@crab-dev/rc-tag",
+        "script": "test:forced-colors",
+        "result": "passed"
+      },
+      {
+        "workspace": "@crab-dev/rc-text-edit",
+        "script": "test:browser",
+        "result": "passed"
+      },
+      {
+        "workspace": "@crab-dev/rc-tree",
+        "script": "test:browser",
+        "result": "passed"
+      },
+      {
+        "workspace": "@crab-dev/rc-tree",
+        "script": "test:custom-editor",
+        "result": "passed"
+      },
+      {
+        "workspace": "@crab-dev/rc-tree",
+        "script": "test:forced-colors",
+        "result": "passed"
+      },
+      {
+        "workspace": "@crab-dev/rc-virtual",
+        "script": "test:browser",
+        "result": "passed"
+      }
+    ],
+    "log": ".tmp/theme-repository-complete-check.log",
+    "logSha256": "d68550f8700b9f505bd481b75e0f7ca8e60e9ce46b9cb9179604ab119146eb78"
+  },
+  "documentation": {
+    "commands": [
+      "yarn workspace @crab-dev/website generate:docs",
+      "yarn workspace @crab-dev/website check:docs",
+      "yarn workspace @crab-dev/website test:generator"
+    ],
+    "result": "passed",
+    "changedGeneratedFiles": 8,
+    "drift": 0,
+    "generatorTests": 52,
+    "log": ".tmp/theme-final-docs-sync.log",
+    "note": "Late changes only corrected prose. They were regenerated and checked separately; the final unified docs build includes them."
+  },
+  "browserMatrix": {
+    "uniqueCases": 7758,
+    "passed": 7758,
+    "chromium": 6264,
+    "firefox": 747,
+    "webkit": 747,
+    "recoveredInitialFailures": 8,
+    "unresolved": 0,
+    "evidence": "matrix-results.json"
+  },
+  "defaultInventory": {
+    "beforePassed": 300,
+    "afterPassed": 300,
+    "manuallyReviewedFinal": 300,
+    "packages": 50,
+    "evidence": "inventory-review.json"
+  },
+  "baselines": {
+    "passedCases": 36,
+    "nativePngs": 48,
+    "manuallyReviewed": 48,
+    "maxDiffPixels": 0,
+    "comparisonSettings": "unchanged",
+    "evidence": "baseline-review.json"
+  },
+  "manualEnvironmentSamples": {
+    "firefox": 11,
+    "chromium": 7
+  },
+  "limits": [
+    "Remote CI was not run.",
+    "No physical touch device or macOS/iOS/Safari integration testing.",
+    "Full state matrix covers the ten listed components and their declared applicable axes; other visual packages have default-viewport review only.",
+    "Only the 48 reviewed core images are approved pixel baselines. Product design coverage remains unchanged."
+  ]
+}

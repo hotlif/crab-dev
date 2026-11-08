@@ -1,0 +1,159 @@
+{
+  "scope": "All original, continuation, focused and final shard runs. Each worker verified unchanged inputs for its own capture; different documented test/doc revisions across runs have distinct fingerprints.",
+  "records": [
+    {
+      "folder": ".tmp/theme-chromium-initial-evidence",
+      "workers": 7,
+      "stable": true,
+      "sourceFingerprints": [
+        "sha256:5738eb4392024a7197a6e45340cbcbe971abd73cc723ce1873a15511dc15e94a"
+      ],
+      "artifactFingerprints": [
+        "sha256:53712c1c41746555abc1f0d856bbd2c946946ee465c1ed99c65e5f53a81260f2"
+      ],
+      "siteBuildFingerprints": [
+        "sha256:70ba617c251c4b183c1584ce69f7cdb110b5c8acaaf7006184df8a5abcffb850"
+      ]
+    },
+    {
+      "folder": ".tmp/theme-cross-evidence",
+      "workers": 21,
+      "stable": true,
+      "sourceFingerprints": [
+        "sha256:8a4827cd44be9db7cdf10d983a8f5bdcc856931d47d2066dca36e996d8027dad"
+      ],
+      "artifactFingerprints": [
+        "sha256:53712c1c41746555abc1f0d856bbd2c946946ee465c1ed99c65e5f53a81260f2"
+      ],
+      "siteBuildFingerprints": [
+        "sha256:640d9179a1dcda2b288f1f33de4b819599648b0534aca98cc1c0dbcfdb35d766"
+      ]
+    },
+    {
+      "folder": ".tmp/theme-continuation-evidence",
+      "workers": 8,
+      "stable": true,
+      "sourceFingerprints": [
+        "sha256:a85bd95a06039ad4053077073dcf781b757949a0ac19e6f534d193eb1642a7cd"
+      ],
+      "artifactFingerprints": [
+        "sha256:53712c1c41746555abc1f0d856bbd2c946946ee465c1ed99c65e5f53a81260f2"
+      ],
+      "siteBuildFingerprints": [
+        "sha256:70ba617c251c4b183c1584ce69f7cdb110b5c8acaaf7006184df8a5abcffb850"
+      ]
+    },
+    {
+      "folder": ".tmp/theme-tail-evidence",
+      "workers": 4,
+      "stable": true,
+      "sourceFingerprints": [
+        "sha256:032f26cf45adefb10a78a21ae87b1b08547e1d7d61e1dff33e7d4364664c6e9c"
+      ],
+      "artifactFingerprints": [
+        "sha256:53712c1c41746555abc1f0d856bbd2c946946ee465c1ed99c65e5f53a81260f2"
+      ],
+      "siteBuildFingerprints": [
+        "sha256:640d9179a1dcda2b288f1f33de4b819599648b0534aca98cc1c0dbcfdb35d766"
+      ]
+    },
+    {
+      "folder": ".tmp/theme-number-cross-retry-evidence",
+      "workers": 4,
+      "stable": true,
+      "sourceFingerprints": [
+        "sha256:032f26cf45adefb10a78a21ae87b1b08547e1d7d61e1dff33e7d4364664c6e9c"
+      ],
+      "artifactFingerprints": [
+        "sha256:53712c1c41746555abc1f0d856bbd2c946946ee465c1ed99c65e5f53a81260f2"
+      ],
+      "siteBuildFingerprints": [
+        "sha256:640d9179a1dcda2b288f1f33de4b819599648b0534aca98cc1c0dbcfdb35d766"
+      ]
+    },
+    {
+      "folder": ".tmp/theme-date-retry-evidence",
+      "workers": 1,
+      "stable": true,
+      "sourceFingerprints": [
+        "sha256:032f26cf45adefb10a78a21ae87b1b08547e1d7d61e1dff33e7d4364664c6e9c"
+      ],
+      "artifactFingerprints": [
+        "sha256:53712c1c41746555abc1f0d856bbd2c946946ee465c1ed99c65e5f53a81260f2"
+      ],
+      "siteBuildFingerprints": [
+        "sha256:640d9179a1dcda2b288f1f33de4b819599648b0534aca98cc1c0dbcfdb35d766"
+      ]
+    },
+    {
+      "folder": ".tmp/theme-select-firefox-retry-evidence",
+      "workers": 1,
+      "stable": true,
+      "sourceFingerprints": [
+        "sha256:032f26cf45adefb10a78a21ae87b1b08547e1d7d61e1dff33e7d4364664c6e9c"
+      ],
+      "artifactFingerprints": [
+        "sha256:53712c1c41746555abc1f0d856bbd2c946946ee465c1ed99c65e5f53a81260f2"
+      ],
+      "siteBuildFingerprints": [
+        "sha256:640d9179a1dcda2b288f1f33de4b819599648b0534aca98cc1c0dbcfdb35d766"
+      ]
+    },
+    {
+      "folder": ".tmp/theme-baseline-update-evidence",
+      "workers": 2,
+      "stable": true,
+      "sourceFingerprints": [
+        "sha256:032f26cf45adefb10a78a21ae87b1b08547e1d7d61e1dff33e7d4364664c6e9c"
+      ],
+      "artifactFingerprints": [
+        "sha256:53712c1c41746555abc1f0d856bbd2c946946ee465c1ed99c65e5f53a81260f2"
+      ],
+      "siteBuildFingerprints": [
+        "sha256:640d9179a1dcda2b288f1f33de4b819599648b0534aca98cc1c0dbcfdb35d766"
+      ]
+    },
+    {
+      "folder": ".tmp/theme-baseline-zero-evidence",
+      "workers": 2,
+      "stable": true,
+      "sourceFingerprints": [
+        "sha256:032f26cf45adefb10a78a21ae87b1b08547e1d7d61e1dff33e7d4364664c6e9c"
+      ],
+      "artifactFingerprints": [
+        "sha256:53712c1c41746555abc1f0d856bbd2c946946ee465c1ed99c65e5f53a81260f2"
+      ],
+      "siteBuildFingerprints": [
+        "sha256:640d9179a1dcda2b288f1f33de4b819599648b0534aca98cc1c0dbcfdb35d766"
+      ]
+    },
+    {
+      "folder": ".tmp/theme-final-shard-1-evidence",
+      "workers": 4,
+      "stable": true,
+      "sourceFingerprints": [
+        "sha256:a85bd95a06039ad4053077073dcf781b757949a0ac19e6f534d193eb1642a7cd"
+      ],
+      "artifactFingerprints": [
+        "sha256:53712c1c41746555abc1f0d856bbd2c946946ee465c1ed99c65e5f53a81260f2"
+      ],
+      "siteBuildFingerprints": [
+        "sha256:70ba617c251c4b183c1584ce69f7cdb110b5c8acaaf7006184df8a5abcffb850"
+      ]
+    },
+    {
+      "folder": ".tmp/theme-final-shard-2-evidence",
+      "workers": 4,
+      "stable": true,
+      "sourceFingerprints": [
+        "sha256:032f26cf45adefb10a78a21ae87b1b08547e1d7d61e1dff33e7d4364664c6e9c"
+      ],
+      "artifactFingerprints": [
+        "sha256:53712c1c41746555abc1f0d856bbd2c946946ee465c1ed99c65e5f53a81260f2"
+      ],
+      "siteBuildFingerprints": [
+        "sha256:640d9179a1dcda2b288f1f33de4b819599648b0534aca98cc1c0dbcfdb35d766"
+      ]
+    }
+  ]
+}

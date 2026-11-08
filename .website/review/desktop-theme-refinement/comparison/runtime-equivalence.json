@@ -1,0 +1,9 @@
+{
+  "evidence": ".tmp/theme-after-evidence/inputs-worker-0.json",
+  "scope": "组件运行时代码、令牌源码和默认/专项 Demo；排除测试与说明正文。",
+  "checkedFiles": 975,
+  "changed": [],
+  "recheckedAfterFinalTestFix": "2026-11-03",
+  "recheckedFiles": 975,
+  "recheckedChanged": []
+}

@@ -19,7 +19,7 @@ export interface LineEditProps {
     "appearance"?: "outlined" | "filled";
 
     /**
-     * 与输入框关联的可见标签；Material 浮动，Apple 与 shadcn 上置。
+     * 与输入框关联的可见标签；三套设计体系均为上置标签。
      */
     "label"?: string;
 

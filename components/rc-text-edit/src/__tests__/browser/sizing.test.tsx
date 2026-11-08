@@ -11,7 +11,7 @@ const designs = ['md3', 'apple', 'shadcn'] as const;
 type Design = typeof designs[number];
 type Size = typeof sizes[number];
 const geometry = {
-    md3: { min: [56, 56, 56], block: [16, 16, 16], inline: [16, 16, 16], font: 16, line: 24 },
+    md3: { min: [32, 40, 48], block: [4, 8, 12], inline: [8, 12, 16], font: 16, line: 24 },
     apple: { min: [32, 36, 40], block: [2, 4, 8], inline: [8, 12, 16], font: 14, line: 20 },
     shadcn: { min: [56, 64, 72], block: [4, 8, 12], inline: [8, 12, 16], font: 14, line: 20 },
 } as const;
@@ -90,14 +90,13 @@ describe('TextEdit actual size geometry', () => {
                         const controlStyle = getComputedStyle(control);
                         const inputStyle = getComputedStyle(textarea);
                         const expected = geometry[design];
-                        const materialFilled = design === 'md3' && labeled && appearance === 'filled';
                         expect(textarea).toBe(original);
                         expect(textarea.value).toBe('Keep this draft.');
                         expect(Number.parseFloat(controlStyle.minHeight)).toBe(expected.min[index]);
                         expect(Number.parseFloat(controlStyle.paddingInlineStart)).toBe(expected.inline[index]);
                         expect(Number.parseFloat(controlStyle.paddingInlineEnd)).toBe(expected.inline[index]);
-                        expect(Number.parseFloat(controlStyle.paddingBlockStart)).toBe(materialFilled ? 24 : expected.block[index]);
-                        expect(Number.parseFloat(controlStyle.paddingBlockEnd)).toBe(materialFilled ? 8 : expected.block[index]);
+                        expect(Number.parseFloat(controlStyle.paddingBlockStart)).toBe(expected.block[index]);
+                        expect(Number.parseFloat(controlStyle.paddingBlockEnd)).toBe(expected.block[index]);
                         expect(Number.parseFloat(inputStyle.fontSize)).toBe(expected.font);
                         expect(Number.parseFloat(inputStyle.lineHeight)).toBe(expected.line);
                         expect(control.getBoundingClientRect().height).toBeGreaterThanOrEqual(expected.min[index]);
@@ -117,11 +116,8 @@ describe('TextEdit actual size geometry', () => {
                         expect(action.right).toBeLessThanOrEqual(bounds.right);
                         expect(Number.parseFloat(getComputedStyle(textarea).paddingInlineEnd)).toBeGreaterThanOrEqual(action.width);
                     }
-                    if (design === 'md3') expect(heights).toEqual([heights[0], heights[0], heights[0]]);
-                    else {
-                        expect(heights[1]).toBeGreaterThan(heights[0]);
-                        expect(heights[2]).toBeGreaterThan(heights[1]);
-                    }
+                    expect(heights[1]).toBeGreaterThan(heights[0]);
+                    expect(heights[2]).toBeGreaterThan(heights[1]);
                 });
             }
         }

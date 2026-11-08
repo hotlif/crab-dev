@@ -1,0 +1,305 @@
+{
+  "updateRun": ".tmp/theme-baseline-update-evidence",
+  "comparisonRun": ".tmp/theme-baseline-zero-evidence",
+  "records": [
+    {
+      "path": "test/visual/baselines/linux/chromium/components/rc-dialog/docs/dialog.visual.spec.mjs/apple-dark-default.png",
+      "sha256": "55b0697f199d49f798d03f332394cd0102cf83444d5551b4e691278a9a30845f",
+      "previous": "55b0697f199d49f798d03f332394cd0102cf83444d5551b4e691278a9a30845f",
+      "status": "unchanged"
+    },
+    {
+      "path": "test/visual/baselines/linux/chromium/components/rc-dialog/docs/dialog.visual.spec.mjs/apple-light-default.png",
+      "sha256": "efe26b890a54491d1119b9dec640812d5c2b225ad5ef5b35dc0410bc05f31878",
+      "previous": "efe26b890a54491d1119b9dec640812d5c2b225ad5ef5b35dc0410bc05f31878",
+      "status": "unchanged"
+    },
+    {
+      "path": "test/visual/baselines/linux/chromium/components/rc-dialog/docs/dialog.visual.spec.mjs/md3-dark-default.png",
+      "sha256": "15dc62ce7addacba4cfb75da02749c317e96127f169e9696c88c0cdad69a968e",
+      "previous": "15dc62ce7addacba4cfb75da02749c317e96127f169e9696c88c0cdad69a968e",
+      "status": "unchanged"
+    },
+    {
+      "path": "test/visual/baselines/linux/chromium/components/rc-dialog/docs/dialog.visual.spec.mjs/md3-light-default.png",
+      "sha256": "dc9b352d4b30fb3161eafad8a8c7272be62a64d2134b404ef341f75d4809c796",
+      "previous": "dc9b352d4b30fb3161eafad8a8c7272be62a64d2134b404ef341f75d4809c796",
+      "status": "unchanged"
+    },
+    {
+      "path": "test/visual/baselines/linux/chromium/components/rc-dialog/docs/dialog.visual.spec.mjs/shadcn-dark-default.png",
+      "sha256": "c6f3f33f9e1ddbd40e0ebe115ee7367cf60b82fb41bd039a203cc6f6eadd48e4",
+      "previous": "c6f3f33f9e1ddbd40e0ebe115ee7367cf60b82fb41bd039a203cc6f6eadd48e4",
+      "status": "unchanged"
+    },
+    {
+      "path": "test/visual/baselines/linux/chromium/components/rc-dialog/docs/dialog.visual.spec.mjs/shadcn-light-default.png",
+      "sha256": "ce25eaabac63a6be3dba2c15c71b4a62c7b33f4952eb98b9c38a73ed8d62c3a9",
+      "previous": "ce25eaabac63a6be3dba2c15c71b4a62c7b33f4952eb98b9c38a73ed8d62c3a9",
+      "status": "unchanged"
+    },
+    {
+      "path": "test/visual/baselines/linux/chromium/components/rc-line-edit/docs/line-edit.visual.spec.mjs/apple-dark-medium-filled-default.png",
+      "sha256": "a09112fdd3677974953f6b7e318b5dff0a2b64def5e8f757b2211c11fc1dbc52",
+      "previous": "a09112fdd3677974953f6b7e318b5dff0a2b64def5e8f757b2211c11fc1dbc52",
+      "status": "unchanged"
+    },
+    {
+      "path": "test/visual/baselines/linux/chromium/components/rc-line-edit/docs/line-edit.visual.spec.mjs/apple-dark-medium-outlined-default.png",
+      "sha256": "a09112fdd3677974953f6b7e318b5dff0a2b64def5e8f757b2211c11fc1dbc52",
+      "previous": "a09112fdd3677974953f6b7e318b5dff0a2b64def5e8f757b2211c11fc1dbc52",
+      "status": "unchanged"
+    },
+    {
+      "path": "test/visual/baselines/linux/chromium/components/rc-line-edit/docs/line-edit.visual.spec.mjs/apple-light-medium-filled-default.png",
+      "sha256": "914a91d69f5bd17a5fd012a8b952269e323a2057901cf2b1c8b3e1b98d0000e5",
+      "previous": "914a91d69f5bd17a5fd012a8b952269e323a2057901cf2b1c8b3e1b98d0000e5",
+      "status": "unchanged"
+    },
+    {
+      "path": "test/visual/baselines/linux/chromium/components/rc-line-edit/docs/line-edit.visual.spec.mjs/apple-light-medium-outlined-default.png",
+      "sha256": "914a91d69f5bd17a5fd012a8b952269e323a2057901cf2b1c8b3e1b98d0000e5",
+      "previous": "914a91d69f5bd17a5fd012a8b952269e323a2057901cf2b1c8b3e1b98d0000e5",
+      "status": "unchanged"
+    },
+    {
+      "path": "test/visual/baselines/linux/chromium/components/rc-line-edit/docs/line-edit.visual.spec.mjs/md3-dark-medium-filled-default.png",
+      "sha256": "fd62e63e0f60a129701a549084f672ef0690fdd9dc181f5783657ddcc78d4dc0",
+      "previous": "fd62e63e0f60a129701a549084f672ef0690fdd9dc181f5783657ddcc78d4dc0",
+      "status": "unchanged"
+    },
+    {
+      "path": "test/visual/baselines/linux/chromium/components/rc-line-edit/docs/line-edit.visual.spec.mjs/md3-dark-medium-outlined-default.png",
+      "sha256": "fd62e63e0f60a129701a549084f672ef0690fdd9dc181f5783657ddcc78d4dc0",
+      "previous": "fd62e63e0f60a129701a549084f672ef0690fdd9dc181f5783657ddcc78d4dc0",
+      "status": "unchanged"
+    },
+    {
+      "path": "test/visual/baselines/linux/chromium/components/rc-line-edit/docs/line-edit.visual.spec.mjs/md3-light-medium-filled-default.png",
+      "sha256": "30c98aeb3657dfd8cfd4c250dc08c76ba1f8d5efc9aca5375ccaecf2516146f8",
+      "previous": "30c98aeb3657dfd8cfd4c250dc08c76ba1f8d5efc9aca5375ccaecf2516146f8",
+      "status": "unchanged"
+    },
+    {
+      "path": "test/visual/baselines/linux/chromium/components/rc-line-edit/docs/line-edit.visual.spec.mjs/md3-light-medium-outlined-default.png",
+      "sha256": "30c98aeb3657dfd8cfd4c250dc08c76ba1f8d5efc9aca5375ccaecf2516146f8",
+      "previous": "30c98aeb3657dfd8cfd4c250dc08c76ba1f8d5efc9aca5375ccaecf2516146f8",
+      "status": "unchanged"
+    },
+    {
+      "path": "test/visual/baselines/linux/chromium/components/rc-line-edit/docs/line-edit.visual.spec.mjs/shadcn-dark-medium-filled-default.png",
+      "sha256": "33919016b146987402635736f98df1990721c989ea51f16b3ce60420900b137e",
+      "previous": "33919016b146987402635736f98df1990721c989ea51f16b3ce60420900b137e",
+      "status": "unchanged"
+    },
+    {
+      "path": "test/visual/baselines/linux/chromium/components/rc-line-edit/docs/line-edit.visual.spec.mjs/shadcn-dark-medium-outlined-default.png",
+      "sha256": "33919016b146987402635736f98df1990721c989ea51f16b3ce60420900b137e",
+      "previous": "33919016b146987402635736f98df1990721c989ea51f16b3ce60420900b137e",
+      "status": "unchanged"
+    },
+    {
+      "path": "test/visual/baselines/linux/chromium/components/rc-line-edit/docs/line-edit.visual.spec.mjs/shadcn-light-medium-filled-default.png",
+      "sha256": "7e4c0abc03b3b6e04001f8c0db68dbc8dc13c81f7dfcd7431d9e555624eae937",
+      "previous": "7e4c0abc03b3b6e04001f8c0db68dbc8dc13c81f7dfcd7431d9e555624eae937",
+      "status": "unchanged"
+    },
+    {
+      "path": "test/visual/baselines/linux/chromium/components/rc-line-edit/docs/line-edit.visual.spec.mjs/shadcn-light-medium-outlined-default.png",
+      "sha256": "7e4c0abc03b3b6e04001f8c0db68dbc8dc13c81f7dfcd7431d9e555624eae937",
+      "previous": "7e4c0abc03b3b6e04001f8c0db68dbc8dc13c81f7dfcd7431d9e555624eae937",
+      "status": "unchanged"
+    },
+    {
+      "path": "test/visual/baselines/linux/chromium/components/rc-select/docs/select.visual.spec.mjs/apple-dark-medium-standard-default.png",
+      "sha256": "ad1e0d79e616cb00ec025f315d461e12179df57dea69d9cc3cdcf3298618511e",
+      "previous": "ad1e0d79e616cb00ec025f315d461e12179df57dea69d9cc3cdcf3298618511e",
+      "status": "unchanged"
+    },
+    {
+      "path": "test/visual/baselines/linux/chromium/components/rc-select/docs/select.visual.spec.mjs/apple-light-medium-standard-default.png",
+      "sha256": "1f622922727d93de7611eb9cc44c0ee7c6b8714264f9dc024b11bc47366aef61",
+      "previous": "1f622922727d93de7611eb9cc44c0ee7c6b8714264f9dc024b11bc47366aef61",
+      "status": "unchanged"
+    },
+    {
+      "path": "test/visual/baselines/linux/chromium/components/rc-select/docs/select.visual.spec.mjs/md3-dark-medium-standard-default.png",
+      "sha256": "5a86e14f2c1bc042ea1302e614782150f07c722ea0f7aae91673032a302cf497",
+      "previous": "5a86e14f2c1bc042ea1302e614782150f07c722ea0f7aae91673032a302cf497",
+      "status": "unchanged"
+    },
+    {
+      "path": "test/visual/baselines/linux/chromium/components/rc-select/docs/select.visual.spec.mjs/md3-light-medium-standard-default.png",
+      "sha256": "8d4cd4c6632c8a26bebd927f2c43f497f08fee81078e3b5a7cbf3b2376aa672e",
+      "previous": "8d4cd4c6632c8a26bebd927f2c43f497f08fee81078e3b5a7cbf3b2376aa672e",
+      "status": "unchanged"
+    },
+    {
+      "path": "test/visual/baselines/linux/chromium/components/rc-select/docs/select.visual.spec.mjs/shadcn-dark-medium-standard-default.png",
+      "sha256": "7584cb9fd42f0e25218557434662b288e05e50d234730d51fa60c93d8c360d7e",
+      "previous": "7584cb9fd42f0e25218557434662b288e05e50d234730d51fa60c93d8c360d7e",
+      "status": "unchanged"
+    },
+    {
+      "path": "test/visual/baselines/linux/chromium/components/rc-select/docs/select.visual.spec.mjs/shadcn-light-medium-standard-default.png",
+      "sha256": "0d15dfc3e38e271871bd509ff4207ef58d131cc0f687f6983a3ffdb4c99b54e2",
+      "previous": "0d15dfc3e38e271871bd509ff4207ef58d131cc0f687f6983a3ffdb4c99b54e2",
+      "status": "unchanged"
+    },
+    {
+      "path": "test/visual/baselines/linux/chromium/components/rc-switch/docs/switch.visual.spec.mjs/apple-dark-medium-default.png",
+      "sha256": "2346dacccd86a434917f911d8957711ebf1336e89505e065eb640be1d82a311b",
+      "previous": "2346dacccd86a434917f911d8957711ebf1336e89505e065eb640be1d82a311b",
+      "status": "unchanged"
+    },
+    {
+      "path": "test/visual/baselines/linux/chromium/components/rc-switch/docs/switch.visual.spec.mjs/apple-light-medium-default.png",
+      "sha256": "2d8570c192601b6bd5954e0d6d0ace0a8291e0f824fa5d9ee89a337aa288f5cc",
+      "previous": "2d8570c192601b6bd5954e0d6d0ace0a8291e0f824fa5d9ee89a337aa288f5cc",
+      "status": "unchanged"
+    },
+    {
+      "path": "test/visual/baselines/linux/chromium/components/rc-switch/docs/switch.visual.spec.mjs/md3-dark-medium-default.png",
+      "sha256": "46cd19bab6fb7582aaf7096e5b26623f02496b21f213ce528893b9de19c06084",
+      "previous": "46cd19bab6fb7582aaf7096e5b26623f02496b21f213ce528893b9de19c06084",
+      "status": "unchanged"
+    },
+    {
+      "path": "test/visual/baselines/linux/chromium/components/rc-switch/docs/switch.visual.spec.mjs/md3-light-medium-default.png",
+      "sha256": "38ab3c548fd2b0d3619578d50a6f9341cef14e2bf9e6486ce7a61c7de04128a8",
+      "previous": "38ab3c548fd2b0d3619578d50a6f9341cef14e2bf9e6486ce7a61c7de04128a8",
+      "status": "unchanged"
+    },
+    {
+      "path": "test/visual/baselines/linux/chromium/components/rc-switch/docs/switch.visual.spec.mjs/shadcn-dark-medium-default.png",
+      "sha256": "683351c9c2ba7d3e11954d757faafc515eb3985796eef6454f95ab4b345703d3",
+      "previous": "683351c9c2ba7d3e11954d757faafc515eb3985796eef6454f95ab4b345703d3",
+      "status": "unchanged"
+    },
+    {
+      "path": "test/visual/baselines/linux/chromium/components/rc-switch/docs/switch.visual.spec.mjs/shadcn-light-medium-default.png",
+      "sha256": "485e6d0026f47be9126687258e30c8c8c12bb1261ffdd9a7e25377fbcfc80014",
+      "previous": "485e6d0026f47be9126687258e30c8c8c12bb1261ffdd9a7e25377fbcfc80014",
+      "status": "unchanged"
+    },
+    {
+      "path": "test/visual/baselines/linux/chromium/components/rc-tabs/docs/tabs.visual.spec.mjs/apple-dark-medium-standard-default.png",
+      "sha256": "8d9edbfe2241d1aa280a0c86a5e9fb29eacab44b078ec20b9521ac060eb02833",
+      "previous": "8d9edbfe2241d1aa280a0c86a5e9fb29eacab44b078ec20b9521ac060eb02833",
+      "status": "unchanged"
+    },
+    {
+      "path": "test/visual/baselines/linux/chromium/components/rc-tabs/docs/tabs.visual.spec.mjs/apple-light-medium-standard-default.png",
+      "sha256": "f524fe841a5e9fa846e62d1c11c22eadfe4d11c18165b6ec54438d3c76da373d",
+      "previous": "f524fe841a5e9fa846e62d1c11c22eadfe4d11c18165b6ec54438d3c76da373d",
+      "status": "unchanged"
+    },
+    {
+      "path": "test/visual/baselines/linux/chromium/components/rc-tabs/docs/tabs.visual.spec.mjs/md3-dark-medium-standard-default.png",
+      "sha256": "c7e32c7c1102d8fa271870ff7abb681f6238628e4e51631c5ec114ff159d500a",
+      "previous": "c7e32c7c1102d8fa271870ff7abb681f6238628e4e51631c5ec114ff159d500a",
+      "status": "unchanged"
+    },
+    {
+      "path": "test/visual/baselines/linux/chromium/components/rc-tabs/docs/tabs.visual.spec.mjs/md3-light-medium-standard-default.png",
+      "sha256": "117cd8520dc0da634ded9d723352b7acbaf634bb903b00ce278410ec644927e9",
+      "previous": "117cd8520dc0da634ded9d723352b7acbaf634bb903b00ce278410ec644927e9",
+      "status": "unchanged"
+    },
+    {
+      "path": "test/visual/baselines/linux/chromium/components/rc-tabs/docs/tabs.visual.spec.mjs/shadcn-dark-medium-standard-default.png",
+      "sha256": "97efcb429008fc1c4410c52db4f1ebfa1a27507331468d4e2bfb57d34825b20d",
+      "previous": "97efcb429008fc1c4410c52db4f1ebfa1a27507331468d4e2bfb57d34825b20d",
+      "status": "unchanged"
+    },
+    {
+      "path": "test/visual/baselines/linux/chromium/components/rc-tabs/docs/tabs.visual.spec.mjs/shadcn-light-medium-standard-default.png",
+      "sha256": "da7785c88b85959c871d4d33bf3e2aa405cb52fe89cc1d7ad6f3145f7af17cc3",
+      "previous": "da7785c88b85959c871d4d33bf3e2aa405cb52fe89cc1d7ad6f3145f7af17cc3",
+      "status": "unchanged"
+    },
+    {
+      "path": "test/visual/baselines/linux/chromium/components/rc-text-edit/docs/text-edit.visual.spec.mjs/apple-dark-medium-filled-default.png",
+      "sha256": "f70818acfbfda91534ef75fa28a64c23619b7c009ca5adfe5b379e8f798fb363",
+      "previous": "f70818acfbfda91534ef75fa28a64c23619b7c009ca5adfe5b379e8f798fb363",
+      "status": "unchanged"
+    },
+    {
+      "path": "test/visual/baselines/linux/chromium/components/rc-text-edit/docs/text-edit.visual.spec.mjs/apple-dark-medium-outlined-default.png",
+      "sha256": "f70818acfbfda91534ef75fa28a64c23619b7c009ca5adfe5b379e8f798fb363",
+      "previous": "f70818acfbfda91534ef75fa28a64c23619b7c009ca5adfe5b379e8f798fb363",
+      "status": "unchanged"
+    },
+    {
+      "path": "test/visual/baselines/linux/chromium/components/rc-text-edit/docs/text-edit.visual.spec.mjs/apple-light-medium-filled-default.png",
+      "sha256": "280b673b3d71aa5dd6bc15086720910dc60c339a7f0a76df16de622b5bd109d6",
+      "previous": "280b673b3d71aa5dd6bc15086720910dc60c339a7f0a76df16de622b5bd109d6",
+      "status": "unchanged"
+    },
+    {
+      "path": "test/visual/baselines/linux/chromium/components/rc-text-edit/docs/text-edit.visual.spec.mjs/apple-light-medium-outlined-default.png",
+      "sha256": "280b673b3d71aa5dd6bc15086720910dc60c339a7f0a76df16de622b5bd109d6",
+      "previous": "280b673b3d71aa5dd6bc15086720910dc60c339a7f0a76df16de622b5bd109d6",
+      "status": "unchanged"
+    },
+    {
+      "path": "test/visual/baselines/linux/chromium/components/rc-text-edit/docs/text-edit.visual.spec.mjs/md3-dark-medium-filled-default.png",
+      "sha256": "bdac6021b2d4babaceb01f2b9ac1922eb5c2f4cb47b8bb573268fbb23e1d5bb4",
+      "previous": "bdac6021b2d4babaceb01f2b9ac1922eb5c2f4cb47b8bb573268fbb23e1d5bb4",
+      "status": "unchanged"
+    },
+    {
+      "path": "test/visual/baselines/linux/chromium/components/rc-text-edit/docs/text-edit.visual.spec.mjs/md3-dark-medium-outlined-default.png",
+      "sha256": "bdac6021b2d4babaceb01f2b9ac1922eb5c2f4cb47b8bb573268fbb23e1d5bb4",
+      "previous": "bdac6021b2d4babaceb01f2b9ac1922eb5c2f4cb47b8bb573268fbb23e1d5bb4",
+      "status": "unchanged"
+    },
+    {
+      "path": "test/visual/baselines/linux/chromium/components/rc-text-edit/docs/text-edit.visual.spec.mjs/md3-light-medium-filled-default.png",
+      "sha256": "6374b79a1c721d6aabfa7574b96b608dd067744d2c57db0371590f892d84856d",
+      "previous": "6374b79a1c721d6aabfa7574b96b608dd067744d2c57db0371590f892d84856d",
+      "status": "unchanged"
+    },
+    {
+      "path": "test/visual/baselines/linux/chromium/components/rc-text-edit/docs/text-edit.visual.spec.mjs/md3-light-medium-outlined-default.png",
+      "sha256": "6374b79a1c721d6aabfa7574b96b608dd067744d2c57db0371590f892d84856d",
+      "previous": "6374b79a1c721d6aabfa7574b96b608dd067744d2c57db0371590f892d84856d",
+      "status": "unchanged"
+    },
+    {
+      "path": "test/visual/baselines/linux/chromium/components/rc-text-edit/docs/text-edit.visual.spec.mjs/shadcn-dark-medium-filled-default.png",
+      "sha256": "d80e8e2cb74acc817d222bf83b65305221033190e39b4094844e9d3ef966da31",
+      "previous": "d80e8e2cb74acc817d222bf83b65305221033190e39b4094844e9d3ef966da31",
+      "status": "unchanged"
+    },
+    {
+      "path": "test/visual/baselines/linux/chromium/components/rc-text-edit/docs/text-edit.visual.spec.mjs/shadcn-dark-medium-outlined-default.png",
+      "sha256": "d80e8e2cb74acc817d222bf83b65305221033190e39b4094844e9d3ef966da31",
+      "previous": "d80e8e2cb74acc817d222bf83b65305221033190e39b4094844e9d3ef966da31",
+      "status": "unchanged"
+    },
+    {
+      "path": "test/visual/baselines/linux/chromium/components/rc-text-edit/docs/text-edit.visual.spec.mjs/shadcn-light-medium-filled-default.png",
+      "sha256": "8508ef5b46e59b004c7c63ccd1f35d8d4a8a262762554e392a96ea114c811494",
+      "previous": "8508ef5b46e59b004c7c63ccd1f35d8d4a8a262762554e392a96ea114c811494",
+      "status": "unchanged"
+    },
+    {
+      "path": "test/visual/baselines/linux/chromium/components/rc-text-edit/docs/text-edit.visual.spec.mjs/shadcn-light-medium-outlined-default.png",
+      "sha256": "8508ef5b46e59b004c7c63ccd1f35d8d4a8a262762554e392a96ea114c811494",
+      "previous": "8508ef5b46e59b004c7c63ccd1f35d8d4a8a262762554e392a96ea114c811494",
+      "status": "unchanged"
+    }
+  ],
+  "differsFromReviewedCandidate": [
+    "test/visual/baselines/linux/chromium/components/rc-line-edit/docs/line-edit.visual.spec.mjs/apple-light-medium-outlined-default.png",
+    "test/visual/baselines/linux/chromium/components/rc-line-edit/docs/line-edit.visual.spec.mjs/apple-dark-medium-outlined-default.png",
+    "test/visual/baselines/linux/chromium/components/rc-line-edit/docs/line-edit.visual.spec.mjs/shadcn-dark-medium-outlined-default.png",
+    "test/visual/baselines/linux/chromium/components/rc-select/docs/select.visual.spec.mjs/md3-dark-medium-standard-default.png",
+    "test/visual/baselines/linux/chromium/components/rc-select/docs/select.visual.spec.mjs/apple-dark-medium-standard-default.png",
+    "test/visual/baselines/linux/chromium/components/rc-tabs/docs/tabs.visual.spec.mjs/apple-light-medium-standard-default.png",
+    "test/visual/baselines/linux/chromium/components/rc-tabs/docs/tabs.visual.spec.mjs/shadcn-dark-medium-standard-default.png",
+    "test/visual/baselines/linux/chromium/components/rc-line-edit/docs/line-edit.visual.spec.mjs/shadcn-dark-medium-filled-default.png"
+  ],
+  "transferNote": "首次原生转移创建48张PNG；后续校验返回unchanged。36个场景中的LineEdit/TextEdit各产生outlined与filled两张截图。"
+}

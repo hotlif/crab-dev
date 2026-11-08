@@ -39,8 +39,7 @@ for (const config of configurations)
                     for (const appearance of ["outlined", "filled"]) {
                         const input = matrixInput(scene, appearance);
                         const field = input.locator("..").locator("..");
-                        // Empty M3 floating labels legitimately receive pointer events and focus
-                        // their input on click. Hover the field container through that real hit.
+                        // Hover the actual control surface, independently of its external label.
                         if (state === "hover") {
                             const control = input.locator(".."),
                                 bounds = await control.boundingBox();

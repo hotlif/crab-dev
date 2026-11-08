@@ -99,6 +99,12 @@ export const vars = defineTokens({
     'size.extra-extra-large.border-radius-active': '--button-size-extra-extra-large-border-radius-active',
     'size.extra-extra-large.icon.width': '--button-size-extra-extra-large-icon-width',
     'size.extra-extra-large.border-width': '--button-size-extra-extra-large-border-width',
+    'size.inherited.small.height': '--button-size-inherited-small-height',
+    'size.inherited.small.padding': '--button-size-inherited-small-padding',
+    'size.inherited.medium.height': '--button-size-inherited-medium-height',
+    'size.inherited.medium.padding': '--button-size-inherited-medium-padding',
+    'size.inherited.large.height': '--button-size-inherited-large-height',
+    'size.inherited.large.padding': '--button-size-inherited-large-padding',
     'primary.color': '--button-primary-color',
     'primary.background-color': '--button-primary-background-color',
     'primary.background-color-disabled': '--button-primary-background-color-disabled',
@@ -313,6 +319,20 @@ const token = defineTokens({
                 'width': `var(${vars['size.extra-extra-large.icon.width']}, var(--token-semantic-action-button-xl-icon, var(--token-global-space-10, 40px)))`
             },
             'border-width': `var(${vars['size.extra-extra-large.border-width']}, var(--token-semantic-action-button-xl-border-width, var(--token-global-radius-1-5, 3px)))`
+        },
+        'inherited': {
+            'small': {
+                'height': `var(${vars['size.inherited.small.height']}, var(--token-semantic-sizing-small-control, var(--token-global-size-32, 32px)))`,
+                'padding': `var(${vars['size.inherited.small.padding']}, 0 var(--token-semantic-action-desktop-small-padding-inline, var(--token-global-space-3, 12px)))`
+            },
+            'medium': {
+                'height': `var(${vars['size.inherited.medium.height']}, var(--token-semantic-sizing-medium-control, var(--token-global-size-36, 36px)))`,
+                'padding': `var(${vars['size.inherited.medium.padding']}, 0 var(--token-semantic-action-desktop-medium-padding-inline, var(--token-global-space-4, 16px)))`
+            },
+            'large': {
+                'height': `var(${vars['size.inherited.large.height']}, var(--token-semantic-sizing-large-control, var(--token-global-size-40, 40px)))`,
+                'padding': `var(${vars['size.inherited.large.padding']}, 0 var(--token-semantic-action-desktop-large-padding-inline, var(--token-global-space-5, 20px)))`
+            }
         }
     },
     'primary': {

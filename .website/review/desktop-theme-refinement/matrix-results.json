@@ -1,0 +1,439 @@
+{
+  "uniqueCases": 7758,
+  "passed": 7758,
+  "unresolved": [],
+  "recovered": [
+    {
+      "project": "chromium",
+      "file": "components/rc-button/docs/button-shape-parity.visual.spec.mjs",
+      "title": "components/rc-button/docs/button-shape-parity.visual.spec.mjs > owner/public Button shape parity md3 light",
+      "history": [
+        {
+          "run": ".tmp/theme-chromium-initial-evidence",
+          "status": "failed"
+        },
+        {
+          "run": ".tmp/theme-continuation-evidence",
+          "status": "passed"
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "project": "chromium",
+      "file": "components/rc-button/docs/button-shape-parity.visual.spec.mjs",
+      "title": "components/rc-button/docs/button-shape-parity.visual.spec.mjs > owner/public Button shape parity md3 dark",
+      "history": [
+        {
+          "run": ".tmp/theme-chromium-initial-evidence",
+          "status": "failed"
+        },
+        {
+          "run": ".tmp/theme-continuation-evidence",
+          "status": "passed"
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "project": "chromium",
+      "file": "components/rc-date-picker/docs/date-picker.visual.spec.mjs",
+      "title": "components/rc-date-picker/docs/date-picker.visual.spec.mjs > apple light medium comfortable datetime-time-error",
+      "history": [
+        {
+          "run": ".tmp/theme-chromium-initial-evidence",
+          "status": "failed"
+        },
+        {
+          "run": ".tmp/theme-date-retry-evidence",
+          "status": "passed"
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "project": "firefox",
+      "file": "components/rc-number-edit/docs/number-edit.visual.spec.mjs",
+      "title": "components/rc-number-edit/docs/number-edit.visual.spec.mjs > NumberEdit md3 light medium controls-hidden",
+      "history": [
+        {
+          "run": ".tmp/theme-cross-evidence",
+          "status": "failed"
+        },
+        {
+          "run": ".tmp/theme-number-cross-retry-evidence",
+          "status": "passed"
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "project": "webkit",
+      "file": "components/rc-number-edit/docs/number-edit.visual.spec.mjs",
+      "title": "components/rc-number-edit/docs/number-edit.visual.spec.mjs > NumberEdit md3 light medium controls-hidden",
+      "history": [
+        {
+          "run": ".tmp/theme-cross-evidence",
+          "status": "failed"
+        },
+        {
+          "run": ".tmp/theme-number-cross-retry-evidence",
+          "status": "passed"
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "project": "firefox",
+      "file": "components/rc-number-edit/docs/number-edit.visual.spec.mjs",
+      "title": "components/rc-number-edit/docs/number-edit.visual.spec.mjs > NumberEdit md3 dark medium controls-hidden",
+      "history": [
+        {
+          "run": ".tmp/theme-cross-evidence",
+          "status": "failed"
+        },
+        {
+          "run": ".tmp/theme-number-cross-retry-evidence",
+          "status": "passed"
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "project": "webkit",
+      "file": "components/rc-number-edit/docs/number-edit.visual.spec.mjs",
+      "title": "components/rc-number-edit/docs/number-edit.visual.spec.mjs > NumberEdit md3 dark medium controls-hidden",
+      "history": [
+        {
+          "run": ".tmp/theme-cross-evidence",
+          "status": "failed"
+        },
+        {
+          "run": ".tmp/theme-number-cross-retry-evidence",
+          "status": "passed"
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "project": "firefox",
+      "file": "components/rc-select/docs/select-environment.visual.spec.mjs",
+      "title": "components/rc-select/docs/select-environment.visual.spec.mjs > brand > md3 dark brand",
+      "history": [
+        {
+          "run": ".tmp/theme-cross-evidence",
+          "status": "timedOut"
+        },
+        {
+          "run": ".tmp/theme-select-firefox-retry-evidence",
+          "status": "passed"
+        }
+      ],
+      "status": "passed"
+    }
+  ],
+  "packages": [
+    {
+      "package": "rc-button",
+      "project": "chromium",
+      "total": 342,
+      "passed": 342,
+      "remaining": 0
+    },
+    {
+      "package": "rc-date-picker",
+      "project": "chromium",
+      "total": 1752,
+      "passed": 1752,
+      "remaining": 0
+    },
+    {
+      "package": "rc-dialog",
+      "project": "chromium",
+      "total": 127,
+      "passed": 127,
+      "remaining": 0
+    },
+    {
+      "package": "rc-form",
+      "project": "chromium",
+      "total": 558,
+      "passed": 558,
+      "remaining": 0
+    },
+    {
+      "package": "rc-line-edit",
+      "project": "chromium",
+      "total": 373,
+      "passed": 373,
+      "remaining": 0
+    },
+    {
+      "package": "rc-number-edit",
+      "project": "chromium",
+      "total": 463,
+      "passed": 463,
+      "remaining": 0
+    },
+    {
+      "package": "rc-select",
+      "project": "chromium",
+      "total": 679,
+      "passed": 679,
+      "remaining": 0
+    },
+    {
+      "package": "rc-switch",
+      "project": "chromium",
+      "total": 301,
+      "passed": 301,
+      "remaining": 0
+    },
+    {
+      "package": "rc-tabs",
+      "project": "chromium",
+      "total": 1368,
+      "passed": 1368,
+      "remaining": 0
+    },
+    {
+      "package": "rc-text-edit",
+      "project": "chromium",
+      "total": 301,
+      "passed": 301,
+      "remaining": 0
+    },
+    {
+      "package": "rc-button",
+      "project": "firefox",
+      "total": 18,
+      "passed": 18,
+      "remaining": 0
+    },
+    {
+      "package": "rc-button",
+      "project": "webkit",
+      "total": 18,
+      "passed": 18,
+      "remaining": 0
+    },
+    {
+      "package": "rc-date-picker",
+      "project": "firefox",
+      "total": 174,
+      "passed": 174,
+      "remaining": 0
+    },
+    {
+      "package": "rc-date-picker",
+      "project": "webkit",
+      "total": 174,
+      "passed": 174,
+      "remaining": 0
+    },
+    {
+      "package": "rc-dialog",
+      "project": "firefox",
+      "total": 103,
+      "passed": 103,
+      "remaining": 0
+    },
+    {
+      "package": "rc-dialog",
+      "project": "webkit",
+      "total": 103,
+      "passed": 103,
+      "remaining": 0
+    },
+    {
+      "package": "rc-form",
+      "project": "firefox",
+      "total": 84,
+      "passed": 84,
+      "remaining": 0
+    },
+    {
+      "package": "rc-form",
+      "project": "webkit",
+      "total": 84,
+      "passed": 84,
+      "remaining": 0
+    },
+    {
+      "package": "rc-line-edit",
+      "project": "firefox",
+      "total": 49,
+      "passed": 49,
+      "remaining": 0
+    },
+    {
+      "package": "rc-line-edit",
+      "project": "webkit",
+      "total": 49,
+      "passed": 49,
+      "remaining": 0
+    },
+    {
+      "package": "rc-number-edit",
+      "project": "firefox",
+      "total": 48,
+      "passed": 48,
+      "remaining": 0
+    },
+    {
+      "package": "rc-number-edit",
+      "project": "webkit",
+      "total": 48,
+      "passed": 48,
+      "remaining": 0
+    },
+    {
+      "package": "rc-select",
+      "project": "firefox",
+      "total": 97,
+      "passed": 97,
+      "remaining": 0
+    },
+    {
+      "package": "rc-select",
+      "project": "webkit",
+      "total": 97,
+      "passed": 97,
+      "remaining": 0
+    },
+    {
+      "package": "rc-switch",
+      "project": "firefox",
+      "total": 30,
+      "passed": 30,
+      "remaining": 0
+    },
+    {
+      "package": "rc-switch",
+      "project": "webkit",
+      "total": 30,
+      "passed": 30,
+      "remaining": 0
+    },
+    {
+      "package": "rc-tabs",
+      "project": "firefox",
+      "total": 120,
+      "passed": 120,
+      "remaining": 0
+    },
+    {
+      "package": "rc-tabs",
+      "project": "webkit",
+      "total": 120,
+      "passed": 120,
+      "remaining": 0
+    },
+    {
+      "package": "rc-text-edit",
+      "project": "firefox",
+      "total": 24,
+      "passed": 24,
+      "remaining": 0
+    },
+    {
+      "package": "rc-text-edit",
+      "project": "webkit",
+      "total": 24,
+      "passed": 24,
+      "remaining": 0
+    }
+  ],
+  "runs": [
+    {
+      "run": ".tmp/theme-chromium-initial-evidence",
+      "startTime": "2026-11-03T12:54:09.830Z",
+      "duration": 3178465.5730000003,
+      "expected": 2088,
+      "skipped": 4173,
+      "unexpected": 3,
+      "flaky": 0,
+      "cases": 6264
+    },
+    {
+      "run": ".tmp/theme-cross-evidence",
+      "startTime": "2026-11-03T13:24:19.553Z",
+      "duration": 2588106.365,
+      "expected": 1489,
+      "skipped": 0,
+      "unexpected": 5,
+      "flaky": 0,
+      "cases": 1494
+    },
+    {
+      "run": ".tmp/theme-continuation-evidence",
+      "startTime": "2026-11-03T13:49:17.460Z",
+      "duration": 2524078.056,
+      "expected": 1685,
+      "skipped": 2521,
+      "unexpected": 0,
+      "flaky": 0,
+      "cases": 4206
+    },
+    {
+      "run": ".tmp/theme-tail-evidence",
+      "startTime": "2026-11-03T14:13:29.655Z",
+      "duration": 1104692.4,
+      "expected": 946,
+      "skipped": 1703,
+      "unexpected": 0,
+      "flaky": 0,
+      "cases": 2649
+    },
+    {
+      "run": ".tmp/theme-number-cross-retry-evidence",
+      "startTime": "2026-11-03T14:07:50.068Z",
+      "duration": 108184.547,
+      "expected": 24,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0,
+      "cases": 24
+    },
+    {
+      "run": ".tmp/theme-date-retry-evidence",
+      "startTime": "2026-11-03T14:09:44.659Z",
+      "duration": 16075.208999999999,
+      "expected": 1,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0,
+      "cases": 1
+    },
+    {
+      "run": ".tmp/theme-select-firefox-retry-evidence",
+      "startTime": "2026-11-03T14:12:34.587Z",
+      "duration": 22955.024,
+      "expected": 1,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0,
+      "cases": 1
+    },
+    {
+      "run": ".tmp/theme-final-shard-1-evidence",
+      "startTime": "2026-11-03T14:32:08.525Z",
+      "duration": 705838.84,
+      "expected": 835,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0,
+      "cases": 835
+    },
+    {
+      "run": ".tmp/theme-final-shard-2-evidence",
+      "startTime": "2026-11-03T14:32:50.904Z",
+      "duration": 752611.289,
+      "expected": 834,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0,
+      "cases": 834
+    }
+  ]
+}

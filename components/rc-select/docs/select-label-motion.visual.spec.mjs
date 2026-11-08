@@ -17,13 +17,13 @@ for (const config of configurations) for (const size of spec.sizes) {
             node.focus({ preventScroll: true });
             const after = label.getBoundingClientRect(), focusedBox = node.getBoundingClientRect();
             return { firstFrame: Math.abs((after.y - focusedBox.y) - (before.y - box.y)),
-                center: Math.abs(before.y + before.height / 2 - box.y - box.height / 2),
+                gap: box.top - before.bottom,
                 label: { before: before.y, after: after.y }, field: { before: box.y, after: focusedBox.y } };
         });
         await info.attach('focus-label-geometry', { body: JSON.stringify(delta), contentType: 'application/json' });
         expect(delta.firstFrame).toBeLessThan(1);
-        if (config.designSystem === 'md3') expect(delta.center, 'Empty label is centered in the actual field row').toBeLessThan(1);
-        await sampleMotion(page, page.getByRole('region', { name: 'Select visual matrix' }), info, 'label-float');
+        expect(delta.gap, 'Labels stay above the control in all themes').toBeGreaterThanOrEqual(3);
+        await sampleMotion(page, page.getByRole('region', { name: 'Select visual matrix' }), info, 'label-focus');
         await settleFiniteAnimations(page);
         await control.press('ArrowDown');
         await expect(page.getByRole('listbox')).toBeVisible();

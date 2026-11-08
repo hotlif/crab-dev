@@ -1,6 +1,7 @@
 import { describe, expect, it } from '@crab-dev/wake/test';
 import { act, render, waitFor } from '@crab-dev/wake/test/react';
 import ConfigProvider from '@crab-dev/rc-config-provider';
+import Button from '@crab-dev/rc-button';
 import LineEdit from '../../../esm/index.mjs';
 import token from '../../token.js';
 import compiledCss from '../../../.cache/browser-css.json';
@@ -94,13 +95,8 @@ describe('Published placeholder roles and actual contrast', () => {
                     expect(enabled).toBe(getComputedStyle(view.container.querySelector<HTMLElement>('[data-witness="enabled"]')!).color);
                     expect(disabled).toBe(getComputedStyle(view.container.querySelector<HTMLElement>('[data-witness="disabled"]')!).color);
                     expect(inputs[2].disabled).toBe(true);
-                    if (designSystem === 'md3') {
-                        // A floating idle label must not overlap a visible placeholder.
-                        expect(disabled).toBe('rgba(0, 0, 0, 0)');
-                    } else {
-                        expect(disabled).not.toBe(enabled);
-                        expect(disabled).not.toBe('rgba(0, 0, 0, 0)');
-                    }
+                    expect(disabled).not.toBe(enabled);
+                    expect(disabled).not.toBe('rgba(0, 0, 0, 0)');
                     expect(inputs.length).toBe(3);
                     expect(inputs[0].readOnly).toBe(false);
                     expect(inputs[1].readOnly).toBe(true);
@@ -108,13 +104,7 @@ describe('Published placeholder roles and actual contrast', () => {
                         // Readonly is still readable content, not a disabled exemption.
                         expect(input.disabled).toBe(false);
                         expect(input.matches(':focus')).toBe(false);
-                        if (designSystem === 'md3') {
-                            // The idle floating label is the visible text. A deliberately
-                            // transparent placeholder has no visible contrast pair here.
-                            expect(nativeColor(getComputedStyle(input, '::placeholder').color)[3]).toBe(0);
-                        } else {
-                            expect(visiblePlaceholderContrast(input)).toBeGreaterThanOrEqual(4.5);
-                        }
+                        expect(visiblePlaceholderContrast(input)).toBeGreaterThanOrEqual(4.5);
                         // Real focus changes the public field state; no pseudo override,
                         // color witness, host input.color or fabricated event substitutes.
                         await act(() => input.focus());
@@ -147,18 +137,12 @@ describe('Published decorated field label geometry', () => {
                 expect(document.activeElement === input).toBe(true);
                 expect(input.value).toBe('preserved draft');
                 expect([input.selectionStart, input.selectionEnd]).toEqual([2, 7]);
-                // ResizeObserver delivers the measured decoration space after
+                // Wait for published theme transitions after
                 // the theme's layout. Keep every bound assertion and wait for
                 // that real delivery rather than reading the previous layout.
                 await waitFor(() => {
                     const label = input.closest('[data-field-root]')!.querySelector('label')!.getBoundingClientRect();
-                    if (designSystem === 'md3') {
-                        const content = input.getBoundingClientRect();
-                        expect(label.left).toBeGreaterThanOrEqual(content.left - 1);
-                        expect(label.right).toBeLessThanOrEqual(content.right + 1);
-                    } else {
-                        expect(label.bottom).toBeLessThanOrEqual(input.parentElement!.getBoundingClientRect().top + 1);
-                    }
+                    expect(label.bottom).toBeLessThanOrEqual(input.parentElement!.getBoundingClientRect().top - 3);
                 });
             }
         }
@@ -184,20 +168,14 @@ describe('Published decorated field label geometry', () => {
                             const visibleLabel = field.querySelector<HTMLLabelElement>('label')!;
                             const assertGeometry = () => {
                                 const bounds = visibleLabel.getBoundingClientRect();
-                                const content = input.getBoundingClientRect();
-                                if (designSystem === 'md3') {
-                                    expect(bounds.left).toBeGreaterThanOrEqual(content.left - 1);
-                                    expect(bounds.right).toBeLessThanOrEqual(content.right + 1);
-                                    expect(getComputedStyle(visibleLabel.querySelector('[data-field-label-text]')!).textOverflow).toBe('ellipsis');
-                                } else {
-                                    expect(bounds.bottom).toBeLessThanOrEqual(input.parentElement!.getBoundingClientRect().top + 1);
-                                }
+                                expect(bounds.bottom).toBeLessThanOrEqual(input.parentElement!.getBoundingClientRect().top - 3);
+                                expect(getComputedStyle(visibleLabel.querySelector('[data-field-label-text]')!).textOverflow).toBe('ellipsis');
                                 expect(visibleLabel.htmlFor).toBe(input.id);
                                 expect(visibleLabel.textContent).toBe(`${label}*`);
                             };
                             assertGeometry();
                             await act(() => input.focus());
-                            if (appearance === 'filled' || designSystem !== 'md3') assertGeometry();
+                            assertGeometry();
                             expect(document.activeElement === input).toBe(true);
                             await act(() => input.blur());
                             assertGeometry();
@@ -205,6 +183,51 @@ describe('Published decorated field label geometry', () => {
                     });
                 }
             }
+        }
+    }
+});
+
+// Published geometry also covers plain fields and explicit action variants.
+describe('Desktop field and inherited action geometry', () => {
+    for (const designSystem of ['md3', 'apple', 'shadcn'] as const) {
+        for (const colorMode of ['light', 'dark'] as const) {
+            it('preserves desktop sizes, drafts and explicit variants: ' + designSystem + '/' + colorMode, async () => {
+                const fixture = (size: 'small' | 'medium' | 'large', density: 'compact' | 'standard' | 'comfortable') =>
+                    <ConfigProvider designSystem={designSystem === 'md3' ? 'apple' : 'md3'}>
+                        <ConfigProvider designSystem={designSystem} colorMode={colorMode} size={size} density={density}>
+                            <style>{compiledCss}</style>
+                            <LineEdit label="Desktop field" defaultValue="Preserved text" allowClear />
+                            <LineEdit aria-label="Plain field" />
+                            <Button data-default-action="">Default action</Button>
+                            <Button data-icon-action="" aria-label="Icon action" icon={<span aria-hidden="true">+</span>} />
+                            <Button size="s" data-explicit-action="">Explicit action</Button>
+                        </ConfigProvider>
+                    </ConfigProvider>;
+                const view = await render(fixture('small', 'standard'));
+                const input = view.container.querySelector<HTMLInputElement>('input')!;
+                await act(() => { input.focus(); input.setSelectionRange(1, 4); });
+                for (const density of ['compact', 'standard', 'comfortable'] as const) {
+                    for (const [index, size] of (['small', 'medium', 'large'] as const).entries()) {
+                        await view.rerender(fixture(size, density));
+                        await waitFor(() => {
+                            const inputs = view.container.querySelectorAll('input');
+                            expect(inputs[0]).toBe(input);
+                            expect(input.value).toBe('Preserved text');
+                            expect(document.activeElement).toBe(input);
+                            expect([input.selectionStart, input.selectionEnd]).toEqual([1, 4]);
+                            for (const field of inputs) expect(field.parentElement!.getBoundingClientRect().height).toBeCloseTo((designSystem === 'md3' ? [32, 40, 48] : [32, 36, 40])[index], 1);
+                            const label = view.container.querySelector('label')!.getBoundingClientRect();
+                            expect(label.bottom).toBeLessThanOrEqual(input.parentElement!.getBoundingClientRect().top - 3);
+                            const expected = { md3: [32, 36, 40], apple: [24, 28, 32], shadcn: [32, 36, 40] }[designSystem][index];
+                            expect(view.container.querySelector('[data-default-action]')!.getBoundingClientRect().height).toBeCloseTo(expected, 1);
+                            const icon = view.container.querySelector('[data-icon-action]')!.getBoundingClientRect();
+                            expect(icon.width).toBeCloseTo(expected, 1);
+                            expect(icon.height).toBeCloseTo(expected, 1);
+                            expect(view.container.querySelector('[data-explicit-action]')!.getBoundingClientRect().height).toBeCloseTo({ md3: 40, apple: 28, shadcn: 36 }[designSystem], 1);
+                        });
+                    }
+                }
+            });
         }
     }
 });
