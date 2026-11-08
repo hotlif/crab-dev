@@ -49,11 +49,14 @@ describe('generateGlyph', () => {
         const g2 = generateGlyph('Hello', 16, 'Arial');
         expect(g1.key).toBe(g2.key);
     });
-    it('全内部像素（mock R=200 > 127）经 SDF 变换后结果均为 255', () => {
+    it('保留灰度覆盖率中的亚像素边缘，而不是把半透明笔画当作实心区域', () => {
         const glyph = generateGlyph('T', 14, 'sans-serif');
-        // mock R=200 > 127，所有像素均为内部，外部距离 ∞，SDF 归一化为 255
+        // R=200 is partial coverage: the edge is less than half a raster pixel
+        // away, even when every sample has the same value. Binarizing it makes
+        // the entire field opaque and loses the original stroke boundary.
         for (const v of glyph.data) {
-            expect(v).toBe(255);
+            expect(v).toBeGreaterThan(127);
+            expect(v).toBeLessThan(132);
         }
     });
     it('含 \\n 的文字高度大于单行', () => {

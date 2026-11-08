@@ -21,10 +21,11 @@ void main() {
     if (u_mode == 1) {
         // SDF：单通道 R
         float dist = texture(u_texture, v_uv).r;
-        // fwidth 系数 0.4 → 过渡带 ≈ 0.8 物理像素，边缘更锐利。
-        // center 0.49 < 0.5：等值线轻微外移（约 0.08 world px），保证 12px+ 细笔画 alpha=1。
-        float smoothing = fwidth(dist) * 0.4;
-        float alpha = smoothstep(0.49 - smoothing, 0.49 + smoothing, dist);
+        // Keep the original contour at 0.5: expanding it thickens small text
+        // and closes counters. A nonzero interval also avoids undefined
+        // smoothstep results on flat distance-field regions.
+        float smoothing = max(fwidth(dist) * 0.5, 0.0001);
+        float alpha = smoothstep(0.5 - smoothing, 0.5 + smoothing, dist);
         out_color = vec4(u_color.rgb, alpha * u_color.a * u_opacity);
     } else if (u_mode == 2) {
         // Bitmap 文本：R 通道即 coverage alpha

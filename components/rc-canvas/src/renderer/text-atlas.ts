@@ -1,8 +1,7 @@
 import { createTextRasterContext } from './text-surface.js';
 
-/** 4x 超采样渲染，SDF/MSDF 在超采样空间中的扩展半径（px）。
- *  SDF_SPREAD 越大，fwidth(dist) 越小，边缘过渡越窄（更清晰）。
- *  16 → 世界空间 4px 扩散，fwidth ≈ 0.125，搭配着色器系数 0.5 → 约 1 物理像素过渡。 */
+/** 4x 超采样渲染，SDF 在超采样空间中的扩展半径（px）。
+ *  16 对应世界空间 4px；着色器按屏幕导数计算抗锯齿宽度。 */
 const OVERSAMPLE = 4;
 const SDF_SPREAD = 16;
 
@@ -99,9 +98,12 @@ function computeSDF(
     const outside = new Float64Array(n);
 
     for (let i = 0; i < n; i++) {
-        const a = alpha[i * 4];  // RGBA，取 R 通道（Canvas 2D 灰度输出 R=G=B）
-        inside[i]  = a > 127 ? 0   : INF;
-        outside[i] = a > 127 ? INF : 0;
+        const a = alpha[i * 4] / 255;  // 白字黑底的 R 通道即 coverage
+        // Preserve the rasterizer's subpixel edge position. Thresholding at
+        // 50% discards thin strokes and moves curved/diagonal contours by a
+        // whole sample, which is visible even at the default viewport scale.
+        inside[i] = a === 0 ? INF : Math.max(0, 0.5 - a) ** 2;
+        outside[i] = a === 1 ? INF : Math.max(0, a - 0.5) ** 2;
     }
 
     edt2d(inside, width, height);
