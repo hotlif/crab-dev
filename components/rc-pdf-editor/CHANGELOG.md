@@ -1,5 +1,21 @@
 # @crab-dev/rc-pdf-editor
 
+## 0.1.2
+
+### Patch Changes
+
+- Updated dependencies [[`bc001d2`](https://github.com/hotlif/crab-dev/commit/bc001d2d46306cc9e8bd612cce58e8721b95bcaf), [`57b12c4`](https://github.com/hotlif/crab-dev/commit/57b12c4648999271e90b21f8912c3af2caba107f), [`9802769`](https://github.com/hotlif/crab-dev/commit/9802769d96fe5cfb8de892dce00471b5e86d796a), [`bc001d2`](https://github.com/hotlif/crab-dev/commit/bc001d2d46306cc9e8bd612cce58e8721b95bcaf)]:
+  - @crab-dev/rc-canvas@0.2.0
+  - @crab-dev/rc-button@1.0.2
+  - @crab-dev/rc-color-picker@0.1.2
+  - @crab-dev/rc-dialog@0.1.2
+  - @crab-dev/rc-line-edit@0.1.2
+  - @crab-dev/rc-number-edit@0.1.2
+  - @crab-dev/rc-select@0.1.2
+  - @crab-dev/rc-text-edit@0.1.2
+  - @crab-dev/rc-theme@0.1.2
+  - @crab-dev/rc-token-semantic@1.1.0
+
 ## 0.1.1
 
 ### Patch Changes
