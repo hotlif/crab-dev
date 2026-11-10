@@ -1,5 +1,22 @@
 # @crab-dev/rc-flow-diagram
 
+## 0.2.0
+
+### Minor Changes
+
+- [`bc001d2`](https://github.com/hotlif/crab-dev/commit/bc001d2d46306cc9e8bd612cce58e8721b95bcaf) Thanks [@hotlif](https://github.com/hotlif)! - 新增 Text 自动文字模式：小字号按视图缩放和 DPR 更新清晰位图，保持换行与世界坐标尺寸稳定，并限制字形缓存与纹理分配。字体加载和 DPR 变化会刷新文字；新增 fontWeight 并同步内联编辑器。
+  
+  FlowNode 默认使用 auto，并透传 fontFamily、fontWeight、lineHeight 与 textMode。需要保留旧文字外观时设置 textMode="sdf"；直接使用 Text 的默认模式不变。
+
+- [`bc001d2`](https://github.com/hotlif/crab-dev/commit/bc001d2d46306cc9e8bd612cce58e8721b95bcaf) Thanks [@hotlif](https://github.com/hotlif)! - 新增受控视口命令、稳定端口连线与改接、手动折线编辑和共享手势事务。拖动预览与最终提交分离，支持 Esc、失焦、隐藏、只读、非活动文档和修订变化时取消，便于宿主将一次手势记为一次撤销。
+  
+  FlowDiagram 支持手动布局和受控视口，已保存的节点位置不再等待 ELK 完成；布局与文档加载不会自动改变视口。保留现有 Canvas、FlowDiagram 和路由接口，新几何工具支持恢复旧的手动路线。
+
+### Patch Changes
+
+- Updated dependencies [[`bc001d2`](https://github.com/hotlif/crab-dev/commit/bc001d2d46306cc9e8bd612cce58e8721b95bcaf), [`57b12c4`](https://github.com/hotlif/crab-dev/commit/57b12c4648999271e90b21f8912c3af2caba107f), [`bc001d2`](https://github.com/hotlif/crab-dev/commit/bc001d2d46306cc9e8bd612cce58e8721b95bcaf)]:
+  - @crab-dev/rc-canvas@0.2.0
+
 ## 0.1.1
 
 ### Patch Changes
