@@ -5,7 +5,7 @@
     "type": "module",
     "scripts": {
         "start": "yarn docs:dev",
-        "build:library": "turbo run build:library --concurrency=2",
+        "build:library": "node scripts/build-library.mjs",
         "docs:dev": "yarn build:library && yarn workspace @crab-dev/website start",
         "docs:build": "yarn build:library && yarn workspace @crab-dev/website build",
         "test": "turbo run test --concurrency=2",

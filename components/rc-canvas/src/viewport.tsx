@@ -1,7 +1,8 @@
-import { type ReactNode, use, useEffect, useRef } from 'react';
+import { type ReactNode, use, useEffect, useLayoutEffect, useRef } from 'react';
 import { CanvasContext } from './context/canvas-context.js';
 import { CanvasPaletteContext } from './context/palette-context.js';
 import { identityMat3, invertMat3, applyMat3 } from './math/matrix.js';
+import { zoomViewport, getViewportForBounds } from './viewport-utils.js';
 
 export interface ViewportProps {
     children?: ReactNode;
@@ -94,16 +95,39 @@ function Viewport({
     // 可变实例状态 ref：框选拖拽起点（canvas 坐标）
     const selectionStartRef = useRef<{ x: number; y: number } | null>(null);
 
+    // latest-ref：命令与原生事件在 effect 中注册，读取最近一次已提交的回调。
+    const changeRef = useRef(onViewportChange);
+    useLayoutEffect(() => { changeRef.current = onViewportChange; }, [onViewportChange]);
+
     const applyViewport = (newPanX: number, newPanY: number, newZoom: number) => {
+        if (![newPanX, newPanY, newZoom].every(Number.isFinite) || newZoom <= 0) return;
+        newZoom = clamp(newZoom, minZoom, maxZoom);
         panXRef.current = newPanX;
         panYRef.current = newPanY;
         zoomRef.current = newZoom;
         ctx.setViewMatrix(buildViewMatrix(newPanX, newPanY, newZoom));
-        onViewportChange?.({ zoom: newZoom, panX: newPanX, panY: newPanY });
+        changeRef.current?.({ zoom: newZoom, panX: newPanX, panY: newPanY });
     };
 
     // 向 context 注册 seekPan / applyZoom / fitView 回调
     useEffect(() => {
+        ctx.viewportControlsRef.current = {
+            getViewport: () => ({ zoom: zoomRef.current, panX: panXRef.current, panY: panYRef.current }),
+            setViewport: viewport => applyViewport(viewport.panX, viewport.panY, viewport.zoom),
+            zoomTo(zoom, pivot) {
+                if (!Number.isFinite(zoom) || zoom <= 0) return;
+                const { width, height } = ctx.canvasSizeRef.current;
+                const viewport = zoomViewport({ zoom: zoomRef.current, panX: panXRef.current, panY: panYRef.current }, clamp(zoom, minZoom, maxZoom), pivot ?? { x: width / 2, y: height / 2 });
+                applyViewport(viewport.panX, viewport.panY, viewport.zoom);
+            },
+            fitBounds(bounds, options) {
+                const viewport = getViewportForBounds(bounds, ctx.canvasSizeRef.current, { ...options,
+                    minZoom: Math.max(minZoom, Math.min(maxZoom, options?.minZoom ?? minZoom)),
+                    maxZoom: Math.min(maxZoom, Math.max(minZoom, options?.maxZoom ?? maxZoom)),
+                });
+                if (viewport) applyViewport(viewport.panX, viewport.panY, viewport.zoom);
+            },
+        };
         ctx.seekPanRef.current = (panX, panY) => applyViewport(panX, panY, zoomRef.current);
         ctx.applyZoomRef.current = (deltaY, pivotX, pivotY) => {
             const oldZoom = zoomRef.current;
@@ -141,6 +165,7 @@ function Viewport({
             applyViewport(canvasW / 2 - newZoom * cx, canvasH / 2 - newZoom * cy, newZoom);
         };
         return () => {
+            ctx.viewportControlsRef.current = null;
             ctx.seekPanRef.current = null;
             ctx.applyZoomRef.current = null;
             ctx.fitViewRef.current = null;

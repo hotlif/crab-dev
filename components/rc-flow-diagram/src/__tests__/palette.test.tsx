@@ -13,6 +13,10 @@ interface CapturedRectProps {
 
 interface CapturedTextProps {
     fill?: string;
+    mode?: string;
+    fontFamily?: string;
+    fontWeight?: string | number;
+    lineHeight?: number;
 }
 
 interface CapturedLineProps {
@@ -199,4 +203,14 @@ describe('FlowDiagram palette', () => {
         );
         expect(capturedGrids.at(-1)?.color).toBe('palette-grid');
     });
+});
+
+it('FlowNode defaults to adaptive text and forwards explicit typography and legacy mode', async () => {
+    const view = await render(<FlowNode x={0} y={0} width={100} height={40} label="商品" />);
+    expect(capturedTexts.at(-1)?.mode).toBe('auto');
+    await view.rerender(<FlowNode x={0} y={0} width={100} height={40} label="商品" textMode="sdf" fontFamily="Arial" fontWeight={600} lineHeight={20} />);
+    expect(capturedTexts.at(-1)?.mode).toBe('sdf');
+    expect(capturedTexts.at(-1)?.fontFamily).toBe('Arial');
+    expect(capturedTexts.at(-1)?.fontWeight).toBe(600);
+    expect(capturedTexts.at(-1)?.lineHeight).toBe(20);
 });

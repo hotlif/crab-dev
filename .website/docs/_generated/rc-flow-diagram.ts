@@ -44,6 +44,47 @@ export const demos = [
         "group": "三体系视觉与交互矩阵"
     },
     {
+        "id": "docs/demos/editing.demo.tsx",
+        "title": "受控连线与单次撤销",
+        "description": "拖动端口建立连接，选中连线后拖动端点或内部线段。Esc 取消；预览不会写入历史。键盘按钮使用相同的提交协议。",
+        "learning": {
+            "components": [
+                "Canvas",
+                "Viewport",
+                "InfiniteGrid",
+                "FlowEdge",
+                "FlowNode",
+                "Circle"
+            ],
+            "props": [
+                "width",
+                "height",
+                "onEmptyClick",
+                "onViewportChange",
+                "pannable",
+                "zoomable",
+                "points",
+                "lineWidth",
+                "onClick",
+                "label",
+                "cx",
+                "cy"
+            ],
+            "events": [
+                "onEmptyClick",
+                "onViewportChange",
+                "onClick"
+            ],
+            "hasState": true
+        },
+        "sourceCode": "import { useRef, useState } from 'react';\nimport { css } from '@crab-dev/css';\nimport { Canvas, Viewport, InfiniteGrid, Circle, routeEdge, type Pt, type ViewportState } from '@crab-dev/rc-canvas';\nimport { FlowNode, FlowEdge, makeEditableRoute, useFlowConnections, sameEndpoint, SEMANTIC_FLOW_DIAGRAM_PALETTE as palette,\n    type FlowPort, type FlowConnectionEdge, type FlowConnectionChange } from '@crab-dev/rc-flow-diagram';\n\nexport const meta = { title: '受控连线与单次撤销', description: '拖动端口建立连接，选中连线后拖动端点或内部线段。Esc 取消；预览不会写入历史。键盘按钮使用相同的提交协议。' };\nconst scroll = css`max-width: 100%; overflow: auto;`;\nconst toolbar = css`display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-bottom: 8px;`;\nconst nodeRects = { a: { x: 35, y: 125, width: 110, height: 50 }, b: { x: 310, y: 40, width: 110, height: 50 }, c: { x: 310, y: 225, width: 110, height: 50 } };\nconst ports: FlowPort[] = [\n    { nodeId: 'a', portId: 'result', position: { x: 145, y: 150 }, direction: 'output', side: 'right' },\n    { nodeId: 'b', portId: 'input', position: { x: 310, y: 65 }, direction: 'input', side: 'left' },\n    { nodeId: 'c', portId: 'input', position: { x: 310, y: 250 }, direction: 'input', side: 'left' },\n];\ninterface Document { edges: FlowConnectionEdge[]; manual: Record\u003cstring, Pt[]> }\nconst initial: Document = { edges: [{ id: 'edge', source: ports[0], target: ports[1] }], manual: {} };\n\nexport default function EditingDemo() {\n    const containerRef = useRef\u003cHTMLDivElement>(null);\n    const [history, setHistory] = useState([initial]);\n    const document = history[history.length - 1];\n    const [selected, setSelected] = useState\u003cstring | null>('edge');\n    const [viewport, setViewport] = useState\u003cViewportState>({ zoom: 1, panX: 0, panY: 0 });\n    const [readonly, setReadonly] = useState(false);\n    const commit = (next: Document) => setHistory([...history, next]);\n    const connect = (change: FlowConnectionChange) => {\n        const id = change.edgeId ?? crypto.randomUUID(), manual = { ...document.manual };\n        delete manual[id];\n        const edge = { id, source: change.source, target: change.target };\n        commit({ edges: change.edgeId ? document.edges.map(previous => previous.id === id ? edge : previous) : [...document.edges, edge], manual });\n        setSelected(id);\n    };\n    const routes = Object.fromEntries(document.edges.map(edge => {\n        const source = ports.find(port => sameEndpoint(port, edge.source))!, target = ports.find(port => sameEndpoint(port, edge.target))!;\n        return [edge.id, { points: document.manual[edge.id] ?? makeEditableRoute(routeEdge({ exit: source.position, exitSide: source.side, entry: target.position, entrySide: target.side }, [])) }];\n    }));\n    const editor = useFlowConnections({ ports, edges: document.edges, routes, nodeRects, selectedEdgeId: selected, containerRef, viewport, revision: document, disabled: readonly,\n        validateConnection: change => document.edges.some(edge => edge.id !== change.edgeId && sameEndpoint(edge.source, change.source) && sameEndpoint(edge.target, change.target)) ? '这两个端口已连接' : null,\n        onConnect: connect,\n        onRouteChange: ({ edgeId, points }) => {\n            const manual = { ...document.manual };\n            if (points) manual[edgeId] = points; else delete manual[edgeId];\n            commit({ ...document, manual });\n        },\n    });\n    const pending = editor.interaction?.kind === 'connection' ? editor.interaction : null;\n    return \u003c>\n        \u003cdiv className={toolbar}>\n            \u003cbutton type=\"button\" disabled={readonly} onClick={() => connect({ edgeId: 'edge', source: ports[0], target: ports[2] })}>改接到 C\u003c/button>\n            \u003cbutton type=\"button\" disabled={readonly || !selected} onClick={() => selected && editor.resetRoute(selected)}>恢复自动走线\u003c/button>\n            \u003cbutton type=\"button\" disabled={readonly || history.length \u003c 2} onClick={() => { editor.cancelInteraction(); setHistory(history.slice(0, -1)); }}>撤销\u003c/button>\n            \u003clabel>\u003cinput type=\"checkbox\" checked={readonly} onChange={event => setReadonly(event.target.checked)} />只读\u003c/label>\n            \u003cspan role=\"status\">{editor.problem || `已提交 ${history.length - 1} 次操作`}\u003c/span>\n        \u003c/div>\n        \u003cdiv className={scroll} role=\"region\" aria-label=\"连线编辑画布\" tabIndex={0}>\n            \u003cdiv ref={containerRef} tabIndex={-1} {...editor.handlers}>\n                \u003cCanvas width={480} height={320} onEmptyClick={() => setSelected(null)}>\n                    \u003cViewport {...viewport} onViewportChange={setViewport} pannable={!editor.interaction} zoomable={!editor.interaction}>\n                        \u003cInfiniteGrid />\n                        {Object.entries(editor.routes).map(([id, route]) => \u003cFlowEdge key={id} points={route.points} lineWidth={selected === id ? 3 : 1.5} onClick={() => setSelected(id)} />)}\n                        {Object.entries(nodeRects).map(([id, rect]) => \u003cFlowNode key={id} {...rect} label={id.toUpperCase()} />)}\n                        {ports.map(port => \u003cCircle key={port.nodeId} cx={port.position.x} cy={port.position.y} r={6 / viewport.zoom} fill={palette.nodeFill} stroke={palette.edge} strokeWidth={2 / viewport.zoom} zIndex={5} />)}\n                        {pending && \u003cFlowEdge points={[pending.fixed.position, pending.target?.position ?? pending.point]} dashLength={5} gapLength={4} zIndex={6} arrowEnd={false} />}\n                    \u003c/Viewport>\n                \u003c/Canvas>\n            \u003c/div>\n        \u003c/div>\n    \u003c/>;\n}\n",
+        "previewPath": "/components/rc-flow-diagram/workbench/?__wake_demo=docs%2Fdemos%2Fediting.demo.tsx",
+        "workbenchPath": "/components/rc-flow-diagram/workbench/#/components/docs%2Fdemos%2Fediting.demo.tsx",
+        "density": "regular",
+        "layout": "wide",
+        "group": "能力与集成示例"
+    },
+    {
         "id": "docs/demos/animated-edge.demo.tsx",
         "title": "FlowEdge 流动动效",
         "description": "flowSpeed 让虚线沿边流动，表达数据流向：正值顺流、负值逆流、数值越大越快。流动相位按累计弧长逐段衔接，拖拽节点改变走线后，图案跨拐角与交叉缺口依旧连续；系统开启「减弱动态效果」时自动降级为静态虚线。",

@@ -16,6 +16,7 @@ type Partial<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArgument
 type ReactNode = DocsTypePlaceholder;
 type Record<T0 = unknown, T1 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0, T1] };
 type UseEdgeRoutingOptions = DocsTypePlaceholder;
+type ViewportState = DocsTypePlaceholder;
 
 export interface FlowDiagramProps {
     /**
@@ -32,6 +33,26 @@ export interface FlowDiagramProps {
      * ELK 布局算法选项，默认 layered + RIGHT
      */
     "elkOptions"?: Record<string, string>;
+
+    /**
+     * manual 不启动 ELK；未提供位置的节点暂放原点。布局不会自动改变视口。
+     */
+    "layoutMode"?: 'auto' | 'manual';
+
+    /**
+     * 暂无说明。
+     */
+    "viewport"?: ViewportState;
+
+    /**
+     * 暂无说明。
+     */
+    "defaultViewport"?: ViewportState;
+
+    /**
+     * 暂无说明。
+     */
+    "onViewportChange"?: (viewport: ViewportState) => void;
 
     /**
      * 节点位置覆盖：`nodeId → { x, y }`。 用于拖拽后实时更新节点位置并触发路由重算， 未覆盖的节点取 ELK 布局结果。

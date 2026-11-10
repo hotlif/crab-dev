@@ -1,12 +1,12 @@
-import { type ReactNode, use, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { type ReactNode, use, useEffect, useEffectEvent, useLayoutEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useLocale } from '@crab-dev/rc-config-provider';
 import { CanvasContext } from '../context/canvas-context.js';
 import { CanvasPaletteContext } from '../context/palette-context.js';
 import { parseColor } from '../math/color.js';
 import type { ColorRGBA } from '../math/color.js';
-import { generateGlyph, generateBitmapGlyph } from '../renderer/text-atlas.js';
-import { invertMat3, applyMat3 } from '../math/matrix.js';
+import { generateGlyph, generateBitmapGlyph, generateAdaptiveGlyph } from '../renderer/text-atlas.js';
+import { invertMat3, applyMat3, multiplyMat3 } from '../math/matrix.js';
 import type { CanvasInteractiveProps } from '../types.js';
 
 export interface TextProps extends CanvasInteractiveProps {
@@ -15,6 +15,8 @@ export interface TextProps extends CanvasInteractiveProps {
     children: string;
     fontSize?: number;
     fontFamily?: string;
+    /** 字重，默认 normal；同时用于测量、绘制和内联编辑。 */
+    fontWeight?: string | number;
     fill?: string;
     /** 水平对齐：x 为文字块左 / 中 / 右边的位置，默认 'left' */
     textAlign?: 'left' | 'center' | 'right';
@@ -26,13 +28,15 @@ export interface TextProps extends CanvasInteractiveProps {
     maxWidth?: number;
     /**
      * 文本渲染模式，默认 'sdf'：
+     * - 'auto'：常规文字按 DPR 与缩放生成位图，缩放稳定 100ms 后刷新；
+     *   大于 48 CSS px 或存在旋转/倾斜时使用 SDF。排版尺寸不随分辨率变化。
      * - 'sdf'：距离场纹理，任意缩放级别下边缘平滑，适合可缩放画布（Viewport）；
      *   代价是小字号（≲14px）细节圆化、发虚。
      * - 'bitmap'：按设备像素比直接光栅化（ECharts/zrender 清晰文本同机制），
      *   配合渲染器物理像素吸附，小字号下与 DOM 文本同等清晰；
      *   适合视图不缩放的场景（图表轴文本等），放大后会呈现位图插值模糊。
      */
-    mode?: 'sdf' | 'bitmap';
+    mode?: 'sdf' | 'bitmap' | 'auto';
     /** 双击进入内联编辑模式（createPortal 挂载到 Canvas 容器 div） */
     editable?: boolean;
     /** 内联文本编辑器的无障碍名称；未提供或仅为空白时使用当前语言的默认名称。 */
@@ -70,6 +74,7 @@ function Text({
     children,
     fontSize = 14,
     fontFamily = 'system-ui',
+    fontWeight = 'normal',
     fill: fillProp,
     opacity = 1,
     textAlign = 'left',
@@ -97,7 +102,7 @@ function Text({
     // 可变实例状态 ref：持有注册 id
     const cmdIdRef = useRef<number | null>(null);
     // 可变实例状态 ref：缓存当前字形的 key 和尺寸（避免 update effect 中丢失）
-    const glyphRef = useRef<{ key: string; width: number; height: number } | undefined>(undefined);
+    const glyphRef = useRef<{ key: string; width: number; height: number; kind: 'bitmap-text' | 'sdf-text' } | undefined>(undefined);
     // 可变实例状态 ref：实时持有 worldMatrix，供 containsPoint 闭包读取
     const worldMatrixRef = useRef<Float32Array>(ctx.parentMatrix);
     worldMatrixRef.current = ctx.parentMatrix;
@@ -146,7 +151,7 @@ function Text({
                 ? [parsedFill[0], parsedFill[1], parsedFill[2], parsedFill[3] * opacity]
                 : parsedFill;
         return {
-            kind: mode === 'bitmap' ? ('bitmap-text' as const) : ('sdf-text' as const),
+            kind: glyphRef.current?.kind ?? (mode === 'bitmap' ? ('bitmap-text' as const) : ('sdf-text' as const)),
             x: x + alignOffset(glyphWidth),
             y: y + baselineOffset(glyphHeight),
             glyphKey,
@@ -199,21 +204,41 @@ function Text({
         };
     }, []);
 
-    // 文字内容、字体或渲染模式变化时重新生成字形纹理并上传。
-    // bitmap 模式按 dprRef 当帧值光栅化；dpr 事后变化（跨屏拖动窗口）不触发
-    // 重新光栅化，仅轻微失去 1:1 对齐——与 ECharts v6.2.0 之前的行为一致。
-    useEffect(() => {
+    // Effect event reads current props without resubscribing on every pan/colour update.
+    const refreshGlyph = useEffectEvent(() => {
         if (cmdIdRef.current === null) return;
         const ownerDocument = ctx.containerRef.current?.ownerDocument;
-        const glyph = mode === 'bitmap'
-            ? generateBitmapGlyph(children, fontSize, fontFamily, ctx.dprRef.current, lineHeight, maxWidth, ownerDocument)
-            : generateGlyph(children, fontSize, fontFamily, lineHeight, maxWidth, ownerDocument);
+        const matrix = multiplyMat3(ctx.viewMatrixRef.current, ctx.parentMatrix);
+        const scale = Math.max(Math.hypot(matrix[0], matrix[1]), Math.hypot(matrix[3], matrix[4]));
+        const useSdf = mode === 'sdf' || (mode === 'auto' &&
+            (fontSize * scale > 48 || Math.abs(matrix[1]) > 1e-6 || Math.abs(matrix[3]) > 1e-6));
+        const glyph = mode === 'auto' && ownerDocument
+            ? generateAdaptiveGlyph(children, fontSize, fontFamily, ctx.dprRef.current * scale,
+                lineHeight, maxWidth, ownerDocument, fontWeight, useSdf)
+            : mode === 'bitmap'
+                ? generateBitmapGlyph(children, fontSize, fontFamily, ctx.dprRef.current, lineHeight, maxWidth, ownerDocument, fontWeight)
+                : generateGlyph(children, fontSize, fontFamily, lineHeight, maxWidth, ownerDocument, fontWeight);
+        const previous = glyphRef.current;
         ctx.uploadGlyph(glyph.key, glyph.data, glyph.width, glyph.height);
-        glyphRef.current = { key: glyph.key, width: glyph.worldWidth, height: glyph.worldHeight };
+        glyphRef.current = { key: glyph.key, width: glyph.worldWidth, height: glyph.worldHeight,
+            kind: useSdf || (mode === 'auto' && !ownerDocument) ? 'sdf-text' : 'bitmap-text' };
         ctx.update(cmdIdRef.current, buildCmd(glyph.key, glyph.worldWidth, glyph.worldHeight));
         if (needsHit) ctx.updateHit(cmdIdRef.current, buildHitEntry());
-        return () => { ctx.releaseTexture(glyph.key); };
-    }, [children, fontSize, fontFamily, lineHeight, maxWidth, mode]);
+        if (previous) ctx.releaseTexture(previous.key);
+    });
+
+    useEffect(() => {
+        refreshGlyph();
+        const unsubscribe = ctx.subscribeTextEnvironment?.(reason => {
+            if (reason !== 'scale' || mode === 'auto') refreshGlyph();
+        });
+        return () => {
+            unsubscribe?.();
+            if (glyphRef.current) ctx.releaseTexture(glyphRef.current.key);
+            glyphRef.current = undefined;
+        };
+    }, [children, fontSize, fontFamily, fontWeight, lineHeight, maxWidth, mode,
+        ctx.parentMatrix[0], ctx.parentMatrix[1], ctx.parentMatrix[3], ctx.parentMatrix[4]]);
 
     // 颜色/位置/透明度变化时更新（使用缓存的字形尺寸，不重新上传）
     useEffect(() => {
@@ -259,6 +284,7 @@ function Text({
                     minHeight: overlayH,
                     fontSize: fontSize * zoom,
                     fontFamily,
+                    fontWeight,
                     color: fill,
                     background: 'transparent',
                     forcedColorAdjust: 'auto',

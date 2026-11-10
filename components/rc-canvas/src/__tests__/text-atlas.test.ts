@@ -1,10 +1,11 @@
 import { describe, it, expect, beforeEach, afterEach, mock } from "@crab-dev/wake/test";
-import { generateGlyph, generateBitmapGlyph } from '../renderer/text-atlas.js';
+import { generateGlyph, generateBitmapGlyph, generateAdaptiveGlyph, invalidateTextFonts } from '../renderer/text-atlas.js';
 beforeEach(() => {
     // jsdom 不支持 OffscreenCanvas，用最小 mock 代替
     const mockCtx = {
         font: '',
         fillStyle: '',
+        scale: mock.fn(),
         fillRect: mock.fn(),
         fillText: mock.fn(),
         measureText: mock.fn(() => ({ width: 80 })),
@@ -111,5 +112,35 @@ describe('generateBitmapGlyph', () => {
         const sdf = generateGlyph('A', 14, 'sans-serif');
         expect(bmp1.key).not.toBe(bmp2.key);
         expect(bmp1.key).not.toBe(sdf.key);
+    });
+});
+
+describe('adaptive text layout and cache', () => {
+    it('keeps wrapping and world bounds stable across DPR, zoom and backend changes', () => {
+        const base = generateAdaptiveGlyph('a b c', 13, 'system-ui', 1, 20, 60, document);
+        for (const scale of [0.75, 1.25, 2, 4]) {
+            for (const sdf of [false, true]) {
+                const next = generateAdaptiveGlyph('a b c', 13, 'system-ui', scale, 20, 60, document, 400, sdf);
+                expect(next.worldWidth).toBe(base.worldWidth);
+                expect(next.worldHeight).toBe(base.worldHeight);
+                expect(next.width).toBeLessThanOrEqual(2048);
+            }
+        }
+    });
+    it('reuses textures but invalidates loaded fonts and separates weights', () => {
+        const glyph = () => generateAdaptiveGlyph('cache', 13, 'system-ui', 2, undefined, undefined, document);
+        const before = glyph();
+        expect(glyph()).toBe(before);
+        expect(generateAdaptiveGlyph('cache', 13, 'system-ui', 2, undefined, undefined, document, 700).key).not.toBe(before.key);
+        invalidateTextFonts(document);
+        expect(glyph().key).not.toBe(before.key);
+    });
+    it('bounds large allocations and evicts least recently used entries', () => {
+        const large = generateAdaptiveGlyph('large', 1000, 'system-ui', 8, undefined, undefined, document);
+        expect(large.width).toBeLessThanOrEqual(2048);
+        expect(large.height).toBeLessThanOrEqual(2048);
+        const first = generateAdaptiveGlyph('entry-0', 13, 'system-ui', 1, undefined, undefined, document);
+        for (let i = 1; i <= 128; i++) generateAdaptiveGlyph(`entry-${i}`, 13, 'system-ui', 1, undefined, undefined, document);
+        expect(generateAdaptiveGlyph('entry-0', 13, 'system-ui', 1, undefined, undefined, document)).not.toBe(first);
     });
 });

@@ -1,11 +1,11 @@
 import { describe, expect, it } from '@crab-dev/wake/test';
 import { WebGLRenderer } from '../../renderer/renderer.js';
-import { generateGlyph, generateBitmapGlyph } from '../../renderer/text-atlas.js';
+import { generateGlyph, generateBitmapGlyph, generateAdaptiveGlyph } from '../../renderer/text-atlas.js';
 import type { GlyphInfo } from '../../renderer/text-atlas.js';
 import type { DrawCommand } from '../../renderer/draw-command.js';
 import { identityMat3, makeScaleMat3 } from '../../math/matrix.js';
 
-function renderGlyph(glyph: GlyphInfo, dpr: number, zoom = 1) {
+function renderGlyph(glyph: GlyphInfo, dpr: number, zoom = 1, kind: 'sdf-text' | 'bitmap-text' = 'sdf-text') {
     const canvas = document.createElement('canvas');
     canvas.width = 512 * dpr;
     canvas.height = 64 * dpr;
@@ -16,7 +16,7 @@ function renderGlyph(glyph: GlyphInfo, dpr: number, zoom = 1) {
         renderer.uploadGlyph(glyph.key, glyph.data, glyph.width, glyph.height);
         renderer.setViewMatrix(makeScaleMat3(zoom, zoom));
         renderer.render(new Map<number, DrawCommand>([[1, {
-            id: 1, kind: 'sdf-text', worldMatrix: identityMat3(), zIndexPath: [0],
+            id: 1, kind, worldMatrix: identityMat3(), zIndexPath: [0],
             x: 0, y: 0, glyphKey: glyph.key, glyphWidth: glyph.worldWidth, glyphHeight: glyph.worldHeight,
             color: [0, 0, 0, 1],
         }]]), 1);
@@ -62,4 +62,27 @@ describe('text renderer pixels', () => {
             }
         }
     });
+});
+
+it('adaptive text keeps native coverage and stable bounds across display scales', () => {
+    for (const size of [10, 12, 13, 14, 16]) {
+        const base = generateAdaptiveGlyph('商品模型 products revision name price', size, 'system-ui', 1, undefined, 180, document);
+        for (const dpr of [1, 1.25, 2]) {
+            for (const zoom of [0.75, 1, 1.25, 1.5, 2]) {
+                const glyph = generateAdaptiveGlyph('商品模型 products revision name price', size, 'system-ui', dpr * zoom, undefined, 180, document);
+                expect(glyph.worldWidth).toBe(base.worldWidth);
+                expect(glyph.worldHeight).toBe(base.worldHeight);
+                // Use a single row for the finite render target and compare coverage
+                // after the GPU upload/sampling path, not a platform-specific snapshot.
+                const row = generateAdaptiveGlyph('商品 products', size, 'system-ui', dpr * zoom, undefined, undefined, document);
+                const pixels = renderGlyph(row, dpr, zoom, 'bitmap-text');
+                let ink = 0;
+                for (let i = 3; i < pixels.length; i += 4) ink += pixels[i];
+                const sourceInk = row.data.reduce((sum, value) => sum + value, 0);
+                const expected = sourceInk * (row.worldWidth * row.worldHeight * (dpr * zoom) ** 2) / (row.width * row.height);
+                expect(ink / expected).toBeGreaterThan(0.9);
+                expect(ink / expected).toBeLessThan(1.1);
+            }
+        }
+    }
 });

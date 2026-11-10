@@ -1,7 +1,20 @@
 import { use } from 'react';
 import { CanvasContext } from '../context/canvas-context.js';
+import type { ViewportState } from '../viewport.js';
+import type { Pt, Rect } from '../routing/index.js';
+import type { FitBoundsOptions } from '../viewport-utils.js';
 
 export interface CanvasControls {
+    /** 读取当前实际视口。 */
+    getViewport: () => ViewportState;
+    /** 设置视口；缩放遵循 Viewport 的 minZoom / maxZoom。 */
+    setViewport: (viewport: ViewportState) => void;
+    /** 缩放到指定倍率，默认以画布中心为支点。 */
+    zoomTo: (zoom: number, pivot?: Pt) => void;
+    /** 显示指定世界坐标边界，padding 使用屏幕 CSS 像素。 */
+    fitBounds: (bounds: Rect, options?: FitBoundsOptions) => void;
+    /** 将指定世界坐标移到视口中心，保留缩放。 */
+    centerOn: (point: Pt) => void;
     /** 将视口调整为恰好显示所有图元的最佳状态，padding 为边缘留白（world px，默认 40） */
     fitView: (padding?: number) => void;
     /** 将当前帧导出为 PNG DataURL（base64） */
@@ -18,7 +31,24 @@ export interface CanvasControls {
  */
 export function useCanvasControls(): CanvasControls {
     const ctx = use(CanvasContext);
+    const getViewport = (): ViewportState => ctx.viewportControlsRef.current?.getViewport() ?? { zoom: 1, panX: 0, panY: 0 };
     return {
+        getViewport,
+        setViewport(viewport) {
+            ctx.viewportControlsRef.current?.setViewport(viewport);
+        },
+        zoomTo(zoom, pivot) {
+            const { width, height } = ctx.canvasSizeRef.current;
+            ctx.viewportControlsRef.current?.zoomTo(zoom, pivot ?? { x: width / 2, y: height / 2 });
+        },
+        fitBounds(bounds, options) {
+            ctx.viewportControlsRef.current?.fitBounds(bounds, options);
+        },
+        centerOn(point) {
+            const { width, height } = ctx.canvasSizeRef.current;
+            const viewport = getViewport();
+            ctx.viewportControlsRef.current?.setViewport({ ...viewport, panX: width / 2 - point.x * viewport.zoom, panY: height / 2 - point.y * viewport.zoom });
+        },
         fitView(padding?: number) {
             ctx.fitViewRef.current?.(padding);
         },

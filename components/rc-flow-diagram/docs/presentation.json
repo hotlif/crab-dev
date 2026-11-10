@@ -10,6 +10,7 @@
         {
             "title": "能力与集成示例",
             "demos": [
+                "editing.demo.tsx",
                 "animated-edge.demo.tsx",
                 "edge.demo.tsx",
                 "elk-layout.demo.tsx",

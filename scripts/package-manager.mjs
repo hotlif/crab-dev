@@ -13,9 +13,9 @@ export async function resolveYarnEntry(launcher, read = readFile) {
     return entries[0];
 }
 
-export async function runYarn(yarn, args, { cwd, signalMessage = "Check terminated by" } = {}) {
+export async function runYarn(yarn, args, { cwd, env = process.env, signalMessage = "Check terminated by" } = {}) {
     return await new Promise((resolveExit, reject) => {
-        const child = spawn(process.execPath, [yarn, ...args], { cwd, stdio: "inherit", windowsHide: true });
+        const child = spawn(process.execPath, [yarn, ...args], { cwd, env, stdio: "inherit", windowsHide: true });
         child.once("error", reject);
         child.once("exit", (code, signal) => signal ? reject(new Error(`${signalMessage} ${signal}`)) : resolveExit(code ?? 1));
     });

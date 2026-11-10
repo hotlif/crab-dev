@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { computeElkLayout } from '../elk-layout.js';
+import { computeFlowLayout } from '../layout.js';
 
 /** 传入节点描述：必须提供稳定的 id 与明确的宽高（world px）。 */
 export interface ElkLayoutNode {
@@ -61,15 +61,18 @@ export function useElkLayout(
     nodes: ElkLayoutNode[],
     edges: ElkLayoutEdge[],
     options?: Record<string, string>,
+    execution?: { enabled?: boolean },
 ): UseElkLayoutResult {
+    const enabled = execution?.enabled ?? true;
     const [layout, setLayout] = useState<ElkLayoutResult | null>(null);
-    const [loading, setLoading] = useState(nodes.length > 0);
+    const [loading, setLoading] = useState(enabled && nodes.length > 0);
     const [error, setError] = useState<Error | null>(null);
 
     // JSON 序列化作为 dep key：内容不变则不重新布局
     const key = JSON.stringify({ nodes, edges, options });
 
     useEffect(() => {
+        if (!enabled) { setLoading(false); setError(null); return; }
         if (nodes.length === 0) {
             setLayout({ nodes: {}, edges: {} });
             setLoading(false);
@@ -81,7 +84,7 @@ export function useElkLayout(
         setLoading(true);
         setError(null);
 
-        computeElkLayout(nodes, edges, options).then(result => {
+        computeFlowLayout(nodes, edges, options).then(result => {
             if (cancelled) return;
             setLayout(result ?? { nodes: {}, edges: {} });
             setLoading(false);
@@ -92,7 +95,7 @@ export function useElkLayout(
         });
 
         return () => { cancelled = true; };
-    }, [key]);
+    }, [key, enabled]);
 
     return { layout, loading, error };
 }

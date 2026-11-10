@@ -1,6 +1,9 @@
+import Group from '../shapes/group.js';
+import { CanvasContext, type CanvasContextValue } from '../context/canvas-context.js';
+import { makeScaleMat3, makeTranslateMat3 } from '../math/matrix.js';
 import { afterEach, beforeEach, describe, expect, it, mock } from '@crab-dev/wake/test';
 import { act, fireEvent, render, screen } from '@crab-dev/wake/test/react';
-import { useState } from 'react';
+import { useState, use, useEffect } from 'react';
 import { flushSync } from 'react-dom';
 import ConfigProvider from '@crab-dev/rc-config-provider';
 import Canvas from '../canvas.js';
@@ -14,7 +17,7 @@ beforeEach(() => {
     mock.spyOn(HTMLCanvasElement.prototype, 'getContext').implement(((type: string) => type === 'webgl2' ? gl : null) as typeof HTMLCanvasElement.prototype.getContext);
     // DOM 环境没有 WebGL/OffscreenCanvas；保留真实 Canvas 命中与编辑流程，仅替换绘制平台。
     const context = {
-        font: '', fillStyle: '',
+        font: '', fillStyle: '', scale: mock.fn(),
         fillRect: mock.fn(), fillText: mock.fn(),
         measureText: mock.fn(() => ({ width: 80 })),
         getImageData: mock.fn((_x: number, _y: number, width: number, height: number) => ({
@@ -249,4 +252,79 @@ describe('Canvas Text inline editor', () => {
         expect(screen.getByRole('textbox', { name: '编辑画布文本' })).toBe(editor);
         expect(document.activeElement).toBe(editor);
     });
+});
+
+describe('adaptive text environment', () => {
+    it('refreshes settled zoom and DPR, ignores pan, and releases subscriptions on unmount', async () => {
+        let context: CanvasContextValue | undefined;
+        function Probe() {
+            const value = use(CanvasContext);
+            useEffect(() => { context = value; });
+            return null;
+        }
+        const scene = (dpr: number) => <Canvas width={320} height={160} dpr={dpr}>
+            <Text x={20} y={30} mode="auto">商品模型 products</Text><Probe />
+        </Canvas>;
+        const view = await render(scene(1));
+        const read = () => [...context!.commandMapRef.current.values()].find(command => command.kind === 'bitmap-text');
+        const first = read();
+        expect(first?.kind).toBe('bitmap-text');
+        const upload = mock.spyOn(context!, 'uploadGlyph');
+        await act(async () => { context!.setViewMatrix(makeScaleMat3(1.5, 1.5)); context!.setViewMatrix(makeScaleMat3(2, 2)); });
+        expect(upload).not.toHaveBeenCalled();
+        await act(async () => { await new Promise(resolve => setTimeout(resolve, 130)); });
+        expect(upload).toHaveBeenCalledTimes(1);
+        const zoomed = read();
+        if (first?.kind !== 'bitmap-text' || zoomed?.kind !== 'bitmap-text') throw new Error('Expected bitmap text');
+        expect(zoomed.glyphKey).not.toBe(first.glyphKey);
+        expect(zoomed.glyphWidth).toBe(first.glyphWidth);
+        expect(zoomed.glyphHeight).toBe(first.glyphHeight);
+        await view.rerender(scene(2));
+        expect(upload).toHaveBeenCalledTimes(2);
+        const pan = makeScaleMat3(2, 2); pan[6] = 40;
+        await act(async () => { context!.setViewMatrix(pan); await new Promise(resolve => setTimeout(resolve, 130)); });
+        expect(upload).toHaveBeenCalledTimes(2);
+        await view.unmount();
+        expect(context!.commandMapRef.current.size).toBe(0);
+        await act(async () => { context!.setViewMatrix(makeTranslateMat3(0, 0)); await new Promise(resolve => setTimeout(resolve, 130)); });
+        expect(upload).toHaveBeenCalledTimes(2);
+    });
+});
+
+it('adaptive text follows Group scale, SDF fallback and loaded font invalidation', async () => {
+    const descriptor = Object.getOwnPropertyDescriptor(document, 'fonts');
+    const fonts = Object.assign(new EventTarget(), { ready: Promise.resolve() });
+    Object.defineProperty(document, 'fonts', { configurable: true, value: fonts });
+    let context: CanvasContextValue | undefined;
+    function Probe() {
+        const value = use(CanvasContext);
+        useEffect(() => { context = value; });
+        return null;
+    }
+    const scene = (scale: number) => <Canvas width={320} height={160}>
+        <Group scaleX={scale} scaleY={scale}><Text x={20} y={30} mode="auto" fontWeight={600}>products</Text></Group><Probe />
+    </Canvas>;
+    try {
+        const view = await render(scene(1));
+        const read = () => [...context!.commandMapRef.current.values()].find(command => command.kind === 'bitmap-text' || command.kind === 'sdf-text')!;
+        const first = read();
+        await view.rerender(scene(2));
+        const second = read();
+        if (first.kind !== 'bitmap-text' || second.kind !== 'bitmap-text') throw new Error('Expected adaptive bitmap');
+        expect(second.glyphKey).not.toBe(first.glyphKey);
+        expect(second.glyphWidth).toBe(first.glyphWidth);
+        await act(async () => { fonts.dispatchEvent(new Event('loadingdone')); });
+        const loaded = read();
+        if (loaded.kind !== 'bitmap-text') throw new Error('Expected bitmap');
+        expect(loaded.glyphKey).not.toBe(second.glyphKey);
+        await view.rerender(scene(4));
+        const large = read();
+        expect(large.kind).toBe('sdf-text');
+        if (large.kind !== 'sdf-text') throw new Error('Expected SDF');
+        expect(large.glyphWidth).toBe(first.glyphWidth);
+        await view.unmount();
+    } finally {
+        if (descriptor) Object.defineProperty(document, 'fonts', descriptor);
+        else Reflect.deleteProperty(document, 'fonts');
+    }
 });

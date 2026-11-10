@@ -46,7 +46,36 @@ FlowEdge 静态样式和流动动效示例的彩色连线使用品牌、反馈�
 
 ## API
 
+## 受控编辑协议
+
+编辑器可以直接组合 Canvas、Viewport、FlowNode 与 FlowEdge，也可以使用 FlowDiagram 的 render prop。`useFlowConnections` 统一仲裁端口连接、端点改接和线段移动；它不创建业务边、不保存文档，也不维护撤销栈。
+
+- `FlowPort` 使用稳定的 `{ nodeId, portId }` 标识，`position` 是世界坐标，`side` 表示出入口朝向，`direction` 可为 input、output 或 both。字段端口可按字段 ID 和左右侧生成，禁止使用行号作为 ID。
+- `edges` 保存 `{ id, source, target }`，`routes` 单独提供绘制点。调用方保留审批分支、字段类型、条件、边标签等业务属性。
+- `validateConnection(change)` 返回错误说明或空值。`onConnect(change)` 只在有效松手后调用；`edgeId` 存在表示改接，宿主应保留该边的 ID 和业务属性。
+- `onRouteChange({ edgeId, points })` 提交路线。`points: null` 是恢复自动走线的意图。保存时可连同端口绑定指纹记录；绑定改变时清除旧路线。
+- `interaction` 和返回的 `routes` 用于渲染预览。把 `handlers` 放在包裹 Canvas 的 DOM 元素上；处理函数也返回是否接管事件，方便与框选、右键菜单组合。容器应有 `tabIndex={-1}` 或等价焦点入口。
+- `revision` 传入当前文档身份或修订号。不要把随拖动变化的预览对象作为修订。`active={false}`、`disabled`、Esc、失焦、页面隐藏、pointercancel、丢失捕获、修订切换与卸载会丢弃预览。
+
+命中半径和拖动阈值使用屏幕 CSS 像素。`resolvePort(worldPoint, moving)` 可实现字段行内吸附；未提供时根据 `nodeRects` 吸附节点上最近的兼容端口。库不替调用方判断循环、字段类型或审批出口数量。
+
+节点拖动或其他编辑使用 `useDiagramInteraction<T>` 的 `begin / update / commit / cancel`。`onInteractionChange` 提供 start、preview、commit、cancel 阶段；只有 commit 写入文档及历史。文档撤销、切换和权限变化通过 revision、active、disabled 使旧手势失效。键盘操作可以直接调用同一业务提交函数。
+
+`makeEditableRoute` 为短折线补内部编辑段，`moveEdgeSegment` 保持两端端口，`reanchorEdgeRoute` 在节点移动或字段重排后保留中间路径并重接端口。非法路线返回 null，宿主退回自动路由。`hitTestEdges` 可配合业务 filter 查找节点拖放的候选插入边。
+
+## 视口与布局
+
+FlowDiagram 接受 `viewport / defaultViewport / onViewportChange`。新文档默认 100%，载入节点、恢复存档和切换布局不会隐式 fit。`controls` 增加 `getViewport / setViewport / zoomTo / fitBounds / centerOn / focusNode`；`focusNode` 保留缩放。`fitBounds` 的 padding 是屏幕像素，原有 `fitView(padding)` 的 world px 语义保持不变。
+
+`layoutMode="manual"` 仅使用 `nodePositions`，不启动 ELK；位置缺失的节点暂放原点。自动模式下，已有位置立即显示，缺失位置等待 ELK。显式布局按钮可调用 `computeFlowLayout(nodes, edges, elkOptions)`，等待期间应记录文档修订，过期结果由宿主丢弃。低层 `useElkLayout` 的第四个参数支持 `{ enabled: false }`。
+
+## API
+
 <API source="../src/flow-diagram.tsx" symbol="FlowDiagramProps" component="FlowDiagram" />
+
+<API source="../src/hooks/useFlowConnections.ts" symbol="FlowConnectionsOptions" component="useFlowConnections" />
+
+<API source="../src/hooks/useFlowDiagramControls.ts" symbol="FlowDiagramControls" component="FlowDiagramControls" />
 
 ## 设计风格与主题
 
@@ -81,3 +110,14 @@ ELK 的 loading 是真实异步计算窗口；失败使用无效算法触发真�
 实际画面准备还独立核对 Canvas 的真实 DPR、drawing buffer 与原生帧，并在初始视图读取已提交节点内部、匹配实际公共色板的标签像素。ELK ready、节点数和非零 DOM 边界分别只能证明各自前提。手动路由检查真实路径经过声明的 waypoint；选择、拖动和配置切换保留同一数据模型。
 
 视图工具栏直接使用 render-prop 的 `fitView`、`zoomIn`、`zoomOut`、`exportPNG`。原生领域场景执行背景指针平移，确认模型/路由和倍率不被平移修改；实际导出的 PNG 在页面显示、校验原生解码尺寸并附入框架报告。这里的 domain zoom 与浏览器真实 200% 是两个分别记录的能力，不能互相替代。
+
+## 节点文字清晰度
+
+`FlowNode` 默认 `textMode="auto"`：常规字号按实际缩放与 DPR 生成位图，缩放稳定后刷新。可通过 `fontFamily`、`fontWeight`、`lineHeight` 与 HTML 节点统一排版配置；原有 `fontSize` 默认仍为 13。需要保留原先距离场外观时显式指定 `textMode="sdf"`。
+
+```tsx
+<FlowNode x={20} y={20} width={240} height={64} label="商品模型 products"
+    fontFamily="system-ui" fontSize={13} fontWeight={400} lineHeight={20} />
+```
+
+自定义节点中直接使用的 `Text` 保留原默认值，需要逐处指定 `mode="auto"`；`FlowNode` 的默认设置不会覆盖自定义子图元。

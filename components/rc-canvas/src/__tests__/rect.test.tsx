@@ -29,6 +29,7 @@ function makeCtxMock() {
         canvasSizeRef: { current: { width: 800, height: 600 } },
         dprRef: { current: 1 },
         seekPanRef: { current: null },
+        viewportControlsRef: { current: null },
         applyZoomRef: { current: null },
         fitViewRef: { current: null },
         containerRef: { current: null },

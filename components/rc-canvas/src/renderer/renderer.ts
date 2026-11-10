@@ -550,21 +550,18 @@ export class WebGLRenderer {
         const tex = this.textures.get(cmd.glyphKey);
         if (!tex) return;
 
-        // 物理像素吸附（bitmap 文本清晰的关键，PixiJS ROUND_PIXELS 同思路）：
-        // 视图 × 世界为纯平移时，把 quad 原点取整到物理像素网格；纹理物理尺寸
-        // 恒为整数，故整个 quad 与像素网格重合，LINEAR 采样退化为逐像素拷贝，
-        // 浏览器字体光栅化的 AA/hinting 原样呈现。存在缩放/旋转时跳过吸附
-        // （此时位图必然经插值，应改用 SDF 文本）。
+        // Snap the screen-space origin, then invert the axis-aligned scale.
+        // Adaptive text is rasterized at this scale; rotation/shear must not snap.
         let x = cmd.x;
         let y = cmd.y;
         const m = multiplyMat3(this.viewMatrix, cmd.worldMatrix);
-        const isPureTranslation =
-            Math.abs(m[0] - 1) < 1e-6 && Math.abs(m[4] - 1) < 1e-6 &&
+        const isAxisAligned =
+            m[0] > 1e-6 && m[4] > 1e-6 &&
             Math.abs(m[1]) < 1e-6 && Math.abs(m[3]) < 1e-6;
-        if (isPureTranslation) {
+        if (isAxisAligned) {
             const { dpr } = this;
-            x = Math.round((cmd.x + m[6]) * dpr) / dpr - m[6];
-            y = Math.round((cmd.y + m[7]) * dpr) / dpr - m[7];
+            x = (Math.round((cmd.x * m[0] + m[6]) * dpr) / dpr - m[6]) / m[0];
+            y = (Math.round((cmd.y * m[4] + m[7]) * dpr) / dpr - m[7]) / m[4];
         }
 
         const { gl, textureProg: prog, textureLocs: L } = this;

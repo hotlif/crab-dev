@@ -7,6 +7,7 @@ import { extractPackageImports, findDependencyCycle, inspectPackage, libraryBuil
 import { createTurboConfig } from "./generate-library-tasks.mjs";
 import { validateReleaseEvent } from "./check-release.mjs";
 import { resolveYarnEntry, runYarn } from "./package-manager.mjs";
+import { buildEnvironment } from "./build-library.mjs";
 import { generatedContentChanges, generatedLibraryPaths } from "./check-generated.mjs";
 import { exportTargets, verifyTarget } from "./check-exports.mjs";
 import { validateReactPeers } from "./check-library.mjs";
@@ -276,6 +277,23 @@ test("workspace checks resolve both direct Yarn entries and Windows shell wrappe
 test("workspace check runner preserves child exit codes", async () => {
     assert.equal(await runYarn("-e", ["process.exit(0)"]), 0);
     assert.equal(await runYarn("-e", ["process.exit(7)"]), 7);
+});
+
+test("Windows builds give nested processes a writable local temp directory", async () => {
+    const root = await mkdtemp(join(tmpdir(), "crab-build-env-"));
+    try {
+        const original = { ...process.env, TEMP: "unusable-temp", TMP: "unusable-temp", TMPDIR: "unusable-temp" };
+        const env = await buildEnvironment({ root, platform: "win32", env: original });
+        assert.equal(original.TEMP, "unusable-temp");
+        assert.equal(env.TEMP, join(root, ".tmp", "build-library"));
+        assert.equal(env.TMP, env.TEMP);
+        assert.equal(env.TMPDIR, env.TEMP);
+        const probe = "const fs = require('node:fs'); const os = require('node:os'); const path = require('node:path'); const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'xfs-')); fs.rmdirSync(dir);";
+        assert.equal(await runYarn("-e", [probe], { env }), 0);
+        assert.deepEqual(await buildEnvironment({ root, platform: "linux", env: original }), original);
+    } finally {
+        await rm(root, { recursive: true, force: true });
+    }
 });
 
 test("release authorization rejects a different checkout or action SHA, failed run and pull request trigger", () => {

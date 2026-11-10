@@ -9,6 +9,7 @@
                 "opacity.demo.tsx",
                 "text.demo.tsx",
                 "text-advanced.demo.tsx",
+                "text-comparison.demo.tsx",
                 "group.demo.tsx"
             ]
         },

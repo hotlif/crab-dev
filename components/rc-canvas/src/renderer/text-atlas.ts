@@ -166,6 +166,8 @@ interface RasterizedText {
     data: Uint8ClampedArray;
     width: number;
     height: number;
+    worldWidth: number;
+    worldHeight: number;
 }
 
 /**
@@ -182,11 +184,15 @@ function rasterizeText(
     lineHeight?: number,
     maxWidth?: number,
     ownerDocument?: Document,
+    fontWeight: string | number = 'normal',
+    stableLayout = false,
 ): RasterizedText {
-    const scaledSize = fontSize * scale;
-    const scaledLineHeight = Math.ceil((lineHeight ?? fontSize * 1.4) * scale);
-    const scaledMaxWidth = maxWidth !== undefined ? maxWidth * scale : undefined;
-    const fontStr = `${scaledSize}px ${fontFamily}`;
+    const layoutScale = stableLayout ? 1 : scale;
+    const scaledSize = fontSize * layoutScale;
+    const requestedLineHeight = (lineHeight ?? fontSize * 1.4) * layoutScale;
+    const scaledLineHeight = stableLayout ? requestedLineHeight : Math.ceil(requestedLineHeight);
+    const scaledMaxWidth = maxWidth !== undefined ? maxWidth * layoutScale : undefined;
+    const fontStr = `${fontWeight} ${scaledSize}px ${fontFamily}`;
 
     const probeCtx = createTextRasterContext(1, 1, ownerDocument);
     probeCtx.font = fontStr;
@@ -207,12 +213,18 @@ function rasterizeText(
     // 取最宽行宽，确保至少 1px
     const maxLineWidth = Math.max(1, ...lines.map(l => probeCtx.measureText(l).width));
 
-    const w = Math.ceil(maxLineWidth) + pad * 2;
-    const h = lines.length * scaledLineHeight + pad * 2;
+    const layoutPad = stableLayout ? 4 : pad;
+    const layoutWidth = Math.ceil(maxLineWidth) + layoutPad * 2;
+    const layoutHeight = Math.ceil(lines.length * scaledLineHeight) + layoutPad * 2;
+    // Bound allocations before creating a surface (WebGL2 guarantees 2048).
+    const rasterScale = stableLayout ? Math.min(scale, 2048 / layoutWidth, 2048 / layoutHeight) : 1;
+    const w = Math.max(1, Math.ceil(layoutWidth * rasterScale));
+    const h = Math.max(1, Math.ceil(layoutHeight * rasterScale));
 
     const ctx2d = createTextRasterContext(w, h, ownerDocument);
     ctx2d.fillStyle = '#000';
     ctx2d.fillRect(0, 0, w, h);
+    if (stableLayout) ctx2d.scale(w / layoutWidth, h / layoutHeight);
     ctx2d.fillStyle = '#fff';
     ctx2d.font = fontStr;
     ctx2d.textBaseline = 'alphabetic';
@@ -221,11 +233,12 @@ function rasterizeText(
         // 确保 textBaseline='middle' 时 worldHeight/2 精确对应字形视觉中心
         const m = ctx2d.measureText(lines[i] || ' ');
         const halfShift = (m.actualBoundingBoxAscent - m.actualBoundingBoxDescent) / 2;
-        const centerY = pad + (i + 0.5) * scaledLineHeight;
-        ctx2d.fillText(lines[i], pad, centerY + halfShift);
+        const centerY = layoutPad + (i + 0.5) * scaledLineHeight;
+        ctx2d.fillText(lines[i], layoutPad, centerY + halfShift);
     }
 
-    return { data: ctx2d.getImageData(0, 0, w, h).data, width: w, height: h };
+    return { data: ctx2d.getImageData(0, 0, w, h).data, width: w, height: h,
+        worldWidth: layoutWidth / layoutScale, worldHeight: layoutHeight / layoutScale };
 }
 
 // ─── 公开 API ─────────────────────────────────────────────────────────────
@@ -243,13 +256,14 @@ export function generateGlyph(
     lineHeight?: number,
     maxWidth?: number,
     ownerDocument?: Document,
+    fontWeight: string | number = 'normal',
 ): GlyphInfo {
-    const raster = rasterizeText(text, fontSize, fontFamily, OVERSAMPLE, SDF_SPREAD, lineHeight, maxWidth, ownerDocument);
+    const raster = rasterizeText(text, fontSize, fontFamily, OVERSAMPLE, SDF_SPREAD, lineHeight, maxWidth, ownerDocument, fontWeight);
     const { width, height } = raster;
     const sdfData = computeSDF(raster.data, width, height, SDF_SPREAD);
 
     return {
-        key: `sdf\x00${text}\x00${fontSize}\x00${fontFamily}\x00${lineHeight ?? ''}\x00${maxWidth ?? ''}`,
+        key: `sdf\x00${text}\x00${fontSize}\x00${fontFamily}\x00${lineHeight ?? ''}\x00${maxWidth ?? ''}\x00${fontWeight}`,
         width,
         height,
         worldWidth: width / OVERSAMPLE,
@@ -277,10 +291,11 @@ export function generateBitmapGlyph(
     lineHeight?: number,
     maxWidth?: number,
     ownerDocument?: Document,
+    fontWeight: string | number = 'normal',
 ): GlyphInfo {
     // 四周留 1 CSS px 边距：防 LINEAR 采样在纹理边缘处 clamp 切掉字形反走样像素
     const pad = Math.ceil(dpr);
-    const raster = rasterizeText(text, fontSize, fontFamily, dpr, pad, lineHeight, maxWidth, ownerDocument);
+    const raster = rasterizeText(text, fontSize, fontFamily, dpr, pad, lineHeight, maxWidth, ownerDocument, fontWeight);
     const { width, height } = raster;
 
     // 白字黑底 → R 通道即 coverage alpha
@@ -290,7 +305,7 @@ export function generateBitmapGlyph(
     }
 
     return {
-        key: `bmp\x00${dpr}\x00${text}\x00${fontSize}\x00${fontFamily}\x00${lineHeight ?? ''}\x00${maxWidth ?? ''}`,
+        key: `bmp\x00${dpr}\x00${text}\x00${fontSize}\x00${fontFamily}\x00${lineHeight ?? ''}\x00${maxWidth ?? ''}\x00${fontWeight}`,
         width,
         height,
         worldWidth: width / dpr,
@@ -300,3 +315,44 @@ export function generateBitmapGlyph(
     };
 }
 
+// CPU cache is document-scoped; Canvas reference-counts GPU ownership separately.
+const adaptiveCaches = new WeakMap<Document, { epoch: number; bytes: number; glyphs: Map<string, GlyphInfo> }>();
+export function invalidateTextFonts(document: Document): void {
+    const previous = adaptiveCaches.get(document);
+    adaptiveCaches.set(document, { epoch: (previous?.epoch ?? 0) + 1, bytes: 0, glyphs: new Map() });
+}
+
+/** Stable world-space layout; only texture resolution changes with the viewport. */
+export function generateAdaptiveGlyph(
+    text: string, fontSize: number, fontFamily: string, scale: number,
+    lineHeight: number | undefined, maxWidth: number | undefined,
+    ownerDocument: Document, fontWeight: string | number = 'normal', sdf = false,
+): GlyphInfo {
+    let cache = adaptiveCaches.get(ownerDocument);
+    if (!cache) {
+        cache = { epoch: 0, bytes: 0, glyphs: new Map() };
+        adaptiveCaches.set(ownerDocument, cache);
+    }
+    const resolution = sdf ? 4 : Math.max(0.125, Math.min(8, scale));
+    const key = JSON.stringify(['auto', cache.epoch, sdf, resolution, text, fontSize, fontFamily, fontWeight, lineHeight, maxWidth]);
+    const cached = cache.glyphs.get(key);
+    if (cached) {
+        cache.glyphs.delete(key);
+        cache.glyphs.set(key, cached);
+        return cached;
+    }
+    const raster = rasterizeText(text, fontSize, fontFamily, resolution, 0, lineHeight, maxWidth, ownerDocument, fontWeight, true);
+    const data = sdf ? computeSDF(raster.data, raster.width, raster.height, SDF_SPREAD)
+        : Uint8Array.from({ length: raster.width * raster.height }, (_, i) => raster.data[i * 4]);
+    const glyph: GlyphInfo = { key, width: raster.width, height: raster.height,
+        worldWidth: raster.worldWidth, worldHeight: raster.worldHeight, channels: 1, data };
+    cache.glyphs.set(key, glyph);
+    cache.bytes += data.byteLength;
+    while (cache.bytes > 4 * 1024 * 1024 || cache.glyphs.size > 128) {
+        const oldest = cache.glyphs.keys().next().value;
+        if (oldest === undefined) break;
+        cache.bytes -= cache.glyphs.get(oldest)!.data.byteLength;
+        cache.glyphs.delete(oldest);
+    }
+    return glyph;
+}

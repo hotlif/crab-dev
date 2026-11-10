@@ -34,6 +34,8 @@ import { demos } from "../_generated/rc-canvas.js";
 
 ##### 文字对齐与多行 — textAlign（left / center / right）、textBaseline（top / middle / bottom）以及 \\n 换行和 maxWidth 自动词换行的综合演示。
 
+##### HTML 与画布文字对照 — 相同字体、字重和字号下比较 HTML、SDF 与 auto。画布滚轮缩放后，HTML 同步字号；auto 在缩放稳定后更新纹理。
+
 ##### 分组变换与嵌套 — Group 维护 TRS 矩阵栈，子孙坐标随父级平移 / 旋转 / 缩放叠加，支持任意层级嵌套。
 
 #### 交互与变换
@@ -123,6 +125,16 @@ Canvas 真正卸载后主动释放 WebGL 上下文，避免虚拟列表反复挂
 
 
 
+### 程序化视口
+
+在 Canvas 子树内调用 `useCanvasControls()`，与 Viewport 配合使用 `getViewport`、`setViewport`、`zoomTo`、`fitBounds`、`centerOn`。命令遵循 Viewport 的缩放上下限，并通知最新的 `onViewportChange`。`zoomTo` 的支点为画布局部 CSS 坐标，缺省为画布中心；`centerOn` 接收世界坐标并保留缩放。加载或更新图元不会自动适配视口。
+
+`fitBounds(bounds, { padding, minZoom, maxZoom })` 的留白为屏幕 CSS 像素，可分别设置上下左右。既有 `fitView(padding)` 继续使用世界坐标留白。无有效可用空间时 fitBounds 保持当前视口。
+
+画布外的状态逻辑可使用纯函数 `screenToWorld / worldToScreen / zoomViewport / getViewportForBounds`。screen 坐标是画布局部 CSS 坐标，处理 clientX/clientY 时先减去 canvas 的 boundingClientRect 起点；无需乘设备 DPR。图表渲染尺寸应与该 CSS 坐标空间一致。
+
+
+
 ### 设计风格与主题
 
 Canvas 按 Crab 的专业绘图扩展维护。Material Design 3 Expressive（`md3`）、Apple（`apple`）和 shadcn/ui（`shadcn`）的来源与固定基线见[三套设计体系](/guides/design-styles)；这些依据用于语义角色和编辑辅助界面，不定义本库的 WebGL 绘图协议。
@@ -144,6 +156,20 @@ Canvas 按 Crab 的专业绘图扩展维护。Material Design 3 Expressive（`md
 「iframe 内 Shadow 画布主题」将当前工作台已加载的公开 Theme 与组件真实样式资源安装到目标 Document 和 ShadowRoot，等待资源加载完成后挂载画布。最近主题边界位于 iframe 创建的 Shadow host 外，祖先遍历沿实际 slot、普通父元素和 Shadow host 前进，不使用当前窗口的 `instanceof ShadowRoot` 判断其他文档的节点。切换最近边界会重新解析颜色并重绘，外层边界不会覆盖内层边界。
 
 该示例固定 `dpr={1.5}`，通过公开 `onRender` 在真实绘制后读取 GPU 像素；原生场景另用浏览器 2D 颜色求值核对实际主题前景，同时保留 iframe、Canvas、输入节点及拖动后的世界坐标和业务草稿。绘制计数只是就绪信号，不能代替像素与人工截图复审；新场景尚未执行或复审时仍为未验证。
+
+### 小字号文字与 HTML 对齐
+
+`Text` 保留默认 `mode="sdf"`；需要清晰字段文字时显式使用 `mode="auto"`。自动模式按 DPR、视图与 Group 缩放生成位图，缩放稳定 100ms 后刷新，平移不重新光栅化。显示字号超过 48 CSS px 或存在旋转/倾斜时使用 SDF。切换纹理分辨率不改变换行和世界坐标尺寸。
+
+```tsx
+<Text x={20} y={30} mode="auto" fontFamily="system-ui" fontSize={13} fontWeight={400} lineHeight={20}>
+    商品模型 products
+</Text>
+```
+
+HTML 与画布应显式使用相同的 `fontFamily`、`fontSize`、`fontWeight`、`lineHeight`。画布不继承 DOM 的排版样式；字体加载完成与 DPR 变化会刷新纹理。文字仍按字形视觉中心定位，不承诺与 HTML 基线或抗锯齿逐像素相同。
+
+自动模式的 CPU 字形缓存按 Document 隔离，最多 128 项 / 4 MiB；单张纹理限制为 2048 × 2048，光栅倍率最高 8 倍，超过限制可能降低清晰度。GPU 纹理在最后一个消费者释放时删除。显式 `bitmap` 仍适用于固定缩放，显式 `sdf` 适用于需要距离场的场景。
 
 ### 适用场景
 
@@ -181,3 +207,5 @@ Canvas 按 Crab 的专业绘图扩展维护。Material Design 3 Expressive（`md
 <API source="../_generated_api/rc-canvas.ts" symbol="CanvasProps" component="Canvas" />
 
 <API source="../_generated_api/rc-canvas-TextProps.ts" symbol="TextProps" component="Text" />
+
+<API source="../_generated_api/rc-canvas-CanvasControls.ts" symbol="CanvasControls" component="CanvasControls" />

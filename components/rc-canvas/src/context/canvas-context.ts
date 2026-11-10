@@ -3,6 +3,7 @@ import type { Context } from 'react';
 import type { DrawCommand } from '../renderer/draw-command.js';
 import type { PointerHitEvent, DragStartEvent, DragMoveEvent, DragEndEvent } from '../drag-types.js';
 import { identityMat3 } from '../math/matrix.js';
+import type { CanvasControls } from '../hooks/useCanvasControls.js';
 
 const EMPTY_MAP: ReadonlyMap<number, DrawCommand> = new Map();
 
@@ -128,6 +129,7 @@ export interface CanvasContextValue {
      * null 表示当前无 Viewport 挂载。
      */
     readonly seekPanRef: { current: ((panX: number, panY: number) => void) | null };
+    readonly viewportControlsRef: { current: Pick<CanvasControls, 'getViewport' | 'setViewport' | 'zoomTo' | 'fitBounds'> | null };
 
     /**
      * 由 Viewport 注入：以 canvas 坐标 (pivotX, pivotY) 为缩放中心，
@@ -140,6 +142,9 @@ export interface CanvasContextValue {
      * 不触发任何 React 渲染。
      */
     setViewMatrix(mat: Float32Array): void;
+
+    /** Internal text invalidation: settled zoom, DPR and loaded fonts. */
+    subscribeTextEnvironment?(listener: (reason: 'scale' | 'dpr' | 'fonts') => void): () => void;
 
     /**
      * 订阅 canvas DOM 节点或容器 div 上的原生事件。
@@ -190,6 +195,7 @@ export const CanvasContext: Context<CanvasContextValue> = createContext<CanvasCo
     canvasSizeRef: { current: { width: 0, height: 0 } },
     dprRef: { current: 1 },
     seekPanRef: { current: null },
+    viewportControlsRef: { current: null },
     applyZoomRef: { current: null },
     setViewMatrix: () => {},
     subscribeCanvasEvent: () => () => {},

@@ -387,6 +387,7 @@ export const libraryDependencies = [
             "rc-canvas"
         ],
         "docs": [
+            "rc-canvas",
             "rc-select",
             "rc-token-semantic"
         ],

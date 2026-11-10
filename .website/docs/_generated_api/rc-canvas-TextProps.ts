@@ -87,6 +87,11 @@ export interface TextProps {
     "fontFamily"?: string;
 
     /**
+     * 字重，默认 normal；同时用于测量、绘制和内联编辑。
+     */
+    "fontWeight"?: string | number;
+
+    /**
      * 暂无说明。
      */
     "fill"?: string;
@@ -112,9 +117,9 @@ export interface TextProps {
     "maxWidth"?: number;
 
     /**
-     * 文本渲染模式，默认 ’sdf’： - ’sdf’：距离场纹理，任意缩放级别下边缘平滑，适合可缩放画布（Viewport）； 代价是小字号（≲14px）细节圆化、发虚。 - ’bitmap’：按设备像素比直接光栅化（ECharts/zrender 清晰文本同机制）， 配合渲染器物理像素吸附，小字号下与 DOM 文本同等清晰； 适合视图不缩放的场景（图表轴文本等），放大后会呈现位图插值模糊。
+     * 文本渲染模式，默认 ’sdf’： - ’auto’：常规文字按 DPR 与缩放生成位图，缩放稳定 100ms 后刷新； 大于 48 CSS px 或存在旋转/倾斜时使用 SDF。排版尺寸不随分辨率变化。 - ’sdf’：距离场纹理，任意缩放级别下边缘平滑，适合可缩放画布（Viewport）； 代价是小字号（≲14px）细节圆化、发虚。 - ’bitmap’：按设备像素比直接光栅化（ECharts/zrender 清晰文本同机制）， 配合渲染器物理像素吸附，小字号下与 DOM 文本同等清晰； 适合视图不缩放的场景（图表轴文本等），放大后会呈现位图插值模糊。
      */
-    "mode"?: 'sdf' | 'bitmap';
+    "mode"?: 'sdf' | 'bitmap' | 'auto';
 
     /**
      * 双击进入内联编辑模式（createPortal 挂载到 Canvas 容器 div）

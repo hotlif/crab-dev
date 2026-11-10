@@ -1,3 +1,4 @@
+import { invalidateTextFonts } from './renderer/text-atlas.js';
 import { type CSSProperties, type ReactNode, type Ref, type RefObject, useEffect, useEffectEvent, useLayoutEffect, useRef, useState } from 'react';
 import { CanvasContext, type CanvasContextValue, type HitEntry } from './context/canvas-context.js';
 import { CanvasPaletteContext } from './context/palette-context.js';
@@ -209,8 +210,28 @@ function Canvas({
     // 初值渲染期求值：子组件（Text）的 effect 先于 Canvas 的 effect 执行，
     // 首次生成字形时必须已经拿到正确 dpr。
     const dprRef = useRef(devicePixelRatio);
+    // Mutable subscription bus: viewport changes do not rerender the React scene.
+    const textListenersRef = useRef(new Set<(reason: 'scale' | 'dpr' | 'fonts') => void>());
+    const textTimerRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+    useEffect(() => {
+        const document = containerDivRef.current?.ownerDocument;
+        let active = true;
+        const refreshFonts = () => {
+            if (!active || !document) return;
+            invalidateTextFonts(document);
+            textListenersRef.current.forEach(listener => listener('fonts'));
+        };
+        void document?.fonts?.ready.then(refreshFonts);
+        document?.fonts?.addEventListener('loadingdone', refreshFonts);
+        return () => {
+            active = false;
+            clearTimeout(textTimerRef.current);
+            document?.fonts?.removeEventListener('loadingdone', refreshFonts);
+        };
+    }, []);
     // 可变实例状态 ref：Viewport 注入的 seekPan 回调
     const seekPanRef = useRef<((panX: number, panY: number) => void) | null>(null);
+    const viewportControlsRef = useRef<CanvasContextValue['viewportControlsRef']['current']>(null);
     // 可变实例状态 ref：Viewport 注入的 applyZoom 回调
     const applyZoomRef = useRef<((deltaY: number, pivotX: number, pivotY: number) => void) | null>(null);
     // 可变实例状态 ref：Viewport 注入的 fitView 回调
@@ -527,7 +548,9 @@ function Canvas({
     // 有效尺寸变化时更新 renderer 和 canvasSizeRef / dprRef
     useEffect(() => {
         canvasSizeRef.current = { width: effectiveWidth, height: effectiveHeight };
+        const dprChanged = dprRef.current !== devicePixelRatio;
         dprRef.current = devicePixelRatio;
+        if (dprChanged) textListenersRef.current.forEach(listener => listener('dpr'));
         resizePendingRef.current = true;
         dirtyRef.current = true;
     }, [effectiveWidth, effectiveHeight, devicePixelRatio]);
@@ -615,8 +638,9 @@ function Canvas({
             },
             uploadGlyph(key, data, w, h) {
                 textureReferencesRef.current.set(key, (textureReferencesRef.current.get(key) ?? 0) + 1);
+                const previous = pendingGlyphsRef.current.get(key);
                 pendingGlyphsRef.current.set(key, { data, w, h });
-                rendererRef.current?.uploadGlyph(key, data, w, h);
+                if (previous?.data !== data) rendererRef.current?.uploadGlyph(key, data, w, h);
                 dirtyRef.current = true;
             },
             releaseTexture(key) {
@@ -659,13 +683,25 @@ function Canvas({
             canvasSizeRef,
             dprRef,
             seekPanRef,
+            viewportControlsRef,
             applyZoomRef,
             fitViewRef,
             containerRef: containerDivRef,
             exportPNG() {
                 return internalCanvasRef.current?.toDataURL('image/png') ?? '';
             },
+            subscribeTextEnvironment(listener) {
+                textListenersRef.current.add(listener);
+                return () => { textListenersRef.current.delete(listener); };
+            },
             setViewMatrix(mat) {
+                const previous = viewMatrixRef.current;
+                if ([0, 1, 3, 4].some(index => previous[index] !== mat[index])) {
+                    clearTimeout(textTimerRef.current);
+                    textTimerRef.current = setTimeout(() => {
+                        textListenersRef.current.forEach(listener => listener('scale'));
+                    }, 100);
+                }
                 viewMatrixRef.current = mat;
                 invViewMatrixRef.current = invertMat3(mat);
                 dirtyRef.current = true;

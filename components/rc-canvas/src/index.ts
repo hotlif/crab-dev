@@ -34,6 +34,8 @@ export type { TransformerProps, TransformState } from './shapes/transformer.js';
 export type { MarkerProps } from './shapes/marker.js';
 export type { MinimapProps } from './shapes/minimap.js';
 export type { CanvasControls } from './hooks/useCanvasControls.js';
+export type { FitBoundsOptions } from './viewport-utils.js';
+export { screenToWorld, worldToScreen, zoomViewport, getViewportForBounds } from './viewport-utils.js';
 export type { Pt, Rect as RoutingRect, Side, EdgeAnchor, AvoidOptions, RoutableEdge } from './routing/index.js';
 export type { ColorRGBA } from './math/color.js';
 export type { CanvasPalette } from './palette.js';

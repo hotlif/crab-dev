@@ -1,5 +1,5 @@
 import { Group, Rect, Text } from '@crab-dev/rc-canvas';
-import type { DragMoveEvent } from '@crab-dev/rc-canvas';
+import type { DragMoveEvent, TextProps } from '@crab-dev/rc-canvas';
 import { use } from 'react';
 import { FlowDiagramPaletteContext } from './palette-context.js';
 
@@ -22,6 +22,12 @@ export interface FlowNodeProps {
     labelColor?: string;
     /** 标签字体大小，默认 13 */
     fontSize?: number;
+    /** 字体，与 HTML 节点使用同一字体配置可减少外观差异。 */
+    fontFamily?: string;
+    fontWeight?: string | number;
+    lineHeight?: number;
+    /** 默认 auto：常规字号按当前缩放与 DPR 绘制清晰位图。 */
+    textMode?: TextProps['mode'];
     zIndex?: number;
     draggable?: boolean;
     cursor?: string;
@@ -41,6 +47,10 @@ function FlowNode({
     radius = 8,
     labelColor: labelColorProp,
     fontSize = 13,
+    fontFamily,
+    fontWeight,
+    lineHeight,
+    textMode = 'auto',
     zIndex = 2,
     draggable = false,
     cursor,
@@ -81,6 +91,10 @@ function FlowNode({
                     x={width / 2}
                     y={height / 2}
                     fontSize={fontSize}
+                    fontFamily={fontFamily}
+                    fontWeight={fontWeight}
+                    lineHeight={lineHeight}
+                    mode={textMode}
                     maxWidth={Math.max(1, width - strokeWidth * 2)}
                     fill={labelColor}
                     textAlign="center"

@@ -1,6 +1,7 @@
-import { useMemo, useState, type CSSProperties, type ReactNode } from 'react';
-import { Canvas, Viewport, InfiniteGrid, useCanvasControls } from '@crab-dev/rc-canvas';
-import type { CanvasControls, Pt } from '@crab-dev/rc-canvas';
+import { useState, type CSSProperties, type ReactNode } from 'react';
+import { Canvas, Viewport, InfiniteGrid } from '@crab-dev/rc-canvas';
+import type { ViewportState, Pt } from '@crab-dev/rc-canvas';
+import { useFlowDiagramControls, type FlowDiagramControls } from './hooks/useFlowDiagramControls.js';
 import { useElkLayout } from './hooks/useElkLayout.js';
 import { useEdgeRouting } from './hooks/useEdgeRouting.js';
 import { useEdgeCrossings } from './hooks/useEdgeCrossings.js';
@@ -9,7 +10,7 @@ import type { UseEdgeRoutingOptions, EdgeRoutes, ManualRoute } from './hooks/use
 import { FlowDiagramPaletteContext } from './palette-context.js';
 import { mergeFlowDiagramPalette, type FlowDiagramPalette } from './palette.js';
 
-export type FlowDiagramControls = Pick<CanvasControls, 'fitView' | 'exportPNG' | 'zoomIn' | 'zoomOut'>;
+export type { FlowDiagramControls } from './hooks/useFlowDiagramControls.js';
 
 export interface FlowNodeRect {
     x: number;
@@ -47,6 +48,11 @@ export interface FlowDiagramProps {
     edges: ElkLayoutEdge[];
     /** ELK 布局算法选项，默认 layered + RIGHT */
     elkOptions?: Record<string, string>;
+    /** manual 不启动 ELK；未提供位置的节点暂放原点。布局不会自动改变视口。 */
+    layoutMode?: 'auto' | 'manual';
+    viewport?: ViewportState;
+    defaultViewport?: ViewportState;
+    onViewportChange?: (viewport: ViewportState) => void;
 
     /**
      * 节点位置覆盖：`nodeId → { x, y }`。
@@ -90,7 +96,7 @@ interface InnerProps {
 }
 
 function FlowDiagramInner({ ctx, children }: InnerProps) {
-    const controls = useCanvasControls();
+    const controls = useFlowDiagramControls(ctx.nodeRects);
     return <>{children({ ...ctx, controls })}</>;
 }
 
@@ -100,6 +106,10 @@ export default function FlowDiagram({
     nodes,
     edges,
     elkOptions,
+    layoutMode = 'auto',
+    viewport: controlledViewport,
+    defaultViewport = { zoom: 1, panX: 0, panY: 0 },
+    onViewportChange,
     nodePositions,
     manualRoutes,
     routingOptions,
@@ -113,21 +123,18 @@ export default function FlowDiagram({
     onEmptyClick,
     children,
 }: FlowDiagramProps) {
-    const [zoom, setZoom] = useState(1);
+    const [internalViewport, setViewport] = useState(defaultViewport);
+    const viewport = controlledViewport ?? internalViewport;
     const palette = mergeFlowDiagramPalette(paletteOverride);
 
-    const { layout, loading, error } = useElkLayout(nodes, edges, elkOptions);
+    const { layout, loading, error } = useElkLayout(nodes, edges, elkOptions, { enabled: layoutMode === 'auto' });
 
     // 合并 ELK 布局位置 + 用户拖拽覆盖
-    const nodeRects = useMemo<Record<string, FlowNodeRect>>(() => {
-        if (!layout) return {};
-        const result: Record<string, FlowNodeRect> = {};
-        for (const [id, rect] of Object.entries(layout.nodes)) {
-            const override = nodePositions?.[id];
-            result[id] = override ? { ...rect, x: override.x, y: override.y } : rect;
-        }
-        return result;
-    }, [layout, nodePositions]);
+    const nodeRects: Record<string, FlowNodeRect> = {};
+    for (const node of nodes) {
+        const position = nodePositions?.[node.id] ?? (layoutMode === 'auto' ? layout?.nodes[node.id] : undefined);
+        if (position || layoutMode === 'manual') nodeRects[node.id] = { x: position?.x ?? 0, y: position?.y ?? 0, width: node.width, height: node.height };
+    }
 
     const routes = useEdgeRouting(nodeRects, edges, { ...routingOptions, manualRoutes });
     const crossings = useEdgeCrossings(routes);
@@ -136,7 +143,7 @@ export default function FlowDiagram({
         nodeRects,
         routes,
         crossings,
-        zoom,
+        zoom: viewport.zoom,
         loading,
         error,
         palette,
@@ -150,7 +157,10 @@ export default function FlowDiagram({
                 style={style}
                 onEmptyClick={onEmptyClick}
             >
-                <Viewport onViewportChange={v => setZoom(v.zoom)}>
+                <Viewport {...viewport} onViewportChange={value => {
+                    if (controlledViewport === undefined) setViewport(value);
+                    onViewportChange?.(value);
+                }}>
                     <InfiniteGrid
                         color={gridColor ?? palette.grid}
                         baseSpacing={gridBaseSpacing}
