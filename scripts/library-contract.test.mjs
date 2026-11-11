@@ -10,6 +10,7 @@ import { resolveYarnEntry, runYarn } from "./package-manager.mjs";
 import { buildEnvironment } from "./build-library.mjs";
 import { generatedContentChanges, generatedLibraryPaths } from "./check-generated.mjs";
 import { exportTargets, verifyTarget } from "./check-exports.mjs";
+import { offlineConsumerEnvironment } from "./check-consumer.mjs";
 import { validateReactPeers } from "./check-library.mjs";
 import { requiredReactPeers } from "./react-peer-contract.mjs";
 import { validateDesignVerification } from "./design-verification.mjs";
@@ -19,6 +20,20 @@ import { waitForOwnDevTools } from "./published-browser-readiness.mjs";
 import { repositoryCheckPlan, workspaceCheckPlan } from "./check-plan.mjs";
 import { libraryMetadataOutputs } from "./generate-library-metadata.mjs";
 import { loadLibraryManifest, readLibraryMetadata, repositoryRoot } from "./library-manifest.mjs";
+
+test('offline consumer isolation preserves parent PR hardening and rejects workspace loader inheritance', () => {
+    const parent = { YARN_ENABLE_HARDENED_MODE: 'true', YARN_ENABLE_NETWORK: 'true',
+        NODE_OPTIONS: '--require ./.pnp.cjs', NODE_PATH: '/workspace', CI: 'true' };
+    const before = { ...parent };
+    const child = offlineConsumerEnvironment(parent);
+    assert.equal(child.YARN_ENABLE_NETWORK, 'false');
+    assert.equal(child.YARN_ENABLE_HARDENED_MODE, 'false');
+    assert.ok(!('NODE_OPTIONS' in child));
+    assert.ok(!('NODE_PATH' in child));
+    assert.equal(child.CI, 'true');
+    assert.deepEqual(parent, before);
+    assert.equal(offlineConsumerEnvironment({}).YARN_ENABLE_NETWORK, 'false');
+});
 
 test('Wake controls stay on local workspaces after version bumps', () => {
     const wake = { dependencies: { '@crab-dev/rc-alert': '^0.0.2', external: '^1.0.0' } };

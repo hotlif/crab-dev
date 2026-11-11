@@ -19,6 +19,18 @@ function run(command, args, options) {
     });
 }
 
+/** Environment for the generated offline fixture, never the repository install. */
+export function offlineConsumerEnvironment(parent) {
+    // The root install already validates the lockfile/cache. Hardened mode needs
+    // registry metadata and cannot run with this fixture's network prohibition.
+    // Keep root PR hardening enabled; remove this scoped override when Yarn can
+    // perform hardened installs offline. Checksums and immutable reinstall remain.
+    const env = { ...parent, YARN_ENABLE_NETWORK: "false", YARN_ENABLE_HARDENED_MODE: "false" };
+    delete env.NODE_OPTIONS;
+    delete env.NODE_PATH;
+    return env;
+}
+
 /** Pack real publish artifacts, then install them outside the repository without network access. */
 export async function checkConsumer() {
     const { packages } = await loadLibraryManifest();
@@ -58,8 +70,9 @@ export async function checkConsumer() {
         },
     }, null, 4));
     console.log(`Packed ${packages.length} libraries; installing independent PnP consumer without network (${directory}).`);
-    await run(process.execPath, [yarn, "install", "--mode=skip-build"], { cwd: directory, env });
-    await run(process.execPath, [yarn, "install", "--immutable", "--mode=skip-build"], { cwd: directory, env });
+    const installEnv = offlineConsumerEnvironment(env);
+    await run(process.execPath, [yarn, "install", "--mode=skip-build"], { cwd: directory, env: installEnv });
+    await run(process.execPath, [yarn, "install", "--immutable", "--mode=skip-build"], { cwd: directory, env: installEnv });
     const targets = packages.flatMap((entry) => exportTargets(entry.packageJson.exports).map((target) => ({ ...target, name: entry.name })));
     const javascript = packages.filter((entry) => exportTargets(entry.packageJson.exports).some((target) => target.subpath === "." && target.condition === "import"));
     await writeFile(join(directory, "consume.mjs"), `

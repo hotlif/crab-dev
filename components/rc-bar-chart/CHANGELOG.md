@@ -1,5 +1,12 @@
 # @crab-dev/rc-bar-chart
 
+## 0.1.3
+
+### Patch Changes
+
+- Updated dependencies [[`dfbd519`](https://github.com/hotlif/crab-dev/commit/dfbd5198ac1e605023990fa81c6f34fd6c2468c2), [`cf076ee`](https://github.com/hotlif/crab-dev/commit/cf076ee5793f74c862434f9edf577242c1ae96fe)]:
+  - @crab-dev/rc-canvas@0.3.0
+
 ## 0.1.2
 
 ### Patch Changes
