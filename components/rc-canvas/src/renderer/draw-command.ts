@@ -121,9 +121,9 @@ export interface SdfTextCommand extends BaseDrawCommand {
 }
 
 /**
- * Bitmap 文本命令：字形按 dpr 光栅化为 coverage 位图（ECharts-GL 同款方案），
- * 渲染器在纯平移变换下将四边形吸附到物理像素网格，texel 与屏幕像素 1:1。
- * 适用于视图不缩放的场景；可缩放画布用 sdf-text。
+ * Bitmap 文本命令：coverage 位图，轴对齐变换下吸附到物理像素网格。
+ * auto 按 DPR × 实际缩放光栅化，并单独提供 rasterWidth/rasterHeight；
+ * 显式 bitmap 使用固定 DPR 分辨率。
  */
 export interface BitmapTextCommand extends BaseDrawCommand {
     kind: 'bitmap-text';
@@ -131,9 +131,12 @@ export interface BitmapTextCommand extends BaseDrawCommand {
     y: number;
     /** TextAtlas 中的字形纹理 key */
     glyphKey: string | undefined;
-    /** 世界坐标显示宽度（CSS px）= 纹理物理像素宽 / dpr */
+    /** 世界坐标排版尺寸；auto 的纹理取整留白由 rasterWidth/rasterHeight 承载。 */
     glyphWidth: number;
     glyphHeight: number;
+    /** Optional raster quad bounds; layout bounds above remain zoom-independent. */
+    rasterWidth?: number;
+    rasterHeight?: number;
     color: ColorRGBA;
 }
 

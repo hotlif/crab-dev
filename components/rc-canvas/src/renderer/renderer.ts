@@ -567,7 +567,7 @@ export class WebGLRenderer {
         const { gl, textureProg: prog, textureLocs: L } = this;
         gl.useProgram(prog);
         gl.uniformMatrix3fv(L.world, false, cmd.worldMatrix);
-        gl.uniform4f(L.bounds, x, y, cmd.glyphWidth, cmd.glyphHeight);
+        gl.uniform4f(L.bounds, x, y, cmd.rasterWidth ?? cmd.glyphWidth, cmd.rasterHeight ?? cmd.glyphHeight);
         gl.activeTexture(gl.TEXTURE0);
         gl.bindTexture(gl.TEXTURE_2D, tex);
         gl.uniform1i(L.texture, 0);

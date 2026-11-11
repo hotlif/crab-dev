@@ -26,7 +26,7 @@ export default function TextComparisonDemo() {
                 {sizes.map(size => <div key={size} style={{ height: 38 * zoom, boxSizing: 'border-box', fontSize: size * zoom, lineHeight: `${size * 1.4 * zoom}px`, paddingTop: 4 * zoom }}>{sample}</div>)}
             </div>
             <Canvas width={960} height={400}>
-                <Viewport zoom={zoom} panX={0} panY={0} minZoom={0.75} maxZoom={2} pannable={false} onViewportChange={value => setZoom(value.zoom)}>
+                <Viewport zoom={zoom} panX={0} panY={0} minZoom={0.25} maxZoom={2} pannable={false} onViewportChange={value => setZoom(value.zoom)}>
                     {sizes.map((size, index) => <Text key={`sdf-${size}`} x={0} y={index * 38} fontSize={size} fontWeight={400} mode="sdf">{sample}</Text>)}
                     {sizes.map((size, index) => <Text key={`auto-${size}`} x={240} y={index * 38} fontSize={size} fontWeight={400} mode="auto">{sample}</Text>)}
                 </Viewport>

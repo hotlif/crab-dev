@@ -144,3 +144,18 @@ describe('adaptive text layout and cache', () => {
         expect(generateAdaptiveGlyph('entry-0', 13, 'system-ui', 1, undefined, undefined, document)).not.toBe(first);
     });
 });
+
+it('separates stable layout from integer-pixel adaptive raster bounds', () => {
+    const base = generateAdaptiveGlyph('商品 products', 13, 'system-ui', 1, 18.2, undefined, document);
+    for (const scale of [0.25, 0.5, 0.75, 1.25]) {
+        const glyph = generateAdaptiveGlyph('商品 products', 13, 'system-ui', scale, 18.2, undefined, document);
+        expect(glyph.worldWidth).toBe(base.worldWidth);
+        expect(glyph.worldHeight).toBe(base.worldHeight);
+        expect(glyph.rasterWidth! * scale).toBeCloseTo(glyph.width, 8);
+        expect(glyph.rasterHeight! * scale).toBeCloseTo(glyph.height, 8);
+        expect(glyph.rasterWidth!).toBeGreaterThanOrEqual(glyph.worldWidth);
+        expect(glyph.rasterHeight!).toBeGreaterThanOrEqual(glyph.worldHeight);
+        expect((glyph.rasterWidth! - glyph.worldWidth) * scale).toBeLessThan(1);
+        expect((glyph.rasterHeight! - glyph.worldHeight) * scale).toBeLessThan(1);
+    }
+});

@@ -10,11 +10,15 @@ for (const dpr of [1, 1.25, 2]) {
                 const canvas = region.locator('canvas');
                 await expect(canvas).toBeVisible();
                 await expect.poll(() => canvas.evaluate(node => node.width / 960)).toBeCloseTo(dpr, 2);
-                for (const zoom of [1, 2]) {
-                    if (zoom === 2) {
-                        await canvas.hover({ position: { x: 50, y: 50 } });
-                        await page.mouse.wheel(0, -1000);
-                        await expect(region).toContainText('缩放 200%');
+                let previousZoom = 1;
+                for (const zoom of [1, 0.75, 0.5, 0.25, 2]) {
+                    if (zoom !== previousZoom) {
+                        // This matrix verifies exact raster scales. Native wheel
+                        // injection is normalized by Windows/DPR, so dispatch a
+                        // CSS-pixel wheel delta through the real Viewport handler.
+                        await canvas.dispatchEvent('wheel', { deltaY: (1 - zoom / previousZoom) / 0.001, deltaMode: 0 });
+                        await expect(region).toContainText(`缩放 ${Math.round(zoom * 100)}%`);
+                        previousZoom = zoom;
                     }
                     // Allow the documented 100ms settling delay and a GPU frame.
                     await page.waitForTimeout(180);

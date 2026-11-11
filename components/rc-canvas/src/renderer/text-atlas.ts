@@ -16,6 +16,10 @@ export interface GlyphInfo {
     worldWidth: number;
     /** 在世界坐标中的显示高度（world px，传给 DrawCommand.glyphHeight） */
     worldHeight: number;
+    /** Adaptive bitmap quad bounds, including the fractional final padding texel.
+     * Layout, alignment and hit testing continue to use worldWidth/worldHeight. */
+    rasterWidth?: number;
+    rasterHeight?: number;
     /** 纹理通道数：固定为 1（R8 单通道，SDF 距离场或 bitmap coverage） */
     channels: 1;
     /** 纹理数据：width×height R8 */
@@ -168,6 +172,8 @@ interface RasterizedText {
     height: number;
     worldWidth: number;
     worldHeight: number;
+    rasterWidth: number;
+    rasterHeight: number;
 }
 
 /**
@@ -186,6 +192,7 @@ function rasterizeText(
     ownerDocument?: Document,
     fontWeight: string | number = 'normal',
     stableLayout = false,
+    pixelAligned = false,
 ): RasterizedText {
     const layoutScale = stableLayout ? 1 : scale;
     const scaledSize = fontSize * layoutScale;
@@ -224,7 +231,10 @@ function rasterizeText(
     const ctx2d = createTextRasterContext(w, h, ownerDocument);
     ctx2d.fillStyle = '#000';
     ctx2d.fillRect(0, 0, w, h);
-    if (stableLayout) ctx2d.scale(w / layoutWidth, h / layoutHeight);
+    // Rounding the allocation must only add padding, never stretch the glyph.
+    // Stretching to the rounded dimensions then drawing at the layout size
+    // filters small text a second time in the GPU sampler.
+    if (stableLayout) ctx2d.scale(pixelAligned ? rasterScale : w / layoutWidth, pixelAligned ? rasterScale : h / layoutHeight);
     ctx2d.fillStyle = '#fff';
     ctx2d.font = fontStr;
     ctx2d.textBaseline = 'alphabetic';
@@ -238,7 +248,8 @@ function rasterizeText(
     }
 
     return { data: ctx2d.getImageData(0, 0, w, h).data, width: w, height: h,
-        worldWidth: layoutWidth / layoutScale, worldHeight: layoutHeight / layoutScale };
+        worldWidth: layoutWidth / layoutScale, worldHeight: layoutHeight / layoutScale,
+        rasterWidth: w / (rasterScale * layoutScale), rasterHeight: h / (rasterScale * layoutScale) };
 }
 
 // ─── 公开 API ─────────────────────────────────────────────────────────────
@@ -341,11 +352,13 @@ export function generateAdaptiveGlyph(
         cache.glyphs.set(key, cached);
         return cached;
     }
-    const raster = rasterizeText(text, fontSize, fontFamily, resolution, 0, lineHeight, maxWidth, ownerDocument, fontWeight, true);
+    const raster = rasterizeText(text, fontSize, fontFamily, resolution, 0, lineHeight, maxWidth, ownerDocument, fontWeight, true, !sdf);
     const data = sdf ? computeSDF(raster.data, raster.width, raster.height, SDF_SPREAD)
         : Uint8Array.from({ length: raster.width * raster.height }, (_, i) => raster.data[i * 4]);
     const glyph: GlyphInfo = { key, width: raster.width, height: raster.height,
-        worldWidth: raster.worldWidth, worldHeight: raster.worldHeight, channels: 1, data };
+        worldWidth: raster.worldWidth, worldHeight: raster.worldHeight,
+        rasterWidth: sdf ? undefined : raster.rasterWidth, rasterHeight: sdf ? undefined : raster.rasterHeight,
+        channels: 1, data };
     cache.glyphs.set(key, glyph);
     cache.bytes += data.byteLength;
     while (cache.bytes > 4 * 1024 * 1024 || cache.glyphs.size > 128) {

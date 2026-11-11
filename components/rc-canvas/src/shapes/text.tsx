@@ -102,7 +102,7 @@ function Text({
     // 可变实例状态 ref：持有注册 id
     const cmdIdRef = useRef<number | null>(null);
     // 可变实例状态 ref：缓存当前字形的 key 和尺寸（避免 update effect 中丢失）
-    const glyphRef = useRef<{ key: string; width: number; height: number; kind: 'bitmap-text' | 'sdf-text' } | undefined>(undefined);
+    const glyphRef = useRef<{ key: string; width: number; height: number; kind: 'bitmap-text' | 'sdf-text'; rasterWidth?: number; rasterHeight?: number } | undefined>(undefined);
     // 可变实例状态 ref：实时持有 worldMatrix，供 containsPoint 闭包读取
     const worldMatrixRef = useRef<Float32Array>(ctx.parentMatrix);
     worldMatrixRef.current = ctx.parentMatrix;
@@ -157,6 +157,8 @@ function Text({
             glyphKey,
             glyphWidth,
             glyphHeight,
+            rasterWidth: glyphRef.current?.rasterWidth,
+            rasterHeight: glyphRef.current?.rasterHeight,
             color: appliedFill,
             worldMatrix: ctx.parentMatrix,
             zIndexPath: [...ctx.parentZIndexPath, zIndex],
@@ -221,6 +223,7 @@ function Text({
         const previous = glyphRef.current;
         ctx.uploadGlyph(glyph.key, glyph.data, glyph.width, glyph.height);
         glyphRef.current = { key: glyph.key, width: glyph.worldWidth, height: glyph.worldHeight,
+            rasterWidth: glyph.rasterWidth, rasterHeight: glyph.rasterHeight,
             kind: useSdf || (mode === 'auto' && !ownerDocument) ? 'sdf-text' : 'bitmap-text' };
         ctx.update(cmdIdRef.current, buildCmd(glyph.key, glyph.worldWidth, glyph.worldHeight));
         if (needsHit) ctx.updateHit(cmdIdRef.current, buildHitEntry());

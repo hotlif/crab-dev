@@ -17,6 +17,7 @@ function renderGlyph(glyph: GlyphInfo, dpr: number, zoom = 1, kind: 'sdf-text' |
         renderer.setViewMatrix(makeScaleMat3(zoom, zoom));
         renderer.render(new Map<number, DrawCommand>([[1, {
             id: 1, kind, worldMatrix: identityMat3(), zIndexPath: [0],
+            rasterWidth: glyph.rasterWidth, rasterHeight: glyph.rasterHeight,
             x: 0, y: 0, glyphKey: glyph.key, glyphWidth: glyph.worldWidth, glyphHeight: glyph.worldHeight,
             color: [0, 0, 0, 1],
         }]]), 1);
@@ -68,7 +69,7 @@ it('adaptive text keeps native coverage and stable bounds across display scales'
     for (const size of [10, 12, 13, 14, 16]) {
         const base = generateAdaptiveGlyph('商品模型 products revision name price', size, 'system-ui', 1, undefined, 180, document);
         for (const dpr of [1, 1.25, 2]) {
-            for (const zoom of [0.75, 1, 1.25, 1.5, 2]) {
+            for (const zoom of [0.25, 0.5, 0.75, 1, 1.25, 1.5, 2]) {
                 const glyph = generateAdaptiveGlyph('商品模型 products revision name price', size, 'system-ui', dpr * zoom, undefined, 180, document);
                 expect(glyph.worldWidth).toBe(base.worldWidth);
                 expect(glyph.worldHeight).toBe(base.worldHeight);
@@ -79,10 +80,29 @@ it('adaptive text keeps native coverage and stable bounds across display scales'
                 let ink = 0;
                 for (let i = 3; i < pixels.length; i += 4) ink += pixels[i];
                 const sourceInk = row.data.reduce((sum, value) => sum + value, 0);
-                const expected = sourceInk * (row.worldWidth * row.worldHeight * (dpr * zoom) ** 2) / (row.width * row.height);
+                const expected = sourceInk;
                 expect(ink / expected).toBeGreaterThan(0.9);
                 expect(ink / expected).toBeLessThan(1.1);
             }
+        }
+    }
+});
+
+it('does not resample settled adaptive bitmaps at fractional zoom', () => {
+    for (const dpr of [1, 1.25, 2]) {
+        for (const zoom of [0.25, 0.5, 0.75]) {
+            const glyph = generateAdaptiveGlyph('商品模型 products revision name price', 13, 'system-ui', dpr * zoom, undefined, undefined, document, 400);
+            const pixels = renderGlyph(glyph, dpr, zoom, 'bitmap-text');
+            let maximumError = 0;
+            for (let y = 0; y < glyph.height; y++) {
+                for (let x = 0; x < glyph.width; x++) {
+                    const alpha = pixels[((64 * dpr - y - 1) * 512 * dpr + x) * 4 + 3];
+                    maximumError = Math.max(maximumError, Math.abs(alpha - glyph.data[y * glyph.width + x]));
+                }
+            }
+            // Each coverage texel must reach exactly one physical pixel, allowing
+            // only R8/fragment rounding, not a second bilinear filter of the glyph.
+            expect(maximumError).toBeLessThanOrEqual(2);
         }
     }
 });
