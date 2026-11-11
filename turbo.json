@@ -1453,8 +1453,10 @@
                 "dist/**"
             ],
             "dependsOn": [
+                "@crab-dev/rc-button#build:library",
                 "@crab-dev/rc-canvas#build:library",
-                "@crab-dev/rc-token-semantic#build:library"
+                "@crab-dev/rc-token-semantic#build:library",
+                "@crab-dev/rc-tooltip#build:library"
             ]
         },
         "@crab-dev/rc-flow-diagram#test": {
@@ -1466,8 +1468,10 @@
             ],
             "cache": false,
             "dependsOn": [
+                "@crab-dev/rc-button#build:library",
                 "@crab-dev/rc-canvas#build:library",
-                "@crab-dev/rc-token-semantic#build:library"
+                "@crab-dev/rc-token-semantic#build:library",
+                "@crab-dev/rc-tooltip#build:library"
             ]
         },
         "@crab-dev/rc-flow-diagram#typecheck": {
@@ -1477,8 +1481,10 @@
             ],
             "outputs": [],
             "dependsOn": [
+                "@crab-dev/rc-button#build:library",
                 "@crab-dev/rc-canvas#build:library",
-                "@crab-dev/rc-token-semantic#build:library"
+                "@crab-dev/rc-token-semantic#build:library",
+                "@crab-dev/rc-tooltip#build:library"
             ]
         },
         "@crab-dev/rc-flow-diagram#generate:token": {
