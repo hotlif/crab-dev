@@ -49,3 +49,6 @@ export {
     segmentIntersectsRect, segmentHitsAny, polylineClearOf, simplifyOrthogonal, isHorizontalSide,
 };
 export default Canvas;
+
+export { default as CanvasOverlay } from './overlay.js';
+export type { CanvasOverlayProps, CanvasOverlayState } from './overlay.js';

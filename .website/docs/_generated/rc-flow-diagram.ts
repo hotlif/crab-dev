@@ -85,6 +85,45 @@ export const demos = [
         "group": "能力与集成示例"
     },
     {
+        "id": "docs/demos/readability.demo.tsx",
+        "title": "缩小后的可读标签",
+        "description": "按显示字号切换完整、精简与概览标签，详情入口支持悬停、Tab 聚焦和 Escape 关闭。",
+        "learning": {
+            "components": [
+                "Button",
+                "Canvas",
+                "Viewport",
+                "InfiniteGrid",
+                "FlowNode"
+            ],
+            "props": [
+                "aria-pressed",
+                "onClick",
+                "width",
+                "height",
+                "minZoom",
+                "onViewportChange",
+                "label",
+                "fontSize",
+                "draggable",
+                "onDrag",
+                "readability"
+            ],
+            "events": [
+                "onClick",
+                "onViewportChange",
+                "onDrag"
+            ],
+            "hasState": true
+        },
+        "sourceCode": "import { useState } from 'react';\nimport { css } from '@crab-dev/css';\nimport Button from '@crab-dev/rc-button';\nimport { Canvas, Viewport, InfiniteGrid, type ViewportState } from '@crab-dev/rc-canvas';\nimport { FlowNode } from '@crab-dev/rc-flow-diagram';\n\nexport const meta = { title: '缩小后的可读标签', description: '按显示字号切换完整、精简与概览标签，详情入口支持悬停、Tab 聚焦和 Escape 关闭。' };\nconst toolbar = css`display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 8px;`;\nconst scroll = css`max-width: 100%; overflow: auto;`;\nconst label = '商品模型 products\\nid · uuid\\nrevision · integer\\nname · text\\nprice · decimal';\n\nexport default function ReadabilityDemo() {\n    const [viewport, setViewport] = useState\u003cViewportState>({ zoom: 1, panX: 30, panY: 30 });\n    const [position, setPosition] = useState({ x: 40, y: 40 });\n    return \u003csection aria-label=\"缩放可读性示例\">\n        \u003cdiv className={toolbar}>\n            {[1, 0.6, 0.25].map(zoom => \u003cButton key={zoom} aria-pressed={viewport.zoom === zoom}\n                onClick={() => setViewport({ ...viewport, zoom })}>{zoom * 100}%\u003c/Button>)}\n            \u003cButton onClick={() => setViewport({ ...viewport, panX: viewport.panX + 20 })}>向右平移\u003c/Button>\n        \u003c/div>\n        \u003cdiv className={scroll} role=\"region\" aria-label=\"模型画布\" tabIndex={0}>\n            \u003cCanvas width={480} height={260}>\n                \u003cViewport {...viewport} minZoom={0.25} onViewportChange={setViewport}>\n                    \u003cInfiniteGrid />\n                    \u003cFlowNode {...position} width={260} height={150} label={label} fontSize={13}\n                        draggable onDrag={(dx, dy) => setPosition(previous => ({ x: previous.x + dx, y: previous.y + dy }))}\n                        readability={{ compactLabel: 'products · id, revision, name, price', overviewLabel: '商品 · 4 字段',\n                            details: label, detailsLabel: '查看商品模型完整字段' }} />\n                \u003c/Viewport>\n            \u003c/Canvas>\n        \u003c/div>\n    \u003c/section>;\n}\n",
+        "previewPath": "/components/rc-flow-diagram/workbench/?__wake_demo=docs%2Fdemos%2Freadability.demo.tsx",
+        "workbenchPath": "/components/rc-flow-diagram/workbench/#/components/docs%2Fdemos%2Freadability.demo.tsx",
+        "density": "regular",
+        "layout": "wide",
+        "group": "能力与集成示例"
+    },
+    {
         "id": "docs/demos/animated-edge.demo.tsx",
         "title": "FlowEdge 流动动效",
         "description": "flowSpeed 让虚线沿边流动，表达数据流向：正值顺流、负值逆流、数值越大越快。流动相位按累计弧长逐段衔接，拖拽节点改变走线后，图案跨拐角与交叉缺口依旧连续；系统开启「减弱动态效果」时自动降级为静态虚线。",

@@ -65,6 +65,12 @@ Canvas 真正卸载后主动释放 WebGL 上下文，避免虚拟列表反复挂
 
 <API source="../src/shapes/text.tsx" symbol="TextProps" component="Text" />
 
+<API source="../src/overlay.tsx" symbol="CanvasOverlayProps" component="CanvasOverlay" />
+
+`Text.minScreenFontSize` 可显式设置缩小后的最小 CSS 像素字号，例如 `minScreenFontSize={10}`。它在缩放稳定后重新绘制文字，会扩大世界坐标中的文字尺寸；应配合简短标签与布局留白，不能让所有字段在无限缩小时仍然可读。默认未开启，原有排版保持不变。
+
+`CanvasOverlay` 在最近 Group 的 `(x, y)` 处放置 DOM 内容，跟随平移、缩放和容器尺寸变化，内容自身使用屏幕 CSS 像素。函数子节点接收包含 Group 缩放的 `scale`，可据此切换信息层级；交互控件需要设置 `pointerEvents: 'auto'`。浮层继承最近配置，锚点离开画布时卸载内容，重新进入时挂载。它始终位于 WebGL 上方、保持屏幕方向，不参与图元命中、旋转或 PNG 导出。
+
 ### 程序化视口
 
 在 Canvas 子树内调用 `useCanvasControls()`，与 Viewport 配合使用 `getViewport`、`setViewport`、`zoomTo`、`fitBounds`、`centerOn`。命令遵循 Viewport 的缩放上下限，并通知最新的 `onViewportChange`。`zoomTo` 的支点为画布局部 CSS 坐标，缺省为画布中心；`centerOn` 接收世界坐标并保留缩放。加载或更新图元不会自动适配视口。

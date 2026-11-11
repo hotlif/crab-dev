@@ -143,6 +143,9 @@ export interface CanvasContextValue {
      */
     setViewMatrix(mat: Float32Array): void;
 
+    /** View/size changes for opt-in DOM overlays; drawing-only shapes do not subscribe. */
+    subscribeView?(listener: () => void): () => void;
+
     /** Internal text invalidation: settled zoom, DPR and loaded fonts. */
     subscribeTextEnvironment?(listener: (reason: 'scale' | 'dpr' | 'fonts') => void): () => void;
 

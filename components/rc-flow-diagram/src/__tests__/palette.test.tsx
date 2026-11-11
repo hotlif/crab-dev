@@ -27,12 +27,14 @@ interface CapturedGridProps {
     color?: string;
 }
 
+let overlayScale = 1;
 const capturedRects: CapturedRectProps[] = [];
 const capturedTexts: CapturedTextProps[] = [];
 const capturedLines: CapturedLineProps[] = [];
 const capturedGrids: CapturedGridProps[] = [];
 
 mock.module('@crab-dev/rc-canvas', () => ({
+    CanvasOverlay: ({ children }: { children: (state: { scale: number }) => ReactNode }) => <>{children({ scale: overlayScale })}</>,
     Canvas: ({ children }: { children?: ReactNode }) => <>{children}</>,
     Viewport: ({ children }: { children?: ReactNode }) => <>{children}</>,
     InfiniteGrid: (props: CapturedGridProps) => {
@@ -213,4 +215,23 @@ it('FlowNode defaults to adaptive text and forwards explicit typography and lega
     expect(capturedTexts.at(-1)?.fontFamily).toBe('Arial');
     expect(capturedTexts.at(-1)?.fontWeight).toBe(600);
     expect(capturedTexts.at(-1)?.lineHeight).toBe(20);
+});
+
+it('readability keeps full details while switching compact and overview labels', async () => {
+    const fixture = () => <FlowNode x={0} y={0} width={240} height={120} label={'商品模型\nid UUID\nname text'}
+        readability={{ compactLabel: 'id · name', overviewLabel: '商品模型 · 2 字段', detailsLabel: '商品模型详情' }} />;
+    overlayScale = 1;
+    const view = await render(fixture());
+    expect(view.container.querySelector('[data-detail-level="full"]')?.textContent).toContain('UUID');
+    const button = view.container.querySelector('button');
+    expect(button?.getAttribute('aria-label')).toBe('商品模型详情');
+    overlayScale = 0.6;
+    await view.rerender(fixture());
+    expect(view.container.querySelector('[data-detail-level="compact"]')?.textContent).toBe('id · name');
+    expect(view.container.querySelector('button')).toBe(button);
+    overlayScale = 0.25;
+    await view.rerender(fixture());
+    expect(view.container.querySelector('[data-detail-level="overview"]')?.textContent).toBe('商品模型 · 2 字段');
+    expect(view.container.querySelector('button')).toBe(button);
+    overlayScale = 1;
 });

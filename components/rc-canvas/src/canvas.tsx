@@ -211,6 +211,7 @@ function Canvas({
     // 首次生成字形时必须已经拿到正确 dpr。
     const dprRef = useRef(devicePixelRatio);
     // Mutable subscription bus: viewport changes do not rerender the React scene.
+    const viewListenersRef = useRef(new Set<() => void>());
     const textListenersRef = useRef(new Set<(reason: 'scale' | 'dpr' | 'fonts') => void>());
     const textTimerRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
     useEffect(() => {
@@ -548,6 +549,7 @@ function Canvas({
     // 有效尺寸变化时更新 renderer 和 canvasSizeRef / dprRef
     useEffect(() => {
         canvasSizeRef.current = { width: effectiveWidth, height: effectiveHeight };
+        viewListenersRef.current.forEach(listener => listener());
         const dprChanged = dprRef.current !== devicePixelRatio;
         dprRef.current = devicePixelRatio;
         if (dprChanged) textListenersRef.current.forEach(listener => listener('dpr'));
@@ -690,6 +692,10 @@ function Canvas({
             exportPNG() {
                 return internalCanvasRef.current?.toDataURL('image/png') ?? '';
             },
+            subscribeView(listener) {
+                viewListenersRef.current.add(listener);
+                return () => { viewListenersRef.current.delete(listener); };
+            },
             subscribeTextEnvironment(listener) {
                 textListenersRef.current.add(listener);
                 return () => { textListenersRef.current.delete(listener); };
@@ -703,6 +709,7 @@ function Canvas({
                     }, 100);
                 }
                 viewMatrixRef.current = mat;
+                viewListenersRef.current.forEach(listener => listener());
                 invViewMatrixRef.current = invertMat3(mat);
                 dirtyRef.current = true;
             },

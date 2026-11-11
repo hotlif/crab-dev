@@ -14,6 +14,9 @@ export interface TextProps extends CanvasInteractiveProps {
     y: number;
     children: string;
     fontSize?: number;
+    /** Optional minimum CSS-pixel font size after zoom settles. May enlarge the
+     * world-space text bounds; combine with concise labels at small zoom. */
+    minScreenFontSize?: number;
     fontFamily?: string;
     /** 字重，默认 normal；同时用于测量、绘制和内联编辑。 */
     fontWeight?: string | number;
@@ -73,6 +76,7 @@ function Text({
     y,
     children,
     fontSize = 14,
+    minScreenFontSize,
     fontFamily = 'system-ui',
     fontWeight = 'normal',
     fill: fillProp,
@@ -212,14 +216,20 @@ function Text({
         const ownerDocument = ctx.containerRef.current?.ownerDocument;
         const matrix = multiplyMat3(ctx.viewMatrixRef.current, ctx.parentMatrix);
         const scale = Math.max(Math.hypot(matrix[0], matrix[1]), Math.hypot(matrix[3], matrix[4]));
+        const fontScale = Math.hypot(matrix[3], matrix[4]);
+        const minimum = Number.isFinite(minScreenFontSize) ? Math.max(0, minScreenFontSize ?? 0) : 0;
+        const effectiveSize = fontScale > 1e-6 ? Math.max(fontSize, minimum / fontScale) : fontSize;
+        const effectiveLineHeight = lineHeight === undefined ? undefined : lineHeight * effectiveSize / fontSize;
         const useSdf = mode === 'sdf' || (mode === 'auto' &&
-            (fontSize * scale > 48 || Math.abs(matrix[1]) > 1e-6 || Math.abs(matrix[3]) > 1e-6));
-        const glyph = mode === 'auto' && ownerDocument
-            ? generateAdaptiveGlyph(children, fontSize, fontFamily, ctx.dprRef.current * scale,
-                lineHeight, maxWidth, ownerDocument, fontWeight, useSdf)
+            (effectiveSize * scale > 48 || Math.abs(matrix[1]) > 1e-6 || Math.abs(matrix[3]) > 1e-6));
+        // Minimum screen sizes can imply very large world sizes. Use the bounded
+        // raster path even for explicit legacy modes when this option is enabled.
+        const glyph = (mode === 'auto' || minimum > 0) && ownerDocument
+            ? generateAdaptiveGlyph(children, effectiveSize, fontFamily, ctx.dprRef.current * scale,
+                effectiveLineHeight, maxWidth, ownerDocument, fontWeight, useSdf)
             : mode === 'bitmap'
-                ? generateBitmapGlyph(children, fontSize, fontFamily, ctx.dprRef.current, lineHeight, maxWidth, ownerDocument, fontWeight)
-                : generateGlyph(children, fontSize, fontFamily, lineHeight, maxWidth, ownerDocument, fontWeight);
+                ? generateBitmapGlyph(children, effectiveSize, fontFamily, ctx.dprRef.current, effectiveLineHeight, maxWidth, ownerDocument, fontWeight)
+                : generateGlyph(children, effectiveSize, fontFamily, effectiveLineHeight, maxWidth, ownerDocument, fontWeight);
         const previous = glyphRef.current;
         ctx.uploadGlyph(glyph.key, glyph.data, glyph.width, glyph.height);
         glyphRef.current = { key: glyph.key, width: glyph.worldWidth, height: glyph.worldHeight,
@@ -233,14 +243,14 @@ function Text({
     useEffect(() => {
         refreshGlyph();
         const unsubscribe = ctx.subscribeTextEnvironment?.(reason => {
-            if (reason !== 'scale' || mode === 'auto') refreshGlyph();
+            if (reason !== 'scale' || mode === 'auto' || minScreenFontSize !== undefined) refreshGlyph();
         });
         return () => {
             unsubscribe?.();
             if (glyphRef.current) ctx.releaseTexture(glyphRef.current.key);
             glyphRef.current = undefined;
         };
-    }, [children, fontSize, fontFamily, fontWeight, lineHeight, maxWidth, mode,
+    }, [children, fontSize, minScreenFontSize, fontFamily, fontWeight, lineHeight, maxWidth, mode,
         ctx.parentMatrix[0], ctx.parentMatrix[1], ctx.parentMatrix[3], ctx.parentMatrix[4]]);
 
     // 颜色/位置/透明度变化时更新（使用缓存的字形尺寸，不重新上传）
@@ -258,6 +268,9 @@ function Text({
         const glyph = glyphRef.current;
         // 计算文字左上角的 canvas 坐标（世界矩阵 × 局部偏移，再 × 视图矩阵）
         const zoom = ctx.viewMatrixRef.current[0];
+        const editorMatrix = multiplyMat3(ctx.viewMatrixRef.current, ctx.parentMatrix);
+        const fontScale = minScreenFontSize === undefined ? zoom : Math.hypot(editorMatrix[3], editorMatrix[4]);
+        const screenFontSize = Math.max(fontSize * fontScale, Number.isFinite(minScreenFontSize) ? minScreenFontSize ?? 0 : 0);
         const ax = glyph ? x + alignOffset(glyph.width) : x;
         const ay = glyph ? y + baselineOffset(glyph.height) : y;
         const [wx, wy] = applyMat3(worldMatrixRef.current, ax, ay);
@@ -285,7 +298,7 @@ function Text({
                     width: overlayW,
                     height: overlayH,
                     minHeight: overlayH,
-                    fontSize: fontSize * zoom,
+                    fontSize: screenFontSize,
                     fontFamily,
                     fontWeight,
                     color: fill,
@@ -297,7 +310,7 @@ function Text({
                     margin: 0,
                     boxSizing: 'content-box',
                     resize: 'none',
-                    lineHeight: `${(lineHeight ?? fontSize * 1.4) * zoom}px`,
+                    lineHeight: `${(lineHeight ?? fontSize * 1.4) * screenFontSize / fontSize}px`,
                 }}
                 onInput={event => fitTextEditor(event.currentTarget, ctx.containerRef.current)}
                 onBlur={(e) => {

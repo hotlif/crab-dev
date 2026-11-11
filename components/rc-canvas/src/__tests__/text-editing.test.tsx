@@ -1,3 +1,4 @@
+import CanvasOverlay from '../overlay.js';
 import Group from '../shapes/group.js';
 import { CanvasContext, type CanvasContextValue } from '../context/canvas-context.js';
 import { makeScaleMat3, makeTranslateMat3 } from '../math/matrix.js';
@@ -279,6 +280,9 @@ describe('adaptive text environment', () => {
         expect(zoomed.glyphKey).not.toBe(first.glyphKey);
         expect(zoomed.glyphWidth).toBe(first.glyphWidth);
         expect(zoomed.glyphHeight).toBe(first.glyphHeight);
+        expect(zoomed.rasterWidth).toBeDefined();
+        expect(zoomed.rasterHeight).toBeDefined();
+        expect(zoomed.rasterWidth! * 2).toBeCloseTo(Math.round(zoomed.rasterWidth! * 2), 8);
         await view.rerender(scene(2));
         expect(upload).toHaveBeenCalledTimes(2);
         const pan = makeScaleMat3(2, 2); pan[6] = 40;
@@ -327,4 +331,41 @@ it('adaptive text follows Group scale, SDF fallback and loaded font invalidation
         if (descriptor) Object.defineProperty(document, 'fonts', descriptor);
         else Reflect.deleteProperty(document, 'fonts');
     }
+});
+
+it('keeps an opt-in minimum font size and synchronizes DOM overlays with pan and Group scale', async () => {
+    let context: CanvasContextValue | undefined;
+    function Probe() {
+        const value = use(CanvasContext);
+        useEffect(() => { context = value; });
+        return null;
+    }
+    const view = await render(<Canvas width={320} height={160} dpr={1}>
+        <Group x={40} y={20} scaleX={0.5} scaleY={0.5}>
+            <Text x={0} y={0} mode="auto" fontSize={13} minScreenFontSize={10}>products</Text>
+            <CanvasOverlay x={20} y={20}>{({ scale }) => <button style={{ pointerEvents: 'auto' }}>details {scale}</button>}</CanvasOverlay>
+        </Group><Probe />
+    </Canvas>);
+    const button = screen.getByRole('button', { name: 'details 0.5' });
+    expect(button.parentElement!.style.left).toBe('50px');
+    expect(button.parentElement!.style.top).toBe('30px');
+    const readKey = () => {
+        const command = [...context!.commandMapRef.current.values()].find(command => command.kind === 'bitmap-text');
+        if (command?.kind !== 'bitmap-text') throw new Error('Expected text');
+        return JSON.parse(command.glyphKey!);
+    };
+    // auto cache key: mode, font epoch, backend, resolution, text, world font size.
+    expect(readKey()[5]).toBe(20);
+    await act(async () => {
+        const matrix = makeScaleMat3(0.5, 0.5); matrix[6] = 10; matrix[7] = 5;
+        context!.setViewMatrix(matrix);
+        await new Promise(resolve => setTimeout(resolve, 130));
+    });
+    expect(screen.getByRole('button', { name: 'details 0.25' })).toBe(button);
+    expect(button.parentElement!.style.left).toBe('35px');
+    expect(button.parentElement!.style.top).toBe('20px');
+    expect(readKey()[5]).toBe(40);
+    await act(async () => { context!.setViewMatrix(makeTranslateMat3(-500, 0)); });
+    expect(screen.queryByRole('button')).toBeNull();
+    await view.unmount();
 });

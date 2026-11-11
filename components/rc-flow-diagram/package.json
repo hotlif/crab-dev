@@ -52,7 +52,9 @@
     },
     "dependencies": {
         "@crab-dev/css": "0.1.45",
+        "@crab-dev/rc-button": "workspace:^",
         "@crab-dev/rc-canvas": "workspace:^",
+        "@crab-dev/rc-tooltip": "workspace:^",
         "elkjs": "^0.12.0"
     },
     "engines": {

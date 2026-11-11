@@ -384,9 +384,12 @@ export const libraryDependencies = [
         "title": "FlowDiagram 流程图",
         "family": "extension",
         "production": [
-            "rc-canvas"
+            "rc-button",
+            "rc-canvas",
+            "rc-tooltip"
         ],
         "docs": [
+            "rc-button",
             "rc-canvas",
             "rc-select",
             "rc-token-semantic"

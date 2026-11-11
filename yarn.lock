@@ -1062,9 +1062,11 @@ __metadata:
   resolution: "@crab-dev/rc-flow-diagram@workspace:components/rc-flow-diagram"
   dependencies:
     "@crab-dev/css": "npm:0.1.45"
+    "@crab-dev/rc-button": "workspace:^"
     "@crab-dev/rc-canvas": "workspace:^"
     "@crab-dev/rc-select": "workspace:^"
     "@crab-dev/rc-token-semantic": "workspace:^"
+    "@crab-dev/rc-tooltip": "workspace:^"
     "@crab-dev/standards-typescript-preset": "workspace:^"
     "@crab-dev/wake": "npm:0.1.45"
     "@types/node": "npm:^22.20.2"

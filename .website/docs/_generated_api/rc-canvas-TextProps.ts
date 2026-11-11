@@ -82,6 +82,11 @@ export interface TextProps {
     "fontSize"?: number;
 
     /**
+     * Optional minimum CSS-pixel font size after zoom settles. May enlarge the world-space text bounds; combine with concise labels at small zoom.
+     */
+    "minScreenFontSize"?: number;
+
+    /**
      * 暂无说明。
      */
     "fontFamily"?: string;

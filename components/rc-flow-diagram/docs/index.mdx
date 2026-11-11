@@ -38,6 +38,19 @@ status = "experimental"
 
 ## 代码演示
 
+### 缩小后的可读性
+
+`FlowNode.readability` 为可选功能。默认最小屏幕字号为 10 CSS px；原始显示字号低于 10 时使用 `compactLabel`，低于 7 时使用 `overviewLabel`。未提供简写时取完整标签首行；组件不猜测或删除业务字段。过长标签截断，节点旁的详情按钮支持悬停、Tab 聚焦与 Escape 关闭，完整内容由 `details` 提供，默认使用 `label`。
+
+```tsx
+<FlowNode x={40} y={40} width={260} height={150}
+    label={'商品模型 products\nid · uuid\nname · text\nprice · decimal'}
+    readability={{ compactLabel: 'products · id, name, price', overviewLabel: '商品 · 3 字段',
+        detailsLabel: '查看商品模型完整字段' }} />
+```
+
+可读标签使用 DOM 层，随视口位置移动，保持至少 10px 的字号。它位于所有 WebGL 图元之上，不参与图元命中或 PNG 导出；导出需要完整标签时使用默认 Canvas 标签。详情按钮可触发节点 `onClick`，详情内容应为非交互文本。极密集节点仍需调用方聚合或隐藏低优先级标签，这不是无限缩小仍能保留所有信息的保证。
+
 “默认语义色板”省略节点、标签、连线和网格的颜色参数，展示当前设计与明暗模式的默认配色。需要理解显式业务色和特殊边样式时，再查看 FlowEdge 样式示例。
 
 FlowEdge 静态样式和流动动效示例的彩色连线使用品牌、反馈及第三色语义角色，箭头与其连线同步配色，随当前设计和明暗模式解析。节点保留示例的业务色与配对标签前景；虚线、双向箭头及速度说明同时表达差异，不依赖颜色单独传达状态。
@@ -72,6 +85,8 @@ FlowDiagram 接受 `viewport / defaultViewport / onViewportChange`。新文档�
 ## API
 
 <API source="../src/flow-diagram.tsx" symbol="FlowDiagramProps" component="FlowDiagram" />
+
+<API source="../src/flow-node.tsx" symbol="FlowNodeReadability" component="FlowNode.readability" />
 
 <API source="../src/hooks/useFlowConnections.ts" symbol="FlowConnectionsOptions" component="useFlowConnections" />
 
