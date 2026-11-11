@@ -1,5 +1,16 @@
 # @crab-dev/rc-flow-diagram
 
+## 0.3.0
+
+### Minor Changes
+
+- [`cf076ee`](https://github.com/hotlif/crab-dev/commit/cf076ee5793f74c862434f9edf577242c1ae96fe) Thanks [@hotlif](https://github.com/hotlif)! - 增加可选的最小屏幕字号与跟随视口的 CanvasOverlay。FlowNode 可配置完整、精简、概览标签，并通过支持悬停和键盘焦点的详情入口保留完整信息。默认绘制不变；DOM 可读标签不包含在 PNG 导出内。
+
+### Patch Changes
+
+- Updated dependencies [[`dfbd519`](https://github.com/hotlif/crab-dev/commit/dfbd5198ac1e605023990fa81c6f34fd6c2468c2), [`cf076ee`](https://github.com/hotlif/crab-dev/commit/cf076ee5793f74c862434f9edf577242c1ae96fe)]:
+  - @crab-dev/rc-canvas@0.3.0
+
 ## 0.2.0
 
 ### Minor Changes
