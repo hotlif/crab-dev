@@ -1,5 +1,33 @@
 # @crab-dev/rc-table
 
+## 0.2.0
+
+### Minor Changes
+
+- [`72dc727`](https://github.com/hotlif/crab-dev/commit/72dc7270f90eefe393ccf20af0bcbdc3485dc4a9) Thanks [@hotlif](https://github.com/hotlif)! - 校准 macOS Tahoe 桌面工作区的公共视觉尺度：正文采用 13px 系统字体，单行字段改为 28/32/36px，控件统一 8px 轮廓；标题和数据表头降低字重。表格默认保留水平分隔，减少正文纵向网格。调整结构分隔线、字段内阴影、按钮高光和导航/浮层玻璃材质，避免固定斜向高光和厚重的灰色面板。
+  
+  这些规则通过公共主题与令牌应用到相关组件及组合控件。字段公开尺寸档位的实际高度会变小；使用显式 TokenVars 定制几何的消费方需重新核对自己的布局。粗指针目标、焦点、系统高对比度以及尺寸和密度的独立契约保持有效。
+  
+  Table 新增 `rowSelection.showColumn`，允许专业列表隐藏内置选择列、保留选中行语义，并通过现有行点击和 Enter 入口更新受控选择。默认仍显示选择列。
+
+- [`f15301a`](https://github.com/hotlif/crab-dev/commit/f15301a7391d7304420f3d7532a4f55b3500ec36) Thanks [@hotlif](https://github.com/hotlif)! - 为 Table 和 TablePro 的 React 19 ref 增加 scrollToRow(rowId, options) 与 focus()。定位按当前视图中的行 ID 查找，支持 nearest/start/center/end 对齐，保留横向滚动、查询、选择和展开状态；Promise 等虚拟滚动提交后返回是否找到目标，被替代或卸载时以 AbortError 拒绝。TablePro 支持刷新完成后立即定位新数据。focus 恢复有效的内部焦点或表格入口，不修改选择或滚动位置。
+
+### Patch Changes
+
+- [`72dc727`](https://github.com/hotlif/crab-dev/commit/72dc7270f90eefe393ccf20af0bcbdc3485dc4a9) Thanks [@hotlif](https://github.com/hotlif)! - 继续修正 macOS Tahoe 26 控件独立设计：移除 Tabs、Segmented、Checkbox、Radio、Card 和可选标签残留的 Material 状态遮罩、光圈与形变；补充桌面选择边缘、上下数字步进器、单选菜单前置勾选与活动行、浮动侧栏和分组玻璃工具栏。工作区账户及标签页菜单应用独立玻璃材质；内联 Alert 保持中性正文，Dialog 和日期时间浮层使用桌面主次操作，PDF 缩略图以边框标记选中。
+  
+  深色主操作与实色状态使用饱和底色配白字；今天日期、排序序号与站点强调文字使用独立文字颜色角色。各设计边界实际应用自己的字体，避免字段、菜单或 Tabs 继承浏览器默认衬线字体。
+  
+  macOS TimePicker 默认使用数字输入；需要旧表盘扩展时显式传入 `panelProps={{ defaultMode: 'dial' }}`。已进入编辑的模式、焦点及未完成输入在切换设计体系时保持。
+  
+  修复 Tabs 默认只保留面板容器、却卸载其内容的问题。工程工作台切换任务后保留未保存的编辑草稿；显式开启 `destroyInactiveTabPane` 时仍销毁内容。
+- Updated dependencies [[`72dc727`](https://github.com/hotlif/crab-dev/commit/72dc7270f90eefe393ccf20af0bcbdc3485dc4a9), [`72dc727`](https://github.com/hotlif/crab-dev/commit/72dc7270f90eefe393ccf20af0bcbdc3485dc4a9), [`72dc727`](https://github.com/hotlif/crab-dev/commit/72dc7270f90eefe393ccf20af0bcbdc3485dc4a9)]:
+  - @crab-dev/rc-button@1.0.3
+  - @crab-dev/rc-checkbox@0.1.1
+  - @crab-dev/rc-radio@0.1.2
+  - @crab-dev/rc-config-provider@1.0.0
+  - @crab-dev/rc-empty@0.1.1
+
 ## 0.1.2
 
 ### Patch Changes

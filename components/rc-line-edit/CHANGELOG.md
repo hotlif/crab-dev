@@ -1,5 +1,14 @@
 # @crab-dev/rc-line-edit
 
+## 0.1.3
+
+### Patch Changes
+
+- Updated dependencies [[`72dc727`](https://github.com/hotlif/crab-dev/commit/72dc7270f90eefe393ccf20af0bcbdc3485dc4a9), [`72dc727`](https://github.com/hotlif/crab-dev/commit/72dc7270f90eefe393ccf20af0bcbdc3485dc4a9), [`72dc727`](https://github.com/hotlif/crab-dev/commit/72dc7270f90eefe393ccf20af0bcbdc3485dc4a9)]:
+  - @crab-dev/rc-token-semantic@2.0.0
+  - @crab-dev/rc-button@1.0.3
+  - @crab-dev/rc-config-provider@1.0.0
+
 ## 0.1.2
 
 ### Patch Changes

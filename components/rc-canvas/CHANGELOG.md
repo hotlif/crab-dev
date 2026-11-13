@@ -1,5 +1,12 @@
 # @crab-dev/rc-canvas
 
+## 0.3.1
+
+### Patch Changes
+
+- Updated dependencies [[`72dc727`](https://github.com/hotlif/crab-dev/commit/72dc7270f90eefe393ccf20af0bcbdc3485dc4a9)]:
+  - @crab-dev/rc-config-provider@1.0.0
+
 ## 0.3.0
 
 ### Minor Changes

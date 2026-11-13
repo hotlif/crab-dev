@@ -1,5 +1,30 @@
 # @crab-dev/rc-table-pro
 
+## 0.3.0
+
+### Minor Changes
+
+- [`f15301a`](https://github.com/hotlif/crab-dev/commit/f15301a7391d7304420f3d7532a4f55b3500ec36) Thanks [@hotlif](https://github.com/hotlif)! - 新增 React 19 ref 接口 TableProHandle.refresh()，由组件重新请求当前分页、筛选和排序下的数据，保留已有数据与表格实例。Promise 支持等待刷新及页码越界后的回退请求；加载失败时拒绝并报告 onError，被后续请求替代或卸载时以 AbortError 拒绝。内置刷新、自动刷新与数据重试共用请求链路，不新增 refreshKey 属性。
+
+- [`f15301a`](https://github.com/hotlif/crab-dev/commit/f15301a7391d7304420f3d7532a4f55b3500ec36) Thanks [@hotlif](https://github.com/hotlif)! - 为 Table 和 TablePro 的 React 19 ref 增加 scrollToRow(rowId, options) 与 focus()。定位按当前视图中的行 ID 查找，支持 nearest/start/center/end 对齐，保留横向滚动、查询、选择和展开状态；Promise 等虚拟滚动提交后返回是否找到目标，被替代或卸载时以 AbortError 拒绝。TablePro 支持刷新完成后立即定位新数据。focus 恢复有效的内部焦点或表格入口，不修改选择或滚动位置。
+
+### Patch Changes
+
+- [`f15301a`](https://github.com/hotlif/crab-dev/commit/f15301a7391d7304420f3d7532a4f55b3500ec36) Thanks [@hotlif](https://github.com/hotlif)! - 修复 TablePro 侧边工具栏统一使用大尺寸圆形按钮的问题，按 MD3、macOS 和 shadcn 的按钮尺寸、形状与语义选中颜色呈现，并保留触屏命中区域和 RTL 分隔边界。
+  
+  进一步收紧桌面侧栏：工具按钮采用 24–28px 视觉尺寸和 2px 间距，压缩面板首尾操作区，触屏仍保留 48px 命中空间。
+- Updated dependencies [[`72dc727`](https://github.com/hotlif/crab-dev/commit/72dc7270f90eefe393ccf20af0bcbdc3485dc4a9), [`72dc727`](https://github.com/hotlif/crab-dev/commit/72dc7270f90eefe393ccf20af0bcbdc3485dc4a9), [`72dc727`](https://github.com/hotlif/crab-dev/commit/72dc7270f90eefe393ccf20af0bcbdc3485dc4a9), [`f15301a`](https://github.com/hotlif/crab-dev/commit/f15301a7391d7304420f3d7532a4f55b3500ec36)]:
+  - @crab-dev/rc-button@1.0.3
+  - @crab-dev/rc-table@0.2.0
+  - @crab-dev/rc-checkbox@0.1.1
+  - @crab-dev/rc-date-picker@0.1.2
+  - @crab-dev/rc-config-provider@1.0.0
+  - @crab-dev/rc-dropdown-container@0.1.2
+  - @crab-dev/rc-line-edit@0.1.3
+  - @crab-dev/rc-pagination@0.1.2
+  - @crab-dev/rc-spin@0.1.2
+  - @crab-dev/rc-tree@0.2.2
+
 ## 0.2.1
 
 ### Patch Changes

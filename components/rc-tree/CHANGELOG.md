@@ -1,5 +1,15 @@
 # @crab-dev/rc-tree
 
+## 0.2.2
+
+### Patch Changes
+
+- Updated dependencies [[`72dc727`](https://github.com/hotlif/crab-dev/commit/72dc7270f90eefe393ccf20af0bcbdc3485dc4a9), [`72dc727`](https://github.com/hotlif/crab-dev/commit/72dc7270f90eefe393ccf20af0bcbdc3485dc4a9)]:
+  - @crab-dev/rc-checkbox@0.1.1
+  - @crab-dev/rc-config-provider@1.0.0
+  - @crab-dev/rc-line-edit@0.1.3
+  - @crab-dev/rc-spin@0.1.2
+
 ## 0.2.1
 
 ### Patch Changes
