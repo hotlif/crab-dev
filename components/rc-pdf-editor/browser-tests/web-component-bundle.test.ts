@@ -209,7 +209,9 @@ describe('无需框架、网络或额外资源的独立 JS', () => {
                     expect(boundaryStyle.getPropertyValue('--token-semantic-field-control-min-height').trim()).toBe('0px');
                     const fieldSizes = designSystem === 'md3'
                         ? { small: '32px', medium: '40px', large: '48px' }
-                        : { small: '32px', medium: '36px', large: '40px' };
+                        : designSystem === 'macos'
+                            ? { small: '28px', medium: '32px', large: '36px' }
+                            : { small: '32px', medium: '36px', large: '40px' };
                     for (const [size, height] of Object.entries(fieldSizes))
                         expect(boundaryStyle.getPropertyValue(`--token-semantic-sizing-${size}-field`).trim()).toBe(height);
                     expect(boundaryStyle.getPropertyValue('--token-semantic-field-layout-label-row').trim()).toBe('1');
