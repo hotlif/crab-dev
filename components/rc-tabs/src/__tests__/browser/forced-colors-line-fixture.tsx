@@ -198,6 +198,16 @@ function edgeStrips(subject: ReturnType<typeof snapshot>['subjects'][number]) {
 async function inspectPixels(base64: string) {
     const image = await screenshotPixels(base64);
     const actual = verify(snapshot()), colors = systemColors();
+    // Linux Highlight is translucent. The macOS bezel paints its fill, border
+    // and selection outline in that color, so edge pixels can contain two or
+    // three layers. Compare their composited colors, retaining the same strict
+    // coverage and contrasting-focus assertions used for opaque system colors.
+    const selection = colorChannels(colors.selection);
+    const alpha = selection[3] / 255;
+    const composite = (backdrop: number[]) => selection.map((channel, index) =>
+        index < 3 ? Math.round(channel * alpha + backdrop[index]! * (1 - alpha)) : 255);
+    const fill = composite(colorChannels(colors.background));
+    const selectionBackdrops = designSystem === 'macos' ? [fill, composite(fill)] : [];
     return actual.subjects.map(subject => {
         if (designSystem === 'macos') check(matchingPixels(image, subject.rect, colors.selection).ratio > 0.25,
             `Mac selected bezel fill missing from original PNG: ${subject.id}`);
@@ -205,8 +215,8 @@ async function inspectPixels(base64: string) {
             const focusColor = designSystem === 'macos' ? colors.selectedForeground : colors.foreground;
             const expected = subject.focused ? focusColor : colors.selection;
             const other = subject.focused ? colors.selection : focusColor;
-            const pixels = matchingPixels(image, strip.rect, expected);
-            const otherState = matchingPixels(image, strip.rect, other);
+            const pixels = matchingPixels(image, strip.rect, expected, 2, selectionBackdrops);
+            const otherState = matchingPixels(image, strip.rect, other, 2, selectionBackdrops);
             check(pixels.total >= 2 && pixels.ratio > 0.8 && otherState.ratio < 0.05,
                 `Original PNG line ${strip.edge} ring missing or indistinguishable: ${subject.id}/${JSON.stringify({ pixels, otherState })}`);
             return { ...strip, pixels, otherState };
@@ -237,7 +247,7 @@ async function inspectPixels(base64: string) {
         const underlineRegion: PixelRect = { x, y: band.y, width, height: band.end - band.y };
         for (const glyph of subject.glyphs) check(!intersects(underlineRegion, glyph.rect), `Underline ROI intersects label: ${subject.id}`);
         const underline = matchingPixels(image, underlineRegion, designSystem === 'macos' ? colors.selectedForeground : colors.selection);
-        const underlineBackground = matchingPixels(image, underlineRegion, designSystem === 'macos' ? colors.selection : colors.background);
+        const underlineBackground = matchingPixels(image, underlineRegion, designSystem === 'macos' ? colors.selection : colors.background, 2, selectionBackdrops);
         check(underline.total >= 2, `Empty underline pixel region: ${subject.id}`);
         check(designSystem === 'md3' ? underline.ratio > 0.8 : underline.ratio < 0.05 && underlineBackground.ratio > 0.8,
             `Actual design-specific underline pixels mismatch: ${subject.id}/${JSON.stringify({ underline, underlineBackground })}`);
