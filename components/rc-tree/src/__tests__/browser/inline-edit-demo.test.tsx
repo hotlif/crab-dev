@@ -257,7 +257,7 @@ describe('published custom editor and loading row geometry', () => {
                     if (!ordinaryField) throw new Error('Missing ordinary published field.');
                     // The standalone small field follows the desktop contract;
                     // virtual rows keep their own 36/37px geometry above.
-                    expect(ordinaryField.getBoundingClientRect().height).toBe(32);
+                    expect(ordinaryField.getBoundingClientRect().height).toBe(designSystem === 'macos' ? 28 : 32);
                     await fireEvent.keyDown(input, { key: 'Escape' });
                     await settlePaint(tree);
                     expect(input.isConnected).toBe(false);

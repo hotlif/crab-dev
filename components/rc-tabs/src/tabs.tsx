@@ -70,7 +70,9 @@ const revealTab = (bar: HTMLDivElement | null, tab: HTMLButtonElement | undefine
         ? item.left - bounds.left
         : item.right > bounds.right ? item.right - bounds.right : 0;
     // Layout reconciliation is immediate, including initialization and reduced motion.
-    if (delta !== 0) bar.scrollBy({ left: delta, behavior: 'instant' });
+    // DOMRect edges can be fractional while native scrolling quantizes the
+    // offset. Round outward so a focused tab never retains a clipped edge.
+    if (delta !== 0) bar.scrollBy({ left: delta < 0 ? Math.floor(delta) : Math.ceil(delta), behavior: 'instant' });
 };
 
 interface CloseFocusRequest {
