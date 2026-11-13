@@ -3,6 +3,7 @@
  */
 
 import type { ComponentDemoRecord } from "../site/componentDemos.js";
+import type { ComponentDesignDocuments } from "../site/componentDesignGuide.js";
 
 export const demos = [
     {
@@ -130,3 +131,73 @@ export const demos = [
         "group": null
     }
 ] as const satisfies readonly ComponentDemoRecord[];
+
+export const documents = {
+    "md3": {
+        "summary": "用短暂反馈确认操作结果，以简短文字和语义状态帮助用户继续当前任务。",
+        "usage": "反馈不应打断输入，重要且需持续阅读的错误应放回关联内容中。",
+        "exampleDescription": "触发不同结果消息，检查语义配色、文字和自动关闭的反馈过程。",
+        "demos": [
+            "basic.demo.tsx",
+            "custom.demo.tsx",
+            "long-content.demo.tsx",
+            "stack.demo.tsx"
+        ],
+        "references": [
+            "https://m3.material.io/components/snackbar/overview",
+            "https://material-web.dev/components/",
+            "https://github.com/material-components/material-web"
+        ]
+    },
+    "macos": {
+        "summary": "以轻量浮动反馈报告桌面操作结果，内容保持短小并避免遮挡工作区域。",
+        "usage": "连续操作时检查消息堆叠，撤销或重试动作要保持清楚可达。",
+        "exampleDescription": "连续触发消息，观察桌面反馈的堆叠顺序和关闭后的空间恢复。",
+        "demos": [
+            "stack.demo.tsx",
+            "basic.demo.tsx",
+            "custom.demo.tsx",
+            "long-content.demo.tsx"
+        ],
+        "references": [
+            "https://developer.apple.com/design/human-interface-guidelines/components",
+            "https://developer.apple.com/design/human-interface-guidelines/accessibility"
+        ]
+    },
+    "shadcn": {
+        "summary": "用简洁浮层和中性文字层级反馈操作结果，语义状态通过明确文案表达。",
+        "usage": "长消息应允许阅读而不横向溢出，动作名称说明用户下一步能做什么。",
+        "exampleDescription": "触发较长的结果说明，检查窄区域里的换行、状态和关闭入口。",
+        "demos": [
+            "long-content.demo.tsx",
+            "basic.demo.tsx",
+            "custom.demo.tsx",
+            "stack.demo.tsx"
+        ],
+        "references": [
+            "https://ui.shadcn.com/docs/components",
+            "https://ui.shadcn.com/docs/theming",
+            "https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4"
+        ]
+    }
+} as const satisfies ComponentDesignDocuments;
+
+export const guide = {
+    "definition": "Message 显示短暂、轻量的全局操作反馈，例如保存成功或复制失败。它通常自动消失，只应承载一条能快速读完的信息。",
+    "useWhen": [
+        "操作结果无需保留在页面中，用户读到后可以继续。",
+        "需要通过 useMessage 在当前应用上下文中触发短消息。"
+    ],
+    "avoidWhen": [
+        "必须阅读或处理的错误使用 Alert、Notification 或 Dialog；表单字段错误放在字段附近。"
+    ],
+    "essentials": [
+        "一句话说明结果，避免把原因、详情和多个动作都塞进去。",
+        "duration 要给用户足够阅读时间，重要消息不要自动过快消失。",
+        "通过上下文 holder 保持主题和挂载位置，不要在任意模块创建孤立实例。"
+    ],
+    "accessibility": [
+        "根据重要程度选择礼貌或紧急通告，避免连续消息让读屏队列失控。",
+        "消息关闭后不移动当前焦点；仅靠颜色不能表达成功或失败。"
+    ]
+} as const;

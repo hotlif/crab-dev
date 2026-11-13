@@ -9,7 +9,7 @@ status = "experimental"
 
 ## 普通按钮
 
-普通按钮适合取消、返回、刷新等次要操作。Material 的 Outlined 使用中性文字、细描边、透明背景和胶囊圆角；Apple 使用 6px 圆角、实体表面和轻阴影；shadcn 使用 8px 圆角、实体表面和细描边。通过 `ConfigProvider designSystem` 统一切换，显式 `shape` 仍可覆盖默认形状。
+普通按钮适合取消、返回、刷新等次要操作。Material 的 Outlined 使用中性文字、细描边、透明背景和胶囊圆角；macOS 使用 6px 圆角、实体表面和轻阴影；shadcn 使用 8px 圆角、实体表面和细描边。通过 `ConfigProvider designSystem` 统一切换，显式 `shape` 仍可覆盖默认形状。
 
 基础示例完整展示五种官方外观。实际表单中，可将实色“保存修改”与描边“取消”放在同一操作区，文字“查看说明”作为辅助入口。
 
@@ -33,7 +33,7 @@ status = "experimental"
 
 ## 尺寸
 
-| size | MD3 高度 / 水平内边距 | Apple 高度 / 水平内边距 | shadcn 高度 / 水平内边距 |
+| size | MD3 高度 / 水平内边距 | macOS 高度 / 水平内边距 | shadcn 高度 / 水平内边距 |
 | --- | --- | --- | --- |
 | `xs` | 32 / 16px | 24 / 8px | 32 / 12px |
 | `s` | 40 / 16px | 28 / 12px | 36 / 16px |
@@ -41,11 +41,11 @@ status = "experimental"
 | `l` | 96 / 48px | 40 / 20px | 48 / 24px |
 | `xl` | 136 / 64px | 48 / 24px | 56 / 32px |
 
-显式 `size` 保留五档。省略 Button 与 Group 的 size 时，MD3 按全局 `small / medium / large` 使用 32 / 36 / 40px；Apple 和 shadcn 仍分别映射到自身 `xs / s / m`。根配置下 MD3 普通按钮为 36px。`density` 不改变按钮尺寸；显式 L/XL 留给关键操作。Apple 是自主 Web 设计，shadcn 的 L/XL 是 Crab 扩展；参考实现的 XS 微型按钮不映射为本库同名档位。
+显式 `size` 保留五档。省略 Button 与 Group 的 size 时，MD3 按全局 `small / medium / large` 使用 32 / 36 / 40px；macOS 和 shadcn 仍分别映射到自身 `xs / s / m`。根配置下 MD3 普通按钮为 36px。`density` 不改变按钮尺寸；显式 L/XL 留给关键操作。macOS 是自主 Web 设计，shadcn 的 L/XL 是 Crab 扩展；参考实现的 XS 微型按钮不映射为本库同名档位。
 
-MD3 的字号依次为 14/14/16/24/32px，图标为 20/20/24/32/40px，图标间距为 8/8/8/12/16px，描边为 1/1/1/2/3px。Square 圆角为 12/12/16/28/28px，按压圆角为 8/8/12/16/16px。Apple 和 shadcn 保持稳定的 6px、8px 圆角及 1px 描边。粗指针命中区域至少 48×48px，并在布局中预留空间，避免相邻操作命中重叠；文字放大允许按钮自然增高。
+MD3 的字号依次为 14/14/16/24/32px，图标为 20/20/24/32/40px，图标间距为 8/8/8/12/16px，描边为 1/1/1/2/3px。Square 圆角为 12/12/16/28/28px，按压圆角为 8/8/12/16/16px。macOS 和 shadcn 保持稳定的 6px、8px 圆角及 1px 描边。粗指针命中区域至少 48×48px，并在布局中预留空间，避免相邻操作命中重叠；文字放大允许按钮自然增高。
 
-MD3 默认几何在 L2 TOML 维护；Apple/shadcn 扩展在 L2 `design-actions.ts` 维护，Theme 只做变量映射。嵌套 MD3 边界清除上层设计覆盖并恢复默认角色。实际状态场景在本包 `visual-matrix.demo.tsx`，Playwright 用例与适用轴随包维护。
+MD3 默认几何在 L2 TOML 维护；macOS/shadcn 扩展在 L2 `design-actions.ts` 维护，Theme 只做变量映射。嵌套 MD3 边界清除上层设计覆盖并恢复默认角色。实际状态场景在本包 `visual-matrix.demo.tsx`，Playwright 用例与适用轴随包维护。
 
 悬停、键盘焦点与按压场景逐一操作五种标准外观并分别采集；触控场景使用真实 tap，并独立核对至少 48px 命中层。窄屏允许长按钮标签按公开样式省略，完整文字继续保留在可访问名称中。
 
@@ -53,7 +53,7 @@ MD3 默认几何在 L2 TOML 维护；Apple/shadcn 扩展在 L2 `design-actions.t
 
 - 悬停提供 8% 状态层；焦点与按压提供 10% 状态层，颜色跟随对应外观的前景角色；键盘焦点环使用 Secondary、3px 宽度和 2px 外偏移。
 - 禁用内容使用 On surface 的 38% 不透明度，填充容器独立使用 10%；描边与文字外观保持各自的容器规则。
-- Apple 和 shadcn 默认形状按压时保持圆角；Material 默认形状及显式 Round 收紧圆角。不移动文字或改变边框宽度。
+- macOS 和 shadcn 默认形状按压时保持圆角；Material 默认形状及显式 Round 收紧圆角。不移动文字或改变边框宽度。
 - 键盘与辅助技术触发的点击保留 225ms 按压反馈，连续激活从最后一次点击重新计时；进入禁用或加载状态时清除。此最短反馈时长参考 Material Web，显式 Round 的形状变化采用本组件的 Expressive 令牌；减少动态效果时直接切换状态。
 - `isSelected` 用于可切换操作并同步 `aria-pressed`；描边按钮选中后使用反色填充，形状随当前设计风格变化。Text 用于普通动作。
 - `loading` 显示进度并阻止重复激活，保留焦点；同时设置 `disabled` 时退出键盘顺序。
@@ -74,9 +74,9 @@ MD3 默认几何在 L2 TOML 维护；Apple/shadcn 扩展在 L2 `design-actions.t
 
 ## 三套风格
 
-Material 使用 Expressive 五档几何及按压、选中形状反馈。Apple 的圆角在按压和选中时保持稳定，普通按钮具有轻微浮起的表面；shadcn 的 Outlined 使用背景表面与细描边。主操作、普通操作和低强调操作的 API、禁用语义、键盘激活与焦点行为一致。
+Material 使用 Expressive 五档几何及按压、选中形状反馈。macOS 的圆角在按压和选中时保持稳定，普通按钮具有轻微浮起的表面；shadcn 的 Outlined 使用背景表面与细描边。主操作、普通操作和低强调操作的 API、禁用语义、键盘激活与焦点行为一致。
 
-Apple 是参考 Apple 控件层级的 Web 风格，不模拟操作系统私有材质或 Liquid Glass。shadcn 对照 New York v4 的按钮变体，保留 Crab 的公共尺寸契约与 React 19 实现。规格核对日期：2026-10-29；参考实现为 AndroidX token v0_11_0，提交 `b4e136e88a48dec3e039d06b69f055957cdc4071`。Material Web 仅作为 baseline 行为对照，不作为 Expressive 尺寸来源。
+macOS 是参考 macOS 控件层级的 Web 风格，不模拟操作系统私有材质或 Liquid Glass。shadcn 对照 New York v4 的按钮变体，保留 Crab 的公共尺寸契约与 React 19 实现。规格核对日期：2026-10-29；参考实现为 AndroidX token v0_11_0，提交 `b4e136e88a48dec3e039d06b69f055957cdc4071`。Material Web 仅作为 baseline 行为对照，不作为 Expressive 尺寸来源。
 
 默认、Square、Round 与 Circle 的圆角各自由对应形状样式提供，基础布局不再设置第二个“半高”默认圆角。基础重置与外观样式统一放在 `button.styles.ts`，并在外观之前定义，避免源码工作台与公开 ESM 的打包顺序覆盖圆角、描边或背景。包内原生浏览器回归对照 basic 源码入口与 public matrix，实际按压、切换选中，核对四角圆角、外部几何以及 outlined 的描边与表面；显式形状与选中、按压规则继续保留。该回归的发现和默认测试不能替代新候选的实际执行与外观复审，旧库存差异仍保留。
 
@@ -109,4 +109,12 @@ Apple 是参考 Apple 控件层级的 Web 风格，不模拟操作系统私有�
 
 ### 继承尺寸的桌面按钮
 
-未显式设置 Button 或 Group 的 size 时，MD3 按 Provider 的 small / medium / large 使用 32 / 36 / 40px，高度与显式 Expressive 五档独立。标签保持 14px / 20px，左右内边距分别为 12 / 16 / 20px。主题切换保留同一交互节点和焦点；Apple 与 shadcn 继承尺寸的原有映射保持不变。
+未显式设置 Button 或 Group 的 size 时，MD3 按 Provider 的 small / medium / large 使用 32 / 36 / 40px，高度与显式 Expressive 五档独立。标签保持 14px / 20px，左右内边距分别为 12 / 16 / 20px。主题切换保留同一交互节点和焦点；macOS 与 shadcn 继承尺寸的原有映射保持不变。
+
+## macOS Tahoe 26 独立外观
+
+依据 [Liquid Glass 概览](https://developer.apple.com/cn/documentation/technologyoverviews/liquid-glass)和 [AppKit 控件说明](https://developer.apple.com/videos/play/wwdc2025/310/)（Controls，11:10）。`macos` 使用独立样式分支，与 MD3 共享值、事件、焦点和布局语义，不组合 Material 色调状态层、反色描边选中或按压形变。
+
+xs/s/m 对应紧凑至常规桌面档，使用圆角矩形；l/xl 使用胶囊。`outlined` 映射普通 push button，`tonal` 映射次要着色，`primary` 映射主要着色；`elevated` 映射浮动 glass bezel，`text` 映射无背板操作。危险操作使用较低强调的红色，避免抢过默认动作。连体组共享一层玻璃背板，子按钮不重复叠加滤镜。保留现有 appearance 名称用于跨体系 API；这些名称不表示 macOS 继承 Material 视觉。
+
+普通按钮的圆角不随按压改变，键盘合成点击反馈使用独立的 120ms Web 时序。真实折射、按背景自动切换原生 appearance 和系统玻璃融合属于平台渲染能力；本库采用可读底色、边缘光、模糊和阴影做 Web 适配。

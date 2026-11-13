@@ -3,6 +3,7 @@
  */
 
 import type { ComponentDemoRecord } from "../site/componentDemos.js";
+import type { ComponentDesignDocuments } from "../site/componentDesignGuide.js";
 
 export const demos = [
     {
@@ -192,3 +193,79 @@ export const demos = [
         "group": null
     }
 ] as const satisfies readonly ComponentDemoRecord[];
+
+export const documents = {
+    "md3": {
+        "summary": "用图片或语义色调回退容器展示身份，圆形与圆角方形分别服务于人物和对象。",
+        "usage": "为可点击头像提供动作名称；头像组的更多入口应与身份图形分开理解。",
+        "exampleDescription": "对比形状和尺寸，再检查图片缺失时的文字回退与身份可辨认性。",
+        "demos": [
+            "shape-size.demo.tsx",
+            "action.demo.tsx",
+            "basic.demo.tsx",
+            "group.demo.tsx",
+            "icon.demo.tsx",
+            "image.demo.tsx"
+        ],
+        "references": [
+            "https://m3.material.io/components/lists/overview",
+            "https://material-web.dev/components/list/",
+            "https://github.com/material-components/material-web/tree/main/list"
+        ]
+    },
+    "macos": {
+        "summary": "以清晰的身份图像和克制的边界融入账户菜单、成员列表与桌面工具栏。",
+        "usage": "紧凑排列时保留可访问名称；不要依赖头像图片本身解释账户操作。",
+        "exampleDescription": "查看成员头像组与更多入口，检查紧凑排列中的身份和操作区分。",
+        "demos": [
+            "group.demo.tsx",
+            "action.demo.tsx",
+            "basic.demo.tsx",
+            "icon.demo.tsx",
+            "image.demo.tsx",
+            "shape-size.demo.tsx"
+        ],
+        "references": [
+            "https://developer.apple.com/design/human-interface-guidelines/components",
+            "https://developer.apple.com/design/human-interface-guidelines/accessibility"
+        ]
+    },
+    "shadcn": {
+        "summary": "通过图片裁切、文本回退和重叠分组提供简洁的身份标记。",
+        "usage": "头像与姓名一起使用可减少歧义；语义色和开放数字尺寸属于本库扩展。",
+        "exampleDescription": "先观察图片与回退内容，再查看头像组在中性表面上的排列。",
+        "demos": [
+            "image.demo.tsx",
+            "action.demo.tsx",
+            "basic.demo.tsx",
+            "group.demo.tsx",
+            "icon.demo.tsx",
+            "shape-size.demo.tsx"
+        ],
+        "references": [
+            "https://ui.shadcn.com/docs/components",
+            "https://ui.shadcn.com/docs/theming",
+            "https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4"
+        ]
+    }
+} as const satisfies ComponentDesignDocuments;
+
+export const guide = {
+    "definition": "Avatar 用图片、图标或文字缩写代表一个人、团队或对象；AvatarGroup 用重叠或汇总方式表示一组对象。它提供识别线索，不应单独承担姓名、状态或权限说明。",
+    "useWhen": [
+        "成员列表、评论、审批记录等场景需要快速识别人或组织。",
+        "空间有限时需要用缩写或图像作为文字名称的辅助线索。"
+    ],
+    "avoidWhen": [
+        "对象身份必须精确确认时同时显示名称；不要把难以识别的随机图案当成唯一信息。"
+    ],
+    "essentials": [
+        "优先提供稳定图片，加载失败时回退到可预测的文字缩写。",
+        "size 控制视觉尺寸，shape 只改变轮廓，不改变对象语义。",
+        "组内数量多时显示汇总，不要无限压缩到无法辨认。"
+    ],
+    "accessibility": [
+        "装饰性头像使用空替代文本；头像本身承担识别任务时提供与可见名称一致的替代文本。",
+        "可点击头像必须有明确操作名称和键盘焦点，不能只靠圆形外观看起来像按钮。"
+    ]
+} as const;

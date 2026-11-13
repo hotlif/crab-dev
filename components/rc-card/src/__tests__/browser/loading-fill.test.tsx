@@ -17,7 +17,7 @@ function required<T extends Element>(scope: ParentNode, selector: string): T {
 }
 
 describe('Card loading fill with published CSS', () => {
-    for (const designSystem of ['md3', 'apple', 'shadcn'] as const) {
+    for (const designSystem of ['md3', 'macos', 'shadcn'] as const) {
         for (const colorMode of ['light', 'dark'] as const) {
             it(`keeps four reduced-motion surfaces legible and removes local fill after loading (${designSystem}/${colorMode})`, async () => {
                 // Wake 0.1.45 fixes its real browser profile to reduce. Natural

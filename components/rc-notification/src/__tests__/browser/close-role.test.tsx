@@ -15,7 +15,7 @@ async function settleLayout() {
 }
 
 describe('Notification close role with published CSS', () => {
-    for (const designSystem of ['md3', 'apple', 'shadcn'] as const) {
+    for (const designSystem of ['md3', 'macos', 'shadcn'] as const) {
         for (const colorMode of ['light', 'dark'] as const) {
             it(`preserves opaque interaction and local foreground (${designSystem}/${colorMode})`, async () => {
                 const onOpenChange = mock.fn();

@@ -3,9 +3,9 @@ import { test, expect, configurations, openDemo, captureVisual } from '../../../
 for (const config of configurations) {
     test(`Radio ${config.designSystem} ${config.colorMode} native group arrow focus`, { tag: ['@rc-radio', '@boundary'] }, async ({ page, previewOrigin }, info) => {
         await openDemo(page, previewOrigin, 'rc-radio', 'group.demo.tsx', config);
-        const apple = page.getByRole('radio', { name: '苹果', exact: true });
+        const macos = page.getByRole('radio', { name: '苹果', exact: true });
         const banana = page.getByRole('radio', { name: '香蕉', exact: true });
-        await apple.focus();
+        await macos.focus();
         await page.keyboard.press('ArrowRight');
         await expect(banana).toBeFocused();
         await expect(banana).toBeChecked();
@@ -18,8 +18,8 @@ for (const config of configurations) {
         await expect(banana).toBeFocused();
         await expect(banana).toBeChecked();
         await page.keyboard.press('ArrowLeft');
-        await expect(apple).toBeFocused();
-        await expect(apple).toBeChecked();
+        await expect(macos).toBeFocused();
+        await expect(macos).toBeChecked();
         await banana.locator('..').click();
         await expect(banana).toBeChecked();
         expect(await control.evaluate(node => globalThis.getComputedStyle(node).outlineStyle)).toBe('none');

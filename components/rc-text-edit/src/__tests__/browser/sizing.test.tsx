@@ -7,12 +7,12 @@ import TextEdit from '../../../esm/index.mjs';
 import compiledCss from '../../../.cache/browser-css.json';
 
 const sizes = ['small', 'medium', 'large'] as const;
-const designs = ['md3', 'apple', 'shadcn'] as const;
+const designs = ['md3', 'macos', 'shadcn'] as const;
 type Design = typeof designs[number];
 type Size = typeof sizes[number];
 const geometry = {
     md3: { min: [32, 40, 48], block: [4, 8, 12], inline: [8, 12, 16], font: 16, line: 24 },
-    apple: { min: [32, 36, 40], block: [2, 4, 8], inline: [8, 12, 16], font: 14, line: 20 },
+    macos: { min: [28, 32, 36], block: [2, 4, 8], inline: [8, 12, 16], font: 13, line: 20 },
     shadcn: { min: [56, 64, 72], block: [4, 8, 12], inline: [8, 12, 16], font: 14, line: 20 },
 } as const;
 

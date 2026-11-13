@@ -7,9 +7,9 @@ import Card, { TokenVars as cardVars } from '../../../esm/index.mjs';
 
 const variants = [undefined, 'elevated', 'outlined', 'filled'] as const;
 const search = new URLSearchParams(location.search);
-const designSystem = search.get('designSystem') as 'md3' | 'apple' | 'shadcn';
+const designSystem = search.get('designSystem') as 'md3' | 'macos' | 'shadcn';
 const colorMode = search.get('colorMode') as 'light' | 'dark';
-if (!['md3', 'apple', 'shadcn'].includes(designSystem) || !['light', 'dark'].includes(colorMode)) throw Error('Invalid natural-motion fixture configuration');
+if (!['md3', 'macos', 'shadcn'].includes(designSystem) || !['light', 'dark'].includes(colorMode)) throw Error('Invalid natural-motion fixture configuration');
 const host = document.getElementById('root');
 if (!host) throw Error('Missing fixture host');
 const root = createRoot(host);

@@ -10,6 +10,9 @@ export const baseStyle = css`
     border-radius: ${token.root["border-radius"]};
     border: 1px solid ${token.root["border-color"]};
     background-color: ${token.root["background-color"]};
+    backdrop-filter: ${token.material['backdrop-filter']};
+    -webkit-backdrop-filter: ${token.material['backdrop-filter']};
+    background-image: ${token.material['background-image']};
     box-shadow: ${token.root["box-shadow"]};
     font-size: ${token.root["font-size"]};
     line-height: ${token.root["line-height"]};

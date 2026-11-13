@@ -8,11 +8,16 @@ status = "experimental"
 {/* THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY. */}
 
 import ComponentDemos from "../site/componentDemos.js";
-import { demos } from "../_generated/rc-message.js";
+import ComponentDesignGuide, { DesignIntroduction, DesignExampleIntroduction } from "../site/componentDesignGuide.js";
+import { demos, documents, guide } from "../_generated/rc-message.js";
 
 # Message 全局提示
 
 <div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-message</div>
+
+## 设计与用法
+
+<DesignIntroduction documents={documents} />
 
 <div id="基础示例" data-docs-example-anchor /><div id="全部示例" data-docs-example-anchor />
 
@@ -28,94 +33,15 @@ import { demos } from "../_generated/rc-message.js";
 
 ##### 消息堆叠 — 当消息数量超过 3 条时，旧消息会自动折叠。最新的一条在最前面，后面的消息缩小并淡出
 
-##### 三体系展示与状态矩阵 — 公开组件、真实交互与自然动画；包内视觉规格是矩阵轴的来源。
-
 </div>
 
-<ComponentDemos demos={demos} />
+<DesignExampleIntroduction documents={documents} />
 
-[打开完整组件工作台](/components/rc-message/workbench/)
+<ComponentDemos demos={demos} documents={documents} />
 
 ## 使用说明
 
-在页面顶部展示简短的操作反馈。
-
-
-### 何时使用
-
-用于保存成功、复制完成或操作失败等简短反馈。消息在页面顶部居中显示，可按 `duration` 自动关闭。需要详细说明或后续操作时使用 Notification，需要持续展示的页面提示使用 Alert。
-
-### 主要功能
-
-- 支持五种类型：`success`、`info`、`warning`、`error`、`loading`。
-- 顶部居中弹出，自动消失。
-- 支持自定义 `duration` 控制显示时长。
-- 鼠标悬停或内容中的操作获得键盘焦点时暂停倒计时，离开后继续剩余时间。
-- 支持自定义图标 `icon`。
-- 通过 `useMessage` Hook 创建实例。
-- 多条消息堆叠，最多显示 3 条，仅最上层消息计时；旧消息恢复到最上层后继续剩余时间。
-- 入场、退场和进度条均使用 CSS，自动适配减少动态效果偏好。`duration={0}` 的常驻消息不展示倒计时条。
-
-
-
-`useMessage()` 的 open/success/error/warning/info/loading 均返回 `{ id, close, update }`。例如 `const handle = message.loading('正在保存', 0)`，保存完成后 `handle.update({ type: 'success', content: '已保存', duration: 2000 })`。update 保留 ID 并重新计时；close 重复调用只通知一次。实例也支持 `message.close(id)` 和 `message.update(id, patch)`。
-
-默认 Message 组件通过 open/onExitComplete 控制显隐，duration 只控制进度动画；自动关闭与 onClose 回调由 useMessage 管理。
-
-
-
-
-### 三套设计风格
-
-MD3 Expressive 使用逆色 snackbar 表面；Apple 使用 12px 圆角的面板通知；shadcn 使用 8px 圆角的中性 toast 表面。边界、前景和背景通过语义角色成对切换，进度、排队、悬停暂停及读屏通告保持一致。多个堆叠消息和倒计时进度条是项目扩展。
-
-切换文档站设计风格后，本页演示同步使用该设计；浅色和深色模式分别使用配对语义颜色。
-
-
-消息默认使用 `role="status"` 和 `aria-live="polite"` 排队通告，不抢占当前焦点。直接渲染组件时可通过原生属性显式设置紧急通告。自动消失的信息也应在触发位置提供持久反馈，较长内容建议传入至少 4000ms 的 duration。
-
-### 三体系规格与验收边界
-
-轻量操作结果参考 Snackbar 的非阻塞反馈语义，但多类型、加载、队列是项目扩展。矩阵独立组件明确 open 与 duration=0；自动关闭归 useMessage 管理，浮层场景使用真实 handle.update/close，不以修改样式假造状态。loading 图标复用公开 SpinIndicator 的三体系实现，不再维护私有 SMIL 旋转；减少动画沿用同一指示器的低频呼吸，单独自然视频验收。
-
-| 体系 | 组件视觉规则 |
-| --- | --- |
-| MD3 Expressive | 强调结果可读性与浮动层级；不把无限加载图标称为 Expressive loading indicator。 |
-| Apple | 轻量表面、内容清晰，自主 Web 通知模式。 |
-| shadcn | 参照中性浮动反馈与描边层级；参考提交未提供同名 Message，独立实现。 |
-
-本包几何与视觉来源：root.padding / border-radius / border-color / box-shadow；body 字阶；icon.width / margin-right；stack.translate 和空间动效；progress 仅在有限 duration 时显示。设计值只在对应 token.toml 与它引用的语义角色维护，验收测量读取实际 DOM 计算值。
-
-颜色、字阶、形状、状态和动效分别从 L2 角色映射到包内 L3；Theme 负责最近配置边界。明暗模式使用配对前景/背景，不进行整体反相。视觉边界与命中区域分别检查，焦点截图保留外部轮廓与阴影。强制颜色采用系统色；减少动画保留信息与最终状态。
-
-矩阵定义在本包 `docs/visual.json`，场景使用 `visual-matrix.demo.tsx`。Chromium 覆盖其中全部设计/明暗/命名尺寸/适用密度/状态；Firefox 与 WebKit 按 `crossEngine` 的默认展示和重点交互子集执行。窄屏、RTL、中英文、长文本、品牌覆盖和配置切换后的草稿保持另有场景；未运行、未人工复核或失败的项不能计为通过。开放尺寸输入的代表样本不等于无限集合的穷尽。
-
-参考核对日期：2026-10-29。[Material 3 Cards](https://m3.material.io/components/cards/overview)、[Material Web Divider 使用/无障碍/令牌](https://material-web.dev/components/divider/)、[Material Web Progress 语义](https://material-web.dev/components/progress/)、[Apple Feedback](https://developer.apple.com/design/human-interface-guidelines/feedback)、[Apple Layout](https://developer.apple.com/design/human-interface-guidelines/layout)、[Apple Progress indicators](https://developer.apple.com/design/human-interface-guidelines/progress-indicators)、[shadcn New York V4 来源边界](https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui)。Material Web 是 Web 行为基线；Apple 是依据原则的自主 Web 实现；shadcn 固定参考提交 `3d98900e9b73c45f035f8109e9d41ba6a51685e7`，不跟随浮动最新版。
-
-### 适用场景
-
-操作结果无需保留在页面中，用户读到后可以继续。 需要通过 useMessage 在当前应用上下文中触发短消息。
-
-必须阅读或处理的错误使用 Alert、Notification 或 Dialog；表单字段错误放在字段附近。
-
-### 使用要点
-
-- 一句话说明结果，避免把原因、详情和多个动作都塞进去。
-- duration 要给用户足够阅读时间，重要消息不要自动过快消失。
-- 通过上下文 holder 保持主题和挂载位置，不要在任意模块创建孤立实例。
-
-### 无障碍
-
-- 根据重要程度选择礼貌或紧急通告，避免连续消息让读屏队列失控。
-- 消息关闭后不移动当前焦点；仅靠颜色不能表达成功或失败。
-
-### 设计依据与覆盖
-
-- **MD3 Expressive**：直接参考 M3 Snackbar 的短暂反馈、单行信息、动作数量和通告原则；视觉按项目 Message 变体扩展。 [依据 1](https://m3.material.io/components/snackbar/overview) · [依据 2](https://material-web.dev/components/) · [依据 3](https://github.com/material-components/material-web)
-- **Apple**：依据 Apple HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。 [依据 1](https://developer.apple.com/design/human-interface-guidelines/components) · [依据 2](https://developer.apple.com/design/human-interface-guidelines/accessibility)
-- **shadcn/ui**：参考 shadcn/ui 的组件用途、中性表面与设计变量，在本库公共语义和 React 交互模型中实现；完整状态覆盖仍需按矩阵验收。 [依据 1](https://ui.shadcn.com/docs/components) · [依据 2](https://ui.shadcn.com/docs/theming) · [依据 3](https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4)
-
-设计依据不等于完成验收；当前状态与适用边界见[覆盖矩阵](/guides/design-coverage)。
+<ComponentDesignGuide guide={guide} documents={documents} />
 
 ## 常见问题
 

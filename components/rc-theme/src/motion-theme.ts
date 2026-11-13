@@ -24,23 +24,23 @@ globalStyle`
         --token-semantic-motion-effects-slow: ${motion.md3.effectsSlow};
     }
 
-    [data-crab-design='apple'] {
-        --token-semantic-motion-interaction: ${motion.apple.interaction};
-        --token-semantic-motion-fade: ${motion.apple.fade};
-        --token-semantic-motion-expand: ${motion.apple.expand};
-        --token-semantic-motion-slide-enter: ${motion.apple.slideEnter};
-        --token-semantic-motion-slide-exit: ${motion.apple.slideExit};
-        --token-semantic-motion-sheet-enter-duration: ${motion.apple.sheetEnterDuration};
-        --token-semantic-motion-sheet-exit-duration: ${motion.apple.sheetExitDuration};
-        --token-semantic-motion-sheet-easing: ${motion.apple.sheetEasing};
-        --token-semantic-motion-layout: ${motion.apple.layout};
-        --token-semantic-motion-easing-spatial-default: ${motion.apple.easingSpatialDefault};
-        --token-semantic-motion-spatial-fast: ${motion.apple.spatialFast};
-        --token-semantic-motion-spatial-default: ${motion.apple.spatialDefault};
-        --token-semantic-motion-spatial-slow: ${motion.apple.spatialSlow};
-        --token-semantic-motion-effects-fast: ${motion.apple.effectsFast};
-        --token-semantic-motion-effects-default: ${motion.apple.effectsDefault};
-        --token-semantic-motion-effects-slow: ${motion.apple.effectsSlow};
+    [data-crab-design='macos'] {
+        --token-semantic-motion-interaction: ${motion.macos.interaction};
+        --token-semantic-motion-fade: ${motion.macos.fade};
+        --token-semantic-motion-expand: ${motion.macos.expand};
+        --token-semantic-motion-slide-enter: ${motion.macos.slideEnter};
+        --token-semantic-motion-slide-exit: ${motion.macos.slideExit};
+        --token-semantic-motion-sheet-enter-duration: ${motion.macos.sheetEnterDuration};
+        --token-semantic-motion-sheet-exit-duration: ${motion.macos.sheetExitDuration};
+        --token-semantic-motion-sheet-easing: ${motion.macos.sheetEasing};
+        --token-semantic-motion-layout: ${motion.macos.layout};
+        --token-semantic-motion-easing-spatial-default: ${motion.macos.easingSpatialDefault};
+        --token-semantic-motion-spatial-fast: ${motion.macos.spatialFast};
+        --token-semantic-motion-spatial-default: ${motion.macos.spatialDefault};
+        --token-semantic-motion-spatial-slow: ${motion.macos.spatialSlow};
+        --token-semantic-motion-effects-fast: ${motion.macos.effectsFast};
+        --token-semantic-motion-effects-default: ${motion.macos.effectsDefault};
+        --token-semantic-motion-effects-slow: ${motion.macos.effectsSlow};
     }
 
     [data-crab-design='shadcn'] {

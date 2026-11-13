@@ -3,7 +3,7 @@ import { act, fireEvent, render, screen } from "@crab-dev/wake/test/react";
 import { createContext, use, useEffect, useState } from "react";
 import type { ReactNode } from "react";
 import type { CommonProps, DemoProps, SearchState } from "@crab-dev/wake/docs";
-import { useConfig } from "@crab-dev/rc-config-provider";
+import ConfigProvider, { useConfig } from "@crab-dev/rc-config-provider";
 import { SITE_DESIGN_STORAGE_KEY } from "../siteContext.js";
 import { consumeDocumentRecovery, rememberDocumentRecovery } from "../ui/document-recovery.js";
 import { SearchReturnFocusContext } from "../ui/search-return-focus.js";
@@ -154,7 +154,7 @@ function DocumentRecoveryFixture({ deferred = false, reloaded = false }: { reado
 }
 
 describe("文档设计偏好", () => {
-    for (const [legacy, current] of [["material", "md3"], ["macos", "apple"]] as const) it(`恢复旧偏好 ${legacy} 并写回 ${current}`, async () => {
+    for (const [legacy, current] of [["material", "md3"], ["apple", "macos"]] as const) it(`恢复旧偏好 ${legacy} 并写回 ${current}`, async () => {
         const preference = designPreference(legacy);
         try {
             await render(<UI.Root {...common()}><CurrentDocumentConfig /></UI.Root>);
@@ -162,7 +162,7 @@ describe("文档设计偏好", () => {
             expect(preference.storage.setItem).toHaveBeenCalledWith(SITE_DESIGN_STORAGE_KEY, current);
         } finally { preference.restore(); }
     });
-    for (const [design, label] of [["apple", "Apple"], ["shadcn", "shadcn/ui"]] as const) it(`默认 MD3 Expressive，切换 ${label} 同步组件并在重新打开后保留`, async () => {
+    for (const [design, label] of [["macos", "macOS"], ["shadcn", "shadcn/ui"]] as const) it(`默认 MD3 Expressive，切换 ${label} 同步组件并在重新打开后保留`, async () => {
         const preference = designPreference();
         const state = common();
         const content = () => <UI.Root {...state}>
@@ -199,14 +199,14 @@ describe("文档设计偏好", () => {
             await click("文档外观：MD3 Expressive · 深色");
             expect(screen.getByRole("group", { name: "设计体系" })).toBeTruthy();
             expect(screen.getByRole("group", { name: "明暗模式" })).toBeTruthy();
-            await fireEvent.click(screen.getByRole("menuitemradio", { name: "Apple" }));
-            expect(screen.getByLabelText("当前组件配置").textContent).toBe("apple:dark");
+            await fireEvent.click(screen.getByRole("menuitemradio", { name: "macOS" }));
+            expect(screen.getByLabelText("当前组件配置").textContent).toBe("macos:dark");
             expect(screen.getByDisplayValue("仍在编辑")).toBe(draft);
             expect(state.theme.setTheme).not.toHaveBeenCalled();
         } finally { preference.restore(); }
     });
 
-    it("其他标签页选择 Apple 时同步配置，忽略无效偏好", async () => {
+    it("其他标签页选择 macOS 时同步配置，忽略无效偏好", async () => {
         const preference = designPreference("md3");
         try {
             await render(<UI.Root {...common()}><CurrentDocumentConfig /></UI.Root>);
@@ -219,8 +219,8 @@ describe("文档设计偏好", () => {
                     });
                     window.dispatchEvent(event);
                 });
-                expect(screen.getByLabelText("当前组件配置").textContent).toBe("apple:light");
-                expect(document.documentElement.dataset.crabDesign).toBe("apple");
+                expect(screen.getByLabelText("当前组件配置").textContent).toBe("macos:light");
+                expect(document.documentElement.dataset.crabDesign).toBe("macos");
             }
         } finally { preference.restore(); }
     });
@@ -826,6 +826,25 @@ describe("Wake 文档展示适配器", () => {
             "传入 href 时渲染为 a 元素",
             "Button 按钮 · 组件 / 输入与操作",
         ]);
+    });
+
+    it("搜索只保留当前主题的专属示例，过滤后键盘仍选择可见结果", async () => {
+        const titles = [
+            "链接按钮 — 传入 href 时渲染为 a 元素",
+            "macOS Tahoe：桌面控件与浮动玻璃操作 — 普通操作使用圆角矩形；浮动工具栏共享玻璃背板，突出内容。",
+            "形状与连接式按钮组 — Square 保持统一圆角；显式 Round 保留按压与选中时的形状反馈。",
+        ];
+        const search = searchState({ activeIndex: 2, results: titles.map((title, index) => ({
+            ...searchState().results[0]!, title, slug: `/components/rc-button#demo-${index}`,
+        })) });
+        const view = await render(<ConfigProvider designSystem="md3"><UI.SearchDialog {...common()} search={search} /></ConfigProvider>);
+        for (const designSystem of ["md3", "macos", "shadcn"] as const) {
+            await view.rerender(<ConfigProvider designSystem={designSystem}><UI.SearchDialog {...common()} search={search} /></ConfigProvider>);
+            const expected = designSystem === "md3" ? [0, 2] : designSystem === "macos" ? [0, 1] : [0];
+            expect(screen.getAllByRole("option").map(option => option.getAttribute("aria-label"))).toEqual(expected.map(index => titles[index].split(" — ")[0]));
+            await fireEvent.keyDown(screen.getByRole("combobox"), { key: "Enter" });
+            expect(search.select).toHaveBeenLastCalledWith(`/components/rc-button#demo-${expected.at(-1)}`);
+        }
     });
 
     it("搜索更新与错误状态不会打开过期结果", async () => {

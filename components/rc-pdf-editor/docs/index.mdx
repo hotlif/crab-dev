@@ -63,7 +63,7 @@ Ctrl/Cmd+Z 撤销，Ctrl/Cmd+Shift+Z 或 Ctrl/Cmd+Y 重做，Delete 删除，方
 
 PDFEditor 按 Crab 的专业文档工作区扩展维护。工具栏、属性区、对话框和提示分别复用 Button、字段、Select、ColorPicker、Checkbox、Dialog、Spin 和 Tooltip 的契约；工作区字体、表面、侧栏、边界与选区由本包 L3 令牌映射到各体系的 L2 角色。
 
-Material Design 3 Expressive、Apple 和 shadcn/ui 的来源及固定基线见[三套设计体系](/guides/design-styles)。来源规范用于这些控件和视觉角色，PDF 文档模型、对象操作、Worker 会话与插件协议由本库定义。Apple 为浏览器适配，不绑定某个 macOS 版本。
+Material Design 3 Expressive、macOS 和 shadcn/ui 的来源及固定基线见[三套设计体系](/guides/design-styles)。来源规范用于这些控件和视觉角色，PDF 文档模型、对象操作、Worker 会话与插件协议由本库定义。macOS 固定采用 Tahoe 26 Liquid Glass 的浏览器适配，PDF 页面内容保持实色。
 
 纸面与工作区明暗分开：默认纸面保持白色，切换设计或明暗不会反相 PDF 正文或按品牌色改写已有对象。页面尺寸、对象坐标、线宽和视口倍率保留文档几何；控件 `size` 与工作区 `density` 不作为整页内容的缩放参数。
 
@@ -74,9 +74,9 @@ React 入口从最近 Provider 消费配置；独立 Web Component 使用公开�
 
 ## 专业工作区三体系矩阵规格
 
-核对日期：2026-10-29。专业 PDF 编辑区是项目扩展。工具分组参考 [M3 Expressive Toolbar 规格](https://m3.material.io/components/toolbars/specs)与[无障碍](https://m3.material.io/components/toolbars/accessibility)、[Apple Toolbars](https://developer.apple.com/design/human-interface-guidelines/toolbars)，控件参考固定 shadcn New York V4 提交 3d98900e9b73c45f035f8109e9d41ba6a51685e7；Material Web [Button](https://material-web.dev/components/button/)和 [Progress](https://material-web.dev/components/progress/)用于 M3 Web 基线对照，不代表其提供 PDF 编辑器或 Expressive 专业工具栏。
+核对日期：2026-10-29。专业 PDF 编辑区是项目扩展。工具分组参考 [M3 Expressive Toolbar 规格](https://m3.material.io/components/toolbars/specs)与[无障碍](https://m3.material.io/components/toolbars/accessibility)、[macOS Toolbars](https://developer.apple.com/design/human-interface-guidelines/toolbars)，控件参考固定 shadcn New York V4 提交 3d98900e9b73c45f035f8109e9d41ba6a51685e7；Material Web [Button](https://material-web.dev/components/button/)和 [Progress](https://material-web.dev/components/progress/)用于 M3 Web 基线对照，不代表其提供 PDF 编辑器或 Expressive 专业工具栏。
 
-| 项目 | MD3 Expressive | Apple Web | shadcn New York V4 |
+| 项目 | MD3 Expressive | macOS Web | shadcn New York V4 |
 | --- | --- | --- | --- |
 | 工具区 | 中性/色调工作表面，选中工具通过 tonal 状态表达 | 内容优先、逻辑分组与轻量工具表面 | 中性表面、紧凑工具和清晰边界 |
 | 侧栏与属性 | 成对前景、语义选择与独立焦点 | 稳定对齐、清晰选中和可恢复面板 | 描边层次、紧凑字段与等宽数值 |

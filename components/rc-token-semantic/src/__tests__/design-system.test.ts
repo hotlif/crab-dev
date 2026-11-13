@@ -6,12 +6,12 @@ import token, { vars } from '../token.js';
 
 describe('public design-system contract', () => {
     it('uses one registry for public identities, labels and the default', () => {
-        expect(Object.keys(designSystemRegistry)).toEqual(['md3', 'apple', 'shadcn']);
+        expect(Object.keys(designSystemRegistry)).toEqual(['md3', 'macos', 'shadcn']);
         expect(Object.keys(designColorContract)).toEqual(Object.keys(designSystemRegistry));
         expect(defaultDesignSystem).toBe('md3');
         expect(designSystemRegistry.md3.label).toBe('MD3 Expressive');
         expect(designSystemRegistry.md3.fullName).toBe('Material Design 3 Expressive');
-        expect(designSystemRegistry.apple.label).toBe('Apple');
+        expect(designSystemRegistry.macos.label).toBe('macOS');
         expect(designSystemRegistry.shadcn.label).toBe('shadcn/ui');
     });
 

@@ -1,0 +1,47 @@
+{
+    "md3": {
+        "summary": "以外置标签和填充或描边内容区域承载多行文本，辅助说明持续可见。",
+        "usage": "使用 rows 或 autoSize 决定内容高度，字数和错误说明与文本区域关联。",
+        "exampleDescription": "比较两种字段表面并输入多行文字，检查标签、边界与内容留白。",
+        "demos": [
+            "appearance.demo.tsx",
+            "allow-clear.demo.tsx",
+            "auto-size.demo.tsx",
+            "field-states.demo.tsx",
+            "show-count.demo.tsx",
+            "simple.demo.tsx",
+            "size.demo.tsx",
+            "status.demo.tsx"
+        ]
+    },
+    "macos": {
+        "summary": "以桌面多行输入区域和静态标签支持文档式编辑，内容保持清晰底色。",
+        "usage": "自动增高时保留邻近字段的秩序；清除动作不应破坏正在编辑的焦点。",
+        "exampleDescription": "连续输入多行文本，观察桌面字段自动增高与周围内容的排列。",
+        "demos": [
+            "auto-size.demo.tsx",
+            "allow-clear.demo.tsx",
+            "appearance.demo.tsx",
+            "field-states.demo.tsx",
+            "show-count.demo.tsx",
+            "simple.demo.tsx",
+            "size.demo.tsx",
+            "status.demo.tsx"
+        ]
+    },
+    "shadcn": {
+        "summary": "用中性描边文本区域承载长输入，标签与计数保持简洁、可读。",
+        "usage": "明确输入限制和错误原因，计数与辅助说明不能挤压主要编辑区域。",
+        "exampleDescription": "编辑接近字数限制的文本，检查计数、说明和聚焦轮廓。",
+        "demos": [
+            "show-count.demo.tsx",
+            "allow-clear.demo.tsx",
+            "appearance.demo.tsx",
+            "auto-size.demo.tsx",
+            "field-states.demo.tsx",
+            "simple.demo.tsx",
+            "size.demo.tsx",
+            "status.demo.tsx"
+        ]
+    }
+}

@@ -56,7 +56,11 @@ export const vars = defineTokens({
     'size.l.thumb.height': '--slider-size-l-thumb-height',
     'size.xl.track.height': '--slider-size-xl-track-height',
     'size.xl.track.border-radius': '--slider-size-xl-track-border-radius',
-    'size.xl.thumb.height': '--slider-size-xl-thumb-height'
+    'size.xl.thumb.height': '--slider-size-xl-thumb-height',
+    'material.backdrop-filter': '--slider-material-backdrop-filter',
+    'material.background-image': '--slider-material-background-image',
+    'material.knob.background-color': '--slider-material-knob-background-color',
+    'macos.track.border-radius': '--slider-macos-track-border-radius'
 });
 
 const token = defineTokens({
@@ -162,6 +166,18 @@ const token = defineTokens({
             'thumb': {
                 'height': `var(${vars['size.xl.thumb.height']}, var(--token-semantic-range-xl-thumb-height, var(--token-global-size-40, 40px)))`
             }
+        }
+    },
+    'material': {
+        'backdrop-filter': `var(${vars['material.backdrop-filter']}, var(--token-semantic-material-filter, none))`,
+        'background-image': `var(${vars['material.background-image']}, var(--token-semantic-material-sheen, none))`,
+        'knob': {
+            'background-color': `var(${vars['material.knob.background-color']}, var(--token-semantic-material-knob-background, var(--token-global-white, oklch(1.000 0 0))))`
+        }
+    },
+    'macos': {
+        'track': {
+            'border-radius': `var(${vars['macos.track.border-radius']}, var(--token-semantic-shape-full, var(--token-global-radius-full, 9999px)))`
         }
     }
 });

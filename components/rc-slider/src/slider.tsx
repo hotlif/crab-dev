@@ -4,6 +4,7 @@ import { useConfig } from '@crab-dev/rc-config-provider';
 import { css, cx } from "@crab-dev/css";
 import { type HTMLAttributes, type FC, type PointerEvent, type KeyboardEvent, useRef, useState, useEffect, useEffectEvent, useLayoutEffect } from "react";
 import token, { vars } from "./token.js";
+import { macosSliderHandleStyle, macosSliderStyle } from './slider.designs.js';
 
 interface BaseSliderProps extends Omit<HTMLAttributes<HTMLDivElement>, 'defaultValue'> {
     /** 轨道尺寸，默认 xs；各设计主题使用独立的轨道与手柄比例。 */
@@ -229,7 +230,7 @@ const Slider: FC<SliderProps> = ({
                         }
                     }
                 }
-            `, sizeStyles[size], className)}
+            `, sizeStyles[size], config.designSystem === 'macos' ? macosSliderStyle : null, className)}
             ref={containerRef}
             onPointerDown={handlePointerDown}
             onPointerMove={handlePointerMove}
@@ -309,8 +310,9 @@ const Slider: FC<SliderProps> = ({
                 />
                 <div
                     data-slot="slider-handle"
+                    data-slider-design={config.designSystem === 'macos' ? 'macos' : undefined}
                     data-is-dragging={isDragging}
-                    className={css`
+                    className={cx(config.designSystem === 'macos' ? macosSliderHandleStyle : null, css`
                         position: relative;
                         box-sizing: border-box;
                         border-radius: ${token.thumb['border-radius']};
@@ -325,7 +327,7 @@ const Slider: FC<SliderProps> = ({
                         &[data-is-dragging="true"] {
                             width: ${token.thumb['width-active']};
                         }
-                    `}
+                    `)}
                 />
             </div>
         </div>

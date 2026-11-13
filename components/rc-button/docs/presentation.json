@@ -2,7 +2,7 @@
     "previewDensity": "compact",
     "groups": [
         {
-            "title": "三套风格对照",
+            "title": "当前主题的状态",
             "demos": [
                 "designs.demo.tsx"
             ]
@@ -34,6 +34,12 @@
             "demos": [
                 "button-group.demo.tsx",
                 "expressive.demo.tsx"
+            ]
+        },
+        {
+            "title": "macOS Tahoe 26",
+            "demos": [
+                "macos.demo.tsx"
             ]
         }
     ]

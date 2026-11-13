@@ -1,0 +1,44 @@
+{
+    "md3": {
+        "summary": "以语义系列色、表面和清晰文字组织柱状数据；柱图布局与交互由本库定义。",
+        "usage": "先明确比较维度，再选择分组或堆叠；关键数据通过标签与图例解释。",
+        "exampleDescription": "切换系列可见性，观察图例和柱体之间的对应关系与语义颜色。",
+        "demos": [
+            "multi-series.demo.tsx",
+            "annotations.demo.tsx",
+            "basic.demo.tsx",
+            "horizontal.demo.tsx",
+            "live-update.demo.tsx",
+            "palette.demo.tsx",
+            "stacked.demo.tsx"
+        ]
+    },
+    "macos": {
+        "summary": "以清晰坐标、适量网格和可读数值服务桌面数据分析，保持数据内容优先。",
+        "usage": "紧凑工作区仍应保留零基线、系列名称和辅助技术可读取的数据入口。",
+        "exampleDescription": "从水平柱图比较较长标签的数据，再检查提示和图例的可读性。",
+        "demos": [
+            "horizontal.demo.tsx",
+            "annotations.demo.tsx",
+            "basic.demo.tsx",
+            "live-update.demo.tsx",
+            "multi-series.demo.tsx",
+            "palette.demo.tsx",
+            "stacked.demo.tsx"
+        ]
+    },
+    "shadcn": {
+        "summary": "用中性坐标和稳定的分类色呈现数据，图例与提示沿用简洁的内容层级。",
+        "usage": "图表是本库的 Canvas 实现；业务应提供单位、分类和数据解释。",
+        "exampleDescription": "阅读堆叠柱的总量与构成，再通过图例确认分类色的稳定对应。",
+        "demos": [
+            "stacked.demo.tsx",
+            "annotations.demo.tsx",
+            "basic.demo.tsx",
+            "horizontal.demo.tsx",
+            "live-update.demo.tsx",
+            "multi-series.demo.tsx",
+            "palette.demo.tsx"
+        ]
+    }
+}

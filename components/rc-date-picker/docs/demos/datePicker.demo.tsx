@@ -1,6 +1,6 @@
 export const meta = {
     title: "日期选择器",
-    description: "字段和日期面板随文档站主题切换，使用同一日期和尺寸对照 Apple、MD3 Expressive 与 shadcn/ui。",
+    description: "日期字段与面板继承当前文档主题；选择日期、清除并检查标签与焦点。",
 };
 
 import { css } from "@crab-dev/css";
@@ -8,8 +8,7 @@ import { useState } from "react";
 import Button from "@crab-dev/rc-button";
 import token from "@crab-dev/rc-token-semantic";
 
-import DatePicker from "../../src/datePicker/datePicker.js";
-import { formatTemporal } from "../../src/util.js";
+import DatePicker from '@crab-dev/rc-date-picker';
 
 
 const SizeDemo = () => {
@@ -32,7 +31,7 @@ const SizeDemo = () => {
                 supportingText="日期面板的选中项与今天标记分别呈现。"
                 value={value}
                 size={size}
-                renderDisplayString={(value) => formatTemporal(value, "yyyy-MM-dd")}
+                renderDisplayString={(value) => value?.toPlainDate().toString() ?? ""}
                 onValueChange={setValue}
             />
         </div>

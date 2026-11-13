@@ -7,6 +7,19 @@ imports = [
 
 [token]
 
+# Independent Tahoe controls; Web adaptation of AppKit.
+macos.sidebar.margin = "$ref(space.component-gap)"
+macos.sidebar.border-radius = "$ref(shape.overlay)"
+macos.sidebar.border-color = "$ref(material.border)"
+macos.sidebar.box-shadow = "$ref(material.control-shadow)"
+macos.toolbar.background-color = "$ref(material.background)"
+macos.toolbar.box-shadow = "$ref(material.control-shadow)"
+macos.menu.background-color = "$ref(material.background)"
+macos.menu.border-color = "$ref(material.border)"
+macos.menu.border-radius = "$ref(shape.overlay)"
+macos.menu.box-shadow = "$ref(material.shadow)"
+
+
 root.background-color = "$ref(color.workspace.content)"
 sidebar.transition = "width $ref(motion.layout), padding $ref(motion.layout)"
 
@@ -18,7 +31,7 @@ header.divider.background-color = "$ref(color.border.subtle)"
 header.toolbar.height = "$ref(navigation.toolbar.height)"
 header.toolbar.padding = "0 16px"
 header.toolbar.gap = "6px"
-header.toolbar.background-color = "$ref(color.workspace.toolbar)"
+header.toolbar.background-color = "var(--token-semantic-material-navigation-background, $ref(color.workspace.toolbar))"
 
 header.nav-btn.width = "$ref(size.control)"
 header.nav-btn.touch.width = "$ref(size.touch-target)"
@@ -66,7 +79,7 @@ sidebar.collapsed.width = "80px"
 sidebar.padding = "12px 8px"
 sidebar.collapsed.padding = "12px 0"
 sidebar.gap = "4px"
-sidebar.background-color = "$ref(color.workspace.sidebar)"
+sidebar.background-color = "var(--token-semantic-material-navigation-background, $ref(color.workspace.sidebar))"
 sidebar.border-color = "$ref(navigation.sidebar.border)"
 sidebar.logo.width = "40px"
 sidebar.logo.touch.min-height = "$ref(size.touch-target)"
@@ -149,3 +162,7 @@ motion.interaction.transition = "$ref(motion.interaction)"
 motion.offset.translate = "calc($ref(space.component-gap) * -1)"
 
 motion.spatial.transition = "$ref(motion.spatial.fast)"
+
+# Shared material roles resolve at the closest theme boundary.
+material.backdrop-filter = "$ref(material.filter)"
+material.background-image = "$ref(material.sheen)"

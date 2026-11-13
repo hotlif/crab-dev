@@ -104,7 +104,7 @@ clearRemoteCache(entry, scope);
 
 ## 设计风格与主题
 
-Realm 是视觉中性的可选加载集成。默认加载、错误和重试反馈复用 Spin、Alert、Button，分别消费 Material Design 3 Expressive、Apple、shadcn/ui 的现有组件契约；来源和固定基线见[三套设计体系](/guides/design-styles)。入口加载、共享依赖、缓存、接入协议与沙箱是本库的集成能力，不以列表或分隔线规格作为整体依据。
+Realm 是视觉中性的可选加载集成。默认加载、错误和重试反馈复用 Spin、Alert、Button，分别消费 Material Design 3 Expressive、macOS、shadcn/ui 的现有组件契约；来源和固定基线见[三套设计体系](/guides/design-styles)。入口加载、共享依赖、缓存、接入协议与沙箱是本库的集成能力，不以列表或分隔线规格作为整体依据。
 
 `component` 协议在宿主 React 树中渲染；远端是否共享配置仍取决于所用库实例和共享约定。`mount` 协议中的独立应用需要通过挂载接口显式连接配置，Shadow DOM 的 CSS 变量继承不等于跨 React 根传递 Context。Realm 不改写远端自己的显式配色、字体和内容。
 
@@ -113,7 +113,7 @@ Realm 是视觉中性的可选加载集成。默认加载、错误和重试反�
 
 ## 三体系传输反馈与边界规格
 
-核对日期：2026-10-29。Realm 透明承载远程内容，三体系反馈由已有 Spin、Alert 和 Button 的公共契约组成。它不新增容器配色、控件几何或远程页面主题系统。[Material Web Progress](https://material-web.dev/components/progress/)是等待状态及可访问名称的 M3 基线对照；Expressive 的 Spin 外观由对应组件维护。Apple 使用内容优先与清晰反馈原则；shadcn 保持固定 New York V4 的反馈、描边和焦点参考，具体控件规格见各自组件页。
+核对日期：2026-10-29。Realm 透明承载远程内容，三体系反馈由已有 Spin、Alert 和 Button 的公共契约组成。它不新增容器配色、控件几何或远程页面主题系统。[Material Web Progress](https://material-web.dev/components/progress/)是等待状态及可访问名称的 M3 基线对照；Expressive 的 Spin 外观由对应组件维护。macOS 使用内容优先与清晰反馈原则；shadcn 保持固定 New York V4 的反馈、描边和焦点参考，具体控件规格见各自组件页。
 
 | 阶段 | 必须保留的行为与视觉 |
 | --- | --- |

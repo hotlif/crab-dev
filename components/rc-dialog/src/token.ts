@@ -47,7 +47,9 @@ export const vars = defineTokens({
     'motion.interaction.transition': '--dialog-motion-interaction-transition',
     'motion.offset.translate': '--dialog-motion-offset-translate',
     'motion.spatial.transition': '--dialog-motion-spatial-transition',
-    'motion.exit.transition': '--dialog-motion-exit-transition'
+    'motion.exit.transition': '--dialog-motion-exit-transition',
+    'material.backdrop-filter': '--dialog-material-backdrop-filter',
+    'material.background-image': '--dialog-material-background-image'
 });
 
 const token = defineTokens({
@@ -125,6 +127,10 @@ const token = defineTokens({
         'exit': {
             'transition': `var(${vars['motion.exit.transition']}, var(--token-semantic-motion-layout, var(--token-global-duration-normal, 200ms) var(--token-global-easing-out, cubic-bezier(0, 0, 0.2, 1))))`
         }
+    },
+    'material': {
+        'backdrop-filter': `var(${vars['material.backdrop-filter']}, var(--token-semantic-material-filter, none))`,
+        'background-image': `var(${vars['material.background-image']}, var(--token-semantic-material-sheen, none))`
     }
 });
 

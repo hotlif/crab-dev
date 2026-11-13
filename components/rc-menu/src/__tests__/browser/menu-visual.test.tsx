@@ -163,7 +163,7 @@ async function hoverCollapsedReference(trigger: HTMLElement): Promise<void> {
 }
 
 describe('Menu published CSS geometry across designs, modes and inline directions', () => {
-    for (const designSystem of ['md3', 'apple', 'shadcn'] as const) {
+    for (const designSystem of ['md3', 'macos', 'shadcn'] as const) {
         for (const colorMode of ['light', 'dark'] as const) {
             it(`contains keyboard focus inside clipped selected leaves (${designSystem}/${colorMode})`, async () => {
                 const view = await render(<ConfigProvider designSystem={designSystem} colorMode={colorMode}>
@@ -373,7 +373,7 @@ describe('Menu published CSS geometry across designs, modes and inline direction
 });
 
 describe('Collapsed Menu published popup placement follows the nearest direction', () => {
-    for (const designSystem of ['md3', 'apple', 'shadcn'] as const) {
+    for (const designSystem of ['md3', 'macos', 'shadcn'] as const) {
         for (const colorMode of ['light', 'dark'] as const) {
             it(`repositions submenus and real hover hints across configuration and explicit dir changes (${designSystem}/${colorMode})`, async () => {
                 const fixture = (outer: Direction, nearest: Direction, explicit?: Direction) => <>

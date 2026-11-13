@@ -1,0 +1,48 @@
+{
+    "md3": {
+        "summary": "以日期字段、日历面板与明确的选中状态组织时间输入，文字标签保持可见。",
+        "usage": "日期、时间与范围分别选择对应入口；日历中的当前日期和选中日期需要区分。",
+        "exampleDescription": "打开日期面板，选择日期后再清除，检查字段标签、选中色和焦点返回。",
+        "demos": [
+            "datePicker.demo.tsx",
+            "datePickerPanel.demo.tsx",
+            "datePickerRange.demo.tsx",
+            "dateTimePicker.demo.tsx",
+            "dateTimePickerPanel.demo.tsx",
+            "timePicker.demo.tsx",
+            "timePickerDial.demo.tsx",
+            "timePickerPanel.demo.tsx"
+        ]
+    },
+    "macos": {
+        "summary": "以紧凑桌面日期字段和时间编辑区域服务日程与设置，选择面板保持内容清晰。",
+        "usage": "时间编辑使用桌面步进和字段交互；把当前值、单位与禁用状态放在清楚的位置。",
+        "exampleDescription": "编辑桌面时间并操作步进控件，核对小时分钟、键盘操作与当前值。",
+        "demos": [
+            "desktop-time.demo.tsx",
+            "datePicker.demo.tsx",
+            "datePickerPanel.demo.tsx",
+            "datePickerRange.demo.tsx",
+            "dateTimePicker.demo.tsx",
+            "dateTimePickerPanel.demo.tsx",
+            "timePicker.demo.tsx",
+            "timePickerDial.demo.tsx",
+            "timePickerPanel.demo.tsx"
+        ]
+    },
+    "shadcn": {
+        "summary": "用有边界的日期字段和中性日历面板提供日期、范围与时间选择。",
+        "usage": "范围输入应明确起止值，选中背景与焦点轮廓分别表达数据状态和操作位置。",
+        "exampleDescription": "选择起止日期并检查范围表达，再用键盘回到字段确认焦点可见。",
+        "demos": [
+            "datePickerRange.demo.tsx",
+            "datePicker.demo.tsx",
+            "datePickerPanel.demo.tsx",
+            "dateTimePicker.demo.tsx",
+            "dateTimePickerPanel.demo.tsx",
+            "timePicker.demo.tsx",
+            "timePickerDial.demo.tsx",
+            "timePickerPanel.demo.tsx"
+        ]
+    }
+}

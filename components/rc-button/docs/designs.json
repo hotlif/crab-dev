@@ -1,0 +1,62 @@
+{
+    "md3": {
+        "summary": "以 Filled、Tonal、Outlined、Elevated 与 Text 表达操作层级，强调动作可使用 Expressive 形状反馈。",
+        "usage": "primary 用于主要动作，outlined 用于普通动作。省略 size 时默认继承 medium；显式 xs/s/m/l/xl 是独立五档。",
+        "exampleDescription": "先比较五种外观，再操作选中和加载示例；观察状态层、按压形状与稳定的文字位置。",
+        "demos": [
+            "appearance.demo.tsx",
+            "basic.demo.tsx",
+            "button-group.demo.tsx",
+            "circle.demo.tsx",
+            "danger.demo.tsx",
+            "designs.demo.tsx",
+            "disabled.demo.tsx",
+            "expressive.demo.tsx",
+            "icon-after.demo.tsx",
+            "icon.demo.tsx",
+            "link-button.demo.tsx",
+            "loading.demo.tsx",
+            "selected.demo.tsx",
+            "size.demo.tsx"
+        ]
+    },
+    "macos": {
+        "summary": "以普通 push button、着色主操作和浮动 glass bezel 组织桌面动作，按压时保持稳定轮廓。",
+        "usage": "outlined 是普通操作，primary 是默认动作，tonal 是次要着色，text 用于无背板操作；玻璃材质集中在操作层。",
+        "exampleDescription": "操作桌面按钮和连体组，观察边缘光、着色层级与共享背板；键盘焦点应持续可见。",
+        "demos": [
+            "macos.demo.tsx",
+            "appearance.demo.tsx",
+            "basic.demo.tsx",
+            "button-group.demo.tsx",
+            "circle.demo.tsx",
+            "danger.demo.tsx",
+            "designs.demo.tsx",
+            "disabled.demo.tsx",
+            "icon.demo.tsx",
+            "link-button.demo.tsx",
+            "loading.demo.tsx",
+            "selected.demo.tsx",
+            "size.demo.tsx"
+        ]
+    },
+    "shadcn": {
+        "summary": "以实心主操作、细描边普通操作与透明低强调操作建立简洁的按钮层级。",
+        "usage": "优先用 primary、outlined 和 text 组织动作，danger 独立表达删除等风险；更大的尺寸为本库扩展。",
+        "exampleDescription": "从基础保存与取消开始，再检查禁用、加载和选中反馈，以及描边按钮的实体表面。",
+        "demos": [
+            "basic.demo.tsx",
+            "appearance.demo.tsx",
+            "button-group.demo.tsx",
+            "circle.demo.tsx",
+            "danger.demo.tsx",
+            "designs.demo.tsx",
+            "disabled.demo.tsx",
+            "icon.demo.tsx",
+            "link-button.demo.tsx",
+            "loading.demo.tsx",
+            "selected.demo.tsx",
+            "size.demo.tsx"
+        ]
+    }
+}

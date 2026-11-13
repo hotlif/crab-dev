@@ -135,7 +135,7 @@ const properties = {
 } as const;
 
 describe('Prose published scoped styles', () => {
-    for (const designSystem of ['md3', 'apple', 'shadcn'] as const) {
+    for (const designSystem of ['md3', 'macos', 'shadcn'] as const) {
         for (const colorMode of ['light', 'dark'] as const) {
             it(`keeps syntax glyphs in LTR order when the native article direction changes: ${designSystem}/${colorMode}`, async () => {
                 const view = await render(<ConfigProvider designSystem={designSystem} colorMode={colorMode} direction="rtl">
@@ -199,7 +199,7 @@ describe('Prose published scoped styles', () => {
         }
     }
 
-    for (const designSystem of ['md3', 'apple', 'shadcn'] as const) {
+    for (const designSystem of ['md3', 'macos', 'shadcn'] as const) {
         for (const colorMode of ['light', 'dark'] as const) {
             for (const invert of [false, true]) {
                 for (const size of ['sm', 'base', 'lg', 'xl'] as const) {

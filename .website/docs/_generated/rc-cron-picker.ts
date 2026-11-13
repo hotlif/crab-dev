@@ -3,6 +3,7 @@
  */
 
 import type { ComponentDemoRecord } from "../site/componentDemos.js";
+import type { ComponentDesignDocuments } from "../site/componentDesignGuide.js";
 
 export const demos = [
     {
@@ -144,3 +145,70 @@ export const demos = [
         "group": "视觉验收"
     }
 ] as const satisfies readonly ComponentDemoRecord[];
+
+export const documents = {
+    "md3": {
+        "summary": "以清晰的时间字段和语义分组编辑周期任务表达式，是时间选择模式的项目扩展。",
+        "usage": "将周期选择与最终表达式一同呈现，保存动作要明确说明任务执行频率。",
+        "exampleDescription": "选择任务周期并读取表达式，观察分组字段和主要操作之间的层级。",
+        "demos": [
+            "basic.demo.tsx",
+            "controlled.demo.tsx",
+            "sizes.demo.tsx"
+        ],
+        "references": [
+            "https://m3.material.io/components/text-fields/overview",
+            "https://material-web.dev/components/select/",
+            "https://github.com/material-components/material-web/tree/main/select"
+        ]
+    },
+    "macos": {
+        "summary": "以桌面设置面板的紧凑字段组织任务周期，让重复执行规则容易检查。",
+        "usage": "在设置表单中保留表达式预览；复杂周期需要提供可读的业务说明。",
+        "exampleDescription": "修改受控周期并观察外部结果，检查设置保存前后的值是否一致。",
+        "demos": [
+            "controlled.demo.tsx",
+            "basic.demo.tsx",
+            "sizes.demo.tsx"
+        ],
+        "references": [
+            "https://developer.apple.com/design/human-interface-guidelines/components",
+            "https://developer.apple.com/design/human-interface-guidelines/accessibility"
+        ]
+    },
+    "shadcn": {
+        "summary": "以中性字段、简洁分区和文本结果构成周期编辑器，适合管理后台。",
+        "usage": "表达式编辑是本库组合能力，应让用户能核对生成结果及任务含义。",
+        "exampleDescription": "比较不同尺寸下的周期字段，确认密集表单中的标签和结果仍可读。",
+        "demos": [
+            "sizes.demo.tsx",
+            "basic.demo.tsx",
+            "controlled.demo.tsx"
+        ],
+        "references": [
+            "https://ui.shadcn.com/docs/components",
+            "https://ui.shadcn.com/docs/theming",
+            "https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4"
+        ]
+    }
+} as const satisfies ComponentDesignDocuments;
+
+export const guide = {
+    "definition": "CronPicker 用分段表单帮助用户配置周期、日期和时间，再生成 Cron 表达式。它把难懂的机器语法转为可检查的人类语言，但最终调度能力仍取决于服务端所采用的 Cron 方言。",
+    "useWhen": [
+        "定时任务需要由非专业用户配置常见周期。",
+        "既要提供可视化编辑，也要让高级用户核对表达式。"
+    ],
+    "avoidWhen": [
+        "只有几个固定计划时用 Radio 或 Select；涉及复杂日历例外时应使用专门的日程规则界面。"
+    ],
+    "essentials": [
+        "先确认后端支持的字段数、时区和特殊字符。",
+        "受控 value 与可读摘要必须同步，不能只显示一串表达式。",
+        "无效组合要在具体字段附近解释原因，并阻止提交错误规则。"
+    ],
+    "accessibility": [
+        "每个分段字段都要有 label、说明和错误关联，分组名称说明当前配置哪一部分。",
+        "时间与星期不能只用缩写，需提供可读文本并明确时区。"
+    ]
+} as const;

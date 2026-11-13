@@ -8,11 +8,16 @@ status = "experimental"
 {/* THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY. */}
 
 import ComponentDemos from "../site/componentDemos.js";
-import { demos } from "../_generated/rc-empty.js";
+import ComponentDesignGuide, { DesignIntroduction, DesignExampleIntroduction } from "../site/componentDesignGuide.js";
+import { demos, documents, guide } from "../_generated/rc-empty.js";
 
 # Empty 空状态
 
 <div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-empty</div>
+
+## 设计与用法
+
+<DesignIntroduction documents={documents} />
 
 <div id="基础示例" data-docs-example-anchor /><div id="全部示例" data-docs-example-anchor />
 
@@ -26,85 +31,17 @@ import { demos } from "../_generated/rc-empty.js";
 
 ##### 预置场景 — 三种内置场景：`default`（无数据）、`search`（搜索无结果）、`no-permission`（无权限）。每种预置均内置图示与文案，基于设计心理学为不同情绪场景匹配合适的视觉传达。
 
-##### 三体系展示与状态矩阵 — 公开组件、真实交互与自然动画；包内视觉规格是矩阵轴的来源。
-
 ##### 带操作区域 — 通过 `action` 插槽提供行动引导，将空状态从「终点」转变为「起点」，减少用户挫败感。
 
 </div>
 
-<ComponentDemos demos={demos} />
+<DesignExampleIntroduction documents={documents} />
 
-[打开完整组件工作台](/components/rc-empty/workbench/)
+<ComponentDemos demos={demos} documents={documents} />
 
 ## 使用说明
 
-为无数据、搜索无结果或无权限的区域提供说明与操作入口。
-
-
-### 设计理念
-
-空状态应说明当前没有内容的原因，并在适用时提供下一步操作：
-
-- 使用与场景匹配的标题和描述，区分无数据、搜索无结果和无权限。
-- 通过 `action` 提供创建内容、调整筛选或申请权限等操作入口。
-- 按图示、标题、描述和操作的顺序组织内容。
-
-### 何时使用
-
-- 列表、表格、搜索结果为空时
-- 用户没有相应权限时
-- 页面或模块首次使用，尚无内容时
-
-
-
-### 三套设计风格
-
-空状态的标题、说明、图像和操作沿用当前主题的字体及语义颜色。M3 没有独立 Empty 组件，本组件按内容层级与反馈布局扩展；三套设计不会为无数据状态额外添加无意义的边框或交互装饰。
-
-切换文档站设计风格后，本页演示同步使用该设计；浅色和深色模式分别使用配对语义颜色。
-
-### 三体系规格与验收边界
-
-三种预设是数据、搜索和权限的项目模式，三体系均没有一一对应的官方组件。图示辅助理解，标题、说明和恢复动作建立明确层级；加载或错误不能被默认空态替代。imageSize 属开放尺寸，48/72px 代表值在环境扩展验收。
-
-| 体系 | 组件视觉规则 |
-| --- | --- |
-| MD3 Expressive | 使用表面、次要文字和主操作角色，表达力集中在恢复动作。 |
-| Apple | 内容优先，减少装饰，说明和恢复动作保持可达。 |
-| shadcn | 沿用中性字阶、细分组和按钮组合，不冒称参考提交有 Empty。 |
-
-本包几何与视觉来源：container.padding / min-height；image.width / margin-bottom；title 字阶和行高；description.max-width / 行高；action.gap / margin-top。文字允许任意换行，动作允许折行。设计值只在对应 token.toml 与它引用的语义角色维护，验收测量读取实际 DOM 计算值。
-
-颜色、字阶、形状、状态和动效分别从 L2 角色映射到包内 L3；Theme 负责最近配置边界。明暗模式使用配对前景/背景，不进行整体反相。视觉边界与命中区域分别检查，焦点截图保留外部轮廓与阴影。强制颜色采用系统色；减少动画保留信息与最终状态。
-
-矩阵定义在本包 `docs/visual.json`，场景使用 `visual-matrix.demo.tsx`。Chromium 覆盖其中全部设计/明暗/命名尺寸/适用密度/状态；Firefox 与 WebKit 按 `crossEngine` 的默认展示和重点交互子集执行。窄屏、RTL、中英文、长文本、品牌覆盖和配置切换后的草稿保持另有场景；未运行、未人工复核或失败的项不能计为通过。开放尺寸输入的代表样本不等于无限集合的穷尽。
-
-参考核对日期：2026-10-29。[Material 3 Cards](https://m3.material.io/components/cards/overview)、[Material Web Divider 使用/无障碍/令牌](https://material-web.dev/components/divider/)、[Material Web Progress 语义](https://material-web.dev/components/progress/)、[Apple Feedback](https://developer.apple.com/design/human-interface-guidelines/feedback)、[Apple Layout](https://developer.apple.com/design/human-interface-guidelines/layout)、[Apple Progress indicators](https://developer.apple.com/design/human-interface-guidelines/progress-indicators)、[shadcn New York V4 来源边界](https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui)。Material Web 是 Web 行为基线；Apple 是依据原则的自主 Web 实现；shadcn 固定参考提交 `3d98900e9b73c45f035f8109e9d41ba6a51685e7`，不跟随浮动最新版。
-
-### 适用场景
-
-列表第一次为空，需要引导创建内容。 筛选或搜索后没有结果，需要说明如何恢复或调整条件。
-
-仍在加载时使用 Skeleton 或 Spin；请求失败时显示错误原因和重试，而不是伪装成空数据。
-
-### 使用要点
-
-- 标题明确说明“没有什么”，描述解释为什么以及下一步。
-- action 只放最可能的恢复动作，例如新建或清除筛选。
-- preset 负责常见视觉，custom 用于确有业务意义的插图。
-
-### 无障碍
-
-- 空状态必须包含真实文本，插图应是装饰或有恰当替代文本。
-- 从有数据变为空时，焦点不要落在已卸载项目上，并按任务重要程度提供状态通告。
-
-### 设计依据与覆盖
-
-- **MD3 Expressive**：M3 没有独立 Empty state 组件；本组件使用 M3 排版、图标、Button 和 surface 规则构成项目模式。 [依据 1](https://m3.material.io/foundations/layout/understanding-layout/overview) · [依据 2](https://material-web.dev/components/button/) · [依据 3](https://github.com/material-components/material-web/tree/main/button)
-- **Apple**：依据 Apple HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。 [依据 1](https://developer.apple.com/design/human-interface-guidelines/components) · [依据 2](https://developer.apple.com/design/human-interface-guidelines/accessibility)
-- **shadcn/ui**：参考 shadcn/ui 的组件用途、中性表面与设计变量，在本库公共语义和 React 交互模型中实现；完整状态覆盖仍需按矩阵验收。 [依据 1](https://ui.shadcn.com/docs/components) · [依据 2](https://ui.shadcn.com/docs/theming) · [依据 3](https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4)
-
-设计依据不等于完成验收；当前状态与适用边界见[覆盖矩阵](/guides/design-coverage)。
+<ComponentDesignGuide guide={guide} documents={documents} />
 
 ## 常见问题
 

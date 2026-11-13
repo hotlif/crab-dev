@@ -1,5 +1,5 @@
 import { cx } from "@crab-dev/css";
-import { useLocale } from '@crab-dev/rc-config-provider';
+import { useLocale, useConfig } from '@crab-dev/rc-config-provider';
 import { useEffect, useRef, useState } from "react";
 import type { FC, Key, HTMLAttributes } from "react";
 import { autoUpdate, flip, offset, shift, useFloating } from "@floating-ui/react";
@@ -8,6 +8,7 @@ import Breadcrumbs, { type BreadcrumbsItem } from "@crab-dev/rc-breadcrumbs";
 import Skeleton from "@crab-dev/rc-skeleton";
 import Avatar from "@crab-dev/rc-avatar";
 import Button from "@crab-dev/rc-button";
+import { macosToolbarStyle, macosMenuStyle } from './layout.designs.js';
 import token from "./token.js";
 import TabBar from "./tabBar.js";
 import type { HeaderUserEntity, TabItem } from "./types.js";
@@ -84,6 +85,7 @@ const Header: FC<HeaderProps> = ({
     ...restProps
 }) => {
     const { messages } = useLocale();
+    const { designSystem } = useConfig();
     const mobileTitle = breadcrumbs?.[breadcrumbs.length - 1]?.title;
     const [userLoading, setUserLoading] = useState(false);
     const [resolvedUser, setResolvedUser] = useState<HeaderUserEntity>({});
@@ -189,7 +191,7 @@ const Header: FC<HeaderProps> = ({
                     />
                 </div>
             ) : null}
-            <div className={toolbarStyle}>
+            <div className={cx(toolbarStyle, designSystem === 'macos' && macosToolbarStyle)}>
                 <Button
                     ref={menuButtonRef}
                     type="button"
@@ -279,7 +281,7 @@ const Header: FC<HeaderProps> = ({
                             ref={(node) => { refs.setFloating(node); presence.ref(node); }}
                             data-state={presence.state}
                             inert={!canShowUserMenu}
-                            className={userMenuStyle}
+                            className={cx(userMenuStyle, designSystem === 'macos' && macosMenuStyle)}
                             style={floatingStyles}
                             role="menu"
                             aria-label={messages.appLayout.userActions}

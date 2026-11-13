@@ -113,14 +113,14 @@ describe('PDF 编辑器 Web Component', () => {
         expect('theme' in element).toBe(false);
 
         const attributes = {
-            'design-system': 'apple', 'color-mode': 'dark', 'brand-color': '#AbC', size: 'large',
+            'design-system': 'macos', 'color-mode': 'dark', 'brand-color': '#AbC', size: 'large',
             density: 'comfortable', lang: 'en-US', dir: 'rtl', nonce: 'attribute-nonce',
         };
         const configured = await mount(candidate => {
             for (const [name, value] of Object.entries(attributes)) candidate.setAttribute(name, value);
         });
         expectConfig(configured, {
-            designSystem: 'apple', colorMode: 'dark', brandColor: '#aabbcc', size: 'large', density: 'comfortable',
+            designSystem: 'macos', colorMode: 'dark', brandColor: '#aabbcc', size: 'large', density: 'comfortable',
             locale: 'en-US', direction: 'rtl', nonce: 'attribute-nonce',
         });
         expect(configured.brandColor).toBe('#aabbcc');
@@ -129,7 +129,7 @@ describe('PDF 编辑器 Web Component', () => {
         });
         expect(provider(element)).toBe(boundary);
         expectConfig(element, {
-            designSystem: 'apple', colorMode: 'dark', brandColor: '#aabbcc', size: 'large', density: 'comfortable',
+            designSystem: 'macos', colorMode: 'dark', brandColor: '#aabbcc', size: 'large', density: 'comfortable',
             locale: 'en-US', direction: 'rtl', nonce: 'attribute-nonce',
         });
         await act(async () => {
@@ -142,7 +142,7 @@ describe('PDF 编辑器 Web Component', () => {
 
     it('公共枚举 property 反射合法值，undefined 移除属性并恢复默认配置', async () => {
         const element = await mount();
-        for (const value of ['apple', 'shadcn', 'md3'] as const) {
+        for (const value of ['macos', 'shadcn', 'md3'] as const) {
             await act(async () => { element.designSystem = value; });
             expect(element.designSystem).toBe(value); expect(element.getAttribute('design-system')).toBe(value);
             expectConfig(element, { designSystem: value });
@@ -183,11 +183,11 @@ describe('PDF 编辑器 Web Component', () => {
 
     it('非法 property 同步拒绝且不改变原值，旧设计 ID 不作为合法公共配置', async () => {
         const element = await mount(candidate => {
-            candidate.designSystem = 'apple'; candidate.colorMode = 'dark'; candidate.brandColor = '#123456';
+            candidate.designSystem = 'macos'; candidate.colorMode = 'dark'; candidate.brandColor = '#123456';
             candidate.size = 'large'; candidate.density = 'comfortable'; candidate.locale = 'en-US'; candidate.direction = 'rtl';
         });
         const invalid = [
-            ['designSystem', 'design-system', 'material'], ['designSystem', 'design-system', 'macos'],
+            ['designSystem', 'design-system', 'material'], ['designSystem', 'design-system', 'apple'],
             ['colorMode', 'color-mode', 'system'], ['brandColor', 'brand-color', 'red'],
             ['size', 'size', 'xs'], ['density', 'density', 'regular'], ['locale', 'lang', 'fr-FR'],
             ['direction', 'dir', 'auto'],
@@ -202,7 +202,7 @@ describe('PDF 编辑器 Web Component', () => {
         }
         expect(provider(element)).toBe(boundary);
         expectConfig(element, {
-            designSystem: 'apple', colorMode: 'dark', brandColor: '#123456', size: 'large',
+            designSystem: 'macos', colorMode: 'dark', brandColor: '#123456', size: 'large',
             density: 'comfortable', locale: 'en-US', direction: 'rtl',
         });
     });
@@ -215,7 +215,7 @@ describe('PDF 编辑器 Web Component', () => {
         const errors = mock.fn();
         element.addEventListener('crab-error', errors);
         await act(async () => {
-            element.setAttribute('design-system', 'macos'); element.setAttribute('color-mode', 'system');
+            element.setAttribute('design-system', 'apple'); element.setAttribute('color-mode', 'system');
             element.setAttribute('brand-color', 'red'); element.setAttribute('size', 'xs');
             element.setAttribute('density', 'regular'); element.setAttribute('lang', 'fr-FR'); element.setAttribute('dir', 'auto');
         });
@@ -230,7 +230,7 @@ describe('PDF 编辑器 Web Component', () => {
 
     it('八项配置实时变更保留同一文档与运行时，并更新真实语言和 nonce 样式', async () => {
         const element = await mount(candidate => {
-            candidate.designSystem = 'apple'; candidate.colorMode = 'dark'; candidate.brandColor = '#AbC';
+            candidate.designSystem = 'macos'; candidate.colorMode = 'dark'; candidate.brandColor = '#AbC';
             candidate.size = 'large'; candidate.density = 'comfortable'; candidate.locale = 'en-US';
             candidate.direction = 'rtl'; candidate.nonce = 'config-before-mount';
         });
@@ -240,7 +240,7 @@ describe('PDF 编辑器 Web Component', () => {
         const session = element.getState().document!.sessionId;
         const count = releaseCount;
         const boundary = expectConfig(element, {
-            designSystem: 'apple', colorMode: 'dark', brandColor: '#aabbcc', size: 'large', density: 'comfortable',
+            designSystem: 'macos', colorMode: 'dark', brandColor: '#aabbcc', size: 'large', density: 'comfortable',
             locale: 'en-US', direction: 'rtl', nonce: 'config-before-mount',
         });
         const mountNode = boundary.parentElement;
@@ -315,7 +315,7 @@ describe('PDF 编辑器 Web Component', () => {
             });
             const second = await mount(candidate => {
                 mounted.push(candidate);
-                candidate.designSystem = 'apple'; candidate.colorMode = 'dark'; candidate.brandColor = '#1677ff';
+                candidate.designSystem = 'macos'; candidate.colorMode = 'dark'; candidate.brandColor = '#1677ff';
                 candidate.locale = 'en-US'; candidate.direction = 'rtl'; candidate.nonce = 'second-nonce';
             });
             const firstBoundary = provider(first), secondBoundary = provider(second);
@@ -329,7 +329,7 @@ describe('PDF 编辑器 Web Component', () => {
                     expect(current[index]).toBe(original.sheet);
                     expect(current[index].textContent).toBe(original.css);
                 }
-                expectConfig(second, { designSystem: 'apple', colorMode: 'dark', brandColor: '#1677ff', locale: 'en-US', direction: 'rtl', nonce: 'second-nonce' });
+                expectConfig(second, { designSystem: 'macos', colorMode: 'dark', brandColor: '#1677ff', locale: 'en-US', direction: 'rtl', nonce: 'second-nonce' });
             };
             expect(first.brandColor).toBe('#aabbcc');
             await act(async () => { first.brandColor = '#e76f00'; first.locale = 'en-US'; first.direction = 'rtl'; });
@@ -475,7 +475,7 @@ describe('PDF 编辑器 Web Component', () => {
         Object.defineProperty(element, 'initialDocument', { value: { id: 'before-define', source: fixture(1) }, configurable: true });
         Object.defineProperty(element, 'readOnly', { value: true, configurable: true });
         const upgradedConfig = {
-            designSystem: 'apple', colorMode: 'dark', brandColor: '#AbC', size: 'large', density: 'comfortable',
+            designSystem: 'macos', colorMode: 'dark', brandColor: '#AbC', size: 'large', density: 'comfortable',
             locale: 'en-US', direction: 'rtl', nonce: 'preupgrade-nonce',
         };
         for (const [name, value] of Object.entries(upgradedConfig)) {
@@ -493,7 +493,7 @@ describe('PDF 编辑器 Web Component', () => {
         await settleEditorUi(element);
         expect(element.readOnly).toBe(true); expect(element.colorMode).toBe('dark');
         expectConfig(element, {
-            designSystem: 'apple', colorMode: 'dark', brandColor: '#aabbcc', size: 'large', density: 'comfortable',
+            designSystem: 'macos', colorMode: 'dark', brandColor: '#aabbcc', size: 'large', density: 'comfortable',
             locale: 'en-US', direction: 'rtl', nonce: 'preupgrade-nonce',
         });
         for (const name of Object.keys(upgradedConfig)) expect(Object.hasOwn(element, name)).toBe(false);

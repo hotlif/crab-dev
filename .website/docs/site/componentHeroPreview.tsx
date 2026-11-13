@@ -2,11 +2,18 @@ import { useEffect, useRef } from "react";
 import { componentPreviews } from "../_generated/component-previews.js";
 import ComponentDemoFrame from "./componentDemoFrame.js";
 import type { ComponentDemoDescriptor } from "./componentDemoFrame.js";
+import { useConfig } from "@crab-dev/rc-config-provider";
+import type { DesignSystem } from "@crab-dev/rc-token-semantic";
 
-const previewIndex: Readonly<Partial<Record<string, ComponentDemoDescriptor>>> = componentPreviews;
+export type ComponentPreviewRecord = ComponentDemoDescriptor & {
+    readonly designs?: Readonly<Record<DesignSystem, ComponentDemoDescriptor>>;
+};
+const previewIndex: Readonly<Partial<Record<string, ComponentPreviewRecord>>> = componentPreviews;
 
 export default function ComponentHeroPreview({ name }: { readonly name: string }) {
-    const demo = Object.hasOwn(previewIndex, name) ? previewIndex[name] : undefined;
+    const { designSystem } = useConfig();
+    const record = Object.hasOwn(previewIndex, name) ? previewIndex[name] : undefined;
+    const demo = record?.designs?.[designSystem] ?? record;
     // DOM ownership and measurements stay outside rendering. The artwork uses
     // the actual demo's viewport width, so wrapping and responsive layouts agree.
     const container = useRef<HTMLDivElement>(null);
@@ -19,7 +26,17 @@ export default function ComponentHeroPreview({ name }: { readonly name: string }
             const width = source?.getBoundingClientRect().width ?? 0;
             if (width > 0) root.style.setProperty("--crab-docs-preview-width", `${width}px`);
         };
-        const resize = typeof ResizeObserver === "undefined" ? null : new ResizeObserver(measure);
+        let pendingFrame: number | undefined;
+        const scheduleMeasure = () => {
+            if (pendingFrame !== undefined) return;
+            // Updating a sibling iframe's width during ResizeObserver delivery
+            // can trigger a loop error inside that iframe. Write next frame.
+            pendingFrame = window.requestAnimationFrame(() => {
+                pendingFrame = undefined;
+                measure();
+            });
+        };
+        const resize = typeof ResizeObserver === "undefined" ? null : new ResizeObserver(scheduleMeasure);
         const connect = () => {
             const card = [...article.querySelectorAll<HTMLElement>("[data-component-demo-id]")]
                 .find(element => element.dataset.componentDemoId === demo.id);
@@ -37,6 +54,7 @@ export default function ComponentHeroPreview({ name }: { readonly name: string }
         return () => {
             mutations?.disconnect();
             resize?.disconnect();
+            if (pendingFrame !== undefined) window.cancelAnimationFrame(pendingFrame);
             window.removeEventListener("resize", measure);
             root.style.removeProperty("--crab-docs-preview-width");
         };

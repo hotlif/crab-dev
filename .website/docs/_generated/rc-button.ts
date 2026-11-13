@@ -3,12 +3,13 @@
  */
 
 import type { ComponentDemoRecord } from "../site/componentDemos.js";
+import type { ComponentDesignDocuments } from "../site/componentDesignGuide.js";
 
 export const demos = [
     {
         "id": "docs/demos/designs.demo.tsx",
-        "title": "三套风格的操作层级",
-        "description": "比较主操作、普通操作、低强调操作和禁用状态；圆角、表面与阴影由当前风格决定。",
+        "title": "当前主题的交互状态",
+        "description": "观察当前主题下的选中、禁用和焦点反馈；示例继承文档配置，可直接操作。",
         "learning": {
             "components": [
                 "ConfigProvider",
@@ -25,12 +26,12 @@ export const demos = [
             "events": [],
             "hasState": false
         },
-        "sourceCode": "export const meta = {\n    title: '三套风格的操作层级',\n    description: '比较主操作、普通操作、低强调操作和禁用状态；圆角、表面与阴影由当前风格决定。',\n};\n\nimport { css } from '@crab-dev/css';\nimport ConfigProvider from '@crab-dev/rc-config-provider';\nimport token, { designSystemRegistry } from '@crab-dev/rc-token-semantic';\nimport Button from '../../src/index.js';\n\nconst grid = css`display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr)); gap: ${token.space['stack-gap']};`;\nconst panel = css`display: grid; gap: ${token.space['stack-gap']}; padding: ${token.space['card-padding']}; border: 1px solid ${token.color.border.subtle}; border-radius: ${token.shape.card}; color: ${token.color.text.primary}; background: ${token.color.background.surface}; min-width: 0;`;\nconst actions = css`display: flex; flex-wrap: wrap; align-items: center; gap: ${token.space['component-gap']};`;\n\nexport default function DesignsDemo() {\n    return (\n        \u003cdiv className={grid}>\n            {(['md3', 'apple', 'shadcn'] as const).flatMap(design => (['light', 'dark'] as const).map(mode => (\n                \u003cConfigProvider key={`${design}-${mode}`} designSystem={design} colorMode={mode} className={panel} role=\"region\" aria-label={`${designSystemRegistry[design].fullName} ${mode === 'light' ? '浅色' : '深色'}`}>\n                    \u003cstrong>{designSystemRegistry[design].fullName} · {mode === 'light' ? '浅色' : '深色'}\u003c/strong>\n                    \u003cdiv className={actions}>\n                        \u003cButton appearance=\"primary\">保存\u003c/Button>\n                        \u003cButton>取消\u003c/Button>\n                        \u003cButton appearance=\"text\">帮助\u003c/Button>\n                        \u003cButton disabled>不可用\u003c/Button>\n                    \u003c/div>\n                \u003c/ConfigProvider>\n            )))}\n        \u003c/div>\n    );\n}\n",
+        "sourceCode": "export const meta = {\n    title: '当前主题的交互状态',\n    description: '观察当前主题下的选中、禁用和焦点反馈；示例继承文档配置，可直接操作。',\n};\n\nimport { css } from '@crab-dev/css';\nimport ConfigProvider, { useConfig } from '@crab-dev/rc-config-provider';\nimport token, { designSystemRegistry } from '@crab-dev/rc-token-semantic';\nimport Button from '@crab-dev/rc-button';\n\nconst grid = css`display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr)); gap: ${token.space['stack-gap']};`;\nconst panel = css`display: grid; gap: ${token.space['stack-gap']}; padding: ${token.space['card-padding']}; border: 1px solid ${token.color.border.subtle}; border-radius: ${token.shape.card}; color: ${token.color.text.primary}; background: ${token.color.background.surface}; min-width: 0;`;\nconst actions = css`display: flex; flex-wrap: wrap; align-items: center; gap: ${token.space['component-gap']};`;\n\nexport default function DesignsDemo() {\n    const { designSystem: design } = useConfig();\n    return (\n        \u003cdiv className={grid}>\n            {(['light', 'dark'] as const).map(mode => (\n                \u003cConfigProvider key={mode} designSystem={design} colorMode={mode} className={panel} role=\"region\" aria-label={`${designSystemRegistry[design].fullName} ${mode === 'light' ? '浅色' : '深色'}`}>\n                    \u003cstrong>{designSystemRegistry[design].fullName} · {mode === 'light' ? '浅色' : '深色'}\u003c/strong>\n                    \u003cdiv className={actions}>\n                        \u003cButton appearance=\"primary\">保存\u003c/Button>\n                        \u003cButton>取消\u003c/Button>\n                        \u003cButton appearance=\"text\">帮助\u003c/Button>\n                        \u003cButton disabled>不可用\u003c/Button>\n                    \u003c/div>\n                \u003c/ConfigProvider>\n            ))}\n        \u003c/div>\n    );\n}\n",
         "previewPath": "/components/rc-button/workbench/?__wake_demo=docs%2Fdemos%2Fdesigns.demo.tsx",
         "workbenchPath": "/components/rc-button/workbench/#/components/docs%2Fdemos%2Fdesigns.demo.tsx",
         "density": "compact",
         "layout": "wide",
-        "group": "三套风格对照"
+        "group": "当前主题的状态"
     },
     {
         "id": "docs/demos/basic.demo.tsx",
@@ -70,7 +71,7 @@ export const demos = [
             ],
             "hasState": true
         },
-        "sourceCode": "export const meta = { title: '五种按钮外观', description: 'Elevated、Filled、Tonal、Outlined 与 Text。' };\nimport { useState } from 'react';\nimport { css } from '@crab-dev/css';\nimport token from '@crab-dev/rc-token-semantic';\nimport Button from '../../src/index.js';\n\nconst containerStyle = css`display: grid; gap: ${token.space['section-gap']}; min-width: 0;`;\nconst noteStyle = css`margin: 0; color: ${token.color.text.secondary}; font-size: ${token.typography.body.medium['font-size']}; line-height: ${token.typography.body.medium['line-height']};`;\nconst actionsStyle = css`display: flex; flex-wrap: wrap; align-items: center; gap: ${token.space['section-gap']};`;\n\nexport default function Example() {\n    const [message, setMessage] = useState('选择一种外观，查看它的使用场景。');\n    return (\n        \u003csection className={containerStyle} aria-label=\"五种 Material 按钮\">\n            \u003cdiv className={actionsStyle}>\n                \u003cButton appearance=\"elevated\" onClick={() => setMessage('Elevated：用浅色表面与阴影，让操作从背景中浮起。')}>Elevated\u003c/Button>\n                \u003cButton appearance=\"primary\" onClick={() => setMessage('Filled：用于保存、提交等主要操作；API 保留 primary 名称。')}>Filled\u003c/Button>\n                \u003cButton appearance=\"tonal\" onClick={() => setMessage('Tonal：浅色填充，用于需要适度强调的次级操作。')}>Tonal\u003c/Button>\n                \u003cButton appearance=\"outlined\" onClick={() => setMessage('Outlined：默认普通按钮，适合取消、返回等操作。')}>Outlined\u003c/Button>\n                \u003cButton appearance=\"text\" onClick={() => setMessage('Text：用于说明、展开等低强调操作。')}>Text\u003c/Button>\n            \u003c/div>\n            \u003coutput className={noteStyle} aria-live=\"polite\">{message}\u003c/output>\n        \u003c/section>\n    );\n}\n",
+        "sourceCode": "export const meta = { title: '五种按钮外观', description: 'Elevated、Filled、Tonal、Outlined 与 Text。' };\nimport { useState } from 'react';\nimport { css } from '@crab-dev/css';\nimport token from '@crab-dev/rc-token-semantic';\nimport Button from '@crab-dev/rc-button';\n\nconst containerStyle = css`display: grid; gap: ${token.space['section-gap']}; min-width: 0;`;\nconst noteStyle = css`margin: 0; color: ${token.color.text.secondary}; font-size: ${token.typography.body.medium['font-size']}; line-height: ${token.typography.body.medium['line-height']};`;\nconst actionsStyle = css`display: flex; flex-wrap: wrap; align-items: center; gap: ${token.space['section-gap']};`;\n\nexport default function Example() {\n    const [message, setMessage] = useState('选择一种外观，查看它的使用场景。');\n    return (\n        \u003csection className={containerStyle} aria-label=\"按钮操作层级\">\n            \u003cdiv className={actionsStyle}>\n                \u003cButton appearance=\"elevated\" onClick={() => setMessage('Elevated：用浅色表面与阴影，让操作从背景中浮起。')}>Elevated\u003c/Button>\n                \u003cButton appearance=\"primary\" onClick={() => setMessage('Filled：用于保存、提交等主要操作；API 保留 primary 名称。')}>Filled\u003c/Button>\n                \u003cButton appearance=\"tonal\" onClick={() => setMessage('Tonal：浅色填充，用于需要适度强调的次级操作。')}>Tonal\u003c/Button>\n                \u003cButton appearance=\"outlined\" onClick={() => setMessage('Outlined：默认普通按钮，适合取消、返回等操作。')}>Outlined\u003c/Button>\n                \u003cButton appearance=\"text\" onClick={() => setMessage('Text：用于说明、展开等低强调操作。')}>Text\u003c/Button>\n            \u003c/div>\n            \u003coutput className={noteStyle} aria-live=\"polite\">{message}\u003c/output>\n        \u003c/section>\n    );\n}\n",
         "previewPath": "/components/rc-button/workbench/?__wake_demo=docs%2Fdemos%2Fappearance.demo.tsx",
         "workbenchPath": "/components/rc-button/workbench/#/components/docs%2Fdemos%2Fappearance.demo.tsx",
         "density": "compact",
@@ -390,5 +391,133 @@ export const demos = [
         "density": "compact",
         "layout": "wide",
         "group": "组合"
+    },
+    {
+        "id": "docs/demos/macos.demo.tsx",
+        "title": "macOS Tahoe：桌面控件与浮动玻璃操作",
+        "description": "普通操作使用圆角矩形；浮动工具栏共享玻璃背板，突出内容。",
+        "learning": {
+            "components": [
+                "ConfigProvider",
+                "Button",
+                "ButtonGroup"
+            ],
+            "props": [
+                "designSystem",
+                "size",
+                "appearance",
+                "danger",
+                "variant",
+                "isSelected",
+                "onClick"
+            ],
+            "events": [
+                "onClick"
+            ],
+            "hasState": true
+        },
+        "sourceCode": "import { useState } from 'react';\nimport { css } from '@crab-dev/css';\nimport ConfigProvider from '@crab-dev/rc-config-provider';\nimport token from '@crab-dev/rc-token-semantic';\nimport Button from '../../src/button.js';\nimport ButtonGroup from '../../src/buttonGroup.js';\n\nexport const meta = { title: 'macOS Tahoe：桌面控件与浮动玻璃操作', description: '普通操作使用圆角矩形；浮动工具栏共享玻璃背板，突出内容。' };\nconst frame = css`display: grid; gap: ${token.space['group-gap']}; padding: ${token.space['card-padding']}; color: ${token.color.text.primary}; background: ${token.color.surface.content}; border-radius: ${token.shape.card};`;\nconst row = css`display: flex; align-items: center; flex-wrap: wrap; gap: ${token.space['component-gap']};`;\nconst content = css`\n    display: grid;\n    gap: ${token.space['group-gap']};\n    min-height: 180px;\n    padding: ${token.space['card-padding']};\n    border-radius: ${token.shape.card};\n    background: linear-gradient(120deg, ${token.color.brand.container}, ${token.color.surface.content} 45%, ${token.color.secondary.container});\n`;\nconst title = css`margin: 0; font-size: ${token.typography.title.medium['font-size']}; font-weight: ${token.typography.title.medium['font-weight']};`;\n\nexport default function MacosDemo() {\n    const [selected, setSelected] = useState('列表');\n    return \u003cConfigProvider designSystem=\"macos\">\n        \u003csection className={frame} aria-label=\"macOS Tahoe controls\">\n            \u003ch3 className={title}>桌面操作\u003c/h3>\n            \u003cdiv className={row}>\n                \u003cButton size=\"m\" appearance=\"primary\">保存\u003c/Button>\n                \u003cButton size=\"m\">取消\u003c/Button>\n                \u003cButton size=\"m\" appearance=\"tonal\">共享\u003c/Button>\n                \u003cButton size=\"m\" danger>删除\u003c/Button>\n                \u003cButton size=\"m\" appearance=\"text\">更多选项\u003c/Button>\n            \u003c/div>\n            \u003cdiv className={content}>\n                \u003ch3 className={title}>项目资料\u003c/h3>\n                \u003cp>内容保持清晰，浮动操作在独立的玻璃层上。\u003c/p>\n                \u003cdiv className={row}>\n                    \u003cButtonGroup variant=\"connected\" size=\"m\">\n                        {['列表', '网格', '分栏'].map(label => \u003cButton key={label} appearance=\"elevated\" isSelected={selected === label} onClick={() => setSelected(label)}>{label}\u003c/Button>)}\n                    \u003c/ButtonGroup>\n                    \u003cButton appearance=\"elevated\" size=\"l\">添加到收藏\u003c/Button>\n                \u003c/div>\n            \u003c/div>\n        \u003c/section>\n    \u003c/ConfigProvider>;\n}\n",
+        "previewPath": "/components/rc-button/workbench/?__wake_demo=docs%2Fdemos%2Fmacos.demo.tsx",
+        "workbenchPath": "/components/rc-button/workbench/#/components/docs%2Fdemos%2Fmacos.demo.tsx",
+        "density": "compact",
+        "layout": "wide",
+        "group": "macOS Tahoe 26"
     }
 ] as const satisfies readonly ComponentDemoRecord[];
+
+export const documents = {
+    "md3": {
+        "summary": "以 Filled、Tonal、Outlined、Elevated 与 Text 表达操作层级，强调动作可使用 Expressive 形状反馈。",
+        "usage": "primary 用于主要动作，outlined 用于普通动作。省略 size 时默认继承 medium；显式 xs/s/m/l/xl 是独立五档。",
+        "exampleDescription": "先比较五种外观，再操作选中和加载示例；观察状态层、按压形状与稳定的文字位置。",
+        "demos": [
+            "appearance.demo.tsx",
+            "basic.demo.tsx",
+            "button-group.demo.tsx",
+            "circle.demo.tsx",
+            "danger.demo.tsx",
+            "designs.demo.tsx",
+            "disabled.demo.tsx",
+            "expressive.demo.tsx",
+            "icon-after.demo.tsx",
+            "icon.demo.tsx",
+            "link-button.demo.tsx",
+            "loading.demo.tsx",
+            "selected.demo.tsx",
+            "size.demo.tsx"
+        ],
+        "references": [
+            "https://m3.material.io/components/buttons/overview",
+            "https://material-web.dev/components/button/",
+            "https://github.com/material-components/material-web/tree/main/button"
+        ]
+    },
+    "macos": {
+        "summary": "以普通 push button、着色主操作和浮动 glass bezel 组织桌面动作，按压时保持稳定轮廓。",
+        "usage": "outlined 是普通操作，primary 是默认动作，tonal 是次要着色，text 用于无背板操作；玻璃材质集中在操作层。",
+        "exampleDescription": "操作桌面按钮和连体组，观察边缘光、着色层级与共享背板；键盘焦点应持续可见。",
+        "demos": [
+            "macos.demo.tsx",
+            "appearance.demo.tsx",
+            "basic.demo.tsx",
+            "button-group.demo.tsx",
+            "circle.demo.tsx",
+            "danger.demo.tsx",
+            "designs.demo.tsx",
+            "disabled.demo.tsx",
+            "icon.demo.tsx",
+            "link-button.demo.tsx",
+            "loading.demo.tsx",
+            "selected.demo.tsx",
+            "size.demo.tsx"
+        ],
+        "references": [
+            "https://developer.apple.com/design/human-interface-guidelines/components",
+            "https://developer.apple.com/design/human-interface-guidelines/accessibility"
+        ]
+    },
+    "shadcn": {
+        "summary": "以实心主操作、细描边普通操作与透明低强调操作建立简洁的按钮层级。",
+        "usage": "优先用 primary、outlined 和 text 组织动作，danger 独立表达删除等风险；更大的尺寸为本库扩展。",
+        "exampleDescription": "从基础保存与取消开始，再检查禁用、加载和选中反馈，以及描边按钮的实体表面。",
+        "demos": [
+            "basic.demo.tsx",
+            "appearance.demo.tsx",
+            "button-group.demo.tsx",
+            "circle.demo.tsx",
+            "danger.demo.tsx",
+            "designs.demo.tsx",
+            "disabled.demo.tsx",
+            "icon.demo.tsx",
+            "link-button.demo.tsx",
+            "loading.demo.tsx",
+            "selected.demo.tsx",
+            "size.demo.tsx"
+        ],
+        "references": [
+            "https://ui.shadcn.com/docs/components",
+            "https://ui.shadcn.com/docs/theming",
+            "https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4"
+        ]
+    }
+} as const satisfies ComponentDesignDocuments;
+
+export const guide = {
+    "definition": "Button 触发一个清楚、立即的动作。不同 appearance 表达操作优先级，尺寸和形状只改变视觉呈现，不能替代正确的动作名称与业务语义。",
+    "useWhen": [
+        "提交、保存、创建、取消或打开下一步等明确动作。",
+        "需要用 Filled、Tonal、Outlined、Elevated 或 Text 区分一组操作的主次。"
+    ],
+    "avoidWhen": [
+        "页面跳转优先使用链接语义；二态设置使用 Switch，可多选条件使用 Checkbox。"
+    ],
+    "essentials": [
+        "一个区域通常只有一个最高强调操作，避免所有按钮都用 primary。",
+        "loading 防止重复提交但仍要说明处理结果；disabled 应有可理解的原因。",
+        "isSelected 只用于真正的可切换动作，普通提交按钮不应伪装成选中状态。"
+    ],
+    "accessibility": [
+        "纯图标按钮必须有 aria-label；可见文字应直接描述动作而不是写“确定”。",
+        "危险操作同时使用明确文案、错误色和必要的确认或撤销机制。"
+    ]
+} as const;

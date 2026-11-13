@@ -5,9 +5,9 @@ import Switch from '../../../esm/index.mjs';
 import { colorChannels, matchingPixels, screenshotPixels } from '../../../../../test/forced-color-pixels.mjs';
 
 const params = new URLSearchParams(location.search);
-const designSystem = params.get('designSystem') as 'md3' | 'apple' | 'shadcn';
+const designSystem = params.get('designSystem') as 'md3' | 'macos' | 'shadcn';
 const colorMode = params.get('colorMode') as 'light' | 'dark';
-if (!['md3', 'apple', 'shadcn'].includes(designSystem) || !['light', 'dark'].includes(colorMode)) throw new Error('Invalid forced-color fixture configuration');
+if (!['md3', 'macos', 'shadcn'].includes(designSystem) || !['light', 'dark'].includes(colorMode)) throw new Error('Invalid forced-color fixture configuration');
 const host = document.getElementById('root');
 if (!host) throw new Error('Missing fixture host');
 const root = createRoot(host);

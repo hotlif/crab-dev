@@ -18,7 +18,7 @@ status = "experimental"
 ```tsx
 import ConfigProvider from '@crab-dev/rc-config-provider';
 
-<ConfigProvider designSystem="apple" colorMode="dark" locale="en-US" size="medium" density="compact">
+<ConfigProvider designSystem="macos" colorMode="dark" locale="en-US" size="medium" density="compact">
     <App />
 </ConfigProvider>
 ```
@@ -29,7 +29,7 @@ import ConfigProvider from '@crab-dev/rc-config-provider';
 
 | 属性 | 值 | 根级默认值 |
 | --- | --- | --- |
-| designSystem | md3 / apple / shadcn | md3 |
+| designSystem | md3 / macos / shadcn | md3 |
 | colorMode | light / dark | light |
 | brandColor | #RGB / #RRGGBB / null | null |
 | locale | zh-CN / en-US | zh-CN |
@@ -44,7 +44,7 @@ Provider 在 DOM 输出 data-crab-design、data-theme、data-crab-size、data-cr
 
 ## 三套设计体系
 
-md3 对应 Material Design 3 Expressive，apple 对应 Apple 设计语言的 Web 适配，shadcn 对应 shadcn/ui New York。三套设计共享业务语义和无障碍契约，各自维护颜色、排版、形状、尺寸、层级与动效。Apple 不承诺复刻某一 macOS 版本。参考基线与适配边界见[设计体系规范](/guides/design-styles)。
+md3 对应 Material Design 3 Expressive，macos 对应 macOS 设计语言的 Web 适配，shadcn 对应 shadcn/ui New York。三套设计共享业务语义和无障碍契约，各自维护颜色、排版、形状、尺寸、层级与动效。macOS 固定以 Tahoe 26 Liquid Glass 为基准，材质效果通过浏览器能力适配。参考基线与适配边界见[设计体系规范](/guides/design-styles)。
 
 ## 品牌与 CSP
 

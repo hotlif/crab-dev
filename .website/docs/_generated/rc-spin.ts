@@ -3,6 +3,7 @@
  */
 
 import type { ComponentDemoRecord } from "../site/componentDemos.js";
+import type { ComponentDesignDocuments } from "../site/componentDesignGuide.js";
 
 export const demos = [
     {
@@ -199,3 +200,80 @@ export const demos = [
         "group": null
     }
 ] as const satisfies readonly ComponentDemoRecord[];
+
+export const documents = {
+    "md3": {
+        "summary": "通过环形或 Expressive 加载指示表达未完成任务，提示文字解释等待内容。",
+        "usage": "未知进度使用不确定指示，短任务可延迟显示；减少动画时保留状态信息。",
+        "exampleDescription": "观察形状变化的加载指示与提示文字，再检查包裹内容时的等待状态。",
+        "demos": [
+            "expressive.demo.tsx",
+            "basic.demo.tsx",
+            "delay.demo.tsx",
+            "indicator.demo.tsx",
+            "size.demo.tsx",
+            "tip.demo.tsx",
+            "wrapper.demo.tsx"
+        ],
+        "references": [
+            "https://m3.material.io/components/progress-indicators/overview",
+            "https://material-web.dev/components/progress/",
+            "https://github.com/material-components/material-web/tree/main/progress"
+        ]
+    },
+    "macos": {
+        "summary": "以紧凑加载指示和简短说明反馈桌面任务状态，保留用户当前工作上下文。",
+        "usage": "局部任务使用局部指示，刷新已有内容时避免清空草稿或整片遮挡内容。",
+        "exampleDescription": "在内容区域开启加载，检查文字、交互区域和等待反馈的关系。",
+        "demos": [
+            "wrapper.demo.tsx",
+            "basic.demo.tsx",
+            "delay.demo.tsx",
+            "indicator.demo.tsx",
+            "size.demo.tsx",
+            "tip.demo.tsx"
+        ],
+        "references": [
+            "https://developer.apple.com/design/human-interface-guidelines/components",
+            "https://developer.apple.com/design/human-interface-guidelines/accessibility"
+        ]
+    },
+    "shadcn": {
+        "summary": "用简洁环形指示和中性提示表达加载，等待信息与业务内容保持分层。",
+        "usage": "快速任务可设置延迟以减少闪烁，较长任务应解释正在进行的操作。",
+        "exampleDescription": "触发延迟加载，观察指示出现和结束时的变化以及内容稳定性。",
+        "demos": [
+            "delay.demo.tsx",
+            "basic.demo.tsx",
+            "indicator.demo.tsx",
+            "size.demo.tsx",
+            "tip.demo.tsx",
+            "wrapper.demo.tsx"
+        ],
+        "references": [
+            "https://ui.shadcn.com/docs/components",
+            "https://ui.shadcn.com/docs/theming",
+            "https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4"
+        ]
+    }
+} as const satisfies ComponentDesignDocuments;
+
+export const guide = {
+    "definition": "Spin 显示不确定时长的处理状态，可以单独出现或覆盖某个内容区域。它告诉用户任务仍在进行，但不代表具体百分比。",
+    "useWhen": [
+        "局部请求或计算没有可靠完成比例。",
+        "内容需要暂时阻止重复操作，并用 tip 解释正在做什么。"
+    ],
+    "avoidWhen": [
+        "页面结构可预测时 Skeleton 更稳定；有真实进度值时使用 determinate Progress。"
+    ],
+    "essentials": [
+        "spinning 控制状态，delay 避免极短任务闪一下。",
+        "wrapper 模式只覆盖相关区域，不应冻结整个应用。",
+        "tip 使用具体动词，如“正在保存报表”，不要只写“加载中”。"
+    ],
+    "accessibility": [
+        "容器设置 busy 状态并提供简短 status 文本，完成后及时移除。",
+        "减少动态效果时保留静态进度提示；不要让装饰指示器进入 Tab 顺序。"
+    ]
+} as const;

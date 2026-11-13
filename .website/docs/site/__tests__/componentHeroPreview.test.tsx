@@ -92,7 +92,7 @@ function element(root: ParentNode, selector: string): HTMLElement {
 
 describe("ComponentHeroPreview", () => {
     it("使用 registry 选中的精确 Demo，并以 artwork 展示同一描述符", async () => {
-        const demo = componentPreviews["rc-form"];
+        const demo = componentPreviews["rc-form"].designs.md3;
         const { container, unmount } = await render(<ComponentHeroPreview name="rc-form" />);
         try {
             const frame = element(container, "[data-frame-fixture]");
@@ -109,8 +109,8 @@ describe("ComponentHeroPreview", () => {
     });
 
     it("只同步当前 article 内同一 Demo 的 interactive 宽度，并跟随 ResizeObserver 更新", async () => {
-        const demo = componentPreviews["rc-form"];
-        const otherDemo = componentPreviews["rc-line-edit"];
+        const demo = componentPreviews["rc-form"].designs.md3;
+        const otherDemo = componentPreviews["rc-line-edit"].designs.md3;
         const { container, unmount } = await render(<>
             <div data-component-demo-id={demo.id}>
                 <div data-presentation="interactive" data-test-width="1000" />
@@ -132,9 +132,11 @@ describe("ComponentHeroPreview", () => {
             expect(hero.style.getPropertyValue("--crab-docs-preview-width")).toBe("480px");
             expect(resizeObservers.length).toBe(1);
             expect([...resizeObservers[0].observed]).toEqual([source]);
-            await act(() => {
+            await act(async () => {
                 source.dataset.testWidth = "632";
                 resizeObservers[0].notify();
+                expect(hero.style.getPropertyValue("--crab-docs-preview-width")).toBe("480px");
+                await new Promise<void>(resolve => window.requestAnimationFrame(() => resolve()));
             });
             expect(hero.style.getPropertyValue("--crab-docs-preview-width")).toBe("632px");
         } finally {
@@ -143,7 +145,7 @@ describe("ComponentHeroPreview", () => {
     });
 
     it("演示延后出现或替换时切换尺寸来源，卸载时清理 Observer 和窗口监听", async () => {
-        const demo = componentPreviews["rc-form"];
+        const demo = componentPreviews["rc-form"].designs.md3;
         const page = (version?: string) => <article>
             <ComponentHeroPreview name="rc-form" />
             {version && <div key={version} data-component-demo-id={demo.id}>
@@ -184,8 +186,8 @@ describe("ComponentHeroPreview", () => {
     });
 
     it("切换组件页后连接新 Demo，未知组件不展示预览并清理旧连接", async () => {
-        const form = componentPreviews["rc-form"];
-        const input = componentPreviews["rc-line-edit"];
+        const form = componentPreviews["rc-form"].designs.md3;
+        const input = componentPreviews["rc-line-edit"].designs.md3;
         const page = (name: string) => <article>
             <ComponentHeroPreview name={name} />
             <div data-component-demo-id={form.id}>

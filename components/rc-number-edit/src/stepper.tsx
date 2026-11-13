@@ -1,9 +1,10 @@
 import { css, cx } from "@crab-dev/css";
 import Button from "@crab-dev/rc-button";
-import { Minus, Plus } from "lucide-react";
+import { Minus, Plus, ChevronUp, ChevronDown } from "lucide-react";
 import type { MouseEvent, PointerEvent } from "react";
-import { useLocale } from '@crab-dev/rc-config-provider';
+import { useLocale, useConfig } from '@crab-dev/rc-config-provider';
 
+import { macosStepperStyle, macosStepperActionStyle } from './numberEdit.designs.js';
 import token, { vars } from "./token.js";
 import type { StepDirection } from "./hooks/useSpinner.js";
 
@@ -73,6 +74,7 @@ const sizeStyles = {
 
 function Stepper({ size, onStart, onStop, upDisabled, downDisabled, disabled, inputId }: StepperProps) {
     const { locale } = useLocale();
+    const macos = useConfig().designSystem === 'macos';
     // 指针按下立即步进并启动长按；后续 click 只处理键盘与辅助技术的合成激活，
     // 避免真实指针在 pointerdown 和 click 各步进一次。
     const bind = (direction: StepDirection) => ({
@@ -91,7 +93,7 @@ function Stepper({ size, onStart, onStop, upDisabled, downDisabled, disabled, in
     });
 
     return (
-        <span className={cx(rootStyle, sizeStyles[size])}>
+        <span className={cx(rootStyle, sizeStyles[size], macos && macosStepperStyle)}>
             <Button
                 type="button"
                 aria-label={locale === 'zh-CN' ? '增加' : 'Increase'}
@@ -100,8 +102,8 @@ function Stepper({ size, onStart, onStop, upDisabled, downDisabled, disabled, in
                 appearance="text"
                 size="xs"
                 shape="circle"
-                icon={<Plus aria-hidden="true" />}
-                className={actionStyle}
+                icon={macos ? <ChevronUp aria-hidden="true" /> : <Plus aria-hidden="true" />}
+                className={cx(actionStyle, macos && macosStepperActionStyle)}
                 {...bind(1)}
             />
             <Button
@@ -112,8 +114,8 @@ function Stepper({ size, onStart, onStop, upDisabled, downDisabled, disabled, in
                 appearance="text"
                 size="xs"
                 shape="circle"
-                icon={<Minus aria-hidden="true" />}
-                className={actionStyle}
+                icon={macos ? <ChevronDown aria-hidden="true" /> : <Minus aria-hidden="true" />}
+                className={cx(actionStyle, macos && macosStepperActionStyle)}
                 {...bind(-1)}
             />
         </span>

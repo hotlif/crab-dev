@@ -84,7 +84,7 @@ function assertGeometry(form: HTMLFormElement, _designSystem: string, direction:
 }
 
 describe('Form control-owned layout with published composite fields', () => {
-    for (const designSystem of ['md3', 'apple', 'shadcn'] as const) {
+    for (const designSystem of ['md3', 'macos', 'shadcn'] as const) {
         for (const colorMode of ['light', 'dark'] as const) {
             for (const direction of ['ltr', 'rtl'] as const) {
                 it(`retains full slots, owned labels, feedback and value protocol (${designSystem}/${colorMode}/${direction})`, async () => {

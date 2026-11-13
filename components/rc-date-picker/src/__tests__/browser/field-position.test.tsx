@@ -55,7 +55,7 @@ const variants: PickerFieldProps[] = [
 
 describe('published picker field positioning keeps its DOM reference', () => {
     for (const kind of ['date', 'datetime', 'time'] as const) {
-        for (const designSystem of ['md3', 'apple', 'shadcn'] as const) {
+        for (const designSystem of ['md3', 'macos', 'shadcn'] as const) {
             for (const colorMode of ['light', 'dark'] as const) {
                 for (const side of ['below', 'above'] as const) {
                     it(`${kind} clears its own label/support/error ${side} (${designSystem}/${colorMode})`, async () => {

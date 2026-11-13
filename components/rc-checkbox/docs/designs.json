@@ -1,0 +1,41 @@
+{
+    "md3": {
+        "summary": "使用选中色、勾选与半选标记表达多选，状态层与焦点区分当前交互。",
+        "usage": "半选表示集合中部分项目已选；错误还需要关联说明，不能仅让方框变色。",
+        "exampleDescription": "用 Tab 和空格切换复选框，观察勾选、半选、错误及禁用状态。",
+        "demos": [
+            "designs.demo.tsx",
+            "basic.demo.tsx",
+            "disabled.demo.tsx",
+            "group.demo.tsx",
+            "indeterminate.demo.tsx",
+            "size.demo.tsx"
+        ]
+    },
+    "macos": {
+        "summary": "以紧凑方框和清晰勾选标记适配桌面设置列表，选中状态使用强调色。",
+        "usage": "保持方框与说明精确对齐；组合设置中的半选需要能解释其对应的子项。",
+        "exampleDescription": "选择部分子项后查看父项半选，再核对紧凑控件的标签与焦点。",
+        "demos": [
+            "indeterminate.demo.tsx",
+            "basic.demo.tsx",
+            "designs.demo.tsx",
+            "disabled.demo.tsx",
+            "group.demo.tsx",
+            "size.demo.tsx"
+        ]
+    },
+    "shadcn": {
+        "summary": "以细描边方框、对比勾选和简洁焦点轮廓表达多项选择。",
+        "usage": "在表单或列表中保持标签可点击，分组的总选与单项选择要有清楚关系。",
+        "exampleDescription": "操作复选组并读取选中结果，再比较禁用项目与正常项目的边界。",
+        "demos": [
+            "group.demo.tsx",
+            "basic.demo.tsx",
+            "designs.demo.tsx",
+            "disabled.demo.tsx",
+            "indeterminate.demo.tsx",
+            "size.demo.tsx"
+        ]
+    }
+}

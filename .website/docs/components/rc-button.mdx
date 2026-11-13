@@ -8,11 +8,16 @@ status = "experimental"
 {/* THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY. */}
 
 import ComponentDemos from "../site/componentDemos.js";
-import { demos } from "../_generated/rc-button.js";
+import ComponentDesignGuide, { DesignIntroduction, DesignExampleIntroduction } from "../site/componentDesignGuide.js";
+import { demos, documents, guide } from "../_generated/rc-button.js";
 
 # Button 按钮
 
 <div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-button</div>
+
+## 设计与用法
+
+<DesignIntroduction documents={documents} />
 
 <div id="基础示例" data-docs-example-anchor /><div id="全部示例" data-docs-example-anchor />
 
@@ -20,11 +25,7 @@ import { demos } from "../_generated/rc-button.js";
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
 
-#### 三套风格对照
-
-##### 三套风格的操作层级 — 比较主操作、普通操作、低强调操作和禁用状态；圆角、表面与阴影由当前风格决定。
-
-#### 基础与外观
+##### 当前主题的交互状态 — 观察当前主题下的选中、禁用和焦点反馈；示例继承文档配置，可直接操作。
 
 ##### 基础配置 — 在属性控件中组合文字、外观、尺寸与常用状态
 
@@ -42,153 +43,27 @@ import { demos } from "../_generated/rc-button.js";
 
 ##### 按钮尺寸 — 五档尺寸与五种外观共 25 种组合，同时展示默认高度与适用场景。
 
-#### 状态与反馈
-
 ##### 禁用状态 — 对照五种按钮外观的禁用状态。
 
 ##### 加载中 — 对照五种按钮外观的加载状态。
 
 ##### 选中状态 — `isSelected` 用于工具栏过滤器、视图切换等 toggle 场景
 
-##### 完整操作状态矩阵 — 逐档核对五种外观的真实交互、选中、禁用和加载状态；尺寸与页面密度独立。
-
-#### 组合
-
 ##### 按钮组 — `ButtonGroup` 统一管理子按钮的 `size` 和 `appearance`，适用于工具栏场景
 
 ##### 形状与连接式按钮组 — Square 保持统一圆角；显式 Round 保留按压与选中时的形状反馈。
 
+##### macOS Tahoe：桌面控件与浮动玻璃操作 — 普通操作使用圆角矩形；浮动工具栏共享玻璃背板，突出内容。
+
 </div>
 
-<ComponentDemos demos={demos} />
+<DesignExampleIntroduction documents={documents} />
 
-[打开完整组件工作台](/components/rc-button/workbench/)
+<ComponentDemos demos={demos} documents={documents} />
 
 ## 使用说明
 
-### 普通按钮
-
-普通按钮适合取消、返回、刷新等次要操作。Material 的 Outlined 使用中性文字、细描边、透明背景和胶囊圆角；Apple 使用 6px 圆角、实体表面和轻阴影；shadcn 使用 8px 圆角、实体表面和细描边。通过 `ConfigProvider designSystem` 统一切换，显式 `shape` 仍可覆盖默认形状。
-
-基础示例完整展示五种官方外观。实际表单中，可将实色“保存修改”与描边“取消”放在同一操作区，文字“查看说明”作为辅助入口。
-
-```tsx
-<Button appearance="primary">保存修改</Button>
-<Button>取消</Button>
-<Button appearance="text">查看说明</Button>
-```
-
-### 外观选择
-
-| appearance | 用途 |
-| --- | --- |
-| `elevated` | Elevated，浅色表面与阴影，需要从背景中浮起的操作 |
-| `primary` | Filled，保存、提交等主要操作 |
-| `outlined`（默认） | Outlined，取消、返回等普通操作 |
-| `tonal` | Tonal，需要适度强调的次级操作 |
-| `text` | Text，说明、展开等轻量入口 |
-
-五种外观对应 [Material 按钮概览](https://m3.material.io/components/buttons/overview)。Elevated 单独提供，使用 Surface container low、Primary 文字和 Level 1 阴影，悬停提升至 Level 2。普通按钮采用当前 [Material 按钮 Specs](https://m3.material.io/components/buttons/specs) 的 On surface variant 文字和 Outline variant 描边；MD3 显式 S 采用 40px 高度、16px 水平内边距和 14px 标签文字。
-
-### 尺寸
-
-| size | MD3 高度 / 水平内边距 | Apple 高度 / 水平内边距 | shadcn 高度 / 水平内边距 |
-| --- | --- | --- | --- |
-| `xs` | 32 / 16px | 24 / 8px | 32 / 12px |
-| `s` | 40 / 16px | 28 / 12px | 36 / 16px |
-| `m` | 56 / 24px | 32 / 16px | 40 / 24px |
-| `l` | 96 / 48px | 40 / 20px | 48 / 24px |
-| `xl` | 136 / 64px | 48 / 24px | 56 / 32px |
-
-显式 `size` 保留五档。省略 Button 与 Group 的 size 时，MD3 按全局 `small / medium / large` 使用 32 / 36 / 40px；Apple 和 shadcn 仍分别映射到自身 `xs / s / m`。根配置下 MD3 普通按钮为 36px。`density` 不改变按钮尺寸；显式 L/XL 留给关键操作。Apple 是自主 Web 设计，shadcn 的 L/XL 是 Crab 扩展；参考实现的 XS 微型按钮不映射为本库同名档位。
-
-MD3 的字号依次为 14/14/16/24/32px，图标为 20/20/24/32/40px，图标间距为 8/8/8/12/16px，描边为 1/1/1/2/3px。Square 圆角为 12/12/16/28/28px，按压圆角为 8/8/12/16/16px。Apple 和 shadcn 保持稳定的 6px、8px 圆角及 1px 描边。粗指针命中区域至少 48×48px，并在布局中预留空间，避免相邻操作命中重叠；文字放大允许按钮自然增高。
-
-MD3 默认几何在 L2 TOML 维护；Apple/shadcn 扩展在 L2 `design-actions.ts` 维护，Theme 只做变量映射。嵌套 MD3 边界清除上层设计覆盖并恢复默认角色。实际状态场景在本包 `visual-matrix.demo.tsx`，Playwright 用例与适用轴随包维护。
-
-悬停、键盘焦点与按压场景逐一操作五种标准外观并分别采集；触控场景使用真实 tap，并独立核对至少 48px 命中层。窄屏允许长按钮标签按公开样式省略，完整文字继续保留在可访问名称中。
-
-### 状态与无障碍
-
-- 悬停提供 8% 状态层；焦点与按压提供 10% 状态层，颜色跟随对应外观的前景角色；键盘焦点环使用 Secondary、3px 宽度和 2px 外偏移。
-- 禁用内容使用 On surface 的 38% 不透明度，填充容器独立使用 10%；描边与文字外观保持各自的容器规则。
-- Apple 和 shadcn 默认形状按压时保持圆角；Material 默认形状及显式 Round 收紧圆角。不移动文字或改变边框宽度。
-- 键盘与辅助技术触发的点击保留 225ms 按压反馈，连续激活从最后一次点击重新计时；进入禁用或加载状态时清除。此最短反馈时长参考 Material Web，显式 Round 的形状变化采用本组件的 Expressive 令牌；减少动态效果时直接切换状态。
-- `isSelected` 用于可切换操作并同步 `aria-pressed`；描边按钮选中后使用反色填充，形状随当前设计风格变化。Text 用于普通动作。
-- `loading` 显示进度并阻止重复激活，保留焦点；同时设置 `disabled` 时退出键盘顺序。
-- 禁用链接也退出 Tab 顺序并阻止激活和导航；图标与加载图形不重复参与按钮的无障碍名称。
-- `ButtonGroup` 可统一设置 `appearance`、`size` 和 `danger`，子按钮显式值优先。
-- 纯图标按钮需要 `aria-label`；不可逆操作应提供确认或撤销，危险语义同时使用明确文案。
-
-`danger` 表达危险操作，`href` 表达链接行为。它们独立于普通按钮的外观选择。
-
-本组件采用 M3 Expressive 的颜色角色、五档尺寸、状态层和无障碍交互。Material Web 的实现仍采用 baseline 按钮（如 24px 水平内边距、18px 图标和 12% 按压状态层）；其[主题示例](https://material-web.dev/components/button/#theming)提供形状覆盖。shadcn 的稳定控件圆角是本项目的主题定制，不代表 M3 或 M3 Expressive 的默认形状规格。危险操作是 M3 允许的颜色角色定制：Filled 使用 Error / On error，Tonal 使用 Error container / On error container，Elevated 保留 Surface container low。前置单图标为推荐配置；`iconAfter` 为后置图标兼容能力，不应同时设置前后两个图标。
-
-参考：[M3 Specs](https://m3.material.io/components/buttons/specs)、[使用指南](https://m3.material.io/components/buttons/guidelines)、[无障碍](https://m3.material.io/components/buttons/accessibility)、[Material Web 文档与示例](https://material-web.dev/components/button/)、[交互实现](https://github.com/material-components/material-web/blob/main/button/internal/button.ts)、[共享样式](https://github.com/material-components/material-web/blob/main/button/internal/_shared.scss)、[Tonal 令牌](https://github.com/material-components/material-web/blob/main/tokens/_md-comp-filled-tonal-button.scss)。
-
-```tsx
-<Button appearance="primary" danger>删除项目</Button>
-<Button appearance="text" href="/settings">查看设置</Button>
-```
-
-### 三套风格
-
-Material 使用 Expressive 五档几何及按压、选中形状反馈。Apple 的圆角在按压和选中时保持稳定，普通按钮具有轻微浮起的表面；shadcn 的 Outlined 使用背景表面与细描边。主操作、普通操作和低强调操作的 API、禁用语义、键盘激活与焦点行为一致。
-
-Apple 是参考 Apple 控件层级的 Web 风格，不模拟操作系统私有材质或 Liquid Glass。shadcn 对照 New York v4 的按钮变体，保留 Crab 的公共尺寸契约与 React 19 实现。规格核对日期：2026-10-29；参考实现为 AndroidX token v0_11_0，提交 `b4e136e88a48dec3e039d06b69f055957cdc4071`。Material Web 仅作为 baseline 行为对照，不作为 Expressive 尺寸来源。
-
-默认、Square、Round 与 Circle 的圆角各自由对应形状样式提供，基础布局不再设置第二个“半高”默认圆角。基础重置与外观样式统一放在 `button.styles.ts`，并在外观之前定义，避免源码工作台与公开 ESM 的打包顺序覆盖圆角、描边或背景。包内原生浏览器回归对照 basic 源码入口与 public matrix，实际按压、切换选中，核对四角圆角、外部几何以及 outlined 的描边与表面；显式形状与选中、按压规则继续保留。该回归的发现和默认测试不能替代新候选的实际执行与外观复审，旧库存差异仍保留。
-
-参考：[AndroidX ButtonLargeTokens](https://github.com/androidx/androidx/blob/b4e136e88a48dec3e039d06b69f055957cdc4071/compose/material3/material3/src/commonMain/kotlin/androidx/compose/material3/tokens/ButtonLargeTokens.kt)、[Apple Buttons](https://developer.apple.com/design/human-interface-guidelines/buttons)、[shadcn Button](https://ui.shadcn.com/docs/components/radix/button)、[shadcn 按钮实现](https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui/button.tsx)。
-
-### 兼容说明
-
-<details>
-<summary>已有代码如何继续使用</summary>
-
-`appearance="subtle"` 继续可用，统一映射为无阴影的描边普通按钮。旧的 subtle 颜色、背景和边框变量作为 outlined 的回退入口保留。`dashed`、`link`、`danger` 保留接口兼容；新代码优先使用五种公开外观，并通过 `danger` 与 `href` 表达业务语义。虚线、下划线链接外观，以及 Text 与 `isSelected` 的旧组合不属于 M3 按钮变体；切换动作应使用 Elevated、Filled、Tonal 或 Outlined。`shape="circle"` 是既有纯图标兼容入口，不等同于完整的 M3 Icon button 组件。
-
-</details>
-
-
-
-
-`href` 存在时渲染链接，原生属性、事件 currentTarget 和 ref 对应 HTMLAnchorElement；未提供 href 时对应 HTMLButtonElement。链接支持 download、hrefLang、焦点事件等原生属性。需要包装按钮时分别使用 `ButtonNativeProps` 或 `ButtonLinkProps`，不要把两种元素的事件类型混用。
-
-
-
-### ButtonGroup
-
-
-
-### 继承尺寸的桌面按钮
-
-未显式设置 Button 或 Group 的 size 时，MD3 按 Provider 的 small / medium / large 使用 32 / 36 / 40px，高度与显式 Expressive 五档独立。标签保持 14px / 20px，左右内边距分别为 12 / 16 / 20px。主题切换保留同一交互节点和焦点；Apple 与 shadcn 继承尺寸的原有映射保持不变。
-
-### 适用场景
-
-提交、保存、创建、取消或打开下一步等明确动作。 需要用 Filled、Tonal、Outlined、Elevated 或 Text 区分一组操作的主次。
-
-页面跳转优先使用链接语义；二态设置使用 Switch，可多选条件使用 Checkbox。
-
-### 使用要点
-
-- 一个区域通常只有一个最高强调操作，避免所有按钮都用 primary。
-- loading 防止重复提交但仍要说明处理结果；disabled 应有可理解的原因。
-- isSelected 只用于真正的可切换动作，普通提交按钮不应伪装成选中状态。
-
-### 无障碍
-
-- 纯图标按钮必须有 aria-label；可见文字应直接描述动作而不是写“确定”。
-- 危险操作同时使用明确文案、错误色和必要的确认或撤销机制。
-
-### 设计依据与覆盖
-
-- **MD3 Expressive**：直接参考当前 M3 Buttons 五种外观、Expressive 尺寸与形状，并对照 Material Web 2.5.0 的基线实现记录版本差异。 [依据 1](https://m3.material.io/components/buttons/overview) · [依据 2](https://material-web.dev/components/button/) · [依据 3](https://github.com/material-components/material-web/tree/main/button)
-- **Apple**：依据 Apple HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。 [依据 1](https://developer.apple.com/design/human-interface-guidelines/components) · [依据 2](https://developer.apple.com/design/human-interface-guidelines/accessibility)
-- **shadcn/ui**：参考 shadcn/ui 的组件用途、中性表面与设计变量，在本库公共语义和 React 交互模型中实现；完整状态覆盖仍需按矩阵验收。 [依据 1](https://ui.shadcn.com/docs/components) · [依据 2](https://ui.shadcn.com/docs/theming) · [依据 3](https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4)
-
-设计依据不等于完成验收；当前状态与适用边界见[覆盖矩阵](/guides/design-coverage)。
+<ComponentDesignGuide guide={guide} documents={documents} />
 
 ## 常见问题
 

@@ -46,7 +46,7 @@ globalStyle`
 
 .crab-home-practices { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: ${token.space["section-gap"]}; }
 .crab-home-practices > article { display: grid; grid-template-columns: auto minmax(0,1fr) auto; align-items: start; gap: ${token.space["section-gap"]}; padding: ${globalToken.space[6]}; border: 1px solid ${token.color.border.subtle}; border-radius: ${token.shape.card}; background: ${token.color.surface.low}; }
-.crab-home-practice-number { color: ${token.color.brand.primary}; font-size: ${token.font.size.caption}; font-weight: ${token.font.weight.label}; }
+.crab-home-practice-number { color: ${token.color.text.link}; font-size: ${token.font.size.caption}; font-weight: ${token.font.weight.label}; }
 .crab-home-practices h3 { margin-bottom: ${token.space["component-gap"]}; font-size: ${token.font.size.subhead}; font-weight: ${token.typography.title.large.emphasized['font-weight']}; }
 .crab-home-practices p, .crab-home-practice-components { color: ${token.color.text.secondary}; font-size: ${token.font.size.body}; }
 .crab-home-practice-components { display: block; margin-top: ${token.space["stack-gap"]}; overflow-wrap: anywhere; }

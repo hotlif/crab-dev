@@ -1,5 +1,6 @@
 import Button, { type ButtonNativeProps } from '@crab-dev/rc-button';
 import Tooltip from '@crab-dev/rc-tooltip';
+import { useConfig } from '@crab-dev/rc-config-provider';
 import { cx } from '@crab-dev/css';
 import type { ReactElement } from 'react';
 import PdfIcon, { type PdfIconName } from './icon.js';
@@ -20,10 +21,11 @@ interface ToolbarButtonProps extends Pick<ButtonNativeProps, 'id' | 'aria-contro
 }
 
 export default function ToolbarButton({ label, icon, disabled, danger, className, appearance = 'text', selected, selectedIcon, tooltip, tooltipPlacement = 'bottom', onClick, ...attributes }: ToolbarButtonProps) {
+    const macos = useConfig().designSystem === 'macos';
     const displayedIcon = selected && selectedIcon ? selectedIcon : icon;
     return <Tooltip title={tooltip ?? label} placement={tooltipPlacement} arrow={false}>
         <Button {...attributes} aria-label={label} aria-pressed={selected} isSelected={appearance === 'tonal' ? selected : undefined}
-            shape="circle" size="s" appearance={selected ? 'tonal' : appearance} icon={typeof displayedIcon === 'string' ? <PdfIcon name={displayedIcon} /> : <span className={iconStyle} aria-hidden="true">{displayedIcon}</span>}
+            shape={macos ? undefined : "circle"} size="s" appearance={selected ? 'tonal' : appearance} icon={typeof displayedIcon === 'string' ? <PdfIcon name={displayedIcon} /> : <span className={iconStyle} aria-hidden="true">{displayedIcon}</span>}
             className={cx(toolbarButtonStyle, className)} disabled={disabled} danger={danger} onClick={onClick} />
     </Tooltip>;
 }

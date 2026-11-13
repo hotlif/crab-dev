@@ -61,3 +61,8 @@ size.xl.track.height = "$ref(range.xl.track-height)"
 size.xl.thumb.height = "$ref(range.xl.thumb-height)"
 root.color-error = "$ref(color.feedback.error.solid)"
 size.xl.track.border-radius = "$ref(shape.extra-large)"
+
+material.backdrop-filter = "$ref(material.filter)"
+material.background-image = "$ref(material.sheen)"
+material.knob.background-color = "$ref(material.knob-background)"
+macos.track.border-radius = "$ref(shape.full)"

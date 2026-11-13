@@ -73,7 +73,7 @@ describe('Published Dropdown native Tab and Escape', () => {
         } finally { await release(view); }
     });
 
-    for (const designSystem of ['md3', 'apple', 'shadcn'] as const) {
+    for (const designSystem of ['md3', 'macos', 'shadcn'] as const) {
         for (const colorMode of ['light', 'dark'] as const) {
             it(`${designSystem}/${colorMode}: tabs through suffix and portalled panel, then restores without reopening`, async () => {
                 const changed = mock.fn();

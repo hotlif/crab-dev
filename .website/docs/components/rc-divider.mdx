@@ -8,11 +8,16 @@ status = "experimental"
 {/* THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY. */}
 
 import ComponentDemos from "../site/componentDemos.js";
-import { demos } from "../_generated/rc-divider.js";
+import ComponentDesignGuide, { DesignIntroduction, DesignExampleIntroduction } from "../site/componentDesignGuide.js";
+import { demos, documents, guide } from "../_generated/rc-divider.js";
 
 # Divider 分割线
 
 <div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-divider</div>
+
+## 设计与用法
+
+<DesignIntroduction documents={documents} />
 
 <div id="基础示例" data-docs-example-anchor /><div id="全部示例" data-docs-example-anchor />
 
@@ -32,85 +37,15 @@ import { demos } from "../_generated/rc-divider.js";
 
 ##### 竖向分割线 — direction=vertical 用于行内切分: 按钮组、状态栏、面包屑。高度跟随当前字号。
 
-##### 三体系展示与状态矩阵 — 公开组件、真实交互与自然动画；包内视觉规格是矩阵轴的来源。
-
 </div>
 
-<ComponentDemos demos={demos} />
+<DesignExampleIntroduction documents={documents} />
 
-[打开完整组件工作台](/components/rc-divider/workbench/)
+<ComponentDemos demos={demos} documents={documents} />
 
 ## 使用说明
 
-分隔内容或行内操作，明确分组边界。
-
-
-### 何时使用
-
-- 分隔表单章节、列表分组或卡片内的内容区域。
-- 使用 `direction="vertical"` 分隔行内并列操作。
-- 将分组标题作为 `children` 传入。
-
-已有留白、标题或边框能够清楚表达分组时，无需额外添加分割线。
-
-`variant="dotted"` 使用圆点线，点距为线宽的三倍，为 DPR 1 等低像素密度下的光栅边缘保留间隙；`dashed` 使用短划线。横向、竖向和带标题的分段线遵循相同规则。
-
-### 无障碍
-
-默认使用 `role="separator"` 表达内容分组。纯装饰线可设置 `decorative`，使其通过 `role="none"` 和 `aria-hidden` 从无障碍树中隐藏。
-
-带文字的分割线通过 `aria-labelledby` 关联标题。此时不能设置 `decorative`，以免隐藏分组名称。
-
-
-
-### 三套设计风格
-
-三套设计均使用 1px 分隔线，由当前主题的弱边界颜色、字阶与间距表达层级。Material 对应 divider；带文字、竖线和间距档位是项目扩展，不额外引入主题专属装饰。
-
-切换文档站设计风格后，本页演示同步使用该设计；浅色和深色模式分别使用配对语义颜色。
-
-### 三体系规格与验收边界
-
-保留语义 separator 与显式 decorative 协议。虚线、点线、嵌入标题和 spacing 是桌面分组扩展；长标题截断而不推挤分割线。竖向分割随行内字阶，不能包含文字。无可操作表面，不适用悬停、按下、禁用、选中或加载。
-
-| 体系 | 组件视觉规则 |
-| --- | --- |
-| MD3 Expressive | Material Web 的 outline-variant 细线为基线，粗细与表面层级分离。 |
-| Apple | 以微弱分隔组织内容，避免抢占阅读层级；自主 Web 分组规则。 |
-| shadcn | 参照 Separator 的横竖方向和装饰语义；文字/线型是项目扩展。 |
-
-本包几何与视觉来源：line.border-width / border-color；spacing.none/small/medium/large；vertical.block-size；text 字阶/间隙/省略与 start/end 的逻辑偏移。设计值只在对应 token.toml 与它引用的语义角色维护，验收测量读取实际 DOM 计算值。
-
-颜色、字阶、形状、状态和动效分别从 L2 角色映射到包内 L3；Theme 负责最近配置边界。明暗模式使用配对前景/背景，不进行整体反相。视觉边界与命中区域分别检查，焦点截图保留外部轮廓与阴影。强制颜色采用系统色；减少动画保留信息与最终状态。
-
-矩阵定义在本包 `docs/visual.json`，场景使用 `visual-matrix.demo.tsx`。Chromium 覆盖其中全部设计/明暗/命名尺寸/适用密度/状态；Firefox 与 WebKit 按 `crossEngine` 的默认展示和重点交互子集执行。窄屏、RTL、中英文、长文本、品牌覆盖和配置切换后的草稿保持另有场景；未运行、未人工复核或失败的项不能计为通过。开放尺寸输入的代表样本不等于无限集合的穷尽。
-
-参考核对日期：2026-10-29。[Material 3 Cards](https://m3.material.io/components/cards/overview)、[Material Web Divider 使用/无障碍/令牌](https://material-web.dev/components/divider/)、[Material Web Progress 语义](https://material-web.dev/components/progress/)、[Apple Feedback](https://developer.apple.com/design/human-interface-guidelines/feedback)、[Apple Layout](https://developer.apple.com/design/human-interface-guidelines/layout)、[Apple Progress indicators](https://developer.apple.com/design/human-interface-guidelines/progress-indicators)、[shadcn New York V4 separator](https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui/separator.tsx)。Material Web 是 Web 行为基线；Apple 是依据原则的自主 Web 实现；shadcn 固定参考提交 `3d98900e9b73c45f035f8109e9d41ba6a51685e7`，不跟随浮动最新版。
-
-### 适用场景
-
-列表、菜单或内容区中相邻组需要轻量边界。 水平或垂直布局需要清楚但不过度强调的结构分隔。
-
-仅靠间距已经能表达分组时无需增加线条；不要让每个元素四周都出现 Divider。
-
-### 使用要点
-
-- orientation 要与布局方向匹配，垂直分隔必须有可计算高度。
-- variant 与 inset 用来对齐内容边缘，而不是随意装饰。
-- 带文字的分隔要确保文字确实是分组标题而非普通句子。
-
-### 无障碍
-
-- 纯装饰分隔隐藏语义；确实表示主题断点时保留 separator 角色和正确方向。
-- 不要只用 Divider 表达不可见的关系，标题与 DOM 结构仍要正确。
-
-### 设计依据与覆盖
-
-- **MD3 Expressive**：直接参考 M3 Dividers 的 full-width、inset、颜色和厚度，并对照 Material Web divider。 [依据 1](https://m3.material.io/components/divider/overview) · [依据 2](https://material-web.dev/components/divider/) · [依据 3](https://github.com/material-components/material-web/tree/main/divider)
-- **Apple**：依据 Apple HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。 [依据 1](https://developer.apple.com/design/human-interface-guidelines/components) · [依据 2](https://developer.apple.com/design/human-interface-guidelines/accessibility)
-- **shadcn/ui**：参考 shadcn/ui 的组件用途、中性表面与设计变量，在本库公共语义和 React 交互模型中实现；完整状态覆盖仍需按矩阵验收。 [依据 1](https://ui.shadcn.com/docs/components) · [依据 2](https://ui.shadcn.com/docs/theming) · [依据 3](https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4)
-
-设计依据不等于完成验收；当前状态与适用边界见[覆盖矩阵](/guides/design-coverage)。
+<ComponentDesignGuide guide={guide} documents={documents} />
 
 ## 常见问题
 

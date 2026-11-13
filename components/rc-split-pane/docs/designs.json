@@ -1,0 +1,35 @@
+{
+    "md3": {
+        "summary": "将相关内容放入可调整分区，分隔与表面角色帮助理解空间关系。",
+        "usage": "内容区各自保持最小可读尺寸，分隔条需要键盘操作与可访问名称。",
+        "exampleDescription": "调整两个分区的宽度，检查语义表面、内容约束和分隔位置。",
+        "demos": [
+            "basic.demo.tsx",
+            "persist.demo.tsx",
+            "primary-second.demo.tsx",
+            "vertical.demo.tsx"
+        ]
+    },
+    "macos": {
+        "summary": "为桌面侧栏、编辑器与检查器提供可调整分栏，贴合窗口式工作方式。",
+        "usage": "保留侧栏最小宽度和主内容空间，持久化尺寸时考虑窗口变化。",
+        "exampleDescription": "调整并恢复分栏尺寸，观察桌面工作区域在重新打开后的比例。",
+        "demos": [
+            "persist.demo.tsx",
+            "basic.demo.tsx",
+            "primary-second.demo.tsx",
+            "vertical.demo.tsx"
+        ]
+    },
+    "shadcn": {
+        "summary": "用清晰的细分隔组织可调整内容面板，适合编辑器和数据工具。",
+        "usage": "分栏边界应易于操作，竖向分区需要分别约束滚动和最小高度。",
+        "exampleDescription": "拖动竖向分隔并检查两个内容区，确认边界、滚动和尺寸约束。",
+        "demos": [
+            "vertical.demo.tsx",
+            "basic.demo.tsx",
+            "persist.demo.tsx",
+            "primary-second.demo.tsx"
+        ]
+    }
+}

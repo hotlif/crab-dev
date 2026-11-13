@@ -24,7 +24,7 @@ function geometry(container: HTMLElement) {
 }
 
 describe('Select own field positioning and actual focus reference', () => {
-    for (const designSystem of ['md3', 'apple', 'shadcn'] as const) {
+    for (const designSystem of ['md3', 'macos', 'shadcn'] as const) {
         for (const colorMode of ['light', 'dark'] as const) {
             for (const direction of ['ltr', 'rtl'] as const) {
                 it(`clears own help, long help and errors (${designSystem}/${colorMode}/${direction})`, async () => {

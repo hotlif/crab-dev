@@ -13,7 +13,7 @@ globalStyle`
 .crab-home-stage { min-width: 0; }
 .crab-home-intro h1 { font-size: ${token.typography.title.large["font-size"]}; line-height: ${token.typography.title.large["line-height"]}; font-weight: ${token.font.weight.strong}; }
 .crab-home-headline { font-size: clamp(2.5rem, 4.4vw, 4.25rem); line-height: 1.14; font-weight: ${token.typography.display.large["font-weight"]}; letter-spacing: -.045em; text-wrap: balance; }
-.crab-home-headline > span { color: ${token.color.brand.primary}; }
+.crab-home-headline > span { color: ${token.color.text.link}; }
 .crab-home-lead { max-width: 38ch; font-size: ${token.typography.body.large["font-size"]}; line-height: 1.85; color: ${token.color.text.secondary}; text-wrap: pretty; }
 .crab-home-actions { display: flex; flex-wrap: wrap; gap: ${globalToken.space[3]}; }
 .crab-home-actions > a { min-height: ${token.size[48]}; padding-inline: ${globalToken.space[6]}; }
@@ -48,7 +48,7 @@ globalStyle`
     .crab-home-section, .crab-home-demo { padding-block: ${globalToken.space[8]}; }
 }
 .crab-docs[data-crab-design="md3"] .crab-home-hero-preview { border-color: transparent; border-radius: ${token.shape["extra-large"]} ${token.shape.large} ${token.shape["extra-large"]} ${token.shape.large}; }
-.crab-docs[data-crab-design="apple"] .crab-home-hero-preview { background: ${token.color.surface.low}; box-shadow: ${token.shadow.card}; }
+.crab-docs[data-crab-design="macos"] .crab-home-hero-preview { background: ${token.color.surface.low}; box-shadow: ${token.shadow.card}; }
 .crab-docs[data-crab-design="shadcn"] .crab-home-hero-preview { background: ${token.color.surface.content}; }
 @media (forced-colors: active) {
     .crab-docs[data-crab-design] .crab-home-hero-preview, .crab-home-preview-note { border-color: CanvasText; }

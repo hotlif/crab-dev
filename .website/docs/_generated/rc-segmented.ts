@@ -3,6 +3,7 @@
  */
 
 import type { ComponentDemoRecord } from "../site/componentDemos.js";
+import type { ComponentDesignDocuments } from "../site/componentDesignGuide.js";
 
 export const demos = [
     {
@@ -75,8 +76,8 @@ export const demos = [
     },
     {
         "id": "docs/demos/designs.demo.tsx",
-        "title": "三套风格与完整状态",
-        "description": "比较浅色和深色下的分段轮廓、选中反馈、禁用项与键盘焦点。",
+        "title": "当前主题的交互状态",
+        "description": "观察当前主题下的选中、禁用和焦点反馈；示例继承文档配置，可直接操作。",
         "learning": {
             "components": [
                 "ConfigProvider",
@@ -94,7 +95,7 @@ export const demos = [
             "events": [],
             "hasState": false
         },
-        "sourceCode": "export const meta = {\n    title: '三套风格与完整状态',\n    description: '比较浅色和深色下的分段轮廓、选中反馈、禁用项与键盘焦点。',\n};\n\nimport { css } from '@crab-dev/css';\nimport ConfigProvider from '@crab-dev/rc-config-provider';\nimport token, { designSystemRegistry } from '@crab-dev/rc-token-semantic';\nimport Segmented from '../../src/index.js';\n\nconst grid = css`display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr)); gap: ${token.space['stack-gap']};`;\nconst panel = css`display: grid; gap: ${token.space['stack-gap']}; padding: ${token.space['card-padding']}; border: 1px solid ${token.color.border.subtle}; border-radius: ${token.shape.card}; color: ${token.color.text.primary}; background: ${token.color.background.surface}; min-width: 0;`;\n\nexport default function DesignsDemo() {\n    return (\n        \u003cdiv className={grid}>\n            {(['md3', 'apple', 'shadcn'] as const).flatMap(design => (['light', 'dark'] as const).map(mode => (\n                \u003cConfigProvider key={`${design}-${mode}`} designSystem={design} colorMode={mode} className={panel} role=\"region\" aria-label={`${designSystemRegistry[design].fullName} ${mode === 'light' ? '浅色' : '深色'}`}>\n                    \u003cstrong>{designSystemRegistry[design].fullName} · {mode === 'light' ? '浅色' : '深色'}\u003c/strong>\n                    \u003cSegmented aria-label={`${designSystemRegistry[design].fullName} ${mode === 'light' ? '浅色' : '深色'} 时间范围`} block options={[\n                        { value: 'day', label: '日' },\n                        { value: 'week', label: '周' },\n                        { value: 'month', label: '月' },\n                        { value: 'year', label: '年', disabled: true },\n                    ]} />\n                    \u003cSegmented aria-label={`${designSystemRegistry[design].fullName} ${mode === 'light' ? '浅色' : '深色'} 禁用时间范围`} block disabled options={['日', '周', '月']} />\n                \u003c/ConfigProvider>\n            )))}\n        \u003c/div>\n    );\n}\n",
+        "sourceCode": "export const meta = {\n    title: '当前主题的交互状态',\n    description: '观察当前主题下的选中、禁用和焦点反馈；示例继承文档配置，可直接操作。',\n};\n\nimport { css } from '@crab-dev/css';\nimport ConfigProvider, { useConfig } from '@crab-dev/rc-config-provider';\nimport token, { designSystemRegistry } from '@crab-dev/rc-token-semantic';\nimport Segmented from '@crab-dev/rc-segmented';\n\nconst grid = css`display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr)); gap: ${token.space['stack-gap']};`;\nconst panel = css`display: grid; gap: ${token.space['stack-gap']}; padding: ${token.space['card-padding']}; border: 1px solid ${token.color.border.subtle}; border-radius: ${token.shape.card}; color: ${token.color.text.primary}; background: ${token.color.background.surface}; min-width: 0;`;\n\nexport default function DesignsDemo() {\n    const { designSystem: design } = useConfig();\n    return (\n        \u003cdiv className={grid}>\n            {(['light', 'dark'] as const).map(mode => (\n                \u003cConfigProvider key={mode} designSystem={design} colorMode={mode} className={panel} role=\"region\" aria-label={`${designSystemRegistry[design].fullName} ${mode === 'light' ? '浅色' : '深色'}`}>\n                    \u003cstrong>{designSystemRegistry[design].fullName} · {mode === 'light' ? '浅色' : '深色'}\u003c/strong>\n                    \u003cSegmented aria-label={`${designSystemRegistry[design].fullName} ${mode === 'light' ? '浅色' : '深色'} 时间范围`} block options={[\n                        { value: 'day', label: '日' },\n                        { value: 'week', label: '周' },\n                        { value: 'month', label: '月' },\n                        { value: 'year', label: '年', disabled: true },\n                    ]} />\n                    \u003cSegmented aria-label={`${designSystemRegistry[design].fullName} ${mode === 'light' ? '浅色' : '深色'} 禁用时间范围`} block disabled options={['日', '周', '月']} />\n                \u003c/ConfigProvider>\n            ))}\n        \u003c/div>\n    );\n}\n",
         "previewPath": "/components/rc-segmented/workbench/?__wake_demo=docs%2Fdemos%2Fdesigns.demo.tsx",
         "workbenchPath": "/components/rc-segmented/workbench/#/components/docs%2Fdemos%2Fdesigns.demo.tsx",
         "density": "regular",
@@ -197,3 +198,82 @@ export const demos = [
         "group": null
     }
 ] as const satisfies readonly ComponentDemoRecord[];
+
+export const documents = {
+    "md3": {
+        "summary": "用关联选项与明确选中容器表达同一任务内的切换，选项保持紧密分组。",
+        "usage": "用于视图或筛选方式的选择，标签应简短且互相排斥，避免充当主导航。",
+        "exampleDescription": "在浅深色边界内切换选项，观察选中状态、禁用项与组内焦点。",
+        "demos": [
+            "designs.demo.tsx",
+            "basic.demo.tsx",
+            "block.demo.tsx",
+            "controlled.demo.tsx",
+            "disabled.demo.tsx",
+            "size.demo.tsx",
+            "with-icon.demo.tsx"
+        ],
+        "references": [
+            "https://m3.material.io/components/segmented-buttons/overview",
+            "https://material-web.dev/components/",
+            "https://github.com/material-components/material-web"
+        ]
+    },
+    "macos": {
+        "summary": "以共享背板和独立选中段呈现桌面分段控件，适合工具栏中的局部切换。",
+        "usage": "将同一任务的选项放入一个控件，保持段宽和文字对齐，避免重复叠加材质。",
+        "exampleDescription": "操作带图标的分段控件，检查共享背板、选中段和标签对齐。",
+        "demos": [
+            "with-icon.demo.tsx",
+            "basic.demo.tsx",
+            "block.demo.tsx",
+            "controlled.demo.tsx",
+            "designs.demo.tsx",
+            "disabled.demo.tsx",
+            "size.demo.tsx"
+        ],
+        "references": [
+            "https://developer.apple.com/design/human-interface-guidelines/components",
+            "https://developer.apple.com/design/human-interface-guidelines/accessibility"
+        ]
+    },
+    "shadcn": {
+        "summary": "用中性轨道和清晰活动项提供局部选择，形成紧凑、简洁的切换入口。",
+        "usage": "选项数量适度，较长文案可使用整行布局，焦点与选中状态分别表达。",
+        "exampleDescription": "查看整行分段选择的排列，再切换活动项检查中性轨道的反馈。",
+        "demos": [
+            "block.demo.tsx",
+            "basic.demo.tsx",
+            "controlled.demo.tsx",
+            "designs.demo.tsx",
+            "disabled.demo.tsx",
+            "size.demo.tsx",
+            "with-icon.demo.tsx"
+        ],
+        "references": [
+            "https://ui.shadcn.com/docs/components",
+            "https://ui.shadcn.com/docs/theming",
+            "https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4"
+        ]
+    }
+} as const satisfies ComponentDesignDocuments;
+
+export const guide = {
+    "definition": "Segmented 把少量相关选项并排放在一个整体中，用于切换视图、筛选范围或选择一个模式。所有选项应属于同一维度，并能在有限宽度内清楚展示。",
+    "useWhen": [
+        "二到五个选项需要快速比较和切换。",
+        "选中结果立即改变当前视图或设置，并且选项标签很短。"
+    ],
+    "avoidWhen": [
+        "长标签或大量选项使用 Select；页面级导航使用 Tabs；普通动作不要伪装成选项。"
+    ],
+    "essentials": [
+        "options 的 value 稳定唯一，label 描述同一维度下的不同值。",
+        "受控 value 与 onValueChange 同步，block 只改变占用宽度。",
+        "图标是标签的辅助，不能用难懂图标完全替代文字。"
+    ],
+    "accessibility": [
+        "根据选择模型提供 radio group 或 toolbar 中 toggle button 的正确语义。",
+        "方向键、Tab 和选中状态要可预测，焦点不能只靠背景色表现。"
+    ]
+} as const;

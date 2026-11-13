@@ -41,7 +41,9 @@ export const vars = defineTokens({
     'motion.expand.transition': '--drawer-motion-expand-transition',
     'motion.exit.transition': '--drawer-motion-exit-transition',
     'motion.interaction.transition': '--drawer-motion-interaction-transition',
-    'motion.spatial.transition': '--drawer-motion-spatial-transition'
+    'motion.spatial.transition': '--drawer-motion-spatial-transition',
+    'material.backdrop-filter': '--drawer-material-backdrop-filter',
+    'material.background-image': '--drawer-material-background-image'
 });
 
 const token = defineTokens({
@@ -119,6 +121,10 @@ const token = defineTokens({
         'spatial': {
             'transition': `var(${vars['motion.spatial.transition']}, var(--token-semantic-motion-spatial-fast, var(--token-global-duration-350, 350ms) var(--token-global-easing-expressive-spatial-fast, cubic-bezier(0.42, 1.67, 0.21, 0.90))))`
         }
+    },
+    'material': {
+        'backdrop-filter': `var(${vars['material.backdrop-filter']}, var(--token-semantic-material-filter, none))`,
+        'background-image': `var(${vars['material.background-image']}, var(--token-semantic-material-sheen, none))`
     }
 });
 

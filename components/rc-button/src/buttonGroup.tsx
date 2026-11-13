@@ -1,6 +1,7 @@
 import { css, cx } from '@crab-dev/css';
 import { useConfig } from '@crab-dev/rc-config-provider';
 import token from './token.js';
+import { macosGroupStyle } from './button.designs.js';
 import ButtonGroupContext from './buttonGroupContext.js';
 import type { ButtonGroupProps } from './types.js';
 
@@ -39,7 +40,7 @@ function ButtonGroup({ children, size, appearance, danger, variant = 'standard',
     const resolvedSize = size ?? config.size;
     return (
         <ButtonGroupContext value={{ size, appearance, danger }}>
-            <div data-variant={variant} className={cx(groupBaseStyle, sizeGapMap[resolvedSize], variant === 'connected' ? connectedStyle : null, className)}>
+            <div data-variant={variant} className={cx(groupBaseStyle, sizeGapMap[resolvedSize], variant === 'connected' ? config.designSystem === 'macos' ? macosGroupStyle : connectedStyle : null, className)}>
                 {children}
             </div>
         </ButtonGroupContext>

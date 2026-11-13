@@ -1,8 +1,8 @@
-export const meta = { title: '五档尺寸', description: '尺寸会随设计风格调整；MD3 保留竖向手柄、轨道间隙与终点。' };
+export const meta = { title: '五档尺寸', description: "比较当前主题的五档滑块尺寸，操作手柄并使用键盘微调当前值。" };
 import { useState } from 'react';
 import { css } from '@crab-dev/css';
 import token from '@crab-dev/rc-token-semantic';
-import Slider from '../../src/slider.js';
+import Slider from '@crab-dev/rc-slider';
 const stack = css`
     display: grid;
     gap: ${token.space['section-gap']};

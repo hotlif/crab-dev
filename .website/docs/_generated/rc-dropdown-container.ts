@@ -3,6 +3,7 @@
  */
 
 import type { ComponentDemoRecord } from "../site/componentDemos.js";
+import type { ComponentDesignDocuments } from "../site/componentDesignGuide.js";
 
 export const demos = [
     {
@@ -65,3 +66,64 @@ export const demos = [
         "group": "功能演示"
     }
 ] as const satisfies readonly ComponentDemoRecord[];
+
+export const documents = {
+    "md3": {
+        "summary": "为锚定式浮层提供定位与交互边界，使弹出内容沿用当前语义表面。",
+        "usage": "触发器、浮层与关闭行为构成一个任务；业务决定内容语义和键盘模型。",
+        "exampleDescription": "打开锚定浮层并改变可用空间，检查表面位置、边缘和返回焦点。",
+        "demos": [
+            "base.demo.tsx"
+        ],
+        "references": [
+            "https://m3.material.io/components/menus/overview",
+            "https://material-web.dev/components/menu/",
+            "https://github.com/material-components/material-web/tree/main/menu"
+        ]
+    },
+    "macos": {
+        "summary": "为桌面弹出面板提供锚点定位，使局部工具与触发控件保持清晰关联。",
+        "usage": "使用最近配置边界，浮层靠近窗口边缘时需要保持可读且不遮住关键动作。",
+        "exampleDescription": "在触发控件附近打开面板，检查定位、关闭和桌面表面层级。",
+        "demos": [
+            "base.demo.tsx"
+        ],
+        "references": [
+            "https://developer.apple.com/design/human-interface-guidelines/components",
+            "https://developer.apple.com/design/human-interface-guidelines/accessibility"
+        ]
+    },
+    "shadcn": {
+        "summary": "以可复用定位容器承载弹出内容，边界和阴影跟随中性设计角色。",
+        "usage": "容器不替业务定义菜单或列表语义；内容应提供自己的标题和操作说明。",
+        "exampleDescription": "操作基础弹出容器，观察描边内容面板与触发器的相对位置。",
+        "demos": [
+            "base.demo.tsx"
+        ],
+        "references": [
+            "https://ui.shadcn.com/docs/components",
+            "https://ui.shadcn.com/docs/theming",
+            "https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4"
+        ]
+    }
+} as const satisfies ComponentDesignDocuments;
+
+export const guide = {
+    "definition": "DropdownContainer 连接一个触发器和一个定位浮层，并通过上下文管理引用元素、开合状态与定位。它是组合基础设施，不自动决定浮层是菜单、列表还是自定义面板。",
+    "useWhen": [
+        "现有输入或按钮需要挂载自定义下拉内容。",
+        "需要统一处理锚点定位、容器尺寸和开合事件。"
+    ],
+    "avoidWhen": [
+        "标准选项选择直接使用 Select，命令列表使用 Menu，说明文字使用 Tooltip。"
+    ],
+    "essentials": [
+        "触发器必须把 reference ref 交给容器，否则浮层无法可靠定位。",
+        "打开原因、关闭原因和焦点行为取决于承载内容的真实语义。",
+        "不要只依赖 blur 关闭复杂浮层，否则点击浮层内部也可能意外消失。"
+    ],
+    "accessibility": [
+        "触发器使用 aria-expanded，并按浮层类型补充 aria-controls 或 aria-haspopup。",
+        "菜单、列表框和对话框拥有不同键盘模型，容器不能把它们统一成同一种行为。"
+    ]
+} as const;

@@ -41,7 +41,7 @@ status = "experimental"
 
 ## 三套设计风格
 
-MD3 Expressive 使用逆色 snackbar 表面；Apple 使用 12px 圆角的面板通知；shadcn 使用 8px 圆角的中性 toast 表面。边界、前景和背景通过语义角色成对切换，进度、排队、悬停暂停及读屏通告保持一致。多个堆叠消息和倒计时进度条是项目扩展。
+MD3 Expressive 使用逆色 snackbar 表面；macOS 使用 12px 圆角的面板通知；shadcn 使用 8px 圆角的中性 toast 表面。边界、前景和背景通过语义角色成对切换，进度、排队、悬停暂停及读屏通告保持一致。多个堆叠消息和倒计时进度条是项目扩展。
 
 切换文档站设计风格后，本页演示同步使用该设计；浅色和深色模式分别使用配对语义颜色。
 
@@ -55,7 +55,7 @@ MD3 Expressive 使用逆色 snackbar 表面；Apple 使用 12px 圆角的面板�
 | 体系 | 组件视觉规则 |
 | --- | --- |
 | MD3 Expressive | 强调结果可读性与浮动层级；不把无限加载图标称为 Expressive loading indicator。 |
-| Apple | 轻量表面、内容清晰，自主 Web 通知模式。 |
+| macOS | 轻量表面、内容清晰，自主 Web 通知模式。 |
 | shadcn | 参照中性浮动反馈与描边层级；参考提交未提供同名 Message，独立实现。 |
 
 本包几何与视觉来源：root.padding / border-radius / border-color / box-shadow；body 字阶；icon.width / margin-right；stack.translate 和空间动效；progress 仅在有限 duration 时显示。设计值只在对应 token.toml 与它引用的语义角色维护，验收测量读取实际 DOM 计算值。
@@ -64,4 +64,4 @@ MD3 Expressive 使用逆色 snackbar 表面；Apple 使用 12px 圆角的面板�
 
 矩阵定义在本包 `docs/visual.json`，场景使用 `visual-matrix.demo.tsx`。Chromium 覆盖其中全部设计/明暗/命名尺寸/适用密度/状态；Firefox 与 WebKit 按 `crossEngine` 的默认展示和重点交互子集执行。窄屏、RTL、中英文、长文本、品牌覆盖和配置切换后的草稿保持另有场景；未运行、未人工复核或失败的项不能计为通过。开放尺寸输入的代表样本不等于无限集合的穷尽。
 
-参考核对日期：2026-10-29。[Material 3 Cards](https://m3.material.io/components/cards/overview)、[Material Web Divider 使用/无障碍/令牌](https://material-web.dev/components/divider/)、[Material Web Progress 语义](https://material-web.dev/components/progress/)、[Apple Feedback](https://developer.apple.com/design/human-interface-guidelines/feedback)、[Apple Layout](https://developer.apple.com/design/human-interface-guidelines/layout)、[Apple Progress indicators](https://developer.apple.com/design/human-interface-guidelines/progress-indicators)、[shadcn New York V4 来源边界](https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui)。Material Web 是 Web 行为基线；Apple 是依据原则的自主 Web 实现；shadcn 固定参考提交 `3d98900e9b73c45f035f8109e9d41ba6a51685e7`，不跟随浮动最新版。
+参考核对日期：2026-10-29。[Material 3 Cards](https://m3.material.io/components/cards/overview)、[Material Web Divider 使用/无障碍/令牌](https://material-web.dev/components/divider/)、[Material Web Progress 语义](https://material-web.dev/components/progress/)、[macOS Feedback](https://developer.apple.com/design/human-interface-guidelines/feedback)、[macOS Layout](https://developer.apple.com/design/human-interface-guidelines/layout)、[macOS Progress indicators](https://developer.apple.com/design/human-interface-guidelines/progress-indicators)、[shadcn New York V4 来源边界](https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui)。Material Web 是 Web 行为基线；macOS 采用 Tahoe 26 Liquid Glass 的 Web 适配；shadcn 固定参考提交 `3d98900e9b73c45f035f8109e9d41ba6a51685e7`，不跟随浮动最新版。

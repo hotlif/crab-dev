@@ -21,7 +21,7 @@
 
 ## 样式与设计体系
 
-- ID 仅 `md3` / `apple` / `shadcn`，默认 `md3`，名称与出处从公共 registry 读取。Apple 是依据 Apple 原则自主实现的 Web 体系，不复刻特定 macOS 版本。
+- ID 仅 `md3` / `macos` / `shadcn`，默认 `md3`，名称与出处从公共 registry 读取。macOS 以 Tahoe 26 Liquid Glass 为设计基准；Web 材质用于操作和导航层，内容保持清晰，并提供减少透明度与强制颜色退化。
 - 先确定组件/变体，查阅对应官方指南、规格、无障碍和实现。MD3 Expressive 同时对照 Material Web 文档、示例、行为、样式和令牌，明确基线与 Expressive 差异。
 - 不能以主色/圆角覆盖宣称完成一套体系；颜色、排版、形状、尺寸、层级、图标、状态、动效和交互都按矩阵验收。没有直接对应组件时记录扩展依据。
 - L1 全局 → L2 语义/设计映射 → L3 组件。`token.toml` 优先 `$ref()` 上一层，颜色使用 OKLCh；共享设计、明暗和密度角色维护于 L2，组件局部变量维护于 L3。

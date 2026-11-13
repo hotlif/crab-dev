@@ -1,22 +1,23 @@
 export const meta = {
-    title: '三套风格的操作层级',
-    description: '比较主操作、普通操作、低强调操作和禁用状态；圆角、表面与阴影由当前风格决定。',
+    title: '当前主题的交互状态',
+    description: '观察当前主题下的选中、禁用和焦点反馈；示例继承文档配置，可直接操作。',
 };
 
 import { css } from '@crab-dev/css';
-import ConfigProvider from '@crab-dev/rc-config-provider';
+import ConfigProvider, { useConfig } from '@crab-dev/rc-config-provider';
 import token, { designSystemRegistry } from '@crab-dev/rc-token-semantic';
-import Button from '../../src/index.js';
+import Button from '@crab-dev/rc-button';
 
 const grid = css`display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr)); gap: ${token.space['stack-gap']};`;
 const panel = css`display: grid; gap: ${token.space['stack-gap']}; padding: ${token.space['card-padding']}; border: 1px solid ${token.color.border.subtle}; border-radius: ${token.shape.card}; color: ${token.color.text.primary}; background: ${token.color.background.surface}; min-width: 0;`;
 const actions = css`display: flex; flex-wrap: wrap; align-items: center; gap: ${token.space['component-gap']};`;
 
 export default function DesignsDemo() {
+    const { designSystem: design } = useConfig();
     return (
         <div className={grid}>
-            {(['md3', 'apple', 'shadcn'] as const).flatMap(design => (['light', 'dark'] as const).map(mode => (
-                <ConfigProvider key={`${design}-${mode}`} designSystem={design} colorMode={mode} className={panel} role="region" aria-label={`${designSystemRegistry[design].fullName} ${mode === 'light' ? '浅色' : '深色'}`}>
+            {(['light', 'dark'] as const).map(mode => (
+                <ConfigProvider key={mode} designSystem={design} colorMode={mode} className={panel} role="region" aria-label={`${designSystemRegistry[design].fullName} ${mode === 'light' ? '浅色' : '深色'}`}>
                     <strong>{designSystemRegistry[design].fullName} · {mode === 'light' ? '浅色' : '深色'}</strong>
                     <div className={actions}>
                         <Button appearance="primary">保存</Button>
@@ -25,7 +26,7 @@ export default function DesignsDemo() {
                         <Button disabled>不可用</Button>
                     </div>
                 </ConfigProvider>
-            )))}
+            ))}
         </div>
     );
 }

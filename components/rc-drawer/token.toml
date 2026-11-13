@@ -52,3 +52,7 @@ motion.exit.transition = "var(--drawer-panel-animation-duration, $ref(motion.she
 motion.interaction.transition = "$ref(motion.interaction)"
 motion.spatial.transition = "$ref(motion.spatial.fast)"
 root.border-radius = "$ref(overlay.sheet.shape)"
+
+# Shared material roles resolve at the closest theme boundary.
+material.backdrop-filter = "$ref(material.filter)"
+material.background-image = "$ref(material.sheen)"

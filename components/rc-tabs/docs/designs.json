@@ -1,0 +1,47 @@
+{
+    "md3": {
+        "summary": "以标签文字和活动指示条组织同页内容，主标签页保留清楚的选中方向。",
+        "usage": "line 用于主要页内分区；card、pill 与可关闭页签是本库的桌面扩展。",
+        "exampleDescription": "使用方向键切换标签，观察活动指示条与面板内容的同步。",
+        "demos": [
+            "designs.demo.tsx",
+            "basic.demo.tsx",
+            "card.demo.tsx",
+            "centered.demo.tsx",
+            "closable.demo.tsx",
+            "overflow.demo.tsx",
+            "pill.demo.tsx",
+            "with-icon.demo.tsx"
+        ]
+    },
+    "macos": {
+        "summary": "以桌面分段式的轻量选中块组织同页内容，保留标签页与面板的语义关联。",
+        "usage": "选中块表示当前位置，关闭入口只用于可移除工作页；不要用状态遮罩覆盖文字。",
+        "exampleDescription": "关闭一个工作页并继续切换，检查选中块、焦点和剩余面板。",
+        "demos": [
+            "closable.demo.tsx",
+            "basic.demo.tsx",
+            "card.demo.tsx",
+            "centered.demo.tsx",
+            "designs.demo.tsx",
+            "overflow.demo.tsx",
+            "pill.demo.tsx",
+            "with-icon.demo.tsx"
+        ]
+    },
+    "shadcn": {
+        "summary": "用中性轨道和清晰活动标签呈现同页切换，内容面板保持简洁边界。",
+        "usage": "标签名称简短明确，溢出时保持当前项可见，键盘操作跳过禁用项。",
+        "exampleDescription": "切换 pill 标签并读取面板，检查中性轨道与活动项的对比。",
+        "demos": [
+            "pill.demo.tsx",
+            "basic.demo.tsx",
+            "card.demo.tsx",
+            "centered.demo.tsx",
+            "closable.demo.tsx",
+            "designs.demo.tsx",
+            "overflow.demo.tsx",
+            "with-icon.demo.tsx"
+        ]
+    }
+}

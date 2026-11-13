@@ -1,4 +1,6 @@
 import { useControllableValue } from '@crab-dev/rc-hooks';
+import { useConfig } from '@crab-dev/rc-config-provider';
+import { macosCheckableStyle } from './tag.designs.js';
 import { cx } from '@crab-dev/css';
 import type { FC, KeyboardEvent, MouseEvent } from 'react';
 import type { CheckableTagProps, CheckableTagChangeDetails } from './types.js';
@@ -21,6 +23,7 @@ const CheckableTag: FC<CheckableTagProps> = ({
     onKeyDown,
     ...restProps
 }) => {
+    const { designSystem } = useConfig();
     const [checked, setChecked] = useControllableValue<boolean, [CheckableTagChangeDetails]>({ value: checkedProp, defaultValue: defaultChecked, onValueChange: onCheckedChange });
     const handleToggle = (event: KeyboardEvent<HTMLSpanElement> | MouseEvent<HTMLSpanElement>) => {
         if (disabled) {
@@ -45,14 +48,14 @@ const CheckableTag: FC<CheckableTagProps> = ({
             aria-checked={checked}
             aria-disabled={disabled || undefined}
             tabIndex={disabled ? -1 : 0}
-            className={cx(baseStyle, checked ? checkedStyle : uncheckedStyle, className)}
+            className={cx(baseStyle, checked ? checkedStyle : uncheckedStyle, designSystem === 'macos' && macosCheckableStyle, className)}
             onClick={(e) => {
                 onClick?.(e);
                 if (!e.defaultPrevented) handleToggle(e);
             }}
             onKeyDown={handleKeyDown}
         >
-            {checked || icon ? <span className={iconStyle}>{checked ? <SelectedIcon /> : icon}</span> : null}
+            {designSystem === 'macos' ? (icon ? <span className={iconStyle}>{icon}</span> : null) : checked || icon ? <span className={iconStyle}>{checked ? <SelectedIcon /> : icon}</span> : null}
             <span>{children}</span>
         </span>
     );

@@ -3,6 +3,7 @@
  */
 
 import type { ComponentDemoRecord } from "../site/componentDemos.js";
+import type { ComponentDesignDocuments } from "../site/componentDesignGuide.js";
 
 export const demos = [
     {
@@ -225,3 +226,82 @@ export const demos = [
         "group": "能力与集成示例"
     }
 ] as const satisfies readonly ComponentDemoRecord[];
+
+export const documents = {
+    "md3": {
+        "summary": "以语义系列色、表面和清晰文字组织柱状数据；柱图布局与交互由本库定义。",
+        "usage": "先明确比较维度，再选择分组或堆叠；关键数据通过标签与图例解释。",
+        "exampleDescription": "切换系列可见性，观察图例和柱体之间的对应关系与语义颜色。",
+        "demos": [
+            "multi-series.demo.tsx",
+            "annotations.demo.tsx",
+            "basic.demo.tsx",
+            "horizontal.demo.tsx",
+            "live-update.demo.tsx",
+            "palette.demo.tsx",
+            "stacked.demo.tsx"
+        ],
+        "references": [
+            "https://m3.material.io/styles/color/overview",
+            "https://material-web.dev/theming/color/",
+            "https://github.com/material-components/material-web/tree/main/tokens"
+        ]
+    },
+    "macos": {
+        "summary": "以清晰坐标、适量网格和可读数值服务桌面数据分析，保持数据内容优先。",
+        "usage": "紧凑工作区仍应保留零基线、系列名称和辅助技术可读取的数据入口。",
+        "exampleDescription": "从水平柱图比较较长标签的数据，再检查提示和图例的可读性。",
+        "demos": [
+            "horizontal.demo.tsx",
+            "annotations.demo.tsx",
+            "basic.demo.tsx",
+            "live-update.demo.tsx",
+            "multi-series.demo.tsx",
+            "palette.demo.tsx",
+            "stacked.demo.tsx"
+        ],
+        "references": [
+            "https://developer.apple.com/design/human-interface-guidelines/components",
+            "https://developer.apple.com/design/human-interface-guidelines/accessibility"
+        ]
+    },
+    "shadcn": {
+        "summary": "用中性坐标和稳定的分类色呈现数据，图例与提示沿用简洁的内容层级。",
+        "usage": "图表是本库的 Canvas 实现；业务应提供单位、分类和数据解释。",
+        "exampleDescription": "阅读堆叠柱的总量与构成，再通过图例确认分类色的稳定对应。",
+        "demos": [
+            "stacked.demo.tsx",
+            "annotations.demo.tsx",
+            "basic.demo.tsx",
+            "horizontal.demo.tsx",
+            "live-update.demo.tsx",
+            "multi-series.demo.tsx",
+            "palette.demo.tsx"
+        ],
+        "references": [
+            "https://ui.shadcn.com/docs/components",
+            "https://ui.shadcn.com/docs/theming",
+            "https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4"
+        ]
+    }
+} as const satisfies ComponentDesignDocuments;
+
+export const guide = {
+    "definition": "BarChart 用柱形长度比较分类数据，可以横向、纵向、分组或堆叠展示。它帮助回答谁更高、差距多大和组成如何，不适合表达需要精确连续阅读的复杂关系。",
+    "useWhen": [
+        "比较不同类别的数量、金额、排名或完成率。",
+        "用堆叠柱展示总量及其组成，并为每个系列提供图例。"
+    ],
+    "avoidWhen": [
+        "类别过多、标签很长或必须查看精确明细时，表格通常更清楚；时间连续趋势可考虑折线图。"
+    ],
+    "essentials": [
+        "数据轴必须从合理基线开始，避免用截断尺度夸大差异。",
+        "series、category 与 value 是三种不同概念，先整理数据再配置视觉。",
+        "实时更新要保持对象身份和过渡可理解，不能让柱形不断闪烁重排。"
+    ],
+    "accessibility": [
+        "颜色之外还要提供图例、标签或可读数据摘要，并确保键盘能取得关键数据。",
+        "动画应响应减少动态效果偏好；悬停提示也必须能通过键盘焦点获得。"
+    ]
+} as const;

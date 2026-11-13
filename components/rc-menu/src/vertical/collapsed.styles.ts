@@ -116,6 +116,8 @@ export const submenuFloatStyle = css`
     min-width: ${token.vertical.submenu["min-width"]};
     padding: ${token.vertical.submenu.padding};
     background-color: ${token.vertical.submenu["background-color"]};
+    backdrop-filter: ${token.material["backdrop-filter"]};
+    background-image: ${token.material["background-image"]};
     box-shadow: ${token.vertical.submenu["box-shadow"]};
     border-radius: ${token.vertical.submenu["border-radius"]};
     z-index: ${token.vertical.submenu["z-index"]};

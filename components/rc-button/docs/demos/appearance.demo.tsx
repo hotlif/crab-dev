@@ -2,7 +2,7 @@ export const meta = { title: '五种按钮外观', description: 'Elevated、Fill
 import { useState } from 'react';
 import { css } from '@crab-dev/css';
 import token from '@crab-dev/rc-token-semantic';
-import Button from '../../src/index.js';
+import Button from '@crab-dev/rc-button';
 
 const containerStyle = css`display: grid; gap: ${token.space['section-gap']}; min-width: 0;`;
 const noteStyle = css`margin: 0; color: ${token.color.text.secondary}; font-size: ${token.typography.body.medium['font-size']}; line-height: ${token.typography.body.medium['line-height']};`;
@@ -11,7 +11,7 @@ const actionsStyle = css`display: flex; flex-wrap: wrap; align-items: center; ga
 export default function Example() {
     const [message, setMessage] = useState('选择一种外观，查看它的使用场景。');
     return (
-        <section className={containerStyle} aria-label="五种 Material 按钮">
+        <section className={containerStyle} aria-label="按钮操作层级">
             <div className={actionsStyle}>
                 <Button appearance="elevated" onClick={() => setMessage('Elevated：用浅色表面与阴影，让操作从背景中浮起。')}>Elevated</Button>
                 <Button appearance="primary" onClick={() => setMessage('Filled：用于保存、提交等主要操作；API 保留 primary 名称。')}>Filled</Button>

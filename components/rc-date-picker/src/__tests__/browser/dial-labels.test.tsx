@@ -61,7 +61,7 @@ function samePixel(actual: Uint8ClampedArray, baseline: Uint8ClampedArray, x: nu
 }
 
 describe('published clock label paint and geometry', () => {
-    for (const designSystem of ['md3', 'apple', 'shadcn'] as const) {
+    for (const designSystem of ['md3', 'macos', 'shadcn'] as const) {
         for (const colorMode of ['light', 'dark'] as const) {
             it(`masks the hand behind labels without masking neighboring selection circles (${designSystem}/${colorMode})`, async () => {
                 const fixture = (hour: number) => <>

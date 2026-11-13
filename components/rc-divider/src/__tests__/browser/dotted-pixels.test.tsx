@@ -45,7 +45,7 @@ async function rasterLine(svg: SVGSVGElement, vertical: boolean, phase: number, 
 }
 
 describe('published Divider dotted raster at DPR 1 and 2', () => {
-    for (const designSystem of ['md3', 'apple', 'shadcn'] as const) {
+    for (const designSystem of ['md3', 'macos', 'shadcn'] as const) {
         for (const colorMode of ['light', 'dark'] as const) {
             it(`keeps background pixels between dots (${designSystem}/${colorMode})`, async () => {
                 const view = await render(<>

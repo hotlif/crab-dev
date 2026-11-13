@@ -1,4 +1,5 @@
-import { useComponentSize } from '@crab-dev/rc-config-provider';
+import { useComponentSize, useConfig } from '@crab-dev/rc-config-provider';
+import { macosSwitchStyle } from './switch.designs.js';
 import { css, cx } from '@crab-dev/css';
 import { type FC, type MouseEvent } from 'react';
 import { useControllableValue } from '@crab-dev/rc-hooks';
@@ -17,6 +18,7 @@ const Switch: FC<SwitchProps> = ({
     ...restProps
 }) => {
     const size = useComponentSize(sizeProp);
+    const { designSystem } = useConfig();
     const [checked, setChecked] = useControllableValue<
         boolean,
         [MouseEvent<HTMLButtonElement>]
@@ -109,10 +111,12 @@ const Switch: FC<SwitchProps> = ({
                 {...restProps}
                 type="button"
                 role="switch"
+                data-switch-design={designSystem === 'macos' ? 'macos' : undefined}
                 aria-checked={checked}
                 disabled={disabled}
                 className={cx(
                     trackStyle,
+                    designSystem === 'macos' ? macosSwitchStyle : null,
                     sizeStyles.track,
                     checked && trackCheckedStyle,
                     disabled && !checked && trackDisabledStyle,

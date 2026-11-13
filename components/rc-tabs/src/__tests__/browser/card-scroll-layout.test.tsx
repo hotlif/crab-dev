@@ -19,7 +19,7 @@ function expectVerticalFit(bar: HTMLDivElement, tab: HTMLButtonElement) {
 }
 
 describe('Published card tabs retain their top edge during native scrolling', () => {
-    for (const designSystem of ['md3', 'apple', 'shadcn'] as const) {
+    for (const designSystem of ['md3', 'macos', 'shadcn'] as const) {
         for (const colorMode of ['light', 'dark'] as const) {
             for (const direction of ['ltr', 'rtl'] as const) {
                 for (const size of ['small', 'medium', 'large'] as const) {

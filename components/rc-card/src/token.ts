@@ -5,6 +5,8 @@
 import { defineTokens } from '@crab-dev/css';
 
 export const vars = defineTokens({
+    'macos.root.border-color-hover': '--card-macos-root-border-color-hover',
+    'macos.root.box-shadow-active': '--card-macos-root-box-shadow-active',
     'surface.background-color': '--card-surface-background-color',
     'elevated.background-color': '--card-elevated-background-color',
     'loading.background-color': '--card-loading-background-color',
@@ -74,6 +76,12 @@ export const vars = defineTokens({
 });
 
 const token = defineTokens({
+    'macos': {
+        'root': {
+            'border-color-hover': `var(${vars['macos.root.border-color-hover']}, var(--token-semantic-color-border-strong, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695))))`,
+            'box-shadow-active': `var(${vars['macos.root.box-shadow-active']}, inset 0 0 0 1px var(--token-semantic-color-border-strong, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695))))`
+        }
+    },
     'surface': {
         'background-color': `var(${vars['surface.background-color']}, var(--token-semantic-color-surface-content, var(--token-semantic-color-background-surface, var(--token-global-material-neutral-98, oklch(0.98379491 0.01284496 321.893957)))))`
     },

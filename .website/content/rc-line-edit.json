@@ -1,7 +1,7 @@
 {
     "id": "rc-line-edit",
     "title": "LineEdit 单行输入",
-    "summary": "MD3 Expressive 的填充与描边使用 默认 40px 桌面控件和外置标签；Apple 与 shadcn/ui 使用静态外置标签、紧凑输入和各自的焦点反馈，统一跟随全局风格。",
+    "summary": "MD3 Expressive 的填充与描边使用 默认 40px 桌面控件和外置标签；macOS 与 shadcn/ui 使用静态外置标签、紧凑输入和各自的焦点反馈，统一跟随全局风格。",
     "prerequisite": "已经了解 JSX、组件属性与 useState。先安装本页组件包；示例中的其他 Crab UI 组件也需安装。示例使用公开组件入口，样式由 Wake 自动加载。",
     "steps": [
         {
@@ -9,8 +9,8 @@
             "title": "试一试输入",
             "goal": "切换填充与描边，输入或清除项目名称，再体验全局风格切换。",
             "why": "业务状态保存输入值，标签说明输入目的，长度限制要在输入前可见。",
-            "instruction": "输入名称，再切换外观和清除内容；在顶部外观菜单选择 Apple、MD3 Expressive 或 shadcn/ui。",
-            "expected": "MD3 Expressive 显示外置标签，Apple 与 shadcn/ui 显示静态外置标签；切换保留输入，清除后焦点返回字段，计数与预览同步。",
+            "instruction": "输入名称，再切换外观和清除内容；在顶部外观菜单选择 macOS、MD3 Expressive 或 shadcn/ui。",
+            "expected": "MD3 Expressive 显示外置标签，macOS 与 shadcn/ui 显示静态外置标签；切换保留输入，清除后焦点返回字段，计数与预览同步。",
             "changes": [
                 "使用 label、supportingText 和 appearance 配置字段。"
             ],
@@ -21,8 +21,8 @@
             "title": "两种外观",
             "goal": "并排体验 Filled 与 Outlined。",
             "why": "业务状态保存输入值，标签说明输入目的，长度限制要在输入前可见。",
-            "instruction": "选 MD3 Expressive 风格，聚焦空字段，输入后移开焦点；再切换 Apple 与 shadcn/ui 比较标签、高度和焦点反馈。",
-            "expected": "MD3 Expressive 标签浮起并保持可见，Filled 强调底线、Outlined 在轮廓为标签留出缺口；Apple 与 shadcn/ui 使用静态外置标签和紧凑边框，分别提供蓝色与中性色外侧焦点环。",
+            "instruction": "选 MD3 Expressive 风格，聚焦空字段，输入后移开焦点；再切换 macOS 与 shadcn/ui 比较标签、高度和焦点反馈。",
+            "expected": "MD3 Expressive 标签浮起并保持可见，Filled 强调底线、Outlined 在轮廓为标签留出缺口；macOS 与 shadcn/ui 使用静态外置标签和紧凑边框，分别提供蓝色与中性色外侧焦点环。",
             "changes": [
                 "使用相同结构呈现两种外观。"
             ],
@@ -47,8 +47,8 @@
             "answer": "allowClear 支持受控和非受控模式，清除会触发 onValueChange；受控模式需在 onValueChange 中接受新值，onClear 只用于额外通知。disabled 或 readOnly 时隐藏清除按钮。"
         },
         {
-            "question": "为什么切换 MD3 Expressive 后输入框高度不同？",
-            "answer": "设计体系决定字段结构。MD3 Expressive 使用 32 / 40 / 48px 三档控件与 16px 输入文字，14px 标签固定在框外；Apple 与 shadcn/ui 将静态标签置于外部，输入框随 size 使用 32 / 36 / 40px。colorMode 单独控制明暗。"
+            "question": "为什么输入框高度不同？",
+            "answer": "字段高度由当前设计与 size 决定。通过 ConfigProvider 统一设置，标签始终保留在字段外部；colorMode 独立控制明暗。"
         }
     ]
 }

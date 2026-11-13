@@ -1,11 +1,11 @@
 export const meta = {
     title: "多行字段状态",
-    description: "使用文档站主题菜单对照三套标签、容器和焦点规则；文字、计数和辅助说明保持关联。",
+    description: "检查当前主题下的标签、容器与焦点，文字、计数和辅助说明保持关联。",
 };
 
 import { css } from "@crab-dev/css";
 import token from "@crab-dev/rc-token-semantic";
-import TextEdit from "../../src/index.js";
+import TextEdit from '@crab-dev/rc-text-edit';
 
 const layout = css`
     display: grid;

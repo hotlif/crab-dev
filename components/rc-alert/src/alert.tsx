@@ -1,10 +1,11 @@
 import Button from '@crab-dev/rc-button';
-import { useLocale } from '@crab-dev/rc-config-provider';
+import { useLocale, useConfig } from '@crab-dev/rc-config-provider';
 import { css, cx } from '@crab-dev/css';
 import { usePresence } from '@crab-dev/rc-hooks';
 import { type FC, type MouseEvent as ReactMouseEvent, useState } from 'react';
 import { CloseIcon, ErrorIcon, InfoIcon, SuccessIcon, WarningIcon } from './icons.js';
 import token from './token.js';
+import { macosAlertStyle } from './alert.designs.js';
 import type { AlertProps, AlertType } from './types.js';
 import { baseStyle, successStyle, warningStyle, errorStyle, infoStyle, successIconStyle, warningIconStyle, errorIconStyle, infoIconStyle, iconStyle, iconWithTitleStyle, contentStyle, titleStyle, closeButtonStyle, closeButtonWithTitleStyle, closeIconStyle } from "./alert.styles.js";
 const typeStyleMap: Record<AlertType, string> = {
@@ -44,6 +45,7 @@ const Alert: FC<AlertProps> = ({
     ...restProps
 }) => {
     const { messages } = useLocale();
+    const { designSystem } = useConfig();
     const [closed, setClosed] = useState(false);
     const presence = usePresence<HTMLDivElement>(!closed);
 
@@ -88,7 +90,7 @@ const Alert: FC<AlertProps> = ({
     return (
         <div
             role="alert"
-            className={cx.call(undefined, baseStyle, typeStyleMap[type], className)}
+            className={cx.call(undefined, baseStyle, typeStyleMap[type], designSystem === 'macos' && macosAlertStyle, className)}
             {...restProps}
             ref={presence.ref}
             data-state={presence.state}

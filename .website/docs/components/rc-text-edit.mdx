@@ -8,11 +8,16 @@ status = "experimental"
 {/* THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY. */}
 
 import ComponentDemos from "../site/componentDemos.js";
-import { demos } from "../_generated/rc-text-edit.js";
+import ComponentDesignGuide, { DesignIntroduction, DesignExampleIntroduction } from "../site/componentDesignGuide.js";
+import { demos, documents, guide } from "../_generated/rc-text-edit.js";
 
 # TextEdit 多行文本输入框
 
 <div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-text-edit</div>
+
+## 设计与用法
+
+<DesignIntroduction documents={documents} />
 
 <div id="基础示例" data-docs-example-anchor /><div id="全部示例" data-docs-example-anchor />
 
@@ -22,153 +27,29 @@ import { demos } from "../_generated/rc-text-edit.js";
 
 ##### 一键清除 — 设置 `allowClear` 后，有内容时右上角出现清除按钮；开启后文本区常驻预留按钮空间，按钮出现或消失不会引起文本回流
 
-##### 随主题切换的文本字段 — 三主题统一使用上置标签；对比 MD3、Apple 和 shadcn 的 outlined / filled 表面与边框。
+##### 随主题切换的文本字段 — 对比当前主题下 outlined 与 filled 的表面和边框，标签保持上置。
 
 ##### 高度自适应 — 设置 `autoSize` 后高度随内容自动增长（CSS field-sizing，浏览器不支持时按 `rows` 回退）；开启后手动拖拽调整被禁用，两种高度控制方式不会互相冲突
 
-##### 多行字段状态 — 使用文档站主题菜单对照三套标签、容器和焦点规则；文字、计数和辅助说明保持关联。
+##### 多行字段状态 — 检查当前主题下的标签、容器与焦点，文字、计数和辅助说明保持关联。
 
 ##### 字符计数 — 设置 `showCount` 后在右下角实时显示已输入字符数；配合 `maxLength` 使用时显示「已输入 / 上限」格式，并在输入层直接阻止超出上限（输入约束前置）
 
 ##### 基础用法 — 最基础的多行文本输入；`rows` 控制初始可视行数，右下角可拖拽调整高度
 
-##### 尺寸与多行几何 — 比较无标签、Outlined 与 Filled。Apple/shadcn 分档调整内边距和最小高度；MD3 三档保持标准字段几何，正文不随 size 缩放。rows 决定内容行数
+##### 尺寸与多行几何 — 比较无标签、Outlined 与 Filled 的尺寸；rows 决定内容行数，字段继承当前主题。
 
 ##### 验证状态 — 此示例固定展示 error / warning 两种状态，配合可见文字与 aria-describedby；error 默认提供 aria-invalid。实际业务按校验结果更新 status
 
-##### 三体系字段状态矩阵 — 同一文本域保留多行草稿，实际验证清除、字数、原生只读与自动高度。
-
-##### 只读多行字段 — 只读字段仍可聚焦、选择和复制；分别核对 outlined 与 filled 的标签、内容和计数。
-
 </div>
 
-<ComponentDemos demos={demos} />
+<DesignExampleIntroduction documents={documents} />
 
-[打开完整组件工作台](/components/rc-text-edit/workbench/)
+<ComponentDemos demos={demos} documents={documents} />
 
 ## 使用说明
 
-输入多行文本，支持清除、字数统计和内容自适应高度。
-
-
-### 三套主题的多行字段
-
-MD3 使用外置标签和描边／底线；Apple 与 shadcn 使用静态标签，分别提供蓝色外侧焦点环和中性半透明外侧焦点环。无标签文本域也使用相同的 L2 焦点合约。错误说明与计数保持在支持文本区，主题切换保留原来的文本域及输入内容。
-
-“多行字段状态”演示同步覆盖普通、Filled 错误和禁用字段。桌面密度与 Apple 阴影是项目定制；多行编辑保留原生选择、换行及垂直扩展能力。
-
-参考：[Material Web Text field 与 textarea](https://material-web.dev/components/text-field/)、[字段轮廓实现](https://github.com/material-components/material-web/blob/main/field/internal/_outlined-field.scss)、[固定 New York V4 Textarea 源码](https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui/textarea.tsx)、[Apple Text fields](https://developer.apple.com/design/human-interface-guidelines/text-fields)。尺寸契约核对日期：2026-10-25，来源与适配范围见[三套设计体系](/guides/design-styles)。
-
-### 何时使用
-
-需要用户输入多行文本（备注、描述、评论等）时使用，支持多种尺寸、验证状态、
-一键清除、字符计数与内容自适应高度。单行输入请使用 `@crab-dev/rc-line-edit`。
-
-### 维护与矩阵验收
-
-outlined 与 filled 分别进入适用的真实悬停、键盘焦点、输入、清除与自动高度场景，并分别保存候选；不能以同屏出现替代另一外观的交互验收。触控通过原生轻触字段和清除按钮；窄屏用真实键盘将长草稿滚至开头与末尾，检查合法的内部垂直滚动，同时测量输入、标签、说明、计数和操作按钮的边界及横向溢出。
-
-outlined / filled 复用公共字段角色；MD3 的外置标签与状态底线、Apple 的上置标签和轻量表面、shadcn 的中性描边和可见焦点使用相同字段树。标签、正文和支持文字的字体随最近设计边界解析，三档 size 只调整几何；rows / autoSize 负责内容高度，density 不改变草稿。
-
-矩阵覆盖空值、多行草稿、hover、键盘焦点、错误、警告、只读、禁用、真实清除、autoSize 与无边框宿主。自动高度同时记录浏览器对 field-sizing 的支持；不支持时保留 rows 回退，不能据此宣称自动增长通过。字数计数和说明关联与真实输入一起检查。
-
-原有只读和禁用场景保留两行非空草稿，并明确核对实际值、计数和清除入口消失。`filled-error` / `filled-warning` 在保留空验证态的同时，通过真实输入进入有值验证态；filled 指内容非空，两种 appearance 都分别保存候选。验证状态不能清空草稿，计数、错误说明、外置标签、轮廓与清除动作共同核对。新增组合仍待新的实际浏览器执行和逐图复审，不能从已有值的普通可编辑截图推导通过。
-
-包内 `docs/visual.json` 是该组件的可执行尺寸、密度、状态与跨引擎范围清单；`visual-matrix.demo.tsx` 使用公开入口。Chromium 执行完整核心矩阵，Firefox / WebKit 执行清单指定的默认与关键交互子集。窄屏 320 / 768px、长内容、RTL / 英文、品牌覆盖、强制颜色与减少动画分别登记环境场景；配置切换保留原 DOM 与值。真实 200% 浏览器缩放、iframe / Shadow DOM 与跨 Document 验收仍由集成矩阵记录，不以视口或 DPR 代替。
-
-本批来源复核日期为 2026-10-29。[Material Web 控件文档](https://material-web.dev/components/text-field/)提供 Web 行为对照；Material Web 不完整覆盖 Expressive，精确 Expressive 形态采用本页注明的项目扩展。[Apple HIG](https://developer.apple.com/design/human-interface-guidelines)作为自主 Web 实现的原则依据；shadcn 继续锁定 New York V4 的 `3d98900e9b73c45f035f8109e9d41ba6a51685e7`，引用提交以产品清单为准。M3 官网需 JavaScript 的规格页未在本批静态读取中补造精确参数。
-
-测试发现、截图候选、像素稳定性与人工外观复审分别记录。当前新增矩阵尚待统一浏览器执行和逐项复审，设计覆盖保持 partial，不能用用例存在或默认测试通过更新为 verified。
-
-
-### 选型与结构
-
-文本域用于备注、描述、评论等允许换行的内容。标签明确对象，帮助说明用途和长度限制，计数放在内容之后；清除只作用于本字段。单行名称使用 LineEdit，带格式的编辑器不能仅靠 TextEdit 的纯文本 API 模拟。
-
-| 场景 | 配置 | 边界 |
-| --- | --- | --- |
-| 稳定的短备注区 | rows | 用户可按默认 vertical 方式增高；周围内容不能被覆盖 |
-| 随内容增长 | autoSize | 支持 CSS field-sizing 的浏览器生效，否则以 rows 回退；不同时手动 resize |
-| 只可查看和复制 | readOnly | 保留焦点、选择和对比度，隐藏清除 |
-| 暂时不可编辑 | disabled | 禁用文本域并隐藏清除；相邻文字说明原因 |
-| 清除 | allowClear + onValueChange | 支持受控和非受控；触发标准值变更并将焦点送回文本域，onClear 仅用于额外通知 |
-
-### 设计风格与状态
-
-字段跟随统一的 `ConfigProvider designSystem="md3" | "apple" | "shadcn"`，文档右上角的风格选择也会同步到演示。三套体系的标签均固定在输入框上方。切换风格保留输入内容、焦点与辅助说明关联，无需替换组件。
-
-MD3 文本域采用 16px / 24px 正文、14px / 20px 外置标签和 4px 标签间距。默认上下内边距 8px，Filled 无内部标签占位；无标签字段使用同一几何。bordered=false 由宿主提供边界和排版。实际高度由 rows / autoSize 决定，不对包含说明和错误的整组字段设置固定高度。
-
-`size` 选择下面的控件几何，不改变正文的字号与行高，也不改变 `density`。表中高度是输入边界的最小值；实际高度还包含 `rows` / `autoSize` 所需内容空间，标签、说明和错误所在的整组字段不受此最小值限制。
-
-| 设计体系 | size | 最小高度 | 上下 / 左右内边距 | 正文 / 行高 |
-| --- | --- | --- | --- | --- |
-| MD3 桌面扩展 | small | 32px | 4px / 8px | 16px / 24px |
-| MD3 桌面扩展 | medium | 40px | 8px / 12px | 16px / 24px |
-| MD3 桌面扩展 | large | 48px | 12px / 16px | 16px / 24px |
-| Apple | small | 32px | 2px / 8px | 14px / 20px |
-| Apple | medium | 36px | 4px / 12px | 14px / 20px |
-| Apple | large | 40px | 8px / 16px | 14px / 20px |
-| shadcn/ui | small | 56px | 4px / 8px | 14px / 20px |
-| shadcn/ui | medium | 64px | 8px / 12px | 14px / 20px |
-| shadcn/ui | large | 72px | 12px / 16px | 14px / 20px |
-
-MD3 三档几何是本库桌面扩展：外置标签释放框内空间，Filled 与 Outlined 使用相同的内容内边距。现有 size 调用继续有效，内部清除动作分档，bordered=false 由宿主提供几何。变更需同步实际 CSS、标签、行数、autoSize 与触控回归。
-
-Apple 的三档是本库 Web 适配。shadcn/ui 的 medium 对应固定 New York V4 的 `min-h-16 px-3 py-2` 基线，small/large 是本库扩展，上游没有该三档接口。本库延续现有 14px / 20px 正文契约，本轮不引入上游 `text-base md:text-sm` 的响应字号规则；扩展几何需要三体系浏览器验收，不能据此宣称平台原生或上游完整一致。
-
-清除动作复用 Button，鼠标下按 small/medium/large 使用 24/28/32px 方形，粗指针下至少 48×48px；文本区常驻预留对应横向空间，按钮出现或消失不改变可用行宽。粗指针下文本域最小高度为 48px，容器可为操作自然增高。计数与按钮不应遮住末行或滚动条，超长文本保留原生滚动与选择。
-
-`appearance="outlined"` 与 `appearance="filled"` 对应 Material 的两种文本字段；Apple 与 shadcn 下两者均采用完整的紧凑边框。`label`、`supportingText`、`errorText` 会自动建立可见标签和 `aria-describedby` 关联。`errorText` 替换辅助说明并启用错误语义及错误播报；显式 `aria-invalid` 仍优先，warning 不自动无效。计数位于字段下方的信息区，不占用正文空间，也不会在每个字符变化时强制重复播报。
-
-MD3 Outlined 采用连续轮廓与语义焦点指示，Filled 保留状态底线；标签始终外置。Apple 与 shadcn 使用各自边框与外侧焦点指示。错误、warning、禁用、无边框与强制颜色继续使用相应语义角色。
-
-实现依据：2026-10-21 查阅 [M3 文本字段规格](https://m3.material.io/components/text-fields/specs)、[使用指南](https://m3.material.io/components/text-fields/guidelines)、[无障碍说明](https://m3.material.io/components/text-fields/accessibility)，并对照 [Material Web 多行字段示例](https://material-web.dev/components/text-field/#textarea)、main 分支的 [outlined 样式](https://github.com/material-components/material-web/blob/main/field/internal/_outlined-field.scss)、[filled 样式](https://github.com/material-components/material-web/blob/main/field/internal/_filled-field.scss) 与 [焦点令牌](https://github.com/material-components/material-web/blob/main/tokens/_md-comp-filled-text-field.scss)。M3 官方页面依赖 JavaScript，当前可读的实现参数以 Material Web 源码为对照；采用当前实现的 3px 焦点厚度，warning 和垂直拖拽属于本库扩展。
-
-### 正反例与验收
-
-- 正例：备注允许 500 字，先解释用途与上限；服务端失败后保留原文并在附近说明重试方法。
-- 反例：提交失败后清空文本。用户必须重新输入；应保留受控值，仅在确认成功后重置。
-- 正例：清除后继续在同一文本域输入。反例：清除按钮卸载导致焦点落到页面；当前实现已恢复至输入区。
-- `resize="both"` 只在宿主允许二维尺寸变化时使用，不能撑宽整页；普通表单优先保留 vertical。
-- 验收：Tab 到达清除动作，Enter 后值清空且焦点在文本域；只读 / 禁用无清除入口；错误与焦点叠加可辨认；320px 和文字放大时计数、清除、长行均不覆盖正文；autoSize 不支持时仍能通过 rows 和原生滚动完成输入。
-
-关联：[输入与选择](https://material-web.dev/components/text-field/)、[复杂表单](/components/rc-form)、[状态组合](/guides/accessibility)、[无障碍](/guides/accessibility)、[LineEdit](/components/rc-line-edit)。尺寸是当前实现；异步提交、权限和错误恢复仍由表单业务提供。
-
-“只读多行字段”对照 outlined 和 filled 的标签、正文及计数。只读文本仍可聚焦、选择和复制，即使设置 `allowClear` 也不会显示清除操作。
-
-
-
-### 状态契约
-
-`value / defaultValue / onValueChange(next, details)` 管理字符串值。`details.reason` 区分 `input / clear`；原生 `onChange(event)` 仅报告真实输入事件，清除操作通过值协议报告。
-
-受控值与默认值互斥；默认值仅在初始化时使用。外部属性更新不触发操作回调，省略回调可展示只读受控快照。
-
-### 适用场景
-
-用户需要输入可换行的较长文字。 需要字符计数、自动增高、清除或错误说明。
-
-单行名称使用 LineEdit；富文本格式编辑使用专门编辑器。
-
-### 使用要点
-
-- label 说明内容目的，placeholder 给出简短格式提示。
-- autoSize 设置合理最小/最大行数，避免输入后无限撑高页面。
-- showCount 是反馈，不应替代真实 maxLength 和服务端校验。
-
-### 无障碍
-
-- label、帮助文字、计数和错误都要与 textarea 关联。
-- 错误出现和自动增高时保留光标与滚动位置，禁用与只读语义分开。
-
-### 设计依据与覆盖
-
-- **MD3 Expressive**：直接参考 M3 multiline Text fields 的 label、supporting text、error、filled/outlined 与状态规则。 [依据 1](https://m3.material.io/components/text-fields/overview) · [依据 2](https://material-web.dev/components/text-field/) · [依据 3](https://github.com/material-components/material-web/tree/main/textfield)
-- **Apple**：依据 Apple HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。 [依据 1](https://developer.apple.com/design/human-interface-guidelines/components) · [依据 2](https://developer.apple.com/design/human-interface-guidelines/accessibility)
-- **shadcn/ui**：参考 shadcn/ui 的组件用途、中性表面与设计变量，在本库公共语义和 React 交互模型中实现；完整状态覆盖仍需按矩阵验收。 [依据 1](https://ui.shadcn.com/docs/components) · [依据 2](https://ui.shadcn.com/docs/theming) · [依据 3](https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4)
-
-设计依据不等于完成验收；当前状态与适用边界见[覆盖矩阵](/guides/design-coverage)。
+<ComponentDesignGuide guide={guide} documents={documents} />
 
 ## 常见问题
 
@@ -176,9 +57,9 @@ MD3 Outlined 采用连续轮廓与语义焦点指示，Filled 保留状态底线
 
 需要保留换行时使用 TextEdit；名称或搜索词等内容使用 LineEdit。
 
-### 怎样统一三套风格？
+### 怎样统一多行字段的外观？
 
-在根级 ConfigProvider 设置 designSystem="apple"、designSystem="md3" 或 designSystem="shadcn"，不必逐个字段覆盖标签或样式。MD3 Expressive 按 rows / autoSize 扩展内容区，标签保持外置；Apple 与 shadcn/ui 保留静态外置标签与紧凑间距，分别提供蓝色与中性色外侧焦点环。colorMode 和 size 独立配置。
+在根级 ConfigProvider 设置当前设计、明暗和尺寸，无需逐个字段覆写样式。rows 或 autoSize 控制内容高度；标签、说明和错误保留各自位置。
 
 ## API
 

@@ -28,7 +28,7 @@ for (const config of configurations) test(`${config.designSystem} ${config.color
     await refresh.click();
     const frames = await page.evaluate(() => globalThis.__crabChartMotion);
     const distinct = [...new Map(frames.map(frame => [frame.png, frame])).values()];
-    // Remote screenshots can arrive after Apple's short transition has ended.
+    // Remote screenshots can arrive after macOS's short transition has ended.
     // Sample the real retained GPU bitmap on natural browser frames instead.
     expect(distinct.length).toBeGreaterThan(2);
     for (const index of [0, Math.floor(distinct.length / 2), distinct.length - 1]) {

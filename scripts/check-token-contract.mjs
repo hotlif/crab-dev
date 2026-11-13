@@ -293,6 +293,7 @@ const cssProperties = new Set([
     "backdrop-filter",
     "background",
     "background-color",
+    "background-image",
     "block-size",
     "border",
     "border-color",

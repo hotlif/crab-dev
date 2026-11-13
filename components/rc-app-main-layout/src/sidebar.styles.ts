@@ -9,6 +9,9 @@ export const sidebarStyle = css`
     padding: ${token.sidebar.padding};
     gap: ${token.sidebar.gap};
     background-color: ${token.sidebar["background-color"]};
+    backdrop-filter: ${token.material['backdrop-filter']};
+    -webkit-backdrop-filter: ${token.material['backdrop-filter']};
+    background-image: ${token.material['background-image']};
     border-inline-end: 1px solid ${token.sidebar["border-color"]};
     box-sizing: border-box;
     flex-shrink: 0;

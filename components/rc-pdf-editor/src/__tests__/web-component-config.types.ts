@@ -19,8 +19,8 @@ export function verifyPdfWebComponentConfig(element: PdfEditorElement, config: C
     element.theme = 'dark';
     // @ts-expect-error Legacy design IDs are not part of the public contract.
     element.designSystem = 'material';
-    // @ts-expect-error Apple is not exposed under the old macos ID.
-    element.designSystem = 'macos';
+    // @ts-expect-error macOS is not exposed under the old apple ID.
+    element.designSystem = 'apple';
     // @ts-expect-error colorMode accepts an already resolved light/dark value.
     element.colorMode = 'system';
     // @ts-expect-error Universal control size does not use Button's dedicated xs scale.

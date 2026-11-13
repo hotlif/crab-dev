@@ -5,6 +5,7 @@ import { useConfig } from '@crab-dev/rc-config-provider';
 import type { ButtonProps } from './types.js';
 import ButtonGroupContext from './buttonGroupContext.js';
 import { inheritedSizeStyles, baseStyle, iconWrapStyle, labelStyle, loadingIndicatorStyle, primaryStyle, dangerStyle, linkStyle, dashedStyle, textStyle, layeredStyle, touchTargetStyle, elevatedStyle, dangerTextStyle, dangerSubtleStyle, dangerSelectedStyle, tonalStyle, dangerTonalStyle, dangerElevatedStyle, outlinedStyle, outlinedSelectedStyle, sizeLargeStyle, sizeMiddleStyle, sizeSmallStyle, sizeExtraLargeStyle, sizeExtraExtraLargeStyle, squareStyle, roundStyle, defaultShapeStyle, defaultSelectedShapeStyle, selectedFeedbackStyle, pressShapeStyle, tonalSelectedStyle, primaryUnselectedStyle, selectedDisabledStyle, fitContainerStyle, selectedStyle, circleStyle, iconOnlyStyle } from "./button.styles.js";
+import { macosButtonStyle, macosProminentStyle, macosSecondaryStyle, macosSelectedTonalStyle, macosGlassStyle, macosPlainStyle, macosDangerStyle, macosDashedStyle } from './button.designs.js';
 // Match Material Web's minimum press feedback for keyboard/assistive clicks.
 const minimumPressMs = 225;
 
@@ -62,7 +63,7 @@ const Button: FC<ButtonProps> = ({
         setPressFeedback(true);
         feedbackTimeout.current = setTimeout(() => {
             setPressFeedback(false);
-        }, minimumPressMs);
+        }, config.designSystem === 'macos' ? 120 : minimumPressMs);
     };
 
     const groupCtx = use(ButtonGroupContext);
@@ -81,24 +82,38 @@ const Button: FC<ButtonProps> = ({
     const unselectedPrimary = !resolvedDanger && resolvedAppearance === 'primary' && isSelected === false;
     const iconOnly = children == null && (icon != null || iconAfter != null || loading);
 
-    const buttonClassName = cx(
-        baseStyle,
+    const legacyVisualClassName = config.designSystem === 'macos' ? undefined : cx(
         unselectedPrimary ? primaryUnselectedStyle : resolvedDanger && resolvedAppearance === 'primary' ? dangerStyle : appearanceStyleMap[resolvedAppearance],
         resolvedDanger ? dangerAppearanceStyle : null,
         resolvedAppearance === 'tonal' || unselectedPrimary ? layeredStyle : null,
-        sizeStyleMap[resolvedSize],
-        inheritedDesktopSize ? inheritedSizeStyles[config.size] : null,
         !resolvedDanger && resolvedAppearance === 'tonal' && isSelected ? tonalSelectedStyle : null,
         shape === undefined ? defaultShapeStyle : shape === 'square' || (shape === 'round' && isSelected) ? squareStyle : shape === 'round' ? roundStyle : null,
         shape === undefined && isSelected ? defaultSelectedShapeStyle : null,
         shape === 'round' ? pressShapeStyle : null,
         shape === 'circle' ? circleStyle : null,
-        iconOnly ? iconOnlyStyle : null,
-        shouldFitContainer ? fitContainerStyle : null,
         isSelected && resolvedAppearance !== 'tonal' ? (resolvedAppearance === 'outlined' || resolvedAppearance === 'subtle') && !resolvedDanger ? outlinedSelectedStyle : selectedStyle : null,
         isSelected && resolvedDanger ? dangerSelectedStyle : null,
         (isSelected && resolvedAppearance !== 'tonal') || (resolvedDanger && resolvedAppearance === 'elevated') ? selectedFeedbackStyle : null,
         isSelected && resolvedAppearance !== 'text' && resolvedAppearance !== 'link' ? selectedDisabledStyle : null,
+    );
+
+    const macos = config.designSystem === 'macos';
+    const prominent = !resolvedDanger && (isSelected || (resolvedAppearance === 'primary' && isSelected !== false));
+    const buttonClassName = cx(
+        baseStyle,
+        sizeStyleMap[resolvedSize],
+        inheritedDesktopSize ? inheritedSizeStyles[config.size] : null,
+        legacyVisualClassName,
+        macos ? macosButtonStyle : null,
+        macos && resolvedAppearance === 'elevated' ? macosGlassStyle : null,
+        macos && resolvedAppearance === 'tonal' && !prominent ? macosSecondaryStyle : null,
+        macos && (resolvedAppearance === 'text' || resolvedAppearance === 'link') && !prominent ? macosPlainStyle : null,
+        macos && prominent ? macosProminentStyle : null,
+        macos && prominent && resolvedAppearance === 'tonal' ? macosSelectedTonalStyle : null,
+        macos && resolvedDanger ? macosDangerStyle : null,
+        macos && resolvedAppearance === 'dashed' ? macosDashedStyle : null,
+        iconOnly ? iconOnlyStyle : null,
+        shouldFitContainer ? fitContainerStyle : null,
         className,
     );
 
@@ -165,6 +180,11 @@ const Button: FC<ButtonProps> = ({
     };
 
     const commonProps = {
+        'data-button-design': macos ? 'macos' : undefined,
+        'data-button-size': macos ? resolvedSize : undefined,
+        'data-button-shape': macos ? shape : undefined,
+        'data-button-selected': macos && isSelected ? 'true' : undefined,
+        'data-button-prominent': macos && prominent ? 'true' : undefined,
         'aria-busy': loading,
         'aria-disabled': disabled || loading,
         'data-is-loading': loading && !disabled ? `${loading}` : null,

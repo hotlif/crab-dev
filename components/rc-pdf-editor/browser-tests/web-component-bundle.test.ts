@@ -186,7 +186,7 @@ describe('无需框架、网络或额外资源的独立 JS', () => {
         expect(page.querySelector('[role="tooltip"]')).toBe(null);
     });
 
-    for (const designSystem of ['md3', 'apple', 'shadcn'] as const) {
+    for (const designSystem of ['md3', 'macos', 'shadcn'] as const) {
         it(`将 ${designSystem} 的明暗、语言和方向配置传到真实 Shadow 样式并保留会话`, async () => {
             const element = await editor();
             await element.open({ id: 'config', source: fixture(1) });
@@ -267,7 +267,7 @@ describe('无需框架、网络或额外资源的独立 JS', () => {
         };
         const script = target.createElement('script'); script.textContent = bundleCode; target.head.append(script);
         const element = target.createElement('crab-pdf-editor');
-        element.nonce = 'pdf-styles'; element.designSystem = 'apple'; element.brandColor = '#16F';
+        element.nonce = 'pdf-styles'; element.designSystem = 'macos'; element.brandColor = '#16F';
         target.body.append(element);
         try {
             await element.ready();
@@ -298,7 +298,7 @@ describe('无需框架、网络或额外资源的独立 JS', () => {
                 const tooltip = element.shadowRoot!.querySelector<HTMLElement>('[role="tooltip"]');
                 expect(tooltip).not.toBe(null);
                 const tooltipBoundary = tooltip!.closest<HTMLElement>('[data-crab-design]')!;
-                expect(tooltipBoundary.dataset.crabDesign).toBe('apple');
+                expect(tooltipBoundary.dataset.crabDesign).toBe('macos');
                 expect(tooltipBoundary.nonce).toBe('next-styles');
             });
             expect(target.querySelector('[role="tooltip"]')).toBe(null);

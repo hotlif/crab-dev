@@ -8,23 +8,22 @@ status = "experimental"
 {/* THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY. */}
 
 import ComponentDemos from "../site/componentDemos.js";
-import { demos } from "../_generated/rc-split-pane.js";
+import ComponentDesignGuide, { DesignIntroduction, DesignExampleIntroduction } from "../site/componentDesignGuide.js";
+import { demos, documents, guide } from "../_generated/rc-split-pane.js";
 
 # SplitPane 分栏面板
 
 <div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-split-pane</div>
+
+## 设计与用法
+
+<DesignIntroduction documents={documents} />
 
 <div id="基础示例" data-docs-example-anchor /><div id="全部示例" data-docs-example-anchor />
 
 ## 示例
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
-
-#### 三体系验收
-
-##### 分栏验收矩阵 — 实际拖动、键盘步进、上下限及复位；水平和垂直分栏共用公开尺寸协议。
-
-#### 分栏与尺寸控制
 
 ##### 基础用法 — 左右分栏，拖动分隔条调整左侧宽度；双击分隔条复位到 defaultSize
 
@@ -36,75 +35,13 @@ import { demos } from "../_generated/rc-split-pane.js";
 
 </div>
 
-<ComponentDemos demos={demos} />
+<DesignExampleIntroduction documents={documents} />
 
-[打开完整组件工作台](/components/rc-split-pane/workbench/)
+<ComponentDemos demos={demos} documents={documents} />
 
 ## 使用说明
 
-通过拖拽或键盘调整两侧面板尺寸，支持复位与尺寸记忆。
-
-
-### 何时使用
-
-- 调整编辑器侧栏、文件树或属性面板的宽度。
-- 分配主内容区与控制台、日志区的高度。
-- 通过 `persistKey` 记住调整结果，并提供键盘调整路径。
-
-需要两块面板以外的自定义布局时，可直接使用 `@crab-dev/rc-hooks` 的 `useDragResize`。
-
-分隔条的默认无障碍名称随 `ConfigProvider.locale` 切换中英文，不重置当前面板尺寸。多个分栏并存时，通过 `aria-label` 指定可区分的名称。
-
-
-
-### 设计风格与主题
-
-分隔线、拖动和焦点使用语义角色。Apple 使用紧凑的细分隔轨道，MD3 保留细线与较宽命中区，shadcn 增加居中的可见握柄。粗指针仍使用公共触控目标；方向键、Home/End、Enter、禁用及减少动态效果行为保持一致。所有演示的边框、背景和文字现已跟随当前主题。
-这是本库的可调整分栏扩展。MD3 的分隔角色用于视觉边界；Apple 的布局与焦点原则用于 Web 适配；shadcn/ui 参考固定 New York V4 Resizable 的握柄表达。分栏比例、约束与键盘调整属于本库契约，分隔线的视觉样式不能替代分栏行为验收。
-
-设计来源与固定参考版本见[三套设计体系](/guides/design-styles)，当前已核对范围见[设计覆盖矩阵](/guides/design-coverage)。这段说明记录适配边界，不代表完整视觉验收已通过。
-
-
-### 分栏矩阵规格
-
-本组件为桌面可调整分栏扩展。MD3 细分隔线与较宽交互区、Apple 紧凑轨道、shadcn 可见握柄由 L2 data.split 角色映射。可见边界、指针命中区和焦点轮廓分别维护，粗指针扩大命中区，不扩大分隔线。
-
-| 轴 | 项目规格 |
-| --- | --- |
-| 尺寸 | size 是主面板像素值；不使用通用 small / medium / large，验收独立覆盖最小值和最大值 |
-| 密度 | 数据密度不改变分隔条；命中区取决于输入方式 |
-| 状态 | 默认、hover、键盘焦点、实际按住拖动、禁用、垂直、Home 最小值、End 最大值 |
-| 动作 | 方向键步进，Enter / 双击复位；RTL 水平调整方向与布局一致 |
-| 减少动画 | 取消轨道颜色过渡，尺寸调整与状态反馈仍可用 |
-
-「分栏验收矩阵」实际驱动分隔条，不设置 data-dragging 或模拟按下类。Playwright 核对 aria-valuenow、方向和禁用语义，并在按住鼠标时截图。
-
-参考 [shadcn Resizable](https://ui.shadcn.com/docs/components/radix/resizable)，源码固定 [New York V4 Resizable](https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui/resizable.tsx)。MD3 与 Apple 不提供完全对应的 Web 组件；分隔、布局和焦点原则用于项目适配。参考记录日期：2026-10-29。
-
-### 适用场景
-
-用户需要在两个相关区域之间分配空间。 两个面板需要同时可见，并可能记住用户上次尺寸。
-
-窄屏无法同时容纳内容时改为分步、Tabs 或 Drawer；纯装饰分栏使用 CSS Grid。
-
-### 使用要点
-
-- orientation、primary、min/max 共同决定尺寸计算。
-- 拖动过程中限制合法范围，结束后再持久化最终尺寸。
-- 内容溢出由各面板处理，不能让分隔条被滚动内容遮住。
-
-### 无障碍
-
-- 分隔条使用 separator 语义并提供当前值、方向键调整和可见焦点。
-- 触控命中区可以大于可见线；缩放和窄屏时两个面板仍要可达。
-
-### 设计依据与覆盖
-
-- **MD3 Expressive**：M3 没有独立 Split pane；面板 surface、divider、focus 与触控目标使用 M3 规则，调整行为参考 Web separator 模式。 [依据 1](https://m3.material.io/components/divider/overview) · [依据 2](https://material-web.dev/components/divider/) · [依据 3](https://github.com/material-components/material-web/tree/main/divider)
-- **Apple**：依据 Apple HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。 [依据 1](https://developer.apple.com/design/human-interface-guidelines/components) · [依据 2](https://developer.apple.com/design/human-interface-guidelines/accessibility)
-- **shadcn/ui**：参考 shadcn/ui 的组件用途、中性表面与设计变量，在本库公共语义和 React 交互模型中实现；完整状态覆盖仍需按矩阵验收。 [依据 1](https://ui.shadcn.com/docs/components) · [依据 2](https://ui.shadcn.com/docs/theming) · [依据 3](https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4)
-
-设计依据不等于完成验收；当前状态与适用边界见[覆盖矩阵](/guides/design-coverage)。
+<ComponentDesignGuide guide={guide} documents={documents} />
 
 ## 常见问题
 

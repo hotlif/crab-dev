@@ -1,0 +1,29 @@
+{
+    "md3": {
+        "summary": "为长内容提供窗口化渲染，实际行的表面与交互仍由当前设计组件负责。",
+        "usage": "把测量行高与真实内容保持一致，字号、密度或容器变化后需要重新测量。",
+        "exampleDescription": "滚动基础列表，检查可见内容、滚动位置和语义行样式。",
+        "demos": [
+            "simple.demo.tsx",
+            "million.demo.tsx"
+        ]
+    },
+    "macos": {
+        "summary": "为桌面长列表和数据工作区减少渲染开销，保持内容位置与滚动体验稳定。",
+        "usage": "紧凑行高来自真实内容测量，窗口调整和列宽变化后不能沿用过期尺寸。",
+        "exampleDescription": "滚动大规模列表并调整视区，观察桌面行排列与滚动位置。",
+        "demos": [
+            "million.demo.tsx",
+            "simple.demo.tsx"
+        ]
+    },
+    "shadcn": {
+        "summary": "为中性列表和数据界面提供虚拟窗口，性能逻辑不定义新的组件外观。",
+        "usage": "可见项目仍要有稳定标识与可访问内容，测量结果应对应实际渲染尺寸。",
+        "exampleDescription": "检查列表窗口内项目的更新，确认边界、内容顺序与滚动状态一致。",
+        "demos": [
+            "simple.demo.tsx",
+            "million.demo.tsx"
+        ]
+    }
+}

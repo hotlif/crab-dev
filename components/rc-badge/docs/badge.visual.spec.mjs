@@ -55,9 +55,9 @@ for (const environment of environments) test.describe('Badge '+environment.id,()
             const draft=page.getByLabel('配置切换草稿',{exact:true});
             await draft.fill('Draft retained through theme changes');
             const instance=await draft.elementHandle();
-            await page.evaluate(next=>globalThis.postMessage({type:'crab:preview-config',...next},globalThis.location.origin),{designSystem:config.designSystem==='md3'?'apple':'md3',colorMode:config.colorMode==='light'?'dark':'light'});
+            await page.evaluate(next=>globalThis.postMessage({type:'crab:preview-config',...next},globalThis.location.origin),{designSystem:config.designSystem==='md3'?'macos':'md3',colorMode:config.colorMode==='light'?'dark':'light'});
             const boundary=page.locator('.demo-default-preview').first();
-            await expect(boundary).toHaveAttribute('data-crab-design',config.designSystem==='md3'?'apple':'md3');
+            await expect(boundary).toHaveAttribute('data-crab-design',config.designSystem==='md3'?'macos':'md3');
             await expect(boundary).toHaveAttribute('data-theme',config.colorMode==='light'?'dark':'light');
             await expect(draft).toHaveValue('Draft retained through theme changes');
             expect(await draft.evaluate((node,previous)=>node===previous,instance)).toBe(true);

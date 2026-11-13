@@ -701,6 +701,7 @@ export const vars = defineTokens({
     'feedback.toast.shape': '--token-semantic-feedback-toast-shape',
     'feedback.toast.border': '--token-semantic-feedback-toast-border',
     'feedback.notice.shape': '--token-semantic-feedback-notice-shape',
+    'feedback.notice.background': '--token-semantic-feedback-notice-background',
     'feedback.banner.shape': '--token-semantic-feedback-banner-shape',
     'feedback.banner.padding': '--token-semantic-feedback-banner-padding',
     'feedback.banner.title-font-size': '--token-semantic-feedback-banner-title-font-size',
@@ -766,7 +767,15 @@ export const vars = defineTokens({
     'action.button.xl.border-width': '--token-semantic-action-button-xl-border-width',
     'action.desktop.small.padding-inline': '--token-semantic-action-desktop-small-padding-inline',
     'action.desktop.medium.padding-inline': '--token-semantic-action-desktop-medium-padding-inline',
-    'action.desktop.large.padding-inline': '--token-semantic-action-desktop-large-padding-inline'
+    'action.desktop.large.padding-inline': '--token-semantic-action-desktop-large-padding-inline',
+    'material.filter': '--token-semantic-material-filter',
+    'material.sheen': '--token-semantic-material-sheen',
+    'material.background': '--token-semantic-material-background',
+    'material.border': '--token-semantic-material-border',
+    'material.shadow': '--token-semantic-material-shadow',
+    'material.navigation-background': '--token-semantic-material-navigation-background',
+    'material.control-shadow': '--token-semantic-material-control-shadow',
+    'material.knob-background': '--token-semantic-material-knob-background'
 });
 
 const token = defineTokens({
@@ -1799,7 +1808,8 @@ const token = defineTokens({
             'border': `var(${vars['feedback.toast.border']}, transparent)`
         },
         'notice': {
-            'shape': `var(${vars['feedback.notice.shape']}, var(--token-global-radius-6, 12px))`
+            'shape': `var(${vars['feedback.notice.shape']}, var(--token-global-radius-6, 12px))`,
+            'background': `var(${vars['feedback.notice.background']}, var(--token-semantic-color-surface-overlay, var(--token-global-material-neutral-94, oklch(0.95362610 0.01470533 312.243326))))`
         },
         'banner': {
             'shape': `var(${vars['feedback.banner.shape']}, var(--token-global-radius-6, 12px))`,
@@ -1909,6 +1919,16 @@ const token = defineTokens({
                 'padding-inline': `var(${vars['action.desktop.large.padding-inline']}, var(--token-global-space-5, 20px))`
             }
         }
+    },
+    'material': {
+        'filter': `var(${vars['material.filter']}, none)`,
+        'sheen': `var(${vars['material.sheen']}, none)`,
+        'background': `var(${vars['material.background']}, var(--token-semantic-color-surface-overlay, var(--token-global-material-neutral-94, oklch(0.95362610 0.01470533 312.243326))))`,
+        'border': `var(${vars['material.border']}, var(--token-semantic-color-border-subtle, var(--token-global-zinc-200, oklch(0.900 0.004 286))))`,
+        'shadow': `var(${vars['material.shadow']}, var(--token-global-shadow-md, 0 4px 6px -1px oklch(0 0 0 / 0.1), 0 2px 4px -2px oklch(0 0 0 / 0.1)))`,
+        'navigation-background': `var(${vars['material.navigation-background']}, initial)`,
+        'control-shadow': `var(${vars['material.control-shadow']}, var(--token-global-shadow-xs, 0 1px 2px oklch(0 0 0 / 0.03)))`,
+        'knob-background': `var(${vars['material.knob-background']}, var(--token-global-white, oklch(1.000 0 0)))`
     }
 });
 

@@ -94,7 +94,7 @@ FlowDiagram 接受 `viewport / defaultViewport / onViewportChange`。新文档�
 
 ## 设计风格与主题
 
-FlowDiagram 组合 Canvas、视口、网格、节点与连线，按 Crab 的流程图扩展维护。Material Design 3 Expressive、Apple 和 shadcn/ui 的来源及固定基线见[三套设计体系](/guides/design-styles)；三体系为其承载表面、前景、边界和选中角色提供独立契约，不定义 ELK 布局或本库的编辑协议。
+FlowDiagram 组合 Canvas、视口、网格、节点与连线，按 Crab 的流程图扩展维护。Material Design 3 Expressive、macOS 和 shadcn/ui 的来源及固定基线见[三套设计体系](/guides/design-styles)；三体系为其承载表面、前景、边界和选中角色提供独立契约，不定义 ELK 布局或本库的编辑协议。
 
 默认节点填充与标签使用品牌色及其配对前景，描边、连线和网格使用各自的语义角色，通过 FlowDiagram L3 色板传给绘制层。显式节点、标签和连线颜色仍表示业务覆盖；只替换节点填充时，需要同时核对标签前景。默认色板示例与显式业务配色示例应分别查看。
 
@@ -105,7 +105,7 @@ FlowDiagram 组合 Canvas、视口、网格、节点与连线，按 Crab 的流�
 
 ## 桌面三体系矩阵规格
 
-核对日期：2026-10-29。流程图没有一一对应的 M3 Expressive、Apple 或 shadcn 原生组件；ELK、正交路由、手动端口、拖动及 world 坐标由本库领域协议定义。官方来源以[三套设计体系](/guides/design-styles)的固定基线为准；[Apple Charts](https://developer.apple.com/design/human-interface-guidelines/charts)提供图形和文字共同传递含义的原则，shadcn 的固定 New York V4 仅作为中性表面、边界和焦点的参考，不宣称其有等价流程图引擎。
+核对日期：2026-10-29。流程图没有一一对应的 M3 Expressive、macOS 或 shadcn 原生组件；ELK、正交路由、手动端口、拖动及 world 坐标由本库领域协议定义。官方来源以[三套设计体系](/guides/design-styles)的固定基线为准；[macOS Charts](https://developer.apple.com/design/human-interface-guidelines/charts)提供图形和文字共同传递含义的原则，shadcn 的固定 New York V4 仅作为中性表面、边界和焦点的参考，不宣称其有等价流程图引擎。
 
 | 项目 | 视觉合同 | 领域边界 |
 | --- | --- | --- |

@@ -1,6 +1,12 @@
 # 教学内容维护
 
-每个组件包对应一份 `rc-*.json`，三个实战对应 `practice-profile.json`、`practice-data.json` 和 `practice-admin.json`。这里保存教学文字和组件 FAQ，不要修改生成的组件页。组件页的简短用途来自 `catalog/overview.json`，示例来自 `components/rc-*/docs/demos/`；组件页不再重复展示教程第一步和分步教程。`component-guides.json` 的场景、使用要点与无障碍建议放在示例之后，详细说明继续维护于各组件的 `docs/index.mdx`。
+每个组件包对应一份 `rc-*.json`，三个实战对应 `practice-profile.json`、`practice-data.json` 和 `practice-admin.json`。这里保存教学文字和组件 FAQ，不要修改生成的组件页。组件页的公共用途来自 `catalog/overview.json`，当前主题介绍与示例顺序来自包内 `docs/designs.json`，运行示例来自 `components/rc-*/docs/demos/`。组件页不再重复展示教程第一步和分步教程。`component-guides.json` 的共用场景、使用要点与无障碍建议放在示例之后；设计参考只展示当前主题。`docs/index.mdx` 保留技术说明与真实 API 标记，旧的跨主题比较不再自动注入主题文档。
+
+## 独立主题组件文档
+
+每个包的 `docs/designs.json` 必须完整提供 `md3`、`macos`、`shadcn`。各项填写 `summary`（组件在当前设计中的介绍）、`usage`（当前设计的用法）、`exampleDescription`（示例操作指引）与 `demos`（本目录 demos 下的文件名，首项用于顶部预览）。三项正文分别撰写，不能复制相同段落或混入其他主题。公共 API、值事件、键盘与无障碍契约仍共享，不虚构主题专属能力。
+
+共用示例继承最近 Provider 的设计配置；跨主题并排示例不能进入主题选集。专属示例只列入对应主题。工程矩阵可留在原工作台用于验收，但不作为使用者的教学入口。顶部预览选择选集首项，交互列表保持原始展示顺序，避免移动 iframe DOM 导致浏览器重新加载。页面切换主题时只更新正文、选集与配置，不重建共用示例的 iframe。生成器验证完整性、文案隔离、文件存在性、重复引用及固定主题边界；修改此文件也参与开发模式的增量生成。
 
 一份教程包括 `id`、`title`、`summary`、`prerequisite`、`steps` 和 `faq`。每个步骤填写：
 

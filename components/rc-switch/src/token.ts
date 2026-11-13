@@ -67,7 +67,11 @@ export const vars = defineTokens({
     'size.small.track.height': '--switch-size-small-track-height',
     'size.small.track.border-radius': '--switch-size-small-track-border-radius',
     'size.small.handle.width': '--switch-size-small-handle-width',
-    'size.small.handle.left': '--switch-size-small-handle-left'
+    'size.small.handle.left': '--switch-size-small-handle-left',
+    'material.backdrop-filter': '--switch-material-backdrop-filter',
+    'material.background-image': '--switch-material-background-image',
+    'material.knob.background-color': '--switch-material-knob-background-color',
+    'material.knob.scale': '--switch-material-knob-scale'
 });
 
 const token = defineTokens({
@@ -182,6 +186,14 @@ const token = defineTokens({
                 'width': `var(${vars['size.small.handle.width']}, var(--token-semantic-sizing-small-toggle-handle-width, var(--token-global-space-3, 12px)))`,
                 'left': `var(${vars['size.small.handle.left']}, var(--token-semantic-sizing-small-toggle-handle-inset, var(--token-global-space-0-5, 2px)))`
             }
+        }
+    },
+    'material': {
+        'backdrop-filter': `var(${vars['material.backdrop-filter']}, var(--token-semantic-material-filter, none))`,
+        'background-image': `var(${vars['material.background-image']}, var(--token-semantic-material-sheen, none))`,
+        'knob': {
+            'background-color': `var(${vars['material.knob.background-color']}, var(--token-semantic-material-knob-background, var(--token-global-white, oklch(1.000 0 0))))`,
+            'scale': `var(${vars['material.knob.scale']}, 1.08)`
         }
     }
 });

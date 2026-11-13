@@ -1,10 +1,10 @@
 import { useId } from 'react';
 import { css } from '@crab-dev/css';
-import ConfigProvider from '@crab-dev/rc-config-provider';
-import token from '@crab-dev/rc-token-semantic';
-import Switch from '../../src/switch.js';
+import ConfigProvider, { useConfig } from '@crab-dev/rc-config-provider';
+import token, { designSystemRegistry } from '@crab-dev/rc-token-semantic';
+import Switch from '@crab-dev/rc-switch';
 
-export const meta = { title: '三套设计与状态', description: 'MD3 的手柄随选中和按压改变大小；Apple 与 shadcn 使用各自的紧凑轨道与等大的手柄。' };
+export const meta = { title: '当前主题的交互状态', description: '观察当前主题下的选中、禁用和焦点反馈；示例继承文档配置，可直接操作。' };
 const panel = css`
     display: grid;
     gap: ${token.space['component-gap']};
@@ -16,11 +16,12 @@ const panel = css`
 `;
 const stack = css`display: grid; gap: ${token.space['stack-gap']};`;
 export default function DesignsDemo() {
+    const { designSystem: design } = useConfig();
     const errorId = useId();
     return <div className={stack}>
-        {(['apple', 'md3', 'shadcn'] as const).map(design => <ConfigProvider key={design} designSystem={design}>
+        <ConfigProvider designSystem={design}>
             <section className={panel} aria-label={`${design} 开关`}>
-                <strong>{design === 'md3' ? 'MD3' : design === 'apple' ? 'Apple' : 'shadcn'}</strong>
+                <strong>{designSystemRegistry[design].label}</strong>
                 <Switch>开启通知</Switch>
                 <Switch defaultChecked>自动同步</Switch>
                 <Switch disabled>暂不可用</Switch>
@@ -28,6 +29,6 @@ export default function DesignsDemo() {
                 <Switch defaultChecked aria-invalid="true" aria-describedby={`${errorId}-${design}`}>云端备份</Switch>
                 <small id={`${errorId}-${design}`}>备份失败，请检查连接后重试。</small>
             </section>
-        </ConfigProvider>)}
+        </ConfigProvider>
     </div>;
 }

@@ -3,6 +3,7 @@
  */
 
 import type { ComponentDemoRecord } from "../site/componentDemos.js";
+import type { ComponentDesignDocuments } from "../site/componentDesignGuide.js";
 
 export const demos = [
     {
@@ -164,3 +165,76 @@ export const demos = [
         "group": null
     }
 ] as const satisfies readonly ComponentDemoRecord[];
+
+export const documents = {
+    "md3": {
+        "summary": "以语义强调色显示数量或状态，在主内容之外提供短小、明确的补充信息。",
+        "usage": "把徽标贴近关联对象，避免让计数标记与页面主要操作争夺注意力。",
+        "exampleDescription": "查看附着在对象上的计数与状态，确认文字放大后仍能读出关联关系。",
+        "demos": [
+            "wrapped.demo.tsx",
+            "basic.demo.tsx",
+            "color.demo.tsx",
+            "size.demo.tsx",
+            "status.demo.tsx"
+        ],
+        "references": [
+            "https://m3.material.io/components/badges/overview",
+            "https://material-web.dev/components/",
+            "https://github.com/material-components/material-web"
+        ]
+    },
+    "macos": {
+        "summary": "为侧栏、工具栏和列表项目提供紧凑的计数与状态标记，保持数字可读。",
+        "usage": "计数应说明待处理内容，状态要同时有文字；紧凑布局也需保留徽标边界。",
+        "exampleDescription": "比较不同尺寸的计数标记，检查数字与相邻控件在紧凑布局中的间距。",
+        "demos": [
+            "size.demo.tsx",
+            "basic.demo.tsx",
+            "color.demo.tsx",
+            "status.demo.tsx",
+            "wrapped.demo.tsx"
+        ],
+        "references": [
+            "https://developer.apple.com/design/human-interface-guidelines/components",
+            "https://developer.apple.com/design/human-interface-guidelines/accessibility"
+        ]
+    },
+    "shadcn": {
+        "summary": "用清晰的文字、边界与语义颜色标示数量和状态，融入中性的数据界面。",
+        "usage": "优先用简短标签解释状态；自定义颜色不能替代明确的状态名称。",
+        "exampleDescription": "检查每种状态的文字和标记，再对比计数示例中的溢出表达。",
+        "demos": [
+            "status.demo.tsx",
+            "basic.demo.tsx",
+            "color.demo.tsx",
+            "size.demo.tsx",
+            "wrapped.demo.tsx"
+        ],
+        "references": [
+            "https://ui.shadcn.com/docs/components",
+            "https://ui.shadcn.com/docs/theming",
+            "https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4"
+        ]
+    }
+} as const satisfies ComponentDesignDocuments;
+
+export const guide = {
+    "definition": "Badge 把简短数量或状态贴近相关对象展示，例如未读数或新内容标记。它只负责提醒“这里有变化”，详细含义仍由附近文字或目标页面解释。",
+    "useWhen": [
+        "图标、头像或导航入口需要显示未读数量。",
+        "需要用一个很短的状态标记吸引注意，但不应打断当前任务。"
+    ],
+    "avoidWhen": [
+        "较长状态文字使用 Tag 或正文；需要用户立即处理的错误使用 Alert、Notification 或 Dialog。"
+    ],
+    "essentials": [
+        "数字要设置合理上限，避免大数撑坏目标元素。",
+        "dot 适合只表达有无，count 适合数量本身有意义。",
+        "Badge 应依附清楚的宿主，单独出现通常缺少上下文。"
+    ],
+    "accessibility": [
+        "为宿主提供包含数量含义的可访问名称，不能只让读屏读出一个孤立数字。",
+        "状态变化不要只用颜色表达；频繁更新时避免把每次计数都作为强制通告。"
+    ]
+} as const;

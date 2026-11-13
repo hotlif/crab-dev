@@ -8,23 +8,22 @@ status = "experimental"
 {/* THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY. */}
 
 import ComponentDemos from "../site/componentDemos.js";
-import { demos } from "../_generated/rc-prose.js";
+import ComponentDesignGuide, { DesignIntroduction, DesignExampleIntroduction } from "../site/componentDesignGuide.js";
+import { demos, documents, guide } from "../_generated/rc-prose.js";
 
 # Prose 长文本排版
 
 <div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-prose</div>
+
+## 设计与用法
+
+<DesignIntroduction documents={documents} />
 
 <div id="基础示例" data-docs-example-anchor /><div id="全部示例" data-docs-example-anchor />
 
 ## 示例
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
-
-#### 三体系验收
-
-##### 排版验收矩阵 — 真实文章字阶、逆色表面、长链接、代码滚动、表格和退出作用域的嵌入区域。
-
-#### 文章与排版
 
 ##### 基础用法 — 默认 `size=base`，包含标题、段落、链接、粗体等基础排版元素
 
@@ -34,100 +33,17 @@ import { demos } from "../_generated/rc-prose.js";
 
 ##### 表格与定义列表 — 展示表格与定义列表的排版效果
 
-#### 主题与内容边界
-
-##### 正色与逆色内容 — 四档文章字阶分别展示普通与 invert 排版。逆色容器使用当前主题的 inverse 背景，随明暗模式改变；内容覆盖中文、长链接、代码、表格和键盘提示。
-
 ##### 嵌入独立内容 — not-prose 排除区域自身及后代的直接排版规则；字体和颜色仍会正常继承，独立区域可定义自己的外观。
 
 </div>
 
-<ComponentDemos demos={demos} />
+<DesignExampleIntroduction documents={documents} />
 
-[打开完整组件工作台](/components/rc-prose/workbench/)
+<ComponentDemos demos={demos} documents={documents} />
 
 ## 使用说明
 
-为 Markdown、MDX 或富文本生成的内容提供统一排版样式。
-
-
-### 何时使用
-
-- 渲染 Markdown / MDX 内容时，提供一致的排版体验。
-- 文章页面、文档页面、博客内容的排版。
-- 需要对标题、段落、列表、代码块、表格等元素统一样式。
-
-### 主要功能
-
-- 零运行时，基于 Crab CSS 编译为静态 CSS。
-- 支持四种尺寸变体：`sm`、`base`、`lg`、`xl`。
-- 支持 `invert` 逆色排版，配合当前主题的 inverse 背景。
-- 支持 `as` 语义标签：`div`、`article`、`section`、`main`。
-- 完整的排版规则覆盖：标题、段落、链接、列表、引用、代码、表格、媒体、定义列表。
-- 三层设计令牌架构，支持主题覆写。
-
-
-“正色与逆色内容”在四档文章字阶下并列展示普通和 `invert` 排版，包含中文、长链接、代码、表格与键盘提示。逆色文字应放在当前主题的 inverse 背景上，不能将 `invert` 一概理解为固定暗色。导语、列表编号和图注使用与该背景配对的 inverse 前景，不再额外叠加固定透明度；阅读层级通过文章字阶、字重和间距表达。四档导语均按普通文字的至少 4.5:1 核对，代码文字则先合成自身半透明背景。自定义前景、背景或祖先透明度后，需要重新核对实际合成对比度。
-
-
-
-### 内容边界与键盘焦点
-
-Prose 为后代排版规则保留一个组件根类的优先级，普通宿主 `a`、`kbd`、`code` 等标签样式不会接管其外观。需要定制时，使用自己的作用域类或公开 `TokenVars`；组件不会用 `!important` 阻止明确覆盖。
-
-给嵌入内容添加 `not-prose` 类，可以排除该元素及其后代的直接排版规则。祖先字体、颜色和 CSS 变量仍遵循正常继承；嵌入区域需要自己的外观时应显式定义。`not-prose` 内再次嵌套 Prose 不会自动重新启用排版。
-
-链接支持浏览器原生键盘导航；获得键盘焦点时使用当前设计体系的焦点角色，逆色内容使用与 inverse 背景配对的前景。长链接可以换行，焦点轮廓随内容绘制；强制颜色模式使用系统高亮色。行内代码与代码块分别管理尺寸，代码块中的 `code` 继承 `pre`，避免重复缩小或叠加内边距。
-
-文章遵循所在边界的 `direction`，标题、段落、列表和引用可使用 RTL 排版。`pre` 与 `code` 单独使用 LTR 及双向隔离，保持编程语法中括号、分号和 JSX 标记的阅读顺序；代码块从左侧开始，长行仍在自身范围内横向滚动。切换文章方向不修改内容字符串或 DOM 语义。需要展示其他方向的非编程预格式内容时，可用 `not-prose` 退出这条规则，或通过自己的作用域样式明确覆盖。
-
-
-### 设计风格与主题
-
-正文与标题使用设计边界的排版角色；内嵌表格使用与 Table 一致的表头、边框和圆角，行内代码使用公共小圆角。长文本行距及语义标签保持稳定，风格切换不会改变文档结构。
-这是本库的富文本展示扩展。MD3、Apple、shadcn/ui 分别提供排版、链接、代码、引用与表格的语义角色；HTML 内容结构及长文本溢出由 Prose 负责。文章字阶独立于通用控件尺寸，具体排版组合属于本库 Web 适配。
-
-设计来源与固定参考版本见[三套设计体系](/guides/design-styles)，当前已核对范围见[设计覆盖矩阵](/guides/design-coverage)。这段说明记录适配边界，不代表完整视觉验收已通过。
-
-
-### 排版矩阵规格
-
-| 轴 | 项目规格 |
-| --- | --- |
-| 字阶 | 公开 sm / base / lg / xl；独立于通用控件尺寸和数据密度 |
-| 三体系 | 标题、正文、链接、引用、代码和表格取最近设计边界的语义角色；HTML 结构保持 |
-| 状态 | 普通与 inverse 配对表面、真实链接 hover、键盘焦点 |
-| 长内容 | 连续链接换行；代码单独 LTR 并横向滚动；表格不挤出文章边界 |
-| 作用域 | not-prose 排除后代的直接排版，保留正常继承；嵌入区域自行提供配对表面 |
-
-「排版验收矩阵」在同一文章结构中切换四档字阶和逆色，不重建内容。静态比较显式保留动画和原生链接焦点；另检查代码方向、独立滚动与作用域内容。页面缩放使用真实浏览器缩放验收，不用 DPR 或窄视口替代。
-
-本文是基于语义 HTML 的 Web 排版扩展。MD3 参考 [Typography](https://m3.material.io/styles/typography/overview) 的层级，Apple 参考[布局原则](https://developer.apple.com/design/human-interface-guidelines/layout)，shadcn 参考 [Typography](https://ui.shadcn.com/docs/components/radix/typography) 的内容表达；不将整篇文章冒充原生平台组件。shadcn 项目参考仍固定 New York V4 提交 3d98900e9b73c45f035f8109e9d41ba6a51685e7。参考记录日期：2026-10-29。
-
-### 适用场景
-
-帮助文档、发布说明或富文本内容需要稳定阅读样式。 Markdown 或 CMS 输出需要一层可控的语义排版容器。
-
-表单、仪表盘和紧凑数据界面使用各自组件布局，不要套用文章行高。
-
-### 使用要点
-
-- 使用正确 HTML 语义，让样式跟随 h1、p、ul、code 等结构。
-- size 调整整体阅读尺度，但标题层级仍由文档结构决定。
-- 表格和代码块要处理窄屏溢出，而不是压缩到不可读。
-
-### 无障碍
-
-- 标题不能跳级，链接文字要描述目标，图片和代码有必要说明。
-- 在 200% 缩放、长中文和高对比模式下检查行长、换行和焦点。
-
-### 设计依据与覆盖
-
-- **MD3 Expressive**：直接使用 M3 Typography 角色、颜色与间距建立长文排版；Prose 是项目级内容模式。 [依据 1](https://m3.material.io/styles/typography/overview) · [依据 2](https://material-web.dev/theming/typography/) · [依据 3](https://github.com/material-components/material-web/tree/main/typography)
-- **Apple**：依据 Apple HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。 [依据 1](https://developer.apple.com/design/human-interface-guidelines/components) · [依据 2](https://developer.apple.com/design/human-interface-guidelines/accessibility)
-- **shadcn/ui**：参考 shadcn/ui 的组件用途、中性表面与设计变量，在本库公共语义和 React 交互模型中实现；完整状态覆盖仍需按矩阵验收。 [依据 1](https://ui.shadcn.com/docs/components) · [依据 2](https://ui.shadcn.com/docs/theming) · [依据 3](https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4)
-
-设计依据不等于完成验收；当前状态与适用边界见[覆盖矩阵](/guides/design-coverage)。
+<ComponentDesignGuide guide={guide} documents={documents} />
 
 ## 常见问题
 

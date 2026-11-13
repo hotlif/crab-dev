@@ -15,9 +15,9 @@ function check(condition: unknown, message: string): asserts condition {
 /** Real published HTML/CSS focus paint; no forced pseudo-state or animation override. */
 export function installNormalFocusFixture(subject: Subject): void {
     const params = new URLSearchParams(location.search);
-    const designSystem = params.get('designSystem') as 'md3' | 'apple' | 'shadcn';
+    const designSystem = params.get('designSystem') as 'md3' | 'macos' | 'shadcn';
     const colorMode = params.get('colorMode') as 'light' | 'dark';
-    check(['md3', 'apple', 'shadcn'].includes(designSystem) && ['light', 'dark'].includes(colorMode), 'Invalid normal focus configuration');
+    check(['md3', 'macos', 'shadcn'].includes(designSystem) && ['light', 'dark'].includes(colorMode), 'Invalid normal focus configuration');
     const host = document.getElementById('root');
     check(host, 'Missing normal focus host');
     const root = createRoot(host);

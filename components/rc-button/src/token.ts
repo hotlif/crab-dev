@@ -179,7 +179,46 @@ export const vars = defineTokens({
     'shape.default.border-radius-selected': '--button-shape-default-border-radius-selected',
     'shape.default.border-radius-active': '--button-shape-default-border-radius-active',
     'icon.width': '--button-icon-width',
-    'group.gap': '--button-group-gap'
+    'group.gap': '--button-group-gap',
+    'material.backdrop-filter': '--button-material-backdrop-filter',
+    'material.background-image': '--button-material-background-image',
+    'macos.control.color': '--button-macos-control-color',
+    'macos.control.background-color': '--button-macos-control-background-color',
+    'macos.control.background-color-hover': '--button-macos-control-background-color-hover',
+    'macos.control.background-color-active': '--button-macos-control-background-color-active',
+    'macos.control.background-image': '--button-macos-control-background-image',
+    'macos.control.border-color': '--button-macos-control-border-color',
+    'macos.control.border-radius': '--button-macos-control-border-radius',
+    'macos.control.box-shadow': '--button-macos-control-box-shadow',
+    'macos.control.box-shadow-active': '--button-macos-control-box-shadow-active',
+    'macos.control.outline-color': '--button-macos-control-outline-color',
+    'macos.control.font-weight': '--button-macos-control-font-weight',
+    'macos.control.transition': '--button-macos-control-transition',
+    'macos.prominent.color': '--button-macos-prominent-color',
+    'macos.prominent.background-color': '--button-macos-prominent-background-color',
+    'macos.prominent.background-color-hover': '--button-macos-prominent-background-color-hover',
+    'macos.prominent.background-color-active': '--button-macos-prominent-background-color-active',
+    'macos.prominent.border-color': '--button-macos-prominent-border-color',
+    'macos.prominent.background-image': '--button-macos-prominent-background-image',
+    'macos.secondary.color': '--button-macos-secondary-color',
+    'macos.secondary.background-color': '--button-macos-secondary-background-color',
+    'macos.secondary.background-color-hover': '--button-macos-secondary-background-color-hover',
+    'macos.secondary.background-color-active': '--button-macos-secondary-background-color-active',
+    'macos.tonal.color-selected': '--button-macos-tonal-color-selected',
+    'macos.tonal.background-color-selected': '--button-macos-tonal-background-color-selected',
+    'macos.tonal.background-color-hover': '--button-macos-tonal-background-color-hover',
+    'macos.tonal.background-color-active': '--button-macos-tonal-background-color-active',
+    'macos.glass.background-color': '--button-macos-glass-background-color',
+    'macos.glass.background-color-hover': '--button-macos-glass-background-color-hover',
+    'macos.glass.background-color-active': '--button-macos-glass-background-color-active',
+    'macos.glass.box-shadow': '--button-macos-glass-box-shadow',
+    'macos.plain.color': '--button-macos-plain-color',
+    'macos.danger.color': '--button-macos-danger-color',
+    'macos.danger.background-color': '--button-macos-danger-background-color',
+    'macos.danger.background-color-hover': '--button-macos-danger-background-color-hover',
+    'macos.danger.background-color-active': '--button-macos-danger-background-color-active',
+    'macos.group.padding': '--button-macos-group-padding',
+    'macos.group.border-radius': '--button-macos-group-border-radius'
 });
 
 const token = defineTokens({
@@ -439,6 +478,65 @@ const token = defineTokens({
     },
     'group': {
         'gap': `var(${vars['group.gap']}, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)))`
+    },
+    'material': {
+        'backdrop-filter': `var(${vars['material.backdrop-filter']}, var(--token-semantic-material-filter, none))`,
+        'background-image': `var(${vars['material.background-image']}, var(--token-semantic-material-sheen, none))`
+    },
+    'macos': {
+        'control': {
+            'color': `var(${vars['macos.control.color']}, var(--button-outlined-color, var(--token-semantic-color-text-primary, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695)))))`,
+            'background-color': `var(${vars['macos.control.background-color']}, var(--button-outlined-background-color, var(--token-semantic-color-surface-raised, var(--token-semantic-color-background-elevated, var(--token-global-material-neutral-96, oklch(0.96728288 0.01181410 313.217082))))))`,
+            'background-color-hover': `var(${vars['macos.control.background-color-hover']}, var(--button-outlined-background-color-hover, color-mix(in oklch, var(--token-semantic-color-text-primary, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695))) 4%, var(--token-semantic-color-surface-raised, var(--token-semantic-color-background-elevated, var(--token-global-material-neutral-96, oklch(0.96728288 0.01181410 313.217082)))))))`,
+            'background-color-active': `var(${vars['macos.control.background-color-active']}, var(--button-outlined-background-color-active, color-mix(in oklch, var(--token-semantic-color-text-primary, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695))) 10%, var(--token-semantic-color-surface-raised, var(--token-semantic-color-background-elevated, var(--token-global-material-neutral-96, oklch(0.96728288 0.01181410 313.217082)))))))`,
+            'background-image': `var(${vars['macos.control.background-image']}, var(--token-semantic-material-sheen, none))`,
+            'border-color': `var(${vars['macos.control.border-color']}, var(--button-outlined-border-color, var(--token-semantic-color-border-subtle, var(--token-global-material-neutral-variant-80, oklch(0.82874810 0.01775809 308.222736)))))`,
+            'border-radius': `var(${vars['macos.control.border-radius']}, var(--button-root-border-radius, var(--token-semantic-shape-control, var(--token-global-radius-2, 4px))))`,
+            'box-shadow': `var(${vars['macos.control.box-shadow']}, var(--token-semantic-material-control-shadow, var(--token-global-shadow-xs, 0 1px 2px oklch(0 0 0 / 0.03))))`,
+            'box-shadow-active': `var(${vars['macos.control.box-shadow-active']}, inset 0 1px 3px color-mix(in oklch, var(--token-semantic-color-text-primary, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695))) 12%, transparent))`,
+            'outline-color': `var(${vars['macos.control.outline-color']}, var(--button-root-outline-color-focus, var(--token-semantic-color-focus-ring, var(--token-semantic-color-border-focus, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078))))))`,
+            'font-weight': `var(${vars['macos.control.font-weight']}, var(--token-semantic-typography-label-font-weight, var(--token-global-font-weight-medium, 500)))`,
+            'transition': `var(${vars['macos.control.transition']}, background-color var(--token-semantic-motion-effects-fast, var(--token-global-duration-150, 150ms) var(--token-global-easing-expressive-effects-fast, cubic-bezier(0.31, 0.94, 0.34, 1.00))), color var(--token-semantic-motion-effects-fast, var(--token-global-duration-150, 150ms) var(--token-global-easing-expressive-effects-fast, cubic-bezier(0.31, 0.94, 0.34, 1.00))), box-shadow var(--token-semantic-motion-effects-fast, var(--token-global-duration-150, 150ms) var(--token-global-easing-expressive-effects-fast, cubic-bezier(0.31, 0.94, 0.34, 1.00))))`
+        },
+        'prominent': {
+            'color': `var(${vars['macos.prominent.color']}, var(--token-semantic-color-text-on-brand, var(--token-global-white, oklch(1.000 0 0))))`,
+            'background-color': `var(${vars['macos.prominent.background-color']}, var(--token-semantic-color-brand-primary, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078))))`,
+            'background-color-hover': `var(${vars['macos.prominent.background-color-hover']}, var(--token-semantic-color-brand-primary-hover, var(--token-global-purple-30, oklch(0.41029262 0.13369038 292.705951))))`,
+            'background-color-active': `var(${vars['macos.prominent.background-color-active']}, var(--token-semantic-color-brand-primary-active, var(--token-global-purple-20, oklch(0.32510160 0.13528526 291.151996))))`,
+            'border-color': `var(${vars['macos.prominent.border-color']}, color-mix(in oklch, var(--token-semantic-color-brand-primary, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078))) 80%, var(--token-semantic-color-text-primary, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695)))))`,
+            'background-image': `var(${vars['macos.prominent.background-image']}, linear-gradient(180deg, color-mix(in oklch, var(--token-semantic-color-control-thumb, var(--token-global-white, oklch(1.000 0 0))) 5%, transparent), transparent 70%))`
+        },
+        'secondary': {
+            'color': `var(${vars['macos.secondary.color']}, var(--token-semantic-color-text-link, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078))))`,
+            'background-color': `var(${vars['macos.secondary.background-color']}, color-mix(in srgb, var(--token-semantic-color-brand-primary, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078))) 10%, var(--token-semantic-color-surface-raised, var(--token-semantic-color-background-elevated, var(--token-global-material-neutral-96, oklch(0.96728288 0.01181410 313.217082))))))`,
+            'background-color-hover': `var(${vars['macos.secondary.background-color-hover']}, color-mix(in srgb, var(--token-semantic-color-brand-primary, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078))) 14%, var(--token-semantic-color-surface-raised, var(--token-semantic-color-background-elevated, var(--token-global-material-neutral-96, oklch(0.96728288 0.01181410 313.217082))))))`,
+            'background-color-active': `var(${vars['macos.secondary.background-color-active']}, color-mix(in srgb, var(--token-semantic-color-brand-primary, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078))) 18%, var(--token-semantic-color-surface-raised, var(--token-semantic-color-background-elevated, var(--token-global-material-neutral-96, oklch(0.96728288 0.01181410 313.217082))))))`
+        },
+        'tonal': {
+            'color-selected': `var(${vars['macos.tonal.color-selected']}, var(--button-tonal-color-selected, var(--token-semantic-color-text-on-brand, var(--token-global-white, oklch(1.000 0 0)))))`,
+            'background-color-selected': `var(${vars['macos.tonal.background-color-selected']}, var(--button-tonal-background-color-selected, var(--token-semantic-color-brand-primary, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078)))))`,
+            'background-color-hover': `var(${vars['macos.tonal.background-color-hover']}, var(--button-tonal-background-color-selected, var(--token-semantic-color-brand-primary-hover, var(--token-global-purple-30, oklch(0.41029262 0.13369038 292.705951)))))`,
+            'background-color-active': `var(${vars['macos.tonal.background-color-active']}, var(--button-tonal-background-color-selected, var(--token-semantic-color-brand-primary-active, var(--token-global-purple-20, oklch(0.32510160 0.13528526 291.151996)))))`
+        },
+        'glass': {
+            'background-color': `var(${vars['macos.glass.background-color']}, var(--token-semantic-material-background, var(--token-semantic-color-surface-overlay, var(--token-global-material-neutral-94, oklch(0.95362610 0.01470533 312.243326)))))`,
+            'background-color-hover': `var(${vars['macos.glass.background-color-hover']}, color-mix(in oklch, var(--token-semantic-color-surface-raised, var(--token-semantic-color-background-elevated, var(--token-global-material-neutral-96, oklch(0.96728288 0.01181410 313.217082)))) 20%, var(--token-semantic-material-background, var(--token-semantic-color-surface-overlay, var(--token-global-material-neutral-94, oklch(0.95362610 0.01470533 312.243326))))))`,
+            'background-color-active': `var(${vars['macos.glass.background-color-active']}, color-mix(in oklch, var(--token-semantic-color-text-primary, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695))) 8%, var(--token-semantic-material-background, var(--token-semantic-color-surface-overlay, var(--token-global-material-neutral-94, oklch(0.95362610 0.01470533 312.243326))))))`,
+            'box-shadow': `var(${vars['macos.glass.box-shadow']}, var(--token-semantic-material-control-shadow, var(--token-global-shadow-xs, 0 1px 2px oklch(0 0 0 / 0.03))))`
+        },
+        'plain': {
+            'color': `var(${vars['macos.plain.color']}, var(--button-text-color, var(--token-semantic-color-text-primary, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695)))))`
+        },
+        'danger': {
+            'color': `var(${vars['macos.danger.color']}, var(--token-semantic-color-feedback-error-text, var(--token-global-material-error-10, oklch(0.25390329 0.07937181 27.605486))))`,
+            'background-color': `var(${vars['macos.danger.background-color']}, color-mix(in oklch, var(--token-semantic-color-feedback-error-solid, var(--token-global-material-error-40, oklch(0.50128208 0.17831791 28.704727))) 6%, var(--token-semantic-color-surface-raised, var(--token-semantic-color-background-elevated, var(--token-global-material-neutral-96, oklch(0.96728288 0.01181410 313.217082))))))`,
+            'background-color-hover': `var(${vars['macos.danger.background-color-hover']}, color-mix(in oklch, var(--token-semantic-color-feedback-error-solid, var(--token-global-material-error-40, oklch(0.50128208 0.17831791 28.704727))) 10%, var(--token-semantic-color-surface-raised, var(--token-semantic-color-background-elevated, var(--token-global-material-neutral-96, oklch(0.96728288 0.01181410 313.217082))))))`,
+            'background-color-active': `var(${vars['macos.danger.background-color-active']}, color-mix(in oklch, var(--token-semantic-color-feedback-error-solid, var(--token-global-material-error-40, oklch(0.50128208 0.17831791 28.704727))) 14%, var(--token-semantic-color-surface-raised, var(--token-semantic-color-background-elevated, var(--token-global-material-neutral-96, oklch(0.96728288 0.01181410 313.217082))))))`
+        },
+        'group': {
+            'padding': `var(${vars['macos.group.padding']}, var(--token-semantic-space-stack-gap, var(--token-global-space-3, 12px)))`,
+            'border-radius': `var(${vars['macos.group.border-radius']}, var(--token-semantic-shape-overlay, var(--token-global-radius-14, 28px)))`
+        }
     }
 });
 

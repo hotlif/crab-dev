@@ -3,12 +3,13 @@
  */
 
 import type { ComponentDemoRecord } from "../site/componentDemos.js";
+import type { ComponentDesignDocuments } from "../site/componentDesignGuide.js";
 
 export const demos = [
     {
         "id": "docs/demos/base.demo.tsx",
         "title": "基础用法",
-        "description": "字段标签与校验反馈由 LineEdit 自行呈现：三主题统一使用控件自有的上置标签；表单实例操作的结果直接显示在下方。",
+        "description": "字段标签与校验反馈由 LineEdit 自行呈现，使用控件自有的上置标签；表单实例操作的结果直接显示在下方。",
         "learning": {
             "components": [
                 "Form",
@@ -37,7 +38,7 @@ export const demos = [
             ],
             "hasState": true
         },
-        "sourceCode": "export const meta = {\n    title: \"基础用法\",\n    description: \"字段标签与校验反馈由 LineEdit 自行呈现：三主题统一使用控件自有的上置标签；表单实例操作的结果直接显示在下方。\",\n};\n\nimport { css } from \"@crab-dev/css\";\nimport { useState } from \"react\";\nimport token from \"@crab-dev/rc-token-semantic\";\nimport Button from \"@crab-dev/rc-button\";\nimport LineEdit from \"@crab-dev/rc-line-edit\";\nimport Form, { Item, useForm } from \"../../src/index.js\";\n\ninterface UserInfo {\n    user: {\n        username: string;\n        password: string;\n    };\n}\n\nconst formStyle = css`\n    max-width: 480px;\n`;\n\nconst actionRowStyle = css`\n    display: flex;\n    flex-wrap: wrap;\n    gap: 8px;\n    margin-top: 4px;\n`;\n\nconst resultStyle = css`\n    white-space: pre-wrap;\n    overflow-wrap: anywhere;\n    color: ${token.color.text.secondary};\n`;\n\nconst SimpleFrame = () => {\n    const [form] = useForm\u003cUserInfo>();\n    const [result, setResult] = useState(\"点击操作按钮，在这里查看执行结果。\");\n\n    return (\n        \u003cForm\n            className={formStyle}\n            form={form}\n            defaultValue={{\n                user: {\n                    username: \"ada\",\n                    password: \"password\",\n                },\n            }}\n            onSubmitSuccess={async (values) => {\n                setResult(`提交成功：${JSON.stringify(values, null, 2)}`);\n            }}\n            onSubmitFailed={async () => {\n                setResult(\"提交未通过，请根据字段下方的错误提示补全内容。\");\n            }}\n        >\n            \u003cItem label=\"用户名\" labelPlacement=\"control\" name={[\"user\", \"username\"]} adapter=\"value\" required>\n                \u003cLineEdit placeholder=\"请输入用户名\" />\n            \u003c/Item>\n            \u003cItem label=\"密码\" labelPlacement=\"control\" name={[\"user\", \"password\"]} adapter=\"value\" required>\n                \u003cLineEdit type=\"password\" placeholder=\"请输入密码\" />\n            \u003c/Item>\n\n            \u003cdiv className={actionRowStyle}>\n                \u003cButton type=\"button\" appearance=\"primary\" onClick={async () => { await form.submit(); }}>\n                    提交\n                \u003c/Button>\n                \u003cButton type=\"button\" onClick={async () => {\n                    await form.resetFields();\n                    setResult(\"已恢复初始值，并清除校验反馈。\");\n                }}>\n                    重置\n                \u003c/Button>\n                \u003cButton\n                    type=\"button\"\n                    appearance=\"subtle\"\n                    onClick={() => {\n                        setResult(`getFieldsValue：${JSON.stringify(form.getFieldsValue(), null, 2)}`);\n                    }}\n                >\n                    getFieldsValue\n                \u003c/Button>\n                \u003cButton\n                    type=\"button\"\n                    appearance=\"subtle\"\n                    onClick={() => {\n                        const username = form.getFieldValue([\"user\", \"username\"]);\n                        const password = form.getFieldValue([\"user\", \"password\"]);\n                        setResult(`getFieldValue：${JSON.stringify({ username, password }, null, 2)}`);\n                    }}\n                >\n                    getFieldValue\n                \u003c/Button>\n                \u003cButton\n                    type=\"button\"\n                    appearance=\"subtle\"\n                    onClick={() => {\n                        form.setFieldsValue({\n                            user: {\n                                username: `user-${crypto.randomUUID().slice(0, 8)}`,\n                                password: `pwd-${crypto.randomUUID().slice(0, 8)}`,\n                            },\n                        });\n                        setResult(\"setFieldsValue：已同时更新用户名与密码。\");\n                    }}\n                >\n                    setFieldsValue\n                \u003c/Button>\n                \u003cButton\n                    type=\"button\"\n                    appearance=\"subtle\"\n                    onClick={() => {\n                        form.setFieldValue([\"user\", \"username\"], crypto.randomUUID().slice(0, 8));\n                        setResult(\"setFieldValue：已更新用户名，密码保持不变。\");\n                    }}\n                >\n                    setFieldValue\n                \u003c/Button>\n            \u003c/div>\n            \u003coutput className={resultStyle} aria-live=\"polite\">{result}\u003c/output>\n        \u003c/Form>\n    );\n};\n\nexport default SimpleFrame;\n",
+        "sourceCode": "export const meta = {\n    title: \"基础用法\",\n    description: \"字段标签与校验反馈由 LineEdit 自行呈现，使用控件自有的上置标签；表单实例操作的结果直接显示在下方。\",\n};\n\nimport { css } from \"@crab-dev/css\";\nimport { useState } from \"react\";\nimport token from \"@crab-dev/rc-token-semantic\";\nimport Button from \"@crab-dev/rc-button\";\nimport LineEdit from \"@crab-dev/rc-line-edit\";\nimport Form, { Item, useForm } from \"../../src/index.js\";\n\ninterface UserInfo {\n    user: {\n        username: string;\n        password: string;\n    };\n}\n\nconst formStyle = css`\n    max-width: 480px;\n`;\n\nconst actionRowStyle = css`\n    display: flex;\n    flex-wrap: wrap;\n    gap: 8px;\n    margin-top: 4px;\n`;\n\nconst resultStyle = css`\n    white-space: pre-wrap;\n    overflow-wrap: anywhere;\n    color: ${token.color.text.secondary};\n`;\n\nconst SimpleFrame = () => {\n    const [form] = useForm\u003cUserInfo>();\n    const [result, setResult] = useState(\"点击操作按钮，在这里查看执行结果。\");\n\n    return (\n        \u003cForm\n            className={formStyle}\n            form={form}\n            defaultValue={{\n                user: {\n                    username: \"ada\",\n                    password: \"password\",\n                },\n            }}\n            onSubmitSuccess={async (values) => {\n                setResult(`提交成功：${JSON.stringify(values, null, 2)}`);\n            }}\n            onSubmitFailed={async () => {\n                setResult(\"提交未通过，请根据字段下方的错误提示补全内容。\");\n            }}\n        >\n            \u003cItem label=\"用户名\" labelPlacement=\"control\" name={[\"user\", \"username\"]} adapter=\"value\" required>\n                \u003cLineEdit placeholder=\"请输入用户名\" />\n            \u003c/Item>\n            \u003cItem label=\"密码\" labelPlacement=\"control\" name={[\"user\", \"password\"]} adapter=\"value\" required>\n                \u003cLineEdit type=\"password\" placeholder=\"请输入密码\" />\n            \u003c/Item>\n\n            \u003cdiv className={actionRowStyle}>\n                \u003cButton type=\"button\" appearance=\"primary\" onClick={async () => { await form.submit(); }}>\n                    提交\n                \u003c/Button>\n                \u003cButton type=\"button\" onClick={async () => {\n                    await form.resetFields();\n                    setResult(\"已恢复初始值，并清除校验反馈。\");\n                }}>\n                    重置\n                \u003c/Button>\n                \u003cButton\n                    type=\"button\"\n                    appearance=\"subtle\"\n                    onClick={() => {\n                        setResult(`getFieldsValue：${JSON.stringify(form.getFieldsValue(), null, 2)}`);\n                    }}\n                >\n                    getFieldsValue\n                \u003c/Button>\n                \u003cButton\n                    type=\"button\"\n                    appearance=\"subtle\"\n                    onClick={() => {\n                        const username = form.getFieldValue([\"user\", \"username\"]);\n                        const password = form.getFieldValue([\"user\", \"password\"]);\n                        setResult(`getFieldValue：${JSON.stringify({ username, password }, null, 2)}`);\n                    }}\n                >\n                    getFieldValue\n                \u003c/Button>\n                \u003cButton\n                    type=\"button\"\n                    appearance=\"subtle\"\n                    onClick={() => {\n                        form.setFieldsValue({\n                            user: {\n                                username: `user-${crypto.randomUUID().slice(0, 8)}`,\n                                password: `pwd-${crypto.randomUUID().slice(0, 8)}`,\n                            },\n                        });\n                        setResult(\"setFieldsValue：已同时更新用户名与密码。\");\n                    }}\n                >\n                    setFieldsValue\n                \u003c/Button>\n                \u003cButton\n                    type=\"button\"\n                    appearance=\"subtle\"\n                    onClick={() => {\n                        form.setFieldValue([\"user\", \"username\"], crypto.randomUUID().slice(0, 8));\n                        setResult(\"setFieldValue：已更新用户名，密码保持不变。\");\n                    }}\n                >\n                    setFieldValue\n                \u003c/Button>\n            \u003c/div>\n            \u003coutput className={resultStyle} aria-live=\"polite\">{result}\u003c/output>\n        \u003c/Form>\n    );\n};\n\nexport default SimpleFrame;\n",
         "previewPath": "/components/rc-form/workbench/?__wake_demo=docs%2Fdemos%2Fbase.demo.tsx",
         "workbenchPath": "/components/rc-form/workbench/#/components/docs%2Fdemos%2Fbase.demo.tsx",
         "density": "regular",
@@ -89,7 +90,7 @@ export const demos = [
     {
         "id": "docs/demos/filled.demo.tsx",
         "title": "Filled 填充字段",
-        "description": "同一表单统一使用 filled，并由控件布局标签。三主题统一使用上置标签；MD3 保留填充容器和焦点底线。",
+        "description": "同一表单统一使用 filled，由控件布局上置标签，字段表面与焦点反馈继承当前文档主题。",
         "learning": {
             "components": [
                 "Form",
@@ -117,7 +118,7 @@ export const demos = [
             ],
             "hasState": true
         },
-        "sourceCode": "export const meta = {\n    title: \"Filled 填充字段\",\n    description: \"同一表单统一使用 filled，并由控件布局标签。三主题统一使用上置标签；MD3 保留填充容器和焦点底线。\",\n};\n\nimport { useState } from \"react\";\nimport { css } from \"@crab-dev/css\";\nimport token from \"@crab-dev/rc-token-semantic\";\nimport Button from \"@crab-dev/rc-button\";\nimport LineEdit from \"@crab-dev/rc-line-edit\";\nimport Form, { Item, useForm } from \"../../src/index.js\";\n\nconst layout = css`\n    display: grid;\n    gap: ${token.space['section-gap']};\n    max-width: calc(${token.size['40']} * 12);\n    min-width: 0;\n`;\nconst actions = css`\n    display: flex;\n    flex-wrap: wrap;\n    gap: ${token.space['component-gap']};\n`;\n\ninterface WorkspaceForm {\n    name: string;\n    email: string;\n}\n\nexport default function FilledDemo() {\n    const [form] = useForm\u003cWorkspaceForm>();\n    const [result, setResult] = useState(\"\");\n\n    return (\n        \u003cdiv className={layout}>\n            \u003cForm\n                form={form}\n                defaultValue={{ name: \"\", email: \"\" }}\n                onSubmitSuccess={async (values) => {\n                    setResult(`已保存：${values.name} · ${values.email}`);\n                }}\n            >\n                \u003cItem\n                    name=\"name\"\n                    label=\"工作空间名称\"\n                    labelPlacement=\"control\"\n                    adapter=\"value\"\n                    supportingText=\"名称会显示在团队首页。\"\n                    required\n                >\n                    \u003cLineEdit appearance=\"filled\" placeholder=\"例如：产品设计组\" />\n                \u003c/Item>\n                \u003cItem\n                    name=\"email\"\n                    label=\"联系邮箱\"\n                    labelPlacement=\"control\"\n                    adapter=\"value\"\n                    supportingText=\"用于接收空间邀请和重要通知。\"\n                    required\n                >\n                    \u003cLineEdit appearance=\"filled\" type=\"email\" placeholder=\"name@example.com\" />\n                \u003c/Item>\n                \u003cdiv className={actions}>\n                    \u003cButton type=\"button\" appearance=\"primary\" onClick={async () => { await form.submit(); }}>保存空间\u003c/Button>\n                    \u003cButton type=\"button\" onClick={async () => {\n                        await form.resetFields();\n                        setResult(\"\");\n                    }}>重置\u003c/Button>\n                \u003c/div>\n            \u003c/Form>\n            \u003coutput aria-live=\"polite\">{result || \"填写后保存；留空提交可查看字段错误。\"}\u003c/output>\n        \u003c/div>\n    );\n}\n",
+        "sourceCode": "export const meta = {\n    title: \"Filled 填充字段\",\n    description: \"同一表单统一使用 filled，由控件布局上置标签，字段表面与焦点反馈继承当前文档主题。\",\n};\n\nimport { useState } from \"react\";\nimport { css } from \"@crab-dev/css\";\nimport token from \"@crab-dev/rc-token-semantic\";\nimport Button from \"@crab-dev/rc-button\";\nimport LineEdit from \"@crab-dev/rc-line-edit\";\nimport Form, { Item, useForm } from \"@crab-dev/rc-form\";\n\nconst layout = css`\n    display: grid;\n    gap: ${token.space['section-gap']};\n    max-width: calc(${token.size['40']} * 12);\n    min-width: 0;\n`;\nconst actions = css`\n    display: flex;\n    flex-wrap: wrap;\n    gap: ${token.space['component-gap']};\n`;\n\ninterface WorkspaceForm {\n    name: string;\n    email: string;\n}\n\nexport default function FilledDemo() {\n    const [form] = useForm\u003cWorkspaceForm>();\n    const [result, setResult] = useState(\"\");\n\n    return (\n        \u003cdiv className={layout}>\n            \u003cForm\n                form={form}\n                defaultValue={{ name: \"\", email: \"\" }}\n                onSubmitSuccess={async (values) => {\n                    setResult(`已保存：${values.name} · ${values.email}`);\n                }}\n            >\n                \u003cItem\n                    name=\"name\"\n                    label=\"工作空间名称\"\n                    labelPlacement=\"control\"\n                    adapter=\"value\"\n                    supportingText=\"名称会显示在团队首页。\"\n                    required\n                >\n                    \u003cLineEdit appearance=\"filled\" placeholder=\"例如：产品设计组\" />\n                \u003c/Item>\n                \u003cItem\n                    name=\"email\"\n                    label=\"联系邮箱\"\n                    labelPlacement=\"control\"\n                    adapter=\"value\"\n                    supportingText=\"用于接收空间邀请和重要通知。\"\n                    required\n                >\n                    \u003cLineEdit appearance=\"filled\" type=\"email\" placeholder=\"name@example.com\" />\n                \u003c/Item>\n                \u003cdiv className={actions}>\n                    \u003cButton type=\"button\" appearance=\"primary\" onClick={async () => { await form.submit(); }}>保存空间\u003c/Button>\n                    \u003cButton type=\"button\" onClick={async () => {\n                        await form.resetFields();\n                        setResult(\"\");\n                    }}>重置\u003c/Button>\n                \u003c/div>\n            \u003c/Form>\n            \u003coutput aria-live=\"polite\">{result || \"填写后保存；留空提交可查看字段错误。\"}\u003c/output>\n        \u003c/div>\n    );\n}\n",
         "previewPath": "/components/rc-form/workbench/?__wake_demo=docs%2Fdemos%2Ffilled.demo.tsx",
         "workbenchPath": "/components/rc-form/workbench/#/components/docs%2Fdemos%2Ffilled.demo.tsx",
         "density": "regular",
@@ -242,3 +243,73 @@ export const demos = [
         "group": "视觉验收"
     }
 ] as const satisfies readonly ComponentDemoRecord[];
+
+export const documents = {
+    "md3": {
+        "summary": "将字段标签、辅助说明与错误反馈组织成清晰任务，关键提交操作保留强调。",
+        "usage": "使用控件标签模式时保持上置标签可见，校验错误放在关联字段下方。",
+        "exampleDescription": "填写填充外观表单并触发校验，检查字段容器、辅助说明与主要动作。",
+        "demos": [
+            "filled.demo.tsx",
+            "base.demo.tsx",
+            "editors.demo.tsx",
+            "validation.demo.tsx"
+        ],
+        "references": [
+            "https://m3.material.io/components/text-fields/overview",
+            "https://material-web.dev/components/text-field/",
+            "https://github.com/material-components/material-web/tree/main/textfield"
+        ]
+    },
+    "macos": {
+        "summary": "以桌面设置式的紧凑字段和精确对齐组织表单，内容层保持稳定可读。",
+        "usage": "按设置任务分组，错误信息应紧邻对应字段，保存状态不清空当前输入。",
+        "exampleDescription": "操作多种桌面编辑字段，检查标签对齐、错误提示和提交值。",
+        "demos": [
+            "editors.demo.tsx",
+            "base.demo.tsx",
+            "filled.demo.tsx",
+            "validation.demo.tsx"
+        ],
+        "references": [
+            "https://developer.apple.com/design/human-interface-guidelines/components",
+            "https://developer.apple.com/design/human-interface-guidelines/accessibility"
+        ]
+    },
+    "shadcn": {
+        "summary": "用中性字段、简洁标签和局部错误信息构成管理表单，结构清楚且便于组合。",
+        "usage": "让表单说明解释输入要求，提交后按字段呈现错误，避免只给全局失败消息。",
+        "exampleDescription": "提交包含错误的表单，再修正字段，观察边界与错误说明的变化。",
+        "demos": [
+            "validation.demo.tsx",
+            "base.demo.tsx",
+            "editors.demo.tsx",
+            "filled.demo.tsx"
+        ],
+        "references": [
+            "https://ui.shadcn.com/docs/components",
+            "https://ui.shadcn.com/docs/theming",
+            "https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4"
+        ]
+    }
+} as const satisfies ComponentDesignDocuments;
+
+export const guide = {
+    "definition": "Form 组织字段值、校验、错误和提交；FormItem 把 label、控件、帮助文字与错误关联起来；useForm 提供编程式读写。它的核心是单一数据来源和可预测的校验时机。",
+    "useWhen": [
+        "多个字段需要一起校验和提交。",
+        "字段之间存在依赖、动态显隐或统一错误处理。"
+    ],
+    "avoidWhen": [
+        "只有一个独立开关或搜索框时不必引入完整表单状态；服务器数据缓存也不应塞进表单。"
+    ],
+    "essentials": [
+        "为每个字段使用稳定 name，initialValues 只负责初始值。",
+        "rules 描述验证规则，提交失败时把用户带到第一个可修复问题。",
+        "编辑器组件通过 value/onValueChange 与 Form 连接，避免同时维护第二份本地值。"
+    ],
+    "accessibility": [
+        "label、帮助文字和错误必须通过 ID 关联到实际输入控件。",
+        "错误不能只显示红色；提交后保留用户输入，并提供错误摘要或准确焦点。"
+    ]
+} as const;

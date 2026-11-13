@@ -1,3 +1,5 @@
+import { useConfig } from '@crab-dev/rc-config-provider';
+import { macosTimePanelStyle } from './timePicker.designs.js';
 import { usePickerLocale } from '../locale.js';
 import { nowZonedDateTime } from '../temporal.js';
 import { cx } from '@crab-dev/css';
@@ -23,7 +25,7 @@ export interface TimePickerPanelProps extends Omit<HTMLAttributes<HTMLDivElement
     onValueChange?: (value: TimePickerValue | null) => void;
     /** 小时制；值始终使用 0–23 小时，默认 24。 */
     hourCycle?: 12 | 24;
-    /** 初始选择模式，默认表盘；空间不足或启用秒输入时使用输入模式。 */
+    /** 初始选择模式，macOS 默认数字输入，其他体系默认表盘；显式 dial 为扩展。空间不足或启用秒输入时使用输入模式。 */
     defaultMode?: TimePickerMode;
     /** 显示秒输入；秒为扩展能力，仅使用输入模式。默认 false，隐藏时保留已有秒值。 */
     showSeconds?: boolean;
@@ -77,16 +79,17 @@ function TimeField({ value, min, max, label, onChange, onValidityChange }: {
 }
 
 export default function TimePickerPanel({
-    className, locale: localeProp, value, onValueChange, hourCycle = 24, defaultMode = 'dial', showSeconds = false,
-    onValidityChange, actions, ...restProps
+    className, locale: localeProp, value, onValueChange, hourCycle = 24, defaultMode, showSeconds = false,
+    onValidityChange, actions, onFocusCapture, ...restProps
 }: TimePickerPanelProps) {
+    const { designSystem } = useConfig();
     const { locale, messages } = usePickerLocale(localeProp);
     const [initialValue] = useState(() => {
         const now = nowZonedDateTime();
         return { hour: now.hour, minute: now.minute, second: 0 };
     });
     const resolved = value ?? initialValue;
-    const [mode, setMode] = useState(defaultMode);
+    const [mode, setMode] = useState<TimePickerMode | undefined>(defaultMode);
     const [activePart, setActivePart] = useState<'hour' | 'minute'>('hour');
     const [invalidParts, setInvalidParts] = useState<Partial<Record<keyof TimePickerValue, { value: number; hourCycle: 12 | 24 }>>>({});
     // 跨事件保存字段节点：表盘选择小时后把焦点移到分钟，避免焦点随表盘重绘丢失。
@@ -113,7 +116,8 @@ export default function TimePickerPanel({
         media.addEventListener('change', update);
         return () => media.removeEventListener('change', update);
     }, []);
-    const actualMode = showSeconds || compact ? 'input' : mode;
+    const actualMode = showSeconds || compact ? 'input' : mode ?? (designSystem === 'macos' ? 'input' : 'dial');
+    const allowDial = designSystem !== 'macos' || defaultMode === 'dial' || mode === 'dial';
     useLayoutEffect(() => {
         if (!pendingFocus.current) return;
         panelRef.current?.querySelector<HTMLElement>(`[data-time-part="${pendingFocus.current}"] input, [data-time-part="${pendingFocus.current}"] button`)?.focus();
@@ -137,7 +141,13 @@ export default function TimePickerPanel({
         setMode(actualMode === 'input' ? 'dial' : 'input');
     };
     const period = (pm: boolean) => onValueChange?.({ ...resolved, hour: resolved.hour % 12 + (pm ? 12 : 0) });
-    return <div ref={panelRef} role="group" aria-label={messages.chooseTime} className={cx(timePanelStyle, className)} {...restProps}>
+    return <div ref={panelRef} role="group" aria-label={messages.chooseTime} className={cx(timePanelStyle, designSystem === 'macos' && macosTimePanelStyle, className)} {...restProps}
+        onFocusCapture={event => {
+            // Once interacted with, preserve the current editor and any partial
+            // input across theme changes, including an invalid or empty draft.
+            setMode(actualMode);
+            onFocusCapture?.(event);
+        }}>
         <h2 className={timeTitleStyle}>{actualMode === 'input' ? messages.enterTime : messages.chooseTime}</h2>
         <div className={timeFieldsStyle} data-mode={actualMode} data-hour-cycle={hourCycle}>
             <div className={timePairStyle}>
@@ -167,8 +177,8 @@ export default function TimePickerPanel({
         {actualMode === 'dial' && <TimePickerDial locale={locale} key={activePart} part={activePart} hourCycle={hourCycle} value={resolved[activePart]} onChange={next => onValueChange?.({ ...resolved, [activePart]: next })} onComplete={() => {
             if (activePart === 'hour') { setActivePart('minute'); minuteRef.current?.focus(); }
         }} />}
-        {((!showSeconds && !compact) || actions) && <div className={timeActionsStyle}>
-            {!showSeconds && !compact && <Button type="button" appearance="text" shape="circle" data-mode-toggle className={timeModeButtonStyle} disabled={!valid} aria-label={actualMode === 'input' ? messages.switchToDial : messages.switchToInput} onClick={changeMode}
+        {((allowDial && !showSeconds && !compact) || actions) && <div className={timeActionsStyle}>
+            {allowDial && !showSeconds && !compact && <Button type="button" appearance="text" shape="circle" data-mode-toggle className={timeModeButtonStyle} disabled={!valid} aria-label={actualMode === 'input' ? messages.switchToDial : messages.switchToInput} onClick={changeMode}
                 icon={<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="2">
                     {actualMode === 'input' ? <><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 2" /></> : <><rect x="2" y="5" width="20" height="14" rx="2" /><path d="M5 9h2m2 0h2m2 0h2m2 0h2M5 12h2m2 0h2m2 0h2m2 0h2M7 15h10" /></>}
                 </svg>} />}

@@ -141,7 +141,7 @@ describe('Prose inverse token contrast', () => {
 
 
 // Prose uses the active L2 design contract. A zinc-only reference cannot certify
-// MD3 inverse surfaces or Apple dark, and alpha is applied after surface layers.
+// MD3 inverse surfaces or macOS dark, and alpha is applied after surface layers.
 describe('Prose text on actual design color pairs', () => {
     for (const [design, contract] of Object.entries(designColorContract)) {
         for (const [mode, theme] of Object.entries(contract)) {

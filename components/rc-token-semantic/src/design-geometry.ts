@@ -26,8 +26,8 @@ export const designMetricsContract: Record<DesignSystem, DesignMetrics> = define
             stateLayer: palette.space[0], border: palette.space.px,
         },
     },
-    apple: {
-        tab: { small: palette.size[32], medium: palette.size[36], large: palette.size[40], icon: palette.space[4], gap: palette.space[1] },
+    macos: {
+        tab: { small: palette.space[6], medium: palette.space[7], large: palette.size[32], icon: palette.space[4], gap: palette.space[1] },
         dialog: { padding: palette.space[6], fontSize: palette.font.size.md, lineHeight: palette.line.height["16-24"], fontWeight: palette.font.weight.semibold },
         toggle: {
             small: { width: palette.space[7], height: palette.space[4], handle: palette.space[3], inset: palette.space["0-5"] },
@@ -42,7 +42,7 @@ export const designMetricsContract: Record<DesignSystem, DesignMetrics> = define
 /** Single-line sizes are independent of density and multiline content height. */
 export const designFieldSizeContract: Record<DesignSystem, Record<"small" | "medium" | "large", string>> = defineTokens({
     md3: { small: palette.size[32], medium: palette.size[40], large: palette.size[48] },
-    apple: { small: palette.size[32], medium: palette.size[36], large: palette.size[40] },
+    macos: { small: palette.space[7], medium: palette.size[32], large: palette.size[36] },
     shadcn: { small: palette.size[32], medium: palette.size[36], large: palette.size[40] },
 });
 
@@ -191,7 +191,7 @@ export const designFieldContract: Record<DesignSystem, DesignField> = defineToke
             large: { minHeight: `calc(${palette.size[64]} + ${palette.space[2]})`, paddingInline: palette.space[4], paddingBlock: palette.space[3], filledPaddingTop: palette.space[3], filledPaddingBottom: palette.space[3] },
         },
     },
-    apple: {
+    macos: {
         formLayoutColumns: `fit-content(35%) minmax(0, 1fr) auto`,
         formFieldColumns: `subgrid`,
         formFieldControlColumn: `2 / -1`,
@@ -199,30 +199,30 @@ export const designFieldContract: Record<DesignSystem, DesignField> = defineToke
         layoutControlRow: `2`,
         layoutLabelRow: `1`,
         layoutSupportRow: `3`,
-        layoutRowGap: `${palette.space["2"]}`,
+        layoutRowGap: `${palette.space["1"]}`,
         controlMinHeight: `0px`,
         controlPaddingInline: `${palette.space["3"]}`,
         controlIconPaddingInline: `${palette.space["3"]}`,
         iconSize: `${palette.space["4"]}`,
         iconGap: `${palette.space["2"]}`,
-        inputFontSize: `${palette.font.size.sm}`,
+        inputFontSize: `${palette.font.size["13"]}`,
         inputLineHeight: `${palette.space["5"]}`,
         inputFilledPaddingTop: `0px`,
         labelAlign: `center`,
         labelMarginInline: `0px`,
         labelPrefixMarginInline: `0px`,
-        labelFontSize: `${palette.font.size.sm}`,
+        labelFontSize: `${palette.font.size["13"]}`,
         labelLineHeight: `${palette.space["5"]}`,
         labelEmptyPlaceholderColor: `var(--token-semantic-color-text-secondary, ${palette.zinc["500"]})`,
         labelEmptyPlaceholderColorDisabled: `var(--token-semantic-field-disabled-color)`,
         labelMultilineOffset: `0px`,
         labelFloatingAlign: `center`,
         labelFloatingMarginInline: `0px`,
-        labelFloatingFontSize: `${palette.font.size.sm}`,
+        labelFloatingFontSize: `${palette.font.size["13"]}`,
         labelFloatingLineHeight: `${palette.space["5"]}`,
         labelFloatingTransform: `none`,
         labelFilledOffset: `0px`,
-        requiredColor: `var(--token-semantic-color-feedback-error-text, ${palette.material.error["40"]})`,
+        requiredColor: `var(--token-semantic-color-feedback-error-text, ${palette.red[700]})`,
         requiredOrder: `-1`,
         requiredGap: `${palette.space["1"]}`,
         outlineDisplay: `none`,
@@ -232,11 +232,11 @@ export const designFieldContract: Record<DesignSystem, DesignField> = defineToke
         outlinedBorderColorHover: `var(--token-semantic-color-border-hover, ${palette.zinc["400"]})`,
         outlinedBorderColorFocus: `var(--token-semantic-color-border-focus, ${palette.blue["600"]})`,
         outlinedShadowFocus: `var(--token-semantic-shadow-focus-ring)`,
-        outlinedBorderColorError: `var(--token-semantic-color-feedback-error-border, ${palette.material.error["40"]})`,
+        outlinedBorderColorError: `var(--token-semantic-color-feedback-error-border, ${palette.red[700]})`,
         outlinedBorderColorWarning: `var(--token-semantic-color-feedback-warning-border, ${palette.amber["600"]})`,
-        outlinedShadowError: `inset 0 0 0 2px var(--token-semantic-color-feedback-error-border, ${palette.material.error["40"]})`,
+        outlinedShadowError: `inset 0 0 0 2px var(--token-semantic-color-feedback-error-border, ${palette.red[700]})`,
         outlinedShadowWarning: `inset 0 0 0 2px var(--token-semantic-color-feedback-warning-border, ${palette.amber["600"]})`,
-        filledBorderRadius: `${palette.radius["3"]}`,
+        filledBorderRadius: `${palette.radius["4"]}`,
         filledBorderWidth: `1px`,
         filledBackgroundColor: `var(--token-semantic-color-background-surface, ${palette.white})`,
         filledBackgroundColorHover: `var(--token-semantic-color-background-surface, ${palette.white})`,
@@ -244,7 +244,7 @@ export const designFieldContract: Record<DesignSystem, DesignField> = defineToke
         filledBorderColorHover: `var(--token-semantic-color-border-hover, ${palette.zinc["400"]})`,
         filledBorderColorFocus: `var(--token-semantic-color-border-focus, ${palette.blue["600"]})`,
         filledShadowFocus: `var(--token-semantic-shadow-focus-ring)`,
-        filledShadowError: `inset 0 0 0 2px var(--token-semantic-color-feedback-error-border, ${palette.material.error["40"]})`,
+        filledShadowError: `inset 0 0 0 2px var(--token-semantic-color-feedback-error-border, ${palette.red[700]})`,
         filledShadowWarning: `inset 0 0 0 2px var(--token-semantic-color-feedback-warning-border, ${palette.amber["600"]})`,
         supportPaddingInline: `0px`,
         disabledColor: `color-mix(in oklch, var(--token-semantic-color-text-primary, ${palette.zinc["900"]}) 50%, transparent)`,
@@ -254,11 +254,11 @@ export const designFieldContract: Record<DesignSystem, DesignField> = defineToke
         inputMultilinePaddingBlock: `${palette.space["1"]}`,
         inputMultilineFilledPaddingTop: `${palette.space["1"]}`,
         inputMultilineFilledPaddingBottom: `${palette.space["1"]}`,
-        // Apple-inspired browser geometry; these are Crab's Web size variants.
+        // macOS-inspired browser geometry; these are Crab's Web size variants.
         multiline: {
-            small: { minHeight: palette.size[32], paddingInline: palette.space[2], paddingBlock: palette.space['0-5'], filledPaddingTop: palette.space['0-5'], filledPaddingBottom: palette.space['0-5'] },
-            medium: { minHeight: palette.size[36], paddingInline: palette.space[3], paddingBlock: palette.space[1], filledPaddingTop: palette.space[1], filledPaddingBottom: palette.space[1] },
-            large: { minHeight: palette.size[40], paddingInline: palette.space[4], paddingBlock: palette.space[2], filledPaddingTop: palette.space[2], filledPaddingBottom: palette.space[2] },
+            small: { minHeight: palette.space[7], paddingInline: palette.space[2], paddingBlock: palette.space['0-5'], filledPaddingTop: palette.space['0-5'], filledPaddingBottom: palette.space['0-5'] },
+            medium: { minHeight: palette.size[32], paddingInline: palette.space[3], paddingBlock: palette.space[1], filledPaddingTop: palette.space[1], filledPaddingBottom: palette.space[1] },
+            large: { minHeight: palette.size[36], paddingInline: palette.space[4], paddingBlock: palette.space[2], filledPaddingTop: palette.space[2], filledPaddingBottom: palette.space[2] },
         },
     },
 });
@@ -286,11 +286,11 @@ export const designShapeContract: Record<DesignSystem, DesignShape> = defineToke
             card: palette.shadow.sm, cardHover: palette.shadow.md,
         },
     },
-    apple: {
-        radius: { md: palette.radius[3], xl: palette.radius[8] },
+    macos: {
+        radius: { md: palette.radius[4], xl: palette.radius[10] },
         shape: {
-            control: palette.radius[3], card: palette.radius[6], overlay: palette.radius[8],
-            button: palette.radius[3], buttonSelected: palette.radius[3], buttonPressed: palette.radius[3],
+            control: palette.radius[4], card: palette.radius[8], overlay: palette.radius[10],
+            button: palette.radius[4], buttonSelected: palette.radius[4], buttonPressed: palette.radius[4],
         },
         shadow: {
             control: palette.shadow.xs, float: palette.shadow.md, overlay: palette.shadow.xl,

@@ -1,0 +1,56 @@
+{
+    "md3": {
+        "summary": "用层级缩进、展开状态和语义选中行组织树状数据，节点操作保持明确。",
+        "usage": "选择、勾选和展开是独立状态，节点名称与图标共同解释层级内容。",
+        "exampleDescription": "展开节点并勾选子项，检查父项半选、选中行和层级关系。",
+        "demos": [
+            "checkable.demo.tsx",
+            "allow-drop.demo.tsx",
+            "basic.demo.tsx",
+            "default-editor.demo.tsx",
+            "draggable.demo.tsx",
+            "expand-all.demo.tsx",
+            "filter.demo.tsx",
+            "icon-and-disabled.demo.tsx",
+            "inline-edit.demo.tsx",
+            "keyboard.demo.tsx",
+            "show-line.demo.tsx"
+        ]
+    },
+    "macos": {
+        "summary": "以桌面资源侧栏式的紧凑行组织树节点，展开箭头与名称精确对齐。",
+        "usage": "内联编辑与拖拽应保留当前节点位置，长名称不遮住展开和操作入口。",
+        "exampleDescription": "编辑节点名称并继续导航，检查桌面树行的对齐、焦点和内容保留。",
+        "demos": [
+            "inline-edit.demo.tsx",
+            "allow-drop.demo.tsx",
+            "basic.demo.tsx",
+            "checkable.demo.tsx",
+            "default-editor.demo.tsx",
+            "draggable.demo.tsx",
+            "expand-all.demo.tsx",
+            "filter.demo.tsx",
+            "icon-and-disabled.demo.tsx",
+            "keyboard.demo.tsx",
+            "show-line.demo.tsx"
+        ]
+    },
+    "shadcn": {
+        "summary": "用中性选中行、简洁缩进与可选连接线呈现层级数据。",
+        "usage": "过滤后应能理解剩余节点的层级，键盘导航与展开状态保持一致。",
+        "exampleDescription": "筛选节点并展开结果，检查中性行反馈与层级上下文是否清楚。",
+        "demos": [
+            "filter.demo.tsx",
+            "allow-drop.demo.tsx",
+            "basic.demo.tsx",
+            "checkable.demo.tsx",
+            "default-editor.demo.tsx",
+            "draggable.demo.tsx",
+            "expand-all.demo.tsx",
+            "icon-and-disabled.demo.tsx",
+            "inline-edit.demo.tsx",
+            "keyboard.demo.tsx",
+            "show-line.demo.tsx"
+        ]
+    }
+}

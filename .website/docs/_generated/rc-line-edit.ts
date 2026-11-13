@@ -3,12 +3,13 @@
  */
 
 import type { ComponentDemoRecord } from "../site/componentDemos.js";
+import type { ComponentDesignDocuments } from "../site/componentDesignGuide.js";
 
 export const demos = [
     {
         "id": "docs/demos/field-states.demo.tsx",
         "title": "标签、边界与状态",
-        "description": "切换文档站的 Apple、MD3 或 shadcn 主题，对照同一组字段的标签、焦点、错误和禁用反馈。",
+        "description": "检查当前字段的标签、焦点、错误和禁用反馈，输入后观察清除行为。",
         "learning": {
             "components": [
                 "LineEdit"
@@ -29,7 +30,7 @@ export const demos = [
             "events": [],
             "hasState": false
         },
-        "sourceCode": "export const meta = {\n    title: \"标签、边界与状态\",\n    description: \"切换文档站的 Apple、MD3 或 shadcn 主题，对照同一组字段的标签、焦点、错误和禁用反馈。\",\n};\n\nimport { css } from \"@crab-dev/css\";\nimport token from \"@crab-dev/rc-token-semantic\";\nimport LineEdit from \"../../src/index.js\";\n\nconst layout = css`\n    display: grid;\n    gap: ${token.space['group-gap']};\n    padding: ${token.space['section-gap']};\n`;\n\nexport default function FieldStatesDemo() {\n    return \u003cdiv className={layout}>\n        \u003cLineEdit label=\"项目名称\" placeholder=\"例如 Atlas\" supportingText=\"名称将显示在工作区列表。\" allowClear defaultValue=\"Atlas\" />\n        \u003cLineEdit label=\"工作邮箱\" appearance=\"filled\" placeholder=\"name@example.com\" required errorText=\"请补全 @ 后的域名。\" defaultValue=\"name@\" />\n        \u003cLineEdit label=\"项目编号\" readOnly defaultValue=\"ATLAS-1024\" supportingText=\"只读内容仍可聚焦、选择和复制。\" />\n        \u003cLineEdit label=\"组织名称\" disabled defaultValue=\"Atlas Studio\" supportingText=\"只有组织管理员可修改。\" />\n        \u003cLineEdit aria-label=\"搜索项目\" placeholder=\"搜索项目\" allowClear />\n    \u003c/div>;\n}\n",
+        "sourceCode": "export const meta = {\n    title: \"标签、边界与状态\",\n    description: \"检查当前字段的标签、焦点、错误和禁用反馈，输入后观察清除行为。\",\n};\n\nimport { css } from \"@crab-dev/css\";\nimport token from \"@crab-dev/rc-token-semantic\";\nimport LineEdit from '@crab-dev/rc-line-edit';\n\nconst layout = css`\n    display: grid;\n    gap: ${token.space['group-gap']};\n    padding: ${token.space['section-gap']};\n`;\n\nexport default function FieldStatesDemo() {\n    return \u003cdiv className={layout}>\n        \u003cLineEdit label=\"项目名称\" placeholder=\"例如 Atlas\" supportingText=\"名称将显示在工作区列表。\" allowClear defaultValue=\"Atlas\" />\n        \u003cLineEdit label=\"工作邮箱\" appearance=\"filled\" placeholder=\"name@example.com\" required errorText=\"请补全 @ 后的域名。\" defaultValue=\"name@\" />\n        \u003cLineEdit label=\"项目编号\" readOnly defaultValue=\"ATLAS-1024\" supportingText=\"只读内容仍可聚焦、选择和复制。\" />\n        \u003cLineEdit label=\"组织名称\" disabled defaultValue=\"Atlas Studio\" supportingText=\"只有组织管理员可修改。\" />\n        \u003cLineEdit aria-label=\"搜索项目\" placeholder=\"搜索项目\" allowClear />\n    \u003c/div>;\n}\n",
         "previewPath": "/components/rc-line-edit/workbench/?__wake_demo=docs%2Fdemos%2Ffield-states.demo.tsx",
         "workbenchPath": "/components/rc-line-edit/workbench/#/components/docs%2Fdemos%2Ffield-states.demo.tsx",
         "density": "regular",
@@ -101,7 +102,7 @@ export const demos = [
     {
         "id": "docs/demos/simple.demo.tsx",
         "title": "基础用法",
-        "description": "三主题统一呈现上置标签，MD3 采用紧凑桌面尺寸并保留色调表面与状态边框。通过顶部外观菜单统一切换。",
+        "description": "使用上置标签编辑单行内容，字段尺寸、表面和焦点反馈继承当前文档主题。",
         "learning": {
             "components": [
                 "LineEdit"
@@ -115,7 +116,7 @@ export const demos = [
             "events": [],
             "hasState": false
         },
-        "sourceCode": "export const meta = {\n    title: \"基础用法\",\n    description: \"三主题统一呈现上置标签，MD3 采用紧凑桌面尺寸并保留色调表面与状态边框。通过顶部外观菜单统一切换。\",\n};\n\nimport { css } from \"@crab-dev/css\";\nimport token from \"@crab-dev/rc-token-semantic\";\nimport LineEdit from \"../../src/index.js\";\n\nconst wrapperStyle = css`\n    padding: ${token.space['card-padding']};\n    display: grid;\n    gap: ${token.space['group-gap']};\n`;\n\nconst SimpleDemo = () => {\n    return (\n        \u003cdiv className={wrapperStyle}>\n            \u003cLineEdit label=\"项目名称\" supportingText=\"用于团队首页和项目列表。\" />\n            \u003cLineEdit label=\"项目编号\" defaultValue=\"CRAB-2026\" readOnly supportingText=\"编号可选择和复制。\" />\n        \u003c/div>\n    );\n};\n\nexport default SimpleDemo;\n",
+        "sourceCode": "export const meta = {\n    title: \"基础用法\",\n    description: \"使用上置标签编辑单行内容，字段尺寸、表面和焦点反馈继承当前文档主题。\",\n};\n\nimport { css } from \"@crab-dev/css\";\nimport token from \"@crab-dev/rc-token-semantic\";\nimport LineEdit from \"../../src/index.js\";\n\nconst wrapperStyle = css`\n    padding: ${token.space['card-padding']};\n    display: grid;\n    gap: ${token.space['group-gap']};\n`;\n\nconst SimpleDemo = () => {\n    return (\n        \u003cdiv className={wrapperStyle}>\n            \u003cLineEdit label=\"项目名称\" supportingText=\"用于团队首页和项目列表。\" />\n            \u003cLineEdit label=\"项目编号\" defaultValue=\"CRAB-2026\" readOnly supportingText=\"编号可选择和复制。\" />\n        \u003c/div>\n    );\n};\n\nexport default SimpleDemo;\n",
         "previewPath": "/components/rc-line-edit/workbench/?__wake_demo=docs%2Fdemos%2Fsimple.demo.tsx",
         "workbenchPath": "/components/rc-line-edit/workbench/#/components/docs%2Fdemos%2Fsimple.demo.tsx",
         "density": "regular",
@@ -288,3 +289,85 @@ export const demos = [
         "group": "输入能力"
     }
 ] as const satisfies readonly ComponentDemoRecord[];
+
+export const documents = {
+    "md3": {
+        "summary": "以外置标签、填充或描边字段组织单行输入，说明和错误位于字段下方。",
+        "usage": "字段标签持续可见；用辅助说明表达格式要求，前后缀不能替代标签。",
+        "exampleDescription": "聚焦并编辑字段，检查描边与填充状态、错误说明、禁用和清除反馈。",
+        "demos": [
+            "field-states.demo.tsx",
+            "allow-clear.demo.tsx",
+            "password.demo.tsx",
+            "prefix-suffix.demo.tsx",
+            "show-count.demo.tsx",
+            "simple.demo.tsx",
+            "size.demo.tsx",
+            "status.demo.tsx"
+        ],
+        "references": [
+            "https://m3.material.io/components/text-fields/overview",
+            "https://material-web.dev/components/text-field/",
+            "https://github.com/material-components/material-web/tree/main/textfield"
+        ]
+    },
+    "macos": {
+        "summary": "以紧凑桌面输入框、静态上置标签和明确焦点反馈承载单行编辑。",
+        "usage": "字段与相邻设置行保持对齐；清除内容后保留输入焦点和关联说明。",
+        "exampleDescription": "输入后清除字段，检查桌面输入边界、焦点返回和标签位置。",
+        "demos": [
+            "allow-clear.demo.tsx",
+            "field-states.demo.tsx",
+            "password.demo.tsx",
+            "prefix-suffix.demo.tsx",
+            "show-count.demo.tsx",
+            "simple.demo.tsx",
+            "size.demo.tsx",
+            "status.demo.tsx"
+        ],
+        "references": [
+            "https://developer.apple.com/design/human-interface-guidelines/components",
+            "https://developer.apple.com/design/human-interface-guidelines/accessibility"
+        ]
+    },
+    "shadcn": {
+        "summary": "用中性描边输入框和静态标签呈现单行内容，聚焦状态通过外侧轮廓表达。",
+        "usage": "前后缀用于补充格式或单位；错误需要文字说明，避免仅依赖边框颜色。",
+        "exampleDescription": "检查前后缀与输入文字的排列，再观察聚焦时的轮廓和内容留白。",
+        "demos": [
+            "prefix-suffix.demo.tsx",
+            "allow-clear.demo.tsx",
+            "field-states.demo.tsx",
+            "password.demo.tsx",
+            "show-count.demo.tsx",
+            "simple.demo.tsx",
+            "size.demo.tsx",
+            "status.demo.tsx"
+        ],
+        "references": [
+            "https://ui.shadcn.com/docs/components",
+            "https://ui.shadcn.com/docs/theming",
+            "https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4"
+        ]
+    }
+} as const satisfies ComponentDesignDocuments;
+
+export const guide = {
+    "definition": "LineEdit 是带标签、辅助文字和状态反馈的单行文本输入，适合名称、邮箱、搜索词等短内容。它支持填充与描边外观，但两者共享相同的输入语义。",
+    "useWhen": [
+        "用户输入一行可编辑文本。",
+        "需要前后缀、清除、密码可见性、字符计数或错误提示。"
+    ],
+    "avoidWhen": [
+        "长段落使用 TextEdit，数值使用 NumberEdit，有限选项使用 Select。"
+    ],
+    "essentials": [
+        "label 描述字段含义，placeholder 只提供格式示例，不能代替标签。",
+        "受控 value 与 onValueChange 配对；defaultValue 只在初始非受控场景使用。",
+        "status、supportingText 和计数要共同说明当前输入是否有效。"
+    ],
+    "accessibility": [
+        "使用 useId 关联 label、说明和错误，必填不能只靠星号表达。",
+        "清除与密码可见按钮要有可访问名称，错误出现后不能让输入焦点丢失。"
+    ]
+} as const;

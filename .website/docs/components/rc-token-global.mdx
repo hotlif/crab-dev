@@ -11,9 +11,12 @@ import TokenReference from "../site/tokenReference.js";
 import Tutorial from "../site/tutorial.js";
 import { tutorial } from "../_generated_tutorials/rc-token-global.js";
 import ComponentDemos from "../site/componentDemos.js";
-import { demos } from "../_generated/rc-token-global.js";
+import { DesignIntroduction } from "../site/componentDesignGuide.js";
+import { demos, documents } from "../_generated/rc-token-global.js";
 
 # Global Tokens 全局令牌
+
+<DesignIntroduction documents={documents} />
 
 全局令牌是 Crab 的基础材料库。它记录颜色、距离、字体与时间等原始值，让设计与代码共享同一把标尺。**先理解角色，再选择尺度，最后通过语义层应用到界面。**
 
@@ -36,7 +39,7 @@ import { demos } from "../_generated/rc-token-global.js";
 | 编写项目台账等业务页面 | 语义令牌与现有组件 | 使用角色和组件属性，避免在每个页面分别选色阶 |
 | 展示设计基元、制作尺度比较 | 可直接引用 L1 | 本页样本属于此场景；框架与说明文字仍使用 L2 |
 
-**现有实现**：公共色板包含 Zinc、Neutral、Blue、Red、Green、Amber、Purple、Material 参考色阶及黑白。当前参数由本页下方的令牌参考区读取源定义生成。公共 L2 为 MD3 Expressive、Apple 与 shadcn/ui 分别映射颜色、字阶和动效；L1 本身不承担“品牌”或“错误”等语义。
+**现有实现**：公共色板包含 Zinc、Neutral、Blue、Red、Green、Amber、Purple、参考色阶及黑白。当前参数由本页下方的令牌参考区读取源定义生成。公共 L2 为当前设计映射颜色、字阶和动效；L1 本身不承担“品牌”或“错误”等语义。色阶的来源名称属于共享原始数据，不表示当前主题采用对应的组件设计。
 
 **设计要求**：基元名称不携带业务语义。`red.600` 是颜色，不能替代“删除”“失败”等可感知名称；状态必须结合文字、图标与行为表达。色阶的用途建议不构成已经通过对比度验证的前景背景组合。
 
@@ -167,7 +170,7 @@ const panel = css`border-radius: ${token.radius.lg};`;
 | 决策 | 规则 | 边界 |
 | --- | --- | --- |
 | 普通界面文字 | 优先使用 `font.family.body` 等语义角色 | L1 sans 声明 Inter 等回退，不负责下载字体 |
-| 系统界面字体 | `font.family.system` 提供 Apple 优先的系统字体栈 | 供 Apple 风格映射，Windows 自动回退 Segoe UI 和本机中文字体 |
+| 系统界面字体 | `font.family.system` 提供 macOS 优先的系统字体栈 | 供 macOS 风格映射，Windows 自动回退 Segoe UI 和本机中文字体 |
 | 代码、令牌键、机器标识 | 使用 mono 基元或项目对应语义角色 | 当前 mono 列表包含 Geist Mono 等；未安装时继续回退 |
 | 中文混排 | 检查系统回退后的字面大小、标点与基线 | 不能根据拉丁字体名称声称已包含中文 |
 | 标题与标签 | 用层级与字重共同区分，避免所有内容加粗 | 缺少真实字重时浏览器可能合成；需在目标设备验收 |
@@ -378,7 +381,7 @@ yarn build
 
 下方独立示例展示 L1 颜色与尺度，说明文字继承工作台样式。两层对照见基础示例，完整目录和选择规则以上文为准。
 
-<ComponentDemos demos={demos} />
+<ComponentDemos demos={demos} documents={documents} />
 
 [打开完整组件工作台](/components/rc-token-global/workbench/)
 
@@ -596,6 +599,8 @@ radius.6 · 12px · globalToken.radius["6"] · --token-global-radius-6
 
 radius.8 · 16px · globalToken.radius["8"] · --token-global-radius-8
 
+radius.10 · 20px · globalToken.radius["10"] · --token-global-radius-10
+
 radius.full · 9999px · globalToken.radius.full · --token-global-radius-full
 
 font.family.sans · 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif · globalToken.font.family.sans · --token-global-font-family-sans
@@ -605,6 +610,8 @@ font.family.system · -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang S
 font.family.mono · 'Geist Mono', 'JetBrains Mono', 'Fira Code', Consolas, 'Courier New', monospace · globalToken.font.family.mono · --token-global-font-family-mono
 
 font.size.xs · 12px · globalToken.font.size.xs · --token-global-font-size-xs
+
+font.size.13 · 13px · globalToken.font.size["13"] · --token-global-font-size-13
 
 font.size.sm · 14px · globalToken.font.size.sm · --token-global-font-size-sm
 

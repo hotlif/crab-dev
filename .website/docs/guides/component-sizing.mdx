@@ -21,7 +21,7 @@ import SizeShowcase from "../site/sizeShowcase.js";
 
 | 配置 | 取值 | 选择依据 |
 | --- | --- | --- |
-| designSystem | md3 / apple / shadcn | 组件形态、角色与反馈规则 |
+| designSystem | md3 / macos / shadcn | 组件形态、角色与反馈规则 |
 | colorMode | light / dark | 解析后的明暗模式 |
 | size | small / medium / large | 控件的组件专属尺寸档位 |
 | density | compact / standard / comfortable | 间距、内容区与数据行节奏 |
@@ -40,7 +40,7 @@ import SizeShowcase from "../site/sizeShowcase.js";
 
 Button 显式 `size` 使用 `xs / s / m / l / xl`，是组件自己的 Expressive 尺寸变体；MD3 下继承 Provider 的按钮采用 32 / 36 / 40px 桌面尺寸，显式五档规格保持独立。画布坐标、PDF 页面、图表数据和正文排版不随控件尺寸等比缩放。
 
-TextEdit 的 `rows` / `autoSize` 管内容高度，`size` 管输入边界的最小高度和间距，不缩放正文。字段几何由语义层 `components/rc-token-semantic/src/design-geometry.ts` 的 `designFieldContract` 按体系分档，Theme 负责 CSS 边界映射：Apple 三档为本库 Web 几何；shadcn/ui 的 medium 采用固定 New York V4 的 64px 最小高度、上下 8px、左右 12px，small/large 是显式扩展。具体数值及全部外观见 [TextEdit 尺寸契约](/components/rc-text-edit)。
+TextEdit 的 `rows` / `autoSize` 管内容高度，`size` 管输入边界的最小高度和间距，不缩放正文。字段几何由语义层 `components/rc-token-semantic/src/design-geometry.ts` 的 `designFieldContract` 按体系分档，Theme 负责 CSS 边界映射：macOS 三档为本库 Web 几何；shadcn/ui 的 medium 采用固定 New York V4 的 64px 最小高度、上下 8px、左右 12px，small/large 是显式扩展。具体数值及全部外观见 [TextEdit 尺寸契约](/components/rc-text-edit)。
 
 TextEdit 在 MD3 下采用桌面扩展：small / medium / large 的最小高度为 32 / 40 / 48px，上下内边距为 4 / 8 / 12px，左右为 8 / 12 / 16px；正文始终为 16px / 24px。标签统一外置，距离控件 4px，rows 与 autoSize 继续决定实际内容高度。无边框模式由宿主提供几何。
 
@@ -56,7 +56,7 @@ Tree 的节点高度优先采用 node.height，其次采用显式 defaultNodeHei
 
 MD3 单行字段三档为 32 / 40 / 48px，Tab 三档为 32 / 36 / 40px。默认 Switch 轨道 40×24px、桌面布局最小高度 36px；Dialog 内边距 20px、标题 20px / 28px。字段采用 14px / 20px 外置标签和 16px / 24px 输入文字，Outlined 使用连续边框，Filled 保留底线。粗指针命中区域仍至少 48px，必要时自然增加控件布局空间。
 
-这是 Crab 的 MD3 Web 桌面适配，保留语义颜色、状态与动效；不作为官方移动端几何。Apple 和 shadcn 保留各自尺寸。公共配置与数据接口不变，固定高度容器迁移见[迁移指南](/guides/migration)。
+这是 Crab 的 MD3 Web 桌面适配，保留语义颜色、状态与动效；不作为官方移动端几何。macOS 和 shadcn 保留各自尺寸。公共配置与数据接口不变，固定高度容器迁移见[迁移指南](/guides/migration)。
 
 ## 验证
 

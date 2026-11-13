@@ -3,6 +3,7 @@
  */
 
 import type { ComponentDemoRecord } from "../site/componentDemos.js";
+import type { ComponentDesignDocuments } from "../site/componentDesignGuide.js";
 
 export const demos = [
     {
@@ -35,8 +36,8 @@ export const demos = [
     },
     {
         "id": "docs/demos/designs.demo.tsx",
-        "title": "三套设计与状态",
-        "description": "Apple 的窄胶囊手柄、MD3 的细竖柄和 shadcn 的圆形手柄；支持键盘步进与从右到左布局。",
+        "title": "当前主题的交互状态",
+        "description": "观察当前主题下的选中、禁用和焦点反馈；示例继承文档配置，可直接操作。",
         "learning": {
             "components": [
                 "ConfigProvider",
@@ -58,7 +59,7 @@ export const demos = [
             ],
             "hasState": true
         },
-        "sourceCode": "import { useId, useState } from 'react';\nimport { css } from '@crab-dev/css';\nimport ConfigProvider from '@crab-dev/rc-config-provider';\nimport token from '@crab-dev/rc-token-semantic';\nimport Slider from '../../src/slider.js';\n\nexport const meta = { title: '三套设计与状态', description: 'Apple 的窄胶囊手柄、MD3 的细竖柄和 shadcn 的圆形手柄；支持键盘步进与从右到左布局。' };\nconst panel = css`\n    display: grid;\n    gap: ${token.space['component-gap']};\n    padding: ${token.space['section-gap']};\n    color: ${token.color.text.primary};\n    background: ${token.color.surface.content};\n    border: 1px solid ${token.color.border.subtle};\n    border-radius: ${token.radius.md};\n`;\nconst stack = css`\n    display: grid;\n    gap: ${token.space['stack-gap']};\n    width: min(calc(${token.size['64']} * 5), calc(100vw - 2 * ${token.space['section-gap']}));\n    max-width: 100%;\n    min-width: 0;\n`;\nconst row = css`display: grid; gap: ${token.space['stack-gap']}; min-width: 0;`;\nexport default function DesignsDemo() {\n    const [value, setValue] = useState(40);\n    const errorId = useId();\n    return \u003cdiv className={stack}>\n        {(['apple', 'md3', 'shadcn'] as const).map(design => \u003cConfigProvider key={design} designSystem={design}>\n            \u003csection className={panel} aria-label={`${design} 滑块`}>\n                \u003cstrong>{design === 'md3' ? 'MD3' : design === 'apple' ? 'Apple' : 'shadcn'} · {value}%\u003c/strong>\n                \u003cdiv className={row}>\n                    \u003cspan id={`${errorId}-${design}-brightness`}>亮度\u003c/span>\n                    \u003cSlider value={value} onValueChange={setValue} aria-labelledby={`${errorId}-${design}-brightness`} aria-valuetext={`${value}%`} />\n                \u003c/div>\n                \u003cdiv className={row}>\n                    \u003cspan id={`${errorId}-${design}-disabled`}>不可用亮度\u003c/span>\n                    \u003cSlider value={65} disabled aria-labelledby={`${errorId}-${design}-disabled`} />\n                \u003c/div>\n                \u003cdiv className={row}>\n                    \u003cspan id={`${errorId}-${design}-rtl`}>从右到左的亮度\u003c/span>\n                    \u003cSlider value={value} onValueChange={setValue} dir=\"rtl\" aria-labelledby={`${errorId}-${design}-rtl`} />\n                \u003c/div>\n                \u003cdiv className={row}>\n                    \u003cspan id={`${errorId}-${design}-sync`}>同步亮度\u003c/span>\n                    \u003cSlider value={value} onValueChange={setValue} aria-labelledby={`${errorId}-${design}-sync`} aria-invalid=\"true\" aria-describedby={`${errorId}-${design}`} />\n                \u003c/div>\n                \u003csmall id={`${errorId}-${design}`}>设备未连接，当前值尚未同步。\u003c/small>\n            \u003c/section>\n        \u003c/ConfigProvider>)}\n    \u003c/div>;\n}\n",
+        "sourceCode": "import { useId, useState } from 'react';\nimport { css } from '@crab-dev/css';\nimport ConfigProvider, { useConfig } from '@crab-dev/rc-config-provider';\nimport token, { designSystemRegistry } from '@crab-dev/rc-token-semantic';\nimport Slider from '@crab-dev/rc-slider';\n\nexport const meta = { title: '当前主题的交互状态', description: '观察当前主题下的选中、禁用和焦点反馈；示例继承文档配置，可直接操作。' };\nconst panel = css`\n    display: grid;\n    gap: ${token.space['component-gap']};\n    padding: ${token.space['section-gap']};\n    color: ${token.color.text.primary};\n    background: ${token.color.surface.content};\n    border: 1px solid ${token.color.border.subtle};\n    border-radius: ${token.radius.md};\n`;\nconst stack = css`\n    display: grid;\n    gap: ${token.space['stack-gap']};\n    width: min(calc(${token.size['64']} * 5), calc(100vw - 2 * ${token.space['section-gap']}));\n    max-width: 100%;\n    min-width: 0;\n`;\nconst row = css`display: grid; gap: ${token.space['stack-gap']}; min-width: 0;`;\nexport default function DesignsDemo() {\n    const { designSystem: design } = useConfig();\n    const [value, setValue] = useState(40);\n    const errorId = useId();\n    return \u003cdiv className={stack}>\n        \u003cConfigProvider designSystem={design}>\n            \u003csection className={panel} aria-label={`${design} 滑块`}>\n                \u003cstrong>{designSystemRegistry[design].label} · {value}%\u003c/strong>\n                \u003cdiv className={row}>\n                    \u003cspan id={`${errorId}-${design}-brightness`}>亮度\u003c/span>\n                    \u003cSlider value={value} onValueChange={setValue} aria-labelledby={`${errorId}-${design}-brightness`} aria-valuetext={`${value}%`} />\n                \u003c/div>\n                \u003cdiv className={row}>\n                    \u003cspan id={`${errorId}-${design}-disabled`}>不可用亮度\u003c/span>\n                    \u003cSlider value={65} disabled aria-labelledby={`${errorId}-${design}-disabled`} />\n                \u003c/div>\n                \u003cdiv className={row}>\n                    \u003cspan id={`${errorId}-${design}-rtl`}>从右到左的亮度\u003c/span>\n                    \u003cSlider value={value} onValueChange={setValue} dir=\"rtl\" aria-labelledby={`${errorId}-${design}-rtl`} />\n                \u003c/div>\n                \u003cdiv className={row}>\n                    \u003cspan id={`${errorId}-${design}-sync`}>同步亮度\u003c/span>\n                    \u003cSlider value={value} onValueChange={setValue} aria-labelledby={`${errorId}-${design}-sync`} aria-invalid=\"true\" aria-describedby={`${errorId}-${design}`} />\n                \u003c/div>\n                \u003csmall id={`${errorId}-${design}`}>设备未连接，当前值尚未同步。\u003c/small>\n            \u003c/section>\n        \u003c/ConfigProvider>\n    \u003c/div>;\n}\n",
         "previewPath": "/components/rc-slider/workbench/?__wake_demo=docs%2Fdemos%2Fdesigns.demo.tsx",
         "workbenchPath": "/components/rc-slider/workbench/#/components/docs%2Fdemos%2Fdesigns.demo.tsx",
         "density": "compact",
@@ -68,7 +69,7 @@ export const demos = [
     {
         "id": "docs/demos/expressive.demo.tsx",
         "title": "五档尺寸",
-        "description": "尺寸会随设计风格调整；MD3 保留竖向手柄、轨道间隙与终点。",
+        "description": "比较当前主题的五档滑块尺寸，操作手柄并使用键盘微调当前值。",
         "learning": {
             "components": [
                 "Slider"
@@ -84,7 +85,7 @@ export const demos = [
             ],
             "hasState": true
         },
-        "sourceCode": "export const meta = { title: '五档尺寸', description: '尺寸会随设计风格调整；MD3 保留竖向手柄、轨道间隙与终点。' };\nimport { useState } from 'react';\nimport { css } from '@crab-dev/css';\nimport token from '@crab-dev/rc-token-semantic';\nimport Slider from '../../src/slider.js';\nconst stack = css`\n    display: grid;\n    gap: ${token.space['section-gap']};\n    width: min(calc(${token.size['64']} * 5), calc(100vw - 2 * ${token.space['section-gap']}));\n    max-width: 100%;\n`;\nexport default function Example() {\n    const [value, setValue] = useState(40);\n    return \u003cdiv className={stack}>{(['xs','s','m','l','xl'] as const).map(size => \u003cdiv key={size}>\n        \u003cspan>{size.toUpperCase()} · {value}\u003c/span>\n        \u003cSlider size={size} value={value} onValueChange={setValue} aria-label={`${size} 滑块`} />\n    \u003c/div>)}\u003c/div>;\n}\n",
+        "sourceCode": "export const meta = { title: '五档尺寸', description: \"比较当前主题的五档滑块尺寸，操作手柄并使用键盘微调当前值。\" };\nimport { useState } from 'react';\nimport { css } from '@crab-dev/css';\nimport token from '@crab-dev/rc-token-semantic';\nimport Slider from '@crab-dev/rc-slider';\nconst stack = css`\n    display: grid;\n    gap: ${token.space['section-gap']};\n    width: min(calc(${token.size['64']} * 5), calc(100vw - 2 * ${token.space['section-gap']}));\n    max-width: 100%;\n`;\nexport default function Example() {\n    const [value, setValue] = useState(40);\n    return \u003cdiv className={stack}>{(['xs','s','m','l','xl'] as const).map(size => \u003cdiv key={size}>\n        \u003cspan>{size.toUpperCase()} · {value}\u003c/span>\n        \u003cSlider size={size} value={value} onValueChange={setValue} aria-label={`${size} 滑块`} />\n    \u003c/div>)}\u003c/div>;\n}\n",
         "previewPath": "/components/rc-slider/workbench/?__wake_demo=docs%2Fdemos%2Fexpressive.demo.tsx",
         "workbenchPath": "/components/rc-slider/workbench/#/components/docs%2Fdemos%2Fexpressive.demo.tsx",
         "density": "compact",
@@ -124,3 +125,70 @@ export const demos = [
         "group": null
     }
 ] as const satisfies readonly ComponentDemoRecord[];
+
+export const documents = {
+    "md3": {
+        "summary": "以轨道间隙、竖向手柄和终点反馈表达连续值，尺寸影响真实操作几何。",
+        "usage": "为滑块提供用途名称和可读数值，键盘步进应符合实际业务精度。",
+        "exampleDescription": "调整五档尺寸的滑块，观察竖向手柄、轨道间隙和数值变化。",
+        "demos": [
+            "expressive.demo.tsx",
+            "base.demo.tsx",
+            "designs.demo.tsx"
+        ],
+        "references": [
+            "https://m3.material.io/components/sliders/overview",
+            "https://material-web.dev/components/slider/",
+            "https://github.com/material-components/material-web/tree/main/slider"
+        ]
+    },
+    "macos": {
+        "summary": "以细轨道和窄胶囊手柄提供桌面连续值调整，适合音量或设置检查器。",
+        "usage": "当前值需要文字或数值补充，紧凑布局也要保持手柄可辨认和焦点可见。",
+        "exampleDescription": "操作滑块并读取百分比，检查桌面手柄、禁用状态和键盘步进。",
+        "demos": [
+            "designs.demo.tsx",
+            "base.demo.tsx",
+            "expressive.demo.tsx"
+        ],
+        "references": [
+            "https://developer.apple.com/design/human-interface-guidelines/components",
+            "https://developer.apple.com/design/human-interface-guidelines/accessibility"
+        ]
+    },
+    "shadcn": {
+        "summary": "用简洁轨道和圆形手柄表达连续选择，选中部分与未选轨道清楚区分。",
+        "usage": "给滑块标注单位和范围，避免仅凭位置让用户推断当前数值。",
+        "exampleDescription": "拖动手柄后使用方向键微调，检查圆形手柄与中性轨道的反馈。",
+        "demos": [
+            "base.demo.tsx",
+            "designs.demo.tsx",
+            "expressive.demo.tsx"
+        ],
+        "references": [
+            "https://ui.shadcn.com/docs/components",
+            "https://ui.shadcn.com/docs/theming",
+            "https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4"
+        ]
+    }
+} as const satisfies ComponentDesignDocuments;
+
+export const guide = {
+    "definition": "Slider 通过拖动轨道上的手柄选择连续或分段数值，适合快速调整并即时看到效果。它强调相对位置，不如数字输入适合精确键入。",
+    "useWhen": [
+        "音量、亮度、比例等范围值需要快速调整。",
+        "min、max 和 step 明确，用户可以根据相对位置做决定。"
+    ],
+    "avoidWhen": [
+        "精确数值输入使用 NumberEdit；少量离散选择使用 Segmented 或 Radio。"
+    ],
+    "essentials": [
+        "min、max、step 和 value 必须使用同一单位。",
+        "受控 value 与 onValueChange 配对，拖动和键盘调整都会通知最新值。",
+        "标签或值显示帮助用户理解手柄位置代表什么。"
+    ],
+    "accessibility": [
+        "提供可访问名称、当前值文字、上下限和键盘增减操作。",
+        "轨道颜色之外要有可定位手柄与焦点，触控目标大于可见手柄。"
+    ]
+} as const;

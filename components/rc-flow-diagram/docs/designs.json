@@ -1,0 +1,38 @@
+{
+    "md3": {
+        "summary": "以语义节点、边和选中反馈组织流程关系，图结构编辑是本库的可视化扩展。",
+        "usage": "颜色可强调关键节点，但步骤名称、连接方向与状态仍需明确。",
+        "exampleDescription": "编辑节点与连线，检查当前选择、操作入口和流程方向的表达。",
+        "demos": [
+            "editing.demo.tsx",
+            "animated-edge.demo.tsx",
+            "edge.demo.tsx",
+            "elk-layout.demo.tsx",
+            "readability.demo.tsx"
+        ]
+    },
+    "macos": {
+        "summary": "为桌面流程编辑器提供节点画布与连接操作，工具和内容保持层次清晰。",
+        "usage": "紧凑面板中保留可读的节点标题；自动布局后仍应能追踪当前编辑对象。",
+        "exampleDescription": "运行自动布局并阅读节点关系，检查画布内容与操作区域的区分。",
+        "demos": [
+            "elk-layout.demo.tsx",
+            "animated-edge.demo.tsx",
+            "edge.demo.tsx",
+            "editing.demo.tsx",
+            "readability.demo.tsx"
+        ]
+    },
+    "shadcn": {
+        "summary": "以中性节点边界和简洁连线表达流程，强调结构与内容可读性。",
+        "usage": "流程图是自有组合能力，业务应为节点类型和连线含义提供明确说明。",
+        "exampleDescription": "查看长标签与复杂连接的可读性，再检查选中节点的边界反馈。",
+        "demos": [
+            "readability.demo.tsx",
+            "animated-edge.demo.tsx",
+            "edge.demo.tsx",
+            "editing.demo.tsx",
+            "elk-layout.demo.tsx"
+        ]
+    }
+}

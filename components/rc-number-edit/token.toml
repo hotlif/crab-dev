@@ -7,6 +7,16 @@ imports = [
 
 [token]
 
+# Independent Tahoe controls; Web adaptation of AppKit.
+macos.stepper.width = "$ref(size.20)"
+macos.stepper.action.height = "12px"
+macos.stepper.icon.width = "12px"
+macos.stepper.border-radius = "$ref(radius.sm)"
+macos.stepper.border-color = "$ref(color.border.subtle)"
+macos.stepper.background-color = "$ref(color.surface.content)"
+macos.stepper.box-shadow = "$ref(material.control-shadow)"
+
+
 # 交互反馈动效：hover/active 颜色切换要求"快到近乎即时"，走 interaction 语义档
 root.transition = "color $ref(motion.interaction), background-color $ref(motion.interaction)"
 

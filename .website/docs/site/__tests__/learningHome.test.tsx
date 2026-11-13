@@ -70,7 +70,7 @@ describe("LearningHome", () => {
         const input = within(preview).getByRole("textbox", { name: "示例项目名称" });
         await enterText(input, "文档体验");
         await fireEvent.click(within(preview).getByRole("switch", { name: "允许团队协作" }));
-        await view.rerender(<ConfigProvider designSystem="apple" colorMode="dark" size="large"><HomeHero href={slug => `/${slug}`} /></ConfigProvider>);
+        await view.rerender(<ConfigProvider designSystem="macos" colorMode="dark" size="large"><HomeHero href={slug => `/${slug}`} /></ConfigProvider>);
         expect(screen.getByRole("textbox", { name: "示例项目名称" })).toBe(input);
         expect((input as HTMLInputElement).value).toBe("文档体验");
         await fireEvent.click(within(preview).getByRole("button", { name: /^创建项目/ }));

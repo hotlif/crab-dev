@@ -39,9 +39,9 @@ status = "experimental"
 
 ## 三套风格
 
-树节点的选中形态与对应主题导航一致：Apple 为强调色圆角行与配对前景色，MD3 Expressive 为次要色胶囊行，shadcn 为中性圆角行。选中标题不附加下划线，展开图标、加载图标和使用 `currentColor` 的节点前置图标跟随选中前景色；取消选择后恢复普通图标色。`icon` 内显式指定的颜色、SVG `fill` 和 `stroke` 保留，由调用方核对其在选中背景上的可辨识性。多选复选框、禁用、焦点、拖拽指示和内联编辑保留各自语义。
+树节点的选中形态与对应主题导航一致：macOS 为强调色圆角行与配对前景色，MD3 Expressive 为次要色胶囊行，shadcn 为中性圆角行。选中标题不附加下划线，展开图标、加载图标和使用 `currentColor` 的节点前置图标跟随选中前景色；取消选择后恢复普通图标色。`icon` 内显式指定的颜色、SVG `fill` 和 `stroke` 保留，由调用方核对其在选中背景上的可辨识性。多选复选框、禁用、焦点、拖拽指示和内联编辑保留各自语义。
 
-M3 与 Material Web 没有独立 Tree；MD3 Expressive 的行选择扩展自 [Navigation drawer](https://m3.material.io/components/navigation-drawer/overview)，并保留 Web tree 的键盘模型。Apple 参考 [Apple Sidebars](https://developer.apple.com/design/human-interface-guidelines/sidebars)，shadcn/ui 参考 [Sidebar 文档](https://ui.shadcn.com/docs/components/radix/sidebar)及 [New York V4 Sidebar 实现](https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui/sidebar.tsx)。这些是分层数据扩展，不能等同于三方原生 Tree。设计参考日期：2026-10-22；源码引用于 2026-10-24 固定到 New York V4 基线。
+M3 与 Material Web 没有独立 Tree；MD3 Expressive 的行选择扩展自 [Navigation drawer](https://m3.material.io/components/navigation-drawer/overview)，并保留 Web tree 的键盘模型。macOS 参考 [macOS Sidebars](https://developer.apple.com/design/human-interface-guidelines/sidebars)，shadcn/ui 参考 [Sidebar 文档](https://ui.shadcn.com/docs/components/radix/sidebar)及 [New York V4 Sidebar 实现](https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui/sidebar.tsx)。这些是分层数据扩展，不能等同于三方原生 Tree。设计参考日期：2026-10-22；源码引用于 2026-10-24 固定到 New York V4 基线。
 
 ## 代码演示
 
@@ -85,7 +85,7 @@ M3 与 Material Web 没有独立 Tree；MD3 Expressive 的行选择扩展自 [Na
 | 轴 | 项目规格 |
 | --- | --- |
 | 尺寸与密度 | small / medium / large 控制内部控件；compact / standard / comfortable 控制节点几何，显式节点高度优先 |
-| 三体系 | MD3 次要色胶囊选中行、Apple 强调色圆角选中行、shadcn 中性圆角选中行；焦点与选择分别表达 |
+| 三体系 | MD3 次要色胶囊选中行、macOS 强调色圆角选中行、shadcn 中性圆角选中行；焦点与选择分别表达 |
 | 命中与虚拟测量 | 粗指针默认行高提高至触控下限；CSS 与虚拟数值共用几何，不通过视觉缩放改变测量 |
 | 状态 | 默认、hover、键盘焦点、选择、级联勾选、折叠、编辑、滚动、空树及真实异步加载 |
 | 内容 | 固定中文 / English 长标题、层级线、禁用叶节点、选中行内编辑器 |
@@ -94,5 +94,5 @@ M3 与 Material Web 没有独立 Tree；MD3 Expressive 的行选择扩展自 [Na
 
 虚拟滚动验收要求首节点退出、固定数据中的末节点进入视口，实际节点保持非空且数量有界。禁用属于节点能力，普通数据场景显示禁用叶子；空树、加载、折叠和已滚动范围不据此声明禁用交互通过。
 
-Tree 没有三方一一对应的组件：既有导航参考只指导表面与选中语言，不能代替树行为规范。[WAI-ARIA Tree View](https://www.w3.org/WAI/ARIA/apg/patterns/treeview/) 用于补充 Web 层级键盘与焦点语义；它不是视觉来源。shadcn 固定 New York V4 提交 3d98900e9b73c45f035f8109e9d41ba6a51685e7；Apple 保持依据原则自主实现的 Web 定位。参考记录日期：2026-10-29。
+Tree 没有三方一一对应的组件：既有导航参考只指导表面与选中语言，不能代替树行为规范。[WAI-ARIA Tree View](https://www.w3.org/WAI/ARIA/apg/patterns/treeview/) 用于补充 Web 层级键盘与焦点语义；它不是视觉来源。shadcn 固定 New York V4 提交 3d98900e9b73c45f035f8109e9d41ba6a51685e7；macOS 保持依据原则自主实现的 Web 定位。参考记录日期：2026-10-29。
 

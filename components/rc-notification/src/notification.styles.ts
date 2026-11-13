@@ -28,6 +28,9 @@ export const notificationStyle = css`
     border-radius: ${dimensionBorderRadius};
     isolation: isolate;
     background-color: ${colorBackground};
+    backdrop-filter: ${token.material['backdrop-filter']};
+    -webkit-backdrop-filter: ${token.material['backdrop-filter']};
+    background-image: ${token.material['background-image']};
     box-shadow: inset 0 0 0 1px ${token.root["border-color"]}, ${token.root["box-shadow"]};
     z-index: ${token.stack.front["z-index"]};
     grid-area: 1 / 1;

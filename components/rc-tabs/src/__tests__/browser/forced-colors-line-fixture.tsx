@@ -8,9 +8,9 @@ type Direction = 'ltr' | 'rtl';
 type Rect = Pick<DOMRectReadOnly, 'x' | 'y' | 'width' | 'height' | 'top' | 'right' | 'bottom' | 'left'>;
 type PixelRect = Pick<Rect, 'x' | 'y' | 'width' | 'height'>;
 const params = new URLSearchParams(location.search);
-const designSystem = params.get('designSystem') as 'md3' | 'apple' | 'shadcn';
+const designSystem = params.get('designSystem') as 'md3' | 'macos' | 'shadcn';
 const colorMode = params.get('colorMode') as 'light' | 'dark';
-if (!['md3', 'apple', 'shadcn'].includes(designSystem) || !['light', 'dark'].includes(colorMode)) throw new Error('Invalid forced-colors line fixture configuration');
+if (!['md3', 'macos', 'shadcn'].includes(designSystem) || !['light', 'dark'].includes(colorMode)) throw new Error('Invalid forced-colors line fixture configuration');
 const host = document.getElementById('root');
 if (!host) throw new Error('Missing forced-colors line fixture host');
 const root = createRoot(host);
@@ -100,7 +100,7 @@ function snapshot() {
 function systemColors() {
     const canvas = getComputedStyle(required('[data-system-canvas]'));
     const highlight = getComputedStyle(required('[data-system-highlight]'));
-    return { foreground: canvas.color, background: canvas.backgroundColor, selection: highlight.color };
+    return { foreground: canvas.color, background: canvas.backgroundColor, selection: highlight.color, selectedForeground: highlight.backgroundColor };
 }
 
 function verify(actual: ReturnType<typeof snapshot>) {
@@ -116,11 +116,14 @@ function verify(actual: ReturnType<typeof snapshot>) {
         check(subject.selected === 'true' && !subject.disabled && subject.tabCount === 3, `Selected line tab semantics lost: ${subject.id}`);
         check(subject.controls === subject.panelId && subject.labelledBy === subject.tabId, `Tab/panel association lost: ${subject.id}`);
         check(subject.text === label && subject.glyphs.length === 4, `Missing actual line label ranges: ${subject.id}`);
-        check(colorChannels(subject.color).slice(0, 3).some((channel, channelIndex) => channel !== colorChannels(colors.background)[channelIndex]),
+        const selectedBackground = designSystem === 'macos' ? colors.selection : colors.background;
+        check(colorChannels(subject.color).slice(0, 3).some((channel, channelIndex) => channel !== colorChannels(selectedBackground)[channelIndex]),
             `Selected text and background are indistinguishable: ${subject.id}`);
+        if (designSystem === 'macos') check(subject.background === colors.selection && subject.color === colors.selectedForeground && subject.forcedColorAdjust === 'none',
+            `Mac selected bezel must retain the system foreground/fill pair: ${subject.id}`);
         check(subject.unselected.selected === 'false' && !subject.unselected.focused && subject.unselected.outlineStyle === 'none', `Unselected line tab acquired a selection ring: ${subject.id}`);
         check(subject.outline.style === 'solid' && subject.outline.width > 0
-            && subject.outline.color === (scene.focused ? colors.foreground : colors.selection), `Wrong actual line outline: ${subject.id}`);
+            && subject.outline.color === (scene.focused ? designSystem === 'macos' ? colors.selectedForeground : colors.foreground : colors.selection), `Wrong actual line outline: ${subject.id}`);
         check(scene.focused ? subject.outline.offset < -subject.outline.width : subject.outline.offset === -subject.outline.width,
             `Line outline is not contained: ${subject.id}`);
         check(subject.listOverflowX === 'auto', 'Regression must retain the real scrolling tablist');
@@ -143,7 +146,7 @@ async function prepare(direction: Direction) {
     flushSync(() => root.render(<ConfigProvider designSystem={designSystem} colorMode={colorMode}>
         <main style={{ padding: 48 }}>
             <span data-system-canvas="" style={{ color: 'CanvasText', backgroundColor: 'Canvas', forcedColorAdjust: 'none' }} />
-            <span data-system-highlight="" style={{ color: 'Highlight', forcedColorAdjust: 'none' }} />
+            <span data-system-highlight="" style={{ color: 'Highlight', backgroundColor: 'HighlightText', forcedColorAdjust: 'none' }} />
             {scenes().map(scene => <section key={scene.id} data-scene={scene.id} dir={scene.direction} style={{ width: 420, marginBottom: 48 }}>
                 <Tabs type="line" defaultValue="overview" items={[
                     { key: 'overview', label, children: '当前面板' },
@@ -196,9 +199,12 @@ async function inspectPixels(base64: string) {
     const image = await screenshotPixels(base64);
     const actual = verify(snapshot()), colors = systemColors();
     return actual.subjects.map(subject => {
+        if (designSystem === 'macos') check(matchingPixels(image, subject.rect, colors.selection).ratio > 0.25,
+            `Mac selected bezel fill missing from original PNG: ${subject.id}`);
         const edges = edgeStrips(subject).map(strip => {
-            const expected = subject.focused ? colors.foreground : colors.selection;
-            const other = subject.focused ? colors.selection : colors.foreground;
+            const focusColor = designSystem === 'macos' ? colors.selectedForeground : colors.foreground;
+            const expected = subject.focused ? focusColor : colors.selection;
+            const other = subject.focused ? colors.selection : focusColor;
             const pixels = matchingPixels(image, strip.rect, expected);
             const otherState = matchingPixels(image, strip.rect, other);
             check(pixels.total >= 2 && pixels.ratio > 0.8 && otherState.ratio < 0.05,
@@ -208,7 +214,7 @@ async function inspectPixels(base64: string) {
         const characters = subject.glyphs.map(glyph => {
             const foreground = matchingPixels(image, glyph.rect, subject.color, 64);
             // Include near-background pixels along antialiased CJK strokes.
-            const background = matchingPixels(image, glyph.rect, colors.background, 24);
+            const background = matchingPixels(image, glyph.rect, designSystem === 'macos' ? colors.selection : colors.background, 24);
             check(foreground.matched >= 2 && background.matched >= 2 && background.ratio > 0.2,
                 `Actual selected text ink/gaps missing: ${subject.id}/${glyph.text} ${JSON.stringify({ foreground, background })}`);
             return { ...glyph, foreground, background };
@@ -230,8 +236,8 @@ async function inspectPixels(base64: string) {
         check(Math.floor(band.end) - Math.ceil(band.y) >= 1, `No independent underline pixel row: ${subject.id}`);
         const underlineRegion: PixelRect = { x, y: band.y, width, height: band.end - band.y };
         for (const glyph of subject.glyphs) check(!intersects(underlineRegion, glyph.rect), `Underline ROI intersects label: ${subject.id}`);
-        const underline = matchingPixels(image, underlineRegion, colors.selection);
-        const underlineBackground = matchingPixels(image, underlineRegion, colors.background);
+        const underline = matchingPixels(image, underlineRegion, designSystem === 'macos' ? colors.selectedForeground : colors.selection);
+        const underlineBackground = matchingPixels(image, underlineRegion, designSystem === 'macos' ? colors.selection : colors.background);
         check(underline.total >= 2, `Empty underline pixel region: ${subject.id}`);
         check(designSystem === 'md3' ? underline.ratio > 0.8 : underline.ratio < 0.05 && underlineBackground.ratio > 0.8,
             `Actual design-specific underline pixels mismatch: ${subject.id}/${JSON.stringify({ underline, underlineBackground })}`);

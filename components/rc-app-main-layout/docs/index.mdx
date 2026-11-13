@@ -35,9 +35,9 @@ status = "experimental"
 
 ## 三套风格
 
-Apple 使用紧凑的 40px 工具栏、6px 导航控件圆角、侧栏分界线和强调色选中行；MD3 Expressive 保留 48px 工具栏、胶囊形导航容器与次要色选中行；shadcn/ui 使用 48px 工具栏、8px 圆角和中性选中行。侧栏、工具栏、内容区和浮层的浅深色角色统一由 L2 提供，复用的 Menu / Button 同步采用相同设计。
+macOS 使用紧凑的 40px 工具栏、6px 导航控件圆角、侧栏分界线和强调色选中行；MD3 Expressive 保留 48px 工具栏、胶囊形导航容器与次要色选中行；shadcn/ui 使用 48px 工具栏、8px 圆角和中性选中行。侧栏、工具栏、内容区和浮层的浅深色角色统一由 L2 提供，复用的 Menu / Button 同步采用相同设计。
 
-本布局是桌面工作区组合，浏览器式多页签、拖拽和账户菜单属于业务扩展。MD3 Expressive 导航依据 [Navigation drawer](https://m3.material.io/components/navigation-drawer/overview)；浮层参考 [Material Web Menus](https://material-web.dev/components/menu/)和 [Menu 样式](https://github.com/material-components/material-web/blob/main/menu/internal/_menu.scss)。Apple 参考 [Apple Sidebars](https://developer.apple.com/design/human-interface-guidelines/sidebars)；shadcn 参考 [Sidebar 文档](https://ui.shadcn.com/docs/components/radix/sidebar)与 [Sidebar 实现](https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui/sidebar.tsx)。Material Web 没有完整的应用工作区布局实现。参考核对日期：2026-10-22。
+本布局是桌面工作区组合，浏览器式多页签、拖拽和账户菜单属于业务扩展。MD3 Expressive 导航依据 [Navigation drawer](https://m3.material.io/components/navigation-drawer/overview)；浮层参考 [Material Web Menus](https://material-web.dev/components/menu/)和 [Menu 样式](https://github.com/material-components/material-web/blob/main/menu/internal/_menu.scss)。macOS 参考 [macOS Sidebars](https://developer.apple.com/design/human-interface-guidelines/sidebars)；shadcn 参考 [Sidebar 文档](https://ui.shadcn.com/docs/components/radix/sidebar)与 [Sidebar 实现](https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui/sidebar.tsx)。Material Web 没有完整的应用工作区布局实现。参考核对日期：2026-10-22。
 
 MD3 Expressive 侧栏使用 280px 桌面工作区宽度和 36px 默认导航行；这是本项目的密度定制，不等于 baseline drawer 的 360px 宽度与 56px indicator，也不等同于 Expressive navigation rail。
 
@@ -52,7 +52,7 @@ MD3 Expressive 侧栏使用 280px 桌面工作区宽度和 36px 默认导航行�
 
 ## 工作区矩阵规格
 
-主布局由 Menu、Button、Avatar、Breadcrumbs、Drawer 与页面标签组合，基础控件保留自身体系规则。MD3 Expressive 通过 tonal 工作表面和重要动作建立层级，Apple 强调精确对齐与轻量分界，shadcn 保留中性侧栏与描边层级。工作区布局、浏览器式页签和账户编排属于本库扩展。
+主布局由 Menu、Button、Avatar、Breadcrumbs、Drawer 与页面标签组合，基础控件保留自身体系规则。MD3 Expressive 通过 tonal 工作表面和重要动作建立层级，macOS 强调精确对齐与轻量分界，shadcn 保留中性侧栏与描边层级。工作区布局、浏览器式页签和账户编排属于本库扩展。
 
 | 轴 | 项目规格 |
 | --- | --- |
@@ -64,5 +64,5 @@ MD3 Expressive 侧栏使用 280px 桌面工作区宽度和 36px 默认导航行�
 
 「工作区验收矩阵」采用固定菜单、账户和两张保留输入的页面，避免异步演示延时进入静态基准。几何、焦点、菜单和草稿断言与原生截图并行。场景与适用轴在 docs/visual.json；声明矩阵不代表已经完成像素复审。
 
-参考沿用本文的 M3 Navigation drawer、Material Web Menu、Apple Sidebars 与固定 New York V4 Sidebar；不同设计不复制状态控制或路由。参考记录日期：2026-10-29。
+参考沿用本文的 M3 Navigation drawer、Material Web Menu、macOS Sidebars 与固定 New York V4 Sidebar；不同设计不复制状态控制或路由。参考记录日期：2026-10-29。
 

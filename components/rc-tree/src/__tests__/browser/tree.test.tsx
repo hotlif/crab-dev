@@ -44,7 +44,7 @@ function requiredElement<T extends Element>(root: ParentNode, selector: string):
 }
 
 describe('Tree published selected node icon foreground', () => {
-    for (const designSystem of ['md3', 'apple', 'shadcn'] as const) {
+    for (const designSystem of ['md3', 'macos', 'shadcn'] as const) {
         for (const colorMode of ['light', 'dark'] as const) {
             it(`pairs currentColor icons with ${designSystem}/${colorMode} selection and restores muted colors`, async () => {
                 const treeData: Node[] = [
@@ -137,7 +137,7 @@ describe('Tree published selected node icon foreground', () => {
 });
 
 describe('Tree published focus inside AutoSizer clipping', () => {
-    for (const designSystem of ['md3', 'apple', 'shadcn'] as const) {
+    for (const designSystem of ['md3', 'macos', 'shadcn'] as const) {
         for (const colorMode of ['light', 'dark'] as const) {
             for (const customWidth of [undefined, 4] as const) {
                 it(`keeps every outline edge inside the measured clip for ${designSystem}/${colorMode}/${customWidth ?? 'default'}px`, async () => {
@@ -317,7 +317,7 @@ describe('Tree published row geometry', () => {
 });
 
 describe('Tree published default editor geometry', () => {
-    for (const designSystem of ['md3', 'apple', 'shadcn'] as const) {
+    for (const designSystem of ['md3', 'macos', 'shadcn'] as const) {
         for (const colorMode of ['light', 'dark'] as const) {
             it(`contains the ${designSystem}/${colorMode} default editor within its actual medium row`, async () => {
                 // Enter through the public controlled node state. Keep all real
@@ -408,7 +408,7 @@ function expectCaret(row: HTMLElement, expanded: boolean, direction: 'ltr' | 'rt
 }
 
 describe('Tree published directional geometry and navigation', () => {
-    for (const designSystem of ['md3', 'apple', 'shadcn'] as const) {
+    for (const designSystem of ['md3', 'macos', 'shadcn'] as const) {
         for (const showLine of [false, true]) {
             it(`mirrors ${designSystem} hierarchy spacing and caret orientation with showLine=${showLine}`, async () => {
                 const measures: number[][] = [];

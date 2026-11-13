@@ -3,6 +3,7 @@
  */
 
 import type { ComponentDemoRecord } from "../site/componentDemos.js";
+import type { ComponentDesignDocuments } from "../site/componentDesignGuide.js";
 
 export const demos = [
     {
@@ -68,3 +69,67 @@ export const demos = [
         "group": null
     }
 ] as const satisfies readonly ComponentDemoRecord[];
+
+export const documents = {
+    "md3": {
+        "summary": "为长内容提供窗口化渲染，实际行的表面与交互仍由当前设计组件负责。",
+        "usage": "把测量行高与真实内容保持一致，字号、密度或容器变化后需要重新测量。",
+        "exampleDescription": "滚动基础列表，检查可见内容、滚动位置和语义行样式。",
+        "demos": [
+            "simple.demo.tsx",
+            "million.demo.tsx"
+        ],
+        "references": [
+            "https://m3.material.io/foundations/layout/understanding-layout/overview",
+            "https://material-web.dev/",
+            "https://github.com/material-components/material-web"
+        ]
+    },
+    "macos": {
+        "summary": "为桌面长列表和数据工作区减少渲染开销，保持内容位置与滚动体验稳定。",
+        "usage": "紧凑行高来自真实内容测量，窗口调整和列宽变化后不能沿用过期尺寸。",
+        "exampleDescription": "滚动大规模列表并调整视区，观察桌面行排列与滚动位置。",
+        "demos": [
+            "million.demo.tsx",
+            "simple.demo.tsx"
+        ],
+        "references": [
+            "https://developer.apple.com/design/human-interface-guidelines/components",
+            "https://developer.apple.com/design/human-interface-guidelines/accessibility"
+        ]
+    },
+    "shadcn": {
+        "summary": "为中性列表和数据界面提供虚拟窗口，性能逻辑不定义新的组件外观。",
+        "usage": "可见项目仍要有稳定标识与可访问内容，测量结果应对应实际渲染尺寸。",
+        "exampleDescription": "检查列表窗口内项目的更新，确认边界、内容顺序与滚动状态一致。",
+        "demos": [
+            "simple.demo.tsx",
+            "million.demo.tsx"
+        ],
+        "references": [
+            "https://ui.shadcn.com/docs/components",
+            "https://ui.shadcn.com/docs/theming",
+            "https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4"
+        ]
+    }
+} as const satisfies ComponentDesignDocuments;
+
+export const guide = {
+    "definition": "Virtual 只挂载视口附近的列表或网格项目，使数万到百万条数据仍能滚动。用户看到的是一个连续集合，内部渲染窗口只是性能实现。",
+    "useWhen": [
+        "长列表或网格的 DOM 数量已经造成明显性能问题。",
+        "项目尺寸固定或可测量，并能用稳定 key 表示。"
+    ],
+    "avoidWhen": [
+        "数据量很小不需要虚拟化；内容高度完全不可预测且无法测量时先简化布局。"
+    ],
+    "essentials": [
+        "容器必须有明确尺寸，itemCount 和 itemSize/测量结果要准确。",
+        "滚动位置依赖稳定 key，不要在每次渲染重建对象身份。",
+        "虚拟化不等于分页，数据获取、总数和缓存仍由业务层管理。"
+    ],
+    "accessibility": [
+        "提供集合总数、项目位置和可理解的键盘导航，不能让读屏误以为只有当前 DOM 数量。",
+        "焦点项目滚出渲染窗口时要有保留策略，缩放后重新测量避免内容重叠。"
+    ]
+} as const;

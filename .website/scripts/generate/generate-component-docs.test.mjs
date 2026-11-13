@@ -6,6 +6,7 @@ import { createRequire } from "node:module";
 import { loadLibraryManifest } from "../../../scripts/library-manifest.mjs";
 import { createTokenReferenceData, readGlobalTokens } from "./generate-token-reference.mjs";
 import { readPresentation, validatePresentation } from "./presentation.mjs";
+import { validateDesignDocuments, readDesignDocuments } from "./design-documents.mjs";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -38,6 +39,38 @@ import {
 
 const temporaryDirectory = await mkdtemp(path.join(tmpdir(), "crab-docs-generator-"));
 const tests = [];
+
+test("主题文档拒绝缺项、重复文案、跨主题说明和越界示例", () => {
+    const demos = [{ id: "docs/demos/basic.demo.tsx", title: "基础", description: "基础示例", sourceCode: "export default () => null;" }];
+    const documents = Object.fromEntries(["md3", "macos", "shadcn"].map(design => [design, {
+        summary: `${design} 的独立组件介绍，说明当前主题下的视觉层级与内容组织方式。`,
+        usage: `${design} 的独立使用建议，围绕真实组件能力选择适合当前任务的操作。`,
+        exampleDescription: `${design} 的示例操作指引，检查当前控件、标签与状态之间的清晰关系。`,
+        demos: ["basic.demo.tsx"],
+    }]));
+    validateDesignDocuments(documents, demos, "fixture");
+    assert.throws(() => validateDesignDocuments({ md3: documents.md3 }, demos, "fixture"), /完整/);
+    assert.throws(() => validateDesignDocuments({ ...documents, macos: { ...documents.macos, summary: documents.md3.summary } }, demos, "fixture"), /其他主题/);
+    assert.throws(() => validateDesignDocuments({ ...documents, md3: { ...documents.md3, demos: ["../basic.demo.tsx"] } }, demos, "fixture"), /不存在/);
+    assert.throws(() => validateDesignDocuments(documents, [{ ...demos[0], sourceCode: '<ConfigProvider designSystem="macos" />' }], "fixture"), /其他主题/);
+});
+
+test("全部组件都有独立主题文档，实际示例和生成页面不会混用主题正文", async () => {
+    const manifest = await loadLibraryManifest();
+    for (const product of manifest.packages) {
+        const files = await readdir(path.join(product.directory, "docs/demos"));
+        const demos = await Promise.all(files.filter(file => file.endsWith(".demo.tsx")).map(async file => {
+            const sourceCode = await readFile(path.join(product.directory, "docs/demos", file), "utf8");
+            return { id: `docs/demos/${file}`, ...extractDemoMeta(sourceCode, file), sourceCode };
+        }));
+        const documents = await readDesignDocuments(product.directory, demos, product.slug);
+        const page = await readFile(new URL(`../../docs/components/${product.slug}.mdx`, import.meta.url), "utf8");
+        assert.match(page, /<DesignIntroduction documents=\{documents\} \/>/);
+        assert.match(page, /<ComponentDemos demos=\{demos\} documents=\{documents\} \/>/);
+        assert.doesNotMatch(page, /### (三套|三体系)|\*\*(MD3 Expressive|macOS|shadcn\/ui)\*\*：/);
+        assert.equal(Object.keys(documents).length, manifest.designSystems.length);
+    }
+});
 
 function test(name, run) {
     tests.push({ name, run });
@@ -113,7 +146,7 @@ test("覆盖矩阵为已验收体系列出证据，缺少记录时拒绝生成",
         family: "base",
         category: "general",
         status: "experimental",
-        designCoverage: { md3: "verified", apple: "partial", shadcn: "not-applicable" },
+        designCoverage: { md3: "verified", macos: "partial", shadcn: "not-applicable" },
         verification: {
             md3: {
                 source: { kind: "commit", ref: "a".repeat(40) },
@@ -149,7 +182,7 @@ test("真实 Demo 与教学文案拒绝机械迁移产生的错误主题 data �
     for (const attribute of ["data-crab-designSystem", "data-colorMode", "data-colormode"]) {
         assert.match(`<section ${attribute}="dark" />`, invalidAttribute);
     }
-    assert.doesNotMatch('<ConfigProvider designSystem="md3" colorMode="dark"><section data-crab-design="apple" data-theme="light" data-request-id="example" /></ConfigProvider>', invalidAttribute);
+    assert.doesNotMatch('<ConfigProvider designSystem="md3" colorMode="dark"><section data-crab-design="macos" data-theme="light" data-request-id="example" /></ConfigProvider>', invalidAttribute);
 
     const manifest = await loadLibraryManifest();
     const scopes = [
@@ -262,6 +295,18 @@ test("API 类型校验接受复杂类型并拒绝不完整语法或额外声明"
     assert.equal(isValidTypeText('string; const injected = 1'), false);
 });
 
+test("API 保留源码显式 unknown，但拒绝 docgen 或解析失败的 unknown", async () => {
+    const sourcePath = path.join(temporaryDirectory, "explicit-unknown.ts");
+    await writeFile(sourcePath, "export interface Props { error: unknown; reset: () => void; }");
+    const sourceProps = parseSourceApiProps(sourcePath, "Props");
+    const props = normalizeApiProps([], sourceProps, "explicit unknown");
+    assert.equal(props.find(prop => prop.name === "error").typeText, "unknown");
+    assert.ok(createSearchableApiSource({ component: "Boundary", symbol: "Props", props }).includes('"error": unknown'));
+    assert.equal(isValidTypeText("unknown"), false);
+    assert.throws(() => normalizeApiProps([{ name: "error", typeText: "unknown" }], [], "missing docgen type"), /无法可靠解析/);
+    assert.throws(() => normalizeApiProps([], [{ name: "error", typeText: "unknown" }], "unresolved source type"), /无法可靠解析/);
+});
+
 test("映射类型的键保留为局部参数，不生成同名占位声明", () => {
     const content = createSearchableApiSource({
         component: "Example",
@@ -332,7 +377,7 @@ test("顶部真实预览索引只保留首个演示的轻量描述，TextEdit �
     assert.equal(previews["rc-text-edit"].id, "docs/demos/simple.demo.tsx");
     assert.equal(previews["rc-text-edit"].previewPath, textEditDemo.previewPath);
     assert.doesNotMatch(source, /"(?:sourceCode|learning|description|layout)"\s*:|SOURCE_CODE_MUST_NOT_ENTER_THE_REGISTRY/);
-    assert.match(source, /import type \{ ComponentDemoDescriptor \}/);
+    assert.match(source, /import type \{ ComponentPreviewRecord \}/);
     assert.doesNotMatch(source, /import(?! type)/);
 });
 
@@ -354,7 +399,11 @@ test("生成的顶部真实预览索引覆盖完整产品清单，并使用对�
     assert.deepEqual(Object.keys(previews).sort(), slugs);
     for (const slug of slugs) {
         const preview = previews[slug];
-        assert.deepEqual(Object.keys(preview), ["id", "title", "previewPath", "workbenchPath", "density"]);
+        assert.deepEqual(Object.keys(preview), ["id", "title", "previewPath", "workbenchPath", "density", "designs"]);
+        for (const design of manifest.designSystems) {
+            const documents = JSON.parse(await readFile(new URL(`../../../components/${slug}/docs/designs.json`, import.meta.url), "utf8"));
+            assert.equal(preview.designs[design.id].id, `docs/demos/${documents[design.id].demos[0]}`);
+        }
         assert.ok(preview.title.length > 0, `${slug}: 缺少预览标题`);
         assert.ok(["compact", "regular", "spacious"].includes(preview.density), `${slug}: 无效预览密度`);
         assert.equal(preview.previewPath, `/components/${slug}/workbench/?__wake_demo=${encodeURIComponent(preview.id)}`);
@@ -363,7 +412,8 @@ test("生成的顶部真实预览索引覆盖完整产品清单，并使用对�
     }
     assert.equal(previews["rc-text-edit"].id, "docs/demos/simple.demo.tsx");
     assert.doesNotMatch(source, /"(?:sourceCode|learning|description|layout)"\s*:|import(?! type)/);
-    assert.ok(source.length < 35_000, "顶部预览索引不应携带完整示例源码");
+    // One default plus a lightweight descriptor per design, never full sources.
+    assert.ok(source.length < manifest.packages.length * (1 + manifest.designSystems.length) * 600, "顶部预览索引仅包含轻量描述");
 });
 
 test("从联合 Props 合并公共字段、变体类型和源码说明", async () => {
@@ -753,7 +803,7 @@ const guide = {
     avoidWhen: ["已有更符合任务语义的组件时，不要只因为外观相似而替换。"],
     essentials: ["先理解组件负责什么，再选择属性。", "受控状态与变更事件保持单一数据来源。", "默认、错误、禁用和窄屏状态都要检查。"],
     accessibility: ["组件必须有可访问名称和清楚的键盘路径。", "状态不能只靠颜色表达，焦点必须始终可见。"],
-    designSystems: Object.fromEntries(["md3", "apple", "shadcn"].map(design => [design, {
+    designSystems: Object.fromEntries(["md3", "macos", "shadcn"].map(design => [design, {
         basis: "示例通过对应体系的组件职责和状态规则确定设计依据，完整覆盖另行验收。",
         references: [`https://example.com/${design}`],
     }])),
@@ -765,9 +815,9 @@ test("组件新手指南要求完整场景、概念、无障碍和官方依据",
     const markup = componentGuideMarkup(guide);
     assert.match(markup, /### 适用场景/);
     assert.match(markup, /### 使用要点/);
-    for (const label of ["MD3 Expressive", "Apple", "shadcn/ui"]) assert.ok(markup.includes(label));
+    for (const label of ["MD3 Expressive", "macOS", "shadcn/ui"]) assert.ok(markup.includes(label));
     assert.match(markup, /覆盖矩阵/);
-    assert.throws(() => validateComponentGuide({ ...guide, designSystems: { md3: guide.designSystems.md3 } }, "rc-example"), /apple/);
+    assert.throws(() => validateComponentGuide({ ...guide, designSystems: { md3: guide.designSystems.md3 } }, "rc-example"), /macos/);
 });
 
 test("教程要求完整步骤、唯一 ID 与互斥示例来源", () => {
@@ -1065,7 +1115,7 @@ test("全局令牌参考页保留章节层级与原有示例锚点且不重复�
     assert.match(page, /^## 三层令牌与主题$/m);
     assert.doesNotMatch(page, /## 使用说明|FirstExample|token-reference:/);
     assert.match(page, /<Tutorial tutorial=\{tutorial\} \/>/);
-    assert.match(page, /<ComponentDemos demos=\{demos\} \/>/);
+    assert.match(page, /<ComponentDemos demos=\{demos\} documents=\{documents\} \/>/);
 });
 
 let passed = 0;

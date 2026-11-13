@@ -86,9 +86,9 @@ globalStyle`
         --token-semantic-navigation-button-outlined-shadow: ${token.shadow.control};
         --token-semantic-navigation-button-primary-shadow: ${token.shadow.control};
     }
-    [data-crab-design="apple"] {
+    [data-crab-design="macos"] {
         --token-semantic-navigation-drawer-radius: ${palette.radius[6]};
-        --token-semantic-navigation-item-radius: ${palette.radius[3]};
+        --token-semantic-navigation-item-radius: ${palette.radius[5]};
         --token-semantic-navigation-item-selected-background: ${token.color.brand.primary};
         --token-semantic-navigation-item-selected-color: ${token.color.text['on-brand']};
         --token-semantic-navigation-item-icon-size: ${palette.space[4]};
@@ -122,7 +122,7 @@ globalStyle`
         --token-semantic-navigation-breadcrumb-current-weight: ${palette.font.weight.semibold};
         --token-semantic-navigation-sidebar-border: ${token.color.border.subtle};
         --token-semantic-navigation-toolbar-height: ${palette.size[40]};
-        --token-semantic-navigation-button-outlined-background: ${token.color.surface.content};
+        --token-semantic-navigation-button-outlined-background: var(--token-semantic-material-background);
         --token-semantic-navigation-button-outlined-shadow: ${token.shadow.control};
         --token-semantic-navigation-button-primary-shadow: ${token.shadow.control};
     }

@@ -1,10 +1,10 @@
 import { useId, useState } from 'react';
 import { css } from '@crab-dev/css';
-import ConfigProvider from '@crab-dev/rc-config-provider';
-import token from '@crab-dev/rc-token-semantic';
-import Slider from '../../src/slider.js';
+import ConfigProvider, { useConfig } from '@crab-dev/rc-config-provider';
+import token, { designSystemRegistry } from '@crab-dev/rc-token-semantic';
+import Slider from '@crab-dev/rc-slider';
 
-export const meta = { title: '三套设计与状态', description: 'Apple 的窄胶囊手柄、MD3 的细竖柄和 shadcn 的圆形手柄；支持键盘步进与从右到左布局。' };
+export const meta = { title: '当前主题的交互状态', description: '观察当前主题下的选中、禁用和焦点反馈；示例继承文档配置，可直接操作。' };
 const panel = css`
     display: grid;
     gap: ${token.space['component-gap']};
@@ -23,12 +23,13 @@ const stack = css`
 `;
 const row = css`display: grid; gap: ${token.space['stack-gap']}; min-width: 0;`;
 export default function DesignsDemo() {
+    const { designSystem: design } = useConfig();
     const [value, setValue] = useState(40);
     const errorId = useId();
     return <div className={stack}>
-        {(['apple', 'md3', 'shadcn'] as const).map(design => <ConfigProvider key={design} designSystem={design}>
+        <ConfigProvider designSystem={design}>
             <section className={panel} aria-label={`${design} 滑块`}>
-                <strong>{design === 'md3' ? 'MD3' : design === 'apple' ? 'Apple' : 'shadcn'} · {value}%</strong>
+                <strong>{designSystemRegistry[design].label} · {value}%</strong>
                 <div className={row}>
                     <span id={`${errorId}-${design}-brightness`}>亮度</span>
                     <Slider value={value} onValueChange={setValue} aria-labelledby={`${errorId}-${design}-brightness`} aria-valuetext={`${value}%`} />
@@ -47,6 +48,6 @@ export default function DesignsDemo() {
                 </div>
                 <small id={`${errorId}-${design}`}>设备未连接，当前值尚未同步。</small>
             </section>
-        </ConfigProvider>)}
+        </ConfigProvider>
     </div>;
 }

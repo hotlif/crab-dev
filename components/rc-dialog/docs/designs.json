@@ -1,0 +1,32 @@
+{
+    "md3": {
+        "summary": "用独立的对话表面集中呈现需要决策的内容，标题、说明和动作形成明确层级。",
+        "usage": "只在任务必须中断时打开对话框；用明确的确认与取消文案说明后果。",
+        "exampleDescription": "打开基础对话框，检查初始焦点、确认操作和关闭后的焦点恢复。",
+        "demos": [
+            "base.demo.tsx",
+            "formWithDatePicker.demo.tsx",
+            "motion.demo.tsx"
+        ]
+    },
+    "macos": {
+        "summary": "以桌面任务对话区域承载确认与短表单，操作层与内容层保持清晰分隔。",
+        "usage": "主要动作应明确而克制，长内容可以滚动；背景窗口不能继续接收模态交互。",
+        "exampleDescription": "在对话框内填写日期表单，检查内层弹出面板和关闭后的焦点路径。",
+        "demos": [
+            "formWithDatePicker.demo.tsx",
+            "base.demo.tsx",
+            "motion.demo.tsx"
+        ]
+    },
+    "shadcn": {
+        "summary": "以中性对话表面、细边界和简洁动作区承载集中任务。",
+        "usage": "标题解释任务目的，正文给出必要信息，按钮说明动作而不是泛化的确定。",
+        "exampleDescription": "通过触发按钮打开并关闭对话框，检查边界、遮罩及键盘退出路径。",
+        "demos": [
+            "base.demo.tsx",
+            "formWithDatePicker.demo.tsx",
+            "motion.demo.tsx"
+        ]
+    }
+}

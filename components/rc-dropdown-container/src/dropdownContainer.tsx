@@ -58,6 +58,8 @@ const containerStyle = css`
 `;
 
 const floatingContainerStyle = css`
+    backdrop-filter: ${token.material['backdrop-filter']};
+    -webkit-backdrop-filter: ${token.material['backdrop-filter']};
     @media (forced-colors: active) { border-color: CanvasText; box-shadow: none; }
     z-index: ${token.root['z-index']};
     margin: 0;
@@ -97,6 +99,7 @@ const floatingContainerStyle = css`
 `;
 
 const overlayStyle = css`
+    background-image: ${token.material['background-image']};
     background-color: ${token.root['background-color']};
     border-radius: inherit;
     transform-origin: top;

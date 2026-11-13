@@ -1,6 +1,7 @@
 import { beforeAll, describe, expect, it, mock } from '@crab-dev/wake/test';
 import { act, fireEvent, render, screen } from '@crab-dev/wake/test/react';
 import { useState } from 'react';
+import ConfigProvider from '@crab-dev/rc-config-provider';
 import TimePickerPanel, { type TimePickerPanelProps, type TimePickerValue } from '../panels/timePickerPanel.js';
 import { enterTime, setupTimePickerDOM } from './timePicker-test-helpers.js';
 
@@ -10,6 +11,27 @@ function Example(props: Omit<TimePickerPanelProps, 'value'>) {
     return <TimePickerPanel {...props} value={value} onValueChange={next => { setValue(next); props.onValueChange?.(next); }} />;
 }
 describe('M3 TimePickerPanel', () => {
+    it('defaults macOS to digital input and keeps an editing draft across design changes', async () => {
+        const panel = <TimePickerPanel value={{ hour: 9, minute: 30, second: 0 }} />;
+        const view = await render(<ConfigProvider designSystem="macos">{panel}</ConfigProvider>);
+        const hour = screen.getByRole('textbox', { name: '小时' }) as HTMLInputElement;
+        expect(screen.queryByRole('group', { name: '小时表盘' })).toBeNull();
+        expect(screen.queryByRole('button', { name: '切换到表盘' })).toBeNull();
+        await act(() => hour.focus());
+        await enterTime(hour, '');
+        await view.rerender(<ConfigProvider designSystem="md3">{panel}</ConfigProvider>);
+        expect(screen.getByRole('textbox', { name: '小时' })).toBe(hour);
+        expect(hour.value).toBe('');
+        expect(document.activeElement).toBe(hour);
+        await view.rerender(<ConfigProvider designSystem="macos">{panel}</ConfigProvider>);
+        expect(screen.getByRole('textbox', { name: '小时' })).toBe(hour);
+        expect(hour.value).toBe('');
+    });
+
+    it('retains an explicitly requested dial as an extension in macOS', async () => {
+        await render(<ConfigProvider designSystem="macos"><TimePickerPanel defaultMode="dial" value={{ hour: 9, minute: 30, second: 0 }} /></ConfigProvider>);
+        expect(screen.getByRole('group', { name: '小时表盘' })).toBeTruthy();
+    });
     it('uses labeled hours/minutes, and exposes seconds only when requested', async () => {
         const view = await render(<TimePickerPanel defaultMode="input" value={{ hour: 9, minute: 30, second: 5 }} />);
         expect((screen.getByRole('textbox', { name: '小时' }) as HTMLInputElement).value).toBe('09');

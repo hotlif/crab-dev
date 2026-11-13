@@ -17,7 +17,7 @@ const colors: OKLCHValue[] = [
 ];
 
 describe('ColorPicker actual trigger state CSS', () => {
-    for (const designSystem of ['md3', 'apple', 'shadcn'] as const) {
+    for (const designSystem of ['md3', 'macos', 'shadcn'] as const) {
         for (const colorMode of ['light', 'dark'] as const) {
             it(`provides separate enabled feedback and stable disabled geometry (${designSystem}/${colorMode})`, async () => {
                 // These aliases probe the emitted selectors; native pointer states
@@ -75,7 +75,7 @@ function getPanel(container: HTMLElement): HTMLElement {
 }
 
 describe('ColorPicker published CSS in both inline directions', () => {
-    for (const designSystem of ['md3', 'apple', 'shadcn'] as const) {
+    for (const designSystem of ['md3', 'macos', 'shadcn'] as const) {
         for (const direction of ['ltr', 'rtl'] as const) {
             it(`keeps full-range gradients, mirrored values and every preset visible (${designSystem}/${direction})`, async () => {
                 const changed = mock.fn();
@@ -200,7 +200,7 @@ describe('ColorPicker published CSS in both inline directions', () => {
 });
 
 describe('ColorPicker localized channel label geometry', () => {
-    for (const designSystem of ['md3', 'apple', 'shadcn'] as const) {
+    for (const designSystem of ['md3', 'macos', 'shadcn'] as const) {
         for (const direction of ['ltr', 'rtl'] as const) {
             it('keeps complete labels, aligned rails and drafts at narrow width (' + designSystem + '/' + direction + ')', async () => {
                 const changed = mock.fn();

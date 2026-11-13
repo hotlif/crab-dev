@@ -3,6 +3,7 @@
  */
 
 import type { ComponentDemoRecord } from "../site/componentDemos.js";
+import type { ComponentDesignDocuments } from "../site/componentDesignGuide.js";
 
 export const demos = [
     {
@@ -206,3 +207,82 @@ export const demos = [
         "group": "视觉验收"
     }
 ] as const satisfies readonly ComponentDemoRecord[];
+
+export const documents = {
+    "md3": {
+        "summary": "以语义容器表达分类、状态或可切换筛选，文字与状态共同说明含义。",
+        "usage": "静态标签、可关闭标签和可选择标签分别表达不同任务，不混用交互语义。",
+        "exampleDescription": "切换筛选标签，观察选中容器与普通标签之间的区别。",
+        "demos": [
+            "checkable.demo.tsx",
+            "basic.demo.tsx",
+            "bordered.demo.tsx",
+            "closable.demo.tsx",
+            "custom-color-close-icon.demo.tsx",
+            "icon.demo.tsx",
+            "size.demo.tsx"
+        ],
+        "references": [
+            "https://m3.material.io/components/chips/overview",
+            "https://material-web.dev/components/chip/",
+            "https://github.com/material-components/material-web/tree/main/chips"
+        ]
+    },
+    "macos": {
+        "summary": "用紧凑标签和轻量状态底色补充桌面列表与设置内容。",
+        "usage": "可关闭标签应保持文字和关闭入口清楚分开，避免过小的操作目标。",
+        "exampleDescription": "移除一个标签，检查关闭按钮的焦点和剩余标签的排列。",
+        "demos": [
+            "closable.demo.tsx",
+            "basic.demo.tsx",
+            "bordered.demo.tsx",
+            "checkable.demo.tsx",
+            "custom-color-close-icon.demo.tsx",
+            "icon.demo.tsx",
+            "size.demo.tsx"
+        ],
+        "references": [
+            "https://developer.apple.com/design/human-interface-guidelines/components",
+            "https://developer.apple.com/design/human-interface-guidelines/accessibility"
+        ]
+    },
+    "shadcn": {
+        "summary": "以简洁描边或中性填充展示标签，分类名称保持短小且易扫描。",
+        "usage": "状态色只作辅助，业务含义要能通过文字理解，自定义色仍需配对可读。",
+        "exampleDescription": "比较描边标签与填充标签，检查文字、边界和状态区分。",
+        "demos": [
+            "bordered.demo.tsx",
+            "basic.demo.tsx",
+            "checkable.demo.tsx",
+            "closable.demo.tsx",
+            "custom-color-close-icon.demo.tsx",
+            "icon.demo.tsx",
+            "size.demo.tsx"
+        ],
+        "references": [
+            "https://ui.shadcn.com/docs/components",
+            "https://ui.shadcn.com/docs/theming",
+            "https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4"
+        ]
+    }
+} as const satisfies ComponentDesignDocuments;
+
+export const guide = {
+    "definition": "Tag 用简短文字标记分类、属性或状态，也可以作为可关闭输入片段或可切换筛选。静态标签、可关闭标签和可选择标签是不同交互语义。",
+    "useWhen": [
+        "记录需要显示类别、属性或简短状态。",
+        "用户要移除一个已输入条件，或在一组标签中切换筛选。"
+    ],
+    "avoidWhen": [
+        "主要动作使用 Button；长说明使用正文；大量筛选需要更完整的筛选器。"
+    ],
+    "essentials": [
+        "先决定标签是只读、closable 还是 checkable。",
+        "自定义颜色要保持文字对比，并避免与反馈色混淆。",
+        "关闭只移除这一项，业务数据更新和撤销由外层处理。"
+    ],
+    "accessibility": [
+        "关闭按钮有“移除 + 标签名”的可访问名称，不能只朗读“关闭”。",
+        "可选择标签表达 pressed/selected 状态，静态 Tag 不应进入 Tab 顺序。"
+    ]
+} as const;

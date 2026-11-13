@@ -1,0 +1,29 @@
+{
+    "md3": {
+        "summary": "为色调内容容器测量实际可用空间，给图表或列表提供宽高；测量本身没有视觉变体。",
+        "usage": "让布局容器决定空间，再将测量结果传给内容；保留表面留白与真实内容区域的区别。",
+        "exampleDescription": "改变测量容器大小，读取宽高结果，确认内容不会侵占容器的留白。",
+        "demos": [
+            "basic.demo.tsx",
+            "with-virtual.demo.tsx"
+        ]
+    },
+    "macos": {
+        "summary": "用于桌面分栏与可调整面板的空间测量，使内容跟随窗口区域变化。",
+        "usage": "紧凑工具栏与侧栏占用空间后，使用剩余内容区域的实际尺寸驱动子内容。",
+        "exampleDescription": "调整列表区域尺寸，观察可见行随内容面板高度变化而更新。",
+        "demos": [
+            "with-virtual.demo.tsx",
+            "basic.demo.tsx"
+        ]
+    },
+    "shadcn": {
+        "summary": "为有边界的内容区域提供宽高测量，适合自适应数据表、图表和滚动区域。",
+        "usage": "由父容器提供明确尺寸约束，避免子内容与测量容器相互撑高。",
+        "exampleDescription": "比较容器边界与测量值，确认尺寸变化后内容仍在自己的区域内。",
+        "demos": [
+            "basic.demo.tsx",
+            "with-virtual.demo.tsx"
+        ]
+    }
+}

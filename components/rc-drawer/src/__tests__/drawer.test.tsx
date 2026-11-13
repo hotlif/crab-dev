@@ -252,16 +252,16 @@ describe('Drawer default state and localization', () => {
 });
 describe('native style boundary', () => {
     it('re-establishes custom brand and density on the native root and removes a reset brand', async () => {
-        const view = await render(<ConfigProvider designSystem="apple" brandColor="#6750a4" density="compact" nonce="brand-drawer"><Drawer open title="Branded" /></ConfigProvider>);
+        const view = await render(<ConfigProvider designSystem="macos" brandColor="#6750a4" density="compact" nonce="brand-drawer"><Drawer open title="Branded" /></ConfigProvider>);
         const modal = view.container.querySelector('dialog');
         const scope = modal?.getAttribute('data-crab-brand');
         const sheet = modal?.querySelector('style[data-crab-brand-style]');
         expect(scope).toBeTruthy();
         expect(sheet?.getAttribute('data-crab-brand-style')).toBe(scope);
         expect(sheet?.getAttribute('nonce')).toBe('brand-drawer');
-        expect(sheet?.textContent).toContain(`[data-crab-brand="${scope}"][data-theme="light"][data-crab-design="apple"]`);
+        expect(sheet?.textContent).toContain(`[data-crab-brand="${scope}"][data-theme="light"][data-crab-design="macos"]`);
         expect(modal?.getAttribute('data-crab-density')).toBe('compact');
-        await view.rerender(<ConfigProvider designSystem="apple" brandColor={null}><Drawer open title="Branded" /></ConfigProvider>);
+        await view.rerender(<ConfigProvider designSystem="macos" brandColor={null}><Drawer open title="Branded" /></ConfigProvider>);
         expect(modal?.getAttribute('data-crab-brand')).toBeNull();
         expect(modal?.querySelector('style[data-crab-brand-style]')).toBeNull();
     });

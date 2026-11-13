@@ -8,23 +8,22 @@ status = "experimental"
 {/* THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY. */}
 
 import ComponentDemos from "../site/componentDemos.js";
-import { demos } from "../_generated/rc-bar-chart.js";
+import ComponentDesignGuide, { DesignIntroduction, DesignExampleIntroduction } from "../site/componentDesignGuide.js";
+import { demos, documents, guide } from "../_generated/rc-bar-chart.js";
 
 # BarChart 柱状图
 
 <div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-bar-chart</div>
+
+## 设计与用法
+
+<DesignIntroduction documents={documents} />
 
 <div id="基础示例" data-docs-example-anchor /><div id="全部示例" data-docs-example-anchor />
 
 ## 示例
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
-
-#### 三体系视觉与交互矩阵
-
-##### 专业图表状态矩阵 — 固定正负数据、真实图例切换、数据刷新与键盘柱焦点。动画保持自然播放，图表坐标独立于控件尺寸。
-
-#### 能力与集成示例
 
 ##### 数值标签与参考线 — showValues 在柱端标注数值（空间不足以容纳的自动省略；堆叠模式标注类目合计）；referenceLines 绘制均值 / 目标虚线，参考值自动纳入值轴刻度域。
 
@@ -42,102 +41,13 @@ import { demos } from "../_generated/rc-bar-chart.js";
 
 </div>
 
-<ComponentDemos demos={demos} />
+<DesignExampleIntroduction documents={documents} />
 
-[打开完整组件工作台](/components/rc-bar-chart/workbench/)
+<ComponentDemos demos={demos} documents={documents} />
 
 ## 使用说明
 
-基于 [Canvas](/components/rc-canvas) 的 WebGL 2 柱状图。使用 Props 配置数据、坐标轴和展示方式；图例、悬浮提示与无障碍数据表由 HTML 元素呈现。
-
-
-### 何时使用
-
-- 比较一组类目下的数值大小（单系列），或多个系列在相同类目上的对比（分组）。
-- 展示各类目的构成结构（堆叠，正值向上、负值向下分别累计）。
-- 数据量大或与其他 rc-canvas 图形同屏、追求 GPU 渲染性能时。
-
-### 主要功能
-
-- **展示方式**：支持单系列、分组、正负值堆叠，以及 `orientation="horizontal"` 横向条形。
-- **尺寸与动画**：`width="auto"` 跟随父容器宽度；`animate` 控制入场和更新动画，减少动态效果偏好下直接显示结果。
-- **数值与参考线**：`showValues` 显示数值标签，空间不足时省略；`referenceLines` 配置目标值等参考线，并计入值轴范围。
-- **系列颜色**：内置 8 色分类色板，也可通过 `series[].color` 覆盖；超过 8 个系列时不渲染，并在开发环境提示。
-- **图例筛选**：点击图例切换系列显隐，数据表仍保留全部数据。
-- **交互提示**：悬停、键盘聚焦或触屏点按可查看类目数据；Enter 或 Space 触发 `onBarClick`。
-- **焦点可见性**：柱体覆盖按钮和图例按钮使用 2px 不透明语义焦点轮廓。柱体轮廓外再用 2px 画布表面色隔离相邻系列，图例保留柔和阴影；系统强制颜色模式使用 `Highlight` 实线轮廓。隐藏图例聚焦时恢复不透明，划线和 `aria-pressed="false"` 继续表达系列隐藏；轮廓不参与布局，不改变图表几何。
-- **无障碍数据**：绘制层对辅助技术隐藏，完整数据通过视觉隐藏的表格提供，`aria-label` 用作表格标题。
-- **轴标签**：按实际文本宽度计算留白，空间不足时省略长类目并按密度抽样标签；完整类目可通过悬浮提示、键盘聚焦与数据表获取。支持通过 `formatValue` 格式化数值。
-
-### 容器与尺度
-
-**现有实现：** `width="auto"` 使用现有 AutoSizer 跟随父容器，工作台示例采用这一方式；公共默认宽度仍为 600px。父容器需要明确可用宽度，并允许子项收缩。
-
-**选择规则：** 对比数据通常优先随容器适配；类别较多时应同时评估标签密度、横向条形和数据表入口，不能把缩小后的图形作为全文获取方式。显式数值宽度用于有固定绘图区的场景，应由业务提供局部查看区域。
-
-
-
-绘制色板默认消费语义令牌并跟随主题；`palette` 的局部覆盖保留其余语义角色。显式传入导出的 `DEFAULT_BAR_CHART_PALETTE` 可保留旧版固定配色。
-
-
-
-### 设计风格与主题
-
-BarChart 是基于 Canvas 的数据可视化扩展。Material Design 3 Expressive、Apple 和 shadcn/ui 分别提供其语义契约；来源与固定 New York V4 基线见[三套设计体系](/guides/design-styles)。柱图布局、分组、堆叠和数据交互由本库定义，不以列表或分隔线规格概括图表行为。
-
-柱形系列、网格线、基线、轴文字和画布背景通过 L3 色板消费 L2 角色；HTML 图例和数据提示使用同一配置边界的字阶、表面、前景和焦点。八个 `data.chart.series.*` 是 Crab 的数据可视化契约，包含本库扩展的系列角色，不能称作上游统一的八色规范。`series[].color` 和 `palette` 的显式业务覆盖保持优先。
-
-系列颜色切换不改变数据值、坐标轴范围或分组含义。图例名称、键盘数据提示和 HTML 数据表提供颜色之外的信息入口；调用方自定义颜色后仍需检查系列区分与前景配对。绘图区宽高、类目密度和数值格式属于图表配置，不能用控件 `size` 等比缩放代替容器适配。
-
-悬停或聚焦类目时，其他类目的柱体向 `palette.canvasBackground` 混色以降低强调。对于不透明系列色与背景，CSS 变量色和字面量色都采用 sRGB 通道混合，避免弱化后改变系列的颜色辨识；绘制结果保持不透明，圆角柱与底部补齐区域重叠时不会形成深色条带。背景随主题变化时重新解析颜色，`keep=1` 的原色保持不变。
-
-三体系、浅深色、系列显隐、提示、焦点及减少动画等适用状态分别验收，覆盖等级以[覆盖矩阵](/guides/design-coverage)及对应候选记录为准。
-
-包内 `test:forced-colors` 分别渲染柱体焦点与图例焦点，覆盖三体系和浅深色。检查使用发布 ESM/CSS、浏览器原生强制颜色以及实际 PNG 四边轮廓像素；通过 DOM `focus()` 到达目标并读取 `activeElement` / `:focus-visible`，不将它称为真实键盘输入或整张 Canvas 动画稳定性验收。原始截图与执行结果保存在包内 `.cache/forced-colors/`，人工视觉核对仍单独记录。
-
-包内 `test:focus` 另核普通颜色的柱体、可见图例与隐藏图例焦点，分别覆盖三体系浅深色。发布 CSS 的实际 PNG 四边须有连续实线，轮廓与外侧紧邻 2px 色带的像素对比至少 3:1；柱体还须实际绘出表面色隔离边。距离轮廓 6px 的原场景颜色另存诊断，可能属于下一系列，不能混称紧邻背景。聚焦前后的目标、柱层及画布边界保持一致。检查保留正常动态，不取消或快进动画；它验证焦点轮廓，不替代整张图表的进入动画终态验收。原图与记录存于 `.cache/focus-colors/`。
-
-
-### 桌面三体系矩阵规格
-
-本轮规格核对日期为 2026-10-29。BarChart 是自有 Canvas 图表，不宣称对应 M3 Expressive 或 Apple 的原生图表实现。Apple 的 [Charts](https://developer.apple.com/design/human-interface-guidelines/charts) 用于标记、零基线、适量网格、说明与辅助技术数据入口的设计依据；shadcn 对照固定 New York V4 提交 [3d98900e9b73c45f035f8109e9d41ba6a51685e7 的 Chart 源码](https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui/chart.tsx) 的中性坐标、图例、成对提示前景与分类色角色。没有引入 Recharts。M3 使用既有表面/前景、焦点与动效角色；数据图表的几何、系列显隐和数值格式是项目扩展。
-
-| 项目 | MD3 Expressive | Apple Web | shadcn New York V4 |
-| --- | --- | --- | --- |
-| 数据与表面 | 色调表面中的稳定分类色，强调留给数据 | 轻量网格、清晰标签与可比较的条形 | 中性表面、克制的轴线与分类色 |
-| 图例与提示 | 语义状态层、独立键盘焦点、浮层形状 | 紧凑图例、清晰的选中与隐藏差异 | 描边层级、数值对齐与紧凑提示 |
-| 排版与形状 | 标签/说明使用对应 L2 字阶和 L3 角色 | 系统字体与中英文回退 | 小号标签与等宽数值对齐 |
-
-CSS 图例和提示的间距在本包 L3 引用 L2 `density.gap` / `density.padding`，随三档密度变化；standard 沿用原有间距，compact 收紧、comfortable 扩展。图表坐标、条宽、标注避让和 600×320 默认绘图区域由数据布局算法控制，不消费密度值。原生几何回归分别测量真实图例/提示内边距递增与绘图区、柱体位置、标签数据不变。全局控件 size 不放大条形或重写坐标轴字体，故矩阵只使用 medium 作为不变几何的代表，理由维护在 docs/visual.json。
-
-“专业图表状态矩阵”使用固定正负数据；真实鼠标进入画布、键盘 roving focus、图例显隐、横向、堆叠、空数据与已有数据刷新分别验收。图例隐藏一组后，剩余系列的颜色不换位；隐藏数据表始终保留完整数据。触控命中区域使用独立语义下限，不能用视觉色块尺寸代替。加载和数据源错误由宿主负责，BarChart 本身不提供伪 loading/error 状态。
-
-自然数据过渡使用真实 requestAnimationFrame；有限过渡等待 600ms 基准时长与至多 300ms 类目错峰自然结束。专门的动效场景保留更新后的时间序列与视频，减少动画另核对最终数据。视口、RTL、中英文长类目、品牌、强制颜色和粗指针场景在包内 Playwright 文件维护。此处是验收合同；候选截图、实际复审与基准稳定性完成前，不能据此提升覆盖状态。
-
-### 适用场景
-
-比较不同类别的数量、金额、排名或完成率。 用堆叠柱展示总量及其组成，并为每个系列提供图例。
-
-类别过多、标签很长或必须查看精确明细时，表格通常更清楚；时间连续趋势可考虑折线图。
-
-### 使用要点
-
-- 数据轴必须从合理基线开始，避免用截断尺度夸大差异。
-- series、category 与 value 是三种不同概念，先整理数据再配置视觉。
-- 实时更新要保持对象身份和过渡可理解，不能让柱形不断闪烁重排。
-
-### 无障碍
-
-- 颜色之外还要提供图例、标签或可读数据摘要，并确保键盘能取得关键数据。
-- 动画应响应减少动态效果偏好；悬停提示也必须能通过键盘焦点获得。
-
-### 设计依据与覆盖
-
-- **MD3 Expressive**：M3 核心组件目录未定义完整 Web 图表组件；本组件使用 M3 颜色、排版、状态和动效原则扩展数据可视化。 [依据 1](https://m3.material.io/styles/color/overview) · [依据 2](https://material-web.dev/theming/color/) · [依据 3](https://github.com/material-components/material-web/tree/main/tokens)
-- **Apple**：依据 Apple HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。 [依据 1](https://developer.apple.com/design/human-interface-guidelines/components) · [依据 2](https://developer.apple.com/design/human-interface-guidelines/accessibility)
-- **shadcn/ui**：参考 shadcn/ui 的组件用途、中性表面与设计变量，在本库公共语义和 React 交互模型中实现；完整状态覆盖仍需按矩阵验收。 [依据 1](https://ui.shadcn.com/docs/components) · [依据 2](https://ui.shadcn.com/docs/theming) · [依据 3](https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4)
-
-设计依据不等于完成验收；当前状态与适用边界见[覆盖矩阵](/guides/design-coverage)。
+<ComponentDesignGuide guide={guide} documents={documents} />
 
 ## 常见问题
 

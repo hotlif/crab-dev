@@ -3,6 +3,7 @@
  */
 
 import type { ComponentDemoRecord } from "../site/componentDemos.js";
+import type { ComponentDesignDocuments } from "../site/componentDesignGuide.js";
 
 export const demos = [
     {
@@ -31,8 +32,8 @@ export const demos = [
     },
     {
         "id": "docs/demos/designs.demo.tsx",
-        "title": "三套设计与状态",
-        "description": "MD3 的手柄随选中和按压改变大小；Apple 与 shadcn 使用各自的紧凑轨道与等大的手柄。",
+        "title": "当前主题的交互状态",
+        "description": "观察当前主题下的选中、禁用和焦点反馈；示例继承文档配置，可直接操作。",
         "learning": {
             "components": [
                 "ConfigProvider",
@@ -48,7 +49,7 @@ export const demos = [
             "events": [],
             "hasState": false
         },
-        "sourceCode": "import { useId } from 'react';\nimport { css } from '@crab-dev/css';\nimport ConfigProvider from '@crab-dev/rc-config-provider';\nimport token from '@crab-dev/rc-token-semantic';\nimport Switch from '../../src/switch.js';\n\nexport const meta = { title: '三套设计与状态', description: 'MD3 的手柄随选中和按压改变大小；Apple 与 shadcn 使用各自的紧凑轨道与等大的手柄。' };\nconst panel = css`\n    display: grid;\n    gap: ${token.space['component-gap']};\n    padding: ${token.space['section-gap']};\n    color: ${token.color.text.primary};\n    background: ${token.color.surface.content};\n    border: 1px solid ${token.color.border.subtle};\n    border-radius: ${token.radius.md};\n`;\nconst stack = css`display: grid; gap: ${token.space['stack-gap']};`;\nexport default function DesignsDemo() {\n    const errorId = useId();\n    return \u003cdiv className={stack}>\n        {(['apple', 'md3', 'shadcn'] as const).map(design => \u003cConfigProvider key={design} designSystem={design}>\n            \u003csection className={panel} aria-label={`${design} 开关`}>\n                \u003cstrong>{design === 'md3' ? 'MD3' : design === 'apple' ? 'Apple' : 'shadcn'}\u003c/strong>\n                \u003cSwitch>开启通知\u003c/Switch>\n                \u003cSwitch defaultChecked>自动同步\u003c/Switch>\n                \u003cSwitch disabled>暂不可用\u003c/Switch>\n                \u003cSwitch defaultChecked disabled>已开启且不可用\u003c/Switch>\n                \u003cSwitch defaultChecked aria-invalid=\"true\" aria-describedby={`${errorId}-${design}`}>云端备份\u003c/Switch>\n                \u003csmall id={`${errorId}-${design}`}>备份失败，请检查连接后重试。\u003c/small>\n            \u003c/section>\n        \u003c/ConfigProvider>)}\n    \u003c/div>;\n}\n",
+        "sourceCode": "import { useId } from 'react';\nimport { css } from '@crab-dev/css';\nimport ConfigProvider, { useConfig } from '@crab-dev/rc-config-provider';\nimport token, { designSystemRegistry } from '@crab-dev/rc-token-semantic';\nimport Switch from '@crab-dev/rc-switch';\n\nexport const meta = { title: '当前主题的交互状态', description: '观察当前主题下的选中、禁用和焦点反馈；示例继承文档配置，可直接操作。' };\nconst panel = css`\n    display: grid;\n    gap: ${token.space['component-gap']};\n    padding: ${token.space['section-gap']};\n    color: ${token.color.text.primary};\n    background: ${token.color.surface.content};\n    border: 1px solid ${token.color.border.subtle};\n    border-radius: ${token.radius.md};\n`;\nconst stack = css`display: grid; gap: ${token.space['stack-gap']};`;\nexport default function DesignsDemo() {\n    const { designSystem: design } = useConfig();\n    const errorId = useId();\n    return \u003cdiv className={stack}>\n        \u003cConfigProvider designSystem={design}>\n            \u003csection className={panel} aria-label={`${design} 开关`}>\n                \u003cstrong>{designSystemRegistry[design].label}\u003c/strong>\n                \u003cSwitch>开启通知\u003c/Switch>\n                \u003cSwitch defaultChecked>自动同步\u003c/Switch>\n                \u003cSwitch disabled>暂不可用\u003c/Switch>\n                \u003cSwitch defaultChecked disabled>已开启且不可用\u003c/Switch>\n                \u003cSwitch defaultChecked aria-invalid=\"true\" aria-describedby={`${errorId}-${design}`}>云端备份\u003c/Switch>\n                \u003csmall id={`${errorId}-${design}`}>备份失败，请检查连接后重试。\u003c/small>\n            \u003c/section>\n        \u003c/ConfigProvider>\n    \u003c/div>;\n}\n",
         "previewPath": "/components/rc-switch/workbench/?__wake_demo=docs%2Fdemos%2Fdesigns.demo.tsx",
         "workbenchPath": "/components/rc-switch/workbench/#/components/docs%2Fdemos%2Fdesigns.demo.tsx",
         "density": "compact",
@@ -153,3 +154,76 @@ export const demos = [
         "group": null
     }
 ] as const satisfies readonly ComponentDemoRecord[];
+
+export const documents = {
+    "md3": {
+        "summary": "以轨道和随状态变化的手柄表达即时开关，选中和按压反馈各有含义。",
+        "usage": "开关用于立即生效的设置，标签说明开启后的作用，不用于提交选择。",
+        "exampleDescription": "使用鼠标与空格切换，观察手柄尺寸、轨道和禁用状态。",
+        "demos": [
+            "designs.demo.tsx",
+            "basic.demo.tsx",
+            "disabled.demo.tsx",
+            "rtl.demo.tsx",
+            "size.demo.tsx"
+        ],
+        "references": [
+            "https://m3.material.io/components/switch/overview",
+            "https://material-web.dev/components/switch/",
+            "https://github.com/material-components/material-web/tree/main/switch"
+        ]
+    },
+    "macos": {
+        "summary": "用紧凑胶囊轨道与稳定大小的手柄呈现桌面设置开关，强调当前启用状态。",
+        "usage": "保持设置说明与开关对齐，反馈即时生效的结果，避免隐藏额外确认。",
+        "exampleDescription": "切换桌面设置并读取结果，检查手柄位置和开启后的强调轨道。",
+        "demos": [
+            "basic.demo.tsx",
+            "designs.demo.tsx",
+            "disabled.demo.tsx",
+            "rtl.demo.tsx",
+            "size.demo.tsx"
+        ],
+        "references": [
+            "https://developer.apple.com/design/human-interface-guidelines/components",
+            "https://developer.apple.com/design/human-interface-guidelines/accessibility"
+        ]
+    },
+    "shadcn": {
+        "summary": "通过中性轨道和圆形手柄表达布尔设置，开启状态保持清晰对比。",
+        "usage": "标签必须能解释设置用途，禁用开关也要保留当前值的可辨认性。",
+        "exampleDescription": "比较可用与禁用开关，确认当前值、手柄位置和标签仍清楚。",
+        "demos": [
+            "disabled.demo.tsx",
+            "basic.demo.tsx",
+            "designs.demo.tsx",
+            "rtl.demo.tsx",
+            "size.demo.tsx"
+        ],
+        "references": [
+            "https://ui.shadcn.com/docs/components",
+            "https://ui.shadcn.com/docs/theming",
+            "https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4"
+        ]
+    }
+} as const satisfies ComponentDesignDocuments;
+
+export const guide = {
+    "definition": "Switch 表示一个立即生效的开/关设置。它只适合清楚的二态值，标签描述设置本身，选中状态表示当前是否开启。",
+    "useWhen": [
+        "切换后可以立即保存或应用，例如通知、同步、显示选项。",
+        "当前值比一次性动作更重要，用户需要随时看到开关状态。"
+    ],
+    "avoidWhen": [
+        "提交表单时才生效的多个选择使用 Checkbox；普通动作使用 Button。"
+    ],
+    "essentials": [
+        "checked 与 onValueChange 构成受控状态，label 不要写“开启/关闭”两套文案。",
+        "切换失败时恢复真实值并说明原因，不能保持虚假视觉状态。",
+        "disabled 只在确实不可操作时使用，并就近解释限制。"
+    ],
+    "accessibility": [
+        "提供与设置含义一致的可访问名称，状态通过 checked 语义表达。",
+        "标签与开关都可点击，焦点环清楚，RTL 下视觉方向与逻辑含义保持一致。"
+    ]
+} as const;

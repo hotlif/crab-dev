@@ -44,15 +44,15 @@ Wake Docs 通过项目内的 `theme_css` 文件加载主题；本仓库配置为
 
 ## 选择外观与密度
 
-公共配置的四个独立轴为 designSystem、colorMode、size、density。设计体系是 MD3 Expressive（md3，默认）、Apple（apple）与 shadcn/ui（shadcn）；明暗是 light、dark；跟随系统属于应用偏好，解析后再传入；通用尺寸是 small、medium、large，密度是 compact、standard、comfortable。
+公共配置的四个独立轴为 designSystem、colorMode、size、density。设计体系是 MD3 Expressive（md3，默认）、macOS（macos）与 shadcn/ui（shadcn）；明暗是 light、dark；跟随系统属于应用偏好，解析后再传入；通用尺寸是 small、medium、large，密度是 compact、standard、comfortable。
 
 ```tsx
-<ConfigProvider designSystem="apple" colorMode="dark" density="compact">
+<ConfigProvider designSystem="macos" colorMode="dark" density="compact">
     <Profile />
 </ConfigProvider>
 ```
 
-嵌套 Provider 继承省略项，显式品牌色通过 brandColor 覆盖，null 恢复当前设计体系默认品牌。Apple 是自主 Web 适配，不承诺复刻特定 macOS 版本。
+嵌套 Provider 继承省略项，显式品牌色通过 brandColor 覆盖，null 恢复当前设计体系默认品牌。macOS 以 Tahoe 26 Liquid Glass 为基准，提供适用于浏览器的材质与桌面控件。
 
 文档站和工作台默认同样使用 MD3 Expressive。外观菜单分别保存设计体系和明暗偏好；历史设计偏好仅在存储入口迁移，切换不清空正在编辑的组件状态。更多规则见[设计体系](/guides/design-styles)与[尺寸密度](/guides/component-sizing)。
 

@@ -1,9 +1,10 @@
-import { useComponentSize } from '@crab-dev/rc-config-provider';
+import { useComponentSize, useConfig } from '@crab-dev/rc-config-provider';
 import { css, cx } from '@crab-dev/css';
 import { type FC, type ChangeEvent } from 'react';
 import { useControllableValue } from '@crab-dev/rc-hooks';
 import { useNativeRadioFocus } from '@crab-dev/rc-hooks/internal';
 import token from './token.js';
+import { macosRadioStyle } from './radio.designs.js';
 import type { RadioProps } from './types.js';
 import { useRadioGroup } from './context.js';
 import { wrapperStyle, hiddenInputStyle, controlStyle, boxStyle, dotStyle, labelStyle } from "./radio.styles.js";
@@ -23,6 +24,7 @@ const Radio: FC<RadioProps> = ({
     onBlur,
     ...restProps
 }) => {
+    const { designSystem } = useConfig();
     const group = useRadioGroup();
     const radioFocus = useNativeRadioFocus();
     const size = useComponentSize(sizeProp ?? group?.size);
@@ -104,7 +106,7 @@ const Radio: FC<RadioProps> = ({
     return (
         <label
             onPointerDownCapture={radioFocus.onPointerDownCapture}
-            className={cx(wrapperStyle, sizeStyle.wrapper, className)}
+            className={cx(wrapperStyle, designSystem === 'macos' && macosRadioStyle, sizeStyle.wrapper, className)}
             data-disabled={disabled ? '' : undefined}
             data-state={checked ? 'checked' : 'unchecked'}
         >

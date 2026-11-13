@@ -75,11 +75,11 @@
             "source": "https://m3.material.io/"
         },
         {
-            "id": "apple",
-            "title": "Apple",
-            "description": "受 Apple 设计启发的自主 Web 规则，不声称复刻原生 macOS",
-            "fullName": "Apple",
-            "source": "https://developer.apple.com/design/human-interface-guidelines/"
+            "id": "macos",
+            "title": "macOS",
+            "description": "以 macOS Tahoe 26 Liquid Glass 为基准的 Web 设计体系，内容与玻璃操作层分离",
+            "fullName": "macOS Tahoe 26 Liquid Glass",
+            "source": "https://developer.apple.com/cn/documentation/technologyoverviews/liquid-glass"
         },
         {
             "id": "shadcn",
@@ -104,7 +104,7 @@
             "status": "experimental",
             "designCoverage": {
                 "md3": "partial",
-                "apple": "partial",
+                "macos": "partial",
                 "shadcn": "partial"
             }
         },
@@ -117,7 +117,7 @@
             "status": "experimental",
             "designCoverage": {
                 "md3": "partial",
-                "apple": "partial",
+                "macos": "partial",
                 "shadcn": "partial"
             }
         },
@@ -130,7 +130,7 @@
             "status": "experimental",
             "designCoverage": {
                 "md3": "not-applicable",
-                "apple": "not-applicable",
+                "macos": "not-applicable",
                 "shadcn": "not-applicable"
             }
         },
@@ -143,7 +143,7 @@
             "status": "experimental",
             "designCoverage": {
                 "md3": "partial",
-                "apple": "partial",
+                "macos": "partial",
                 "shadcn": "partial"
             }
         },
@@ -156,7 +156,7 @@
             "status": "experimental",
             "designCoverage": {
                 "md3": "partial",
-                "apple": "partial",
+                "macos": "partial",
                 "shadcn": "partial"
             }
         },
@@ -169,7 +169,7 @@
             "status": "experimental",
             "designCoverage": {
                 "md3": "partial",
-                "apple": "partial",
+                "macos": "partial",
                 "shadcn": "partial"
             }
         },
@@ -182,7 +182,7 @@
             "status": "experimental",
             "designCoverage": {
                 "md3": "partial",
-                "apple": "partial",
+                "macos": "partial",
                 "shadcn": "partial"
             }
         },
@@ -195,7 +195,7 @@
             "status": "experimental",
             "designCoverage": {
                 "md3": "partial",
-                "apple": "partial",
+                "macos": "partial",
                 "shadcn": "partial"
             }
         },
@@ -208,7 +208,7 @@
             "status": "experimental",
             "designCoverage": {
                 "md3": "partial",
-                "apple": "partial",
+                "macos": "partial",
                 "shadcn": "partial"
             }
         },
@@ -221,7 +221,7 @@
             "status": "experimental",
             "designCoverage": {
                 "md3": "partial",
-                "apple": "partial",
+                "macos": "partial",
                 "shadcn": "partial"
             }
         },
@@ -234,7 +234,7 @@
             "status": "experimental",
             "designCoverage": {
                 "md3": "partial",
-                "apple": "partial",
+                "macos": "partial",
                 "shadcn": "partial"
             }
         },
@@ -247,7 +247,7 @@
             "status": "experimental",
             "designCoverage": {
                 "md3": "partial",
-                "apple": "partial",
+                "macos": "partial",
                 "shadcn": "partial"
             }
         },
@@ -260,7 +260,7 @@
             "status": "experimental",
             "designCoverage": {
                 "md3": "partial",
-                "apple": "partial",
+                "macos": "partial",
                 "shadcn": "partial"
             }
         },
@@ -273,7 +273,7 @@
             "status": "experimental",
             "designCoverage": {
                 "md3": "partial",
-                "apple": "partial",
+                "macos": "partial",
                 "shadcn": "partial"
             }
         },
@@ -286,7 +286,7 @@
             "status": "experimental",
             "designCoverage": {
                 "md3": "partial",
-                "apple": "partial",
+                "macos": "partial",
                 "shadcn": "partial"
             }
         },
@@ -299,7 +299,7 @@
             "status": "experimental",
             "designCoverage": {
                 "md3": "partial",
-                "apple": "partial",
+                "macos": "partial",
                 "shadcn": "partial"
             }
         },
@@ -312,7 +312,7 @@
             "status": "experimental",
             "designCoverage": {
                 "md3": "partial",
-                "apple": "partial",
+                "macos": "partial",
                 "shadcn": "partial"
             }
         },
@@ -325,7 +325,7 @@
             "status": "experimental",
             "designCoverage": {
                 "md3": "partial",
-                "apple": "partial",
+                "macos": "partial",
                 "shadcn": "partial"
             }
         },
@@ -338,7 +338,7 @@
             "status": "experimental",
             "designCoverage": {
                 "md3": "partial",
-                "apple": "partial",
+                "macos": "partial",
                 "shadcn": "partial"
             }
         },
@@ -351,7 +351,7 @@
             "status": "experimental",
             "designCoverage": {
                 "md3": "partial",
-                "apple": "partial",
+                "macos": "partial",
                 "shadcn": "partial"
             }
         },
@@ -364,7 +364,7 @@
             "status": "experimental",
             "designCoverage": {
                 "md3": "partial",
-                "apple": "partial",
+                "macos": "partial",
                 "shadcn": "partial"
             }
         },
@@ -377,7 +377,7 @@
             "status": "experimental",
             "designCoverage": {
                 "md3": "partial",
-                "apple": "partial",
+                "macos": "partial",
                 "shadcn": "partial"
             }
         },
@@ -390,7 +390,7 @@
             "status": "experimental",
             "designCoverage": {
                 "md3": "partial",
-                "apple": "partial",
+                "macos": "partial",
                 "shadcn": "partial"
             }
         },
@@ -403,7 +403,7 @@
             "status": "experimental",
             "designCoverage": {
                 "md3": "not-applicable",
-                "apple": "not-applicable",
+                "macos": "not-applicable",
                 "shadcn": "not-applicable"
             }
         },
@@ -416,7 +416,7 @@
             "status": "experimental",
             "designCoverage": {
                 "md3": "partial",
-                "apple": "partial",
+                "macos": "partial",
                 "shadcn": "partial"
             }
         },
@@ -429,7 +429,7 @@
             "status": "experimental",
             "designCoverage": {
                 "md3": "partial",
-                "apple": "partial",
+                "macos": "partial",
                 "shadcn": "partial"
             }
         },
@@ -442,7 +442,7 @@
             "status": "experimental",
             "designCoverage": {
                 "md3": "partial",
-                "apple": "partial",
+                "macos": "partial",
                 "shadcn": "partial"
             }
         },
@@ -455,7 +455,7 @@
             "status": "experimental",
             "designCoverage": {
                 "md3": "partial",
-                "apple": "partial",
+                "macos": "partial",
                 "shadcn": "partial"
             }
         },
@@ -468,7 +468,7 @@
             "status": "experimental",
             "designCoverage": {
                 "md3": "partial",
-                "apple": "partial",
+                "macos": "partial",
                 "shadcn": "partial"
             }
         },
@@ -481,7 +481,7 @@
             "status": "experimental",
             "designCoverage": {
                 "md3": "partial",
-                "apple": "partial",
+                "macos": "partial",
                 "shadcn": "partial"
             }
         },
@@ -494,7 +494,7 @@
             "status": "experimental",
             "designCoverage": {
                 "md3": "partial",
-                "apple": "partial",
+                "macos": "partial",
                 "shadcn": "partial"
             }
         },
@@ -507,7 +507,7 @@
             "status": "experimental",
             "designCoverage": {
                 "md3": "partial",
-                "apple": "partial",
+                "macos": "partial",
                 "shadcn": "partial"
             }
         },
@@ -520,7 +520,7 @@
             "status": "experimental",
             "designCoverage": {
                 "md3": "partial",
-                "apple": "partial",
+                "macos": "partial",
                 "shadcn": "partial"
             }
         },
@@ -533,7 +533,7 @@
             "status": "experimental",
             "designCoverage": {
                 "md3": "partial",
-                "apple": "partial",
+                "macos": "partial",
                 "shadcn": "partial"
             }
         },
@@ -546,7 +546,7 @@
             "status": "experimental",
             "designCoverage": {
                 "md3": "partial",
-                "apple": "partial",
+                "macos": "partial",
                 "shadcn": "partial"
             }
         },
@@ -559,7 +559,7 @@
             "status": "experimental",
             "designCoverage": {
                 "md3": "not-applicable",
-                "apple": "not-applicable",
+                "macos": "not-applicable",
                 "shadcn": "not-applicable"
             }
         },
@@ -572,7 +572,7 @@
             "status": "experimental",
             "designCoverage": {
                 "md3": "partial",
-                "apple": "partial",
+                "macos": "partial",
                 "shadcn": "partial"
             }
         },
@@ -585,7 +585,7 @@
             "status": "experimental",
             "designCoverage": {
                 "md3": "partial",
-                "apple": "partial",
+                "macos": "partial",
                 "shadcn": "partial"
             }
         },
@@ -598,7 +598,7 @@
             "status": "experimental",
             "designCoverage": {
                 "md3": "partial",
-                "apple": "partial",
+                "macos": "partial",
                 "shadcn": "partial"
             }
         },
@@ -611,7 +611,7 @@
             "status": "experimental",
             "designCoverage": {
                 "md3": "partial",
-                "apple": "partial",
+                "macos": "partial",
                 "shadcn": "partial"
             }
         },
@@ -624,7 +624,7 @@
             "status": "experimental",
             "designCoverage": {
                 "md3": "partial",
-                "apple": "partial",
+                "macos": "partial",
                 "shadcn": "partial"
             }
         },
@@ -637,7 +637,7 @@
             "status": "experimental",
             "designCoverage": {
                 "md3": "partial",
-                "apple": "partial",
+                "macos": "partial",
                 "shadcn": "partial"
             }
         },
@@ -650,7 +650,7 @@
             "status": "experimental",
             "designCoverage": {
                 "md3": "partial",
-                "apple": "partial",
+                "macos": "partial",
                 "shadcn": "partial"
             }
         },
@@ -663,7 +663,7 @@
             "status": "experimental",
             "designCoverage": {
                 "md3": "partial",
-                "apple": "partial",
+                "macos": "partial",
                 "shadcn": "partial"
             }
         },
@@ -676,7 +676,7 @@
             "status": "experimental",
             "designCoverage": {
                 "md3": "partial",
-                "apple": "partial",
+                "macos": "partial",
                 "shadcn": "partial"
             }
         },
@@ -689,7 +689,7 @@
             "status": "experimental",
             "designCoverage": {
                 "md3": "partial",
-                "apple": "partial",
+                "macos": "partial",
                 "shadcn": "partial"
             }
         },
@@ -702,7 +702,7 @@
             "status": "experimental",
             "designCoverage": {
                 "md3": "partial",
-                "apple": "partial",
+                "macos": "partial",
                 "shadcn": "partial"
             }
         },
@@ -715,7 +715,7 @@
             "status": "experimental",
             "designCoverage": {
                 "md3": "partial",
-                "apple": "partial",
+                "macos": "partial",
                 "shadcn": "partial"
             }
         },
@@ -728,7 +728,7 @@
             "status": "experimental",
             "designCoverage": {
                 "md3": "partial",
-                "apple": "partial",
+                "macos": "partial",
                 "shadcn": "partial"
             }
         },
@@ -741,7 +741,7 @@
             "status": "experimental",
             "designCoverage": {
                 "md3": "partial",
-                "apple": "partial",
+                "macos": "partial",
                 "shadcn": "partial"
             }
         },
@@ -754,7 +754,7 @@
             "status": "experimental",
             "designCoverage": {
                 "md3": "partial",
-                "apple": "partial",
+                "macos": "partial",
                 "shadcn": "partial"
             }
         },
@@ -767,7 +767,7 @@
             "status": "experimental",
             "designCoverage": {
                 "md3": "partial",
-                "apple": "partial",
+                "macos": "partial",
                 "shadcn": "partial"
             }
         },
@@ -780,7 +780,7 @@
             "status": "experimental",
             "designCoverage": {
                 "md3": "partial",
-                "apple": "partial",
+                "macos": "partial",
                 "shadcn": "partial"
             }
         },
@@ -793,7 +793,7 @@
             "status": "experimental",
             "designCoverage": {
                 "md3": "not-applicable",
-                "apple": "not-applicable",
+                "macos": "not-applicable",
                 "shadcn": "not-applicable"
             }
         }

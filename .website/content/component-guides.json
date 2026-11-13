@@ -26,8 +26,8 @@
                     "https://github.com/material-components/material-web"
                 ]
             },
-            "apple": {
-                "basis": "依据 Apple HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。",
+            "macos": {
+                "basis": "依据 macOS HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。",
                 "references": [
                     "https://developer.apple.com/design/human-interface-guidelines/components",
                     "https://developer.apple.com/design/human-interface-guidelines/accessibility"
@@ -70,8 +70,8 @@
                     "https://github.com/material-components/material-web/tree/main/tabs"
                 ]
             },
-            "apple": {
-                "basis": "依据 Apple HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。",
+            "macos": {
+                "basis": "依据 macOS HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。",
                 "references": [
                     "https://developer.apple.com/design/human-interface-guidelines/components",
                     "https://developer.apple.com/design/human-interface-guidelines/accessibility"
@@ -114,8 +114,8 @@
                     "https://github.com/material-components/material-web"
                 ]
             },
-            "apple": {
-                "basis": "本包没有独立的 Apple 视觉组件；配置、测量或运行能力为上层控件服务，行为和类型仍需独立验收。",
+            "macos": {
+                "basis": "本包没有独立的 macOS 视觉组件；配置、测量或运行能力为上层控件服务，行为和类型仍需独立验收。",
                 "references": [
                     "https://developer.apple.com/design/human-interface-guidelines/components",
                     "https://developer.apple.com/design/human-interface-guidelines/accessibility"
@@ -158,8 +158,8 @@
                     "https://github.com/material-components/material-web/tree/main/list"
                 ]
             },
-            "apple": {
-                "basis": "依据 Apple HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。",
+            "macos": {
+                "basis": "依据 macOS HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。",
                 "references": [
                     "https://developer.apple.com/design/human-interface-guidelines/components",
                     "https://developer.apple.com/design/human-interface-guidelines/accessibility"
@@ -202,8 +202,8 @@
                     "https://github.com/material-components/material-web"
                 ]
             },
-            "apple": {
-                "basis": "依据 Apple HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。",
+            "macos": {
+                "basis": "依据 macOS HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。",
                 "references": [
                     "https://developer.apple.com/design/human-interface-guidelines/components",
                     "https://developer.apple.com/design/human-interface-guidelines/accessibility"
@@ -246,8 +246,8 @@
                     "https://github.com/material-components/material-web/tree/main/tokens"
                 ]
             },
-            "apple": {
-                "basis": "依据 Apple HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。",
+            "macos": {
+                "basis": "依据 macOS HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。",
                 "references": [
                     "https://developer.apple.com/design/human-interface-guidelines/components",
                     "https://developer.apple.com/design/human-interface-guidelines/accessibility"
@@ -290,8 +290,8 @@
                     "https://github.com/material-components/material-web"
                 ]
             },
-            "apple": {
-                "basis": "依据 Apple HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。",
+            "macos": {
+                "basis": "依据 macOS HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。",
                 "references": [
                     "https://developer.apple.com/design/human-interface-guidelines/components",
                     "https://developer.apple.com/design/human-interface-guidelines/accessibility"
@@ -334,8 +334,8 @@
                     "https://github.com/material-components/material-web/tree/main/button"
                 ]
             },
-            "apple": {
-                "basis": "依据 Apple HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。",
+            "macos": {
+                "basis": "依据 macOS HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。",
                 "references": [
                     "https://developer.apple.com/design/human-interface-guidelines/components",
                     "https://developer.apple.com/design/human-interface-guidelines/accessibility"
@@ -378,8 +378,8 @@
                     "https://github.com/material-components/material-web"
                 ]
             },
-            "apple": {
-                "basis": "依据 Apple HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。",
+            "macos": {
+                "basis": "依据 macOS HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。",
                 "references": [
                     "https://developer.apple.com/design/human-interface-guidelines/components",
                     "https://developer.apple.com/design/human-interface-guidelines/accessibility"
@@ -422,8 +422,8 @@
                     "https://github.com/material-components/material-web"
                 ]
             },
-            "apple": {
-                "basis": "依据 Apple HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。",
+            "macos": {
+                "basis": "依据 macOS HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。",
                 "references": [
                     "https://developer.apple.com/design/human-interface-guidelines/components",
                     "https://developer.apple.com/design/human-interface-guidelines/accessibility"
@@ -466,8 +466,8 @@
                     "https://github.com/material-components/material-web/tree/main/checkbox"
                 ]
             },
-            "apple": {
-                "basis": "依据 Apple HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。",
+            "macos": {
+                "basis": "依据 macOS HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。",
                 "references": [
                     "https://developer.apple.com/design/human-interface-guidelines/components",
                     "https://developer.apple.com/design/human-interface-guidelines/accessibility"
@@ -510,8 +510,8 @@
                     "https://github.com/material-components/material-web/tree/main/color"
                 ]
             },
-            "apple": {
-                "basis": "依据 Apple HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。",
+            "macos": {
+                "basis": "依据 macOS HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。",
                 "references": [
                     "https://developer.apple.com/design/human-interface-guidelines/components",
                     "https://developer.apple.com/design/human-interface-guidelines/accessibility"
@@ -554,8 +554,8 @@
                     "https://github.com/material-components/material-web/tree/main/button"
                 ]
             },
-            "apple": {
-                "basis": "依据 Apple HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。",
+            "macos": {
+                "basis": "依据 macOS HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。",
                 "references": [
                     "https://developer.apple.com/design/human-interface-guidelines/components",
                     "https://developer.apple.com/design/human-interface-guidelines/accessibility"
@@ -598,8 +598,8 @@
                     "https://github.com/material-components/material-web/tree/main/tokens"
                 ]
             },
-            "apple": {
-                "basis": "依据 Apple HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。",
+            "macos": {
+                "basis": "依据 macOS HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。",
                 "references": [
                     "https://developer.apple.com/design/human-interface-guidelines/components",
                     "https://developer.apple.com/design/human-interface-guidelines/accessibility"
@@ -642,8 +642,8 @@
                     "https://github.com/material-components/material-web/tree/main/select"
                 ]
             },
-            "apple": {
-                "basis": "依据 Apple HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。",
+            "macos": {
+                "basis": "依据 macOS HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。",
                 "references": [
                     "https://developer.apple.com/design/human-interface-guidelines/components",
                     "https://developer.apple.com/design/human-interface-guidelines/accessibility"
@@ -686,8 +686,8 @@
                     "https://github.com/material-components/material-web/tree/main/textfield"
                 ]
             },
-            "apple": {
-                "basis": "依据 Apple HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。",
+            "macos": {
+                "basis": "依据 macOS HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。",
                 "references": [
                     "https://developer.apple.com/design/human-interface-guidelines/components",
                     "https://developer.apple.com/design/human-interface-guidelines/accessibility"
@@ -730,8 +730,8 @@
                     "https://github.com/material-components/material-web/tree/main/dialog"
                 ]
             },
-            "apple": {
-                "basis": "依据 Apple HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。",
+            "macos": {
+                "basis": "依据 macOS HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。",
                 "references": [
                     "https://developer.apple.com/design/human-interface-guidelines/components",
                     "https://developer.apple.com/design/human-interface-guidelines/accessibility"
@@ -774,8 +774,8 @@
                     "https://github.com/material-components/material-web/tree/main/divider"
                 ]
             },
-            "apple": {
-                "basis": "依据 Apple HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。",
+            "macos": {
+                "basis": "依据 macOS HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。",
                 "references": [
                     "https://developer.apple.com/design/human-interface-guidelines/components",
                     "https://developer.apple.com/design/human-interface-guidelines/accessibility"
@@ -818,8 +818,8 @@
                     "https://github.com/material-components/material-web"
                 ]
             },
-            "apple": {
-                "basis": "依据 Apple HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。",
+            "macos": {
+                "basis": "依据 macOS HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。",
                 "references": [
                     "https://developer.apple.com/design/human-interface-guidelines/components",
                     "https://developer.apple.com/design/human-interface-guidelines/accessibility"
@@ -862,8 +862,8 @@
                     "https://github.com/material-components/material-web/tree/main/menu"
                 ]
             },
-            "apple": {
-                "basis": "依据 Apple HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。",
+            "macos": {
+                "basis": "依据 macOS HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。",
                 "references": [
                     "https://developer.apple.com/design/human-interface-guidelines/components",
                     "https://developer.apple.com/design/human-interface-guidelines/accessibility"
@@ -906,8 +906,8 @@
                     "https://github.com/material-components/material-web/tree/main/button"
                 ]
             },
-            "apple": {
-                "basis": "依据 Apple HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。",
+            "macos": {
+                "basis": "依据 macOS HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。",
                 "references": [
                     "https://developer.apple.com/design/human-interface-guidelines/components",
                     "https://developer.apple.com/design/human-interface-guidelines/accessibility"
@@ -950,8 +950,8 @@
                     "https://github.com/material-components/material-web"
                 ]
             },
-            "apple": {
-                "basis": "依据 Apple HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。",
+            "macos": {
+                "basis": "依据 macOS HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。",
                 "references": [
                     "https://developer.apple.com/design/human-interface-guidelines/components",
                     "https://developer.apple.com/design/human-interface-guidelines/accessibility"
@@ -994,8 +994,8 @@
                     "https://github.com/material-components/material-web/tree/main/textfield"
                 ]
             },
-            "apple": {
-                "basis": "依据 Apple HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。",
+            "macos": {
+                "basis": "依据 macOS HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。",
                 "references": [
                     "https://developer.apple.com/design/human-interface-guidelines/components",
                     "https://developer.apple.com/design/human-interface-guidelines/accessibility"
@@ -1038,8 +1038,8 @@
                     "https://github.com/material-components/material-web"
                 ]
             },
-            "apple": {
-                "basis": "本包没有独立的 Apple 视觉组件；配置、测量或运行能力为上层控件服务，行为和类型仍需独立验收。",
+            "macos": {
+                "basis": "本包没有独立的 macOS 视觉组件；配置、测量或运行能力为上层控件服务，行为和类型仍需独立验收。",
                 "references": [
                     "https://developer.apple.com/design/human-interface-guidelines/components",
                     "https://developer.apple.com/design/human-interface-guidelines/accessibility"
@@ -1082,8 +1082,8 @@
                     "https://github.com/material-components/material-web/tree/main/textfield"
                 ]
             },
-            "apple": {
-                "basis": "依据 Apple HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。",
+            "macos": {
+                "basis": "依据 macOS HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。",
                 "references": [
                     "https://developer.apple.com/design/human-interface-guidelines/components",
                     "https://developer.apple.com/design/human-interface-guidelines/accessibility"
@@ -1126,8 +1126,8 @@
                     "https://github.com/material-components/material-web"
                 ]
             },
-            "apple": {
-                "basis": "依据 Apple HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。",
+            "macos": {
+                "basis": "依据 macOS HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。",
                 "references": [
                     "https://developer.apple.com/design/human-interface-guidelines/components",
                     "https://developer.apple.com/design/human-interface-guidelines/accessibility"
@@ -1170,8 +1170,8 @@
                     "https://github.com/material-components/material-web/tree/main/list"
                 ]
             },
-            "apple": {
-                "basis": "依据 Apple HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。",
+            "macos": {
+                "basis": "依据 macOS HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。",
                 "references": [
                     "https://developer.apple.com/design/human-interface-guidelines/components",
                     "https://developer.apple.com/design/human-interface-guidelines/accessibility"
@@ -1214,8 +1214,8 @@
                     "https://github.com/material-components/material-web"
                 ]
             },
-            "apple": {
-                "basis": "依据 Apple HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。",
+            "macos": {
+                "basis": "依据 macOS HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。",
                 "references": [
                     "https://developer.apple.com/design/human-interface-guidelines/components",
                     "https://developer.apple.com/design/human-interface-guidelines/accessibility"
@@ -1258,8 +1258,8 @@
                     "https://github.com/material-components/material-web"
                 ]
             },
-            "apple": {
-                "basis": "依据 Apple HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。",
+            "macos": {
+                "basis": "依据 macOS HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。",
                 "references": [
                     "https://developer.apple.com/design/human-interface-guidelines/components",
                     "https://developer.apple.com/design/human-interface-guidelines/accessibility"
@@ -1302,8 +1302,8 @@
                     "https://github.com/material-components/material-web/tree/main/textfield"
                 ]
             },
-            "apple": {
-                "basis": "依据 Apple HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。",
+            "macos": {
+                "basis": "依据 macOS HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。",
                 "references": [
                     "https://developer.apple.com/design/human-interface-guidelines/components",
                     "https://developer.apple.com/design/human-interface-guidelines/accessibility"
@@ -1346,8 +1346,8 @@
                     "https://github.com/material-components/material-web/tree/main/button"
                 ]
             },
-            "apple": {
-                "basis": "依据 Apple HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。",
+            "macos": {
+                "basis": "依据 macOS HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。",
                 "references": [
                     "https://developer.apple.com/design/human-interface-guidelines/components",
                     "https://developer.apple.com/design/human-interface-guidelines/accessibility"
@@ -1390,8 +1390,8 @@
                     "https://github.com/material-components/material-web/tree/main/button"
                 ]
             },
-            "apple": {
-                "basis": "依据 Apple HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。",
+            "macos": {
+                "basis": "依据 macOS HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。",
                 "references": [
                     "https://developer.apple.com/design/human-interface-guidelines/components",
                     "https://developer.apple.com/design/human-interface-guidelines/accessibility"
@@ -1434,8 +1434,8 @@
                     "https://github.com/material-components/material-web/tree/main/typography"
                 ]
             },
-            "apple": {
-                "basis": "依据 Apple HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。",
+            "macos": {
+                "basis": "依据 macOS HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。",
                 "references": [
                     "https://developer.apple.com/design/human-interface-guidelines/components",
                     "https://developer.apple.com/design/human-interface-guidelines/accessibility"
@@ -1478,8 +1478,8 @@
                     "https://github.com/material-components/material-web/tree/main/radio"
                 ]
             },
-            "apple": {
-                "basis": "依据 Apple HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。",
+            "macos": {
+                "basis": "依据 macOS HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。",
                 "references": [
                     "https://developer.apple.com/design/human-interface-guidelines/components",
                     "https://developer.apple.com/design/human-interface-guidelines/accessibility"
@@ -1522,8 +1522,8 @@
                     "https://github.com/material-components/material-web/tree/main/progress"
                 ]
             },
-            "apple": {
-                "basis": "依据 Apple HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。",
+            "macos": {
+                "basis": "依据 macOS HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。",
                 "references": [
                     "https://developer.apple.com/design/human-interface-guidelines/components",
                     "https://developer.apple.com/design/human-interface-guidelines/accessibility"
@@ -1566,8 +1566,8 @@
                     "https://github.com/material-components/material-web/tree/main/tabs"
                 ]
             },
-            "apple": {
-                "basis": "本包没有独立的 Apple 视觉组件；配置、测量或运行能力为上层控件服务，行为和类型仍需独立验收。",
+            "macos": {
+                "basis": "本包没有独立的 macOS 视觉组件；配置、测量或运行能力为上层控件服务，行为和类型仍需独立验收。",
                 "references": [
                     "https://developer.apple.com/design/human-interface-guidelines/components",
                     "https://developer.apple.com/design/human-interface-guidelines/accessibility"
@@ -1610,8 +1610,8 @@
                     "https://github.com/material-components/material-web"
                 ]
             },
-            "apple": {
-                "basis": "依据 Apple HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。",
+            "macos": {
+                "basis": "依据 macOS HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。",
                 "references": [
                     "https://developer.apple.com/design/human-interface-guidelines/components",
                     "https://developer.apple.com/design/human-interface-guidelines/accessibility"
@@ -1654,8 +1654,8 @@
                     "https://github.com/material-components/material-web/tree/main/select"
                 ]
             },
-            "apple": {
-                "basis": "依据 Apple HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。",
+            "macos": {
+                "basis": "依据 macOS HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。",
                 "references": [
                     "https://developer.apple.com/design/human-interface-guidelines/components",
                     "https://developer.apple.com/design/human-interface-guidelines/accessibility"
@@ -1698,8 +1698,8 @@
                     "https://github.com/material-components/material-web/tree/main/progress"
                 ]
             },
-            "apple": {
-                "basis": "依据 Apple HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。",
+            "macos": {
+                "basis": "依据 macOS HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。",
                 "references": [
                     "https://developer.apple.com/design/human-interface-guidelines/components",
                     "https://developer.apple.com/design/human-interface-guidelines/accessibility"
@@ -1742,8 +1742,8 @@
                     "https://github.com/material-components/material-web/tree/main/slider"
                 ]
             },
-            "apple": {
-                "basis": "依据 Apple HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。",
+            "macos": {
+                "basis": "依据 macOS HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。",
                 "references": [
                     "https://developer.apple.com/design/human-interface-guidelines/components",
                     "https://developer.apple.com/design/human-interface-guidelines/accessibility"
@@ -1786,8 +1786,8 @@
                     "https://github.com/material-components/material-web/tree/main/progress"
                 ]
             },
-            "apple": {
-                "basis": "依据 Apple HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。",
+            "macos": {
+                "basis": "依据 macOS HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。",
                 "references": [
                     "https://developer.apple.com/design/human-interface-guidelines/components",
                     "https://developer.apple.com/design/human-interface-guidelines/accessibility"
@@ -1830,8 +1830,8 @@
                     "https://github.com/material-components/material-web/tree/main/divider"
                 ]
             },
-            "apple": {
-                "basis": "依据 Apple HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。",
+            "macos": {
+                "basis": "依据 macOS HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。",
                 "references": [
                     "https://developer.apple.com/design/human-interface-guidelines/components",
                     "https://developer.apple.com/design/human-interface-guidelines/accessibility"
@@ -1874,8 +1874,8 @@
                     "https://github.com/material-components/material-web/tree/main/switch"
                 ]
             },
-            "apple": {
-                "basis": "依据 Apple HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。",
+            "macos": {
+                "basis": "依据 macOS HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。",
                 "references": [
                     "https://developer.apple.com/design/human-interface-guidelines/components",
                     "https://developer.apple.com/design/human-interface-guidelines/accessibility"
@@ -1918,8 +1918,8 @@
                     "https://github.com/material-components/material-web"
                 ]
             },
-            "apple": {
-                "basis": "依据 Apple HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。",
+            "macos": {
+                "basis": "依据 macOS HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。",
                 "references": [
                     "https://developer.apple.com/design/human-interface-guidelines/components",
                     "https://developer.apple.com/design/human-interface-guidelines/accessibility"
@@ -1962,8 +1962,8 @@
                     "https://github.com/material-components/material-web"
                 ]
             },
-            "apple": {
-                "basis": "依据 Apple HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。",
+            "macos": {
+                "basis": "依据 macOS HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。",
                 "references": [
                     "https://developer.apple.com/design/human-interface-guidelines/components",
                     "https://developer.apple.com/design/human-interface-guidelines/accessibility"
@@ -2006,8 +2006,8 @@
                     "https://github.com/material-components/material-web/tree/main/tabs"
                 ]
             },
-            "apple": {
-                "basis": "依据 Apple HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。",
+            "macos": {
+                "basis": "依据 macOS HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。",
                 "references": [
                     "https://developer.apple.com/design/human-interface-guidelines/components",
                     "https://developer.apple.com/design/human-interface-guidelines/accessibility"
@@ -2050,8 +2050,8 @@
                     "https://github.com/material-components/material-web/tree/main/chips"
                 ]
             },
-            "apple": {
-                "basis": "依据 Apple HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。",
+            "macos": {
+                "basis": "依据 macOS HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。",
                 "references": [
                     "https://developer.apple.com/design/human-interface-guidelines/components",
                     "https://developer.apple.com/design/human-interface-guidelines/accessibility"
@@ -2094,8 +2094,8 @@
                     "https://github.com/material-components/material-web/tree/main/textfield"
                 ]
             },
-            "apple": {
-                "basis": "依据 Apple HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。",
+            "macos": {
+                "basis": "依据 macOS HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。",
                 "references": [
                     "https://developer.apple.com/design/human-interface-guidelines/components",
                     "https://developer.apple.com/design/human-interface-guidelines/accessibility"
@@ -2138,8 +2138,8 @@
                     "https://github.com/material-components/material-web/tree/main/tokens"
                 ]
             },
-            "apple": {
-                "basis": "依据 Apple HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。",
+            "macos": {
+                "basis": "依据 macOS HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。",
                 "references": [
                     "https://developer.apple.com/design/human-interface-guidelines/components",
                     "https://developer.apple.com/design/human-interface-guidelines/accessibility"
@@ -2182,8 +2182,8 @@
                     "https://github.com/material-components/material-web/tree/main/tokens"
                 ]
             },
-            "apple": {
-                "basis": "依据 Apple HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。",
+            "macos": {
+                "basis": "依据 macOS HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。",
                 "references": [
                     "https://developer.apple.com/design/human-interface-guidelines/components",
                     "https://developer.apple.com/design/human-interface-guidelines/accessibility"
@@ -2226,8 +2226,8 @@
                     "https://github.com/material-components/material-web/tree/main/tokens"
                 ]
             },
-            "apple": {
-                "basis": "依据 Apple HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。",
+            "macos": {
+                "basis": "依据 macOS HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。",
                 "references": [
                     "https://developer.apple.com/design/human-interface-guidelines/components",
                     "https://developer.apple.com/design/human-interface-guidelines/accessibility"
@@ -2270,8 +2270,8 @@
                     "https://github.com/material-components/material-web"
                 ]
             },
-            "apple": {
-                "basis": "依据 Apple HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。",
+            "macos": {
+                "basis": "依据 macOS HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。",
                 "references": [
                     "https://developer.apple.com/design/human-interface-guidelines/components",
                     "https://developer.apple.com/design/human-interface-guidelines/accessibility"
@@ -2314,8 +2314,8 @@
                     "https://github.com/material-components/material-web/tree/main/list"
                 ]
             },
-            "apple": {
-                "basis": "依据 Apple HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。",
+            "macos": {
+                "basis": "依据 macOS HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。",
                 "references": [
                     "https://developer.apple.com/design/human-interface-guidelines/components",
                     "https://developer.apple.com/design/human-interface-guidelines/accessibility"
@@ -2358,8 +2358,8 @@
                     "https://github.com/material-components/material-web"
                 ]
             },
-            "apple": {
-                "basis": "本包没有独立的 Apple 视觉组件；配置、测量或运行能力为上层控件服务，行为和类型仍需独立验收。",
+            "macos": {
+                "basis": "本包没有独立的 macOS 视觉组件；配置、测量或运行能力为上层控件服务，行为和类型仍需独立验收。",
                 "references": [
                     "https://developer.apple.com/design/human-interface-guidelines/components",
                     "https://developer.apple.com/design/human-interface-guidelines/accessibility"

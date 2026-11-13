@@ -4,6 +4,17 @@ prefix = "pdf-editor"
 imports = ["@crab-dev/rc-token-semantic"]
 
 [token]
+macos.material.background-color = "$ref(material.background)"
+macos.material.background-image = "$ref(material.sheen)"
+macos.material.backdrop-filter = "$ref(material.filter)"
+macos.material.border-color = "$ref(material.border)"
+macos.material.box-shadow = "$ref(material.control-shadow)"
+macos.group.border-radius = "$ref(shape.control)"
+macos.group.padding = "$ref(space.inline-gap)"
+macos.panel.border-radius = "$ref(shape.overlay)"
+macos.thumbnail.color = "$ref(color.text.primary)"
+macos.thumbnail.background-color-selected = "$ref(color.surface.content)"
+
 root.background = "$ref(color.surface.content)"
 root.color = "$ref(color.text.primary)"
 root.font-family = "$ref(font.family.body)"

@@ -4,7 +4,7 @@ import Button from "@crab-dev/rc-button";
 import { SpinIndicator } from '@crab-dev/rc-spin';
 import Tag from "@crab-dev/rc-tag";
 import { css, cx } from "@crab-dev/css";
-import { useLocale } from '@crab-dev/rc-config-provider';
+import { useLocale, useConfig } from '@crab-dev/rc-config-provider';
 import { useCallback, useEffect, useEffectEvent, useRef, useState, type FC, type FocusEventHandler, type KeyboardEvent, type MouseEvent as ReactMouseEvent, type ReactNode, type Ref, type RefObject } from "react";
 import token, { vars } from "./token.js";
 import type { FlatOption, SelectChangeDetails, SelectOption } from "./types.js";
@@ -153,6 +153,7 @@ const SelectInput: FC<SelectInputProps> = ({
 }) => {
     const { state, refs, dispatch } = useDropdownContext<HTMLDivElement>();
     const { messages } = useLocale();
+    const { designSystem } = useConfig();
     const inputRef = useRef<HTMLInputElement>(null);
     const open = state.open;
     const [hovered, setHovered] = useState(false);
@@ -471,7 +472,7 @@ const SelectInput: FC<SelectInputProps> = ({
                     disabled={disabled}
                     aria-label={showClear ? messages.common.clear : open ? messages.select.closeOptions : messages.select.openOptions}
                     aria-expanded={showClear ? undefined : open}
-                    icon={showClear ? <ClearIcon /> : <span aria-hidden="true" className={cx.call(undefined, caretStyle, open && caretOpenStyle)}><CaretIcon /></span>}
+                    icon={showClear ? <ClearIcon /> : <span aria-hidden="true" className={cx.call(undefined, caretStyle, open && designSystem !== 'macos' && caretOpenStyle)}>{designSystem === 'macos' ? <svg aria-hidden="true" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="m5 5 3-3 3 3m-6 6 3 3 3-3" /></svg> : <CaretIcon />}</span>}
                     onFocus={() => setActionFocused(true)}
                     onBlur={() => setActionFocused(false)}
                     onClick={(event) => {

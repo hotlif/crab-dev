@@ -54,6 +54,18 @@ for (const config of configurations) for (const size of spec.sizes) for (const s
         if (state === "disabled") { await expect(control).toHaveAttribute("aria-disabled", "true"); await expect(control).toHaveAttribute("tabindex", "-1"); }
         if (state === "error") await expect(control).toHaveAttribute("aria-invalid", "true");
         await settleFiniteAnimations(page);
+        if (config.designSystem === 'macos') {
+            await expect(control.locator('[data-slot="slider-handle"]')).toHaveCSS('backdrop-filter', state === 'dragging' ? 'blur(24px) saturate(1.5)' : 'none');
+            const rail = control.locator('[data-slot="slider-rail"]');
+            const track = control.locator('[data-slot="slider-track"]');
+            await expect(rail).toHaveCSS('border-radius', '9999px');
+            await expect(track).toHaveCSS('border-radius', '9999px');
+            expect((await rail.boundingBox()).width).toBeCloseTo((await control.boundingBox()).width, 1);
+            const min = Number(await control.getAttribute('aria-valuemin'));
+            const max = Number(await control.getAttribute('aria-valuemax'));
+            const value = Number(await control.getAttribute('aria-valuenow'));
+            expect((await track.boundingBox()).width / (await rail.boundingBox()).width).toBeCloseTo((value - min) / (max - min), 2);
+        }
         const geometry = await control.boundingBox();
         expect(geometry.height).toBeGreaterThan(0);
         const handleGeometry = await handle.boundingBox();

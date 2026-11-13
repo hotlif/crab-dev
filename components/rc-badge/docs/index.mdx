@@ -47,7 +47,7 @@ status = "experimental"
 
 ## 三套设计风格
 
-Material 与 Apple 的默认计数徽标为 16px；shadcn 使用 20px 的计数容器。徽标维持成对的前景/背景语义，圆点与 small 变体保留紧凑尺寸；该定位计数徽标不同于 shadcn 的行内 Badge 标签。
+Material 与 macOS 的默认计数徽标为 16px；shadcn 使用 20px 的计数容器。徽标维持成对的前景/背景语义，圆点与 small 变体保留紧凑尺寸；该定位计数徽标不同于 shadcn 的行内 Badge 标签。
 
 切换文档站设计风格后，本页演示同步使用该设计；浅色和深色模式分别使用配对语义颜色。
 
@@ -58,7 +58,7 @@ Material 与 Apple 的默认计数徽标为 16px；shadcn 使用 20px 的计数�
 | 体系 | 组件视觉规则 |
 | --- | --- |
 | MD3 Expressive | 依据 badges 的小圆点/计数标识语义，计数与宿主分离。 |
-| Apple | 以紧凑计数和清晰的状态文字支持内容优先；属于自主 Web 扩展。 |
+| macOS | 以紧凑计数和清晰的状态文字支持内容优先；属于自主 Web 扩展。 |
 | shadcn | 参照 Badge 的细描边、紧凑字阶和语义对比；角标定位和处理动画为扩展。 |
 
 本包几何与视觉来源：size.default / small 的 height、min-width、padding 与 font-size；dot.default / small；count 的前景、底色和宿主表面隔离环；status 文本与脉冲分别核验。设计值只在对应 token.toml 与它引用的语义角色维护，验收测量读取实际 DOM 计算值。
@@ -67,4 +67,4 @@ Material 与 Apple 的默认计数徽标为 16px；shadcn 使用 20px 的计数�
 
 矩阵定义在本包 `docs/visual.json`，场景使用 `visual-matrix.demo.tsx`。Chromium 覆盖其中全部设计/明暗/命名尺寸/适用密度/状态；Firefox 与 WebKit 按 `crossEngine` 的默认展示和重点交互子集执行。窄屏、RTL、中英文、长文本、品牌覆盖和配置切换后的草稿保持另有场景；未运行、未人工复核或失败的项不能计为通过。开放尺寸输入的代表样本不等于无限集合的穷尽。
 
-参考核对日期：2026-10-29。[Material 3 Cards](https://m3.material.io/components/cards/overview)、[Material Web Divider 使用/无障碍/令牌](https://material-web.dev/components/divider/)、[Material Web Progress 语义](https://material-web.dev/components/progress/)、[Apple Feedback](https://developer.apple.com/design/human-interface-guidelines/feedback)、[Apple Layout](https://developer.apple.com/design/human-interface-guidelines/layout)、[Apple Progress indicators](https://developer.apple.com/design/human-interface-guidelines/progress-indicators)、[shadcn New York V4 badge](https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui/badge.tsx)。Material Web 是 Web 行为基线；Apple 是依据原则的自主 Web 实现；shadcn 固定参考提交 `3d98900e9b73c45f035f8109e9d41ba6a51685e7`，不跟随浮动最新版。
+参考核对日期：2026-10-29。[Material 3 Cards](https://m3.material.io/components/cards/overview)、[Material Web Divider 使用/无障碍/令牌](https://material-web.dev/components/divider/)、[Material Web Progress 语义](https://material-web.dev/components/progress/)、[macOS Feedback](https://developer.apple.com/design/human-interface-guidelines/feedback)、[macOS Layout](https://developer.apple.com/design/human-interface-guidelines/layout)、[macOS Progress indicators](https://developer.apple.com/design/human-interface-guidelines/progress-indicators)、[shadcn New York V4 badge](https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui/badge.tsx)。Material Web 是 Web 行为基线；macOS 采用 Tahoe 26 Liquid Glass 的 Web 适配；shadcn 固定参考提交 `3d98900e9b73c45f035f8109e9d41ba6a51685e7`，不跟随浮动最新版。

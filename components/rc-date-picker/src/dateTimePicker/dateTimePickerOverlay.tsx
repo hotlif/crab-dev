@@ -1,4 +1,5 @@
 import { usePickerLocale } from '../locale.js';
+import { useConfig } from '@crab-dev/rc-config-provider';
 import RcButton from "@crab-dev/rc-button"
 import { useDropdownContext } from "@crab-dev/rc-dropdown-container";
 import { css } from '@crab-dev/css';
@@ -21,6 +22,7 @@ const DateTimePickerOverlay: FC<DateTimePickerOverlayProps> = ({
     onSelectValuesChange,
     ...restProps
 }) => {
+    const macos = useConfig().designSystem === 'macos';
     const { messages } = usePickerLocale(restProps.locale);
     const {
         dispatch
@@ -55,7 +57,7 @@ const DateTimePickerOverlay: FC<DateTimePickerOverlayProps> = ({
                 `}
             >
                 <RcButton
-                    appearance="text"
+                    appearance={macos ? 'outlined' : 'text'}
                     size="xs"
                     onClick={() => {
                         dispatch({

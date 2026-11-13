@@ -1,0 +1,32 @@
+{
+    "md3": {
+        "summary": "以简短浮动说明补充控件含义，帮助理解图标或被省略的文字。",
+        "usage": "提示不能承载必须操作的内容，也不能替代控件本身的可访问名称。",
+        "exampleDescription": "通过悬停和键盘聚焦打开说明，检查提示与触发控件的关联。",
+        "demos": [
+            "basic.demo.tsx",
+            "arrow.demo.tsx",
+            "placement.demo.tsx"
+        ]
+    },
+    "macos": {
+        "summary": "为桌面工具提供轻量悬浮说明，让紧凑图标动作仍容易理解。",
+        "usage": "提示应简短并贴近触发对象，关闭后不能改变正在操作的焦点位置。",
+        "exampleDescription": "查看不同位置的工具提示，检查桌面工具周围的空间与可读性。",
+        "demos": [
+            "placement.demo.tsx",
+            "arrow.demo.tsx",
+            "basic.demo.tsx"
+        ]
+    },
+    "shadcn": {
+        "summary": "用简洁浮层补充控件说明，清晰边界与文字优先于装饰。",
+        "usage": "较长帮助内容应放进页面或可操作面板，提示只补充当前控件的含义。",
+        "exampleDescription": "对比提示箭头与触发器的关系，再检查键盘聚焦时的说明。",
+        "demos": [
+            "arrow.demo.tsx",
+            "basic.demo.tsx",
+            "placement.demo.tsx"
+        ]
+    }
+}

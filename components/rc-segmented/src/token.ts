@@ -5,6 +5,11 @@
 import { defineTokens } from '@crab-dev/css';
 
 export const vars = defineTokens({
+    'macos.item.background-color-hover': '--segmented-macos-item-background-color-hover',
+    'macos.item.background-color-active': '--segmented-macos-item-background-color-active',
+    'macos.item.background-image': '--segmented-macos-item-background-image',
+    'macos.item.border-color': '--segmented-macos-item-border-color',
+    'macos.item.box-shadow': '--segmented-macos-item-box-shadow',
     'track.background-color': '--segmented-track-background-color',
     'track.border-radius': '--segmented-track-border-radius',
     'track.border-color': '--segmented-track-border-color',
@@ -61,6 +66,15 @@ export const vars = defineTokens({
 });
 
 const token = defineTokens({
+    'macos': {
+        'item': {
+            'background-color-hover': `var(${vars['macos.item.background-color-hover']}, var(--token-semantic-color-background-hover-subtle, color-mix(in oklch, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695)) calc(var(--token-semantic-state-opacity-hover, var(--token-global-opacity-8, 0.08)) * 100%), var(--token-global-material-neutral-98, oklch(0.98379491 0.01284496 321.893957)))))`,
+            'background-color-active': `var(${vars['macos.item.background-color-active']}, var(--token-semantic-color-background-active-subtle, color-mix(in oklch, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695)) calc(var(--token-semantic-state-opacity-pressed, var(--token-global-opacity-12, 0.12)) * 100%), var(--token-global-material-neutral-98, oklch(0.98379491 0.01284496 321.893957)))))`,
+            'background-image': `var(${vars['macos.item.background-image']}, linear-gradient(180deg, color-mix(in srgb, var(--token-semantic-color-surface-content, var(--token-semantic-color-background-surface, var(--token-global-material-neutral-98, oklch(0.98379491 0.01284496 321.893957)))) 16%, transparent), transparent))`,
+            'border-color': `var(${vars['macos.item.border-color']}, var(--token-semantic-color-border-subtle, var(--token-global-material-neutral-variant-80, oklch(0.82874810 0.01775809 308.222736))))`,
+            'box-shadow': `var(${vars['macos.item.box-shadow']}, var(--token-semantic-material-control-shadow, var(--token-global-shadow-xs, 0 1px 2px oklch(0 0 0 / 0.03))))`
+        }
+    },
     'track': {
         'background-color': `var(${vars['track.background-color']}, var(--token-semantic-navigation-segment-track-background, transparent))`,
         'border-radius': `var(${vars['track.border-radius']}, var(--token-semantic-navigation-segment-track-radius, var(--token-global-radius-full, 9999px)))`,

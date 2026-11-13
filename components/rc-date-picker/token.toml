@@ -7,6 +7,14 @@ imports = [
 
 [token]
 
+# Independent Tahoe controls; Web adaptation of AppKit.
+macos.time.background-color = "$ref(color.surface.content)"
+macos.time.color = "$ref(color.text.primary)"
+macos.time.border-color = "$ref(color.border.default)"
+macos.time.box-shadow = "$ref(field.control.shadow)"
+macos.period.min-width = "$ref(size.40)"
+
+
 root.background-color-selected = "$ref(color.brand.primary)"
 root.color-selected = "$ref(color.text.on-brand)"
 cell.background-color-hover = "$ref(color.state.hover)"
@@ -25,7 +33,7 @@ cell.content.width = "$ref(size.32)"
 cell.font-size = "$ref(typography.label.font-size)"
 cell.font-weight = "400"
 cell.transition = "$ref(motion.interaction)"
-cell.today.color = "$ref(color.brand.primary)"
+cell.today.color = "$ref(color.text.link)"
 cell.today.border-color = "$ref(color.brand.primary)"
 cell.today.border-width = "1px"
 

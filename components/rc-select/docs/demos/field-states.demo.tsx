@@ -1,11 +1,11 @@
 export const meta = {
     title: "标签与选择状态",
-    description: "对照三套主题下的上置标签、选择面板、错误及禁用状态；切换主题保留当前值。",
+    description: "检查上置标签、选择面板、错误及禁用状态，当前值与说明保持关联。",
 };
 
 import { css } from "@crab-dev/css";
 import token from "@crab-dev/rc-token-semantic";
-import Select from "../../src/index.js";
+import Select from '@crab-dev/rc-select';
 
 const layout = css`
     display: grid;

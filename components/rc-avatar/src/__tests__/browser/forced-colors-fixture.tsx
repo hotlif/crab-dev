@@ -6,9 +6,9 @@ import Avatar, { AvatarGroup } from '../../../esm/index.mjs';
 import { screenshotPixels } from '../../../../../test/forced-color-pixels.mjs';
 
 const search = new URLSearchParams(location.search);
-const designSystem = search.get('designSystem') as 'md3' | 'apple' | 'shadcn';
+const designSystem = search.get('designSystem') as 'md3' | 'macos' | 'shadcn';
 const colorMode = search.get('colorMode') as 'light' | 'dark';
-if (!['md3', 'apple', 'shadcn'].includes(designSystem) || !['light', 'dark'].includes(colorMode)) throw Error('Invalid forced-colors fixture configuration');
+if (!['md3', 'macos', 'shadcn'].includes(designSystem) || !['light', 'dark'].includes(colorMode)) throw Error('Invalid forced-colors fixture configuration');
 const host = document.getElementById('root');
 if (!host) throw Error('Missing forced-colors fixture host');
 const root = createRoot(host);

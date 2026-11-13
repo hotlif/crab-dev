@@ -5,6 +5,9 @@
 import { defineTokens } from '@crab-dev/css';
 
 export const vars = defineTokens({
+    'macos.root.color': '--alert-macos-root-color',
+    'macos.root.background-color': '--alert-macos-root-background-color',
+    'macos.root.border-color': '--alert-macos-root-border-color',
     'root.transition': '--alert-root-transition',
     'root.padding': '--alert-root-padding',
     'root.border-radius': '--alert-root-border-radius',
@@ -48,6 +51,13 @@ export const vars = defineTokens({
 });
 
 const token = defineTokens({
+    'macos': {
+        'root': {
+            'color': `var(${vars['macos.root.color']}, var(--token-semantic-color-text-primary, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695))))`,
+            'background-color': `var(${vars['macos.root.background-color']}, var(--token-semantic-color-surface-content, var(--token-semantic-color-background-surface, var(--token-global-material-neutral-98, oklch(0.98379491 0.01284496 321.893957)))))`,
+            'border-color': `var(${vars['macos.root.border-color']}, var(--token-semantic-color-border-subtle, var(--token-global-material-neutral-variant-80, oklch(0.82874810 0.01775809 308.222736))))`
+        }
+    },
     'root': {
         'transition': `var(${vars['root.transition']}, background-color var(--token-semantic-motion-interaction, var(--token-global-duration-150, 150ms) var(--token-global-easing-expressive-effects-fast, cubic-bezier(0.31, 0.94, 0.34, 1.00))), border-color var(--token-semantic-motion-interaction, var(--token-global-duration-150, 150ms) var(--token-global-easing-expressive-effects-fast, cubic-bezier(0.31, 0.94, 0.34, 1.00))), color var(--token-semantic-motion-interaction, var(--token-global-duration-150, 150ms) var(--token-global-easing-expressive-effects-fast, cubic-bezier(0.31, 0.94, 0.34, 1.00))))`,
         'padding': `var(${vars['root.padding']}, var(--token-semantic-feedback-banner-padding, var(--token-global-space-4, 16px)))`,

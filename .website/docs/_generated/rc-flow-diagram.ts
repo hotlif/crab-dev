@@ -3,6 +3,7 @@
  */
 
 import type { ComponentDemoRecord } from "../site/componentDemos.js";
+import type { ComponentDesignDocuments } from "../site/componentDesignGuide.js";
 
 export const demos = [
     {
@@ -265,3 +266,76 @@ export const demos = [
         "group": "能力与集成示例"
     }
 ] as const satisfies readonly ComponentDemoRecord[];
+
+export const documents = {
+    "md3": {
+        "summary": "以语义节点、边和选中反馈组织流程关系，图结构编辑是本库的可视化扩展。",
+        "usage": "颜色可强调关键节点，但步骤名称、连接方向与状态仍需明确。",
+        "exampleDescription": "编辑节点与连线，检查当前选择、操作入口和流程方向的表达。",
+        "demos": [
+            "editing.demo.tsx",
+            "animated-edge.demo.tsx",
+            "edge.demo.tsx",
+            "elk-layout.demo.tsx",
+            "readability.demo.tsx"
+        ],
+        "references": [
+            "https://m3.material.io/foundations/interaction/overview",
+            "https://material-web.dev/",
+            "https://github.com/material-components/material-web"
+        ]
+    },
+    "macos": {
+        "summary": "为桌面流程编辑器提供节点画布与连接操作，工具和内容保持层次清晰。",
+        "usage": "紧凑面板中保留可读的节点标题；自动布局后仍应能追踪当前编辑对象。",
+        "exampleDescription": "运行自动布局并阅读节点关系，检查画布内容与操作区域的区分。",
+        "demos": [
+            "elk-layout.demo.tsx",
+            "animated-edge.demo.tsx",
+            "edge.demo.tsx",
+            "editing.demo.tsx",
+            "readability.demo.tsx"
+        ],
+        "references": [
+            "https://developer.apple.com/design/human-interface-guidelines/components",
+            "https://developer.apple.com/design/human-interface-guidelines/accessibility"
+        ]
+    },
+    "shadcn": {
+        "summary": "以中性节点边界和简洁连线表达流程，强调结构与内容可读性。",
+        "usage": "流程图是自有组合能力，业务应为节点类型和连线含义提供明确说明。",
+        "exampleDescription": "查看长标签与复杂连接的可读性，再检查选中节点的边界反馈。",
+        "demos": [
+            "readability.demo.tsx",
+            "animated-edge.demo.tsx",
+            "edge.demo.tsx",
+            "editing.demo.tsx",
+            "elk-layout.demo.tsx"
+        ],
+        "references": [
+            "https://ui.shadcn.com/docs/components",
+            "https://ui.shadcn.com/docs/theming",
+            "https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4"
+        ]
+    }
+} as const satisfies ComponentDesignDocuments;
+
+export const guide = {
+    "definition": "FlowDiagram 用节点和连线表达步骤、依赖或系统关系，可结合自动布局与边动画。它负责关系图的渲染与交互，业务仍要定义节点类型、连接规则和保存格式。",
+    "useWhen": [
+        "流程编排、审批路径或系统拓扑需要可视化关系。",
+        "节点数量和关系使普通列表难以理解，但仍需要选择或编辑。"
+    ],
+    "avoidWhen": [
+        "简单线性步骤用有序列表更清楚；大量精确数据比较使用表格或图表。"
+    ],
+    "essentials": [
+        "节点和边都要有稳定 ID，数据模型与屏幕坐标分开保存。",
+        "自动布局负责初始位置，用户调整后要定义是否覆盖或保留。",
+        "动画只提示方向或变化，不能成为关系含义的唯一载体。"
+    ],
+    "accessibility": [
+        "提供节点列表、连接说明或其他等价文本视图，确保非视觉用户也能理解关系。",
+        "选择、连接和移动都要有键盘路径，减少动态效果时关闭非必要边动画。"
+    ]
+} as const;

@@ -10,7 +10,7 @@ const settle = () => act(async () => {
 });
 
 describe('published circular Skeleton geometry', () => {
-    for (const designSystem of ['md3', 'apple', 'shadcn'] as const) {
+    for (const designSystem of ['md3', 'macos', 'shadcn'] as const) {
         it(`uses one axis to size a circle and preserves two explicit axes (${designSystem})`, async () => {
             const cases = [
                 { id: 'width', width: 56, expected: [56, 56] },
@@ -43,7 +43,7 @@ describe('published circular Skeleton geometry', () => {
 });
 
 describe('ordinary Skeleton scoped fill stays independent of forced-color adaptation', () => {
-    for (const designSystem of ['md3', 'apple', 'shadcn'] as const) {
+    for (const designSystem of ['md3', 'macos', 'shadcn'] as const) {
         for (const colorMode of ['light', 'dark'] as const) {
             it(`retains caller fill and removes the placeholder when content loads (${designSystem}/${colorMode})`, async () => {
                 expect(matchMedia('(forced-colors: none)').matches).toBe(true);

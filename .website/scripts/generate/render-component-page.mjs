@@ -220,7 +220,9 @@ export function componentFaqMarkup(lesson) {
     return `## 常见问题\n\n${lesson.faq.map(item => `### ${text(item.question)}\n\n${text(item.answer)}`).join("\n\n")}`;
 }
 
-export function createPage(canonicalSource, slug, demos, api, lesson, referenceTokens = [], guide, description) {
+export function createPage(canonicalSource, slug, demos, api, lesson, referenceTokens = [], guide, description, documents) {
+    const searchDemos = documents ? demos.filter(demo => Object.values(documents).some(document => document.demos.includes(demo.id.split('/').at(-1))))
+        .map(demo => ({ ...demo, group: null })) : demos;
     const normalized = normalizeNewlines(canonicalSource);
     const frontmatterMatch = normalized.match(/^(\+\+\+\n[\s\S]*?\n\+\+\+)\n+/);
     if (!frontmatterMatch) {
@@ -229,13 +231,13 @@ export function createPage(canonicalSource, slug, demos, api, lesson, referenceT
     const body = normalized.slice(frontmatterMatch[0].length);
     const workbenchLink = /^\[打开[^\]]*工作台\]\([^\n)]*\/workbench\/\)\s*$/m;
     if (slug === "rc-token-global") {
-        const content = body
+        const content = body.replace(/(^# [^\n]+\n)/, '$1\n<DesignIntroduction documents={documents} />\n')
             .replace(workbenchLink, "")
-            .replace(/<Demos\b[^>]*\/>/g, '<ComponentDemos demos={demos} />')
+            .replace(/<Demos\b[^>]*\/>/g, '<ComponentDemos demos={demos} documents={documents} />')
             .replace(/\{\/\* token-reference:([\w-]+) \*\/\}/g, '<TokenReference group="$1" />')
             .replace("{/* token-tutorial */}", "<Tutorial tutorial={tutorial} />");
         const tokenIndex = referenceTokens.map(entry => `${entry.key} · ${entry.value} · ${entry.expression} · ${entry.variable}`).join("\n\n");
-        return `${frontmatterMatch[1]}\n\n{/* ${GENERATED_MARKER} */}\n\nimport TokenReference from "../site/tokenReference.js";\nimport Tutorial from "../site/tutorial.js";\nimport { tutorial } from "../_generated_tutorials/${slug}.js";\nimport ComponentDemos from "../site/componentDemos.js";\nimport { demos } from "../_generated/${slug}.js";\n\n${content.trim()}\n\n<div hidden aria-hidden="true" data-docs-search-index="tokens">\n\n@crab-dev/rc-token-global\n\n${tokenIndex}\n\n</div>\n\n${createDemoSearchMetadata(demos).trimEnd()}\n`;
+        return `${frontmatterMatch[1]}\n\n{/* ${GENERATED_MARKER} */}\n\nimport TokenReference from "../site/tokenReference.js";\nimport Tutorial from "../site/tutorial.js";\nimport { tutorial } from "../_generated_tutorials/${slug}.js";\nimport ComponentDemos from "../site/componentDemos.js";\nimport { DesignIntroduction } from "../site/componentDesignGuide.js";\nimport { demos, documents } from "../_generated/${slug}.js";\n\n${content.trim()}\n\n<div hidden aria-hidden="true" data-docs-search-index="tokens">\n\n@crab-dev/rc-token-global\n\n${tokenIndex}\n\n</div>\n\n${createDemoSearchMetadata(demos).trimEnd()}\n`;
     }
     if (!workbenchLink.test(body)) {
         throw new Error(`${slug}: index.mdx 缺少工作台入口，无法确定预览插入位置`);
@@ -251,10 +253,14 @@ export function createPage(canonicalSource, slug, demos, api, lesson, referenceT
     const frontmatter = description
         ? frontmatterMatch[1].replace(/^description = .+$/m, `description = ${JSON.stringify(description)}`)
         : frontmatterMatch[1];
-    const imports = hasDemos || !lesson
+    const imports = documents
+        ? `import ComponentDemos from "../site/componentDemos.js";\nimport ComponentDesignGuide, { DesignIntroduction, DesignExampleIntroduction } from "../site/componentDesignGuide.js";\nimport { demos, documents, guide } from "../_generated/${slug}.js";`
+        : hasDemos || !lesson
         ? `import ComponentDemos from "../site/componentDemos.js";\nimport { demos } from "../_generated/${slug}.js";`
         : `import Tutorial from "../site/tutorial.js";\nimport { tutorial } from "../_generated_tutorials/${slug}.js";`;
-    const examples = hasDemos || !lesson
+    const examples = documents
+        ? `${createDemoSearchMetadata(searchDemos)}\n<DesignExampleIntroduction documents={documents} />\n\n<ComponentDemos demos={demos} documents={documents} />`
+        : hasDemos || !lesson
         ? `${createDemoSearchMetadata(demos)}\n<ComponentDemos demos={demos} />`
         : '<Tutorial tutorial={tutorial} />';
     const notes = body
@@ -265,7 +271,10 @@ export function createPage(canonicalSource, slug, demos, api, lesson, referenceT
         .replace(/^## (?:API|代码演示|Light \/ Dark 并排示例)\s*$/gm, "")
         .replace(/^## /gm, "### ")
         .trim();
-    const guidance = [notes, componentGuideMarkup(guide).trim()].filter(Boolean).join("\n\n");
+    // Authored design documents replace the legacy mixed-design narrative.
+    // Public behavior and accessibility remain shared; API still comes from real types.
+    const guidance = documents ? '<ComponentDesignGuide guide={guide} documents={documents} />'
+        : [notes, componentGuideMarkup(guide).trim()].filter(Boolean).join("\n\n");
     const apiRecords = api === null ? [] : Array.isArray(api) ? api : [api];
     const apiMarkup = apiRecords.length === 0 ? "" : "## API\n\n" + apiRecords.map(record => apiRecordMarkup(record, slug)).join("\n\n");
     return [
@@ -274,11 +283,12 @@ export function createPage(canonicalSource, slug, demos, api, lesson, referenceT
         imports,
         heading,
         `<div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/${slug}</div>`,
+        documents && '## 设计与用法\n\n<DesignIntroduction documents={documents} />',
         // Keep existing deep links without reintroducing duplicate headings or previews.
         '<div id="基础示例" data-docs-example-anchor /><div id="全部示例" data-docs-example-anchor />',
         "## 示例",
         examples,
-        `[打开完整组件工作台](/components/${slug}/workbench/)`,
+        !documents && `[打开完整组件工作台](/components/${slug}/workbench/)`,
         guidance && `## 使用说明\n\n${guidance}`,
         componentFaqMarkup(lesson),
         apiMarkup,

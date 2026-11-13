@@ -1,0 +1,35 @@
+{
+    "md3": {
+        "summary": "用短暂反馈确认操作结果，以简短文字和语义状态帮助用户继续当前任务。",
+        "usage": "反馈不应打断输入，重要且需持续阅读的错误应放回关联内容中。",
+        "exampleDescription": "触发不同结果消息，检查语义配色、文字和自动关闭的反馈过程。",
+        "demos": [
+            "basic.demo.tsx",
+            "custom.demo.tsx",
+            "long-content.demo.tsx",
+            "stack.demo.tsx"
+        ]
+    },
+    "macos": {
+        "summary": "以轻量浮动反馈报告桌面操作结果，内容保持短小并避免遮挡工作区域。",
+        "usage": "连续操作时检查消息堆叠，撤销或重试动作要保持清楚可达。",
+        "exampleDescription": "连续触发消息，观察桌面反馈的堆叠顺序和关闭后的空间恢复。",
+        "demos": [
+            "stack.demo.tsx",
+            "basic.demo.tsx",
+            "custom.demo.tsx",
+            "long-content.demo.tsx"
+        ]
+    },
+    "shadcn": {
+        "summary": "用简洁浮层和中性文字层级反馈操作结果，语义状态通过明确文案表达。",
+        "usage": "长消息应允许阅读而不横向溢出，动作名称说明用户下一步能做什么。",
+        "exampleDescription": "触发较长的结果说明，检查窄区域里的换行、状态和关闭入口。",
+        "demos": [
+            "long-content.demo.tsx",
+            "basic.demo.tsx",
+            "custom.demo.tsx",
+            "stack.demo.tsx"
+        ]
+    }
+}

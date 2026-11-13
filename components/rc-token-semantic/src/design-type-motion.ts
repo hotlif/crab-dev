@@ -30,14 +30,14 @@ export interface DesignTypography {
 }
 
 // Reviewed 2026-10-23: M3 baseline and emphasized type scale. Material Web v0.192
-// implements the baseline only. Apple and shadcn/ui have autonomous Web mappings.
+// implements the baseline only. macOS and shadcn/ui have autonomous Web mappings.
 // https://m3.material.io/styles/typography/type-scale-tokens
 // https://material-web.dev/theming/typography/
 // https://github.com/material-components/material-web/blob/main/tokens/versions/v0_192/_md-sys-typescale.scss
 // https://developer.apple.com/design/human-interface-guidelines/typography
 // https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui/dialog.tsx
 // https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui/label.tsx
-// Apple follows system-font hierarchy and heavier headings. Its Web scale is
+// macOS follows system-font hierarchy and heavier headings. Its Web scale is
 // rounded to existing L1 sizes; it does not replicate AppKit/UIKit text metrics.
 // shadcn/ui uses compact UI labels, semibold headings and relaxed reading text.
 export const designTypographyContract: Record<DesignSystem, DesignTypography> = defineTokens({
@@ -80,25 +80,25 @@ export const designTypographyContract: Record<DesignSystem, DesignTypography> = 
             labelSmall: { fontSize: palette.font.size["11"], fontWeight: palette.font.weight.medium, lineHeight: palette.line.height["11-16"], emphasizedWeight: palette.font.weight.bold },
         },
     },
-    apple: {
+    macos: {
         fontFamily: palette.font.family.system,
         font: {
             lineHeight: palette.line.height.normal,
-            bodySize: palette.font.size.sm,
+            bodySize: palette.font.size["13"],
             headingSize: palette.font.size["xl"],
             subheadSize: palette.font.size["md"],
             captionSize: palette.font.size.xs,
             bodyWeight: palette.font.weight.regular,
             labelWeight: palette.font.weight.medium,
             headingWeight: palette.font.weight.semibold,
-            strongWeight: palette.font.weight.bold,
+            strongWeight: palette.font.weight.semibold,
         },
         legacy: {
             display: { fontSize: palette.font.size["36"], fontWeight: palette.font.weight.semibold, lineHeight: palette.line.height["36-44"] },
             headline: { fontSize: palette.font.size["3xl"], fontWeight: palette.font.weight.semibold, lineHeight: palette.line.height["28-36"] },
-            title: { fontSize: palette.font.size["xl"], fontWeight: palette.font.weight.semibold, lineHeight: palette.line.height["20-28"] },
-            body: { fontSize: palette.font.size["sm"], fontWeight: palette.font.weight.regular, lineHeight: palette.line.height["14-20"] },
-            label: { fontSize: palette.font.size["sm"], fontWeight: palette.font.weight.medium, lineHeight: palette.line.height["14-20"] },
+            title: { fontSize: palette.font.size["xl"], fontWeight: palette.font.weight.medium, lineHeight: palette.line.height["20-28"] },
+            body: { fontSize: palette.font.size["13"], fontWeight: palette.font.weight.regular, lineHeight: palette.line.height["14-20"] },
+            label: { fontSize: palette.font.size["13"], fontWeight: palette.font.weight.medium, lineHeight: palette.line.height["14-20"] },
             caption: { fontSize: palette.font.size["xs"], fontWeight: palette.font.weight.regular, lineHeight: palette.line.height["12-16"] },
         },
         typescale: {
@@ -112,9 +112,9 @@ export const designTypographyContract: Record<DesignSystem, DesignTypography> = 
             titleMedium: { fontSize: palette.font.size["lg"], fontWeight: palette.font.weight.semibold, lineHeight: palette.line.height["snug"], emphasizedWeight: palette.font.weight.bold },
             titleSmall: { fontSize: palette.font.size["md"], fontWeight: palette.font.weight.semibold, lineHeight: palette.line.height["16-24"], emphasizedWeight: palette.font.weight.bold },
             bodyLarge: { fontSize: palette.font.size["md"], fontWeight: palette.font.weight.regular, lineHeight: palette.line.height["16-24"], emphasizedWeight: palette.font.weight.semibold },
-            bodyMedium: { fontSize: palette.font.size["sm"], fontWeight: palette.font.weight.regular, lineHeight: palette.line.height["14-20"], emphasizedWeight: palette.font.weight.semibold },
+            bodyMedium: { fontSize: palette.font.size["13"], fontWeight: palette.font.weight.regular, lineHeight: palette.line.height["14-20"], emphasizedWeight: palette.font.weight.semibold },
             bodySmall: { fontSize: palette.font.size["xs"], fontWeight: palette.font.weight.regular, lineHeight: palette.line.height["12-16"], emphasizedWeight: palette.font.weight.semibold },
-            labelLarge: { fontSize: palette.font.size["sm"], fontWeight: palette.font.weight.medium, lineHeight: palette.line.height["14-20"], emphasizedWeight: palette.font.weight.semibold },
+            labelLarge: { fontSize: palette.font.size["13"], fontWeight: palette.font.weight.medium, lineHeight: palette.line.height["14-20"], emphasizedWeight: palette.font.weight.semibold },
             labelMedium: { fontSize: palette.font.size["xs"], fontWeight: palette.font.weight.medium, lineHeight: palette.line.height["12-16"], emphasizedWeight: palette.font.weight.semibold },
             labelSmall: { fontSize: palette.font.size["11"], fontWeight: palette.font.weight.medium, lineHeight: palette.line.height["11-16"], emphasizedWeight: palette.font.weight.semibold },
         },
@@ -181,7 +181,7 @@ export interface DesignMotion {
 
 // M3 uses the official Web spring approximations, rather than a live spring engine.
 // Bounded sheet transitions retain their existing legacy easing fallback.
-// Apple uses brief, non-overshooting Web transitions informed by HIG feedback
+// macOS uses brief, non-overshooting Web transitions informed by HIG feedback
 // guidance. These are project choices, not native spring parameters.
 // shadcn/ui follows New York dialog 200ms / sheet 500ms-enter, 300ms-exit,
 // using the existing L1 ease-in-out curve for bounded Web transitions.
@@ -208,7 +208,7 @@ export const designMotionContract: Record<DesignSystem, DesignMotion> = defineTo
         effectsDefault: `${palette.duration["normal"]} ${palette.easing["expressive-effects-default"]}`,
         effectsSlow: `${palette.duration["slow"]} ${palette.easing["expressive-effects-slow"]}`,
     },
-    apple: {
+    macos: {
         interaction: `${palette.duration["fast"]} ${palette.easing["out"]}`,
         fade: `${palette.duration["150"]} ${palette.easing["out"]}`,
         expand: `${palette.duration["normal"]} ${palette.easing["out"]}`,

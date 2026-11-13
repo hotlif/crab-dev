@@ -1,0 +1,41 @@
+{
+    "md3": {
+        "summary": "以语义工具栏、文档表面和重点操作组织 PDF 编辑，文档能力为可选集成。",
+        "usage": "让工具动作围绕当前文档任务排列，编辑与只读模式要有明确边界。",
+        "exampleDescription": "操作文档工具栏，检查主要动作、文档内容和反馈之间的层级。",
+        "demos": [
+            "toolbar.demo.tsx",
+            "basic.demo.tsx",
+            "professional-actions.demo.tsx",
+            "readonly.demo.tsx",
+            "region-ocr.demo.tsx",
+            "web-component-runtime.demo.tsx"
+        ]
+    },
+    "macos": {
+        "summary": "以桌面文档窗口的工具层与清晰页面区域呈现 PDF，浮动材质用于操作区。",
+        "usage": "页面正文保持可读底色，工具栏与侧面板不遮挡选区及当前编辑内容。",
+        "exampleDescription": "查看专业文档操作的分组，检查工具层与页面内容之间的清晰分隔。",
+        "demos": [
+            "professional-actions.demo.tsx",
+            "basic.demo.tsx",
+            "readonly.demo.tsx",
+            "region-ocr.demo.tsx",
+            "toolbar.demo.tsx",
+            "web-component-runtime.demo.tsx"
+        ]
+    },
+    "shadcn": {
+        "summary": "以简洁工具栏、中性边界和文档页面组织 PDF 阅读与编辑任务。",
+        "usage": "可选运行时加载与编辑权限分别处理，失败或只读状态要给出明确说明。",
+        "exampleDescription": "进入只读文档示例，检查可用动作与编辑限制在界面中的表达。",
+        "demos": [
+            "readonly.demo.tsx",
+            "basic.demo.tsx",
+            "professional-actions.demo.tsx",
+            "region-ocr.demo.tsx",
+            "toolbar.demo.tsx",
+            "web-component-runtime.demo.tsx"
+        ]
+    }
+}

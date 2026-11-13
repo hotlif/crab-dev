@@ -40,12 +40,14 @@ export const vars = defineTokens({
     'stack.third.z-index': '--notification-stack-third-z-index',
     'stack.third.scale': '--notification-stack-third-scale',
     'stack.third.background-color': '--notification-stack-third-background-color',
-    'stack.box-shadow': '--notification-stack-box-shadow'
+    'stack.box-shadow': '--notification-stack-box-shadow',
+    'material.backdrop-filter': '--notification-material-backdrop-filter',
+    'material.background-image': '--notification-material-background-image'
 });
 
 const token = defineTokens({
     'root': {
-        'background-color': `var(${vars['root.background-color']}, var(--token-semantic-color-surface-overlay, var(--token-global-material-neutral-92, oklch(0.93250577 0.01478797 312.240074))))`,
+        'background-color': `var(${vars['root.background-color']}, var(--token-semantic-feedback-notice-background, var(--token-semantic-color-surface-overlay, var(--token-global-material-neutral-94, oklch(0.95362610 0.01470533 312.243326)))))`,
         'padding': `var(${vars['root.padding']}, var(--token-semantic-space-card-padding, var(--token-global-space-4, 16px)) var(--token-semantic-space-dialog-padding, var(--token-global-space-5, 20px)))`,
         'border-radius': `var(${vars['root.border-radius']}, var(--token-semantic-feedback-notice-shape, var(--token-global-radius-6, 12px)))`,
         'box-shadow': `var(${vars['root.box-shadow']}, var(--token-semantic-shadow-overlay, var(--token-global-shadow-material-3, 0 1px 3px 0 oklch(0 0 0 / 0.3), 0 4px 8px 3px oklch(0 0 0 / 0.15))))`,
@@ -113,6 +115,10 @@ const token = defineTokens({
             'background-color': `var(${vars['stack.third.background-color']}, color-mix(in oklch, var(--token-semantic-color-surface-overlay, var(--token-global-material-neutral-92, oklch(0.93250577 0.01478797 312.240074))) 88%, var(--token-semantic-color-text-primary, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695)))))`
         },
         'box-shadow': `var(${vars['stack.box-shadow']}, var(--token-semantic-shadow-float, var(--token-global-shadow-material-2, 0 1px 2px 0 oklch(0 0 0 / 0.3), 0 2px 6px 2px oklch(0 0 0 / 0.15))))`
+    },
+    'material': {
+        'backdrop-filter': `var(${vars['material.backdrop-filter']}, var(--token-semantic-material-filter, none))`,
+        'background-image': `var(${vars['material.background-image']}, var(--token-semantic-material-sheen, none))`
     }
 });
 

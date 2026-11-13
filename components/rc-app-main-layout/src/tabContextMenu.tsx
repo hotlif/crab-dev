@@ -4,7 +4,8 @@ import { createPortal } from "react-dom";
 import { cx } from "@crab-dev/css";
 import { usePresence, useEventCallback } from "@crab-dev/rc-hooks";
 import { registerOverlayLayer, resolveOverlayRoot } from '@crab-dev/rc-hooks/internal';
-import { ConfigBoundary } from "@crab-dev/rc-config-provider";
+import { ConfigBoundary, useConfig } from "@crab-dev/rc-config-provider";
+import { macosMenuStyle } from './layout.designs.js';
 import Button from '@crab-dev/rc-button';
 import { menuStyle, itemBaseStyle, itemDisabledStyle, separatorStyle, itemIconStyle, itemIconDisabledStyle } from "./tabContextMenu.styles.js";
 export interface TabContextMenuItem {
@@ -58,6 +59,7 @@ function clampToViewport(x: number, y: number, w: number, h: number, view: Windo
 }
 
 const TabContextMenu: FC<TabContextMenuProps> = ({ x, y, items, onClose, anchor, open = true, onExitComplete }) => {
+    const { designSystem } = useConfig();
     const ref = useRef<HTMLUListElement>(null);
     const presence = usePresence<HTMLUListElement>(open, onExitComplete);
     const [pos, setPos] = useState<{ left: number, top: number }>({ left: x, top: y });
@@ -115,7 +117,7 @@ const TabContextMenu: FC<TabContextMenuProps> = ({ x, y, items, onClose, anchor,
             data-state={presence.state}
             inert={!open}
             aria-hidden={!open || undefined}
-            className={menuStyle}
+            className={cx(menuStyle, designSystem === 'macos' && macosMenuStyle)}
             style={{ left: pos.left, top: pos.top }}
             role="menu"
             onKeyDown={event => {

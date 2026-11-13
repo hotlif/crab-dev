@@ -115,9 +115,9 @@ export function PageSections({ page, children }: Pick<PageProps, "page"> & { chi
         </div>
         </aside>;
     return <div className="crab-docs-reading-body" data-wide={wide && headings.length > 0}>
-            {!wide && outline}
-            {/* The key preserves live example state when the outline changes sides. */}
+            {outline}
+            {/* Keep the article in place: moving a keyed ancestor still removes
+                native dialogs from the top layer. CSS places the wide outline. */}
             <div key="content" className="crab-docs-prose">{children}</div>
-            {wide && outline}
         </div>;
 }

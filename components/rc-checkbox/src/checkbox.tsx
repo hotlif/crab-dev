@@ -1,8 +1,9 @@
-import { useComponentSize } from '@crab-dev/rc-config-provider';
+import { useComponentSize, useConfig } from '@crab-dev/rc-config-provider';
 import { css, cx } from '@crab-dev/css';
 import { useRef, useEffect, type FC, type ChangeEvent } from 'react';
 import { useControllableValue } from '@crab-dev/rc-hooks';
 import token from './token.js';
+import { macosCheckboxStyle } from './checkbox.designs.js';
 import type { CheckboxProps } from './types.js';
 import { useCheckboxGroup } from './context.js';
 import { wrapperStyle, hiddenInputStyle, controlStyle, boxStyle, iconStyle, checkIconStyle, indeterminateIconStyle, labelStyle } from "./checkbox.styles.js";
@@ -54,6 +55,7 @@ const Checkbox: FC<CheckboxProps> = ({
 }) => {
     // DOM instance used to synchronize the native mixed state after commits.
     const inputRef = useRef<HTMLInputElement>(null);
+    const { designSystem } = useConfig();
     const group = useCheckboxGroup();
     const size = useComponentSize(sizeProp ?? group?.size);
     const sizeStyle = sizeStyles[size];
@@ -88,7 +90,7 @@ const Checkbox: FC<CheckboxProps> = ({
 
     return (
         <label
-            className={cx(wrapperStyle, sizeStyle.wrapper, className)}
+            className={cx(wrapperStyle, designSystem === 'macos' && macosCheckboxStyle, sizeStyle.wrapper, className)}
             data-state={state}
             data-disabled={disabled ? '' : undefined}
         >

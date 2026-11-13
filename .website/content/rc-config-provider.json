@@ -46,7 +46,7 @@
     "faq": [
         {
             "question": "设计体系与明暗模式有什么区别？",
-            "answer": "designSystem 选择 md3、apple 或 shadcn，colorMode 只接受已解析的 light 或 dark。库、网站和工作台默认 md3/light/medium/standard/zh-CN/ltr。网站跟随系统属于应用偏好，解析后传给 Provider；历史偏好仅在浏览器存储入口迁移。"
+            "answer": "designSystem 选择 md3、macos 或 shadcn，colorMode 只接受已解析的 light 或 dark。库、网站和工作台默认 md3/light/medium/standard/zh-CN/ltr。网站跟随系统属于应用偏好，解析后传给 Provider；历史偏好仅在浏览器存储入口迁移。"
         },
         {
             "question": "哪些组件会跟随配置？",

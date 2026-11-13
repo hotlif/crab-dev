@@ -3,6 +3,7 @@
  */
 
 import type { ComponentDemoRecord } from "../site/componentDemos.js";
+import type { ComponentDesignDocuments } from "../site/componentDesignGuide.js";
 
 export const demos = [
     {
@@ -609,3 +610,106 @@ export const demos = [
         "group": "边界与视觉矩阵"
     }
 ] as const satisfies readonly ComponentDemoRecord[];
+
+export const documents = {
+    "md3": {
+        "summary": "将语义表面、颜色和焦点应用到可交互画布，图形场景与空间操作属于本库扩展。",
+        "usage": "画布中的重点对象可使用强调色，操作提示与可访问替代内容保持清晰。",
+        "exampleDescription": "拖动画布对象，观察语义表面上的位置变化，并检查相关操作说明。",
+        "demos": [
+            "draggable.demo.tsx",
+            "animation.demo.tsx",
+            "basic.demo.tsx",
+            "document-shadow.demo.tsx",
+            "group.demo.tsx",
+            "hover.demo.tsx",
+            "infinite-canvas.demo.tsx",
+            "line.demo.tsx",
+            "minimap.demo.tsx",
+            "opacity.demo.tsx",
+            "rounded.demo.tsx",
+            "text-advanced.demo.tsx",
+            "text-comparison.demo.tsx",
+            "text.demo.tsx",
+            "transformer.demo.tsx"
+        ],
+        "references": [
+            "https://m3.material.io/foundations/accessible-design/overview",
+            "https://material-web.dev/",
+            "https://github.com/material-components/material-web"
+        ]
+    },
+    "macos": {
+        "summary": "为桌面编辑区域提供图形、拖拽与缩放能力，工具层与画布内容分开组织。",
+        "usage": "保持文档对象与窗口背景的层次；缩略图和工具入口不遮挡当前编辑对象。",
+        "exampleDescription": "移动画布视图并查看缩略图，检查编辑区域与导航工具的空间关系。",
+        "demos": [
+            "minimap.demo.tsx",
+            "animation.demo.tsx",
+            "basic.demo.tsx",
+            "document-shadow.demo.tsx",
+            "draggable.demo.tsx",
+            "group.demo.tsx",
+            "hover.demo.tsx",
+            "infinite-canvas.demo.tsx",
+            "line.demo.tsx",
+            "opacity.demo.tsx",
+            "rounded.demo.tsx",
+            "text-advanced.demo.tsx",
+            "text-comparison.demo.tsx",
+            "text.demo.tsx",
+            "transformer.demo.tsx"
+        ],
+        "references": [
+            "https://developer.apple.com/design/human-interface-guidelines/components",
+            "https://developer.apple.com/design/human-interface-guidelines/accessibility"
+        ]
+    },
+    "shadcn": {
+        "summary": "在简洁的内容表面上组织图形场景，用边界与选中反馈帮助用户理解对象。",
+        "usage": "用明确的图形层级和操作提示解释空间关系，避免把所有对象都当作卡片。",
+        "exampleDescription": "选中并调整对象，查看操作边界与图形内容在中性画布上的区别。",
+        "demos": [
+            "transformer.demo.tsx",
+            "animation.demo.tsx",
+            "basic.demo.tsx",
+            "document-shadow.demo.tsx",
+            "draggable.demo.tsx",
+            "group.demo.tsx",
+            "hover.demo.tsx",
+            "infinite-canvas.demo.tsx",
+            "line.demo.tsx",
+            "minimap.demo.tsx",
+            "opacity.demo.tsx",
+            "rounded.demo.tsx",
+            "text-advanced.demo.tsx",
+            "text-comparison.demo.tsx",
+            "text.demo.tsx"
+        ],
+        "references": [
+            "https://ui.shadcn.com/docs/components",
+            "https://ui.shadcn.com/docs/theming",
+            "https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4"
+        ]
+    }
+} as const satisfies ComponentDesignDocuments;
+
+export const guide = {
+    "definition": "Canvas 提供可组合的图形、文字、分组、拖拽和变换能力，用于自由画布或可视化编辑。它是绘制与交互基础设施，不会自动赋予图形可访问语义或业务规则。",
+    "useWhen": [
+        "需要自由摆放、缩放、旋转或拖拽二维对象。",
+        "流程编辑、标注、海报或无限画布等布局无法用普通文档流表达。"
+    ],
+    "avoidWhen": [
+        "普通表单、列表和数据页面优先使用语义 HTML 与现有组件；只为装饰图形不必引入完整交互画布。"
+    ],
+    "essentials": [
+        "场景坐标、视口变换和对象本地坐标要分清。",
+        "选择、拖拽、缩放和撤销应由稳定对象 ID 驱动。",
+        "大场景使用可见区域、分组和最小重绘策略控制性能。"
+    ],
+    "accessibility": [
+        "为关键对象提供等价的 DOM 名称、列表或属性面板，不能让信息只存在像素中。",
+        "所有核心操作都要有键盘替代路径，并在变换后通告可理解的结果。"
+    ]
+} as const;

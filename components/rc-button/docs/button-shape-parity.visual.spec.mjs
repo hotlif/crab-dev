@@ -141,12 +141,20 @@ for (const config of configurations)
                 if (shape !== 'circle')
                     for (const phase of ['normal', 'pressed']) sameShape(owner[shape].default[phase], publicShapes[shape][phase]);
             }
-            // Square remains square when selected. Explicit round becomes the existing
-            // selected-square treatment, and its real press keeps the same pressed role.
+            // macOS keeps the requested geometry in every state. The other designs
+            // retain their existing selected-square and pressed-shape treatment.
             expect(owner.square.selected.normal.radii).toEqual(owner.square.default.normal.radii);
             expect(owner.square.selected.pressed.radii).toEqual(owner.square.default.pressed.radii);
-            expect(owner.round.selected.normal.radii).toEqual(owner.square.selected.normal.radii);
+            expect(owner.round.selected.normal.radii).toEqual(config.designSystem === 'macos'
+                ? owner.round.default.normal.radii : owner.square.selected.normal.radii);
             expect(owner.round.selected.pressed.radii).toEqual(owner.round.default.pressed.radii);
+            if (config.designSystem === 'macos') {
+                for (const shape of ['default', 'square', 'round']) {
+                    for (const state of ['default', 'selected']) {
+                        expect(owner[shape][state].pressed.radii).toEqual(owner[shape][state].normal.radii);
+                    }
+                }
+            }
 
             const circleRoot = await openDemo(page, previewOrigin, 'rc-button', 'circle.demo.tsx', config);
             const circle = circleRoot.getByRole('button', { name: '新增', exact: true }).nth(1);

@@ -1,10 +1,10 @@
 import { useId } from 'react';
 import { css } from '@crab-dev/css';
-import ConfigProvider from '@crab-dev/rc-config-provider';
-import token from '@crab-dev/rc-token-semantic';
-import Checkbox from '../../src/checkbox.js';
+import ConfigProvider, { useConfig } from '@crab-dev/rc-config-provider';
+import token, { designSystemRegistry } from '@crab-dev/rc-token-semantic';
+import Checkbox from '@crab-dev/rc-checkbox';
 
-export const meta = { title: '三套设计与状态', description: '比较 Apple、MD3 与 shadcn 的方框、状态层和选中标记；用 Tab 与空格检查焦点和切换。' };
+export const meta = { title: '当前主题的交互状态', description: '观察当前主题下的选中、禁用和焦点反馈；示例继承文档配置，可直接操作。' };
 const panel = css`
     display: grid;
     gap: ${token.space['component-gap']};
@@ -16,11 +16,12 @@ const panel = css`
 `;
 const stack = css`display: grid; gap: ${token.space['stack-gap']};`;
 export default function DesignsDemo() {
+    const { designSystem: design } = useConfig();
     const errorId = useId();
     return <div className={stack}>
-        {(['apple', 'md3', 'shadcn'] as const).map(design => <ConfigProvider key={design} designSystem={design}>
+        <ConfigProvider designSystem={design}>
             <section className={panel} aria-label={`${design} 复选框`}>
-                <strong>{design === 'md3' ? 'MD3' : design === 'apple' ? 'Apple' : 'shadcn'}</strong>
+                <strong>{designSystemRegistry[design].label}</strong>
                 <Checkbox>未选中</Checkbox>
                 <Checkbox defaultChecked>已选中</Checkbox>
                 <Checkbox indeterminate>部分选中</Checkbox>
@@ -29,6 +30,6 @@ export default function DesignsDemo() {
                 <Checkbox aria-invalid="true" aria-describedby={`${errorId}-${design}`}>同意使用条款</Checkbox>
                 <small id={`${errorId}-${design}`}>请勾选条款后继续。</small>
             </section>
-        </ConfigProvider>)}
+        </ConfigProvider>
     </div>;
 }

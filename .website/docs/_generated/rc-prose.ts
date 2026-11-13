@@ -3,6 +3,7 @@
  */
 
 import type { ComponentDemoRecord } from "../site/componentDemos.js";
+import type { ComponentDesignDocuments } from "../site/componentDesignGuide.js";
 
 export const demos = [
     {
@@ -155,3 +156,76 @@ export const demos = [
         "group": "主题与内容边界"
     }
 ] as const satisfies readonly ComponentDemoRecord[];
+
+export const documents = {
+    "md3": {
+        "summary": "以语义字阶、正文节奏和强调角色组织长文，标题层次服务于阅读。",
+        "usage": "只在正文边界内应用排版，嵌入的真实交互组件保留自己的样式。",
+        "exampleDescription": "阅读标题、段落和列表，检查语义字阶与长文留白的层次。",
+        "demos": [
+            "basic.demo.tsx",
+            "scoped-content.demo.tsx",
+            "semantic-tag.demo.tsx",
+            "size.demo.tsx",
+            "table.demo.tsx"
+        ],
+        "references": [
+            "https://m3.material.io/styles/typography/overview",
+            "https://material-web.dev/theming/typography/",
+            "https://github.com/material-components/material-web/tree/main/typography"
+        ]
+    },
+    "macos": {
+        "summary": "以清晰的桌面阅读字阶和稳定正文区域呈现富文本，内容优先于材质。",
+        "usage": "长文区域保持实体背景，表格和代码在自己的滚动范围内阅读。",
+        "exampleDescription": "阅读包含表格的正文，检查桌面文字密度和局部横向滚动。",
+        "demos": [
+            "table.demo.tsx",
+            "basic.demo.tsx",
+            "scoped-content.demo.tsx",
+            "semantic-tag.demo.tsx",
+            "size.demo.tsx"
+        ],
+        "references": [
+            "https://developer.apple.com/design/human-interface-guidelines/components",
+            "https://developer.apple.com/design/human-interface-guidelines/accessibility"
+        ]
+    },
+    "shadcn": {
+        "summary": "用克制的标题、正文和中性边界建立文档排版，保持内容易扫描。",
+        "usage": "把排版限定在内容区域，避免富文本规则影响表单或预览组件。",
+        "exampleDescription": "检查正文与嵌入内容的边界，确认中性排版没有改变真实控件。",
+        "demos": [
+            "scoped-content.demo.tsx",
+            "basic.demo.tsx",
+            "semantic-tag.demo.tsx",
+            "size.demo.tsx",
+            "table.demo.tsx"
+        ],
+        "references": [
+            "https://ui.shadcn.com/docs/components",
+            "https://ui.shadcn.com/docs/theming",
+            "https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4"
+        ]
+    }
+} as const satisfies ComponentDesignDocuments;
+
+export const guide = {
+    "definition": "Prose 为长文章统一标题、段落、列表、引用、代码和表格的排版节奏。它只作用于内容阅读，不应覆盖业务控件自身的组件样式。",
+    "useWhen": [
+        "帮助文档、发布说明或富文本内容需要稳定阅读样式。",
+        "Markdown 或 CMS 输出需要一层可控的语义排版容器。"
+    ],
+    "avoidWhen": [
+        "表单、仪表盘和紧凑数据界面使用各自组件布局，不要套用文章行高。"
+    ],
+    "essentials": [
+        "使用正确 HTML 语义，让样式跟随 h1、p、ul、code 等结构。",
+        "size 调整整体阅读尺度，但标题层级仍由文档结构决定。",
+        "表格和代码块要处理窄屏溢出，而不是压缩到不可读。"
+    ],
+    "accessibility": [
+        "标题不能跳级，链接文字要描述目标，图片和代码有必要说明。",
+        "在 200% 缩放、长中文和高对比模式下检查行长、换行和焦点。"
+    ]
+} as const;

@@ -1,0 +1,29 @@
+{
+    "md3": {
+        "summary": "为交互组件提供状态与事件基础，Hook 本身不定义外观，消费方沿用当前设计。",
+        "usage": "把拖拽、尺寸与键盘逻辑接入语义控件，视觉反馈仍使用当前表面和焦点角色。",
+        "exampleDescription": "按下示例声明的快捷键，检查可读结果与键盘焦点是否保持一致。",
+        "demos": [
+            "use-key-down.demo.tsx",
+            "use-drag-resize.demo.tsx"
+        ]
+    },
+    "macos": {
+        "summary": "为桌面工作区提供尺寸调整和键盘行为基础，保持事件逻辑与控件外观分离。",
+        "usage": "窗口式面板的拖拽调整应有约束和可预测结果，不能只依赖鼠标操作说明。",
+        "exampleDescription": "调整示例区域尺寸，观察紧凑工作区中的边界与结果变化。",
+        "demos": [
+            "use-drag-resize.demo.tsx",
+            "use-key-down.demo.tsx"
+        ]
+    },
+    "shadcn": {
+        "summary": "提供可组合的交互 Hook，供中性界面中的控件复用事件与测量逻辑。",
+        "usage": "先确定事件职责，再为消费方提供明确标签、状态和必要的键盘操作。",
+        "exampleDescription": "触发键盘操作并读取结果，确认逻辑复用不会改变控件的可访问语义。",
+        "demos": [
+            "use-key-down.demo.tsx",
+            "use-drag-resize.demo.tsx"
+        ]
+    }
+}

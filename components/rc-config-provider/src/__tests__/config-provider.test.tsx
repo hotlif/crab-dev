@@ -95,29 +95,29 @@ describe('ConfigProvider', () => {
         expect(screen.getByLabelText('default designSystem').dataset.crabDesign).toBe('md3');
     });
 
-    it('inherits Apple through nested and portal boundaries while retaining independent brand overrides', async () => {
+    it('inherits macOS through nested and portal boundaries while retaining independent brand overrides', async () => {
         const { rerender } = await render(
-            <ConfigProvider designSystem="apple" colorMode="dark" brandColor="#1677ff" size="small">
-                <ConfigProvider brandColor={null}><DesignProbe name="apple reset" /></ConfigProvider>
+            <ConfigProvider designSystem="macos" colorMode="dark" brandColor="#1677ff" size="small">
+                <ConfigProvider brandColor={null}><DesignProbe name="macos reset" /></ConfigProvider>
                 <ConfigProvider designSystem="shadcn"><DesignProbe name="explicit designSystem" /></ConfigProvider>
-                {createPortal(<ConfigBoundary aria-label="apple portal"><DesignProbe name="apple portal value" /></ConfigBoundary>, document.body)}
+                {createPortal(<ConfigBoundary aria-label="macos portal"><DesignProbe name="macos portal value" /></ConfigBoundary>, document.body)}
             </ConfigProvider>,
         );
-        const boundary = screen.getByLabelText('apple portal');
-        expect(screen.getByLabelText('apple reset').textContent).toBe('apple/dark/default/small');
-        expect(screen.getByLabelText('apple reset').parentElement?.querySelector('style')).toBeNull();
+        const boundary = screen.getByLabelText('macos portal');
+        expect(screen.getByLabelText('macos reset').textContent).toBe('macos/dark/default/small');
+        expect(screen.getByLabelText('macos reset').parentElement?.querySelector('style')).toBeNull();
         expect(screen.getByLabelText('explicit designSystem').textContent).toBe('shadcn/dark/#1677ff/small');
-        expect(screen.getByLabelText('apple portal value').textContent).toBe('apple/dark/#1677ff/small');
-        expect(boundary.dataset.crabDesign).toBe('apple');
-        expect(boundary.querySelector('style')?.textContent).toContain('[data-crab-design="apple"]');
+        expect(screen.getByLabelText('macos portal value').textContent).toBe('macos/dark/#1677ff/small');
+        expect(boundary.dataset.crabDesign).toBe('macos');
+        expect(boundary.querySelector('style')?.textContent).toContain('[data-crab-design="macos"]');
         await rerender(
-            <ConfigProvider designSystem="apple" colorMode="light" brandColor={null} size="large">
-                <ConfigProvider brandColor={null}><DesignProbe name="apple reset" /></ConfigProvider>
+            <ConfigProvider designSystem="macos" colorMode="light" brandColor={null} size="large">
+                <ConfigProvider brandColor={null}><DesignProbe name="macos reset" /></ConfigProvider>
                 <ConfigProvider designSystem="shadcn"><DesignProbe name="explicit designSystem" /></ConfigProvider>
-                {createPortal(<ConfigBoundary aria-label="apple portal"><DesignProbe name="apple portal value" /></ConfigBoundary>, document.body)}
+                {createPortal(<ConfigBoundary aria-label="macos portal"><DesignProbe name="macos portal value" /></ConfigBoundary>, document.body)}
             </ConfigProvider>,
         );
-        expect(screen.getByLabelText('apple portal value').textContent).toBe('apple/light/default/large');
+        expect(screen.getByLabelText('macos portal value').textContent).toBe('macos/light/default/large');
         expect(boundary.querySelector('style')).toBeNull();
         expect(boundary.dataset.theme).toBe('light');
         expect(boundary.dataset.crabSize).toBe('large');
@@ -330,7 +330,7 @@ function FullConfigProbe() {
 
 describe('configuration dimensions', () => {
     it('inherits density, direction, locale and nonce across portal boundaries independently of control size', async () => {
-        const view = await render(<ConfigProvider designSystem="apple" density="compact" size="large" direction="rtl" locale="en-US" nonce="inherited-nonce" brandColor="#123456">
+        const view = await render(<ConfigProvider designSystem="macos" density="compact" size="large" direction="rtl" locale="en-US" nonce="inherited-nonce" brandColor="#123456">
             {createPortal(<ConfigBoundary aria-label="complete portal"><FullConfigProbe /></ConfigBoundary>, document.body)}
         </ConfigProvider>);
         const boundary = screen.getByLabelText('complete portal');
@@ -356,10 +356,10 @@ describe('unconfigured overlay size boundaries', () => {
 
 describe('native configuration style boundary', () => {
     it('shares the ordinary provider brand rule, inherits all attributes and removes a reset', async () => {
-        const view = await render(<ConfigProvider designSystem="apple" colorMode="dark" brandColor="#6750a4" density="comfortable" size="large" locale="en-US" direction="rtl" nonce="native-nonce"><NativeBoundaryProbe /></ConfigProvider>);
+        const view = await render(<ConfigProvider designSystem="macos" colorMode="dark" brandColor="#6750a4" density="comfortable" size="large" locale="en-US" direction="rtl" nonce="native-nonce"><NativeBoundaryProbe /></ConfigProvider>);
         const modal = view.container.querySelector('dialog');
         const sheet = modal?.querySelector('style');
-        expect(modal?.getAttribute('data-crab-design')).toBe('apple');
+        expect(modal?.getAttribute('data-crab-design')).toBe('macos');
         expect(modal?.getAttribute('data-theme')).toBe('dark');
         expect(modal?.getAttribute('data-crab-density')).toBe('comfortable');
         expect(modal?.getAttribute('data-crab-size')).toBe('large');
@@ -403,13 +403,13 @@ describe('internal runtime direction boundary', () => {
 
     it('changes only direction without creating DOM or dropping inherited configuration', async () => {
         await render(
-            <ConfigProvider aria-label="direction host" designSystem="apple" colorMode="dark" brandColor="#AbC" locale="en-US" size="large" density="compact" direction="rtl" nonce="direction-nonce">
+            <ConfigProvider aria-label="direction host" designSystem="macos" colorMode="dark" brandColor="#AbC" locale="en-US" size="large" density="compact" direction="rtl" nonce="direction-nonce">
                 <RuntimeDirectionProvider direction="ltr"><RuntimeConfigProbe name="runtime direction" /></RuntimeDirectionProvider>
                 <RuntimeConfigProbe name="outside runtime" />
             </ConfigProvider>,
         );
         const host = screen.getByLabelText('direction host');
-        const inherited = { designSystem: 'apple', colorMode: 'dark', brandColor: '#aabbcc', locale: 'en-US', size: 'large', density: 'compact', direction: 'rtl', nonce: 'direction-nonce' };
+        const inherited = { designSystem: 'macos', colorMode: 'dark', brandColor: '#aabbcc', locale: 'en-US', size: 'large', density: 'compact', direction: 'rtl', nonce: 'direction-nonce' };
         expect(screen.getByLabelText('runtime direction').textContent).toBe(JSON.stringify({ ...inherited, direction: 'ltr' }));
         expect(screen.getByLabelText('outside runtime').textContent).toBe(JSON.stringify(inherited));
         expect(screen.getByLabelText('runtime direction').parentElement).toBe(host);
@@ -420,7 +420,7 @@ describe('internal runtime direction boundary', () => {
 
     it('uses the nearest complete configuration and scopes nested runtime directions independently', async () => {
         await render(
-            <ConfigProvider designSystem="apple" colorMode="dark" brandColor="#123456" locale="en-US" size="large" density="compact" direction="ltr" nonce="outer-nonce">
+            <ConfigProvider designSystem="macos" colorMode="dark" brandColor="#123456" locale="en-US" size="large" density="compact" direction="ltr" nonce="outer-nonce">
                 <ConfigProvider aria-label="nearest direction host" designSystem="shadcn" brandColor={null} size="small" density="comfortable" direction="rtl" nonce="nearest-nonce">
                     <RuntimeDirectionProvider direction="ltr">
                         <RuntimeConfigProbe name="nearest runtime" />
@@ -439,7 +439,7 @@ describe('internal runtime direction boundary', () => {
 
     it('carries runtime direction through an actual Portal and updates the complete ConfigBoundary', async () => {
         const view = await render(
-            <ConfigProvider designSystem="apple" colorMode="dark" brandColor="#123456" locale="en-US" size="large" density="compact" direction="rtl" nonce="portal-nonce">
+            <ConfigProvider designSystem="macos" colorMode="dark" brandColor="#123456" locale="en-US" size="large" density="compact" direction="rtl" nonce="portal-nonce">
                 <RuntimeDirectionProvider direction="ltr">
                     {createPortal(<ConfigBoundary aria-label="runtime portal"><RuntimeConfigProbe name="runtime portal config" /></ConfigBoundary>, document.body)}
                 </RuntimeDirectionProvider>
@@ -449,13 +449,13 @@ describe('internal runtime direction boundary', () => {
         expect(portal.parentElement).toBe(document.body);
         expect(portal.getAttribute('dir')).toBe('ltr');
         expect(portal.getAttribute('lang')).toBe('en-US');
-        expect(portal.dataset.crabDesign).toBe('apple');
+        expect(portal.dataset.crabDesign).toBe('macos');
         expect(portal.dataset.theme).toBe('dark');
         expect(portal.dataset.crabSize).toBe('large');
         expect(portal.dataset.crabDensity).toBe('compact');
         expect(portal.getAttribute('nonce')).toBe('portal-nonce');
         expect(portal.querySelector('style')?.getAttribute('nonce')).toBe('portal-nonce');
-        expect(screen.getByLabelText('runtime portal config').textContent).toBe(JSON.stringify({ designSystem: 'apple', colorMode: 'dark', brandColor: '#123456', locale: 'en-US', size: 'large', density: 'compact', direction: 'ltr', nonce: 'portal-nonce' }));
+        expect(screen.getByLabelText('runtime portal config').textContent).toBe(JSON.stringify({ designSystem: 'macos', colorMode: 'dark', brandColor: '#123456', locale: 'en-US', size: 'large', density: 'compact', direction: 'ltr', nonce: 'portal-nonce' }));
         await view.rerender(
             <ConfigProvider designSystem="shadcn" colorMode="light" brandColor={null} locale="zh-CN" size="small" density="comfortable" direction="ltr" nonce="updated-nonce">
                 <RuntimeDirectionProvider direction="rtl">

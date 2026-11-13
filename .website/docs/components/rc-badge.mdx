@@ -8,11 +8,16 @@ status = "experimental"
 {/* THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY. */}
 
 import ComponentDemos from "../site/componentDemos.js";
-import { demos } from "../_generated/rc-badge.js";
+import ComponentDesignGuide, { DesignIntroduction, DesignExampleIntroduction } from "../site/componentDesignGuide.js";
+import { demos, documents, guide } from "../_generated/rc-badge.js";
 
 # Badge 徽标数
 
 <div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-badge</div>
+
+## 设计与用法
+
+<DesignIntroduction documents={documents} />
 
 <div id="基础示例" data-docs-example-anchor /><div id="全部示例" data-docs-example-anchor />
 
@@ -28,96 +33,17 @@ import { demos } from "../_generated/rc-badge.js";
 
 ##### 状态点 — 以 `status + text` 表达系统或实体的运行状态。`processing` 带脉冲动画。
 
-##### 三体系展示与状态矩阵 — 公开组件、真实交互与自然动画；包内视觉规格是矩阵轴的来源。
-
 ##### 包裹子节点 — 将 Badge 包裹在按钮外部，展示计数、溢出计数与圆点提醒。
 
 </div>
 
-<ComponentDemos demos={demos} />
+<DesignExampleIntroduction documents={documents} />
 
-[打开完整组件工作台](/components/rc-badge/workbench/)
+<ComponentDemos demos={demos} documents={documents} />
 
 ## 使用说明
 
-在元素旁展示计数、更新提醒或状态。
-
-
-包裹模式默认跟随宿主的实际内容尺寸，放入网格或弹性布局时，角标仍锚定宿主的右上逻辑外沿（RTL 为左上），不会跟随整行空白拉伸。受限宽度保留宿主自身的收缩行为，较长状态说明可以换行；需要覆盖默认宽度时仍可通过公开 `style` 或 `className` 设置。
-
-### 何时使用
-
-- 在导航项、头像或图标上展示未读计数。
-- 用独立的圆点（`dot`）表达"有更新"但不强调具体数字。
-- 以"状态点 + 文字"的形式展示运行、成功、告警等状态。
-
-### 主要功能
-
-- 支持 `count` 数字与 `overflowCount` 溢出显示（默认 `99+`）。
-- 支持 `dot` 小圆点模式，适合表达"是否有更新"。
-- 支持 `status`（`default` / `processing` / `success` / `warning` / `error`）与 `text` 组合的状态模式；其中 `processing` 带脉冲动画，并遵循 `prefers-reduced-motion`。
-- 支持预设语义颜色与任意 CSS 颜色字符串。
-- 包裹子节点时角标位于上方逻辑末端：LTR 为右上角，RTL 为左上角，支持 `offset` 微调。
-- `showZero` 控制 `count = 0` 时是否显示。
-
-圆点的默认可访问名称跟随 `ConfigProvider.locale`；传入 `title` 或字符串 `text` 可说明具体状态，且优先于默认文案。语言切换会更新默认名称，保留当前徽标节点及内容。
-
-定位采用实际 DOM 方向，原生 `dir` 可以覆盖 Provider 的方向，动态切换不重建徽标。`offset={[x, y]}` 始终是物理偏移：正 x 向右、正 y 向下，不随 RTL 反转；数值按 px，字符串支持 CSS 长度和 `calc()`。`indicatorStyle` 可覆盖变换和定位。独立徽标与状态文字不应用角标偏移。
-
-内置数字计数作为从左到右的独立表达式显示，使 RTL 中的 `99+` 和负小数保持字序。隔离只作用于数字内容，不改变角标的逻辑定位；字符串、React 节点和状态文字保留调用方的书写方向。
-
-强制颜色模式中，计数和圆点使用用户系统的 `Highlight` / `HighlightText` 配对，并仅在指示器内抑制浏览器文字背板，避免数字消失；此时系统配色优先于自定义颜色，周围文字继续由浏览器调整。
-
-
-
-### 三套设计风格
-
-Material 与 Apple 的默认计数徽标为 16px；shadcn 使用 20px 的计数容器。徽标维持成对的前景/背景语义，圆点与 small 变体保留紧凑尺寸；该定位计数徽标不同于 shadcn 的行内 Badge 标签。
-
-切换文档站设计风格后，本页演示同步使用该设计；浅色和深色模式分别使用配对语义颜色。
-
-### 三体系规格与验收边界
-
-计数和状态是展示信息，不制造独立焦点。processing 的持续脉冲在独立视频场景自然采样，不能停在某一帧作为静态默认基准。颜色字符串与 offset 是开放自定义值，另取代表值，预设语义完整覆盖。
-
-| 体系 | 组件视觉规则 |
-| --- | --- |
-| MD3 Expressive | 依据 badges 的小圆点/计数标识语义，计数与宿主分离。 |
-| Apple | 以紧凑计数和清晰的状态文字支持内容优先；属于自主 Web 扩展。 |
-| shadcn | 参照 Badge 的细描边、紧凑字阶和语义对比；角标定位和处理动画为扩展。 |
-
-本包几何与视觉来源：size.default / small 的 height、min-width、padding 与 font-size；dot.default / small；count 的前景、底色和宿主表面隔离环；status 文本与脉冲分别核验。设计值只在对应 token.toml 与它引用的语义角色维护，验收测量读取实际 DOM 计算值。
-
-颜色、字阶、形状、状态和动效分别从 L2 角色映射到包内 L3；Theme 负责最近配置边界。明暗模式使用配对前景/背景，不进行整体反相。视觉边界与命中区域分别检查，焦点截图保留外部轮廓与阴影。强制颜色采用系统色；减少动画保留信息与最终状态。
-
-矩阵定义在本包 `docs/visual.json`，场景使用 `visual-matrix.demo.tsx`。Chromium 覆盖其中全部设计/明暗/命名尺寸/适用密度/状态；Firefox 与 WebKit 按 `crossEngine` 的默认展示和重点交互子集执行。窄屏、RTL、中英文、长文本、品牌覆盖和配置切换后的草稿保持另有场景；未运行、未人工复核或失败的项不能计为通过。开放尺寸输入的代表样本不等于无限集合的穷尽。
-
-参考核对日期：2026-10-29。[Material 3 Cards](https://m3.material.io/components/cards/overview)、[Material Web Divider 使用/无障碍/令牌](https://material-web.dev/components/divider/)、[Material Web Progress 语义](https://material-web.dev/components/progress/)、[Apple Feedback](https://developer.apple.com/design/human-interface-guidelines/feedback)、[Apple Layout](https://developer.apple.com/design/human-interface-guidelines/layout)、[Apple Progress indicators](https://developer.apple.com/design/human-interface-guidelines/progress-indicators)、[shadcn New York V4 badge](https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui/badge.tsx)。Material Web 是 Web 行为基线；Apple 是依据原则的自主 Web 实现；shadcn 固定参考提交 `3d98900e9b73c45f035f8109e9d41ba6a51685e7`，不跟随浮动最新版。
-
-### 适用场景
-
-图标、头像或导航入口需要显示未读数量。 需要用一个很短的状态标记吸引注意，但不应打断当前任务。
-
-较长状态文字使用 Tag 或正文；需要用户立即处理的错误使用 Alert、Notification 或 Dialog。
-
-### 使用要点
-
-- 数字要设置合理上限，避免大数撑坏目标元素。
-- dot 适合只表达有无，count 适合数量本身有意义。
-- Badge 应依附清楚的宿主，单独出现通常缺少上下文。
-
-### 无障碍
-
-- 为宿主提供包含数量含义的可访问名称，不能只让读屏读出一个孤立数字。
-- 状态变化不要只用颜色表达；频繁更新时避免把每次计数都作为强制通告。
-
-### 设计依据与覆盖
-
-- **MD3 Expressive**：直接参考 M3 Badges 的 small 与 large 变体、颜色角色和宿主关系。 [依据 1](https://m3.material.io/components/badges/overview) · [依据 2](https://material-web.dev/components/) · [依据 3](https://github.com/material-components/material-web)
-- **Apple**：依据 Apple HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。 [依据 1](https://developer.apple.com/design/human-interface-guidelines/components) · [依据 2](https://developer.apple.com/design/human-interface-guidelines/accessibility)
-- **shadcn/ui**：参考 shadcn/ui 的组件用途、中性表面与设计变量，在本库公共语义和 React 交互模型中实现；完整状态覆盖仍需按矩阵验收。 [依据 1](https://ui.shadcn.com/docs/components) · [依据 2](https://ui.shadcn.com/docs/theming) · [依据 3](https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4)
-
-设计依据不等于完成验收；当前状态与适用边界见[覆盖矩阵](/guides/design-coverage)。
+<ComponentDesignGuide guide={guide} documents={documents} />
 
 ## 常见问题
 

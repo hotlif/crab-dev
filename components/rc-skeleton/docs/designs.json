@@ -1,0 +1,38 @@
+{
+    "md3": {
+        "summary": "以低强调占位表面预告内容结构，加载完成后平稳替换为真实信息。",
+        "usage": "占位形状应接近最终内容，减少动画偏好下仍需能辨认加载区域。",
+        "exampleDescription": "查看卡片结构的占位，比较标题、正文和图片区域的对应。",
+        "demos": [
+            "card.demo.tsx",
+            "animation.demo.tsx",
+            "basic.demo.tsx",
+            "loaded.demo.tsx",
+            "variant.demo.tsx"
+        ]
+    },
+    "macos": {
+        "summary": "在桌面内容区域用轻量占位保持布局稳定，让工具和导航持续可用。",
+        "usage": "不要让占位材质盖住已有内容；刷新时优先保留用户正在阅读的数据。",
+        "exampleDescription": "切换加载完成状态，检查内容面板的高度与阅读位置是否稳定。",
+        "demos": [
+            "loaded.demo.tsx",
+            "animation.demo.tsx",
+            "basic.demo.tsx",
+            "card.demo.tsx",
+            "variant.demo.tsx"
+        ]
+    },
+    "shadcn": {
+        "summary": "以中性占位块提示尚未加载的内容，形状简洁且贴近最终布局。",
+        "usage": "只为缺失内容提供占位，避免把可用控件也替换成不可操作的装饰块。",
+        "exampleDescription": "比较不同形状的占位，确认它们对应真实文字、头像或内容区域。",
+        "demos": [
+            "variant.demo.tsx",
+            "animation.demo.tsx",
+            "basic.demo.tsx",
+            "card.demo.tsx",
+            "loaded.demo.tsx"
+        ]
+    }
+}

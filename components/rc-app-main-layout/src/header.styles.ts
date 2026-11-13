@@ -30,6 +30,9 @@ export const toolbarStyle = css`
     height: ${token.header.toolbar.height};
     padding: ${token.header.toolbar.padding};
     background-color: ${token.header.toolbar["background-color"]};
+    backdrop-filter: ${token.material['backdrop-filter']};
+    -webkit-backdrop-filter: ${token.material['backdrop-filter']};
+    background-image: ${token.material['background-image']};
     box-sizing: border-box;
 
     @media (max-width: 767px) {

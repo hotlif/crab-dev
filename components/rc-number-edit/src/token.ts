@@ -5,6 +5,13 @@
 import { defineTokens } from '@crab-dev/css';
 
 export const vars = defineTokens({
+    'macos.stepper.width': '--number-edit-macos-stepper-width',
+    'macos.stepper.action.height': '--number-edit-macos-stepper-action-height',
+    'macos.stepper.icon.width': '--number-edit-macos-stepper-icon-width',
+    'macos.stepper.border-radius': '--number-edit-macos-stepper-border-radius',
+    'macos.stepper.border-color': '--number-edit-macos-stepper-border-color',
+    'macos.stepper.background-color': '--number-edit-macos-stepper-background-color',
+    'macos.stepper.box-shadow': '--number-edit-macos-stepper-box-shadow',
     'root.transition': '--number-edit-root-transition',
     'root.opacity-disabled': '--number-edit-root-opacity-disabled',
     'stepper.color': '--number-edit-stepper-color',
@@ -34,6 +41,21 @@ export const vars = defineTokens({
 });
 
 const token = defineTokens({
+    'macos': {
+        'stepper': {
+            'width': `var(${vars['macos.stepper.width']}, var(--token-semantic-size-20, var(--token-global-space-5, 20px)))`,
+            'action': {
+                'height': `var(${vars['macos.stepper.action.height']}, 12px)`
+            },
+            'icon': {
+                'width': `var(${vars['macos.stepper.icon.width']}, 12px)`
+            },
+            'border-radius': `var(${vars['macos.stepper.border-radius']}, var(--token-semantic-radius-sm, var(--token-global-radius-2, 4px)))`,
+            'border-color': `var(${vars['macos.stepper.border-color']}, var(--token-semantic-color-border-subtle, var(--token-global-material-neutral-variant-80, oklch(0.82874810 0.01775809 308.222736))))`,
+            'background-color': `var(${vars['macos.stepper.background-color']}, var(--token-semantic-color-surface-content, var(--token-semantic-color-background-surface, var(--token-global-material-neutral-98, oklch(0.98379491 0.01284496 321.893957)))))`,
+            'box-shadow': `var(${vars['macos.stepper.box-shadow']}, var(--token-semantic-material-control-shadow, var(--token-global-shadow-xs, 0 1px 2px oklch(0 0 0 / 0.03))))`
+        }
+    },
     'root': {
         'transition': `var(${vars['root.transition']}, color var(--token-semantic-motion-interaction, var(--token-global-duration-150, 150ms) var(--token-global-easing-expressive-effects-fast, cubic-bezier(0.31, 0.94, 0.34, 1.00))), background-color var(--token-semantic-motion-interaction, var(--token-global-duration-150, 150ms) var(--token-global-easing-expressive-effects-fast, cubic-bezier(0.31, 0.94, 0.34, 1.00))))`,
         'opacity-disabled': `var(${vars['root.opacity-disabled']}, var(--token-semantic-opacity-disabled, var(--token-global-opacity-38, 0.38)))`

@@ -1,0 +1,44 @@
+{
+    "md3": {
+        "summary": "以语义容器表达分类、状态或可切换筛选，文字与状态共同说明含义。",
+        "usage": "静态标签、可关闭标签和可选择标签分别表达不同任务，不混用交互语义。",
+        "exampleDescription": "切换筛选标签，观察选中容器与普通标签之间的区别。",
+        "demos": [
+            "checkable.demo.tsx",
+            "basic.demo.tsx",
+            "bordered.demo.tsx",
+            "closable.demo.tsx",
+            "custom-color-close-icon.demo.tsx",
+            "icon.demo.tsx",
+            "size.demo.tsx"
+        ]
+    },
+    "macos": {
+        "summary": "用紧凑标签和轻量状态底色补充桌面列表与设置内容。",
+        "usage": "可关闭标签应保持文字和关闭入口清楚分开，避免过小的操作目标。",
+        "exampleDescription": "移除一个标签，检查关闭按钮的焦点和剩余标签的排列。",
+        "demos": [
+            "closable.demo.tsx",
+            "basic.demo.tsx",
+            "bordered.demo.tsx",
+            "checkable.demo.tsx",
+            "custom-color-close-icon.demo.tsx",
+            "icon.demo.tsx",
+            "size.demo.tsx"
+        ]
+    },
+    "shadcn": {
+        "summary": "以简洁描边或中性填充展示标签，分类名称保持短小且易扫描。",
+        "usage": "状态色只作辅助，业务含义要能通过文字理解，自定义色仍需配对可读。",
+        "exampleDescription": "比较描边标签与填充标签，检查文字、边界和状态区分。",
+        "demos": [
+            "bordered.demo.tsx",
+            "basic.demo.tsx",
+            "checkable.demo.tsx",
+            "closable.demo.tsx",
+            "custom-color-close-icon.demo.tsx",
+            "icon.demo.tsx",
+            "size.demo.tsx"
+        ]
+    }
+}

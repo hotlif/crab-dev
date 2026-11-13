@@ -7,6 +7,11 @@ imports = [
 
 [token]
 
+# macOS Tahoe control roles; project Web adaptation.
+macos.root.border-color-hover = "$ref(color.border.strong)"
+macos.root.box-shadow-active = "inset 0 0 0 1px $ref(color.border.strong)"
+
+
 # ─── 表面 ────────────────────────────────────────────────────────────────────
 # M3 Card 基线：elevated 使用 surface-container-low，outlined 使用 surface。
 

@@ -20,9 +20,9 @@ status = "experimental"
 
 ### 三套设计风格
 
-`apple` 默认使用 16px 圆盘、1px 描边和轻阴影；选中时填充品牌色，并显示 6px 对比圆点，浅色主题为白点，深色使用配对前景色。`shadcn` 默认使用 16px 中空圆环、1px 描边和 8px 品牌色圆点。二者去掉 MD3 的圆形状态层，保留可见键盘焦点、悬停、错误与禁用反馈。small / medium / large：Apple 为 14 / 16 / 18px，shadcn 为 14 / 16 / 20px。
+`macos` 默认使用 16px 圆盘、1px 描边和轻阴影；选中时填充品牌色，并显示 6px 对比圆点，浅色主题为白点，深色使用配对前景色。`shadcn` 默认使用 16px 中空圆环、1px 描边和 8px 品牌色圆点。二者去掉 MD3 的圆形状态层，保留可见键盘焦点、悬停、错误与禁用反馈。small / medium / large：macOS 为 14 / 16 / 18px，shadcn 为 14 / 16 / 20px。
 
-这些变化通过 L2 语义变量由 `ConfigProvider designSystem` 驱动，明暗主题与嵌套边界使用同一组组件样式。Apple 是依据 Apple HIG 的 Web 定制，不表示 AppKit 原生实现；shadcn 的尺寸扩展与 24px 紧凑容器属于本项目约定。粗指针操作区至少 48px。
+这些变化通过 L2 语义变量由 `ConfigProvider designSystem` 驱动，明暗主题与嵌套边界使用同一组组件样式。macOS 是依据 macOS HIG 的 Web 定制，不表示 AppKit 原生实现；shadcn 的尺寸扩展与 24px 紧凑容器属于本项目约定。粗指针操作区至少 48px。
 
 以下圆环和状态层说明专指 `md3`。
 
@@ -51,7 +51,7 @@ Material 的默认命中区为 48×48 CSS px，圆环和圆点仍保持指定的
 
 触控场景使用原生轻触改变选择，保留粗指针几何检查；窄屏与真实缩放分别测量可见控件、标签和实际文字范围，不能仅凭 Demo 容器无溢出判定内容可用。新增断言仍需对应浏览器结果与人工外观复审。
 
-MD3 使用圆形选择环、实心选中点和独立状态层；Apple 使用较小圆环与轻量表面；shadcn 保留中性描边与实心选中点。所有颜色、轮廓、几何和字体来自本包 L3 对 L2 的映射。三档 size 与 collection density 独立。
+MD3 使用圆形选择环、实心选中点和独立状态层；macOS 使用较小圆环与轻量表面；shadcn 保留中性描边与实心选中点。所有颜色、轮廓、几何和字体来自本包 L3 对 L2 的映射。三档 size 与 collection density 独立。
 
 状态矩阵逐一覆盖未选中和选中的 hover / focus-visible / pressed、错误与禁用。单选值只表达一个布尔或组内选项，不支持 mixed；组内互斥仍由原生 radio 和 RadioGroup 协议负责。
 

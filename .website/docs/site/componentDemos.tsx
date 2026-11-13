@@ -4,6 +4,8 @@ import Masonry from "@crab-dev/rc-masonry";
 import { useResizeObserver } from "@crab-dev/rc-hooks";
 import token from "@crab-dev/rc-token-semantic";
 import { useRef, useState } from "react";
+import { useConfig } from "@crab-dev/rc-config-provider";
+import type { ComponentDesignDocuments } from "./componentDesignGuide.js";
 import { useSiteHref } from "./siteContext.js";
 import ComponentDemoFrame, {
     EmptyComponentDemos,
@@ -30,6 +32,7 @@ export interface ComponentDemoRecord {
 
 interface ComponentDemosProps {
     readonly demos: readonly ComponentDemoRecord[];
+    readonly documents?: ComponentDesignDocuments;
 }
 
 const collectionStyle = css`
@@ -72,7 +75,7 @@ function DemoCard({ demo }: { readonly demo: ComponentDemoRecord }) {
             title={demo.title}
             description={demo.description}
             sourceCode={demo.sourceCode}
-            path={href(demo.workbenchPath)}
+            path={href(demo.previewPath)}
             density={demo.density}
             codeTheme={codeTheme}
             data-component-demo-id={demo.id}
@@ -145,7 +148,18 @@ function DemoLayout({ demos }: { readonly demos: readonly ComponentDemoRecord[] 
     );
 }
 
-export default function ComponentDemos({ demos }: ComponentDemosProps) {
+export default function ComponentDemos({ demos, documents }: ComponentDemosProps) {
+    const { designSystem } = useConfig();
+    if (documents) {
+        const allowed = new Set(documents[designSystem].demos.map(name => `docs/demos/${name}`));
+        const selected = demos.filter(demo => allowed.has(demo.id));
+        // Keep common frames in their source order. Moving even the same iframe
+        // DOM node can reload its document in a browser. The hero independently
+        // selects the design's featured example without reordering live inputs.
+        return <div className={collectionStyle} data-design-examples={designSystem}>
+            {selected.map(demo => <DemoCard key={demo.id} demo={demo} />)}
+        </div>;
+    }
     if (demos.length === 0) return <EmptyComponentDemos />;
 
     const groups = collectDemoGroups(demos);

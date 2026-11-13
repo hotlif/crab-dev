@@ -1,0 +1,32 @@
+{
+    "md3": {
+        "summary": "以标题、说明和语义状态呈现需要更多阅读空间的通知，是反馈模式扩展。",
+        "usage": "通知承载任务结果或异步事件，重要动作保持清晰，避免与当前任务竞争。",
+        "exampleDescription": "打开不同类型通知，检查标题、正文和语义容器的阅读顺序。",
+        "demos": [
+            "base.demo.tsx",
+            "customContent.demo.tsx",
+            "stack.demo.tsx"
+        ]
+    },
+    "macos": {
+        "summary": "以桌面浮动通知面板承载事件摘要，标题和补充内容清楚分层。",
+        "usage": "不要把通知外观等同于系统通知权限；它仍是当前网页中的反馈区域。",
+        "exampleDescription": "连续打开通知并逐项关闭，检查浮动面板的排列与工作内容的关系。",
+        "demos": [
+            "stack.demo.tsx",
+            "base.demo.tsx",
+            "customContent.demo.tsx"
+        ]
+    },
+    "shadcn": {
+        "summary": "用有边界的中性通知面板组织标题、详情和动作，适合后台事件反馈。",
+        "usage": "自定义内容保持简短且可访问，状态色不能成为事件含义的唯一线索。",
+        "exampleDescription": "查看带自定义内容的通知，检查正文与动作在简洁面板中的分区。",
+        "demos": [
+            "customContent.demo.tsx",
+            "base.demo.tsx",
+            "stack.demo.tsx"
+        ]
+    }
+}

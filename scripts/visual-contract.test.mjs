@@ -226,9 +226,9 @@ test("published visual compatibility options reject invalid media combinations a
 
 test("matrix acceptance rejects absent, failed, skipped, duplicate and undeclared cells", () => {
     const spec = { sizes: ["small", "large"], densities: ["standard"], states: ["default", "disabled"], crossEngine: { sizes: ["small"], densities: ["standard"], states: ["default"] } };
-    const expected = expectedMatrix(spec, ["md3", "apple", "shadcn"], "chromium");
+    const expected = expectedMatrix(spec, ["md3", "macos", "shadcn"], "chromium");
     assert.equal(expected.length, 24);
-    assert.equal(expectedMatrix(spec, ["md3", "apple", "shadcn"], "webkit").length, 6);
+    assert.equal(expectedMatrix(spec, ["md3", "macos", "shadcn"], "webkit").length, 6);
     const passed = expected.map(cell => ({ ...cell, status: "passed" }));
     assert.deepEqual(assessMatrix(expected, passed).errors, []);
     for (const status of ["skipped", "failed", "timedOut", "interrupted"]) assert.ok(assessMatrix(expected, [{ ...passed[0], status }, ...passed.slice(1)]).errors.length);
@@ -257,7 +257,7 @@ test('Linux visual containers fit the local Docker CPU budget', () => {
 });
 
 test("environment coverage accounts for design/mode and explicit package exclusions", () => {
-    const expected = expectedEnvironments({ notApplicable: { touch: "No interactive hit target" } }, ["md3", "apple", "shadcn"], [{ id: "narrow" }, { id: "touch" }]);
+    const expected = expectedEnvironments({ notApplicable: { touch: "No interactive hit target" } }, ["md3", "macos", "shadcn"], [{ id: "narrow" }, { id: "touch" }]);
     assert.equal(expected.length, 6);
     const passed = expected.map(cell => ({ ...cell, status: "passed" }));
     assert.deepEqual(assessEnvironments(expected, passed).errors, []);
@@ -278,7 +278,7 @@ test("evidence bookkeeping has no circular influence on visual source identity",
     const before = { designSystems: [{ id: "md3" }], packages: [product] };
     const after = { ...before, packages: [{ ...product, designCoverage: { md3: "verified" }, verification: { md3: { source: "new fingerprint" } } }] };
     assert.deepEqual(renderingManifest(after), renderingManifest(before));
-    assert.notDeepEqual(renderingManifest({ ...before, designSystems: [{ id: "apple" }] }), renderingManifest(before));
+    assert.notDeepEqual(renderingManifest({ ...before, designSystems: [{ id: "macos" }] }), renderingManifest(before));
 });
 
 test('the workbench embedded font is exactly the version recorded by the Linux environment', async () => {

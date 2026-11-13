@@ -849,7 +849,7 @@ overlay.dialog.cancel.hover = "color-mix(in oklch, var(--token-semantic-color-br
 overlay.dialog.cancel.focus = "color-mix(in oklch, var(--token-semantic-color-brand-primary, $ref(purple.40)) 12%, transparent)"
 overlay.dialog.cancel.pressed = "color-mix(in oklch, var(--token-semantic-color-brand-primary, $ref(purple.40)) 12%, transparent)"
 
-# MD3 Expressive action geometry. Apple/shadcn overrides live in design-actions.ts.
+# MD3 Expressive action geometry. macOS/shadcn overrides live in design-actions.ts.
 # Reference: M3 Buttons Specs and AndroidX Button{XSmall,Small,Medium,Large,XLarge}Tokens v0_11_0.
 action.button.xs.height = "$ref(size.32)"
 action.button.xs.padding-inline = "$ref(space.4)"
@@ -901,3 +901,16 @@ action.button.xl.border-width = "$ref(radius.1-5)"
 action.desktop.small.padding-inline = "$ref(space.3)"
 action.desktop.medium.padding-inline = "$ref(space.4)"
 action.desktop.large.padding-inline = "$ref(space.5)"
+
+# Material roles are opt-in at each design boundary; content remains opaque.
+material.filter = "none"
+material.sheen = "none"
+material.background = "var(--token-semantic-color-surface-overlay, $ref(material.neutral.94))"
+material.border = "var(--token-semantic-color-border-subtle, $ref(zinc.200))"
+material.shadow = "$ref(shadow.md)"
+material.navigation-background = "initial"
+feedback.notice.background = "var(--token-semantic-color-surface-overlay, $ref(material.neutral.94))"
+
+material.control-shadow = "$ref(shadow.xs)"
+
+material.knob-background = "$ref(white)"

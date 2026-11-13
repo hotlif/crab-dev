@@ -110,3 +110,8 @@ track.checked.state-layer.background-color-active = "color-mix(in oklch, $ref(co
 track.halo.width = "$ref(size.toggle-state-layer)"
 track.halo.left = "-5px"
 track.halo.translate-checked = "14px"
+
+material.backdrop-filter = "$ref(material.filter)"
+material.background-image = "$ref(material.sheen)"
+material.knob.background-color = "$ref(material.knob-background)"
+material.knob.scale = "1.08"

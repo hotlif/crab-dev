@@ -17,7 +17,7 @@ for (const config of configurations) test('Card environment ' + config.designSys
     const target = frame.locator('[data-visual-target]');
     const cardInstance = await target.elementHandle();
     const boundary = page.locator('.demo-default-preview').first();
-    const changed = { designSystem: config.designSystem === 'md3' ? 'apple' : 'md3', colorMode: config.colorMode === 'light' ? 'dark' : 'light' };
+    const changed = { designSystem: config.designSystem === 'md3' ? 'macos' : 'md3', colorMode: config.colorMode === 'light' ? 'dark' : 'light' };
     for (const [index, variant] of variants.entries()) {
         await page.getByLabel('验收状态', { exact: true }).selectOption(variant);
         await expect(frame.locator('[data-visual-scene]')).toHaveAttribute('data-state', variant);

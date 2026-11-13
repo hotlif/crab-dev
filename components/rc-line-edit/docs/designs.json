@@ -1,0 +1,47 @@
+{
+    "md3": {
+        "summary": "以外置标签、填充或描边字段组织单行输入，说明和错误位于字段下方。",
+        "usage": "字段标签持续可见；用辅助说明表达格式要求，前后缀不能替代标签。",
+        "exampleDescription": "聚焦并编辑字段，检查描边与填充状态、错误说明、禁用和清除反馈。",
+        "demos": [
+            "field-states.demo.tsx",
+            "allow-clear.demo.tsx",
+            "password.demo.tsx",
+            "prefix-suffix.demo.tsx",
+            "show-count.demo.tsx",
+            "simple.demo.tsx",
+            "size.demo.tsx",
+            "status.demo.tsx"
+        ]
+    },
+    "macos": {
+        "summary": "以紧凑桌面输入框、静态上置标签和明确焦点反馈承载单行编辑。",
+        "usage": "字段与相邻设置行保持对齐；清除内容后保留输入焦点和关联说明。",
+        "exampleDescription": "输入后清除字段，检查桌面输入边界、焦点返回和标签位置。",
+        "demos": [
+            "allow-clear.demo.tsx",
+            "field-states.demo.tsx",
+            "password.demo.tsx",
+            "prefix-suffix.demo.tsx",
+            "show-count.demo.tsx",
+            "simple.demo.tsx",
+            "size.demo.tsx",
+            "status.demo.tsx"
+        ]
+    },
+    "shadcn": {
+        "summary": "用中性描边输入框和静态标签呈现单行内容，聚焦状态通过外侧轮廓表达。",
+        "usage": "前后缀用于补充格式或单位；错误需要文字说明，避免仅依赖边框颜色。",
+        "exampleDescription": "检查前后缀与输入文字的排列，再观察聚焦时的轮廓和内容留白。",
+        "demos": [
+            "prefix-suffix.demo.tsx",
+            "allow-clear.demo.tsx",
+            "field-states.demo.tsx",
+            "password.demo.tsx",
+            "show-count.demo.tsx",
+            "simple.demo.tsx",
+            "size.demo.tsx",
+            "status.demo.tsx"
+        ]
+    }
+}

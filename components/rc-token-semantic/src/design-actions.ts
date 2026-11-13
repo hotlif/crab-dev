@@ -2,8 +2,8 @@ import palette from '@crab-dev/rc-token-global';
 import { defineTokens } from '@crab-dev/css';
 
 /** L2 desktop action extensions. MD3 defaults are authored only in token.toml. */
-export const designActionContract: Record<'apple' | 'shadcn', ActionSizes> = defineTokens({
-    apple: {
+export const designActionContract: Record<'macos' | 'shadcn', ActionSizes> = defineTokens({
+    macos: {
         xs: {
             height: palette['space']['6'],
             'padding-inline': palette['space']['2'],
@@ -18,23 +18,23 @@ export const designActionContract: Record<'apple' | 'shadcn', ActionSizes> = def
         s: {
             height: palette['space']['7'],
             'padding-inline': palette['space']['3'],
-            'font-size': palette['font']['size']['sm'],
+            'font-size': palette['font']['size']['13'],
             'line-height': palette['space']['5'],
             gap: palette['space']['1-5'],
             icon: palette['space']['3-5'],
-            'square-radius': palette['radius']['3'],
-            'pressed-radius': palette['radius']['3'],
+            'square-radius': palette['radius']['4'],
+            'pressed-radius': palette['radius']['4'],
             'border-width': palette['space']['px'],
         },
         m: {
             height: palette['size']['32'],
             'padding-inline': palette['space']['4'],
-            'font-size': palette['font']['size']['sm'],
+            'font-size': palette['font']['size']['13'],
             'line-height': palette['space']['5'],
             gap: palette['space']['1-5'],
             icon: palette['space']['4'],
-            'square-radius': palette['radius']['3'],
-            'pressed-radius': palette['radius']['3'],
+            'square-radius': palette['radius']['5'],
+            'pressed-radius': palette['radius']['5'],
             'border-width': palette['space']['px'],
         },
         l: {
@@ -44,8 +44,8 @@ export const designActionContract: Record<'apple' | 'shadcn', ActionSizes> = def
             'line-height': palette['space']['6'],
             gap: palette['space']['2'],
             icon: palette['space']['5'],
-            'square-radius': palette['radius']['3'],
-            'pressed-radius': palette['radius']['3'],
+            'square-radius': palette['radius']['5'],
+            'pressed-radius': palette['radius']['full'],
             'border-width': palette['space']['px'],
         },
         xl: {
@@ -55,8 +55,8 @@ export const designActionContract: Record<'apple' | 'shadcn', ActionSizes> = def
             'line-height': palette['space']['6'],
             gap: palette['space']['2'],
             icon: palette['space']['6'],
-            'square-radius': palette['radius']['3'],
-            'pressed-radius': palette['radius']['3'],
+            'square-radius': palette['radius']['5'],
+            'pressed-radius': palette['radius']['full'],
             'border-width': palette['space']['px'],
         },
     },

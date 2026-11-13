@@ -30,9 +30,9 @@ status = "experimental"
 
 ### 三套设计风格
 
-`ConfigProvider designSystem` 在 L2 语义令牌边界切换完整形态，组件与演示使用同一份样式。`apple` 默认 16px 方框、4px 圆角、1px 描边和轻阴影；`shadcn` 默认 16px 方框、4px 圆角、1px 描边，使用中性色与克制阴影。两者不使用 MD3 的圆形状态层，保留键盘焦点、悬停描边、选中与半选标记、错误和禁用状态。浅深色与嵌套主题均由语义变量同步。
+`ConfigProvider designSystem` 在 L2 语义令牌边界切换完整形态，组件与演示使用同一份样式。`macos` 默认 16px 方框、4px 圆角、1px 描边和轻阴影；`shadcn` 默认 16px 方框、4px 圆角、1px 描边，使用中性色与克制阴影。两者不使用 MD3 的圆形状态层，保留键盘焦点、悬停描边、选中与半选标记、错误和禁用状态。浅深色与嵌套主题均由语义变量同步。
 
-Apple 为参考 Apple HIG 的 Web 定制，并非 AppKit 原生控件的像素复刻；small / medium / large 的方框分别为 14 / 16 / 18px。shadcn 的扩展尺寸为 14 / 16 / 20px。细指针采用紧凑 24px 控件容器，粗指针扩展为至少 48px。
+macOS 为参考 macOS HIG 的 Web 定制，并非 AppKit 原生控件的像素复刻；small / medium / large 的方框分别为 14 / 16 / 18px。shadcn 的扩展尺寸为 14 / 16 / 20px。细指针采用紧凑 24px 控件容器，粗指针扩展为至少 48px。
 
 以下尺寸与状态层说明专指 `md3`。
 
@@ -53,7 +53,7 @@ Apple 为参考 Apple HIG 的 Web 定制，并非 AppKit 原生控件的像素�
 
 触控场景使用原生轻触改变选择，保留粗指针几何检查；窄屏与真实缩放分别测量可见控件、标签和实际文字范围，不能仅凭 Demo 容器无溢出判定内容可用。新增断言仍需对应浏览器结果与人工外观复审。
 
-MD3 保留 18px 方框、40px 状态层和独立命中区；Apple 使用较小方框与轻阴影；shadcn 使用中性轮廓和明确勾选。尺寸、图标、错误与禁用颜色均通过本包 L3 引用 L2，文字字体现在也随最近设计边界解析。三档 size 与 collection density 独立，不能用 density 暗中缩放复选框。
+MD3 保留 18px 方框、40px 状态层和独立命中区；macOS 使用较小方框与轻阴影；shadcn 使用中性轮廓和明确勾选。尺寸、图标、错误与禁用颜色均通过本包 L3 引用 L2，文字字体现在也随最近设计边界解析。三档 size 与 collection density 独立，不能用 density 暗中缩放复选框。
 
 状态矩阵覆盖未选中和选中的 hover / focus-visible / pressed，另含半选、三种错误与三种禁用值；选中通过真实标签点击进入，半选通过公开 indeterminate 协议表达。disabled 保留原值，错误仍需提供可感知的文字说明。
 

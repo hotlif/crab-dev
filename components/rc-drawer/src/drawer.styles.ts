@@ -43,6 +43,9 @@ export const panelBaseStyle = css`
     display: flex;
     flex-direction: column;
     background-color: ${token.root['background-color']};
+    backdrop-filter: ${token.material['backdrop-filter']};
+    -webkit-backdrop-filter: ${token.material['backdrop-filter']};
+    background-image: ${token.material['background-image']};
     box-shadow: ${token.root['box-shadow']};
     overflow: hidden;
     box-sizing: border-box;

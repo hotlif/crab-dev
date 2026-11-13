@@ -2,6 +2,7 @@ import { inputPreviews } from "./input.js";
 import { displayPreviews, feedbackPreviews } from "./display.js";
 import { navigationPreviews, layoutPreviews, dataPreviews } from "./structure.js";
 import { foundationPreviews } from "./foundation.js";
+import DesignPreview from "./designPreview.js";
 
 const previews = {
     ...inputPreviews,
@@ -22,7 +23,7 @@ export function hasCatalogPreview(name: string): name is CatalogPreviewName {
 export default function CatalogPreview({ name }: { name: CatalogPreviewName }) {
     return (
         <svg viewBox={name === "rc-form" ? "0 0 320 208" : "0 0 240 156"} aria-hidden="true" focusable="false" className="crab-catalog-preview">
-            {previews[name]}
+            {["rc-slider", "rc-switch", "rc-segmented", "rc-tabs"].includes(name) ? <DesignPreview name={name} /> : previews[name]}
         </svg>
     );
 }

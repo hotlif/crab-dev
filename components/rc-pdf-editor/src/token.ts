@@ -5,6 +5,16 @@
 import { defineTokens } from '@crab-dev/css';
 
 export const vars = defineTokens({
+    'macos.material.background-color': '--pdf-editor-macos-material-background-color',
+    'macos.material.background-image': '--pdf-editor-macos-material-background-image',
+    'macos.material.backdrop-filter': '--pdf-editor-macos-material-backdrop-filter',
+    'macos.material.border-color': '--pdf-editor-macos-material-border-color',
+    'macos.material.box-shadow': '--pdf-editor-macos-material-box-shadow',
+    'macos.group.border-radius': '--pdf-editor-macos-group-border-radius',
+    'macos.group.padding': '--pdf-editor-macos-group-padding',
+    'macos.panel.border-radius': '--pdf-editor-macos-panel-border-radius',
+    'macos.thumbnail.color': '--pdf-editor-macos-thumbnail-color',
+    'macos.thumbnail.background-color-selected': '--pdf-editor-macos-thumbnail-background-color-selected',
     'root.background': '--pdf-editor-root-background',
     'root.color': '--pdf-editor-root-color',
     'root.font-family': '--pdf-editor-root-font-family',
@@ -73,6 +83,26 @@ export const vars = defineTokens({
 });
 
 const token = defineTokens({
+    'macos': {
+        'material': {
+            'background-color': `var(${vars['macos.material.background-color']}, var(--token-semantic-material-background, var(--token-semantic-color-surface-overlay, var(--token-global-material-neutral-94, oklch(0.95362610 0.01470533 312.243326)))))`,
+            'background-image': `var(${vars['macos.material.background-image']}, var(--token-semantic-material-sheen, none))`,
+            'backdrop-filter': `var(${vars['macos.material.backdrop-filter']}, var(--token-semantic-material-filter, none))`,
+            'border-color': `var(${vars['macos.material.border-color']}, var(--token-semantic-material-border, var(--token-semantic-color-border-subtle, var(--token-global-zinc-200, oklch(0.900 0.004 286)))))`,
+            'box-shadow': `var(${vars['macos.material.box-shadow']}, var(--token-semantic-material-control-shadow, var(--token-global-shadow-xs, 0 1px 2px oklch(0 0 0 / 0.03))))`
+        },
+        'group': {
+            'border-radius': `var(${vars['macos.group.border-radius']}, var(--token-semantic-shape-control, var(--token-global-radius-2, 4px)))`,
+            'padding': `var(${vars['macos.group.padding']}, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)))`
+        },
+        'panel': {
+            'border-radius': `var(${vars['macos.panel.border-radius']}, var(--token-semantic-shape-overlay, var(--token-global-radius-14, 28px)))`
+        },
+        'thumbnail': {
+            'color': `var(${vars['macos.thumbnail.color']}, var(--token-semantic-color-text-primary, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695))))`,
+            'background-color-selected': `var(${vars['macos.thumbnail.background-color-selected']}, var(--token-semantic-color-surface-content, var(--token-semantic-color-background-surface, var(--token-global-material-neutral-98, oklch(0.98379491 0.01284496 321.893957)))))`
+        }
+    },
     'root': {
         'background': `var(${vars['root.background']}, var(--token-semantic-color-surface-content, var(--token-semantic-color-background-surface, var(--token-global-material-neutral-98, oklch(0.98379491 0.01284496 321.893957)))))`,
         'color': `var(${vars['root.color']}, var(--token-semantic-color-text-primary, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695))))`,

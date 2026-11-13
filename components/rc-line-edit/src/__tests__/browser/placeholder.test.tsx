@@ -77,7 +77,7 @@ function visiblePlaceholderContrast(input: HTMLInputElement): number {
 }
 
 describe('Published placeholder roles and actual contrast', () => {
-    for (const designSystem of ['md3', 'apple', 'shadcn'] as const) {
+    for (const designSystem of ['md3', 'macos', 'shadcn'] as const) {
         for (const colorMode of ['light', 'dark'] as const) {
             for (const appearance of ['outlined', 'filled'] as const) {
                 it(`preserves ${designSystem}/${colorMode}/${appearance} enabled/readonly contrast and disabled roles`, async () => {
@@ -127,12 +127,12 @@ describe('Published decorated field label geometry', () => {
             return () => { current = null; cleanups += 1; };
         };
         const field = <><style>{compiledCss}</style><div style={{ width: 180 }}><LineEdit label="Retained decorated draft" prefix="$" suffix="%" appearance="filled" defaultValue="preserved draft" ref={ref} /></div></>;
-        const view = await render(<ConfigProvider designSystem="md3"><ConfigProvider designSystem="apple">{field}</ConfigProvider></ConfigProvider>);
+        const view = await render(<ConfigProvider designSystem="md3"><ConfigProvider designSystem="macos">{field}</ConfigProvider></ConfigProvider>);
         const input = current!;
         await act(() => { input.focus(); input.setSelectionRange(2, 7); });
-        for (const designSystem of ['md3', 'apple', 'shadcn'] as const) {
+        for (const designSystem of ['md3', 'macos', 'shadcn'] as const) {
             for (const colorMode of ['light', 'dark'] as const) {
-                await view.rerender(<ConfigProvider designSystem={designSystem === 'md3' ? 'apple' : 'md3'}><ConfigProvider designSystem={designSystem} colorMode={colorMode} direction="rtl">{field}</ConfigProvider></ConfigProvider>);
+                await view.rerender(<ConfigProvider designSystem={designSystem === 'md3' ? 'macos' : 'md3'}><ConfigProvider designSystem={designSystem} colorMode={colorMode} direction="rtl">{field}</ConfigProvider></ConfigProvider>);
                 expect(current === input).toBe(true);
                 expect(document.activeElement === input).toBe(true);
                 expect(input.value).toBe('preserved draft');
@@ -150,7 +150,7 @@ describe('Published decorated field label geometry', () => {
         expect(current).toBe(null);
         expect(cleanups).toBeGreaterThan(0);
     });
-    for (const designSystem of ['md3', 'apple', 'shadcn'] as const) {
+    for (const designSystem of ['md3', 'macos', 'shadcn'] as const) {
         for (const colorMode of ['light', 'dark'] as const) {
             for (const direction of ['ltr', 'rtl'] as const) {
                 for (const appearance of ['outlined', 'filled'] as const) {
@@ -189,11 +189,11 @@ describe('Published decorated field label geometry', () => {
 
 // Published geometry also covers plain fields and explicit action variants.
 describe('Desktop field and inherited action geometry', () => {
-    for (const designSystem of ['md3', 'apple', 'shadcn'] as const) {
+    for (const designSystem of ['md3', 'macos', 'shadcn'] as const) {
         for (const colorMode of ['light', 'dark'] as const) {
             it('preserves desktop sizes, drafts and explicit variants: ' + designSystem + '/' + colorMode, async () => {
                 const fixture = (size: 'small' | 'medium' | 'large', density: 'compact' | 'standard' | 'comfortable') =>
-                    <ConfigProvider designSystem={designSystem === 'md3' ? 'apple' : 'md3'}>
+                    <ConfigProvider designSystem={designSystem === 'md3' ? 'macos' : 'md3'}>
                         <ConfigProvider designSystem={designSystem} colorMode={colorMode} size={size} density={density}>
                             <style>{compiledCss}</style>
                             <LineEdit label="Desktop field" defaultValue="Preserved text" allowClear />
@@ -215,15 +215,16 @@ describe('Desktop field and inherited action geometry', () => {
                             expect(input.value).toBe('Preserved text');
                             expect(document.activeElement).toBe(input);
                             expect([input.selectionStart, input.selectionEnd]).toEqual([1, 4]);
-                            for (const field of inputs) expect(field.parentElement!.getBoundingClientRect().height).toBeCloseTo((designSystem === 'md3' ? [32, 40, 48] : [32, 36, 40])[index], 1);
+                            const heights = { md3: [32, 40, 48], macos: [28, 32, 36], shadcn: [32, 36, 40] }[designSystem];
+                            for (const field of inputs) expect(field.parentElement!.getBoundingClientRect().height).toBeCloseTo(heights[index], 1);
                             const label = view.container.querySelector('label')!.getBoundingClientRect();
                             expect(label.bottom).toBeLessThanOrEqual(input.parentElement!.getBoundingClientRect().top - 3);
-                            const expected = { md3: [32, 36, 40], apple: [24, 28, 32], shadcn: [32, 36, 40] }[designSystem][index];
+                            const expected = { md3: [32, 36, 40], macos: [24, 28, 32], shadcn: [32, 36, 40] }[designSystem][index];
                             expect(view.container.querySelector('[data-default-action]')!.getBoundingClientRect().height).toBeCloseTo(expected, 1);
                             const icon = view.container.querySelector('[data-icon-action]')!.getBoundingClientRect();
                             expect(icon.width).toBeCloseTo(expected, 1);
                             expect(icon.height).toBeCloseTo(expected, 1);
-                            expect(view.container.querySelector('[data-explicit-action]')!.getBoundingClientRect().height).toBeCloseTo({ md3: 40, apple: 28, shadcn: 36 }[designSystem], 1);
+                            expect(view.container.querySelector('[data-explicit-action]')!.getBoundingClientRect().height).toBeCloseTo({ md3: 40, macos: 28, shadcn: 36 }[designSystem], 1);
                         });
                     }
                 }

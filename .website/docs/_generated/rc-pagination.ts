@@ -3,6 +3,7 @@
  */
 
 import type { ComponentDemoRecord } from "../site/componentDemos.js";
+import type { ComponentDesignDocuments } from "../site/componentDesignGuide.js";
 
 export const demos = [
     {
@@ -235,3 +236,85 @@ export const demos = [
         "group": "视觉验收"
     }
 ] as const satisfies readonly ComponentDemoRecord[];
+
+export const documents = {
+    "md3": {
+        "summary": "以清晰的当前页和低强调翻页动作组织数据浏览，是项目导航扩展。",
+        "usage": "当前页应与可跳转页区分，分页动作不能与表格选择状态混为一谈。",
+        "exampleDescription": "切换页面并查看当前页反馈，检查导航动作在色调界面中的层级。",
+        "demos": [
+            "basic.demo.tsx",
+            "controlled.demo.tsx",
+            "disabled.demo.tsx",
+            "many-pages.demo.tsx",
+            "quick-jumper.demo.tsx",
+            "show-total.demo.tsx",
+            "size-changer.demo.tsx",
+            "size.demo.tsx"
+        ],
+        "references": [
+            "https://m3.material.io/components/buttons/overview",
+            "https://material-web.dev/components/button/",
+            "https://github.com/material-components/material-web/tree/main/button"
+        ]
+    },
+    "macos": {
+        "summary": "以桌面列表底部的紧凑导航组织分页，页码、总量与每页数量保持对齐。",
+        "usage": "让页数变化和数据刷新保持一致，翻页后仍保留可预测的操作位置。",
+        "exampleDescription": "修改每页数量再翻页，检查紧凑导航中总量和当前页的更新。",
+        "demos": [
+            "size-changer.demo.tsx",
+            "basic.demo.tsx",
+            "controlled.demo.tsx",
+            "disabled.demo.tsx",
+            "many-pages.demo.tsx",
+            "quick-jumper.demo.tsx",
+            "show-total.demo.tsx",
+            "size.demo.tsx"
+        ],
+        "references": [
+            "https://developer.apple.com/design/human-interface-guidelines/components",
+            "https://developer.apple.com/design/human-interface-guidelines/accessibility"
+        ]
+    },
+    "shadcn": {
+        "summary": "用中性页码、细边界与简洁前后导航提供分页，适合数据管理界面。",
+        "usage": "页数很多时使用省略与快捷跳转，同时保留当前位置和总量信息。",
+        "exampleDescription": "浏览较多页码，检查省略项、当前页与可用翻页动作的区别。",
+        "demos": [
+            "many-pages.demo.tsx",
+            "basic.demo.tsx",
+            "controlled.demo.tsx",
+            "disabled.demo.tsx",
+            "quick-jumper.demo.tsx",
+            "show-total.demo.tsx",
+            "size-changer.demo.tsx",
+            "size.demo.tsx"
+        ],
+        "references": [
+            "https://ui.shadcn.com/docs/components",
+            "https://ui.shadcn.com/docs/theming",
+            "https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4"
+        ]
+    }
+} as const satisfies ComponentDesignDocuments;
+
+export const guide = {
+    "definition": "Pagination 把大量结果分成可导航的页面，并可显示总数、快速跳转和每页数量。它控制当前页信息，不负责请求数据本身。",
+    "useWhen": [
+        "用户需要在较大的结果集中稳定定位页码。",
+        "服务器分页或业务要求明确的页数和每页条数。"
+    ],
+    "avoidWhen": [
+        "连续浏览内容可使用加载更多或虚拟滚动；结果很少时不要增加分页控制。"
+    ],
+    "essentials": [
+        "current、pageSize 与 total 共同决定合法页码。",
+        "改变 pageSize 后要重新计算 current，避免落到不存在的页。",
+        "请求中的页码状态、加载和错误由业务层管理。"
+    ],
+    "accessibility": [
+        "分页区域使用有名称的导航语义，当前页标记 aria-current。",
+        "上一页、下一页、页码和跳转输入都有明确名称，禁用状态不能只变淡。"
+    ]
+} as const;

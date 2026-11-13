@@ -16,7 +16,7 @@ async function settleColor() {
 }
 
 describe('custom Tag color rerenders with published CSS and browser CSSOM', () => {
-    for (const designSystem of ['md3', 'apple', 'shadcn'] as const) {
+    for (const designSystem of ['md3', 'macos', 'shadcn'] as const) {
         for (const colorMode of ['light', 'dark'] as const) {
             it(`updates variable borders to transparent on the retained element (${designSystem}/${colorMode})`, async () => {
                 const fixture = (color: string, label: string, style?: CSSProperties, bordered = true) => <>

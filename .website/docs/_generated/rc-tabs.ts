@@ -3,6 +3,7 @@
  */
 
 import type { ComponentDemoRecord } from "../site/componentDemos.js";
+import type { ComponentDesignDocuments } from "../site/componentDesignGuide.js";
 
 export const demos = [
     {
@@ -99,8 +100,8 @@ export const demos = [
     },
     {
         "id": "docs/demos/designs.demo.tsx",
-        "title": "三套风格与面板切换",
-        "description": "比较三套设计体系在浅色和深色下的标签页、选中反馈与内容面板；键盘操作一致。",
+        "title": "当前主题的交互状态",
+        "description": "观察当前主题下的选中、禁用和焦点反馈；示例继承文档配置，可直接操作。",
         "learning": {
             "components": [
                 "ConfigProvider",
@@ -116,7 +117,7 @@ export const demos = [
             "events": [],
             "hasState": false
         },
-        "sourceCode": "export const meta = {\n    title: '三套风格与面板切换',\n    description: '比较三套设计体系在浅色和深色下的标签页、选中反馈与内容面板；键盘操作一致。',\n};\n\nimport { css } from '@crab-dev/css';\nimport ConfigProvider from '@crab-dev/rc-config-provider';\nimport token, { designSystemRegistry } from '@crab-dev/rc-token-semantic';\nimport Tabs from '../../src/index.js';\n\nconst grid = css`display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr)); gap: ${token.space['stack-gap']};`;\nconst panel = css`display: grid; gap: ${token.space['stack-gap']}; padding: ${token.space['card-padding']}; border: 1px solid ${token.color.border.subtle}; border-radius: ${token.shape.card}; color: ${token.color.text.primary}; background: ${token.color.background.surface}; min-width: 0;`;\n\nexport default function DesignsDemo() {\n    return (\n        \u003cdiv className={grid}>\n            {(['md3', 'apple', 'shadcn'] as const).flatMap(design => (['light', 'dark'] as const).map(mode => (\n                \u003cConfigProvider key={`${design}-${mode}`} designSystem={design} colorMode={mode} className={panel} role=\"region\" aria-label={`${designSystemRegistry[design].fullName} ${mode === 'light' ? '浅色' : '深色'}`}>\n                    \u003cstrong>{designSystemRegistry[design].fullName} · {mode === 'light' ? '浅色' : '深色'}\u003c/strong>\n                    \u003cTabs items={[\n                        { key: 'overview', label: '概览', children: \u003cp>当前项目的概览与最近活动。\u003c/p> },\n                        { key: 'activity', label: '活动', children: \u003cp>使用左右方向键可切换内容面板。\u003c/p> },\n                        { key: 'archive', label: '归档', disabled: true },\n                    ]} />\n                \u003c/ConfigProvider>\n            )))}\n        \u003c/div>\n    );\n}\n",
+        "sourceCode": "export const meta = {\n    title: '当前主题的交互状态',\n    description: '观察当前主题下的选中、禁用和焦点反馈；示例继承文档配置，可直接操作。',\n};\n\nimport { css } from '@crab-dev/css';\nimport ConfigProvider, { useConfig } from '@crab-dev/rc-config-provider';\nimport token, { designSystemRegistry } from '@crab-dev/rc-token-semantic';\nimport Tabs from '@crab-dev/rc-tabs';\n\nconst grid = css`display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr)); gap: ${token.space['stack-gap']};`;\nconst panel = css`display: grid; gap: ${token.space['stack-gap']}; padding: ${token.space['card-padding']}; border: 1px solid ${token.color.border.subtle}; border-radius: ${token.shape.card}; color: ${token.color.text.primary}; background: ${token.color.background.surface}; min-width: 0;`;\n\nexport default function DesignsDemo() {\n    const { designSystem: design } = useConfig();\n    return (\n        \u003cdiv className={grid}>\n            {(['light', 'dark'] as const).map(mode => (\n                \u003cConfigProvider key={mode} designSystem={design} colorMode={mode} className={panel} role=\"region\" aria-label={`${designSystemRegistry[design].fullName} ${mode === 'light' ? '浅色' : '深色'}`}>\n                    \u003cstrong>{designSystemRegistry[design].fullName} · {mode === 'light' ? '浅色' : '深色'}\u003c/strong>\n                    \u003cTabs items={[\n                        { key: 'overview', label: '概览', children: \u003cp>当前项目的概览与最近活动。\u003c/p> },\n                        { key: 'activity', label: '活动', children: \u003cp>使用左右方向键可切换内容面板。\u003c/p> },\n                        { key: 'archive', label: '归档', disabled: true },\n                    ]} />\n                \u003c/ConfigProvider>\n            ))}\n        \u003c/div>\n    );\n}\n",
         "previewPath": "/components/rc-tabs/workbench/?__wake_demo=docs%2Fdemos%2Fdesigns.demo.tsx",
         "workbenchPath": "/components/rc-tabs/workbench/#/components/docs%2Fdemos%2Fdesigns.demo.tsx",
         "density": "regular",
@@ -223,3 +224,85 @@ export const demos = [
         "group": "视觉验收"
     }
 ] as const satisfies readonly ComponentDemoRecord[];
+
+export const documents = {
+    "md3": {
+        "summary": "以标签文字和活动指示条组织同页内容，主标签页保留清楚的选中方向。",
+        "usage": "line 用于主要页内分区；card、pill 与可关闭页签是本库的桌面扩展。",
+        "exampleDescription": "使用方向键切换标签，观察活动指示条与面板内容的同步。",
+        "demos": [
+            "designs.demo.tsx",
+            "basic.demo.tsx",
+            "card.demo.tsx",
+            "centered.demo.tsx",
+            "closable.demo.tsx",
+            "overflow.demo.tsx",
+            "pill.demo.tsx",
+            "with-icon.demo.tsx"
+        ],
+        "references": [
+            "https://m3.material.io/components/tabs/overview",
+            "https://material-web.dev/components/tabs/",
+            "https://github.com/material-components/material-web/tree/main/tabs"
+        ]
+    },
+    "macos": {
+        "summary": "以桌面分段式的轻量选中块组织同页内容，保留标签页与面板的语义关联。",
+        "usage": "选中块表示当前位置，关闭入口只用于可移除工作页；不要用状态遮罩覆盖文字。",
+        "exampleDescription": "关闭一个工作页并继续切换，检查选中块、焦点和剩余面板。",
+        "demos": [
+            "closable.demo.tsx",
+            "basic.demo.tsx",
+            "card.demo.tsx",
+            "centered.demo.tsx",
+            "designs.demo.tsx",
+            "overflow.demo.tsx",
+            "pill.demo.tsx",
+            "with-icon.demo.tsx"
+        ],
+        "references": [
+            "https://developer.apple.com/design/human-interface-guidelines/components",
+            "https://developer.apple.com/design/human-interface-guidelines/accessibility"
+        ]
+    },
+    "shadcn": {
+        "summary": "用中性轨道和清晰活动标签呈现同页切换，内容面板保持简洁边界。",
+        "usage": "标签名称简短明确，溢出时保持当前项可见，键盘操作跳过禁用项。",
+        "exampleDescription": "切换 pill 标签并读取面板，检查中性轨道与活动项的对比。",
+        "demos": [
+            "pill.demo.tsx",
+            "basic.demo.tsx",
+            "card.demo.tsx",
+            "centered.demo.tsx",
+            "closable.demo.tsx",
+            "designs.demo.tsx",
+            "overflow.demo.tsx",
+            "with-icon.demo.tsx"
+        ],
+        "references": [
+            "https://ui.shadcn.com/docs/components",
+            "https://ui.shadcn.com/docs/theming",
+            "https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4"
+        ]
+    }
+} as const satisfies ComponentDesignDocuments;
+
+export const guide = {
+    "definition": "Tabs 在同一层级的一组相关内容之间切换，tab 是标签，tabpanel 是对应内容。当前激活项必须与可见面板同步，不能只移动指示器。",
+    "useWhen": [
+        "少量同级视图共享同一个页面上下文。",
+        "用户经常在这些内容之间来回比较，并希望保留当前位置。"
+    ],
+    "avoidWhen": [
+        "不同页面目的地使用主导航；步骤流程使用逐步导航；大量标签考虑 Select 或其他信息架构。"
+    ],
+    "essentials": [
+        "每个 tab key 稳定并对应唯一面板。",
+        "受控 value 与 onValueChange 同步路由或业务状态。",
+        "closable/card/pill 是不同视觉或管理能力，先确认是否符合内容层级。"
+    ],
+    "accessibility": [
+        "使用 tablist、tab、tabpanel 关系和方向键模型，并管理 roving tabindex。",
+        "选中指示器、aria-selected 和可见内容同时变化；关闭标签后把焦点放到相邻合理项。"
+    ]
+} as const;

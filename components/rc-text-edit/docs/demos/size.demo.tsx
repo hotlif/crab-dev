@@ -1,6 +1,6 @@
 export const meta = {
     title: "尺寸与多行几何",
-    description: "比较无标签、Outlined 与 Filled。Apple/shadcn 分档调整内边距和最小高度；MD3 三档保持标准字段几何，正文不随 size 缩放。rows 决定内容行数",
+    description: "比较无标签、Outlined 与 Filled 的尺寸；rows 决定内容行数，字段继承当前主题。",
 };
 
 import { css } from "@crab-dev/css";

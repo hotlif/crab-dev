@@ -19,21 +19,21 @@ status = "experimental"
 
 ## 三套主题的字段边界
 
-Apple 使用紧凑矩形字段、静态标签、轻微内阴影和蓝色外侧焦点环；shadcn 使用静态标签、细边框、微阴影和 3px 半透明外侧焦点环。MD3 保留外置标签、连续描边及 Filled 底部指示线。带标签与无标签字段都从同一个 L2 字段合约读取焦点和错误反馈；因此搜索框、复合选择器也随主题同步。
+macOS 使用紧凑矩形字段、静态标签、轻微内阴影和蓝色外侧焦点环；shadcn 使用静态标签、细边框、微阴影和 3px 半透明外侧焦点环。MD3 保留外置标签、连续描边及 Filled 底部指示线。带标签与无标签字段都从同一个 L2 字段合约读取焦点和错误反馈；因此搜索框、复合选择器也随主题同步。
 
-错误与警告状态在聚焦时保留各自的反馈色；桌面风格的普通标签保持中性色，错误与警告标签分别使用对应语义色。警告样式属于本项目的 Web 状态扩展。Apple 的圆角、密度与蓝色光环是本项目的 Web 适配，不表示复刻任意版本 AppKit 的像素参数。只读、禁用、错误、清除和字符计数可在“标签、边界与状态”演示中对照。
+错误与警告状态在聚焦时保留各自的反馈色；桌面风格的普通标签保持中性色，错误与警告标签分别使用对应语义色。警告样式属于本项目的 Web 状态扩展。macOS 的圆角、密度与蓝色光环是本项目的 Web 适配，不表示复刻任意版本 AppKit 的像素参数。只读、禁用、错误、清除和字符计数可在“标签、边界与状态”演示中对照。
 
-2026-10-22 实际参考：[Apple Text fields](https://developer.apple.com/design/human-interface-guidelines/text-fields)、[Apple 官方正文](https://developer.apple.com/tutorials/data/design/human-interface-guidelines/text-fields.json)、[shadcn Input](https://ui.shadcn.com/docs/components/input)、[shadcn Input 源码](https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/new-york-v4/ui/input.tsx)；MD3 的颜色与反馈参考下文 Material Web 来源；外置标签与紧凑几何是本库的桌面适配。
+2026-10-22 实际参考：[macOS Text fields](https://developer.apple.com/design/human-interface-guidelines/text-fields)、[macOS 官方正文](https://developer.apple.com/tutorials/data/design/human-interface-guidelines/text-fields.json)、[shadcn Input](https://ui.shadcn.com/docs/components/input)、[shadcn Input 源码](https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/new-york-v4/ui/input.tsx)；MD3 的颜色与反馈参考下文 Material Web 来源；外置标签与紧凑几何是本库的桌面适配。
 
 ## 何时使用
 
 ### 填充、描边与外置标签
 
-`appearance="outlined"` 为默认外观。统一的 `ConfigProvider designSystem` 决定字段布局：MD3 使用外置标签，Outlined 采用连续描边，Filled 使用顶部圆角和底部指示线；Apple 与 shadcn 使用上置的静态标签和紧凑边框。切换设计时保留同一个输入节点及已输入的值。
+`appearance="outlined"` 为默认外观。统一的 `ConfigProvider designSystem` 决定字段布局：MD3 使用外置标签，Outlined 采用连续描边，Filled 使用顶部圆角和底部指示线；macOS 与 shadcn 使用上置的静态标签和紧凑边框。切换设计时保留同一个输入节点及已输入的值。
 
 `supportingText` 将辅助说明置于字段下方；`errorText` 替换辅助说明、启用错误状态并自动设置描述关联。已有 `aria-describedby` 会保留，计数也会加入关联。调用方仍可显式指定 `aria-invalid`。带标签的 `showCount` 移到辅助信息行，避免挤占输入宽度；无标签的旧调用保持原布局。
 
-`bordered=false` 仍交由宿主绘制边界，此时 label 使用外部标签。无边框模式适合组合输入和搜索容器。Material、Apple 与 shadcn 的颜色、布局和形状均由 L2 令牌切换，组件不根据设计风格分支渲染标签。
+`bordered=false` 仍交由宿主绘制边界，此时 label 使用外部标签。无边框模式适合组合输入和搜索容器。Material、macOS 与 shadcn 的颜色、布局和形状均由 L2 令牌切换，组件不根据设计风格分支渲染标签。
 
 用于名称、搜索词等单行文本输入。可根据场景配置前后缀、清除按钮、字数统计和密码可见性切换。备注、描述等多行内容请使用 `@crab-dev/rc-text-edit`。
 
@@ -71,13 +71,16 @@ Apple 使用紧凑矩形字段、静态标签、轻微内阴影和蓝色外侧�
 
 ### 当前尺寸与状态实现
 
-MD3 单行字段采用 32 / 40 / 48px 三档桌面高度，输入文字为 16px / 24px，上置标签为 14px / 20px，标签间距 4px。Apple 与 shadcn 保留以下尺寸：
+MD3 单行字段采用 32 / 40 / 48px 三档桌面高度，输入文字为 16px / 24px，上置标签为 14px / 20px，标签间距 4px。macOS 与 shadcn 的桌面尺寸分别如下：
 
-| size | 容器最小高度 | 默认字号 / 行高 | 内边距 |
-| --- | --- | --- | --- |
-| large | 40px | 14px / 20px | 上下 0px、左右 12px |
-| medium | 36px | 14px / 20px | 上下 0px、左右 12px |
-| small | 32px | 14px / 20px | 上下 0、左右 12px |
+| 设计体系 | size | 容器最小高度 | 默认字号 / 行高 | 内边距 |
+| --- | --- | --- | --- | --- |
+| macOS | large | 36px | 13px / 20px | 上下 0、左右 12px |
+| macOS | medium | 32px | 13px / 20px | 上下 0、左右 12px |
+| macOS | small | 28px | 13px / 20px | 上下 0、左右 12px |
+| shadcn | large | 40px | 14px / 20px | 上下 0、左右 12px |
+| shadcn | medium | 36px | 14px / 20px | 上下 0、左右 12px |
+| shadcn | small | 32px | 14px / 20px | 上下 0、左右 12px |
 
 高度可随内容和字体设置增长。MD3 左右内边距 12px、图标 20px、图标间距 8px；标签使用完整字段宽度，不受前后缀或清除动作挤压。Outlined 使用连续边框，Filled 保留状态底线；均采用外置标签。粗指针输入区和内部动作至少 48px，容器自然增高。这是本库的 MD3 桌面扩展。
 

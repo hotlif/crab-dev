@@ -8,23 +8,22 @@ status = "experimental"
 {/* THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY. */}
 
 import ComponentDemos from "../site/componentDemos.js";
-import { demos } from "../_generated/rc-flow-diagram.js";
+import ComponentDesignGuide, { DesignIntroduction, DesignExampleIntroduction } from "../site/componentDesignGuide.js";
+import { demos, documents, guide } from "../_generated/rc-flow-diagram.js";
 
 # FlowDiagram 流程图
 
 <div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-flow-diagram</div>
+
+## 设计与用法
+
+<DesignIntroduction documents={documents} />
 
 <div id="基础示例" data-docs-example-anchor /><div id="全部示例" data-docs-example-anchor />
 
 ## 示例
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
-
-#### 三体系视觉与交互矩阵
-
-##### 流程工作区状态矩阵 — 真实 ELK 布局、选中、拖动、手动路由和失败；下方等价节点入口可用键盘选择和移动。
-
-#### 能力与集成示例
 
 ##### 受控连线与单次撤销 — 拖动端口建立连接，选中连线后拖动端点或内部线段。Esc 取消；预览不会写入历史。键盘按钮使用相同的提交协议。
 
@@ -36,158 +35,15 @@ import { demos } from "../_generated/rc-flow-diagram.js";
 
 ##### ELK 自动图布局 — FlowDiagram 内置 ELK 布局 + 正交走线。节点可拖拽，边自动绕开节点。切换算法 / 方向后自动重新布局并适应视图。
 
-##### 默认语义色板 — 节点、文字、连线和网格均省略颜色参数，直接使用当前设计体系的默认色板。容器支持窄屏横向查看。
-
 </div>
 
-<ComponentDemos demos={demos} />
+<DesignExampleIntroduction documents={documents} />
 
-[打开完整组件工作台](/components/rc-flow-diagram/workbench/)
+<ComponentDemos demos={demos} documents={documents} />
 
 ## 使用说明
 
-基于 `rc-canvas` 的流程图组件，使用 ELK.js 计算布局，并提供正交连线路由。
-调用方传入节点和边数据，通过子渲染函数使用布局结果，自定义节点与连线的内容。
-
-
-### 何时使用
-
-- 展示有向流程图或架构图，并自动计算节点位置。
-- 使用正交折线连接节点，或手动指定部分连线路径。
-- 拖拽节点、缩放和平移画布，或通过 `fitView` 将内容适配到视口。
-
-### 主要功能
-
-- **ELK 自动布局**：内置 Web Worker + ELK.js，支持 `layered`（层次）、`mrtree`（树形）、`stress`（力导向）等算法。
-- **正交边路由**：基于 A\* 的障碍物避让，自动分配端口、生成折线，支持虚线与箭头方向。
-- **Render Prop 模式**：`<FlowDiagram>` 提供 `children({ nodeRects, routes, zoom, loading, controls })`，节点 / 边的渲染完全由消费方控制。
-- **画布封装**：内部使用 `@crab-dev/rc-canvas`，常规接入无需直接操作 WebGL。
-- **节点拖拽**：`FlowNode` 的 `draggable` + `onDrag(dx, dy)` 支持拖拽覆盖布局位置。
-- **手动走线**：通过 `manualRoutes` 对单条边指定端口与途经点，其余边仍自动路由。
-- **无限网格 + 视口控制**：内置 `InfiniteGrid` 背景网格，支持 `useFlowDiagramControls()` 程序化缩放 / 平移 / fitView。
-
-默认节点、文字、连线和网格使用 L3 语义令牌，随主题变化。`palette` 的部分覆盖只替换指定角色；如需保留旧版固定蓝色配色，可以显式传入导出的 `DEFAULT_FLOW_DIAGRAM_PALETTE`。
-
-### 窄屏查看
-
-**现有示例：** 节点和连线保留二维布局，外层提供有名称、可聚焦的局部横向滚动区域。视口变窄时，可查看完整画布，不把整个文档页面撑宽。
-
-**设计要求：** 局部滚动与图内平移是不同操作。滚动区域获得焦点后可用方向键查看；图内拖拽、缩放和节点编辑仍需各自的键盘替代及状态反馈，不能仅凭外层可聚焦就认定流程图满足全部无障碍要求。
-
-
-### 缩小后的可读性
-
-`FlowNode.readability` 为可选功能。默认最小屏幕字号为 10 CSS px；原始显示字号低于 10 时使用 `compactLabel`，低于 7 时使用 `overviewLabel`。未提供简写时取完整标签首行；组件不猜测或删除业务字段。过长标签截断，节点旁的详情按钮支持悬停、Tab 聚焦与 Escape 关闭，完整内容由 `details` 提供，默认使用 `label`。
-
-```tsx
-<FlowNode x={40} y={40} width={260} height={150}
-    label={'商品模型 products\nid · uuid\nname · text\nprice · decimal'}
-    readability={{ compactLabel: 'products · id, name, price', overviewLabel: '商品 · 3 字段',
-        detailsLabel: '查看商品模型完整字段' }} />
-```
-
-可读标签使用 DOM 层，随视口位置移动，保持至少 10px 的字号。它位于所有 WebGL 图元之上，不参与图元命中或 PNG 导出；导出需要完整标签时使用默认 Canvas 标签。详情按钮可触发节点 `onClick`，详情内容应为非交互文本。极密集节点仍需调用方聚合或隐藏低优先级标签，这不是无限缩小仍能保留所有信息的保证。
-
-“默认语义色板”省略节点、标签、连线和网格的颜色参数，展示当前设计与明暗模式的默认配色。需要理解显式业务色和特殊边样式时，再查看 FlowEdge 样式示例。
-
-FlowEdge 静态样式和流动动效示例的彩色连线使用品牌、反馈及第三色语义角色，箭头与其连线同步配色，随当前设计和明暗模式解析。节点保留示例的业务色与配对标签前景；虚线、双向箭头及速度说明同时表达差异，不依赖颜色单独传达状态。
-
-
-
-
-### 受控编辑协议
-
-编辑器可以直接组合 Canvas、Viewport、FlowNode 与 FlowEdge，也可以使用 FlowDiagram 的 render prop。`useFlowConnections` 统一仲裁端口连接、端点改接和线段移动；它不创建业务边、不保存文档，也不维护撤销栈。
-
-- `FlowPort` 使用稳定的 `{ nodeId, portId }` 标识，`position` 是世界坐标，`side` 表示出入口朝向，`direction` 可为 input、output 或 both。字段端口可按字段 ID 和左右侧生成，禁止使用行号作为 ID。
-- `edges` 保存 `{ id, source, target }`，`routes` 单独提供绘制点。调用方保留审批分支、字段类型、条件、边标签等业务属性。
-- `validateConnection(change)` 返回错误说明或空值。`onConnect(change)` 只在有效松手后调用；`edgeId` 存在表示改接，宿主应保留该边的 ID 和业务属性。
-- `onRouteChange({ edgeId, points })` 提交路线。`points: null` 是恢复自动走线的意图。保存时可连同端口绑定指纹记录；绑定改变时清除旧路线。
-- `interaction` 和返回的 `routes` 用于渲染预览。把 `handlers` 放在包裹 Canvas 的 DOM 元素上；处理函数也返回是否接管事件，方便与框选、右键菜单组合。容器应有 `tabIndex={-1}` 或等价焦点入口。
-- `revision` 传入当前文档身份或修订号。不要把随拖动变化的预览对象作为修订。`active={false}`、`disabled`、Esc、失焦、页面隐藏、pointercancel、丢失捕获、修订切换与卸载会丢弃预览。
-
-命中半径和拖动阈值使用屏幕 CSS 像素。`resolvePort(worldPoint, moving)` 可实现字段行内吸附；未提供时根据 `nodeRects` 吸附节点上最近的兼容端口。库不替调用方判断循环、字段类型或审批出口数量。
-
-节点拖动或其他编辑使用 `useDiagramInteraction<T>` 的 `begin / update / commit / cancel`。`onInteractionChange` 提供 start、preview、commit、cancel 阶段；只有 commit 写入文档及历史。文档撤销、切换和权限变化通过 revision、active、disabled 使旧手势失效。键盘操作可以直接调用同一业务提交函数。
-
-`makeEditableRoute` 为短折线补内部编辑段，`moveEdgeSegment` 保持两端端口，`reanchorEdgeRoute` 在节点移动或字段重排后保留中间路径并重接端口。非法路线返回 null，宿主退回自动路由。`hitTestEdges` 可配合业务 filter 查找节点拖放的候选插入边。
-
-### 视口与布局
-
-FlowDiagram 接受 `viewport / defaultViewport / onViewportChange`。新文档默认 100%，载入节点、恢复存档和切换布局不会隐式 fit。`controls` 增加 `getViewport / setViewport / zoomTo / fitBounds / centerOn / focusNode`；`focusNode` 保留缩放。`fitBounds` 的 padding 是屏幕像素，原有 `fitView(padding)` 的 world px 语义保持不变。
-
-`layoutMode="manual"` 仅使用 `nodePositions`，不启动 ELK；位置缺失的节点暂放原点。自动模式下，已有位置立即显示，缺失位置等待 ELK。显式布局按钮可调用 `computeFlowLayout(nodes, edges, elkOptions)`，等待期间应记录文档修订，过期结果由宿主丢弃。低层 `useElkLayout` 的第四个参数支持 `{ enabled: false }`。
-
-
-### 设计风格与主题
-
-FlowDiagram 组合 Canvas、视口、网格、节点与连线，按 Crab 的流程图扩展维护。Material Design 3 Expressive、Apple 和 shadcn/ui 的来源及固定基线见[三套设计体系](/guides/design-styles)；三体系为其承载表面、前景、边界和选中角色提供独立契约，不定义 ELK 布局或本库的编辑协议。
-
-默认节点填充与标签使用品牌色及其配对前景，描边、连线和网格使用各自的语义角色，通过 FlowDiagram L3 色板传给绘制层。显式节点、标签和连线颜色仍表示业务覆盖；只替换节点填充时，需要同时核对标签前景。默认色板示例与显式业务配色示例应分别查看。
-
-节点尺寸、字体大小、圆角、箭头、路由、拖动、平移和缩放属于领域参数，不由全局控件尺寸统一改写。`loading` / `error` 由渲染上下文提供，调用方应为当前场景呈现状态；局部滚动区可聚焦也不等于图元选择、拖拽和编辑已有完整键盘替代。
-
-色板、布局与领域交互按三体系及浅深色分别验收，覆盖等级以[覆盖矩阵](/guides/design-coverage)及对应候选记录为准。
-
-
-### 桌面三体系矩阵规格
-
-核对日期：2026-10-29。流程图没有一一对应的 M3 Expressive、Apple 或 shadcn 原生组件；ELK、正交路由、手动端口、拖动及 world 坐标由本库领域协议定义。官方来源以[三套设计体系](/guides/design-styles)的固定基线为准；[Apple Charts](https://developer.apple.com/design/human-interface-guidelines/charts)提供图形和文字共同传递含义的原则，shadcn 的固定 New York V4 仅作为中性表面、边界和焦点的参考，不宣称其有等价流程图引擎。
-
-| 项目 | 视觉合同 | 领域边界 |
-| --- | --- | --- |
-| 三体系与明暗 | 默认节点填充和前景成对，网格、节点描边和边各有 L3 角色 | 业务覆盖显式通过 palette 或节点/边 props 传入 |
-| 尺寸与密度 | 外部容器及键盘入口使用语义间距与焦点 | 节点宽高、字阶、圆角、端口、箭头和路由保持 world 几何，不随控件 size/density 缩放 |
-| 状态 | 真实选择、拖动、空图、手动路由、ELK 失败、键盘移动分别核对 | 选择与编辑权限由 render-prop 宿主拥有，组件没有伪造的 disabled/expanded 状态 |
-| 动效 | 流动虚线使用实际 Canvas 帧，减少动画保持静态连线 | 不冻结相位建立像素基准；保留时间序列与视频并实际查看 |
-
-“流程工作区状态矩阵”在同一真实 ELK/Canvas 树上通过公开 props 保存节点位置。图形旁的键盘节点入口用于选择与方向键移动，和图内指针拖动更新同一位置状态；这些是示例宿主提供的等价操作，不表示 FlowNode 已自动生成 DOM 无障碍树。配置切换保留同一个画布、选择与位置覆盖。长内容、320/768/桌面局部滚动、RTL、品牌、强制颜色、减少动画与触控命中区域独立验收。
-
-ELK 的 loading 是真实异步计算窗口；失败使用无效算法触发真实错误，同时保留既有布局，不能延长计时或注入加载样式制造证据。核心轴与 FF/WebKit 子集维护在 docs/visual.json；不适用项须保留理由，实际候选和复审完成前覆盖状态仍为 partial。
-
-空图状态说明如何查看示例流程；布局失败先提示保留的画面和下一步，原始引擎错误可通过“查看布局错误详情”展开。较长的诊断信息在详情区域换行，不撑开画布或页面。
-
-工作区工具、键盘节点入口和布局反馈按局部可视宽度排列，窄屏无需横向寻找操作；固定坐标的图形继续在局部区域滚动。节点标签按节点宽度换行；需要显示更多行时，由调用方提供相应的节点高度。
-
-实际画面准备还独立核对 Canvas 的真实 DPR、drawing buffer 与原生帧，并在初始视图读取已提交节点内部、匹配实际公共色板的标签像素。ELK ready、节点数和非零 DOM 边界分别只能证明各自前提。手动路由检查真实路径经过声明的 waypoint；选择、拖动和配置切换保留同一数据模型。
-
-视图工具栏直接使用 render-prop 的 `fitView`、`zoomIn`、`zoomOut`、`exportPNG`。原生领域场景执行背景指针平移，确认模型/路由和倍率不被平移修改；实际导出的 PNG 在页面显示、校验原生解码尺寸并附入框架报告。这里的 domain zoom 与浏览器真实 200% 是两个分别记录的能力，不能互相替代。
-
-### 节点文字清晰度
-
-`FlowNode` 默认 `textMode="auto"`：常规字号按实际缩放与 DPR 生成位图，缩放稳定后刷新。可通过 `fontFamily`、`fontWeight`、`lineHeight` 与 HTML 节点统一排版配置；原有 `fontSize` 默认仍为 13。需要保留原先距离场外观时显式指定 `textMode="sdf"`。
-
-```tsx
-<FlowNode x={20} y={20} width={240} height={64} label="商品模型 products"
-    fontFamily="system-ui" fontSize={13} fontWeight={400} lineHeight={20} />
-```
-
-自定义节点中直接使用的 `Text` 保留原默认值，需要逐处指定 `mode="auto"`；`FlowNode` 的默认设置不会覆盖自定义子图元。
-
-### 适用场景
-
-流程编排、审批路径或系统拓扑需要可视化关系。 节点数量和关系使普通列表难以理解，但仍需要选择或编辑。
-
-简单线性步骤用有序列表更清楚；大量精确数据比较使用表格或图表。
-
-### 使用要点
-
-- 节点和边都要有稳定 ID，数据模型与屏幕坐标分开保存。
-- 自动布局负责初始位置，用户调整后要定义是否覆盖或保留。
-- 动画只提示方向或变化，不能成为关系含义的唯一载体。
-
-### 无障碍
-
-- 提供节点列表、连接说明或其他等价文本视图，确保非视觉用户也能理解关系。
-- 选择、连接和移动都要有键盘路径，减少动态效果时关闭非必要边动画。
-
-### 设计依据与覆盖
-
-- **MD3 Expressive**：M3 未定义通用流程图组件；工具栏、节点表面、颜色、焦点和动效使用 M3 规则，图关系语义是项目扩展。 [依据 1](https://m3.material.io/foundations/interaction/overview) · [依据 2](https://material-web.dev/) · [依据 3](https://github.com/material-components/material-web)
-- **Apple**：依据 Apple HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。 [依据 1](https://developer.apple.com/design/human-interface-guidelines/components) · [依据 2](https://developer.apple.com/design/human-interface-guidelines/accessibility)
-- **shadcn/ui**：参考 shadcn/ui 的组件用途、中性表面与设计变量，在本库公共语义和 React 交互模型中实现；完整状态覆盖仍需按矩阵验收。 [依据 1](https://ui.shadcn.com/docs/components) · [依据 2](https://ui.shadcn.com/docs/theming) · [依据 3](https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4)
-
-设计依据不等于完成验收；当前状态与适用边界见[覆盖矩阵](/guides/design-coverage)。
+<ComponentDesignGuide guide={guide} documents={documents} />
 
 ## 常见问题
 

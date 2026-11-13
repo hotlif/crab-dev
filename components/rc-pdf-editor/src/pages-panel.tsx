@@ -1,3 +1,6 @@
+import { useConfig } from '@crab-dev/rc-config-provider';
+import { cx } from '@crab-dev/css';
+import { macosThumbnailStyle } from './pdfEditor.designs.js';
 import { usePdfLocale } from './locale.js';
 import { useEffect, useId, useLayoutEffect, useRef, useState, type KeyboardEvent } from 'react';
 import AutoSizer from '@crab-dev/rc-auto-sizer';
@@ -55,6 +58,7 @@ interface PagesPanelProps {
 
 export default function PagesPanel(props: PagesPanelProps) {
     const { text } = usePdfLocale();
+    const macos = useConfig().designSystem === 'macos';
     const { client, pages, revision, current, selected, disabled, readOnly, onSelect, onSelectAll, onMove, onError } = props;
     const [measuredHeight, setMeasuredHeight] = useState(0);
     const [focused, setFocused] = useState(current);
@@ -99,7 +103,7 @@ export default function PagesPanel(props: PagesPanelProps) {
         renderRows={([start, end]) => <><div className={topSpacerStyle} aria-hidden="true" />{pages.slice(start, end + 1).map(page => <div key={page.id} className={thumbStyle} data-page-row={page.index}
             ref={node => { if (node && focusRequest.current === page.index) { node.querySelector('button')?.focus({ preventScroll: true }); focusRequest.current = undefined; } }}
             data-drop={drop?.boundary === page.index ? 'before' : drop?.boundary === pages.length && page.index === pages.length - 1 ? 'after' : undefined}>
-            <Button className={thumbButtonStyle} shape="square" role="option" aria-selected={selected.includes(page.index)}
+            <Button className={cx(thumbButtonStyle, macos && macosThumbnailStyle)} shape="square" role="option" aria-selected={selected.includes(page.index)}
                 appearance={selected.includes(page.index) ? 'tonal' : 'text'} isSelected={selected.includes(page.index)} aria-current={current === page.index ? 'page' : undefined}
                 aria-label={text('第 {page} 页', { page: page.index + 1 })} aria-posinset={page.index + 1} aria-setsize={pages.length} tabIndex={-1}
                 data-page-index={page.index} data-draggable={!readOnly && !disabled} data-dragging={drop?.pages.includes(page.index) || undefined}

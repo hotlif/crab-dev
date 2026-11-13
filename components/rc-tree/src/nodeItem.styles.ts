@@ -257,7 +257,7 @@ export const editInputStyle = css`
        heights. The shared input supplies keyboard/value behavior; it must not
        reintroduce a standalone field minimum or a second native border. */
     ${lineEditVars['root.touch.min-height']}: 0px;
-    /* The row supplies the paired L3 foreground, including selected Apple
+    /* The row supplies the paired L3 foreground, including selected macOS
        accent rows; an inset accent ring must not blend into the row. */
     ${lineEditVars['root.outline-color-focus']}: currentColor;
     ${lineEditVars['root.outline-width-focus']}: ${token.root['outline-width-focus']};

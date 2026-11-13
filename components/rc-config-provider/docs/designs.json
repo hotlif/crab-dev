@@ -1,0 +1,29 @@
+{
+    "md3": {
+        "summary": "为当前文档建立 MD3 配置边界，让色调、形状与交互控件使用一致的设计配置。",
+        "usage": "在应用根传入 designSystem=\"md3\"；嵌套边界仅覆写需要改变的明暗、尺寸或密度。",
+        "exampleDescription": "比较同一设计内的浅深色边界，查看未指定的语言、尺寸和密度如何继承。",
+        "demos": [
+            "nested.demo.tsx",
+            "config-documents.demo.tsx"
+        ]
+    },
+    "macos": {
+        "summary": "为桌面风格界面建立 macOS 配置边界，使工具栏、字段与浮层保持统一。",
+        "usage": "在应用根传入 designSystem=\"macos\"；明暗、品牌、尺寸和密度独立配置，Portal 继承最近边界。",
+        "exampleDescription": "检查嵌套设置面板的明暗覆盖，以及外层桌面配置在局部边界中的保留。",
+        "demos": [
+            "nested.demo.tsx",
+            "config-documents.demo.tsx"
+        ]
+    },
+    "shadcn": {
+        "summary": "通过 shadcn 配置边界统一中性表面、控件与浮层，保持界面设计一致。",
+        "usage": "在应用根传入 designSystem=\"shadcn\"；局部改变尺寸或明暗时保留其他已解析配置。",
+        "exampleDescription": "读取各局部边界的配置摘要，确认表面模式变化不会改变当前设计。",
+        "demos": [
+            "nested.demo.tsx",
+            "config-documents.demo.tsx"
+        ]
+    }
+}

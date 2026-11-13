@@ -2,12 +2,13 @@ import { GENERATED_MARKER, normalizeNewlines, serialize } from "./format.mjs";
 
 import { extractDemoMeta, extractDemoLearning } from "./demo-source.mjs";
 import { isValidTypeText, normalizeApiProps, extractApiRecord, resolveApiSourcePath } from "./api-records.mjs";
-import { createSearchableApiSource, splitApiRecord, validateComponentGuide, componentGuideMarkup, createDemoSearchMetadata, createPage } from "./render-component-page.mjs";
+import { createSearchableApiSource, splitApiRecord, validateComponentGuide, componentGuideMarkup, createDemoSearchMetadata, searchHeadingText, createPage } from "./render-component-page.mjs";
 import { withGeneratedFileRetry, removeOrphanGeneratedFiles } from "./generated-files.mjs";
 import { createLibraryNavigation, createLibraryData, createDependencyRecords, createDependenciesPage, updateReadmeInventory, createDesignCoverage } from "./render-library-pages.mjs";
 import { emitGeneratedFile } from "./generated-files.mjs";
 import { parseSourceApiProps, withApiSourceBatch } from "./api-source.mjs";
 import { densityFor, layoutFor, organizeDemos, readPresentation } from "./presentation.mjs";
+import { readDesignDocuments } from "./design-documents.mjs";
 import { readFile, readdir } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -25,13 +26,14 @@ const generatedApiDirectory = path.join(websiteDocsDirectory, "_generated_api");
 const generatedPagesDirectory = path.join(websiteDocsDirectory, "components");
 
 
-function createDataModule(demos) {
-    return `/**\n * ${GENERATED_MARKER}\n */\n\nimport type { ComponentDemoRecord } from "../site/componentDemos.js";\n\nexport const demos = ${serialize(demos)} as const satisfies readonly ComponentDemoRecord[];\n`;
+function createDataModule(demos, documents, guide) {
+    const { designSystems: _references, ...sharedGuide } = guide;
+    return `/**\n * ${GENERATED_MARKER}\n */\n\nimport type { ComponentDemoRecord } from "../site/componentDemos.js";\nimport type { ComponentDesignDocuments } from "../site/componentDesignGuide.js";\n\nexport const demos = ${serialize(demos)} as const satisfies readonly ComponentDemoRecord[];\n\nexport const documents = ${serialize(documents)} as const satisfies ComponentDesignDocuments;\n\nexport const guide = ${serialize(sharedGuide)} as const;\n`;
 }
 
 function createComponentPreviews(records) {
     const previews = {};
-    for (const { slug, demos } of records) {
+    for (const { slug, demos, documents } of records) {
         if (Object.hasOwn(previews, slug)) {
             throw new Error(`顶部预览组件重复：${slug}`);
         }
@@ -43,8 +45,13 @@ function createComponentPreviews(records) {
         }
         const { id, title, previewPath, workbenchPath, density } = demo;
         previews[slug] = { id, title, previewPath, workbenchPath, density };
+        if (documents) previews[slug].designs = Object.fromEntries(Object.entries(documents).map(([design, document]) => {
+            const first = demos.find(item => item.id === `docs/demos/${document.demos[0]}`);
+            const { id, title, previewPath, workbenchPath, density } = first;
+            return [design, { id, title, previewPath, workbenchPath, density }];
+        }));
     }
-    return `/**\n * ${GENERATED_MARKER}\n */\n\nimport type { ComponentDemoDescriptor } from "../site/componentDemoFrame.js";\n\nexport const componentPreviews = ${serialize(previews)} as const satisfies Readonly<Record<string, ComponentDemoDescriptor>>;\n`;
+    return `/**\n * ${GENERATED_MARKER}\n */\n\nimport type { ComponentPreviewRecord } from "../site/componentHeroPreview.js";\n\nexport const componentPreviews = ${serialize(previews)} as const satisfies Readonly<Record<string, ComponentPreviewRecord>>;\n`;
 }
 
 async function generateDocsBatch({ check: checkOnly = false } = {}) {
@@ -105,6 +112,8 @@ async function generateDocsBatch({ check: checkOnly = false } = {}) {
     outputs.push(await createHomeExample(repositoryRoot));
     const lessons = [];
     const componentPreviewRecords = [];
+    const designSummaries = {};
+    const demoDesigns = {};
     const globalDemoKeys = new Set();
     let demoCount = 0;
 
@@ -146,7 +155,18 @@ async function generateDocsBatch({ check: checkOnly = false } = {}) {
             });
         }
         const organizedDemos = organizeDemos(slug, demos);
-        componentPreviewRecords.push({ slug, demos: organizedDemos });
+        const authoredDocuments = await readDesignDocuments(componentDirectory, organizedDemos, slug);
+        const documents = Object.fromEntries(Object.entries(authoredDocuments).map(([design, document]) => [design, {
+            ...document, references: componentGuides[slug].designSystems[design].references,
+        }]));
+        designSummaries[slug] = Object.fromEntries(Object.entries(documents).map(([design, document]) => [design, document.summary]));
+        demoDesigns[slug] = {};
+        for (const demo of organizedDemos) {
+            const title = searchHeadingText(`${demo.title} — ${demo.description}`);
+            const designs = Object.entries(documents).filter(([, document]) => document.demos.includes(path.posix.basename(demo.id))).map(([design]) => design);
+            demoDesigns[slug][title] = [...new Set([...(demoDesigns[slug][title] ?? []), ...designs])];
+        }
+        componentPreviewRecords.push({ slug, demos: organizedDemos, documents });
         demoCount += organizedDemos.length;
 
         const api = [];
@@ -161,7 +181,7 @@ async function generateDocsBatch({ check: checkOnly = false } = {}) {
         outputs.push(lesson.output);
         outputs.push({
             filePath: path.join(generatedDataDirectory, `${slug}.ts`),
-            content: createDataModule(organizedDemos),
+            content: createDataModule(organizedDemos, documents, componentGuides[slug]),
         });
         for (const record of api) {
             const { primary, native } = splitApiRecord(record, slug);
@@ -181,6 +201,7 @@ async function generateDocsBatch({ check: checkOnly = false } = {}) {
                 slug === "rc-token-global" ? referenceTokens : [],
                 componentGuides[slug],
                 componentDescriptions[slug],
+                documents,
             ),
         });
     }
@@ -189,6 +210,10 @@ async function generateDocsBatch({ check: checkOnly = false } = {}) {
         throw new Error(`Demo 存在重复：${demoCount} 项中只有 ${globalDemoKeys.size} 个唯一 ID`);
     }
 
+    outputs.push({
+        filePath: path.join(generatedDataDirectory, "component-design-summaries.ts"),
+        content: `// ${GENERATED_MARKER}\nimport type { DesignSystem } from "@crab-dev/rc-token-semantic";\nexport const componentDesignSummaries: Readonly<Partial<Record<string, Record<DesignSystem, string>>>> = ${serialize(designSummaries)};\n\nexport const componentDemoDesigns: Readonly<Partial<Record<string, Readonly<Partial<Record<string, readonly DesignSystem[]>>>>>> = ${serialize(demoDesigns)};\n`,
+    });
     outputs.push({
         filePath: path.join(generatedDataDirectory, "component-previews.ts"),
         content: createComponentPreviews(componentPreviewRecords),

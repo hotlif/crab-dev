@@ -7,6 +7,14 @@ imports = [
 
 [token]
 
+# macOS Tahoe control roles; project Web adaptation.
+macos.item.background-color-hover = "$ref(color.background.hover-subtle)"
+macos.item.background-color-active = "$ref(color.background.active-subtle)"
+macos.item.background-image = "linear-gradient(180deg, color-mix(in srgb, $ref(color.surface.content) 16%, transparent), transparent)"
+macos.item.border-color = "$ref(color.border.subtle)"
+macos.item.box-shadow = "$ref(material.control-shadow)"
+
+
 # ─── 容器（track） ──────────────────────────────────────────────────────────
 # Baseline M3 outlined segments share a border; the selected segment owns its fill.
 

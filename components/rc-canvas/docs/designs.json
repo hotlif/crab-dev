@@ -1,0 +1,68 @@
+{
+    "md3": {
+        "summary": "将语义表面、颜色和焦点应用到可交互画布，图形场景与空间操作属于本库扩展。",
+        "usage": "画布中的重点对象可使用强调色，操作提示与可访问替代内容保持清晰。",
+        "exampleDescription": "拖动画布对象，观察语义表面上的位置变化，并检查相关操作说明。",
+        "demos": [
+            "draggable.demo.tsx",
+            "animation.demo.tsx",
+            "basic.demo.tsx",
+            "document-shadow.demo.tsx",
+            "group.demo.tsx",
+            "hover.demo.tsx",
+            "infinite-canvas.demo.tsx",
+            "line.demo.tsx",
+            "minimap.demo.tsx",
+            "opacity.demo.tsx",
+            "rounded.demo.tsx",
+            "text-advanced.demo.tsx",
+            "text-comparison.demo.tsx",
+            "text.demo.tsx",
+            "transformer.demo.tsx"
+        ]
+    },
+    "macos": {
+        "summary": "为桌面编辑区域提供图形、拖拽与缩放能力，工具层与画布内容分开组织。",
+        "usage": "保持文档对象与窗口背景的层次；缩略图和工具入口不遮挡当前编辑对象。",
+        "exampleDescription": "移动画布视图并查看缩略图，检查编辑区域与导航工具的空间关系。",
+        "demos": [
+            "minimap.demo.tsx",
+            "animation.demo.tsx",
+            "basic.demo.tsx",
+            "document-shadow.demo.tsx",
+            "draggable.demo.tsx",
+            "group.demo.tsx",
+            "hover.demo.tsx",
+            "infinite-canvas.demo.tsx",
+            "line.demo.tsx",
+            "opacity.demo.tsx",
+            "rounded.demo.tsx",
+            "text-advanced.demo.tsx",
+            "text-comparison.demo.tsx",
+            "text.demo.tsx",
+            "transformer.demo.tsx"
+        ]
+    },
+    "shadcn": {
+        "summary": "在简洁的内容表面上组织图形场景，用边界与选中反馈帮助用户理解对象。",
+        "usage": "用明确的图形层级和操作提示解释空间关系，避免把所有对象都当作卡片。",
+        "exampleDescription": "选中并调整对象，查看操作边界与图形内容在中性画布上的区别。",
+        "demos": [
+            "transformer.demo.tsx",
+            "animation.demo.tsx",
+            "basic.demo.tsx",
+            "document-shadow.demo.tsx",
+            "draggable.demo.tsx",
+            "group.demo.tsx",
+            "hover.demo.tsx",
+            "infinite-canvas.demo.tsx",
+            "line.demo.tsx",
+            "minimap.demo.tsx",
+            "opacity.demo.tsx",
+            "rounded.demo.tsx",
+            "text-advanced.demo.tsx",
+            "text-comparison.demo.tsx",
+            "text.demo.tsx"
+        ]
+    }
+}

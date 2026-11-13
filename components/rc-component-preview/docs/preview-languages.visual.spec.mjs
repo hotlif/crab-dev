@@ -40,7 +40,7 @@ for (const config of configurations) {
         }
         await draft.focus();
         await page.evaluate(config => globalThis.postMessage({ type: 'crab:preview-config', ...config }, globalThis.location.origin), {
-            designSystem: config.designSystem === 'apple' ? 'shadcn' : 'apple',
+            designSystem: config.designSystem === 'macos' ? 'shadcn' : 'macos',
             colorMode: config.colorMode === 'dark' ? 'light' : 'dark',
         });
         await expect(draft).toBeFocused();

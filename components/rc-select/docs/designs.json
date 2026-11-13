@@ -1,0 +1,56 @@
+{
+    "md3": {
+        "summary": "以持续可见的标签和选择面板组织候选项，选中状态与字段错误清楚关联。",
+        "usage": "选择项多时提供搜索或分组，辅助说明放在字段附近，避免只依赖占位符。",
+        "exampleDescription": "打开选择面板并选择项目，检查标签、错误提示和选中容器。",
+        "demos": [
+            "field-states.demo.tsx",
+            "allowClear.demo.tsx",
+            "basic.demo.tsx",
+            "disabled.demo.tsx",
+            "group.demo.tsx",
+            "loading.demo.tsx",
+            "maxTagCount.demo.tsx",
+            "multiple.demo.tsx",
+            "searchable.demo.tsx",
+            "size.demo.tsx",
+            "status.demo.tsx"
+        ]
+    },
+    "macos": {
+        "summary": "以紧凑桌面选择字段和独立弹出列表呈现选项，工具与内容保持清晰边界。",
+        "usage": "长列表需要可读标签和搜索入口，清除与展开操作不能遮挡当前值。",
+        "exampleDescription": "输入搜索内容并选择结果，观察桌面弹出列表的行高、焦点与当前值。",
+        "demos": [
+            "searchable.demo.tsx",
+            "allowClear.demo.tsx",
+            "basic.demo.tsx",
+            "disabled.demo.tsx",
+            "field-states.demo.tsx",
+            "group.demo.tsx",
+            "loading.demo.tsx",
+            "maxTagCount.demo.tsx",
+            "multiple.demo.tsx",
+            "size.demo.tsx",
+            "status.demo.tsx"
+        ]
+    },
+    "shadcn": {
+        "summary": "用中性字段、细边界列表和简洁选中反馈提供单选与多选。",
+        "usage": "多选项使用可读标签，数量较多时折叠显示，同时保留查看或移除路径。",
+        "exampleDescription": "添加和移除多个选项，检查标签与弹出列表在中性界面中的区分。",
+        "demos": [
+            "multiple.demo.tsx",
+            "allowClear.demo.tsx",
+            "basic.demo.tsx",
+            "disabled.demo.tsx",
+            "field-states.demo.tsx",
+            "group.demo.tsx",
+            "loading.demo.tsx",
+            "maxTagCount.demo.tsx",
+            "searchable.demo.tsx",
+            "size.demo.tsx",
+            "status.demo.tsx"
+        ]
+    }
+}

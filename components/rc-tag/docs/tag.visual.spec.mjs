@@ -13,7 +13,17 @@ for (const config of configurations) for (const size of spec.sizes) for (const d
         if (state === 'pressed') await page.mouse.down();
         if (state === 'focus-visible') { await selector.focus(); await page.keyboard.press('Tab'); await expect(control).toBeFocused(); expect(await control.evaluate(node => node.matches(':focus-visible'))).toBe(true); }
         if (state === 'disabled') { await expect(control).toHaveAttribute('aria-disabled', 'true'); await expect(control).toHaveAttribute('tabindex', '-1'); await selector.focus(); await page.keyboard.press('Tab'); await expect(frame.getByRole('button', { name: '移除筛选' })).toBeFocused(); await expect(control).toHaveAttribute('aria-checked', 'false'); }
-        if (state === 'selected') { await control.click(); await expect(control).toHaveAttribute('aria-checked', 'true'); await expect(control.locator('[data-role="selected-icon"]')).toBeVisible(); }
+        if (state === 'selected') {
+            const previous = await control.evaluate(node => ({ background: getComputedStyle(node).backgroundColor, symbols: [...node.querySelectorAll('svg')].map(icon => icon.outerHTML) }));
+            await control.click();
+            await expect(control).toHaveAttribute('aria-checked', 'true');
+            if (config.designSystem === 'macos') {
+                await expect(control.locator('[data-role="selected-icon"]')).toHaveCount(0);
+                expect(await control.evaluate(node => [...node.querySelectorAll('svg')].map(icon => icon.outerHTML))).toEqual(previous.symbols);
+                await settleFiniteAnimations(page);
+                expect(await control.evaluate(node => getComputedStyle(node).backgroundColor)).not.toBe(previous.background);
+            } else await expect(control.locator('[data-role="selected-icon"]')).toBeVisible();
+        }
         if (state === 'removed') { await frame.getByRole('button', { name: '移除筛选' }).click(); await expect(frame.getByRole('button', { name: '移除筛选' })).toHaveCount(0); await expect(frame.getByRole('status')).toContainText('筛选已移除'); }
         await settleFiniteAnimations(page);
         const geometry = await control.boundingBox(); expect(geometry.width).toBeGreaterThan(0); expect(geometry.height).toBeGreaterThan(0);

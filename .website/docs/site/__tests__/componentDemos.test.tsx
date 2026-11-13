@@ -159,7 +159,7 @@ describe("ComponentDemoFrame", () => {
         const postMessage = mock.fn();
         const frameWindow: ComponentDemoFrameWindow = { document: frameDocument, postMessage };
         const getFrameWindow = () => frameWindow;
-        const preview = (design: "md3" | "shadcn" | "apple") => (
+        const preview = (design: "md3" | "shadcn" | "macos") => (
             <ConfigProvider designSystem={design}>
                 <ComponentDemoFrame demo={descriptor} presentation="artwork" getFrameWindow={getFrameWindow}
                     renderFrame={renderTestFrame} />
@@ -190,13 +190,13 @@ describe("ComponentDemoFrame", () => {
             previewConfiguration({ designSystem: "md3" }),
             window.location.origin,
         );
-        await rerender(preview("apple"));
+        await rerender(preview("macos"));
         expect(container.querySelector('[title="基础用法 外观预览"]')).toBe(frame);
         expect(frame?.getAttribute("tabindex")).toBe("-1");
-        expect(frameDocument.documentElement.dataset.crabDesign).toBe("apple");
-        expect(contentRoot.dataset.crabDesign).toBe("apple");
+        expect(frameDocument.documentElement.dataset.crabDesign).toBe("macos");
+        expect(contentRoot.dataset.crabDesign).toBe("macos");
         expect(postMessage).toHaveBeenCalledWith(
-            previewConfiguration({ designSystem: "apple" }),
+            previewConfiguration({ designSystem: "macos" }),
             window.location.origin,
         );
     });
@@ -343,7 +343,7 @@ describe("ComponentDemoFrame", () => {
         const postMessage = mock.fn();
         const frameWindow: ComponentDemoFrameWindow = { document: frameDocument, postMessage };
         const getFrameWindow = () => frameWindow;
-        const preview = (design: "md3" | "shadcn" | "apple") => (
+        const preview = (design: "md3" | "shadcn" | "macos") => (
             <ConfigProvider designSystem={design}>
                 <ComponentDemoFrame demo={demo} getFrameWindow={getFrameWindow} renderFrame={renderTestFrame} />
             </ConfigProvider>
@@ -366,11 +366,11 @@ describe("ComponentDemoFrame", () => {
             window.location.origin,
         );
         expect(screen.getByTitle("基础用法 交互演示").getAttribute("data-attempt")).toBe("0");
-        await rerender(preview("apple"));
-        expect(frameDocument.documentElement.dataset.crabDesign).toBe("apple");
-        expect(contentRoot.dataset.crabDesign).toBe("apple");
+        await rerender(preview("macos"));
+        expect(frameDocument.documentElement.dataset.crabDesign).toBe("macos");
+        expect(contentRoot.dataset.crabDesign).toBe("macos");
         expect(postMessage).toHaveBeenCalledWith(
-            previewConfiguration({ designSystem: "apple" }),
+            previewConfiguration({ designSystem: "macos" }),
             window.location.origin,
         );
         expect(screen.getByTitle("基础用法 交互演示").getAttribute("data-attempt")).toBe("0");
@@ -410,7 +410,7 @@ describe("ComponentDemoFrame", () => {
             size: "small", density: "compact", locale: "en-US", direction: "rtl", nonce: "outer-nonce",
         };
         const overrides: Partial<ConfigValue> = {
-            designSystem: "apple", colorMode: "light", brandColor: "#345678",
+            designSystem: "macos", colorMode: "light", brandColor: "#345678",
             size: "large", density: "comfortable", nonce: "preview-nonce",
         };
         const expected = previewConfiguration({ ...inherited, ...overrides });
@@ -560,7 +560,7 @@ describe("ComponentDemoFrame", () => {
         const postMessage = mock.fn();
         const frameWindow: ComponentDemoFrameWindow = { document: frameDocument, postMessage };
         const getFrameWindow = () => frameWindow;
-        const preview = (design: "apple" | "shadcn", colorMode: "light" | "dark" = "light") => (
+        const preview = (design: "macos" | "shadcn", colorMode: "light" | "dark" = "light") => (
             <ConfigProvider designSystem={design} colorMode={colorMode}>
                 <ComponentDemoFrame demo={demo} getFrameWindow={getFrameWindow}
                     renderFrame={renderTestFrame} readyTimeoutMs={50} />
@@ -568,7 +568,7 @@ describe("ComponentDemoFrame", () => {
         );
         let unmount: (() => Promise<void>) | undefined;
         try {
-            const rendered = await renderImmediately(preview("apple"));
+            const rendered = await renderImmediately(preview("macos"));
             unmount = rendered.unmount;
             const frame = screen.getByTitle("基础用法 交互演示");
             await act(async () => { await clock.advanceBy(50); });

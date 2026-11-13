@@ -15,7 +15,7 @@ async function settleLayout() {
 }
 
 describe('Pagination disabled current location with published CSS', () => {
-    for (const designSystem of ['md3', 'apple', 'shadcn'] as const) {
+    for (const designSystem of ['md3', 'macos', 'shadcn'] as const) {
         for (const colorMode of ['light', 'dark'] as const) {
             it(`keeps a neutral visible marker without enabling navigation (${designSystem}/${colorMode})`, async () => {
                 const onValueChange = mock.fn();

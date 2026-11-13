@@ -8,11 +8,16 @@ status = "experimental"
 {/* THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY. */}
 
 import ComponentDemos from "../site/componentDemos.js";
-import { demos } from "../_generated/rc-radio.js";
+import ComponentDesignGuide, { DesignIntroduction, DesignExampleIntroduction } from "../site/componentDesignGuide.js";
+import { demos, documents, guide } from "../_generated/rc-radio.js";
 
 # Radio 单选框
 
 <div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-radio</div>
+
+## 设计与用法
+
+<DesignIntroduction documents={documents} />
 
 <div id="基础示例" data-docs-example-anchor /><div id="全部示例" data-docs-example-anchor />
 
@@ -22,7 +27,7 @@ import { demos } from "../_generated/rc-radio.js";
 
 ##### 基础用法 — 最简单的 Radio 用法
 
-##### 三套设计与状态 — Apple 使用填充圆盘和对比圆点，MD3 与 shadcn 分别使用不同尺寸的圆环、圆点与焦点反馈。
+##### 当前主题的交互状态 — 观察当前主题下的选中、禁用和焦点反馈；示例继承文档配置，可直接操作。
 
 ##### 禁用状态 — 添加 `disabled` 属性即可让单选框处于禁用状态
 
@@ -30,100 +35,15 @@ import { demos } from "../_generated/rc-radio.js";
 
 ##### 单选框尺寸 — 通过 `size` 属性设置单选框尺寸, 支持 `large`、`medium`、`small` 三种
 
-##### 三体系状态矩阵 — 真实输入对照默认、选择、错误、禁用和键盘焦点；切换外观保留选择。
-
 </div>
 
-<ComponentDemos demos={demos} />
+<DesignExampleIntroduction documents={documents} />
 
-[打开完整组件工作台](/components/rc-radio/workbench/)
+<ComponentDemos demos={demos} documents={documents} />
 
 ## 使用说明
 
-从一组互斥且可见的选项中选择一个值。
-
-
-### 何时使用
-
-- 从少量互斥选项中选择一个值，例如支付方式或配置类型。
-- 需要让用户直接比较全部选项时使用 Radio；选项较多或空间有限时使用 Select。
-
-### 设计依据与视觉状态
-
-### 三套设计风格
-
-`apple` 默认使用 16px 圆盘、1px 描边和轻阴影；选中时填充品牌色，并显示 6px 对比圆点，浅色主题为白点，深色使用配对前景色。`shadcn` 默认使用 16px 中空圆环、1px 描边和 8px 品牌色圆点。二者去掉 MD3 的圆形状态层，保留可见键盘焦点、悬停、错误与禁用反馈。small / medium / large：Apple 为 14 / 16 / 18px，shadcn 为 14 / 16 / 20px。
-
-这些变化通过 L2 语义变量由 `ConfigProvider designSystem` 驱动，明暗主题与嵌套边界使用同一组组件样式。Apple 是依据 Apple HIG 的 Web 定制，不表示 AppKit 原生实现；shadcn 的尺寸扩展与 24px 紧凑容器属于本项目约定。粗指针操作区至少 48px。
-
-以下圆环和状态层说明专指 `md3`。
-
-页面依据 [M3 Expressive](https://m3.material.io/blog/building-with-m3-expressive) 的排版、用途色和内容分组呈现关键选择。通知场景中的选项容器属于应用组合，不新增 Radio 外观类型。Radio 保留 [Material Design 3 Radio](https://m3.material.io/components/radio-button/overview) 的圆环、圆点与圆形状态层。默认 20px 圆环采用恒定 2px 描边，选中时圆环和圆点使用品牌色，内部保持透明；small / large 分别为 16 / 24px。颜色通过 L3 消费现有 L2，自动适配明暗主题与单色品牌配置。
-
-48px 点击目标内的 40px 圆形状态层承载悬停 8%、聚焦和按压 12% 的状态层，悬停文字也会触发反馈；键盘焦点另有独立轮廓。圆点和状态层仅使用 CSS 过渡。禁用时沿用 Crab 的禁用透明度，圆环、圆点和文字使用中性色，不响应交互反馈。
-
-原生输入负责组内单选和键盘行为。使用 `aria-label` 或 `aria-labelledby` 为 RadioGroup 命名；校验提示通过 Radio 的 `aria-invalid` 与 `aria-describedby` 关联。强制颜色下以系统圆环和圆点表达选中。
-
-选中圆点常驻并绝对定位，只以透明度和缩放过渡显示；圆框采用固定盒模型，外层固定行内对齐。切换选项不会改变圆框尺寸、文字位置或相邻控件的间距。
-
-RadioGroup 未指定 `name` 或传入空字符串时，会生成稳定的组内名称，让方向键在当前组循环，避免跳入页面中的其他组。显式 `name` 保持原值；不同独立组不应复用同一个名称。组内不要再给单个 Radio 设置不同的 `name`。
-
-**原生表单迁移**：自动名称也属于原生表单字段。使用 FormData 的页面应明确设置例如 `name="notificationFrequency"` 的业务名称，不依赖自动 ID，也不依赖未命名组原先不进入 FormData 的行为。
-
-Material 的默认命中区为 48×48 CSS px，圆环和圆点仍保持指定的视觉尺寸。长标签采用正文行高并允许换行；紧密组合需检查目标区域没有相互重叠。
-
-键盘焦点使用公共 L2 焦点角色，通过 L3 覆盖可调整；原生方向键移动后，即使 WebKit 丢失 `:focus-visible`，内部键盘模态仍保留轮廓，指针按下则恢复指针反馈。减少动态效果时移除非必要过渡。实际浏览器应逐项检查 Tab / Shift+Tab、原生激活方式、两种主题、强制颜色、长标签与粗指针布局。当前源码修复与自动检查状态见质量审查记录，不能把 CSS 中存在媒体查询等同于设备验收通过。
-
-规则依据：[状态系统](/guides/accessibility)、[无障碍与键盘](/guides/accessibility)、[布局与密度](/guides/getting-started)。
-
-设计来源（2026-10-22）：[M3 规格](https://m3.material.io/components/radio-button/specs)、[使用指南](https://m3.material.io/components/radio-button/guidelines)、[无障碍](https://m3.material.io/components/radio-button/accessibility)、[Material Web 文档与演示](https://material-web.dev/components/radio/)、[实现样式](https://github.com/material-components/material-web/blob/main/radio/internal/_radio.scss)、[令牌](https://github.com/material-components/material-web/blob/main/tokens/_md-comp-radio.scss)、[Apple HIG Toggles](https://developer.apple.com/design/human-interface-guidelines/toggles)、[shadcn RadioGroup 源码](https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui/radio-group.tsx)。
-
-
-### 维护与矩阵验收
-
-触控场景使用原生轻触改变选择，保留粗指针几何检查；窄屏与真实缩放分别测量可见控件、标签和实际文字范围，不能仅凭 Demo 容器无溢出判定内容可用。新增断言仍需对应浏览器结果与人工外观复审。
-
-MD3 使用圆形选择环、实心选中点和独立状态层；Apple 使用较小圆环与轻量表面；shadcn 保留中性描边与实心选中点。所有颜色、轮廓、几何和字体来自本包 L3 对 L2 的映射。三档 size 与 collection density 独立。
-
-状态矩阵逐一覆盖未选中和选中的 hover / focus-visible / pressed、错误与禁用。单选值只表达一个布尔或组内选项，不支持 mixed；组内互斥仍由原生 radio 和 RadioGroup 协议负责。
-
-包内 `docs/visual.json` 是该组件的可执行尺寸、密度、状态与跨引擎范围清单；`visual-matrix.demo.tsx` 使用公开入口。Chromium 执行完整核心矩阵，Firefox / WebKit 执行清单指定的默认与关键交互子集。窄屏 320 / 768px、长内容、RTL / 英文、品牌覆盖、强制颜色与减少动画分别登记环境场景；配置切换保留原 DOM 与值。真实 200% 浏览器缩放、iframe / Shadow DOM 与跨 Document 验收仍由集成矩阵记录，不以视口或 DPR 代替。
-
-本批来源复核日期为 2026-10-29。[Material Web 控件文档](https://material-web.dev/components/radio/)提供 Web 行为对照；Material Web 不完整覆盖 Expressive，精确 Expressive 形态采用本页注明的项目扩展。[Apple HIG](https://developer.apple.com/design/human-interface-guidelines)作为自主 Web 实现的原则依据；shadcn 继续锁定 New York V4 的 `3d98900e9b73c45f035f8109e9d41ba6a51685e7`，引用提交以产品清单为准。M3 官网需 JavaScript 的规格页未在本批静态读取中补造精确参数。
-
-测试发现、截图候选、像素稳定性与人工外观复审分别记录。当前新增矩阵尚待统一浏览器执行和逐项复审，设计覆盖保持 partial，不能用用例存在或默认测试通过更新为 verified。
-
-
-### 状态契约
-
-`checked / defaultChecked / onCheckedChange(next, details)` 管理独立单选框，原因是 `toggle`；原生 `onChange(event)` 保留事件签名。RadioGroup 使用 `value / defaultValue / onValueChange(next, details)`，原因是 `select`。
-
-受控值与默认值互斥；默认值仅在初始化时使用。外部属性更新不触发操作回调，省略回调可展示只读受控快照。
-
-### 适用场景
-
-选项数量少且需要并列比较。 选择是必需或有合理默认值，并且每项含义稳定。
-
-可多选使用 Checkbox；选项很多或需要搜索使用 Select；即时二态设置使用 Switch。
-
-### 使用要点
-
-- 把 Radio 放进 RadioGroup，由 group value 维护唯一选中项。
-- 每个 value 稳定且唯一，label 使用用户语言而不是内部代码。
-- 默认值必须是安全、可解释的选择；不应为了省一步替用户同意重要条款。
-
-### 无障碍
-
-- 组需要可访问名称，方向键在组内移动，Tab 只进入当前组一次。
-- 错误和禁用原因用文字说明，选中圆点之外保留清楚的状态语义。
-
-### 设计依据与覆盖
-
-- **MD3 Expressive**：直接参考 M3 Radio buttons 的组模型、尺寸、颜色、状态层和无障碍行为，并对照 Material Web radio。 [依据 1](https://m3.material.io/components/radio-button/overview) · [依据 2](https://material-web.dev/components/radio/) · [依据 3](https://github.com/material-components/material-web/tree/main/radio)
-- **Apple**：依据 Apple HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。 [依据 1](https://developer.apple.com/design/human-interface-guidelines/components) · [依据 2](https://developer.apple.com/design/human-interface-guidelines/accessibility)
-- **shadcn/ui**：参考 shadcn/ui 的组件用途、中性表面与设计变量，在本库公共语义和 React 交互模型中实现；完整状态覆盖仍需按矩阵验收。 [依据 1](https://ui.shadcn.com/docs/components) · [依据 2](https://ui.shadcn.com/docs/theming) · [依据 3](https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4)
-
-设计依据不等于完成验收；当前状态与适用边界见[覆盖矩阵](/guides/design-coverage)。
+<ComponentDesignGuide guide={guide} documents={documents} />
 
 ## 常见问题
 

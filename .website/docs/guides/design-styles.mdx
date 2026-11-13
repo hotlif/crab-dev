@@ -1,21 +1,22 @@
 +++
 title = "三套设计体系"
-description = "MD3 Expressive、Apple 与 shadcn/ui 的依据、边界和验收规则"
+description = "MD3 Expressive、macOS 与 shadcn/ui 的依据、边界和验收规则"
 kind = "guide"
 status = "experimental"
 +++
 
 import DesignShowcase from "../site/designShowcase.js";
+import EngineeringWorkspace from "../site/engineeringWorkspace.js";
 
 # 三套设计体系
 
-Crab UI 用同一套组件能力承载三个独立设计体系：MD3 Expressive、Apple、shadcn/ui。它们共享公共交互语义，通过成组的设计令牌定义颜色、排版、形状、尺寸、层级和状态。明暗、品牌、尺寸和密度是独立配置轴。组件库、文档站与工作台默认都使用 MD3 Expressive。
+Crab UI 用同一套组件能力承载三个独立设计体系：MD3 Expressive、macOS、shadcn/ui。它们共享公共交互语义，通过成组的设计令牌定义颜色、排版、形状、尺寸、层级和状态。明暗、品牌、尺寸和密度是独立配置轴。组件库、文档站与工作台默认都使用 MD3 Expressive。
 
 ## 桌面专业视觉基线
 
 三体系以任务效率、内容层级和清晰状态为共同目标。默认 `medium / standard`；紧凑密度用于高密度数据，舒适密度增加阅读与操作空间。粗指针使用独立的命中区域和自动几何下限，画布坐标与文档页面不随密度缩放。
 
-| 能力 | MD3 Expressive | Apple Web | shadcn/ui |
+| 能力 | MD3 Expressive | macOS Tahoe 26 | shadcn/ui |
 | --- | --- | --- | --- |
 | 操作 | 用填充、色调和形状表达主次，强调集中于关键动作 | 清楚的主操作、轻量次操作和稳定的圆角轮廓 | 中性层次、描边与克制的强调色 |
 | 字段 | 上置稳定标签、紧凑连续轮廓或状态底线，错误和说明独立占位 | 上置稳定标签、清楚的输入边界和外部焦点环 | 上置标签、明确描边和一致的聚焦反馈 |
@@ -35,9 +36,17 @@ Crab UI 用同一套组件能力承载三个独立设计体系：MD3 Expressive�
 
 上述内容定义实现与验收目标。覆盖状态仍以实际候选的逐组件证据为准；规格、构建和共享测试不能替代视觉复审。
 
+## 工程管理与设备运维
+
+专业工作台以设备树、数据表格、属性面板和多任务页签组织连续工作。桌面示例使用 `small / compact`，字段与工具按钮保持接近的尺度，正文维持可读性与独立焦点；分栏支持调整，长表格在自己的区域滚动，设备编号与日期保持稳定对齐。表格以水平分隔表达行关系，表头与正文通过字重和留白区分，不给每个数据单元格绘制完整线框。状态同时提供文字和形状，语义色留给运行、待保养与检修等业务含义。
+
+macOS Tahoe 的材质与层级服务于操作定位；数据、参数和工作备注保留实色表面。以搜索设备、切换树范围、选择记录、编辑参数并返回原草稿的完整路径验收，不能仅凭单个按钮或组件展示页判断是否适合工程软件。
+
+<EngineeringWorkspace />
+
 ## 配置与交互对照
 
-`designSystem="md3" | "apple" | "shadcn"` 选择体系，`colorMode="light" | "dark"` 设置解析后的明暗；文档站另提供跟随系统的偏好。品牌、尺寸、密度、语言和方向各自独立：`brandColor` 用一个不透明十六进制色重算语义色对，`null` 回落到所选体系的默认品牌；`size`、`density`、`locale`、`direction` 与继承最近边界的 `nonce` 见[公共 API](/guides/public-api)。旧浏览器偏好迁移见[迁移指南](/guides/migration)。
+`designSystem="md3" | "macos" | "shadcn"` 选择体系，`colorMode="light" | "dark"` 设置解析后的明暗；文档站另提供跟随系统的偏好。品牌、尺寸、密度、语言和方向各自独立：`brandColor` 用一个不透明十六进制色重算语义色对，`null` 回落到所选体系的默认品牌；`size`、`density`、`locale`、`direction` 与继承最近边界的 `nonce` 见[公共 API](/guides/public-api)。旧浏览器偏好迁移见[迁移指南](/guides/migration)。
 
 <DesignShowcase />
 
@@ -49,11 +58,30 @@ Crab UI 用同一套组件能力承载三个独立设计体系：MD3 Expressive�
 
 实施每个组件前查阅对应使用指南、规格和无障碍说明；同时对照 Material Web 的文档、示例、行为、样式和令牌。Material Web 的既有 M3 基线不自动代表所有 Expressive 新变体，差异必须逐项记录。空间变化和颜色/透明度变化使用各自的动效角色，减少动画时保留必要反馈。
 
-## Apple
+## macOS Tahoe 26 Liquid Glass
 
-依据 Apple Human Interface Guidelines 的层级、内容、控件与反馈原则，自主实现适用于浏览器的 Apple 设计体系。它不承诺 AppKit 原生控件、特定 macOS 版本、Liquid Glass 材质或系统窗口行为。
+固定以 macOS Tahoe 26（2025 年引入的 Liquid Glass）为设计基准，显示名称为 macOS，公共 ID 为 `macos`。以 [Apple Liquid Glass 概览](https://developer.apple.com/cn/documentation/technologyoverviews/liquid-glass)及其采用指南为入口，具体 macOS 控件以 [WWDC25 AppKit 说明](https://developer.apple.com/videos/play/wwdc2025/310/)为基准。参考 Apple HIG 的 Materials、Buttons、Menus、Text fields、Toggles；Web 的尺寸、阴影与模糊参数是项目适配值，不等同于 AppKit 系统常量。
 
-系统字体、清晰的重点操作、适合桌面阅读的控件比例、表面层级、焦点与选中状态需要成组设计。浏览器键盘、表单和 ARIA 语义保持明确；触控和窄屏也必须可用。不能以蓝色、银灰色或窗口装饰冒充完整体系。
+界面分为内容层与操作层。正文、表格、树、卡片、画布和编辑区域使用稳定的实色内容表面；浮层、菜单容器、工具栏与侧边导航使用 regular Liquid Glass 的 Web 适配：带底色的半透明材质、背景模糊、边缘与斜向高光、柔和悬浮阴影。普通字段保留清晰边界，不给整页套透明滤镜。玻璃效果只采样页面内背景，不采样操作系统桌面，也不模拟原生光学折射。
+
+| 组件族 | Tahoe 适配 |
+| --- | --- |
+| Button | 保持五档桌面尺寸；xs/s/m 采用圆角矩形，l/xl 采用胶囊；普通 push、次要 tint、主要 tint 和浮动 glass 独立实现；危险、禁用、焦点独立表达 |
+| LineEdit、TextEdit、NumberEdit、Select | 外部稳定标签、8px 控件轮廓、28/32/36px 单行 Web 档位、轻内阴影与外部焦点环；内容编辑表面实色 |
+| Checkbox、Radio、Switch、Slider | 紧凑桌面比例、强调色选择、独立焦点、清晰滑块；Checkbox/Radio 的边缘与按压反馈独立实现，表格/树扩大命中区域也不会出现圆形 MD 状态光圈 |
+| Segmented、Tabs、导航 | 紧凑轨道与有边缘高光的选中块；不使用 MD 状态遮罩、下划线或按下形变；Tabs 的 card/pill 变体保留 API，统一映射为桌面 tab bezel |
+| NumberEdit、Select、TimePicker | 上下箭头组成一个数字步进器；单选菜单左侧勾选列与活动行分开；时间默认数字输入，显式 dial 属于扩展 |
+| Card、Alert、CheckableTag | 卡片内容不随悬停抬升或按下缩放；内联提示使用中性正文与状态图标；可选标签按桌面 toggle button 表达，保持传入图标稳定 |
+| Dropdown、Dialog、Drawer、Tooltip | 浮层材质、分级圆角与阴影；Portal 使用最近 Provider 配置；弹层内长内容保持可读 |
+| Message、Notification | 玻璃浮动反馈表面，语义状态色和关闭操作保持清楚 |
+| Table、Tree、表单、编辑器、图表 | 内容实色、桌面字阶、分隔线与清晰选中；没有直接原生对应的部分属于本库扩展 |
+| AppMainLayout、PdfEditor | 独立悬浮侧栏；工具栏文字保持透明背景，相关操作共享玻璃容器；PDF 缩略图以选中边框表达，不给文档预览铺大块强调色 |
+
+浅色玻璃以浅灰底色承载深色文本，深色使用深灰底色承载浅色文本。macOS 独立定义错误、成功、警告、信息和搜索高亮的颜色配对，不引用 MD3 颜色合同。深色主操作与实色状态标记保持饱和底色配白字，文本链接和状态正文另用浅色角色，避免直接把 Material 深色模式的浅色实心控件带入 Mac。默认使用系统字体；其他平台采用字体回退。品牌、明暗、尺寸、密度保持独立。嵌套 md3/shadcn 边界重置玻璃角色，切换主题保留输入、选择和草稿。
+
+材质默认实色，仅在浏览器支持 backdrop-filter 时增强；prefers-reduced-transparency、prefers-contrast: more 恢复实色，forced-colors 使用系统色并移除装饰，减少动画沿用现有动效退化。材质不会通过鼠标跟踪或循环动画制造持续运动。
+
+设计覆盖保持 partial，逐组件的实际截图、状态和交互证据才能提升覆盖等级。
 
 ## shadcn/ui
 
@@ -97,7 +125,7 @@ partial 表示已有实现但完整矩阵未验收，verified 需要当前提交
 
 ## 参考资料与版本
 
-核对日期：2026-10-23。以下为设计和实现入口；具体组件选择的变体、实现版本与差异继续在组件正文中维护。Material 与 Apple 部分规范需要 JavaScript 浏览，不以抓取不到正文代表已完成规格核对。
+核对日期：2026-10-23。以下为设计和实现入口；具体组件选择的变体、实现版本与差异继续在组件正文中维护。Material 与 macOS 部分规范需要 JavaScript 浏览，不以抓取不到正文代表已完成规格核对。
 
 - [M3 Expressive 介绍](https://m3.material.io/blog/building-with-m3-expressive)、[按钮规格](https://m3.material.io/components/buttons/specs)、[无障碍](https://m3.material.io/components/buttons/accessibility)、[动效](https://m3.material.io/styles/motion/overview/how-it-works)。
 - [Material Web 按钮文档与演示](https://material-web.dev/components/button/)、[共享样式](https://github.com/material-components/material-web/blob/main/button/internal/_shared.scss)、[Filled 令牌](https://github.com/material-components/material-web/blob/main/tokens/versions/v0_192/_md-comp-filled-button.scss)。这些基线对照不能替代 Expressive 新规格。

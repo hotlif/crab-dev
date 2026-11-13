@@ -8,11 +8,16 @@ status = "experimental"
 {/* THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY. */}
 
 import ComponentDemos from "../site/componentDemos.js";
-import { demos } from "../_generated/rc-slider.js";
+import ComponentDesignGuide, { DesignIntroduction, DesignExampleIntroduction } from "../site/componentDesignGuide.js";
+import { demos, documents, guide } from "../_generated/rc-slider.js";
 
 # Slider 滑块
 
 <div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-slider</div>
+
+## 设计与用法
+
+<DesignIntroduction documents={documents} />
 
 <div id="基础示例" data-docs-example-anchor /><div id="全部示例" data-docs-example-anchor />
 
@@ -22,88 +27,19 @@ import { demos } from "../_generated/rc-slider.js";
 
 ##### 滑块基础用法 — 将受控滑块与原生数字输入同步，演示 onValueChange 与原生 onChange 事件的适配。
 
-##### 三套设计与状态 — Apple 的窄胶囊手柄、MD3 的细竖柄和 shadcn 的圆形手柄；支持键盘步进与从右到左布局。
+##### 当前主题的交互状态 — 观察当前主题下的选中、禁用和焦点反馈；示例继承文档配置，可直接操作。
 
-##### 五档尺寸 — 尺寸会随设计风格调整；MD3 保留竖向手柄、轨道间隙与终点。
-
-##### 三体系轨道状态矩阵 — 五档视觉尺寸，真实拖动与键盘调整，范围、错误与禁用状态。
+##### 五档尺寸 — 比较当前主题的五档滑块尺寸，操作手柄并使用键盘微调当前值。
 
 </div>
 
-<ComponentDemos demos={demos} />
+<DesignExampleIntroduction documents={documents} />
 
-[打开完整组件工作台](/components/rc-slider/workbench/)
+<ComponentDemos demos={demos} documents={documents} />
 
 ## 使用说明
 
-通过拖动滑块在指定数值范围内选择值。
-
-
-### 何时使用
-
-用于音量、亮度或阈值等有明确范围的数值调整，可选择连续值或按步长选择离散值。需要精确键入数值时可使用 NumberEdit。
-
-### 桌面密度
-
-`md3` 使用竖向手柄、轨道间隙与终点标记。`size` 提供 `xs`（默认）、`s`、`m`、`l`、`xl`，轨道高度分别为 4、6、8、12、16px，手柄高度分别为 20、24、28、32、40px。这是保留 Expressive 竖向手柄的项目密度定制，尺寸不等同于官方 Expressive 规格，也不同于 Material Web v0.192 的圆形手柄；粗指针仍提供至少 48px 的纵向操作区域。按压时手柄变细；数值更新立即跟随拖动，不对拖动位置添加延迟。
-
-`apple` 参考 Apple HIG 的线性滑块，采用 8×20px 的浅色窄胶囊手柄、轻阴影、连续细轨道；五档轨道高度为 4 / 4 / 6 / 8 / 10px。`shadcn` 使用 16px 白色圆柄、1px 品牌描边与连续轨道，五档高度为 6 / 6 / 8 / 10 / 12px。两者不显示 MD3 终点标记，按压不把圆柄压成竖线。Apple 尺寸与 shadcn 额外档位是项目 Web 定制。
-
-所有设计共享 `aria-valuenow`、`aria-valuetext`、禁用、错误和键盘焦点能力。焦点轮廓跟随当前手柄；方向键逐步调整，Home / End 到达边界，PageUp / PageDown 调整十步。`dir="rtl"` 将低值放在行首，指针和左右方向键同步反转，上下方向键继续表达增加和减少。
-
-只有主指针按钮开始拖动；鼠标右键和中键保留原有菜单或浏览器操作，不改变数值。横向滚动和 Ctrl 滚轮缩放也交给浏览器。`1e-7` 等科学记数步长与普通小数使用相同的对齐规则，指针、键盘和滚轮保持一致。2026-11-01 补充这些交互回归，三套体系继续共享数值协议。
-
-错误状态下轨道与焦点使用错误色，MD3 的实心手柄同步变色；Apple 与 shadcn 保留浅色手柄并显示错误描边。状态演示为每条轨道提供可见标签，并通过 `aria-labelledby` 关联控件。
-
-MD3 禁用状态采用 `on-surface` 中性色：已填充轨道与手柄为 38%，未填充轨道为 12%，避免继续以品牌色表示可用操作。
-
-设计来源（2026-10-22）：[M3 规格](https://m3.material.io/components/sliders/specs)、[使用指南](https://m3.material.io/components/sliders/guidelines)、[无障碍](https://m3.material.io/components/sliders/accessibility)、[Material Web 文档与演示](https://material-web.dev/components/slider/)、[实现样式](https://github.com/material-components/material-web/blob/main/slider/internal/_slider.scss)、[令牌](https://github.com/material-components/material-web/blob/main/tokens/_md-comp-slider.scss)、[Apple HIG Sliders](https://developer.apple.com/design/human-interface-guidelines/sliders)、[shadcn Slider 源码](https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui/slider.tsx)。
-
-### 维护与矩阵验收
-
-触控场景保留原键盘步进检查，再以原生触屏轻触轨道验证实际数值变化；窄屏与真实缩放检查轨道、手柄、标签、端点与说明的实际边界和文字范围。容器无溢出不能单独证明这些内容可用，新增断言仍需浏览器执行与人工复审。
-
-五档 xs / s / m / l / xl 逐档登记；CSS 轨道、手柄、停止点与焦点来自本包 L3 对 L2 range 角色的映射，指针测量仍读取实际轨道，不维护另一份尺寸表。MD3 采用 Expressive 竖向手柄的桌面扩展；Apple 与 shadcn 的轨道及手柄形态继续分别映射。
-
-矩阵以真实手柄拖动、方向键和 Home / End 进入数值状态，核对最小、最大、错误、禁用与焦点。拖动持有真实指针状态，未注入伪造 CSS 状态。Slider 只有单数值协议；range 双手柄与确定进度不是现有能力，不能作为遗漏用例计为通过。
-
-包内 `docs/visual.json` 是该组件的可执行尺寸、密度、状态与跨引擎范围清单；`visual-matrix.demo.tsx` 使用公开入口。Chromium 执行完整核心矩阵，Firefox / WebKit 执行清单指定的默认与关键交互子集。窄屏 320 / 768px、长内容、RTL / 英文、品牌覆盖、强制颜色与减少动画分别登记环境场景；配置切换保留原 DOM 与值。真实 200% 浏览器缩放、iframe / Shadow DOM 与跨 Document 验收仍由集成矩阵记录，不以视口或 DPR 代替。
-
-本批来源复核日期为 2026-10-29。[Material Web 控件文档](https://material-web.dev/components/slider/)提供 Web 行为对照；Material Web 不完整覆盖 Expressive，精确 Expressive 形态采用本页注明的项目扩展。[Apple HIG](https://developer.apple.com/design/human-interface-guidelines)作为自主 Web 实现的原则依据；shadcn 继续锁定 New York V4 的 `3d98900e9b73c45f035f8109e9d41ba6a51685e7`，引用提交以产品清单为准。M3 官网需 JavaScript 的规格页未在本批静态读取中补造精确参数。
-
-测试发现、截图候选、像素稳定性与人工外观复审分别记录。当前新增矩阵尚待统一浏览器执行和逐项复审，设计覆盖保持 partial，不能用用例存在或默认测试通过更新为 verified。
-
-
-### 状态契约
-
-`value / defaultValue / onValueChange(next, details)` 管理数值。`details.reason` 区分 `pointer / keyboard / wheel`，并提供对应的原始事件。
-
-受控值与默认值互斥；默认值仅在初始化时使用。外部属性更新不触发操作回调，省略回调可展示只读受控快照。
-
-### 适用场景
-
-音量、亮度、比例等范围值需要快速调整。 min、max 和 step 明确，用户可以根据相对位置做决定。
-
-精确数值输入使用 NumberEdit；少量离散选择使用 Segmented 或 Radio。
-
-### 使用要点
-
-- min、max、step 和 value 必须使用同一单位。
-- 受控 value 与 onValueChange 配对，拖动和键盘调整都会通知最新值。
-- 标签或值显示帮助用户理解手柄位置代表什么。
-
-### 无障碍
-
-- 提供可访问名称、当前值文字、上下限和键盘增减操作。
-- 轨道颜色之外要有可定位手柄与焦点，触控目标大于可见手柄。
-
-### 设计依据与覆盖
-
-- **MD3 Expressive**：直接参考 M3 Sliders 的 continuous/discrete、尺寸、值指示、状态与触控目标，并对照 Material Web slider。 [依据 1](https://m3.material.io/components/sliders/overview) · [依据 2](https://material-web.dev/components/slider/) · [依据 3](https://github.com/material-components/material-web/tree/main/slider)
-- **Apple**：依据 Apple HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。 [依据 1](https://developer.apple.com/design/human-interface-guidelines/components) · [依据 2](https://developer.apple.com/design/human-interface-guidelines/accessibility)
-- **shadcn/ui**：参考 shadcn/ui 的组件用途、中性表面与设计变量，在本库公共语义和 React 交互模型中实现；完整状态覆盖仍需按矩阵验收。 [依据 1](https://ui.shadcn.com/docs/components) · [依据 2](https://ui.shadcn.com/docs/theming) · [依据 3](https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4)
-
-设计依据不等于完成验收；当前状态与适用边界见[覆盖矩阵](/guides/design-coverage)。
+<ComponentDesignGuide guide={guide} documents={documents} />
 
 ## 常见问题
 

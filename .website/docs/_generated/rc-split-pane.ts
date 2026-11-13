@@ -3,6 +3,7 @@
  */
 
 import type { ComponentDemoRecord } from "../site/componentDemos.js";
+import type { ComponentDesignDocuments } from "../site/componentDesignGuide.js";
 
 export const demos = [
     {
@@ -131,3 +132,73 @@ export const demos = [
         "group": "分栏与尺寸控制"
     }
 ] as const satisfies readonly ComponentDemoRecord[];
+
+export const documents = {
+    "md3": {
+        "summary": "将相关内容放入可调整分区，分隔与表面角色帮助理解空间关系。",
+        "usage": "内容区各自保持最小可读尺寸，分隔条需要键盘操作与可访问名称。",
+        "exampleDescription": "调整两个分区的宽度，检查语义表面、内容约束和分隔位置。",
+        "demos": [
+            "basic.demo.tsx",
+            "persist.demo.tsx",
+            "primary-second.demo.tsx",
+            "vertical.demo.tsx"
+        ],
+        "references": [
+            "https://m3.material.io/components/divider/overview",
+            "https://material-web.dev/components/divider/",
+            "https://github.com/material-components/material-web/tree/main/divider"
+        ]
+    },
+    "macos": {
+        "summary": "为桌面侧栏、编辑器与检查器提供可调整分栏，贴合窗口式工作方式。",
+        "usage": "保留侧栏最小宽度和主内容空间，持久化尺寸时考虑窗口变化。",
+        "exampleDescription": "调整并恢复分栏尺寸，观察桌面工作区域在重新打开后的比例。",
+        "demos": [
+            "persist.demo.tsx",
+            "basic.demo.tsx",
+            "primary-second.demo.tsx",
+            "vertical.demo.tsx"
+        ],
+        "references": [
+            "https://developer.apple.com/design/human-interface-guidelines/components",
+            "https://developer.apple.com/design/human-interface-guidelines/accessibility"
+        ]
+    },
+    "shadcn": {
+        "summary": "用清晰的细分隔组织可调整内容面板，适合编辑器和数据工具。",
+        "usage": "分栏边界应易于操作，竖向分区需要分别约束滚动和最小高度。",
+        "exampleDescription": "拖动竖向分隔并检查两个内容区，确认边界、滚动和尺寸约束。",
+        "demos": [
+            "vertical.demo.tsx",
+            "basic.demo.tsx",
+            "persist.demo.tsx",
+            "primary-second.demo.tsx"
+        ],
+        "references": [
+            "https://ui.shadcn.com/docs/components",
+            "https://ui.shadcn.com/docs/theming",
+            "https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4"
+        ]
+    }
+} as const satisfies ComponentDesignDocuments;
+
+export const guide = {
+    "definition": "SplitPane 把相邻区域分成可拖动调整大小的面板，常见于编辑器、预览器和数据工作台。分隔条既是视觉边界，也是一个可操作控件。",
+    "useWhen": [
+        "用户需要在两个相关区域之间分配空间。",
+        "两个面板需要同时可见，并可能记住用户上次尺寸。"
+    ],
+    "avoidWhen": [
+        "窄屏无法同时容纳内容时改为分步、Tabs 或 Drawer；纯装饰分栏使用 CSS Grid。"
+    ],
+    "essentials": [
+        "orientation、primary、min/max 共同决定尺寸计算。",
+        "拖动过程中限制合法范围，结束后再持久化最终尺寸。",
+        "内容溢出由各面板处理，不能让分隔条被滚动内容遮住。"
+    ],
+    "accessibility": [
+        "分隔条使用 separator 语义并提供当前值、方向键调整和可见焦点。",
+        "触控命中区可以大于可见线；缩放和窄屏时两个面板仍要可达。"
+    ]
+} as const;

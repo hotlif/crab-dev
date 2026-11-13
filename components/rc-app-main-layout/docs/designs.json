@@ -1,0 +1,29 @@
+{
+    "md3": {
+        "summary": "以色调导航区域和胶囊目的地组织桌面工作区，关键操作与阅读内容分层。",
+        "usage": "先定义导航目的地，再组织页面页签；多工作页与账户编排是本库的组合能力。",
+        "exampleDescription": "切换侧栏目的地与工作页，观察选中容器、内容区和主要操作的层级。",
+        "demos": [
+            "base.demo.tsx",
+            "long-account.demo.tsx"
+        ]
+    },
+    "macos": {
+        "summary": "以桌面工具栏、轻量侧栏和独立内容区域建立工作窗口，导航材质与正文分离。",
+        "usage": "让工具栏承载当前任务动作，侧栏承载位置；窄屏收起导航后仍保留回到内容的路径。",
+        "exampleDescription": "查看长账户名称在桌面工具栏中的排列，再操作侧栏和工作页入口。",
+        "demos": [
+            "long-account.demo.tsx",
+            "base.demo.tsx"
+        ]
+    },
+    "shadcn": {
+        "summary": "以中性侧栏、细边界和紧凑导航组织管理工作区，页面内容保持清晰主体。",
+        "usage": "将选中项和分组标题作为导航线索，避免给每个区域重复增加装饰表面。",
+        "exampleDescription": "从基础布局切换页面，检查侧栏选中行、页签与内容边界是否清晰。",
+        "demos": [
+            "base.demo.tsx",
+            "long-account.demo.tsx"
+        ]
+    }
+}

@@ -1,6 +1,7 @@
 import { afterEach, beforeEach, clock, describe, expect, it, mock } from '@crab-dev/wake/test';
 import { act, fireEvent, render, screen } from '@crab-dev/wake/test/react';
 import Button from '../button.js';
+import ConfigProvider from '@crab-dev/rc-config-provider';
 
 beforeEach(async () => { await clock.fake(); });
 afterEach(async () => { await clock.restore(); });
@@ -8,6 +9,24 @@ const advance = (time: number) => act(async () => { await clock.advanceBy(time);
 const hasFeedback = (element: HTMLElement) => element.hasAttribute('data-press-feedback');
 
 describe('Button activation feedback', () => {
+    it('uses independent macOS feedback and preserves the button across design switches', async () => {
+        const view = await render(<ConfigProvider designSystem="macos"><Button appearance="tonal">Save</Button></ConfigProvider>);
+        const button = screen.getByRole('button', { name: 'Save' });
+        expect(button.getAttribute('data-button-design')).toBe('macos');
+        await fireEvent.click(button, { detail: 0 });
+        await advance(119);
+        expect(hasFeedback(button)).toBe(true);
+        await advance(1);
+        expect(hasFeedback(button)).toBe(false);
+        await view.rerender(<ConfigProvider designSystem="md3"><Button appearance="tonal">Save</Button></ConfigProvider>);
+        expect(screen.getByRole('button', { name: 'Save' })).toBe(button);
+        expect(button.hasAttribute('data-button-design')).toBe(false);
+        await fireEvent.click(button, { detail: 0 });
+        await advance(120);
+        expect(hasFeedback(button)).toBe(true);
+        await advance(105);
+        expect(hasFeedback(button)).toBe(false);
+    });
     it('keeps synthesized clicks visible without delaying the action or changing toggle semantics', async () => {
         const onClick = mock.fn();
         await render(<Button appearance="primary" onClick={onClick}>Save</Button>);

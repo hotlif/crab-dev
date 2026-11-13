@@ -11,7 +11,7 @@ import {
 import type { DialogHTMLAttributes, ReactNode, MouseEvent, Ref } from "react";
 import RcButton, { TokenVars as buttonVars } from "@crab-dev/rc-button";
 import { usePresence, useControllableOpen, type ControlledOpenProps } from "@crab-dev/rc-hooks";
-import { useLocale } from "@crab-dev/rc-config-provider";
+import { useLocale, useConfig } from "@crab-dev/rc-config-provider";
 import { useConfigStyleBoundary } from '@crab-dev/rc-config-provider/internal';
 
 import token from "./token.js";
@@ -169,6 +169,7 @@ function Dialog({
     ...restProps
 }: DialogProps) {
     const boundary = useConfigStyleBoundary();
+    const macos = useConfig().designSystem === 'macos';
     const { messages } = useLocale();
     const [open, setOpen] = useControllableOpen<DialogOpenChangeDetails>({ open: controlledOpen, defaultOpen, onOpenChange });
     const dialogRef = useRef<HTMLDialogElement>(null);
@@ -366,7 +367,10 @@ function Dialog({
                             border-radius: ${dimensionBorderRadius};
                             border: 1px solid ${token.root['border-color']};
                             box-shadow: ${elevationBoxShadow};
-                            background: ${colorDialogBackgroundColor};
+                            backdrop-filter: ${token.material['backdrop-filter']};
+                            -webkit-backdrop-filter: ${token.material['backdrop-filter']};
+                            background-image: ${token.material['background-image']};
+                            background-color: ${colorDialogBackgroundColor};
                             @media (forced-colors: active) { outline: 1px solid CanvasText; box-shadow: none; }
                         `)}
                     >
@@ -451,7 +455,7 @@ function Dialog({
                         >
                             <RcButton
                                 data-dialog-action="cancel"
-                                appearance="text"
+                                appearance={macos ? "outlined" : "text"}
                                 className={css`
                                     ${buttonVars['text.color']}: ${token.footer.cancel.color};
                                     ${buttonVars['text.background-color-hover']}: ${token.footer.cancel['background-color-hover']};
@@ -471,7 +475,7 @@ function Dialog({
                             </RcButton>
                             <RcButton
                                 data-dialog-action="confirm"
-                                appearance="text"
+                                appearance={macos ? "primary" : "text"}
                                 className={css`
                                     ${buttonVars['text.color']}: ${token.footer.confirm.color};
                                     ${buttonVars['text.background-color-hover']}: ${token.footer.confirm['background-color-hover']};

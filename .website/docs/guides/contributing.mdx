@@ -26,6 +26,7 @@ status = "experimental"
 | 组件正文、交互 Demo、API | 包内 `docs/index.mdx`、`docs/demos/`、真实类型 | `public/docgen.json`、站点组件页与 API 数据 | 包内 `generate:docgen`（若提供）、站点文档验证 |
 | 教学文字与 FAQ | `.website/content/` | 教程模块、学习页与检索文字 | 站点文档验证 |
 | 组件预览布局、密度、分组与顶部 Demo | 各包 `docs/presentation.json` | 组件示例记录与预览索引 | 站点文档验证 |
+| 组件主题介绍、用法与示例选集 | 各包 `docs/designs.json` | 当前主题正文、示例指引、目录摘要与主题顶部预览 | 站点文档验证与主题切换浏览器检查 |
 | 教学步骤运行文件 | `.website/docs/examples/` | 从运行文件提取的教程源码与预览 | 站点文档验证，运行代码另跑站点 `lint`、`typecheck`、`test` |
 | 维护与设计规范 | `.website/docs/guides/` 中非生成正文 | 原路径发布 | 站点文档验证 |
 | 站点布局、预览桥接 | `.website/docs/site/` | 站点构建产物 | 站点 `check`，界面变化另做浏览器验收 |

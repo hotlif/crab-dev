@@ -1,4 +1,5 @@
-import { useComponentSize } from '@crab-dev/rc-config-provider';
+import { useComponentSize, useConfig } from '@crab-dev/rc-config-provider';
+import { macosCardStyle } from './card.designs.js';
 import { cx } from '@crab-dev/css';
 import { Children, Fragment, isValidElement, type KeyboardEvent, type ReactElement } from 'react';
 import Skeleton from '@crab-dev/rc-skeleton';
@@ -45,6 +46,7 @@ const CardBase = ({
     ref,
     ...restProps
 }: CardProps) => {
+    const { designSystem } = useConfig();
     const size = useComponentSize(sizeProp);
     // 防错优于报错：加载 / 禁用态一并撤销悬浮与点击示能
     const actionable = clickable && !disabled && !loading;
@@ -106,6 +108,8 @@ const CardBase = ({
         <div
             {...restProps}
             ref={ref}
+            data-interactive={interactive ? '' : undefined}
+            data-card-variant={variant ?? 'default'}
             className={cx(
                 cardBaseStyle,
                 variantStyleOf(variant),
@@ -115,6 +119,7 @@ const CardBase = ({
                 variant === 'outlined' && interactive && outlinedInteractiveStyle,
                 disabled && disabledStyle,
                 loading && loadingStyle,
+                designSystem === 'macos' && macosCardStyle,
                 className,
             )}
             role={clickable ? 'button' : undefined}

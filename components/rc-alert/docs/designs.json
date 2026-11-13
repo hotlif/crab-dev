@@ -1,0 +1,32 @@
+{
+    "md3": {
+        "summary": "以色调容器承载持续反馈，标题与图标共同说明信息、成功、警告或错误。内联提示是项目扩展。",
+        "usage": "把提示放在受影响内容附近，主要操作保留明确强调，关闭操作保持低强调。",
+        "exampleDescription": "从四种反馈开始，检查色调表面上的标题和说明，再尝试关闭提示。",
+        "demos": [
+            "basic.demo.tsx",
+            "closable.demo.tsx",
+            "title.demo.tsx"
+        ]
+    },
+    "macos": {
+        "summary": "以轻量反馈底色和紧凑标题提示当前工作区的状态，内容与关闭操作清晰分开。",
+        "usage": "在设置或文档区域保留持续提示，避免用浮动材质遮住需要阅读的错误详情。",
+        "exampleDescription": "关闭一条工作区提示，观察剩余内容的位置，并检查关闭按钮的键盘焦点。",
+        "demos": [
+            "closable.demo.tsx",
+            "basic.demo.tsx",
+            "title.demo.tsx"
+        ]
+    },
+    "shadcn": {
+        "summary": "用中性表面、细描边与文字层级组织内联反馈，危险状态通过图标和文案共同表达。",
+        "usage": "适合表单和管理页面中的局部提示；语义状态色是本库在基础提示模式上的扩展。",
+        "exampleDescription": "先查看带标题的提示，再对比基础反馈，确认长说明仍保持清晰阅读层级。",
+        "demos": [
+            "title.demo.tsx",
+            "basic.demo.tsx",
+            "closable.demo.tsx"
+        ]
+    }
+}

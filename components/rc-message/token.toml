@@ -42,3 +42,7 @@ stack.translate = "$ref(space.group-gap)"
 motion.spatial.transition = "$ref(motion.spatial.fast)"
 motion.exit.transition = "$ref(motion.layout)"
 motion.offset.translate = "$ref(space.component-gap)"
+
+# Shared material roles resolve at the closest theme boundary.
+material.backdrop-filter = "$ref(material.filter)"
+material.background-image = "$ref(material.sheen)"

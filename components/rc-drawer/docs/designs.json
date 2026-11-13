@@ -1,0 +1,38 @@
+{
+    "md3": {
+        "summary": "以侧向内容表面补充当前页面，保留主任务与详情面板之间的空间关系。",
+        "usage": "根据任务选择模态或非模态行为；主要动作和关闭入口应始终可达。",
+        "exampleDescription": "从不同方向打开面板，检查进入位置、遮罩与关闭后的焦点恢复。",
+        "demos": [
+            "placement.demo.tsx",
+            "basic.demo.tsx",
+            "document-boundaries.demo.tsx",
+            "nested.demo.tsx",
+            "with-footer.demo.tsx"
+        ]
+    },
+    "macos": {
+        "summary": "用桌面侧面板承载详情、设置或检查器，导航操作与阅读内容分别组织。",
+        "usage": "面板宽度应容纳字段与标签，嵌套弹层要继承当前窗口配置。",
+        "exampleDescription": "打开带底部操作的设置面板，滚动内容并检查保存与关闭是否可达。",
+        "demos": [
+            "with-footer.demo.tsx",
+            "basic.demo.tsx",
+            "document-boundaries.demo.tsx",
+            "nested.demo.tsx",
+            "placement.demo.tsx"
+        ]
+    },
+    "shadcn": {
+        "summary": "以明确边界和中性表面呈现侧向补充内容，适合详情查看与轻量编辑。",
+        "usage": "保留触发入口的上下文，面板内表单与底部动作按任务顺序排列。",
+        "exampleDescription": "从页面打开基础侧面板，检查内容边界、关闭动作和背景交互。",
+        "demos": [
+            "basic.demo.tsx",
+            "document-boundaries.demo.tsx",
+            "nested.demo.tsx",
+            "placement.demo.tsx",
+            "with-footer.demo.tsx"
+        ]
+    }
+}

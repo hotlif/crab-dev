@@ -83,7 +83,7 @@ Canvas 真正卸载后主动释放 WebGL 上下文，避免虚拟列表反复挂
 
 ## 设计风格与主题
 
-Canvas 按 Crab 的专业绘图扩展维护。Material Design 3 Expressive（`md3`）、Apple（`apple`）和 shadcn/ui（`shadcn`）的来源与固定基线见[三套设计体系](/guides/design-styles)；这些依据用于语义角色和编辑辅助界面，不定义本库的 WebGL 绘图协议。
+Canvas 按 Crab 的专业绘图扩展维护。Material Design 3 Expressive（`md3`）、macOS（`macos`）和 shadcn/ui（`shadcn`）的来源与固定基线见[三套设计体系](/guides/design-styles)；这些依据用于语义角色和编辑辅助界面，不定义本库的 WebGL 绘图协议。
 
 默认文字、网格、选区、内联编辑框、变换手柄和小地图通过本包 L3 色板映射到各体系的前景、表面、选中、焦点和浮层角色。WebGL 接收在画布 DOM 边界解析后的颜色；`palette` 可局部覆盖这些角色，显式图元颜色保持优先。未指定 `fill` / `stroke` 的 `Rect` 仍按图元 API 保持透明。
 

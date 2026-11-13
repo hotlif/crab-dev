@@ -22,3 +22,7 @@ root.max-width = "calc(100vw - $ref(space.section-gap))"
 
 motion.spatial.transition = "$ref(motion.spatial.fast)"
 motion.exit.transition = "$ref(motion.layout)"
+
+# Shared material roles resolve at the closest theme boundary.
+material.backdrop-filter = "$ref(material.filter)"
+material.background-image = "$ref(material.sheen)"

@@ -6,6 +6,13 @@ imports = [
 ]
 
 [token]
+
+# Independent Tahoe controls; Web adaptation of AppKit.
+macos.option.color = "$ref(color.text.primary)"
+macos.option.color-active = "$ref(color.text.on-brand)"
+macos.option.background-color-active = "$ref(color.brand.primary)"
+macos.check.margin-inline-end = "$ref(space.inline-gap)"
+
 option.checkbox.width = "$ref(size.icon)"
 root.transition = "background-color $ref(motion.interaction), border-color $ref(motion.interaction), color $ref(motion.interaction), box-shadow $ref(motion.interaction)"
 motion.interaction.transition = "$ref(motion.interaction)"

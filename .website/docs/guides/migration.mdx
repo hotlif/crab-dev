@@ -21,7 +21,7 @@ status = "experimental"
 
 MD3 按钮显式 `xs / s / m / l / xl` 保留 32/40/56/96/136px Expressive 规格。省略按钮 size 且 Group 未指定 size 时，继承 Provider 的 small / medium / large 改为 32/36/40px 桌面规格；显式 size 和 Group 的显式 size 仍优先。默认按钮为 36px，密度独立。
 
-Apple 使用 24/28/32/40/48px 的自主 Web 桌面尺度；shadcn 使用 32/36/40px 的参考尺度，并保留 48/56px 项目扩展。应用继续使用原有 Props；通过公共 TokenVars 定制的应用应检查尺寸与焦点边界。具体角色和状态见 [Button](/components/rc-button)。
+macOS 使用 24/28/32/40/48px 的自主 Web 桌面尺度；shadcn 使用 32/36/40px 的参考尺度，并保留 48/56px 项目扩展。应用继续使用原有 Props；通过公共 TokenVars 定制的应用应检查尺寸与焦点边界。具体角色和状态见 [Button](/components/rc-button)。
 
 ## 独立消费与宿主依赖
 
@@ -34,16 +34,16 @@ Apple 使用 24/28/32/40/48px 的自主 Web 桌面尺度；shadcn 使用 32/36/4
 | 旧用法 | 新用法 |
 | --- | --- |
 | design="material" | designSystem="md3" |
-| design="macos" | designSystem="apple" |
+| designSystem="apple" | designSystem="macos" |
 | design="shadcn" | designSystem="shadcn" |
 | theme="light" / "dark" | colorMode="light" / "dark" |
 | 跟随系统明暗 | 应用监听系统偏好后传 colorMode="light" / "dark" |
 | size="middle" | size="medium" |
 | 用 size 表达页面疏密 | 独立设置 density="compact" / "standard" / "comfortable" |
 
-`useConfig()` 使用 designSystem / colorMode / size / density 等同名新字段。ThemeDesign 改为 DesignSystem，themeColorContract 改为 md3ColorContract，macosColorContract 改为 appleColorContract。新设计名显示为 MD3 Expressive、Apple、shadcn/ui，根配置统一为 md3 / light / medium / standard / zh-CN / ltr。
+`useConfig()` 使用 designSystem / colorMode / size / density 等同名新字段。ThemeDesign 改为 DesignSystem，themeColorContract 改为 md3ColorContract，appleColorContract 改为 macosColorContract。新设计名显示为 MD3 Expressive、macOS、shadcn/ui，根配置统一为 md3 / light / medium / standard / zh-CN / ltr。
 
-非 React 页面仍用 `data-crab-design` 和 `data-theme`，但前者的值必须迁移为 md3 / apple / shadcn；后者只写解析后的 light / dark。
+非 React 页面仍用 `data-crab-design` 和 `data-theme`，但前者的值必须迁移为 md3 / macos / shadcn；后者只写解析后的 light / dark。
 
 Card 切换设计体系或明暗时，内容表面与文字同步切换，背景色不再单独插值；位移、阴影、描边和状态层动效继续生效。无需修改 Props。自定义过渡的应用应一并核对标题、正文、Meta 和自定义子内容的中间态可读性。
 
@@ -53,7 +53,7 @@ PDF Web Component 同步迁移：`editor.theme` 改为 `editor.colorMode`，`<cr
 
 ## 浏览器历史偏好
 
-网站保留已有偏好 key。只有读取浏览器存储时接受 material→md3、macos→apple，读取后写回新 ID；旧 shadcn 保持。新公共类型、Provider、CSS 属性和 iframe 消息不接受旧 ID。没有偏好或存储不可用时默认 MD3 Expressive。
+网站保留已有偏好 key。只有读取浏览器存储时接受 material→md3、apple→macos，读取后写回新 ID；旧 shadcn 保持。新公共类型、Provider、CSS 属性和 iframe 消息不接受旧 ID。没有偏好或存储不可用时默认 MD3 Expressive。
 
 ## 控件与表单
 
@@ -74,7 +74,7 @@ PDF Web Component 同步迁移：`editor.theme` 改为 `editor.colorMode`，`<cr
 
 LineEdit/TextEdit 的原生 `onChange(event)` 继续保留；业务值更新建议用 `onValueChange(next)`。Form 中库内值控件采用默认适配，布尔控件采用 checked，原生字段采用 native/nativeChecked。Button 显式尺寸使用 xs/s/m/l/xl；其他通用尺寸使用 small/medium/large。
 
-Form 的 `Item labelPlacement="control"` 现在只提供整行控件槽，标签、辅助说明和错误信息由控件自身排布。Apple 与 shadcn 的文本字段在表单内与独立使用时一致，静态标签位于输入上方；DatePicker、Select 等带结构容器的控件也占用整行，不再落入外部标签列。依赖旧同排标签效果的页面应改用 `labelPlacement="external"`（仍为默认值），由 Form 对齐外部标签。移除依赖 Form 深层 `data-field-*` 选择器或继承 `subgrid` 的覆盖；自定义控件须保持根容器适应槽宽，并继续传递标签、说明及无障碍关联属性。该布局修正不改变字段值协议、适配器或校验行为。
+Form 的 `Item labelPlacement="control"` 现在只提供整行控件槽，标签、辅助说明和错误信息由控件自身排布。macOS 与 shadcn 的文本字段在表单内与独立使用时一致，静态标签位于输入上方；DatePicker、Select 等带结构容器的控件也占用整行，不再落入外部标签列。依赖旧同排标签效果的页面应改用 `labelPlacement="external"`（仍为默认值），由 Form 对齐外部标签。移除依赖 Form 深层 `data-field-*` 选择器或继承 `subgrid` 的覆盖；自定义控件须保持根容器适应槽宽，并继续传递标签、说明及无障碍关联属性。该布局修正不改变字段值协议、适配器或校验行为。
 
 Form 中的 CheckboxGroup、RadioGroup 等选项组应使用 `Item labelPlacement="external" labelTarget="group"`。将渲染函数字段的 `id` 和 `aria-labelledby` 转发到组根，移除首选项上复用的字段 ID；各选项保留自己的可见名称和 ID。已有显式组名称继续优先，渲染函数不要把自动 `aria-labelledby` 与显式 `aria-label` 一并转发而改变原命名优先级。单个 Checkbox/Radio 和 `labelPlacement="control"` 无需迁移。组语义必须显式选择外部布局，不依赖宿主默认值或运行时类型猜测；值适配、回调与校验协议不变。
 
@@ -109,3 +109,9 @@ Table/TablePro 的 getRowHeight / row.height 和 Tree 的 node.height / defaultN
 所有 MD3 字段改用上置标签，默认单行控件高 40px，Tab 高 36px。标签与说明在控件边界之外，整个字段的高度包括标签、4px 间距和说明；请移除按旧 56px 整体字段设置的固定高度。Outlined 不再显示轮廓缺口，Filled 不再为内部标签保留顶部空间。
 
 label、aria-labelledby、错误说明、值及事件接口不变；依赖浮动标签位置、fieldset 缺口或旧内边距的自定义 CSS 应改用公开令牌与外部布局。切换主题保留原输入节点、选择和草稿。
+
+## macOS Tahoe 26
+
+将所有 `designSystem="apple"`、`data-crab-design="apple"` 和 iframe 配置中的 `apple` 改为 `macos`。`appleColorContract` 导出改为 `macosColorContract`，不提供旧公共别名。浏览器已保存的 apple 偏好会自动迁移，历史 macos 偏好继续有效。
+
+该切换同时改变组件外观：操作轮廓、浮层材质、导航选中块、字段边界和阴影按 Tahoe 26 适配。自定义 CSS 或 TokenVars 的消费方需要检查描边、焦点与内容可读性。明暗、品牌、尺寸、密度和交互事件不变。减少透明度模式会使用实色表面。

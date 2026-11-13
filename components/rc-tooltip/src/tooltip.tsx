@@ -52,6 +52,9 @@ const tooltipStyle = css`
     max-width: ${token.root['max-width']};
     padding: ${token.root['padding-block']} ${token.root['padding-inline']};
     background-color: ${token.root['background-color']};
+    backdrop-filter: ${token.material['backdrop-filter']};
+    -webkit-backdrop-filter: ${token.material['backdrop-filter']};
+    background-image: ${token.material['background-image']};
     color: ${token.root.color};
     font-size: ${token.root['font-size']};
     line-height: ${token.root['line-height']};

@@ -58,6 +58,10 @@ for (const config of configurations) for (const size of spec.sizes) for (const s
         expect(geometry.width).toBeGreaterThan(0);
         expect(geometry.height).toBeGreaterThan(0);
         const handle = control.locator(":scope > span");
+        if (config.designSystem === 'macos') {
+            expect(await control.evaluate(node => getComputedStyle(node, '::after').display)).toBe('none');
+            await expect(handle).toHaveCSS('backdrop-filter', state.includes('pressed') ? 'blur(24px) saturate(1.5)' : 'none');
+        }
         const handleStyle = await handle.evaluate(node => {
             const style = globalThis.getComputedStyle(node);
             return {

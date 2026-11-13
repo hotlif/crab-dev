@@ -1,6 +1,7 @@
 import { type HTMLAttributes, type FC, useState, useEffect, type Key, type ReactNode } from "react";
 import { cx } from "@crab-dev/css";
-import { useLocale } from '@crab-dev/rc-config-provider';
+import { useLocale, useConfig } from '@crab-dev/rc-config-provider';
+import { macosSidebarStyle } from './layout.designs.js';
 import RcMenu from "@crab-dev/rc-menu";
 import Button from "@crab-dev/rc-button";
 import type { MenuItem } from "@crab-dev/rc-menu";
@@ -124,9 +125,10 @@ const Sidebar: FC<SidebarProps> = ({
     collapsed,
     ...restProps
 }) => {
+    const { designSystem } = useConfig();
     return (
         <aside
-            className={cx.call(undefined, sidebarStyle, className)}
+            className={cx.call(undefined, sidebarStyle, designSystem === 'macos' && macosSidebarStyle, className)}
             data-collapsed={collapsed ? "true" : "false"}
             {...restProps}
         >

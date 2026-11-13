@@ -3,6 +3,7 @@
  */
 
 import type { ComponentDemoRecord } from "../site/componentDemos.js";
+import type { ComponentDesignDocuments } from "../site/componentDesignGuide.js";
 
 export const demos = [
     {
@@ -106,3 +107,70 @@ export const demos = [
         "group": "布局与阅读顺序"
     }
 ] as const satisfies readonly ComponentDemoRecord[];
+
+export const documents = {
+    "md3": {
+        "summary": "让不同高度的内容卡片按可用宽度排列，表面和留白跟随当前语义角色。",
+        "usage": "瀑布流适合可独立阅读的内容，重要的步骤顺序不能只由视觉列决定。",
+        "exampleDescription": "查看不同高度卡片的排列，确认色调容器之间的留白与阅读关系。",
+        "demos": [
+            "basic.demo.tsx",
+            "columns.demo.tsx",
+            "sequential.demo.tsx"
+        ],
+        "references": [
+            "https://m3.material.io/foundations/layout/understanding-layout/overview",
+            "https://material-web.dev/components/",
+            "https://github.com/material-components/material-web"
+        ]
+    },
+    "macos": {
+        "summary": "为桌面内容浏览区域组织不等高面板，列宽与间距随实际空间调整。",
+        "usage": "缩小窗口时检查每个面板的最小可读宽度，不把内容压进过窄的列。",
+        "exampleDescription": "切换列数，观察桌面内容面板的宽度、间距和整体浏览密度。",
+        "demos": [
+            "columns.demo.tsx",
+            "basic.demo.tsx",
+            "sequential.demo.tsx"
+        ],
+        "references": [
+            "https://developer.apple.com/design/human-interface-guidelines/components",
+            "https://developer.apple.com/design/human-interface-guidelines/accessibility"
+        ]
+    },
+    "shadcn": {
+        "summary": "以简洁网格排列不同高度的内容块，边框卡片之间保持稳定间距。",
+        "usage": "需要明确阅读顺序时使用顺序排列，避免视觉位置与键盘顺序产生歧义。",
+        "exampleDescription": "查看顺序布局中的卡片排列，检查阅读顺序和紧凑边界的关系。",
+        "demos": [
+            "sequential.demo.tsx",
+            "basic.demo.tsx",
+            "columns.demo.tsx"
+        ],
+        "references": [
+            "https://ui.shadcn.com/docs/components",
+            "https://ui.shadcn.com/docs/theming",
+            "https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4"
+        ]
+    }
+} as const satisfies ComponentDesignDocuments;
+
+export const guide = {
+    "definition": "Masonry 把高度不同的内容按列紧密排列，减少瀑布流中的空白。视觉顺序可能与普通行优先阅读不同，因此只适合彼此相对独立的内容卡片。",
+    "useWhen": [
+        "图片、灵感卡片或作品集高度差异明显。",
+        "内容可以独立阅读，不依赖严格的从左到右行顺序。"
+    ],
+    "avoidWhen": [
+        "新闻、表单或步骤有明确阅读顺序时使用普通 Grid/List；需要对齐字段时使用 Table。"
+    ],
+    "essentials": [
+        "选择 columns 或响应式列宽，并预留媒体尺寸减少重排。",
+        "sequential 模式优先 DOM 阅读顺序，其他布局策略要评估视觉与语义顺序差异。",
+        "增量加载时保持项目 key 稳定，避免整个瀑布流跳动。"
+    ],
+    "accessibility": [
+        "DOM 顺序必须仍然形成可理解的阅读和 Tab 顺序。",
+        "图片提供替代文本，加载更多后把状态通告与焦点留在可预测位置。"
+    ]
+} as const;

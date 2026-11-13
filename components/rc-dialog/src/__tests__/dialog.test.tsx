@@ -458,16 +458,16 @@ describe('shared modal lifecycle', () => {
 
 describe('nested native events', () => {
     it('re-establishes custom brand and density on a native dialog and clears an explicit brand reset', async () => {
-        const view = await render(<ConfigProvider designSystem="apple" brandColor="#6750a4" density="compact" nonce="brand-modal"><Dialog open title="Branded" /></ConfigProvider>);
+        const view = await render(<ConfigProvider designSystem="macos" brandColor="#6750a4" density="compact" nonce="brand-modal"><Dialog open title="Branded" /></ConfigProvider>);
         const modal = view.container.querySelector('dialog');
         const scope = modal?.getAttribute('data-crab-brand');
         const sheet = modal?.querySelector('style[data-crab-brand-style]');
         expect(scope).toBeTruthy();
         expect(sheet?.getAttribute('data-crab-brand-style')).toBe(scope);
         expect(sheet?.getAttribute('nonce')).toBe('brand-modal');
-        expect(sheet?.textContent).toContain(`[data-crab-brand="${scope}"][data-theme="light"][data-crab-design="apple"]`);
+        expect(sheet?.textContent).toContain(`[data-crab-brand="${scope}"][data-theme="light"][data-crab-design="macos"]`);
         expect(modal?.getAttribute('data-crab-density')).toBe('compact');
-        await view.rerender(<ConfigProvider designSystem="apple" brandColor={null}><Dialog open title="Branded" /></ConfigProvider>);
+        await view.rerender(<ConfigProvider designSystem="macos" brandColor={null}><Dialog open title="Branded" /></ConfigProvider>);
         expect(modal?.getAttribute('data-crab-brand')).toBeNull();
         expect(modal?.querySelector('style[data-crab-brand-style]')).toBeNull();
     });

@@ -1,0 +1,29 @@
+{
+    "md3": {
+        "summary": "以语义字段和浮层承载颜色选择，颜色空间与透明度编辑是本库扩展。",
+        "usage": "用文本值辅助颜色感知，颜色预览与焦点、错误等界面语义分开表达。",
+        "exampleDescription": "打开颜色字段并调整颜色，核对预览与文本值是否同步。",
+        "demos": [
+            "colorPicker.demo.tsx",
+            "colorPickerPanel.demo.tsx"
+        ]
+    },
+    "macos": {
+        "summary": "为桌面编辑器提供紧凑颜色字段和面板，色彩内容与周围工具层保持区别。",
+        "usage": "编辑器中可使用独立面板，常规设置中优先从字段展开，保留清晰返回路径。",
+        "exampleDescription": "在独立面板中修改颜色与透明度，观察数值输入与色块的关系。",
+        "demos": [
+            "colorPickerPanel.demo.tsx",
+            "colorPicker.demo.tsx"
+        ]
+    },
+    "shadcn": {
+        "summary": "以中性字段和有边界的面板承载颜色编辑，避免界面装饰干扰颜色判断。",
+        "usage": "颜色选择器是组合扩展；业务需要明确输出格式和透明度的使用规则。",
+        "exampleDescription": "调整颜色后检查输出值，再关闭面板确认字段的当前颜色反馈。",
+        "demos": [
+            "colorPicker.demo.tsx",
+            "colorPickerPanel.demo.tsx"
+        ]
+    }
+}

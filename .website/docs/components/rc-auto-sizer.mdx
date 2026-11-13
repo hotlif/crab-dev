@@ -8,11 +8,16 @@ status = "experimental"
 {/* THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY. */}
 
 import ComponentDemos from "../site/componentDemos.js";
-import { demos } from "../_generated/rc-auto-sizer.js";
+import ComponentDesignGuide, { DesignIntroduction, DesignExampleIntroduction } from "../site/componentDesignGuide.js";
+import { demos, documents, guide } from "../_generated/rc-auto-sizer.js";
 
 # AutoSizer 自适应容器
 
 <div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-auto-sizer</div>
+
+## 设计与用法
+
+<DesignIntroduction documents={documents} />
 
 <div id="基础示例" data-docs-example-anchor /><div id="全部示例" data-docs-example-anchor />
 
@@ -26,45 +31,13 @@ import { demos } from "../_generated/rc-auto-sizer.js";
 
 </div>
 
-<ComponentDemos demos={demos} />
+<DesignExampleIntroduction documents={documents} />
 
-[打开完整组件工作台](/components/rc-auto-sizer/workbench/)
+<ComponentDemos demos={demos} documents={documents} />
 
 ## 使用说明
 
-测量容器宽高，并将尺寸传给子组件。
-
-
-### 何时使用
-
-- 需要将外层容器的实际像素尺寸传入子组件（如虚拟列表的 `viewportWidth` / `viewportHeight`）。
-- 需要在容器大小变化时自动重新布局（响应式窗口调整、面板拖拽等场景）。
-- 希望组件与具体容器尺寸解耦，只接收数值而非自行测量 DOM。
-
-### 适用场景
-
-子组件必须拿到数字宽高才能布局或虚拟化。 容器会随窗口、侧栏或分栏变化而改变尺寸。
-
-普通 CSS 自适应已经足够时直接使用布局规则，不要为了读取尺寸增加测量链路。
-
-### 使用要点
-
-- 父容器必须先有可计算的尺寸，尤其要明确高度来自哪里。
-- render 函数收到的是测量结果，业务组件应直接消费而不是再次测量。
-- 尺寸变化可能很频繁，避免在回调中执行与布局无关的昂贵工作。
-
-### 无障碍
-
-- 测量容器不应改变内容的语义顺序或制造额外可聚焦元素。
-- 缩放到 200% 和窄屏时仍要确保内容可达，不能因为宽高为零而永久隐藏状态说明。
-
-### 设计依据与覆盖
-
-- **MD3 Expressive**：这是 Web 布局基础能力，没有对应的 M3 视觉组件；最终被测量的界面仍需遵循 M3 响应式、排版和可访问规则。 [依据 1](https://m3.material.io/foundations/layout/understanding-layout/overview) · [依据 2](https://material-web.dev/) · [依据 3](https://github.com/material-components/material-web)
-- **Apple**：本包没有独立的 Apple 视觉组件；配置、测量或运行能力为上层控件服务，行为和类型仍需独立验收。 [依据 1](https://developer.apple.com/design/human-interface-guidelines/components) · [依据 2](https://developer.apple.com/design/human-interface-guidelines/accessibility)
-- **shadcn/ui**：本包没有独立的 shadcn/ui 视觉组件；由使用它的上层组件决定外观，基础能力不因无独立视觉而免于行为和类型检查。 [依据 1](https://ui.shadcn.com/docs/components) · [依据 2](https://ui.shadcn.com/docs/theming) · [依据 3](https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4)
-
-设计依据不等于完成验收；当前状态与适用边界见[覆盖矩阵](/guides/design-coverage)。
+<ComponentDesignGuide guide={guide} documents={documents} />
 
 ## 常见问题
 

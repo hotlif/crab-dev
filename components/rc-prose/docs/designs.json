@@ -1,0 +1,38 @@
+{
+    "md3": {
+        "summary": "以语义字阶、正文节奏和强调角色组织长文，标题层次服务于阅读。",
+        "usage": "只在正文边界内应用排版，嵌入的真实交互组件保留自己的样式。",
+        "exampleDescription": "阅读标题、段落和列表，检查语义字阶与长文留白的层次。",
+        "demos": [
+            "basic.demo.tsx",
+            "scoped-content.demo.tsx",
+            "semantic-tag.demo.tsx",
+            "size.demo.tsx",
+            "table.demo.tsx"
+        ]
+    },
+    "macos": {
+        "summary": "以清晰的桌面阅读字阶和稳定正文区域呈现富文本，内容优先于材质。",
+        "usage": "长文区域保持实体背景，表格和代码在自己的滚动范围内阅读。",
+        "exampleDescription": "阅读包含表格的正文，检查桌面文字密度和局部横向滚动。",
+        "demos": [
+            "table.demo.tsx",
+            "basic.demo.tsx",
+            "scoped-content.demo.tsx",
+            "semantic-tag.demo.tsx",
+            "size.demo.tsx"
+        ]
+    },
+    "shadcn": {
+        "summary": "用克制的标题、正文和中性边界建立文档排版，保持内容易扫描。",
+        "usage": "把排版限定在内容区域，避免富文本规则影响表单或预览组件。",
+        "exampleDescription": "检查正文与嵌入内容的边界，确认中性排版没有改变真实控件。",
+        "demos": [
+            "scoped-content.demo.tsx",
+            "basic.demo.tsx",
+            "semantic-tag.demo.tsx",
+            "size.demo.tsx",
+            "table.demo.tsx"
+        ]
+    }
+}

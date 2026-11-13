@@ -33,7 +33,7 @@ for (const config of configurations) test(`${config.designSystem} ${config.color
     const field = frame.getByRole('textbox', { name: '项目名称', exact: true });
     const original = await field.elementHandle();
     await field.fill('Kept project draft');
-    const next = { type: 'crab:preview-config', designSystem: config.designSystem === 'md3' ? 'apple' : config.designSystem === 'apple' ? 'shadcn' : 'md3', colorMode: config.colorMode === 'light' ? 'dark' : 'light', size: 'large', density: 'comfortable', locale: 'en-US', direction: 'rtl', brandColor: '#8c3cc8', nonce: 'visual-retention' };
+    const next = { type: 'crab:preview-config', designSystem: config.designSystem === 'md3' ? 'macos' : config.designSystem === 'macos' ? 'shadcn' : 'md3', colorMode: config.colorMode === 'light' ? 'dark' : 'light', size: 'large', density: 'comfortable', locale: 'en-US', direction: 'rtl', brandColor: '#8c3cc8', nonce: 'visual-retention' };
     await page.evaluate(configuration => globalThis.postMessage(configuration, globalThis.location.origin), next);
     await expect(root).toHaveAttribute('data-crab-design', next.designSystem);
     await expect(root).toHaveAttribute('data-theme', next.colorMode);

@@ -1,3 +1,5 @@
+import { useConfig } from '@crab-dev/rc-config-provider';
+import { commandGroupStyle, macosCommandGroupStyle, macosPanelStyle, macosToolbarStyle } from './pdfEditor.designs.js';
 import { usePdfLocale } from './locale.js';
 import { useEffect, useEffectEvent, useId, useImperativeHandle, useLayoutEffect, useRef, useState, useSyncExternalStore, useTransition } from 'react';
 import type { KeyboardEvent, MouseEvent } from 'react';
@@ -43,6 +45,8 @@ const SHAPE_TOOLS: ShapeKind[] = ['rectangle', 'ellipse', 'line', 'arrow', 'free
 
 /** 使用自有控件和画布，在浏览器本地编辑 PDF 文字、图片与页面。 */
 export default function PdfEditor({ initialDocument, runtime, fonts = NO_FONTS, readOnly = false, toolbar, plugins = NO_PLUGINS, ref, onDocumentLoad, onStateChange, beforeDocumentChange, onSave, onSaved, onError, className, onKeyDown, ...rest }: PdfEditorProps) {
+    const macos = useConfig().designSystem === 'macos';
+    const groupClassName = cx(commandGroupStyle, macos && macosCommandGroupStyle);
     const { text, actionLabel, errorMessage, toolbarLabel } = usePdfLocale();
     const [session] = useState(() => new PdfSession(readOnly));
     const [regionSelection] = useState(() => new RegionSelection(session));
@@ -416,14 +420,17 @@ export default function PdfEditor({ initialDocument, runtime, fonts = NO_FONTS, 
         {visible('open') && <input ref={fileRef} type="file" accept="application/pdf,.pdf" hidden onChange={event => { const file = event.target.files?.[0]; event.target.value = ''; if (file) perform(async () => { await open({ id: crypto.randomUUID(), source: file }, undefined, true); }); }} />}
         {visible('merge') && <input ref={mergeRef} type="file" accept="application/pdf,.pdf" hidden onChange={event => { const file = event.target.files?.[0]; event.target.value = ''; if (file) perform(() => merge(file)); }} />}
         <input ref={imageRef} type="file" accept="image/png,image/jpeg,image/webp" hidden onChange={event => { const file = event.target.files?.[0]; event.target.value = ''; if (file) perform(() => insertImage(file)); }} />
-        <div className={toolbarStyle} role="toolbar" aria-label={text('PDF 编辑工具栏')} aria-busy={pending} onClickCapture={guardToolbarAction}>
+        <div className={cx(toolbarStyle, macos && macosToolbarStyle)} role="toolbar" aria-label={text('PDF 编辑工具栏')} aria-busy={pending} onClickCapture={guardToolbarAction}>
             <ActionButton action="open" disabled={!client} onClick={() => fileRef.current?.click()} />
             <span className={cx(nameStyle, toolbarNameStyle)}>{state.document?.fileName ?? text('PDF 编辑器')}{info?.dirty ? text(' · 未保存') : ''}</span>
+            <div className={groupClassName}>
             <ActionButton action="undo" disabled={locked || !info?.canUndo} onClick={() => perform(() => history('undo'))} />
             <ActionButton action="redo" disabled={locked || !info?.canRedo} onClick={() => perform(() => history('redo'))} />
             <ActionButton action="addText" disabled={locked || !loadedFonts.length} onClick={() => setNewText(true)} />
             <ActionButton action="addImage" disabled={locked} onClick={() => { replaceRef.current = false; imageRef.current?.click(); }} />
+            </div>
             {anyVisible('open', 'undo', 'redo', 'addText', 'addImage') && anyVisible('insertPage', 'merge', 'rotatePage', 'deletePage', 'pageUp', 'pageDown', 'extract', 'save') && <span className={toolDividerStyle} aria-hidden="true" data-action-divider />}
+            <div className={groupClassName}>
             <ActionButton action="insertPage" disabled={locked} onClick={() => perform(() => edit({ kind: 'insert', at: page + 1 }, page + 1))} />
             <ActionButton action="merge" disabled={locked} onClick={() => mergeRef.current?.click()} />
             <ActionButton action="rotatePage" disabled={pagesDisabled} onClick={() => perform(() => edit({ kind: 'rotatePages', pages: targets, turns: 1 }, page, false, targets))} />
@@ -432,17 +439,20 @@ export default function PdfEditor({ initialDocument, runtime, fonts = NO_FONTS, 
             <ActionButton action="pageDown" disabled={pagesDisabled || !info || Math.max(...targets) >= info.pages.length - 1} onClick={() => perform(() => movePages(targets, Math.min(info!.pages.length - targets.length, Math.min(...targets) + 1)))} />
             <ActionButton action="extract" disabled={!info || !targets.length} onClick={() => perform(async () => { const result = await session.exportPdf(undefined, targets); downloadPdf(result.blob, result.fileName); })} />
             <ActionButton action="save" appearance="primary" disabled={!info} onClick={() => perform(async () => { await save(); })} />
+            </div>
             {renderExtraActions('main')}
         </div>
-        {showToolActions && <div className={drawToolbarStyle} role="toolbar" aria-label={text('绘图工具栏')} aria-busy={pending} onClickCapture={guardToolbarAction}>
+        {showToolActions && <div className={cx(drawToolbarStyle, macos && macosToolbarStyle)} role="toolbar" aria-label={text('绘图工具栏')} aria-busy={pending} onClickCapture={guardToolbarAction}>
+            <div className={groupClassName}>
             <ActionButton action="select" selected={activeTool === 'select'} disabled={!info} onClick={() => chooseTool('select')} />
             <ActionButton action="pan" selected={activeTool === 'pan'} disabled={!info} onClick={() => chooseTool('pan')} />
             {anyVisible('select', 'pan') && SHAPE_TOOLS.some(visible) && <span className={toolDividerStyle} aria-hidden="true" data-action-divider />}
             {SHAPE_TOOLS.map(shape => <ActionButton key={shape} action={shape} selected={activeTool === shape} disabled={locked}
                 onClick={() => chooseTool(shape)} />)}
+            </div>
             <span className={hintStyle}>{isShapeTool(activeTool) ? `${text('{shape} · 拖动绘制，Esc 退出', { shape: actionLabel(activeTool) })}${activeTool === 'freehand' ? '' : text('，Shift 约束形状')}` : activeTool === 'pan' ? text('拖动页面平移') : text('选择对象后可移动、缩放或旋转')}</span>
             {renderExtraActions('tools')}
-            {anyVisible('togglePages', 'toggleProperties') && <div className={panelTogglesStyle} role="group" aria-label={text('侧栏显示')}>
+            {anyVisible('togglePages', 'toggleProperties') && <div className={cx(panelTogglesStyle, macos && macosCommandGroupStyle)} role="group" aria-label={text('侧栏显示')}>
                 <ActionButton action="togglePages" id={`${pagesId}-toggle`} tooltip={showPages ? text('收起页面面板') : text('展开页面面板')}
                     selectedIcon="panelLeftFilled" appearance="tonal" selected={showPages} disabled={!info}
                     aria-expanded={showPages} aria-controls={info ? pagesId : undefined} onClick={() => togglePanel('pages')} />
@@ -457,7 +467,7 @@ export default function PdfEditor({ initialDocument, runtime, fonts = NO_FONTS, 
         </div>}
         {error && <div className={errorStyle} role="alert">{errorMessage(error)}</div>}
         <div className={bodyStyle}>
-            {info && client && <aside id={pagesId} className={sidebarStyle} hidden={!showPages} aria-label={text('页面管理')}>
+            {info && client && <aside id={pagesId} className={cx(sidebarStyle, macos && macosPanelStyle)} hidden={!showPages} aria-label={text('页面管理')}>
                 <PanelHeader panel="pages" onClose={() => closePanel('pages')} title={<>{text('页面')} <span className={hintStyle}>{info.pages.length}</span></>} />
                 <p className={hintStyle}>{text('点击选页，Ctrl / ⌘ 点击多选；拖拽调整顺序。')}</p>
                 <PagesPanel client={client} pages={info.pages} revision={info.revision} current={page} selected={selectedPages} disabled={pending} readOnly={locked}
@@ -488,7 +498,7 @@ export default function PdfEditor({ initialDocument, runtime, fonts = NO_FONTS, 
                     {visible('open') && <Button appearance="primary" disabled={pending || !client} onClick={() => fileRef.current?.click()}>{text('选择 PDF 文件')}</Button>}
                 </div>}
             </main>
-            {info && <aside id={propertiesId} className={sidebarStyle} data-panel="properties" hidden={!showProperties} aria-label={text('对象属性')}>
+            {info && <aside id={propertiesId} className={cx(sidebarStyle, macos && macosPanelStyle)} data-panel="properties" hidden={!showProperties} aria-label={text('对象属性')}>
                 <div className={propertiesHeaderStyle}><PropertiesHeader object={selected} shape={isShapeTool(activeTool) ? activeTool : undefined} onClose={() => closePanel('properties')} /></div>
                 <div className={propertiesContentStyle}>{isShapeTool(activeTool) ? <BusyRegion className={cx(sectionStyle, propertiesScrollStyle)} busy={pending}>
                     <ShapeStyleFields shape={activeTool} value={drawingStyle} disabled={locked} onChange={value => { if (!pending && !locked) setDrawingStyle(value); }} />

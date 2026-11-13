@@ -51,7 +51,7 @@ function numericGlyphOrder(indicator: HTMLElement, expected: string) {
 }
 
 describe('Badge logical corner with published CSS', () => {
-    for (const designSystem of ['md3', 'apple', 'shadcn'] as const) {
+    for (const designSystem of ['md3', 'macos', 'shadcn'] as const) {
         for (const colorMode of ['light', 'dark'] as const) {
             for (const initialDirection of ['ltr', 'rtl'] as const) {
                 it(`mirrors the actual DOM direction and preserves physical offsets (${designSystem}/${colorMode}/${initialDirection})`, async () => {

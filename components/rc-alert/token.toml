@@ -7,6 +7,12 @@ imports = [
 
 [token]
 
+# Independent Tahoe controls; Web adaptation of AppKit.
+macos.root.color = "$ref(color.text.primary)"
+macos.root.background-color = "$ref(color.surface.content)"
+macos.root.border-color = "$ref(color.border.subtle)"
+
+
 # ─── 通用 ────────────────────────────────────────────────────────────────────
 root.transition = "background-color $ref(motion.interaction), border-color $ref(motion.interaction), color $ref(motion.interaction)"
 root.padding = "$ref(feedback.banner.padding)"

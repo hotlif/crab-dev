@@ -8,19 +8,22 @@ status = "experimental"
 {/* THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY. */}
 
 import ComponentDemos from "../site/componentDemos.js";
-import { demos } from "../_generated/rc-tabs.js";
+import ComponentDesignGuide, { DesignIntroduction, DesignExampleIntroduction } from "../site/componentDesignGuide.js";
+import { demos, documents, guide } from "../_generated/rc-tabs.js";
 
 # Tabs 标签页
 
 <div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-tabs</div>
+
+## 设计与用法
+
+<DesignIntroduction documents={documents} />
 
 <div id="基础示例" data-docs-example-anchor /><div id="全部示例" data-docs-example-anchor />
 
 ## 示例
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
-
-#### 使用示例
 
 ##### 基础用法 — 通过 items 配置基础标签页，默认使用 line 形态。
 
@@ -30,7 +33,7 @@ import { demos } from "../_generated/rc-tabs.js";
 
 ##### 可关闭标签 — 开启 closable 并监听 onTabClose 管理标签页的增删。
 
-##### 三套风格与面板切换 — 比较三套设计体系在浅色和深色下的标签页、选中反馈与内容面板；键盘操作一致。
+##### 当前主题的交互状态 — 观察当前主题下的选中、禁用和焦点反馈；示例继承文档配置，可直接操作。
 
 ##### 溢出标签 — 初始激活最后一项，自动滚动标签条以显示当前位置。
 
@@ -38,101 +41,15 @@ import { demos } from "../_generated/rc-tabs.js";
 
 ##### 带图标与额外内容 — 通过 icon 为标签添加视觉标识，tabBarExtraContent 注入刷新操作，当前面板显示刷新次数。
 
-#### 视觉验收
-
-##### 页签状态与溢出矩阵 — 三种公开外观对照选中、禁用与关闭，切换配置保留活动页和面板草稿。
-
 </div>
 
-<ComponentDemos demos={demos} />
+<DesignExampleIntroduction documents={documents} />
 
-[打开完整组件工作台](/components/rc-tabs/workbench/)
+<ComponentDemos demos={demos} documents={documents} />
 
 ## 使用说明
 
-在同一区域切换多个同层级内容面板。
-
-
-### 何时使用
-
-- 页面需要在同一区域内展示多组相关但可独立查看的内容。
-- 需要减少页面切换与滚动，将内容分组组织。
-
-### 主要功能
-
-- 支持 `line` / `card` / `pill` 三种视觉形态。
-- 支持 `small` / `medium` / `large` 三档尺寸。
-- 支持受控（`value`）与非受控（`defaultValue`）两种用法。
-- 支持 `closable` 标签页以及 `onTabClose` 回调。
-- 支持 `tabBarExtraContent` 在左右两侧注入自定义内容。
-- 支持 `destroyInactiveTabPane` 按需销毁未激活面板。
-- 键盘可达：`←` / `→` / `Home` / `End` 切换、`Enter` / `Space` 激活、`Delete` 关闭可关闭项。
-- Material 下 `line` 使用主标签页样式：36px 默认高度、20px 行内图标、随标签文字宽度变化的 3px 指示条，以及独立的悬停、聚焦与按压状态层。small / medium / large 分别为 32 / 36 / 40px，是本库桌面扩展。
-- `centered` 在标签未溢出时居中。初始化、外部切换、列表变化和尺寸变化时，活动标签会保持可见。
-- `card` / `pill` 为业务扩展，保留原有 API，并沿用相同的语义色、状态层与键盘行为。
-
-### 三套风格
-
-默认 `line` 是兼容的 API 名称：Material 呈现带文字下划线指示器的 primary tabs；Apple 使用 2px 轨道内边距和带阴影的选中块；shadcn 使用 muted 容器、3px 内边距和表面色选中块。后两种风格不叠加 Material 的下划线。显式 `card` 与 `pill` 是业务扩展，不宣称为 M3 primary tabs。
-
-选择不同设计只改变 L2 视觉角色；`tablist` / `tab` / `tabpanel` 的关联、禁用项跳过、方向键切换、溢出可见性与关闭操作保持一致。浅色和深色对照演示可直接检查各主题状态。
-
-`card` 页签与横向滚动栏保持完整的垂直占位，原生 `scrollIntoView`、聚焦和键盘切换不会把页签顶边卷入滚动栏。内容超宽时仍只在横向揭示活动项；此布局约定同时覆盖三套设计、浅深色、LTR/RTL 和三档尺寸，由发布 ESM 与实际构建 CSS 的浏览器回归验证。
-
-在强制颜色模式下，选中的 `pill` 使用系统 `Highlight / HighlightText` 背景与文字配对，并保持文字继承该配对，避免浏览器自动文字背板遮住字形。发布产物回归通过 `yarn test:forced-colors` 检查三套设计的浅深色、LTR/RTL，以及真实截图中每个字形的前景和背景像素；像素断言与人工视觉审查分别记录。
-
-强制颜色下，选中标签的 `Highlight` 轮廓画在标签内侧，避免被横向滚动栏裁剪；`line` 的可见焦点使用 `CanvasText` 内置轮廓，与未聚焦的选中态区分。已选中的 `pill` 继续使用 `HighlightText` 焦点轮廓，与选中表面形成对比。焦点轮廓沿用公开焦点宽度，普通颜色样式、滚动范围和设计专属下划线保持原有行为。
-
-`yarn test:forced-colors` 保留原有 `pill` 检查，并分别采集 `line` 的 LTR、RTL 焦点场景，每个场景覆盖三套设计的浅深色。新增检查直接读取原 PNG 的四边轮廓、真实文字前景与背景，以及 Material 下划线；Apple/shadcn 检查没有该下划线。焦点由真实 `HTMLElement.focus({ focusVisible: true })` 产生，用于验证焦点绘制，不替代可信键盘 Tab 导航验收；像素检查和人工审图仍分别记录。
-
-参考核对日期：2026-10-22。Material 对照 [M3 Guidelines](https://m3.material.io/components/tabs/guidelines)、[Specs](https://m3.material.io/components/tabs/specs)、[Accessibility](https://m3.material.io/components/tabs/accessibility)、[Material Web 文档及示例](https://material-web.dev/components/tabs/)、[Tabs 交互实现](https://github.com/material-components/material-web/blob/main/tabs/internal/tabs.ts)、[Primary tab 样式](https://github.com/material-components/material-web/blob/main/tabs/internal/_primary-tab.scss)和 [v0.192 令牌](https://github.com/material-components/material-web/blob/main/tokens/versions/v0_192/_md-comp-primary-navigation-tab.scss)。Apple 参考 [Apple Segmented controls](https://developer.apple.com/design/human-interface-guidelines/segmented-controls)的页内选择表现；shadcn 对照 [Tabs 文档](https://ui.shadcn.com/docs/components/radix/tabs)与 [New York v4 实现](https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/new-york-v4/ui/tabs.tsx)。
-
-### 三体系验收规格
-
-2026-10-29 的重建沿用 [Material Web primary / secondary tabs 文档与示例](https://material-web.dev/components/tabs/)、[Primary tab 样式](https://github.com/material-components/material-web/blob/main/tabs/internal/_primary-tab.scss)与其 v0.192 令牌基线。M3 Expressive 不要求把已有页内导航改成按钮组；`line` 的主标签页基线保留，紧凑尺寸、可关闭页签、`card / pill` 明确属于本项目的桌面扩展。Apple 仅采用 [Segmented controls](https://developer.apple.com/design/human-interface-guidelines/segmented-controls)的关联选择与清晰选中原则；Web 页签仍保留 `tablist / tab / tabpanel` 语义。shadcn 以产品清单锁定的 [New York V4 Tabs](https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui/tabs.tsx)为参考，不随 upstream 新变体自动改变现有 API。
-
-| 边界 | 验收约定 |
-| --- | --- |
-| 颜色与表面 | MD3 的主色文字与指示条、Apple 的轻量选中块、shadcn 的 muted 轨道分别来自 L2 `navigation.tabs`；浅深色使用配对语义角色。 |
-| 几何与尺寸 | 三档公开尺寸改变标签高度与内边距；三档密度改变组间距，独立于尺寸。图标、关闭动作、触控命中和可见边界分别核对。 |
-| 状态 | 每种外观覆盖默认、hover、键盘焦点、按下、禁用、切换、键盘关闭与 320px 溢出揭示。禁用项不能激活；选中与焦点分别可见。 |
-| 动效与保持 | 指示器移动沿用空间动效，状态层使用颜色/透明度动效；减少动画仍立即揭示选中项。切换配置保留活动页及已输入草稿。 |
-
-`docs/visual.json` 将三种公开外观编码在状态名中，使每种外观都进入完整核心矩阵；`tabs.visual.spec.mjs` 用实际方向键、Delete 和横向滚动验证。截图不裁掉外部焦点，不用伪状态注入。环境采集及人工复审独立记录，矩阵发现和默认行为测试不自动提升覆盖状态。
-
-
-### 状态契约
-
-`value / defaultValue / onValueChange(next, details)` 管理当前标签页。`details.reason` 区分 `pointer / keyboard`，`details.event` 提供原始 React 事件；标签页 key 仍来自 `items[].key`。
-
-受控值与默认值互斥；默认值仅在初始化时使用。外部属性更新不触发操作回调，省略回调可展示只读受控快照。
-
-通过 Delete 或 Backspace 关闭当前聚焦的标签时，调用方在本次提交中移除该项后，焦点移交给后续首个可用标签；没有后续项则向前查找。关闭回调仍只通知一次，不额外发出选择通知。受控方拒绝关闭、主动移焦或 blur 时保留其决定；异步批准关闭的流程由调用方安排焦点。
-
-### 适用场景
-
-少量同级视图共享同一个页面上下文。 用户经常在这些内容之间来回比较，并希望保留当前位置。
-
-不同页面目的地使用主导航；步骤流程使用逐步导航；大量标签考虑 Select 或其他信息架构。
-
-### 使用要点
-
-- 每个 tab key 稳定并对应唯一面板。
-- 受控 value 与 onValueChange 同步路由或业务状态。
-- closable/card/pill 是不同视觉或管理能力，先确认是否符合内容层级。
-
-### 无障碍
-
-- 使用 tablist、tab、tabpanel 关系和方向键模型，并管理 roving tabindex。
-- 选中指示器、aria-selected 和可见内容同时变化；关闭标签后把焦点放到相邻合理项。
-
-### 设计依据与覆盖
-
-- **MD3 Expressive**：直接参考 M3 Tabs 的 primary/secondary 层级、指示器、滚动和无障碍模型，并对照 Material Web tabs。 [依据 1](https://m3.material.io/components/tabs/overview) · [依据 2](https://material-web.dev/components/tabs/) · [依据 3](https://github.com/material-components/material-web/tree/main/tabs)
-- **Apple**：依据 Apple HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。 [依据 1](https://developer.apple.com/design/human-interface-guidelines/components) · [依据 2](https://developer.apple.com/design/human-interface-guidelines/accessibility)
-- **shadcn/ui**：参考 shadcn/ui 的组件用途、中性表面与设计变量，在本库公共语义和 React 交互模型中实现；完整状态覆盖仍需按矩阵验收。 [依据 1](https://ui.shadcn.com/docs/components) · [依据 2](https://ui.shadcn.com/docs/theming) · [依据 3](https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4)
-
-设计依据不等于完成验收；当前状态与适用边界见[覆盖矩阵](/guides/design-coverage)。
+<ComponentDesignGuide guide={guide} documents={documents} />
 
 ## 常见问题
 

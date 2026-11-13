@@ -4,7 +4,7 @@ import semantic from '@crab-dev/rc-token-semantic';
 
 // Selection geometry is a semantic contract, restored at every design boundary.
 // Material uses the v0.192 checkbox/radio/switch baseline and the existing
-// project-density Expressive slider. Apple-inspired metrics are web adaptations.
+// project-density Expressive slider. macOS-inspired metrics are web adaptations.
 // eslint-disable-next-line @typescript-eslint/no-unused-expressions
 globalStyle`
     :root, [data-crab-design='md3'] {
@@ -68,7 +68,7 @@ globalStyle`
         --token-semantic-range-xl-thumb-height: ${token.size[40]};
     }
 
-    [data-crab-design='apple'] {
+    [data-crab-design='macos'] {
         --token-semantic-toggle-handle-unchecked-border-width: initial;
         --token-semantic-selection-control-size: ${token.space[6]};
         --token-semantic-selection-state-layer-size: ${token.space[0]};
@@ -101,8 +101,8 @@ globalStyle`
         --token-semantic-toggle-disabled-track-opacity: ${token.opacity[38]};
         --token-semantic-toggle-disabled-handle-color: var(--token-semantic-color-control-toggle-thumb);
         --token-semantic-toggle-disabled-selected-handle-color: var(--token-semantic-color-control-toggle-thumb);
-        --token-semantic-range-thumb-width: ${token.space[2]};
-        --token-semantic-range-thumb-pressed-width: ${token.space[2]};
+        --token-semantic-range-thumb-width: ${token.space[5]};
+        --token-semantic-range-thumb-pressed-width: ${token.space[6]};
         --token-semantic-range-thumb-fill: var(--token-semantic-color-control-thumb);
         --token-semantic-range-thumb-error-fill: ${semantic.color.control.thumb};
         --token-semantic-range-disabled-opacity: ${semantic.opacity.disabled};
@@ -112,7 +112,7 @@ globalStyle`
         --token-semantic-range-thumb-stroke-width: ${token.space.px};
         --token-semantic-range-thumb-stroke-color: ${semantic.color.border.default};
         --token-semantic-range-thumb-shadow: ${token.shadow.sm};
-        --token-semantic-range-thumb-halo-size: ${token.space[6]};
+        --token-semantic-range-thumb-halo-size: ${token.space[0]};
         --token-semantic-range-track-gap: ${token.space[0]};
         --token-semantic-range-track-inner-radius: ${token.radius.full};
         --token-semantic-range-track-inactive: var(--token-semantic-color-fill-inactive);

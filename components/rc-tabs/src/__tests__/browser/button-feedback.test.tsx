@@ -6,7 +6,7 @@ import token from '../../token.js';
 import compiledCss from '../../../.cache/browser-css.json';
 
 describe('Tabs close action compiled CSS contract', () => {
-    for (const designSystem of ['md3', 'apple', 'shadcn'] as const) {
+    for (const designSystem of ['md3', 'macos', 'shadcn'] as const) {
         for (const colorMode of ['light', 'dark'] as const) {
             it(`keeps ${designSystem}/${colorMode} neutral close feedback and its own focus ring`, async () => {
                 const close = mock.fn();

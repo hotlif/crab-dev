@@ -7,6 +7,15 @@ imports = [
 
 [token]
 
+# macOS Tahoe control roles; project Web adaptation.
+macos.checkable.border-radius = "$ref(shape.button)"
+macos.checkable.background-color = "$ref(color.surface.content)"
+macos.checkable.background-color-hover = "$ref(color.background.hover-subtle)"
+macos.checkable.color-selected = "$ref(color.text.on-brand)"
+macos.checkable.background-color-selected = "$ref(color.brand.primary)"
+macos.checkable.box-shadow = "$ref(material.control-shadow)"
+
+
 # ─── 通用 ────────────────────────────────────────────────────────────────────
 root.transition = "background-color $ref(motion.interaction), border-color $ref(motion.interaction), color $ref(motion.interaction)"
 

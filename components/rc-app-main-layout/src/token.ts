@@ -5,6 +5,16 @@
 import { defineTokens } from '@crab-dev/css';
 
 export const vars = defineTokens({
+    'macos.sidebar.margin': '--app-main-layout-macos-sidebar-margin',
+    'macos.sidebar.border-radius': '--app-main-layout-macos-sidebar-border-radius',
+    'macos.sidebar.border-color': '--app-main-layout-macos-sidebar-border-color',
+    'macos.sidebar.box-shadow': '--app-main-layout-macos-sidebar-box-shadow',
+    'macos.toolbar.background-color': '--app-main-layout-macos-toolbar-background-color',
+    'macos.toolbar.box-shadow': '--app-main-layout-macos-toolbar-box-shadow',
+    'macos.menu.background-color': '--app-main-layout-macos-menu-background-color',
+    'macos.menu.border-color': '--app-main-layout-macos-menu-border-color',
+    'macos.menu.border-radius': '--app-main-layout-macos-menu-border-radius',
+    'macos.menu.box-shadow': '--app-main-layout-macos-menu-box-shadow',
     'root.background-color': '--app-main-layout-root-background-color',
     'sidebar.transition': '--app-main-layout-sidebar-transition',
     'sidebar.width': '--app-main-layout-sidebar-width',
@@ -129,10 +139,30 @@ export const vars = defineTokens({
     'tab.context-menu.separator.margin': '--app-main-layout-tab-context-menu-separator-margin',
     'motion.interaction.transition': '--app-main-layout-motion-interaction-transition',
     'motion.offset.translate': '--app-main-layout-motion-offset-translate',
-    'motion.spatial.transition': '--app-main-layout-motion-spatial-transition'
+    'motion.spatial.transition': '--app-main-layout-motion-spatial-transition',
+    'material.backdrop-filter': '--app-main-layout-material-backdrop-filter',
+    'material.background-image': '--app-main-layout-material-background-image'
 });
 
 const token = defineTokens({
+    'macos': {
+        'sidebar': {
+            'margin': `var(${vars['macos.sidebar.margin']}, var(--token-semantic-space-component-gap, var(--token-global-space-2, 8px)))`,
+            'border-radius': `var(${vars['macos.sidebar.border-radius']}, var(--token-semantic-shape-overlay, var(--token-global-radius-14, 28px)))`,
+            'border-color': `var(${vars['macos.sidebar.border-color']}, var(--token-semantic-material-border, var(--token-semantic-color-border-subtle, var(--token-global-zinc-200, oklch(0.900 0.004 286)))))`,
+            'box-shadow': `var(${vars['macos.sidebar.box-shadow']}, var(--token-semantic-material-control-shadow, var(--token-global-shadow-xs, 0 1px 2px oklch(0 0 0 / 0.03))))`
+        },
+        'toolbar': {
+            'background-color': `var(${vars['macos.toolbar.background-color']}, var(--token-semantic-material-background, var(--token-semantic-color-surface-overlay, var(--token-global-material-neutral-94, oklch(0.95362610 0.01470533 312.243326)))))`,
+            'box-shadow': `var(${vars['macos.toolbar.box-shadow']}, var(--token-semantic-material-control-shadow, var(--token-global-shadow-xs, 0 1px 2px oklch(0 0 0 / 0.03))))`
+        },
+        'menu': {
+            'background-color': `var(${vars['macos.menu.background-color']}, var(--token-semantic-material-background, var(--token-semantic-color-surface-overlay, var(--token-global-material-neutral-94, oklch(0.95362610 0.01470533 312.243326)))))`,
+            'border-color': `var(${vars['macos.menu.border-color']}, var(--token-semantic-material-border, var(--token-semantic-color-border-subtle, var(--token-global-zinc-200, oklch(0.900 0.004 286)))))`,
+            'border-radius': `var(${vars['macos.menu.border-radius']}, var(--token-semantic-shape-overlay, var(--token-global-radius-14, 28px)))`,
+            'box-shadow': `var(${vars['macos.menu.box-shadow']}, var(--token-semantic-material-shadow, var(--token-global-shadow-md, 0 4px 6px -1px oklch(0 0 0 / 0.1), 0 2px 4px -2px oklch(0 0 0 / 0.1))))`
+        }
+    },
     'root': {
         'background-color': `var(${vars['root.background-color']}, var(--token-semantic-color-workspace-content, var(--token-global-white, oklch(1.000 0 0))))`
     },
@@ -145,7 +175,7 @@ const token = defineTokens({
         },
         'padding': `var(${vars['sidebar.padding']}, 12px 8px)`,
         'gap': `var(${vars['sidebar.gap']}, 4px)`,
-        'background-color': `var(${vars['sidebar.background-color']}, var(--token-semantic-color-workspace-sidebar, var(--token-global-zinc-100, oklch(0.950 0.003 286))))`,
+        'background-color': `var(${vars['sidebar.background-color']}, var(--token-semantic-material-navigation-background, var(--token-semantic-color-workspace-sidebar, var(--token-global-zinc-100, oklch(0.950 0.003 286)))))`,
         'border-color': `var(${vars['sidebar.border-color']}, var(--token-semantic-navigation-sidebar-border, transparent))`,
         'logo': {
             'width': `var(${vars['sidebar.logo.width']}, 40px)`,
@@ -174,7 +204,7 @@ const token = defineTokens({
             'height': `var(${vars['header.toolbar.height']}, var(--token-semantic-navigation-toolbar-height, var(--token-global-size-48, 48px)))`,
             'padding': `var(${vars['header.toolbar.padding']}, 0 16px)`,
             'gap': `var(${vars['header.toolbar.gap']}, 6px)`,
-            'background-color': `var(${vars['header.toolbar.background-color']}, var(--token-semantic-color-workspace-toolbar, var(--token-global-white, oklch(1.000 0 0))))`
+            'background-color': `var(${vars['header.toolbar.background-color']}, var(--token-semantic-material-navigation-background, var(--token-semantic-color-workspace-toolbar, var(--token-global-white, oklch(1.000 0 0)))))`
         },
         'nav-btn': {
             'width': `var(${vars['header.nav-btn.width']}, var(--token-semantic-size-control, var(--token-global-size-36, 36px)))`,
@@ -343,6 +373,10 @@ const token = defineTokens({
         'spatial': {
             'transition': `var(${vars['motion.spatial.transition']}, var(--token-semantic-motion-spatial-fast, var(--token-global-duration-350, 350ms) var(--token-global-easing-expressive-spatial-fast, cubic-bezier(0.42, 1.67, 0.21, 0.90))))`
         }
+    },
+    'material': {
+        'backdrop-filter': `var(${vars['material.backdrop-filter']}, var(--token-semantic-material-filter, none))`,
+        'background-image': `var(${vars['material.background-image']}, var(--token-semantic-material-sheen, none))`
     }
 });
 

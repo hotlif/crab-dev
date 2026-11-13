@@ -1,4 +1,5 @@
 import { usePickerLocale } from '../locale.js';
+import { useConfig } from '@crab-dev/rc-config-provider';
 import { nowZonedDateTime } from '../temporal.js';
 import { useLayoutEffect, useRef, useState } from 'react';
 import Button from '@crab-dev/rc-button';
@@ -9,6 +10,7 @@ interface TimePickerOverlayProps extends Omit<TimePickerPanelProps, 'actions' | 
     onClose: () => void;
 }
 export default function TimePickerOverlay({ value, onValueChange, onClose, ...restProps }: TimePickerOverlayProps) {
+    const macos = useConfig().designSystem === 'macos';
     const { messages } = usePickerLocale(restProps.locale);
     const { dispatch } = useDropdownContext();
     // Keep the mounted panel node for initial focus; focus may leave this non-modal layer.
@@ -45,7 +47,7 @@ export default function TimePickerOverlay({ value, onValueChange, onClose, ...re
             }
         }}
         actions={<>
-            <Button type="button" appearance="text" onClick={close}>{messages.cancel}</Button>
-            <Button type="button" appearance="text" disabled={!valid} onClick={confirm}>{messages.confirm}</Button>
+            <Button type="button" appearance={macos ? 'outlined' : 'text'} onClick={close}>{messages.cancel}</Button>
+            <Button type="button" appearance={macos ? 'primary' : 'text'} disabled={!valid} onClick={confirm}>{messages.confirm}</Button>
         </>} /></div>;
 }

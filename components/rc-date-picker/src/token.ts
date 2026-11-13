@@ -5,6 +5,11 @@
 import { defineTokens } from '@crab-dev/css';
 
 export const vars = defineTokens({
+    'macos.time.background-color': '--date-picker-macos-time-background-color',
+    'macos.time.color': '--date-picker-macos-time-color',
+    'macos.time.border-color': '--date-picker-macos-time-border-color',
+    'macos.time.box-shadow': '--date-picker-macos-time-box-shadow',
+    'macos.period.min-width': '--date-picker-macos-period-min-width',
     'root.background-color-selected': '--date-picker-root-background-color-selected',
     'root.color-selected': '--date-picker-root-color-selected',
     'cell.background-color-hover': '--date-picker-cell-background-color-hover',
@@ -96,6 +101,17 @@ export const vars = defineTokens({
 });
 
 const token = defineTokens({
+    'macos': {
+        'time': {
+            'background-color': `var(${vars['macos.time.background-color']}, var(--token-semantic-color-surface-content, var(--token-semantic-color-background-surface, var(--token-global-material-neutral-98, oklch(0.98379491 0.01284496 321.893957)))))`,
+            'color': `var(${vars['macos.time.color']}, var(--token-semantic-color-text-primary, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695))))`,
+            'border-color': `var(${vars['macos.time.border-color']}, var(--token-semantic-color-border-default, var(--token-global-material-neutral-variant-50, oklch(0.56674707 0.01627446 308.142182))))`,
+            'box-shadow': `var(${vars['macos.time.box-shadow']}, var(--token-semantic-field-control-shadow, none))`
+        },
+        'period': {
+            'min-width': `var(${vars['macos.period.min-width']}, var(--token-semantic-size-40, var(--token-global-size-40, 40px)))`
+        }
+    },
     'root': {
         'background-color-selected': `var(${vars['root.background-color-selected']}, var(--token-semantic-color-brand-primary, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078))))`,
         'color-selected': `var(${vars['root.color-selected']}, var(--token-semantic-color-text-on-brand, var(--token-global-white, oklch(1.000 0 0))))`
@@ -113,7 +129,7 @@ const token = defineTokens({
         'font-weight': `var(${vars['cell.font-weight']}, 400)`,
         'transition': `var(${vars['cell.transition']}, var(--token-semantic-motion-interaction, var(--token-global-duration-150, 150ms) var(--token-global-easing-expressive-effects-fast, cubic-bezier(0.31, 0.94, 0.34, 1.00))))`,
         'today': {
-            'color': `var(${vars['cell.today.color']}, var(--token-semantic-color-brand-primary, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078))))`,
+            'color': `var(${vars['cell.today.color']}, var(--token-semantic-color-text-link, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078))))`,
             'border-color': `var(${vars['cell.today.border-color']}, var(--token-semantic-color-brand-primary, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078))))`,
             'border-width': `var(${vars['cell.today.border-width']}, 1px)`
         },

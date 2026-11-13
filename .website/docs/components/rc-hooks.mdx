@@ -8,11 +8,16 @@ status = "experimental"
 {/* THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY. */}
 
 import ComponentDemos from "../site/componentDemos.js";
-import { demos } from "../_generated/rc-hooks.js";
+import ComponentDesignGuide, { DesignIntroduction, DesignExampleIntroduction } from "../site/componentDesignGuide.js";
+import { demos, documents, guide } from "../_generated/rc-hooks.js";
 
 # Hooks 通用钩子
 
 <div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-hooks</div>
+
+## 设计与用法
+
+<DesignIntroduction documents={documents} />
 
 <div id="基础示例" data-docs-example-anchor /><div id="全部示例" data-docs-example-anchor />
 
@@ -26,63 +31,13 @@ import { demos } from "../_generated/rc-hooks.js";
 
 </div>
 
-<ComponentDemos demos={demos} />
+<DesignExampleIntroduction documents={documents} />
 
-[打开完整组件工作台](/components/rc-hooks/workbench/)
+<ComponentDemos demos={demos} documents={documents} />
 
 ## 使用说明
 
-提供可复用的 React Hook，覆盖键盘事件、受控状态、尺寸测量、定时器和拖拽调整等逻辑。
-
-
-### 主要功能
-
-- 键盘与事件：`useKeyDown`、`useEventCallback`。
-- 受控状态：`useControllableValue`、`useControllableOpen`。
-- 尺寸与布局：`useResizeObserver`、`useSize`、`useDragResize`。
-- 定时任务：`useTimeout`、`useInterval`、支持暂停后继续剩余时间的 `useCountdown`。
-- CSS 退场：`usePresence` 保留节点直到自身过渡结束，重新打开会取消旧的卸载流程。
-- 环境与历史值：`useMediaQuery`、`usePrevious`、`useIsomorphicLayoutEffect`。
-
-Hook 均为具名导出，使用时从 `@crab-dev/rc-hooks` 按需导入。
-
-`usePresence(open, onExitComplete?)` 返回 `present`、`ref` 和 `state`。用 `present` 控制挂载，将 `ref` 绑定到执行退场动画的元素，用 `data-state={state}` 区分 `open` / `closed`，并通过 CSS `@starting-style` 定义入场。它只观察该元素自身的有限动画，不计算动画帧，也不等待子级 spinner 或倒计时。主题或令牌更新替换退出动画时，会继续等待当前有效动画；重新打开或卸载会作废旧退出任务。没有动画或缺少动画查询能力时立即完成，退出回调只执行一次。
-
-`useCountdown(duration, paused, onFinish?)` 使用毫秒计时，返回最近一次暂停或恢复时的剩余时间快照，不逐帧刷新。`duration <= 0` 时不自动结束；修改时长会重新计时，卸载时清理计时器。
-
-
-### 状态和弹层契约
-
-useControllableValue 统一使用 onValueChange(next, details)，useControllableOpen 支持组件自己的原因类型。只有显式的用户 setter 请求通知回调；改变受控值和默认值不会触发回调。ControlledValueProps、ControlledCheckedProps、ControlledOpenProps 用联合类型区分受控与初始值分支。原生 DOM onChange 保留事件签名。
-
-库内组件通过内部子路径 @crab-dev/rc-hooks/internal 使用 registerOverlayLayer(element, onEscape) 为每个 ownerDocument 维护共享栈，返回 isTop 与幂等 release。acquireScrollLock(target) 返回幂等释放函数，最后一个拥有者退出后恢复原 overflow。resolveOverlayRoot(trigger) 保留目标文档、主题边界和原生 dialog 的交互范围。组件卸载时必须释放注册与滚动锁。
-
-内部弹层子路径不属于稳定公共 API。useControllableOpen 的用户请求 setter 必须提供 typed details；useControllableValue 默认保留内部无回调状态用途，公开组件的通知使用显式 [Details] 元组。只读受控不需要无意义回调。
-
-### 适用场景
-
-多个组件需要共享同一套交互状态机。 浏览器事件、订阅或测量逻辑需要安全地处理挂载和卸载。
-
-只在一个组件中使用的简单状态保留在组件内部；不要用 Hook 隐藏不可见的全局副作用。
-
-### 使用要点
-
-- 先读清输入、返回值和生命周期，再把 Hook 接到组件。
-- 受控/非受控逻辑要明确默认值、外部值和变更回调的优先级。
-- 事件监听、计时器和观察器必须在卸载时清理。
-
-### 无障碍
-
-- 键盘 Hook 只是能力，最终元素仍需正确角色、名称和焦点管理。
-- 拖拽或动画 Hook 必须提供键盘替代操作并尊重减少动态效果。
-
-### 设计依据与覆盖
-
-- **MD3 Expressive**：这是 React 实现基础设施，没有 M3 视觉对应；其输出应帮助上层组件落实 M3 交互、焦点和动效规则。 [依据 1](https://m3.material.io/foundations/interaction/overview) · [依据 2](https://material-web.dev/) · [依据 3](https://github.com/material-components/material-web)
-- **Apple**：本包没有独立的 Apple 视觉组件；配置、测量或运行能力为上层控件服务，行为和类型仍需独立验收。 [依据 1](https://developer.apple.com/design/human-interface-guidelines/components) · [依据 2](https://developer.apple.com/design/human-interface-guidelines/accessibility)
-- **shadcn/ui**：本包没有独立的 shadcn/ui 视觉组件；由使用它的上层组件决定外观，基础能力不因无独立视觉而免于行为和类型检查。 [依据 1](https://ui.shadcn.com/docs/components) · [依据 2](https://ui.shadcn.com/docs/theming) · [依据 3](https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4)
-
-设计依据不等于完成验收；当前状态与适用边界见[覆盖矩阵](/guides/design-coverage)。
+<ComponentDesignGuide guide={guide} documents={documents} />
 
 ## 常见问题
 

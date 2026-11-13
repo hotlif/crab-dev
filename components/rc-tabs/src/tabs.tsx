@@ -1,10 +1,11 @@
 import Button from '@crab-dev/rc-button';
-import { useComponentSize, useLocale } from '@crab-dev/rc-config-provider';
+import { useComponentSize, useLocale, useConfig } from '@crab-dev/rc-config-provider';
 import { css, cx } from '@crab-dev/css';
 import { useId, useLayoutEffect, useRef, useState } from 'react';
 import type { KeyboardEvent as ReactKeyboardEvent, MouseEvent as ReactMouseEvent, ReactNode } from 'react';
 import { useControllableValue } from '@crab-dev/rc-hooks';
 import token from './token.js';
+import { macosTabStyle, macosBarStyle } from './tabs.designs.js';
 import { useTabIndicator } from './useTabIndicator.js';
 import type { TabsBarExtraContent, TabsItem, TabsProps, TabsSize, TabsChangeDetails } from './types.js';
 import { rootStyle, barWrapperStyle, barStyle, barListStyle, barLineStyle, itemLineStyle, barCenteredStyle, itemBaseStyle, itemSmallStyle, itemMediumStyle, itemLargeStyle, itemIconStyle, itemActiveStyle, itemDisabledStyle, itemCardStyle, itemCardActiveStyle, itemPillStyle, itemPillActiveStyle, indicatorLabelStyle, indicatorStyle, tabItemWrapperStyle, closeSpaceStyle, closeButtonStyle, extraStyle, contentStyle } from "./tabs.styles.js";
@@ -96,6 +97,7 @@ const Tabs = ({
     className,
     ...restProps
 }: TabsProps) => {
+    const { designSystem } = useConfig();
     const configuredSize = useComponentSize(sizeProp);
     const { messages } = useLocale();
     const size = configuredSize;
@@ -282,7 +284,7 @@ const Tabs = ({
                 ) : null}
                 <div
                     ref={barRef}
-                    className={cx.call(undefined, barStyle, type === 'line' ? barLineStyle : '')}
+                    className={cx.call(undefined, barStyle, designSystem === 'macos' ? macosBarStyle : type === 'line' ? barLineStyle : '')}
                     role="tablist"
                     aria-orientation="horizontal"
                 >
@@ -307,6 +309,7 @@ const Tabs = ({
                                             isActive ? itemActiveStyle : '',
                                             item.disabled ? itemDisabledStyle : '',
                                             getTypeItemStyles(item, isActive),
+                                            designSystem === 'macos' && macosTabStyle,
                                             item.className,
                                         )}
                                         style={item.style}
@@ -366,7 +369,7 @@ const Tabs = ({
                                 aria-labelledby={getTabId(index)}
                                 hidden={!isActive}
                             >
-                                {isActive ? item.children : null}
+                                {item.children}
                             </div>
                         );
                     })}

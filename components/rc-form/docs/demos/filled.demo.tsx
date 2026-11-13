@@ -1,6 +1,6 @@
 export const meta = {
     title: "Filled 填充字段",
-    description: "同一表单统一使用 filled，并由控件布局标签。三主题统一使用上置标签；MD3 保留填充容器和焦点底线。",
+    description: "同一表单统一使用 filled，由控件布局上置标签，字段表面与焦点反馈继承当前文档主题。",
 };
 
 import { useState } from "react";
@@ -8,7 +8,7 @@ import { css } from "@crab-dev/css";
 import token from "@crab-dev/rc-token-semantic";
 import Button from "@crab-dev/rc-button";
 import LineEdit from "@crab-dev/rc-line-edit";
-import Form, { Item, useForm } from "../../src/index.js";
+import Form, { Item, useForm } from "@crab-dev/rc-form";
 
 const layout = css`
     display: grid;

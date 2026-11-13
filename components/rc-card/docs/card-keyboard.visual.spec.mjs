@@ -13,7 +13,7 @@ for (const config of configurations) test(`nested card actions ${config.designSy
         await page.keyboard.press('Enter');
         await expect(status).toHaveText(result);
         const original = await control.elementHandle();
-        const next = { designSystem: config.designSystem === 'md3' ? 'apple' : 'md3', colorMode: config.colorMode === 'light' ? 'dark' : 'light' };
+        const next = { designSystem: config.designSystem === 'md3' ? 'macos' : 'md3', colorMode: config.colorMode === 'light' ? 'dark' : 'light' };
         await page.evaluate(value => globalThis.postMessage({ type: 'crab:preview-config', ...value }, globalThis.location.origin), next);
         await expect(boundary).toHaveAttribute('data-crab-design', next.designSystem);
         await expect(boundary).toHaveAttribute('data-theme', next.colorMode);

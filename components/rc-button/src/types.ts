@@ -1,6 +1,6 @@
 import { type ReactNode, type ComponentPropsWithRef, type MouseEvent } from 'react';
 
-/** Material 五种按钮外观；primary 对应 Filled。 */
+/** 共享操作层级；MD3 使用 Material 外观，macOS 独立映射 push/tinted/glass/plain。 */
 export type ButtonAppearance = 'elevated' | 'primary' | 'tonal' | 'outlined' | 'text';
 
 /** @deprecated 旧外观仅用于兼容。新代码使用 ButtonAppearance，危险操作使用 danger。 */
@@ -36,12 +36,12 @@ interface BaseButtonProps {
     danger?: boolean;
 
     /**
-     * 显式 Expressive 五档 xs/s/m/l/xl；省略时 MD3 按全局三档使用 32/36/40px，Apple/shadcn 映射 xs/s/m
+     * 显式五档 xs/s/m/l/xl；省略时 MD3 按全局三档使用 32/36/40px，macOS/shadcn 映射 xs/s/m
      */
     size?: 'xs' | 's' | 'm' | 'l' | 'xl';
 
     /**
-     * 省略时随设计风格：Material 为 round，shadcn 为 square；circle 适用于纯图标按钮
+     * 省略时随设计风格：Material 为 round；macOS xs/s/m 为圆角矩形、l/xl 为胶囊；shadcn 为 square；circle 适用于纯图标按钮
      */
     shape?: 'round' | 'square' | 'circle';
 

@@ -41,7 +41,7 @@ export function validateLibrary(manifest, inspection, peers = requiredReactPeers
     }
     if (manifest.schemaVersion !== 1) errors.push("Unsupported library manifest schema.");
     if (packages.size !== manifest.packages.length) errors.push("Duplicate library package names.");
-    if (new Set(designs).size !== 3 || !["md3", "apple", "shadcn"].every((id) => designs.includes(id))) errors.push("Design system IDs must be md3, apple and shadcn.");
+    if (new Set(designs).size !== 3 || !["md3", "macos", "shadcn"].every((id) => designs.includes(id))) errors.push("Design system IDs must be md3, macos and shadcn.");
     for (const entry of manifest.packages) {
         const pkg = entry.packageJson;
         const facts = inspection.get(entry.name);

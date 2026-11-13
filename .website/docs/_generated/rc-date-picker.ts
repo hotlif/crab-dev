@@ -3,12 +3,13 @@
  */
 
 import type { ComponentDemoRecord } from "../site/componentDemos.js";
+import type { ComponentDesignDocuments } from "../site/componentDesignGuide.js";
 
 export const demos = [
     {
         "id": "docs/demos/datePicker.demo.tsx",
         "title": "日期选择器",
-        "description": "字段和日期面板随文档站主题切换，使用同一日期和尺寸对照 Apple、MD3 Expressive 与 shadcn/ui。",
+        "description": "日期字段与面板继承当前文档主题；选择日期、清除并检查标签与焦点。",
         "learning": {
             "components": [
                 "Button",
@@ -31,7 +32,7 @@ export const demos = [
             ],
             "hasState": true
         },
-        "sourceCode": "export const meta = {\n    title: \"日期选择器\",\n    description: \"字段和日期面板随文档站主题切换，使用同一日期和尺寸对照 Apple、MD3 Expressive 与 shadcn/ui。\",\n};\n\nimport { css } from \"@crab-dev/css\";\nimport { useState } from \"react\";\nimport Button from \"@crab-dev/rc-button\";\nimport token from \"@crab-dev/rc-token-semantic\";\n\nimport DatePicker from \"../../src/datePicker/datePicker.js\";\nimport { formatTemporal } from \"../../src/util.js\";\n\n\nconst SizeDemo = () => {\n    const [value, setValue] = useState\u003cTemporal.ZonedDateTime | null>(null);\n    const [size, setSize] = useState\u003c\"large\" | \"medium\" | \"small\">(\"medium\")\n    return (\n        \u003cdiv\n            className={css`\n                display: flex;\n                flex-direction: column;\n                gap: ${token.space['group-gap']};\n                margin-bottom: ${token.space['section-gap']};\n            `}\n        >\n            \u003cdiv role=\"group\" aria-label=\"字段尺寸\" className={css`display: flex; gap: ${token.space['inline-gap']};`}>\n                {(['small', 'medium', 'large'] as const).map(item => \u003cButton key={item} appearance={size === item ? 'tonal' : 'outlined'} aria-pressed={size === item} onClick={() => setSize(item)}>{item}\u003c/Button>)}\n            \u003c/div>\n            \u003cDatePicker\n                label=\"计划日期\"\n                supportingText=\"日期面板的选中项与今天标记分别呈现。\"\n                value={value}\n                size={size}\n                renderDisplayString={(value) => formatTemporal(value, \"yyyy-MM-dd\")}\n                onValueChange={setValue}\n            />\n        \u003c/div>\n    )\n}\n\nexport default SizeDemo;\n",
+        "sourceCode": "export const meta = {\n    title: \"日期选择器\",\n    description: \"日期字段与面板继承当前文档主题；选择日期、清除并检查标签与焦点。\",\n};\n\nimport { css } from \"@crab-dev/css\";\nimport { useState } from \"react\";\nimport Button from \"@crab-dev/rc-button\";\nimport token from \"@crab-dev/rc-token-semantic\";\n\nimport DatePicker from '@crab-dev/rc-date-picker';\n\n\nconst SizeDemo = () => {\n    const [value, setValue] = useState\u003cTemporal.ZonedDateTime | null>(null);\n    const [size, setSize] = useState\u003c\"large\" | \"medium\" | \"small\">(\"medium\")\n    return (\n        \u003cdiv\n            className={css`\n                display: flex;\n                flex-direction: column;\n                gap: ${token.space['group-gap']};\n                margin-bottom: ${token.space['section-gap']};\n            `}\n        >\n            \u003cdiv role=\"group\" aria-label=\"字段尺寸\" className={css`display: flex; gap: ${token.space['inline-gap']};`}>\n                {(['small', 'medium', 'large'] as const).map(item => \u003cButton key={item} appearance={size === item ? 'tonal' : 'outlined'} aria-pressed={size === item} onClick={() => setSize(item)}>{item}\u003c/Button>)}\n            \u003c/div>\n            \u003cDatePicker\n                label=\"计划日期\"\n                supportingText=\"日期面板的选中项与今天标记分别呈现。\"\n                value={value}\n                size={size}\n                renderDisplayString={(value) => value?.toPlainDate().toString() ?? \"\"}\n                onValueChange={setValue}\n            />\n        \u003c/div>\n    )\n}\n\nexport default SizeDemo;\n",
         "previewPath": "/components/rc-date-picker/workbench/?__wake_demo=docs%2Fdemos%2FdatePicker.demo.tsx",
         "workbenchPath": "/components/rc-date-picker/workbench/#/components/docs%2Fdemos%2FdatePicker.demo.tsx",
         "density": "regular",
@@ -136,6 +137,29 @@ export const demos = [
         "density": "regular",
         "layout": "wide",
         "group": "日期时间"
+    },
+    {
+        "id": "docs/demos/desktop-time.demo.tsx",
+        "title": "体系默认的时间输入",
+        "description": "macOS 使用紧凑数字字段；显式表盘仍可通过 panelProps 请求。",
+        "learning": {
+            "components": [
+                "TimePicker"
+            ],
+            "props": [
+                "label",
+                "defaultValue",
+                "supportingText"
+            ],
+            "events": [],
+            "hasState": false
+        },
+        "sourceCode": "import { TimePicker } from '@crab-dev/rc-date-picker';\nimport { css } from '@crab-dev/css';\nimport token from '@crab-dev/rc-token-semantic';\n\nexport const meta = { title: '体系默认的时间输入', description: 'macOS 使用紧凑数字字段；显式表盘仍可通过 panelProps 请求。' };\nconst frame = css`padding: ${token.space['section-gap']}; max-width: 320px;`;\nexport default function DesktopTimeDemo() {\n    return \u003cdiv className={frame}>\n        \u003cTimePicker label=\"开始时间\" defaultValue={{ hour: 9, minute: 30, second: 0 }} supportingText=\"打开后可用键盘调整小时与分钟。\" />\n    \u003c/div>;\n}\n",
+        "previewPath": "/components/rc-date-picker/workbench/?__wake_demo=docs%2Fdemos%2Fdesktop-time.demo.tsx",
+        "workbenchPath": "/components/rc-date-picker/workbench/#/components/docs%2Fdemos%2Fdesktop-time.demo.tsx",
+        "density": "regular",
+        "layout": "wide",
+        "group": "时间选择"
     },
     {
         "id": "docs/demos/timePicker.demo.tsx",
@@ -277,3 +301,86 @@ export const demos = [
         "group": "视觉验收"
     }
 ] as const satisfies readonly ComponentDemoRecord[];
+
+export const documents = {
+    "md3": {
+        "summary": "以日期字段、日历面板与明确的选中状态组织时间输入，文字标签保持可见。",
+        "usage": "日期、时间与范围分别选择对应入口；日历中的当前日期和选中日期需要区分。",
+        "exampleDescription": "打开日期面板，选择日期后再清除，检查字段标签、选中色和焦点返回。",
+        "demos": [
+            "datePicker.demo.tsx",
+            "datePickerPanel.demo.tsx",
+            "datePickerRange.demo.tsx",
+            "dateTimePicker.demo.tsx",
+            "dateTimePickerPanel.demo.tsx",
+            "timePicker.demo.tsx",
+            "timePickerDial.demo.tsx",
+            "timePickerPanel.demo.tsx"
+        ],
+        "references": [
+            "https://m3.material.io/components/date-pickers/overview",
+            "https://material-web.dev/components/text-field/",
+            "https://github.com/material-components/material-web/tree/main/textfield"
+        ]
+    },
+    "macos": {
+        "summary": "以紧凑桌面日期字段和时间编辑区域服务日程与设置，选择面板保持内容清晰。",
+        "usage": "时间编辑使用桌面步进和字段交互；把当前值、单位与禁用状态放在清楚的位置。",
+        "exampleDescription": "编辑桌面时间并操作步进控件，核对小时分钟、键盘操作与当前值。",
+        "demos": [
+            "desktop-time.demo.tsx",
+            "datePicker.demo.tsx",
+            "datePickerPanel.demo.tsx",
+            "datePickerRange.demo.tsx",
+            "dateTimePicker.demo.tsx",
+            "dateTimePickerPanel.demo.tsx",
+            "timePicker.demo.tsx",
+            "timePickerDial.demo.tsx",
+            "timePickerPanel.demo.tsx"
+        ],
+        "references": [
+            "https://developer.apple.com/design/human-interface-guidelines/components",
+            "https://developer.apple.com/design/human-interface-guidelines/accessibility"
+        ]
+    },
+    "shadcn": {
+        "summary": "用有边界的日期字段和中性日历面板提供日期、范围与时间选择。",
+        "usage": "范围输入应明确起止值，选中背景与焦点轮廓分别表达数据状态和操作位置。",
+        "exampleDescription": "选择起止日期并检查范围表达，再用键盘回到字段确认焦点可见。",
+        "demos": [
+            "datePickerRange.demo.tsx",
+            "datePicker.demo.tsx",
+            "datePickerPanel.demo.tsx",
+            "dateTimePicker.demo.tsx",
+            "dateTimePickerPanel.demo.tsx",
+            "timePicker.demo.tsx",
+            "timePickerDial.demo.tsx",
+            "timePickerPanel.demo.tsx"
+        ],
+        "references": [
+            "https://ui.shadcn.com/docs/components",
+            "https://ui.shadcn.com/docs/theming",
+            "https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4"
+        ]
+    }
+} as const satisfies ComponentDesignDocuments;
+
+export const guide = {
+    "definition": "DatePicker、TimePicker 和 DateTimePicker 分别选择日期、时间或两者组合；Panel 变体适合嵌入现有容器。组件负责选择过程，业务仍要定义时区、允许范围和提交格式。",
+    "useWhen": [
+        "用户从日历或时间面板选择一个明确值或范围。",
+        "需要通过最小/最大值、禁用日期或时区限制合法输入。"
+    ],
+    "avoidWhen": [
+        "生日等容易直接输入的已知日期可优先文本字段；复杂重复日程使用专门规则编辑器。"
+    ],
+    "essentials": [
+        "Date、Time 与 DateTime 是不同数据模型，先选对组件。TimePicker 从字段下方展开，可在表盘和键盘输入之间切换；确认后才更新值。",
+        "受控 value、onValueChange 和显示时区要来自同一业务约定；独立时间默认选择小时与分钟，秒输入需显式启用。",
+        "Panel 不自带弹层触发器，嵌入时由外层负责打开、关闭、校验与焦点恢复；DateTimePicker 是日期和时间的组合扩展。"
+    ],
+    "accessibility": [
+        "输入框要有 label 和格式说明，日历网格支持方向键、确认和退出。",
+        "当前日期、选中日期、不可选日期与错误必须同时有非颜色状态。"
+    ]
+} as const;

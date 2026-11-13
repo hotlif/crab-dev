@@ -16,7 +16,7 @@ async function settleLayout() {
 }
 
 describe('Tag close paint role with published CSS', () => {
-    for (const designSystem of ['md3', 'apple', 'shadcn'] as const) {
+    for (const designSystem of ['md3', 'macos', 'shadcn'] as const) {
         for (const colorMode of ['light', 'dark'] as const) {
             it(`keeps compact paint, inherited foreground and native feedback (${designSystem}/${colorMode})`, async () => {
                 const onClose = mock.fn();

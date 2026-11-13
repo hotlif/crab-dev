@@ -1,6 +1,6 @@
 import { describe, expect, it } from '@crab-dev/wake/test';
 import { designColorContract } from '../design-theme.js';
-import { appleColorContract } from '../apple-theme.js';
+import { macosColorContract } from '../macos-theme.js';
 import { shadcnColorContract } from '../shadcn-theme.js';
 import { md3ColorContract } from '../theme.js';
 import token from '../token.js';
@@ -21,7 +21,7 @@ function strings(value: unknown): string[] {
 
 function contrast(first: string, second: string, allowGamutMapping = false): number {
     // Evaluate the default OKLCh fallback in linear sRGB. L cubed alone
-    // is only valid for neutral colors and cannot test MD3/Apple chroma.
+    // is only valid for neutral colors and cannot test MD3/macOS chroma.
     // Consumer CSS-variable overrides require separate rendered evidence.
     const luminance = (expression: string) => {
         const color = colors(expression).at(-1);
@@ -63,18 +63,18 @@ describe('design color contracts', () => {
     it('keeps every design as an independent Light / Dark contract', () => {
         expect(designColorContract.md3).toBe(md3ColorContract);
         expect(designColorContract.shadcn).toBe(shadcnColorContract);
-        expect(designColorContract.apple).toBe(appleColorContract);
+        expect(designColorContract.macos).toBe(macosColorContract);
         expect(designColorContract.md3.light.brand.primary).toContain('--token-global-purple-40');
         expect(designColorContract.md3.dark.brand.primary).toContain('--token-global-purple-80');
         expect(designColorContract.md3.light.surface.container).toContain('--token-global-material-neutral-94');
         expect(designColorContract.shadcn.light.brand.primary).toContain('--token-global-neutral-900');
         expect(designColorContract.shadcn.dark.brand.primary).toContain('--token-global-neutral-50');
-        expect(designColorContract.apple.light.brand.primary).toContain('--token-global-blue-700');
-        expect(designColorContract.apple.dark.brand.primary).toContain('--token-global-blue-400');
+        expect(designColorContract.macos.light.brand.primary).toContain('--token-global-blue-700');
+        expect(designColorContract.macos.dark.brand.primary).toContain('--token-global-blue-600');
     });
 
-    it('reserves Apple blue for accents while keeping content and window surfaces neutral', () => {
-        for (const theme of [appleColorContract.light, appleColorContract.dark]) {
+    it('reserves macOS blue for accents while keeping content and window surfaces neutral', () => {
+        for (const theme of [macosColorContract.light, macosColorContract.dark]) {
             for (const expression of strings([theme.surface, theme.workspace, theme.text.primary, theme.text.secondary])) {
                 const values = colors(expression);
                 expect(values.length).toBeGreaterThan(0);
@@ -105,7 +105,7 @@ describe('design color contracts', () => {
         }
     });
 
-    for (const designSystem of ['md3', 'apple', 'shadcn'] as const) {
+    for (const designSystem of ['md3', 'macos', 'shadcn'] as const) {
         for (const colorMode of ['light', 'dark'] as const) {
             it(`keeps default primary/secondary text readable on ${designSystem}/${colorMode} surfaces`, () => {
                 const theme = designColorContract[designSystem][colorMode];
@@ -140,12 +140,25 @@ describe('design color contracts', () => {
         }
     });
 
-    it('preserves semantic feedback colors across visual designs', () => {
+    it('keeps the existing shared feedback mapping for shadcn', () => {
         for (const mode of ['light', 'dark'] as const) {
-            for (const design of [shadcnColorContract, appleColorContract]) {
+            for (const design of [shadcnColorContract]) {
                 expect(design[mode].feedback).toEqual(md3ColorContract[mode].feedback);
                 expect(design[mode].border.error).toBe(md3ColorContract[mode].border.error);
                 expect(design[mode].highlight).toEqual(md3ColorContract[mode].highlight);
+            }
+        }
+    });
+
+    it('keeps independent macOS feedback pairs readable in both modes', () => {
+        for (const theme of [macosColorContract.light, macosColorContract.dark]) {
+            for (const feedback of Object.values(theme.feedback)) {
+                for (const background of [feedback.background, feedback.backgroundHover]) {
+                    expect(contrast(feedback.text, background, true)).toBeGreaterThanOrEqual(4.5);
+                }
+                for (const solid of [feedback.solid, feedback.solidHover, feedback.solidActive]) {
+                    expect(contrast(feedback.onSolid, solid, true)).toBeGreaterThanOrEqual(4.5);
+                }
             }
         }
     });

@@ -8,11 +8,16 @@ status = "experimental"
 {/* THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY. */}
 
 import ComponentDemos from "../site/componentDemos.js";
-import { demos } from "../_generated/rc-line-edit.js";
+import ComponentDesignGuide, { DesignIntroduction, DesignExampleIntroduction } from "../site/componentDesignGuide.js";
+import { demos, documents, guide } from "../_generated/rc-line-edit.js";
 
 # LineEdit 单行输入框
 
 <div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-line-edit</div>
+
+## 设计与用法
+
+<DesignIntroduction documents={documents} />
 
 <div id="基础示例" data-docs-example-anchor /><div id="全部示例" data-docs-example-anchor />
 
@@ -20,23 +25,13 @@ import { demos } from "../_generated/rc-line-edit.js";
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
 
-#### 标签与状态
+##### 标签、边界与状态 — 检查当前字段的标签、焦点、错误和禁用反馈，输入后观察清除行为。
 
-##### 标签、边界与状态 — 切换文档站的 Apple、MD3 或 shadcn 主题，对照同一组字段的标签、焦点、错误和禁用反馈。
-
-##### 填充字段的空值与内容 — 比较 filled 字段的空值、已有内容和只读状态；使用 Tab 检查标签与焦点边界。
-
-##### 输入状态矩阵 — 同一字段树对照 outlined 与 filled，尺寸、设计和明暗变化保留已输入的草稿。
-
-#### 基础与尺寸
-
-##### 基础用法 — 三主题统一呈现上置标签，MD3 采用紧凑桌面尺寸并保留色调表面与状态边框。通过顶部外观菜单统一切换。
+##### 基础用法 — 使用上置标签编辑单行内容，字段尺寸、表面和焦点反馈继承当前文档主题。
 
 ##### 尺寸 — 通过 `size` 属性设置输入框尺寸
 
 ##### 前缀和后缀 — 通过 `prefix` 和 `suffix` 属性设置前缀/后缀图标
-
-#### 输入能力
 
 ##### 可清除 — 设置 `allowClear` 后，输入框有内容时右侧显示清除按钮；配合受控 `value` 和 `onChange` 回调使用，`disabled` 或 `readOnly` 时清除按钮自动隐藏
 
@@ -48,136 +43,13 @@ import { demos } from "../_generated/rc-line-edit.js";
 
 </div>
 
-<ComponentDemos demos={demos} />
+<DesignExampleIntroduction documents={documents} />
 
-[打开完整组件工作台](/components/rc-line-edit/workbench/)
+<ComponentDemos demos={demos} documents={documents} />
 
 ## 使用说明
 
-用于单行文本录入，支持前后缀、清除按钮、字数统计和密码可见性切换。
-
-三套主题均使用外置标签，标签宽度独立于输入框内的前后缀和操作按钮。窄字段长标签使用省略显示，完整名称继续关联输入框；调整宽度、方向和主题时保留输入节点、选区与草稿。
-
-
-三套主题的空字段均显示占位文字；禁用后使用各自的禁用前景角色。标签、占位和实际值分别核对，禁用态不沿用启用态占位色。
-
-强制颜色模式下，禁用字段使用系统 `GrayText`，容器透明度保持为 `1`，避免再次淡化系统已选择的禁用文字颜色。输入和内部操作仍然禁用；普通颜色模式的禁用透明度与布局不变。
-
-### 三套主题的字段边界
-
-Apple 使用紧凑矩形字段、静态标签、轻微内阴影和蓝色外侧焦点环；shadcn 使用静态标签、细边框、微阴影和 3px 半透明外侧焦点环。MD3 保留外置标签、连续描边及 Filled 底部指示线。带标签与无标签字段都从同一个 L2 字段合约读取焦点和错误反馈；因此搜索框、复合选择器也随主题同步。
-
-错误与警告状态在聚焦时保留各自的反馈色；桌面风格的普通标签保持中性色，错误与警告标签分别使用对应语义色。警告样式属于本项目的 Web 状态扩展。Apple 的圆角、密度与蓝色光环是本项目的 Web 适配，不表示复刻任意版本 AppKit 的像素参数。只读、禁用、错误、清除和字符计数可在“标签、边界与状态”演示中对照。
-
-2026-10-22 实际参考：[Apple Text fields](https://developer.apple.com/design/human-interface-guidelines/text-fields)、[Apple 官方正文](https://developer.apple.com/tutorials/data/design/human-interface-guidelines/text-fields.json)、[shadcn Input](https://ui.shadcn.com/docs/components/input)、[shadcn Input 源码](https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/new-york-v4/ui/input.tsx)；MD3 的颜色与反馈参考下文 Material Web 来源；外置标签与紧凑几何是本库的桌面适配。
-
-### 何时使用
-
-### 填充、描边与外置标签
-
-`appearance="outlined"` 为默认外观。统一的 `ConfigProvider designSystem` 决定字段布局：MD3 使用外置标签，Outlined 采用连续描边，Filled 使用顶部圆角和底部指示线；Apple 与 shadcn 使用上置的静态标签和紧凑边框。切换设计时保留同一个输入节点及已输入的值。
-
-`supportingText` 将辅助说明置于字段下方；`errorText` 替换辅助说明、启用错误状态并自动设置描述关联。已有 `aria-describedby` 会保留，计数也会加入关联。调用方仍可显式指定 `aria-invalid`。带标签的 `showCount` 移到辅助信息行，避免挤占输入宽度；无标签的旧调用保持原布局。
-
-`bordered=false` 仍交由宿主绘制边界，此时 label 使用外部标签。无边框模式适合组合输入和搜索容器。Material、Apple 与 shadcn 的颜色、布局和形状均由 L2 令牌切换，组件不根据设计风格分支渲染标签。
-
-用于名称、搜索词等单行文本输入。可根据场景配置前后缀、清除按钮、字数统计和密码可见性切换。备注、描述等多行内容请使用 `@crab-dev/rc-text-edit`。
-
-`allowClear` 支持受控和非受控模式，清除会触发标准 `onValueChange`，`onClear` 仅用于额外通知；使用 `showCount` 时可配合 `maxLength` 显示长度限制。
-
-### 维护与矩阵验收
-
-包内 `docs/visual.json` 覆盖三体系、明暗和全部 small / medium / large。独立字段的几何由 size 决定，collection density 不改变字段或草稿，因此密度矩阵使用 standard 并记录不适用理由。outlined 与 filled 分别进入真实悬停、键盘焦点和清除，并分别保存截图；默认、已有值、错误、warning、禁用和只读均保留原有断言与说明关联。Firefox / WebKit 执行清单指定的默认与关键状态子集。
-
-空值的错误、警告、禁用和只读与有值组合分别登记：`filled-error`、`filled-warning`、`disabled-filled`、`read-only-filled` 的 filled 指内容非空，不代表 `appearance="filled"`。两种外观都先通过真实输入保留草稿，再选择相应状态；只读检查键盘全选与拒绝修改，禁用检查跳过 Tab，二者都没有清除入口。错误和警告保留原值、清除动作及说明关联，核对非空时的外置标签和轮廓。Firefox / WebKit 的关键子集另含有值只读。新增范围需形成新的浏览器候选与人工复审，旧空值矩阵通过不能替代这些组合。
-
-只读字段独立用真实 Tab、`ControlOrMeta+A` 和键入 `x` 核对选区 `[0, value.length]` 与拒绝修改，不要求可编辑输入的 Home / End 光标收缩行为。前轮原始追踪只证明只读属性、完整原值及 Home 后仍是全选区；该前提错误在后续全选与拒改断言前失败，不能把未执行步骤算作通过。修正后的只读断言仍待新的正式运行；环境与缩放中的可编辑长草稿继续保留原 Home / End、全选和真实内部滚动检查。
-
-环境与真实 200% 缩放场景逐外观检查长草稿、DOM 和受控值保持；使用原生 Home / End 和全选验证完整值可达，并记录实际内部横向滚动。单行输入允许合法的原生横向编辑，不要求字段为长值扩页。触控通过实际关联标签聚焦字段，再操作清空按钮，不强制绕过外置标签的正常命中。标签、辅助说明、控件、按钮和图标使用共享的只读边界与文字测量；Demo 外层无溢出不能替代这些断言。
-
-`password-hidden` / `password-visible` 先真实输入固定示例值，再使用公开 `type="password"` 和组件自己的可见性按钮；键盘 Tab 到按钮、Enter 显示，隐藏场景再 Enter 恢复密码遮罩。两种外观分别核对原生 type、值保持、按钮名称和 `aria-controls`，不使用伪造显隐样式。密码输入没有隐式 textbox role，场景通过真实关联标签定位同一输入。
-
-`borderless-focus` 使用公开 `bordered={false}` 嵌入现有画框的语义宿主表面；不覆盖组件内部样式。先真实输入保留值，再用 Tab 进入键盘焦点，核对控件透明、无自身边框/阴影但仍有可见焦点，以及文字、说明、清除按钮和图标边界。Firefox / WebKit 的关键子集包含密码显示和无框焦点，复用相同交互与测量。以上为新增待执行范围，不由旧普通文本截图或已有单元测试推导为视觉通过。
-
-矩阵发现、自动断言、像素候选、稳定性与人工外观复审分别记录。新增场景仍需统一浏览器执行和逐项复审，未运行的范围保持 partial，不能由场景存在、默认测试或旧快照推导为 verified。
-
-
-### 结构与输入边界
-
-标签说明字段名称，placeholder 只给输入示例。启用和只读字段的可见占位文字均按普通文字对比度核对，不能把只读视为禁用豁免；三主题的外置标签和占位文字可同时显示。实际对比度取 `::placeholder` 的颜色与透明度，并逐层复合当前背景；公开令牌或调用方覆盖需使用各自的实际样式验证。前缀表示单位或上下文，后缀动作只影响当前字段。单行输入保留原生横向编辑与选择能力；完整值应能通过聚焦、选择和复制获得，不以 CSS 截断替代编辑内容。
-
-| 场景 | 选择 | 约束 |
-| --- | --- | --- |
-| 名称、搜索词、短编号 | 普通 LineEdit | 配置可见标签，按业务决定 maxLength |
-| 密码核对 | type="password" | 切换按钮改变可见性，值不变；禁用时按钮同步禁用 |
-| 已有内容可复制、不能修改 | readOnly | 保留完整文字对比度和键盘聚焦；密码可见性仍可切换 |
-| 暂时不可用 | disabled | 输入和内部操作都不激活，原因由相邻说明提供 |
-| 需要多行说明 | TextEdit | 不把换行文本压进单行高度 |
-
-### 当前尺寸与状态实现
-
-MD3 单行字段采用 32 / 40 / 48px 三档桌面高度，输入文字为 16px / 24px，上置标签为 14px / 20px，标签间距 4px。Apple 与 shadcn 保留以下尺寸：
-
-| size | 容器最小高度 | 默认字号 / 行高 | 内边距 |
-| --- | --- | --- | --- |
-| large | 40px | 14px / 20px | 上下 0px、左右 12px |
-| medium | 36px | 14px / 20px | 上下 0px、左右 12px |
-| small | 32px | 14px / 20px | 上下 0、左右 12px |
-
-高度可随内容和字体设置增长。MD3 左右内边距 12px、图标 20px、图标间距 8px；标签使用完整字段宽度，不受前后缀或清除动作挤压。Outlined 使用连续边框，Filled 保留状态底线；均采用外置标签。粗指针输入区和内部动作至少 48px，容器自然增高。这是本库的 MD3 桌面扩展。
-
-Material 输入聚焦时，描边型将原有 1px 轮廓向内加粗为 3px，填充型将底线加粗为 3px，不额外叠加外侧焦点框或光晕；错误与 warning 沿用各自的反馈色。无边框模式和系统强制颜色模式保留独立的键盘焦点轮廓。`status="error"` 默认设置 `aria-invalid=true`，显式 `aria-invalid` 优先；warning 不自动宣告无效。错误原因和恢复方法仍需调用方以可见文字提供，并通过 `aria-describedby` 关联。
-
-边框依据：2026-09-23 核对的 [M3 文本框规格](https://m3.material.io/components/text-fields/specs)、[使用指南](https://m3.material.io/components/text-fields/guidelines)、[无障碍说明](https://m3.material.io/components/text-fields/accessibility) 与 [Material Web 示例](https://material-web.dev/components/text-field/)。实现参照 Material Web 提交 `849b4dce` 的 [outlined 样式](https://github.com/material-components/material-web/blob/849b4dce877863752bbfd62f74f52829b2430868/field/internal/_outlined-field.scss)、[filled 样式](https://github.com/material-components/material-web/blob/849b4dce877863752bbfd62f74f52829b2430868/field/internal/_filled-field.scss)、[描边焦点令牌](https://github.com/material-components/material-web/blob/849b4dce877863752bbfd62f74f52829b2430868/tokens/_md-comp-outlined-text-field.scss) 和 [底线焦点令牌](https://github.com/material-components/material-web/blob/849b4dce877863752bbfd62f74f52829b2430868/tokens/_md-comp-filled-text-field.scss)。M3 规格表同时保留旧的 filled focus height 2dp 和新的 thickness 3dp；本实现采用新厚度，与 Material Web 的 3px 覆盖值一致。warning 为本库扩展，沿用相同的边界加粗规则。
-
-本轮（2026-10-21）核对 [M3 规格](https://m3.material.io/components/text-fields/specs)、[使用指南](https://m3.material.io/components/text-fields/guidelines)、[无障碍](https://m3.material.io/components/text-fields/accessibility)、[Material Web 文档和示例](https://material-web.dev/components/text-field/)，以及 Material Web 2.5.0 的 [字段行为](https://github.com/material-components/material-web/blob/main/textfield/internal/text-field.ts)、[Outlined 样式](https://github.com/material-components/material-web/blob/main/field/internal/_outlined-field.scss)、[Filled 样式](https://github.com/material-components/material-web/blob/main/field/internal/_filled-field.scss)、[Outlined 包装令牌](https://github.com/material-components/material-web/blob/main/tokens/_md-comp-outlined-field.scss) 与 [Filled 包装令牌](https://github.com/material-components/material-web/blob/main/tokens/_md-comp-filled-field.scss)。本实现采用当前包装层 3px 焦点指示；warning、清除动作和 shadcn 密度是项目扩展。
-
-内部清除和密码动作复用 Button，具有独立焦点、系统颜色和减少动态效果支持。清除先把焦点还给输入框，再调用 `onClear`；由调用方更新受控值。提供 `id` 时动作关联该 ID，否则组件通过 `useId` 建立关联。错误说明使用 `role="alert"`；修复后恢复辅助说明，字符计数通过描述关联提供。
-
-### 组合、误用与验收
-
-- 正例：成员邮箱出错时显示“邮箱格式不完整，请补全 @ 后的域名”，关联输入框；用户仍可继续编辑。
-- 反例：只有红色边框。读者不知道原因，非视觉用户也无法获得修正提示；补充可见错误文字及关联。
-- 正例：只读项目编号保持可选择、可复制。反例：把所有只读字段都禁用，导致内容被淡化且键盘无法进入。
-- `bordered=false` 用于已有容器的复合控件；宿主负责边界和整体分组，输入自身仍保留键盘焦点。避免宿主与输入重复绘制同一焦点轮廓，定制后必须实测。
-- 验收：Tab 进入输入和动作；Enter 清除后继续输入；禁用密码按钮不能被 Tab 到达；只读值不能修改；错误和聚焦可以同时辨认；320px 下动作不遮住文本；放大文字后无垂直裁切。
-
-关联：[输入与选择](https://material-web.dev/components/text-field/)、[状态组合](/guides/accessibility)、[无障碍](/guides/accessibility)、[Button](/components/rc-button)、[TextEdit](/components/rc-text-edit)。浏览器专项检查与包内 React 测试分开验收，工具链门禁受阻不表示后者通过。
-
-“填充字段的空值与内容”补充 filled 的空值、已有值和只读对照。使用 Tab 观察标签与焦点，清除已有内容后继续输入；只读值可以选择和复制。
-
-
-
-### 状态契约
-
-`value / defaultValue / onValueChange(next, details)` 管理字符串值。`details.reason` 区分 `input / clear`；原生 `onChange(event)` 仅报告真实输入事件，清除操作通过值协议报告。
-
-受控值与默认值互斥；默认值仅在初始化时使用。外部属性更新不触发操作回调，省略回调可展示只读受控快照。
-
-### 适用场景
-
-用户输入一行可编辑文本。 需要前后缀、清除、密码可见性、字符计数或错误提示。
-
-长段落使用 TextEdit，数值使用 NumberEdit，有限选项使用 Select。
-
-### 使用要点
-
-- label 描述字段含义，placeholder 只提供格式示例，不能代替标签。
-- 受控 value 与 onValueChange 配对；defaultValue 只在初始非受控场景使用。
-- status、supportingText 和计数要共同说明当前输入是否有效。
-
-### 无障碍
-
-- 使用 useId 关联 label、说明和错误，必填不能只靠星号表达。
-- 清除与密码可见按钮要有可访问名称，错误出现后不能让输入焦点丢失。
-
-### 设计依据与覆盖
-
-- **MD3 Expressive**：直接参考 M3 Text fields 的 filled、outlined、label、supporting text、error 与状态规则，并对照 Material Web text field。 [依据 1](https://m3.material.io/components/text-fields/overview) · [依据 2](https://material-web.dev/components/text-field/) · [依据 3](https://github.com/material-components/material-web/tree/main/textfield)
-- **Apple**：依据 Apple HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。 [依据 1](https://developer.apple.com/design/human-interface-guidelines/components) · [依据 2](https://developer.apple.com/design/human-interface-guidelines/accessibility)
-- **shadcn/ui**：参考 shadcn/ui 的组件用途、中性表面与设计变量，在本库公共语义和 React 交互模型中实现；完整状态覆盖仍需按矩阵验收。 [依据 1](https://ui.shadcn.com/docs/components) · [依据 2](https://ui.shadcn.com/docs/theming) · [依据 3](https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4)
-
-设计依据不等于完成验收；当前状态与适用边界见[覆盖矩阵](/guides/design-coverage)。
+<ComponentDesignGuide guide={guide} documents={documents} />
 
 ## 常见问题
 
@@ -185,9 +57,9 @@ Material 输入聚焦时，描边型将原有 1px 轮廓向内加粗为 3px，�
 
 allowClear 支持受控和非受控模式，清除会触发 onValueChange；受控模式需在 onValueChange 中接受新值，onClear 只用于额外通知。disabled 或 readOnly 时隐藏清除按钮。
 
-### 为什么切换 MD3 Expressive 后输入框高度不同？
+### 为什么输入框高度不同？
 
-设计体系决定字段结构。MD3 Expressive 使用 32 / 40 / 48px 三档控件与 16px 输入文字，14px 标签固定在框外；Apple 与 shadcn/ui 将静态标签置于外部，输入框随 size 使用 32 / 36 / 40px。colorMode 单独控制明暗。
+字段高度由当前设计与 size 决定。通过 ConfigProvider 统一设置，标签始终保留在字段外部；colorMode 独立控制明暗。
 
 ## API
 

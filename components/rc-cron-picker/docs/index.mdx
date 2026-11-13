@@ -13,7 +13,7 @@ status = "experimental"
 
 ## 三套主题的计划字段
 
-CronPicker 复用 LineEdit，支持 `label`、`supportingText`、`errorText` 和 `appearance`。MD3 使用外置标签；Apple 与 shadcn 使用静态标签和各自的桌面焦点环。非法表达式除了错误边框，也显示可见修正说明并关联到输入框，修正后恢复辅助文字。
+CronPicker 复用 LineEdit，支持 `label`、`supportingText`、`errorText` 和 `appearance`。MD3 使用外置标签；macOS 与 shadcn 使用静态标签和各自的桌面焦点环。非法表达式除了错误边框，也显示可见修正说明并关联到输入框，修正后恢复辅助文字。
 
 基础演示增加“执行计划”可见标签，结果说明使用语义文字颜色。面板中的 Select、NumberEdit、Checkbox 和 Tabs 分别继承主题，不改变表达式解析与提交规则。定时规则编辑器是项目组合能力，参考 [Material Web Text field](https://material-web.dev/components/text-field/)和 [Select](https://material-web.dev/components/select/)，没有对应的官方 Cron 组件。核对日期：2026-10-22。
 
@@ -29,11 +29,11 @@ CronPicker 复用 LineEdit，支持 `label`、`supportingText`、`errorText` 和
 
 ## 三体系验收规格
 
-Cron 没有官方 M3、Apple 或 shadcn 对应组件。2026-10-29 的组合规格参考 [Material Web Text field](https://material-web.dev/components/text-field/)、[Tabs](https://material-web.dev/components/tabs/)与 [Select](https://material-web.dev/components/select/)的已有基线；Expressive 规则集中于实际动作，五段式编辑器是本项目桌面扩展。Apple 参考 [Pickers](https://developer.apple.com/design/human-interface-guidelines/pickers)的就近编辑与可预测选项原则；shadcn 对照清单锁定修订的 [New York V4 Tabs](https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui/tabs.tsx)和 [Select](https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui/select.tsx)。
+Cron 没有官方 M3、macOS 或 shadcn 对应组件。2026-10-29 的组合规格参考 [Material Web Text field](https://material-web.dev/components/text-field/)、[Tabs](https://material-web.dev/components/tabs/)与 [Select](https://material-web.dev/components/select/)的已有基线；Expressive 规则集中于实际动作，五段式编辑器是本项目桌面扩展。macOS 参考 [Pickers](https://developer.apple.com/design/human-interface-guidelines/pickers)的就近编辑与可预测选项原则；shadcn 对照清单锁定修订的 [New York V4 Tabs](https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui/tabs.tsx)和 [Select](https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui/select.tsx)。
 
 | 层次 | 三体系约定 |
 | --- | --- |
-| 字段 | MD3 外置标签与色调状态，Apple 静态标签和轻量边界，shadcn 中性描边；都由 LineEdit 的公共能力承接。 |
+| 字段 | MD3 外置标签与色调状态，macOS 静态标签和轻量边界，shadcn 中性描边；都由 LineEdit 的公共能力承接。 |
 | 面板 | Tabs 管理五个字段，Select / NumberEdit / CheckableTag 通过各自公共协议管理模式与参数。L3 只负责分组、表达式及预览排版。 |
 | 结果 | 描述使用 title 角色，表达式使用等宽字体及双向隔离，执行预览使用次级文字与等宽数字；不反转 Cron 语法。 |
 

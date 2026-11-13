@@ -1,0 +1,35 @@
+{
+    "md3": {
+        "summary": "将字段标签、辅助说明与错误反馈组织成清晰任务，关键提交操作保留强调。",
+        "usage": "使用控件标签模式时保持上置标签可见，校验错误放在关联字段下方。",
+        "exampleDescription": "填写填充外观表单并触发校验，检查字段容器、辅助说明与主要动作。",
+        "demos": [
+            "filled.demo.tsx",
+            "base.demo.tsx",
+            "editors.demo.tsx",
+            "validation.demo.tsx"
+        ]
+    },
+    "macos": {
+        "summary": "以桌面设置式的紧凑字段和精确对齐组织表单，内容层保持稳定可读。",
+        "usage": "按设置任务分组，错误信息应紧邻对应字段，保存状态不清空当前输入。",
+        "exampleDescription": "操作多种桌面编辑字段，检查标签对齐、错误提示和提交值。",
+        "demos": [
+            "editors.demo.tsx",
+            "base.demo.tsx",
+            "filled.demo.tsx",
+            "validation.demo.tsx"
+        ]
+    },
+    "shadcn": {
+        "summary": "用中性字段、简洁标签和局部错误信息构成管理表单，结构清楚且便于组合。",
+        "usage": "让表单说明解释输入要求，提交后按字段呈现错误，避免只给全局失败消息。",
+        "exampleDescription": "提交包含错误的表单，再修正字段，观察边界与错误说明的变化。",
+        "demos": [
+            "validation.demo.tsx",
+            "base.demo.tsx",
+            "editors.demo.tsx",
+            "filled.demo.tsx"
+        ]
+    }
+}

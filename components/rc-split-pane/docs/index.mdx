@@ -32,15 +32,15 @@ status = "experimental"
 
 ## 设计风格与主题
 
-分隔线、拖动和焦点使用语义角色。Apple 使用紧凑的细分隔轨道，MD3 保留细线与较宽命中区，shadcn 增加居中的可见握柄。粗指针仍使用公共触控目标；方向键、Home/End、Enter、禁用及减少动态效果行为保持一致。所有演示的边框、背景和文字现已跟随当前主题。
-这是本库的可调整分栏扩展。MD3 的分隔角色用于视觉边界；Apple 的布局与焦点原则用于 Web 适配；shadcn/ui 参考固定 New York V4 Resizable 的握柄表达。分栏比例、约束与键盘调整属于本库契约，分隔线的视觉样式不能替代分栏行为验收。
+分隔线、拖动和焦点使用语义角色。macOS 使用紧凑的细分隔轨道，MD3 保留细线与较宽命中区，shadcn 增加居中的可见握柄。粗指针仍使用公共触控目标；方向键、Home/End、Enter、禁用及减少动态效果行为保持一致。所有演示的边框、背景和文字现已跟随当前主题。
+这是本库的可调整分栏扩展。MD3 的分隔角色用于视觉边界；macOS 的布局与焦点原则用于 Web 适配；shadcn/ui 参考固定 New York V4 Resizable 的握柄表达。分栏比例、约束与键盘调整属于本库契约，分隔线的视觉样式不能替代分栏行为验收。
 
 设计来源与固定参考版本见[三套设计体系](/guides/design-styles)，当前已核对范围见[设计覆盖矩阵](/guides/design-coverage)。这段说明记录适配边界，不代表完整视觉验收已通过。
 
 
 ## 分栏矩阵规格
 
-本组件为桌面可调整分栏扩展。MD3 细分隔线与较宽交互区、Apple 紧凑轨道、shadcn 可见握柄由 L2 data.split 角色映射。可见边界、指针命中区和焦点轮廓分别维护，粗指针扩大命中区，不扩大分隔线。
+本组件为桌面可调整分栏扩展。MD3 细分隔线与较宽交互区、macOS 紧凑轨道、shadcn 可见握柄由 L2 data.split 角色映射。可见边界、指针命中区和焦点轮廓分别维护，粗指针扩大命中区，不扩大分隔线。
 
 | 轴 | 项目规格 |
 | --- | --- |
@@ -52,5 +52,5 @@ status = "experimental"
 
 「分栏验收矩阵」实际驱动分隔条，不设置 data-dragging 或模拟按下类。Playwright 核对 aria-valuenow、方向和禁用语义，并在按住鼠标时截图。
 
-参考 [shadcn Resizable](https://ui.shadcn.com/docs/components/radix/resizable)，源码固定 [New York V4 Resizable](https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui/resizable.tsx)。MD3 与 Apple 不提供完全对应的 Web 组件；分隔、布局和焦点原则用于项目适配。参考记录日期：2026-10-29。
+参考 [shadcn Resizable](https://ui.shadcn.com/docs/components/radix/resizable)，源码固定 [New York V4 Resizable](https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui/resizable.tsx)。MD3 与 macOS 不提供完全对应的 Web 组件；分隔、布局和焦点原则用于项目适配。参考记录日期：2026-10-29。
 

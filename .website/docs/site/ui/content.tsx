@@ -23,6 +23,11 @@ export { default as PageLoading } from "./page-loading.js";
 export { PageError, NotFound } from "./document-state.js";
 import { EmptyFeedback, ErrorFeedback } from "./feedback.js";
 import { DocumentRecoveryContext } from "./document-recovery.js";
+import { componentDesignSummaries } from "../../_generated/component-design-summaries.js";
+import { componentPreviews } from "../../_generated/component-previews.js";
+import type { ComponentPreviewRecord } from "../componentHeroPreview.js";
+import { designSystemRegistry } from "@crab-dev/rc-token-semantic";
+import { designPresentation } from "../designPresentation.js";
 
 export function revealDocumentLink(event: FocusEvent<HTMLElement>) {
     const link = event.target.closest<HTMLAnchorElement>("a[href]");
@@ -82,6 +87,7 @@ export function TableOfContents({
 }
 
 export function Page({ page, previous, next, route, site, children }: UI.PageProps) {
+    const { designSystem } = useConfig();
     const recovery = use(DocumentRecoveryContext);
     const reducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
     // 例外：持有本站正文 DOM，将历史 Markdown 根路径链接适配到公开部署前缀。
@@ -111,6 +117,8 @@ export function Page({ page, previous, next, route, site, children }: UI.PagePro
     const catalog = page.slug.replace(/^\//, "") === "learn/components";
     const component = page.slug.replace(/^\//, "").startsWith("components/");
     const packageName = page.slug.split("/").at(-1) ?? "";
+    const previews: Readonly<Partial<Record<string, ComponentPreviewRecord>>> = componentPreviews;
+    const preview = previews[packageName]?.designs?.[designSystem] ?? previews[packageName];
     // The hero changes height with content and viewport width; share its measured height with sticky offsets.
     useEffect(() => {
         if (home || catalog) return;
@@ -140,7 +148,7 @@ export function Page({ page, previous, next, route, site, children }: UI.PagePro
             </Button>}
         </nav>
         <footer className="crab-docs-footer">
-            <div><strong>Crab UI</strong><p>支持 MD3 Expressive、Apple 与 shadcn/ui 三套设计体系的 React 组件库。通过统一配置、设计令牌与可运行示例，构建清晰、一致的界面。</p></div>
+            <div><strong>Crab UI · {designSystemRegistry[designSystem].label}</strong><p>{designPresentation[designSystem].footer}</p></div>
             <nav aria-label="页脚导航">
                 <Button appearance="text" href={route.href("guides/getting-started")}>开始使用</Button>
                 <Button appearance="text" href={route.href("guides/accessibility")}>无障碍</Button>
@@ -160,16 +168,17 @@ export function Page({ page, previous, next, route, site, children }: UI.PagePro
                 {!home && (
                     <div className="crab-docs-page-hero">
                         <header className="crab-docs-page-heading">
+                            <span className="crab-docs-design-label">{designSystemRegistry[designSystem].fullName} 文档</span>
                             <h1 tabIndex={-1}>{page.title}</h1>
-                            <p>{page.description}</p>
+                            <p>{componentDesignSummaries[packageName]?.[designSystem] ?? page.description}</p>
                             {component && (
                                 <>
                                     <nav className="crab-docs-actions" role="navigation" aria-label="组件快捷入口">
                                         <Button
                                             appearance="tonal"
-                                            href={`${route.href(`${page.slug}/workbench`)}/`}
+                                            href={preview ? resolveSiteHref(preview.previewPath, route.href) : "#示例"}
                                         >
-                                            组件工作台 ↗
+                                            独立预览 ↗
                                         </Button>
                                         <code className="crab-docs-package">@crab-dev/{packageName}</code>
                                     </nav>

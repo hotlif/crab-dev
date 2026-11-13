@@ -5,6 +5,10 @@
 import { defineTokens } from '@crab-dev/css';
 
 export const vars = defineTokens({
+    'macos.option.color': '--select-macos-option-color',
+    'macos.option.color-active': '--select-macos-option-color-active',
+    'macos.option.background-color-active': '--select-macos-option-background-color-active',
+    'macos.check.margin-inline-end': '--select-macos-check-margin-inline-end',
     'option.checkbox.width': '--select-option-checkbox-width',
     'option.background-color-hover': '--select-option-background-color-hover',
     'option.color-selected': '--select-option-color-selected',
@@ -105,6 +109,16 @@ export const vars = defineTokens({
 });
 
 const token = defineTokens({
+    'macos': {
+        'option': {
+            'color': `var(${vars['macos.option.color']}, var(--token-semantic-color-text-primary, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695))))`,
+            'color-active': `var(${vars['macos.option.color-active']}, var(--token-semantic-color-text-on-brand, var(--token-global-white, oklch(1.000 0 0))))`,
+            'background-color-active': `var(${vars['macos.option.background-color-active']}, var(--token-semantic-color-brand-primary, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078))))`
+        },
+        'check': {
+            'margin-inline-end': `var(${vars['macos.check.margin-inline-end']}, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)))`
+        }
+    },
     'option': {
         'checkbox': {
             'width': `var(${vars['option.checkbox.width']}, var(--token-semantic-size-icon, var(--token-global-space-4, 16px)))`

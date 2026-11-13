@@ -8,19 +8,22 @@ status = "experimental"
 {/* THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY. */}
 
 import ComponentDemos from "../site/componentDemos.js";
-import { demos } from "../_generated/rc-canvas.js";
+import ComponentDesignGuide, { DesignIntroduction, DesignExampleIntroduction } from "../site/componentDesignGuide.js";
+import { demos, documents, guide } from "../_generated/rc-canvas.js";
 
 # Canvas WebGL 画布
 
 <div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-canvas</div>
+
+## 设计与用法
+
+<DesignIntroduction documents={documents} />
 
 <div id="基础示例" data-docs-example-anchor /><div id="全部示例" data-docs-example-anchor />
 
 ## 示例
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
-
-#### 基础图形
 
 ##### 基础图元 — 在 Canvas 中声明矩形与圆形，颜色支持 OKLCh / 十六进制，opacity 控制透明度。
 
@@ -38,17 +41,11 @@ import { demos } from "../_generated/rc-canvas.js";
 
 ##### 分组变换与嵌套 — Group 维护 TRS 矩阵栈，子孙坐标随父级平移 / 旋转 / 缩放叠加，支持任意层级嵌套。
 
-#### 交互与变换
-
 ##### Draggable — Draggable 示例
 
 ##### hover 回调 — 通过 onMouseEnter / onMouseLeave 响应图元悬停事件，驱动颜色高亮与状态提示。三种图元均支持该回调。
 
 ##### Transformer — 初始视口完整显示三个形状；点击形状后拖拽手柄缩放与旋转，也可平移和缩放画布。
-
-##### 默认色板与文字编辑 — 图形与文字不传颜色参数。双击画布文字进入真实编辑层，Enter 提交、Shift+Enter 换行、Escape 取消；下方显示已提交内容。
-
-#### 场景与性能
 
 ##### 属性驱动动画 — 用 React state 逐帧更新图元 props，Canvas 内部 rAF 渲染循环自动重绘；减少动态效果时暂停属性更新。
 
@@ -56,153 +53,17 @@ import { demos } from "../_generated/rc-canvas.js";
 
 ##### Minimap — Minimap 示例
 
-#### 边界与视觉矩阵
-
-##### 专业画布交互矩阵 — 真实绘制、选中、拖动、文字草稿与资源恢复；领域坐标不随控件尺寸缩放。
-
 ##### iframe 内 Shadow 画布主题 — 真实主题资源进入目标文档与 Shadow；最近边界切换重绘，保留显式 DPR、草稿、节点和世界坐标。
 
 </div>
 
-<ComponentDemos demos={demos} />
+<DesignExampleIntroduction documents={documents} />
 
-[打开完整组件工作台](/components/rc-canvas/workbench/)
+<ComponentDemos demos={demos} documents={documents} />
 
 ## 使用说明
 
-使用 React 组件声明二维图形，由 WebGL 2 在 GPU 上绘制。支持矩形、圆形、线条、文字、图片和分组变换。
-
-
-### 何时使用
-
-- 需要绘制大量 2D 图元（矩形、圆、线、文字、图片）且追求 GPU 加速与流畅动画时。
-- 需要以声明式 React 组件树组织画面，而非命令式操作 Canvas 2D API 时。
-- 需要对图形做分组变换（平移 / 旋转 / 缩放）并保持嵌套坐标系时。
-
-### 主要功能
-
-- **WebGL 2 渲染**：通过内置着色器绘制图元。
-- **声明式 API**：`<Canvas>` 内嵌套 `<Rect>` / `<Circle>` / `<Line>` / `<Image>` / `<Text>` / `<Group>`。
-- **SDF 抗锯齿**：圆角矩形与圆形通过有符号距离场实现亚像素级平滑边缘。
-- **任意角度直线**：顶点着色器端挤出（line extrusion），支持任意斜率与线宽。
-- **分组变换**：`<Group>` 维护 TRS 矩阵栈，子孙坐标随父级叠加，支持任意层级嵌套。
-- **OKLCh 颜色**：颜色解析支持 `oklch()`、十六进制与 `rgb()/rgba()`。
-- **设备像素比自适应**：根据 `devicePixelRatio` 调整画布分辨率。
-
-### 画布与阅读视口
-
-**现有示例：** 固定绘图坐标放在有名称、可聚焦的局部滚动区域内。窄屏可横向查看完整画布，页面正文不会随绘图宽度扩张。画板中的显式配色服务于图元样张，不代表业务界面的语义主题；画板周围的焦点使用公共语义颜色。
-
-**选择规则：** 要保持坐标和形状比例时使用局部滚动；要让画布本身随容器变化，可使用已有 `fillParent`，并为父容器提供明确尺寸。滚动区域的键盘可达不等于内部图元已具备名称、选择或拖拽的键盘替代，交互图形仍需单独实现和验收。
-
-
-### 文本内联编辑
-
-`Text` 的 `editable` 开启双击编辑。绘制内容仍由 WebGL 呈现；编辑期间会在画布容器内挂载原生 `textarea`，继承最近 `ConfigProvider` 的语言和主题上下文。编辑器默认名称为中文“编辑画布文本”或英文“Edit canvas text”，可用 `editorLabel` 提供当前对象的明确名称（例如“流程节点标题”）；空白名称回退到本地化默认值。
-
-进入编辑时焦点落入文本框并选中现有内容；编辑期间切换语言或主题会保留草稿与光标选区。失焦或 Enter 提交一次并调用 `onEdit`，Shift+Enter 保留换行，Escape 取消修改；输入法组合期间的 Enter / Escape 留给输入法处理。
-
-内联编辑层使用 `maxWidth` 声明的文本宽度，并按实际换行调整高度；较短的多行草稿无需在单行高度中滚动。内容超过当前位置可用的画布高度时，在文本框内滚动，保留原生输入、选区与提交行为。背景由编辑层容器绘制，原生文本框保持透明，避免 Chromium 将其边界之外的 WebGL 图元误当作被遮挡内容。
-
-Enter / Escape 结束编辑后，根据编辑器所属的 Document 或 ShadowRoot 将焦点返回仍挂载的 Canvas 容器；如果 `onEdit` 已主动移焦或卸载画布，则尊重应用的选择。点击外部导致的失焦提交不会把焦点抢回。该原生文本框承担浏览器文字输入与编辑语义；它不把整个 Canvas 或其他 WebGL 图元转换为 DOM 控件，也不能替代应用为图元选择、拖拽和进入编辑提供键盘替代。
-
-“默认色板与文字编辑”示例用于观察当前主题的文字与编辑层。示例中的 `Rect` 未传 `fill`，按图元 API 默认透明，不能用它验收默认填色。双击文字进入编辑，Enter 提交、Shift+Enter 换行、Escape 取消；下方内容显示最近一次提交结果。
-
-“文字对齐与多行”使用当前体系的文本、品牌及反馈前景角色，参考线使用边界角色；切换明暗不再保留固定的深色文字。“Transformer”将初始世界原点置于画布中央，完整显示三个形状，之后通过受控 `Viewport` 保留用户的平移、缩放和形状选择。
-
-
-
-
-绘制前景、网格与交互辅助元素默认消费语义令牌并跟随主题；`palette` 的局部覆盖保留其余语义角色。需要维持旧版固定配色时，可显式传入导出的 `DEFAULT_CANVAS_PALETTE`。图元显式颜色仍具有最高优先级。
-
-`CanvasImage.src` 支持字符串 URL 和 `ImageBitmap`。位图由调用者持有，替换或卸载后应调用 `close()`；Canvas 在最后一个消费者释放时删除图片和字形的 GPU 纹理及 CPU 缓存，不关闭调用者提供的位图。
-
-更换图片时保留上一张已上传纹理，新图片上传成功后再替换；加载或上传失败调用 `onError`，保留原图。`Canvas.onRender` 在每次实际绘制完成后通知，可用于交接双缓冲画面；图片的 `onLoad` 仅表示上传完成，不表示画面已经绘制。使用双缓冲时应在旧场景移除后关闭其位图。
-
-Canvas 真正卸载后主动释放 WebGL 上下文，避免虚拟列表反复挂载画布耗尽浏览器配额；StrictMode 的挂载检查保留正在使用的上下文。上下文意外丢失期间暂停绘制通知，浏览器恢复后重建绘图资源，重新上传仍在使用的图片和字形并重绘，无需重新加载业务数据。资源释放与恢复依据 [WebGL 最佳实践](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/WebGL_best_practices)及 [Khronos 上下文丢失处理说明](https://wikis.khronos.org/webgl/HandlingContextLost)。
-
-
-
-
-
-
-
-`Text.minScreenFontSize` 可显式设置缩小后的最小 CSS 像素字号，例如 `minScreenFontSize={10}`。它在缩放稳定后重新绘制文字，会扩大世界坐标中的文字尺寸；应配合简短标签与布局留白，不能让所有字段在无限缩小时仍然可读。默认未开启，原有排版保持不变。
-
-`CanvasOverlay` 在最近 Group 的 `(x, y)` 处放置 DOM 内容，跟随平移、缩放和容器尺寸变化，内容自身使用屏幕 CSS 像素。函数子节点接收包含 Group 缩放的 `scale`，可据此切换信息层级；交互控件需要设置 `pointerEvents: 'auto'`。浮层继承最近配置，锚点离开画布时卸载内容，重新进入时挂载。它始终位于 WebGL 上方、保持屏幕方向，不参与图元命中、旋转或 PNG 导出。
-
-### 程序化视口
-
-在 Canvas 子树内调用 `useCanvasControls()`，与 Viewport 配合使用 `getViewport`、`setViewport`、`zoomTo`、`fitBounds`、`centerOn`。命令遵循 Viewport 的缩放上下限，并通知最新的 `onViewportChange`。`zoomTo` 的支点为画布局部 CSS 坐标，缺省为画布中心；`centerOn` 接收世界坐标并保留缩放。加载或更新图元不会自动适配视口。
-
-`fitBounds(bounds, { padding, minZoom, maxZoom })` 的留白为屏幕 CSS 像素，可分别设置上下左右。既有 `fitView(padding)` 继续使用世界坐标留白。无有效可用空间时 fitBounds 保持当前视口。
-
-画布外的状态逻辑可使用纯函数 `screenToWorld / worldToScreen / zoomViewport / getViewportForBounds`。screen 坐标是画布局部 CSS 坐标，处理 clientX/clientY 时先减去 canvas 的 boundingClientRect 起点；无需乘设备 DPR。图表渲染尺寸应与该 CSS 坐标空间一致。
-
-
-
-### 设计风格与主题
-
-Canvas 按 Crab 的专业绘图扩展维护。Material Design 3 Expressive（`md3`）、Apple（`apple`）和 shadcn/ui（`shadcn`）的来源与固定基线见[三套设计体系](/guides/design-styles)；这些依据用于语义角色和编辑辅助界面，不定义本库的 WebGL 绘图协议。
-
-默认文字、网格、选区、内联编辑框、变换手柄和小地图通过本包 L3 色板映射到各体系的前景、表面、选中、焦点和浮层角色。WebGL 接收在画布 DOM 边界解析后的颜色；`palette` 可局部覆盖这些角色，显式图元颜色保持优先。未指定 `fill` / `stroke` 的 `Rect` 仍按图元 API 保持透明。
-
-图元坐标、矩阵、字号、线宽、缩放和动画参数属于绘图领域，不按全局控件尺寸或密度等比放大。画布中绘制的文本和图形也不自动获得 DOM 控件的名称、焦点或键盘模型；内联编辑器与应用提供的键盘操作需要分别核对。
-
-本包的三体系、浅深色和适用交互状态分别验收，覆盖等级以[覆盖矩阵](/guides/design-coverage)及对应候选记录为准。
-
-### 浏览器绘制与状态矩阵
-
-文字光栅化优先使用拥有文档的 `OffscreenCanvas`；缺少该接口时，仅在需要字形时创建该文档的普通 2D Canvas。Worker 保留无需 Document 的路径，不把文档环境引入渲染引擎。文字的位图与 SDF 路径共用此能力边界。
-
-顶点几何统一使用 highp，避免 WebKit 在 256px 及以上线段的 `length` 平方计算中溢出。固定尺寸画布也订阅所属文档的实际显示分辨率变化，在真实浏览器缩放或换屏时更新位图；显式 `dpr` 保持优先。这里更新的是光栅分辨率，图元的世界坐标与业务草稿保持不变。
-
-包内矩阵通过真实图元命中、拖动、键盘焦点、文字编辑提交/取消和原生 WebGL 上下文丢失/恢复核对视觉及模型。连接线流动保留自然视频与实际绘制时间序列。固定画板在 320px 宿主内局部滚动，图元坐标不随尺寸或密度等比缩放；长文本和图元内部的键盘替代仍由应用明确实现。`docs/visual.json` 分别声明 Chromium 完整场景与其他引擎子集，不将发现测试计为实际绘制通过。
-
-「iframe 内 Shadow 画布主题」将当前工作台已加载的公开 Theme 与组件真实样式资源安装到目标 Document 和 ShadowRoot，等待资源加载完成后挂载画布。最近主题边界位于 iframe 创建的 Shadow host 外，祖先遍历沿实际 slot、普通父元素和 Shadow host 前进，不使用当前窗口的 `instanceof ShadowRoot` 判断其他文档的节点。切换最近边界会重新解析颜色并重绘，外层边界不会覆盖内层边界。
-
-该示例固定 `dpr={1.5}`，通过公开 `onRender` 在真实绘制后读取 GPU 像素；原生场景另用浏览器 2D 颜色求值核对实际主题前景，同时保留 iframe、Canvas、输入节点及拖动后的世界坐标和业务草稿。绘制计数只是就绪信号，不能代替像素与人工截图复审；新场景尚未执行或复审时仍为未验证。
-
-### 小字号文字与 HTML 对齐
-
-`Text` 保留默认 `mode="sdf"`；需要清晰字段文字时显式使用 `mode="auto"`。自动模式按 DPR、视图与 Group 缩放生成位图，缩放稳定 100ms 后刷新，平移不重新光栅化。显示字号超过 48 CSS px 或存在旋转/倾斜时使用 SDF。切换纹理分辨率不改变换行和世界坐标尺寸。
-
-```tsx
-<Text x={20} y={30} mode="auto" fontFamily="system-ui" fontSize={13} fontWeight={400} lineHeight={20}>
-    商品模型 products
-</Text>
-```
-
-HTML 与画布应显式使用相同的 `fontFamily`、`fontSize`、`fontWeight`、`lineHeight`。画布不继承 DOM 的排版样式；字体加载完成与 DPR 变化会刷新纹理。文字仍按字形视觉中心定位，不承诺与 HTML 基线或抗锯齿逐像素相同。
-
-自动模式的 CPU 字形缓存按 Document 隔离，最多 128 项 / 4 MiB；单张纹理限制为 2048 × 2048，光栅倍率最高 8 倍，超过限制可能降低清晰度。GPU 纹理在最后一个消费者释放时删除。显式 `bitmap` 仍适用于固定缩放，显式 `sdf` 适用于需要距离场的场景。
-
-缩小到 75%、50% 或 25% 时，auto 将取整后的纹理尺寸与排版尺寸分开：纹理增加的不足一个物理像素只作为边缘留白，避免把整张位图挤回小数像素区域而再次插值。文字的居中、换行和命中范围继续采用稳定的排版尺寸。极小字号仍受实际像素数量限制，例如 13px 文字缩至 25% 仅为 3.25 CSS px，不保证此时可读。
-
-### 适用场景
-
-需要自由摆放、缩放、旋转或拖拽二维对象。 流程编辑、标注、海报或无限画布等布局无法用普通文档流表达。
-
-普通表单、列表和数据页面优先使用语义 HTML 与现有组件；只为装饰图形不必引入完整交互画布。
-
-### 使用要点
-
-- 场景坐标、视口变换和对象本地坐标要分清。
-- 选择、拖拽、缩放和撤销应由稳定对象 ID 驱动。
-- 大场景使用可见区域、分组和最小重绘策略控制性能。
-
-### 无障碍
-
-- 为关键对象提供等价的 DOM 名称、列表或属性面板，不能让信息只存在像素中。
-- 所有核心操作都要有键盘替代路径，并在变换后通告可理解的结果。
-
-### 设计依据与覆盖
-
-- **MD3 Expressive**：M3 没有通用 Canvas 组件；编辑器外壳、控件、颜色、形状与动效仍遵循 M3，画布语义属于项目扩展。 [依据 1](https://m3.material.io/foundations/accessible-design/overview) · [依据 2](https://material-web.dev/) · [依据 3](https://github.com/material-components/material-web)
-- **Apple**：依据 Apple HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。 [依据 1](https://developer.apple.com/design/human-interface-guidelines/components) · [依据 2](https://developer.apple.com/design/human-interface-guidelines/accessibility)
-- **shadcn/ui**：参考 shadcn/ui 的组件用途、中性表面与设计变量，在本库公共语义和 React 交互模型中实现；完整状态覆盖仍需按矩阵验收。 [依据 1](https://ui.shadcn.com/docs/components) · [依据 2](https://ui.shadcn.com/docs/theming) · [依据 3](https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4)
-
-设计依据不等于完成验收；当前状态与适用边界见[覆盖矩阵](/guides/design-coverage)。
+<ComponentDesignGuide guide={guide} documents={documents} />
 
 ## 常见问题
 

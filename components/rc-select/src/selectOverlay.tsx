@@ -1,3 +1,4 @@
+import { macosOptionStyle } from './select.designs.js';
 import Checkbox from "@crab-dev/rc-checkbox";
 import { componentDensityMetrics, useConfig, useLocale, type ConfigSize } from '@crab-dev/rc-config-provider';
 import { SpinIndicator } from '@crab-dev/rc-spin';
@@ -63,7 +64,7 @@ const SelectOverlay: FC<SelectOverlayProps> = ({
     const overlayRef = useRef<HTMLDivElement>(null);
     const [measuredRowHeight, setMeasuredRowHeight] = useState(0);
     const [measuredContentWidth, setMeasuredContentWidth] = useState(0);
-    const { density } = useConfig();
+    const { density, designSystem } = useConfig();
     const { messages } = useLocale();
     const rowHeight = Math.max(coarsePointer ? 48 : componentDensityMetrics[density].item, measuredRowHeight);
     useLayoutEffect(() => {
@@ -179,8 +180,8 @@ const SelectOverlay: FC<SelectOverlayProps> = ({
                                     />
                                 ) : null}
                                 <span className={optionLabelStyle}>{option.label}</span>
-                                {!multiple && selected ? (
-                                    <span className={checkIconStyle}>
+                                {!multiple && (selected || designSystem === 'macos') ? (
+                                    <span aria-hidden="true" data-select-check className={checkIconStyle}>
                                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                             <path d="M20 6 9 17l-5-5" />
                                         </svg>
@@ -210,6 +211,7 @@ const SelectOverlay: FC<SelectOverlayProps> = ({
                                 selected && (multiple ? optionSelectedStyle : optionSelectedSingleStyle),
                                 highlighted && optionHighlightStyle,
                                 (disabled || option.disabled) && optionDisabledStyle,
+                                designSystem === 'macos' && !multiple && macosOptionStyle,
                             )}
                             onMouseEnter={() => { if (!disabled) onHighlightChange(i); }}
                             onClick={(event) => {

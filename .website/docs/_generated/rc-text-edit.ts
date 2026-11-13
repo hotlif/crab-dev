@@ -3,6 +3,7 @@
  */
 
 import type { ComponentDemoRecord } from "../site/componentDemos.js";
+import type { ComponentDesignDocuments } from "../site/componentDesignGuide.js";
 
 export const demos = [
     {
@@ -35,7 +36,7 @@ export const demos = [
     {
         "id": "docs/demos/appearance.demo.tsx",
         "title": "随主题切换的文本字段",
-        "description": "三主题统一使用上置标签；对比 MD3、Apple 和 shadcn 的 outlined / filled 表面与边框。",
+        "description": "对比当前主题下 outlined 与 filled 的表面和边框，标签保持上置。",
         "learning": {
             "components": [
                 "TextEdit"
@@ -51,7 +52,7 @@ export const demos = [
             "events": [],
             "hasState": false
         },
-        "sourceCode": "export const meta = {\n    title: \"随主题切换的文本字段\",\n    description: \"三主题统一使用上置标签；对比 MD3、Apple 和 shadcn 的 outlined / filled 表面与边框。\",\n};\n\nimport { css } from \"@crab-dev/css\";\nimport token from \"@crab-dev/rc-token-semantic\";\nimport TextEdit from \"../../src/index.js\";\n\nconst wrapperStyle = css`\n    display: grid;\n    gap: ${token.space['section-gap']};\n    padding: ${token.space['card-padding']};\n    max-width: calc(${token.size[96]} * 5);\n`;\n\nexport default function AppearanceDemo() {\n    return (\n        \u003cdiv className={wrapperStyle}>\n            \u003cTextEdit label=\"项目目标\" appearance=\"outlined\" rows={3} supportingText=\"聚焦后可观察标签与轮廓。\" />\n            \u003cTextEdit label=\"项目背景\" appearance=\"filled\" rows={3} defaultValue=\"让三套设计体系共享同一份内容。\" />\n            \u003cTextEdit label=\"暂不可编辑\" appearance=\"filled\" rows={2} disabled defaultValue=\"字段恢复编辑后可继续补充。\" />\n        \u003c/div>\n    );\n}\n",
+        "sourceCode": "export const meta = {\n    title: \"随主题切换的文本字段\",\n    description: \"对比当前主题下 outlined 与 filled 的表面和边框，标签保持上置。\",\n};\n\nimport { css } from \"@crab-dev/css\";\nimport token from \"@crab-dev/rc-token-semantic\";\nimport TextEdit from '@crab-dev/rc-text-edit';\n\nconst wrapperStyle = css`\n    display: grid;\n    gap: ${token.space['section-gap']};\n    padding: ${token.space['card-padding']};\n    max-width: calc(${token.size[96]} * 5);\n`;\n\nexport default function AppearanceDemo() {\n    return (\n        \u003cdiv className={wrapperStyle}>\n            \u003cTextEdit label=\"项目目标\" appearance=\"outlined\" rows={3} supportingText=\"聚焦后可观察标签与轮廓。\" />\n            \u003cTextEdit label=\"项目背景\" appearance=\"filled\" rows={3} defaultValue=\"记录项目目标、范围和交付要求。\" />\n            \u003cTextEdit label=\"暂不可编辑\" appearance=\"filled\" rows={2} disabled defaultValue=\"字段恢复编辑后可继续补充。\" />\n        \u003c/div>\n    );\n}\n",
         "previewPath": "/components/rc-text-edit/workbench/?__wake_demo=docs%2Fdemos%2Fappearance.demo.tsx",
         "workbenchPath": "/components/rc-text-edit/workbench/#/components/docs%2Fdemos%2Fappearance.demo.tsx",
         "density": "regular",
@@ -88,7 +89,7 @@ export const demos = [
     {
         "id": "docs/demos/field-states.demo.tsx",
         "title": "多行字段状态",
-        "description": "使用文档站主题菜单对照三套标签、容器和焦点规则；文字、计数和辅助说明保持关联。",
+        "description": "检查当前主题下的标签、容器与焦点，文字、计数和辅助说明保持关联。",
         "learning": {
             "components": [
                 "TextEdit"
@@ -108,7 +109,7 @@ export const demos = [
             "events": [],
             "hasState": false
         },
-        "sourceCode": "export const meta = {\n    title: \"多行字段状态\",\n    description: \"使用文档站主题菜单对照三套标签、容器和焦点规则；文字、计数和辅助说明保持关联。\",\n};\n\nimport { css } from \"@crab-dev/css\";\nimport token from \"@crab-dev/rc-token-semantic\";\nimport TextEdit from \"../../src/index.js\";\n\nconst layout = css`\n    display: grid;\n    gap: ${token.space['group-gap']};\n    padding: ${token.space['section-gap']};\n`;\n\nexport default function FieldStatesDemo() {\n    return \u003cdiv className={layout}>\n        \u003cTextEdit label=\"项目说明\" placeholder=\"描述项目目标\" rows={3} showCount maxLength={200} defaultValue=\"为团队提供一致的工作体验。\" supportingText=\"请简要说明本次项目的目标。\" />\n        \u003cTextEdit label=\"审核意见\" appearance=\"filled\" rows={3} errorText=\"请说明需要修改的具体内容。\" />\n        \u003cTextEdit label=\"归档说明\" rows={2} disabled defaultValue=\"项目已归档，说明暂不可编辑。\" />\n    \u003c/div>;\n}\n",
+        "sourceCode": "export const meta = {\n    title: \"多行字段状态\",\n    description: \"检查当前主题下的标签、容器与焦点，文字、计数和辅助说明保持关联。\",\n};\n\nimport { css } from \"@crab-dev/css\";\nimport token from \"@crab-dev/rc-token-semantic\";\nimport TextEdit from '@crab-dev/rc-text-edit';\n\nconst layout = css`\n    display: grid;\n    gap: ${token.space['group-gap']};\n    padding: ${token.space['section-gap']};\n`;\n\nexport default function FieldStatesDemo() {\n    return \u003cdiv className={layout}>\n        \u003cTextEdit label=\"项目说明\" placeholder=\"描述项目目标\" rows={3} showCount maxLength={200} defaultValue=\"为团队提供一致的工作体验。\" supportingText=\"请简要说明本次项目的目标。\" />\n        \u003cTextEdit label=\"审核意见\" appearance=\"filled\" rows={3} errorText=\"请说明需要修改的具体内容。\" />\n        \u003cTextEdit label=\"归档说明\" rows={2} disabled defaultValue=\"项目已归档，说明暂不可编辑。\" />\n    \u003c/div>;\n}\n",
         "previewPath": "/components/rc-text-edit/workbench/?__wake_demo=docs%2Fdemos%2Ffield-states.demo.tsx",
         "workbenchPath": "/components/rc-text-edit/workbench/#/components/docs%2Fdemos%2Ffield-states.demo.tsx",
         "density": "regular",
@@ -175,7 +176,7 @@ export const demos = [
     {
         "id": "docs/demos/size.demo.tsx",
         "title": "尺寸与多行几何",
-        "description": "比较无标签、Outlined 与 Filled。Apple/shadcn 分档调整内边距和最小高度；MD3 三档保持标准字段几何，正文不随 size 缩放。rows 决定内容行数",
+        "description": "比较无标签、Outlined 与 Filled 的尺寸；rows 决定内容行数，字段继承当前主题。",
         "learning": {
             "components": [
                 "TextEdit"
@@ -193,7 +194,7 @@ export const demos = [
             "events": [],
             "hasState": false
         },
-        "sourceCode": "export const meta = {\n    title: \"尺寸与多行几何\",\n    description: \"比较无标签、Outlined 与 Filled。Apple/shadcn 分档调整内边距和最小高度；MD3 三档保持标准字段几何，正文不随 size 缩放。rows 决定内容行数\",\n};\n\nimport { css } from \"@crab-dev/css\";\nimport TextEdit from \"@crab-dev/rc-text-edit\";\n\nconst wrapperStyle = css`\n    display: flex;\n    flex-direction: column;\n    gap: 1rem;\n    padding: 1rem;\n    max-width: 480px;\n    & > section { display: grid; gap: 1rem; }\n    & h3 { margin: 0; }\n`;\n\nconst SizeDemo = () => {\n    return (\n        \u003cdiv className={wrapperStyle}>\n            {([\"small\", \"medium\", \"large\"] as const).map(size => (\n                \u003csection key={size} data-demo-size={size}>\n                    \u003ch3>{size}{size === \"medium\" ? \"（默认）\" : \"\"}\u003c/h3>\n                    \u003cTextEdit size={size} rows={2} aria-label={`${size} 无标签备注`} placeholder=\"无标签文本域，使用可访问名称\" />\n                    \u003cTextEdit size={size} rows={2} label={`${size} 项目说明`} defaultValue=\"各档保留相同正文排版。\" />\n                    \u003cTextEdit size={size} rows={2} label={`${size} 审核意见`} appearance=\"filled\" defaultValue=\"清除后可以继续输入。\" allowClear />\n                \u003c/section>\n            ))}\n        \u003c/div>\n    );\n};\n\nexport default SizeDemo;\n",
+        "sourceCode": "export const meta = {\n    title: \"尺寸与多行几何\",\n    description: \"比较无标签、Outlined 与 Filled 的尺寸；rows 决定内容行数，字段继承当前主题。\",\n};\n\nimport { css } from \"@crab-dev/css\";\nimport TextEdit from \"@crab-dev/rc-text-edit\";\n\nconst wrapperStyle = css`\n    display: flex;\n    flex-direction: column;\n    gap: 1rem;\n    padding: 1rem;\n    max-width: 480px;\n    & > section { display: grid; gap: 1rem; }\n    & h3 { margin: 0; }\n`;\n\nconst SizeDemo = () => {\n    return (\n        \u003cdiv className={wrapperStyle}>\n            {([\"small\", \"medium\", \"large\"] as const).map(size => (\n                \u003csection key={size} data-demo-size={size}>\n                    \u003ch3>{size}{size === \"medium\" ? \"（默认）\" : \"\"}\u003c/h3>\n                    \u003cTextEdit size={size} rows={2} aria-label={`${size} 无标签备注`} placeholder=\"无标签文本域，使用可访问名称\" />\n                    \u003cTextEdit size={size} rows={2} label={`${size} 项目说明`} defaultValue=\"各档保留相同正文排版。\" />\n                    \u003cTextEdit size={size} rows={2} label={`${size} 审核意见`} appearance=\"filled\" defaultValue=\"清除后可以继续输入。\" allowClear />\n                \u003c/section>\n            ))}\n        \u003c/div>\n    );\n};\n\nexport default SizeDemo;\n",
         "previewPath": "/components/rc-text-edit/workbench/?__wake_demo=docs%2Fdemos%2Fsize.demo.tsx",
         "workbenchPath": "/components/rc-text-edit/workbench/#/components/docs%2Fdemos%2Fsize.demo.tsx",
         "density": "regular",
@@ -294,3 +295,85 @@ export const demos = [
         "group": null
     }
 ] as const satisfies readonly ComponentDemoRecord[];
+
+export const documents = {
+    "md3": {
+        "summary": "以外置标签和填充或描边内容区域承载多行文本，辅助说明持续可见。",
+        "usage": "使用 rows 或 autoSize 决定内容高度，字数和错误说明与文本区域关联。",
+        "exampleDescription": "比较两种字段表面并输入多行文字，检查标签、边界与内容留白。",
+        "demos": [
+            "appearance.demo.tsx",
+            "allow-clear.demo.tsx",
+            "auto-size.demo.tsx",
+            "field-states.demo.tsx",
+            "show-count.demo.tsx",
+            "simple.demo.tsx",
+            "size.demo.tsx",
+            "status.demo.tsx"
+        ],
+        "references": [
+            "https://m3.material.io/components/text-fields/overview",
+            "https://material-web.dev/components/text-field/",
+            "https://github.com/material-components/material-web/tree/main/textfield"
+        ]
+    },
+    "macos": {
+        "summary": "以桌面多行输入区域和静态标签支持文档式编辑，内容保持清晰底色。",
+        "usage": "自动增高时保留邻近字段的秩序；清除动作不应破坏正在编辑的焦点。",
+        "exampleDescription": "连续输入多行文本，观察桌面字段自动增高与周围内容的排列。",
+        "demos": [
+            "auto-size.demo.tsx",
+            "allow-clear.demo.tsx",
+            "appearance.demo.tsx",
+            "field-states.demo.tsx",
+            "show-count.demo.tsx",
+            "simple.demo.tsx",
+            "size.demo.tsx",
+            "status.demo.tsx"
+        ],
+        "references": [
+            "https://developer.apple.com/design/human-interface-guidelines/components",
+            "https://developer.apple.com/design/human-interface-guidelines/accessibility"
+        ]
+    },
+    "shadcn": {
+        "summary": "用中性描边文本区域承载长输入，标签与计数保持简洁、可读。",
+        "usage": "明确输入限制和错误原因，计数与辅助说明不能挤压主要编辑区域。",
+        "exampleDescription": "编辑接近字数限制的文本，检查计数、说明和聚焦轮廓。",
+        "demos": [
+            "show-count.demo.tsx",
+            "allow-clear.demo.tsx",
+            "appearance.demo.tsx",
+            "auto-size.demo.tsx",
+            "field-states.demo.tsx",
+            "simple.demo.tsx",
+            "size.demo.tsx",
+            "status.demo.tsx"
+        ],
+        "references": [
+            "https://ui.shadcn.com/docs/components",
+            "https://ui.shadcn.com/docs/theming",
+            "https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4"
+        ]
+    }
+} as const satisfies ComponentDesignDocuments;
+
+export const guide = {
+    "definition": "TextEdit 是多行文本输入，适合备注、描述和正文草稿。它共享 Text field 的标签与状态规则，并通过 autoSize 或固定行数管理高度。",
+    "useWhen": [
+        "用户需要输入可换行的较长文字。",
+        "需要字符计数、自动增高、清除或错误说明。"
+    ],
+    "avoidWhen": [
+        "单行名称使用 LineEdit；富文本格式编辑使用专门编辑器。"
+    ],
+    "essentials": [
+        "label 说明内容目的，placeholder 给出简短格式提示。",
+        "autoSize 设置合理最小/最大行数，避免输入后无限撑高页面。",
+        "showCount 是反馈，不应替代真实 maxLength 和服务端校验。"
+    ],
+    "accessibility": [
+        "label、帮助文字、计数和错误都要与 textarea 关联。",
+        "错误出现和自动增高时保留光标与滚动位置，禁用与只读语义分开。"
+    ]
+} as const;

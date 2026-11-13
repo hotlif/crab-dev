@@ -1,0 +1,41 @@
+{
+    "md3": {
+        "summary": "用图片或语义色调回退容器展示身份，圆形与圆角方形分别服务于人物和对象。",
+        "usage": "为可点击头像提供动作名称；头像组的更多入口应与身份图形分开理解。",
+        "exampleDescription": "对比形状和尺寸，再检查图片缺失时的文字回退与身份可辨认性。",
+        "demos": [
+            "shape-size.demo.tsx",
+            "action.demo.tsx",
+            "basic.demo.tsx",
+            "group.demo.tsx",
+            "icon.demo.tsx",
+            "image.demo.tsx"
+        ]
+    },
+    "macos": {
+        "summary": "以清晰的身份图像和克制的边界融入账户菜单、成员列表与桌面工具栏。",
+        "usage": "紧凑排列时保留可访问名称；不要依赖头像图片本身解释账户操作。",
+        "exampleDescription": "查看成员头像组与更多入口，检查紧凑排列中的身份和操作区分。",
+        "demos": [
+            "group.demo.tsx",
+            "action.demo.tsx",
+            "basic.demo.tsx",
+            "icon.demo.tsx",
+            "image.demo.tsx",
+            "shape-size.demo.tsx"
+        ]
+    },
+    "shadcn": {
+        "summary": "通过图片裁切、文本回退和重叠分组提供简洁的身份标记。",
+        "usage": "头像与姓名一起使用可减少歧义；语义色和开放数字尺寸属于本库扩展。",
+        "exampleDescription": "先观察图片与回退内容，再查看头像组在中性表面上的排列。",
+        "demos": [
+            "image.demo.tsx",
+            "action.demo.tsx",
+            "basic.demo.tsx",
+            "group.demo.tsx",
+            "icon.demo.tsx",
+            "shape-size.demo.tsx"
+        ]
+    }
+}

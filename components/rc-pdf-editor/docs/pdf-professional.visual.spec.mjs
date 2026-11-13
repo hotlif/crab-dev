@@ -171,7 +171,7 @@ for (const config of configurations) test(`${config.designSystem} ${config.color
     // Flip through another real configuration, then restore the declared one
     // before capturing; the original input and document must survive both.
     for (const next of [
-        { designSystem: config.designSystem === 'apple' ? 'md3' : 'apple', colorMode: config.colorMode === 'light' ? 'dark' : 'light', size: 'large', density: 'comfortable', locale: 'en-US', direction: 'rtl', brandColor: '#8b3c75', nonce: 'visual-pdf' },
+        { designSystem: config.designSystem === 'macos' ? 'md3' : 'macos', colorMode: config.colorMode === 'light' ? 'dark' : 'light', size: 'large', density: 'comfortable', locale: 'en-US', direction: 'rtl', brandColor: '#8b3c75', nonce: 'visual-pdf' },
         { ...config, size: 'medium', density: 'standard', locale: 'zh-CN', direction: 'ltr', brandColor: null, nonce: undefined },
     ]) {
         await page.evaluate(config => globalThis.postMessage({ type: 'crab:preview-config', ...config }, location.origin), next);

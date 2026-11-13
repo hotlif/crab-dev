@@ -186,6 +186,7 @@ radius.4    = "8px"
 radius.5    = "10px"
 radius.6    = "12px"
 radius.8    = "16px"
+radius.10   = "20px"
 radius.full = "9999px"
 
 
@@ -202,6 +203,7 @@ font.family.mono = "'Geist Mono', 'JetBrains Mono', 'Fira Code', Consolas, 'Cour
 # ── 字号 — 16px 为基准 (md) ─────────────────────────────────────────────────
 
 font.size.xs  = "12px"
+font.size.13  = "13px"
 font.size.sm  = "14px"
 font.size.md  = "16px"
 font.size.lg  = "18px"

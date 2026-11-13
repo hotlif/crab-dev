@@ -5,6 +5,9 @@
 import { defineTokens } from '@crab-dev/css';
 
 export const vars = defineTokens({
+    'macos.control.background-image': '--radio-macos-control-background-image',
+    'macos.control.box-shadow': '--radio-macos-control-box-shadow',
+    'macos.control.box-shadow-active': '--radio-macos-control-box-shadow-active',
     'root.outline-color-focus': '--radio-root-outline-color-focus',
     'root.outline-width-focus': '--radio-root-outline-width-focus',
     'root.outline-offset-focus': '--radio-root-outline-offset-focus',
@@ -62,6 +65,13 @@ export const vars = defineTokens({
 });
 
 const token = defineTokens({
+    'macos': {
+        'control': {
+            'background-image': `var(${vars['macos.control.background-image']}, linear-gradient(180deg, color-mix(in srgb, var(--token-semantic-color-surface-content, var(--token-semantic-color-background-surface, var(--token-global-material-neutral-98, oklch(0.98379491 0.01284496 321.893957)))) 18%, transparent), transparent 65%))`,
+            'box-shadow': `var(${vars['macos.control.box-shadow']}, var(--token-semantic-material-control-shadow, var(--token-global-shadow-xs, 0 1px 2px oklch(0 0 0 / 0.03))))`,
+            'box-shadow-active': `var(${vars['macos.control.box-shadow-active']}, inset 0 1px 2px color-mix(in srgb, var(--token-semantic-color-text-primary, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695))) 20%, transparent))`
+        }
+    },
     'root': {
         'outline-color-focus': `var(${vars['root.outline-color-focus']}, var(--token-semantic-color-focus-ring, var(--token-semantic-color-border-focus, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078)))))`,
         'outline-width-focus': `var(${vars['root.outline-width-focus']}, 2px)`,

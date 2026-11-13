@@ -68,7 +68,7 @@ function visibleButton(button: HTMLElement, popup: HTMLElement) {
 }
 
 describe('published dropdown viewport fallback with actual picker fields', () => {
-    for (const designSystem of ['md3', 'apple', 'shadcn'] as const) {
+    for (const designSystem of ['md3', 'macos', 'shadcn'] as const) {
         for (const colorMode of ['light', 'dark'] as const) {
             for (const direction of ['ltr', 'rtl'] as const) {
                 for (const scenario of cases) {
@@ -173,6 +173,9 @@ describe('published dropdown viewport fallback with actual picker fields', () =>
                             expect(popup.textContent).toBe(previousText);
                             const confirm = Array.from(popup.querySelectorAll<HTMLButtonElement>('button')).find(button => button.textContent?.trim() === '确定');
                             if (!confirm) throw new Error('Real confirm action missing');
+                            const initialScrollTop = popup.scrollTop;
+                            const initiallyClipped = confirm.getBoundingClientRect().bottom >
+                                popup.getBoundingClientRect().top + popup.clientTop + popup.clientHeight;
                             // Native Tab scrolls the real clipped container; no scrollTop,
                             // scrollIntoView, synthetic keyboard event or DOM relocation.
                             for (let step = 0; step < 70 && doc.activeElement !== confirm; step++) await user.tab();
@@ -180,7 +183,10 @@ describe('published dropdown viewport fallback with actual picker fields', () =>
                             expect(doc.activeElement).toBe(confirm);
                             expect(input.getAttribute('aria-expanded')).toBe('true');
                             visibleButton(confirm, popup);
-                            if (popup.scrollHeight > popup.clientHeight + 1) expect(popup.scrollTop).toBeGreaterThan(0);
+                            // Compact designs can expose the complete action while other
+                            // content still overflows. Require scrolling only when the
+                            // action itself started below the scrollport.
+                            if (initiallyClipped) expect(popup.scrollTop).toBeGreaterThan(initialScrollTop);
                             const beforeConfirm = popup.getBoundingClientRect();
                             expect(beforeConfirm.left).toBeGreaterThanOrEqual(7.5);
                             expect(beforeConfirm.right).toBeLessThanOrEqual(scenario.width - 7.5);

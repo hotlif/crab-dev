@@ -8,11 +8,16 @@ status = "experimental"
 {/* THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY. */}
 
 import ComponentDemos from "../site/componentDemos.js";
-import { demos } from "../_generated/rc-skeleton.js";
+import ComponentDesignGuide, { DesignIntroduction, DesignExampleIntroduction } from "../site/componentDesignGuide.js";
+import { demos, documents, guide } from "../_generated/rc-skeleton.js";
 
 # Skeleton 骨架屏
 
 <div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-skeleton</div>
+
+## 设计与用法
+
+<DesignIntroduction documents={documents} />
 
 <div id="基础示例" data-docs-example-anchor /><div id="全部示例" data-docs-example-anchor />
 
@@ -30,90 +35,15 @@ import { demos } from "../_generated/rc-skeleton.js";
 
 ##### 形状变体 — 通过 `variant` 选择占位形状：`text` / `rect` / `circle` / `button` / `avatar` / `image`。
 
-##### 三体系展示与状态矩阵 — 公开组件、真实交互与自然动画；包内视觉规格是矩阵轴的来源。
-
 </div>
 
-<ComponentDemos demos={demos} />
+<DesignExampleIntroduction documents={documents} />
 
-[打开完整组件工作台](/components/rc-skeleton/workbench/)
+<ComponentDemos demos={demos} documents={documents} />
 
 ## 使用说明
 
-在内容加载期间展示布局占位，减少页面跳动。
-
-
-### 何时使用
-
-- 列表、卡片或详情尚未加载完成，但内容结构已经确定。
-- 需要提前保留内容空间，减少加载完成后的布局变化。
-
-占位形状应接近实际内容。无法预估内容结构时，可使用 Spin 提供加载反馈。
-
-### 主要功能
-
-- 支持 `text` / `rect` / `circle` / `button` / `avatar` / `image` 六种常用形状。
-- `rows` 控制多行文本占位，末行自动收窄以模拟段落尾部。
-- `animation` 在 `pulse`（透明度脉动）与 `wave`（渐变扫过）之间切换；`active=false` 时保留静态底色。
-- `width` / `height` 同时支持数字（自动补 `px`）与字符串（如 `"50%"`）。
-- `loading=false` 时直接渲染 `children`，便于嵌入到数据驱动的分支里。
-- 尊重 `prefers-reduced-motion`，自动禁用非必要动画。
-- 强制颜色模式以系统 `CanvasText` 内置轮廓显示占位形状，并停止装饰性的呼吸与渐变动画；仍由浏览器调整颜色，不关闭高对比模式。轮廓不增加宽高或行间距。
-
-`circle` 和 `avatar` 只提供 `width` 或 `height` 时，另一轴按 1:1 比例计算；例如 `width={56}` 与 `height={56}` 都得到 56 × 56 的圆形占位。百分比按指定轴的容器尺寸解析，再用于另一轴。显式同时提供宽高时保留两轴尺寸，可以表达椭圆占位。
-
-普通颜色模式继续使用公开 `TokenVars['root.background-color']`；Card 等组合组件的局部填充覆盖和原有 pulse / wave 动效不受强色适配影响。`loading=false` 后真实内容不会继承占位轮廓。
-
-
-
-### 三套设计风格
-
-骨架的中性填充、控件圆角与尺寸随当前语义主题变化，波动和呼吸模式均尊重减少动态效果偏好。Skeleton 属于加载占位模式扩展，不能替代实际加载状态的可访问通告。
-
-切换文档站设计风格后，本页演示同步使用该设计；浅色和深色模式分别使用配对语义颜色。
-
-### 三体系规格与验收边界
-
-Skeleton 是内容结构占位，不代替确定进度。text 的三个命名尺寸完整覆盖；width/height/rows 是开放输入，以多行、96px 媒体和单轴圆形等代表样本覆盖。默认 pulse 和 wave 自然运行，单独视频、时间序列与人工外观复核；inactive 使用公开 active=false。
-
-| 体系 | 组件视觉规则 |
-| --- | --- |
-| MD3 Expressive | 基于中性表面层级组织占位，是项目扩展；不等同于 Expressive loading indicator。 |
-| Apple | 以轻量占位保留内容位置，减少动画时立即保留静态结构。 |
-| shadcn | 参照 Skeleton 的中性表面和 pulse 语义；wave 和六种形状为扩展。 |
-
-本包几何与视觉来源：text.size.small / medium / large.height 与 rows.gap；rect/circle/button/avatar/image 几何；item/pill 形状；pulse/wave 时长。命名尺寸只控制 text 行高。设计值只在对应 token.toml 与它引用的语义角色维护，验收测量读取实际 DOM 计算值。
-
-颜色、字阶、形状、状态和动效分别从 L2 角色映射到包内 L3；Theme 负责最近配置边界。明暗模式使用配对前景/背景，不进行整体反相。视觉边界与命中区域分别检查，焦点截图保留外部轮廓与阴影。强制颜色采用系统色；减少动画保留信息与最终状态。
-
-矩阵定义在本包 `docs/visual.json`，场景使用 `visual-matrix.demo.tsx`。Chromium 覆盖其中全部设计/明暗/命名尺寸/适用密度/状态；Firefox 与 WebKit 按 `crossEngine` 的默认展示和重点交互子集执行。窄屏、RTL、中英文、长文本、品牌覆盖和配置切换后的草稿保持另有场景；未运行、未人工复核或失败的项不能计为通过。开放尺寸输入的代表样本不等于无限集合的穷尽。
-
-参考核对日期：2026-10-29。[Material 3 Cards](https://m3.material.io/components/cards/overview)、[Material Web Divider 使用/无障碍/令牌](https://material-web.dev/components/divider/)、[Material Web Progress 语义](https://material-web.dev/components/progress/)、[Apple Feedback](https://developer.apple.com/design/human-interface-guidelines/feedback)、[Apple Layout](https://developer.apple.com/design/human-interface-guidelines/layout)、[Apple Progress indicators](https://developer.apple.com/design/human-interface-guidelines/progress-indicators)、[shadcn New York V4 skeleton](https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui/skeleton.tsx)。Material Web 是 Web 行为基线；Apple 是依据原则的自主 Web 实现；shadcn 固定参考提交 `3d98900e9b73c45f035f8109e9d41ba6a51685e7`，不跟随浮动最新版。
-
-### 适用场景
-
-首屏内容需要等待，且最终结构大致可预测。 卡片、列表或详情加载时希望保持页面几何稳定。
-
-短小、不可预测的任务使用 Spin/Progress；请求失败或空数据必须显示真实状态。
-
-### 使用要点
-
-- 占位数量和形状接近最终内容，但不要伪造不存在的信息。
-- loaded 后替换真实内容，容器尺寸尽量保持稳定。
-- 动画用于提示进行中，持续时间不确定时不要显示伪造百分比。
-
-### 无障碍
-
-- Skeleton 通常是装饰，应隐藏重复形状并在容器提供简洁加载状态。
-- 减少动态效果时关闭闪烁/波纹；完成后清除 busy 状态并避免焦点跳动。
-
-### 设计依据与覆盖
-
-- **MD3 Expressive**：M3 核心目录未单列 Skeleton；本组件使用 M3 surface、shape、motion 与 Progress 的状态原则形成项目模式。 [依据 1](https://m3.material.io/components/progress-indicators/overview) · [依据 2](https://material-web.dev/components/progress/) · [依据 3](https://github.com/material-components/material-web/tree/main/progress)
-- **Apple**：依据 Apple HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。 [依据 1](https://developer.apple.com/design/human-interface-guidelines/components) · [依据 2](https://developer.apple.com/design/human-interface-guidelines/accessibility)
-- **shadcn/ui**：参考 shadcn/ui 的组件用途、中性表面与设计变量，在本库公共语义和 React 交互模型中实现；完整状态覆盖仍需按矩阵验收。 [依据 1](https://ui.shadcn.com/docs/components) · [依据 2](https://ui.shadcn.com/docs/theming) · [依据 3](https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4)
-
-设计依据不等于完成验收；当前状态与适用边界见[覆盖矩阵](/guides/design-coverage)。
+<ComponentDesignGuide guide={guide} documents={documents} />
 
 ## 常见问题
 

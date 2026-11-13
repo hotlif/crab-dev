@@ -36,12 +36,12 @@ CSS 变量、半透明颜色及其他 CSS 颜色语法不会自动推断背景�
 
 ## 三体系验收规格
 
-2026-10-29 对照 [M3 Chips](https://m3.material.io/components/chips/guidelines)、[Material Web Chip 文档、示例与行为](https://material-web.dev/components/chip/)与 [Filter chip 样式](https://github.com/material-components/material-web/tree/main/chips/internal)。`CheckableTag` 对应 filter chip 的可选信息；普通 Tag 是项目状态展示扩展，可关闭 Tag 借鉴 input chip 的移除操作。它们不共用一个含糊的“标签按钮”语义。Apple 采用 [Buttons](https://developer.apple.com/design/human-interface-guidelines/buttons)的清晰动作与状态原则，自主实现 Web 标签；shadcn 对照锁定修订的 [New York V4 Badge](https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui/badge.tsx)，可选择与关闭是保留的项目扩展。
+2026-10-29 对照 [M3 Chips](https://m3.material.io/components/chips/guidelines)、[Material Web Chip 文档、示例与行为](https://material-web.dev/components/chip/)与 [Filter chip 样式](https://github.com/material-components/material-web/tree/main/chips/internal)。`CheckableTag` 对应 filter chip 的可选信息；普通 Tag 是项目状态展示扩展，可关闭 Tag 借鉴 input chip 的移除操作。它们不共用一个含糊的“标签按钮”语义。macOS 采用 [Buttons](https://developer.apple.com/design/human-interface-guidelines/buttons)的清晰动作与状态原则，自主实现 Web 标签；shadcn 对照锁定修订的 [New York V4 Badge](https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui/badge.tsx)，可选择与关闭是保留的项目扩展。
 
 | 设计 | 视觉与状态边界 |
 | --- | --- |
 | MD3 Expressive | 状态标签保持安静；筛选采用 secondary container 与勾选标记，hover / focus / press 为独立状态层。原有 chip 基线保留，不把 Expressive Button 几何套到筛选上。 |
-| Apple | 轻量表面、紧凑字阶和明确选中填充；移除是具名的原生按钮，不把整个标签伪装为关闭动作。 |
+| macOS | 轻量表面、紧凑字阶和明确选中填充；移除是具名的原生按钮，不把整个标签伪装为关闭动作。 |
 | shadcn | 中性色与描边组织层级，primary / feedback 使用配对前景；圆角与 chip 几何经 L2 `status` 映射。 |
 
 Tag 公开三档尺寸独立于三档密度；CheckableTag 只公开单一 chip 几何，不虚构额外尺寸。静态颜色覆盖 default / primary / success / warning / error，交互矩阵覆盖真实 hover、Tab 焦点、按下、选中、禁用和关闭。禁用筛选退出 Tab 顺序；选中勾选提供非颜色标记。关闭按钮命中区域与图标边界分别核对，焦点不被标签裁切。状态过渡自然完成后截图；强制颜色使用系统前景/背景配对，减少动画保留最终状态。
@@ -74,6 +74,6 @@ CheckableTag 使用系统前景与表面颜色，选中态使用配对的 Highli
 
 ## 三套设计风格
 
-普通标签在 Material / Apple / shadcn 下分别采用 8px / 4px / 胶囊圆角。可选标签在 Material 下对应 32px 高、14px 标签字的 filter chip；Apple 与 shadcn 使用紧凑的 24px 高选择标签。选中勾选、键盘操作和 disabled 语义保持一致，普通静态 Tag 不冒充 M3 交互 chip。
+普通标签在 Material / macOS / shadcn 下分别采用 8px / 4px / 胶囊圆角。可选标签在 Material 下对应 32px 高、14px 标签字的 filter chip；macOS 与 shadcn 使用紧凑的 24px 高选择标签。选中勾选、键盘操作和 disabled 语义保持一致，普通静态 Tag 不冒充 M3 交互 chip。
 
 切换文档站设计风格后，本页演示同步使用该设计；浅色和深色模式分别使用配对语义颜色。

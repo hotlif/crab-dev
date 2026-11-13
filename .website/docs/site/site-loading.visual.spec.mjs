@@ -112,7 +112,7 @@ test('Site initial document, slow response, theme and keyboard', {
         await expect(page.locator('.crab-docs-page-load-status')).toContainText('准备好后会自动显示');
         const retained = await placeholder.elementHandle();
         const menu = await openAppearance(page, { keyboard: true });
-        await menu.getByRole('menuitemradio', { name: 'Apple', exact: true }).click();
+        await menu.getByRole('menuitemradio', { name: 'macOS', exact: true }).click();
         expect(await retained.evaluate(node => node === document.querySelector('.crab-docs-page-placeholder'))).toBe(true);
         await expect(placeholder).toHaveAttribute('data-stage', 'slow');
         await page.getByRole('button', { name: '搜索文档', exact: true }).focus();

@@ -8,5 +8,6 @@ import "./surface-theme.js";
 import "./data-theme.js";
 import "./action-theme.js";
 import "./time-picker-theme.js";
+import "./material-theme.js";
 
 export {};

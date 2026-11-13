@@ -22,7 +22,9 @@ export const vars = defineTokens({
     'interaction.touch.min-height': '--tooltip-interaction-touch-min-height',
     'interaction.outline-color-focus': '--tooltip-interaction-outline-color-focus',
     'interaction.outline-width-focus': '--tooltip-interaction-outline-width-focus',
-    'interaction.outline-offset-focus': '--tooltip-interaction-outline-offset-focus'
+    'interaction.outline-offset-focus': '--tooltip-interaction-outline-offset-focus',
+    'material.backdrop-filter': '--tooltip-material-backdrop-filter',
+    'material.background-image': '--tooltip-material-background-image'
 });
 
 const token = defineTokens({
@@ -53,6 +55,10 @@ const token = defineTokens({
         'outline-color-focus': `var(${vars['interaction.outline-color-focus']}, var(--token-semantic-color-focus-ring, var(--token-semantic-color-border-focus, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078)))))`,
         'outline-width-focus': `var(${vars['interaction.outline-width-focus']}, 2px)`,
         'outline-offset-focus': `var(${vars['interaction.outline-offset-focus']}, 2px)`
+    },
+    'material': {
+        'backdrop-filter': `var(${vars['material.backdrop-filter']}, var(--token-semantic-material-filter, none))`,
+        'background-image': `var(${vars['material.background-image']}, var(--token-semantic-material-sheen, none))`
     }
 });
 

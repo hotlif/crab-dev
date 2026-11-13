@@ -3,6 +3,7 @@
  */
 
 import type { ComponentDemoRecord } from "../site/componentDemos.js";
+import type { ComponentDesignDocuments } from "../site/componentDesignGuide.js";
 
 export const demos = [
     {
@@ -66,3 +67,64 @@ export const demos = [
         "group": "边界与视觉矩阵"
     }
 ] as const satisfies readonly ComponentDemoRecord[];
+
+export const documents = {
+    "md3": {
+        "summary": "以色调预览容器分隔演示与说明，使真实组件和源代码拥有清楚的阅读层级。",
+        "usage": "把预览视为可操作示例，操作按钮服务于源码阅读，不覆盖示例内部样式。",
+        "exampleDescription": "操作预览中的组件，再展开源码，检查色调容器与代码区的层级。",
+        "demos": [
+            "base.demo.tsx"
+        ],
+        "references": [
+            "https://m3.material.io/components/cards/overview",
+            "https://material-web.dev/components/button/",
+            "https://github.com/material-components/material-web/tree/main/button"
+        ]
+    },
+    "macos": {
+        "summary": "以轻量预览面板和紧凑操作区组织组件示例，内容保持独立且清晰。",
+        "usage": "示例工具栏与真实交互区域分开，窄屏保持源码与复制动作可达。",
+        "exampleDescription": "展开代码并使用预览操作，观察工具区域与示例面板的桌面排列。",
+        "demos": [
+            "base.demo.tsx"
+        ],
+        "references": [
+            "https://developer.apple.com/design/human-interface-guidelines/components",
+            "https://developer.apple.com/design/human-interface-guidelines/accessibility"
+        ]
+    },
+    "shadcn": {
+        "summary": "用细描边预览区、简洁说明和源码区域展示可运行组件。",
+        "usage": "让示例成为主要内容，标题和操作区保持低强调，避免重复卡片边框。",
+        "exampleDescription": "对比预览与源码视图，检查中性边界和代码操作是否容易辨认。",
+        "demos": [
+            "base.demo.tsx"
+        ],
+        "references": [
+            "https://ui.shadcn.com/docs/components",
+            "https://ui.shadcn.com/docs/theming",
+            "https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4"
+        ]
+    }
+} as const satisfies ComponentDesignDocuments;
+
+export const guide = {
+    "definition": "ComponentPreview 把运行中的示例、标题说明、源码、复制和工作台入口组合成文档卡片。它服务于学习和验证，不是业务页面中的普通 Card。",
+    "useWhen": [
+        "组件文档需要同时展示效果、解释和可复制源码。",
+        "示例要在隔离工作台中打开，同时保留站内阅读上下文。"
+    ],
+    "avoidWhen": [
+        "业务内容展示请使用 Card；纯代码文档不需要启动交互预览。"
+    ],
+    "essentials": [
+        "title 说明示例主题，description 解释学习目标，不能只重复组件名。",
+        "sourceCode 必须与实际运行示例来自同一文件，避免效果与代码漂移。",
+        "density 调整舞台留白，不能掩盖示例自身的尺寸问题。"
+    ],
+    "accessibility": [
+        "预览操作要形成命名清楚的操作组，展开源码时同步 aria-expanded。",
+        "iframe 或隔离预览需要可访问标题、合理 Tab 顺序和可恢复的失败状态。"
+    ]
+} as const;

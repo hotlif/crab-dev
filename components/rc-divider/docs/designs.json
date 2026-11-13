@@ -1,0 +1,41 @@
+{
+    "md3": {
+        "summary": "以低强调分隔线区分相关内容组，优先通过留白表达大范围分组。",
+        "usage": "分隔线不要抢过标题和操作；装饰性线条与有语义的分隔需要区分。",
+        "exampleDescription": "比较留白和线条组合，查看不同内容组之间的阅读节奏。",
+        "demos": [
+            "spacing.demo.tsx",
+            "basic.demo.tsx",
+            "decorative.demo.tsx",
+            "text.demo.tsx",
+            "variant.demo.tsx",
+            "vertical.demo.tsx"
+        ]
+    },
+    "macos": {
+        "summary": "以轻量细线分隔桌面工具和设置内容，在紧凑排列中保留秩序。",
+        "usage": "工具栏内使用垂直分隔时保持与控件高度协调，不把每个按钮单独隔开。",
+        "exampleDescription": "查看横向工具内容中的垂直分隔，确认分组关系与间距。",
+        "demos": [
+            "vertical.demo.tsx",
+            "basic.demo.tsx",
+            "decorative.demo.tsx",
+            "spacing.demo.tsx",
+            "text.demo.tsx",
+            "variant.demo.tsx"
+        ]
+    },
+    "shadcn": {
+        "summary": "通过中性细边界建立内容组之间的分隔，适合简洁列表和设置页面。",
+        "usage": "只在相邻内容关系需要说明时添加分隔；文字分隔应有明确标题含义。",
+        "exampleDescription": "比较带文字的分隔与基础分隔，检查标题和线条的视觉权重。",
+        "demos": [
+            "text.demo.tsx",
+            "basic.demo.tsx",
+            "decorative.demo.tsx",
+            "spacing.demo.tsx",
+            "variant.demo.tsx",
+            "vertical.demo.tsx"
+        ]
+    }
+}

@@ -93,7 +93,7 @@ function assertFits(row: HTMLElement, input: HTMLInputElement, count: HTMLElemen
 }
 
 describe('actual custom inline editor count on published selected rows', () => {
-    for (const designSystem of ['md3', 'apple', 'shadcn'] as const) {
+    for (const designSystem of ['md3', 'macos', 'shadcn'] as const) {
         for (const colorMode of ['light', 'dark'] as const) {
             it(`keeps normal and invalid counts readable for ${designSystem}/${colorMode}`, async () => {
                 const content = (direction: 'ltr' | 'rtl', density: 'compact' | 'standard' | 'comfortable' = 'standard') => <ConfigProvider designSystem={designSystem} colorMode={colorMode} direction={direction} density={density}>
@@ -224,7 +224,7 @@ function LoadingEditorFixture() {
 }
 
 describe('published custom editor and loading row geometry', () => {
-    for (const designSystem of ['md3', 'apple', 'shadcn'] as const) {
+    for (const designSystem of ['md3', 'macos', 'shadcn'] as const) {
         for (const colorMode of ['light', 'dark'] as const) {
             it(`contains the actual custom editor while loading for ${designSystem}/${colorMode}`, async () => {
                 const view = await render(<ConfigProvider designSystem={designSystem} colorMode={colorMode} density="standard">

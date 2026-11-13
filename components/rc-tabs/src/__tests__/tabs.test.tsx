@@ -148,6 +148,28 @@ describe('Tabs', () => {
         expect(visiblePanels).toHaveLength(1);
         expect(visiblePanels[0]!.textContent).toBe('Panel One');
     });
+
+    for (const destroy of [false, true]) it(`preserves editor drafts only when inactive panels are retained (${destroy})`, async () => {
+        function Editor() {
+            const [value, setValue] = useState('saved parameter');
+            return <input aria-label="Equipment draft" value={value} onChange={event => setValue(event.currentTarget.value)} />;
+        }
+        await render(<Tabs destroyInactiveTabPane={destroy} items={[
+            { key: 'equipment', label: 'Equipment', children: <Editor /> },
+            { key: 'orders', label: 'Orders', children: <p>Work orders</p> },
+        ]} />);
+        const input = screen.getByRole('textbox', { name: 'Equipment draft' });
+        Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value')!.set!.call(input, 'unsaved parameter');
+        await fireEvent.input(input);
+        expect((input as HTMLInputElement).value).toBe('unsaved parameter');
+        await fireEvent.click(screen.getByRole('tab', { name: 'Orders' }));
+        expect(document.contains(input)).toBe(!destroy);
+        if (!destroy) expect(input.closest('[role="tabpanel"]')?.hasAttribute('hidden')).toBe(true);
+        await fireEvent.click(screen.getByRole('tab', { name: 'Equipment' }));
+        const restored = screen.getByRole('textbox', { name: 'Equipment draft' });
+        expect((restored as HTMLInputElement).value).toBe(destroy ? 'saved parameter' : 'unsaved parameter');
+        expect(restored === input).toBe(!destroy);
+    });
     it('renders tabBarExtraContent as right shorthand and as object', async () => {
         const { rerender } = await render(<Tabs items={baseItems} tabBarExtraContent={<span>extra-right</span>}/>);
         expect(screen.getByText('extra-right')).toBeTruthy();

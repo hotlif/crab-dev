@@ -5,6 +5,12 @@
 import { defineTokens } from '@crab-dev/css';
 
 export const vars = defineTokens({
+    'macos.checkable.border-radius': '--tag-macos-checkable-border-radius',
+    'macos.checkable.background-color': '--tag-macos-checkable-background-color',
+    'macos.checkable.background-color-hover': '--tag-macos-checkable-background-color-hover',
+    'macos.checkable.color-selected': '--tag-macos-checkable-color-selected',
+    'macos.checkable.background-color-selected': '--tag-macos-checkable-background-color-selected',
+    'macos.checkable.box-shadow': '--tag-macos-checkable-box-shadow',
     'root.transition': '--tag-root-transition',
     'root.color-error': '--tag-root-color-error',
     'root.background-color-error': '--tag-root-background-color-error',
@@ -66,6 +72,16 @@ export const vars = defineTokens({
 });
 
 const token = defineTokens({
+    'macos': {
+        'checkable': {
+            'border-radius': `var(${vars['macos.checkable.border-radius']}, var(--token-semantic-shape-button, var(--token-semantic-shape-full, var(--token-global-radius-full, 9999px))))`,
+            'background-color': `var(${vars['macos.checkable.background-color']}, var(--token-semantic-color-surface-content, var(--token-semantic-color-background-surface, var(--token-global-material-neutral-98, oklch(0.98379491 0.01284496 321.893957)))))`,
+            'background-color-hover': `var(${vars['macos.checkable.background-color-hover']}, var(--token-semantic-color-background-hover-subtle, color-mix(in oklch, var(--token-global-material-neutral-10, oklch(0.22652446 0.00999107 303.713695)) calc(var(--token-semantic-state-opacity-hover, var(--token-global-opacity-8, 0.08)) * 100%), var(--token-global-material-neutral-98, oklch(0.98379491 0.01284496 321.893957)))))`,
+            'color-selected': `var(${vars['macos.checkable.color-selected']}, var(--token-semantic-color-text-on-brand, var(--token-global-white, oklch(1.000 0 0))))`,
+            'background-color-selected': `var(${vars['macos.checkable.background-color-selected']}, var(--token-semantic-color-brand-primary, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078))))`,
+            'box-shadow': `var(${vars['macos.checkable.box-shadow']}, var(--token-semantic-material-control-shadow, var(--token-global-shadow-xs, 0 1px 2px oklch(0 0 0 / 0.03))))`
+        }
+    },
     'root': {
         'transition': `var(${vars['root.transition']}, background-color var(--token-semantic-motion-interaction, var(--token-global-duration-150, 150ms) var(--token-global-easing-expressive-effects-fast, cubic-bezier(0.31, 0.94, 0.34, 1.00))), border-color var(--token-semantic-motion-interaction, var(--token-global-duration-150, 150ms) var(--token-global-easing-expressive-effects-fast, cubic-bezier(0.31, 0.94, 0.34, 1.00))), color var(--token-semantic-motion-interaction, var(--token-global-duration-150, 150ms) var(--token-global-easing-expressive-effects-fast, cubic-bezier(0.31, 0.94, 0.34, 1.00))))`,
         'color-error': `var(${vars['root.color-error']}, var(--token-semantic-color-feedback-error-text, var(--token-global-material-error-10, oklch(0.25390329 0.07937181 27.605486))))`,

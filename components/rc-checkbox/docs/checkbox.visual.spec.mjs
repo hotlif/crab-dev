@@ -2,6 +2,22 @@ import { test, expect, configurations, openDemo, readVisualSpec, settleFiniteAni
 import { assertCheckboxFeedback } from "./visual-feedback.mjs";
 
 const spec = await readVisualSpec(import.meta.url);
+for (const colorMode of ['light', 'dark']) {
+    test(`Checkbox macos ${colorMode} composite hit area has no Material halo`, async ({ page, previewOrigin }) => {
+        await openDemo(page, previewOrigin, 'rc-checkbox', spec.demo, { designSystem: 'macos', colorMode });
+        const input = page.getByRole('checkbox', { name: 'Primary option', exact: true });
+        const label = input.locator('..');
+        // Table and Tree use these public variables to expand their row target.
+        await label.evaluate(node => {
+            node.style.setProperty('--checkbox-state-layer-width', '48px');
+            node.style.setProperty('--checkbox-control-target-width', '32px');
+        });
+        await label.hover();
+        expect(await label.locator('[data-checkbox-part="control"]').evaluate(node => getComputedStyle(node, '::before').display)).toBe('none');
+        await label.click();
+        await expect(input).toBeChecked();
+    });
+}
 for (const config of configurations) for (const size of spec.sizes) for (const state of spec.states) {
     const crossEngine = spec.crossEngine.sizes.includes(size) && spec.crossEngine.states.includes(state);
     test(`Checkbox ${config.designSystem} ${config.colorMode} ${size} ${state}`, {

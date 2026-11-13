@@ -1,0 +1,38 @@
+{
+    "md3": {
+        "summary": "以轨道和随状态变化的手柄表达即时开关，选中和按压反馈各有含义。",
+        "usage": "开关用于立即生效的设置，标签说明开启后的作用，不用于提交选择。",
+        "exampleDescription": "使用鼠标与空格切换，观察手柄尺寸、轨道和禁用状态。",
+        "demos": [
+            "designs.demo.tsx",
+            "basic.demo.tsx",
+            "disabled.demo.tsx",
+            "rtl.demo.tsx",
+            "size.demo.tsx"
+        ]
+    },
+    "macos": {
+        "summary": "用紧凑胶囊轨道与稳定大小的手柄呈现桌面设置开关，强调当前启用状态。",
+        "usage": "保持设置说明与开关对齐，反馈即时生效的结果，避免隐藏额外确认。",
+        "exampleDescription": "切换桌面设置并读取结果，检查手柄位置和开启后的强调轨道。",
+        "demos": [
+            "basic.demo.tsx",
+            "designs.demo.tsx",
+            "disabled.demo.tsx",
+            "rtl.demo.tsx",
+            "size.demo.tsx"
+        ]
+    },
+    "shadcn": {
+        "summary": "通过中性轨道和圆形手柄表达布尔设置，开启状态保持清晰对比。",
+        "usage": "标签必须能解释设置用途，禁用开关也要保留当前值的可辨认性。",
+        "exampleDescription": "比较可用与禁用开关，确认当前值、手柄位置和标签仍清楚。",
+        "demos": [
+            "disabled.demo.tsx",
+            "basic.demo.tsx",
+            "designs.demo.tsx",
+            "rtl.demo.tsx",
+            "size.demo.tsx"
+        ]
+    }
+}

@@ -1,0 +1,38 @@
+{
+    "md3": {
+        "summary": "将数值输入、单位和增减操作组织成语义字段，值与错误说明清楚关联。",
+        "usage": "先声明范围和步长，再选择显示格式；格式化文字不改变真实数值语义。",
+        "exampleDescription": "触及最小和最大值，观察步进操作与字段状态是否给出清晰反馈。",
+        "demos": [
+            "range.demo.tsx",
+            "basic.demo.tsx",
+            "format.demo.tsx",
+            "scientific.demo.tsx",
+            "states.demo.tsx"
+        ]
+    },
+    "macos": {
+        "summary": "以紧凑桌面数值框和独立步进区域提供精确输入，适合设置与检查器。",
+        "usage": "数值、单位与步进控件对齐；不可用方向需要通过状态清楚表达。",
+        "exampleDescription": "用键盘和步进区域调整数值，检查桌面输入的对齐与焦点反馈。",
+        "demos": [
+            "basic.demo.tsx",
+            "format.demo.tsx",
+            "range.demo.tsx",
+            "scientific.demo.tsx",
+            "states.demo.tsx"
+        ]
+    },
+    "shadcn": {
+        "summary": "以中性数值字段和简洁增减控件支持精确编辑，边界与值保持清晰。",
+        "usage": "显示格式可以补充单位，业务仍应使用数值进行计算和范围校验。",
+        "exampleDescription": "修改带格式的数值，比较显示文字和受控结果，检查解析是否符合预期。",
+        "demos": [
+            "format.demo.tsx",
+            "basic.demo.tsx",
+            "range.demo.tsx",
+            "scientific.demo.tsx",
+            "states.demo.tsx"
+        ]
+    }
+}

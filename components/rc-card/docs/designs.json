@@ -1,0 +1,47 @@
+{
+    "md3": {
+        "summary": "以表面层级组织一组相关内容，填充、描边和抬升外观用于区分内容关系。",
+        "usage": "优先让标题、正文和主要动作形成层级；可点击卡片仍需有明确动作语义。",
+        "exampleDescription": "比较卡片外观及表面层次，再操作可点击示例观察焦点与状态反馈。",
+        "demos": [
+            "variant.demo.tsx",
+            "basic.demo.tsx",
+            "clickable.demo.tsx",
+            "composition.demo.tsx",
+            "cover.demo.tsx",
+            "loading.demo.tsx",
+            "size.demo.tsx",
+            "states.demo.tsx"
+        ]
+    },
+    "macos": {
+        "summary": "以清晰内容表面和轻量边缘承载信息组，卡片正文保持稳定、可读的背景。",
+        "usage": "将浮动材质留给操作区域，内容卡片用标题与留白组织，不把全文放在透明背板上。",
+        "exampleDescription": "查看标题、内容和操作的组合，检查桌面信息面板的排列与分区。",
+        "demos": [
+            "composition.demo.tsx",
+            "basic.demo.tsx",
+            "clickable.demo.tsx",
+            "cover.demo.tsx",
+            "loading.demo.tsx",
+            "size.demo.tsx",
+            "states.demo.tsx",
+            "variant.demo.tsx"
+        ]
+    },
+    "shadcn": {
+        "summary": "用细描边、中性背景和紧凑标题组织卡片内容，强调结构而不是装饰。",
+        "usage": "标题、说明、内容与底部操作按阅读顺序排列；避免嵌套过多相同边框。",
+        "exampleDescription": "从基础卡片读取信息层级，再检查带操作和加载状态的内容边界。",
+        "demos": [
+            "basic.demo.tsx",
+            "clickable.demo.tsx",
+            "composition.demo.tsx",
+            "cover.demo.tsx",
+            "loading.demo.tsx",
+            "size.demo.tsx",
+            "states.demo.tsx",
+            "variant.demo.tsx"
+        ]
+    }
+}

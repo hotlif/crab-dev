@@ -4,7 +4,7 @@ import { sitePages, openSite, chooseDesign, chooseMode, assertSiteConfiguration 
 test.describe.configure({ timeout: 90_000 });
 test.use({ video: 'on', viewport: { width: 1440, height: 900 } });
 const home = sitePages.find(page => page.id === 'home');
-const labels = { md3: 'MD3', apple: 'Apple', shadcn: 'shadcn' };
+const labels = { md3: 'MD3', macos: 'macOS', shadcn: 'shadcn' };
 
 async function settleReveal(target) {
     // Firefox retains pending component transitions inside closed <details>.
@@ -47,11 +47,11 @@ for (const config of configurations) {
         const picker = page.getByRole('radiogroup', { name: '首页设计体系', exact: true });
         const views = page.getByRole('radiogroup', { name: '示例视图', exact: true });
         await views.getByRole('radio', { name: '活动', exact: true }).locator('..').click();
-        for (const designSystem of ['apple', 'shadcn', 'md3', config.designSystem]) {
+        for (const designSystem of ['macos', 'shadcn', 'md3', config.designSystem]) {
             await picker.getByRole('radio', { name: labels[designSystem], exact: true }).locator('..').click();
             await assertSiteConfiguration(page, { ...config, designSystem });
         }
-        const other = config.designSystem === 'apple' ? 'shadcn' : 'apple';
+        const other = config.designSystem === 'macos' ? 'shadcn' : 'macos';
         await chooseDesign(page, other);
         await expect(picker.getByRole('radio', { name: labels[other], exact: true })).toBeChecked();
         await chooseMode(page, config.colorMode === 'light' ? 'dark' : 'light');

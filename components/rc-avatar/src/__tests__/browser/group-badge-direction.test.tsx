@@ -131,7 +131,7 @@ function assertCounterGeometry(group: HTMLElement, expected: string, visibleCoun
 }
 
 describe('AvatarGroup published Badge logical-end geometry', () => {
-    for (const designSystem of ['md3', 'apple', 'shadcn'] as const) {
+    for (const designSystem of ['md3', 'macos', 'shadcn'] as const) {
         for (const colorMode of ['light', 'dark'] as const) {
             for (const variant of variants) {
                 it(`keeps ${variant.name} unobscured across retained LTR/RTL nodes (${designSystem}/${colorMode})`, async () => {

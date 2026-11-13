@@ -8,23 +8,22 @@ status = "experimental"
 {/* THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY. */}
 
 import ComponentDemos from "../site/componentDemos.js";
-import { demos } from "../_generated/rc-tooltip.js";
+import ComponentDesignGuide, { DesignIntroduction, DesignExampleIntroduction } from "../site/componentDesignGuide.js";
+import { demos, documents, guide } from "../_generated/rc-tooltip.js";
 
 # Tooltip 文字提示
 
 <div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-tooltip</div>
+
+## 设计与用法
+
+<DesignIntroduction documents={documents} />
 
 <div id="基础示例" data-docs-example-anchor /><div id="全部示例" data-docs-example-anchor />
 
 ## 示例
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
-
-#### 规格验收
-
-##### 三体系文字提示矩阵 — 鼠标、键盘、箭头扩展与长文本在真实浮层中验收。
-
-#### 基础与位置
 
 ##### 基础用法 — 鼠标悬停或键盘聚焦按钮时展示提示文字，按 Escape 关闭。
 
@@ -34,86 +33,13 @@ import { demos } from "../_generated/rc-tooltip.js";
 
 </div>
 
-<ComponentDemos demos={demos} />
+<DesignExampleIntroduction documents={documents} />
 
-[打开完整组件工作台](/components/rc-tooltip/workbench/)
+<ComponentDemos demos={demos} documents={documents} />
 
 ## 使用说明
 
-在鼠标悬停或键盘聚焦时展示简短说明。
-
-
-### 何时使用
-
-- 当需要对按钮、图标、链接等元素提供额外说明时。
-- 当空间有限无法直接展示文字时，使用 Tooltip 在悬浮时补充信息。
-
-### 主要功能
-
-- 支持 12 个弹出方位，自动跟随空间翻转。
-- 支持受控与非受控模式。
-- 支持鼠标悬浮与键盘聚焦触发。
-- 可配置出入场延迟与箭头显隐。
-- 内置无障碍支持（`role="tooltip"` + `aria-describedby`）。
-
-### 设计与交互
-
-默认采用 M3 **plain tooltip**：无箭头、反色表面、与触发元素相隔 4px。鼠标可以移入提示区域继续阅读；离开触发元素和提示区域 1.5 秒后关闭，也可按 Escape 关闭。`arrow` 是兼容扩展，需要时显式开启。
-
-提示用于补充简短说明。重要信息应直接呈现；含操作按钮的内容应使用相应弹层，不要把 plain tooltip 当作富交互容器。
-
-
-### 三体系规格与验收矩阵（2026-10-29）
-
-| 体系 | 视觉规格 | 边界 |
-| --- | --- | --- |
-| MD3 Expressive | plain tooltip 的 inverse surface / inverse on-surface、body-small 字阶、extra-small 形状 | 不含操作的补充说明；默认无箭头，arrow 是本库扩展 |
-| Apple | 轻面板、细边界、清晰文字和柔和阴影 | 依据 popover 原则的自主 Web 文字提示，不宣称原生平台 tooltip 复刻 |
-| shadcn New York V4 | inverse 中性表面、紧凑内边距与圆角 | 保留本库默认无箭头及延迟协议，区别于固定参考的箭头样式 |
-
-表面与形状来自 `overlay.tooltip.*`，L3 控制局部排版与宽度。Tooltip 不提供公开 size/density；触发控件仍独立接受配置。提示不可承载必需信息或交互动作；键盘 focus-visible 与 hover 采用同一说明，Escape 关闭，aria-describedby 指向实际提示。鼠标跨入提示区域应继续可读，不能用截图强行保持打开。
-
-`visual.json` 覆盖三体系浅深色 × default（关闭）、hover、focus-visible、arrow、long-text。真实悬停或 Tab 打开，等待有限过渡自然结束，整页截图保留 Portal 与触发器焦点。跨引擎默认、悬停、焦点、长文本子集在 `crossEngine` 声明；不存在的 selected/error/loading/disabled 状态不伪造。
-
-来源：[Material tooltip](https://developer.android.com/develop/ui/compose/components/tooltip) 及 [PlainTooltipTokens 固定源码](https://github.com/androidx/androidx/blob/b4e136e88a48dec3e039d06b69f055957cdc4071/compose/material3/material3/src/commonMain/kotlin/androidx/compose/material3/tokens/PlainTooltipTokens.kt)；[Apple popovers](https://developer.apple.com/design/human-interface-guidelines/popovers)；[shadcn 固定 Tooltip 源码](https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui/tooltip.tsx)。Material Web 没有对等 plain tooltip 发布组件，采用官方 Compose 作为角色补充，Web 交互仍使用现有语义。
-
-额外场景检查配置切换不重建触发器、Portal 最近边界、320/768px、RTL/英文、品牌、强制颜色及减少动画；触控不依赖 hover 暴露必需内容。报告和人工外观复审分别记录，规格或自动场景不替代实际 verified 证据。
-
-
-### 三套设计风格
-
-MD3 Expressive 使用无箭头的逆色 plain tooltip；shadcn 保持逆色表面并采用 6px 圆角；Apple 使用浅色或深色面板表面、细描边和柔和阴影。显式 arrow 是项目保留的可选扩展，不会因主题切换改变触发和 aria-describedby 行为。
-
-切换文档站设计风格后，本页演示同步使用该设计；浅色和深色模式分别使用配对语义颜色。
-
-### 配置与展开协议
-
-使用 open / defaultOpen / onOpenChange(next, details) 表达受控、初始值和用户请求。默认值只在初始化时读取，外部配置更新不触发用户回调；details.reason 给出触发原因。内置弹层按 ownerDocument 共享栈，Escape 只作用于顶层。主题、语言、方向和 CSP nonce 沿配置继承，内容尺寸与布局密度独立。
-
-### 适用场景
-
-图标按钮需要解释动作名称。 简短术语或截断内容需要非阻塞补充。
-
-错误、帮助步骤和长说明应直接显示；包含按钮或表单的内容使用 Popover/Dialog 类组件。
-
-### 使用要点
-
-- title 简短直接，用户不看 Tooltip 也能完成主要任务。
-- placement 是偏好，碰撞时允许浮层自动调整。
-- arrow 只加强锚点关系，不应遮住触发器或内容。
-
-### 无障碍
-
-- 键盘聚焦与指针悬停都能打开，Escape 可关闭，移出后有合理延迟。
-- 触发器通过 aria-describedby 关联说明；Tooltip 本身不接收焦点。
-
-### 设计依据与覆盖
-
-- **MD3 Expressive**：直接参考 M3 Tooltips 的 plain/rich 边界、显示时机、位置与无障碍要求；当前组件用于简短 plain tooltip。 [依据 1](https://m3.material.io/components/tooltips/overview) · [依据 2](https://material-web.dev/components/) · [依据 3](https://github.com/material-components/material-web)
-- **Apple**：依据 Apple HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。 [依据 1](https://developer.apple.com/design/human-interface-guidelines/components) · [依据 2](https://developer.apple.com/design/human-interface-guidelines/accessibility)
-- **shadcn/ui**：参考 shadcn/ui 的组件用途、中性表面与设计变量，在本库公共语义和 React 交互模型中实现；完整状态覆盖仍需按矩阵验收。 [依据 1](https://ui.shadcn.com/docs/components) · [依据 2](https://ui.shadcn.com/docs/theming) · [依据 3](https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4)
-
-设计依据不等于完成验收；当前状态与适用边界见[覆盖矩阵](/guides/design-coverage)。
+<ComponentDesignGuide guide={guide} documents={documents} />
 
 ## 常见问题
 

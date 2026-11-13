@@ -1,4 +1,5 @@
 import { useComponentSize, useConfig } from '@crab-dev/rc-config-provider';
+import { macosSegmentStyle } from './segmented.designs.js';
 import { cx } from '@crab-dev/css';
 import { useId } from 'react';
 import { useControllableValue } from '@crab-dev/rc-hooks';
@@ -89,6 +90,7 @@ const Segmented = ({
                             block && segmentBlockStyle,
                             selected && segmentSelectedStyle,
                             optionDisabled && segmentDisabledStyle,
+                            designSystem === 'macos' && macosSegmentStyle,
                             option.className,
                         )}
                     >

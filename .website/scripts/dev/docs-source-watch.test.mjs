@@ -5,7 +5,7 @@ import { isComponentDocsSource } from "./docs-source-watch.mjs";
 test("增量生成监听文档、展示配置与真实源码，兼容 Windows 路径", () => {
     for (const source of [
         "rc-button/src/types.ts", "rc-hooks/src/useControllableState.ts", "rc-checkbox/src/group/group.tsx",
-        "rc-button/docs/index.mdx", "rc-button/docs/presentation.json", "rc-button/docs/demos/basic.demo.tsx",
+        "rc-button/docs/index.mdx", "rc-button/docs/presentation.json", "rc-button/docs/designs.json", "rc-button/docs/demos/basic.demo.tsx",
         "rc-button/public/docgen.json", "rc-button/package.json", "rc-button/token.toml",
     ]) {
         assert.equal(isComponentDocsSource(source), true, source);

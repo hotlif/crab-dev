@@ -3,6 +3,7 @@
  */
 
 import type { ComponentDemoRecord } from "../site/componentDemos.js";
+import type { ComponentDesignDocuments } from "../site/componentDesignGuide.js";
 
 export const demos = [
     {
@@ -133,3 +134,73 @@ export const demos = [
         "group": null
     }
 ] as const satisfies readonly ComponentDemoRecord[];
+
+export const documents = {
+    "md3": {
+        "summary": "以清晰说明和有重点的操作表达空内容，语义插图服务于下一步任务。",
+        "usage": "先解释为何为空，再提供一个最有帮助的动作，不让装饰遮盖说明。",
+        "exampleDescription": "查看带操作的空态，确认标题解释原因且主要按钮指向可执行任务。",
+        "demos": [
+            "with-action.demo.tsx",
+            "basic.demo.tsx",
+            "custom.demo.tsx",
+            "preset.demo.tsx"
+        ],
+        "references": [
+            "https://m3.material.io/foundations/layout/understanding-layout/overview",
+            "https://material-web.dev/components/button/",
+            "https://github.com/material-components/material-web/tree/main/button"
+        ]
+    },
+    "macos": {
+        "summary": "在桌面内容区域用简短说明表达无数据状态，保留周围导航和工具上下文。",
+        "usage": "搜索无结果与首次使用应有不同文案；空态不需要模拟系统窗口。",
+        "exampleDescription": "比较空态预设与当前内容区域的关系，检查紧凑排版中的说明层级。",
+        "demos": [
+            "preset.demo.tsx",
+            "basic.demo.tsx",
+            "custom.demo.tsx",
+            "with-action.demo.tsx"
+        ],
+        "references": [
+            "https://developer.apple.com/design/human-interface-guidelines/components",
+            "https://developer.apple.com/design/human-interface-guidelines/accessibility"
+        ]
+    },
+    "shadcn": {
+        "summary": "用简洁图形、文字和可选动作构成空状态，融入中性的列表与卡片页面。",
+        "usage": "把空态当作内容状态，边框与装饰适度使用，优先说明用户能够做什么。",
+        "exampleDescription": "定制空态内容并检查说明与动作，确认表面留白不会削弱任务入口。",
+        "demos": [
+            "custom.demo.tsx",
+            "basic.demo.tsx",
+            "preset.demo.tsx",
+            "with-action.demo.tsx"
+        ],
+        "references": [
+            "https://ui.shadcn.com/docs/components",
+            "https://ui.shadcn.com/docs/theming",
+            "https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4"
+        ]
+    }
+} as const satisfies ComponentDesignDocuments;
+
+export const guide = {
+    "definition": "Empty 在没有数据、搜索无结果或尚未创建内容时解释当前状态，并给出合适的下一步。它不是错误页，也不应只展示一张插图。",
+    "useWhen": [
+        "列表第一次为空，需要引导创建内容。",
+        "筛选或搜索后没有结果，需要说明如何恢复或调整条件。"
+    ],
+    "avoidWhen": [
+        "仍在加载时使用 Skeleton 或 Spin；请求失败时显示错误原因和重试，而不是伪装成空数据。"
+    ],
+    "essentials": [
+        "标题明确说明“没有什么”，描述解释为什么以及下一步。",
+        "action 只放最可能的恢复动作，例如新建或清除筛选。",
+        "preset 负责常见视觉，custom 用于确有业务意义的插图。"
+    ],
+    "accessibility": [
+        "空状态必须包含真实文本，插图应是装饰或有恰当替代文本。",
+        "从有数据变为空时，焦点不要落在已卸载项目上，并按任务重要程度提供状态通告。"
+    ]
+} as const;

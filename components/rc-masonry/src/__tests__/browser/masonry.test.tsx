@@ -40,7 +40,7 @@ function assertContained(root: HTMLElement): DOMRect[] {
 }
 
 describe('Masonry published CSS logical positioning', () => {
-    for (const designSystem of ['md3', 'apple', 'shadcn'] as const) {
+    for (const designSystem of ['md3', 'macos', 'shadcn'] as const) {
         for (const colorMode of ['light', 'dark'] as const) {
             for (const direction of ['ltr', 'rtl'] as const) {
                 it(`${designSystem}/${colorMode}/${direction}: uses live density for both axes, with explicit gutter taking precedence`, async () => {

@@ -132,7 +132,7 @@ function assertState(host: HTMLElement, loading: boolean): HTMLElement[] {
 }
 
 describe('actual loading demo geometry with published components and extracted CSS', () => {
-    for (const designSystem of ['md3', 'apple', 'shadcn'] as const) {
+    for (const designSystem of ['md3', 'macos', 'shadcn'] as const) {
         for (const colorMode of ['light', 'dark'] as const) {
             it(`keeps every loading/content slot fixed over two cycles (${designSystem}/${colorMode})`, async () => {
                 expect(window.innerWidth).toBe(1280);

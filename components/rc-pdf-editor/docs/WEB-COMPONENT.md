@@ -12,7 +12,7 @@
 用户点击“打开 PDF”即可选择本地文件。也可以声明初始文件：
 
 ```html
-<crab-pdf-editor src="./example.pdf" file-name="示例.pdf" readonly design-system="apple" color-mode="dark" lang="zh-CN" dir="ltr"></crab-pdf-editor>
+<crab-pdf-editor src="./example.pdf" file-name="示例.pdf" readonly design-system="macos" color-mode="dark" lang="zh-CN" dir="ltr"></crab-pdf-editor>
 ```
 
 `src` 按页面 base URL 解析，仅在挂载时读取；`file-name` 同样属于初始配置。之后切换文档使用 `open()` / `close()`。`readonly` 遵循 HTML 布尔属性语义：`readonly="false"` 仍然为真，取消时应移除属性或设置 `element.readOnly = false`。
@@ -62,7 +62,7 @@
 | `runtime` | 可选的挂载前配置；覆盖独立文件内置的 Worker/WASM |
 | `fonts` | 可实时更新的 `PdfFont[]`，修改 PDF 文字时按原组件要求提供完整 TTF 字体 |
 | `readOnly` | 与 `readonly` 属性双向对应 |
-| `designSystem` | `md3` / `apple` / `shadcn`，对应 `design-system` 属性 |
+| `designSystem` | `md3` / `macos` / `shadcn`，对应 `design-system` 属性 |
 | `colorMode` | 已解析的 `light` / `dark`，对应 `color-mode` 属性 |
 | `brandColor` | `#RGB` / `#RRGGBB`，对应 `brand-color`；`null` / `undefined` 移除自定义品牌 |
 | `size` | `small` / `medium` / `large`，与同名属性对应 |
@@ -76,7 +76,7 @@
 
 元素是独立 React root，宿主通过这些 property 或 HTML 属性显式传递配置，外层 React `ConfigProvider`、`data-crab-design` 或祖先 `lang/dir` 不会自动成为内部配置。省略配置时由组件库 Provider 解析为 `md3 / light / medium / standard / zh-CN / ltr`；枚举 property 的 getter 返回有效的显式覆写或 `undefined`，设置 `undefined` 或移除对应属性恢复默认。`brandColor` getter 返回规范化颜色，无有效自定义品牌时返回 `null`。原生 `nonce` 空字符串表示未提供。
 
-枚举 property 的非法 JavaScript 值同步抛出 `RangeError`，不改变原值；原始 HTML 无效枚举值或品牌值按未提供处理，不透传到主题 CSS。`material/macos` 不在这里迁移。旧 `theme` property / HTML 属性已一次切换为 `colorMode` / `color-mode`，不保留别名；内部明暗标记仍为 `data-theme`。
+枚举 property 的非法 JavaScript 值同步抛出 `RangeError`，不改变原值；原始 HTML 无效枚举值或品牌值按未提供处理，不透传到主题 CSS。`material/apple` 不在这里迁移；macOS Tahoe 26 的有效 ID 为 `macos`。旧 `theme` property / HTML 属性已一次切换为 `colorMode` / `color-mode`，不保留别名；内部明暗标记仍为 `data-theme`。
 
 ```js
 editor.designSystem = 'shadcn';

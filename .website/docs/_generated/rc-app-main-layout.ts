@@ -3,6 +3,7 @@
  */
 
 import type { ComponentDemoRecord } from "../site/componentDemos.js";
+import type { ComponentDesignDocuments } from "../site/componentDesignGuide.js";
 
 export const demos = [
     {
@@ -106,3 +107,67 @@ export const demos = [
         "group": "工作区与账户"
     }
 ] as const satisfies readonly ComponentDemoRecord[];
+
+export const documents = {
+    "md3": {
+        "summary": "以色调导航区域和胶囊目的地组织桌面工作区，关键操作与阅读内容分层。",
+        "usage": "先定义导航目的地，再组织页面页签；多工作页与账户编排是本库的组合能力。",
+        "exampleDescription": "切换侧栏目的地与工作页，观察选中容器、内容区和主要操作的层级。",
+        "demos": [
+            "base.demo.tsx",
+            "long-account.demo.tsx"
+        ],
+        "references": [
+            "https://m3.material.io/components/navigation-rail/overview",
+            "https://material-web.dev/components/tabs/",
+            "https://github.com/material-components/material-web/tree/main/tabs"
+        ]
+    },
+    "macos": {
+        "summary": "以桌面工具栏、轻量侧栏和独立内容区域建立工作窗口，导航材质与正文分离。",
+        "usage": "让工具栏承载当前任务动作，侧栏承载位置；窄屏收起导航后仍保留回到内容的路径。",
+        "exampleDescription": "查看长账户名称在桌面工具栏中的排列，再操作侧栏和工作页入口。",
+        "demos": [
+            "long-account.demo.tsx",
+            "base.demo.tsx"
+        ],
+        "references": [
+            "https://developer.apple.com/design/human-interface-guidelines/components",
+            "https://developer.apple.com/design/human-interface-guidelines/accessibility"
+        ]
+    },
+    "shadcn": {
+        "summary": "以中性侧栏、细边界和紧凑导航组织管理工作区，页面内容保持清晰主体。",
+        "usage": "将选中项和分组标题作为导航线索，避免给每个区域重复增加装饰表面。",
+        "exampleDescription": "从基础布局切换页面，检查侧栏选中行、页签与内容边界是否清晰。",
+        "demos": [
+            "base.demo.tsx",
+            "long-account.demo.tsx"
+        ],
+        "references": [
+            "https://ui.shadcn.com/docs/components",
+            "https://ui.shadcn.com/docs/theming",
+            "https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4"
+        ]
+    }
+} as const satisfies ComponentDesignDocuments;
+
+export const guide = {
+    "definition": "AppMainLayout 把应用标题区、主导航、页签和内容区组合成稳定的后台框架。它负责页面骨架和区域关系，不替业务页面决定具体数据、表单或路由。",
+    "useWhen": [
+        "企业后台需要长期存在的主导航、顶栏和可切换工作页。",
+        "不同页面必须共享一致的响应式框架、焦点顺序和内容边界。"
+    ],
+    "avoidWhen": [
+        "单页落地页或只有一条简单流程时，不要为了形式套入复杂后台骨架。"
+    ],
+    "essentials": [
+        "先确定导航目的地，再把路由状态映射到选中项和当前页签。",
+        "Header、Sidebar、TabBar 与 Content 各有职责，业务内容只放进内容区。",
+        "窄屏不是把桌面布局等比缩小，而是按可用空间收起或转换导航。"
+    ],
+    "accessibility": [
+        "为导航、页签和主内容提供清楚的 landmark 与名称，并保留唯一主内容入口。",
+        "打开、关闭侧栏或页签后要把焦点放到可预测位置，键盘顺序应与视觉顺序一致。"
+    ]
+} as const;

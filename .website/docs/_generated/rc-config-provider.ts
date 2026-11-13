@@ -3,18 +3,18 @@
  */
 
 import type { ComponentDemoRecord } from "../site/componentDemos.js";
+import type { ComponentDesignDocuments } from "../site/componentDesignGuide.js";
 
 export const demos = [
     {
         "id": "docs/demos/nested.demo.tsx",
-        "title": "嵌套设计风格与主题边界",
-        "description": "内层分别切换为 shadcn 浅色与 Apple 深色风格，未指定的主题、语言和尺寸继续继承父级。",
+        "title": "嵌套配置与明暗边界",
+        "description": "内层分别覆盖明暗与尺寸，设计、语言和其他未指定配置继续继承父级。",
         "learning": {
             "components": [
                 "ConfigProvider"
             ],
             "props": [
-                "designSystem",
                 "colorMode",
                 "locale",
                 "size",
@@ -23,7 +23,7 @@ export const demos = [
             "events": [],
             "hasState": false
         },
-        "sourceCode": "import { css } from '@crab-dev/css';\nimport token from '@crab-dev/rc-token-semantic';\nimport ConfigProvider, { useConfig } from '@crab-dev/rc-config-provider';\n\nexport const meta = {\n    title: '嵌套设计风格与主题边界',\n    description: '内层分别切换为 shadcn 浅色与 Apple 深色风格，未指定的主题、语言和尺寸继续继承父级。',\n};\n\nconst panelStyle = css`\n    padding: ${token.space['card-padding']};\n    color: ${token.color.text.primary};\n    background: ${token.color.background.surface};\n    border-radius: ${token.radius.md};\n`;\n\nfunction Summary() {\n    const config = useConfig();\n    const { designSystem, colorMode, locale, size, density } = config;\n    return \u003cp className={panelStyle} data-resolved-config={JSON.stringify(config)}>{designSystem} / {colorMode} / {locale} / {size} / {density}\u003c/p>;\n}\n\nexport default function NestedDemo() {\n    return (\n        \u003cConfigProvider designSystem=\"md3\" colorMode=\"dark\" locale=\"en-US\" size=\"large\" density=\"compact\">\n            \u003cSummary />\n            \u003cConfigProvider designSystem=\"shadcn\" colorMode=\"light\">\u003cSummary />\u003c/ConfigProvider>\n            \u003cConfigProvider designSystem=\"apple\">\u003cSummary />\u003c/ConfigProvider>\n            \u003cSummary />\n        \u003c/ConfigProvider>\n    );\n}\n",
+        "sourceCode": "import { css } from '@crab-dev/css';\nimport token from '@crab-dev/rc-token-semantic';\nimport ConfigProvider, { useConfig } from '@crab-dev/rc-config-provider';\n\nexport const meta = {\n    title: '嵌套配置与明暗边界',\n    description: '内层分别覆盖明暗与尺寸，设计、语言和其他未指定配置继续继承父级。',\n};\n\nconst panelStyle = css`\n    padding: ${token.space['card-padding']};\n    color: ${token.color.text.primary};\n    background: ${token.color.background.surface};\n    border-radius: ${token.radius.md};\n`;\n\nfunction Summary() {\n    const config = useConfig();\n    const { designSystem, colorMode, locale, size, density } = config;\n    return \u003cp className={panelStyle} data-resolved-config={JSON.stringify(config)}>{designSystem} / {colorMode} / {locale} / {size} / {density}\u003c/p>;\n}\n\nexport default function NestedDemo() {\n    return (\n        \u003cConfigProvider colorMode=\"dark\" locale=\"en-US\" size=\"large\" density=\"compact\">\n            \u003cSummary />\n            \u003cConfigProvider colorMode=\"light\">\u003cSummary />\u003c/ConfigProvider>\n            \u003cConfigProvider size=\"small\">\u003cSummary />\u003c/ConfigProvider>\n            \u003cSummary />\n        \u003c/ConfigProvider>\n    );\n}\n",
         "previewPath": "/components/rc-config-provider/workbench/?__wake_demo=docs%2Fdemos%2Fnested.demo.tsx",
         "workbenchPath": "/components/rc-config-provider/workbench/#/components/docs%2Fdemos%2Fnested.demo.tsx",
         "density": "regular",
@@ -89,3 +89,67 @@ export const demos = [
         "group": "边界与视觉矩阵"
     }
 ] as const satisfies readonly ComponentDemoRecord[];
+
+export const documents = {
+    "md3": {
+        "summary": "为当前文档建立 MD3 配置边界，让色调、形状与交互控件使用一致的设计配置。",
+        "usage": "在应用根传入 designSystem=\"md3\"；嵌套边界仅覆写需要改变的明暗、尺寸或密度。",
+        "exampleDescription": "比较同一设计内的浅深色边界，查看未指定的语言、尺寸和密度如何继承。",
+        "demos": [
+            "nested.demo.tsx",
+            "config-documents.demo.tsx"
+        ],
+        "references": [
+            "https://m3.material.io/styles/color/system/overview",
+            "https://material-web.dev/theming/",
+            "https://github.com/material-components/material-web/tree/main/tokens"
+        ]
+    },
+    "macos": {
+        "summary": "为桌面风格界面建立 macOS 配置边界，使工具栏、字段与浮层保持统一。",
+        "usage": "在应用根传入 designSystem=\"macos\"；明暗、品牌、尺寸和密度独立配置，Portal 继承最近边界。",
+        "exampleDescription": "检查嵌套设置面板的明暗覆盖，以及外层桌面配置在局部边界中的保留。",
+        "demos": [
+            "nested.demo.tsx",
+            "config-documents.demo.tsx"
+        ],
+        "references": [
+            "https://developer.apple.com/design/human-interface-guidelines/components",
+            "https://developer.apple.com/design/human-interface-guidelines/accessibility"
+        ]
+    },
+    "shadcn": {
+        "summary": "通过 shadcn 配置边界统一中性表面、控件与浮层，保持界面设计一致。",
+        "usage": "在应用根传入 designSystem=\"shadcn\"；局部改变尺寸或明暗时保留其他已解析配置。",
+        "exampleDescription": "读取各局部边界的配置摘要，确认表面模式变化不会改变当前设计。",
+        "demos": [
+            "nested.demo.tsx",
+            "config-documents.demo.tsx"
+        ],
+        "references": [
+            "https://ui.shadcn.com/docs/components",
+            "https://ui.shadcn.com/docs/theming",
+            "https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4"
+        ]
+    }
+} as const satisfies ComponentDesignDocuments;
+
+export const guide = {
+    "definition": "ConfigProvider 在 React 子树中统一提供主题、语言、尺寸等配置。内层 Provider 可以覆盖外层的一部分值，其余配置继续继承。",
+    "useWhen": [
+        "整个应用需要统一默认配置。",
+        "某个局部区域要临时切换语言、密度或主题，而不影响页面其他部分。"
+    ],
+    "avoidWhen": [
+        "只影响一个组件的一次性属性直接传 prop；不要用全局配置隐藏业务状态。"
+    ],
+    "essentials": [
+        "最外层放应用默认值，局部覆盖只写确实不同的字段。",
+        "Provider 边界决定配置作用域，弹层挂载到边界外时要检查是否仍能继承。",
+        "配置是默认策略，不应覆盖组件显式传入的值。"
+    ],
+    "accessibility": [
+        "语言切换要同步文档语言、读屏文本与格式化规则。",
+        "主题和尺寸覆盖后仍需检查对比度、焦点可见性和 200% 缩放。"
+    ]
+} as const;

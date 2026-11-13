@@ -8,11 +8,16 @@ status = "experimental"
 {/* THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY. */}
 
 import ComponentDemos from "../site/componentDemos.js";
-import { demos } from "../_generated/rc-segmented.js";
+import ComponentDesignGuide, { DesignIntroduction, DesignExampleIntroduction } from "../site/componentDesignGuide.js";
+import { demos, documents, guide } from "../_generated/rc-segmented.js";
 
 # Segmented 分段控制器
 
 <div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-segmented</div>
+
+## 设计与用法
+
+<DesignIntroduction documents={documents} />
 
 <div id="基础示例" data-docs-example-anchor /><div id="全部示例" data-docs-example-anchor />
 
@@ -26,101 +31,23 @@ import { demos } from "../_generated/rc-segmented.js";
 
 ##### 受控模式 — 传入 value 与 onValueChange 由外部状态托管选中值。原始值可作为 options 简写。
 
-##### 三套风格与完整状态 — 比较浅色和深色下的分段轮廓、选中反馈、禁用项与键盘焦点。
+##### 当前主题的交互状态 — 观察当前主题下的选中、禁用和焦点反馈；示例继承文档配置，可直接操作。
 
 ##### 禁用状态 — 整体 `disabled` 或对单个选项设 `disabled`, 键盘方向键会自动跳过禁用项。
 
 ##### 尺寸 — 通过 `size` 设置 `large`、`medium`、`small` 三档尺寸。
 
-##### 三体系分段状态矩阵 — 并列文字、图标与禁用选项，实际选择保留在同一组件实例。
-
 ##### 带图标 — 选项可搭配 icon; 纯图标选项须提供 aria-label 保证可访问性。
 
 </div>
 
-<ComponentDemos demos={demos} />
+<DesignExampleIntroduction documents={documents} />
 
-[打开完整组件工作台](/components/rc-segmented/workbench/)
+<ComponentDemos demos={demos} documents={documents} />
 
 ## 使用说明
 
-以紧凑的分段选项切换视图、时间粒度或筛选值。
-
-
-### 何时使用
-
-切换选项时，选中标记与原图标保留各自节点，使用透明度和尺寸反馈衔接；MD3 无图标选项的文字位置连续移动。快速反向选择从当前视觉状态继续，减少动画时立即更新选择。
-
-- 快速切换视图、时间粒度或筛选维度。
-- 选项较少，且需要在同一区域内直接比较。
-
-Segmented 负责选择值，内容展示由业务代码处理；需要同时管理标签与内容面板时使用 Tabs。通常保持 2–5 个简短选项，选项较多时使用 Select。
-
-Material 采用 M3 基线的单选分段按钮：等宽选项、40px 默认视觉高度、48px 命中高度、胶囊描边与分隔线。选中项使用次要色容器和勾选图形；文字选项的前置图标由勾选图形替换，仅图标选项同时保留图标和勾选标记。每个仅图标选项必须提供 `aria-label`。
-
-Tab 进入原生单选组，方向键切换选项，Space 或 Enter 选中当前聚焦项。这是 Web 单选组的键盘模型。此组件保留 M3 基线，不等同于 Expressive 的 connected button group。
-
-文字选项保持单行；`block` 在给定容器内等宽分配，空间不足时省略文字，不缩小勾选图形或改变规范内边距。MD3 无前置图标的未选中项保留勾选槽的测量宽度并将文字居中，选择变化不会改变自动宽度组的尺寸。容器必须容纳勾选槽、间距、内边距及可读标签；窄屏优先减少选项、缩短标签或改用 Select，不能仅用截断标签区分选项。
-
-文字布局核对日期：2026-10-25。[Compose 固定版本的内容测量](https://android.googlesource.com/platform/frameworks/support/+/c73a560c5c9ba4ed53a4f6dd5df36dfd16a837e7/compose/material3/material3/src/commonMain/kotlin/androidx/compose/material3/SegmentedButton.kt)保留勾选槽并居中无图标文字；这里使用逻辑方向偏移适配 Web，未移植其弹簧位移动画。此核对不代表当前 M3 官网全部 Expressive 视觉规格已验收。
-
-### 三套风格
-
-| 风格 | 容器与选中反馈 | small / medium / large 视觉高度 |
-| --- | --- | --- |
-| Apple | 2px 内边距的中性轨道、圆角浮起选中块，保留原选项图标 | 24 / 28 / 32px |
-| Material Design 3 Expressive | 胶囊描边、连续分段边界、次要色填充与勾选 | 32 / 40 / 40px |
-| shadcn/ui | 3px 内边距的 muted 轨道、表面色选中块与轻阴影 | 28 / 32 / 36px |
-
-表中是分段本身的视觉高度，Apple 和 shadcn 的轨道另含上下内边距。Apple 与 shadcn 不显示 Material 的勾选图形；读屏始终通过原生 radio 的 `checked` 状态获取选择结果。三种风格均保留焦点、禁用、悬停、按压和减少动态效果处理，命中区域至少 48px。
-
-参考核对日期：2026-10-22。Material Web 未提供 Segmented 组件，Material 变体直接依据 [M3 Guidelines](https://m3.material.io/components/segmented-buttons/guidelines)、[Specs](https://m3.material.io/components/segmented-buttons/specs)、[Accessibility](https://m3.material.io/components/segmented-buttons/accessibility)。Apple 参考 [Apple Segmented controls](https://developer.apple.com/design/human-interface-guidelines/segmented-controls)，shadcn 参考 [Tabs 文档](https://ui.shadcn.com/docs/components/radix/tabs)及其[轨道实现](https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui/tabs.tsx)，只借鉴分段选择外观，组件语义仍为单选组。
-
-### 维护与矩阵验收
-
-触控场景通过原生轻触选择选项；窄屏与真实缩放测量每个选项和文字槽。标签实际截断时记录原文、槽尺寸与可访问名，并断言受约束的省略样式；允许省略不代表全文已经可见。选中按压与悬停先实际切换选择，单项禁用尝试也须保持原值。选中键盘焦点检查原生方向键移动后的实际轮廓；WebKit 丢失 `:focus-visible` 时由内部键盘模态补足，鼠标或触控操作恢复指针反馈，不替换原生选择事件。
-
-MD3 保留基线 Segmented 的连续胶囊边界、次要色选中面与勾选槽；Apple 使用轻量轨道和浮起选中块；shadcn 使用 muted 轨道、细边界和清晰焦点。MD3 此变体是 M3 基线分段按钮，不宣称已经等同 Expressive connected button group。
-
-矩阵同时呈现文字、文字加图标、仅图标，以及单项禁用；三档 size 下验证选中、hover、键盘焦点、按压与整组禁用。键盘实际进入原生 radio 组并用方向键切换，长文字在 block 容器内省略，选中变化不改变选项测量槽。density 影响宿主集合，不改变分段几何。
-
-包内 `docs/visual.json` 是该组件的可执行尺寸、密度、状态与跨引擎范围清单；`visual-matrix.demo.tsx` 使用公开入口。Chromium 执行完整核心矩阵，Firefox / WebKit 执行清单指定的默认与关键交互子集。窄屏 320 / 768px、长内容、RTL / 英文、品牌覆盖、强制颜色与减少动画分别登记环境场景；配置切换保留原 DOM 与值。真实 200% 浏览器缩放、iframe / Shadow DOM 与跨 Document 验收仍由集成矩阵记录，不以视口或 DPR 代替。
-
-本批来源复核日期为 2026-10-29。[Material Web 控件文档](https://material-web.dev/components/radio/)提供 Web 行为对照；Material Web 不完整覆盖 Expressive，精确 Expressive 形态采用本页注明的项目扩展。[Apple HIG](https://developer.apple.com/design/human-interface-guidelines)作为自主 Web 实现的原则依据；shadcn 继续锁定 New York V4 的 `3d98900e9b73c45f035f8109e9d41ba6a51685e7`，引用提交以产品清单为准。M3 官网需 JavaScript 的规格页未在本批静态读取中补造精确参数。
-
-测试发现、截图候选、像素稳定性与人工外观复审分别记录。当前新增矩阵尚待统一浏览器执行和逐项复审，设计覆盖保持 partial，不能用用例存在或默认测试通过更新为 verified。
-
-
-### 状态契约
-
-`value / defaultValue / onValueChange(next, details)` 管理选中值，`details.reason` 为 `select`，`details.event` 提供触发选择的输入或键盘事件。
-
-受控值与默认值互斥；默认值仅在初始化时使用。外部属性更新不触发操作回调，省略回调可展示只读受控快照。
-
-### 适用场景
-
-二到五个选项需要快速比较和切换。 选中结果立即改变当前视图或设置，并且选项标签很短。
-
-长标签或大量选项使用 Select；页面级导航使用 Tabs；普通动作不要伪装成选项。
-
-### 使用要点
-
-- options 的 value 稳定唯一，label 描述同一维度下的不同值。
-- 受控 value 与 onValueChange 同步，block 只改变占用宽度。
-- 图标是标签的辅助，不能用难懂图标完全替代文字。
-
-### 无障碍
-
-- 根据选择模型提供 radio group 或 toolbar 中 toggle button 的正确语义。
-- 方向键、Tab 和选中状态要可预测，焦点不能只靠背景色表现。
-
-### 设计依据与覆盖
-
-- **MD3 Expressive**：直接参考 M3 Segmented buttons 的 single-select/multi-select、轮廓、选中图标和键盘模型。 [依据 1](https://m3.material.io/components/segmented-buttons/overview) · [依据 2](https://material-web.dev/components/) · [依据 3](https://github.com/material-components/material-web)
-- **Apple**：依据 Apple HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。 [依据 1](https://developer.apple.com/design/human-interface-guidelines/components) · [依据 2](https://developer.apple.com/design/human-interface-guidelines/accessibility)
-- **shadcn/ui**：参考 shadcn/ui 的组件用途、中性表面与设计变量，在本库公共语义和 React 交互模型中实现；完整状态覆盖仍需按矩阵验收。 [依据 1](https://ui.shadcn.com/docs/components) · [依据 2](https://ui.shadcn.com/docs/theming) · [依据 3](https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4)
-
-设计依据不等于完成验收；当前状态与适用边界见[覆盖矩阵](/guides/design-coverage)。
+<ComponentDesignGuide guide={guide} documents={documents} />
 
 ## 常见问题
 

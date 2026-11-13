@@ -1,0 +1,35 @@
+{
+    "md3": {
+        "summary": "以次级路径文字与明确的当前位置表达层级，是基于导航原则的项目扩展。",
+        "usage": "把路径作为返回上级的入口，不让每个层级都获得主要操作的色调强调。",
+        "exampleDescription": "沿基础路径返回上级，检查当前项与可访问链接之间的区分。",
+        "demos": [
+            "basic.demo.tsx",
+            "action.demo.tsx",
+            "custom-separator.demo.tsx",
+            "max-count.demo.tsx"
+        ]
+    },
+    "macos": {
+        "summary": "以紧凑路径和较明确的当前项字重帮助用户定位桌面内容层级。",
+        "usage": "长路径需要保留当前位置与可返回的上级，不将它模拟为系统原生路径栏。",
+        "exampleDescription": "展开被收起的路径项目，确认当前位置及返回目标仍清楚可见。",
+        "demos": [
+            "max-count.demo.tsx",
+            "action.demo.tsx",
+            "basic.demo.tsx",
+            "custom-separator.demo.tsx"
+        ]
+    },
+    "shadcn": {
+        "summary": "用克制的分隔符和中性文字构成层级路径，当前项通过文字层级表达。",
+        "usage": "路径链接、当前位置和动作入口分别保留语义，不用装饰替代可访问名称。",
+        "exampleDescription": "比较分隔符与路径文字的关系，再用键盘检查可返回的层级。",
+        "demos": [
+            "custom-separator.demo.tsx",
+            "action.demo.tsx",
+            "basic.demo.tsx",
+            "max-count.demo.tsx"
+        ]
+    }
+}

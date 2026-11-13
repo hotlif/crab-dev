@@ -13,11 +13,11 @@ status = "experimental"
 
 ## 三套主题的字段与日历
 
-日期字段复用 LineEdit；Apple 与 shadcn 使用静态标签和桌面焦点环，MD3 Expressive 保留外置标签与轮廓／底线。日期单元格和面板圆角由 L2 决定：MD3 Expressive 保留圆形日期及大圆角表面，Apple 和 shadcn 使用桌面圆角矩形日期和紧凑面板。今天、选中日期、键盘焦点与不可选日期仍分别表达。
+日期字段复用 LineEdit；macOS 与 shadcn 使用静态标签和桌面焦点环，MD3 Expressive 保留外置标签与轮廓／底线。日期单元格和面板圆角由 L2 决定：MD3 Expressive 保留圆形日期及大圆角表面，macOS 使用圆形日期选中与紧凑面板，shadcn 使用圆角矩形日期。今天、选中日期、键盘焦点与不可选日期仍分别表达。
 
 当前日历的桌面日期单元格为 32px，粗指针扩展到 48px；这是桌面密度扩展。日期字段仍是只读的弹层触发器，尚未实现 M3 docked picker 的直接键入日期入口，不将当前组件标为该变体的完整复刻。
 
-日期演示的尺寸切换使用库内 Button，说明文字随主题更新。Material Web 尚无对应日历组件；此处保留现有 M3 日历基线，桌面外观参照 [shadcn Date Picker 组合](https://ui.shadcn.com/docs/components/date-picker)及 [Calendar 源码](https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui/calendar.tsx)。Apple 圆角为本项目适配值，时间表盘继续作为跨主题的扩展能力。核对日期：2026-10-22。
+日期演示的尺寸切换使用库内 Button，说明文字随主题更新。Material Web 尚无对应日历组件；此处保留现有 M3 日历基线，桌面外观参照 [shadcn Date Picker 组合](https://ui.shadcn.com/docs/components/date-picker)及 [Calendar 源码](https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui/calendar.tsx)。macOS 圆角为本项目适配值，时间表盘继续作为跨主题的扩展能力。核对日期：2026-10-22。
 
 ## 主要功能
 
@@ -50,7 +50,7 @@ status = "experimental"
 
 ## 时间选择
 
-`TimePicker` 从输入框下方展开时间面板，空间不足时自动调整位置。面板没有遮罩，页面其他内容仍可操作。默认显示 24 小时制表盘，选择小时后自动进入分钟；底部键盘／时钟按钮可切换输入和表盘模式。
+`TimePicker` 从输入框下方展开时间面板，空间不足时自动调整位置。面板没有遮罩，页面其他内容仍可操作。macOS 默认使用紧凑的 24 小时数字输入，提供清晰字段边界与外部焦点环；不会默认出现 Material 表盘。其他体系默认显示表盘，选择小时后进入分钟。显式传入 `defaultMode: 'dial'` 时可使用本库表盘扩展，并显示模式切换按钮。
 
 点击字段，或聚焦后按 Enter / Space / ↓ 打开；仅 Tab 聚焦不会展开。确定后才触发 `onValueChange`。取消或 Escape 放弃草稿并返回字段；点击外部或用 Tab 移出面板也会放弃草稿，焦点继续移向目标控件。
 
@@ -59,7 +59,7 @@ status = "experimental"
 | `panelProps` 属性 | 默认值 | 用途 |
 | --- | --- | --- |
 | `hourCycle` | `24` | 设为 `12` 显示 AM／PM；值仍使用 24 小时制 |
-| `defaultMode` | `dial` | 初始打开表盘；设为 `input` 优先使用键盘输入 |
+| `defaultMode` | 按设计体系 | macOS 默认 `input`，其他体系默认 `dial`；显式值优先 |
 | `showSeconds` | `false` | 显式启用秒输入扩展，同时仅使用输入模式 |
 
 表盘数字支持 Tab 聚焦、Enter / Space 选择；方向键移动到相邻时间刻度并同步焦点（小时步长 1、分钟步长 5）。需要任意分钟时可拖动表针或切换键盘输入，输入框的 ↑ / ↓ 每次调整 1。输入法候选确认不会提交时间。
@@ -74,12 +74,12 @@ status = "experimental"
 
 2026-10-29 参考 [M3 Date pickers](https://m3.material.io/components/date-pickers/guidelines)、[Time pickers](https://m3.material.io/components/time-pickers/guidelines)及 [Material Web Text field](https://material-web.dev/components/text-field/)的字段结构。日期/时间面板沿用对应 M3 基线；不能因为页面采用 Expressive 就套用 Button 的形状阶梯。32px 桌面日期单元、三档字段尺寸、秒输入、日期时间组合及非模态锚定面板是本项目扩展，粗指针日期单元保留独立 48px 命中几何。
 
-Apple 依据 [Pickers](https://developer.apple.com/design/human-interface-guidelines/pickers)的就近编辑、逻辑顺序与上下文选择原则自主实现 Web 规则；shadcn 对照产品清单锁定的 [New York V4 Calendar](https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui/calendar.tsx)与 [Popover](https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui/popover.tsx)，没有引入其日期库或替换 Temporal 协议。
+macOS 依据 [Pickers](https://developer.apple.com/design/human-interface-guidelines/pickers)的就近编辑、逻辑顺序与上下文选择原则自主实现 Web 规则；shadcn 对照产品清单锁定的 [New York V4 Calendar](https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui/calendar.tsx)与 [Popover](https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui/popover.tsx)，没有引入其日期库或替换 Temporal 协议。
 
 | 设计 | 字段与面板 |
 | --- | --- |
-| MD3 Expressive | 浮动字段标签、色调面板、圆形日期选中边界；今天描边与已选填充分别表达。时间输入与表盘保留 M3 对应基线。 |
-| Apple | 静态字段标签、轻量 overlay 表面与较小日期单元圆角；内容与精确对齐优先，选中仍有清晰前景/背景配对。 |
+| MD3 Expressive | 外置字段标签、色调面板、圆形日期选中边界；今天描边与已选填充分别表达。时间输入与表盘保留 M3 对应基线。 |
+| macOS Tahoe 26 | 静态字段标签、独立浮层材质与圆形日期选中；时间默认数字输入和水平 AM/PM 控件，不默认出现 Material 表盘。显式表盘是本库扩展。编辑中切换体系保留字段、焦点和草稿。 |
 | shadcn | 中性描边、紧凑日历、control 形状与聚焦轮廓；范围之外日期禁用，今天和选中分别可辨。 |
 
 几何由 L3 `cell / panel / time` 引用 L2 `picker / field / sizing`；三档字段尺寸与三档密度独立。面板定位覆盖完整字段标签和说明，Portal 继承最近边界。矩阵以固定业务日期和范围验证默认、hover、键盘焦点、禁用、错误、警告、清除、日期草稿选择、日期时间、表盘、秒输入及时间输入错误。确认前字段仍显示已提交值，非法时间阻止确认；清除按实际值判断，不依赖显示字符串。
@@ -88,7 +88,7 @@ Apple 依据 [Pickers](https://developer.apple.com/design/human-interface-guidel
 
 时间矩阵分别展开 12/24 小时的小时与分钟表盘、无秒输入和秒输入；通过真实键盘调整时分、切换 AM/PM 与输入模式，并检查小时、分钟、秒和空草稿的错误关联及确认禁用。日期时间组合另覆盖 12 小时和非法分钟。字段的真实 Tab 焦点会打开日期面板，截图边界按实际可见 Portal 选择，不能只截取触发器。
 
-时间几何通过 L2 `picker.time` 单一来源映射到 L3：MD3 保留 96×72 输入及 display 字阶，表盘字段为 96×80（24h 为 114px 宽）；Apple / shadcn 的自主桌面扩展使用 64×48 输入及 title.large，72×56 表盘字段及 headline.small（24h 为 88px 宽），AM/PM 横向组为 152×32。表盘自身保留 256 坐标和原来的可访问交互。上述紧凑值是项目决策，不标为 Apple 或 shadcn 官方规格；尺寸与密度不会生成第二套表盘测量。
+时间几何通过 L2 `picker.time` 单一来源映射到 L3：MD3 保留 96×72 输入及 display 字阶，表盘字段为 96×80（24h 为 114px 宽）；macOS / shadcn 的自主桌面扩展使用 64×48 输入及 title.large，72×56 表盘字段及 headline.small（24h 为 88px 宽），AM/PM 横向组为 152×32。表盘自身保留 256 坐标和原来的可访问交互。上述紧凑值是项目决策，不标为 macOS 或 shadcn 官方规格；尺寸与密度不会生成第二套表盘测量。
 
 ## Temporal 运行时与“现在”
 

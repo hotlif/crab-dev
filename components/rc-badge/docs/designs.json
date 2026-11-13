@@ -1,0 +1,38 @@
+{
+    "md3": {
+        "summary": "以语义强调色显示数量或状态，在主内容之外提供短小、明确的补充信息。",
+        "usage": "把徽标贴近关联对象，避免让计数标记与页面主要操作争夺注意力。",
+        "exampleDescription": "查看附着在对象上的计数与状态，确认文字放大后仍能读出关联关系。",
+        "demos": [
+            "wrapped.demo.tsx",
+            "basic.demo.tsx",
+            "color.demo.tsx",
+            "size.demo.tsx",
+            "status.demo.tsx"
+        ]
+    },
+    "macos": {
+        "summary": "为侧栏、工具栏和列表项目提供紧凑的计数与状态标记，保持数字可读。",
+        "usage": "计数应说明待处理内容，状态要同时有文字；紧凑布局也需保留徽标边界。",
+        "exampleDescription": "比较不同尺寸的计数标记，检查数字与相邻控件在紧凑布局中的间距。",
+        "demos": [
+            "size.demo.tsx",
+            "basic.demo.tsx",
+            "color.demo.tsx",
+            "status.demo.tsx",
+            "wrapped.demo.tsx"
+        ]
+    },
+    "shadcn": {
+        "summary": "用清晰的文字、边界与语义颜色标示数量和状态，融入中性的数据界面。",
+        "usage": "优先用简短标签解释状态；自定义颜色不能替代明确的状态名称。",
+        "exampleDescription": "检查每种状态的文字和标记，再对比计数示例中的溢出表达。",
+        "demos": [
+            "status.demo.tsx",
+            "basic.demo.tsx",
+            "color.demo.tsx",
+            "size.demo.tsx",
+            "wrapped.demo.tsx"
+        ]
+    }
+}

@@ -204,8 +204,8 @@ test("wildcard export targets require matching files within the package", async 
 });
 
 test("verified design coverage requires source, artifact, matrix and recorded evidence", () => {
-    const coverage = { md3: "verified", apple: "partial", shadcn: "partial" };
-    const ids = ["md3", "apple", "shadcn"];
+    const coverage = { md3: "verified", macos: "partial", shadcn: "partial" };
+    const ids = ["md3", "macos", "shadcn"];
     assert.ok(validateDesignVerification({ designCoverage: coverage, verification: {} }, ids).length > 0);
     const record = {
         source: { kind: "worktree", ref: `sha256:${"a".repeat(64)}` },
@@ -219,7 +219,7 @@ test("verified design coverage requires source, artifact, matrix and recorded ev
     assert.ok(validateDesignVerification({ designCoverage: coverage, verification: { md3: { ...record, artifactFingerprint: "" } } }, ids).length > 0);
     assert.ok(validateDesignVerification({ designCoverage: coverage, verification: { md3: { ...record, matrixScope: {} } } }, ids).length > 0);
     assert.ok(validateDesignVerification({ designCoverage: coverage, verification: { md3: { ...record, evidencePaths: ["../outside.md"] } } }, ids).length > 0);
-    assert.ok(validateDesignVerification({ designCoverage: coverage, verification: { apple: record } }, ids).length > 0);
+    assert.ok(validateDesignVerification({ designCoverage: coverage, verification: { macos: record } }, ids).length > 0);
 });
 
 test("local generated freshness compares content snapshots independently of uncommitted changes", () => {

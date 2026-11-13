@@ -3,6 +3,7 @@
  */
 
 import type { ComponentDemoRecord } from "../site/componentDemos.js";
+import type { ComponentDesignDocuments } from "../site/componentDesignGuide.js";
 
 export const demos = [
     {
@@ -197,3 +198,76 @@ export const demos = [
         "group": "功能演示"
     }
 ] as const satisfies readonly ComponentDemoRecord[];
+
+export const documents = {
+    "md3": {
+        "summary": "以侧向内容表面补充当前页面，保留主任务与详情面板之间的空间关系。",
+        "usage": "根据任务选择模态或非模态行为；主要动作和关闭入口应始终可达。",
+        "exampleDescription": "从不同方向打开面板，检查进入位置、遮罩与关闭后的焦点恢复。",
+        "demos": [
+            "placement.demo.tsx",
+            "basic.demo.tsx",
+            "document-boundaries.demo.tsx",
+            "nested.demo.tsx",
+            "with-footer.demo.tsx"
+        ],
+        "references": [
+            "https://m3.material.io/components/navigation-drawer/overview",
+            "https://material-web.dev/components/",
+            "https://github.com/material-components/material-web"
+        ]
+    },
+    "macos": {
+        "summary": "用桌面侧面板承载详情、设置或检查器，导航操作与阅读内容分别组织。",
+        "usage": "面板宽度应容纳字段与标签，嵌套弹层要继承当前窗口配置。",
+        "exampleDescription": "打开带底部操作的设置面板，滚动内容并检查保存与关闭是否可达。",
+        "demos": [
+            "with-footer.demo.tsx",
+            "basic.demo.tsx",
+            "document-boundaries.demo.tsx",
+            "nested.demo.tsx",
+            "placement.demo.tsx"
+        ],
+        "references": [
+            "https://developer.apple.com/design/human-interface-guidelines/components",
+            "https://developer.apple.com/design/human-interface-guidelines/accessibility"
+        ]
+    },
+    "shadcn": {
+        "summary": "以明确边界和中性表面呈现侧向补充内容，适合详情查看与轻量编辑。",
+        "usage": "保留触发入口的上下文，面板内表单与底部动作按任务顺序排列。",
+        "exampleDescription": "从页面打开基础侧面板，检查内容边界、关闭动作和背景交互。",
+        "demos": [
+            "basic.demo.tsx",
+            "document-boundaries.demo.tsx",
+            "nested.demo.tsx",
+            "placement.demo.tsx",
+            "with-footer.demo.tsx"
+        ],
+        "references": [
+            "https://ui.shadcn.com/docs/components",
+            "https://ui.shadcn.com/docs/theming",
+            "https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4"
+        ]
+    }
+} as const satisfies ComponentDesignDocuments;
+
+export const guide = {
+    "definition": "Drawer 从屏幕边缘展开一块临时或补充表面，常用于查看详情、编辑少量字段或承载辅助导航。它保留原页面上下文，但打开时仍需明确层级和焦点范围。",
+    "useWhen": [
+        "用户需要边看列表边处理一条记录的详情。",
+        "辅助任务比 Dialog 更长，但还不值得跳转到独立页面。"
+    ],
+    "avoidWhen": [
+        "关键确认使用 Dialog；复杂多步骤流程或需要大量宽度的编辑使用完整页面。"
+    ],
+    "essentials": [
+        "placement 由内容关系和阅读方向决定，不要只按视觉喜好选择。",
+        "open 与 onClose 形成受控开合，footer 放稳定的主要和次要动作。",
+        "嵌套 Drawer 要减少层级并清楚说明返回关系。"
+    ],
+    "accessibility": [
+        "打开时移动焦点、限制背景交互并在关闭后恢复焦点。",
+        "标题、关闭按钮和 Escape 行为都必须可用；窄屏下内容仍应完整滚动。"
+    ]
+} as const;

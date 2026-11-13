@@ -182,9 +182,9 @@ describe("theme color contract", () => {
                 light: '[data-crab-design="shadcn"][data-theme="light"]',
                 dark: '[data-crab-design="shadcn"][data-theme="dark"]',
             },
-            apple: {
-                light: '[data-crab-design="apple"][data-theme="light"]',
-                dark: '[data-crab-design="apple"][data-theme="dark"]',
+            macos: {
+                light: '[data-crab-design="macos"][data-theme="light"]',
+                dark: '[data-crab-design="macos"][data-theme="dark"]',
             },
         });
     });
@@ -350,11 +350,11 @@ describe("theme color contract", () => {
         outer.dataset.theme = 'dark';
         const inner = document.createElement('section');
         outer.append(inner);
-        for (const design of ['md3', 'shadcn', 'apple'] as const) {
+        for (const design of ['md3', 'shadcn', 'macos'] as const) {
             for (const mode of ['light', 'dark'] as const) {
                 inner.dataset.crabDesign = design;
                 inner.dataset.theme = mode;
-                for (const candidateDesign of ['md3', 'shadcn', 'apple'] as const) {
+                for (const candidateDesign of ['md3', 'shadcn', 'macos'] as const) {
                     for (const candidateMode of ['light', 'dark'] as const) {
                         expect(inner.matches(designThemeSelectors[candidateDesign][candidateMode]))
                             .toBe(candidateDesign === design && candidateMode === mode);
@@ -390,7 +390,7 @@ describe("theme color contract", () => {
         expect(material).toContain('--token-semantic-field-required-color');
         expect(material).toContain('--token-semantic-field-required-order');
         expect(material).toContain('--token-semantic-field-required-gap');
-        for (const design of ['md3', 'shadcn', 'apple'] as const) {
+        for (const design of ['md3', 'shadcn', 'macos'] as const) {
             for (const mode of ['light', 'dark'] as const) {
                 const selector = designThemeSelectors[design][mode];
                 expect(declarations(selector)).toEqual(material);
@@ -428,24 +428,24 @@ describe("theme color contract", () => {
         expect(material.shadow.control).toContain('--token-global-shadow-material-1');
         expect(shadcn.shadow.control).toContain('--token-global-shadow-xs');
         expect(shadcn.shadow.card).toContain('--token-global-shadow-sm');
-        const apple = designShapeContract.apple;
-        expect(apple.shape.control).toContain('6px');
-        expect(apple.shape.button).toBe(apple.shape.control);
-        expect(apple.shape.buttonPressed).toBe(apple.shape.button);
-        expect(apple.shape.overlay).toContain('16px');
-        expect(apple.shadow.overlay).toContain('--token-global-shadow-xl');
-        expect(apple.shadow.card).not.toBe('none');
+        const macos = designShapeContract.macos;
+        expect(macos.shape.control).toContain('8px');
+        expect(macos.shape.button).toContain('8px');
+        expect(macos.shape.buttonPressed).toBe(macos.shape.button);
+        expect(macos.shape.overlay).toContain('20px');
+        expect(macos.shadow.overlay).toContain('--token-global-shadow-xl');
+        expect(macos.shadow.card).not.toBe('none');
     });
 
     it('defines all multiline size geometries and resets them at every design/mode boundary', async () => {
         const terminalLength = (value: string) => Number(value.match(/([\d.]+)px\)+$/)?.[1]);
         const expected = {
             md3: { min: [32, 40, 48], inline: [8, 12, 16], block: [4, 8, 12] },
-            apple: { min: [32, 36, 40], inline: [8, 12, 16], block: [2, 4, 8] },
+            macos: { min: [28, 32, 36], inline: [8, 12, 16], block: [2, 4, 8] },
             shadcn: { min: [56, 64, 72], inline: [8, 12, 16], block: [4, 8, 12] },
         } as const;
         const source = await readFile(new URL('../theme.ts', import.meta.url), 'utf8');
-        for (const design of ['md3', 'apple', 'shadcn'] as const) {
+        for (const design of ['md3', 'macos', 'shadcn'] as const) {
             for (const [index, size] of (['small', 'medium', 'large'] as const).entries()) {
                 const geometry = designFieldContract[design].multiline[size];
                 // The 72px size composes existing 64px + 8px L1 primitives.
@@ -524,16 +524,16 @@ describe("theme color contract", () => {
         expect(shadcn.layoutControlRow).toBe('2');
     });
 
-    it('keeps Apple desktop fields complete with an external focus ring and stable labels', () => {
-        const apple = designFieldContract.apple;
-        expect(Object.keys(apple).sort()).toEqual(Object.keys(designFieldContract.md3).sort());
-        expect(apple.layoutLabelRow).not.toBe(apple.layoutControlRow);
-        expect(apple.labelFontSize).toBe(apple.labelFloatingFontSize);
-        expect(apple.labelFloatingTransform).toBe('none');
-        expect(apple.outlinedShadowFocus).toBe('var(--token-semantic-shadow-focus-ring)');
-        expect(apple.filledShadowFocus).toBe(apple.outlinedShadowFocus);
-        expect(apple.filledBackgroundColor).toContain('--token-semantic-color-background-surface');
-        expect(apple.requiredColor).toContain('--token-semantic-color-feedback-error-text');
+    it('keeps macOS desktop fields complete with an external focus ring and stable labels', () => {
+        const macos = designFieldContract.macos;
+        expect(Object.keys(macos).sort()).toEqual(Object.keys(designFieldContract.md3).sort());
+        expect(macos.layoutLabelRow).not.toBe(macos.layoutControlRow);
+        expect(macos.labelFontSize).toBe(macos.labelFloatingFontSize);
+        expect(macos.labelFloatingTransform).toBe('none');
+        expect(macos.outlinedShadowFocus).toBe('var(--token-semantic-shadow-focus-ring)');
+        expect(macos.filledShadowFocus).toBe(macos.outlinedShadowFocus);
+        expect(macos.filledBackgroundColor).toContain('--token-semantic-color-background-surface');
+        expect(macos.requiredColor).toContain('--token-semantic-color-feedback-error-text');
     });
 
     it('resets geometry when a nested boundary changes between desktop and Material designs', async () => {
@@ -544,13 +544,13 @@ describe("theme color contract", () => {
             const block = source.slice(start, source.indexOf('\n    }', start));
             return [...block.matchAll(/(--token-semantic-[\w-]+):/g)].map(match => match[1]).sort();
         };
-        expect(propertiesFor('apple')).toEqual(propertiesFor('md3'));
-        expect(propertiesFor('apple')).toEqual(propertiesFor('shadcn'));
-        expect(propertiesFor('apple')).toContain('--token-semantic-sizing-medium-toggle-handle-inset');
-        expect(propertiesFor('apple')).toContain('--token-semantic-overlay-dialog-padding');
-        expect(propertiesFor('apple')).toContain('--token-semantic-size-toggle-layout-block');
+        expect(propertiesFor('macos')).toEqual(propertiesFor('md3'));
+        expect(propertiesFor('macos')).toEqual(propertiesFor('shadcn'));
+        expect(propertiesFor('macos')).toContain('--token-semantic-sizing-medium-toggle-handle-inset');
+        expect(propertiesFor('macos')).toContain('--token-semantic-overlay-dialog-padding');
+        expect(propertiesFor('macos')).toContain('--token-semantic-size-toggle-layout-block');
         expect(designMetricsContract.md3.toggle.layoutBlock).toContain('36px');
-        for (const design of ['apple', 'shadcn'] as const) {
+        for (const design of ['macos', 'shadcn'] as const) {
             expect(designMetricsContract[design].toggle.layoutBlock).toContain('48px');
             expect(designMetricsContract[design].toggle.layoutInline).toContain('48px');
         }

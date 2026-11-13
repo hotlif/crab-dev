@@ -8,11 +8,16 @@ status = "experimental"
 {/* THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY. */}
 
 import ComponentDemos from "../site/componentDemos.js";
-import { demos } from "../_generated/rc-component-preview.js";
+import ComponentDesignGuide, { DesignIntroduction, DesignExampleIntroduction } from "../site/componentDesignGuide.js";
+import { demos, documents, guide } from "../_generated/rc-component-preview.js";
 
 # ComponentPreview 组件预览
 
 <div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-component-preview</div>
+
+## 设计与用法
+
+<DesignIntroduction documents={documents} />
 
 <div id="基础示例" data-docs-example-anchor /><div id="全部示例" data-docs-example-anchor />
 
@@ -20,80 +25,17 @@ import { demos } from "../_generated/rc-component-preview.js";
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
 
-#### 边界与视觉矩阵
-
 ##### 代码主题 — 浅色和深色源码同时展开，核对语法颜色、背景与行号；实时按钮跟随页面主题。
-
-##### 预览密度、源码与操作 — 使用公开回调查看复制成功、失败和外部打开；真实展开动态源码。
 
 </div>
 
-<ComponentDemos demos={demos} />
+<DesignExampleIntroduction documents={documents} />
 
-[打开完整组件工作台](/components/rc-component-preview/workbench/)
+<ComponentDemos demos={demos} documents={documents} />
 
 ## 使用说明
 
-在文档中展示组件预览、示例源码和说明。
-
-
-### 何时使用
-
-- 在组件文档中并排展示实时预览与源码。
-- 为示例补充标题、说明和可复制代码。
-- 需要按需加载语法高亮，避免阻塞页面首屏时。
-
-操作栏复用 Crab Button。接入时引入 `@crab-dev/rc-component-preview/css/index.css` 和 `@crab-dev/rc-button/css/index.css`。源码保持整行并在组件内滚动，复制内容保留原始字符串，行号不属于复制内容。
-
-首次展开使用轻量高亮入口，优先加载 TSX、JavaScript、TypeScript、CSS、JSON 和 Python 及其原有别名。其他语言按需进入兼容路径，继续保留原有 Prism 语言支持；兼容模块加载时先显示可读源码，并通过 `aria-busy` 表达高亮仍在准备，完成后清除。未知语言保持纯文本。语言变化不会重建正在编辑的预览内容。
-
-`codeTheme` 控制源码的独立浅色或深色配色，语法颜色、背景、行号及高亮加载提示成对切换，不受示例舞台或页面主题影响。
-
-语法高亮使用公共 `color.code.light / dark` 角色，分别为普通文字、注释、关键字、字符串、数字、函数与标签配对背景。默认小字号源码及行号的文字对比度至少为 4.5:1；覆盖这些颜色时同时检查对应代码背景。配色切换继续使用同一源码区域，不替换正在编辑的预览实例。核对依据：[WCAG 2.2 文字对比度](https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html)，日期：2026-11-01。
-
-
-
-### 设计风格与主题
-
-预览容器继承 card 形状与阴影，操作栏继承工作区 toolbar 表面；演示区保持内容表面，避免外框与示例控件混为同一层级。代码配色仍由 codeTheme 独立选择，浅深代码背景不强行映射为控件背景。
-这是本库的开发支持组件。MD3、Apple、shadcn/ui 分别复用各自的容器、工具栏和操作控件角色；源码展示、复制与懒加载是本库能力，不对应三套体系的同名标准组件。容器状态与代码高亮分别验收，加载期间也保留可读的文字与焦点反馈。
-
-设计来源与固定参考版本见[三套设计体系](/guides/design-styles)，当前已核对范围见[设计覆盖矩阵](/guides/design-coverage)。这段说明记录适配边界，不代表完整视觉验收已通过。
-
-### 预览矩阵
-
-预览的 `compact / regular / spacious` 控制舞台留白，独立于全局数据密度。矩阵 Demo 将全局三档密度显式映射到这三个公开值，工具栏仍使用 Button 的独立小尺寸。核对折叠、真实动态源码加载、明暗源码、复制成功/失败、键盘焦点和外部打开回调；复制失败由调用方的 `onCopyCode` 就近说明，预览不假报成功。
-
-源码加载场景仅延迟实际网络响应，保持真实 Suspense 界面；草稿输入在展开、配色及配置变化中保留。窄屏代码在自己的滚动区域内查看，外层标题、说明与工具栏可换行，焦点和复制反馈分别断言。
-
-展开后可用 Tab 从操作栏进入名为“示例源码”的滚动区域，用方向键浏览长行；收起时由外层 inert 同步退出键盘顺序。源码始终按 LTR 排列，工具栏继续遵循页面方向。焦点轮廓按独立代码明暗配色配对，使用内置轮廓避免裁切，强制颜色模式使用系统 Highlight。[滚动区域的键盘与命名依据](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/overflow#accessibility)，核对日期：2026-11-01。
-
-展开和深色源码场景等待加载提示消失及真实语法分段出现后截图。加载场景独立保存原生视频、自然帧与时间序列，不建立静态像素基准；当前加载提示是文字，不据此宣称旋转指示器动效通过。触控场景实际轻触展开、复制、外部打开和收起；窄屏检查代码独立滚动及工具栏命中，触摸拖动代码的手势仍需另验。
-
-### 适用场景
-
-组件文档需要同时展示效果、解释和可复制源码。 示例要在隔离工作台中打开，同时保留站内阅读上下文。
-
-业务内容展示请使用 Card；纯代码文档不需要启动交互预览。
-
-### 使用要点
-
-- title 说明示例主题，description 解释学习目标，不能只重复组件名。
-- sourceCode 必须与实际运行示例来自同一文件，避免效果与代码漂移。
-- density 调整舞台留白，不能掩盖示例自身的尺寸问题。
-
-### 无障碍
-
-- 预览操作要形成命名清楚的操作组，展开源码时同步 aria-expanded。
-- iframe 或隔离预览需要可访问标题、合理 Tab 顺序和可恢复的失败状态。
-
-### 设计依据与覆盖
-
-- **MD3 Expressive**：这是文档站专用组合组件，以 M3 Cards、Buttons、surface 层级和代码阅读需求扩展。 [依据 1](https://m3.material.io/components/cards/overview) · [依据 2](https://material-web.dev/components/button/) · [依据 3](https://github.com/material-components/material-web/tree/main/button)
-- **Apple**：依据 Apple HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。 [依据 1](https://developer.apple.com/design/human-interface-guidelines/components) · [依据 2](https://developer.apple.com/design/human-interface-guidelines/accessibility)
-- **shadcn/ui**：参考 shadcn/ui 的组件用途、中性表面与设计变量，在本库公共语义和 React 交互模型中实现；完整状态覆盖仍需按矩阵验收。 [依据 1](https://ui.shadcn.com/docs/components) · [依据 2](https://ui.shadcn.com/docs/theming) · [依据 3](https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4)
-
-设计依据不等于完成验收；当前状态与适用边界见[覆盖矩阵](/guides/design-coverage)。
+<ComponentDesignGuide guide={guide} documents={documents} />
 
 ## 常见问题
 

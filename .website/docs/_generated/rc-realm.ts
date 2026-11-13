@@ -3,6 +3,7 @@
  */
 
 import type { ComponentDemoRecord } from "../site/componentDemos.js";
+import type { ComponentDesignDocuments } from "../site/componentDesignGuide.js";
 
 export const demos = [
     {
@@ -204,3 +205,76 @@ export const demos = [
         "group": "能力与集成示例"
     }
 ] as const satisfies readonly ComponentDemoRecord[];
+
+export const documents = {
+    "md3": {
+        "summary": "为独立运行内容建立隔离边界，视觉配置由明确的宿主契约传递。",
+        "usage": "隔离运行本身没有组件外观；加载、错误和重试应使用当前语义反馈。",
+        "exampleDescription": "触发加载失败并重试，检查状态提示与宿主内容之间的层级。",
+        "demos": [
+            "error-retry.demo.tsx",
+            "basic.demo.tsx",
+            "mount-sandbox.demo.tsx",
+            "network-web-component.demo.tsx",
+            "script-entry.demo.tsx"
+        ],
+        "references": [
+            "https://m3.material.io/components/progress-indicators/overview",
+            "https://material-web.dev/components/progress/",
+            "https://github.com/material-components/material-web/tree/main/progress"
+        ]
+    },
+    "macos": {
+        "summary": "在桌面工作区中承载隔离内容，让运行边界与窗口式内容区域清楚对应。",
+        "usage": "宿主需要明确传递配置和生命周期，不能假设隔离文档自动继承全部样式。",
+        "exampleDescription": "挂载与卸载隔离内容，检查工作区域中的运行状态和清理结果。",
+        "demos": [
+            "mount-sandbox.demo.tsx",
+            "basic.demo.tsx",
+            "error-retry.demo.tsx",
+            "network-web-component.demo.tsx",
+            "script-entry.demo.tsx"
+        ],
+        "references": [
+            "https://developer.apple.com/design/human-interface-guidelines/components",
+            "https://developer.apple.com/design/human-interface-guidelines/accessibility"
+        ]
+    },
+    "shadcn": {
+        "summary": "为组合页面提供隔离运行能力，加载与错误状态融入中性内容区域。",
+        "usage": "把外部内容当作独立生命周期管理，失败时保留可读原因与重试入口。",
+        "exampleDescription": "加载基础隔离内容，观察内容边界与宿主反馈，并确认卸载行为。",
+        "demos": [
+            "basic.demo.tsx",
+            "error-retry.demo.tsx",
+            "mount-sandbox.demo.tsx",
+            "network-web-component.demo.tsx",
+            "script-entry.demo.tsx"
+        ],
+        "references": [
+            "https://ui.shadcn.com/docs/components",
+            "https://ui.shadcn.com/docs/theming",
+            "https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4"
+        ]
+    }
+} as const satisfies ComponentDesignDocuments;
+
+export const guide = {
+    "definition": "Realm 加载并挂载远程 React 组件或脚本入口，把外部模块接入当前页面，同时提供加载、失败、重试和隔离边界。它涉及代码信任与版本兼容，不只是普通懒加载。",
+    "useWhen": [
+        "受信任的微前端或插件需要按运行时地址加载。",
+        "宿主必须统一处理远程模块的挂载、卸载和错误恢复。"
+    ],
+    "avoidWhen": [
+        "同仓库代码优先静态导入；来源不可信或无法验证完整性的脚本不得直接执行。"
+    ],
+    "essentials": [
+        "明确入口协议、React 版本、依赖共享和卸载契约。",
+        "加载、执行、渲染是不同失败阶段，错误信息和重试策略要分别处理。",
+        "远程组件不能假设宿主全局状态，必要配置通过显式接口传入。"
+    ],
+    "accessibility": [
+        "加载中提供状态，失败时给出可操作的重试并保留焦点。",
+        "远程内容仍必须遵守宿主的语言、主题、键盘和无障碍标准。"
+    ]
+} as const;

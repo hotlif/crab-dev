@@ -18,6 +18,7 @@
         {
             "title": "时间选择",
             "demos": [
+                "desktop-time.demo.tsx",
                 "timePicker.demo.tsx",
                 "timePickerDial.demo.tsx",
                 "timePickerPanel.demo.tsx"

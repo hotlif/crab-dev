@@ -3,6 +3,7 @@
  */
 
 import type { ComponentDemoRecord } from "../site/componentDemos.js";
+import type { ComponentDesignDocuments } from "../site/componentDesignGuide.js";
 
 export const demos = [
     {
@@ -115,3 +116,73 @@ export const demos = [
         "group": "视觉验收"
     }
 ] as const satisfies readonly ComponentDemoRecord[];
+
+export const documents = {
+    "md3": {
+        "summary": "以次级路径文字与明确的当前位置表达层级，是基于导航原则的项目扩展。",
+        "usage": "把路径作为返回上级的入口，不让每个层级都获得主要操作的色调强调。",
+        "exampleDescription": "沿基础路径返回上级，检查当前项与可访问链接之间的区分。",
+        "demos": [
+            "basic.demo.tsx",
+            "action.demo.tsx",
+            "custom-separator.demo.tsx",
+            "max-count.demo.tsx"
+        ],
+        "references": [
+            "https://m3.material.io/foundations/accessible-design/overview",
+            "https://material-web.dev/components/",
+            "https://github.com/material-components/material-web"
+        ]
+    },
+    "macos": {
+        "summary": "以紧凑路径和较明确的当前项字重帮助用户定位桌面内容层级。",
+        "usage": "长路径需要保留当前位置与可返回的上级，不将它模拟为系统原生路径栏。",
+        "exampleDescription": "展开被收起的路径项目，确认当前位置及返回目标仍清楚可见。",
+        "demos": [
+            "max-count.demo.tsx",
+            "action.demo.tsx",
+            "basic.demo.tsx",
+            "custom-separator.demo.tsx"
+        ],
+        "references": [
+            "https://developer.apple.com/design/human-interface-guidelines/components",
+            "https://developer.apple.com/design/human-interface-guidelines/accessibility"
+        ]
+    },
+    "shadcn": {
+        "summary": "用克制的分隔符和中性文字构成层级路径，当前项通过文字层级表达。",
+        "usage": "路径链接、当前位置和动作入口分别保留语义，不用装饰替代可访问名称。",
+        "exampleDescription": "比较分隔符与路径文字的关系，再用键盘检查可返回的层级。",
+        "demos": [
+            "custom-separator.demo.tsx",
+            "action.demo.tsx",
+            "basic.demo.tsx",
+            "max-count.demo.tsx"
+        ],
+        "references": [
+            "https://ui.shadcn.com/docs/components",
+            "https://ui.shadcn.com/docs/theming",
+            "https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4"
+        ]
+    }
+} as const satisfies ComponentDesignDocuments;
+
+export const guide = {
+    "definition": "Breadcrumbs 用一串上级入口说明当前页面位于哪一层。它回答“我在哪里、怎样回到上一级”，不是浏览器历史记录，也不替代应用的主导航。",
+    "useWhen": [
+        "信息结构有两级以上，用户可能从搜索或深链接直接进入内页。",
+        "同一内容有稳定的父子层级，并且返回任一上级都合理。"
+    ],
+    "avoidWhen": [
+        "层级很浅或路径只是用户刚才点击过的历史时不必使用；页内步骤流程应使用 Stepper 类模式。"
+    ],
+    "essentials": [
+        "每一项代表信息架构中的真实层级，不要把按钮操作塞进路径。",
+        "当前页通常不可点击，并通过语义声明为当前位置。",
+        "空间不足时折叠中间层级，但保留根节点、最近上级和当前页。"
+    ],
+    "accessibility": [
+        "整个路径使用有名称的导航区域，当前项标记 aria-current。",
+        "分隔符应作为装饰隐藏，链接文字要能脱离视觉位置单独理解。"
+    ]
+} as const;

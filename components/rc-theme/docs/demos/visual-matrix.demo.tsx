@@ -12,6 +12,16 @@ const brand = css`
     @media (forced-colors: active) { forced-color-adjust: none; }
 `;
 const raised = css`padding: ${token.space['component-gap']}; background: ${token.color.surface.raised}; border: 1px solid ${token.color.border.default}; box-shadow: ${token.shadow.card}; border-radius: ${token.shape.card};`;
+const glass = css`
+    padding: ${token.space['card-padding']};
+    color: ${token.color.text.primary};
+    background-color: ${token.material.background};
+    background-image: ${token.material.sheen};
+    backdrop-filter: ${token.material.filter};
+    border: 1px solid ${token.material.border};
+    border-radius: ${token.shape.overlay};
+    box-shadow: ${token.material.shadow};
+`;
 const heading = css`margin: 0; font-family: ${token.typography.headline.small['font-family']}; font-size: ${token.typography.headline.small['font-size']}; line-height: ${token.typography.headline.small['line-height']}; font-weight: ${token.typography.headline.small['font-weight']};`;
 const focus = css`max-width: 100%; box-sizing: border-box; color: inherit; background: inherit; border: 1px solid ${token.color.border.default}; padding: ${token.space['control-padding-y']} ${token.space['control-padding-x']}; font: inherit; &:focus-visible { outline: 2px solid ${token.color.focus.ring}; outline-offset: 2px; }`;
 export default function VisualMatrixDemo() {
@@ -20,6 +30,7 @@ export default function VisualMatrixDemo() {
     return <section className={frame} aria-label="Theme visual matrix">
         <label>验收状态 <select value={state} onChange={event => setState(event.currentTarget.value)}><option>default</option><option>nested</option></select></label>
         <h2 className={heading}>内容、层级与清晰焦点</h2>
+        <div className={glass} data-role="material">操作层 · Liquid Glass material</div>
         <div className={strip}><span className={brand} data-role="brand">Brand container</span><span className={raised} data-role="raised">Raised surface</span></div>
         <label>主题草稿 <input className={focus} value={draft} onChange={event => setDraft(event.currentTarget.value)} /></label>
         {state === 'nested' && Object.entries(designSystemRegistry).map(([id, design]) => <section key={id} className={frame} data-crab-design={id} data-theme="light" aria-label={`${id} nested`}><strong>{design.label}</strong><span className={brand} data-role="brand">Explicit light boundary</span><span className={raised} data-role="raised">Independent geometry and color</span></section>)}

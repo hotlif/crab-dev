@@ -3,6 +3,7 @@
  */
 
 import type { ComponentDemoRecord } from "../site/componentDemos.js";
+import type { ComponentDesignDocuments } from "../site/componentDesignGuide.js";
 
 export const demos = [
     {
@@ -31,8 +32,8 @@ export const demos = [
     },
     {
         "id": "docs/demos/designs.demo.tsx",
-        "title": "三套设计与状态",
-        "description": "Apple 使用填充圆盘和对比圆点，MD3 与 shadcn 分别使用不同尺寸的圆环、圆点与焦点反馈。",
+        "title": "当前主题的交互状态",
+        "description": "观察当前主题下的选中、禁用和焦点反馈；示例继承文档配置，可直接操作。",
         "learning": {
             "components": [
                 "ConfigProvider",
@@ -52,7 +53,7 @@ export const demos = [
             "events": [],
             "hasState": false
         },
-        "sourceCode": "import { useId } from 'react';\nimport { css } from '@crab-dev/css';\nimport ConfigProvider from '@crab-dev/rc-config-provider';\nimport token from '@crab-dev/rc-token-semantic';\nimport Radio from '../../src/radio.js';\nimport RadioGroup from '../../src/radio-group.js';\n\nexport const meta = { title: '三套设计与状态', description: 'Apple 使用填充圆盘和对比圆点，MD3 与 shadcn 分别使用不同尺寸的圆环、圆点与焦点反馈。' };\nconst panel = css`\n    display: grid;\n    gap: ${token.space['component-gap']};\n    padding: ${token.space['section-gap']};\n    color: ${token.color.text.primary};\n    background: ${token.color.surface.content};\n    border: 1px solid ${token.color.border.subtle};\n    border-radius: ${token.radius.md};\n`;\nconst stack = css`display: grid; gap: ${token.space['stack-gap']};`;\nconst options = css`flex-direction: column; align-items: flex-start;`;\nexport default function DesignsDemo() {\n    const errorId = useId();\n    return \u003cdiv className={stack}>\n        {(['apple', 'md3', 'shadcn'] as const).map(design => \u003cConfigProvider key={design} designSystem={design}>\n            \u003csection className={panel} aria-label={`${design} 单选框`}>\n                \u003cstrong>{design === 'md3' ? 'MD3' : design === 'apple' ? 'Apple' : 'shadcn'}\u003c/strong>\n                \u003cRadioGroup defaultValue=\"daily\" aria-label=\"通知频率\" className={options}>\n                    \u003cRadio value=\"daily\">每天\u003c/Radio>\n                    \u003cRadio value=\"weekly\">每周\u003c/Radio>\n                    \u003cRadio value=\"unavailable\" disabled>暂不可用\u003c/Radio>\n                \u003c/RadioGroup>\n                \u003cRadio checked disabled>已选中且不可用\u003c/Radio>\n                \u003cRadio aria-invalid=\"true\" aria-describedby={`${errorId}-${design}`}>选择同步方式\u003c/Radio>\n                \u003csmall id={`${errorId}-${design}`}>请选择一种同步方式。\u003c/small>\n            \u003c/section>\n        \u003c/ConfigProvider>)}\n    \u003c/div>;\n}\n",
+        "sourceCode": "import { useId } from 'react';\nimport { css } from '@crab-dev/css';\nimport ConfigProvider, { useConfig } from '@crab-dev/rc-config-provider';\nimport token, { designSystemRegistry } from '@crab-dev/rc-token-semantic';\nimport Radio from '@crab-dev/rc-radio';\nimport RadioGroup from '@crab-dev/rc-radio';\n\nexport const meta = { title: '当前主题的交互状态', description: '观察当前主题下的选中、禁用和焦点反馈；示例继承文档配置，可直接操作。' };\nconst panel = css`\n    display: grid;\n    gap: ${token.space['component-gap']};\n    padding: ${token.space['section-gap']};\n    color: ${token.color.text.primary};\n    background: ${token.color.surface.content};\n    border: 1px solid ${token.color.border.subtle};\n    border-radius: ${token.radius.md};\n`;\nconst stack = css`display: grid; gap: ${token.space['stack-gap']};`;\nconst options = css`flex-direction: column; align-items: flex-start;`;\nexport default function DesignsDemo() {\n    const { designSystem: design } = useConfig();\n    const errorId = useId();\n    return \u003cdiv className={stack}>\n        \u003cConfigProvider designSystem={design}>\n            \u003csection className={panel} aria-label={`${design} 单选框`}>\n                \u003cstrong>{designSystemRegistry[design].label}\u003c/strong>\n                \u003cRadioGroup defaultValue=\"daily\" aria-label=\"通知频率\" className={options}>\n                    \u003cRadio value=\"daily\">每天\u003c/Radio>\n                    \u003cRadio value=\"weekly\">每周\u003c/Radio>\n                    \u003cRadio value=\"unavailable\" disabled>暂不可用\u003c/Radio>\n                \u003c/RadioGroup>\n                \u003cRadio checked disabled>已选中且不可用\u003c/Radio>\n                \u003cRadio aria-invalid=\"true\" aria-describedby={`${errorId}-${design}`}>选择同步方式\u003c/Radio>\n                \u003csmall id={`${errorId}-${design}`}>请选择一种同步方式。\u003c/small>\n            \u003c/section>\n        \u003c/ConfigProvider>\n    \u003c/div>;\n}\n",
         "previewPath": "/components/rc-radio/workbench/?__wake_demo=docs%2Fdemos%2Fdesigns.demo.tsx",
         "workbenchPath": "/components/rc-radio/workbench/#/components/docs%2Fdemos%2Fdesigns.demo.tsx",
         "density": "compact",
@@ -161,3 +162,76 @@ export const demos = [
         "group": null
     }
 ] as const satisfies readonly ComponentDemoRecord[];
+
+export const documents = {
+    "md3": {
+        "summary": "以圆环、选中圆点和状态层表达互斥选择，让当前选项清晰可见。",
+        "usage": "同组项目共享一个选择语义，方向键移动与选择要保持符合分组行为。",
+        "exampleDescription": "对比未选、已选、禁用和错误状态，再用方向键检查单选组。",
+        "demos": [
+            "designs.demo.tsx",
+            "basic.demo.tsx",
+            "disabled.demo.tsx",
+            "group.demo.tsx",
+            "size.demo.tsx"
+        ],
+        "references": [
+            "https://m3.material.io/components/radio-button/overview",
+            "https://material-web.dev/components/radio/",
+            "https://github.com/material-components/material-web/tree/main/radio"
+        ]
+    },
+    "macos": {
+        "summary": "用紧凑填充圆盘和对比圆点表现桌面互斥设置，标签与控件精确对齐。",
+        "usage": "将相互排斥的设置放在同一组，长标签也要保留清晰的控件关联。",
+        "exampleDescription": "切换设置选项，观察强调圆盘和对比圆点以及分组焦点。",
+        "demos": [
+            "group.demo.tsx",
+            "basic.demo.tsx",
+            "designs.demo.tsx",
+            "disabled.demo.tsx",
+            "size.demo.tsx"
+        ],
+        "references": [
+            "https://developer.apple.com/design/human-interface-guidelines/components",
+            "https://developer.apple.com/design/human-interface-guidelines/accessibility"
+        ]
+    },
+    "shadcn": {
+        "summary": "以细圆环、清晰圆点和简洁焦点轮廓表现单选，适合设置与表单。",
+        "usage": "选项文案应可独立理解，禁用状态仍需要能读出选项含义。",
+        "exampleDescription": "比较正常和禁用选项，再用键盘检查可操作项的选择反馈。",
+        "demos": [
+            "disabled.demo.tsx",
+            "basic.demo.tsx",
+            "designs.demo.tsx",
+            "group.demo.tsx",
+            "size.demo.tsx"
+        ],
+        "references": [
+            "https://ui.shadcn.com/docs/components",
+            "https://ui.shadcn.com/docs/theming",
+            "https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4"
+        ]
+    }
+} as const satisfies ComponentDesignDocuments;
+
+export const guide = {
+    "definition": "Radio 表示一组互斥选项中的一个，RadioGroup 管理组值和变更。用户应能同时看到所有主要选项，并且只能选择一项。",
+    "useWhen": [
+        "选项数量少且需要并列比较。",
+        "选择是必需或有合理默认值，并且每项含义稳定。"
+    ],
+    "avoidWhen": [
+        "可多选使用 Checkbox；选项很多或需要搜索使用 Select；即时二态设置使用 Switch。"
+    ],
+    "essentials": [
+        "把 Radio 放进 RadioGroup，由 group value 维护唯一选中项。",
+        "每个 value 稳定且唯一，label 使用用户语言而不是内部代码。",
+        "默认值必须是安全、可解释的选择；不应为了省一步替用户同意重要条款。"
+    ],
+    "accessibility": [
+        "组需要可访问名称，方向键在组内移动，Tab 只进入当前组一次。",
+        "错误和禁用原因用文字说明，选中圆点之外保留清楚的状态语义。"
+    ]
+} as const;

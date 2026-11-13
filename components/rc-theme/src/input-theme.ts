@@ -23,7 +23,7 @@ globalStyle`
     }
 
     [data-crab-design="shadcn"][data-theme],
-    [data-crab-design="apple"][data-theme] {
+    [data-crab-design="macos"][data-theme] {
         --token-semantic-field-outlined-shadow-focus: var(--token-semantic-field-control-shadow-focus);
         --token-semantic-field-outlined-shadow-error: var(--token-semantic-field-control-shadow-error);
         --token-semantic-field-outlined-shadow-warning: var(--token-semantic-field-control-shadow-warning);
@@ -51,16 +51,16 @@ globalStyle`
         --token-semantic-field-control-shadow-warning: 0 0 0 3px color-mix(in oklch, ${token.color.feedback.warning.border} 40%, transparent);
     }
 
-    [data-crab-design="apple"] {
-        --token-semantic-field-control-shadow: inset ${palette.shadow.sm};
+    [data-crab-design="macos"] {
+        --token-semantic-field-control-shadow: inset 0 1px 1px color-mix(in oklch, ${token.color.text.primary} 3%, transparent);
         --token-semantic-field-control-shadow-focus: ${token.shadow['focus-ring']};
         --token-semantic-field-control-shadow-error: 0 0 0 3px color-mix(in oklch, ${token.color.feedback.error.border} 24%, transparent);
         --token-semantic-field-control-shadow-warning: 0 0 0 3px color-mix(in oklch, ${token.color.feedback.warning.border} 24%, transparent);
-        --token-semantic-field-option-radius: 6px;
+        --token-semantic-field-option-radius: 8px;
         --token-semantic-field-option-color-selected: ${token.color.text['on-brand']};
         --token-semantic-field-option-background-selected: ${token.color.brand.primary};
-        --token-semantic-picker-calendar-cell-radius: 6px;
-        --token-semantic-picker-panel-radius: 8px;
+        --token-semantic-picker-calendar-cell-radius: 50%;
+        --token-semantic-picker-panel-radius: 20px;
         --token-semantic-picker-panel-background: ${token.color.surface.overlay};
     }
     }

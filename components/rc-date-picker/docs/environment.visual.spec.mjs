@@ -33,7 +33,7 @@ for (const config of configurations) test(`${config.designSystem} ${config.color
     const field = frame.getByRole('textbox', { name: '计划日期', exact: true });
     const original = await field.elementHandle();
     await field.click(); await page.getByRole('dialog').getByRole('button', { name: '2026-06-18', exact: true }).click();
-    const next = { type: 'crab:preview-config', designSystem: config.designSystem === 'md3' ? 'apple' : config.designSystem === 'apple' ? 'shadcn' : 'md3', colorMode: config.colorMode === 'light' ? 'dark' : 'light', size: 'large', density: 'comfortable', locale: 'en-US', direction: 'rtl', brandColor: '#8c3cc8', nonce: 'visual-retention' };
+    const next = { type: 'crab:preview-config', designSystem: config.designSystem === 'md3' ? 'macos' : config.designSystem === 'macos' ? 'shadcn' : 'md3', colorMode: config.colorMode === 'light' ? 'dark' : 'light', size: 'large', density: 'comfortable', locale: 'en-US', direction: 'rtl', brandColor: '#8c3cc8', nonce: 'visual-retention' };
     await page.evaluate(configuration => globalThis.postMessage(configuration, globalThis.location.origin), next);
     await expect(root).toHaveAttribute('data-crab-design', next.designSystem);
     await expect(root).toHaveAttribute('data-theme', next.colorMode);
@@ -56,7 +56,7 @@ for (const config of configurations) test(`${config.designSystem} ${config.color
     const original = await hour.elementHandle();
     await hour.fill('99');
     await minute.fill('42');
-    const next = { type: 'crab:preview-config', designSystem: config.designSystem === 'md3' ? 'apple' : config.designSystem === 'apple' ? 'shadcn' : 'md3', colorMode: config.colorMode === 'light' ? 'dark' : 'light', size: 'large', density: 'comfortable', locale: 'en-US', direction: 'rtl', brandColor: '#8c3cc8', nonce: 'visual-time-retention' };
+    const next = { type: 'crab:preview-config', designSystem: config.designSystem === 'md3' ? 'macos' : config.designSystem === 'macos' ? 'shadcn' : 'md3', colorMode: config.colorMode === 'light' ? 'dark' : 'light', size: 'large', density: 'comfortable', locale: 'en-US', direction: 'rtl', brandColor: '#8c3cc8', nonce: 'visual-time-retention' };
     await page.evaluate(configuration => globalThis.postMessage(configuration, globalThis.location.origin), next);
     await expect(root).toHaveAttribute('data-crab-design', next.designSystem);
     await expect(root).toHaveAttribute('data-theme', next.colorMode);

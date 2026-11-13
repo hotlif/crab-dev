@@ -50,12 +50,12 @@ export interface ButtonProps {
     "danger"?: boolean;
 
     /**
-     * 显式 Expressive 五档 xs/s/m/l/xl；省略时 MD3 按全局三档使用 32/36/40px，Apple/shadcn 映射 xs/s/m
+     * 显式五档 xs/s/m/l/xl；省略时 MD3 按全局三档使用 32/36/40px，macOS/shadcn 映射 xs/s/m
      */
     "size"?: 'xs' | 's' | 'm' | 'l' | 'xl';
 
     /**
-     * 省略时随设计风格：Material 为 round，shadcn 为 square；circle 适用于纯图标按钮
+     * 省略时随设计风格：Material 为 round；macOS xs/s/m 为圆角矩形、l/xl 为胶囊；shadcn 为 square；circle 适用于纯图标按钮
      */
     "shape"?: 'round' | 'square' | 'circle';
 

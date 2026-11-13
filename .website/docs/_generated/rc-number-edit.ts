@@ -3,6 +3,7 @@
  */
 
 import type { ComponentDemoRecord } from "../site/componentDemos.js";
+import type { ComponentDesignDocuments } from "../site/componentDesignGuide.js";
 
 export const demos = [
     {
@@ -178,3 +179,76 @@ export const demos = [
         "group": null
     }
 ] as const satisfies readonly ComponentDemoRecord[];
+
+export const documents = {
+    "md3": {
+        "summary": "将数值输入、单位和增减操作组织成语义字段，值与错误说明清楚关联。",
+        "usage": "先声明范围和步长，再选择显示格式；格式化文字不改变真实数值语义。",
+        "exampleDescription": "触及最小和最大值，观察步进操作与字段状态是否给出清晰反馈。",
+        "demos": [
+            "range.demo.tsx",
+            "basic.demo.tsx",
+            "format.demo.tsx",
+            "scientific.demo.tsx",
+            "states.demo.tsx"
+        ],
+        "references": [
+            "https://m3.material.io/components/text-fields/overview",
+            "https://material-web.dev/components/text-field/",
+            "https://github.com/material-components/material-web/tree/main/textfield"
+        ]
+    },
+    "macos": {
+        "summary": "以紧凑桌面数值框和独立步进区域提供精确输入，适合设置与检查器。",
+        "usage": "数值、单位与步进控件对齐；不可用方向需要通过状态清楚表达。",
+        "exampleDescription": "用键盘和步进区域调整数值，检查桌面输入的对齐与焦点反馈。",
+        "demos": [
+            "basic.demo.tsx",
+            "format.demo.tsx",
+            "range.demo.tsx",
+            "scientific.demo.tsx",
+            "states.demo.tsx"
+        ],
+        "references": [
+            "https://developer.apple.com/design/human-interface-guidelines/components",
+            "https://developer.apple.com/design/human-interface-guidelines/accessibility"
+        ]
+    },
+    "shadcn": {
+        "summary": "以中性数值字段和简洁增减控件支持精确编辑，边界与值保持清晰。",
+        "usage": "显示格式可以补充单位，业务仍应使用数值进行计算和范围校验。",
+        "exampleDescription": "修改带格式的数值，比较显示文字和受控结果，检查解析是否符合预期。",
+        "demos": [
+            "format.demo.tsx",
+            "basic.demo.tsx",
+            "range.demo.tsx",
+            "scientific.demo.tsx",
+            "states.demo.tsx"
+        ],
+        "references": [
+            "https://ui.shadcn.com/docs/components",
+            "https://ui.shadcn.com/docs/theming",
+            "https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4"
+        ]
+    }
+} as const satisfies ComponentDesignDocuments;
+
+export const guide = {
+    "definition": "NumberEdit 输入一个数值，并可通过步进按钮、键盘、上下限和格式化辅助编辑。显示字符串和提交数值是两个层次，格式化不能改变真实数值含义。",
+    "useWhen": [
+        "数量、比例、金额或阈值需要精确输入。",
+        "用户既需要直接键入，也需要按固定 step 微调。"
+    ],
+    "avoidWhen": [
+        "大致连续范围使用 Slider；有限固定数字使用 Select；电话号码等数字字符串仍用文本输入。"
+    ],
+    "essentials": [
+        "value 是数值状态，formatter/parser 只负责显示与解析。",
+        "min、max 和 step 要与业务单位一致，并处理小数精度。",
+        "空值、无效中间输入和最终提交值要分开考虑。"
+    ],
+    "accessibility": [
+        "提供 label、单位和允许范围，步进按钮要有增加/减少的可访问名称。",
+        "超出范围的错误用文字说明，键盘方向键行为不得阻止正常页面导航。"
+    ]
+} as const;

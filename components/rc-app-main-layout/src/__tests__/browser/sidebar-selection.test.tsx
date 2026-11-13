@@ -29,7 +29,7 @@ function currentItems(): string[] {
 }
 
 describe('Published Layout sidebar selection and painted state', () => {
-    for (const designSystem of ['md3', 'apple', 'shadcn'] as const) {
+    for (const designSystem of ['md3', 'macos', 'shadcn'] as const) {
         for (const colorMode of ['light', 'dark'] as const) {
             it(`synchronizes ${designSystem}/${colorMode} page switches, close and close-all`, async () => {
                 const user = userEvent.setup();

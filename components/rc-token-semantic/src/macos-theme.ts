@@ -1,10 +1,9 @@
 import { defineTokens } from '@crab-dev/css';
 import palette from '@crab-dev/rc-token-global';
-import { md3ColorContract } from './theme.js';
 import type { ResolvedThemeColorContract } from './types.js';
 
-/** Apple-inspired blue and silver roles, preserving the shared semantic color contract. */
-export const appleColorContract: ResolvedThemeColorContract = defineTokens({
+/** Tahoe 26 content colors. Liquid Glass is a separate navigation/overlay material. */
+export const macosColorContract: ResolvedThemeColorContract = defineTokens({
     light: {
         workspace: {
             frame: palette.zinc[200],
@@ -70,12 +69,12 @@ export const appleColorContract: ResolvedThemeColorContract = defineTokens({
             linkHover: palette.blue[800],
         },
         border: {
-            subtle: palette.zinc[200],
+            subtle: `color-mix(in oklch, ${palette.zinc[950]} 14%, ${palette.white})`,
             default: palette.zinc[500],
             hover: palette.zinc[600],
             strong: palette.zinc[600],
             focus: palette.blue[600],
-            error: md3ColorContract.light.border.error,
+            error: palette.red[700],
         },
         focusRing: `var(--token-semantic-color-border-focus, ${palette.blue[600]})`,
         selection: {
@@ -83,12 +82,28 @@ export const appleColorContract: ResolvedThemeColorContract = defineTokens({
             border: palette.blue[600],
             foreground: palette.blue[900],
         },
-        highlight: md3ColorContract.light.highlight,
+        highlight: { background: palette.amber[100], backgroundActive: palette.amber[300], foreground: palette.zinc[950] },
         feedback: {
-            error: { ...md3ColorContract.light.feedback.error },
-            success: { ...md3ColorContract.light.feedback.success },
-            warning: { ...md3ColorContract.light.feedback.warning },
-            info: { ...md3ColorContract.light.feedback.info },
+            error: {
+                text: palette.red[800], icon: palette.red[700], border: palette.red[700],
+                background: palette.red[50], backgroundHover: palette.red[100],
+                solid: palette.red[700], solidHover: palette.red[800], solidActive: palette.red[900], onSolid: palette.white,
+            },
+            success: {
+                text: palette.green[800], icon: palette.green[700], border: palette.green[700],
+                background: palette.green[50], backgroundHover: palette.green[100],
+                solid: palette.green[700], solidHover: palette.green[800], solidActive: palette.green[900], onSolid: palette.white,
+            },
+            warning: {
+                text: palette.amber[900], icon: palette.amber[700], border: palette.amber[700],
+                background: palette.amber[50], backgroundHover: palette.amber[100],
+                solid: palette.amber[700], solidHover: palette.amber[800], solidActive: palette.amber[900], onSolid: palette.white,
+            },
+            info: {
+                text: palette.blue[800], icon: palette.blue[700], border: palette.blue[700],
+                background: palette.blue[50], backgroundHover: palette.blue[100],
+                solid: palette.blue[700], solidHover: palette.blue[800], solidActive: palette.blue[900], onSolid: palette.white,
+            },
         },
         fill: {
             subtle: palette.zinc[100],
@@ -138,10 +153,10 @@ export const appleColorContract: ResolvedThemeColorContract = defineTokens({
         },
         control: { thumb: palette.white, toggleThumb: palette.white, track: palette.zinc[700], trackHover: palette.zinc[600] },
         brand: {
-            primary: palette.blue[400],
-            hover: palette.blue[300],
-            active: palette.blue[200],
-            subtle: palette.blue[400],
+            primary: palette.blue[600],
+            hover: palette.blue[700],
+            active: palette.blue[800],
+            subtle: palette.blue[600],
         },
         background: {
             surface: palette.zinc[900],
@@ -158,19 +173,19 @@ export const appleColorContract: ResolvedThemeColorContract = defineTokens({
             primary: palette.zinc[50],
             secondary: palette.zinc[300],
             tertiary: palette.zinc[300],
-            onBrand: palette.blue[950],
+            onBrand: palette.white,
             inverse: palette.zinc[900],
             disabled: palette.zinc[500],
             link: palette.blue[300],
             linkHover: palette.blue[200],
         },
         border: {
-            subtle: palette.zinc[700],
+            subtle: `color-mix(in oklch, ${palette.white} 12%, ${palette.zinc[900]})`,
             default: palette.zinc[500],
             hover: palette.zinc[400],
             strong: palette.zinc[400],
             focus: palette.blue[400],
-            error: md3ColorContract.dark.border.error,
+            error: palette.red[400],
         },
         focusRing: `var(--token-semantic-color-border-focus, ${palette.blue[400]})`,
         selection: {
@@ -178,12 +193,28 @@ export const appleColorContract: ResolvedThemeColorContract = defineTokens({
             border: palette.blue[400],
             foreground: palette.blue[200],
         },
-        highlight: md3ColorContract.dark.highlight,
+        highlight: { background: palette.amber[900], backgroundActive: palette.amber[700], foreground: palette.amber[50] },
         feedback: {
-            error: { ...md3ColorContract.dark.feedback.error },
-            success: { ...md3ColorContract.dark.feedback.success },
-            warning: { ...md3ColorContract.dark.feedback.warning },
-            info: { ...md3ColorContract.dark.feedback.info },
+            error: {
+                text: palette.red[300], icon: palette.red[400], border: palette.red[400],
+                background: palette.red[950], backgroundHover: palette.red[900],
+                solid: palette.red[600], solidHover: palette.red[700], solidActive: palette.red[800], onSolid: palette.white,
+            },
+            success: {
+                text: palette.green[300], icon: palette.green[400], border: palette.green[400],
+                background: palette.green[950], backgroundHover: palette.green[900],
+                solid: palette.green[700], solidHover: palette.green[800], solidActive: palette.green[900], onSolid: palette.white,
+            },
+            warning: {
+                text: palette.amber[300], icon: palette.amber[400], border: palette.amber[400],
+                background: palette.amber[950], backgroundHover: palette.amber[900],
+                solid: palette.amber[700], solidHover: palette.amber[800], solidActive: palette.amber[900], onSolid: palette.white,
+            },
+            info: {
+                text: palette.blue[300], icon: palette.blue[400], border: palette.blue[400],
+                background: palette.blue[950], backgroundHover: palette.blue[900],
+                solid: palette.blue[600], solidHover: palette.blue[700], solidActive: palette.blue[800], onSolid: palette.white,
+            },
         },
         fill: {
             subtle: palette.zinc[800],

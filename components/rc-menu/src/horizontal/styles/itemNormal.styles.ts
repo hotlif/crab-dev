@@ -105,6 +105,8 @@ const submenuFloat = css`
     white-space: nowrap;
     padding: ${token.horizontal.submenu.padding};
     background-color: ${token.horizontal.submenu["background-color"]};
+    backdrop-filter: ${token.material["backdrop-filter"]};
+    background-image: ${token.material["background-image"]};
     box-shadow: ${token.horizontal.submenu["box-shadow"]};
 `
 

@@ -3,6 +3,7 @@
  */
 
 import type { ComponentDemoRecord } from "../site/componentDemos.js";
+import type { ComponentDesignDocuments } from "../site/componentDesignGuide.js";
 
 export const demos = [
     {
@@ -159,3 +160,76 @@ export const demos = [
         "group": null
     }
 ] as const satisfies readonly ComponentDemoRecord[];
+
+export const documents = {
+    "md3": {
+        "summary": "以低强调占位表面预告内容结构，加载完成后平稳替换为真实信息。",
+        "usage": "占位形状应接近最终内容，减少动画偏好下仍需能辨认加载区域。",
+        "exampleDescription": "查看卡片结构的占位，比较标题、正文和图片区域的对应。",
+        "demos": [
+            "card.demo.tsx",
+            "animation.demo.tsx",
+            "basic.demo.tsx",
+            "loaded.demo.tsx",
+            "variant.demo.tsx"
+        ],
+        "references": [
+            "https://m3.material.io/components/progress-indicators/overview",
+            "https://material-web.dev/components/progress/",
+            "https://github.com/material-components/material-web/tree/main/progress"
+        ]
+    },
+    "macos": {
+        "summary": "在桌面内容区域用轻量占位保持布局稳定，让工具和导航持续可用。",
+        "usage": "不要让占位材质盖住已有内容；刷新时优先保留用户正在阅读的数据。",
+        "exampleDescription": "切换加载完成状态，检查内容面板的高度与阅读位置是否稳定。",
+        "demos": [
+            "loaded.demo.tsx",
+            "animation.demo.tsx",
+            "basic.demo.tsx",
+            "card.demo.tsx",
+            "variant.demo.tsx"
+        ],
+        "references": [
+            "https://developer.apple.com/design/human-interface-guidelines/components",
+            "https://developer.apple.com/design/human-interface-guidelines/accessibility"
+        ]
+    },
+    "shadcn": {
+        "summary": "以中性占位块提示尚未加载的内容，形状简洁且贴近最终布局。",
+        "usage": "只为缺失内容提供占位，避免把可用控件也替换成不可操作的装饰块。",
+        "exampleDescription": "比较不同形状的占位，确认它们对应真实文字、头像或内容区域。",
+        "demos": [
+            "variant.demo.tsx",
+            "animation.demo.tsx",
+            "basic.demo.tsx",
+            "card.demo.tsx",
+            "loaded.demo.tsx"
+        ],
+        "references": [
+            "https://ui.shadcn.com/docs/components",
+            "https://ui.shadcn.com/docs/theming",
+            "https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4"
+        ]
+    }
+} as const satisfies ComponentDesignDocuments;
+
+export const guide = {
+    "definition": "Skeleton 在真实内容到达前显示结构占位，帮助用户预期页面布局并减少跳动。它表示“正在加载内容”，不是无数据、错误或装饰背景。",
+    "useWhen": [
+        "首屏内容需要等待，且最终结构大致可预测。",
+        "卡片、列表或详情加载时希望保持页面几何稳定。"
+    ],
+    "avoidWhen": [
+        "短小、不可预测的任务使用 Spin/Progress；请求失败或空数据必须显示真实状态。"
+    ],
+    "essentials": [
+        "占位数量和形状接近最终内容，但不要伪造不存在的信息。",
+        "loaded 后替换真实内容，容器尺寸尽量保持稳定。",
+        "动画用于提示进行中，持续时间不确定时不要显示伪造百分比。"
+    ],
+    "accessibility": [
+        "Skeleton 通常是装饰，应隐藏重复形状并在容器提供简洁加载状态。",
+        "减少动态效果时关闭闪烁/波纹；完成后清除 busy 状态并避免焦点跳动。"
+    ]
+} as const;

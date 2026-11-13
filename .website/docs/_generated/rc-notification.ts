@@ -3,6 +3,7 @@
  */
 
 import type { ComponentDemoRecord } from "../site/componentDemos.js";
+import type { ComponentDesignDocuments } from "../site/componentDesignGuide.js";
 
 export const demos = [
     {
@@ -125,3 +126,70 @@ export const demos = [
         "group": null
     }
 ] as const satisfies readonly ComponentDemoRecord[];
+
+export const documents = {
+    "md3": {
+        "summary": "以标题、说明和语义状态呈现需要更多阅读空间的通知，是反馈模式扩展。",
+        "usage": "通知承载任务结果或异步事件，重要动作保持清晰，避免与当前任务竞争。",
+        "exampleDescription": "打开不同类型通知，检查标题、正文和语义容器的阅读顺序。",
+        "demos": [
+            "base.demo.tsx",
+            "customContent.demo.tsx",
+            "stack.demo.tsx"
+        ],
+        "references": [
+            "https://m3.material.io/components/snackbar/overview",
+            "https://material-web.dev/components/",
+            "https://github.com/material-components/material-web"
+        ]
+    },
+    "macos": {
+        "summary": "以桌面浮动通知面板承载事件摘要，标题和补充内容清楚分层。",
+        "usage": "不要把通知外观等同于系统通知权限；它仍是当前网页中的反馈区域。",
+        "exampleDescription": "连续打开通知并逐项关闭，检查浮动面板的排列与工作内容的关系。",
+        "demos": [
+            "stack.demo.tsx",
+            "base.demo.tsx",
+            "customContent.demo.tsx"
+        ],
+        "references": [
+            "https://developer.apple.com/design/human-interface-guidelines/components",
+            "https://developer.apple.com/design/human-interface-guidelines/accessibility"
+        ]
+    },
+    "shadcn": {
+        "summary": "用有边界的中性通知面板组织标题、详情和动作，适合后台事件反馈。",
+        "usage": "自定义内容保持简短且可访问，状态色不能成为事件含义的唯一线索。",
+        "exampleDescription": "查看带自定义内容的通知，检查正文与动作在简洁面板中的分区。",
+        "demos": [
+            "customContent.demo.tsx",
+            "base.demo.tsx",
+            "stack.demo.tsx"
+        ],
+        "references": [
+            "https://ui.shadcn.com/docs/components",
+            "https://ui.shadcn.com/docs/theming",
+            "https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4"
+        ]
+    }
+} as const satisfies ComponentDesignDocuments;
+
+export const guide = {
+    "definition": "Notification 是带标题和较完整说明的非模态通知，可同时展示多条并在角落堆叠。它比 Message 信息更丰富，但仍不应阻塞当前任务。",
+    "useWhen": [
+        "后台任务、系统事件或跨页面结果需要较长说明。",
+        "用户可以稍后处理，通知中可能包含一个清楚的后续动作。"
+    ],
+    "avoidWhen": [
+        "字段级错误就近显示；必须立即决策使用 Dialog；只有一句确认使用 Message。"
+    ],
+    "essentials": [
+        "title 概括事件，description 解释影响和下一步。",
+        "控制堆叠数量与位置，避免新通知遮住主要任务。",
+        "使用 hook/holder 让通知继承主题并便于统一销毁。"
+    ],
+    "accessibility": [
+        "通知出现时使用合适的 live region，但不要自动抢走键盘焦点。",
+        "关闭按钮和通知动作要有清楚名称，自动关闭时间应与内容长度匹配。"
+    ]
+} as const;

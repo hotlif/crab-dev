@@ -1,6 +1,27 @@
 import { test, expect, configurations, openDemo, readVisualSpec, settleFiniteAnimations, captureVisual } from '../../../test/visual/component-fixture.mjs';
 
 const spec = await readVisualSpec(import.meta.url);
+for (const colorMode of ['light', 'dark']) {
+    test(`macos ${colorMode} Tahoe digital time and live design switching`, async ({ page, previewOrigin }, info) => {
+        await openDemo(page, previewOrigin, 'rc-date-picker', 'desktop-time.demo.tsx', { designSystem: 'macos', colorMode });
+        await page.getByRole('textbox', { name: '开始时间' }).click();
+        const hour = page.getByRole('textbox', { name: '小时', exact: true });
+        await expect(hour).toBeVisible();
+        await expect(page.getByRole('group', { name: '小时表盘' })).toHaveCount(0);
+        await hour.fill('');
+        await hour.evaluate(node => { globalThis.__tahoeTimeField = node; });
+        for (const designSystem of ['md3', 'macos']) {
+            await page.evaluate(config => globalThis.postMessage({ type: 'crab:preview-config', size: 'medium', density: 'standard', locale: 'zh-CN', direction: 'ltr', brandColor: null, ...config }, globalThis.location.origin), { designSystem, colorMode });
+            await expect(page.locator('.demo-default-preview').first()).toHaveAttribute('data-crab-design', designSystem);
+            await expect(hour).toHaveValue('');
+            await expect(hour).toBeFocused();
+            expect(await hour.evaluate(node => node === globalThis.__tahoeTimeField)).toBe(true);
+        }
+        await hour.fill('09');
+        await settleFiniteAnimations(page);
+        await captureVisual(page, `macos-${colorMode}-digital-time.png`, info);
+    });
+}
 for (const config of configurations) for (const size of spec.sizes) for (const density of spec.densities) for (const state of spec.states) {
     const crossEngine = spec.crossEngine.sizes.includes(size) && spec.crossEngine.densities.includes(density) && spec.crossEngine.states.includes(state);
     test(`${config.designSystem} ${config.colorMode} ${size} ${density} ${state}`, { tag: ['@rc-date-picker', '@matrix', ...(!crossEngine ? ['@chromium-only'] : [])], annotation: { type: 'matrix', description: JSON.stringify({ ...config, size, density, state }) } }, async ({ page, previewOrigin, browserName }, info) => {

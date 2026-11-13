@@ -3,6 +3,7 @@
  */
 
 import type { ComponentDemoRecord } from "../site/componentDemos.js";
+import type { ComponentDesignDocuments } from "../site/componentDesignGuide.js";
 
 export const demos = [
     {
@@ -140,3 +141,70 @@ export const demos = [
         "group": "功能演示"
     }
 ] as const satisfies readonly ComponentDemoRecord[];
+
+export const documents = {
+    "md3": {
+        "summary": "用独立的对话表面集中呈现需要决策的内容，标题、说明和动作形成明确层级。",
+        "usage": "只在任务必须中断时打开对话框；用明确的确认与取消文案说明后果。",
+        "exampleDescription": "打开基础对话框，检查初始焦点、确认操作和关闭后的焦点恢复。",
+        "demos": [
+            "base.demo.tsx",
+            "formWithDatePicker.demo.tsx",
+            "motion.demo.tsx"
+        ],
+        "references": [
+            "https://m3.material.io/components/dialogs/overview",
+            "https://material-web.dev/components/dialog/",
+            "https://github.com/material-components/material-web/tree/main/dialog"
+        ]
+    },
+    "macos": {
+        "summary": "以桌面任务对话区域承载确认与短表单，操作层与内容层保持清晰分隔。",
+        "usage": "主要动作应明确而克制，长内容可以滚动；背景窗口不能继续接收模态交互。",
+        "exampleDescription": "在对话框内填写日期表单，检查内层弹出面板和关闭后的焦点路径。",
+        "demos": [
+            "formWithDatePicker.demo.tsx",
+            "base.demo.tsx",
+            "motion.demo.tsx"
+        ],
+        "references": [
+            "https://developer.apple.com/design/human-interface-guidelines/components",
+            "https://developer.apple.com/design/human-interface-guidelines/accessibility"
+        ]
+    },
+    "shadcn": {
+        "summary": "以中性对话表面、细边界和简洁动作区承载集中任务。",
+        "usage": "标题解释任务目的，正文给出必要信息，按钮说明动作而不是泛化的确定。",
+        "exampleDescription": "通过触发按钮打开并关闭对话框，检查边界、遮罩及键盘退出路径。",
+        "demos": [
+            "base.demo.tsx",
+            "formWithDatePicker.demo.tsx",
+            "motion.demo.tsx"
+        ],
+        "references": [
+            "https://ui.shadcn.com/docs/components",
+            "https://ui.shadcn.com/docs/theming",
+            "https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4"
+        ]
+    }
+} as const satisfies ComponentDesignDocuments;
+
+export const guide = {
+    "definition": "Dialog 在顶层表面中聚焦一项需要确认、输入或决定的任务，并暂时限制用户与背景内容交互。它不是普通信息卡片，打开和关闭都必须管理焦点。",
+    "useWhen": [
+        "删除、授权、离开未保存内容等关键决定需要明确确认。",
+        "一项短小任务必须先完成或取消，才能回到原页面。"
+    ],
+    "avoidWhen": [
+        "长表单和复杂工作流使用独立页面或 Drawer；非阻塞说明使用 Alert、Notification 或 Tooltip。"
+    ],
+    "essentials": [
+        "标题说明决定对象，正文解释影响，按钮使用具体动作名称。",
+        "受控 open 决定是否显示，onClose 统一处理取消、Escape 和遮罩等关闭来源。",
+        "内容过长时保持标题与操作可理解，不要把完整页面塞进小对话框。"
+    ],
+    "accessibility": [
+        "打开时把焦点放到合理元素，Tab 留在对话框内，关闭后恢复到触发器。",
+        "对话框必须有可访问名称；危险确认的默认焦点要经过审慎选择。"
+    ]
+} as const;

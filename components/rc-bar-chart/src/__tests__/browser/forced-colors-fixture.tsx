@@ -16,9 +16,9 @@ function check(condition: unknown, message: string): asserts condition {
 /** Uses DOM focus, not a claim of trusted keyboard input or Canvas pointer hits. */
 export function installForcedFocusFixture(subject: Subject): void {
     const params = new URLSearchParams(location.search);
-    const designSystem = params.get('designSystem') as 'md3' | 'apple' | 'shadcn';
+    const designSystem = params.get('designSystem') as 'md3' | 'macos' | 'shadcn';
     const colorMode = params.get('colorMode') as 'light' | 'dark';
-    check(['md3', 'apple', 'shadcn'].includes(designSystem) && ['light', 'dark'].includes(colorMode), 'Invalid BarChart fixture configuration');
+    check(['md3', 'macos', 'shadcn'].includes(designSystem) && ['light', 'dark'].includes(colorMode), 'Invalid BarChart fixture configuration');
     const host = document.getElementById('root');
     check(host, 'Missing BarChart fixture host');
     const root = createRoot(host);

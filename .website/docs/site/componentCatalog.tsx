@@ -5,6 +5,8 @@ import type { CatalogPreviewName } from "./catalog/preview.js";
 import { useSiteHref } from "./siteContext.js";
 import { useCatalogReveal } from "./siteMotion.js";
 import "./catalogStyles.js";
+import { useConfig } from "@crab-dev/rc-config-provider";
+import { componentDesignSummaries } from "../_generated/component-design-summaries.js";
 
 interface Category {
     title: string;
@@ -58,6 +60,7 @@ interface CatalogEntry {
 }
 
 export function CatalogItem({ item }: { item: CatalogEntry }) {
+    const { designSystem } = useConfig();
     const { href: slug, name, label, description, preview, category } = item;
     const href = useSiteHref();
     const descriptionId = useId();
@@ -74,7 +77,7 @@ export function CatalogItem({ item }: { item: CatalogEntry }) {
                 <span className="crab-catalog-item-title"><strong>{name}</strong><span className="crab-catalog-item-label">{label}</span></span>
                 <Arrow />
             </span>
-            <span className="crab-catalog-item-description" id={descriptionId}>{category && <span>用途：{category} · </span>}{description}</span>
+            <span className="crab-catalog-item-description" id={descriptionId}>{category && <span>用途：{category} · </span>}{componentDesignSummaries[slug.split("/").filter(Boolean).at(-1) ?? ""]?.[designSystem] ?? description}</span>
         </Button>
     );
 }

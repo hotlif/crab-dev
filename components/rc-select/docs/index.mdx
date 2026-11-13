@@ -13,15 +13,15 @@ status = "experimental"
 
 ## 三套主题的标签与选项
 
-Select 与 LineEdit 共用 L2 字段布局：MD3 使用 32/40/48px 桌面字段、静态上置标签、连续轮廓或 Filled 底线；Apple 与 shadcn 保留静态上置标签及各自紧凑边框。静态标签不会在打开面板或已有值时移动，也不会遮住占位文字。输入、值、搜索草稿和展开状态在主题切换时保留。
+Select 与 LineEdit 共用 L2 字段布局：MD3 使用 32/40/48px 桌面字段、静态上置标签、连续轮廓或 Filled 底线；macOS 与 shadcn 保留静态上置标签及各自紧凑边框。静态标签不会在打开面板或已有值时移动，也不会遮住占位文字。输入、值、搜索草稿和展开状态在主题切换时保留。
 
-Apple 选中项使用蓝色表面与配对前景色，shadcn 使用中性色背景，MD3 使用 tonal 选中表面。键盘活动项有独立轮廓，禁用项不可选；多选复用 Checkbox。错误文字通过描述关联和 alert 通告。请在“标签与选择状态”中检查空值、搜索、多选、错误和禁用，并切换浅色／深色。
+macOS 选中项使用蓝色表面与配对前景色，shadcn 使用中性色背景，MD3 使用 tonal 选中表面。键盘活动项有独立轮廓，禁用项不可选；多选复用 Checkbox。错误文字通过描述关联和 alert 通告。请在“标签与选择状态”中检查空值、搜索、多选、错误和禁用，并切换浅色／深色。
 
 弹层定位包含本字段的标签、说明和错误，动态换行后重新定位；空间不足时可翻转到字段上方。弹层宽度和 Escape 焦点恢复仍以实际 combobox 控件为准，不把说明文字当作交互焦点。
 
 Escape 关闭时 `onOpenChange` 的原因是 `escape`，并保留原始键盘事件；不会把键盘关闭记为触发器点击。
 
-实际参考（2026-10-22）：[Material Web Select](https://material-web.dev/components/select/)、[Select 行为源码](https://github.com/material-components/material-web/blob/main/select/internal/select.ts)、[Outlined Field 样式](https://github.com/material-components/material-web/blob/main/field/internal/_outlined-field.scss)、[shadcn Select 源码](https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/new-york-v4/ui/select.tsx)。多选、虚拟滚动、warning 和桌面密度为项目扩展；Apple 视觉通过本库语义角色实现。
+实际参考（2026-10-22）：[Material Web Select](https://material-web.dev/components/select/)、[Select 行为源码](https://github.com/material-components/material-web/blob/main/select/internal/select.ts)、[Outlined Field 样式](https://github.com/material-components/material-web/blob/main/field/internal/_outlined-field.scss)、[shadcn Select 源码](https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/new-york-v4/ui/select.tsx)。多选、虚拟滚动、warning 和桌面密度为项目扩展；macOS 视觉通过本库语义角色实现。
 
 ## 尺寸与外观
 
@@ -88,14 +88,14 @@ Escape 关闭时 `onOpenChange` 的原因是 `escape`，并保留原始键盘事
 | 体系 | 字段与集合规格 | 桌面扩展 |
 | --- | --- | --- |
 | MD3 Expressive | outlined / filled 沿用字段标签、错误说明和色调表面；选中行、活动行与键盘焦点分别表达 | 搜索、多选标签、warning、虚拟集合和三档行密度是本库扩展 |
-| Apple | 内容优先、静态标签、轻量面板，选中与活动状态清晰；不复制系统原生弹出菜单 | Web combobox、长中英文标签及公开三档尺寸 |
+| macOS | 内容优先、静态标签、轻量面板，选中与活动状态清晰；不复制系统原生弹出菜单 | Web combobox、长中英文标签及公开三档尺寸 |
 | shadcn New York V4 | 中性字段、描边、popover 层级、清晰焦点与选项高亮 | 保留本库字段标签、多选和虚拟化协议 |
 
 字段几何来自 L2 `field.*` / `sizing.*`，集合高度和虚拟测量共用 `density.item`，L3 不按设计 ID 分支。公开 small / medium / large 控制字段，compact / standard / comfortable 独立控制选项行；命中区域按粗指针规则扩展，不能通过视觉高度推断触控目标。三体系均使用配对浅深色、required / error 的持久说明，并保留清除入口及尾部键盘焦点。
 
 `visual.json` 是包内验收轴来源：三体系浅深色 × 三尺寸 × 三密度 × default、hover、focus-visible、expanded、selected、multiple、error、warning、disabled、empty、loading。通过实际键盘、打开与选项点击进入状态；loading 单独保留自然动画帧、视频与 trace，不用静止基准代替动态复审。其他稳定状态使用 Playwright 原生截图比较；Firefox / WebKit 子集以 `crossEngine` 为准。未支持的 pressed/readOnly 说明在 notApplicable 中。
 
-来源：[Material Web Select](https://material-web.dev/components/select/) 与 [Menu](https://material-web.dev/components/menu/)；[Apple menus](https://developer.apple.com/design/human-interface-guidelines/menus)；[shadcn 固定 Select 源码](https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui/select.tsx)。Material Web 是 Web 基线，搜索/密度扩展不宣称属于官方 Expressive 新组件。
+来源：[Material Web Select](https://material-web.dev/components/select/) 与 [Menu](https://material-web.dev/components/menu/)；[macOS menus](https://developer.apple.com/design/human-interface-guidelines/menus)；[shadcn 固定 Select 源码](https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui/select.tsx)。Material Web 是 Web 基线，搜索/密度扩展不宣称属于官方 Expressive 新组件。
 
 验收另外检查 Portal 配置更新、切换保留搜索实例与草稿、320/768px、RTL、英文、品牌、强制颜色及减少动画。已有 Dropdown 登记浏览器检查只覆盖底层 iframe 焦点协议，不能替代 Select 自身跨文档外观；嵌套 Provider、iframe/Shadow DOM 中的真实选择和最近配置由 Drawer 包的公开组合边界 Demo 与所属原生场景补充。新增场景在实际运行、逐图复审前仍为待验。规格与自动场景不表示人工外观已通过；以对应源码指纹的实际报告和逐项复审为准。
 

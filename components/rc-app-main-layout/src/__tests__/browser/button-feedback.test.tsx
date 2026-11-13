@@ -6,7 +6,7 @@ import token from '../../token.js';
 import compiledCss from '../../../.cache/browser-css.json';
 
 describe('Layout tab menu compiled CSS contract', () => {
-    for (const designSystem of ['md3', 'apple', 'shadcn'] as const) {
+    for (const designSystem of ['md3', 'macos', 'shadcn'] as const) {
         for (const colorMode of ['light', 'dark'] as const) {
             it(`keeps ${designSystem}/${colorMode} neutral menu feedback across focus and press`, async () => {
                 await render(<ConfigProvider designSystem={designSystem} colorMode={colorMode}>

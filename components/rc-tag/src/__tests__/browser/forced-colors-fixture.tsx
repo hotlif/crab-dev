@@ -6,9 +6,9 @@ import compiledCss from '../../../.cache/browser-css.json';
 import { colorChannels, matchingPixels, screenshotPixels } from '../../../../../test/forced-color-pixels.mjs';
 
 const params = new URLSearchParams(location.search);
-const designSystem = params.get('designSystem') as 'md3' | 'apple' | 'shadcn';
+const designSystem = params.get('designSystem') as 'md3' | 'macos' | 'shadcn';
 const colorMode = params.get('colorMode') as 'light' | 'dark';
-if (!['md3', 'apple', 'shadcn'].includes(designSystem) || !['light', 'dark'].includes(colorMode)) throw new Error('Invalid forced-color fixture configuration');
+if (!['md3', 'macos', 'shadcn'].includes(designSystem) || !['light', 'dark'].includes(colorMode)) throw new Error('Invalid forced-color fixture configuration');
 const host = document.getElementById('root');
 if (!host) throw new Error('Missing fixture host');
 const root = createRoot(host);
@@ -82,7 +82,7 @@ async function prepare() {
         <style>{compiledCss}</style>
         <span data-reference="canvas" style={{ color: 'CanvasText', backgroundColor: 'Canvas', forcedColorAdjust: 'none' }} />
         <span data-reference="button" style={{ color: 'ButtonText', backgroundColor: 'ButtonFace', forcedColorAdjust: 'none' }} />
-        <span data-reference="focus" style={{ color: 'Highlight', forcedColorAdjust: 'none' }} />
+        <span data-reference="focus" style={{ color: 'Highlight', backgroundColor: 'HighlightText', forcedColorAdjust: 'none' }} />
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: 32, padding: 48 }}>
             <div style={{ display: 'flex', gap: 32 }}>
                 {states.map((state, index) => <CheckableTag key={index} {...state} data-tag={index}>30</CheckableTag>)}
@@ -102,7 +102,14 @@ async function prepare() {
         if (colorChannels(style.color).slice(0, 3).every((channel, position) => channel === colorChannels(style.backgroundColor)[position])) throw new Error('Tag text has no contrast against its system surface');
         if (index < states.length) {
             if (tag.getAttribute('aria-checked') !== String(states[index]!.checked)) throw new Error('Tag selection lost');
-            if (Boolean(tag.querySelector('[data-role="selected-icon"]')) !== states[index]!.checked) throw new Error('Selected checkmark missing');
+            const expectsCheckmark = designSystem !== 'macos' && states[index]!.checked;
+            if (Boolean(tag.querySelector('[data-role="selected-icon"]')) !== expectsCheckmark) throw new Error('Selection symbol does not match the design system');
+            // Mac toggle buttons keep their symbol stable. Their selected bezel
+            // must still expose the actual system foreground/fill pair.
+            if (states[index]!.checked && !states[index]!.disabled) {
+                const selection = getComputedStyle(required('[data-reference="focus"]'));
+                if (style.color !== selection.backgroundColor || style.backgroundColor !== selection.color) throw new Error('Selected Tag lost its system color pair');
+            }
             if (states[index]!.disabled && tag.tabIndex !== -1) throw new Error('Disabled tag remains keyboard interactive');
         } else {
             const reference = getComputedStyle(required('[data-reference="canvas"]'));

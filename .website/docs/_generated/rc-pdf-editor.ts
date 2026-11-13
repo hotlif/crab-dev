@@ -3,6 +3,7 @@
  */
 
 import type { ComponentDemoRecord } from "../site/componentDemos.js";
+import type { ComponentDesignDocuments } from "../site/componentDesignGuide.js";
 
 export const demos = [
     {
@@ -215,3 +216,79 @@ export const demos = [
         "group": "能力与集成示例"
     }
 ] as const satisfies readonly ComponentDemoRecord[];
+
+export const documents = {
+    "md3": {
+        "summary": "以语义工具栏、文档表面和重点操作组织 PDF 编辑，文档能力为可选集成。",
+        "usage": "让工具动作围绕当前文档任务排列，编辑与只读模式要有明确边界。",
+        "exampleDescription": "操作文档工具栏，检查主要动作、文档内容和反馈之间的层级。",
+        "demos": [
+            "toolbar.demo.tsx",
+            "basic.demo.tsx",
+            "professional-actions.demo.tsx",
+            "readonly.demo.tsx",
+            "region-ocr.demo.tsx",
+            "web-component-runtime.demo.tsx"
+        ],
+        "references": [
+            "https://m3.material.io/components/buttons/overview",
+            "https://material-web.dev/components/button/",
+            "https://github.com/material-components/material-web/tree/main/button"
+        ]
+    },
+    "macos": {
+        "summary": "以桌面文档窗口的工具层与清晰页面区域呈现 PDF，浮动材质用于操作区。",
+        "usage": "页面正文保持可读底色，工具栏与侧面板不遮挡选区及当前编辑内容。",
+        "exampleDescription": "查看专业文档操作的分组，检查工具层与页面内容之间的清晰分隔。",
+        "demos": [
+            "professional-actions.demo.tsx",
+            "basic.demo.tsx",
+            "readonly.demo.tsx",
+            "region-ocr.demo.tsx",
+            "toolbar.demo.tsx",
+            "web-component-runtime.demo.tsx"
+        ],
+        "references": [
+            "https://developer.apple.com/design/human-interface-guidelines/components",
+            "https://developer.apple.com/design/human-interface-guidelines/accessibility"
+        ]
+    },
+    "shadcn": {
+        "summary": "以简洁工具栏、中性边界和文档页面组织 PDF 阅读与编辑任务。",
+        "usage": "可选运行时加载与编辑权限分别处理，失败或只读状态要给出明确说明。",
+        "exampleDescription": "进入只读文档示例，检查可用动作与编辑限制在界面中的表达。",
+        "demos": [
+            "readonly.demo.tsx",
+            "basic.demo.tsx",
+            "professional-actions.demo.tsx",
+            "region-ocr.demo.tsx",
+            "toolbar.demo.tsx",
+            "web-component-runtime.demo.tsx"
+        ],
+        "references": [
+            "https://ui.shadcn.com/docs/components",
+            "https://ui.shadcn.com/docs/theming",
+            "https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4"
+        ]
+    }
+} as const satisfies ComponentDesignDocuments;
+
+export const guide = {
+    "definition": "PdfEditor 在浏览器中加载 PDF，允许选择、编辑、标注、OCR 区域或只读浏览，并导出处理后的文档。它是复杂编辑器，需要同时处理文件生命周期、工具状态和页面坐标。",
+    "useWhen": [
+        "业务需要在网页内查看并修改 PDF 对象。",
+        "需要用工具栏、区域选择或 OCR 流程处理文档，而不是仅提供下载。"
+    ],
+    "avoidWhen": [
+        "只需阅读时使用轻量 PDF 查看器；敏感文件不能在当前环境处理时不要加载到浏览器。"
+    ],
+    "essentials": [
+        "先区分只读、编辑和区域工具模式，避免同一手势有多个含义。",
+        "文档坐标、缩放比例和屏幕坐标必须正确换算。",
+        "导出前明确未保存状态、文件名、处理进度和失败恢复。"
+    ],
+    "accessibility": [
+        "工具栏按钮有文字名称和选中状态，常用操作提供键盘路径。",
+        "PDF 画面不能成为唯一内容来源；应保留页码、文本或结构化替代信息并管理长任务通告。"
+    ]
+} as const;

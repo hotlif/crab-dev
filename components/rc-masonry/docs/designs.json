@@ -1,0 +1,32 @@
+{
+    "md3": {
+        "summary": "让不同高度的内容卡片按可用宽度排列，表面和留白跟随当前语义角色。",
+        "usage": "瀑布流适合可独立阅读的内容，重要的步骤顺序不能只由视觉列决定。",
+        "exampleDescription": "查看不同高度卡片的排列，确认色调容器之间的留白与阅读关系。",
+        "demos": [
+            "basic.demo.tsx",
+            "columns.demo.tsx",
+            "sequential.demo.tsx"
+        ]
+    },
+    "macos": {
+        "summary": "为桌面内容浏览区域组织不等高面板，列宽与间距随实际空间调整。",
+        "usage": "缩小窗口时检查每个面板的最小可读宽度，不把内容压进过窄的列。",
+        "exampleDescription": "切换列数，观察桌面内容面板的宽度、间距和整体浏览密度。",
+        "demos": [
+            "columns.demo.tsx",
+            "basic.demo.tsx",
+            "sequential.demo.tsx"
+        ]
+    },
+    "shadcn": {
+        "summary": "以简洁网格排列不同高度的内容块，边框卡片之间保持稳定间距。",
+        "usage": "需要明确阅读顺序时使用顺序排列，避免视觉位置与键盘顺序产生歧义。",
+        "exampleDescription": "查看顺序布局中的卡片排列，检查阅读顺序和紧凑边界的关系。",
+        "demos": [
+            "sequential.demo.tsx",
+            "basic.demo.tsx",
+            "columns.demo.tsx"
+        ]
+    }
+}

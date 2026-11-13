@@ -3,6 +3,7 @@
  */
 
 import type { ComponentDemoRecord } from "../site/componentDemos.js";
+import type { ComponentDesignDocuments } from "../site/componentDesignGuide.js";
 
 export const demos = [
     {
@@ -455,3 +456,94 @@ export const demos = [
         "group": "编辑与交互"
     }
 ] as const satisfies readonly ComponentDemoRecord[];
+
+export const documents = {
+    "md3": {
+        "summary": "用层级缩进、展开状态和语义选中行组织树状数据，节点操作保持明确。",
+        "usage": "选择、勾选和展开是独立状态，节点名称与图标共同解释层级内容。",
+        "exampleDescription": "展开节点并勾选子项，检查父项半选、选中行和层级关系。",
+        "demos": [
+            "checkable.demo.tsx",
+            "allow-drop.demo.tsx",
+            "basic.demo.tsx",
+            "default-editor.demo.tsx",
+            "draggable.demo.tsx",
+            "expand-all.demo.tsx",
+            "filter.demo.tsx",
+            "icon-and-disabled.demo.tsx",
+            "inline-edit.demo.tsx",
+            "keyboard.demo.tsx",
+            "show-line.demo.tsx"
+        ],
+        "references": [
+            "https://m3.material.io/components/lists/overview",
+            "https://material-web.dev/components/list/",
+            "https://github.com/material-components/material-web/tree/main/list"
+        ]
+    },
+    "macos": {
+        "summary": "以桌面资源侧栏式的紧凑行组织树节点，展开箭头与名称精确对齐。",
+        "usage": "内联编辑与拖拽应保留当前节点位置，长名称不遮住展开和操作入口。",
+        "exampleDescription": "编辑节点名称并继续导航，检查桌面树行的对齐、焦点和内容保留。",
+        "demos": [
+            "inline-edit.demo.tsx",
+            "allow-drop.demo.tsx",
+            "basic.demo.tsx",
+            "checkable.demo.tsx",
+            "default-editor.demo.tsx",
+            "draggable.demo.tsx",
+            "expand-all.demo.tsx",
+            "filter.demo.tsx",
+            "icon-and-disabled.demo.tsx",
+            "keyboard.demo.tsx",
+            "show-line.demo.tsx"
+        ],
+        "references": [
+            "https://developer.apple.com/design/human-interface-guidelines/components",
+            "https://developer.apple.com/design/human-interface-guidelines/accessibility"
+        ]
+    },
+    "shadcn": {
+        "summary": "用中性选中行、简洁缩进与可选连接线呈现层级数据。",
+        "usage": "过滤后应能理解剩余节点的层级，键盘导航与展开状态保持一致。",
+        "exampleDescription": "筛选节点并展开结果，检查中性行反馈与层级上下文是否清楚。",
+        "demos": [
+            "filter.demo.tsx",
+            "allow-drop.demo.tsx",
+            "basic.demo.tsx",
+            "checkable.demo.tsx",
+            "default-editor.demo.tsx",
+            "draggable.demo.tsx",
+            "expand-all.demo.tsx",
+            "icon-and-disabled.demo.tsx",
+            "inline-edit.demo.tsx",
+            "keyboard.demo.tsx",
+            "show-line.demo.tsx"
+        ],
+        "references": [
+            "https://ui.shadcn.com/docs/components",
+            "https://ui.shadcn.com/docs/theming",
+            "https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4"
+        ]
+    }
+} as const satisfies ComponentDesignDocuments;
+
+export const guide = {
+    "definition": "Tree 用可展开节点展示父子层级，支持选择、勾选、拖拽、筛选和内联编辑。它适合真实层级数据，展开状态、选择状态和勾选状态彼此独立。",
+    "useWhen": [
+        "目录、组织架构或资源拥有清楚的父子关系。",
+        "用户需要逐层展开，并可能移动、重命名或批量勾选节点。"
+    ],
+    "avoidWhen": [
+        "平面选项使用 List/Select；层级很深且需要精确比较字段时考虑 Tree table。"
+    ],
+    "essentials": [
+        "每个节点使用稳定 key，children 表示真实父子关系。",
+        "expandedKeys、selectedKeys 与 checkedKeys 分别管理不同状态。",
+        "拖拽 allowDrop 只声明合法位置，数据更新仍由外层完成。"
+    ],
+    "accessibility": [
+        "实现 tree/treeitem 层级、展开、选中和集合位置信息，并支持方向键模型。",
+        "拖拽、内联编辑和筛选都有键盘替代路径，焦点节点在数据更新后仍可定位。"
+    ]
+} as const;

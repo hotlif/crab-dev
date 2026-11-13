@@ -3,6 +3,7 @@
  */
 
 import type { ComponentDemoRecord } from "../site/componentDemos.js";
+import type { ComponentDesignDocuments } from "../site/componentDesignGuide.js";
 
 export const demos = [
     {
@@ -156,3 +157,73 @@ export const demos = [
         "group": "功能演示"
     }
 ] as const satisfies readonly ComponentDemoRecord[];
+
+export const documents = {
+    "md3": {
+        "summary": "通过语义导航行、选中容器和分组标题组织目的地，强调当前位置。",
+        "usage": "导航项目用于到达位置，分组标题用于解释结构；展开状态与选中状态分开。",
+        "exampleDescription": "展开菜单分组并选择项目，观察色调选中行与分组标题的层级。",
+        "demos": [
+            "group.demo.tsx",
+            "basic.demo.tsx",
+            "collapsed.demo.tsx",
+            "horizontal.demo.tsx"
+        ],
+        "references": [
+            "https://m3.material.io/components/navigation-drawer/overview",
+            "https://material-web.dev/components/list/",
+            "https://github.com/material-components/material-web/tree/main/list"
+        ]
+    },
+    "macos": {
+        "summary": "以桌面侧栏式的紧凑行和强调色选中反馈组织导航内容。",
+        "usage": "图标与文字精确对齐，折叠后仍为目的地保留可访问名称。",
+        "exampleDescription": "收起和展开导航，检查桌面选中行、图标入口与标签的对应。",
+        "demos": [
+            "collapsed.demo.tsx",
+            "basic.demo.tsx",
+            "group.demo.tsx",
+            "horizontal.demo.tsx"
+        ],
+        "references": [
+            "https://developer.apple.com/design/human-interface-guidelines/components",
+            "https://developer.apple.com/design/human-interface-guidelines/accessibility"
+        ]
+    },
+    "shadcn": {
+        "summary": "用中性导航行和简洁分组组织页面入口，以边界和留白表达结构。",
+        "usage": "保持项目名称简短，子菜单与当前页要能通过展开和选中状态辨认。",
+        "exampleDescription": "操作基础导航项目，检查中性选中背景与可见的键盘焦点。",
+        "demos": [
+            "basic.demo.tsx",
+            "collapsed.demo.tsx",
+            "group.demo.tsx",
+            "horizontal.demo.tsx"
+        ],
+        "references": [
+            "https://ui.shadcn.com/docs/components",
+            "https://ui.shadcn.com/docs/theming",
+            "https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4"
+        ]
+    }
+} as const satisfies ComponentDesignDocuments;
+
+export const guide = {
+    "definition": "Menu 在本项目中组织页面和功能入口，支持水平、垂直、内嵌、分组和收起模式。它的选中状态必须与当前内容或路由一致，不能只是视觉高亮。",
+    "useWhen": [
+        "应用侧栏或顶部需要组织多个目的地。",
+        "入口存在稳定分组或层级，并需要展开、收起和当前项反馈。"
+    ],
+    "avoidWhen": [
+        "临时动作列表使用弹出菜单；同一区域切换少量同级内容使用 Tabs。"
+    ],
+    "essentials": [
+        "每个 item 使用稳定 key，title 是用户可读名称。",
+        "selectedKeys 表示当前位置，openKeys 表示展开层级，两者不是同一状态。",
+        "inlineCollapsed 只改变展示密度，收起后仍要让用户知道图标代表什么。"
+    ],
+    "accessibility": [
+        "导航容器提供名称，当前目的地与展开状态都要有语义。",
+        "支持 Tab 进入、方向键移动和可见焦点；收起图标需要 Tooltip 或等价名称。"
+    ]
+} as const;

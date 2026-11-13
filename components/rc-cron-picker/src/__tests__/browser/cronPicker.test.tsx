@@ -41,7 +41,7 @@ function expectDescriptionOutsidePanel(input: HTMLInputElement, dialog: HTMLElem
 }
 
 describe('CronPicker published validation placement', () => {
-    for (const designSystem of ['md3', 'apple', 'shadcn'] as const) {
+    for (const designSystem of ['md3', 'macos', 'shadcn'] as const) {
         for (const locale of ['zh-CN', 'en-US'] as const) {
             it(`keeps ${designSystem} ${locale} field text visible while an invalid draft preserves the committed plan`, async () => {
                 const changed = mock.fn();
@@ -83,7 +83,7 @@ describe('CronPicker published validation placement', () => {
 });
 
 describe('CronPicker published syntax direction', () => {
-    for (const designSystem of ['md3', 'apple', 'shadcn'] as const) {
+    for (const designSystem of ['md3', 'macos', 'shadcn'] as const) {
         for (const colorMode of ['light', 'dark'] as const) {
             it(`keeps ${designSystem} ${colorMode} Cron fields in syntax order across direction changes`, async () => {
                 const changed = mock.fn();

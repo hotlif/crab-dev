@@ -1,0 +1,44 @@
+{
+    "md3": {
+        "summary": "用关联选项与明确选中容器表达同一任务内的切换，选项保持紧密分组。",
+        "usage": "用于视图或筛选方式的选择，标签应简短且互相排斥，避免充当主导航。",
+        "exampleDescription": "在浅深色边界内切换选项，观察选中状态、禁用项与组内焦点。",
+        "demos": [
+            "designs.demo.tsx",
+            "basic.demo.tsx",
+            "block.demo.tsx",
+            "controlled.demo.tsx",
+            "disabled.demo.tsx",
+            "size.demo.tsx",
+            "with-icon.demo.tsx"
+        ]
+    },
+    "macos": {
+        "summary": "以共享背板和独立选中段呈现桌面分段控件，适合工具栏中的局部切换。",
+        "usage": "将同一任务的选项放入一个控件，保持段宽和文字对齐，避免重复叠加材质。",
+        "exampleDescription": "操作带图标的分段控件，检查共享背板、选中段和标签对齐。",
+        "demos": [
+            "with-icon.demo.tsx",
+            "basic.demo.tsx",
+            "block.demo.tsx",
+            "controlled.demo.tsx",
+            "designs.demo.tsx",
+            "disabled.demo.tsx",
+            "size.demo.tsx"
+        ]
+    },
+    "shadcn": {
+        "summary": "用中性轨道和清晰活动项提供局部选择，形成紧凑、简洁的切换入口。",
+        "usage": "选项数量适度，较长文案可使用整行布局，焦点与选中状态分别表达。",
+        "exampleDescription": "查看整行分段选择的排列，再切换活动项检查中性轨道的反馈。",
+        "demos": [
+            "block.demo.tsx",
+            "basic.demo.tsx",
+            "controlled.demo.tsx",
+            "designs.demo.tsx",
+            "disabled.demo.tsx",
+            "size.demo.tsx",
+            "with-icon.demo.tsx"
+        ]
+    }
+}

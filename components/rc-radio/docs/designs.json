@@ -1,0 +1,38 @@
+{
+    "md3": {
+        "summary": "以圆环、选中圆点和状态层表达互斥选择，让当前选项清晰可见。",
+        "usage": "同组项目共享一个选择语义，方向键移动与选择要保持符合分组行为。",
+        "exampleDescription": "对比未选、已选、禁用和错误状态，再用方向键检查单选组。",
+        "demos": [
+            "designs.demo.tsx",
+            "basic.demo.tsx",
+            "disabled.demo.tsx",
+            "group.demo.tsx",
+            "size.demo.tsx"
+        ]
+    },
+    "macos": {
+        "summary": "用紧凑填充圆盘和对比圆点表现桌面互斥设置，标签与控件精确对齐。",
+        "usage": "将相互排斥的设置放在同一组，长标签也要保留清晰的控件关联。",
+        "exampleDescription": "切换设置选项，观察强调圆盘和对比圆点以及分组焦点。",
+        "demos": [
+            "group.demo.tsx",
+            "basic.demo.tsx",
+            "designs.demo.tsx",
+            "disabled.demo.tsx",
+            "size.demo.tsx"
+        ]
+    },
+    "shadcn": {
+        "summary": "以细圆环、清晰圆点和简洁焦点轮廓表现单选，适合设置与表单。",
+        "usage": "选项文案应可独立理解，禁用状态仍需要能读出选项含义。",
+        "exampleDescription": "比较正常和禁用选项，再用键盘检查可操作项的选择反馈。",
+        "demos": [
+            "disabled.demo.tsx",
+            "basic.demo.tsx",
+            "designs.demo.tsx",
+            "group.demo.tsx",
+            "size.demo.tsx"
+        ]
+    }
+}

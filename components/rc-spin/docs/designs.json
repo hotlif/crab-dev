@@ -1,0 +1,42 @@
+{
+    "md3": {
+        "summary": "通过环形或 Expressive 加载指示表达未完成任务，提示文字解释等待内容。",
+        "usage": "未知进度使用不确定指示，短任务可延迟显示；减少动画时保留状态信息。",
+        "exampleDescription": "观察形状变化的加载指示与提示文字，再检查包裹内容时的等待状态。",
+        "demos": [
+            "expressive.demo.tsx",
+            "basic.demo.tsx",
+            "delay.demo.tsx",
+            "indicator.demo.tsx",
+            "size.demo.tsx",
+            "tip.demo.tsx",
+            "wrapper.demo.tsx"
+        ]
+    },
+    "macos": {
+        "summary": "以紧凑加载指示和简短说明反馈桌面任务状态，保留用户当前工作上下文。",
+        "usage": "局部任务使用局部指示，刷新已有内容时避免清空草稿或整片遮挡内容。",
+        "exampleDescription": "在内容区域开启加载，检查文字、交互区域和等待反馈的关系。",
+        "demos": [
+            "wrapper.demo.tsx",
+            "basic.demo.tsx",
+            "delay.demo.tsx",
+            "indicator.demo.tsx",
+            "size.demo.tsx",
+            "tip.demo.tsx"
+        ]
+    },
+    "shadcn": {
+        "summary": "用简洁环形指示和中性提示表达加载，等待信息与业务内容保持分层。",
+        "usage": "快速任务可设置延迟以减少闪烁，较长任务应解释正在进行的操作。",
+        "exampleDescription": "触发延迟加载，观察指示出现和结束时的变化以及内容稳定性。",
+        "demos": [
+            "delay.demo.tsx",
+            "basic.demo.tsx",
+            "indicator.demo.tsx",
+            "size.demo.tsx",
+            "tip.demo.tsx",
+            "wrapper.demo.tsx"
+        ]
+    }
+}

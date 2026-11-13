@@ -1,0 +1,38 @@
+{
+    "md3": {
+        "summary": "为独立运行内容建立隔离边界，视觉配置由明确的宿主契约传递。",
+        "usage": "隔离运行本身没有组件外观；加载、错误和重试应使用当前语义反馈。",
+        "exampleDescription": "触发加载失败并重试，检查状态提示与宿主内容之间的层级。",
+        "demos": [
+            "error-retry.demo.tsx",
+            "basic.demo.tsx",
+            "mount-sandbox.demo.tsx",
+            "network-web-component.demo.tsx",
+            "script-entry.demo.tsx"
+        ]
+    },
+    "macos": {
+        "summary": "在桌面工作区中承载隔离内容，让运行边界与窗口式内容区域清楚对应。",
+        "usage": "宿主需要明确传递配置和生命周期，不能假设隔离文档自动继承全部样式。",
+        "exampleDescription": "挂载与卸载隔离内容，检查工作区域中的运行状态和清理结果。",
+        "demos": [
+            "mount-sandbox.demo.tsx",
+            "basic.demo.tsx",
+            "error-retry.demo.tsx",
+            "network-web-component.demo.tsx",
+            "script-entry.demo.tsx"
+        ]
+    },
+    "shadcn": {
+        "summary": "为组合页面提供隔离运行能力，加载与错误状态融入中性内容区域。",
+        "usage": "把外部内容当作独立生命周期管理，失败时保留可读原因与重试入口。",
+        "exampleDescription": "加载基础隔离内容，观察内容边界与宿主反馈，并确认卸载行为。",
+        "demos": [
+            "basic.demo.tsx",
+            "error-retry.demo.tsx",
+            "mount-sandbox.demo.tsx",
+            "network-web-component.demo.tsx",
+            "script-entry.demo.tsx"
+        ]
+    }
+}

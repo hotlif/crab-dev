@@ -3,6 +3,7 @@
  */
 
 import type { ComponentDemoRecord } from "../site/componentDemos.js";
+import type { ComponentDesignDocuments } from "../site/componentDesignGuide.js";
 
 export const demos = [
     {
@@ -102,3 +103,70 @@ export const demos = [
         "group": "基础与位置"
     }
 ] as const satisfies readonly ComponentDemoRecord[];
+
+export const documents = {
+    "md3": {
+        "summary": "以简短浮动说明补充控件含义，帮助理解图标或被省略的文字。",
+        "usage": "提示不能承载必须操作的内容，也不能替代控件本身的可访问名称。",
+        "exampleDescription": "通过悬停和键盘聚焦打开说明，检查提示与触发控件的关联。",
+        "demos": [
+            "basic.demo.tsx",
+            "arrow.demo.tsx",
+            "placement.demo.tsx"
+        ],
+        "references": [
+            "https://m3.material.io/components/tooltips/overview",
+            "https://material-web.dev/components/",
+            "https://github.com/material-components/material-web"
+        ]
+    },
+    "macos": {
+        "summary": "为桌面工具提供轻量悬浮说明，让紧凑图标动作仍容易理解。",
+        "usage": "提示应简短并贴近触发对象，关闭后不能改变正在操作的焦点位置。",
+        "exampleDescription": "查看不同位置的工具提示，检查桌面工具周围的空间与可读性。",
+        "demos": [
+            "placement.demo.tsx",
+            "arrow.demo.tsx",
+            "basic.demo.tsx"
+        ],
+        "references": [
+            "https://developer.apple.com/design/human-interface-guidelines/components",
+            "https://developer.apple.com/design/human-interface-guidelines/accessibility"
+        ]
+    },
+    "shadcn": {
+        "summary": "用简洁浮层补充控件说明，清晰边界与文字优先于装饰。",
+        "usage": "较长帮助内容应放进页面或可操作面板，提示只补充当前控件的含义。",
+        "exampleDescription": "对比提示箭头与触发器的关系，再检查键盘聚焦时的说明。",
+        "demos": [
+            "arrow.demo.tsx",
+            "basic.demo.tsx",
+            "placement.demo.tsx"
+        ],
+        "references": [
+            "https://ui.shadcn.com/docs/components",
+            "https://ui.shadcn.com/docs/theming",
+            "https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4"
+        ]
+    }
+} as const satisfies ComponentDesignDocuments;
+
+export const guide = {
+    "definition": "Tooltip 在悬停或键盘聚焦时提供一小段补充说明，常用于只有图标的控件或被截断的术语。它不能承载完成任务所必需的信息或交互控件。",
+    "useWhen": [
+        "图标按钮需要解释动作名称。",
+        "简短术语或截断内容需要非阻塞补充。"
+    ],
+    "avoidWhen": [
+        "错误、帮助步骤和长说明应直接显示；包含按钮或表单的内容使用 Popover/Dialog 类组件。"
+    ],
+    "essentials": [
+        "title 简短直接，用户不看 Tooltip 也能完成主要任务。",
+        "placement 是偏好，碰撞时允许浮层自动调整。",
+        "arrow 只加强锚点关系，不应遮住触发器或内容。"
+    ],
+    "accessibility": [
+        "键盘聚焦与指针悬停都能打开，Escape 可关闭，移出后有合理延迟。",
+        "触发器通过 aria-describedby 关联说明；Tooltip 本身不接收焦点。"
+    ]
+} as const;

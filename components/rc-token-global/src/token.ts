@@ -110,6 +110,7 @@ export const vars = defineTokens({
     'radius.5': '--token-global-radius-5',
     'radius.6': '--token-global-radius-6',
     'radius.8': '--token-global-radius-8',
+    'radius.10': '--token-global-radius-10',
     'radius.full': '--token-global-radius-full',
     'radius.14': '--token-global-radius-14',
     'radius.24': '--token-global-radius-24',
@@ -119,6 +120,7 @@ export const vars = defineTokens({
     'font.family.cjk': '--token-global-font-family-cjk',
     'font.family.material': '--token-global-font-family-material',
     'font.size.xs': '--token-global-font-size-xs',
+    'font.size.13': '--token-global-font-size-13',
     'font.size.sm': '--token-global-font-size-sm',
     'font.size.md': '--token-global-font-size-md',
     'font.size.lg': '--token-global-font-size-lg',
@@ -396,6 +398,7 @@ const token = defineTokens({
         '5': `var(${vars['radius.5']}, 10px)`,
         '6': `var(${vars['radius.6']}, 12px)`,
         '8': `var(${vars['radius.8']}, 16px)`,
+        '10': `var(${vars['radius.10']}, 20px)`,
         'full': `var(${vars['radius.full']}, 9999px)`,
         '14': `var(${vars['radius.14']}, 28px)`,
         '24': `var(${vars['radius.24']}, 48px)`
@@ -410,6 +413,7 @@ const token = defineTokens({
         },
         'size': {
             'xs': `var(${vars['font.size.xs']}, 12px)`,
+            '13': `var(${vars['font.size.13']}, 13px)`,
             'sm': `var(${vars['font.size.sm']}, 14px)`,
             'md': `var(${vars['font.size.md']}, 16px)`,
             'lg': `var(${vars['font.size.lg']}, 18px)`,

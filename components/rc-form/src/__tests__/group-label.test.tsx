@@ -23,7 +23,7 @@ function caption(group: HTMLElement): HTMLElement {
 }
 
 describe('Form.Item external group labels', () => {
-    for (const designSystem of ['md3', 'apple', 'shadcn'] as const) {
+    for (const designSystem of ['md3', 'macos', 'shadcn'] as const) {
         for (const colorMode of ['light', 'dark'] as const) {
             it(`names each group while preserving option names: ${designSystem}/${colorMode}`, async () => {
                 const { container } = await render(<ConfigProvider designSystem={designSystem} colorMode={colorMode}>

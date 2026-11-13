@@ -92,17 +92,17 @@ describe("WorkbenchPreview", () => {
             const input = screen.getByLabelText("preserved-input");
             const initial = screen.getByLabelText("all-axes");
             expect(initial.textContent?.endsWith("/medium/standard/zh-CN/ltr")).toBe(true);
-            await sendConfiguration(window.parent, window.location.origin, "apple", "dark", { size: "large", density: "compact", locale: "en-US", direction: "rtl" });
+            await sendConfiguration(window.parent, window.location.origin, "macos", "dark", { size: "large", density: "compact", locale: "en-US", direction: "rtl" });
             for (const name of ["all-axes", "nested-axes", "portal-axes"]) {
                 const probe = screen.getByLabelText(name);
-                expect(probe.textContent).toBe("apple/dark/large/compact/en-US/rtl");
+                expect(probe.textContent).toBe("macos/dark/large/compact/en-US/rtl");
                 const boundary = probe.parentElement;
                 expect(boundary?.getAttribute("data-crab-size")).toBe("large");
                 expect(boundary?.getAttribute("data-crab-density")).toBe("compact");
                 expect(boundary?.getAttribute("lang")).toBe("en-US");
                 expect(boundary?.getAttribute("dir")).toBe("rtl");
             }
-            expect(screen.getByLabelText("explicit-axes").textContent).toBe("apple/dark/small/comfortable/zh-CN/ltr");
+            expect(screen.getByLabelText("explicit-axes").textContent).toBe("macos/dark/small/comfortable/zh-CN/ltr");
             await sendConfiguration(window.parent, window.location.origin, "shadcn", "light");
             expect(initial.textContent).toBe("shadcn/light/large/compact/en-US/rtl");
             expect(screen.getByLabelText("portal-axes").textContent).toBe("shadcn/light/large/compact/en-US/rtl");
@@ -135,7 +135,7 @@ describe("WorkbenchPreview", () => {
             const input = screen.getByLabelText("brand-draft");
             if (!(input instanceof HTMLInputElement)) throw new Error("草稿应为输入框");
             await fireEvent.change(input, { target: { value: "edited draft" } });
-            await sendConfiguration(window.parent, window.location.origin, "apple", "dark", {
+            await sendConfiguration(window.parent, window.location.origin, "macos", "dark", {
                 size: "large", density: "compact", locale: "en-US", direction: "rtl", brandColor: "#AbC", nonce: "preview-nonce",
             });
             for (const name of ["brand-axes", "nested-brand-axes", "portal-brand-axes"]) {
@@ -147,7 +147,7 @@ describe("WorkbenchPreview", () => {
 
             // A change confined to these fields must not be swallowed by the
             // equality check for the other six configuration fields.
-            await sendConfiguration(window.parent, window.location.origin, "apple", "dark", { brandColor: "#123456", nonce: "next-nonce" });
+            await sendConfiguration(window.parent, window.location.origin, "macos", "dark", { brandColor: "#123456", nonce: "next-nonce" });
             expect(probe.textContent).toBe(JSON.stringify({ brandColor: "#123456", nonce: "next-nonce" }));
             await sendConfiguration(window.parent, window.location.origin, "shadcn", "light");
             expect(probe.textContent).toBe(JSON.stringify({ brandColor: "#123456", nonce: "next-nonce" }));
@@ -187,11 +187,11 @@ describe("WorkbenchPreview", () => {
             const probe = screen.getByLabelText("inherited-brand-axes");
             const inherited = JSON.stringify({ brandColor: "#2468ac", nonce: "outer-nonce" });
             expect(probe.textContent).toBe(inherited);
-            await sendConfiguration(window.parent, window.location.origin, "apple", "dark", { brandColor: "#123456", nonce: "local-nonce" });
+            await sendConfiguration(window.parent, window.location.origin, "macos", "dark", { brandColor: "#123456", nonce: "local-nonce" });
             expect(probe.textContent).toBe(JSON.stringify({ brandColor: "#123456", nonce: "local-nonce" }));
-            await sendConfiguration(window.parent, window.location.origin, "apple", "dark", { brandColor: undefined, nonce: undefined });
+            await sendConfiguration(window.parent, window.location.origin, "macos", "dark", { brandColor: undefined, nonce: undefined });
             expect(probe.textContent).toBe(inherited);
-            await sendConfiguration(window.parent, window.location.origin, "apple", "dark", { brandColor: null });
+            await sendConfiguration(window.parent, window.location.origin, "macos", "dark", { brandColor: null });
             expect(probe.textContent).toBe(JSON.stringify({ brandColor: null, nonce: "outer-nonce" }));
             expect(probe.parentElement?.querySelector("style[data-crab-brand-style]")).toBeNull();
         } finally {
@@ -212,13 +212,13 @@ describe("WorkbenchPreview", () => {
             const expected = "md3/light/medium/standard/zh-CN/ltr";
             for (const axes of [{ size: "xl" }, { density: "small" }, { locale: "fr-FR" }, { direction: "auto" }, { size: null }, { density: 1 },
                 { brandColor: "red" }, { brandColor: "#ggg" }, { brandColor: 1 }, { nonce: null }, { nonce: 1 }]) {
-                await sendConfiguration(window.parent, window.location.origin, "apple", "dark", axes);
+                await sendConfiguration(window.parent, window.location.origin, "macos", "dark", axes);
                 expect(screen.getByLabelText("all-axes").textContent).toBe(expected);
                 expect(document.documentElement.dataset.crabDesign).toBe("md3");
                 expect(document.documentElement.dataset.theme).toBe("light");
             }
-            await sendConfiguration({}, window.location.origin, "apple", "dark", { direction: "rtl" });
-            await sendConfiguration(window.parent, "https://untrusted.example", "apple", "dark", { locale: "en-US" });
+            await sendConfiguration({}, window.location.origin, "macos", "dark", { direction: "rtl" });
+            await sendConfiguration(window.parent, "https://untrusted.example", "macos", "dark", { locale: "en-US" });
             expect(screen.getByLabelText("all-axes").textContent).toBe(expected);
         } finally {
             await unmount();
@@ -251,11 +251,11 @@ describe("WorkbenchPreview", () => {
             expect(portal.textContent).toBe("shadcn/dark");
             expect(portal.parentElement?.dataset.crabDesign).toBe("shadcn");
             expect(screen.getByLabelText("explicit").textContent).toBe("md3/light");
-            await sendConfiguration(window.parent, window.location.origin, "apple");
-            expect(screen.getByLabelText("demo").textContent).toBe("apple/dark");
-            expect(screen.getByLabelText("nested").textContent).toBe("apple/dark");
-            expect(portal.textContent).toBe("apple/dark");
-            expect(portal.parentElement?.dataset.crabDesign).toBe("apple");
+            await sendConfiguration(window.parent, window.location.origin, "macos");
+            expect(screen.getByLabelText("demo").textContent).toBe("macos/dark");
+            expect(screen.getByLabelText("nested").textContent).toBe("macos/dark");
+            expect(portal.textContent).toBe("macos/dark");
+            expect(portal.parentElement?.dataset.crabDesign).toBe("macos");
             expect(screen.getByLabelText("explicit").textContent).toBe("md3/light");
             await sendConfiguration(window.parent, window.location.origin, "md3", "light");
             expect(screen.getByLabelText("demo").textContent).toBe("md3/light");
@@ -279,7 +279,7 @@ describe("WorkbenchPreview", () => {
             await sendConfiguration(window.parent, "https://untrusted.example", "shadcn");
             await sendConfiguration(window.parent, window.location.origin, "unknown");
             await sendConfiguration(window.parent, window.location.origin, "material");
-            await sendConfiguration(window.parent, window.location.origin, "macos");
+            await sendConfiguration(window.parent, window.location.origin, "apple");
             expect(screen.getByLabelText("demo").textContent).toBe(initial);
         } finally {
             await unmount();
@@ -349,8 +349,8 @@ describe("WorkbenchPreview", () => {
             expect(document.documentElement.dataset.crabDesign).toBe("shadcn");
             await sendStoredDesign("md3");
             expect(screen.getByLabelText("demo").textContent?.startsWith("md3/")).toBe(true);
-            await sendStoredDesign("apple");
-            expect(screen.getByLabelText("demo").textContent?.startsWith("apple/")).toBe(true);
+            await sendStoredDesign("macos");
+            expect(screen.getByLabelText("demo").textContent?.startsWith("macos/")).toBe(true);
             await sendStoredDesign(null, null);
             expect(screen.getByLabelText("demo").textContent?.startsWith("md3/")).toBe(true);
         } finally {
@@ -424,12 +424,12 @@ describe("WorkbenchPreview", () => {
             await sendStoredDesign("shadcn");
             expect(screen.getByLabelText("demo").textContent?.startsWith("shadcn/")).toBe(true);
             expect(stage?.getAttribute("data-crab-design")).toBe("shadcn");
-            await sendConfiguration(parentWindow, window.location.origin, "apple", "dark");
+            await sendConfiguration(parentWindow, window.location.origin, "macos", "dark");
             await sendStoredDesign("md3");
             await sendStoredDesign("light", "wake-docs-theme");
-            expect(screen.getByLabelText("demo").textContent).toBe("apple/dark");
-            expect(document.documentElement.dataset.crabDesign).toBe("apple");
-            expect(stage?.getAttribute("data-crab-design")).toBe("apple");
+            expect(screen.getByLabelText("demo").textContent).toBe("macos/dark");
+            expect(document.documentElement.dataset.crabDesign).toBe("macos");
+            expect(stage?.getAttribute("data-crab-design")).toBe("macos");
             expect(stage?.getAttribute("data-theme")).toBe("dark");
         } finally {
             await unmount?.();

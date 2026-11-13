@@ -1,6 +1,6 @@
 export const meta = {
     title: "基础用法",
-    description: "三主题统一呈现上置标签，MD3 采用紧凑桌面尺寸并保留色调表面与状态边框。通过顶部外观菜单统一切换。",
+    description: "使用上置标签编辑单行内容，字段尺寸、表面和焦点反馈继承当前文档主题。",
 };
 
 import { css } from "@crab-dev/css";

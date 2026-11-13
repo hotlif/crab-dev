@@ -8,7 +8,7 @@ for (const config of configurations) {
         const summaries = root.locator('[data-resolved-config]');
         await expect(summaries).toHaveCount(4);
         const inherited = { designSystem: 'md3', colorMode: 'dark', size: 'large', density: 'compact', locale: 'en-US', direction: 'rtl', brandColor: '#0e7490', nonce: 'nested-boundary' };
-        await expect.poll(() => summaries.evaluateAll(nodes => nodes.map(node => JSON.parse(node.getAttribute('data-resolved-config'))))).toEqual([inherited, { ...inherited, designSystem: 'shadcn', colorMode: 'light' }, { ...inherited, designSystem: 'apple' }, inherited]);
+        await expect.poll(() => summaries.evaluateAll(nodes => nodes.map(node => JSON.parse(node.getAttribute('data-resolved-config'))))).toEqual([inherited, { ...inherited, designSystem: 'shadcn', colorMode: 'light' }, { ...inherited, designSystem: 'macos' }, inherited]);
         await captureVisual(root, `${config.designSystem}-${config.colorMode}-public-nested-boundaries.png`, info, browserName);
     });
     test(`document boundaries ${config.designSystem} ${config.colorMode}`, { tag: ['@rc-config-provider', '@boundary'] }, async ({ page, previewOrigin, browserName }, info) => {

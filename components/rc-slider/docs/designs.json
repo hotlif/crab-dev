@@ -1,0 +1,32 @@
+{
+    "md3": {
+        "summary": "以轨道间隙、竖向手柄和终点反馈表达连续值，尺寸影响真实操作几何。",
+        "usage": "为滑块提供用途名称和可读数值，键盘步进应符合实际业务精度。",
+        "exampleDescription": "调整五档尺寸的滑块，观察竖向手柄、轨道间隙和数值变化。",
+        "demos": [
+            "expressive.demo.tsx",
+            "base.demo.tsx",
+            "designs.demo.tsx"
+        ]
+    },
+    "macos": {
+        "summary": "以细轨道和窄胶囊手柄提供桌面连续值调整，适合音量或设置检查器。",
+        "usage": "当前值需要文字或数值补充，紧凑布局也要保持手柄可辨认和焦点可见。",
+        "exampleDescription": "操作滑块并读取百分比，检查桌面手柄、禁用状态和键盘步进。",
+        "demos": [
+            "designs.demo.tsx",
+            "base.demo.tsx",
+            "expressive.demo.tsx"
+        ]
+    },
+    "shadcn": {
+        "summary": "用简洁轨道和圆形手柄表达连续选择，选中部分与未选轨道清楚区分。",
+        "usage": "给滑块标注单位和范围，避免仅凭位置让用户推断当前数值。",
+        "exampleDescription": "拖动手柄后使用方向键微调，检查圆形手柄与中性轨道的反馈。",
+        "demos": [
+            "base.demo.tsx",
+            "designs.demo.tsx",
+            "expressive.demo.tsx"
+        ]
+    }
+}

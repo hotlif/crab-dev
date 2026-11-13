@@ -13,6 +13,7 @@ import { EmptyFeedback, ErrorFeedback } from "./feedback.js";
 
 import { SearchIcon } from "./icons.js";
 import { SearchReturnFocusContext } from "./search-return-focus.js";
+import { componentDesignSummaries, componentDemoDesigns } from "../../_generated/component-design-summaries.js";
 
 export function SearchDialog({ search, route, theme }: UI.SearchDialogProps) {
     const { designSystem: design } = useConfig();
@@ -22,8 +23,13 @@ export function SearchDialog({ search, route, theme }: UI.SearchDialogProps) {
     const input = useRef<HTMLInputElement>(null);
     const list = useRef<HTMLUListElement>(null);
     const navigating = useRef(false);
-    const results = search.loading || search.error ? [] : search.results;
-    const activeResult = results[search.activeIndex];
+    const results = search.loading || search.error ? [] : search.results.filter(result => {
+        const component = result.slug.split(/[\/#]/).find(part => part.startsWith("rc-"));
+        const designs = component ? componentDemoDesigns[component]?.[result.title] : undefined;
+        return !designs || designs.includes(design);
+    });
+    const activeIndex = Math.min(search.activeIndex, results.length - 1);
+    const activeResult = results[activeIndex];
     const closed = () => {
         const returnToSearch = searchReturnFocus?.current;
         if (searchReturnFocus) searchReturnFocus.current = false;
@@ -102,7 +108,7 @@ export function SearchDialog({ search, route, theme }: UI.SearchDialogProps) {
                         aria-expanded={results.length > 0}
                         aria-controls={`${id}-results`}
                         aria-activedescendant={
-                            activeResult ? `${id}-result-${search.activeIndex}` : undefined
+                            activeResult ? `${id}-result-${activeIndex}` : undefined
                         }
                         aria-describedby={`${id}-help`}
                         autoComplete="off"
@@ -136,12 +142,12 @@ export function SearchDialog({ search, route, theme }: UI.SearchDialogProps) {
                             if (event.key === "ArrowDown" && results.length) {
                                 event.preventDefault();
                                 search.setActiveIndex(
-                                    Math.min(search.activeIndex + 1, results.length - 1),
+                                    Math.min(activeIndex + 1, results.length - 1),
                                 );
                             }
                             if (event.key === "ArrowUp" && results.length) {
                                 event.preventDefault();
-                                search.setActiveIndex(Math.max(search.activeIndex - 1, 0));
+                                search.setActiveIndex(Math.max(activeIndex - 1, 0));
                             }
                             if (event.key === "Enter" && activeResult) {
                                 event.preventDefault();
@@ -191,8 +197,11 @@ export function SearchDialog({ search, route, theme }: UI.SearchDialogProps) {
                             const separator = result.title.indexOf(" — ");
                             const title =
                                 separator > 0 ? result.title.slice(0, separator) : result.title;
-                            const detail =
-                                separator > 0 ? result.title.slice(separator + 3) : result.detail;
+                            const component = result.slug.split(/[\/#]/).find(part => part.startsWith("rc-"));
+                            const detail = separator > 0 ? result.title.slice(separator + 3)
+                                : result.kind === "component" && !result.slug.includes("#") && component && componentDesignSummaries[component]
+                                ? componentDesignSummaries[component]?.[design]
+                                : result.detail;
                             const kind = searchResultKind(result.kind);
                             return (
                                 <li key={`${result.slug}-${index}`} role="presentation">
@@ -201,7 +210,7 @@ export function SearchDialog({ search, route, theme }: UI.SearchDialogProps) {
                                         id={`${id}-result-${index}`}
                                         role="option"
                                         tabIndex={-1}
-                                        aria-selected={index === search.activeIndex}
+                                        aria-selected={index === activeIndex}
                                         aria-label={title}
                                         aria-describedby={`${id}-detail-${index}${separator > 0 ? ` ${id}-source-${index}` : ""}`}
                                         onClick={() => choose(result.slug)}

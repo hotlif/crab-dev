@@ -107,9 +107,9 @@ globalStyle`
         --token-semantic-status-spinner-easing: linear;
     }
 
-    [data-crab-design="apple"] {
-        --token-semantic-overlay-dialog-background: var(--token-semantic-color-surface-overlay);
-        --token-semantic-overlay-dialog-border: var(--token-semantic-color-border-subtle);
+    [data-crab-design="macos"] {
+        --token-semantic-overlay-dialog-background: var(--token-semantic-material-background);
+        --token-semantic-overlay-dialog-border: var(--token-semantic-material-border);
         --token-semantic-overlay-dialog-confirm-background: var(--token-semantic-color-brand-primary);
         --token-semantic-overlay-dialog-confirm-foreground: var(--token-semantic-color-text-on-brand);
         --token-semantic-overlay-dialog-confirm-border: transparent;
@@ -118,25 +118,25 @@ globalStyle`
         --token-semantic-overlay-dialog-confirm-pressed: var(--token-semantic-color-brand-primary-active);
         --token-semantic-overlay-dialog-cancel-background: var(--token-semantic-color-background-surface);
         --token-semantic-overlay-dialog-cancel-foreground: var(--token-semantic-color-text-primary);
-        --token-semantic-overlay-dialog-cancel-border: var(--token-semantic-color-border-subtle);
+        --token-semantic-overlay-dialog-cancel-border: var(--token-semantic-material-border);
         --token-semantic-overlay-dialog-cancel-hover: var(--token-semantic-color-background-hover-subtle);
         --token-semantic-overlay-dialog-cancel-focus: var(--token-semantic-color-background-hover-subtle);
         --token-semantic-overlay-dialog-cancel-pressed: var(--token-semantic-color-background-active-subtle);
-        --token-semantic-overlay-sheet-background: var(--token-semantic-color-surface-overlay);
-        --token-semantic-overlay-sheet-shape: ${token.radius[6]};
-        --token-semantic-overlay-sheet-border: var(--token-semantic-color-border-subtle);
-        --token-semantic-overlay-popover-background: var(--token-semantic-color-surface-overlay);
-        --token-semantic-overlay-popover-shape: ${token.radius[3]};
-        --token-semantic-overlay-popover-border: var(--token-semantic-color-border-subtle);
-        --token-semantic-overlay-tooltip-background: var(--token-semantic-color-surface-overlay);
+        --token-semantic-overlay-sheet-background: var(--token-semantic-material-background);
+        --token-semantic-overlay-sheet-shape: ${token.radius[10]};
+        --token-semantic-overlay-sheet-border: var(--token-semantic-material-border);
+        --token-semantic-overlay-popover-background: var(--token-semantic-material-background);
+        --token-semantic-overlay-popover-shape: ${token.radius[10]};
+        --token-semantic-overlay-popover-border: var(--token-semantic-material-border);
+        --token-semantic-overlay-tooltip-background: var(--token-semantic-material-background);
         --token-semantic-overlay-tooltip-foreground: var(--token-semantic-color-text-primary);
-        --token-semantic-overlay-tooltip-shape: ${token.radius[2]};
+        --token-semantic-overlay-tooltip-shape: ${token.radius[5]};
         --token-semantic-overlay-tooltip-shadow: ${token.shadow.md};
-        --token-semantic-overlay-tooltip-border: var(--token-semantic-color-border-subtle);
-        --token-semantic-feedback-toast-background: var(--token-semantic-color-surface-overlay);
+        --token-semantic-overlay-tooltip-border: var(--token-semantic-material-border);
+        --token-semantic-feedback-toast-background: var(--token-semantic-material-background);
         --token-semantic-feedback-toast-foreground: var(--token-semantic-color-text-primary);
         --token-semantic-feedback-toast-shape: ${token.radius[6]};
-        --token-semantic-feedback-toast-border: var(--token-semantic-color-border-subtle);
+        --token-semantic-feedback-toast-border: var(--token-semantic-material-border);
         --token-semantic-feedback-notice-shape: ${token.radius[8]};
         --token-semantic-feedback-banner-shape: ${token.radius[5]};
         --token-semantic-feedback-banner-padding: ${token.space[3]} ${token.space[4]};

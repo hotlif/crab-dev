@@ -21,7 +21,7 @@ export function isSiteDesign(value: unknown): value is DesignSystem {
 /** Legacy identifiers are accepted only when reading a saved browser preference. */
 export function migrateSiteDesignPreference(value: unknown): DesignSystem | undefined {
     if (value === "material") return "md3";
-    if (value === "macos") return "apple";
+    if (value === "apple") return "macos";
     return isSiteDesign(value) ? value : undefined;
 }
 

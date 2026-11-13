@@ -18,9 +18,9 @@ const hostReset = `@media (prefers-reduced-motion: reduce) {
 const ordinaryAnimation = `@keyframes ordinary-decoration { to { transform: translateX(24px); } }
     [data-ordinary-decoration] { width:20px;height:20px;background:currentColor;animation:ordinary-decoration 2s linear infinite; }`;
 const params = new URLSearchParams(location.search);
-const designSystem = params.get('designSystem') as 'md3' | 'apple' | 'shadcn';
+const designSystem = params.get('designSystem') as 'md3' | 'macos' | 'shadcn';
 const colorMode = params.get('colorMode') as 'light' | 'dark';
-check(['md3', 'apple', 'shadcn'].includes(designSystem) && ['light', 'dark'].includes(colorMode), 'Invalid configuration');
+check(['md3', 'macos', 'shadcn'].includes(designSystem) && ['light', 'dark'].includes(colorMode), 'Invalid configuration');
 const host = document.getElementById('root');
 check(host, 'Missing host');
 const root = createRoot(host);

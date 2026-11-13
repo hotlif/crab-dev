@@ -87,8 +87,8 @@ describe("设计体系演示", () => {
         const text = screen.getByRole("textbox", { name: "项目名称" });
         await fireEvent.click(option.closest("label")!);
         expect(option.checked).toBe(true);
-        await fireEvent.click(screen.getByRole("radio", { name: "Apple" }));
-        expect(screen.getByRole("group", { name: "三种风格交互对照" }).getAttribute("data-crab-design")).toBe("apple");
+        await fireEvent.click(screen.getByRole("radio", { name: "macOS" }));
+        expect(screen.getByRole("group", { name: "三种风格交互对照" }).getAttribute("data-crab-design")).toBe("macos");
         expect(screen.getByRole("checkbox", { name: "未选择" })).toBe(option);
         expect(option.checked).toBe(true);
         expect(screen.getByRole("textbox", { name: "项目名称" })).toBe(text);

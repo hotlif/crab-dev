@@ -13,7 +13,7 @@ status = "experimental"
 
 ## 三套主题的复合取色
 
-颜色面板复用 Select、LineEdit、Slider 与 Button，格式菜单、颜色值输入和动作随 Apple、MD3、shadcn 的共享主题更新；颜色预览和实际色值不随界面主题改变。演示标签和说明改用语义色，以保证浅色与深色一致。
+颜色面板复用 Select、LineEdit、Slider 与 Button，格式菜单、颜色值输入和动作随 macOS、MD3、shadcn 的共享主题更新；颜色预览和实际色值不随界面主题改变。演示标签和说明改用语义色，以保证浅色与深色一致。
 
 取色触发器的悬停、按下和键盘焦点分别有独立反馈；禁用触发器保持禁用表面并阻止展开，反馈不改变色值预览。
 
@@ -42,14 +42,14 @@ status = "experimental"
 | 体系 | 组合规格 | 扩展依据 |
 | --- | --- | --- |
 | MD3 Expressive | 使用字段、slider、Button 与色调 popover 的统一角色 | MD3 没有同名 OKLCh 取色器，颜色预览、预设与透明度属于专业桌面扩展 |
-| Apple | 可识别的 color well、紧凑面板、准确数值与明确确认/取消 | 依据 color well/popover 原则自主 Web 实现，不替代系统取色器 |
+| macOS | 可识别的 color well、紧凑面板、准确数值与明确确认/取消 | 依据 color well/popover 原则自主 Web 实现，不替代系统取色器 |
 | shadcn New York V4 | 中性 popover、描边字段、紧凑滑块与清晰焦点 | 组合公开基础组件，OKLCh/预设/格式与吸管属于本库扩展 |
 
 三体系复用 Slider、Select、LineEdit、Button 的公开协议；L3 维护预览、轨道、面板宽度和操作间距，不追加第二套主题。颜色是用户数据，预览和预设在强制颜色下保留真实颜色；控件边界与焦点使用系统颜色。small/medium/large 改变触发器色样，命中区域独立保持；collection density 不缩放色样或连续数值轨道。窄屏操作自然换行。
 
 `visual.json` 展开三体系浅深色 × 三尺寸 × default、hover、focus-visible、pressed、disabled、expanded、edited。点击、Tab 和方向键真实进入状态，expanded 核对四个 slider，edited 核对草稿值变化；整页截图包含父浮层。内部格式 Select 的打开与选择由边界行为场景核对，没有对应展开截图时不计为嵌套菜单外观已验。Firefox/WebKit 默认、焦点、展开与编辑子集在 `crossEngine` 声明。
 
-来源：[Material Web Select](https://material-web.dev/components/select/) / [Slider](https://material-web.dev/components/slider/)；[Apple color wells](https://developer.apple.com/design/human-interface-guidelines/color-wells) 和 [popovers](https://developer.apple.com/design/human-interface-guidelines/popovers)；[shadcn 固定 Popover 源码](https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui/popover.tsx)。没有官方同名映射时只声明组合依据，不宣称官方组件完全对齐。
+来源：[Material Web Select](https://material-web.dev/components/select/) / [Slider](https://material-web.dev/components/slider/)；[macOS color wells](https://developer.apple.com/design/human-interface-guidelines/color-wells) 和 [popovers](https://developer.apple.com/design/human-interface-guidelines/popovers)；[shadcn 固定 Popover 源码](https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui/popover.tsx)。没有官方同名映射时只声明组合依据，不宣称官方组件完全对齐。
 
 额外场景核对配置切换保留当前输入节点与未确认草稿、嵌套格式菜单不关闭父层、320/768px、RTL/英文、品牌、强制颜色和减少动画。EyeDropper 由真实浏览器特性检测，未模拟为跨浏览器可用。最终以绑定实际构建的自动报告与逐项人工外观为准。
 

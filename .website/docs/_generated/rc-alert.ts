@@ -3,6 +3,7 @@
  */
 
 import type { ComponentDemoRecord } from "../site/componentDemos.js";
+import type { ComponentDesignDocuments } from "../site/componentDesignGuide.js";
 
 export const demos = [
     {
@@ -115,3 +116,70 @@ export const demos = [
         "group": null
     }
 ] as const satisfies readonly ComponentDemoRecord[];
+
+export const documents = {
+    "md3": {
+        "summary": "以色调容器承载持续反馈，标题与图标共同说明信息、成功、警告或错误。内联提示是项目扩展。",
+        "usage": "把提示放在受影响内容附近，主要操作保留明确强调，关闭操作保持低强调。",
+        "exampleDescription": "从四种反馈开始，检查色调表面上的标题和说明，再尝试关闭提示。",
+        "demos": [
+            "basic.demo.tsx",
+            "closable.demo.tsx",
+            "title.demo.tsx"
+        ],
+        "references": [
+            "https://m3.material.io/components/snackbar/overview",
+            "https://material-web.dev/components/",
+            "https://github.com/material-components/material-web"
+        ]
+    },
+    "macos": {
+        "summary": "以轻量反馈底色和紧凑标题提示当前工作区的状态，内容与关闭操作清晰分开。",
+        "usage": "在设置或文档区域保留持续提示，避免用浮动材质遮住需要阅读的错误详情。",
+        "exampleDescription": "关闭一条工作区提示，观察剩余内容的位置，并检查关闭按钮的键盘焦点。",
+        "demos": [
+            "closable.demo.tsx",
+            "basic.demo.tsx",
+            "title.demo.tsx"
+        ],
+        "references": [
+            "https://developer.apple.com/design/human-interface-guidelines/components",
+            "https://developer.apple.com/design/human-interface-guidelines/accessibility"
+        ]
+    },
+    "shadcn": {
+        "summary": "用中性表面、细描边与文字层级组织内联反馈，危险状态通过图标和文案共同表达。",
+        "usage": "适合表单和管理页面中的局部提示；语义状态色是本库在基础提示模式上的扩展。",
+        "exampleDescription": "先查看带标题的提示，再对比基础反馈，确认长说明仍保持清晰阅读层级。",
+        "demos": [
+            "title.demo.tsx",
+            "basic.demo.tsx",
+            "closable.demo.tsx"
+        ],
+        "references": [
+            "https://ui.shadcn.com/docs/components",
+            "https://ui.shadcn.com/docs/theming",
+            "https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4"
+        ]
+    }
+} as const satisfies ComponentDesignDocuments;
+
+export const guide = {
+    "definition": "Alert 是放在页面内容中的持续提示，用标题说明发生了什么，用正文解释原因、影响和下一步。它不会像短暂消息那样自动消失，因此适合需要用户读完再继续的状态信息。",
+    "useWhen": [
+        "保存结果、权限限制或风险说明需要一直留在当前上下文中。",
+        "一段内容需要 success、info、warning 或 error 语义，并可能允许用户关闭。"
+    ],
+    "avoidWhen": [
+        "只需短暂确认一次操作结果时使用 Message；必须打断流程并要求决策时使用 Dialog。"
+    ],
+    "essentials": [
+        "先选 type，再写能独立成立的 title，children 只补充原因和行动。",
+        "closable 只表示可以移除提示，业务状态仍应由外部状态管理。",
+        "提示离相关内容越近，用户越容易理解它影响的是哪一部分。"
+    ],
+    "accessibility": [
+        "不要只靠颜色区分状态，标题或正文应直接写出成功、警告或错误含义。",
+        "动态出现的重要错误需要合适的状态通告；可关闭提示必须提供可访问名称清楚的关闭按钮。"
+    ]
+} as const;

@@ -49,7 +49,7 @@ function expectUnitClearOfFocusRing(unit: HTMLElement, target: HTMLButtonElement
 }
 
 describe('NumberEdit unit and actual stepper focus geometry', () => {
-    for (const designSystem of ['md3', 'apple', 'shadcn'] as const) {
+    for (const designSystem of ['md3', 'macos', 'shadcn'] as const) {
         for (const colorMode of ['light', 'dark'] as const) {
             it(`preserves select-all requested by the consumer when focus changes numeric formatting (${designSystem}/${colorMode})`, async () => {
                 for (const appearance of ['outlined', 'filled'] as const) {

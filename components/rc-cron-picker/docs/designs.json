@@ -1,0 +1,32 @@
+{
+    "md3": {
+        "summary": "以清晰的时间字段和语义分组编辑周期任务表达式，是时间选择模式的项目扩展。",
+        "usage": "将周期选择与最终表达式一同呈现，保存动作要明确说明任务执行频率。",
+        "exampleDescription": "选择任务周期并读取表达式，观察分组字段和主要操作之间的层级。",
+        "demos": [
+            "basic.demo.tsx",
+            "controlled.demo.tsx",
+            "sizes.demo.tsx"
+        ]
+    },
+    "macos": {
+        "summary": "以桌面设置面板的紧凑字段组织任务周期，让重复执行规则容易检查。",
+        "usage": "在设置表单中保留表达式预览；复杂周期需要提供可读的业务说明。",
+        "exampleDescription": "修改受控周期并观察外部结果，检查设置保存前后的值是否一致。",
+        "demos": [
+            "controlled.demo.tsx",
+            "basic.demo.tsx",
+            "sizes.demo.tsx"
+        ]
+    },
+    "shadcn": {
+        "summary": "以中性字段、简洁分区和文本结果构成周期编辑器，适合管理后台。",
+        "usage": "表达式编辑是本库组合能力，应让用户能核对生成结果及任务含义。",
+        "exampleDescription": "比较不同尺寸下的周期字段，确认密集表单中的标签和结果仍可读。",
+        "demos": [
+            "sizes.demo.tsx",
+            "basic.demo.tsx",
+            "controlled.demo.tsx"
+        ]
+    }
+}

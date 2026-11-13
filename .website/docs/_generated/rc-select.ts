@@ -3,6 +3,7 @@
  */
 
 import type { ComponentDemoRecord } from "../site/componentDemos.js";
+import type { ComponentDesignDocuments } from "../site/componentDesignGuide.js";
 
 export const demos = [
     {
@@ -40,7 +41,7 @@ export const demos = [
     {
         "id": "docs/demos/field-states.demo.tsx",
         "title": "标签与选择状态",
-        "description": "对照三套主题下的上置标签、选择面板、错误及禁用状态；切换主题保留当前值。",
+        "description": "检查上置标签、选择面板、错误及禁用状态，当前值与说明保持关联。",
         "learning": {
             "components": [
                 "Select"
@@ -62,7 +63,7 @@ export const demos = [
             "events": [],
             "hasState": false
         },
-        "sourceCode": "export const meta = {\n    title: \"标签与选择状态\",\n    description: \"对照三套主题下的上置标签、选择面板、错误及禁用状态；切换主题保留当前值。\",\n};\n\nimport { css } from \"@crab-dev/css\";\nimport token from \"@crab-dev/rc-token-semantic\";\nimport Select from \"../../src/index.js\";\n\nconst layout = css`\n    display: grid;\n    gap: ${token.space['group-gap']};\n    padding: ${token.space['section-gap']};\n`;\nconst options = [\n    { label: \"产品设计\", value: \"design\" },\n    { label: \"工程研发\", value: \"engineering\" },\n    { label: \"市场运营\", value: \"marketing\" },\n    { label: \"已归档团队\", value: \"archived\", disabled: true },\n];\n\nexport default function FieldStatesDemo() {\n    return \u003cdiv className={layout}>\n        \u003cSelect label=\"所属团队\" options={options} placeholder=\"选择团队\" searchable allowClear defaultValue=\"design\" supportingText=\"输入名称可以筛选团队。\" />\n        \u003cSelect label=\"审核团队\" options={options} appearance=\"filled\" required errorText=\"请选择一个审核团队。\" />\n        \u003cSelect label=\"参与团队\" options={options} multiple defaultValue={['design', 'engineering']} />\n        \u003cSelect label=\"归档团队\" options={options} disabled defaultValue=\"archived\" />\n    \u003c/div>;\n}\n",
+        "sourceCode": "export const meta = {\n    title: \"标签与选择状态\",\n    description: \"检查上置标签、选择面板、错误及禁用状态，当前值与说明保持关联。\",\n};\n\nimport { css } from \"@crab-dev/css\";\nimport token from \"@crab-dev/rc-token-semantic\";\nimport Select from '@crab-dev/rc-select';\n\nconst layout = css`\n    display: grid;\n    gap: ${token.space['group-gap']};\n    padding: ${token.space['section-gap']};\n`;\nconst options = [\n    { label: \"产品设计\", value: \"design\" },\n    { label: \"工程研发\", value: \"engineering\" },\n    { label: \"市场运营\", value: \"marketing\" },\n    { label: \"已归档团队\", value: \"archived\", disabled: true },\n];\n\nexport default function FieldStatesDemo() {\n    return \u003cdiv className={layout}>\n        \u003cSelect label=\"所属团队\" options={options} placeholder=\"选择团队\" searchable allowClear defaultValue=\"design\" supportingText=\"输入名称可以筛选团队。\" />\n        \u003cSelect label=\"审核团队\" options={options} appearance=\"filled\" required errorText=\"请选择一个审核团队。\" />\n        \u003cSelect label=\"参与团队\" options={options} multiple defaultValue={['design', 'engineering']} />\n        \u003cSelect label=\"归档团队\" options={options} disabled defaultValue=\"archived\" />\n    \u003c/div>;\n}\n",
         "previewPath": "/components/rc-select/workbench/?__wake_demo=docs%2Fdemos%2Ffield-states.demo.tsx",
         "workbenchPath": "/components/rc-select/workbench/#/components/docs%2Fdemos%2Ffield-states.demo.tsx",
         "density": "compact",
@@ -328,3 +329,94 @@ export const demos = [
         "group": "多选能力"
     }
 ] as const satisfies readonly ComponentDemoRecord[];
+
+export const documents = {
+    "md3": {
+        "summary": "以持续可见的标签和选择面板组织候选项，选中状态与字段错误清楚关联。",
+        "usage": "选择项多时提供搜索或分组，辅助说明放在字段附近，避免只依赖占位符。",
+        "exampleDescription": "打开选择面板并选择项目，检查标签、错误提示和选中容器。",
+        "demos": [
+            "field-states.demo.tsx",
+            "allowClear.demo.tsx",
+            "basic.demo.tsx",
+            "disabled.demo.tsx",
+            "group.demo.tsx",
+            "loading.demo.tsx",
+            "maxTagCount.demo.tsx",
+            "multiple.demo.tsx",
+            "searchable.demo.tsx",
+            "size.demo.tsx",
+            "status.demo.tsx"
+        ],
+        "references": [
+            "https://m3.material.io/components/menus/overview",
+            "https://material-web.dev/components/select/",
+            "https://github.com/material-components/material-web/tree/main/select"
+        ]
+    },
+    "macos": {
+        "summary": "以紧凑桌面选择字段和独立弹出列表呈现选项，工具与内容保持清晰边界。",
+        "usage": "长列表需要可读标签和搜索入口，清除与展开操作不能遮挡当前值。",
+        "exampleDescription": "输入搜索内容并选择结果，观察桌面弹出列表的行高、焦点与当前值。",
+        "demos": [
+            "searchable.demo.tsx",
+            "allowClear.demo.tsx",
+            "basic.demo.tsx",
+            "disabled.demo.tsx",
+            "field-states.demo.tsx",
+            "group.demo.tsx",
+            "loading.demo.tsx",
+            "maxTagCount.demo.tsx",
+            "multiple.demo.tsx",
+            "size.demo.tsx",
+            "status.demo.tsx"
+        ],
+        "references": [
+            "https://developer.apple.com/design/human-interface-guidelines/components",
+            "https://developer.apple.com/design/human-interface-guidelines/accessibility"
+        ]
+    },
+    "shadcn": {
+        "summary": "用中性字段、细边界列表和简洁选中反馈提供单选与多选。",
+        "usage": "多选项使用可读标签，数量较多时折叠显示，同时保留查看或移除路径。",
+        "exampleDescription": "添加和移除多个选项，检查标签与弹出列表在中性界面中的区分。",
+        "demos": [
+            "multiple.demo.tsx",
+            "allowClear.demo.tsx",
+            "basic.demo.tsx",
+            "disabled.demo.tsx",
+            "field-states.demo.tsx",
+            "group.demo.tsx",
+            "loading.demo.tsx",
+            "maxTagCount.demo.tsx",
+            "searchable.demo.tsx",
+            "size.demo.tsx",
+            "status.demo.tsx"
+        ],
+        "references": [
+            "https://ui.shadcn.com/docs/components",
+            "https://ui.shadcn.com/docs/theming",
+            "https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4"
+        ]
+    }
+} as const satisfies ComponentDesignDocuments;
+
+export const guide = {
+    "definition": "Select 将一组选项收起在下拉列表中，用户展开后选择一个或多个值。支持本地搜索、选项分组、清除和多选标签折叠。",
+    "useWhen": [
+        "选项多到不适合全部并列展示。",
+        "用户必须从合法集合中选择，并可能需要搜索或多选。"
+    ],
+    "avoidWhen": [
+        "少量互斥选项使用 Radio；用户应自由输入新值时使用 LineEdit 或组合输入。"
+    ],
+    "essentials": [
+        "options 中的 value 是唯一且稳定的标识，label 是显示内容。",
+        "multiple 开启多选：单选值为 string 或 null，多选值为 string[]。",
+        "searchable 过滤已传入的 options；组件没有向外提供搜索词回调。"
+    ],
+    "accessibility": [
+        "触发器与列表框使用正确 combobox/listbox 语义，并支持方向键、Enter 和 Escape。",
+        "多选标签、错误、必填和清除按钮都要有可读名称与稳定焦点。"
+    ]
+} as const;

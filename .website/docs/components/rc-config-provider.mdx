@@ -8,11 +8,16 @@ status = "experimental"
 {/* THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY. */}
 
 import ComponentDemos from "../site/componentDemos.js";
-import { demos } from "../_generated/rc-config-provider.js";
+import ComponentDesignGuide, { DesignIntroduction, DesignExampleIntroduction } from "../site/componentDesignGuide.js";
+import { demos, documents, guide } from "../_generated/rc-config-provider.js";
 
 # ConfigProvider 全局配置
 
 <div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-config-provider</div>
+
+## 设计与用法
+
+<DesignIntroduction documents={documents} />
 
 <div id="基础示例" data-docs-example-anchor /><div id="全部示例" data-docs-example-anchor />
 
@@ -20,112 +25,25 @@ import { demos } from "../_generated/rc-config-provider.js";
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
 
-#### 边界与视觉矩阵
-
-##### 嵌套设计风格与主题边界 — 内层分别切换为 shadcn 浅色与 Apple 深色风格，未指定的主题、语言和尺寸继续继承父级。
-
-##### 继承、品牌与 Portal — 同一输入保留草稿；嵌套边界与实际 Portal 分别输出最近配置。
+##### 嵌套配置与明暗边界 — 内层分别覆盖明暗与尺寸，设计、语言和其他未指定配置继续继承父级。
 
 ##### iframe 与 Shadow DOM 配置边界 — 向目标文档安装真实样式，Portal 延续最近配置；跨文档输入共享草稿。
 
 </div>
 
-<ComponentDemos demos={demos} />
+<DesignExampleIntroduction documents={documents} />
 
-[打开完整组件工作台](/components/rc-config-provider/workbench/)
+<ComponentDemos demos={demos} documents={documents} />
 
 ## 使用说明
 
-为应用或局部区域提供可嵌套配置。每个维度独立继承，未指定的属性沿用最近的 Provider。
-
-
-
-
-### 使用
-
-```tsx
-import ConfigProvider from '@crab-dev/rc-config-provider';
-
-<ConfigProvider designSystem="apple" colorMode="dark" locale="en-US" size="medium" density="compact">
-    <App />
-</ConfigProvider>
-```
-
-组件样式需要加载公开的 `@crab-dev/rc-theme` 样式入口，详见 [Theme 主题样式](/components/rc-theme)。Provider 渲染一个普通 div，不绘制页面背景，不读取系统偏好、浏览器存储，也不修改 html 或 body。
-
-### 配置与继承
-
-| 属性 | 值 | 根级默认值 |
-| --- | --- | --- |
-| designSystem | md3 / apple / shadcn | md3 |
-| colorMode | light / dark | light |
-| brandColor | #RGB / #RRGGBB / null | null |
-| locale | zh-CN / en-US | zh-CN |
-| size | small / medium / large | medium |
-| density | compact / standard / comfortable | standard |
-| direction | ltr / rtl | ltr |
-| nonce | CSP nonce 字符串 | 未设置 |
-
-传入 undefined 恢复继承；brandColor 传入 null 恢复当前设计体系的默认品牌。设计体系、明暗模式、品牌色、控件尺寸和内容密度不会相互改写。应用的“跟随系统”偏好必须先解析为 light 或 dark，再传给 colorMode。
-
-Provider 在 DOM 输出 data-crab-design、data-theme、data-crab-size、data-crab-density、lang 和 dir。仅修改 HTML 属性不会改变 React Context，应用需将自己的状态传入根 Provider。
-
-### 三套设计体系
-
-md3 对应 Material Design 3 Expressive，apple 对应 Apple 设计语言的 Web 适配，shadcn 对应 shadcn/ui New York。三套设计共享业务语义和无障碍契约，各自维护颜色、排版、形状、尺寸、层级与动效。Apple 不承诺复刻某一 macOS 版本。参考基线与适配边界见[设计体系规范](/guides/design-styles)。
-
-### 品牌与 CSP
-
-brandColor 接受不透明十六进制颜色，生成 light / dark 的 OKLCh 角色配对，无效值抛出 RangeError。品牌规则在当前边界内只覆盖 L2 角色，强制颜色模式继续使用系统颜色。嵌套边界和 Portal 继承品牌种子；nonce 同时继承给重新生成的 style 元素。无品牌定制时使用预编译主题 CSS。
-
-### 尺寸、密度与语言
-
-size 只决定控件默认尺寸，显式组件尺寸优先。density 决定数据行、导航与布局间距，二者独立。虚拟化测量消费 componentDensityMetrics[density]，明确提供的行高仍优先。
-
-useLocale() 返回 locale 和类型化 messages，内置中英文文案在运行时随配置切换。它不翻译业务内容。组件可通过 useConfig() 读取配置，必要格式化使用当前 locale 的 Intl API。
-
-### 浮层与目标文档
-
-React Portal 保留 Context，但不会继承原祖先的 CSS。ConfigBoundary 在有 Provider 时重建设计、品牌、语言、方向、密度和 nonce 边界；没有 Provider 时保留目标容器的原生 CSS 继承。
-
-### 视觉验收边界
-
-Provider 是 Crab 的配置协议扩展，三体系没有对应的原生视觉控件；其职责是输出边界，具体颜色、字阶、形状和几何由 L2 与 Theme 负责。包内矩阵核对三体系、明暗、三档尺寸与三档密度独立继承，以及嵌套、品牌、Portal 和真实键盘焦点。示例中的业务输入与 Portal 输入共享实际草稿，切换配置不重建输入实例。
-
-跨文档示例在同源 iframe 与开放 Shadow DOM 安装真实工作台样式，并通过公开 `ConfigBoundary` 重建最近边界；检查八项配置、品牌样式的 nonce，以及配置切换后原输入实例和共享草稿。只输出 React Context 不代表样式已跨 Document 安装；实际弹层的目标文档、堆叠和焦点仍由所属组件验收。无禁用、选中或异步加载的 Provider 外观，适用范围与理由记录在包内 `visual.json`。设计来源及固定版本沿用[设计体系](/guides/design-styles)。
-
-DropdownContainer 和 Tooltip 按触发器的 ownerDocument 解析目标，并保留原生模态 dialog 内的交互范围。Dialog、Drawer 与浮层共享每个 Document 的弹层栈，Escape 只关闭顶层；滚动锁允许多个模态和乱序释放。关闭后恢复有效触发器焦点。
-
-### 适用场景
-
-整个应用需要统一默认配置。 某个局部区域要临时切换语言、密度或主题，而不影响页面其他部分。
-
-只影响一个组件的一次性属性直接传 prop；不要用全局配置隐藏业务状态。
-
-### 使用要点
-
-- 最外层放应用默认值，局部覆盖只写确实不同的字段。
-- Provider 边界决定配置作用域，弹层挂载到边界外时要检查是否仍能继承。
-- 配置是默认策略，不应覆盖组件显式传入的值。
-
-### 无障碍
-
-- 语言切换要同步文档语言、读屏文本与格式化规则。
-- 主题和尺寸覆盖后仍需检查对比度、焦点可见性和 200% 缩放。
-
-### 设计依据与覆盖
-
-- **MD3 Expressive**：ConfigProvider 是实现基础设施，通过 M3 system tokens、排版和本地化规则把统一配置传给组件。 [依据 1](https://m3.material.io/styles/color/system/overview) · [依据 2](https://material-web.dev/theming/) · [依据 3](https://github.com/material-components/material-web/tree/main/tokens)
-- **Apple**：依据 Apple HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。 [依据 1](https://developer.apple.com/design/human-interface-guidelines/components) · [依据 2](https://developer.apple.com/design/human-interface-guidelines/accessibility)
-- **shadcn/ui**：参考 shadcn/ui 的组件用途、中性表面与设计变量，在本库公共语义和 React 交互模型中实现；完整状态覆盖仍需按矩阵验收。 [依据 1](https://ui.shadcn.com/docs/components) · [依据 2](https://ui.shadcn.com/docs/theming) · [依据 3](https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4)
-
-设计依据不等于完成验收；当前状态与适用边界见[覆盖矩阵](/guides/design-coverage)。
+<ComponentDesignGuide guide={guide} documents={documents} />
 
 ## 常见问题
 
 ### 设计体系与明暗模式有什么区别？
 
-designSystem 选择 md3、apple 或 shadcn，colorMode 只接受已解析的 light 或 dark。库、网站和工作台默认 md3/light/medium/standard/zh-CN/ltr。网站跟随系统属于应用偏好，解析后传给 Provider；历史偏好仅在浏览器存储入口迁移。
+designSystem 选择 md3、macos 或 shadcn，colorMode 只接受已解析的 light 或 dark。库、网站和工作台默认 md3/light/medium/standard/zh-CN/ltr。网站跟随系统属于应用偏好，解析后传给 Provider；历史偏好仅在浏览器存储入口迁移。
 
 ### 哪些组件会跟随配置？
 

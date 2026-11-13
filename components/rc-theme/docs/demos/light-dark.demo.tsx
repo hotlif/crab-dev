@@ -1,12 +1,24 @@
 export const meta = {
-    title: "MD3 Expressive、Apple 与 shadcn/ui",
-    description: "三种风格各自提供浅色和深色配对，局部边界的颜色、形状与阴影相互独立。",
+    title: "当前主题的浅色与深色",
+    description: "同一设计提供浅色与深色配对，局部明暗边界中的表面、文字和强调色保持清晰。",
 };
 
 import { css } from "@crab-dev/css";
-import token, { designSystemRegistry } from "@crab-dev/rc-token-semantic";
+import token, { defaultDesignSystem, designSystemRegistry } from "@crab-dev/rc-token-semantic";
 import type { DesignSystem } from "@crab-dev/rc-token-semantic";
-import "../../src/index.js";
+import { useSyncExternalStore } from "react";
+
+// This package is CSS-only. Wake loads its stylesheet; this example follows
+// the document's public CSS boundary without introducing a Provider dependency.
+function subscribeDesign(notify: () => void) {
+    const observer = new MutationObserver(notify);
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ["data-crab-design"] });
+    return () => observer.disconnect();
+}
+function readDesign(): DesignSystem {
+    const value = document.documentElement.dataset.crabDesign;
+    return Object.keys(designSystemRegistry).find(design => design === value) as DesignSystem | undefined ?? defaultDesignSystem;
+}
 
 const layoutClass = css`
     display: grid;
@@ -62,14 +74,11 @@ function ThemePanel({ designSystem, mode }: { designSystem: DesignSystem; mode: 
 }
 
 export default function LightDarkDemo() {
+    const designSystem = useSyncExternalStore(subscribeDesign, readDesign, () => defaultDesignSystem);
     return (
         <div className={layoutClass}>
-            <ThemePanel designSystem="md3" mode="light" />
-            <ThemePanel designSystem="md3" mode="dark" />
-            <ThemePanel designSystem="shadcn" mode="light" />
-            <ThemePanel designSystem="shadcn" mode="dark" />
-            <ThemePanel designSystem="apple" mode="light" />
-            <ThemePanel designSystem="apple" mode="dark" />
+            <ThemePanel designSystem={designSystem} mode="light" />
+            <ThemePanel designSystem={designSystem} mode="dark" />
         </div>
     );
 }

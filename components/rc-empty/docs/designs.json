@@ -1,0 +1,35 @@
+{
+    "md3": {
+        "summary": "以清晰说明和有重点的操作表达空内容，语义插图服务于下一步任务。",
+        "usage": "先解释为何为空，再提供一个最有帮助的动作，不让装饰遮盖说明。",
+        "exampleDescription": "查看带操作的空态，确认标题解释原因且主要按钮指向可执行任务。",
+        "demos": [
+            "with-action.demo.tsx",
+            "basic.demo.tsx",
+            "custom.demo.tsx",
+            "preset.demo.tsx"
+        ]
+    },
+    "macos": {
+        "summary": "在桌面内容区域用简短说明表达无数据状态，保留周围导航和工具上下文。",
+        "usage": "搜索无结果与首次使用应有不同文案；空态不需要模拟系统窗口。",
+        "exampleDescription": "比较空态预设与当前内容区域的关系，检查紧凑排版中的说明层级。",
+        "demos": [
+            "preset.demo.tsx",
+            "basic.demo.tsx",
+            "custom.demo.tsx",
+            "with-action.demo.tsx"
+        ]
+    },
+    "shadcn": {
+        "summary": "用简洁图形、文字和可选动作构成空状态，融入中性的列表与卡片页面。",
+        "usage": "把空态当作内容状态，边框与装饰适度使用，优先说明用户能够做什么。",
+        "exampleDescription": "定制空态内容并检查说明与动作，确认表面留白不会削弱任务入口。",
+        "demos": [
+            "custom.demo.tsx",
+            "basic.demo.tsx",
+            "preset.demo.tsx",
+            "with-action.demo.tsx"
+        ]
+    }
+}

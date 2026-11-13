@@ -6,10 +6,11 @@
 - 产品元数据只维护根[产品清单](../library.manifest.json)，通过[共享读取器](../scripts/library-manifest.mjs)读取。导航、覆盖矩阵、目录和数量由生成器派生。
 - 组件预览布局、预览密度、Demo 分组与顶部示例维护于各包 `docs/presentation.json`；默认 wide / regular，分组引用必须存在且唯一。生成器不维护组件名称分支表。
 - 组件正文来自 `components/rc-*/docs/index.mdx`，示例来自各包 `docs/demos/`；教学文字来自 `content/`，运行文件来自 `docs/examples/`。展示源码直接提取运行文件。
+- 组件的主题正文与示例选集来自包内 `docs/designs.json`，完整提供 md3 / macos / shadcn 的独立介绍、使用建议和操作指引。聚合页只挂载当前主题的正文、设计参考与允许的示例；共用行为和真实 API 保持一致。`index.mdx` 保留原始技术说明与 API 来源，历史跨主题比较不自动进入面向使用者的主题正文。示例必须继承当前设计，专属示例显式列入对应选集；公开入口只打开当前示例，不导向混合主题的工程验收工作台。
 - 不手改 `docs/components/`、`docs/_generated*/`、生成的学习/实战页、`docs/navigation.toml` 和覆盖矩阵。修改来源后运行 `generate:docs`，生成器变化补契约测试。
 - 示例使用公开包入口，独立可复制，不依赖组件 src、相邻示例或隐藏辅助文件；复用已有控件。
 - 使用公共 registry 和 Provider，默认 MD3 Expressive；设计体系、明暗、尺寸、密度独立。Wake 外部 theme 协议仅在适配边界保留，应用 API 用新字段。
-- 旧 material/macos 只在浏览器历史偏好迁移函数接受；新接口、CSS 值、iframe 消息和示例不兼容旧 ID。保留存储 key 并写回新值。
+- 旧 material/apple 只在浏览器历史偏好迁移函数接受；新接口、CSS 值、iframe 消息和示例不兼容旧 ID。保留存储 key 并写回新值。
 - Portal、受控 iframe 与预览 Provider 传递完整八项公共配置，以最近边界的已解析值为准；站点边界解析 system，代码高亮独立跟随站点明暗。独立工作台在父配置接管前恢复浏览器设计/明暗偏好。切换不重建输入实例或清空草稿。
 - 样式只作用于站点自有结构并使用公共令牌，不覆盖 Wake 私有类或污染真实组件演示。
 - 验证 generate:docs/check:docs/test:generator；运行代码另跑 lint/typecheck/test/build。按范围核对三体系、浅深色、窄屏、键盘、焦点、强制颜色和减少动画。

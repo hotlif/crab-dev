@@ -5,8 +5,8 @@ import globalToken from "@crab-dev/rc-token-global";
 globalStyle`
 .crab-docs[data-crab-design="md3"] .crab-docs-topbar { background: ${token.color.surface.low}; }
 .crab-docs[data-crab-design="md3"] .crab-docs-sidebar .crab-docs-nav-page { border-radius: ${token.shape.full}; }
-.crab-docs[data-crab-design="apple"] .crab-docs-topbar { background: color-mix(in srgb, ${token.color.surface.canvas} 92%, transparent); backdrop-filter: blur(12px); }
-.crab-docs[data-crab-design="apple"] .crab-docs-page-heading { box-shadow: ${token.shadow.card}; }
+.crab-docs[data-crab-design="macos"] .crab-docs-topbar { background: ${token.material.background}; background-image: ${token.material.sheen}; backdrop-filter: ${token.material.filter}; }
+.crab-docs[data-crab-design="macos"] .crab-docs-page-heading { box-shadow: ${token.shadow.card}; }
 .crab-docs[data-crab-design="shadcn"] :is(.crab-docs-topbar,.crab-docs-page-heading) { border-color: ${token.color.border.default}; }
 .crab-docs[data-crab-design="shadcn"] .crab-docs-page-heading { background: ${token.color.surface.content}; }
 .crab-docs-code figcaption { min-height: ${token.size[48]}; gap: ${globalToken.space[3]}; background: ${token.color.surface.low}; }

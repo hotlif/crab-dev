@@ -7,6 +7,17 @@ imports = [
 
 [token]
 
+# macOS Tahoe control roles; project Web adaptation.
+macos.tab.border-radius = "$ref(navigation.tabs.item-radius)"
+macos.tab.color-selected = "$ref(color.text.primary)"
+macos.tab.background-color-selected = "$ref(color.surface.content)"
+macos.tab.background-color-hover = "$ref(color.background.hover-subtle)"
+macos.tab.background-color-active = "$ref(color.background.active-subtle)"
+macos.tab.background-image = "linear-gradient(180deg, color-mix(in srgb, $ref(color.surface.content) 16%, transparent), transparent)"
+macos.tab.border-color = "$ref(color.border.subtle)"
+macos.tab.box-shadow = "$ref(material.control-shadow)"
+
+
 # ─── 容器 ────────────────────────────────────────────────────────────────────
 root.font-weight = "$ref(typography.label.font-weight)"
 root.line-height = "$ref(typography.title.small.line-height)"

@@ -3,6 +3,7 @@
  */
 
 import type { ComponentDemoRecord } from "../site/componentDemos.js";
+import type { ComponentDesignDocuments } from "../site/componentDesignGuide.js";
 
 export const demos = [
     {
@@ -168,3 +169,79 @@ export const demos = [
         "group": null
     }
 ] as const satisfies readonly ComponentDemoRecord[];
+
+export const documents = {
+    "md3": {
+        "summary": "以低强调分隔线区分相关内容组，优先通过留白表达大范围分组。",
+        "usage": "分隔线不要抢过标题和操作；装饰性线条与有语义的分隔需要区分。",
+        "exampleDescription": "比较留白和线条组合，查看不同内容组之间的阅读节奏。",
+        "demos": [
+            "spacing.demo.tsx",
+            "basic.demo.tsx",
+            "decorative.demo.tsx",
+            "text.demo.tsx",
+            "variant.demo.tsx",
+            "vertical.demo.tsx"
+        ],
+        "references": [
+            "https://m3.material.io/components/divider/overview",
+            "https://material-web.dev/components/divider/",
+            "https://github.com/material-components/material-web/tree/main/divider"
+        ]
+    },
+    "macos": {
+        "summary": "以轻量细线分隔桌面工具和设置内容，在紧凑排列中保留秩序。",
+        "usage": "工具栏内使用垂直分隔时保持与控件高度协调，不把每个按钮单独隔开。",
+        "exampleDescription": "查看横向工具内容中的垂直分隔，确认分组关系与间距。",
+        "demos": [
+            "vertical.demo.tsx",
+            "basic.demo.tsx",
+            "decorative.demo.tsx",
+            "spacing.demo.tsx",
+            "text.demo.tsx",
+            "variant.demo.tsx"
+        ],
+        "references": [
+            "https://developer.apple.com/design/human-interface-guidelines/components",
+            "https://developer.apple.com/design/human-interface-guidelines/accessibility"
+        ]
+    },
+    "shadcn": {
+        "summary": "通过中性细边界建立内容组之间的分隔，适合简洁列表和设置页面。",
+        "usage": "只在相邻内容关系需要说明时添加分隔；文字分隔应有明确标题含义。",
+        "exampleDescription": "比较带文字的分隔与基础分隔，检查标题和线条的视觉权重。",
+        "demos": [
+            "text.demo.tsx",
+            "basic.demo.tsx",
+            "decorative.demo.tsx",
+            "spacing.demo.tsx",
+            "variant.demo.tsx",
+            "vertical.demo.tsx"
+        ],
+        "references": [
+            "https://ui.shadcn.com/docs/components",
+            "https://ui.shadcn.com/docs/theming",
+            "https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4"
+        ]
+    }
+} as const satisfies ComponentDesignDocuments;
+
+export const guide = {
+    "definition": "Divider 是低强调度的分隔线，用来说明相邻内容属于不同组。它只帮助识别结构，不应该代替足够的留白、标题或容器层级。",
+    "useWhen": [
+        "列表、菜单或内容区中相邻组需要轻量边界。",
+        "水平或垂直布局需要清楚但不过度强调的结构分隔。"
+    ],
+    "avoidWhen": [
+        "仅靠间距已经能表达分组时无需增加线条；不要让每个元素四周都出现 Divider。"
+    ],
+    "essentials": [
+        "orientation 要与布局方向匹配，垂直分隔必须有可计算高度。",
+        "variant 与 inset 用来对齐内容边缘，而不是随意装饰。",
+        "带文字的分隔要确保文字确实是分组标题而非普通句子。"
+    ],
+    "accessibility": [
+        "纯装饰分隔隐藏语义；确实表示主题断点时保留 separator 角色和正确方向。",
+        "不要只用 Divider 表达不可见的关系，标题与 DOM 结构仍要正确。"
+    ]
+} as const;

@@ -54,7 +54,7 @@ function measure(host: HTMLElement, direction: 'ltr' | 'rtl') {
 }
 
 describe('AvatarGroup actual public example layout', () => {
-    for (const designSystem of ['md3', 'apple', 'shadcn'] as const) {
+    for (const designSystem of ['md3', 'macos', 'shadcn'] as const) {
         for (const colorMode of ['light', 'dark'] as const) {
             it(`reserves the real small count beside the large group (${designSystem}/${colorMode})`, async () => {
                 const fixture = (direction: 'ltr' | 'rtl') => <>

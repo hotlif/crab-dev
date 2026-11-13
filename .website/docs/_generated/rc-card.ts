@@ -3,6 +3,7 @@
  */
 
 import type { ComponentDemoRecord } from "../site/componentDemos.js";
+import type { ComponentDesignDocuments } from "../site/componentDesignGuide.js";
 
 export const demos = [
     {
@@ -265,3 +266,85 @@ export const demos = [
         "group": "三体系验收"
     }
 ] as const satisfies readonly ComponentDemoRecord[];
+
+export const documents = {
+    "md3": {
+        "summary": "以表面层级组织一组相关内容，填充、描边和抬升外观用于区分内容关系。",
+        "usage": "优先让标题、正文和主要动作形成层级；可点击卡片仍需有明确动作语义。",
+        "exampleDescription": "比较卡片外观及表面层次，再操作可点击示例观察焦点与状态反馈。",
+        "demos": [
+            "variant.demo.tsx",
+            "basic.demo.tsx",
+            "clickable.demo.tsx",
+            "composition.demo.tsx",
+            "cover.demo.tsx",
+            "loading.demo.tsx",
+            "size.demo.tsx",
+            "states.demo.tsx"
+        ],
+        "references": [
+            "https://m3.material.io/components/cards/overview",
+            "https://material-web.dev/components/",
+            "https://github.com/material-components/material-web"
+        ]
+    },
+    "macos": {
+        "summary": "以清晰内容表面和轻量边缘承载信息组，卡片正文保持稳定、可读的背景。",
+        "usage": "将浮动材质留给操作区域，内容卡片用标题与留白组织，不把全文放在透明背板上。",
+        "exampleDescription": "查看标题、内容和操作的组合，检查桌面信息面板的排列与分区。",
+        "demos": [
+            "composition.demo.tsx",
+            "basic.demo.tsx",
+            "clickable.demo.tsx",
+            "cover.demo.tsx",
+            "loading.demo.tsx",
+            "size.demo.tsx",
+            "states.demo.tsx",
+            "variant.demo.tsx"
+        ],
+        "references": [
+            "https://developer.apple.com/design/human-interface-guidelines/components",
+            "https://developer.apple.com/design/human-interface-guidelines/accessibility"
+        ]
+    },
+    "shadcn": {
+        "summary": "用细描边、中性背景和紧凑标题组织卡片内容，强调结构而不是装饰。",
+        "usage": "标题、说明、内容与底部操作按阅读顺序排列；避免嵌套过多相同边框。",
+        "exampleDescription": "从基础卡片读取信息层级，再检查带操作和加载状态的内容边界。",
+        "demos": [
+            "basic.demo.tsx",
+            "clickable.demo.tsx",
+            "composition.demo.tsx",
+            "cover.demo.tsx",
+            "loading.demo.tsx",
+            "size.demo.tsx",
+            "states.demo.tsx",
+            "variant.demo.tsx"
+        ],
+        "references": [
+            "https://ui.shadcn.com/docs/components",
+            "https://ui.shadcn.com/docs/theming",
+            "https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4"
+        ]
+    }
+} as const satisfies ComponentDesignDocuments;
+
+export const guide = {
+    "definition": "Card 把一组相关内容与动作放在同一个表面上，建立可扫读的信息单元。卡片边界表达归属，不意味着卡片的每个位置都应该可点击。",
+    "useWhen": [
+        "多个同级内容单元需要重复排列，例如项目、文章或商品摘要。",
+        "一组内容需要自己的标题、媒体、正文和少量就近动作。"
+    ],
+    "avoidWhen": [
+        "内容天然属于同一连续页面时优先用标题、留白和 Divider；不要层层嵌套卡片。"
+    ],
+    "essentials": [
+        "先确定 elevated、filled 或 outlined 变体，再保持同一列表中的层级一致。",
+        "可点击卡片需要一个清楚主动作，次要按钮不能与整卡点击冲突。",
+        "loading 骨架要尽量保持最终内容结构，避免加载完成后大幅跳动。"
+    ],
+    "accessibility": [
+        "整卡可点击时使用真实链接或按钮语义，并给内部独立操作清楚的焦点顺序。",
+        "标题层级、图片替代文本和状态信息不能因为放进 Card 就省略。"
+    ]
+} as const;

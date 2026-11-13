@@ -3,6 +3,7 @@
  */
 
 import type { ComponentDemoRecord } from "../site/componentDemos.js";
+import type { ComponentDesignDocuments } from "../site/componentDesignGuide.js";
 
 export const demos = [
     {
@@ -90,3 +91,67 @@ export const demos = [
         "group": "功能演示"
     }
 ] as const satisfies readonly ComponentDemoRecord[];
+
+export const documents = {
+    "md3": {
+        "summary": "以语义字段和浮层承载颜色选择，颜色空间与透明度编辑是本库扩展。",
+        "usage": "用文本值辅助颜色感知，颜色预览与焦点、错误等界面语义分开表达。",
+        "exampleDescription": "打开颜色字段并调整颜色，核对预览与文本值是否同步。",
+        "demos": [
+            "colorPicker.demo.tsx",
+            "colorPickerPanel.demo.tsx"
+        ],
+        "references": [
+            "https://m3.material.io/styles/color/overview",
+            "https://material-web.dev/theming/color/",
+            "https://github.com/material-components/material-web/tree/main/color"
+        ]
+    },
+    "macos": {
+        "summary": "为桌面编辑器提供紧凑颜色字段和面板，色彩内容与周围工具层保持区别。",
+        "usage": "编辑器中可使用独立面板，常规设置中优先从字段展开，保留清晰返回路径。",
+        "exampleDescription": "在独立面板中修改颜色与透明度，观察数值输入与色块的关系。",
+        "demos": [
+            "colorPickerPanel.demo.tsx",
+            "colorPicker.demo.tsx"
+        ],
+        "references": [
+            "https://developer.apple.com/design/human-interface-guidelines/components",
+            "https://developer.apple.com/design/human-interface-guidelines/accessibility"
+        ]
+    },
+    "shadcn": {
+        "summary": "以中性字段和有边界的面板承载颜色编辑，避免界面装饰干扰颜色判断。",
+        "usage": "颜色选择器是组合扩展；业务需要明确输出格式和透明度的使用规则。",
+        "exampleDescription": "调整颜色后检查输出值，再关闭面板确认字段的当前颜色反馈。",
+        "demos": [
+            "colorPicker.demo.tsx",
+            "colorPickerPanel.demo.tsx"
+        ],
+        "references": [
+            "https://ui.shadcn.com/docs/components",
+            "https://ui.shadcn.com/docs/theming",
+            "https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4"
+        ]
+    }
+} as const satisfies ComponentDesignDocuments;
+
+export const guide = {
+    "definition": "ColorPicker 让用户从色板、预设或文本值中选择颜色；ColorPickerPanel 提供可嵌入的完整编辑面板。它负责颜色输入，不自动保证选出的颜色满足品牌或对比度要求。",
+    "useWhen": [
+        "主题、标注、图表或内容编辑允许用户自定义颜色。",
+        "既需要快速预设，也需要输入精确颜色值。"
+    ],
+    "avoidWhen": [
+        "业务状态色应由设计令牌决定，不应让用户随意选择；只需少量固定主题时使用 Radio 或 Select 更清楚。"
+    ],
+    "essentials": [
+        "明确 value 的颜色格式、透明度和受控更新方式。",
+        "预设色用于快速选择，文本输入用于精确校正，两者必须保持同步。",
+        "选择结果要在真实背景上预览，单个色块不能证明可读性。"
+    ],
+    "accessibility": [
+        "色块要有可读名称或数值，并提供键盘选择和可见焦点。",
+        "任何颜色含义都必须有文字、图标或图案补充，同时验证前景背景对比度。"
+    ]
+} as const;

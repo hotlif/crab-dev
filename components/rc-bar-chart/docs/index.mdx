@@ -47,7 +47,7 @@ status = "experimental"
 
 ## 设计风格与主题
 
-BarChart 是基于 Canvas 的数据可视化扩展。Material Design 3 Expressive、Apple 和 shadcn/ui 分别提供其语义契约；来源与固定 New York V4 基线见[三套设计体系](/guides/design-styles)。柱图布局、分组、堆叠和数据交互由本库定义，不以列表或分隔线规格概括图表行为。
+BarChart 是基于 Canvas 的数据可视化扩展。Material Design 3 Expressive、macOS 和 shadcn/ui 分别提供其语义契约；来源与固定 New York V4 基线见[三套设计体系](/guides/design-styles)。柱图布局、分组、堆叠和数据交互由本库定义，不以列表或分隔线规格概括图表行为。
 
 柱形系列、网格线、基线、轴文字和画布背景通过 L3 色板消费 L2 角色；HTML 图例和数据提示使用同一配置边界的字阶、表面、前景和焦点。八个 `data.chart.series.*` 是 Crab 的数据可视化契约，包含本库扩展的系列角色，不能称作上游统一的八色规范。`series[].color` 和 `palette` 的显式业务覆盖保持优先。
 
@@ -64,9 +64,9 @@ BarChart 是基于 Canvas 的数据可视化扩展。Material Design 3 Expressiv
 
 ## 桌面三体系矩阵规格
 
-本轮规格核对日期为 2026-10-29。BarChart 是自有 Canvas 图表，不宣称对应 M3 Expressive 或 Apple 的原生图表实现。Apple 的 [Charts](https://developer.apple.com/design/human-interface-guidelines/charts) 用于标记、零基线、适量网格、说明与辅助技术数据入口的设计依据；shadcn 对照固定 New York V4 提交 [3d98900e9b73c45f035f8109e9d41ba6a51685e7 的 Chart 源码](https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui/chart.tsx) 的中性坐标、图例、成对提示前景与分类色角色。没有引入 Recharts。M3 使用既有表面/前景、焦点与动效角色；数据图表的几何、系列显隐和数值格式是项目扩展。
+本轮规格核对日期为 2026-10-29。BarChart 是自有 Canvas 图表，不宣称对应 M3 Expressive 或 macOS 的原生图表实现。macOS 的 [Charts](https://developer.apple.com/design/human-interface-guidelines/charts) 用于标记、零基线、适量网格、说明与辅助技术数据入口的设计依据；shadcn 对照固定 New York V4 提交 [3d98900e9b73c45f035f8109e9d41ba6a51685e7 的 Chart 源码](https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui/chart.tsx) 的中性坐标、图例、成对提示前景与分类色角色。没有引入 Recharts。M3 使用既有表面/前景、焦点与动效角色；数据图表的几何、系列显隐和数值格式是项目扩展。
 
-| 项目 | MD3 Expressive | Apple Web | shadcn New York V4 |
+| 项目 | MD3 Expressive | macOS Web | shadcn New York V4 |
 | --- | --- | --- | --- |
 | 数据与表面 | 色调表面中的稳定分类色，强调留给数据 | 轻量网格、清晰标签与可比较的条形 | 中性表面、克制的轴线与分类色 |
 | 图例与提示 | 语义状态层、独立键盘焦点、浮层形状 | 紧凑图例、清晰的选中与隐藏差异 | 描边层级、数值对齐与紧凑提示 |

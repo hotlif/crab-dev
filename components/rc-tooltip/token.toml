@@ -24,3 +24,7 @@ interaction.outline-width-focus = "2px"
 interaction.outline-offset-focus = "2px"
 root.box-shadow = "$ref(overlay.tooltip.shadow)"
 root.outline-width = "1px"
+
+# Shared material roles resolve at the closest theme boundary.
+material.backdrop-filter = "$ref(material.filter)"
+material.background-image = "$ref(material.sheen)"

@@ -5,10 +5,10 @@ export const designSystemRegistry = {
         "fullName": "Material Design 3 Expressive",
         "source": "https://m3.material.io/"
     },
-    "apple": {
-        "label": "Apple",
-        "fullName": "Apple",
-        "source": "https://developer.apple.com/design/human-interface-guidelines/"
+    "macos": {
+        "label": "macOS",
+        "fullName": "macOS Tahoe 26 Liquid Glass",
+        "source": "https://developer.apple.com/cn/documentation/technologyoverviews/liquid-glass"
     },
     "shadcn": {
         "label": "shadcn/ui",
@@ -33,9 +33,9 @@ export const designThemeSelectors = {
         "light": "[data-crab-design=\"md3\"][data-theme=\"light\"]",
         "dark": "[data-crab-design=\"md3\"][data-theme=\"dark\"]"
     },
-    "apple": {
-        "light": "[data-crab-design=\"apple\"][data-theme=\"light\"]",
-        "dark": "[data-crab-design=\"apple\"][data-theme=\"dark\"]"
+    "macos": {
+        "light": "[data-crab-design=\"macos\"][data-theme=\"light\"]",
+        "dark": "[data-crab-design=\"macos\"][data-theme=\"dark\"]"
     },
     "shadcn": {
         "light": "[data-crab-design=\"shadcn\"][data-theme=\"light\"]",

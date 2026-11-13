@@ -19,7 +19,7 @@ globalStyle`
         --token-semantic-picker-time-period-horizontal-width: initial;
         --token-semantic-picker-time-period-horizontal-height: initial;
     }
-    [data-crab-design="apple"], [data-crab-design="shadcn"] {
+    [data-crab-design="macos"], [data-crab-design="shadcn"] {
         --token-semantic-picker-time-input-width: ${desktop.input.width};
         --token-semantic-picker-time-input-height: ${desktop.input.height};
         --token-semantic-picker-time-input-font-size: ${desktop.input['font-size']};
@@ -34,6 +34,6 @@ globalStyle`
         --token-semantic-picker-time-period-horizontal-width: ${desktop.period['horizontal-width']};
         --token-semantic-picker-time-period-horizontal-height: ${desktop.period['horizontal-height']};
     }
-    [data-crab-design="apple"] { --token-semantic-picker-time-input-radius: ${palette.radius[3]}; }
+    [data-crab-design="macos"] { --token-semantic-picker-time-input-radius: ${palette.radius[3]}; }
     [data-crab-design="shadcn"] { --token-semantic-picker-time-input-radius: ${palette.radius[4]}; }
 `;
