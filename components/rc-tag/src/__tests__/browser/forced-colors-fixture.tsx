@@ -58,7 +58,7 @@ function closeSnapshot() {
     return { id: 'ordinary-custom-close', rect: button.getBoundingClientRect().toJSON(),
         focused: document.activeElement === button, focusVisible: button.matches(':focus-visible'),
         type: button.type, ariaLabel: button.getAttribute('aria-label'),
-        color: style.color, backgroundColor: style.backgroundColor,
+        color: style.color, backgroundColor: style.backgroundColor, borderColor: style.borderTopColor,
         outline: { color: style.outlineColor, width: style.outlineWidth, offset: style.outlineOffset, style: style.outlineStyle },
         icon: required<SVGSVGElement>('svg', button).getBoundingClientRect().toJSON() };
 }
@@ -223,12 +223,14 @@ async function inspectPixels(base64: string) {
     const closeInk = matchingPixels(image, close.icon, close.color, 32);
     if (prefixInk.matched < 3 || closeInk.matched < 3) throw new Error('Actual Tag prefix or native close icon is hidden');
     const bounds = close.rect;
+    // The inset outline crosses the native ButtonText border. Linux Highlight
+    // is translucent, so pixels over that border differ from those over Canvas.
     const focusEdges = [
         { x: bounds.x + bounds.width / 2 - 3, y: bounds.y, width: 6, height: 2 },
         { x: bounds.x + bounds.width / 2 - 3, y: bounds.bottom - 2, width: 6, height: 2 },
         { x: bounds.x, y: bounds.y + bounds.height / 2 - 3, width: 2, height: 6 },
         { x: bounds.right - 2, y: bounds.y + bounds.height / 2 - 3, width: 2, height: 6 },
-    ].map(edge => ({ rect: edge, ink: matchingPixels(image, edge, close.outline.color, 48) }));
+    ].map(edge => ({ rect: edge, ink: matchingPixels(image, edge, close.outline.color, 48, [colorChannels(close.borderColor)]) }));
     if (!close.focused || !close.focusVisible || focusEdges.some(edge => edge.ink.matched < 1)) throw new Error('Actual close focus outline is not visible on all four edges');
     return { labels, prefixInk, closeInk, focusEdges };
 }
