@@ -640,7 +640,10 @@ export const libraryDependencies = [
         "title": "Router 路由",
         "family": "integration",
         "production": [],
-        "docs": [],
+        "docs": [
+            "rc-button",
+            "rc-line-edit"
+        ],
         "token": []
     },
     {

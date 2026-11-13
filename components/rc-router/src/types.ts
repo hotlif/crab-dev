@@ -50,25 +50,56 @@ type RouteContent =
     | ComponentRouteContent
     | PassthroughRouteContent;
 
-interface RouteObjectBase {
+export interface RouteErrorBoundaryProps {
+    error: unknown;
+    /** 清除当前渲染错误；不会重新请求 React.lazy 已缓存的失败模块。 */
+    reset: () => void;
+}
+
+interface RouteObjectBase<Handle> {
+    /** 全路由表唯一；省略时按路由树位置生成，动态路由表建议显式声明。 */
+    id?: string;
+    handle?: Handle;
+    ErrorBoundary?: ComponentType<RouteErrorBoundaryProps>;
     caseSensitive?: boolean;
 }
 
-export type IndexRouteObject = RouteObjectBase &
+export type IndexRouteObject<Handle = unknown> = RouteObjectBase<Handle> &
     RouteContent & {
         index: true;
         path?: never;
         children?: never;
     };
 
-export type NonIndexRouteObject = RouteObjectBase &
+export type NonIndexRouteObject<Handle = unknown> = RouteObjectBase<Handle> &
     RouteContent & {
         index?: false;
         path?: string;
-        children?: readonly RouteObject[];
+        children?: readonly RouteObject<Handle>[];
     };
 
-export type RouteObject = IndexRouteObject | NonIndexRouteObject;
+export type RouteObject<Handle = unknown> = IndexRouteObject<Handle> | NonIndexRouteObject<Handle>;
+
+export interface RouteMatch<Handle = unknown> {
+    readonly id: string;
+    readonly pathname: string;
+    readonly pathnameBase: string;
+    readonly params: Params;
+    readonly handle: Handle | undefined;
+}
+
+export interface BlockerFunctionArgs {
+    currentLocation: Location;
+    nextLocation: Location;
+    historyAction: NavigationType;
+}
+
+export type BlockerFunction = (args: BlockerFunctionArgs) => boolean;
+
+export type Blocker =
+    | { state: 'unblocked'; location?: undefined; proceed?: undefined; reset?: undefined }
+    | { state: 'blocked'; location: Location; proceed: () => void; reset: () => void }
+    | { state: 'proceeding'; location: Location; proceed?: undefined; reset?: undefined };
 
 export interface RouterProps {
     routes: readonly RouteObject[];

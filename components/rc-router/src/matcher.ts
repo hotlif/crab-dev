@@ -2,6 +2,7 @@ import { joinPaths, matchPath, normalizePathname } from './path.js';
 import type { Params, RouteObject } from './types.js';
 
 interface RouteMeta {
+    id: string;
     route: RouteObject;
     relativePath: string;
 }
@@ -14,6 +15,7 @@ interface RouteBranch {
 }
 
 export interface RouteMatch {
+    id: string;
     params: Params;
     pathname: string;
     pathnameBase: string;
@@ -72,6 +74,7 @@ function expandOptionalSegments(path: string): string[] {
 
 function flattenRoutes(
     routes: readonly RouteObject[],
+    ids: ReadonlyMap<RouteObject, string>,
     branches: RouteBranch[] = [],
     parentsMeta: readonly RouteMeta[] = [],
     parentPath: string = '/',
@@ -105,6 +108,7 @@ function flattenRoutes(
         const relativePathVariants = expandOptionalSegments(relativePath);
         relativePathVariants.forEach((relativePathVariant, variantIndex) => {
             const meta: RouteMeta = {
+                id: ids.get(route)!,
                 route,
                 relativePath: relativePathVariant,
             };
@@ -113,7 +117,7 @@ function flattenRoutes(
             const order = [...parentOrder, index, variantIndex];
 
             if (route.index !== true && route.children !== undefined) {
-                flattenRoutes(route.children, branches, routesMeta, path, order);
+                flattenRoutes(route.children, ids, branches, routesMeta, path, order);
             }
 
             if (
@@ -141,7 +145,8 @@ function compareOrder(left: readonly number[], right: readonly number[]): number
             return left[index] - right[index];
         }
     }
-    return left.length - right.length;
+    // Equal-scoring descendants must win over their own layout-only branch.
+    return right.length - left.length;
 }
 
 function rankBranches(branches: RouteBranch[]): RouteBranch[] {
@@ -184,6 +189,7 @@ function matchRouteBranch(
         const pathnameValue = joinPaths([matchedPathname, match.pathname]);
         const pathnameBase = joinPaths([matchedPathname, match.pathnameBase]);
         matches.push({
+            id: meta.id,
             params: matchedParams,
             pathname: pathnameValue,
             pathnameBase,
@@ -201,7 +207,22 @@ export function matchRoutes(
     routes: readonly RouteObject[],
     pathname: string,
 ): RouteMatch[] | null {
-    const branches = rankBranches(flattenRoutes(routes));
+    const ids = new Map<RouteObject, string>();
+    const usedIds = new Set<string>();
+    const collectIds = (children: readonly RouteObject[], parent: string): void => {
+        children.forEach((route, index) => {
+            const position = parent === '' ? String(index) : `${parent}-${index}`;
+            const id = route.id ?? position;
+            if (usedIds.has(id) || ids.has(route)) {
+                throw new Error(`Router: duplicate route id "${id}" or reused route object.`);
+            }
+            usedIds.add(id);
+            ids.set(route, id);
+            if (route.children) collectIds(route.children, position);
+        });
+    };
+    collectIds(routes, '');
+    const branches = rankBranches(flattenRoutes(routes, ids));
     const normalizedPathname = normalizePathname(pathname);
     for (const branch of branches) {
         const matches = matchRouteBranch(branch, normalizedPathname);

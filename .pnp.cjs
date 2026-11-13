@@ -3249,6 +3249,8 @@ const RAW_RUNTIME_STATE =
       ["virtual:1b1f9f0dc19a7adf2120a5e987bae4f0f266236699b6565e33df3ed5dd6a9f43439cfc5634671e6858a7d5ddd3263caa7fe47bcc4a3f4f620295f3ab20640ca8#workspace:components/rc-router", {\
         "packageLocation": "./.yarn/__virtual__/@crab-dev-rc-router-virtual-6ba4656893/1/components/rc-router/",\
         "packageDependencies": [\
+          ["@crab-dev/rc-button", "virtual:3839b5e80d0b61928d034dfc6b57dd77c9aa634201ed11bb166ff9acb013659069b77095ae45db4fa23aea982b33bde190ffcea4705005937b3875966b06037e#workspace:components/rc-button"],\
+          ["@crab-dev/rc-line-edit", "virtual:3839b5e80d0b61928d034dfc6b57dd77c9aa634201ed11bb166ff9acb013659069b77095ae45db4fa23aea982b33bde190ffcea4705005937b3875966b06037e#workspace:components/rc-line-edit"],\
           ["@crab-dev/rc-router", "virtual:1b1f9f0dc19a7adf2120a5e987bae4f0f266236699b6565e33df3ed5dd6a9f43439cfc5634671e6858a7d5ddd3263caa7fe47bcc4a3f4f620295f3ab20640ca8#workspace:components/rc-router"],\
           ["@crab-dev/standards-typescript-preset", "workspace:standards/typescript-preset"],\
           ["@crab-dev/wake", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:0.1.45"],\
@@ -3267,6 +3269,8 @@ const RAW_RUNTIME_STATE =
       ["workspace:components/rc-router", {\
         "packageLocation": "./components/rc-router/",\
         "packageDependencies": [\
+          ["@crab-dev/rc-button", "virtual:3839b5e80d0b61928d034dfc6b57dd77c9aa634201ed11bb166ff9acb013659069b77095ae45db4fa23aea982b33bde190ffcea4705005937b3875966b06037e#workspace:components/rc-button"],\
+          ["@crab-dev/rc-line-edit", "virtual:3839b5e80d0b61928d034dfc6b57dd77c9aa634201ed11bb166ff9acb013659069b77095ae45db4fa23aea982b33bde190ffcea4705005937b3875966b06037e#workspace:components/rc-line-edit"],\
           ["@crab-dev/rc-router", "workspace:components/rc-router"],\
           ["@crab-dev/standards-typescript-preset", "workspace:standards/typescript-preset"],\
           ["@crab-dev/wake", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:0.1.45"],\

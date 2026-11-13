@@ -1,0 +1,29 @@
+{
+  "md3": {
+    "summary": "将页面位置与导航目的地关联，路由逻辑本身不定义色调或形状。",
+    "usage": "目的地选中反馈由导航组件呈现，页面变化后保持明确的内容位置。",
+    "exampleDescription": "在示例内部切换路径，观察内容变化与当前导航状态的对应。",
+    "demos": [
+      "basic.demo.tsx",
+      "workflow.demo.tsx"
+    ]
+  },
+  "macos": {
+    "summary": "为桌面工作区关联页面地址与当前内容，路由状态和窗口布局分别管理。",
+    "usage": "页签或侧栏变化应对应可预测路径，独立示例使用自己的历史记录。",
+    "exampleDescription": "切换工作区中的示例路径，检查返回操作与当前内容保持一致。",
+    "demos": [
+      "basic.demo.tsx",
+      "workflow.demo.tsx"
+    ]
+  },
+  "shadcn": {
+    "summary": "为简洁导航界面提供路径匹配与内容切换，保持路由与外观职责分离。",
+    "usage": "导航链接需要真实目标，页面内容与当前位置不能仅靠样式推断。",
+    "exampleDescription": "跟随链接切换内容，再返回上一位置，检查路径与显示结果。",
+    "demos": [
+      "basic.demo.tsx",
+      "workflow.demo.tsx"
+    ]
+  }
+}

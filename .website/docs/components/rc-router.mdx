@@ -8,11 +8,16 @@ status = "experimental"
 {/* THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY. */}
 
 import ComponentDemos from "../site/componentDemos.js";
-import { demos } from "../_generated/rc-router.js";
+import ComponentDesignGuide, { DesignIntroduction, DesignExampleIntroduction } from "../site/componentDesignGuide.js";
+import { demos, documents, guide } from "../_generated/rc-router.js";
 
 # Router 路由
 
 <div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-router</div>
+
+## 设计与用法
+
+<DesignIntroduction documents={documents} />
 
 <div id="基础示例" data-docs-example-anchor /><div id="全部示例" data-docs-example-anchor />
 
@@ -22,61 +27,17 @@ import { demos } from "../_generated/rc-router.js";
 
 ##### 嵌套路由 — 使用独立的 iframe History 演示嵌套页面、动态参数、搜索参数与后退导航
 
+##### 工作区离开确认与错误恢复 — 父布局读取页面元数据，保存失败保留草稿，错误页面不影响导航
+
 </div>
 
-<ComponentDemos demos={demos} />
+<DesignExampleIntroduction documents={documents} />
 
-[打开完整组件工作台](/components/rc-router/workbench/)
+<ComponentDemos demos={demos} documents={documents} />
 
 ## 使用说明
 
-通过对象式路由表管理页面、嵌套布局和浏览器导航。
-
-
-### 何时使用
-
-- React 单页应用需要基于 URL 渲染不同页面。
-- 页面之间存在共享布局、动态参数或 404 兜底页。
-- 希望保留原生链接语义，同时获得无刷新导航体验。
-
-### 主要功能
-
-- 静态、动态、可选和尾部通配路径匹配。
-- 嵌套路由、无路径布局和索引路由。
-- Browser History 的 push、replace、前进与后退。
-- 路由级和路径级相对导航。
-- location state、查询参数与 Outlet context。
-- NavLink 激活态和 `aria-current="page"` 无障碍反馈。
-
-
-工作台示例先加载 `public/history-frame.html` 中的同源空白文档，再将其 Window 传入 Router。Wake 会把该静态资源复制到工作台；示例导航写入 iframe，初始条目禁用后退，避免超出示例历史。不要对 `about:blank` 直接改写 HTTP 路径，也不要用 `document.open` 代替真实文档加载：前者会被拒绝，后者在本次浏览器复测中造成后退重新加载与视图失步。业务页面通常直接使用当前 Window。
-
-示例在 URL 未指定 tab 时显示 overview。`useSearchParams` 的 defaultInit 提供初始默认值；主动设置参数后，缺失值仍应由业务明确处理，不能假定每次后退都会重新注入默认参数。
-
-### 适用场景
-
-应用有多个可直接访问的页面或嵌套路由。 浏览器前进后退、深链接和当前导航状态必须一致。
-
-组件内部的局部视图切换使用状态或 Tabs；不要为一个弹层创建难以理解的伪页面。
-
-### 使用要点
-
-- 路由表从具体到通用组织，并为未知地址提供明确兜底。
-- 导航使用链接语义，编程式跳转只用于提交后等业务结果。
-- 页面参数来自 URL 时需要解析、校验并处理缺失值。
-
-### 无障碍
-
-- 路由切换后更新页面标题，并把焦点或阅读起点移到新内容的合理位置。
-- 链接能用浏览器标准方式打开和复制，当前导航项使用 aria-current。
-
-### 设计依据与覆盖
-
-- **MD3 Expressive**：Router 是 Web 导航基础设施，没有 M3 视觉组件；它为 Navigation rail/drawer、Tabs 和页面层级提供真实状态。 [依据 1](https://m3.material.io/components/navigation-drawer/overview) · [依据 2](https://material-web.dev/components/tabs/) · [依据 3](https://github.com/material-components/material-web/tree/main/tabs)
-- **Apple**：本包没有独立的 Apple 视觉组件；配置、测量或运行能力为上层控件服务，行为和类型仍需独立验收。 [依据 1](https://developer.apple.com/design/human-interface-guidelines/components) · [依据 2](https://developer.apple.com/design/human-interface-guidelines/accessibility)
-- **shadcn/ui**：本包没有独立的 shadcn/ui 视觉组件；由使用它的上层组件决定外观，基础能力不因无独立视觉而免于行为和类型检查。 [依据 1](https://ui.shadcn.com/docs/components) · [依据 2](https://ui.shadcn.com/docs/theming) · [依据 3](https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4)
-
-设计依据不等于完成验收；当前状态与适用边界见[覆盖矩阵](/guides/design-coverage)。
+<ComponentDesignGuide guide={guide} documents={documents} />
 
 ## 常见问题
 
@@ -87,3 +48,9 @@ import { demos } from "../_generated/rc-router.js";
 ## API
 
 <API source="../_generated_api/rc-router.ts" symbol="RouterProps" component="Router" />
+
+<API source="../_generated_api/rc-router-RouteMatch.ts" symbol="RouteMatch" component="useMatches" />
+
+<API source="../_generated_api/rc-router-RouteErrorBoundaryProps.ts" symbol="RouteErrorBoundaryProps" component="ErrorBoundary" />
+
+<API source="../_generated_api/rc-router-BlockerFunctionArgs.ts" symbol="BlockerFunctionArgs" component="useBlocker" />

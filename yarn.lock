@@ -1432,6 +1432,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-router@workspace:components/rc-router"
   dependencies:
+    "@crab-dev/rc-button": "workspace:^"
+    "@crab-dev/rc-line-edit": "workspace:^"
     "@crab-dev/standards-typescript-preset": "workspace:^"
     "@crab-dev/wake": "npm:0.1.45"
     "@types/node": "npm:^22.20.2"

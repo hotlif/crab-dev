@@ -6,8 +6,8 @@ import Router, {
     useLocation,
     useParams,
     useSearchParams,
-} from '../../src/index.js';
-import type { RouteObject } from '../../src/index.js';
+} from '@crab-dev/rc-router';
+import type { RouteObject } from '@crab-dev/rc-router';
 
 function Layout() {
     const navigate = useNavigate();

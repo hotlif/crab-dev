@@ -7,6 +7,9 @@
 - 单个 `<Router routes={routes} />` 入口，无需创建额外 router 实例。
 - 支持 `element` 和 `Component` 两种互斥的页面声明方式。
 - 提供 `Link`、`NavLink`、`Navigate`、`Outlet` 与常用路由 Hooks。
+- 通过 `id`、`handle` 和 `useMatches` 读取完整命中链，支持布局与面包屑元数据。
+- 路由 `ErrorBoundary` 隔离渲染或懒加载失败，导航后自动恢复。
+- `useBlocker` 管理 SPA 离开确认，`useBeforeUnload` 请求刷新或关闭文档时的浏览器确认。
 - `Link` 保留真实 `href`，兼容新窗口、下载、外链和修饰键点击。
 - 无运行时依赖，不依赖 `react-router` 或路径匹配库。
 
@@ -58,7 +61,9 @@ export default function App() {
 
 ## 范围
 
-当前版本仅支持浏览器 SPA。loader、action、lazy route、错误边界、Hash/Memory/SSR Router、导航阻断和滚动恢复不在首版范围内。
+当前版本仅支持浏览器 SPA。loader、action、路由模块 `lazy`、Hash/Memory/SSR Router 和滚动恢复不在当前范围内。页面拆分使用模块顶层的 `React.lazy`，布局中组合 `Suspense` 和路由 `ErrorBoundary`。
+
+导航阻断覆盖 Router 管理的同文档 PUSH、REPLACE 和 POP；一个 Window 只挂载一个 Router。不要绕过 Router 直接调用原生 pushState/replaceState 创建历史条目，这类条目和跨文档导航不保证可撤销。刷新或关闭文档使用 `useBeforeUnload`，异步保存仍由应用负责。IDE 会话缓存、Wake frontmatter 解析和服务器 SPA 回退配置属于应用集成层。
 
 ## 文档
 

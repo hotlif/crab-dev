@@ -169,6 +169,7 @@ export function parseSourceApiProps(sourcePath, name) {
             return { name: property.name, required: !(property.flags & ts.SymbolFlags.Optional),
                 description: normalizeCommentText(ts.displayPartsToString(property.getDocumentationComment(checker))) || (declarations[0] ? leadingLineComment(declarations[0]) : ""),
                 typeText: propertyTypeText(property, checker, source), defaultValue: null,
+                ...(declarations.some(declaration => declaration.type?.kind === ts.SyntaxKind.UnknownKeyword) ? { explicitUnknown: true } : {}),
                 deprecated: property.getJsDocTags(checker).some(tag => tag.name === "deprecated"),
                 native: declarations.length > 0 && declarations.every(declaration => declaration.getSourceFile().fileName.replaceAll("\\", "/").includes("/@types/react/")),
             };

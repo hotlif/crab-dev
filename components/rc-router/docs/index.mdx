@@ -25,6 +25,9 @@ status = "experimental"
 - 路由级和路径级相对导航。
 - location state、查询参数与 Outlet context。
 - NavLink 激活态和 `aria-current="page"` 无障碍反馈。
+- 完整命中链、泛型路由元数据和稳定路由标识。
+- 最近路由错误边界与导航后恢复。
+- SPA 导航阻断、取消／继续和浏览器离开确认。
 
 ## 代码演示
 
@@ -34,6 +37,91 @@ status = "experimental"
 
 <Demos glob="./demos/*.demo.tsx" columns={2} />
 
+## 布局元数据
+
+`RouteObject<Handle>` 的 `handle` 保存应用定义的数据，Router 不解释 frontmatter、权限或布局名称。`useMatches<Handle>()` 返回从根到叶的完整命中链，父布局也能读取叶页面信息；相对导航仍基于调用组件所在路由。Hook 的泛型应与路由表共用，未声明时为 `unknown`，不会自动校验运行时元数据。
+
+`id` 在整张路由表中唯一。省略时按树位置生成，例如 `0-1`；显式 ID 与生成 ID 也不能冲突。动态调整顺序或跨版本持久化引用时应显式声明 ID。相同 ID 的共享布局保留实例；换路由 ID 会重建该路由子树。这里只保留仍挂载的组件，不提供离开页面后的会话缓存。
+
+```tsx
+import { useMatches } from '@crab-dev/rc-router';
+import type { RouteObject } from '@crab-dev/rc-router';
+
+interface PageHandle { frontmatter?: { title?: string; layout?: string } }
+const routes: RouteObject<PageHandle>[] = [
+    { id: 'editor', path: '/edit', handle: { frontmatter: { title: '编辑器', layout: 'workspace' } } },
+];
+function PageTitle() {
+    const matches = useMatches<PageHandle>();
+    return <h1>{matches.at(-1)?.handle?.frontmatter?.title ?? '工作区'}</h1>;
+}
+```
+
+## 页面拆分与错误恢复
+
+在模块顶层声明 `React.lazy`，用 `Suspense` 管理加载状态；路由 `ErrorBoundary` 接收 `{ error, reset }`，处理该路由及后代的渲染错误、lazy Promise 拒绝。未配置时向最近祖先边界传播，边界自身报错也交给外层边界。事件回调、后台请求和保存失败由应用显式处理。
+
+```tsx
+import { lazy, Suspense } from 'react';
+import { Link, Outlet } from '@crab-dev/rc-router';
+import type { RouteErrorBoundaryProps, RouteObject } from '@crab-dev/rc-router';
+
+const Editor = lazy(() => import('./editor.js'));
+function Layout() {
+    return <Suspense fallback={<p role="status">正在加载页面…</p>}><Outlet /></Suspense>;
+}
+function PageError({ error, reset }: RouteErrorBoundaryProps) {
+    return <section role="alert">
+        <p>{error instanceof Error ? error.message : '页面加载失败'}</p>
+        <button onClick={reset}>重试渲染</button><Link to="/">返回首页</Link>
+    </section>;
+}
+const routes: RouteObject[] = [{ Component: Layout, children: [
+    { id: 'editor', path: '/edit', Component: Editor, ErrorBoundary: PageError },
+] }];
+```
+
+成功提交新 location 后，错误状态自动清除；健康共享布局不会因此重挂载。`reset()` 只重试渲染，不能清除 React.lazy 缓存的失败 Promise；模块下载失败需要应用提供刷新页面或重新创建加载器的恢复策略。Router 不内置路由模块 `lazy`、loader 或 action。
+
+## 返回前保存
+
+`useBlocker(boolean | predicate)` 的 predicate 接收 `currentLocation`、`nextLocation` 和 `historyAction`，pathname 已去除 basename。返回 true 时阻断导航；查询参数是否需要阻断由应用自行比较。
+
+- `unblocked`：没有待确认导航。
+- `blocked`：`location` 是目标位置；`reset()` 取消，`proceed()` 批准该次导航。
+- `proceeding`：已批准，等待其他阻断器批准或历史跳转完成。同步 PUSH／REPLACE 可能不显示这一中间状态。
+
+多个阻断器按注册顺序确认，全部批准才提交。确认期间忽略新的程序导航，并恢复额外的原生 POP，保留第一次意图；旧的 proceed/reset 回调不会影响后续导航。参与的 Hook 卸载会取消待确认导航。dirty 变为 false 不自动放行，保存成功后仍需调用 `proceed()`。
+
+浏览器 POP 已改变地址后才触发事件，Router 会先恢复原位置再显示确认，原页面保持挂载。保护范围仅限 Router 管理的同文档历史条目；不能拦截跳出本站文档，也不能可靠撤销绕过 Router 创建的历史条目。一个 Window 使用一个 Router。刷新、关闭标签或整页跳转用 `useBeforeUnload(dirty)` 请求原生确认，浏览器决定是否显示；不能在其中等待异步保存或定制提示文字。
+
+```tsx
+const blocker = useBlocker(({ currentLocation, nextLocation }) =>
+    dirty && currentLocation.pathname !== nextLocation.pathname,
+);
+useBeforeUnload(dirty);
+async function saveAndLeave() {
+    try {
+        await saveDraft();
+        setDirty(false);
+        if (blocker.state === 'blocked') blocker.proceed();
+    } catch (error) {
+        setSaveError(error); // 保持 blocked，让用户重试或取消。
+    }
+}
+```
+
+## 迁移与部署
+
+从 React Router 迁移时保留页面扫描，将入口改为 `<Router routes={routes} />`，把扫描所得 frontmatter 放入 `handle`。将路由 `lazy` 改为 React.lazy + Suspense，将错误页面改为接收 `RouteErrorBoundaryProps` 的 `ErrorBoundary`。当前没有 loader/action/useRouteError 的数据路由语义，不能只替换 import。
+
+`useSearchParams(defaultInit)` 只在查询串完全为空且尚未主动设置时提供默认值，多值默认参数全部保留；已有其他查询参数时不会逐键补缺省值。setter 替换整个查询串，需要保留的参数应从 previous 克隆后修改；更新查询串会清除旧 hash。不应依赖 searchParams 对象的引用稳定性。
+
+空业务 location.state 不再暴露内部 History 包装；不要读取 `__crabRouter` 等内部字段。404 通过 `path: '*'` 显式配置。生产环境需把应用 basename 下的页面请求回退到 SPA HTML，再验证真实刷新和深链接；客户端匹配测试不能替代服务器配置验证。编辑器会话按工作区／文档 ID 放在共享状态层，标签存在不代表页面仍挂载。
+
 ## API
 
 <API source="../src/types.ts" symbol="RouterProps" component="Router" />
+<API source="../src/types.ts" symbol="RouteMatch" component="useMatches" />
+<API source="../src/types.ts" symbol="RouteErrorBoundaryProps" component="ErrorBoundary" />
+<API source="../src/types.ts" symbol="BlockerFunctionArgs" component="useBlocker" />

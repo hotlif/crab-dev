@@ -60,8 +60,11 @@ export function normalizeApiProps(docgenProps, sourceProps, context) {
         const docgenProp = docgenByName.get(name);
         const sourceType = sourceProp?.typeText;
         const docgenType = docgenProp?.typeText;
-        const typeText = sourceType && isValidTypeText(sourceType) ? sourceType : docgenType;
-        if (!isValidTypeText(typeText)) {
+        // Only an authored unknown keyword is reliable. Missing/failed docgen
+        // types still normalize to unknown and must continue to fail validation.
+        const explicitUnknown = sourceType === "unknown" && sourceProp?.explicitUnknown === true;
+        const typeText = explicitUnknown || sourceType && isValidTypeText(sourceType) ? sourceType : docgenType;
+        if (!explicitUnknown && !isValidTypeText(typeText)) {
             const candidate = docgenType ?? sourceType ?? "unknown";
             throw new Error(`${context}: ${name} 的类型无法可靠解析：${String(candidate).slice(0, 120)}`);
         }

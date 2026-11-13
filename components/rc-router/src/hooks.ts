@@ -1,10 +1,12 @@
-import { use, useState } from 'react';
+import { use, useEffect, useEffectEvent, useState } from 'react';
 import type { ReactElement } from 'react';
-import { LocationContext, NavigationContext, OutletContext, RouteContext, } from './contexts.js';
+import { LocationContext, MatchesContext, NavigationContext, OutletContext, RouteContext, } from './contexts.js';
 import type { LocationContextValue, NavigationContextValue, RouteContextValue, } from './contexts.js';
 import { joinPaths, matchPath, normalizeBasename, resolveTo } from './path.js';
 import { createSearchParams } from './path.js';
 import type { Location, NavigateFunction, NavigateOptions, NavigationType, Params, Path, PathMatch, PathPattern, SetURLSearchParams, To, URLSearchParamsInit, } from './types.js';
+import type { Blocker, BlockerFunction, BlockerFunctionArgs, RouteMatch } from './types.js';
+import { stripBasename } from './path.js';
 
 export function useNavigationContext(): NavigationContextValue {
     const context = use(NavigationContext);
@@ -64,13 +66,18 @@ export function useHref(
 }
 
 export function useNavigate(): NavigateFunction {
+    return useNavigateWithCommit();
+}
+
+function useNavigateWithCommit(): (to: To | number, options?: NavigateOptions, onCommit?: () => void) => void {
     const { basename, history } = useNavigationContext();
     const { location } = useLocationContext();
     const routeContext = useRouteContext();
 
-    const navigate: NavigateFunction = (
+    const navigate = (
         to: To | number,
         options: NavigateOptions = {},
+        onCommit?: () => void,
     ): void => {
         if (typeof to === 'number') {
             history.go(to);
@@ -91,9 +98,9 @@ export function useNavigate(): NavigateFunction {
                     : joinPaths([basename, path.pathname]),
         };
         if (options.replace) {
-            history.replace(historyPath, options.state);
+            history.replace(historyPath, options.state, onCommit);
         } else {
-            history.push(historyPath, options.state);
+            history.push(historyPath, options.state, onCommit);
         }
     };
 
@@ -106,6 +113,49 @@ export function useLocation<State = unknown>(): Location<State> {
 
 export function useNavigationType(): NavigationType {
     return useLocationContext().navigationType;
+}
+
+/** 返回整个 Router 的命中链；Handle 泛型由应用与路由表共享。 */
+export function useMatches<Handle = unknown>(): readonly RouteMatch<Handle>[] {
+    useNavigationContext();
+    return use(MatchesContext).map(({ id, params, pathname, pathnameBase, route }) => ({
+        id, params, pathname, pathnameBase, handle: route.handle as Handle | undefined,
+    }));
+}
+
+export function useBlocker(shouldBlock: boolean | BlockerFunction): Blocker {
+    const { history, basename } = useNavigationContext();
+    const [blocker, setBlocker] = useState<Blocker>({ state: 'unblocked' });
+    const toAppLocation = (location: Location): Location => ({
+        ...location,
+        pathname: stripBasename(location.pathname, normalizeBasename(basename)) ?? location.pathname,
+    });
+    const evaluate = useEffectEvent((args: BlockerFunctionArgs): boolean => (
+        typeof shouldBlock === 'boolean' ? shouldBlock : shouldBlock({
+            ...args,
+            currentLocation: toAppLocation(args.currentLocation),
+            nextLocation: toAppLocation(args.nextLocation),
+        })
+    ));
+    const update = useEffectEvent((next: Blocker): void => {
+        setBlocker(next.state === 'unblocked' ? next : { ...next, location: toAppLocation(next.location) });
+    });
+    useEffect(() => history.block(evaluate, update), [history]);
+    return blocker;
+}
+
+/** 刷新或关闭文档时请求浏览器原生确认；不能等待异步保存。 */
+export function useBeforeUnload(enabled: boolean = true): void {
+    const { history } = useNavigationContext();
+    useEffect(() => {
+        if (!enabled) return;
+        const handleBeforeUnload = (event: BeforeUnloadEvent): void => {
+            event.preventDefault();
+            event.returnValue = '';
+        };
+        history.window.addEventListener('beforeunload', handleBeforeUnload);
+        return () => history.window.removeEventListener('beforeunload', handleBeforeUnload);
+    }, [enabled, history]);
 }
 
 export function useParams<Key extends string = string>(): Params<Key> {
@@ -134,14 +184,14 @@ export function useSearchParams(
     defaultInit?: URLSearchParamsInit,
 ): [URLSearchParams, SetURLSearchParams] {
     const location = useLocation();
-    const navigate = useNavigate();
+    const navigate = useNavigateWithCommit();
     const [defaultParams] = useState(() => createSearchParams(defaultInit));
     const [hasSetSearchParams, setHasSearchParams] = useState(false);
     const searchParams = createSearchParams(location.search);
     if (!hasSetSearchParams && location.search === '') {
-        for (const [key, value] of defaultParams) {
+        for (const key of new Set(defaultParams.keys())) {
             if (!searchParams.has(key)) {
-                searchParams.append(key, value);
+                for (const value of defaultParams.getAll(key)) searchParams.append(key, value);
             }
         }
     }
@@ -152,10 +202,10 @@ export function useSearchParams(
                 ? nextInit(new URLSearchParams(searchParams))
                 : nextInit;
         const nextParams = createSearchParams(nextValue);
-        setHasSearchParams(true);
         navigate(
             { search: nextParams.size === 0 ? '' : `?${nextParams.toString()}` },
             navigateOptions,
+            () => setHasSearchParams(true),
         );
     };
 

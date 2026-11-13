@@ -14,6 +14,9 @@
         "build:library": "wake library build .",
         "generate:docgen": "wake library docgen .",
         "test": "wake test --serial --coverage",
+        "test:browser": "yarn test --root src/__tests__/browser",
+        "build:visual": "wake docs build . --mode components --outdir .cache/visual-workbench",
+        "test:visual": "node ../../scripts/visual/run.mjs --package .",
         "typecheck": "tsc --noEmit",
         "lint": "wake lint --format human --root ../.. components/rc-router/src components/rc-router/docs --env browser --max-warnings 0",
         "check": "node ../../scripts/check-package.mjs"
@@ -35,6 +38,8 @@
         "./package.json": "./package.json"
     },
     "devDependencies": {
+        "@crab-dev/rc-button": "workspace:^",
+        "@crab-dev/rc-line-edit": "workspace:^",
         "@crab-dev/standards-typescript-preset": "workspace:^",
         "@crab-dev/wake": "0.1.45",
         "@types/node": "^22.20.2",
@@ -48,7 +53,13 @@
         "node": ">=22"
     },
     "crab": {
-        "docsDependencies": []
+        "requiredChecks": [
+            "test:browser"
+        ],
+        "docsDependencies": [
+            "@crab-dev/rc-button",
+            "@crab-dev/rc-line-edit"
+        ]
     },
     "peerDependencies": {
         "react": "^19.2.0"

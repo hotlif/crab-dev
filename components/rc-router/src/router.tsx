@@ -1,6 +1,7 @@
 import { startTransition, useEffect, useState } from 'react';
 import type { ReactElement, ReactNode } from 'react';
-import { LocationContext, NavigationContext, RouteContext, } from './contexts.js';
+import { LocationContext, MatchesContext, NavigationContext, RouteContext, } from './contexts.js';
+import RouteErrorBoundary from './routeErrorBoundary.js';
 import { createBrowserHistory } from './history.js';
 import { matchRoutes } from './matcher.js';
 import type { RouteMatch } from './matcher.js';
@@ -41,7 +42,7 @@ function getRouteElement(route: RouteObject): ReactNode | undefined {
     return undefined;
 }
 
-function renderMatches(matches: readonly RouteMatch[] | null): ReactElement | null {
+function renderMatches(matches: readonly RouteMatch[] | null, locationKey: string): ReactElement | null {
     if (matches === null) {
         return null;
     }
@@ -51,13 +52,19 @@ function renderMatches(matches: readonly RouteMatch[] | null): ReactElement | nu
         const routeElement = getRouteElement(matches[index].route);
         const children = routeElement === undefined ? outlet : routeElement;
         const childOutlet = outlet;
+        const ErrorBoundary = matches[index].route.ErrorBoundary;
         outlet = (
             <RenderedRoute
+                key={matches[index].id}
                 matchIndex={index}
                 matches={matches}
                 outlet={childOutlet}
             >
-                {children}
+                {ErrorBoundary === undefined ? children : (
+                    <RouteErrorBoundary locationKey={locationKey} fallback={ErrorBoundary}>
+                        {children}
+                    </RouteErrorBoundary>
+                )}
             </RenderedRoute>
         );
     }
@@ -99,7 +106,9 @@ function RouterRuntime({ routes, basename = '/', targetWindow }: RouterRuntimePr
                     navigationType: snapshot.action,
                 }}
             >
-                {renderMatches(matches)}
+                <MatchesContext value={matches ?? []}>
+                    {renderMatches(matches, snapshot.location.key)}
+                </MatchesContext>
             </LocationContext>
         </NavigationContext>
     );

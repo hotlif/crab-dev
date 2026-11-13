@@ -23,3 +23,5 @@ export const NavigationContext: Context<NavigationContextValue | null> = createC
 export const LocationContext: Context<LocationContextValue | null> = createContext<LocationContextValue | null>(null);
 export const RouteContext: Context<RouteContextValue | null> = createContext<RouteContextValue | null>(null);
 export const OutletContext: Context<unknown> = createContext<unknown>(undefined);
+// Full matches are separate from the ancestor chain used for relative navigation.
+export const MatchesContext: Context<readonly RouteMatch[]> = createContext<readonly RouteMatch[]>([]);

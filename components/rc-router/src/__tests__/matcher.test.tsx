@@ -3,6 +3,19 @@ import { matchRoutes } from '../matcher.js';
 import type { RouteObject } from '../types.js';
 
 describe('matchRoutes', () => {
+    it('renders a root child instead of stopping at an equal-scoring pathless layout', () => {
+        const child: RouteObject = { path: '/', element: <p>Home</p> };
+        const matches = matchRoutes([{ element: <p>Layout</p>, children: [child] }], '/');
+        expect(matches).toHaveLength(2);
+        expect(matches?.at(-1)?.route).toBe(child);
+    });
+    it('generates stable structural ids across optional variants and rejects collisions', () => {
+        const routes: RouteObject[] = [{ path: ':language?', children: [{ path: 'docs' }] }];
+        expect(matchRoutes(routes, '/docs')?.map(match => match.id)).toEqual(['0', '0-0']);
+        expect(matchRoutes(routes, '/zh/docs')?.map(match => match.id)).toEqual(['0', '0-0']);
+        expect(() => matchRoutes([{ id: 'same', path: '/' }, { id: 'same', path: '/other' }], '/')).toThrow('duplicate route id');
+        expect(() => matchRoutes([{ id: '1', path: '/' }, { path: '/other' }], '/')).toThrow('duplicate route id');
+    });
     it('ranks static routes above dynamic and splat routes', () => {
         const dynamicRoute: RouteObject = { path: 'users/:id', element: <p>dynamic</p> };
         const staticRoute: RouteObject = { path: 'users/new', element: <p>static</p> };
