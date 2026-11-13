@@ -49,6 +49,8 @@ status = "experimental"
 
 行选择使用 `selectedRowIds` / `defaultSelectedRowIds` 与 `onSelectedRowIdsChange(ids, { rows, reason })`。`ids` 保留 `Set<Key>`，reason 为 `row` / `all` / `clear`；受控值与默认值互斥，父级更新不反向触发变化回调。旧 `rowSelection.onChange(ids, rows)` 不再提供。
 
+专业桌面列表可设置 `rowSelection.showColumn={false}`，隐藏复选框或单选框列，同时保留选中行样式与 `aria-selected`。这不增加隐式的选择行为：调用方通过 `onRowClick` 更新受控 `selectedRowIds`；已有的单元格锚点加 Enter 入口同样调用 `onRowClick`，应与鼠标操作使用同一处理函数。调用方还需提供可键盘访问的设备或记录切换入口；当前 Table 不提供方向键逐行浏览。默认继续显示选择列；隐藏后不提供列头全选控件。
+
 内置选择、展开、编辑与列宽调整文案跟随 `ConfigProvider locale`，列标题和业务数据仍由调用方提供。默认字符串排序采用相同 locale；提供自定义 sorter 时保留业务比较规则。
 
 表格的列顺序、`aria-colindex`、横向滚动偏移与 `fixed="left" / "right"` 使用物理坐标；RTL 不交换左右固定列，也不反转字段顺序。`align="left" / "right"` 同样表示物理左/右对齐，默认左对齐；数组分别配置表头、内容与汇总。文本、筛选器、分组、详情、汇总和操作组继承有效的 Table 方向，行编辑浮条贴在该方向的行尾侧。Table 显式 `dir="ltr" / "rtl"` 覆盖最近 Provider，并通过内部方向边界同步至自定义子控件及其 Portal；其余配置继续继承。
@@ -63,18 +65,42 @@ grid 入口的键盘焦点环绘制在表格边界内侧，并位于固定列、
 
 <API source="../src/table.tsx" symbol="TableProps" component="Table" />
 
+### 命令式定位与焦点
+
+通过 React 19 普通 `ref` 获取从包入口导出的 `TableHandle`。`scrollToRow(rowId, options)` 返回 `Promise<boolean>`，只查找当前可展示的数据行，不改变选择、分组或树展开状态。行 ID 严格匹配，数字与字符串 ID 不会混淆；找不到、被折叠隐藏或没有可用纵向视口时返回 `false`。
+
+`options.align` 为 `nearest`（默认）、`start`、`center` 或 `end`。定位按真实可变行高计算，扣除固定表头、过滤栏、汇总行，并保留横向滚动和焦点。`nearest` 只滚动必要距离；已完整可见或高于视口且覆盖整个可视区的行保持原位。Promise 在行布局与虚拟滚动提交后返回 `true`，不保证浏览器已绘制；连续定位以最后一次为准，被替代或卸载的命令以 `AbortError` 拒绝。保存的旧 handle 在卸载后定位也会拒绝。
+
+`focus()` 恢复表格中最后一个仍连接、可聚焦且未禁用的焦点元素，否则聚焦表格入口并沿用已有键盘操作锚点。不更改选择或滚动，卸载后不执行操作。定位不会自动选择、编辑或聚焦目标行；需要键盘操作时应单独调用 `focus()`。
+
+```tsx
+const tableRef = useRef<TableHandle>(null);
+
+// 用户操作中调用，捕获 AbortError 可处理连续定位或卸载。
+async function locateRecord(recordId: string) {
+    const table = tableRef.current;
+    if (table && await table.scrollToRow(recordId, { align: 'center' })) {
+        table.focus();
+    }
+}
+
+<Table ref={tableRef} rows={rows} columns={columns} width={800} height={400} />
+```
+
+<API source="../src/types.ts" symbol="TableHandle" component="TableHandle" />
+
 
 ## 设计风格与主题
 
-表头、单元格留白、水平与垂直分隔线、行选中前景和背景由数据表语义角色统一管理。Apple 使用银灰表头、较紧凑的列间距和蓝色调选中背景；MD3 使用 tonal 表头、16px 列留白与配对选中色；shadcn 使用与内容一致的表头表面、8px 列留白和中性选中背景。三种风格保留相同排序、筛选、编辑与键盘行为，行选中同时通过 aria-selected 表达。下方三风格示例可在当前浅色或深色模式中直接对照。
-数据表的语义角色分别取自三套设计体系；虚拟列、固定列、行编辑、树与详情行是本库的数据交互扩展。MD3 的表面与状态角色不等同于 Material Web 已提供完整 Table；Apple 是浏览器适配；shadcn/ui 参考固定 New York V4 Table 的表面与描边约定。专业表格行为由本库单独验收。
+表头、单元格留白、水平与垂直分隔线、行选中前景和背景由数据表语义角色统一管理。macOS 使用银灰表头、较紧凑的列间距和蓝色调选中背景；MD3 使用 tonal 表头、16px 列留白与配对选中色；shadcn 使用与内容一致的表头表面、8px 列留白和中性选中背景。三种风格保留相同排序、筛选、编辑与键盘行为，行选中同时通过 aria-selected 表达。下方三风格示例可在当前浅色或深色模式中直接对照。
+数据表的语义角色分别取自三套设计体系；虚拟列、固定列、行编辑、树与详情行是本库的数据交互扩展。MD3 的表面与状态角色不等同于 Material Web 已提供完整 Table；macOS 是浏览器适配；shadcn/ui 参考固定 New York V4 Table 的表面与描边约定。专业表格行为由本库单独验收。
 
 设计来源与固定参考版本见[三套设计体系](/guides/design-styles)，当前已核对范围见[设计覆盖矩阵](/guides/design-coverage)。这段说明记录适配边界，不代表完整视觉验收已通过。
 
 
 ## 桌面矩阵规格
 
-本表格是数据密集 Web 扩展。MD3 Expressive 使用 tonal 表头、内容表面和配对的选中前景；表达集中于动作及状态，不扩大每条数据的视觉重量。Apple 使用轻量表头、精确列对齐及强调色选择；shadcn 使用内容表面、中性选择及清晰描边。三体系共享列坐标和交互模型，颜色、字阶、间距及圆角由 L2 输出，Table 的 L3 只组合组件角色。
+本表格是数据密集 Web 扩展。MD3 Expressive 使用 tonal 表头、内容表面和配对的选中前景；表达集中于动作及状态，不扩大每条数据的视觉重量。macOS 使用轻量表头、精确列对齐及强调色选择；shadcn 使用内容表面、中性选择及清晰描边。三体系共享列坐标和交互模型，颜色、字阶、间距及圆角由 L2 输出，Table 的 L3 只组合组件角色。
 
 | 轴 | 项目规格 |
 | --- | --- |
@@ -88,5 +114,5 @@ grid 入口的键盘焦点环绘制在表格边界内侧，并位于固定列、
 
 行 hover 通过真实 `onRowClick` 协议启用，点击结果由演示输出显示；验收同时检查悬停前后行背景变化。滚动到末页后既要求首行退出，也要求固定数据中的末行出现在视口，且实际渲染的行数保持有界，防止空白虚拟列表被误计为通过。
 
-参考：[M3 颜色角色](https://m3.material.io/styles/color/roles)、[Material Web List](https://material-web.dev/components/list/) 的表面与文本语义；它们没有提供本表格的专业交互实现。Apple 依据[布局原则](https://developer.apple.com/design/human-interface-guidelines/layout)自主适配。shadcn 固定 [New York V4 Table](https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui/table.tsx)，虚拟化、编辑、固定列和详情属于本库扩展。参考记录日期：2026-10-29。
+参考：[M3 颜色角色](https://m3.material.io/styles/color/roles)、[Material Web List](https://material-web.dev/components/list/) 的表面与文本语义；它们没有提供本表格的专业交互实现。macOS 依据[布局原则](https://developer.apple.com/design/human-interface-guidelines/layout)自主适配。shadcn 固定 [New York V4 Table](https://github.com/shadcn-ui/ui/blob/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4/ui/table.tsx)，虚拟化、编辑、固定列和详情属于本库扩展。参考记录日期：2026-10-29。
 

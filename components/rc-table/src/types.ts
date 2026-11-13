@@ -2,6 +2,23 @@ import { type ChangeEvent, type Key, type MouseEvent, type ReactNode } from "rea
 
 export type Align = "left" | "right" | "center";
 
+export interface TableScrollToRowOptions {
+    /** 纵向对齐方式；nearest 仅滚动使目标行可见所需的距离。默认 nearest。 */
+    align?: 'nearest' | 'start' | 'center' | 'end';
+}
+
+/** 表格视图操作，不改变查询、选择或展开状态。 */
+export interface TableHandle {
+    /**
+     * 定位当前可展示的数据行；不存在或被折叠隐藏时返回 false。
+     * 等待虚拟滚动提交后返回 true，不保证浏览器已绘制；不改变横向滚动或焦点。
+     * 连续定位以最后一次为准，被替代或卸载时以 AbortError 拒绝。
+     */
+    scrollToRow: (rowId: Key, options?: TableScrollToRowOptions) => Promise<boolean>;
+    /** 恢复表格内最后一个有效焦点，否则聚焦表格入口；不修改选择或滚动位置。 */
+    focus: () => void;
+}
+
 export type SortDirection = "asc" | "desc";
 
 export interface SortColumn {
@@ -292,6 +309,8 @@ interface RowSelectionBase<T extends Row> {
     getDisabled?: (row: T) => boolean
     /** 选择列宽度（默认 40）*/
     columnWidth?: number
+    /** 是否显示内置选择列（默认 true）。false 时保留选中行语义，由调用方通过 onRowClick 等入口管理受控选择。 */
+    showColumn?: boolean
     /** 是否固定选择列到左侧（默认 true） */
     fixed?: boolean
 }

@@ -21,14 +21,21 @@ type ProtocolColumnType = DocsTypePlaceholder;
 type ProtocolTableState = DocsTypePlaceholder;
 type ReactNode = DocsTypePlaceholder;
 type Record<T0 = unknown, T1 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0, T1] };
+type Ref<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 type RowSelection<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 type Set<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 type SortColumn = DocsTypePlaceholder;
 type T = DocsTypePlaceholder;
 type TableDataRequest<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 type TableDataResult<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
+type TableProHandle = DocsTypePlaceholder;
 
 export interface TableProProps {
+    /**
+     * 刷新当前查询、定位可展示行或恢复表格焦点。
+     */
+    "ref"?: Ref<TableProHandle>;
+
     /**
      * 暂无说明。
      */

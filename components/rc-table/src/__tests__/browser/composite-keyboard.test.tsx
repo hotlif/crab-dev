@@ -27,7 +27,7 @@ const doubleClick = async (node: Element) => {
     await fireEvent(node, new MouseEvent('dblclick', { bubbles: true, button: 0 }));
 };
 
-for (const designSystem of ['md3', 'apple', 'shadcn'] as const)
+for (const designSystem of ['md3', 'macos', 'shadcn'] as const)
 for (const colorMode of ['light', 'dark'] as const)
 it(`${designSystem}/${colorMode}: lets the cell combobox open and commit its own Enter selection`, async () => {
     const committed = mock.fn();

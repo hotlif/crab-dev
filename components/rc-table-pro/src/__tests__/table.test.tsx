@@ -1,9 +1,9 @@
 import { act, beforeAll, describe, it, expect, mock, render, waitFor, fireEvent, screen } from "@crab-dev/wake/test/react";
 
-import type { ProtocolColumnType } from "../types.js";
+import type { ProtocolColumnType, TableProHandle } from "../types.js";
 import type { Row, RowSelection } from "@crab-dev/rc-table";
 import type { PaginationChangeHandler } from '@crab-dev/rc-pagination';
-import type { ReactElement } from 'react';
+import { createRef, StrictMode, type ReactElement } from 'react';
 import LineEdit from '@crab-dev/rc-line-edit';
 import ConfigProvider, { localeMessages } from '@crab-dev/rc-config-provider';
 
@@ -69,6 +69,33 @@ function deferred<T>() {
 }
 
 describe("TablePro", () => {
+    it('exposes refresh through a stable ref, retains search and selection, and clears the ref on unmount', async () => {
+        const ref = createRef<TableProHandle>();
+        const fetchColumns = mock.fn<FetchColumnsFn>().resolve(COLUMNS);
+        const request = mock.fn(async () => ({ rows: ROWS.map(row => ({ ...row })), total: 80 }));
+        const onError = mock.fn();
+        const view = await renderTable(<StrictMode><TablePro<PersonRow> ref={ref} fetchColumns={fetchColumns} request={request}
+            onError={onError} pagination={{}} showSearchBar rowSelection={{ type: 'checkbox' }} style={{ width: 700, height: 400 }} /></StrictMode>);
+        const handle = ref.current!;
+        expect(typeof handle.refresh).toBe('function');
+        const search = screen.getByRole('textbox', { name: '搜索表格' }) as HTMLInputElement;
+        await enterText(search, 'Alice');
+        await act(async () => { await fireEvent.click(screen.getAllByRole('checkbox', { name: localeMessages['zh-CN'].table.selectRow })[0]); });
+        await act(async () => { await fireEvent.click(screen.getByRole('button', { name: '页码 2' })); });
+        const columnCount = fetchColumns.calls.calls.length;
+        const requestCount = request.calls.calls.length;
+        await act(() => handle.refresh());
+        expect(request).toHaveBeenCalledTimes(requestCount + 1);
+        expect(fetchColumns).toHaveBeenCalledTimes(columnCount);
+        expect(ref.current).toBe(handle);
+        expect(screen.getByRole('textbox', { name: '搜索表格' })).toBe(search);
+        expect(search.value).toBe('Alice');
+        expect((screen.getAllByRole('checkbox', { name: localeMessages['zh-CN'].table.selectRow })[0] as HTMLInputElement).checked).toBe(true);
+        expect(view.container.querySelector('[aria-current="page"]')?.textContent).toBe('2');
+        expect(onError).not.toHaveBeenCalled();
+        await view.unmount();
+        expect(ref.current).toBeNull();
+    });
     it.each(['top', 'bottom', 'both'] as const)('keeps search available with %s pagination', async (position) => {
         const fetchColumns = mock.fn<FetchColumnsFn>().resolve(COLUMNS);
         const fetchData = mock.fn<PaginatedFetchFn>().resolve({ rows: ROWS, total: ROWS.length });
@@ -76,7 +103,7 @@ describe("TablePro", () => {
         const search = screen.getByRole('textbox', { name: '搜索表格' }) as HTMLInputElement;
         await enterText(search, 'Alice');
         expect(search.value).toBe('Alice');
-        await view.rerender(<ConfigProvider designSystem="apple" colorMode="dark" locale="en-US"><TablePro<PersonRow> fetchColumns={fetchColumns} fetchData={fetchData} showSearchBar pagination={{ position }} style={{ width: 700, height: 400 }} /></ConfigProvider>);
+        await view.rerender(<ConfigProvider designSystem="macos" colorMode="dark" locale="en-US"><TablePro<PersonRow> fetchColumns={fetchColumns} fetchData={fetchData} showSearchBar pagination={{ position }} style={{ width: 700, height: 400 }} /></ConfigProvider>);
         const configuredSearch = screen.getByRole('textbox', { name: 'Search table' }) as HTMLInputElement;
         expect(configuredSearch === search).toBe(true);
         expect(configuredSearch.value).toBe('Alice');

@@ -3,6 +3,7 @@
  */
 
 import type { ComponentDemoRecord } from "../site/componentDemos.js";
+import type { ComponentDesignDocuments } from "../site/componentDesignGuide.js";
 
 export const demos = [
     {
@@ -46,8 +47,8 @@ export const demos = [
     },
     {
         "id": "docs/demos/theme-states.demo.tsx",
-        "title": "三套风格与选中状态",
-        "description": "相同数据分别使用 MD3 Expressive、Apple 和 shadcn/ui；表头、分隔线、单元格留白及行选中配色随设计边界切换，窄屏可在各表格区域横向滚动。",
+        "title": "当前主题的交互状态",
+        "description": "观察当前主题下的选中、禁用和焦点反馈；示例继承文档配置，可直接操作。",
         "learning": {
             "components": [
                 "ConfigProvider",
@@ -65,7 +66,7 @@ export const demos = [
             "events": [],
             "hasState": false
         },
-        "sourceCode": "import { css } from '@crab-dev/css';\nimport ConfigProvider from '@crab-dev/rc-config-provider';\nimport token, { designSystemRegistry } from '@crab-dev/rc-token-semantic';\nimport Table from '../../src/table.js';\nimport type { ColumnType, Row } from '../../src/types.js';\n\nexport const meta = {\n    title: '三套风格与选中状态',\n    description: '相同数据分别使用 MD3 Expressive、Apple 和 shadcn/ui；表头、分隔线、单元格留白及行选中配色随设计边界切换，窄屏可在各表格区域横向滚动。',\n};\n\ninterface Order extends Row {\n    dataRef: { name: string; status: string; amount: number };\n}\n\nconst rows: Order[] = [\n    { id: '1', dataRef: { name: '年度订阅', status: '已完成', amount: 1280 } },\n    { id: '2', dataRef: { name: '设计审核', status: '处理中', amount: 640 } },\n    { id: '3', dataRef: { name: '团队席位', status: '待确认', amount: 320 } },\n];\nconst columns: ColumnType\u003cOrder>[] = [\n    { name: '$.name', title: '项目', width: 150 },\n    { name: '$.status', title: '状态', width: 100 },\n    { name: '$.amount', title: '金额', width: 90 },\n];\nconst stackStyle = css`\n    display: grid; grid-template-columns: minmax(0, 1fr);\n    gap: ${token.space['group-gap']}; width: 100%; min-width: 0;\n`;\nconst boundaryStyle = css`min-width: 0; max-width: 100%;`;\nconst regionStyle = css`\n    box-sizing: border-box; width: fit-content; min-width: 0; max-width: 100%; overflow-x: auto;\n    color: ${token.color.text.primary}; background: ${token.color.surface.content};\n    border: 1px solid ${token.data.table.border.color}; border-radius: ${token.data.table.radius};\n    &:focus-visible { outline: 2px solid ${token.color.focus.ring}; }\n`;\nconst titleStyle = css`\n    margin: 0; padding: ${token.space['component-gap']} ${token.data.table.cell['padding-inline']};\n    font: inherit; font-weight: ${token.typography.label['font-weight']};\n`;\n\nexport default function ThemeStatesDemo() {\n    return (\n        \u003cdiv className={stackStyle}>\n            {(['md3', 'apple', 'shadcn'] as const).map((design) => (\n                \u003cConfigProvider key={design} designSystem={design} className={boundaryStyle}>\n                    \u003csection className={regionStyle} tabIndex={0} aria-label={`${designSystemRegistry[design].label} 表格示例`}>\n                        \u003ch3 className={titleStyle}>{designSystemRegistry[design].label}\u003c/h3>\n                        \u003cTable\n                            width={400} height={190} columns={columns} rows={rows}\n                            aria-label={`${designSystemRegistry[design].label} 订单`}\n                            rowSelection={{ type: 'checkbox', defaultSelectedRowIds: new Set(['2']) }}\n                        />\n                    \u003c/section>\n                \u003c/ConfigProvider>\n            ))}\n        \u003c/div>\n    );\n}\n",
+        "sourceCode": "import { css } from '@crab-dev/css';\nimport ConfigProvider, { useConfig } from '@crab-dev/rc-config-provider';\nimport token, { designSystemRegistry } from '@crab-dev/rc-token-semantic';\nimport Table from '@crab-dev/rc-table';\nimport type { ColumnType, Row } from '@crab-dev/rc-table';\n\nexport const meta = {\n    title: '当前主题的交互状态',\n    description: '观察当前主题下的选中、禁用和焦点反馈；示例继承文档配置，可直接操作。',\n};\n\ninterface Order extends Row {\n    dataRef: { name: string; status: string; amount: number };\n}\n\nconst rows: Order[] = [\n    { id: '1', dataRef: { name: '年度订阅', status: '已完成', amount: 1280 } },\n    { id: '2', dataRef: { name: '设计审核', status: '处理中', amount: 640 } },\n    { id: '3', dataRef: { name: '团队席位', status: '待确认', amount: 320 } },\n];\nconst columns: ColumnType\u003cOrder>[] = [\n    { name: '$.name', title: '项目', width: 150 },\n    { name: '$.status', title: '状态', width: 100 },\n    { name: '$.amount', title: '金额', width: 90 },\n];\nconst stackStyle = css`\n    display: grid; grid-template-columns: minmax(0, 1fr);\n    gap: ${token.space['group-gap']}; width: 100%; min-width: 0;\n`;\nconst boundaryStyle = css`min-width: 0; max-width: 100%;`;\nconst regionStyle = css`\n    box-sizing: border-box; width: fit-content; min-width: 0; max-width: 100%; overflow-x: auto;\n    color: ${token.color.text.primary}; background: ${token.color.surface.content};\n    border: 1px solid ${token.data.table.border.color}; border-radius: ${token.data.table.radius};\n    &:focus-visible { outline: 2px solid ${token.color.focus.ring}; }\n`;\nconst titleStyle = css`\n    margin: 0; padding: ${token.space['component-gap']} ${token.data.table.cell['padding-inline']};\n    font: inherit; font-weight: ${token.typography.label['font-weight']};\n`;\n\nexport default function ThemeStatesDemo() {\n    const { designSystem: design } = useConfig();\n    return (\n        \u003cdiv className={stackStyle}>\n            \u003cConfigProvider designSystem={design} className={boundaryStyle}>\n                    \u003csection className={regionStyle} tabIndex={0} aria-label={`${designSystemRegistry[design].label} 表格示例`}>\n                        \u003ch3 className={titleStyle}>{designSystemRegistry[design].label}\u003c/h3>\n                        \u003cTable\n                            width={400} height={190} columns={columns} rows={rows}\n                            aria-label={`${designSystemRegistry[design].label} 订单`}\n                            rowSelection={{ type: 'checkbox', defaultSelectedRowIds: new Set(['2']) }}\n                        />\n                    \u003c/section>\n                \u003c/ConfigProvider>\n        \u003c/div>\n    );\n}\n",
         "previewPath": "/components/rc-table/workbench/?__wake_demo=docs%2Fdemos%2Ftheme-states.demo.tsx",
         "workbenchPath": "/components/rc-table/workbench/#/components/docs%2Fdemos%2Ftheme-states.demo.tsx",
         "density": "regular",
@@ -830,3 +831,133 @@ export const demos = [
         "group": "编辑与交互"
     }
 ] as const satisfies readonly ComponentDemoRecord[];
+
+export const documents = {
+    "md3": {
+        "summary": "以语义表头、选中行与内容留白组织结构化数据，数据网格是项目扩展。",
+        "usage": "将排序、筛选和选择分别表达，行操作只在任务需要时获得强调。",
+        "exampleDescription": "选择数据行，观察表头、行背景和选中标记之间的层级。",
+        "demos": [
+            "theme-states.demo.tsx",
+            "basis.demo.tsx",
+            "columnDrag.demo.tsx",
+            "columnResize.demo.tsx",
+            "copy.demo.tsx",
+            "dynamicRowHeight.demo.tsx",
+            "edit.demo.tsx",
+            "empty.demo.tsx",
+            "filter.demo.tsx",
+            "highlight.demo.tsx",
+            "largeScale.demo.tsx",
+            "mergeCells.demo.tsx",
+            "mergeTableHeaders.demo.tsx",
+            "rowEdit.demo.tsx",
+            "rowEvent.demo.tsx",
+            "rowExpansion.demo.tsx",
+            "rowGrouping.demo.tsx",
+            "rowNumber.demo.tsx",
+            "rowSelection.demo.tsx",
+            "rowState.demo.tsx",
+            "selectCells.demo.tsx",
+            "sort.demo.tsx",
+            "summary.demo.tsx",
+            "tree.demo.tsx"
+        ],
+        "references": [
+            "https://m3.material.io/components",
+            "https://material-web.dev/components/",
+            "https://github.com/material-components/material-web"
+        ]
+    },
+    "macos": {
+        "summary": "以紧凑表头、精确单元格对齐和清晰选中行服务桌面数据工作。",
+        "usage": "列宽与行高需适应真实内容，编辑状态与行选择状态分别管理。",
+        "exampleDescription": "调整列宽并浏览内容，检查桌面表格的对齐、截断与滚动。",
+        "demos": [
+            "columnResize.demo.tsx",
+            "basis.demo.tsx",
+            "columnDrag.demo.tsx",
+            "copy.demo.tsx",
+            "dynamicRowHeight.demo.tsx",
+            "edit.demo.tsx",
+            "empty.demo.tsx",
+            "filter.demo.tsx",
+            "highlight.demo.tsx",
+            "largeScale.demo.tsx",
+            "mergeCells.demo.tsx",
+            "mergeTableHeaders.demo.tsx",
+            "rowEdit.demo.tsx",
+            "rowEvent.demo.tsx",
+            "rowExpansion.demo.tsx",
+            "rowGrouping.demo.tsx",
+            "rowNumber.demo.tsx",
+            "rowSelection.demo.tsx",
+            "rowState.demo.tsx",
+            "selectCells.demo.tsx",
+            "sort.demo.tsx",
+            "summary.demo.tsx",
+            "theme-states.demo.tsx",
+            "tree.demo.tsx"
+        ],
+        "references": [
+            "https://developer.apple.com/design/human-interface-guidelines/components",
+            "https://developer.apple.com/design/human-interface-guidelines/accessibility"
+        ]
+    },
+    "shadcn": {
+        "summary": "用中性表头、细分隔线和简洁选中反馈呈现数据，保持内容易扫描。",
+        "usage": "筛选和排序应有可读状态，空数据时给出明确原因与后续动作。",
+        "exampleDescription": "切换列排序，检查排序标记、数据结果和表格边界的对应。",
+        "demos": [
+            "sort.demo.tsx",
+            "basis.demo.tsx",
+            "columnDrag.demo.tsx",
+            "columnResize.demo.tsx",
+            "copy.demo.tsx",
+            "dynamicRowHeight.demo.tsx",
+            "edit.demo.tsx",
+            "empty.demo.tsx",
+            "filter.demo.tsx",
+            "highlight.demo.tsx",
+            "largeScale.demo.tsx",
+            "mergeCells.demo.tsx",
+            "mergeTableHeaders.demo.tsx",
+            "rowEdit.demo.tsx",
+            "rowEvent.demo.tsx",
+            "rowExpansion.demo.tsx",
+            "rowGrouping.demo.tsx",
+            "rowNumber.demo.tsx",
+            "rowSelection.demo.tsx",
+            "rowState.demo.tsx",
+            "selectCells.demo.tsx",
+            "summary.demo.tsx",
+            "theme-states.demo.tsx",
+            "tree.demo.tsx"
+        ],
+        "references": [
+            "https://ui.shadcn.com/docs/components",
+            "https://ui.shadcn.com/docs/theming",
+            "https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4"
+        ]
+    }
+} as const satisfies ComponentDesignDocuments;
+
+export const guide = {
+    "definition": "Table 按行列展示结构化数据，并提供排序、筛选、选择、编辑、固定区域和虚拟化等能力。列定义解释字段怎样显示，rows 提供每条记录，稳定行 ID 连接两者。",
+    "useWhen": [
+        "需要比较多条记录在相同字段上的值。",
+        "用户要排序、筛选、选择、编辑或批量处理结构化数据。"
+    ],
+    "avoidWhen": [
+        "内容主要是叙述或卡片媒体时使用 List/Card；字段很少且只读时简单语义表格可能更合适。"
+    ],
+    "essentials": [
+        "每行提供稳定唯一 ID，列 key 和数据路径不能随渲染变化。",
+        "容器必须有明确宽高，虚拟化只渲染视口附近内容。",
+        "排序和筛选要明确由本地还是服务端负责，不能同时重复处理。"
+    ],
+    "accessibility": [
+        "表格提供描述用途的 aria-label，列标题简短可读，排序状态用 aria-sort。",
+        "单元格内控件拥有带行上下文的名称；键盘选择、编辑和滚动后保持可见焦点。"
+    ]
+} as const;

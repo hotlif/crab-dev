@@ -253,7 +253,7 @@ const token = defineTokens({
             'cursor': `var(${vars['sort.header.cursor']}, pointer)`
         },
         'badge': {
-            'color': `var(${vars['sort.badge.color']}, var(--token-semantic-color-brand-primary, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078))))`,
+            'color': `var(${vars['sort.badge.color']}, var(--token-semantic-color-text-link, var(--token-global-purple-40, oklch(0.49552086 0.13045663 293.709078))))`,
             'font-size': `var(${vars['sort.badge.font-size']}, 11px)`
         }
     },

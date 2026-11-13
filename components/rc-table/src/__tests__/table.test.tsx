@@ -226,6 +226,18 @@ describe("Table", () => {
         expect(screen.getAllByRole('checkbox', { name: localeMessages['zh-CN'].table.selectRow })).toHaveLength(3);
         expect(changed).toHaveBeenCalledTimes(1);
     });
+    it('retains row selection semantics when the selection column is hidden and restores its controls', async () => {
+        const props = { width: 700, height: 300, columns: groupedColumns, rows: buildRows() };
+        const rowSelection = { type: 'radio' as const, selectedRowIds: new Set<Key>(['2']) };
+        const view = await render(<Table {...props} rowSelection={{ ...rowSelection, showColumn: false }} />);
+        expect(view.container.querySelectorAll('input[type="radio"]')).toHaveLength(0);
+        expect(view.container.querySelectorAll('[role="row"][aria-selected="true"]')).toHaveLength(1);
+        const headers = view.container.querySelectorAll('[role="columnheader"]').length;
+        await view.rerender(<Table {...props} rowSelection={rowSelection} />);
+        expect(view.container.querySelectorAll('input[type="radio"]')).toHaveLength(3);
+        expect(view.container.querySelectorAll('[role="columnheader"]').length).toBe(headers + 1);
+        expect(view.container.querySelectorAll('[role="row"][aria-selected="true"]')).toHaveLength(1);
+    });
     it.each(['checkbox', 'radio'] as const)('preserves the input and cell click events for %s selection', async (type) => {
         const changed = mock.fn<NonNullable<RowSelection<DemoRow>['onSelectedRowIdsChange']>>();
         const rows = buildRows();

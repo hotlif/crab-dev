@@ -8,9 +8,12 @@ imports = [
 [token]
 motion.interaction.transition = "$ref(motion.interaction)"
 control.target.width = "$ref(size.touch-target)"
-toolbar.width = "calc($ref(size.touch-target) + $ref(space.inline-gap) * 2)"
+toolbar.width = "calc(var(--table-pro-toolbar-control-width, min($ref(action.button.xs.height), $ref(size.28))) + $ref(space.inline-gap) * 2 + 1px)"
+# Desktop tool rail: cap visual geometry independently of coarse-pointer targets.
+toolbar.control.width = "min($ref(action.button.xs.height), $ref(size.28))"
 toolbar.padding = "$ref(space.inline-gap)"
-toolbar.gap = "$ref(space.inline-gap)"
+toolbar.gap = "calc($ref(space.inline-gap) / 2)"
+toolbar.outline-offset-focus = "-3px"
 panel.width = "280px"
 panel.box-shadow = "$ref(shadow.overlay)"
 column.actions.width = "$ref(size.32)"

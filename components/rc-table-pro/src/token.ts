@@ -10,8 +10,10 @@ export const vars = defineTokens({
     'control.background-color-hover': '--table-pro-control-background-color-hover',
     'control.opacity-disabled': '--table-pro-control-opacity-disabled',
     'toolbar.width': '--table-pro-toolbar-width',
+    'toolbar.control.width': '--table-pro-toolbar-control-width',
     'toolbar.padding': '--table-pro-toolbar-padding',
     'toolbar.gap': '--table-pro-toolbar-gap',
+    'toolbar.outline-offset-focus': '--table-pro-toolbar-outline-offset-focus',
     'panel.width': '--table-pro-panel-width',
     'panel.box-shadow': '--table-pro-panel-box-shadow',
     'column.actions.width': '--table-pro-column-actions-width',
@@ -55,9 +57,13 @@ const token = defineTokens({
         'opacity-disabled': `var(${vars['control.opacity-disabled']}, var(--token-semantic-opacity-disabled, var(--token-global-opacity-38, 0.38)))`
     },
     'toolbar': {
-        'width': `var(${vars['toolbar.width']}, calc(var(--token-semantic-size-touch-target, var(--token-global-size-48, 48px)) + var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)) * 2))`,
+        'width': `var(${vars['toolbar.width']}, calc(var(--table-pro-toolbar-control-width, min(var(--token-semantic-action-button-xs-height, var(--token-global-size-32, 32px)), var(--token-semantic-size-28, var(--token-global-space-7, 28px)))) + var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)) * 2 + 1px))`,
+        'control': {
+            'width': `var(${vars['toolbar.control.width']}, min(var(--token-semantic-action-button-xs-height, var(--token-global-size-32, 32px)), var(--token-semantic-size-28, var(--token-global-space-7, 28px))))`
+        },
         'padding': `var(${vars['toolbar.padding']}, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)))`,
-        'gap': `var(${vars['toolbar.gap']}, var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)))`
+        'gap': `var(${vars['toolbar.gap']}, calc(var(--token-semantic-space-inline-gap, var(--token-global-space-1, 4px)) / 2))`,
+        'outline-offset-focus': `var(${vars['toolbar.outline-offset-focus']}, -3px)`
     },
     'panel': {
         'width': `var(${vars['panel.width']}, 280px)`,

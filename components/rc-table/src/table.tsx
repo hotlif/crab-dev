@@ -42,6 +42,7 @@ import { useRowNumber, ROW_NUMBER_COLUMN_NAME } from "./hooks/useRowNumber.js";
 import { useRowEvents } from "./hooks/useRowEvents.js";
 
 import { useTableInteractionScope } from "./hooks/useTableInteractionScope.js";
+import { useTableHandle } from "./hooks/useTableHandle.js";
 import { ROW_BG_VAR } from "./rowBg.js";
 import type { InternalExpandedRow, InternalGroupRow } from "./util.js";
 import { EXPAND_COLUMN_NAME, isExpandedContentRow, isGroupRow } from "./util.js";
@@ -65,6 +66,7 @@ function Table<T extends Row>(props: TableProps<T>): ReactNode {
     const coarsePointer = useMediaQuery('(pointer: coarse)');
     const defaultRowHeight = coarsePointer ? Math.max(metrics.row, 48) : metrics.row;
     const {
+        ref,
         size: _size,
         density: _density,
         width,
@@ -157,6 +159,7 @@ function Table<T extends Row>(props: TableProps<T>): ReactNode {
     const selectionType = rowSelection?.type;
     const selectionFixed = rowSelection?.fixed;
     const selectionColumnWidth = rowSelection?.columnWidth;
+    const selectionShowColumn = rowSelection?.showColumn;
     const selectionGetDisabled = rowSelection?.getDisabled;
     const selectionRenderVersion = useMemo(() => ({
         selectedRowIds,
@@ -165,7 +168,7 @@ function Table<T extends Row>(props: TableProps<T>): ReactNode {
     }), [selectedRowIds, selectionType, selectionGetDisabled]);
 
     const selectionColumn = useMemo<ColumnType<T> | null>(() => {
-        if (!hasRowSelection) return null;
+        if (!hasRowSelection || selectionShowColumn === false) return null;
         const isFixed = selectionFixed !== false;
         return {
             name: SELECTION_COLUMN_NAME,
@@ -219,6 +222,7 @@ function Table<T extends Row>(props: TableProps<T>): ReactNode {
     }, [
         selectionFixed,
         selectionColumnWidth,
+        selectionShowColumn,
         coarsePointer,
         hasRowSelection,
         locale,
@@ -459,6 +463,10 @@ function Table<T extends Row>(props: TableProps<T>): ReactNode {
     const { virtualRef, activeMatchMeta } = useKeywordMatch<T>({
         highlightKeyword, activeMatchIndex, displayRows, bottomColumns,
         skipCellSet, getCellKey, reservedTopPx, fixedLeftWidth, onMatchCountChange
+    });
+    const tableHandle = useTableHandle({
+        ref, rootRef: interactionRootRef, virtualRef, displayRows, targetRows, rowHeights: gridTemplateRows,
+        viewportHeight: height, reservedTopHeight: reservedTopPx, reservedBottomHeight: showSummary ? summaryRowHeight : 0,
     });
 
     // RcVirtual 的内部滚动 state 会反复调用下方 renderRows，但不会重新执行 Table。
@@ -1155,6 +1163,7 @@ function Table<T extends Row>(props: TableProps<T>): ReactNode {
                 activateInteraction();
                 const ElementConstructor = event.currentTarget.ownerDocument.defaultView?.HTMLElement;
                 if (ElementConstructor && event.target instanceof ElementConstructor) {
+                    tableHandle.rememberFocus(event.target);
                     if (currentEditingRowId != null && event.target.closest('[data-table-row-editing]'))
                         rowEditFocusRef.current = event.target;
                     if (editingCellPos !== null && event.target.closest('[data-table-cell-editing]'))
@@ -1174,6 +1183,7 @@ function Table<T extends Row>(props: TableProps<T>): ReactNode {
         >
             <RcVirtual
                 gridRef={virtualRef}
+                onScrollPositionChange={tableHandle.onScrollPositionChange}
                 // Table column indices, fixed left/right and scroll offsets are
                 // physical data coordinates. Restore content direction at cell
                 // boundaries instead of reversing this geometry in RTL.

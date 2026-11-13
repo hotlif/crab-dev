@@ -1,4 +1,4 @@
-import type { ColumnType, Row, SortColumn } from "@crab-dev/rc-table";
+import type { ColumnType, Row, SortColumn, TableHandle } from "@crab-dev/rc-table";
 import type { PaginationChangeDetails, PaginationChangeHandler, PaginationShowTotal, PaginationSize } from "@crab-dev/rc-pagination";
 
 export interface ProtocolColumnType {
@@ -42,6 +42,16 @@ export interface TableQuery {
 }
 
 export interface TableDataResult<T extends Row> { rows: T[]; total: number }
+/** TablePro 的命令式数据与视图操作；请求与查询状态仍由组件管理。 */
+export interface TableProHandle extends TableHandle {
+    /**
+     * 重新加载当前页、筛选和排序下的数据，不重新加载列定义。
+     * 页码越界时回退并等待有效页加载完成；失败时拒绝并触发 onError。
+     * 被后续请求替代或卸载时以 AbortError 拒绝，不触发 onError。
+     * 完成表示数据状态已更新，不保证浏览器已完成绘制。
+     */
+    refresh: () => Promise<void>;
+}
 export type TableDataRequest<T extends Row> = (query: TableQuery) => Promise<TableDataResult<T>>;
 export type TableDataSource<T extends Row> =
     | { request: TableDataRequest<T>; fetchData?: never; pagination?: PaginationConfig | false; sortMode?: 'client' | 'server' }

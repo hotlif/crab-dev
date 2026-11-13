@@ -25,7 +25,7 @@ function required(root: ParentNode, selector: string): HTMLElement {
 }
 
 describe('Table contained focus with published CSS', () => {
-    for (const designSystem of ['md3', 'apple', 'shadcn'] as const) {
+    for (const designSystem of ['md3', 'macos', 'shadcn'] as const) {
         for (const colorMode of ['light', 'dark'] as const) {
             it(`${designSystem}/${colorMode}: contains all four edges above selected/sticky cells after scrolling`, async () => {
                 const view = await render(<><style>{compiledCss}</style>

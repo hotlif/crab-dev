@@ -254,7 +254,7 @@ function assertEditingRowColumnGeometry(grid: HTMLElement) {
 }
 
 describe('Table row-edit action states with actual CSS', () => {
-    for (const designSystem of ['md3', 'apple', 'shadcn'] as const) {
+    for (const designSystem of ['md3', 'macos', 'shadcn'] as const) {
         for (const colorMode of ['light', 'dark'] as const) {
             for (const direction of ['ltr', 'rtl'] as const) {
                 it(`keeps action paint, observed focus and semantic activation feedback readable (${designSystem}/${colorMode}/${direction})`, async () => {

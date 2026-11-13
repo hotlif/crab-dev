@@ -17,19 +17,24 @@ await writeFile(new URL('package.json', fixture), JSON.stringify({ ...manifest,
     dependencies: { ...manifest.dependencies, '@crab-dev/rc-table-pro': 'workspace:^' },
 }));
 await writeFile(new URL('tsconfig.json', fixture), JSON.stringify({ extends: '@crab-dev/standards-typescript-preset/tsconfig.browser.react.json' }));
-await writeFile(new URL('src/index.ts', fixture), "export { default } from './demos/sidebar.demo.js';\n");
+await writeFile(new URL('src/index.ts', fixture), "export { default } from './demos/sidebar.demo.js';\nexport { default as RefreshDemo } from './demos/refresh.demo.js';\n");
 await writeFile(new URL('src/table.ts', fixture), "export { default } from '@crab-dev/rc-table-pro';\n");
 await writeFile(new URL('src/types.ts', fixture), "export type * from '@crab-dev/rc-table-pro';\n");
 const source = new URL('../docs/demos/sidebar.demo.tsx', import.meta.url);
 const copy = new URL('src/demos/sidebar.demo.tsx', fixture);
 const bytes = await readFile(source);
 await writeFile(copy, bytes);
+const refreshSource = new URL('../docs/demos/refresh.demo.tsx', import.meta.url);
+const refreshCopy = new URL('src/demos/refresh.demo.tsx', fixture);
+const refreshBytes = await readFile(refreshSource);
+await writeFile(refreshCopy, refreshBytes);
 const demo = await wake.buildLibrary({ cwd: fileURLToPath(fixture) });
 for (const diagnostic of demo.diagnostics) {
     if (diagnostic.severity === 'warning' || diagnostic.severity === 'error') throw new Error(diagnostic.message);
 }
 if (!bytes.equals(await readFile(source)) || !bytes.equals(await readFile(copy))) throw new Error('Actual sidebar demo changed during compilation');
+if (!refreshBytes.equals(await readFile(refreshSource)) || !refreshBytes.equals(await readFile(refreshCopy))) throw new Error('Actual refresh demo changed during compilation');
 if (!demo.esmEntry || !demo.cssEntry) throw new Error('Actual sidebar demo ESM and extracted CSS are required');
 styles.push(await readFile(demo.cssEntry, 'utf8'));
-await writeFile(new URL('../.cache/sidebar-demo.mjs', import.meta.url), "export { default } from './sidebar-demo-library/esm/index.mjs';\n");
+await writeFile(new URL('../.cache/sidebar-demo.mjs', import.meta.url), "export { default, RefreshDemo } from './sidebar-demo-library/esm/index.mjs';\n");
 await writeFile(new URL('../.cache/browser-css.json', import.meta.url), `${JSON.stringify(styles.join('\n'))}\n`);

@@ -114,7 +114,7 @@ column-drag.opacity-dragging = "0.45"
 sort.icon.color = "$ref(color.text.tertiary)"
 sort.icon.color-active = "$ref(color.brand.primary)"
 sort.header.cursor = "pointer"
-sort.badge.color = "$ref(color.brand.primary)"
+sort.badge.color = "$ref(color.text.link)"
 sort.badge.font-size = "11px"
 
 # ─── 行选中 ───────────────────────────────────────────────────────────────────

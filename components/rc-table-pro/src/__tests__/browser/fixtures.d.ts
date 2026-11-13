@@ -6,4 +6,5 @@ declare module '*/.cache/browser-css.json' {
 declare module '*/.cache/sidebar-demo.mjs' {
     const ActualSidebarDemo: () => import('react').ReactElement;
     export default ActualSidebarDemo;
+    export const RefreshDemo: () => import('react').ReactElement;
 }

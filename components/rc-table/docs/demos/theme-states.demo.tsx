@@ -1,12 +1,12 @@
 import { css } from '@crab-dev/css';
-import ConfigProvider from '@crab-dev/rc-config-provider';
+import ConfigProvider, { useConfig } from '@crab-dev/rc-config-provider';
 import token, { designSystemRegistry } from '@crab-dev/rc-token-semantic';
-import Table from '../../src/table.js';
-import type { ColumnType, Row } from '../../src/types.js';
+import Table from '@crab-dev/rc-table';
+import type { ColumnType, Row } from '@crab-dev/rc-table';
 
 export const meta = {
-    title: '三套风格与选中状态',
-    description: '相同数据分别使用 MD3 Expressive、Apple 和 shadcn/ui；表头、分隔线、单元格留白及行选中配色随设计边界切换，窄屏可在各表格区域横向滚动。',
+    title: '当前主题的交互状态',
+    description: '观察当前主题下的选中、禁用和焦点反馈；示例继承文档配置，可直接操作。',
 };
 
 interface Order extends Row {
@@ -40,10 +40,10 @@ const titleStyle = css`
 `;
 
 export default function ThemeStatesDemo() {
+    const { designSystem: design } = useConfig();
     return (
         <div className={stackStyle}>
-            {(['md3', 'apple', 'shadcn'] as const).map((design) => (
-                <ConfigProvider key={design} designSystem={design} className={boundaryStyle}>
+            <ConfigProvider designSystem={design} className={boundaryStyle}>
                     <section className={regionStyle} tabIndex={0} aria-label={`${designSystemRegistry[design].label} 表格示例`}>
                         <h3 className={titleStyle}>{designSystemRegistry[design].label}</h3>
                         <Table
@@ -53,7 +53,6 @@ export default function ThemeStatesDemo() {
                         />
                     </section>
                 </ConfigProvider>
-            ))}
         </div>
     );
 }

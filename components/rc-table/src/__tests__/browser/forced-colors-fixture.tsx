@@ -16,9 +16,9 @@ const columns: ColumnType<Entry>[] = [
     { name: '$.state', title: 'State', width: 160, fixed: 'right' },
 ];
 const params = new URLSearchParams(location.search);
-const designSystem = params.get('designSystem') as 'md3' | 'apple' | 'shadcn';
+const designSystem = params.get('designSystem') as 'md3' | 'macos' | 'shadcn';
 const colorMode = params.get('colorMode') as 'light' | 'dark';
-if (!['md3', 'apple', 'shadcn'].includes(designSystem) || !['light', 'dark'].includes(colorMode)) throw Error('Invalid Table fixture configuration');
+if (!['md3', 'macos', 'shadcn'].includes(designSystem) || !['light', 'dark'].includes(colorMode)) throw Error('Invalid Table fixture configuration');
 const host = document.getElementById('root');
 if (!host) throw Error('Missing Table fixture host');
 const root = createRoot(host);

@@ -8,11 +8,16 @@ status = "experimental"
 {/* THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY. */}
 
 import ComponentDemos from "../site/componentDemos.js";
-import { demos } from "../_generated/rc-table-pro.js";
+import ComponentDesignGuide, { DesignIntroduction, DesignExampleIntroduction } from "../site/componentDesignGuide.js";
+import { demos, documents, guide } from "../_generated/rc-table-pro.js";
 
 # TablePro 高级表格
 
 <div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-table-pro</div>
+
+## 设计与用法
+
+<DesignIntroduction documents={documents} />
 
 <div id="基础示例" data-docs-example-anchor /><div id="全部示例" data-docs-example-anchor />
 
@@ -20,29 +25,19 @@ import { demos } from "../_generated/rc-table-pro.js";
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
 
-#### 三体系验收
-
-##### 专业表格验收矩阵 — 公开类型加载器提供编辑；可取消请求逐步完成刷新、错误与重试，真实滚动保留专业工具栏。
-
-#### 业务实战
-
 ##### 订单履约工作台：跨页查询与拣货 — 模拟 960 笔多区域订单。尝试在右侧筛选「待发货」、按承诺日期排序、跨页选择订单并生成拣货单；金额汇总与 CSV 只针对当前页。request 真正处理分页、筛选、排序及 AbortSignal。
 
 ##### 库存补货决策：仓库分组与汇总 — 模拟 720 条真实库存组合。按仓库分组，查看可用库存、7 日需求及补货建议；展开行看供应商和采购提前期，筛选缺货风险后勾选并生成模拟采购建议。底部汇总随筛选结果变化。
 
 ##### 应收账款复核：持久化视图与催收清单 — 模拟 840 张企业发票（固定快照日 2026-09-24）。筛选客户、负责人或风险等级；拖拽和固定列会写入 localStorage，刷新页面仍保留视图。底部汇总和 CSV 涵盖全部筛选结果，选择逾期发票生成模拟催收计划。
 
-#### 基础与数据
-
 ##### 基础用法 — 通过 fetchData 与 fetchColumns 异步加载数据和列定义，TablePro 会自动适应容器宽高。
-
-##### 可重放的数据状态 — 切换真实请求的加载、空结果、数据错误、列错误和成功状态。加载请求持续等待至切换场景时取消；请求计数来自传输函数的实际调用，可核对错误场景的重复重试，切换“显示数据”后恢复成功。
 
 ##### 自定义类型渲染 — 通过 typeLoaders 为不同 dataType 注入自定义渲染器，实现状态标签、金额格式化和日期格式化等效果。
 
 ##### 自动刷新 — autoRefreshInterval 指定轮询间隔（ms），侧边栏同时出现「立即刷新」按钮。此示例每 3 秒自动重新拉取一次数据，模拟实时监控场景。
 
-#### 工作区能力
+##### 刷新、定位与焦点 — 刷新后等待完成反馈；定位记录 10 只查找当前页，聚焦按钮将键盘操作交回表格。
 
 ##### 全局关键字搜索 — showSearchBar=true 在表格顶部显示内置搜索栏，输入关键字后所有可见列匹配到的文字会高亮显示，并支持上一个 / 下一个导航。DataTypeLoader.getSearchText 可为枚举等类型自定义匹配文本。
 
@@ -50,129 +45,19 @@ import { demos } from "../_generated/rc-table-pro.js";
 
 ##### 服务端分页 — 设置 pagination 属性后，fetchData 会接收 page 与 pageSize 参数，由服务端完成数据切片并返回 （ rows, total ），组件根据 total 渲染分页器。分页栏末尾始终显示刷新按钮；若设置 autoRefreshInterval，还会按指定间隔自动重拉当前页数据。
 
-#### 导出与状态
-
 ##### CSV 导出 — 设置 exportFileName 后侧边栏出现导出按钮，点击后将当前可见列导出为 UTF-8 CSV 文件。DataTypeLoader.exportValue 可自定义每种数据类型的导出文本——例如将枚举值转换为中文标签，或对数值格式化。
 
 ##### 状态持久化 — initialState 在首次加载时恢复列顺序、显隐、宽度、固定等属性；onStateChange 在任何列属性或过滤条件变更时触发，可将快照写入 localStorage。刷新页面后所有调整会被还原。
 
 </div>
 
-<ComponentDemos demos={demos} />
+<DesignExampleIntroduction documents={documents} />
 
-[打开完整组件工作台](/components/rc-table-pro/workbench/)
+<ComponentDemos demos={demos} documents={documents} />
 
 ## 使用说明
 
-基于 `@crab-dev/rc-table` 的业务表格。将 `ProtocolColumnType` 列定义转换为 Table 使用的 `ColumnType`，并通过 `dataType` 配置对应的渲染器、筛选器和编辑器。
-
-
-`showSearchBar` 可与顶部、底部或双侧分页同时使用；搜索栏保持独立可操作，切换设计体系、明暗与语言时保留搜索词和输入节点。
-
-### 主要功能
-
-- 通过 `fetchColumns` 和 `request` 异步加载列定义与数据，兼容旧 `fetchData`。
-- 通过 `typeLoaders` 为不同 `dataType` 配置 `render`、`filterEditor` 和 `editRender`。
-- 复用 AutoSizer 与 Table，提供自适应容器和虚拟滚动。
-- 集成分页、查询、列管理与导出；数据请求和业务筛选逻辑由调用方实现。
-
-### 何时使用
-
-- 后端以列协议（metadata）下发列定义，需要前端根据协议渲染表格；
-- 需要为多种数据类型（金额、日期、富文本、状态）提供可插拔渲染器；
-- 需要将筛选/排序逻辑放到服务端，前端只负责展示与收集条件。
-
-
-先看「业务实战」中的三个组合场景，再按需回到基础示例理解单项 API。所有数据都在浏览器内生成，操作不会写入真实后端。
-
-| 场景 | 建议亲手完成的任务 | 主要能力 |
-| --- | --- | --- |
-| 订单履约 | 在右侧过滤器输入「待发货」并回车；按承诺送达日排序；跨页选择订单后生成拣货单 | 服务端分页、复合筛选和排序、请求取消、跨页勾选、当前页汇总与导出 |
-| 库存补货 | 查看不同仓库的商品分组；筛选「需补货」；展开一行了解供应商；选择几条记录生成采购建议 | 多级表头、仓库分组、虚拟滚动、行展开、全量筛选汇总 |
-| 应收复核 | 筛选「高风险」；调整列顺序与固定方式；刷新页面确认视图保留；选择逾期发票生成催收清单 | 客户端排序、列状态持久化、全量汇总、筛选结果导出 |
-
-三个场景分别处理 960 笔订单、720 条库存组合和 840 张发票。订单场景的 `request` 只返回当前页，因此底部汇总和 CSV 只覆盖**当前页**；另外两个场景一次返回全部筛选结果，汇总和 CSV 覆盖**全部筛选结果**。内置搜索栏用于定位已加载的行，不能代替跨页服务端搜索。示例中的「生成」按钮只在页面内展示操作反馈，不会创建真实单据。
-
-这三个示例共用的演示框架、筛选输入、状态标签和可取消模拟请求位于包内 `docs/demos/scenario-shared.tsx`；复制场景源码到自己的项目时，也要将这些辅助函数替换为项目组件和真实接口。
-
-“可重放的数据状态”将请求保持在加载状态，或返回空结果、数据错误、列错误及成功数据。错误场景可重复使用内置重试按钮，仍会返回同一模拟错误；切换“显示数据”恢复成功。切换场景会取消未完成请求，适合观察各状态的内容和操作布局。
-
-加载与请求错误优先于空态：请求未成功返回空结果时，不显示默认或自定义 `empty` 内容。已有行在刷新和刷新失败时保留，加载或错误反馈覆盖其上；成功返回零行后才显示 `empty`。重试期间同样遵守此顺序，不同时报告“加载中”和“暂无数据”。
-
-
-
-
-推荐使用 `request({ page, pageSize, filters, sort, signal })`，返回 `{ rows, total }`。新查询和卸载会取消旧请求；将 signal 传给 fetch 可中止底层网络请求。过期结果与过期错误均不会覆盖当前状态。
-
-从零开始接入时，先定义 `Row` 的 `dataRef` 形状，再让 `fetchColumns` 返回列协议（`name` 通常写成 `$.字段名`），最后实现 `request`。`filters` 的 key 是列名，value 是编辑器提交的字符串；服务端需自行解释条件并计算筛选后的 `total`。`sort` 包含列名与方向，服务端负责实际排序；`signal` 应传给网络请求。`rowSelection` 用受控 `selectedRowIds` 时，在 `onSelectedRowIdsChange(ids, { rows, reason })` 中保存新集合，并根据业务状态设置 `getDisabled`。仅在已加载数据范围内使用 `showSummary` 与导出；需要全库聚合或全库导出时应另接后端接口。
-
-`sortMode` 默认为 client，仅对已加载数据排序。服务端分页配合 `sortMode="server"` 和 request 使用，组件通过 query.sort 传递排序条件，保留返回顺序，排序变化时回到第一页。旧 fetchData 仅支持 client 模式。
-
-为类型加载器标注 `DataTypeLoader<MyRow>[]`，渲染、编辑、搜索、汇总和导出回调便可保留业务行类型。`TableProProps`、`ProtocolTableState`、`TableQuery` 等类型均从包入口导出。
-
-`size` 只设置内置控件尺寸，`density` 独立控制 Table 行高与列面板 Tree 的默认几何；显式行高优先。分页配置的变化通知为 `onValueChange(page, { pageSize, reason })`，reason 为 `page` / `page-size` / `jump`；每页条数另通过 `onPageSizeChange(size, { page })` 通知。原有 `pagination.onChange(page, pageSize)` 已移除。内部请求仍采用既有的 `page/pageSize/filters/sort` 数据协议。
-
-工具栏、搜索、列操作、筛选、错误与无障碍名称跟随 `ConfigProvider locale`。业务列标题、数据内容、自定义编辑器和服务端错误消息由调用方负责。
-
-窄容器中，列面板覆盖表格并保留侧边工具栏；固定列阴影、表格焦点框和滚动条留在表格层内，不遮盖面板的搜索、勾选和重置操作。
-
-排序、分组展开、树展开、详情展开与行编辑复用 Table 的 `TableStateProps` 约束；受控属性与对应初值或默认展开策略互斥。TablePro 先解析自己的排序状态，再以受控排序传给 Table，初始排序只由一层状态机制消费。
-
-
-
-### 设计风格与主题
-
-TablePro 在 Table 上组合查询、列配置和分页等能力。内部表格及列面板 Tree、工具栏字段、Checkbox、Button、DropdownContainer、Pagination 和 Spin 分别复用对应组件的视觉与交互契约；外围工作区使用工具栏、表面、表格边界、选中和错误等 L2 角色，不另造一套表格主题。
-
-Material Design 3 Expressive、Apple 和 shadcn/ui 的来源与固定 New York V4 基线见[三套设计体系](/guides/design-styles)。表格增强、列协议和请求编排按本库的专业扩展规则维护；基础控件的来源不能替代排序、列操作、虚拟行、编辑、加载与错误状态的逐项验收。
-
-`size` 设置内置控件尺寸，`density` 控制默认数据行和列面板节点几何，显式行高等配置优先。列定义、`request` 查询、持久化状态、业务编辑器和数据格式属于领域接口，切换设计体系不会重新解释它们。列加载错误、数据加载错误、空态和加载反馈应分别可识别。
-
-三体系、浅深色及适用数据状态的覆盖等级以[覆盖矩阵](/guides/design-coverage)和对应候选记录为准。
-
-
-### 专业工作区矩阵规格
-
-TablePro 保留 Table 的数据表语言，以公开 Table、Tree、字段、Button 和 Pagination 组合专业工作区。它不复制数据表样式或测量模型。MD3 Expressive 的强调动作、Apple 的轻量工具栏、shadcn 的紧凑描边通过各基础组件及 L2 角色传递；列协议、请求取消、查询及视图状态与外观分开维护。
-
-| 轴 | 项目规格 |
-| --- | --- |
-| 尺寸 / 密度 | small / medium / large × compact / standard / comfortable；尺寸用于控件，密度用于数据及列树 |
-| 表面 | 内容区、搜索工具栏、列面板、分页与错误覆盖分别取配对语义角色 |
-| 静态状态 | 已有数据、键盘焦点、行选择、列面板、编辑草稿及提交/取消、虚拟滚动、成功空结果、列/数据请求错误 |
-| 自然动态状态 | 初次加载无 Empty；已有数据刷新保留行；真实响应完成更新、失败保留内容、重试恢复 |
-| 错误 | 列错误和数据错误分别提供 alert、错误详情及可达的重试动作 |
-
-「专业表格验收矩阵」提供固定可取消传输。初次加载和刷新由真实 Promise 进入，Playwright 单独保存视频、两帧及动画时间序列；不停止动画或将动态帧设成静态基准。其余状态使用原生截图比较与控件断言。尺寸、密度与适用状态来自 docs/visual.json；Firefox / WebKit 子集同样在此声明。
-
-响应控制只完成或拒绝实际待处理请求，不修改组件状态样式。刷新验收保留同一个表格实例及选择，检查成功后更新文字、失败时保留已有行，以及内置重试恢复。编辑通过公开 `DataTypeLoader.editRender` 与字段的真实双击、输入、失焦提交或 Escape 取消；演示业务值由独立状态管理。滚动必须同时确认首行退出、末行进入视口以及非空且有界的虚拟行。尚未执行或复审的新候选仍保持未验证，不以场景声明代替结果。
-
-三体系基础来源沿用 [Table](/components/rc-table) 和 [Tree](/components/rc-tree)；专业工具栏、列协议、分页请求与重试编排属于本库桌面扩展。shadcn 保持 New York V4 提交 3d98900e9b73c45f035f8109e9d41ba6a51685e7 的 [Data Table 参考](https://ui.shadcn.com/docs/components/radix/data-table)，不引入其表格引擎。Apple 使用自主 Web 实现。参考记录日期：2026-10-29。
-
-### 适用场景
-
-页面需要围绕一个数据源提供完整查询和管理工具。 多个项目要复用一致的分页、列配置、导出和刷新流程。
-
-只展示本地小数据集时直接使用 Table；页面交互特殊到无法共享协议时先拆分需求。
-
-### 使用要点
-
-- loader 的输入、返回总数和取消/竞态行为必须明确。
-- 搜索、分页和列状态使用单一来源，持久化只保存可恢复的用户偏好。
-- 导出、自动刷新和侧栏都要展示独立的进行中、成功和失败结果。
-
-### 无障碍
-
-- 工具栏有名称和逻辑顺序，刷新后不重置用户焦点或朗读整个表格。
-- 查询错误、空结果和导出状态提供文字反馈，列管理可完全使用键盘。
-
-### 设计依据与覆盖
-
-- **MD3 Expressive**：这是企业数据工作台模式，组合 Table、Search/Text field、Pagination、Drawer 与 Button；M3 负责组成控件和视觉角色。 [依据 1](https://m3.material.io/components) · [依据 2](https://material-web.dev/components/) · [依据 3](https://github.com/material-components/material-web)
-- **Apple**：依据 Apple HIG 的控件、内容层级与反馈原则自主实现 Web 适配；不复刻特定 macOS 版本，完整状态覆盖仍需按本库矩阵验收。 [依据 1](https://developer.apple.com/design/human-interface-guidelines/components) · [依据 2](https://developer.apple.com/design/human-interface-guidelines/accessibility)
-- **shadcn/ui**：参考 shadcn/ui 的组件用途、中性表面与设计变量，在本库公共语义和 React 交互模型中实现；完整状态覆盖仍需按矩阵验收。 [依据 1](https://ui.shadcn.com/docs/components) · [依据 2](https://ui.shadcn.com/docs/theming) · [依据 3](https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4)
-
-设计依据不等于完成验收；当前状态与适用边界见[覆盖矩阵](/guides/design-coverage)。
+<ComponentDesignGuide guide={guide} documents={documents} />
 
 ## 常见问题
 
@@ -190,3 +75,5 @@ TablePro 保留 Table 的数据表语言，以公开 Table、Tree、字段、But
 <API source="../_generated_api/rc-table-pro-native.ts" symbol="TableProPropsNativeAttributes" component="TablePro 继承的原生属性" />
 
 </details>
+
+<API source="../_generated_api/rc-table-pro-TableProHandle.ts" symbol="TableProHandle" component="TableProHandle" />

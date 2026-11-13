@@ -1,6 +1,6 @@
 [test]
 environment = "browser"
-include = ["sidebar-stacking.test.tsx"]
+include = ["sidebar-stacking.test.tsx", "refresh.test.tsx"]
 timeout_ms = 15000
 leaks = "error"
 

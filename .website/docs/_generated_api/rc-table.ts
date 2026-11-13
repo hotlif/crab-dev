@@ -16,14 +16,21 @@ type Key = DocsTypePlaceholder;
 type MergeCell = DocsTypePlaceholder;
 type ReactNode = DocsTypePlaceholder;
 type Record<T0 = unknown, T1 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0, T1] };
+type Ref<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 type RowEventHandler<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 type RowSelection<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 type Set<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 type SortColumn = DocsTypePlaceholder;
 type T = DocsTypePlaceholder;
 type TableCellProps<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
+type TableHandle = DocsTypePlaceholder;
 
 export interface TableProps {
+    /**
+     * 定位当前可展示行或恢复表格焦点。
+     */
+    "ref"?: Ref<TableHandle>;
+
     /**
      * 表格内置控件尺寸；不改变数据行几何。省略时继承 ConfigProvider。
      */

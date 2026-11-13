@@ -3,6 +3,7 @@
  */
 
 import type { ComponentDemoRecord } from "../site/componentDemos.js";
+import type { ComponentDesignDocuments } from "../site/componentDesignGuide.js";
 
 export const demos = [
     {
@@ -253,6 +254,38 @@ export const demos = [
         "group": "基础与数据"
     },
     {
+        "id": "docs/demos/refresh.demo.tsx",
+        "title": "刷新、定位与焦点",
+        "description": "刷新后等待完成反馈；定位记录 10 只查找当前页，聚焦按钮将键盘操作交回表格。",
+        "learning": {
+            "components": [
+                "Button",
+                "TablePro"
+            ],
+            "props": [
+                "disabled",
+                "onClick",
+                "ref",
+                "fetchColumns",
+                "request",
+                "pagination",
+                "showSearchBar",
+                "resizable",
+                "rowSelection"
+            ],
+            "events": [
+                "onClick"
+            ],
+            "hasState": true
+        },
+        "sourceCode": "import { useRef, useState } from 'react';\nimport { css } from '@crab-dev/css';\nimport Button from '@crab-dev/rc-button';\nimport TablePro, { type ProtocolColumnType, type TableProHandle, type TableQuery } from '@crab-dev/rc-table-pro';\nimport type { Row } from '@crab-dev/rc-table';\n\nexport const meta = {\n    title: '刷新、定位与焦点',\n    description: '刷新后等待完成反馈；定位记录 10 只查找当前页，聚焦按钮将键盘操作交回表格。',\n};\n\ninterface ItemRow extends Row { dataRef: { name: string; revision: number } }\nconst columns: ProtocolColumnType[] = [\n    { name: '$.name', title: '记录', dataType: 'text', width: 180 },\n    { name: '$.revision', title: '数据版本', dataType: 'number', width: 120 },\n];\nconst fetchColumns = async () => columns;\nconst layout = css`display: flex; flex-direction: column; gap: 12px;`;\nconst toolbar = css`display: flex; align-items: center; flex-wrap: wrap; gap: 12px;`;\nconst tableStyle = css`width: 100%; height: 360px;`;\n\nexport default function RefreshDemo() {\n    const tableRef = useRef\u003cTableProHandle>(null);\n    // 可变演示数据源：模拟保存后的服务端版本，不承担表格的查询状态管理。\n    const revision = useRef(1);\n    const [busy, setBusy] = useState(false);\n    const [status, setStatus] = useState('尚未手动更新');\n    const request = async (query: TableQuery) => {\n        await new Promise\u003cvoid>(resolve => setTimeout(resolve, 300));\n        query.signal.throwIfAborted();\n        const allRows: ItemRow[] = Array.from({ length: 25 }, (_, index) => ({\n            id: index + 1, dataRef: { name: `记录 ${index + 1}`, revision: revision.current },\n        }));\n        return { rows: allRows.slice((query.page - 1) * query.pageSize, query.page * query.pageSize), total: allRows.length };\n    };\n    const updateAndRefresh = async () => {\n        const table = tableRef.current;\n        if (!table) return;\n        revision.current += 1;\n        setBusy(true);\n        setStatus('正在刷新');\n        try {\n            await table.refresh();\n            setStatus('刷新完成，可以继续后续操作');\n        } catch (error) {\n            if (error instanceof Error && error.name === 'AbortError') {\n                setStatus('本次刷新已取消');\n                return;\n            }\n            setStatus('刷新失败，请重试');\n        } finally {\n            setBusy(false);\n        }\n    };\n    const locateRecord = async () => {\n        const table = tableRef.current;\n        if (!table) return;\n        try {\n            const found = await table.scrollToRow(10, { align: 'center' });\n            setStatus(found ? '已定位记录 10' : '记录 10 不在当前页');\n        } catch (error) {\n            if (error instanceof Error && error.name === 'AbortError') return;\n            setStatus('定位失败');\n        }\n    };\n    return \u003cdiv className={layout}>\n        \u003cdiv className={toolbar}>\n            \u003cButton disabled={busy} onClick={updateAndRefresh}>更新并刷新\u003c/Button>\n            \u003cButton disabled={busy} onClick={locateRecord}>定位记录 10\u003c/Button>\n            \u003cButton onClick={() => tableRef.current?.focus()}>聚焦表格\u003c/Button>\n            \u003cspan role=\"status\">{status}\u003c/span>\n        \u003c/div>\n        \u003cTablePro\u003cItemRow> ref={tableRef} className={tableStyle} fetchColumns={fetchColumns} request={request}\n            pagination={{ defaultPageSize: 10 }} showSearchBar resizable rowSelection={{ type: 'checkbox' }} />\n    \u003c/div>;\n}\n",
+        "previewPath": "/components/rc-table-pro/workbench/?__wake_demo=docs%2Fdemos%2Frefresh.demo.tsx",
+        "workbenchPath": "/components/rc-table-pro/workbench/#/components/docs%2Fdemos%2Frefresh.demo.tsx",
+        "density": "regular",
+        "layout": "wide",
+        "group": "基础与数据"
+    },
+    {
         "id": "docs/demos/search-bar.demo.tsx",
         "title": "全局关键字搜索",
         "description": "showSearchBar=true 在表格顶部显示内置搜索栏，输入关键字后所有可见列匹配到的文字会高亮显示，并支持上一个 / 下一个导航。DataTypeLoader.getSearchText 可为枚举等类型自定义匹配文本。",
@@ -409,3 +442,97 @@ export const demos = [
         "group": "导出与状态"
     }
 ] as const satisfies readonly ComponentDemoRecord[];
+
+export const documents = {
+    "md3": {
+        "summary": "以语义工具区与数据表组合业务查询任务，关键动作和结果内容明确分层。",
+        "usage": "筛选、分页和批量操作围绕同一数据任务组织，避免每个区域都重复强调。",
+        "exampleDescription": "填写查询条件并观察结果，检查查询动作、状态与数据区的关系。",
+        "demos": [
+            "search-bar.demo.tsx",
+            "auto-refresh.demo.tsx",
+            "refresh.demo.tsx",
+            "basic.demo.tsx",
+            "export.demo.tsx",
+            "inventory-planning.demo.tsx",
+            "order-operations.demo.tsx",
+            "pagination.demo.tsx",
+            "receivables-review.demo.tsx",
+            "sidebar.demo.tsx",
+            "state-persistence.demo.tsx",
+            "type-loaders.demo.tsx"
+        ],
+        "references": [
+            "https://m3.material.io/components",
+            "https://material-web.dev/components/",
+            "https://github.com/material-components/material-web"
+        ]
+    },
+    "macos": {
+        "summary": "以桌面侧栏、紧凑工具栏和数据工作区组织复杂表格任务。",
+        "usage": "侧栏承载分类与任务位置，内容区负责查询结果，浮动材质只用于导航和操作。",
+        "exampleDescription": "切换业务侧栏项目，检查桌面导航层与表格内容层的分隔。",
+        "demos": [
+            "sidebar.demo.tsx",
+            "auto-refresh.demo.tsx",
+            "refresh.demo.tsx",
+            "basic.demo.tsx",
+            "export.demo.tsx",
+            "inventory-planning.demo.tsx",
+            "order-operations.demo.tsx",
+            "pagination.demo.tsx",
+            "receivables-review.demo.tsx",
+            "search-bar.demo.tsx",
+            "state-persistence.demo.tsx",
+            "type-loaders.demo.tsx"
+        ],
+        "references": [
+            "https://developer.apple.com/design/human-interface-guidelines/components",
+            "https://developer.apple.com/design/human-interface-guidelines/accessibility"
+        ]
+    },
+    "shadcn": {
+        "summary": "用中性筛选区、简洁工具栏和有边界的数据表组合管理页面。",
+        "usage": "持久化状态应对应用户的查询意图，刷新后保留可理解的筛选与分页。",
+        "exampleDescription": "改变查询和分页状态后恢复页面，检查状态与数据结果的一致性。",
+        "demos": [
+            "state-persistence.demo.tsx",
+            "auto-refresh.demo.tsx",
+            "refresh.demo.tsx",
+            "basic.demo.tsx",
+            "export.demo.tsx",
+            "inventory-planning.demo.tsx",
+            "order-operations.demo.tsx",
+            "pagination.demo.tsx",
+            "receivables-review.demo.tsx",
+            "search-bar.demo.tsx",
+            "sidebar.demo.tsx",
+            "type-loaders.demo.tsx"
+        ],
+        "references": [
+            "https://ui.shadcn.com/docs/components",
+            "https://ui.shadcn.com/docs/theming",
+            "https://github.com/shadcn-ui/ui/tree/3d98900e9b73c45f035f8109e9d41ba6a51685e7/apps/v4/registry/new-york-v4"
+        ]
+    }
+} as const satisfies ComponentDesignDocuments;
+
+export const guide = {
+    "definition": "TablePro 在 Table 之上组合数据加载、搜索、分页、列管理、自动刷新、导出和状态持久化，面向完整的数据工作台。它协调协议与界面，不替服务端定义查询语义。",
+    "useWhen": [
+        "页面需要围绕一个数据源提供完整查询和管理工具。",
+        "多个项目要复用一致的分页、列配置、导出和刷新流程。"
+    ],
+    "avoidWhen": [
+        "只展示本地小数据集时直接使用 Table；页面交互特殊到无法共享协议时先拆分需求。"
+    ],
+    "essentials": [
+        "loader 的输入、返回总数和取消/竞态行为必须明确。",
+        "搜索、分页和列状态使用单一来源，持久化只保存可恢复的用户偏好。",
+        "导出、自动刷新和侧栏都要展示独立的进行中、成功和失败结果。"
+    ],
+    "accessibility": [
+        "工具栏有名称和逻辑顺序，刷新后不重置用户焦点或朗读整个表格。",
+        "查询错误、空结果和导出状态提供文字反馈，列管理可完全使用键盘。"
+    ]
+} as const;

@@ -1,7 +1,7 @@
 # This layout-only regression requires test:browser to build published ESM/CSS.
 [test]
 environment = "browser"
-include = ["table.test.tsx", "row-edit-actions.test.tsx", "contained-focus.test.tsx", "composite-keyboard.test.tsx"]
+include = ["table.test.tsx", "row-edit-actions.test.tsx", "contained-focus.test.tsx", "composite-keyboard.test.tsx", "table-handle.test.tsx"]
 timeout_ms = 15000
 leaks = "error"
 

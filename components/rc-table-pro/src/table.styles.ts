@@ -1,6 +1,7 @@
 import { TokenVars as buttonVars } from "@crab-dev/rc-button";
+import { TokenVars as checkboxVars } from "@crab-dev/rc-checkbox";
 import { css } from "@crab-dev/css";
-import token from "./token.js";
+import token, { vars } from "./token.js";
 
 export const flexColumnStyle = css`
     display: flex;
@@ -60,6 +61,29 @@ export const tableAndPanelRowStyle = css`
     flex-direction: row;
     width: 100%;
     height: 100%;
+    /* Keep the overlay offset and rail width in sync with coarse pointer targets. */
+    @media (pointer: coarse) {
+        ${vars['toolbar.width']}: calc(max(${token.toolbar.control.width}, ${token.control.target.width}) + ${token.toolbar.padding} * 2 + 1px);
+    }
+`;
+
+/* TablePro's desktop tools compose themed extra-small Buttons; visual geometry is independent
+   of touch targets. Keep Button's default shape, focus and press feedback. */
+export const sideToolbarButtonStyle = css`
+    flex-shrink: 0;
+    /* Inset the focus ring so dense adjacent tools cannot cover it. */
+    ${buttonVars['root.outline-offset-focus']}: ${token.toolbar['outline-offset-focus']};
+    ${buttonVars['text.color']}: ${token.icon.color};
+    ${buttonVars['text.background-color-hover']}: ${token.icon['background-color-hover']};
+    ${buttonVars['text.background-color-focus']}: ${token.icon['background-color-focus']};
+    ${buttonVars['text.background-color-active']}: ${token.icon['background-color-pressed']};
+    ${buttonVars['tonal.color-selected']}: ${token.icon['color-selected']};
+    ${buttonVars['tonal.background-color-selected']}: ${token.icon['background-color-selected']};
+    && { width: ${token.toolbar.control.width}; height: ${token.toolbar.control.width}; }
+    @media (pointer: coarse) {
+        min-width: ${token.control.target.width};
+        min-height: ${token.control.target.width};
+    }
 `;
 
 export const tableAreaStyle = css`
@@ -81,7 +105,7 @@ export const sideToolbarStyle = css`
     align-items: center;
     padding-block: ${token.toolbar.padding};
     gap: ${token.toolbar.gap};
-    border-left: 1px solid ${token.root['border-color']};
+    border-inline-start: 1px solid ${token.root['border-color']};
     background-color: ${token.chrome['background-color']};
 `;
 
@@ -92,7 +116,7 @@ export const sideBarStyle = css`
     flex-shrink: 0;
     display: flex;
     flex-direction: column;
-    border-left: 1px solid ${token.root['border-color']};
+    border-inline-start: 1px solid ${token.root['border-color']};
     background-color: ${token.surface['background-color']};
     overflow: hidden;
     @container (max-width: 600px) {
@@ -106,7 +130,11 @@ export const sideBarStyle = css`
 `;
 
 export const sideBarToolbarStyle = css`
-    min-height: ${token.control.target.width};
+    /* The select-all checkbox shares the desktop tool geometry. Checkbox keeps
+       its own coarse-pointer minimum, independently of its visual state layer. */
+    ${checkboxVars['control.target.width']}: ${token.toolbar.control.width};
+    ${checkboxVars['state-layer.width']}: ${token.toolbar.control.width};
+    min-height: ${token.toolbar.control.width};
     display: flex;
     align-items: center;
     padding: ${token.toolbar.padding};
@@ -159,12 +187,12 @@ export const sideBarFooterStyle = css`
 `;
 
 export const resetWidthBtnStyle = css`
-    min-height: ${token.control.target.width};
+    min-height: ${token.toolbar.control.width};
 `;
 
 export const clearAllBtnStyle = css`
     flex-shrink: 0;
-    min-height: ${token.control.target.width};
+    min-height: ${token.toolbar.control.width};
 `;
 
 export const filterPanelScrollStyle = css`

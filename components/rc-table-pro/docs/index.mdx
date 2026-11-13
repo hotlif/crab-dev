@@ -66,11 +66,78 @@ status = "experimental"
 
 <API source="../src/table.tsx" symbol="TableProProps" component="TablePro" />
 
+### 主动刷新与完成时序
+
+<API source="../src/types.ts" symbol="TableProHandle" component="TableProHandle" />
+
+通过 React 19 的普通 `ref` 属性获取 `TableProHandle`，调用 `refresh(): Promise<void>` 重新加载当前页、每页条数、筛选与排序下的数据。请求仍由 TablePro 管理；刷新不重新获取列定义，也不通过重挂载重置列配置、搜索或选择状态。分页越界时自动回退到最后一个有效页，空结果回到第 1 页；这属于内部数据校正，不触发用户分页操作回调。
+
+```tsx
+import { useRef } from 'react';
+import TablePro, { type TableProHandle, type TableProProps } from '@crab-dev/rc-table-pro';
+import type { Row } from '@crab-dev/rc-table';
+import Button from '@crab-dev/rc-button';
+
+function RefreshableTable(props: TableProProps<Row>) {
+    const tableRef = useRef<TableProHandle>(null);
+
+    async function refreshThenContinue() {
+        const table = tableRef.current;
+        if (!table) return;
+        try {
+            await table.refresh();
+            // 在这里执行必须以本次刷新成功为前提的后续业务操作。
+        } catch (error) {
+            if (error instanceof Error && error.name === 'AbortError') return;
+            // TablePro 已显示数据错误并触发 onError；这里可处理业务流程失败。
+        }
+    }
+
+    return <>
+        <Button onClick={refreshThenContinue}>刷新</Button>
+        <TablePro {...props} ref={tableRef} />
+    </>;
+}
+```
+
+- 成功：Promise 在请求成功、已安排数据状态更新后兑现，包含必要的页码回退请求。它不保证 React 已提交 DOM 或浏览器已绘制；DOM 测量应放在提交后的 effect 中。
+- 失败：Promise 以请求错误拒绝，同时保留旧数据、显示错误并调用 `onError(error, 'data')`。同步抛出的请求错误也遵循此规则。
+- 取消：新请求（刷新、分页、筛选、服务端排序或自动刷新）替代旧请求，或组件卸载时，未完成的刷新立即以 `AbortError` 拒绝，不触发 `onError`。即使请求函数忽略 `signal`，旧结果也不会覆盖新状态。需要等待结果时应 `await` 并捕获错误。
+- 生命周期：卸载后 React 清空 ref；已保存的旧 handle 调用 `refresh()` 也会以 `AbortError` 拒绝。必须刷新成功才继续的流程应先检查 ref，避免可选链跳过刷新后继续执行。
+
+内置刷新按钮、数据重试和 `autoRefreshInterval` 使用同一条请求链路。仅更新 `request` 函数引用不会自动加载；下一次刷新使用最新函数。此前使用业务侧 `refreshKey` 补丁的调用方，可以改为保存、删除成功后 `await tableRef.current.refresh()`；组件不提供 `refreshKey` 属性。
+
+### 定位记录与恢复焦点
+
+`TableProHandle` 还提供 `scrollToRow(rowId, { align? }): Promise<boolean>` 和 `focus(): void`。定位使用严格匹配的行 ID（数字 `1` 与字符串 `'1'` 不同），只在当前已加载且展开可展示的数据中查找，不额外请求、不切换分页或筛选、不自动展开树或分组。
+
+```tsx
+const table = tableRef.current;
+if (!table) return;
+try {
+    await table.refresh();
+    const found = await table.scrollToRow(recordId, { align: 'center' });
+    if (found) {
+        // 记录已定位；如需让用户继续键盘操作，再显式聚焦表格。
+        table.focus();
+    }
+} catch (error) {
+    if (error instanceof Error && error.name === 'AbortError') return;
+    // 处理刷新失败。
+}
+```
+
+`align` 支持 `nearest`（默认）、`start`、`center` 和 `end`，对齐区域扣除固定表头、过滤栏和汇总行，并限制在有效滚动范围内。`nearest` 保留已完整可见的行，仅在需要时滚动；高度超过可视区且覆盖整个可视区的行保持原位。横向滚动、选择及焦点均保持不变。
+
+定位命令等新的行布局和虚拟滚动提交后返回 `true`，因此可以直接接在 `await refresh()` 后使用；它不保证浏览器已绘制。行不存在、被折叠隐藏或没有可用纵向视口时返回 `false`。新的定位命令替代旧命令、或表格卸载时，待完成命令以 `AbortError` 拒绝。
+
+`focus()` 恢复表格内最后一个仍有效的焦点元素（例如筛选输入或编辑器），否则聚焦表格入口，沿用已有的键盘操作锚点。它不更改选择、查询或滚动；它也不会把刚定位的行设为选中或编辑目标。表格尚未就绪时，TablePro 的定位返回 `false`，聚焦不执行操作。
+
 ## 设计风格与主题
 
 TablePro 在 Table 上组合查询、列配置和分页等能力。内部表格及列面板 Tree、工具栏字段、Checkbox、Button、DropdownContainer、Pagination 和 Spin 分别复用对应组件的视觉与交互契约；外围工作区使用工具栏、表面、表格边界、选中和错误等 L2 角色，不另造一套表格主题。
 
-Material Design 3 Expressive、Apple 和 shadcn/ui 的来源与固定 New York V4 基线见[三套设计体系](/guides/design-styles)。表格增强、列协议和请求编排按本库的专业扩展规则维护；基础控件的来源不能替代排序、列操作、虚拟行、编辑、加载与错误状态的逐项验收。
+Material Design 3 Expressive、macOS 和 shadcn/ui 的来源与固定 New York V4 基线见[三套设计体系](/guides/design-styles)。表格增强、列协议和请求编排按本库的专业扩展规则维护；基础控件的来源不能替代排序、列操作、虚拟行、编辑、加载与错误状态的逐项验收。
 
 `size` 设置内置控件尺寸，`density` 控制默认数据行和列面板节点几何，显式行高等配置优先。列定义、`request` 查询、持久化状态、业务编辑器和数据格式属于领域接口，切换设计体系不会重新解释它们。列加载错误、数据加载错误、空态和加载反馈应分别可识别。
 
@@ -79,7 +146,7 @@ Material Design 3 Expressive、Apple 和 shadcn/ui 的来源与固定 New York V
 
 ## 专业工作区矩阵规格
 
-TablePro 保留 Table 的数据表语言，以公开 Table、Tree、字段、Button 和 Pagination 组合专业工作区。它不复制数据表样式或测量模型。MD3 Expressive 的强调动作、Apple 的轻量工具栏、shadcn 的紧凑描边通过各基础组件及 L2 角色传递；列协议、请求取消、查询及视图状态与外观分开维护。
+TablePro 保留 Table 的数据表语言，以公开 Table、Tree、字段、Button 和 Pagination 组合专业工作区。它不复制数据表样式或测量模型。MD3 Expressive 的强调动作、macOS 的轻量工具栏、shadcn 的紧凑描边通过各基础组件及 L2 角色传递；列协议、请求取消、查询及视图状态与外观分开维护。
 
 | 轴 | 项目规格 |
 | --- | --- |
@@ -93,5 +160,5 @@ TablePro 保留 Table 的数据表语言，以公开 Table、Tree、字段、But
 
 响应控制只完成或拒绝实际待处理请求，不修改组件状态样式。刷新验收保留同一个表格实例及选择，检查成功后更新文字、失败时保留已有行，以及内置重试恢复。编辑通过公开 `DataTypeLoader.editRender` 与字段的真实双击、输入、失焦提交或 Escape 取消；演示业务值由独立状态管理。滚动必须同时确认首行退出、末行进入视口以及非空且有界的虚拟行。尚未执行或复审的新候选仍保持未验证，不以场景声明代替结果。
 
-三体系基础来源沿用 [Table](/components/rc-table) 和 [Tree](/components/rc-tree)；专业工具栏、列协议、分页请求与重试编排属于本库桌面扩展。shadcn 保持 New York V4 提交 3d98900e9b73c45f035f8109e9d41ba6a51685e7 的 [Data Table 参考](https://ui.shadcn.com/docs/components/radix/data-table)，不引入其表格引擎。Apple 使用自主 Web 实现。参考记录日期：2026-10-29。
+三体系基础来源沿用 [Table](/components/rc-table) 和 [Tree](/components/rc-tree)；专业工具栏、列协议、分页请求与重试编排属于本库桌面扩展。shadcn 保持 New York V4 提交 3d98900e9b73c45f035f8109e9d41ba6a51685e7 的 [Data Table 参考](https://ui.shadcn.com/docs/components/radix/data-table)，不引入其表格引擎。macOS 使用自主 Web 实现。参考记录日期：2026-10-29。
 

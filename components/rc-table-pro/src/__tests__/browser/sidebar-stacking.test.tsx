@@ -27,7 +27,48 @@ function containsHit(panel: HTMLElement, x: number, y: number) {
 }
 
 describe('TablePro published sidebar paint and pointer containment', () => {
-    for (const designSystem of ['md3', 'apple', 'shadcn'] as const) {
+    it('keeps the rail, search draft and focus inside the nearest theme when switching themes', async () => {
+        const fixture = (designSystem: 'md3' | 'macos' | 'shadcn') => <><style>{publishedCss}</style>
+            <ConfigProvider designSystem="shadcn" colorMode="dark">
+                <ConfigProvider designSystem={designSystem} colorMode="light">
+                    <div style={{ width: 768 }}><ActualSidebarDemo /></div>
+                </ConfigProvider>
+            </ConfigProvider>
+        </>;
+        const view = await render(fixture('md3'));
+        try {
+            await waitFor(() => expect(view.container.querySelector('input[aria-label="搜索列"]')).not.toBeNull());
+            const search = required<HTMLInputElement>(view.container, 'input[aria-label="搜索列"]');
+            const toggle = required(view.container, 'button[aria-label="列设置"]');
+            const user = userEvent.setup();
+            await act(() => user.click(search));
+            await act(() => user.keyboard('姓名'));
+            for (const designSystem of ['macos', 'shadcn', 'md3'] as const) {
+                await view.rerender(fixture(designSystem));
+                await settle();
+                expect(required(view.container, 'input[aria-label="搜索列"]')).toBe(search);
+                expect(required(view.container, 'button[aria-label="列设置"]')).toBe(toggle);
+                expect(search.value).toBe('姓名');
+                expect(document.activeElement).toBe(search);
+                expect(toggle.getAttribute('aria-expanded')).toBe('true');
+                expect(toggle.getBoundingClientRect().width).toBe({ md3: 28, macos: 24, shadcn: 28 }[designSystem]);
+            }
+            await act(() => user.keyboard('{Tab}'));
+            await act(() => toggle.focus());
+            expect(toggle.matches(':focus-visible')).toBe(true);
+            expect(getComputedStyle(toggle).outlineStyle).toBe('solid');
+            expect(getComputedStyle(toggle).outlineOffset).toBe('-3px');
+            expect(Number.parseFloat(getComputedStyle(toggle).outlineWidth)).toBeGreaterThan(0);
+            await act(() => user.click(toggle));
+            expect(toggle.getAttribute('aria-expanded')).toBe('false');
+            expect(toggle.getAttribute('aria-pressed')).toBe('false');
+            expect(document.activeElement).toBe(toggle);
+            await act(() => user.click(toggle));
+            expect(toggle.getAttribute('aria-expanded')).toBe('true');
+        } finally { await view.unmount(); }
+    });
+
+    for (const designSystem of ['md3', 'macos', 'shadcn'] as const) {
         for (const colorMode of ['light', 'dark'] as const) {
             for (const direction of ['ltr', 'rtl'] as const) {
                 for (const width of [320, 768]) {
@@ -49,7 +90,26 @@ describe('TablePro published sidebar paint and pointer containment', () => {
                             }
                             await settle();
                             const grid = required(stage, '[role="grid"]');
+                            const railButton = required(stage, 'button[aria-label="列设置"]');
+                            const rail = railButton.parentElement!;
+                            const expectedControl = { md3: 28, macos: 24, shadcn: 28 }[designSystem];
+                            expect(railButton.getBoundingClientRect().width).toBe(expectedControl);
+                            expect(railButton.getBoundingClientRect().height).toBe(expectedControl);
+                            expect(rail.getBoundingClientRect().width).toBe(expectedControl + 9);
+                            expect(getComputedStyle(rail).rowGap).toBe('2px');
+                            expect(railButton.getAttribute('aria-pressed')).toBe('true');
+                            const selectedBackground = getComputedStyle(railButton).backgroundColor;
+                            const selectedForeground = getComputedStyle(railButton).color;
+                            expect(selectedBackground).not.toBe('rgba(0, 0, 0, 0)');
+                            expect(selectedBackground).not.toBe(selectedForeground);
+                            if (designSystem !== 'md3') {
+                                expect(Number.parseFloat(getComputedStyle(railButton).borderTopLeftRadius)).toBeLessThan(expectedControl / 2);
+                            }
                             const panel = getPanel(stage);
+                            const header = panel.firstElementChild as HTMLElement;
+                            const footer = panel.lastElementChild as HTMLElement;
+                            expect(header.getBoundingClientRect().height).toBeLessThan(48);
+                            expect(footer.getBoundingClientRect().height).toBeLessThan(48);
                             const bounds = panel.getBoundingClientRect();
                             const baseline = { panel: [bounds.width, bounds.height], grid: [grid.clientWidth, grid.clientHeight], row: required(grid, '[data-row-index="0"]').getBoundingClientRect().height };
                             const user = userEvent.setup();

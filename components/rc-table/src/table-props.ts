@@ -1,14 +1,16 @@
 import { type ConfigSize, type ConfigDensity } from '@crab-dev/rc-config-provider';
 
-import { type HTMLAttributes, type Key, type ReactNode } from "react";
+import { type HTMLAttributes, type Key, type ReactNode, type Ref } from "react";
 
 import { type TableCellProps } from "./bodyCell.js";
 
-import type { CellEditRecord, ColumnType, FilterEditorParam, GroupCellRenderParam, MergeCell, Row, RowSelection, SortColumn, TableStateProps } from "./types.js";
+import type { CellEditRecord, ColumnType, FilterEditorParam, GroupCellRenderParam, MergeCell, Row, RowSelection, SortColumn, TableStateProps, TableHandle } from "./types.js";
 
 import type { RowEventHandler } from "./hooks/useRowEvents.js";
 
 interface TableBaseProps<T extends Row> extends Omit<HTMLAttributes<HTMLDivElement>, "onCopy"> {
+    /** 定位当前可展示行或恢复表格焦点。 */
+    ref?: Ref<TableHandle>;
     /** 表格内置控件尺寸；不改变数据行几何。省略时继承 ConfigProvider。 */
     size?: ConfigSize;
     /** 数据行与表头密度；显式行高回调和 row.height 优先。 */

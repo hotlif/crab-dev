@@ -1,6 +1,6 @@
 import { useComponentSize, useConfig, useLocale, type ConfigSize, type ConfigDensity } from '@crab-dev/rc-config-provider';
-import { type HTMLAttributes, type ReactNode, type Key, useState, useRef } from "react";
-import Table, { type Row, type FilterEditorParam, type MergeCell, type GroupCellRenderParam, type SortColumn, type RowSelection, type CellEditRecord, type TableStateProps } from "@crab-dev/rc-table";
+import { type HTMLAttributes, type ReactNode, type Key, type Ref, useState, useRef, useImperativeHandle } from "react";
+import Table, { type Row, type FilterEditorParam, type MergeCell, type GroupCellRenderParam, type SortColumn, type RowSelection, type CellEditRecord, type TableStateProps, type TableHandle } from "@crab-dev/rc-table";
 import Tree, { NodeType, OverStateEnum } from "@crab-dev/rc-tree";
 import Checkbox from "@crab-dev/rc-checkbox";
 import LineEdit from "@crab-dev/rc-line-edit";
@@ -9,16 +9,18 @@ import Pagination from "@crab-dev/rc-pagination";
 import Spin from "@crab-dev/rc-spin";
 import Button from "@crab-dev/rc-button";
 import { cx } from "@crab-dev/css";
-import type { ProtocolColumnType, DataTypeLoader, ProtocolTableState, TableDataSource } from "./types.js";
+import type { ProtocolColumnType, DataTypeLoader, ProtocolTableState, TableDataSource, TableProHandle } from "./types.js";
 import { collectAllLeafColumnNames, collectLeafColumns, exportToCSV, buildCurrentState } from "./columnUtils.js";
 import { useColumnManagement } from "./hooks/useColumnManagement.js";
 import { useTableData } from "./hooks/useTableData.js";
 import { useSearchBar } from "./hooks/useSearchBar.js";
 import { ColumnsIcon, FiltersIcon, ExpandAllIcon, CollapseAllIcon, ResetWidthIcon, RefreshIcon, ExportIcon, SearchPrevIcon, SearchNextIcon, ErrorIcon } from "./icons.js";
-import { flexColumnStyle, tableFlexStyle, tableFillStyle, loadingOverlayStyle, paginationBarStyle, iconButtonStyle, tableAndPanelRowStyle, tableAreaStyle, sideToolbarStyle, sideBarStyle, sideBarToolbarStyle, sideBarSearchStyle, sideBarBodyStyle, searchBarStyle, searchBarInputWrapStyle, searchBarCountStyle, sideBarFooterStyle, resetWidthBtnStyle, clearAllBtnStyle, filterPanelScrollStyle, filterPanelRowStyle, filterPanelLabelStyle, filterPanelEditorWrapStyle, filterPanelEmptyStyle, errorOverlayStyle, errorMessageStyle, retryBtnStyle } from "./table.styles.js";
+import { flexColumnStyle, tableFlexStyle, tableFillStyle, loadingOverlayStyle, paginationBarStyle, iconButtonStyle, sideToolbarButtonStyle, tableAndPanelRowStyle, tableAreaStyle, sideToolbarStyle, sideBarStyle, sideBarToolbarStyle, sideBarSearchStyle, sideBarBodyStyle, searchBarStyle, searchBarInputWrapStyle, searchBarCountStyle, sideBarFooterStyle, resetWidthBtnStyle, clearAllBtnStyle, filterPanelScrollStyle, filterPanelRowStyle, filterPanelLabelStyle, filterPanelEditorWrapStyle, filterPanelEmptyStyle, errorOverlayStyle, errorMessageStyle, retryBtnStyle } from "./table.styles.js";
 /* ───────────────────────────── Props ───────────────────────────── */
 
 interface BaseProps<T extends Row> extends Omit<HTMLAttributes<HTMLDivElement>, "children" | "onCopy" | "onError"> {
+    /** 刷新当前查询、定位可展示行或恢复表格焦点。 */
+    ref?: Ref<TableProHandle>;
     size?: ConfigSize;
     /** 数据与导航密度，独立于控件尺寸。 */
     density?: ConfigDensity;
@@ -105,6 +107,7 @@ function TablePro<T extends Row>(props: TableProProps<T>) {
     const density = props.density ?? config.density;
     const { messages } = useLocale();
     const {
+        ref,
         size: _size,
         density: _density,
         fetchColumns,
@@ -207,6 +210,13 @@ function TablePro<T extends Row>(props: TableProProps<T>) {
         autoRefreshInterval,
         onError: onError ? (e) => onError(e, "data") : undefined,
     });
+    const { refresh } = tableData;
+    const tableRef = useRef<TableHandle>(null);
+    useImperativeHandle(ref, () => ({
+        refresh,
+        scrollToRow: (rowId, options) => tableRef.current?.scrollToRow(rowId, options) ?? Promise.resolve(false),
+        focus: () => { tableRef.current?.focus(); },
+    }), [refresh]);
 
     // 连接 ref 桥：让 colMgmt 可以调用 tableData.restoreFilters（fetchColumns 完成后恢复 filters）
     restoreFiltersRef.current = tableData.restoreFilters;
@@ -254,6 +264,7 @@ function TablePro<T extends Row>(props: TableProProps<T>) {
             <AutoSizer>
                 {({ width, height }) => (
                     <Table
+                        ref={tableRef}
                         {...groupState}
                         {...treeState}
                         {...expansionState}
@@ -330,7 +341,7 @@ function TablePro<T extends Row>(props: TableProProps<T>) {
                     <ErrorIcon />
                     <span>{messages.tablePro.dataLoadError}</span>
                     <p className={errorMessageStyle}>{tableData.dataError.message}</p>
-                    <Button type="button" appearance="outlined" className={retryBtnStyle} onClick={() => tableData.loadData(tableData.page, tableData.pageSize, tableData.filters)}>{messages.tablePro.retry}</Button>
+                    <Button type="button" appearance="outlined" className={retryBtnStyle} onClick={() => { void refresh().catch(() => {}); }}>{messages.tablePro.retry}</Button>
                 </div>
             )}
             {loading && !colMgmt.columnsError && !tableData.dataError && (
@@ -384,15 +395,15 @@ function TablePro<T extends Row>(props: TableProProps<T>) {
                         <>
                             <Button
                                 type="button"
-                                appearance="text" shape="circle" size="s" aria-label={messages.tablePro.expandAll} icon={<ExpandAllIcon />}
-                                className={iconButtonStyle}
+                                appearance="text" size="xs" aria-label={messages.tablePro.expandAll} icon={<ExpandAllIcon />}
+                                className={sideToolbarButtonStyle}
                                 title={messages.tablePro.expandAll}
                                 onClick={colMgmt.handleExpandAll}
                             />
                             <Button
                                 type="button"
-                                appearance="text" shape="circle" size="s" aria-label={messages.tablePro.collapseAll} icon={<CollapseAllIcon />}
-                                className={iconButtonStyle}
+                                appearance="text" size="xs" aria-label={messages.tablePro.collapseAll} icon={<CollapseAllIcon />}
+                                className={sideToolbarButtonStyle}
                                 title={messages.tablePro.collapseAll}
                                 onClick={colMgmt.handleCollapseAll}
                             />
@@ -448,7 +459,7 @@ function TablePro<T extends Row>(props: TableProProps<T>) {
                 <div className={sideBarFooterStyle}>
                     <Button
                         type="button"
-                        appearance="text" size="s" icon={<ResetWidthIcon />}
+                        appearance="text" size="xs" icon={<ResetWidthIcon />}
                         className={resetWidthBtnStyle}
                         title={messages.tablePro.resetWidthsDescription}
                         onClick={colMgmt.handleResetColumnWidths}
@@ -491,7 +502,7 @@ function TablePro<T extends Row>(props: TableProProps<T>) {
                     {hasActiveFilter && (
                         <Button
                             type="button"
-                            appearance="text" size="s"
+                            appearance="text" size="xs"
                             className={clearAllBtnStyle}
                             onClick={() => handleFilterChange({})}
                         >
@@ -583,30 +594,30 @@ function TablePro<T extends Row>(props: TableProProps<T>) {
             {colMgmt.panelOpen && (colMgmt.sideBarTab === "columns" ? columnsPanelContent : filtersPanelContent)}
             <div className={sideToolbarStyle}>
                 <Button
-                    className={iconButtonStyle}
+                    className={sideToolbarButtonStyle}
                     appearance={colMgmt.panelOpen && colMgmt.sideBarTab === "columns" ? "tonal" : "text"}
                     isSelected={colMgmt.panelOpen && colMgmt.sideBarTab === "columns"}
                     aria-expanded={colMgmt.panelOpen && colMgmt.sideBarTab === "columns"}
-                    shape="circle" size="s" aria-label={messages.tablePro.columns} icon={<ColumnsIcon />}
+                    size="xs" aria-label={messages.tablePro.columns} icon={<ColumnsIcon />}
                     type="button"
                     title={messages.tablePro.columns}
                     onClick={() => handleTabClick("columns")}
                 />
                 <Button
-                    className={iconButtonStyle}
+                    className={sideToolbarButtonStyle}
                     appearance={colMgmt.panelOpen && colMgmt.sideBarTab === "filters" ? "tonal" : "text"}
                     isSelected={colMgmt.panelOpen && colMgmt.sideBarTab === "filters"}
                     aria-expanded={colMgmt.panelOpen && colMgmt.sideBarTab === "filters"}
-                    shape="circle" size="s" aria-label={messages.tablePro.filters} icon={<FiltersIcon />}
+                    size="xs" aria-label={messages.tablePro.filters} icon={<FiltersIcon />}
                     type="button"
                     title={messages.tablePro.filters}
                     onClick={() => handleTabClick("filters")}
                 />
                 {exportFileName && (
                     <Button
-                        className={iconButtonStyle}
+                        className={sideToolbarButtonStyle}
                         type="button"
-                        appearance="text" shape="circle" size="s" aria-label={messages.tablePro.exportCsv} icon={<ExportIcon />}
+                        appearance="text" size="xs" aria-label={messages.tablePro.exportCsv} icon={<ExportIcon />}
                         title={messages.tablePro.exportCsv}
                         onClick={() => exportToCSV(colMgmt.rawColumnsRef.current, tableData.rows, typeLoaders, exportFileName)}
                     />
@@ -649,7 +660,7 @@ function TablePro<T extends Row>(props: TableProProps<T>) {
                 type="button"
                 appearance="text" shape="circle" size="s" aria-label={messages.tablePro.refresh} icon={<RefreshIcon />}
                 title={messages.tablePro.refresh}
-                onClick={() => tableData.loadData(tableData.page, tableData.pageSize, tableData.filters)}
+                onClick={() => { void refresh().catch(() => {}); }}
             />
         </div>
     );

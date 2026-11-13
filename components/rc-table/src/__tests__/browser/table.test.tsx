@@ -40,7 +40,7 @@ const rows: GeometryRow[] = Array.from({ length: ROW_COUNT }, (_, index) => ({
 }));
 const tableProps: TableProps<GeometryRow> = { rows, columns, width: 320, height: HEIGHT, density: 'compact' };
 
-for (const designSystem of ['md3', 'apple', 'shadcn'] as const)
+for (const designSystem of ['md3', 'macos', 'shadcn'] as const)
 for (const colorMode of ['light', 'dark'] as const)
 for (const destination of ['grid', 'outside'] as const)
 it(`${designSystem}/${colorMode}: commits in its editor Document and preserves ${destination} focus`, async () => {
