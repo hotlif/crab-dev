@@ -40,6 +40,44 @@ const rows: GeometryRow[] = Array.from({ length: ROW_COUNT }, (_, index) => ({
 }));
 const tableProps: TableProps<GeometryRow> = { rows, columns, width: 320, height: HEIGHT, density: 'compact' };
 
+it('preserves manual scrolling on search data refresh and still locates keyword and match changes', async () => {
+    const searchColumns: ColumnType<GeometryRow>[] = [{ name: 'value', title: 'Value', width: 180 }];
+    const searchRows: GeometryRow[] = Array.from({ length: 100 }, (_, index) => ({
+        id: index,
+        height: 30,
+        dataRef: { value: index === 1 || index === 80 ? 'alpha beta' : `Row ${index}` },
+    }));
+    const table = (data: GeometryRow[], keyword = 'alpha', activeMatchIndex = 0) => <>
+        <style>{compiledCss}</style>
+        <Table width={320} height={200} rows={data} columns={searchColumns}
+            highlightKeyword={keyword} activeMatchIndex={activeMatchIndex} />
+    </>;
+    const view = await render(table(searchRows));
+    await settleLayout();
+    const root = requiredElement<HTMLElement>(view.container, '[role="grid"]');
+    const viewport = Array.from(root.querySelectorAll<HTMLElement>('div')).find(element =>
+        getComputedStyle(element).overflowY === 'hidden' && element.scrollHeight > element.clientHeight);
+    if (!viewport) throw new Error('Missing search Table vertical viewport');
+    const scrollAway = async () => {
+        await fireEvent(viewport, new WheelEvent('wheel', { deltaY: 900 - viewport.scrollTop, bubbles: true, cancelable: true }));
+        await settleLayout();
+        expect(viewport.scrollTop).toBe(900);
+    };
+    await scrollAway();
+    const refreshedRows = searchRows.map(row => ({ ...row, dataRef: { ...row.dataRef } }));
+    await view.rerender(table(refreshedRows));
+    await settleLayout();
+    expect(viewport.scrollTop).toBe(900);
+    await view.rerender(table(refreshedRows, 'beta'));
+    await settleLayout();
+    expect(viewport.scrollTop).toBeLessThan(100);
+    await scrollAway();
+    await view.rerender(table(refreshedRows, 'beta', 1));
+    await settleLayout();
+    expect(viewport.scrollTop).toBeGreaterThan(2_000);
+    await view.unmount();
+});
+
 for (const designSystem of ['md3', 'macos', 'shadcn'] as const)
 for (const colorMode of ['light', 'dark'] as const)
 for (const destination of ['grid', 'outside'] as const)

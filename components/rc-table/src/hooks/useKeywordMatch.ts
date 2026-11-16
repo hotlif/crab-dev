@@ -16,6 +16,16 @@ interface MatchBucket extends MatchEntry {
     endExclusive: number
 }
 
+interface MatchNavigation extends MatchEntry {
+    keyword: string
+    activeMatchIndex: number | undefined
+    rowId: Row["id"]
+    columnName: string | undefined
+    fixed: boolean
+    topOffset: number
+    leftOffset: number | undefined
+}
+
 interface MatchScanResult<T extends Row> {
     keyword: string
     displayRows: Array<T | InternalGroupRow<T> | InternalExpandedRow<T>>
@@ -50,6 +60,8 @@ export function useKeywordMatch<T extends Row>(params: {
     } = params;
 
     const virtualRef = useRef<VirtualHandle | null>(null);
+    // 跨渲染实例：保留实际定位的语义目标，避免刷新后的新扫描对象重复触发滚动。
+    const lastNavigationRef = useRef<MatchNavigation | null>(null);
 
     const normalizedKeyword = highlightKeyword?.trim() ?? "";
     const columnAccessors = useMemo(
@@ -199,15 +211,48 @@ export function useKeywordMatch<T extends Row>(params: {
     }, [activeMatchIndex, matchBuckets, matchCount]);
 
     useEffect(() => {
-        if (!activeMatchMeta) return;
+        if (!activeMatchMeta) {
+            const previous = lastNavigationRef.current;
+            // 同一搜索刷新期间保留记录；导航意图变化或已完成且无匹配时重置。
+            if (isCurrentScan || !normalizedKeyword || activeMatchIndex == null || activeMatchIndex < 0
+                || (previous && (previous.keyword !== normalizedKeyword || previous.activeMatchIndex !== activeMatchIndex))) {
+                lastNavigationRef.current = null;
+            }
+            return;
+        }
         const col = bottomColumns[activeMatchMeta.columnIndex];
-        virtualRef.current?.scrollToCell({
-            rowIndex: activeMatchMeta.rowIndex,
-            columnIndex: col?.fixed ? undefined : activeMatchMeta.columnIndex,
+        const navigation: MatchNavigation = {
+            ...activeMatchMeta,
+            keyword: normalizedKeyword,
+            activeMatchIndex,
+            rowId: displayRows[activeMatchMeta.rowIndex].id,
+            columnName: col?.name,
+            fixed: Boolean(col?.fixed),
             topOffset: reservedTopPx,
             leftOffset: col?.fixed ? undefined : fixedLeftWidth,
+        };
+        const previous = lastNavigationRef.current;
+        if (previous
+            && previous.keyword === navigation.keyword
+            && previous.activeMatchIndex === navigation.activeMatchIndex
+            && previous.rowId === navigation.rowId
+            && previous.columnName === navigation.columnName
+            && previous.rowIndex === navigation.rowIndex
+            && previous.columnIndex === navigation.columnIndex
+            && previous.occurrenceInCell === navigation.occurrenceInCell
+            && previous.fixed === navigation.fixed
+            && previous.topOffset === navigation.topOffset
+            && previous.leftOffset === navigation.leftOffset
+        ) return;
+        if (!virtualRef.current) return;
+        virtualRef.current.scrollToCell({
+            rowIndex: activeMatchMeta.rowIndex,
+            columnIndex: col?.fixed ? undefined : activeMatchMeta.columnIndex,
+            topOffset: navigation.topOffset,
+            leftOffset: navigation.leftOffset,
         });
-    }, [activeMatchMeta, bottomColumns, reservedTopPx, fixedLeftWidth]);
+        lastNavigationRef.current = navigation;
+    }, [activeMatchMeta, activeMatchIndex, normalizedKeyword, isCurrentScan, displayRows, bottomColumns, reservedTopPx, fixedLeftWidth]);
 
     return { virtualRef, activeMatchMeta };
 }
