@@ -1,5 +1,11 @@
 # @crab-dev/rc-table
 
+## 0.2.1
+
+### Patch Changes
+
+- [#27](https://github.com/hotlif/crab-dev/pull/27) [`53b0373`](https://github.com/hotlif/crab-dev/commit/53b037362836e21745a49a3949491649765c3f11) Thanks [@hotlif](https://github.com/hotlif)! - 修复搜索后刷新数据时，匹配项未变化仍重复滚动定位的问题；保留切换关键词、匹配项以及匹配位置变化时的正常定位。
+
 ## 0.2.0
 
 ### Minor Changes
