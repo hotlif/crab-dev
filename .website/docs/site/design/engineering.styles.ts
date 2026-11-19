@@ -16,6 +16,10 @@ globalStyle`
     ${buttonVars['root.border-radius-active']}: calc(var(${buttonVars['root.height']}) / 2);
     ${buttonVars['root.border-radius']}: calc(var(${buttonVars['root.height']}) / 2);
 }
+[data-button-prototype][data-prototype-design="md3"] .crab-design-button-label {
+    position: relative;
+    inset-block-start: .1em;
+}
 [data-prototype-design="md3"] .crab-design-hero { min-height: auto; padding: 1.25rem clamp(.75rem, 2.4vw, 2rem) 1.1rem; border-radius: 0; border-block-end: 1px solid var(--crab-prototype-rule); background: transparent; }
 [data-prototype-design="md3"] .crab-design-hero > div:first-child { max-width: 56rem; }
 [data-prototype-design="md3"] .crab-design-hero h1 { font-size: clamp(1.75rem,3vw,2.45rem); letter-spacing: -.035em; }

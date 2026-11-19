@@ -119,7 +119,7 @@ function SpecimenPreview({ kind, size, shape, icon, condition, label }: {
                     icon={leading} iconAfter={trailing} aria-label={iconOnly ? label : undefined}
                     loading={condition === "loading"} disabled={condition === "disabled"} isSelected={kind === "toggle" ? selected : undefined}
                     onClick={kind === "danger" ? () => setConfirming(true) : activate}>
-                    {iconOnly ? undefined : label}
+                    {iconOnly ? undefined : <span className="crab-design-button-label">{label}</span>}
                 </Button>
             </div>
             <div className="crab-design-specimen-readout">

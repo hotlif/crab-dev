@@ -28,7 +28,9 @@ export function SampleButton({ children, kind = "primary", candidate, busy, disa
         shape={iconOnly ? "circle" : round ? "round" : undefined} data-prototype-round={round || undefined}
         icon={iconOnly ? <SiteIcon name="refresh" /> : undefined} aria-label={iconOnly ? children : undefined}
         isSelected={kind === "toggle" ? selected : undefined} loading={busy} loadingIcon={candidate ? <MotionIndicator /> : undefined}
-        aria-expanded={expanded} aria-controls={controls} disabled={disabled} onClick={onClick}>{iconOnly ? null : children}</Button>;
+        aria-expanded={expanded} aria-controls={controls} disabled={disabled} onClick={onClick}>
+        {iconOnly ? null : <span className="crab-design-button-label">{children}</span>}
+    </Button>;
 }
 
 export function MotionButton({ onActivate, ...props }: SampleProps & { onActivate?: () => void }) {
