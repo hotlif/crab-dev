@@ -30,7 +30,7 @@ globalStyle`
 [data-prototype-design="md3"] .crab-design-form-footer .crab-design-feedback { order: -1; }
 [data-prototype-design="md3"] :is(.crab-design-settings, .crab-design-motion-controls) { align-content: start; gap: .7rem; padding: 1rem 1.2rem; background: var(--crab-prototype-panel); border-inline-start: 1px solid var(--crab-prototype-rule); }
 [data-prototype-design="md3"] .crab-design-settings h3 { font-size: .93rem; }
-[data-prototype-design="md3"] .crab-design-motion-stage { min-width: 0; min-height: 10rem; gap: .8rem; padding: 1rem; align-content: center; background: var(--crab-prototype-paper); }
+[data-prototype-design="md3"] .crab-design-motion-stage { min-width: 0; min-height: 10rem; gap: .8rem; padding: 1rem; align-content: start; background: var(--crab-prototype-paper); }
 [data-prototype-design="md3"] .crab-design-trials { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); width: 100%; }
 [data-prototype-design="md3"] .crab-design-trial { display: grid; gap: 1.1rem; padding: .75rem .35rem; justify-items: center; align-content: start; }
 [data-prototype-design="md3"] .crab-design-trial + .crab-design-trial { border-inline-start: 1px solid var(--crab-prototype-rule); }

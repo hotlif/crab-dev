@@ -61,7 +61,7 @@ function LabelsAndNavigation() {
         <p>窄容器可以省略显示，完整标签仍是按钮的可访问名称。执行任务使用按钮，前往目标位置使用链接。</p>
         <Segmented aria-label="样本容器宽度" options={widths} value={width} onValueChange={value => setWidth(String(value))} />
         <div className="crab-design-composition-rail" data-width={width}>
-            <Button size="s" appearance="outlined" shouldFitContainer title={exportLabel} onClick={() => setExports(count => count + 1)}>
+            <Button size="s" shape="round" appearance="outlined" shouldFitContainer title={exportLabel} onClick={() => setExports(count => count + 1)}>
                 {exportLabel}
             </Button>
         </div>

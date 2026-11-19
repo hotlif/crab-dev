@@ -31,11 +31,21 @@ globalStyle`
     background: var(--crab-prototype-panel);
 }
 .crab-design-composition-rail[data-width="wide"] { --crab-button-container-width: 17.5rem; }
-.crab-design-composition-result { display: flex; flex-wrap: wrap; align-items: center; gap: .7rem 1.1rem; }
+.crab-design-composition-result {
+    display: grid;
+    grid-template-columns: minmax(0, 12rem) max-content;
+    align-items: center;
+    gap: .35rem 1.1rem;
+    max-inline-size: 100%;
+}
 .crab-design-composition-themes { margin-block-start: .8rem; padding: .8rem 1rem; border: 1px solid var(--crab-prototype-rule); border-radius: .55rem; }
 .crab-design-composition-themes summary { font-size: .875rem; cursor: pointer; }
 .crab-design-composition-themes p { margin-top: .5rem; }
 @container button-composition (max-width: 42rem) {
     .crab-design-composition-grid { grid-template-columns: minmax(0,1fr); }
+}
+@container button-composition (max-width: 28rem) {
+    .crab-design-composition-result { grid-template-columns: minmax(0,1fr); justify-items: start; }
+    .crab-design-composition-result p { min-block-size: 2lh; }
 }
 `;
