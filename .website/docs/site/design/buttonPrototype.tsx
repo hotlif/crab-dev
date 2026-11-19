@@ -119,7 +119,7 @@ export default function ButtonPrototype({ scenario = false }: { scenario?: boole
             </div>
         </div>
     </section>;
-    return <div className="crab-design-workspace" data-prototype-design={designSystem} data-variant={candidate ? "candidate" : "current"}>
+    return <div className="crab-design-workspace" data-button-prototype data-prototype-design={designSystem} data-variant={candidate ? "candidate" : "current"}>
         <DesignHero section={scenario ? "应用场景" : "组件原型"} title={scenario ? (engineering ? "保存工作区配置" : sceneTitle) : "Button 按钮"}
             description={scenario ? design.scenario : design.prototype}>
             {!scenario && <nav aria-label="原型章节" className="crab-design-jump-links">

@@ -115,7 +115,8 @@ function SpecimenPreview({ kind, size, shape, icon, condition, label }: {
         <div className="crab-design-specimen-stage">
             <div className="crab-design-specimen-surface" role="group" aria-label="可操作样本">
                 <Button ref={preview} appearance={buttonExamples[kind].appearance} type="button" size={size} danger={kind === "danger"}
-                    shape={iconOnly ? "circle" : shape} icon={leading} iconAfter={trailing} aria-label={iconOnly ? label : undefined}
+                    shape={iconOnly ? "circle" : shape} data-prototype-round={(!iconOnly && shape === "round") || undefined}
+                    icon={leading} iconAfter={trailing} aria-label={iconOnly ? label : undefined}
                     loading={condition === "loading"} disabled={condition === "disabled"} isSelected={kind === "toggle" ? selected : undefined}
                     onClick={kind === "danger" ? () => setConfirming(true) : activate}>
                     {iconOnly ? undefined : label}

@@ -23,8 +23,9 @@ export function SampleButton({ children, kind = "primary", candidate, busy, disa
     const { designSystem } = useConfig();
     const { appearance } = buttonExamples[kind];
     const iconOnly = kind === "icon";
+    const round = !iconOnly && candidate && designSystem === "md3";
     return <Button type={type} appearance={appearance} danger={kind === "danger"} className={candidate ? "crab-design-candidate" : undefined}
-        shape={iconOnly ? "circle" : candidate && designSystem === "md3" ? "round" : undefined}
+        shape={iconOnly ? "circle" : round ? "round" : undefined} data-prototype-round={round || undefined}
         icon={iconOnly ? <SiteIcon name="refresh" /> : undefined} aria-label={iconOnly ? children : undefined}
         isSelected={kind === "toggle" ? selected : undefined} loading={busy} loadingIcon={candidate ? <MotionIndicator /> : undefined}
         aria-expanded={expanded} aria-controls={controls} disabled={disabled} onClick={onClick}>{iconOnly ? null : children}</Button>;

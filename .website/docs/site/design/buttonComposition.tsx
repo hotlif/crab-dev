@@ -14,7 +14,7 @@ const compositionDesigns = {
         filters: ["运行", "告警", "离线"], filterGroup: "设备状态筛选",
         connected: "同一数据区里的相关筛选采用紧密间距。每项可独立选中，Tab 逐项进入，选中后标签保持原样。",
         longLabel: "导出所有已选设备的运行记录", link: "查看工作区配置",
-        decision: "保留 MD3 形变与状态层。保存时保持宽度，失败后保留草稿，并在同一位置提供重试。",
+        decision: "按压和选中时圆角保持原样，由状态层和填色反馈操作。保存时保持宽度，失败后保留草稿，并在同一位置提供重试。",
     },
     macos: {
         chooser: "窗口显示", presets: { standard: "简洁视图", detail: "详细视图" }, reset: "放弃修改", export: "导出已存设置", save: "存储设置",
@@ -92,7 +92,8 @@ function LabelsAndNavigation({ design, system }: { design: CompositionDesign; sy
         <p>窄容器可以省略显示，完整标签仍是按钮的可访问名称。执行任务使用按钮，前往目标位置使用链接。</p>
         <Segmented aria-label="样本容器宽度" options={widths} value={width} onValueChange={value => setWidth(String(value))} />
         <div className="crab-design-composition-rail" data-width={width}>
-            <Button size="s" shape={system === "md3" ? "round" : undefined} appearance="outlined" shouldFitContainer title={design.longLabel} onClick={() => setExports(count => count + 1)}>
+            <Button size="s" shape={system === "md3" ? "round" : undefined} data-prototype-round={system === "md3" || undefined}
+                appearance="outlined" shouldFitContainer title={design.longLabel} onClick={() => setExports(count => count + 1)}>
                 {design.longLabel}
             </Button>
         </div>

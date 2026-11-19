@@ -28,9 +28,6 @@ globalStyle`
     outline: var(${buttonVars["root.outline-width-focus"]}, 3px) solid var(${buttonVars["root.outline-color-focus"]}, ${token.color.secondary.primary});
     outline-offset: var(${buttonVars["root.outline-offset-focus"]}, 2px);
 }
-[data-prototype-design="md3"] .crab-design-swatch[data-state="press"]:not([data-kind="icon"]) button {
-    border-radius: var(${buttonVars["root.border-radius-active"]}, ${token.shape["button-pressed"]});
-}
 .crab-design-workspace .crab-design-swatch-note {
     border-inline: 1px solid var(--crab-prototype-rule);
     padding: .75rem 1rem;
