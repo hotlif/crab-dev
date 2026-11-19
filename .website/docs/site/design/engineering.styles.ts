@@ -18,7 +18,7 @@ globalStyle`
 }
 [data-button-prototype][data-prototype-design="md3"] .crab-design-button-label {
     position: relative;
-    inset-block-start: .1em;
+    inset-block-start: min(.1em, 1.4px);
 }
 [data-prototype-design="md3"] .crab-design-hero { min-height: auto; padding: 1.25rem clamp(.75rem, 2.4vw, 2rem) 1.1rem; border-radius: 0; border-block-end: 1px solid var(--crab-prototype-rule); background: transparent; }
 [data-prototype-design="md3"] .crab-design-hero > div:first-child { max-width: 56rem; }

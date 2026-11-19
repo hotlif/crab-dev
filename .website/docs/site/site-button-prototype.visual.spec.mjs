@@ -35,7 +35,7 @@ async function pressWithFixedShape(page, button) {
 }
 
 for (const { width, colorMode } of [{ width: 1440, colorMode: 'light' }, { width: 360, colorMode: 'dark' }]) {
-    test(`MD3 Button prototype keeps its corners at ${width}px`, { tag: ['@website'] }, async ({ page, previewOrigin }) => {
+    test(`MD3 Button prototype keeps its corners and label offset at ${width}px`, { tag: ['@website'] }, async ({ page, previewOrigin }) => {
         await page.setViewportSize({ width, height: 900 });
         await openSite(page, previewOrigin, definition, { designSystem: 'md3', colorMode });
         const states = page.locator('#button-states');
@@ -61,5 +61,14 @@ for (const { width, colorMode } of [{ width: 1440, colorMode: 'light' }, { width
         const filters = page.getByRole('group', { name: '设备状态筛选' }).getByRole('button');
         for (const filter of await filters.all()) await pressWithFixedShape(page, filter);
         await expect(filters.nth(1)).toHaveAttribute('aria-pressed', 'true');
+
+        const sizeSelect = states.getByRole('combobox', { name: '按钮尺寸' });
+        const label = sample.locator('.crab-design-button-label');
+        await expect(label).toHaveCSS('inset-block-start', '1.4px');
+        for (const size of ['XS', 'S', 'M', 'L', 'XL']) {
+            await sizeSelect.click();
+            await page.getByRole('option', { name: size, exact: true }).click();
+            await expect(label).toHaveCSS('inset-block-start', '1.4px');
+        }
     });
 }
