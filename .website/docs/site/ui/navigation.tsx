@@ -123,7 +123,12 @@ export function Navigation({ groups, current, toggleSection, onNavigate, site }:
         <section key={group.id}>
             {!navigation && <h2>{group.title}</h2>}
             {group.pages.map(link)}
-            {group.sections.map((section) => (
+            {group.sections.map((section) => group.id === "design" ? (
+                <div key={section.id} className="crab-design-nav-section">
+                    <h3>{section.title}</h3>
+                    {section.pages.map(link)}
+                </div>
+            ) : (
                 <div className="crab-docs-nav-section" key={section.id}>
                     <h3 className="crab-docs-section-heading">
                     <Button

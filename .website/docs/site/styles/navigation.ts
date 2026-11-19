@@ -5,6 +5,8 @@ import globalToken from "@crab-dev/rc-token-global";
 // eslint-disable-next-line @typescript-eslint/no-unused-expressions
 globalStyle`
 /* M3 drawer destinations with non-interactive bilingual trailing text. */
+.crab-design-nav-section { margin-block-start: ${token.space["section-gap"]}; }
+.crab-design-nav-section h3 { margin: 0; padding: ${globalToken.space[1]} ${globalToken.space[3]}; color: ${token.color.text.secondary}; font-size: ${token.font.size.caption}; font-weight: 600; }
 .crab-docs-navigation :is(.crab-docs-nav-page, .crab-docs-section-toggle) { --button-root-border-radius-active: ${token.shape.full}; }
 .crab-docs-navigation section { margin-bottom: ${token.space["section-gap"]}; }
 .crab-docs-navigation h2 { margin: 0; min-height: ${token.size.control}; display: flex; align-items: center; padding-inline: ${token.space["section-gap"]}; font-size: ${token.typography.title.small["font-size"]}; font-weight: ${token.typography.title.small["font-weight"]}; line-height: ${token.typography.title.small["line-height"]}; color: ${token.color.text.secondary}; }

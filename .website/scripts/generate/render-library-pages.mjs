@@ -6,7 +6,11 @@ export function createLibraryNavigation(manifest) {
             { id: "learning", title: "学习与实战", pages: ["learn/components", "learn/index", "learn/practice-profile", "learn/practice-data", "learn/practice-admin"] },
             { id: "guides", title: "使用指南", pages: ["guides/getting-started", "guides/library-architecture", "guides/public-api", "guides/migration", "guides/accessibility"] },
         ] },
-        { id: "design", title: "设计体系", pages: ["guides/design-styles", "guides/component-sizing", "guides/design-coverage"], sections: [] },
+        { id: "design", title: "设计", pages: ["design/index"], sections: [
+            { id: "design-prototypes", title: "组件原型", pages: ["design/button"] },
+            { id: "design-scenarios", title: "应用场景", pages: ["design/save-profile"] },
+            { id: "design-foundations", title: "设计基础", pages: ["guides/design-styles", "guides/component-sizing", "guides/design-coverage"] },
+        ] },
         { id: "maintenance", title: "组件库维护", pages: ["guides/contributing", "guides/dependencies", "guides/toolchain"], sections: [] },
         { id: "components", title: "组件", pages: [], sections: manifest.families.map(family => ({
             id: family.id,

@@ -1,4 +1,4 @@
-type IconName = "home" | "start" | "components" | "design" | "learn" | "tools" | "code" | "overview" | "up" | "close";
+type IconName = "home" | "start" | "components" | "design" | "learn" | "tools" | "code" | "overview" | "up" | "close" | "refresh";
 
 /** Small, decorative icons; their containing controls provide the accessible names. */
 export default function SiteIcon({ name }: { name: IconName }) {
@@ -13,5 +13,6 @@ export default function SiteIcon({ name }: { name: IconName }) {
         {name === "overview" && <><circle cx="12" cy="12" r="9" /><path d="M12 11v6M12 7v1" /></>}
         {name === "up" && <path d="M5 4h14M12 20V8m-5 5 5-5 5 5" />}
         {name === "close" && <path d="m6 6 12 12M6 18 18 6" />}
+        {name === "refresh" && <path d="M20 5v6h-6m6 0a8 8 0 1 0-1.6 6" />}
     </svg>;
 }

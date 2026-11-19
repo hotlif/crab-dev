@@ -123,6 +123,10 @@ test("依赖图从真实角色来源生成三类边，排除自身与清单外�
 test("导航与覆盖矩阵从产品清单派生能力族、完整包集合和独立用途", async () => {
     const manifest = await loadLibraryManifest();
     const navigation = createLibraryNavigation(manifest);
+    for (const page of ["design/index", "design/button", "design/save-profile", "guides/design-styles", "guides/component-sizing", "guides/design-coverage"]) {
+        assert.equal(navigation.split(JSON.stringify(page)).length - 1, 1, page);
+        await access(new URL(`../../docs/${page}.mdx`, import.meta.url));
+    }
     const referenced = [...navigation.matchAll(/"components\/(rc-[^"]+)"/g)].map(match => match[1]);
     assert.deepEqual([...referenced].sort(), manifest.packages.map(item => item.slug).sort());
     assert.equal(new Set(referenced).size, referenced.length);
