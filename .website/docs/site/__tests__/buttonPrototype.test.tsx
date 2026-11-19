@@ -14,7 +14,8 @@ async function selectOption(control: HTMLElement, name: string) {
 
 describe("Button 交互原型", () => {
     it("同文案比较外观时保留规格与状态，选择纯图标后可恢复文字按钮的设置", async () => {
-        await render(<ButtonPrototype />);
+        const prototype = (design: DesignSystem) => <ConfigProvider designSystem={design}><ButtonPrototype /></ConfigProvider>;
+        const view = await render(prototype("md3"));
         const section = within(screen.getByRole("heading", { name: "按钮类型与状态" }).closest("section")!);
         const specimen = () => within(section.getByRole("group", { name: "可操作样本" }));
         await selectOption(section.getByRole("combobox", { name: "按钮尺寸" }), "M");
@@ -33,6 +34,13 @@ describe("Button 交互原型", () => {
         expect(section.getByRole("combobox", { name: "图标位置" }).textContent).toContain("前置图标");
         await selectOption(section.getByRole("combobox", { name: "试验状态" }), "可用");
         expect(button.querySelector("svg")).toBeTruthy();
+        for (const [theme, label] of [["macos", "应用设置"], ["shadcn", "应用筛选"]] as const) {
+            await view.rerender(prototype(theme));
+            expect(specimen().getByRole("button", { name: label })).toBe(button);
+            expect(section.getByRole("combobox", { name: "按钮尺寸" }).textContent).toContain("M");
+            expect(section.getByRole("combobox", { name: "轮廓" }).textContent).toContain("圆角矩形");
+            expect(button.querySelector("svg")).toBeTruthy();
+        }
     });
 
     it("对照各类型的六种状态，试播的类型与切换选择随主题保留", async () => {
@@ -53,8 +61,8 @@ describe("Button 交互原型", () => {
         await fireEvent.click(toggle);
         expect(toggle.getAttribute("aria-pressed")).toBe("true");
         await view.rerender(prototype("macos"));
-        expect(within(matrix).getByRole("rowheader", { name: "玻璃按钮" })).toBeTruthy();
-        expect(lab.getByRole("button", { name: "仅看收藏" })).toBe(toggle);
+        expect(within(matrix).getAllByRole("rowheader", { name: /工具栏切换/ }).length).toBe(2);
+        expect(within(lab.getByRole("group", { name: "候选方案" })).getByRole("button", { name: "仅看收藏" })).toBe(toggle);
         expect(toggle.getAttribute("aria-pressed")).toBe("true");
         await fireEvent.click(toggle);
         expect(toggle.getAttribute("aria-pressed")).toBe("false");

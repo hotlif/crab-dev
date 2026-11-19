@@ -11,11 +11,11 @@ const titles = {
 } satisfies Record<DesignSystem, Record<ButtonKind, string>>;
 
 export const buttonKinds: readonly ButtonKind[] = ["primary", "tonal", "outlined", "elevated", "text", "danger", "icon", "toggle"];
-export const md3Appearances = ["primary", "tonal", "outlined", "elevated", "text"] as const;
-export const md3Actions = ["danger", "icon", "toggle"] as const;
+export const buttonAppearances = ["primary", "tonal", "outlined", "elevated", "text"] as const;
+export const buttonActions = ["danger", "icon", "toggle"] as const;
 
-export function hasAsyncExample(kind: ButtonKind, system: DesignSystem) {
-    return system !== "md3" || (kind !== "text" && kind !== "toggle");
+export function hasAsyncExample(kind: ButtonKind) {
+    return kind !== "text" && kind !== "toggle";
 }
 
 export const buttonExamples = {

@@ -2,7 +2,13 @@ import { globalStyle } from "@crab-dev/css";
 import token from "@crab-dev/rc-token-semantic";
 
 globalStyle`
+.crab-design-workspace {
+    --crab-prototype-paper: ${token.color.surface.content};
+    --crab-prototype-panel: ${token.color.surface.low};
+    --crab-prototype-rule: ${token.color.border.subtle};
+}
 .crab-design-form-footer { display: grid; gap: 1rem; }
+.crab-design-form-footer > .crab-design-feedback { min-block-size: 2lh; }
 .crab-design-form-field { min-width: 0; }
 [data-prototype-design="macos"] .crab-design-hero { min-height: 9rem; border: 1px solid ${token.color.border.subtle}; background: ${token.color.surface.low}; }
 [data-prototype-design="shadcn"] .crab-design-hero { min-height: 9rem; border: 0; border-bottom: 1px solid ${token.color.border.default}; border-radius: 0; background: ${token.color.surface.content}; }
@@ -40,13 +46,14 @@ globalStyle`
 [data-prototype-design="macos"] .crab-design-form-field { padding: 1.35rem 1.25rem; }
 [data-prototype-design="macos"] .crab-design-form-footer { padding: .7rem 1rem; border-block-start: 1px solid ${token.color.border.subtle}; background: ${token.color.surface.low}; gap: .35rem; }
 [data-prototype-design="macos"] .crab-design-actions { justify-content: flex-end; }
-[data-prototype-design="macos"] .crab-design-feedback { grid-row: 1; }
-[data-prototype-design="macos"] .crab-design-actions .crab-design-candidate { inline-size: 5.5rem; }
+[data-prototype-design="macos"] .crab-design-form-footer > .crab-design-feedback { grid-row: 1; }
+[data-prototype-design="macos"] .crab-design-motion-controls { background: var(--crab-prototype-panel); }
+[data-prototype-design="macos"] .crab-design-composition-card { box-shadow: ${token.shadow.control}; }
 [data-prototype-design="shadcn"] .crab-design-stage form { width: min(100%, 31rem); padding: 1.2rem; box-shadow: none; }
-[data-prototype-design="shadcn"] .crab-design-form-footer { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap-reverse; gap: .7rem; padding-block-start: .85rem; border-block-start: 1px solid ${token.color.border.subtle}; }
-[data-prototype-design="shadcn"] .crab-design-feedback { order: -1; }
-[data-prototype-design="shadcn"][data-variant="candidate"] form[data-phase="failed"] .crab-design-form-footer { padding: .6rem; border: 1px solid ${token.color.feedback.error.border}; border-radius: ${token.shape.control}; background: ${token.color.feedback.error.background}; }
-[data-prototype-design="shadcn"] .crab-design-actions .crab-design-candidate { inline-size: auto; }
+[data-prototype-design="shadcn"] .crab-design-form-footer { gap: .5rem; padding-block-start: .85rem; border-block-start: 1px solid ${token.color.border.subtle}; }
+[data-prototype-design="shadcn"] .crab-design-form-footer > .crab-design-feedback { box-sizing: content-box; padding: .35rem .5rem; border: 1px solid transparent; border-radius: ${token.shape.control}; }
+[data-prototype-design="shadcn"][data-variant="candidate"] .crab-design-form-footer > .crab-design-feedback[data-phase="failed"] { border-color: ${token.color.feedback.error.border}; background: ${token.color.feedback.error.background}; }
+[data-prototype-design="shadcn"] :is(.crab-design-composition-card, .crab-design-composition-themes) { border-radius: ${token.shape.card}; }
 @media (max-width: 720px) {
     [data-prototype-design="macos"] .crab-design-hero-art, [data-prototype-design="shadcn"] .crab-design-hero-art { display: none; }
 }

@@ -1,7 +1,8 @@
-import { useState, type ReactNode } from "react";
+import { useState } from "react";
 import Button from "@crab-dev/rc-button";
 import { useConfig } from "@crab-dev/rc-config-provider";
-import { buttonExamples, buttonKinds, describeButton, hasAsyncExample, md3Actions, md3Appearances, type ButtonKind } from "./buttonKinds.js";
+import { buttonActions, buttonAppearances, buttonExamples, describeButton, hasAsyncExample, type ButtonKind } from "./buttonKinds.js";
+import { buttonDesigns } from "./buttonDesigns.js";
 import { SampleButton } from "./buttonMotion.js";
 import ButtonSpecimen from "./buttonSpecimen.js";
 import "./buttonStateMatrix.styles.js";
@@ -20,7 +21,7 @@ function StateRow({ kind, candidate, selected }: { kind: ButtonKind; candidate: 
             const label = state === "busy" ? sample.busy : sample.label;
             return <td key={state} role="cell">
                 <span className="crab-design-cell-label" aria-hidden="true">{name}</span>
-                {state === "busy" && !hasAsyncExample(kind, designSystem) ? <span className="crab-design-immediate">即时完成</span>
+                {state === "busy" && !hasAsyncExample(kind) ? <span className="crab-design-immediate">即时完成</span>
                     : <span role="img" aria-label={label} className="crab-design-swatch" data-state={state} data-kind={kind} data-candidate={candidate}>
                     <span inert aria-hidden="true"><SampleButton kind={kind} candidate={candidate} selected={selected}
                         busy={state === "busy"} disabled={state === "disabled"}>{label}</SampleButton></span>
@@ -30,11 +31,9 @@ function StateRow({ kind, candidate, selected }: { kind: ButtonKind; candidate: 
     </tr>;
 }
 
-export default function ButtonStateMatrix({ candidate, children }: { candidate: boolean; children: ReactNode }) {
+export default function ButtonStateMatrix({ candidate }: { candidate: boolean }) {
     const { designSystem } = useConfig();
-    const engineering = designSystem === "md3";
     const [activeKind, setActiveKind] = useState<ButtonKind>("primary");
-    const shownKinds = engineering ? [activeKind] : buttonKinds;
     function choices(label: string, kinds: readonly ButtonKind[]) {
         return <div role="group" aria-label={label} className="crab-design-kind-group">
             <h3>{label}</h3><div>{kinds.map(kind => <Button key={kind} appearance={buttonExamples[kind].appearance} danger={kind === "danger"}
@@ -44,19 +43,19 @@ export default function ButtonStateMatrix({ candidate, children }: { candidate: 
         </div>;
     }
     return <section id="button-states" className="crab-design-matrix" aria-labelledby="button-states-heading">
-        <div className="crab-design-section-head"><h2 id="button-states-heading">按钮类型与状态</h2>{engineering && <small>{candidate ? "候选方案" : "现有方案"}</small>}{children}</div>
-        {engineering && <div className="crab-design-kind-picker">{choices("操作层级", md3Appearances)}{choices("操作示例", md3Actions)}</div>}
+        <div className="crab-design-section-head"><h2 id="button-states-heading">按钮类型与状态</h2><small>{candidate ? "候选方案" : "现有方案"}</small></div>
+        <div className="crab-design-kind-picker">{choices("操作层级", buttonAppearances)}{choices("操作示例", buttonActions)}</div>
         <div id="button-kind-details">
-            {engineering && <ButtonSpecimen kind={activeKind} candidate={candidate} />}
-            {engineering && <p className="crab-design-swatch-note">下表以默认尺寸定格展示状态。实际悬停、按压和键盘焦点可在上方样本中体验。MD3 使用 8% 悬停状态层，焦点和按压为 10%。现有方案与候选方案共用这些数值。</p>}
+            <ButtonSpecimen kind={activeKind} candidate={candidate} />
+            <p className="crab-design-swatch-note">下表以默认尺寸定格展示状态。{buttonDesigns[designSystem].stateNote}实际交互可在上方样本中体验。</p>
             <table id="button-state-samples" role="table" aria-labelledby="button-states-heading" className="crab-design-states">
                 <thead role="rowgroup"><tr role="row">
                     <th role="columnheader" scope="col">按钮类型</th>
                     {states.map(([state, name]) => <th key={state} role="columnheader" scope="col">{name}</th>)}
                 </tr></thead>
                 <tbody role="rowgroup">
-                    {shownKinds.map(kind => <StateRow key={kind} kind={kind} candidate={candidate} selected={kind === "toggle" ? false : undefined} />)}
-                    {shownKinds.includes("toggle") && <StateRow kind="toggle" candidate={candidate} selected />}
+                    <StateRow kind={activeKind} candidate={candidate} selected={activeKind === "toggle" ? false : undefined} />
+                    {activeKind === "toggle" && <StateRow kind="toggle" candidate={candidate} selected />}
                 </tbody>
             </table>
         </div>

@@ -1,13 +1,15 @@
 import { useRef, useState } from "react";
 import Button, { type ButtonNativeProps } from "@crab-dev/rc-button";
+import { useConfig } from "@crab-dev/rc-config-provider";
 import Dialog from "@crab-dev/rc-dialog";
 import { useResizeObserver } from "@crab-dev/rc-hooks";
 import Select from "@crab-dev/rc-select";
 import SiteIcon from "../siteIcon.js";
-import { buttonExamples, describeButton, hasAsyncExample, md3Appearances, type ButtonKind } from "./buttonKinds.js";
+import { buttonAppearances, buttonExamples, describeButton, hasAsyncExample, type ButtonKind } from "./buttonKinds.js";
+import { buttonDesigns } from "./buttonDesigns.js";
 import "./buttonSpecimen.styles.js";
 
-const usage = {
+const usage: Record<ButtonKind, string> = {
     primary: "用于完成当前任务。工作区配置的「保存配置」用填充外观，同一操作区只突出一个主操作。",
     tonal: "用于需要适当强调的次操作。例如保存前「预览」，让入口容易找到，同时保留保存操作的优先级。",
     outlined: "用于重要的替代操作。「还原修改」撤回草稿，「导出已保存配置」读取已生效的数据。两者都可以与填充主按钮配对。",
@@ -16,11 +18,29 @@ const usage = {
     danger: "用于删除配置等不可逆操作。文案应点明对象，再用确认步骤保护误触。危险语义可以和不同外观组合。",
     icon: "用于空间有限、图标含义明确的工具栏操作，例如刷新。示例只有图形，读屏仍会读出「刷新」。",
     toggle: "用于可反复开启、关闭的操作。示例标签始终是「仅看收藏」，选中状态独立传达，并保持到下一次切换。",
-} satisfies Record<ButtonKind, string>;
+};
+
+const themeUsage: Record<"macos" | "shadcn", Partial<Record<ButtonKind, string>>> = {
+    macos: {
+        primary: "着色默认按钮放在设置面板右侧。存储期间保留标题，便于辨认当前操作。",
+        tonal: "次要着色用于需突出但不会完成当前流程的动作，例如预览显示效果。",
+        outlined: "普通按键用于取消修改或导出设置。与右侧的着色默认按钮拉开优先级。",
+        elevated: "浮动玻璃按钮适合工具栏上的显著动作。连接式工具栏共享背板，避免多层玻璃叠加。",
+        text: "无背板操作适合查看帮助和低强调工具，用悬停和键盘焦点反馈当前目标。",
+        danger: "移除配置应清楚显示目标名称，并在最终移除前确认。",
+    },
+    shadcn: {
+        primary: "实心按钮收束设置流程。保存失败时保留输入，在动作区显示原因并提供重试。",
+        tonal: "次级外观用于并列的辅助动作，例如预览筛选结果，保持主按钮的视觉权重。",
+        outlined: "轮廓按钮用于导出和还原。细边框在密集卡片中区分辅助操作。",
+        elevated: "浮起外观用于需要从底板辨认的操作，例如数据画布的新增入口。",
+        text: "幽灵按钮适合取消、帮助和工具栏低强调操作。键盘焦点环提供定位。",
+    },
+};
 
 const sizes = ["xs", "s", "m", "l", "xl"] as const;
 const sizeOptions = [{ value: "inherit", label: "跟随页面" }, ...sizes.map(value => ({ value, label: value.toUpperCase() }))];
-const shapes = [{ value: "round", label: "胶囊" }, { value: "square", label: "圆角矩形" }] as const;
+const shapes = [{ value: "theme", label: "跟随主题" }, { value: "round", label: "胶囊" }, { value: "square", label: "圆角矩形" }] as const;
 const icons = [{ value: "none", label: "仅文字" }, { value: "start", label: "前置图标" }, { value: "end", label: "后置图标" }] as const;
 const states = [{ value: "ready", label: "可用" }, { value: "disabled", label: "禁用" }, { value: "loading", label: "加载中" }] as const;
 type Condition = (typeof states)[number]["value"];
@@ -33,42 +53,45 @@ const stateHelp = {
 };
 
 export default function ButtonSpecimen({ kind, candidate }: { kind: ButtonKind; candidate: boolean }) {
+    const { designSystem } = useConfig();
     const [size, setSize] = useState<ButtonNativeProps["size"]>();
-    const [shape, setShape] = useState<SpecimenShape>("round");
+    const [shape, setShape] = useState<SpecimenShape>("theme");
     const [icon, setIcon] = useState<IconPosition>("none");
     const [condition, setCondition] = useState<Condition>("ready");
-    const sample = describeButton(kind, "md3", candidate);
+    const sample = describeButton(kind, designSystem, candidate);
     const iconOnly = kind === "icon";
-    const comparingAppearance = md3Appearances.some(appearance => appearance === kind);
-    const canLoad = comparingAppearance || hasAsyncExample(kind, "md3");
+    const comparingAppearance = buttonAppearances.some(appearance => appearance === kind);
+    const canLoad = comparingAppearance || hasAsyncExample(kind);
     const stateOptions = states.filter(item => item.value !== "loading" || canLoad);
     const effectiveCondition = canLoad || condition !== "loading" ? condition : "ready";
-    const label = comparingAppearance ? "校验配置" : kind === "danger" ? "删除测试配置" : sample.label;
+    const label = comparingAppearance ? buttonDesigns[designSystem].specimenAction : kind === "danger" ? "删除测试配置" : sample.label;
+    const resolvedShape = shape === "theme" ? designSystem === "md3" ? "round" : undefined : shape;
+    const description = designSystem === "md3" ? usage[kind] : themeUsage[designSystem][kind] ?? usage[kind];
 
     return <div className="crab-design-specimen">
         <div className="crab-design-specimen-intro">
             <h3>{sample.title}</h3>
-            <p>{usage[kind]}</p>
+            <p>{description}</p>
             {comparingAppearance && <p>五种基础外观使用同一文案。切换类型时保留尺寸、轮廓和图标，便于直接比较。</p>}
         </div>
         <div className="crab-design-specimen-controls">
             <Select label="按钮尺寸" value={size ?? "inherit"} allowClear={false} options={sizeOptions}
                 onValueChange={value => setSize(sizes.find(item => item === value))} />
             {!iconOnly && <Select label="轮廓" value={shape} allowClear={false} options={[...shapes]}
-                onValueChange={value => { if (value === "round" || value === "square") setShape(value); }} />}
+                onValueChange={value => { const item = shapes.find(option => option.value === value); if (item) setShape(item.value); }} />}
             {!iconOnly && <Select label="图标位置" value={icon} allowClear={false} options={[...icons]}
                 onValueChange={value => { const item = icons.find(option => option.value === value); if (item) setIcon(item.value); }} />}
             <Select label="试验状态" value={effectiveCondition} allowClear={false} options={stateOptions}
                 onValueChange={value => { const item = stateOptions.find(option => option.value === value); if (item) setCondition(item.value); }} />
         </div>
-        <SpecimenPreview key={kind} kind={kind} size={size} shape={shape} icon={icon} condition={effectiveCondition} label={label} />
+        <SpecimenPreview key={kind} kind={kind} size={size} shape={resolvedShape} icon={icon} condition={effectiveCondition} label={label} />
     </div>;
 }
 
 function SpecimenPreview({ kind, size, shape, icon, condition, label }: {
     kind: ButtonKind;
     size: ButtonNativeProps["size"];
-    shape: SpecimenShape;
+    shape: ButtonNativeProps["shape"];
     icon: IconPosition;
     condition: Condition;
     label: string;

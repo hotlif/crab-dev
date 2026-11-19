@@ -7,13 +7,18 @@ globalStyle`
 .crab-design-jump-links a { color: ${token.color.text.link}; font-size: .875rem; }
 .crab-design-motion-lab, #button-scenario { scroll-margin-block-start: 5rem; }
 .crab-design-motion-board { display: grid; grid-template-columns: minmax(0,1.6fr) minmax(0,1fr); overflow: hidden; border: 1px solid ${token.color.border.subtle}; border-radius: ${token.shape.card}; background: ${token.color.surface.content}; }
-.crab-design-motion-stage { display: grid; align-content: center; justify-items: center; gap: 1rem; min-height: 11rem; padding: 1.25rem; background: ${token.color.surface.low}; }
+.crab-design-motion-stage { display: grid; align-content: start; justify-items: center; min-width: 0; gap: .8rem; min-height: 11rem; padding: 1rem; background: var(--crab-prototype-paper); }
+.crab-design-motion-stage > p { font-size: .82rem; }
+.crab-design-trials { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); width: 100%; }
+.crab-design-trial { display: grid; gap: 1.1rem; padding: .75rem .35rem; justify-items: center; align-content: start; min-width: 0; }
+.crab-design-trial + .crab-design-trial { border-inline-start: 1px solid var(--crab-prototype-rule); }
+.crab-design-trial strong { color: ${token.color.text.secondary}; font-size: .84rem; font-weight: 550; }
 .crab-design-motion-controls { display: grid; align-content: center; justify-items: start; gap: .8rem; min-width: 0; padding: 1.2rem; border-inline-start: 1px solid ${token.color.border.subtle}; }
 .crab-design-motion-controls p { color: ${token.color.text.secondary}; font-size: .875rem; }
 .crab-design-motion-stage .crab-design-feedback { text-align: center; }
 .crab-design-motion-action { position: relative; display: inline-flex; max-inline-size: 100%; vertical-align: middle; }
-.crab-design-motion-stage .crab-design-motion-action[data-kind="primary"] { min-inline-size: 6rem; justify-content: center; }
-.crab-design-motion-stage .crab-design-motion-action[data-kind="primary"] > button { inline-size: 100%; }
+.crab-design-motion-stage .crab-design-motion-action:not([data-kind="icon"]) > button,
+.crab-design-actions .crab-design-motion-action > button { inline-size: 7rem; max-inline-size: 100%; }
 .crab-design-motion-lab[data-slow="true"] { --crab-playback-stretch: 2; }
 .crab-design-motion-clip { position: absolute; inset: 0; border-radius: ${token.shape.button}; overflow: hidden; pointer-events: none; }
 .crab-design-motion-pulse { position: absolute; inset: 0; pointer-events: none; opacity: 0; }
@@ -25,8 +30,6 @@ globalStyle`
 }
 [data-prototype-design="macos"] .crab-design-motion-pulse { border-radius: inherit; box-shadow: inset 0 1px 0 1px currentColor, inset 0 -2px 4px ${token.color.border.strong}; animation: crab-prototype-bezel calc(${globalToken.duration.normal} * var(--crab-playback-stretch, 1)) ${globalToken.easing.out}; }
 @keyframes crab-prototype-bezel { from { opacity: .7; } to { opacity: 0; } }
-[data-prototype-design="shadcn"] .crab-design-motion-action[data-candidate="true"] > button { transition: translate calc(${globalToken.duration.fast} * var(--crab-playback-stretch, 1)) ease-out, background-color ${token.motion.effects.fast}; }
-[data-prototype-design="shadcn"] .crab-design-motion-action[data-candidate="true"] > button:active:not([aria-disabled="true"]) { translate: 0 1px; }
 [data-prototype-design="shadcn"] .crab-design-motion-pulse { border-radius: inherit; border: 1px solid currentColor; animation: crab-prototype-edge calc(${globalToken.duration[150]} * var(--crab-playback-stretch, 1)) ease-out; }
 @keyframes crab-prototype-edge { from { opacity: .7; } to { opacity: 0; } }
 .crab-design-motion-indicator { display: inline-flex; flex: none; position: relative; width: 1em; height: 1em; align-items: center; justify-content: space-between; }
@@ -48,10 +51,11 @@ globalStyle`
     .crab-design-motion-board { grid-template-columns: 1fr; }
     .crab-design-motion-controls { border-inline-start: 0; border-block-start: 1px solid ${token.color.border.subtle}; padding: 1rem; }
 }
+@media (max-width: 480px) {
+    .crab-design-motion-stage { padding-inline: .35rem; }
+}
 @media (prefers-reduced-motion: reduce) {
     .crab-design-workspace[data-prototype-design] :is(.crab-design-motion-pulse, .crab-design-motion-indicator, .crab-design-motion-indicator i, .crab-design-result-icon, .crab-design-result-icon path) { animation: none; }
-    .crab-design-workspace[data-prototype-design] .crab-design-motion-action[data-candidate="true"] > button { transition: none; }
-    .crab-design-workspace[data-prototype-design] .crab-design-motion-action[data-candidate="true"] > button:active { translate: none; }
 }
 @media (forced-colors: active) {
     .crab-design-motion-action .crab-design-motion-indicator, .crab-design-swatch .crab-design-motion-indicator { forced-color-adjust: none; color: ButtonText; }

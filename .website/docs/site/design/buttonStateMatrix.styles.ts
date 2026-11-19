@@ -15,25 +15,18 @@ globalStyle`
 .crab-design-cell-label { display: none; }
 .crab-design-swatch, .crab-design-swatch > span { display: inline-flex; vertical-align: middle; }
 .crab-design-swatch { pointer-events: none; }
-.crab-design-swatch[data-state="hover"] { --crab-sample-tint: 9%; }
-.crab-design-swatch[data-state="press"] { --crab-sample-tint: 16%; }
-[data-prototype-design="macos"] .crab-design-states { --crab-sample-ink: ${token.color.text.primary}; }
+.crab-design-swatch[data-state="hover"] { --crab-sample-tint: calc(var(${buttonVars["state-layer.opacity-hover"]}, ${token.state.opacity.hover}) * 100%); }
+.crab-design-swatch[data-state="press"] { --crab-sample-tint: calc(var(${buttonVars["state-layer.opacity-active"]}, .1) * 100%); }
 .crab-design-matrix .crab-design-states .crab-design-swatch:is([data-state="hover"], [data-state="press"]) button,
 .crab-design-workspace[data-prototype-design="md3"] .crab-design-swatch[data-state="focus"] button {
     --crab-sample-layer: color-mix(in srgb, var(--crab-sample-ink, currentColor) var(--crab-sample-tint), transparent);
     background-image: linear-gradient(var(--crab-sample-layer), var(--crab-sample-layer));
 }
 .crab-design-swatch[data-state="focus"] button { outline: 3px solid ${token.color.focus.ring}; outline-offset: 2px; }
-[data-prototype-design="md3"] .crab-design-swatch[data-state="hover"] button {
-    --crab-sample-tint: calc(var(${buttonVars["state-layer.opacity-hover"]}, ${token.state.opacity.hover}) * 100%);
-}
 [data-prototype-design="md3"] .crab-design-swatch[data-state="focus"] button {
     --crab-sample-tint: calc(var(${buttonVars["state-layer.opacity-focus"]}, .1) * 100%);
     outline: var(${buttonVars["root.outline-width-focus"]}, 3px) solid var(${buttonVars["root.outline-color-focus"]}, ${token.color.secondary.primary});
     outline-offset: var(${buttonVars["root.outline-offset-focus"]}, 2px);
-}
-[data-prototype-design="md3"] .crab-design-swatch[data-state="press"] button {
-    --crab-sample-tint: calc(var(${buttonVars["state-layer.opacity-active"]}, .1) * 100%);
 }
 [data-prototype-design="md3"] .crab-design-swatch[data-state="press"]:not([data-kind="icon"]) button {
     border-radius: var(${buttonVars["root.border-radius-active"]}, ${token.shape["button-pressed"]});
@@ -45,8 +38,9 @@ globalStyle`
     color: ${token.color.text.secondary};
     font-size: .82rem;
 }
-[data-prototype-design="macos"] .crab-design-swatch[data-state="press"] button { box-shadow: inset 0 1px 3px ${token.color.border.strong}; }
-[data-prototype-design="shadcn"][data-variant="candidate"] .crab-design-swatch[data-state="press"] button { translate: 0 1px; }
+[data-prototype-design="macos"] .crab-design-states { --crab-sample-ink: ${token.color.text.primary}; }
+[data-prototype-design="macos"] .crab-design-swatch[data-state="hover"] { --crab-sample-tint: 4%; }
+[data-prototype-design="macos"] .crab-design-swatch[data-state="press"] button { box-shadow: var(${buttonVars["macos.control.box-shadow-active"]}, inset 0 1px 3px color-mix(in oklch, ${token.color.text.primary} 12%, transparent)); }
 [data-prototype-design="shadcn"] .crab-design-swatch[data-state="focus"] button { outline-width: 2px; }
 @container button-matrix (max-width: 55rem) {
     .crab-design-states, .crab-design-states tbody { display: grid; }

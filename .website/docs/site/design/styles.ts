@@ -52,7 +52,6 @@ globalStyle`
 .crab-design-feedback[data-phase="success"] { color: ${token.color.feedback.success.text}; }
 .crab-design-notes { border-block-start: 1px solid ${token.color.border.subtle}; padding-block-start: .7rem; width: 100%; }
 .crab-design-notes p { margin-top: .25rem; }
-.crab-design-actions .crab-design-candidate { inline-size: 8rem; }
 @keyframes crab-design-spin { to { transform: rotate(360deg); } }
 @media (max-width: 900px) { .crab-design-guides { grid-template-columns: 1fr; } }
 @media (max-width: 720px) {

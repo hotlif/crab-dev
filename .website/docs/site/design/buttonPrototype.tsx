@@ -84,7 +84,7 @@ export default function ButtonPrototype({ scenario = false }: { scenario?: boole
     const scene = <section key="scenario" id="button-scenario" aria-label="异步保存体验">
         <div className="crab-design-section-head">
             <div>{!engineering && <small>{scenario ? "应用场景" : "Button 应用场景"}</small>}<h2>{scenario && !engineering ? "资料编辑表单" : sceneTitle}</h2></div>
-            {(scenario || engineering) && schemeControl}
+            {schemeControl}
         </div>
         <div className="crab-design-experiment">
             <div className="crab-design-stage">
@@ -119,21 +119,18 @@ export default function ButtonPrototype({ scenario = false }: { scenario?: boole
             </div>
         </div>
     </section>;
-    const matrix = <ButtonStateMatrix key="states" candidate={candidate}>{!engineering && schemeControl}</ButtonStateMatrix>;
-    const motion = <MotionPreview key="motion" candidate={candidate} />;
     return <div className="crab-design-workspace" data-prototype-design={designSystem} data-variant={candidate ? "candidate" : "current"}>
         <DesignHero section={scenario ? "应用场景" : "组件原型"} title={scenario ? (engineering ? "保存工作区配置" : sceneTitle) : "Button 按钮"}
             description={scenario ? design.scenario : design.prototype}>
             {!scenario && <nav aria-label="原型章节" className="crab-design-jump-links">
-                {engineering && <a href="#button-scenario">工作区配置</a>}
-                <a href="#button-motion">{engineering ? "动效对照" : "试播按钮动效"}</a><a href="#button-states">按钮类型与状态</a>
-                {engineering && <a href="#button-composition">按钮组合与布局</a>}
-                {!engineering && <a href="#button-scenario">体验保存场景</a>}
+                <a href="#button-scenario">{engineering ? "工作区配置" : "体验保存场景"}</a>
+                <a href="#button-motion">动效对照</a><a href="#button-states">按钮类型与状态</a>
+                <a href="#button-composition">按钮组合与布局</a>
             </nav>}
         </DesignHero>
         <div className="crab-design-body">
-            {scenario ? scene : engineering ? [scene, motion, matrix] : [matrix, motion, scene]}
-            {!scenario && engineering && <ButtonComposition />}
+            {scene}
+            {!scenario && <><MotionPreview /><ButtonStateMatrix candidate={candidate} /><ButtonComposition /></>}
             <div>{scenario ? <Button appearance="text" href={href("design/button#button-motion")}>查看 Button 动效与状态 →</Button>
                 : <Button appearance="text" href={href("components/rc-button")}>查看 Button 组件文档 →</Button>}</div>
         </div>
