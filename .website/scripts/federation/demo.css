@@ -1,0 +1,11 @@
+.crab-federated-demo {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    align-content: start;
+    min-height: 80px;
+    box-sizing: border-box;
+    padding: 16px;
+    background: var(--token-semantic-color-background-surface);
+    color: var(--token-semantic-color-text-primary);
+    font-family: var(--token-semantic-typography-body-font-family, system-ui);
+}

@@ -1,14 +1,14 @@
 import { afterAll, beforeAll, beforeEach, describe, expect, it, mock } from "@crab-dev/wake/test";
 import { act, render } from "@crab-dev/wake/test/react";
 import { componentPreviews } from "../../_generated/component-previews.js";
-import type { ComponentDemoDescriptor, ComponentDemoFramePresentation } from "../componentDemoFrame.js";
+import type { ComponentDemoDescriptor, ComponentDemoPresentation } from "../componentDemo.js";
 
 // Wake matches the consumer's literal relative import specifier.
-mock.module("./componentDemoFrame.js", () => ({
+mock.module("./componentDemo.js", () => ({
     __esModule: true,
     default: ({ demo, presentation = "interactive" }: {
         readonly demo: ComponentDemoDescriptor;
-        readonly presentation?: ComponentDemoFramePresentation;
+        readonly presentation?: ComponentDemoPresentation;
     }) => <div
         data-frame-fixture=""
         data-presentation={presentation}

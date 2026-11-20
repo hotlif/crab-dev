@@ -45,6 +45,7 @@ export function createDocsPreview({ root = path.resolve(websiteRoot, process.env
         response.writeHead(response.statusCode, {
             "Content-Type": types[path.extname(file)] ?? "application/octet-stream",
             "Cache-Control": "no-store",
+            "Content-Length": body.byteLength,
         });
         response.end(body);
     } catch {

@@ -4,6 +4,7 @@ import path from "node:path";
 import { createRequire } from "node:module";
 import { fileURLToPath } from "node:url";
 
+import { buildFederatedDemos } from "../federation/build.mjs";
 import { generateDocs } from "../generate/generate-component-docs.mjs";
 import { isComponentDocsSource } from "./docs-source-watch.mjs";
 
@@ -20,6 +21,7 @@ const wakeBin = path.join(wakeDirectory, "bin/wake.mjs");
 const REGENERATE_DEBOUNCE_MS = 120;
 
 await generateDocs();
+await buildFederatedDemos();
 
 let debounceTimer;
 let generationRunning = false;
@@ -43,6 +45,7 @@ async function regenerate() {
     generationRunning = true;
     try {
         await generateDocs();
+        await buildFederatedDemos();
     } catch (error) {
         console.error("组件文档增量生成失败：", error);
     } finally {

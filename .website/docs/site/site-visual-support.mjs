@@ -31,7 +31,7 @@ export async function readySitePage(page,definition,config) {
     await assertSiteConfiguration(page,config);
     await page.evaluate(() => globalThis.document.fonts.ready);
     if(definition.id==='component') {
-        await expect(page.locator('[data-component-hero="rc-line-edit"] iframe')).toHaveAttribute('aria-busy','false',{timeout:20_000});
+        await expect(page.locator('[data-component-hero="rc-line-edit"] [data-federated-demo]')).toHaveAttribute('aria-busy','false',{timeout:20_000});
     }
     if(definition.id==='tutorial') {
         await expect(page.locator('[data-tutorial="practice-profile"]').getByRole('textbox',{name:'姓名',exact:true})).toBeVisible();

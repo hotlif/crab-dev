@@ -46,14 +46,14 @@ for (const designSystem of ['md3', 'macos', 'shadcn']) for (const colorMode of [
         await expect(page.locator('[data-design-example-description]')).toHaveText(documents[designSystem].exampleDescription);
         const demos = page.locator('[data-design-examples] [data-component-demo-id]');
         await expect(demos).toHaveCount(documents[designSystem].demos.length);
-        await expect(page.locator('[data-component-hero] iframe')).toHaveAttribute('src', new RegExp(encodeURIComponent(`docs/demos/${documents[designSystem].demos[0]}`).replaceAll('.', '\\.')));
+        await expect(page.locator('[data-component-hero] [data-demo-id]')).toHaveAttribute('data-demo-id', 'docs/demos/' + documents[designSystem].demos[0]);
         if (designSystem !== 'macos') await expect(page.locator('[data-component-demo-id="docs/demos/macos.demo.tsx"]')).toHaveCount(0);
         if (designSystem !== 'md3') await expect(page.locator('[data-component-demo-id="docs/demos/expressive.demo.tsx"]')).toHaveCount(0);
-        const frame = page.locator('[data-component-hero] iframe');
-        await expect(frame).toBeVisible();
-        await expect(frame.contentFrame().locator('html')).toHaveAttribute('data-crab-design', designSystem);
-        await expect(frame.contentFrame().locator('[data-crab-design]').first()).toBeVisible();
-        expect(await frame.contentFrame().locator(`[data-crab-design]:not([data-crab-design="${designSystem}"])`).count()).toBe(0);
+        const preview = page.locator('[data-component-hero] [data-federated-demo]');
+        await expect(preview).toBeVisible();
+        await expect(preview.locator('.crab-federated-demo')).toHaveAttribute('data-crab-design', designSystem);
+        await expect(preview.locator('[data-crab-design]').first()).toBeVisible();
+        expect(await preview.locator(`[data-crab-design]:not([data-crab-design="${designSystem}"])`).count()).toBe(0);
         const references = await page.locator('[data-design-guide] a').evaluateAll(nodes => nodes.map(node => node.href).join(' '));
         if (designSystem === 'md3') expect(references).not.toMatch(/apple|shadcn/i);
         if (designSystem === 'macos') expect(references).not.toMatch(/material|shadcn/i);
@@ -76,8 +76,8 @@ for (const designSystem of ['md3', 'macos', 'shadcn']) for (const colorMode of [
         const menu = await openAppearance(page, { keyboard: true });
         await page.keyboard.press('Escape');
         await expect(menu).not.toBeVisible();
-        await expect(frame).toBeVisible();
-        await expect(frame).toHaveAttribute('aria-busy', 'false');
+        await expect(preview).toBeVisible();
+        await expect(preview).toHaveAttribute('aria-busy', 'false');
         await captureVisual(page, `docs-${designSystem}-${colorMode}-mobile.png`, info);
         await page.emulateMedia({ forcedColors: 'active', reducedMotion: 'reduce' });
         await expect(page.getByRole('button', { name: /^文档外观：/ })).toBeFocused();
@@ -89,15 +89,16 @@ test('document switching preserves the common live input and updates its design'
     await openSite(page, previewOrigin, { path: '/components/rc-line-edit', heading: 'LineEdit 单行输入框' }, { designSystem: 'md3', colorMode: 'light' });
     const card = page.locator('[data-component-demo-id="docs/demos/simple.demo.tsx"]');
     await card.scrollIntoViewIfNeeded();
-    const iframe = card.locator('iframe');
-    const input = iframe.contentFrame().getByRole('textbox').first();
+    const preview = card.locator('[data-federated-demo]');
+    await expect(page.locator('[data-presentation] iframe')).toHaveCount(0);
+    const input = preview.getByRole('textbox').first();
     await input.fill('切换主题保留的草稿');
-    const handle = await iframe.elementHandle();
+    const handle = await input.elementHandle();
     for (const design of ['macos', 'shadcn', 'md3']) {
         await chooseDesign(page, design);
-        expect(await iframe.evaluate((node, previous) => node === previous, handle)).toBe(true);
+        expect(await input.evaluate((node, previous) => node === previous, handle)).toBe(true);
         await expect(input).toHaveValue('切换主题保留的草稿');
-        await expect(iframe.contentFrame().locator('html')).toHaveAttribute('data-crab-design', design);
+        await expect(preview.locator('.crab-federated-demo')).toHaveAttribute('data-crab-design', design);
         await expect(page.locator('[data-design-document]')).toHaveAttribute('data-design-document', design);
     }
     await handle.dispose();

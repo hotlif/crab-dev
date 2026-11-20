@@ -7,7 +7,7 @@
     "type": "module",
     "scripts": {
         "start": "yarn workspace @crab-dev/rc-pdf-editor build:runtime && node scripts/dev/docs-dev.mjs",
-        "build": "yarn workspace @crab-dev/rc-pdf-editor build:runtime && yarn generate:docs && wake docs build . --outdir docs-dist && yarn check:build",
+        "build": "yarn workspace @crab-dev/rc-pdf-editor build:runtime && yarn generate:docs && node scripts/federation/build.mjs && wake docs build . --outdir docs-dist && yarn check:build",
         "check:build": "node scripts/check/check-built-bindings.mjs",
         "test:build": "node scripts/check/check-built-bindings.test.mjs",
         "generate:docs": "node scripts/generate/generate-component-docs.mjs",

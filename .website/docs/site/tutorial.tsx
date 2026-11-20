@@ -8,7 +8,7 @@ import { ErrorFeedback } from "./ui/feedback.js";
 import { PreviewBoundary, InlineExample } from "./liveExample.js";
 import Preview from "@crab-dev/rc-component-preview";
 import token from "@crab-dev/rc-token-semantic";
-import ComponentDemoFrame, { subscribeTheme } from "./componentDemoFrame.js";
+import ComponentDemo, { subscribeTheme } from "./componentDemo.js";
 import type { ComponentDemoRecord } from "./componentDemos.js";
 
 export interface TutorialStep {
@@ -345,7 +345,7 @@ export default function Tutorial({ tutorial }: { readonly tutorial: TutorialReco
                             <InlineExample key={step.id} load={step.preview.load} resetKey={attempt} />
                         ) : (
                             <PreviewBoundary key={`${step.id}:${attempt}`} onRetry={reset}>
-                                <ComponentDemoFrame
+                                <ComponentDemo
                                     demo={step.preview.demo}
                                     onThemeChange={setCodeTheme}
                                 />
