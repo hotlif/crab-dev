@@ -61,7 +61,7 @@ export default function ButtonSpecimen({ kind, candidate }: { kind: ButtonKind; 
     const sample = describeButton(kind, designSystem, candidate);
     const iconOnly = kind === "icon";
     const comparingAppearance = buttonAppearances.some(appearance => appearance === kind);
-    const canLoad = comparingAppearance || hasAsyncExample(kind);
+    const canLoad = hasAsyncExample(kind);
     const stateOptions = states.filter(item => item.value !== "loading" || canLoad);
     const effectiveCondition = canLoad || condition !== "loading" ? condition : "ready";
     const label = comparingAppearance ? buttonDesigns[designSystem].specimenAction : kind === "danger" ? "删除测试配置" : sample.label;
@@ -116,6 +116,7 @@ function SpecimenPreview({ kind, size, shape, icon, condition, label }: {
             <div className="crab-design-specimen-surface" role="group" aria-label="可操作样本">
                 <Button ref={preview} appearance={buttonExamples[kind].appearance} type="button" size={size} danger={kind === "danger"}
                     shape={iconOnly ? "circle" : shape} data-prototype-round={(!iconOnly && shape === "round") || undefined}
+                    data-prototype-large-label={(!iconOnly && (size === "l" || size === "xl")) || undefined}
                     icon={leading} iconAfter={trailing} aria-label={iconOnly ? label : undefined}
                     loading={condition === "loading"} disabled={condition === "disabled"} isSelected={kind === "toggle" ? selected : undefined}
                     onClick={kind === "danger" ? () => setConfirming(true) : activate}>

@@ -22,11 +22,15 @@ globalStyle`
     --crab-sample-layer: color-mix(in srgb, var(--crab-sample-ink, currentColor) var(--crab-sample-tint), transparent);
     background-image: linear-gradient(var(--crab-sample-layer), var(--crab-sample-layer));
 }
-.crab-design-swatch[data-state="focus"] button { outline: 3px solid ${token.color.focus.ring}; outline-offset: 2px; }
-[data-prototype-design="md3"] .crab-design-swatch[data-state="focus"] button {
-    --crab-sample-tint: calc(var(${buttonVars["state-layer.opacity-focus"]}, .1) * 100%);
+.crab-design-swatch[data-state="focus"] button {
     outline: var(${buttonVars["root.outline-width-focus"]}, 3px) solid var(${buttonVars["root.outline-color-focus"]}, ${token.color.secondary.primary});
     outline-offset: var(${buttonVars["root.outline-offset-focus"]}, 2px);
+}
+[data-prototype-design="md3"] .crab-design-swatch[data-state="focus"] button {
+    --crab-sample-tint: calc(var(${buttonVars["state-layer.opacity-focus"]}, .1) * 100%);
+}
+[data-prototype-design="macos"] .crab-design-swatch[data-state="focus"] button {
+    outline-color: var(${buttonVars["macos.control.outline-color"]}, var(${buttonVars["root.outline-color-focus"]}, ${token.color.focus.ring}));
 }
 .crab-design-workspace .crab-design-swatch-note {
     border-inline: 1px solid var(--crab-prototype-rule);
@@ -38,7 +42,6 @@ globalStyle`
 [data-prototype-design="macos"] .crab-design-states { --crab-sample-ink: ${token.color.text.primary}; }
 [data-prototype-design="macos"] .crab-design-swatch[data-state="hover"] { --crab-sample-tint: 4%; }
 [data-prototype-design="macos"] .crab-design-swatch[data-state="press"] button { box-shadow: var(${buttonVars["macos.control.box-shadow-active"]}, inset 0 1px 3px color-mix(in oklch, ${token.color.text.primary} 12%, transparent)); }
-[data-prototype-design="shadcn"] .crab-design-swatch[data-state="focus"] button { outline-width: 2px; }
 @container button-matrix (max-width: 55rem) {
     .crab-design-states, .crab-design-states tbody { display: grid; }
     .crab-design-states { border: 0; border-radius: 0; background: transparent; overflow: visible; }

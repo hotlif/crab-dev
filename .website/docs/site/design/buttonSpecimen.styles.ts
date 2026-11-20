@@ -24,12 +24,22 @@ globalStyle`
     border-radius: .55rem;
     background: var(--crab-prototype-panel);
 }
-.crab-design-specimen-surface { display: grid; grid-template-columns: minmax(0, 1fr); min-width: 0; min-height: 8.5rem; place-items: center; }
+.crab-design-specimen-surface { display: grid; grid-template-columns: minmax(0, 1fr); min-width: 0; min-height: 8.5rem; place-items: center; container: button-specimen / inline-size; }
 .crab-design-specimen-surface > button { max-inline-size: 100%; }
 .crab-design-specimen-readout { display: grid; gap: .4rem; font-size: .82rem; color: ${token.color.text.secondary}; font-variant-numeric: tabular-nums; }
 .crab-design-specimen-readout [role="status"] { color: ${token.color.text.primary}; }
 @container button-matrix (max-width: 42rem) {
     .crab-design-specimen-controls { grid-template-columns: repeat(2,minmax(0,1fr)); }
     .crab-design-specimen-stage { grid-template-columns: minmax(0,1fr); }
+}
+@container button-specimen (max-width: 25rem) {
+    [data-prototype-design="md3"] button[data-prototype-large-label] { padding-inline: 1rem; }
+    [data-prototype-design="md3"] button[data-prototype-large-label] .crab-design-button-label {
+        display: block;
+        white-space: normal;
+        overflow-wrap: anywhere;
+        text-align: center;
+        text-wrap: balance;
+    }
 }
 `;

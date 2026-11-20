@@ -32,6 +32,7 @@ export default function ButtonPrototype({ scenario = false }: { scenario?: boole
     const [phase, setPhase] = useState<SavePhase>("idle");
     const [delay, setDelay] = useState(3000);
     const [failNext, setFailNext] = useState(false);
+    const nameInput = useRef<HTMLInputElement>(null);
     const request = useRef<number | undefined>(undefined);
     useEffect(() => () => window.clearTimeout(request.current), []);
     const busy = phase === "busy";
@@ -59,12 +60,16 @@ export default function ButtonPrototype({ scenario = false }: { scenario?: boole
     function submit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
         if (request.current !== undefined || !canSave) return;
+        const form = event.currentTarget;
+        const focused = form.ownerDocument.activeElement;
+        const focusedSave = focused?.matches('button[type="submit"]:focus-visible') && form.contains(focused) ? focused : null;
         setPhase("busy");
         setFailNext(false);
         request.current = window.setTimeout(() => {
             request.current = undefined;
             if (failNext) setPhase("failed");
             else {
+                if (focusedSave && form.ownerDocument.activeElement === focusedSave) nameInput.current?.focus();
                 setSaved(draft);
                 if (engineering) setSavedView(startView);
                 setPhase("success");
@@ -96,7 +101,7 @@ export default function ButtonPrototype({ scenario = false }: { scenario?: boole
                 }}>
                     <h3>{engineering && <SiteIcon name="tools" />}{design.formTitle}</h3>
                     <div className="crab-design-form-field">
-                        <LineEdit label="显示名称" value={draft} readOnly={busy} onValueChange={value => { setDraft(value); setPhase("idle"); }} />
+                        <LineEdit ref={nameInput} label="显示名称" value={draft} readOnly={busy} onValueChange={value => { setDraft(value); setPhase("idle"); }} />
                         {engineering && <div className="crab-design-start-view"><span>启动视图</span>
                             <Segmented aria-label="启动视图" disabled={busy} value={startView} options={views}
                                 onValueChange={value => { setStartView(String(value)); setPhase("idle"); }} /></div>}
