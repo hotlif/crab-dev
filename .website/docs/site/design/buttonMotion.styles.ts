@@ -7,12 +7,8 @@ globalStyle`
 .crab-design-jump-links a { color: ${token.color.text.link}; font-size: .875rem; }
 .crab-design-motion-lab, #button-scenario { scroll-margin-block-start: 5rem; }
 .crab-design-motion-board { display: grid; grid-template-columns: minmax(0,1.6fr) minmax(0,1fr); overflow: hidden; border: 1px solid ${token.color.border.subtle}; border-radius: ${token.shape.card}; background: ${token.color.surface.content}; }
-.crab-design-motion-stage { display: grid; align-content: start; justify-items: center; min-width: 0; gap: .8rem; min-height: 11rem; padding: 1rem; background: var(--crab-prototype-paper); }
+.crab-design-motion-stage { display: grid; grid-template-rows: minmax(4.5rem, auto); align-content: start; place-items: center; min-width: 0; gap: .8rem; min-height: 11rem; padding: 1rem; background: var(--crab-prototype-paper); }
 .crab-design-motion-stage > p { font-size: .82rem; }
-.crab-design-trials { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); width: 100%; }
-.crab-design-trial { display: grid; gap: 1.1rem; padding: .75rem .35rem; justify-items: center; align-content: start; min-width: 0; }
-.crab-design-trial + .crab-design-trial { border-inline-start: 1px solid var(--crab-prototype-rule); }
-.crab-design-trial strong { color: ${token.color.text.secondary}; font-size: .84rem; font-weight: 550; }
 .crab-design-motion-controls { display: grid; align-content: center; justify-items: start; gap: .8rem; min-width: 0; padding: 1.2rem; border-inline-start: 1px solid ${token.color.border.subtle}; }
 .crab-design-motion-controls p { color: ${token.color.text.secondary}; font-size: .875rem; }
 .crab-design-motion-stage .crab-design-feedback { text-align: center; }

@@ -12,32 +12,31 @@ export function MotionIndicator() {
 }
 
 type SampleProps = {
-    children: string; candidate: boolean; busy: boolean; disabled?: boolean;
+    children: string; busy: boolean; disabled?: boolean;
     kind?: ButtonKind; selected?: boolean; type?: "submit" | "button";
     expanded?: boolean; controls?: string;
 };
 
-export function SampleButton({ children, kind = "primary", candidate, busy, disabled, selected, expanded, controls, type = "button", onClick }: SampleProps & {
+export function SampleButton({ children, kind = "primary", busy, disabled, selected, expanded, controls, type = "button", onClick }: SampleProps & {
     onClick?: (event: MouseEvent<HTMLButtonElement>) => void;
 }) {
     const { designSystem } = useConfig();
     const { appearance } = buttonExamples[kind];
     const iconOnly = kind === "icon";
-    const round = !iconOnly && candidate && designSystem === "md3";
-    return <Button type={type} appearance={appearance} danger={kind === "danger"} className={candidate ? "crab-design-candidate" : undefined}
+    const round = !iconOnly && designSystem === "md3";
+    return <Button type={type} appearance={appearance} danger={kind === "danger"}
         shape={iconOnly ? "circle" : round ? "round" : undefined} data-prototype-round={round || undefined}
         icon={iconOnly ? <SiteIcon name="refresh" /> : undefined} aria-label={iconOnly ? children : undefined}
-        isSelected={kind === "toggle" ? selected : undefined} loading={busy} loadingIcon={candidate ? <MotionIndicator /> : undefined}
+        isSelected={kind === "toggle" ? selected : undefined} loading={busy} loadingIcon={<MotionIndicator />}
         aria-expanded={expanded} aria-controls={controls} disabled={disabled} onClick={onClick}>
         {iconOnly ? null : <span className="crab-design-button-label">{children}</span>}
     </Button>;
 }
 
 export function MotionButton({ onActivate, ...props }: SampleProps & { onActivate?: () => void }) {
-    const { candidate } = props;
     const [pulse, setPulse] = useState<{ sequence: number; x: number; y: number; color: string; radius: string } | null>(null);
     function activate(event: MouseEvent<HTMLButtonElement>) {
-        if (candidate && !window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) {
+        if (!window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) {
             const rect = event.currentTarget.getBoundingClientRect();
             const x = event.detail && rect.width ? (event.clientX - rect.left) * 100 / rect.width : 50;
             const y = event.detail && rect.height ? (event.clientY - rect.top) * 100 / rect.height : 50;
@@ -46,9 +45,9 @@ export function MotionButton({ onActivate, ...props }: SampleProps & { onActivat
         }
         onActivate?.();
     }
-    return <span className="crab-design-motion-action" data-candidate={candidate} data-kind={props.kind ?? "primary"}>
+    return <span className="crab-design-motion-action" data-kind={props.kind ?? "primary"}>
         <SampleButton {...props} onClick={activate} />
-        {pulse && candidate && <span className="crab-design-motion-clip" aria-hidden="true" style={{ color: pulse.color, borderRadius: pulse.radius }}>
+        {pulse && <span className="crab-design-motion-clip" aria-hidden="true" style={{ color: pulse.color, borderRadius: pulse.radius }}>
             <i key={pulse.sequence} className="crab-design-motion-pulse" onAnimationEnd={() => setPulse(current => current === pulse ? null : current)} style={{
                 "--crab-press-x": pulse.x + "%", "--crab-press-y": pulse.y + "%",
             } as CSSProperties}/>
@@ -56,8 +55,8 @@ export function MotionButton({ onActivate, ...props }: SampleProps & { onActivat
     </span>;
 }
 
-export function MotionFeedback({ phase, candidate, children }: { phase: SavePhase; candidate: boolean; children: ReactNode }) {
-    const result = candidate && (phase === "success" || phase === "failed");
+export function MotionFeedback({ phase, children }: { phase: SavePhase; children: ReactNode }) {
+    const result = phase === "success" || phase === "failed";
     return <p className="crab-design-feedback" role="status" data-phase={phase} data-motion-result={result || undefined}>
         {result && <svg key={phase} className="crab-design-result-icon" viewBox="0 0 20 20" aria-hidden="true">
             <circle cx="10" cy="10" r="8" />

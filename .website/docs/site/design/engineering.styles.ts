@@ -44,7 +44,7 @@ globalStyle`
 [data-prototype-design="md3"] :is(.crab-design-settings, .crab-design-motion-controls) { align-content: start; gap: .7rem; padding: 1rem 1.2rem; background: var(--crab-prototype-panel); border-inline-start: 1px solid var(--crab-prototype-rule); }
 [data-prototype-design="md3"] .crab-design-settings h3 { font-size: .93rem; }
 [data-prototype-design="md3"] .crab-design-motion-stage { min-height: 10rem; }
-[data-prototype-design="md3"] .crab-design-swatch[data-kind="primary"][data-candidate="true"] button { inline-size: 7rem; max-inline-size: 100%; }
+[data-prototype-design="md3"] .crab-design-swatch[data-kind="primary"] button { inline-size: 7rem; max-inline-size: 100%; }
 .crab-design-presets { display: flex; flex-wrap: wrap; gap: .6rem; padding: 0; margin: 0; list-style: none; font-size: .8rem; }
 .crab-design-presets li { padding: .25rem .5rem; background: var(--crab-prototype-panel); }
 .crab-design-kind-picker { display: flex; gap: 1rem 2rem; flex-wrap: wrap; padding: 1rem; border: 1px solid var(--crab-prototype-rule); border-radius: .8rem .8rem 0 0; background: var(--crab-prototype-paper); }

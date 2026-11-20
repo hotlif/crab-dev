@@ -52,7 +52,7 @@ globalStyle`
 [data-prototype-design="shadcn"] .crab-design-stage form { width: min(100%, 31rem); padding: 1.2rem; box-shadow: none; }
 [data-prototype-design="shadcn"] .crab-design-form-footer { gap: .5rem; padding-block-start: .85rem; border-block-start: 1px solid ${token.color.border.subtle}; }
 [data-prototype-design="shadcn"] .crab-design-form-footer > .crab-design-feedback { box-sizing: content-box; padding: .35rem .5rem; border: 1px solid transparent; border-radius: ${token.shape.control}; }
-[data-prototype-design="shadcn"][data-variant="candidate"] .crab-design-form-footer > .crab-design-feedback[data-phase="failed"] { border-color: ${token.color.feedback.error.border}; background: ${token.color.feedback.error.background}; }
+[data-prototype-design="shadcn"] .crab-design-form-footer > .crab-design-feedback[data-phase="failed"] { border-color: ${token.color.feedback.error.border}; background: ${token.color.feedback.error.background}; }
 [data-prototype-design="shadcn"] :is(.crab-design-composition-card, .crab-design-composition-themes) { border-radius: ${token.shape.card}; }
 @media (max-width: 720px) {
     [data-prototype-design="macos"] .crab-design-hero-art, [data-prototype-design="shadcn"] .crab-design-hero-art { display: none; }

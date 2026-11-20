@@ -57,12 +57,12 @@ describe("Button 交互原型", () => {
         expect(matrix.textContent).toContain("即时完成");
         const lab = within(screen.getByRole("heading", { name: "按钮动效" }).closest("section")!);
         await selectOption(lab.getByRole("combobox", { name: "按钮类型" }), "切换按钮");
-        const toggle = within(lab.getByRole("group", { name: "候选方案" })).getByRole("button", { name: "仅看收藏" });
+        const toggle = within(lab.getByRole("group", { name: "动效试用" })).getByRole("button", { name: "仅看收藏" });
         await fireEvent.click(toggle);
         expect(toggle.getAttribute("aria-pressed")).toBe("true");
         await view.rerender(prototype("macos"));
         expect(within(matrix).getAllByRole("rowheader", { name: /工具栏切换/ }).length).toBe(2);
-        expect(within(lab.getByRole("group", { name: "候选方案" })).getByRole("button", { name: "仅看收藏" })).toBe(toggle);
+        expect(within(lab.getByRole("group", { name: "动效试用" })).getByRole("button", { name: "仅看收藏" })).toBe(toggle);
         expect(toggle.getAttribute("aria-pressed")).toBe("true");
         await fireEvent.click(toggle);
         expect(toggle.getAttribute("aria-pressed")).toBe("false");
@@ -72,20 +72,21 @@ describe("Button 交互原型", () => {
         await render(<ButtonPrototype />);
         const lab = within(screen.getByRole("heading", { name: "按钮动效" }).closest("section")!);
         const form = within(screen.getByRole("form", { name: "编辑工作区配置" }));
-        const current = within(lab.getByRole("group", { name: "现有方案" }));
-        await fireEvent.click(current.getByRole("button", { name: "保存配置" }));
+        const stage = within(lab.getByRole("group", { name: "动效试用" }));
+        expect(lab.getAllByRole("button", { name: "保存配置" })).toHaveLength(1);
+        expect(screen.queryByRole("radiogroup", { name: "方案对照" })).toBeNull();
+        await fireEvent.click(stage.getByRole("button", { name: "保存配置" }));
         expect(lab.getByRole("status").textContent).toContain("已释放");
         await fireEvent.click(lab.getByRole("radio", { name: "保存失败" }));
-        await fireEvent.click(current.getByRole("button", { name: "保存配置" }));
-        expect(current.getByRole("button", { name: "保存配置" }).getAttribute("aria-busy")).toBe("true");
-        expect(lab.getByRole("button", { name: "保存中" }).getAttribute("aria-busy")).toBe("true");
+        await fireEvent.click(stage.getByRole("button", { name: "保存配置" }));
+        expect(stage.getByRole("button", { name: "保存中" }).getAttribute("aria-busy")).toBe("true");
         await fireEvent.click(lab.getByRole("radio", { name: "按压释放" }));
         await act(async () => { await new Promise(resolve => setTimeout(resolve, 850)); });
         expect(lab.getByRole("status").textContent).toContain("点按按钮");
         expect(form.getByRole("status").textContent).toBe("有未保存的修改");
     });
 
-    it("切换体系和对照方案更新按钮与状态样本，并保留表单实例和正在提交的请求", async () => {
+    it("切换体系更新按钮与状态样本，并保留表单实例和正在提交的请求", async () => {
         const prototype = (design: DesignSystem) => <ConfigProvider designSystem={design}><ButtonPrototype /></ConfigProvider>;
         const view = await render(prototype("md3"));
         const form = screen.getByRole("form", { name: "编辑工作区配置" });
@@ -100,12 +101,10 @@ describe("Button 交互原型", () => {
         await view.rerender(prototype("shadcn"));
         expect(within(form).getByRole("button", { name: "提交中" }).getAttribute("aria-busy")).toBe("true");
         expect(busySample()).toBe("提交中");
-        await fireEvent.click(screen.getByRole("radio", { name: "现有方案" }));
-        expect(busySample()).toBe("保存修改");
         expect(screen.getByRole("textbox", { name: "显示名称" })).toBe(input);
         expect(screen.getByRole("form", { name: "编辑个人资料" })).toBe(form);
         await fireEvent.click(screen.getByRole("button", { name: "重置场景" }));
-        expect(within(form).getByRole("button", { name: "保存修改" }).getAttribute("aria-busy")).toBe("false");
+        expect(within(form).getByRole("button", { name: "保存更改" }).getAttribute("aria-busy")).toBe("false");
     });
 
     it("保留失败的草稿，重试能成功，重置会撤销进行中的模拟保存", async () => {

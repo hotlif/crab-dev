@@ -1,13 +1,13 @@
 import type { DesignSystem } from "@crab-dev/rc-token-semantic";
 
-// These are proposals for the documentation prototype, scoped to the selected design.
+// Copy for the documentation prototype follows the selected design system.
 export const buttonDesigns = {
     md3: {
         save: "保存配置", busy: "保存中", retry: "重新保存",
         specimenAction: "校验配置",
         stateNote: "悬停状态层为 8%，焦点和按压为 10%。按下、松开和切换选中时，圆角与按钮边界保持稳定。",
-        motion: "按压时保持圆角，可比较两边的状态层和涟漪。选择成功或失败片段后，点任一边可同步比较等待与结果。",
-        formTitle: "操作员偏好", prototype: "在工作区配置中试用按钮，比较按压反馈、等待时的宽度和失败后的恢复方式。",
+        motion: "按住时显示状态层，松手后可见涟漪。选择成功或失败片段，体验加载和结果反馈。",
+        formTitle: "操作员偏好", prototype: "在工作区配置中试用按钮，观察按压反馈、等待时的宽度和失败后的恢复方式。",
         scenario: "修改操作员名称和启动视图，观察草稿何时成为当前配置。",
         observation: "保存期间按钮保持原宽。失败后草稿保留，再次保存即可重试。",
     },
@@ -15,7 +15,7 @@ export const buttonDesigns = {
         save: "存储", busy: "存储", retry: "存储",
         specimenAction: "应用设置",
         stateNote: "默认按钮以着色表示优先级。按住时表面变暗，轮廓保持稳定。存储中保留操作标题。",
-        motion: "按住时表面压暗，释放后边缘高光消退。等待期间保留按钮标题，点任一方案可同步观察等待和结果。",
+        motion: "按住时表面压暗，松手后边缘高光消退。等待期间保留按钮标题，在文字前显示进度。",
         formTitle: "个人资料设置", prototype: "在紧凑的操作栏中比较普通按钮和着色默认按钮。",
         scenario: "在设置面板中修改显示名称，使用右下角的默认动作存储。",
         observation: "存储时保留按钮标题，进度显示在标题前。在表单内按 ⌘ S 也能存储或重试。",

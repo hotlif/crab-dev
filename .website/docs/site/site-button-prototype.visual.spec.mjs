@@ -52,9 +52,9 @@ for (const { width, colorMode } of [{ width: 1440, colorMode: 'light' }, { width
         await pressWithFixedShape(page, sample);
 
         const lab = page.locator('#button-motion');
-        const candidate = lab.getByRole('group', { name: '候选方案' }).getByRole('button');
-        await pressWithFixedShape(page, lab.getByRole('group', { name: '现有方案' }).getByRole('button'));
-        await pressWithFixedShape(page, candidate);
+        const motion = lab.getByRole('group', { name: '动效试用' }).getByRole('button');
+        await expect(lab.locator('.crab-design-motion-action > button')).toHaveCount(1);
+        await pressWithFixedShape(page, motion);
         await expect(lab.locator('.crab-design-motion-clip')).toHaveCSS('border-radius', idle.corners[0]);
 
         await states.getByRole('button', { name: '切换按钮', exact: true }).click();

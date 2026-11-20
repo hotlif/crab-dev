@@ -17,7 +17,7 @@ export default function DesignOverview() {
     const design = buttonDesigns[designSystem];
     const engineering = designSystem === "md3";
     return <div className="crab-design-workspace" data-prototype-design={designSystem}>
-        <DesignHero title="设计" description={engineering ? "在工作区配置中检验操作层级、键盘焦点和异步反馈。" : "查阅设计基础，试用组件原型，在真实场景里比较交互方案。"} />
+        <DesignHero title="设计" description={engineering ? "在工作区配置中检验操作层级、键盘焦点和异步反馈。" : "查阅设计基础，在应用场景中试用组件原型。"} />
         <div className="crab-design-body">
             <div className="crab-design-pair">
                 <section>

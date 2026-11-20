@@ -52,13 +52,13 @@ const stateHelp = {
     loading: "按钮仍可聚焦，点击或按键会阻止重复触发。",
 };
 
-export default function ButtonSpecimen({ kind, candidate }: { kind: ButtonKind; candidate: boolean }) {
+export default function ButtonSpecimen({ kind }: { kind: ButtonKind }) {
     const { designSystem } = useConfig();
     const [size, setSize] = useState<ButtonNativeProps["size"]>();
     const [shape, setShape] = useState<SpecimenShape>("theme");
     const [icon, setIcon] = useState<IconPosition>("none");
     const [condition, setCondition] = useState<Condition>("ready");
-    const sample = describeButton(kind, designSystem, candidate);
+    const sample = describeButton(kind, designSystem);
     const iconOnly = kind === "icon";
     const comparingAppearance = buttonAppearances.some(appearance => appearance === kind);
     const canLoad = hasAsyncExample(kind);

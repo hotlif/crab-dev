@@ -19,7 +19,7 @@ export function hasAsyncExample(kind: ButtonKind) {
 }
 
 export const buttonExamples = {
-    primary: { appearance: "primary", label: "保存修改", action: "保存" },
+    primary: { appearance: "primary", label: "保存", action: "保存" },
     tonal: { appearance: "tonal", label: "预览", action: "预览" },
     outlined: { appearance: "outlined", label: "导出", action: "导出" },
     elevated: { appearance: "elevated", label: "新建", action: "新建" },
@@ -29,11 +29,11 @@ export const buttonExamples = {
     toggle: { appearance: "outlined", label: "仅看收藏", action: "筛选" },
 } satisfies Record<ButtonKind, { appearance: ButtonAppearance; label: string; action: string }>;
 
-export function describeButton(kind: ButtonKind, system: DesignSystem, candidate: boolean) {
+export function describeButton(kind: ButtonKind, system: DesignSystem) {
     const design = buttonDesigns[system];
     const example = buttonExamples[kind];
     const action = example.action;
-    const label = kind === "primary" && (candidate || system === "md3") ? design.save : example.label;
-    const busy = !candidate || system === "macos" ? label : kind === "primary" ? design.busy : action + "中";
+    const label = kind === "primary" ? design.save : example.label;
+    const busy = system === "macos" ? label : kind === "primary" ? design.busy : action + "中";
     return { title: titles[system][kind], label, action, busy };
 }
