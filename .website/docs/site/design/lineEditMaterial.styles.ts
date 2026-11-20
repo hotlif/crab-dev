@@ -73,27 +73,25 @@ globalStyle`
         line-height ${token.motion.layout}, transform ${token.motion.layout}, color ${token.motion.effects.fast};
 }
 [data-line-edit-prototype][data-prototype-design="md3"] [data-field-root] > label [data-required-marker] { color: inherit; }
-[data-line-edit-prototype][data-prototype-design="md3"] [data-field-root][data-prefix="true"]:not(:focus-within):not(:has(input:not(:placeholder-shown))) [data-field-prefix] {
-    visibility: hidden;
-}
 [data-line-edit-prototype][data-prototype-design="md3"] [data-field-root][data-labeled="true"]:is(:focus-within, :has(input:not(:placeholder-shown)), :has(input:autofill)) > label {
     inset-block-start: 0;
     font-size: ${token.typography.body.small["font-size"]};
     line-height: ${token.typography.body.small["line-height"]};
 }
-[data-line-edit-prototype][data-prototype-design="md3"] [data-field-root]:not(:focus-within) input::placeholder { color: transparent; }
+/* A value is painted immediately, so its label must clear the text without waiting for the empty-field transition. */
+[data-line-edit-prototype][data-prototype-design="md3"] [data-field-root][data-labeled="true"]:where(:has(input:not(:placeholder-shown))) > label {
+    transition: color ${token.motion.effects.fast};
+}
 [data-line-edit-prototype][data-prototype-design="md3"] [data-field-root] input { caret-color: ${token.color.brand.primary}; }
 [data-line-edit-prototype][data-prototype-design="md3"] [data-field-root][data-status="error"] input {
     caret-color: ${token.color.feedback.error.text};
 }
 
-[data-line-edit-prototype][data-prototype-design="md3"] [data-field-root] > [data-appearance="outlined"] {
-    border-color: transparent;
+[data-line-edit-prototype][data-prototype-design="md3"] [data-field-root] > [data-field-control][data-appearance="outlined"] {
+    /* The fieldset owns the outline, including its label notch and hover feedback. */
+    border-style: none;
     background: transparent;
     box-shadow: none;
-}
-[data-line-edit-prototype][data-prototype-design="md3"] [data-field-root][data-disabled="true"] > [data-appearance="outlined"] {
-    border-color: transparent;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -101,10 +99,10 @@ globalStyle`
 }
 
 @media (forced-colors: active) {
-    [data-line-edit-prototype][data-prototype-design="md3"] [data-field-root] > [data-appearance="outlined"] { border-color: CanvasText; }
-    [data-line-edit-prototype][data-prototype-design="md3"] [data-field-root][data-disabled="true"] > [data-appearance="outlined"] { border-color: GrayText; }
-    [data-line-edit-prototype][data-prototype-design="md3"] [data-field-root]:not(:focus-within) input::placeholder {
-        visibility: hidden;
+    [data-line-edit-prototype][data-prototype-design="md3"] [data-field-root] > [data-field-control][data-appearance="outlined"] {
+        border-style: solid;
+        border-color: CanvasText;
     }
+    [data-line-edit-prototype][data-prototype-design="md3"] [data-field-root][data-disabled="true"] > [data-field-control][data-appearance="outlined"] { border-color: GrayText; }
 }
 `;

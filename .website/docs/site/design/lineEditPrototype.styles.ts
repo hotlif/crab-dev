@@ -27,6 +27,20 @@ globalStyle`
 }
 
 .crab-line-edit-fields { display: grid; align-items: start; gap: 1rem; min-inline-size: 0; }
+.crab-line-edit-counted { display: grid; gap: .25rem; min-inline-size: 0; }
+.crab-line-edit-field-support {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    column-gap: .5rem;
+    padding-inline: ${token.field.support["padding-inline"]};
+    color: ${token.color.text.secondary};
+    font-size: ${token.typography.body.small["font-size"]};
+    line-height: ${token.typography.body.small["line-height"]};
+    overflow-wrap: anywhere;
+}
+.crab-line-edit-field-support [role="alert"] { color: ${token.color.feedback.error.text}; }
+.crab-line-edit-count { white-space: nowrap; }
+[data-line-edit-prototype][data-prototype-design="md3"] .crab-line-edit-field-support { padding-inline: 16px; }
 .crab-line-edit-footer {
     display: flex;
     flex-wrap: wrap;

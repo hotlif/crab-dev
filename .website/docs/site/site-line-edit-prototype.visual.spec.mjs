@@ -84,6 +84,52 @@ for (const [colorMode, width] of [['light', 1440], ['dark', 320]]) {
         await expect(form(page).getByRole('alert')).toContainText('请输入工作区名称');
         expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(width);
         if (colorMode === 'dark') await captureScene(page, info, 'md3-outlined-dark-error');
+
+        const sample = page.getByRole('textbox', { name: '待编辑名称', exact: true });
+        await sample.hover();
+        await expect(sample).toHaveAttribute('placeholder', /^\s*$/);
+        expect(await describedText(sample)).toContain('例如北区巡检');
+        const overlaps = await sample.evaluate(node => {
+            const label = node.labels[0];
+            node.focus();
+            // Paint the empty focus state and deliver text before its first animation frame.
+            label.getBoundingClientRect();
+            const setValue = Object.getOwnPropertyDescriptor(globalThis.HTMLInputElement.prototype, 'value').set;
+            setValue.call(node, '巡');
+            node.dispatchEvent(new globalThis.InputEvent('input', { bubbles: true, inputType: 'insertText', data: '巡' }));
+            return label.getBoundingClientRect().bottom > node.getBoundingClientRect().top;
+        });
+        expect(overlaps).toBe(false);
+        await expect(sample).toHaveValue('巡');
+        await sample.fill('');
+        await sample.press('Tab');
+        if (colorMode === 'dark') {
+            const emptySample = page.getByRole('heading', { name: '空值与键盘焦点' }).locator('..');
+            await captureScene(page, info, 'md3-empty-label', emptySample);
+        }
+
+        const hoverSample = page.getByRole('heading', { name: '鼠标悬停' }).locator('..');
+        const hovered = hoverSample.getByRole('textbox', { name: '巡检区域' });
+        const hoveredControl = hoverSample.locator('[data-field-control]');
+        const hoveredOutline = hoveredControl.locator('fieldset');
+        await hoveredControl.scrollIntoViewIfNeeded();
+        await page.mouse.move(0, 0);
+        const idleBorder = await hoveredOutline.evaluate(node => getComputedStyle(node).borderTopColor);
+        const idleNotch = await hoveredOutline.locator('legend').evaluate(node => node.getBoundingClientRect().width);
+        const idleGeometry = await controlGeometry(hovered);
+        await hovered.hover();
+        await expect(hoveredControl).toHaveCSS('border-top-width', '0px');
+        await expect(hoveredOutline).toHaveCSS('border-top-width', '1px');
+        await expect(hoveredOutline).not.toHaveCSS('border-top-color', idleBorder);
+        expect(await hoveredOutline.locator('legend').evaluate(node => node.getBoundingClientRect().width)).toBe(idleNotch);
+        expect(await controlGeometry(hovered)).toEqual(idleGeometry);
+        if (colorMode === 'dark') await captureScene(page, info, 'md3-hover', hoverSample);
+        await hovered.focus();
+        await expect(hoveredOutline).toHaveCSS('border-top-width', '2px');
+        await hovered.evaluate(node => node.blur());
+        await page.mouse.move(0, 0);
+        await expect(hoveredOutline).toHaveCSS('border-top-width', '1px');
+        await expect(hoveredOutline).toHaveCSS('border-top-color', idleBorder);
     });
 }
 
@@ -116,6 +162,16 @@ test('LineEdit design validates on submit and preserves focus, geometry and the 
     await settleFiniteAnimations(page);
     expect(await controlGeometry(input)).toEqual(beforeError);
     await expect(scene.locator('.crab-line-edit-readout dd')).toHaveText('北区巡检工作区');
+    await input.press('End');
+    await input.press('Space');
+    await expect(input).toHaveValue('系统默认 ');
+    await expect(input).toHaveAttribute('aria-invalid', 'true');
+    await expect(form(page).getByRole('alert')).toContainText('此名称已被占用');
+    await input.fill('系统/默认');
+    await expect(form(page).getByRole('alert')).toContainText('不能包含斜杠');
+    await input.fill('南区巡检');
+    await expect(input).not.toHaveAttribute('aria-invalid', 'true');
+    await expect(form(page).getByRole('alert')).toHaveText('');
 
     await scene.getByRole('button', { name: '长名称', exact: true }).click();
     await expect(input).toHaveValue('华东区域配电巡检与远程设备运行状态联合调试工作区');
@@ -136,6 +192,32 @@ test('LineEdit design validates on submit and preserves focus, geometry and the 
     await input.press('Enter');
     await expect(form(page).getByRole('status')).toHaveText('工作区名称已保存。');
     await expect(scene.locator('.crab-line-edit-readout dd')).toHaveText('南区设备巡检');
+});
+
+test('LineEdit counts complete characters and preserves a draft over the save limit', { tag: ['@website'] }, async ({ page, previewOrigin }) => {
+    await openSite(page, previewOrigin, definition, { designSystem: 'md3', colorMode: 'light' });
+    const input = field(page);
+    const count = form(page).locator('.crab-line-edit-count');
+    const readout = page.locator('.crab-line-edit-readout dd');
+    const allowed = '𠮷'.repeat(30) + 'e\u0301' + '👩‍🔧';
+    await input.fill('');
+    await page.keyboard.insertText(allowed);
+    await expect(input).toHaveValue(allowed);
+    await expect(count).toHaveText('32/32');
+    await input.press('Enter');
+    await expect(readout).toHaveText(allowed);
+
+    await input.press('End');
+    await page.keyboard.insertText('巡');
+    await expect(input).toHaveValue(allowed + '巡');
+    await expect(count).toHaveText('33/32');
+    await expect(input).toHaveAttribute('aria-invalid', 'true');
+    await expect(form(page).getByRole('alert')).toContainText('最多可保存 32 个字符');
+    await input.press('Enter');
+    await expect(readout).toHaveText(allowed);
+    await input.press('Backspace');
+    await expect(count).toHaveText('32/32');
+    await expect(input).not.toHaveAttribute('aria-invalid', 'true');
 });
 
 test('LineEdit keeps the draft while switching the real site theme', { tag: ['@website'] }, async ({ page, previewOrigin }, info) => {
@@ -166,14 +248,16 @@ test('LineEdit keeps the draft while switching the real site theme', { tag: ['@w
     await chooseMode(page, 'dark');
     await expect(input).toHaveValue('准备切换的巡检名称');
     await expect(form(page).getByRole('heading', { name: '工作区资料' })).toBeVisible();
-    await expect(form(page).getByRole('textbox', { name: '当前访问路径' })).toHaveAttribute('readonly', '');
-    await expect(form(page).getByText('/workspaces/', { exact: true })).toBeVisible();
+    const path = form(page).getByRole('textbox', { name: '当前访问路径' });
+    await expect(path).toHaveAttribute('readonly', '');
+    await expect(path).toHaveValue('/workspaces/north-inspection');
+    expect(await path.ariaSnapshot()).toContain('text: /workspaces/north-inspection');
     await captureScene(page, info, 'shadcn');
 });
 
-async function captureScene(page, info, designSystem) {
+async function captureScene(page, info, designSystem, scene = page.locator('#line-edit-scenario')) {
     const path = info.outputPath(`line-edit-${designSystem}.png`);
-    await page.locator('#line-edit-scenario').screenshot({ path, animations: 'disabled' });
+    await scene.screenshot({ path, animations: 'disabled' });
     await info.attach(`LineEdit ${designSystem}`, { path, contentType: 'image/png' });
 }
 
@@ -194,6 +278,17 @@ test('Chinese composition defers submission until committed text can be saved', 
     await expect(readout).toHaveText('北区巡检工作区');
     await input.press('Enter');
     await expect(readout).toHaveText('北区配电巡检');
+
+    const nameAtLimit = '𠮷'.repeat(32);
+    await input.fill(nameAtLimit);
+    await input.press('End');
+    await cdp.send('Input.imeSetComposition', { text: 'bei', selectionStart: 3, selectionEnd: 3 });
+    await expect(input).toHaveValue(nameAtLimit + 'bei');
+    await expect(input).not.toHaveAttribute('aria-invalid', 'true');
+    await cdp.send('Input.insertText', { text: '北' });
+    await expect(input).toHaveValue(nameAtLimit + '北');
+    await expect(input).toHaveAttribute('aria-invalid', 'true');
+    await expect(readout).toHaveText('北区配电巡检');
 });
 
 test('LineEdit keyboard states work under forced colors and reduced motion', { tag: ['@website', '@chromium-only'] }, async ({ page, previewOrigin }) => {
@@ -210,10 +305,15 @@ test('LineEdit keyboard states work under forced colors and reduced motion', { t
     await expect(empty).toBeFocused();
     const control = scene.locator('[data-field-control]').first();
     await expect(control).toHaveCSS('transition-duration', '0s');
+    await expect(control).toHaveCSS('border-top-width', '1px');
     await expect(control).toHaveCSS('outline-style', 'solid');
     expect(await controlGeometry(empty)).toEqual(before);
     await expect(readonly).toHaveAttribute('readonly', '');
     await expect(disabled).toBeDisabled();
     await readonly.press('Tab');
     await expect(affix).toBeFocused();
+    const expectedPath = '/workspaces/north-inspection-and-equipment-monitoring';
+    await expect(affix).toHaveValue(expectedPath);
+    await affix.press('ControlOrMeta+a');
+    expect(await affix.evaluate(node => node.value.slice(node.selectionStart, node.selectionEnd))).toBe(expectedPath);
 });

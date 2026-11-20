@@ -1,7 +1,7 @@
-import { useRef, useState, type FormEvent, type KeyboardEvent } from "react";
+import { useId, useRef, useState, type FormEvent, type KeyboardEvent } from "react";
 import Button from "@crab-dev/rc-button";
 import { useConfig } from "@crab-dev/rc-config-provider";
-import LineEdit from "@crab-dev/rc-line-edit";
+import LineEdit, { type LineEditProps } from "@crab-dev/rc-line-edit";
 import { useSiteHref } from "../siteContext.js";
 import { DesignHero } from "./hero.js";
 import "./lineEditPrototype.styles.js";
@@ -10,6 +10,7 @@ import "./lineEditMaterial.styles.js";
 const initial = "北区巡检工作区";
 const reserved = "系统默认";
 const limit = 32;
+const characterSegmenter = new Intl.Segmenter("zh", { granularity: "grapheme" });
 const examples = [
     { label: "空值", value: "" },
     { label: "默认名称", value: initial },
@@ -37,20 +38,46 @@ const designs = {
     },
     shadcn: {
         title: "工作区资料",
-        description: "用静态标签和中性输入框编辑资料，检查路径前缀与字段级错误。",
+        description: "用静态标签和中性输入框编辑资料，检查完整路径与字段级错误。",
         hint: "名称显示在成员可见的工作区列表中。",
-        decision: "标签、输入和说明垂直排列。可见名称与访问路径分开，路径前缀独立占位，留出可输入的文本宽度。",
+        decision: "标签、输入和说明垂直排列。可见名称与访问路径分开，完整路径可选择和复制。",
         save: "保存更改",
         restore: "取消编辑",
         size: "medium",
     },
 } as const;
 
+function countCharacters(value: string) {
+    return Array.from(characterSegmenter.segment(value)).length;
+}
+
+function lengthError(value: string) {
+    if (countCharacters(value) > limit) return `名称最多可保存 ${limit} 个字符。请缩短后再保存。`;
+}
+
 function nameError(value: string) {
     const trimmed = value.trim();
     if (!trimmed) return "请输入工作区名称。";
     if (trimmed === reserved) return "此名称已被占用。请使用能区分工作区的名称，例如北区设备巡检。";
     if (/[/\\]/.test(trimmed)) return "工作区名称不能包含斜杠或反斜杠。";
+    return lengthError(value);
+}
+
+function CountedNameField({ value, supportingText, errorText, ...props }: LineEditProps & { value: string; supportingText: string }) {
+    const id = useId();
+    const count = countCharacters(value);
+    const messageId = errorText ? `${id}-error` : `${id}-hint`;
+    return <div className="crab-line-edit-counted">
+        <LineEdit {...props} value={value} status={errorText ? "error" : undefined}
+            aria-describedby={`${messageId} ${id}-count`} />
+        <div className="crab-line-edit-field-support">
+            <div>
+                <span id={`${id}-hint`} hidden={Boolean(errorText)}>{supportingText}</span>
+                <span id={`${id}-error`} role="alert">{errorText}</span>
+            </div>
+            <span id={`${id}-count`} className="crab-line-edit-count" aria-label={`已输入 ${count} 个字符，最多 ${limit} 个字符`}>{count}/{limit}</span>
+        </div>
+    </div>;
 }
 
 export default function LineEditPrototype() {
@@ -64,6 +91,7 @@ export default function LineEditPrototype() {
     const [error, setError] = useState<string>();
     const [announcement, setAnnouncement] = useState("");
     const [errorSample, setErrorSample] = useState(reserved);
+    const [backupName, setBackupName] = useState("夜间巡检");
     const macos = designSystem === "macos";
     const md3 = designSystem === "md3";
     const statesTitle = md3 ? "描边字段状态" : "字段类型与状态";
@@ -71,11 +99,17 @@ export default function LineEditPrototype() {
     function edit(value: string) {
         setDraft(value);
         setAnnouncement("");
-        if (!composing.current) setError(undefined);
+        if (!composing.current) setError(error ? nameError(value) : lengthError(value));
+    }
+
+    function loadDraft(value: string) {
+        setDraft(value);
+        setAnnouncement("");
+        setError(undefined);
     }
 
     function restore() {
-        edit(saved);
+        loadDraft(saved);
         input.current?.focus();
     }
 
@@ -124,15 +158,15 @@ export default function LineEditPrototype() {
                     <form className="crab-line-edit-form" aria-label="编辑工作区名称" onSubmit={submit} noValidate>
                         <h3>{design.title}</h3>
                         <div className="crab-line-edit-fields">
-                            <LineEdit ref={input} name="workspaceName" label="工作区名称" required allowClear showCount
-                                autoComplete="off" maxLength={limit} appearance="outlined" size={design.size}
+                            <CountedNameField ref={input} name="workspaceName" label="工作区名称" required allowClear
+                                autoComplete="off" appearance="outlined" size={design.size}
                                 value={draft} supportingText={design.hint} errorText={error} onValueChange={edit}
                                 onCompositionStart={() => { composing.current = true; }}
-                                onCompositionEnd={() => { composing.current = false; setError(undefined); }}
+                                onCompositionEnd={event => { composing.current = false; edit(event.currentTarget.value); }}
                                 onKeyDown={handleInputKey} />
                             {macos && <LineEdit label="工作区标识" size="small" defaultValue="north-inspection" readOnly />}
-                            {designSystem === "shadcn" && <LineEdit label="当前访问路径" defaultValue="north-inspection" readOnly
-                                prefix={<span aria-hidden="true">/workspaces/</span>} suffix={<span className="crab-line-edit-affix">只读</span>} />}
+                            {designSystem === "shadcn" && <LineEdit label="当前访问路径" defaultValue="/workspaces/north-inspection" readOnly
+                                suffix={<span className="crab-line-edit-affix">只读</span>} />}
                         </div>
                         <div className="crab-line-edit-footer">
                             <p role="status">{announcement}</p>
@@ -146,7 +180,7 @@ export default function LineEditPrototype() {
                         <h3>载入试用值</h3>
                         <div className="crab-design-actions">
                             {examples.map(example => <Button key={example.label} appearance="outlined"
-                                onClick={() => { edit(example.value); input.current?.focus(); }}>{example.label}</Button>)}
+                                onClick={() => { loadDraft(example.value); input.current?.focus(); }}>{example.label}</Button>)}
                         </div>
                         <dl className="crab-line-edit-readout"><dt>已保存名称</dt><dd>{saved}</dd></dl>
                     </aside>
@@ -157,18 +191,23 @@ export default function LineEditPrototype() {
                 <div className="crab-line-edit-samples">
                     <div>
                         <h3>空值与键盘焦点</h3>
-                        <LineEdit label="待编辑名称" placeholder="例如北区巡检" size={design.size}
-                            supportingText="试用鼠标悬停，或按 Tab 进入字段。" />
+                        <LineEdit label="待编辑名称" size={design.size}
+                            supportingText="例如北区巡检。按 Tab 进入字段。" />
                     </div>
                     <div>
                         <h3>已填写与清除</h3>
-                        <LineEdit label="备用名称" size={design.size} defaultValue="夜间巡检"
-                            allowClear maxLength={limit} showCount supportingText="清除后焦点回到输入框。" />
+                        <CountedNameField label="备用名称" size={design.size} value={backupName} onValueChange={setBackupName}
+                            allowClear supportingText="清除后焦点回到输入框。" errorText={lengthError(backupName)} />
                     </div>
+                    {md3 && <div>
+                        <h3>鼠标悬停</h3>
+                        <LineEdit label="巡检区域" size={design.size} readOnly defaultValue="北区配电"
+                            supportingText="移入时描边对比度提高，保持 1px。点击或按 Tab 聚焦时加重为 2px。" />
+                    </div>}
                     <div>
                         <h3>校验失败</h3>
                         <LineEdit label="重复名称" value={errorSample} required size={design.size} onValueChange={setErrorSample}
-                            supportingText="使用未被占用的名称。" errorText={errorSample === reserved ? "此名称已被占用，请换一个名称。" : undefined} />
+                            supportingText="使用未被占用的名称。" errorText={nameError(errorSample)} />
                     </div>
                     <div>
                         <h3>只读</h3>
@@ -181,11 +220,10 @@ export default function LineEditPrototype() {
                             supportingText="归档期间跳过键盘焦点。" />
                     </div>
                     <div>
-                        <h3>{macos ? "紧凑尺寸与单位" : "前后缀与长内容"}</h3>
-                        <LineEdit label="工作区路径" defaultValue="north-inspection-and-equipment-monitoring"
-                            prefix={<span aria-hidden="true">/workspaces/</span>}
+                        <h3>长路径与后缀</h3>
+                        <LineEdit label="工作区路径" defaultValue="/workspaces/north-inspection-and-equipment-monitoring"
                             suffix={<span className="crab-line-edit-affix">内部</span>}
-                            size={macos ? "small" : "large"} supportingText="在窄屏用方向键查看后面的文字。" />
+                            size={macos ? "small" : "large"} supportingText="可全选复制完整路径。窄屏可用方向键查看后面的文字。" />
                     </div>
                 </div>
             </section>
@@ -195,8 +233,10 @@ export default function LineEditPrototype() {
                     <p>{design.decision}</p>
                     <dl>
                         <dt>标签与说明</dt><dd>{md3 ? "空字段的标签位于输入框内。聚焦或已有内容时标签浮起，辅助说明留在下方。" : "标签始终在上方可见，约束说明放在下方。"}校验失败时错误文字替换说明并与字段关联。</dd>
-                        <dt>提交与校验</dt><dd>点保存或按 Enter 后检查必填和名称冲突。失败时保留草稿并聚焦字段。继续编辑清除旧错误，输入法选词期间暂缓校验。</dd>
+                        <dt>提交与校验</dt><dd>保存时检查名称。失败时保留草稿并聚焦字段，修正后清除错误。输入法选词期间暂缓校验。</dd>
+                        <dt>字符限制</dt><dd>按用户看到的字符计数。超过 32 个字符时保留原文，缩短后可以保存。</dd>
                         <dt>清除与焦点</dt><dd>有内容且可编辑时显示清除按钮，键盘可触发。清除只影响草稿，操作后焦点回到输入框。</dd>
+                        {md3 && <><dt>鼠标悬停</dt><dd>移入可用字段时，提高带缺口描边的对比度。移出后恢复默认，聚焦时使用 2px 描边。</dd></>}
                         <dt>尺寸与动效</dt><dd>{md3 ? "常规字段采用 56px 高度，聚焦时描边加重。标签过渡时输入框和说明的位置保持稳定。" : "状态切换沿用字段边界，焦点反馈使用描边或外环。"}窄屏允许说明换行，输入内容在单行框内滚动。</dd>
                         <dt>适用范围</dt><dd>用于名称、短编号等单行文本。多行说明用 TextEdit，数值编辑用 NumberEdit。</dd>
                     </dl>
