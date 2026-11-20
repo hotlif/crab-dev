@@ -27,6 +27,66 @@ function controlGeometry(input) {
     });
 }
 
+for (const [colorMode, width] of [['light', 1440], ['dark', 320]]) {
+    test(`Material LineEdit floats the label in both variants in ${colorMode}`, { tag: ['@website'] }, async ({ page, previewOrigin }, info) => {
+        await page.setViewportSize({ width, height: 980 });
+        await openSite(page, previewOrigin, definition, { designSystem: 'md3', colorMode });
+        const input = field(page);
+        const root = form(page).locator('[data-field-root]');
+        const label = root.locator('label');
+        const control = root.locator('[data-field-control]');
+        const empty = page.getByRole('button', { name: '空值', exact: true });
+        const readout = page.locator('.crab-line-edit-readout dd');
+        const xOffset = item => item.evaluate(node => {
+            const field = node.closest('[data-field-root]');
+            return node.getBoundingClientRect().x - field.getBoundingClientRect().x;
+        });
+        const labelOffset = () => label.evaluate(node => node.getBoundingClientRect().y - node.parentElement.getBoundingClientRect().y);
+
+        await empty.click();
+        await empty.focus();
+        await settleFiniteAnimations(page);
+        const geometry = await controlGeometry(input);
+        expect(geometry[3]).toBe(56);
+        await expect(label).toHaveCSS('font-size', '16px');
+        expect(await labelOffset()).toBeGreaterThan(12);
+        expect(await xOffset(label)).toBeCloseTo(16, 1);
+        await input.focus();
+        await settleFiniteAnimations(page);
+        await expect(label).toHaveCSS('font-size', '12px');
+        expect(await labelOffset()).toBeCloseTo(8, 1);
+        await expect(control).toHaveCSS('border-bottom-width', '1px');
+        await expect(control).not.toHaveCSS('box-shadow', 'none');
+        expect(await controlGeometry(input)).toEqual(geometry);
+        await input.fill('北区调试工作区');
+        await empty.focus();
+        await expect(label).toHaveCSS('font-size', '12px');
+        if (colorMode === 'light') await captureScene(page, info, 'md3-filled');
+
+        const outlined = page.getByRole('radio', { name: '描边', exact: true });
+        await outlined.locator('..').click();
+        await expect(outlined).toBeChecked();
+        await expect(input).toHaveValue('北区调试工作区');
+        await expect(control).toHaveAttribute('data-appearance', 'outlined');
+        await expect(control).toHaveCSS('background-color', 'rgba(0, 0, 0, 0)');
+        await input.focus();
+        await settleFiniteAnimations(page);
+        expect(await labelOffset()).toBeLessThan(0);
+        await expect(control.locator('fieldset')).toHaveCSS('border-top-width', '2px');
+        expect(await control.locator('legend').evaluate(node => node.getBoundingClientRect().width)).toBeGreaterThan(20);
+        expect((await controlGeometry(input)).slice(0, 4)).toEqual(geometry.slice(0, 4));
+        await expect(readout).toHaveText('北区巡检工作区');
+        if (colorMode === 'light') await captureScene(page, info, 'md3-outlined');
+
+        await empty.click();
+        await input.press('Enter');
+        await expect(input).toHaveAttribute('aria-invalid', 'true');
+        await expect(form(page).getByRole('alert')).toContainText('请输入工作区名称');
+        expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(width);
+        if (colorMode === 'dark') await captureScene(page, info, 'md3-outlined-dark-error');
+    });
+}
+
 test('LineEdit design validates on submit and preserves focus, geometry and the saved value', { tag: ['@website'] }, async ({ page, previewOrigin }) => {
     await page.setViewportSize({ width: 320, height: 880 });
     await openSite(page, previewOrigin, definition, { designSystem: 'md3', colorMode: 'dark' });
