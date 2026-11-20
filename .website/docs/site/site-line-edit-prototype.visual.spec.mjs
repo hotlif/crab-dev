@@ -7,7 +7,9 @@ const field = page => form(page).getByRole('textbox', { name: '工作区名称',
 
 test('LineEdit prototype is linked from the design overview and component docs', { tag: ['@website'] }, async ({ page, previewOrigin }) => {
     await openSite(page, previewOrigin, { path: '/design', heading: '设计' }, { designSystem: 'md3', colorMode: 'light' });
-    await page.getByRole('link', { name: /体验输入框原型/ }).click();
+    const entry = page.getByRole('link', { name: /体验输入框原型/ });
+    await expect(entry.locator('..').locator('[data-field-control]')).toHaveAttribute('data-appearance', 'outlined');
+    await entry.click();
     await expect(page.getByRole('heading', { level: 1, name: definition.heading })).toBeVisible();
     await page.getByRole('link', { name: /查看 LineEdit 组件文档/ }).click();
     await expect(page).toHaveURL(/\/components\/rc-line-edit\/?$/);
@@ -28,21 +30,23 @@ function controlGeometry(input) {
 }
 
 for (const [colorMode, width] of [['light', 1440], ['dark', 320]]) {
-    test(`Material LineEdit floats the label in both variants in ${colorMode}`, { tag: ['@website'] }, async ({ page, previewOrigin }, info) => {
+    test(`Material LineEdit uses a fixed outlined shape and floating label in ${colorMode}`, { tag: ['@website'] }, async ({ page, previewOrigin }, info) => {
         await page.setViewportSize({ width, height: 980 });
         await openSite(page, previewOrigin, definition, { designSystem: 'md3', colorMode });
         const input = field(page);
         const root = form(page).locator('[data-field-root]');
         const label = root.locator('label');
         const control = root.locator('[data-field-control]');
+        const outline = control.locator('fieldset');
+        const notchWidth = () => outline.locator('legend').evaluate(node => node.getBoundingClientRect().width);
         const empty = page.getByRole('button', { name: '空值', exact: true });
         const readout = page.locator('.crab-line-edit-readout dd');
-        const xOffset = item => item.evaluate(node => {
-            const field = node.closest('[data-field-root]');
-            return node.getBoundingClientRect().x - field.getBoundingClientRect().x;
-        });
         const labelOffset = () => label.evaluate(node => node.getBoundingClientRect().y - node.parentElement.getBoundingClientRect().y);
 
+        await expect(control).toHaveAttribute('data-appearance', 'outlined');
+        await expect(page.locator('[data-line-edit-prototype] [data-field-control]:not([data-appearance="outlined"])')).toHaveCount(0);
+        await expect(page.getByRole('radiogroup', { name: '字段外观', exact: true })).toHaveCount(0);
+        await expect(control).toHaveCSS('background-color', 'rgba(0, 0, 0, 0)');
         await empty.click();
         await empty.focus();
         await settleFiniteAnimations(page);
@@ -50,33 +54,29 @@ for (const [colorMode, width] of [['light', 1440], ['dark', 320]]) {
         expect(geometry[3]).toBe(56);
         await expect(label).toHaveCSS('font-size', '16px');
         expect(await labelOffset()).toBeGreaterThan(12);
-        expect(await xOffset(label)).toBeCloseTo(16, 1);
+        expect(await notchWidth()).toBe(0);
+        await expect(outline).toHaveCSS('border-top-width', '1px');
         await input.focus();
         await settleFiniteAnimations(page);
         await expect(label).toHaveCSS('font-size', '12px');
-        expect(await labelOffset()).toBeCloseTo(8, 1);
-        await expect(control).toHaveCSS('border-bottom-width', '1px');
-        await expect(control).not.toHaveCSS('box-shadow', 'none');
+        expect(await labelOffset()).toBeLessThan(0);
+        await expect(outline).toHaveCSS('border-top-width', '2px');
+        expect(await notchWidth()).toBeGreaterThan(20);
         expect(await controlGeometry(input)).toEqual(geometry);
         await input.fill('北区调试工作区');
         await empty.focus();
-        await expect(label).toHaveCSS('font-size', '12px');
-        if (colorMode === 'light') await captureScene(page, info, 'md3-filled');
-
-        const outlined = page.getByRole('radio', { name: '描边', exact: true });
-        await outlined.locator('..').click();
-        await expect(outlined).toBeChecked();
-        await expect(input).toHaveValue('北区调试工作区');
-        await expect(control).toHaveAttribute('data-appearance', 'outlined');
-        await expect(control).toHaveCSS('background-color', 'rgba(0, 0, 0, 0)');
-        await input.focus();
         await settleFiniteAnimations(page);
+        await expect(input).toHaveValue('北区调试工作区');
+        await expect(label).toHaveCSS('font-size', '12px');
         expect(await labelOffset()).toBeLessThan(0);
-        await expect(control.locator('fieldset')).toHaveCSS('border-top-width', '2px');
-        expect(await control.locator('legend').evaluate(node => node.getBoundingClientRect().width)).toBeGreaterThan(20);
-        expect((await controlGeometry(input)).slice(0, 4)).toEqual(geometry.slice(0, 4));
+        expect(await notchWidth()).toBeGreaterThan(20);
+        expect(await controlGeometry(input)).toEqual(geometry);
         await expect(readout).toHaveText('北区巡检工作区');
-        if (colorMode === 'light') await captureScene(page, info, 'md3-outlined');
+        if (colorMode === 'light') {
+            await input.focus();
+            await settleFiniteAnimations(page);
+            await captureScene(page, info, 'md3-outlined');
+        }
 
         await empty.click();
         await input.press('Enter');
@@ -144,7 +144,7 @@ test('LineEdit keeps the draft while switching the real site theme', { tag: ['@w
     const input = field(page);
     await input.fill('待确认的巡检名称');
     await expect(form(page).getByRole('heading', { name: '工程工作区配置' })).toBeVisible();
-    await expect(form(page).locator('[data-field-control]').first()).toHaveAttribute('data-appearance', 'filled');
+    await expect(form(page).locator('[data-field-control]').first()).toHaveAttribute('data-appearance', 'outlined');
     await captureScene(page, info, 'md3');
 
     await chooseDesign(page, 'macos');

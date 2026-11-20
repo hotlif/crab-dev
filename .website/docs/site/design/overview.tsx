@@ -41,7 +41,7 @@ export default function DesignOverview() {
                         <div className="crab-design-card-body">
                             <div inert aria-hidden="true">
                                 <LineEdit label="工作区名称" defaultValue="北区巡检工作区" readOnly
-                                    appearance={engineering ? "filled" : "outlined"} size={designSystem === "macos" ? "small" : "medium"} />
+                                    appearance="outlined" size={designSystem === "macos" ? "small" : "medium"} />
                             </div>
                             <h3>LineEdit 单行输入框</h3>
                             <p>编辑工作区名称，试用清除、必填校验和错误反馈。</p>

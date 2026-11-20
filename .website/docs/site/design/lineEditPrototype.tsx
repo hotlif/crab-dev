@@ -2,7 +2,6 @@ import { useRef, useState, type FormEvent, type KeyboardEvent } from "react";
 import Button from "@crab-dev/rc-button";
 import { useConfig } from "@crab-dev/rc-config-provider";
 import LineEdit from "@crab-dev/rc-line-edit";
-import Segmented from "@crab-dev/rc-segmented";
 import { useSiteHref } from "../siteContext.js";
 import { DesignHero } from "./hero.js";
 import "./lineEditPrototype.styles.js";
@@ -17,17 +16,12 @@ const examples = [
     { label: "已占用名称", value: reserved },
     { label: "长名称", value: "华东区域配电巡检与远程设备运行状态联合调试工作区" },
 ];
-const materialAppearances = [
-    { value: "filled", label: "填充" },
-    { value: "outlined", label: "描边" },
-];
-
 const designs = {
     md3: {
         title: "工程工作区配置",
-        description: "在巡检工作区里体验 Material 3 的填充、描边文本字段与浮动标签。",
+        description: "在巡检工作区里试用 Material 3 描边字段，观察浮动标签、清除和校验反馈。",
         hint: "用于区分巡检配置，最多 32 个字符。",
-        decision: "默认使用带底线的填充字段强调工作区名称。描边变体用于同层级设置较多的表单，浮动标签嵌入边框缺口。两种外观共用输入与校验行为。",
+        decision: "巡检工作区统一使用描边字段。浮动标签嵌入边框缺口，辅助说明和校验信息保留在字段下方。",
         save: "保存配置",
         restore: "还原修改",
         size: "medium",
@@ -70,10 +64,9 @@ export default function LineEditPrototype() {
     const [error, setError] = useState<string>();
     const [announcement, setAnnouncement] = useState("");
     const [errorSample, setErrorSample] = useState(reserved);
-    const [materialAppearance, setMaterialAppearance] = useState<"filled" | "outlined">("filled");
     const macos = designSystem === "macos";
     const md3 = designSystem === "md3";
-    const appearance = md3 ? materialAppearance : "outlined";
+    const statesTitle = md3 ? "描边字段状态" : "字段类型与状态";
 
     function edit(value: string) {
         setDraft(value);
@@ -120,7 +113,7 @@ export default function LineEditPrototype() {
         <DesignHero section="组件原型" title="LineEdit 单行输入框" description={design.description}>
             <nav className="crab-design-jump-links" aria-label="原型章节">
                 <a href="#line-edit-scenario">编辑工作区名称</a>
-                <a href="#line-edit-states">字段类型与状态</a>
+                <a href="#line-edit-states">{statesTitle}</a>
                 <a href="#line-edit-rules">交互规则</a>
             </nav>
         </DesignHero>
@@ -132,7 +125,7 @@ export default function LineEditPrototype() {
                         <h3>{design.title}</h3>
                         <div className="crab-line-edit-fields">
                             <LineEdit ref={input} name="workspaceName" label="工作区名称" required allowClear showCount
-                                autoComplete="off" maxLength={limit} appearance={appearance} size={design.size}
+                                autoComplete="off" maxLength={limit} appearance="outlined" size={design.size}
                                 value={draft} supportingText={design.hint} errorText={error} onValueChange={edit}
                                 onCompositionStart={() => { composing.current = true; }}
                                 onCompositionEnd={() => { composing.current = false; setError(undefined); }}
@@ -150,11 +143,6 @@ export default function LineEditPrototype() {
                         </div>
                     </form>
                     <aside className="crab-line-edit-controls" aria-label="试用设置">
-                        {md3 && <div className="crab-line-edit-appearance">
-                            <h3>字段外观</h3>
-                            <Segmented aria-label="字段外观" value={materialAppearance} options={materialAppearances}
-                                onValueChange={value => setMaterialAppearance(value === "outlined" ? "outlined" : "filled")} />
-                        </div>}
                         <h3>载入试用值</h3>
                         <div className="crab-design-actions">
                             {examples.map(example => <Button key={example.label} appearance="outlined"
@@ -165,16 +153,16 @@ export default function LineEditPrototype() {
                 </div>
             </section>
             <section id="line-edit-states" aria-labelledby="line-edit-states-title">
-                <div className="crab-design-section-head"><h2 id="line-edit-states-title">字段类型与状态</h2></div>
+                <div className="crab-design-section-head"><h2 id="line-edit-states-title">{statesTitle}</h2></div>
                 <div className="crab-line-edit-samples">
                     <div>
-                        <h3>{md3 ? "描边 · 空值" : "空值与键盘焦点"}</h3>
+                        <h3>空值与键盘焦点</h3>
                         <LineEdit label="待编辑名称" placeholder="例如北区巡检" size={design.size}
                             supportingText="试用鼠标悬停，或按 Tab 进入字段。" />
                     </div>
                     <div>
-                        <h3>{md3 ? "填充 · 有内容" : "已填写与清除"}</h3>
-                        <LineEdit label="备用名称" appearance={md3 ? "filled" : "outlined"} size={design.size} defaultValue="夜间巡检"
+                        <h3>已填写与清除</h3>
+                        <LineEdit label="备用名称" size={design.size} defaultValue="夜间巡检"
                             allowClear maxLength={limit} showCount supportingText="清除后焦点回到输入框。" />
                     </div>
                     <div>
@@ -209,7 +197,7 @@ export default function LineEditPrototype() {
                         <dt>标签与说明</dt><dd>{md3 ? "空字段的标签位于输入框内。聚焦或已有内容时标签浮起，辅助说明留在下方。" : "标签始终在上方可见，约束说明放在下方。"}校验失败时错误文字替换说明并与字段关联。</dd>
                         <dt>提交与校验</dt><dd>点保存或按 Enter 后检查必填和名称冲突。失败时保留草稿并聚焦字段。继续编辑清除旧错误，输入法选词期间暂缓校验。</dd>
                         <dt>清除与焦点</dt><dd>有内容且可编辑时显示清除按钮，键盘可触发。清除只影响草稿，操作后焦点回到输入框。</dd>
-                        <dt>尺寸与动效</dt><dd>{md3 ? "常规字段采用 56px 高度，聚焦时填充底线或描边加重。标签过渡时输入框和说明的位置保持稳定。" : "状态切换沿用字段边界，焦点反馈使用描边或外环。"}窄屏允许说明换行，输入内容在单行框内滚动。</dd>
+                        <dt>尺寸与动效</dt><dd>{md3 ? "常规字段采用 56px 高度，聚焦时描边加重。标签过渡时输入框和说明的位置保持稳定。" : "状态切换沿用字段边界，焦点反馈使用描边或外环。"}窄屏允许说明换行，输入内容在单行框内滚动。</dd>
                         <dt>适用范围</dt><dd>用于名称、短编号等单行文本。多行说明用 TextEdit，数值编辑用 NumberEdit。</dd>
                     </dl>
                 </div>

@@ -41,8 +41,6 @@ globalStyle`
     border-radius: 1rem;
     background: ${token.color.surface.low};
 }
-.crab-line-edit-appearance { display: grid; justify-items: start; gap: .6rem; }
-
 [data-line-edit-prototype][data-prototype-design="md3"] [data-field-root] {
     ${semantic["field.layout.control-row"]}: 1;
     ${semantic["field.layout.support-row"]}: 2;
@@ -52,13 +50,10 @@ globalStyle`
     ${field["field.control.padding-inline-start"]}: 16px;
     ${field["field.input.font-size"]}: ${token.typography.body.large["font-size"]};
     ${field["field.input.line-height"]}: ${token.typography.body.large["line-height"]};
-    ${field["field.input.filled.padding-top"]}: 16px;
     ${field["field.support.padding-inline"]}: 16px;
     ${field["field.outline.border-width-focus"]}: 2px;
     ${field["field.outline.legend.margin"]}: 11px;
     ${field["field.outline.legend.padding"]}: 4px;
-    ${field["field.filled.border-radius"]}: 4px 4px 0 0;
-    ${field["field.filled.background-color"]}: ${token.color.surface.highest};
     ${field["root.border-radius"]}: 4px;
     position: relative;
     row-gap: .25rem;
@@ -85,11 +80,6 @@ globalStyle`
     inset-block-start: 0;
     font-size: ${token.typography.body.small["font-size"]};
     line-height: ${token.typography.body.small["line-height"]};
-}
-[data-line-edit-prototype][data-prototype-design="md3"] [data-field-root][data-labeled="true"][data-appearance="filled"]:is(:focus-within, :has(input:not(:placeholder-shown)), :has(input:autofill)) > label {
-    inset-block-start: 8px;
-    margin: 0;
-    transform: none;
 }
 [data-line-edit-prototype][data-prototype-design="md3"] [data-field-root]:not(:focus-within) input::placeholder { color: transparent; }
 [data-line-edit-prototype][data-prototype-design="md3"] [data-field-root] input { caret-color: ${token.color.brand.primary}; }
