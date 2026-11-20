@@ -4557,10 +4557,10 @@ const RAW_RUNTIME_STATE =
         ],\
         "linkType": "SOFT"\
       }],\
-      ["patch:@crab-dev/wake@npm%3A0.1.45#~/.yarn/patches/wake-federation-chunked-preflight.patch::version=0.1.45&hash=d02c48", {\
-        "packageLocation": "./.yarn/cache/@crab-dev-wake-patch-9118fbcd84-a298c4c130.zip/node_modules/@crab-dev/wake/",\
+      ["patch:@crab-dev/wake@npm%3A0.1.45#~/.yarn/patches/wake-federation-chunked-preflight.patch::version=0.1.45&hash=83eeed", {\
+        "packageLocation": "./.yarn/cache/@crab-dev-wake-patch-02a89b30b6-9e3e89c2fb.zip/node_modules/@crab-dev/wake/",\
         "packageDependencies": [\
-          ["@crab-dev/wake", "patch:@crab-dev/wake@npm%3A0.1.45#~/.yarn/patches/wake-federation-chunked-preflight.patch::version=0.1.45&hash=d02c48"]\
+          ["@crab-dev/wake", "patch:@crab-dev/wake@npm%3A0.1.45#~/.yarn/patches/wake-federation-chunked-preflight.patch::version=0.1.45&hash=83eeed"]\
         ],\
         "linkType": "SOFT"\
       }],\
@@ -4646,8 +4646,8 @@ const RAW_RUNTIME_STATE =
         ],\
         "linkType": "HARD"\
       }],\
-      ["virtual:1b1f9f0dc19a7adf2120a5e987bae4f0f266236699b6565e33df3ed5dd6a9f43439cfc5634671e6858a7d5ddd3263caa7fe47bcc4a3f4f620295f3ab20640ca8#patch:@crab-dev/wake@npm%3A0.1.45#~/.yarn/patches/wake-federation-chunked-preflight.patch::version=0.1.45&hash=d02c48", {\
-        "packageLocation": "./.yarn/__virtual__/@crab-dev-wake-virtual-52a136ac31/0/cache/@crab-dev-wake-patch-9118fbcd84-a298c4c130.zip/node_modules/@crab-dev/wake/",\
+      ["virtual:1b1f9f0dc19a7adf2120a5e987bae4f0f266236699b6565e33df3ed5dd6a9f43439cfc5634671e6858a7d5ddd3263caa7fe47bcc4a3f4f620295f3ab20640ca8#patch:@crab-dev/wake@npm%3A0.1.45#~/.yarn/patches/wake-federation-chunked-preflight.patch::version=0.1.45&hash=83eeed", {\
+        "packageLocation": "./.yarn/__virtual__/@crab-dev-wake-virtual-99d9652759/0/cache/@crab-dev-wake-patch-02a89b30b6-9e3e89c2fb.zip/node_modules/@crab-dev/wake/",\
         "packageDependencies": [\
           ["@crab-dev/css", "npm:0.1.45"],\
           ["@crab-dev/rc-alert", "virtual:3839b5e80d0b61928d034dfc6b57dd77c9aa634201ed11bb166ff9acb013659069b77095ae45db4fa23aea982b33bde190ffcea4705005937b3875966b06037e#workspace:components/rc-alert"],\
@@ -4664,7 +4664,7 @@ const RAW_RUNTIME_STATE =
           ["@crab-dev/rc-text-edit", "virtual:3839b5e80d0b61928d034dfc6b57dd77c9aa634201ed11bb166ff9acb013659069b77095ae45db4fa23aea982b33bde190ffcea4705005937b3875966b06037e#workspace:components/rc-text-edit"],\
           ["@crab-dev/rc-tooltip", "virtual:3839b5e80d0b61928d034dfc6b57dd77c9aa634201ed11bb166ff9acb013659069b77095ae45db4fa23aea982b33bde190ffcea4705005937b3875966b06037e#workspace:components/rc-tooltip"],\
           ["@crab-dev/rc-tree", "virtual:3839b5e80d0b61928d034dfc6b57dd77c9aa634201ed11bb166ff9acb013659069b77095ae45db4fa23aea982b33bde190ffcea4705005937b3875966b06037e#workspace:components/rc-tree"],\
-          ["@crab-dev/wake", "virtual:1b1f9f0dc19a7adf2120a5e987bae4f0f266236699b6565e33df3ed5dd6a9f43439cfc5634671e6858a7d5ddd3263caa7fe47bcc4a3f4f620295f3ab20640ca8#patch:@crab-dev/wake@npm%3A0.1.45#~/.yarn/patches/wake-federation-chunked-preflight.patch::version=0.1.45&hash=d02c48"],\
+          ["@crab-dev/wake", "virtual:1b1f9f0dc19a7adf2120a5e987bae4f0f266236699b6565e33df3ed5dd6a9f43439cfc5634671e6858a7d5ddd3263caa7fe47bcc4a3f4f620295f3ab20640ca8#patch:@crab-dev/wake@npm%3A0.1.45#~/.yarn/patches/wake-federation-chunked-preflight.patch::version=0.1.45&hash=83eeed"],\
           ["@crab-dev/wake-darwin-arm64", "npm:0.1.45"],\
           ["@crab-dev/wake-darwin-x64", "npm:0.1.45"],\
           ["@crab-dev/wake-linux-arm64-gnu", "npm:0.1.45"],\
@@ -5450,7 +5450,7 @@ const RAW_RUNTIME_STATE =
           ["@crab-dev/rc-tree", "virtual:3839b5e80d0b61928d034dfc6b57dd77c9aa634201ed11bb166ff9acb013659069b77095ae45db4fa23aea982b33bde190ffcea4705005937b3875966b06037e#workspace:components/rc-tree"],\
           ["@crab-dev/rc-virtual", "virtual:bee81ec828460ea1c2886796dc042ec355e19f62c3a5ddd145fb522a5f8ae7ac380f476d21faea73b8ffedf52b65e5848ec193a92dd5bb2904308ecab2ed0167#workspace:components/rc-virtual"],\
           ["@crab-dev/standards-typescript-preset", "workspace:standards/typescript-preset"],\
-          ["@crab-dev/wake", "virtual:1b1f9f0dc19a7adf2120a5e987bae4f0f266236699b6565e33df3ed5dd6a9f43439cfc5634671e6858a7d5ddd3263caa7fe47bcc4a3f4f620295f3ab20640ca8#patch:@crab-dev/wake@npm%3A0.1.45#~/.yarn/patches/wake-federation-chunked-preflight.patch::version=0.1.45&hash=d02c48"],\
+          ["@crab-dev/wake", "virtual:1b1f9f0dc19a7adf2120a5e987bae4f0f266236699b6565e33df3ed5dd6a9f43439cfc5634671e6858a7d5ddd3263caa7fe47bcc4a3f4f620295f3ab20640ca8#patch:@crab-dev/wake@npm%3A0.1.45#~/.yarn/patches/wake-federation-chunked-preflight.patch::version=0.1.45&hash=83eeed"],\
           ["@crab-dev/website", "workspace:.website"],\
           ["@types/node", "npm:22.20.2"],\
           ["@types/react", "npm:19.3.0"],\
