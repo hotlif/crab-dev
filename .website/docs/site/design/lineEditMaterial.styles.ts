@@ -82,6 +82,15 @@ globalStyle`
 [data-line-edit-prototype][data-prototype-design="md3"] [data-field-root][data-labeled="true"]:where(:has(input:not(:placeholder-shown))) > label {
     transition: color ${token.motion.effects.fast};
 }
+/* Reveal the example after the label's layout transition and hide it immediately on blur. */
+[data-line-edit-prototype][data-prototype-design="md3"] [data-field-root][data-labeled="true"] input::placeholder {
+    opacity: 0;
+}
+[data-line-edit-prototype][data-prototype-design="md3"] [data-field-root][data-labeled="true"] input:focus::placeholder {
+    opacity: 1;
+    transition: opacity ${token.motion.layout};
+    transition-timing-function: step-end;
+}
 [data-line-edit-prototype][data-prototype-design="md3"] [data-field-root] input { caret-color: ${token.color.brand.primary}; }
 [data-line-edit-prototype][data-prototype-design="md3"] [data-field-root][data-status="error"] input {
     caret-color: ${token.color.feedback.error.text};
@@ -96,6 +105,7 @@ globalStyle`
 
 @media (prefers-reduced-motion: reduce) {
     [data-line-edit-prototype][data-prototype-design="md3"] [data-field-root][data-labeled="true"] > label { transition: none; }
+    [data-line-edit-prototype][data-prototype-design="md3"] [data-field-root][data-labeled="true"] input:focus::placeholder { transition: none; }
 }
 
 @media (forced-colors: active) {

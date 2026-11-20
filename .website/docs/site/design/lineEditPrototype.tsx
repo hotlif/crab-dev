@@ -159,7 +159,7 @@ export default function LineEditPrototype() {
                         <h3>{design.title}</h3>
                         <div className="crab-line-edit-fields">
                             <CountedNameField ref={input} name="workspaceName" label="工作区名称" required allowClear
-                                autoComplete="off" appearance="outlined" size={design.size}
+                                autoComplete="off" appearance="outlined" size={design.size} placeholder="例如北区设备巡检"
                                 value={draft} supportingText={design.hint} errorText={error} onValueChange={edit}
                                 onCompositionStart={() => { composing.current = true; }}
                                 onCompositionEnd={event => { composing.current = false; edit(event.currentTarget.value); }}
@@ -189,10 +189,10 @@ export default function LineEditPrototype() {
             <section id="line-edit-states" aria-labelledby="line-edit-states-title">
                 <div className="crab-design-section-head"><h2 id="line-edit-states-title">{statesTitle}</h2></div>
                 <div className="crab-line-edit-samples">
-                    <div>
-                        <h3>空值与键盘焦点</h3>
-                        <LineEdit label="待编辑名称" size={design.size}
-                            supportingText="例如北区巡检。按 Tab 进入字段。" />
+                    <div id="line-edit-placeholder">
+                        <h3>空值与占位提示</h3>
+                        <LineEdit label="待编辑名称" size={design.size} placeholder="例如北区巡检"
+                            supportingText={md3 ? "点击或按 Tab，标签浮起后显示输入示例。" : "空值时显示输入示例，输入内容后消失。"} />
                     </div>
                     <div>
                         <h3>已填写与清除</h3>
@@ -233,6 +233,7 @@ export default function LineEditPrototype() {
                     <p>{design.decision}</p>
                     <dl>
                         <dt>标签与说明</dt><dd>{md3 ? "空字段的标签位于输入框内。聚焦或已有内容时标签浮起，辅助说明留在下方。" : "标签始终在上方可见，约束说明放在下方。"}校验失败时错误文字替换说明并与字段关联。</dd>
+                        <dt>占位提示</dt><dd>{md3 ? "空字段聚焦且标签浮起后，框内出现输入示例。清空后可再次看到示例，失焦时恢复框内标签。" : "字段为空时，框内显示输入示例，标签仍在上方。"}</dd>
                         <dt>提交与校验</dt><dd>保存时检查名称。失败时保留草稿并聚焦字段，修正后清除错误。输入法选词期间暂缓校验。</dd>
                         <dt>字符限制</dt><dd>按用户看到的字符计数。超过 32 个字符时保留原文，缩短后可以保存。</dd>
                         <dt>清除与焦点</dt><dd>有内容且可编辑时显示清除按钮，键盘可触发。清除只影响草稿，操作后焦点回到输入框。</dd>

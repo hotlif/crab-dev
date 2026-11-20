@@ -21,6 +21,10 @@ async function describedText(input) {
         .map(id => node.ownerDocument.getElementById(id)?.textContent ?? '').join(' '));
 }
 
+function placeholderOpacity(input) {
+    return input.evaluate(node => getComputedStyle(node, '::placeholder').opacity);
+}
+
 function controlGeometry(input) {
     return input.evaluate(node => {
         const control = node.closest('[data-field-control]');
@@ -86,9 +90,28 @@ for (const [colorMode, width] of [['light', 1440], ['dark', 320]]) {
         if (colorMode === 'dark') await captureScene(page, info, 'md3-outlined-dark-error');
 
         const sample = page.getByRole('textbox', { name: '待编辑名称', exact: true });
+        const emptySample = page.locator('#line-edit-placeholder');
         await sample.hover();
-        await expect(sample).toHaveAttribute('placeholder', /^\s*$/);
-        expect(await describedText(sample)).toContain('例如北区巡检');
+        await expect(sample).toHaveAttribute('placeholder', '例如北区巡检');
+        await expect(sample).toHaveValue('');
+        expect(await placeholderOpacity(sample)).toBe('0');
+        expect(await describedText(sample)).toContain('标签浮起后显示输入示例');
+        const startingOpacity = await sample.evaluate(node => {
+            node.focus();
+            return getComputedStyle(node, '::placeholder').opacity;
+        });
+        expect(startingOpacity).toBe('0');
+        await expect.poll(() => placeholderOpacity(sample)).toBe('1');
+        expect(await sample.evaluate(node => node.labels[0].getBoundingClientRect().bottom <= node.getBoundingClientRect().top)).toBe(true);
+        if (colorMode === 'dark') await captureScene(page, info, 'md3-placeholder', emptySample);
+        await sample.fill('巡检');
+        expect(await sample.evaluate(node => node.matches(':placeholder-shown'))).toBe(false);
+        await sample.fill('');
+        await expect.poll(() => placeholderOpacity(sample)).toBe('1');
+        await sample.press('Tab');
+        expect(await placeholderOpacity(sample)).toBe('0');
+        await settleFiniteAnimations(page);
+
         const overlaps = await sample.evaluate(node => {
             const label = node.labels[0];
             node.focus();
@@ -103,10 +126,7 @@ for (const [colorMode, width] of [['light', 1440], ['dark', 320]]) {
         await expect(sample).toHaveValue('巡');
         await sample.fill('');
         await sample.press('Tab');
-        if (colorMode === 'dark') {
-            const emptySample = page.getByRole('heading', { name: '空值与键盘焦点' }).locator('..');
-            await captureScene(page, info, 'md3-empty-label', emptySample);
-        }
+        if (colorMode === 'dark') await captureScene(page, info, 'md3-empty-label', emptySample);
 
         const hoverSample = page.getByRole('heading', { name: '鼠标悬停' }).locator('..');
         const hovered = hoverSample.getByRole('textbox', { name: '巡检区域' });
@@ -146,6 +166,8 @@ test('LineEdit design validates on submit and preserves focus, geometry and the 
     await scene.getByRole('button', { name: '空值', exact: true }).click();
     await expect(input).toBeFocused();
     await expect(input).toHaveValue('');
+    await expect(input).toHaveAttribute('placeholder', '例如北区设备巡检');
+    await expect.poll(() => placeholderOpacity(input)).toBe('1');
     await expect(input).not.toHaveAttribute('aria-invalid', 'true');
     await input.press('Enter');
     await expect(input).toHaveAttribute('aria-invalid', 'true');
@@ -231,6 +253,9 @@ test('LineEdit keeps the draft while switching the real site theme', { tag: ['@w
 
     await chooseDesign(page, 'macos');
     await expect(input).toHaveValue('待确认的巡检名称');
+    const emptySample = page.getByRole('textbox', { name: '待编辑名称' });
+    await expect(emptySample).toHaveAttribute('placeholder', '例如北区巡检');
+    expect(Number(await placeholderOpacity(emptySample))).toBeGreaterThan(0);
     const identifier = form(page).getByRole('textbox', { name: '工作区标识' });
     await expect(identifier).toHaveAttribute('readonly', '');
     await expect(form(page).getByRole('heading', { name: '工作区设置' })).toBeVisible();
@@ -247,6 +272,7 @@ test('LineEdit keeps the draft while switching the real site theme', { tag: ['@w
     await chooseDesign(page, 'shadcn');
     await chooseMode(page, 'dark');
     await expect(input).toHaveValue('准备切换的巡检名称');
+    expect(Number(await placeholderOpacity(emptySample))).toBeGreaterThan(0);
     await expect(form(page).getByRole('heading', { name: '工作区资料' })).toBeVisible();
     const path = form(page).getByRole('textbox', { name: '当前访问路径' });
     await expect(path).toHaveAttribute('readonly', '');
@@ -303,6 +329,7 @@ test('LineEdit keyboard states work under forced colors and reduced motion', { t
     const before = await controlGeometry(empty);
     await empty.focus();
     await expect(empty).toBeFocused();
+    expect(await placeholderOpacity(empty)).toBe('1');
     const control = scene.locator('[data-field-control]').first();
     await expect(control).toHaveCSS('transition-duration', '0s');
     await expect(control).toHaveCSS('border-top-width', '1px');
