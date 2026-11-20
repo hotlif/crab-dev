@@ -115,6 +115,7 @@ export function Page({ page, previous, next, route, site, children }: UI.PagePro
     }, [children, page.slug, route.href, site.basePath]);
     const home = page.href === site.homeHref;
     const catalog = page.slug.replace(/^\//, "") === "learn/components";
+    const designWorkspace = /^\/?design(?:\/|$)/.test(page.slug);
     const component = page.slug.replace(/^\//, "").startsWith("components/");
     const packageName = page.slug.split("/").at(-1) ?? "";
     const previews: Readonly<Partial<Record<string, ComponentPreviewRecord>>> = componentPreviews;
@@ -161,6 +162,10 @@ export function Page({ page, previous, next, route, site, children }: UI.PagePro
                 }} />
         </footer>
     </>;
+    if (designWorkspace) return <article ref={article} className="crab-docs-page" data-reading="true">
+        {children}
+        {pageTail}
+    </article>;
     return (
         <article ref={article} className="crab-docs-page" data-home={home} data-component={component} data-reading={!home && !catalog}
             onFocusCapture={revealDocumentLink}>
@@ -181,6 +186,7 @@ export function Page({ page, previous, next, route, site, children }: UI.PagePro
                                             独立预览 ↗
                                         </Button>
                                         <code className="crab-docs-package">@crab-dev/{packageName}</code>
+                                        {packageName === "rc-button" && <Button appearance="text" href={route.href("/design/button")}>查看设计原型</Button>}
                                     </nav>
                                     {reducedMotion && <p className="crab-docs-motion-note" role="status">
                             已启用减少动态效果，示例中的位移与展开动画已减弱。

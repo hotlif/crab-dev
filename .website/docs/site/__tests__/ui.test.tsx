@@ -468,7 +468,7 @@ describe("Wake 文档展示适配器", () => {
         const category = (name: string) => Array.from(rail.querySelectorAll("a")).find(link => link.textContent === name)!;
         const draft = screen.getByRole("textbox", { name: "未提交的内容" });
         expect(category("实战").getAttribute("aria-current")).toBe("true");
-        for (const [label, slug] of [["开始", "/guides/getting-started"], ["组件", "/learn/components"], ["设计", "/guides/design-styles"], ["实战", "/learn"], ["维护", "/guides/contributing"]]) {
+        for (const [label, slug] of [["开始", "/guides/getting-started"], ["组件", "/learn/components"], ["设计", "/design"], ["实战", "/learn"], ["维护", "/guides/contributing"]]) {
             expect(category(label).getAttribute("href")).toBe("/handbook" + slug);
             expect(category(label).hasAttribute("aria-expanded")).toBe(false);
         }

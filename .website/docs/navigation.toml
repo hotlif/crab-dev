@@ -18,7 +18,22 @@ pages = ["guides/getting-started","guides/library-architecture","guides/public-a
 
 [[group]]
 id = "design"
-title = "设计体系"
+title = "设计"
+pages = ["design/index"]
+
+[[group.section]]
+id = "design-prototypes"
+title = "组件原型"
+pages = ["design/button"]
+
+[[group.section]]
+id = "design-scenarios"
+title = "应用场景"
+pages = ["design/save-profile"]
+
+[[group.section]]
+id = "design-foundations"
+title = "设计基础"
 pages = ["guides/design-styles","guides/component-sizing","guides/design-coverage"]
 
 [[group]]
