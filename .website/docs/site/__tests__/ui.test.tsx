@@ -4,6 +4,7 @@ import { createContext, use, useEffect, useState } from "react";
 import type { ReactNode } from "react";
 import type { CommonProps, DemoProps, SearchState } from "@crab-dev/wake/docs";
 import ConfigProvider, { useConfig } from "@crab-dev/rc-config-provider";
+import { componentDemoDesigns } from "../../_generated/component-design-summaries.js";
 import { SITE_DESIGN_STORAGE_KEY } from "../siteContext.js";
 import { consumeDocumentRecovery, rememberDocumentRecovery } from "../ui/document-recovery.js";
 import { SearchReturnFocusContext } from "../ui/search-return-focus.js";
@@ -829,11 +830,13 @@ describe("Wake 文档展示适配器", () => {
     });
 
     it("搜索只保留当前主题的专属示例，过滤后键盘仍选择可见结果", async () => {
-        const titles = [
-            "链接按钮 — 传入 href 时渲染为 a 元素",
-            "macOS Tahoe：桌面控件与浮动玻璃操作 — 普通操作使用圆角矩形；浮动工具栏共享玻璃背板，突出内容。",
-            "形状与连接式按钮组 — Square 保持统一圆角；显式 Round 保留按压与选中时的形状反馈。",
-        ];
+        const names = ["链接按钮", "macOS Tahoe：桌面控件与浮动玻璃操作", "形状与连接式按钮组"];
+        const indexedTitles = Object.keys(componentDemoDesigns["rc-button"] ?? {});
+        const titles = names.map(name => {
+            const title = indexedTitles.find(entry => entry.startsWith(`${name} — `));
+            if (!title) throw new Error(`Missing Button demo in the search index: ${name}`);
+            return title;
+        });
         const search = searchState({ activeIndex: 2, results: titles.map((title, index) => ({
             ...searchState().results[0]!, title, slug: `/components/rc-button#demo-${index}`,
         })) });
@@ -841,7 +844,7 @@ describe("Wake 文档展示适配器", () => {
         for (const designSystem of ["md3", "macos", "shadcn"] as const) {
             await view.rerender(<ConfigProvider designSystem={designSystem}><UI.SearchDialog {...common()} search={search} /></ConfigProvider>);
             const expected = designSystem === "md3" ? [0, 2] : designSystem === "macos" ? [0, 1] : [0];
-            expect(screen.getAllByRole("option").map(option => option.getAttribute("aria-label"))).toEqual(expected.map(index => titles[index].split(" — ")[0]));
+            expect(screen.getAllByRole("option").map(option => option.getAttribute("aria-label"))).toEqual(expected.map(index => names[index]));
             await fireEvent.keyDown(screen.getByRole("combobox"), { key: "Enter" });
             expect(search.select).toHaveBeenLastCalledWith(`/components/rc-button#demo-${expected.at(-1)}`);
         }

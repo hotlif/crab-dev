@@ -37,7 +37,7 @@ export const componentDesignSummaries: Readonly<Partial<Record<string, Record<De
         "shadcn": "用克制的分隔符和中性文字构成层级路径，当前项通过文字层级表达。"
     },
     "rc-button": {
-        "md3": "以 Filled、Tonal、Outlined、Elevated 与 Text 表达操作层级，强调动作可使用 Expressive 形状反馈。",
+        "md3": "以 Filled、Tonal、Outlined、Elevated 与 Text 表达操作层级，按压与选中时使用稳定轮廓。",
         "macos": "以普通 push button、着色主操作和浮动 glass bezel 组织桌面动作，按压时保持稳定轮廓。",
         "shadcn": "以实心主操作、细描边普通操作与透明低强调操作建立简洁的按钮层级。"
     },
@@ -504,7 +504,7 @@ export const componentDemoDesigns: Readonly<Partial<Record<string, Readonly<Part
             "macos",
             "shadcn"
         ],
-        "形状与连接式按钮组 — Square 保持统一圆角；显式 Round 保留按压与选中时的形状反馈。": [
+        "形状与连接式按钮组 — 按压和选中时保持 Round、Square 和组内按钮的轮廓，通过填色观察选中状态。": [
             "md3"
         ],
         "macOS Tahoe：桌面控件与浮动玻璃操作 — 普通操作使用圆角矩形；浮动工具栏共享玻璃背板，突出内容。": [

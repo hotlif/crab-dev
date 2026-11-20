@@ -438,8 +438,9 @@ export const squareStyle = css`border-radius: ${token.root['border-radius']};`;
 
 export const roundStyle = css`border-radius: calc(${token.root.height} / 2);`;
 
-export const defaultShapeStyle = css`
-    border-radius: ${token.shape.default['border-radius']};
+export const defaultShapeStyle = css`border-radius: ${token.shape.default['border-radius']};`;
+
+export const defaultPressShapeStyle = css`
     &:is(:active, [data-press-feedback]):not(:disabled):not([aria-disabled="true"]) {
         border-radius: ${token.shape.default['border-radius-active']};
     }

@@ -92,7 +92,7 @@ function LabelsAndNavigation({ design, system }: { design: CompositionDesign; sy
         <p>窄容器可以省略显示，完整标签仍是按钮的可访问名称。执行任务使用按钮，前往目标位置使用链接。</p>
         <Segmented aria-label="样本容器宽度" options={widths} value={width} onValueChange={value => setWidth(String(value))} />
         <div className="crab-design-composition-rail" data-width={width}>
-            <Button size="s" shape={system === "md3" ? "round" : undefined} data-prototype-round={system === "md3" || undefined}
+            <Button size="s" shape={system === "md3" ? "round" : undefined}
                 appearance="outlined" shouldFitContainer title={design.longLabel} onClick={() => setExports(count => count + 1)}>
                 {design.longLabel}
             </Button>

@@ -27,6 +27,7 @@ async function geometry(action) {
 }
 
 async function normalAndPressed(page, action) {
+    await action.scrollIntoViewIfNeeded();
     await page.mouse.move(0, 0);
     await settleFiniteAnimations(page);
     const normal = await geometry(action);
@@ -37,8 +38,7 @@ async function normalAndPressed(page, action) {
         expect(await action.evaluate((node) => node.matches(':active'))).toBe(true);
         await settleFiniteAnimations(page);
         pressed = await geometry(action);
-        expect(pressed.width).toBeCloseTo(normal.width, 1);
-        expect(pressed.height).toBeCloseTo(normal.height, 1);
+        sameBounds(pressed, normal);
     } finally {
         await page.mouse.up();
         // Native clicks retain the documented minimum feedback after release.
@@ -46,6 +46,10 @@ async function normalAndPressed(page, action) {
         await settleFiniteAnimations(page);
     }
     return { normal, pressed };
+}
+
+function sameBounds(actual, expected) {
+    for (const key of ['x', 'y', 'width', 'height']) expect(actual[key]).toBeCloseTo(expected[key], 1);
 }
 
 async function configureOwner(page, root, args) {
@@ -141,15 +145,15 @@ for (const config of configurations)
                 if (shape !== 'circle')
                     for (const phase of ['normal', 'pressed']) sameShape(owner[shape].default[phase], publicShapes[shape][phase]);
             }
-            // macOS keeps the requested geometry in every state. The other designs
-            // retain their existing selected-square and pressed-shape treatment.
+            const stableShape = config.designSystem === 'md3' || config.designSystem === 'macos';
             expect(owner.square.selected.normal.radii).toEqual(owner.square.default.normal.radii);
             expect(owner.square.selected.pressed.radii).toEqual(owner.square.default.pressed.radii);
-            expect(owner.round.selected.normal.radii).toEqual(config.designSystem === 'macos'
+            expect(owner.round.selected.normal.radii).toEqual(stableShape
                 ? owner.round.default.normal.radii : owner.square.selected.normal.radii);
             expect(owner.round.selected.pressed.radii).toEqual(owner.round.default.pressed.radii);
-            if (config.designSystem === 'macos') {
+            if (stableShape) {
                 for (const shape of ['default', 'square', 'round']) {
+                    expect(owner[shape].selected.normal.radii).toEqual(owner[shape].default.normal.radii);
                     for (const state of ['default', 'selected']) {
                         expect(owner[shape][state].pressed.radii).toEqual(owner[shape][state].normal.radii);
                     }
@@ -191,3 +195,65 @@ for (const config of configurations)
             });
         },
     );
+
+async function connectedDemo(page, previewOrigin) {
+    const root = await openDemo(page, previewOrigin, 'rc-button', 'expressive.demo.tsx', { designSystem: 'md3', colorMode: 'light' });
+    const group = root.locator('[data-variant="connected"]');
+    await expect(group.getByRole('button')).toHaveCount(3);
+    await group.scrollIntoViewIfNeeded();
+    return group;
+}
+
+async function expectStableGroup(actions, initial) {
+    await settleFiniteAnimations(actions[0].page());
+    for (const [index, action] of actions.entries()) {
+        const current = await geometry(action);
+        expect(current.radii).toEqual(initial[index].radii);
+        sameBounds(current, initial[index]);
+    }
+}
+
+test('MD3 connected Button corners stay fixed through pointer and keyboard selection', {
+    tag: ['@rc-button', '@boundary', '@chromium-only'],
+}, async ({ page, previewOrigin }) => {
+    const group = await connectedDemo(page, previewOrigin);
+    const actions = await group.getByRole('button').all();
+    const initial = await Promise.all(actions.map(geometry));
+    expect(initial[0].radii[0]).not.toEqual(initial[0].radii[1]);
+    expect(initial[2].radii[0]).not.toEqual(initial[2].radii[1]);
+    await actions[1].hover();
+    await page.mouse.down();
+    try {
+        await expectStableGroup(actions, initial);
+    } finally {
+        await page.mouse.up();
+    }
+    await expect(actions[1]).toHaveAttribute('aria-pressed', 'true');
+    await expectStableGroup(actions, initial);
+    await actions[1].press('Tab');
+    await expect(actions[2]).toBeFocused();
+    await page.keyboard.down('Space');
+    try {
+        await expectStableGroup(actions, initial);
+    } finally {
+        await page.keyboard.up('Space');
+    }
+    await expect(actions[2]).toHaveAttribute('aria-pressed', 'true');
+    await expect(actions[1]).toHaveAttribute('aria-pressed', 'false');
+    await expectStableGroup(actions, initial);
+});
+
+test.describe('MD3 Button touch corners', () => {
+    test.use({ hasTouch: true, viewport: { width: 360, height: 780 } });
+
+    test('keeps the connected layout and corners after tapping a different selection', {
+        tag: ['@rc-button', '@boundary', '@chromium-only'],
+    }, async ({ page, previewOrigin }) => {
+        const group = await connectedDemo(page, previewOrigin);
+        const actions = await group.getByRole('button').all();
+        const initial = await Promise.all(actions.map(geometry));
+        await actions[1].tap();
+        await expect(actions[1]).toHaveAttribute('aria-pressed', 'true');
+        await expectStableGroup(actions, initial);
+    });
+});
