@@ -1,0 +1,69 @@
+diff --git a/federation.mjs b/federation.mjs
+index b25ef98a..9a797372 100644
+--- a/federation.mjs
++++ b/federation.mjs
+@@ -927,19 +927,7 @@ function assertBrowserGlobal(targetGlobal) {
+   }
+ }
+ 
+-async function preflightAsset(asset, context) {
+-  // This HEAD request is a metadata gate, not proof of the native GET's final origin. Successful
+-  // identity transfers require the exact decoded size; encoded transfers have a distinct wire
+-  // length and are bounded instead. The browser's SHA-384 SRI check binds the executed content,
+-  // while deployment CSP/CORS must independently constrain the executable origins.
+-  const response = await context.global.fetch(asset.url, {
+-    cache: 'default',
+-    credentials: 'omit',
+-    method: 'HEAD',
+-    mode: 'cors',
+-    redirect: 'error',
+-    signal: context.signal,
+-  })
++function assertAssetPreflightResponse(asset, context, response) {
+   if (!response.ok) {
+     if (response.status === 410) {
+       const control = devFullReloadFromHeaders(response)
+@@ -960,13 +948,40 @@ async function preflightAsset(asset, context) {
+       details: { url: asset.url, expected: asset.mime, actual: contentType },
+     })
+   }
+-  responseContentLength(response, {
++}
++
++async function preflightAsset(asset, context) {
++  // Use HEAD for the fast path. Some static CDNs omit the size even for
++  // identity HEAD responses. Bound and verify the decoded GET in that case.
++  const fetchAsset = method => context.global.fetch(asset.url, {
++    cache: 'default',
++    credentials: 'omit',
++    method,
++    mode: 'cors',
++    redirect: 'error',
++    signal: context.signal,
++  })
++  const head = await fetchAsset('HEAD')
++  assertAssetPreflightResponse(asset, context, head)
++  const limits = {
+     phase: 'asset-fetch',
+     url: asset.url,
+     maximumBytes: context.maxAssetSize,
+     expectedBytes: asset.size,
+-    requireContentLength: true,
+-  })
++  }
++  if (head.headers.has('content-length')) {
++    responseContentLength(head, limits)
++    return
++  }
++
++  const response = await fetchAsset('GET')
++  try {
++    assertAssetPreflightResponse(asset, context, response)
++    const bytes = await readBoundedResponseBytes(response, limits)
++    await verifyIntegrity(bytes, asset.integrity, context.global, FEDERATION_ERROR_CODES.ASSET_INTEGRITY, { url: asset.url })
++  } finally {
++    if (!response.bodyUsed) await response.body?.cancel().catch(() => {})
++  }
+ }
+ 
+ async function diagnoseNativeAssetFailure(asset, context, fallbackError) {

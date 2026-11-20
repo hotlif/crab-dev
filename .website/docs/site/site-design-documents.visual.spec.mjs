@@ -103,3 +103,27 @@ test('document switching preserves the common live input and updates its design'
     }
     await handle.dispose();
 });
+
+test('document demos load when a static host omits HEAD content length', async ({ page, previewOrigin }) => {
+    const headersWithoutLength = new Set();
+    await page.route('**/federated-demos/**/federation/**', async route => {
+        if (route.request().method() !== 'HEAD') {
+            await route.continue();
+            return;
+        }
+
+        const response = await route.fetch();
+        const headers = response.headers();
+        delete headers['content-length'];
+        headersWithoutLength.add(route.request().url());
+        await route.fulfill({ status: response.status(), headers });
+    });
+    await openSite(page, previewOrigin, definition, { designSystem: 'md3', colorMode: 'light' });
+    const cards = page.locator('[data-design-examples] [data-component-demo-id]');
+    await expect(cards).toHaveCount(documents.md3.demos.length);
+    for (const card of await cards.all()) {
+        await card.scrollIntoViewIfNeeded();
+        await expect(card.locator('[data-federated-demo] .crab-federated-demo')).toBeVisible({ timeout: 20_000 });
+    }
+    expect(headersWithoutLength.size).toBeGreaterThan(0);
+});

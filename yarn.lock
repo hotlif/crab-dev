@@ -2023,6 +2023,54 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@crab-dev/wake@patch:@crab-dev/wake@npm%3A0.1.45#~/.yarn/patches/wake-federation-chunked-preflight.patch":
+  version: 0.1.45
+  resolution: "@crab-dev/wake@patch:@crab-dev/wake@npm%3A0.1.45#~/.yarn/patches/wake-federation-chunked-preflight.patch::version=0.1.45&hash=d02c48"
+  dependencies:
+    "@crab-dev/css": "npm:0.1.45"
+    "@crab-dev/rc-alert": "npm:^0.0.2"
+    "@crab-dev/rc-button": "npm:^0.0.2"
+    "@crab-dev/rc-dialog": "npm:^0.0.2"
+    "@crab-dev/rc-drawer": "npm:^0.0.2"
+    "@crab-dev/rc-empty": "npm:^0.0.2"
+    "@crab-dev/rc-line-edit": "npm:^0.0.4"
+    "@crab-dev/rc-number-edit": "npm:^0.0.2"
+    "@crab-dev/rc-segmented": "npm:^0.0.2"
+    "@crab-dev/rc-select": "npm:^0.0.3"
+    "@crab-dev/rc-switch": "npm:^0.0.2"
+    "@crab-dev/rc-tag": "npm:^0.0.2"
+    "@crab-dev/rc-text-edit": "npm:^0.0.1"
+    "@crab-dev/rc-tooltip": "npm:^0.0.2"
+    "@crab-dev/rc-tree": "npm:^0.1.2"
+    "@crab-dev/wake-darwin-arm64": "npm:0.1.45"
+    "@crab-dev/wake-darwin-x64": "npm:0.1.45"
+    "@crab-dev/wake-linux-arm64-gnu": "npm:0.1.45"
+    "@crab-dev/wake-linux-x64-gnu": "npm:0.1.45"
+    "@crab-dev/wake-win32-x64-msvc": "npm:0.1.45"
+    clipboardy: "npm:5.3.2"
+    lucide-react: "npm:^1.23.0"
+    open: "npm:11.0.0"
+    string-width: "npm:8.2.2"
+  peerDependencies:
+    react: ">=19.2.8 <19.3.0 || =19.3.0"
+    react-dom: ">=19.2.8 <19.3.0 || =19.3.0"
+  dependenciesMeta:
+    "@crab-dev/wake-darwin-arm64":
+      optional: true
+    "@crab-dev/wake-darwin-x64":
+      optional: true
+    "@crab-dev/wake-linux-arm64-gnu":
+      optional: true
+    "@crab-dev/wake-linux-x64-gnu":
+      optional: true
+    "@crab-dev/wake-win32-x64-msvc":
+      optional: true
+  bin:
+    wake: bin/wake.mjs
+  checksum: 10c0/a298c4c130df52e9db3c3cfffd9c7ab532369267c5a1f3aed0f71e3072b5c5469e62df21cc16b034a9da9bb3baf49c5889b8cf13d84e4294937b346d5b120a36
+  languageName: node
+  linkType: hard
+
 "@crab-dev/website@workspace:.website":
   version: 0.0.0-use.local
   resolution: "@crab-dev/website@workspace:.website"
@@ -2084,7 +2132,7 @@ __metadata:
     "@crab-dev/rc-tree": "workspace:^"
     "@crab-dev/rc-virtual": "workspace:^"
     "@crab-dev/standards-typescript-preset": "workspace:^"
-    "@crab-dev/wake": "npm:0.1.45"
+    "@crab-dev/wake": "patch:@crab-dev/wake@npm%3A0.1.45#~/.yarn/patches/wake-federation-chunked-preflight.patch"
     "@types/node": "npm:^22.20.2"
     "@types/react": "npm:^19.3.0"
     "@types/react-dom": "npm:^19.3.0"

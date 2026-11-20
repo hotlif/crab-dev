@@ -78,7 +78,7 @@
         "@crab-dev/rc-tree": "workspace:^",
         "@crab-dev/rc-virtual": "workspace:^",
         "@crab-dev/standards-typescript-preset": "workspace:^",
-        "@crab-dev/wake": "0.1.45",
+        "@crab-dev/wake": "patch:@crab-dev/wake@npm%3A0.1.45#~/.yarn/patches/wake-federation-chunked-preflight.patch",
         "@types/node": "^22.20.2",
         "@types/react": "^19.3.0",
         "@types/react-dom": "^19.3.0",
