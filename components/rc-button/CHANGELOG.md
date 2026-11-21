@@ -1,5 +1,11 @@
 # @crab-dev/rc-button
 
+## 1.0.4
+
+### Patch Changes
+
+- [#76](https://github.com/hotlif/crab-dev/pull/76) [`80cd326`](https://github.com/hotlif/crab-dev/commit/80cd3265a345d8b7c98ef2f7cc8a61ba6de5e930) Thanks [@hotlif](https://github.com/hotlif)! - MD3 的 Button 与连接式 ButtonGroup 在按下、松开和切换选中时保持圆角与外框稳定。按压继续通过状态层反馈，选中通过填色和 `aria-pressed` 表达。
+
 ## 1.0.3
 
 ### Patch Changes
