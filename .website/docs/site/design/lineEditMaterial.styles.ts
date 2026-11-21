@@ -102,10 +102,14 @@ globalStyle`
     background: transparent;
     box-shadow: none;
 }
+[data-line-edit-prototype][data-prototype-design="md3"] [data-field-control][data-appearance="outlined"] > fieldset {
+    transition: border-color ${token.motion.effects.fast};
+}
 
 @media (prefers-reduced-motion: reduce) {
     [data-line-edit-prototype][data-prototype-design="md3"] [data-field-root][data-labeled="true"] > label { transition: none; }
     [data-line-edit-prototype][data-prototype-design="md3"] [data-field-root][data-labeled="true"] input:focus::placeholder { transition: none; }
+    [data-line-edit-prototype][data-prototype-design="md3"] [data-field-control][data-appearance="outlined"] > fieldset { transition: none; }
 }
 
 @media (forced-colors: active) {

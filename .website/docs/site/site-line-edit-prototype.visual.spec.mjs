@@ -91,16 +91,21 @@ for (const [colorMode, width] of [['light', 1440], ['dark', 320]]) {
 
         const sample = page.getByRole('textbox', { name: '待编辑名称', exact: true });
         const emptySample = page.locator('#line-edit-placeholder');
+        await expect(page.getByRole('link', { name: '试用标签动效' })).toHaveAttribute('href', '#line-edit-placeholder');
         await sample.hover();
         await expect(sample).toHaveAttribute('placeholder', '例如北区巡检');
         await expect(sample).toHaveValue('');
         expect(await placeholderOpacity(sample)).toBe('0');
         expect(await describedText(sample)).toContain('标签浮起后显示输入示例');
-        const startingOpacity = await sample.evaluate(node => {
+        const startingFocus = await sample.evaluate(node => {
             node.focus();
-            return getComputedStyle(node, '::placeholder').opacity;
+            return {
+                opacity: getComputedStyle(node, '::placeholder').opacity,
+                labelTransitions: node.labels[0].getAnimations().map(animation => animation.transitionProperty),
+            };
         });
-        expect(startingOpacity).toBe('0');
+        expect(startingFocus.opacity).toBe('0');
+        expect(startingFocus.labelTransitions).toContain('font-size');
         await expect.poll(() => placeholderOpacity(sample)).toBe('1');
         expect(await sample.evaluate(node => node.labels[0].getBoundingClientRect().bottom <= node.getBoundingClientRect().top)).toBe(true);
         if (colorMode === 'dark') await captureScene(page, info, 'md3-placeholder', emptySample);
@@ -138,6 +143,7 @@ for (const [colorMode, width] of [['light', 1440], ['dark', 320]]) {
         const idleNotch = await hoveredOutline.locator('legend').evaluate(node => node.getBoundingClientRect().width);
         const idleGeometry = await controlGeometry(hovered);
         await hovered.hover();
+        await expect(hoveredOutline).toHaveCSS('transition-property', 'border-color');
         await expect(hoveredControl).toHaveCSS('border-top-width', '0px');
         await expect(hoveredOutline).toHaveCSS('border-top-width', '1px');
         await expect(hoveredOutline).not.toHaveCSS('border-top-color', idleBorder);
@@ -281,6 +287,51 @@ test('LineEdit keeps the draft while switching the real site theme', { tag: ['@w
     await captureScene(page, info, 'shadcn');
 });
 
+for (const [designSystem, colorMode] of [['macos', 'light'], ['shadcn', 'dark']]) {
+    test(`LineEdit labels share the input row in ${designSystem}`, { tag: ['@website'] }, async ({ page, previewOrigin }, info) => {
+        await openSite(page, previewOrigin, definition, { designSystem, colorMode });
+        const prototype = page.locator('[data-line-edit-prototype]');
+        const input = prototype.getByRole('textbox', { name: '待编辑名称' });
+        for (const width of [1440, 1180, 320]) {
+            await page.setViewportSize({ width, height: 950 });
+            await input.click();
+            await expect(input).toBeFocused();
+            const rows = await prototype.locator('[data-field-root] input').evaluateAll(inputs => inputs.map(node => {
+                const root = node.closest('[data-field-root]');
+                const labelElement = node.labels[0];
+                const label = labelElement.getBoundingClientRect();
+                const labelText = labelElement.querySelector('[data-field-label-text]');
+                const control = root.querySelector('[data-field-control]').getBoundingClientRect();
+                const supportElement = root.nextElementSibling?.matches('.crab-line-edit-field-support')
+                    ? root.nextElementSibling : root.querySelector('[data-field-support]');
+                const support = supportElement?.getBoundingClientRect();
+                const supportLeft = root.closest('.crab-line-edit-samples') ? label.left : control.left;
+                return {
+                    name: labelElement.textContent,
+                    labelBeforeControl: label.right <= control.left,
+                    labelFits: labelText.scrollWidth <= labelText.clientWidth,
+                    centerOffset: Math.abs((label.top + label.bottom - control.top - control.bottom) / 2),
+                    controlWidth: control.width,
+                    supportAligned: !support || (Math.abs(support.left - supportLeft) < 1 &&
+                        Math.abs(support.right - control.right) < 1 && support.top >= control.bottom),
+                };
+            }));
+            expect(rows).toHaveLength(8);
+            for (const row of rows) {
+                expect(row.labelBeforeControl, row.name).toBe(true);
+                expect(row.labelFits, row.name).toBe(true);
+                expect(row.centerOffset, row.name).toBeLessThan(1);
+                expect(row.controlWidth, row.name).toBeGreaterThan(100);
+                expect(row.supportAligned, row.name).toBe(true);
+            }
+            expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(width);
+            if (width !== 1180) {
+                await captureScene(page, info, `${designSystem}-inline-${width}`, page.locator('#line-edit-states'));
+            }
+        }
+    });
+}
+
 async function captureScene(page, info, designSystem, scene = page.locator('#line-edit-scenario')) {
     const path = info.outputPath(`line-edit-${designSystem}.png`);
     await scene.screenshot({ path, animations: 'disabled' });
@@ -332,6 +383,7 @@ test('LineEdit keyboard states work under forced colors and reduced motion', { t
     expect(await placeholderOpacity(empty)).toBe('1');
     const control = scene.locator('[data-field-control]').first();
     await expect(control).toHaveCSS('transition-duration', '0s');
+    await expect(control.locator('fieldset')).toHaveCSS('transition-duration', '0s');
     await expect(control).toHaveCSS('border-top-width', '1px');
     await expect(control).toHaveCSS('outline-style', 'solid');
     expect(await controlGeometry(empty)).toEqual(before);
