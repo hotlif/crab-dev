@@ -94,7 +94,9 @@ test('Checkbox keeps native mixed state and visible keyboard focus in forced col
     await openSite(page, previewOrigin, definition, { designSystem: 'md3', colorMode: 'light' });
     for (const design of designs) {
         if (design !== 'md3') await chooseDesign(page, design);
-        await master(page).focus();
+        await master(page).press('Shift+Tab');
+        await page.keyboard.press('Tab');
+        await expect(master(page)).toBeFocused();
         await expect(master(page)).toHaveAttribute('aria-checked', 'mixed');
         const control = master(page).locator('..').locator('[data-checkbox-part="control"]');
         await expect(control).toHaveCSS('outline-style', 'solid');
