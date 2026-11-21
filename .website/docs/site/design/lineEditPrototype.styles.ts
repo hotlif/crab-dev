@@ -53,6 +53,7 @@ globalStyle`
 [data-line-edit-prototype]:is([data-prototype-design="macos"], [data-prototype-design="shadcn"]) [data-field-root][data-labeled="true"] > label {
     grid-area: 1 / 1;
     align-self: center;
+    justify-self: end;
     margin: 0;
 }
 [data-line-edit-prototype]:is([data-prototype-design="macos"], [data-prototype-design="shadcn"]) [data-field-root][data-labeled="true"] > [data-field-control] {

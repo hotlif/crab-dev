@@ -302,13 +302,14 @@ for (const [designSystem, colorMode] of [['macos', 'light'], ['shadcn', 'dark']]
                 const label = labelElement.getBoundingClientRect();
                 const labelText = labelElement.querySelector('[data-field-label-text]');
                 const control = root.querySelector('[data-field-control]').getBoundingClientRect();
+                const columnGap = Number.parseFloat(getComputedStyle(root).columnGap);
                 const supportElement = root.nextElementSibling?.matches('.crab-line-edit-field-support')
                     ? root.nextElementSibling : root.querySelector('[data-field-support]');
                 const support = supportElement?.getBoundingClientRect();
-                const supportLeft = root.closest('.crab-line-edit-samples') ? label.left : control.left;
+                const supportLeft = root.closest('.crab-line-edit-samples') ? root.getBoundingClientRect().left : control.left;
                 return {
                     name: labelElement.textContent,
-                    labelBeforeControl: label.right <= control.left,
+                    labelGapOffset: Math.abs(control.left - label.right - columnGap),
                     labelFits: labelText.scrollWidth <= labelText.clientWidth,
                     centerOffset: Math.abs((label.top + label.bottom - control.top - control.bottom) / 2),
                     controlWidth: control.width,
@@ -318,7 +319,7 @@ for (const [designSystem, colorMode] of [['macos', 'light'], ['shadcn', 'dark']]
             }));
             expect(rows).toHaveLength(8);
             for (const row of rows) {
-                expect(row.labelBeforeControl, row.name).toBe(true);
+                expect(row.labelGapOffset, row.name).toBeLessThan(1);
                 expect(row.labelFits, row.name).toBe(true);
                 expect(row.centerOffset, row.name).toBeLessThan(1);
                 expect(row.controlWidth, row.name).toBeGreaterThan(100);
