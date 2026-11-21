@@ -1,5 +1,6 @@
 import Button from "@crab-dev/rc-button";
 import { useConfig } from "@crab-dev/rc-config-provider";
+import LineEdit from "@crab-dev/rc-line-edit";
 import SiteIcon from "../siteIcon.js";
 import { useSiteHref } from "../siteContext.js";
 import { DesignHero } from "./hero.js";
@@ -34,6 +35,17 @@ export default function DesignOverview() {
                             <div className="crab-design-title"><h3>Button 按钮</h3><span className="crab-design-status">探索中</span></div>
                             <p>{design.prototype}</p>
                             <Button appearance="primary" href={href("design/button")} iconAfter={<span aria-hidden="true">→</span>}>体验按钮原型</Button>
+                        </div>
+                    </div>
+                    <div className="crab-design-card">
+                        <div className="crab-design-card-body">
+                            <div inert aria-hidden="true">
+                                <LineEdit label="工作区名称" defaultValue="北区巡检工作区" readOnly
+                                    appearance="outlined" size={designSystem === "macos" ? "small" : "medium"} />
+                            </div>
+                            <h3>LineEdit 单行输入框</h3>
+                            <p>编辑工作区名称，试用清除、必填校验和错误反馈。</p>
+                            <Button appearance="primary" href={href("design/line-edit")} iconAfter={<span aria-hidden="true">→</span>}>体验输入框原型</Button>
                         </div>
                     </div>
                 </section>

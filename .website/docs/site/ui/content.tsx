@@ -120,6 +120,7 @@ export function Page({ page, previous, next, route, site, children }: UI.PagePro
     const designWorkspace = /^\/?design(?:\/|$)/.test(page.slug);
     const component = page.slug.replace(/^\//, "").startsWith("components/");
     const packageName = page.slug.split("/").at(-1) ?? "";
+    const prototypePath = packageName === "rc-button" ? "/design/button" : packageName === "rc-line-edit" ? "/design/line-edit" : undefined;
     const previews: Readonly<Partial<Record<string, ComponentPreviewRecord>>> = componentPreviews;
     const preview = previews[packageName]?.designs?.[designSystem] ?? previews[packageName];
     const hasFederatedHero = component && preview !== undefined && !isStandaloneDemo(`${packageName}/${preview.id}`);
@@ -190,7 +191,7 @@ export function Page({ page, previous, next, route, site, children }: UI.PagePro
                                             独立预览 ↗
                                         </Button>
                                         <code className="crab-docs-package">@crab-dev/{packageName}</code>
-                                        {packageName === "rc-button" && <Button appearance="text" href={route.href("/design/button")}>查看设计原型</Button>}
+                                        {prototypePath && <Button appearance="text" href={route.href(prototypePath)}>查看设计原型</Button>}
                                     </nav>
                                     {reducedMotion && <p className="crab-docs-motion-note" role="status">
                             已启用减少动态效果，示例中的位移与展开动画已减弱。
