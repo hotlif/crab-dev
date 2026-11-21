@@ -46,7 +46,11 @@ test("静态资源保留类型，丢失资源不返回 HTML", async context => {
         const response = await fetch(`${origin}/${file}`);
         assert.equal(response.status, 200);
         assert.ok(response.headers.get("content-type").startsWith(type));
-        await response.text();
+        const asset = await response.arrayBuffer();
+        const head = await fetch(origin + "/" + file, { method: "HEAD" });
+        assert.equal(head.status, 200);
+        assert.equal(head.headers.get("content-length"), String(asset.byteLength));
+        assert.equal(await head.text(), "");
     }
     const missing = await fetch(`${origin}/missing.js`);
     assert.equal(missing.status, 404);

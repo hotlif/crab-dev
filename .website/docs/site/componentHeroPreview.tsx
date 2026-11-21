@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { componentPreviews } from "../_generated/component-previews.js";
-import ComponentDemoFrame from "./componentDemoFrame.js";
-import type { ComponentDemoDescriptor } from "./componentDemoFrame.js";
+import ComponentDemo from "./componentDemo.js";
+import type { ComponentDemoDescriptor } from "./componentDemo.js";
 import { useConfig } from "@crab-dev/rc-config-provider";
 import type { DesignSystem } from "@crab-dev/rc-token-semantic";
 
@@ -29,8 +29,7 @@ export default function ComponentHeroPreview({ name }: { readonly name: string }
         let pendingFrame: number | undefined;
         const scheduleMeasure = () => {
             if (pendingFrame !== undefined) return;
-            // Updating a sibling iframe's width during ResizeObserver delivery
-            // can trigger a loop error inside that iframe. Write next frame.
+            // Schedule layout writes outside ResizeObserver delivery.
             pendingFrame = window.requestAnimationFrame(() => {
                 pendingFrame = undefined;
                 measure();
@@ -63,7 +62,7 @@ export default function ComponentHeroPreview({ name }: { readonly name: string }
 
     return <div ref={container} className="crab-docs-component-artwork" data-live="true" data-component-hero={name}>
         <div className="crab-docs-live-artwork-stage">
-            <ComponentDemoFrame key={demo.previewPath} demo={demo} presentation="artwork" />
+            <ComponentDemo key={demo.previewPath} demo={demo} presentation="artwork" />
         </div>
     </div>;
 }

@@ -507,6 +507,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@crab-dev/css@npm:0.1.57":
+  version: 0.1.57
+  resolution: "@crab-dev/css@npm:0.1.57"
+  checksum: 10c0/81efc2cd42ea7eb4b12a53bced26bae61668cbcab879c754abaafdf2d5a70887cc160ba6c7e74b50c721534d384d300d5985ebe5782df90dd6eb6fd879938f20
+  languageName: node
+  linkType: hard
+
 "@crab-dev/rc-alert@workspace:^, @crab-dev/rc-alert@workspace:components/rc-alert":
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-alert@workspace:components/rc-alert"
@@ -1947,9 +1954,23 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@crab-dev/wake-darwin-arm64@npm:0.1.57":
+  version: 0.1.57
+  resolution: "@crab-dev/wake-darwin-arm64@npm:0.1.57"
+  conditions: os=darwin & cpu=arm64
+  languageName: node
+  linkType: hard
+
 "@crab-dev/wake-darwin-x64@npm:0.1.45":
   version: 0.1.45
   resolution: "@crab-dev/wake-darwin-x64@npm:0.1.45"
+  conditions: os=darwin & cpu=x64
+  languageName: node
+  linkType: hard
+
+"@crab-dev/wake-darwin-x64@npm:0.1.57":
+  version: 0.1.57
+  resolution: "@crab-dev/wake-darwin-x64@npm:0.1.57"
   conditions: os=darwin & cpu=x64
   languageName: node
   linkType: hard
@@ -1961,6 +1982,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@crab-dev/wake-linux-arm64-gnu@npm:0.1.57":
+  version: 0.1.57
+  resolution: "@crab-dev/wake-linux-arm64-gnu@npm:0.1.57"
+  conditions: os=linux & cpu=arm64 & libc=glibc
+  languageName: node
+  linkType: hard
+
 "@crab-dev/wake-linux-x64-gnu@npm:0.1.45":
   version: 0.1.45
   resolution: "@crab-dev/wake-linux-x64-gnu@npm:0.1.45"
@@ -1968,9 +1996,23 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@crab-dev/wake-linux-x64-gnu@npm:0.1.57":
+  version: 0.1.57
+  resolution: "@crab-dev/wake-linux-x64-gnu@npm:0.1.57"
+  conditions: os=linux & cpu=x64 & libc=glibc
+  languageName: node
+  linkType: hard
+
 "@crab-dev/wake-win32-x64-msvc@npm:0.1.45":
   version: 0.1.45
   resolution: "@crab-dev/wake-win32-x64-msvc@npm:0.1.45"
+  conditions: os=win32 & cpu=x64
+  languageName: node
+  linkType: hard
+
+"@crab-dev/wake-win32-x64-msvc@npm:0.1.57":
+  version: 0.1.57
+  resolution: "@crab-dev/wake-win32-x64-msvc@npm:0.1.57"
   conditions: os=win32 & cpu=x64
   languageName: node
   linkType: hard
@@ -2023,12 +2065,60 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@crab-dev/wake@npm:0.1.57":
+  version: 0.1.57
+  resolution: "@crab-dev/wake@npm:0.1.57"
+  dependencies:
+    "@crab-dev/css": "npm:0.1.57"
+    "@crab-dev/rc-alert": "npm:^0.0.2"
+    "@crab-dev/rc-button": "npm:^0.0.2"
+    "@crab-dev/rc-dialog": "npm:^0.0.2"
+    "@crab-dev/rc-drawer": "npm:^0.0.2"
+    "@crab-dev/rc-empty": "npm:^0.0.2"
+    "@crab-dev/rc-line-edit": "npm:^0.0.4"
+    "@crab-dev/rc-number-edit": "npm:^0.0.2"
+    "@crab-dev/rc-segmented": "npm:^0.0.2"
+    "@crab-dev/rc-select": "npm:^0.0.3"
+    "@crab-dev/rc-switch": "npm:^0.0.2"
+    "@crab-dev/rc-tag": "npm:^0.0.2"
+    "@crab-dev/rc-text-edit": "npm:^0.0.1"
+    "@crab-dev/rc-tooltip": "npm:^0.0.2"
+    "@crab-dev/rc-tree": "npm:0.1.2"
+    "@crab-dev/wake-darwin-arm64": "npm:0.1.57"
+    "@crab-dev/wake-darwin-x64": "npm:0.1.57"
+    "@crab-dev/wake-linux-arm64-gnu": "npm:0.1.57"
+    "@crab-dev/wake-linux-x64-gnu": "npm:0.1.57"
+    "@crab-dev/wake-win32-x64-msvc": "npm:0.1.57"
+    clipboardy: "npm:5.3.2"
+    lucide-react: "npm:^1.23.0"
+    open: "npm:11.0.0"
+    string-width: "npm:8.2.2"
+  peerDependencies:
+    react: ">=19.2.8 <19.3.0 || =19.3.0"
+    react-dom: ">=19.2.8 <19.3.0 || =19.3.0"
+  dependenciesMeta:
+    "@crab-dev/wake-darwin-arm64":
+      optional: true
+    "@crab-dev/wake-darwin-x64":
+      optional: true
+    "@crab-dev/wake-linux-arm64-gnu":
+      optional: true
+    "@crab-dev/wake-linux-x64-gnu":
+      optional: true
+    "@crab-dev/wake-win32-x64-msvc":
+      optional: true
+  bin:
+    wake: bin/wake.mjs
+  checksum: 10c0/139fc04d765fed590dcbe1db49923d78955804e2c28dea866612339418763f11ad53a84757eedf779aa878e157017a17726879683c0e64103279dd1645b9c599
+  languageName: node
+  linkType: hard
+
 "@crab-dev/website@workspace:.website":
   version: 0.0.0-use.local
   resolution: "@crab-dev/website@workspace:.website"
   dependencies:
     "@babel/parser": "npm:^7.29.8"
-    "@crab-dev/css": "npm:0.1.45"
+    "@crab-dev/css": "npm:0.1.57"
     "@crab-dev/rc-alert": "workspace:^"
     "@crab-dev/rc-app-main-layout": "workspace:^"
     "@crab-dev/rc-auto-sizer": "workspace:^"
@@ -2084,7 +2174,7 @@ __metadata:
     "@crab-dev/rc-tree": "workspace:^"
     "@crab-dev/rc-virtual": "workspace:^"
     "@crab-dev/standards-typescript-preset": "workspace:^"
-    "@crab-dev/wake": "npm:0.1.45"
+    "@crab-dev/wake": "npm:0.1.57"
     "@types/node": "npm:^22.20.2"
     "@types/react": "npm:^19.3.0"
     "@types/react-dom": "npm:^19.3.0"

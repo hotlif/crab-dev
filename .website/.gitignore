@@ -3,3 +3,4 @@
 /.wake-*/
 docs-dist/
 .turbo/
+/public/federated-demos/

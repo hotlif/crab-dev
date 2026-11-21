@@ -30,7 +30,7 @@ status = "experimental"
 
 省略配置继承最近的 Provider。`useConfig()` 使用同名字段；解析后的明暗模式用于 DOM `data-theme`，设计体系用于 `data-crab-design`。主题、品牌、尺寸和密度不能隐式相互改写。Portal 必须保留当前边界。
 
-受控 iframe 预览跨 Document 传递最近边界的完整配置快照，包含品牌和 nonce；父页面已解析的明暗值优先，内层 Provider 的显式覆盖继续生效。配置切换保留示例实例与输入草稿。品牌 `null` 恢复当前设计默认；品牌和 nonce 的 `undefined` 继承最近边界，独立 iframe 根没有父 React 上下文时使用公共默认值。网站的“跟随系统”只在站点边界解析。
+站点预览从最近配置边界取得完整配置快照，包含品牌和 nonce。文档中的组件演示通过 Wake Federation 接收配置更新，独立工作台的受控 iframe 跨 Document 传递同一组字段。内层 Provider 的显式覆盖继续生效，配置切换保留示例实例与输入草稿。品牌 null 恢复当前设计默认，品牌和 nonce 的 undefined 继承最近边界。网站的“跟随系统”只在站点边界解析。
 
 ## 值与 DOM 事件
 

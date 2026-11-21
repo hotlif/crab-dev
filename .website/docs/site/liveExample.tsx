@@ -5,7 +5,7 @@ import Spin from "@crab-dev/rc-spin";
 import Preview from "@crab-dev/rc-component-preview";
 import { css } from "@crab-dev/css";
 import token from "@crab-dev/rc-token-semantic";
-import { subscribeTheme } from "./componentDemoFrame.js";
+import { subscribeTheme } from "./componentDemo.js";
 import { ErrorFeedback } from "./ui/feedback.js";
 
 export type ExampleLoader = () => Promise<{ default: ComponentType }>;

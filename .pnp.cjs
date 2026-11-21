@@ -893,6 +893,13 @@ const RAW_RUNTIME_STATE =
           ["@crab-dev/css", "npm:0.1.45"]\
         ],\
         "linkType": "HARD"\
+      }],\
+      ["npm:0.1.57", {\
+        "packageLocation": "./.yarn/cache/@crab-dev-css-npm-0.1.57-39f8831b60-81efc2cd42.zip/node_modules/@crab-dev/css/",\
+        "packageDependencies": [\
+          ["@crab-dev/css", "npm:0.1.57"]\
+        ],\
+        "linkType": "HARD"\
       }]\
     ]],\
     ["@crab-dev/rc-alert", [\
@@ -4557,6 +4564,13 @@ const RAW_RUNTIME_STATE =
         ],\
         "linkType": "SOFT"\
       }],\
+      ["npm:0.1.57", {\
+        "packageLocation": "./.yarn/cache/@crab-dev-wake-npm-0.1.57-3d44cad3c3-139fc04d76.zip/node_modules/@crab-dev/wake/",\
+        "packageDependencies": [\
+          ["@crab-dev/wake", "npm:0.1.57"]\
+        ],\
+        "linkType": "SOFT"\
+      }],\
       ["virtual:048d0d30fdd0148cbe5406e13a2a587413cad6fd1115208b149518980d8afffdaaf21a28e7ef1f34fb8c1f6ce03c7df10c8dee1f201ca18a02c98e4c3aab6323#npm:0.1.45", {\
         "packageLocation": "./.yarn/__virtual__/@crab-dev-wake-virtual-d6afe18570/0/cache/@crab-dev-wake-npm-0.1.45-63312d433d-b0484e008d.zip/node_modules/@crab-dev/wake/",\
         "packageDependencies": [\
@@ -4622,6 +4636,47 @@ const RAW_RUNTIME_STATE =
           ["@crab-dev/wake-linux-arm64-gnu", "npm:0.1.45"],\
           ["@crab-dev/wake-linux-x64-gnu", "npm:0.1.45"],\
           ["@crab-dev/wake-win32-x64-msvc", "npm:0.1.45"],\
+          ["@types/react", "npm:19.3.0"],\
+          ["@types/react-dom", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:19.3.0"],\
+          ["clipboardy", "npm:5.3.2"],\
+          ["lucide-react", "virtual:3839b5e80d0b61928d034dfc6b57dd77c9aa634201ed11bb166ff9acb013659069b77095ae45db4fa23aea982b33bde190ffcea4705005937b3875966b06037e#npm:1.23.0"],\
+          ["open", "npm:11.0.0"],\
+          ["react", "npm:19.3.0"],\
+          ["react-dom", "virtual:3f0f767a8b612425719206950d899926cb3d5104f45605249983d62d8c49ecd6ac0384f4e743c9d7d689ecc38d559ce4f4a0ca9be0545e40b4339321b79f9a1e#npm:19.3.0"],\
+          ["string-width", "npm:8.2.2"]\
+        ],\
+        "packagePeers": [\
+          "@types/react-dom",\
+          "@types/react",\
+          "react-dom",\
+          "react"\
+        ],\
+        "linkType": "HARD"\
+      }],\
+      ["virtual:1b1f9f0dc19a7adf2120a5e987bae4f0f266236699b6565e33df3ed5dd6a9f43439cfc5634671e6858a7d5ddd3263caa7fe47bcc4a3f4f620295f3ab20640ca8#npm:0.1.57", {\
+        "packageLocation": "./.yarn/__virtual__/@crab-dev-wake-virtual-a4b88ac3c3/0/cache/@crab-dev-wake-npm-0.1.57-3d44cad3c3-139fc04d76.zip/node_modules/@crab-dev/wake/",\
+        "packageDependencies": [\
+          ["@crab-dev/css", "npm:0.1.57"],\
+          ["@crab-dev/rc-alert", "virtual:3839b5e80d0b61928d034dfc6b57dd77c9aa634201ed11bb166ff9acb013659069b77095ae45db4fa23aea982b33bde190ffcea4705005937b3875966b06037e#workspace:components/rc-alert"],\
+          ["@crab-dev/rc-button", "virtual:3839b5e80d0b61928d034dfc6b57dd77c9aa634201ed11bb166ff9acb013659069b77095ae45db4fa23aea982b33bde190ffcea4705005937b3875966b06037e#workspace:components/rc-button"],\
+          ["@crab-dev/rc-dialog", "virtual:3839b5e80d0b61928d034dfc6b57dd77c9aa634201ed11bb166ff9acb013659069b77095ae45db4fa23aea982b33bde190ffcea4705005937b3875966b06037e#workspace:components/rc-dialog"],\
+          ["@crab-dev/rc-drawer", "virtual:3839b5e80d0b61928d034dfc6b57dd77c9aa634201ed11bb166ff9acb013659069b77095ae45db4fa23aea982b33bde190ffcea4705005937b3875966b06037e#workspace:components/rc-drawer"],\
+          ["@crab-dev/rc-empty", "virtual:3839b5e80d0b61928d034dfc6b57dd77c9aa634201ed11bb166ff9acb013659069b77095ae45db4fa23aea982b33bde190ffcea4705005937b3875966b06037e#workspace:components/rc-empty"],\
+          ["@crab-dev/rc-line-edit", "virtual:3839b5e80d0b61928d034dfc6b57dd77c9aa634201ed11bb166ff9acb013659069b77095ae45db4fa23aea982b33bde190ffcea4705005937b3875966b06037e#workspace:components/rc-line-edit"],\
+          ["@crab-dev/rc-number-edit", "virtual:3839b5e80d0b61928d034dfc6b57dd77c9aa634201ed11bb166ff9acb013659069b77095ae45db4fa23aea982b33bde190ffcea4705005937b3875966b06037e#workspace:components/rc-number-edit"],\
+          ["@crab-dev/rc-segmented", "virtual:3839b5e80d0b61928d034dfc6b57dd77c9aa634201ed11bb166ff9acb013659069b77095ae45db4fa23aea982b33bde190ffcea4705005937b3875966b06037e#workspace:components/rc-segmented"],\
+          ["@crab-dev/rc-select", "virtual:3839b5e80d0b61928d034dfc6b57dd77c9aa634201ed11bb166ff9acb013659069b77095ae45db4fa23aea982b33bde190ffcea4705005937b3875966b06037e#workspace:components/rc-select"],\
+          ["@crab-dev/rc-switch", "virtual:3839b5e80d0b61928d034dfc6b57dd77c9aa634201ed11bb166ff9acb013659069b77095ae45db4fa23aea982b33bde190ffcea4705005937b3875966b06037e#workspace:components/rc-switch"],\
+          ["@crab-dev/rc-tag", "virtual:3839b5e80d0b61928d034dfc6b57dd77c9aa634201ed11bb166ff9acb013659069b77095ae45db4fa23aea982b33bde190ffcea4705005937b3875966b06037e#workspace:components/rc-tag"],\
+          ["@crab-dev/rc-text-edit", "virtual:3839b5e80d0b61928d034dfc6b57dd77c9aa634201ed11bb166ff9acb013659069b77095ae45db4fa23aea982b33bde190ffcea4705005937b3875966b06037e#workspace:components/rc-text-edit"],\
+          ["@crab-dev/rc-tooltip", "virtual:3839b5e80d0b61928d034dfc6b57dd77c9aa634201ed11bb166ff9acb013659069b77095ae45db4fa23aea982b33bde190ffcea4705005937b3875966b06037e#workspace:components/rc-tooltip"],\
+          ["@crab-dev/rc-tree", "virtual:3839b5e80d0b61928d034dfc6b57dd77c9aa634201ed11bb166ff9acb013659069b77095ae45db4fa23aea982b33bde190ffcea4705005937b3875966b06037e#workspace:components/rc-tree"],\
+          ["@crab-dev/wake", "virtual:1b1f9f0dc19a7adf2120a5e987bae4f0f266236699b6565e33df3ed5dd6a9f43439cfc5634671e6858a7d5ddd3263caa7fe47bcc4a3f4f620295f3ab20640ca8#npm:0.1.57"],\
+          ["@crab-dev/wake-darwin-arm64", "npm:0.1.57"],\
+          ["@crab-dev/wake-darwin-x64", "npm:0.1.57"],\
+          ["@crab-dev/wake-linux-arm64-gnu", "npm:0.1.57"],\
+          ["@crab-dev/wake-linux-x64-gnu", "npm:0.1.57"],\
+          ["@crab-dev/wake-win32-x64-msvc", "npm:0.1.57"],\
           ["@types/react", "npm:19.3.0"],\
           ["@types/react-dom", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:19.3.0"],\
           ["clipboardy", "npm:5.3.2"],\
@@ -5303,6 +5358,13 @@ const RAW_RUNTIME_STATE =
           ["@crab-dev/wake-darwin-arm64", "npm:0.1.45"]\
         ],\
         "linkType": "HARD"\
+      }],\
+      ["npm:0.1.57", {\
+        "packageLocation": "./.yarn/unplugged/@crab-dev-wake-darwin-arm64-npm-0.1.57-54e72cb4bc/node_modules/@crab-dev/wake-darwin-arm64/",\
+        "packageDependencies": [\
+          ["@crab-dev/wake-darwin-arm64", "npm:0.1.57"]\
+        ],\
+        "linkType": "HARD"\
       }]\
     ]],\
     ["@crab-dev/wake-darwin-x64", [\
@@ -5310,6 +5372,13 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/unplugged/@crab-dev-wake-darwin-x64-npm-0.1.45-39c0950cc4/node_modules/@crab-dev/wake-darwin-x64/",\
         "packageDependencies": [\
           ["@crab-dev/wake-darwin-x64", "npm:0.1.45"]\
+        ],\
+        "linkType": "HARD"\
+      }],\
+      ["npm:0.1.57", {\
+        "packageLocation": "./.yarn/unplugged/@crab-dev-wake-darwin-x64-npm-0.1.57-cf1e46470f/node_modules/@crab-dev/wake-darwin-x64/",\
+        "packageDependencies": [\
+          ["@crab-dev/wake-darwin-x64", "npm:0.1.57"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -5321,6 +5390,13 @@ const RAW_RUNTIME_STATE =
           ["@crab-dev/wake-linux-arm64-gnu", "npm:0.1.45"]\
         ],\
         "linkType": "HARD"\
+      }],\
+      ["npm:0.1.57", {\
+        "packageLocation": "./.yarn/unplugged/@crab-dev-wake-linux-arm64-gnu-npm-0.1.57-76933abc6e/node_modules/@crab-dev/wake-linux-arm64-gnu/",\
+        "packageDependencies": [\
+          ["@crab-dev/wake-linux-arm64-gnu", "npm:0.1.57"]\
+        ],\
+        "linkType": "HARD"\
       }]\
     ]],\
     ["@crab-dev/wake-linux-x64-gnu", [\
@@ -5328,6 +5404,13 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/unplugged/@crab-dev-wake-linux-x64-gnu-npm-0.1.45-a226a2e410/node_modules/@crab-dev/wake-linux-x64-gnu/",\
         "packageDependencies": [\
           ["@crab-dev/wake-linux-x64-gnu", "npm:0.1.45"]\
+        ],\
+        "linkType": "HARD"\
+      }],\
+      ["npm:0.1.57", {\
+        "packageLocation": "./.yarn/unplugged/@crab-dev-wake-linux-x64-gnu-npm-0.1.57-37efd13311/node_modules/@crab-dev/wake-linux-x64-gnu/",\
+        "packageDependencies": [\
+          ["@crab-dev/wake-linux-x64-gnu", "npm:0.1.57"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -5339,6 +5422,13 @@ const RAW_RUNTIME_STATE =
           ["@crab-dev/wake-win32-x64-msvc", "npm:0.1.45"]\
         ],\
         "linkType": "HARD"\
+      }],\
+      ["npm:0.1.57", {\
+        "packageLocation": "./.yarn/unplugged/@crab-dev-wake-win32-x64-msvc-npm-0.1.57-fad49834e0/node_modules/@crab-dev/wake-win32-x64-msvc/",\
+        "packageDependencies": [\
+          ["@crab-dev/wake-win32-x64-msvc", "npm:0.1.57"]\
+        ],\
+        "linkType": "HARD"\
       }]\
     ]],\
     ["@crab-dev/website", [\
@@ -5346,7 +5436,7 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.website/",\
         "packageDependencies": [\
           ["@babel/parser", "npm:7.29.8"],\
-          ["@crab-dev/css", "npm:0.1.45"],\
+          ["@crab-dev/css", "npm:0.1.57"],\
           ["@crab-dev/rc-alert", "virtual:3839b5e80d0b61928d034dfc6b57dd77c9aa634201ed11bb166ff9acb013659069b77095ae45db4fa23aea982b33bde190ffcea4705005937b3875966b06037e#workspace:components/rc-alert"],\
           ["@crab-dev/rc-app-main-layout", "virtual:1b1f9f0dc19a7adf2120a5e987bae4f0f266236699b6565e33df3ed5dd6a9f43439cfc5634671e6858a7d5ddd3263caa7fe47bcc4a3f4f620295f3ab20640ca8#workspace:components/rc-app-main-layout"],\
           ["@crab-dev/rc-auto-sizer", "virtual:07e9e937eb1f2b0250254cb775d3d9af9b962a467141874c76d2dbad8e8465c4a87e851e53f734482b2dffcd19d8eae394338b1e395590ff073d80855fa2dec1#workspace:components/rc-auto-sizer"],\
@@ -5402,7 +5492,7 @@ const RAW_RUNTIME_STATE =
           ["@crab-dev/rc-tree", "virtual:3839b5e80d0b61928d034dfc6b57dd77c9aa634201ed11bb166ff9acb013659069b77095ae45db4fa23aea982b33bde190ffcea4705005937b3875966b06037e#workspace:components/rc-tree"],\
           ["@crab-dev/rc-virtual", "virtual:bee81ec828460ea1c2886796dc042ec355e19f62c3a5ddd145fb522a5f8ae7ac380f476d21faea73b8ffedf52b65e5848ec193a92dd5bb2904308ecab2ed0167#workspace:components/rc-virtual"],\
           ["@crab-dev/standards-typescript-preset", "workspace:standards/typescript-preset"],\
-          ["@crab-dev/wake", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:0.1.45"],\
+          ["@crab-dev/wake", "virtual:1b1f9f0dc19a7adf2120a5e987bae4f0f266236699b6565e33df3ed5dd6a9f43439cfc5634671e6858a7d5ddd3263caa7fe47bcc4a3f4f620295f3ab20640ca8#npm:0.1.57"],\
           ["@crab-dev/website", "workspace:.website"],\
           ["@types/node", "npm:22.20.2"],\
           ["@types/react", "npm:19.3.0"],\

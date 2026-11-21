@@ -7,10 +7,10 @@ import { useRef, useState } from "react";
 import { useConfig } from "@crab-dev/rc-config-provider";
 import type { ComponentDesignDocuments } from "./componentDesignGuide.js";
 import { useSiteHref } from "./siteContext.js";
-import ComponentDemoFrame, {
+import ComponentDemo, {
     EmptyComponentDemos,
     type ComponentDemoCodeTheme,
-} from "./componentDemoFrame.js";
+} from "./componentDemo.js";
 
 export interface ComponentDemoRecord {
     readonly id: string;
@@ -75,13 +75,13 @@ function DemoCard({ demo }: { readonly demo: ComponentDemoRecord }) {
             title={demo.title}
             description={demo.description}
             sourceCode={demo.sourceCode}
-            path={href(demo.previewPath)}
+            path={href(demo.workbenchPath)}
             density={demo.density}
             codeTheme={codeTheme}
             data-component-demo-id={demo.id}
             data-demo-layout={demo.layout}
         >
-            <ComponentDemoFrame demo={demo} onThemeChange={setCodeTheme} />
+            <ComponentDemo demo={demo} onThemeChange={setCodeTheme} />
         </Preview>
     );
 }
@@ -153,9 +153,7 @@ export default function ComponentDemos({ demos, documents }: ComponentDemosProps
     if (documents) {
         const allowed = new Set(documents[designSystem].demos.map(name => `docs/demos/${name}`));
         const selected = demos.filter(demo => allowed.has(demo.id));
-        // Keep common frames in their source order. Moving even the same iframe
-        // DOM node can reload its document in a browser. The hero independently
-        // selects the design's featured example without reordering live inputs.
+        // Keep common examples mounted in source order across design changes.
         return <div className={collectionStyle} data-design-examples={designSystem}>
             {selected.map(demo => <DemoCard key={demo.id} demo={demo} />)}
         </div>;

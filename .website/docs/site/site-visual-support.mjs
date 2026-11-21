@@ -31,7 +31,7 @@ export async function readySitePage(page,definition,config) {
     await assertSiteConfiguration(page,config);
     await page.evaluate(() => globalThis.document.fonts.ready);
     if(definition.id==='component') {
-        await expect(page.locator('[data-component-hero="rc-line-edit"] iframe')).toHaveAttribute('aria-busy','false',{timeout:20_000});
+        await expect(page.locator('[data-component-hero="rc-line-edit"] [data-federated-demo]')).toHaveAttribute('aria-busy','false',{timeout:20_000});
     }
     if(definition.id==='tutorial') {
         await expect(page.locator('[data-tutorial="practice-profile"]').getByRole('textbox',{name:'姓名',exact:true})).toBeVisible();
@@ -43,11 +43,11 @@ export async function openSite(page,origin,definition,config) {
     await page.emulateMedia({colorScheme:config.colorMode});
     // This models an existing preference before the real Root mounts. Subsequent
     // real UI choices must survive reload, so initialization never overwrites them.
-    await page.addInitScript(initial => {
-        if(globalThis.location.hostname!=='127.0.0.1') return;
+    await page.addInitScript(({ initial, siteOrigin }) => {
+        if(globalThis.location.origin!==siteOrigin) return;
         if(globalThis.localStorage.getItem('crab-docs-design')===null) globalThis.localStorage.setItem('crab-docs-design',initial.designSystem);
         if(globalThis.localStorage.getItem('wake-docs-theme')===null) globalThis.localStorage.setItem('wake-docs-theme',initial.colorMode);
-    },config);
+    },{ initial: config, siteOrigin: new URL(origin).origin });
     const response=await page.goto(origin+definition.path);
     expect(response.status()).toBe(200);
     await readySitePage(page,definition,config);

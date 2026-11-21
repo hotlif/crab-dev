@@ -94,7 +94,9 @@ for (const config of configurations) for (const viewport of [{ id: 'narrow', wid
     annotation: { type: 'site', description: JSON.stringify({ ...config, environment: viewport.id, state: 'api-demo-and-search-recovery' }) },
 }, async ({ page, previewOrigin }, info) => {
     await page.setViewportSize({ width: viewport.width, height: viewport.height });
-    await openSite(page, previewOrigin, component, config);
+    const demoLock = '**/federated-demos/lock.json';
+    await page.route(demoLock, route => route.abort('failed'));
+    await openSite(page, previewOrigin, { ...component, id: 'component-feedback' }, config);
     const prefix = [config.designSystem, config.colorMode, viewport.id].join('-');
     const api = page.locator('.crab-docs-api').first();
     await expect.poll(() => api.locator('.crab-docs-properties > div').count()).toBeGreaterThan(0);
@@ -109,23 +111,20 @@ for (const config of configurations) for (const viewport of [{ id: 'narrow', wid
     await expect.poll(() => api.locator('.crab-docs-properties > div').count()).toBeGreaterThan(0);
 
     const demo = page.locator('[data-component-demo-id]').first();
-    const frame = demo.locator('iframe');
+    const preview = demo.locator('[data-federated-demo]');
     await demo.scrollIntoViewIfNeeded();
-    await expect(frame).toHaveAttribute('aria-busy', 'false', { timeout: 20_000 });
-    await (await frame.elementHandle()).contentFrame().then(child => child.evaluate(() => {
-        globalThis.parent.postMessage({ type: 'wake:error', error: 'The example could not be loaded: diagnostic-resource.js' }, globalThis.location.origin);
-    }));
     await expect(demo.getByRole('alert')).toContainText('演示加载失败');
     await expect(demo.getByRole('alert')).not.toContainText('diagnostic-resource.js');
     await expect(demo.locator('.crab-docs-error-details')).not.toHaveAttribute('open');
     await expect(demo.getByRole('link', { name: '在工作台中打开（新窗口）', exact: true })).toHaveAttribute('target', '_blank');
     await demo.scrollIntoViewIfNeeded();
     await captureFeedback(page, prefix + '-demo-error', info);
+    await page.unroute(demoLock);
     const retry = demo.getByRole('button', { name: '重新加载演示', exact: true });
     await retry.focus();
     await page.keyboard.press('Enter');
-    await expect(frame).toHaveAttribute('aria-busy', 'false', { timeout: 20_000 });
-    await expect(frame).toBeFocused();
+    await expect(preview).toHaveAttribute('aria-busy', 'false', { timeout: 20_000 });
+    await expect(preview).toBeFocused();
 
     await page.route(searchModule, route => route.abort('failed'));
     await page.getByRole('button', { name: '搜索文档', exact: true }).click();

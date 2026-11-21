@@ -46,14 +46,14 @@ for (const designSystem of ['md3', 'macos', 'shadcn']) for (const colorMode of [
         await expect(page.locator('[data-design-example-description]')).toHaveText(documents[designSystem].exampleDescription);
         const demos = page.locator('[data-design-examples] [data-component-demo-id]');
         await expect(demos).toHaveCount(documents[designSystem].demos.length);
-        await expect(page.locator('[data-component-hero] iframe')).toHaveAttribute('src', new RegExp(encodeURIComponent(`docs/demos/${documents[designSystem].demos[0]}`).replaceAll('.', '\\.')));
+        await expect(page.locator('[data-component-hero] [data-demo-id]')).toHaveAttribute('data-demo-id', 'docs/demos/' + documents[designSystem].demos[0]);
         if (designSystem !== 'macos') await expect(page.locator('[data-component-demo-id="docs/demos/macos.demo.tsx"]')).toHaveCount(0);
         if (designSystem !== 'md3') await expect(page.locator('[data-component-demo-id="docs/demos/expressive.demo.tsx"]')).toHaveCount(0);
-        const frame = page.locator('[data-component-hero] iframe');
-        await expect(frame).toBeVisible();
-        await expect(frame.contentFrame().locator('html')).toHaveAttribute('data-crab-design', designSystem);
-        await expect(frame.contentFrame().locator('[data-crab-design]').first()).toBeVisible();
-        expect(await frame.contentFrame().locator(`[data-crab-design]:not([data-crab-design="${designSystem}"])`).count()).toBe(0);
+        const preview = page.locator('[data-component-hero] [data-federated-demo]');
+        await expect(preview).toBeVisible();
+        await expect(preview.locator('.crab-federated-demo')).toHaveAttribute('data-crab-design', designSystem);
+        await expect(preview.locator('[data-crab-design]').first()).toBeVisible();
+        expect(await preview.locator(`[data-crab-design]:not([data-crab-design="${designSystem}"])`).count()).toBe(0);
         const references = await page.locator('[data-design-guide] a').evaluateAll(nodes => nodes.map(node => node.href).join(' '));
         if (designSystem === 'md3') expect(references).not.toMatch(/apple|shadcn/i);
         if (designSystem === 'macos') expect(references).not.toMatch(/material|shadcn/i);
@@ -76,8 +76,8 @@ for (const designSystem of ['md3', 'macos', 'shadcn']) for (const colorMode of [
         const menu = await openAppearance(page, { keyboard: true });
         await page.keyboard.press('Escape');
         await expect(menu).not.toBeVisible();
-        await expect(frame).toBeVisible();
-        await expect(frame).toHaveAttribute('aria-busy', 'false');
+        await expect(preview).toBeVisible();
+        await expect(preview).toHaveAttribute('aria-busy', 'false');
         await captureVisual(page, `docs-${designSystem}-${colorMode}-mobile.png`, info);
         await page.emulateMedia({ forcedColors: 'active', reducedMotion: 'reduce' });
         await expect(page.getByRole('button', { name: /^文档外观：/ })).toBeFocused();
@@ -89,16 +89,130 @@ test('document switching preserves the common live input and updates its design'
     await openSite(page, previewOrigin, { path: '/components/rc-line-edit', heading: 'LineEdit 单行输入框' }, { designSystem: 'md3', colorMode: 'light' });
     const card = page.locator('[data-component-demo-id="docs/demos/simple.demo.tsx"]');
     await card.scrollIntoViewIfNeeded();
-    const iframe = card.locator('iframe');
-    const input = iframe.contentFrame().getByRole('textbox').first();
+    const preview = card.locator('[data-federated-demo]');
+    await expect(page.locator('[data-presentation] iframe')).toHaveCount(0);
+    const input = preview.getByRole('textbox').first();
     await input.fill('切换主题保留的草稿');
-    const handle = await iframe.elementHandle();
+    const handle = await input.elementHandle();
     for (const design of ['macos', 'shadcn', 'md3']) {
         await chooseDesign(page, design);
-        expect(await iframe.evaluate((node, previous) => node === previous, handle)).toBe(true);
+        expect(await input.evaluate((node, previous) => node === previous, handle)).toBe(true);
         await expect(input).toHaveValue('切换主题保留的草稿');
-        await expect(iframe.contentFrame().locator('html')).toHaveAttribute('data-crab-design', design);
+        await expect(preview.locator('.crab-federated-demo')).toHaveAttribute('data-crab-design', design);
         await expect(page.locator('[data-design-document]')).toHaveAttribute('data-design-document', design);
     }
     await handle.dispose();
+});
+
+for (const failed of [false, true]) {
+    test(`offscreen preload resumes after the hero ${failed ? 'fails' : 'loads'}`, async ({ page, previewOrigin }) => {
+        await page.setViewportSize({ width: 1440, height: 820 });
+        const lock = Promise.withResolvers();
+        await page.route('**/federated-demos/lock.json', async route => {
+            await lock.promise;
+            if (failed) await route.fulfill({ status: 503 });
+            else await route.continue();
+        }, { times: 1 });
+        try {
+            await openSite(page, previewOrigin, definition, { designSystem: 'md3', colorMode: 'light' });
+            const hero = page.locator('[data-component-hero="rc-button"]');
+            const demos = page.locator('[data-design-examples] [data-presentation="interactive"]');
+            const entered = demos.nth(3);
+            const nearby = demos.nth(5);
+            const placeBelowViewport = demo => demo.evaluate(async node => {
+                window.scrollBy({ top: node.getBoundingClientRect().top - window.innerHeight - 100, behavior: 'instant' });
+                await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+                return node.getBoundingClientRect().top - window.innerHeight;
+            });
+
+            expect(await placeBelowViewport(entered)).toBeGreaterThan(0);
+            await expect(entered.getByText('演示进入可视区域后加载', { exact: true })).toBeVisible();
+            await entered.scrollIntoViewIfNeeded();
+            await expect(entered.getByText('正在加载交互演示…', { exact: true })).toBeVisible();
+
+            const distance = await placeBelowViewport(nearby);
+            expect(distance).toBeGreaterThan(0);
+            expect(distance).toBeLessThan(300);
+            await expect(nearby.getByText('演示进入可视区域后加载', { exact: true })).toBeVisible();
+            lock.resolve();
+            if (failed) {
+                await expect(hero.getByText('预览暂时无法显示。', { exact: true })).toBeVisible();
+                // Visible cards can grow to show retry actions after the shared lock fails.
+                const distanceAfterFailure = await placeBelowViewport(nearby);
+                expect(distanceAfterFailure).toBeGreaterThan(0);
+                expect(distanceAfterFailure).toBeLessThan(300);
+            } else {
+                await expect(hero.locator('[data-federated-demo]')).toHaveAttribute('aria-busy', 'false');
+            }
+            await expect(nearby.locator('[data-federated-demo] .crab-federated-demo')).toBeVisible();
+            expect(await nearby.evaluate(node => node.getBoundingClientRect().top)).toBeGreaterThan(820);
+        } finally {
+            lock.resolve();
+        }
+    });
+}
+
+test('production demos share parallel verified GETs over HTTPS', async ({ page, previewOrigin }) => {
+    const productionOrigin = 'https://crab-docs.test';
+    const verifiedGets = new Map();
+    let headRequests = 0;
+    let pendingVerifications = 0;
+    let concurrentVerifications = 0;
+    let corruptStyles = false;
+    let corruptedResponses = 0;
+
+    await page.route(productionOrigin + '/**', async route => {
+        const request = route.request();
+        const url = new URL(request.url());
+        const asset = url.pathname.startsWith('/federated-demos/') && url.pathname.includes('/federation/');
+        const verification = asset && request.method() === 'GET' && request.resourceType() === 'fetch';
+        if (verification) {
+            verifiedGets.set(url.pathname, (verifiedGets.get(url.pathname) ?? 0) + 1);
+            pendingVerifications++;
+            concurrentVerifications = Math.max(pendingVerifications, concurrentVerifications);
+        }
+        try {
+            const response = await route.fetch({ url: new URL(url.pathname + url.search, previewOrigin).href });
+            if (asset && request.method() === 'HEAD') {
+                headRequests++;
+                const headers = response.headers();
+                delete headers['content-length'];
+                await route.fulfill({ status: response.status(), headers });
+            } else if (verification && corruptStyles && url.pathname.endsWith('.css')) {
+                const body = await response.body();
+                body[0] ^= 1;
+                corruptedResponses++;
+                await route.fulfill({ response, body });
+            } else {
+                await route.fulfill({ response });
+            }
+        } finally {
+            if (verification) pendingVerifications--;
+        }
+    });
+
+    await openSite(page, productionOrigin, definition, { designSystem: 'md3', colorMode: 'light' });
+    const cards = page.locator('[data-design-examples] [data-component-demo-id]');
+    await expect(cards).toHaveCount(documents.md3.demos.length);
+    for (const card of await cards.all()) {
+        await card.scrollIntoViewIfNeeded();
+        await expect(card.locator('[data-federated-demo] .crab-federated-demo')).toBeVisible({ timeout: 20_000 });
+    }
+
+    await expect(page.locator('[data-presentation] iframe')).toHaveCount(0);
+    expect(headRequests).toBe(0);
+    expect(verifiedGets.size).toBeGreaterThan(0);
+    expect([...verifiedGets.values()].every(count => count === 1)).toBe(true);
+    expect(concurrentVerifications).toBeGreaterThan(1);
+    const stylesheetIntegrity = await cards.first().locator('[data-federated-demo]').evaluate(host =>
+        Array.from(host.shadowRoot.querySelectorAll('link[rel="stylesheet"]'), link => link.integrity));
+    expect(stylesheetIntegrity.length).toBeGreaterThan(0);
+    expect(stylesheetIntegrity.every(value => value.startsWith('sha384-'))).toBe(true);
+
+    corruptStyles = true;
+    await page.reload();
+    await cards.first().scrollIntoViewIfNeeded();
+    await expect(cards.first().getByRole('alert')).toContainText('演示加载失败');
+    await expect(cards.first().locator('[data-federated-demo] .crab-federated-demo')).toHaveCount(0);
+    expect(corruptedResponses).toBeGreaterThan(0);
 });
