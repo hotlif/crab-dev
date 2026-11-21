@@ -135,8 +135,15 @@ for (const failed of [false, true]) {
             expect(distance).toBeLessThan(300);
             await expect(nearby.getByText('演示进入可视区域后加载', { exact: true })).toBeVisible();
             lock.resolve();
-            if (failed) await expect(hero.getByText('预览暂时无法显示。', { exact: true })).toBeVisible();
-            else await expect(hero.locator('[data-federated-demo]')).toHaveAttribute('aria-busy', 'false');
+            if (failed) {
+                await expect(hero.getByText('预览暂时无法显示。', { exact: true })).toBeVisible();
+                // Visible cards can grow to show retry actions after the shared lock fails.
+                const distanceAfterFailure = await placeBelowViewport(nearby);
+                expect(distanceAfterFailure).toBeGreaterThan(0);
+                expect(distanceAfterFailure).toBeLessThan(300);
+            } else {
+                await expect(hero.locator('[data-federated-demo]')).toHaveAttribute('aria-busy', 'false');
+            }
             await expect(nearby.locator('[data-federated-demo] .crab-federated-demo')).toBeVisible();
             expect(await nearby.evaluate(node => node.getBoundingClientRect().top)).toBeGreaterThan(820);
         } finally {
