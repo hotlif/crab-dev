@@ -16,7 +16,9 @@ import { resolveSiteHref } from "../siteContext.js";
 import { PageSections } from "../documentNavigation.js";
 
 import SiteIcon from "../siteIcon.js";
+import { ComponentDemoScope } from "../componentDemo.js";
 import ComponentHeroPreview from "../componentHeroPreview.js";
+import { isStandaloneDemo } from "../demoDelivery.mjs";
 import { SearchIcon } from "./icons.js";
 import { follow } from "./navigation.js";
 export { default as PageLoading } from "./page-loading.js";
@@ -119,6 +121,7 @@ export function Page({ page, previous, next, route, site, children }: UI.PagePro
     const packageName = page.slug.split("/").at(-1) ?? "";
     const previews: Readonly<Partial<Record<string, ComponentPreviewRecord>>> = componentPreviews;
     const preview = previews[packageName]?.designs?.[designSystem] ?? previews[packageName];
+    const hasFederatedHero = component && preview !== undefined && !isStandaloneDemo(`${packageName}/${preview.id}`);
     // The hero changes height with content and viewport width; share its measured height with sticky offsets.
     useEffect(() => {
         if (home || catalog) return;
@@ -164,6 +167,7 @@ export function Page({ page, previous, next, route, site, children }: UI.PagePro
     return (
         <article ref={article} className="crab-docs-page" data-home={home} data-component={component} data-reading={!home && !catalog}
             onFocusCapture={revealDocumentLink}>
+            <ComponentDemoScope key={page.slug} hasHero={hasFederatedHero}>
             <div className="crab-docs-page-main">
                 {!home && (
                     <div className="crab-docs-page-hero">
@@ -195,6 +199,7 @@ export function Page({ page, previous, next, route, site, children }: UI.PagePro
                     : <div className="crab-docs-prose">{children}</div>}
                 {pageTail}
             </div>
+            </ComponentDemoScope>
         </article>
     );
 }

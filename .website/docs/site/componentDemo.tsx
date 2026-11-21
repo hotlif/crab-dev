@@ -6,7 +6,7 @@ import { useConfig, type ConfigValue } from "@crab-dev/rc-config-provider";
 import token from "@crab-dev/rc-token-semantic";
 import { getFederationRuntime, type FederationRemoteLock } from "@crab-dev/wake/federation";
 import { createFederatedIsolatedBridge, type IsolatedBridgeController } from "@crab-dev/wake/federation/react";
-import { useEffect, useRef, useState } from "react";
+import { createContext, use, useEffect, useRef, useState, type ReactNode } from "react";
 import type { ComponentDemoRecord } from "./componentDemos.js";
 import { useSiteHref } from "./siteContext.js";
 import { isStandaloneDemo } from "./demoDelivery.mjs";
@@ -68,41 +68,63 @@ const loadingStyle = css`
 
 type VisibilityCallback = () => void;
 
-const visibilityCallbacks = new Map<Element, VisibilityCallback>();
-let visibilityObserver: IntersectionObserver | null = null;
-
-function releaseVisibilityObserver() {
-    if (visibilityCallbacks.size > 0) return;
-    visibilityObserver?.disconnect();
-    visibilityObserver = null;
+interface DemoVisibility {
+    readonly callbacks: Map<Element, VisibilityCallback>;
+    observer?: IntersectionObserver;
 }
 
-function observeWhenNear(element: Element, callback: VisibilityCallback): () => void {
+const inViewport: DemoVisibility = { callbacks: new Map() };
+const nearViewport: DemoVisibility = { callbacks: new Map() };
+const DemoPreloadContext = createContext<{
+    readonly allowPreload: boolean;
+    readonly setHeroSettled: (settled: true) => void;
+} | null>(null);
+
+export function ComponentDemoScope({ hasHero, children }: {
+    readonly hasHero: boolean;
+    readonly children: ReactNode;
+}) {
+    const [heroSettled, setHeroSettled] = useState(false);
+    return <DemoPreloadContext value={{ allowPreload: !hasHero || heroSettled, setHeroSettled }}>
+        {children}
+    </DemoPreloadContext>;
+}
+
+function releaseVisibilityObserver(visibility: DemoVisibility) {
+    if (visibility.callbacks.size > 0) return;
+    visibility.observer?.disconnect();
+    delete visibility.observer;
+}
+
+function observeVisibility(element: Element, callback: VisibilityCallback, allowPreload: boolean): () => void {
     if (typeof IntersectionObserver === "undefined") {
         callback();
         return () => {};
     }
 
-    visibilityObserver ??= new IntersectionObserver((entries) => {
+    const visibility = allowPreload ? nearViewport : inViewport;
+    const { callbacks } = visibility;
+    visibility.observer ??= new IntersectionObserver((entries, observer) => {
+        if (visibility.observer !== observer) return;
         for (const entry of entries) {
             if (!entry.isIntersecting) continue;
-            const nextCallback = visibilityCallbacks.get(entry.target);
+            const nextCallback = callbacks.get(entry.target);
             if (!nextCallback) continue;
-            visibilityCallbacks.delete(entry.target);
-            visibilityObserver?.unobserve(entry.target);
+            callbacks.delete(entry.target);
+            observer.unobserve(entry.target);
             nextCallback();
         }
-        releaseVisibilityObserver();
-    }, { rootMargin: "300px" });
+        releaseVisibilityObserver(visibility);
+    }, { rootMargin: allowPreload ? "300px" : "0px" });
 
-    visibilityCallbacks.set(element, callback);
-    visibilityObserver.observe(element);
+    callbacks.set(element, callback);
+    visibility.observer.observe(element);
 
     return () => {
-        if (visibilityCallbacks.get(element) !== callback) return;
-        visibilityCallbacks.delete(element);
-        visibilityObserver?.unobserve(element);
-        releaseVisibilityObserver();
+        if (callbacks.get(element) !== callback) return;
+        callbacks.delete(element);
+        visibility.observer?.unobserve(element);
+        releaseVisibilityObserver(visibility);
     };
 }
 
@@ -173,6 +195,9 @@ export function EmptyComponentDemos() {
 export default function ComponentDemo({ demo, presentation = "interactive", onThemeChange }: ComponentDemoProps) {
     const href = useSiteHref();
     const config = useConfig();
+    const policy = use(DemoPreloadContext);
+    const allowPreload = policy?.allowPreload ?? true;
+    const setHeroSettled = policy?.setHeroSettled;
     const artwork = presentation === "artwork";
     const component = demo.previewPath.match(/^\/components\/([^/]+)\//)?.[1] ?? "";
     const id = component + "/" + demo.id;
@@ -195,8 +220,12 @@ export default function ComponentDemo({ demo, presentation = "interactive", onTh
     useEffect(() => {
         const element = container.current;
         if (visible || standalone || !element) return;
-        return observeWhenNear(element, () => setVisible(true));
-    }, [visible, standalone]);
+        return observeVisibility(element, () => setVisible(true), allowPreload);
+    }, [visible, standalone, allowPreload]);
+
+    useEffect(() => {
+        if (artwork && (ready || error)) setHeroSettled?.(true);
+    }, [artwork, ready, error, setHeroSettled]);
 
     useEffect(() => {
         const props = { ...config, id, nonce: config.nonce ?? null };

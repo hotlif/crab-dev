@@ -104,6 +104,47 @@ test('document switching preserves the common live input and updates its design'
     await handle.dispose();
 });
 
+for (const failed of [false, true]) {
+    test(`offscreen preload resumes after the hero ${failed ? 'fails' : 'loads'}`, async ({ page, previewOrigin }) => {
+        await page.setViewportSize({ width: 1440, height: 820 });
+        const lock = Promise.withResolvers();
+        await page.route('**/federated-demos/lock.json', async route => {
+            await lock.promise;
+            if (failed) await route.fulfill({ status: 503 });
+            else await route.continue();
+        }, { times: 1 });
+        try {
+            await openSite(page, previewOrigin, definition, { designSystem: 'md3', colorMode: 'light' });
+            const hero = page.locator('[data-component-hero="rc-button"]');
+            const demos = page.locator('[data-design-examples] [data-presentation="interactive"]');
+            const entered = demos.nth(3);
+            const nearby = demos.nth(5);
+            const placeBelowViewport = demo => demo.evaluate(async node => {
+                window.scrollBy({ top: node.getBoundingClientRect().top - window.innerHeight - 100, behavior: 'instant' });
+                await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+                return node.getBoundingClientRect().top - window.innerHeight;
+            });
+
+            expect(await placeBelowViewport(entered)).toBeGreaterThan(0);
+            await expect(entered.getByText('演示进入可视区域后加载', { exact: true })).toBeVisible();
+            await entered.scrollIntoViewIfNeeded();
+            await expect(entered.getByText('正在加载交互演示…', { exact: true })).toBeVisible();
+
+            const distance = await placeBelowViewport(nearby);
+            expect(distance).toBeGreaterThan(0);
+            expect(distance).toBeLessThan(300);
+            await expect(nearby.getByText('演示进入可视区域后加载', { exact: true })).toBeVisible();
+            lock.resolve();
+            if (failed) await expect(hero.getByText('预览暂时无法显示。', { exact: true })).toBeVisible();
+            else await expect(hero.locator('[data-federated-demo]')).toHaveAttribute('aria-busy', 'false');
+            await expect(nearby.locator('[data-federated-demo] .crab-federated-demo')).toBeVisible();
+            expect(await nearby.evaluate(node => node.getBoundingClientRect().top)).toBeGreaterThan(820);
+        } finally {
+            lock.resolve();
+        }
+    });
+}
+
 test('production demos share parallel verified GETs over HTTPS', async ({ page, previewOrigin }) => {
     const productionOrigin = 'https://crab-docs.test';
     const verifiedGets = new Map();
