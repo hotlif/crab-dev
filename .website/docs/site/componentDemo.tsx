@@ -37,11 +37,12 @@ function getDemoRuntime(lockHref: string) {
         const lock: FederationRemoteLock = await response.json();
         const manifestUrl = new URL(encodeURIComponent(lock.buildId) + "/wake-federation.json", lockUrl);
         const local = ["localhost", "127.0.0.1", "[::1]"].includes(manifestUrl.hostname);
+        const development = local && manifestUrl.protocol === "http:";
         const runtime = getFederationRuntime();
         runtime.registerRemote({
             name: remoteName,
             manifestUrl: manifestUrl.href,
-            mode: local && manifestUrl.protocol === "http:" ? "development" : "production",
+            ...(development ? { mode: "development" } : { mode: "production", assetPreflight: "verified-get" }),
             lock,
         });
         return runtime;

@@ -32,4 +32,4 @@ API 聚合使用官方 TypeScript API 读取真实类型源码；原始 docgen �
 
 开发和生产都用 Wake 构建组件 Demo 的 Federation 产物。文档中的预览进入可视区域时加载，将主题、尺寸和其他配置更新到同一个演示实例。生产站通过 HTTPS 加载同源 Manifest，并校验构建 ID 和资源完整性。独立工作台仍可通过各组件的预览入口访问；演示自身依赖页面导航、重载或工作台静态资源时，从该入口运行。
 
-本站对锁定的 Wake 0.1.45 使用工作区补丁。Cloudflare Pages 的资源 HEAD 可以省略 Content-Length，此时 Wake 读取 GET 响应流，校验解码字节数与 SHA-384，脚本和样式继续使用浏览器 SRI。同一生产页面按资源 URL 和 Manifest 校验信息共享预检，失败的请求可重试。升级 Wake 时，确认上游已覆盖无长度头回退和预检复用，再移除补丁。
+文档站使用 Wake 0.1.57 的 Federation 运行时。生产 HTTPS 预览启用 assetPreflight 的 verified-get 策略，Wake 并行校验首屏资源，并在多个演示之间复用预检结果。资源继续核对类型、大小和 SHA-384，最终由浏览器执行 SRI。开发预览沿用 Wake 默认预检策略。

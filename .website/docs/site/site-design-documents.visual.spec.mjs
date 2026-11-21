@@ -104,26 +104,67 @@ test('document switching preserves the common live input and updates its design'
     await handle.dispose();
 });
 
-test('document demos load when a static host omits HEAD content length', async ({ page, previewOrigin }) => {
-    const headersWithoutLength = new Set();
-    await page.route('**/federated-demos/**/federation/**', async route => {
-        if (route.request().method() !== 'HEAD') {
-            await route.continue();
-            return;
-        }
+test('production demos share parallel verified GETs over HTTPS', async ({ page, previewOrigin }) => {
+    const productionOrigin = 'https://crab-docs.test';
+    const verifiedGets = new Map();
+    let headRequests = 0;
+    let pendingVerifications = 0;
+    let concurrentVerifications = 0;
+    let corruptStyles = false;
+    let corruptedResponses = 0;
 
-        const response = await route.fetch();
-        const headers = response.headers();
-        delete headers['content-length'];
-        headersWithoutLength.add(route.request().url());
-        await route.fulfill({ status: response.status(), headers });
+    await page.route(productionOrigin + '/**', async route => {
+        const request = route.request();
+        const url = new URL(request.url());
+        const asset = url.pathname.startsWith('/federated-demos/') && url.pathname.includes('/federation/');
+        const verification = asset && request.method() === 'GET' && request.resourceType() === 'fetch';
+        if (verification) {
+            verifiedGets.set(url.pathname, (verifiedGets.get(url.pathname) ?? 0) + 1);
+            pendingVerifications++;
+            concurrentVerifications = Math.max(pendingVerifications, concurrentVerifications);
+        }
+        try {
+            const response = await route.fetch({ url: new URL(url.pathname + url.search, previewOrigin).href });
+            if (asset && request.method() === 'HEAD') {
+                headRequests++;
+                const headers = response.headers();
+                delete headers['content-length'];
+                await route.fulfill({ status: response.status(), headers });
+            } else if (verification && corruptStyles && url.pathname.endsWith('.css')) {
+                const body = await response.body();
+                body[0] ^= 1;
+                corruptedResponses++;
+                await route.fulfill({ response, body });
+            } else {
+                await route.fulfill({ response });
+            }
+        } finally {
+            if (verification) pendingVerifications--;
+        }
     });
-    await openSite(page, previewOrigin, definition, { designSystem: 'md3', colorMode: 'light' });
+
+    await openSite(page, productionOrigin, definition, { designSystem: 'md3', colorMode: 'light' });
     const cards = page.locator('[data-design-examples] [data-component-demo-id]');
     await expect(cards).toHaveCount(documents.md3.demos.length);
     for (const card of await cards.all()) {
         await card.scrollIntoViewIfNeeded();
         await expect(card.locator('[data-federated-demo] .crab-federated-demo')).toBeVisible({ timeout: 20_000 });
     }
-    expect(headersWithoutLength.size).toBeGreaterThan(0);
+
+    await expect(page.locator('[data-presentation] iframe')).toHaveCount(0);
+    expect(headRequests).toBe(0);
+    expect(verifiedGets.size).toBeGreaterThan(0);
+    expect([...verifiedGets.values()].every(count => count === 1)).toBe(true);
+    expect(concurrentVerifications).toBeGreaterThan(1);
+    const stylesheetIntegrity = await cards.first().locator('[data-federated-demo]').evaluate(host =>
+        Array.from(host.shadowRoot.querySelectorAll('link[rel="stylesheet"]'), link => link.integrity));
+    expect(stylesheetIntegrity.length).toBeGreaterThan(0);
+    expect(stylesheetIntegrity.every(value => value.startsWith('sha384-'))).toBe(true);
+
+    corruptStyles = true;
+    await page.reload();
+    await cards.first().scrollIntoViewIfNeeded();
+    await expect(cards.first().getByRole('alert')).toContainText('演示加载失败');
+    await expect(cards.first().locator('[data-federated-demo] .crab-federated-demo')).toHaveCount(0);
+    expect(corruptedResponses).toBeGreaterThan(0);
 });

@@ -37,7 +37,7 @@
 - Node.js ≥ 22，Corepack 使用根 `packageManager` 指定的 Yarn 4 PnP；不得创建或依赖 `node_modules`。提交 PnP 运行时与 lockfile，安装后验证一致性。
 - 全仓 ESM，包声明 `type: module`；相对 TS/TSX 导入写 `.js`，内部依赖使用 `workspace:^`。
 - 实际使用 React / ReactDOM 的公开包显式声明对应 `peerDependencies`，并保留开发依赖；严格 PnP 下独立消费不能依赖隐式 peer。
-- Wake 与 Crab CSS 精确锁定 `0.1.45`。Wake 负责 lint、构建、令牌、docgen、测试和文档；Turbo 只编排真实包拓扑。
+- 组件库的 Wake 与 Crab CSS 精确锁定 `0.1.45`。文档站在工作区内配套锁定 `0.1.57`，使用已发布的 Federation 预检。Wake 负责 lint、构建、令牌、docgen、测试和文档；Turbo 只编排真实包拓扑。
 - TypeScript 统一使用官方 6.0.2 与 Yarn 内置 PnP 兼容补丁，继承共享预设并保持严格模式；升级同步依赖、lockfile、PnP 运行时和编辑器 SDK。不自构建编译器。React 19 / Compiler、Crab CSS 和三层令牌的要求见组件规则。
 - 依赖变化后刷新安装产物，再运行 `yarn install --immutable`；不可加载于 zip 的 ESM 依赖按实际需要标记 unplugged。
 
