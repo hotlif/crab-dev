@@ -1,8 +1,22 @@
 import { globalStyle } from "@crab-dev/css";
+import { TokenVars as field } from "@crab-dev/rc-line-edit";
 import token from "@crab-dev/rc-token-semantic";
 
 globalStyle`
 [data-line-edit-prototype] .crab-design-body { container-type: inline-size; }
+[data-line-edit-prototype] [data-field-control]:not([aria-disabled="true"]) { cursor: text; }
+[data-line-edit-prototype] [data-field-control] > [data-field-suffix] > .crab-line-edit-clear {
+    padding: 0;
+    min-inline-size: var(${field["action.min-width"]});
+    block-size: var(${field["action.height"]});
+    color: ${token.color.text.secondary};
+}
+@media (pointer: coarse) {
+    [data-line-edit-prototype] [data-field-control] > [data-field-suffix] > .crab-line-edit-clear {
+        min-inline-size: ${token.size["touch-target"]};
+        block-size: ${token.size["touch-target"]};
+    }
+}
 #line-edit-placeholder { scroll-margin-block-start: 5rem; }
 
 .crab-line-edit-board {
@@ -134,6 +148,10 @@ globalStyle`
 [data-line-edit-prototype][data-prototype-design="macos"] .crab-line-edit-footer { padding: .65rem 1rem; }
 
 [data-line-edit-prototype][data-prototype-design="shadcn"] .crab-line-edit-board { grid-template-columns: minmax(0, 1.4fr) minmax(13rem, 1fr); }
+[data-line-edit-prototype][data-prototype-design="shadcn"] [data-field-root]:not([data-disabled="true"]) {
+    ${field["field.outlined.border-color"]}: color-mix(in oklch, ${token.color.text.secondary} 72%, ${token.color.surface.content});
+    ${field["field.outlined.border-color-hover"]}: ${token.color.text.secondary};
+}
 [data-line-edit-prototype][data-prototype-design="shadcn"] .crab-line-edit-controls { background: ${token.color.surface.content}; }
 [data-line-edit-prototype][data-prototype-design="shadcn"] .crab-line-edit-footer > .crab-design-actions { margin-inline-start: 0; }
 

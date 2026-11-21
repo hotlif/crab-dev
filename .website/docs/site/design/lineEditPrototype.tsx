@@ -1,8 +1,9 @@
-import { useId, useRef, useState, type FormEvent, type KeyboardEvent } from "react";
+import { useId, useRef, useState, type FormEvent, type KeyboardEvent, type MouseEvent } from "react";
 import Button from "@crab-dev/rc-button";
 import { useConfig } from "@crab-dev/rc-config-provider";
 import LineEdit, { type LineEditProps } from "@crab-dev/rc-line-edit";
 import { useSiteHref } from "../siteContext.js";
+import SiteIcon from "../siteIcon.js";
 import { DesignHero } from "./hero.js";
 import "./lineEditPrototype.styles.js";
 import "./lineEditMaterial.styles.js";
@@ -63,12 +64,28 @@ function nameError(value: string) {
     return lengthError(value);
 }
 
-function CountedNameField({ value, supportingText, errorText, ...props }: LineEditProps & { value: string; supportingText: string }) {
+function focusFieldPadding(event: MouseEvent<HTMLDivElement>) {
+    const target = event.target;
+    if (event.defaultPrevented || !(target instanceof Element) || target.closest("input, button, a")) return;
+    target.closest("[data-field-control]")?.querySelector<HTMLInputElement>("input:not(:disabled)")?.focus();
+}
+
+function CountedNameField({ value, label, supportingText, errorText, onValueChange, ...props }: LineEditProps & {
+    value: string; label: string; supportingText: string;
+}) {
     const id = useId();
+    const inputId = props.id ?? `${id}-input`;
     const count = countCharacters(value);
     const messageId = errorText ? `${id}-error` : `${id}-hint`;
+    const clear = value && !props.disabled && !props.readOnly ? <Button type="button" appearance="text" size="xs"
+        aria-label={`清除${label}`} aria-controls={inputId} icon={<SiteIcon name="close" />}
+        className="crab-line-edit-clear" onClick={event => {
+            event.currentTarget.ownerDocument.getElementById(inputId)?.focus();
+            onValueChange?.("", { reason: "clear", event });
+        }} /> : undefined;
     return <div className="crab-line-edit-counted">
-        <LineEdit {...props} value={value} status={errorText ? "error" : undefined}
+        <LineEdit {...props} id={inputId} label={label} value={value} onValueChange={onValueChange}
+            suffix={clear} status={errorText ? "error" : undefined}
             aria-describedby={`${messageId} ${id}-count`} />
         <div className="crab-line-edit-field-support">
             <div>
@@ -152,14 +169,14 @@ export default function LineEditPrototype() {
                 <a href="#line-edit-rules">交互规则</a>
             </nav>
         </DesignHero>
-        <div className="crab-design-body">
+        <div className="crab-design-body" onClick={focusFieldPadding}>
             <section id="line-edit-scenario" aria-labelledby="line-edit-scenario-title">
                 <div className="crab-design-section-head"><h2 id="line-edit-scenario-title">编辑工作区名称</h2></div>
                 <div className="crab-line-edit-board">
                     <form className="crab-line-edit-form" aria-label="编辑工作区名称" onSubmit={submit} noValidate>
                         <h3>{design.title}</h3>
                         <div className="crab-line-edit-fields">
-                            <CountedNameField ref={input} name="workspaceName" label="工作区名称" required allowClear
+                            <CountedNameField ref={input} name="workspaceName" label="工作区名称" required
                                 autoComplete="off" appearance="outlined" size={design.size} placeholder="例如北区设备巡检"
                                 value={draft} supportingText={design.hint} errorText={error} onValueChange={edit}
                                 onCompositionStart={() => { composing.current = true; }}
@@ -198,7 +215,7 @@ export default function LineEditPrototype() {
                     <div>
                         <h3>已填写与清除</h3>
                         <CountedNameField label="备用名称" size={design.size} value={backupName} onValueChange={setBackupName}
-                            allowClear supportingText="清除后焦点回到输入框。" errorText={lengthError(backupName)} />
+                            supportingText="清除后焦点回到输入框。" errorText={lengthError(backupName)} />
                     </div>
                     {md3 && <div>
                         <h3>鼠标悬停</h3>

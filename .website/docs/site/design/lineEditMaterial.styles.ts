@@ -105,11 +105,20 @@ globalStyle`
 [data-line-edit-prototype][data-prototype-design="md3"] [data-field-control][data-appearance="outlined"] > fieldset {
     transition: border-color ${token.motion.effects.fast};
 }
+/* Leave the notch open during the first part of the label's descent. */
+[data-line-edit-prototype][data-prototype-design="md3"] [data-field-control][data-appearance="outlined"] legend {
+    transition: max-width ${token.motion.layout}, padding-inline ${token.motion.layout};
+    transition-timing-function: linear(0, 0 25%, 1);
+}
+[data-line-edit-prototype][data-prototype-design="md3"] [data-field-root]:is(:focus-within, :has(input:not(:placeholder-shown)), :has(input:autofill)) legend {
+    transition: none;
+}
 
 @media (prefers-reduced-motion: reduce) {
     [data-line-edit-prototype][data-prototype-design="md3"] [data-field-root][data-labeled="true"] > label { transition: none; }
     [data-line-edit-prototype][data-prototype-design="md3"] [data-field-root][data-labeled="true"] input:focus::placeholder { transition: none; }
     [data-line-edit-prototype][data-prototype-design="md3"] [data-field-control][data-appearance="outlined"] > fieldset { transition: none; }
+    [data-line-edit-prototype][data-prototype-design="md3"] [data-field-control][data-appearance="outlined"] legend { transition: none; }
 }
 
 @media (forced-colors: active) {

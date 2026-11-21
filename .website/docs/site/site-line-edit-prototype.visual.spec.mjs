@@ -113,9 +113,17 @@ for (const [colorMode, width] of [['light', 1440], ['dark', 320]]) {
         expect(await sample.evaluate(node => node.matches(':placeholder-shown'))).toBe(false);
         await sample.fill('');
         await expect.poll(() => placeholderOpacity(sample)).toBe('1');
-        await sample.press('Tab');
+        const notchAtBlur = await sample.evaluate(node => {
+            const legend = node.parentElement.querySelector('legend');
+            const focused = legend.getBoundingClientRect().width;
+            node.blur();
+            return { focused, closing: legend.getBoundingClientRect().width };
+        });
+        expect(notchAtBlur.focused).toBeGreaterThan(20);
+        expect(notchAtBlur.closing).toBeCloseTo(notchAtBlur.focused, 1);
         expect(await placeholderOpacity(sample)).toBe('0');
         await settleFiniteAnimations(page);
+        expect(await emptySample.locator('legend').evaluate(node => node.getBoundingClientRect().width)).toBe(0);
 
         const overlaps = await sample.evaluate(node => {
             const label = node.labels[0];
@@ -208,7 +216,7 @@ test('LineEdit design validates on submit and preserves focus, geometry and the 
     expect(await input.evaluate(node => node.selectionStart)).toBe((await input.inputValue()).length);
     expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(320);
     await input.press('Tab');
-    const clear = form(page).getByRole('button', { name: /清除/ });
+    const clear = form(page).getByRole('button', { name: '清除工作区名称' });
     await expect(clear).toBeFocused();
     await clear.press('Space');
     await expect(input).toHaveValue('');
@@ -221,6 +229,30 @@ test('LineEdit design validates on submit and preserves focus, geometry and the 
     await expect(form(page).getByRole('status')).toHaveText('工作区名称已保存。');
     await expect(scene.locator('.crab-line-edit-readout dd')).toHaveText('南区设备巡检');
 });
+
+for (const designSystem of ['md3', 'macos', 'shadcn']) {
+    test(`LineEdit padding focuses the input and clear actions name their field in ${designSystem}`, { tag: ['@website'] }, async ({ page, previewOrigin }) => {
+        await page.setViewportSize({ width: 320, height: 900 });
+        await openSite(page, previewOrigin, definition, { designSystem, colorMode: 'light' });
+        const prototype = page.locator('[data-line-edit-prototype]');
+        const sample = prototype.getByRole('textbox', { name: '待编辑名称' });
+        const control = sample.locator('..');
+        const { height } = await control.boundingBox();
+        await control.click({ position: { x: 5, y: height / 2 } });
+        await expect(sample).toBeFocused();
+
+        const backup = prototype.getByRole('textbox', { name: '备用名称' });
+        await expect(prototype.getByRole('button', { name: '清除工作区名称', exact: true })).toHaveAttribute('aria-controls', await field(page).getAttribute('id'));
+        const clear = prototype.getByRole('button', { name: '清除备用名称', exact: true });
+        await expect(clear).toHaveAttribute('aria-controls', await backup.getAttribute('id'));
+        await backup.press('Tab');
+        await expect(clear).toBeFocused();
+        await clear.press('Space');
+        await expect(backup).toHaveValue('');
+        await expect(backup).toBeFocused();
+        await expect(field(page)).toHaveValue('北区巡检工作区');
+    });
+}
 
 test('LineEdit counts complete characters and preserves a draft over the save limit', { tag: ['@website'] }, async ({ page, previewOrigin }) => {
     await openSite(page, previewOrigin, definition, { designSystem: 'md3', colorMode: 'light' });
