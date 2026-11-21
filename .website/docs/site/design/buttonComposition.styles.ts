@@ -1,5 +1,4 @@
 import { globalStyle } from "@crab-dev/css";
-import { TokenVars as buttonVars } from "@crab-dev/rc-button";
 import token from "@crab-dev/rc-token-semantic";
 
 globalStyle`
@@ -20,17 +19,6 @@ globalStyle`
 .crab-design-composition-card p, .crab-design-composition-themes p { font-size: .875rem; color: ${token.color.text.secondary}; }
 .crab-design-composition-card [role="group"] { max-inline-size: 100%; }
 .crab-design-composition-card p[role="status"] { color: ${token.color.text.primary}; }
-[data-button-prototype][data-prototype-design="md3"] .crab-design-composition-card [data-variant="connected"] > button {
-    border-radius: var(${buttonVars['root.border-radius-active']}, ${token.shape.small});
-}
-[data-button-prototype][data-prototype-design="md3"] .crab-design-composition-card [data-variant="connected"] > button:first-child {
-    border-start-start-radius: calc(var(${buttonVars['root.height']}) / 2);
-    border-end-start-radius: calc(var(${buttonVars['root.height']}) / 2);
-}
-[data-button-prototype][data-prototype-design="md3"] .crab-design-composition-card [data-variant="connected"] > button:last-child {
-    border-start-end-radius: calc(var(${buttonVars['root.height']}) / 2);
-    border-end-end-radius: calc(var(${buttonVars['root.height']}) / 2);
-}
 .crab-design-composition-labels { grid-column: 1 / -1; }
 .crab-design-composition-rail {
     --crab-button-container-width: 10rem;

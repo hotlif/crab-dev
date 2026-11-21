@@ -1,8 +1,8 @@
 {
     "md3": {
-        "summary": "以 Filled、Tonal、Outlined、Elevated 与 Text 表达操作层级，强调动作可使用 Expressive 形状反馈。",
+        "summary": "以 Filled、Tonal、Outlined、Elevated 与 Text 表达操作层级，按压与选中时使用稳定轮廓。",
         "usage": "primary 用于主要动作，outlined 用于普通动作。省略 size 时默认继承 medium；显式 xs/s/m/l/xl 是独立五档。",
-        "exampleDescription": "先比较五种外观，再操作选中和加载示例；观察状态层、按压形状与稳定的文字位置。",
+        "exampleDescription": "比较五种外观，试用选中和加载示例，观察状态层、填色与稳定的按钮轮廓。",
         "demos": [
             "appearance.demo.tsx",
             "basic.demo.tsx",

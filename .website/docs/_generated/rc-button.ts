@@ -367,7 +367,7 @@ export const demos = [
     {
         "id": "docs/demos/expressive.demo.tsx",
         "title": "形状与连接式按钮组",
-        "description": "Square 保持统一圆角；显式 Round 保留按压与选中时的形状反馈。",
+        "description": "按压和选中时保持 Round、Square 和组内按钮的轮廓，通过填色观察选中状态。",
         "learning": {
             "components": [
                 "Button",
@@ -385,7 +385,7 @@ export const demos = [
             ],
             "hasState": true
         },
-        "sourceCode": "export const meta = { title: '形状与连接式按钮组', description: 'Square 保持统一圆角；显式 Round 保留按压与选中时的形状反馈。' };\nimport { useState } from 'react';\nimport { css } from '@crab-dev/css';\nimport token from '@crab-dev/rc-token-semantic';\nimport Button, { ButtonGroup } from '../../src/index.js';\nconst stack = css`display: grid; gap: ${token.space['section-gap']};`;\nconst row = css`display: flex; flex-wrap: wrap; gap: ${token.space['component-gap']};`;\nexport default function Example() {\n    const [round, setRound] = useState(false);\n    const [square, setSquare] = useState(false);\n    const [view, setView] = useState('列表');\n    return \u003cdiv className={stack}>\n        \u003cdiv className={row}>\n            \u003cButton appearance=\"tonal\" shape=\"round\" isSelected={round} onClick={() => setRound(!round)}>Round\u003c/Button>\n            \u003cButton appearance=\"tonal\" shape=\"square\" isSelected={square} onClick={() => setSquare(!square)}>Square\u003c/Button>\n        \u003c/div>\n        \u003cButtonGroup appearance=\"tonal\" variant=\"connected\">\n            {['列表', '卡片', '看板'].map(label => \u003cButton key={label} isSelected={view === label} onClick={() => setView(label)}>{label}\u003c/Button>)}\n        \u003c/ButtonGroup>\n    \u003c/div>;\n}\n",
+        "sourceCode": "export const meta = { title: '形状与连接式按钮组', description: '按压和选中时保持 Round、Square 和组内按钮的轮廓，通过填色观察选中状态。' };\nimport { useState } from 'react';\nimport { css } from '@crab-dev/css';\nimport token from '@crab-dev/rc-token-semantic';\nimport Button, { ButtonGroup } from '../../src/index.js';\nconst stack = css`display: grid; gap: ${token.space['section-gap']};`;\nconst row = css`display: flex; flex-wrap: wrap; gap: ${token.space['component-gap']};`;\nexport default function Example() {\n    const [round, setRound] = useState(false);\n    const [square, setSquare] = useState(false);\n    const [view, setView] = useState('列表');\n    return \u003cdiv className={stack}>\n        \u003cdiv className={row}>\n            \u003cButton appearance=\"tonal\" shape=\"round\" isSelected={round} onClick={() => setRound(!round)}>Round\u003c/Button>\n            \u003cButton appearance=\"tonal\" shape=\"square\" isSelected={square} onClick={() => setSquare(!square)}>Square\u003c/Button>\n        \u003c/div>\n        \u003cButtonGroup appearance=\"tonal\" variant=\"connected\">\n            {['列表', '卡片', '看板'].map(label => \u003cButton key={label} isSelected={view === label} onClick={() => setView(label)}>{label}\u003c/Button>)}\n        \u003c/ButtonGroup>\n    \u003c/div>;\n}\n",
         "previewPath": "/components/rc-button/workbench/?__wake_demo=docs%2Fdemos%2Fexpressive.demo.tsx",
         "workbenchPath": "/components/rc-button/workbench/#/components/docs%2Fdemos%2Fexpressive.demo.tsx",
         "density": "compact",
@@ -427,9 +427,9 @@ export const demos = [
 
 export const documents = {
     "md3": {
-        "summary": "以 Filled、Tonal、Outlined、Elevated 与 Text 表达操作层级，强调动作可使用 Expressive 形状反馈。",
+        "summary": "以 Filled、Tonal、Outlined、Elevated 与 Text 表达操作层级，按压与选中时使用稳定轮廓。",
         "usage": "primary 用于主要动作，outlined 用于普通动作。省略 size 时默认继承 medium；显式 xs/s/m/l/xl 是独立五档。",
-        "exampleDescription": "先比较五种外观，再操作选中和加载示例；观察状态层、按压形状与稳定的文字位置。",
+        "exampleDescription": "比较五种外观，试用选中和加载示例，观察状态层、填色与稳定的按钮轮廓。",
         "demos": [
             "appearance.demo.tsx",
             "basic.demo.tsx",

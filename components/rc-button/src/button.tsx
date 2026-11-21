@@ -4,7 +4,7 @@ import { SpinIndicator } from '@crab-dev/rc-spin';
 import { useConfig } from '@crab-dev/rc-config-provider';
 import type { ButtonProps } from './types.js';
 import ButtonGroupContext from './buttonGroupContext.js';
-import { inheritedSizeStyles, baseStyle, iconWrapStyle, labelStyle, loadingIndicatorStyle, primaryStyle, dangerStyle, linkStyle, dashedStyle, textStyle, layeredStyle, touchTargetStyle, elevatedStyle, dangerTextStyle, dangerSubtleStyle, dangerSelectedStyle, tonalStyle, dangerTonalStyle, dangerElevatedStyle, outlinedStyle, outlinedSelectedStyle, sizeLargeStyle, sizeMiddleStyle, sizeSmallStyle, sizeExtraLargeStyle, sizeExtraExtraLargeStyle, squareStyle, roundStyle, defaultShapeStyle, defaultSelectedShapeStyle, selectedFeedbackStyle, pressShapeStyle, tonalSelectedStyle, primaryUnselectedStyle, selectedDisabledStyle, fitContainerStyle, selectedStyle, circleStyle, iconOnlyStyle } from "./button.styles.js";
+import { inheritedSizeStyles, baseStyle, iconWrapStyle, labelStyle, loadingIndicatorStyle, primaryStyle, dangerStyle, linkStyle, dashedStyle, textStyle, layeredStyle, touchTargetStyle, elevatedStyle, dangerTextStyle, dangerSubtleStyle, dangerSelectedStyle, tonalStyle, dangerTonalStyle, dangerElevatedStyle, outlinedStyle, outlinedSelectedStyle, sizeLargeStyle, sizeMiddleStyle, sizeSmallStyle, sizeExtraLargeStyle, sizeExtraExtraLargeStyle, squareStyle, roundStyle, defaultShapeStyle, defaultPressShapeStyle, defaultSelectedShapeStyle, selectedFeedbackStyle, pressShapeStyle, tonalSelectedStyle, primaryUnselectedStyle, selectedDisabledStyle, fitContainerStyle, selectedStyle, circleStyle, iconOnlyStyle } from "./button.styles.js";
 import { macosButtonStyle, macosProminentStyle, macosSecondaryStyle, macosSelectedTonalStyle, macosGlassStyle, macosPlainStyle, macosDangerStyle, macosDashedStyle } from './button.designs.js';
 // Match Material Web's minimum press feedback for keyboard/assistive clicks.
 const minimumPressMs = 225;
@@ -81,15 +81,17 @@ const Button: FC<ButtonProps> = ({
     const resolvedSize = explicitSize ?? (inheritedDesktopSize ? 's' : configuredSizes[config.size]);
     const unselectedPrimary = !resolvedDanger && resolvedAppearance === 'primary' && isSelected === false;
     const iconOnly = children == null && (icon != null || iconAfter != null || loading);
+    const changesStateShape = config.designSystem === 'shadcn';
 
     const legacyVisualClassName = config.designSystem === 'macos' ? undefined : cx(
         unselectedPrimary ? primaryUnselectedStyle : resolvedDanger && resolvedAppearance === 'primary' ? dangerStyle : appearanceStyleMap[resolvedAppearance],
         resolvedDanger ? dangerAppearanceStyle : null,
         resolvedAppearance === 'tonal' || unselectedPrimary ? layeredStyle : null,
         !resolvedDanger && resolvedAppearance === 'tonal' && isSelected ? tonalSelectedStyle : null,
-        shape === undefined ? defaultShapeStyle : shape === 'square' || (shape === 'round' && isSelected) ? squareStyle : shape === 'round' ? roundStyle : null,
-        shape === undefined && isSelected ? defaultSelectedShapeStyle : null,
-        shape === 'round' ? pressShapeStyle : null,
+        shape === undefined ? defaultShapeStyle : shape === 'square' || (shape === 'round' && changesStateShape && isSelected) ? squareStyle : shape === 'round' ? roundStyle : null,
+        changesStateShape && shape === undefined ? defaultPressShapeStyle : null,
+        changesStateShape && shape === undefined && isSelected ? defaultSelectedShapeStyle : null,
+        changesStateShape && shape === 'round' ? pressShapeStyle : null,
         shape === 'circle' ? circleStyle : null,
         isSelected && resolvedAppearance !== 'tonal' ? (resolvedAppearance === 'outlined' || resolvedAppearance === 'subtle') && !resolvedDanger ? outlinedSelectedStyle : selectedStyle : null,
         isSelected && resolvedDanger ? dangerSelectedStyle : null,

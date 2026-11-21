@@ -1,5 +1,4 @@
 import { globalStyle } from "@crab-dev/css";
-import { TokenVars as buttonVars } from "@crab-dev/rc-button";
 import token from "@crab-dev/rc-token-semantic";
 
 globalStyle`
@@ -7,14 +6,6 @@ globalStyle`
     --crab-prototype-paper: oklch(from ${token.color.surface.content} l min(c, .005) h);
     --crab-prototype-panel: oklch(from ${token.color.surface.low} l min(c, .007) h);
     --crab-prototype-rule: ${token.color.border.subtle};
-}
-[data-button-prototype][data-prototype-design="md3"] :is(button, a) {
-    ${buttonVars['shape.default.border-radius-active']}: var(${buttonVars['shape.default.border-radius']}, ${token.shape.button});
-    ${buttonVars['shape.default.border-radius-selected']}: var(${buttonVars['shape.default.border-radius']}, ${token.shape.button});
-}
-[data-button-prototype][data-prototype-design="md3"] button[data-prototype-round] {
-    ${buttonVars['root.border-radius-active']}: calc(var(${buttonVars['root.height']}) / 2);
-    ${buttonVars['root.border-radius']}: calc(var(${buttonVars['root.height']}) / 2);
 }
 [data-button-prototype][data-prototype-design="md3"] .crab-design-button-label {
     position: relative;
