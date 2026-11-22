@@ -1,4 +1,5 @@
 import Button from "@crab-dev/rc-button";
+import Checkbox from "@crab-dev/rc-checkbox";
 import { useConfig } from "@crab-dev/rc-config-provider";
 import LineEdit from "@crab-dev/rc-line-edit";
 import SiteIcon from "../siteIcon.js";
@@ -46,6 +47,14 @@ export default function DesignOverview() {
                             <h3>LineEdit 单行输入框</h3>
                             <p>编辑工作区名称，试用清除、必填校验和错误反馈。</p>
                             <Button appearance="primary" href={href("design/line-edit")} iconAfter={<span aria-hidden="true">→</span>}>体验输入框原型</Button>
+                        </div>
+                    </div>
+                    <div className="crab-design-card">
+                        <div className="crab-design-card-body">
+                            <div inert aria-hidden="true"><Checkbox indeterminate>全选可导出任务</Checkbox></div>
+                            <h3>Checkbox 复选框</h3>
+                            <p>勾选导出项目，试用全选、部分选中和禁用状态。</p>
+                            <Button appearance="primary" href={href("design/checkbox")} iconAfter={<span aria-hidden="true">→</span>}>体验复选框原型</Button>
                         </div>
                     </div>
                 </section>
