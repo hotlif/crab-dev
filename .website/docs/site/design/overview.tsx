@@ -2,6 +2,7 @@ import Button from "@crab-dev/rc-button";
 import Checkbox from "@crab-dev/rc-checkbox";
 import { useConfig } from "@crab-dev/rc-config-provider";
 import LineEdit from "@crab-dev/rc-line-edit";
+import Radio from "@crab-dev/rc-radio";
 import SiteIcon from "../siteIcon.js";
 import { useSiteHref } from "../siteContext.js";
 import { DesignHero } from "./hero.js";
@@ -55,6 +56,14 @@ export default function DesignOverview() {
                             <h3>Checkbox 复选框</h3>
                             <p>勾选导出项目，试用全选、部分选中和禁用状态。</p>
                             <Button appearance="primary" href={href("design/checkbox")} iconAfter={<span aria-hidden="true">→</span>}>体验复选框原型</Button>
+                        </div>
+                    </div>
+                    <div className="crab-design-card">
+                        <div className="crab-design-card-body">
+                            <div inert aria-hidden="true"><Radio defaultChecked>恢复上次会话</Radio></div>
+                            <h3>Radio 单选框</h3>
+                            <p>选择工作区的启动方式，试用默认项、权限禁用和必填校验。</p>
+                            <Button appearance="primary" href={href("design/radio")} iconAfter={<span aria-hidden="true">→</span>}>体验单选框原型</Button>
                         </div>
                     </div>
                 </section>
