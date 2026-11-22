@@ -33,6 +33,20 @@ for (const designSystem of designs) {
             await expect(unavailable).toHaveAccessibleDescription(/需要归档导出权限/);
             await expect(prototype(page).locator('#checkbox-states').getByRole('checkbox', { name: '保留审计标识' })).toBeChecked();
 
+            if (designSystem === 'macos') {
+                const selectionGroup = scenario(page).getByRole('group', { name: '导出项目' });
+                const task = selectionGroup.getByRole('checkbox', { name: '设备巡检结果' });
+                const glyph = checkbox => checkbox.locator('..').locator('[data-checkbox-part="box"]');
+                const [groupBox, masterBox, taskBox, countBox, buttonBox] = await Promise.all([
+                    selectionGroup.boundingBox(), glyph(all).boundingBox(), glyph(task).boundingBox(),
+                    status.boundingBox(), exportButton(page).boundingBox(),
+                ]);
+                expect(taskBox.x).toBeGreaterThan(masterBox.x);
+                expect(countBox.y).toBeGreaterThanOrEqual(groupBox.y + groupBox.height);
+                expect(buttonBox.x).toBeGreaterThanOrEqual(countBox.x + countBox.width);
+                expect(Math.abs(countBox.y + countBox.height / 2 - buttonBox.y - buttonBox.height / 2)).toBeLessThan(1);
+            }
+
             await all.press('Space');
             await expect(all).toBeFocused();
             await expect(all).toBeChecked();

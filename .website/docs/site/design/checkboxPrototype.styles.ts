@@ -83,28 +83,70 @@ globalStyle`
     background: color-mix(in oklab, ${token.color.brand.primary} 12%, ${token.color.surface.low});
 }
 
-[data-checkbox-prototype][data-prototype-design="macos"] .crab-checkbox-board { gap: 0; align-items: stretch; }
+[data-checkbox-prototype][data-prototype-design="macos"] { max-inline-size: 44rem; margin-inline: auto; }
+[data-checkbox-prototype][data-prototype-design="macos"] .crab-design-hero {
+    min-height: auto;
+    padding: .75rem clamp(.5rem, 2vw, 1.65rem) 0;
+    border: 0;
+    background: transparent;
+}
+[data-checkbox-prototype][data-prototype-design="macos"] .crab-design-hero > div:first-child { max-width: 100%; }
+[data-checkbox-prototype][data-prototype-design="macos"] :is(.crab-design-hero-art, .crab-design-status) { display: none; }
+[data-checkbox-prototype][data-prototype-design="macos"] .crab-design-jump-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .4rem 1rem;
+    margin-block-start: .65rem;
+    font-size: .875rem;
+}
+[data-checkbox-prototype][data-prototype-design="macos"] .crab-checkbox-board {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+    border: 1px solid ${token.color.border.subtle};
+    border-radius: ${token.shape.card};
+    background: ${token.color.surface.content};
+}
 [data-checkbox-prototype][data-prototype-design="macos"] .crab-checkbox-queue {
     padding: 0;
-    overflow: hidden;
-    border-start-end-radius: 0;
-    border-end-end-radius: 0;
-    box-shadow: ${token.shadow.control};
+    border: 0;
+    background: transparent;
 }
 [data-checkbox-prototype][data-prototype-design="macos"] .crab-checkbox-queue-heading {
-    background: ${token.color.surface.low};
     border-block-end: 1px solid ${token.color.border.subtle};
-    padding: .65rem 1rem;
+    padding: .7rem .9rem;
 }
-[data-checkbox-prototype][data-prototype-design="macos"] .crab-checkbox-option { padding: .35rem .8rem; }
-[data-checkbox-prototype][data-prototype-design="macos"] .crab-checkbox-tasks li + li { border-block-start: 1px solid ${token.color.border.subtle}; }
+[data-checkbox-prototype][data-prototype-design="macos"] .crab-checkbox-queue-heading h3 { font-size: 1rem; }
+[data-checkbox-prototype][data-prototype-design="macos"] :is(.crab-checkbox-queue-heading p, .crab-checkbox-detail, .crab-checkbox-count) {
+    font-size: .8125rem;
+    line-height: 1.4;
+}
+[data-checkbox-prototype][data-prototype-design="macos"] .crab-checkbox-option { padding: .25rem .9rem; }
+[data-checkbox-prototype][data-prototype-design="macos"] .crab-checkbox-tasks .crab-checkbox-option { padding-inline-start: 1.75rem; }
+[data-checkbox-prototype][data-prototype-design="macos"] .crab-checkbox-tasks li + li {
+    border-block-start: 1px solid ${token.color.border.subtle};
+}
 [data-checkbox-prototype][data-prototype-design="macos"] .crab-checkbox-summary {
-    align-content: start;
-    border-inline-start: 0;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: .5rem .65rem;
+    padding: .625rem .9rem;
+    border: 0;
+    border-block-start: 1px solid ${token.color.border.subtle};
     border-start-start-radius: 0;
-    border-end-start-radius: 0;
+    border-start-end-radius: 0;
     background: ${token.color.surface.low};
 }
+[data-checkbox-prototype][data-prototype-design="macos"] .crab-checkbox-summary h3 {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+}
+[data-checkbox-prototype][data-prototype-design="macos"] .crab-checkbox-count { grid-area: 1 / 1; }
+[data-checkbox-prototype][data-prototype-design="macos"] .crab-checkbox-summary > button { grid-area: 1 / 2; }
+[data-checkbox-prototype][data-prototype-design="macos"] .crab-checkbox-summary .crab-checkbox-receipt { grid-column: 1 / -1; }
 
 [data-checkbox-prototype][data-prototype-design="shadcn"] .crab-checkbox-queue { border: 0; background: transparent; padding: 0; }
 [data-checkbox-prototype][data-prototype-design="shadcn"] .crab-checkbox-tasks { display: grid; gap: .5rem; margin-block-start: .5rem; }
@@ -120,16 +162,6 @@ globalStyle`
 
 @container (max-width: 42rem) {
     .crab-checkbox-board { grid-template-columns: minmax(0, 1fr); }
-    [data-checkbox-prototype][data-prototype-design="macos"] .crab-checkbox-queue {
-        border-start-end-radius: ${token.shape.card};
-        border-end-start-radius: 0;
-    }
-    [data-checkbox-prototype][data-prototype-design="macos"] .crab-checkbox-summary {
-        border-inline-start: 1px solid ${token.color.border.subtle};
-        border-block-start: 0;
-        border-start-end-radius: 0;
-        border-end-start-radius: ${token.shape.card};
-    }
 }
 @container (max-width: 27rem) {
     .crab-checkbox-tasks .crab-checkbox-option-content { grid-template-columns: minmax(0, 1fr); gap: .15rem; }
