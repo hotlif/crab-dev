@@ -7,7 +7,7 @@ export function createLibraryNavigation(manifest) {
             { id: "guides", title: "使用指南", pages: ["guides/getting-started", "guides/library-architecture", "guides/public-api", "guides/migration", "guides/accessibility"] },
         ] },
         { id: "design", title: "设计", pages: ["design/index"], sections: [
-            { id: "design-prototypes", title: "组件原型", pages: ["design/button", "design/line-edit", "design/checkbox", "design/radio"] },
+            { id: "design-prototypes", title: "组件原型", pages: ["design/button", "design/line-edit", "design/checkbox", "design/radio", "design/switch"] },
             { id: "design-scenarios", title: "应用场景", pages: ["design/save-profile"] },
             { id: "design-foundations", title: "设计基础", pages: ["guides/design-styles", "guides/component-sizing", "guides/design-coverage"] },
         ] },
