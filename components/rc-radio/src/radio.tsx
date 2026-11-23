@@ -90,7 +90,7 @@ const Radio: FC<RadioProps> = ({
     });
 
     const checked = isInGroup ? group.value === value : standaloneChecked;
-    const disabled = disabledProp ?? (group?.disabled ?? false);
+    const disabled = Boolean(disabledProp || group?.disabled);
     const name = restProps.name ?? group?.name;
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {

@@ -101,4 +101,4 @@ dot.checked.color-disabled = "$ref(selection.radio.disabled-selected-dot)"
 # ─── 标签 ────────────────────────────────────────────────────────────────────
 
 label.color          = "$ref(color.text.primary)"
-label.color-disabled = "$ref(color.text.primary)"
+label.color-disabled = "$ref(color.text.secondary)"

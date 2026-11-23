@@ -61,11 +61,9 @@ globalStyle`
 
 [data-line-edit-prototype][data-prototype-design="md3"] [data-field-root][data-labeled="true"] > label {
     position: absolute;
-    inset-inline-start: 16px;
     inset-block-start: 28px;
     align-self: auto;
     margin: 0;
-    max-inline-size: calc(100% - 32px);
     font-size: ${token.typography.body.large["font-size"]};
     line-height: ${token.typography.body.large["line-height"]};
     transform: translateY(-50%);

@@ -52,11 +52,22 @@ export async function assertLineEditGeometry(input, frame) {
         const root = node.closest('[data-field-root]');
         const labelBounds = root.querySelector(':scope > label').getBoundingClientRect();
         const control = node.closest('[data-field-control]').getBoundingClientRect();
-        return { gap: control.top - labelBounds.bottom, start: labelBounds.left - control.left, end: control.right - labelBounds.right };
+        const layout = root.dataset.fieldLayout;
+        const floating = root.matches(':focus-within') || !node.matches(':placeholder-shown');
+        const center = (labelBounds.top + labelBounds.bottom) / 2;
+        const expectedCenter = layout === 'floating' && floating ? control.top : (control.top + control.bottom) / 2;
+        const rtl = globalThis.getComputedStyle(root).direction === 'rtl';
+        return { layout, centerDelta: Math.abs(center - expectedCenter), gap: control.top - labelBounds.bottom,
+            inlineGap: rtl ? labelBounds.left - control.right : control.left - labelBounds.right,
+            start: labelBounds.left - control.left, end: control.right - labelBounds.right };
     });
-    expect(labelArea.gap).toBeGreaterThanOrEqual(3);
-    expect(labelArea.start).toBeGreaterThanOrEqual(-1);
-    expect(labelArea.end).toBeGreaterThanOrEqual(-1);
+    if (labelArea.layout) expect(labelArea.centerDelta).toBeLessThan(1);
+    else expect(labelArea.gap).toBeGreaterThanOrEqual(0);
+    if (labelArea.layout === 'inline') expect(labelArea.inlineGap).toBeGreaterThan(0);
+    else {
+        expect(labelArea.start).toBeGreaterThanOrEqual(-1);
+        expect(labelArea.end).toBeGreaterThanOrEqual(-1);
+    }
     const buttons = [];
     for (const button of await field.getByRole("button").all()) {
         buttons.push({

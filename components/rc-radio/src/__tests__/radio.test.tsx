@@ -118,6 +118,10 @@ describe('Radio', () => {
     });
 });
 describe('RadioGroup', () => {
+    it('keeps explicitly enabled options disabled while the group is unavailable', async () => {
+        const { container } = await render(<RadioGroup disabled><Radio value="item" disabled={false}>Option</Radio></RadioGroup>);
+        expect(container.querySelector('input')!.disabled).toBe(true);
+    });
     it('forwards the group name and description for assistive technology', async () => {
         const { container } = await render(
             <RadioGroup aria-label="Frequency" aria-describedby="frequency-help">

@@ -118,4 +118,4 @@ icon.color-disabled       = "$ref(color.surface.content)"
 # ─── 标签 ────────────────────────────────────────────────────────────────────
 
 label.color          = "$ref(color.text.primary)"
-label.color-disabled = "$ref(color.text.primary)"
+label.color-disabled = "$ref(color.text.secondary)"

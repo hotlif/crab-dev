@@ -22,6 +22,12 @@ const clickCheckbox = async (input: HTMLInputElement) => {
     });
 };
 describe('Checkbox', () => {
+    it('retains the native mixed state when the owner declines a toggle', async () => {
+        const { input } = await renderCheckbox({ checked: false, indeterminate: true });
+        await clickCheckbox(input);
+        expect(input.indeterminate).toBe(true);
+        expect(input.checked).toBe(false);
+    });
     it('separates native events from checked details and does not notify on external updates', async () => {
         const onCheckedChange = mock.fn();
         const nativeValues: boolean[] = [];
@@ -116,6 +122,10 @@ describe('Checkbox', () => {
     });
 });
 describe('CheckboxGroup', () => {
+    it('keeps explicitly enabled options disabled while the group is unavailable', async () => {
+        const { container } = await render(<CheckboxGroup disabled><Checkbox value="item" disabled={false}>Option</Checkbox></CheckboxGroup>);
+        expect(container.querySelector('input')!.disabled).toBe(true);
+    });
     it('renders children', async () => {
         const { container } = await render(<CheckboxGroup>
             <Checkbox value="a">A</Checkbox>

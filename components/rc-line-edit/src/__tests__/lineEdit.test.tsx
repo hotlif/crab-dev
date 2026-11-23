@@ -43,6 +43,13 @@ async function enterText(input: HTMLInputElement, value: string) {
 }
 
 describe("LineEdit", () => {
+    it('counts joined characters and keeps a native length limit in UTF-16 units', async () => {
+        const value = '👩‍💻e\u0301';
+        const view = await render(<LineEdit label="Name" value={value} showCount />);
+        expect(view.container.querySelector('[data-field-support]')?.textContent).toBe('2');
+        await view.rerender(<LineEdit label="Name" value={value} maxLength={10} showCount />);
+        expect(view.container.querySelector('[data-field-support]')?.textContent).toBe(`${value.length}/10`);
+    });
     it('updates field action labels with the configured locale without remounting the input', async () => {
         const field = <LineEdit type="password" aria-label="Password" defaultValue="Crab" allowClear showCount />;
         const view = await render(<ConfigProvider locale="zh-CN">{field}</ConfigProvider>);

@@ -71,7 +71,7 @@ const Checkbox: FC<CheckboxProps> = ({
     });
 
     const checked = isInGroup ? group.value.includes(value) : standaloneChecked;
-    const disabled = disabledProp ?? (group?.disabled ?? false);
+    const disabled = Boolean(disabledProp || group?.disabled);
     const state = indeterminate ? 'indeterminate' : checked ? 'checked' : 'unchecked';
 
     useEffect(() => {
@@ -86,6 +86,9 @@ const Checkbox: FC<CheckboxProps> = ({
         } else {
             setStandaloneChecked(event.target.checked, event);
         }
+        // Native activation clears mixed before change fires. Restore the
+        // committed state if the owner leaves the selection partially checked.
+        event.currentTarget.indeterminate = event.currentTarget.getAttribute('aria-checked') === 'mixed';
     };
 
     return (
