@@ -3,6 +3,7 @@ import Checkbox from "@crab-dev/rc-checkbox";
 import { useConfig } from "@crab-dev/rc-config-provider";
 import LineEdit from "@crab-dev/rc-line-edit";
 import Radio from "@crab-dev/rc-radio";
+import Switch from "@crab-dev/rc-switch";
 import SiteIcon from "../siteIcon.js";
 import { useSiteHref } from "../siteContext.js";
 import { DesignHero } from "./hero.js";
@@ -64,6 +65,14 @@ export default function DesignOverview() {
                             <h3>Radio 单选框</h3>
                             <p>选择工作区的启动方式，试用默认项、权限禁用和必填校验。</p>
                             <Button appearance="primary" href={href("design/radio")} iconAfter={<span aria-hidden="true">→</span>}>体验单选框原型</Button>
+                        </div>
+                    </div>
+                    <div className="crab-design-card">
+                        <div className="crab-design-card-body">
+                            <div inert aria-hidden="true"><Switch defaultChecked>自动刷新</Switch></div>
+                            <h3>Switch 开关</h3>
+                            <p>切换工作区自动刷新，观察即时更新、保存失败和重试。</p>
+                            <Button appearance="primary" href={href("design/switch")} iconAfter={<span aria-hidden="true">→</span>}>体验开关原型</Button>
                         </div>
                     </div>
                 </section>
