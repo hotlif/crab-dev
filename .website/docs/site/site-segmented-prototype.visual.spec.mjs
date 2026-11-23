@@ -93,6 +93,57 @@ for (const designSystem of designs) {
     }
 }
 
+for (const [colorMode, width] of [['light', 1440], ['dark', 320]]) {
+    test(`MD3 connected segments keep their label centers and geometry in ${colorMode}`, { tag: ['@website'] }, async ({ page, previewOrigin }) => {
+        await page.setViewportSize({ width, height: 950 });
+        await openSite(page, previewOrigin, definition, { designSystem: 'md3', colorMode });
+        const group = trend(page).getByRole('radiogroup', { name: '巡检时间范围' });
+        const day = period(page, '日视图');
+        const week = period(page, '周视图');
+        const choices = group.locator('.crab-segmented-choice');
+        const positions = () => choices.evaluateAll(labels => labels.map(label => {
+            const box = label.getBoundingClientRect();
+            const range = document.createRange();
+            range.selectNodeContents(label.lastElementChild);
+            const text = range.getBoundingClientRect();
+            return {
+                x: box.x, y: box.y, width: box.width, height: box.height,
+                textX: text.x, textY: text.y, textWidth: text.width, textHeight: text.height,
+            };
+        }));
+        const shape = () => week.locator('..').evaluate(label => getComputedStyle(label).borderRadius);
+
+        await group.scrollIntoViewIfNeeded();
+        const baseline = await positions();
+        expect(baseline).toHaveLength(3);
+        for (const box of baseline) {
+            expect(Math.abs(box.width - baseline[0].width)).toBeLessThan(1);
+            expect(Math.abs(box.textX + box.textWidth / 2 - box.x - box.width / 2)).toBeLessThan(1);
+        }
+        await expect(day).toBeChecked();
+        await expect(choices.first().locator('[data-selection-indicator]')).toHaveCSS('display', 'none');
+        const restingShape = await shape();
+        const target = baseline[1];
+        await page.mouse.move(target.x + target.width / 2, target.y + target.height / 2);
+        await page.mouse.down();
+        expect(await week.locator('..').evaluate(label => label.matches(':active'))).toBe(true);
+        expect(await positions()).toEqual(baseline);
+        expect(await shape()).toBe(restingShape);
+        await expect(day).toBeChecked();
+        await page.mouse.up();
+        await expect(week).toBeChecked();
+        expect(await positions()).toEqual(baseline);
+        expect(await shape()).not.toBe(restingShape);
+
+        await day.focus();
+        await page.keyboard.down('Space');
+        expect(await positions()).toEqual(baseline);
+        await page.keyboard.up('Space');
+        await expect(day).toBeChecked();
+        expect(await positions()).toEqual(baseline);
+    });
+}
+
 test('changing design preserves both selection groups', { tag: ['@website'] }, async ({ page, previewOrigin }) => {
     await openSite(page, previewOrigin, definition, { designSystem: 'md3', colorMode: 'dark' });
     await period(page, '周视图').press('Space');
