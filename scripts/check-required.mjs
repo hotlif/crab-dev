@@ -29,18 +29,31 @@ export function requiredCheckShard(checks, shard) {
     return remaining.filter(({ workspace }) => selected.has(workspace));
 }
 
-export async function runRequiredChecks({ list = false, shard } = {}) {
+export function requiredTestArgs(checks, shard, browserShard) {
+    if (browserShard === undefined) return checks.map(check => ({ ...check, args: [] }));
+    const match = /^([1-9]\d*)\/([1-9]\d*)$/.exec(browserShard);
+    if (shard !== "date-picker" || !match || Number(match[1]) > Number(match[2])
+        || !checks.some(check => check.workspace === datePickerWorkspace && check.task === "test:browser")) {
+        throw new Error("Expected a registered DatePicker browser suite and a valid --browser-shard INDEX/TOTAL.");
+    }
+    // Future non-browser checks on this workspace still run once.
+    return checks.filter(check => check.task === "test:browser" || match[1] === "1")
+        .map(check => ({ ...check, args: check.task === "test:browser" ? ["--shard", browserShard] : [] }));
+}
+
+export async function runRequiredChecks({ list = false, shard, browserShard } = {}) {
     // Validate every declaration before executing any task; malformed metadata must fail closed.
-    const checks = requiredCheckShard(requiredCheckPlan(await readWorkspaceManifests()), shard);
+    const selected = requiredCheckShard(requiredCheckPlan(await readWorkspaceManifests()), shard);
+    const checks = requiredTestArgs(selected, shard, browserShard);
     if (shard !== undefined && checks.length === 0) throw new Error(`Required check shard ${shard} is empty.`);
     if (list) {
-        for (const { workspace, task } of checks) console.log(`${workspace}: ${task}`);
+        for (const { workspace, task, args } of checks) console.log(`${workspace}: ${[task, ...args].join(" ")}`);
         return checks.length;
     }
     const yarn = await resolveYarnEntry(process.env.npm_execpath);
-    for (const { workspace, task } of checks) {
-        console.log(`Required check: ${workspace} ${task}`);
-        const code = await runYarn(yarn, ["workspace", workspace, "run", task], { cwd: repositoryRoot, signalMessage: "Required check terminated by" });
+    for (const { workspace, task, args } of checks) {
+        console.log(`Required check: ${workspace} ${[task, ...args].join(" ")}`);
+        const code = await runYarn(yarn, ["workspace", workspace, "run", task, ...args], { cwd: repositoryRoot, signalMessage: "Required check terminated by" });
         if (code !== 0) throw new Error(`${workspace} ${task} failed (${code}).`);
     }
     return checks.length;
@@ -48,10 +61,10 @@ export async function runRequiredChecks({ list = false, shard } = {}) {
 
 if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1])).href) {
     try {
-        const { values: { list, shard } } = parseArgs({
-            options: { list: { type: "boolean" }, shard: { type: "string" } },
+        const { values: { list, shard, "browser-shard": browserShard } } = parseArgs({
+            options: { list: { type: "boolean" }, shard: { type: "string" }, "browser-shard": { type: "string" } },
         });
-        const count = await runRequiredChecks({ list, shard });
+        const count = await runRequiredChecks({ list, shard, browserShard });
         console.log(`${list ? "Listed" : "Passed"} ${count} required workspace checks.`);
     } catch (error) {
         console.error(error.message);

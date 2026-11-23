@@ -8,6 +8,7 @@ import { createTurboConfig } from "./generate-library-tasks.mjs";
 import { validateReleaseEvent } from "./check-release.mjs";
 import { resolveYarnEntry, runYarn } from "./package-manager.mjs";
 import { buildEnvironment } from "./build-library.mjs";
+import { packageBuildGroups } from "./ci-build-groups.mjs";
 import { generatedContentChanges, generatedLibraryPaths } from "./check-generated.mjs";
 import { exportTargets, verifyTarget } from "./check-exports.mjs";
 import { offlineConsumerEnvironment } from "./check-consumer.mjs";
@@ -15,7 +16,7 @@ import { validateReactPeers } from "./check-library.mjs";
 import { requiredReactPeers } from "./react-peer-contract.mjs";
 import { validateDesignVerification } from "./design-verification.mjs";
 import { missingWakeWorkspaceResolutions, readWorkspaceManifests, requiredCheckScripts, validateWakeToolchain } from "./check-commands.mjs";
-import { requiredCheckPlan, requiredCheckShard } from "./check-required.mjs";
+import { requiredCheckPlan, requiredCheckShard, requiredTestArgs } from "./check-required.mjs";
 import { waitForOwnDevTools } from "./published-browser-readiness.mjs";
 import { repositoryCheckPlan, repositoryProjectCheckPlan, workspaceCheckPlan } from "./check-plan.mjs";
 import { libraryMetadataOutputs } from "./generate-library-metadata.mjs";
@@ -183,6 +184,30 @@ test("root additional checks derive only from explicit workspace registrations",
     ];
     assert.deepEqual(requiredCheckPlan(workspaces), [{ workspace: "registered", task: "test:browser" }]);
     assert.throws(() => requiredCheckPlan([...workspaces, { packageJson: { name: "broken", crab: { requiredChecks: ["test:missing"] } } }]));
+});
+
+test("CI build groups cover each library once and consume only local or shared prerequisites", async () => {
+    const { tasks } = JSON.parse(await readFile(join(repositoryRoot, "turbo.json"), "utf8"));
+    const groups = packageBuildGroups(tasks);
+    const manifest = await loadLibraryManifest();
+    assert.deepEqual(Object.values(groups).flat().sort(), manifest.packages.map(entry => entry.name).sort());
+    assert.ok(groups.shared.includes("@crab-dev/rc-date-picker"));
+    for (const packages of Object.values(groups)) {
+        assert.ok(packages.length);
+        const available = new Set([...groups.shared, ...packages].map(name => `${name}#build:library`));
+        for (const name of packages) {
+            for (const dep of tasks[`${name}#build:library`].dependsOn) assert.ok(available.has(dep), `${name} needs ${dep}`);
+        }
+    }
+});
+
+test("DatePicker forwards native Wake shards and runs additional registrations once", () => {
+    const workspace = "@crab-dev/rc-date-picker";
+    const checks = ["test:browser", "test:extra"].map(task => ({ workspace, task }));
+    assert.deepEqual(requiredTestArgs(checks, "date-picker", "1/3").map(check => check.args), [["--shard", "1/3"], []]);
+    assert.deepEqual(requiredTestArgs(checks, "date-picker", "2/3"), [{ ...checks[0], args: ["--shard", "2/3"] }]);
+    assert.throws(() => requiredTestArgs(checks, "1/2", "1/3"), /browser-shard/);
+    assert.throws(() => requiredTestArgs(checks, "date-picker", "4/3"), /browser-shard/);
 });
 
 test("CI required test shards run each registered check once and keep workspaces together", async () => {

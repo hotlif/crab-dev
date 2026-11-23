@@ -6,6 +6,7 @@
     "scripts": {
         "start": "yarn docs:dev",
         "build:library": "node scripts/build-library.mjs",
+        "ci:build": "node scripts/ci-build-groups.mjs",
         "docs:dev": "yarn build:library && yarn workspace @crab-dev/website start",
         "docs:build": "yarn build:library && yarn workspace @crab-dev/website build",
         "test": "turbo run test --concurrency=2",
