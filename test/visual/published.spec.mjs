@@ -13,7 +13,8 @@ const test = base.extend({
     published: [async ({}, use, workerInfo) => {
         const before = await capturePublishedInputs(job);
         const require = createRequire(path.join(job.packageRoot, "package.json")), wake = require("@crab-dev/wake");
-        if (wake.version() !== "0.1.45") throw Error("Published fixture requires Wake 0.1.45");
+        const expectedWake = require("./package.json").devDependencies["@crab-dev/wake"];
+        if (wake.version() !== expectedWake) throw Error(`Published fixture requires the pinned Wake ${expectedWake}`);
         const css = JSON.parse(await fs.readFile(path.join(job.packageRoot, ".cache/browser-css.json"), "utf8"));
         if (typeof css !== "string" || !css.length) throw Error("Prepare actual published CSS before this check");
         const directory = path.join(job.output, `worker-${workerInfo.workerIndex}`);
