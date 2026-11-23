@@ -69,7 +69,6 @@ export function validateLibrary(manifest, inspection, peers = requiredReactPeers
         for (const section of ["dependencies", "devDependencies"]) {
             for (const [name, version] of Object.entries(pkg[section] ?? {})) {
                 if ((packages.has(name) || name.startsWith("@crab-dev/standards-")) && version !== "workspace:^") report(entry, `${name} must use workspace:^.`);
-                if (["@crab-dev/wake", "@crab-dev/css"].includes(name) && version !== "0.1.45") report(entry, `${name} must be pinned to 0.1.45.`);
                 if (section === "dependencies" && pkg.devDependencies?.[name]) report(entry, `${name} is duplicated in dependency sections.`);
             }
         }

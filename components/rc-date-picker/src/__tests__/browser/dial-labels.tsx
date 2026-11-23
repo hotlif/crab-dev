@@ -1,19 +1,8 @@
-import { afterAll, beforeAll, describe, expect, it } from '@crab-dev/wake/test';
+import { describe, expect, it } from '@crab-dev/wake/test';
 import { act, render } from '@crab-dev/wake/test/react';
-import ConfigProvider from '@crab-dev/rc-config-provider';
-import { Temporal as TemporalPolyfill } from '@js-temporal/polyfill';
+import ConfigProvider, { type ConfigDesignSystem } from '@crab-dev/rc-config-provider';
 import { TimePicker } from '../../../esm/index.mjs';
 import compiledCss from '../../../.cache/browser-css.json';
-
-const temporalDescriptor = Object.getOwnPropertyDescriptor(globalThis, 'Temporal');
-beforeAll(() => {
-    // Use the real polyfill only on browsers without native Temporal; do not
-    // replace layout, animation, pointer or other browser APIs in this suite.
-    if (!temporalDescriptor) Object.defineProperty(globalThis, 'Temporal', { value: TemporalPolyfill, configurable: true });
-});
-afterAll(() => {
-    if (!temporalDescriptor) Reflect.deleteProperty(globalThis, 'Temporal');
-});
 
 const settle = () => act(async () => {
     await new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve())));
@@ -60,8 +49,8 @@ function samePixel(actual: Uint8ClampedArray, baseline: Uint8ClampedArray, x: nu
     return [0, 1, 2, 3].every(channel => Math.abs(actual[offset + channel]! - baseline[offset + channel]!) <= 1);
 }
 
-describe('published clock label paint and geometry', () => {
-    for (const designSystem of ['md3', 'macos', 'shadcn'] as const) {
+export function testDialLabels(designSystem: ConfigDesignSystem) {
+    describe('published clock label paint and geometry', () => {
         for (const colorMode of ['light', 'dark'] as const) {
             it(`masks the hand behind labels without masking neighboring selection circles (${designSystem}/${colorMode})`, async () => {
                 const fixture = (hour: number) => <>
@@ -144,5 +133,5 @@ describe('published clock label paint and geometry', () => {
                 }
             });
         }
-    }
-});
+    });
+}
