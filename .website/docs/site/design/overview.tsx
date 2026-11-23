@@ -3,6 +3,7 @@ import Checkbox from "@crab-dev/rc-checkbox";
 import { useConfig } from "@crab-dev/rc-config-provider";
 import LineEdit from "@crab-dev/rc-line-edit";
 import Radio from "@crab-dev/rc-radio";
+import Segmented from "@crab-dev/rc-segmented";
 import Switch from "@crab-dev/rc-switch";
 import SiteIcon from "../siteIcon.js";
 import { useSiteHref } from "../siteContext.js";
@@ -73,6 +74,14 @@ export default function DesignOverview() {
                             <h3>Switch 开关</h3>
                             <p>切换工作区自动刷新，观察即时更新、保存失败和重试。</p>
                             <Button appearance="primary" href={href("design/switch")} iconAfter={<span aria-hidden="true">→</span>}>体验开关原型</Button>
+                        </div>
+                    </div>
+                    <div className="crab-design-card">
+                        <div className="crab-design-card-body">
+                            <div inert aria-hidden="true"><Segmented options={["日", "周", "月"]} aria-label="巡检时间范围" /></div>
+                            <h3>Segmented 分段控制器</h3>
+                            <p>在巡检记录中切换日、周、月，检查键盘操作和长标签溢出。</p>
+                            <Button appearance="primary" href={href("design/segmented")} iconAfter={<span aria-hidden="true">→</span>}>体验分段控制器原型</Button>
                         </div>
                     </div>
                 </section>
