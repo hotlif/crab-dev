@@ -137,6 +137,12 @@ export function testViewportFallback(designSystem: ConfigDesignSystem) {
                             expect(rect.right <= bounds.left - 5 || rect.left >= bounds.right + 5 || rect.bottom <= bounds.top - 5 || rect.top >= bounds.bottom + 5).toBe(true);
                             if (scenario.placement === 'below') expect(rect.top).toBeGreaterThanOrEqual(bounds.bottom + 5);
                             if (scenario.placement === 'above') expect(rect.bottom).toBeLessThanOrEqual(bounds.top - 5);
+                            if (scenario.name === 'below' || scenario.name === 'above') {
+                                const edge = direction === 'rtl' ? 'right' : 'left';
+                                const control = input.closest<HTMLElement>('[data-field-control]')!;
+                                expect(Math.abs(rect[edge] - control.getBoundingClientRect()[edge]))
+                                    .toBeLessThanOrEqual(0.5 / win.devicePixelRatio);
+                            }
                             if (scenario.placement === 'right') expect(rect.left).toBeGreaterThanOrEqual(bounds.right + 5);
                             if (scenario.placement === 'left') expect(rect.right).toBeLessThanOrEqual(bounds.left - 5);
                             const navigation = Array.from(popup.querySelectorAll<HTMLButtonElement>('button[aria-label]')).slice(0, 4);

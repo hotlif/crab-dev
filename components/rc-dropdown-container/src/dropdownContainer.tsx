@@ -22,7 +22,7 @@ import {
 import { useControllableOpen, type ControlledOpenProps, usePresence, useEventCallback } from '@crab-dev/rc-hooks';
 import type { DropdownAction } from './reducer.js';
 import { DropdownContext } from './context.js';
-import { DropdownPositionReference } from './position-reference.js';
+import { alignFieldControl, DropdownPositionReference } from './position-reference.js';
 import token from './token.js';
 
 export interface DropdownOpenChangeDetails {
@@ -167,6 +167,7 @@ function DropdownContainerContent({ size: sizeProp, closeOnFocusOut = false, ope
         whileElementsMounted: autoUpdate,
         middleware: [
             offset(6),
+            alignFieldControl,
             {
                 name: 'crabSideRoom',
                 async fn(state) {

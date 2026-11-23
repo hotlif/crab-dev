@@ -20,11 +20,12 @@ export const wrapperStyle = css`
         cursor: not-allowed;
         pointer-events: none;
         color: ${token.label['color-disabled']};
-        > span { opacity: ${token.root['opacity-disabled']}; }
     }
-    > span { min-width: 0; overflow-wrap: anywhere; }
+    &:has(> span) { display: flex; justify-content: space-between; }
+    > span { order: -1; min-width: 0; overflow-wrap: anywhere; }
+    &:has(button[aria-disabled="true"]:not(:disabled)) { cursor: wait; }
     @media (forced-colors: active) {
-        &[data-disabled] { color: GrayText; > span { opacity: 1; } }
+        &[data-disabled] { color: GrayText; }
     }
 `;
 

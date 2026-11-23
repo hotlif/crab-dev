@@ -83,11 +83,13 @@ describe('Published placeholder roles and actual contrast', () => {
                 it(`preserves ${designSystem}/${colorMode}/${appearance} enabled/readonly contrast and disabled roles`, async () => {
                     const view = await render(<ConfigProvider designSystem={designSystem} colorMode={colorMode}>
                         <style>{compiledCss}</style>
-                        <LineEdit label="Enabled" placeholder="Choose a date" appearance={appearance} />
-                        <LineEdit label="Read only" placeholder="Choose a date" appearance={appearance} readOnly />
-                        <LineEdit label="Disabled" placeholder="Choose a date" appearance={appearance} disabled />
-                        <span data-witness="enabled" style={{ color: token.field.placeholder.color }} />
-                        <span data-witness="disabled" style={{ color: token.field.placeholder['color-disabled'] }} />
+                        <div style={{ backgroundColor: token.root['background-color'] }}>
+                            <LineEdit label="Enabled" placeholder="Choose a date" appearance={appearance} />
+                            <LineEdit label="Read only" placeholder="Choose a date" appearance={appearance} readOnly />
+                            <LineEdit label="Disabled" placeholder="Choose a date" appearance={appearance} disabled />
+                            <span data-witness="enabled" style={{ color: token.field.placeholder.color }} />
+                            <span data-witness="disabled" style={{ color: token.field.placeholder['color-disabled'] }} />
+                        </div>
                     </ConfigProvider>);
                     const inputs = view.container.querySelectorAll<HTMLInputElement>('input');
                     const enabled = getComputedStyle(inputs[0], '::placeholder').color;
@@ -104,12 +106,16 @@ describe('Published placeholder roles and actual contrast', () => {
                         // Readonly is still readable content, not a disabled exemption.
                         expect(input.disabled).toBe(false);
                         expect(input.matches(':focus')).toBe(false);
-                        expect(visiblePlaceholderContrast(input)).toBeGreaterThanOrEqual(4.5);
+                        if (designSystem === 'md3' && appearance === 'outlined') {
+                            expect(getComputedStyle(input, '::placeholder').opacity).toBe('0');
+                        } else {
+                            expect(visiblePlaceholderContrast(input)).toBeGreaterThanOrEqual(4.5);
+                        }
                         // Real focus changes the public field state; no pseudo override,
                         // color witness, host input.color or fabricated event substitutes.
                         await act(() => input.focus());
                         expect(document.activeElement).toBe(input);
-                        expect(visiblePlaceholderContrast(input)).toBeGreaterThanOrEqual(4.5);
+                        await waitFor(() => expect(visiblePlaceholderContrast(input)).toBeGreaterThanOrEqual(4.5));
                         await act(() => input.blur());
                     }
                 });
@@ -117,6 +123,27 @@ describe('Published placeholder roles and actual contrast', () => {
         }
     }
 });
+
+function assertLabelPosition(input: HTMLInputElement, design: string, appearance: string) {
+    const label = input.labels![0].getBoundingClientRect();
+    const control = input.parentElement!.getBoundingClientRect();
+    if (design !== 'md3') {
+        const rtl = getComputedStyle(input.parentElement!).direction === 'rtl';
+        expect(rtl ? label.left - control.right : control.left - label.right).toBeGreaterThan(0);
+        expect(Math.abs((label.top + label.bottom - control.top - control.bottom) / 2)).toBeLessThan(1);
+    } else if (appearance === 'outlined') {
+        const center = (label.top + label.bottom) / 2;
+        const floating = input.matches(':focus, :not(:placeholder-shown)');
+        expect(Math.abs(center - (floating ? control.top : (control.top + control.bottom) / 2))).toBeLessThan(1);
+        if (!floating) {
+            const text = input.getBoundingClientRect();
+            expect(label.left).toBeGreaterThanOrEqual(text.left - 1);
+            expect(label.right).toBeLessThanOrEqual(text.right + 1);
+        }
+    } else {
+        expect(label.bottom).toBeLessThanOrEqual(control.top - 3);
+    }
+}
 
 describe('Published decorated field label geometry', () => {
     it('uses the nearest design boundary while preserving focus, selection, refs and draft', async () => {
@@ -140,10 +167,7 @@ describe('Published decorated field label geometry', () => {
                 // Wait for published theme transitions after
                 // the theme's layout. Keep every bound assertion and wait for
                 // that real delivery rather than reading the previous layout.
-                await waitFor(() => {
-                    const label = input.closest('[data-field-root]')!.querySelector('label')!.getBoundingClientRect();
-                    expect(label.bottom).toBeLessThanOrEqual(input.parentElement!.getBoundingClientRect().top - 3);
-                });
+                await waitFor(() => assertLabelPosition(input, designSystem, 'filled'));
             }
         }
         await view.unmount();
@@ -167,18 +191,17 @@ describe('Published decorated field label geometry', () => {
                             const field = input.closest<HTMLElement>('[data-field-root]')!;
                             const visibleLabel = field.querySelector<HTMLLabelElement>('label')!;
                             const assertGeometry = () => {
-                                const bounds = visibleLabel.getBoundingClientRect();
-                                expect(bounds.bottom).toBeLessThanOrEqual(input.parentElement!.getBoundingClientRect().top - 3);
+                                assertLabelPosition(input, designSystem, appearance);
                                 expect(getComputedStyle(visibleLabel.querySelector('[data-field-label-text]')!).textOverflow).toBe('ellipsis');
                                 expect(visibleLabel.htmlFor).toBe(input.id);
                                 expect(visibleLabel.textContent).toBe(`${label}*`);
                             };
-                            assertGeometry();
+                            await waitFor(assertGeometry);
                             await act(() => input.focus());
-                            assertGeometry();
+                            await waitFor(assertGeometry);
                             expect(document.activeElement === input).toBe(true);
                             await act(() => input.blur());
-                            assertGeometry();
+                            await waitFor(assertGeometry);
                         }
                     });
                 }
@@ -216,9 +239,9 @@ describe('Desktop field and inherited action geometry', () => {
                             expect(document.activeElement).toBe(input);
                             expect([input.selectionStart, input.selectionEnd]).toEqual([1, 4]);
                             const heights = { md3: [32, 40, 48], macos: [28, 32, 36], shadcn: [32, 36, 40] }[designSystem];
-                            for (const field of inputs) expect(field.parentElement!.getBoundingClientRect().height).toBeCloseTo(heights[index], 1);
-                            const label = view.container.querySelector('label')!.getBoundingClientRect();
-                            expect(label.bottom).toBeLessThanOrEqual(input.parentElement!.getBoundingClientRect().top - 3);
+                            expect(input.parentElement!.getBoundingClientRect().height).toBeCloseTo(designSystem === 'md3' ? 56 : heights[index], 1);
+                            expect(inputs[1].parentElement!.getBoundingClientRect().height).toBeCloseTo(heights[index], 1);
+                            assertLabelPosition(input, designSystem, 'outlined');
                             const expected = { md3: [32, 36, 40], macos: [24, 28, 32], shadcn: [32, 36, 40] }[designSystem][index];
                             expect(view.container.querySelector('[data-default-action]')!.getBoundingClientRect().height).toBeCloseTo(expected, 1);
                             const icon = view.container.querySelector('[data-icon-action]')!.getBoundingClientRect();

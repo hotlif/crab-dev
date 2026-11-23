@@ -90,7 +90,10 @@ export function testFieldPosition(designSystem: ConfigDesignSystem) {
                             const bounds = field.getBoundingClientRect();
                             const floating = popup.getBoundingClientRect();
                             expect(floating.width).toBeGreaterThan(0);
-                            expect(floating.left).toBeCloseTo(control.getBoundingClientRect().left, 1);
+                            // The label column can end at a fractional CSS pixel.
+                            // Floating UI rounds the panel translation to the nearest device pixel.
+                            expect(Math.abs(floating.left - control.getBoundingClientRect().left))
+                                .toBeLessThanOrEqual(0.5 / window.devicePixelRatio);
                             if (side === 'below') expect(floating.top).toBeGreaterThanOrEqual(bounds.bottom + 5);
                             else expect(floating.bottom).toBeLessThanOrEqual(bounds.top - 5);
                             // Floating MD3 labels can paint outside the root box:

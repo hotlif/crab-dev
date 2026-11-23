@@ -18,6 +18,7 @@ export const containerBaseStyle = css`
     @media (prefers-reduced-motion: reduce) { transition: none; }
     outline: none;
     box-sizing: border-box;
+    &:not([aria-disabled="true"]) { cursor: text; }
     &:hover:not(:focus-within):not([aria-disabled="true"]) {
         border-color: ${token.root['border-color-hover']};
     }

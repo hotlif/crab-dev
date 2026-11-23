@@ -28,7 +28,7 @@ status = "experimental"
 
 页面依据 [M3 Expressive](https://m3.material.io/blog/building-with-m3-expressive) 的排版、用途色和内容分组呈现关键选择。通知场景中的选项容器属于应用组合，不新增 Radio 外观类型。Radio 保留 [Material Design 3 Radio](https://m3.material.io/components/radio-button/overview) 的圆环、圆点与圆形状态层。默认 20px 圆环采用恒定 2px 描边，选中时圆环和圆点使用品牌色，内部保持透明；small / large 分别为 16 / 24px。颜色通过 L3 消费现有 L2，自动适配明暗主题与单色品牌配置。
 
-48px 点击目标内的 40px 圆形状态层承载悬停 8%、聚焦和按压 12% 的状态层，悬停文字也会触发反馈；键盘焦点另有独立轮廓。圆点和状态层仅使用 CSS 过渡。禁用时沿用 Crab 的禁用透明度，圆环、圆点和文字使用中性色，不响应交互反馈。
+48px 点击目标内的 40px 圆形状态层承载悬停 8%、聚焦和按压 12% 的状态层，悬停文字也会触发反馈；键盘焦点另有独立轮廓。圆点和状态层仅使用 CSS 过渡。禁用时圆环和圆点使用禁用透明度，标签和原因说明使用次级文字色，不响应交互反馈。
 
 原生输入负责组内单选和键盘行为。使用 `aria-label` 或 `aria-labelledby` 为 RadioGroup 命名；校验提示通过 Radio 的 `aria-invalid` 与 `aria-describedby` 关联。强制颜色下以系统圆环和圆点表达选中。
 

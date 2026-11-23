@@ -95,6 +95,9 @@ for (const [colorMode, width] of [['light', 1440], ['dark', 320]]) {
         await sample.hover();
         await expect(sample).toHaveAttribute('placeholder', '例如北区巡检');
         await expect(sample).toHaveValue('');
+        const labelStartOffset = await sample.evaluate(node =>
+            node.labels[0].getBoundingClientRect().left - node.getBoundingClientRect().left);
+        expect(Math.abs(labelStartOffset)).toBeLessThan(1);
         expect(await placeholderOpacity(sample)).toBe('0');
         expect(await describedText(sample)).toContain('标签浮起后显示输入示例');
         const startingFocus = await sample.evaluate(node => {

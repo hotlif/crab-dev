@@ -102,7 +102,7 @@ export const demos = [
     {
         "id": "docs/demos/simple.demo.tsx",
         "title": "基础用法",
-        "description": "使用上置标签编辑单行内容，字段尺寸、表面和焦点反馈继承当前文档主题。",
+        "description": "使用带标签的输入框编辑单行内容，字段尺寸、表面和焦点反馈继承当前文档主题。",
         "learning": {
             "components": [
                 "LineEdit"
@@ -116,7 +116,7 @@ export const demos = [
             "events": [],
             "hasState": false
         },
-        "sourceCode": "export const meta = {\n    title: \"基础用法\",\n    description: \"使用上置标签编辑单行内容，字段尺寸、表面和焦点反馈继承当前文档主题。\",\n};\n\nimport { css } from \"@crab-dev/css\";\nimport token from \"@crab-dev/rc-token-semantic\";\nimport LineEdit from \"../../src/index.js\";\n\nconst wrapperStyle = css`\n    padding: ${token.space['card-padding']};\n    display: grid;\n    gap: ${token.space['group-gap']};\n`;\n\nconst SimpleDemo = () => {\n    return (\n        \u003cdiv className={wrapperStyle}>\n            \u003cLineEdit label=\"项目名称\" supportingText=\"用于团队首页和项目列表。\" />\n            \u003cLineEdit label=\"项目编号\" defaultValue=\"CRAB-2026\" readOnly supportingText=\"编号可选择和复制。\" />\n        \u003c/div>\n    );\n};\n\nexport default SimpleDemo;\n",
+        "sourceCode": "export const meta = {\n    title: \"基础用法\",\n    description: \"使用带标签的输入框编辑单行内容，字段尺寸、表面和焦点反馈继承当前文档主题。\",\n};\n\nimport { css } from \"@crab-dev/css\";\nimport token from \"@crab-dev/rc-token-semantic\";\nimport LineEdit from \"../../src/index.js\";\n\nconst wrapperStyle = css`\n    padding: ${token.space['card-padding']};\n    display: grid;\n    gap: ${token.space['group-gap']};\n`;\n\nconst SimpleDemo = () => {\n    return (\n        \u003cdiv className={wrapperStyle}>\n            \u003cLineEdit label=\"项目名称\" supportingText=\"用于团队首页和项目列表。\" />\n            \u003cLineEdit label=\"项目编号\" defaultValue=\"CRAB-2026\" readOnly supportingText=\"编号可选择和复制。\" />\n        \u003c/div>\n    );\n};\n\nexport default SimpleDemo;\n",
         "previewPath": "/components/rc-line-edit/workbench/?__wake_demo=docs%2Fdemos%2Fsimple.demo.tsx",
         "workbenchPath": "/components/rc-line-edit/workbench/#/components/docs%2Fdemos%2Fsimple.demo.tsx",
         "density": "regular",
@@ -292,7 +292,7 @@ export const demos = [
 
 export const documents = {
     "md3": {
-        "summary": "以外置标签、填充或描边字段组织单行输入，说明和错误位于字段下方。",
+        "summary": "描边字段使用浮动标签，填充字段使用上置标签，说明和错误位于字段下方。",
         "usage": "字段标签持续可见；用辅助说明表达格式要求，前后缀不能替代标签。",
         "exampleDescription": "聚焦并编辑字段，检查描边与填充状态、错误说明、禁用和清除反馈。",
         "demos": [
@@ -312,7 +312,7 @@ export const documents = {
         ]
     },
     "macos": {
-        "summary": "以紧凑桌面输入框、静态上置标签和明确焦点反馈承载单行编辑。",
+        "summary": "以紧凑桌面输入框、行首右对齐的标签和明确焦点反馈承载单行编辑。",
         "usage": "字段与相邻设置行保持对齐；清除内容后保留输入焦点和关联说明。",
         "exampleDescription": "输入后清除字段，检查桌面输入边界、焦点返回和标签位置。",
         "demos": [
@@ -331,7 +331,7 @@ export const documents = {
         ]
     },
     "shadcn": {
-        "summary": "用中性描边输入框和静态标签呈现单行内容，聚焦状态通过外侧轮廓表达。",
+        "summary": "用中性描边输入框和同排标签呈现单行内容，聚焦状态通过外侧轮廓表达。",
         "usage": "前后缀用于补充格式或单位；错误需要文字说明，避免仅依赖边框颜色。",
         "exampleDescription": "检查前后缀与输入文字的排列，再观察聚焦时的轮廓和内容留白。",
         "demos": [

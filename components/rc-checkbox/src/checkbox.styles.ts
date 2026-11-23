@@ -70,8 +70,7 @@ export const wrapperStyle = css`
     &[data-disabled] {
         cursor: not-allowed;
         color: ${token.label['color-disabled']};
-        opacity: ${token.root['opacity-disabled']};
-        > input + span { pointer-events: none; }
+        > input + span { pointer-events: none; opacity: ${token.root['opacity-disabled']}; }
         > input + span::before { opacity: 0; }
         [data-checkbox-part='box'] {
             background-color: ${token.control['background-color-disabled']};
@@ -104,7 +103,7 @@ export const wrapperStyle = css`
         &[data-state] [data-checkbox-part='checkmark'] { color: HighlightText !important; }
         &[data-state] [data-checkbox-part='indeterminate'] { background-color: HighlightText !important; }
         &[data-disabled] {
-            opacity: 1;
+            > input + span { opacity: 1; }
             color: GrayText !important;
             &[data-state] [data-checkbox-part='box'] { border-color: GrayText !important; }
             &:is([data-state='checked'], [data-state='indeterminate']) [data-checkbox-part='box'] { background-color: GrayText !important; }

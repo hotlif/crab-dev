@@ -54,7 +54,7 @@ Tree 的节点高度优先采用 node.height，其次采用显式 defaultNodeHei
 
 ## MD3 桌面紧凑扩展
 
-MD3 单行字段三档为 32 / 40 / 48px，Tab 三档为 32 / 36 / 40px。默认 Switch 轨道 40×24px、桌面布局最小高度 36px；Dialog 内边距 20px、标题 20px / 28px。字段采用 14px / 20px 外置标签和 16px / 24px 输入文字，Outlined 使用连续边框，Filled 保留底线。粗指针命中区域仍至少 48px，必要时自然增加控件布局空间。
+MD3 单行字段三档为 32 / 40 / 48px；带标签的 LineEdit 描边字段采用原型的 56px 最小高度，Tab 三档为 32 / 36 / 40px。默认 Switch 轨道 40×24px、桌面布局最小高度 36px；Dialog 内边距 20px、标题 20px / 28px。字段采用 14px / 20px 外置标签和 16px / 24px 输入文字，LineEdit 的描边浮动标签在轮廓上留出缺口，其余上置标签的 Outlined 使用连续边框，Filled 保留底线。粗指针命中区域仍至少 48px，必要时自然增加控件布局空间。
 
 这是 Crab 的 MD3 Web 桌面适配，保留语义颜色、状态与动效；不作为官方移动端几何。macOS 和 shadcn 保留各自尺寸。公共配置与数据接口不变，固定高度容器迁移见[迁移指南](/guides/migration)。
 

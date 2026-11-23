@@ -20,6 +20,23 @@ const clickSwitch = async (button: HTMLButtonElement) => {
     });
 };
 describe('Switch', () => {
+    it('keeps focus through a pending save and accepts a controlled rollback', async () => {
+        const onClick = mock.fn();
+        const onCheckedChange = mock.fn();
+        const props = { 'aria-label': 'Refresh', onClick, onCheckedChange };
+        const view = await render(<Switch {...props} checked aria-disabled="true" />);
+        const button = view.container.querySelector('button')!;
+        button.focus();
+        await clickSwitch(button);
+        expect(document.activeElement).toBe(button);
+        expect(onClick).not.toHaveBeenCalled();
+        expect(onCheckedChange).not.toHaveBeenCalled();
+        await view.rerender(<Switch {...props} checked={false} />);
+        expect(document.activeElement).toBe(button);
+        expect(button.getAttribute('aria-checked')).toBe('false');
+        await clickSwitch(button);
+        expect(onCheckedChange).toHaveBeenCalledTimes(1);
+    });
     it('renders correctly', async () => {
         const { container } = await render(<Switch aria-label="toggle"/>);
         expect(container.querySelector('button[role="switch"]')).toBeTruthy();

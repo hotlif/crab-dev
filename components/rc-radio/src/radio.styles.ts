@@ -65,7 +65,7 @@ export const wrapperStyle = css`
     &[data-disabled] {
         cursor: not-allowed;
         color: ${token.label['color-disabled']};
-        opacity: ${token.root['opacity-disabled']};
+        > input + span { opacity: ${token.root['opacity-disabled']}; }
         > input + span::before { opacity: 0; }
         [data-radio-part='box'] {
             background-color: ${token.control['background-color-disabled']};
@@ -100,7 +100,7 @@ export const wrapperStyle = css`
             background-color: Highlight !important;
         }
         &[data-disabled] {
-            opacity: 1;
+            > input + span { opacity: 1; }
             color: GrayText !important;
             &[data-state] [data-radio-part='box'] { border-color: GrayText !important; }
             [data-radio-part='dot'] { background-color: GrayText !important; }
