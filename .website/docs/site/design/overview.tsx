@@ -2,6 +2,7 @@ import Button from "@crab-dev/rc-button";
 import Checkbox from "@crab-dev/rc-checkbox";
 import { useConfig } from "@crab-dev/rc-config-provider";
 import LineEdit from "@crab-dev/rc-line-edit";
+import Slider from "@crab-dev/rc-slider";
 import Radio from "@crab-dev/rc-radio";
 import Segmented from "@crab-dev/rc-segmented";
 import Switch from "@crab-dev/rc-switch";
@@ -91,6 +92,14 @@ export default function DesignOverview() {
                             <h3>TextEdit 多行输入框</h3>
                             <p>编写运行交接备注，比较固定高度、自动增长、手动拖拽和长文滚动。</p>
                             <Button appearance="primary" href={href("design/text-edit")} iconAfter={<span aria-hidden="true">→</span>}>体验多行输入框原型</Button>
+                        </div>
+                    </div>
+                    <div className="crab-design-card">
+                        <div className="crab-design-card-body">
+                            <div inert aria-hidden="true"><Slider aria-label="负载告警阈值" defaultValue={65} /></div>
+                            <h3>Slider 滑块</h3>
+                            <p>拖动设备负载告警阈值，观察趋势图和实时读值。</p>
+                            <Button appearance="primary" href={href("design/slider")} iconAfter={<span aria-hidden="true">→</span>}>体验滑块原型</Button>
                         </div>
                     </div>
                 </section>
