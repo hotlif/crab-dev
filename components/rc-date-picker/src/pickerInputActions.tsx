@@ -82,12 +82,13 @@ export function usePickerFieldHover(reference: Ref<HTMLDivElement>) {
             // A floating label may paint outside its layout box. Read its actual
             // current rect rather than adding a design-specific pixel margin.
             // contextElement retains Floating UI's document/scroll observers.
-            const updatePosition = () => setPositionReference({ contextElement: field, getBoundingClientRect: bounds });
+            const updatePosition = () => setPositionReference({ contextElement: field, controlElement: node, getBoundingClientRect: bounds });
             // Root ResizeObserver alone cannot see a transformed label. Observe
             // only our direct text boxes and their transitions; no Form siblings.
             const resize = new ResizeObserver(updatePosition);
             const observeText = () => {
                 resize.disconnect();
+                resize.observe(node);
                 for (const text of ownText()) resize.observe(text);
                 updatePosition();
             };
