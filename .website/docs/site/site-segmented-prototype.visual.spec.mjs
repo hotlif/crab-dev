@@ -94,7 +94,7 @@ for (const designSystem of designs) {
 }
 
 for (const [colorMode, width] of [['light', 1440], ['dark', 320]]) {
-    test(`MD3 connected segments keep their label centers and geometry in ${colorMode}`, { tag: ['@website'] }, async ({ page, previewOrigin }) => {
+    test(`MD3 outlined segments keep their label centers and geometry in ${colorMode}`, { tag: ['@website'] }, async ({ page, previewOrigin }) => {
         await page.setViewportSize({ width, height: 950 });
         await openSite(page, previewOrigin, definition, { designSystem: 'md3', colorMode });
         const group = trend(page).getByRole('radiogroup', { name: '巡检时间范围' });
@@ -112,6 +112,7 @@ for (const [colorMode, width] of [['light', 1440], ['dark', 320]]) {
             };
         }));
         const shape = () => week.locator('..').evaluate(label => getComputedStyle(label).borderRadius);
+        const check = choice => choice.locator('..').locator('[data-segment-graphic="check"]');
 
         await group.scrollIntoViewIfNeeded();
         const baseline = await positions();
@@ -121,7 +122,10 @@ for (const [colorMode, width] of [['light', 1440], ['dark', 320]]) {
             expect(Math.abs(box.textX + box.textWidth / 2 - box.x - box.width / 2)).toBeLessThan(1);
         }
         await expect(day).toBeChecked();
-        await expect(choices.first().locator('[data-selection-indicator]')).toHaveCSS('display', 'none');
+        await expect(group).toHaveCSS('outline-width', '1px');
+        await expect(choices.first()).toHaveCSS('border-inline-end-width', '1px');
+        await expect(check(day)).toHaveCSS('opacity', '1');
+        await expect(check(week)).toHaveCSS('opacity', '0');
         const restingShape = await shape();
         const target = baseline[1];
         await page.mouse.move(target.x + target.width / 2, target.y + target.height / 2);
@@ -133,7 +137,9 @@ for (const [colorMode, width] of [['light', 1440], ['dark', 320]]) {
         await page.mouse.up();
         await expect(week).toBeChecked();
         expect(await positions()).toEqual(baseline);
-        expect(await shape()).not.toBe(restingShape);
+        expect(await shape()).toBe(restingShape);
+        await expect(check(day)).toHaveCSS('opacity', '0');
+        await expect(check(week)).toHaveCSS('opacity', '1');
 
         await day.focus();
         await page.keyboard.down('Space');

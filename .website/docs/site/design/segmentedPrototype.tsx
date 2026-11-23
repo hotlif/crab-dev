@@ -19,15 +19,15 @@ const periods = {
 } as const;
 
 const longOptions = [
-    { value: "shift", label: "工作区当前班次", className: "crab-segmented-choice crab-segmented-long-item" },
-    { value: "archive", label: "已归档的原始记录", className: "crab-segmented-choice crab-segmented-long-item", disabled: true },
-    { value: "handover", label: "跨班组交接巡检记录", className: "crab-segmented-choice crab-segmented-long-item" },
+    { value: "shift", label: "工作区当前班次", className: "crab-segmented-long-item" },
+    { value: "archive", label: "已归档的原始记录", className: "crab-segmented-long-item", disabled: true },
+    { value: "handover", label: "跨班组交接巡检记录", className: "crab-segmented-long-item" },
 ];
 
 const designs = {
     md3: {
         size: "medium",
-        decision: "MD3 原型采用 M3 Expressive 的单选连接按钮组。选中项用强调色和圆角区分，三段的尺寸和文字中心始终固定。按下时通过状态层反馈。",
+        decision: "MD3 原型使用连续胶囊描边和分隔线，选中项显示色调底和勾记。日、周、月始终居中，按下时通过状态层反馈。",
     },
     macos: {
         size: "small",
@@ -68,7 +68,7 @@ export default function SegmentedPrototype() {
                     <header className="crab-segmented-toolbar">
                         <h2 id="segmented-trend-title">巡检记录</h2>
                         <Segmented options={periodOptions} value={period} onValueChange={setPeriod}
-                            className="crab-segmented-period crab-segmented-connected" size={design.size} aria-label="巡检时间范围" />
+                            className="crab-segmented-period" size={design.size} aria-label="巡检时间范围" />
                     </header>
                     <div className="crab-segmented-data">
                         <div className="crab-segmented-stats" role="status" aria-atomic="true">
@@ -93,7 +93,7 @@ export default function SegmentedPrototype() {
                     <p id="segmented-overflow-help" className="crab-segmented-detail">窄屏可横向滑动。用方向键切换时，当前项会滚入可见区。</p>
                     <div className="crab-segmented-overflow-scroll">
                         <Segmented options={longOptions} value={scope} onValueChange={setScope} onFocus={revealLongOption}
-                            className="crab-segmented-long-control crab-segmented-connected" size={design.size} aria-label="长标签记录范围"
+                            className="crab-segmented-long-control" size={design.size} aria-label="长标签记录范围"
                             aria-describedby="segmented-overflow-help segmented-archive-note" />
                     </div>
                     <p className="crab-segmented-detail" role="status">当前范围 <strong>{scopeLabel}</strong></p>

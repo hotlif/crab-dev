@@ -110,39 +110,14 @@ globalStyle`
     background: ${token.color.surface.container};
 }
 [data-segmented-prototype][data-prototype-design="md3"] .crab-segmented-data { padding: 1rem clamp(.65rem, 3cqi, 1.4rem); }
-[data-segmented-prototype][data-prototype-design="md3"] .crab-segmented-period { min-inline-size: min(100%, 10rem); }
-[data-segmented-prototype][data-prototype-design="md3"] .crab-segmented-connected {
-    gap: .125rem;
-    padding: 0;
-    background: transparent;
+[data-segmented-prototype][data-prototype-design="md3"] .crab-segmented-period { min-inline-size: min(100%, 12rem); }
+[data-segmented-prototype][data-prototype-design="md3"] .crab-segmented-choice > [data-selection-indicator] {
+    position: absolute;
+    inset-inline-end: calc(50% + .65em);
+    inset-block: 0;
+    margin-block: auto;
 }
-[data-segmented-prototype][data-prototype-design="md3"] .crab-segmented-connected > .crab-segmented-choice {
-    border: 0;
-    border-radius: ${token.radius.sm};
-}
-[data-segmented-prototype][data-prototype-design="md3"] .crab-segmented-connected > .crab-segmented-choice:first-child {
-    border-start-start-radius: ${token.shape.full};
-    border-end-start-radius: ${token.shape.full};
-}
-[data-segmented-prototype][data-prototype-design="md3"] .crab-segmented-connected > .crab-segmented-choice:last-child {
-    border-start-end-radius: ${token.shape.full};
-    border-end-end-radius: ${token.shape.full};
-}
-[data-segmented-prototype][data-prototype-design="md3"] .crab-segmented-connected > .crab-segmented-choice[data-selected] {
-    border-radius: ${token.shape.full};
-}
-[data-segmented-prototype][data-prototype-design="md3"] .crab-segmented-choice > [data-selection-indicator] { display: none; }
 [data-segmented-prototype][data-prototype-design="md3"] .crab-segmented-choice > :last-child { translate: none; }
-@media (forced-colors: none) {
-    [data-segmented-prototype][data-prototype-design="md3"] .crab-segmented-connected { outline: none; }
-    [data-segmented-prototype][data-prototype-design="md3"] .crab-segmented-connected > .crab-segmented-choice {
-        background: ${token.color.surface.high};
-    }
-    [data-segmented-prototype][data-prototype-design="md3"] .crab-segmented-connected > .crab-segmented-choice[data-selected] {
-        background: ${token.color.brand.primary};
-        color: ${token.color.text["on-brand"]};
-    }
-}
 
 [data-segmented-prototype][data-prototype-design="macos"] { max-inline-size: 44rem; }
 [data-segmented-prototype][data-prototype-design="macos"] .crab-segmented-toolbar {
