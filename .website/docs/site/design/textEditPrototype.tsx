@@ -8,6 +8,7 @@ import "./textEditPrototype.styles.js";
 
 const savedNote = "夜班交接\n北区 2 号泵运行正常，下一班复查入口滤网。";
 const exampleNote = "上午巡检\n已完成北区设备巡检，2 号泵滤网已清洁。\n下班前复测入口压差。";
+const noteLimit = 500;
 const longNote = [
     "北区运行交接记录",
     "06:00 核对夜班记录，补记 2 号泵的停机时间。",
@@ -41,6 +42,7 @@ export default function TextEditPrototype() {
     const design = designs[designSystem];
     const href = useSiteHref();
     const editor = useRef<HTMLTextAreaElement>(null);
+    const resizeEditor = useRef<HTMLTextAreaElement>(null);
     const [draft, setDraft] = useState(savedNote);
     const [saved, setSaved] = useState(savedNote);
     const [comparison, setComparison] = useState(exampleNote);
@@ -52,6 +54,10 @@ export default function TextEditPrototype() {
         setNextSaveFails(fail);
         setResult("idle");
         editor.current?.focus();
+    }
+
+    function setExampleHeight(height: string) {
+        if (resizeEditor.current) resizeEditor.current.style.height = height;
     }
 
     function save(event: FormEvent<HTMLFormElement>) {
@@ -84,9 +90,11 @@ export default function TextEditPrototype() {
                 <div className="crab-text-edit-workspace">
                     <form className="crab-text-edit-panel crab-text-edit-editor" aria-label="编辑交接备注" onSubmit={save} noValidate>
                         <TextEdit ref={editor} label="交接备注" name="note" required size={design.size}
-                            rows={5} resize="none" maxLength={500} showCount allowClear value={draft}
+                            rows={5} resize="none" maxLength={noteLimit} showCount allowClear value={draft}
                             placeholder="例如：滤网已清洁，下一班复测入口压差。"
-                            supportingText="记录已完成事项和下一班需处理的工作。"
+                            supportingText={draft.length === noteLimit
+                                ? "已达到输入上限。删减内容后可继续输入。"
+                                : "记录已完成事项和下一班需处理的工作。"}
                             errorText={result === "invalid" ? "请输入交接备注，至少包含一个非空白字符。" : undefined}
                             onValueChange={value => {
                                 setDraft(value);
@@ -137,6 +145,15 @@ export default function TextEditPrototype() {
                         <TextEdit label="随内容增长" size={design.size} rows={3} autoSize
                             value={comparison} onValueChange={setComparison} supportingText="从三行增长到八行，超过八行后在框内滚动。" />
                     </div>
+                    <div className="crab-text-edit-panel crab-text-edit-resize">
+                        <TextEdit ref={resizeEditor} label="手动调整高度" size={design.size} rows={4} resize="vertical"
+                            value={comparison} onValueChange={setComparison}
+                            supportingText="上下拖动右下角，在三到十行之间调整。也可用下方按钮设置高度。" />
+                        <div className="crab-design-actions" role="group" aria-label="调整编辑区高度">
+                            <Button appearance="outlined" size="s" onClick={() => setExampleHeight("8lh")}>设为八行</Button>
+                            <Button appearance="text" size="s" onClick={() => setExampleHeight("")}>恢复四行</Button>
+                        </div>
+                    </div>
                     <div className="crab-text-edit-panel">
                         <TextEdit label="只读长记录" size={design.size} rows={4} resize="none"
                             readOnly value={longNote} supportingText="可用 Page Down 或滚动查看后续内容，也可选择复制。" />
@@ -152,7 +169,7 @@ export default function TextEditPrototype() {
                         <dt>何时使用</dt><dd>备注、描述或交接记录可以换行。名称和编号使用 LineEdit。长篇或富文本编辑使用专门的编辑器。</dd>
                         <dt>键盘与输入法</dt><dd>Enter 换行，Tab 移到下一项，保存由按钮触发。中文候选确认保留输入法行为。</dd>
                         <dt>校验与恢复</dt><dd>保存时检查空白内容。清除后焦点回到文本区，保存失败保留草稿，恢复操作载入上次保存的文本。</dd>
-                        <dt>高度选择</dt><dd>交接表单采用固定五行，让操作区稳定。短备注可随内容增长，归档复核保持固定视窗。不支持自动增长时按三行显示并允许内部滚动。</dd>
+                        <dt>高度选择</dt><dd>交接表单采用固定五行，让操作区稳定。短备注可随内容增长，反复编辑长文时可纵向拖拽，归档复核保持固定视窗。不支持自动增长时按三行显示并允许内部滚动。</dd>
                     </dl>
                     <TextEdit label="禁用的归档备注" size={design.size} rows={2} resize="none" disabled
                         defaultValue="归档任务正在同步。\n同步结束后可复核记录。"

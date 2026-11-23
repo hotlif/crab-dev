@@ -89,7 +89,7 @@ export default function DesignOverview() {
                         <div className="crab-design-card-body">
                             <div inert aria-hidden="true"><TextEdit label="交接备注" rows={2} resize="none" readOnly defaultValue="滤网已清洁。下一班复测入口压差。" /></div>
                             <h3>TextEdit 多行输入框</h3>
-                            <p>编写运行交接备注，对照固定高度、内容增长和长文滚动。</p>
+                            <p>编写运行交接备注，比较固定高度、自动增长、手动拖拽和长文滚动。</p>
                             <Button appearance="primary" href={href("design/text-edit")} iconAfter={<span aria-hidden="true">→</span>}>体验多行输入框原型</Button>
                         </div>
                     </div>

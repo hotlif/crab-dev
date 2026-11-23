@@ -68,6 +68,12 @@ for (const designSystem of ['md3', 'macos', 'shadcn']) {
             await expect(textarea).toBeFocused();
             await expect(textarea).toHaveValue('');
 
+            await page.keyboard.insertText('巡'.repeat(501));
+            await expect(textarea).toHaveValue('巡'.repeat(500));
+            await expect(textarea).toHaveAccessibleDescription(/已达到输入上限.*500\/500/);
+            await textarea.press('Backspace');
+            await expect(textarea).toHaveAccessibleDescription(/记录已完成事项.*499\/500/);
+
             await scope.getByRole('button', { name: '模拟保存失败' }).click();
             const pending = await textarea.inputValue();
             await save.click();
@@ -127,6 +133,60 @@ for (const designSystem of ['md3', 'macos', 'shadcn']) {
             expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(width);
         });
     }
+}
+
+for (const designSystem of ['md3', 'macos', 'shadcn']) {
+    test(`TextEdit can be resized by dragging and with keyboard buttons in ${designSystem}`, { tag: ['@website', '@chromium-only'] }, async ({ page, browserName, previewOrigin }, info) => {
+        test.skip(browserName !== 'chromium');
+        await page.setViewportSize({ width: 1440, height: 1000 });
+        await openSite(page, previewOrigin, definition, { designSystem, colorMode: 'light' });
+        const section = heightExamples(page);
+        await section.getByRole('button', { name: '比较长文' }).click();
+        const field = section.getByRole('textbox', { name: '手动调整高度' });
+        const controls = section.getByRole('group', { name: '调整编辑区高度' });
+        const expand = controls.getByRole('button', { name: '设为八行' });
+        const reset = controls.getByRole('button', { name: '恢复四行' });
+        const value = await field.inputValue();
+        const line = await field.evaluate(node => parseFloat(getComputedStyle(node).lineHeight));
+        const height = () => field.evaluate(node => node.clientHeight);
+        const drag = async (deltaY) => {
+            await field.evaluate(node => node.scrollIntoView({ block: 'center', behavior: 'instant' }));
+            const box = await field.boundingBox();
+            const x = box.x + box.width - 5;
+            const y = box.y + box.height - 5;
+            await page.mouse.move(x, y);
+            await page.mouse.down();
+            await page.mouse.move(x + 30, y + deltaY, { steps: 8 });
+            await page.mouse.up();
+        };
+        await expect(field).toHaveCSS('resize', 'vertical');
+        const initial = await field.boundingBox();
+        await field.focus();
+        await field.evaluate(node => node.setSelectionRange(0, 6));
+        await drag(380);
+        await expect.poll(height).toBe(line * 10);
+        expect((await field.boundingBox()).width).toBe(initial.width);
+        await expect(field).toHaveValue(value);
+        await expect(field).toBeFocused();
+        expect(await field.evaluate(node => [node.selectionStart, node.selectionEnd])).toEqual([0, 6]);
+        const picture = info.outputPath(`text-edit-${designSystem}-resized.png`);
+        await page.locator('.crab-text-edit-resize').screenshot({ path: picture, animations: 'disabled' });
+        await info.attach('手动拖拽后', { path: picture, contentType: 'image/png' });
+
+        await drag(-370);
+        await expect.poll(height).toBe(line * 3);
+        expect((await field.boundingBox()).width).toBe(initial.width);
+        await expect(field).toHaveValue(value);
+        await page.setViewportSize({ width: 320, height: 850 });
+        await expand.press('Enter');
+        await expect.poll(height).toBe(line * 8);
+        await expect(expand).toBeFocused();
+        await reset.press('Space');
+        await expect.poll(height).toBe(line * 4);
+        await expect(reset).toBeFocused();
+        await expect(field).toHaveValue(value);
+        expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(320);
+    });
 }
 
 test('TextEdit preserves the draft through theme changes and exposes keyboard focus in forced colors', { tag: ['@website', '@chromium-only'] }, async ({ page, browserName, previewOrigin }) => {

@@ -31,7 +31,7 @@ globalStyle`
     gap: .8rem;
 }
 .crab-text-edit-workspace { grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); }
-.crab-text-edit-comparison { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.crab-text-edit-comparison { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .crab-text-edit-panel {
     display: grid;
     align-content: start;
@@ -76,6 +76,13 @@ globalStyle`
     font-size: .875rem;
 }
 .crab-text-edit-grow textarea { min-block-size: 3lh; max-block-size: 8lh; overflow-y: auto; }
+.crab-text-edit-resize textarea {
+    flex: none;
+    min-block-size: 3lh;
+    max-block-size: 10lh;
+    overflow-y: auto;
+    scrollbar-gutter: stable;
+}
 .crab-text-edit-rules dl {
     display: grid;
     grid-template-columns: auto minmax(0, 1fr);
