@@ -12,9 +12,11 @@ export const repositoryCheckPlan = [
 export const repositoryProjectCheckPlan = repositoryCheckPlan.filter(script => !separateTestScripts.includes(script));
 
 export function projectCheckGroup(group) {
+    const build = repositoryProjectCheckPlan.indexOf("build:library");
+    if (group === "source") return repositoryProjectCheckPlan.slice(0, build);
+    if (group === "library") return repositoryProjectCheckPlan.slice(build).filter(script => script !== "docs:build");
     if (group === "docs") return ["docs:build"];
-    if (group === "library") return repositoryProjectCheckPlan.filter(script => script !== "docs:build");
-    throw new Error("Expected --project-group library or docs.");
+    throw new Error("Expected --project-group source, library or docs.");
 }
 
 export function workspaceCheckPlan(pkg) {
