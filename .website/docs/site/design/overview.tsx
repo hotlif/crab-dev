@@ -2,6 +2,7 @@ import Button from "@crab-dev/rc-button";
 import Checkbox from "@crab-dev/rc-checkbox";
 import { useConfig } from "@crab-dev/rc-config-provider";
 import LineEdit from "@crab-dev/rc-line-edit";
+import NumberEdit from "@crab-dev/rc-number-edit";
 import Radio from "@crab-dev/rc-radio";
 import Segmented from "@crab-dev/rc-segmented";
 import Switch from "@crab-dev/rc-switch";
@@ -91,6 +92,14 @@ export default function DesignOverview() {
                             <h3>TextEdit 多行输入框</h3>
                             <p>编写运行交接备注，比较固定高度、自动增长、手动拖拽和长文滚动。</p>
                             <Button appearance="primary" href={href("design/text-edit")} iconAfter={<span aria-hidden="true">→</span>}>体验多行输入框原型</Button>
+                        </div>
+                    </div>
+                    <div className="crab-design-card">
+                        <div className="crab-design-card-body">
+                            <div inert aria-hidden="true"><NumberEdit aria-label="采样频率" defaultValue={2} precision={2} suffix="Hz" readOnly /></div>
+                            <h3>NumberEdit 数值输入框</h3>
+                            <p>比较数值输入、步进、边界修正和保存。</p>
+                            <Button appearance="primary" href={href("design/number-edit")} iconAfter={<span aria-hidden="true">→</span>}>体验数值输入框原型</Button>
                         </div>
                     </div>
                 </section>
