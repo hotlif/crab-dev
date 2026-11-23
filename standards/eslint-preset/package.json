@@ -28,7 +28,7 @@
         "typescript": "6.0.2"
     },
     "devDependencies": {
-        "@crab-dev/wake": "0.1.45",
+        "@crab-dev/wake": "0.1.57",
         "@types/react": "^19.3.0",
         "@types/react-dom": "^19.3.0",
         "eslint": "9.39.5",

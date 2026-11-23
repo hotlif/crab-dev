@@ -6,6 +6,7 @@
     "scripts": {
         "start": "yarn docs:dev",
         "build:library": "node scripts/build-library.mjs",
+        "ci:build": "node scripts/ci-build-groups.mjs",
         "docs:dev": "yarn build:library && yarn workspace @crab-dev/website start",
         "docs:build": "yarn build:library && yarn workspace @crab-dev/website build",
         "test": "turbo run test --concurrency=2",
@@ -82,7 +83,7 @@
         "@commitlint/cli": "^21.2.2",
         "@commitlint/config-conventional": "^21.2.2",
         "@crab-dev/standards-typescript-preset": "workspace:^",
-        "@crab-dev/wake": "0.1.45",
+        "@crab-dev/wake": "0.1.57",
         "@playwright/test": "1.64.1",
         "@types/node": "^26.6.5",
         "@yarnpkg/sdks": "3.3.1",

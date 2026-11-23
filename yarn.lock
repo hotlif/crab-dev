@@ -500,13 +500,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@crab-dev/css@npm:0.1.45":
-  version: 0.1.45
-  resolution: "@crab-dev/css@npm:0.1.45"
-  checksum: 10c0/aa4c6173ca7a19108a8f11e49f310c258c45b949c08ce4fa3a6e0ba7160136a816cb4e29874699d673d5be6c58de53c648fead835e4c064ad4c120e9bd732a73
-  languageName: node
-  linkType: hard
-
 "@crab-dev/css@npm:0.1.57":
   version: 0.1.57
   resolution: "@crab-dev/css@npm:0.1.57"
@@ -518,13 +511,13 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-alert@workspace:components/rc-alert"
   dependencies:
-    "@crab-dev/css": "npm:0.1.45"
+    "@crab-dev/css": "npm:0.1.57"
     "@crab-dev/rc-button": "workspace:^"
     "@crab-dev/rc-config-provider": "workspace:^"
     "@crab-dev/rc-hooks": "workspace:^"
     "@crab-dev/rc-token-semantic": "workspace:^"
     "@crab-dev/standards-typescript-preset": "workspace:^"
-    "@crab-dev/wake": "npm:0.1.45"
+    "@crab-dev/wake": "npm:0.1.57"
     "@types/node": "npm:^22.20.2"
     "@types/react": "npm:^19.3.0"
     "@types/react-dom": "npm:^19.3.0"
@@ -541,7 +534,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-app-main-layout@workspace:components/rc-app-main-layout"
   dependencies:
-    "@crab-dev/css": "npm:0.1.45"
+    "@crab-dev/css": "npm:0.1.57"
     "@crab-dev/rc-avatar": "workspace:^"
     "@crab-dev/rc-breadcrumbs": "workspace:^"
     "@crab-dev/rc-button": "workspace:^"
@@ -554,7 +547,7 @@ __metadata:
     "@crab-dev/rc-theme": "workspace:^"
     "@crab-dev/rc-token-semantic": "workspace:^"
     "@crab-dev/standards-typescript-preset": "workspace:^"
-    "@crab-dev/wake": "npm:0.1.45"
+    "@crab-dev/wake": "npm:0.1.57"
     "@floating-ui/react": "npm:^0.27.20"
     "@types/node": "npm:^22.20.2"
     "@types/react": "npm:^19.3.0"
@@ -576,10 +569,10 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-auto-sizer@workspace:components/rc-auto-sizer"
   dependencies:
-    "@crab-dev/css": "npm:0.1.45"
+    "@crab-dev/css": "npm:0.1.57"
     "@crab-dev/rc-hooks": "workspace:^"
     "@crab-dev/standards-typescript-preset": "workspace:^"
-    "@crab-dev/wake": "npm:0.1.45"
+    "@crab-dev/wake": "npm:0.1.57"
     "@types/node": "npm:^22.20.2"
     "@types/react": "npm:^19.3.0"
     "@types/react-dom": "npm:^19.3.0"
@@ -596,14 +589,14 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-avatar@workspace:components/rc-avatar"
   dependencies:
-    "@crab-dev/css": "npm:0.1.45"
+    "@crab-dev/css": "npm:0.1.57"
     "@crab-dev/rc-badge": "workspace:^"
     "@crab-dev/rc-button": "workspace:^"
     "@crab-dev/rc-config-provider": "workspace:^"
     "@crab-dev/rc-theme": "workspace:^"
     "@crab-dev/rc-token-semantic": "workspace:^"
     "@crab-dev/standards-typescript-preset": "workspace:^"
-    "@crab-dev/wake": "npm:0.1.45"
+    "@crab-dev/wake": "npm:0.1.57"
     "@types/node": "npm:^22.20.2"
     "@types/react": "npm:^19.3.0"
     "@types/react-dom": "npm:^19.3.0"
@@ -620,13 +613,13 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-badge@workspace:components/rc-badge"
   dependencies:
-    "@crab-dev/css": "npm:0.1.45"
+    "@crab-dev/css": "npm:0.1.57"
     "@crab-dev/rc-button": "workspace:^"
     "@crab-dev/rc-config-provider": "workspace:^"
     "@crab-dev/rc-theme": "workspace:^"
     "@crab-dev/rc-token-semantic": "workspace:^"
     "@crab-dev/standards-typescript-preset": "workspace:^"
-    "@crab-dev/wake": "npm:0.1.45"
+    "@crab-dev/wake": "npm:0.1.57"
     "@types/node": "npm:^22.20.2"
     "@types/react": "npm:^19.3.0"
     "@types/react-dom": "npm:^19.3.0"
@@ -643,7 +636,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-bar-chart@workspace:components/rc-bar-chart"
   dependencies:
-    "@crab-dev/css": "npm:0.1.45"
+    "@crab-dev/css": "npm:0.1.57"
     "@crab-dev/rc-auto-sizer": "workspace:^"
     "@crab-dev/rc-button": "workspace:^"
     "@crab-dev/rc-canvas": "workspace:^"
@@ -652,7 +645,7 @@ __metadata:
     "@crab-dev/rc-hooks": "workspace:^"
     "@crab-dev/rc-token-semantic": "workspace:^"
     "@crab-dev/standards-typescript-preset": "workspace:^"
-    "@crab-dev/wake": "npm:0.1.45"
+    "@crab-dev/wake": "npm:0.1.57"
     "@types/node": "npm:^22.20.2"
     "@types/react": "npm:^19.3.0"
     "@types/react-dom": "npm:^19.3.0"
@@ -670,12 +663,12 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-breadcrumbs@workspace:components/rc-breadcrumbs"
   dependencies:
-    "@crab-dev/css": "npm:0.1.45"
+    "@crab-dev/css": "npm:0.1.57"
     "@crab-dev/rc-button": "workspace:^"
     "@crab-dev/rc-config-provider": "workspace:^"
     "@crab-dev/rc-token-semantic": "workspace:^"
     "@crab-dev/standards-typescript-preset": "workspace:^"
-    "@crab-dev/wake": "npm:0.1.45"
+    "@crab-dev/wake": "npm:0.1.57"
     "@types/node": "npm:^22.20.2"
     "@types/react": "npm:^19.3.0"
     "@types/react-dom": "npm:^19.3.0"
@@ -692,12 +685,12 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-button@workspace:components/rc-button"
   dependencies:
-    "@crab-dev/css": "npm:0.1.45"
+    "@crab-dev/css": "npm:0.1.57"
     "@crab-dev/rc-config-provider": "workspace:^"
     "@crab-dev/rc-spin": "workspace:^"
     "@crab-dev/rc-token-semantic": "workspace:^"
     "@crab-dev/standards-typescript-preset": "workspace:^"
-    "@crab-dev/wake": "npm:0.1.45"
+    "@crab-dev/wake": "npm:0.1.57"
     "@types/node": "npm:^22.20.2"
     "@types/react": "npm:^19.3.0"
     "@types/react-dom": "npm:^19.3.0"
@@ -716,12 +709,12 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-canvas@workspace:components/rc-canvas"
   dependencies:
-    "@crab-dev/css": "npm:0.1.45"
+    "@crab-dev/css": "npm:0.1.57"
     "@crab-dev/rc-config-provider": "workspace:^"
     "@crab-dev/rc-hooks": "workspace:^"
     "@crab-dev/rc-token-semantic": "workspace:^"
     "@crab-dev/standards-typescript-preset": "workspace:^"
-    "@crab-dev/wake": "npm:0.1.45"
+    "@crab-dev/wake": "npm:0.1.57"
     "@types/node": "npm:^22.20.2"
     "@types/react": "npm:^19.3.0"
     "@types/react-dom": "npm:^19.3.0"
@@ -739,7 +732,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-card@workspace:components/rc-card"
   dependencies:
-    "@crab-dev/css": "npm:0.1.45"
+    "@crab-dev/css": "npm:0.1.57"
     "@crab-dev/rc-avatar": "workspace:^"
     "@crab-dev/rc-button": "workspace:^"
     "@crab-dev/rc-config-provider": "workspace:^"
@@ -748,7 +741,7 @@ __metadata:
     "@crab-dev/rc-theme": "workspace:^"
     "@crab-dev/rc-token-semantic": "workspace:^"
     "@crab-dev/standards-typescript-preset": "workspace:^"
-    "@crab-dev/wake": "npm:0.1.45"
+    "@crab-dev/wake": "npm:0.1.57"
     "@types/node": "npm:^22.20.2"
     "@types/react": "npm:^19.3.0"
     "@types/react-dom": "npm:^19.3.0"
@@ -766,12 +759,12 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-checkbox@workspace:components/rc-checkbox"
   dependencies:
-    "@crab-dev/css": "npm:0.1.45"
+    "@crab-dev/css": "npm:0.1.57"
     "@crab-dev/rc-config-provider": "workspace:^"
     "@crab-dev/rc-hooks": "workspace:^"
     "@crab-dev/rc-token-semantic": "workspace:^"
     "@crab-dev/standards-typescript-preset": "workspace:^"
-    "@crab-dev/wake": "npm:0.1.45"
+    "@crab-dev/wake": "npm:0.1.57"
     "@types/node": "npm:^22.20.2"
     "@types/react": "npm:^19.3.0"
     "@types/react-dom": "npm:^19.3.0"
@@ -789,7 +782,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-color-picker@workspace:components/rc-color-picker"
   dependencies:
-    "@crab-dev/css": "npm:0.1.45"
+    "@crab-dev/css": "npm:0.1.57"
     "@crab-dev/rc-button": "workspace:^"
     "@crab-dev/rc-config-provider": "workspace:^"
     "@crab-dev/rc-dropdown-container": "workspace:^"
@@ -800,7 +793,7 @@ __metadata:
     "@crab-dev/rc-slider": "workspace:^"
     "@crab-dev/rc-token-semantic": "workspace:^"
     "@crab-dev/standards-typescript-preset": "workspace:^"
-    "@crab-dev/wake": "npm:0.1.45"
+    "@crab-dev/wake": "npm:0.1.57"
     "@js-temporal/polyfill": "npm:^0.5.1"
     "@types/node": "npm:^22.20.2"
     "@types/react": "npm:^19.3.0"
@@ -820,12 +813,12 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-component-preview@workspace:components/rc-component-preview"
   dependencies:
-    "@crab-dev/css": "npm:0.1.45"
+    "@crab-dev/css": "npm:0.1.57"
     "@crab-dev/rc-button": "workspace:^"
     "@crab-dev/rc-config-provider": "workspace:^"
     "@crab-dev/rc-token-semantic": "workspace:^"
     "@crab-dev/standards-typescript-preset": "workspace:^"
-    "@crab-dev/wake": "npm:0.1.45"
+    "@crab-dev/wake": "npm:0.1.57"
     "@types/node": "npm:^22.20.2"
     "@types/react": "npm:^19.3.0"
     "@types/react-dom": "npm:^19.3.0"
@@ -846,11 +839,11 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-config-provider@workspace:components/rc-config-provider"
   dependencies:
-    "@crab-dev/css": "npm:0.1.45"
+    "@crab-dev/css": "npm:0.1.57"
     "@crab-dev/rc-theme": "workspace:^"
     "@crab-dev/rc-token-semantic": "workspace:^"
     "@crab-dev/standards-typescript-preset": "workspace:^"
-    "@crab-dev/wake": "npm:0.1.45"
+    "@crab-dev/wake": "npm:0.1.57"
     "@types/node": "npm:^22.20.2"
     "@types/react": "npm:^19.3.0"
     "@types/react-dom": "npm:^19.3.0"
@@ -867,7 +860,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-cron-picker@workspace:components/rc-cron-picker"
   dependencies:
-    "@crab-dev/css": "npm:0.1.45"
+    "@crab-dev/css": "npm:0.1.57"
     "@crab-dev/rc-button": "workspace:^"
     "@crab-dev/rc-config-provider": "workspace:^"
     "@crab-dev/rc-dropdown-container": "workspace:^"
@@ -881,7 +874,7 @@ __metadata:
     "@crab-dev/rc-theme": "workspace:^"
     "@crab-dev/rc-token-semantic": "workspace:^"
     "@crab-dev/standards-typescript-preset": "workspace:^"
-    "@crab-dev/wake": "npm:0.1.45"
+    "@crab-dev/wake": "npm:0.1.57"
     "@types/node": "npm:^22.20.2"
     "@types/react": "npm:^19.3.0"
     "@types/react-dom": "npm:^19.3.0"
@@ -900,7 +893,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-date-picker@workspace:components/rc-date-picker"
   dependencies:
-    "@crab-dev/css": "npm:0.1.45"
+    "@crab-dev/css": "npm:0.1.57"
     "@crab-dev/rc-button": "workspace:^"
     "@crab-dev/rc-config-provider": "workspace:^"
     "@crab-dev/rc-dropdown-container": "workspace:^"
@@ -910,7 +903,7 @@ __metadata:
     "@crab-dev/rc-theme": "workspace:^"
     "@crab-dev/rc-token-semantic": "workspace:^"
     "@crab-dev/standards-typescript-preset": "workspace:^"
-    "@crab-dev/wake": "npm:0.1.45"
+    "@crab-dev/wake": "npm:0.1.57"
     "@floating-ui/react": "npm:^0.27.20"
     "@js-temporal/polyfill": "npm:^0.5.1"
     "@types/node": "npm:^22.20.2"
@@ -933,7 +926,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-dialog@workspace:components/rc-dialog"
   dependencies:
-    "@crab-dev/css": "npm:0.1.45"
+    "@crab-dev/css": "npm:0.1.57"
     "@crab-dev/rc-button": "workspace:^"
     "@crab-dev/rc-config-provider": "workspace:^"
     "@crab-dev/rc-date-picker": "workspace:^"
@@ -942,7 +935,7 @@ __metadata:
     "@crab-dev/rc-line-edit": "workspace:^"
     "@crab-dev/rc-token-semantic": "workspace:^"
     "@crab-dev/standards-typescript-preset": "workspace:^"
-    "@crab-dev/wake": "npm:0.1.45"
+    "@crab-dev/wake": "npm:0.1.57"
     "@types/node": "npm:^22.20.2"
     "@types/react": "npm:^19.3.0"
     "@types/react-dom": "npm:^19.3.0"
@@ -962,13 +955,13 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-divider@workspace:components/rc-divider"
   dependencies:
-    "@crab-dev/css": "npm:0.1.45"
+    "@crab-dev/css": "npm:0.1.57"
     "@crab-dev/rc-button": "workspace:^"
     "@crab-dev/rc-config-provider": "workspace:^"
     "@crab-dev/rc-theme": "workspace:^"
     "@crab-dev/rc-token-semantic": "workspace:^"
     "@crab-dev/standards-typescript-preset": "workspace:^"
-    "@crab-dev/wake": "npm:0.1.45"
+    "@crab-dev/wake": "npm:0.1.57"
     "@types/node": "npm:^22.20.2"
     "@types/react": "npm:^19.3.0"
     "@types/react-dom": "npm:^19.3.0"
@@ -986,7 +979,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-drawer@workspace:components/rc-drawer"
   dependencies:
-    "@crab-dev/css": "npm:0.1.45"
+    "@crab-dev/css": "npm:0.1.57"
     "@crab-dev/rc-button": "workspace:^"
     "@crab-dev/rc-config-provider": "workspace:^"
     "@crab-dev/rc-dropdown-container": "workspace:^"
@@ -994,7 +987,7 @@ __metadata:
     "@crab-dev/rc-select": "workspace:^"
     "@crab-dev/rc-token-semantic": "workspace:^"
     "@crab-dev/standards-typescript-preset": "workspace:^"
-    "@crab-dev/wake": "npm:0.1.45"
+    "@crab-dev/wake": "npm:0.1.57"
     "@types/node": "npm:^22.20.2"
     "@types/react": "npm:^19.3.0"
     "@types/react-dom": "npm:^19.3.0"
@@ -1014,14 +1007,14 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-dropdown-container@workspace:components/rc-dropdown-container"
   dependencies:
-    "@crab-dev/css": "npm:0.1.45"
+    "@crab-dev/css": "npm:0.1.57"
     "@crab-dev/rc-button": "workspace:^"
     "@crab-dev/rc-config-provider": "workspace:^"
     "@crab-dev/rc-hooks": "workspace:^"
     "@crab-dev/rc-line-edit": "workspace:^"
     "@crab-dev/rc-token-semantic": "workspace:^"
     "@crab-dev/standards-typescript-preset": "workspace:^"
-    "@crab-dev/wake": "npm:0.1.45"
+    "@crab-dev/wake": "npm:0.1.57"
     "@floating-ui/react": "npm:^0.27.20"
     "@js-temporal/polyfill": "npm:^0.5.1"
     "@types/node": "npm:^22.20.2"
@@ -1045,12 +1038,12 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-empty@workspace:components/rc-empty"
   dependencies:
-    "@crab-dev/css": "npm:0.1.45"
+    "@crab-dev/css": "npm:0.1.57"
     "@crab-dev/rc-button": "workspace:^"
     "@crab-dev/rc-config-provider": "workspace:^"
     "@crab-dev/rc-token-semantic": "workspace:^"
     "@crab-dev/standards-typescript-preset": "workspace:^"
-    "@crab-dev/wake": "npm:0.1.45"
+    "@crab-dev/wake": "npm:0.1.57"
     "@types/node": "npm:^22.20.2"
     "@types/react": "npm:^19.3.0"
     "@types/react-dom": "npm:^19.3.0"
@@ -1068,14 +1061,14 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-flow-diagram@workspace:components/rc-flow-diagram"
   dependencies:
-    "@crab-dev/css": "npm:0.1.45"
+    "@crab-dev/css": "npm:0.1.57"
     "@crab-dev/rc-button": "workspace:^"
     "@crab-dev/rc-canvas": "workspace:^"
     "@crab-dev/rc-select": "workspace:^"
     "@crab-dev/rc-token-semantic": "workspace:^"
     "@crab-dev/rc-tooltip": "workspace:^"
     "@crab-dev/standards-typescript-preset": "workspace:^"
-    "@crab-dev/wake": "npm:0.1.45"
+    "@crab-dev/wake": "npm:0.1.57"
     "@types/node": "npm:^22.20.2"
     "@types/react": "npm:^19.3.0"
     "@types/react-dom": "npm:^19.3.0"
@@ -1094,7 +1087,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-form@workspace:components/rc-form"
   dependencies:
-    "@crab-dev/css": "npm:0.1.45"
+    "@crab-dev/css": "npm:0.1.57"
     "@crab-dev/rc-button": "workspace:^"
     "@crab-dev/rc-checkbox": "workspace:^"
     "@crab-dev/rc-config-provider": "workspace:^"
@@ -1109,7 +1102,7 @@ __metadata:
     "@crab-dev/rc-token-semantic": "workspace:^"
     "@crab-dev/rc-tooltip": "workspace:^"
     "@crab-dev/standards-typescript-preset": "workspace:^"
-    "@crab-dev/wake": "npm:0.1.45"
+    "@crab-dev/wake": "npm:0.1.57"
     "@types/node": "npm:^22.20.2"
     "@types/react": "npm:^19.3.0"
     "@types/react-dom": "npm:^19.3.0"
@@ -1131,7 +1124,7 @@ __metadata:
   resolution: "@crab-dev/rc-hooks@workspace:components/rc-hooks"
   dependencies:
     "@crab-dev/standards-typescript-preset": "workspace:^"
-    "@crab-dev/wake": "npm:0.1.45"
+    "@crab-dev/wake": "npm:0.1.57"
     "@types/node": "npm:^22.20.2"
     "@types/react": "npm:^19.3.0"
     "@types/react-dom": "npm:^19.3.0"
@@ -1147,14 +1140,14 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-line-edit@workspace:components/rc-line-edit"
   dependencies:
-    "@crab-dev/css": "npm:0.1.45"
+    "@crab-dev/css": "npm:0.1.57"
     "@crab-dev/rc-button": "workspace:^"
     "@crab-dev/rc-config-provider": "workspace:^"
     "@crab-dev/rc-hooks": "workspace:^"
     "@crab-dev/rc-theme": "workspace:^"
     "@crab-dev/rc-token-semantic": "workspace:^"
     "@crab-dev/standards-typescript-preset": "workspace:^"
-    "@crab-dev/wake": "npm:0.1.45"
+    "@crab-dev/wake": "npm:0.1.57"
     "@types/node": "npm:^22.20.2"
     "@types/react": "npm:^19.3.0"
     "@types/react-dom": "npm:^19.3.0"
@@ -1172,14 +1165,14 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-masonry@workspace:components/rc-masonry"
   dependencies:
-    "@crab-dev/css": "npm:0.1.45"
+    "@crab-dev/css": "npm:0.1.57"
     "@crab-dev/rc-checkbox": "workspace:^"
     "@crab-dev/rc-config-provider": "workspace:^"
     "@crab-dev/rc-select": "workspace:^"
     "@crab-dev/rc-theme": "workspace:^"
     "@crab-dev/rc-token-semantic": "workspace:^"
     "@crab-dev/standards-typescript-preset": "workspace:^"
-    "@crab-dev/wake": "npm:0.1.45"
+    "@crab-dev/wake": "npm:0.1.57"
     "@types/node": "npm:^22.20.2"
     "@types/react": "npm:^19.3.0"
     "@types/react-dom": "npm:^19.3.0"
@@ -1196,14 +1189,14 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-menu@workspace:components/rc-menu"
   dependencies:
-    "@crab-dev/css": "npm:0.1.45"
+    "@crab-dev/css": "npm:0.1.57"
     "@crab-dev/rc-button": "workspace:^"
     "@crab-dev/rc-config-provider": "workspace:^"
     "@crab-dev/rc-hooks": "workspace:^"
     "@crab-dev/rc-theme": "workspace:^"
     "@crab-dev/rc-token-semantic": "workspace:^"
     "@crab-dev/standards-typescript-preset": "workspace:^"
-    "@crab-dev/wake": "npm:0.1.45"
+    "@crab-dev/wake": "npm:0.1.57"
     "@floating-ui/react": "npm:^0.27.20"
     "@types/node": "npm:22.20.2"
     "@types/react": "npm:^19.3.0"
@@ -1222,14 +1215,14 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-message@workspace:components/rc-message"
   dependencies:
-    "@crab-dev/css": "npm:0.1.45"
+    "@crab-dev/css": "npm:0.1.57"
     "@crab-dev/rc-button": "workspace:^"
     "@crab-dev/rc-config-provider": "workspace:^"
     "@crab-dev/rc-hooks": "workspace:^"
     "@crab-dev/rc-spin": "workspace:^"
     "@crab-dev/rc-token-semantic": "workspace:^"
     "@crab-dev/standards-typescript-preset": "workspace:^"
-    "@crab-dev/wake": "npm:0.1.45"
+    "@crab-dev/wake": "npm:0.1.57"
     "@types/node": "npm:^22.20.2"
     "@types/react": "npm:^19.3.0"
     "@types/react-dom": "npm:^19.3.0"
@@ -1246,7 +1239,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-notification@workspace:components/rc-notification"
   dependencies:
-    "@crab-dev/css": "npm:0.1.45"
+    "@crab-dev/css": "npm:0.1.57"
     "@crab-dev/rc-button": "workspace:^"
     "@crab-dev/rc-config-provider": "workspace:^"
     "@crab-dev/rc-hooks": "workspace:^"
@@ -1255,7 +1248,7 @@ __metadata:
     "@crab-dev/rc-theme": "workspace:^"
     "@crab-dev/rc-token-semantic": "workspace:^"
     "@crab-dev/standards-typescript-preset": "workspace:^"
-    "@crab-dev/wake": "npm:0.1.45"
+    "@crab-dev/wake": "npm:0.1.57"
     "@types/node": "npm:^22.20.2"
     "@types/react": "npm:^19.3.0"
     "@types/react-dom": "npm:^19.3.0"
@@ -1275,7 +1268,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-number-edit@workspace:components/rc-number-edit"
   dependencies:
-    "@crab-dev/css": "npm:0.1.45"
+    "@crab-dev/css": "npm:0.1.57"
     "@crab-dev/rc-button": "workspace:^"
     "@crab-dev/rc-config-provider": "workspace:^"
     "@crab-dev/rc-hooks": "workspace:^"
@@ -1283,7 +1276,7 @@ __metadata:
     "@crab-dev/rc-theme": "workspace:^"
     "@crab-dev/rc-token-semantic": "workspace:^"
     "@crab-dev/standards-typescript-preset": "workspace:^"
-    "@crab-dev/wake": "npm:0.1.45"
+    "@crab-dev/wake": "npm:0.1.57"
     "@types/node": "npm:^22.20.2"
     "@types/react": "npm:^19.3.0"
     "@types/react-dom": "npm:^19.3.0"
@@ -1302,7 +1295,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-pagination@workspace:components/rc-pagination"
   dependencies:
-    "@crab-dev/css": "npm:0.1.45"
+    "@crab-dev/css": "npm:0.1.57"
     "@crab-dev/rc-button": "workspace:^"
     "@crab-dev/rc-config-provider": "workspace:^"
     "@crab-dev/rc-hooks": "workspace:^"
@@ -1311,7 +1304,7 @@ __metadata:
     "@crab-dev/rc-theme": "workspace:^"
     "@crab-dev/rc-token-semantic": "workspace:^"
     "@crab-dev/standards-typescript-preset": "workspace:^"
-    "@crab-dev/wake": "npm:0.1.45"
+    "@crab-dev/wake": "npm:0.1.57"
     "@types/node": "npm:^22.20.2"
     "@types/react": "npm:^19.3.0"
     "@types/react-dom": "npm:^19.3.0"
@@ -1329,7 +1322,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-pdf-editor@workspace:components/rc-pdf-editor"
   dependencies:
-    "@crab-dev/css": "npm:0.1.45"
+    "@crab-dev/css": "npm:0.1.57"
     "@crab-dev/rc-auto-sizer": "workspace:^"
     "@crab-dev/rc-button": "workspace:^"
     "@crab-dev/rc-canvas": "workspace:^"
@@ -1348,7 +1341,7 @@ __metadata:
     "@crab-dev/rc-tree": "workspace:^"
     "@crab-dev/rc-virtual": "workspace:^"
     "@crab-dev/standards-typescript-preset": "workspace:^"
-    "@crab-dev/wake": "npm:0.1.45"
+    "@crab-dev/wake": "npm:0.1.57"
     "@embedpdf/pdfium": "npm:2.15.1"
     "@types/node": "npm:^22.20.2"
     "@types/react": "npm:^19.3.0"
@@ -1366,13 +1359,13 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-prose@workspace:components/rc-prose"
   dependencies:
-    "@crab-dev/css": "npm:0.1.45"
+    "@crab-dev/css": "npm:0.1.57"
     "@crab-dev/rc-config-provider": "workspace:^"
     "@crab-dev/rc-theme": "workspace:^"
     "@crab-dev/rc-token-global": "workspace:^"
     "@crab-dev/rc-token-semantic": "workspace:^"
     "@crab-dev/standards-typescript-preset": "workspace:^"
-    "@crab-dev/wake": "npm:0.1.45"
+    "@crab-dev/wake": "npm:0.1.57"
     "@types/node": "npm:^22.20.2"
     "@types/react": "npm:^19.3.0"
     "@types/react-dom": "npm:^19.3.0"
@@ -1389,12 +1382,12 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-radio@workspace:components/rc-radio"
   dependencies:
-    "@crab-dev/css": "npm:0.1.45"
+    "@crab-dev/css": "npm:0.1.57"
     "@crab-dev/rc-config-provider": "workspace:^"
     "@crab-dev/rc-hooks": "workspace:^"
     "@crab-dev/rc-token-semantic": "workspace:^"
     "@crab-dev/standards-typescript-preset": "workspace:^"
-    "@crab-dev/wake": "npm:0.1.45"
+    "@crab-dev/wake": "npm:0.1.57"
     "@types/node": "npm:^22.20.2"
     "@types/react": "npm:^19.3.0"
     "@types/react-dom": "npm:^19.3.0"
@@ -1412,7 +1405,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-realm@workspace:components/rc-realm"
   dependencies:
-    "@crab-dev/css": "npm:0.1.45"
+    "@crab-dev/css": "npm:0.1.57"
     "@crab-dev/rc-alert": "workspace:^"
     "@crab-dev/rc-button": "workspace:^"
     "@crab-dev/rc-config-provider": "workspace:^"
@@ -1420,7 +1413,7 @@ __metadata:
     "@crab-dev/rc-spin": "workspace:^"
     "@crab-dev/rc-token-semantic": "workspace:^"
     "@crab-dev/standards-typescript-preset": "workspace:^"
-    "@crab-dev/wake": "npm:0.1.45"
+    "@crab-dev/wake": "npm:0.1.57"
     "@types/node": "npm:^22.20.2"
     "@types/react": "npm:^19.3.0"
     "@types/react-dom": "npm:^19.3.0"
@@ -1442,7 +1435,7 @@ __metadata:
     "@crab-dev/rc-button": "workspace:^"
     "@crab-dev/rc-line-edit": "workspace:^"
     "@crab-dev/standards-typescript-preset": "workspace:^"
-    "@crab-dev/wake": "npm:0.1.45"
+    "@crab-dev/wake": "npm:0.1.57"
     "@types/node": "npm:^22.20.2"
     "@types/react": "npm:^19.3.0"
     "@types/react-dom": "npm:^19.3.0"
@@ -1458,13 +1451,13 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-segmented@workspace:components/rc-segmented"
   dependencies:
-    "@crab-dev/css": "npm:0.1.45"
+    "@crab-dev/css": "npm:0.1.57"
     "@crab-dev/rc-config-provider": "workspace:^"
     "@crab-dev/rc-hooks": "workspace:^"
     "@crab-dev/rc-theme": "workspace:^"
     "@crab-dev/rc-token-semantic": "workspace:^"
     "@crab-dev/standards-typescript-preset": "workspace:^"
-    "@crab-dev/wake": "npm:0.1.45"
+    "@crab-dev/wake": "npm:0.1.57"
     "@types/node": "npm:^22.20.2"
     "@types/react": "npm:^19.3.0"
     "@types/react-dom": "npm:^19.3.0"
@@ -1482,7 +1475,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-select@workspace:components/rc-select"
   dependencies:
-    "@crab-dev/css": "npm:0.1.45"
+    "@crab-dev/css": "npm:0.1.57"
     "@crab-dev/rc-button": "workspace:^"
     "@crab-dev/rc-checkbox": "workspace:^"
     "@crab-dev/rc-config-provider": "workspace:^"
@@ -1495,7 +1488,7 @@ __metadata:
     "@crab-dev/rc-token-semantic": "workspace:^"
     "@crab-dev/rc-virtual": "workspace:^"
     "@crab-dev/standards-typescript-preset": "workspace:^"
-    "@crab-dev/wake": "npm:0.1.45"
+    "@crab-dev/wake": "npm:0.1.57"
     "@types/node": "npm:^22.20.2"
     "@types/react": "npm:^19.3.0"
     "@types/react-dom": "npm:^19.3.0"
@@ -1513,13 +1506,13 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-skeleton@workspace:components/rc-skeleton"
   dependencies:
-    "@crab-dev/css": "npm:0.1.45"
+    "@crab-dev/css": "npm:0.1.57"
     "@crab-dev/rc-button": "workspace:^"
     "@crab-dev/rc-config-provider": "workspace:^"
     "@crab-dev/rc-theme": "workspace:^"
     "@crab-dev/rc-token-semantic": "workspace:^"
     "@crab-dev/standards-typescript-preset": "workspace:^"
-    "@crab-dev/wake": "npm:0.1.45"
+    "@crab-dev/wake": "npm:0.1.57"
     "@types/node": "npm:^22.20.2"
     "@types/react": "npm:^19.3.0"
     "@types/react-dom": "npm:^19.3.0"
@@ -1536,12 +1529,12 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-slider@workspace:components/rc-slider"
   dependencies:
-    "@crab-dev/css": "npm:0.1.45"
+    "@crab-dev/css": "npm:0.1.57"
     "@crab-dev/rc-config-provider": "workspace:^"
     "@crab-dev/rc-hooks": "workspace:^"
     "@crab-dev/rc-token-semantic": "workspace:^"
     "@crab-dev/standards-typescript-preset": "workspace:^"
-    "@crab-dev/wake": "npm:0.1.45"
+    "@crab-dev/wake": "npm:0.1.57"
     "@types/node": "npm:^22.20.2"
     "@types/react": "npm:^19.3.0"
     "@types/react-dom": "npm:^19.3.0"
@@ -1559,13 +1552,13 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-spin@workspace:components/rc-spin"
   dependencies:
-    "@crab-dev/css": "npm:0.1.45"
+    "@crab-dev/css": "npm:0.1.57"
     "@crab-dev/rc-config-provider": "workspace:^"
     "@crab-dev/rc-hooks": "workspace:^"
     "@crab-dev/rc-switch": "workspace:^"
     "@crab-dev/rc-token-semantic": "workspace:^"
     "@crab-dev/standards-typescript-preset": "workspace:^"
-    "@crab-dev/wake": "npm:0.1.45"
+    "@crab-dev/wake": "npm:0.1.57"
     "@types/node": "npm:^22.20.2"
     "@types/react": "npm:^19.3.0"
     "@types/react-dom": "npm:^19.3.0"
@@ -1583,12 +1576,12 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-split-pane@workspace:components/rc-split-pane"
   dependencies:
-    "@crab-dev/css": "npm:0.1.45"
+    "@crab-dev/css": "npm:0.1.57"
     "@crab-dev/rc-config-provider": "workspace:^"
     "@crab-dev/rc-hooks": "workspace:^"
     "@crab-dev/rc-token-semantic": "workspace:^"
     "@crab-dev/standards-typescript-preset": "workspace:^"
-    "@crab-dev/wake": "npm:0.1.45"
+    "@crab-dev/wake": "npm:0.1.57"
     "@types/node": "npm:^22.20.2"
     "@types/react": "npm:^19.3.0"
     "@types/react-dom": "npm:^19.3.0"
@@ -1606,13 +1599,13 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-switch@workspace:components/rc-switch"
   dependencies:
-    "@crab-dev/css": "npm:0.1.45"
+    "@crab-dev/css": "npm:0.1.57"
     "@crab-dev/rc-config-provider": "workspace:^"
     "@crab-dev/rc-hooks": "workspace:^"
     "@crab-dev/rc-theme": "workspace:^"
     "@crab-dev/rc-token-semantic": "workspace:^"
     "@crab-dev/standards-typescript-preset": "workspace:^"
-    "@crab-dev/wake": "npm:0.1.45"
+    "@crab-dev/wake": "npm:0.1.57"
     "@types/node": "npm:^22.20.2"
     "@types/react": "npm:^19.3.0"
     "@types/react-dom": "npm:^19.3.0"
@@ -1630,7 +1623,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-table-pro@workspace:components/rc-table-pro"
   dependencies:
-    "@crab-dev/css": "npm:0.1.45"
+    "@crab-dev/css": "npm:0.1.57"
     "@crab-dev/rc-auto-sizer": "workspace:^"
     "@crab-dev/rc-button": "workspace:^"
     "@crab-dev/rc-checkbox": "workspace:^"
@@ -1645,7 +1638,7 @@ __metadata:
     "@crab-dev/rc-token-semantic": "workspace:^"
     "@crab-dev/rc-tree": "workspace:^"
     "@crab-dev/standards-typescript-preset": "workspace:^"
-    "@crab-dev/wake": "npm:0.1.45"
+    "@crab-dev/wake": "npm:0.1.57"
     "@types/node": "npm:^22.20.2"
     "@types/react": "npm:^19.3.0"
     "@types/react-dom": "npm:^19.3.0"
@@ -1663,7 +1656,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-table@workspace:components/rc-table"
   dependencies:
-    "@crab-dev/css": "npm:0.1.45"
+    "@crab-dev/css": "npm:0.1.57"
     "@crab-dev/rc-auto-sizer": "workspace:^"
     "@crab-dev/rc-button": "workspace:^"
     "@crab-dev/rc-checkbox": "workspace:^"
@@ -1680,7 +1673,7 @@ __metadata:
     "@crab-dev/rc-token-semantic": "workspace:^"
     "@crab-dev/rc-virtual": "workspace:^"
     "@crab-dev/standards-typescript-preset": "workspace:^"
-    "@crab-dev/wake": "npm:0.1.45"
+    "@crab-dev/wake": "npm:0.1.57"
     "@faker-js/faker": "npm:^10.6.0"
     "@types/node": "npm:^22.20.2"
     "@types/react": "npm:^19.3.0"
@@ -1702,14 +1695,14 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-tabs@workspace:components/rc-tabs"
   dependencies:
-    "@crab-dev/css": "npm:0.1.45"
+    "@crab-dev/css": "npm:0.1.57"
     "@crab-dev/rc-button": "workspace:^"
     "@crab-dev/rc-config-provider": "workspace:^"
     "@crab-dev/rc-hooks": "workspace:^"
     "@crab-dev/rc-theme": "workspace:^"
     "@crab-dev/rc-token-semantic": "workspace:^"
     "@crab-dev/standards-typescript-preset": "workspace:^"
-    "@crab-dev/wake": "npm:0.1.45"
+    "@crab-dev/wake": "npm:0.1.57"
     "@types/node": "npm:^22.20.2"
     "@types/react": "npm:^19.3.0"
     "@types/react-dom": "npm:^19.3.0"
@@ -1726,14 +1719,14 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-tag@workspace:components/rc-tag"
   dependencies:
-    "@crab-dev/css": "npm:0.1.45"
+    "@crab-dev/css": "npm:0.1.57"
     "@crab-dev/rc-button": "workspace:^"
     "@crab-dev/rc-config-provider": "workspace:^"
     "@crab-dev/rc-hooks": "workspace:^"
     "@crab-dev/rc-theme": "workspace:^"
     "@crab-dev/rc-token-semantic": "workspace:^"
     "@crab-dev/standards-typescript-preset": "workspace:^"
-    "@crab-dev/wake": "npm:0.1.45"
+    "@crab-dev/wake": "npm:0.1.57"
     "@types/node": "npm:^22.20.2"
     "@types/react": "npm:^19.3.0"
     "@types/react-dom": "npm:^19.3.0"
@@ -1750,14 +1743,14 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-text-edit@workspace:components/rc-text-edit"
   dependencies:
-    "@crab-dev/css": "npm:0.1.45"
+    "@crab-dev/css": "npm:0.1.57"
     "@crab-dev/rc-button": "workspace:^"
     "@crab-dev/rc-config-provider": "workspace:^"
     "@crab-dev/rc-hooks": "workspace:^"
     "@crab-dev/rc-theme": "workspace:^"
     "@crab-dev/rc-token-semantic": "workspace:^"
     "@crab-dev/standards-typescript-preset": "workspace:^"
-    "@crab-dev/wake": "npm:0.1.45"
+    "@crab-dev/wake": "npm:0.1.57"
     "@types/node": "npm:^22.20.2"
     "@types/react": "npm:^19.3.0"
     "@types/react-dom": "npm:^19.3.0"
@@ -1776,11 +1769,11 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-theme@workspace:components/rc-theme"
   dependencies:
-    "@crab-dev/css": "npm:0.1.45"
+    "@crab-dev/css": "npm:0.1.57"
     "@crab-dev/rc-token-global": "workspace:^"
     "@crab-dev/rc-token-semantic": "workspace:^"
     "@crab-dev/standards-typescript-preset": "workspace:^"
-    "@crab-dev/wake": "npm:0.1.45"
+    "@crab-dev/wake": "npm:0.1.57"
     "@types/node": "npm:^22.20.2"
     "@types/react": "npm:^19.3.0"
     "@types/react-dom": "npm:^19.3.0"
@@ -1795,9 +1788,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-token-global@workspace:components/rc-token-global"
   dependencies:
-    "@crab-dev/css": "npm:0.1.45"
+    "@crab-dev/css": "npm:0.1.57"
     "@crab-dev/standards-typescript-preset": "workspace:^"
-    "@crab-dev/wake": "npm:0.1.45"
+    "@crab-dev/wake": "npm:0.1.57"
     "@types/node": "npm:^22.20.2"
     "@types/react": "npm:^19.3.0"
     "@types/react-dom": "npm:^19.3.0"
@@ -1814,10 +1807,10 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-token-semantic@workspace:components/rc-token-semantic"
   dependencies:
-    "@crab-dev/css": "npm:0.1.45"
+    "@crab-dev/css": "npm:0.1.57"
     "@crab-dev/rc-token-global": "workspace:^"
     "@crab-dev/standards-typescript-preset": "workspace:^"
-    "@crab-dev/wake": "npm:0.1.45"
+    "@crab-dev/wake": "npm:0.1.57"
     "@types/node": "npm:^22.20.2"
     "@types/react": "npm:^19.3.0"
     "@types/react-dom": "npm:^19.3.0"
@@ -1834,13 +1827,13 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-tooltip@workspace:components/rc-tooltip"
   dependencies:
-    "@crab-dev/css": "npm:0.1.45"
+    "@crab-dev/css": "npm:0.1.57"
     "@crab-dev/rc-button": "workspace:^"
     "@crab-dev/rc-config-provider": "workspace:^"
     "@crab-dev/rc-hooks": "workspace:^"
     "@crab-dev/rc-token-semantic": "workspace:^"
     "@crab-dev/standards-typescript-preset": "workspace:^"
-    "@crab-dev/wake": "npm:0.1.45"
+    "@crab-dev/wake": "npm:0.1.57"
     "@floating-ui/react": "npm:^0.27.20"
     "@types/node": "npm:^22.20.2"
     "@types/react": "npm:^19.3.0"
@@ -1859,7 +1852,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-tree@workspace:components/rc-tree"
   dependencies:
-    "@crab-dev/css": "npm:0.1.45"
+    "@crab-dev/css": "npm:0.1.57"
     "@crab-dev/rc-auto-sizer": "workspace:^"
     "@crab-dev/rc-button": "workspace:^"
     "@crab-dev/rc-checkbox": "workspace:^"
@@ -1871,7 +1864,7 @@ __metadata:
     "@crab-dev/rc-token-semantic": "workspace:^"
     "@crab-dev/rc-virtual": "workspace:^"
     "@crab-dev/standards-typescript-preset": "workspace:^"
-    "@crab-dev/wake": "npm:0.1.45"
+    "@crab-dev/wake": "npm:0.1.57"
     "@dnd-kit/core": "npm:^6.3.1"
     "@dnd-kit/sortable": "npm:^10.0.0"
     "@types/node": "npm:^22.20.2"
@@ -1892,12 +1885,12 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-virtual@workspace:components/rc-virtual"
   dependencies:
-    "@crab-dev/css": "npm:0.1.45"
+    "@crab-dev/css": "npm:0.1.57"
     "@crab-dev/rc-auto-sizer": "workspace:^"
     "@crab-dev/rc-button": "workspace:^"
     "@crab-dev/rc-token-semantic": "workspace:^"
     "@crab-dev/standards-typescript-preset": "workspace:^"
-    "@crab-dev/wake": "npm:0.1.45"
+    "@crab-dev/wake": "npm:0.1.57"
     "@types/node": "npm:^22.20.2"
     "@types/react": "npm:^19.3.0"
     "@types/react-dom": "npm:^19.3.0"
@@ -1914,7 +1907,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@crab-dev/standards-eslint-preset@workspace:standards/eslint-preset"
   dependencies:
-    "@crab-dev/wake": "npm:0.1.45"
+    "@crab-dev/wake": "npm:0.1.57"
     "@eslint/js": "npm:9.39.5"
     "@types/react": "npm:^19.3.0"
     "@types/react-dom": "npm:^19.3.0"
@@ -1938,7 +1931,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@crab-dev/standards-typescript-preset@workspace:standards/typescript-preset"
   dependencies:
-    "@crab-dev/wake": "npm:0.1.45"
+    "@crab-dev/wake": "npm:0.1.57"
     "@types/node": "npm:^22.20.2"
     "@types/react": "npm:^19.3.0"
     react: "npm:19.3.0"
@@ -1947,24 +1940,10 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@crab-dev/wake-darwin-arm64@npm:0.1.45":
-  version: 0.1.45
-  resolution: "@crab-dev/wake-darwin-arm64@npm:0.1.45"
-  conditions: os=darwin & cpu=arm64
-  languageName: node
-  linkType: hard
-
 "@crab-dev/wake-darwin-arm64@npm:0.1.57":
   version: 0.1.57
   resolution: "@crab-dev/wake-darwin-arm64@npm:0.1.57"
   conditions: os=darwin & cpu=arm64
-  languageName: node
-  linkType: hard
-
-"@crab-dev/wake-darwin-x64@npm:0.1.45":
-  version: 0.1.45
-  resolution: "@crab-dev/wake-darwin-x64@npm:0.1.45"
-  conditions: os=darwin & cpu=x64
   languageName: node
   linkType: hard
 
@@ -1975,24 +1954,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@crab-dev/wake-linux-arm64-gnu@npm:0.1.45":
-  version: 0.1.45
-  resolution: "@crab-dev/wake-linux-arm64-gnu@npm:0.1.45"
-  conditions: os=linux & cpu=arm64 & libc=glibc
-  languageName: node
-  linkType: hard
-
 "@crab-dev/wake-linux-arm64-gnu@npm:0.1.57":
   version: 0.1.57
   resolution: "@crab-dev/wake-linux-arm64-gnu@npm:0.1.57"
   conditions: os=linux & cpu=arm64 & libc=glibc
-  languageName: node
-  linkType: hard
-
-"@crab-dev/wake-linux-x64-gnu@npm:0.1.45":
-  version: 0.1.45
-  resolution: "@crab-dev/wake-linux-x64-gnu@npm:0.1.45"
-  conditions: os=linux & cpu=x64 & libc=glibc
   languageName: node
   linkType: hard
 
@@ -2003,65 +1968,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@crab-dev/wake-win32-x64-msvc@npm:0.1.45":
-  version: 0.1.45
-  resolution: "@crab-dev/wake-win32-x64-msvc@npm:0.1.45"
-  conditions: os=win32 & cpu=x64
-  languageName: node
-  linkType: hard
-
 "@crab-dev/wake-win32-x64-msvc@npm:0.1.57":
   version: 0.1.57
   resolution: "@crab-dev/wake-win32-x64-msvc@npm:0.1.57"
   conditions: os=win32 & cpu=x64
-  languageName: node
-  linkType: hard
-
-"@crab-dev/wake@npm:0.1.45":
-  version: 0.1.45
-  resolution: "@crab-dev/wake@npm:0.1.45"
-  dependencies:
-    "@crab-dev/css": "npm:0.1.45"
-    "@crab-dev/rc-alert": "npm:^0.0.2"
-    "@crab-dev/rc-button": "npm:^0.0.2"
-    "@crab-dev/rc-dialog": "npm:^0.0.2"
-    "@crab-dev/rc-drawer": "npm:^0.0.2"
-    "@crab-dev/rc-empty": "npm:^0.0.2"
-    "@crab-dev/rc-line-edit": "npm:^0.0.4"
-    "@crab-dev/rc-number-edit": "npm:^0.0.2"
-    "@crab-dev/rc-segmented": "npm:^0.0.2"
-    "@crab-dev/rc-select": "npm:^0.0.3"
-    "@crab-dev/rc-switch": "npm:^0.0.2"
-    "@crab-dev/rc-tag": "npm:^0.0.2"
-    "@crab-dev/rc-text-edit": "npm:^0.0.1"
-    "@crab-dev/rc-tooltip": "npm:^0.0.2"
-    "@crab-dev/rc-tree": "npm:^0.1.2"
-    "@crab-dev/wake-darwin-arm64": "npm:0.1.45"
-    "@crab-dev/wake-darwin-x64": "npm:0.1.45"
-    "@crab-dev/wake-linux-arm64-gnu": "npm:0.1.45"
-    "@crab-dev/wake-linux-x64-gnu": "npm:0.1.45"
-    "@crab-dev/wake-win32-x64-msvc": "npm:0.1.45"
-    clipboardy: "npm:5.3.2"
-    lucide-react: "npm:^1.23.0"
-    open: "npm:11.0.0"
-    string-width: "npm:8.2.2"
-  peerDependencies:
-    react: ">=19.2.8 <19.3.0 || =19.3.0"
-    react-dom: ">=19.2.8 <19.3.0 || =19.3.0"
-  dependenciesMeta:
-    "@crab-dev/wake-darwin-arm64":
-      optional: true
-    "@crab-dev/wake-darwin-x64":
-      optional: true
-    "@crab-dev/wake-linux-arm64-gnu":
-      optional: true
-    "@crab-dev/wake-linux-x64-gnu":
-      optional: true
-    "@crab-dev/wake-win32-x64-msvc":
-      optional: true
-  bin:
-    wake: bin/wake.mjs
-  checksum: 10c0/b0484e008d5cdc9edbee8e0fb935d79ea39b2c259f6817798e7dff0eb2d084856dac55f792d54c931ae636964eb20684aef0331f69fe2996ca8cc6d24e5c0b91
   languageName: node
   linkType: hard
 
@@ -6784,7 +6694,7 @@ __metadata:
     "@commitlint/cli": "npm:^21.2.2"
     "@commitlint/config-conventional": "npm:^21.2.2"
     "@crab-dev/standards-typescript-preset": "workspace:^"
-    "@crab-dev/wake": "npm:0.1.45"
+    "@crab-dev/wake": "npm:0.1.57"
     "@playwright/test": "npm:1.64.1"
     "@types/node": "npm:^26.6.5"
     "@yarnpkg/sdks": "npm:3.3.1"

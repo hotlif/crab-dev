@@ -1,7 +1,7 @@
 # Published ESM and real extracted CSS, without the ordinary suite's css mock.
 [test]
 environment = "browser"
-include = ["dial-labels.test.tsx", "field-position.test.tsx", "viewport-fallback.test.tsx"]
+include = ["*.test.ts", "*.test.tsx"]
 timeout_ms = 15000
 leaks = "error"
 

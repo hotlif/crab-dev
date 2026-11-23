@@ -1,19 +1,10 @@
-import { afterAll, beforeAll, describe, expect, it, mock } from '@crab-dev/wake/test';
+import { describe, expect, it, mock } from '@crab-dev/wake/test';
 import { act, fireEvent, render } from '@crab-dev/wake/test/react';
 import { createRef, StrictMode } from 'react';
-import ConfigProvider from '@crab-dev/rc-config-provider';
-import { Temporal as TemporalPolyfill } from '@js-temporal/polyfill';
+import ConfigProvider, { type ConfigDesignSystem } from '@crab-dev/rc-config-provider';
 import DatePicker, { DateTimePicker, TimePicker } from '../../../esm/index.mjs';
 import type { PickerFieldProps } from '../../types.js';
 import compiledCss from '../../../.cache/browser-css.json';
-
-const temporalDescriptor = Object.getOwnPropertyDescriptor(globalThis, 'Temporal');
-beforeAll(() => {
-    if (!temporalDescriptor) Object.defineProperty(globalThis, 'Temporal', { value: TemporalPolyfill, configurable: true });
-});
-afterAll(() => {
-    if (!temporalDescriptor) Reflect.deleteProperty(globalThis, 'Temporal');
-});
 
 async function settle() {
     await act(async () => {
@@ -53,9 +44,9 @@ const variants: PickerFieldProps[] = [
     {},
 ];
 
-describe('published picker field positioning keeps its DOM reference', () => {
-    for (const kind of ['date', 'datetime', 'time'] as const) {
-        for (const designSystem of ['md3', 'macos', 'shadcn'] as const) {
+export function testFieldPosition(designSystem: ConfigDesignSystem) {
+    describe('published picker field positioning keeps its DOM reference', () => {
+        for (const kind of ['date', 'datetime', 'time'] as const) {
             for (const colorMode of ['light', 'dark'] as const) {
                 for (const side of ['below', 'above'] as const) {
                     it(`${kind} clears its own label/support/error ${side} (${designSystem}/${colorMode})`, async () => {
@@ -167,5 +158,5 @@ describe('published picker field positioning keeps its DOM reference', () => {
                 });
             }
         }
-    }
-});
+    });
+}
