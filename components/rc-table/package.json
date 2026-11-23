@@ -53,7 +53,7 @@
         "@crab-dev/rc-theme": "workspace:^",
         "@crab-dev/rc-token-semantic": "workspace:^",
         "@crab-dev/standards-typescript-preset": "workspace:^",
-        "@crab-dev/wake": "0.1.45",
+        "@crab-dev/wake": "0.1.57",
         "@faker-js/faker": "^10.6.0",
         "@types/node": "^22.20.2",
         "@types/react": "^19.3.0",
@@ -67,7 +67,7 @@
         "typescript": "6.0.2"
     },
     "dependencies": {
-        "@crab-dev/css": "0.1.45",
+        "@crab-dev/css": "0.1.57",
         "@crab-dev/rc-button": "workspace:^",
         "@crab-dev/rc-checkbox": "workspace:^",
         "@crab-dev/rc-config-provider": "workspace:^",

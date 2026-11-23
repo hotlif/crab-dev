@@ -1,11 +1,15 @@
 import { requiredCheckScripts } from "./check-commands.mjs";
 
+const separateTestScripts = ["test", "test:required"];
+
 /** Public script names are the verification contract for local runs and CI. */
 export const repositoryCheckPlan = [
     "check:architecture", "check:tokens", "check:generated:local", "lint",
-    "build:library", "check:exports", "check:consumer", "typecheck", "test",
-    "test:required", "docs:build",
+    "build:library", "check:exports", "check:consumer", "typecheck",
+    ...separateTestScripts, "docs:build",
 ];
+
+export const repositoryProjectCheckPlan = repositoryCheckPlan.filter(script => !separateTestScripts.includes(script));
 
 export function workspaceCheckPlan(pkg) {
     const plan = [];

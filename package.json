@@ -82,7 +82,7 @@
         "@commitlint/cli": "^21.2.2",
         "@commitlint/config-conventional": "^21.2.2",
         "@crab-dev/standards-typescript-preset": "workspace:^",
-        "@crab-dev/wake": "0.1.45",
+        "@crab-dev/wake": "0.1.57",
         "@playwright/test": "1.64.1",
         "@types/node": "^26.6.5",
         "@yarnpkg/sdks": "3.3.1",
