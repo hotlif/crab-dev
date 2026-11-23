@@ -14,7 +14,7 @@
         "check:docs": "node scripts/generate/generate-component-docs.mjs --check",
         "test:generator": "node scripts/generate/generate-component-docs.test.mjs",
         "test:dev": "node --test scripts/dev/*.test.mjs",
-        "typecheck": "tsc --noEmit",
+        "typecheck": "node ../scripts/typecheck.mjs",
         "test": "yarn test:generator && yarn test:dev && yarn test:build && yarn check:docs && wake test --serial",
         "preview": "node scripts/dev/preview-docs.mjs",
         "lint": "wake lint --format human --root .. .website/docs --env browser --max-warnings 0 && wake lint --format human --root .. .website/scripts --env browser --env node --max-warnings 0",
@@ -79,13 +79,14 @@
         "@crab-dev/rc-virtual": "workspace:^",
         "@crab-dev/standards-typescript-preset": "workspace:^",
         "@crab-dev/wake": "0.1.57",
-        "@types/node": "^22.20.2",
+        "@types/node": "^26.6.6",
         "@types/react": "^19.3.0",
         "@types/react-dom": "^19.3.0",
+        "@typescript/old": "patch:typescript@npm%3A6.0.2#optional!builtin<compat/typescript>",
         "globals": "^17.12.0",
         "react": "19.3.0",
         "react-dom": "19.3.0",
-        "typescript": "6.0.2"
+        "typescript": "7.0.2"
     },
     "engines": {
         "node": ">=22"

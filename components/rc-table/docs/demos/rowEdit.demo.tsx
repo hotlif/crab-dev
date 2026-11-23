@@ -36,7 +36,7 @@ export default function RowEditDemo() {
             onClick={() => setEditingRowId(row.id)}>复核</Button>,
     });
     return <DemoFrame title="仓库库存逐行复核" rows={rows.length} columns={columns.length}
-        hint="点击「复核」或双击行，修改库存和备注，再点击「确认」或「取消」。库存空值保留原值，数值限制在已占用量至99,999之间。所有修改仅保存在当前页面。"
+        hint="点击「复核」或双击行，修改库存和备注，再点击「确认」或「取消」。修改库存时填写复核备注；缺少备注会保留草稿供补填。库存空值保留原值，数值限制在已占用量至99,999之间。所有修改仅保存在当前页面。"
         toolbar={<Button disabled={!previous || editingRowId !== null} onClick={() => {
             if (previous) setRows(previous);
             setPrevious(null); setMessage("已撤销最近一次复核。");
@@ -45,7 +45,8 @@ export default function RowEditDemo() {
         {(width, height) => <Table aria-label="支持整行复核的库存清单" width={width} height={height} rows={rows} columns={columns}
             editType="row" editingRowId={editingRowId} onEditingRowIdChange={setEditingRowId}
             onRowCancel={() => setMessage("已取消复核，原记录保持不变。")}
-            onRowCommit={(id, changes) => {
+            onRowCommit={async (id, changes) => {
+                await new Promise<void>(resolve => setTimeout(resolve, 300));
                 const original = rows.find(row => row.id === id);
                 if (!original) return;
                 const quantity = changes["$.onHand"];
@@ -53,6 +54,9 @@ export default function RowEditDemo() {
                 const onHand = typeof quantity === "number" && Number.isFinite(quantity)
                     ? Math.min(99999, Math.max(original.dataRef.reserved, Math.round(quantity))) : original.dataRef.onHand;
                 const nextNote = typeof note === "string" ? note.trim().slice(0, 120) : original.dataRef.note;
+                if (onHand !== original.dataRef.onHand && !nextNote) return {
+                    fieldErrors: { "$.note": "库存数量有变动，请填写复核原因。" },
+                };
                 if (onHand === original.dataRef.onHand && nextNote === original.dataRef.note) {
                     setMessage("记录没有变化，无需保存。");
                     return;

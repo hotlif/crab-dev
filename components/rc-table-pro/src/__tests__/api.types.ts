@@ -12,3 +12,15 @@ export function verifyTableProStateContract(sortColumns: SortColumn[] | undefine
     const grouping: TableProProps<Row> = { ...data, expandedGroupIds: new Set(), defaultExpandAll: true };
     return [readOnly, forwarding, initial, sorting, grouping];
 }
+
+export function verifyRemoteDataContract(): TableProProps<Row>[] {
+    const data = { fetchColumns: async () => [], remoteRows: { request: async () => ({ rows: [], total: 0 }) } };
+    const valid: TableProProps<Row> = { ...data, sortMode: 'server' };
+    // @ts-expect-error Each table has one data source.
+    const pagedRequest: TableProProps<Row> = { ...data, request: async () => ({ rows: [], total: 0 }) };
+    // @ts-expect-error A global sort must be performed by the remote data source.
+    const clientSort: TableProProps<Row> = { ...data, sortMode: 'client' };
+    // @ts-expect-error Pagination cannot coexist with a viewport-based source.
+    const pagination: TableProProps<Row> = { ...data, pagination: {} };
+    return [valid, pagedRequest, clientSort, pagination];
+}

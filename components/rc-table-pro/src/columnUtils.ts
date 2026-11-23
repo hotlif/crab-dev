@@ -124,6 +124,7 @@ export function buildCurrentState(
     });
     walk(cols);
     return {
+        version: 2,
         columnProps,
         columnOrder: flattenColumnNames(cols),
         filters: Object.keys(filters).length > 0 ? { ...filters } : undefined,
@@ -146,7 +147,7 @@ export function applyInitialState(
                 ...col,
                 ...(p.hidden !== undefined && { hidden: p.hidden }),
                 ...(p.width !== undefined && { width: p.width }),
-                ...(p.fixed !== undefined && { fixed: p.fixed }),
+                ...((state.version === 2 || p.fixed !== undefined) && { fixed: p.fixed }),
                 ...(p.sortable !== undefined && { sortable: p.sortable }),
             } : col;
             return base.children?.length ? { ...base, children: applyProps(base.children) } : base;

@@ -24,9 +24,9 @@
 
 ## 本仓库的 TypeScript 与 Yarn PnP
 
-全工作区使用官方 TypeScript 6.0.2，由 Yarn 的内置兼容补丁解析 PnP 依赖。包内通过公开的 typecheck 脚本调用 tsc --noEmit；根 typecheck 只编排各工作区检查。
+全工作区使用官方 TypeScript 7.0.2。包内 `yarn typecheck` 调用原生编译器，通过文件系统回调读取当前工程的 PnP 依赖图和归档。根 `yarn typecheck` 编排各工作区检查。
 
-首次运行仅需安装仓库依赖，无需下载编译器源码、Go SDK 或构建开发版编译器。共享预设继续启用严格模式，不过滤诊断，不创建 node_modules。编辑器 SDK 与工作区使用相同版本。
+安装仓库依赖即可使用原生编译器和共享严格预设。编辑器 SDK 和文档生成器使用官方 6.0.2 的 JavaScript API。原生编译器提供 PnP 支持后可移除文件系统适配。
 
 包内 test 先执行真实编译夹具，再由 Wake Test 验证版本、PnP/JSX 解析、严格空值、错误声明、缺失依赖和错误退出码。独立消费检查使用消费项目自己安装的官方编译器，避免从工作区意外解析依赖。
 

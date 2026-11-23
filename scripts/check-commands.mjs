@@ -21,6 +21,25 @@ export function missingWakeWorkspaceResolutions(rootPackage, wake, workspaces) {
     return Object.keys(wake.dependencies ?? {}).filter(name => names.has(name) && rootPackage.resolutions?.[name] !== 'workspace:^');
 }
 
+export function validateWakeToolchain(rootPackage, workspaces) {
+    const version = rootPackage.devDependencies?.["@crab-dev/wake"];
+    if (typeof version !== "string" || !/^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$/.test(version)) {
+        return ["Root devDependencies must pin an exact @crab-dev/wake release."];
+    }
+
+    const errors = [];
+    for (const pkg of [rootPackage, ...workspaces.map(({ packageJson }) => packageJson)]) {
+        for (const section of ["dependencies", "devDependencies", "optionalDependencies"]) {
+            for (const name of ["@crab-dev/wake", "@crab-dev/css"]) {
+                if (Object.hasOwn(pkg[section] ?? {}, name) && pkg[section][name] !== version) {
+                    errors.push(`${pkg.name ?? "root"}: ${name} must be pinned to ${version}.`);
+                }
+            }
+        }
+    }
+    return errors;
+}
+
 export async function readWorkspaceManifests({ root = repositoryRoot } = {}) {
     const rootPackage = JSON.parse(await readFile(resolve(root, "package.json"), "utf8"));
     if (!Array.isArray(rootPackage.workspaces)) throw new Error("Root workspaces must be an array.");
@@ -51,8 +70,9 @@ export async function checkCommandContracts({ root = repositoryRoot } = {}) {
     const errors = [];
     const rootPackage = JSON.parse(await readFile(resolve(root, "package.json"), "utf8"));
     const compilerVersion = rootPackage.devDependencies?.typescript;
-    if (compilerVersion !== "6.0.2") errors.push("The repository must pin official TypeScript 6.0.2.");
+    if (compilerVersion !== "7.0.2") errors.push("The repository must pin official TypeScript 7.0.2.");
     const workspaces = await readWorkspaceManifests({ root });
+    errors.push(...validateWakeToolchain(rootPackage, workspaces));
     // Wake's own controls are also workspaces in this repository. Its pinned
     // published dependency ranges can stop matching after a Changesets bump.
     const require = createRequire(resolve(root, 'package.json'));
@@ -62,7 +82,8 @@ export async function checkCommandContracts({ root = repositoryRoot } = {}) {
         const runner = relative(directory, resolve(root, "scripts/check-package.mjs")).replaceAll("\\", "/");
         if (pkg.scripts?.check !== `node ${runner}`) errors.push(`${pkg.name}: check must use the shared workspace check runner.`);
         if (!pkg.scripts?.lint) errors.push(`${pkg.name}: lint is required.`);
-        if (pkg.scripts?.typecheck && pkg.scripts.typecheck !== "tsc --noEmit") errors.push(`${pkg.name}: typecheck must call the official compiler directly.`);
+        const checker = relative(directory, resolve(root, "scripts/typecheck.mjs")).replaceAll("\\", "/");
+        if (pkg.scripts?.typecheck && pkg.scripts.typecheck !== `node ${checker}`) errors.push(`${pkg.name}: typecheck must use the PnP-aware TypeScript runner.`);
         if ((pkg.scripts?.typecheck || pkg.devDependencies?.typescript) && pkg.devDependencies?.typescript !== compilerVersion) errors.push(`${pkg.name}: TypeScript must match the root compiler version.`);
         if (pkg.type !== "module") errors.push(`${pkg.name}: type must be module.`);
         if (path.startsWith("components/") && (!pkg.scripts?.typecheck || !pkg.scripts?.["build:library"])) errors.push(`${pkg.name}: library workspaces require typecheck and build:library.`);

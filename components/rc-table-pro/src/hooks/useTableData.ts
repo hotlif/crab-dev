@@ -1,9 +1,11 @@
 import { useState, useCallback, useEffect, useLayoutEffect, useRef } from "react";
 import type { Row, SortColumn } from "@crab-dev/rc-table";
-import type { TableDataSource } from "../types.js";
+import type { TablePagedDataSource, TableDataResult, ProtocolTableState } from "../types.js";
 import type { PaginationChangeDetails } from '@crab-dev/rc-pagination';
+import { positiveInteger } from '../util.js';
 
-export type UseTableDataOptions<T extends Row> = TableDataSource<T> & {
+export type UseTableDataOptions<T extends Row> = TablePagedDataSource<T> & {
+    initialState?: ProtocolTableState;
     autoRefreshInterval?: number;
     onError?: (error: Error) => void;
     sortMode?: 'client' | 'server';
@@ -25,17 +27,22 @@ export interface UseTableDataReturn<T extends Row> {
     handlePageChange: (page: number, pageSize: number, reason?: PaginationChangeDetails['reason'], event?: PaginationChangeDetails['event']) => void;
     handleFilterChange: (filters: Record<string, string>) => void;
     handleSortChange: (columns: SortColumn[]) => void;
-    restoreFilters: (filters: Record<string, string>) => void;
+    keyword: string;
+    handleKeywordChange: (keyword: string) => void;
+    summary: TableDataResult<T>['summary'];
 }
 
 export function useTableData<T extends Row>(options: UseTableDataOptions<T>): UseTableDataReturn<T> {
     const { pagination, autoRefreshInterval, sortMode = 'client' } = options;
     const [rows, setRows] = useState<T[]>([]);
     const [total, setTotal] = useState(0);
-    const [page, setPage] = useState(1);
-    const [pageSize, setPageSize] = useState(pagination ? pagination.defaultPageSize ?? 10 : 10);
-    const [filters, setFilters] = useState<Record<string, string>>({});
-    const [innerSort, setInnerSort] = useState<SortColumn[]>(options.defaultSortColumns ?? []);
+    const initial = options.initialState;
+    const [summary, setSummary] = useState<TableDataResult<T>['summary']>();
+    const [keyword, setKeyword] = useState(options.searchMode === 'server' ? initial?.keyword ?? '' : '');
+    const [page, setPage] = useState(pagination ? positiveInteger(initial?.page, 1) : 1);
+    const [pageSize, setPageSize] = useState(pagination ? positiveInteger(initial?.pageSize, pagination.defaultPageSize ?? 10) : 10);
+    const [filters, setFilters] = useState<Record<string, string>>(initial?.filters ?? {});
+    const [innerSort, setInnerSort] = useState<SortColumn[]>(initial?.sortColumns ?? options.defaultSortColumns ?? []);
     const sortColumns = options.sortColumns ?? innerSort;
     // 只表示最新有效请求的状态；已取消但尚未 settle 的旧请求不应延长 loading。
     const [dataLoading, setDataLoading] = useState(true);
@@ -45,16 +52,16 @@ export function useTableData<T extends Row>(options: UseTableDataOptions<T>): Us
     useLayoutEffect(() => { latest.current = { options, sortColumns }; });
     // 可变实例状态：请求取消和当前查询参数在事件之间同步，避免快速连续交互读到旧状态。
     const activeRequest = useRef<AbortController | null>(null);
-    const params = useRef({ page, pageSize, filters });
+    const params = useRef({ page, pageSize, filters, keyword });
     const mounted = useRef(false);
 
     // 稳定引用供 effect 和调用者依赖；latest-ref 避免绑定某次渲染的请求函数。
-    const loadData = useCallback((nextPage: number, nextPageSize: number, nextFilters: Record<string, string>): Promise<void> => {
+    const loadData = useCallback((nextPage: number, nextPageSize: number, nextFilters: Record<string, string>, nextKeyword = params.current.keyword): Promise<void> => {
         if (!mounted.current) return Promise.reject(new globalThis.DOMException('TablePro is unmounted', 'AbortError'));
         activeRequest.current?.abort();
         const controller = new AbortController();
         activeRequest.current = controller;
-        params.current = { page: nextPage, pageSize: nextPageSize, filters: nextFilters };
+        params.current = { page: nextPage, pageSize: nextPageSize, filters: nextFilters, keyword: nextKeyword };
         setDataLoading(true);
         setDataError(null);
         const { options: current, sortColumns: sort } = latest.current;
@@ -66,16 +73,17 @@ export function useTableData<T extends Row>(options: UseTableDataOptions<T>): Us
             };
             const onAbort = () => { cleanup(); reject(controller.signal.reason); };
             controller.signal.addEventListener('abort', onAbort, { once: true });
-            const succeed = (requestedPage: number, nextRows: T[], nextTotal: number) => {
+            const succeed = (requestedPage: number, nextRows: T[], nextTotal: number, nextSummary?: TableDataResult<T>['summary']) => {
                 if (controller.signal.aborted || !mounted.current) return;
                 // 同一次刷新内回退到有效页，调用方等待的 Promise 包含回退请求。
                 const lastPage = Math.max(1, Math.ceil(nextTotal / nextPageSize));
                 if (current.pagination && Number.isFinite(lastPage) && nextPageSize > 0 && requestedPage > lastPage) {
-                    params.current = { page: lastPage, pageSize: nextPageSize, filters: nextFilters };
+                    params.current = { page: lastPage, pageSize: nextPageSize, filters: nextFilters, keyword: nextKeyword };
                     setPage(lastPage);
                     requestPage(lastPage);
                     return;
                 }
+                setSummary(nextSummary);
                 setRows(nextRows);
                 setTotal(nextTotal);
                 setDataLoading(false);
@@ -96,12 +104,13 @@ export function useTableData<T extends Row>(options: UseTableDataOptions<T>): Us
                     if (current.request) {
                         void current.request({
                             page: requestedPage, pageSize: nextPageSize, filters: { ...nextFilters },
+                            ...(current.searchMode === 'server' ? { keyword: nextKeyword } : {}),
                             sort: current.sortMode === 'server' ? sort.map(column => ({ ...column })) : [],
                             signal: controller.signal,
-                        }).then(result => succeed(requestedPage, result.rows, result.total), fail);
+                        }).then(result => succeed(requestedPage, result.rows, result.total, result.summary), fail);
                     } else if (current.pagination) {
                         void current.fetchData(requestedPage, nextPageSize, { ...nextFilters })
-                            .then(result => succeed(requestedPage, result.rows, result.total), fail);
+                            .then(result => succeed(requestedPage, result.rows, result.total, result.summary), fail);
                     } else {
                         void current.fetchData({ ...nextFilters }).then(rows => succeed(requestedPage, rows, rows.length), fail);
                     }
@@ -126,11 +135,15 @@ export function useTableData<T extends Row>(options: UseTableDataOptions<T>): Us
 
     // 排序按值比较；父组件重建相同数组不会重复拉取。客户端排序无需请求。
     const sortKey = sortMode === 'server' ? JSON.stringify(sortColumns) : '';
+    const queryMode = JSON.stringify([sortKey, sortMode, options.searchMode]);
+    const previousMode = useRef(queryMode);
     useEffect(() => {
-        setPage(1);
         const current = params.current;
-        void loadData(1, current.pageSize, current.filters).catch(() => {});
-    }, [loadData, sortKey, sortMode]);
+        const nextPage = previousMode.current === queryMode ? current.page : 1;
+        previousMode.current = queryMode;
+        setPage(nextPage);
+        void loadData(nextPage, current.pageSize, current.filters).catch(() => {});
+    }, [loadData, queryMode]);
 
     useEffect(() => {
         if (!autoRefreshInterval || autoRefreshInterval <= 0) return;
@@ -157,6 +170,11 @@ export function useTableData<T extends Row>(options: UseTableDataOptions<T>): Us
     };
     return {
         rows, total, page, pageSize, filters, sortColumns, dataLoading, dataError, refresh,
-        handlePageChange, handleFilterChange, handleSortChange, restoreFilters: handleFilterChange,
+        handlePageChange, handleFilterChange, handleSortChange, keyword, summary,
+        handleKeywordChange: next => {
+            setKeyword(next);
+            setPage(1);
+            void loadData(1, params.current.pageSize, params.current.filters, next).catch(() => {});
+        },
     };
 }

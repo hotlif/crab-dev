@@ -19,7 +19,7 @@
         "test": "wake test --serial --coverage",
         "test:browser": "yarn --cwd ../.. exec turbo run build:library --filter=@crab-dev/rc-segmented && node scripts/prepare-browser-tests.mjs && yarn test --root src/__tests__/browser",
         "check": "node ../../scripts/check-package.mjs",
-        "typecheck": "tsc --noEmit",
+        "typecheck": "node ../../scripts/typecheck.mjs",
         "lint": "wake lint --format human --root ../.. components/rc-segmented/src components/rc-segmented/docs --env browser --max-warnings 0 && yarn lint:tools",
         "lint:tools": "wake lint --format human --root ../.. components/rc-segmented/scripts --env node --max-warnings 0",
         "build:visual": "wake docs build . --mode components --outdir .cache/visual-workbench",
@@ -44,7 +44,7 @@
         "./package.json": "./package.json"
     },
     "dependencies": {
-        "@crab-dev/css": "0.1.45",
+        "@crab-dev/css": "0.1.57",
         "@crab-dev/rc-config-provider": "workspace:^",
         "@crab-dev/rc-hooks": "workspace:^"
     },
@@ -52,15 +52,15 @@
         "@crab-dev/rc-theme": "workspace:^",
         "@crab-dev/rc-token-semantic": "workspace:^",
         "@crab-dev/standards-typescript-preset": "workspace:^",
-        "@crab-dev/wake": "0.1.45",
-        "@types/node": "^22.20.2",
+        "@crab-dev/wake": "0.1.57",
+        "@types/node": "^26.6.6",
         "@types/react": "^19.3.0",
         "@types/react-dom": "^19.3.0",
         "prettier": "^3.9.6",
         "react": "19.3.0",
         "react-dom": "19.3.0",
         "react-router": "^8.3.1",
-        "typescript": "6.0.2"
+        "typescript": "7.0.2"
     },
     "engines": {
         "node": ">=22"

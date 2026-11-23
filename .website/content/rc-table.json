@@ -31,6 +31,14 @@
     ],
     "faq": [
         {
+            "question": "怎样用键盘批量录入？",
+            "answer": "聚焦表格后用方向键选择起始格，Shift 加方向键可扩选。提供 onCellsChange 后，可从 Excel 粘贴到编辑列。parsePaste 转换列值，validatePaste 拒绝无效数据；一次粘贴可以整批撤销和重做。"
+        },
+        {
+            "question": "后端拒绝保存时，怎样让用户继续修改原草稿？",
+            "answer": "从 onRowCommit 返回保存请求的 Promise。返回按列名映射的 fieldErrors 或抛出 Error 后，表格会显示原因并保留输入；保存成功后才结束编辑。"
+        },
+        {
             "question": "为什么表格没有高度？",
             "answer": "Table 需要明确的 width 与 height；可用 AutoSizer 测量有高度的父容器。"
         }

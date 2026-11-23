@@ -1601,7 +1601,7 @@ export const componentDemoDesigns: Readonly<Partial<Record<string, Readonly<Part
             "macos",
             "shadcn"
         ],
-        "单元格编辑 · 库存盘点修正 — 2,000 条库存、23 列，编辑账面库存和盘点备注，自动重算可用库存与货值，支持撤销。": [
+        "单元格编辑 · 库存盘点修正 — 2,000 条库存、23 列，编辑账面库存和盘点备注，可从 Excel 批量粘贴库存或备注，支持整批撤销和重做。": [
             "md3",
             "macos",
             "shadcn"
@@ -1624,7 +1624,7 @@ export const componentDemoDesigns: Readonly<Partial<Record<string, Readonly<Part
     },
     "rc-table-pro": {
         "专业表格验收矩阵 — 公开类型加载器提供编辑；可取消请求逐步完成刷新、错误与重试，真实滚动保留专业工具栏。": [],
-        "订单履约工作台：跨页查询与拣货 — 模拟 960 笔多区域订单。尝试在右侧筛选「待发货」、按承诺日期排序、跨页选择订单并生成拣货单；金额汇总与 CSV 只针对当前页。request 真正处理分页、筛选、排序及 AbortSignal。": [
+        "订单履约工作台：跨页查询与拣货 — 模拟 960 笔多区域订单。尝试在右侧筛选「待发货」、按承诺日期排序、跨页选择订单并生成拣货单；搜索、金额汇总和全量导出覆盖全部匹配订单。request 真正处理分页、筛选、排序及 AbortSignal。": [
             "md3",
             "macos",
             "shadcn"
@@ -1660,6 +1660,11 @@ export const componentDemoDesigns: Readonly<Partial<Record<string, Readonly<Part
             "macos",
             "shadcn"
         ],
+        "远程分块与无限滚动 — 跳到第 900,015 行，再回到首行。查看请求次数，验证远距离定位只请求目标块，回滚可复用缓存。可输入订单编号搜索。": [
+            "md3",
+            "macos",
+            "shadcn"
+        ],
         "全局关键字搜索 — showSearchBar=true 在表格顶部显示内置搜索栏，输入关键字后所有可见列匹配到的文字会高亮显示，并支持上一个 / 下一个导航。DataTypeLoader.getSearchText 可为枚举等类型自定义匹配文本。": [
             "md3",
             "macos",
@@ -1680,7 +1685,7 @@ export const componentDemoDesigns: Readonly<Partial<Record<string, Readonly<Part
             "macos",
             "shadcn"
         ],
-        "状态持久化 — initialState 在首次加载时恢复列顺序、显隐、宽度、固定等属性；onStateChange 在任何列属性或过滤条件变更时触发，可将快照写入 localStorage。刷新页面后所有调整会被还原。": [
+        "状态持久化 — 调整列宽、多列排序、页码或每页条数，刷新后恢复上次浏览的视图。旧快照可继续使用。": [
             "md3",
             "macos",
             "shadcn"

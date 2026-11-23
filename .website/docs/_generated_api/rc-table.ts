@@ -7,6 +7,7 @@ type DocsTypePlaceholder = ((...args: never[]) => unknown) & {
 };
 type Array<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 type CellEditRecord = DocsTypePlaceholder;
+type CellsChangeHandler = DocsTypePlaceholder;
 type ColumnType<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 type ConfigDensity = DocsTypePlaceholder;
 type ConfigSize = DocsTypePlaceholder;
@@ -17,6 +18,7 @@ type MergeCell = DocsTypePlaceholder;
 type ReactNode = DocsTypePlaceholder;
 type Record<T0 = unknown, T1 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0, T1] };
 type Ref<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
+type RowCommitHandler = DocsTypePlaceholder;
 type RowEventHandler<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 type RowSelection<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 type Set<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
@@ -24,6 +26,7 @@ type SortColumn = DocsTypePlaceholder;
 type T = DocsTypePlaceholder;
 type TableCellProps<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 type TableHandle = DocsTypePlaceholder;
+type TableIndexedRows<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 
 export interface TableProps {
     /**
@@ -47,9 +50,9 @@ export interface TableProps {
     "width": number;
 
     /**
-     * 编辑模式
+     * 编辑模式 与 rows、indexedRows 互斥，不能同时提供。
      */
-    "editType"?: TableCellProps<T>["editType"];
+    "editType"?: (TableCellProps<T>["editType"]) & (never);
 
     /**
      * 表格的高度
@@ -57,19 +60,14 @@ export interface TableProps {
     "height": number;
 
     /**
-     * 表格的数据行
-     */
-    "rows": T[];
-
-    /**
      * 表格的列定义
      */
     "columns": ColumnType<T>[];
 
     /**
-     * 合并单元格的信息
+     * 合并单元格的信息 与 rows、indexedRows 互斥，不能同时提供。
      */
-    "mergeCells"?: MergeCell[];
+    "mergeCells"?: (MergeCell[]) & (never);
 
     /**
      * 选择单元格的
@@ -82,9 +80,9 @@ export interface TableProps {
     "onSelectCellsChange"?: (selectCells: Key[]) => void;
 
     /**
-     * 自定义行高（优先级高于 row.height）
+     * 自定义行高（优先级高于 row.height） 与 rows、indexedRows 互斥，不能同时提供。
      */
-    "getRowHeight"?: ((row: T, rowIndex: number) => number | undefined);
+    "getRowHeight"?: (((row: T, rowIndex: number) => number | undefined)) & (never);
 
     /**
      * 表格头部的高度
@@ -122,9 +120,9 @@ export interface TableProps {
     "onFilterChange"?: (filters: Record<string, string>) => void;
 
     /**
-     * ====== 行分组 ======
+     * ====== 行分组 ====== 与 rows、indexedRows 互斥，不能同时提供。
      */
-    "groupBy"?: string[];
+    "groupBy"?: (string[]) & (never);
 
     /**
      * 暂无说明。
@@ -167,6 +165,16 @@ export interface TableProps {
     "onCellEditRecordsChange"?: (records: CellEditRecord[]) => void;
 
     /**
+     * 将整批变更写回业务数据；提供后启用表格粘贴。 与 rows、indexedRows 互斥，不能同时提供。
+     */
+    "onCellsChange"?: (CellsChangeHandler) & (never);
+
+    /**
+     * 暂无说明。
+     */
+    "onRedo"?: (record: CellEditRecord) => void;
+
+    /**
      * 暂无说明。
      */
     "onUndo"?: (record: CellEditRecord) => void;
@@ -189,7 +197,7 @@ export interface TableProps {
     /**
      * 确认整行编辑：changes 为各列 name → 编辑后值的映射
      */
-    "onRowCommit"?: (rowId: Key, changes: Record<string, unknown>) => void;
+    "onRowCommit"?: RowCommitHandler | ((rowId: Key, changes: Record<string, unknown>) => void);
 
     /**
      * 取消整行编辑
@@ -247,9 +255,9 @@ export interface TableProps {
     "sortColumns"?: SortColumn[];
 
     /**
-     * server 保留排序交互，行顺序由调用者提供。
+     * server 保留排序交互，行顺序由调用者提供。 与 rows 互斥，不能同时提供。
      */
-    "sortMode"?: 'client' | 'server';
+    "sortMode"?: ('client' | 'server') & ('server');
 
     /**
      * 非受控初始排序 与 sortColumns 互斥，不能同时提供。
@@ -267,9 +275,9 @@ export interface TableProps {
     "rowSelection"?: RowSelection<T>;
 
     /**
-     * 启用树形数据模式
+     * 启用树形数据模式 与 rows 互斥，不能同时提供。
      */
-    "treeData"?: boolean;
+    "treeData"?: (boolean) & (false);
 
     /**
      * 获取每行的子行；返回空数组或 null/undefined 表示叶子节点
@@ -312,9 +320,9 @@ export interface TableProps {
     "summaryRowHeight"?: number;
 
     /**
-     * 提供即启用行展开：返回某行展开后在其下方插入的详情内容
+     * 提供即启用行展开：返回某行展开后在其下方插入的详情内容 与 rows、indexedRows 互斥，不能同时提供。
      */
-    "expandedRowRender"?: ((row: T) => ReactNode);
+    "expandedRowRender"?: (((row: T) => ReactNode)) & (never);
 
     /**
      * 控制某行能否展开；默认所有数据行均可展开
@@ -385,4 +393,14 @@ export interface TableProps {
      * 双击数据行。以下情形**不会**触发： - `editType="cell"` 下双击可编辑单元格（该次双击已被单元格编辑消费）； - `editType="row"` 下双击进入行编辑（该次双击已被行编辑消费）； - 点在行内控件上，或该行正处于行编辑态。
      */
     "onRowDoubleClick"?: RowEventHandler<T>;
+
+    /**
+     * 暂无说明。 与 indexedRows 互斥，不能同时提供。
+     */
+    "rows"?: T[];
+
+    /**
+     * 暂无说明。 与 rows 互斥，不能同时提供。
+     */
+    "indexedRows"?: TableIndexedRows<T>;
 }

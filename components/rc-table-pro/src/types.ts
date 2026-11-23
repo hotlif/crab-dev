@@ -1,3 +1,4 @@
+import type { Key } from 'react';
 import type { ColumnType, Row, SortColumn, TableHandle } from "@crab-dev/rc-table";
 import type { PaginationChangeDetails, PaginationChangeHandler, PaginationShowTotal, PaginationSize } from "@crab-dev/rc-pagination";
 
@@ -25,6 +26,8 @@ export interface DataTypeLoader<T extends Row = Row> {
     render: ColumnType<T>["render"];
     filterEditor: ColumnType<T>["filterEditor"];
     editRender: ColumnType<T>["editRender"];
+    parsePaste?: ColumnType<T>['parsePaste'];
+    validatePaste?: ColumnType<T>['validatePaste'];
     /** 自定义该 dataType 用于关键字高亮匹配的文本（枚举值转换场景） */
     getSearchText?: ColumnType<T>["getSearchText"];
     /** 自定义该 dataType 的底部汇总单元格内容（需 Table showSummary 开启） */
@@ -33,19 +36,44 @@ export interface DataTypeLoader<T extends Row = Row> {
     exportValue?: (rawValue: unknown, row: T) => string;
 }
 
-export interface TableQuery {
+export interface ResultScope {
+    filters: Readonly<Record<string, string>>;
+    keyword?: string;
+}
+export type ResultSelection =
+    | { mode: 'ids'; ids: Set<Key> }
+    | { mode: 'all'; scope: ResultScope; excludedIds: Set<Key> };
+export interface ResultSelectionConfig<T extends Row> {
+    value: ResultSelection;
+    onValueChange: (selection: ResultSelection) => void;
+    getDisabled?: (row: T) => boolean;
+}
+
+export interface TableQuery extends ResultScope {
     page: number;
     pageSize: number;
-    filters: Readonly<Record<string, string>>;
     sort: readonly SortColumn[];
     signal: AbortSignal;
 }
 
-export interface TableDataResult<T extends Row> { rows: T[]; total: number }
+/** 按当前查询结果中的绝对位置取一段连续行，endIndex 为开区间。 */
+export interface TableBlockQuery extends ResultScope {
+    startIndex: number;
+    endIndex: number;
+    sort: readonly SortColumn[];
+    signal: AbortSignal;
+}
+
+export interface TableDataResult<T extends Row> {
+    rows: T[];
+    total: number;
+    /** 服务端的全部匹配结果汇总，按叶子列 name 映射到最终展示值。 */
+    summary?: Readonly<Record<string, string | number | null>>;
+}
 /** TablePro 的命令式数据与视图操作；请求与查询状态仍由组件管理。 */
 export interface TableProHandle extends TableHandle {
     /**
-     * 重新加载当前页、筛选和排序下的数据，不重新加载列定义。
+     * 保留当前查询并重新加载数据。分页模式刷新当前页，分块模式刷新当前视口并淘汰旧缓存。
      * 页码越界时回退并等待有效页加载完成；失败时拒绝并触发 onError。
      * 被后续请求替代或卸载时以 AbortError 拒绝，不触发 onError。
      * 完成表示数据状态已更新，不保证浏览器已完成绘制。
@@ -53,13 +81,46 @@ export interface TableProHandle extends TableHandle {
     refresh: () => Promise<void>;
 }
 export type TableDataRequest<T extends Row> = (query: TableQuery) => Promise<TableDataResult<T>>;
-export type TableDataSource<T extends Row> =
-    | { request: TableDataRequest<T>; fetchData?: never; pagination?: PaginationConfig | false; sortMode?: 'client' | 'server' }
-    | { request?: never; fetchData: (filters: Record<string, string>) => Promise<T[]>; pagination?: false; sortMode?: 'client' }
-    | { request?: never; fetchData: (page: number, pageSize: number, filters: Record<string, string>) => Promise<TableDataResult<T>>; pagination: PaginationConfig; sortMode?: 'client' };
+export type TableBlockRequest<T extends Row> = (query: TableBlockQuery) => Promise<TableDataResult<T>>;
+
+export interface TableRemoteRows<T extends Row> {
+    /** 返回请求范围内的连续行、完整匹配总数，以及可选服务端汇总。 */
+    request: TableBlockRequest<T>;
+    /** 每块行数。默认 100。 */
+    blockSize?: number;
+    /** 保留的块数。默认 8，至少保留视口当前所需的块。 */
+    maxCachedBlocks?: number;
+    /** 同一查询允许的并发请求数。默认 2。 */
+    maxConcurrentRequests?: number;
+    /** 切换数据集时更改此值，开始新的查询并回到首行。 */
+    cacheKey?: string | number;
+    /** 全部行的固定高度（px）。缺省时跟随表格密度。 */
+    rowHeight?: number;
+}
+
+export type TablePagedDataSource<T extends Row> = { remoteRows?: never } & (
+    | { searchMode?: 'loaded' | 'server'; request: TableDataRequest<T>; fetchData?: never; pagination?: PaginationConfig | false; sortMode?: 'client' | 'server' }
+    | { searchMode?: 'loaded'; request?: never; fetchData: (filters: Record<string, string>) => Promise<T[]>; pagination?: false; sortMode?: 'client' }
+    | { searchMode?: 'loaded'; request?: never; fetchData: (page: number, pageSize: number, filters: Record<string, string>) => Promise<TableDataResult<T>>; pagination: PaginationConfig; sortMode?: 'client' }
+);
+export type TableRemoteDataSource<T extends Row> = {
+    remoteRows: TableRemoteRows<T>;
+    request?: never;
+    fetchData?: never;
+    pagination?: false;
+    sortMode?: 'server';
+    searchMode?: 'server';
+};
+export type TableDataSource<T extends Row> = TablePagedDataSource<T> | TableRemoteDataSource<T>;
 
 /** 可序列化的表格状态快照，用于持久化和恢复 */
 export interface ProtocolTableState {
+    /** v2 记录完整列布局，允许恢复明确取消的固定列。缺省版本继续按旧版局部覆盖读取。 */
+    version?: 2;
+    page?: number;
+    pageSize?: number;
+    sortColumns?: SortColumn[];
+    keyword?: string;
     /** 各列属性（key = String(col.name)） */
     columnProps: Record<string, {
         hidden?: boolean;

@@ -19,7 +19,7 @@
         "test": "wake test --serial --coverage",
         "test:browser": "yarn test --root src/__tests__/browser",
         "test:published": "yarn build:library && node ../../scripts/prepare-published-css.mjs . && yarn test --root src/__tests__/published",
-        "typecheck": "tsc --noEmit",
+        "typecheck": "node ../../scripts/typecheck.mjs",
         "lint": "wake lint --format human --root ../.. components/rc-dropdown-container/src components/rc-dropdown-container/docs --env browser --max-warnings 0",
         "check": "node ../../scripts/check-package.mjs",
         "build:visual": "wake docs build . --mode components --outdir .cache/visual-workbench",
@@ -50,9 +50,9 @@
     },
     "devDependencies": {
         "@crab-dev/standards-typescript-preset": "workspace:^",
-        "@crab-dev/wake": "0.1.45",
+        "@crab-dev/wake": "0.1.57",
         "@js-temporal/polyfill": "^0.5.1",
-        "@types/node": "^22.20.2",
+        "@types/node": "^26.6.6",
         "@types/react": "^19.3.0",
         "@types/react-dom": "^19.3.0",
         "lucide-react": "^1.43.0",
@@ -62,13 +62,13 @@
         "react-markdown": "^10.1.0",
         "react-router": "^8.3.1",
         "react-syntax-highlighter": "^16.1.1",
-        "typescript": "6.0.2"
+        "typescript": "7.0.2"
     },
     "engines": {
         "node": ">=22"
     },
     "dependencies": {
-        "@crab-dev/css": "0.1.45",
+        "@crab-dev/css": "0.1.57",
         "@crab-dev/rc-button": "workspace:^",
         "@crab-dev/rc-config-provider": "workspace:^",
         "@crab-dev/rc-hooks": "workspace:^",

@@ -9,6 +9,8 @@ export interface DataValueAccessor {
 
 const accessorCache = new Map<string, DataValueAccessor>();
 const SIMPLE_SEGMENT = /^[A-Za-z_$][\w$]*$/;
+const INDEXED_SEGMENT = /^[A-Za-z_$][\w$]*(?:\[(?:0|[1-9]\d*)\])+$/;
+const MISSING = Symbol("missing path");
 
 const getSimplePathParts = (path: string): string[] | null => {
     const normalized = path.startsWith("$.")
@@ -30,9 +32,41 @@ const readSimplePath = (dataRef: unknown, parts: string[]): unknown => {
     return value;
 };
 
+const createIndexedAccessor = (path: string): DataValueAccessor | undefined => {
+    if (!path.includes("[") || (path.startsWith("$") && !path.startsWith("$."))) return undefined;
+    const segments = (path.startsWith("$.") ? path.slice(2) : path).split(".");
+    if (!segments.every(segment => segment !== "$" && (SIMPLE_SEGMENT.test(segment) || INDEXED_SEGMENT.test(segment)))) {
+        return undefined;
+    }
+    const parts = segments.flatMap(segment => segment.split(/[\[\]]+/).filter(Boolean));
+    if (parts.includes("$")) return undefined;
+
+    const read = (dataRef: unknown): unknown => {
+        // JSONPath returns undefined for a falsy root before evaluating the query.
+        if (!dataRef) return undefined;
+        let value: unknown = dataRef;
+        for (const part of parts) {
+            // Match JSONPath's own-property lookup, including sparse arrays and strings.
+            if (!value || !Object.hasOwn(value as object, part)) return MISSING;
+            value = (value as Record<string, unknown>)[part];
+        }
+        return value;
+    };
+    return {
+        get: dataRef => {
+            const value = read(dataRef);
+            return value === MISSING ? undefined : value;
+        },
+        getAll: dataRef => {
+            const value = read(dataRef);
+            return value === MISSING ? [] : [value];
+        },
+    };
+};
+
 /**
- * 为列路径编译并缓存读取器。常见点路径不再进入 JSONPath 解析器；数组、通配符、
- * 过滤表达式等高级 JSONPath 仍完整回退到 jsonpath-plus，保持现有兼容性。
+ * 为列路径编译并缓存读取器。常见点路径和固定数组下标直接读取；通配符、切片和
+ * 过滤表达式等 JSONPath 查询仍交由 jsonpath-plus 处理。
  */
 export const getDataValueAccessor = (path: string): DataValueAccessor => {
     const cached = accessorCache.get(path);
@@ -47,7 +81,7 @@ export const getDataValueAccessor = (path: string): DataValueAccessor => {
                 return value === undefined ? [] : [value];
             },
         }
-        : {
+        : createIndexedAccessor(path) ?? {
             get: dataRef => JSONPath({ path, json: dataRef as object, wrap: false }),
             getAll: dataRef => {
                 const result = JSONPath({ path, json: dataRef as object });

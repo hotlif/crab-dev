@@ -1,5 +1,4 @@
 import { css, cx } from "@crab-dev/css";
-import { useLocale } from '@crab-dev/rc-config-provider';
 import token, { vars } from "./token.js";
 
 const rowEditingCellStyle = css`
@@ -48,6 +47,31 @@ const activeHighlightMarkStyle = css`
     font-style: normal;
 `;
 
+const cellTextStyle = css`
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    min-width: 0;
+`;
+
+const plainCellPaddingStyle = css`
+    padding-inline: ${token.cell['padding-inline']};
+`;
+
+const directTextCellStyle = css`
+    display: inline-block;
+    line-height: var(--rc-table-row-line-height);
+    overflow: hidden;
+    overflow: clip;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+`;
+
+const flexCellStyle = css`
+    display: inline-flex;
+    align-items: center;
+`;
+
 /**
  * 将文本中匹配 keyword 的部分用高亮 mark 包裹后返回 ReactNode。
  * 大小写不敏感；keyword 为空时原样返回。
@@ -72,6 +96,7 @@ export function highlightText(text: string, keyword: string, activeOccurrenceInd
 }
 
 export interface TableCellProps<T extends Row> extends HTMLAttributes<HTMLDivElement> {
+    ref?: import('react').Ref<HTMLDivElement>
     row: T
     rowIndex: number,
     columnIndex: number,
@@ -89,6 +114,8 @@ export interface TableCellProps<T extends Row> extends HTMLAttributes<HTMLDivEle
     dataVersion?: number
     /** 功能列通过该值通知 memo 边界其 ref 中读取的数据已经变化。 */
     renderVersion?: unknown
+    /** 同一次 Table 渲染内，相同坐标的单元格属性由同一套状态生成。 */
+    tableRenderVersion?: object
     /** 是否是最后一列（最右列），用于控制右侧阴影边框显示 */
     isLastColumn?: boolean
     /** 高亮关键字；默认 render 自动应用，自定义 render 可通过 keyword 参数拿到同一值 */
@@ -99,13 +126,15 @@ export interface TableCellProps<T extends Row> extends HTMLAttributes<HTMLDivEle
     onCellCommit?: (rowId: Key, columnName: string, columnIndex: number, oldValue: unknown, newValue: unknown) => void
     onCellMouseDown?: (rowIndex: number, columnIndex: number, event: ReactMouseEvent<HTMLDivElement>) => void
     onCellMouseEnter?: (rowIndex: number, columnIndex: number, event: ReactMouseEvent<HTMLDivElement>) => void
-    /** 树形行元数据；仅在 treeColumn 列传入，其他列不传 */
-    treeNode?: TreeRowMeta
+    /** 树形行元数据与本地化按钮标签，仅在树形列传入。 */
+    treeNode?: TreeRowMeta & { toggleLabel: string }
     /** 切换当前行展开/收起 */
     onTreeToggle?: () => void
     /** 当前行是否处于行编辑态（editType="row" 时由 table 下发） */
     isRowEditing?: boolean
     /** 行编辑模式下当前列的编辑值（外部受控，替代内部 editorValue state） */
+    rowSaving?: boolean
+    rowEditError?: string
     rowEditorValue?: unknown
     /** 行编辑模式下编辑值变更回调 */
     onRowEditorValueChange?: (value: unknown) => void
@@ -127,7 +156,7 @@ const mapping = {
     "left": "left",
     "center": "center",
     "right": "right",
-}
+} as const;
 
 function TableCell<T extends Row>({
     row,
@@ -146,6 +175,7 @@ function TableCell<T extends Row>({
     isEdited,
     dataVersion,
     renderVersion: _renderVersion,
+    tableRenderVersion: _tableRenderVersion,
     isLastColumn,
     highlightKeyword,
     activeOccurrenceInCell,
@@ -159,6 +189,8 @@ function TableCell<T extends Row>({
     onTreeToggle,
     isRowEditing,
     rowEditorValue,
+    rowSaving,
+    rowEditError,
     onRowEditorValueChange,
     onRowCancel,
     isActivatedByNav,
@@ -166,7 +198,6 @@ function TableCell<T extends Row>({
     onCellEditNavigate,
     ...restProps
 }: TableCellProps<T>): ReactNode {
-    const { messages } = useLocale();
     const [editorValue, setEditorValue] = useState<unknown>(null);
     const [isEditing, setIsEditing] = useState(false);
     // 进入编辑时快照原值，提交时作为 oldValue 写入操作记录
@@ -184,6 +215,7 @@ function TableCell<T extends Row>({
     const canEdit = column.editRender != null && editType === "cell";
     // 行编辑模式：该列有 editRender 且当前行处于行编辑态
     const isRowEditActive = isRowEditing === true && column.editRender != null;
+    const plainCell = !isSkipCell && !treeNode && !mergeCell && !column.render && !canEdit && !isRowEditActive;
     useEffect(() => {
         if (isEditing && !canEdit) {
             exitEditing();
@@ -261,6 +293,11 @@ function TableCell<T extends Row>({
         }
     }
 
+    // A single primitive with a resolved alignment can use the cell's own line box and ellipsis.
+    const textAlignment = plainCell ? getJustifyContent() : undefined;
+    const textValue = textAlignment !== undefined && !highlightKeyword && dataValue?.length === 1 ? dataValue[0] : undefined;
+    const directText = typeof textValue === "string" || typeof textValue === "number";
+
     const renderChildrenElement = () => {
         if (isSkipCell) {
             return null;
@@ -296,6 +333,9 @@ function TableCell<T extends Row>({
             });
         })();
 
+        const textContent = <div className={cellTextStyle}>{displayContent as ReactNode}</div>;
+        if (plainCell) return textContent;
+
         let renderElement = (
             <div
                 className={css`
@@ -323,7 +363,7 @@ function TableCell<T extends Row>({
                         {treeNode.hasChildren ? (
                             <TableIconButton
                                 aria-expanded={treeNode.isExpanded}
-                                aria-label={treeNode.isExpanded ? messages.table.collapseChildren : messages.table.expandChildren}
+                                aria-label={treeNode.toggleLabel}
                                 className={css`
                                     margin-inline-end: ${token.tree.button.gap};
                                     @media (prefers-reduced-motion: reduce) {
@@ -361,16 +401,7 @@ function TableCell<T extends Row>({
                         )}
                     </>
                 )}
-                <div
-                    className={css`
-                        overflow: hidden;
-                        text-overflow: ellipsis;
-                        white-space: nowrap;
-                        min-width: 0;
-                    `}
-                >
-                    {displayContent as ReactNode}
-                </div>
+                {textContent}
             </div>
         )
 
@@ -418,6 +449,8 @@ function TableCell<T extends Row>({
                 rowIndex,
                 columnIndex,
                 column,
+                saving: rowSaving,
+                error: rowEditError,
                 editorValue: isRowEditActive ? (rowEditorValue ?? null): editorValue,
                 onEditorValueChange: isRowEditActive
                     ? (value: unknown) => onRowEditorValueChange?.(value)
@@ -607,19 +640,20 @@ function TableCell<T extends Row>({
         );
     }
 
+    const cellStyle = directText ? { ...style, textAlign: textAlignment }
+        : plainCell ? { ...style, justifyContent: textAlignment } : style;
+
     return (
         <div
             className={cx(css`
-                display: inline-flex;
-                align-items: center;
                 box-sizing: border-box;
                 vertical-align: top;
                 height: 100%;
                 font-size: inherit;
-            `, fixed ? css`position: sticky;` : css`position: relative;`,
+            `, directText ? directTextCellStyle : flexCellStyle, fixed ? css`position: sticky;` : css`position: relative;`,
             getBorderStyle(), !isSkipCell && selection?.selected && !selection.isAnchor && selectedCellStyle,
-            isRowEditing && rowEditingCellStyle, isRowEditActive && rowEditActiveCellStyle, className)}
-            style={style}
+            plainCell && plainCellPaddingStyle, isRowEditing && rowEditingCellStyle, isRowEditActive && rowEditActiveCellStyle, className)}
+            style={cellStyle}
             onDoubleClick={(e) => {
                 if (canEdit) {
                     originalValueRef.current = dataValue;
@@ -647,10 +681,12 @@ function TableCell<T extends Row>({
             }}
             {...restProps}
             role="gridcell"
+            aria-invalid={rowEditError ? true : undefined}
+            inert={rowSaving || undefined}
             aria-colindex={columnIndex + 1}
             aria-selected={isSkipCell ? undefined : selection?.selected ?? false}
         >
-            {renderChildrenElement()}
+            {directText ? textValue : renderChildrenElement()}
             {renderEditedIndicator()}
             {renderSelectionOverlay()}
         </div>
@@ -674,6 +710,7 @@ const IGNORED_MEMO_PROPS = new Set<keyof TableCellProps<Row>>([
     "selection",
     "mergeCell",
     "treeNode",
+    "tableRenderVersion",
     // 该包装函数按编辑单元格生成，目标由 row/column/rowEditorValue props 决定。
     "onRowEditorValueChange",
 ]);
@@ -682,6 +719,11 @@ const areTableCellPropsEqual = <T extends Row>(
     prev: Readonly<TableCellProps<T>>,
     next: Readonly<TableCellProps<T>>,
 ): boolean => {
+    if (prev.tableRenderVersion !== undefined && prev.tableRenderVersion === next.tableRenderVersion) {
+        return prev.row === next.row && prev.rowIndex === next.rowIndex
+            && prev.column === next.column && prev.columnIndex === next.columnIndex
+            && prev.fixed === next.fixed && prev.renderVersion === next.renderVersion;
+    }
     const prevRecord = prev as Record<string, unknown>;
     const nextRecord = next as Record<string, unknown>;
     const keys = new Set([...Object.keys(prevRecord), ...Object.keys(nextRecord)]);

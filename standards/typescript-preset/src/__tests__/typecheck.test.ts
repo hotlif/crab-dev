@@ -24,7 +24,7 @@ function result(name: string): CompilerResult {
 describe("official TypeScript with Yarn PnP", () => {
     it("runs the pinned official TypeScript compiler", () => {
         expect(result("version").code).toBe(0);
-        expect(result("version").output.trim()).toBe("Version 6.0.2");
+        expect(result("version").output.trim()).toBe("Version 7.0.2");
     });
 
     it("resolves a workspace preset and React JSX types inside the PnP archive", () => {
@@ -35,6 +35,7 @@ describe("official TypeScript with Yarn PnP", () => {
     it("fails for real type errors instead of ignoring diagnostics", () => {
         expect(result("invalid-type").code).toBe(2);
         expect(result("invalid-type").output).toContain("TS2322");
+        expect(result("invalid-type").output).toContain("index.ts(1,23)");
     });
 
     it("keeps strict null checks from the shared preset", () => {

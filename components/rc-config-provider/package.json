@@ -14,7 +14,7 @@
         "build:library": "wake library build .",
         "prettier:write": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
         "prettier:check": "prettier --check \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
-        "typecheck": "tsc --noEmit",
+        "typecheck": "node ../../scripts/typecheck.mjs",
         "test": "wake test --serial --coverage",
         "check": "node ../../scripts/check-package.mjs",
         "lint": "wake lint --format human --root ../.. components/rc-config-provider/src components/rc-config-provider/docs --env browser --max-warnings 0",
@@ -45,20 +45,20 @@
         "./package.json": "./package.json"
     },
     "dependencies": {
-        "@crab-dev/css": "0.1.45",
+        "@crab-dev/css": "0.1.57",
         "@crab-dev/rc-theme": "workspace:^",
         "@crab-dev/rc-token-semantic": "workspace:^"
     },
     "devDependencies": {
         "@crab-dev/standards-typescript-preset": "workspace:^",
-        "@crab-dev/wake": "0.1.45",
-        "@types/node": "^22.20.2",
+        "@crab-dev/wake": "0.1.57",
+        "@types/node": "^26.6.6",
         "@types/react": "^19.3.0",
         "@types/react-dom": "^19.3.0",
         "prettier": "^3.9.6",
         "react": "19.3.0",
         "react-dom": "19.3.0",
-        "typescript": "6.0.2"
+        "typescript": "7.0.2"
     },
     "engines": {
         "node": ">=22"

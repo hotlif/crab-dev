@@ -14,7 +14,7 @@ import { offlineConsumerEnvironment } from "./check-consumer.mjs";
 import { validateReactPeers } from "./check-library.mjs";
 import { requiredReactPeers } from "./react-peer-contract.mjs";
 import { validateDesignVerification } from "./design-verification.mjs";
-import { missingWakeWorkspaceResolutions, readWorkspaceManifests, requiredCheckScripts } from "./check-commands.mjs";
+import { missingWakeWorkspaceResolutions, readWorkspaceManifests, requiredCheckScripts, validateWakeToolchain } from "./check-commands.mjs";
 import { requiredCheckPlan } from "./check-required.mjs";
 import { waitForOwnDevTools } from "./published-browser-readiness.mjs";
 import { repositoryCheckPlan, workspaceCheckPlan } from "./check-plan.mjs";
@@ -40,6 +40,28 @@ test('Wake controls stay on local workspaces after version bumps', () => {
     const workspaces = [{ packageJson: { name: '@crab-dev/rc-alert' } }];
     assert.deepEqual(missingWakeWorkspaceResolutions({ resolutions: {} }, wake, workspaces), ['@crab-dev/rc-alert']);
     assert.deepEqual(missingWakeWorkspaceResolutions({ resolutions: { '@crab-dev/rc-alert': 'workspace:^' } }, wake, workspaces), []);
+});
+
+test("Wake and Crab CSS require the exact toolchain version", async () => {
+    const rootPackage = JSON.parse(await readFile(join(repositoryRoot, "package.json"), "utf8"));
+    const workspaces = await readWorkspaceManifests();
+    const version = rootPackage.devDependencies["@crab-dev/wake"];
+    assert.deepEqual(validateWakeToolchain(rootPackage, workspaces), []);
+
+    const mismatchedWorkspace = {
+        packageJson: {
+            name: "fixture",
+            dependencies: { "@crab-dev/css": "0.1.45" },
+            devDependencies: { "@crab-dev/wake": `^${version}` },
+        },
+    };
+    assert.deepEqual(validateWakeToolchain(rootPackage, [mismatchedWorkspace]), [
+        `fixture: @crab-dev/css must be pinned to ${version}.`,
+        `fixture: @crab-dev/wake must be pinned to ${version}.`,
+    ]);
+    assert.deepEqual(validateWakeToolchain({ devDependencies: { "@crab-dev/wake": `^${version}` } }, []), [
+        "Root devDependencies must pin an exact @crab-dev/wake release.",
+    ]);
 });
 
 test('declared generated files preserve LF on Windows checkouts', async () => {

@@ -7,6 +7,7 @@ import { serverSamplePdf } from './web-component/sample-pdf.mjs';
 import { selectStandaloneEntry } from './standalone-output.mjs';
 
 const root = new URL('../', import.meta.url);
+const wakeProject = { cwd: fileURLToPath(root), configPath: 'scripts/web-component/wake.config.toml' };
 const seen = new Set();
 const styles = [];
 const documentStyles = [];
@@ -60,8 +61,9 @@ definePdfEditor({
 // owns the same collected CSS in Shadow DOM with its configured nonce; global
 // injection would both leak styles and violate the host's nonce-only CSP.
 const result = await build({
-    cwd: fileURLToPath(root), entry: '.web-component/entry.mjs', configPath: 'scripts/web-component/wake.config.toml',
-    outdir: '.web-component/standalone-build',
+    ...wakeProject,
+    entry: 'entry.mjs',
+    outdir: 'standalone-build',
 });
 for (const diagnostic of result.diagnostics) {
     if (diagnostic.severity === 'warning' || diagnostic.severity === 'error') throw new Error(diagnostic.message);
@@ -82,8 +84,10 @@ await writeFile(new URL('.fixtures/test-web-component.json', root), JSON.stringi
 await writeFile(new URL('dist/index.html', root), await readFile(new URL('scripts/web-component/index.html', root)));
 await writeFile(new URL('dist/minimal.html', root), await readFile(new URL('scripts/web-component/minimal.html', root)));
 const demo = await bundle({
-    cwd: fileURLToPath(root), entry: 'scripts/web-component/demo.tsx', configPath: 'scripts/web-component/wake.config.toml',
-    outfile: 'dist/demo.js', platform: 'browser', format: 'iife', minify: true,
+    ...wakeProject,
+    entry: fileURLToPath(new URL('scripts/web-component/demo.tsx', root)),
+    outfile: fileURLToPath(new URL('dist/demo.js', root)),
+    platform: 'browser', format: 'iife', minify: true,
 });
 for (const diagnostic of demo.diagnostics) {
     if (diagnostic.severity === 'warning' || diagnostic.severity === 'error') throw new Error(diagnostic.message);

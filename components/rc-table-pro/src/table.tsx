@@ -1,6 +1,6 @@
 import { useComponentSize, useConfig, useLocale, type ConfigSize, type ConfigDensity } from '@crab-dev/rc-config-provider';
-import { type HTMLAttributes, type ReactNode, type Key, type Ref, useState, useRef, useImperativeHandle } from "react";
-import Table, { type Row, type FilterEditorParam, type MergeCell, type GroupCellRenderParam, type SortColumn, type RowSelection, type CellEditRecord, type TableStateProps, type TableHandle } from "@crab-dev/rc-table";
+import { type HTMLAttributes, type ReactNode, type Key, type Ref, useEffect, useEffectEvent, useMemo, useState, useRef, useImperativeHandle } from "react";
+import Table, { type Row, type TableProps, type FilterEditorParam, type MergeCell, type GroupCellRenderParam, type SortColumn, type RowSelection, type CellEditRecord, type TableStateProps, type TableHandle, type TableRowRange } from "@crab-dev/rc-table";
 import Tree, { NodeType, OverStateEnum } from "@crab-dev/rc-tree";
 import Checkbox from "@crab-dev/rc-checkbox";
 import LineEdit from "@crab-dev/rc-line-edit";
@@ -9,11 +9,15 @@ import Pagination from "@crab-dev/rc-pagination";
 import Spin from "@crab-dev/rc-spin";
 import Button from "@crab-dev/rc-button";
 import { cx } from "@crab-dev/css";
-import type { ProtocolColumnType, DataTypeLoader, ProtocolTableState, TableDataSource, TableProHandle } from "./types.js";
+import type { ProtocolColumnType, DataTypeLoader, ProtocolTableState, TablePagedDataSource, TableRemoteDataSource, TableProHandle } from "./types.js";
 import { collectAllLeafColumnNames, collectLeafColumns, exportToCSV, buildCurrentState } from "./columnUtils.js";
 import { useColumnManagement } from "./hooks/useColumnManagement.js";
-import { useTableData } from "./hooks/useTableData.js";
+import { useTableData, type UseTableDataReturn } from "./hooks/useTableData.js";
+import { useRemoteTableData, type RemoteTableData } from "./hooks/useRemoteTableData.js";
 import { useSearchBar } from "./hooks/useSearchBar.js";
+import { columnsWithSummary } from './util.js';
+import { pageSelection, sameScope } from './resultSelection.js';
+import type { ResultSelectionConfig, TableQuery } from './types.js';
 import { ColumnsIcon, FiltersIcon, ExpandAllIcon, CollapseAllIcon, ResetWidthIcon, RefreshIcon, ExportIcon, SearchPrevIcon, SearchNextIcon, ErrorIcon } from "./icons.js";
 import { flexColumnStyle, tableFlexStyle, tableFillStyle, loadingOverlayStyle, paginationBarStyle, iconButtonStyle, sideToolbarButtonStyle, tableAndPanelRowStyle, tableAreaStyle, sideToolbarStyle, sideBarStyle, sideBarToolbarStyle, sideBarSearchStyle, sideBarBodyStyle, searchBarStyle, searchBarInputWrapStyle, searchBarCountStyle, sideBarFooterStyle, resetWidthBtnStyle, clearAllBtnStyle, filterPanelScrollStyle, filterPanelRowStyle, filterPanelLabelStyle, filterPanelEditorWrapStyle, filterPanelEmptyStyle, errorOverlayStyle, errorMessageStyle, retryBtnStyle } from "./table.styles.js";
 /* ───────────────────────────── Props ───────────────────────────── */
@@ -52,7 +56,8 @@ interface BaseProps<T extends Row> extends Omit<HTMLAttributes<HTMLDivElement>, 
     sortMode?: 'client' | 'server';
     defaultSortColumns?: SortColumn[];
     onSortColumnsChange?: (columns: SortColumn[]) => void;
-    rowSelection?: RowSelection<T>;
+    /** 由服务端导出当前筛选的所有行。 */
+    onExportAll?: (query: Omit<TableQuery, 'page' | 'pageSize'>) => void | Promise<void>;
     highlightKeyword?: string;
     activeMatchIndex?: number;
     onMatchCountChange?: (count: number) => void;
@@ -80,7 +85,13 @@ interface BaseProps<T extends Row> extends Omit<HTMLAttributes<HTMLDivElement>, 
     editingRowId?: Key | null;
     defaultEditingRowId?: Key | null;
     onEditingRowIdChange?: (id: Key | null) => void;
-    onRowCommit?: (rowId: Key, changes: Record<string, unknown>) => void;
+    onRowCommit?: TableProps<T>['onRowCommit'];
+    /** 点击数据行或键盘激活时回调。 */
+    onRowClick?: TableProps<T>['onRowClick'];
+    /** 双击数据行时回调，保留行内编辑器与控件的事件优先级。 */
+    onRowDoubleClick?: TableProps<T>['onRowDoubleClick'];
+    onCellsChange?: TableProps<T>['onCellsChange'];
+    onRedo?: TableProps<T>['onRedo'];
     onRowCancel?: (rowId: Key) => void;
     cellEditRecords?: CellEditRecord[];
     onCellEditRecordsChange?: (records: CellEditRecord[]) => void;
@@ -97,11 +108,50 @@ interface BaseProps<T extends Row> extends Omit<HTMLAttributes<HTMLDivElement>, 
     showRowNumber?: boolean;
 }
 
-export type TableProProps<T extends Row> = BaseProps<T> & TableDataSource<T> & TableStateProps;
+type RemoteTableProps<T extends Row> = TableRemoteDataSource<T> & {
+    mergeCells?: never;
+    getRowHeight?: never;
+    groupBy?: never;
+    treeData?: false;
+    expandedRowRender?: never;
+    editType?: never;
+    onCellsChange?: never;
+    exportFileName?: never;
+};
+
+export type TableProProps<T extends Row> = BaseProps<T> & (TablePagedDataSource<T> | RemoteTableProps<T>) & TableStateProps & (
+    | { rowSelection?: RowSelection<T>; resultSelection?: never }
+    | {
+        /** 按查询条件和排除项跨页选择全部符合条件的记录。 */
+        resultSelection: ResultSelectionConfig<T>;
+        rowSelection?: never;
+    }
+);
 
 /* ───────────────────────────── 组件 ───────────────────────────── */
 
-function TablePro<T extends Row>(props: TableProProps<T>) {
+function TablePro<T extends Row>(props: TableProProps<T>): ReactNode {
+    if (props.remoteRows !== undefined) return <RemoteTablePro props={props} />;
+    return <PagedTablePro props={props} />;
+}
+
+function RemoteTablePro<T extends Row>({ props }: { props: TableProProps<T> & RemoteTableProps<T> }): ReactNode {
+    const data = useRemoteTableData<T>(props);
+    return <TableProView props={props} tableData={data} />;
+}
+
+function PagedTablePro<T extends Row>({ props }: { props: TableProProps<T> & TablePagedDataSource<T> }): ReactNode {
+    const data = useTableData<T>({
+        ...props,
+        onError: props.onError ? error => props.onError?.(error, 'data') : undefined,
+    });
+    return <TableProView props={props} tableData={data} />;
+}
+
+function TableProView<T extends Row>({ props, tableData }: {
+    props: TableProProps<T>;
+    tableData: UseTableDataReturn<T> | RemoteTableData<T>;
+}): ReactNode {
     const tableSize = useComponentSize(props.size);
     const config = useConfig();
     const density = props.density ?? config.density;
@@ -135,11 +185,14 @@ function TablePro<T extends Row>(props: TableProProps<T>) {
         defaultExpandedGroupIds,
         defaultExpandAll,
         renderGroupCell,
-        sortColumns,
+        sortColumns: _sortColumns,
         sortMode = 'client',
         defaultSortColumns: _defaultSortColumns,
-        onSortColumnsChange,
+        onSortColumnsChange: _onSortColumnsChange,
         rowSelection,
+        resultSelection,
+        onExportAll,
+        searchMode,
         highlightKeyword,
         activeMatchIndex,
         onMatchCountChange,
@@ -168,6 +221,10 @@ function TablePro<T extends Row>(props: TableProProps<T>) {
         defaultEditingRowId,
         onEditingRowIdChange,
         onRowCommit,
+        onRowClick,
+        onRowDoubleClick,
+        onCellsChange,
+        onRedo,
         onRowCancel,
         cellEditRecords,
         onCellEditRecordsChange,
@@ -176,7 +233,7 @@ function TablePro<T extends Row>(props: TableProProps<T>) {
         defaultSideBarOpen,
         initialState,
         onStateChange,
-        autoRefreshInterval,
+        autoRefreshInterval: _autoRefreshInterval,
         exportFileName,
         showSearchBar,
         onError,
@@ -184,55 +241,68 @@ function TablePro<T extends Row>(props: TableProProps<T>) {
         ...rest
     } = props;
 
-    const { fetchData: _fetchData, request: _request, ...cleanRest } = rest;
-
-    /* ─── Hooks（colMgmt 先于 tableData，通过 ref 桥接互相依赖） ─── */
-
-    // 可变实例状态 ref（例外 §4.1-1）：桥接 colMgmt.onInitialFiltersResolved → tableData.restoreFilters
-    const restoreFiltersRef = useRef<(f: Record<string, string>) => void>(() => {});
+    const { fetchData: _fetchData, request: _request, remoteRows: _remoteRows, ...cleanRest } = rest;
+    const remoteData = 'indexedRows' in tableData ? tableData : undefined;
+    const pageData = 'rows' in tableData ? tableData : undefined;
 
     const colMgmt = useColumnManagement<T>({
         fetchColumns,
         typeLoaders,
         initialState,
-        onStateChange,
         sideBar,
         defaultSideBarOpen,
         onColumnResize,
-        onInitialFiltersResolved: (f) => restoreFiltersRef.current(f),
         onError: onError ? (e) => onError(e, "columns") : undefined,
     });
 
-    const tableData = useTableData<T>({
-        ...props,
-        sortColumns,
-        onSortColumnsChange,
-        autoRefreshInterval,
-        onError: onError ? (e) => onError(e, "data") : undefined,
-    });
     const { refresh } = tableData;
     const tableRef = useRef<TableHandle>(null);
     useImperativeHandle(ref, () => ({
         refresh,
         scrollToRow: (rowId, options) => tableRef.current?.scrollToRow(rowId, options) ?? Promise.resolve(false),
+        scrollToRowIndex: (index, options) => tableRef.current?.scrollToRowIndex(index, options) ?? Promise.resolve(false),
         focus: () => { tableRef.current?.focus(); },
     }), [refresh]);
 
-    // 连接 ref 桥：让 colMgmt 可以调用 tableData.restoreFilters（fetchColumns 完成后恢复 filters）
-    restoreFiltersRef.current = tableData.restoreFilters;
-    // 每次 render 同步 filters → colMgmt 内部 ref，确保列 handlers 内 notify 使用正确 filters
-    colMgmt.latestFiltersRef.current = tableData.filters;
-
-    const searchBar = useSearchBar();
+    const searchBar = useSearchBar(initialState?.keyword);
+    const serverSearch = remoteData !== undefined || searchMode === 'server';
+    const searchValue = serverSearch ? tableData.keyword : searchBar.searchKeyword;
+    const scope = { filters: tableData.filters, ...(serverSearch ? { keyword: tableData.keyword } : {}) };
+    const clearMatching = () => resultSelection?.onValueChange({ mode: 'ids', ids: new Set() });
+    const changeSearch = (value: string) => {
+        if (serverSearch) {
+            if (value === tableData.keyword) return;
+            if (resultSelection?.value.mode === 'all') clearMatching();
+            tableData.handleKeywordChange(value);
+        } else {
+            searchBar.setSearchKeyword(value);
+            searchBar.setSearchActiveIndex(0);
+        }
+    };
+    const queryState = {
+        ...(pageData ? { page: pageData.page, pageSize: pageData.pageSize } : {}),
+        sortColumns: tableData.sortColumns,
+        keyword: searchValue,
+    };
+    const viewKey = JSON.stringify([colMgmt.revision, queryState, tableData.filters]);
+    const previousView = useRef(viewKey);
+    const notifyView = useEffectEvent(() => onStateChange?.({
+        ...buildCurrentState(colMgmt.rawColumnsRef.current, tableData.filters), ...queryState,
+    }));
+    useEffect(() => {
+        if (!colMgmt.columnsLoading && !colMgmt.columnsError && previousView.current !== viewKey) {
+            previousView.current = viewKey;
+            notifyView();
+        }
+    }, [viewKey, colMgmt.columnsLoading, colMgmt.columnsError]);
 
     /* ─── 过滤器面板搜索框（仅 UI 状态，无跨 hook 依赖） ─── */
     const [filterPanelSearch, setFilterPanelSearch] = useState("");
 
     /* ─── 跨 hook 协调：filter 变更同时触发数据加载 + onStateChange 通知 ─── */
     const handleFilterChange = (nextFilters: Record<string, string>) => {
-        colMgmt.latestFiltersRef.current = nextFilters;  // 立即同步，保证 notify 内读到最新 filters
+        if (resultSelection?.value.mode === 'all' && !sameScope(scope, { ...scope, filters: nextFilters })) clearMatching();
         tableData.handleFilterChange(nextFilters);
-        onStateChange?.(buildCurrentState(colMgmt.rawColumnsRef.current, nextFilters));
     };
 
     /* ─── 渲染 ─── */
@@ -259,6 +329,34 @@ function TablePro<T extends Row>(props: TableProProps<T>) {
         ? { defaultEditingRowId }
         : { editingRowId };
 
+    // Table's layout and virtual-cell caches depend on stable column identities.
+    const tableColumns = useMemo(() => columnsWithSummary(colMgmt.columns, tableData.summary), [colMgmt.columns, tableData.summary]);
+    const projectedSelection = resultSelection
+        ? pageSelection(resultSelection, scope,
+            pageData?.rows ?? Array.from(remoteData?.indexedRows.rows.values() ?? []), requestHasFeedback)
+        : rowSelection;
+    const rowProps = 'indexedRows' in tableData ? {
+        sortMode: 'server' as const,
+        indexedRows: {
+            ...tableData.indexedRows,
+            renderPlaceholder: (index: number, range: TableRowRange) => {
+                if (index !== range.startIndex && index % tableData.blockSize !== 0) return null;
+                const block = Math.floor(index / tableData.blockSize);
+                const error = tableData.blockErrors.get(block);
+                if (!error) return <span role="status">{messages.common.loading}</span>;
+                return <span role="alert">
+                    <Button type="button" size="xs" appearance="outlined" title={error.message} onClick={event => {
+                        event.currentTarget.closest<HTMLElement>('[role="grid"]')?.focus({ preventScroll: true });
+                        tableData.retryBlock(block);
+                    }}>
+                        {messages.tablePro.dataLoadError} · {messages.tablePro.retry}
+                    </Button>
+                </span>;
+            },
+        },
+    } : {
+        rows: tableData.rows, sortMode, mergeCells, getRowHeight, groupBy, treeData, expandedRowRender, editType, onCellsChange,
+    };
     const tableContent = (
         <>
             <AutoSizer>
@@ -269,57 +367,53 @@ function TablePro<T extends Row>(props: TableProProps<T>) {
                         {...treeState}
                         {...expansionState}
                         {...editingState}
+                        {...rowProps}
                         size={tableSize}
                         density={density}
                         width={width}
                         height={height}
-                        rows={tableData.rows}
-                        columns={colMgmt.columns}
+                        columns={tableColumns}
                         onExpandedGroupIdsChange={onExpandedGroupIdsChange}
                         filterBar={filterBar}
                         filters={tableData.filters}
                         onFilterChange={handleFilterChange}
                         renderDefaultFilterEditor={typedRenderDefaultFilterEditor}
                         empty={requestHasFeedback ? null : empty}
-                        mergeCells={mergeCells}
                         onCopy={onCopy}
-                        getRowHeight={getRowHeight}
                         headerRowHeight={headerRowHeight}
                         filterRowHeight={filterRowHeight}
                         filterCellClassName={filterCellClassName}
                         resizable={resizable}
                         onColumnResize={colMgmt.handleColumnResize}
                         draggableColumns={draggableColumns}
-                        onColumnOrderChange={onColumnOrderChange}
-                        onGroupColumnOrderChange={onGroupColumnOrderChange}
-                        groupBy={groupBy}
+                        onColumnOrderChange={names => { colMgmt.changeOrder(names); onColumnOrderChange?.(names); }}
+                        onGroupColumnOrderChange={(group, names) => { colMgmt.changeOrder(names, group); onGroupColumnOrderChange?.(group, names); }}
                         groupRowHeight={groupRowHeight}
                         renderGroupCell={typedRenderGroupCell}
                         sortColumns={tableData.sortColumns}
-                        sortMode={sortMode}
                         onSortColumnsChange={tableData.handleSortChange}
-                        rowSelection={rowSelection}
-                        highlightKeyword={showSearchBar ? searchBar.searchKeyword : highlightKeyword}
-                        activeMatchIndex={showSearchBar ? searchBar.searchActiveIndex : activeMatchIndex}
-                        onMatchCountChange={showSearchBar ? searchBar.setSearchMatchCount : onMatchCountChange}
-                        showSummary={showSummary}
+                        rowSelection={projectedSelection}
+                        highlightKeyword={showSearchBar && !serverSearch ? searchBar.searchKeyword : highlightKeyword}
+                        activeMatchIndex={showSearchBar && !serverSearch ? searchBar.searchActiveIndex : activeMatchIndex}
+                        onMatchCountChange={showSearchBar && !serverSearch ? searchBar.setSearchMatchCount : onMatchCountChange}
+                        showSummary={showSummary && (!remoteData || tableData.summary !== undefined)}
                         summaryRowHeight={summaryRowHeight}
                         selectCells={selectCells}
                         onSelectCellsChange={onSelectCellsChange}
-                        treeData={treeData}
                         getChildRows={getChildRows}
                         treeColumn={treeColumn}
                         onExpandedRowIdsChange={onExpandedRowIdsChange}
-                        expandedRowRender={expandedRowRender}
                         isRowExpandable={isRowExpandable}
                         onExpandedRowKeysChange={onExpandedRowKeysChange}
                         expandedRowHeight={expandedRowHeight}
                         getExpandedRowHeight={getExpandedRowHeight}
                         expandColumnWidth={expandColumnWidth}
                         expandColumnFixed={expandColumnFixed}
-                        editType={editType}
                         onEditingRowIdChange={onEditingRowIdChange}
                         onRowCommit={onRowCommit}
+                        onRowClick={onRowClick}
+                        onRowDoubleClick={onRowDoubleClick}
+                        onRedo={onRedo}
                         onRowCancel={onRowCancel}
                         cellEditRecords={cellEditRecords}
                         onCellEditRecordsChange={onCellEditRecordsChange}
@@ -548,15 +642,15 @@ function TablePro<T extends Row>(props: TableProProps<T>) {
             <div className={searchBarInputWrapStyle}>
                 <LineEdit
                     size="small"
-                    value={searchBar.searchKeyword}
-                    placeholder={messages.tablePro.searchTable}
-                    aria-label={messages.tablePro.searchTable}
-                    onValueChange={(value) => { searchBar.setSearchKeyword(value); searchBar.setSearchActiveIndex(0); }}
+                    value={searchValue}
+                    placeholder={serverSearch ? messages.tablePro.searchMatching : messages.tablePro.searchTable}
+                    aria-label={serverSearch ? messages.tablePro.searchMatching : messages.tablePro.searchTable}
+                    onValueChange={changeSearch}
                     allowClear
-                    onClear={() => { searchBar.setSearchKeyword(""); searchBar.setSearchMatchCount(0); searchBar.setSearchActiveIndex(0); }}
+                    onClear={() => changeSearch('')}
                 />
             </div>
-            {searchBar.searchKeyword && (
+            {!serverSearch && searchBar.searchKeyword && (
                 <>
                     <span className={searchBarCountStyle}>
                         {searchBar.searchMatchCount > 0
@@ -584,7 +678,37 @@ function TablePro<T extends Row>(props: TableProProps<T>) {
         </div>
     ) : null;
 
-    const needsFlexCol = showSearchBar || !!pagination;
+    const exportController = useRef<AbortController | null>(null);
+    const [exporting, setExporting] = useState(false);
+    const [exportError, setExportError] = useState('');
+    useEffect(() => () => { exportController.current?.abort(); }, []);
+    const exportAll = async () => {
+        if (!onExportAll || exportController.current) return;
+        const controller = new AbortController();
+        exportController.current = controller;
+        setExporting(true);
+        setExportError('');
+        try {
+            await onExportAll({ ...scope, sort: tableData.sortColumns.map(item => ({ ...item })), signal: controller.signal });
+        } catch (error) {
+            if (!controller.signal.aborted) setExportError(error instanceof Error ? error.message : String(error));
+        } finally {
+            exportController.current = null;
+            if (!controller.signal.aborted) setExporting(false);
+        }
+    };
+    const allSelected = resultSelection?.value.mode === 'all' && sameScope(resultSelection.value.scope, scope);
+    const resultActions = (resultSelection || onExportAll) && <div className={searchBarStyle}>
+        {resultSelection && <Button type="button" size="xs" disabled={!allSelected && (requestHasFeedback || !tableData.total)}
+            onClick={() => allSelected ? clearMatching() : resultSelection.onValueChange({ mode: 'all', scope, excludedIds: new Set() })}>
+            {allSelected ? messages.tablePro.clearMatching : messages.tablePro.selectMatching}
+        </Button>}
+        {onExportAll && <Button type="button" size="xs" disabled={exporting || requestHasFeedback} onClick={exportAll}>
+            {exporting ? messages.common.loading : messages.tablePro.exportMatching}
+        </Button>}
+        {exportError && <span role="alert">{exportError}</span>}
+    </div>;
+    const needsFlexCol = showSearchBar || !!pagination || !!resultActions;
 
     const tableAreaContent = sideBar ? (
         <div className={tableAndPanelRowStyle}>
@@ -613,13 +737,13 @@ function TablePro<T extends Row>(props: TableProProps<T>) {
                     title={messages.tablePro.filters}
                     onClick={() => handleTabClick("filters")}
                 />
-                {exportFileName && (
+                {exportFileName && pageData && (
                     <Button
                         className={sideToolbarButtonStyle}
                         type="button"
                         appearance="text" size="xs" aria-label={messages.tablePro.exportCsv} icon={<ExportIcon />}
                         title={messages.tablePro.exportCsv}
-                        onClick={() => exportToCSV(colMgmt.rawColumnsRef.current, tableData.rows, typeLoaders, exportFileName)}
+                        onClick={() => exportToCSV(colMgmt.rawColumnsRef.current, pageData.rows, typeLoaders, exportFileName)}
                     />
                 )}
             </div>
@@ -630,10 +754,11 @@ function TablePro<T extends Row>(props: TableProProps<T>) {
         </div>
     );
 
-    if (!pagination) {
+    if (!pagination || !pageData) {
         return (
             <div {...cleanRest} className={cx.call(undefined, needsFlexCol && flexColumnStyle, className)}>
                 {searchBarEl}
+                {resultActions}
                 {needsFlexCol ? <div className={tableFlexStyle}>{tableAreaContent}</div> : tableAreaContent}
             </div>
         );
@@ -645,9 +770,9 @@ function TablePro<T extends Row>(props: TableProProps<T>) {
         <div className={paginationBarStyle}>
             <Pagination
                 total={tableData.total}
-                value={tableData.page}
-                pageSize={tableData.pageSize}
-                onValueChange={(page, details) => tableData.handlePageChange(page, details.pageSize, details.reason, details.event)}
+                value={pageData.page}
+                pageSize={pageData.pageSize}
+                onValueChange={(page, details) => pageData.handlePageChange(page, details.pageSize, details.reason, details.event)}
                 onPageSizeChange={pagination.onPageSizeChange}
                 showSizeChanger={showSizeChanger}
                 showQuickJumper={showQuickJumper}
@@ -668,6 +793,7 @@ function TablePro<T extends Row>(props: TableProProps<T>) {
     return (
         <div {...cleanRest} className={cx.call(undefined, flexColumnStyle, className)}>
             {searchBarEl}
+            {resultActions}
             {position !== "bottom" && paginationBar}
             <div className={tableFlexStyle}>
                 {tableAreaContent}

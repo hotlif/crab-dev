@@ -2,7 +2,7 @@
 
 本包保留已发布的兼容接口。Crab 仓库已迁移到 `wake lint`，不再由组件工作区依赖或执行本预设；以下接入方式仅面向原有外部消费方。
 
-本预设内部固定 `typescript@6.0.2`，与工作区类型检查统一使用官方 JavaScript 编译器 API；Yarn 提供 PnP 兼容补丁。ESLint 与 `@eslint/js` 使用 9.39.5，以满足当前 React 和 import 插件的 peer 范围。
+本预设内部固定 `typescript@6.0.2`，供 typescript-eslint 调用 JavaScript 编译器 API。工作区类型检查使用官方 TypeScript 7.0.2。ESLint 与 `@eslint/js` 使用 9.39.5，以满足当前 React 和 import 插件的 peer 范围。
 
 为浏览器 React 代码和 Node.js 工具提供共享 ESLint 配置。
 

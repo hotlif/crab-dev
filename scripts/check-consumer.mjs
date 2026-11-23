@@ -163,7 +163,11 @@ export type { OverlayLayer, DefaultRealmProps, TypedRealmProps };
     await copyFile(join(repositoryRoot, "components", "rc-card", "src", "__tests__", "card-public.typecheck.tsx"), join(directory, "card-public.typecheck.tsx"));
     await writeFile(join(directory, "tsconfig.json"), JSON.stringify({ compilerOptions: { target: "ESNext", module: "ESNext", moduleResolution: "Bundler", jsx: "react-jsx", strict: true, noEmit: true, skipLibCheck: false, types: ["react", "react-dom"], lib: ["ESNext", "DOM", "DOM.Iterable"] }, include: ["consumer.tsx", "card-public.typecheck.tsx"] }, null, 4));
     try {
-        await run(process.execPath, [yarn, "exec", "tsc", "--noEmit"], { cwd: directory, env });
+        // Resolve the compiler and PnP map exclusively from the packed consumer.
+        for (const file of ["typecheck.mjs", "typescript-pnp-fs.mjs"]) {
+            await copyFile(join(repositoryRoot, "scripts", file), join(directory, file));
+        }
+        await run(process.execPath, [yarn, "node", "typecheck.mjs"], { cwd: directory, env });
     } catch (error) { failures.push(error.message); }
     if (failures.length) throw new Error(failures.join("\n\n"));
     assert.equal(packages.length, Object.keys(dependencies).length);

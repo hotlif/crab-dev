@@ -9,8 +9,8 @@ export interface UseSearchBarReturn {
     setSearchActiveIndex: Dispatch<SetStateAction<number>>;
 }
 
-export function useSearchBar(): UseSearchBarReturn {
-    const [searchKeyword, setSearchKeyword] = useState("");
+export function useSearchBar(initialKeyword = ''): UseSearchBarReturn {
+    const [searchKeyword, setSearchKeyword] = useState(initialKeyword);
     const [searchMatchCount, setSearchMatchCount] = useState(0);
     const [searchActiveIndex, setSearchActiveIndex] = useState(0);
 

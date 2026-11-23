@@ -1,14 +1,20 @@
 import { createRef, StrictMode } from "react";
 import { describe, expect, it, mock } from "@crab-dev/wake/test";
 import { act, render } from "@crab-dev/wake/test/react";
-import Virtual, { type VirtualHandle } from "../../virtual.js";
+import Virtual, { type VirtualHandle, type VirtualProps } from "../../virtual.js";
 import type { VirtualAxis } from "../../types.js";
 import docsMotionCss from "../../../.fixtures/docs-motion.json";
 
 const COUNT = 1_000_000;
 const HEIGHT = 400;
 
-async function mountGrid(rowHeight: number, headerHeight = 0, footerHeight = 0, rows: VirtualAxis = new Array<number>(COUNT).fill(rowHeight)) {
+async function mountGrid(
+    rowHeight: number,
+    headerHeight = 0,
+    footerHeight = 0,
+    rows: VirtualAxis = new Array<number>(COUNT).fill(rowHeight),
+    onScrollPositionChange?: VirtualProps["onScrollPositionChange"],
+) {
     const gridRef = createRef<VirtualHandle>();
     const { container } = await render(
         <StrictMode>
@@ -29,6 +35,7 @@ async function mountGrid(rowHeight: number, headerHeight = 0, footerHeight = 0, 
                 reservedTopHeight={headerHeight}
                 reservedBottomHeight={footerHeight}
                 overscanRowCount={4}
+                onScrollPositionChange={onScrollPositionChange}
                 renderRows={([start, end]) => (
                     <>
                         <div className="virtual-test-header" ref={node => { if (node) node.style.height = `${headerHeight}px`; }} />
@@ -58,6 +65,66 @@ async function wheel(grid: HTMLElement, deltaY: number, deltaX = 0) {
 }
 
 describe("Million-row browser layout", () => {
+    it("positions a wide horizontal wheel step before replacing the mounted columns", async () => {
+        const gridRef = createRef<VirtualHandle>();
+        const { container } = await render(
+            <StrictMode>
+                <style>{`
+                    [data-window-scroll] { overflow: hidden; overflow-anchor: none; white-space: nowrap; }
+                    [data-window-scroll] > div { display: inline-block; height: 40px; vertical-align: top; }
+                `}</style>
+                <Virtual
+                    data-window-scroll=""
+                    gridRef={gridRef}
+                    gridTemplateRows={[40]}
+                    gridTemplateColumns={{ count: 40, itemSize: 120 }}
+                    viewportWidth={300}
+                    viewportHeight={40}
+                    overscanColumnCount={1}
+                    renderWindow={(_, [start, end], padding) => (
+                        <>
+                            <div style={{ width: padding.left }} />
+                            {Array.from({ length: end - start + 1 }, (_, offset) => (
+                                <div key={start + offset} data-window-column={start + offset} style={{ width: 120 }} />
+                            ))}
+                            <div style={{ width: padding.right }} />
+                        </>
+                    )}
+                />
+            </StrictMode>,
+        );
+        const grid = container.querySelector<HTMLElement>("[data-window-scroll]");
+        const { get, set } = Object.getOwnPropertyDescriptor(Element.prototype, "scrollLeft") ?? {};
+        if (!grid || !get || !set) throw new Error("Missing native scroll viewport");
+
+        const writes: { left: number; firstColumn: string | null | undefined }[] = [];
+        Object.defineProperty(grid, "scrollLeft", {
+            configurable: true,
+            get: () => get.call(grid),
+            set: (left: number) => {
+                writes.push({ left, firstColumn: grid.querySelector("[data-window-column]")?.getAttribute("data-window-column") });
+                set.call(grid, left);
+            },
+        });
+        try {
+            await wheel(grid, 0, 80);
+            expect(grid.scrollLeft).toBe(80);
+            expect(Array.from(grid.querySelectorAll("[data-window-column]"), cell => cell.getAttribute("data-window-column")))
+                .toEqual(["0", "1", "2", "3"]);
+            writes.length = 0;
+
+            await wheel(grid, 0, 820);
+            expect(writes).toEqual([{ left: 900, firstColumn: "0" }]);
+            expect(grid.scrollLeft).toBe(900);
+            expect(gridRef.current?.getScrollCellPosition().columnIndex).toBe(7);
+            const first = grid.querySelector<HTMLElement>("[data-window-column]");
+            expect(first?.getAttribute("data-window-column")).toBe("6");
+            expect(first?.getBoundingClientRect().left).toBeLessThanOrEqual(grid.getBoundingClientRect().left);
+        } finally {
+            Reflect.deleteProperty(grid, "scrollLeft");
+        }
+    });
+
     for (const trigger of ["focus", "scrollIntoView"] as const) {
         it(`synchronizes native ${trigger} scrolling with the rendered columns and thumb`, async () => {
             const gridRef = createRef<VirtualHandle>();
@@ -108,8 +175,10 @@ describe("Million-row browser layout", () => {
             expect(nativeLeft).toBeGreaterThan(0);
             expect(gridRef.current?.getScrollCellPosition().columnIndex).toBe(Math.floor(nativeLeft / 120));
             expect(onScrollPositionChange).toHaveBeenCalledWith({ left: nativeLeft, top: 0 });
-            const thumb = grid.nextElementSibling?.firstElementChild as HTMLElement;
-            expect(Number.parseFloat(thumb.style.left)).toBeCloseTo(nativeLeft * 280 / 4500, 3);
+            const track = grid.nextElementSibling as HTMLElement;
+            const thumb = track.firstElementChild as HTMLElement;
+            expect(thumb.getBoundingClientRect().left - track.getBoundingClientRect().left)
+                .toBeCloseTo(nativeLeft * 280 / 4500, 1);
             const columns = grid.querySelectorAll<HTMLElement>("[data-native-column]");
             expect(columns[0].getBoundingClientRect().left).toBeLessThanOrEqual(grid.getBoundingClientRect().left);
             expect(columns[columns.length - 1].getBoundingClientRect().right).toBeGreaterThanOrEqual(grid.getBoundingClientRect().right);
@@ -192,6 +261,35 @@ describe("Million-row browser layout", () => {
         const first = grid.querySelector(`[data-row="${before + 1}"]`);
         expect(first?.getBoundingClientRect().top).toBeLessThanOrEqual(bounds.top);
         expect(first?.getBoundingClientRect().bottom).toBeGreaterThan(bounds.top);
+    });
+
+    it("scrolls within the mounted window without measuring scrollTop in the layout commit", async () => {
+        let committing = false;
+        let commitReads = 0;
+        const { grid, gridRef } = await mountGrid(40, 0, 0, { count: 100, itemSize: 40 }, ({ top }) => {
+            if (top === 0) return;
+            committing = true;
+            queueMicrotask(() => { committing = false; });
+        });
+        const { get, set } = Object.getOwnPropertyDescriptor(Element.prototype, "scrollTop") ?? {};
+        if (!get || !set) throw new Error("Missing native scrollTop property");
+        Object.defineProperty(grid, "scrollTop", {
+            configurable: true,
+            get() {
+                if (committing) commitReads++;
+                return get.call(grid);
+            },
+            set(value: number) { set.call(grid, value); },
+        });
+        try {
+            await wheel(grid, 40);
+            expect(commitReads).toBe(0);
+            expect(grid.scrollTop).toBe(40);
+            expect(gridRef.current?.getScrollCellPosition().rowIndex).toBe(1);
+            expect(grid.querySelector('[data-row="14"]')).toBeTruthy();
+        } finally {
+            Reflect.deleteProperty(grid, "scrollTop");
+        }
     });
 
     it("preserves variable row geometry across the spacer boundary and at the end", async () => {

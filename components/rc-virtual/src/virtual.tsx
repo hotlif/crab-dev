@@ -1,8 +1,8 @@
-import { useEffect, useEffectEvent, useRef, useState, useLayoutEffect, useImperativeHandle, useMemo } from "react";
+import { Component, useEffect, useEffectEvent, useRef, useState, useLayoutEffect, useImperativeHandle, useMemo } from "react";
 import type { HTMLAttributes, ReactNode, RefObject } from "react";
 import { cx } from "@crab-dev/css";
 
-import { containerStyle, gridStyle } from "./style/grid.style.js";
+import { containerStyle, gridStyle, scrollPositionHintStyle } from "./style/grid.style.js";
 
 import useVirtualItemRange, { getVirtualItemEnd, getVirtualItemIndex, getVirtualItemSize, getVirtualItemStart } from "./hooks/useVirtualItemRange.js";
 import ScrollBar from "./scrollbar.js";
@@ -61,12 +61,76 @@ export interface VirtualProps extends Omit<HTMLAttributes<HTMLDivElement>, "chil
     onScrollPositionChange?: (position: { left: number; top: number }) => void;
 }
 
+export interface VirtualPadding {
+    top: number;
+    bottom: number;
+    left: number;
+    right: number;
+}
+
+export interface VirtualWindowProps extends Omit<VirtualProps, "renderRows"> {
+    /** Render the window and apply the supplied spacer sizes to its elements. */
+    renderWindow: (rowRange: [number, number], columnRange: [number, number], padding: VirtualPadding) => ReactNode;
+}
+
+type VirtualRenderProps = (VirtualProps & { renderWindow?: never }) | (VirtualWindowProps & { renderRows?: never });
+
+interface ScrollPosition {
+    left: number;
+    top: number;
+}
+
+interface ScrollLayout {
+    leftOrigin: number;
+    topOrigin: number;
+    minLeft: number;
+    maxLeft: number;
+    minTop: number;
+    maxTop: number;
+    viewportWidth: number;
+    viewportHeight: number;
+    totalWidth: number;
+    totalHeight: number;
+    nativeWidth: number;
+    retainColumns: boolean;
+}
+
+interface PreparedColumnScroll extends ScrollPosition {
+    layout: ScrollLayout;
+}
+
+interface WindowContentProps {
+    children: ReactNode;
+    renderWindow?: VirtualWindowProps["renderWindow"];
+    prepareScroll: () => PreparedColumnScroll | null;
+    rememberScroll: (position: PreparedColumnScroll) => void;
+}
+
+// The snapshot phase is React's commit hook before host nodes are changed. It lets
+// horizontal jumps use the existing scroll extent without forcing layout of new cells.
+class WindowContent extends Component<WindowContentProps, Record<string, never>, PreparedColumnScroll | null> {
+    getSnapshotBeforeUpdate(previous: WindowContentProps): PreparedColumnScroll | null {
+        const { children, renderWindow, prepareScroll } = this.props;
+        if (!renderWindow || renderWindow !== previous.renderWindow || children === previous.children) return null;
+        return prepareScroll();
+    }
+
+    componentDidUpdate(_previous: WindowContentProps, _state: unknown, prepared: PreparedColumnScroll | null): void {
+        if (prepared) this.props.rememberScroll(prepared);
+    }
+
+    render(): ReactNode {
+        return this.props.children;
+    }
+}
+
 const Virtual = ({
     className,
     style,
     gridTemplateColumns,
     gridTemplateRows,
     renderRows,
+    renderWindow,
     viewportWidth,
     viewportHeight,
     reservedTopHeight = 0,
@@ -76,18 +140,24 @@ const Virtual = ({
     gridRef,
     onScrollPositionChange,
     ...restProps
-}: VirtualProps) => {
+}: VirtualRenderProps) => {
     const [currentScrollPositionTop, setCurrentScrollPositionTop] = useState<number>(0);
     const [currentScrollPositionLeft, setCurrentScrollPositionLeft] = useState<number>(0);
+    const [columnWindowAnchor, setColumnWindowAnchor] = useState(0);
+    const retainColumns = renderWindow != null && Number.isFinite(overscanColumnCount) && overscanColumnCount >= 1;
 
     const divGridRef = useRef<HTMLDivElement>(null);
     const containerRef = useRef<HTMLDivElement>(null);
     // 可变实例状态 ref（滚动事件帧合并）：在同一动画帧累积高频 wheel 增量，避免每个事件都触发 React 渲染。
-    const pendingScrollPositionRef = useRef<{ left: number, top: number } | null>(null);
+    const pendingScrollPositionRef = useRef<ScrollPosition | null>(null);
     // 可变实例状态 ref（动画帧句柄）：用于保证最多只排队一个提交，并在卸载时取消。
     const scrollAnimationFrameRef = useRef<number | null>(null);
     // 可变实例状态（滚动目标）：在 React 提交前累积增量，避免从受浏览器限制的 DOM 坐标反推逻辑位置。
-    const logicalScrollRef = useRef({ left: 0, top: 0, maxLeft: 0, maxTop: 0, domLeft: 0, domTop: 0 });
+    const logicalScrollRef = useRef({
+        left: 0, top: 0, maxLeft: 0, maxTop: 0, domLeft: 0, domTop: 0, prepared: false, horizontalInput: false,
+    });
+    // The last committed window is safe to move within until React mounts its replacement.
+    const scrollLayoutRef = useRef<ScrollLayout | null>(null);
 
     let {
         columnRange,
@@ -107,6 +177,7 @@ const Virtual = ({
         reservedBottomHeight,
         overscanRowCount,
         overscanColumnCount,
+        columnWindowAnchor: retainColumns ? columnWindowAnchor : undefined,
     });
 
     const totalWidth = columnMetrics.totalSize;
@@ -117,18 +188,14 @@ const Virtual = ({
     // 或底部固定汇总行遮挡最后一行数据时，该行无法滚动出来。
     const totalHeight = rowMetrics.totalSize + reservedTopHeight + reservedBottomHeight;
 
-    const rowWindow = getScrollWindow(
-        getVirtualItemStart(rowMetrics, rowRange[0]),
-        getVirtualItemEnd(rowMetrics, rowRange[1]),
-        rowMetrics.totalSize,
-        effectiveScrollPositionTop,
-    );
-    const columnWindow = getScrollWindow(
-        getVirtualItemStart(columnMetrics, columnRange[0]),
-        getVirtualItemEnd(columnMetrics, columnRange[1]),
-        columnMetrics.totalSize,
-        effectiveScrollPositionLeft,
-    );
+    const rowStartPosition = getVirtualItemStart(rowMetrics, rowRange[0]);
+    const rowEndPosition = getVirtualItemEnd(rowMetrics, rowRange[1]);
+    const columnStartPosition = getVirtualItemStart(columnMetrics, columnRange[0]);
+    const columnEndPosition = getVirtualItemEnd(columnMetrics, columnRange[1]);
+    const rowWindow = getScrollWindow(rowStartPosition, rowEndPosition, rowMetrics.totalSize, effectiveScrollPositionTop);
+    const columnWindow = getScrollWindow(columnStartPosition, columnEndPosition, totalWidth, effectiveScrollPositionLeft);
+    const nativeWidth = columnEndPosition - columnWindow.origin + columnWindow.paddingEnd;
+    const maxMountedTop = rowEndPosition === rowMetrics.totalSize ? Math.max(0, totalHeight - viewportHeight) : rowEndPosition - viewportHeight;
 
     useLayoutEffect(() => {
         const container = containerRef.current;
@@ -139,20 +206,37 @@ const Virtual = ({
         container.style.height = `${viewportHeight}px`;
         grid.style.width = `${viewportWidth}px`;
         grid.style.height = `${viewportHeight}px`;
+    }, [viewportWidth, viewportHeight, style]);
+
+    useLayoutEffect(() => {
+        const container = containerRef.current;
+        if (!container || renderWindow) return;
         container.style.setProperty("--crab-rc-virtual-top-padding-height", `${rowWindow.paddingStart}px`);
         container.style.setProperty("--crab-rc-virtual-bottom-padding-height", `${rowWindow.paddingEnd}px`);
         container.style.setProperty("--crab-rc-virtual-left-padding-width", `${columnWindow.paddingStart}px`);
         container.style.setProperty("--crab-rc-virtual-right-padding-width", `${columnWindow.paddingEnd}px`);
-    }, [viewportWidth, viewportHeight, rowWindow.paddingStart, rowWindow.paddingEnd, columnWindow.paddingStart, columnWindow.paddingEnd, style]);
+    }, [rowWindow.paddingStart, rowWindow.paddingEnd, columnWindow.paddingStart, columnWindow.paddingEnd, renderWindow, style]);
 
     useLayoutEffect(() => {
-        logicalScrollRef.current = {
-            left: effectiveScrollPositionLeft,
-            top: effectiveScrollPositionTop,
-            maxLeft: Math.max(0, totalWidth - viewportWidth),
-            maxTop: Math.max(0, totalHeight - viewportHeight),
-            domLeft: 0,
-            domTop: 0,
+        const logical = logicalScrollRef.current;
+        const layout = scrollLayoutRef.current;
+        const prepared = logical.prepared && layout != null
+            && logical.left === effectiveScrollPositionLeft && logical.top === effectiveScrollPositionTop
+            && layout.leftOrigin === columnWindow.origin && layout.topOrigin === rowWindow.origin
+            && layout.viewportWidth === viewportWidth && layout.viewportHeight === viewportHeight
+            && layout.totalWidth === totalWidth && layout.totalHeight === totalHeight;
+        logical.left = effectiveScrollPositionLeft;
+        logical.top = effectiveScrollPositionTop;
+        logical.maxLeft = Math.max(0, totalWidth - viewportWidth);
+        logical.maxTop = Math.max(0, totalHeight - viewportHeight);
+        logical.prepared = false;
+        logical.horizontalInput = false;
+        scrollLayoutRef.current = {
+            leftOrigin: columnWindow.origin, topOrigin: rowWindow.origin,
+            minLeft: columnStartPosition, minTop: rowStartPosition,
+            maxLeft: columnEndPosition === totalWidth ? logical.maxLeft : columnEndPosition - viewportWidth,
+            maxTop: maxMountedTop,
+            viewportWidth, viewportHeight, totalWidth, totalHeight, nativeWidth, retainColumns,
         };
         if (currentScrollPositionTop !== effectiveScrollPositionTop) {
             setCurrentScrollPositionTop(effectiveScrollPositionTop);
@@ -161,16 +245,14 @@ const Virtual = ({
             setCurrentScrollPositionLeft(effectiveScrollPositionLeft);
         }
 
-        /* istanbul ignore else -- ref is always populated after mount */
-        if (divGridRef.current) {
-            if (divGridRef.current.scrollTop !== rowWindow.position) {
-                divGridRef.current.scrollTop = rowWindow.position;
-            }
-            if (divGridRef.current.scrollLeft !== columnWindow.position) {
-                divGridRef.current.scrollLeft = columnWindow.position;
-            }
-            logicalScrollRef.current.domLeft = divGridRef.current.scrollLeft;
-            logicalScrollRef.current.domTop = divGridRef.current.scrollTop;
+        // Jumps outside the previous window, resize and recentering need the new layout.
+        // Scrolling inside it already moved the DOM before React changed the spacers.
+        const grid = divGridRef.current;
+        if (!prepared && grid) {
+            if (grid.scrollTop !== rowWindow.position) grid.scrollTop = rowWindow.position;
+            if (grid.scrollLeft !== columnWindow.position) grid.scrollLeft = columnWindow.position;
+            logical.domLeft = grid.scrollLeft;
+            logical.domTop = grid.scrollTop;
         }
     }, [
         currentScrollPositionTop,
@@ -181,8 +263,16 @@ const Virtual = ({
         viewportWidth,
         totalHeight,
         totalWidth,
+        columnStartPosition,
+        columnEndPosition,
+        rowStartPosition,
+        maxMountedTop,
+        rowWindow.origin,
+        columnWindow.origin,
         rowWindow.position,
         columnWindow.position,
+        nativeWidth,
+        retainColumns,
     ]);
 
     const isShowScrollBarsY = totalHeight > viewportHeight;
@@ -200,11 +290,84 @@ const Virtual = ({
     const [columnStart, columnEnd] = columnRange;
     // 例外 3：调用方渲染回调可能很昂贵，且编译器无法推断纯度；按范围值缓存，保留尺寸和回调更新。
     const content = useMemo(
-        () => renderRows([rowStart, rowEnd], [columnStart, columnEnd]),
-        [renderRows, rowStart, rowEnd, columnStart, columnEnd, rowMetrics, columnMetrics, viewportWidth, viewportHeight, reservedTopHeight, reservedBottomHeight],
+        () => renderWindow
+            ? renderWindow([rowStart, rowEnd], [columnStart, columnEnd], {
+                top: rowWindow.paddingStart, bottom: rowWindow.paddingEnd,
+                left: columnWindow.paddingStart, right: columnWindow.paddingEnd,
+            })
+            : renderRows?.([rowStart, rowEnd], [columnStart, columnEnd]),
+        [renderWindow, renderRows, rowStart, rowEnd, columnStart, columnEnd,
+            rowWindow.paddingStart, rowWindow.paddingEnd, columnWindow.paddingStart, columnWindow.paddingEnd,
+            rowMetrics, columnMetrics, viewportWidth, viewportHeight, reservedTopHeight, reservedBottomHeight],
     );
 
-    const setScrollPosition = (position: { left?: number; top?: number }) => {
+    const prepareColumnScroll = (): PreparedColumnScroll | null => {
+        const grid = divGridRef.current;
+        const layout = scrollLayoutRef.current;
+        const logical = logicalScrollRef.current;
+        if (!grid || !layout || logical.prepared || !logical.horizontalInput
+            || logical.left !== effectiveScrollPositionLeft || logical.top !== effectiveScrollPositionTop
+            || layout.leftOrigin !== columnWindow.origin || layout.topOrigin !== rowWindow.origin
+            || layout.viewportWidth !== viewportWidth || layout.viewportHeight !== viewportHeight
+            || layout.totalWidth !== totalWidth || layout.totalHeight !== totalHeight
+            || layout.nativeWidth !== nativeWidth || layout.minTop !== rowStartPosition || layout.maxTop !== maxMountedTop
+            || columnWindow.position < 0 || columnWindow.position > nativeWidth - viewportWidth
+            || Math.abs(rowWindow.position - logical.domTop) >= 1
+            || grid.contains(grid.ownerDocument.activeElement)) return null;
+
+        const top = grid.scrollTop;
+        if (Math.abs(top - rowWindow.position) >= 1) return null;
+        let left = grid.scrollLeft;
+        if (Math.abs(left - columnWindow.position) >= 1) {
+            grid.scrollLeft = columnWindow.position;
+            left = grid.scrollLeft;
+        }
+        return { left, top, layout };
+    };
+
+    const rememberColumnScroll = (position: PreparedColumnScroll) => {
+        const grid = divGridRef.current;
+        // Focus on a newly mounted descendant can move the viewport during the commit.
+        if (!grid || scrollLayoutRef.current !== position.layout || grid.contains(grid.ownerDocument.activeElement)) return;
+        const logical = logicalScrollRef.current;
+        logical.domLeft = position.left;
+        logical.domTop = position.top;
+        logical.prepared = Math.abs(position.left - columnWindow.position) < 1;
+    };
+
+    const applyScrollTarget = (left: number, top: number, fromInput = false) => {
+        const logical = logicalScrollRef.current;
+        const layout = scrollLayoutRef.current;
+        const grid = divGridRef.current;
+        logical.prepared = false;
+        logical.horizontalInput = fromInput && left !== logical.left && top === logical.top;
+        // Reuse the mounted cells while horizontal input is still covered by the buffer.
+        if (layout?.retainColumns && left !== logical.left
+            && (!logical.horizontalInput || left < layout.minLeft || left > layout.maxLeft)) {
+            setColumnWindowAnchor(left);
+        }
+        if (grid && layout && left >= layout.minLeft && left <= layout.maxLeft
+            && top >= layout.minTop && top <= layout.maxTop) {
+            const domLeft = left - layout.leftOrigin;
+            const domTop = top - layout.topOrigin;
+            if (logical.domLeft !== domLeft) {
+                grid.scrollLeft = domLeft;
+                logical.domLeft = grid.scrollLeft;
+            }
+            if (logical.domTop !== domTop) {
+                grid.scrollTop = domTop;
+                logical.domTop = grid.scrollTop;
+            }
+            // CSS pixels may be rounded at the current device scale.
+            logical.prepared = Math.abs(logical.domLeft - domLeft) < 1 && Math.abs(logical.domTop - domTop) < 1;
+        }
+        logical.left = left;
+        logical.top = top;
+        setCurrentScrollPositionLeft(left);
+        setCurrentScrollPositionTop(top);
+    };
+
+    const setScrollPosition = (position: Partial<ScrollPosition>) => {
         const logical = logicalScrollRef.current;
         const pending = pendingScrollPositionRef.current;
         const grid = divGridRef.current;
@@ -215,12 +378,9 @@ const Virtual = ({
         const left = position.left ?? (pending?.left ?? logical.left) + domLeft - logical.domLeft;
         const top = position.top ?? (pending?.top ?? logical.top) + domTop - logical.domTop;
         pendingScrollPositionRef.current = null;
-        logical.left = Math.max(0, Math.min(left, logical.maxLeft));
-        logical.top = Math.max(0, Math.min(top, logical.maxTop));
         logical.domLeft = domLeft;
         logical.domTop = domTop;
-        setCurrentScrollPositionLeft(logical.left);
-        setCurrentScrollPositionTop(logical.top);
+        applyScrollTarget(Math.max(0, Math.min(left, logical.maxLeft)), Math.max(0, Math.min(top, logical.maxTop)));
     };
 
     const scrollToLeft = (left: number) => setScrollPosition({ left });
@@ -228,8 +388,9 @@ const Virtual = ({
 
     useImperativeHandle(gridRef, () => ({
         scrollTo: ({ left, top }) => {
-            if (left !== undefined && Number.isFinite(left)) scrollToLeft(left);
-            if (top !== undefined && Number.isFinite(top)) scrollToTop(top);
+            const nextLeft = Number.isFinite(left) ? left : undefined;
+            const nextTop = Number.isFinite(top) ? top : undefined;
+            if (nextLeft !== undefined || nextTop !== undefined) setScrollPosition({ left: nextLeft, top: nextTop });
         },
         scrollToCell: (position) => {
             if (position.rowIndex != null) {
@@ -299,12 +460,14 @@ const Virtual = ({
             const readScrollPosition = () => {
                 const logical = logicalScrollRef.current;
                 const pending = pendingScrollPositionRef.current;
-                const deltaLeft = grid.scrollLeft - logical.domLeft;
-                const deltaTop = grid.scrollTop - logical.domTop;
+                const domLeft = grid.scrollLeft;
+                const domTop = grid.scrollTop;
+                const deltaLeft = domLeft - logical.domLeft;
+                const deltaTop = domTop - logical.domTop;
                 // 消费局部 DOM 的相对位移。聚焦、scrollIntoView 和待提交 wheel
                 // 可以在同一帧发生；立即记住已读坐标，避免后续 scroll 重复计入。
-                logical.domLeft = grid.scrollLeft;
-                logical.domTop = grid.scrollTop;
+                logical.domLeft = domLeft;
+                logical.domTop = domTop;
                 return {
                     left: Math.max(0, Math.min((pending?.left ?? logical.left) + deltaLeft, logical.maxLeft)),
                     top: Math.max(0, Math.min((pending?.top ?? logical.top) + deltaTop, logical.maxTop)),
@@ -319,12 +482,7 @@ const Virtual = ({
                 // 浏览器 scroll 事件可能晚于这一帧，再读取一次避免丢失其位移。
                 const pendingPosition = readScrollPosition();
                 pendingScrollPositionRef.current = null;
-                logicalScrollRef.current.left = pendingPosition.left;
-                logicalScrollRef.current.top = pendingPosition.top;
-                logicalScrollRef.current.domLeft = grid.scrollLeft;
-                logicalScrollRef.current.domTop = grid.scrollTop;
-                setCurrentScrollPositionLeft(pendingPosition.left);
-                setCurrentScrollPositionTop(pendingPosition.top);
+                applyScrollTarget(pendingPosition.left, pendingPosition.top, true);
             };
             const schedulePendingScrollPosition = () => {
                 if (scrollAnimationFrameRef.current != null) {
@@ -358,16 +516,16 @@ const Virtual = ({
                 return delta;
             };
             const onWheel = (e: globalThis.WheelEvent) => {
-                e.preventDefault();
-                const currentTarget = e.currentTarget as HTMLDivElement;
+                // Canvas 等子节点可能取消浏览器默认动作，Virtual 仍需消费滚轮增量。
                 const logicalPosition = logicalScrollRef.current;
                 const nativePosition = readScrollPosition();
                 const baseLeft = nativePosition.left;
                 const baseTop = nativePosition.top;
                 let newScrollLeft = baseLeft;
                 let newScrollTop = baseTop;
-                const normalizedDeltaX = normalizeWheelDelta(e.deltaX, e.deltaMode, currentTarget.clientWidth);
-                const normalizedDeltaY = normalizeWheelDelta(e.deltaY, e.deltaMode, currentTarget.clientHeight);
+                const pageDelta = e.deltaMode === globalThis.WheelEvent.DOM_DELTA_PAGE;
+                const normalizedDeltaX = normalizeWheelDelta(e.deltaX, e.deltaMode, pageDelta ? grid.clientWidth : 0);
+                const normalizedDeltaY = normalizeWheelDelta(e.deltaY, e.deltaMode, pageDelta ? grid.clientHeight : 0);
                 const horizontalDelta = e.shiftKey && normalizedDeltaX === 0
                     ? normalizedDeltaY
                     : normalizedDeltaX;
@@ -378,13 +536,9 @@ const Virtual = ({
 
                 newScrollLeft = Math.max(0, Math.min(newScrollLeft, logicalPosition.maxLeft));
                 newScrollTop = Math.max(0, Math.min(newScrollTop, logicalPosition.maxTop));
-                if (
-                    newScrollLeft === baseLeft
-                    && newScrollTop === baseTop
-                    && !nativePosition.moved
-                ) {
-                    return;
-                }
+                const handled = newScrollLeft !== baseLeft || newScrollTop !== baseTop;
+                if (handled) e.preventDefault();
+                if (!handled && !nativePosition.moved) return;
 
                 pendingScrollPositionRef.current = {
                     left: newScrollLeft,
@@ -420,11 +574,17 @@ const Virtual = ({
             style={style}
         >
             <div
-                className={cx.call(undefined, gridStyle)}
+                className={cx.call(undefined, gridStyle, renderWindow && isShowScrollBarsX && scrollPositionHintStyle)}
                 ref={divGridRef}
                 {...restProps}
             >
-                {content}
+                <WindowContent
+                    renderWindow={isShowScrollBarsX ? renderWindow : undefined}
+                    prepareScroll={prepareColumnScroll}
+                    rememberScroll={rememberColumnScroll}
+                >
+                    {content}
+                </WindowContent>
             </div>
             {
                 isShowScrollBarsX ? (

@@ -19,7 +19,7 @@
         "prettier:check": "prettier --check \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
         "generate:docgen": "wake library docgen .",
         "generate:token": "wake library token .",
-        "typecheck": "tsc --noEmit",
+        "typecheck": "node ../../scripts/typecheck.mjs",
         "lint": "wake lint --format human --root ../.. components/rc-color-picker/src components/rc-color-picker/docs --env browser --max-warnings 0 && yarn lint:tools",
         "lint:tools": "wake lint --format human --root ../.. components/rc-color-picker/scripts --env node --max-warnings 0",
         "check": "node ../../scripts/check-package.mjs",
@@ -47,22 +47,22 @@
     "devDependencies": {
         "@crab-dev/rc-token-semantic": "workspace:^",
         "@crab-dev/standards-typescript-preset": "workspace:^",
-        "@crab-dev/wake": "0.1.45",
+        "@crab-dev/wake": "0.1.57",
         "@js-temporal/polyfill": "^0.5.1",
-        "@types/node": "^22.20.2",
+        "@types/node": "^26.6.6",
         "@types/react": "^19.3.0",
         "@types/react-dom": "^19.3.0",
         "prettier": "^3.9.6",
         "react": "19.3.0",
         "react-dom": "19.3.0",
         "react-router": "^8.3.1",
-        "typescript": "6.0.2"
+        "typescript": "7.0.2"
     },
     "engines": {
         "node": ">=22"
     },
     "dependencies": {
-        "@crab-dev/css": "0.1.45",
+        "@crab-dev/css": "0.1.57",
         "@crab-dev/rc-button": "workspace:^",
         "@crab-dev/rc-config-provider": "workspace:^",
         "@crab-dev/rc-dropdown-container": "workspace:^",

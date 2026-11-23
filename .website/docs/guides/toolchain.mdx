@@ -31,9 +31,13 @@ Wake Library 输出 ESM、CommonJS、类型声明和静态 CSS。一般组件默
 
 实际使用 React / ReactDOM 的公开包显式声明对应 peerDependencies，消费方安装满足范围的 React 宿主；包内保留开发依赖以构建和测试。严格 PnP 独立消费需要这项声明，不能依赖单仓的开发依赖形成隐式 peer。
 
+Wake Test 0.1.57 验证 React 与 ReactDOM 的版本一致性，工作区的开发依赖固定为该版本支持的 React 19.3.0。升级开发依赖时先核对 Wake Test 的支持范围，再运行包内完整检查。
+
 工具版本以 `package.json` 和 `yarn.lock` 为准。TypeScript 配置继承 `standards/` 中的共享预设。`yarn lint` 使用 Wake 原生检查；规则集中在仓库根 `wake.config.toml`，各工作区显式指定源路径和环境。组件的构建、测试与文档配置保留在包内 `wake.config.toml`。
 
-工作区类型检查统一使用官方 TypeScript 6.0.2 与 Yarn 内置 PnP 补丁。包内 `typecheck` 直接调用 `tsc --noEmit`，根入口由 Turbo 编排；不下载编译器源码、Go SDK 或构建开发版。安装后运行 `yarn generate:sdk` 同步编辑器；诊断夹具与独立打包消费继续验证严格检查和错误退出码。
+包内 `yarn typecheck` 调用官方 TypeScript 7.0.2 原生编译器。适配脚本通过该版本的文件系统接口向编译器提供当前项目的 Yarn PnP 依赖和压缩包内容。根入口由 Turbo 编排，独立消费检查使用消费项目自己的编译器和依赖图。
+
+文档生成器需要 JavaScript 类型检查器和打印器，VS Code 的 Yarn SDK 需要 JavaScript 语言服务。这两处通过 `@typescript/old` 使用带 Yarn PnP 补丁的官方 6.0.2。安装后运行 `yarn generate:sdk` 刷新编辑器。在原生编译器支持 PnP 且相应工具支持新版 API 后，可分别移除文件系统适配与兼容依赖。
 
 SDK 生成器固定在开发依赖中，其 Yarn Core 固定为 4.9.1：当前范围解析会引用缺失的 got 补丁，此固定只影响编辑器工具。升级 SDK 时同时验证可重现安装和生成结果，再移除此固定；不改变库的运行时依赖。
 

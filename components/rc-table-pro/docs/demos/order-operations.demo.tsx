@@ -1,13 +1,14 @@
 export const meta = {
     title: "订单履约工作台：跨页查询与拣货",
-    description: "模拟 960 笔多区域订单。尝试在右侧筛选「待发货」、按承诺日期排序、跨页选择订单并生成拣货单；金额汇总与 CSV 只针对当前页。request 真正处理分页、筛选、排序及 AbortSignal。",
+    description: "模拟 960 笔多区域订单。尝试在右侧筛选「待发货」、按承诺日期排序、跨页选择订单并生成拣货单；搜索、金额汇总和全量导出覆盖全部匹配订单。request 真正处理分页、筛选、排序及 AbortSignal。",
 };
 
-import { useState, type Key } from "react";
+import { useState } from "react";
 import Button from "@crab-dev/rc-button";
 import type { Row } from "@crab-dev/rc-table";
 import TablePro from "../../src/table.js";
-import type { DataTypeLoader, ProtocolColumnType, TableQuery } from "../../src/types.js";
+import { exportToCSV } from '../../src/columnUtils.js';
+import type { DataTypeLoader, ProtocolColumnType, ResultScope, ResultSelection, TableQuery } from "../../src/types.js";
 import { formatCny, KeywordFilter, ScenarioFrame, scenarioTableStyle, StatusPill, waitForScenarioRequest } from "./scenario-shared.js";
 
 type OrderStatus = "待审核" | "待发货" | "运输中" | "已完成" | "异常";
@@ -84,14 +85,17 @@ const typeLoaders: DataTypeLoader<OrderRow>[] = [
     },
 ];
 
-async function requestOrders({ page, pageSize, filters, sort, signal }: TableQuery) {
-    await waitForScenarioRequest(signal);
-    const filtered = orders.filter(row => Object.entries(filters).every(([column, term]) => {
+function matchesOrder(row: OrderRow, { filters, keyword }: ResultScope) {
+    return (!keyword || Object.values(row.dataRef).some(value => String(value).includes(keyword)))
+        && Object.entries(filters).every(([column, term]) => {
         const field = column.replace(/^\$\./, "") as keyof OrderRow["dataRef"];
         return String(row.dataRef[field] ?? "").includes(term.trim());
-    }));
-    const sorted = [...filtered].sort((left, right) => {
-        for (const item of sort) {
+    });
+}
+
+function matchingOrders(query: Omit<TableQuery, 'page' | 'pageSize'>) {
+    return orders.filter(row => matchesOrder(row, query)).sort((left, right) => {
+        for (const item of query.sort) {
             const field = item.columnName.replace(/^\$\./, "") as keyof OrderRow["dataRef"];
             const a = left.dataRef[field];
             const b = right.dataRef[field];
@@ -101,13 +105,21 @@ async function requestOrders({ page, pageSize, filters, sort, signal }: TableQue
         }
         return left.dataRef.orderNo.localeCompare(right.dataRef.orderNo);
     });
-    return { rows: sorted.slice((page - 1) * pageSize, page * pageSize), total: sorted.length };
+}
+
+async function requestOrders(query: TableQuery) {
+    await waitForScenarioRequest(query.signal);
+    const sorted = matchingOrders(query);
+    const { page, pageSize } = query;
+    return { rows: sorted.slice((page - 1) * pageSize, page * pageSize), total: sorted.length,
+        summary: { '$.orderNo': '匹配订单合计', '$.amount': formatCny(sorted.reduce((sum, row) => sum + row.dataRef.amount, 0)) } };
 }
 
 export default function OrderOperationsDemo() {
-    const [selectedIds, setSelectedIds] = useState<Set<Key>>(new Set());
+    const [selection, setSelection] = useState<ResultSelection>({ mode: 'ids', ids: new Set() });
     const [feedback, setFeedback] = useState("从右侧过滤器选择区域、渠道或状态；表头可排序。");
-    const selectedOrders = orders.filter(order => selectedIds.has(order.id));
+    const selectedOrders = orders.filter(order => selection.mode === 'ids' ? selection.ids.has(order.id)
+        : matchesOrder(order, selection.scope) && !selection.excludedIds.has(order.id));
     const pickable = selectedOrders.filter(order => order.dataRef.status === "待发货");
 
     return (
@@ -121,7 +133,7 @@ export default function OrderOperationsDemo() {
             ]}
             actions={<Button type="button" size="s" appearance="primary" disabled={pickable.length === 0} onClick={() => {
                 setFeedback(`已生成模拟拣货单：${pickable.length} 笔、${pickable.reduce((sum, order) => sum + order.dataRef.itemCount, 0)} 件商品。`);
-                setSelectedIds(new Set());
+                setSelection({ mode: 'ids', ids: new Set() });
             }}>生成拣货单</Button>}
             feedback={feedback}
         >
@@ -133,7 +145,13 @@ export default function OrderOperationsDemo() {
                 defaultSortColumns={[{ columnName: "$.promiseDate", direction: "asc" }]}
                 pagination={{ defaultPageSize: 20, pageSizeOptions: [10, 20, 50], showSizeChanger: true, showTotal: true }}
                 typeLoaders={typeLoaders}
-                rowSelection={{ type: "checkbox", selectedRowIds: selectedIds, onSelectedRowIdsChange: ids => setSelectedIds(ids), getDisabled: row => row.dataRef.status !== "待发货" }}
+                resultSelection={{ value: selection, onValueChange: setSelection, getDisabled: row => row.dataRef.status !== '待发货' }}
+                searchMode="server"
+                onExportAll={async query => {
+                    await waitForScenarioRequest(query.signal);
+                    exportToCSV(columns, matchingOrders(query), typeLoaders, '履约订单-全部匹配');
+                }}
+                onRowDoubleClick={row => setFeedback(row.dataRef.orderNo + ' · ' + row.dataRef.merchant + ' · ' + row.dataRef.status)}
                 sideBar
                 filterBar
                 showSearchBar

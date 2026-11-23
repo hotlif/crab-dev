@@ -1,5 +1,6 @@
-import { type Key, type MouseEvent as ReactMouseEvent, type RefObject, useCallback, useEffect, useMemo, useRef, useState } from "react";
-import type { CellSelectionState, ColumnType, MergeCell, Row } from "../types.js";
+import { type Key, type MouseEvent as ReactMouseEvent, type RefObject, useCallback, useEffect, useEffectEvent, useId, useMemo, useRef, useState } from "react";
+import { getPasteRecords } from '../clipboard.js';
+import type { CellEditRecord, CellSelectionState, ColumnType, MergeCell, Row } from "../types.js";
 import { KEY_SEP, isInternalRow, makeSelectKey } from "../util.js";
 import type { InternalExpandedRow, InternalGroupRow } from "../util.js";
 import { getDataValueAccessor } from "../valueAccess.js";
@@ -9,38 +10,54 @@ interface SelectionAnchor {
     columnIndex: number
 }
 
-const buildRectKeys = (
-    rows: Array<{ id: Key }>,
+const buildRectKeys = <T extends Row>(
+    rows: Array<T | InternalGroupRow<T> | InternalExpandedRow<T>>,
+    indexedRows: ReadonlyMap<number, T> | undefined,
     a: { rowIndex: number; columnIndex: number },
     b: { rowIndex: number; columnIndex: number },
-    isColumnSelectable?: (columnIndex: number) => boolean
+    isSelectable: (rowIndex: number, columnIndex: number) => boolean
 ): Key[] => {
     const r1 = Math.min(a.rowIndex, b.rowIndex);
     const r2 = Math.max(a.rowIndex, b.rowIndex);
     const c1 = Math.min(a.columnIndex, b.columnIndex);
     const c2 = Math.max(a.columnIndex, b.columnIndex);
     const keys: Key[] = [];
-    for (let r = r1; r <= r2; r += 1) {
-        const row = rows[r];
-        if (!row) continue;
+    const appendRow = (r: number, row: T | InternalGroupRow<T> | InternalExpandedRow<T> | undefined) => {
+        if (!row || isInternalRow(row)) return;
         for (let c = c1; c <= c2; c += 1) {
-            if (isColumnSelectable && !isColumnSelectable(c)) continue;
+            if (!isSelectable(r, c)) continue;
             keys.push(makeSelectKey(row.id, c));
         }
+    };
+    if (indexedRows) {
+        // A rectangle can span millions of unloaded rows. Visit the cached keys only.
+        const indexes = [...indexedRows.keys()].filter(index => index >= r1 && index <= r2).sort((a, b) => a - b);
+        for (const index of indexes) appendRow(index, indexedRows.get(index));
+    } else {
+        for (let index = r1; index <= r2; index += 1) appendRow(index, rows[index]);
     }
     return keys;
 };
 
 export function useCellSelection<T extends Row>(params: {
     displayRows: Array<T | InternalGroupRow<T> | InternalExpandedRow<T>>
+    indexedRows?: ReadonlyMap<number, T>
+    indexedRowCount?: number
+    findBrowseStart?: () => number
     bottomColumnsRef: RefObject<ColumnType<T>[]>
     rootRef?: RefObject<HTMLElement | null>
     selectCells?: Key[]
     onSelectCellsChange?: (cells: Key[]) => void
     onCopy?: (cells: Array<{ rowId: Key; rowIndex: number; columnIndex: number; columnName: string; value: unknown }>) => void
+    editing: boolean
+    isCovered: (row: number, column: number) => boolean
+    onNavigate: (row: number, column: number) => void
+    onPasteRecords?: (records: CellEditRecord[]) => void
+    onCtrlY?: () => boolean
     onCtrlZ?: () => boolean
     isInteractionActive: () => boolean
 }): {
+    pasteError: string | undefined;
     committedSelectCells: Key[];
     selectedKeySet: Set<string>;
     anchorCell: SelectionAnchor | null;
@@ -51,8 +68,16 @@ export function useCellSelection<T extends Row>(params: {
     handleCellMouseEnter: (_rowIndex: number, _columnIndex: number, event: ReactMouseEvent<HTMLDivElement>) => void;
     getCellSelectionState: (rowIndex: number, columnIndex: number, mergeCell?: MergeCell) => CellSelectionState | undefined;
 } {
-    const { displayRows, bottomColumnsRef, rootRef, selectCells, onSelectCellsChange, onCopy, onCtrlZ, isInteractionActive } = params;
+    const { displayRows, indexedRows, bottomColumnsRef, rootRef, selectCells, onSelectCellsChange, onCopy, onCtrlZ,
+        isInteractionActive } = params;
 
+    // Stable index lookup for the memoized cell handlers, in either row model.
+    const getRow = useCallback((index: number) => indexedRows ? indexedRows.get(index) : displayRows[index], [indexedRows, displayRows]);
+
+    const instanceId = useId();
+    const batchSequence = useRef(0);
+    const rangeOrigin = useRef<SelectionAnchor | null>(null);
+    const [pasteError, setPasteError] = useState<string>();
     const onCopyRef = useRef(onCopy);
     onCopyRef.current = onCopy;
     const onCtrlZRef = useRef(onCtrlZ);
@@ -109,20 +134,22 @@ export function useCellSelection<T extends Row>(params: {
 
     const rowIdToIndex = useMemo(() => {
         const map = new Map<Key, number>();
-        displayRows.forEach((row, index) => map.set(row.id, index));
+        (indexedRows ?? displayRows).forEach((row, index) => map.set(row.id, index));
         return map;
-    }, [displayRows]);
+    }, [displayRows, indexedRows]);
 
+    const canCopy = onCopy !== undefined;
     const serializedRowMap = useMemo(() => {
         const map = new Map<string, { row: T; rowIndex: number }>();
-        displayRows.forEach((row, rowIndex) => {
+        if (!canCopy) return map;
+        (indexedRows ?? displayRows).forEach((row, rowIndex) => {
             if (isInternalRow(row)) return;
             const serializedId = String(row.id);
             // 保持旧版 displayRows.find 的“第一个同字符串 id 命中”语义。
             if (!map.has(serializedId)) map.set(serializedId, { row: row as T, rowIndex });
         });
         return map;
-    }, [displayRows]);
+    }, [displayRows, indexedRows, canCopy]);
 
     const emitSelectCells = useCallback((next: Key[]) => {
         if (selectCells == null) setInnerSelectCells(next);
@@ -136,7 +163,7 @@ export function useCellSelection<T extends Row>(params: {
     }, [committedSelectCells]);
 
     const isCellSelected = useCallback((rowIndex: number, columnIndex: number): boolean => {
-        const row = displayRows[rowIndex];
+        const row = getRow(rowIndex);
         if (!row || isInternalRow(row)) return false;
         if (bottomColumnsRef.current[columnIndex]?.selectable === false) return false;
         if (dragRect) {
@@ -148,7 +175,7 @@ export function useCellSelection<T extends Row>(params: {
                 && columnIndex >= minColumn && columnIndex <= maxColumn;
         }
         return selectedKeySet.has(makeSelectKey(row.id, columnIndex));
-    }, [displayRows, bottomColumnsRef, dragRect, selectedKeySet]);
+    }, [getRow, bottomColumnsRef, dragRect, selectedKeySet]);
 
     const anchorRowIndex = useMemo(() => {
         if (!anchorCell) return -1;
@@ -165,9 +192,10 @@ export function useCellSelection<T extends Row>(params: {
 
     const handleCellMouseDown = useCallback((rowIndex: number, columnIndex: number, event: ReactMouseEvent<HTMLDivElement>) => {
         if (event.button !== 0) return;
-        const row = displayRows[rowIndex];
+        const row = getRow(rowIndex);
         if (!row || isInternalRow(row)) return;
         if (bottomColumnsRef.current[columnIndex]?.selectable === false) return;
+        rangeOrigin.current = null;
         const cell = { rowIndex, columnIndex };
         const keyString = makeSelectKey(row.id, columnIndex);
 
@@ -192,7 +220,7 @@ export function useCellSelection<T extends Row>(params: {
         const document = event.currentTarget?.ownerDocument ?? rootRef?.current?.ownerDocument ?? globalThis.document;
         (document.activeElement as HTMLElement | null)?.blur?.();
         event.preventDefault();
-    }, [rootRef, anchorCell, anchorRowIndex, committedSelectCells, emitSelectCells, displayRows, selectedKeySet, bottomColumnsRef]);
+    }, [rootRef, anchorCell, anchorRowIndex, committedSelectCells, emitSelectCells, getRow, selectedKeySet, bottomColumnsRef]);
 
     const handleCellMouseEnter = useCallback((_rowIndex: number, _columnIndex: number, event: ReactMouseEvent<HTMLDivElement>) => {
         if (!isDraggingRef.current) return;
@@ -202,12 +230,14 @@ export function useCellSelection<T extends Row>(params: {
             pendingDragEndRef.current = null;
             return;
         }
-        if (isInternalRow(displayRows[_rowIndex])) return;
+        const row = getRow(_rowIndex);
+        if (!row || isInternalRow(row)) return;
         scheduleDragEnd({ rowIndex: _rowIndex, columnIndex: _columnIndex });
-    }, [displayRows, scheduleDragEnd, cancelDragFrame]);
+    }, [getRow, scheduleDragEnd, cancelDragFrame]);
 
     const getCellSelectionState = useCallback((rowIndex: number, columnIndex: number, mergeCell?: MergeCell): CellSelectionState | undefined => {
-        const row = displayRows[rowIndex];
+        if (!dragRect && selectedKeySet.size === 0) return undefined;
+        const row = getRow(rowIndex);
         if (!row || isInternalRow(row)) return undefined;
         if (bottomColumnsRef.current[columnIndex]?.selectable === false) return undefined;
         if (!isCellSelected(rowIndex, columnIndex)) return undefined;
@@ -221,7 +251,78 @@ export function useCellSelection<T extends Row>(params: {
             edgeLeft: !isCellSelected(rowIndex, columnIndex - 1),
             edgeRight: !isCellSelected(rowIndex, rightColIdx)
         };
-    }, [anchorCell, displayRows, bottomColumnsRef, isCellSelected]);
+    }, [anchorCell, getRow, bottomColumnsRef, dragRect, isCellSelected, selectedKeySet]);
+
+    const selectable = (rowIndex: number, columnIndex: number) =>
+        bottomColumnsRef.current[columnIndex]?.selectable !== false && !params.isCovered(rowIndex, columnIndex);
+    const canBrowse = () => {
+        const root = rootRef?.current;
+        const active = root?.ownerDocument.activeElement;
+        return root && isInteractionActive() && !params.editing
+            && (!active || active === root || active === root.ownerDocument.body);
+    };
+    const handleBrowseKey = useEffectEvent((event: KeyboardEvent) => {
+        if (event.defaultPrevented || event.isComposing || event.altKey || !canBrowse()) return false;
+        if (event.ctrlKey || event.metaKey) {
+            const key = event.key.toLowerCase();
+            if ((key === 'y' && !event.shiftKey) || (key === 'z' && event.shiftKey)) {
+                if (params.onCtrlY?.()) event.preventDefault();
+                return true;
+            }
+            return false;
+        }
+        const directions: Record<string, [number, number]> = {
+            ArrowDown: [1, 0], ArrowUp: [-1, 0], ArrowLeft: [0, -1], ArrowRight: [0, 1],
+        };
+        const delta = directions[event.key];
+        if (!delta) return false;
+        const columns = bottomColumnsRef.current;
+        let r = anchorRowIndex;
+        let c = anchorCell?.columnIndex ?? -1;
+        if (r < 0 || c < 0 || c >= columns.length) {
+            r = params.findBrowseStart?.() ?? displayRows.findIndex(row => !isInternalRow(row));
+            c = r < 0 ? -1 : columns.findIndex((_, index) => selectable(r, index));
+        } else {
+            let nextRow;
+            do {
+                r += delta[0];
+                c += delta[1];
+                nextRow = getRow(r);
+            } while (nextRow && columns[c] && (isInternalRow(nextRow) || !selectable(r, c)));
+        }
+        event.preventDefault();
+        const row = getRow(r);
+        if (!columns[c]) return true;
+        if (!row) {
+            if (r >= 0 && r < (params.indexedRowCount ?? 0)) params.onNavigate(r, c);
+            return true;
+        }
+        const target = { rowId: row.id, columnIndex: c };
+        if (!event.shiftKey || !rangeOrigin.current) rangeOrigin.current = event.shiftKey ? anchorCell ?? target : target;
+        const origin = rangeOrigin.current;
+        const originRow = rowIdToIndex.get(origin.rowId) ?? r;
+        emitSelectCells(buildRectKeys(displayRows, indexedRows, { rowIndex: originRow, columnIndex: origin.columnIndex },
+            { rowIndex: r, columnIndex: c }, selectable));
+        setAnchorCell(target);
+        rootRef?.current?.focus({ preventScroll: true });
+        params.onNavigate(r, c);
+        return true;
+    });
+    const handlePaste = useEffectEvent((event: ClipboardEvent) => {
+        if (event.defaultPrevented || !canBrowse() || !params.onPasteRecords || !anchorCell || anchorRowIndex < 0 || !event.clipboardData) return;
+        if (!Array.from(event.clipboardData.types).includes('text/plain')) return;
+        event.preventDefault();
+        try {
+            const records = getPasteRecords(event.clipboardData.getData('text/plain'), anchorRowIndex, anchorCell.columnIndex,
+                displayRows, bottomColumnsRef.current, params.isCovered, instanceId + '-' + (++batchSequence.current));
+            params.onPasteRecords(records);
+            setPasteError(undefined);
+        } catch (error) {
+            setPasteError(error instanceof Error ? error.message : String(error));
+        }
+    });
+    const finishRange = useEffectEvent((a: { rowIndex: number; columnIndex: number }, b: typeof a) =>
+        emitSelectCells(buildRectKeys(displayRows, indexedRows, a, b, selectable)));
 
     useEffect(() => {
         const document = rootRef?.current?.ownerDocument ?? globalThis.document;
@@ -237,15 +338,14 @@ export function useCellSelection<T extends Row>(params: {
             cancelDragFrame();
             pendingDragEndRef.current = null;
             if (finalRect) {
-                emitSelectCells(buildRectKeys(displayRows, finalRect.anchor, finalRect.end,
-                    (c) => bottomColumnsRef.current[c]?.selectable !== false));
+                finishRange(finalRect.anchor, finalRect.end);
             }
             dragRectRef.current = null;
             setDragRect(null);
         };
 
         const handleKeyDown = (event: KeyboardEvent) => {
-            if (!isInteractionActive()) return;
+            if (!isInteractionActive() || event.defaultPrevented || event.isComposing || handleBrowseKey(event)) return;
             const isMod = event.ctrlKey || event.metaKey;
 
             // Ctrl/Cmd+Z：撤销
@@ -270,6 +370,7 @@ export function useCellSelection<T extends Row>(params: {
                             const column = bottomColumnsRef.current[columnIndex];
                             if (!column) return [];
                             const rowEntry = serializedRowMap.get(rowIdRaw);
+                            if (indexedRows && !rowEntry) return [];
                             const value = rowEntry
                                 ? getDataValueAccessor(column.name).get(rowEntry.row.dataRef)
                                 : undefined;
@@ -291,19 +392,23 @@ export function useCellSelection<T extends Row>(params: {
             // Esc：清空选区与锚点
             if (event.key !== "Escape") return;
             if (committedSelectCells.length === 0 && anchorCell == null && dragRectRef.current == null) return;
+            rangeOrigin.current = null;
+            setPasteError(undefined);
             setAnchorCell(null);
             setDragRect(null);
             isDraggingRef.current = false;
             if (committedSelectCells.length > 0) emitSelectCells([]);
         };
 
+        target.addEventListener('paste', handlePaste as EventListener);
         target.addEventListener("mouseup", handleMouseUp);
         target.addEventListener("keydown", handleKeyDown as EventListener);
         return () => {
+            target.removeEventListener('paste', handlePaste as EventListener);
             target.removeEventListener("mouseup", handleMouseUp);
             target.removeEventListener("keydown", handleKeyDown as EventListener);
         };
-    }, [rootRef, displayRows, emitSelectCells, committedSelectCells, anchorCell, serializedRowMap, bottomColumnsRef, isInteractionActive, cancelDragFrame]);
+    }, [rootRef, indexedRows, emitSelectCells, committedSelectCells, anchorCell, serializedRowMap, bottomColumnsRef, isInteractionActive, cancelDragFrame]);
 
     useEffect(() => () => {
         cancelDragFrame();
@@ -311,16 +416,18 @@ export function useCellSelection<T extends Row>(params: {
     }, [cancelDragFrame]);
 
     const selectSingleCell = useCallback((rowIndex: number, columnIndex: number) => {
-        const row = displayRows[rowIndex];
+        const row = getRow(rowIndex);
         if (!row || isInternalRow(row)) return;
         if (bottomColumnsRef.current[columnIndex]?.selectable === false) return;
+        rangeOrigin.current = null;
         setAnchorCell({ rowId: row.id, columnIndex });
         dragRectRef.current = null;
         setDragRect(null);
         emitSelectCells([makeSelectKey(row.id, columnIndex)]);
-    }, [displayRows, bottomColumnsRef, emitSelectCells]);
+    }, [getRow, bottomColumnsRef, emitSelectCells]);
 
     return {
+        pasteError,
         committedSelectCells,
         selectedKeySet,
         anchorCell,

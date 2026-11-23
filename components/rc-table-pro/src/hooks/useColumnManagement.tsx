@@ -15,8 +15,8 @@ import {
     reorderColumnsByDrag,
     resetColumnWidths,
     buildInitWidthMap,
-    buildCurrentState,
     applyInitialState,
+    buildCurrentState,
 } from "../columnUtils.js";
 
 /* ─── 列节点样式（必须在 columnsToTreeNodes 之前声明，否则静态样式分析会触发 TDZ） ─── */
@@ -45,12 +45,10 @@ export interface UseColumnManagementOptions<T extends Row = Row> {
     fetchColumns: () => Promise<ProtocolColumnType[]>;
     typeLoaders?: DataTypeLoader<T>[];
     initialState?: ProtocolTableState;
-    onStateChange?: (state: ProtocolTableState) => void;
+
     sideBar?: boolean;
     defaultSideBarOpen?: boolean;
     onColumnResize?: (columnName: string, width: number) => void;
-    /** fetchColumns 完成时如发现需要恢复的过滤器，通过此回调通知外部 */
-    onInitialFiltersResolved?: (filters: Record<string, string>) => void;
     onError?: (error: Error) => void;
 }
 
@@ -58,11 +56,8 @@ export interface UseColumnManagementReturn<T extends Row> {
     columns: ColumnType<T>[];
     columnsLoading: boolean;
     rawColumnsRef: MutableRefObject<ProtocolColumnType[]>;
-    /**
-     * 由 table.tsx 在每次 render 时同步：`colMgmt.latestFiltersRef.current = filters`
-     * handlers 内部通过此 ref 读取最新过滤器，以生成含 filters 的完整状态快照
-     */
-    latestFiltersRef: MutableRefObject<Record<string, string>>;
+    revision: number;
+    changeOrder: (names: string[], group?: string) => void;
     panelTreeData: TreeNode[];
     setPanelTreeData: Dispatch<SetStateAction<TreeNode[]>>;
     panelExpandedKeys: (string | number)[];
@@ -143,11 +138,9 @@ export function useColumnManagement<T extends Row>(
         fetchColumns,
         typeLoaders,
         initialState,
-        onStateChange,
         sideBar,
         defaultSideBarOpen,
         onColumnResize,
-        onInitialFiltersResolved,
         onError,
     } = options;
 
@@ -160,8 +153,8 @@ export function useColumnManagement<T extends Row>(
     const rawColumnsRef = useRef<ProtocolColumnType[]>([]);
     // 可变实例状态 ref（例外 §4.1-1）：初始列宽快照，用于列宽重置
     const initWidthMapRef = useRef<Map<string | number, number | undefined>>(new Map());
-    // 由外部 table.tsx 在每次 render 时同步，供 handlers 读取最新过滤器生成完整状态快照
-    const latestFiltersRef = useRef<Record<string, string>>({});
+    const [revision, setRevision] = useState(0);
+    const savedLayout = useRef(initialState);
 
     const [panelTreeData, setPanelTreeData] = useState<TreeNode[]>([]);
     const [panelExpandedKeys, setPanelExpandedKeys] = useState<(string | number)[]>([]);
@@ -170,19 +163,31 @@ export function useColumnManagement<T extends Row>(
     const [panelSearchText, setPanelSearchText] = useState("");
     const [sideBarTab, setSideBarTab] = useState<"columns" | "filters">("columns");
 
-    // latest-ref 模式（例外 §4.1-2）：handlers 中读取最新 typeLoaders / onStateChange
+    // latest-ref 模式（例外 §4.1-2）：列操作读取最新 typeLoaders 和错误回调
     const latestTypeLoaders = useRef(typeLoaders);
     latestTypeLoaders.current = typeLoaders;
-    const latestOnStateChange = useRef(onStateChange);
-    latestOnStateChange.current = onStateChange;
-    // latest-ref 模式（例外 §4.1-2）：fetchColumns useEffect 内读取最新回调
-    const latestOnInitialFiltersResolved = useRef(onInitialFiltersResolved);
-    latestOnInitialFiltersResolved.current = onInitialFiltersResolved;
     const latestOnError = useRef(onError);
     latestOnError.current = onError;
 
-    const notify = () =>
-        latestOnStateChange.current?.(buildCurrentState(rawColumnsRef.current, latestFiltersRef.current));
+    const notify = () => {
+        savedLayout.current = buildCurrentState(rawColumnsRef.current, {});
+        setRevision(value => value + 1);
+    };
+    const changeOrder = (names: string[], group?: string) => {
+        const reorder = (items: ProtocolColumnType[], parent?: string): ProtocolColumnType[] => {
+            if (parent !== group) return items.map(item => item.children ? { ...item, children: reorder(item.children, item.name) } : item);
+            const byName = new Map(items.map(item => [item.name, item]));
+            const ordered = names.flatMap(name => byName.get(name) ?? []);
+            let index = 0;
+            const moved = new Set(ordered);
+            return items.map(item => moved.has(item) ? ordered[index++] : item);
+        };
+        const next = reorder(rawColumnsRef.current);
+        rawColumnsRef.current = next;
+        setPanelTreeData(columnsToTreeNodes(next, null, handlePinChange, handleSortableChange));
+        setColumns(transformColumns(next, latestTypeLoaders.current));
+        notify();
+    };
 
     /* ─── 列操作 handlers ─── */
 
@@ -281,10 +286,13 @@ export function useColumnManagement<T extends Row>(
     useEffect(() => {
         setColumnsLoading(true);
         setColumnsError(null);
+        let active = true;
         fetchColumns().then((resp: ProtocolColumnType[]) => {
-            const restored = initialState ? applyInitialState(resp, initialState) : resp;
+            if (!active) return;
+            const layout = savedLayout.current;
+            const restored = layout ? applyInitialState(resp, layout) : resp;
             rawColumnsRef.current = restored;
-            initWidthMapRef.current = buildInitWidthMap(restored);
+            initWidthMapRef.current = buildInitWidthMap(resp);
             setColumns(transformColumns(restored, latestTypeLoaders.current));
 
             if (sideBar) {
@@ -294,17 +302,16 @@ export function useColumnManagement<T extends Row>(
                 setPanelCheckedKeys(collectVisibleLeafColumnNames(restored));
             }
 
-            if (initialState?.filters && Object.keys(initialState.filters).length > 0) {
-                latestOnInitialFiltersResolved.current?.(initialState.filters);
-            }
 
             setColumnsLoading(false);
         }).catch((err: unknown) => {
+            if (!active) return;
             const error = err instanceof Error ? err : new Error(String(err));
             setColumnsError(error);
             setColumnsLoading(false);
             latestOnError.current?.(error);
         });
+        return () => { active = false; };
     }, [fetchColumns, sideBar, retryCount]);
 
     const retryLoadColumns = () => setRetryCount(c => c + 1);
@@ -324,7 +331,8 @@ export function useColumnManagement<T extends Row>(
         columns,
         columnsLoading,
         rawColumnsRef,
-        latestFiltersRef,
+        revision,
+        changeOrder,
         panelTreeData,
         setPanelTreeData,
         panelExpandedKeys,

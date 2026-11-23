@@ -39,6 +39,8 @@ status = "experimental"
 
 组件维护完整的逻辑滚动位置，并将 DOM 占位限制在局部窗口，避免百万行总高度触及浏览器布局上限。占位变量和 DOM `scrollTop` / `scrollLeft` 表示局部坐标；定位数据请使用 `scrollToCell` 和 `getScrollCellPosition`，不要根据占位值反算数据索引。单行／单列及同时渲染的内容仍需能放入浏览器布局范围。
 
+可用 `renderWindow` 代替 `renderRows`。回调的第三个参数 `padding` 提供四边的局部占位尺寸，应用到各占位节点以保持行列位置。
+
 浏览器聚焦内容或执行 `scrollIntoView` 产生的原生滚动，会同步到逻辑位置、可见行列和自绘滚动条。它与同一帧的滚轮增量合并，内部更新占位后产生的滚动事件不会重复通知。应用仍应使用公开定位接口跳到尚未挂载的行列；原生方法只能操作已挂载内容。
 
 可见行列范围不变时会复用渲染结果。`renderRows` 应保持纯净，业务数据更新时应提供读取新数据的回调。组件只虚拟化渲染，不负责业务数据的分页、加载和存储。
@@ -52,6 +54,8 @@ status = "experimental"
 ## API
 
 <API source="../src/virtual.tsx" symbol="VirtualProps" component="Virtual" />
+<API source="../src/virtual.tsx" symbol="VirtualWindowProps" component="Virtual 直接设置占位尺寸" />
+<API source="../src/virtual.tsx" symbol="VirtualPadding" component="VirtualPadding" />
 
 
 ## 设计风格与主题

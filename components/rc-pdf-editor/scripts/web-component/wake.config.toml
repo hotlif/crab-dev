@@ -1,6 +1,6 @@
-# Wake 0.1.45 browser bundle defaults to development defines, even with minify.
-# Keep this production override separate from component tests and Docs.
-root_dir = "../.."
+# Wake copies <root_dir>/public into application builds. The standalone project
+# contains the generated entry and its embedded assets.
+root_dir = "../../.web-component"
 
 [define]
 "process.env.NODE_ENV" = '"production"'

@@ -78,6 +78,45 @@ it('preserves manual scrolling on search data refresh and still locates keyword 
     await view.unmount();
 });
 
+it('navigates a virtual grid, extends and shrinks a range, and pastes, undoes and redoes one batch', async () => {
+    const changes = mock.fn<NonNullable<TableProps<GeometryRow>['onCellsChange']>>();
+    const fields = columns.map(col => ({ ...col, parsePaste: (text: string) => text.trim(),
+        validatePaste: (value: unknown) => value === 'bad' ? 'Invalid quantity' : undefined }));
+    const clicked = mock.fn();
+    const view = await render(<><style>{compiledCss}</style><Table {...tableProps} columns={fields}
+        onCellsChange={changes} onRowClick={clicked} /></>);
+    const grid = requiredElement<HTMLElement>(view.container, '[role="grid"]');
+    const key = (key: string, init: KeyboardEventInit = {}) =>
+        fireEvent(grid, new KeyboardEvent('keydown', { key, bubbles: true, cancelable: true, ...init }));
+    const paste = async (text: string) => {
+        const clipboardData = new globalThis.DataTransfer();
+        clipboardData.setData('text/plain', text);
+        await fireEvent(grid, new globalThis.ClipboardEvent('paste', { clipboardData, bubbles: true, cancelable: true }));
+    };
+    await act(() => grid.focus());
+    await key('ArrowDown');
+    await key('ArrowRight', { shiftKey: true });
+    await key('ArrowDown', { shiftKey: true });
+    expect(grid.querySelectorAll('[role="gridcell"][aria-selected="true"]').length).toBe(4);
+    await key('ArrowUp', { shiftKey: true });
+    expect(grid.querySelectorAll('[role="gridcell"][aria-selected="true"]').length).toBe(2);
+    for (let index = 0; index < 18; index++) await key('ArrowDown');
+    await settleLayout();
+    const activeId = grid.getAttribute('aria-activedescendant');
+    expect(activeId && grid.ownerDocument.getElementById(activeId)?.textContent).toContain('Record 18:1');
+    await key('Enter');
+    expect(clicked.calls.calls[0]?.[0]).toEqual(rows[18]);
+    await paste('first\tsecond\r\nthird\tbad');
+    expect(changes).not.toHaveBeenCalled();
+    expect(view.container.querySelector('[role="alert"]')?.textContent).toContain('Invalid quantity');
+    await paste(' first \tsecond\r\nthird\t"fourth\nline"\r\n');
+    expect(changes.calls.calls[0]?.[0].map(record => record.newValue)).toEqual(['first', 'second', 'third', 'fourth\nline']);
+    await key('z', { ctrlKey: true });
+    await key('Z', { ctrlKey: true, shiftKey: true });
+    expect(changes.calls.calls.map(([records, details]) => [records.length, details.reason])).toEqual([[4, 'paste'], [4, 'undo'], [4, 'redo']]);
+    await view.unmount();
+});
+
 for (const designSystem of ['md3', 'macos', 'shadcn'] as const)
 for (const colorMode of ['light', 'dark'] as const)
 for (const destination of ['grid', 'outside'] as const)
@@ -187,6 +226,17 @@ describe('Table published virtual row geometry', () => {
         expect(first.getBoundingClientRect().top).toBeCloseTo(header.getBoundingClientRect().bottom, 1);
         expect(first.getBoundingClientRect().height).toBe(ROW_HEIGHT);
         expect(grid.scrollHeight).toBe(TOTAL_HEIGHT);
+        expect(header.querySelector('svg')).toBeNull();
+        const labelCell = requiredElement<HTMLElement>(first, '[aria-colindex="1"]');
+        expect(labelCell.textContent).toBe('Record 0:0');
+        expect(labelCell.childElementCount).toBe(0);
+        expect(getComputedStyle(labelCell).textOverflow).toBe('ellipsis');
+        const text = document.createRange();
+        text.selectNodeContents(labelCell);
+        const labelBox = labelCell.getBoundingClientRect();
+        const textBox = text.getBoundingClientRect();
+        expect(Math.abs(textBox.top + textBox.bottom - labelBox.top - labelBox.bottom)).toBeLessThan(3);
+        const initialLeftGap = requiredElement<HTMLElement>(first, '[data-rc-table-virtual-spacer="left"]');
 
         await fireEvent(grid, new WheelEvent('wheel', { deltaX: 800, bubbles: true, cancelable: true }));
         await settleLayout();
@@ -197,6 +247,7 @@ describe('Table published virtual row geometry', () => {
             expect(spacer.getBoundingClientRect().width).toBeGreaterThan(0);
             expect(getComputedStyle(spacer).verticalAlign).toBe('top');
         }
+        expect(spacers[0]).toBe(initialLeftGap);
         expect(root.hasAttribute('data-fixed-left')).toBe(true);
         expect(root.hasAttribute('data-fixed-right')).toBe(true);
         expect(horizontalFirst.getBoundingClientRect().height).toBe(ROW_HEIGHT);
@@ -211,6 +262,23 @@ describe('Table published virtual row geometry', () => {
         for (const cell of last.querySelectorAll<HTMLElement>('[role="gridcell"]')) {
             expect(cell.getBoundingClientRect().bottom).toBeCloseTo(last.getBoundingClientRect().bottom, 1);
         }
+    });
+
+    it('keeps the full horizontal scroll extent when rows have no trailing controls', async () => {
+        const leftPinnedColumns = columns.map(column => column.fixed === 'right' ? { ...column, fixed: undefined } : column);
+        const { container } = await render(<><style>{compiledCss}</style><Table {...tableProps} columns={leftPinnedColumns} /></>);
+        await settleLayout();
+        const root = requiredElement<HTMLElement>(container, '[role="grid"]');
+        const grid = root.firstElementChild?.firstElementChild;
+        if (!(grid instanceof HTMLElement)) throw new Error('Missing actual virtual scroll grid');
+        expect(grid.querySelector('[data-rc-table-virtual-spacer="right"]')).toBeNull();
+        expect(grid.scrollWidth).toBe(2_400);
+        await fireEvent(grid, new WheelEvent('wheel', { deltaX: 10_000, bubbles: true, cancelable: true }));
+        await settleLayout();
+        expect(grid.scrollLeft).toBe(2_400 - tableProps.width);
+        const last = requiredElement<HTMLElement>(grid, '[data-row-index="0"] > [aria-colindex="20"]');
+        expect(last.getBoundingClientRect().right).toBeCloseTo(grid.getBoundingClientRect().right, 1);
+        expect(grid.querySelector('[data-rc-table-virtual-spacer="right"]')).toBeNull();
     });
 });
 
@@ -410,9 +478,9 @@ describe('Table physical data axis and RTL content boundaries', () => {
                 await settleLayout();
                 expect(viewport.scrollLeft).toBe(left);
                 if (left === 740) {
-                    // The last 110px fixed column is outside this virtual window.
-                    const rawTail = getComputedStyle(viewport).getPropertyValue('--crab-rc-virtual-right-padding-width');
-                    expect(Number.parseFloat(rawTail)).toBe(110);
+                    // The trailing column is rendered by the fixed section.
+                    const rightGap = requiredElement<HTMLElement>(viewport, '[data-row-index="0"] > [data-rc-table-virtual-spacer="right"]');
+                    expect(rightGap.getBoundingClientRect().width).toBe(0);
                 }
                 assertPhysicalPins(root, viewport);
                 assertHorizontalThumb(viewport);

@@ -1,5 +1,15 @@
 import type { ColumnType, Row } from "@crab-dev/rc-table";
-import type { DataTypeLoader, ProtocolColumnType} from "./types.js";
+import type { DataTypeLoader, TableDataResult, ProtocolColumnType} from "./types.js";
+
+export function positiveInteger(value: number | undefined, fallback: number): number {
+    return typeof value === 'number' && Number.isSafeInteger(value) && value > 0 ? value : fallback;
+}
+
+export function columnsWithSummary<T extends Row>(columns: ColumnType<T>[], summary: TableDataResult<T>['summary']): ColumnType<T>[] {
+    if (!summary) return columns;
+    return columns.map(col => col.children ? { ...col, children: columnsWithSummary(col.children, summary) }
+        : { ...col, summaryRender: () => summary[col.name] ?? null });
+}
 
 export const transformColumns = <T extends Row>(
     columns: ProtocolColumnType[],
@@ -23,6 +33,8 @@ export const transformColumns = <T extends Row>(
             selectable: element.selectable,
             render,
             editRender,
+            parsePaste: dataTypeLoader?.parsePaste,
+            validatePaste: dataTypeLoader?.validatePaste,
             filterEditor,
             getSearchText: dataTypeLoader?.getSearchText,
             summaryRender: dataTypeLoader?.summaryRender,

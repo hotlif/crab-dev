@@ -15,6 +15,7 @@ type FilterEditorParam<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTy
 type GroupCellRenderParam<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 type Key = DocsTypePlaceholder;
 type MergeCell = DocsTypePlaceholder;
+type Omit<T0 = unknown, T1 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0, T1] };
 type PaginationConfig = DocsTypePlaceholder;
 type Promise<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 type ProtocolColumnType = DocsTypePlaceholder;
@@ -22,6 +23,8 @@ type ProtocolTableState = DocsTypePlaceholder;
 type ReactNode = DocsTypePlaceholder;
 type Record<T0 = unknown, T1 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0, T1] };
 type Ref<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
+type ResultSelectionConfig<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
+type RowEventHandler<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 type RowSelection<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 type Set<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 type SortColumn = DocsTypePlaceholder;
@@ -29,6 +32,9 @@ type T = DocsTypePlaceholder;
 type TableDataRequest<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 type TableDataResult<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 type TableProHandle = DocsTypePlaceholder;
+type TableProps<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
+type TableQuery = DocsTypePlaceholder;
+type TableRemoteRows<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 
 export interface TableProProps {
     /**
@@ -82,9 +88,9 @@ export interface TableProProps {
     "empty"?: ReactNode;
 
     /**
-     * 暂无说明。
+     * 暂无说明。 与 remoteRows、request、fetchData 互斥，不能同时提供。
      */
-    "mergeCells"?: MergeCell[];
+    "mergeCells"?: (MergeCell[]) & (never);
 
     /**
      * 暂无说明。
@@ -92,9 +98,9 @@ export interface TableProProps {
     "onCopy"?: (cells: Array<{ rowId: Key; rowIndex: number; columnIndex: number; columnName: string; value: unknown; }>) => void;
 
     /**
-     * 暂无说明。
+     * 暂无说明。 与 remoteRows、request、fetchData 互斥，不能同时提供。
      */
-    "getRowHeight"?: ((row: T, rowIndex: number) => number | undefined);
+    "getRowHeight"?: (((row: T, rowIndex: number) => number | undefined)) & (never);
 
     /**
      * 暂无说明。
@@ -137,9 +143,9 @@ export interface TableProProps {
     "onGroupColumnOrderChange"?: (groupName: string, orderedChildNames: string[]) => void;
 
     /**
-     * 暂无说明。
+     * 暂无说明。 与 remoteRows、request、fetchData 互斥，不能同时提供。
      */
-    "groupBy"?: string[];
+    "groupBy"?: (string[]) & (never);
 
     /**
      * 暂无说明。
@@ -169,7 +175,7 @@ export interface TableProProps {
     /**
      * server 仅维护排序状态，排序结果由 request 返回。默认 client。
      */
-    "sortMode"?: ('client' | 'server') & ('client' | 'server' | 'client');
+    "sortMode"?: ('client' | 'server') & ('client' | 'server' | 'client' | 'server');
 
     /**
      * 暂无说明。 与 sortColumns 互斥，不能同时提供。
@@ -182,9 +188,9 @@ export interface TableProProps {
     "onSortColumnsChange"?: (columns: SortColumn[]) => void;
 
     /**
-     * 暂无说明。
+     * 由服务端导出当前筛选的所有行。
      */
-    "rowSelection"?: RowSelection<T>;
+    "onExportAll"?: (query: Omit<TableQuery, 'page' | 'pageSize'>) => void | Promise<void>;
 
     /**
      * 暂无说明。
@@ -222,9 +228,9 @@ export interface TableProProps {
     "onSelectCellsChange"?: (selectCells: Key[]) => void;
 
     /**
-     * 暂无说明。
+     * 暂无说明。 与 request、fetchData 互斥，不能同时提供。
      */
-    "treeData"?: boolean;
+    "treeData"?: (boolean) & (false);
 
     /**
      * 暂无说明。
@@ -257,9 +263,9 @@ export interface TableProProps {
     "onExpandedRowIdsChange"?: (ids: Set<Key>) => void;
 
     /**
-     * 暂无说明。
+     * 暂无说明。 与 remoteRows、request、fetchData 互斥，不能同时提供。
      */
-    "expandedRowRender"?: ((row: T) => ReactNode);
+    "expandedRowRender"?: (((row: T) => ReactNode)) & (never);
 
     /**
      * 暂无说明。
@@ -302,9 +308,9 @@ export interface TableProProps {
     "expandColumnFixed"?: boolean;
 
     /**
-     * 暂无说明。
+     * 暂无说明。 与 remoteRows、request、fetchData 互斥，不能同时提供。
      */
-    "editType"?: "cell" | "row";
+    "editType"?: ("cell" | "row") & (never);
 
     /**
      * 暂无说明。 与 defaultEditingRowId 互斥，不能同时提供。
@@ -324,7 +330,27 @@ export interface TableProProps {
     /**
      * 暂无说明。
      */
-    "onRowCommit"?: (rowId: Key, changes: Record<string, unknown>) => void;
+    "onRowCommit"?: TableProps<T>['onRowCommit'];
+
+    /**
+     * 点击数据行或键盘激活时回调。
+     */
+    "onRowClick"?: RowEventHandler<T>;
+
+    /**
+     * 双击数据行时回调，保留行内编辑器与控件的事件优先级。
+     */
+    "onRowDoubleClick"?: RowEventHandler<T>;
+
+    /**
+     * 暂无说明。 与 remoteRows、request、fetchData 互斥，不能同时提供。
+     */
+    "onCellsChange"?: (TableProps<T>['onCellsChange']) & (never);
+
+    /**
+     * 暂无说明。
+     */
+    "onRedo"?: TableProps<T>['onRedo'];
 
     /**
      * 暂无说明。
@@ -372,9 +398,9 @@ export interface TableProProps {
     "autoRefreshInterval"?: number;
 
     /**
-     * 暂无说明。
+     * 暂无说明。 与 remoteRows、request、fetchData 互斥，不能同时提供。
      */
-    "exportFileName"?: string;
+    "exportFileName"?: (string) & (never);
 
     /**
      * 暂无说明。
@@ -392,17 +418,37 @@ export interface TableProProps {
     "showRowNumber"?: boolean;
 
     /**
-     * 暂无说明。 与 fetchData 互斥，不能同时提供。
+     * 暂无说明。 与 request、fetchData 互斥，不能同时提供。
+     */
+    "remoteRows"?: TableRemoteRows<T>;
+
+    /**
+     * 暂无说明。
+     */
+    "searchMode"?: 'loaded' | 'server' | 'loaded' | 'server';
+
+    /**
+     * 暂无说明。 与 fetchData、remoteRows 互斥，不能同时提供。
      */
     "request"?: TableDataRequest<T>;
 
     /**
-     * 暂无说明。 与 request 互斥，不能同时提供。
+     * 暂无说明。 与 request、remoteRows 互斥，不能同时提供。
      */
     "fetchData"?: ((filters: Record<string, string>) => Promise<T[]>) | ((page: number, pageSize: number, filters: Record<string, string>) => Promise<TableDataResult<T>>);
 
     /**
      * 暂无说明。
      */
-    "pagination"?: PaginationConfig | false | false | PaginationConfig;
+    "pagination"?: PaginationConfig | false | false | PaginationConfig | false;
+
+    /**
+     * 暂无说明。 与 resultSelection 互斥，不能同时提供。
+     */
+    "rowSelection"?: RowSelection<T>;
+
+    /**
+     * 按查询条件和排除项跨页选择全部符合条件的记录。 与 rowSelection 互斥，不能同时提供。
+     */
+    "resultSelection"?: ResultSelectionConfig<T>;
 }

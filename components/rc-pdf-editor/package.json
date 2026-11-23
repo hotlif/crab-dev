@@ -23,7 +23,7 @@
         "generate:token": "wake library token .",
         "generate:docgen": "wake library docgen .",
         "lint": "wake lint --format human --root ../.. components/rc-pdf-editor/src components/rc-pdf-editor/docs components/rc-pdf-editor/scripts components/rc-pdf-editor/browser-tests --env browser --env node --max-warnings 0",
-        "typecheck": "tsc --noEmit",
+        "typecheck": "node ../../scripts/typecheck.mjs",
         "test": "yarn build:runtime && wake test --serial --coverage",
         "check": "node ../../scripts/check-package.mjs",
         "build:visual": "wake docs build . --mode components --outdir .cache/visual-workbench",
@@ -51,7 +51,7 @@
         "./package.json": "./package.json"
     },
     "dependencies": {
-        "@crab-dev/css": "0.1.45",
+        "@crab-dev/css": "0.1.57",
         "@crab-dev/rc-auto-sizer": "workspace:^",
         "@crab-dev/rc-button": "workspace:^",
         "@crab-dev/rc-canvas": "workspace:^",
@@ -73,13 +73,13 @@
     },
     "devDependencies": {
         "@crab-dev/standards-typescript-preset": "workspace:^",
-        "@crab-dev/wake": "0.1.45",
-        "@types/node": "^22.20.2",
+        "@crab-dev/wake": "0.1.57",
+        "@types/node": "^26.6.6",
         "@types/react": "^19.3.0",
         "@types/react-dom": "^19.3.0",
         "react": "19.3.0",
         "react-dom": "19.3.0",
-        "typescript": "6.0.2"
+        "typescript": "7.0.2"
     },
     "crab": {
         "docsDependencies": [],

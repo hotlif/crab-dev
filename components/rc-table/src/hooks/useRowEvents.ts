@@ -61,7 +61,7 @@ interface UseRowEventsOptions<T extends Row> {
     startRowEdit: (rowId: Key) => void;
     /** 当前处于编辑态的行；不为 null 时，键盘 Enter 不触发行点击 */
     currentEditingRowId: Key | null;
-    displayRows: Array<T | InternalGroupRow<T> | InternalExpandedRow<T>>;
+    getRow: (index: number) => T | InternalGroupRow<T> | InternalExpandedRow<T> | undefined;
     /** 键盘触发的锚点：用户最后一次点选的单元格所在行 */
     anchorCell: { rowId: Key; columnIndex: number } | null;
     rowIdToIndex: Map<Key, number>;
@@ -137,7 +137,7 @@ export function useRowEvents<T extends Row>(options: UseRowEventsOptions<T>): Us
             const rowIndex = current.rowIdToIndex.get(anchor.rowId);
             if (rowIndex == null) return;
 
-            const row = current.displayRows[rowIndex];
+            const row = current.getRow(rowIndex);
             if (!row || isInternalRow(row)) return;
 
             event.preventDefault();

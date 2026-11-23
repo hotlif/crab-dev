@@ -5,7 +5,7 @@ import type { Align, ColumnType, MergeCell, Row, SortDirection } from "./types.j
 import { getMergedCellSize } from "./util.js";
 import { memo, type HTMLAttributes, type KeyboardEvent, type MouseEvent, type ReactNode } from "react";
 import type { DropSide } from "./hooks/useColumnDrag.js";
-import { draggableStyle, sortableRootStyle, titleInnerBaseStyle, sortTitleInnerStyle, sortIconWrapStyle, sortIconPlaceholderStyle, sortIconIdleStyle, sortIconActiveStyle, sortBadgeStyle, fixedHeaderBgStyle, fixedRightSpanStyle, fixedRightSpanWithBottomStyle, fixedRightSkipStyle, draggingStyle, skipCellStyle, dropLineBaseStyle, dropLineLeftStyle, dropLineRightStyle } from "./headerCell.styles.js";
+import { draggableStyle, sortableRootStyle, titleInnerBaseStyle, sortTitleInnerStyle, sortIconWrapStyle, sortIconIdleStyle, sortIconActiveStyle, sortBadgeStyle, fixedHeaderBgStyle, fixedRightSpanStyle, fixedRightSpanWithBottomStyle, fixedRightSkipStyle, draggingStyle, skipCellStyle, dropLineBaseStyle, dropLineLeftStyle, dropLineRightStyle } from "./headerCell.styles.js";
 interface TableHeaderCellProps<T extends Row> extends HTMLAttributes<HTMLDivElement> {
     columnIndex: number,
     rowIndex: number,
@@ -179,15 +179,12 @@ function TableHeaderCell<T extends Row>({
         `;
 
         // 使用同一图标槽呈现未排序、升序和降序状态。
-        const stableIconEl = (
+        const stableIconEl = isSortable && (
             <span
-                className={cx.call(undefined, sortIconWrapStyle,
-                    !isSortable && sortIconPlaceholderStyle,
-                    isSortable && !sortState && sortIconIdleStyle
-                )}
+                className={cx.call(undefined, sortIconWrapStyle, !sortState && sortIconIdleStyle)}
             >
                 <SortIcon direction={sortState?.direction ?? null} />
-                {isSortable && sortState && sortState.priority > 0 && (
+                {sortState && sortState.priority > 0 && (
                     <span className={sortBadgeStyle}>{sortState.priority}</span>
                 )}
             </span>
