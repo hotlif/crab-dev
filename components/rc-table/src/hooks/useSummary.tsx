@@ -105,9 +105,6 @@ export function useSummary<T extends Row>(params: {
     stickyRightOffsets: number[]
     /** 行的总宽度 */
     actualHeight: number
-    /** 虚拟列表左 / 右占位节点 */
-    paddingLeft: ReactNode
-    paddingRight: ReactNode
     /** 行选择列的列名（该列不渲染汇总内容） */
     selectionColumnName: string
     /** 同一轮 Table render 内保持稳定，供虚拟滚动行 memo 使用。 */
@@ -115,13 +112,15 @@ export function useSummary<T extends Row>(params: {
 }): {
     generateSummaryElement: ({ columnRange }: {
         columnRange: [number, number];
+        leftSpacer: ReactNode;
+        rightSpacer: ReactNode;
     }) => ReactNode;
 } {
     const {
         showSummary, summaryRowHeight, rows, bottomColumns,
         fixedLeftColumnsIdx, fixedRightColumnsIdx, gridTemplateColumns,
         stickyLeftOffsets, stickyRightOffsets, actualHeight,
-        paddingLeft, paddingRight, selectionColumnName, renderVersion, direction
+        selectionColumnName, renderVersion, direction
     } = params;
 
     const summaryContents = useMemo(() => {
@@ -154,7 +153,11 @@ export function useSummary<T extends Row>(params: {
         );
     };
 
-    const generateSummaryElement = ({ columnRange }: { columnRange: [number, number] }): ReactNode => {
+    const generateSummaryElement = ({ columnRange, leftSpacer, rightSpacer }: {
+        columnRange: [number, number];
+        leftSpacer: ReactNode;
+        rightSpacer: ReactNode;
+    }): ReactNode => {
         if (!showSummary) return null;
         const mainCells: ReactNode[] = [];
         for (let columnIndex = columnRange[0]; columnIndex <= columnRange[1]; columnIndex += 1) {
@@ -172,9 +175,9 @@ export function useSummary<T extends Row>(params: {
                 virtualWindowKey={`${columnRange[0]}:${columnRange[1]}`}
             >
                 {fixedLeftColumnsIdx.map((columnIndex) => renderSummaryCell(columnIndex, "left"))}
-                {paddingLeft}
+                {leftSpacer}
                 {mainCells}
-                {paddingRight}
+                {rightSpacer}
                 {fixedRightColumnsIdx.map((columnIndex) => renderSummaryCell(columnIndex, "right"))}
             </BodyRow>
         );

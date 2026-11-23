@@ -30,6 +30,7 @@ interface UseRowNumberOptions {
     showRowNumber: boolean
     rowNumberColumnFixed?: boolean
     rowNumberColumnWidth?: number
+    indexed?: boolean
 }
 
 /**
@@ -44,6 +45,7 @@ export function useRowNumber<T extends Row>({
     showRowNumber,
     rowNumberColumnFixed,
     rowNumberColumnWidth,
+    indexed = false,
 }: UseRowNumberOptions): {
     numberColumn: ColumnType<T> | null
     syncRowNumbers: (displayRows: (T | InternalGroupRow<T> | InternalExpandedRow<T>)[]) => void
@@ -64,11 +66,11 @@ export function useRowNumber<T extends Row>({
             filterable: false,
             render: ({ rowIndex }) => (
                 <div className={rowNumberCellStyle}>
-                    {rowNumberMapRef.current.get(rowIndex)}
+                    {indexed ? rowIndex + 1 : rowNumberMapRef.current.get(rowIndex)}
                 </div>
             ),
         };
-    }, [showRowNumber, rowNumberColumnFixed, rowNumberColumnWidth]);
+    }, [showRowNumber, rowNumberColumnFixed, rowNumberColumnWidth, indexed]);
 
     const syncRowNumbers = (displayRows: (T | InternalGroupRow<T> | InternalExpandedRow<T>)[]) => {
         if (!showRowNumber) {

@@ -38,7 +38,7 @@
 - 全仓 ESM，包声明 `type: module`；相对 TS/TSX 导入写 `.js`，内部依赖使用 `workspace:^`。
 - 实际使用 React / ReactDOM 的公开包显式声明对应 `peerDependencies`，并保留开发依赖；严格 PnP 下独立消费不能依赖隐式 peer。
 - Wake 与 Crab CSS 使用同一精确版本，以根 `package.json` 的 Wake 开发依赖为准。Wake 负责 lint、构建、令牌、docgen、测试和文档；Turbo 只编排真实包拓扑。
-- TypeScript 统一使用官方 6.0.2 与 Yarn 内置 PnP 兼容补丁，继承共享预设并保持严格模式；升级同步依赖、lockfile、PnP 运行时和编辑器 SDK。不自构建编译器。React 19 / Compiler、Crab CSS 和三层令牌的要求见组件规则。
+- 类型检查使用官方 TypeScript 7.0.2。包内 `yarn typecheck` 通过原生编译器的文件系统接口读取 Yarn PnP 依赖，继承共享严格预设。文档生成器和编辑器 SDK 使用 6.0.2 的 JavaScript API。升级同步依赖、lockfile、PnP 运行时和 SDK。React 19 / Compiler、Crab CSS 和三层令牌的要求见组件规则。
 - 依赖变化后刷新安装产物，再运行 `yarn install --immutable`；不可加载于 zip 的 ESM 依赖按实际需要标记 unplugged。
 
 ## 验证与发布

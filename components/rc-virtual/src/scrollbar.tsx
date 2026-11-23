@@ -251,7 +251,8 @@ const ScrollBar = ({
                 <div
                     style={{
                         width: thumbWidth,
-                        left: thumbLeft,
+                        left: 0,
+                        transform: `translate3d(${thumbLeft}px, 0, 0)`,
                         touchAction: "none",
                     }}
                     onPointerDown={onPointerDown}

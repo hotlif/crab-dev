@@ -31,6 +31,14 @@
     ],
     "faq": [
         {
+            "question": "服务端分页时，如何对全部匹配记录操作？",
+            "answer": "searchMode 设为 server 后，request 接收 keyword。返回 summary 可显示全部匹配结果的汇总。resultSelection 用筛选条件和排除的 ID 表达跨页全选。onExportAll 对接同一查询的后端导出接口，侧栏 CSV 仍可单独导出当前页。"
+        },
+        {
+            "question": "从详情返回时，怎样恢复原表格？",
+            "answer": "用 onRowClick 或 onRowDoubleClick 打开记录，把 onStateChange 的快照保存在列表页之外。再次挂载时传给 initialState，可恢复列布局、搜索、筛选、多列排序、页码和每页条数。"
+        },
+        {
             "question": "如何接真实接口？",
             "answer": "使用 fetchColumns 加载列协议，通过 request({ page, pageSize, filters, sort, signal }) 调用后端并返回 { rows, total }。total 是筛选后的总条数，signal 传给 fetch 以取消过期请求。页面中的示例使用本地模拟数据。"
         }

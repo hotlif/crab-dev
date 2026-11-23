@@ -11,7 +11,7 @@
     "type": "module",
     "scripts": {
         "test": "node ../../scripts/typecheck-fixtures.mjs && wake test --serial --coverage",
-        "typecheck": "tsc --noEmit",
+        "typecheck": "node ../../scripts/typecheck.mjs",
         "check": "node ../../scripts/check-package.mjs",
         "lint": "wake lint --format human --root ../.. standards/typescript-preset --env node --max-warnings 0"
     },
@@ -21,11 +21,11 @@
     ],
     "devDependencies": {
         "@crab-dev/wake": "0.1.57",
-        "@types/node": "^22.20.2",
+        "@types/node": "^26.6.6",
         "@types/react": "^19.3.0",
         "react": "19.3.0",
         "react-dom": "19.3.0",
-        "typescript": "6.0.2"
+        "typescript": "7.0.2"
     },
     "engines": {
         "node": ">=22"

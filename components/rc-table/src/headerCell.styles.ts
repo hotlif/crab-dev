@@ -39,10 +39,6 @@ export const sortIconWrapStyle = css`
     gap: 2px;
 `;
 
-export const sortIconPlaceholderStyle = css`
-    display: none;
-`;
-
 export const sortIconIdleStyle = css`
     color: ${token.sort.icon.color};
 `;

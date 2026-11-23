@@ -255,4 +255,15 @@ describe("Table performance regressions", () => {
         const last = { columnIndex: 4, rowIndex: 0, rowSpan: 0, colSpan: 0 };
         expect(buildHeaderCellOrigins([[first, null, null, null, last]], 5)).toEqual([[0, 0, 0, 0, 4]]);
     });
+
+    it("preserves JSONPath lookups for indexed column names", () => {
+        const data = { groups: [[{ value: undefined }, { value: null }], [{ value: 7 }]] };
+        expect(getDataValueAccessor("$.groups[0][0].value").getAll(data)).toEqual([undefined]);
+        expect(getDataValueAccessor("$.groups[0][1].value").getAll(data)).toEqual([null]);
+        expect(getDataValueAccessor("$.groups[0][2].value").getAll(data)).toEqual([]);
+        expect(getDataValueAccessor("$.groups[0][0].value").getAll(null)).toEqual([undefined]);
+        expect(getDataValueAccessor("groups[1][0].value").get(data)).toBe(7);
+        expect(getDataValueAccessor("$.groups[1][0].value").getAll({ groups: Object.create(data.groups) })).toEqual([]);
+        expect(getDataValueAccessor("$.groups[*][0].value").getAll(data)).toEqual([undefined, 7]);
+    });
 });

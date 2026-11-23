@@ -4,7 +4,7 @@ import { type HTMLAttributes, type Key, type ReactNode, type Ref } from "react";
 
 import { type TableCellProps } from "./bodyCell.js";
 
-import type { CellEditRecord, ColumnType, FilterEditorParam, GroupCellRenderParam, MergeCell, Row, RowSelection, SortColumn, TableStateProps, TableHandle } from "./types.js";
+import type { CellsChangeHandler, RowCommitHandler, CellEditRecord, ColumnType, FilterEditorParam, GroupCellRenderParam, MergeCell, Row, RowSelection, SortColumn, TableStateProps, TableHandle, TableIndexedRows } from "./types.js";
 
 import type { RowEventHandler } from "./hooks/useRowEvents.js";
 
@@ -21,8 +21,6 @@ interface TableBaseProps<T extends Row> extends Omit<HTMLAttributes<HTMLDivEleme
     editType?: TableCellProps<T>["editType"]
     // 表格的高度
     height: number
-    // 表格的数据行
-    rows: T[]
     // 表格的列定义
     columns: ColumnType<T>[]
     // 合并单元格的信息
@@ -58,6 +56,9 @@ interface TableBaseProps<T extends Row> extends Omit<HTMLAttributes<HTMLDivEleme
     // 受控编辑操作记录
     cellEditRecords?: CellEditRecord[]
     onCellEditRecordsChange?: (records: CellEditRecord[]) => void
+    /** 将整批变更写回业务数据；提供后启用表格粘贴。 */
+    onCellsChange?: CellsChangeHandler
+    onRedo?: (record: CellEditRecord) => void
     onUndo?: (record: CellEditRecord) => void
     // ====== 行编辑（editType="row" 时生效） ======
     /** 受控当前编辑行 ID */
@@ -67,7 +68,7 @@ interface TableBaseProps<T extends Row> extends Omit<HTMLAttributes<HTMLDivEleme
     /** 编辑行 ID 变化回调 */
     onEditingRowIdChange?: (id: Key | null) => void
     /** 确认整行编辑：changes 为各列 name → 编辑后值的映射 */
-    onRowCommit?: (rowId: Key, changes: Record<string, unknown>) => void
+    onRowCommit?: RowCommitHandler | ((rowId: Key, changes: Record<string, unknown>) => void)
     /** 取消整行编辑 */
     onRowCancel?: (rowId: Key) => void
     // 高亮关键字
@@ -171,4 +172,18 @@ interface TableBaseProps<T extends Row> extends Omit<HTMLAttributes<HTMLDivEleme
     onRowDoubleClick?: RowEventHandler<T>
 }
 
-export type TableProps<T extends Row> = TableBaseProps<T> & TableStateProps;
+export type TableProps<T extends Row> = TableBaseProps<T> & TableStateProps & (
+    | { rows: T[]; indexedRows?: never }
+    | {
+        rows?: never;
+        indexedRows: TableIndexedRows<T>;
+        sortMode?: 'server';
+        getRowHeight?: never;
+        mergeCells?: never;
+        groupBy?: never;
+        treeData?: false;
+        expandedRowRender?: never;
+        editType?: never;
+        onCellsChange?: never;
+    }
+);

@@ -184,8 +184,8 @@ function readFixedColumnGeometry(grid: HTMLElement) {
         grid: describe(grid),
         scroll: scroll ? { ...describe(scroll), scrollLeft: scroll.scrollLeft, scrollTop: scroll.scrollTop,
             scrollWidth: scroll.scrollWidth, clientWidth: scroll.clientWidth,
-            leftPadding: getComputedStyle(scroll).getPropertyValue('--crab-rc-virtual-left-padding-width'),
-            rightPadding: getComputedStyle(scroll).getPropertyValue('--crab-rc-virtual-right-padding-width') } : null,
+            leftPadding: scroll.querySelector('[data-row-index] > [data-rc-table-virtual-spacer="left"]')?.getBoundingClientRect().width,
+            rightPadding: scroll.querySelector('[data-row-index] > [data-rc-table-virtual-spacer="right"]')?.getBoundingClientRect().width } : null,
         headerCells: [...grid.querySelectorAll<HTMLElement>('[role="columnheader"]')].map(describe),
         bodyRows: [0, 1].map(index => {
             const row = required<HTMLElement>(grid, `[role="row"][data-row-index="${index}"]`);

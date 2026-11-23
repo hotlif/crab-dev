@@ -16,12 +16,17 @@ export interface TableProHandle {
     "scrollToRow": (rowId: Key, options?: TableScrollToRowOptions) => Promise<boolean>;
 
     /**
+     * 按从 0 开始的视图行索引定位，索引行模式下也可定位到尚未加载的行。
+     */
+    "scrollToRowIndex": (rowIndex: number, options?: TableScrollToRowOptions) => Promise<boolean>;
+
+    /**
      * 恢复表格内最后一个有效焦点，否则聚焦表格入口；不修改选择或滚动位置。
      */
     "focus": () => void;
 
     /**
-     * 重新加载当前页、筛选和排序下的数据，不重新加载列定义。 页码越界时回退并等待有效页加载完成；失败时拒绝并触发 onError。 被后续请求替代或卸载时以 AbortError 拒绝，不触发 onError。 完成表示数据状态已更新，不保证浏览器已完成绘制。
+     * 保留当前查询并重新加载数据。分页模式刷新当前页，分块模式刷新当前视口并淘汰旧缓存。 页码越界时回退并等待有效页加载完成；失败时拒绝并触发 onError。 被后续请求替代或卸载时以 AbortError 拒绝，不触发 onError。 完成表示数据状态已更新，不保证浏览器已完成绘制。
      */
     "refresh": () => Promise<void>;
 }

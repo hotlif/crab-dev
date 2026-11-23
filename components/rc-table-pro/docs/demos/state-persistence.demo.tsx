@@ -1,6 +1,6 @@
 export const meta = {
     title: "状态持久化",
-    description: "initialState 在首次加载时恢复列顺序、显隐、宽度、固定等属性；onStateChange 在任何列属性或过滤条件变更时触发，可将快照写入 localStorage。刷新页面后所有调整会被还原。",
+    description: "调整列宽、多列排序、页码或每页条数，刷新后恢复上次浏览的视图。旧快照可继续使用。",
 };
 
 import { useRef, useState } from "react";
@@ -43,10 +43,10 @@ function saveState(state: ProtocolTableState) {
 
 const COLUMNS: ProtocolColumnType[] = [
     { name: "$.employeeNo", title: "工号",       dataType: "text",   width: 140, fixed: "left" },
-    { name: "$.name",       title: "姓名",       dataType: "text",   width: 120 },
+    { name: "$.name",       title: "姓名",       dataType: "text",   width: 120, sortable: true },
     { name: "$.department", title: "部门",       dataType: "text",   width: 140 },
     { name: "$.jobTitle",   title: "职位",       dataType: "text",   width: 180 },
-    { name: "$.city",       title: "城市",       dataType: "text",   width: 120 },
+    { name: "$.city",       title: "城市",       dataType: "text",   width: 120, sortable: true },
     { name: "$.age",        title: "年龄",       dataType: "number", width: 80,  align: "right" },
     { name: "$.salary",     title: "月薪（元）",  dataType: "number", width: 140, align: "right" },
     { name: "$.hireDate",   title: "入职日期",    dataType: "text",   width: 140 },
@@ -79,8 +79,9 @@ const ALL_ROWS: EmployeeRow[] = Array.from({ length: 100 }, (_, i) => ({
 const fetchColumns = (): Promise<ProtocolColumnType[]> =>
     new Promise((resolve) => setTimeout(() => resolve(COLUMNS), 200));
 
-const fetchData = (): Promise<EmployeeRow[]> =>
-    new Promise((resolve) => setTimeout(() => resolve(ALL_ROWS), 200));
+const fetchData = async (page: number, pageSize: number) => ({
+    rows: ALL_ROWS.slice((page - 1) * pageSize, page * pageSize), total: ALL_ROWS.length,
+});
 
 const containerStyle = css`
     width: 100%;
@@ -126,6 +127,8 @@ const StatePersistenceDemo = () => {
                 className={containerStyle}
                 fetchColumns={fetchColumns}
                 fetchData={fetchData}
+                showSearchBar
+                pagination={{ defaultPageSize: 10, showSizeChanger: true }}
                 typeLoaders={TYPE_LOADERS}
                 sideBar
                 defaultSideBarOpen

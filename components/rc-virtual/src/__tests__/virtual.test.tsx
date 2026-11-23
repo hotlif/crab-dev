@@ -764,13 +764,9 @@ describe("Virtual", () => {
             const outerDiv = container.firstElementChild as HTMLDivElement;
             const gridDiv = outerDiv.firstElementChild as HTMLDivElement;
 
-            await act(async () => {
-                gridDiv.dispatchEvent(new WheelEvent("wheel", {
-                    deltaY: -100,
-                    bubbles: true,
-                    cancelable: true,
-                }));
-            });
+            const wheel = new WheelEvent("wheel", { deltaY: -100, bubbles: true, cancelable: true });
+            await fireEvent(gridDiv, wheel);
+            expect(wheel.defaultPrevented).toBe(false);
 
             // Scrolling up from top → stays at 0
             const lastCall = props.renderRows.calls.calls[props.renderRows.calls.calls.length - 1];
@@ -830,14 +826,12 @@ describe("Virtual", () => {
             const outerDiv = container.firstElementChild as HTMLDivElement;
             const gridDiv = outerDiv.firstElementChild as HTMLDivElement;
 
-            await act(async () => {
-                // wheel delta=100 but only 20px scrollable → should clamp to bottom
-                gridDiv.dispatchEvent(new WheelEvent("wheel", {
-                    deltaY: 100,
-                    bubbles: true,
-                    cancelable: true,
-                }));
-            });
+            const intoGrid = new WheelEvent("wheel", { deltaY: 100, bubbles: true, cancelable: true });
+            await fireEvent(gridDiv, intoGrid);
+            expect(intoGrid.defaultPrevented).toBe(true);
+            const intoPage = new WheelEvent("wheel", { deltaY: 100, bubbles: true, cancelable: true });
+            await fireEvent(gridDiv, intoPage);
+            expect(intoPage.defaultPrevented).toBe(false);
 
             const lastCall = props.renderRows.calls.calls[props.renderRows.calls.calls.length - 1];
             const [rowRange] = lastCall;

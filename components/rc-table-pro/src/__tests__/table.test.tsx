@@ -1,9 +1,10 @@
 import { act, beforeAll, describe, it, expect, mock, render, waitFor, fireEvent, screen } from "@crab-dev/wake/test/react";
 
-import type { ProtocolColumnType, TableProHandle } from "../types.js";
+import type { ProtocolColumnType, ProtocolTableState, ResultSelection, TableQuery, TableProHandle } from "../types.js";
 import type { Row, RowSelection } from "@crab-dev/rc-table";
 import type { PaginationChangeHandler } from '@crab-dev/rc-pagination';
-import { createRef, StrictMode, type ReactElement } from 'react';
+import { applyInitialState, buildCurrentState } from '../columnUtils.js';
+import { createRef, StrictMode, useState, type ReactElement } from 'react';
 import LineEdit from '@crab-dev/rc-line-edit';
 import ConfigProvider, { localeMessages } from '@crab-dev/rc-config-provider';
 
@@ -69,6 +70,61 @@ function deferred<T>() {
 }
 
 describe("TablePro", () => {
+    it('round-trips an unpinned column through JSON and preserves legacy partial overrides', () => {
+        const original = [{ ...COLUMNS[0], fixed: 'left' as const }, COLUMNS[1]];
+        const saved = buildCurrentState([COLUMNS[1], COLUMNS[0]], {});
+        const restored = applyInitialState(original, JSON.parse(JSON.stringify(saved)) as ProtocolTableState);
+        expect(restored.map(col => [col.name, col.fixed])).toEqual([['$.age', undefined], ['$.name', undefined]]);
+        const legacy = applyInitialState(original, { columnProps: { '$.name': { width: 210 } } });
+        expect(legacy[0]).toEqual(expect.objectContaining({ fixed: 'left', width: 210 }));
+    });
+    it('restores the first request, snapshots query changes, and forwards row actions', async () => {
+        const queries: TableQuery[] = [];
+        const views: ProtocolTableState[] = [];
+        const single = mock.fn();
+        const double = mock.fn();
+        const sort = [{ columnName: '$.age', direction: 'desc' as const }];
+        const view = await renderTable(<TablePro<PersonRow> fetchColumns={async () => COLUMNS} sortMode="server"
+            request={async query => { queries.push(query); return { rows: ROWS, total: 90 }; }}
+            pagination={{}} searchMode="server" showSearchBar onStateChange={state => views.push(state)}
+            initialState={{ columnProps: {}, filters: { '$.name': 'a' }, page: 3, pageSize: 20, sortColumns: sort, keyword: 'one' }}
+            onRowClick={single} onRowDoubleClick={double} />);
+        expect(queries).toHaveLength(1);
+        expect(queries[0]).toEqual(expect.objectContaining({ page: 3, pageSize: 20, sort, keyword: 'one', filters: { '$.name': 'a' } }));
+        const cell = view.container.querySelector('[data-row-index="0"] [data-col-index]')!;
+        await fireEvent.click(cell);
+        await fireEvent(cell, new MouseEvent('dblclick', { bubbles: true }));
+        expect(single.calls.calls[0]?.[0]).toEqual(ROWS[0]);
+        expect(double.calls.calls[0]?.[0]).toEqual(ROWS[0]);
+        await enterText(screen.getByRole('textbox', { name: '搜索全部记录' }) as HTMLInputElement, 'two');
+        expect(queries.at(-1)).toEqual(expect.objectContaining({ page: 1, keyword: 'two' }));
+        expect(views.at(-1)).toEqual(expect.objectContaining({ page: 1, pageSize: 20, sortColumns: sort, keyword: 'two' }));
+    });
+
+    it('selects matching results with cross-page exclusions and exports the server query', async () => {
+        const exported = mock.fn();
+        let selection: ResultSelection = { mode: 'ids', ids: new Set() };
+        // DOM has no layout viewport. Pin the summary column so virtualization keeps it mounted.
+        const fetchColumns = async () => COLUMNS.map(col => col.name === '$.age' ? { ...col, fixed: 'right' as const } : col);
+        function App() {
+            const [value, setValue] = useState<ResultSelection>(selection);
+            return <TablePro<PersonRow> fetchColumns={fetchColumns} pagination={{}} searchMode="server" showSearchBar showSummary
+                request={async query => ({ rows: [ROWS[query.page - 1]], total: 20, summary: { '$.age': 'All ages: 55' } })}
+                resultSelection={{ value, onValueChange: next => { selection = next; setValue(next); } }} onExportAll={exported} />;
+        }
+        await renderTable(<App />);
+        expect(screen.getByText('All ages: 55')).toBeTruthy();
+        await fireEvent.click(screen.getByRole('button', { name: '选择全部匹配记录' }));
+        await fireEvent.click(screen.getByRole('button', { name: '页码 2' }));
+        const box = screen.getByRole('checkbox', { name: '选择行' }) as HTMLInputElement;
+        expect(box.checked).toBe(true);
+        await fireEvent.click(box);
+        expect(selection).toEqual({ mode: 'all', scope: { filters: {}, keyword: '' }, excludedIds: new Set(['2']) });
+        await enterText(screen.getByRole('textbox', { name: '搜索全部记录' }) as HTMLInputElement, 'Alice');
+        expect(selection).toEqual({ mode: 'ids', ids: new Set() });
+        await fireEvent.click(screen.getByRole('button', { name: '导出全部匹配记录' }));
+        expect(exported.calls.calls[0]?.[0]).toEqual(expect.objectContaining({ filters: {}, keyword: 'Alice', sort: [] }));
+    });
     it('exposes refresh through a stable ref, retains search and selection, and clears the ref on unmount', async () => {
         const ref = createRef<TableProHandle>();
         const fetchColumns = mock.fn<FetchColumnsFn>().resolve(COLUMNS);

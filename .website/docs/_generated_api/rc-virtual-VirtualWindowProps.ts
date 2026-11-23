@@ -1,0 +1,69 @@
+// THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY.
+// Wake 通过该扁平接口构建属性搜索索引；真实 API 仍以组件源码为准。
+
+type DocsTypePlaceholder = ((...args: never[]) => unknown) & {
+    readonly [key: string]: DocsTypePlaceholder;
+    readonly [key: number]: DocsTypePlaceholder;
+};
+type ReactNode = DocsTypePlaceholder;
+type RefObject<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
+type VirtualAxis = DocsTypePlaceholder;
+type VirtualHandle = DocsTypePlaceholder;
+type VirtualPadding = DocsTypePlaceholder;
+
+export interface VirtualWindowProps {
+    /**
+     * 每列宽度数组，或等宽列的 { count, itemSize } 配置，单位为 px
+     */
+    "gridTemplateColumns": VirtualAxis;
+
+    /**
+     * 每行高度数组，或等高行的 { count, itemSize } 配置，单位为 px
+     */
+    "gridTemplateRows": VirtualAxis;
+
+    /**
+     * 可视区域宽度，单位为 px
+     */
+    "viewportWidth": number;
+
+    /**
+     * 可视区域高度，单位为 px
+     */
+    "viewportHeight": number;
+
+    /**
+     * 可视区顶部被常驻（sticky）内容占据的高度，单位为 px。 例如表格在滚动容器内渲染的固定表头 / 过滤栏：它们占用可视区却不在 gridTemplateRows 中， 因此需要计入纵向滚动总高度，否则末尾内容会被裁切且无法滚动到底。
+     */
+    "reservedTopHeight"?: number;
+
+    /**
+     * 可视区底部被常驻（sticky）内容占据的高度，单位为 px。 例如表格底部固定的汇总 / 合计行：它贴在可视区底部却不在 gridTemplateRows 中， 因此需要计入纵向滚动总高度，否则末尾数据行会被汇总行遮挡且无法滚动出来。
+     */
+    "reservedBottomHeight"?: number;
+
+    /**
+     * 可视范围上下额外渲染的行数，默认 0
+     */
+    "overscanRowCount"?: number;
+
+    /**
+     * 可视范围左右额外渲染的列数，默认 0
+     */
+    "overscanColumnCount"?: number;
+
+    /**
+     * 组件实例引用，可通过 scrollToCell 和 getScrollCellPosition 编程式控制滚动
+     */
+    "gridRef"?: RefObject<VirtualHandle | null>;
+
+    /**
+     * 实际逻辑滚动位置变化，包含滚轮、滚动条、原生聚焦滚动、命令式定位及尺寸收缩。
+     */
+    "onScrollPositionChange"?: (position: { left: number; top: number; }) => void;
+
+    /**
+     * Render the window and apply the supplied spacer sizes to its elements.
+     */
+    "renderWindow": (rowRange: [ number, number ], columnRange: [ number, number ], padding: VirtualPadding) => ReactNode;
+}

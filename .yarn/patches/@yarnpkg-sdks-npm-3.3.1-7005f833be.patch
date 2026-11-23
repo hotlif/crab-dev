@@ -1,0 +1,61 @@
+diff --git a/lib/generateSdk.js b/lib/generateSdk.js
+index 3f86d73d17b4bb55d30f3055fc6c2b4adefa4938..f88f87c6ec2931e023d46e56a4f82a260c7df787 100644
+--- a/lib/generateSdk.js
++++ b/lib/generateSdk.js
+@@ -165,6 +165,7 @@ class Wrapper {
+     constructor(name, { pnpApi, target, manifestOverrides = {} }) {
+         this.paths = new Map();
+         this.name = name;
++        this.requestName = name === `typescript` && pnpApi.getPackageInformation(pnpApi.topLevel).packageDependencies.has(`@typescript/old`) ? `@typescript/old` : name;
+         this.pnpApi = pnpApi;
+         this.target = target;
+         this.manifest = this.loadManifest();
+@@ -172,8 +173,8 @@ class Wrapper {
+     }
+     loadManifest() {
+         const topLevelInformation = this.pnpApi.getPackageInformation(this.pnpApi.topLevel);
+-        const dependencyReference = topLevelInformation.packageDependencies.get(this.name);
+-        const pkgInformation = this.pnpApi.getPackageInformation(this.pnpApi.getLocator(this.name, dependencyReference));
++        const dependencyReference = topLevelInformation.packageDependencies.get(this.requestName);
++        const pkgInformation = this.pnpApi.getPackageInformation(this.pnpApi.getLocator(this.requestName, dependencyReference));
+         if (pkgInformation === null)
+             throw new Error(`Assertion failed: Package ${this.name} isn't a dependency of the top-level`);
+         const manifestPath = fslib_1.npath.join(pkgInformation.packageLocation, fslib_1.Filename.manifest);
+@@ -245,7 +246,7 @@ class Wrapper {
+         const relProjectPath = fslib_1.ppath.relative(projectRoot, absWrapperPath);
+         const absPnpApiPath = fslib_1.npath.toPortablePath(this.pnpApi.resolveRequest(`pnpapi`, null));
+         const relPnpApiPath = fslib_1.ppath.relative(fslib_1.ppath.dirname(absWrapperPath), absPnpApiPath);
+-        const moduleReqPath = fslib_1.ppath.join(this.name, options.requirePath ?? relPackagePath);
++        const moduleReqPath = fslib_1.ppath.join(this.requestName, options.requirePath ?? relPackagePath);
+         const wrapperScript = TEMPLATE(relPnpApiPath, moduleReqPath, options);
+         await fslib_1.xfs.mkdirPromise(fslib_1.ppath.dirname(absWrapperPath), { recursive: true });
+         await fslib_1.xfs.writeFilePromise(absWrapperPath, wrapperScript, { mode: options.mode });
+diff --git a/lib/sdks/base.js b/lib/sdks/base.js
+index 5a23b9028f754eec85d302425822931c8c76761a..c8f94a1dcb5f27ac17a7e4fd73049e05c0731e21 100644
+--- a/lib/sdks/base.js
++++ b/lib/sdks/base.js
+@@ -33,6 +33,7 @@ const generateTypescriptLanguageServerBaseWrapper = async (pnpApi, target) => {
+ };
+ exports.generateTypescriptLanguageServerBaseWrapper = generateTypescriptLanguageServerBaseWrapper;
+ const generateTypescriptBaseWrapper = async (pnpApi, target) => {
++    const wrapper = new generateSdk_1.Wrapper(`typescript`, { pnpApi, target });
+     const tsServerMonkeyPatch = `
+     tsserver => {
+       if (!process.versions.pnp) {
+@@ -239,14 +240,13 @@ const generateTypescriptBaseWrapper = async (pnpApi, target) => {
+       return tsserver;
+     };
+ 
+-    const [major, minor] = absRequire(\`typescript/package.json\`).version.split(\`.\`, 2).map(value => parseInt(value, 10));
++    const [major, minor] = absRequire(\`${wrapper.requestName}/package.json\`).version.split(\`.\`, 2).map(value => parseInt(value, 10));
+     // In TypeScript@>=5.5 the tsserver uses the public TypeScript API so that needs to be patched as well.
+     // Ref https://github.com/microsoft/TypeScript/pull/55326
+     if (major > 5 || (major === 5 && minor >= 5)) {
+-      moduleWrapper(absRequire(\`typescript\`));
++      moduleWrapper(absRequire(\`${wrapper.requestName}\`));
+     }
+   `;
+-    const wrapper = new generateSdk_1.Wrapper(`typescript`, { pnpApi, target });
+     await wrapper.writeDefaults();
+     await wrapper.writeFile(`lib/tsc.js`);
+     await wrapper.writeFile(`lib/tsserver.js`, { wrapModule: tsServerMonkeyPatch });

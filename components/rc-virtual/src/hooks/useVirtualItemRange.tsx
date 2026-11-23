@@ -45,6 +45,9 @@ interface VirtualItemParamType {
     /** 可视范围左右额外渲染的列数 */
     overscanColumnCount?: number
 
+    /** Scroll position used to select the last column window. */
+    columnWindowAnchor?: number
+
 }
 
 export interface VirtualAxisMetrics {
@@ -250,6 +253,7 @@ const useVirtualItemRange = ({
     reservedBottomHeight = 0,
     overscanRowCount = 0,
     overscanColumnCount = 0,
+    columnWindowAnchor,
 }: VirtualItemParamType) => {
     "use no memo";
     const columnMetrics = useAxisMetrics(gridTemplateColumns);
@@ -269,6 +273,13 @@ const useVirtualItemRange = ({
     );
 
     const getGridColumnsRangeIndex = (): [number, number] => {
+        if (columnWindowAnchor !== undefined && columnWindowAnchor !== effectiveScrollPositionLeft) {
+            const anchor = clampScrollPosition(columnWindowAnchor, columnMetrics.totalSize, viewportWidth);
+            const range = getVisibleRangeByBinarySearch(columnMetrics, viewportWidth, anchor, overscanColumnCount);
+            const visibleRight = Math.min(columnMetrics.totalSize, effectiveScrollPositionLeft + clampToNonNegativeFinite(viewportWidth));
+            if (getVirtualItemStart(columnMetrics, range[0]) <= effectiveScrollPositionLeft
+                && getVirtualItemEnd(columnMetrics, range[1]) >= visibleRight) return range;
+        }
         return getVisibleRangeByBinarySearch(
             columnMetrics,
             viewportWidth,

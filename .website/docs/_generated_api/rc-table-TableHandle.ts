@@ -16,6 +16,11 @@ export interface TableHandle {
     "scrollToRow": (rowId: Key, options?: TableScrollToRowOptions) => Promise<boolean>;
 
     /**
+     * 按从 0 开始的视图行索引定位，索引行模式下也可定位到尚未加载的行。
+     */
+    "scrollToRowIndex": (rowIndex: number, options?: TableScrollToRowOptions) => Promise<boolean>;
+
+    /**
      * 恢复表格内最后一个有效焦点，否则聚焦表格入口；不修改选择或滚动位置。
      */
     "focus": () => void;

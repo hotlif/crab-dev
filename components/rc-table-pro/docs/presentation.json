@@ -21,7 +21,8 @@
                 "visual-states.demo.tsx",
                 "type-loaders.demo.tsx",
                 "auto-refresh.demo.tsx",
-                "refresh.demo.tsx"
+                "refresh.demo.tsx",
+                "remote-blocks.demo.tsx"
             ]
         },
         {

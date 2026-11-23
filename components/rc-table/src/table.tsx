@@ -3,13 +3,13 @@ import { useEditFocus } from "./hooks/useEditFocus.js";
 import type { TableProps } from "./table-props.js";
 export type { TableProps } from "./table-props.js";
 import ExpandedRowContent from "./expanded-row-content.js";
-import { paddingLeft, paddingLeftWithCompensation, paddingRight, paddingBottom, paddingTop } from "./virtual-spacers.js";
+import { horizontalSpacer, verticalSpacer } from "./virtual-spacers.js";
 import { makeRowReactKey, makeColumnReactKey } from "./util.js";
 import { useComponentSize, useConfig, useLocale, componentDensityMetrics, densityStyles } from '@crab-dev/rc-config-provider';
 import { RuntimeDirectionProvider } from '@crab-dev/rc-config-provider/internal';
 import Button from '@crab-dev/rc-button';
-import RcVirtual from "@crab-dev/rc-virtual";
-import { type CSSProperties, type Key, type ReactNode, useCallback, useMemo, useRef } from "react";
+import RcVirtual, { type VirtualPadding } from "@crab-dev/rc-virtual";
+import { type CSSProperties, type Key, type ReactNode, useCallback, useEffect, useEffectEvent, useId, useMemo, useRef } from "react";
 import { css, cx } from "@crab-dev/css";
 import Checkbox from "@crab-dev/rc-checkbox";
 import Radio from "@crab-dev/rc-radio";
@@ -21,7 +21,7 @@ import token from "./token.js";
 import TableBodyCell from "./bodyCell.js";
 import TableHeaderCell from "./headerCell.js";
 import { type HeaderCellType, makeCellIdentityKey } from "./util.js";
-import type { ColumnType, MergeCell, Row } from "./types.js";
+import type { ColumnType, MergeCell, Row, TableRowRange } from "./types.js";
 import { useRowSelection } from "./hooks/useRowSelection.js";
 import { useRowGroup } from "./hooks/useRowGroup.js";
 import { useColumnLayout } from "./hooks/useColumnLayout.js";
@@ -42,14 +42,52 @@ import { useRowNumber, ROW_NUMBER_COLUMN_NAME } from "./hooks/useRowNumber.js";
 import { useRowEvents } from "./hooks/useRowEvents.js";
 
 import { useTableInteractionScope } from "./hooks/useTableInteractionScope.js";
-import { useTableHandle } from "./hooks/useTableHandle.js";
+import { getRowScrollTop, offsetsFor, useTableHandle } from "./hooks/useTableHandle.js";
 import { ROW_BG_VAR } from "./rowBg.js";
 import type { InternalExpandedRow, InternalGroupRow } from "./util.js";
 import { EXPAND_COLUMN_NAME, isExpandedContentRow, isGroupRow } from "./util.js";
 import { tableRootStyle, tableFocusRingStyle, filterSizeProbeStyle, selectionCellStyle, expandChevronStyle, selectedRowStyle, clickableRowStyle, fixedCellBgWithRowVar, filterCellBorderShadow, emptyContainerStyle, emptyBodyStyle, rowEditingRowStyle, rowEditBorderOverlayStyle, rowEditActionsWrapperStyle, rowEditActionsInnerStyle, fixedCellRowEditBgStyle, filterCellBottomOnlyShadow } from "./table.styles.js";
 
+const feedbackStyle = css`
+    position: absolute;
+    inset-inline-start: 0;
+    bottom: 0;
+    max-width: 100%;
+    max-height: 40%;
+    overflow: auto;
+    z-index: 5;
+    padding-inline: ${token.cell['padding-inline']};
+    background-color: ${token.cell['background-color']};
+`;
+
 const SELECTION_COLUMN_NAME = '__rc_table_selection__';
 const EMPTY_MERGE_CELLS: MergeCell[] = [];
+const EMPTY_ROWS: never[] = [];
+
+const placeholderRowStyle = css`
+    box-shadow: inset 0 -1px 0 ${token.root["border-color"]};
+`;
+
+const placeholderContentStyle = css`
+    position: sticky;
+    left: 0;
+    box-sizing: border-box;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding-inline: ${token.cell['padding-inline']};
+`;
+
+interface ColumnSpacers {
+    leftSpacer: ReactNode;
+    rightSpacer: ReactNode;
+}
+
+function ReportRowRange({ startIndex, endIndex, onChange }: TableRowRange & { onChange: (range: TableRowRange) => void }) {
+    const report = useEffectEvent(() => onChange({ startIndex, endIndex }));
+    useEffect(() => { report(); }, [startIndex, endIndex]);
+    return null;
+}
 
 // Table owns the action-bar placement; Button owns appearance, state layers,
 // typography, shape, focus and touch targets in each design system.
@@ -71,7 +109,8 @@ function Table<T extends Row>(props: TableProps<T>): ReactNode {
         density: _density,
         width,
         height,
-        rows,
+        rows = EMPTY_ROWS,
+        indexedRows,
         columns,
         mergeCells = EMPTY_MERGE_CELLS,
         getRowHeight,
@@ -95,6 +134,8 @@ function Table<T extends Row>(props: TableProps<T>): ReactNode {
         cellEditRecords,
         onCellEditRecordsChange,
         onUndo,
+        onRedo,
+        onCellsChange,
         editingRowId,
         defaultEditingRowId,
         onEditingRowIdChange,
@@ -143,10 +184,22 @@ function Table<T extends Row>(props: TableProps<T>): ReactNode {
 
     const { rootRef: interactionRootRef, activateInteraction, isInteractionActive } = useTableInteractionScope();
     const { filterSizeRef, filterRowHeight } = useFilterRowHeight(metrics.header, suppliedFilterRowHeight);
+    const indexedCount = indexedRows?.count;
+    const requestedRowHeight = indexedRows?.rowHeight ?? defaultRowHeight;
+    const indexedHeight = Number.isFinite(requestedRowHeight) && requestedRowHeight > 0 ? requestedRowHeight : defaultRowHeight;
+    // Stable geometry when cache entries change. The fixed-size axis allocates no per-row offsets.
+    const indexedAxis = useMemo(() => indexedCount === undefined ? undefined : {
+        count: Number.isSafeInteger(indexedCount) && indexedCount > 0 ? indexedCount : 0,
+        itemSize: indexedHeight,
+    }, [indexedCount, indexedHeight]);
+    const indexedData = indexedRows?.rows;
 
     // ====== 行选中 ======
+    const hasRowSelection = rowSelection != null;
+    const selectionRows = useMemo(() => indexedData && hasRowSelection ? [...indexedData.values()] : rows,
+        [indexedData, hasRowSelection, rows]);
     const { selectedRowIds, isAllSelected, isIndeterminate, toggleRow, selectAllRows, clearAllRows } = useRowSelection<T>({
-        dataRows: rows,
+        dataRows: selectionRows,
         rowSelection,
     });
 
@@ -155,7 +208,6 @@ function Table<T extends Row>(props: TableProps<T>): ReactNode {
     selectionStateRef.current = { selectedRowIds, toggleRow };
     const selectionConfigRef = useRef(rowSelection);
     selectionConfigRef.current = rowSelection;
-    const hasRowSelection = rowSelection != null;
     const selectionType = rowSelection?.type;
     const selectionFixed = rowSelection?.fixed;
     const selectionColumnWidth = rowSelection?.columnWidth;
@@ -230,7 +282,9 @@ function Table<T extends Row>(props: TableProps<T>): ReactNode {
     ]);
 
     // ====== 行序号列 ======
-    const { numberColumn, syncRowNumbers } = useRowNumber<T>({ showRowNumber, rowNumberColumnFixed, rowNumberColumnWidth });
+    const { numberColumn, syncRowNumbers } = useRowNumber<T>({
+        showRowNumber, rowNumberColumnFixed, rowNumberColumnWidth, indexed: indexedRows !== undefined,
+    });
 
     // 行展开状态 ref：供展开图标列 render 读取最新展开集合 / 切换函数（避免闭包陈旧，仿 selectionStateRef）
     const expansionStateRef = useRef<{ expandedKeySet: Set<Key>; toggleExpandRow: (id: Key) => void; isRowExpandable?: (row: T) => boolean }>({ expandedKeySet: new Set(), toggleExpandRow: () => { }, isRowExpandable });
@@ -291,7 +345,8 @@ function Table<T extends Row>(props: TableProps<T>): ReactNode {
 
     // ====== 列排序 ======
     const { sortedRows, handleSort, getSortState, isSortable } = useColumnSort<T>({
-        rows, columns: effectiveColumns, sortColumns: sortColumnsProp, defaultSortColumns, onSortColumnsChange, sortMode
+        rows, columns: effectiveColumns, sortColumns: sortColumnsProp, defaultSortColumns, onSortColumnsChange,
+        sortMode: indexedRows ? 'server' : sortMode,
     });
 
     // ====== 树形数据 ======
@@ -327,7 +382,7 @@ function Table<T extends Row>(props: TableProps<T>): ReactNode {
     const displayRows = useMemo(() => motionRows.map(row => isExpandedContentRow(row.item) ? { ...row.item, height: row.size } : row.item), [motionRows]);
 
     // displayRows 确定后同步序号映射（直接写 ref，不触发 re-render）
-    syncRowNumbers(displayRows);
+    if (!indexedRows) syncRowNumbers(displayRows);
 
     // ====== 列宽与布局（bottomColumnsRef 在 table 层创建并共享给多个 hook） ======
     const bottomColumnsRef = useRef<ColumnType<T>[]>([]);
@@ -365,26 +420,29 @@ function Table<T extends Row>(props: TableProps<T>): ReactNode {
 
     const treeToggleHandlers = useMemo(() => new Map<Key, () => void>(), [toggleTreeRow]);
 
-    // 获取指定行/列应注入的树形 props（非树形列或非数据行返回空对象）
+    // 获取指定行/列应注入的树形 props。
     const getTreeCellProps = (row: T | InternalGroupRow<T> | InternalExpandedRow<T>, columnIndex: number) => {
-        if (!isTree || isExpandedContentRow(row) || isGroupRow(row) || !resolvedTreeColumn) return {};
+        if (!isTree || isExpandedContentRow(row) || isGroupRow(row) || !resolvedTreeColumn) return undefined;
         const column = bottomColumns[columnIndex];
-        if (!column || column.name !== resolvedTreeColumn) return {};
+        if (!column || column.name !== resolvedTreeColumn) return undefined;
         const meta = treeRowMetaMap.get((row as T).id);
-        if (!meta) return {};
+        if (!meta) return undefined;
         let onTreeToggle = treeToggleHandlers.get((row as T).id);
         if (!onTreeToggle) {
             onTreeToggle = () => toggleTreeRow((row as T).id);
             treeToggleHandlers.set((row as T).id, onTreeToggle);
         }
         return {
-            treeNode: meta,
+            treeNode: {
+                ...meta,
+                toggleLabel: meta.isExpanded ? messages.table.collapseChildren : messages.table.expandChildren,
+            },
             onTreeToggle
         };
     };
 
     // ====== 行编辑 ======
-    const { isRowEditMode, currentEditingRowId, editorValues, startRowEdit, setColumnValue, commitRowEdit, cancelRowEdit } = useRowEdit({
+    const { isRowEditMode, currentEditingRowId, editorValues, saving, errors, startRowEdit, setColumnValue, commitRowEdit, cancelRowEdit } = useRowEdit({
         editType, editingRowId, defaultEditingRowId, onEditingRowIdChange, onRowCommit, onRowCancel,
         isInteractionActive, rootRef: interactionRootRef
     });
@@ -392,8 +450,8 @@ function Table<T extends Row>(props: TableProps<T>): ReactNode {
     const rowEditFocusRef = useEditFocus(currentEditingRowId, interactionRootRef, isInteractionActive);
 
     // ====== 单元格编辑 ======
-    const { undoDataVersion, editedCellKeys, handleCellCommit, handleUndo } = useCellEdit<T>({
-        displayRows, cellEditRecords, onCellEditRecordsChange, onUndo
+    const { undoDataVersion, editedCellKeys, handleCellCommit, handleUndo, handleRedo, pasteRecords } = useCellEdit<T>({
+        displayRows, cellEditRecords, onCellEditRecordsChange, onUndo, onRedo, onCellsChange
     });
 
     // ====== cell-edit 键盘导航 ======
@@ -407,9 +465,16 @@ function Table<T extends Row>(props: TableProps<T>): ReactNode {
     // ====== 单元格选区（同时处理 Ctrl+Z/C/Esc 键盘事件） ======
     const {
         handleCellMouseDown, handleCellMouseEnter, getCellSelectionState, selectSingleCell,
-        anchorCell, rowIdToIndex
+        anchorCell, rowIdToIndex, pasteError
     } = useCellSelection<T>({
-        displayRows, bottomColumnsRef, selectCells, onSelectCellsChange,
+        displayRows, indexedRows: indexedData, indexedRowCount: indexedAxis?.count,
+        findBrowseStart: indexedAxis ? () => Math.floor(tableHandle.position.current.top / indexedHeight) : undefined,
+        bottomColumnsRef, selectCells, onSelectCellsChange,
+        editing: currentEditingRowId != null || editingCellPos != null,
+        isCovered: (r, c) => skipCellSet.has(getCellKey(r, c)),
+        onNavigate: (r, c) => revealCell(r, c),
+        onPasteRecords: onCellsChange ? pasteRecords : undefined,
+        onCtrlY: handleRedo,
         onCopy, onCtrlZ: handleUndo, isInteractionActive, rootRef: interactionRootRef
     });
 
@@ -421,7 +486,7 @@ function Table<T extends Row>(props: TableProps<T>): ReactNode {
         isRowEditMode,
         startRowEdit,
         currentEditingRowId,
-        displayRows,
+        getRow: getDisplayRow,
         anchorCell,
         rowIdToIndex,
         isInteractionActive,
@@ -438,7 +503,7 @@ function Table<T extends Row>(props: TableProps<T>): ReactNode {
     }, [exitCellEdit, navigateCellEdit, selectSingleCell]);
 
     const getCellNavProps = (rowIndex: number, columnIndex: number) => {
-        if (editType !== 'cell') return {};
+        if (editType !== 'cell') return undefined;
         const row = displayRows[rowIndex];
         const column = bottomColumns[columnIndex];
         return {
@@ -459,22 +524,56 @@ function Table<T extends Row>(props: TableProps<T>): ReactNode {
     // ====== 关键字高亮 / 跳转 ======
     const reservedTopPx = maxDepth * headerRowHeight + (isFilterEnabled ? filterRowHeight : 0);
     const fixedLeftWidth = fixedLeftColumnsIdx.reduce((acc, idx) => acc + gridTemplateColumns[idx], 0);
+    const fixedRightWidth = fixedRightColumnsIdx.reduce((acc, idx) => acc + gridTemplateColumns[idx], 0);
 
     const { virtualRef, activeMatchMeta } = useKeywordMatch<T>({
-        highlightKeyword, activeMatchIndex, displayRows, bottomColumns,
+        highlightKeyword: indexedRows ? undefined : highlightKeyword, activeMatchIndex, displayRows, bottomColumns,
         skipCellSet, getCellKey, reservedTopPx, fixedLeftWidth, onMatchCountChange
     });
     const tableHandle = useTableHandle({
         ref, rootRef: interactionRootRef, virtualRef, displayRows, targetRows, rowHeights: gridTemplateRows,
+        indexedAxis, indexedRows: indexedData,
         viewportHeight: height, reservedTopHeight: reservedTopPx, reservedBottomHeight: showSummary ? summaryRowHeight : 0,
     });
 
-    // RcVirtual 的内部滚动 state 会反复调用下方 renderRows，但不会重新执行 Table。
-    // 该对象因此在一次 Table render 生命周期内稳定，可作为行级 memo 的版本令牌。
+    const cellIdPrefix = useId();
+    // Only a mounted virtual cell can be the grid's active descendant.
+    const activeCellRef = useCallback((cell: HTMLDivElement | null) => {
+        const grid = cell?.closest('[role="grid"]');
+        if (!grid || !cell) return;
+        const id = cell.id;
+        grid.setAttribute('aria-activedescendant', id);
+        return () => { if (grid.getAttribute('aria-activedescendant') === id) grid.removeAttribute('aria-activedescendant'); };
+    }, []);
+    function getDisplayRow(index: number) {
+        return indexedData ? indexedData.get(index) : displayRows[index];
+    }
+
+    function revealCell(r: number, c: number) {
+        const position = tableHandle.position.current;
+        const offsets = indexedAxis ? undefined : offsetsFor(gridTemplateRows);
+        const rowHeight = indexedAxis?.itemSize ?? gridTemplateRows[r];
+        const rowStart = offsets ? offsets[r] : r * rowHeight;
+        const viewport = height - reservedTopPx - (showSummary ? summaryRowHeight : 0);
+        const total = indexedAxis ? indexedAxis.count * rowHeight : offsets?.[gridTemplateRows.length] ?? 0;
+        if (viewport <= 0) return;
+        const top = getRowScrollTop(rowStart, rowHeight, position.top, viewport, total, 'nearest');
+        let left = position.left;
+        if (!bottomColumns[c].fixed) {
+            const start = offsetsFor(gridTemplateColumns)[c] - fixedLeftWidth;
+            left = getRowScrollTop(start, gridTemplateColumns[c], left, width - fixedLeftWidth - fixedRightWidth,
+                actualHeight - fixedLeftWidth - fixedRightWidth, 'nearest');
+        }
+        if (left !== position.left || top !== position.top) virtualRef.current?.scrollTo({ left, top });
+    }
+
+    // RcVirtual 补充视口中的行列时会调用 renderWindow，沿用本次 Table 渲染的状态。
+    // 该对象因此在一次 Table render 生命周期内稳定，供行和单元格的 memo 比较使用。
     const virtualRenderVersion = {};
 
     // ====== 渲染：分组 banner 行 ======
-    const renderGroupBannerRow = (rowIndex: number, groupRow: InternalGroupRow<T>, columnRange: [number, number]): ReactNode => {
+    const renderGroupBannerRow = (rowIndex: number, groupRow: InternalGroupRow<T>, columnRange: [number, number],
+        { leftSpacer, rightSpacer }: ColumnSpacers): ReactNode => {
         const { meta } = groupRow.dataRef;
         const handleToggle = () => { toggleGroup(meta.groupId); };
         const valueText = meta.value == null || meta.value === "" ? messages.table.emptyValue : String(meta.value);
@@ -610,16 +709,18 @@ function Table<T extends Row>(props: TableProps<T>): ReactNode {
                 virtualWindowKey={`${columnRange[0]}:${columnRange[1]}`}
             >
                 {fixedLeftColumnsIdx.map((columnIndex) => buildGroupCell(columnIndex, { fixed: "left" }))}
-                {paddingLeft}
+                {leftSpacer}
                 {mainCells}
-                {paddingRight}
+                {rightSpacer}
                 {fixedRightColumnsIdx.map((columnIndex) => buildGroupCell(columnIndex, { fixed: "right" }))}
             </BodyRow>
         );
     };
 
     // ====== 渲染：body ======
-    const generateBodyElement = ({ rowRange, columnRange }: { rowRange: [number, number]; columnRange: [number, number] }) => {
+    const generateBodyElement = (
+        rowRange: [number, number], columnRange: [number, number], padding: VirtualPadding, spacers: ColumnSpacers,
+    ) => {
         const mergeIntersectsRenderedColumns = (mergeCell: MergeCell) => {
             const mergeEnd = mergeCell.columnIndex + mergeCell.colSpan;
             if (mergeCell.columnIndex <= columnRange[1] && mergeEnd >= columnRange[0]) return true;
@@ -664,13 +765,47 @@ function Table<T extends Row>(props: TableProps<T>): ReactNode {
             if (bottomColumns[c]?.fixed) continue;
             leftPaddingCompensation += gridTemplateColumns[c] ?? 0;
         }
-        const bodyRows: ReactNode[] = [paddingTop(topPaddingCompensation)];
+        const bodyLeftSpacer = horizontalSpacer("left", padding.left - leftPaddingCompensation);
+        const bodyRows: ReactNode[] = [verticalSpacer("top", padding.top - topPaddingCompensation)];
+        const windowColumns = [];
+        for (let columnIndex = columnRenderStart; columnIndex <= columnRange[1]; columnIndex += 1) {
+            const column = bottomColumns[columnIndex];
+            if (column.fixed === "left" || column.fixed === "right") continue;
+            windowColumns.push({
+                columnIndex, column, key: makeColumnReactKey(column.name),
+                style: { width: gridTemplateColumns[columnIndex] },
+                isLastColumn: columnIndex === bottomColumns.length - 1
+                    || (fixedRightColumnsIdx.length > 0 && columnIndex === fixedRightColumnsIdx[0] - 1),
+            });
+        }
+        const hasMergeCells = mergeCellMap.size > 0;
 
+        const range = { startIndex: rowRange[0], endIndex: rowRange[1] + 1 };
+        const rowIndexOffset = maxDepth + (isFilterEnabled ? 1 : 0) + 1;
         for (let rowIndex = renderStart; rowIndex <= rowRange[1]; rowIndex += 1) {
-            const currentRow = displayRows[rowIndex];
-            if (!currentRow) continue;
+            const currentRow = getDisplayRow(rowIndex);
+            if (!currentRow) {
+                if (indexedRows) {
+                    const content = indexedRows.renderPlaceholder
+                        ? indexedRows.renderPlaceholder(rowIndex, range)
+                        : (rowIndex === range.startIndex || indexedData?.has(rowIndex - 1))
+                            ? <span role="status">{messages.common.loading}</span> : null;
+                    bodyRows.push(
+                        <div key={`placeholder-${rowIndex}`} data-table-row-placeholder={rowIndex}
+                            role="row" aria-rowindex={rowIndexOffset + rowIndex}
+                            className={placeholderRowStyle} style={{ height: indexedHeight, width: actualHeight }}>
+                            {content != null && <div role="gridcell" aria-colindex={1}
+                                aria-colspan={Math.max(1, bottomColumns.length)} dir={direction}
+                                className={placeholderContentStyle} style={{ width }}>
+                                {content}
+                            </div>}
+                        </div>
+                    );
+                }
+                continue;
+            }
             if (isGroupRow(currentRow)) {
-                bodyRows.push(renderGroupBannerRow(rowIndex, currentRow, columnRange));
+                bodyRows.push(renderGroupBannerRow(rowIndex, currentRow, columnRange, spacers));
                 continue;
             }
             if (isExpandedContentRow(currentRow)) {
@@ -699,21 +834,23 @@ function Table<T extends Row>(props: TableProps<T>): ReactNode {
 
             const getRowEditCellProps = (col: ColumnType<T>) => isEditingThisRow ? {
                 isRowEditing: true,
+                rowSaving: saving,
+                rowEditError: errors?.fieldErrors?.[col.name],
                 rowEditorValue: editorValues[col.name] ?? null,
                 onRowEditorValueChange: (value: unknown) => setColumnValue(col.name, value),
                 onRowCancel: cancelRowEdit,
-            } : {};
+            } : undefined;
 
+            const activeCellProps = (c: number) => anchorCell?.rowId === currentRow.id && anchorCell.columnIndex === c
+                ? { id: cellIdPrefix + '-' + rowIndex + '-' + c, ref: activeCellRef } : undefined;
             const tableCells: ReactNode[] = [];
-            for (let columnIndex = columnRenderStart; columnIndex <= columnRange[1]; columnIndex += 1) {
-                const currentCellKey = getCellKey(rowIndex, columnIndex);
-                const isSkipCell = skipCellSet.has(currentCellKey);
-                const column = bottomColumns[columnIndex];
-                if (column.fixed === "left" || column.fixed === "right") continue;
-                const mergeCell = mergeCellMap.get(currentCellKey);
+            for (const { columnIndex, column, key, style, isLastColumn } of windowColumns) {
+                const currentCellKey = hasMergeCells ? getCellKey(rowIndex, columnIndex) : undefined;
+                const isSkipCell = currentCellKey !== undefined && skipCellSet.has(currentCellKey);
+                const mergeCell = currentCellKey === undefined ? undefined : mergeCellMap.get(currentCellKey);
                 tableCells.push(
                     <TableBodyCell
-                        key={makeColumnReactKey(column.name)}
+                        key={key}
                         dir={direction}
                         data-col-index={columnIndex}
                         row={currentRow as T}
@@ -725,17 +862,19 @@ function Table<T extends Row>(props: TableProps<T>): ReactNode {
                         gridTemplateColumns={gridTemplateColumns}
                         gridTemplateRows={gridTemplateRows}
                         editType={editType}
-                        isLastColumn={columnIndex === bottomColumns.length - 1 || (fixedRightColumnsIdx.length > 0 && columnIndex === fixedRightColumnsIdx[0] - 1)}
-                        isEdited={editedCellKeys.has(makeCellIdentityKey((currentRow as T).id, column.name))}
+                        isLastColumn={isLastColumn}
+                        isEdited={editedCellKeys.size > 0 && editedCellKeys.has(makeCellIdentityKey(currentRow.id, column.name))}
                         onCellCommit={handleCellCommit}
                         selection={isEditingThisRow ? undefined : getCellSelectionState(rowIndex, columnIndex, mergeCell)}
                         dataVersion={undoDataVersion}
                         renderVersion={column.name === SELECTION_COLUMN_NAME ? selectionRenderVersion : undefined}
+                        tableRenderVersion={virtualRenderVersion}
                         highlightKeyword={highlightKeyword}
                         activeOccurrenceInCell={activeMatchMeta?.rowIndex === rowIndex && activeMatchMeta?.columnIndex === columnIndex ? activeMatchMeta.occurrenceInCell : undefined}
                         onCellMouseDown={isEditingThisRow ? undefined : handleCellMouseDown}
                         onCellMouseEnter={isEditingThisRow ? undefined : handleCellMouseEnter}
-                        style={{ width: gridTemplateColumns[columnIndex] }}
+                        style={style}
+                        {...activeCellProps(columnIndex)}
                         {...getTreeCellProps(currentRow, columnIndex)}
                         {...getRowEditCellProps(column)}
                         {...getCellNavProps(rowIndex, columnIndex)}
@@ -744,9 +883,9 @@ function Table<T extends Row>(props: TableProps<T>): ReactNode {
             }
 
             const makeFixedBodyCell = (column: ColumnType<T>, columnIndex: number, fixed: "left" | "right") => {
-                const currentCellKey = getCellKey(rowIndex, columnIndex);
-                const isSkipCell = skipCellSet.has(currentCellKey);
-                const mergeCell = mergeCellMap.get(currentCellKey);
+                const currentCellKey = hasMergeCells ? getCellKey(rowIndex, columnIndex) : undefined;
+                const isSkipCell = currentCellKey !== undefined && skipCellSet.has(currentCellKey);
+                const mergeCell = currentCellKey === undefined ? undefined : mergeCellMap.get(currentCellKey);
                 return (
                     <TableBodyCell
                         className={cx.call(undefined, !isSkipCell && (isEditingThisRow ? fixedCellRowEditBgStyle : fixedCellBgWithRowVar))}
@@ -761,12 +900,14 @@ function Table<T extends Row>(props: TableProps<T>): ReactNode {
                         gridTemplateColumns={gridTemplateColumns}
                         gridTemplateRows={gridTemplateRows}
                         fixed={fixed}
+                        dataVersion={undoDataVersion}
                         editType={editType}
                         isLastColumn={columnIndex === bottomColumns.length - 1}
-                        isEdited={editedCellKeys.has(makeCellIdentityKey((currentRow as T).id, column.name))}
+                        isEdited={editedCellKeys.size > 0 && editedCellKeys.has(makeCellIdentityKey(currentRow.id, column.name))}
                         onCellCommit={handleCellCommit}
                         selection={getCellSelectionState(rowIndex, columnIndex, mergeCell)}
                         renderVersion={column.name === SELECTION_COLUMN_NAME ? selectionRenderVersion : undefined}
+                        tableRenderVersion={virtualRenderVersion}
                         highlightKeyword={highlightKeyword}
                         activeOccurrenceInCell={activeMatchMeta?.rowIndex === rowIndex && activeMatchMeta?.columnIndex === columnIndex ? activeMatchMeta.occurrenceInCell : undefined}
                         onCellMouseDown={isEditingThisRow ? undefined : handleCellMouseDown}
@@ -777,6 +918,7 @@ function Table<T extends Row>(props: TableProps<T>): ReactNode {
                                 ? stickyLeftOffsets[columnIndex]
                                 : stickyRightOffsets[columnIndex]
                         }}
+                        {...activeCellProps(columnIndex)}
                         {...getTreeCellProps(currentRow, columnIndex)}
                         {...getRowEditCellProps(column)}
                         {...getCellNavProps(rowIndex, columnIndex)}
@@ -784,11 +926,14 @@ function Table<T extends Row>(props: TableProps<T>): ReactNode {
                 );
             };
 
+            const rowHeight = indexedAxis?.itemSize ?? gridTemplateRows[rowIndex];
             bodyRows.push(
                 <BodyRow
                     key={makeRowReactKey((currentRow as T).id)}
                     // 数据行在 DOM 中的定位锚点（供测试与使用方的自动化脚本使用）
                     data-row-index={rowIndex}
+                    aria-rowindex={rowIndexOffset + rowIndex}
+                    aria-busy={isEditingThisRow && saving || undefined}
                     data-table-row-editing={isEditingThisRow || undefined}
                     role="row"
                     aria-selected={rowSelection ? isRowSelected : undefined}
@@ -798,7 +943,8 @@ function Table<T extends Row>(props: TableProps<T>): ReactNode {
                         isRowSelected ? selectedRowStyle : undefined,
                     )}
                     style={{
-                        height: gridTemplateRows[rowIndex],
+                        height: rowHeight,
+                        "--rc-table-row-line-height": `${rowHeight}px`,
                         width: actualHeight,
                         ...(isRowSelected ? { [ROW_BG_VAR]: token['row-selection']['background-color-selected'] } : null)
                     } as CSSProperties & Record<`--${string}`, string | number>}
@@ -808,9 +954,9 @@ function Table<T extends Row>(props: TableProps<T>): ReactNode {
                 >
                     {isEditingThisRow && <div className={rowEditBorderOverlayStyle} aria-hidden />}
                     {fixedLeftColumns.map((column, index) => makeFixedBodyCell(column, fixedLeftColumnsIdx[index], "left"))}
-                    {paddingLeftWithCompensation(leftPaddingCompensation)}
+                    {bodyLeftSpacer}
                     {tableCells}
-                    {paddingRight}
+                    {spacers.rightSpacer}
                     {fixedRightColumns.map((column, index) => makeFixedBodyCell(column, fixedRightColumnsIdx[index], "right"))}
                     {isEditingThisRow && (
                         <div
@@ -838,14 +984,16 @@ function Table<T extends Row>(props: TableProps<T>): ReactNode {
                                     type="button"
                                     appearance="primary"
                                     size={rowEditActionSizes[size]}
+                                    disabled={saving}
                                     onClick={commitRowEdit}
                                 >
-                                    {messages.common.confirm}
+                                    {saving ? messages.common.loading : messages.common.confirm}
                                 </Button>
                                 <Button
                                     type="button"
                                     appearance="outlined"
                                     size={rowEditActionSizes[size]}
+                                    disabled={saving}
                                     onClick={cancelRowEdit}
                                 >
                                     {messages.common.cancel}
@@ -857,7 +1005,7 @@ function Table<T extends Row>(props: TableProps<T>): ReactNode {
             );
         }
 
-        bodyRows.push(paddingBottom);
+        bodyRows.push(verticalSpacer("bottom", padding.bottom));
         return bodyRows;
     };
 
@@ -866,7 +1014,7 @@ function Table<T extends Row>(props: TableProps<T>): ReactNode {
         showSummary, summaryRowHeight, rows, bottomColumns,
         fixedLeftColumnsIdx, fixedRightColumnsIdx, gridTemplateColumns,
         stickyLeftOffsets, stickyRightOffsets, actualHeight,
-        paddingLeft, paddingRight, selectionColumnName: SELECTION_COLUMN_NAME,
+        selectionColumnName: SELECTION_COLUMN_NAME,
         renderVersion: virtualRenderVersion, direction
     });
 
@@ -918,7 +1066,7 @@ function Table<T extends Row>(props: TableProps<T>): ReactNode {
     };
 
     // ====== 渲染：表头 ======
-    const generateHeaderElement = ({ columnRange }: { columnRange: [number, number] }) => {
+    const generateHeaderElement = (columnRange: [number, number], leftPadding: number, { leftSpacer, rightSpacer }: ColumnSpacers) => {
         const getMergeCell = (cell?: HeaderCellType<T> | null) => cell
             ? { rowIndex: cell.rowIndex, columnIndex: cell.columnIndex, rowSpan: cell.rowSpan, colSpan: cell.colSpan }
             : undefined;
@@ -1015,7 +1163,7 @@ function Table<T extends Row>(props: TableProps<T>): ReactNode {
 
                 const isSelectionCol = cell?.column?.name === SELECTION_COLUMN_NAME;
                 const selectionHeaderContent = (() => {
-                    if (!isSelectionCol || isSkipCell || rowSelection?.type !== 'checkbox') return undefined;
+                    if (indexedRows || !isSelectionCol || isSkipCell || rowSelection?.type !== 'checkbox') return undefined;
                     return (
                         <div className={selectionCellStyle}>
                             <Checkbox
@@ -1086,13 +1234,9 @@ function Table<T extends Row>(props: TableProps<T>): ReactNode {
                         css`z-index: 11;`,
                         { left: stickyLeftOffsets[columnIndex] }
                     ))}
-                    <div
-                        key={`table-header-left-padding-${r}`}
-                        className={css`display: inline-block; vertical-align: top; box-sizing: border-box; height: 100%;`}
-                        style={{ width: `calc(var(--crab-rc-virtual-left-padding-width, 0px) - var(--crab-rc-virtual-left-padding-width-offset, 0px) - ${leftPaddingCompensation}px)` }}
-                    />
+                    {horizontalSpacer("left", leftPadding - leftPaddingCompensation)}
                     {cells}
-                    {paddingRight}
+                    {rightSpacer}
                     {fixedRightColumnsIdx.map((columnIndex) => makeHeaderCell(
                         columnIndex,
                         css`z-index: 11;`,
@@ -1119,9 +1263,9 @@ function Table<T extends Row>(props: TableProps<T>): ReactNode {
                     virtualWindowKey={`${columnRange[0]}:${columnRange[1]}`}
                 >
                     {fixedLeftColumnsIdx.map((columnIndex) => renderFilterCell(columnIndex, "left"))}
-                    {paddingLeft}
+                    {leftSpacer}
                     {filterCells}
-                    {paddingRight}
+                    {rightSpacer}
                     {fixedRightColumnsIdx.map((columnIndex) => renderFilterCell(columnIndex, "right"))}
                 </BodyRow>
             );
@@ -1130,7 +1274,8 @@ function Table<T extends Row>(props: TableProps<T>): ReactNode {
         return nodeRows;
     };
 
-    const emptyNode = rows.length === 0
+    const viewRowCount = indexedAxis?.count ?? targetRows.length;
+    const emptyNode = (indexedAxis?.count ?? rows.length) === 0
         ? (empty === undefined ? <Empty /> : empty)
         : null;
 
@@ -1141,7 +1286,7 @@ function Table<T extends Row>(props: TableProps<T>): ReactNode {
             ref={interactionRootRef}
             role={restProps.role ?? "grid"}
             tabIndex={restProps.tabIndex ?? 0}
-            aria-rowcount={restProps["aria-rowcount"] ?? maxDepth + (isFilterEnabled ? 1 : 0) + targetRows.length + (showSummary ? 1 : 0)}
+            aria-rowcount={restProps["aria-rowcount"] ?? maxDepth + (isFilterEnabled ? 1 : 0) + viewRowCount + (showSummary ? 1 : 0)}
             aria-colcount={restProps["aria-colcount"] ?? bottomColumns.length}
             onMouseDownCapture={(event) => {
                 activateInteraction();
@@ -1176,9 +1321,8 @@ function Table<T extends Row>(props: TableProps<T>): ReactNode {
             data-fixed-right={actualHeight > width && fixedRightColumnsIdx.length > 0 || undefined}
             style={{
                 ...restProps.style,
-                "--rc-table-fixed-left-width": `${fixedLeftColumnsIdx.reduce((acc, idx) => acc + gridTemplateColumns[idx], 0)}px`,
-                "--rc-table-fixed-right-width": `${fixedRightColumnsIdx.reduce((acc, idx) => acc + gridTemplateColumns[idx], 0)}px`,
-                "--crab-rc-virtual-left-padding-width-offset": `${fixedLeftColumnsIdx.reduce((acc, idx) => acc + gridTemplateColumns[idx], 0)}px`
+                "--rc-table-fixed-left-width": `${fixedLeftWidth}px`,
+                "--rc-table-fixed-right-width": `${fixedRightWidth}px`,
             } as CSSProperties & Record<`--${string}`, string | number>}
         >
             <RcVirtual
@@ -1196,21 +1340,38 @@ function Table<T extends Row>(props: TableProps<T>): ReactNode {
                     user-select: none;
                 `}
                 gridTemplateColumns={gridTemplateColumns}
-                gridTemplateRows={gridTemplateRows}
+                gridTemplateRows={indexedAxis ?? gridTemplateRows}
                 viewportWidth={width}
                 viewportHeight={height}
                 reservedTopHeight={reservedTopPx}
                 reservedBottomHeight={showSummary ? summaryRowHeight : 0}
                 overscanRowCount={4}
                 overscanColumnCount={1}
-                renderRows={(rowRange, columnRange) => {
+                renderWindow={(rowRange, columnRange, windowPadding) => {
+                    // Rows already span the full width. Only trailing controls need an explicit right gap.
+                    const padding = { ...windowPadding, left: windowPadding.left - fixedLeftWidth, right: windowPadding.right - fixedRightWidth };
+                    const spacers = {
+                        leftSpacer: horizontalSpacer("left", padding.left),
+                        rightSpacer: fixedRightColumnsIdx.length > 0 || editType === "row"
+                            ? horizontalSpacer("right", padding.right) : null,
+                    };
                     return [
-                        ...generateHeaderElement({ columnRange }),
-                        ...generateBodyElement({ rowRange, columnRange }),
-                        generateSummaryElement({ columnRange })
+                        indexedRows?.onRangeChange && rowRange[1] >= rowRange[0] && height > reservedTopPx + (showSummary ? summaryRowHeight : 0)
+                            ? <ReportRowRange key="table-row-range" startIndex={rowRange[0]} endIndex={rowRange[1] + 1}
+                                onChange={indexedRows.onRangeChange} />
+                            : null,
+                        ...generateHeaderElement(columnRange, padding.left, spacers),
+                        ...generateBodyElement(rowRange, columnRange, padding, spacers),
+                        generateSummaryElement({ columnRange, ...spacers }),
                     ];
                 }}
             />
+            {pasteError && <div role="alert" className={feedbackStyle}>{pasteError}</div>}
+            {errors && <div role="alert" className={feedbackStyle}>
+                {errors.message}
+                {Object.entries(errors.fieldErrors ?? {}).map(([name, message]) =>
+                    <div key={name}>{columnByName.get(name)?.title ?? name} · {message}</div>)}
+            </div>}
             <span ref={filterSizeRef} className={filterSizeProbeStyle} data-table-filter-size="" aria-hidden="true" />
             {emptyNode !== null && (
                 <div

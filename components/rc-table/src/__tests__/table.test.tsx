@@ -122,6 +122,39 @@ const renderTable = async (element: ReactElement) => render(element);
 
 (globalThis as typeof globalThis & { IS_REACT_ACT_ENVIRONMENT?: boolean }).IS_REACT_ACT_ENVIRONMENT = true;
 
+it('keeps the row draft across async field and network failures, locks duplicate saves and retries', async () => {
+    const requests: Array<ReturnType<typeof Promise.withResolvers<void | { fieldErrors: Record<string, string> }>>> = [];
+    const commits: Record<string, unknown>[] = [];
+    const view = await render(<Table width={600} height={300} rows={buildRows()} editType="row" defaultEditingRowId="1"
+        columns={[{ name: '$.city', title: 'City', editRender: ({ editorValue, row, onEditorValueChange }) =>
+            <input aria-label="City" value={String(editorValue ?? row.dataRef.city)} onChange={e => onEditorValueChange(e.target.value)} /> }]}
+        onRowCommit={(_id, changes) => {
+            commits.push(changes);
+            const request = Promise.withResolvers<void | { fieldErrors: Record<string, string> }>();
+            requests.push(request);
+            return request.promise;
+        }} />);
+    const input = screen.getByRole('textbox', { name: 'City' }) as HTMLInputElement;
+    await changeInputValue(input, 'Suzhou');
+    const save = screen.getByRole('button', { name: '确定' }) as HTMLButtonElement;
+    await fireEvent.click(save);
+    expect(save.disabled).toBe(true);
+    await fireEvent.click(save);
+    expect(commits).toHaveLength(1);
+    await act(() => requests[0].resolve({ fieldErrors: { '$.city': 'Choose another city' } }));
+    expect(screen.getByRole('alert').textContent).toContain('Choose another city');
+    expect(input.value).toBe('Suzhou');
+    await changeInputValue(input, 'Shanghai');
+    await fireEvent.click(save);
+    await act(() => requests[1].reject(new Error('Offline')));
+    expect(screen.getByRole('alert').textContent).toContain('Offline');
+    expect(input.value).toBe('Shanghai');
+    await fireEvent.click(save);
+    await act(() => requests[2].resolve());
+    expect(commits.at(-1)).toEqual({ '$.city': 'Shanghai' });
+    expect(view.container.querySelector('[data-table-row-editing]')).toBeNull();
+});
+
 const buildRows = (): DemoRow[] => {
     return [
         {
@@ -927,6 +960,12 @@ describe("Table", () => {
             />
         );
         expect(container.textContent).toContain("R-0002");
+
+        const labels = localeMessages['zh-CN'].table;
+        const collapse = screen.getByRole('button', { name: labels.collapseChildren });
+        expect(collapse.getAttribute('aria-expanded')).toBe('true');
+        await fireEvent.click(collapse);
+        expect(screen.getByRole('button', { name: labels.expandChildren }).getAttribute('aria-expanded')).toBe('false');
 
         await unmount();
     });

@@ -1,4 +1,7 @@
-import { type Key, type RefObject, useCallback, useEffect, useState } from "react";
+import { type Key, type RefObject, useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
+
+import type { Row, RowEditErrors } from '../types.js';
+import type { TableProps } from '../table-props.js';
 
 const EMPTY_EDITOR_VALUES: Record<string, unknown> = {};
 
@@ -7,7 +10,7 @@ interface UseRowEditParams {
     editingRowId?: Key | null
     defaultEditingRowId?: Key | null
     onEditingRowIdChange?: (id: Key | null) => void
-    onRowCommit?: (rowId: Key, changes: Record<string, unknown>) => void
+    onRowCommit?: TableProps<Row>['onRowCommit']
     onRowCancel?: (rowId: Key) => void
     isInteractionActive: () => boolean
     rootRef?: RefObject<HTMLElement | null>
@@ -17,6 +20,8 @@ export function useRowEdit(params: UseRowEditParams): {
     isRowEditMode: boolean;
     currentEditingRowId: Key | null;
     editorValues: Record<string, unknown>;
+    saving: boolean;
+    errors: RowEditErrors | undefined;
     startRowEdit: (rowId: Key) => void;
     setColumnValue: (columnName: string, value: unknown) => void;
     commitRowEdit: () => void;
@@ -30,6 +35,15 @@ export function useRowEdit(params: UseRowEditParams): {
     const currentEditingRowId: Key | null = isRowEditMode
         ? (editingRowId !== undefined ? editingRowId : innerEditingRowId)
         : null;
+
+    const pending = useRef<symbol | null>(null);
+    const [saving, setSaving] = useState(false);
+    const [errors, setErrors] = useState<RowEditErrors>();
+    useLayoutEffect(() => {
+        setSaving(false);
+        setErrors(undefined);
+        return () => { pending.current = null; };
+    }, [currentEditingRowId]);
 
     const [editorDraft, setEditorDraft] = useState<{ rowId: Key | null; values: Record<string, unknown> }>(() => ({
         rowId: currentEditingRowId,
@@ -52,11 +66,15 @@ export function useRowEdit(params: UseRowEditParams): {
     }, [editingRowId, onEditingRowIdChange]);
 
     const startRowEdit = useCallback((rowId: Key) => {
+        if (pending.current) return;
+        setErrors(undefined);
         setEditorDraft({ rowId, values: EMPTY_EDITOR_VALUES });
         setEditingId(rowId);
     }, [setEditingId]);
 
     const setColumnValue = useCallback((columnName: string, value: unknown) => {
+        if (pending.current) return;
+        setErrors(undefined);
         setEditorDraft(previous => ({
             rowId: currentEditingRowId,
             values: {
@@ -66,15 +84,40 @@ export function useRowEdit(params: UseRowEditParams): {
         }));
     }, [currentEditingRowId]);
 
-    const commitRowEdit = useCallback(() => {
-        if (currentEditingRowId == null) return;
-        onRowCommit?.(currentEditingRowId, editorValues);
-        setEditorDraft({ rowId: null, values: EMPTY_EDITOR_VALUES });
-        setEditingId(null);
+    const commitRowEdit = useCallback(async () => {
+        if (currentEditingRowId == null || pending.current) return;
+        const submission = Symbol();
+        pending.current = submission;
+        setErrors(undefined);
+        try {
+            const result = onRowCommit?.(currentEditingRowId, { ...editorValues });
+            let validation: RowEditErrors | void;
+            if (result && typeof result === 'object' && 'then' in result) {
+                setSaving(true);
+                validation = await result;
+            } else {
+                validation = result;
+            }
+            if (pending.current !== submission) return;
+            if (validation && (validation.message || Object.values(validation.fieldErrors ?? {}).some(Boolean))) {
+                setErrors(validation);
+                return;
+            }
+            setEditorDraft({ rowId: null, values: EMPTY_EDITOR_VALUES });
+            setEditingId(null);
+        } catch (error) {
+            if (pending.current === submission) setErrors({ message: error instanceof Error ? error.message : String(error) });
+        } finally {
+            if (pending.current === submission) {
+                pending.current = null;
+                setSaving(false);
+            }
+        }
     }, [currentEditingRowId, editorValues, onRowCommit, setEditingId]);
 
     const cancelRowEdit = useCallback(() => {
-        if (currentEditingRowId == null) return;
+        if (currentEditingRowId == null || pending.current) return;
+        setErrors(undefined);
         onRowCancel?.(currentEditingRowId);
         setEditorDraft({ rowId: null, values: EMPTY_EDITOR_VALUES });
         setEditingId(null);
@@ -90,5 +133,5 @@ export function useRowEdit(params: UseRowEditParams): {
         return () => document.removeEventListener("keydown", handler);
     }, [rootRef, currentEditingRowId, cancelRowEdit, isInteractionActive]);
 
-    return { isRowEditMode, currentEditingRowId, editorValues, startRowEdit, setColumnValue, commitRowEdit, cancelRowEdit };
+    return { isRowEditMode, currentEditingRowId, editorValues, saving, errors, startRowEdit, setColumnValue, commitRowEdit, cancelRowEdit };
 }

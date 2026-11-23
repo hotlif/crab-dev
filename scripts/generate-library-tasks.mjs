@@ -21,7 +21,7 @@ export function createTurboConfig(manifest, inspection) {
         },
         test: testTask,
         typecheck: {
-            inputs: ["$TURBO_DEFAULT$", "$TURBO_ROOT$/standards/typescript-preset/**/*"],
+            inputs: ["$TURBO_DEFAULT$", "$TURBO_ROOT$/standards/typescript-preset/**/*", "$TURBO_ROOT$/scripts/typecheck.mjs", "$TURBO_ROOT$/scripts/typescript-pnp-fs.mjs", "$TURBO_ROOT$/.pnp.cjs"],
             outputs: [],
         },
         "generate:token": { inputs: ["token.toml", "scripts/**/*"], outputs: ["src/token.ts"] },

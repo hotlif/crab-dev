@@ -59,7 +59,7 @@ AI 维护从 `yarn ai:context <包名或仓库相对路径>` 进入，例如 `ya
 | .website/ | 组件库规范、查阅、示例与工作台 |
 | scripts/ | 产品清单、拓扑与工程契约检查 |
 
-Node.js ≥ 22，通过 Corepack 使用根 packageManager 指定的 Yarn 4 PnP；不创建 node_modules。类型检查使用官方 TypeScript 6.0.2，编辑器通过 `yarn generate:sdk` 接入 Yarn PnP。Wake 负责 lint、构建、令牌、docgen、测试与文档，文档聚合通过官方 TypeScript API 读取真实类型，Turbo 按产品运行时拓扑编排。
+Node.js ≥ 22，通过 Corepack 使用根 packageManager 指定的 Yarn 4 PnP。包内和全库的 `yarn typecheck` 使用官方 TypeScript 7.0.2。文档聚合和编辑器 SDK 使用 6.0.2 的 JavaScript API，运行 `yarn generate:sdk` 可刷新编辑器配置。Wake 负责 lint、构建、令牌、docgen、测试与文档，Turbo 按产品运行时拓扑编排。
 
 ```sh
 corepack enable

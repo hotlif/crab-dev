@@ -25,4 +25,9 @@ export const gridStyle = css`
 	position: relative;
 `;
 
+// The direct window can scroll between column updates. Let the browser prepare its scroll layers.
+export const scrollPositionHintStyle = css`
+	will-change: scroll-position;
+`;
+
 

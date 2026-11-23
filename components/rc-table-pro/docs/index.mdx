@@ -18,6 +18,7 @@ status = "experimental"
 - 通过 `fetchColumns` 和 `request` 异步加载列定义与数据，兼容旧 `fetchData`。
 - 通过 `typeLoaders` 为不同 `dataType` 配置 `render`、`filterEditor` 和 `editRender`。
 - 复用 AutoSizer 与 Table，提供自适应容器和虚拟滚动。
+- 通过 `remoteRows` 按视口加载远程数据块，支持跨范围跳转和有界缓存。
 - 集成分页、查询、列管理与导出；数据请求和业务筛选逻辑由调用方实现。
 
 ## 何时使用
@@ -32,11 +33,11 @@ status = "experimental"
 
 | 场景 | 建议亲手完成的任务 | 主要能力 |
 | --- | --- | --- |
-| 订单履约 | 在右侧过滤器输入「待发货」并回车；按承诺送达日排序；跨页选择订单后生成拣货单 | 服务端分页、复合筛选和排序、请求取消、跨页勾选、当前页汇总与导出 |
+| 订单履约 | 在右侧过滤器输入「待发货」并回车；按承诺送达日排序；跨页选择订单后生成拣货单 | 服务端分页、复合筛选和排序、请求取消、跨页勾选、全量汇总、分页与全量导出 |
 | 库存补货 | 查看不同仓库的商品分组；筛选「需补货」；展开一行了解供应商；选择几条记录生成采购建议 | 多级表头、仓库分组、虚拟滚动、行展开、全量筛选汇总 |
 | 应收复核 | 筛选「高风险」；调整列顺序与固定方式；刷新页面确认视图保留；选择逾期发票生成催收清单 | 客户端排序、列状态持久化、全量汇总、筛选结果导出 |
 
-三个场景分别处理 960 笔订单、720 条库存组合和 840 张发票。订单场景的 `request` 只返回当前页，因此底部汇总和 CSV 只覆盖**当前页**；另外两个场景一次返回全部筛选结果，汇总和 CSV 覆盖**全部筛选结果**。内置搜索栏用于定位已加载的行，不能代替跨页服务端搜索。示例中的「生成」按钮只在页面内展示操作反馈，不会创建真实单据。
+三个场景分别处理 960 笔订单、720 条库存组合和 840 张发票。订单场景由服务端计算全部匹配订单的合计，支持服务端搜索、当前页 CSV 和全部匹配订单导出。另外两个场景一次返回全部筛选结果，并对已加载行执行汇总。示例中的「生成」按钮只在页面内展示操作反馈，不会创建真实单据。
 
 这三个示例共用的演示框架、筛选输入、状态标签和可取消模拟请求位于包内 `docs/demos/scenario-shared.tsx`；复制场景源码到自己的项目时，也要将这些辅助函数替换为项目组件和真实接口。
 
@@ -50,7 +51,7 @@ status = "experimental"
 
 推荐使用 `request({ page, pageSize, filters, sort, signal })`，返回 `{ rows, total }`。新查询和卸载会取消旧请求；将 signal 传给 fetch 可中止底层网络请求。过期结果与过期错误均不会覆盖当前状态。
 
-从零开始接入时，先定义 `Row` 的 `dataRef` 形状，再让 `fetchColumns` 返回列协议（`name` 通常写成 `$.字段名`），最后实现 `request`。`filters` 的 key 是列名，value 是编辑器提交的字符串；服务端需自行解释条件并计算筛选后的 `total`。`sort` 包含列名与方向，服务端负责实际排序；`signal` 应传给网络请求。`rowSelection` 用受控 `selectedRowIds` 时，在 `onSelectedRowIdsChange(ids, { rows, reason })` 中保存新集合，并根据业务状态设置 `getDisabled`。仅在已加载数据范围内使用 `showSummary` 与导出；需要全库聚合或全库导出时应另接后端接口。
+从零开始接入时，先定义 `Row` 的 `dataRef` 形状，再让 `fetchColumns` 返回列协议（`name` 通常写成 `$.字段名`），最后实现 `request`。`filters` 的 key 是列名，value 是编辑器提交的字符串；服务端需自行解释条件并计算筛选后的 `total`。`sort` 包含列名与方向，服务端负责实际排序；`signal` 应传给网络请求。`rowSelection` 用受控 `selectedRowIds` 时，在 `onSelectedRowIdsChange(ids, { rows, reason })` 中保存新集合，并根据业务状态设置 `getDisabled`。默认汇总和侧栏 CSV 使用已加载行。
 
 `sortMode` 默认为 client，仅对已加载数据排序。服务端分页配合 `sortMode="server"` 和 request 使用，组件通过 query.sort 传递排序条件，保留返回顺序，排序变化时回到第一页。旧 fetchData 仅支持 client 模式。
 
@@ -66,11 +67,37 @@ status = "experimental"
 
 <API source="../src/table.tsx" symbol="TableProProps" component="TablePro" />
 
+### 跨页操作与视图恢复
+
+- `showSearchBar` 默认在已加载行中查找。搭配 `request` 和 `searchMode="server"` 时，搜索框作为查询条件，服务端通过 `query.keyword` 搜索，翻回第一页并取消过期查询。
+- `request` 可返回 `{ rows, total, summary }`。启用 `showSummary` 时，summary 用叶子列名映射全部匹配记录的汇总展示值。提供 summary 后，缺省列留空。
+- `onExportAll(query)` 启用独立的全量导出按钮，查询携带筛选、关键字、排序和 AbortSignal。业务端负责生成或下载文件。侧栏原有的 CSV 按钮仍导出已加载行。
+- `resultSelection={{ value, onValueChange, getDisabled }}` 启用跨页选择。初值为 `{ mode: 'ids', ids: new Set() }`。选择全部匹配后得到 `{ mode: 'all', scope, excludedIds }`，翻页后可继续排除个别行。查询条件变化会清除全部匹配选择。批量操作将 scope 和排除项提交到服务端，由服务端执行同一行资格检查。
+- `onRowClick`、`onRowDoubleClick` 与 Table 的回调一致，提供业务行、行索引和事件。行内控件继续处理自己的操作。
+- `onStateChange` 的快照包含列属性、列顺序、筛选、排序优先级与方向、页码、每页条数和搜索词。将快照作为 `initialState` 传入后，首次数据请求使用恢复后的条件。受控 sortColumns 优先，旧快照中缺少的新字段使用默认值，超过末页时回退到有效页。新版快照也会记录取消固定列的结果。
+
+### 远程分块与无限滚动
+
+大型平面列表可通过 `remoteRows={{ request, blockSize: 100, maxCachedBlocks: 8 }}` 启用分块加载。首次请求从第 0 行开始，并由响应中的 `total` 决定拖动滚动条可到达的位置。此后按虚拟视口和预渲染范围加载所需的块。将相同位置滚回视口时，仍在缓存里的行会直接显示。
+
+- `request` 接收从 0 开始的 `startIndex` 和开区间 `endIndex`，以及 `filters`、`keyword`、`sort` 和 `signal`。服务端先执行查询，再返回该范围内连续的 `rows` 和完整匹配总数 `total`。末块可以少于 `blockSize` 行。同一次查询中的总数和排序应保持一致，排序可用唯一行 ID 打破并列。
+- 同一块合并重复请求。默认最多并发 2 块，优先取当前视口。远离视口的在途请求和旧查询会收到取消信号，将 `signal` 转发给 `fetch` 可中止网络请求。筛选、搜索、排序或 `cacheKey` 改变会开启新查询并从首行加载。
+- 缓存按最近使用顺序淘汰。容量至少覆盖当前虚拟视口所需的块。加载中用等高占位行保持滚动位置，单块失败可在原位置重试。
+- 连续跨越多个数据块时合并中间位置的请求，停稳后加载当前视口。首次跳转和相邻数据块按需立即加载。
+- 分块模式使用等高平面行，行高默认随 `density`，也可配置 `remoteRows.rowHeight`。列固定、行选择、行点击和显示范围内的单元格选区仍可使用，选区只包含缓存中已有的行。分页、树形、分组、详情展开、合并及行内编辑使用原有数据接口。
+- `showSummary` 使用查询返回的服务端 `summary`。可通过 `resultSelection` 选择全部匹配项，并用 `onExportAll` 导出完整查询结果。视图快照恢复列配置、筛选、搜索和排序。
+- `scrollToRowIndex(index, { align: 'center' })` 按查询结果中的绝对索引定位。成功表示虚拟视口已提交，未加载的块会按需请求。按 ID 定位可查找仍在缓存中的行。
+
+<API source="../src/types.ts" symbol="TableRemoteRows" component="TableRemoteRows" />
+<API source="../src/types.ts" symbol="TableBlockQuery" component="TableBlockQuery" />
+
 ### 主动刷新与完成时序
 
 <API source="../src/types.ts" symbol="TableProHandle" component="TableProHandle" />
 
 通过 React 19 的普通 `ref` 属性获取 `TableProHandle`，调用 `refresh(): Promise<void>` 重新加载当前页、每页条数、筛选与排序下的数据。请求仍由 TablePro 管理；刷新不重新获取列定义，也不通过重挂载重置列配置、搜索或选择状态。分页越界时自动回退到最后一个有效页，空结果回到第 1 页；这属于内部数据校正，不触发用户分页操作回调。
+
+使用 `remoteRows` 时，`refresh()` 按当前查询重新获取视口所需的块，加载期间保留已有行。成功时替换旧缓存，失败时保留原数据并显示重试入口。若结果总数缩小，视口会收回到有效末尾。
 
 ```tsx
 import { useRef } from 'react';

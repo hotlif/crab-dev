@@ -84,13 +84,14 @@
         "@commitlint/config-conventional": "^21.2.2",
         "@crab-dev/standards-typescript-preset": "workspace:^",
         "@crab-dev/wake": "0.1.57",
-        "@playwright/test": "1.64.1",
-        "@types/node": "^26.6.5",
-        "@yarnpkg/sdks": "3.3.1",
+        "@playwright/test": "1.65.1",
+        "@types/node": "^26.6.6",
+        "@typescript/old": "patch:typescript@npm%3A6.0.2#optional!builtin<compat/typescript>",
+        "@yarnpkg/sdks": "patch:@yarnpkg/sdks@npm%3A3.3.1#~/.yarn/patches/@yarnpkg-sdks-npm-3.3.1-7005f833be.patch",
         "husky": "^9.1.7",
         "react": "19.3.0",
         "react-dom": "19.3.0",
         "turbo": "^2.10.12",
-        "typescript": "6.0.2"
+        "typescript": "7.0.2"
     }
 }

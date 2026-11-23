@@ -49,7 +49,7 @@ status = "experimental"
 
 行选择使用 `selectedRowIds` / `defaultSelectedRowIds` 与 `onSelectedRowIdsChange(ids, { rows, reason })`。`ids` 保留 `Set<Key>`，reason 为 `row` / `all` / `clear`；受控值与默认值互斥，父级更新不反向触发变化回调。旧 `rowSelection.onChange(ids, rows)` 不再提供。
 
-专业桌面列表可设置 `rowSelection.showColumn={false}`，隐藏复选框或单选框列，同时保留选中行样式与 `aria-selected`。这不增加隐式的选择行为：调用方通过 `onRowClick` 更新受控 `selectedRowIds`；已有的单元格锚点加 Enter 入口同样调用 `onRowClick`，应与鼠标操作使用同一处理函数。调用方还需提供可键盘访问的设备或记录切换入口；当前 Table 不提供方向键逐行浏览。默认继续显示选择列；隐藏后不提供列头全选控件。
+专业桌面列表可设置 `rowSelection.showColumn={false}`，隐藏复选框或单选框列，同时保留选中行样式与 `aria-selected`。这不增加隐式的选择行为：调用方通过 `onRowClick` 更新受控 `selectedRowIds`；已有的单元格锚点加 Enter 入口同样调用 `onRowClick`，应与鼠标操作使用同一处理函数。表格获得焦点后，首次方向键选择首个可选格，之后上下键逐行、左右键逐列移动。Enter 激活当前行。默认继续显示选择列；隐藏后不提供列头全选控件。
 
 内置选择、展开、编辑与列宽调整文案跟随 `ConfigProvider locale`，列标题和业务数据仍由调用方提供。默认字符串排序采用相同 locale；提供自定义 sorter 时保留业务比较规则。
 
@@ -64,6 +64,14 @@ grid 入口的键盘焦点环绘制在表格边界内侧，并位于固定列、
 迁移：不再使用或导出 `row-edit.confirm.*`、`row-edit.cancel.*`、`row-edit.button.*`、`row-edit.outline-color` 和 `row-edit.transition` 这些重复的按钮 L3 令牌。既有 CSS 覆盖需迁移至公共 Button / 设计语义契约；操作浮条与编辑行的 `row-edit.actions.*`、卡片和边界令牌继续由 Table 管理。不要用 Table class 静态改色重新伪装按钮外观，否则会破坏按下状态的配对前景与背景。
 
 <API source="../src/table.tsx" symbol="TableProps" component="Table" />
+
+### 键盘浏览、批量粘贴与行保存
+
+聚焦表格后按方向键浏览，按住 Shift 可从原锚点扩展或缩小矩形选区。表格滚动以显示当前格，并跳过分组标题、详情行、不可选列和被合并覆盖的格子。编辑器保留自己的光标和选择操作。
+
+提供 `onCellsChange(records, { reason })` 后，Ctrl/⌘+V 从当前格接收制表符分列的剪贴板文本，包括带引号的多行值。目标列通过 `editRender` 或 `parsePaste(text, row)` 开放写入。越界部分截断，只读列保留其物理位置。列可通过 `validatePaste(value, row)` 返回错误文本，任一字段失败会保留整批原值。业务方一次写回整批记录，`paste` 和 `redo` 使用 newValue，`undo` 使用 oldValue。单格编辑的旧记录沿用原有 JSONPath 值格式。Ctrl/⌘+Z 撤销，Ctrl/⌘+Shift+Z 或 Ctrl+Y 重做；新编辑会清空重做历史。
+
+行编辑的 `onRowCommit` 可返回 Promise。等待期间锁定编辑器和操作按钮；成功后关闭编辑。校验失败时返回 `{ fieldErrors: { '$.quantity': '数量必须大于零' } }`，或抛出包含错误说明的 Error。草稿保留，可修改后再次提交。自定义编辑器可读取 `error` 和 `saving`。原有同步回调仍然有效。
 
 ### 命令式定位与焦点
 
@@ -88,6 +96,15 @@ async function locateRecord(recordId: string) {
 ```
 
 <API source="../src/types.ts" symbol="TableHandle" component="TableHandle" />
+
+### 按索引提供稀疏数据
+
+`indexedRows` 可在等高平面列表中按索引提供部分数据。传入完整行数 `count` 和以绝对索引为键的只读 `rows` Map，缺少的索引显示占位行。提供数据后传入新的 Map 快照。虚拟滚动根据总行数和行高计算位置，`onRangeChange` 在视口提交后报告包含预渲染行的范围，`endIndex` 为开区间。通过 `scrollToRowIndex` 可以定位到尚未加载的位置。
+
+排序交互通过 `onSortColumnsChange` 提交给数据提供方。行事件使用绝对索引，行复选框按稳定的 ID 工作，单元格选区只包含当前已有数据的行。分页汇总、缓存和请求由使用方或 TablePro 管理。
+
+<API source="../src/types.ts" symbol="TableIndexedRows" component="TableIndexedRows" />
+<API source="../src/types.ts" symbol="TableRowRange" component="TableRowRange" />
 
 
 ## 设计风格与主题

@@ -5,7 +5,8 @@ import path from "node:path";
 import { repositoryRoot, readLibraryMetadata } from "../../../scripts/library-manifest.mjs";
 
 const require = createRequire(import.meta.url);
-const ts = require("typescript");
+// The native 7.0 compiler has no stable JavaScript checker/printer API.
+const ts = require("@typescript/old");
 const printer = ts.createPrinter({ removeComments: true });
 const options = { target: ts.ScriptTarget.ESNext, module: ts.ModuleKind.ESNext,
     moduleResolution: ts.ModuleResolutionKind.Bundler, jsx: ts.JsxEmit.ReactJSX,

@@ -25,7 +25,7 @@ import { demos, documents, guide } from "../_generated/rc-table-pro.js";
 
 <div hidden aria-hidden="true" data-docs-search-index="demos">
 
-##### 订单履约工作台：跨页查询与拣货 — 模拟 960 笔多区域订单。尝试在右侧筛选「待发货」、按承诺日期排序、跨页选择订单并生成拣货单；金额汇总与 CSV 只针对当前页。request 真正处理分页、筛选、排序及 AbortSignal。
+##### 订单履约工作台：跨页查询与拣货 — 模拟 960 笔多区域订单。尝试在右侧筛选「待发货」、按承诺日期排序、跨页选择订单并生成拣货单；搜索、金额汇总和全量导出覆盖全部匹配订单。request 真正处理分页、筛选、排序及 AbortSignal。
 
 ##### 库存补货决策：仓库分组与汇总 — 模拟 720 条真实库存组合。按仓库分组，查看可用库存、7 日需求及补货建议；展开行看供应商和采购提前期，筛选缺货风险后勾选并生成模拟采购建议。底部汇总随筛选结果变化。
 
@@ -39,6 +39,8 @@ import { demos, documents, guide } from "../_generated/rc-table-pro.js";
 
 ##### 刷新、定位与焦点 — 刷新后等待完成反馈；定位记录 10 只查找当前页，聚焦按钮将键盘操作交回表格。
 
+##### 远程分块与无限滚动 — 跳到第 900,015 行，再回到首行。查看请求次数，验证远距离定位只请求目标块，回滚可复用缓存。可输入订单编号搜索。
+
 ##### 全局关键字搜索 — showSearchBar=true 在表格顶部显示内置搜索栏，输入关键字后所有可见列匹配到的文字会高亮显示，并支持上一个 / 下一个导航。DataTypeLoader.getSearchText 可为枚举等类型自定义匹配文本。
 
 ##### 侧边栏（列 / 过滤器） — sideBar 在右侧展示工具栏：点击「列」图标可切换列的显隐、拖拽改变顺序、固定到左/右侧、开关排序；点击「过滤器」图标进入过滤条件面板。
@@ -47,7 +49,7 @@ import { demos, documents, guide } from "../_generated/rc-table-pro.js";
 
 ##### CSV 导出 — 设置 exportFileName 后侧边栏出现导出按钮，点击后将当前可见列导出为 UTF-8 CSV 文件。DataTypeLoader.exportValue 可自定义每种数据类型的导出文本——例如将枚举值转换为中文标签，或对数值格式化。
 
-##### 状态持久化 — initialState 在首次加载时恢复列顺序、显隐、宽度、固定等属性；onStateChange 在任何列属性或过滤条件变更时触发，可将快照写入 localStorage。刷新页面后所有调整会被还原。
+##### 状态持久化 — 调整列宽、多列排序、页码或每页条数，刷新后恢复上次浏览的视图。旧快照可继续使用。
 
 </div>
 
@@ -60,6 +62,14 @@ import { demos, documents, guide } from "../_generated/rc-table-pro.js";
 <ComponentDesignGuide guide={guide} documents={documents} />
 
 ## 常见问题
+
+### 服务端分页时，如何对全部匹配记录操作？
+
+searchMode 设为 server 后，request 接收 keyword。返回 summary 可显示全部匹配结果的汇总。resultSelection 用筛选条件和排除的 ID 表达跨页全选。onExportAll 对接同一查询的后端导出接口，侧栏 CSV 仍可单独导出当前页。
+
+### 从详情返回时，怎样恢复原表格？
+
+用 onRowClick 或 onRowDoubleClick 打开记录，把 onStateChange 的快照保存在列表页之外。再次挂载时传给 initialState，可恢复列布局、搜索、筛选、多列排序、页码和每页条数。
 
 ### 如何接真实接口？
 
@@ -75,5 +85,9 @@ import { demos, documents, guide } from "../_generated/rc-table-pro.js";
 <API source="../_generated_api/rc-table-pro-native.ts" symbol="TableProPropsNativeAttributes" component="TablePro 继承的原生属性" />
 
 </details>
+
+<API source="../_generated_api/rc-table-pro-TableRemoteRows.ts" symbol="TableRemoteRows" component="TableRemoteRows" />
+
+<API source="../_generated_api/rc-table-pro-TableBlockQuery.ts" symbol="TableBlockQuery" component="TableBlockQuery" />
 
 <API source="../_generated_api/rc-table-pro-TableProHandle.ts" symbol="TableProHandle" component="TableProHandle" />

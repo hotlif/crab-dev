@@ -13,7 +13,7 @@ status = "experimental"
 
 默认密度仍为 `standard`。自动数据行参考高度调整为紧凑 28px、标准 36px、舒适 44px；表头分别为 32px、36px、44px。显式 `getRowHeight`、`row.height` 等几何优先级保持不变；需要旧固定几何的应用应显式声明行高，并核对滚动、编辑与焦点。粗指针自动默认值继续保留原有下限。
 
-开发环境统一使用官方 TypeScript 6.0.2。刷新依赖后运行 `yarn generate:sdk`，再执行包内检查；旧的编译器准备命令已移除。不要把历史编译器缓存当作当前入口，也无需清理已有缓存或审查记录。
+开发环境已升级到官方 TypeScript 7.0.2。运行 `yarn install --immutable` 和 `yarn generate:sdk` 后，用包内或根目录的 `yarn typecheck` 执行支持 PnP 的类型检查。文档生成和 VS Code SDK 继续使用 6.0.2 的 JavaScript API。
 
 文档维护者将布局、预览密度和 Demo 分组写在包内 `docs/presentation.json`，再生成站点；运行示例和教学步骤仍分别维护。产品设计身份来自产品清单，生成的 registry 与选择器通过 `generate:architecture` 更新。
 

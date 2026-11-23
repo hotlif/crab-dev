@@ -47,9 +47,18 @@ test("Wake and Crab CSS use the exact version pinned by the root workspace", asy
     const root = JSON.parse(await readFile(new URL("../package.json", import.meta.url), "utf8"));
     const version = root.devDependencies["@crab-dev/wake"];
     assert.deepEqual(validateWakeToolchain(root, await readWorkspaceManifests()), []);
-    assert.deepEqual(validateWakeToolchain(root, [{ packageJson: {
-        name: "fixture", dependencies: { "@crab-dev/css": `^${version}` },
-    } }]), [`fixture: @crab-dev/css must be pinned to ${version}.`]);
+
+    const mismatchedWorkspace = {
+        packageJson: {
+            name: "fixture",
+            dependencies: { "@crab-dev/css": `^${version}` },
+            devDependencies: { "@crab-dev/wake": `^${version}` },
+        },
+    };
+    assert.deepEqual(validateWakeToolchain(root, [mismatchedWorkspace]), [
+        `fixture: @crab-dev/css must be pinned to ${version}.`,
+        `fixture: @crab-dev/wake must be pinned to ${version}.`,
+    ]);
     assert.deepEqual(validateWakeToolchain({ devDependencies: { "@crab-dev/wake": `^${version}` } }, []), [
         "Root devDependencies must pin an exact @crab-dev/wake release.",
     ]);

@@ -40,7 +40,10 @@
         "typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp-fs.mjs",
+                "$TURBO_ROOT$/.pnp.cjs"
             ],
             "outputs": []
         },
@@ -122,7 +125,10 @@
         "@crab-dev/rc-alert#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp-fs.mjs",
+                "$TURBO_ROOT$/.pnp.cjs"
             ],
             "outputs": [],
             "dependsOn": [
@@ -197,7 +203,10 @@
         "@crab-dev/rc-app-main-layout#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp-fs.mjs",
+                "$TURBO_ROOT$/.pnp.cjs"
             ],
             "outputs": [],
             "dependsOn": [
@@ -261,7 +270,10 @@
         "@crab-dev/rc-auto-sizer#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp-fs.mjs",
+                "$TURBO_ROOT$/.pnp.cjs"
             ],
             "outputs": [],
             "dependsOn": [
@@ -311,7 +323,10 @@
         "@crab-dev/rc-avatar#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp-fs.mjs",
+                "$TURBO_ROOT$/.pnp.cjs"
             ],
             "outputs": [],
             "dependsOn": [
@@ -372,7 +387,10 @@
         "@crab-dev/rc-badge#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp-fs.mjs",
+                "$TURBO_ROOT$/.pnp.cjs"
             ],
             "outputs": [],
             "dependsOn": [
@@ -439,7 +457,10 @@
         "@crab-dev/rc-bar-chart#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp-fs.mjs",
+                "$TURBO_ROOT$/.pnp.cjs"
             ],
             "outputs": [],
             "dependsOn": [
@@ -504,7 +525,10 @@
         "@crab-dev/rc-breadcrumbs#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp-fs.mjs",
+                "$TURBO_ROOT$/.pnp.cjs"
             ],
             "outputs": [],
             "dependsOn": [
@@ -566,7 +590,10 @@
         "@crab-dev/rc-button#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp-fs.mjs",
+                "$TURBO_ROOT$/.pnp.cjs"
             ],
             "outputs": [],
             "dependsOn": [
@@ -628,7 +655,10 @@
         "@crab-dev/rc-canvas#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp-fs.mjs",
+                "$TURBO_ROOT$/.pnp.cjs"
             ],
             "outputs": [],
             "dependsOn": [
@@ -690,7 +720,10 @@
         "@crab-dev/rc-card#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp-fs.mjs",
+                "$TURBO_ROOT$/.pnp.cjs"
             ],
             "outputs": [],
             "dependsOn": [
@@ -752,7 +785,10 @@
         "@crab-dev/rc-checkbox#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp-fs.mjs",
+                "$TURBO_ROOT$/.pnp.cjs"
             ],
             "outputs": [],
             "dependsOn": [
@@ -826,7 +862,10 @@
         "@crab-dev/rc-color-picker#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp-fs.mjs",
+                "$TURBO_ROOT$/.pnp.cjs"
             ],
             "outputs": [],
             "dependsOn": [
@@ -894,7 +933,10 @@
         "@crab-dev/rc-component-preview#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp-fs.mjs",
+                "$TURBO_ROOT$/.pnp.cjs"
             ],
             "outputs": [],
             "dependsOn": [
@@ -954,7 +996,10 @@
         "@crab-dev/rc-config-provider#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp-fs.mjs",
+                "$TURBO_ROOT$/.pnp.cjs"
             ],
             "outputs": [],
             "dependsOn": [
@@ -1017,7 +1062,10 @@
         "@crab-dev/rc-cron-picker#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp-fs.mjs",
+                "$TURBO_ROOT$/.pnp.cjs"
             ],
             "outputs": [],
             "dependsOn": [
@@ -1094,7 +1142,10 @@
         "@crab-dev/rc-date-picker#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp-fs.mjs",
+                "$TURBO_ROOT$/.pnp.cjs"
             ],
             "outputs": [],
             "dependsOn": [
@@ -1162,7 +1213,10 @@
         "@crab-dev/rc-dialog#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp-fs.mjs",
+                "$TURBO_ROOT$/.pnp.cjs"
             ],
             "outputs": [],
             "dependsOn": [
@@ -1222,7 +1276,10 @@
         "@crab-dev/rc-divider#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp-fs.mjs",
+                "$TURBO_ROOT$/.pnp.cjs"
             ],
             "outputs": [],
             "dependsOn": [
@@ -1285,7 +1342,10 @@
         "@crab-dev/rc-drawer#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp-fs.mjs",
+                "$TURBO_ROOT$/.pnp.cjs"
             ],
             "outputs": [],
             "dependsOn": [
@@ -1352,7 +1412,10 @@
         "@crab-dev/rc-dropdown-container#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp-fs.mjs",
+                "$TURBO_ROOT$/.pnp.cjs"
             ],
             "outputs": [],
             "dependsOn": [
@@ -1414,7 +1477,10 @@
         "@crab-dev/rc-empty#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp-fs.mjs",
+                "$TURBO_ROOT$/.pnp.cjs"
             ],
             "outputs": [],
             "dependsOn": [
@@ -1477,7 +1543,10 @@
         "@crab-dev/rc-flow-diagram#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp-fs.mjs",
+                "$TURBO_ROOT$/.pnp.cjs"
             ],
             "outputs": [],
             "dependsOn": [
@@ -1547,7 +1616,10 @@
         "@crab-dev/rc-form#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp-fs.mjs",
+                "$TURBO_ROOT$/.pnp.cjs"
             ],
             "outputs": [],
             "dependsOn": [
@@ -1607,7 +1679,10 @@
         "@crab-dev/rc-hooks#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp-fs.mjs",
+                "$TURBO_ROOT$/.pnp.cjs"
             ],
             "outputs": [],
             "dependsOn": []
@@ -1655,7 +1730,10 @@
         "@crab-dev/rc-line-edit#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp-fs.mjs",
+                "$TURBO_ROOT$/.pnp.cjs"
             ],
             "outputs": [],
             "dependsOn": [
@@ -1715,7 +1793,10 @@
         "@crab-dev/rc-masonry#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp-fs.mjs",
+                "$TURBO_ROOT$/.pnp.cjs"
             ],
             "outputs": [],
             "dependsOn": [
@@ -1776,7 +1857,10 @@
         "@crab-dev/rc-menu#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp-fs.mjs",
+                "$TURBO_ROOT$/.pnp.cjs"
             ],
             "outputs": [],
             "dependsOn": [
@@ -1840,7 +1924,10 @@
         "@crab-dev/rc-message#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp-fs.mjs",
+                "$TURBO_ROOT$/.pnp.cjs"
             ],
             "outputs": [],
             "dependsOn": [
@@ -1905,7 +1992,10 @@
         "@crab-dev/rc-notification#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp-fs.mjs",
+                "$TURBO_ROOT$/.pnp.cjs"
             ],
             "outputs": [],
             "dependsOn": [
@@ -1972,7 +2062,10 @@
         "@crab-dev/rc-number-edit#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp-fs.mjs",
+                "$TURBO_ROOT$/.pnp.cjs"
             ],
             "outputs": [],
             "dependsOn": [
@@ -2042,7 +2135,10 @@
         "@crab-dev/rc-pagination#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp-fs.mjs",
+                "$TURBO_ROOT$/.pnp.cjs"
             ],
             "outputs": [],
             "dependsOn": [
@@ -2137,7 +2233,10 @@
         "@crab-dev/rc-pdf-editor#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp-fs.mjs",
+                "$TURBO_ROOT$/.pnp.cjs"
             ],
             "outputs": [],
             "dependsOn": [
@@ -2211,7 +2310,10 @@
         "@crab-dev/rc-prose#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp-fs.mjs",
+                "$TURBO_ROOT$/.pnp.cjs"
             ],
             "outputs": [],
             "dependsOn": [
@@ -2273,7 +2375,10 @@
         "@crab-dev/rc-radio#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp-fs.mjs",
+                "$TURBO_ROOT$/.pnp.cjs"
             ],
             "outputs": [],
             "dependsOn": [
@@ -2341,7 +2446,10 @@
         "@crab-dev/rc-realm#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp-fs.mjs",
+                "$TURBO_ROOT$/.pnp.cjs"
             ],
             "outputs": [],
             "dependsOn": [
@@ -2398,7 +2506,10 @@
         "@crab-dev/rc-router#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp-fs.mjs",
+                "$TURBO_ROOT$/.pnp.cjs"
             ],
             "outputs": [],
             "dependsOn": []
@@ -2444,7 +2555,10 @@
         "@crab-dev/rc-segmented#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp-fs.mjs",
+                "$TURBO_ROOT$/.pnp.cjs"
             ],
             "outputs": [],
             "dependsOn": [
@@ -2520,7 +2634,10 @@
         "@crab-dev/rc-select#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp-fs.mjs",
+                "$TURBO_ROOT$/.pnp.cjs"
             ],
             "outputs": [],
             "dependsOn": [
@@ -2587,7 +2704,10 @@
         "@crab-dev/rc-skeleton#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp-fs.mjs",
+                "$TURBO_ROOT$/.pnp.cjs"
             ],
             "outputs": [],
             "dependsOn": [
@@ -2648,7 +2768,10 @@
         "@crab-dev/rc-slider#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp-fs.mjs",
+                "$TURBO_ROOT$/.pnp.cjs"
             ],
             "outputs": [],
             "dependsOn": [
@@ -2710,7 +2833,10 @@
         "@crab-dev/rc-spin#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp-fs.mjs",
+                "$TURBO_ROOT$/.pnp.cjs"
             ],
             "outputs": [],
             "dependsOn": [
@@ -2772,7 +2898,10 @@
         "@crab-dev/rc-split-pane#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp-fs.mjs",
+                "$TURBO_ROOT$/.pnp.cjs"
             ],
             "outputs": [],
             "dependsOn": [
@@ -2834,7 +2963,10 @@
         "@crab-dev/rc-switch#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp-fs.mjs",
+                "$TURBO_ROOT$/.pnp.cjs"
             ],
             "outputs": [],
             "dependsOn": [
@@ -2907,7 +3039,10 @@
         "@crab-dev/rc-table#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp-fs.mjs",
+                "$TURBO_ROOT$/.pnp.cjs"
             ],
             "outputs": [],
             "dependsOn": [
@@ -2993,7 +3128,10 @@
         "@crab-dev/rc-table-pro#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp-fs.mjs",
+                "$TURBO_ROOT$/.pnp.cjs"
             ],
             "outputs": [],
             "dependsOn": [
@@ -3066,7 +3204,10 @@
         "@crab-dev/rc-tabs#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp-fs.mjs",
+                "$TURBO_ROOT$/.pnp.cjs"
             ],
             "outputs": [],
             "dependsOn": [
@@ -3131,7 +3272,10 @@
         "@crab-dev/rc-tag#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp-fs.mjs",
+                "$TURBO_ROOT$/.pnp.cjs"
             ],
             "outputs": [],
             "dependsOn": [
@@ -3196,7 +3340,10 @@
         "@crab-dev/rc-text-edit#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp-fs.mjs",
+                "$TURBO_ROOT$/.pnp.cjs"
             ],
             "outputs": [],
             "dependsOn": [
@@ -3257,7 +3404,10 @@
         "@crab-dev/rc-theme#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp-fs.mjs",
+                "$TURBO_ROOT$/.pnp.cjs"
             ],
             "outputs": [],
             "dependsOn": [
@@ -3288,7 +3438,10 @@
         "@crab-dev/rc-token-global#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp-fs.mjs",
+                "$TURBO_ROOT$/.pnp.cjs"
             ],
             "outputs": [],
             "dependsOn": []
@@ -3346,7 +3499,10 @@
         "@crab-dev/rc-token-semantic#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp-fs.mjs",
+                "$TURBO_ROOT$/.pnp.cjs"
             ],
             "outputs": [],
             "dependsOn": [
@@ -3407,7 +3563,10 @@
         "@crab-dev/rc-tooltip#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp-fs.mjs",
+                "$TURBO_ROOT$/.pnp.cjs"
             ],
             "outputs": [],
             "dependsOn": [
@@ -3478,7 +3637,10 @@
         "@crab-dev/rc-tree#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp-fs.mjs",
+                "$TURBO_ROOT$/.pnp.cjs"
             ],
             "outputs": [],
             "dependsOn": [
@@ -3541,7 +3703,10 @@
         "@crab-dev/rc-virtual#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp-fs.mjs",
+                "$TURBO_ROOT$/.pnp.cjs"
             ],
             "outputs": [],
             "dependsOn": [
@@ -3628,7 +3793,10 @@
         "@crab-dev/website#typecheck": {
             "inputs": [
                 "$TURBO_DEFAULT$",
-                "$TURBO_ROOT$/standards/typescript-preset/**/*"
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp-fs.mjs",
+                "$TURBO_ROOT$/.pnp.cjs"
             ],
             "outputs": [],
             "dependsOn": [

@@ -15,6 +15,8 @@ export interface TableHandle {
      * 连续定位以最后一次为准，被替代或卸载时以 AbortError 拒绝。
      */
     scrollToRow: (rowId: Key, options?: TableScrollToRowOptions) => Promise<boolean>;
+    /** 按从 0 开始的视图行索引定位，索引行模式下也可定位到尚未加载的行。 */
+    scrollToRowIndex: (rowIndex: number, options?: TableScrollToRowOptions) => Promise<boolean>;
     /** 恢复表格内最后一个有效焦点，否则聚焦表格入口；不修改选择或滚动位置。 */
     focus: () => void;
 }
@@ -59,6 +61,24 @@ export interface Row {
     state?: RowState
 }
 
+/** 虚拟视口需要的行范围，包含预渲染行。索引从 0 开始，endIndex 为开区间。 */
+export interface TableRowRange {
+    startIndex: number;
+    endIndex: number;
+}
+
+/** 等高平面行的稀疏快照，键为行在完整结果中的索引。 */
+export interface TableIndexedRows<T extends Row> {
+    count: number;
+    rows: ReadonlyMap<number, T>;
+    /** 行高（px），缺省时跟随表格密度。 */
+    rowHeight?: number;
+    /** 在虚拟视口提交后通知，适用于外部按需补全行数据。 */
+    onRangeChange?: (range: TableRowRange) => void;
+    /** 缺少该坐标的数据时渲染占位内容。 */
+    renderPlaceholder?: (rowIndex: number, range: TableRowRange) => ReactNode;
+}
+
 interface RenderParam<T extends Row> {
 	row: T
 	rowIndex: number,
@@ -83,6 +103,9 @@ interface EditorParam<T extends Row, V = unknown> extends RenderParam<T> {
      * 可传入显式终值（如 select onChange 场景，避免 React state 异步更新导致 editorValue 读取陈旧值）。
      */
     onCommit?: (value?: V) => void
+    /** 行级提交返回的当前字段错误以及保存中的只读状态。 */
+    error?: string
+    saving?: boolean
     /** 通知表格放弃编辑并退出，缓存的 editorValue 会被清空 */
     onCancel?: () => void
 }
@@ -165,6 +188,11 @@ export interface ColumnType<T extends Row> {
 	 * 自定义渲染单元格数据
 	 */
 	render?: (param: RenderParam<T>) => ReactNode
+
+    /** 将剪贴板文本转换为业务值；抛出 Error 会拒绝整批粘贴。 */
+    parsePaste?: (text: string, row: T) => unknown
+    /** 返回错误文本会拒绝整批粘贴。 */
+    validatePaste?: (value: unknown, row: T) => string | undefined
 
     /**
      * 自定义单元格编辑器
@@ -276,11 +304,20 @@ export interface CellEditRecord {
     /** 编辑后的值（editorValue，即消费方在编辑器中最后设置的值） */
     newValue: unknown;
     timestamp: number;
+    /** 同一次粘贴共享批次标识；撤销和重做以整批为单位。 */
+    batchId?: string;
 }
 
-/**
- * 树形行的层级与展开元数据，由 useTreeData 构造并通过 TableBodyCell 下发到树形列单元格。
- */
+/** 保存时返回行级或按列名索引的字段错误，保留同一行草稿。 */
+export interface RowEditErrors {
+    message?: string;
+    fieldErrors?: Readonly<Record<string, string>>;
+}
+
+export type RowCommitHandler = (rowId: Key, changes: Record<string, unknown>) => void | RowEditErrors | Promise<void | RowEditErrors>;
+export type CellsChangeHandler = (records: readonly CellEditRecord[], details: { reason: 'paste' | 'undo' | 'redo' }) => void;
+
+/** 树形行的层级与展开元数据。 */
 export interface TreeRowMeta {
     /** 层级，从 0 开始（根节点为 0） */
     level: number
