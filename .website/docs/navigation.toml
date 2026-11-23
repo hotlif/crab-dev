@@ -24,7 +24,7 @@ pages = ["design/index"]
 [[group.section]]
 id = "design-prototypes"
 title = "组件原型"
-pages = ["design/button","design/line-edit","design/checkbox","design/radio","design/switch","design/segmented"]
+pages = ["design/button","design/line-edit","design/checkbox","design/radio","design/switch","design/segmented","design/text-edit"]
 
 [[group.section]]
 id = "design-scenarios"

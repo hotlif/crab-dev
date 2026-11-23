@@ -5,6 +5,7 @@ import LineEdit from "@crab-dev/rc-line-edit";
 import Radio from "@crab-dev/rc-radio";
 import Segmented from "@crab-dev/rc-segmented";
 import Switch from "@crab-dev/rc-switch";
+import TextEdit from "@crab-dev/rc-text-edit";
 import SiteIcon from "../siteIcon.js";
 import { useSiteHref } from "../siteContext.js";
 import { DesignHero } from "./hero.js";
@@ -82,6 +83,14 @@ export default function DesignOverview() {
                             <h3>Segmented 分段控制器</h3>
                             <p>在巡检记录中切换日、周、月，检查键盘操作和长标签溢出。</p>
                             <Button appearance="primary" href={href("design/segmented")} iconAfter={<span aria-hidden="true">→</span>}>体验分段控制器原型</Button>
+                        </div>
+                    </div>
+                    <div className="crab-design-card">
+                        <div className="crab-design-card-body">
+                            <div inert aria-hidden="true"><TextEdit label="交接备注" rows={2} resize="none" readOnly defaultValue="滤网已清洁。下一班复测入口压差。" /></div>
+                            <h3>TextEdit 多行输入框</h3>
+                            <p>编写运行交接备注，对照固定高度、内容增长和长文滚动。</p>
+                            <Button appearance="primary" href={href("design/text-edit")} iconAfter={<span aria-hidden="true">→</span>}>体验多行输入框原型</Button>
                         </div>
                     </div>
                 </section>
