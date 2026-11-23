@@ -1,6 +1,6 @@
 export const meta = {
     title: "基础用法",
-    description: "使用上置标签编辑单行内容，字段尺寸、表面和焦点反馈继承当前文档主题。",
+    description: "使用带标签的输入框编辑单行内容，字段尺寸、表面和焦点反馈继承当前文档主题。",
 };
 
 import { css } from "@crab-dev/css";

@@ -13,10 +13,11 @@ await mkdir(new URL('../.cache/', import.meta.url), { recursive: true });
 // keeps the same published component graph and React instance as its renderer.
 const require = createRequire(import.meta.url);
 const wake = require('@crab-dev/wake');
-if (wake.version() !== '0.1.45') throw new Error('The demo regression requires Wake 0.1.45.');
+const manifest = JSON.parse(await readFile(new URL('../package.json', import.meta.url), 'utf8'));
+const expectedWake = manifest.devDependencies['@crab-dev/wake'];
+if (wake.version() !== expectedWake) throw new Error(`Browser tests require the pinned Wake ${expectedWake}`);
 const fixture = new URL('../.cache/inline-demo-library/', import.meta.url);
 await mkdir(new URL('src/demos/', fixture), { recursive: true });
-const manifest = JSON.parse(await readFile(new URL('../package.json', import.meta.url), 'utf8'));
 await writeFile(new URL('package.json', fixture), JSON.stringify({ ...manifest,
     name: '@crab-dev/tree-inline-demo-check', private: true,
     dependencies: { ...manifest.dependencies, '@crab-dev/rc-tree': 'workspace:^' },

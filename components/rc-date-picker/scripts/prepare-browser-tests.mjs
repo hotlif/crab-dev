@@ -14,7 +14,9 @@ await mkdir(new URL('../.cache/', import.meta.url), { recursive: true });
 // Neither css() nor positioning/middleware is mocked.
 const require = createRequire(import.meta.url);
 const wake = require('@crab-dev/wake');
-if (wake.version() !== '0.1.45') throw new Error('Viewport demo compilation requires Wake0.1.45');
+const manifest = JSON.parse(await readFile(new URL('../package.json', import.meta.url), 'utf8'));
+const expectedWake = manifest.devDependencies['@crab-dev/wake'];
+if (wake.version() !== expectedWake) throw new Error(`Browser tests require the pinned Wake ${expectedWake}`);
 // A fresh fixture cannot accidentally resolve a removed module from a prior
 // build. Historical preparation failures and artifacts remain available.
 const fixturePath = await mkdtemp(fileURLToPath(new URL('../.cache/viewport-demo-library-', import.meta.url)));
@@ -30,7 +32,6 @@ const copiedSources = await Promise.all(sources.map(async entry => {
 }));
 await cp(sourceRoot, new URL('src/', fixture), { recursive: true, filter: source => basename(source) !== '__tests__' });
 await mkdir(new URL('src/demos/', fixture), { recursive: true });
-const manifest = JSON.parse(await readFile(new URL('../package.json', import.meta.url), 'utf8'));
 await writeFile(new URL('package.json', fixture), JSON.stringify({ ...manifest,
     name: '@crab-dev/date-viewport-demo-check', private: true,
     dependencies: { ...manifest.dependencies, '@crab-dev/rc-date-picker': 'workspace:^' },

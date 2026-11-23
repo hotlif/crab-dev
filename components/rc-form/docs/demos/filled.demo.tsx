@@ -1,6 +1,6 @@
 export const meta = {
     title: "Filled 填充字段",
-    description: "同一表单统一使用 filled，由控件布局上置标签，字段表面与焦点反馈继承当前文档主题。",
+    description: "同一表单统一使用 filled，由控件布局标签，字段表面与焦点反馈继承当前文档主题。",
 };
 
 import { useState } from "react";

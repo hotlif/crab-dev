@@ -1,16 +1,17 @@
 import { useFieldA11y } from "@crab-dev/rc-hooks/internal";
 import { useControllableValue, type ControlledValueProps } from '@crab-dev/rc-hooks';
-import { useComponentSize, useLocale } from '@crab-dev/rc-config-provider';
+import { useComponentSize, useConfig, useLocale } from '@crab-dev/rc-config-provider';
 import { css, cx } from "@crab-dev/css";
 import Button from "@crab-dev/rc-button";
 import { Eye, EyeOff, X } from "lucide-react";
 import { useRef, useState, type InputHTMLAttributes, type ReactNode, type Ref, type ChangeEvent, type MouseEvent } from "react";
 import token, { vars } from "./token.js";
+import { floatingFieldStyle, inlineFieldStyle, shadcnOutlineStyle } from "./lineEdit.designs.js";
 import { containerBaseStyle, errorStyle, warningStyle, borderlessStyle, inputBaseStyle, borderlessInputStyle, iconBaseStyle, prefixStyle, suffixStyle, actionButtonStyle, countStyle, legendRequiredStyle, fieldStyle, labeledControlStyle, filledControlStyle, supportingStyle } from "./lineEdit.styles.js";
 interface BaseLineEditProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "prefix" | "size" | "value" | "defaultValue"> {
     /** 字段外观，默认 outlined；bordered=false 时由宿主提供外观。 */
     appearance?: "outlined" | "filled";
-    /** 与输入框关联的可见标签；三套设计体系均为上置标签。 */
+    /** 与输入框关联的可见标签。MD3 描边字段使用浮动标签，桌面主题的标签在输入框起始侧。 */
     label?: string;
     /** 输入框下方的辅助说明，自动加入 aria-describedby。 */
     supportingText?: string;
@@ -77,6 +78,7 @@ export interface LineEditChangeDetails {
 
 export type LineEditProps = BaseLineEditProps & ControlledValueProps<string, LineEditChangeDetails>;
 
+const graphemes = new Intl.Segmenter(undefined, { granularity: 'grapheme' });
 // 按尺寸预生成容器高度/内边距，避免在渲染中创建动态类
 const sizeContainerStyles = {
     large: css`
@@ -149,8 +151,8 @@ function LineEdit({
     ...rest
 }: LineEditProps) {
     const size = useComponentSize(sizeProp);
+    const { designSystem } = useConfig();
     const { messages } = useLocale();
-    const fieldRef = useRef<HTMLDivElement>(null);
     const inputRef = useRef<HTMLInputElement>(null);
     // 密码可见性：内部 UI 状态，与业务无关
     const [showPassword, setShowPassword] = useState(false);
@@ -162,18 +164,33 @@ function LineEdit({
     const hasValue = typeof displayValue === "string" && displayValue.length > 0;
     const showClearButton = allowClear && hasValue && !disabled && !readOnly;
     const enhancedField = Boolean(label || supportingText || errorText);
+    const fieldLayout = label && bordered
+        ? designSystem !== 'md3' ? 'inline' : appearance === 'outlined' ? 'floating' : undefined
+        : undefined;
     const { inputId, description, descriptionId, countId, fieldStatus, describedBy } = useFieldA11y({
         id, supportingText, errorText, status, describedBy: rest["aria-describedby"],
         hasCount: Boolean(showCount && typeof displayValue === "string"),
     });
-    const count = showCount && typeof displayValue === "string" ? (
-        <span id={countId} className={countStyle} aria-label={messages.fields.characterCount(displayValue.length, maxLength)}>{displayValue.length}{maxLength != null ? `/${maxLength}` : ""}</span>
+    // A native maxLength limit counts UTF-16 units. Without that constraint,
+    // the counter reports user-perceived characters, including joined emoji.
+    const length = showCount && typeof displayValue === "string"
+        ? maxLength === undefined ? Array.from(graphemes.segment(displayValue)).length : displayValue.length
+        : undefined;
+    const count = length !== undefined ? (
+        <span id={countId} className={countStyle} aria-label={messages.fields.characterCount(length, maxLength)}>{length}{maxLength != null ? `/${maxLength}` : ""}</span>
     ) : null;
 
     const control = (
         <div
             ref={containerRef}
             data-field-control=""
+            onClick={event => {
+                const target = event.target;
+                if (!event.defaultPrevented && !disabled && target instanceof Element &&
+                    !target.closest('input, button, a, select, textarea, [tabindex], [contenteditable]')) {
+                    inputRef.current?.focus();
+                }
+            }}
             aria-disabled={disabled || undefined}
             data-appearance={bordered ? appearance : undefined}
             data-labeled={Boolean(label && bordered)}
@@ -233,11 +250,8 @@ function LineEdit({
                     onClick={(e) => {
                         e.stopPropagation();
                         // 清除可能立即卸载按钮，先把焦点送回被操作的输入框。
-                        const input = e.currentTarget.parentElement?.querySelector('input');
-                        if (input) {
-                            input.focus();
-                            setValue('', { reason: 'clear', event: e });
-                        }
+                        inputRef.current?.focus();
+                        setValue('', { reason: 'clear', event: e });
                         onClear?.();
                     }}
                 />
@@ -263,7 +277,12 @@ function LineEdit({
             {!enhancedField && count}
         </div>
     );
-    return enhancedField ? <div ref={fieldRef} data-field-root="" className={fieldStyle} data-labeled={Boolean(label && bordered)} data-appearance={appearance} data-status={fieldStatus} data-disabled={disabled || undefined} data-prefix={Boolean(prefix)}>
+    return enhancedField ? <div
+        data-field-root="" data-field-layout={fieldLayout} data-labeled={Boolean(label && bordered)}
+        data-appearance={appearance} data-status={fieldStatus} data-disabled={disabled || undefined} data-prefix={Boolean(prefix)}
+        className={cx(fieldStyle, fieldLayout === "floating" && floatingFieldStyle, fieldLayout === "inline" && inlineFieldStyle,
+            designSystem === "shadcn" && fieldLayout === "inline" && shadcnOutlineStyle)}
+    >
         {label && <label htmlFor={inputId}><span data-field-label-text="">{label}</span>{rest.required && <span data-required-marker="" aria-hidden="true">*</span>}</label>}
         {control}
         {(description || count) && <div className={supportingStyle} data-field-support="" data-status={fieldStatus}>

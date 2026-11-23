@@ -24,7 +24,7 @@ export interface NumberEditProps {
     "status"?: "error" | "warning";
 
     /**
-     * 与输入框关联的可见标签；三套设计体系均为上置标签。
+     * 与输入框关联的可见标签。MD3 描边字段使用浮动标签，桌面主题的标签在输入框起始侧。
      */
     "label"?: string;
 

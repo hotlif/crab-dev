@@ -122,9 +122,9 @@ export const componentDesignSummaries: Readonly<Partial<Record<string, Record<De
         "shadcn": "提供可组合的交互 Hook，供中性界面中的控件复用事件与测量逻辑。"
     },
     "rc-line-edit": {
-        "md3": "以外置标签、填充或描边字段组织单行输入，说明和错误位于字段下方。",
-        "macos": "以紧凑桌面输入框、静态上置标签和明确焦点反馈承载单行编辑。",
-        "shadcn": "用中性描边输入框和静态标签呈现单行内容，聚焦状态通过外侧轮廓表达。"
+        "md3": "描边字段使用浮动标签，填充字段使用上置标签，说明和错误位于字段下方。",
+        "macos": "以紧凑桌面输入框、行首右对齐的标签和明确焦点反馈承载单行编辑。",
+        "shadcn": "用中性描边输入框和同排标签呈现单行内容，聚焦状态通过外侧轮廓表达。"
     },
     "rc-masonry": {
         "md3": "让不同高度的内容卡片按可用宽度排列，表面和留白跟随当前语义角色。",
@@ -907,7 +907,7 @@ export const componentDemoDesigns: Readonly<Partial<Record<string, Readonly<Part
         "默认语义色板 — 节点、文字、连线和网格均省略颜色参数，直接使用当前设计体系的默认色板。容器支持窄屏横向查看。": []
     },
     "rc-form": {
-        "基础用法 — 字段标签与校验反馈由 LineEdit 自行呈现，使用控件自有的上置标签；表单实例操作的结果直接显示在下方。": [
+        "基础用法 — 字段标签与校验反馈由 LineEdit 自行呈现，使用当前主题的标签布局；表单实例操作的结果直接显示在下方。": [
             "md3",
             "macos",
             "shadcn"
@@ -917,7 +917,7 @@ export const componentDemoDesigns: Readonly<Partial<Record<string, Readonly<Part
             "macos",
             "shadcn"
         ],
-        "Filled 填充字段 — 同一表单统一使用 filled，由控件布局上置标签，字段表面与焦点反馈继承当前文档主题。": [
+        "Filled 填充字段 — 同一表单统一使用 filled，由控件布局标签，字段表面与焦点反馈继承当前文档主题。": [
             "md3",
             "macos",
             "shadcn"
@@ -950,7 +950,7 @@ export const componentDemoDesigns: Readonly<Partial<Record<string, Readonly<Part
         ],
         "填充字段的空值与内容 — 比较 filled 字段的空值、已有内容和只读状态；使用 Tab 检查标签与焦点边界。": [],
         "输入状态矩阵 — 同一字段树对照 outlined 与 filled，尺寸、设计和明暗变化保留已输入的草稿。": [],
-        "基础用法 — 使用上置标签编辑单行内容，字段尺寸、表面和焦点反馈继承当前文档主题。": [
+        "基础用法 — 使用带标签的输入框编辑单行内容，字段尺寸、表面和焦点反馈继承当前文档主题。": [
             "md3",
             "macos",
             "shadcn"

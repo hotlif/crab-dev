@@ -94,7 +94,7 @@ handle.checked.background-color-disabled = "$ref(toggle.disabled.selected-handle
 # ─── 标签 ────────────────────────────────────────────────────────────────────
 
 label.color          = "$ref(color.text.primary)"
-label.color-disabled = "$ref(color.text.primary)"
+label.color-disabled = "$ref(color.text.secondary)"
 track.border-color = "$ref(color.border.default)"
 handle.unchecked.scale = "$ref(toggle.handle.unchecked-scale)"
 handle.pressed.scale = "$ref(toggle.handle.pressed-scale)"

@@ -14,84 +14,30 @@ permissions:
   contents: read
 
 jobs:
-  verify:
-    name: verify (${{ matrix.os }})
-    env:
-      CRAB_CI_SOURCE_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
-      RAYON_NUM_THREADS: "2"
-      TURBO_CONCURRENCY: "2"
+  checks:
     strategy:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, windows-latest]
-    runs-on: ${{ matrix.os }}
-    steps:
-      - uses: actions/checkout@v7
-        with:
-          lfs: true
-          ref: ${{ env.CRAB_CI_SOURCE_SHA }}
-      - uses: actions/setup-node@v7
-        with:
-          node-version: "24"
-      - name: Verify the exact submitted revision
-        shell: bash
-        run: |
-          node --input-type=module <<'JS'
-          import { execFileSync } from 'node:child_process';
-          const actual = execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim();
-          if (actual !== process.env.CRAB_CI_SOURCE_SHA) throw Error('CI checkout does not match the submitted revision');
-          console.log(`Verified CI source revision: ${actual}`);
-          JS
-      - name: Enable Corepack
-        run: corepack enable
-      - name: Install project package manager
-        run: corepack install
-      - name: Install dependencies
-        run: yarn install --immutable
-      - name: Install CJK fonts for browser checks
-        if: runner.os == 'Linux'
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y fonts-noto-cjk
-      - name: Install the pinned browser for required checks
-        run: yarn test:browser:install
-      - name: Run the repository verification contract
-        run: yarn check
-      - name: Preserve exact source and build fingerprints
-        shell: bash
-        run: |
-          yarn node --input-type=module <<'JS'
-          import { mkdir, writeFile } from 'node:fs/promises';
-          import { execFileSync } from 'node:child_process';
-          import { captureVisualInputs } from './scripts/visual/evidence-inputs.mjs';
-          const sourceCommit = execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim();
-          if (sourceCommit !== process.env.CRAB_CI_SOURCE_SHA) throw Error('CI source revision changed during verification');
-          const inputs = await captureVisualInputs();
-          await mkdir('.cache/visual', { recursive: true });
-          await writeFile('.cache/visual/ci-source-build.json', JSON.stringify({ recordedAt: new Date().toISOString(), sourceCommit, platform: process.platform, node: process.version, inputs }, null, 2) + '\n');
-          console.log(JSON.stringify({ sourceCommit, source: inputs.source.fingerprint, artifact: inputs.artifact.fingerprint, siteBuild: inputs.siteBuild.fingerprint, sourceFiles: inputs.source.files.length }));
-          JS
-      - name: Preserve browser diagnostics and candidate screenshots
-        if: always()
-        uses: actions/upload-artifact@v7
-        with:
-          name: browser-evidence-${{ matrix.os }}-${{ env.CRAB_CI_SOURCE_SHA }}
-          if-no-files-found: ignore
-          retention-days: 14
-          include-hidden-files: true
-          path: |
-            .cache/visual/ci-source-build.json
-            components/*/.cache/forced-colors/**/*.json
-            components/*/.cache/forced-colors/**/*.png
-            components/*/.cache/focus-colors/**/*.json
-            components/*/.cache/focus-colors/**/*.png
-            components/*/.cache/reduced-motion/**/*.json
-            components/*/.cache/reduced-motion/**/*.png
-            components/*/.cache/natural-motion/**/*.json
-            components/*/.cache/natural-motion/**/*.png
+    uses: ./.github/workflows/verify-platform.yml
+    with:
+      os: ${{ matrix.os }}
+      revision: ${{ github.event.pull_request.head.sha || github.sha }}
 
-  # Keep the existing check names without executing the same suites again.
-  # All three succeed only after the complete contract passes on both hosts.
+  # Retain the existing status check names. Every gate requires all matrix jobs.
+  verify:
+    needs: checks
+    if: always()
+    name: verify (${{ matrix.os }})
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ubuntu-latest
+    steps:
+      - run: test "$RESULT" = success
+        env:
+          RESULT: ${{ needs.checks.result }}
   test:
     needs: verify
     if: always()

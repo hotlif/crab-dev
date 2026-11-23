@@ -98,6 +98,10 @@ const Switch: FC<SwitchProps> = ({
     const sizeStyles = getSizeStyles();
 
     const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
+        if (e.currentTarget.getAttribute('aria-disabled') === 'true') {
+            e.preventDefault();
+            return;
+        }
         onClick?.(e);
         if (!e.defaultPrevented && !disabled) setChecked(!checked, e);
     };

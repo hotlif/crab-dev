@@ -8,6 +8,7 @@ import { createTurboConfig } from "./generate-library-tasks.mjs";
 import { validateReleaseEvent } from "./check-release.mjs";
 import { resolveYarnEntry, runYarn } from "./package-manager.mjs";
 import { buildEnvironment } from "./build-library.mjs";
+import { packageBuildGroups } from "./ci-build-groups.mjs";
 import { generatedContentChanges, generatedLibraryPaths } from "./check-generated.mjs";
 import { exportTargets, verifyTarget } from "./check-exports.mjs";
 import { offlineConsumerEnvironment } from "./check-consumer.mjs";
@@ -15,9 +16,9 @@ import { validateReactPeers } from "./check-library.mjs";
 import { requiredReactPeers } from "./react-peer-contract.mjs";
 import { validateDesignVerification } from "./design-verification.mjs";
 import { missingWakeWorkspaceResolutions, readWorkspaceManifests, requiredCheckScripts, validateWakeToolchain } from "./check-commands.mjs";
-import { requiredCheckPlan } from "./check-required.mjs";
+import { requiredCheckPlan, requiredCheckShard, requiredTestArgs } from "./check-required.mjs";
 import { waitForOwnDevTools } from "./published-browser-readiness.mjs";
-import { repositoryCheckPlan, workspaceCheckPlan } from "./check-plan.mjs";
+import { projectCheckGroup, repositoryCheckPlan, repositoryProjectCheckPlan, workspaceCheckPlan } from "./check-plan.mjs";
 import { libraryMetadataOutputs } from "./generate-library-metadata.mjs";
 import { loadLibraryManifest, readLibraryMetadata, repositoryRoot } from "./library-manifest.mjs";
 
@@ -42,20 +43,19 @@ test('Wake controls stay on local workspaces after version bumps', () => {
     assert.deepEqual(missingWakeWorkspaceResolutions({ resolutions: { '@crab-dev/rc-alert': 'workspace:^' } }, wake, workspaces), []);
 });
 
-test("Wake and Crab CSS require the exact toolchain version", async () => {
-    const rootPackage = JSON.parse(await readFile(join(repositoryRoot, "package.json"), "utf8"));
-    const workspaces = await readWorkspaceManifests();
-    const version = rootPackage.devDependencies["@crab-dev/wake"];
-    assert.deepEqual(validateWakeToolchain(rootPackage, workspaces), []);
+test("Wake and Crab CSS use the exact version pinned by the root workspace", async () => {
+    const root = JSON.parse(await readFile(new URL("../package.json", import.meta.url), "utf8"));
+    const version = root.devDependencies["@crab-dev/wake"];
+    assert.deepEqual(validateWakeToolchain(root, await readWorkspaceManifests()), []);
 
     const mismatchedWorkspace = {
         packageJson: {
             name: "fixture",
-            dependencies: { "@crab-dev/css": "0.1.45" },
+            dependencies: { "@crab-dev/css": `^${version}` },
             devDependencies: { "@crab-dev/wake": `^${version}` },
         },
     };
-    assert.deepEqual(validateWakeToolchain(rootPackage, [mismatchedWorkspace]), [
+    assert.deepEqual(validateWakeToolchain(root, [mismatchedWorkspace]), [
         `fixture: @crab-dev/css must be pinned to ${version}.`,
         `fixture: @crab-dev/wake must be pinned to ${version}.`,
     ]);
@@ -90,6 +90,13 @@ test("shared verification plans reference real scripts and retain every register
     assert.ok(!repositoryCheckPlan.includes("check"));
     assert.ok(!repositoryCheckPlan.includes("test:visual"));
     for (const name of repositoryCheckPlan) assert.ok(root.scripts[name], `Missing root script: ${name}`);
+    assert.deepEqual(
+        [...repositoryProjectCheckPlan, "test", "test:required"].sort(),
+        [...repositoryCheckPlan].sort(),
+    );
+    assert.deepEqual(["source", "library", "docs"].flatMap(projectCheckGroup), repositoryProjectCheckPlan);
+    assert.equal(projectCheckGroup("library")[0], "build:library");
+    assert.throws(() => projectCheckGroup("unknown"), /--project-group/);
     for (const { packageJson: pkg } of await readWorkspaceManifests()) {
         const plan = workspaceCheckPlan(pkg);
         assert.ok(!plan.some(step => step.args[0] === "run" && step.args[1] === "test:visual"), pkg.name);
@@ -189,6 +196,46 @@ test("root additional checks derive only from explicit workspace registrations",
     ];
     assert.deepEqual(requiredCheckPlan(workspaces), [{ workspace: "registered", task: "test:browser" }]);
     assert.throws(() => requiredCheckPlan([...workspaces, { packageJson: { name: "broken", crab: { requiredChecks: ["test:missing"] } } }]));
+});
+
+test("CI build groups cover each library once and consume only local or shared prerequisites", async () => {
+    const { tasks } = JSON.parse(await readFile(join(repositoryRoot, "turbo.json"), "utf8"));
+    const groups = packageBuildGroups(tasks);
+    const manifest = await loadLibraryManifest();
+    assert.deepEqual(Object.values(groups).flat().sort(), manifest.packages.map(entry => entry.name).sort());
+    assert.ok(groups.shared.includes("@crab-dev/rc-date-picker"));
+    for (const packages of Object.values(groups)) {
+        assert.ok(packages.length);
+        const available = new Set([...groups.shared, ...packages].map(name => `${name}#build:library`));
+        for (const name of packages) {
+            for (const dep of tasks[`${name}#build:library`].dependsOn) assert.ok(available.has(dep), `${name} needs ${dep}`);
+        }
+    }
+});
+
+test("DatePicker forwards native Wake shards and runs additional registrations once", () => {
+    const workspace = "@crab-dev/rc-date-picker";
+    const checks = ["test:browser", "test:extra"].map(task => ({ workspace, task }));
+    assert.deepEqual(requiredTestArgs(checks, "date-picker", "1/3").map(check => check.args), [["--shard", "1/3"], []]);
+    assert.deepEqual(requiredTestArgs(checks, "date-picker", "2/3"), [{ ...checks[0], args: ["--shard", "2/3"] }]);
+    assert.throws(() => requiredTestArgs(checks, "1/2", "1/3"), /browser-shard/);
+    assert.throws(() => requiredTestArgs(checks, "date-picker", "4/3"), /browser-shard/);
+});
+
+test("CI required test shards run each registered check once and keep workspaces together", async () => {
+    const checks = requiredCheckPlan(await readWorkspaceManifests());
+    const datePicker = "@crab-dev/rc-date-picker";
+    const shards = ["date-picker", "1/2", "2/2"].map(shard => requiredCheckShard(checks, shard));
+    assert.deepEqual(requiredCheckShard(checks), checks);
+    assert.ok(shards.every(shard => shard.length > 0));
+    assert.deepEqual(shards[0], checks.filter(({ workspace }) => workspace === datePicker));
+    assert.deepEqual(shards.flat().map(({ workspace, task }) => `${workspace} ${task}`).sort(),
+        checks.map(({ workspace, task }) => `${workspace} ${task}`).sort());
+    assert.equal(shards.reduce((count, shard) => count + new Set(shard.map(({ workspace }) => workspace)).size, 0),
+        new Set(checks.map(({ workspace }) => workspace)).size);
+    for (const invalid of ["", "0/2", "3/2", "1/0", "1/9007199254740992", "unknown"]) {
+        assert.throws(() => requiredCheckShard(checks, invalid), /Expected --shard/);
+    }
 });
 
 test("workspace discovery follows root declarations and rejects unsupported patterns", async () => {

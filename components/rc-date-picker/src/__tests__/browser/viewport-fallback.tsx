@@ -1,19 +1,10 @@
-import { afterAll, beforeAll, describe, expect, it } from '@crab-dev/wake/test';
+import { describe, expect, it } from '@crab-dev/wake/test';
 import { act, render, userEvent } from '@crab-dev/wake/test/react';
 import { createPortal } from 'react-dom';
-import ConfigProvider from '@crab-dev/rc-config-provider';
-import { Temporal as TemporalPolyfill } from '@js-temporal/polyfill';
+import ConfigProvider, { type ConfigDesignSystem } from '@crab-dev/rc-config-provider';
 import DatePicker from '../../../esm/index.mjs';
 import ActualDateDemo from '../../../.cache/viewport-demo.mjs';
 import compiledCss from '../../../.cache/browser-css.json';
-
-const temporalDescriptor = Object.getOwnPropertyDescriptor(globalThis, 'Temporal');
-beforeAll(() => {
-    if (!temporalDescriptor) Object.defineProperty(globalThis, 'Temporal', { value: TemporalPolyfill, configurable: true });
-});
-afterAll(() => {
-    if (!temporalDescriptor) Reflect.deleteProperty(globalThis, 'Temporal');
-});
 
 const cases = [
     { name: 'original-demo-720x480', width: 720, height: 480, placement: 'below', anchor: 'demo' },
@@ -67,8 +58,8 @@ function visibleButton(button: HTMLElement, popup: HTMLElement) {
     expect(hit === button || button.contains(hit)).toBe(true);
 }
 
-describe('published dropdown viewport fallback with actual picker fields', () => {
-    for (const designSystem of ['md3', 'macos', 'shadcn'] as const) {
+export function testViewportFallback(designSystem: ConfigDesignSystem) {
+    describe('published dropdown viewport fallback with actual picker fields', () => {
         for (const colorMode of ['light', 'dark'] as const) {
             for (const direction of ['ltr', 'rtl'] as const) {
                 for (const scenario of cases) {
@@ -146,6 +137,12 @@ describe('published dropdown viewport fallback with actual picker fields', () =>
                             expect(rect.right <= bounds.left - 5 || rect.left >= bounds.right + 5 || rect.bottom <= bounds.top - 5 || rect.top >= bounds.bottom + 5).toBe(true);
                             if (scenario.placement === 'below') expect(rect.top).toBeGreaterThanOrEqual(bounds.bottom + 5);
                             if (scenario.placement === 'above') expect(rect.bottom).toBeLessThanOrEqual(bounds.top - 5);
+                            if (scenario.name === 'below' || scenario.name === 'above') {
+                                const edge = direction === 'rtl' ? 'right' : 'left';
+                                const control = input.closest<HTMLElement>('[data-field-control]')!;
+                                expect(Math.abs(rect[edge] - control.getBoundingClientRect()[edge]))
+                                    .toBeLessThanOrEqual(0.5 / win.devicePixelRatio);
+                            }
                             if (scenario.placement === 'right') expect(rect.left).toBeGreaterThanOrEqual(bounds.right + 5);
                             if (scenario.placement === 'left') expect(rect.right).toBeLessThanOrEqual(bounds.left - 5);
                             const navigation = Array.from(popup.querySelectorAll<HTMLButtonElement>('button[aria-label]')).slice(0, 4);
@@ -210,5 +207,5 @@ describe('published dropdown viewport fallback with actual picker fields', () =>
                 }
             }
         }
-    }
-});
+    });
+}

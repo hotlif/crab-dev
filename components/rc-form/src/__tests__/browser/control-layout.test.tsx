@@ -41,7 +41,7 @@ function describedText(control: HTMLElement) {
         .map(id => document.getElementById(id)?.textContent ?? '').join(' ');
 }
 
-function assertGeometry(form: HTMLFormElement, _designSystem: string, direction: string) {
+function assertGeometry(form: HTMLFormElement, designSystem: string, direction: string) {
     const formRect = form.getBoundingClientRect();
     expect(getComputedStyle(form).direction).toBe(direction);
     expect(form.scrollWidth).toBeLessThanOrEqual(form.clientWidth + 1);
@@ -51,19 +51,25 @@ function assertGeometry(form: HTMLFormElement, _designSystem: string, direction:
         const input = requiredElement<HTMLElement>(row, name === 'project' ? '[role="combobox"]' : 'input');
         const slot = row.firstElementChild;
         if (!(slot instanceof HTMLElement) || !(slot.firstElementChild instanceof HTMLElement)) throw new Error('Missing actual editor slot');
-        for (const element of [row, slot, slot.firstElementChild, control]) {
+        const inline = name !== 'project' && designSystem !== 'md3';
+        for (const element of [row, slot, slot.firstElementChild]) {
             const bounds = element.getBoundingClientRect();
             expect(bounds.width).toBeCloseTo(formRect.width, 1);
             expect(bounds.left).toBeCloseTo(formRect.left, 1);
             expect(bounds.right).toBeCloseTo(formRect.right, 1);
         }
-        expect(input.getBoundingClientRect().width).toBeGreaterThan(formRect.width * 0.55);
         const label = requiredElement<HTMLElement>(row, name === 'project' ? '[data-role="select-label"]' : 'label');
         const labelRect = label.getBoundingClientRect();
         const controlRect = control.getBoundingClientRect();
-        // Every design owns its above-control label layout. Form must
-        // not turn only direct LineEdit into a different inline-label design.
-        expect(labelRect.bottom).toBeLessThanOrEqual(controlRect.top - 3);
+        expect(input.getBoundingClientRect().width).toBeGreaterThan(controlRect.width * 0.55);
+        if (inline) {
+            expect(controlRect.width).toBeGreaterThan(formRect.width * 0.6);
+            expect(direction === 'rtl' ? labelRect.left - controlRect.right : controlRect.left - labelRect.right).toBeGreaterThan(0);
+        } else {
+            expect(controlRect.width).toBeCloseTo(formRect.width, 1);
+            if (name === 'project') expect(labelRect.bottom).toBeLessThanOrEqual(controlRect.top - 3);
+            else expect(labelRect.top).toBeLessThan(controlRect.bottom);
+        }
         expect(labelRect.left).toBeGreaterThanOrEqual(formRect.left - 1);
         expect(labelRect.right).toBeLessThanOrEqual(formRect.right + 1);
         for (const id of input.getAttribute('aria-describedby')?.split(/\s+/) ?? []) {
