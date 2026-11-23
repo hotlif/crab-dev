@@ -93,22 +93,31 @@ jobs:
           path: .turbo/cache
           merge-multiple: true
       - name: Install CJK fonts for browser checks
-        if: runner.os == 'Linux' && matrix.check.name != 'project'
+        if: runner.os == 'Linux' && !matrix.check.project
         run: |
           sudo apt-get update
           sudo apt-get install -y fonts-noto-cjk
       - name: Install the pinned browser for tests
-        if: matrix.check.name != 'project'
+        if: ${{ !matrix.check.project }}
         run: yarn test:browser:install
-      - name: Run repository checks and builds
-        if: matrix.check.name == 'project'
-        run: yarn check --project-checks --reuse-build
-      - name: Restore compiled library for tests
-        if: matrix.check.name != 'project'
+      - name: Restore compiled library
+        # Library checks regenerate tracked inputs before restoring their build.
+        if: matrix.check.project != 'library'
         run: yarn ci:build restore ${{ matrix.check.browser-shard && 'shared' || 'all' }}
+      - name: Run project checks
+        if: matrix.check.project
+        env:
+          PROJECT: ${{ matrix.check.project }}
+        shell: bash
+        run: yarn check --project-group "$PROJECT" --reuse-build
       - name: Run workspace tests
-        if: matrix.check.name == 'workspace-tests'
-        run: yarn test
+        if: matrix.check.workspaces
+        shell: bash
+        env:
+          # The second selection is the exact complement, including non-component workspaces.
+          SCOPE: '{./components/rc-[a-m]*}'
+          PREFIX: ${{ matrix.check.workspaces == 'remaining' && '!' || '' }}
+        run: yarn test "--filter=${PREFIX}${SCOPE}"
       - name: Run required workspace tests
         if: matrix.check.shard
         shell: bash
@@ -123,7 +132,7 @@ jobs:
         shell: bash
         run: test "$(git rev-parse HEAD)" = "$CRAB_CI_SOURCE_SHA"
       - name: Preserve exact source and build fingerprints
-        if: matrix.check.name == 'project'
+        if: matrix.check.project == 'docs'
         shell: bash
         run: |
           yarn node --input-type=module <<'JS'
@@ -163,9 +172,12 @@ jobs:
       fail-fast: false
       matrix:
         check:
-          - { name: project }
-          - { name: workspace-tests }
-          - { name: required-1, shard: "1/2" }
-          - { name: required-2, shard: "2/2" }
+          - { name: library-checks, project: library }
+          - { name: docs-build, project: docs }
+          - { name: workspace-a-m, workspaces: a-m }
+          - { name: workspace-remaining, workspaces: remaining }
+          - { name: required-1, shard: "1/3" }
+          - { name: required-2, shard: "2/3" }
+          - { name: required-3, shard: "3/3" }
     runs-on: ${{ inputs.os }}
     steps: *check-steps

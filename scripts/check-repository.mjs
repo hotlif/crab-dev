@@ -1,12 +1,17 @@
 import { parseArgs } from "node:util";
-import { repositoryCheckPlan, repositoryProjectCheckPlan } from "./check-plan.mjs";
+import { projectCheckGroup, repositoryCheckPlan, repositoryProjectCheckPlan } from "./check-plan.mjs";
 import { repositoryRoot } from "./library-manifest.mjs";
 import { resolveYarnEntry, runYarn } from "./package-manager.mjs";
 
 const { values } = parseArgs({
-    options: { list: { type: "boolean" }, "project-checks": { type: "boolean" }, "reuse-build": { type: "boolean" } },
+    options: {
+        list: { type: "boolean" }, "project-checks": { type: "boolean" },
+        "project-group": { type: "string" }, "reuse-build": { type: "boolean" },
+    },
 });
-const plan = values["project-checks"] ? repositoryProjectCheckPlan : repositoryCheckPlan;
+const plan = values["project-group"] !== undefined
+    ? projectCheckGroup(values["project-group"])
+    : values["project-checks"] ? repositoryProjectCheckPlan : repositoryCheckPlan;
 if (values.list) {
     console.log(plan.map(script => `yarn ${script}`).join("\n"));
 } else {

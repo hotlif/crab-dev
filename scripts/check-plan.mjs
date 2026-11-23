@@ -11,6 +11,12 @@ export const repositoryCheckPlan = [
 
 export const repositoryProjectCheckPlan = repositoryCheckPlan.filter(script => !separateTestScripts.includes(script));
 
+export function projectCheckGroup(group) {
+    if (group === "docs") return ["docs:build"];
+    if (group === "library") return repositoryProjectCheckPlan.filter(script => script !== "docs:build");
+    throw new Error("Expected --project-group library or docs.");
+}
+
 export function workspaceCheckPlan(pkg) {
     const plan = [];
     if (pkg.scripts?.["build:library"]) plan.push({ root: true, args: ["exec", "turbo", "run", "build:library", `--filter=${pkg.name}`] });

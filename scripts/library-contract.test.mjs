@@ -18,7 +18,7 @@ import { validateDesignVerification } from "./design-verification.mjs";
 import { missingWakeWorkspaceResolutions, readWorkspaceManifests, requiredCheckScripts, validateWakeToolchain } from "./check-commands.mjs";
 import { requiredCheckPlan, requiredCheckShard, requiredTestArgs } from "./check-required.mjs";
 import { waitForOwnDevTools } from "./published-browser-readiness.mjs";
-import { repositoryCheckPlan, repositoryProjectCheckPlan, workspaceCheckPlan } from "./check-plan.mjs";
+import { projectCheckGroup, repositoryCheckPlan, repositoryProjectCheckPlan, workspaceCheckPlan } from "./check-plan.mjs";
 import { libraryMetadataOutputs } from "./generate-library-metadata.mjs";
 import { loadLibraryManifest, readLibraryMetadata, repositoryRoot } from "./library-manifest.mjs";
 
@@ -85,6 +85,8 @@ test("shared verification plans reference real scripts and retain every register
         [...repositoryProjectCheckPlan, "test", "test:required"].sort(),
         [...repositoryCheckPlan].sort(),
     );
+    assert.deepEqual([...projectCheckGroup("library"), ...projectCheckGroup("docs")], repositoryProjectCheckPlan);
+    assert.throws(() => projectCheckGroup("unknown"), /--project-group/);
     for (const { packageJson: pkg } of await readWorkspaceManifests()) {
         const plan = workspaceCheckPlan(pkg);
         assert.ok(!plan.some(step => step.args[0] === "run" && step.args[1] === "test:visual"), pkg.name);
@@ -213,7 +215,7 @@ test("DatePicker forwards native Wake shards and runs additional registrations o
 test("CI required test shards run each registered check once and keep workspaces together", async () => {
     const checks = requiredCheckPlan(await readWorkspaceManifests());
     const datePicker = "@crab-dev/rc-date-picker";
-    const shards = ["date-picker", "1/2", "2/2"].map(shard => requiredCheckShard(checks, shard));
+    const shards = ["date-picker", "1/3", "2/3", "3/3"].map(shard => requiredCheckShard(checks, shard));
     assert.deepEqual(requiredCheckShard(checks), checks);
     assert.ok(shards.every(shard => shard.length > 0));
     assert.deepEqual(shards[0], checks.filter(({ workspace }) => workspace === datePicker));
