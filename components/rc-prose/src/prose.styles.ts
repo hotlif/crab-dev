@@ -1,6 +1,25 @@
 import { css } from '@crab-dev/css';
 import token, { vars } from './token.js';
 
+export const scrollRegionStyle = css`
+    max-inline-size: 100%;
+    min-inline-size: 0;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    &:focus-visible {
+        outline: ${token.link['outline-width-focus']} solid ${token.link['outline-color-focus']};
+        outline-offset: ${token.link['outline-offset-focus']};
+    }
+    &:not(.not-prose) > pre:only-child:not(.not-prose) {
+        box-sizing: border-box;
+        inline-size: max-content;
+        min-inline-size: 100%;
+        overflow: visible;
+    }
+    &:not([dir], .not-prose):has(> pre:only-child:not(.not-prose)) { direction: ltr; }
+    @media (forced-colors: active) { &:focus-visible { outline-color: Highlight; } }
+`;
+
 export const invertStyle = css`
     ${vars["body.color"]}: ${token.inverse.body.color};
     ${vars["heading.color"]}: ${token.inverse.heading.color};
@@ -30,6 +49,7 @@ export const baseStyle = css`
     color: ${token.body.color};
     font-family: ${token.body['font-family']};
     max-width: ${token.root['max-width']};
+    min-inline-size: 0;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     font-kerning: normal;

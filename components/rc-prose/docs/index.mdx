@@ -34,6 +34,8 @@ status = "experimental"
 
 ## 内容边界与键盘焦点
 
+在宽表或长代码外使用 `ProseScrollRegion`。用 `aria-labelledby` 关联附近标题，也可以用 `aria-label` 命名区域。Tab 聚焦后用方向键横向查看。表格继续使用原生 `table`、`caption` 和表头，代码继续使用 `pre` 与 `code`。
+
 Prose 为后代排版规则保留一个组件根类的优先级，普通宿主 `a`、`kbd`、`code` 等标签样式不会接管其外观。需要定制时，使用自己的作用域类或公开 `TokenVars`；组件不会用 `!important` 阻止明确覆盖。
 
 给嵌入内容添加 `not-prose` 类，可以排除该元素及其后代的直接排版规则。祖先字体、颜色和 CSS 变量仍遵循正常继承；嵌入区域需要自己的外观时应显式定义。`not-prose` 内再次嵌套 Prose 不会自动重新启用排版。
@@ -45,6 +47,8 @@ Prose 为后代排版规则保留一个组件根类的优先级，普通宿主 `
 ## API
 
 <API source="../src/types.ts" symbol="ProseProps" component="Prose" />
+
+<API source="../src/types.ts" symbol="ProseScrollRegionProps" component="ProseScrollRegion" />
 
 
 ## 设计风格与主题

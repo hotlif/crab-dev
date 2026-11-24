@@ -13,7 +13,8 @@
                 "basic.demo.tsx",
                 "size.demo.tsx",
                 "semantic-tag.demo.tsx",
-                "table.demo.tsx"
+                "table.demo.tsx",
+                "scroll-region.demo.tsx"
             ]
         },
         {

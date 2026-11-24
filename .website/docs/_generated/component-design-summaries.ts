@@ -1194,6 +1194,11 @@ export const componentDemoDesigns: Readonly<Partial<Record<string, Readonly<Part
             "macos",
             "shadcn"
         ],
+        "宽表与代码局部滚动 — 在窄容器中按 Tab 聚焦表格或代码，使用方向键查看剩余内容。": [
+            "md3",
+            "macos",
+            "shadcn"
+        ],
         "正色与逆色内容 — 四档文章字阶分别展示普通与 invert 排版。逆色容器使用当前主题的 inverse 背景，随明暗模式改变；内容覆盖中文、长链接、代码、表格和键盘提示。": [],
         "嵌入独立内容 — not-prose 排除区域自身及后代的直接排版规则；字体和颜色仍会正常继承，独立区域可定义自己的外观。": [
             "md3",
