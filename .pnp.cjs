@@ -2706,6 +2706,7 @@ const RAW_RUNTIME_STATE =
           ["@crab-dev/css", "npm:0.1.57"],\
           ["@crab-dev/rc-button", "virtual:90b5be6768a8587d28962cdf34c2f407284baa334d978c6839b8fb183eefea01023e226e6c7ecee46fc25488ff79059142df94aac63559b53e194b888c8840b1#workspace:components/rc-button"],\
           ["@crab-dev/rc-config-provider", "virtual:e5b0edb6f006e65ce79c1ddac600bc5bad3bb24a3a3f98e6ae5428359c358fef92a2be57a498e62c4c6e090bd2dfde03e5e05de94fe69f0a498197c0712c07ea#workspace:components/rc-config-provider"],\
+          ["@crab-dev/rc-dropdown-container", "virtual:637c64c735f8c8ec13c1537b7255abcda31f3d9498c8d51febe9693252ca4283b1609ba4c9d9ea189dd623fcb1368425fbfd6075b2dea7d72bf480aad8d87c6b#workspace:components/rc-dropdown-container"],\
           ["@crab-dev/rc-hooks", "virtual:e5b0edb6f006e65ce79c1ddac600bc5bad3bb24a3a3f98e6ae5428359c358fef92a2be57a498e62c4c6e090bd2dfde03e5e05de94fe69f0a498197c0712c07ea#workspace:components/rc-hooks"],\
           ["@crab-dev/rc-menu", "virtual:1b1f9f0dc19a7adf2120a5e987bae4f0f266236699b6565e33df3ed5dd6a9f43439cfc5634671e6858a7d5ddd3263caa7fe47bcc4a3f4f620295f3ab20640ca8#workspace:components/rc-menu"],\
           ["@crab-dev/rc-theme", "workspace:components/rc-theme"],\
@@ -2733,6 +2734,7 @@ const RAW_RUNTIME_STATE =
           ["@crab-dev/css", "npm:0.1.57"],\
           ["@crab-dev/rc-button", "virtual:90b5be6768a8587d28962cdf34c2f407284baa334d978c6839b8fb183eefea01023e226e6c7ecee46fc25488ff79059142df94aac63559b53e194b888c8840b1#workspace:components/rc-button"],\
           ["@crab-dev/rc-config-provider", "virtual:e5b0edb6f006e65ce79c1ddac600bc5bad3bb24a3a3f98e6ae5428359c358fef92a2be57a498e62c4c6e090bd2dfde03e5e05de94fe69f0a498197c0712c07ea#workspace:components/rc-config-provider"],\
+          ["@crab-dev/rc-dropdown-container", "virtual:637c64c735f8c8ec13c1537b7255abcda31f3d9498c8d51febe9693252ca4283b1609ba4c9d9ea189dd623fcb1368425fbfd6075b2dea7d72bf480aad8d87c6b#workspace:components/rc-dropdown-container"],\
           ["@crab-dev/rc-hooks", "virtual:e5b0edb6f006e65ce79c1ddac600bc5bad3bb24a3a3f98e6ae5428359c358fef92a2be57a498e62c4c6e090bd2dfde03e5e05de94fe69f0a498197c0712c07ea#workspace:components/rc-hooks"],\
           ["@crab-dev/rc-menu", "workspace:components/rc-menu"],\
           ["@crab-dev/rc-theme", "workspace:components/rc-theme"],\

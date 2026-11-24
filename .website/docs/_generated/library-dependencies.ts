@@ -468,7 +468,9 @@ export const libraryDependencies = [
         "title": "Menu 菜单",
         "family": "base",
         "production": [
+            "rc-button",
             "rc-config-provider",
+            "rc-dropdown-container",
             "rc-hooks"
         ],
         "docs": [

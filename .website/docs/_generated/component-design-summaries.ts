@@ -1021,6 +1021,11 @@ export const componentDemoDesigns: Readonly<Partial<Record<string, Readonly<Part
     },
     "rc-menu": {
         "三体系导航矩阵 — 垂直、内嵌、水平和折叠导航，共用密度、选中与键盘协议。": [],
+        "设备命令与二级菜单 — 打开设备操作，用方向键进入导出命令。归档命令因权限不足不可执行。": [
+            "md3",
+            "macos",
+            "shadcn"
+        ],
         "基础用法 — 基础的垂直菜单，支持展开/收起子菜单和选中菜单项": [
             "md3",
             "macos",
