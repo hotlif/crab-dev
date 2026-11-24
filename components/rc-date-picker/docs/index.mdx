@@ -114,6 +114,12 @@ const date = toPickerDateTime('2026-06-15T09:30:00.123456789+08:00[Asia/Shanghai
 
 <Demos glob="./demos/*.demo.tsx" columns={2} />
 
+## 手输日期
+
+设置 `editable` 后，DatePicker 可输入 `YYYY-MM-DD`，也可从原有日历选择。Enter 或离开字段会确认有效日期，无效输入保留并显示关联错误。Escape 放弃草稿，日历按钮或 Alt+↓ 可打开日历，清除动作会回到字段。
+
+手输日期按 `timeZone` 的本地日解释，并使用日历相同的 `range`。未传时区时采用设备时区。`renderDisplayString` 可提供本地化的失焦显示，编辑时使用 ISO 格式。
+
 ## API
 
 <API source="../src/datePicker/datePicker.tsx" symbol="DatePickerProps" component="DatePicker" />

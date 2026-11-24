@@ -456,31 +456,31 @@ export const componentPreviews = {
         }
     },
     "rc-date-picker": {
-        "id": "docs/demos/datePicker.demo.tsx",
-        "title": "日期选择器",
-        "previewPath": "/components/rc-date-picker/workbench/?__wake_demo=docs%2Fdemos%2FdatePicker.demo.tsx",
-        "workbenchPath": "/components/rc-date-picker/workbench/#/components/docs%2Fdemos%2FdatePicker.demo.tsx",
+        "id": "docs/demos/editable.demo.tsx",
+        "title": "手输日期与可选范围",
+        "previewPath": "/components/rc-date-picker/workbench/?__wake_demo=docs%2Fdemos%2Feditable.demo.tsx",
+        "workbenchPath": "/components/rc-date-picker/workbench/#/components/docs%2Fdemos%2Feditable.demo.tsx",
         "density": "regular",
         "designs": {
             "md3": {
-                "id": "docs/demos/datePicker.demo.tsx",
-                "title": "日期选择器",
-                "previewPath": "/components/rc-date-picker/workbench/?__wake_demo=docs%2Fdemos%2FdatePicker.demo.tsx",
-                "workbenchPath": "/components/rc-date-picker/workbench/#/components/docs%2Fdemos%2FdatePicker.demo.tsx",
+                "id": "docs/demos/editable.demo.tsx",
+                "title": "手输日期与可选范围",
+                "previewPath": "/components/rc-date-picker/workbench/?__wake_demo=docs%2Fdemos%2Feditable.demo.tsx",
+                "workbenchPath": "/components/rc-date-picker/workbench/#/components/docs%2Fdemos%2Feditable.demo.tsx",
                 "density": "regular"
             },
             "macos": {
-                "id": "docs/demos/desktop-time.demo.tsx",
-                "title": "体系默认的时间输入",
-                "previewPath": "/components/rc-date-picker/workbench/?__wake_demo=docs%2Fdemos%2Fdesktop-time.demo.tsx",
-                "workbenchPath": "/components/rc-date-picker/workbench/#/components/docs%2Fdemos%2Fdesktop-time.demo.tsx",
+                "id": "docs/demos/editable.demo.tsx",
+                "title": "手输日期与可选范围",
+                "previewPath": "/components/rc-date-picker/workbench/?__wake_demo=docs%2Fdemos%2Feditable.demo.tsx",
+                "workbenchPath": "/components/rc-date-picker/workbench/#/components/docs%2Fdemos%2Feditable.demo.tsx",
                 "density": "regular"
             },
             "shadcn": {
-                "id": "docs/demos/datePickerRange.demo.tsx",
-                "title": "可选日期范围",
-                "previewPath": "/components/rc-date-picker/workbench/?__wake_demo=docs%2Fdemos%2FdatePickerRange.demo.tsx",
-                "workbenchPath": "/components/rc-date-picker/workbench/#/components/docs%2Fdemos%2FdatePickerRange.demo.tsx",
+                "id": "docs/demos/editable.demo.tsx",
+                "title": "手输日期与可选范围",
+                "previewPath": "/components/rc-date-picker/workbench/?__wake_demo=docs%2Fdemos%2Feditable.demo.tsx",
+                "workbenchPath": "/components/rc-date-picker/workbench/#/components/docs%2Fdemos%2Feditable.demo.tsx",
                 "density": "regular"
             }
         }

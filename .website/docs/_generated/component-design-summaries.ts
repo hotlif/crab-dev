@@ -731,6 +731,11 @@ export const componentDemoDesigns: Readonly<Partial<Record<string, Readonly<Part
         "计划编辑状态矩阵 — 真实文本草稿、五段式规则面板与只读查看，预览使用固定日期采集。": []
     },
     "rc-date-picker": {
+        "手输日期与可选范围 — 手输交接日期，试用闰日、范围错误和 Escape，然后用日历切换日期。": [
+            "md3",
+            "macos",
+            "shadcn"
+        ],
         "日期选择器 — 日期字段与面板继承当前文档主题；选择日期、清除并检查标签与焦点。": [
             "md3",
             "macos",
