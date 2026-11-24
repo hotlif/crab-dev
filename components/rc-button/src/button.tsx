@@ -81,7 +81,7 @@ const Button: FC<ButtonProps> = ({
     const resolvedSize = explicitSize ?? (inheritedDesktopSize ? 's' : configuredSizes[config.size]);
     const unselectedPrimary = !resolvedDanger && resolvedAppearance === 'primary' && isSelected === false;
     const iconOnly = children == null && (icon != null || iconAfter != null || loading);
-    const changesStateShape = config.designSystem === 'shadcn';
+    const changesStateShape = config.designSystem === 'shadcn' && groupCtx.variant !== 'connected';
 
     const legacyVisualClassName = config.designSystem === 'macos' ? undefined : cx(
         unselectedPrimary ? primaryUnselectedStyle : resolvedDanger && resolvedAppearance === 'primary' ? dangerStyle : appearanceStyleMap[resolvedAppearance],

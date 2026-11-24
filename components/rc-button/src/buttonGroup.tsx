@@ -22,15 +22,10 @@ const connectedStyle = css`
     > :last-child { border-start-end-radius: calc(${token.root.height} / 2); border-end-end-radius: calc(${token.root.height} / 2); }
 `;
 
-const connectedShapeFeedbackStyle = css`
-    > [aria-pressed='true'] { border-radius: calc(${token.root.height} / 2); }
-    > :is(:active, [data-press-feedback]):not(:disabled):not([aria-disabled='true']) { border-radius: ${token.root['border-radius-active']}; }
-`;
-
 const connectedDesignStyles = {
     md3: connectedStyle,
     macos: macosGroupStyle,
-    shadcn: cx(connectedStyle, connectedShapeFeedbackStyle),
+    shadcn: connectedStyle,
 };
 
 const sizeGapMap = {
@@ -48,7 +43,7 @@ function ButtonGroup({ children, size, appearance, danger, variant = 'standard',
     const config = useConfig();
     const resolvedSize = size ?? config.size;
     return (
-        <ButtonGroupContext value={{ size, appearance, danger }}>
+        <ButtonGroupContext value={{ size, appearance, danger, variant }}>
             <div data-variant={variant} className={cx(groupBaseStyle, sizeGapMap[resolvedSize], variant === 'connected' ? connectedDesignStyles[config.designSystem] : null, className)}>
                 {children}
             </div>
