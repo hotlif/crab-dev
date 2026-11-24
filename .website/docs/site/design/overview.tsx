@@ -4,6 +4,7 @@ import { useConfig } from "@crab-dev/rc-config-provider";
 import LineEdit from "@crab-dev/rc-line-edit";
 import Slider from "@crab-dev/rc-slider";
 import Radio from "@crab-dev/rc-radio";
+import Select from "@crab-dev/rc-select";
 import Segmented from "@crab-dev/rc-segmented";
 import Switch from "@crab-dev/rc-switch";
 import TextEdit from "@crab-dev/rc-text-edit";
@@ -100,6 +101,22 @@ export default function DesignOverview() {
                             <h3>Slider 滑块</h3>
                             <p>拖动设备负载告警阈值，观察趋势图和实时读值。</p>
                             <Button appearance="primary" href={href("design/slider")} iconAfter={<span aria-hidden="true">→</span>}>体验滑块原型</Button>
+                        </div>
+                    </div>
+                    <div className="crab-design-card">
+                        <div className="crab-design-card-body">
+                            <div inert aria-hidden="true"><Select label="设备类型" placeholder="全部设备" options={[{ value: "pump", label: "离心泵" }]} /></div>
+                            <h3>Select 选择器</h3>
+                            <p>按设备类型和运行状态筛选台账，试用异步搜索和失败重试。</p>
+                            <Button appearance="primary" href={href("design/select")} iconAfter={<span aria-hidden="true">→</span>}>体验选择器原型</Button>
+                        </div>
+                    </div>
+                    <div className="crab-design-card">
+                        <div className="crab-design-card-body">
+                            <div inert aria-hidden="true"><LineEdit label="配置名称" defaultValue="北区输水运行" appearance="outlined" readOnly /></div>
+                            <h3>Form 表单</h3>
+                            <p>编辑泵站采样配置，试用校验、保存进度和失败恢复。</p>
+                            <Button appearance="primary" href={href("design/form")} iconAfter={<span aria-hidden="true">→</span>}>体验表单原型</Button>
                         </div>
                     </div>
                 </section>
