@@ -3,6 +3,7 @@ import Checkbox from "@crab-dev/rc-checkbox";
 import { useConfig } from "@crab-dev/rc-config-provider";
 import LineEdit from "@crab-dev/rc-line-edit";
 import NumberEdit from "@crab-dev/rc-number-edit";
+import Slider from "@crab-dev/rc-slider";
 import Radio from "@crab-dev/rc-radio";
 import Segmented from "@crab-dev/rc-segmented";
 import Switch from "@crab-dev/rc-switch";
@@ -100,6 +101,14 @@ export default function DesignOverview() {
                             <h3>NumberEdit 数值输入框</h3>
                             <p>比较数值输入、步进、边界修正和保存。</p>
                             <Button appearance="primary" href={href("design/number-edit")} iconAfter={<span aria-hidden="true">→</span>}>体验数值输入框原型</Button>
+                        </div>
+                    </div>
+                    <div className="crab-design-card">
+                        <div className="crab-design-card-body">
+                            <div inert aria-hidden="true"><Slider aria-label="负载告警阈值" defaultValue={65} /></div>
+                            <h3>Slider 滑块</h3>
+                            <p>拖动设备负载告警阈值，观察趋势图和实时读值。</p>
+                            <Button appearance="primary" href={href("design/slider")} iconAfter={<span aria-hidden="true">→</span>}>体验滑块原型</Button>
                         </div>
                     </div>
                 </section>
