@@ -35,6 +35,10 @@ status = "experimental"
 
 ## 编辑、步进与范围
 
+输入文本在 Enter 或失焦时确认。Enter 保留焦点，原生表单可读取确认后的输入值。输入法正在组字或调用方在 `onKeyDown` 中取消默认动作时，Enter 暂不确认。
+
+`onValueChange` 在数值变化时报告 `enter`、`blur`、`step` 或 `clear`。需要解释调整时，可以从 `onValueCommit` 读取本次输入及下限、上限、精度或格式调整。空文本确认成 `null`，无效文本也确认成 `null` 并报告 `invalid`。Enter 确认后再离开字段不会重复确认同一次编辑。
+
 **现有实现**：键入文本先保留为编辑草稿；失焦、步进或清除时提交数值。键盘 ↑ / ↓、PageUp / PageDown、Shift + ↑ / ↓、滚轮和步进按钮使用同一数值计算路径。`aria-valuenow` 随当前可解析的编辑文本更新。
 
 滚轮仅在字段聚焦时按垂直方向步进；横向滚动及 Ctrl / Meta 修饰的浏览器缩放手势保持原生行为，不改动数值或未完成草稿。

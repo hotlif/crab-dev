@@ -117,6 +117,41 @@ describe("NumberEdit", () => {
             expect(onChange).toHaveBeenCalledWith(100, expect.objectContaining({ reason: 'blur' }));
             expect(getInput().value).toBe("100");
         });
+        it("Enter 确认草稿一次并同步读值，即使紧接着失焦", async () => {
+            const changed = mock.fn();
+            const confirmed = mock.fn();
+            await render(<NumberEdit defaultValue={30} min={0} max={100} onValueChange={changed} onValueCommit={confirmed}/>);
+            const input = getInput();
+            await act(() => input.focus());
+            await changeInputValue(input, "9999");
+            expect(input.getAttribute("aria-valuenow")).toBe("30");
+            await fireEvent.keyDown(input, { key: "Enter", isComposing: true, keyCode: 229 });
+            expect(input.value).toBe("9999");
+            expect(confirmed).not.toHaveBeenCalled();
+            await fireEvent.keyDown(input, { key: "Enter" });
+            expect(input.value).toBe("100");
+            expect(input.getAttribute("aria-valuenow")).toBe("100");
+            expect(changed).toHaveBeenCalledWith(100, expect.objectContaining({reason: "enter"}));
+            expect(confirmed).toHaveBeenCalledWith(100, expect.objectContaining({
+                reason: "enter", raw: "9999", adjustments: ["max"],
+            }));
+            await act(() => input.blur());
+            expect(changed).toHaveBeenCalledTimes(1);
+            expect(confirmed).toHaveBeenCalledTimes(1);
+        });
+        it("报告无效草稿，且精度调整后的值仍在范围内", async () => {
+            const confirmed = mock.fn();
+            await render(<NumberEdit defaultValue={0.5} min={0} max={0.96} precision={1} onValueCommit={confirmed}/>);
+            const input = getInput();
+            await act(() => input.focus());
+            await changeInputValue(input, "0.96");
+            await fireEvent.keyDown(input, { key: "Enter" });
+            expect(input.value).toBe("0.96");
+            expect(confirmed).toHaveBeenCalledWith(0.96, expect.objectContaining({adjustments: ["max", "precision"]}));
+            await changeInputValue(input, "-");
+            await act(() => input.blur());
+            expect(confirmed).toHaveBeenCalledWith(null, expect.objectContaining({raw: "-", adjustments: ["invalid"]}));
+        });
     });
     describe("步进", () => {
         it("steps from the current draft and preserves its fractional precision", async () => {
