@@ -196,8 +196,8 @@ for (const config of configurations)
         },
     );
 
-async function connectedDemo(page, previewOrigin) {
-    const root = await openDemo(page, previewOrigin, 'rc-button', 'expressive.demo.tsx', { designSystem: 'md3', colorMode: 'light' });
+async function connectedDemo(page, previewOrigin, config) {
+    const root = await openDemo(page, previewOrigin, 'rc-button', 'expressive.demo.tsx', config);
     const group = root.locator('[data-variant="connected"]');
     await expect(group.getByRole('button')).toHaveCount(3);
     await group.scrollIntoViewIfNeeded();
@@ -213,35 +213,47 @@ async function expectStableGroup(actions, initial) {
     }
 }
 
-test('MD3 connected Button corners stay fixed through pointer and keyboard selection', {
-    tag: ['@rc-button', '@boundary', '@chromium-only'],
-}, async ({ page, previewOrigin }) => {
-    const group = await connectedDemo(page, previewOrigin);
-    const actions = await group.getByRole('button').all();
-    const initial = await Promise.all(actions.map(geometry));
-    expect(initial[0].radii[0]).not.toEqual(initial[0].radii[1]);
-    expect(initial[2].radii[0]).not.toEqual(initial[2].radii[1]);
-    await actions[1].hover();
-    await page.mouse.down();
-    try {
+for (const config of configurations) {
+    test(`connected Button corners stay fixed through pointer and keyboard selection ${config.designSystem} ${config.colorMode}`, {
+        tag: ['@rc-button', '@boundary', '@chromium-only'],
+    }, async ({ page, previewOrigin }) => {
+        const narrow = config.colorMode === 'dark';
+        await page.setViewportSize({ width: narrow ? 320 : 1440, height: 820 });
+        if (narrow) await page.emulateMedia({ reducedMotion: 'reduce' });
+        const group = await connectedDemo(page, previewOrigin, {
+            ...config, direction: narrow ? 'rtl' : 'ltr', size: narrow ? 'small' : 'large',
+        });
+        const actions = await group.getByRole('button').all();
+        const initial = await Promise.all(actions.map(geometry));
+        if (config.designSystem !== 'macos') {
+            expect(initial[0].radii[0]).not.toEqual(initial[0].radii[1]);
+            expect(initial[2].radii[0]).not.toEqual(initial[2].radii[1]);
+        }
+        await actions[1].hover();
+        await page.mouse.down();
+        try {
+            await expectStableGroup(actions, initial);
+        } finally {
+            await page.mouse.up();
+        }
+        await expect(actions[1]).toHaveAttribute('aria-pressed', 'true');
         await expectStableGroup(actions, initial);
-    } finally {
-        await page.mouse.up();
-    }
-    await expect(actions[1]).toHaveAttribute('aria-pressed', 'true');
-    await expectStableGroup(actions, initial);
-    await actions[1].press('Tab');
-    await expect(actions[2]).toBeFocused();
-    await page.keyboard.down('Space');
-    try {
+        await actions[1].press('Tab');
+        await expect(actions[2]).toBeFocused();
+        await page.keyboard.down('Space');
+        try {
+            await expectStableGroup(actions, initial);
+        } finally {
+            await page.keyboard.up('Space');
+        }
+        await expect(actions[2]).toHaveAttribute('aria-pressed', 'true');
+        await expect(actions[1]).toHaveAttribute('aria-pressed', 'false');
         await expectStableGroup(actions, initial);
-    } finally {
-        await page.keyboard.up('Space');
-    }
-    await expect(actions[2]).toHaveAttribute('aria-pressed', 'true');
-    await expect(actions[1]).toHaveAttribute('aria-pressed', 'false');
-    await expectStableGroup(actions, initial);
-});
+        await actions[0].press('Enter');
+        await expect(actions[0]).toHaveAttribute('aria-pressed', 'true');
+        await expectStableGroup(actions, initial);
+    });
+}
 
 test.describe('MD3 Button touch corners', () => {
     test.use({ hasTouch: true, viewport: { width: 360, height: 780 } });
@@ -249,7 +261,7 @@ test.describe('MD3 Button touch corners', () => {
     test('keeps the connected layout and corners after tapping a different selection', {
         tag: ['@rc-button', '@boundary', '@chromium-only'],
     }, async ({ page, previewOrigin }) => {
-        const group = await connectedDemo(page, previewOrigin);
+        const group = await connectedDemo(page, previewOrigin, { designSystem: 'md3', colorMode: 'light' });
         const actions = await group.getByRole('button').all();
         const initial = await Promise.all(actions.map(geometry));
         await actions[1].tap();
