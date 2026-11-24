@@ -853,24 +853,24 @@ export const componentPreviews = {
         "density": "regular",
         "designs": {
             "md3": {
-                "id": "docs/demos/base.demo.tsx",
-                "title": "基本",
-                "previewPath": "/components/rc-notification/workbench/?__wake_demo=docs%2Fdemos%2Fbase.demo.tsx",
-                "workbenchPath": "/components/rc-notification/workbench/#/components/docs%2Fdemos%2Fbase.demo.tsx",
+                "id": "docs/demos/tasks.demo.tsx",
+                "title": "后台任务与焦点",
+                "previewPath": "/components/rc-notification/workbench/?__wake_demo=docs%2Fdemos%2Ftasks.demo.tsx",
+                "workbenchPath": "/components/rc-notification/workbench/#/components/docs%2Fdemos%2Ftasks.demo.tsx",
                 "density": "regular"
             },
             "macos": {
-                "id": "docs/demos/stack.demo.tsx",
-                "title": "多条通知层叠",
-                "previewPath": "/components/rc-notification/workbench/?__wake_demo=docs%2Fdemos%2Fstack.demo.tsx",
-                "workbenchPath": "/components/rc-notification/workbench/#/components/docs%2Fdemos%2Fstack.demo.tsx",
+                "id": "docs/demos/tasks.demo.tsx",
+                "title": "后台任务与焦点",
+                "previewPath": "/components/rc-notification/workbench/?__wake_demo=docs%2Fdemos%2Ftasks.demo.tsx",
+                "workbenchPath": "/components/rc-notification/workbench/#/components/docs%2Fdemos%2Ftasks.demo.tsx",
                 "density": "regular"
             },
             "shadcn": {
-                "id": "docs/demos/customContent.demo.tsx",
-                "title": "自定义内容",
-                "previewPath": "/components/rc-notification/workbench/?__wake_demo=docs%2Fdemos%2FcustomContent.demo.tsx",
-                "workbenchPath": "/components/rc-notification/workbench/#/components/docs%2Fdemos%2FcustomContent.demo.tsx",
+                "id": "docs/demos/tasks.demo.tsx",
+                "title": "后台任务与焦点",
+                "previewPath": "/components/rc-notification/workbench/?__wake_demo=docs%2Fdemos%2Ftasks.demo.tsx",
+                "workbenchPath": "/components/rc-notification/workbench/#/components/docs%2Fdemos%2Ftasks.demo.tsx",
                 "density": "regular"
             }
         }

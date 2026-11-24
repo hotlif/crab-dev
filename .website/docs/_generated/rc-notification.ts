@@ -91,6 +91,31 @@ export const demos = [
         "group": null
     },
     {
+        "id": "docs/demos/tasks.demo.tsx",
+        "title": "后台任务与焦点",
+        "description": "启动后台任务，保留当前任务的焦点，也可在列表中切换、重试或查看结果。",
+        "learning": {
+            "components": [
+                "Button"
+            ],
+            "props": [
+                "size",
+                "appearance",
+                "onClick"
+            ],
+            "events": [
+                "onClick"
+            ],
+            "hasState": false
+        },
+        "sourceCode": "import { css } from '@crab-dev/css';\nimport { useEffect, useRef } from 'react';\nimport Button from '@crab-dev/rc-button';\nimport { useNotification } from '../../src/index.js';\n\nexport const meta = {\n    title: '后台任务与焦点',\n    description: '启动后台任务，保留当前任务的焦点，也可在列表中切换、重试或查看结果。',\n};\n\nconst actions = css`display: flex; flex-wrap: wrap; gap: 0.5rem;`;\nconst names = ['索引同步', '导出清单', '仪表刷新', '巡检日志'];\n\nexport default function TaskNotifications() {\n    const [notice, holder] = useNotification({ mode: 'tasks' });\n    const delayed = useRef\u003cReturnType\u003ctypeof setTimeout>>(undefined);\n    useEffect(() => () => clearTimeout(delayed.current), []);\n    const open = (index: number, complete = false) => notice.open({\n        taskKey: String(index),\n        title: names[index],\n        direction: 'bottomRight',\n        description: complete ? '任务已完成' : \u003cButton size=\"s\" appearance=\"text\"\n            onClick={() => { open(index, true); }}>{index === 0 ? '重试同步' : '查看结果'}\u003c/Button>,\n    });\n    return \u003cdiv className={actions}>\n        \u003cButton onClick={() => { open(0); }}>启动索引同步\u003c/Button>\n        \u003cButton appearance=\"outlined\" onClick={() => {\n            clearTimeout(delayed.current);\n            delayed.current = setTimeout(() => { open(1); open(2); open(3); }, 500);\n        }}>加载其他任务\u003c/Button>\n        {holder}\n    \u003c/div>;\n}\n",
+        "previewPath": "/components/rc-notification/workbench/?__wake_demo=docs%2Fdemos%2Ftasks.demo.tsx",
+        "workbenchPath": "/components/rc-notification/workbench/#/components/docs%2Fdemos%2Ftasks.demo.tsx",
+        "density": "regular",
+        "layout": "wide",
+        "group": null
+    },
+    {
         "id": "docs/demos/visual-matrix.demo.tsx",
         "title": "三体系展示与状态矩阵",
         "description": "公开组件、真实交互与自然动画；包内视觉规格是矩阵轴的来源。",
@@ -133,6 +158,7 @@ export const documents = {
         "usage": "通知承载任务结果或异步事件，重要动作保持清晰，避免与当前任务竞争。",
         "exampleDescription": "打开不同类型通知，检查标题、正文和语义容器的阅读顺序。",
         "demos": [
+            "tasks.demo.tsx",
             "base.demo.tsx",
             "customContent.demo.tsx",
             "stack.demo.tsx"
@@ -148,6 +174,7 @@ export const documents = {
         "usage": "不要把通知外观等同于系统通知权限；它仍是当前网页中的反馈区域。",
         "exampleDescription": "连续打开通知并逐项关闭，检查浮动面板的排列与工作内容的关系。",
         "demos": [
+            "tasks.demo.tsx",
             "stack.demo.tsx",
             "base.demo.tsx",
             "customContent.demo.tsx"
@@ -162,6 +189,7 @@ export const documents = {
         "usage": "自定义内容保持简短且可访问，状态色不能成为事件含义的唯一线索。",
         "exampleDescription": "查看带自定义内容的通知，检查正文与动作在简洁面板中的分区。",
         "demos": [
+            "tasks.demo.tsx",
             "customContent.demo.tsx",
             "base.demo.tsx",
             "stack.demo.tsx"

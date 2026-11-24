@@ -39,6 +39,8 @@ status = "experimental"
 
 ## API
 
+`useNotification({ mode: 'tasks' })` 显示后台任务列表，并保持当前任务和焦点。用相同 `taskKey` 再次打开会更新原任务并返回同一 ID。列表默认露出三项，其余任务可滚动访问。任务默认持续显示，仍可设置 `duration` 和 `direction`。手动关闭前台任务会恢复到原操作入口。
+
 `notification.open({ title, description, duration })` 返回 `{ id, close, update }`。可调用 `handle.close()` 或 `notification.close(handle.id)` 关闭指定通知；调用 update 修改内容或时长会保留 ID 并重新计时。duration=0 时持续展示。onClose 只执行一次，已经关闭的句柄不能重新打开通知。
 
 <API source="../src/notification.tsx" symbol="NotificationProps" component="Notification" />
