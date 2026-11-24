@@ -4,6 +4,7 @@
         "usage": "颜色可强调关键节点，但步骤名称、连接方向与状态仍需明确。",
         "exampleDescription": "编辑节点与连线，检查当前选择、操作入口和流程方向的表达。",
         "demos": [
+            "keyboard.demo.tsx",
             "editing.demo.tsx",
             "animated-edge.demo.tsx",
             "edge.demo.tsx",
@@ -16,6 +17,7 @@
         "usage": "紧凑面板中保留可读的节点标题；自动布局后仍应能追踪当前编辑对象。",
         "exampleDescription": "运行自动布局并阅读节点关系，检查画布内容与操作区域的区分。",
         "demos": [
+            "keyboard.demo.tsx",
             "elk-layout.demo.tsx",
             "animated-edge.demo.tsx",
             "edge.demo.tsx",
@@ -28,6 +30,7 @@
         "usage": "流程图是自有组合能力，业务应为节点类型和连线含义提供明确说明。",
         "exampleDescription": "查看长标签与复杂连接的可读性，再检查选中节点的边界反馈。",
         "demos": [
+            "keyboard.demo.tsx",
             "readability.demo.tsx",
             "animated-edge.demo.tsx",
             "edge.demo.tsx",

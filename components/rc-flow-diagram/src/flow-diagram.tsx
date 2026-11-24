@@ -1,4 +1,5 @@
 import { useState, type CSSProperties, type ReactNode } from 'react';
+import { createPortal } from 'react-dom';
 import { Canvas, Viewport, InfiniteGrid } from '@crab-dev/rc-canvas';
 import type { ViewportState, Pt } from '@crab-dev/rc-canvas';
 import { useFlowDiagramControls, type FlowDiagramControls } from './hooks/useFlowDiagramControls.js';
@@ -9,6 +10,7 @@ import type { ElkLayoutNode, ElkLayoutEdge } from './hooks/useElkLayout.js';
 import type { UseEdgeRoutingOptions, EdgeRoutes, ManualRoute } from './hooks/useEdgeRouting.js';
 import { FlowDiagramPaletteContext } from './palette-context.js';
 import { mergeFlowDiagramPalette, type FlowDiagramPalette } from './palette.js';
+import { FlowDiagramKeyboardNodes, type FlowDiagramKeyboardOptions } from './keyboard-nodes.js';
 
 export type { FlowDiagramControls } from './hooks/useFlowDiagramControls.js';
 
@@ -42,6 +44,8 @@ export interface FlowDiagramRenderContext {
 }
 
 export interface FlowDiagramProps {
+    /** 在画布外显示原生键盘节点选择，并可接入位置更新。 */
+    keyboard?: FlowDiagramKeyboardOptions;
     /** ELK 布局输入节点（需提供稳定 id 与宽高） */
     nodes: ElkLayoutNode[];
     /** ELK 布局输入边 */
@@ -93,11 +97,16 @@ export interface FlowDiagramProps {
 interface InnerProps {
     ctx: Omit<FlowDiagramRenderContext, 'controls'>;
     children: (ctx: FlowDiagramRenderContext) => ReactNode;
+    keyboard?: { options: FlowDiagramKeyboardOptions; host: HTMLDivElement; nodes: ElkLayoutNode[] };
 }
 
-function FlowDiagramInner({ ctx, children }: InnerProps) {
+function FlowDiagramInner({ ctx, children, keyboard }: InnerProps) {
     const controls = useFlowDiagramControls(ctx.nodeRects);
-    return <>{children({ ...ctx, controls })}</>;
+    return <>
+        {children({ ...ctx, controls })}
+        {keyboard && createPortal(<FlowDiagramKeyboardNodes
+            nodes={keyboard.nodes} nodeRects={ctx.nodeRects} options={keyboard.options} controls={controls}/>, keyboard.host)}
+    </>;
 }
 
 // ── FlowDiagram ───────────────────────────────────────────────────────────────
@@ -121,9 +130,11 @@ export default function FlowDiagram({
     gridBaseSpacing = 64,
     gridSubdivisions = 4,
     onEmptyClick,
+    keyboard,
     children,
 }: FlowDiagramProps) {
     const [internalViewport, setViewport] = useState(defaultViewport);
+    const [keyboardHost, setKeyboardHost] = useState<HTMLDivElement | null>(null);
     const viewport = controlledViewport ?? internalViewport;
     const palette = mergeFlowDiagramPalette(paletteOverride);
 
@@ -149,8 +160,7 @@ export default function FlowDiagram({
         palette,
     };
 
-    return (
-        <FlowDiagramPaletteContext value={palette}>
+    const canvas = (
             <Canvas
                 width={width}
                 height={height}
@@ -166,11 +176,15 @@ export default function FlowDiagram({
                         baseSpacing={gridBaseSpacing}
                         subdivisions={gridSubdivisions}
                     />
-                    <FlowDiagramInner ctx={ctx}>
+                    <FlowDiagramInner ctx={ctx} keyboard={keyboard && keyboardHost ? { options: keyboard, host: keyboardHost, nodes } : undefined}>
                         {children}
                     </FlowDiagramInner>
                 </Viewport>
             </Canvas>
+    );
+    return (
+        <FlowDiagramPaletteContext value={palette}>
+            {keyboard ? <div><div ref={setKeyboardHost}/>{canvas}</div> : canvas}
         </FlowDiagramPaletteContext>
     );
 }

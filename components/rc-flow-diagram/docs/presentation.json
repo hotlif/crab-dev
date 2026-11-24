@@ -10,6 +10,7 @@
         {
             "title": "能力与集成示例",
             "demos": [
+                "keyboard.demo.tsx",
                 "editing.demo.tsx",
                 "readability.demo.tsx",
                 "animated-edge.demo.tsx",

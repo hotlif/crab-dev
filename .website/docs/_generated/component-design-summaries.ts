@@ -899,6 +899,11 @@ export const componentDemoDesigns: Readonly<Partial<Record<string, Readonly<Part
     },
     "rc-flow-diagram": {
         "流程工作区状态矩阵 — 真实 ELK 布局、选中、拖动、手动路由和失败；下方等价节点入口可用键盘选择和移动。": [],
+        "键盘选择与移动节点 — 用 Tab 进入节点列表，再用 Enter 或 Space 选中节点。方向键和拖动共享位置与连线。": [
+            "md3",
+            "macos",
+            "shadcn"
+        ],
         "受控连线与单次撤销 — 拖动端口建立连接，选中连线后拖动端点或内部线段。Esc 取消；预览不会写入历史。键盘按钮使用相同的提交协议。": [
             "md3",
             "macos",
