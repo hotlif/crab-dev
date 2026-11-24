@@ -29,6 +29,34 @@ describe('measureLabelWidth（jsdom 无 OffscreenCanvas，走估宽回退）', (
             expect(layout.plotRight).toBeGreaterThan(layout.plotLeft);
         }
     });
+    it('保留横轴端点并省略相互遮挡的文本，全量网格线仍然可用', () => {
+        const width = 234;
+        const layout = computeLayout({
+            width, height: 280, categories: ['北区输水泵', '东侧远程监测设备支线', '回流管'],
+            series: [{ data: [24, 15, -8] }, { data: [19, 13, 0] }],
+            stacked: true, orientation: 'horizontal', formatValue: value => `${value} m³`,
+        });
+        expect(layout.tickLabels.length).toBeLessThan(layout.ticks.length);
+        expect(layout.tickLabels[0]).toEqual(layout.ticks[0]);
+        expect(layout.tickLabels.at(-1)).toEqual(layout.ticks.at(-1));
+        let previousEnd = -CHART_METRICS.horizontalTickGap;
+        for (const tick of layout.tickLabels) {
+            const halfWidth = measureLabelWidth(tick.label, CHART_METRICS.fontSize) / 2;
+            expect(tick.pos - halfWidth).toBeGreaterThanOrEqual(previousEnd + CHART_METRICS.horizontalTickGap);
+            previousEnd = tick.pos + halfWidth;
+            expect(previousEnd).toBeLessThanOrEqual(width);
+        }
+    });
+    it('超宽的自定义横轴文字不占满绘图区', () => {
+        const layout = computeLayout({
+            width: 96, height: 180, categories: ['读数'], series: [{ data: [30] }],
+            stacked: false, orientation: 'horizontal', formatValue: value => '很长的单位文本'.repeat(12) + value,
+        });
+        expect(layout.tickLabels).toHaveLength(0);
+        expect(layout.plotRight).toBeLessThanOrEqual(96);
+        expect(layout.plotRight).toBeGreaterThan(layout.plotLeft);
+        expect(layout.bars).toHaveLength(1);
+    });
     it('CJK 字符按 1em、西文按 0.6em 估宽', () => {
         expect(measureLabelWidth('一万', 12)).toBeCloseTo(24);
         expect(measureLabelWidth('10', 12)).toBeCloseTo(14.4);

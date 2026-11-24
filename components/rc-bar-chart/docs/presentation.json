@@ -13,6 +13,7 @@
                 "annotations.demo.tsx",
                 "basic.demo.tsx",
                 "horizontal.demo.tsx",
+                "compact-axis.demo.tsx",
                 "live-update.demo.tsx",
                 "multi-series.demo.tsx",
                 "palette.demo.tsx",

@@ -91,8 +91,11 @@ export interface BarChartProps {
     /** 横向参考线（均值 / 目标线等），以虚线绘制并纳入值轴刻度域 */
     referenceLines?: BarChartReferenceLine[];
 
-    /** 数值格式化，作用于 y 轴刻度、悬浮提示与数据表 */
+    /** 格式化数值标签、悬浮提示和数据表，也是默认的轴刻度格式。 */
     formatValue?: (value: number) => string;
+
+    /** 单独格式化值轴刻度，默认沿用 formatValue。 */
+    formatAxisValue?: (value: number) => string;
 
     /** 点击柱子时触发；提供后柱子呈现 pointer 光标 */
     onBarClick?: (info: BarClickInfo) => void;

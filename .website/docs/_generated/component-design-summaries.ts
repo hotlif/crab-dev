@@ -395,6 +395,11 @@ export const componentDemoDesigns: Readonly<Partial<Record<string, Readonly<Part
             "macos",
             "shadcn"
         ],
+        "窄屏刻度与单位 — 切换刻度写法，观察窄屏相邻刻度如何留出间距，并用键盘读值。": [
+            "md3",
+            "macos",
+            "shadcn"
+        ],
         "入场与数据更新动画 — 首次挂载时柱体从零值基线逐类目生长；手动切换数据集时从旧值过渡到新值。系统偏好「减弱动态」时直接呈现结果。": [
             "md3",
             "macos",

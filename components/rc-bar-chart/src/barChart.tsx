@@ -45,6 +45,7 @@ function BarChartInner({
     showValues = false,
     referenceLines,
     formatValue: formatValueOverride,
+    formatAxisValue,
     labels,
     onBarClick,
     'aria-label': ariaLabelOverride,
@@ -90,7 +91,7 @@ function BarChartInner({
         categories,
         series: shownSeries,
         stacked,
-        formatValue,
+        formatValue: formatAxisValue ?? formatValue,
         orientation,
         referenceValues: referenceLines?.map(r => r.value) ?? [],
     });
@@ -231,7 +232,7 @@ function BarChartInner({
                          * 光栅化并 1:1 物理像素对齐绘制，12px 小字号与 DOM 文本同等清晰。
                          * 值轴刻度：vertical 在左缘，horizontal 在底缘。
                          */}
-                        {layout.ticks.map(tick => (
+                        {layout.tickLabels.map(tick => (
                             <Text
                                 key={`tick-${tick.value}`}
                                 mode="bitmap"

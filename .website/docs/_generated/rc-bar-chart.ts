@@ -119,6 +119,37 @@ export const demos = [
         "group": "能力与集成示例"
     },
     {
+        "id": "docs/demos/compact-axis.demo.tsx",
+        "title": "窄屏刻度与单位",
+        "description": "切换刻度写法，观察窄屏相邻刻度如何留出间距，并用键盘读值。",
+        "learning": {
+            "components": [
+                "BarChart"
+            ],
+            "props": [
+                "width",
+                "height",
+                "orientation",
+                "aria-label",
+                "labels",
+                "categories",
+                "series",
+                "stacked",
+                "showValues",
+                "formatValue",
+                "formatAxisValue"
+            ],
+            "events": [],
+            "hasState": true
+        },
+        "sourceCode": "import { css } from '@crab-dev/css';\nimport { useState } from 'react';\nimport BarChart from '../../src/index.js';\n\nexport const meta = {\n    title: '窄屏刻度与单位',\n    description: '切换刻度写法，观察窄屏相邻刻度如何留出间距，并用键盘读值。',\n};\n\nconst frame = css`max-inline-size: 28rem; min-inline-size: 0;`;\nconst categories = ['北区输水泵', '进水调节阀', '东侧远程监测设备支线', '回流管'];\nconst series = [\n    { name: '日班', data: [24, 8, 15, 11] },\n    { name: '夜班', data: [19, 0, 13, -7] },\n];\nconst volume = (value: number) => `${value} m³`;\n\nexport default function CompactAxisDemo() {\n    const [unitsOnTicks, setUnitsOnTicks] = useState(true);\n    return \u003cdiv className={frame}>\n        \u003cp>计量单位 m³\u003c/p>\n        \u003clabel>\n            \u003cinput type=\"checkbox\" checked={unitsOnTicks} onChange={event => setUnitsOnTicks(event.currentTarget.checked)} />\n            刻度显示单位\n        \u003c/label>\n        \u003cBarChart\n            width=\"auto\"\n            height={280}\n            orientation=\"horizontal\"\n            aria-label=\"泵站分班用水量（立方米）\"\n            labels={{ legend: '班次图例' }}\n            categories={categories}\n            series={series}\n            stacked\n            showValues\n            formatValue={volume}\n            formatAxisValue={unitsOnTicks ? undefined : String}\n        />\n    \u003c/div>;\n}\n",
+        "previewPath": "/components/rc-bar-chart/workbench/?__wake_demo=docs%2Fdemos%2Fcompact-axis.demo.tsx",
+        "workbenchPath": "/components/rc-bar-chart/workbench/#/components/docs%2Fdemos%2Fcompact-axis.demo.tsx",
+        "density": "regular",
+        "layout": "wide",
+        "group": "能力与集成示例"
+    },
+    {
         "id": "docs/demos/live-update.demo.tsx",
         "title": "入场与数据更新动画",
         "description": "首次挂载时柱体从零值基线逐类目生长；手动切换数据集时从旧值过渡到新值。系统偏好「减弱动态」时直接呈现结果。",
@@ -237,6 +268,7 @@ export const documents = {
             "annotations.demo.tsx",
             "basic.demo.tsx",
             "horizontal.demo.tsx",
+            "compact-axis.demo.tsx",
             "live-update.demo.tsx",
             "palette.demo.tsx",
             "stacked.demo.tsx"
@@ -252,6 +284,7 @@ export const documents = {
         "usage": "紧凑工作区仍应保留零基线、系列名称和辅助技术可读取的数据入口。",
         "exampleDescription": "从水平柱图比较较长标签的数据，再检查提示和图例的可读性。",
         "demos": [
+            "compact-axis.demo.tsx",
             "horizontal.demo.tsx",
             "annotations.demo.tsx",
             "basic.demo.tsx",
@@ -274,6 +307,7 @@ export const documents = {
             "annotations.demo.tsx",
             "basic.demo.tsx",
             "horizontal.demo.tsx",
+            "compact-axis.demo.tsx",
             "live-update.demo.tsx",
             "multi-series.demo.tsx",
             "palette.demo.tsx"

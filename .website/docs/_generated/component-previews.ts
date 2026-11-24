@@ -170,10 +170,10 @@ export const componentPreviews = {
                 "density": "regular"
             },
             "macos": {
-                "id": "docs/demos/horizontal.demo.tsx",
-                "title": "横向条形与自适应宽度",
-                "previewPath": "/components/rc-bar-chart/workbench/?__wake_demo=docs%2Fdemos%2Fhorizontal.demo.tsx",
-                "workbenchPath": "/components/rc-bar-chart/workbench/#/components/docs%2Fdemos%2Fhorizontal.demo.tsx",
+                "id": "docs/demos/compact-axis.demo.tsx",
+                "title": "窄屏刻度与单位",
+                "previewPath": "/components/rc-bar-chart/workbench/?__wake_demo=docs%2Fdemos%2Fcompact-axis.demo.tsx",
+                "workbenchPath": "/components/rc-bar-chart/workbench/#/components/docs%2Fdemos%2Fcompact-axis.demo.tsx",
                 "density": "regular"
             },
             "shadcn": {
