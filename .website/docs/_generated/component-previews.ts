@@ -793,24 +793,24 @@ export const componentPreviews = {
         "density": "regular",
         "designs": {
             "md3": {
-                "id": "docs/demos/group.demo.tsx",
-                "title": "分组菜单",
-                "previewPath": "/components/rc-menu/workbench/?__wake_demo=docs%2Fdemos%2Fgroup.demo.tsx",
-                "workbenchPath": "/components/rc-menu/workbench/#/components/docs%2Fdemos%2Fgroup.demo.tsx",
+                "id": "docs/demos/commands.demo.tsx",
+                "title": "设备命令与二级菜单",
+                "previewPath": "/components/rc-menu/workbench/?__wake_demo=docs%2Fdemos%2Fcommands.demo.tsx",
+                "workbenchPath": "/components/rc-menu/workbench/#/components/docs%2Fdemos%2Fcommands.demo.tsx",
                 "density": "regular"
             },
             "macos": {
-                "id": "docs/demos/collapsed.demo.tsx",
-                "title": "收起内嵌菜单",
-                "previewPath": "/components/rc-menu/workbench/?__wake_demo=docs%2Fdemos%2Fcollapsed.demo.tsx",
-                "workbenchPath": "/components/rc-menu/workbench/#/components/docs%2Fdemos%2Fcollapsed.demo.tsx",
+                "id": "docs/demos/commands.demo.tsx",
+                "title": "设备命令与二级菜单",
+                "previewPath": "/components/rc-menu/workbench/?__wake_demo=docs%2Fdemos%2Fcommands.demo.tsx",
+                "workbenchPath": "/components/rc-menu/workbench/#/components/docs%2Fdemos%2Fcommands.demo.tsx",
                 "density": "regular"
             },
             "shadcn": {
-                "id": "docs/demos/basic.demo.tsx",
-                "title": "基础用法",
-                "previewPath": "/components/rc-menu/workbench/?__wake_demo=docs%2Fdemos%2Fbasic.demo.tsx",
-                "workbenchPath": "/components/rc-menu/workbench/#/components/docs%2Fdemos%2Fbasic.demo.tsx",
+                "id": "docs/demos/commands.demo.tsx",
+                "title": "设备命令与二级菜单",
+                "previewPath": "/components/rc-menu/workbench/?__wake_demo=docs%2Fdemos%2Fcommands.demo.tsx",
+                "workbenchPath": "/components/rc-menu/workbench/#/components/docs%2Fdemos%2Fcommands.demo.tsx",
                 "density": "regular"
             }
         }

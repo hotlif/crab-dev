@@ -4,6 +4,7 @@
         "usage": "导航项目用于到达位置，分组标题用于解释结构；展开状态与选中状态分开。",
         "exampleDescription": "展开菜单分组并选择项目，观察色调选中行与分组标题的层级。",
         "demos": [
+            "commands.demo.tsx",
             "group.demo.tsx",
             "basic.demo.tsx",
             "collapsed.demo.tsx",
@@ -15,6 +16,7 @@
         "usage": "图标与文字精确对齐，折叠后仍为目的地保留可访问名称。",
         "exampleDescription": "收起和展开导航，检查桌面选中行、图标入口与标签的对应。",
         "demos": [
+            "commands.demo.tsx",
             "collapsed.demo.tsx",
             "basic.demo.tsx",
             "group.demo.tsx",
@@ -26,6 +28,7 @@
         "usage": "保持项目名称简短，子菜单与当前页要能通过展开和选中状态辨认。",
         "exampleDescription": "操作基础导航项目，检查中性选中背景与可见的键盘焦点。",
         "demos": [
+            "commands.demo.tsx",
             "basic.demo.tsx",
             "collapsed.demo.tsx",
             "group.demo.tsx",

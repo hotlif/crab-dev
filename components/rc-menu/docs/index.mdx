@@ -51,6 +51,8 @@ md3 当前导航实现采用 baseline navigation drawer 的视觉角色并应用
 
 ## 代码演示
 
+`CommandMenu` 提供有分组的操作入口。每个分支在同一浮层里显示一级子命令。Tab 离开时关闭，Enter 和 Space 执行，方向键与 Home、End 移动焦点。Escape 先返回上一级，再关闭浮层。权限禁用项仍可用方向键读到。
+
 <Demos glob="./demos/*.demo.tsx" columns={2} />
 
 ## 三体系规格与验收矩阵（2026-10-29）

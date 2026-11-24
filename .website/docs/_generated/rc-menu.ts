@@ -36,6 +36,33 @@ export const demos = [
         "group": "规格验收"
     },
     {
+        "id": "docs/demos/commands.demo.tsx",
+        "title": "设备命令与二级菜单",
+        "description": "打开设备操作，用方向键进入导出命令。归档命令因权限不足不可执行。",
+        "learning": {
+            "components": [
+                "CommandMenu",
+                "Button"
+            ],
+            "props": [
+                "label",
+                "groups",
+                "appearance",
+                "onClick"
+            ],
+            "events": [
+                "onClick"
+            ],
+            "hasState": true
+        },
+        "sourceCode": "import { css } from '@crab-dev/css';\nimport Button from '@crab-dev/rc-button';\nimport { useState } from 'react';\nimport { CommandMenu } from '../../src/index.js';\n\nexport const meta = {\n    title: '设备命令与二级菜单',\n    description: '打开设备操作，用方向键进入导出命令。归档命令因权限不足不可执行。',\n};\n\nconst demo = css`display: grid; gap: 0.5rem; justify-items: start; inline-size: min(100%, 22rem);`;\n\nexport default function CommandMenuDemo() {\n    const [output, setOutput] = useState('准备操作');\n    return \u003cdiv className={demo}>\n        \u003cCommandMenu label=\"设备操作\" groups={[\n            { label: '巡检', items: [\n                { id: 'details', label: '查看状态', onSelect: () => setOutput('设备运行正常') },\n                { id: 'export', label: '导出记录', items: [\n                    { id: 'csv', label: '下载 CSV', onSelect: () => setOutput('已生成 CSV') },\n                    { id: 'pdf', label: '下载 PDF', onSelect: () => setOutput('已生成 PDF') },\n                ] },\n            ] },\n            { label: '管理', items: [\n                { id: 'archive', label: '归档设备', disabled: true, onSelect: () => setOutput('已归档') },\n            ] },\n        ]} />\n        \u003cButton appearance=\"text\" onClick={() => setOutput('准备操作')}>重置结果\u003c/Button>\n        \u003coutput>{output}\u003c/output>\n    \u003c/div>;\n}\n",
+        "previewPath": "/components/rc-menu/workbench/?__wake_demo=docs%2Fdemos%2Fcommands.demo.tsx",
+        "workbenchPath": "/components/rc-menu/workbench/#/components/docs%2Fdemos%2Fcommands.demo.tsx",
+        "density": "regular",
+        "layout": "wide",
+        "group": "功能演示"
+    },
+    {
         "id": "docs/demos/basic.demo.tsx",
         "title": "基础用法",
         "description": "基础的垂直菜单，支持展开/收起子菜单和选中菜单项",
@@ -164,6 +191,7 @@ export const documents = {
         "usage": "导航项目用于到达位置，分组标题用于解释结构；展开状态与选中状态分开。",
         "exampleDescription": "展开菜单分组并选择项目，观察色调选中行与分组标题的层级。",
         "demos": [
+            "commands.demo.tsx",
             "group.demo.tsx",
             "basic.demo.tsx",
             "collapsed.demo.tsx",
@@ -180,6 +208,7 @@ export const documents = {
         "usage": "图标与文字精确对齐，折叠后仍为目的地保留可访问名称。",
         "exampleDescription": "收起和展开导航，检查桌面选中行、图标入口与标签的对应。",
         "demos": [
+            "commands.demo.tsx",
             "collapsed.demo.tsx",
             "basic.demo.tsx",
             "group.demo.tsx",
@@ -195,6 +224,7 @@ export const documents = {
         "usage": "保持项目名称简短，子菜单与当前页要能通过展开和选中状态辨认。",
         "exampleDescription": "操作基础导航项目，检查中性选中背景与可见的键盘焦点。",
         "demos": [
+            "commands.demo.tsx",
             "basic.demo.tsx",
             "collapsed.demo.tsx",
             "group.demo.tsx",

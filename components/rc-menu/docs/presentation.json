@@ -11,6 +11,7 @@
         {
             "title": "功能演示",
             "demos": [
+                "commands.demo.tsx",
                 "basic.demo.tsx",
                 "group.demo.tsx",
                 "horizontal.demo.tsx",

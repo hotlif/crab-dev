@@ -1835,7 +1835,9 @@
                 "dist/**"
             ],
             "dependsOn": [
+                "@crab-dev/rc-button#build:library",
                 "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-dropdown-container#build:library",
                 "@crab-dev/rc-hooks#build:library",
                 "@crab-dev/rc-token-semantic#build:library"
             ]
@@ -1849,7 +1851,9 @@
             ],
             "cache": false,
             "dependsOn": [
+                "@crab-dev/rc-button#build:library",
                 "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-dropdown-container#build:library",
                 "@crab-dev/rc-hooks#build:library",
                 "@crab-dev/rc-token-semantic#build:library"
             ]
@@ -1864,7 +1868,9 @@
             ],
             "outputs": [],
             "dependsOn": [
+                "@crab-dev/rc-button#build:library",
                 "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-dropdown-container#build:library",
                 "@crab-dev/rc-hooks#build:library",
                 "@crab-dev/rc-token-semantic#build:library"
             ]
