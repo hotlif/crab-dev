@@ -22,6 +22,7 @@ export const CHART_METRICS = {
     plotRightPad: 8,
     /** 轴刻度文本与绘图区边缘的间距 */
     axisLabelGap: 8,
+    horizontalTickGap: 4,
     /** 值轴刻度带高（vertical 的 x 轴带 / horizontal 的底部值轴带） */
     xAxisBand: 24,
     /** 柱最大厚度 */
@@ -75,6 +76,8 @@ export interface ChartLayout {
     /** 零值基线在值轴方向上的坐标：vertical 为 y，horizontal 为 x */
     zeroPos: number;
     ticks: ChartTick[];
+    /** 实际可绘制的文本刻度。网格线继续使用 ticks。 */
+    tickLabels: ChartTick[];
     bands: ChartBand[];
     bars: BarRect[];
     /** 各参考值在值轴方向上的坐标，与 referenceValues 同序 */
@@ -223,6 +226,29 @@ interface BarSpan {
     dataAtPositive: boolean | null;
 }
 
+function fitHorizontalTickLabels(ticks: ChartTick[], labelWidths: number[], width: number): ChartTick[] {
+    const candidates = ticks.map((tick, index) => {
+        const halfWidth = labelWidths[index] / 2;
+        return { tick, start: tick.pos - halfWidth, end: tick.pos + halfWidth };
+    }).filter(({ tick, start, end }) => tick.label !== '' && start >= 0 && end <= width);
+    const first = candidates[0];
+    const last = candidates[candidates.length - 1];
+    if (!first) return [];
+    const gap = CHART_METRICS.horizontalTickGap;
+    if (first === last || first.end + gap > last.start) return [first.tick];
+
+    // Keep the two ends of the scale visible whenever they fit.
+    const visible = [first.tick];
+    let previousEnd = first.end;
+    for (const entry of candidates.slice(1, -1)) {
+        if (entry.start < previousEnd + gap || entry.end + gap > last.start) continue;
+        visible.push(entry.tick);
+        previousEnd = entry.end;
+    }
+    visible.push(last.tick);
+    return visible;
+}
+
 export function computeLayout(options: LayoutOptions): ChartLayout {
     const {
         width, height, categories, series, stacked, formatValue,
@@ -242,18 +268,19 @@ export function computeLayout(options: LayoutOptions): ChartLayout {
     const domainMin = tickValues[0];
     const domainMax = tickValues[tickValues.length - 1];
     const labels = tickValues.map(formatValue);
+    const labelWidths = labels.map(label => measureLabelWidth(label, M.fontSize));
 
-    // 左缘留白：vertical 放值轴刻度文本，horizontal 放类目文本
-    const leftLabels = horizontal ? categories : labels;
-    const measuredLabelW = leftLabels.reduce((w, l) => Math.max(w, measureLabelWidth(l, M.fontSize)), 0);
+    const widestTick = Math.max(0, ...labelWidths);
+    const measuredLabelW = horizontal
+        ? categories.reduce((width, label) => Math.max(width, measureLabelWidth(label, M.fontSize)), 0)
+        : widestTick;
     // 横向长类目最多占容器约三分之一，保留数值比较所需的绘图区。
     const maxLabelW = horizontal ? Math.min(measuredLabelW, width / 3) : measuredLabelW;
-    // 横轴刻度以网格线为中心，固定的 8px 右留白不足以容纳格式化数字。
-    // 按真实字宽预留两端空间，并为整数坐标取整保留 1px。
-    const tickHalfWidth = horizontal
-        ? Math.ceil(labels.reduce((w, label) => Math.max(w, measureLabelWidth(label, M.fontSize)), 0) / 2) + 1
-        : 0;
-    const plotLeft = Math.max(24, Math.ceil(maxLabelW) + M.axisLabelGap, tickHalfWidth);
+    // Leave room for centered end labels without letting one custom label
+    // consume the plot. Labels that still cross an edge are omitted below.
+    const tickHalfWidth = horizontal ? Math.min(Math.ceil(widestTick / 2) + 1, Math.floor(width / 4)) : 0;
+    const leftPad = Math.max(24, Math.ceil(maxLabelW) + M.axisLabelGap, tickHalfWidth);
+    const plotLeft = horizontal ? Math.min(width, leftPad) : leftPad;
     const plotTop = M.plotTopPad;
     const plotRight = Math.max(plotLeft, width - Math.max(M.plotRightPad, tickHalfWidth));
     const plotBottom = Math.max(plotTop, height - M.xAxisBand);
@@ -273,6 +300,7 @@ export function computeLayout(options: LayoutOptions): ChartLayout {
         pos: Math.round(posFor(value)),
         label: labels[i],
     }));
+    const tickLabels = horizontal ? fitHorizontalTickLabels(ticks, labelWidths, width) : ticks;
 
     // 类目轴：vertical 沿 x（plotLeft → plotRight），horizontal 沿 y（plotTop → plotBottom）
     const bandExtent = horizontal ? plotBottom - plotTop : plotRight - plotLeft;
@@ -385,5 +413,5 @@ export function computeLayout(options: LayoutOptions): ChartLayout {
 
     const referencePositions = referenceValues.map(v => Math.round(posFor(v)));
 
-    return { plotLeft, plotTop, plotRight, plotBottom, zeroPos, ticks, bands, bars, referencePositions };
+    return { plotLeft, plotTop, plotRight, plotBottom, zeroPos, ticks, tickLabels, bands, bars, referencePositions };
 }

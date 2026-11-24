@@ -45,6 +45,7 @@ function BarChartInner({
     showValues = false,
     referenceLines,
     formatValue: formatValueOverride,
+    formatAxisValue,
     labels,
     onBarClick,
     'aria-label': ariaLabelOverride,
@@ -79,7 +80,7 @@ function BarChartInner({
     const visibleSeries = series.length > MAX_SERIES ? series.slice(0, MAX_SERIES) : series;
     const horizontal = orientation === 'horizontal';
 
-    // 图例过滤后的系列；bars 的 seriesIndex 是 shown 下标，经 shownIndices 映射回原始下标
+    // 图例过滤后的系列参与计算，柱的动画与交互继续使用原始系列下标。
     const shownIndices = visibleSeries.map((_, i) => i).filter(i => !hiddenSeries.has(i));
     const shownSeries = shownIndices.map(i => visibleSeries[i]);
 
@@ -90,11 +91,12 @@ function BarChartInner({
         categories,
         series: shownSeries,
         stacked,
-        formatValue,
+        formatValue: formatAxisValue ?? formatValue,
         orientation,
         referenceValues: referenceLines?.map(r => r.value) ?? [],
     });
-    const displayBars = useBarTransition(layout.bars, {
+    const bars = layout.bars.map(bar => ({ ...bar, seriesIndex: shownIndices[bar.seriesIndex] }));
+    const animatedBars = useBarTransition(bars, {
         zeroPos: layout.zeroPos,
         orientation,
         categoryCount: categories.length,
@@ -105,6 +107,12 @@ function BarChartInner({
         // 堆叠表达整体构成，入场全类目同步生长；逐类目涌现（错峰）只留给分组 / 单系列
         staggered: !stacked,
     });
+    // 动画在收到新的几何前可能还有一帧旧数据。
+    const displayBars = animatedBars.filter(bar =>
+        bar.categoryIndex < categories.length &&
+        bar.seriesIndex < visibleSeries.length &&
+        !hiddenSeries.has(bar.seriesIndex),
+    );
 
     // 数据更新变短后，事件层可能残留旧下标；渲染前统一失效，避免读出 undefined
     const activeIndex = active !== null && active.index < categories.length ? active.index : null;
@@ -132,7 +140,7 @@ function BarChartInner({
         : 1;
 
     const activeBand = activeIndex !== null ? layout.bands[activeIndex] : null;
-    const focusIndex = Math.min(focusBarIndex, Math.max(0, layout.bars.length - 1));
+    const focusIndex = Math.min(focusBarIndex, Math.max(0, bars.length - 1));
 
     const hoverCategory = (index: number) => setActive({ index, sticky: false });
     const leaveCategory = () => setActive(prev => (prev !== null && prev.sticky ? prev : null));
@@ -140,14 +148,14 @@ function BarChartInner({
 
     const barClickInfo = (bar: { categoryIndex: number; seriesIndex: number; value: number }) => ({
         categoryIndex: bar.categoryIndex,
-        seriesIndex: shownIndices[bar.seriesIndex],
+        seriesIndex: bar.seriesIndex,
         category: categories[bar.categoryIndex],
-        seriesName: visibleSeries[shownIndices[bar.seriesIndex]].name,
+        seriesName: visibleSeries[bar.seriesIndex].name,
         value: bar.value,
     });
 
     const onLayerKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
-        const total = layout.bars.length;
+        const total = bars.length;
         if (total === 0) return;
         // 方向键沿类目轴推进：vertical 主用 ←/→，horizontal 主用 ↑/↓（与视觉布局一致）
         const forward = horizontal ? 'ArrowDown' : 'ArrowRight';
@@ -231,7 +239,7 @@ function BarChartInner({
                          * 光栅化并 1:1 物理像素对齐绘制，12px 小字号与 DOM 文本同等清晰。
                          * 值轴刻度：vertical 在左缘，horizontal 在底缘。
                          */}
-                        {layout.ticks.map(tick => (
+                        {layout.tickLabels.map(tick => (
                             <Text
                                 key={`tick-${tick.value}`}
                                 mode="bitmap"
@@ -296,7 +304,7 @@ function BarChartInner({
                             const dim = dims[bar.categoryIndex] ?? 1;
                             // 淡化走不透明混色而非 opacity：柱与圆角补丁的重叠区不会叠出深色条带
                             const color = resolveDimmedBarColor(
-                                colors[shownIndices[bar.seriesIndex]],
+                                colors[bar.seriesIndex],
                                 dim,
                                 palette,
                             );
@@ -354,10 +362,10 @@ function BarChartInner({
                             const labelW = measureLabelWidth(text, CHART_METRICS.valueLabelSize);
                             if (horizontal) {
                                 const atRight = bar.dataEnd !== 'left';
-                                // 预算 = 条端到画布边缘的空间，溢出画布则省略
+                                // 负值标签的空间从绘图区左边界算起，给类目文字留出位置。
                                 const budget = atRight
                                     ? width - (bar.x + bar.width) - CHART_METRICS.valueLabelGap
-                                    : bar.x - CHART_METRICS.valueLabelGap;
+                                    : bar.x - layout.plotLeft - CHART_METRICS.valueLabelGap;
                                 if (labelW > budget) return null;
                                 return (
                                     <Text
@@ -429,7 +437,7 @@ function BarChartInner({
                                 .filter(l => {
                                     const labelW = measureLabelWidth(l.text, CHART_METRICS.valueLabelSize);
                                     if (!horizontal) return labelW <= layout.bands[i].size;
-                                    return l.positive ? labelW <= width - posEdge - gap : labelW <= negEdge - gap;
+                                    return l.positive ? labelW <= width - posEdge - gap : labelW <= negEdge - layout.plotLeft - gap;
                                 })
                                 .map(l => (
                                     <Text
@@ -501,7 +509,7 @@ function BarChartInner({
                     onKeyDown={onLayerKeyDown}
                     onBlur={onLayerBlur}
                 >
-                    {layout.bars.map((bar, k) => (
+                    {bars.map((bar, k) => (
                         <button
                             key={`focus-${bar.categoryIndex}-${bar.seriesIndex}`}
                             type="button"
@@ -511,7 +519,7 @@ function BarChartInner({
                             tabIndex={k === focusIndex ? 0 : -1}
                             aria-label={
                                 visibleSeries.length > 1
-                                    ? `${categories[bar.categoryIndex]} ${visibleSeries[shownIndices[bar.seriesIndex]].name} ${formatValue(bar.value)}`
+                                    ? `${categories[bar.categoryIndex]} ${visibleSeries[bar.seriesIndex].name} ${formatValue(bar.value)}`
                                     : `${categories[bar.categoryIndex]} ${formatValue(bar.value)}`
                             }
                             onFocus={() => {
