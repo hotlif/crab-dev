@@ -80,7 +80,7 @@ function BarChartInner({
     const visibleSeries = series.length > MAX_SERIES ? series.slice(0, MAX_SERIES) : series;
     const horizontal = orientation === 'horizontal';
 
-    // 图例过滤后的系列；bars 的 seriesIndex 是 shown 下标，经 shownIndices 映射回原始下标
+    // 图例过滤后的系列参与计算，柱的动画与交互继续使用原始系列下标。
     const shownIndices = visibleSeries.map((_, i) => i).filter(i => !hiddenSeries.has(i));
     const shownSeries = shownIndices.map(i => visibleSeries[i]);
 
@@ -95,7 +95,8 @@ function BarChartInner({
         orientation,
         referenceValues: referenceLines?.map(r => r.value) ?? [],
     });
-    const displayBars = useBarTransition(layout.bars, {
+    const bars = layout.bars.map(bar => ({ ...bar, seriesIndex: shownIndices[bar.seriesIndex] }));
+    const animatedBars = useBarTransition(bars, {
         zeroPos: layout.zeroPos,
         orientation,
         categoryCount: categories.length,
@@ -106,6 +107,12 @@ function BarChartInner({
         // 堆叠表达整体构成，入场全类目同步生长；逐类目涌现（错峰）只留给分组 / 单系列
         staggered: !stacked,
     });
+    // 动画在收到新的几何前可能还有一帧旧数据。
+    const displayBars = animatedBars.filter(bar =>
+        bar.categoryIndex < categories.length &&
+        bar.seriesIndex < visibleSeries.length &&
+        !hiddenSeries.has(bar.seriesIndex),
+    );
 
     // 数据更新变短后，事件层可能残留旧下标；渲染前统一失效，避免读出 undefined
     const activeIndex = active !== null && active.index < categories.length ? active.index : null;
@@ -133,7 +140,7 @@ function BarChartInner({
         : 1;
 
     const activeBand = activeIndex !== null ? layout.bands[activeIndex] : null;
-    const focusIndex = Math.min(focusBarIndex, Math.max(0, layout.bars.length - 1));
+    const focusIndex = Math.min(focusBarIndex, Math.max(0, bars.length - 1));
 
     const hoverCategory = (index: number) => setActive({ index, sticky: false });
     const leaveCategory = () => setActive(prev => (prev !== null && prev.sticky ? prev : null));
@@ -141,14 +148,14 @@ function BarChartInner({
 
     const barClickInfo = (bar: { categoryIndex: number; seriesIndex: number; value: number }) => ({
         categoryIndex: bar.categoryIndex,
-        seriesIndex: shownIndices[bar.seriesIndex],
+        seriesIndex: bar.seriesIndex,
         category: categories[bar.categoryIndex],
-        seriesName: visibleSeries[shownIndices[bar.seriesIndex]].name,
+        seriesName: visibleSeries[bar.seriesIndex].name,
         value: bar.value,
     });
 
     const onLayerKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
-        const total = layout.bars.length;
+        const total = bars.length;
         if (total === 0) return;
         // 方向键沿类目轴推进：vertical 主用 ←/→，horizontal 主用 ↑/↓（与视觉布局一致）
         const forward = horizontal ? 'ArrowDown' : 'ArrowRight';
@@ -297,7 +304,7 @@ function BarChartInner({
                             const dim = dims[bar.categoryIndex] ?? 1;
                             // 淡化走不透明混色而非 opacity：柱与圆角补丁的重叠区不会叠出深色条带
                             const color = resolveDimmedBarColor(
-                                colors[shownIndices[bar.seriesIndex]],
+                                colors[bar.seriesIndex],
                                 dim,
                                 palette,
                             );
@@ -502,7 +509,7 @@ function BarChartInner({
                     onKeyDown={onLayerKeyDown}
                     onBlur={onLayerBlur}
                 >
-                    {layout.bars.map((bar, k) => (
+                    {bars.map((bar, k) => (
                         <button
                             key={`focus-${bar.categoryIndex}-${bar.seriesIndex}`}
                             type="button"
@@ -512,7 +519,7 @@ function BarChartInner({
                             tabIndex={k === focusIndex ? 0 : -1}
                             aria-label={
                                 visibleSeries.length > 1
-                                    ? `${categories[bar.categoryIndex]} ${visibleSeries[shownIndices[bar.seriesIndex]].name} ${formatValue(bar.value)}`
+                                    ? `${categories[bar.categoryIndex]} ${visibleSeries[bar.seriesIndex].name} ${formatValue(bar.value)}`
                                     : `${categories[bar.categoryIndex]} ${formatValue(bar.value)}`
                             }
                             onFocus={() => {

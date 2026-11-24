@@ -7,7 +7,7 @@ export const meta = {
     description: '切换刻度写法，观察窄屏相邻刻度如何留出间距，并用键盘读值。',
 };
 
-const frame = css`max-inline-size: 28rem; min-inline-size: 0;`;
+const frame = css`inline-size: min(100%, 28rem);`;
 const categories = ['北区输水泵', '进水调节阀', '东侧远程监测设备支线', '回流管'];
 const series = [
     { name: '日班', data: [24, 8, 15, 11] },

@@ -78,3 +78,21 @@ for (const config of configurations) test(`${config.designSystem} ${config.color
         await expect(scene.getByRole('group', { name: 'Revenue chart', exact: true }).getByRole('button')).toHaveCount(4);
     }
 });
+
+for (const config of configurations) test(`${config.designSystem} ${config.colorMode} toggles a series after keyboard reading`, { tag: ['@rc-bar-chart', '@boundary', '@chromium-only'] }, async ({ page, previewOrigin }) => {
+    await openDemo(page, previewOrigin, 'rc-bar-chart', 'compact-axis.demo.tsx', config);
+    const bars = page.getByRole('group', { name: '泵站分班用水量（立方米）' });
+    const day = bars.getByRole('button', { name: '北区输水泵 日班 24 m³' });
+    const night = bars.getByRole('button', { name: '北区输水泵 夜班 19 m³' });
+    const nightLegend = page.getByRole('group', { name: '班次图例' }).getByRole('button', { name: '夜班' });
+
+    await day.press('ArrowDown');
+    await expect(night).toBeFocused();
+    await nightLegend.press('Enter');
+    await expect(nightLegend).toHaveAttribute('aria-pressed', 'false');
+    await expect(night).toHaveCount(0);
+    await expect(day).toBeAttached();
+    await nightLegend.press('Enter');
+    await expect(nightLegend).toHaveAttribute('aria-pressed', 'true');
+    await expect(night).toBeAttached();
+});
