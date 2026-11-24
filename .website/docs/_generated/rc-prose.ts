@@ -112,6 +112,29 @@ export const demos = [
         "group": "文章与排版"
     },
     {
+        "id": "docs/demos/scroll-region.demo.tsx",
+        "title": "宽表与代码局部滚动",
+        "description": "在窄容器中按 Tab 聚焦表格或代码，使用方向键查看剩余内容。",
+        "learning": {
+            "components": [
+                "Prose",
+                "ProseScrollRegion"
+            ],
+            "props": [
+                "as",
+                "aria-labelledby"
+            ],
+            "events": [],
+            "hasState": false
+        },
+        "sourceCode": "import { css } from '@crab-dev/css';\nimport { useId } from 'react';\nimport Prose, { ProseScrollRegion } from '../../src/index.js';\n\nexport const meta = {\n    title: '宽表与代码局部滚动',\n    description: '在窄容器中按 Tab 聚焦表格或代码，使用方向键查看剩余内容。',\n};\n\nconst tableWidth = css`min-inline-size: 36rem;`;\nconst articleWidth = css`inline-size: min(100%, 36rem);`;\nconst record = 'const recordId = \"NORTH-INTAKE-PUMP-P104-INSPECTION-2026-11-24\";';\n\nexport default function ScrollRegionDemo() {\n    const id = useId();\n    return \u003cProse as=\"article\" className={articleWidth}>\n        \u003ch3 id={`${id}-readings`}>采样检查表\u003c/h3>\n        \u003cProseScrollRegion aria-labelledby={`${id}-readings`}>\n            \u003ctable className={tableWidth}>\n                \u003ccaption>北区泵站当班采样数据\u003c/caption>\n                \u003cthead>\n                    \u003ctr>\u003cth scope=\"col\">设备\u003c/th>\u003cth scope=\"col\">位置\u003c/th>\u003cth scope=\"col\">入口压差\u003c/th>\u003cth scope=\"col\">复核状态\u003c/th>\u003c/tr>\n                \u003c/thead>\n                \u003ctbody>\n                    \u003ctr>\u003cth scope=\"row\">输水泵 P-104\u003c/th>\u003ctd>北区进水口\u003c/td>\u003ctd>0.62 MPa\u003c/td>\u003ctd>需要下一班复测\u003c/td>\u003c/tr>\n                    \u003ctr>\u003cth scope=\"row\">回流管 F-026\u003c/th>\u003ctd>回水机房\u003c/td>\u003ctd>0.34 MPa\u003c/td>\u003ctd>已复核\u003c/td>\u003c/tr>\n                \u003c/tbody>\n            \u003c/table>\n        \u003c/ProseScrollRegion>\n        \u003ch3 id={`${id}-code`}>巡检记录标识\u003c/h3>\n        \u003cProseScrollRegion aria-labelledby={`${id}-code`}>\n            \u003cpre>\u003ccode>{record}\u003c/code>\u003c/pre>\n        \u003c/ProseScrollRegion>\n        \u003cp>复测后，把读数和巡检记录一并交接给下一班。\u003c/p>\n    \u003c/Prose>;\n}\n",
+        "previewPath": "/components/rc-prose/workbench/?__wake_demo=docs%2Fdemos%2Fscroll-region.demo.tsx",
+        "workbenchPath": "/components/rc-prose/workbench/#/components/docs%2Fdemos%2Fscroll-region.demo.tsx",
+        "density": "spacious",
+        "layout": "wide",
+        "group": "文章与排版"
+    },
+    {
         "id": "docs/demos/visual-states.demo.tsx",
         "title": "正色与逆色内容",
         "description": "四档文章字阶分别展示普通与 invert 排版。逆色容器使用当前主题的 inverse 背景，随明暗模式改变；内容覆盖中文、长链接、代码、表格和键盘提示。",
@@ -167,7 +190,8 @@ export const documents = {
             "scoped-content.demo.tsx",
             "semantic-tag.demo.tsx",
             "size.demo.tsx",
-            "table.demo.tsx"
+            "table.demo.tsx",
+            "scroll-region.demo.tsx"
         ],
         "references": [
             "https://m3.material.io/styles/typography/overview",
@@ -180,6 +204,7 @@ export const documents = {
         "usage": "长文区域保持实体背景，表格和代码在自己的滚动范围内阅读。",
         "exampleDescription": "阅读包含表格的正文，检查桌面文字密度和局部横向滚动。",
         "demos": [
+            "scroll-region.demo.tsx",
             "table.demo.tsx",
             "basic.demo.tsx",
             "scoped-content.demo.tsx",
@@ -200,7 +225,8 @@ export const documents = {
             "basic.demo.tsx",
             "semantic-tag.demo.tsx",
             "size.demo.tsx",
-            "table.demo.tsx"
+            "table.demo.tsx",
+            "scroll-region.demo.tsx"
         ],
         "references": [
             "https://ui.shadcn.com/docs/components",

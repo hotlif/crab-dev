@@ -8,7 +8,8 @@
             "scoped-content.demo.tsx",
             "semantic-tag.demo.tsx",
             "size.demo.tsx",
-            "table.demo.tsx"
+            "table.demo.tsx",
+            "scroll-region.demo.tsx"
         ]
     },
     "macos": {
@@ -16,6 +17,7 @@
         "usage": "长文区域保持实体背景，表格和代码在自己的滚动范围内阅读。",
         "exampleDescription": "阅读包含表格的正文，检查桌面文字密度和局部横向滚动。",
         "demos": [
+            "scroll-region.demo.tsx",
             "table.demo.tsx",
             "basic.demo.tsx",
             "scoped-content.demo.tsx",
@@ -32,7 +34,8 @@
             "basic.demo.tsx",
             "semantic-tag.demo.tsx",
             "size.demo.tsx",
-            "table.demo.tsx"
+            "table.demo.tsx",
+            "scroll-region.demo.tsx"
         ]
     }
 }

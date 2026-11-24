@@ -7,6 +7,7 @@ declare module '*/.cache/browser-css.json' {
 // remains covered by the ordinary DOM suite.
 declare module '*/esm/index.mjs' {
     const Prose: typeof import('../../prose.js')['default'];
+    export const ProseScrollRegion: typeof import('../../proseScrollRegion.js')['default'];
     export const TokenVars: typeof import('../../token.js')['vars'];
     export default Prose;
 }

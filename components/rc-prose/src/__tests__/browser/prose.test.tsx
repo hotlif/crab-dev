@@ -4,7 +4,7 @@ import ConfigProvider from '@crab-dev/rc-config-provider';
 import semantic from '@crab-dev/rc-token-semantic';
 // Published output and actual generated CSS are essential for this regression.
 // The ordinary source/DOM suite intentionally uses a CSS compilation mock.
-import Prose, { TokenVars } from '../../../esm/index.mjs';
+import Prose, { ProseScrollRegion, TokenVars } from '../../../esm/index.mjs';
 import token from '../../token.js';
 import compiledCss from '../../../.cache/browser-css.json';
 
@@ -31,6 +31,52 @@ function required<T extends Element>(root: ParentNode, selector: string): T {
 function readRole(root: ParentNode, role: string) {
     return required<HTMLElement>(root, `[data-role="${role}"]`);
 }
+
+describe('ProseScrollRegion published styles', () => {
+    for (const designSystem of ['md3', 'macos', 'shadcn'] as const) {
+        for (const colorMode of ['light', 'dark'] as const) {
+            it(`scopes broad tables and code to their named regions (${designSystem}/${colorMode})`, async () => {
+                const view = await render(<ConfigProvider designSystem={designSystem} colorMode={colorMode} direction="rtl">
+                    <style>{compiledCss}</style>
+                    <div data-role="narrow" style={{ width: 264, display: 'grid', gridTemplateColumns: '1fr', justifyItems: 'safe center' }}>
+                        <Prose as="article">
+                            <ProseScrollRegion aria-label="Measurements" data-role="table-region">
+                                <table style={{ minInlineSize: 550 }}>
+                                    <caption>Inspection results</caption>
+                                    <thead><tr><th scope="col">Reading</th></tr></thead>
+                                    <tbody><tr><td>0.62 MPa</td></tr></tbody>
+                                </table>
+                            </ProseScrollRegion>
+                            <ProseScrollRegion aria-label="Record code" data-role="code-region">
+                                <pre><code>{'const record = "'.padEnd(105, 'x') + '";'}</code></pre>
+                            </ProseScrollRegion>
+                            <div className="not-prose" data-role="literal"><pre>Separate content</pre></div>
+                        </Prose>
+                    </div>
+                </ConfigProvider>);
+                const narrow = readRole(view.container, 'narrow');
+                const tableRegion = readRole(view.container, 'table-region');
+                const codeRegion = readRole(view.container, 'code-region');
+                const table = required<HTMLTableElement>(tableRegion, 'table');
+                expect(table.caption?.textContent).toBe('Inspection results');
+                expect(required(table, 'th').getAttribute('scope')).toBe('col');
+                expect(narrow.scrollWidth).toBe(narrow.clientWidth);
+                for (const region of [tableRegion, codeRegion]) {
+                    expect(region.getAttribute('role')).toBe('region');
+                    expect(region.tabIndex).toBe(0);
+                    expect(region.scrollWidth).toBeGreaterThan(region.clientWidth);
+                    region.focus();
+                    expect(document.activeElement).toBe(region);
+                }
+                expect(getComputedStyle(tableRegion).direction).toBe('rtl');
+                expect(getComputedStyle(codeRegion).direction).toBe('ltr');
+                expect(getComputedStyle(required(codeRegion, 'pre')).overflowX).toBe('visible');
+                expect(readRole(view.container, 'literal').querySelector('[role="region"]')).toBeNull();
+                await view.unmount();
+            });
+        }
+    }
+});
 
 function snapshot(element: Element, properties: readonly string[], pseudo?: string) {
     const style = getComputedStyle(element, pseudo);

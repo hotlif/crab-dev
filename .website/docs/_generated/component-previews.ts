@@ -980,10 +980,10 @@ export const componentPreviews = {
                 "density": "spacious"
             },
             "macos": {
-                "id": "docs/demos/table.demo.tsx",
-                "title": "表格与定义列表",
-                "previewPath": "/components/rc-prose/workbench/?__wake_demo=docs%2Fdemos%2Ftable.demo.tsx",
-                "workbenchPath": "/components/rc-prose/workbench/#/components/docs%2Fdemos%2Ftable.demo.tsx",
+                "id": "docs/demos/scroll-region.demo.tsx",
+                "title": "宽表与代码局部滚动",
+                "previewPath": "/components/rc-prose/workbench/?__wake_demo=docs%2Fdemos%2Fscroll-region.demo.tsx",
+                "workbenchPath": "/components/rc-prose/workbench/#/components/docs%2Fdemos%2Fscroll-region.demo.tsx",
                 "density": "spacious"
             },
             "shadcn": {

@@ -25,3 +25,11 @@ export interface ProseProps extends HTMLAttributes<HTMLDivElement> {
 
     ref?: Ref<HTMLDivElement>;
 }
+
+/** Named native scroll region for a wide table or code block inside Prose. */
+export type ProseScrollRegionProps = Omit<HTMLAttributes<HTMLDivElement>, 'role' | 'tabIndex' | 'aria-label' | 'aria-labelledby'> & {
+    ref?: Ref<HTMLDivElement>;
+} & (
+    | { 'aria-label': string; 'aria-labelledby'?: string }
+    | { 'aria-label'?: string; 'aria-labelledby': string }
+);
