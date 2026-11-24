@@ -24,7 +24,7 @@ pages = ["design/index"]
 [[group.section]]
 id = "design-prototypes"
 title = "组件原型"
-pages = ["design/button","design/line-edit","design/checkbox","design/radio","design/switch","design/segmented","design/text-edit","design/number-edit","design/slider","design/select","design/form","design/dialog","design/dropdown-container","design/menu","design/drawer","design/table","design/table-pro","design/bar-chart","design/canvas","design/flow-diagram","design/pdf-editor"]
+pages = ["design/button","design/line-edit","design/checkbox","design/radio","design/switch","design/segmented","design/text-edit","design/number-edit","design/slider","design/select","design/form","design/dialog","design/dropdown-container","design/menu","design/drawer","design/date-picker","design/color-picker","design/cron-picker","design/tabs","design/breadcrumbs","design/pagination","design/tree","design/app-main-layout","design/split-pane","design/divider","design/masonry","design/alert","design/message","design/notification","design/tooltip","design/empty","design/spin","design/skeleton","design/avatar","design/badge","design/card","design/prose","design/tag","design/table","design/table-pro","design/bar-chart","design/canvas","design/flow-diagram","design/pdf-editor"]
 
 [[group.section]]
 id = "design-scenarios"
