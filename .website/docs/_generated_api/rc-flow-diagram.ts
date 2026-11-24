@@ -8,6 +8,7 @@ type DocsTypePlaceholder = ((...args: never[]) => unknown) & {
 type CSSProperties = DocsTypePlaceholder;
 type ElkLayoutEdge = DocsTypePlaceholder;
 type ElkLayoutNode = DocsTypePlaceholder;
+type FlowDiagramKeyboardOptions = DocsTypePlaceholder;
 type FlowDiagramPalette = DocsTypePlaceholder;
 type FlowDiagramRenderContext = DocsTypePlaceholder;
 type ManualRoute = DocsTypePlaceholder;
@@ -19,6 +20,11 @@ type UseEdgeRoutingOptions = DocsTypePlaceholder;
 type ViewportState = DocsTypePlaceholder;
 
 export interface FlowDiagramProps {
+    /**
+     * 在画布外显示原生键盘节点选择，并可接入位置更新。
+     */
+    "keyboard"?: FlowDiagramKeyboardOptions;
+
     /**
      * ELK 布局输入节点（需提供稳定 id 与宽高）
      */

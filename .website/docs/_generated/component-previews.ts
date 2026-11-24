@@ -643,24 +643,24 @@ export const componentPreviews = {
         "density": "regular",
         "designs": {
             "md3": {
-                "id": "docs/demos/editing.demo.tsx",
-                "title": "受控连线与单次撤销",
-                "previewPath": "/components/rc-flow-diagram/workbench/?__wake_demo=docs%2Fdemos%2Fediting.demo.tsx",
-                "workbenchPath": "/components/rc-flow-diagram/workbench/#/components/docs%2Fdemos%2Fediting.demo.tsx",
+                "id": "docs/demos/keyboard.demo.tsx",
+                "title": "键盘选择与移动节点",
+                "previewPath": "/components/rc-flow-diagram/workbench/?__wake_demo=docs%2Fdemos%2Fkeyboard.demo.tsx",
+                "workbenchPath": "/components/rc-flow-diagram/workbench/#/components/docs%2Fdemos%2Fkeyboard.demo.tsx",
                 "density": "regular"
             },
             "macos": {
-                "id": "docs/demos/elk-layout.demo.tsx",
-                "title": "ELK 自动图布局",
-                "previewPath": "/components/rc-flow-diagram/workbench/?__wake_demo=docs%2Fdemos%2Felk-layout.demo.tsx",
-                "workbenchPath": "/components/rc-flow-diagram/workbench/#/components/docs%2Fdemos%2Felk-layout.demo.tsx",
+                "id": "docs/demos/keyboard.demo.tsx",
+                "title": "键盘选择与移动节点",
+                "previewPath": "/components/rc-flow-diagram/workbench/?__wake_demo=docs%2Fdemos%2Fkeyboard.demo.tsx",
+                "workbenchPath": "/components/rc-flow-diagram/workbench/#/components/docs%2Fdemos%2Fkeyboard.demo.tsx",
                 "density": "regular"
             },
             "shadcn": {
-                "id": "docs/demos/readability.demo.tsx",
-                "title": "缩小后的可读标签",
-                "previewPath": "/components/rc-flow-diagram/workbench/?__wake_demo=docs%2Fdemos%2Freadability.demo.tsx",
-                "workbenchPath": "/components/rc-flow-diagram/workbench/#/components/docs%2Fdemos%2Freadability.demo.tsx",
+                "id": "docs/demos/keyboard.demo.tsx",
+                "title": "键盘选择与移动节点",
+                "previewPath": "/components/rc-flow-diagram/workbench/?__wake_demo=docs%2Fdemos%2Fkeyboard.demo.tsx",
+                "workbenchPath": "/components/rc-flow-diagram/workbench/#/components/docs%2Fdemos%2Fkeyboard.demo.tsx",
                 "density": "regular"
             }
         }

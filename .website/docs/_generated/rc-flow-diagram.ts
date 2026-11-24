@@ -45,6 +45,44 @@ export const demos = [
         "group": "三体系视觉与交互矩阵"
     },
     {
+        "id": "docs/demos/keyboard.demo.tsx",
+        "title": "键盘选择与移动节点",
+        "description": "用 Tab 进入节点列表，再用 Enter 或 Space 选中节点。方向键和拖动共享位置与连线。",
+        "learning": {
+            "components": [
+                "Button",
+                "FlowDiagram",
+                "FlowEdge",
+                "FlowNode"
+            ],
+            "props": [
+                "size",
+                "appearance",
+                "isSelected",
+                "onClick",
+                "nodes",
+                "edges",
+                "width",
+                "height",
+                "layoutMode",
+                "nodePositions",
+                "keyboard",
+                "points"
+            ],
+            "events": [
+                "onClick",
+                "onDrag"
+            ],
+            "hasState": true
+        },
+        "sourceCode": "import { css } from '@crab-dev/css';\nimport { useState } from 'react';\nimport Button from '@crab-dev/rc-button';\nimport FlowDiagram, { FlowEdge, FlowNode } from '../../src/index.js';\n\nexport const meta = {\n    title: '键盘选择与移动节点',\n    description: '用 Tab 进入节点列表，再用 Enter 或 Space 选中节点。方向键和拖动共享位置与连线。',\n};\n\nconst nodes = [{ id: 'intake', width: 90, height: 42 }, { id: 'review', width: 90, height: 42 }];\nconst edge = [{ id: 'signal', source: 'intake', target: 'review' }];\nconst labels: Record\u003cstring, string> = { intake: '进水监测', review: '班次复核' };\nconst baseline = { intake: { x: 24, y: 68 }, review: { x: 160, y: 120 } };\nconst scene = css`display: grid; justify-items: start; gap: 0.35rem; max-inline-size: 100%;`;\n\nexport default function FlowKeyboardDemo() {\n    const [positions, setPositions] = useState(baseline);\n    const [selected, setSelected] = useState\u003cstring | null>(null);\n    const [readOnly, setReadOnly] = useState(false);\n    return \u003cdiv className={scene}>\n        \u003cButton size=\"s\" appearance=\"text\" isSelected={readOnly} onClick={() => setReadOnly(value => !value)}>只读模式\u003c/Button>\n        \u003cFlowDiagram nodes={nodes} edges={edge} width={276} height={220} layoutMode=\"manual\"\n            nodePositions={positions} keyboard={{\n                label: '巡检节点',\n                getNodeLabel: id => labels[id],\n                selectedNodeId: selected,\n                onSelectNode: setSelected,\n                onMoveNode: readOnly ? undefined : (id, point) => setPositions(previous => ({ ...previous, [id]: point })),\n            }}>\n            {({ nodeRects, routes }) => \u003c>\n                {routes.signal && \u003cFlowEdge points={routes.signal.points} />}\n                {nodes.map(({ id }) => \u003cFlowNode key={id} {...nodeRects[id]} label={labels[id]}\n                    strokeWidth={selected === id ? 3 : 1} draggable={!readOnly} onClick={() => setSelected(id)}\n                    onDrag={(dx, dy) => setPositions(previous => {\n                        const point = previous[id as keyof typeof previous];\n                        return { ...previous, [id]: { x: point.x + dx, y: point.y + dy } };\n                    })} />)}\n            \u003c/>}\n        \u003c/FlowDiagram>\n    \u003c/div>;\n}\n",
+        "previewPath": "/components/rc-flow-diagram/workbench/?__wake_demo=docs%2Fdemos%2Fkeyboard.demo.tsx",
+        "workbenchPath": "/components/rc-flow-diagram/workbench/#/components/docs%2Fdemos%2Fkeyboard.demo.tsx",
+        "density": "regular",
+        "layout": "wide",
+        "group": "能力与集成示例"
+    },
+    {
         "id": "docs/demos/editing.demo.tsx",
         "title": "受控连线与单次撤销",
         "description": "拖动端口建立连接，选中连线后拖动端点或内部线段。Esc 取消；预览不会写入历史。键盘按钮使用相同的提交协议。",
@@ -273,6 +311,7 @@ export const documents = {
         "usage": "颜色可强调关键节点，但步骤名称、连接方向与状态仍需明确。",
         "exampleDescription": "编辑节点与连线，检查当前选择、操作入口和流程方向的表达。",
         "demos": [
+            "keyboard.demo.tsx",
             "editing.demo.tsx",
             "animated-edge.demo.tsx",
             "edge.demo.tsx",
@@ -290,6 +329,7 @@ export const documents = {
         "usage": "紧凑面板中保留可读的节点标题；自动布局后仍应能追踪当前编辑对象。",
         "exampleDescription": "运行自动布局并阅读节点关系，检查画布内容与操作区域的区分。",
         "demos": [
+            "keyboard.demo.tsx",
             "elk-layout.demo.tsx",
             "animated-edge.demo.tsx",
             "edge.demo.tsx",
@@ -306,6 +346,7 @@ export const documents = {
         "usage": "流程图是自有组合能力，业务应为节点类型和连线含义提供明确说明。",
         "exampleDescription": "查看长标签与复杂连接的可读性，再检查选中节点的边界反馈。",
         "demos": [
+            "keyboard.demo.tsx",
             "readability.demo.tsx",
             "animated-edge.demo.tsx",
             "edge.demo.tsx",

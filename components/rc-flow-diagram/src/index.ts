@@ -8,6 +8,7 @@ import { useFlowDiagramControls } from './hooks/useFlowDiagramControls.js';
 import { DEFAULT_FLOW_DIAGRAM_PALETTE, SEMANTIC_FLOW_DIAGRAM_PALETTE } from './palette.js';
 
 export type { FlowDiagramProps, FlowDiagramRenderContext, FlowDiagramControls, FlowNodeRect } from './flow-diagram.js';
+export type { FlowDiagramKeyboardOptions } from './keyboard-nodes.js';
 export type { FlowNodeProps, FlowNodeReadability } from './flow-node.js';
 export type { FlowEdgeProps, FlowEdgePoint } from './flow-edge.js';
 export type { ElkLayoutNode, ElkLayoutEdge, ElkLayoutResult } from './hooks/useElkLayout.js';

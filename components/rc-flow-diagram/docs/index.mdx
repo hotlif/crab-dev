@@ -78,6 +78,8 @@ FlowEdge 静态样式和流动动效示例的彩色连线使用品牌、反馈�
 
 ## 视口与布局
 
+设置 `keyboard` 为画布提供节点列表，并为每个节点传入可读名称。聚焦节点会将它放到当前视口中央，Enter 或 Space 选择，方向键移动已选节点。将 `onMoveNode` 返回的位置写回 `nodePositions`，即可与指针拖动共用连线重排。省略 `onMoveNode` 可用于只读浏览。
+
 FlowDiagram 接受 `viewport / defaultViewport / onViewportChange`。新文档默认 100%，载入节点、恢复存档和切换布局不会隐式 fit。`controls` 增加 `getViewport / setViewport / zoomTo / fitBounds / centerOn / focusNode`；`focusNode` 保留缩放。`fitBounds` 的 padding 是屏幕像素，原有 `fitView(padding)` 的 world px 语义保持不变。
 
 `layoutMode="manual"` 仅使用 `nodePositions`，不启动 ELK；位置缺失的节点暂放原点。自动模式下，已有位置立即显示，缺失位置等待 ELK。显式布局按钮可调用 `computeFlowLayout(nodes, edges, elkOptions)`，等待期间应记录文档修订，过期结果由宿主丢弃。低层 `useElkLayout` 的第四个参数支持 `{ enabled: false }`。
