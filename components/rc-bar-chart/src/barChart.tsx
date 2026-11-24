@@ -362,10 +362,10 @@ function BarChartInner({
                             const labelW = measureLabelWidth(text, CHART_METRICS.valueLabelSize);
                             if (horizontal) {
                                 const atRight = bar.dataEnd !== 'left';
-                                // 预算 = 条端到画布边缘的空间，溢出画布则省略
+                                // 负值标签的空间从绘图区左边界算起，给类目文字留出位置。
                                 const budget = atRight
                                     ? width - (bar.x + bar.width) - CHART_METRICS.valueLabelGap
-                                    : bar.x - CHART_METRICS.valueLabelGap;
+                                    : bar.x - layout.plotLeft - CHART_METRICS.valueLabelGap;
                                 if (labelW > budget) return null;
                                 return (
                                     <Text
@@ -437,7 +437,7 @@ function BarChartInner({
                                 .filter(l => {
                                     const labelW = measureLabelWidth(l.text, CHART_METRICS.valueLabelSize);
                                     if (!horizontal) return labelW <= layout.bands[i].size;
-                                    return l.positive ? labelW <= width - posEdge - gap : labelW <= negEdge - gap;
+                                    return l.positive ? labelW <= width - posEdge - gap : labelW <= negEdge - layout.plotLeft - gap;
                                 })
                                 .map(l => (
                                     <Text
