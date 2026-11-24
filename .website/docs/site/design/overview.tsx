@@ -156,6 +156,48 @@ export default function DesignOverview() {
                             <Button appearance="primary" href={href("design/drawer")} iconAfter={<span aria-hidden="true">→</span>}>体验抽屉原型</Button>
                         </div>
                     </div>
+                    <div className="crab-design-card">
+                        <div className="crab-design-card-body">
+                            <h3>Table 基础数据表格</h3>
+                            <p>在巡检清单体验列排序、行选中、备注编辑和请求状态。</p>
+                            <Button appearance="primary" href={href("design/table")} iconAfter={<span aria-hidden="true">→</span>}>体验基础数据表格原型</Button>
+                        </div>
+                    </div>
+                    <div className="crab-design-card">
+                        <div className="crab-design-card-body">
+                            <h3>TablePro 跨页数据工作流</h3>
+                            <p>使用搜索、列设置、筛选、跨页选择和批量复核。</p>
+                            <Button appearance="primary" href={href("design/table-pro")} iconAfter={<span aria-hidden="true">→</span>}>体验跨页数据工作流原型</Button>
+                        </div>
+                    </div>
+                    <div className="crab-design-card">
+                        <div className="crab-design-card-body">
+                            <h3>BarChart 柱状图读值</h3>
+                            <p>对照长标签、零值、班次图例和接口异常后的读值。</p>
+                            <Button appearance="primary" href={href("design/bar-chart")} iconAfter={<span aria-hidden="true">→</span>}>体验柱状图读值原型</Button>
+                        </div>
+                    </div>
+                    <div className="crab-design-card">
+                        <div className="crab-design-card-body">
+                            <h3>Canvas 工程画布</h3>
+                            <p>试用工程设备画布的浏览、缩放、选择、空白和异常恢复。</p>
+                            <Button appearance="primary" href={href("design/canvas")} iconAfter={<span aria-hidden="true">→</span>}>体验工程画布原型</Button>
+                        </div>
+                    </div>
+                    <div className="crab-design-card">
+                        <div className="crab-design-card-body">
+                            <h3>FlowDiagram 节点与连线</h3>
+                            <p>在小型设备流程中测试拖动、连线、无效提示与定位。</p>
+                            <Button appearance="primary" href={href("design/flow-diagram")} iconAfter={<span aria-hidden="true">→</span>}>体验节点与连线原型</Button>
+                        </div>
+                    </div>
+                    <div className="crab-design-card">
+                        <div className="crab-design-card-body">
+                            <h3>PdfEditor 文档编辑器</h3>
+                            <p>在真实 PDF 示例中验证浏览、编辑、未保存保护与导出重试。</p>
+                            <Button appearance="primary" href={href("design/pdf-editor")} iconAfter={<span aria-hidden="true">→</span>}>体验文档编辑器原型</Button>
+                        </div>
+                    </div>
                 </section>
                 <section>
                     <h2>应用场景</h2>
