@@ -233,6 +233,90 @@ export default function DesignOverview() {
                             <Button appearance="primary" href={href("design/masonry")} iconAfter={<span aria-hidden="true">→</span>}>体验瀑布流原型</Button>
                         </div>
                     </div>
+                    <div className="crab-design-card">
+                        <div className="crab-design-card-body">
+                            <h3>Alert 页内警告</h3>
+                            <p>恢复导出权限错误，检查可关闭警告。</p>
+                            <Button appearance="primary" href={href("design/alert")} iconAfter={<span aria-hidden="true">→</span>}>体验页内警告原型</Button>
+                        </div>
+                    </div>
+                    <div className="crab-design-card">
+                        <div className="crab-design-card-body">
+                            <h3>Message 短时反馈</h3>
+                            <p>连续触发保存与复制，检查排队、合并和暂停。</p>
+                            <Button appearance="primary" href={href("design/message")} iconAfter={<span aria-hidden="true">→</span>}>体验短时反馈原型</Button>
+                        </div>
+                    </div>
+                    <div className="crab-design-card">
+                        <div className="crab-design-card-body">
+                            <h3>Notification 持久通知</h3>
+                            <p>核对后台任务、通知堆叠和失败重试。</p>
+                            <Button appearance="primary" href={href("design/notification")} iconAfter={<span aria-hidden="true">→</span>}>体验持久通知原型</Button>
+                        </div>
+                    </div>
+                    <div className="crab-design-card">
+                        <div className="crab-design-card-body">
+                            <h3>Tooltip 辅助提示</h3>
+                            <p>对比鼠标、键盘和触屏取得说明的方式。</p>
+                            <Button appearance="primary" href={href("design/tooltip")} iconAfter={<span aria-hidden="true">→</span>}>体验辅助提示原型</Button>
+                        </div>
+                    </div>
+                    <div className="crab-design-card">
+                        <div className="crab-design-card-body">
+                            <h3>Empty 空状态</h3>
+                            <p>分别恢复空项目、搜索无匹配与请求失败后的设备列表。</p>
+                            <Button appearance="primary" href={href("design/empty")} iconAfter={<span aria-hidden="true">→</span>}>体验空状态原型</Button>
+                        </div>
+                    </div>
+                    <div className="crab-design-card">
+                        <div className="crab-design-card-body">
+                            <h3>Spin 等待反馈</h3>
+                            <p>比较快慢请求、按钮和局部等待、整页等待以及取消后的焦点。</p>
+                            <Button appearance="primary" href={href("design/spin")} iconAfter={<span aria-hidden="true">→</span>}>体验等待反馈原型</Button>
+                        </div>
+                    </div>
+                    <div className="crab-design-card">
+                        <div className="crab-design-card-body">
+                            <h3>Skeleton 骨架屏</h3>
+                            <p>体验首次加载、旧数据刷新、空结果和读取失败，检查列表几何过渡。</p>
+                            <Button appearance="primary" href={href("design/skeleton")} iconAfter={<span aria-hidden="true">→</span>}>体验骨架屏原型</Button>
+                        </div>
+                    </div>
+                    <div className="crab-design-card">
+                        <div className="crab-design-card-body">
+                            <h3>Avatar 成员头像</h3>
+                            <p>在操作员列表切换照片、姓名首字和失败回退，试用紧凑尺寸和成员组。</p>
+                            <Button appearance="primary" href={href("design/avatar")} iconAfter={<span aria-hidden="true">→</span>}>体验成员头像原型</Button>
+                        </div>
+                    </div>
+                    <div className="crab-design-card">
+                        <div className="crab-design-card-body">
+                            <h3>Badge 角标</h3>
+                            <p>切换未读计数、零值和溢出，并比对任务名称与设备状态点。</p>
+                            <Button appearance="primary" href={href("design/badge")} iconAfter={<span aria-hidden="true">→</span>}>体验角标原型</Button>
+                        </div>
+                    </div>
+                    <div className="crab-design-card">
+                        <div className="crab-design-card-body">
+                            <h3>Card 内容卡片</h3>
+                            <p>比较纯信息卡、单一入口卡与含多项动作的设备卡。</p>
+                            <Button appearance="primary" href={href("design/card")} iconAfter={<span aria-hidden="true">→</span>}>体验内容卡片原型</Button>
+                        </div>
+                    </div>
+                    <div className="crab-design-card">
+                        <div className="crab-design-card-body">
+                            <h3>Prose 长文排版</h3>
+                            <p>用巡检手册查看字号、章节结构和窄屏可滚动内容。</p>
+                            <Button appearance="primary" href={href("design/prose")} iconAfter={<span aria-hidden="true">→</span>}>体验长文排版原型</Button>
+                        </div>
+                    </div>
+                    <div className="crab-design-card">
+                        <div className="crab-design-card-body">
+                            <h3>Tag 状态与筛选标签</h3>
+                            <p>对比只读状态、复选条件和可移除筛选，验证连续键盘操作。</p>
+                            <Button appearance="primary" href={href("design/tag")} iconAfter={<span aria-hidden="true">→</span>}>体验状态与筛选标签原型</Button>
+                        </div>
+                    </div>
                 </section>
                 <section>
                     <h2>应用场景</h2>
