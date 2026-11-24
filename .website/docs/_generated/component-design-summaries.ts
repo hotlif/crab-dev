@@ -1091,6 +1091,11 @@ export const componentDemoDesigns: Readonly<Partial<Record<string, Readonly<Part
             "macos",
             "shadcn"
         ],
+        "后台任务与焦点 — 启动后台任务，保留当前任务的焦点，也可在列表中切换、重试或查看结果。": [
+            "md3",
+            "macos",
+            "shadcn"
+        ],
         "三体系展示与状态矩阵 — 公开组件、真实交互与自然动画；包内视觉规格是矩阵轴的来源。": []
     },
     "rc-number-edit": {
