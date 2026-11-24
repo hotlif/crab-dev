@@ -68,6 +68,22 @@ const pointerUp = async (el: HTMLElement, clientX: number) => {
     });
 };
 describe('ColorPickerPanel', () => {
+    it('retains an invalid draft with a description until a valid value is confirmed', async () => {
+        const { onValueChange } = await renderPanel();
+        const input = screen.getByRole('textbox', { name: '颜色值' }) as HTMLInputElement;
+        await changeInputValue(input, 'not-a-color');
+        await fireEvent.keyDown(input, { key: 'Enter' });
+        expect(input.value).toBe('not-a-color');
+        expect(input.getAttribute('aria-invalid')).toBe('true');
+        expect(document.getElementById(input.getAttribute('aria-describedby') ?? '')?.textContent)
+            .toBe('请输入有效的 HEX 颜色值。');
+        expect(onValueChange).not.toHaveBeenCalled();
+        await changeInputValue(input, '#00448800');
+        await fireEvent.keyDown(input, { key: 'Enter' });
+        expect(input.getAttribute('aria-invalid')).toBeNull();
+        expect(onValueChange).toHaveBeenCalledTimes(1);
+        expect(onValueChange.calls.calls[0][0].alpha).toBe(0);
+    });
     it('owns a default color once and reports semantic selection details', async () => {
         const changed = mock.fn<(next: OKLCHValue, details: ColorValueChangeDetails) => void>();
         const view = await render(<ColorPickerPanel defaultValue={defaultValue} onValueChange={changed} />);

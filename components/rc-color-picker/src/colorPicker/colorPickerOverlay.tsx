@@ -1,9 +1,10 @@
 import { useLocale } from '@crab-dev/rc-config-provider';
-import { type FC, useState } from "react";
+import { type FC, useRef, useState } from "react";
 import { useDropdownContext } from "@crab-dev/rc-dropdown-container";
 import RcButton from "@crab-dev/rc-button";
 import { css } from "@crab-dev/css";
-import ColorPickerPanel, { type ColorPickerPanelProps } from "../panels/colorPickerPanel.js";
+import { ColorPickerPanelContent, type ColorPickerPanelProps } from "../panels/colorPickerPanel.js";
+import type { ColorInputEditor } from "../panels/colorInput.js";
 import type { Locale, OKLCHValue } from "../types.js";
 import token from "../token.js";
 
@@ -48,6 +49,7 @@ const ColorPickerOverlay: FC<ColorPickerOverlayProps> = ({
     const panelLocale = { labelLightness: copy.lightness, labelChroma: copy.chroma, labelHue: copy.hue, labelAlpha: copy.alpha, ...locale?.panel };
     // 每次打开弹层重新挂载,selectValue 以打开时的 value 为初值(E3:与外部 value 同步)。
     const [selectValue, setSelectValue] = useState<OKLCHValue>(value);
+    const textEditor = useRef<ColorInputEditor>(null);
 
     const close = () => {
         onClose();
@@ -56,7 +58,8 @@ const ColorPickerOverlay: FC<ColorPickerOverlayProps> = ({
 
     return (
         <div role="dialog" aria-label={copy.colorDialog}>
-            <ColorPickerPanel
+            <ColorPickerPanelContent
+                editorRef={textEditor}
                 locale={panelLocale}
                 value={selectValue}
                 onValueChange={setSelectValue}
@@ -71,7 +74,10 @@ const ColorPickerOverlay: FC<ColorPickerOverlayProps> = ({
                         className={clearStyle}
                         appearance="text"
                         size="xs"
-                        onClick={() => setSelectValue(value)}
+                        onClick={() => {
+                            textEditor.current?.reset();
+                            setSelectValue(value);
+                        }}
                     >
                         {overlayLocale.clearText}
                     </RcButton>
@@ -83,7 +89,9 @@ const ColorPickerOverlay: FC<ColorPickerOverlayProps> = ({
                     size="xs"
                     appearance="primary"
                     onClick={() => {
-                        onConfirm?.(selectValue);
+                        const confirmed = textEditor.current?.confirm();
+                        if (confirmed === null) return;
+                        onConfirm?.(confirmed ?? selectValue);
                         close();
                     }}
                 >

@@ -679,6 +679,11 @@ export const componentDemoDesigns: Readonly<Partial<Record<string, Readonly<Part
     },
     "rc-color-picker": {
         "三体系取色状态矩阵 — 颜色数据、格式、透明度、预设与确认取消均保持真实交互。": [],
+        "颜色草稿与校验 — 打开颜色面板，输入无效的颜色。改正或选择预设后，再应用到巡检标记。": [
+            "md3",
+            "macos",
+            "shadcn"
+        ],
         "颜色选择器 — 可视化取色:透明度、文本输入、格式切换、预设色板、吸管取色、受控/非受控、尺寸与禁用。": [
             "md3",
             "macos",

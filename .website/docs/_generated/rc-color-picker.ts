@@ -35,6 +35,38 @@ export const demos = [
         "group": "规格验收"
     },
     {
+        "id": "docs/demos/validation.demo.tsx",
+        "title": "颜色草稿与校验",
+        "description": "打开颜色面板，输入无效的颜色。改正或选择预设后，再应用到巡检标记。",
+        "learning": {
+            "components": [
+                "ColorPicker",
+                "Button"
+            ],
+            "props": [
+                "aria-label",
+                "value",
+                "onValueChange",
+                "presets",
+                "allowClear",
+                "showEyeDropper",
+                "appearance",
+                "onClick"
+            ],
+            "events": [
+                "onValueChange",
+                "onClick"
+            ],
+            "hasState": true
+        },
+        "sourceCode": "import { css } from '@crab-dev/css';\nimport { useState } from 'react';\nimport Button from '@crab-dev/rc-button';\nimport ColorPicker, { type OKLCHValue } from '../../src/index.js';\n\nexport const meta = {\n    title: '颜色草稿与校验',\n    description: '打开颜色面板，输入无效的颜色。改正或选择预设后，再应用到巡检标记。',\n};\n\nconst scene = css`display: grid; gap: 0.75rem; inline-size: min(100%, 20rem);`;\nconst initial: OKLCHValue = { lightness: 0.62, chroma: 0.19, hue: 255, alpha: 1 };\nconst presets = [{ lightness: 0.7, chroma: 0.16, hue: 145, alpha: 1 }];\n\nexport default function ColorValidation() {\n    const [value, setValue] = useState(initial);\n    return \u003csection className={scene} aria-label=\"巡检标记\">\n        \u003cColorPicker aria-label=\"标记颜色\" value={value} onValueChange={setValue}\n            presets={presets} allowClear showEyeDropper={false} />\n        \u003coutput aria-label=\"已应用颜色\">已应用透明度 {Math.round((value.alpha ?? 1) * 100)}%\u003c/output>\n        \u003cButton appearance=\"text\" onClick={() => setValue(initial)}>恢复标记颜色\u003c/Button>\n    \u003c/section>;\n}\n",
+        "previewPath": "/components/rc-color-picker/workbench/?__wake_demo=docs%2Fdemos%2Fvalidation.demo.tsx",
+        "workbenchPath": "/components/rc-color-picker/workbench/#/components/docs%2Fdemos%2Fvalidation.demo.tsx",
+        "density": "regular",
+        "layout": "wide",
+        "group": "功能演示"
+    },
+    {
         "id": "docs/demos/colorPicker.demo.tsx",
         "title": "颜色选择器",
         "description": "可视化取色:透明度、文本输入、格式切换、预设色板、吸管取色、受控/非受控、尺寸与禁用。",
@@ -98,6 +130,7 @@ export const documents = {
         "usage": "用文本值辅助颜色感知，颜色预览与焦点、错误等界面语义分开表达。",
         "exampleDescription": "打开颜色字段并调整颜色，核对预览与文本值是否同步。",
         "demos": [
+            "validation.demo.tsx",
             "colorPicker.demo.tsx",
             "colorPickerPanel.demo.tsx"
         ],
@@ -112,6 +145,7 @@ export const documents = {
         "usage": "编辑器中可使用独立面板，常规设置中优先从字段展开，保留清晰返回路径。",
         "exampleDescription": "在独立面板中修改颜色与透明度，观察数值输入与色块的关系。",
         "demos": [
+            "validation.demo.tsx",
             "colorPickerPanel.demo.tsx",
             "colorPicker.demo.tsx"
         ],
@@ -125,6 +159,7 @@ export const documents = {
         "usage": "颜色选择器是组合扩展；业务需要明确输出格式和透明度的使用规则。",
         "exampleDescription": "调整颜色后检查输出值，再关闭面板确认字段的当前颜色反馈。",
         "demos": [
+            "validation.demo.tsx",
             "colorPicker.demo.tsx",
             "colorPickerPanel.demo.tsx"
         ],
