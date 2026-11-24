@@ -197,7 +197,7 @@ function NumberEdit(props: NumberEditProps) {
     const confirmInput = (reason: NumberEditCommitDetails['reason'], event: NumberEditCommitDetails['event']) => {
         if (disabled || readOnly || !draftChanged.current) return;
         const input = event.currentTarget;
-        const raw = input.value;
+        const raw = inputText;
         const parsed = parseNumber(raw, { decimalSeparator, thousandSeparator: sepNorm, parser });
         const adjustments: NumberEditAdjustment[] = [];
         let next: number | null = null;
