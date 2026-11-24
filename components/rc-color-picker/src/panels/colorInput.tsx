@@ -11,9 +11,7 @@ import { formatColor, parseColor } from "../utils/color.js";
 
 const FORMATS: ColorFormat[] = ["hex", "rgb", "hsl", "oklch"];
 const FORMAT_OPTIONS = FORMATS.map((f) => ({ label: f.toUpperCase(), value: f }));
-const FORMAT_EXAMPLES: Record<ColorFormat, string> = {
-    hex: '#2460a0', rgb: 'rgb(36, 96, 160)', hsl: 'hsl(211, 63%, 38%)', oklch: 'oklch(0.64 0.08 240)',
-};
+const EXAMPLE_COLOR: OKLCHValue = { lightness: 0.64, chroma: 0.08, hue: 240 };
 
 export interface ColorInputProps {
     value: OKLCHValue;
@@ -162,7 +160,7 @@ const ColorInput: FC<ColorInputProps> = ({
                 size="small"
                 spellCheck={false}
                 value={text}
-                supportingText={`${locale === 'en-US' ? 'Example' : '例如'} ${FORMAT_EXAMPLES[format]}`}
+                supportingText={`${locale === 'en-US' ? 'Example' : '例如'} ${formatColor(EXAMPLE_COLOR, format)}`}
                 errorText={invalid ? (locale === 'en-US'
                     ? `Enter a valid ${format.toUpperCase()} color.`
                     : `请输入有效的 ${format.toUpperCase()} 颜色值。`) : undefined}
