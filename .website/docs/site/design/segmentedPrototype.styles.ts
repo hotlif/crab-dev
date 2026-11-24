@@ -111,13 +111,6 @@ globalStyle`
 }
 [data-segmented-prototype][data-prototype-design="md3"] .crab-segmented-data { padding: 1rem clamp(.65rem, 3cqi, 1.4rem); }
 [data-segmented-prototype][data-prototype-design="md3"] .crab-segmented-period { min-inline-size: min(100%, 12rem); }
-[data-segmented-prototype][data-prototype-design="md3"] .crab-segmented-choice > [data-selection-indicator] {
-    position: absolute;
-    inset-inline-end: calc(50% + .65em);
-    inset-block: 0;
-    margin-block: auto;
-}
-[data-segmented-prototype][data-prototype-design="md3"] .crab-segmented-choice > :last-child { translate: none; }
 
 [data-segmented-prototype][data-prototype-design="macos"] { max-inline-size: 44rem; }
 [data-segmented-prototype][data-prototype-design="macos"] .crab-segmented-toolbar {

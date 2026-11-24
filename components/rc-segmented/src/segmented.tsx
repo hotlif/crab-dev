@@ -5,7 +5,7 @@ import { useId } from 'react';
 import { useControllableValue } from '@crab-dev/rc-hooks';
 import { useNativeRadioFocus } from '@crab-dev/rc-hooks/internal';
 import type { SegmentedOption, SegmentedProps, SegmentedRawOption, SegmentedSize, SegmentedValue, SegmentedChangeDetails } from './types.js';
-import { trackStyle, trackBlockStyle, trackPadSmallStyle, trackPadMiddleStyle, trackPadLargeStyle, hiddenInputStyle, segmentStyle, segmentSmallStyle, segmentMiddleStyle, segmentLargeStyle, segmentBlockStyle, labelStyle, unselectedSmallLabelStyle, unselectedMediumLabelStyle, unselectedLargeLabelStyle, selectionIconStyle, indicatorGraphicStyle, iconOnlyIndicatorStyle, checkIconStyle, selectedOptionIconStyle, segmentSelectedStyle, segmentDisabledStyle } from "./segmented.styles.js";
+import { trackStyle, trackBlockStyle, trackPadSmallStyle, trackPadMiddleStyle, trackPadLargeStyle, hiddenInputStyle, segmentStyle, segmentSmallStyle, segmentMiddleStyle, segmentLargeStyle, segmentBlockStyle, labelStyle, centeredTextSegmentStyle, selectionIconStyle, indicatorGraphicStyle, iconOnlyIndicatorStyle, checkIconStyle, selectedOptionIconStyle, segmentSelectedStyle, segmentDisabledStyle } from "./segmented.styles.js";
 // ─── 辅助 ────────────────────────────────────────────────────────────────────
 
 const normalizeOption = (raw: SegmentedRawOption): SegmentedOption =>
@@ -21,12 +21,6 @@ const segmentSizeStyleOf = (size: SegmentedSize) => {
     if (size === 'small') return segmentSmallStyle;
     if (size === 'large') return segmentLargeStyle;
     return segmentMiddleStyle;
-};
-
-const unselectedLabelStyleOf = (size: SegmentedSize) => {
-    if (size === 'small') return unselectedSmallLabelStyle;
-    if (size === 'large') return unselectedLargeLabelStyle;
-    return unselectedMediumLabelStyle;
 };
 
 const Segmented = ({
@@ -90,6 +84,7 @@ const Segmented = ({
                             block && segmentBlockStyle,
                             selected && segmentSelectedStyle,
                             optionDisabled && segmentDisabledStyle,
+                            designSystem === 'md3' && hasLabel && !option.icon && centeredTextSegmentStyle,
                             designSystem === 'macos' && macosSegmentStyle,
                             option.className,
                         )}
@@ -121,7 +116,7 @@ const Segmented = ({
                             </span>
                             {option.icon && <span aria-hidden="true" data-option-icon="" data-segment-graphic="option" data-visible={!selected || designSystem !== 'md3' || !hasLabel} className={cx(indicatorGraphicStyle, selected && hasLabel && selectedOptionIconStyle)}>{option.icon}</span>}
                         </span>
-                        {hasLabel && <span className={cx(labelStyle, designSystem === 'md3' && !selected && !option.icon && unselectedLabelStyleOf(size))}>{option.label}</span>}
+                        {hasLabel && <span data-segment-label="" className={labelStyle}>{option.label}</span>}
                     </label>
                 );
             })}

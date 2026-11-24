@@ -24,9 +24,9 @@ Material 采用 M3 基线的单选分段按钮：等宽选项、40px 默认视�
 
 Tab 进入原生单选组，方向键切换选项，Space 或 Enter 选中当前聚焦项。这是 Web 单选组的键盘模型。此组件保留 M3 基线，不等同于 Expressive 的 connected button group。
 
-文字选项保持单行；`block` 在给定容器内等宽分配，空间不足时省略文字，不缩小勾选图形或改变规范内边距。MD3 无前置图标的未选中项保留勾选槽的测量宽度并将文字居中，选择变化不会改变自动宽度组的尺寸。容器必须容纳勾选槽、间距、内边距及可读标签；窄屏优先减少选项、缩短标签或改用 Select，不能仅用截断标签区分选项。
+文字选项保持单行。`block` 在给定容器内等宽分配，空间不足时省略文字。MD3 纯文字选项在文字两侧预留相等空间，勾记位于逻辑起始侧。按压和选中切换时，文字中心和组尺寸保持稳定。窄屏可以缩短文字或减少选项，给勾记和可读标签留出空间。
 
-文字布局核对日期：2026-10-25。[Compose 固定版本的内容测量](https://android.googlesource.com/platform/frameworks/support/+/c73a560c5c9ba4ed53a4f6dd5df36dfd16a837e7/compose/material3/material3/src/commonMain/kotlin/androidx/compose/material3/SegmentedButton.kt)保留勾选槽并居中无图标文字；这里使用逻辑方向偏移适配 Web，未移植其弹簧位移动画。此核对不代表当前 M3 官网全部 Expressive 视觉规格已验收。
+Web 字段的居中与固定位置沿用已确认的[分段控制器原型](/design/segmented)。
 
 ## 三套风格
 

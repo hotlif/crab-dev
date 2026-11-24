@@ -100,7 +100,7 @@ for (const [colorMode, width] of [['light', 1440], ['dark', 320]]) {
         const group = trend(page).getByRole('radiogroup', { name: '巡检时间范围' });
         const day = period(page, '日视图');
         const week = period(page, '周视图');
-        const choices = group.locator('.crab-segmented-choice');
+        const choices = group.locator('label');
         const positions = () => choices.evaluateAll(labels => labels.map(label => {
             const box = label.getBoundingClientRect();
             const range = document.createRange();
