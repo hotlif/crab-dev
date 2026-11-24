@@ -32,6 +32,8 @@ status = "experimental"
 
 ## API
 
+`useMessage({ mode: 'queue' })` 按触发顺序显示消息。传同一 `mergeKey` 时合并仍打开的消息，并递增次数、保留剩余时长和原来的句柄。鼠标悬停或键盘进入消息时暂停，离开后继续。手动关闭会把焦点送回原操作入口。
+
 `useMessage()` 的 open/success/error/warning/info/loading 均返回 `{ id, close, update }`。例如 `const handle = message.loading('正在保存', 0)`，保存完成后 `handle.update({ type: 'success', content: '已保存', duration: 2000 })`。update 保留 ID 并重新计时；close 重复调用只通知一次。实例也支持 `message.close(id)` 和 `message.update(id, patch)`。
 
 默认 Message 组件通过 open/onExitComplete 控制显隐，duration 只控制进度动画；自动关闭与 onClose 回调由 useMessage 管理。

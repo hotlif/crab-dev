@@ -1058,6 +1058,11 @@ export const componentDemoDesigns: Readonly<Partial<Record<string, Readonly<Part
             "macos",
             "shadcn"
         ],
+        "顺序队列与合并反馈 — 先保存，接着复制，再保存。重复保存合并次数，复制反馈等保存关闭后显示。": [
+            "md3",
+            "macos",
+            "shadcn"
+        ],
         "消息堆叠 — 当消息数量超过 3 条时，旧消息会自动折叠。最新的一条在最前面，后面的消息缩小并淡出": [
             "md3",
             "macos",
