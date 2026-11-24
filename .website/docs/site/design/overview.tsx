@@ -130,6 +130,55 @@ export default function DesignOverview() {
                     </div>
                     <div className="crab-design-card">
                         <div className="crab-design-card-body">
+                            <h3>Dialog 对话框</h3>
+                            <p>删除确认、编辑和错误恢复。</p>
+                            <Button appearance="primary" href={href("design/dialog")} iconAfter={<span aria-hidden="true">→</span>}>体验对话框原型</Button>
+                        </div>
+                    </div>
+                    <div className="crab-design-card">
+                        <div className="crab-design-card-body">
+                            <h3>DropdownContainer 浮层容器</h3>
+                            <p>测试视口边缘、碰撞和关闭。</p>
+                            <Button appearance="primary" href={href("design/dropdown-container")} iconAfter={<span aria-hidden="true">→</span>}>体验浮层容器原型</Button>
+                        </div>
+                    </div>
+                    <div className="crab-design-card">
+                        <div className="crab-design-card-body">
+                            <h3>Menu 菜单</h3>
+                            <p>分组命令、权限和下级菜单。</p>
+                            <Button appearance="primary" href={href("design/menu")} iconAfter={<span aria-hidden="true">→</span>}>体验菜单原型</Button>
+                        </div>
+                    </div>
+                    <div className="crab-design-card">
+                        <div className="crab-design-card-body">
+                            <h3>Drawer 抽屉</h3>
+                            <p>查看设备详情并保护未保存备注。</p>
+                            <Button appearance="primary" href={href("design/drawer")} iconAfter={<span aria-hidden="true">→</span>}>体验抽屉原型</Button>
+                        </div>
+                    </div>
+                    <div className="crab-design-card">
+                        <div className="crab-design-card-body">
+                            <h3>DatePicker 日期选择器</h3>
+                            <p>选择报告日期和统计区间，试用日历操作、手输与地区格式。</p>
+                            <Button appearance="primary" href={href("design/date-picker")} iconAfter={<span aria-hidden="true">→</span>}>体验日期选择器原型</Button>
+                        </div>
+                    </div>
+                    <div className="crab-design-card">
+                        <div className="crab-design-card-body">
+                            <h3>ColorPicker 取色器</h3>
+                            <p>切换预设、输入颜色并核对浅色和深色图表。</p>
+                            <Button appearance="primary" href={href("design/color-picker")} iconAfter={<span aria-hidden="true">→</span>}>体验取色器原型</Button>
+                        </div>
+                    </div>
+                    <div className="crab-design-card">
+                        <div className="crab-design-card-body">
+                            <h3>CronPicker 定时表达式</h3>
+                            <p>配置工作日计划并查看下一次预估执行。</p>
+                            <Button appearance="primary" href={href("design/cron-picker")} iconAfter={<span aria-hidden="true">→</span>}>体验定时表达式原型</Button>
+                        </div>
+                    </div>
+                    <div className="crab-design-card">
+                        <div className="crab-design-card-body">
                             <h3>Tabs 页签</h3>
                             <p>核对键盘切换、长标签和面板状态。</p>
                             <Button appearance="primary" href={href("design/tabs")} iconAfter={<span aria-hidden="true">→</span>}>体验页签原型</Button>
