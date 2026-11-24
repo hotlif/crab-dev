@@ -1,12 +1,15 @@
 import { beforeAll, describe, expect, it, mock } from '@crab-dev/wake/test';
 import { act, fireEvent, render } from '@crab-dev/wake/test/react';
+import { flushSync } from 'react-dom';
 import type { MenuOpenKeysChangeDetails } from '../../menu.js';
 
 let Menu: (typeof import('../../menu.js'))['default'];
 let ItemType: (typeof import('../../type.js'))['ItemType'];
+let CommandMenu: (typeof import('../../command-menu.js'))['CommandMenu'];
 beforeAll(async () => {
     Menu = (await mock.import<typeof import('../../menu.js')>('../../menu.js')).default;
     ItemType = (await mock.import<typeof import('../../type.js')>('../../type.js')).ItemType;
+    CommandMenu = (await mock.import<typeof import('../../command-menu.js')>('../../command-menu.js')).CommandMenu;
 });
 
 // Cross-document constructors, computed direction and focus need a real browser.
@@ -58,6 +61,25 @@ describe('Menu across actual document realms', () => {
                 await result.unmount();
             }
         } finally { frame.remove(); }
+    });
+
+    it('preserves an external focus target while a command menu is still positioning', async () => {
+        const result = await render(<div>
+            <CommandMenu label="Commands" groups={[{ items: [{ id: 'view', label: 'View', onSelect: () => {} }] }]} />
+            <button type="button" data-outside>Next control</button>
+        </div>);
+        const trigger = result.container.querySelector<HTMLButtonElement>('[aria-haspopup="menu"]')!;
+        const outside = result.container.querySelector<HTMLButtonElement>('[data-outside]')!;
+        trigger.focus();
+        await act(async () => {
+            flushSync(() => { trigger.click(); });
+            expect(trigger.getAttribute('aria-expanded')).toBe('true');
+            outside.focus();
+            await new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve())));
+        });
+        expect(trigger.getAttribute('aria-expanded')).toBe('false');
+        expect(document.activeElement).toBe(outside);
+        await result.unmount();
     });
 
 });

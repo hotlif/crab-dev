@@ -76,7 +76,7 @@ export function useMenuDisclosure(openKeys: Key[], onChange: MenuProps['onOpenKe
     return { requestOpen, closeAll };
 }
 
-function activeElementFor(node: HTMLElement): Element | null {
+export function activeElementFor(node: HTMLElement): Element | null {
     let active = node.ownerDocument.activeElement;
     const roots: ShadowRoot[] = [];
     let tree = node.getRootNode();
