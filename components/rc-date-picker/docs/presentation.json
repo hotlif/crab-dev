@@ -3,6 +3,7 @@
         {
             "title": "日期选择",
             "demos": [
+                "editable.demo.tsx",
                 "datePicker.demo.tsx",
                 "datePickerRange.demo.tsx",
                 "datePickerPanel.demo.tsx"

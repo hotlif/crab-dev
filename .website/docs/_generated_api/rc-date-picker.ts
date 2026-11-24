@@ -70,6 +70,12 @@ export interface DatePickerProps {
     "showCount"?: boolean;
 
     /**
+     * 允许输入 ISO 日期（YYYY-MM-DD），同时保留日历按钮。默认仅从日历选择。
+     * @default false
+     */
+    "editable"?: boolean;
+
+    /**
      * 只传给日期面板；选择草稿和面板实例由选择器管理。
      */
     "panelProps"?: Omit<DatePickerPanelProps, 'value' | 'selectValues' | 'onSelect' | 'instance' | 'range' | 'timeZone' | 'weekStartDay' | 'locale'>;

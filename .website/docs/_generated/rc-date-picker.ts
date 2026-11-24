@@ -7,6 +7,36 @@ import type { ComponentDesignDocuments } from "../site/componentDesignGuide.js";
 
 export const demos = [
     {
+        "id": "docs/demos/editable.demo.tsx",
+        "title": "手输日期与可选范围",
+        "description": "手输交接日期，试用闰日、范围错误和 Escape，然后用日历切换日期。",
+        "learning": {
+            "components": [
+                "DatePicker"
+            ],
+            "props": [
+                "editable",
+                "label",
+                "supportingText",
+                "timeZone",
+                "range",
+                "value",
+                "onValueChange",
+                "renderDisplayString"
+            ],
+            "events": [
+                "onValueChange"
+            ],
+            "hasState": true
+        },
+        "sourceCode": "import { css } from '@crab-dev/css';\nimport { useState } from 'react';\nimport DatePicker from '../../src/index.js';\nimport { temporal } from '../../src/temporal.js';\n\nexport const meta = {\n    title: '手输日期与可选范围',\n    description: '手输交接日期，试用闰日、范围错误和 Escape，然后用日历切换日期。',\n};\n\nconst scene = css`display: grid; gap: 0.5rem; inline-size: min(100%, 23rem);`;\nconst zone = 'Asia/Shanghai';\nconst start = temporal.ZonedDateTime.from('2024-02-01T00:00+08:00[Asia/Shanghai]');\nconst end = temporal.ZonedDateTime.from('2024-03-31T00:00+08:00[Asia/Shanghai]');\n\nexport default function EditableDate() {\n    const [value, setValue] = useState\u003cTemporal.ZonedDateTime | null>(start);\n    return \u003csection className={scene} aria-label=\"巡检交接\">\n        \u003cDatePicker editable label=\"交接日期\" supportingText=\"可选 2024-02-01 至 2024-03-31\"\n            timeZone={zone} range={{ start, end }} value={value} onValueChange={setValue}\n            renderDisplayString={date => date?.toLocaleString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' }) ?? ''}/>\n        \u003coutput aria-label=\"已确认日期\">{value ? `${value.toPlainDate()} · ${value.timeZoneId}` : '未选择日期'}\u003c/output>\n    \u003c/section>;\n}\n",
+        "previewPath": "/components/rc-date-picker/workbench/?__wake_demo=docs%2Fdemos%2Feditable.demo.tsx",
+        "workbenchPath": "/components/rc-date-picker/workbench/#/components/docs%2Fdemos%2Feditable.demo.tsx",
+        "density": "regular",
+        "layout": "wide",
+        "group": "日期选择"
+    },
+    {
         "id": "docs/demos/datePicker.demo.tsx",
         "title": "日期选择器",
         "description": "日期字段与面板继承当前文档主题；选择日期、清除并检查标签与焦点。",
@@ -308,6 +338,7 @@ export const documents = {
         "usage": "日期、时间与范围分别选择对应入口；日历中的当前日期和选中日期需要区分。",
         "exampleDescription": "打开日期面板，选择日期后再清除，检查字段标签、选中色和焦点返回。",
         "demos": [
+            "editable.demo.tsx",
             "datePicker.demo.tsx",
             "datePickerPanel.demo.tsx",
             "datePickerRange.demo.tsx",
@@ -328,6 +359,7 @@ export const documents = {
         "usage": "时间编辑使用桌面步进和字段交互；把当前值、单位与禁用状态放在清楚的位置。",
         "exampleDescription": "编辑桌面时间并操作步进控件，核对小时分钟、键盘操作与当前值。",
         "demos": [
+            "editable.demo.tsx",
             "desktop-time.demo.tsx",
             "datePicker.demo.tsx",
             "datePickerPanel.demo.tsx",
@@ -348,6 +380,7 @@ export const documents = {
         "usage": "范围输入应明确起止值，选中背景与焦点轮廓分别表达数据状态和操作位置。",
         "exampleDescription": "选择起止日期并检查范围表达，再用键盘回到字段确认焦点可见。",
         "demos": [
+            "editable.demo.tsx",
             "datePickerRange.demo.tsx",
             "datePicker.demo.tsx",
             "datePickerPanel.demo.tsx",
