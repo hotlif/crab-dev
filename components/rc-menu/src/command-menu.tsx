@@ -102,6 +102,7 @@ function CommandMenuPopup({ menuId, label, groups, branch, target, onBranch, onB
     const toward = direction === 'rtl' ? 'ArrowLeft' : 'ArrowRight';
     const away = direction === 'rtl' ? 'ArrowRight' : 'ArrowLeft';
     const { state } = useDropdownContext();
+    const branchId = branch?.id;
     const back = () => {
         node.current?.focus({ preventScroll: true });
         onBack();
@@ -124,14 +125,14 @@ function CommandMenuPopup({ menuId, label, groups, branch, target, onBranch, onB
         };
         focus();
         return () => cancelAnimationFrame(frame);
-    }, [state.open, target]);
+    }, [state.open, target, branchId]);
 
     useEffect(() => {
         const menu = node.current;
-        if (!menu || !state.open || !branch) return;
+        if (!menu || !state.open || branchId === undefined) return;
         const layer = registerOverlayLayer(menu, backFromEscape);
         return () => layer.release({ restoreFocus: false });
-    }, [state.open, branch]);
+    }, [state.open, branchId]);
 
     const onKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
         if (event.defaultPrevented) return;
@@ -190,11 +191,13 @@ export function CommandMenu({ label, groups }: CommandMenuProps) {
     const menuId = useId();
     const trigger = useRef<HTMLButtonElement>(null);
     const [open, setOpen] = useState(false);
-    const [branch, setBranch] = useState<CommandMenuBranch | null>(null);
+    const [branchId, setBranchId] = useState<string>();
+    const candidate = groups.flatMap(group => group.items).find(entry => entry.id === branchId);
+    const branch = candidate && 'items' in candidate && !candidate.disabled ? candidate : null;
     const [target, setTarget] = useState<FocusTarget>({ edge: 'first' });
     const handleOpen = (next: boolean) => {
         setOpen(next);
-        if (!next) setBranch(null);
+        if (!next) setBranchId(undefined);
     };
     const returnToTrigger = () => {
         handleOpen(false);
@@ -204,12 +207,12 @@ export function CommandMenu({ label, groups }: CommandMenuProps) {
         floatingContainerProps={{ className: layerStyle }}
         overlay={<CommandMenuPopup menuId={menuId} label={label} groups={groups} branch={branch} target={target}
             onBranch={entry => {
-                setBranch(entry);
+                setBranchId(entry.id);
                 setTarget(entry.items.length ? { id: entry.items[0].id } : { edge: 'first' });
             }}
             onBack={() => {
                 if (branch) setTarget({ id: branch.id });
-                setBranch(null);
+                setBranchId(undefined);
             }}
             onExit={returnToTrigger}
             onExecute={(action, event) => {
