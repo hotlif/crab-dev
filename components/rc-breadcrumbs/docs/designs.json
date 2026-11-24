@@ -7,7 +7,8 @@
             "basic.demo.tsx",
             "action.demo.tsx",
             "custom-separator.demo.tsx",
-            "max-count.demo.tsx"
+            "max-count.demo.tsx",
+            "collapsed-path.demo.tsx"
         ]
     },
     "macos": {
@@ -15,6 +16,7 @@
         "usage": "长路径需要保留当前位置与可返回的上级，不将它模拟为系统原生路径栏。",
         "exampleDescription": "展开被收起的路径项目，确认当前位置及返回目标仍清楚可见。",
         "demos": [
+            "collapsed-path.demo.tsx",
             "max-count.demo.tsx",
             "action.demo.tsx",
             "basic.demo.tsx",
@@ -29,7 +31,8 @@
             "custom-separator.demo.tsx",
             "action.demo.tsx",
             "basic.demo.tsx",
-            "max-count.demo.tsx"
+            "max-count.demo.tsx",
+            "collapsed-path.demo.tsx"
         ]
     }
 }

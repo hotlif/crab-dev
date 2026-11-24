@@ -437,6 +437,11 @@ export const componentDemoDesigns: Readonly<Partial<Record<string, Readonly<Part
             "macos",
             "shadcn"
         ],
+        "展开折叠路径 — 在只保留两个位置时，通过省略项访问其他层级。用键盘试试展开、选择和返回。": [
+            "md3",
+            "macos",
+            "shadcn"
+        ],
         "路径导航状态矩阵 — 链接、动作、当前位置、禁用、折叠与长路径保持独立语义。": []
     },
     "rc-button": {

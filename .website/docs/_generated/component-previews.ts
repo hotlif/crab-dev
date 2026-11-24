@@ -200,10 +200,10 @@ export const componentPreviews = {
                 "density": "regular"
             },
             "macos": {
-                "id": "docs/demos/max-count.demo.tsx",
-                "title": "路径折叠",
-                "previewPath": "/components/rc-breadcrumbs/workbench/?__wake_demo=docs%2Fdemos%2Fmax-count.demo.tsx",
-                "workbenchPath": "/components/rc-breadcrumbs/workbench/#/components/docs%2Fdemos%2Fmax-count.demo.tsx",
+                "id": "docs/demos/collapsed-path.demo.tsx",
+                "title": "展开折叠路径",
+                "previewPath": "/components/rc-breadcrumbs/workbench/?__wake_demo=docs%2Fdemos%2Fcollapsed-path.demo.tsx",
+                "workbenchPath": "/components/rc-breadcrumbs/workbench/#/components/docs%2Fdemos%2Fcollapsed-path.demo.tsx",
                 "density": "regular"
             },
             "shadcn": {

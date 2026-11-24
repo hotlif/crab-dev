@@ -8,7 +8,8 @@
                 "action.demo.tsx",
                 "basic.demo.tsx",
                 "custom-separator.demo.tsx",
-                "max-count.demo.tsx"
+                "max-count.demo.tsx",
+                "collapsed-path.demo.tsx"
             ]
         },
         {

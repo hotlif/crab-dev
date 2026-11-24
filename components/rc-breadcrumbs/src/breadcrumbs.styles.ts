@@ -31,6 +31,8 @@ export const linkStyle = css`
 
     color: ${token.item.color};
     text-decoration: none;
+    min-inline-size: 0;
+    overflow-wrap: anywhere;
     transition: color ${token.interaction.transition};
     display: inline-flex; align-items: center;
 
@@ -67,6 +69,7 @@ export const actionStyle = css`
         border: 0;
         border-radius: 0;
         white-space: normal;
+        overflow-wrap: anywhere;
         text-align: start;
     }
     &:hover:not(:disabled) { color: ${token.item['color-hover']}; text-decoration: underline; }
@@ -87,4 +90,34 @@ export const separatorStyle = css`
 
 export const ellipsisStyle = css`
     color: ${token.ellipsis.color};
+`;
+
+export const disclosureLayoutStyle = css`
+    align-items: flex-start;
+`;
+
+export const disclosureStyle = css`
+    display: grid;
+    justify-items: start;
+    max-inline-size: 100%;
+    min-inline-size: 0;
+`;
+
+export const disclosureTriggerStyle = css`
+    display: inline-flex;
+    align-items: center;
+`;
+
+export const collapsedListStyle = css`
+    display: grid;
+    gap: ${token.root.gap};
+    max-inline-size: 100%;
+    min-inline-size: 0;
+    margin: ${token.root.gap} 0 0;
+    padding: 0;
+    padding-inline-start: ${token.root.gap};
+    border-inline-start: 1px solid ${token.separator.color};
+    list-style: none;
+    &[hidden] { display: none; }
+    @media (forced-colors: active) { border-color: CanvasText; }
 `;
