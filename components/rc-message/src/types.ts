@@ -32,18 +32,29 @@ export interface MessageOpenParam {
     icon?: ReactNode;
     /** 关闭时的回调 */
     onClose?: () => void;
+    /** 相同键的未关闭消息共用句柄，更新显示次数并保留剩余时长。 */
+    mergeKey?: string;
+    /** 显示关闭操作。队列模式默认显示。 */
+    closable?: boolean;
+}
+
+export type MessageUpdate = Partial<Omit<MessageOpenParam, 'mergeKey'>>;
+
+export interface UseMessageOptions {
+    /** stack 显示最近一条，queue 按加入顺序一次显示一条。 */
+    mode?: 'stack' | 'queue';
 }
 
 export interface MessageHandle {
     readonly id: string;
     close(): void;
-    update(patch: Partial<MessageOpenParam>): void;
+    update(patch: MessageUpdate): void;
 }
 
 export interface MessageInstance {
     open: (param: MessageOpenParam) => MessageHandle;
     close: (id: string) => void;
-    update: (id: string, patch: Partial<MessageOpenParam>) => void;
+    update: (id: string, patch: MessageUpdate) => void;
     success: (content: ReactNode, duration?: number) => MessageHandle;
     error: (content: ReactNode, duration?: number) => MessageHandle;
     warning: (content: ReactNode, duration?: number) => MessageHandle;

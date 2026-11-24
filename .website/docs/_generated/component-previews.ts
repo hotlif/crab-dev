@@ -823,24 +823,24 @@ export const componentPreviews = {
         "density": "regular",
         "designs": {
             "md3": {
-                "id": "docs/demos/basic.demo.tsx",
-                "title": "基础用法",
-                "previewPath": "/components/rc-message/workbench/?__wake_demo=docs%2Fdemos%2Fbasic.demo.tsx",
-                "workbenchPath": "/components/rc-message/workbench/#/components/docs%2Fdemos%2Fbasic.demo.tsx",
+                "id": "docs/demos/queue.demo.tsx",
+                "title": "顺序队列与合并反馈",
+                "previewPath": "/components/rc-message/workbench/?__wake_demo=docs%2Fdemos%2Fqueue.demo.tsx",
+                "workbenchPath": "/components/rc-message/workbench/#/components/docs%2Fdemos%2Fqueue.demo.tsx",
                 "density": "regular"
             },
             "macos": {
-                "id": "docs/demos/stack.demo.tsx",
-                "title": "消息堆叠",
-                "previewPath": "/components/rc-message/workbench/?__wake_demo=docs%2Fdemos%2Fstack.demo.tsx",
-                "workbenchPath": "/components/rc-message/workbench/#/components/docs%2Fdemos%2Fstack.demo.tsx",
+                "id": "docs/demos/queue.demo.tsx",
+                "title": "顺序队列与合并反馈",
+                "previewPath": "/components/rc-message/workbench/?__wake_demo=docs%2Fdemos%2Fqueue.demo.tsx",
+                "workbenchPath": "/components/rc-message/workbench/#/components/docs%2Fdemos%2Fqueue.demo.tsx",
                 "density": "regular"
             },
             "shadcn": {
-                "id": "docs/demos/long-content.demo.tsx",
-                "title": "长连续文本",
-                "previewPath": "/components/rc-message/workbench/?__wake_demo=docs%2Fdemos%2Flong-content.demo.tsx",
-                "workbenchPath": "/components/rc-message/workbench/#/components/docs%2Fdemos%2Flong-content.demo.tsx",
+                "id": "docs/demos/queue.demo.tsx",
+                "title": "顺序队列与合并反馈",
+                "previewPath": "/components/rc-message/workbench/?__wake_demo=docs%2Fdemos%2Fqueue.demo.tsx",
+                "workbenchPath": "/components/rc-message/workbench/#/components/docs%2Fdemos%2Fqueue.demo.tsx",
                 "density": "regular"
             }
         }

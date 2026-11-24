@@ -76,6 +76,30 @@ export const demos = [
         "group": null
     },
     {
+        "id": "docs/demos/queue.demo.tsx",
+        "title": "顺序队列与合并反馈",
+        "description": "先保存，接着复制，再保存。重复保存合并次数，复制反馈等保存关闭后显示。",
+        "learning": {
+            "components": [
+                "Button"
+            ],
+            "props": [
+                "onClick",
+                "appearance"
+            ],
+            "events": [
+                "onClick"
+            ],
+            "hasState": false
+        },
+        "sourceCode": "import { css } from '@crab-dev/css';\nimport Button from '@crab-dev/rc-button';\nimport { useMessage } from '../../src/index.js';\n\nexport const meta = {\n    title: '顺序队列与合并反馈',\n    description: '先保存，接着复制，再保存。重复保存合并次数，复制反馈等保存关闭后显示。',\n};\n\nconst actions = css`display: flex; flex-wrap: wrap; gap: 0.5rem; padding-block-start: 5rem;`;\n\nexport default function MessageQueueDemo() {\n    const [message, holder] = useMessage({ mode: 'queue' });\n    return \u003cdiv className={actions}>\n        \u003cButton onClick={() => { message.open({ type: 'success', content: '巡检记录已保存', duration: 4500, mergeKey: 'save' }); }}>保存巡检记录\u003c/Button>\n        \u003cButton appearance=\"outlined\" onClick={() => { message.info('记录编号已复制', 2400); }}>复制编号\u003c/Button>\n        {holder}\n    \u003c/div>;\n}\n",
+        "previewPath": "/components/rc-message/workbench/?__wake_demo=docs%2Fdemos%2Fqueue.demo.tsx",
+        "workbenchPath": "/components/rc-message/workbench/#/components/docs%2Fdemos%2Fqueue.demo.tsx",
+        "density": "regular",
+        "layout": "wide",
+        "group": null
+    },
+    {
         "id": "docs/demos/stack.demo.tsx",
         "title": "消息堆叠",
         "description": "当消息数量超过 3 条时，旧消息会自动折叠。最新的一条在最前面，后面的消息缩小并淡出",
@@ -138,6 +162,7 @@ export const documents = {
         "usage": "反馈不应打断输入，重要且需持续阅读的错误应放回关联内容中。",
         "exampleDescription": "触发不同结果消息，检查语义配色、文字和自动关闭的反馈过程。",
         "demos": [
+            "queue.demo.tsx",
             "basic.demo.tsx",
             "custom.demo.tsx",
             "long-content.demo.tsx",
@@ -154,6 +179,7 @@ export const documents = {
         "usage": "连续操作时检查消息堆叠，撤销或重试动作要保持清楚可达。",
         "exampleDescription": "连续触发消息，观察桌面反馈的堆叠顺序和关闭后的空间恢复。",
         "demos": [
+            "queue.demo.tsx",
             "stack.demo.tsx",
             "basic.demo.tsx",
             "custom.demo.tsx",
@@ -169,6 +195,7 @@ export const documents = {
         "usage": "长消息应允许阅读而不横向溢出，动作名称说明用户下一步能做什么。",
         "exampleDescription": "触发较长的结果说明，检查窄区域里的换行、状态和关闭入口。",
         "demos": [
+            "queue.demo.tsx",
             "long-content.demo.tsx",
             "basic.demo.tsx",
             "custom.demo.tsx",
