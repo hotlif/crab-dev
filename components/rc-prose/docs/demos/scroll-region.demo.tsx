@@ -8,7 +8,7 @@ export const meta = {
 };
 
 const tableWidth = css`min-inline-size: 36rem;`;
-const articleWidth = css`max-inline-size: 36rem;`;
+const articleWidth = css`inline-size: min(100%, 36rem);`;
 const record = 'const recordId = "NORTH-INTAKE-PUMP-P104-INSPECTION-2026-11-24";';
 
 export default function ScrollRegionDemo() {

@@ -38,7 +38,7 @@ describe('ProseScrollRegion published styles', () => {
             it(`scopes broad tables and code to their named regions (${designSystem}/${colorMode})`, async () => {
                 const view = await render(<ConfigProvider designSystem={designSystem} colorMode={colorMode} direction="rtl">
                     <style>{compiledCss}</style>
-                    <div data-role="narrow" style={{ width: 264, display: 'grid', gridTemplateColumns: '1fr' }}>
+                    <div data-role="narrow" style={{ width: 264, display: 'grid', gridTemplateColumns: '1fr', justifyItems: 'safe center' }}>
                         <Prose as="article">
                             <ProseScrollRegion aria-label="Measurements" data-role="table-region">
                                 <table style={{ minInlineSize: 550 }}>
