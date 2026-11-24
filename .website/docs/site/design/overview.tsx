@@ -177,6 +177,62 @@ export default function DesignOverview() {
                             <Button appearance="primary" href={href("design/cron-picker")} iconAfter={<span aria-hidden="true">→</span>}>体验定时表达式原型</Button>
                         </div>
                     </div>
+                    <div className="crab-design-card">
+                        <div className="crab-design-card-body">
+                            <h3>Tabs 页签</h3>
+                            <p>核对键盘切换、长标签和面板状态。</p>
+                            <Button appearance="primary" href={href("design/tabs")} iconAfter={<span aria-hidden="true">→</span>}>体验页签原型</Button>
+                        </div>
+                    </div>
+                    <div className="crab-design-card">
+                        <div className="crab-design-card-body">
+                            <h3>Breadcrumbs 面包屑导航</h3>
+                            <p>从记录返回项目并试用紧凑路径。</p>
+                            <Button appearance="primary" href={href("design/breadcrumbs")} iconAfter={<span aria-hidden="true">→</span>}>体验面包屑导航原型</Button>
+                        </div>
+                    </div>
+                    <div className="crab-design-card">
+                        <div className="crab-design-card-body">
+                            <h3>Pagination 分页</h3>
+                            <p>切换每页条数并试用末页回退。</p>
+                            <Button appearance="primary" href={href("design/pagination")} iconAfter={<span aria-hidden="true">→</span>}>体验分页原型</Button>
+                        </div>
+                    </div>
+                    <div className="crab-design-card">
+                        <div className="crab-design-card-body">
+                            <h3>Tree 树</h3>
+                            <p>搜索、预选与打开设备目录。</p>
+                            <Button appearance="primary" href={href("design/tree")} iconAfter={<span aria-hidden="true">→</span>}>体验树原型</Button>
+                        </div>
+                    </div>
+                    <div className="crab-design-card">
+                        <div className="crab-design-card-body">
+                            <h3>AppMainLayout 应用主布局</h3>
+                            <p>试用侧栏、工作区内容和窄屏导航。</p>
+                            <Button appearance="primary" href={href("design/app-main-layout")} iconAfter={<span aria-hidden="true">→</span>}>体验应用主布局原型</Button>
+                        </div>
+                    </div>
+                    <div className="crab-design-card">
+                        <div className="crab-design-card-body">
+                            <h3>SplitPane 分栏</h3>
+                            <p>用拖拽、触控和键盘调整列表与详情。</p>
+                            <Button appearance="primary" href={href("design/split-pane")} iconAfter={<span aria-hidden="true">→</span>}>体验分栏原型</Button>
+                        </div>
+                    </div>
+                    <div className="crab-design-card">
+                        <div className="crab-design-card-body">
+                            <h3>Divider 分隔线</h3>
+                            <p>核对分隔的方向、间距和可访问语义。</p>
+                            <Button appearance="primary" href={href("design/divider")} iconAfter={<span aria-hidden="true">→</span>}>体验分隔线原型</Button>
+                        </div>
+                    </div>
+                    <div className="crab-design-card">
+                        <div className="crab-design-card-body">
+                            <h3>Masonry 瀑布流</h3>
+                            <p>查看异步照片、列数和阅读顺序。</p>
+                            <Button appearance="primary" href={href("design/masonry")} iconAfter={<span aria-hidden="true">→</span>}>体验瀑布流原型</Button>
+                        </div>
+                    </div>
                 </section>
                 <section>
                     <h2>应用场景</h2>
