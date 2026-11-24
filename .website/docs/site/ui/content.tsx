@@ -120,7 +120,7 @@ export function Page({ page, previous, next, route, site, children }: UI.PagePro
     const designWorkspace = /^\/?design(?:\/|$)/.test(page.slug);
     const component = page.slug.replace(/^\//, "").startsWith("components/");
     const packageName = page.slug.split("/").at(-1) ?? "";
-    const prototypePath = ["rc-button", "rc-line-edit", "rc-checkbox", "rc-radio", "rc-switch", "rc-segmented", "rc-text-edit", "rc-number-edit", "rc-slider", "rc-select", "rc-form"].includes(packageName) ? `/design/${packageName.slice(3)}` : undefined;
+    const prototypePath = ["rc-button", "rc-line-edit", "rc-checkbox", "rc-radio", "rc-switch", "rc-segmented", "rc-text-edit", "rc-number-edit", "rc-slider", "rc-select", "rc-form", "rc-tabs", "rc-breadcrumbs", "rc-pagination", "rc-tree", "rc-app-main-layout", "rc-split-pane", "rc-divider", "rc-masonry"].includes(packageName) ? `/design/${packageName.slice(3)}` : undefined;
     const previews: Readonly<Partial<Record<string, ComponentPreviewRecord>>> = componentPreviews;
     const preview = previews[packageName]?.designs?.[designSystem] ?? previews[packageName];
     const hasFederatedHero = component && preview !== undefined && !isStandaloneDemo(`${packageName}/${preview.id}`);
