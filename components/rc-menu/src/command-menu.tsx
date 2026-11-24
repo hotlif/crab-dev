@@ -4,6 +4,7 @@ import Button from '@crab-dev/rc-button';
 import { useConfig, useLocale } from '@crab-dev/rc-config-provider';
 import DropdownContainer, { useDropdownContext } from '@crab-dev/rc-dropdown-container';
 import { registerOverlayLayer } from '@crab-dev/rc-hooks/internal';
+import { activeElementFor } from './interactions.js';
 import token from './token.js';
 
 interface CommandEntryBase {
@@ -74,9 +75,12 @@ function Trigger({ label, menuId, onOpen, ref }: {
     return <span ref={refs.setReference}><Button type="button" appearance="outlined"
         ref={ref}
         aria-haspopup="menu" aria-expanded={state.open} aria-controls={state.open ? menuId : undefined}
-        onClick={() => {
+        onClick={event => {
             if (state.open) dispatch({ type: 'setOpen', payload: false });
-            else onOpen({ edge: 'first' });
+            else {
+                event.currentTarget.focus({ preventScroll: true });
+                onOpen({ edge: 'first' });
+            }
         }}
         onKeyDown={event => {
             if (event.key !== 'ArrowDown' && event.key !== 'ArrowUp') return;
@@ -85,12 +89,13 @@ function Trigger({ label, menuId, onOpen, ref }: {
         }}>{label}</Button></span>;
 }
 
-function CommandMenuPopup({ menuId, label, groups, branch, target, onBranch, onBack, onExit, onExecute }: {
+function CommandMenuPopup({ menuId, label, groups, branch, target, triggerRef, onBranch, onBack, onExit, onExecute }: {
     menuId: string;
     label: string;
     groups: readonly CommandMenuGroup[];
     branch: CommandMenuBranch | null;
     target: FocusTarget;
+    triggerRef: RefObject<HTMLButtonElement | null>;
     onBranch: (entry: CommandMenuBranch) => void;
     onBack: () => void;
     onExit: () => void;
@@ -114,6 +119,9 @@ function CommandMenuPopup({ menuId, label, groups, branch, target, onBranch, onB
         if (!menu || !state.open) return;
         let frame = 0;
         const focus = () => {
+            const active = activeElementFor(menu);
+            // Placement may finish after the user has already left the menu.
+            if (active !== triggerRef.current && !menu.contains(active)) return;
             if (getComputedStyle(menu).visibility === 'hidden') {
                 frame = requestAnimationFrame(focus);
                 return;
@@ -125,7 +133,7 @@ function CommandMenuPopup({ menuId, label, groups, branch, target, onBranch, onB
         };
         focus();
         return () => cancelAnimationFrame(frame);
-    }, [state.open, target, branchId]);
+    }, [state.open, target, branchId, triggerRef]);
 
     useEffect(() => {
         const menu = node.current;
@@ -205,7 +213,7 @@ export function CommandMenu({ label, groups }: CommandMenuProps) {
     };
     return <DropdownContainer open={open} onOpenChange={handleOpen} closeOnFocusOut
         floatingContainerProps={{ className: layerStyle }}
-        overlay={<CommandMenuPopup menuId={menuId} label={label} groups={groups} branch={branch} target={target}
+        overlay={<CommandMenuPopup menuId={menuId} label={label} groups={groups} branch={branch} target={target} triggerRef={trigger}
             onBranch={entry => {
                 setBranchId(entry.id);
                 setTarget(entry.items.length ? { id: entry.items[0].id } : { edge: 'first' });
