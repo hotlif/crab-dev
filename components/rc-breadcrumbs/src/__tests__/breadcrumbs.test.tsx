@@ -116,4 +116,29 @@ describe('Breadcrumbs', () => {
         await fireEvent.click(screen.getByText('Current'));
         expect(onClick).not.toHaveBeenCalled();
     });
+    it('exposes collapsed links in order and returns focus after Escape', async () => {
+        const user = userEvent.setup();
+        const unavailable = mock.fn();
+        await render(<Breadcrumbs maxCount={2} expandCollapsed items={[
+            { title: 'Home', href: '/home' },
+            { title: 'Unavailable', disabled: true, onClick: unavailable },
+            { title: 'Devices', href: '/devices' },
+            { title: 'Current' },
+        ]} />);
+        const toggle = screen.getByRole('button', { name: '查看折叠路径' });
+        const list = document.getElementById(toggle.getAttribute('aria-controls') ?? '');
+        expect(list?.hidden).toBe(true);
+        await user.tab();
+        expect(document.activeElement).toBe(toggle);
+        await user.click(toggle);
+        expect(toggle.getAttribute('aria-expanded')).toBe('true');
+        await user.tab();
+        expect(document.activeElement).toBe(screen.getByRole('link', { name: 'Home' }));
+        await user.tab();
+        expect(document.activeElement).toBe(screen.getByRole('link', { name: 'Devices' }));
+        await fireEvent.keyDown(screen.getByRole('link', { name: 'Devices' }), { key: 'Escape' });
+        expect(list?.hidden).toBe(true);
+        expect(document.activeElement).toBe(toggle);
+        expect(unavailable).not.toHaveBeenCalled();
+    });
 });

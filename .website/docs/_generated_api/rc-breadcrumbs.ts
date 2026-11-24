@@ -30,4 +30,15 @@ export interface BreadcrumbsProps {
      * @default ’... ’
      */
     "ellipsis"?: ReactNode;
+
+    /**
+     * 用展开按钮公开 maxCount 折叠的路径。
+     * @default false
+     */
+    "expandCollapsed"?: boolean;
+
+    /**
+     * 展开按钮的可访问名称，缺省跟随当前语言。
+     */
+    "expandLabel"?: string;
 }

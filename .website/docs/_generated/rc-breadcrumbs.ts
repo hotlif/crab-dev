@@ -93,6 +93,32 @@ export const demos = [
         "group": "使用示例"
     },
     {
+        "id": "docs/demos/collapsed-path.demo.tsx",
+        "title": "展开折叠路径",
+        "description": "在只保留两个位置时，通过省略项访问其他层级。用键盘试试展开、选择和返回。",
+        "learning": {
+            "components": [
+                "Breadcrumbs"
+            ],
+            "props": [
+                "aria-label",
+                "separator",
+                "ellipsis",
+                "maxCount",
+                "expandCollapsed",
+                "items"
+            ],
+            "events": [],
+            "hasState": true
+        },
+        "sourceCode": "import { useState } from 'react';\nimport Breadcrumbs, { type BreadcrumbsItem } from '../../src/index.js';\n\nexport const meta = {\n    title: '展开折叠路径',\n    description: '在只保留两个位置时，通过省略项访问其他层级。用键盘试试展开、选择和返回。',\n};\n\nconst paths = ['工程目录', '北区泵站', '进水系统', '长路径连续设备记录分组P104监测与交接', '巡检记录'];\n\nexport default function CollapsedPathDemo() {\n    const [selected, setSelected] = useState(paths.at(-1));\n    const items: BreadcrumbsItem[] = paths.map((title, index) => ({\n        title,\n        disabled: index === 2,\n        ...(index === 0 ? { href: '#project' } : {}),\n        onClick: event => {\n            if (index === 0) event.preventDefault();\n            setSelected(title);\n        },\n    }));\n    return \u003c>\n        \u003cBreadcrumbs aria-label=\"巡检路径\" separator=\"/\" ellipsis=\"…\" maxCount={2} expandCollapsed items={items} />\n        \u003cp role=\"status\">已访问 {selected}\u003c/p>\n        \u003cbutton type=\"button\" onClick={() => setSelected(paths.at(-1))}>重置访问记录\u003c/button>\n    \u003c/>;\n}\n",
+        "previewPath": "/components/rc-breadcrumbs/workbench/?__wake_demo=docs%2Fdemos%2Fcollapsed-path.demo.tsx",
+        "workbenchPath": "/components/rc-breadcrumbs/workbench/#/components/docs%2Fdemos%2Fcollapsed-path.demo.tsx",
+        "density": "regular",
+        "layout": "wide",
+        "group": "使用示例"
+    },
+    {
         "id": "docs/demos/visual-matrix.demo.tsx",
         "title": "路径导航状态矩阵",
         "description": "链接、动作、当前位置、禁用、折叠与长路径保持独立语义。",
@@ -126,7 +152,8 @@ export const documents = {
             "basic.demo.tsx",
             "action.demo.tsx",
             "custom-separator.demo.tsx",
-            "max-count.demo.tsx"
+            "max-count.demo.tsx",
+            "collapsed-path.demo.tsx"
         ],
         "references": [
             "https://m3.material.io/foundations/accessible-design/overview",
@@ -139,6 +166,7 @@ export const documents = {
         "usage": "长路径需要保留当前位置与可返回的上级，不将它模拟为系统原生路径栏。",
         "exampleDescription": "展开被收起的路径项目，确认当前位置及返回目标仍清楚可见。",
         "demos": [
+            "collapsed-path.demo.tsx",
             "max-count.demo.tsx",
             "action.demo.tsx",
             "basic.demo.tsx",
@@ -157,7 +185,8 @@ export const documents = {
             "custom-separator.demo.tsx",
             "action.demo.tsx",
             "basic.demo.tsx",
-            "max-count.demo.tsx"
+            "max-count.demo.tsx",
+            "collapsed-path.demo.tsx"
         ],
         "references": [
             "https://ui.shadcn.com/docs/components",

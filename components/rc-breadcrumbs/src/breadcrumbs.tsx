@@ -1,12 +1,15 @@
 import { cx } from '@crab-dev/css';
 import Button from '@crab-dev/rc-button';
 import { useLocale } from '@crab-dev/rc-config-provider';
-import type { ReactNode } from 'react';
+import { useEffect, useId, useRef, useState, type ReactNode } from 'react';
 import type { BreadcrumbsItem, BreadcrumbsProps } from './types.js';
-import { rootStyle, listStyle, itemStyle, linkStyle, currentStyle, actionStyle, disabledStyle, separatorStyle, ellipsisStyle } from "./breadcrumbs.styles.js";
+import {
+    rootStyle, listStyle, itemStyle, linkStyle, currentStyle, actionStyle, disabledStyle, separatorStyle, ellipsisStyle,
+    disclosureLayoutStyle, disclosureStyle, disclosureTriggerStyle, collapsedListStyle,
+} from "./breadcrumbs.styles.js";
 type RenderEntry =
     | { type: 'item'; item: BreadcrumbsItem; index: number }
-    | { type: 'ellipsis'; key: string };
+    | { type: 'ellipsis'; items: BreadcrumbsItem[] };
 
 const getVisibleEntries = (
     items: BreadcrumbsItem[],
@@ -35,7 +38,7 @@ const getVisibleEntries = (
         })),
         {
             type: 'ellipsis' as const,
-            key: '__breadcrumbs_ellipsis__',
+            items: items.slice(headCount, items.length - tailCount),
         },
         ...tailItems.map((item, index) => ({
             type: 'item' as const,
@@ -45,13 +48,16 @@ const getVisibleEntries = (
     ];
 };
 
-const renderItemNode = (item: BreadcrumbsItem, isLast: boolean): ReactNode => {
+const renderItemNode = (item: BreadcrumbsItem, isLast: boolean, onActivate?: () => void): ReactNode => {
     if (item.href && !item.disabled && !isLast) {
         return (
             <a
                 href={item.href}
                 className={linkStyle}
-                onClick={(event) => item.onClick?.(event)}
+                onClick={event => {
+                    item.onClick?.(event);
+                    onActivate?.();
+                }}
             >
                 {item.title}
             </a>
@@ -60,7 +66,11 @@ const renderItemNode = (item: BreadcrumbsItem, isLast: boolean): ReactNode => {
 
     if (item.onClick && !isLast) {
         return (
-            <Button type="button" appearance="text" disabled={item.disabled} onClick={item.onClick} className={actionStyle}>
+            <Button type="button" appearance="text" disabled={item.disabled} className={actionStyle}
+                onClick={event => {
+                    item.onClick?.(event);
+                    onActivate?.();
+                }}>
                 {item.title}
             </Button>
         );
@@ -80,16 +90,73 @@ const renderItemNode = (item: BreadcrumbsItem, isLast: boolean): ReactNode => {
     );
 };
 
+function CollapsedBreadcrumbs({ items, label, ellipsis, separator }: {
+    items: BreadcrumbsItem[];
+    label: string;
+    ellipsis: ReactNode;
+    separator: ReactNode;
+}) {
+    const [expanded, setExpanded] = useState(false);
+    const listId = useId();
+    const branch = useRef<HTMLLIElement>(null);
+    const trigger = useRef<HTMLButtonElement>(null);
+
+    useEffect(() => {
+        const element = branch.current;
+        if (!expanded || !element) return;
+        const document = element.ownerDocument;
+        const dismiss = (event: PointerEvent) => {
+            if (!event.composedPath().includes(element)) setExpanded(false);
+        };
+        document.addEventListener('pointerdown', dismiss, true);
+        return () => document.removeEventListener('pointerdown', dismiss, true);
+    }, [expanded]);
+
+    function closeFromPath() {
+        const element = branch.current;
+        if (element?.contains(element.ownerDocument.activeElement)) trigger.current?.focus();
+        setExpanded(false);
+    }
+
+    return <li ref={branch} className={disclosureStyle}
+        onBlur={event => {
+            if (expanded && !event.currentTarget.contains(event.relatedTarget)) setExpanded(false);
+        }}
+        onKeyDown={event => {
+            if (!expanded || event.defaultPrevented || event.key !== 'Escape') return;
+            event.preventDefault();
+            event.stopPropagation();
+            closeFromPath();
+        }}>
+        <div className={disclosureTriggerStyle}>
+            <Button ref={trigger} type="button" appearance="text" aria-label={label}
+                aria-expanded={expanded} aria-controls={listId}
+                className={cx(actionStyle, ellipsisStyle)} onClick={() => setExpanded(!expanded)}>
+                <span aria-hidden="true">{ellipsis}</span>
+            </Button>
+            <span className={separatorStyle} aria-hidden="true">{separator}</span>
+        </div>
+        <ol id={listId} className={collapsedListStyle} aria-label={label} hidden={!expanded}>
+            {items.map((item, index) => <li key={item.key ?? index}
+                className={cx(itemStyle, item.className)} style={item.style}>
+                {renderItemNode(item, false, closeFromPath)}
+            </li>)}
+        </ol>
+    </li>;
+}
+
 const Breadcrumbs = ({
     items,
     separator = '/',
     maxCount,
     ellipsis = '... ',
+    expandCollapsed = false,
+    expandLabel,
     className,
     'aria-label': ariaLabel,
     ...restProps
 }: BreadcrumbsProps) => {
-    const { messages } = useLocale();
+    const { locale, messages } = useLocale();
     const entries = getVisibleEntries(items, maxCount);
 
     return (
@@ -98,13 +165,16 @@ const Breadcrumbs = ({
             className={cx.call(undefined, rootStyle, className)}
             aria-label={ariaLabel ?? messages.breadcrumbs.label}
         >
-            <ol className={listStyle}>
+            <ol className={cx(listStyle, expandCollapsed && disclosureLayoutStyle)}>
                 {entries.map((entry, renderIndex) => {
                     const isLast = renderIndex === entries.length - 1;
 
                     if (entry.type === 'ellipsis') {
+                        if (expandCollapsed) return <CollapsedBreadcrumbs key="__breadcrumbs_ellipsis__"
+                            items={entry.items} ellipsis={ellipsis} separator={separator}
+                            label={expandLabel ?? (locale === 'zh-CN' ? '查看折叠路径' : 'Show collapsed path')} />;
                         return (
-                            <li key={entry.key} className={cx.call(undefined, itemStyle, ellipsisStyle)} aria-hidden="true">
+                            <li key="__breadcrumbs_ellipsis__" className={cx.call(undefined, itemStyle, ellipsisStyle)} aria-hidden="true">
                                 {ellipsis}
                                 {!isLast ? (
                                     <span className={separatorStyle} aria-hidden="true">
