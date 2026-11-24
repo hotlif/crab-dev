@@ -128,25 +128,31 @@ export const segmentStyle = css`
 `;
 
 export const segmentSmallStyle = css`
+    --crab-segment-padding: ${token.size.small['padding-inline']};
+    --crab-segment-gap: ${token.size.small.gap};
     height: ${token.size.small.height};
-    padding: 0 ${token.size.small['padding-inline']};
-    gap: ${token.size.small.gap};
+    padding: 0 var(--crab-segment-padding);
+    gap: var(--crab-segment-gap);
     font-size: ${token.size.small['font-size']};
     border-radius: ${token.size.small['border-radius']};
 `;
 
 export const segmentMiddleStyle = css`
+    --crab-segment-padding: ${token.size.medium['padding-inline']};
+    --crab-segment-gap: ${token.size.medium.gap};
     height: ${token.size.medium.height};
-    padding: 0 ${token.size.medium['padding-inline']};
-    gap: ${token.size.medium.gap};
+    padding: 0 var(--crab-segment-padding);
+    gap: var(--crab-segment-gap);
     font-size: ${token.size.medium['font-size']};
     border-radius: ${token.size.medium['border-radius']};
 `;
 
 export const segmentLargeStyle = css`
+    --crab-segment-padding: ${token.size.large['padding-inline']};
+    --crab-segment-gap: ${token.size.large.gap};
     height: ${token.size.large.height};
-    padding: 0 ${token.size.large['padding-inline']};
-    gap: ${token.size.large.gap};
+    padding: 0 var(--crab-segment-padding);
+    gap: var(--crab-segment-gap);
     font-size: ${token.size.large['font-size']};
     border-radius: ${token.size.large['border-radius']};
 `;
@@ -164,19 +170,16 @@ export const labelStyle = css`
     @media (prefers-reduced-motion: reduce) { transition: none; }
 `;
 
-export const unselectedSmallLabelStyle = css`
-    translate: calc((${token.item.icon.width} + ${token.size.small.gap}) / -2) 0;
-    &:dir(rtl) { translate: calc((${token.item.icon.width} + ${token.size.small.gap}) / 2) 0; }
-`;
-
-export const unselectedMediumLabelStyle = css`
-    translate: calc((${token.item.icon.width} + ${token.size.medium.gap}) / -2) 0;
-    &:dir(rtl) { translate: calc((${token.item.icon.width} + ${token.size.medium.gap}) / 2) 0; }
-`;
-
-export const unselectedLargeLabelStyle = css`
-    translate: calc((${token.item.icon.width} + ${token.size.large.gap}) / -2) 0;
-    &:dir(rtl) { translate: calc((${token.item.icon.width} + ${token.size.large.gap}) / 2) 0; }
+// Reserve the check slot on both sides of the text so its center never moves.
+// Reuse the existing padding budget before adding to the intrinsic width.
+export const centeredTextSegmentStyle = css`
+    && {
+        display: inline-grid;
+        grid-template-columns: ${token.item.icon.width} minmax(0, max-content) ${token.item.icon.width};
+        padding-inline: max(0px, calc(var(--crab-segment-padding) - (${token.item.icon.width} + var(--crab-segment-gap)) / 2));
+        > [data-selection-indicator] { grid-column: 1; }
+        > [data-segment-label] { grid-column: 2; }
+    }
 `;
 
 export const selectionIconStyle = css`

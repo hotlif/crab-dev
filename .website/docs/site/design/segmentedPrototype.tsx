@@ -7,9 +7,9 @@ import { DesignHero } from "./hero.js";
 import "./segmentedPrototype.styles.js";
 
 const periodOptions = [
-    { value: "day", label: "日", "aria-label": "日视图", className: "crab-segmented-choice" },
-    { value: "week", label: "周", "aria-label": "周视图", className: "crab-segmented-choice" },
-    { value: "month", label: "月", "aria-label": "月视图", className: "crab-segmented-choice" },
+    { value: "day", label: "日", "aria-label": "日视图" },
+    { value: "week", label: "周", "aria-label": "周视图" },
+    { value: "month", label: "月", "aria-label": "月视图" },
 ];
 
 const periods = {

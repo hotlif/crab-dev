@@ -32,9 +32,8 @@ function expectCenteredLabels(root: HTMLElement, requireCompleteText: boolean) {
     for (const segment of segments) {
         // Only the direct text slot; graphic layers inherit aria-hidden from
         // their parent and must not be measured as visible label text.
-        const text = segment.querySelector<HTMLElement>(':scope > span:not([aria-hidden])');
-        const input = segment.querySelector<HTMLInputElement>('input');
-        if (!text || !input) throw new Error('Missing segment label/input');
+        const text = segment.querySelector<HTMLElement>('[data-segment-label]');
+        if (!text) throw new Error('Missing segment label');
         const textBounds = text.getBoundingClientRect();
         const segmentBounds = segment.getBoundingClientRect();
         expect(textBounds.width).toBeGreaterThan(0);
@@ -47,10 +46,12 @@ function expectCenteredLabels(root: HTMLElement, requireCompleteText: boolean) {
             expect(glyphBounds.left).toBeGreaterThanOrEqual(textBounds.left - 1);
             expect(glyphBounds.right).toBeLessThanOrEqual(textBounds.right + 1);
         }
-        if (!input.checked) {
-            // The old empty 16px indicator + 8px gap shifts this center by 12px.
-            const centerDelta = (textBounds.left + textBounds.right - segmentBounds.left - segmentBounds.right) / 2;
-            expect(Math.abs(centerDelta)).toBeLessThanOrEqual(0.75);
+        const centerDelta = (textBounds.left + textBounds.right - segmentBounds.left - segmentBounds.right) / 2;
+        expect(Math.abs(centerDelta)).toBeLessThanOrEqual(0.75);
+        const indicator = segment.querySelector<HTMLElement>('[data-selection-indicator]');
+        if (indicator && getComputedStyle(indicator).display !== 'none') {
+            const bounds = indicator.getBoundingClientRect();
+            expect(bounds.right <= textBounds.left || bounds.left >= textBounds.right).toBe(true);
         }
     }
 }
@@ -60,7 +61,7 @@ describe('Segmented real CSS text layout', () => {
         for (const colorMode of ['light', 'dark'] as const) {
             for (const direction of ['ltr', 'rtl'] as const) {
                 for (const size of ['small', 'medium', 'large'] as const) {
-                    it(`centers unselected text without changing intrinsic widths (${designSystem}/${colorMode}/${direction}/${size})`, async () => {
+                    it(`centers text in every selection state (${designSystem}/${colorMode}/${direction}/${size})`, async () => {
                         const fixture = (block: boolean, width = 320) => <>
                             <style>{compiledCss}</style>
                             <ConfigProvider designSystem={designSystem} colorMode={colorMode} direction={direction}>
