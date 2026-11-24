@@ -343,24 +343,24 @@ export const componentPreviews = {
         "density": "regular",
         "designs": {
             "md3": {
-                "id": "docs/demos/colorPicker.demo.tsx",
-                "title": "颜色选择器",
-                "previewPath": "/components/rc-color-picker/workbench/?__wake_demo=docs%2Fdemos%2FcolorPicker.demo.tsx",
-                "workbenchPath": "/components/rc-color-picker/workbench/#/components/docs%2Fdemos%2FcolorPicker.demo.tsx",
+                "id": "docs/demos/validation.demo.tsx",
+                "title": "颜色草稿与校验",
+                "previewPath": "/components/rc-color-picker/workbench/?__wake_demo=docs%2Fdemos%2Fvalidation.demo.tsx",
+                "workbenchPath": "/components/rc-color-picker/workbench/#/components/docs%2Fdemos%2Fvalidation.demo.tsx",
                 "density": "regular"
             },
             "macos": {
-                "id": "docs/demos/colorPickerPanel.demo.tsx",
-                "title": "颜色面板",
-                "previewPath": "/components/rc-color-picker/workbench/?__wake_demo=docs%2Fdemos%2FcolorPickerPanel.demo.tsx",
-                "workbenchPath": "/components/rc-color-picker/workbench/#/components/docs%2Fdemos%2FcolorPickerPanel.demo.tsx",
+                "id": "docs/demos/validation.demo.tsx",
+                "title": "颜色草稿与校验",
+                "previewPath": "/components/rc-color-picker/workbench/?__wake_demo=docs%2Fdemos%2Fvalidation.demo.tsx",
+                "workbenchPath": "/components/rc-color-picker/workbench/#/components/docs%2Fdemos%2Fvalidation.demo.tsx",
                 "density": "regular"
             },
             "shadcn": {
-                "id": "docs/demos/colorPicker.demo.tsx",
-                "title": "颜色选择器",
-                "previewPath": "/components/rc-color-picker/workbench/?__wake_demo=docs%2Fdemos%2FcolorPicker.demo.tsx",
-                "workbenchPath": "/components/rc-color-picker/workbench/#/components/docs%2Fdemos%2FcolorPicker.demo.tsx",
+                "id": "docs/demos/validation.demo.tsx",
+                "title": "颜色草稿与校验",
+                "previewPath": "/components/rc-color-picker/workbench/?__wake_demo=docs%2Fdemos%2Fvalidation.demo.tsx",
+                "workbenchPath": "/components/rc-color-picker/workbench/#/components/docs%2Fdemos%2Fvalidation.demo.tsx",
                 "density": "regular"
             }
         }

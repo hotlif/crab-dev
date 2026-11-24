@@ -4,13 +4,14 @@ import RcSelect from "@crab-dev/rc-select";
 import Button from "@crab-dev/rc-button";
 import { useEventCallback } from "@crab-dev/rc-hooks";
 import { css } from "@crab-dev/css";
-import { type FC, useEffect, useRef, useState } from "react";
+import { type FC, type Ref, useEffect, useImperativeHandle, useRef, useState } from "react";
 import token from "../token.js";
 import type { ColorFormat, OKLCHValue } from "../types.js";
 import { formatColor, parseColor } from "../utils/color.js";
 
 const FORMATS: ColorFormat[] = ["hex", "rgb", "hsl", "oklch"];
 const FORMAT_OPTIONS = FORMATS.map((f) => ({ label: f.toUpperCase(), value: f }));
+const EXAMPLE_COLOR: OKLCHValue = { lightness: 0.64, chroma: 0.08, hue: 240 };
 
 export interface ColorInputProps {
     value: OKLCHValue;
@@ -18,6 +19,13 @@ export interface ColorInputProps {
     showEyeDropper?: boolean;
     onFormatChange: (format: ColorFormat) => void;
     onValueChange: (value: OKLCHValue) => void;
+    editorRef?: Ref<ColorInputEditor>;
+}
+
+/** 面板动作可确认或撤回文本草稿。 */
+export interface ColorInputEditor {
+    confirm(): OKLCHValue | null;
+    reset(): void;
 }
 
 const wrapStyle = css`
@@ -50,13 +58,20 @@ const ColorInput: FC<ColorInputProps> = ({
     showEyeDropper = true,
     onFormatChange,
     onValueChange,
+    editorRef,
 }) => {
-    const { messages } = useLocale();
+    const { locale, messages } = useLocale();
     // 本地编辑草稿:输入期间不即时 parse,失焦 / Enter 才提交;draft 为 null 时跟随外部 value
     const [draft, setDraft] = useState<string | null>(null);
+    const [invalid, setInvalid] = useState(false);
     const [supportsEyeDropper, setSupportsEyeDropper] = useState(false);
     const [picking, setPicking] = useState(false);
     const text = draft ?? formatColor(value, format);
+    const fieldRef = useRef<HTMLInputElement>(null);
+    const resetDraft = () => {
+        setDraft(null);
+        setInvalid(false);
+    };
     // 可变实例状态 ref(例外白名单第 1 类):持有取色会话句柄以便卸载时中止,不驱动渲染
     const pickAbortRef = useRef<AbortController | null>(null);
 
@@ -71,7 +86,7 @@ const ColorInput: FC<ColorInputProps> = ({
     const applyPickedColor = useEventCallback((raw: string) => {
         const parsed = parseColor(raw, "hex");
         if (!parsed) return;
-        setDraft(null);
+        resetDraft();
         onValueChange({ ...parsed, alpha: parsed.alpha ?? value.alpha });
     });
 
@@ -97,13 +112,25 @@ const ColorInput: FC<ColorInputProps> = ({
         }
     };
 
-    const commit = (raw: string) => {
+    const confirmDraft = (focusOnInvalid = false): OKLCHValue | null => {
+        const raw = fieldRef.current?.value ?? text;
+        if (draft === null && raw === text) return value;
         const parsed = parseColor(raw, format);
-        if (parsed) {
-            onValueChange({ ...parsed, alpha: parsed.alpha ?? value.alpha });
+        if (!parsed) {
+            setDraft(raw);
+            setInvalid(true);
+            if (focusOnInvalid) fieldRef.current?.focus();
+            return null;
         }
-        setDraft(null);
+        const next = { ...parsed, alpha: parsed.alpha ?? value.alpha };
+        resetDraft();
+        onValueChange(next);
+        return next;
     };
+    useImperativeHandle(editorRef, () => ({
+        confirm: () => confirmDraft(true),
+        reset: resetDraft,
+    }));
 
     // rc-dropdown-container 的浮层容器对 mousedown 无条件 preventDefault(保住触发器焦点),
     // 会同时阻止内部控件(含嵌套的 RcSelect 自身弹层)的点击聚焦与选词;在此拦截冒泡即可恢复原生行为。
@@ -120,27 +147,41 @@ const ColorInput: FC<ColorInputProps> = ({
                 options={FORMAT_OPTIONS}
                 value={format}
                 onValueChange={(next) => {
-                    if (next) onFormatChange(next as ColorFormat);
+                    if (next && next !== format) {
+                        resetDraft();
+                        onFormatChange(next as ColorFormat);
+                    }
                 }}
             />
             <RcLineEdit
                 aria-label={messages.colorPicker.value}
+                ref={fieldRef}
                 className={inputStyle}
                 size="small"
                 spellCheck={false}
                 value={text}
-                onValueChange={next => setDraft(next)}
+                supportingText={`${locale === 'en-US' ? 'Example' : '例如'} ${formatColor(EXAMPLE_COLOR, format)}`}
+                errorText={invalid ? (locale === 'en-US'
+                    ? `Enter a valid ${format.toUpperCase()} color.`
+                    : `请输入有效的 ${format.toUpperCase()} 颜色值。`) : undefined}
+                onValueChange={next => {
+                    setDraft(next);
+                    if (invalid && parseColor(next, format)) setInvalid(false);
+                }}
                 onBlur={(event) => {
                     const view = event.currentTarget.ownerDocument.defaultView;
                     // The screen picker is another way to finish this draft;
                     // moving to its button must not discard unfinished text.
                     if (view && event.relatedTarget instanceof view.HTMLElement && event.relatedTarget.closest('[data-color-eye-dropper]')) return;
-                    commit(event.target.value);
+                    confirmDraft();
                 }}
                 onKeyDown={(e) => {
+                    if (e.defaultPrevented || e.nativeEvent.isComposing || e.nativeEvent.keyCode === 229) return;
                     if (e.key === "Enter") {
-                        commit((e.target as HTMLInputElement).value);
+                        e.preventDefault();
+                        confirmDraft();
                     }
+                    if (e.key === "Escape" && draft !== null) resetDraft();
                 }}
             />
             {showEyeDropper && supportsEyeDropper && <Button

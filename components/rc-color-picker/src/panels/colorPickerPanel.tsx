@@ -2,10 +2,10 @@ import { useLocale } from '@crab-dev/rc-config-provider';
 import { useControllableValue, type ControlledValueProps } from '@crab-dev/rc-hooks';
 import { cx } from "@crab-dev/css";
 import RcSlider, { CanonicalTokenVars as TokenVars } from '@crab-dev/rc-slider';
-import { type FC, type HTMLAttributes, useState } from "react";
+import { type HTMLAttributes, type RefObject, useRef, useState } from "react";
 import token from "../token.js";
 import type { ColorFormat, ColorPickerPanelLocale, ColorPreset, OKLCHValue, ColorValueChangeDetails } from "../types.js";
-import ColorInput from "./colorInput.js";
+import ColorInput, { type ColorInputEditor } from "./colorInput.js";
 import PresetSwatches from "./presetSwatches.js";
 import { sliderContainerStyle, commonSliderStyle, rootStyle, previewStyle, hueRailStyle } from "./colorPickerPanel.styles.js";
 interface ColorPickerPanelBaseProps extends Omit<HTMLAttributes<HTMLDivElement>, "onChange" | "defaultValue"> {
@@ -22,7 +22,7 @@ interface ColorPickerPanelBaseProps extends Omit<HTMLAttributes<HTMLDivElement>,
 
 export type ColorPickerPanelProps = ColorPickerPanelBaseProps & ControlledValueProps<OKLCHValue, ColorValueChangeDetails>;
 
-const ColorPickerPanel: FC<ColorPickerPanelProps> = ({
+export function ColorPickerPanelContent({
     locale,
     value: valueProp,
     defaultValue,
@@ -31,12 +31,19 @@ const ColorPickerPanel: FC<ColorPickerPanelProps> = ({
     showEyeDropper = true,
     format = "hex",
     presets,
+    editorRef,
     ...restProps
-}) => {
+}: ColorPickerPanelProps & { editorRef?: RefObject<ColorInputEditor | null> }) {
     const { messages } = useLocale();
     const copy = messages.colorPicker;
     const [value, setValue] = useControllableValue<OKLCHValue, [ColorValueChangeDetails]>({ value: valueProp, defaultValue: defaultValue ?? { lightness: 0.6, chroma: 0, hue: 0 }, onValueChange: notifyValueChange });
     const onValueChange = (next: OKLCHValue) => setValue(next, { reason: 'choose' });
+    const internalEditor = useRef<ColorInputEditor>(null);
+    const textEditor = editorRef ?? internalEditor;
+    const selectColor = (next: OKLCHValue) => {
+        textEditor.current?.reset();
+        onValueChange(next);
+    };
     const [currentFormat, setCurrentFormat] = useState<ColorFormat>(format);
     // 字段级合并:可选的 labelAlpha 缺省时回退默认文案,避免空 label / aria-label
     const mergedLocale = { labelLightness: copy.lightness, labelChroma: copy.chroma, labelHue: copy.hue, labelAlpha: copy.alpha, ...locale };
@@ -68,7 +75,7 @@ const ColorPickerPanel: FC<ColorPickerPanelProps> = ({
                     max={1}
                     step={0.01}
                     value={value.lightness}
-                    onValueChange={(v) => onValueChange({ ...value, lightness: v })}
+                    onValueChange={(v) => selectColor({ ...value, lightness: v })}
                 />
             </div>
 
@@ -89,7 +96,7 @@ const ColorPickerPanel: FC<ColorPickerPanelProps> = ({
                     max={0.4}
                     step={0.005}
                     value={value.chroma}
-                    onValueChange={(v) => onValueChange({ ...value, chroma: v })}
+                    onValueChange={(v) => selectColor({ ...value, chroma: v })}
                 />
             </div>
 
@@ -106,7 +113,7 @@ const ColorPickerPanel: FC<ColorPickerPanelProps> = ({
                     min={0}
                     max={360}
                     step={1}
-                    onValueChange={(v) => onValueChange({ ...value, hue: v })}
+                    onValueChange={(v) => selectColor({ ...value, hue: v })}
                 />
             </div>
 
@@ -127,12 +134,13 @@ const ColorPickerPanel: FC<ColorPickerPanelProps> = ({
                         max={1}
                         step={0.01}
                         value={value.alpha ?? 1}
-                        onValueChange={(v) => onValueChange({ ...value, alpha: v })}
+                        onValueChange={(v) => selectColor({ ...value, alpha: v })}
                     />
                 </div>
             )}
 
             <ColorInput
+                editorRef={textEditor}
                 value={value}
                 format={currentFormat}
                 showEyeDropper={showEyeDropper}
@@ -141,10 +149,14 @@ const ColorPickerPanel: FC<ColorPickerPanelProps> = ({
             />
 
             {presets && presets.length > 0 && (
-                <PresetSwatches presets={presets} onSelect={onValueChange} />
+                <PresetSwatches presets={presets} onSelect={selectColor} />
             )}
         </div>
     );
-};
+}
+
+function ColorPickerPanel(props: ColorPickerPanelProps) {
+    return <ColorPickerPanelContent {...props}/>;
+}
 
 export default ColorPickerPanel;

@@ -207,6 +207,7 @@ export const libraryDependencies = [
             "rc-slider"
         ],
         "docs": [
+            "rc-button",
             "rc-token-semantic"
         ],
         "token": [

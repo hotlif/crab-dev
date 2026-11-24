@@ -187,6 +187,11 @@ export const formatColor = (v: OKLCHValue, format: ColorFormat): string => {
     }
 };
 
+function validChannels(match: RegExpExecArray | null): match is RegExpExecArray {
+    return match !== null && match.slice(1).every(channel =>
+        channel === undefined || (/^(?:\d+(?:\.\d*)?|\.\d+)%?$/u.test(channel) && Number.isFinite(parseFloat(channel))));
+}
+
 /** 解析失败返回 null;输入未写 alpha 时返回 alpha: undefined,由调用方决定保留旧值或取默认 1。 */
 export const parseColor = (input: string, format: ColorFormat): OKLCHValue | null => {
     const str = input.trim();
@@ -194,20 +199,20 @@ export const parseColor = (input: string, format: ColorFormat): OKLCHValue | nul
         case "hex":
             return hexToOklch(str);
         case "rgb": {
-            const m = /rgba?\(\s*([\d.]+)[,\s]+([\d.]+)[,\s]+([\d.]+)(?:[,\s/]+([\d.%]+))?\s*\)/i.exec(str);
-            if (!m) return null;
+            const m = /^rgba?\(\s*([\d.]+)[,\s]+([\d.]+)[,\s]+([\d.]+)(?:[,\s/]+([\d.%]+))?\s*\)$/i.exec(str);
+            if (!validChannels(m)) return null;
             const a = m[4] ? parseAlpha(m[4]) : undefined;
             return rgbToOklch({ r: +m[1], g: +m[2], b: +m[3], a });
         }
         case "hsl": {
-            const m = /hsla?\(\s*([\d.]+)[,\s]+([\d.]+)%[,\s]+([\d.]+)%(?:[,\s/]+([\d.%]+))?\s*\)/i.exec(str);
-            if (!m) return null;
+            const m = /^hsla?\(\s*([\d.]+)[,\s]+([\d.]+)%[,\s]+([\d.]+)%(?:[,\s/]+([\d.%]+))?\s*\)$/i.exec(str);
+            if (!validChannels(m)) return null;
             const a = m[4] ? parseAlpha(m[4]) : undefined;
             return rgbToOklch({ ...hslToRgb(+m[1], +m[2] / 100, +m[3] / 100), a });
         }
         case "oklch": {
-            const m = /oklch\(\s*([\d.]+%?)\s+([\d.]+)\s+([\d.]+)(?:\s*\/\s*([\d.%]+))?\s*\)/i.exec(str);
-            if (!m) return null;
+            const m = /^oklch\(\s*([\d.]+%?)\s+([\d.]+)\s+([\d.]+)(?:\s*\/\s*([\d.%]+))?\s*\)$/i.exec(str);
+            if (!validChannels(m)) return null;
             const L = m[1].endsWith("%") ? parseFloat(m[1]) / 100 : parseFloat(m[1]);
             const a = m[4] ? parseAlpha(m[4]) : undefined;
             return { lightness: L, chroma: +m[2], hue: +m[3], alpha: a };
