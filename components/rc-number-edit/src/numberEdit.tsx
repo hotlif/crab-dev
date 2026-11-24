@@ -20,7 +20,7 @@ import {
     toScientificParts,
     toScientificString,
 } from "./format.js";
-import type { NumberEditChangeDetails, NumberEditProps } from "./types.js";
+import type { NumberEditAdjustment, NumberEditChangeDetails, NumberEditCommitDetails, NumberEditProps } from "./types.js";
 
 // 合并多个 ref（用户外部 ref + 组件内部 ref）到单一 callback ref。
 // 模块级纯函数，稳定引用由 React Compiler 记忆化。
@@ -89,6 +89,7 @@ function NumberEdit(props: NumberEditProps) {
         defaultValue,
         onChange,
         onValueChange,
+        onValueCommit,
         min = -Infinity,
         max = Infinity,
         step = 1,
@@ -131,6 +132,8 @@ function NumberEdit(props: NumberEditProps) {
 
     const [focused, setFocused] = useState(false);
     const [inputText, setInputText] = useState("");
+    // 可变实例状态。Enter 与紧随其后的 blur 共用一次草稿确认。
+    const draftChanged = useRef(false);
 
     // 例外①（可变实例状态 ref）：DOM 引用用于测量覆盖层与聚焦，不触发渲染
     const inputRef = useRef<HTMLInputElement | null>(null);
@@ -145,13 +148,26 @@ function NumberEdit(props: NumberEditProps) {
     const currentNumeric = focused
         ? parseNumber(inputText, { decimalSeparator, thousandSeparator: sepNorm, parser })
         : numeric;
+    const ariaNumeric = currentNumeric != null && currentNumeric >= min && currentNumeric <= max
+        ? currentNumeric
+        : numeric;
     // Valid editing text is the user's current value, even before blur commits it.
     // An empty field starts at zero; incomplete text falls back to the committed value.
     const stepBase = focused && inputText.trim() === "" ? 0 : (currentNumeric ?? numeric ?? 0);
 
+    // 精度和边界不对齐时，保留边界的完整数值。
+    const displayPrecision = (value: number | null) =>
+        value != null && (value === min || value === max) && applyPrecision(value, precision) !== value
+            ? undefined
+            : precision;
+    const editingValue = (value: number | null) => value == null ? "" : formatEditing(value, {
+        useScientific: shouldUseScientific(value, scientific, scientificThreshold),
+        precision: displayPrecision(value),
+        decimalSeparator,
+    });
     const useSci = numeric != null && shouldUseScientific(numeric, scientific, scientificThreshold);
     const showOverlay = !focused && !formatter && numeric != null && useSci;
-    const sciParts = showOverlay && numeric != null ? toScientificParts(numeric, precision) : null;
+    const sciParts = showOverlay && numeric != null ? toScientificParts(numeric, displayPrecision(numeric)) : null;
     const ariaValueText = sciParts
         ? messages.fields.scientificValue(sciParts.mantissa, sciParts.exponent)
         : undefined;
@@ -165,16 +181,43 @@ function NumberEdit(props: NumberEditProps) {
             : numeric == null
                 ? ""
                 : useSci
-                    ? toScientificString(numeric, precision)
-                    : formatPlain(numeric, { precision, thousandSeparator: sepNorm, decimalSeparator });
+                    ? toScientificString(numeric, displayPrecision(numeric))
+                    : formatPlain(numeric, { precision: displayPrecision(numeric), thousandSeparator: sepNorm, decimalSeparator });
 
-    const commit = (next: number | null, reason: 'step' | 'clear' | 'blur', event?: NumberEditChangeDetails['event']): void => {
+    const commit = (next: number | null, reason: NumberEditChangeDetails['reason'], event?: NumberEditChangeDetails['event']): void => {
+        draftChanged.current = false;
         if (!isControlled) {
             setInternalValue(next);
         }
         if (!Object.is(next, numeric)) {
             onValueChange?.(next, { reason, ...(event ? { event } : {}) });
         }
+    };
+
+    const confirmInput = (reason: NumberEditCommitDetails['reason'], event: NumberEditCommitDetails['event']) => {
+        if (disabled || readOnly || !draftChanged.current) return;
+        const input = event.currentTarget;
+        const raw = input.value;
+        const parsed = parseNumber(raw, { decimalSeparator, thousandSeparator: sepNorm, parser });
+        const adjustments: NumberEditAdjustment[] = [];
+        let next: number | null = null;
+        if (parsed == null) {
+            if (raw.trim()) adjustments.push('invalid');
+        } else {
+            const bounded = clamp(parsed, min, max);
+            const rounded = applyPrecision(bounded, precision);
+            if (parsed < min || rounded < min) adjustments.push('min');
+            if (parsed > max || rounded > max) adjustments.push('max');
+            if (rounded !== bounded) adjustments.push('precision');
+            next = clamp(rounded, min, max);
+        }
+        const formatted = editingValue(next);
+        // Enter may immediately submit a native form. The input must already
+        // contain its confirmed value when the browser builds FormData.
+        if (reason === 'enter' && input.value !== formatted) input.value = formatted;
+        setInputText(formatted);
+        commit(next, reason, event);
+        onValueCommit?.(next, { reason, raw, adjustments, event });
     };
 
     const doStep = (direction: 1 | -1, large: boolean, event?: NumberEditChangeDetails['event']): void => {
@@ -186,17 +229,14 @@ function NumberEdit(props: NumberEditProps) {
         const next = clamp(applyPrecision(stepBase + delta, effectivePrecision), min, max);
         commit(next, 'step', event);
         if (focused) {
-            const nextSci = shouldUseScientific(next, scientific, scientificThreshold);
-            setInputText(formatEditing(next, { useScientific: nextSci, precision, decimalSeparator }));
+            setInputText(editingValue(next));
         }
     };
 
     const spinner = useSpinner({ onStep: doStep, disabled: disabled || readOnly });
 
     const handleFocus = (e: FocusEvent<HTMLInputElement>): void => {
-        const editingText = numeric == null
-            ? ""
-            : formatEditing(numeric, { useScientific: useSci, precision, decimalSeparator });
+        const editingText = editingValue(numeric);
         const input = e.currentTarget;
         if (input.value !== editingText) {
             const previousText = input.value;
@@ -213,27 +253,30 @@ function NumberEdit(props: NumberEditProps) {
             }
         }
         setFocused(true);
+        draftChanged.current = false;
         setInputText(editingText);
         onFocus?.(e);
     };
 
     const handleBlur = (e: FocusEvent<HTMLInputElement>): void => {
         setFocused(false);
-        const parsed = parseNumber(inputText, { decimalSeparator, thousandSeparator: sepNorm, parser });
-        if (parsed == null) {
-            commit(null, 'blur', e);
-        } else {
-            commit(applyPrecision(clamp(parsed, min, max), precision), 'blur', e);
-        }
+        confirmInput('blur', e);
         onBlur?.(e);
     };
 
     const handleInputChange = (e: ChangeEvent<HTMLInputElement>): void => {
+        draftChanged.current = true;
         setInputText(e.target.value);
         onChange?.(e);
     };
 
     const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>): void => {
+        const composing = e.nativeEvent.isComposing || e.nativeEvent.keyCode === 229;
+        if (composing || e.key === 'Enter') {
+            onKeyDown?.(e);
+            if (!composing && !e.defaultPrevented) confirmInput('enter', e);
+            return;
+        }
         if (!disabled && !readOnly) {
             switch (e.key) {
                 case "ArrowUp":
@@ -372,7 +415,7 @@ function NumberEdit(props: NumberEditProps) {
                 role="spinbutton"
                 inputMode="decimal"
                 autoComplete="off"
-                aria-valuenow={currentNumeric ?? undefined}
+                aria-valuenow={ariaNumeric ?? undefined}
                 aria-valuemin={Number.isFinite(min) ? min : undefined}
                 aria-valuemax={Number.isFinite(max) ? max : undefined}
                 aria-valuetext={ariaValueText}

@@ -528,6 +528,7 @@ export const libraryDependencies = [
             "rc-line-edit"
         ],
         "docs": [
+            "rc-button",
             "rc-config-provider",
             "rc-token-semantic"
         ],

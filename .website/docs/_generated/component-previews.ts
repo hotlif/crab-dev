@@ -883,24 +883,24 @@ export const componentPreviews = {
         "density": "regular",
         "designs": {
             "md3": {
-                "id": "docs/demos/range.demo.tsx",
-                "title": "范围、步长与精度",
-                "previewPath": "/components/rc-number-edit/workbench/?__wake_demo=docs%2Fdemos%2Frange.demo.tsx",
-                "workbenchPath": "/components/rc-number-edit/workbench/#/components/docs%2Fdemos%2Frange.demo.tsx",
+                "id": "docs/demos/commit.demo.tsx",
+                "title": "确认数值与调整反馈",
+                "previewPath": "/components/rc-number-edit/workbench/?__wake_demo=docs%2Fdemos%2Fcommit.demo.tsx",
+                "workbenchPath": "/components/rc-number-edit/workbench/#/components/docs%2Fdemos%2Fcommit.demo.tsx",
                 "density": "regular"
             },
             "macos": {
-                "id": "docs/demos/basic.demo.tsx",
-                "title": "基础用法",
-                "previewPath": "/components/rc-number-edit/workbench/?__wake_demo=docs%2Fdemos%2Fbasic.demo.tsx",
-                "workbenchPath": "/components/rc-number-edit/workbench/#/components/docs%2Fdemos%2Fbasic.demo.tsx",
+                "id": "docs/demos/commit.demo.tsx",
+                "title": "确认数值与调整反馈",
+                "previewPath": "/components/rc-number-edit/workbench/?__wake_demo=docs%2Fdemos%2Fcommit.demo.tsx",
+                "workbenchPath": "/components/rc-number-edit/workbench/#/components/docs%2Fdemos%2Fcommit.demo.tsx",
                 "density": "regular"
             },
             "shadcn": {
-                "id": "docs/demos/format.demo.tsx",
-                "title": "千分位与自定义格式化",
-                "previewPath": "/components/rc-number-edit/workbench/?__wake_demo=docs%2Fdemos%2Fformat.demo.tsx",
-                "workbenchPath": "/components/rc-number-edit/workbench/#/components/docs%2Fdemos%2Fformat.demo.tsx",
+                "id": "docs/demos/commit.demo.tsx",
+                "title": "确认数值与调整反馈",
+                "previewPath": "/components/rc-number-edit/workbench/?__wake_demo=docs%2Fdemos%2Fcommit.demo.tsx",
+                "workbenchPath": "/components/rc-number-edit/workbench/#/components/docs%2Fdemos%2Fcommit.demo.tsx",
                 "density": "regular"
             }
         }

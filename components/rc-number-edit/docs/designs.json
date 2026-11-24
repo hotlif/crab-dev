@@ -4,6 +4,7 @@
         "usage": "先声明范围和步长，再选择显示格式；格式化文字不改变真实数值语义。",
         "exampleDescription": "触及最小和最大值，观察步进操作与字段状态是否给出清晰反馈。",
         "demos": [
+            "commit.demo.tsx",
             "range.demo.tsx",
             "basic.demo.tsx",
             "format.demo.tsx",
@@ -16,6 +17,7 @@
         "usage": "数值、单位与步进控件对齐；不可用方向需要通过状态清楚表达。",
         "exampleDescription": "用键盘和步进区域调整数值，检查桌面输入的对齐与焦点反馈。",
         "demos": [
+            "commit.demo.tsx",
             "basic.demo.tsx",
             "format.demo.tsx",
             "range.demo.tsx",
@@ -28,6 +30,7 @@
         "usage": "显示格式可以补充单位，业务仍应使用数值进行计算和范围校验。",
         "exampleDescription": "修改带格式的数值，比较显示文字和受控结果，检查解析是否符合预期。",
         "demos": [
+            "commit.demo.tsx",
             "format.demo.tsx",
             "basic.demo.tsx",
             "range.demo.tsx",

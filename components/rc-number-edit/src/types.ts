@@ -3,9 +3,19 @@ import type { SyntheticEvent } from 'react';
 import type { ControlledValueProps } from '@crab-dev/rc-hooks';
 
 export interface NumberEditChangeDetails {
-    reason: 'step' | 'clear' | 'blur';
+    reason: 'step' | 'clear' | 'enter' | 'blur';
     /** 实际触发提交的字段、按钮或原生滚轮事件；长按重复保留启动事件。 */
     event?: SyntheticEvent<HTMLInputElement | HTMLButtonElement> | WheelEvent;
+}
+
+export type NumberEditAdjustment = 'invalid' | 'min' | 'max' | 'precision';
+
+/** 编辑文本确认时发生的转换，包含最终值未改变的确认。 */
+export interface NumberEditCommitDetails {
+    reason: 'enter' | 'blur';
+    raw: string;
+    adjustments: readonly NumberEditAdjustment[];
+    event: SyntheticEvent<HTMLInputElement>;
 }
 
 /**
@@ -40,6 +50,9 @@ type InheritedShellProps = Omit<
 >;
 
 export type NumberEditProps = InheritedShellProps & ControlledValueProps<number | null, NumberEditChangeDetails> & {
+    /** Enter 或失焦确认已修改的文本。保留字段焦点和原生表单 Enter 提交。 */
+    onValueCommit?: (value: number | null, details: NumberEditCommitDetails) => void;
+
     /** 最小值，默认 `-Infinity` */
     min?: number;
 

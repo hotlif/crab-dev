@@ -36,6 +36,41 @@ export const demos = [
         "group": null
     },
     {
+        "id": "docs/demos/commit.demo.tsx",
+        "title": "确认数值与调整反馈",
+        "description": "修改巡检告警阈值并按 Enter，或离开字段。试用超限、舍入、空值及无效文本。",
+        "learning": {
+            "components": [
+                "NumberEdit",
+                "Button"
+            ],
+            "props": [
+                "label",
+                "name",
+                "suffix",
+                "defaultValue",
+                "min",
+                "max",
+                "precision",
+                "step",
+                "largeStep",
+                "onValueCommit",
+                "type",
+                "appearance"
+            ],
+            "events": [
+                "onValueCommit"
+            ],
+            "hasState": true
+        },
+        "sourceCode": "import { css } from '@crab-dev/css';\nimport { useState } from 'react';\nimport Button from '@crab-dev/rc-button';\nimport NumberEdit, { type NumberEditAdjustment } from '../../src/index.js';\n\nexport const meta = {\n    title: '确认数值与调整反馈',\n    description: '修改巡检告警阈值并按 Enter，或离开字段。试用超限、舍入、空值及无效文本。',\n};\n\nconst form = css`display: grid; gap: 0.5rem; inline-size: min(100%, 22rem);`;\nconst adjustments: Record\u003cNumberEditAdjustment, string> = {\n    invalid: '数值格式无效',\n    min: '已调整到下限',\n    max: '已调整到上限',\n    precision: '已按一位小数舍入',\n};\n\nexport default function ConfirmNumber() {\n    const [status, setStatus] = useState('');\n    const [submitted, setSubmitted] = useState\u003cstring | null>(null);\n    return \u003cform className={form} onSubmit={event => {\n        event.preventDefault();\n        setSubmitted(String(new FormData(event.currentTarget).get('threshold') ?? ''));\n    }}>\n        \u003cNumberEdit\n            label=\"告警阈值\" name=\"threshold\" suffix=\"%\" defaultValue={30}\n            min={0} max={100} precision={1} step={0.5} largeStep={5}\n            onValueCommit={(value, detail) => setStatus(detail.adjustments.length\n                ? detail.adjustments.map(adjustment => adjustments[adjustment]).join('，')\n                : value === null ? '已确认空值' : '已确认数值')}\n        />\n        \u003coutput aria-label=\"调整反馈\">{status}\u003c/output>\n        \u003cButton type=\"submit\" appearance=\"primary\">应用阈值\u003c/Button>\n        {submitted !== null && \u003cp>表单提交值 {submitted || '空值'}\u003c/p>}\n    \u003c/form>;\n}\n",
+        "previewPath": "/components/rc-number-edit/workbench/?__wake_demo=docs%2Fdemos%2Fcommit.demo.tsx",
+        "workbenchPath": "/components/rc-number-edit/workbench/#/components/docs%2Fdemos%2Fcommit.demo.tsx",
+        "density": "regular",
+        "layout": "grid",
+        "group": null
+    },
+    {
         "id": "docs/demos/format.demo.tsx",
         "title": "千分位与自定义格式化",
         "description": "thousandSeparator 开启千分位分组；formatter/parser 自定义货币、百分比等显示（聚焦编辑时回到原始数值）",
@@ -186,6 +221,7 @@ export const documents = {
         "usage": "先声明范围和步长，再选择显示格式；格式化文字不改变真实数值语义。",
         "exampleDescription": "触及最小和最大值，观察步进操作与字段状态是否给出清晰反馈。",
         "demos": [
+            "commit.demo.tsx",
             "range.demo.tsx",
             "basic.demo.tsx",
             "format.demo.tsx",
@@ -203,6 +239,7 @@ export const documents = {
         "usage": "数值、单位与步进控件对齐；不可用方向需要通过状态清楚表达。",
         "exampleDescription": "用键盘和步进区域调整数值，检查桌面输入的对齐与焦点反馈。",
         "demos": [
+            "commit.demo.tsx",
             "basic.demo.tsx",
             "format.demo.tsx",
             "range.demo.tsx",
@@ -219,6 +256,7 @@ export const documents = {
         "usage": "显示格式可以补充单位，业务仍应使用数值进行计算和范围校验。",
         "exampleDescription": "修改带格式的数值，比较显示文字和受控结果，检查解析是否符合预期。",
         "demos": [
+            "commit.demo.tsx",
             "format.demo.tsx",
             "basic.demo.tsx",
             "range.demo.tsx",

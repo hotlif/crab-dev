@@ -8,6 +8,7 @@ type DocsTypePlaceholder = ((...args: never[]) => unknown) & {
 type HTMLDivElement = DocsTypePlaceholder;
 type HTMLInputElement = DocsTypePlaceholder;
 type NumberEditChangeDetails = DocsTypePlaceholder;
+type NumberEditCommitDetails = DocsTypePlaceholder;
 type ReactNode = DocsTypePlaceholder;
 type Ref<T0 = unknown> = DocsTypePlaceholder & { readonly __docsTypeArguments__?: readonly [T0] };
 type ScientificMode = DocsTypePlaceholder;
@@ -92,6 +93,11 @@ export interface NumberEditProps {
      * 暂无说明。
      */
     "onValueChange"?: ((value: number | null, details: NumberEditChangeDetails) => void);
+
+    /**
+     * Enter 或失焦确认已修改的文本。保留字段焦点和原生表单 Enter 提交。
+     */
+    "onValueCommit"?: (value: number | null, details: NumberEditCommitDetails) => void;
 
     /**
      * 最小值，默认 `-Infinity`

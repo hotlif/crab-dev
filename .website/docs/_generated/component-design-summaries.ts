@@ -1084,6 +1084,11 @@ export const componentDemoDesigns: Readonly<Partial<Record<string, Readonly<Part
             "macos",
             "shadcn"
         ],
+        "确认数值与调整反馈 — 修改巡检告警阈值并按 Enter，或离开字段。试用超限、舍入、空值及无效文本。": [
+            "md3",
+            "macos",
+            "shadcn"
+        ],
         "千分位与自定义格式化 — thousandSeparator 开启千分位分组；formatter/parser 自定义货币、百分比等显示（聚焦编辑时回到原始数值）": [
             "md3",
             "macos",
