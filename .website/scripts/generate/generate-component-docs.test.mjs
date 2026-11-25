@@ -231,6 +231,7 @@ export type Props = Partial<Pick<Base, "value">> & Required<Omit<Base, "value" |
     assert.equal(props[2].typeText, "<T extends string>(value: T) => Promise<T>");
     const searchable = createSearchableApiSource({ component: "Example", symbol: "Props", props });
     assert.doesNotMatch(searchable, /type T =/);
+    assert.match(searchable, /type Promise<T0 = unknown>/);
 });
 
 test("来源提取递归 re-export 和泛型参数，并保留受控互斥约束", async () => {

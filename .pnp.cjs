@@ -356,10 +356,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["@babel/helper-string-parser", [\
-      ["npm:7.29.7", {\
-        "packageLocation": "./.yarn/cache/@babel-helper-string-parser-npm-7.29.7-87998d618e-194bc0f171.zip/node_modules/@babel/helper-string-parser/",\
+      ["npm:8.1.2", {\
+        "packageLocation": "./.yarn/cache/@babel-helper-string-parser-npm-8.1.2-c0249f963b-1daf91e756.zip/node_modules/@babel/helper-string-parser/",\
         "packageDependencies": [\
-          ["@babel/helper-string-parser", "npm:7.29.7"]\
+          ["@babel/helper-string-parser", "npm:8.1.2"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -371,14 +371,21 @@ const RAW_RUNTIME_STATE =
           ["@babel/helper-validator-identifier", "npm:7.29.7"]\
         ],\
         "linkType": "HARD"\
+      }],\
+      ["npm:8.0.6", {\
+        "packageLocation": "./.yarn/cache/@babel-helper-validator-identifier-npm-8.0.6-bb33462c44-9170fe52f3.zip/node_modules/@babel/helper-validator-identifier/",\
+        "packageDependencies": [\
+          ["@babel/helper-validator-identifier", "npm:8.0.6"]\
+        ],\
+        "linkType": "HARD"\
       }]\
     ]],\
     ["@babel/parser", [\
-      ["npm:7.29.8", {\
-        "packageLocation": "./.yarn/cache/@babel-parser-npm-7.29.8-d8ac19f8b3-acc890c5e6.zip/node_modules/@babel/parser/",\
+      ["npm:8.1.2", {\
+        "packageLocation": "./.yarn/cache/@babel-parser-npm-8.1.2-546b107f17-d8ad2796c0.zip/node_modules/@babel/parser/",\
         "packageDependencies": [\
-          ["@babel/parser", "npm:7.29.8"],\
-          ["@babel/types", "npm:7.29.8"]\
+          ["@babel/parser", "npm:8.1.2"],\
+          ["@babel/types", "npm:8.1.2"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -393,12 +400,12 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["@babel/types", [\
-      ["npm:7.29.8", {\
-        "packageLocation": "./.yarn/cache/@babel-types-npm-7.29.8-3f9597fc63-be7c279f0a.zip/node_modules/@babel/types/",\
+      ["npm:8.1.2", {\
+        "packageLocation": "./.yarn/cache/@babel-types-npm-8.1.2-cf99448e66-67e1bc97bf.zip/node_modules/@babel/types/",\
         "packageDependencies": [\
-          ["@babel/helper-string-parser", "npm:7.29.7"],\
-          ["@babel/helper-validator-identifier", "npm:7.29.7"],\
-          ["@babel/types", "npm:7.29.8"]\
+          ["@babel/helper-string-parser", "npm:8.1.2"],\
+          ["@babel/helper-validator-identifier", "npm:8.0.6"],\
+          ["@babel/types", "npm:8.1.2"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -5346,7 +5353,7 @@ const RAW_RUNTIME_STATE =
       ["workspace:.website", {\
         "packageLocation": "./.website/",\
         "packageDependencies": [\
-          ["@babel/parser", "npm:7.29.8"],\
+          ["@babel/parser", "npm:8.1.2"],\
           ["@crab-dev/css", "npm:0.1.57"],\
           ["@crab-dev/rc-alert", "virtual:90b5be6768a8587d28962cdf34c2f407284baa334d978c6839b8fb183eefea01023e226e6c7ecee46fc25488ff79059142df94aac63559b53e194b888c8840b1#workspace:components/rc-alert"],\
           ["@crab-dev/rc-app-main-layout", "virtual:1b1f9f0dc19a7adf2120a5e987bae4f0f266236699b6565e33df3ed5dd6a9f43439cfc5634671e6858a7d5ddd3263caa7fe47bcc4a3f4f620295f3ab20640ca8#workspace:components/rc-app-main-layout"],\

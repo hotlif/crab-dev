@@ -21,7 +21,7 @@
         "check": "node ../scripts/check-package.mjs"
     },
     "devDependencies": {
-        "@babel/parser": "^7.29.8",
+        "@babel/parser": "^8.1.2",
         "@crab-dev/css": "0.1.57",
         "@crab-dev/rc-alert": "workspace:^",
         "@crab-dev/rc-app-main-layout": "workspace:^",
