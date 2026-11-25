@@ -65,7 +65,7 @@ export async function checkConsumer() {
         cacheFolder: join(repositoryRoot, ".yarn", "cache"),
         // Third-party package metadata fixes; no library package receives injected dependencies.
         packageExtensions: {
-            "elkjs@0.12.0": { dependencies: { "web-worker": "1.4.1" } },
+            "elkjs@0.12.1": { dependencies: { "web-worker": "1.4.1" } },
             "lucide-react@*": { dependencies: { "@types/react": "^19.3.0" } },
         },
     }, null, 4));

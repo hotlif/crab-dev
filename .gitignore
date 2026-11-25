@@ -13,6 +13,7 @@ node_modules
 .pnp.*
 !.pnp.cjs
 !.pnp.loader.mjs
+/.env.yarn
 .out
 declarations
 esm

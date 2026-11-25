@@ -49,7 +49,7 @@
         "@crab-dev/rc-config-provider": "workspace:^",
         "@crab-dev/rc-hooks": "workspace:^",
         "@crab-dev/rc-line-edit": "workspace:^",
-        "lucide-react": "^1.43.0"
+        "lucide-react": "^1.76.0"
     },
     "devDependencies": {
         "@crab-dev/rc-theme": "workspace:^",
@@ -59,10 +59,10 @@
         "@types/node": "^26.6.6",
         "@types/react": "^19.3.0",
         "@types/react-dom": "^19.3.0",
-        "prettier": "^3.9.6",
+        "prettier": "^3.10.1",
         "react": "19.3.0",
         "react-dom": "19.3.0",
-        "react-router": "^8.3.1",
+        "react-router": "^8.5.2",
         "typescript": "7.0.2"
     },
     "engines": {
