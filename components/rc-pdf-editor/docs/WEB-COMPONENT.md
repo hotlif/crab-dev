@@ -142,7 +142,7 @@ corepack yarn preview:web-component
 2. **服务器 PDF**：默认 `./samples/server-demo.pdf` 是构建时生成的两页自有样例，点击加载时通过 HTTP 从预览服务器读取。可替换为自己的 URL；失败显示字段错误并保留原文档，可以取消在途请求。需要认证时，在业务代码中向 `open()` 的 `source` 传 `{ url, headers, credentials }`。
 3. **模拟 OCR**：绘图工具栏中的“框选并模拟 OCR”图标使用 `toolbar.extraActions` 配置，点击后调用 `selectRegion()`；面板另保留当前页模式，用 `createRegionSelection()`。两者均调用 `captureRegion()` 得到真实 PNG，再交给 `scripts/web-component/simulate-ocr.ts`。模拟器延迟 900ms，返回明确标注的固定文本，文本与输入图像内容无关。无 OCR 服务、无上传。只读模式也可采集；Esc、取消按钮、文档会话或版本变化会取消任务，旧结果清空，图片 Blob URL 随结果替换释放。
 
-接入真实 OCR 时替换 `simulateOcr(image, signal)`，将 `image.blob` 交给服务，并传递 `signal`；保留结果的会话与版本检查。部署演示时保留 `index.html`、`demo.js`、`demo.css`、`samples/` 和 `pdf-editor.js` 的目录关系。业务接入仅需要 `pdf-editor.js`，其内容不包含演示控制面板或模拟器。构建和预览继续使用 Wake 0.1.45，无新增依赖。
+接入真实 OCR 时替换 `simulateOcr(image, signal)`，将 `image.blob` 交给服务，并传递 `signal`；保留结果的会话与版本检查。部署演示时保留 `index.html`、`demo.js`、`demo.css`、`samples/` 和 `pdf-editor.js` 的目录关系。业务接入仅需要 `pdf-editor.js`，其内容不包含演示控制面板或模拟器。构建和预览使用仓库锁定的 Wake 版本。
 
 演示新增的浏览器测试覆盖固定工具切换、主题/只读保持会话、URL 请求、真实 PNG、键盘框选、取消及过期结果清理、HTTP 失败与恢复。测试页面中 HTTP 返回可控样例，人工预览使用真实本地服务器。
 

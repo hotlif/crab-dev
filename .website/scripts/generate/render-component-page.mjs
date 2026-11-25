@@ -30,12 +30,13 @@ export function createApiTypePlaceholders(props, rootSymbol) {
         const sourceFile = parseTypeScript(`type ApiProperty = ${prop.typeText};`, "api-property.ts");
         const boundNames = new Set();
         visitSyntax(sourceFile, (node) => {
-            if (node.type === "TSTypeParameter") boundNames.add(node.name);
+            if (node.type === "TSTypeParameter") boundNames.add(node.name.name);
+            if (node.type === "TSMappedType") boundNames.add(node.key.name);
         });
         visitSyntax(sourceFile, (node) => {
             if (node.type === "TSTypeReference") {
                 const parts = qualifiedNameParts(node.typeName);
-                const arity = node.typeParameters?.params.length ?? 0;
+                const arity = node.typeArguments?.params.length ?? 0;
                 if (parts.length === 1 && !boundNames.has(parts[0])) {
                     aliases.set(parts[0], Math.max(aliases.get(parts[0]) ?? 0, arity));
                 } else if (parts.length > 1 && parts[0] !== "globalThis") {
