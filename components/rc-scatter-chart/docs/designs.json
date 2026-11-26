@@ -1,0 +1,20 @@
+{
+    "md3": {
+        "summary": "用主题系列色区分两条配送线路，以里程和用时观察同一距离范围内的配送差异。",
+        "usage": "用图例写清分组依据，并在两个数值轴分别给出单位，方便读者解释点与点之间的距离。",
+        "exampleDescription": "先比较两条线路在五公里左右的用时，再点击滨河线图例，单独查看城区线的分布。",
+        "demos": ["routes.demo.tsx", "sampling.demo.tsx", "selection.demo.tsx"]
+    },
+    "macos": {
+        "summary": "在紧凑的采样记录视图中保留实际时间间隔，使密集采样和较长的观测空档都能被读出。",
+        "usage": "给每次测量填写可辨认的样本名称，在点上聚焦查看时间与温度，面板宽度变化时保留读数。",
+        "exampleDescription": "比较最初两次测量之间的距离与后两次的距离，查看关闭加热八分钟后的水温。",
+        "demos": ["sampling.demo.tsx", "routes.demo.tsx", "selection.demo.tsx"]
+    },
+    "shadcn": {
+        "summary": "用中性坐标衬托散点的位置，把需要跟进的样本详情放在图下，方便继续读取记录。",
+        "usage": "为每个包裹填写编号，在选择回调中使用原始重量和耗时展示完整的处理记录。",
+        "exampleDescription": "找到耗时最长的包裹，点击或用键盘激活该样本，核对图下显示的包裹编号和重量。",
+        "demos": ["selection.demo.tsx", "routes.demo.tsx", "sampling.demo.tsx"]
+    }
+}

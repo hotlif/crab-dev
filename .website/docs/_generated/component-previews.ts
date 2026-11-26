@@ -1085,6 +1085,36 @@ export const componentPreviews = {
             }
         }
     },
+    "rc-scatter-chart": {
+        "id": "docs/demos/routes.demo.tsx",
+        "title": "比较两条配送线路",
+        "previewPath": "/components/rc-scatter-chart/workbench/?__wake_demo=docs%2Fdemos%2Froutes.demo.tsx",
+        "workbenchPath": "/components/rc-scatter-chart/workbench/#/components/docs%2Fdemos%2Froutes.demo.tsx",
+        "density": "regular",
+        "designs": {
+            "md3": {
+                "id": "docs/demos/routes.demo.tsx",
+                "title": "比较两条配送线路",
+                "previewPath": "/components/rc-scatter-chart/workbench/?__wake_demo=docs%2Fdemos%2Froutes.demo.tsx",
+                "workbenchPath": "/components/rc-scatter-chart/workbench/#/components/docs%2Fdemos%2Froutes.demo.tsx",
+                "density": "regular"
+            },
+            "macos": {
+                "id": "docs/demos/sampling.demo.tsx",
+                "title": "保留不规则采样间隔",
+                "previewPath": "/components/rc-scatter-chart/workbench/?__wake_demo=docs%2Fdemos%2Fsampling.demo.tsx",
+                "workbenchPath": "/components/rc-scatter-chart/workbench/#/components/docs%2Fdemos%2Fsampling.demo.tsx",
+                "density": "regular"
+            },
+            "shadcn": {
+                "id": "docs/demos/selection.demo.tsx",
+                "title": "选择包裹查看处理记录",
+                "previewPath": "/components/rc-scatter-chart/workbench/?__wake_demo=docs%2Fdemos%2Fselection.demo.tsx",
+                "workbenchPath": "/components/rc-scatter-chart/workbench/#/components/docs%2Fdemos%2Fselection.demo.tsx",
+                "density": "regular"
+            }
+        }
+    },
     "rc-segmented": {
         "id": "docs/demos/basic.demo.tsx",
         "title": "基础用法",

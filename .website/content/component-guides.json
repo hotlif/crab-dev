@@ -1583,6 +1583,39 @@
             }
         }
     },
+    "rc-scatter-chart": {
+        "definition": "ScatterChart 用每个观测对象的两个数值决定点在图上的横向和纵向位置。读者可以沿坐标轴读取一条记录，也可以观察整组数据是否集中在某个区域。",
+        "useWhen": [
+            "需要探索两个数值指标之间的关系，例如距离与送达用时。",
+            "需要比较不同组别的分布，或查找明显偏离同类记录的观测点。"
+        ],
+        "avoidWhen": [
+            "如果要追踪同一指标随时间的变化，折线图可以用相邻数据点之间的连线呈现过程。"
+        ],
+        "essentials": [
+            "先为两个轴分别选定指标和单位，所有系列按相同口径提供坐标。",
+            "让每个点对应一条观测记录，保留负值和零值各自的含义。",
+            "给分组使用容易辨认的系列名，读者就能借助图例单独查看每组分布。"
+        ],
+        "accessibility": [
+            "用 aria-label 说明所比较的两个指标，必要时补上单位和观测范围。",
+            "键盘聚焦数据点可以查看观测值，读屏用户也可通过数据表按行核对两个坐标。"
+        ],
+        "designSystems": {
+            "md3": {
+                "basis": "参考 Material Web 的语义色角色，让轴文字与网格位于不同视觉层级，系列点使用库的图表颜色。",
+                "references": ["https://material-web.dev/theming/color/"]
+            },
+            "macos": {
+                "basis": "参考 Apple HIG Charts 对点标记的说明，使用位置表示两个属性，让单项读数和点群分布都可辨认。",
+                "references": ["https://developer.apple.com/design/human-interface-guidelines/charts"]
+            },
+            "shadcn": {
+                "basis": "参考 shadcn/ui Chart 的图例和提示组织方式，在读数中保留系列名及坐标值。",
+                "references": ["https://ui.shadcn.com/docs/components/chart"]
+            }
+        }
+    },
     "rc-segmented": {
         "definition": "Segmented 把少量相关选项并排放在一个整体中，用于切换视图、筛选范围或选择一个模式。所有选项应属于同一维度，并能在有限宽度内清楚展示。",
         "useWhen": [
