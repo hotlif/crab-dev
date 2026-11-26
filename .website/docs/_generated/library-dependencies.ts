@@ -381,6 +381,20 @@ export const libraryDependencies = [
         ]
     },
     {
+        "slug": "rc-flex",
+        "title": "Flex 弹性布局",
+        "family": "base",
+        "production": [
+            "rc-auto-sizer",
+            "rc-virtual"
+        ],
+        "docs": [
+            "rc-card",
+            "rc-tag"
+        ],
+        "token": []
+    },
+    {
         "slug": "rc-flow-diagram",
         "title": "FlowDiagram 流程图",
         "family": "extension",

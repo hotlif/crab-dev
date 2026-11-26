@@ -1,0 +1,13 @@
+{
+    "heroDemo": "virtual-cards.demo.tsx",
+    "groups": [
+        {
+            "title": "普通布局",
+            "demos": ["wrap.demo.tsx"]
+        },
+        {
+            "title": "虚拟滚动",
+            "demos": ["virtual-list.demo.tsx", "virtual-cards.demo.tsx"]
+        }
+    ]
+}

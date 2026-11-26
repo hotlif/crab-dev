@@ -1,0 +1,74 @@
++++
+title = "Flex 弹性布局"
+description = "沿主轴排列和对齐子元素，为大量等高记录或卡片按可见行渲染。"
+kind = "component"
+status = "experimental"
++++
+
+{/* THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY. */}
+
+import ComponentDemos from "../site/componentDemos.js";
+import ComponentDesignGuide, { DesignIntroduction, DesignExampleIntroduction } from "../site/componentDesignGuide.js";
+import { demos, documents, guide } from "../_generated/rc-flex.js";
+
+# Flex 弹性布局
+
+<div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-flex</div>
+
+## 设计与用法
+
+<DesignIntroduction documents={documents} />
+
+<div id="基础示例" data-docs-example-anchor /><div id="全部示例" data-docs-example-anchor />
+
+## 示例
+
+<div hidden aria-hidden="true" data-docs-search-index="demos">
+
+##### 让地图图层标签自然换行 — 标签按图层的阅读顺序排列，宽度不足时折到下一行。
+
+##### 按行浏览一万条档案 — 聚焦列表并按 End 查看最后一条档案，按 Home 回到起点。
+
+##### 按容器宽度排列图幅卡片 — 每张图幅宽 152 像素。缩窄窗口时每行容纳的图幅变少，纵向滚动可继续浏览。
+
+</div>
+
+<DesignExampleIntroduction documents={documents} />
+
+<ComponentDemos demos={demos} documents={documents} />
+
+## 使用说明
+
+<ComponentDesignGuide guide={guide} documents={documents} />
+
+## 常见问题
+
+### 怎样让虚拟目录中的每个条目独占一行？
+
+省略 virtual.itemWidth，每个条目就会占满一行。itemHeight 仍需给出，使组件能把滚动位置换算为可见索引。
+
+### 滚出视口或改变卡片列数后，如何保留条目内的编辑内容？
+
+将编辑状态按稳定的业务 ID 存在列表外，并用相同 ID 作为 getItemKey 的返回值。离开渲染范围的条目会卸载，换列或数据重排时跨行的卡片也可能重新挂载，此时可按 ID 恢复草稿。
+
+## API
+
+<API source="../_generated_api/rc-flex.ts" symbol="FlexLayoutProps" component="Flex 普通布局" />
+
+<details data-docs-native-props>
+<summary>Flex 普通布局 继承的原生属性（279 项）</summary>
+
+<API source="../_generated_api/rc-flex-native.ts" symbol="FlexLayoutPropsNativeAttributes" component="Flex 普通布局 继承的原生属性" />
+
+</details>
+
+<API source="../_generated_api/rc-flex-FlexVirtualProps.ts" symbol="FlexVirtualProps" component="Flex 虚拟布局" />
+
+<details data-docs-native-props>
+<summary>Flex 虚拟布局 继承的原生属性（277 项）</summary>
+
+<API source="../_generated_api/rc-flex-FlexVirtualProps-native.ts" symbol="FlexVirtualPropsNativeAttributes" component="Flex 虚拟布局 继承的原生属性" />
+
+</details>
+
+<API source="../_generated_api/rc-flex-FlexVirtualOptions.ts" symbol="FlexVirtualOptions" component="虚拟条目配置" />

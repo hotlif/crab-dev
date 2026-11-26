@@ -1,0 +1,20 @@
+{
+    "md3": {
+        "summary": "将一组主题标签放在同一行，或让等高卡片按当前内容区的宽度重新分行。",
+        "usage": "为有共同用途的标签设置一致间距，卡片较多时给集合分配明确高度并启用虚拟滚动。",
+        "exampleDescription": "缩窄窗口观察卡片列数，再沿纵向滚动读取后续图幅。",
+        "demos": ["virtual-cards.demo.tsx", "wrap.demo.tsx", "virtual-list.demo.tsx"]
+    },
+    "macos": {
+        "summary": "在桌面窗口或侧栏组织一列档案记录，窗口变化时按可用宽度排列内容。",
+        "usage": "在固定高度的浏览区中保持每行记录等高，记录编号和描述应能在紧凑窗口内读全。",
+        "exampleDescription": "聚焦档案列表并用 Page Down 翻页，按 End 查看末条编号。",
+        "demos": ["virtual-list.demo.tsx", "virtual-cards.demo.tsx", "wrap.demo.tsx"]
+    },
+    "shadcn": {
+        "summary": "用弹性行组织内容标签，用固定的行列间距区分一组相邻卡片。",
+        "usage": "允许宽度不足的标签自然换行。展示大量条目时，用等高单元保持滚动中的排列紧凑。",
+        "exampleDescription": "先缩窄标签组查看换行，再在图幅集合中观察最后一行的水平对齐。",
+        "demos": ["wrap.demo.tsx", "virtual-cards.demo.tsx", "virtual-list.demo.tsx"]
+    }
+}

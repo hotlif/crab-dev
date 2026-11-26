@@ -923,6 +923,39 @@
             }
         }
     },
+    "rc-flex": {
+        "definition": "Flex 可以排列和对齐一组子元素。开启虚拟模式后，它会按容器尺寸确定行列数，只为可见行及其附近的条目调用渲染函数。",
+        "useWhen": [
+            "标签、工具项需要沿同一方向排列，并在宽度不足时自然换行。",
+            "滚动区域中有大量等高记录，或有固定宽高、需要随容器重新分行的卡片。"
+        ],
+        "avoidWhen": [
+            "文本行数或媒体加载会改变每项高度时，使用普通布局让浏览器根据内容排版。"
+        ],
+        "essentials": [
+            "普通布局由 children 提供内容，用 wrap、align 和 justify 控制排布。",
+            "为虚拟容器提供可测量的宽高，使用非负像素数声明 gap，并将条目内容安排在指定的 itemHeight 内。",
+            "getItemKey 返回记录自身的稳定标识。条目移出渲染范围后会卸载，需持续保存的状态由外层管理。"
+        ],
+        "accessibility": [
+            "源码中的阅读顺序应符合用户完成任务的顺序，尤其要核对反向排列时的 Tab 顺序。",
+            "为虚拟滚动区域提供可辨识的名称，聚焦后可用方向键逐行滚动或用 Home 和 End 访问首尾。"
+        ],
+        "designSystems": {
+            "md3": {
+                "basis": "参考 Material 3 根据可用空间调整布局的原则，本库在 Web 容器内按卡宽和间距确定每行数量。",
+                "references": ["https://developer.android.com/codelabs/adaptive-material-guidance"]
+            },
+            "macos": {
+                "basis": "参考 Apple HIG 对窗口布局适应性的说明，应用可以在窗口缩放时让内容重新排列。",
+                "references": ["https://developer.apple.com/design/human-interface-guidelines/layout"]
+            },
+            "shadcn": {
+                "basis": "参考 shadcn/ui 卡片的内容组合方式，卡片负责自身标题与正文，Flex 计算外层间距和行数。",
+                "references": ["https://ui.shadcn.com/docs/components/base/card"]
+            }
+        }
+    },
     "rc-flow-diagram": {
         "definition": "FlowDiagram 用节点和连线表达步骤、依赖或系统关系，可结合自动布局与边动画。它负责关系图的渲染与交互，业务仍要定义节点类型、连接规则和保存格式。",
         "useWhen": [
