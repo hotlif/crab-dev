@@ -1,0 +1,32 @@
++++
+title = "LineChart 折线图"
+description = "沿有序类目比较一个或多个系列的趋势，保留缺失观测形成的断点"
+kind = "component"
+status = "experimental"
++++
+
+# LineChart 折线图
+
+LineChart 在 WebGL 画布上标出观测值，用直线连接同一系列中相邻的有效数据点。它适合阅读等间隔采样的变化，例如逐日气温或每周订单量。
+
+[打开组件工作台](/components/rc-line-chart/workbench/)
+
+## 准备数据
+
+`categories` 决定横轴的顺序，`series[i].data[j]` 对应第 `j` 个类目。各类目在横轴上等距排列。时间序列应先按采样间隔补齐类目，再以 `null` 标记缺测。举例来说，`[3, 0, null, 4]` 的第二个点落在零刻度，第三个位置出现断点，最后一个位置保留独立数据点。
+
+最多显示八个系列。使用 `series[].name` 标明指标或测量对象，使用 `aria-label` 说明整幅图的内容和时间范围。默认配色跟随最近的主题，`series[].color` 可以指定单个系列的颜色。
+
+## 容器与读数
+
+使用 `width="auto"` 时，父容器需要提供可测量的宽度。`height` 指定绘图区的高度。多系列图可以通过图例切换可见曲线。悬停类目或用键盘聚焦数据点可查看数值。辅助技术还可以从 HTML 表格读取各类目和系列的数据。
+
+用 `referenceLines` 标注目标或阈值，参考值会计入纵轴范围。`formatValue` 可为读数加上单位，`formatAxisValue` 可单独缩写刻度。业务需要查看某条记录时，可以通过 `onPointClick` 取得所选点的类目、系列和原始数值。
+
+## 代码演示
+
+<Demos glob="./demos/*.demo.tsx" columns={2} />
+
+## API
+
+<API source="../src/types.ts" symbol="LineChartProps" component="LineChart" />

@@ -121,6 +121,11 @@ export const componentDesignSummaries: Readonly<Partial<Record<string, Record<De
         "macos": "为桌面工作区提供尺寸调整和键盘行为基础，保持事件逻辑与控件外观分离。",
         "shadcn": "提供可组合的交互 Hook，供中性界面中的控件复用事件与测量逻辑。"
     },
+    "rc-line-chart": {
+        "md3": "用当前表面的系列色区分最高与最低气温，在同一个坐标系里读取每天的温差。",
+        "macos": "把时间和单位直接放在测量数据旁，折线中断的位置提示读者哪些时段缺少读数。",
+        "shadcn": "用简洁的坐标和一条带文字的目标线呈现请求延迟，方便读者直接找到超过阈值的时段。"
+    },
     "rc-line-edit": {
         "md3": "描边字段使用浮动标签，填充字段使用上置标签，说明和错误位于字段下方。",
         "macos": "以紧凑桌面输入框、行首右对齐的标签和明确焦点反馈承载单行编辑。",
@@ -962,6 +967,23 @@ export const componentDemoDesigns: Readonly<Partial<Record<string, Readonly<Part
             "shadcn"
         ],
         "Use Key Down — Use Key Down 示例": [
+            "md3",
+            "macos",
+            "shadcn"
+        ]
+    },
+    "rc-line-chart": {
+        "比较一周的最高与最低气温 — 悬停同一天读取两条曲线的温度，点击图例可单独观察其中一个系列。": [
+            "md3",
+            "macos",
+            "shadcn"
+        ],
+        "区分零值和缺测 — 凌晨四点测得零度，六点缺测。零度保留数据点，六点处断开连线。": [
+            "md3",
+            "macos",
+            "shadcn"
+        ],
+        "检查超过目标的采样点 — 以 200 ms 为延迟目标，点击数据点或用键盘激活后，在图外读取采样记录。": [
             "md3",
             "macos",
             "shadcn"

@@ -1,0 +1,56 @@
++++
+title = "LineChart 折线图"
+description = "连接按顺序采集的数据点，查看趋势并比较多组数据在同一时刻的数值。"
+kind = "component"
+status = "experimental"
++++
+
+{/* THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY. */}
+
+import ComponentDemos from "../site/componentDemos.js";
+import ComponentDesignGuide, { DesignIntroduction, DesignExampleIntroduction } from "../site/componentDesignGuide.js";
+import { demos, documents, guide } from "../_generated/rc-line-chart.js";
+
+# LineChart 折线图
+
+<div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-line-chart</div>
+
+## 设计与用法
+
+<DesignIntroduction documents={documents} />
+
+<div id="基础示例" data-docs-example-anchor /><div id="全部示例" data-docs-example-anchor />
+
+## 示例
+
+<div hidden aria-hidden="true" data-docs-search-index="demos">
+
+##### 比较一周的最高与最低气温 — 悬停同一天读取两条曲线的温度，点击图例可单独观察其中一个系列。
+
+##### 区分零值和缺测 — 凌晨四点测得零度，六点缺测。零度保留数据点，六点处断开连线。
+
+##### 检查超过目标的采样点 — 以 200 ms 为延迟目标，点击数据点或用键盘激活后，在图外读取采样记录。
+
+</div>
+
+<DesignExampleIntroduction documents={documents} />
+
+<ComponentDemos demos={demos} documents={documents} />
+
+## 使用说明
+
+<ComponentDesignGuide guide={guide} documents={documents} />
+
+## 常见问题
+
+### 两次采样的时间间隔不同，该如何整理横轴？
+
+横轴按类目等距排列。先按固定间隔生成完整的时间类目，再把各次读数放回对应时段，缺测位置填 null。
+
+### 怎样给读屏用户说明这组数据？
+
+用 aria-label 说明指标和时间范围，用系列名称标明测量对象。组件的数据表使用这些文字，formatValue 可为数值补充单位。
+
+## API
+
+<API source="../_generated_api/rc-line-chart.ts" symbol="LineChartProps" component="LineChart" />

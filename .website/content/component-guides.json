@@ -1055,6 +1055,39 @@
             }
         }
     },
+    "rc-line-chart": {
+        "definition": "LineChart 按类目顺序连接同一系列的观测值，展示上升、回落和转折。多条折线共用坐标轴，方便查看各系列在同一时间或阶段的差距。",
+        "useWhen": [
+            "需要查看每日、每周等固定间隔内指标的变化趋势。",
+            "有多个单位相同的系列，需要逐个时段比较它们之间的差距。"
+        ],
+        "avoidWhen": [
+            "类别之间没有自然顺序时，使用柱状图比较大小更容易理解。"
+        ],
+        "essentials": [
+            "先按时间或阶段排列类目，再把每个系列的数值对齐到相同下标。",
+            "漏采时用 null 占位，使折线留出断点。实测值为零时保留数字 0。",
+            "使用参考线标出目标及其单位，帮助读者判断哪些时段达到目标。"
+        ],
+        "accessibility": [
+            "为图表提供包含指标和时段的名称，给每个系列使用可独立理解的名称。",
+            "用键盘聚焦数据点可取得对应读数，读屏用户也可以按行列浏览数据表。"
+        ],
+        "designSystems": {
+            "md3": {
+                "basis": "沿用 Material Web 的表面、文字与状态颜色角色，通过库的语义图表色分配系列颜色。",
+                "references": ["https://material-web.dev/theming/color/"]
+            },
+            "macos": {
+                "basis": "参照 Apple HIG Charts 的折线与点标记组合，让读者既能看清变化趋势，也能定位个别观测值。",
+                "references": ["https://developer.apple.com/design/human-interface-guidelines/charts"]
+            },
+            "shadcn": {
+                "basis": "参考 shadcn/ui Chart 的系列命名、图例和提示组织方式，用本库的图表令牌呈现各系列。",
+                "references": ["https://ui.shadcn.com/docs/components/chart"]
+            }
+        }
+    },
     "rc-line-edit": {
         "definition": "LineEdit 是带标签、辅助文字和状态反馈的单行文本输入，适合名称、邮箱、搜索词等短内容。它支持填充与描边外观，但两者共享相同的输入语义。",
         "useWhen": [

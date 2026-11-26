@@ -47,6 +47,7 @@
         "@crab-dev/rc-flow-diagram": "workspace:^",
         "@crab-dev/rc-form": "workspace:^",
         "@crab-dev/rc-hooks": "workspace:^",
+        "@crab-dev/rc-line-chart": "workspace:^",
         "@crab-dev/rc-line-edit": "workspace:^",
         "@crab-dev/rc-masonry": "workspace:^",
         "@crab-dev/rc-menu": "workspace:^",

@@ -17,6 +17,13 @@ export const layoutPreviews = {
 };
 
 export const dataPreviews = {
+    "rc-line-chart": <>
+        <path d="M37 30v94h170" className="cc-stroke cc-border" />
+        <path d="m49 99 39-36 39 14 39-38 30 10" className="cc-stroke cc-brand cc-thick" />
+        {[[49, 99], [88, 63], [127, 77], [166, 39], [196, 49]].map(([x, y]) =>
+            <circle key={x} cx={x} cy={y} r={4} className="cc-brand" />,
+        )}
+    </>,
     "rc-bar-chart": <><path d="M37 30v94h170" className="cc-stroke cc-border" />{[42, 68, 91, 58].map((h, i) => <Box key={i} x={52 + i * 39} y={124 - h} w={25} h={h} tone={i === 2 ? "brand" : "soft"} r={3} />)}</>,
     "rc-canvas": <><Box x={28} y={21} w={184} h={113} /><circle cx={166} cy={67} r={23} className="cc-soft" /><Box x={58} y={55} w={73} h={48} tone="brand" /><path d="M53 50h83v58H53z" className="cc-stroke cc-brand" />{[[53, 50], [136, 50], [53, 108], [136, 108]].map(([x, y]) => <Box key={`${x}-${y}`} x={x - 3} y={y - 3} w={6} h={6} r={0} />)}</>,
     "rc-flow-diagram": <><path d="M120 52v23H60v24m60-24h60v24" className="cc-stroke cc-brand" /><Box x={84} y={22} w={72} h={30} tone="brand" /><Label y={42} tone="on-brand">开始</Label><Box x={25} y={99} w={70} h={31} tone="soft" /><Label x={60} y={120} tone="brand">审核</Label><Box x={145} y={99} w={70} h={31} /><Label x={180} y={120}>结束</Label></>,

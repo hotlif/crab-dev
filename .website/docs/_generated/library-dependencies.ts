@@ -433,6 +433,21 @@ export const libraryDependencies = [
         "token": []
     },
     {
+        "slug": "rc-line-chart",
+        "title": "LineChart 折线图",
+        "family": "extension",
+        "production": [
+            "rc-auto-sizer",
+            "rc-canvas",
+            "rc-config-provider",
+            "rc-empty"
+        ],
+        "docs": [],
+        "token": [
+            "rc-token-semantic"
+        ]
+    },
+    {
         "slug": "rc-line-edit",
         "title": "LineEdit 单行输入框",
         "family": "base",

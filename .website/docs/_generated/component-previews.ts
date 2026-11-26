@@ -725,6 +725,36 @@ export const componentPreviews = {
             }
         }
     },
+    "rc-line-chart": {
+        "id": "docs/demos/daily-range.demo.tsx",
+        "title": "比较一周的最高与最低气温",
+        "previewPath": "/components/rc-line-chart/workbench/?__wake_demo=docs%2Fdemos%2Fdaily-range.demo.tsx",
+        "workbenchPath": "/components/rc-line-chart/workbench/#/components/docs%2Fdemos%2Fdaily-range.demo.tsx",
+        "density": "regular",
+        "designs": {
+            "md3": {
+                "id": "docs/demos/daily-range.demo.tsx",
+                "title": "比较一周的最高与最低气温",
+                "previewPath": "/components/rc-line-chart/workbench/?__wake_demo=docs%2Fdemos%2Fdaily-range.demo.tsx",
+                "workbenchPath": "/components/rc-line-chart/workbench/#/components/docs%2Fdemos%2Fdaily-range.demo.tsx",
+                "density": "regular"
+            },
+            "macos": {
+                "id": "docs/demos/missing-data.demo.tsx",
+                "title": "区分零值和缺测",
+                "previewPath": "/components/rc-line-chart/workbench/?__wake_demo=docs%2Fdemos%2Fmissing-data.demo.tsx",
+                "workbenchPath": "/components/rc-line-chart/workbench/#/components/docs%2Fdemos%2Fmissing-data.demo.tsx",
+                "density": "regular"
+            },
+            "shadcn": {
+                "id": "docs/demos/reference-line.demo.tsx",
+                "title": "检查超过目标的采样点",
+                "previewPath": "/components/rc-line-chart/workbench/?__wake_demo=docs%2Fdemos%2Freference-line.demo.tsx",
+                "workbenchPath": "/components/rc-line-chart/workbench/#/components/docs%2Fdemos%2Freference-line.demo.tsx",
+                "density": "regular"
+            }
+        }
+    },
     "rc-line-edit": {
         "id": "docs/demos/field-states.demo.tsx",
         "title": "标签、边界与状态",
