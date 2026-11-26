@@ -1,0 +1,13 @@
+{
+    "heroDemo": "book-sales.demo.tsx",
+    "groups": [
+        {
+            "title": "读取构成",
+            "demos": ["book-sales.demo.tsx", "storage.demo.tsx"]
+        },
+        {
+            "title": "查看分类明细",
+            "demos": ["requests.demo.tsx"]
+        }
+    ]
+}

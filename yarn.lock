@@ -1363,6 +1363,31 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@crab-dev/rc-pie-chart@workspace:^, @crab-dev/rc-pie-chart@workspace:components/rc-pie-chart":
+  version: 0.0.0-use.local
+  resolution: "@crab-dev/rc-pie-chart@workspace:components/rc-pie-chart"
+  dependencies:
+    "@crab-dev/css": "npm:0.1.57"
+    "@crab-dev/rc-auto-sizer": "workspace:^"
+    "@crab-dev/rc-canvas": "workspace:^"
+    "@crab-dev/rc-config-provider": "workspace:^"
+    "@crab-dev/rc-empty": "workspace:^"
+    "@crab-dev/rc-token-semantic": "workspace:^"
+    "@crab-dev/standards-typescript-preset": "workspace:^"
+    "@crab-dev/wake": "npm:0.1.57"
+    "@types/node": "npm:^26.6.6"
+    "@types/react": "npm:^19.3.0"
+    "@types/react-dom": "npm:^19.3.0"
+    react: "npm:19.3.0"
+    react-dom: "npm:19.3.0"
+    react-router: "npm:^8.5.2"
+    typescript: "npm:7.0.2"
+  peerDependencies:
+    react: ^19.2.0
+    react-dom: ^19.2.0
+  languageName: unknown
+  linkType: soft
+
 "@crab-dev/rc-prose@workspace:^, @crab-dev/rc-prose@workspace:components/rc-prose":
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-prose@workspace:components/rc-prose"
@@ -2069,6 +2094,7 @@ __metadata:
     "@crab-dev/rc-number-edit": "workspace:^"
     "@crab-dev/rc-pagination": "workspace:^"
     "@crab-dev/rc-pdf-editor": "workspace:^"
+    "@crab-dev/rc-pie-chart": "workspace:^"
     "@crab-dev/rc-prose": "workspace:^"
     "@crab-dev/rc-radio": "workspace:^"
     "@crab-dev/rc-realm": "workspace:^"

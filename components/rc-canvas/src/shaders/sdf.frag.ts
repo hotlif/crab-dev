@@ -1,17 +1,18 @@
 /**
- * SDF 片元着色器：圆角矩形（u_mode=0）和圆形（u_mode=1）。
+ * SDF 片元着色器：圆角矩形（0）、圆/圆环（1）以及小于等于半圈（2）和大于半圈（3）的扇区。
  *
  * - fwidth(dist) 计算屏幕空间导数，smoothstep 在 ±1px 内渐变，AA 随缩放自适应。
  * - 虚线（仅 sdf-rect）：在 stroke 带内以周长累积偏移 s 对 dash+gap 取模判断显隐。
  */
 export const SDF_FRAG = /* glsl */ `#version 300 es
-precision mediump float;
+precision highp float;
 
 uniform vec4 u_fill;
 uniform vec4 u_stroke;
 uniform float u_stroke_width;
 uniform vec2 u_size;
 uniform float u_radius;
+uniform vec4 u_edge_normals;
 uniform int u_mode;
 uniform float u_dash_length;
 uniform float u_gap_length;
@@ -33,10 +34,17 @@ void main() {
     vec2 p = (v_uv - 0.5) * u_size;
 
     float dist;
-    if (u_mode == 1) {
-        dist = sdCircle(p, half_size.x);
-    } else {
+    if (u_mode == 0) {
         dist = sdRoundedBox(p, half_size, u_radius);
+    } else {
+        dist = sdCircle(p, half_size.x);
+        if (u_radius > 0.0) dist = max(dist, u_radius - length(p));
+        if (u_mode >= 2) {
+            float start = dot(p, u_edge_normals.xy);
+            float end = dot(p, u_edge_normals.zw);
+            // A short arc intersects the two half-planes. A long arc takes their union.
+            dist = max(dist, u_mode == 2 ? max(start, end) : min(start, end));
+        }
     }
 
     // The rounded-box medial axis can have zero derivatives in a 2x2 fragment

@@ -6,6 +6,8 @@ import type { ColorRGBA } from '../math/color.js';
 import { invertMat3, applyMat3, computeCircleAABB } from '../math/matrix.js';
 import type { CanvasInteractiveProps } from '../types.js';
 
+const FULL_TURN = Math.PI * 2;
+
 export interface CircleProps extends CanvasInteractiveProps {
     /** 圆心 x（px） */
     cx: number;
@@ -13,6 +15,12 @@ export interface CircleProps extends CanvasInteractiveProps {
     cy: number;
     /** 半径（px） */
     r: number;
+    /** 内半径（px），默认 0。大于 0 时保留透明圆孔。 */
+    innerRadius?: number;
+    /** 起始角（弧度），0 向右，沿画布顺时针递增。默认 0。 */
+    startAngle?: number;
+    /** 结束角（弧度），默认从起始角画一整圈。小于或等于起始角时为空。 */
+    endAngle?: number;
     fill?: string;
     stroke?: string;
     strokeWidth?: number;
@@ -22,6 +30,9 @@ function Circle({
     cx,
     cy,
     r,
+    innerRadius = 0,
+    startAngle = 0,
+    endAngle,
     fill = 'transparent',
     stroke = 'transparent',
     strokeWidth = 0,
@@ -40,9 +51,9 @@ function Circle({
     const { revision: paletteRevision } = use(CanvasPaletteContext);
     // 可变实例状态 ref：持有注册 id，跨渲染不触发 rerender
     const cmdIdRef = useRef<number | null>(null);
-    // 可变实例状态 ref：实时持有 worldMatrix，供 containsPoint 闭包读取
-    const worldMatrixRef = useRef<Float32Array>(ctx.parentMatrix);
-    worldMatrixRef.current = ctx.parentMatrix;
+    const hole = Math.max(0, innerRadius);
+    const sweep = endAngle === undefined ? FULL_TURN : Math.min(FULL_TURN, endAngle - startAngle);
+    const start = startAngle % FULL_TURN;
 
     const buildCmd = () => {
         // 读取 revision 让 CSS 变量 / 系统色在主题变化时重新解析。
@@ -60,6 +71,7 @@ function Circle({
         return {
             kind: 'sdf-circle' as const,
             cx, cy, r,
+            innerRadius: hole, startAngle: start, sweep,
             fill: appliedFill,
             stroke: appliedStroke,
             strokeWidth,
@@ -73,12 +85,16 @@ function Circle({
         zIndexPath: [...ctx.parentZIndexPath, zIndex],
         parentMatrix: ctx.parentMatrix,
         containsPoint: (canvasX: number, canvasY: number): boolean => {
-            const inv = invertMat3(worldMatrixRef.current);
+            const inv = invertMat3(ctx.parentMatrix);
             if (!inv) return false;
             const [lx, ly] = applyMat3(inv, canvasX, canvasY);
             const dx = lx - cx;
             const dy = ly - cy;
-            return dx * dx + dy * dy <= r * r;
+            const distance = Math.hypot(dx, dy);
+            if (!(hole < r && distance >= hole && distance <= r && sweep > 0)) return false;
+            if (sweep >= FULL_TURN) return true;
+            const offset = (Math.atan2(dy, dx) - start) % FULL_TURN;
+            return (offset < 0 ? offset + FULL_TURN : offset) < sweep;
         },
         cursor,
         onClick,
@@ -91,14 +107,13 @@ function Circle({
 
     const needsHit = draggable || !!onClick || !!onMouseEnter || !!onMouseLeave || !!cursor;
 
-    // mount 时注册，unmount 时注销（needsHit 视为静态配置）
+    // 注册 id 在 props 更新时保持稳定，命中区域和处理函数随图元同步更新。
     useEffect(() => {
         const id = ctx.register(buildCmd());
         cmdIdRef.current = id;
-        if (needsHit) ctx.registerHit(id, buildHitEntry());
         return () => {
             ctx.unregister(id);
-            if (needsHit) ctx.unregisterHit(id);
+            ctx.unregisterHit(id);
             cmdIdRef.current = null;
         };
     }, []);
@@ -108,6 +123,7 @@ function Circle({
         if (cmdIdRef.current === null) return;
         ctx.update(cmdIdRef.current, buildCmd());
         if (needsHit) ctx.updateHit(cmdIdRef.current, buildHitEntry());
+        else ctx.unregisterHit(cmdIdRef.current);
     });
 
     return null;

@@ -1,0 +1,36 @@
++++
+title = "PieChart 饼图"
+description = "用扇区表示各类别占可见总量的比例，支持圆环、图例筛选与扇区明细"
+kind = "component"
+status = "experimental"
++++
+
+# PieChart 饼图
+
+饼图适合回答“这一总量由哪些部分组成”。例如一天售出 240 本书，其中 120 本是文学类，文学类扇区就占半个圆。各项应使用同一单位、同一统计范围，且互不重叠。
+
+[打开组件工作台](/components/rc-pie-chart/workbench/)
+
+## 数据与占比
+
+`data` 按顺序提供各项的 `name` 和 `value`。直接传入销售册数、容量或件数即可，组件按可见项的合计计算占比。只有有限正数会绘成扇区。图例可隐藏和恢复类别，剩余扇区保留各自的颜色，再次填满整个圆。
+
+指定 `formatValue` 可为原始读数补上单位。用 `aria-label` 写明统计对象和时间范围。辅助技术可以通过 HTML 数据表读取全部原始行，当前未参与绘图的项以“—”表示占比。默认配色取自最近主题，单个类别可用 `data[i].color` 指定颜色。
+
+## 圆环与尺寸
+
+默认绘制实心饼图。`innerRadiusRatio={0.6}` 表示内圆半径为外圆的 60%，可用范围为 0 到 0.9。各类别的占比仍由扇区角度表示。
+
+在面板中使用 `width="auto"`，图形会随父容器的可用宽度调整。`height` 控制绘图区高度，图例另占空间。默认绘图区为 600 × 320 像素。
+
+## 读取扇区
+
+悬停或用键盘聚焦扇区，可以读取名称、原始值和当前占比。焦点在扇区内时，用方向键移动，Home 和 End 跳到首尾，Escape 关闭提示。通过 `onSliceClick` 处理点击、Enter 和空格键激活。回调中的 `index` 对应原始 `data` 下标，适合取回该条业务记录。`percentage` 的单位是百分数，半个圆对应 `50`。
+
+## 代码演示
+
+<Demos glob="./demos/*.demo.tsx" columns={2} />
+
+## API
+
+<API source="../src/types.ts" symbol="PieChartProps" component="PieChart" />

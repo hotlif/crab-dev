@@ -55,6 +55,7 @@
         "@crab-dev/rc-number-edit": "workspace:^",
         "@crab-dev/rc-pagination": "workspace:^",
         "@crab-dev/rc-pdf-editor": "workspace:^",
+        "@crab-dev/rc-pie-chart": "workspace:^",
         "@crab-dev/rc-prose": "workspace:^",
         "@crab-dev/rc-radio": "workspace:^",
         "@crab-dev/rc-realm": "workspace:^",

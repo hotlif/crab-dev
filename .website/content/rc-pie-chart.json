@@ -1,0 +1,38 @@
+{
+    "id": "rc-pie-chart",
+    "title": "PieChart 饼图",
+    "summary": "用烘焙坊一天的销售记录绘制饼图，比较不同品种的销量占比，并在圆环图中选取明细。",
+    "prerequisite": "已安装 @crab-dev/rc-pie-chart，了解 React 的属性和 useState。",
+    "steps": [
+        {
+            "id": "step-1",
+            "title": "查看面包销量构成",
+            "goal": "把三种面包的实际销量转换成各自的扇区。",
+            "why": "三个品种使用相同计数单位，各项销量相加等于当日售出的 120 个面包。",
+            "changes": ["将品种名和销量作为 data 的 name 和 value 传入，使用 formatValue 给读数加上单位。"],
+            "instruction": "查看法棍的扇区，再点击图例中的吐司后重新读取法棍。",
+            "expected": "法棍的读数始终是 60 个，占比从一半增加到 62.5%。",
+            "source": "rc-pie-chart/step-1.tsx"
+        },
+        {
+            "id": "step-2",
+            "title": "从圆环中选取销量明细",
+            "goal": "选择一个扇区，把对应品种和原始销量显示在图下方。",
+            "why": "圆环的内半径影响形状。点击回调提供原始数量，页面可以直接复用该读数。",
+            "changes": ["将 innerRadiusRatio 设为 0.55，在 onSliceClick 中用 name 和 value 更新状态。"],
+            "instruction": "点击可颂扇区，或用键盘聚焦可颂后按 Enter。",
+            "expected": "图表中央留空，图下方显示可颂的销量为 36 个。",
+            "source": "rc-pie-chart/step-2.tsx"
+        }
+    ],
+    "faq": [
+        {
+            "question": "关掉一个图例后，为什么其他类别的占比变大了？",
+            "answer": "当前可见的正数之和是占比的分母。隐藏一项会使分母变小，其他项的原始数量和颜色都保留。点击同一图例即可恢复。"
+        },
+        {
+            "question": "应该传入数量还是百分数？",
+            "answer": "可以直接传数量。图表会计算每项在可见总量中的份额，提示可用 formatValue 加上单位。若数据源已经给出百分数，各项也应属于同一个整体。"
+        }
+    ]
+}

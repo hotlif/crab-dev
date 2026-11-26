@@ -592,6 +592,21 @@ export const libraryDependencies = [
         ]
     },
     {
+        "slug": "rc-pie-chart",
+        "title": "PieChart 饼图",
+        "family": "extension",
+        "production": [
+            "rc-auto-sizer",
+            "rc-canvas",
+            "rc-config-provider",
+            "rc-empty"
+        ],
+        "docs": [],
+        "token": [
+            "rc-token-semantic"
+        ]
+    },
+    {
         "slug": "rc-prose",
         "title": "Prose 长文本排版",
         "family": "base",

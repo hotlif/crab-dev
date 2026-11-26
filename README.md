@@ -9,14 +9,14 @@
 ## 产品清单
 
 <!-- library-inventory:start -->
-当前产品清单包含 54 个包，按 6 个能力族组织。
+当前产品清单包含 55 个包，按 6 个能力族组织。
 
 | 能力族 | 包数 | 职责 |
 | --- | --- | --- |
 | 基础支撑 | 7 | 设计令牌、配置、通用状态和测量能力 |
 | 基础组件 | 29 | 可独立使用的界面与交互基础 |
 | 组合组件 | 10 | 复用基础组件组织字段、集合与布局 |
-| 专业扩展 | 5 | 图形、复杂数据与文档编辑能力 |
+| 专业扩展 | 6 | 图形、复杂数据与文档编辑能力 |
 | 可选集成 | 2 | 独立选择的路由与远程模块集成 |
 | 开发支持 | 1 | 组件开发、演示与文档工具 |
 
@@ -26,7 +26,7 @@
 
 **组合组件**：[AppMainLayout 布局](components/rc-app-main-layout/docs/index.mdx) · [ColorPicker 颜色选择器](components/rc-color-picker/docs/index.mdx) · [CronPicker Cron 表达式选择器](components/rc-cron-picker/docs/index.mdx) · [DatePicker 日期选择器](components/rc-date-picker/docs/index.mdx) · [Form 表单](components/rc-form/docs/index.mdx) · [NumberEdit 数字输入框](components/rc-number-edit/docs/index.mdx) · [Pagination 分页](components/rc-pagination/docs/index.mdx) · [Select 选择器](components/rc-select/docs/index.mdx) · [Table 表格](components/rc-table/docs/index.mdx) · [Tree 树形控件](components/rc-tree/docs/index.mdx)
 
-**专业扩展**：[BarChart 柱状图](components/rc-bar-chart/docs/index.mdx) · [Canvas WebGL 画布](components/rc-canvas/docs/index.mdx) · [FlowDiagram 流程图](components/rc-flow-diagram/docs/index.mdx) · [PdfEditor PDF 编辑器](components/rc-pdf-editor/docs/index.mdx) · [TablePro 高级表格](components/rc-table-pro/docs/index.mdx)
+**专业扩展**：[BarChart 柱状图](components/rc-bar-chart/docs/index.mdx) · [Canvas WebGL 画布](components/rc-canvas/docs/index.mdx) · [FlowDiagram 流程图](components/rc-flow-diagram/docs/index.mdx) · [PdfEditor PDF 编辑器](components/rc-pdf-editor/docs/index.mdx) · [PieChart 饼图](components/rc-pie-chart/docs/index.mdx) · [TablePro 高级表格](components/rc-table-pro/docs/index.mdx)
 
 **可选集成**：[Realm 远程模块](components/rc-realm/docs/index.mdx) · [Router 路由](components/rc-router/docs/index.mdx)
 
