@@ -191,10 +191,10 @@ function Canvas({
         pointerId: number;
         startLx: number;
         startLy: number;
-        hitEntry: HitEntry | null;
+        hitId: number | null;
     } | null>(null);
     // 可变实例状态 ref：上次 click 的时间/位置（用于 dblclick 检测）
-    const lastClickRef = useRef<{ time: number; lx: number; ly: number } | null>(null);
+    const lastClickRef = useRef<{ hitId: number; time: number; lx: number; ly: number } | null>(null);
     // latest-ref：供单次注册的 effect 内读取最新 onEmptyClick
     // 注：渲染期写 ref 违反 Rules of React，使编译器降级——是 latest-ref 的有意取舍
     const onEmptyClickRef = useRef(onEmptyClick);
@@ -393,7 +393,7 @@ function Canvas({
             const result = findTopHit(hitRegistryRef.current, wx, wy);
             const hit = result?.entry ?? null;
 
-            clickStateRef.current = { pointerId: e.pointerId, startLx: lx, startLy: ly, hitEntry: hit };
+            clickStateRef.current = { pointerId: e.pointerId, startLx: lx, startLy: ly, hitId: result?.id ?? null };
 
             if (!hit) return;
             if (!hit.onDragStart && !hit.onDrag && !hit.onDragEnd) return;
@@ -481,27 +481,26 @@ function Canvas({
             const click = clickStateRef.current;
             if (click && e.pointerId === click.pointerId) {
                 const { lx, ly } = toLogical(e);
-                if (Math.hypot(lx - click.startLx, ly - click.startLy) < 4) {
-                    const invView = invViewMatrixRef.current;
-                    const [wx, wy] = invView ? applyMat3(invView, lx, ly) : [lx, ly];
-
+                if (e.type !== 'pointercancel' && Math.hypot(lx - click.startLx, ly - click.startLy) < 4) {
+                    const hit = click.hitId === null ? undefined : hitRegistryRef.current.get(click.hitId);
                     const now = performance.now();
                     const last = lastClickRef.current;
-                    const isDbl = last !== null &&
+                    const isDbl = last !== null && last.hitId === click.hitId &&
                         (now - last.time) < 300 &&
                         Math.hypot(lx - last.lx, ly - last.ly) < 8;
 
-                    if (isDbl) {
-                        const result = findTopHit(hitRegistryRef.current, wx, wy);
-                        result?.entry.onDblClick?.({ canvasX: lx, canvasY: ly, nativeEvent: e });
+                    if (isDbl && hit?.onDblClick) {
+                        hit.onDblClick({ canvasX: lx, canvasY: ly, nativeEvent: e });
                         lastClickRef.current = null;
                     } else {
-                        if (click.hitEntry?.onClick) {
-                            click.hitEntry.onClick({ canvasX: lx, canvasY: ly, nativeEvent: e });
-                        } else if (!click.hitEntry) {
+                        if (hit?.onClick) {
+                            hit.onClick({ canvasX: lx, canvasY: ly, nativeEvent: e });
+                        } else if (click.hitId === null) {
                             onEmptyClickRef.current?.();
                         }
-                        lastClickRef.current = { time: now, lx, ly };
+                        lastClickRef.current = hit?.onDblClick && click.hitId !== null
+                            ? { hitId: click.hitId, time: now, lx, ly }
+                            : null;
                     }
                 } else {
                     lastClickRef.current = null;

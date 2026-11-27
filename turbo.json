@@ -2398,6 +2398,77 @@
                 "@crab-dev/rc-token-semantic#generate:token"
             ]
         },
+        "@crab-dev/rc-pie-chart#build:library": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "!**/*.test.tsx",
+                "!**/*.test.ts",
+                "!src/__tests__/**/*",
+                "!src/token.ts",
+                "!docs/**/*",
+                "!coverage/**/*"
+            ],
+            "outputs": [
+                "esm/**",
+                "cjs/**",
+                "declarations/**",
+                "css/**",
+                "src/token.ts",
+                "dist/**"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-auto-sizer#build:library",
+                "@crab-dev/rc-canvas#build:library",
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-empty#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-pie-chart#test": {
+            "inputs": [
+                "$TURBO_DEFAULT$"
+            ],
+            "outputs": [
+                "coverage/**"
+            ],
+            "cache": false,
+            "dependsOn": [
+                "@crab-dev/rc-auto-sizer#build:library",
+                "@crab-dev/rc-canvas#build:library",
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-empty#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-pie-chart#typecheck": {
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "$TURBO_ROOT$/standards/typescript-preset/**/*",
+                "$TURBO_ROOT$/scripts/typecheck.mjs",
+                "$TURBO_ROOT$/scripts/typescript-pnp-fs.mjs",
+                "$TURBO_ROOT$/.pnp.cjs"
+            ],
+            "outputs": [],
+            "dependsOn": [
+                "@crab-dev/rc-auto-sizer#build:library",
+                "@crab-dev/rc-canvas#build:library",
+                "@crab-dev/rc-config-provider#build:library",
+                "@crab-dev/rc-empty#build:library",
+                "@crab-dev/rc-token-semantic#build:library"
+            ]
+        },
+        "@crab-dev/rc-pie-chart#generate:token": {
+            "inputs": [
+                "token.toml",
+                "scripts/**/*"
+            ],
+            "outputs": [
+                "src/token.ts"
+            ],
+            "dependsOn": [
+                "@crab-dev/rc-token-semantic#generate:token"
+            ]
+        },
         "@crab-dev/rc-prose#build:library": {
             "inputs": [
                 "$TURBO_DEFAULT$",
@@ -3895,6 +3966,7 @@
                 "@crab-dev/rc-number-edit#build:library",
                 "@crab-dev/rc-pagination#build:library",
                 "@crab-dev/rc-pdf-editor#build:library",
+                "@crab-dev/rc-pie-chart#build:library",
                 "@crab-dev/rc-prose#build:library",
                 "@crab-dev/rc-radio#build:library",
                 "@crab-dev/rc-realm#build:library",
@@ -3963,6 +4035,7 @@
                 "@crab-dev/rc-number-edit#build:library",
                 "@crab-dev/rc-pagination#build:library",
                 "@crab-dev/rc-pdf-editor#build:library",
+                "@crab-dev/rc-pie-chart#build:library",
                 "@crab-dev/rc-prose#build:library",
                 "@crab-dev/rc-radio#build:library",
                 "@crab-dev/rc-realm#build:library",

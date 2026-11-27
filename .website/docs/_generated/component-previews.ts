@@ -1025,6 +1025,36 @@ export const componentPreviews = {
             }
         }
     },
+    "rc-pie-chart": {
+        "id": "docs/demos/book-sales.demo.tsx",
+        "title": "比较各书架的销量占比",
+        "previewPath": "/components/rc-pie-chart/workbench/?__wake_demo=docs%2Fdemos%2Fbook-sales.demo.tsx",
+        "workbenchPath": "/components/rc-pie-chart/workbench/#/components/docs%2Fdemos%2Fbook-sales.demo.tsx",
+        "density": "regular",
+        "designs": {
+            "md3": {
+                "id": "docs/demos/book-sales.demo.tsx",
+                "title": "比较各书架的销量占比",
+                "previewPath": "/components/rc-pie-chart/workbench/?__wake_demo=docs%2Fdemos%2Fbook-sales.demo.tsx",
+                "workbenchPath": "/components/rc-pie-chart/workbench/#/components/docs%2Fdemos%2Fbook-sales.demo.tsx",
+                "density": "regular"
+            },
+            "macos": {
+                "id": "docs/demos/storage.demo.tsx",
+                "title": "用圆环查看磁盘空间",
+                "previewPath": "/components/rc-pie-chart/workbench/?__wake_demo=docs%2Fdemos%2Fstorage.demo.tsx",
+                "workbenchPath": "/components/rc-pie-chart/workbench/#/components/docs%2Fdemos%2Fstorage.demo.tsx",
+                "density": "regular"
+            },
+            "shadcn": {
+                "id": "docs/demos/requests.demo.tsx",
+                "title": "查看工单的负责小组",
+                "previewPath": "/components/rc-pie-chart/workbench/?__wake_demo=docs%2Fdemos%2Frequests.demo.tsx",
+                "workbenchPath": "/components/rc-pie-chart/workbench/#/components/docs%2Fdemos%2Frequests.demo.tsx",
+                "density": "regular"
+            }
+        }
+    },
     "rc-prose": {
         "id": "docs/demos/visual-matrix.demo.tsx",
         "title": "排版验收矩阵",

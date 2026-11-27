@@ -7,6 +7,7 @@ import { CanvasPaletteContext } from '../context/palette-context.js';
 import { parseColor } from '../math/color.js';
 import InfiniteGrid from '../shapes/infinite-grid.js';
 import CanvasImage from '../shapes/image.js';
+import Circle from '../shapes/circle.js';
 import { CanvasContext } from '../context/canvas-context.js';
 (globalThis as Record<string, unknown>).IS_REACT_ACT_ENVIRONMENT = true;
 let glMock: WebGL2RenderingContext;
@@ -26,6 +27,31 @@ afterEach(() => {
     mock.restoreAll();
 });
 describe('Canvas', () => {
+    it('连续点击分别激活当前扇区，取消触摸不触发点击', async () => {
+        const left = mock.fn();
+        const right = mock.fn();
+        const view = await render(<Canvas width={80} height={80}>
+            <Circle cx={40} cy={40} r={36} innerRadius={8} startAngle={Math.PI / 2} endAngle={1.5 * Math.PI} onClick={left} />
+            <Circle cx={40} cy={40} r={36} innerRadius={8} startAngle={-Math.PI / 2} endAngle={Math.PI / 2} onClick={right} />
+        </Canvas>);
+        const canvas = view.container.querySelector('canvas')!;
+        Object.defineProperty(canvas, 'getBoundingClientRect', {
+            value: () => ({ left: 0, top: 0, width: 80, height: 80 }),
+        });
+        mock.spyOn(performance, 'now').implement(() => 0);
+        async function tap(x: number, y: number, end = 'pointerup') {
+            const init = { clientX: x, clientY: y, pointerId: 4, button: 0, bubbles: true };
+            await fireEvent(canvas, new PointerEvent('pointerdown', init));
+            await fireEvent(canvas, new PointerEvent(end, init));
+        }
+        await tap(39, 20);
+        await tap(41, 20);
+        await tap(41, 20);
+        await tap(41, 20, 'pointercancel');
+        await tap(40, 40);
+        expect(left).toHaveBeenCalledTimes(1);
+        expect(right).toHaveBeenCalledTimes(2);
+    });
     it('尺寸与 DPR 更新在重绘前保留旧缓冲区，连续测量只提交最终尺寸', async () => {
         const onRender = mock.fn();
         const view = await render(<Canvas width={200} height={100} dpr={1} onRender={onRender} />);

@@ -1,0 +1,20 @@
+{
+    "md3": {
+        "summary": "书店当天售出 240 本书，文学类正好占一半。用当前主题的分类色把三个书架的销量放进同一个圆里。",
+        "usage": "给每个扇区起一个能直接读懂的类别名，并把册数的单位加进读数。这样读者既可以看比例，也能用图例名称定位到书架。",
+        "exampleDescription": "先查看文学类的 120 本，再点击少儿图例。剩下的两类中，文学类占比变为 60%。",
+        "demos": ["book-sales.demo.tsx", "storage.demo.tsx", "requests.demo.tsx"]
+    },
+    "macos": {
+        "summary": "在存储面板里用圆环呈现一块 128 GB 磁盘的空间分配，空闲容量和已用容量都计入整盘。",
+        "usage": "让圆环随面板宽度调整。把容量单位统一为 GB，方便读者对照图例，在窄面板中也能查到每个分区的实际容量。",
+        "exampleDescription": "查看“可用”扇区的剩余空间，再隐藏该项，比较已用空间中应用和媒体所占的份额。",
+        "demos": ["storage.demo.tsx", "book-sales.demo.tsx", "requests.demo.tsx"]
+    },
+    "shadcn": {
+        "summary": "工单概览把问题类型映射为扇区。选择一个分类，即可在图下方找到负责该类工单的小组。",
+        "usage": "把分类数量保留在提示中，把负责人等业务信息放在图外。这样读者可以从概览进入一类工单的处理详情。",
+        "exampleDescription": "选择“物流进度”，核对该类别的 18 件工单及负责小组。也可以用键盘聚焦并激活扇区。",
+        "demos": ["requests.demo.tsx", "book-sales.demo.tsx", "storage.demo.tsx"]
+    }
+}

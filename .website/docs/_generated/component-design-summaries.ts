@@ -171,6 +171,11 @@ export const componentDesignSummaries: Readonly<Partial<Record<string, Record<De
         "macos": "以桌面文档窗口的工具层与清晰页面区域呈现 PDF，浮动材质用于操作区。",
         "shadcn": "以简洁工具栏、中性边界和文档页面组织 PDF 阅读与编辑任务。"
     },
+    "rc-pie-chart": {
+        "md3": "书店当天售出 240 本书，文学类正好占一半。用当前主题的分类色把三个书架的销量放进同一个圆里。",
+        "macos": "在存储面板里用圆环呈现一块 128 GB 磁盘的空间分配，空闲容量和已用容量都计入整盘。",
+        "shadcn": "工单概览把问题类型映射为扇区。选择一个分类，即可在图下方找到负责该类工单的小组。"
+    },
     "rc-prose": {
         "md3": "以语义字阶、正文节奏和强调角色组织长文，标题层次服务于阅读。",
         "macos": "以清晰的桌面阅读字阶和稳定正文区域呈现富文本，内容优先于材质。",
@@ -1256,6 +1261,23 @@ export const componentDemoDesigns: Readonly<Partial<Record<string, Readonly<Part
             "shadcn"
         ],
         "图标显隐与动作扩展 — 逐项或分组控制全部内置图标，实时预览配置，并追加一个业务动作。隐藏入口不会限制快捷键和 ref。": [
+            "md3",
+            "macos",
+            "shadcn"
+        ]
+    },
+    "rc-pie-chart": {
+        "比较各书架的销量占比 — 文学类售出 120 本，占当天销量的一半。点击图例可比较其余书架。": [
+            "md3",
+            "macos",
+            "shadcn"
+        ],
+        "用圆环查看磁盘空间 — 内圆半径设为外圆的 60%。隐藏可用空间后，圆环只比较两类已用容量。": [
+            "md3",
+            "macos",
+            "shadcn"
+        ],
+        "查看工单的负责小组 — 点击扇区或用键盘激活它，根据原始数据下标读取该类工单的负责小组。": [
             "md3",
             "macos",
             "shadcn"

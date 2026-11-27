@@ -1473,6 +1473,46 @@
             }
         }
     },
+    "rc-pie-chart": {
+        "definition": "PieChart 用扇区角度表示各项在总量中的份额。图例可以临时切换统计范围，扇区提示同时给出原始值和当前占比。",
+        "useWhen": [
+            "希望解释一个总量由哪几类组成，例如本月售出商品的品类分布。",
+            "需要在用量面板中用圆环显示容量构成，并允许读者查看某一部分的实际用量。"
+        ],
+        "avoidWhen": [
+            "同一记录可能属于多个类别时，应先将其划分为互斥类别，或者用柱图分别展示各类计数。",
+            "类别很多、数值接近且需要看出细小差异时，排序条形图或数据表更便于逐项比较。"
+        ],
+        "essentials": [
+            "统一统计时段与计量单位，在 data 中填写各类的原始值，用 formatValue 显示单位。",
+            "使用图例隐藏一项后，其他扇区按剩余总量计算占比，再次点击可以恢复原来的统计范围。",
+            "需要从分类打开明细时，可以用 onSliceClick 返回的 index 找到数据源中的业务记录。"
+        ],
+        "accessibility": [
+            "用 aria-label 说明总量所指的对象，给每个类别提供有意义的名称，方便读屏用户浏览数据表。",
+            "通过方向键可以在扇区间移动，读取名称、数值与占比。提供明细操作时，Enter 和空格键都能激活当前扇区。"
+        ],
+        "designSystems": {
+            "md3": {
+                "basis": "沿用 Material Web 的表面色与配对前景色呈现提示及图例文字。扇区使用 Crab 的分类色，在同一表面上区分各部分。",
+                "references": [
+                    "https://material-web.dev/theming/color/"
+                ]
+            },
+            "macos": {
+                "basis": "参考 Apple HIG Charts 对图例、描述性名称和无障碍标签的建议。类别名称、原始读数与占比伴随扇区提供，读者也可以逐行浏览数据。",
+                "references": [
+                    "https://developer.apple.com/design/human-interface-guidelines/charts"
+                ]
+            },
+            "shadcn": {
+                "basis": "借鉴 shadcn/ui Chart 将可读标签、图表颜色和提示配合使用的方式。相同类别在图例和绘图区共用颜色。",
+                "references": [
+                    "https://ui.shadcn.com/docs/components/chart"
+                ]
+            }
+        }
+    },
     "rc-prose": {
         "definition": "Prose 为长文章统一标题、段落、列表、引用、代码和表格的排版节奏。它只作用于内容阅读，不应覆盖业务控件自身的组件样式。",
         "useWhen": [

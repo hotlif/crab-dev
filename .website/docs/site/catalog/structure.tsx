@@ -24,6 +24,11 @@ export const layoutPreviews = {
 };
 
 export const dataPreviews = {
+    "rc-pie-chart": <>
+        <path d="M118 77V29a48 48 0 0 1 48 48Z" className="cc-soft" />
+        <path d="M118 77h48a48 48 0 0 1-72 41.57Z" className="cc-border" />
+        <path d="m118 77-24 41.57A48 48 0 0 1 118 29Z" className="cc-brand" />
+    </>,
     "rc-line-chart": <>
         <path d="M37 30v94h170" className="cc-stroke cc-border" />
         <path d="m49 99 39-36 39 14 39-38 30 10" className="cc-stroke cc-brand cc-thick" />

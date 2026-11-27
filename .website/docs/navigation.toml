@@ -64,7 +64,7 @@ pages = ["components/rc-app-main-layout","components/rc-color-picker","component
 [[group.section]]
 id = "extension"
 title = "专业扩展"
-pages = ["components/rc-bar-chart","components/rc-canvas","components/rc-flow-diagram","components/rc-line-chart","components/rc-pdf-editor","components/rc-table-pro"]
+pages = ["components/rc-bar-chart","components/rc-canvas","components/rc-flow-diagram","components/rc-line-chart","components/rc-pdf-editor","components/rc-pie-chart","components/rc-table-pro"]
 
 [[group.section]]
 id = "integration"
