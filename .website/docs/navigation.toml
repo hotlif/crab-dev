@@ -54,7 +54,7 @@ pages = ["components/rc-auto-sizer","components/rc-config-provider","components/
 [[group.section]]
 id = "base"
 title = "基础组件"
-pages = ["components/rc-alert","components/rc-avatar","components/rc-badge","components/rc-breadcrumbs","components/rc-button","components/rc-card","components/rc-checkbox","components/rc-dialog","components/rc-divider","components/rc-drawer","components/rc-dropdown-container","components/rc-empty","components/rc-line-edit","components/rc-masonry","components/rc-menu","components/rc-message","components/rc-notification","components/rc-prose","components/rc-radio","components/rc-segmented","components/rc-skeleton","components/rc-slider","components/rc-spin","components/rc-split-pane","components/rc-switch","components/rc-tabs","components/rc-tag","components/rc-text-edit","components/rc-tooltip"]
+pages = ["components/rc-alert","components/rc-avatar","components/rc-badge","components/rc-breadcrumbs","components/rc-button","components/rc-card","components/rc-checkbox","components/rc-dialog","components/rc-divider","components/rc-drawer","components/rc-dropdown-container","components/rc-empty","components/rc-flex","components/rc-line-edit","components/rc-masonry","components/rc-menu","components/rc-message","components/rc-notification","components/rc-prose","components/rc-radio","components/rc-segmented","components/rc-skeleton","components/rc-slider","components/rc-spin","components/rc-split-pane","components/rc-switch","components/rc-tabs","components/rc-tag","components/rc-text-edit","components/rc-tooltip"]
 
 [[group.section]]
 id = "composite"

@@ -12,12 +12,12 @@ type VirtualHandle = DocsTypePlaceholder;
 
 export interface VirtualProps {
     /**
-     * 每列宽度数组，或等宽列的 { count, itemSize } 配置，单位为 px
+     * 每列宽度数组，或等宽列的 { count, itemSize, gap? } 配置，单位为 px
      */
     "gridTemplateColumns": VirtualAxis;
 
     /**
-     * 每行高度数组，或等高行的 { count, itemSize } 配置，单位为 px
+     * 每行高度数组，或等高行的 { count, itemSize, gap? } 配置，单位为 px
      */
     "gridTemplateRows": VirtualAxis;
 
@@ -30,6 +30,11 @@ export interface VirtualProps {
      * 可视区域高度，单位为 px
      */
     "viewportHeight": number;
+
+    /**
+     * 允许在视口内使用浏览器原生纵向滚动（包括触屏平移），仍通过 Virtual 滚动条显示位置。
+     */
+    "nativeVerticalScroll"?: boolean;
 
     /**
      * 可视区顶部被常驻（sticky）内容占据的高度，单位为 px。 例如表格在滚动容器内渲染的固定表头 / 过滤栏：它们占用可视区却不在 gridTemplateRows 中， 因此需要计入纵向滚动总高度，否则末尾内容会被裁切且无法滚动到底。

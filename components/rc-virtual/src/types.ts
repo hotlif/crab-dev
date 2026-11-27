@@ -4,6 +4,8 @@ export interface UniformVirtualAxis {
     count: number;
     /** 每项尺寸，单位为 px。 */
     itemSize: number;
+    /** 相邻条目之间的间距，单位为 px，默认为 0。 */
+    gap?: number;
 }
 
 /** 可变尺寸数组，或固定尺寸轴。 */
