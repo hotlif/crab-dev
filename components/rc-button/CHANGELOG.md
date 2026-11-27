@@ -1,5 +1,15 @@
 # @crab-dev/rc-button
 
+## 1.0.4
+
+### Patch Changes
+
+- [#76](https://github.com/hotlif/crab-dev/pull/76) [`80cd326`](https://github.com/hotlif/crab-dev/commit/80cd3265a345d8b7c98ef2f7cc8a61ba6de5e930) Thanks [@hotlif](https://github.com/hotlif)! - MD3 的 Button 与连接式 ButtonGroup 在按下、松开和切换选中时保持圆角与外框稳定。按压继续通过状态层反馈，选中通过填色和 `aria-pressed` 表达。
+
+- [#110](https://github.com/hotlif/crab-dev/pull/110) [`a1cb16e`](https://github.com/hotlif/crab-dev/commit/a1cb16e25e0e62596d2e91d36562aceba6c99979) Thanks [@hotlif](https://github.com/hotlif)! - 连接式按钮组在按压、键盘激活和选中切换时保留端点及内侧圆角，通过颜色与状态层反馈交互。
+- Updated dependencies [[`4d81ab3`](https://github.com/hotlif/crab-dev/commit/4d81ab3202ae3091a64aabfea503e795e831464d)]:
+  - @crab-dev/rc-config-provider@1.1.0
+
 ## 1.0.3
 
 ### Patch Changes

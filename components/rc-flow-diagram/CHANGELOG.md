@@ -1,5 +1,18 @@
 # @crab-dev/rc-flow-diagram
 
+## 0.4.0
+
+### Minor Changes
+
+- [#120](https://github.com/hotlif/crab-dev/pull/120) [`16e7043`](https://github.com/hotlif/crab-dev/commit/16e7043c9dd242bfe52261f50e41ff6cf6d7de02) Thanks [@hotlif](https://github.com/hotlif)! - FlowDiagram 新增可选的 `keyboard` 节点列表，复用视口控制、节点位置和连线路由来支持键盘选择及移动。
+
+### Patch Changes
+
+- [#122](https://github.com/hotlif/crab-dev/pull/122) [`0e22a25`](https://github.com/hotlif/crab-dev/commit/0e22a25751c31fab0529916ddd27bd767804eeb9) Thanks [@hotlif](https://github.com/hotlif)! - 更新组件预览使用的语法高亮库、流程图使用的 ELK 布局引擎，以及表单和输入控件使用的 Lucide 图标库。
+- Updated dependencies [[`62a350f`](https://github.com/hotlif/crab-dev/commit/62a350fcb0263fa5169b0c870b86cf45aa65576e), [`80cd326`](https://github.com/hotlif/crab-dev/commit/80cd3265a345d8b7c98ef2f7cc8a61ba6de5e930), [`a1cb16e`](https://github.com/hotlif/crab-dev/commit/a1cb16e25e0e62596d2e91d36562aceba6c99979)]:
+  - @crab-dev/rc-canvas@0.4.0
+  - @crab-dev/rc-button@1.0.4
+
 ## 0.3.0
 
 ### Minor Changes

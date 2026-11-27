@@ -1,5 +1,16 @@
 # @crab-dev/rc-message
 
+## 0.2.0
+
+### Minor Changes
+
+- [#116](https://github.com/hotlif/crab-dev/pull/116) [`2385ea0`](https://github.com/hotlif/crab-dev/commit/2385ea042244530b58807e657b52ea3d992227b6) Thanks [@hotlif](https://github.com/hotlif)! - useMessage 新增可选的顺序队列和合并键，支持手动关闭、重复次数与剩余时长恢复。
+
+### Patch Changes
+
+- Updated dependencies [[`4d81ab3`](https://github.com/hotlif/crab-dev/commit/4d81ab3202ae3091a64aabfea503e795e831464d)]:
+  - @crab-dev/rc-config-provider@1.1.0
+
 ## 0.1.2
 
 ### Patch Changes

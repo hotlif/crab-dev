@@ -1,5 +1,11 @@
 # @crab-dev/rc-prose
 
+## 0.2.0
+
+### Minor Changes
+
+- [#113](https://github.com/hotlif/crab-dev/pull/113) [`a44aef6`](https://github.com/hotlif/crab-dev/commit/a44aef6fdf47c1f36cccd996fe6ce55a33947ecc) Thanks [@hotlif](https://github.com/hotlif)! - 提供 `ProseScrollRegion`，让宽表和长代码在可命名的局部区域内接受键盘横向滚动。
+
 ## 0.1.1
 
 ### Patch Changes

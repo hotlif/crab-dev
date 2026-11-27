@@ -1,5 +1,15 @@
 # @crab-dev/rc-app-main-layout
 
+## 0.1.3
+
+### Patch Changes
+
+- Updated dependencies [[`80cd326`](https://github.com/hotlif/crab-dev/commit/80cd3265a345d8b7c98ef2f7cc8a61ba6de5e930), [`a1cb16e`](https://github.com/hotlif/crab-dev/commit/a1cb16e25e0e62596d2e91d36562aceba6c99979), [`5912328`](https://github.com/hotlif/crab-dev/commit/59123281caa70a2ceb0a12fad6613ea02974781c), [`7e74ff8`](https://github.com/hotlif/crab-dev/commit/7e74ff805983ba91a16985e2296364761c3fc0b0), [`6b6c412`](https://github.com/hotlif/crab-dev/commit/6b6c412ec435aee9e6b8ed058b5ff029ff584912), [`4d81ab3`](https://github.com/hotlif/crab-dev/commit/4d81ab3202ae3091a64aabfea503e795e831464d)]:
+  - @crab-dev/rc-button@1.0.4
+  - @crab-dev/rc-menu@0.2.0
+  - @crab-dev/rc-breadcrumbs@0.2.0
+  - @crab-dev/rc-config-provider@1.1.0
+
 ## 0.1.2
 
 ### Patch Changes

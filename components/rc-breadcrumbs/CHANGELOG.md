@@ -1,5 +1,17 @@
 # @crab-dev/rc-breadcrumbs
 
+## 0.2.0
+
+### Minor Changes
+
+- [#111](https://github.com/hotlif/crab-dev/pull/111) [`6b6c412`](https://github.com/hotlif/crab-dev/commit/6b6c412ec435aee9e6b8ed058b5ff029ff584912) Thanks [@hotlif](https://github.com/hotlif)! - 通过 `expandCollapsed` 公开被折叠的上级路径。支持键盘展开、按顺序访问和关闭后恢复焦点。
+
+### Patch Changes
+
+- Updated dependencies [[`80cd326`](https://github.com/hotlif/crab-dev/commit/80cd3265a345d8b7c98ef2f7cc8a61ba6de5e930), [`a1cb16e`](https://github.com/hotlif/crab-dev/commit/a1cb16e25e0e62596d2e91d36562aceba6c99979), [`4d81ab3`](https://github.com/hotlif/crab-dev/commit/4d81ab3202ae3091a64aabfea503e795e831464d)]:
+  - @crab-dev/rc-button@1.0.4
+  - @crab-dev/rc-config-provider@1.1.0
+
 ## 0.1.2
 
 ### Patch Changes
