@@ -1,0 +1,34 @@
++++
+title = "Flex 弹性布局"
+description = "排列和对齐子元素，在长列表或等高卡片集合中按可见行渲染"
+kind = "component"
+status = "experimental"
++++
+
+# Flex 弹性布局
+
+用 `direction` 设置主轴，用 `justify` 沿主轴分配剩余空间，用 `align` 沿交叉轴对齐。默认子元素沿行内方向排成一行。标签或工具项需要随容器宽度折行时，设置 `wrap="wrap"`。普通布局的 `gap` 支持像素数值和 CSS 间距字符串。
+
+[打开组件工作台](/components/rc-flex/workbench/)
+
+Wake 会按模块加载样式。使用其他构建器时，加载 Flex 的公开 CSS，虚拟模式还要加载 AutoSizer 和 Virtual 的 CSS。[静态样式接入](/guides/getting-started#加载静态样式)
+
+## 长列表与卡片
+
+为 Flex 设置可测量的宽度和高度，例如 `style={{ height: 240 }}`。传入 `virtual.itemCount`、`itemHeight`、`getItemKey` 和 `renderItem`。组件实测容器大小，结合行高和间距算出可见行，按索引调用渲染函数。上下各预渲染两行，可通过 `virtual.overscan` 调整。数量为零时显示空容器，空状态文案可由外层按需提供。
+
+默认每个条目占满一行。设置 `virtual.itemWidth` 后，同一行会放入尽可能多张指定宽度的卡片，容器比一张卡片窄时单张卡片收窄。虚拟布局按行纵向滚动，`gap` 使用非负像素数，`justify` 控制各行卡片的水平分布。每个条目的实际内容应能放入 `itemHeight` 指定的高度。
+
+## 顺序与状态
+
+用记录自身的稳定标识作为 `getItemKey` 的返回值。离开渲染范围的条目会卸载。容器换列或数据重排时，跨行的卡片也可能重新挂载。将输入草稿或选择状态按记录标识保存在列表外，条目恢复显示时即可取回。容器获得焦点后，上下方向键可按行滚动，Page Up 和 Page Down 翻页，Home 和 End 到达首尾。
+
+## 代码演示
+
+<Demos glob="./demos/*.demo.tsx" columns={1} />
+
+## API
+
+<API source="../src/types.ts" symbol="FlexLayoutProps" component="Flex 普通布局" />
+<API source="../src/types.ts" symbol="FlexVirtualProps" component="Flex 虚拟布局" />
+<API source="../src/types.ts" symbol="FlexVirtualOptions" component="虚拟条目配置" />

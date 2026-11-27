@@ -369,6 +369,19 @@
             }
         },
         {
+            "name": "@crab-dev/rc-flex",
+            "path": "components/rc-flex",
+            "title": "Flex 弹性布局",
+            "family": "base",
+            "category": "layout",
+            "status": "experimental",
+            "designCoverage": {
+                "md3": "partial",
+                "macos": "partial",
+                "shadcn": "partial"
+            }
+        },
+        {
             "name": "@crab-dev/rc-flow-diagram",
             "path": "components/rc-flow-diagram",
             "title": "FlowDiagram 流程图",
@@ -405,6 +418,19 @@
                 "md3": "not-applicable",
                 "macos": "not-applicable",
                 "shadcn": "not-applicable"
+            }
+        },
+        {
+            "name": "@crab-dev/rc-line-chart",
+            "path": "components/rc-line-chart",
+            "title": "LineChart 折线图",
+            "family": "extension",
+            "category": "data-display",
+            "status": "experimental",
+            "designCoverage": {
+                "md3": "partial",
+                "macos": "partial",
+                "shadcn": "partial"
             }
         },
         {

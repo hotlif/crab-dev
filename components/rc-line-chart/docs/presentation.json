@@ -1,0 +1,13 @@
+{
+    "heroDemo": "daily-range.demo.tsx",
+    "groups": [
+        {
+            "title": "读取趋势",
+            "demos": ["daily-range.demo.tsx", "missing-data.demo.tsx"]
+        },
+        {
+            "title": "阈值与明细",
+            "demos": ["reference-line.demo.tsx"]
+        }
+    ]
+}

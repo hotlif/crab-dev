@@ -1468,6 +1468,11 @@ export interface TextEditPropsNativeAttributes {
     /**
      * 暂无说明。
      */
+    "wrap"?: string | undefined;
+
+    /**
+     * 暂无说明。
+     */
     "cols"?: number | undefined;
 
     /**
@@ -1479,9 +1484,4 @@ export interface TextEditPropsNativeAttributes {
      * 暂无说明。
      */
     "rows"?: number | undefined;
-
-    /**
-     * 暂无说明。
-     */
-    "wrap"?: string | undefined;
 }
