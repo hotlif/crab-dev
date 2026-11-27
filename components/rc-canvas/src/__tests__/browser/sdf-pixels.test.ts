@@ -159,4 +159,23 @@ describe('SDF renderer pixels', () => {
         expect(image.pixel(8, 35)).toEqual([0, 0, 255, 255]);
         expect(image.pixel(2, 35)).toEqual([0, 0, 0, 0]);
     });
+
+    it('clips both radial edges and the hole for short, long and full arcs', () => {
+        const arc = {
+            id: 1, kind: 'sdf-circle' as const, worldMatrix: identityMat3(), zIndexPath: [0],
+            cx: 48, cy: 48, r: 36, innerRadius: 10, startAngle: -Math.PI / 2,
+            fill: [...red], stroke: [...blue], strokeWidth: 2,
+        } satisfies Extract<DrawCommand, { kind: 'sdf-circle' }>;
+        for (const [sweep, quadrants] of [
+            [Math.PI / 2, [true, false, false, false]],
+            [1.5 * Math.PI, [true, true, true, false]],
+            [2 * Math.PI, [true, true, true, true]],
+        ] as const) {
+            const image = draw({ ...arc, sweep });
+            expect(image.pixel(48, 48)).toEqual([0, 0, 0, 0]);
+            for (const [index, [x, y]] of ([[64, 32], [64, 64], [32, 64], [32, 32]] as const).entries()) {
+                expect(image.pixel(x, y)).toEqual(quadrants[index] ? [255, 0, 0, 255] : [0, 0, 0, 0]);
+            }
+        }
+    });
 });

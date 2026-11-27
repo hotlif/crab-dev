@@ -53,6 +53,8 @@ Enter / Escape 结束编辑后，根据编辑器所属的 Document 或 ShadowRoo
 
 ## API
 
+`Circle` 可以用 `startAngle`、`endAngle` 指定顺时针扇区。角度单位为弧度，0 朝右，起始角默认为 0；省略结束角时绘制一整圈。结束角小于或等于起始角时扇区为空。设置 `innerRadius` 可在中心留孔，指针命中跟随可见几何区域。
+
 绘制前景、网格与交互辅助元素默认消费语义令牌并跟随主题；`palette` 的局部覆盖保留其余语义角色。需要维持旧版固定配色时，可显式传入导出的 `DEFAULT_CANVAS_PALETTE`。图元显式颜色仍具有最高优先级。
 
 `CanvasImage.src` 支持字符串 URL 和 `ImageBitmap`。位图由调用者持有，替换或卸载后应调用 `close()`；Canvas 在最后一个消费者释放时删除图片和字形的 GPU 纹理及 CPU 缓存，不关闭调用者提供的位图。

@@ -1,0 +1,56 @@
++++
+title = "PieChart 饼图"
+description = "通过扇区比较各类别在总量中的占比，可切换图例查看部分组成。"
+kind = "component"
+status = "experimental"
++++
+
+{/* THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY. */}
+
+import ComponentDemos from "../site/componentDemos.js";
+import ComponentDesignGuide, { DesignIntroduction, DesignExampleIntroduction } from "../site/componentDesignGuide.js";
+import { demos, documents, guide } from "../_generated/rc-pie-chart.js";
+
+# PieChart 饼图
+
+<div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-pie-chart</div>
+
+## 设计与用法
+
+<DesignIntroduction documents={documents} />
+
+<div id="基础示例" data-docs-example-anchor /><div id="全部示例" data-docs-example-anchor />
+
+## 示例
+
+<div hidden aria-hidden="true" data-docs-search-index="demos">
+
+##### 比较各书架的销量占比 — 文学类售出 120 本，占当天销量的一半。点击图例可比较其余书架。
+
+##### 用圆环查看磁盘空间 — 内圆半径设为外圆的 60%。隐藏可用空间后，圆环只比较两类已用容量。
+
+##### 查看工单的负责小组 — 点击扇区或用键盘激活它，根据原始数据下标读取该类工单的负责小组。
+
+</div>
+
+<DesignExampleIntroduction documents={documents} />
+
+<ComponentDemos demos={demos} documents={documents} />
+
+## 使用说明
+
+<ComponentDesignGuide guide={guide} documents={documents} />
+
+## 常见问题
+
+### 关掉一个图例后，为什么其他类别的占比变大了？
+
+当前可见的正数之和是占比的分母。隐藏一项会使分母变小，其他项的原始数量和颜色都保留。点击同一图例即可恢复。
+
+### 应该传入数量还是百分数？
+
+可以直接传数量。图表会计算每项在可见总量中的份额，提示可用 formatValue 加上单位。若数据源已经给出百分数，各项也应属于同一个整体。
+
+## API
+
+<API source="../_generated_api/rc-pie-chart.ts" symbol="PieChartProps" component="PieChart" />

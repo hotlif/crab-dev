@@ -68,6 +68,7 @@ interface FlatLocs {
 
 interface SdfLocs extends FlatLocs {
     radius: WebGLUniformLocation | null;
+    edgeNormals: WebGLUniformLocation | null;
     mode: WebGLUniformLocation | null;
 }
 
@@ -211,6 +212,7 @@ export class WebGLRenderer {
             dashLength: gl.getUniformLocation(this.sdfProg, 'u_dash_length'),
             gapLength: gl.getUniformLocation(this.sdfProg, 'u_gap_length'),
             radius: gl.getUniformLocation(this.sdfProg, 'u_radius'),
+            edgeNormals: gl.getUniformLocation(this.sdfProg, 'u_edge_normals'),
             mode: gl.getUniformLocation(this.sdfProg, 'u_mode'),
         };
         this.lineLocs = {
@@ -469,6 +471,9 @@ export class WebGLRenderer {
 
     private drawSdfCircle(cmd: import('./draw-command.js').SdfCircleCommand): void {
         const { gl, sdfProg: prog, sdfLocs: L } = this;
+        const hole = cmd.innerRadius ?? 0;
+        const sweep = cmd.sweep ?? Math.PI * 2;
+        if (!(cmd.r > hole && sweep > 0)) return;
         const size = cmd.r * 2;
         gl.useProgram(prog);
         gl.uniformMatrix3fv(L.world, false, cmd.worldMatrix);
@@ -478,8 +483,16 @@ export class WebGLRenderer {
         gl.uniform4fv(L.stroke, cmd.stroke);
         gl.uniform1f(L.strokeWidth, cmd.strokeWidth);
         gl.uniform2f(L.size, size, size);
-        gl.uniform1f(L.radius, cmd.r);
-        gl.uniform1i(L.mode, 1);
+        gl.uniform1f(L.radius, hole);
+        if (sweep < Math.PI * 2) {
+            const start = cmd.startAngle ?? 0;
+            const end = start + sweep;
+            // Outward unit normals of the two radial edges in screen coordinates.
+            gl.uniform4f(L.edgeNormals, Math.sin(start), -Math.cos(start), -Math.sin(end), Math.cos(end));
+            gl.uniform1i(L.mode, sweep <= Math.PI ? 2 : 3);
+        } else {
+            gl.uniform1i(L.mode, 1);
+        }
         this.drawQuad();
     }
 

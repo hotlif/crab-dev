@@ -1064,6 +1064,29 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@crab-dev/rc-flex@workspace:^, @crab-dev/rc-flex@workspace:components/rc-flex":
+  version: 0.0.0-use.local
+  resolution: "@crab-dev/rc-flex@workspace:components/rc-flex"
+  dependencies:
+    "@crab-dev/css": "npm:0.1.57"
+    "@crab-dev/rc-auto-sizer": "workspace:^"
+    "@crab-dev/rc-card": "workspace:^"
+    "@crab-dev/rc-tag": "workspace:^"
+    "@crab-dev/rc-virtual": "workspace:^"
+    "@crab-dev/standards-typescript-preset": "workspace:^"
+    "@crab-dev/wake": "npm:0.1.57"
+    "@types/node": "npm:^26.6.6"
+    "@types/react": "npm:^19.3.0"
+    "@types/react-dom": "npm:^19.3.0"
+    react: "npm:19.3.0"
+    react-dom: "npm:19.3.0"
+    react-router: "npm:^8.5.2"
+    typescript: "npm:7.0.2"
+  peerDependencies:
+    react: ^19.2.0
+  languageName: unknown
+  linkType: soft
+
 "@crab-dev/rc-flow-diagram@workspace:^, @crab-dev/rc-flow-diagram@workspace:components/rc-flow-diagram":
   version: 0.0.0-use.local
   resolution: "@crab-dev/rc-flow-diagram@workspace:components/rc-flow-diagram"
@@ -1140,6 +1163,31 @@ __metadata:
     typescript: "npm:7.0.2"
   peerDependencies:
     react: ^19.2.0
+  languageName: unknown
+  linkType: soft
+
+"@crab-dev/rc-line-chart@workspace:^, @crab-dev/rc-line-chart@workspace:components/rc-line-chart":
+  version: 0.0.0-use.local
+  resolution: "@crab-dev/rc-line-chart@workspace:components/rc-line-chart"
+  dependencies:
+    "@crab-dev/css": "npm:0.1.57"
+    "@crab-dev/rc-auto-sizer": "workspace:^"
+    "@crab-dev/rc-canvas": "workspace:^"
+    "@crab-dev/rc-config-provider": "workspace:^"
+    "@crab-dev/rc-empty": "workspace:^"
+    "@crab-dev/rc-token-semantic": "workspace:^"
+    "@crab-dev/standards-typescript-preset": "workspace:^"
+    "@crab-dev/wake": "npm:0.1.57"
+    "@types/node": "npm:^26.6.6"
+    "@types/react": "npm:^19.3.0"
+    "@types/react-dom": "npm:^19.3.0"
+    react: "npm:19.3.0"
+    react-dom: "npm:19.3.0"
+    react-router: "npm:^8.5.2"
+    typescript: "npm:7.0.2"
+  peerDependencies:
+    react: ^19.2.0
+    react-dom: ^19.2.0
   languageName: unknown
   linkType: soft
 
@@ -1356,6 +1404,31 @@ __metadata:
     "@types/react-dom": "npm:^19.3.0"
     react: "npm:19.3.0"
     react-dom: "npm:19.3.0"
+    typescript: "npm:7.0.2"
+  peerDependencies:
+    react: ^19.2.0
+    react-dom: ^19.2.0
+  languageName: unknown
+  linkType: soft
+
+"@crab-dev/rc-pie-chart@workspace:^, @crab-dev/rc-pie-chart@workspace:components/rc-pie-chart":
+  version: 0.0.0-use.local
+  resolution: "@crab-dev/rc-pie-chart@workspace:components/rc-pie-chart"
+  dependencies:
+    "@crab-dev/css": "npm:0.1.57"
+    "@crab-dev/rc-auto-sizer": "workspace:^"
+    "@crab-dev/rc-canvas": "workspace:^"
+    "@crab-dev/rc-config-provider": "workspace:^"
+    "@crab-dev/rc-empty": "workspace:^"
+    "@crab-dev/rc-token-semantic": "workspace:^"
+    "@crab-dev/standards-typescript-preset": "workspace:^"
+    "@crab-dev/wake": "npm:0.1.57"
+    "@types/node": "npm:^26.6.6"
+    "@types/react": "npm:^19.3.0"
+    "@types/react-dom": "npm:^19.3.0"
+    react: "npm:19.3.0"
+    react-dom: "npm:19.3.0"
+    react-router: "npm:^8.5.2"
     typescript: "npm:7.0.2"
   peerDependencies:
     react: ^19.2.0
@@ -2083,9 +2156,11 @@ __metadata:
     "@crab-dev/rc-drawer": "workspace:^"
     "@crab-dev/rc-dropdown-container": "workspace:^"
     "@crab-dev/rc-empty": "workspace:^"
+    "@crab-dev/rc-flex": "workspace:^"
     "@crab-dev/rc-flow-diagram": "workspace:^"
     "@crab-dev/rc-form": "workspace:^"
     "@crab-dev/rc-hooks": "workspace:^"
+    "@crab-dev/rc-line-chart": "workspace:^"
     "@crab-dev/rc-line-edit": "workspace:^"
     "@crab-dev/rc-masonry": "workspace:^"
     "@crab-dev/rc-menu": "workspace:^"
@@ -2094,6 +2169,7 @@ __metadata:
     "@crab-dev/rc-number-edit": "workspace:^"
     "@crab-dev/rc-pagination": "workspace:^"
     "@crab-dev/rc-pdf-editor": "workspace:^"
+    "@crab-dev/rc-pie-chart": "workspace:^"
     "@crab-dev/rc-prose": "workspace:^"
     "@crab-dev/rc-radio": "workspace:^"
     "@crab-dev/rc-realm": "workspace:^"

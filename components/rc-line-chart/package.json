@@ -1,0 +1,72 @@
+{
+    "name": "@crab-dev/rc-line-chart",
+    "description": "折线图，基于 rc-canvas 绘制多系列趋势并保留缺失数据的断点",
+    "packageManager": "yarn@4.18.0",
+    "type": "module",
+    "version": "0.0.0",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/hotlif/crab-dev.git",
+        "directory": "components/rc-line-chart"
+    },
+    "scripts": {
+        "start": "yarn generate:token && yarn generate:docgen && wake docs dev . --mode components",
+        "build:library": "yarn generate:token && wake library build .",
+        "generate:docgen": "wake library docgen .",
+        "generate:token": "wake library token .",
+        "test": "wake test --serial --coverage",
+        "test:browser": "yarn --cwd ../.. exec turbo run build:library --filter=@crab-dev/rc-line-chart --filter=@crab-dev/rc-theme && node ../../scripts/prepare-published-css.mjs && yarn test --root src/__tests__/browser",
+        "typecheck": "node ../../scripts/typecheck.mjs",
+        "lint": "wake lint --format human --root ../.. components/rc-line-chart/src components/rc-line-chart/docs --env browser --max-warnings 0",
+        "check": "node ../../scripts/check-package.mjs"
+    },
+    "files": [
+        "esm",
+        "cjs",
+        "css",
+        "declarations"
+    ],
+    "types": "declarations/index.d.ts",
+    "main": "cjs/index.cjs",
+    "module": "esm/index.mjs",
+    "exports": {
+        ".": {
+            "types": "./declarations/index.d.ts",
+            "import": "./esm/index.mjs",
+            "require": "./cjs/index.cjs"
+        },
+        "./css/index.css": "./css/index.css",
+        "./package.json": "./package.json"
+    },
+    "dependencies": {
+        "@crab-dev/css": "0.1.57",
+        "@crab-dev/rc-auto-sizer": "workspace:^",
+        "@crab-dev/rc-canvas": "workspace:^",
+        "@crab-dev/rc-config-provider": "workspace:^",
+        "@crab-dev/rc-empty": "workspace:^"
+    },
+    "devDependencies": {
+        "@crab-dev/rc-token-semantic": "workspace:^",
+        "@crab-dev/standards-typescript-preset": "workspace:^",
+        "@crab-dev/wake": "0.1.57",
+        "@types/node": "^26.6.6",
+        "@types/react": "^19.3.0",
+        "@types/react-dom": "^19.3.0",
+        "react": "19.3.0",
+        "react-dom": "19.3.0",
+        "react-router": "^8.5.2",
+        "typescript": "7.0.2"
+    },
+    "engines": {
+        "node": ">=22"
+    },
+    "crab": {
+        "requiredChecks": [
+            "test:browser"
+        ]
+    },
+    "peerDependencies": {
+        "react": "^19.2.0",
+        "react-dom": "^19.2.0"
+    }
+}

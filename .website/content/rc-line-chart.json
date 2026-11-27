@@ -1,0 +1,38 @@
+{
+    "id": "rc-line-chart",
+    "title": "LineChart 折线图",
+    "summary": "用等距采样数据绘制趋势，比较两组观测，并保留缺测时段。",
+    "prerequisite": "已安装 @crab-dev/rc-line-chart，能够在 React 组件中传入数组属性。",
+    "steps": [
+        {
+            "id": "step-1",
+            "title": "绘制四天的水位",
+            "goal": "把按日期排序的水位测量值画成一条折线。",
+            "why": "categories 给出观测顺序，series 的 data 按相同位置为每一天提供读数。",
+            "changes": ["传入四个日期和一组水位数据，再用 formatValue 在读数后加上厘米单位。"],
+            "instruction": "移动到周三，读取这一周水位最高时的具体数值。",
+            "expected": "周三的测量点最高，提示显示上游水位为 38 cm。",
+            "source": "rc-line-chart/step-1.tsx"
+        },
+        {
+            "id": "step-2",
+            "title": "比较第二个测站并保留缺测",
+            "goal": "在同一时间轴比较上下游水位，同时标出下游停测的日期。",
+            "why": "为停测日保留 null，可以维持两组数据与日期的对应关系，也能从断点识别缺失记录。",
+            "changes": ["为 series 增加下游系列，将其周二的读数设为 null。"],
+            "instruction": "点击图例中的上游，只观察下游从周一到周四的记录，再次点击恢复上游。",
+            "expected": "下游在周一保留孤立点，周三和周四之间有连线。恢复上游后可在周三比较两个测站。",
+            "source": "rc-line-chart/step-2.tsx"
+        }
+    ],
+    "faq": [
+        {
+            "question": "两次采样的时间间隔不同，该如何整理横轴？",
+            "answer": "横轴按类目等距排列。先按固定间隔生成完整的时间类目，再把各次读数放回对应时段，缺测位置填 null。"
+        },
+        {
+            "question": "怎样给读屏用户说明这组数据？",
+            "answer": "用 aria-label 说明指标和时间范围，用系列名称标明测量对象。组件的数据表使用这些文字，formatValue 可为数值补充单位。"
+        }
+    ]
+}

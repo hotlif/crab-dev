@@ -9,6 +9,13 @@ export const navigationPreviews = {
 };
 
 export const layoutPreviews = {
+    "rc-flex": <>
+        <Box x={29} y={32} w={182} h={90} />
+        <Box x={42} y={46} w={48} h={22} tone="brand" />
+        <Box x={100} y={46} w={72} h={22} tone="soft" />
+        <Box x={42} y={79} w={76} h={22} tone="soft" />
+        <Box x={128} y={79} w={56} h={22} tone="soft" />
+    </>,
     "rc-app-main-layout": <Window><Box x={25} y={43} w={45} h={88} tone="soft" r={0} /><Box x={32} y={54} w={31} h={8} tone="brand" r={2} /><Line x={33} y={76} w={27} /><Line x={33} y={92} w={22} /><Box x={82} y={54} w={57} h={23} tone="soft" /><Box x={147} y={54} w={57} h={23} tone="soft" /><Box x={82} y={87} w={122} h={33} /></Window>,
     "rc-auto-sizer": <><Box x={53} y={42} w={139} h={75} tone="soft" /><path d="M53 25h139m-133-4-6 4 6 4m127-8 6 4-6 4M34 42v75m-4-69 4-6 4 6m-8 63 4 6 4-6" className="cc-stroke cc-brand" /><Label x={124} y={88} tone="brand">宽 × 高</Label></>,
     "rc-masonry": <>{[{ x: 36, y: 21, h: 66 }, { x: 36, y: 95, h: 37 }, { x: 94, y: 21, h: 38 }, { x: 94, y: 67, h: 65 }, { x: 152, y: 21, h: 80 }, { x: 152, y: 109, h: 23 }].map((b, i) => <Box key={i} x={b.x} y={b.y} w={50} h={b.h} tone={i % 3 === 0 ? "brand" : "soft"} />)}</>,
@@ -21,6 +28,18 @@ export const dataPreviews = {
         <path d="M37 30v94h170" className="cc-stroke cc-border" />
         {[[53, 100], [68, 82], [79, 97], [93, 76], [112, 72], [121, 54], [135, 64],
             [152, 45], [164, 57], [185, 31], [182, 102]].map(([x, y]) =>
+            <circle key={x} cx={x} cy={y} r={4} className="cc-brand" />,
+        )}
+    </>,
+    "rc-pie-chart": <>
+        <path d="M118 77V29a48 48 0 0 1 48 48Z" className="cc-soft" />
+        <path d="M118 77h48a48 48 0 0 1-72 41.57Z" className="cc-border" />
+        <path d="m118 77-24 41.57A48 48 0 0 1 118 29Z" className="cc-brand" />
+    </>,
+    "rc-line-chart": <>
+        <path d="M37 30v94h170" className="cc-stroke cc-border" />
+        <path d="m49 99 39-36 39 14 39-38 30 10" className="cc-stroke cc-brand cc-thick" />
+        {[[49, 99], [88, 63], [127, 77], [166, 39], [196, 49]].map(([x, y]) =>
             <circle key={x} cx={x} cy={y} r={4} className="cc-brand" />,
         )}
     </>,

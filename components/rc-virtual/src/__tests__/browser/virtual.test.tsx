@@ -13,7 +13,7 @@ async function mountGrid(
     headerHeight = 0,
     footerHeight = 0,
     rows: VirtualAxis = new Array<number>(COUNT).fill(rowHeight),
-    onScrollPositionChange?: VirtualProps["onScrollPositionChange"],
+    options: Pick<VirtualProps, "onScrollPositionChange" | "nativeVerticalScroll"> = {},
 ) {
     const gridRef = createRef<VirtualHandle>();
     const { container } = await render(
@@ -24,6 +24,7 @@ async function mountGrid(
                 .virtual-test-bottom { height: var(--crab-rc-virtual-bottom-padding-height); }
                 .virtual-test-header { position: sticky; top: 0; }
                 .virtual-test-footer { position: sticky; bottom: 0; }
+                [data-virtual-browser-test] > [data-row] + [data-row] { margin-top: ${Array.isArray(rows) ? 0 : rows.gap ?? 0}px; }
             `}</style>
             <Virtual
                 data-virtual-browser-test=""
@@ -35,7 +36,7 @@ async function mountGrid(
                 reservedTopHeight={headerHeight}
                 reservedBottomHeight={footerHeight}
                 overscanRowCount={4}
-                onScrollPositionChange={onScrollPositionChange}
+                {...options}
                 renderRows={([start, end]) => (
                     <>
                         <div className="virtual-test-header" ref={node => { if (node) node.style.height = `${headerHeight}px`; }} />
@@ -192,7 +193,9 @@ describe("Million-row browser layout", () => {
     }
 
     it("adds native browser deltas to a million-row local window without replacing the logical position", async () => {
-        const { grid, gridRef } = await mountGrid(40, 0, 0, { count: COUNT, itemSize: 40 });
+        const { grid, gridRef } = await mountGrid(40, 0, 0, { count: COUNT, itemSize: 40 }, { nativeVerticalScroll: true });
+        expect(grid.hasAttribute("data-crab-native-vertical-scroll")).toBe(true);
+        expect(grid.parentElement?.hasAttribute("data-crab-native-vertical-scroll")).toBe(false);
         await act(async () => gridRef.current?.scrollTo({ top: 20_000_000 }));
         const before = gridRef.current?.getScrollCellPosition().rowIndex ?? 0;
         await act(async () => {
@@ -266,11 +269,14 @@ describe("Million-row browser layout", () => {
     it("scrolls within the mounted window without measuring scrollTop in the layout commit", async () => {
         let committing = false;
         let commitReads = 0;
-        const { grid, gridRef } = await mountGrid(40, 0, 0, { count: 100, itemSize: 40 }, ({ top }) => {
-            if (top === 0) return;
-            committing = true;
-            queueMicrotask(() => { committing = false; });
+        const { grid, gridRef } = await mountGrid(40, 0, 0, { count: 100, itemSize: 40 }, {
+            onScrollPositionChange: ({ top }) => {
+                if (top === 0) return;
+                committing = true;
+                queueMicrotask(() => { committing = false; });
+            },
         });
+        expect(grid.hasAttribute("data-crab-native-vertical-scroll")).toBe(false);
         const { get, set } = Object.getOwnPropertyDescriptor(Element.prototype, "scrollTop") ?? {};
         if (!get || !set) throw new Error("Missing native scrollTop property");
         Object.defineProperty(grid, "scrollTop", {
@@ -376,6 +382,17 @@ describe("Million-row browser layout", () => {
         expect(last?.getBoundingClientRect().bottom).toBeCloseTo(grid.getBoundingClientRect().bottom, 1);
         await wheel(grid, -40);
         expect(gridRef.current?.getScrollCellPosition().rowIndex).toBe(COUNT - 11);
+    });
+
+    it("positions the last spaced row flush with the viewport after a deep jump", async () => {
+        const { gridRef, grid } = await mountGrid(40, 0, 0, { count: COUNT, itemSize: 40, gap: 8 });
+        await act(async () => gridRef.current?.scrollToCell({ rowIndex: COUNT - 1 }));
+        const last = grid.querySelector<HTMLElement>('[data-row="999999"]');
+        const previous = grid.querySelector<HTMLElement>('[data-row="999998"]');
+        if (!last || !previous) throw new Error("Missing final rows");
+        expect(last.getBoundingClientRect().bottom).toBeCloseTo(grid.getBoundingClientRect().bottom, 1);
+        expect(last.getBoundingClientRect().top - previous.getBoundingClientRect().bottom).toBe(8);
+        expect(grid.querySelectorAll("[data-row]").length).toBeLessThan(20);
     });
 
     for (const rowHeight of [24, 32, 40, 48, 52]) {

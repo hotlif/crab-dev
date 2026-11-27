@@ -1,0 +1,28 @@
+[docs]
+source_dir = "docs"
+title = "Flex 弹性布局"
+description = "排列一组子元素，支持换行与长列表虚拟滚动"
+locale = "zh-CN"
+theme_css = "docs/theme.css"
+preview = "docs/preview.tsx"
+
+[test]
+environment = "browser"
+include = ["src/**/*.{test,spec}.{js,mjs,cjs,jsx,ts,mts,cts,tsx}"]
+exclude = ["**/node_modules/**", "**/coverage/**", "**/esm/**", "**/cjs/**", "**/declarations/**"]
+timeout_ms = 15000
+leaks = "error"
+
+[test.react]
+strict_mode = false
+cleanup = true
+act_warnings = "error"
+test_id_attribute = "data-testid"
+
+[test.network]
+mode = "deny"
+allow_hosts = []
+
+[test.coverage]
+enabled = true
+reporters = ["text", "lcov"]

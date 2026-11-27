@@ -1,6 +1,6 @@
 import { describe, expect, it } from "@crab-dev/wake/test";
 import { renderHook } from "@crab-dev/wake/test/react";
-import useVirtualItemRange, { createVirtualAxisMetrics, getVirtualItemEnd, getVirtualItemSize, getVirtualItemStart } from "../../hooks/useVirtualItemRange.js";
+import useVirtualItemRange, { createVirtualAxisMetrics, getVirtualItemEnd, getVirtualItemIndex, getVirtualItemSize, getVirtualItemStart } from "../../hooks/useVirtualItemRange.js";
 
 const renderVirtualItemRange = async (params: Parameters<typeof useVirtualItemRange>[0]) => {
     const { result } = await renderHook(() => useVirtualItemRange(params));
@@ -33,6 +33,47 @@ describe('useVirtualItemRange', () => {
         await rerender({ count: 100, itemSize: 50 });
         expect(result.current.rowMetrics.totalSize).toBe(5000);
         expect(result.current.rowRange).toEqual([92, 99]);
+    });
+
+    it('counts gaps only between items and keeps item geometry independent of gap size', () => {
+        const metrics = createVirtualAxisMetrics({ count: 1_000_000_000, itemSize: 40, gap: 8 });
+        expect(metrics.cumulativeEnds).toHaveLength(0);
+        expect(metrics.totalSize).toBe(47_999_999_992);
+        expect(getVirtualItemStart(metrics, 1)).toBe(48);
+        expect(getVirtualItemEnd(metrics, 1)).toBe(88);
+        expect(getVirtualItemSize(metrics, 1)).toBe(40);
+        expect(getVirtualItemEnd(metrics, metrics.count - 1)).toBe(metrics.totalSize);
+        expect(getVirtualItemStart(metrics, metrics.count)).toBe(metrics.totalSize);
+        expect(getVirtualItemIndex(metrics, 47)).toBe(0);
+        expect(getVirtualItemIndex(metrics, 48)).toBe(1);
+        expect(getVirtualItemIndex(metrics, metrics.totalSize - 1)).toBe(metrics.count - 1);
+        expect(getVirtualItemIndex(metrics, metrics.totalSize)).toBe(0);
+        expect(createVirtualAxisMetrics({ count: 0, itemSize: 40, gap: 8 }).totalSize).toBe(0);
+        expect(createVirtualAxisMetrics({ count: 1, itemSize: 40, gap: 8 }).totalSize).toBe(40);
+        for (const gap of [-8, Infinity, NaN]) {
+            expect(createVirtualAxisMetrics({ count: 2, itemSize: 40, gap }).totalSize).toBe(80);
+        }
+    });
+
+    it('updates row and column ranges at item starts and when only the gap changes', async () => {
+        const { result, rerender } = await renderHook(
+            ({ gap }: { gap: number }) => useVirtualItemRange({
+                viewportHeight: 8,
+                viewportWidth: 8,
+                currentScrollPositionTop: 40,
+                currentScrollPositionLeft: 48,
+                gridTemplateRows: { count: 10, itemSize: 40, gap },
+                gridTemplateColumns: { count: 10, itemSize: 40, gap },
+            }),
+            { initialProps: { gap: 8 } },
+        );
+        expect(result.current.rowRange).toEqual([0, 0]);
+        expect(result.current.columnRange).toEqual([1, 1]);
+        await rerender({ gap: 4 });
+        expect(result.current.rowRange).toEqual([0, 1]);
+        await rerender({ gap: 0 });
+        expect(result.current.rowRange).toEqual([1, 1]);
+        expect(result.current.rowMetrics.totalSize).toBe(400);
     });
 
     it('normalizes invalid uniform dimensions and preserves variable-size lookup', () => {

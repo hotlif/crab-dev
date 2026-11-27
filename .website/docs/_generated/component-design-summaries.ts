@@ -106,6 +106,11 @@ export const componentDesignSummaries: Readonly<Partial<Record<string, Record<De
         "macos": "在桌面内容区域用简短说明表达无数据状态，保留周围导航和工具上下文。",
         "shadcn": "用简洁图形、文字和可选动作构成空状态，融入中性的列表与卡片页面。"
     },
+    "rc-flex": {
+        "md3": "将一组主题标签放在同一行，或让等高卡片按当前内容区的宽度重新分行。",
+        "macos": "在桌面窗口或侧栏组织一列档案记录，窗口变化时按可用宽度排列内容。",
+        "shadcn": "用弹性行组织内容标签，用固定的行列间距区分一组相邻卡片。"
+    },
     "rc-flow-diagram": {
         "md3": "以语义节点、边和选中反馈组织流程关系，图结构编辑是本库的可视化扩展。",
         "macos": "为桌面流程编辑器提供节点画布与连接操作，工具和内容保持层次清晰。",
@@ -120,6 +125,11 @@ export const componentDesignSummaries: Readonly<Partial<Record<string, Record<De
         "md3": "为交互组件提供状态与事件基础，Hook 本身不定义外观，消费方沿用当前设计。",
         "macos": "为桌面工作区提供尺寸调整和键盘行为基础，保持事件逻辑与控件外观分离。",
         "shadcn": "提供可组合的交互 Hook，供中性界面中的控件复用事件与测量逻辑。"
+    },
+    "rc-line-chart": {
+        "md3": "用当前表面的系列色区分最高与最低气温，在同一个坐标系里读取每天的温差。",
+        "macos": "把时间和单位直接放在测量数据旁，折线中断的位置提示读者哪些时段缺少读数。",
+        "shadcn": "用简洁的坐标和一条带文字的目标线呈现请求延迟，方便读者直接找到超过阈值的时段。"
     },
     "rc-line-edit": {
         "md3": "描边字段使用浮动标签，填充字段使用上置标签，说明和错误位于字段下方。",
@@ -160,6 +170,11 @@ export const componentDesignSummaries: Readonly<Partial<Record<string, Record<De
         "md3": "以语义工具栏、文档表面和重点操作组织 PDF 编辑，文档能力为可选集成。",
         "macos": "以桌面文档窗口的工具层与清晰页面区域呈现 PDF，浮动材质用于操作区。",
         "shadcn": "以简洁工具栏、中性边界和文档页面组织 PDF 阅读与编辑任务。"
+    },
+    "rc-pie-chart": {
+        "md3": "书店当天售出 240 本书，文学类正好占一半。用当前主题的分类色把三个书架的销量放进同一个圆里。",
+        "macos": "在存储面板里用圆环呈现一块 128 GB 磁盘的空间分配，空闲容量和已用容量都计入整盘。",
+        "shadcn": "工单概览把问题类型映射为扇区。选择一个分类，即可在图下方找到负责该类工单的小组。"
     },
     "rc-prose": {
         "md3": "以语义字阶、正文节奏和强调角色组织长文，标题层次服务于阅读。",
@@ -902,6 +917,23 @@ export const componentDemoDesigns: Readonly<Partial<Record<string, Readonly<Part
             "shadcn"
         ]
     },
+    "rc-flex": {
+        "让地图图层标签自然换行 — 标签按图层的阅读顺序排列，宽度不足时折到下一行。": [
+            "md3",
+            "macos",
+            "shadcn"
+        ],
+        "按行浏览一万条档案 — 聚焦列表并按 End 查看最后一条档案，按 Home 回到起点。": [
+            "md3",
+            "macos",
+            "shadcn"
+        ],
+        "按容器宽度排列图幅卡片 — 每张图幅宽 152 像素。缩窄窗口时每行容纳的图幅变少，纵向滚动可继续浏览。": [
+            "md3",
+            "macos",
+            "shadcn"
+        ]
+    },
     "rc-flow-diagram": {
         "流程工作区状态矩阵 — 真实 ELK 布局、选中、拖动、手动路由和失败；下方等价节点入口可用键盘选择和移动。": [],
         "键盘选择与移动节点 — 用 Tab 进入节点列表，再用 Enter 或 Space 选中节点。方向键和拖动共享位置与连线。": [
@@ -967,6 +999,23 @@ export const componentDemoDesigns: Readonly<Partial<Record<string, Readonly<Part
             "shadcn"
         ],
         "Use Key Down — Use Key Down 示例": [
+            "md3",
+            "macos",
+            "shadcn"
+        ]
+    },
+    "rc-line-chart": {
+        "比较一周的最高与最低气温 — 悬停同一天读取两条曲线的温度，点击图例可单独观察其中一个系列。": [
+            "md3",
+            "macos",
+            "shadcn"
+        ],
+        "区分零值和缺测 — 凌晨四点测得零度，六点缺测。零度保留数据点，六点处断开连线。": [
+            "md3",
+            "macos",
+            "shadcn"
+        ],
+        "检查超过目标的采样点 — 以 200 ms 为延迟目标，点击数据点或用键盘激活后，在图外读取采样记录。": [
             "md3",
             "macos",
             "shadcn"
@@ -1217,6 +1266,23 @@ export const componentDemoDesigns: Readonly<Partial<Record<string, Readonly<Part
             "shadcn"
         ],
         "图标显隐与动作扩展 — 逐项或分组控制全部内置图标，实时预览配置，并追加一个业务动作。隐藏入口不会限制快捷键和 ref。": [
+            "md3",
+            "macos",
+            "shadcn"
+        ]
+    },
+    "rc-pie-chart": {
+        "比较各书架的销量占比 — 文学类售出 120 本，占当天销量的一半。点击图例可比较其余书架。": [
+            "md3",
+            "macos",
+            "shadcn"
+        ],
+        "用圆环查看磁盘空间 — 内圆半径设为外圆的 60%。隐藏可用空间后，圆环只比较两类已用容量。": [
+            "md3",
+            "macos",
+            "shadcn"
+        ],
+        "查看工单的负责小组 — 点击扇区或用键盘激活它，根据原始数据下标读取该类工单的负责小组。": [
             "md3",
             "macos",
             "shadcn"

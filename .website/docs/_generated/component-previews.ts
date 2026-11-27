@@ -635,6 +635,36 @@ export const componentPreviews = {
             }
         }
     },
+    "rc-flex": {
+        "id": "docs/demos/virtual-cards.demo.tsx",
+        "title": "按容器宽度排列图幅卡片",
+        "previewPath": "/components/rc-flex/workbench/?__wake_demo=docs%2Fdemos%2Fvirtual-cards.demo.tsx",
+        "workbenchPath": "/components/rc-flex/workbench/#/components/docs%2Fdemos%2Fvirtual-cards.demo.tsx",
+        "density": "regular",
+        "designs": {
+            "md3": {
+                "id": "docs/demos/virtual-cards.demo.tsx",
+                "title": "按容器宽度排列图幅卡片",
+                "previewPath": "/components/rc-flex/workbench/?__wake_demo=docs%2Fdemos%2Fvirtual-cards.demo.tsx",
+                "workbenchPath": "/components/rc-flex/workbench/#/components/docs%2Fdemos%2Fvirtual-cards.demo.tsx",
+                "density": "regular"
+            },
+            "macos": {
+                "id": "docs/demos/virtual-list.demo.tsx",
+                "title": "按行浏览一万条档案",
+                "previewPath": "/components/rc-flex/workbench/?__wake_demo=docs%2Fdemos%2Fvirtual-list.demo.tsx",
+                "workbenchPath": "/components/rc-flex/workbench/#/components/docs%2Fdemos%2Fvirtual-list.demo.tsx",
+                "density": "regular"
+            },
+            "shadcn": {
+                "id": "docs/demos/wrap.demo.tsx",
+                "title": "让地图图层标签自然换行",
+                "previewPath": "/components/rc-flex/workbench/?__wake_demo=docs%2Fdemos%2Fwrap.demo.tsx",
+                "workbenchPath": "/components/rc-flex/workbench/#/components/docs%2Fdemos%2Fwrap.demo.tsx",
+                "density": "regular"
+            }
+        }
+    },
     "rc-flow-diagram": {
         "id": "docs/demos/visual-matrix.demo.tsx",
         "title": "流程工作区状态矩阵",
@@ -721,6 +751,36 @@ export const componentPreviews = {
                 "title": "Use Key Down",
                 "previewPath": "/components/rc-hooks/workbench/?__wake_demo=docs%2Fdemos%2Fuse-key-down.demo.tsx",
                 "workbenchPath": "/components/rc-hooks/workbench/#/components/docs%2Fdemos%2Fuse-key-down.demo.tsx",
+                "density": "regular"
+            }
+        }
+    },
+    "rc-line-chart": {
+        "id": "docs/demos/daily-range.demo.tsx",
+        "title": "比较一周的最高与最低气温",
+        "previewPath": "/components/rc-line-chart/workbench/?__wake_demo=docs%2Fdemos%2Fdaily-range.demo.tsx",
+        "workbenchPath": "/components/rc-line-chart/workbench/#/components/docs%2Fdemos%2Fdaily-range.demo.tsx",
+        "density": "regular",
+        "designs": {
+            "md3": {
+                "id": "docs/demos/daily-range.demo.tsx",
+                "title": "比较一周的最高与最低气温",
+                "previewPath": "/components/rc-line-chart/workbench/?__wake_demo=docs%2Fdemos%2Fdaily-range.demo.tsx",
+                "workbenchPath": "/components/rc-line-chart/workbench/#/components/docs%2Fdemos%2Fdaily-range.demo.tsx",
+                "density": "regular"
+            },
+            "macos": {
+                "id": "docs/demos/missing-data.demo.tsx",
+                "title": "区分零值和缺测",
+                "previewPath": "/components/rc-line-chart/workbench/?__wake_demo=docs%2Fdemos%2Fmissing-data.demo.tsx",
+                "workbenchPath": "/components/rc-line-chart/workbench/#/components/docs%2Fdemos%2Fmissing-data.demo.tsx",
+                "density": "regular"
+            },
+            "shadcn": {
+                "id": "docs/demos/reference-line.demo.tsx",
+                "title": "检查超过目标的采样点",
+                "previewPath": "/components/rc-line-chart/workbench/?__wake_demo=docs%2Fdemos%2Freference-line.demo.tsx",
+                "workbenchPath": "/components/rc-line-chart/workbench/#/components/docs%2Fdemos%2Freference-line.demo.tsx",
                 "density": "regular"
             }
         }
@@ -962,6 +1022,36 @@ export const componentPreviews = {
                 "previewPath": "/components/rc-pdf-editor/workbench/?__wake_demo=docs%2Fdemos%2Freadonly.demo.tsx",
                 "workbenchPath": "/components/rc-pdf-editor/workbench/#/components/docs%2Fdemos%2Freadonly.demo.tsx",
                 "density": "spacious"
+            }
+        }
+    },
+    "rc-pie-chart": {
+        "id": "docs/demos/book-sales.demo.tsx",
+        "title": "比较各书架的销量占比",
+        "previewPath": "/components/rc-pie-chart/workbench/?__wake_demo=docs%2Fdemos%2Fbook-sales.demo.tsx",
+        "workbenchPath": "/components/rc-pie-chart/workbench/#/components/docs%2Fdemos%2Fbook-sales.demo.tsx",
+        "density": "regular",
+        "designs": {
+            "md3": {
+                "id": "docs/demos/book-sales.demo.tsx",
+                "title": "比较各书架的销量占比",
+                "previewPath": "/components/rc-pie-chart/workbench/?__wake_demo=docs%2Fdemos%2Fbook-sales.demo.tsx",
+                "workbenchPath": "/components/rc-pie-chart/workbench/#/components/docs%2Fdemos%2Fbook-sales.demo.tsx",
+                "density": "regular"
+            },
+            "macos": {
+                "id": "docs/demos/storage.demo.tsx",
+                "title": "用圆环查看磁盘空间",
+                "previewPath": "/components/rc-pie-chart/workbench/?__wake_demo=docs%2Fdemos%2Fstorage.demo.tsx",
+                "workbenchPath": "/components/rc-pie-chart/workbench/#/components/docs%2Fdemos%2Fstorage.demo.tsx",
+                "density": "regular"
+            },
+            "shadcn": {
+                "id": "docs/demos/requests.demo.tsx",
+                "title": "查看工单的负责小组",
+                "previewPath": "/components/rc-pie-chart/workbench/?__wake_demo=docs%2Fdemos%2Frequests.demo.tsx",
+                "workbenchPath": "/components/rc-pie-chart/workbench/#/components/docs%2Fdemos%2Frequests.demo.tsx",
+                "density": "regular"
             }
         }
     },

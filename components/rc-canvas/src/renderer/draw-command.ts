@@ -67,6 +67,9 @@ export interface SdfCircleCommand extends BaseDrawCommand {
     cy: number;
     /** 半径（px） */
     r: number;
+    innerRadius?: number;
+    startAngle?: number;
+    sweep?: number;
     fill: ColorRGBA;
     stroke: ColorRGBA;
     strokeWidth: number;

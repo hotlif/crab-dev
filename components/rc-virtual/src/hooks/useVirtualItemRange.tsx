@@ -55,6 +55,8 @@ export interface VirtualAxisMetrics {
     cumulativeEnds: number[]
     totalSize: number
     uniformSize: number | null
+    /** Distance between consecutive item starts on a uniform axis. */
+    stride: number
 }
 
 const clampToNonNegativeFinite = (value: number) => {
@@ -81,7 +83,10 @@ export const createVirtualAxisMetrics = (sizes: VirtualAxis): VirtualAxisMetrics
     if (!Array.isArray(sizes)) {
         const count = Math.min(Number.MAX_SAFE_INTEGER, Math.floor(clampToNonNegativeFinite(sizes.count)));
         const uniformSize = clampToNonNegativeFinite(sizes.itemSize);
-        return { count, uniformSize, totalSize: count * uniformSize, cumulativeEnds: [] };
+        const gap = clampToNonNegativeFinite(sizes.gap ?? 0);
+        const stride = uniformSize + gap;
+        const totalSize = count * uniformSize + Math.max(0, count - 1) * gap;
+        return { count, uniformSize, stride, totalSize, cumulativeEnds: [] };
     }
     const cumulativeEnds = new Array<number>(sizes.length);
     let accumulator = 0;
@@ -104,7 +109,8 @@ export const createVirtualAxisMetrics = (sizes: VirtualAxis): VirtualAxisMetrics
         count: sizes.length,
         cumulativeEnds: isUniform ? [] : cumulativeEnds,
         totalSize: isUniform ? sizes.length * (uniformSize ?? 0) : accumulator,
-        uniformSize: isUniform ? uniformSize : null
+        uniformSize: isUniform ? uniformSize : null,
+        stride: isUniform ? uniformSize ?? 0 : 0,
     };
 };
 
@@ -157,11 +163,12 @@ const getVisibleRangeByBinarySearch = (
 
     let start: number;
     let end: number;
-    if (metrics.uniformSize != null && metrics.uniformSize > 0) {
-        start = Math.floor(normalizedScrollPosition / metrics.uniformSize);
+    if (metrics.stride > 0) {
+        // A position in a gap belongs to its preceding item until the next item starts.
+        start = Math.floor(normalizedScrollPosition / metrics.stride);
         end = Math.max(
             start,
-            Math.ceil((normalizedScrollPosition + normalizedViewportSize) / metrics.uniformSize) - 1
+            Math.ceil((normalizedScrollPosition + normalizedViewportSize) / metrics.stride) - 1
         );
     } else if (metrics.uniformSize === 0) {
         start = maxIndex;
@@ -194,7 +201,7 @@ export const getVirtualItemStart = (metrics: VirtualAxisMetrics, index: number) 
         return 0;
     }
     if (metrics.uniformSize != null) {
-        return Math.min(index, metrics.count) * metrics.uniformSize;
+        return index >= metrics.count ? metrics.totalSize : index * metrics.stride;
     }
     return metrics.cumulativeEnds[Math.min(index, metrics.cumulativeEnds.length) - 1] ?? 0;
 };
@@ -204,7 +211,7 @@ export const getVirtualItemEnd = (metrics: VirtualAxisMetrics, index: number) =>
         return 0;
     }
     if (metrics.uniformSize != null) {
-        return Math.min(index + 1, metrics.count) * metrics.uniformSize;
+        return index >= metrics.count - 1 ? metrics.totalSize : index * metrics.stride + metrics.uniformSize;
     }
     return metrics.cumulativeEnds[Math.min(index, metrics.cumulativeEnds.length - 1)] ?? metrics.totalSize;
 };
@@ -214,9 +221,11 @@ export const getVirtualItemIndex = (metrics: VirtualAxisMetrics, scrollPosition:
         return 0;
     }
 
-    const index = metrics.uniformSize != null && metrics.uniformSize > 0
-        ? Math.floor(clampToNonNegativeFinite(scrollPosition) / metrics.uniformSize)
-        : upperBound(metrics.cumulativeEnds, scrollPosition);
+    if (metrics.stride > 0) {
+        const offset = clampToNonNegativeFinite(scrollPosition);
+        return offset < metrics.totalSize ? Math.floor(offset / metrics.stride) : 0;
+    }
+    const index = upperBound(metrics.cumulativeEnds, scrollPosition);
     // 保持既有 API 语义：若坐标超过末项，回退到第 0 项。
     return index < metrics.count ? index : 0;
 };
@@ -233,8 +242,9 @@ const useAxisMetrics = (template: VirtualAxis) => {
     const sizes = Array.isArray(template) ? template : null;
     const count = Array.isArray(template) ? 0 : template.count;
     const itemSize = Array.isArray(template) ? 0 : template.itemSize;
+    const gap = Array.isArray(template) ? 0 : template.gap ?? 0;
     // 例外 3：前缀和是昂贵派生数据；固定尺寸按数值缓存，避免内联配置对象导致重建。
-    return useMemo(() => createVirtualAxisMetrics(sizes ?? { count, itemSize }), [sizes, count, itemSize]);
+    return useMemo(() => createVirtualAxisMetrics(sizes ?? { count, itemSize, gap }), [sizes, count, itemSize, gap]);
 };
 
 /**
