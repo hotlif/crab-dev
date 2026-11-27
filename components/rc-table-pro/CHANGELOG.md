@@ -1,5 +1,36 @@
 # @crab-dev/rc-table-pro
 
+## 0.4.0
+
+### Minor Changes
+
+- [#84](https://github.com/hotlif/crab-dev/pull/84) [`4d81ab3`](https://github.com/hotlif/crab-dev/commit/4d81ab3202ae3091a64aabfea503e795e831464d) Thanks [@hotlif](https://github.com/hotlif)! - Table 支持方向键浏览与扩选、批量粘贴与重做、异步行保存和保留校验失败的草稿。TablePro 支持行事件、服务端搜索与汇总、全部匹配记录的选择与导出，以及包含排序和分页的视图快照。新增跨页操作的中英文文案。
+
+- [#84](https://github.com/hotlif/crab-dev/pull/84) [`4d81ab3`](https://github.com/hotlif/crab-dev/commit/4d81ab3202ae3091a64aabfea503e795e831464d) Thanks [@hotlif](https://github.com/hotlif)! - TablePro 支持远程数据分块加载、并发去重、有界缓存及原位重试，可直接跳到尚未加载的行。Table 提供等高稀疏行、视口范围通知和按索引定位，滚动时按可见范围渲染。
+
+### Patch Changes
+
+- [#84](https://github.com/hotlif/crab-dev/pull/84) [`4d81ab3`](https://github.com/hotlif/crab-dev/commit/4d81ab3202ae3091a64aabfea503e795e831464d) Thanks [@hotlif](https://github.com/hotlif)! - 减少 Table 和 TablePro 横向滚动补列时的开销。普通单元格减少一层 DOM，固定数组下标的列路径使用缓存的直接读取器，保留的单元格复用已有渲染。Virtual 的横向滚动条滑块使用变换更新位置，减少滚动时的布局工作。
+  
+  横向溢出的直接渲染窗口使用滚动位置提示，让浏览器提前准备绘制。Table 集中提供树形按钮的本地化标签，减少普通单元格的上下文订阅。
+  
+  Virtual 在已挂载列覆盖视口时复用列窗口。在纯横向输入需要补列且滚动范围稳定时，先对齐原生滚动位置，再提交新列，减少补列时的同步布局和绘制开销。
+  
+  普通文本单元格直接渲染单个字符串或数字，不可排序的表头省去隐藏图标。在没有固定右列和行编辑控件的表格中省掉横向尾部占位，减少每次补列时挂载和更新的 DOM 节点。
+  
+  补列时为窗口内的非固定列各生成一次 React key 和宽度，再由数据行复用。未配置合并单元格时跳过坐标键和合并查询，减少构建单元格时的重复工作。
+
+- [#84](https://github.com/hotlif/crab-dev/pull/84) [`4d81ab3`](https://github.com/hotlif/crab-dev/commit/4d81ab3202ae3091a64aabfea503e795e831464d) Thanks [@hotlif](https://github.com/hotlif)! - Virtual 新增 `renderWindow`，支持直接设置占位节点尺寸。Table 与 TablePro 使用它减少滚动时的样式计算和同步布局，并在边界将滚轮交还给外层页面。TablePro 会合并快速跨越多个远程数据块时的请求，停稳后加载目标视口。
+- Updated dependencies [[`80cd326`](https://github.com/hotlif/crab-dev/commit/80cd3265a345d8b7c98ef2f7cc8a61ba6de5e930), [`dbb3abc`](https://github.com/hotlif/crab-dev/commit/dbb3abc3a7c95d3291fe044b733402ba8ca83a00), [`ab8e72a`](https://github.com/hotlif/crab-dev/commit/ab8e72a120303bda8c20785e972c5393d6492894), [`a1cb16e`](https://github.com/hotlif/crab-dev/commit/a1cb16e25e0e62596d2e91d36562aceba6c99979), [`0e22a25`](https://github.com/hotlif/crab-dev/commit/0e22a25751c31fab0529916ddd27bd767804eeb9), [`4d81ab3`](https://github.com/hotlif/crab-dev/commit/4d81ab3202ae3091a64aabfea503e795e831464d), [`4d81ab3`](https://github.com/hotlif/crab-dev/commit/4d81ab3202ae3091a64aabfea503e795e831464d), [`4d81ab3`](https://github.com/hotlif/crab-dev/commit/4d81ab3202ae3091a64aabfea503e795e831464d), [`4d81ab3`](https://github.com/hotlif/crab-dev/commit/4d81ab3202ae3091a64aabfea503e795e831464d)]:
+  - @crab-dev/rc-button@1.0.4
+  - @crab-dev/rc-date-picker@0.2.0
+  - @crab-dev/rc-line-edit@0.1.4
+  - @crab-dev/rc-dropdown-container@0.1.3
+  - @crab-dev/rc-checkbox@0.1.2
+  - @crab-dev/rc-table@0.3.0
+  - @crab-dev/rc-config-provider@1.1.0
+  - @crab-dev/rc-tree@0.2.3
+
 ## 0.3.0
 
 ### Minor Changes

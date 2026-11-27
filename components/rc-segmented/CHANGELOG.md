@@ -1,5 +1,13 @@
 # @crab-dev/rc-segmented
 
+## 0.1.3
+
+### Patch Changes
+
+- [#109](https://github.com/hotlif/crab-dev/pull/109) [`9ead1a6`](https://github.com/hotlif/crab-dev/commit/9ead1a6fe3cc5bbdd3ebfd3dead01e06a7816e41) Thanks [@hotlif](https://github.com/hotlif)! - MD3 纯文字选项在按压和选中切换时保持文字居中，勾记在固定位置显示。
+- Updated dependencies [[`4d81ab3`](https://github.com/hotlif/crab-dev/commit/4d81ab3202ae3091a64aabfea503e795e831464d)]:
+  - @crab-dev/rc-config-provider@1.1.0
+
 ## 0.1.2
 
 ### Patch Changes

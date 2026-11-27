@@ -1,5 +1,17 @@
 # @crab-dev/rc-notification
 
+## 0.2.0
+
+### Minor Changes
+
+- [#119](https://github.com/hotlif/crab-dev/pull/119) [`ca9dcf3`](https://github.com/hotlif/crab-dev/commit/ca9dcf3a657e06ddde3470025e1bb33141786a4c) Thanks [@hotlif](https://github.com/hotlif)! - useNotification 新增可选的后台任务列表。稳定任务键支持更新同一通知，后台通知到达时保留当前任务的交互焦点。
+
+### Patch Changes
+
+- Updated dependencies [[`80cd326`](https://github.com/hotlif/crab-dev/commit/80cd3265a345d8b7c98ef2f7cc8a61ba6de5e930), [`a1cb16e`](https://github.com/hotlif/crab-dev/commit/a1cb16e25e0e62596d2e91d36562aceba6c99979), [`4d81ab3`](https://github.com/hotlif/crab-dev/commit/4d81ab3202ae3091a64aabfea503e795e831464d)]:
+  - @crab-dev/rc-button@1.0.4
+  - @crab-dev/rc-config-provider@1.1.0
+
 ## 0.1.2
 
 ### Patch Changes

@@ -1,5 +1,17 @@
 # @crab-dev/rc-radio
 
+## 0.1.3
+
+### Patch Changes
+
+- [#85](https://github.com/hotlif/crab-dev/pull/85) [`ab8e72a`](https://github.com/hotlif/crab-dev/commit/ab8e72a120303bda8c20785e972c5393d6492894) Thanks [@hotlif](https://github.com/hotlif)! - LineEdit 的 MD3 带标签描边字段采用 56px 浮动标签，macOS 与 shadcn 的标签与输入框同排。点击字段留白可聚焦输入，单独使用 showCount 时组合字符计为一个字符。
+  
+  日期、日期时间和时间面板向上或向下展开时与输入框的起始边缘对齐，侧向展开时避让整个字段的标签和说明。
+  
+  Checkbox 在受控值未更新时保留原生半选状态。禁用 CheckboxGroup 或 RadioGroup 会禁用所有子项。Checkbox、Radio 和 Switch 的禁用说明使用可读的次级文字色。带标签的 Switch 将开关放在设置行末端，使用 aria-disabled 等待保存时保留焦点并阻止重复切换。
+- Updated dependencies [[`4d81ab3`](https://github.com/hotlif/crab-dev/commit/4d81ab3202ae3091a64aabfea503e795e831464d)]:
+  - @crab-dev/rc-config-provider@1.1.0
+
 ## 0.1.2
 
 ### Patch Changes

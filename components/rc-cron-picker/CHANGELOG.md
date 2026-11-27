@@ -1,5 +1,17 @@
 # @crab-dev/rc-cron-picker
 
+## 0.1.3
+
+### Patch Changes
+
+- Updated dependencies [[`623c34d`](https://github.com/hotlif/crab-dev/commit/623c34d00b022598311c5f833af47af92c1eced6), [`ab8e72a`](https://github.com/hotlif/crab-dev/commit/ab8e72a120303bda8c20785e972c5393d6492894), [`0e22a25`](https://github.com/hotlif/crab-dev/commit/0e22a25751c31fab0529916ddd27bd767804eeb9), [`4d81ab3`](https://github.com/hotlif/crab-dev/commit/4d81ab3202ae3091a64aabfea503e795e831464d)]:
+  - @crab-dev/rc-number-edit@0.2.0
+  - @crab-dev/rc-line-edit@0.1.4
+  - @crab-dev/rc-dropdown-container@0.1.3
+  - @crab-dev/rc-radio@0.1.3
+  - @crab-dev/rc-config-provider@1.1.0
+  - @crab-dev/rc-select@0.1.4
+
 ## 0.1.2
 
 ### Patch Changes

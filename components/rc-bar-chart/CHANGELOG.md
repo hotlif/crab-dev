@@ -1,5 +1,17 @@
 # @crab-dev/rc-bar-chart
 
+## 0.2.0
+
+### Minor Changes
+
+- [#112](https://github.com/hotlif/crab-dev/pull/112) [`e1c7bed`](https://github.com/hotlif/crab-dev/commit/e1c7bed7718aa5cf481e9f2ae418a41f14a46efd) Thanks [@hotlif](https://github.com/hotlif)! - 横向柱图根据实际字宽保留可读的刻度。新增 `formatAxisValue`，让轴刻度可以采用独立格式，完整单位仍随数据读值呈现。切换图例时，仍显示的柱条保留系列颜色，并从各自的位置平滑过渡。
+
+### Patch Changes
+
+- Updated dependencies [[`62a350f`](https://github.com/hotlif/crab-dev/commit/62a350fcb0263fa5169b0c870b86cf45aa65576e), [`4d81ab3`](https://github.com/hotlif/crab-dev/commit/4d81ab3202ae3091a64aabfea503e795e831464d)]:
+  - @crab-dev/rc-canvas@0.4.0
+  - @crab-dev/rc-config-provider@1.1.0
+
 ## 0.1.4
 
 ### Patch Changes

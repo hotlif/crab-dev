@@ -1,5 +1,15 @@
 # @crab-dev/rc-tree
 
+## 0.2.3
+
+### Patch Changes
+
+- Updated dependencies [[`ab8e72a`](https://github.com/hotlif/crab-dev/commit/ab8e72a120303bda8c20785e972c5393d6492894), [`0e22a25`](https://github.com/hotlif/crab-dev/commit/0e22a25751c31fab0529916ddd27bd767804eeb9), [`4d81ab3`](https://github.com/hotlif/crab-dev/commit/4d81ab3202ae3091a64aabfea503e795e831464d), [`4d81ab3`](https://github.com/hotlif/crab-dev/commit/4d81ab3202ae3091a64aabfea503e795e831464d), [`4d81ab3`](https://github.com/hotlif/crab-dev/commit/4d81ab3202ae3091a64aabfea503e795e831464d), [`a4491e9`](https://github.com/hotlif/crab-dev/commit/a4491e94a39060b64c9777bf419f55ed54bc0457)]:
+  - @crab-dev/rc-line-edit@0.1.4
+  - @crab-dev/rc-checkbox@0.1.2
+  - @crab-dev/rc-config-provider@1.1.0
+  - @crab-dev/rc-virtual@0.3.0
+
 ## 0.2.2
 
 ### Patch Changes

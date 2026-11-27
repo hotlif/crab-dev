@@ -1,5 +1,19 @@
 # @crab-dev/rc-menu
 
+## 0.2.0
+
+### Minor Changes
+
+- [#117](https://github.com/hotlif/crab-dev/pull/117) [`7e74ff8`](https://github.com/hotlif/crab-dev/commit/7e74ff805983ba91a16985e2296364761c3fc0b0) Thanks [@hotlif](https://github.com/hotlif)! - 新增同锚点的 `CommandMenu`，支持命令分组、一级子菜单、禁用语义和键盘返回。
+
+### Patch Changes
+
+- [#121](https://github.com/hotlif/crab-dev/pull/121) [`5912328`](https://github.com/hotlif/crab-dev/commit/59123281caa70a2ceb0a12fad6613ea02974781c) Thanks [@hotlif](https://github.com/hotlif)! - Preserve the next focused control when an opening command menu is dismissed before positioning finishes.
+- Updated dependencies [[`80cd326`](https://github.com/hotlif/crab-dev/commit/80cd3265a345d8b7c98ef2f7cc8a61ba6de5e930), [`ab8e72a`](https://github.com/hotlif/crab-dev/commit/ab8e72a120303bda8c20785e972c5393d6492894), [`a1cb16e`](https://github.com/hotlif/crab-dev/commit/a1cb16e25e0e62596d2e91d36562aceba6c99979), [`4d81ab3`](https://github.com/hotlif/crab-dev/commit/4d81ab3202ae3091a64aabfea503e795e831464d)]:
+  - @crab-dev/rc-button@1.0.4
+  - @crab-dev/rc-dropdown-container@0.1.3
+  - @crab-dev/rc-config-provider@1.1.0
+
 ## 0.1.2
 
 ### Patch Changes

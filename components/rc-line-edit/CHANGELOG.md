@@ -1,5 +1,20 @@
 # @crab-dev/rc-line-edit
 
+## 0.1.4
+
+### Patch Changes
+
+- [#85](https://github.com/hotlif/crab-dev/pull/85) [`ab8e72a`](https://github.com/hotlif/crab-dev/commit/ab8e72a120303bda8c20785e972c5393d6492894) Thanks [@hotlif](https://github.com/hotlif)! - LineEdit 的 MD3 带标签描边字段采用 56px 浮动标签，macOS 与 shadcn 的标签与输入框同排。点击字段留白可聚焦输入，单独使用 showCount 时组合字符计为一个字符。
+  
+  日期、日期时间和时间面板向上或向下展开时与输入框的起始边缘对齐，侧向展开时避让整个字段的标签和说明。
+  
+  Checkbox 在受控值未更新时保留原生半选状态。禁用 CheckboxGroup 或 RadioGroup 会禁用所有子项。Checkbox、Radio 和 Switch 的禁用说明使用可读的次级文字色。带标签的 Switch 将开关放在设置行末端，使用 aria-disabled 等待保存时保留焦点并阻止重复切换。
+
+- [#122](https://github.com/hotlif/crab-dev/pull/122) [`0e22a25`](https://github.com/hotlif/crab-dev/commit/0e22a25751c31fab0529916ddd27bd767804eeb9) Thanks [@hotlif](https://github.com/hotlif)! - 更新组件预览使用的语法高亮库、流程图使用的 ELK 布局引擎，以及表单和输入控件使用的 Lucide 图标库。
+- Updated dependencies [[`80cd326`](https://github.com/hotlif/crab-dev/commit/80cd3265a345d8b7c98ef2f7cc8a61ba6de5e930), [`a1cb16e`](https://github.com/hotlif/crab-dev/commit/a1cb16e25e0e62596d2e91d36562aceba6c99979), [`4d81ab3`](https://github.com/hotlif/crab-dev/commit/4d81ab3202ae3091a64aabfea503e795e831464d)]:
+  - @crab-dev/rc-button@1.0.4
+  - @crab-dev/rc-config-provider@1.1.0
+
 ## 0.1.3
 
 ### Patch Changes

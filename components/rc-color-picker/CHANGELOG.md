@@ -1,5 +1,17 @@
 # @crab-dev/rc-color-picker
 
+## 0.1.4
+
+### Patch Changes
+
+- [#118](https://github.com/hotlif/crab-dev/pull/118) [`7c6b2b7`](https://github.com/hotlif/crab-dev/commit/7c6b2b7174a5b6e6de4e98de89e67a98c1cace11) Thanks [@hotlif](https://github.com/hotlif)! - 颜色选择器保留无效文本及其关联错误，在应用前确认草稿，并在选取新颜色或切换格式时同步输入。
+- Updated dependencies [[`80cd326`](https://github.com/hotlif/crab-dev/commit/80cd3265a345d8b7c98ef2f7cc8a61ba6de5e930), [`ab8e72a`](https://github.com/hotlif/crab-dev/commit/ab8e72a120303bda8c20785e972c5393d6492894), [`a1cb16e`](https://github.com/hotlif/crab-dev/commit/a1cb16e25e0e62596d2e91d36562aceba6c99979), [`0e22a25`](https://github.com/hotlif/crab-dev/commit/0e22a25751c31fab0529916ddd27bd767804eeb9), [`4d81ab3`](https://github.com/hotlif/crab-dev/commit/4d81ab3202ae3091a64aabfea503e795e831464d)]:
+  - @crab-dev/rc-button@1.0.4
+  - @crab-dev/rc-line-edit@0.1.4
+  - @crab-dev/rc-dropdown-container@0.1.3
+  - @crab-dev/rc-config-provider@1.1.0
+  - @crab-dev/rc-select@0.1.4
+
 ## 0.1.3
 
 ### Patch Changes

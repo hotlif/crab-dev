@@ -1,5 +1,19 @@
 # @crab-dev/rc-number-edit
 
+## 0.2.0
+
+### Minor Changes
+
+- [#114](https://github.com/hotlif/crab-dev/pull/114) [`623c34d`](https://github.com/hotlif/crab-dev/commit/623c34d00b022598311c5f833af47af92c1eced6) Thanks [@hotlif](https://github.com/hotlif)! - 数值字段在 Enter 和失焦时以同一路径确认，并将调整结果传给 `onValueCommit`。使用 `NumberEditChangeDetails.reason` 的消费者可处理新增的 `enter` 分支。
+
+### Patch Changes
+
+- [#122](https://github.com/hotlif/crab-dev/pull/122) [`0e22a25`](https://github.com/hotlif/crab-dev/commit/0e22a25751c31fab0529916ddd27bd767804eeb9) Thanks [@hotlif](https://github.com/hotlif)! - 更新组件预览使用的语法高亮库、流程图使用的 ELK 布局引擎，以及表单和输入控件使用的 Lucide 图标库。
+- Updated dependencies [[`80cd326`](https://github.com/hotlif/crab-dev/commit/80cd3265a345d8b7c98ef2f7cc8a61ba6de5e930), [`ab8e72a`](https://github.com/hotlif/crab-dev/commit/ab8e72a120303bda8c20785e972c5393d6492894), [`a1cb16e`](https://github.com/hotlif/crab-dev/commit/a1cb16e25e0e62596d2e91d36562aceba6c99979), [`0e22a25`](https://github.com/hotlif/crab-dev/commit/0e22a25751c31fab0529916ddd27bd767804eeb9), [`4d81ab3`](https://github.com/hotlif/crab-dev/commit/4d81ab3202ae3091a64aabfea503e795e831464d)]:
+  - @crab-dev/rc-button@1.0.4
+  - @crab-dev/rc-line-edit@0.1.4
+  - @crab-dev/rc-config-provider@1.1.0
+
 ## 0.1.3
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @crab-dev/rc-config-provider
 
+## 1.1.0
+
+### Minor Changes
+
+- [#84](https://github.com/hotlif/crab-dev/pull/84) [`4d81ab3`](https://github.com/hotlif/crab-dev/commit/4d81ab3202ae3091a64aabfea503e795e831464d) Thanks [@hotlif](https://github.com/hotlif)! - Table 支持方向键浏览与扩选、批量粘贴与重做、异步行保存和保留校验失败的草稿。TablePro 支持行事件、服务端搜索与汇总、全部匹配记录的选择与导出，以及包含排序和分页的视图快照。新增跨页操作的中英文文案。
+
 ## 1.0.0
 
 ### Major Changes
