@@ -1,0 +1,20 @@
+{
+    "md3": {
+        "summary": "用当前表面的系列色区分最高与最低气温，在同一个坐标系里读取每天的温差。",
+        "usage": "为每条线填写读者熟悉的系列名，图例、提示和辅助技术数据表都会使用这一名称。",
+        "exampleDescription": "在周三的位置查看两项气温，再点击最低气温的图例，单独观察最高气温的走势。",
+        "demos": ["daily-range.demo.tsx", "missing-data.demo.tsx", "reference-line.demo.tsx"]
+    },
+    "macos": {
+        "summary": "把时间和单位直接放在测量数据旁，折线中断的位置提示读者哪些时段缺少读数。",
+        "usage": "在可调整宽度的面板中使用自动宽度，保留原始采样顺序，让读者能从图形回到具体的观测记录。",
+        "exampleDescription": "观察凌晨温度降到零度的位置，随后找出仪器停测留下的空档和恢复测量后的第一个点。",
+        "demos": ["missing-data.demo.tsx", "daily-range.demo.tsx", "reference-line.demo.tsx"]
+    },
+    "shadcn": {
+        "summary": "用简洁的坐标和一条带文字的目标线呈现请求延迟，方便读者直接找到超过阈值的时段。",
+        "usage": "在图内只标出需要判断的目标值，选择数据点后在图下方显示记录的时间和完整读数。",
+        "exampleDescription": "找到超过二百毫秒目标的那次采样，选择该点，在图下方核对时间和实际延迟。",
+        "demos": ["reference-line.demo.tsx", "daily-range.demo.tsx", "missing-data.demo.tsx"]
+    }
+}
