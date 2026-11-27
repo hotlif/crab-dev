@@ -635,6 +635,36 @@ export const componentPreviews = {
             }
         }
     },
+    "rc-flex": {
+        "id": "docs/demos/virtual-cards.demo.tsx",
+        "title": "按容器宽度排列图幅卡片",
+        "previewPath": "/components/rc-flex/workbench/?__wake_demo=docs%2Fdemos%2Fvirtual-cards.demo.tsx",
+        "workbenchPath": "/components/rc-flex/workbench/#/components/docs%2Fdemos%2Fvirtual-cards.demo.tsx",
+        "density": "regular",
+        "designs": {
+            "md3": {
+                "id": "docs/demos/virtual-cards.demo.tsx",
+                "title": "按容器宽度排列图幅卡片",
+                "previewPath": "/components/rc-flex/workbench/?__wake_demo=docs%2Fdemos%2Fvirtual-cards.demo.tsx",
+                "workbenchPath": "/components/rc-flex/workbench/#/components/docs%2Fdemos%2Fvirtual-cards.demo.tsx",
+                "density": "regular"
+            },
+            "macos": {
+                "id": "docs/demos/virtual-list.demo.tsx",
+                "title": "按行浏览一万条档案",
+                "previewPath": "/components/rc-flex/workbench/?__wake_demo=docs%2Fdemos%2Fvirtual-list.demo.tsx",
+                "workbenchPath": "/components/rc-flex/workbench/#/components/docs%2Fdemos%2Fvirtual-list.demo.tsx",
+                "density": "regular"
+            },
+            "shadcn": {
+                "id": "docs/demos/wrap.demo.tsx",
+                "title": "让地图图层标签自然换行",
+                "previewPath": "/components/rc-flex/workbench/?__wake_demo=docs%2Fdemos%2Fwrap.demo.tsx",
+                "workbenchPath": "/components/rc-flex/workbench/#/components/docs%2Fdemos%2Fwrap.demo.tsx",
+                "density": "regular"
+            }
+        }
+    },
     "rc-flow-diagram": {
         "id": "docs/demos/visual-matrix.demo.tsx",
         "title": "流程工作区状态矩阵",

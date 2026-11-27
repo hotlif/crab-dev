@@ -23,6 +23,10 @@ export const gridStyle = css`
 	overflow: hidden;
 	overflow-anchor: none;
 	position: relative;
+	&[data-crab-native-vertical-scroll] {
+		overflow-y: auto;
+		scrollbar-width: none;
+	}
 `;
 
 // The direct window can scroll between column updates. Let the browser prepare its scroll layers.

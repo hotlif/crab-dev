@@ -41,7 +41,11 @@ status = "experimental"
 
 可用 `renderWindow` 代替 `renderRows`。回调的第三个参数 `padding` 提供四边的局部占位尺寸，应用到各占位节点以保持行列位置。
 
+等尺寸轴可用 `{ count, itemSize: 40, gap: 8 }` 表示高 40px、行间距 8px 的列表。渲染回调将相同间距应用在已挂载的相邻数据行之间，占位节点放在行组外。首行之前、末行之后的间距均为零。滚动起点落在间距内时，起始索引指向前一项，到达后一项的起点即切换。
+
 浏览器聚焦内容或执行 `scrollIntoView` 产生的原生滚动，会同步到逻辑位置、可见行列和自绘滚动条。它与同一帧的滚轮增量合并，内部更新占位后产生的滚动事件不会重复通知。应用仍应使用公开定位接口跳到尚未挂载的行列；原生方法只能操作已挂载内容。
+
+设置 `nativeVerticalScroll` 后，可在触摸屏上直接上下滑动视口。Virtual 滚动条显示当前逻辑位置，也支持拖动定位。
 
 可见行列范围不变时会复用渲染结果。`renderRows` 应保持纯净，业务数据更新时应提供读取新数据的回调。组件只虚拟化渲染，不负责业务数据的分页、加载和存储。
 
@@ -56,6 +60,7 @@ status = "experimental"
 <API source="../src/virtual.tsx" symbol="VirtualProps" component="Virtual" />
 <API source="../src/virtual.tsx" symbol="VirtualWindowProps" component="Virtual 直接设置占位尺寸" />
 <API source="../src/virtual.tsx" symbol="VirtualPadding" component="VirtualPadding" />
+<API source="../src/types.ts" symbol="UniformVirtualAxis" component="UniformVirtualAxis" />
 
 
 ## 设计风格与主题

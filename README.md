@@ -9,12 +9,12 @@
 ## 产品清单
 
 <!-- library-inventory:start -->
-当前产品清单包含 55 个包，按 6 个能力族组织。
+当前产品清单包含 56 个包，按 6 个能力族组织。
 
 | 能力族 | 包数 | 职责 |
 | --- | --- | --- |
 | 基础支撑 | 7 | 设计令牌、配置、通用状态和测量能力 |
-| 基础组件 | 29 | 可独立使用的界面与交互基础 |
+| 基础组件 | 30 | 可独立使用的界面与交互基础 |
 | 组合组件 | 10 | 复用基础组件组织字段、集合与布局 |
 | 专业扩展 | 6 | 图形、复杂数据与文档编辑能力 |
 | 可选集成 | 2 | 独立选择的路由与远程模块集成 |
@@ -22,7 +22,7 @@
 
 **基础支撑**：[AutoSizer 自适应容器](components/rc-auto-sizer/docs/index.mdx) · [ConfigProvider 全局配置](components/rc-config-provider/docs/index.mdx) · [Hooks 通用钩子](components/rc-hooks/docs/index.mdx) · [Theme 主题样式](components/rc-theme/docs/index.mdx) · [Global Tokens 全局令牌](components/rc-token-global/docs/index.mdx) · [Semantic Tokens 语义令牌](components/rc-token-semantic/docs/index.mdx) · [Virtual 虚拟滚动](components/rc-virtual/docs/index.mdx)
 
-**基础组件**：[Alert 警告提示](components/rc-alert/docs/index.mdx) · [Avatar 头像](components/rc-avatar/docs/index.mdx) · [Badge 徽标数](components/rc-badge/docs/index.mdx) · [Breadcrumbs 面包屑导航](components/rc-breadcrumbs/docs/index.mdx) · [Button 按钮](components/rc-button/docs/index.mdx) · [Card 卡片](components/rc-card/docs/index.mdx) · [Checkbox 复选框](components/rc-checkbox/docs/index.mdx) · [Dialog 对话框](components/rc-dialog/docs/index.mdx) · [Divider 分割线](components/rc-divider/docs/index.mdx) · [Drawer 抽屉](components/rc-drawer/docs/index.mdx) · [DropdownContainer 下拉容器](components/rc-dropdown-container/docs/index.mdx) · [Empty 空状态](components/rc-empty/docs/index.mdx) · [LineEdit 单行输入框](components/rc-line-edit/docs/index.mdx) · [Masonry 瀑布流](components/rc-masonry/docs/index.mdx) · [Menu 菜单](components/rc-menu/docs/index.mdx) · [Message 全局提示](components/rc-message/docs/index.mdx) · [Notification 通知提醒](components/rc-notification/docs/index.mdx) · [Prose 长文本排版](components/rc-prose/docs/index.mdx) · [Radio 单选框](components/rc-radio/docs/index.mdx) · [Segmented 分段控制器](components/rc-segmented/docs/index.mdx) · [Skeleton 骨架屏](components/rc-skeleton/docs/index.mdx) · [Slider 滑块](components/rc-slider/docs/index.mdx) · [Spin 加载中](components/rc-spin/docs/index.mdx) · [SplitPane 分栏面板](components/rc-split-pane/docs/index.mdx) · [Switch 开关](components/rc-switch/docs/index.mdx) · [Tabs 标签页](components/rc-tabs/docs/index.mdx) · [Tag 标签](components/rc-tag/docs/index.mdx) · [TextEdit 多行文本输入框](components/rc-text-edit/docs/index.mdx) · [Tooltip 文字提示](components/rc-tooltip/docs/index.mdx)
+**基础组件**：[Alert 警告提示](components/rc-alert/docs/index.mdx) · [Avatar 头像](components/rc-avatar/docs/index.mdx) · [Badge 徽标数](components/rc-badge/docs/index.mdx) · [Breadcrumbs 面包屑导航](components/rc-breadcrumbs/docs/index.mdx) · [Button 按钮](components/rc-button/docs/index.mdx) · [Card 卡片](components/rc-card/docs/index.mdx) · [Checkbox 复选框](components/rc-checkbox/docs/index.mdx) · [Dialog 对话框](components/rc-dialog/docs/index.mdx) · [Divider 分割线](components/rc-divider/docs/index.mdx) · [Drawer 抽屉](components/rc-drawer/docs/index.mdx) · [DropdownContainer 下拉容器](components/rc-dropdown-container/docs/index.mdx) · [Empty 空状态](components/rc-empty/docs/index.mdx) · [Flex 弹性布局](components/rc-flex/docs/index.mdx) · [LineEdit 单行输入框](components/rc-line-edit/docs/index.mdx) · [Masonry 瀑布流](components/rc-masonry/docs/index.mdx) · [Menu 菜单](components/rc-menu/docs/index.mdx) · [Message 全局提示](components/rc-message/docs/index.mdx) · [Notification 通知提醒](components/rc-notification/docs/index.mdx) · [Prose 长文本排版](components/rc-prose/docs/index.mdx) · [Radio 单选框](components/rc-radio/docs/index.mdx) · [Segmented 分段控制器](components/rc-segmented/docs/index.mdx) · [Skeleton 骨架屏](components/rc-skeleton/docs/index.mdx) · [Slider 滑块](components/rc-slider/docs/index.mdx) · [Spin 加载中](components/rc-spin/docs/index.mdx) · [SplitPane 分栏面板](components/rc-split-pane/docs/index.mdx) · [Switch 开关](components/rc-switch/docs/index.mdx) · [Tabs 标签页](components/rc-tabs/docs/index.mdx) · [Tag 标签](components/rc-tag/docs/index.mdx) · [TextEdit 多行文本输入框](components/rc-text-edit/docs/index.mdx) · [Tooltip 文字提示](components/rc-tooltip/docs/index.mdx)
 
 **组合组件**：[AppMainLayout 布局](components/rc-app-main-layout/docs/index.mdx) · [ColorPicker 颜色选择器](components/rc-color-picker/docs/index.mdx) · [CronPicker Cron 表达式选择器](components/rc-cron-picker/docs/index.mdx) · [DatePicker 日期选择器](components/rc-date-picker/docs/index.mdx) · [Form 表单](components/rc-form/docs/index.mdx) · [NumberEdit 数字输入框](components/rc-number-edit/docs/index.mdx) · [Pagination 分页](components/rc-pagination/docs/index.mdx) · [Select 选择器](components/rc-select/docs/index.mdx) · [Table 表格](components/rc-table/docs/index.mdx) · [Tree 树形控件](components/rc-tree/docs/index.mdx)
 
