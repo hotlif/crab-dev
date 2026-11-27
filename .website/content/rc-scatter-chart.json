@@ -1,0 +1,38 @@
+{
+    "id": "rc-scatter-chart",
+    "title": "ScatterChart 散点图",
+    "summary": "把每次骑行的里程和耗时画在两个数值轴上，逐步比较两条路线的样本。",
+    "prerequisite": "已安装 @crab-dev/rc-scatter-chart，能够为 React 组件传入数组和格式化函数。",
+    "steps": [
+        {
+            "id": "step-1",
+            "title": "绘制一条路线的骑行记录",
+            "goal": "按实际数值定位每次骑行的里程与耗时。",
+            "why": "每次骑行是独立样本。把同一次骑行的两项读数放在同一个点上，就能从图中了解二者的关系。",
+            "changes": ["设置 series[0].data，在每个点内填写 x、y 与 label，并分别用 formatX 和 formatY 标出单位。"],
+            "instruction": "找到横坐标最靠右的点，读取样本名称与实际耗时。",
+            "expected": "周五骑行距离最长，为 11 km，用时 34 分钟。",
+            "source": "rc-scatter-chart/step-1.tsx"
+        },
+        {
+            "id": "step-2",
+            "title": "在同一坐标系比较两条路线",
+            "goal": "用两个系列标记不同路线，并通过图例单独阅读一组样本。",
+            "why": "每条路线可以在不同的里程下采样，各次观测使用自己的横纵坐标。",
+            "changes": ["在 series 数组中加入绿道路线，为每次骑行填写其实际里程和耗时。"],
+            "instruction": "点击通勤路图例隐藏该系列，观察绿道中里程最长的一次骑行，再恢复通勤路。",
+            "expected": "只有绿道系列显示时，里程最长的是周六的 13 km 骑行，用时 33 分钟。",
+            "source": "rc-scatter-chart/step-2.tsx"
+        }
+    ],
+    "faq": [
+        {
+            "question": "两条路线的采样里程必须一致吗？",
+            "answer": "每个点都带有自己的 x 和 y。各系列可以提供不同数量的记录，且可以在任意有限数值处取样。"
+        },
+        {
+            "question": "如何从图上打开所选样本的详情？",
+            "answer": "提供 onPointClick，在回调中读取 point、seriesIndex 和 pointIndex。点击或通过键盘激活数据点即可获得该样本。"
+        }
+    ]
+}

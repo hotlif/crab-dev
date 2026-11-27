@@ -24,6 +24,13 @@ export const layoutPreviews = {
 };
 
 export const dataPreviews = {
+    "rc-scatter-chart": <>
+        <path d="M37 30v94h170" className="cc-stroke cc-border" />
+        {[[53, 100], [68, 82], [79, 97], [93, 76], [112, 72], [121, 54], [135, 64],
+            [152, 45], [164, 57], [185, 31], [182, 102]].map(([x, y]) =>
+            <circle key={x} cx={x} cy={y} r={4} className="cc-brand" />,
+        )}
+    </>,
     "rc-pie-chart": <>
         <path d="M118 77V29a48 48 0 0 1 48 48Z" className="cc-soft" />
         <path d="M118 77h48a48 48 0 0 1-72 41.57Z" className="cc-border" />

@@ -603,6 +603,19 @@
             }
         },
         {
+            "name": "@crab-dev/rc-scatter-chart",
+            "path": "components/rc-scatter-chart",
+            "title": "ScatterChart 散点图",
+            "family": "extension",
+            "category": "data-display",
+            "status": "experimental",
+            "designCoverage": {
+                "md3": "partial",
+                "macos": "partial",
+                "shadcn": "partial"
+            }
+        },
+        {
             "name": "@crab-dev/rc-segmented",
             "path": "components/rc-segmented",
             "title": "Segmented 分段控制器",

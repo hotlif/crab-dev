@@ -695,6 +695,21 @@ export const libraryDependencies = [
         "token": []
     },
     {
+        "slug": "rc-scatter-chart",
+        "title": "ScatterChart 散点图",
+        "family": "extension",
+        "production": [
+            "rc-auto-sizer",
+            "rc-canvas",
+            "rc-config-provider",
+            "rc-empty"
+        ],
+        "docs": [],
+        "token": [
+            "rc-token-semantic"
+        ]
+    },
+    {
         "slug": "rc-segmented",
         "title": "Segmented 分段控制器",
         "family": "base",

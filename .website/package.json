@@ -62,6 +62,7 @@
         "@crab-dev/rc-radio": "workspace:^",
         "@crab-dev/rc-realm": "workspace:^",
         "@crab-dev/rc-router": "workspace:^",
+        "@crab-dev/rc-scatter-chart": "workspace:^",
         "@crab-dev/rc-segmented": "workspace:^",
         "@crab-dev/rc-select": "workspace:^",
         "@crab-dev/rc-skeleton": "workspace:^",

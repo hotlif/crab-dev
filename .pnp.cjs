@@ -175,6 +175,10 @@ const RAW_RUNTIME_STATE =
       "reference": "workspace:components/rc-router"\
     },\
     {\
+      "name": "@crab-dev/rc-scatter-chart",\
+      "reference": "workspace:components/rc-scatter-chart"\
+    },\
+    {\
       "name": "@crab-dev/rc-segmented",\
       "reference": "workspace:components/rc-segmented"\
     },\
@@ -298,6 +302,7 @@ const RAW_RUNTIME_STATE =
     ["@crab-dev/rc-radio", ["virtual:5faa09b67060dcf677dcb11f5c5276a660cc20a83639859c39a44eafd5e36933163de602748bf5014da045f4317cfe460a4afac7c90b3c2be387fdee26f15cff#workspace:components/rc-radio", "workspace:components/rc-radio"]],\
     ["@crab-dev/rc-realm", ["virtual:1b1f9f0dc19a7adf2120a5e987bae4f0f266236699b6565e33df3ed5dd6a9f43439cfc5634671e6858a7d5ddd3263caa7fe47bcc4a3f4f620295f3ab20640ca8#workspace:components/rc-realm", "workspace:components/rc-realm"]],\
     ["@crab-dev/rc-router", ["virtual:1b1f9f0dc19a7adf2120a5e987bae4f0f266236699b6565e33df3ed5dd6a9f43439cfc5634671e6858a7d5ddd3263caa7fe47bcc4a3f4f620295f3ab20640ca8#workspace:components/rc-router", "workspace:components/rc-router"]],\
+    ["@crab-dev/rc-scatter-chart", ["virtual:1b1f9f0dc19a7adf2120a5e987bae4f0f266236699b6565e33df3ed5dd6a9f43439cfc5634671e6858a7d5ddd3263caa7fe47bcc4a3f4f620295f3ab20640ca8#workspace:components/rc-scatter-chart", "workspace:components/rc-scatter-chart"]],\
     ["@crab-dev/rc-segmented", ["virtual:90b5be6768a8587d28962cdf34c2f407284baa334d978c6839b8fb183eefea01023e226e6c7ecee46fc25488ff79059142df94aac63559b53e194b888c8840b1#workspace:components/rc-segmented", "workspace:components/rc-segmented"]],\
     ["@crab-dev/rc-select", ["virtual:52d94c80f5d3daf5695746d4defc7c11f11621ea5eaa1d3b36a7349d5c001c2cc3abc892dda7eb508d828e6a1af045fb7151e8ff5cc21ec88b9e21e5a391b8a9#workspace:components/rc-select", "virtual:7a1c096a60c61f70c56ddfa100cd7eb124d77058854d9695a05273a6569a4a55ab85e9b8328b93c704d40bd69a65f710fa6287f14c1a88716c3b85d13c1f238b#workspace:components/rc-select", "virtual:90b5be6768a8587d28962cdf34c2f407284baa334d978c6839b8fb183eefea01023e226e6c7ecee46fc25488ff79059142df94aac63559b53e194b888c8840b1#workspace:components/rc-select", "virtual:a488d05f7566aadbe0cc1444fb2f1830c53c67149dd35ae4c1122076488d1fad23b7c65221d61397e37c7828c7ce334ba2d0bbb2f2983f5be850e90bda95ee89#workspace:components/rc-select", "virtual:edd3801493597359151c99d8a3e2be2dfc2d7f5b321af463ed1d59c46479846362a5c0b947ad1702cf22a1be75d798735d23c3ab71e14db16bef533af984b86c#workspace:components/rc-select", "workspace:components/rc-select"]],\
     ["@crab-dev/rc-skeleton", ["virtual:1b1f9f0dc19a7adf2120a5e987bae4f0f266236699b6565e33df3ed5dd6a9f43439cfc5634671e6858a7d5ddd3263caa7fe47bcc4a3f4f620295f3ab20640ca8#workspace:components/rc-skeleton", "workspace:components/rc-skeleton"]],\
@@ -3454,6 +3459,56 @@ const RAW_RUNTIME_STATE =
         "linkType": "SOFT"\
       }]\
     ]],\
+    ["@crab-dev/rc-scatter-chart", [\
+      ["virtual:1b1f9f0dc19a7adf2120a5e987bae4f0f266236699b6565e33df3ed5dd6a9f43439cfc5634671e6858a7d5ddd3263caa7fe47bcc4a3f4f620295f3ab20640ca8#workspace:components/rc-scatter-chart", {\
+        "packageLocation": "./.yarn/__virtual__/@crab-dev-rc-scatter-chart-virtual-538308edf4/1/components/rc-scatter-chart/",\
+        "packageDependencies": [\
+          ["@crab-dev/css", "npm:0.1.57"],\
+          ["@crab-dev/rc-auto-sizer", "virtual:3b3fe2d61402c2ea24ab003d9d4bddc42db35e1cf4e0688f5c760edf7eb1b8d8a8d5f9f14ed70c899f57e32d4493bd87e9324dd3b95c7f3be9934ab92c94e704#workspace:components/rc-auto-sizer"],\
+          ["@crab-dev/rc-canvas", "virtual:1b1f9f0dc19a7adf2120a5e987bae4f0f266236699b6565e33df3ed5dd6a9f43439cfc5634671e6858a7d5ddd3263caa7fe47bcc4a3f4f620295f3ab20640ca8#workspace:components/rc-canvas"],\
+          ["@crab-dev/rc-config-provider", "virtual:e5b0edb6f006e65ce79c1ddac600bc5bad3bb24a3a3f98e6ae5428359c358fef92a2be57a498e62c4c6e090bd2dfde03e5e05de94fe69f0a498197c0712c07ea#workspace:components/rc-config-provider"],\
+          ["@crab-dev/rc-empty", "virtual:90b5be6768a8587d28962cdf34c2f407284baa334d978c6839b8fb183eefea01023e226e6c7ecee46fc25488ff79059142df94aac63559b53e194b888c8840b1#workspace:components/rc-empty"],\
+          ["@crab-dev/rc-scatter-chart", "virtual:1b1f9f0dc19a7adf2120a5e987bae4f0f266236699b6565e33df3ed5dd6a9f43439cfc5634671e6858a7d5ddd3263caa7fe47bcc4a3f4f620295f3ab20640ca8#workspace:components/rc-scatter-chart"],\
+          ["@crab-dev/rc-token-semantic", "workspace:components/rc-token-semantic"],\
+          ["@crab-dev/standards-typescript-preset", "workspace:standards/typescript-preset"],\
+          ["@crab-dev/wake", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:0.1.57"],\
+          ["@types/node", "npm:26.6.6"],\
+          ["@types/react", "npm:19.3.0"],\
+          ["@types/react-dom", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:19.3.0"],\
+          ["react", "npm:19.3.0"],\
+          ["react-dom", "virtual:3f0f767a8b612425719206950d899926cb3d5104f45605249983d62d8c49ecd6ac0384f4e743c9d7d689ecc38d559ce4f4a0ca9be0545e40b4339321b79f9a1e#npm:19.3.0"],\
+          ["react-router", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:8.5.2"],\
+          ["typescript", "patch:typescript@npm%3A7.0.2#optional!builtin<compat/typescript>::version=7.0.2&hash=3bafbf"]\
+        ],\
+        "packagePeers": [\
+          "react-dom",\
+          "react"\
+        ],\
+        "linkType": "SOFT"\
+      }],\
+      ["workspace:components/rc-scatter-chart", {\
+        "packageLocation": "./components/rc-scatter-chart/",\
+        "packageDependencies": [\
+          ["@crab-dev/css", "npm:0.1.57"],\
+          ["@crab-dev/rc-auto-sizer", "virtual:3b3fe2d61402c2ea24ab003d9d4bddc42db35e1cf4e0688f5c760edf7eb1b8d8a8d5f9f14ed70c899f57e32d4493bd87e9324dd3b95c7f3be9934ab92c94e704#workspace:components/rc-auto-sizer"],\
+          ["@crab-dev/rc-canvas", "virtual:1b1f9f0dc19a7adf2120a5e987bae4f0f266236699b6565e33df3ed5dd6a9f43439cfc5634671e6858a7d5ddd3263caa7fe47bcc4a3f4f620295f3ab20640ca8#workspace:components/rc-canvas"],\
+          ["@crab-dev/rc-config-provider", "virtual:e5b0edb6f006e65ce79c1ddac600bc5bad3bb24a3a3f98e6ae5428359c358fef92a2be57a498e62c4c6e090bd2dfde03e5e05de94fe69f0a498197c0712c07ea#workspace:components/rc-config-provider"],\
+          ["@crab-dev/rc-empty", "virtual:90b5be6768a8587d28962cdf34c2f407284baa334d978c6839b8fb183eefea01023e226e6c7ecee46fc25488ff79059142df94aac63559b53e194b888c8840b1#workspace:components/rc-empty"],\
+          ["@crab-dev/rc-scatter-chart", "workspace:components/rc-scatter-chart"],\
+          ["@crab-dev/rc-token-semantic", "workspace:components/rc-token-semantic"],\
+          ["@crab-dev/standards-typescript-preset", "workspace:standards/typescript-preset"],\
+          ["@crab-dev/wake", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:0.1.57"],\
+          ["@types/node", "npm:26.6.6"],\
+          ["@types/react", "npm:19.3.0"],\
+          ["@types/react-dom", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:19.3.0"],\
+          ["react", "npm:19.3.0"],\
+          ["react-dom", "virtual:3f0f767a8b612425719206950d899926cb3d5104f45605249983d62d8c49ecd6ac0384f4e743c9d7d689ecc38d559ce4f4a0ca9be0545e40b4339321b79f9a1e#npm:19.3.0"],\
+          ["react-router", "virtual:63bc1dd3b834558a82da8cc07750d49ff3669706117e403d040bb83f38c8c51955eb3894fffb0aeb4ee0d7116f34ee7028373c3dc4a21711c10ef6092298afa5#npm:8.5.2"],\
+          ["typescript", "patch:typescript@npm%3A7.0.2#optional!builtin<compat/typescript>::version=7.0.2&hash=3bafbf"]\
+        ],\
+        "linkType": "SOFT"\
+      }]\
+    ]],\
     ["@crab-dev/rc-segmented", [\
       ["virtual:90b5be6768a8587d28962cdf34c2f407284baa334d978c6839b8fb183eefea01023e226e6c7ecee46fc25488ff79059142df94aac63559b53e194b888c8840b1#workspace:components/rc-segmented", {\
         "packageLocation": "./.yarn/__virtual__/@crab-dev-rc-segmented-virtual-c2f4510d31/1/components/rc-segmented/",\
@@ -5556,6 +5611,7 @@ const RAW_RUNTIME_STATE =
           ["@crab-dev/rc-radio", "virtual:5faa09b67060dcf677dcb11f5c5276a660cc20a83639859c39a44eafd5e36933163de602748bf5014da045f4317cfe460a4afac7c90b3c2be387fdee26f15cff#workspace:components/rc-radio"],\
           ["@crab-dev/rc-realm", "virtual:1b1f9f0dc19a7adf2120a5e987bae4f0f266236699b6565e33df3ed5dd6a9f43439cfc5634671e6858a7d5ddd3263caa7fe47bcc4a3f4f620295f3ab20640ca8#workspace:components/rc-realm"],\
           ["@crab-dev/rc-router", "virtual:1b1f9f0dc19a7adf2120a5e987bae4f0f266236699b6565e33df3ed5dd6a9f43439cfc5634671e6858a7d5ddd3263caa7fe47bcc4a3f4f620295f3ab20640ca8#workspace:components/rc-router"],\
+          ["@crab-dev/rc-scatter-chart", "virtual:1b1f9f0dc19a7adf2120a5e987bae4f0f266236699b6565e33df3ed5dd6a9f43439cfc5634671e6858a7d5ddd3263caa7fe47bcc4a3f4f620295f3ab20640ca8#workspace:components/rc-scatter-chart"],\
           ["@crab-dev/rc-segmented", "virtual:90b5be6768a8587d28962cdf34c2f407284baa334d978c6839b8fb183eefea01023e226e6c7ecee46fc25488ff79059142df94aac63559b53e194b888c8840b1#workspace:components/rc-segmented"],\
           ["@crab-dev/rc-select", "virtual:90b5be6768a8587d28962cdf34c2f407284baa334d978c6839b8fb183eefea01023e226e6c7ecee46fc25488ff79059142df94aac63559b53e194b888c8840b1#workspace:components/rc-select"],\
           ["@crab-dev/rc-skeleton", "virtual:1b1f9f0dc19a7adf2120a5e987bae4f0f266236699b6565e33df3ed5dd6a9f43439cfc5634671e6858a7d5ddd3263caa7fe47bcc4a3f4f620295f3ab20640ca8#workspace:components/rc-skeleton"],\

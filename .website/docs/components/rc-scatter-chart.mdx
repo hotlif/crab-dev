@@ -1,0 +1,56 @@
++++
+title = "ScatterChart 散点图"
+description = "用横纵坐标表示成对的观测值，查看两个变量的关系、聚集区域及离群点。"
+kind = "component"
+status = "experimental"
++++
+
+{/* THIS FILE IS AUTO-GENERATED. DO NOT MODIFY MANUALLY. */}
+
+import ComponentDemos from "../site/componentDemos.js";
+import ComponentDesignGuide, { DesignIntroduction, DesignExampleIntroduction } from "../site/componentDesignGuide.js";
+import { demos, documents, guide } from "../_generated/rc-scatter-chart.js";
+
+# ScatterChart 散点图
+
+<div hidden aria-hidden="true" data-docs-search-index="package">@crab-dev/rc-scatter-chart</div>
+
+## 设计与用法
+
+<DesignIntroduction documents={documents} />
+
+<div id="基础示例" data-docs-example-anchor /><div id="全部示例" data-docs-example-anchor />
+
+## 示例
+
+<div hidden aria-hidden="true" data-docs-search-index="demos">
+
+##### 比较两条配送线路 — 横轴为配送里程，纵轴为配送用时。点击图例切换线路，检查相近里程下的单次配送记录。
+
+##### 保留不规则采样间隔 — 按实际经过的分钟定位水温样本，前两分钟的三次观测与后段的稀疏观测共享同一数值轴。
+
+##### 选择包裹查看处理记录 — 读取包裹重量与分拣耗时，点击数据点或用键盘激活样本，在图下显示所选记录。
+
+</div>
+
+<DesignExampleIntroduction documents={documents} />
+
+<ComponentDemos demos={demos} documents={documents} />
+
+## 使用说明
+
+<ComponentDesignGuide guide={guide} documents={documents} />
+
+## 常见问题
+
+### 两条路线的采样里程必须一致吗？
+
+每个点都带有自己的 x 和 y。各系列可以提供不同数量的记录，且可以在任意有限数值处取样。
+
+### 如何从图上打开所选样本的详情？
+
+提供 onPointClick，在回调中读取 point、seriesIndex 和 pointIndex。点击或通过键盘激活数据点即可获得该样本。
+
+## API
+
+<API source="../_generated_api/rc-scatter-chart.ts" symbol="ScatterChartProps" component="ScatterChart" />

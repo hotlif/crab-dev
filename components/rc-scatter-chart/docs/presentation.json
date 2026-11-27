@@ -1,0 +1,13 @@
+{
+    "heroDemo": "routes.demo.tsx",
+    "groups": [
+        {
+            "title": "读数与分组",
+            "demos": ["routes.demo.tsx", "sampling.demo.tsx"]
+        },
+        {
+            "title": "查看样本",
+            "demos": ["selection.demo.tsx"]
+        }
+    ]
+}

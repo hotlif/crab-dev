@@ -1,0 +1,30 @@
++++
+title = "ScatterChart 散点图"
+description = "用两个数值轴呈现成对观测，可比较多个系列的分布并选择具体样本"
+kind = "component"
+status = "experimental"
++++
+
+# ScatterChart 散点图
+
+ScatterChart 把每条观测的 `x`、`y` 绘制为一个独立的点。两个数值轴保留实际间距，适合查看两项测量的关系、比较样本分布或查找异常值。
+
+[打开组件工作台](/components/rc-scatter-chart/workbench/)
+
+## 准备数据
+
+每个系列提供 `name` 和 `data`。将同一份样本的两项测量放入同一个对象，例如 `{ x: 42, y: 18, label: '样本 A' }`。横纵坐标都应为有限数值，零和负数可以直接传入。即使观测时间不规则，也可以用实际经过的分钟数作为横坐标。
+
+## 读图和选择样本
+
+在图表标题中写明测量对象。用 `labels.x` 和 `labels.y` 指定坐标轴标题，用 `formatX` 和 `formatY` 分别标明两种单位。点击图例可以单独查看一个系列。把指针移到样本上或用键盘聚焦数据点可读取坐标，辅助技术也可以通过数据表读取观测记录。
+
+使用 `width="auto"` 可跟随有确定宽度的容器。`onPointClick` 提供原始样本、所属系列和原始下标，可以据此在图外显示记录详情。
+
+## 代码演示
+
+<Demos glob="./demos/*.demo.tsx" columns={2} />
+
+## API
+
+<API source="../src/types.ts" symbol="ScatterChartProps" component="ScatterChart" />

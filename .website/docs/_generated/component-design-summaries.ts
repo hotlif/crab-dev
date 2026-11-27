@@ -196,6 +196,11 @@ export const componentDesignSummaries: Readonly<Partial<Record<string, Record<De
         "macos": "为桌面工作区关联页面地址与当前内容，路由状态和窗口布局分别管理。",
         "shadcn": "为简洁导航界面提供路径匹配与内容切换，保持路由与外观职责分离。"
     },
+    "rc-scatter-chart": {
+        "md3": "用主题系列色区分两条配送线路，以里程和用时观察同一距离范围内的配送差异。",
+        "macos": "在紧凑的采样记录视图中保留实际时间间隔，使密集采样和较长的观测空档都能被读出。",
+        "shadcn": "用中性坐标衬托散点的位置，把需要跟进的样本详情放在图下，方便继续读取记录。"
+    },
     "rc-segmented": {
         "md3": "用关联选项与明确选中容器表达同一任务内的切换，选项保持紧密分组。",
         "macos": "以共享背板和独立选中段呈现桌面分段控件，适合工具栏中的局部切换。",
@@ -1381,6 +1386,23 @@ export const componentDemoDesigns: Readonly<Partial<Record<string, Readonly<Part
             "shadcn"
         ],
         "工作区离开确认与错误恢复 — 父布局读取页面元数据，保存失败保留草稿，错误页面不影响导航": [
+            "md3",
+            "macos",
+            "shadcn"
+        ]
+    },
+    "rc-scatter-chart": {
+        "比较两条配送线路 — 横轴为配送里程，纵轴为配送用时。点击图例切换线路，检查相近里程下的单次配送记录。": [
+            "md3",
+            "macos",
+            "shadcn"
+        ],
+        "保留不规则采样间隔 — 按实际经过的分钟定位水温样本，前两分钟的三次观测与后段的稀疏观测共享同一数值轴。": [
+            "md3",
+            "macos",
+            "shadcn"
+        ],
+        "选择包裹查看处理记录 — 读取包裹重量与分拣耗时，点击数据点或用键盘激活样本，在图下显示所选记录。": [
             "md3",
             "macos",
             "shadcn"
